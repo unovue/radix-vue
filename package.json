@@ -1,1 +1,10 @@
-{}
+{
+  "private": true,
+  "packageManager": "pnpm@8.6.3",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "pnpm run -r --filter=!docs build"
+  }
+}

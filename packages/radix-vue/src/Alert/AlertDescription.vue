@@ -1,3 +1,3 @@
 <template>
-	<div class="text-sm [&_p]:leading-relaxed"><slot/></div>
+  <div class="text-sm [&_p]:leading-relaxed"><slot /></div>
 </template>

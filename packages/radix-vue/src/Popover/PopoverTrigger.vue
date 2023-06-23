@@ -1,7 +1,7 @@
 <template>
-	<FloatReference>
-	<PopoverButton><slot /></PopoverButton>
-</FloatReference>
+  <FloatReference>
+    <PopoverButton><slot /></PopoverButton>
+  </FloatReference>
 </template>
 
 <script setup>

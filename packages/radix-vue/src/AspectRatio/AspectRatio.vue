@@ -13,6 +13,6 @@ const props = defineProps({
 });
 
 const aspect = computed(() => {
-  return 1/props.ratio*100;
+  return (1 / props.ratio) * 100;
 });
 </script>

@@ -32,7 +32,7 @@
   "keywords": [],
   "scripts": {
     "dev": "vite",
-    "build": "run-p format lint && run-p type-check build-only type-gen",
+    "build": "run-p type-check build-only type-gen",
     "build-only": "rimraf dist && vite build",
     "type-check": "vue-tsc --noEmit",
     "type-gen": "vue-tsc --declaration  --emitDeclarationOnly",
@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.3.2",
+    "@tsconfig/node18": "^2.0.1",
     "@types/node": "^18.16.18",
     "@vitejs/plugin-vue": "^4.2.3",
     "@vitejs/plugin-vue-jsx": "^3.0.1",

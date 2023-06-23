@@ -1,11 +1,9 @@
 <template>
-	<DisclosurePanel class="overflow-hidden text-sm">
-		<slot />
-	</DisclosurePanel>
+  <DisclosurePanel class="overflow-hidden text-sm">
+    <slot />
+  </DisclosurePanel>
 </template>
-  
+
 <script setup>
-import {
-	DisclosurePanel,
-} from '@headlessui/vue'
+import { DisclosurePanel } from "@headlessui/vue";
 </script>

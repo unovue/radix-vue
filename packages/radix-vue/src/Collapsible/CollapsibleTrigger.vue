@@ -1,7 +1,7 @@
 <template>
-		<DisclosureButton as="template">
-			<slot />
-		</DisclosureButton>
+  <DisclosureButton as="template">
+    <slot />
+  </DisclosureButton>
 </template>
 
 <script setup lang="ts">

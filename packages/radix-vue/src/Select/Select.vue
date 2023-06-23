@@ -5,7 +5,7 @@
       placement="bottom"
       flip
       strategy="fixed"
-	  adaptive-width
+      adaptive-width
       enter="transition duration-200 ease-out"
       enter-from="scale-95 opacity-0"
       enter-to="scale-100 opacity-100"

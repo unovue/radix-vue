@@ -32,7 +32,7 @@
   "keywords": [],
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check build-only type-gen",
+    "build": "run-p format lint && run-p type-check build-only type-gen",
     "build-only": "rimraf dist && vite build",
     "type-check": "vue-tsc --noEmit",
     "type-gen": "vue-tsc --declaration  --emitDeclarationOnly",

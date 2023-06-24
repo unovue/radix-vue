@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, inject, computed, onMounted } from "vue";
+import { ref, inject, computed } from "vue";
 import type { Ref } from "vue";
 import {
   TOGGLE_GROUP_INJECTION_KEY,
@@ -24,19 +24,6 @@ const state = computed(() => {
   } else {
     return injectedValue?.modelValue?.value === props.value ? "on" : "off";
   }
-});
-
-onMounted(() => {
-  const allToggleItem = Array.from(
-    injectedValue?.parentElement.value.querySelectorAll(
-      "[data-radix-vue-collection-item]"
-    )
-  );
-  console.log(allToggleItem);
-  console.log(allToggleItem);
-  console.log("length: ", allToggleItem.length);
-  console.log("lengths: ", currentToggleElement.value);
-  console.log("length: ", allToggleItem.indexOf(currentToggleElement.value));
 });
 
 const currentToggleElement: Ref<HTMLElement> = ref();

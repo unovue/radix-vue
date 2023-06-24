@@ -8,6 +8,7 @@ import SwitchDemo from "./components/Demo/SwitchDemo.vue";
 import ToggleDemo from "./components/Demo/ToggleDemo.vue";
 import ToggleGroupDemo from "./components/Demo/ToggleGroupDemo.vue";
 import AspectRatioDemo from "./components/Demo/AspectRatioDemo.vue";
+import TabsDemo from "./components/Demo/TabsDemo.vue";
 
 </script>
 
@@ -37,6 +38,9 @@ import AspectRatioDemo from "./components/Demo/AspectRatioDemo.vue";
       </Card>
       <Card>
         <ToggleGroupDemo />
+      </Card>
+      <Card>
+        <TabsDemo />
       </Card>
     </div>
   </div>

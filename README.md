@@ -32,7 +32,7 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | Slider          |        |              |                        |
 | Switch          |   ✅   |              |                        |
 | Table           |        |              |                        |
-| Tabs            |        |              |                        |
+| Tabs            |   ⏳   |              |                        |
 | Toast           |        |              |                        |
 | Toggle          |   ✅   |              |                        |
 | Toggle Group    |   ✅   |              |                        |

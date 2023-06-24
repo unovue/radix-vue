@@ -7,10 +7,8 @@ export {
   CollapsibleTrigger,
   CollapsibleContent,
   COLLAPSIBLE_INJECTION_KEY,
-} from "./Collapsible";
-export type {
-  CollapsibleProvideValue,
-  CollapsibleRootProps,
+  type CollapsibleProvideValue,
+  type CollapsibleRootProps,
 } from "./Collapsible";
 
 export { SwitchRoot, SwitchThumb } from "./Switch";

@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { inject } from "vue";
-import { COLLAPSIBLE_INJECTION_KEY } from "./CollapsibleRoot.vue";
-import type { CollapsibleProvideValue } from "./CollapsibleRoot.vue";
+import {
+  COLLAPSIBLE_INJECTION_KEY,
+  type CollapsibleProvideValue,
+} from "./CollapsibleRoot.vue";
 
 const injectedValue = inject<CollapsibleProvideValue>(
   COLLAPSIBLE_INJECTION_KEY

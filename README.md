@@ -7,36 +7,38 @@ An accessible, unstyled and customisable UI Library for building top quality des
 
 ## Todo
 
- - [ ] Accordion
- - [ ] Alert Dialog
- - [ ] Aspect Ratio
- - [ ] Avatar
- - [ ] Checkbox
- - [ ] Collapsible
- - [ ] Context Menu
- - [ ] Dialog
- - [ ] Dropdown Menu
- - [ ] Form
- - [ ] Hover Card
- - [ ] Input
- - [ ] Label
- - [ ] Menubar
- - [ ] Navigation Menu
- - [ ] Popover
- - [ ] Progress
- - [ ] Radio Group
- - [ ] Scroll Area
- - [ ] Select
- - [ ] Separator
- - [ ] Slider
- - [ ] Switch
- - [ ] Table
- - [ ] Tabs
- - [ ] Toast
- - [ ] Toggle
- - [ ] Toggle Group
- - [ ] Toolbar
- - [ ] Tooltip
+| Database        | Usable | Complete API | Complete Accessibility |
+| :-------------- | :----: | ------------ | ---------------------- |
+| Accordion       |   ⏳   |              |                        |
+| Alert Dialog    |        |              |                        |
+| Aspect Ratio    |        |              |                        |
+| Avatar          |        |              |                        |
+| Checkbox        |   ✅   |              |                        |
+| Collapsible     |   ⏳   |              |                        |
+| Context Menu    |        |              |                        |
+| Dialog          |        |              |                        |
+| Dropdown Menu   |        |              |                        |
+| Form            |        |              |                        |
+| Hover Card      |        |              |                        |
+| Input           |        |              |                        |
+| Label           |   ⏳   |              |                        |
+| Menubar         |        |              |                        |
+| Navigation Menu |        |              |                        |
+| Popover         |        |              |                        |
+| Progress        |        |              |                        |
+| Radio Group     |        |              |                        |
+| Scroll Area     |        |              |                        |
+| Select          |        |              |                        |
+| Separator       |   ✅   | ✅           |                        |
+| Slider          |        |              |                        |
+| Switch          |   ✅   |              |                        |
+| Table           |        |              |                        |
+| Tabs            |        |              |                        |
+| Toast           |        |              |                        |
+| Toggle          |   ⏳   |              |                        |
+| Toggle Group    |        |              |                        |
+| Toolbar         |        |              |                        |
+| Tooltip         |        |              |                        |
 
 ## Goals
 

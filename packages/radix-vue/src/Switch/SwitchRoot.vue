@@ -9,6 +9,7 @@ const props = defineProps({
   checked: {
     type: Boolean,
     required: false,
+    default: false,
   },
   disabled: {
     type: Boolean,
@@ -40,7 +41,7 @@ const props = defineProps({
 
 const emits = defineEmits(["onCheckedChange", "update:modelValue"]);
 
-let dataState: "checked" | "unchecked" | "indeterminate";
+let dataState: "checked" | "unchecked";
 let dataDisabled: boolean;
 
 const modelPlaceHolder = ref(props.checked);

@@ -12,3 +12,7 @@ export type {
   CollapsibleProvideValue,
   CollapsibleRootProps,
 } from "./Collapsible";
+
+export { SwitchRoot, SwitchThumb } from "./Switch";
+export { Separator } from "./Separator";
+export { Label } from "./Label";

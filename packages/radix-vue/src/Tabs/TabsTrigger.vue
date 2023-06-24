@@ -5,7 +5,7 @@ export interface TabsTriggerProps {
 </script>
 
 <script setup lang="ts">
-import { inject, computed, ref, onMounted, watchEffect } from "vue";
+import { inject, computed, ref } from "vue";
 import type { Ref } from "vue";
 import { TABS_INJECTION_KEY } from "./TabsRoot.vue";
 import type { TabsProvideValue } from "./TabsRoot.vue";

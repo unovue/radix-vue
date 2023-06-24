@@ -16,6 +16,7 @@ export { Toggle } from "./Toggle";
 export { ToggleGroupRoot, ToggleGroupItem } from "./ToggleGroup";
 export { AspectRatio } from "./AspectRatio";
 export { TabsRoot, TabsList, TabsContent, TabsTrigger } from "./Tabs";
+export { SliderRoot, SliderThumb, SliderTrack, SliderRange } from "./Slider";
 export {
   RadioGroupRoot,
   RadioGroupItem,

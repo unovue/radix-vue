@@ -10,7 +10,7 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | Component       | Usable | Complete API | Complete Accessibility |
 | :-------------- | :----: | ------------ | ---------------------- |
 | Accordion       |   ⏳   |              |                        |
-| Alert Dialog    |   ⏳   |              |                        |
+| Alert Dialog    |   ✅   |              |                        |
 | Aspect Ratio    |   ✅   |              |                        |
 | Avatar          |        |              |                        |
 | Checkbox        |   ✅   |              |                        |
@@ -25,7 +25,7 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | Navigation Menu |        |              |                        |
 | Popover         |        |              |                        |
 | Progress        |   ✅   |              |                        |
-| Radio Group     |   ⏳   |              |                        |
+| Radio Group     |   ✅   |              |                        |
 | Scroll Area     |        |              |                        |
 | Select          |        |              |                        |
 | Separator       |   ✅   | ✅           |                        |

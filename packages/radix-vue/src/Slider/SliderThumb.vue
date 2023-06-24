@@ -23,20 +23,30 @@ function handleKeydown(e: KeyboardEvent) {
       e.preventDefault();
       if (injectedValue?.modelValue?.value + extraStep >= injectedValue?.max) {
         injectedValue?.changeModelValue(injectedValue?.max);
-      } else if (injectedValue?.modelValue?.value + extraStep <= injectedValue?.min) {
+      } else if (
+        injectedValue?.modelValue?.value + extraStep <=
+        injectedValue?.min
+      ) {
         injectedValue?.changeModelValue(injectedValue?.min);
       } else {
-        injectedValue?.changeModelValue(injectedValue?.modelValue?.value + extraStep);
+        injectedValue?.changeModelValue(
+          injectedValue?.modelValue?.value + extraStep
+        );
       }
     } else {
       e.preventDefault();
       if (injectedValue?.modelValue?.value + step >= injectedValue?.max) {
         console.log("handlemax");
         injectedValue?.changeModelValue(injectedValue?.max);
-      } else if (injectedValue?.modelValue?.value + step <= injectedValue?.min) {
+      } else if (
+        injectedValue?.modelValue?.value + step <=
+        injectedValue?.min
+      ) {
         injectedValue?.changeModelValue(injectedValue?.min);
       } else {
-        injectedValue?.changeModelValue(injectedValue?.modelValue?.value + step);
+        injectedValue?.changeModelValue(
+          injectedValue?.modelValue?.value + step
+        );
       }
     }
   }
@@ -46,19 +56,29 @@ function handleKeydown(e: KeyboardEvent) {
       e.preventDefault();
       if (injectedValue?.modelValue?.value - extraStep >= injectedValue?.max) {
         injectedValue?.changeModelValue(injectedValue?.max);
-      } else if (injectedValue?.modelValue?.value - extraStep <= injectedValue?.min) {
+      } else if (
+        injectedValue?.modelValue?.value - extraStep <=
+        injectedValue?.min
+      ) {
         injectedValue?.changeModelValue(injectedValue?.min);
       } else {
-        injectedValue?.changeModelValue(injectedValue?.modelValue?.value - extraStep);
+        injectedValue?.changeModelValue(
+          injectedValue?.modelValue?.value - extraStep
+        );
       }
     } else {
       e.preventDefault();
       if (injectedValue?.modelValue?.value - step >= injectedValue?.max) {
         injectedValue?.changeModelValue(injectedValue?.max);
-      } else if (injectedValue?.modelValue?.value - step <= injectedValue?.min) {
+      } else if (
+        injectedValue?.modelValue?.value - step <=
+        injectedValue?.min
+      ) {
         injectedValue?.changeModelValue(injectedValue?.min);
       } else {
-        injectedValue?.changeModelValue(injectedValue?.modelValue?.value - step);
+        injectedValue?.changeModelValue(
+          injectedValue?.modelValue?.value - step
+        );
       }
     }
   }

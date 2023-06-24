@@ -14,7 +14,7 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | Aspect Ratio    |        |              |                        |
 | Avatar          |        |              |                        |
 | Checkbox        |   ✅   |              |                        |
-| Collapsible     |   ⏳   |              |                        |
+| Collapsible     |   ✅   | ✅           |                        |
 | Context Menu    |        |              |                        |
 | Dialog          |   ⏳   |              |                        |
 | Dropdown Menu   |        |              |                        |

@@ -50,6 +50,9 @@ import ProgressDemo from "./components/Demo/ProgressDemo.vue";
       <Card>
         <ProgressDemo />
       </Card>
+      <Card>
+        <ProgressDemo />
+      </Card>
     </div>
   </div>
 </template>

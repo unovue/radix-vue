@@ -25,3 +25,24 @@ export {
 } from "./RadioGroup";
 */
 export { ProgressRoot, ProgressIndicator } from "./Progress";
+export {
+  DialogRoot,
+  DialogTrigger,
+  DialogContent,
+  DialogClose,
+  DialogPortal,
+  DialogOverlay,
+  DialogTitle,
+  DialogDescription,
+} from "./Dialog";
+export {
+  AlertDialogRoot,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogCancel,
+  AlertDialogPortal,
+  AlertDialogOverlay,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogAction,
+} from "./AlertDialog";

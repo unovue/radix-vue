@@ -5,6 +5,7 @@ import CollapsibleDemo from "./components/Demo/CollapsibleDemo.vue";
 import LabelDemo from "./components/Demo/LabelDemo.vue";
 import SeparatorDemo from "./components/Demo/SeparatorDemo.vue";
 import SwitchDemo from "./components/Demo/SwitchDemo.vue";
+import ToggleDemo from "./components/Demo/ToggleDemo.vue";
 </script>
 
 <template>
@@ -24,6 +25,9 @@ import SwitchDemo from "./components/Demo/SwitchDemo.vue";
       </Card>
       <Card>
         <SwitchDemo />
+      </Card>
+      <Card>
+        <ToggleDemo />
       </Card>
     </div>
   </div>

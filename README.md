@@ -24,12 +24,12 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | Menubar         |        |              |                        |
 | Navigation Menu |        |              |                        |
 | Popover         |        |              |                        |
-| Progress        |        |              |                        |
-| Radio Group     |   ⏳    |              |                        |
+| Progress        |   ✅   |              |                        |
+| Radio Group     |   ⏳   |              |                        |
 | Scroll Area     |        |              |                        |
 | Select          |        |              |                        |
 | Separator       |   ✅   | ✅           |                        |
-| Slider          |        |              |                        |
+| Slider          |   ✅   |              |                        |
 | Switch          |   ✅   |              |                        |
 | Table           |        |              |                        |
 | Tabs            |   ✅   |              |                        |

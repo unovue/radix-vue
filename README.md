@@ -29,7 +29,7 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | Radio Group     |        |              |                        |
 | Scroll Area     |        |              |                        |
 | Select          |        |              |                        |
-| Separator       |   ⏳   |              |                        |
+| Separator       |   ✅   | ✅           |                        |
 | Slider          |        |              |                        |
 | Switch          |   ✅   |              |                        |
 | Table           |        |              |                        |

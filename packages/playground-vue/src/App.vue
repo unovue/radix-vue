@@ -2,6 +2,7 @@
 import Card from "./components/Card.vue";
 import CheckboxDemo from "./components/Demo/CheckboxDemo.vue";
 import SwitchDemo from "./components/Demo/SwitchDemo.vue";
+import SeparatorDemo from "./components/Demo/SeparatorDemo.vue";
 </script>
 
 <template>
@@ -12,6 +13,9 @@ import SwitchDemo from "./components/Demo/SwitchDemo.vue";
       </Card>
       <Card>
         <SwitchDemo />
+      </Card>
+      <Card>
+        <SeparatorDemo />
       </Card>
     </div>
   </div>

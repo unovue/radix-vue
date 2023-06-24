@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import Card from "./components/Card.vue";
 import CheckboxDemo from "./components/Demo/CheckboxDemo.vue";
-import SwitchDemo from "./components/Demo/SwitchDemo.vue";
-import SeparatorDemo from "./components/Demo/SeparatorDemo.vue";
+import CollapsibleDemo from "./components/Demo/CollapsibleDemo.vue";
 import LabelDemo from "./components/Demo/LabelDemo.vue";
+import SeparatorDemo from "./components/Demo/SeparatorDemo.vue";
+import SwitchDemo from "./components/Demo/SwitchDemo.vue";
 </script>
 
 <template>
@@ -13,13 +14,16 @@ import LabelDemo from "./components/Demo/LabelDemo.vue";
         <CheckboxDemo />
       </Card>
       <Card>
-        <SwitchDemo />
+        <CollapsibleDemo />
+      </Card>
+      <Card>
+        <LabelDemo />
       </Card>
       <Card>
         <SeparatorDemo />
       </Card>
       <Card>
-        <LabelDemo />
+        <SwitchDemo />
       </Card>
     </div>
   </div>
@@ -27,6 +31,6 @@ import LabelDemo from "./components/Demo/LabelDemo.vue";
 
 <style>
 body {
-  @apply bg-black text-white
+  @apply bg-black text-white;
 }
 </style>

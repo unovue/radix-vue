@@ -9,9 +9,14 @@ const checkboxThree = ref(false);
 </script>
 
 <template>
+  <div>
+    States: {{ checkboxOne ? "one on" : "one off" }} -
+    {{ checkboxTwo ? "two on" : "two off" }} -
+    {{ checkboxThree ? "three on" : "three off" }}
+  </div>
   <div class="flex flex-col gap-2.5">
     <label class="flex flex-row gap-4 items-center [&>.checkbox]:hover:bg-neutral-100">
-      <CheckboxRoot
+      <CheckboxRoot v-model="checkboxOne"
         class="bg-white shadow h-6 aspect-square rounded flex items-center justify-center focus-within:outline focus-within:outline-2 focus-within:outline-[#00000066]"
       >
         <CheckboxIndicator
@@ -36,7 +41,7 @@ const checkboxThree = ref(false);
       <span class="select-none">Disabled Checkbox</span>
     </label>
     <label class="flex flex-row gap-4 items-center [&>.checkbox]:hover:bg-neutral-100">
-      <CheckboxRoot
+      <CheckboxRoot  v-model="checkboxThree"
         required
         class="bg-white shadow h-6 aspect-square rounded flex items-center justify-center focus-within:outline focus-within:outline-2 focus-within:outline-[#00000066]"
       >

@@ -3,6 +3,7 @@ import Card from "./components/Card.vue";
 import CheckboxDemo from "./components/Demo/CheckboxDemo.vue";
 import SwitchDemo from "./components/Demo/SwitchDemo.vue";
 import SeparatorDemo from "./components/Demo/SeparatorDemo.vue";
+import LabelDemo from "./components/Demo/LabelDemo.vue";
 </script>
 
 <template>
@@ -16,6 +17,9 @@ import SeparatorDemo from "./components/Demo/SeparatorDemo.vue";
       </Card>
       <Card>
         <SeparatorDemo />
+      </Card>
+      <Card>
+        <LabelDemo />
       </Card>
     </div>
   </div>

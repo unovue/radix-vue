@@ -16,7 +16,7 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | Checkbox        |   ✅   |              |                        |
 | Collapsible     |   ✅   | ✅           |                        |
 | Context Menu    |        |              |                        |
-| Dialog          |   ⏳   |              |                        |
+| Dialog          |   ✅   |              |                        |
 | Dropdown Menu   |        |              |                        |
 | Form            |        |              |                        |
 | Hover Card      |        |              |                        |

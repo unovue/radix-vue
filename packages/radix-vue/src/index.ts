@@ -18,3 +18,13 @@ export { AspectRatio } from "./AspectRatio";
 export { TabsRoot, TabsList, TabsContent, TabsTrigger } from "./Tabs";
 export { SliderRoot, SliderThumb, SliderTrack, SliderRange } from "./Slider";
 export { ProgressRoot, ProgressIndicator } from "./Progress";
+export {
+  DialogRoot,
+  DialogTrigger,
+  DialogContent,
+  DialogClose,
+  DialogPortal,
+  DialogOverlay,
+  DialogTitle,
+  DialogDescription,
+} from "./Dialog";

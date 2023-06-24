@@ -36,7 +36,6 @@ function handleKeydown(e: KeyboardEvent) {
     } else {
       e.preventDefault();
       if (injectedValue?.modelValue?.value + step >= injectedValue?.max) {
-        console.log("handlemax");
         injectedValue?.changeModelValue(injectedValue?.max);
       } else if (
         injectedValue?.modelValue?.value + step <=

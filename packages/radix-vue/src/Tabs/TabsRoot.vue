@@ -26,8 +26,8 @@ export interface TabsProvideValue {
 import { ref, toRef, provide } from "vue";
 
 const props = withDefaults(defineProps<TabsRootProps>(), {
-  orientation: "ltr",
-  dir: "horizontal",
+  orientation: "horizontal",
+  dir: "ltr",
   activationMode: "automatic",
 });
 

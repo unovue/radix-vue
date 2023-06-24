@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, provide } from "vue";
 
 const props = defineProps({
   defaultChecked: {
@@ -36,6 +36,8 @@ let dataDisabled: boolean;
 
 const refChecked = ref(props.checked);
 
+provide("refChecked", refChecked);
+
 function handleChange(e: Event) {
   emits("onCheckedChange", e);
 }
@@ -45,8 +47,9 @@ function handleChange(e: Event) {
   <div
     :value="props.value"
     role="checkbox"
-    :aria-checked="props.checked"
+    :aria-checked="refChecked"
     :data-state="dataState"
+    style="position: relative"
   >
     <input
       type="checkbox"
@@ -59,29 +62,8 @@ function handleChange(e: Event) {
       :required="props.required"
       :data-state="dataState"
       :data-disabled="dataDisabled"
+      style="opacity: 0; position: absolute; inset: 0"
     />
-    <span v-if="refChecked">
-      <slot />
-    </span>
+    <slot />
   </div>
 </template>
-
-<style scoped>
-div {
-  position: relative;
-}
-
-input:checked + span {
-  display: contents;
-}
-
-input:not(:checked) + span {
-  display: none;
-}
-
-input {
-  opacity: 0;
-  position: absolute;
-  inset: 0;
-}
-</style>

@@ -94,13 +94,13 @@ function changeValue(e: MouseEvent) {
     if (
       e.clientX - 10 - thumbOffset.value > rootSliderRect.left &&
       e.clientX - 10 - thumbOffset.value <
-      rootSliderRect.left + rootSliderRect.width
+        rootSliderRect.left + rootSliderRect.width
     ) {
       updateModelValue(
         Math.round(
           ((e.clientX - 10 - thumbOffset.value - rootSliderRect.left) /
             rootSliderRect.width) *
-          100
+            100
         )
       );
     }
@@ -121,12 +121,12 @@ const pointermove = (e: PointerEvent) => {
   if (
     e.clientX - 10 - thumbOffset.value > rootSliderRect!.left &&
     e.clientX - 10 - thumbOffset.value <
-    rootSliderRect!.left + rootSliderRect!.width
+      rootSliderRect!.left + rootSliderRect!.width
   ) {
     updateModelValue(
       ((e.clientX - 10 - thumbOffset.value - rootSliderRect!.left) /
         rootSliderRect!.width) *
-      100
+        100
     );
   }
   if (e.clientX - 10 - thumbOffset.value <= rootSliderRect!.left) {
@@ -160,6 +160,11 @@ function convertToClosestStep(number: number, step: number) {
 <template>
   <span ref="rootSliderElement" @pointerdown="changeValue">
     <slot />
-    <input style="display: none" :value="props.modelValue" :aria-valuenow="props.modelValue" :name="props.name" />
+    <input
+      style="display: none"
+      :value="props.modelValue"
+      :aria-valuenow="props.modelValue"
+      :name="props.name"
+    />
   </span>
 </template>

@@ -31,7 +31,7 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | Select          |        |              |                        |
 | Separator       |        |              |                        |
 | Slider          |        |              |                        |
-| Switch          |   ⏳   |              |                        |
+| Switch          |   ✅   |              |                        |
 | Table           |        |              |                        |
 | Tabs            |        |              |                        |
 | Toast           |        |              |                        |

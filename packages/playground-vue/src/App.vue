@@ -7,12 +7,16 @@ import SeparatorDemo from "./components/Demo/SeparatorDemo.vue";
 import SwitchDemo from "./components/Demo/SwitchDemo.vue";
 import ToggleDemo from "./components/Demo/ToggleDemo.vue";
 import ToggleGroupDemo from "./components/Demo/ToggleGroupDemo.vue";
+import AspectRatioDemo from "./components/Demo/AspectRatioDemo.vue";
 
 </script>
 
 <template>
   <div class="w-full flex flex-col items-center">
     <div class="max-w-6xl w-full grid grid-cols-3 gap-4 pt-40">
+      <Card>
+        <AspectRatioDemo />
+      </Card>
       <Card>
         <CheckboxDemo />
       </Card>

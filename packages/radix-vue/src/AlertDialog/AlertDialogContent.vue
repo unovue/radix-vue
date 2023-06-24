@@ -4,7 +4,7 @@ import { trapFocus } from "../shared/trap-focus.ts";
 import {
   DIALOG_INJECTION_KEY,
   type DialogProvideValue,
-} from "./DialogRoot.vue";
+} from "./AlertDialogRoot.vue";
 
 const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 

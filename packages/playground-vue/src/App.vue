@@ -12,6 +12,7 @@ import TabsDemo from "./components/Demo/TabsDemo.vue";
 import SliderDemo from "./components/Demo/SliderDemo.vue";
 import ProgressDemo from "./components/Demo/ProgressDemo.vue";
 import DialogDemo from "./components/Demo/DialogDemo.vue";
+import AlertDialogDemo from "./components/Demo/AlertDialogDemo.vue";
 
 </script>
 
@@ -53,6 +54,9 @@ import DialogDemo from "./components/Demo/DialogDemo.vue";
       </Card>
       <Card>
         <DialogDemo />
+      </Card>
+      <Card>
+        <AlertDialogDemo />
       </Card>
     </div>
   </div>

@@ -2,19 +2,7 @@
 import { ref, onMounted } from "vue";
 import { ProgressRoot, ProgressIndicator } from "radix-vue";
 
-const progressValue = ref(50);
-
-const incrementProgress = () => {
-  progressValue.value += 0.03;
-  if (progressValue.value >= 100) {
-    progressValue.value = 100;
-  }
-    requestAnimationFrame(incrementProgress);
-};
-
-onMounted(() => {
-  requestAnimationFrame(incrementProgress);
-});
+const progressValue = ref(66);
 </script>
 
 <template>

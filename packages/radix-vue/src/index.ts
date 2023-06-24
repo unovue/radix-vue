@@ -28,3 +28,14 @@ export {
   DialogTitle,
   DialogDescription,
 } from "./Dialog";
+export {
+  AlertDialogRoot,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogCancel,
+  AlertDialogPortal,
+  AlertDialogOverlay,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogAction,
+} from "./AlertDialog";

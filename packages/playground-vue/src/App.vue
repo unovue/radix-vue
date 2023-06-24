@@ -42,6 +42,9 @@ import TabsDemo from "./components/Demo/TabsDemo.vue";
       <Card>
         <TabsDemo />
       </Card>
+      <Card>
+        <TabsDemo />
+      </Card>
     </div>
   </div>
 </template>

@@ -1,4 +1,5 @@
-type DataOrientation = "ltr" | "rtl";
-type Direction = "vertical" | "horizontal";
+type DataOrientation = "vertical" | "horizontal";
+type Direction = "ltr" | "rtl";
+
 
 export type { DataOrientation, Direction };

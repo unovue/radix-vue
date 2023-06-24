@@ -11,7 +11,7 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | :-------------- | :----: | ------------ | ---------------------- |
 | Accordion       |   ⏳   |              |                        |
 | Alert Dialog    |   ⏳   |              |                        |
-| Aspect Ratio    |        |              |                        |
+| Aspect Ratio    |   ✅   |              |                        |
 | Avatar          |        |              |                        |
 | Checkbox        |   ✅   |              |                        |
 | Collapsible     |   ✅   | ✅           |                        |
@@ -25,14 +25,14 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | Navigation Menu |        |              |                        |
 | Popover         |        |              |                        |
 | Progress        |        |              |                        |
-| Radio Group     |        |              |                        |
+| Radio Group     |   ⏳    |              |                        |
 | Scroll Area     |        |              |                        |
 | Select          |        |              |                        |
 | Separator       |   ✅   | ✅           |                        |
 | Slider          |        |              |                        |
 | Switch          |   ✅   |              |                        |
 | Table           |        |              |                        |
-| Tabs            |   ⏳   |              |                        |
+| Tabs            |   ✅   |              |                        |
 | Toast           |        |              |                        |
 | Toggle          |   ✅   |              |                        |
 | Toggle Group    |   ✅   |              |                        |

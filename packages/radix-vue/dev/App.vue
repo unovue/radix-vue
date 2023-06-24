@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import {
-  CoolCounter,
-  CoolButton,
-  type CoolButtonProps,
-  type CoolButtonColor,
-} from "../src";
+import { CoolCounter, CoolButton, type CoolButtonColor } from "../src";
 
 const bgColor: CoolButtonColor = "blue";
 </script>

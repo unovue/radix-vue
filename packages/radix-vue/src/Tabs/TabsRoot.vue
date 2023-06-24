@@ -1,6 +1,5 @@
 <script lang="ts">
-import { InjectionKey } from "vue";
-import type { Ref } from "vue";
+import type { Ref, InjectionKey } from "vue";
 import type { DataOrientation, Direction } from "../shared/types";
 
 export interface TabsRootProps {
@@ -19,6 +18,7 @@ export interface TabsProvideValue {
   changeModelValue: (value: any) => void;
   parentElement: Ref<HTMLElement | undefined>;
   orientation: DataOrientation;
+  dir?: Direction;
 }
 </script>
 
@@ -27,6 +27,7 @@ import { ref, toRef, provide } from "vue";
 
 const props = withDefaults(defineProps<TabsRootProps>(), {
   orientation: "ltr",
+  dir: "horizontal",
   activationMode: "automatic",
 });
 
@@ -41,6 +42,7 @@ provide<TabsProvideValue>(TABS_INJECTION_KEY, {
   },
   parentElement: parentElementRef,
   orientation: props.orientation,
+  dir: props.dir,
 });
 </script>
 

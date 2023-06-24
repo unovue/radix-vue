@@ -20,7 +20,6 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | Dropdown Menu   |        |              |                        |
 | Form            |        |              |                        |
 | Hover Card      |        |              |                        |
-| Input           |   ⏳   |              |                        |
 | Label           |   ✅   | ✅           | ✅                     |
 | Menubar         |        |              |                        |
 | Navigation Menu |        |              |                        |

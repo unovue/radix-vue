@@ -47,11 +47,7 @@ provide<TabsProvideValue>(TABS_INJECTION_KEY, {
 </script>
 
 <template>
-  <div
-    ref="parentElementRef"
-    :dir="props.dir"
-    :data-orientation="props.orientation"
-  >
+  <div :dir="props.dir" :data-orientation="props.orientation">
     <slot />
   </div>
 </template>

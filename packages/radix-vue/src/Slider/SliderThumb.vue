@@ -4,6 +4,10 @@ import { SLIDER_INJECTION_KEY } from "./SliderRoot.vue";
 import type { SliderProvideValue } from "./SliderRoot.vue";
 
 const injectedValue = inject<SliderProvideValue>(SLIDER_INJECTION_KEY);
+const thumbElement = ref();
+onMounted(() => {
+  injectedValue.thumbElement = thumbElement.value;
+});
 
 const props = defineProps({
   class: String,
@@ -82,11 +86,6 @@ function handleKeydown(e: KeyboardEvent) {
     }
   }
 }
-
-const thumbElement = ref<HTMLElement>();
-onMounted(() => {
-  injectedValue.thumbElement.value = thumbElement.value;
-});
 </script>
 
 <template>

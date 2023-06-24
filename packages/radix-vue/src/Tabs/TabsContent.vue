@@ -26,6 +26,7 @@ const dataState = computed<"active" | "inactive">(() => {
     role="tabpanel"
     :data-state="dataState"
     :data-orientation="injectedValue?.orientation"
+    tabindex="0"
   >
     <slot />
   </div>

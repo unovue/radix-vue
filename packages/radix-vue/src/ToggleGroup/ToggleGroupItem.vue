@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, inject, computed } from "vue";
-import type { Ref } from "vue";
 import {
   TOGGLE_GROUP_INJECTION_KEY,
   type ToggleGroupProvideValue,
@@ -18,7 +17,7 @@ const props = withDefaults(defineProps<ToggleGroupItemProps>(), {});
 
 const state = computed(() => {
   if (injectedValue?.type === "multiple") {
-    return injectedValue?.modelValue?.value?.includes(props.value)
+    return injectedValue?.modelValue?.value?.includes(props.value!)
       ? "on"
       : "off";
   } else {
@@ -26,16 +25,16 @@ const state = computed(() => {
   }
 });
 
-const currentToggleElement: Ref<HTMLElement> = ref();
+const currentToggleElement = ref<HTMLElement | undefined>();
 
 function handleKeydown(e: KeyboardEvent) {
   const allToggleItem = Array.from(
-    injectedValue?.parentElement.value.querySelectorAll(
+    injectedValue!.parentElement.value.querySelectorAll(
       "[data-radix-vue-collection-item]"
     )
   );
   if (allToggleItem.length) {
-    const currentTabIndex = allToggleItem.indexOf(currentToggleElement.value);
+    const currentTabIndex = allToggleItem.indexOf(currentToggleElement.value!);
 
     if (e.key === "ArrowRight" || e.key === "ArrowDown") {
       e.preventDefault();
@@ -62,7 +61,7 @@ function handleKeydown(e: KeyboardEvent) {
   <button
     type="button"
     :data-state="state"
-    @click="injectedValue.changeModelValue(props.value)"
+    @click="injectedValue!.changeModelValue()"
     ref="currentToggleElement"
     @keydown="handleKeydown"
     data-radix-vue-collection-item

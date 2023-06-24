@@ -1,85 +1,85 @@
 <script setup lang="ts">
-import { ref, computed, inject } from "vue";
-import type { ComputedRef } from "vue";
+import { ref, inject, computed, onMounted } from "vue";
+import type { Ref } from "vue";
+import {
+  TOGGLE_GROUP_INJECTION_KEY,
+  type ToggleGroupProvideValue,
+} from "./ToggleGroupRoot.vue";
 
-const type: "single" | "multiple" | undefined = inject("type");
+interface ToggleGroupItemProps {
+  value?: string;
+}
 
-const props = defineProps({
-  defaultChecked: {
-    type: Boolean,
-    required: false,
-  },
-  checked: {
-    type: Boolean,
-    default: false,
-  },
-  disabled: {
-    type: Boolean,
-    required: false,
-  },
-  name: {
-    type: String,
-    required: false,
-  },
-  id: {
-    type: String,
-    required: false,
-  },
-  modelValue: {
-    type: Boolean,
-    required: false,
-    default: null,
-  },
+const injectedValue = inject<ToggleGroupProvideValue>(
+  TOGGLE_GROUP_INJECTION_KEY
+);
+
+const props = withDefaults(defineProps<ToggleGroupItemProps>(), {});
+
+const state = computed(() => {
+  if (injectedValue?.type === "multiple") {
+    return injectedValue?.modelValue?.value?.includes(props.value)
+      ? "on"
+      : "off";
+  } else {
+    return injectedValue?.modelValue?.value === props.value ? "on" : "off";
+  }
 });
 
-const emits = defineEmits(["onCheckedChange", "update:modelValue"]);
+onMounted(() => {
+  const allToggleItem = Array.from(
+    injectedValue?.parentElement.value.querySelectorAll(
+      "[data-radix-vue-collection-item]"
+    )
+  );
+  console.log(allToggleItem);
+  console.log(allToggleItem);
+  console.log("length: ", allToggleItem.length);
+  console.log("lengths: ", currentToggleElement.value);
+  console.log("length: ", allToggleItem.indexOf(currentToggleElement.value));
+});
 
-type DataState = "on" | "off";
-let dataDisabled: boolean;
+const currentToggleElement: Ref<HTMLElement> = ref();
 
-const modelPlaceHolder = ref(props.checked);
+function handleKeydown(e: KeyboardEvent) {
+  const allToggleItem = Array.from(
+    injectedValue?.parentElement.value.querySelectorAll(
+      "[data-radix-vue-collection-item]"
+    )
+  );
+  if (allToggleItem.length) {
+    const currentTabIndex = allToggleItem.indexOf(currentToggleElement.value);
 
-const refChecked = computed({
-  get() {
-    if (props.modelValue != null) {
-      return props.modelValue;
-    } else {
-      return modelPlaceHolder.value;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      e.preventDefault();
+      if (allToggleItem[currentTabIndex + 1]) {
+        allToggleItem[currentTabIndex + 1].focus();
+      } else {
+        allToggleItem[0].focus();
+      }
     }
-  },
-  set(value) {
-    if (props.modelValue != null) {
-      emits("update:modelValue", value);
-    } else {
-      modelPlaceHolder.value = !modelPlaceHolder.value;
-    }
-  },
-});
 
-const dataState: ComputedRef<DataState> = computed(() => {
-  return refChecked.value ? "on" : "off";
-});
+    if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      e.preventDefault();
+      if (allToggleItem[currentTabIndex - 1]) {
+        allToggleItem[currentTabIndex - 1].focus();
+      } else {
+        allToggleItem[allToggleItem.length - 1].focus();
+      }
+    }
+  }
+}
 </script>
 
 <template>
-  <div
-    role="checkbox"
-    :aria-checked="refChecked"
-    :data-state="dataState"
-    style="position: relative"
+  <button
+    type="button"
+    :data-state="state"
+    @click="injectedValue.changeModelValue(props.value)"
+    ref="currentToggleElement"
+    @keydown="handleKeydown"
+    data-radix-vue-collection-item
   >
-    <input
-      type="checkbox"
-      :id="props.id"
-      v-model="refChecked"
-      :checked="refChecked"
-      :name="props.name"
-      aria-hidden="true"
-      :disabled="props.disabled"
-      :data-state="dataState"
-      :data-disabled="dataDisabled"
-      style="opacity: 0; position: absolute; inset: 0"
-    />
     <slot />
-  </div>
+  </button>
 </template>

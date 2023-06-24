@@ -7,7 +7,7 @@ An accessible, unstyled and customisable UI Library for building top quality des
 
 ## Todo
 
-| Database        | Usable | Complete API | Complete Accessibility |
+| Component       | Usable | Complete API | Complete Accessibility |
 | :-------------- | :----: | ------------ | ---------------------- |
 | Accordion       |   ⏳   |              |                        |
 | Alert Dialog    |   ⏳   |              |                        |

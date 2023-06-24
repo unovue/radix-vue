@@ -1,54 +1,45 @@
 <script lang="ts">
-import type { Ref, InjectionKey } from "vue";
-import type { DataOrientation, Direction } from "../shared/types";
+import type { Ref } from "vue";
 
-export interface RadioRootProps {
-  // defaultValue?: string;
-  // value?: string;
-  orientation?: DataOrientation;
-  dir?: Direction;
-  name?: string;
+export interface RadioGroupRootProps {
+  value?: string;
+  defaultValue?: string;
+  //disabled?: boolean;
   modelValue?: string | string[];
 }
 
-export const RADIO_INJECTION_KEY = Symbol() as InjectionKey<RadioProvideValue>;
+export const RADIO_GROUP_INJECTION_KEY = "RadioGroup" as const;
 
-export interface RadioProvideValue {
+export interface RadioGroupProvideValue {
   modelValue?: Readonly<Ref<string | string[] | undefined>>;
-  changeModelValue: (value: any) => void;
-  name: string;
+  changeModelValue(): (value: string) => void;
+  parentElement: Ref<HTMLElement>;
 }
 </script>
 
 <script setup lang="ts">
 import { ref, toRef, provide } from "vue";
 
-const props = withDefaults(defineProps<RadioRootProps>(), {
-  orientation: undefined,
-  activationMode: "automatic",
+const props = withDefaults(defineProps<RadioGroupRootProps>(), {
+  type: "single",
 });
 
 const emits = defineEmits(["update:modelValue"]);
 
-const parentElementRef = ref<HTMLElement>();
+const parentElementRef: Ref<HTMLElement | undefined> = ref();
 
-provide<RadioProvideValue>(RADIO_INJECTION_KEY, {
+provide<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY, {
+  type: props.type,
   modelValue: toRef(() => props.modelValue),
-  changeModelValue: (value: any) => {
+  changeModelValue: (value: string) => {
     emits("update:modelValue", value);
   },
   parentElement: parentElementRef,
-  orientation: props.orientation,
-  dir: props.dir,
 });
 </script>
 
 <template>
-  <div
-    ref="parentElementRef"
-    :dir="props.dir"
-    :data-orientation="props.orientation"
-  >
+  <div ref="parentElementRef" role="radiogroup" aria-label="radiogroup">
     <slot />
   </div>
 </template>

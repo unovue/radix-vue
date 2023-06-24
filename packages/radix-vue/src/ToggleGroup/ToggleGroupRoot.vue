@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { provide } from 'vue'
+import { ref, computed, provide } from "vue";
 
 type TypeEnum = "single" | "multiple";
-type DataOrientation = "vertical" | "horizontal"
+type DataOrientation = "vertical" | "horizontal";
 
 const props = defineProps({
   type: {
@@ -13,7 +13,6 @@ const props = defineProps({
   value: {
     type: String,
     required: false,
-    default: false,
   },
   defaultValue: {
     type: String,
@@ -37,6 +36,7 @@ const props = defineProps({
   dir: {
     type: String,
     required: false,
+    default: "ltr",
   },
   loop: {
     type: Boolean,
@@ -45,7 +45,32 @@ const props = defineProps({
   },
 });
 
+const emits = defineEmits(["update:modelValue"]);
 
+const modelPlaceHolder = ref(props.checked);
+
+const refChecked = computed({
+  get() {
+    if (props.modelValue != null) {
+      return props.modelValue;
+    } else {
+      return modelPlaceHolder.value;
+    }
+  },
+  set(value) {
+    if (props.modelValue != null) {
+      emits("update:modelValue", value);
+    } else {
+      modelPlaceHolder.value = !modelPlaceHolder.value;
+    }
+  },
+});
+
+provide("refChecked", refChecked);
 </script>
 
-<template></template>
+<template>
+  <div role="group" :dir="props.dir" aria-label="Text alignment">
+    <slot />
+  </div>
+</template>

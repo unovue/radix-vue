@@ -5,3 +5,4 @@ export { SwitchRoot, SwitchThumb } from "./Switch";
 export { Separator } from "./Separator";
 export { Label } from "./Label";
 export { Toggle } from "./Toggle";
+export { ToggleGroupRoot, ToggleGroupItem } from "./ToggleGroup";

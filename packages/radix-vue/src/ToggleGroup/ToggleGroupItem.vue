@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, inject } from "vue";
 import type { ComputedRef } from "vue";
+
+const type: "single" | "multiple" | undefined = inject("type");
 
 const props = defineProps({
   defaultChecked: {
@@ -9,24 +11,15 @@ const props = defineProps({
   },
   checked: {
     type: Boolean,
-    required: false,
+    default: false,
   },
   disabled: {
-    type: Boolean,
-    required: false,
-  },
-  required: {
     type: Boolean,
     required: false,
   },
   name: {
     type: String,
     required: false,
-  },
-  value: {
-    type: Boolean,
-    required: false,
-    default: false,
   },
   id: {
     type: String,
@@ -70,7 +63,6 @@ const dataState: ComputedRef<DataState> = computed(() => {
 
 <template>
   <div
-    :value="props.value"
     role="checkbox"
     :aria-checked="refChecked"
     :data-state="dataState"
@@ -84,7 +76,6 @@ const dataState: ComputedRef<DataState> = computed(() => {
       :name="props.name"
       aria-hidden="true"
       :disabled="props.disabled"
-      :required="props.required"
       :data-state="dataState"
       :data-disabled="dataDisabled"
       style="opacity: 0; position: absolute; inset: 0"

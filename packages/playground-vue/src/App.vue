@@ -10,6 +10,7 @@ import ToggleGroupDemo from "./components/Demo/ToggleGroupDemo.vue";
 import AspectRatioDemo from "./components/Demo/AspectRatioDemo.vue";
 import TabsDemo from "./components/Demo/TabsDemo.vue";
 import SliderDemo from "./components/Demo/SliderDemo.vue";
+import ProgressDemo from "./components/Demo/ProgressDemo.vue";
 
 </script>
 
@@ -45,6 +46,9 @@ import SliderDemo from "./components/Demo/SliderDemo.vue";
       </Card>
       <Card>
         <SliderDemo />
+      </Card>
+      <Card>
+        <ProgressDemo />
       </Card>
     </div>
   </div>

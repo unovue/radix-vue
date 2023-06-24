@@ -24,3 +24,4 @@ export {
   RadioGroupIndicator,
 } from "./RadioGroup";
 */
+export { ProgressRoot, ProgressIndicator } from "./Progress";

@@ -13,7 +13,7 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | Alert Dialog    |        |              |                        |
 | Aspect Ratio    |        |              |                        |
 | Avatar          |        |              |                        |
-| Checkbox        |   ⏳   |              |                        |
+| Checkbox        |   ✅   |              |                        |
 | Collapsible     |   ⏳   |              |                        |
 | Context Menu    |        |              |                        |
 | Dialog          |        |              |                        |
@@ -29,13 +29,13 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | Radio Group     |        |              |                        |
 | Scroll Area     |        |              |                        |
 | Select          |        |              |                        |
-| Separator       |        |              |                        |
+| Separator       |   ⏳   |              |                        |
 | Slider          |        |              |                        |
 | Switch          |   ✅   |              |                        |
 | Table           |        |              |                        |
 | Tabs            |        |              |                        |
 | Toast           |        |              |                        |
-| Toggle          |        |              |                        |
+| Toggle          |   ⏳   |              |                        |
 | Toggle Group    |        |              |                        |
 | Toolbar         |        |              |                        |
 | Tooltip         |        |              |                        |

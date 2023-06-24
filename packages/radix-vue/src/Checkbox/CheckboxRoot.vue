@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, provide } from "vue";
+import { ref, computed, provide } from "vue";
 
 const props = defineProps({
   defaultChecked: {
@@ -27,20 +27,42 @@ const props = defineProps({
     required: false,
     default: false,
   },
+  id: {
+    type: String,
+    required: false,
+  },
+  modelValue: {
+    type: Boolean,
+    required: false,
+    default: null,
+  },
 });
 
-const emits = defineEmits(["onCheckedChange"]);
+const emits = defineEmits(["onCheckedChange", "update:modelValue"]);
 
 let dataState: "checked" | "unchecked" | "indeterminate";
 let dataDisabled: boolean;
 
-const refChecked = ref(props.checked);
+const modelPlaceHolder = ref(props.checked);
+
+const refChecked = computed({
+  get() {
+    if (props.modelValue != null) {
+      return props.modelValue;
+    } else {
+      return modelPlaceHolder.value;
+    }
+  },
+  set(value) {
+    if (props.modelValue != null) {
+      emits("update:modelValue", value);
+    } else {
+      modelPlaceHolder.value = !modelPlaceHolder.value;
+    }
+  },
+});
 
 provide("refChecked", refChecked);
-
-function handleChange(e: Event) {
-  emits("onCheckedChange", e);
-}
 </script>
 
 <template>
@@ -53,11 +75,11 @@ function handleChange(e: Event) {
   >
     <input
       type="checkbox"
+      :id="props.id"
       v-model="refChecked"
       :checked="refChecked"
       :name="props.name"
       aria-hidden="true"
-      @change="handleChange"
       :disabled="props.disabled"
       :required="props.required"
       :data-state="dataState"

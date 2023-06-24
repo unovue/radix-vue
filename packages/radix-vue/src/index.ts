@@ -25,4 +25,6 @@ export {
   DialogClose,
   DialogPortal,
   DialogOverlay,
+  DialogTitle,
+  DialogDescription,
 } from "./Dialog";

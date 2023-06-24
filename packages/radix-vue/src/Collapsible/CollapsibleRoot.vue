@@ -5,7 +5,6 @@ export interface CollapsibleRootProps {
   defaultOpen?: boolean;
   open?: boolean;
   disabled?: boolean;
-  onOpenChange?(open: boolean): void;
 }
 
 export const COLLAPSIBLE_INJECTION_KEY = "Collapsible" as const;

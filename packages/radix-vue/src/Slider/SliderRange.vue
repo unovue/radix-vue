@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { inject } from "vue";
-import { TABS_INJECTION_KEY } from "./TabsRoot.vue";
-import type { TabsProvideValue } from "./TabsRoot.vue";
+import { SLIDER_INJECTION_KEY } from "./SliderRoot.vue";
+import type { SliderProvideValue } from "./SliderRoot.vue";
 
-const injectedValue = inject<TabsProvideValue>(TABS_INJECTION_KEY);
-
+const injectedValue = inject<SliderProvideValue>(SLIDER_INJECTION_KEY);
 </script>
 
 <template>
-  <span :style="`right: ${100 - injectedValue.}%`" />
+  <span
+    :style="`left: 0%; right: ${
+      injectedValue?.max - injectedValue?.modelValue?.value
+    }%`"
+  />
 </template>

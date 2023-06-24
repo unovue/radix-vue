@@ -9,6 +9,7 @@ import ToggleDemo from "./components/Demo/ToggleDemo.vue";
 import ToggleGroupDemo from "./components/Demo/ToggleGroupDemo.vue";
 import AspectRatioDemo from "./components/Demo/AspectRatioDemo.vue";
 import TabsDemo from "./components/Demo/TabsDemo.vue";
+import SliderDemo from "./components/Demo/SliderDemo.vue";
 
 </script>
 
@@ -43,7 +44,7 @@ import TabsDemo from "./components/Demo/TabsDemo.vue";
         <TabsDemo />
       </Card>
       <Card>
-        <TabsDemo />
+        <SliderDemo />
       </Card>
     </div>
   </div>

@@ -26,7 +26,7 @@ const dataState = computed<"active" | "inactive">(() => {
     : "inactive";
 });
 
-function changeTab(value) {
+function changeTab(value: string) {
   injectedValue?.changeModelValue(value);
 }
 

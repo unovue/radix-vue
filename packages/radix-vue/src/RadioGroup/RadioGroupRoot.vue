@@ -2,32 +2,29 @@
 import type { Ref, InjectionKey } from "vue";
 import type { DataOrientation, Direction } from "../shared/types";
 
-export interface TabsRootProps {
+export interface RadioRootProps {
   // defaultValue?: string;
   // value?: string;
   orientation?: DataOrientation;
   dir?: Direction;
-  activationMode?: "automatic" | "manual";
+  name?: string;
   modelValue?: string | string[];
 }
 
-export const TABS_INJECTION_KEY = Symbol() as InjectionKey<TabsProvideValue>;
+export const RADIO_INJECTION_KEY = Symbol() as InjectionKey<RadioProvideValue>;
 
-export interface TabsProvideValue {
+export interface RadioProvideValue {
   modelValue?: Readonly<Ref<string | string[] | undefined>>;
   changeModelValue: (value: any) => void;
-  parentElement: Ref<HTMLElement | undefined>;
-  orientation: DataOrientation;
-  dir?: Direction;
+  name: string;
 }
 </script>
 
 <script setup lang="ts">
 import { ref, toRef, provide } from "vue";
 
-const props = withDefaults(defineProps<TabsRootProps>(), {
-  orientation: "ltr",
-  dir: "horizontal",
+const props = withDefaults(defineProps<RadioRootProps>(), {
+  orientation: undefined,
   activationMode: "automatic",
 });
 
@@ -35,7 +32,7 @@ const emits = defineEmits(["update:modelValue"]);
 
 const parentElementRef = ref<HTMLElement>();
 
-provide<TabsProvideValue>(TABS_INJECTION_KEY, {
+provide<RadioProvideValue>(RADIO_INJECTION_KEY, {
   modelValue: toRef(() => props.modelValue),
   changeModelValue: (value: any) => {
     emits("update:modelValue", value);

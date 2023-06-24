@@ -22,7 +22,7 @@ provide<Ref<HTMLElement | undefined>>("parentElement", parentElementRef);
   <div
     role="tablist"
     ref="parentElementRef"
-    :aria-orientation="injectedValue?.dir"
+    :aria-orientation="injectedValue?.orientation"
     tabindex="0"
     :data-orientation="injectedValue?.orientation"
   >

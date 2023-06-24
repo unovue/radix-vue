@@ -10,18 +10,18 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | Database        | Usable | Complete API | Complete Accessibility |
 | :-------------- | :----: | ------------ | ---------------------- |
 | Accordion       |   ⏳   |              |                        |
-| Alert Dialog    |        |              |                        |
+| Alert Dialog    |   ⏳   |              |                        |
 | Aspect Ratio    |        |              |                        |
 | Avatar          |        |              |                        |
 | Checkbox        |   ✅   |              |                        |
 | Collapsible     |   ⏳   |              |                        |
 | Context Menu    |        |              |                        |
-| Dialog          |        |              |                        |
+| Dialog          |   ⏳   |              |                        |
 | Dropdown Menu   |        |              |                        |
 | Form            |        |              |                        |
 | Hover Card      |        |              |                        |
-| Input           |        |              |                        |
-| Label           |   ⏳   |              |                        |
+| Input           |   ⏳   |              |                        |
+| Label           |   ✅   | ✅           | ✅                     |
 | Menubar         |        |              |                        |
 | Navigation Menu |        |              |                        |
 | Popover         |        |              |                        |
@@ -35,8 +35,8 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | Table           |        |              |                        |
 | Tabs            |        |              |                        |
 | Toast           |        |              |                        |
-| Toggle          |   ⏳   |              |                        |
-| Toggle Group    |        |              |                        |
+| Toggle          |   ✅   |              |                        |
+| Toggle Group    |   ⏳   |              |                        |
 | Toolbar         |        |              |                        |
 | Tooltip         |        |              |                        |
 

@@ -4,6 +4,8 @@ import CheckboxDemo from "./components/Demo/CheckboxDemo.vue";
 import SwitchDemo from "./components/Demo/SwitchDemo.vue";
 import SeparatorDemo from "./components/Demo/SeparatorDemo.vue";
 import LabelDemo from "./components/Demo/LabelDemo.vue";
+import ToggleDemo from "./components/Demo/ToggleDemo.vue";
+
 </script>
 
 <template>
@@ -20,6 +22,9 @@ import LabelDemo from "./components/Demo/LabelDemo.vue";
       </Card>
       <Card>
         <LabelDemo />
+      </Card>
+      <Card>
+        <ToggleDemo />
       </Card>
     </div>
   </div>

@@ -11,6 +11,7 @@ import AspectRatioDemo from "./components/Demo/AspectRatioDemo.vue";
 import TabsDemo from "./components/Demo/TabsDemo.vue";
 import SliderDemo from "./components/Demo/SliderDemo.vue";
 import ProgressDemo from "./components/Demo/ProgressDemo.vue";
+import DialogDemo from "./components/Demo/DialogDemo.vue";
 
 </script>
 
@@ -51,7 +52,7 @@ import ProgressDemo from "./components/Demo/ProgressDemo.vue";
         <ProgressDemo />
       </Card>
       <Card>
-        <ProgressDemo />
+        <DialogDemo />
       </Card>
     </div>
   </div>

@@ -2,8 +2,9 @@
 import type { Ref, InjectionKey } from "vue";
 
 export interface DialogRootProps {
+  modelValue?: boolean;
   defaultOpen?: boolean;
-  open?: boolean;
+  //open?: boolean;
 }
 
 export const DIALOG_INJECTION_KEY =
@@ -11,25 +12,34 @@ export const DIALOG_INJECTION_KEY =
 
 export type DialogProvideValue = {
   open: Readonly<Ref<boolean>>;
-  onOpenToggle(): void;
+  openModal(): void;
+  closeModal(): void;
+  triggerButton: Readonly<Ref<HTMLElement>>;
 };
 </script>
 
 <script setup lang="ts">
-import { provide, toRef } from "vue";
+import { provide, toRef, ref } from "vue";
 
 const props = withDefaults(defineProps<DialogRootProps>(), {
-  open: false,
+  //open: false,
 });
+
 const emit = defineEmits<{
-  (e: "update:open", value: boolean): void;
+  (e: "update:modelValue", value: boolean): void;
 }>();
 
+const triggerButton = ref<HTMLElement>();
+
 provide<DialogProvideValue>(DIALOG_INJECTION_KEY, {
-  open: toRef(() => props.open),
-  onOpenToggle: () => {
-    emit("update:open", !props.open);
+  open: toRef(() => props.modelValue),
+  openModal: () => {
+    emit("update:modelValue", true);
   },
+  closeModal: () => {
+    emit("update:modelValue", false);
+  },
+  triggerButton: triggerButton,
 });
 </script>
 

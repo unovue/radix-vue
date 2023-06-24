@@ -1,15 +1,24 @@
-<script setup>
+<script setup lang="ts">
 import { SwitchRoot, SwitchThumb } from "radix-vue";
 import { Icon } from "@iconify/vue";
+import { ref } from "vue";
+
+const switchState = ref(true);
+
+function toggleState() {
+  switchState.value = !switchState.value;
+}
 </script>
 
 <template>
+  <p>{{ switchState ? "checked" : "uncheked" }}</p>
   <div class="flex gap-2 items-center">
     <label className="text-white text-[15px] leading-none pr-[15px]" for="airplane-mode">
       Airplane mode
     </label>
     <SwitchRoot
-      class="w-[42px] h-[25px] flex bg-black/50 shadow-sm rounded-full relative data-[state=checked]:bg-black outline-none cursor-default"
+      v-model="switchState"
+      class="w-[42px] h-[25px] focus-within:outline focus-within:outline-black flex bg-black/50 shadow-sm rounded-full relative data-[state=checked]:bg-black cursor-default"
       id="airplane-mode"
     >
       <SwitchThumb

@@ -1,6 +1,11 @@
 <script setup>
+import { ref } from "vue";
 import { CheckboxRoot, CheckboxIndicator } from "radix-vue";
 import { Icon } from "@iconify/vue";
+
+const checkboxOne = ref(false);
+const checkboxTwo = ref(false);
+const checkboxThree = ref(false);
 </script>
 
 <template>

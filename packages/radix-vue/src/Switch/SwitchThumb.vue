@@ -4,19 +4,23 @@ import type { Ref, WritableComputedRef } from "vue";
 
 type DataState = "checked" | "unchecked";
 
-const checked: Ref<string> | undefined = inject("refChecked");
+const checked: Ref<boolean> | undefined = inject("refChecked");
 
 const dataState: WritableComputedRef<DataState> = computed({
   get() {
     return checked!.value ? "checked" : "unchecked";
   },
   set(value) {
-    checked!.value = value;
+    if (value === "checked") {
+      checked!.value = true;
+    } else {
+      checked!.value = false;
+    }
   },
 });
 
 function toggleChecked() {
-  if (checked!.value === "checked") {
+  if (checked!.value) {
     dataState.value = "unchecked";
   } else {
     dataState.value = "checked";

@@ -7,6 +7,7 @@ import SeparatorDemo from "./components/Demo/SeparatorDemo.vue";
 import SwitchDemo from "./components/Demo/SwitchDemo.vue";
 import ToggleDemo from "./components/Demo/ToggleDemo.vue";
 import ToggleGroupDemo from "./components/Demo/ToggleGroupDemo.vue";
+import TabsDemo from "./components/Demo/TabsDemo.vue";
 
 </script>
 
@@ -33,6 +34,9 @@ import ToggleGroupDemo from "./components/Demo/ToggleGroupDemo.vue";
       </Card>
       <Card>
         <ToggleGroupDemo />
+      </Card>
+      <Card>
+        <TabsDemo />
       </Card>
     </div>
   </div>

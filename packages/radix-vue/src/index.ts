@@ -52,3 +52,4 @@ export {
   ToolbarToggleItem,
   ToolbarSeparator,
 } from "./Toolbar";
+export { AvatarRoot, AvatarImage, AvatarFallback } from "./Avatar";

@@ -18,7 +18,9 @@ const props = defineProps<ToggleGroupItemProps>();
 const currentElement = ref<HTMLElement | undefined>();
 
 function handleKeydown(e: KeyboardEvent) {
-  console.log(rootInjectedValue);
+  if (e.key === "Escape") {
+    handleCloseMenu();
+  }
   const allToggleItem = rootInjectedValue!.itemsArray;
   if (allToggleItem.length) {
     const currentTabIndex = allToggleItem.indexOf(currentElement.value!);
@@ -52,6 +54,14 @@ watchEffect(() => {
 
 function handleHover() {
   rootInjectedValue!.changeSelected(currentElement.value);
+}
+
+function handleCloseMenu() {
+  rootInjectedValue?.hideTooltip();
+  document.querySelector("body").style.pointerEvents = "";
+  setTimeout(() => {
+    rootInjectedValue.triggerElement.value.focus();
+  }, 0);
 }
 </script>
 

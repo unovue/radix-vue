@@ -21,6 +21,12 @@ function handleClick() {
     injectedValue?.showTooltip();
   }
 }
+
+function handleKeydown(e: KeyboardEvent) {
+  if (e.key === "ArrowDown") {
+    injectedValue?.showTooltip();
+  }
+}
 </script>
 
 <template>
@@ -30,6 +36,7 @@ function handleClick() {
     :aria-expanded="injectedValue?.modelValue.value || false"
     :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
     @click="handleClick"
+    @keydown="handleKeydown"
   >
     <slot />
   </button>

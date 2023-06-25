@@ -43,21 +43,15 @@ watchEffect(() => {
       window.addEventListener("mouseup", clearEvents);
     } else {
       if (injectedValue.triggerElement.value) {
-        document.querySelector("body").style.pointerEvents = "";
-        injectedValue.triggerElement.value.focus();
+        handleCloseMenu();
       }
     }
   }
 });
 
 function closeDialogWhenClickOutside(e: MouseEvent) {
-  console.log(injectedValue?.triggerElement.value);
-  const clickOutsideTrigger = useClickOutside(
-    e,
-    injectedValue?.triggerElement.value
-  );
   const clickOutside = useClickOutside(e, tooltipContentElement.value);
-  if (clickOutside && clickOutsideTrigger) {
+  if (clickOutside) {
     injectedValue.hideTooltip();
   }
 }
@@ -86,6 +80,13 @@ function fillItemsArray() {
     )
   ) as HTMLElement[];
   injectedValue.itemsArray = allToggleItem;
+}
+
+function handleCloseMenu() {
+  document.querySelector("body").style.pointerEvents = "";
+  setTimeout(() => {
+    injectedValue.triggerElement.value.focus();
+  }, 0);
 }
 </script>
 

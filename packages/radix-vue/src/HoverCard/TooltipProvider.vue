@@ -1,0 +1,3 @@
+<template>
+  <p></p>
+</template>

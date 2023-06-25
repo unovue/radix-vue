@@ -19,11 +19,11 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | Dialog          |   ✅   |              |                        |
 | Dropdown Menu   |        |              |                        |
 | Form            |        |              |                        |
-| Hover Card      |        |              |                        |
+| Hover Card      |   ✅   |              |                        |
 | Label           |   ✅   | ✅           | ✅                     |
 | Menubar         |        |              |                        |
 | Navigation Menu |        |              |                        |
-| Popover         |        |              |                        |
+| Popover         |   ⏳   |              |                        |
 | Progress        |   ✅   |              |                        |
 | Radio Group     |   ✅   |              |                        |
 | Scroll Area     |        |              |                        |
@@ -37,7 +37,7 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | Toggle          |   ✅   |              |                        |
 | Toggle Group    |   ✅   |              |                        |
 | Toolbar         |   ✅   |              |                        |
-| Tooltip         |        |              |                        |
+| Tooltip         |   ✅   |              |                        |
 
 ## Goals
 

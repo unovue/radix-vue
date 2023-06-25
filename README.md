@@ -15,7 +15,7 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | Avatar          |   ✅   |              |                        |
 | Checkbox        |   ✅   |              |                        |
 | Collapsible     |   ✅   | ✅           |                        |
-| Context Menu    |        |              |                        |
+| Context Menu    |   ⏳    |              |                        |
 | Dialog          |   ✅   |              |                        |
 | Dropdown Menu   |        |              |                        |
 | Form            |        |              |                        |
@@ -23,7 +23,7 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | Label           |   ✅   | ✅           | ✅                     |
 | Menubar         |        |              |                        |
 | Navigation Menu |        |              |                        |
-| Popover         |   ⏳   |              |                        |
+| Popover         |   ✅   |              |                        |
 | Progress        |   ✅   |              |                        |
 | Radio Group     |   ✅   |              |                        |
 | Scroll Area     |        |              |                        |

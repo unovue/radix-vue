@@ -33,49 +33,49 @@ const toggleStateMultiple = ref([]);
         value="bold"
         aria-label="Bold"
       >
-        <Icon icon="lucide:bold" />
+        <Icon icon="radix-icons:font-bold" />
       </ToolbarToggleItem>
       <ToolbarToggleItem
         class="flex-shrink-0 flex-grow-0 basis-auto text-mauve11 h-[25px] px-[5px] rounded inline-flex text-[13px] leading-none items-center justify-center bg-white ml-0.5 outline-none hover:bg-violet3 hover:text-violet11 focus:relative focus:shadow-[0_0_0_2px] focus:shadow-violet7 first:ml-0 data-[state=on]:bg-violet5 data-[state=on]:text-violet11"
         value="italic"
         aria-label="Italic"
       >
-        <Icon icon="lucide:italic" />
+        <Icon icon="radix-icons:font-italic" />
       </ToolbarToggleItem>
       <ToolbarToggleItem
         class="flex-shrink-0 flex-grow-0 basis-auto text-mauve11 h-[25px] px-[5px] rounded inline-flex text-[13px] leading-none items-center justify-center bg-white ml-0.5 outline-none hover:bg-violet3 hover:text-violet11 focus:relative focus:shadow-[0_0_0_2px] focus:shadow-violet7 first:ml-0 data-[state=on]:bg-violet5 data-[state=on]:text-violet11"
         value="strikethrough"
         aria-label="Strike through"
       >
-        <Icon icon="lucide:strikethrough" />
+        <Icon icon="radix-icons:strikethrough" />
       </ToolbarToggleItem>
     </ToolbarToggleGroup>
     <ToolbarSeparator class="w-[1px] bg-mauve6 mx-[10px]" />
     <ToolbarToggleGroup
       type="single"
       v-model="toggleStateSingle"
-      aria-label="Text alignment"
+      aria-label="Text Alignment"
     >
       <ToolbarToggleItem
         class="flex-shrink-0 flex-grow-0 basis-auto text-mauve11 h-[25px] px-[5px] rounded inline-flex text-[13px] leading-none items-center justify-center bg-white ml-0.5 outline-none hover:bg-violet3 hover:text-violet11 focus:relative focus:shadow-[0_0_0_2px] focus:shadow-violet7 first:ml-0 data-[state=on]:bg-violet5 data-[state=on]:text-violet11"
         value="left"
-        aria-label="Left aligned"
+        aria-label="Left Aligned"
       >
-      <Icon icon="lucide:align-left" />
+      <Icon icon="radix-icons:text-align-left" />
       </ToolbarToggleItem>
       <ToolbarToggleItem
         class="flex-shrink-0 flex-grow-0 basis-auto text-mauve11 h-[25px] px-[5px] rounded inline-flex text-[13px] leading-none items-center justify-center bg-white ml-0.5 outline-none hover:bg-violet3 hover:text-violet11 focus:relative focus:shadow-[0_0_0_2px] focus:shadow-violet7 first:ml-0 data-[state=on]:bg-violet5 data-[state=on]:text-violet11"
         value="center"
-        aria-label="Center aligned"
+        aria-label="Center Aligned"
       >
-      <Icon icon="lucide:align-center" />
+      <Icon icon="radix-icons:text-align-center" />
       </ToolbarToggleItem>
       <ToolbarToggleItem
         class="flex-shrink-0 flex-grow-0 basis-auto text-mauve11 h-[25px] px-[5px] rounded inline-flex text-[13px] leading-none items-center justify-center bg-white ml-0.5 outline-none hover:bg-violet3 hover:text-violet11 focus:relative focus:shadow-[0_0_0_2px] focus:shadow-violet7 first:ml-0 data-[state=on]:bg-violet5 data-[state=on]:text-violet11"
         value="right"
-        aria-label="Right aligned"
+        aria-label="Right Aligned"
       >
-      <Icon icon="lucide:align-right" />
+      <Icon icon="radix-icons:text-align-right" />
       </ToolbarToggleItem>
     </ToolbarToggleGroup>
     <ToolbarSeparator class="w-[1px] bg-mauve6 mx-[10px]" />

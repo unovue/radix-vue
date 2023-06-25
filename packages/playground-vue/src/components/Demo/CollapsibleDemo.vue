@@ -21,12 +21,12 @@ const rootDisabled = ref(false);
         <CollapsibleTrigger class="rounded-full h-[25px] w-[25px] inline-flex items-center justify-center text-violet11 shadow-[0_2px_10px] shadow-blackA7 outline-none data-[state=closed]:bg-white data-[state=open]:bg-violet3 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black">
             <Icon
           v-if="rootOpen"
-          icon="lucide:x"
+          icon="radix-icons:cross-2"
           class="h-3 w-3 text-black"
         />
         <Icon
           v-else
-          icon="lucide:chevrons-up-down"
+          icon="radix-icons:row-spacing"
           class="h-3 w-3 text-black"
         />
         </CollapsibleTrigger>

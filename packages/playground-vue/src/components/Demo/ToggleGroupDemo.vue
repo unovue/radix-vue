@@ -3,7 +3,6 @@ import { ToggleGroupRoot, ToggleGroupItem } from "radix-vue";
 import { Icon } from "@iconify/vue";
 import { ref } from "vue";
 
-const toggleState = ref(true);
 const toggleStateSingle = ref("1");
 const toggleStateMultiple = ref(["1"]);
 

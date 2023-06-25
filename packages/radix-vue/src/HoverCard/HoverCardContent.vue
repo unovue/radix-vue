@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { onMounted, inject, ref } from "vue";
-import { useFloating, offset, flip, shift, arrow, autoUpdate } from "@floating-ui/vue";
+import {
+  useFloating,
+  offset,
+  flip,
+  shift,
+  arrow,
+  autoUpdate,
+} from "@floating-ui/vue";
 import {
   HOVER_CARD_INJECTION_KEY,
   type HoverCardProvideValue,

@@ -68,6 +68,7 @@ function clearEvents() {
     style="min-width: max-content; will-change: transform; z-index: auto"
     :style="floatingStyles"
   >
+    {{ injectedValue.selectedElement }}
     <div
       :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
       data-side="bottom"

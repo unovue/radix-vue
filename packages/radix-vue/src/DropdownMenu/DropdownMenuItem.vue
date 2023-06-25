@@ -1,17 +1,9 @@
 <script setup lang="ts">
 import { ref, inject, computed } from "vue";
 import {
-  DROPDOWN_MENU_GROUP_INJECTION_KEY,
-  type DropdownMenuGroupProvideValue,
-} from "./DropdownMenuGroup.vue";
-import {
   DROPDOWN_MENU_INJECTION_KEY,
   type DropdownMenuProvideValue,
 } from "./DropdownMenuRoot.vue";
-
-const injectedValue = inject<DropdownMenuGroupProvideValue>(
-  DROPDOWN_MENU_INJECTION_KEY
-);
 
 interface ToggleGroupItemProps {
   value?: string;
@@ -21,19 +13,9 @@ const rootInjectedValue = inject<DropdownMenuProvideValue>(
   DROPDOWN_MENU_INJECTION_KEY
 );
 
-const props = withDefaults(defineProps<ToggleGroupItemProps>(), {});
+const props = defineProps<ToggleGroupItemProps>();
 
-const state = computed(() => {
-  if (injectedValue?.type === "multiple") {
-    return injectedValue?.modelValue?.value?.includes(props.value!)
-      ? "on"
-      : "off";
-  } else {
-    return injectedValue?.modelValue?.value === props.value ? "on" : "off";
-  }
-});
-
-const currentToggleElement = ref<HTMLElement | undefined>();
+const currentElement = ref<HTMLElement | undefined>();
 
 function handleKeydown(e: KeyboardEvent) {
   const allToggleItem = Array.from(
@@ -42,9 +24,9 @@ function handleKeydown(e: KeyboardEvent) {
     )
   ) as HTMLElement[];
   if (allToggleItem.length) {
-    const currentTabIndex = allToggleItem.indexOf(currentToggleElement.value!);
+    const currentTabIndex = allToggleItem.indexOf(currentElement.value!);
 
-    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+    if (e.key === "ArrowDown") {
       e.preventDefault();
       if (allToggleItem[currentTabIndex + 1]) {
         allToggleItem[currentTabIndex + 1].focus();
@@ -53,7 +35,7 @@ function handleKeydown(e: KeyboardEvent) {
       }
     }
 
-    if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+    if (e.key === "ArrowUp") {
       e.preventDefault();
       if (allToggleItem[currentTabIndex - 1]) {
         allToggleItem[currentTabIndex - 1].focus();
@@ -63,17 +45,27 @@ function handleKeydown(e: KeyboardEvent) {
     }
   }
 }
+
+function handleHover() {
+  rootInjectedValue!.selectedElement.value = currentElement.value;
+}
 </script>
 
 <template>
-  <button
-    type="button"
+  <div
+    role="menuitem"
     :data-state="state"
-    @click="injectedValue!.changeModelValue(props.value)"
-    ref="currentToggleElement"
+    ref="currentElement"
     @keydown="handleKeydown"
     data-radix-vue-collection-item
+    @hover="handleHover"
+    :data-highlighted="
+      rootInjectedValue?.selectedElement === currentElement ? '' : null
+    "
+    :tabindex="
+      rootInjectedValue?.selectedElement === currentElement ? '0' : '-1'
+    "
   >
     <slot />
-  </button>
+  </div>
 </template>

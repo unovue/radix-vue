@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { inject, ref, onMounted } from "vue";
 import {
-  TOOLTIP_INJECTION_KEY,
-  type TooltipProvideValue,
-} from "./TooltipRoot.vue";
+  HOVER_CARD_INJECTION_KEY,
+  type HoverCardProvideValue,
+} from "./HoverCardRoot.vue";
 
-const injectedValue = inject<TooltipProvideValue>(TOOLTIP_INJECTION_KEY);
+const injectedValue = inject<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY);
 
 const props = defineProps({
   class: String,

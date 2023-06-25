@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { onMounted, inject, ref } from "vue";
-import {
-  TOOLTIP_INJECTION_KEY,
-  type TooltipProvideValue,
-} from "./TooltipRoot.vue";
 import { useFloating, offset, flip, shift, arrow } from "@floating-ui/vue";
+import {
+  HOVER_CARD_INJECTION_KEY,
+  type HoverCardProvideValue,
+} from "./HoverCardRoot.vue";
 
-const injectedValue = inject<TooltipProvideValue>(TOOLTIP_INJECTION_KEY);
+const injectedValue = inject<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY);
 
 const props = defineProps({
   class: String,
@@ -38,6 +38,8 @@ const { floatingStyles } = useFloating(
     v-if="injectedValue?.modelValue.value"
     style="min-width: max-content; will-change: transform; z-index: auto"
     :style="floatingStyles"
+    @mouseenter="injectedValue?.showTooltip"
+    @mouseleave="injectedValue?.hideTooltip"
   >
     <div
       :data-state="injectedValue?.modelValue.value ? 'delayed-open' : 'closed'"

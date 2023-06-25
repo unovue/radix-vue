@@ -1,6 +1,5 @@
-export { default as TooltipRoot } from "./TooltipRoot.vue";
-export { default as TooltipTrigger } from "./TooltipTrigger.vue";
-export { default as TooltipPortal } from "./TooltipPortal.vue";
-export { default as TooltipContent } from "./TooltipContent.vue";
-export { default as TooltipProvider } from "./TooltipProvider.vue";
-export { default as TooltipArrow } from "./TooltipArrow.vue";
+export { default as HoverCardRoot } from "./HoverCardRoot.vue";
+export { default as HoverCardTrigger } from "./HoverCardTrigger.vue";
+export { default as HoverCardPortal } from "./HoverCardPortal.vue";
+export { default as HoverCardContent } from "./HoverCardContent.vue";
+export { default as HoverCardArrow } from "./HoverCardArrow.vue";

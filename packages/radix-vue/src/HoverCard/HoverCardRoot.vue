@@ -1,16 +1,16 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
 
-export interface TooltipRootProps {
+export interface HoverCardRootProps {
   modelValue?: boolean;
   delayDuration?: number;
   disableHoverableContent?: boolean;
 }
 
-export const TOOLTIP_INJECTION_KEY =
-  Symbol() as InjectionKey<TooltipProvideValue>;
+export const HOVER_CARD_INJECTION_KEY =
+  Symbol() as InjectionKey<HoverCardProvideValue>;
 
-export type TooltipProvideValue = {
+export type HoverCardProvideValue = {
   modelValue: Readonly<Ref<boolean>>;
   showTooltip(): void;
   hideTooltip(): void;
@@ -24,9 +24,8 @@ export type TooltipProvideValue = {
 
 <script setup lang="ts">
 import { provide, toRef, ref } from "vue";
-import { useFloating, offset, flip, shift, arrow } from "@floating-ui/vue";
 
-const props = withDefaults(defineProps<TooltipRootProps>(), {
+const props = withDefaults(defineProps<HoverCardRootProps>(), {
   delayDuration: 700,
 });
 
@@ -38,7 +37,7 @@ const triggerElement = ref<HTMLElement>();
 const floatingElement = ref<HTMLElement>();
 const arrowElement = ref<HTMLElement>();
 
-provide<TooltipProvideValue>(TOOLTIP_INJECTION_KEY, {
+provide<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY, {
   modelValue: toRef(() => props.modelValue),
   showTooltip: () => {
     emit("update:modelValue", true);

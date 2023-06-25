@@ -68,3 +68,12 @@ export {
   HoverCardRoot,
   HoverCardTrigger,
 } from "./HoverCard";
+export {
+  PopoverRoot,
+  PopoverTrigger,
+  PopoverPortal,
+  PopoverContent,
+  PopoverArrow,
+  PopoverAnchor,
+  PopoverClose,
+} from "./Popover";

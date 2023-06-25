@@ -1,47 +1,52 @@
 <script setup lang="ts">
-import { computed, inject, ref } from "vue";
+import { onMounted, inject, ref } from "vue";
 import {
   TOOLTIP_INJECTION_KEY,
   type TooltipProvideValue,
 } from "./TooltipRoot.vue";
+import { useFloating, offset, flip, shift, arrow } from "@floating-ui/vue";
 
 const injectedValue = inject<TooltipProvideValue>(TOOLTIP_INJECTION_KEY);
 
-const triggerPosition = computed<DOMRect>(() => {
-  const triggerRect =
-    injectedValue?.triggerElement.value?.getBoundingClientRect();
-  return triggerRect;
+const props = defineProps({
+  class: String,
 });
 
-const floatPosition = computed<DOMRect>(() => {
-  const floatRect = tooltipContentElement.value?.getBoundingClientRect();
-  return floatRect;
-});
-
-let offset = 10;
 const tooltipContentElement = ref<HTMLElement>();
+onMounted(() => {
+  injectedValue!.floatingElement.value = tooltipContentElement.value;
+});
+
+const { floatingStyles } = useFloating(
+  injectedValue.triggerElement,
+  tooltipContentElement,
+  {
+    placement: "top",
+    middleware: [
+      offset(10),
+      flip(),
+      shift(),
+      arrow({ element: injectedValue?.arrowElement }),
+    ],
+  }
+);
 </script>
 
 <template>
   <div
     ref="tooltipContentElement"
     v-if="injectedValue?.modelValue.value"
-    :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
-    role="tooltip"
-    tabindex="-1"
-    style="
-      pointer-events: none;
-      position: fixed;
-      top: 0px;
-      left: 0px;
-      min-width: max-content;
-    "
-    :style="`transform: translate(${
-      triggerPosition?.left +
-      triggerPosition?.width / 2 -
-      floatPosition?.width / 2
-    }px ,${triggerPosition?.top - floatPosition?.height - offset}px)`"
+    style="min-width: max-content; will-change: transform; z-index: auto"
+    :style="floatingStyles"
   >
-    <slot />
+    <div
+      :data-state="injectedValue?.modelValue.value ? 'delayed-open' : 'closed'"
+      data-side="top"
+      role="tooltip"
+      tabindex="-1"
+      :class="props.class"
+    >
+      <slot />
+    </div>
   </div>
 </template>

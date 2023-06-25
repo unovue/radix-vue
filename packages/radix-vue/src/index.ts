@@ -53,3 +53,11 @@ export {
   ToolbarSeparator,
 } from "./Toolbar";
 export { AvatarRoot, AvatarImage, AvatarFallback } from "./Avatar";
+export {
+  TooltipArrow,
+  TooltipContent,
+  TooltipPortal,
+  TooltipProvider,
+  TooltipRoot,
+  TooltipTrigger,
+} from "./Tooltip";

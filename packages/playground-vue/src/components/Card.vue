@@ -1,5 +1,5 @@
 <template>
-  <div class="card-bg flex items-center justify-center min-h-[300px] rounded-xl">
+  <div class="relative card-bg flex items-center justify-center min-h-[300px] rounded-xl">
     <div class="">
       <slot />
     </div>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import Card from "./components/Card.vue";
 import CheckboxDemo from "./components/Demo/CheckboxDemo.vue";
 import CollapsibleDemo from "./components/Demo/CollapsibleDemo.vue";
@@ -16,7 +17,7 @@ import AlertDialogDemo from "./components/Demo/AlertDialogDemo.vue";
 import RadioGroupDemo from "./components/Demo/RadioGroupDemo.vue";
 import ToolbarDemo from "./components/Demo/ToolbarDemo.vue";
 import AvatarDemo from "./components/Demo/AvatarDemo.vue";
-
+import TooltipDemo from "./components/Demo/TooltipDemo.vue";
 </script>
 
 <template>
@@ -69,6 +70,9 @@ import AvatarDemo from "./components/Demo/AvatarDemo.vue";
       </Card>
       <Card>
         <AvatarDemo />
+      </Card>
+      <Card>
+        <TooltipDemo />
       </Card>
     </div>
   </div>

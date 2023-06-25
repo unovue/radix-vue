@@ -44,3 +44,11 @@ export {
   AlertDialogDescription,
   AlertDialogAction,
 } from "./AlertDialog";
+export {
+  ToolbarRoot,
+  ToolbarButton,
+  ToolbarLink,
+  ToolbarToggleGroup,
+  ToolbarToggleItem,
+  ToolbarSeparator,
+} from "./Toolbar";

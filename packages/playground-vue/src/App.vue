@@ -14,6 +14,7 @@ import ProgressDemo from "./components/Demo/ProgressDemo.vue";
 import DialogDemo from "./components/Demo/DialogDemo.vue";
 import AlertDialogDemo from "./components/Demo/AlertDialogDemo.vue";
 import RadioGroupDemo from "./components/Demo/RadioGroupDemo.vue";
+import ToolbarDemo from "./components/Demo/ToolbarDemo.vue";
 
 </script>
 
@@ -61,6 +62,9 @@ import RadioGroupDemo from "./components/Demo/RadioGroupDemo.vue";
       </Card>
       <Card>
         <RadioGroupDemo />
+      </Card>
+      <Card>
+        <ToolbarDemo />
       </Card>
     </div>
   </div>

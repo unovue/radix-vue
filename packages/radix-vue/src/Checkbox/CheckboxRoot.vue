@@ -50,7 +50,7 @@ let dataState: "checked" | "unchecked" | "indeterminate";
   <div
     :value="props.value"
     role="checkbox"
-    :aria-checked="modelValue"
+    :aria-checked="props.modelValue"
     :data-state="dataState"
     style="position: relative"
     :data-disabled="props.disabled ? '' : undefined"
@@ -58,9 +58,9 @@ let dataState: "checked" | "unchecked" | "indeterminate";
     <input
       type="checkbox"
       :id="props.id"
-      v-bind="modelValue"
+      v-bind="props.modelValue"
       @change="updateModelValue"
-      :checked="modelValue"
+      :checked="props.modelValue"
       :name="props.name"
       aria-hidden="true"
       :disabled="props.disabled"

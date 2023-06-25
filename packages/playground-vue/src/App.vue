@@ -20,6 +20,7 @@ import AvatarDemo from "./components/Demo/AvatarDemo.vue";
 import TooltipDemo from "./components/Demo/TooltipDemo.vue";
 import HoverCardDemo from "./components/Demo/HoverCardDemo.vue";
 import PopoverDemo from "./components/Demo/PopoverDemo.vue";
+import DropdownMenuDemo from "./components/Demo/DropdownMenuDemo.vue";
 </script>
 
 <template>
@@ -81,6 +82,9 @@ import PopoverDemo from "./components/Demo/PopoverDemo.vue";
       </Card>
       <Card>
         <PopoverDemo />
+      </Card>
+      <Card>
+        <DropdownMenuDemo />
       </Card>
     </div>
   </div>

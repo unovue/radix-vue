@@ -19,6 +19,7 @@ import ToolbarDemo from "./components/Demo/ToolbarDemo.vue";
 import AvatarDemo from "./components/Demo/AvatarDemo.vue";
 import TooltipDemo from "./components/Demo/TooltipDemo.vue";
 import HoverCardDemo from "./components/Demo/HoverCardDemo.vue";
+import PopoverDemo from "./components/Demo/PopoverDemo.vue";
 </script>
 
 <template>
@@ -77,6 +78,9 @@ import HoverCardDemo from "./components/Demo/HoverCardDemo.vue";
       </Card>
       <Card>
         <HoverCardDemo />
+      </Card>
+      <Card>
+        <PopoverDemo />
       </Card>
     </div>
   </div>

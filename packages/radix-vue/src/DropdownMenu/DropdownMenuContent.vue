@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, inject, ref, watchEffect } from "vue";
 import { useFloating, offset, flip, shift, autoUpdate } from "@floating-ui/vue";
-import { trapFocus } from "../shared/trap-focus.ts";
 import { useClickOutside } from "../shared/useClickOutside.ts";
 import {
   DROPDOWN_MENU_INJECTION_KEY,
@@ -35,13 +34,16 @@ watchEffect(() => {
   if (tooltipContentElement.value) {
     if (injectedValue.modelValue.value) {
       setTimeout(() => {
-        trapFocus(tooltipContentElement.value);
+        document.querySelector("body")!.style.pointerEvents = "none";
+        focusFirstRadixElement();
+        fillItemsArray();
       }, 0);
 
       window.addEventListener("mousedown", closeDialogWhenClickOutside);
       window.addEventListener("mouseup", clearEvents);
     } else {
       if (injectedValue.triggerElement.value) {
+        document.querySelector("body").style.pointerEvents = "";
         injectedValue.triggerElement.value.focus();
       }
     }
@@ -49,8 +51,13 @@ watchEffect(() => {
 });
 
 function closeDialogWhenClickOutside(e: MouseEvent) {
+  console.log(injectedValue?.triggerElement.value);
+  const clickOutsideTrigger = useClickOutside(
+    e,
+    injectedValue?.triggerElement.value
+  );
   const clickOutside = useClickOutside(e, tooltipContentElement.value);
-  if (clickOutside) {
+  if (clickOutside && clickOutsideTrigger) {
     injectedValue.hideTooltip();
   }
 }
@@ -58,6 +65,27 @@ function closeDialogWhenClickOutside(e: MouseEvent) {
 function clearEvents() {
   window.removeEventListener("mousedown", closeDialogWhenClickOutside);
   window.removeEventListener("mouseup", clearEvents);
+}
+
+function focusFirstRadixElement() {
+  const allToggleItem = Array.from(
+    tooltipContentElement.value.querySelectorAll(
+      "[data-radix-vue-collection-item]"
+    )
+  ) as HTMLElement[];
+  if (allToggleItem.length) {
+    injectedValue!.selectedElement.value = allToggleItem[0];
+    allToggleItem[0].focus();
+  }
+}
+
+function fillItemsArray() {
+  const allToggleItem = Array.from(
+    tooltipContentElement.value.querySelectorAll(
+      "[data-radix-vue-collection-item]"
+    )
+  ) as HTMLElement[];
+  injectedValue.itemsArray = allToggleItem;
 }
 </script>
 
@@ -68,12 +96,12 @@ function clearEvents() {
     style="min-width: max-content; will-change: transform; z-index: auto"
     :style="floatingStyles"
   >
-    {{ injectedValue.selectedElement }}
     <div
       :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
       data-side="bottom"
       role="tooltip"
       :class="props.class"
+      style="pointer-events: auto"
     >
       <slot />
     </div>

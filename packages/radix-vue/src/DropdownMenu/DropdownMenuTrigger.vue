@@ -13,6 +13,14 @@ const triggerElement = ref<HTMLElement>();
 onMounted(() => {
   injectedValue!.triggerElement.value = triggerElement.value;
 });
+
+function handleClick() {
+  if (injectedValue?.modelValue.value) {
+    injectedValue?.hideTooltip();
+  } else {
+    injectedValue?.showTooltip();
+  }
+}
 </script>
 
 <template>
@@ -21,7 +29,7 @@ onMounted(() => {
     ref="triggerElement"
     :aria-expanded="injectedValue?.modelValue.value || false"
     :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
-    @click="injectedValue?.showTooltip"
+    @click="handleClick"
   >
     <slot />
   </button>

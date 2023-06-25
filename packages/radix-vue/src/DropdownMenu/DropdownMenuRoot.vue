@@ -21,6 +21,7 @@ export type DropdownMenuProvideValue = {
   arrowElement: Ref<HTMLElement | undefined>;
   floatingStyles: any;
   middlewareData: any;
+  itemsArray: HTMLElement[];
 };
 </script>
 
@@ -57,6 +58,7 @@ provide<DropdownMenuProvideValue>(DROPDOWN_MENU_INJECTION_KEY, {
   arrowElement: arrowElement,
   floatingStyles: "",
   middlewareData: "",
+  itemsArray: [],
 });
 </script>
 

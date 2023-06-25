@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, inject, computed } from "vue";
+import { ref, inject, watchEffect } from "vue";
 import {
   DROPDOWN_MENU_INJECTION_KEY,
   type DropdownMenuProvideValue,
@@ -18,52 +18,59 @@ const props = defineProps<ToggleGroupItemProps>();
 const currentElement = ref<HTMLElement | undefined>();
 
 function handleKeydown(e: KeyboardEvent) {
-  const allToggleItem = Array.from(
-    rootInjectedValue.parentElement.value.querySelectorAll(
-      "[data-radix-vue-collection-item]"
-    )
-  ) as HTMLElement[];
+  console.log(rootInjectedValue);
+  const allToggleItem = rootInjectedValue!.itemsArray;
   if (allToggleItem.length) {
     const currentTabIndex = allToggleItem.indexOf(currentElement.value!);
-
     if (e.key === "ArrowDown") {
       e.preventDefault();
       if (allToggleItem[currentTabIndex + 1]) {
-        allToggleItem[currentTabIndex + 1].focus();
+        rootInjectedValue?.changeSelected(allToggleItem[currentTabIndex + 1]);
       } else {
-        allToggleItem[0].focus();
+        rootInjectedValue?.changeSelected(allToggleItem[0]);
       }
     }
 
     if (e.key === "ArrowUp") {
       e.preventDefault();
       if (allToggleItem[currentTabIndex - 1]) {
-        allToggleItem[currentTabIndex - 1].focus();
+        rootInjectedValue?.changeSelected(allToggleItem[currentTabIndex - 1]);
       } else {
-        allToggleItem[allToggleItem.length - 1].focus();
+        rootInjectedValue?.changeSelected(
+          allToggleItem[allToggleItem.length - 1]
+        );
       }
     }
   }
 }
 
+watchEffect(() => {
+  if (rootInjectedValue?.selectedElement.value === currentElement.value) {
+    currentElement.value?.focus();
+  }
+});
+
 function handleHover() {
-  rootInjectedValue!.selectedElement.value = currentElement.value;
+  rootInjectedValue!.changeSelected(currentElement.value);
 }
 </script>
 
 <template>
   <div
     role="menuitem"
-    :data-state="state"
+    :data-state="
+      rootInjectedValue?.selectedElement.value === currentElement ? 'on' : 'off'
+    "
     ref="currentElement"
     @keydown="handleKeydown"
     data-radix-vue-collection-item
-    @hover="handleHover"
+    @mouseenter="handleHover"
+    @mouseleave="rootInjectedValue!.changeSelected(null)"
     :data-highlighted="
-      rootInjectedValue?.selectedElement === currentElement ? '' : null
+      rootInjectedValue?.selectedElement.value === currentElement ? '' : null
     "
     :tabindex="
-      rootInjectedValue?.selectedElement === currentElement ? '0' : '-1'
+      rootInjectedValue?.selectedElement.value === currentElement ? '0' : '-1'
     "
   >
     <slot />

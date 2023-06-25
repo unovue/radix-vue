@@ -15,6 +15,7 @@ import DialogDemo from "./components/Demo/DialogDemo.vue";
 import AlertDialogDemo from "./components/Demo/AlertDialogDemo.vue";
 import RadioGroupDemo from "./components/Demo/RadioGroupDemo.vue";
 import ToolbarDemo from "./components/Demo/ToolbarDemo.vue";
+import AvatarDemo from "./components/Demo/AvatarDemo.vue";
 
 </script>
 
@@ -65,6 +66,9 @@ import ToolbarDemo from "./components/Demo/ToolbarDemo.vue";
       </Card>
       <Card class="col-span-2">
         <ToolbarDemo />
+      </Card>
+      <Card>
+        <AvatarDemo />
       </Card>
     </div>
   </div>

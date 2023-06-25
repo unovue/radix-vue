@@ -36,7 +36,7 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | Toast           |        |              |                        |
 | Toggle          |   ✅   |              |                        |
 | Toggle Group    |   ✅   |              |                        |
-| Toolbar         |        |              |                        |
+| Toolbar         |   ✅   |              |                        |
 | Tooltip         |        |              |                        |
 
 ## Goals

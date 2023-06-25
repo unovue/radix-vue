@@ -40,7 +40,6 @@ watchEffect(() => {
       }, 0);
 
       window.addEventListener("mousedown", closeDialogWhenClickOutside);
-      window.addEventListener("mouseup", clearEvents);
     } else {
       if (injectedValue.triggerElement.value) {
         handleCloseMenu();
@@ -53,12 +52,8 @@ function closeDialogWhenClickOutside(e: MouseEvent) {
   const clickOutside = useClickOutside(e, tooltipContentElement.value);
   if (clickOutside) {
     injectedValue.hideTooltip();
+    window.removeEventListener("mousedown", closeDialogWhenClickOutside);
   }
-}
-
-function clearEvents() {
-  window.removeEventListener("mousedown", closeDialogWhenClickOutside);
-  window.removeEventListener("mouseup", clearEvents);
 }
 
 function focusFirstRadixElement() {

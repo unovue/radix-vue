@@ -6,3 +6,5 @@ export { default as DropdownMenuArrow } from "./DropdownMenuArrow.vue";
 export { default as DropdownMenuItem } from "./DropdownMenuItem.vue";
 export { default as DropdownMenuGroup } from "./DropdownMenuGroup.vue";
 export { default as DropdownMenuSeparator } from "./DropdownMenuSeparator.vue";
+export { default as DropdownMenuCheckboxItem } from "./DropdownMenuCheckboxItem.vue";
+export { default as DropdownMenuItemIndicator } from "./DropdownMenuItemIndicator.vue";

@@ -86,4 +86,6 @@ export {
   DropdownMenuRoot,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  DropdownMenuCheckboxItem,
+  DropdownMenuItemIndicator,
 } from "./DropdownMenu";

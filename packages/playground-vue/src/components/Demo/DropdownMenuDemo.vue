@@ -7,13 +7,17 @@ import {
   DropdownMenuRoot,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  DropdownMenuGroup
+  DropdownMenuGroup,
+  DropdownMenuCheckboxItem,
+  DropdownMenuItemIndicator,
 } from "radix-vue";
 import { Icon } from "@iconify/vue";
 import { ref } from "vue";
 
 const toggleState = ref(false);
 const toggleItem = ref("New Tab");
+const checkboxOne = ref(false)
+const checkboxTwo = ref(false)
 
 function handleClick(){
   alert('hello!')
@@ -61,22 +65,22 @@ function handleClick(){
             </div>
           </DropdownMenuItem>
         <DropdownMenuSeparator class="h-[1px] bg-violet6 m-[5px]" />
-        <DropdownMenuItem value="New Tab"
+        <DropdownMenuCheckboxItem value="New Tab"
             class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
             New Tab
             <div
               class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
               ⌘+T
             </div>
-          </DropdownMenuItem>
-          <DropdownMenuItem value="New Window"
+          </DropdownMenuCheckboxItem>
+          <DropdownMenuCheckboxItem value="New Window"
             class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
             New Window
             <div
               class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
               ⌘+N
             </div>
-          </DropdownMenuItem>
+          </DropdownMenuCheckboxItem>
           <DropdownMenuItem value="New Private Window"
             class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
             disabled>
@@ -87,56 +91,30 @@ function handleClick(){
             </div>
           </DropdownMenuItem>
         <DropdownMenuSeparator class="h-[1px] bg-violet6 m-[5px]" />
-        <DropdownMenuItem value="New Tab"
-            class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
-            New Tab
-            <div
-              class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
-              ⌘+T
-            </div>
-          </DropdownMenuItem>
-          <DropdownMenuItem value="New Window"
-            class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
-            New Window
-            <div
-              class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
-              ⌘+N
-            </div>
-          </DropdownMenuItem>
-          <DropdownMenuItem value="New Private Window"
-            class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-            disabled>
-            New Private Window
-            <div
-              class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
-              ⇧+⌘+N
-            </div>
-          </DropdownMenuItem>
-        <!--
-          <DropdownMenuCheckboxItem
+          <DropdownMenuCheckboxItem v-model="checkboxOne"
             class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
             checked={bookmarksChecked}
             onCheckedChange={setBookmarksChecked}
           >
             <DropdownMenuItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">
-              <CheckIcon />
+              <Icon icon="radix-icons:check" />
             </DropdownMenuItemIndicator>
-            Show Bookmarks{' '}
+            Show Bookmarks
             <div class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
               ⌘+B
             </div>
           </DropdownMenuCheckboxItem>
-          <DropdownMenuCheckboxItem
+          <DropdownMenuCheckboxItem v-model="checkboxTwo"
             class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
             checked={urlsChecked}
             onCheckedChange={setUrlsChecked}
           >
             <DropdownMenuItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">
-              <CheckIcon />
+              <Icon icon="radix-icons:check" />
             </DropdownMenuItemIndicator>
             Show Full URLs
           </DropdownMenuCheckboxItem>
-
+          <!--
           <DropdownMenuSeparator class="h-[1px] bg-violet6 m-[5px]" />
 
           <DropdownMenuLabel class="pl-[25px] text-xs leading-[25px] text-mauve11">

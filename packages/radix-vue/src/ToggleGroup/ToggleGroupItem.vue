@@ -29,10 +29,10 @@ const currentToggleElement = ref<HTMLElement | undefined>();
 
 function handleKeydown(e: KeyboardEvent) {
   const allToggleItem = Array.from(
-    injectedValue!.parentElement.value.querySelectorAll(
+    injectedValue!.parentElement!.value!.querySelectorAll(
       "[data-radix-vue-collection-item]"
     )
-  );
+  ) as HTMLElement[];
   if (allToggleItem.length) {
     const currentTabIndex = allToggleItem.indexOf(currentToggleElement.value!);
 
@@ -61,7 +61,7 @@ function handleKeydown(e: KeyboardEvent) {
   <button
     type="button"
     :data-state="state"
-    @click="injectedValue!.changeModelValue()"
+    @click="injectedValue!.changeModelValue(props.value)"
     ref="currentToggleElement"
     @keydown="handleKeydown"
     data-radix-vue-collection-item

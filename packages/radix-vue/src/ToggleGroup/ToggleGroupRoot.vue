@@ -1,9 +1,8 @@
 <script lang="ts">
-import type { Ref } from "vue";
+import type { Ref, InjectionKey } from "vue";
+import type { DataOrientation, Direction } from "../shared/types";
 
 type TypeEnum = "single" | "multiple";
-type DataOrientation = "vertical" | "horizontal";
-type Direction = "vertical" | "horizontal";
 
 export interface ToggleGroupRootProps {
   type?: TypeEnum;
@@ -17,13 +16,14 @@ export interface ToggleGroupRootProps {
   modelValue?: string | string[];
 }
 
-export const TOGGLE_GROUP_INJECTION_KEY = "ToggleGroup" as const;
+export const TOGGLE_GROUP_INJECTION_KEY =
+  Symbol() as InjectionKey<ToggleGroupProvideValue>;
 
 export interface ToggleGroupProvideValue {
   type: TypeEnum;
   modelValue?: Readonly<Ref<string | string[] | undefined>>;
   changeModelValue(): (value: string) => void;
-  parentElement: Ref<HTMLElement>;
+  parentElement: Ref<HTMLElement | undefined>;
 }
 </script>
 

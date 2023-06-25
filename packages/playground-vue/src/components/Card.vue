@@ -1,6 +1,6 @@
 <template>
   <div class="relative card-bg flex items-center justify-center min-h-[300px] rounded-xl">
-    <div class="">
+    <div class="w-full max-w-[700px] flex flex-col items-center justify-center">
       <slot />
     </div>
   </div>

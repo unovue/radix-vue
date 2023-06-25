@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, inject, ref, watchEffect } from "vue";
-import { useFloating, offset, flip, shift } from "@floating-ui/vue";
+import { useFloating, offset, flip, shift, autoUpdate } from "@floating-ui/vue";
 import { trapFocus } from "../shared/trap-focus.ts";
 import { useClickOutside } from "../shared/useClickOutside.ts";
 import {
@@ -23,8 +23,9 @@ const { floatingStyles } = useFloating(
   injectedValue!.triggerElement,
   tooltipContentElement,
   {
-    placement: "top",
+    placement: "bottom",
     middleware: [offset(10), flip(), shift()],
+    whileElementsMounted: autoUpdate,
   }
 );
 
@@ -67,7 +68,7 @@ function clearEvents() {
   >
     <div
       :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
-      data-side="top"
+      data-side="bottom"
       role="tooltip"
       :class="props.class"
     >

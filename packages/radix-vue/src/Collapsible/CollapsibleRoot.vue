@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { Ref } from "vue";
+import type { InjectionKey, Ref } from "vue";
 
 export interface CollapsibleRootProps {
   defaultOpen?: boolean;
@@ -7,14 +7,15 @@ export interface CollapsibleRootProps {
   disabled?: boolean;
 }
 
-export const COLLAPSIBLE_INJECTION_KEY = "Collapsible" as const;
-
 export type CollapsibleProvideValue = {
   contentId: string;
   disabled?: Readonly<Ref<boolean>>;
   open: Readonly<Ref<boolean>>;
   onOpenToggle(): void;
 };
+
+export const COLLAPSIBLE_INJECTION_KEY =
+  Symbol() as InjectionKey<CollapsibleProvideValue>;
 </script>
 
 <script setup lang="ts">

@@ -12,48 +12,37 @@ const rootDisabled = ref(false);
 </script>
 
 <template>
-  <CollapsibleRoot
-    v-model:open="rootOpen"
-    :disabled="rootDisabled"
-    class="w-full"
-  >
-    <div class="flex items-center justify-between">
-      <span class="text-sm leading-6 text-white">
-        @mujahidfa starred 3 repos
-      </span>
-      <CollapsibleTrigger
-        class="inline-grid h-6 w-6 place-items-center rounded-full bg-white text-sm text-green-700 shadow-lg outline-none hover:opacity-75 focus:ring focus:ring-black data-[disabled]:cursor-not-allowed data-[disabled]:opacity-75"
-      >
-        <Icon
+  <CollapsibleRoot class="w-[300px]" v-model:open="rootOpen"
+    :disabled="rootDisabled">
+      <div style="display: flex; align-items: center; justify-content: space-between">
+        <span class="text-violet11 text-[15px] leading-[25px]" style="color: white">
+          @mujahidfa starred 3 repos
+        </span>
+        <CollapsibleTrigger class="rounded-full h-[25px] w-[25px] inline-flex items-center justify-center text-violet11 shadow-[0_2px_10px] shadow-blackA7 outline-none data-[state=closed]:bg-white data-[state=open]:bg-violet3 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black">
+            <Icon
           v-if="rootOpen"
-          icon="heroicons:x-mark"
+          icon="lucide:x"
           class="h-3 w-3 text-black"
         />
         <Icon
           v-else
-          icon="heroicons:chevron-up-down"
+          icon="lucide:chevrons-up-down"
           class="h-3 w-3 text-black"
         />
-      </CollapsibleTrigger>
-    </div>
-
-    <div class="my-2 rounded bg-white p-3 shadow-lg">
-      <span class="text-base leading-[25px] text-green-800"
-        >radix-vue/radix-vue</span
-      >
-    </div>
-
-    <CollapsibleContent>
-      <div class="flex flex-col gap-2">
-        <div class="rounded bg-white p-3 shadow-lg">
-          <span class="text-base leading-[25px] text-green-800"
-            >vuejs/core</span
-          >
-        </div>
-        <div class="rounded bg-white p-3 shadow-lg">
-          <span class="text-base leading-[25px] text-green-800">nuxt/nuxt</span>
-        </div>
+        </CollapsibleTrigger>
       </div>
-    </CollapsibleContent>
-  </CollapsibleRoot>
+
+      <div class="bg-white rounded my-[10px] p-[10px] shadow-[0_2px_10px] shadow-blackA7">
+        <span class="text-violet11 text-[15px] leading-[25px]">radix-vue/radix-vue</span>
+      </div>
+
+      <CollapsibleContent>
+        <div class="bg-white rounded my-[10px] p-[10px] shadow-[0_2px_10px] shadow-blackA7">
+          <span class="text-violet11 text-[15px] leading-[25px]">vuejs/core</span>
+        </div>
+        <div class="bg-white rounded my-[10px] p-[10px] shadow-[0_2px_10px] shadow-blackA7">
+          <span class="text-violet11 text-[15px] leading-[25px]">nuxt/nuxt</span>
+        </div>
+      </CollapsibleContent>
+    </CollapsibleRoot>
 </template>

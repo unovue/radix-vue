@@ -26,7 +26,9 @@ function handleKeydown(e: KeyboardEvent) {
     const currentTabIndex = allToggleItem.indexOf(currentElement.value!);
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      if (allToggleItem[currentTabIndex + 1]) {
+      if (!rootInjectedValue?.selectedElement.value) {
+        rootInjectedValue?.changeSelected(allToggleItem[0]);
+      } else if (allToggleItem[currentTabIndex + 1]) {
         rootInjectedValue?.changeSelected(allToggleItem[currentTabIndex + 1]);
       } else {
         rootInjectedValue?.changeSelected(allToggleItem[0]);
@@ -35,7 +37,11 @@ function handleKeydown(e: KeyboardEvent) {
 
     if (e.key === "ArrowUp") {
       e.preventDefault();
-      if (allToggleItem[currentTabIndex - 1]) {
+      if (!rootInjectedValue?.selectedElement.value) {
+        rootInjectedValue?.changeSelected(
+          allToggleItem[allToggleItem.length - 1]
+        );
+      } else if (allToggleItem[currentTabIndex - 1]) {
         rootInjectedValue?.changeSelected(allToggleItem[currentTabIndex - 1]);
       } else {
         rootInjectedValue?.changeSelected(

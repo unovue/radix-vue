@@ -18,11 +18,12 @@ import RadioGroupDemo from "./components/Demo/RadioGroupDemo.vue";
 import ToolbarDemo from "./components/Demo/ToolbarDemo.vue";
 import AvatarDemo from "./components/Demo/AvatarDemo.vue";
 import TooltipDemo from "./components/Demo/TooltipDemo.vue";
+import HoverCardDemo from "./components/Demo/HoverCardDemo.vue";
 </script>
 
 <template>
   <div class="w-full flex flex-col items-center">
-    <div class="max-w-6xl w-full grid grid-cols-3 gap-4 pt-40">
+    <div class="max-w-6xl w-full grid grid-cols-3 gap-4 pt-40 pb-20">
       <Card>
         <AspectRatioDemo />
       </Card>
@@ -73,6 +74,9 @@ import TooltipDemo from "./components/Demo/TooltipDemo.vue";
       </Card>
       <Card>
         <TooltipDemo />
+      </Card>
+      <Card>
+        <HoverCardDemo />
       </Card>
     </div>
   </div>

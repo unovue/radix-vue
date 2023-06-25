@@ -61,3 +61,10 @@ export {
   TooltipRoot,
   TooltipTrigger,
 } from "./Tooltip";
+export {
+  HoverCardArrow,
+  HoverCardContent,
+  HoverCardPortal,
+  HoverCardRoot,
+  HoverCardTrigger,
+} from "./HoverCard";

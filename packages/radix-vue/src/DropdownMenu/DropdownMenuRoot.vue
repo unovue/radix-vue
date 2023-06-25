@@ -1,10 +1,12 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
+import type { DataOrientation } from "@/shared/types";
 
 export interface DropdownMenuRootProps {
   modelValue?: boolean;
   delayDuration?: number;
   disableHoverableContent?: boolean;
+  orientation?: DataOrientation;
 }
 
 export const DROPDOWN_MENU_INJECTION_KEY =
@@ -22,6 +24,7 @@ export type DropdownMenuProvideValue = {
   floatingStyles: any;
   middlewareData: any;
   itemsArray: HTMLElement[];
+  orientation: DataOrientation;
 };
 </script>
 
@@ -30,6 +33,7 @@ import { provide, toRef, ref } from "vue";
 
 const props = withDefaults(defineProps<DropdownMenuRootProps>(), {
   delayDuration: 700,
+  orientation: "vertical",
 });
 
 const emit = defineEmits<{
@@ -59,6 +63,7 @@ provide<DropdownMenuProvideValue>(DROPDOWN_MENU_INJECTION_KEY, {
   floatingStyles: "",
   middlewareData: "",
   itemsArray: [],
+  orientation: props.orientation,
 });
 </script>
 

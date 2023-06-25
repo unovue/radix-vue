@@ -7,6 +7,7 @@ import {
 
 interface ToggleGroupItemProps {
   value?: string;
+  disabled?: boolean;
 }
 
 const rootInjectedValue = inject<DropdownMenuProvideValue>(
@@ -49,6 +50,12 @@ function handleKeydown(e: KeyboardEvent) {
         );
       }
     }
+
+    if (e.keyCode === 32 || e.key === "Enter") {
+      if (rootInjectedValue?.selectedElement.value) {
+        rootInjectedValue?.selectedElement.value.click();
+      }
+    }
   }
 }
 
@@ -59,7 +66,9 @@ watchEffect(() => {
 });
 
 function handleHover() {
-  rootInjectedValue!.changeSelected(currentElement.value);
+  if (!props.disabled) {
+    rootInjectedValue!.changeSelected(currentElement.value);
+  }
 }
 
 function handleCloseMenu() {
@@ -74,9 +83,6 @@ function handleCloseMenu() {
 <template>
   <div
     role="menuitem"
-    :data-state="
-      rootInjectedValue?.selectedElement.value === currentElement ? 'on' : 'off'
-    "
     ref="currentElement"
     @keydown="handleKeydown"
     data-radix-vue-collection-item
@@ -85,6 +91,9 @@ function handleCloseMenu() {
     :data-highlighted="
       rootInjectedValue?.selectedElement.value === currentElement ? '' : null
     "
+    :aria-disabled="props.disabled ? true : undefined"
+    :data-disabled="props.disabled ? '' : undefined"
+    :data-orientation="rootInjectedValue?.orientation"
     :tabindex="
       rootInjectedValue?.selectedElement.value === currentElement ? '0' : '-1'
     "

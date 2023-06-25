@@ -76,7 +76,7 @@ function focusFirstRadixElement() {
 function fillItemsArray() {
   const allToggleItem = Array.from(
     tooltipContentElement.value.querySelectorAll(
-      "[data-radix-vue-collection-item]"
+      "[data-radix-vue-collection-item]:not([data-disabled])"
     )
   ) as HTMLElement[];
   injectedValue.itemsArray = allToggleItem;

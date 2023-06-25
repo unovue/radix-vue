@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, inject, computed, provide } from "vue";
-import type { Ref } from "vue";
 import {
   RADIO_GROUP_INJECTION_KEY,
   type RadioGroupProvideValue,
@@ -24,16 +23,16 @@ function changeTab(value: string) {
   injectedValue?.changeModelValue(value);
 }
 
-const currentRadioElement: Ref<HTMLElement> = ref();
+const currentRadioElement = ref<HTMLElement>();
 
 function handleKeydown(e: KeyboardEvent) {
   const allRadioItem = Array.from(
-    injectedValue?.parentElement.value.querySelectorAll(
+    injectedValue!.parentElement.value!.querySelectorAll(
       "[data-radix-vue-collection-item]"
     )
-  );
+  ) as HTMLElement[];
   if (allRadioItem.length) {
-    const currentTabIndex = allRadioItem.indexOf(currentRadioElement.value);
+    const currentTabIndex = allRadioItem.indexOf(currentRadioElement.value!);
 
     if (e.key === "ArrowRight" || e.key === "ArrowDown") {
       e.preventDefault();
@@ -42,11 +41,11 @@ function handleKeydown(e: KeyboardEvent) {
         changeTab(
           allRadioItem[currentTabIndex + 1].getAttribute(
             "data-radix-vue-radio-value"
-          )
+          )!
         );
       } else {
         allRadioItem[0].focus();
-        changeTab(allRadioItem[0].getAttribute("data-radix-vue-radio-value"));
+        changeTab(allRadioItem[0].getAttribute("data-radix-vue-radio-value")!);
       }
     }
 
@@ -57,14 +56,14 @@ function handleKeydown(e: KeyboardEvent) {
         changeTab(
           allRadioItem[currentTabIndex - 1].getAttribute(
             "data-radix-vue-radio-value"
-          )
+          )!
         );
       } else {
         allRadioItem[allRadioItem.length - 1].focus();
         changeTab(
           allRadioItem[allRadioItem.length - 1].getAttribute(
             "data-radix-vue-radio-value"
-          )
+          )!
         );
       }
     }
@@ -76,7 +75,7 @@ function handleKeydown(e: KeyboardEvent) {
   <button
     type="button"
     :data-state="state"
-    @click="injectedValue.changeModelValue(props.value)"
+    @click="injectedValue?.changeModelValue(props.value)"
     :tabindex="`${
       injectedValue?.modelValue?.value === props.value ? '0' : '-1'
     }`"

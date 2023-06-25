@@ -4,6 +4,10 @@ import {
   TOOLBAR_TOGGLE_GROUP_INJECTION_KEY,
   type ToolbarToggleGroupProvideValue,
 } from "./ToolbarToggleGroup.vue";
+import {
+  TOOLBAR_INJECTION_KEY,
+  type ToolbarProvideValue,
+} from "./ToolbarRoot.vue";
 
 interface ToggleGroupItemProps {
   value?: string;
@@ -12,6 +16,7 @@ interface ToggleGroupItemProps {
 const injectedValue = inject<ToolbarToggleGroupProvideValue>(
   TOOLBAR_TOGGLE_GROUP_INJECTION_KEY
 );
+const rootInjectedValue = inject<ToolbarProvideValue>(TOOLBAR_INJECTION_KEY);
 
 const props = withDefaults(defineProps<ToggleGroupItemProps>(), {});
 
@@ -29,7 +34,7 @@ const currentToggleElement = ref<HTMLElement | undefined>();
 
 function handleKeydown(e: KeyboardEvent) {
   const allToggleItem = Array.from(
-    injectedValue!.parentElement.value.querySelectorAll(
+    rootInjectedValue.parentElement.value.querySelectorAll(
       "[data-radix-vue-collection-item]"
     )
   ) as HTMLElement[];

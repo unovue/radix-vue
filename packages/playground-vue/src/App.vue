@@ -24,7 +24,7 @@ import PopoverDemo from "./components/Demo/PopoverDemo.vue";
 
 <template>
   <div class="w-full flex flex-col items-center">
-    <div class="max-w-6xl w-full grid grid-cols-3 gap-4 pt-40 pb-20">
+    <div class="max-w-6xl w-full grid grid-cols-3 gap-4 pt-40 pb-40">
       <Card>
         <AspectRatioDemo />
       </Card>

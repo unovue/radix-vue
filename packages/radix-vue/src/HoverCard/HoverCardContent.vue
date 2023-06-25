@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, inject, ref } from "vue";
-import { useFloating, offset, flip, shift, arrow } from "@floating-ui/vue";
+import { useFloating, offset, flip, shift, arrow, autoUpdate } from "@floating-ui/vue";
 import {
   HOVER_CARD_INJECTION_KEY,
   type HoverCardProvideValue,
@@ -21,13 +21,14 @@ const { floatingStyles } = useFloating(
   injectedValue.triggerElement,
   tooltipContentElement,
   {
-    placement: "top",
+    placement: "bottom",
     middleware: [
       offset(10),
       flip(),
       shift(),
       arrow({ element: injectedValue?.arrowElement }),
     ],
+    whileElementsMounted: autoUpdate,
   }
 );
 </script>
@@ -43,7 +44,7 @@ const { floatingStyles } = useFloating(
   >
     <div
       :data-state="injectedValue?.modelValue.value ? 'delayed-open' : 'closed'"
-      data-side="top"
+      data-side="bottom"
       role="tooltip"
       tabindex="-1"
       :class="props.class"

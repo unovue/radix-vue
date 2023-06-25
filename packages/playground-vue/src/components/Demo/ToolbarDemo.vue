@@ -11,7 +11,7 @@ import { Icon } from "@iconify/vue";
 import { ref } from "vue";
 
 const toggleStateSingle = ref("center");
-const toggleStateMultiple = ref(["1"]);
+const toggleStateMultiple = ref([]);
 </script>
 
 <template>

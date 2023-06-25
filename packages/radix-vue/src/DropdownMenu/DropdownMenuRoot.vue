@@ -1,16 +1,16 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
 
-export interface PopoverRootProps {
+export interface DropdownMenuRootProps {
   modelValue?: boolean;
   delayDuration?: number;
   disableHoverableContent?: boolean;
 }
 
-export const POPOVER_INJECTION_KEY =
-  Symbol() as InjectionKey<PopoverProvideValue>;
+export const DROPDOWN_MENU_INJECTION_KEY =
+  Symbol() as InjectionKey<DropdownMenuProvideValue>;
 
-export type PopoverProvideValue = {
+export type DropdownMenuProvideValue = {
   modelValue: Readonly<Ref<boolean>>;
   showTooltip(): void;
   hideTooltip(): void;
@@ -25,7 +25,7 @@ export type PopoverProvideValue = {
 <script setup lang="ts">
 import { provide, toRef, ref } from "vue";
 
-const props = withDefaults(defineProps<PopoverRootProps>(), {
+const props = withDefaults(defineProps<DropdownMenuRootProps>(), {
   delayDuration: 700,
 });
 
@@ -37,7 +37,7 @@ const triggerElement = ref<HTMLElement>();
 const floatingElement = ref<HTMLElement>();
 const arrowElement = ref<HTMLElement>();
 
-provide<PopoverProvideValue>(POPOVER_INJECTION_KEY, {
+provide<DropdownMenuProvideValue>(DROPDOWN_MENU_INJECTION_KEY, {
   modelValue: toRef(() => props.modelValue),
   showTooltip: () => {
     emit("update:modelValue", true);

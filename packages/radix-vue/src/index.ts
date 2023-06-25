@@ -77,3 +77,13 @@ export {
   PopoverAnchor,
   PopoverClose,
 } from "./Popover";
+export {
+  DropdownMenuArrow,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuRoot,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./DropdownMenu";

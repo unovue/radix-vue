@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { inject, ref, onMounted } from "vue";
 import {
-  POPOVER_INJECTION_KEY,
-  type PopoverProvideValue,
-} from "./PopoverRoot.vue";
+  DROPDOWN_MENU_INJECTION_KEY,
+  type DropdownMenuProvideValue,
+} from "./DropdownMenuRoot.vue";
 
-const injectedValue = inject<PopoverProvideValue>(POPOVER_INJECTION_KEY);
+const injectedValue = inject<DropdownMenuProvideValue>(
+  DROPDOWN_MENU_INJECTION_KEY
+);
 
 const triggerElement = ref<HTMLElement>();
 onMounted(() => {

@@ -11,7 +11,9 @@ function toggleState() {
 </script>
 
 <template>
-  <p>{{ switchState ? "checked" : "uncheked" }}</p>
+  <div class="absolute left-4 top-3 text-sm">
+  <p>Value: {{ switchState ? "checked" : "unchecked" }}</p>
+</div>
   <div class="flex gap-2 items-center">
     <label className="text-white text-[15px] leading-none pr-[15px]" for="airplane-mode">
       Airplane mode

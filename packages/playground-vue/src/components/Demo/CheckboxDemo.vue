@@ -9,7 +9,7 @@ const checkboxThree = ref(false);
 </script>
 
 <template>
-  <div>
+  <div class="absolute left-4 top-3 text-sm">
     States: {{ checkboxOne ? "one on" : "one off" }} -
     {{ checkboxTwo ? "two on" : "two off" }} -
     {{ checkboxThree ? "three on" : "three off" }}

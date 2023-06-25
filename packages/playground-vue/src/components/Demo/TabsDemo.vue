@@ -12,7 +12,9 @@ const toggleGroupItemClasses =
 </script>
 
 <template>
-  <p>{{ toggleStateSingle }}</p>
+  <div class="absolute left-4 top-3 text-sm">
+  <p>Value: {{ toggleStateSingle }}</p>
+</div>
   <TabsRoot
     class="flex flex-col w-[300px] shadow-[0_2px_10px] shadow-blackA4"
     v-model="toggleStateSingle"

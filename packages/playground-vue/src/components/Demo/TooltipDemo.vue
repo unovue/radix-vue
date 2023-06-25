@@ -7,7 +7,9 @@ const toggleState = ref(true);
 </script>
 
 <template>
-  <p>{{ toggleState ? "checked" : "uncheked" }}</p>
+  <div class="absolute left-4 top-3 text-sm">
+    <p>{{ toggleState ? "checked" : "uncheked" }}</p>
+  </div>
   <TooltipRoot v-model="toggleState">
     <TooltipTrigger class="text-violet11 shadow-blackA7 hover:bg-violet3 inline-flex h-[35px] w-[35px] items-center justify-center rounded-full bg-white shadow-[0_2px_10px] outline-none focus:shadow-[0_0_0_2px] focus:shadow-black">
         <Icon icon="lucide:plus" />

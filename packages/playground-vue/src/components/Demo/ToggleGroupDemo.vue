@@ -11,7 +11,10 @@ const toggleGroupItemClasses =
 </script>
 
 <template>
+  <div class="absolute left-4 top-3 text-sm">
   <p>Single: {{ toggleStateSingle }}</p>
+  <p>Multiple: {{ toggleStateMultiple }}</p>
+</div>
   <ToggleGroupRoot class="flex" v-model="toggleStateSingle">
     <ToggleGroupItem value="1" aria-label="Toggle italic" :class="toggleGroupItemClasses">
       <Icon icon="lucide:italic" class="text-black" />
@@ -24,7 +27,6 @@ const toggleGroupItemClasses =
     </ToggleGroupItem>
   </ToggleGroupRoot>
   <br />
-  <p>Multiple: {{ toggleStateMultiple }}</p>
   <ToggleGroupRoot type="multiple" class="flex" v-model="toggleStateMultiple">
     <ToggleGroupItem value="1" aria-label="Toggle italic" :class="toggleGroupItemClasses">
       <Icon icon="lucide:italic" class="text-black" />

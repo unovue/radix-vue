@@ -6,7 +6,9 @@ const progressValue = ref(66);
 </script>
 
 <template>
+  <div class="absolute left-4 top-3 text-sm">
   <p>{{ progressValue.toFixed(2) }}</p>
+  </div>
   <ProgressRoot class="relative overflow-hidden bg-blackA9 rounded-full w-[300px] h-[25px]"
     style="transform: translateZ(0)" v-model="progressValue">
     <ProgressIndicator

@@ -15,8 +15,10 @@ const toggleStateMultiple = ref([]);
 </script>
 
 <template>
+   <div class="absolute left-4 top-3 text-sm">
   <p>Single: {{ toggleStateSingle }}</p>
   <p>Multiple: {{ toggleStateMultiple }}</p>
+</div>
   <ToolbarRoot
     class="flex p-[10px] w-full min-w-max rounded-md bg-white shadow-[0_2px_10px] shadow-blackA7"
     aria-label="Formatting options"

@@ -36,7 +36,7 @@ const floatingElement = ref<HTMLElement>();
 provide<TooltipProvideValue>(TOOLTIP_INJECTION_KEY, {
   modelValue: toRef(() => props.modelValue),
   showTooltip: () => {
-    emit("update:modelValue", false);
+    emit("update:modelValue", true);
   },
   hideTooltip: () => {
     emit("update:modelValue", false);

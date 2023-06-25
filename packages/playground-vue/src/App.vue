@@ -45,7 +45,7 @@ import ToolbarDemo from "./components/Demo/ToolbarDemo.vue";
       <Card>
         <ToggleGroupDemo />
       </Card>
-      <Card>
+      <Card class="row-span-2">
         <TabsDemo />
       </Card>
       <Card>
@@ -63,7 +63,7 @@ import ToolbarDemo from "./components/Demo/ToolbarDemo.vue";
       <Card>
         <RadioGroupDemo />
       </Card>
-      <Card>
+      <Card class="col-span-2">
         <ToolbarDemo />
       </Card>
     </div>

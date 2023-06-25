@@ -17,7 +17,7 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | Collapsible     |   ✅   | ✅           |                        |
 | Context Menu    |   ⏳    |              |                        |
 | Dialog          |   ✅   |              |                        |
-| Dropdown Menu   |        |              |                        |
+| Dropdown Menu   |   ⏳   |              |                        |
 | Form            |        |              |                        |
 | Hover Card      |   ✅   |              |                        |
 | Label           |   ✅   | ✅           | ✅                     |
@@ -31,7 +31,6 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | Separator       |   ✅   | ✅           |                        |
 | Slider          |   ✅   |              |                        |
 | Switch          |   ✅   |              |                        |
-| Table           |        |              |                        |
 | Tabs            |   ✅   |              |                        |
 | Toast           |        |              |                        |
 | Toggle          |   ✅   |              |                        |

@@ -31,7 +31,9 @@ const { floatingStyles } = useFloating(
 watchEffect(() => {
   if (tooltipContentElement.value) {
     if (injectedValue.modelValue.value) {
-      trapFocus(tooltipContentElement.value);
+      setTimeout(() => {
+        trapFocus(tooltipContentElement.value);
+      }, 0);
 
       window.addEventListener("mousedown", closeDialogWhenClickOutside);
       window.addEventListener("mouseup", clearEvents);
@@ -66,7 +68,7 @@ function clearEvents() {
     :style="floatingStyles"
   >
     <div
-      :data-state="injectedValue?.modelValue.value ? 'delayed-open' : 'closed'"
+      :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
       data-side="top"
       role="tooltip"
       :class="props.class"

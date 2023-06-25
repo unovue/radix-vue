@@ -16,6 +16,7 @@ import AlertDialogDemo from "./components/Demo/AlertDialogDemo.vue";
 import RadioGroupDemo from "./components/Demo/RadioGroupDemo.vue";
 import ToolbarDemo from "./components/Demo/ToolbarDemo.vue";
 import AvatarDemo from "./components/Demo/AvatarDemo.vue";
+import TooltipDemo from "./components/Demo/TooltipDemo.vue";
 
 </script>
 
@@ -69,6 +70,9 @@ import AvatarDemo from "./components/Demo/AvatarDemo.vue";
       </Card>
       <Card>
         <AvatarDemo />
+      </Card>
+      <Card>
+        <TooltipDemo />
       </Card>
     </div>
   </div>

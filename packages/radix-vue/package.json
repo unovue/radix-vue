@@ -58,5 +58,9 @@
     "vite": "^4.3.9",
     "vue": "^3.3.4",
     "vue-tsc": "^1.8.1"
+  },
+  "dependencies": {
+    "@floating-ui/dom": "^1.4.2",
+    "@floating-ui/vue": "^1.0.1"
   }
 }

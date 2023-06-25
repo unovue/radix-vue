@@ -48,8 +48,6 @@ watchEffect(() => {
 function closeDialogWhenClickOutside(e: MouseEvent) {
   const clickOutside = useClickOutside(e, tooltipContentElement.value);
   if (clickOutside) {
-    e.preventDefault();
-    e.stopPropagation();
     injectedValue.hideTooltip();
   }
 }

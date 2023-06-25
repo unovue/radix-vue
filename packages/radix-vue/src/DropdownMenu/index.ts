@@ -8,3 +8,6 @@ export { default as DropdownMenuGroup } from "./DropdownMenuGroup.vue";
 export { default as DropdownMenuSeparator } from "./DropdownMenuSeparator.vue";
 export { default as DropdownMenuCheckboxItem } from "./DropdownMenuCheckboxItem.vue";
 export { default as DropdownMenuItemIndicator } from "./DropdownMenuItemIndicator.vue";
+export { default as DropdownMenuLabel } from "./DropdownMenuLabel.vue";
+export { default as DropdownMenuRadioGroup } from "./DropdownMenuRadioGroup.vue";
+export { default as DropdownMenuRadioItem } from "./DropdownMenuRadioItem.vue";

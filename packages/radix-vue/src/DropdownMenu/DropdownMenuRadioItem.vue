@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import type { Ref } from "vue";
-import { ref, inject, watchEffect, provide, toRef } from "vue";
+import { ref, inject, provide, watchEffect, toRef } from "vue";
 import {
   DROPDOWN_MENU_INJECTION_KEY,
   type DropdownMenuProvideValue,
 } from "./DropdownMenuRoot.vue";
+import {
+  RADIO_GROUP_INJECTION_KEY,
+  type RadioGroupProvideValue,
+} from "./DropdownMenuRadioGroup.vue";
 
-interface DropdownMenuCheckboxItemProps {
-  modelValue?: boolean;
+interface RadioGroupItemProps {
   id?: string;
   name?: string;
   value?: string;
@@ -15,22 +18,17 @@ interface DropdownMenuCheckboxItemProps {
 }
 
 export type DropdownMenuCheckboxProvideValue = Readonly<Ref<boolean>>;
-provide<DropdownMenuCheckboxProvideValue>(
-  "modelValue",
-  toRef(() => props.modelValue)
-);
 
+const radioInjectedValue = inject<RadioGroupProvideValue>(
+  RADIO_GROUP_INJECTION_KEY
+);
 const injectedValue = inject<DropdownMenuProvideValue>(
   DROPDOWN_MENU_INJECTION_KEY
 );
 
-const props = defineProps<DropdownMenuCheckboxItemProps>();
+const props = defineProps<RadioGroupItemProps>();
 
-const emit = defineEmits<{
-  (e: "update:modelValue", value: boolean): void;
-}>();
-
-const currentElement = ref<HTMLElement | undefined>();
+const currentElement = ref<HTMLElement>();
 
 function handleKeydown(e: KeyboardEvent) {
   if (e.key === "Escape") {
@@ -90,19 +88,28 @@ function handleCloseMenu() {
 }
 
 function updateModelValue() {
-  return emit("update:modelValue", !props.modelValue);
+  return radioInjectedValue?.changeModelValue(props.value);
 }
+
+provide<DropdownMenuCheckboxProvideValue>(
+  "modelValue",
+  toRef(() => radioInjectedValue?.modelValue?.value === props.value)
+);
 </script>
 
 <template>
   <div
-    role="menuitem"
-    ref="currentElement"
-    @keydown="handleKeydown"
-    data-radix-vue-collection-item
+    role="menuitemradio"
+    :data-state="
+      radioInjectedValue?.modelValue?.value === props.value ? 'on' : 'off'
+    "
     @click.prevent="updateModelValue"
     @mouseenter="handleHover"
     @mouseleave="injectedValue!.changeSelected(null)"
+    ref="currentElement"
+    @keydown="handleKeydown"
+    data-radix-vue-collection-item
+    :data-radix-vue-radio-value="props.value"
     :data-highlighted="
       injectedValue?.selectedElement.value === currentElement ? '' : null
     "
@@ -113,18 +120,6 @@ function updateModelValue() {
       injectedValue?.selectedElement.value === currentElement ? '0' : '-1'
     "
   >
-    <input
-      type="checkbox"
-      :id="props.id"
-      :aria-valuenow="props.modelValue"
-      v-bind="props.modelValue"
-      @change="updateModelValue"
-      :checked="props.modelValue"
-      :name="props.name"
-      aria-hidden="true"
-      :disabled="props.disabled"
-      style="opacity: 0; position: absolute; inset: 0"
-    />
     <slot />
   </div>
 </template>

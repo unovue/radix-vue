@@ -7,17 +7,19 @@ import {
   DropdownMenuRoot,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  DropdownMenuGroup,
   DropdownMenuCheckboxItem,
   DropdownMenuItemIndicator,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
 } from "radix-vue";
 import { Icon } from "@iconify/vue";
 import { ref } from "vue";
 
 const toggleState = ref(false);
-const toggleItem = ref("New Tab");
 const checkboxOne = ref(false)
 const checkboxTwo = ref(false)
+const person = ref("pedro")
 
 function handleClick(){
   alert('hello!')
@@ -26,8 +28,10 @@ function handleClick(){
 
 <template>
   <div class="absolute left-4 top-3 text-sm">
-    <p>{{ toggleState ? "checked" : "uncheked" }}</p>
-    <p>{{ toggleItem }}</p>
+    <p>Dropdown Open: {{ toggleState ? "open" : "close" }}</p>
+    <p>Checkbox 1: {{ checkboxOne ? "checked" : "unchecked" }}</p>
+    <p>Checkbox 2: {{ checkboxTwo ? "checked" : "unchecked" }}</p>
+    <p>Person: {{ person }}</p>
   </div>
   <DropdownMenuRoot v-model="toggleState">
     <DropdownMenuTrigger class="rounded-full w-[35px] h-[35px] inline-flex items-center justify-center text-violet11 bg-white shadow-[0_2px_10px] shadow-blackA7 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black"
@@ -65,32 +69,6 @@ function handleClick(){
             </div>
           </DropdownMenuItem>
         <DropdownMenuSeparator class="h-[1px] bg-violet6 m-[5px]" />
-        <DropdownMenuCheckboxItem value="New Tab"
-            class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
-            New Tab
-            <div
-              class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
-              ⌘+T
-            </div>
-          </DropdownMenuCheckboxItem>
-          <DropdownMenuCheckboxItem value="New Window"
-            class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
-            New Window
-            <div
-              class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
-              ⌘+N
-            </div>
-          </DropdownMenuCheckboxItem>
-          <DropdownMenuItem value="New Private Window"
-            class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-            disabled>
-            New Private Window
-            <div
-              class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
-              ⇧+⌘+N
-            </div>
-          </DropdownMenuItem>
-        <DropdownMenuSeparator class="h-[1px] bg-violet6 m-[5px]" />
           <DropdownMenuCheckboxItem v-model="checkboxOne"
             class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
             checked={bookmarksChecked}
@@ -114,19 +92,18 @@ function handleClick(){
             </DropdownMenuItemIndicator>
             Show Full URLs
           </DropdownMenuCheckboxItem>
-          <!--
           <DropdownMenuSeparator class="h-[1px] bg-violet6 m-[5px]" />
 
           <DropdownMenuLabel class="pl-[25px] text-xs leading-[25px] text-mauve11">
             People
           </DropdownMenuLabel>
-          <DropdownMenuRadioGroup value={person} onValueChange={setPerson}>
+          <DropdownMenuRadioGroup v-model="person">
             <DropdownMenuRadioItem
               class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
               value="pedro"
             >
               <DropdownMenuItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">
-                <DotFilledIcon />
+                <Icon icon="radix-icons:dot-filled" />
               </DropdownMenuItemIndicator>
               Pedro Duarte
             </DropdownMenuRadioItem>
@@ -135,12 +112,11 @@ function handleClick(){
               value="colm"
             >
               <DropdownMenuItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">
-                <DotFilledIcon />
+                <Icon icon="radix-icons:dot-filled" />
               </DropdownMenuItemIndicator>
               Colm Tuite
             </DropdownMenuRadioItem>
           </DropdownMenuRadioGroup>
-          -->
         <DropdownMenuArrow class="fill-white" />
       </DropdownMenuContent>
     </DropdownMenuPortal>

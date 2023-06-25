@@ -14,7 +14,7 @@ export const DROPDOWN_MENU_INJECTION_KEY =
 
 export type DropdownMenuProvideValue = {
   selectedElement: Ref<HTMLElement | undefined>;
-  changeSelected(): void;
+  changeSelected: (value: HTMLElement) => void;
   modelValue: Readonly<Ref<boolean>>;
   showTooltip(): void;
   hideTooltip(): void;

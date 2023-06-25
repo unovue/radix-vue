@@ -12,7 +12,7 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | Accordion       |   ⏳   |              |                        |
 | Alert Dialog    |   ✅   |              |                        |
 | Aspect Ratio    |   ✅   |              |                        |
-| Avatar          |        |              |                        |
+| Avatar          |   ✅   |              |                        |
 | Checkbox        |   ✅   |              |                        |
 | Collapsible     |   ✅   | ✅           |                        |
 | Context Menu    |        |              |                        |

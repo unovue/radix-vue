@@ -11,8 +11,8 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | :-------------- | :----: | ------------ | ---------------------- |
 | [Accordion](https://github.com/radix-vue/radix-vue/issues/1)       |   ⏳   |              |                        |
 | [Alert Dialog](https://github.com/radix-vue/radix-vue/issues/2)    |   ✅   |              |                        |
-| [Aspect Ratio](https://github.com/radix-vue/radix-vue/issues/3)    |   ✅   |              |                        |
-| [Avatar](https://github.com/radix-vue/radix-vue/issues/4)          |   ✅   |              |                        |
+| [Aspect Ratio](https://github.com/radix-vue/radix-vue/issues/3)    |   ✅   |      ✅       |                        |
+| [Avatar](https://github.com/radix-vue/radix-vue/issues/4)          |   ✅   |      ✅       |                        |
 | [Checkbox](https://github.com/radix-vue/radix-vue/issues/5)        |   ✅   |              |                        |
 | [Collapsible](https://github.com/radix-vue/radix-vue/issues/6)     |   ✅   | ✅           |                        |
 | [Context Menu](https://github.com/radix-vue/radix-vue/issues/7)    |   ⏳    |              |                        |

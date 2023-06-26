@@ -1,8 +1,28 @@
+<script lang="ts">
+import type { InjectionKey, Ref } from "vue";
+import type { Side, MiddlewareData } from "@floating-ui/dom";
+
+export const POPOVER_CONTENT_INJECTION_KEY =
+  Symbol() as InjectionKey<PopoverContentProvideValue>;
+
+export type PopoverContentProvideValue = {
+  middlewareData: Ref<MiddlewareData>;
+  floatPosition: Ref<Side>;
+};
+</script>
+
 <script setup lang="ts">
-import { onMounted, inject, ref, watchEffect } from "vue";
-import { useFloating, offset, flip, shift, autoUpdate } from "@floating-ui/vue";
-import { trapFocus } from "../shared/trap-focus.ts";
-import { useClickOutside } from "../shared/useClickOutside.ts";
+import { onMounted, inject, ref, watchEffect, provide } from "vue";
+import {
+  useFloating,
+  offset,
+  flip,
+  shift,
+  autoUpdate,
+  arrow,
+} from "@floating-ui/vue";
+import { trapFocus } from "../shared/trap-focus";
+import { useClickOutside } from "../shared/useClickOutside";
 import {
   POPOVER_INJECTION_KEY,
   type PopoverProvideValue,
@@ -19,15 +39,20 @@ onMounted(() => {
   injectedValue!.floatingElement.value = tooltipContentElement.value;
 });
 
-const { floatingStyles } = useFloating(
-  injectedValue!.triggerElement,
-  tooltipContentElement,
-  {
-    placement: "bottom",
-    middleware: [offset(10), flip(), shift()],
-    whileElementsMounted: autoUpdate,
-  }
-);
+const {
+  floatingStyles,
+  middlewareData,
+  placement: floatPosition,
+} = useFloating(injectedValue!.triggerElement, tooltipContentElement, {
+  placement: "bottom",
+  middleware: [
+    offset(10),
+    flip(),
+    shift(),
+    arrow({ element: injectedValue?.arrowElement }),
+  ],
+  whileElementsMounted: autoUpdate,
+});
 
 watchEffect(() => {
   if (tooltipContentElement.value) {
@@ -57,6 +82,11 @@ function clearEvents() {
   window.removeEventListener("mousedown", closeDialogWhenClickOutside);
   window.removeEventListener("mouseup", clearEvents);
 }
+
+provide<PopoverContentProvideValue>(POPOVER_CONTENT_INJECTION_KEY, {
+  middlewareData: middlewareData,
+  floatPosition: floatPosition as Ref<Side>,
+});
 </script>
 
 <template>

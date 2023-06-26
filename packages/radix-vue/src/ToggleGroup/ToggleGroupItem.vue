@@ -1,3 +1,9 @@
+<script lang="ts">
+interface ToggleGroupItemProps {
+  value?: string;
+}
+</script>
+
 <script setup lang="ts">
 import { ref, inject, computed } from "vue";
 import {
@@ -6,15 +12,13 @@ import {
 } from "./ToggleGroupRoot.vue";
 import { useArrowNavigation } from "../shared";
 
-interface ToggleGroupItemProps {
-  value?: string;
-}
-
 const injectedValue = inject<ToggleGroupProvideValue>(
   TOGGLE_GROUP_INJECTION_KEY
 );
 
-const props = withDefaults(defineProps<ToggleGroupItemProps>(), {});
+const props = defineProps<ToggleGroupItemProps>();
+
+const currentToggleElement = ref<HTMLElement>();
 
 const state = computed(() => {
   if (injectedValue?.type === "multiple") {
@@ -26,14 +30,13 @@ const state = computed(() => {
   }
 });
 
-const currentToggleElement = ref<HTMLElement>();
-
 function handleKeydown(e: KeyboardEvent) {
-  useArrowNavigation(
+  const newSelectedElement = useArrowNavigation(
     e,
     currentToggleElement.value!,
     injectedValue?.parentElement.value!
   );
+  newSelectedElement?.focus();
 }
 </script>
 
@@ -41,7 +44,7 @@ function handleKeydown(e: KeyboardEvent) {
   <button
     type="button"
     :data-state="state"
-    @click="injectedValue!.changeModelValue(props.value)"
+    @click="injectedValue?.changeModelValue(props.value!)"
     ref="currentToggleElement"
     @keydown="handleKeydown"
     data-radix-vue-collection-item

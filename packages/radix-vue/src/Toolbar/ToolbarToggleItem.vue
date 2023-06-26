@@ -34,11 +34,12 @@ const state = computed(() => {
 const currentToggleElement = ref<HTMLElement | undefined>();
 
 function handleKeydown(e: KeyboardEvent) {
-  useArrowNavigation(
+  const newSelectedElement = useArrowNavigation(
     e,
     currentToggleElement.value!,
     rootInjectedValue?.parentElement.value!
   );
+  newSelectedElement?.focus();
 }
 </script>
 

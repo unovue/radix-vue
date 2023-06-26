@@ -17,8 +17,6 @@ export type TooltipProvideValue = {
   triggerElement: Ref<HTMLElement | undefined>;
   floatingElement: Ref<HTMLElement | undefined>;
   arrowElement: Ref<HTMLElement | undefined>;
-  floatingStyles: any;
-  middlewareData: any;
 };
 </script>
 
@@ -48,8 +46,6 @@ provide<TooltipProvideValue>(TOOLTIP_INJECTION_KEY, {
   triggerElement: triggerElement,
   floatingElement: floatingElement,
   arrowElement: arrowElement,
-  floatingStyles: "",
-  middlewareData: "",
 });
 </script>
 

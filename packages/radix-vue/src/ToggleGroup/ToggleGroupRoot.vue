@@ -24,6 +24,7 @@ export interface ToggleGroupProvideValue {
   modelValue?: Readonly<Ref<string | string[] | undefined>>;
   changeModelValue: (value: string) => void;
   parentElement: Ref<HTMLElement | undefined>;
+  activeValue?: Readonly<Ref<string>>;
 }
 </script>
 
@@ -36,27 +37,31 @@ const props = withDefaults(defineProps<ToggleGroupRootProps>(), {
 
 const emits = defineEmits(["update:modelValue"]);
 
-const parentElementRef: Ref<HTMLElement | undefined> = ref();
+const parentElementRef = ref<HTMLElement | undefined>();
+const activeValue = ref();
 
 provide<ToggleGroupProvideValue>(TOGGLE_GROUP_INJECTION_KEY, {
   type: props.type,
   modelValue: toRef(() => props.modelValue),
-  changeModelValue: (value: string) => {
-    if (props.type === "single") {
-      emits("update:modelValue", value);
-    } else {
-      let modelValueArray = props.modelValue as string[];
-      if (modelValueArray.includes(value)) {
-        let index = modelValueArray.findIndex((i) => i === value);
-        modelValueArray.splice(index, 1);
-      } else {
-        modelValueArray.push(value);
-      }
-      emits("update:modelValue", modelValueArray);
-    }
-  },
+  changeModelValue: changeModelValue,
   parentElement: parentElementRef,
+  activeValue: activeValue,
 });
+
+function changeModelValue(value: string) {
+  if (props.type === "single") {
+    emits("update:modelValue", value);
+  } else {
+    let modelValueArray = props.modelValue as string[];
+    if (modelValueArray.includes(value)) {
+      let index = modelValueArray.findIndex((i) => i === value);
+      modelValueArray.splice(index, 1);
+    } else {
+      modelValueArray.push(value);
+    }
+    emits("update:modelValue", modelValueArray);
+  }
+}
 </script>
 
 <template>

@@ -4,6 +4,7 @@ import {
   DROPDOWN_MENU_INJECTION_KEY,
   type DropdownMenuProvideValue,
 } from "./DropdownMenuRoot.vue";
+import { useArrowNavigation } from "../shared";
 
 interface ToggleGroupItemProps {
   value?: string;
@@ -19,42 +20,22 @@ const props = defineProps<ToggleGroupItemProps>();
 const currentElement = ref<HTMLElement | undefined>();
 
 function handleKeydown(e: KeyboardEvent) {
+  const newSelectedElement = useArrowNavigation(
+    e,
+    currentElement.value!,
+    null,
+    { arrowKeyOptions: "vertical", itemsArray: rootInjectedValue!.itemsArray }
+  );
+
+  if (newSelectedElement) {
+    rootInjectedValue?.changeSelected(newSelectedElement);
+  }
   if (e.key === "Escape") {
     handleCloseMenu();
   }
-  const allToggleItem = rootInjectedValue!.itemsArray;
-  if (allToggleItem.length) {
-    const currentTabIndex = allToggleItem.indexOf(currentElement.value!);
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      if (!rootInjectedValue?.selectedElement.value) {
-        rootInjectedValue?.changeSelected(allToggleItem[0]);
-      } else if (allToggleItem[currentTabIndex + 1]) {
-        rootInjectedValue?.changeSelected(allToggleItem[currentTabIndex + 1]);
-      } else {
-        rootInjectedValue?.changeSelected(allToggleItem[0]);
-      }
-    }
-
-    if (e.key === "ArrowUp") {
-      e.preventDefault();
-      if (!rootInjectedValue?.selectedElement.value) {
-        rootInjectedValue?.changeSelected(
-          allToggleItem[allToggleItem.length - 1]
-        );
-      } else if (allToggleItem[currentTabIndex - 1]) {
-        rootInjectedValue?.changeSelected(allToggleItem[currentTabIndex - 1]);
-      } else {
-        rootInjectedValue?.changeSelected(
-          allToggleItem[allToggleItem.length - 1]
-        );
-      }
-    }
-
-    if (e.keyCode === 32 || e.key === "Enter") {
-      if (rootInjectedValue?.selectedElement.value) {
-        rootInjectedValue?.selectedElement.value.click();
-      }
+  if (e.keyCode === 32 || e.key === "Enter") {
+    if (rootInjectedValue?.selectedElement.value) {
+      rootInjectedValue?.selectedElement.value.click();
     }
   }
 }

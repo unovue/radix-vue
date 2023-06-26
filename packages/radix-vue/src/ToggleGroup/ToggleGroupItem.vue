@@ -43,7 +43,7 @@ function handleKeydown(e: KeyboardEvent) {
   <button
     type="button"
     :data-state="state"
-    @click="injectedValue?.changeModelValue(props.value)"
+    @click="injectedValue?.changeModelValue(props.value!)"
     ref="currentToggleElement"
     @keydown="handleKeydown"
     data-radix-vue-collection-item

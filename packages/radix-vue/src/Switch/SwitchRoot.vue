@@ -15,6 +15,7 @@ export const SWITCH_INJECTION_KEY =
 export interface SwitchProvideValue {
   modelValue?: Readonly<Ref<boolean>>;
   toggleModelValue: (value: string) => void;
+  disabled: boolean;
 }
 </script>
 
@@ -36,6 +37,7 @@ watch(modelValue, (newValue) => {
 provide<SwitchProvideValue>(SWITCH_INJECTION_KEY, {
   modelValue: toRef(() => modelValue.value),
   toggleModelValue: toggleModelValue,
+  disabled: props.disabled,
 });
 
 function toggleModelValue() {
@@ -55,6 +57,7 @@ function handleKeydown(e: KeyboardEvent) {
     role="checkbox"
     :aria-checked="modelValue"
     :data-state="modelValue ? 'checked' : 'unchecked'"
+    :data-disabled="props.disabled ? '' : undefined"
     style="position: relative"
   >
     <input
@@ -68,7 +71,7 @@ function handleKeydown(e: KeyboardEvent) {
       :disabled="props.disabled"
       :required="props.required"
       :data-state="modelValue ? 'checked' : 'unchecked'"
-      :data-disabled="props.disabled"
+      :data-disabled="props.disabled ? '' : undefined"
       style="opacity: 0; position: absolute; inset: 0"
     />
     <slot />

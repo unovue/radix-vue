@@ -1,0 +1,1 @@
+// allow arrow navigation for every html element with data-radix-vue-collection-item tag

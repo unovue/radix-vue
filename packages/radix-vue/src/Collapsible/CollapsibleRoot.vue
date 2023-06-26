@@ -7,12 +7,12 @@ export interface CollapsibleRootProps {
   disabled?: boolean;
 }
 
-export type CollapsibleProvideValue = {
+export interface CollapsibleProvideValue {
   contentId: string;
   disabled?: Readonly<Ref<boolean>>;
   open: Readonly<Ref<boolean>>;
   onOpenToggle(): void;
-};
+}
 
 export const COLLAPSIBLE_INJECTION_KEY =
   Symbol() as InjectionKey<CollapsibleProvideValue>;

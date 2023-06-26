@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import Card from "./components/Card.vue";
+
+import AccordionDemo from "./components/Demo/AccordionDemo.vue";
 import CheckboxDemo from "./components/Demo/CheckboxDemo.vue";
 import CollapsibleDemo from "./components/Demo/CollapsibleDemo.vue";
 import LabelDemo from "./components/Demo/LabelDemo.vue";
@@ -24,6 +26,9 @@ import HoverCardDemo from "./components/Demo/HoverCardDemo.vue";
 <template>
   <div class="w-full flex flex-col items-center">
     <div class="max-w-6xl w-full grid grid-cols-3 gap-4 pt-40 pb-20">
+      <Card>
+        <AccordionDemo />
+      </Card>
       <Card>
         <AspectRatioDemo />
       </Card>

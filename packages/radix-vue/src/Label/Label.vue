@@ -8,5 +8,5 @@ const props = defineProps({
 </script>
 
 <template>
-  <label :for="props.for"><slot /></label>
+  <Label :for="props.for" />
 </template>

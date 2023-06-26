@@ -34,7 +34,7 @@ const {
   floatingStyles,
   middlewareData,
   placement: floatPosition,
-} = useFloating(injectedValue.triggerElement, tooltipContentElement, {
+} = useFloating(injectedValue?.triggerElement!, tooltipContentElement, {
   placement: "top",
   middleware: [
     offset(10),

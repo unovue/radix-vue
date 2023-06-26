@@ -6,7 +6,7 @@ import type { SliderProvideValue } from "./SliderRoot.vue";
 const injectedValue = inject<SliderProvideValue>(SLIDER_INJECTION_KEY);
 const thumbElement = ref();
 onMounted(() => {
-  injectedValue.thumbElement = thumbElement.value;
+  injectedValue.thumbElement.value = thumbElement.value;
 });
 
 const props = defineProps({

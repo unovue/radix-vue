@@ -1,35 +1,19 @@
 <script setup lang="ts">
-import { inject, computed } from "vue";
-import type { Ref, WritableComputedRef } from "vue";
+import { inject } from "vue";
+import {
+  SWITCH_INJECTION_KEY,
+  type SwitchProvideValue,
+} from "./SwitchRoot.vue";
 
-type DataState = "checked" | "unchecked";
-
-const checked: Ref<boolean> | undefined = inject("refChecked");
-
-const dataState: WritableComputedRef<DataState> = computed({
-  get() {
-    return checked!.value ? "checked" : "unchecked";
-  },
-  set(value) {
-    if (value === "checked") {
-      checked!.value = true;
-    } else {
-      checked!.value = false;
-    }
-  },
-});
-
-function toggleChecked() {
-  if (checked!.value) {
-    dataState.value = "unchecked";
-  } else {
-    dataState.value = "checked";
-  }
-}
+const injectedValue = inject<SwitchProvideValue>(SWITCH_INJECTION_KEY);
 </script>
 
 <template>
-  <span :data-state="dataState" @click="toggleChecked">
+  <span
+    :data-state="injectedValue?.modelValue?.value ? 'checked' : 'unchecked'"
+    :data-disabled="injectedValue?.disabled ? '' : undefined"
+    @click="injectedValue?.toggleModelValue"
+  >
     <slot />
   </span>
 </template>

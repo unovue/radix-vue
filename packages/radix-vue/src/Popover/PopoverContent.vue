@@ -56,25 +56,25 @@ const {
 
 watchEffect(() => {
   if (tooltipContentElement.value) {
-    if (injectedValue.modelValue.value) {
+    if (injectedValue?.modelValue.value) {
       setTimeout(() => {
-        trapFocus(tooltipContentElement.value);
+        trapFocus(tooltipContentElement.value!);
       }, 0);
 
       window.addEventListener("mousedown", closeDialogWhenClickOutside);
       window.addEventListener("mouseup", clearEvents);
     } else {
-      if (injectedValue.triggerElement.value) {
-        injectedValue.triggerElement.value.focus();
+      if (injectedValue?.triggerElement.value) {
+        injectedValue?.triggerElement.value.focus();
       }
     }
   }
 });
 
 function closeDialogWhenClickOutside(e: MouseEvent) {
-  const clickOutside = useClickOutside(e, tooltipContentElement.value);
+  const clickOutside = useClickOutside(e, tooltipContentElement.value!);
   if (clickOutside) {
-    injectedValue.hideTooltip();
+    injectedValue?.hideTooltip();
   }
 }
 

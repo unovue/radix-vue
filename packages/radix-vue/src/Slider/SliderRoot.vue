@@ -88,6 +88,9 @@ function updateModelValue(value: number) {
 let rootSliderRect: DOMRect;
 
 function changeValue(e: MouseEvent) {
+  if (thumbElement.value) {
+    thumbElement.value.focus();
+  }
   e.preventDefault();
   if (rootSliderElement.value) {
     rootSliderRect = rootSliderElement.value.getBoundingClientRect();
@@ -107,10 +110,6 @@ function changeValue(e: MouseEvent) {
 
     document.addEventListener("pointermove", pointermove);
     document.addEventListener("pointerup", pointerup);
-
-    if (thumbElement.value) {
-      thumbElement.value.focus();
-    }
   }
 }
 

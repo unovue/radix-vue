@@ -9,7 +9,7 @@ const injectedValue = inject<SliderProvideValue>(SLIDER_INJECTION_KEY);
 <template>
   <span
     :style="`left: 0%; right: ${
-      injectedValue?.max - injectedValue?.modelValue?.value
+      (injectedValue?.max ?? 100) - (injectedValue?.modelValue?.value ?? 0)
     }%`"
   />
 </template>

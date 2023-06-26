@@ -1,90 +1,74 @@
+<script lang="ts">
+import type { Ref, InjectionKey } from "vue";
+
+export interface SwitchRootProps {
+  disabled?: boolean;
+  required?: boolean;
+  name?: string;
+  id?: string;
+  modelValue?: boolean;
+}
+
+export const SWITCH_INJECTION_KEY =
+  Symbol() as InjectionKey<SwitchProvideValue>;
+
+export interface SwitchProvideValue {
+  modelValue?: Readonly<Ref<boolean>>;
+  toggleModelValue: (value: string) => void;
+}
+</script>
+
 <script setup lang="ts">
-import { ref, computed, provide } from "vue";
+import { ref, provide, watch, toRef } from "vue";
 
-const props = defineProps({
-  defaultChecked: {
-    type: Boolean,
-    required: false,
-  },
-  checked: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-  disabled: {
-    type: Boolean,
-    required: false,
-  },
-  required: {
-    type: Boolean,
-    required: false,
-  },
-  name: {
-    type: String,
-    required: false,
-  },
-  value: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-  id: {
-    type: String,
-    required: false,
-  },
-  modelValue: {
-    type: Boolean,
-    required: false,
-    default: null,
-  },
+const props = withDefaults(defineProps<SwitchRootProps>(), {
+  disabled: false,
 });
 
-const emits = defineEmits(["onCheckedChange", "update:modelValue"]);
+const emit = defineEmits(["update:modelValue"]);
 
-let dataState: "checked" | "unchecked";
-let dataDisabled: boolean;
+const modelValue = ref(props.modelValue ?? false);
 
-const modelPlaceHolder = ref(props.checked);
-
-const refChecked = computed({
-  get() {
-    if (props.modelValue != null) {
-      return props.modelValue;
-    } else {
-      return modelPlaceHolder.value;
-    }
-  },
-  set(value) {
-    if (props.modelValue != null) {
-      emits("update:modelValue", value);
-    } else {
-      modelPlaceHolder.value = !modelPlaceHolder.value;
-    }
-  },
+watch(modelValue, (newValue) => {
+  emit("update:modelValue", newValue);
 });
 
-provide("refChecked", refChecked);
+provide<SwitchProvideValue>(SWITCH_INJECTION_KEY, {
+  modelValue: toRef(() => modelValue.value),
+  toggleModelValue: toggleModelValue,
+});
+
+function toggleModelValue() {
+  modelValue.value = !modelValue.value;
+}
+
+function handleKeydown(e: KeyboardEvent) {
+  if (e.key === "Enter") {
+    toggleModelValue();
+  }
+}
 </script>
 
 <template>
   <div
-    :value="props.value"
+    :value="modelValue"
     role="checkbox"
-    :aria-checked="refChecked"
-    :data-state="dataState"
+    :aria-checked="modelValue"
+    :data-state="modelValue ? 'checked' : 'unchecked'"
     style="position: relative"
   >
     <input
       type="checkbox"
       :id="props.id"
-      v-model="refChecked"
-      :checked="refChecked"
+      v-model="modelValue"
+      :checked="modelValue"
       :name="props.name"
+      @keydown="handleKeydown"
       aria-hidden="true"
       :disabled="props.disabled"
       :required="props.required"
-      :data-state="dataState"
-      :data-disabled="dataDisabled"
+      :data-state="modelValue ? 'checked' : 'unchecked'"
+      :data-disabled="props.disabled"
       style="opacity: 0; position: absolute; inset: 0"
     />
     <slot />

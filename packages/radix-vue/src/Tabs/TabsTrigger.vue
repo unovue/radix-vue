@@ -28,6 +28,7 @@ function handleKeydown(e: KeyboardEvent) {
   );
 
   if (newSelectedElement) {
+    newSelectedElement.focus();
     changeTab(newSelectedElement?.getAttribute("data-radix-vue-tab-value")!);
   }
 }

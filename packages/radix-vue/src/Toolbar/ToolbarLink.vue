@@ -11,11 +11,12 @@ const injectedValue = inject<ToolbarProvideValue>(TOOLBAR_INJECTION_KEY);
 const currentElement = ref<HTMLElement | undefined>();
 
 function handleKeydown(e: KeyboardEvent) {
-  useArrowNavigation(
+  const newSelectedElement = useArrowNavigation(
     e,
     currentElement.value!,
     injectedValue?.parentElement.value!
   );
+  newSelectedElement?.focus();
 }
 </script>
 

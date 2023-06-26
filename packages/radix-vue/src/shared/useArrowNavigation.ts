@@ -3,6 +3,7 @@ type ArrowKeyOptions = "horizontal" | "vertical" | "both";
 interface ArrowNavigationOptions {
   attributeName?: string;
   arrowKeyOptions?: ArrowKeyOptions; //default to both
+  itemsArray?: HTMLElement[];
 }
 /**
  * allow arrow navigation for every html element with data-radix-vue-collection-item tag
@@ -16,14 +17,19 @@ export function useArrowNavigation(
   e: KeyboardEvent,
   currentElement: HTMLElement,
   parentElement: HTMLElement,
-  options?: ArrowNavigationOptions
+  options: ArrowNavigationOptions = {}
 ): HTMLElement | null {
   const defaultAttributeName = "data-radix-vue-collection-item";
   const attributeName = options?.attributeName ?? defaultAttributeName;
+  let allCollectionItems: HTMLElement[];
 
-  const allCollectionItems = Array.from(
-    parentElement.querySelectorAll(`[${attributeName}]`)
-  ) as HTMLElement[];
+  if (options.itemsArray && options.itemsArray.length) {
+    allCollectionItems = options.itemsArray;
+  } else {
+    allCollectionItems = Array.from(
+      parentElement.querySelectorAll(`[${attributeName}]`)
+    );
+  }
 
   if (allCollectionItems.length) {
     const currentTabIndex = allCollectionItems.indexOf(currentElement!);
@@ -58,8 +64,6 @@ export function useArrowNavigation(
         newFocusedElement = allCollectionItems[allCollectionItems.length - 1];
       }
     }
-
-    newFocusedElement?.focus();
     return newFocusedElement;
   }
 

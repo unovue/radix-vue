@@ -1,5 +1,5 @@
 <script lang="ts">
-import BaseSeparator from "@/shared/component/BaseSeparator.vue";
+import BaseSeparator from "../shared/component/BaseSeparator.vue";
 import type { DataOrientation } from "../shared/types";
 
 export interface BaseSeparatorProps {

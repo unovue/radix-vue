@@ -117,7 +117,7 @@ function handleClick(){
               Colm Tuite
             </DropdownMenuRadioItem>
           </DropdownMenuRadioGroup>
-        <DropdownMenuArrow class="fill-white" />
+        <DropdownMenuArrow class="bg-white" size="8"  />
       </DropdownMenuContent>
     </DropdownMenuPortal>
   </DropdownMenuRoot>

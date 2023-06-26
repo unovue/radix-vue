@@ -69,7 +69,7 @@ const toggleState = ref(false);
         >
           <Icon icon="radix-icons:cross-2" />
         </PopoverClose>
-        <PopoverArrow class="fill-white" />
+        <PopoverArrow class="bg-white" :size="8" />
       </PopoverContent>
     </PopoverPortal>
   </PopoverRoot>

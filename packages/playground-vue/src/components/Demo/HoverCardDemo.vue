@@ -55,7 +55,7 @@ const toggleState = ref(false);
           </div>
         </div>
 
-        <HoverCardArrow class="fill-white" />
+        <HoverCardArrow class="bg-white" size="8" />
       </HoverCardContent>
     </HoverCardPortal>
   </HoverCardRoot>

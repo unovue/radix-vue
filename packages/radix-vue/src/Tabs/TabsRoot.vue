@@ -3,8 +3,6 @@ import type { Ref, InjectionKey } from "vue";
 import type { DataOrientation, Direction } from "../shared/types";
 
 export interface TabsRootProps {
-  // defaultValue?: string;
-  // value?: string;
   orientation?: DataOrientation;
   dir?: Direction;
   activationMode?: "automatic" | "manual";

@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
-import type { DataOrientation } from "@/shared/types";
+import type { DataOrientation } from "../shared/types";
 
 export interface ContextMenuRootProps {
   modelValue?: boolean;
@@ -26,6 +26,8 @@ export type ContextMenuProvideValue = {
   orientation: DataOrientation;
   positionPortalLeft?: number;
   positionPortalTop?: number;
+  clientX: Ref<number>;
+  clientY: Ref<number>;
 };
 </script>
 
@@ -45,6 +47,9 @@ const selectedElement = ref<HTMLElement>();
 const triggerElement = ref<HTMLElement>();
 const floatingElement = ref<HTMLElement>();
 const arrowElement = ref<HTMLElement>();
+
+const clientX = ref(0);
+const clientY = ref(0);
 
 provide<ContextMenuProvideValue>(CONTEXT_MENU_INJECTION_KEY, {
   selectedElement: selectedElement,
@@ -66,6 +71,8 @@ provide<ContextMenuProvideValue>(CONTEXT_MENU_INJECTION_KEY, {
   orientation: props.orientation,
   positionPortalLeft: 0,
   positionPortalTop: 0,
+  clientX: clientX,
+  clientY: clientY,
 });
 </script>
 

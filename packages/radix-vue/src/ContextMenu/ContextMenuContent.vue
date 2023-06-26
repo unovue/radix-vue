@@ -40,18 +40,38 @@ onMounted(() => {
   injectedValue!.floatingElement.value = tooltipContentElement.value;
 });
 
+const clientX = ref(0);
+const clientY = ref(0);
+
+const virtualEl = {
+  getBoundingClientRect() {
+    return {
+      width: 0,
+      height: 0,
+      x: injectedValue?.clientX.value,
+      y: injectedValue?.clientY.value,
+      top: injectedValue?.clientY.value,
+      left: injectedValue?.clientX.value,
+      right: injectedValue?.clientX.value,
+      bottom: injectedValue?.clientY.value,
+    };
+  },
+};
+
 const {
   floatingStyles,
   middlewareData,
   placement: floatPosition,
 } = useFloating(injectedValue!.triggerElement, tooltipContentElement, {
-  placement: "bottom",
   middleware: [
-    offset(10),
-    flip(),
-    shift(),
-    arrow({ element: injectedValue?.arrowElement }),
+    offset({ mainAxis: 5, alignmentAxis: 4 }),
+    flip({
+      fallbackPlacements: ["left-start"],
+    }),
+    shift({ padding: 10 }),
   ],
+  placement: "right-start",
+  strategy: "fixed",
   whileElementsMounted: autoUpdate,
 });
 
@@ -59,16 +79,12 @@ watchEffect(() => {
   if (tooltipContentElement.value) {
     if (injectedValue?.modelValue.value) {
       setTimeout(() => {
-        document.querySelector("body")!.style.pointerEvents = "none";
         focusFirstRadixElement();
         fillItemsArray();
       }, 0);
 
       window.addEventListener("mousedown", closeDialogWhenClickOutside);
-    } else {
-      if (injectedValue?.triggerElement.value) {
-        handleCloseMenu();
-      }
+      window.addEventListener("scroll", closeDialogWhenScrolled);
     }
   }
 });
@@ -81,6 +97,11 @@ function closeDialogWhenClickOutside(e: MouseEvent) {
       window.removeEventListener("mousedown", closeDialogWhenClickOutside);
     }
   }
+}
+
+function closeDialogWhenScrolled() {
+  injectedValue?.hideTooltip();
+  window.removeEventListener("scroll", closeDialogWhenScrolled);
 }
 
 function focusFirstRadixElement() {
@@ -108,13 +129,6 @@ function fillItemsArray() {
     )
   ) as HTMLElement[];
   injectedValue!.itemsArray = allToggleItem;
-}
-
-function handleCloseMenu() {
-  document.querySelector("body")!.style.pointerEvents = "";
-  setTimeout(() => {
-    injectedValue?.triggerElement.value?.focus();
-  }, 0);
 }
 
 provide<ContextMenuContentProvideValue>(CONTEXT_MENU_CONTENT_INJECTION_KEY, {

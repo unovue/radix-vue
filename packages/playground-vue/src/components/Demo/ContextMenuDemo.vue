@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {
-  ContextMenuArrow,
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuPortal,
@@ -34,10 +33,9 @@ function handleClick(){
     <p>Person: {{ person }}</p>
   </div>
   <ContextMenuRoot v-model="toggleState">
-    <ContextMenuTrigger class="rounded-full w-[35px] h-[35px] inline-flex items-center justify-center text-violet11 bg-white shadow-[0_2px_10px] shadow-blackA7 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black"
-        aria-label="Customise options">
-        <Icon icon="radix-icons:hamburger-menu" />
-    </ContextMenuTrigger>
+    <ContextMenuTrigger class="block border-2 border-white border-dashed text-white rounded text-[15px] select-none py-[45px] w-[300px] text-center">
+        Right click here.
+      </ContextMenuTrigger>
 
     <ContextMenuPortal>
       <ContextMenuContent
@@ -117,7 +115,6 @@ function handleClick(){
               Colm Tuite
             </ContextMenuRadioItem>
           </ContextMenuRadioGroup>
-        <ContextMenuArrow class="bg-white" />
       </ContextMenuContent>
     </ContextMenuPortal>
   </ContextMenuRoot>

@@ -1,3 +1,9 @@
+<script lang="ts">
+export interface CheckboxRootProps {
+  forceMount?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { inject } from "vue";
 import {
@@ -9,7 +15,12 @@ const injectedValue = inject<CheckboxProvideValue>(CHECKBOX_INJECTION_KEY);
 </script>
 
 <template>
-  <span v-if="injectedValue?.modelValue.value" style="pointer-events: none">
+  <span
+    v-if="injectedValue?.modelValue.value"
+    style="pointer-events: none"
+    :data-disabled="injectedValue.disabled ? '' : undefined"
+    :data-state="injectedValue.modelValue.value ? 'checked' : 'unchecked'"
+  >
     <slot />
   </span>
 </template>

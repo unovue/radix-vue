@@ -14,7 +14,6 @@ export type CheckboxProvideValue = {
   disabled: boolean;
   required: boolean;
   modelValue: Readonly<Ref<boolean>>;
-  updateModelValue(): void;
 };
 
 export const CHECKBOX_INJECTION_KEY =
@@ -26,6 +25,7 @@ import { toRef, provide } from "vue";
 
 const props = withDefaults(defineProps<CheckboxRootProps>(), {
   modelValue: false,
+  value: "on",
 });
 
 const emit = defineEmits<{
@@ -36,7 +36,6 @@ provide<CheckboxProvideValue>(CHECKBOX_INJECTION_KEY, {
   required: props.required,
   disabled: props.disabled,
   modelValue: toRef(() => props.modelValue),
-  updateModelValue: updateModelValue,
 });
 
 function updateModelValue() {

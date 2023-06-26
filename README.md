@@ -11,9 +11,9 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | :-------------- | :----: | ------------ | ---------------------- |
 | [Accordion](https://github.com/radix-vue/radix-vue/issues/1)       |   ⏳   |              |                        |
 | [Alert Dialog](https://github.com/radix-vue/radix-vue/issues/2)    |   ✅   |              |                        |
-| [Aspect Ratio](https://github.com/radix-vue/radix-vue/issues/3)    |   ✅   |              |                        |
-| [Avatar](https://github.com/radix-vue/radix-vue/issues/4)          |   ✅   |              |                        |
-| [Checkbox](https://github.com/radix-vue/radix-vue/issues/5)        |   ✅   |              |                        |
+| [Aspect Ratio](https://github.com/radix-vue/radix-vue/issues/3)    |   ✅   |      ✅       |                        |
+| [Avatar](https://github.com/radix-vue/radix-vue/issues/4)          |   ✅   |      ✅       |                        |
+| [Checkbox](https://github.com/radix-vue/radix-vue/issues/5)        |   ✅   |      ✅       |                        |
 | [Collapsible](https://github.com/radix-vue/radix-vue/issues/6)     |   ✅   | ✅           |                        |
 | [Context Menu](https://github.com/radix-vue/radix-vue/issues/7)    |   ⏳    |              |                        |
 | [Dialog](https://github.com/radix-vue/radix-vue/issues/8)          |   ✅   |              |                        |
@@ -33,7 +33,7 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | [Switch](https://github.com/radix-vue/radix-vue/issues/22)          |   ✅   |              |                        |
 | [Tabs](https://github.com/radix-vue/radix-vue/issues/23)            |   ✅   |              |                        |
 | [Toast](https://github.com/radix-vue/radix-vue/issues/24)           |        |              |                        |
-| [Toggle](https://github.com/radix-vue/radix-vue/issues/25)          |   ✅   |              |                        |
+| [Toggle](https://github.com/radix-vue/radix-vue/issues/25)          |   ✅   |     ✅        |                        |
 | [Toggle Group](https://github.com/radix-vue/radix-vue/issues/26)    |   ✅   |              |                        |
 | [Toolbar](https://github.com/radix-vue/radix-vue/issues/27)         |   ✅   |              |                        |
 | [Tooltip](https://github.com/radix-vue/radix-vue/issues/28)         |   ✅   |              |                        |

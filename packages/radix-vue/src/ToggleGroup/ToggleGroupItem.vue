@@ -4,6 +4,7 @@ import {
   TOGGLE_GROUP_INJECTION_KEY,
   type ToggleGroupProvideValue,
 } from "./ToggleGroupRoot.vue";
+import { useArrowNavigation } from "../shared";
 
 interface ToggleGroupItemProps {
   value?: string;
@@ -25,35 +26,14 @@ const state = computed(() => {
   }
 });
 
-const currentToggleElement = ref<HTMLElement | undefined>();
+const currentToggleElement = ref<HTMLElement>();
 
 function handleKeydown(e: KeyboardEvent) {
-  const allToggleItem = Array.from(
-    injectedValue!.parentElement!.value!.querySelectorAll(
-      "[data-radix-vue-collection-item]"
-    )
-  ) as HTMLElement[];
-  if (allToggleItem.length) {
-    const currentTabIndex = allToggleItem.indexOf(currentToggleElement.value!);
-
-    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-      e.preventDefault();
-      if (allToggleItem[currentTabIndex + 1]) {
-        allToggleItem[currentTabIndex + 1].focus();
-      } else {
-        allToggleItem[0].focus();
-      }
-    }
-
-    if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-      e.preventDefault();
-      if (allToggleItem[currentTabIndex - 1]) {
-        allToggleItem[currentTabIndex - 1].focus();
-      } else {
-        allToggleItem[allToggleItem.length - 1].focus();
-      }
-    }
-  }
+  useArrowNavigation(
+    e,
+    currentToggleElement.value!,
+    injectedValue?.parentElement.value!
+  );
 }
 </script>
 

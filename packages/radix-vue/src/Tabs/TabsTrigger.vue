@@ -8,6 +8,7 @@ export interface TabsTriggerProps {
 import { inject, ref } from "vue";
 import { TABS_INJECTION_KEY } from "./TabsRoot.vue";
 import type { TabsProvideValue } from "./TabsRoot.vue";
+import { useArrowNavigation } from "../shared";
 
 const injectedValue = inject<TabsProvideValue>(TABS_INJECTION_KEY);
 const currentToggleElement = ref<HTMLElement>();
@@ -19,41 +20,15 @@ function changeTab(value: string) {
 }
 
 function handleKeydown(e: KeyboardEvent) {
-  const allToggleItem = Array.from(
-    injectedValue!.parentElement!.value!.querySelectorAll(
-      "[data-radix-vue-collection-item]"
-    )
+  const newSelectedElement = useArrowNavigation(
+    e,
+    currentToggleElement.value!,
+    injectedValue?.parentElement.value!,
+    { arrowKeyOptions: "horizontal" }
   );
-  if (allToggleItem.length) {
-    const currentTabIndex = allToggleItem.indexOf(currentToggleElement.value!);
 
-    if (e.key === "ArrowRight") {
-      e.preventDefault();
-      if (allToggleItem[currentTabIndex + 1]) {
-        const nextElement = allToggleItem[currentTabIndex + 1] as HTMLElement;
-        nextElement.focus();
-        changeTab(nextElement.getAttribute("data-radix-vue-tab-value")!);
-      } else {
-        const nextElement = allToggleItem[0] as HTMLElement;
-        nextElement.focus();
-        changeTab(nextElement.getAttribute("data-radix-vue-tab-value")!);
-      }
-    }
-
-    if (e.key === "ArrowLeft") {
-      e.preventDefault();
-      if (allToggleItem[currentTabIndex - 1]) {
-        const nextElement = allToggleItem[currentTabIndex - 1] as HTMLElement;
-        nextElement.focus();
-        changeTab(nextElement.getAttribute("data-radix-vue-tab-value")!);
-      } else {
-        const nextElement = allToggleItem[
-          allToggleItem.length - 1
-        ] as HTMLElement;
-        nextElement.focus();
-        changeTab(nextElement.getAttribute("data-radix-vue-tab-value")!);
-      }
-    }
+  if (newSelectedElement) {
+    changeTab(newSelectedElement?.getAttribute("data-radix-vue-tab-value")!);
   }
 }
 </script>

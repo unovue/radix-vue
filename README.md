@@ -15,9 +15,9 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | [Avatar](https://github.com/radix-vue/radix-vue/issues/4)          |   ✅   |      ✅       |                        |
 | [Checkbox](https://github.com/radix-vue/radix-vue/issues/5)        |   ✅   |      ✅       |                        |
 | [Collapsible](https://github.com/radix-vue/radix-vue/issues/6)     |   ✅   | ✅           |                        |
-| [Context Menu](https://github.com/radix-vue/radix-vue/issues/7)    |   ⏳    |              |                        |
+| [Context Menu](https://github.com/radix-vue/radix-vue/issues/7)    |   ✅    |              |                        |
 | [Dialog](https://github.com/radix-vue/radix-vue/issues/8)          |   ✅   |              |                        |
-| [Dropdown Menu](https://github.com/radix-vue/radix-vue/issues/9)   |   ⏳   |              |                        |
+| [Dropdown Menu](https://github.com/radix-vue/radix-vue/issues/9)   |   ✅   |              |                        |
 | [Form](https://github.com/radix-vue/radix-vue/issues/10)            |        |              |                        |
 | [Hover Card](https://github.com/radix-vue/radix-vue/issues/11)      |   ✅   |              |                        |
 | [Label](https://github.com/radix-vue/radix-vue/issues/12)           |   ✅   | ✅           | ✅                     |

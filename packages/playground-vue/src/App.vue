@@ -21,6 +21,7 @@ import TooltipDemo from "./components/Demo/TooltipDemo.vue";
 import HoverCardDemo from "./components/Demo/HoverCardDemo.vue";
 import PopoverDemo from "./components/Demo/PopoverDemo.vue";
 import DropdownMenuDemo from "./components/Demo/DropdownMenuDemo.vue";
+import ContextMenuDemo from "./components/Demo/ContextMenuDemo.vue";
 </script>
 
 <template>
@@ -85,6 +86,9 @@ import DropdownMenuDemo from "./components/Demo/DropdownMenuDemo.vue";
       </Card>
       <Card>
         <DropdownMenuDemo />
+      </Card>
+      <Card>
+        <ContextMenuDemo />
       </Card>
     </div>
   </div>

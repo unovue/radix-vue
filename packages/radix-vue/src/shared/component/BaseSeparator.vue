@@ -9,8 +9,8 @@ export interface BaseSeparatorProps {
 
 <script setup lang="ts">
 const props = withDefaults(defineProps<BaseSeparatorProps>(), {
-  orientation: "horizontal"
-})''
+  orientation: "horizontal",
+});
 </script>
 
 <template>

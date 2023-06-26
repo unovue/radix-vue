@@ -22,7 +22,7 @@ export const TOGGLE_GROUP_INJECTION_KEY =
 export interface ToggleGroupProvideValue {
   type: TypeEnum;
   modelValue?: Readonly<Ref<string | string[] | undefined>>;
-  changeModelValue(): (value: string) => void;
+  changeModelValue: (value: string) => void;
   parentElement: Ref<HTMLElement | undefined>;
 }
 </script>

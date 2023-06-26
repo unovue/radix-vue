@@ -29,7 +29,6 @@ const injectedContentValue = inject<HoverCardContentProvideValue>(
 const arrowElement = ref<HTMLElement>();
 onMounted(() => {
   injectedValue!.arrowElement.value = arrowElement.value;
-  console.log(injectedValue?.middlewareData);
 });
 
 const arrowX = computed<number>(() => {

@@ -29,7 +29,6 @@ const injectedContentValue = inject<PopoverContentProvideValue>(
 const arrowElement = ref<HTMLElement>();
 onMounted(() => {
   injectedValue!.arrowElement.value = arrowElement.value;
-  console.log(injectedValue?.middlewareData);
 });
 
 const arrowX = computed<number>(() => {

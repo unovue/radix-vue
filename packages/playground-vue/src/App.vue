@@ -87,7 +87,7 @@ import ContextMenuDemo from "./components/Demo/ContextMenuDemo.vue";
       <Card>
         <DropdownMenuDemo />
       </Card>
-      <Card>
+      <Card class="col-span-2">
         <ContextMenuDemo />
       </Card>
     </div>

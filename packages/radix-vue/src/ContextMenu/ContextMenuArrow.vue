@@ -1,12 +1,21 @@
 <script setup lang="ts">
-import { inject, ref, onMounted, watchEffect, computed } from "vue";
+import type { Side } from "@floating-ui/dom";
+import { inject, ref, onMounted, computed } from "vue";
 import {
   CONTEXT_MENU_INJECTION_KEY,
   type ContextMenuProvideValue,
 } from "./ContextMenuRoot.vue";
+import {
+  CONTEXT_MENU_CONTENT_INJECTION_KEY,
+  type ContextMenuContentProvideValue,
+} from "./ContextMenuContent.vue";
 
 const injectedValue = inject<ContextMenuProvideValue>(
   CONTEXT_MENU_INJECTION_KEY
+);
+
+const injectedContentValue = inject<ContextMenuContentProvideValue>(
+  CONTEXT_MENU_CONTENT_INJECTION_KEY
 );
 
 const arrowElement = ref<HTMLElement>();
@@ -15,30 +24,25 @@ onMounted(() => {
   console.log(injectedValue?.middlewareData);
 });
 
-const arrowX = ref(0);
-const arrowY = ref(0);
-const offset = ref(0);
-
-watchEffect(() => {
-  if (
-    injectedValue.middlewareData.value &&
-    injectedValue?.middlewareData.value.arrow
-  ) {
-    const { x, y } = injectedValue.middlewareData.value.arrow;
-    arrowX.value = x;
-    arrowY.value = y;
-    offset.value = -Math.abs(injectedValue.middlewareData.value.offset.y) / 2;
-  }
+const arrowX = computed<number>(() => {
+  return injectedContentValue?.middlewareData.value?.arrow?.x ?? 0;
+});
+const arrowY = computed<number>(() => {
+  return injectedContentValue?.middlewareData.value?.arrow?.y ?? 0;
+});
+const offset = computed<number>(() => {
+  const offsetY = injectedContentValue?.middlewareData.value?.offset?.y ?? 0;
+  return -Math.abs(offsetY) / 2;
 });
 
-const position = computed(() => {
-  const opposedSide = {
+const position = computed<Side>(() => {
+  const opposedSide: Record<Side, Side> = {
     left: "right",
     right: "left",
     bottom: "top",
     top: "bottom",
   };
-  return opposedSide[injectedValue?.floatPosition.value];
+  return opposedSide[injectedContentValue?.floatPosition.value as Side];
 });
 </script>
 
@@ -49,7 +53,6 @@ const position = computed(() => {
       left: arrowX ? `${arrowX}px` : '',
       top: arrowY ? `${arrowY}px` : '',
       [position]: `${offset}px`,
-      'transform-oriƒgin': 'center 0px',
     }"
     style="
       position: absolute;
@@ -57,6 +60,7 @@ const position = computed(() => {
       height: 10px;
       transform: rotate(45deg);
       z-index: -1;
+      pointer-events: none;
     "
   ></div>
 </template>

@@ -1,5 +1,18 @@
+<script lang="ts">
+import type { InjectionKey, Ref } from "vue";
+import type { Side, MiddlewareData } from "@floating-ui/dom";
+
+export const CONTEXT_MENU_CONTENT_INJECTION_KEY =
+  Symbol() as InjectionKey<ContextMenuContentProvideValue>;
+
+export type ContextMenuContentProvideValue = {
+  middlewareData: Ref<MiddlewareData>;
+  floatPosition: Ref<Side>;
+};
+</script>
+
 <script setup lang="ts">
-import { onMounted, inject, ref, watchEffect } from "vue";
+import { onMounted, inject, ref, watchEffect, provide } from "vue";
 import {
   useFloating,
   offset,
@@ -8,7 +21,7 @@ import {
   autoUpdate,
   arrow,
 } from "@floating-ui/vue";
-import { useClickOutside } from "../shared/useClickOutside.ts";
+import { useClickOutside } from "../shared/useClickOutside";
 import {
   CONTEXT_MENU_INJECTION_KEY,
   type ContextMenuProvideValue,
@@ -37,14 +50,14 @@ const {
     offset(10),
     flip(),
     shift(),
-    arrow({ element: injectedValue.arrowElement }),
+    arrow({ element: injectedValue?.arrowElement }),
   ],
   whileElementsMounted: autoUpdate,
 });
 
 watchEffect(() => {
   if (tooltipContentElement.value) {
-    if (injectedValue.modelValue.value) {
+    if (injectedValue?.modelValue.value) {
       setTimeout(() => {
         document.querySelector("body")!.style.pointerEvents = "none";
         focusFirstRadixElement();
@@ -53,34 +66,27 @@ watchEffect(() => {
 
       window.addEventListener("mousedown", closeDialogWhenClickOutside);
     } else {
-      if (injectedValue.triggerElement.value) {
+      if (injectedValue?.triggerElement.value) {
         handleCloseMenu();
       }
     }
   }
 });
 
-watchEffect(() => {
-  if (middlewareData.value && middlewareData.value.arrow) {
-    injectedValue!.updateMiddlewareData(middlewareData.value);
-  }
-});
-
-watchEffect(() => {
-  if (floatPosition.value) {
-    injectedValue!.updateFloatPosition(floatPosition.value);
-  }
-});
-
 function closeDialogWhenClickOutside(e: MouseEvent) {
-  const clickOutside = useClickOutside(e, tooltipContentElement.value);
-  if (clickOutside) {
-    injectedValue.hideTooltip();
-    window.removeEventListener("mousedown", closeDialogWhenClickOutside);
+  if (tooltipContentElement.value) {
+    const clickOutside = useClickOutside(e, tooltipContentElement.value);
+    if (clickOutside) {
+      injectedValue?.hideTooltip();
+      window.removeEventListener("mousedown", closeDialogWhenClickOutside);
+    }
   }
 }
 
 function focusFirstRadixElement() {
+  if (!tooltipContentElement.value) {
+    return console.log("tooltipContentElement not found!");
+  }
   const allToggleItem = Array.from(
     tooltipContentElement.value.querySelectorAll(
       "[data-radix-vue-collection-item]"
@@ -93,20 +99,28 @@ function focusFirstRadixElement() {
 }
 
 function fillItemsArray() {
+  if (!tooltipContentElement.value) {
+    return console.log("tooltipContentElement not found!");
+  }
   const allToggleItem = Array.from(
     tooltipContentElement.value.querySelectorAll(
       "[data-radix-vue-collection-item]:not([data-disabled])"
     )
   ) as HTMLElement[];
-  injectedValue.itemsArray = allToggleItem;
+  injectedValue!.itemsArray = allToggleItem;
 }
 
 function handleCloseMenu() {
-  document.querySelector("body").style.pointerEvents = "";
+  document.querySelector("body")!.style.pointerEvents = "";
   setTimeout(() => {
-    injectedValue.triggerElement.value.focus();
+    injectedValue?.triggerElement.value?.focus();
   }, 0);
 }
+
+provide<ContextMenuContentProvideValue>(CONTEXT_MENU_CONTENT_INJECTION_KEY, {
+  middlewareData: middlewareData,
+  floatPosition: floatPosition as Ref<Side>,
+});
 </script>
 
 <template>

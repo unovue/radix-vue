@@ -22,10 +22,6 @@ export type ContextMenuProvideValue = {
   floatingElement: Ref<HTMLElement | undefined>;
   arrowElement: Ref<HTMLElement | undefined>;
   floatingStyles: any;
-  middlewareData: Ref<any>;
-  updateMiddlewareData: (value: HTMLElement) => void;
-  floatPosition: Ref<any>;
-  updateFloatPosition: (value: string) => void;
   itemsArray: HTMLElement[];
   orientation: DataOrientation;
   positionPortalLeft?: number;
@@ -50,9 +46,6 @@ const triggerElement = ref<HTMLElement>();
 const floatingElement = ref<HTMLElement>();
 const arrowElement = ref<HTMLElement>();
 
-const middlewareData = ref<any>();
-const floatPosition = ref<string>();
-
 provide<ContextMenuProvideValue>(CONTEXT_MENU_INJECTION_KEY, {
   selectedElement: selectedElement,
   changeSelected: (value: HTMLElement) => {
@@ -69,14 +62,6 @@ provide<ContextMenuProvideValue>(CONTEXT_MENU_INJECTION_KEY, {
   floatingElement: floatingElement,
   arrowElement: arrowElement,
   floatingStyles: "",
-  middlewareData: middlewareData,
-  updateMiddlewareData: (value: any) => {
-    middlewareData.value = value;
-  },
-  floatPosition: floatPosition,
-  updateFloatPosition: (value: string) => {
-    floatPosition.value = value;
-  },
   itemsArray: [],
   orientation: props.orientation,
   positionPortalLeft: 0,

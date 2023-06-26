@@ -40,31 +40,13 @@ onMounted(() => {
   injectedValue!.floatingElement.value = tooltipContentElement.value;
 });
 
-const clientX = ref(0);
-const clientY = ref(0);
-
-const virtualEl = {
-  getBoundingClientRect() {
-    return {
-      width: 0,
-      height: 0,
-      x: injectedValue?.clientX.value,
-      y: injectedValue?.clientY.value,
-      top: injectedValue?.clientY.value,
-      left: injectedValue?.clientX.value,
-      right: injectedValue?.clientX.value,
-      bottom: injectedValue?.clientY.value,
-    };
-  },
-};
-
 const {
   floatingStyles,
   middlewareData,
   placement: floatPosition,
 } = useFloating(injectedValue!.triggerElement, tooltipContentElement, {
   middleware: [
-    offset({ mainAxis: 5, alignmentAxis: 4 }),
+    offset({ mainAxis: 1, alignmentAxis: 3 }),
     flip({
       fallbackPlacements: ["left-start"],
     }),

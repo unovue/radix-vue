@@ -1,22 +1,20 @@
 <script lang="ts">
-type Orientation = "horizontal" | "vertical";
+import BaseSeparator from "@/shared/component/BaseSeparator.vue";
+import type { DataOrientation } from "../shared/types";
 
-interface ToolbarSeparatorProps {
-  orientation?: Orientation;
+export interface BaseSeparatorProps {
+  orientation?: DataOrientation;
   decorative?: boolean;
 }
 </script>
 
 <script setup lang="ts">
-const props = withDefaults(defineProps<ToolbarSeparatorProps>(), {
-  orientation: "horizontal",
-  decorative: false,
-});
+const props = defineProps<BaseSeparatorProps>();
 </script>
 
 <template>
-  <div
-    :data-orientation="props.orientation"
-    :role="`${decorative ? 'none' : 'separator'}`"
-  ></div>
+  <BaseSeparator
+    :orientation="props.orientation"
+    :decorative="props.decorative"
+  />
 </template>

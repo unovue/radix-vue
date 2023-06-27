@@ -9,7 +9,7 @@ const injectedValue = inject<ProgressProvideValue>(PROGRESS_INJECTION_KEY);
 <template>
   <div
     :style="`left: 0%; right: ${
-      (injectedValue?.max | 100) - injectedValue?.modelValue?.value
+      (injectedValue?.max ?? 100) - (injectedValue?.modelValue?.value ?? 0)
     }%`"
   ></div>
 </template>

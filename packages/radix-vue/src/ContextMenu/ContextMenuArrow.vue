@@ -1,29 +1,21 @@
-<script lang="ts">
-interface PopoverArrowProps {
-  size?: number;
-}
-</script>
-
 <script setup lang="ts">
 import type { Side } from "@floating-ui/dom";
 import { inject, ref, onMounted, computed } from "vue";
 import {
-  POPOVER_INJECTION_KEY,
-  type PopoverProvideValue,
-} from "./PopoverRoot.vue";
+  CONTEXT_MENU_INJECTION_KEY,
+  type ContextMenuProvideValue,
+} from "./ContextMenuRoot.vue";
 import {
-  POPOVER_CONTENT_INJECTION_KEY,
-  type PopoverContentProvideValue,
-} from "./PopoverContent.vue";
+  CONTEXT_MENU_CONTENT_INJECTION_KEY,
+  type ContextMenuContentProvideValue,
+} from "./ContextMenuContent.vue";
 
-const props = withDefaults(defineProps<PopoverArrowProps>(), {
-  size: 10,
-});
+const injectedValue = inject<ContextMenuProvideValue>(
+  CONTEXT_MENU_INJECTION_KEY
+);
 
-const injectedValue = inject<PopoverProvideValue>(POPOVER_INJECTION_KEY);
-
-const injectedContentValue = inject<PopoverContentProvideValue>(
-  POPOVER_CONTENT_INJECTION_KEY
+const injectedContentValue = inject<ContextMenuContentProvideValue>(
+  CONTEXT_MENU_CONTENT_INJECTION_KEY
 );
 
 const arrowElement = ref<HTMLElement>();
@@ -38,7 +30,8 @@ const arrowY = computed<number>(() => {
   return injectedContentValue?.middlewareData.value?.arrow?.y ?? 0;
 });
 const offset = computed<number>(() => {
-  return -props.size / 2;
+  const offsetY = injectedContentValue?.middlewareData.value?.offset?.y ?? 0;
+  return -Math.abs(offsetY) / 2;
 });
 
 const position = computed<Side>(() => {
@@ -59,11 +52,11 @@ const position = computed<Side>(() => {
       left: arrowX ? `${arrowX}px` : '',
       top: arrowY ? `${arrowY}px` : '',
       [position]: `${offset}px`,
-      width: `${props.size}px`,
     }"
     style="
       position: absolute;
-      aspect-ratio: 1;
+      width: 10px;
+      height: 10px;
       transform: rotate(45deg);
       z-index: -1;
       pointer-events: none;

@@ -31,7 +31,6 @@ const injectedContentValue = inject<DropdownMenuContentProvideValue>(
 const arrowElement = ref<HTMLElement>();
 onMounted(() => {
   injectedValue!.arrowElement.value = arrowElement.value;
-  console.log(injectedValue?.middlewareData);
 });
 
 const arrowX = computed<number>(() => {

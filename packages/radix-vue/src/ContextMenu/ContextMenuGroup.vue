@@ -4,7 +4,7 @@ import type { DataOrientation, Direction } from "../shared/types";
 
 type TypeEnum = "single" | "multiple";
 
-export interface ToggleGroupRootProps {
+export interface ContextMenuGroupProps {
   type?: TypeEnum;
   value?: string;
   defaultValue?: string;
@@ -16,52 +16,47 @@ export interface ToggleGroupRootProps {
   modelValue?: string | string[];
 }
 
-export const TOGGLE_GROUP_INJECTION_KEY =
-  Symbol() as InjectionKey<ToggleGroupProvideValue>;
+export const CONTEXT_MENU_GROUP_INJECTION_KEY =
+  Symbol() as InjectionKey<ContextMenuGroupProvideValue>;
 
-export interface ToggleGroupProvideValue {
+export interface ContextMenuGroupProvideValue {
   type: TypeEnum;
   modelValue?: Readonly<Ref<string | string[] | undefined>>;
   changeModelValue: (value: string) => void;
   parentElement: Ref<HTMLElement | undefined>;
-  activeValue?: Readonly<Ref<string>>;
 }
 </script>
 
 <script setup lang="ts">
 import { ref, toRef, provide } from "vue";
 
-const props = withDefaults(defineProps<ToggleGroupRootProps>(), {
+const props = withDefaults(defineProps<ContextMenuGroupProps>(), {
   type: "single",
 });
 
 const emits = defineEmits(["update:modelValue"]);
 
 const parentElementRef = ref<HTMLElement | undefined>();
-const activeValue = ref();
 
-provide<ToggleGroupProvideValue>(TOGGLE_GROUP_INJECTION_KEY, {
+provide<ContextMenuGroupProvideValue>(CONTEXT_MENU_GROUP_INJECTION_KEY, {
   type: props.type,
   modelValue: toRef(() => props.modelValue),
-  changeModelValue: changeModelValue,
-  parentElement: parentElementRef,
-  activeValue: activeValue,
-});
-
-function changeModelValue(value: string) {
-  if (props.type === "single") {
-    emits("update:modelValue", value);
-  } else {
-    let modelValueArray = props.modelValue as string[];
-    if (modelValueArray.includes(value)) {
-      let index = modelValueArray.findIndex((i) => i === value);
-      modelValueArray.splice(index, 1);
+  changeModelValue: (value: string) => {
+    if (props.type === "single") {
+      emits("update:modelValue", value);
     } else {
-      modelValueArray.push(value);
+      let modelValueArray = props.modelValue as string[];
+      if (modelValueArray.includes(value)) {
+        let index = modelValueArray.findIndex((i) => i === value);
+        modelValueArray.splice(index, 1);
+      } else {
+        modelValueArray.push(value);
+      }
+      emits("update:modelValue", modelValueArray);
     }
-    emits("update:modelValue", modelValueArray);
-  }
-}
+  },
+  parentElement: parentElementRef,
+});
 </script>
 
 <template>

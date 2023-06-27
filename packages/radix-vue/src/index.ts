@@ -92,3 +92,18 @@ export {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
 } from "./DropdownMenu";
+export {
+  ContextMenuArrow,
+  ContextMenuContent,
+  ContextMenuGroup,
+  ContextMenuItem,
+  ContextMenuPortal,
+  ContextMenuRoot,
+  ContextMenuSeparator,
+  ContextMenuTrigger,
+  ContextMenuCheckboxItem,
+  ContextMenuItemIndicator,
+  ContextMenuLabel,
+  ContextMenuRadioGroup,
+  ContextMenuRadioItem,
+} from "./ContextMenu";

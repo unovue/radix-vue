@@ -4,6 +4,7 @@ import {
   RADIO_GROUP_INJECTION_KEY,
   type RadioGroupProvideValue,
 } from "./RadioGroupRoot.vue";
+import { useArrowNavigation } from "../shared";
 
 interface RadioGroupItemProps {
   value?: string;
@@ -26,47 +27,15 @@ function changeTab(value: string) {
 const currentRadioElement = ref<HTMLElement>();
 
 function handleKeydown(e: KeyboardEvent) {
-  const allRadioItem = Array.from(
-    injectedValue!.parentElement.value!.querySelectorAll(
-      "[data-radix-vue-collection-item]"
-    )
-  ) as HTMLElement[];
-  if (allRadioItem.length) {
-    const currentTabIndex = allRadioItem.indexOf(currentRadioElement.value!);
+  const newSelectedElement = useArrowNavigation(
+    e,
+    currentRadioElement.value!,
+    injectedValue?.parentElement.value!
+  );
 
-    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-      e.preventDefault();
-      if (allRadioItem[currentTabIndex + 1]) {
-        allRadioItem[currentTabIndex + 1].focus();
-        changeTab(
-          allRadioItem[currentTabIndex + 1].getAttribute(
-            "data-radix-vue-radio-value"
-          )!
-        );
-      } else {
-        allRadioItem[0].focus();
-        changeTab(allRadioItem[0].getAttribute("data-radix-vue-radio-value")!);
-      }
-    }
-
-    if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-      e.preventDefault();
-      if (allRadioItem[currentTabIndex - 1]) {
-        allRadioItem[currentTabIndex - 1].focus();
-        changeTab(
-          allRadioItem[currentTabIndex - 1].getAttribute(
-            "data-radix-vue-radio-value"
-          )!
-        );
-      } else {
-        allRadioItem[allRadioItem.length - 1].focus();
-        changeTab(
-          allRadioItem[allRadioItem.length - 1].getAttribute(
-            "data-radix-vue-radio-value"
-          )!
-        );
-      }
-    }
+  if (newSelectedElement) {
+    newSelectedElement.focus();
+    changeTab(newSelectedElement?.getAttribute("data-radix-vue-radio-value")!);
   }
 }
 </script>

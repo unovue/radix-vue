@@ -9,7 +9,7 @@ import {
 // } from "radix-vue";
 import { ref } from "vue";
 
-const tabValue = ref(["item-1"]);
+const tabValue = ref("item-1");
 const rootDisabled = false;
 </script>
 

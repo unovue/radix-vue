@@ -5,6 +5,16 @@
 An unofficial vue port of Radix Primitives.
 An accessible, unstyled and customisable UI Library for building top quality design systems.
 
+## Dev Setup
+
+1. Clone the repo
+2. Go to the repo directory: `cd radix-vue`
+3. Run `pnpm run start`
+
+## Installation
+
+Coming soon.
+
 ## Todo
 
 | Component       | Usable | Complete API | Complete Accessibility |
@@ -38,10 +48,16 @@ An accessible, unstyled and customisable UI Library for building top quality des
 | [Toolbar](https://github.com/radix-vue/radix-vue/issues/27)         |   ✅   |              |                        |
 | [Tooltip](https://github.com/radix-vue/radix-vue/issues/28)         |   ✅   |              |                        |
 
-## Goals
+## Contributing
 
--
+We would love to have your contributions! All PRs all welcomed! We need help building the core components, docs, tests, stories! Join our discord and we will get you up and running!
+
+## Community
+
+- [Discord](https://discord.gg/dpf7BZY3)
 
 ## Authors
 
--
+- [Khairul Haaziq](@khairulhaaziq)
+- [Mujahid Anuar](@mujahidfa)
+- [Zernonia](@zernonia)

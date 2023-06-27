@@ -9,12 +9,17 @@ import { useHoverDelay } from "../shared";
 const injectedValue = inject<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY);
 
 const triggerElement = ref<HTMLElement>();
+
 onMounted(() => {
   injectedValue!.triggerElement.value = triggerElement.value;
 });
 
 async function handleMouseEnter(e: MouseEvent) {
-  const result = await useHoverDelay(e, triggerElement.value!);
+  const result = await useHoverDelay(
+    e,
+    triggerElement.value!,
+    injectedValue?.openDelay
+  );
   if (result) {
     injectedValue?.showTooltip();
   }

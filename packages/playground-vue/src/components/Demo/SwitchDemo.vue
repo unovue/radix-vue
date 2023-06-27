@@ -4,10 +4,6 @@ import { Icon } from "@iconify/vue";
 import { ref } from "vue";
 
 const switchState = ref(true);
-
-function toggleState() {
-  switchState.value = !switchState.value;
-}
 </script>
 
 <template>

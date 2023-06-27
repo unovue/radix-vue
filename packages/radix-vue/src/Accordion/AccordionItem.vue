@@ -1,53 +1,180 @@
 <script lang="ts" context="module">
+import type { InjectionKey } from "vue";
 import type { CollapsibleRootProps } from "../Collapsible";
-import type { InjectionKey, Ref } from "vue";
 
-export interface AccordionItemProps extends CollapsibleRootProps {
+export interface AccordionItemProps
+  extends Omit<CollapsibleRootProps, "open" | "defaultOpen" | "onOpenChange"> {
+  /**
+   * Whether or not an accordion item is disabled from user interaction.
+   *
+   * @defaultValue false
+   */
+  disabled?: boolean;
+  /**
+   * A string value for the accordion item. All items within an accordion should use a unique value.
+   */
   value: string;
-  //   modelValue: string;
 }
 
 export interface AccordionItemProvideValue {
-  readonly value: Readonly<Ref<string>>;
-  //   readonly modelValue: Readonly<Ref<string>>;
-  //   changeModelValue: (value: string) => void;
+  open?: boolean;
+  disabled?: boolean;
+  triggerId: string;
 }
 
 export const ACCORDION_ITEM_INJECTION_KEY =
   Symbol() as InjectionKey<AccordionItemProvideValue>;
+
+export const ACCORDION_KEYS = [
+  "Home",
+  "End",
+  "ArrowDown",
+  "ArrowUp",
+  "ArrowLeft",
+  "ArrowRight",
+];
 </script>
 
 <script setup lang="ts">
-import { computed, inject, provide, toRef } from "vue";
+import { computed, inject, provide } from "vue";
 import { CollapsibleRoot } from "../Collapsible";
 import {
-  ACCORDION_INJECTION_KEY,
-  type AccordionProvideValue,
-} from "./AccordionRoot.vue";
-
-const injectedValue = inject<AccordionProvideValue>(ACCORDION_INJECTION_KEY);
+  ACCORDION_IMPL_INJECTION_KEY,
+  type AccordionImplProvideValue,
+  ACCORDION_VALUE_INJECTION_KEY,
+  type AccordionValueProvideValue,
+} from "./AccordionImpl.vue";
 
 const props = defineProps<AccordionItemProps>();
 
-// const emit = defineEmits(["update:modelValue"]);
+const accordianImplInjectedValue = inject<AccordionImplProvideValue>(
+  ACCORDION_IMPL_INJECTION_KEY
+);
+const accordianValueInjectedValue = inject<AccordionValueProvideValue>(
+  ACCORDION_VALUE_INJECTION_KEY
+);
 
-const isOpen = computed(() =>
-  Array.isArray(injectedValue?.modelValue.value)
-    ? injectedValue?.modelValue.value.includes(props.value)
-    : injectedValue?.modelValue.value === props.value
+const open = computed({
+  get: () =>
+    (props.value &&
+      accordianValueInjectedValue?.value.value.includes(props.value)) ||
+    false,
+  set: (open) => {
+    if (open) {
+      accordianValueInjectedValue?.onItemOpen(props.value);
+    } else {
+      accordianValueInjectedValue?.onItemClose(props.value);
+    }
+  },
+});
+const disabled = computed(
+  () => accordianImplInjectedValue?.disabled || props.disabled
 );
 
 provide<AccordionItemProvideValue>(ACCORDION_ITEM_INJECTION_KEY, {
-  value: toRef(() => props.value),
-  //   modelValue: toRef(() => props.modelValue),
-  //   changeModelValue: (value: any) => {
-  //     emit("update:modelValue", value);
-  //   },
+  open: open.value,
+  disabled: disabled.value,
+  triggerId: "1", // TODO
 });
+
+function getItems() {
+  const collectionNode = accordianImplInjectedValue?.parentElement.value;
+  if (!collectionNode) return [];
+  const orderedNodes = Array.from(
+    collectionNode.querySelectorAll(`["data-radix-vue-collection-item"]`)
+  );
+
+  return orderedNodes as HTMLElement[];
+}
+
+const handleKeyDown = (event: KeyboardEvent) => {
+  if (!ACCORDION_KEYS.includes(event.key)) return;
+
+  const target = event.target as HTMLElement;
+  const triggerCollection = getItems().filter(
+    // (item) => !item.ref.current?.disabled
+    // (item) => !item.disabled
+    (item) => item
+  );
+  const triggerIndex = triggerCollection.findIndex(
+    // (item) => item.ref.current === target
+    (item) => item === target
+  );
+  const triggerCount = triggerCollection.length;
+
+  if (triggerIndex === -1) return;
+
+  // Prevents page scroll while user is navigating
+  event.preventDefault();
+
+  let nextIndex = triggerIndex;
+  const homeIndex = 0;
+  const endIndex = triggerCount - 1;
+
+  const moveNext = () => {
+    nextIndex = triggerIndex + 1;
+    if (nextIndex > endIndex) {
+      nextIndex = homeIndex;
+    }
+  };
+
+  const movePrev = () => {
+    nextIndex = triggerIndex - 1;
+    if (nextIndex < homeIndex) {
+      nextIndex = endIndex;
+    }
+  };
+
+  switch (event.key) {
+    case "Home":
+      nextIndex = homeIndex;
+      break;
+    case "End":
+      nextIndex = endIndex;
+      break;
+    case "ArrowRight":
+      if (accordianImplInjectedValue?.orientation === "horizontal") {
+        // if (isDirectionLTR) {
+        //   moveNext();
+        // } else {
+        movePrev();
+        // }
+      }
+      break;
+    case "ArrowDown":
+      if (accordianImplInjectedValue?.orientation === "vertical") {
+        moveNext();
+      }
+      break;
+    case "ArrowLeft":
+      if (accordianImplInjectedValue?.orientation === "horizontal") {
+        // if (isDirectionLTR) {
+        //   movePrev();
+        // } else {
+        moveNext();
+        // }
+      }
+      break;
+    case "ArrowUp":
+      if (accordianImplInjectedValue?.orientation === "vertical") {
+        movePrev();
+      }
+      break;
+  }
+
+  const clampedIndex = nextIndex % triggerCount;
+  triggerCollection[clampedIndex].focus();
+};
 </script>
 
 <template>
-  <CollapsibleRoot :open="isOpen" :disabled="injectedValue?.disabled.value">
+  <CollapsibleRoot
+    :data-orientation="accordianImplInjectedValue?.orientation"
+    :data-state="open ? 'open' : 'closed'"
+    :disabled="disabled"
+    v-model:open="open"
+    @keydown="props.disabled ? undefined : handleKeyDown"
+  >
     <slot />
   </CollapsibleRoot>
 </template>

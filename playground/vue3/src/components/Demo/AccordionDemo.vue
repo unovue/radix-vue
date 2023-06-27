@@ -5,13 +5,11 @@ import {
   AccordionHeader,
   AccordionTrigger,
   AccordionContent,
+  // } from "../../../../../packages/radix-vue/src";
 } from "radix-vue";
 import { ref } from "vue";
 
-// Since we use a discriminated union in ToggleGroup.Root, we need to cast
-// some props to any to satisfy the type checker. TODO: Find a better way to do this.
-const tabValue = ref("");
-const rootType = "single";
+const tabValue = ref(["item-1"]);
 const rootDisabled = false;
 </script>
 
@@ -21,9 +19,10 @@ const rootDisabled = false;
   </div>
   <AccordionRoot
     class="w-[300px] rounded-md bg-[--line-color] shadow-lg"
-    v-model="tabValue"
-    :type="rootType"
+    v-model:value="tabValue"
+    type="single"
     :disabled="rootDisabled"
+    :collapsible="true"
   >
     <AccordionItem class="accordion-item" value="item-1">
       <AccordionHeader class="flex">

@@ -38,10 +38,9 @@ watch(open, (newValue: boolean) => {
 provide<CollapsibleProvideValue>(COLLAPSIBLE_INJECTION_KEY, {
   contentId: "1",
   disabled: toRef(() => props.disabled),
-  open: props.open !== undefined ? toRef(() => props.open) : open,
+  open: toRef(() => props.open),
   onOpenToggle: () => {
     open.value = !open.value;
-    emit("update:open", !props.open);
   },
 });
 </script>

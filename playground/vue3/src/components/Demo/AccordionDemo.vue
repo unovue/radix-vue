@@ -5,8 +5,8 @@ import {
   AccordionHeader,
   AccordionTrigger,
   AccordionContent,
-  // } from "../../../../../packages/radix-vue/src";
-} from "radix-vue";
+} from "../../../../../packages/radix-vue/src";
+// } from "radix-vue";
 import { ref } from "vue";
 
 const tabValue = ref(["item-1"]);

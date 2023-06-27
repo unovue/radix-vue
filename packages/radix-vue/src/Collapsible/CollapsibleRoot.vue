@@ -19,20 +19,28 @@ export const COLLAPSIBLE_INJECTION_KEY =
 </script>
 
 <script setup lang="ts">
-import { provide, toRef } from "vue";
+import { provide, ref, toRef, watch } from "vue";
 
 const props = withDefaults(defineProps<CollapsibleRootProps>(), {
-  open: false,
+  open: undefined,
 });
+
 const emit = defineEmits<{
   (e: "update:open", value: boolean): void;
 }>();
 
+const open = ref(props.open ?? false);
+
+watch(open, (newValue: boolean) => {
+  emit("update:open", newValue);
+});
+
 provide<CollapsibleProvideValue>(COLLAPSIBLE_INJECTION_KEY, {
   contentId: "1",
   disabled: toRef(() => props.disabled),
-  open: toRef(() => props.open),
+  open: props.open !== undefined ? toRef(() => props.open) : open,
   onOpenToggle: () => {
+    open.value = !open.value;
     emit("update:open", !props.open);
   },
 });

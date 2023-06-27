@@ -4,10 +4,12 @@ import {
   CollapsibleRoot,
   CollapsibleTrigger,
   CollapsibleContent,
-} from "radix-vue";
+} from "../../../../../packages/radix-vue/src";
+// } from "radix-vue";
 import { Icon } from "@iconify/vue";
 
 const rootDisabled = ref(false);
+const open = ref(false);
 </script>
 
 <template>
@@ -15,6 +17,7 @@ const rootDisabled = ref(false);
     class="w-[300px]"
     :disabled="rootDisabled"
     v-slot="slotProps"
+    v-model:open="open"
   >
     <div
       style="display: flex; align-items: center; justify-content: space-between"

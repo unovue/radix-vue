@@ -16,9 +16,13 @@ const currentToggleElement = ref<HTMLElement>();
 
 const state = computed(() => {
   if (props?.injectedValue?.type === "multiple") {
-    return props?.injectedValue?.modelValue?.value?.includes(props.value!) ? "on" : "off";
+    return props?.injectedValue?.modelValue?.value?.includes(props.value!)
+      ? "on"
+      : "off";
   } else {
-    return props?.injectedValue?.modelValue?.value === props.value ? "on" : "off";
+    return props?.injectedValue?.modelValue?.value === props.value
+      ? "on"
+      : "off";
   }
 });
 

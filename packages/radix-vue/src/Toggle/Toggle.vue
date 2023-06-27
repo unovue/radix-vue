@@ -1,92 +1,59 @@
-<script setup lang="ts">
-import { ref, computed } from "vue";
-import type { ComputedRef } from "vue";
-
-const props = defineProps({
-  defaultChecked: {
-    type: Boolean,
-    required: false,
-  },
-  checked: {
-    type: Boolean,
-    required: false,
-  },
-  disabled: {
-    type: Boolean,
-    required: false,
-  },
-  required: {
-    type: Boolean,
-    required: false,
-  },
-  name: {
-    type: String,
-    required: false,
-  },
-  value: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-  id: {
-    type: String,
-    required: false,
-  },
-  modelValue: {
-    type: Boolean,
-    required: false,
-    default: null,
-  },
-});
-
-const emits = defineEmits(["onCheckedChange", "update:modelValue"]);
-
+<script lang="ts">
 type DataState = "on" | "off";
-let dataDisabled: boolean;
 
-const modelPlaceHolder = ref(props.checked);
+export interface ToggleProps {
+  modelValue?: boolean;
+  disabled?: boolean;
+  name?: string;
+  id?: string;
+}
+</script>
 
-const refChecked = computed({
-  get() {
-    if (props.modelValue != null) {
-      return props.modelValue;
-    } else {
-      return modelPlaceHolder.value;
-    }
-  },
-  set(value) {
-    if (props.modelValue != null) {
-      emits("update:modelValue", value);
-    } else {
-      modelPlaceHolder.value = !modelPlaceHolder.value;
-    }
-  },
+<script setup lang="ts">
+import { ref, computed, watch } from "vue";
+
+const props = withDefaults(defineProps<ToggleProps>(), {
+  disabled: false,
 });
 
-const dataState: ComputedRef<DataState> = computed(() => {
-  return refChecked.value ? "on" : "off";
+const emit = defineEmits(["update:modelValue"]);
+
+const modelValue = ref(props.modelValue ?? false);
+
+watch(modelValue, (newValue) => {
+  emit("update:modelValue", newValue);
 });
+
+const dataState = computed<DataState>(() => {
+  return modelValue.value ? "on" : "off";
+});
+
+function handleKeydown(e: KeyboardEvent) {
+  if (e.key === "Enter") {
+    modelValue.value = !modelValue.value;
+  }
+}
 </script>
 
 <template>
   <div
-    :value="props.value"
+    :value="props.modelValue"
     role="checkbox"
-    :aria-checked="refChecked"
+    :aria-checked="modelValue"
     :data-state="dataState"
     style="position: relative"
   >
     <input
       type="checkbox"
       :id="props.id"
-      v-model="refChecked"
-      :checked="refChecked"
+      @keydown="handleKeydown"
+      v-model="modelValue"
+      :checked="modelValue"
       :name="props.name"
       aria-hidden="true"
       :disabled="props.disabled"
-      :required="props.required"
       :data-state="dataState"
-      :data-disabled="dataDisabled"
+      :data-disabled="props.disabled"
       style="opacity: 0; position: absolute; inset: 0"
     />
     <slot />

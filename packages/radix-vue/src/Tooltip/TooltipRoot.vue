@@ -17,14 +17,11 @@ export type TooltipProvideValue = {
   triggerElement: Ref<HTMLElement | undefined>;
   floatingElement: Ref<HTMLElement | undefined>;
   arrowElement: Ref<HTMLElement | undefined>;
-  floatingStyles: any;
-  middlewareData: any;
 };
 </script>
 
 <script setup lang="ts">
 import { provide, toRef, ref } from "vue";
-import { useFloating, offset, flip, shift, arrow } from "@floating-ui/vue";
 
 const props = withDefaults(defineProps<TooltipRootProps>(), {
   delayDuration: 700,
@@ -49,8 +46,6 @@ provide<TooltipProvideValue>(TOOLTIP_INJECTION_KEY, {
   triggerElement: triggerElement,
   floatingElement: floatingElement,
   arrowElement: arrowElement,
-  floatingStyles: "",
-  middlewareData: "",
 });
 </script>
 

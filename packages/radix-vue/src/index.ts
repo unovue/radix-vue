@@ -82,3 +82,42 @@ export {
   HoverCardRoot,
   HoverCardTrigger,
 } from "./HoverCard";
+export {
+  PopoverRoot,
+  PopoverTrigger,
+  PopoverPortal,
+  PopoverContent,
+  PopoverArrow,
+  PopoverAnchor,
+  PopoverClose,
+} from "./Popover";
+export {
+  DropdownMenuArrow,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuRoot,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  DropdownMenuCheckboxItem,
+  DropdownMenuItemIndicator,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+} from "./DropdownMenu";
+export {
+  ContextMenuArrow,
+  ContextMenuContent,
+  ContextMenuGroup,
+  ContextMenuItem,
+  ContextMenuPortal,
+  ContextMenuRoot,
+  ContextMenuSeparator,
+  ContextMenuTrigger,
+  ContextMenuCheckboxItem,
+  ContextMenuItemIndicator,
+  ContextMenuLabel,
+  ContextMenuRadioGroup,
+  ContextMenuRadioItem,
+} from "./ContextMenu";

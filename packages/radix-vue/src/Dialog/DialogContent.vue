@@ -11,18 +11,20 @@ const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 const dialogContentElement = ref<HTMLElement>();
 
 watchEffect(() => {
-  if (injectedValue?.open.value && dialogContentElement) {
-    trapFocus(dialogContentElement.value);
-    document.querySelector("body")!.style.pointerEvents = "none";
-    window.addEventListener("wheel", lockScroll, { passive: false });
-    window.addEventListener("keydown", lockKeydown);
-  } else {
-    document.querySelector("body")!.style.pointerEvents = "";
-    window.removeEventListener("wheel", lockScroll);
-    window.removeEventListener("keydown", lockKeydown);
+  if (dialogContentElement.value) {
+    if (injectedValue?.open.value) {
+      trapFocus(dialogContentElement.value);
+      document.querySelector("body")!.style.pointerEvents = "none";
+      window.addEventListener("wheel", lockScroll, { passive: false });
+      window.addEventListener("keydown", lockKeydown);
+    } else {
+      document.querySelector("body")!.style.pointerEvents = "";
+      window.removeEventListener("wheel", lockScroll);
+      window.removeEventListener("keydown", lockKeydown);
 
-    if (injectedValue.triggerButton.value) {
-      injectedValue.triggerButton.value.focus();
+      if (injectedValue.triggerButton.value) {
+        injectedValue.triggerButton.value.focus();
+      }
     }
   }
 });

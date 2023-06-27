@@ -1,16 +1,11 @@
 <script setup lang="ts">
 import { HoverCardRoot, HoverCardTrigger, HoverCardPortal, HoverCardContent, HoverCardArrow } from "radix-vue";
-import { Icon } from "@iconify/vue";
-import { ref } from "vue";
-
-const toggleState = ref(false);
 </script>
 
 <template>
   <div class="absolute left-4 top-3 text-sm">
-    <p>{{ toggleState ? "checked" : "uncheked" }}</p>
   </div>
-  <HoverCardRoot v-model="toggleState">
+  <HoverCardRoot>
     <HoverCardTrigger class="inline-block cursor-pointer rounded-full shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] outline-none focus:shadow-[0_0_0_2px_white]"
         href="https://twitter.com/radix_ui"
         target="_blank"
@@ -55,7 +50,7 @@ const toggleState = ref(false);
           </div>
         </div>
 
-        <HoverCardArrow class="fill-white" />
+        <HoverCardArrow class="bg-white" size="8" />
       </HoverCardContent>
     </HoverCardPortal>
   </HoverCardRoot>

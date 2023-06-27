@@ -4,13 +4,26 @@ import {
   HOVER_CARD_INJECTION_KEY,
   type HoverCardProvideValue,
 } from "./HoverCardRoot.vue";
+import { useHoverDelay } from "../shared";
 
 const injectedValue = inject<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY);
 
 const triggerElement = ref<HTMLElement>();
+
 onMounted(() => {
   injectedValue!.triggerElement.value = triggerElement.value;
 });
+
+async function handleMouseEnter(e: MouseEvent) {
+  const result = await useHoverDelay(
+    e,
+    triggerElement.value!,
+    injectedValue?.openDelay
+  );
+  if (result) {
+    injectedValue?.showTooltip();
+  }
+}
 </script>
 
 <template>
@@ -19,8 +32,9 @@ onMounted(() => {
     ref="triggerElement"
     :aria-expanded="injectedValue?.modelValue.value || false"
     :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
-    @mouseenter="injectedValue?.showTooltip"
+    @mouseenter="handleMouseEnter"
     @mouseleave="injectedValue?.hideTooltip"
+    style="cursor: default"
   >
     <slot />
   </button>

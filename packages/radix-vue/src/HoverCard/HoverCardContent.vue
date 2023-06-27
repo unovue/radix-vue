@@ -1,6 +1,26 @@
+<script lang="ts">
+import type { InjectionKey, Ref } from "vue";
+import type { Side, MiddlewareData } from "@floating-ui/dom";
+
+export const HOVER_CARD_CONTENT_INJECTION_KEY =
+  Symbol() as InjectionKey<HoverCardContentProvideValue>;
+
+export type HoverCardContentProvideValue = {
+  middlewareData: Ref<MiddlewareData>;
+  floatPosition: Ref<Side>;
+};
+</script>
+
 <script setup lang="ts">
-import { onMounted, inject, ref } from "vue";
-import { useFloating, offset, flip, shift, arrow } from "@floating-ui/vue";
+import { onMounted, inject, ref, provide } from "vue";
+import {
+  useFloating,
+  offset,
+  flip,
+  shift,
+  arrow,
+  autoUpdate,
+} from "@floating-ui/vue";
 import {
   HOVER_CARD_INJECTION_KEY,
   type HoverCardProvideValue,
@@ -17,19 +37,25 @@ onMounted(() => {
   injectedValue!.floatingElement.value = tooltipContentElement.value;
 });
 
-const { floatingStyles } = useFloating(
-  injectedValue.triggerElement,
-  tooltipContentElement,
-  {
-    placement: "top",
-    middleware: [
-      offset(10),
-      flip(),
-      shift(),
-      arrow({ element: injectedValue?.arrowElement }),
-    ],
-  }
-);
+const {
+  floatingStyles,
+  middlewareData,
+  placement: floatPosition,
+} = useFloating(injectedValue!.triggerElement, tooltipContentElement, {
+  placement: "bottom",
+  middleware: [
+    offset(10),
+    flip(),
+    shift(),
+    arrow({ element: injectedValue?.arrowElement }),
+  ],
+  whileElementsMounted: autoUpdate,
+});
+
+provide<HoverCardContentProvideValue>(HOVER_CARD_CONTENT_INJECTION_KEY, {
+  middlewareData: middlewareData,
+  floatPosition: floatPosition as Ref<Side>,
+});
 </script>
 
 <template>
@@ -43,7 +69,7 @@ const { floatingStyles } = useFloating(
   >
     <div
       :data-state="injectedValue?.modelValue.value ? 'delayed-open' : 'closed'"
-      data-side="top"
+      data-side="bottom"
       role="tooltip"
       tabindex="-1"
       :class="props.class"

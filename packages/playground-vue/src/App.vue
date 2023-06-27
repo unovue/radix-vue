@@ -21,11 +21,14 @@ import ToolbarDemo from "./components/Demo/ToolbarDemo.vue";
 import AvatarDemo from "./components/Demo/AvatarDemo.vue";
 import TooltipDemo from "./components/Demo/TooltipDemo.vue";
 import HoverCardDemo from "./components/Demo/HoverCardDemo.vue";
+import PopoverDemo from "./components/Demo/PopoverDemo.vue";
+import DropdownMenuDemo from "./components/Demo/DropdownMenuDemo.vue";
+import ContextMenuDemo from "./components/Demo/ContextMenuDemo.vue";
 </script>
 
 <template>
   <div class="w-full flex flex-col items-center">
-    <div class="max-w-6xl w-full grid grid-cols-3 gap-4 pt-40 pb-20">
+    <div class="max-w-6xl w-full grid grid-cols-3 gap-4 pt-40 pb-40">
       <Card>
         <AccordionDemo />
       </Card>
@@ -82,6 +85,15 @@ import HoverCardDemo from "./components/Demo/HoverCardDemo.vue";
       </Card>
       <Card>
         <HoverCardDemo />
+      </Card>
+      <Card>
+        <PopoverDemo />
+      </Card>
+      <Card>
+        <DropdownMenuDemo />
+      </Card>
+      <Card class="col-span-2">
+        <ContextMenuDemo />
       </Card>
     </div>
   </div>

@@ -1,89 +1,70 @@
-<script setup lang="ts">
-import { ref, computed, provide } from "vue";
+<script lang="ts">
+import type { InjectionKey, Ref } from "vue";
 
-const props = defineProps({
-  defaultChecked: {
-    type: Boolean,
-    required: false,
-  },
-  checked: {
-    type: Boolean,
-    required: false,
-  },
-  disabled: {
-    type: Boolean,
-    required: false,
-  },
-  required: {
-    type: Boolean,
-    required: false,
-  },
-  name: {
-    type: String,
-    required: false,
-  },
-  value: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-  id: {
-    type: String,
-    required: false,
-  },
-  modelValue: {
-    type: Boolean,
-    required: false,
-    default: null,
-  },
+export interface CheckboxRootProps {
+  modelValue?: boolean;
+  disabled?: boolean;
+  required?: boolean;
+  name?: string;
+  value?: string;
+  id?: string;
+}
+
+export type CheckboxProvideValue = {
+  disabled: boolean;
+  required: boolean;
+  modelValue: Readonly<Ref<boolean>>;
+};
+
+export const CHECKBOX_INJECTION_KEY =
+  Symbol() as InjectionKey<CheckboxProvideValue>;
+</script>
+
+<script setup lang="ts">
+import { toRef, provide } from "vue";
+
+const props = withDefaults(defineProps<CheckboxRootProps>(), {
+  modelValue: false,
+  value: "on",
 });
 
-const emits = defineEmits(["onCheckedChange", "update:modelValue"]);
+const emit = defineEmits<{
+  (e: "update:modelValue", value: boolean): void;
+}>();
+
+provide<CheckboxProvideValue>(CHECKBOX_INJECTION_KEY, {
+  required: props.required,
+  disabled: props.disabled,
+  modelValue: toRef(() => props.modelValue),
+});
+
+function updateModelValue() {
+  return emit("update:modelValue", !props.modelValue);
+}
 
 let dataState: "checked" | "unchecked" | "indeterminate";
-let dataDisabled: boolean;
-
-const modelPlaceHolder = ref(props.checked);
-
-const refChecked = computed({
-  get() {
-    if (props.modelValue != null) {
-      return props.modelValue;
-    } else {
-      return modelPlaceHolder.value;
-    }
-  },
-  set(value) {
-    if (props.modelValue != null) {
-      emits("update:modelValue", value);
-    } else {
-      modelPlaceHolder.value = !modelPlaceHolder.value;
-    }
-  },
-});
-
-provide("refChecked", refChecked);
 </script>
 
 <template>
   <div
     :value="props.value"
     role="checkbox"
-    :aria-checked="refChecked"
+    :aria-checked="props.modelValue"
     :data-state="dataState"
     style="position: relative"
+    :data-disabled="props.disabled ? '' : undefined"
   >
     <input
       type="checkbox"
       :id="props.id"
-      v-model="refChecked"
-      :checked="refChecked"
+      v-bind="props.modelValue"
+      @change="updateModelValue"
+      :checked="props.modelValue"
       :name="props.name"
       aria-hidden="true"
       :disabled="props.disabled"
       :required="props.required"
       :data-state="dataState"
-      :data-disabled="dataDisabled"
       style="opacity: 0; position: absolute; inset: 0"
     />
     <slot />

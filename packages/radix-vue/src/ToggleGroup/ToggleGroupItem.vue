@@ -1,19 +1,24 @@
+<script lang="ts">
+interface ToggleGroupItemProps {
+  value?: string;
+}
+</script>
+
 <script setup lang="ts">
 import { ref, inject, computed } from "vue";
 import {
   TOGGLE_GROUP_INJECTION_KEY,
   type ToggleGroupProvideValue,
 } from "./ToggleGroupRoot.vue";
-
-interface ToggleGroupItemProps {
-  value?: string;
-}
+import { useArrowNavigation } from "../shared";
 
 const injectedValue = inject<ToggleGroupProvideValue>(
   TOGGLE_GROUP_INJECTION_KEY
 );
 
-const props = withDefaults(defineProps<ToggleGroupItemProps>(), {});
+const props = defineProps<ToggleGroupItemProps>();
+
+const currentToggleElement = ref<HTMLElement>();
 
 const state = computed(() => {
   if (injectedValue?.type === "multiple") {
@@ -25,35 +30,13 @@ const state = computed(() => {
   }
 });
 
-const currentToggleElement = ref<HTMLElement | undefined>();
-
 function handleKeydown(e: KeyboardEvent) {
-  const allToggleItem = Array.from(
-    injectedValue!.parentElement!.value!.querySelectorAll(
-      "[data-radix-vue-collection-item]"
-    )
-  ) as HTMLElement[];
-  if (allToggleItem.length) {
-    const currentTabIndex = allToggleItem.indexOf(currentToggleElement.value!);
-
-    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-      e.preventDefault();
-      if (allToggleItem[currentTabIndex + 1]) {
-        allToggleItem[currentTabIndex + 1].focus();
-      } else {
-        allToggleItem[0].focus();
-      }
-    }
-
-    if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-      e.preventDefault();
-      if (allToggleItem[currentTabIndex - 1]) {
-        allToggleItem[currentTabIndex - 1].focus();
-      } else {
-        allToggleItem[allToggleItem.length - 1].focus();
-      }
-    }
-  }
+  const newSelectedElement = useArrowNavigation(
+    e,
+    currentToggleElement.value!,
+    injectedValue?.parentElement.value!
+  );
+  newSelectedElement?.focus();
 }
 </script>
 
@@ -61,7 +44,7 @@ function handleKeydown(e: KeyboardEvent) {
   <button
     type="button"
     :data-state="state"
-    @click="injectedValue!.changeModelValue(props.value)"
+    @click="injectedValue?.changeModelValue(props.value!)"
     ref="currentToggleElement"
     @keydown="handleKeydown"
     data-radix-vue-collection-item

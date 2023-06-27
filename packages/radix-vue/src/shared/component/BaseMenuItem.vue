@@ -1,10 +1,12 @@
 <script lang="ts">
 import type { Ref } from "vue";
 import type { DropdownMenuProvideValue } from "../../DropdownMenu/DropdownMenuRoot.vue";
+import type { DropdownMenuSubProvideValue } from "../../DropdownMenu/DropdownMenuSub.vue";
 
 interface BaseMenuItemProps {
   disabled?: boolean;
-  selectedElementProvider: DropdownMenuProvideValue | undefined;
+  rootProvider: DropdownMenuProvideValue | undefined;
+  subProvider?: DropdownMenuSubProvideValue | undefined;
   orientation: string | undefined;
   role?: string;
   dataState?: Ref<string>;
@@ -15,10 +17,15 @@ interface BaseMenuItemProps {
 import { ref, watchEffect } from "vue";
 import { useArrowNavigation } from "../useArrowNavigation";
 
+const currentProvider = props.subProvider
+  ? props.subProvider
+  : props.rootProvider;
+
 const props = withDefaults(defineProps<BaseMenuItemProps>(), {
   role: "menuitem",
 });
-const emit = defineEmits(["handle-click", "horizontal-keydown"]);
+
+const emit = defineEmits(["handle-click", "horizontal-keydown", "mouseover"]);
 
 const currentElement = ref<HTMLElement | undefined>();
 
@@ -29,8 +36,15 @@ function handleKeydown(e: KeyboardEvent) {
   if (e.keyCode === 32 || e.key === "Enter") {
     return handleClick();
   }
-  if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-    return emit("horizontal-keydown");
+  if (e.key === "ArrowLeft") {
+    if (props.subProvider?.subTrigger) {
+      props.rootProvider?.changeSelected(props.subProvider?.subTrigger);
+      return props.subProvider?.hideTooltip();
+    }
+    return;
+  }
+  if (e.key === "ArrowRight") {
+    return emit("horizontal-keydown", e);
   }
   const newSelectedElement = useArrowNavigation(
     e,
@@ -38,39 +52,41 @@ function handleKeydown(e: KeyboardEvent) {
     undefined,
     {
       arrowKeyOptions: "vertical",
-      itemsArray: props.selectedElementProvider?.itemsArray,
+      itemsArray: currentProvider?.itemsArray,
     }
   );
   if (newSelectedElement) {
-    props.selectedElementProvider?.changeSelected(newSelectedElement);
+    props.rootProvider?.changeSelected(newSelectedElement);
   }
 }
 
-watchEffect(() => {
-  if (
-    props.selectedElementProvider.selectedElement.value === currentElement.value
-  ) {
-    currentElement.value?.focus();
-  }
-});
-
 function handleHover() {
   if (!props.disabled) {
-    props.selectedElementProvider.changeSelected(currentElement.value!);
+    props.rootProvider.changeSelected(currentElement.value!);
   }
 }
 
 function handleCloseMenu() {
-  props.selectedElementProvider.hideTooltip();
+  props.rootProvider.hideTooltip();
   document.querySelector("body")!.style.pointerEvents = "";
   setTimeout(() => {
-    props.selectedElementProvider.triggerElement.value?.focus();
+    props.rootProvider.triggerElement.value?.focus();
   }, 0);
 }
 
 function handleClick() {
   emit("handle-click");
 }
+
+function handleMouseover() {
+  emit("mouseover");
+}
+
+watchEffect(() => {
+  if (props.rootProvider.selectedElement.value === currentElement.value) {
+    currentElement.value?.focus();
+  }
+});
 </script>
 
 <template>
@@ -82,19 +98,16 @@ function handleClick() {
     :data-state="props.dataState"
     data-radix-vue-collection-item
     @mouseenter="handleHover"
-    @mouseleave="selectedElementProvider!.changeSelected(null)"
+    @mouseover="handleMouseover"
+    @mouseleave="rootProvider!.changeSelected(null)"
     :data-highlighted="
-      selectedElementProvider?.selectedElement.value === currentElement
-        ? ''
-        : null
+      rootProvider?.selectedElement.value === currentElement ? '' : null
     "
     :aria-disabled="props.disabled ? true : undefined"
     :data-disabled="props.disabled ? '' : undefined"
-    :data-orientation="selectedElementProvider?.orientation"
+    :data-orientation="rootProvider?.orientation"
     :tabindex="
-      selectedElementProvider?.selectedElement.value === currentElement
-        ? '0'
-        : '-1'
+      rootProvider?.selectedElement.value === currentElement ? '0' : '-1'
     "
   >
     <slot />

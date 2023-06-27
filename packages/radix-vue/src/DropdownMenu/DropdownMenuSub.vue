@@ -13,17 +13,16 @@ export const DROPDOWN_MENU_SUB_INJECTION_KEY =
   Symbol() as InjectionKey<DropdownMenuSubProvideValue>;
 
 export type DropdownMenuSubProvideValue = {
-  selectedElement: Ref<HTMLElement | undefined>;
-  changeSelected: (value: HTMLElement) => void;
   modelValue: Readonly<Ref<boolean>>;
   showTooltip(): void;
   hideTooltip(): void;
   triggerElement: Ref<HTMLElement | undefined>;
   floatingElement: Ref<HTMLElement | undefined>;
   arrowElement: Ref<HTMLElement | undefined>;
+  subTrigger: HTMLElement | undefined;
   floatingStyles: any;
   middlewareData: any;
-  itemsArray: Ref<HTMLElement[]>;
+  itemsArray: HTMLElement[];
   orientation: DataOrientation;
 };
 </script>
@@ -46,17 +45,11 @@ watch(modelValue, (newValue) => {
   emit("update:modelValue", newValue);
 });
 
-const selectedElement = ref<HTMLElement>();
 const triggerElement = ref<HTMLElement>();
 const floatingElement = ref<HTMLElement>();
 const arrowElement = ref<HTMLElement>();
-const itemsArray = ref<HTMLElement[]>([]);
 
 provide<DropdownMenuSubProvideValue>(DROPDOWN_MENU_SUB_INJECTION_KEY, {
-  selectedElement: selectedElement,
-  changeSelected: (value: HTMLElement) => {
-    selectedElement.value = value;
-  },
   modelValue: toRef(() => modelValue.value),
   showTooltip: () => {
     modelValue.value = true;
@@ -67,9 +60,10 @@ provide<DropdownMenuSubProvideValue>(DROPDOWN_MENU_SUB_INJECTION_KEY, {
   triggerElement: triggerElement,
   floatingElement: floatingElement,
   arrowElement: arrowElement,
+  subTrigger: undefined,
   floatingStyles: "",
   middlewareData: "",
-  itemsArray: itemsArray,
+  itemsArray: [],
   orientation: props.orientation,
 });
 </script>

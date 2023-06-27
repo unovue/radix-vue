@@ -21,6 +21,7 @@ export type DropdownMenuProvideValue = {
   triggerElement: Ref<HTMLElement | undefined>;
   floatingElement: Ref<HTMLElement | undefined>;
   arrowElement: Ref<HTMLElement | undefined>;
+  subTriggerElement: Ref<HTMLElement | undefined>;
   floatingStyles: any;
   middlewareData: any;
   itemsArray: HTMLElement[];
@@ -44,6 +45,7 @@ const selectedElement = ref<HTMLElement>();
 const triggerElement = ref<HTMLElement>();
 const floatingElement = ref<HTMLElement>();
 const arrowElement = ref<HTMLElement>();
+const subTriggerElement = ref<HTMLElement>();
 
 provide<DropdownMenuProvideValue>(DROPDOWN_MENU_INJECTION_KEY, {
   selectedElement: selectedElement,
@@ -60,6 +62,7 @@ provide<DropdownMenuProvideValue>(DROPDOWN_MENU_INJECTION_KEY, {
   triggerElement: triggerElement,
   floatingElement: floatingElement,
   arrowElement: arrowElement,
+  subTriggerElement: subTriggerElement,
   floatingStyles: "",
   middlewareData: "",
   itemsArray: [],

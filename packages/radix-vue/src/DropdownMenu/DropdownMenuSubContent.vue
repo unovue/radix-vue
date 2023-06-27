@@ -9,10 +9,14 @@ export type DropdownMenuContentProvideValue = {
   middlewareData: Ref<MiddlewareData>;
   floatPosition: Ref<Side>;
 };
+
+export type MenuContentProvider = {
+  itemsArray: HTMLElement[];
+};
 </script>
 
 <script setup lang="ts">
-import { onMounted, inject, ref, watchEffect, provide } from "vue";
+import { onMounted, inject, ref, watchEffect, watch, provide } from "vue";
 import {
   useFloating,
   offset,
@@ -65,7 +69,7 @@ const {
 
 watchEffect(() => {
   if (DropdownMenuContentElement.value) {
-    if (injectedValue.modelValue.value) {
+    if (injectedValue?.modelValue.value) {
       setTimeout(() => {
         document.querySelector("body")!.style.pointerEvents = "none";
         focusFirstRadixElement();
@@ -74,9 +78,27 @@ watchEffect(() => {
 
       window.addEventListener("mousedown", closeDialogWhenClickOutside);
     } else {
-      if (injectedValue.triggerElement.value) {
-        handleCloseMenu();
+      if (injectedValue?.triggerElement.value) {
+        //handleCloseMenu();
       }
+    }
+  }
+});
+
+// watchers to close if hover over items not in subcontent
+watch(rootInjectedValue?.selectedElement, () => {
+  if (
+    injectedValue?.modelValue.value &&
+    injectedValue.itemsArray.length &&
+    rootInjectedValue?.selectedElement.value
+  ) {
+    if (
+      !injectedValue.itemsArray.includes(
+        rootInjectedValue?.selectedElement.value
+      )
+    ) {
+      injectedValue.hideTooltip();
+      console.log("run");
     }
   }
 });
@@ -84,7 +106,7 @@ watchEffect(() => {
 function closeDialogWhenClickOutside(e: MouseEvent) {
   const clickOutside = useClickOutside(e, DropdownMenuContentElement.value);
   if (clickOutside) {
-    injectedValue.hideTooltip();
+    injectedValue?.hideTooltip();
     window.removeEventListener("mousedown", closeDialogWhenClickOutside);
   }
 }
@@ -103,17 +125,18 @@ function focusFirstRadixElement() {
 
 function fillItemsArray() {
   const allToggleItem = Array.from(
-    DropdownMenuContentElement.value.querySelectorAll(
+    DropdownMenuContentElement.value!.querySelectorAll(
       "[data-radix-vue-collection-item]:not([data-disabled])"
     )
   ) as HTMLElement[];
-  rootInjectedValue!.itemsArray = allToggleItem;
+  injectedValue!.itemsArray = allToggleItem;
+  return allToggleItem;
 }
 
 function handleCloseMenu() {
   document.querySelector("body").style.pointerEvents = "";
   setTimeout(() => {
-    rootInjectedValue.triggerElement.value.focus();
+    rootInjectedValue?.triggerElement.value.focus();
   }, 0);
 }
 
@@ -124,6 +147,10 @@ provide<DropdownMenuContentProvideValue>(
     floatPosition: floatPosition as Ref<Side>,
   }
 );
+
+provide<MenuContentProvider>("MenuContentProvider", {
+  itemsArray: [],
+});
 </script>
 
 <template>

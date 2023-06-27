@@ -50,7 +50,7 @@ provide<DropdownMenuCheckboxProvideValue>(
 <template>
   <BaseMenuItem
     :disabled="props.disabled"
-    :selectedElementProvider="rootInjectedValue"
+    :rootProvider="rootInjectedValue"
     :orientation="rootInjectedValue?.orientation"
     :data-radix-vue-radio-value="props.value"
     @handle-click="handleClick"

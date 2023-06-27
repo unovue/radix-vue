@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, ref, onMounted, watchEffect } from "vue";
+import { inject, ref, onMounted, computed, watchEffect } from "vue";
 import {
   DROPDOWN_MENU_INJECTION_KEY,
   type DropdownMenuProvideValue,
@@ -8,7 +8,7 @@ import {
   DROPDOWN_MENU_SUB_INJECTION_KEY,
   type DropdownMenuSubProvideValue,
 } from "./DropdownMenuSub.vue";
-import { useArrowNavigation } from "../shared";
+import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
 
 const rootInjectedValue = inject<DropdownMenuProvideValue>(
   DROPDOWN_MENU_INJECTION_KEY
@@ -21,6 +21,7 @@ const injectedValue = inject<DropdownMenuSubProvideValue>(
 const triggerElement = ref<HTMLElement>();
 onMounted(() => {
   injectedValue!.triggerElement.value = triggerElement.value;
+  injectedValue.subTrigger = triggerElement.value.$el;
 });
 
 function handleClick() {
@@ -31,65 +32,33 @@ function handleClick() {
   }
 }
 
-function handleKeydown(e: KeyboardEvent) {
+function handleHorizontalKeydown(e: KeyboardEvent) {
   if (e.key === "ArrowRight") {
-    console.log("arrow right!");
     return injectedValue?.showTooltip();
-  }
-  const newSelectedElement = useArrowNavigation(
-    e,
-    triggerElement.value!,
-    null,
-    {
-      arrowKeyOptions: "vertical",
-      itemsArray: rootInjectedValue!.itemsArray,
-    }
-  );
-
-  if (newSelectedElement) {
-    rootInjectedValue?.changeSelected(newSelectedElement);
-  }
-  if (e.key === "Escape") {
-    console.log("handleclosemenu");
-    //handleCloseMenu();
-  }
-  if (e.keyCode === 32 || e.key === "Enter") {
-    if (rootInjectedValue?.selectedElement.value) {
-      rootInjectedValue?.selectedElement.value.click();
-    }
   }
 }
 
-watchEffect(() => {
-  if (rootInjectedValue?.selectedElement.value === triggerElement.value) {
-    triggerElement.value?.focus();
-  }
+const dataState = computed(() => {
+  return injectedValue?.modelValue.value ? "open" : "closed";
 });
 
-function handleHover() {
-  rootInjectedValue!.changeSelected(triggerElement.value!);
+function handleMouseover() {
+  return injectedValue?.showTooltip();
 }
 </script>
 
 <template>
-  <div
+  <BaseMenuItem
     ref="triggerElement"
-    data-radix-vue-collection-item
+    :rootProvider="rootInjectedValue"
     :aria-expanded="injectedValue?.modelValue.value ?? false"
-    :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
-    @mouseenter="handleHover"
-    @mouseleave="rootInjectedValue!.changeSelected(null)"
-    @click="handleClick"
-    @keydown="handleKeydown"
-    :data-highlighted="
-      rootInjectedValue?.selectedElement.value === triggerElement ? '' : null
-    "
+    :data-state="dataState"
+    @handle-click="handleClick"
+    @mouseover="handleMouseover"
+    @horizontal-keydown="handleHorizontalKeydown"
     :data-orientation="rootInjectedValue?.orientation"
-    :tabindex="
-      rootInjectedValue?.selectedElement.value === triggerElement ? '0' : '-1'
-    "
     aria-haspopup="menu"
   >
     <slot />
-  </div>
+  </BaseMenuItem>
 </template>

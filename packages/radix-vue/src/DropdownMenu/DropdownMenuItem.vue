@@ -5,6 +5,10 @@ import {
   DROPDOWN_MENU_INJECTION_KEY,
   type DropdownMenuProvideValue,
 } from "./DropdownMenuRoot.vue";
+import {
+  DROPDOWN_MENU_SUB_INJECTION_KEY,
+  type DropdownMenuSubProvideValue,
+} from "./DropdownMenuSub.vue";
 
 interface ToggleGroupItemProps {
   value?: string;
@@ -14,6 +18,11 @@ interface ToggleGroupItemProps {
 const rootInjectedValue = inject<DropdownMenuProvideValue>(
   DROPDOWN_MENU_INJECTION_KEY
 );
+
+const subInjectedValue = inject<DropdownMenuSubProvideValue>(
+  DROPDOWN_MENU_SUB_INJECTION_KEY
+);
+
 const props = defineProps<ToggleGroupItemProps>();
 
 function handleClick() {
@@ -26,7 +35,8 @@ function handleClick() {
 <template>
   <BaseMenuItem
     :disabled="props.disabled"
-    :selectedElementProvider="rootInjectedValue"
+    :rootProvider="rootInjectedValue"
+    :subProvider="subInjectedValue"
     :orientation="rootInjectedValue?.orientation"
     @handle-click="handleClick"
   >

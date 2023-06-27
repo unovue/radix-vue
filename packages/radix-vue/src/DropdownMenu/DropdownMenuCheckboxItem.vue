@@ -52,7 +52,7 @@ provide<DropdownMenuCheckboxProvideValue>(
   <BaseMenuItem
     ref="currentElement"
     :disabled="props.disabled"
-    :selectedElementProvider="injectedValue"
+    :rootProvider="injectedValue"
     :orientation="injectedValue?.orientation"
     @handle-click="handleClick"
     role="menuitemcheckbox"

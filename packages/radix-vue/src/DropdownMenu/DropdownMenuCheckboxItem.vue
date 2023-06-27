@@ -1,10 +1,5 @@
-<script setup lang="ts">
+<script lang="ts">
 import type { Ref } from "vue";
-import { ref, inject, watchEffect, provide, toRef } from "vue";
-import {
-  DROPDOWN_MENU_INJECTION_KEY,
-  type DropdownMenuProvideValue,
-} from "./DropdownMenuRoot.vue";
 
 interface DropdownMenuCheckboxItemProps {
   modelValue?: boolean;
@@ -15,10 +10,15 @@ interface DropdownMenuCheckboxItemProps {
 }
 
 export type DropdownMenuCheckboxProvideValue = Readonly<Ref<boolean>>;
-provide<DropdownMenuCheckboxProvideValue>(
-  "modelValue",
-  toRef(() => props.modelValue)
-);
+</script>
+
+<script setup lang="ts">
+import { inject, computed, provide, toRef } from "vue";
+import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
+import {
+  DROPDOWN_MENU_INJECTION_KEY,
+  type DropdownMenuProvideValue,
+} from "./DropdownMenuRoot.vue";
 
 const injectedValue = inject<DropdownMenuProvideValue>(
   DROPDOWN_MENU_INJECTION_KEY
@@ -30,93 +30,38 @@ const emit = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
 }>();
 
-const currentElement = ref<HTMLElement | undefined>();
-
-function handleKeydown(e: KeyboardEvent) {
-  if (e.key === "Escape") {
-    handleCloseMenu();
-  }
-  const allToggleItem = injectedValue!.itemsArray;
-  if (allToggleItem.length) {
-    const currentTabIndex = allToggleItem.indexOf(currentElement.value!);
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      if (!injectedValue?.selectedElement.value) {
-        injectedValue?.changeSelected(allToggleItem[0]);
-      } else if (allToggleItem[currentTabIndex + 1]) {
-        injectedValue?.changeSelected(allToggleItem[currentTabIndex + 1]);
-      } else {
-        injectedValue?.changeSelected(allToggleItem[0]);
-      }
-    }
-
-    if (e.key === "ArrowUp") {
-      e.preventDefault();
-      if (!injectedValue?.selectedElement.value) {
-        injectedValue?.changeSelected(allToggleItem[allToggleItem.length - 1]);
-      } else if (allToggleItem[currentTabIndex - 1]) {
-        injectedValue?.changeSelected(allToggleItem[currentTabIndex - 1]);
-      } else {
-        injectedValue?.changeSelected(allToggleItem[allToggleItem.length - 1]);
-      }
-    }
-
-    if (e.keyCode === 32 || e.key === "Enter") {
-      if (injectedValue?.selectedElement.value) {
-        updateModelValue();
-      }
-    }
-  }
-}
-
-watchEffect(() => {
-  if (injectedValue?.selectedElement.value === currentElement.value) {
-    currentElement.value?.focus();
-  }
+const checkboxDataState = computed(() => {
+  return props.modelValue ? "checked" : "unchecked";
 });
 
-function handleHover() {
-  if (!props.disabled) {
-    injectedValue!.changeSelected(currentElement.value!);
-  }
+function handleClick(): void {
+  return updateModelValue();
 }
 
-function handleCloseMenu() {
-  injectedValue?.hideTooltip();
-  document.querySelector("body")!.style.pointerEvents = "";
-  setTimeout(() => {
-    injectedValue?.triggerElement.value?.focus();
-  }, 0);
-}
-
-function updateModelValue() {
+function updateModelValue(): void {
   return emit("update:modelValue", !props.modelValue);
 }
+
+provide<DropdownMenuCheckboxProvideValue>(
+  "modelValue",
+  toRef(() => props.modelValue)
+);
 </script>
 
 <template>
-  <div
-    role="menuitem"
+  <BaseMenuItem
     ref="currentElement"
-    @keydown="handleKeydown"
-    data-radix-vue-collection-item
-    @click.prevent="updateModelValue"
-    @mouseenter="handleHover"
-    @mouseleave="injectedValue!.changeSelected(null)"
-    :data-highlighted="
-      injectedValue?.selectedElement.value === currentElement ? '' : null
-    "
-    :aria-disabled="props.disabled ? true : undefined"
-    :data-disabled="props.disabled ? '' : undefined"
-    :data-orientation="injectedValue?.orientation"
-    :tabindex="
-      injectedValue?.selectedElement.value === currentElement ? '0' : '-1'
-    "
+    :disabled="props.disabled"
+    :selectedElementProvider="injectedValue"
+    :orientation="injectedValue?.orientation"
+    @handle-click="handleClick"
+    role="menuitemcheckbox"
+    :data-state="checkboxDataState"
+    :aria-checked="props.modelValue ? true : false"
   >
     <input
       type="checkbox"
       :id="props.id"
-      :aria-valuenow="props.modelValue"
       v-bind="props.modelValue"
       @change="updateModelValue"
       :checked="props.modelValue"
@@ -126,5 +71,5 @@ function updateModelValue() {
       style="opacity: 0; position: absolute; inset: 0"
     />
     <slot />
-  </div>
+  </BaseMenuItem>
 </template>

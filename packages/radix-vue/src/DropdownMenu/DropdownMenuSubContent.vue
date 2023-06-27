@@ -23,9 +23,17 @@ import {
 } from "@floating-ui/vue";
 import { useClickOutside } from "../shared/useClickOutside";
 import {
+  DROPDOWN_MENU_INJECTION_KEY,
+  type DropdownMenuProvideValue,
+} from "./DropdownMenuRoot.vue";
+import {
   DROPDOWN_MENU_SUB_INJECTION_KEY,
   type DropdownMenuSubProvideValue,
 } from "./DropdownMenuSub.vue";
+
+const rootInjectedValue = inject<DropdownMenuProvideValue>(
+  DROPDOWN_MENU_INJECTION_KEY
+);
 
 const injectedValue = inject<DropdownMenuSubProvideValue>(
   DROPDOWN_MENU_SUB_INJECTION_KEY
@@ -35,19 +43,19 @@ const props = defineProps({
   class: String,
 });
 
-const tooltipContentElement = ref<HTMLElement>();
+const DropdownMenuContentElement = ref<HTMLElement>();
 onMounted(() => {
-  injectedValue!.floatingElement.value = tooltipContentElement.value;
+  injectedValue!.floatingElement.value = DropdownMenuContentElement.value;
 });
 
 const {
   floatingStyles,
   middlewareData,
   placement: floatPosition,
-} = useFloating(injectedValue!.triggerElement, tooltipContentElement, {
-  placement: "bottom",
+} = useFloating(injectedValue!.triggerElement, DropdownMenuContentElement, {
+  placement: "left-start",
   middleware: [
-    offset(10),
+    offset({ alignmentAxis: -5 }),
     flip(),
     shift(),
     arrow({ element: injectedValue?.arrowElement }),
@@ -56,7 +64,7 @@ const {
 });
 
 watchEffect(() => {
-  if (tooltipContentElement.value) {
+  if (DropdownMenuContentElement.value) {
     if (injectedValue.modelValue.value) {
       setTimeout(() => {
         document.querySelector("body")!.style.pointerEvents = "none";
@@ -74,7 +82,7 @@ watchEffect(() => {
 });
 
 function closeDialogWhenClickOutside(e: MouseEvent) {
-  const clickOutside = useClickOutside(e, tooltipContentElement.value);
+  const clickOutside = useClickOutside(e, DropdownMenuContentElement.value);
   if (clickOutside) {
     injectedValue.hideTooltip();
     window.removeEventListener("mousedown", closeDialogWhenClickOutside);
@@ -83,29 +91,29 @@ function closeDialogWhenClickOutside(e: MouseEvent) {
 
 function focusFirstRadixElement() {
   const allToggleItem = Array.from(
-    tooltipContentElement.value.querySelectorAll(
+    DropdownMenuContentElement.value.querySelectorAll(
       "[data-radix-vue-collection-item]"
     )
   ) as HTMLElement[];
   if (allToggleItem.length) {
-    injectedValue!.selectedElement.value = allToggleItem[0];
+    rootInjectedValue!.selectedElement.value = allToggleItem[0];
     allToggleItem[0].focus();
   }
 }
 
 function fillItemsArray() {
   const allToggleItem = Array.from(
-    tooltipContentElement.value.querySelectorAll(
+    DropdownMenuContentElement.value.querySelectorAll(
       "[data-radix-vue-collection-item]:not([data-disabled])"
     )
   ) as HTMLElement[];
-  injectedValue.itemsArray = allToggleItem;
+  rootInjectedValue!.itemsArray = allToggleItem;
 }
 
 function handleCloseMenu() {
   document.querySelector("body").style.pointerEvents = "";
   setTimeout(() => {
-    injectedValue.triggerElement.value.focus();
+    rootInjectedValue.triggerElement.value.focus();
   }, 0);
 }
 
@@ -120,7 +128,7 @@ provide<DropdownMenuContentProvideValue>(
 
 <template>
   <div
-    ref="tooltipContentElement"
+    ref="DropdownMenuContentElement"
     v-if="injectedValue?.modelValue.value"
     style="min-width: max-content; will-change: transform; z-index: auto"
     :style="floatingStyles"

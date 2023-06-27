@@ -23,13 +23,13 @@ export type DropdownMenuSubProvideValue = {
   arrowElement: Ref<HTMLElement | undefined>;
   floatingStyles: any;
   middlewareData: any;
-  itemsArray: HTMLElement[];
+  itemsArray: Ref<HTMLElement[]>;
   orientation: DataOrientation;
 };
 </script>
 
 <script setup lang="ts">
-import { provide, toRef, ref } from "vue";
+import { provide, toRef, ref, watch } from "vue";
 
 const props = withDefaults(defineProps<DropdownMenuSubRootProps>(), {
   delayDuration: 700,
@@ -40,29 +40,36 @@ const emit = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
 }>();
 
+const modelValue = ref(props.modelValue ?? false);
+
+watch(modelValue, (newValue) => {
+  emit("update:modelValue", newValue);
+});
+
 const selectedElement = ref<HTMLElement>();
 const triggerElement = ref<HTMLElement>();
 const floatingElement = ref<HTMLElement>();
 const arrowElement = ref<HTMLElement>();
+const itemsArray = ref<HTMLElement[]>([]);
 
 provide<DropdownMenuSubProvideValue>(DROPDOWN_MENU_SUB_INJECTION_KEY, {
   selectedElement: selectedElement,
   changeSelected: (value: HTMLElement) => {
     selectedElement.value = value;
   },
-  modelValue: toRef(() => props.modelValue),
+  modelValue: toRef(() => modelValue.value),
   showTooltip: () => {
-    emit("update:modelValue", true);
+    modelValue.value = true;
   },
   hideTooltip: () => {
-    emit("update:modelValue", false);
+    modelValue.value = false;
   },
   triggerElement: triggerElement,
   floatingElement: floatingElement,
   arrowElement: arrowElement,
   floatingStyles: "",
   middlewareData: "",
-  itemsArray: [],
+  itemsArray: itemsArray,
   orientation: props.orientation,
 });
 </script>

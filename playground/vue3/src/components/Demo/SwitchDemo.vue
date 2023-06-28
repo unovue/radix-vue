@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { SwitchRoot, SwitchThumb } from "radix-vue";
-import { Icon } from "@iconify/vue";
 import { ref } from "vue";
 
 const switchState = ref(true);
@@ -9,6 +8,7 @@ const switchState = ref(true);
 <template>
   <div class="absolute left-4 top-3 text-sm">
   <p>Value: {{ switchState ? "checked" : "unchecked" }}</p>
+  <button @click="switchState = !switchState" class="bg-white/20 px-2 py-1 rounded-md active:scale-90 duration-100 transform hover:bg-white/40 active:bg-white/20">Toggle</button>
 </div>
   <div class="flex gap-2 items-center">
     <label className="text-white text-[15px] leading-none pr-[15px]" for="airplane-mode">

@@ -6,6 +6,7 @@ export interface SwitchRootProps {
   required?: boolean;
   name?: string;
   id?: string;
+  defaultChecked?: boolean;
   modelValue?: boolean;
 }
 
@@ -25,13 +26,14 @@ import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<SwitchRootProps>(), {
   disabled: false,
+  defaultChecked: false,
   modelValue: undefined,
 });
 
 const emit = defineEmits(["update:modelValue"]);
 
 const modelValue = useVModel(props, "modelValue", emit, {
-  defaultValue: false,
+  defaultValue: props.defaultChecked,
   passive: true, // set passive to true so that if no props.modelValue was passed, it will still update
 });
 

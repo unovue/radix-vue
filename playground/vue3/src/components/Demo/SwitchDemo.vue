@@ -15,7 +15,6 @@ const switchState = ref(true);
       Airplane mode
     </label>
     <SwitchRoot
-      v-model="switchState"
       class="w-[42px] h-[25px] focus-within:outline focus-within:outline-black flex bg-black/50 shadow-sm rounded-full relative data-[state=checked]:bg-black cursor-default"
       id="airplane-mode"
     >

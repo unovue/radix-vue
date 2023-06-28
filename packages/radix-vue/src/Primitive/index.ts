@@ -1,1 +1,1 @@
-export * from "./Primitive.vue";
+export { default as Primitive } from "./Primitive.vue";

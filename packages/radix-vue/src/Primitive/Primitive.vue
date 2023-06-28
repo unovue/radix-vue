@@ -77,7 +77,5 @@ const Primitive = NODES.reduce((primitive, node) => {
   return { ...primitive, [node]: Node };
 }, {} as Primitives);
 
-const Root = Primitive;
-
-export { Primitive, Root };
+export default Primitive;
 </script>

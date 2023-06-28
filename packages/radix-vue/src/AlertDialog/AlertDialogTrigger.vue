@@ -9,7 +9,9 @@ const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 
 const triggerElement = ref<HTMLElement>();
 onMounted(() => {
-  injectedValue.triggerButton.value = triggerElement.value;
+  if (injectedValue) {
+    injectedValue.triggerButton = triggerElement;
+  }
 });
 </script>
 

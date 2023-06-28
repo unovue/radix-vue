@@ -7,7 +7,7 @@ const rootDisabled = ref(false);
 </script>
 
 <template>
-  <CollapsibleRoot class="w-[300px]" v-slot="slotProps" :disabled="rootDisabled">
+  <CollapsibleRoot class="w-[300px]" v-slot="slotProps" :disabled="rootDisabled" :defaultOpen="true">
     <div style="display: flex; align-items: center; justify-content: space-between">
       <span class="text-violet11 text-[15px] leading-[25px]" style="color: white"> @mujahidfa starred 3 repos </span>
       <CollapsibleTrigger

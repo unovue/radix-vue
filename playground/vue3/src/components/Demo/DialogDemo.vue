@@ -16,7 +16,16 @@ const dialogOpen = ref(false);
 </script>
 
 <template>
-  <DialogRoot>
+  <div class="absolute left-4 top-3 text-sm">
+    <p>Value: {{ dialogOpen ? "checked" : "unchecked" }}</p>
+    <button
+      @click="dialogOpen = !dialogOpen"
+      class="bg-white/20 px-2 py-1 rounded-md active:scale-90 duration-100 transform hover:bg-white/40 active:bg-white/20"
+    >
+    {{ dialogOpen ? "Close" : "Open" }}
+    </button>
+  </div>
+  <DialogRoot v-model:open="dialogOpen">
     <DialogTrigger
       class="text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none"
     >

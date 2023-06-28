@@ -2,7 +2,8 @@
 import type { Ref, InjectionKey } from "vue";
 
 export interface HoverCardRootProps {
-  modelValue?: boolean;
+  defaultOpen: false;
+  open?: boolean;
   openDelay?: number;
   closeDelay?: number;
 }
@@ -11,7 +12,7 @@ export const HOVER_CARD_INJECTION_KEY =
   Symbol() as InjectionKey<HoverCardProvideValue>;
 
 export type HoverCardProvideValue = {
-  modelValue: Readonly<Ref<boolean>>;
+  open: Readonly<Ref<boolean>>;
   showTooltip(): void;
   hideTooltip(): void;
   triggerElement: Ref<HTMLElement | undefined>;
@@ -24,34 +25,36 @@ export type HoverCardProvideValue = {
 </script>
 
 <script setup lang="ts">
-import { provide, toRef, ref, watch } from "vue";
+import { provide, ref } from "vue";
+import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<HoverCardRootProps>(), {
+  defaultOpen: false,
+  open: undefined,
   openDelay: 700,
   closeDelay: 300,
 });
 
 const emit = defineEmits<{
-  (e: "update:modelValue", value: boolean): void;
+  (e: "update:open", value: boolean): void;
 }>();
 
 const triggerElement = ref<HTMLElement>();
 const floatingElement = ref<HTMLElement>();
 const arrowElement = ref<HTMLElement>();
 
-const modelValue = ref(props.modelValue ?? false);
-
-watch(modelValue, (newValue) => {
-  emit("update:modelValue", newValue);
+const open = useVModel(props, "open", emit, {
+  defaultValue: props.defaultOpen,
+  passive: true,
 });
 
 provide<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY, {
-  modelValue: toRef(() => modelValue.value),
+  open,
   showTooltip: () => {
-    modelValue.value = true;
+    open.value = true;
   },
   hideTooltip: () => {
-    modelValue.value = false;
+    open.value = false;
   },
   triggerElement: triggerElement,
   floatingElement: floatingElement,

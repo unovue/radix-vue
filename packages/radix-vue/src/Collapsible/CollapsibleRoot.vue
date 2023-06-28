@@ -48,8 +48,8 @@ provide<CollapsibleProvideValue>(COLLAPSIBLE_INJECTION_KEY, {
 
 <template>
   <div
-    :data-state="props.open ? 'open' : 'closed'"
-    :data-disabled="props.disabled ? 'true' : undefined"
+    :data-state="open ? 'open' : 'closed'"
+    :data-disabled="disabled ? 'true' : undefined"
   >
     <slot :open="open" />
   </div>

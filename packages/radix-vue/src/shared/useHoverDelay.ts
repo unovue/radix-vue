@@ -1,5 +1,3 @@
-import { useMouseInElement } from "./useMouseInElement";
-
 /**
  * Tracks mouse hover within an element and resolves a promise when the hover ends or a timeout occurs.
  * @param {MouseEvent} e - The hover event.
@@ -24,21 +22,19 @@ export async function useHoverDelay(
     }, delayMs);
   });
 
-  function handleMousemove(e: MouseEvent) {
-    isHovered = useMouseInElement(e, element);
-    if (!isHovered) {
-      cleanupEvents();
-      clearTimeout(timeoutId);
-      timeoutId = undefined;
-      resolvePromise(false);
-    }
+  function handleMouseleave() {
+    isHovered = false;
+    cleanupEvents();
+    clearTimeout(timeoutId);
+    timeoutId = undefined;
+    resolvePromise(false);
   }
 
   function cleanupEvents() {
-    window.removeEventListener("mousemove", handleMousemove);
+    element.removeEventListener("mouseleave", handleMouseleave);
   }
 
-  window.addEventListener("mousemove", handleMousemove);
+  element.addEventListener("mouseleave", handleMouseleave);
 
   return timeoutPromise;
 }

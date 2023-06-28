@@ -115,6 +115,9 @@ export {
   DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
 } from "./DropdownMenu";
 export {
   ContextMenuArrow,

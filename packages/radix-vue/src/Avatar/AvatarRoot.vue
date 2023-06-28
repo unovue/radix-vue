@@ -3,6 +3,10 @@ import type { Ref, InjectionKey } from "vue";
 
 type ImageLoadingStatus = "loading" | "loaded";
 
+export interface AvatarRootProps {
+  asChild?: boolean;
+}
+
 export const AVATAR_INJECTION_KEY =
   Symbol() as InjectionKey<AvatarProvideValue>;
 

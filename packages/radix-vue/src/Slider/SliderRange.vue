@@ -14,8 +14,8 @@ const injectedValue = inject<SliderProvideValue>(SLIDER_INJECTION_KEY);
 
 <template>
   <span
-  :data-disabled="injectedValue?.disabled"
-  :data-orientation="injectedValue?.orientation"
+    :data-disabled="injectedValue?.disabled"
+    :data-orientation="injectedValue?.orientation"
     :style="`left: 0%; right: ${
       (injectedValue?.max ?? 100) - (injectedValue?.modelValue?.value ?? 0)
     }%`"

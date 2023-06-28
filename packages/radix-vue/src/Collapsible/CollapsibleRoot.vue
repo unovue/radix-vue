@@ -2,8 +2,10 @@
 import type { InjectionKey, Ref } from "vue";
 
 export interface CollapsibleRootProps {
+  asChild?: boolean;
   defaultOpen?: boolean;
   open?: boolean;
+  onOpenChange?: void;
   disabled?: boolean;
 }
 
@@ -23,6 +25,7 @@ import { provide } from "vue";
 import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<CollapsibleRootProps>(), {
+  asChild: false,
   open: undefined,
   defaultOpen: false,
 });

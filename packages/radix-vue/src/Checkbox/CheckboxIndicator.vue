@@ -1,5 +1,6 @@
 <script lang="ts">
 export interface CheckboxRootProps {
+  asChild?: boolean;
   forceMount?: boolean;
 }
 </script>

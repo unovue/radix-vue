@@ -35,7 +35,7 @@ export interface SliderProvideValue {
   max: number;
   step: number;
   thumbElement?: Ref<HTMLElement | undefined>;
-    disabled: boolean;
+  disabled: boolean;
 }
 </script>
 

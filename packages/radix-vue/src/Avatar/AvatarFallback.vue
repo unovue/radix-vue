@@ -5,13 +5,15 @@ import {
   type AvatarProvideValue,
 } from "./AvatarRoot.vue";
 
-interface AvatarFallbackProps {
+export interface AvatarFallbackProps {
+  asChild?: boolean;
   delayMs?: number;
 }
 
 const injectedValue = inject<AvatarProvideValue>(AVATAR_INJECTION_KEY);
 
 const props = withDefaults(defineProps<AvatarFallbackProps>(), {
+  asChild: false,
   delayMs: 0,
 });
 

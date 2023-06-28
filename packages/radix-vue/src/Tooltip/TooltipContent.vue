@@ -13,6 +13,7 @@ export type TooltipContentProvideValue = {
 
 <script setup lang="ts">
 import { onMounted, inject, ref, provide } from "vue";
+import { PrimitiveDiv } from "@/Primitive";
 import {
   TOOLTIP_INJECTION_KEY,
   type TooltipProvideValue,
@@ -51,7 +52,7 @@ provide<TooltipContentProvideValue>(TOOLTIP_CONTENT_INJECTION_KEY, {
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     ref="tooltipContentElement"
     v-if="injectedValue?.modelValue.value"
     style="min-width: max-content; will-change: transform; z-index: auto"
@@ -66,5 +67,5 @@ provide<TooltipContentProvideValue>(TOOLTIP_CONTENT_INJECTION_KEY, {
     >
       <slot />
     </div>
-  </div>
+  </PrimitiveDiv>
 </template>

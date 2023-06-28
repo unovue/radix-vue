@@ -8,6 +8,7 @@ interface ToolbarSeparatorProps {
 </script>
 
 <script setup lang="ts">
+import { PrimitiveDiv } from "@/Primitive";
 const props = withDefaults(defineProps<ToolbarSeparatorProps>(), {
   orientation: "horizontal",
   decorative: false,
@@ -15,8 +16,8 @@ const props = withDefaults(defineProps<ToolbarSeparatorProps>(), {
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     :data-orientation="props.orientation"
     :role="`${decorative ? 'none' : 'separator'}`"
-  ></div>
+  ></PrimitiveDiv>
 </template>

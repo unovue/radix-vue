@@ -5,7 +5,7 @@ export interface DialogTitleProps {
 </script>
 
 <script setup lang="ts">
-import { PrimitiveH2 } from '../Primitive';
+import { PrimitiveH2 } from "../Primitive";
 
 const props = withDefaults(defineProps<DialogTitleProps>(), {
   asChild: false,

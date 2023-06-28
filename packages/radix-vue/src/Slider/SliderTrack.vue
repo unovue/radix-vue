@@ -1,5 +1,9 @@
+<script setup lang="ts">
+import { PrimitiveSpan } from "@/Primitive";
+</script>
+
 <template>
-  <span>
+  <PrimitiveSpan>
     <slot />
-  </span>
+  </PrimitiveSpan>
 </template>

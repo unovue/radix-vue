@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { Ref, InjectionKey, ComputedRef } from "vue";
+import { PrimitiveSpan } from "@/Primitive";
 import type { DataOrientation, Direction } from "../shared/types";
 
 export interface SliderRootProps {
@@ -157,7 +158,7 @@ function convertToClosestStep(number: number, step: number) {
 </script>
 
 <template>
-  <span ref="rootSliderElement" @pointerdown="changeValue">
+  <PrimitiveSpan ref="rootSliderElement" @pointerdown="changeValue">
     <slot />
     <input
       style="display: none"
@@ -165,5 +166,5 @@ function convertToClosestStep(number: number, step: number) {
       :aria-valuenow="props.modelValue"
       :name="props.name"
     />
-  </span>
+  </PrimitiveSpan>
 </template>

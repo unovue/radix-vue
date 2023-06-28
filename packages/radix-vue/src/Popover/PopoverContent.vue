@@ -13,6 +13,7 @@ export type PopoverContentProvideValue = {
 
 <script setup lang="ts">
 import { onMounted, inject, ref, watchEffect, provide } from "vue";
+import { PrimitiveDiv } from "@/Primitive";
 import {
   useFloating,
   offset,
@@ -90,7 +91,7 @@ provide<PopoverContentProvideValue>(POPOVER_CONTENT_INJECTION_KEY, {
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     ref="tooltipContentElement"
     v-if="injectedValue?.modelValue.value"
     style="min-width: max-content; will-change: transform; z-index: auto"
@@ -104,5 +105,5 @@ provide<PopoverContentProvideValue>(POPOVER_CONTENT_INJECTION_KEY, {
     >
       <slot />
     </div>
-  </div>
+  </PrimitiveDiv>
 </template>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, inject, computed, provide } from "vue";
+import { PrimitiveButton } from "@/Primitive";
 import {
   RADIO_GROUP_INJECTION_KEY,
   type RadioGroupProvideValue,
@@ -41,7 +42,7 @@ function handleKeydown(e: KeyboardEvent) {
 </script>
 
 <template>
-  <button
+  <PrimitiveButton
     type="button"
     :data-state="state"
     @click="injectedValue?.changeModelValue(props.value)"
@@ -54,5 +55,5 @@ function handleKeydown(e: KeyboardEvent) {
     :data-radix-vue-radio-value="props.value"
   >
     <slot />
-  </button>
+  </PrimitiveButton>
 </template>

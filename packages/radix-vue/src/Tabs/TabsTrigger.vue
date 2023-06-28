@@ -6,6 +6,7 @@ export interface TabsTriggerProps {
 
 <script setup lang="ts">
 import { inject, ref } from "vue";
+import { PrimitiveButton } from "@/Primitive";
 import { TABS_INJECTION_KEY } from "./TabsRoot.vue";
 import type { TabsProvideValue } from "./TabsRoot.vue";
 import { useArrowNavigation } from "../shared";
@@ -35,7 +36,7 @@ function handleKeydown(e: KeyboardEvent) {
 </script>
 
 <template>
-  <button
+  <PrimitiveButton
     ref="currentToggleElement"
     type="button"
     role="tab"
@@ -53,5 +54,5 @@ function handleKeydown(e: KeyboardEvent) {
     @keydown="handleKeydown"
   >
     <slot />
-  </button>
+  </PrimitiveButton>
 </template>

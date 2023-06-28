@@ -4,6 +4,7 @@ import {
   CONTEXT_MENU_INJECTION_KEY,
   type ContextMenuProvideValue,
 } from "./ContextMenuRoot.vue";
+import { PrimitiveDiv } from "@/Primitive";
 
 const injectedValue = inject<ContextMenuProvideValue>(
   CONTEXT_MENU_INJECTION_KEY
@@ -77,7 +78,7 @@ function handleCloseMenu() {
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     role="menuitem"
     ref="currentElement"
     @keydown="handleKeydown"
@@ -95,5 +96,5 @@ function handleCloseMenu() {
     "
   >
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

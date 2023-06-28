@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { inject, ref, onMounted } from "vue";
+import { PrimitiveButton } from "@/Primitive";
 import {
   POPOVER_INJECTION_KEY,
   type PopoverProvideValue,
@@ -14,7 +15,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <button
+  <PrimitiveButton
     type="button"
     ref="triggerElement"
     :aria-expanded="injectedValue?.modelValue.value || false"
@@ -22,5 +23,5 @@ onMounted(() => {
     @click="injectedValue?.showTooltip"
   >
     <slot />
-  </button>
+  </PrimitiveButton>
 </template>

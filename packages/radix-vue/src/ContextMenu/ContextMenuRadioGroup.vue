@@ -18,6 +18,7 @@ export interface RadioGroupProvideValue {
 </script>
 
 <script setup lang="ts">
+import { PrimitiveDiv } from "@/Primitive";
 import { ref, toRef, provide } from "vue";
 
 const props = defineProps<RadioGroupRootProps>();
@@ -36,7 +37,11 @@ provide<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY, {
 </script>
 
 <template>
-  <div ref="parentElementRef" role="radiogroup" aria-label="radiogroup">
+  <PrimitiveDiv
+    ref="parentElementRef"
+    role="radiogroup"
+    aria-label="radiogroup"
+  >
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

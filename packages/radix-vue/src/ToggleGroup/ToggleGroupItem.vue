@@ -6,6 +6,7 @@ interface ToggleGroupItemProps {
 
 <script setup lang="ts">
 import { ref, inject, computed } from "vue";
+import { PrimitiveButton } from "@/Primitive";
 import {
   TOGGLE_GROUP_INJECTION_KEY,
   type ToggleGroupProvideValue,
@@ -41,7 +42,7 @@ function handleKeydown(e: KeyboardEvent) {
 </script>
 
 <template>
-  <button
+  <PrimitiveButton
     type="button"
     :data-state="state"
     @click="injectedValue?.changeModelValue(props.value!)"
@@ -50,5 +51,5 @@ function handleKeydown(e: KeyboardEvent) {
     data-radix-vue-collection-item
   >
     <slot />
-  </button>
+  </PrimitiveButton>
 </template>

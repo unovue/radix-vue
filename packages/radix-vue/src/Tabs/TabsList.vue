@@ -6,6 +6,7 @@ export interface TabsListProps {
 
 <script setup lang="ts">
 import { inject, ref, onMounted } from "vue";
+import { PrimitiveDiv } from "@/Primitive";
 import { TABS_INJECTION_KEY } from "./TabsRoot.vue";
 import type { TabsProvideValue } from "./TabsRoot.vue";
 
@@ -17,7 +18,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     role="tablist"
     ref="parentElement"
     :aria-orientation="injectedValue?.orientation"
@@ -26,5 +27,5 @@ onMounted(() => {
     style="outline: none"
   >
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

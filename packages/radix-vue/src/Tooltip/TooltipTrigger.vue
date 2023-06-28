@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { inject, ref, onMounted } from "vue";
+import { PrimitiveButton } from "@/Primitive";
 import {
   TOOLTIP_INJECTION_KEY,
   type TooltipProvideValue,
@@ -22,7 +23,7 @@ async function handleMouseEnter(e: MouseEvent) {
 </script>
 
 <template>
-  <button
+  <PrimitiveButton
     type="button"
     ref="triggerElement"
     :aria-expanded="injectedValue?.modelValue.value || false"
@@ -32,5 +33,5 @@ async function handleMouseEnter(e: MouseEvent) {
     style="cursor: default"
   >
     <slot />
-  </button>
+  </PrimitiveButton>
 </template>

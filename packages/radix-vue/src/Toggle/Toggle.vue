@@ -11,6 +11,7 @@ export interface ToggleProps {
 
 <script setup lang="ts">
 import { ref, computed, watch } from "vue";
+import { PrimitiveDiv } from "@/Primitive";
 
 const props = withDefaults(defineProps<ToggleProps>(), {
   disabled: false,
@@ -36,7 +37,7 @@ function handleKeydown(e: KeyboardEvent) {
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     :value="props.modelValue"
     role="checkbox"
     :aria-checked="modelValue"
@@ -57,5 +58,5 @@ function handleKeydown(e: KeyboardEvent) {
       style="opacity: 0; position: absolute; inset: 0"
     />
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

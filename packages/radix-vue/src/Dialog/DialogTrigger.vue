@@ -26,7 +26,7 @@ onMounted(() => {
 
 <template>
   <PrimitiveButton
-  :asChild="props.asChild ? '' : undefined"
+    :asChild="props.asChild ? '' : undefined"
     type="button"
     ref="triggerElement"
     :aria-expanded="injectedValue?.open.value || false"

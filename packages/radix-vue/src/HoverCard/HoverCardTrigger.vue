@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { inject, ref, onMounted } from "vue";
+import { PrimitiveButton } from "@/Primitive";
 import {
   HOVER_CARD_INJECTION_KEY,
   type HoverCardProvideValue,
@@ -35,7 +36,7 @@ async function handleMouseleave(e: MouseEvent) {
 </script>
 
 <template>
-  <button
+  <PrimitiveButton
     type="button"
     ref="triggerElement"
     :aria-expanded="injectedValue?.modelValue.value || false"
@@ -46,5 +47,5 @@ async function handleMouseleave(e: MouseEvent) {
     style="cursor: default"
   >
     <slot />
-  </button>
+  </PrimitiveButton>
 </template>

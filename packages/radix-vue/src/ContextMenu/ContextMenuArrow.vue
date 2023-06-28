@@ -9,6 +9,7 @@ import {
   CONTEXT_MENU_CONTENT_INJECTION_KEY,
   type ContextMenuContentProvideValue,
 } from "./ContextMenuContent.vue";
+import { PrimitiveDiv } from "@/Primitive";
 
 const injectedValue = inject<ContextMenuProvideValue>(
   CONTEXT_MENU_INJECTION_KEY
@@ -46,7 +47,7 @@ const position = computed<Side>(() => {
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     ref="arrowElement"
     :style="{
       left: arrowX ? `${arrowX}px` : '',
@@ -61,5 +62,5 @@ const position = computed<Side>(() => {
       z-index: -1;
       pointer-events: none;
     "
-  ></div>
+  ></PrimitiveDiv>
 </template>

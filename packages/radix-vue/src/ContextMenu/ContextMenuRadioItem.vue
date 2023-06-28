@@ -9,6 +9,7 @@ import {
   RADIO_GROUP_INJECTION_KEY,
   type RadioGroupProvideValue,
 } from "./ContextMenuRadioGroup.vue";
+import { PrimitiveDiv } from "@/Primitive";
 
 interface RadioGroupItemProps {
   id?: string;
@@ -98,7 +99,7 @@ provide<ContextMenuCheckboxProvideValue>(
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     role="menuitemradio"
     :data-state="
       radioInjectedValue?.modelValue?.value === props.value ? 'on' : 'off'
@@ -121,5 +122,5 @@ provide<ContextMenuCheckboxProvideValue>(
     "
   >
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

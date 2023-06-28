@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { inject, ref, onMounted } from "vue";
+import { PrimitiveSpan } from "@/Primitive";
 import { SLIDER_INJECTION_KEY } from "./SliderRoot.vue";
 import type { SliderProvideValue } from "./SliderRoot.vue";
 
@@ -92,7 +93,7 @@ function handleKeydown(e: KeyboardEvent) {
   <span
     :style="`transform: translateX(-50%); position: absolute; left: calc(${injectedValue?.modelValue?.value}%)`"
   >
-    <span
+    <PrimitiveSpan
       :class="props.class"
       ref="thumbElement"
       role="slider"
@@ -103,6 +104,6 @@ function handleKeydown(e: KeyboardEvent) {
       :aria-orientation="injectedValue?.orientation"
       @keydown="handleKeydown"
     >
-    </span>
+    </PrimitiveSpan>
   </span>
 </template>

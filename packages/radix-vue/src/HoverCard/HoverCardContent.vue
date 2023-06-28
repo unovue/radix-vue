@@ -13,6 +13,7 @@ export type HoverCardContentProvideValue = {
 
 <script setup lang="ts">
 import { onMounted, inject, ref, provide } from "vue";
+import { PrimitiveDiv } from "@/Primitive";
 import {
   useFloating,
   offset,
@@ -68,7 +69,7 @@ async function handleMouseleave(e: MouseEvent) {
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     ref="tooltipContentElement"
     v-if="injectedValue?.modelValue.value"
     style="min-width: max-content; will-change: transform; z-index: auto"
@@ -85,5 +86,5 @@ async function handleMouseleave(e: MouseEvent) {
     >
       <slot />
     </div>
-  </div>
+  </PrimitiveDiv>
 </template>

@@ -6,6 +6,7 @@ export interface TabsTriggerProps {
 
 <script setup lang="ts">
 import { inject, computed } from "vue";
+import { PrimitiveDiv } from "@/Primitive";
 import { TABS_INJECTION_KEY } from "./TabsRoot.vue";
 import type { TabsProvideValue } from "./TabsRoot.vue";
 
@@ -21,7 +22,7 @@ const dataState = computed<"active" | "inactive">(() => {
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     v-if="injectedValue?.modelValue?.value === props.value"
     role="tabpanel"
     :data-state="dataState"
@@ -29,5 +30,5 @@ const dataState = computed<"active" | "inactive">(() => {
     tabindex="0"
   >
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

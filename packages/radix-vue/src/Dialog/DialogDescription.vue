@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import { PrimitiveP } from "@/Primitive";
+</script>
+
 <template>
-  <p><slot /></p>
+  <PrimitiveP><slot /></PrimitiveP>
 </template>

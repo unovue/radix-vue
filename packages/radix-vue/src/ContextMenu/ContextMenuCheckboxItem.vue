@@ -5,6 +5,7 @@ import {
   CONTEXT_MENU_INJECTION_KEY,
   type ContextMenuProvideValue,
 } from "./ContextMenuRoot.vue";
+import { PrimitiveDiv } from "@/Primitive";
 
 interface ContextMenuCheckboxItemProps {
   modelValue?: boolean;
@@ -95,7 +96,7 @@ function updateModelValue() {
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     role="menuitem"
     ref="currentElement"
     @keydown="handleKeydown"
@@ -126,5 +127,5 @@ function updateModelValue() {
       style="opacity: 0; position: absolute; inset: 0"
     />
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

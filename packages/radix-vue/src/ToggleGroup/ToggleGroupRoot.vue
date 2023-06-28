@@ -30,6 +30,7 @@ export interface ToggleGroupProvideValue {
 
 <script setup lang="ts">
 import { ref, toRef, provide } from "vue";
+import { PrimitiveDiv } from "@/Primitive";
 
 const props = withDefaults(defineProps<ToggleGroupRootProps>(), {
   type: "single",
@@ -65,12 +66,12 @@ function changeModelValue(value: string) {
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     ref="parentElementRef"
     role="group"
     :dir="props.dir"
     aria-label="Text alignment"
   >
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

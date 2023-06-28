@@ -1,12 +1,23 @@
+<script lang="ts">
+export interface AlertDialogContentProps {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { inject, ref, watchEffect } from "vue";
-import { trapFocus } from "../shared/trap-focus.ts";
+import { trapFocus } from "../shared";
 import {
   DIALOG_INJECTION_KEY,
   type DialogProvideValue,
 } from "./AlertDialogRoot.vue";
+import { PrimitiveDiv } from "../Primitive";
 
 const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
+
+const props = withDefaults(defineProps<AlertDialogContentProps>(), {
+  asChild: false,
+});
 
 const dialogContentElement = ref<HTMLElement>();
 
@@ -22,8 +33,8 @@ watchEffect(() => {
       window.removeEventListener("wheel", lockScroll);
       window.removeEventListener("keydown", lockKeydown);
 
-      if (injectedValue.triggerButton.value) {
-        injectedValue.triggerButton.value.focus();
+      if (injectedValue?.triggerButton.value) {
+        injectedValue?.triggerButton.value.focus();
       }
     }
   }
@@ -46,13 +57,14 @@ function lockKeydown(e: KeyboardEvent) {
     }
   }
   if (e.key === "Escape") {
-    injectedValue.closeModal();
+    injectedValue?.closeModal();
   }
 }
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
+    :asChild="props.asChild ? '' : undefined"
     ref="dialogContentElement"
     v-if="injectedValue?.open.value"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"
@@ -61,5 +73,5 @@ function lockKeydown(e: KeyboardEvent) {
     style="pointer-events: auto"
   >
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

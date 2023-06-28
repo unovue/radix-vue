@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, inject } from "vue";
+import { PrimitiveA } from "@/Primitive";
 import {
   TOOLBAR_INJECTION_KEY,
   type ToolbarProvideValue,
@@ -21,7 +22,7 @@ function handleKeydown(e: KeyboardEvent) {
 </script>
 
 <template>
-  <a
+  <PrimitiveA
     ref="currentElement"
     :tabindex="
       injectedValue?.activeElement.value === currentElement ? '0' : '-1'
@@ -30,5 +31,5 @@ function handleKeydown(e: KeyboardEvent) {
     data-radix-vue-collection-item
   >
     <slot />
-  </a>
+  </PrimitiveA>
 </template>

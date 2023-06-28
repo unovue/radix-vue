@@ -20,6 +20,7 @@ export interface ToolbarProvideValue {
 
 <script setup lang="ts">
 import { ref, provide } from "vue";
+import { PrimitiveDiv } from "@/Primitive";
 
 const props = withDefaults(defineProps<ToolbarRootProps>(), {
   orientation: "horizontal",
@@ -37,7 +38,7 @@ provide<ToolbarProvideValue>(TOOLBAR_INJECTION_KEY, {
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     ref="parentElementRef"
     role="toolbar"
     tabindex="0"
@@ -47,5 +48,5 @@ provide<ToolbarProvideValue>(TOOLBAR_INJECTION_KEY, {
     :data-orientation="props.orientation"
   >
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

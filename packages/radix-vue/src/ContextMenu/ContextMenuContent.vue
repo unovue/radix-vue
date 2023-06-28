@@ -12,15 +12,9 @@ export type ContextMenuContentProvideValue = {
 </script>
 
 <script setup lang="ts">
+import { PrimitiveDiv } from "@/Primitive";
 import { onMounted, inject, ref, watchEffect, provide } from "vue";
-import {
-  useFloating,
-  offset,
-  flip,
-  shift,
-  autoUpdate,
-  arrow,
-} from "@floating-ui/vue";
+import { useFloating, offset, flip, shift, autoUpdate } from "@floating-ui/vue";
 import { useClickOutside } from "../shared/useClickOutside";
 import {
   CONTEXT_MENU_INJECTION_KEY,
@@ -120,7 +114,7 @@ provide<ContextMenuContentProvideValue>(CONTEXT_MENU_CONTENT_INJECTION_KEY, {
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     ref="tooltipContentElement"
     v-if="injectedValue?.modelValue.value"
     style="min-width: max-content; will-change: transform; z-index: auto"
@@ -135,5 +129,5 @@ provide<ContextMenuContentProvideValue>(CONTEXT_MENU_CONTENT_INJECTION_KEY, {
     >
       <slot />
     </div>
-  </div>
+  </PrimitiveDiv>
 </template>

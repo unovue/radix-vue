@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
+import { PrimitiveDiv } from "@/Primitive";
 
 export interface ProgressRootProps {
   modelValue?: number;
@@ -27,7 +28,7 @@ provide<ProgressProvideValue>(PROGRESS_INJECTION_KEY, {
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     role="progressbar"
     :data-state="props.modelValue === props.max ? 'complete' : 'loading'"
     :aria-valuenow="props.modelValue"
@@ -35,5 +36,5 @@ provide<ProgressProvideValue>(PROGRESS_INJECTION_KEY, {
     :aria-valuemax="props.max"
   >
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

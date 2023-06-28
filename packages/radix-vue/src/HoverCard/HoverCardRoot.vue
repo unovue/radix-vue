@@ -19,6 +19,7 @@ export type HoverCardProvideValue = {
   arrowElement: Ref<HTMLElement | undefined>;
   openDelay: number;
   closeDelay: number;
+  isHover: boolean;
 };
 </script>
 
@@ -57,6 +58,7 @@ provide<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY, {
   arrowElement: arrowElement,
   openDelay: props.openDelay,
   closeDelay: props.closeDelay,
+  isHover: false,
 });
 </script>
 

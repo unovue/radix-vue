@@ -1,5 +1,3 @@
-THIS PROJECT IS IN MAINTENANCE MODE. We accept pull requests for Bug Fixes **ONLY**. NO NEW FEATURES ACCEPTED!
-
 <!--- Provide a general summary of your changes in the Title above -->
 
 ## Description
@@ -14,6 +12,7 @@ THIS PROJECT IS IN MAINTENANCE MODE. We accept pull requests for Bug Fixes **ONL
 ## Motivation and Context
 <!--- Why is this change required? What problem does it solve? -->
 <!--- If it fixes an open issue, please link to the issue here. -->
+<!--- What will change? Provide a before and after -->
 
 ## How Has This Been Tested?
 <!--- Please describe in detail how you tested your changes. -->

@@ -16,16 +16,16 @@ interface ArrowNavigationOptions {
 export function useArrowNavigation(
   e: KeyboardEvent,
   currentElement: HTMLElement,
-  parentElement: HTMLElement,
+  parentElement: HTMLElement | undefined,
   options: ArrowNavigationOptions = {}
 ): HTMLElement | null {
   const defaultAttributeName = "data-radix-vue-collection-item";
   const attributeName = options?.attributeName ?? defaultAttributeName;
-  let allCollectionItems: HTMLElement[];
+  let allCollectionItems: HTMLElement[] = [];
 
-  if (options.itemsArray && options.itemsArray.length) {
+  if (!parentElement && options.itemsArray && options.itemsArray.length) {
     allCollectionItems = options.itemsArray;
-  } else {
+  } else if (parentElement) {
     allCollectionItems = Array.from(
       parentElement.querySelectorAll(`[${attributeName}]`)
     );

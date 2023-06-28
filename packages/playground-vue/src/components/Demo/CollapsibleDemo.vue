@@ -18,17 +18,19 @@ const rootDisabled = ref(false);
         <span class="text-violet11 text-[15px] leading-[25px]" style="color: white">
           @mujahidfa starred 3 repos
         </span>
-        <CollapsibleTrigger class="rounded-full h-[25px] w-[25px] inline-flex items-center justify-center text-violet11 shadow-[0_2px_10px] shadow-blackA7 outline-none data-[state=closed]:bg-white data-[state=open]:bg-violet3 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black">
+        <CollapsibleTrigger asChild class="rounded-full h-[25px] w-[25px] inline-flex items-center justify-center text-violet11 shadow-[0_2px_10px] shadow-blackA7 outline-none data-[state=closed]:bg-white data-[state=open]:bg-violet3 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black">
+          <button>
             <Icon
-          v-if="rootOpen"
-          icon="radix-icons:cross-2"
-          class="h-3 w-3 text-black"
-        />
-        <Icon
-          v-else
-          icon="radix-icons:row-spacing"
-          class="h-3 w-3 text-black"
-        />
+            v-if="rootOpen"
+            icon="radix-icons:cross-2"
+            class="h-3 w-3 text-black"
+            />
+            <Icon
+            v-else
+            icon="radix-icons:row-spacing"
+            class="h-3 w-3 text-black"
+            />
+          </button>
         </CollapsibleTrigger>
       </div>
 

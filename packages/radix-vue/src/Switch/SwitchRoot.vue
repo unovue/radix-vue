@@ -21,7 +21,7 @@ export interface SwitchProvideValue {
 
 <script setup lang="ts">
 import { provide } from "vue";
-import { useVModel } from "../shared";
+import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<SwitchRootProps>(), {
   disabled: false,
@@ -30,21 +30,24 @@ const props = withDefaults(defineProps<SwitchRootProps>(), {
 
 const emit = defineEmits(["update:modelValue"]);
 
-const { value: modelValue, change: toggleModelValue } = useVModel(
-  props,
-  "modelValue",
-  emit
-);
+const modelValue = useVModel(props, "modelValue", emit, {
+  defaultValue: false,
+  passive: true, // set passive to true so that if no props.modelValue was passed, it will still update
+});
+
+const toggleModelValue = () => {
+  modelValue.value = !modelValue.value;
+};
 
 provide<SwitchProvideValue>(SWITCH_INJECTION_KEY, {
   modelValue: modelValue,
-  toggleModelValue: toggleModelValue(!modelValue.value),
+  toggleModelValue,
   disabled: props.disabled,
 });
 
 function handleKeydown(e: KeyboardEvent) {
   if (e.key === "Enter") {
-    toggleModelValue(!modelValue.value);
+    toggleModelValue();
   }
 }
 </script>
@@ -62,7 +65,7 @@ function handleKeydown(e: KeyboardEvent) {
       type="checkbox"
       :id="props.id"
       v-bind="modelValue"
-      @change="toggleModelValue(!modelValue)"
+      @change="toggleModelValue"
       :checked="modelValue"
       :name="props.name"
       @keydown="handleKeydown"

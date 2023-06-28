@@ -10,9 +10,12 @@ import {
   type DropdownMenuSubProvideValue,
 } from "./DropdownMenuSub.vue";
 
-interface ToggleGroupItemProps {
+interface DropdownMenuItemProps {
+  asChild?: boolean;
   value?: string;
   disabled?: boolean;
+  //onSelect?: void;
+  textValue?: string;
 }
 
 const rootInjectedValue = inject<DropdownMenuProvideValue>(
@@ -23,7 +26,7 @@ const subInjectedValue = inject<DropdownMenuSubProvideValue>(
   DROPDOWN_MENU_SUB_INJECTION_KEY
 );
 
-const props = defineProps<ToggleGroupItemProps>();
+const props = defineProps<DropdownMenuItemProps>();
 
 function handleClick() {
   if (rootInjectedValue?.selectedElement.value) {

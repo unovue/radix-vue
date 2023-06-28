@@ -4,6 +4,7 @@ import type { Ref, InjectionKey } from "vue";
 export interface HoverCardRootProps {
   defaultOpen: false;
   open?: boolean;
+  //onOpenChange?: void;
   openDelay?: number;
   closeDelay?: number;
 }

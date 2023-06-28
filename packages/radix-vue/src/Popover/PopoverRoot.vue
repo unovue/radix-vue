@@ -4,8 +4,8 @@ import type { Ref, InjectionKey } from "vue";
 export interface PopoverRootProps {
   defaultOpen?: boolean;
   open?: boolean;
-  delayDuration?: number;
-  disableHoverableContent?: boolean;
+  //onOpenChange?: void;
+  modal?: boolean;
 }
 
 export const POPOVER_INJECTION_KEY =
@@ -30,7 +30,7 @@ import { useVModel } from "@vueuse/core";
 const props = withDefaults(defineProps<PopoverRootProps>(), {
   defaultOpen: false,
   open: undefined,
-  delayDuration: 700,
+  modal: false,
 });
 
 const emit = defineEmits<{

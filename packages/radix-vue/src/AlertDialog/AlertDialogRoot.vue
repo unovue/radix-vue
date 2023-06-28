@@ -4,6 +4,7 @@ import type { Ref, InjectionKey } from "vue";
 export interface DialogRootProps {
   open?: boolean;
   defaultOpen?: boolean;
+  //onOpenChange?: void;
 }
 
 export const DIALOG_INJECTION_KEY =

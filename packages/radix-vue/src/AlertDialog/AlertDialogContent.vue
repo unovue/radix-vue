@@ -1,3 +1,13 @@
+<script lang="ts">
+export interface AlertDialogContentProps {
+  asChild?: boolean;
+  forceMount?: boolean;
+  //onOpenAutoFocus?: void;
+  //onCloseAutoFocus?: void;
+  //onEscapeKeyDown?: void;
+}
+</script>
+
 <script setup lang="ts">
 import { inject, ref, watchEffect } from "vue";
 import { trapFocus } from "../shared/trap-focus.ts";

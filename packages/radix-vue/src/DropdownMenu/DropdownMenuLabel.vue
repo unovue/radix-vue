@@ -1,5 +1,6 @@
 <script lang="ts">
 interface DropdownMenuLabelProps {
+  asChild?: boolean;
   for?: string;
 }
 </script>

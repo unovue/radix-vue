@@ -5,6 +5,30 @@ import type { Side, MiddlewareData } from "@floating-ui/dom";
 export const DROPDOWN_MENU_CONTENT_INJECTION_KEY =
   Symbol() as InjectionKey<DropdownMenuContentProvideValue>;
 
+export type Boundary = Element | null | Array<Element | null>;
+
+export interface DropdownMenuContentProps {
+  asChild?: boolean;
+  loop?: boolean; //false
+  //onOpenAutoFocus?: void;
+  //onCloseAutoFocus?: void;
+  //onEscapeKeyDown?: void;
+  //onPointerDownOutside?: void;
+  //onInteractOutside?: void;
+  forceMount?: boolean;
+  side?: "top" | "right" | "bottom" | "left"; //"top"
+  sideOffset?: number; //0
+  align?: "start" | "center" | "end";
+  alignOffset?: number; //"center"
+  avoidCollisions?: boolean; //true
+  collisionBoundary?: Boundary; //[]
+  collisionPadding?: number | Partial<Record<Side, number>>; //0
+  arrowPadding?: number; //0
+  sticky?: "partial" | "always"; //"partial"
+  hideWhenDetached?: boolean; //false
+  class: string;
+}
+
 export type DropdownMenuContentProvideValue = {
   middlewareData: Ref<MiddlewareData>;
   floatPosition: Ref<Side>;
@@ -31,8 +55,9 @@ const injectedValue = inject<DropdownMenuProvideValue>(
   DROPDOWN_MENU_INJECTION_KEY
 );
 
-const props = defineProps({
-  class: String,
+const props = withDefaults(defineProps<DropdownMenuContentProps>(), {
+  side: "bottom",
+  align: "center",
 });
 
 const tooltipContentElement = ref<HTMLElement>();
@@ -124,7 +149,8 @@ provide<DropdownMenuContentProvideValue>(DROPDOWN_MENU_CONTENT_INJECTION_KEY, {
   >
     <div
       :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
-      data-side="bottom"
+      :data-side="props.side"
+      :data-align="props.align"
       role="tooltip"
       :class="props.class"
       style="pointer-events: auto"

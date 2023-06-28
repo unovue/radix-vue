@@ -1,3 +1,10 @@
+<script lang="ts">
+export interface AlertDialogOverlayProps {
+  asChild?: boolean;
+  forceMount?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { inject } from "vue";
 import {

@@ -2,6 +2,7 @@
 import type { Ref } from "vue";
 import type { DropdownMenuProvideValue } from "../../DropdownMenu/DropdownMenuRoot.vue";
 import type { DropdownMenuSubProvideValue } from "../../DropdownMenu/DropdownMenuSub.vue";
+import { PrimitiveDiv } from "@/Primitive";
 
 interface BaseMenuItemProps {
   disabled?: boolean;
@@ -90,7 +91,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     :role="props.role"
     ref="currentElement"
     @keydown.prevent="handleKeydown"
@@ -111,5 +112,5 @@ watchEffect(() => {
     "
   >
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

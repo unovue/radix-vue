@@ -17,6 +17,7 @@ export type MenuContentProvider = {
 
 <script setup lang="ts">
 import { onMounted, inject, ref, watchEffect, watch, provide } from "vue";
+import { PrimitiveDiv } from "@/Primitive";
 import {
   useFloating,
   offset,
@@ -154,7 +155,7 @@ provide<MenuContentProvider>("MenuContentProvider", {
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     ref="DropdownMenuContentElement"
     v-if="injectedValue?.modelValue.value"
     style="min-width: max-content; will-change: transform; z-index: auto"
@@ -169,5 +170,5 @@ provide<MenuContentProvider>("MenuContentProvider", {
     >
       <slot />
     </div>
-  </div>
+  </PrimitiveDiv>
 </template>

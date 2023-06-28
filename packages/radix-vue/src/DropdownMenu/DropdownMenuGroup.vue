@@ -29,6 +29,7 @@ export interface DropdownMenuGroupProvideValue {
 
 <script setup lang="ts">
 import { ref, toRef, provide } from "vue";
+import { PrimitiveDiv } from "@/Primitive";
 
 const props = withDefaults(defineProps<DropdownMenuGroupProps>(), {
   type: "single",
@@ -60,12 +61,12 @@ provide<DropdownMenuGroupProvideValue>(DROPDOWN_MENU_GROUP_INJECTION_KEY, {
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     ref="parentElementRef"
     role="group"
     :dir="props.dir"
     aria-label="Text alignment"
   >
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

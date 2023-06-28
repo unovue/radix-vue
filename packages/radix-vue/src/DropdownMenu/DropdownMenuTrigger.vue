@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { inject, ref, onMounted } from "vue";
+import { PrimitiveButton } from "@/Primitive";
 import {
   DROPDOWN_MENU_INJECTION_KEY,
   type DropdownMenuProvideValue,
@@ -30,7 +31,7 @@ function handleKeydown(e: KeyboardEvent) {
 </script>
 
 <template>
-  <button
+  <PrimitiveButton
     type="button"
     ref="triggerElement"
     :aria-expanded="injectedValue?.modelValue.value || false"
@@ -39,5 +40,5 @@ function handleKeydown(e: KeyboardEvent) {
     @keydown="handleKeydown"
   >
     <slot />
-  </button>
+  </PrimitiveButton>
 </template>

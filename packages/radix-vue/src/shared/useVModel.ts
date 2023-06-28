@@ -1,14 +1,14 @@
-import { type Ref, toRef, ref, watch } from "vue";
+import { type Ref, toRef, ref, watch, type ToRef } from "vue";
 
 export interface UseVModel<T> {
-  value: Ref<T>;
+  value: Ref<T> | ToRef<T>;
   change: (value: T) => void;
 }
 
 export function useVModel<T>(
   props: { [key: string]: T },
   name: string,
-  emit: (eventName: string, payload: T) => void
+  emit: (event: any, ...args: any[]) => void
 ): UseVModel<T> {
   const modelValue: Ref<T> =
     props[name] !== undefined ? toRef(props, name) : ref<T>(false);

@@ -20,7 +20,7 @@ export interface SwitchProvideValue {
 </script>
 
 <script setup lang="ts">
-import { ref, provide, watch, toRef } from "vue";
+import { provide } from "vue";
 import { useVModel } from "../shared";
 
 const props = withDefaults(defineProps<SwitchRootProps>(), {
@@ -40,7 +40,7 @@ provide<SwitchProvideValue>(SWITCH_INJECTION_KEY, {
 
 function handleKeydown(e: KeyboardEvent) {
   if (e.key === "Enter") {
-    modelValue.change(!modelValue.value);
+    modelValue.change(!modelValue.value.value);
   }
 }
 </script>
@@ -58,7 +58,7 @@ function handleKeydown(e: KeyboardEvent) {
       type="checkbox"
       :id="props.id"
       v-bind="modelValue"
-      @change="modelValue.change(!modelValue.value)"
+      @change="modelValue.change(!modelValue.value.value)"
       :checked="modelValue"
       :name="props.name"
       @keydown="handleKeydown"

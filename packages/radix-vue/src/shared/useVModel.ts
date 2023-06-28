@@ -1,4 +1,4 @@
-import { Ref, toRef, ref, watchEffect } from "vue";
+import { type Ref, toRef, ref, watch } from "vue";
 
 export interface UseVModel<T> {
   value: Ref<T>;
@@ -11,10 +11,10 @@ export function useVModel<T>(
   emit: (eventName: string, payload: T) => void
 ): UseVModel<T> {
   const modelValue: Ref<T> =
-    props[name] !== undefined ? toRef(props, name) : ref<T>(null!);
+    props[name] !== undefined ? toRef(props, name) : ref<T>(false);
 
-  watchEffect(() => {
-    emit(`update:${name}`, modelValue.value);
+  watch(modelValue, (newValue) => {
+    emit(`update:${name}`, newValue);
   });
 
   function changeModelValue(value: T) {

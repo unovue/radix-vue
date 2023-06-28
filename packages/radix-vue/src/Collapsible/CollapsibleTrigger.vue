@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { inject } from "vue";
-import { Primitive } from "../Primitive.vue";
+import { Primitive } from "../Primitive";
 import {
   COLLAPSIBLE_INJECTION_KEY,
   type CollapsibleProvideValue,

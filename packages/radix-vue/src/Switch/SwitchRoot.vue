@@ -29,7 +29,8 @@ const props = withDefaults(defineProps<SwitchRootProps>(), {
 
 const emit = defineEmits(["update:modelValue"]);
 
-const modelValue = toRef(props, "modelValue") ?? ref(false);
+const modelValue =
+  props.modelValue != undefined ? toRef(props, "modelValue") : ref(false);
 
 watch(modelValue, (newValue) => {
   emit("update:modelValue", newValue);

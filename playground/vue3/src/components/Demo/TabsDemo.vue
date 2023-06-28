@@ -3,12 +3,7 @@ import { TabsRoot, TabsList, TabsTrigger, TabsContent } from "radix-vue";
 import { Icon } from "@iconify/vue";
 import { ref } from "vue";
 
-const toggleState = ref(true);
 const toggleStateSingle = ref("tab1");
-const toggleStateMultiple = ref(["1"]);
-
-const toggleGroupItemClasses =
-  "hover:bg-violet3 color-mauve11 data-[state=on]:bg-violet6 data-[state=on]:text-violet12 flex h-[35px] w-[35px] items-center justify-center bg-white text-base leading-4 first:rounded-l last:rounded-r focus:z-10 focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none";
 </script>
 
 <template>
@@ -41,7 +36,7 @@ const toggleGroupItemClasses =
         Make changes to your account here. Click save when you're done.
       </p>
       <fieldset class="mb-[15px] w-full flex flex-col justify-start">
-        <label class="text-[13px] leading-none mb-2.5 text-violet12 block" htmlFor="name">
+        <label class="text-[13px] leading-none mb-2.5 text-violet12 block" for="name">
           Name
         </label>
         <input
@@ -51,7 +46,7 @@ const toggleGroupItemClasses =
         />
       </fieldset>
       <fieldset class="mb-[15px] w-full flex flex-col justify-start">
-        <label class="text-[13px] leading-none mb-2.5 text-violet12 block" htmlFor="username">
+        <label class="text-[13px] leading-none mb-2.5 text-violet12 block" for="username">
           Username
         </label>
         <input
@@ -76,7 +71,7 @@ const toggleGroupItemClasses =
       <fieldset class="mb-[15px] w-full flex flex-col justify-start">
         <label
           class="text-[13px] leading-none mb-2.5 text-violet12 block"
-          htmlFor="currentPassword"
+          for="currentPassword"
         >
           Current password
         </label>
@@ -89,7 +84,7 @@ const toggleGroupItemClasses =
       <fieldset class="mb-[15px] w-full flex flex-col justify-start">
         <label
           class="text-[13px] leading-none mb-2.5 text-violet12 block"
-          htmlFor="newPassword"
+          for="newPassword"
         >
           New password
         </label>
@@ -102,7 +97,7 @@ const toggleGroupItemClasses =
       <fieldset class="mb-[15px] w-full flex flex-col justify-start">
         <label
           class="text-[13px] leading-none mb-2.5 text-violet12 block"
-          htmlFor="confirmPassword"
+          for="confirmPassword"
         >
           Confirm password
         </label>

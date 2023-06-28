@@ -2,7 +2,8 @@
 import type { Ref, InjectionKey } from "vue";
 
 export interface TooltipRootProps {
-  modelValue?: boolean;
+  defaultOpen?: boolean;
+  open?: boolean;
   delayDuration?: number;
   disableHoverableContent?: boolean;
 }
@@ -11,7 +12,7 @@ export const TOOLTIP_INJECTION_KEY =
   Symbol() as InjectionKey<TooltipProvideValue>;
 
 export type TooltipProvideValue = {
-  modelValue: Readonly<Ref<boolean>>;
+  open: Readonly<Ref<boolean>>;
   showTooltip(): void;
   hideTooltip(): void;
   triggerElement: Ref<HTMLElement | undefined>;
@@ -21,27 +22,35 @@ export type TooltipProvideValue = {
 </script>
 
 <script setup lang="ts">
-import { provide, toRef, ref } from "vue";
+import { provide, ref } from "vue";
+import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<TooltipRootProps>(), {
+  defaultOpen: false,
+  open: undefined,
   delayDuration: 700,
 });
 
 const emit = defineEmits<{
-  (e: "update:modelValue", value: boolean): void;
+  (e: "update:open", value: boolean): void;
 }>();
+
+const open = useVModel(props, "open", emit, {
+  defaultValue: props.defaultOpen,
+  passive: true,
+});
 
 const triggerElement = ref<HTMLElement>();
 const floatingElement = ref<HTMLElement>();
 const arrowElement = ref<HTMLElement>();
 
 provide<TooltipProvideValue>(TOOLTIP_INJECTION_KEY, {
-  modelValue: toRef(() => props.modelValue),
+  open,
   showTooltip: () => {
-    emit("update:modelValue", true);
+    open.value = true;
   },
   hideTooltip: () => {
-    emit("update:modelValue", false);
+    open.value = false;
   },
   triggerElement: triggerElement,
   floatingElement: floatingElement,

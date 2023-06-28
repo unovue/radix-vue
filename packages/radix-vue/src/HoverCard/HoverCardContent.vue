@@ -70,14 +70,14 @@ async function handleMouseleave(e: MouseEvent) {
 <template>
   <div
     ref="tooltipContentElement"
-    v-if="injectedValue?.modelValue.value"
+    v-if="injectedValue?.open.value"
     style="min-width: max-content; will-change: transform; z-index: auto"
     :style="floatingStyles"
     @mouseover="injectedValue.isHover = true"
     @mouseleave="handleMouseleave"
   >
     <div
-      :data-state="injectedValue?.modelValue.value ? 'delayed-open' : 'closed'"
+      :data-state="injectedValue?.open.value ? 'delayed-open' : 'closed'"
       data-side="bottom"
       role="tooltip"
       tabindex="-1"

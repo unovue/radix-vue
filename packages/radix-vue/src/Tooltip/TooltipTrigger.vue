@@ -25,8 +25,8 @@ async function handleMouseEnter(e: MouseEvent) {
   <button
     type="button"
     ref="triggerElement"
-    :aria-expanded="injectedValue?.modelValue.value || false"
-    :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
+    :aria-expanded="injectedValue?.open.value || false"
+    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
     @mouseenter="handleMouseEnter"
     @mouseleave="injectedValue?.hideTooltip"
     style="cursor: default"

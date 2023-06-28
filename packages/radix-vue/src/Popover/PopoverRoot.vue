@@ -2,7 +2,8 @@
 import type { Ref, InjectionKey } from "vue";
 
 export interface PopoverRootProps {
-  modelValue?: boolean;
+  defaultOpen?: boolean;
+  open?: boolean;
   delayDuration?: number;
   disableHoverableContent?: boolean;
 }
@@ -11,9 +12,9 @@ export const POPOVER_INJECTION_KEY =
   Symbol() as InjectionKey<PopoverProvideValue>;
 
 export type PopoverProvideValue = {
-  modelValue: Readonly<Ref<boolean>>;
-  showTooltip(): void;
-  hideTooltip(): void;
+  open: Readonly<Ref<boolean>>;
+  showPopover(): void;
+  hidePopover(): void;
   triggerElement: Ref<HTMLElement | undefined>;
   floatingElement: Ref<HTMLElement | undefined>;
   arrowElement: Ref<HTMLElement | undefined>;
@@ -23,27 +24,35 @@ export type PopoverProvideValue = {
 </script>
 
 <script setup lang="ts">
-import { provide, toRef, ref } from "vue";
+import { provide, ref } from "vue";
+import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<PopoverRootProps>(), {
+  defaultOpen: false,
+  open: undefined,
   delayDuration: 700,
 });
 
 const emit = defineEmits<{
-  (e: "update:modelValue", value: boolean): void;
+  (e: "update:open", value: boolean): void;
 }>();
+
+const open = useVModel(props, "open", emit, {
+  defaultValue: props.defaultOpen,
+  passive: true,
+});
 
 const triggerElement = ref<HTMLElement>();
 const floatingElement = ref<HTMLElement>();
 const arrowElement = ref<HTMLElement>();
 
 provide<PopoverProvideValue>(POPOVER_INJECTION_KEY, {
-  modelValue: toRef(() => props.modelValue),
-  showTooltip: () => {
-    emit("update:modelValue", true);
+  open,
+  showPopover: () => {
+    open.value = true;
   },
-  hideTooltip: () => {
-    emit("update:modelValue", false);
+  hidePopover: () => {
+    open.value = false;
   },
   triggerElement: triggerElement,
   floatingElement: floatingElement,

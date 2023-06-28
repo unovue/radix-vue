@@ -11,9 +11,9 @@ const injectedValue = inject<PopoverProvideValue>(POPOVER_INJECTION_KEY);
 <template>
   <button
     type="button"
-    :aria-expanded="injectedValue?.modelValue.value || false"
-    :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
-    @click="injectedValue?.hideTooltip"
+    :aria-expanded="injectedValue?.open.value || false"
+    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
+    @click="injectedValue?.hidePopover"
   >
     <slot />
   </button>

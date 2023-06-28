@@ -24,24 +24,30 @@ import { ref, provide, watch, toRef } from "vue";
 
 const props = withDefaults(defineProps<SwitchRootProps>(), {
   disabled: false,
+  modelValue: undefined,
 });
 
 const emit = defineEmits(["update:modelValue"]);
 
-const modelValue = ref(props.modelValue ?? false);
+const modelValue = toRef(props, "modelValue") ?? ref(false);
 
 watch(modelValue, (newValue) => {
   emit("update:modelValue", newValue);
 });
 
 provide<SwitchProvideValue>(SWITCH_INJECTION_KEY, {
-  modelValue: toRef(() => modelValue.value),
+  modelValue:
+    props.modelValue != undefined ? toRef(() => props.modelValue) : modelValue,
   toggleModelValue: toggleModelValue,
   disabled: props.disabled,
 });
 
 function toggleModelValue() {
-  modelValue.value = !modelValue.value;
+  if (props.modelValue != undefined) {
+    emit("update:modelValue", !modelValue.value);
+  } else {
+    modelValue.value = !modelValue.value;
+  }
 }
 
 function handleKeydown(e: KeyboardEvent) {
@@ -63,7 +69,8 @@ function handleKeydown(e: KeyboardEvent) {
     <input
       type="checkbox"
       :id="props.id"
-      v-model="modelValue"
+      v-bind="modelValue"
+      @change="toggleModelValue"
       :checked="modelValue"
       :name="props.name"
       @keydown="handleKeydown"

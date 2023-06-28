@@ -30,17 +30,21 @@ const props = withDefaults(defineProps<SwitchRootProps>(), {
 
 const emit = defineEmits(["update:modelValue"]);
 
-const modelValue = useVModel(props, "modelValue", emit);
+const { value: modelValue, change: toggleModelValue } = useVModel(
+  props,
+  "modelValue",
+  emit
+);
 
 provide<SwitchProvideValue>(SWITCH_INJECTION_KEY, {
-  modelValue: modelValue.value,
-  toggleModelValue: modelValue.change(!modelValue.value),
+  modelValue: modelValue,
+  toggleModelValue: toggleModelValue(!modelValue.value),
   disabled: props.disabled,
 });
 
 function handleKeydown(e: KeyboardEvent) {
   if (e.key === "Enter") {
-    modelValue.change(!modelValue.value.value);
+    toggleModelValue(!modelValue.value);
   }
 }
 </script>
@@ -58,7 +62,7 @@ function handleKeydown(e: KeyboardEvent) {
       type="checkbox"
       :id="props.id"
       v-bind="modelValue"
-      @change="modelValue.change(!modelValue.value.value)"
+      @change="toggleModelValue(!modelValue)"
       :checked="modelValue"
       :name="props.name"
       @keydown="handleKeydown"

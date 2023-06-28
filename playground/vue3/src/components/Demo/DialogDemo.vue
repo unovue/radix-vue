@@ -56,11 +56,14 @@ const dialogOpen = ref(false);
           />
         </fieldset>
         <div class="mt-[25px] flex justify-end">
-          <DialogClose
+        <DialogClose asChild>
+          <button
             class="bg-green4 text-green11 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none"
           >
+
             Save changes
-          </DialogClose>
+          </button>
+        </DialogClose>
         </div>
         <DialogClose
           class="text-violet11 hover:bg-violet4 focus:shadow-violet7 absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:shadow-[0_0_0_2px] focus:outline-none"

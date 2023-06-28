@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { inject } from "vue";
-import { Primitive } from "../Primitive";
+import { PrimitiveButton } from "../Primitive";
 import {
   COLLAPSIBLE_INJECTION_KEY,
   type CollapsibleProvideValue,
@@ -12,7 +12,7 @@ const injectedValue = inject<CollapsibleProvideValue>(
 </script>
 
 <template>
-  <Primitive.button
+  <PrimitiveButton
     type="button"
     :aria-controls="injectedValue?.contentId"
     :aria-expanded="injectedValue?.open.value || false"
@@ -22,5 +22,5 @@ const injectedValue = inject<CollapsibleProvideValue>(
     @click="injectedValue?.onOpenToggle"
   >
     <slot />
-  </Primitive.button>
+  </PrimitiveButton>
 </template>

@@ -10,9 +10,9 @@ const injectedValue = inject<SwitchProvideValue>(SWITCH_INJECTION_KEY);
 
 <template>
   <span
-    :data-state="injectedValue?.modelValue?.value ? 'checked' : 'unchecked'"
+    :data-state="injectedValue?.open?.value ? 'checked' : 'unchecked'"
     :data-disabled="injectedValue?.disabled ? '' : undefined"
-    @click="injectedValue?.toggleModelValue"
+    @click="injectedValue?.toggleOpen"
   >
     <slot />
   </span>

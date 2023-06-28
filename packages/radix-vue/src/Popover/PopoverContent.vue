@@ -56,7 +56,7 @@ const {
 
 watchEffect(() => {
   if (tooltipContentElement.value) {
-    if (injectedValue?.modelValue.value) {
+    if (injectedValue?.open.value) {
       setTimeout(() => {
         trapFocus(tooltipContentElement.value!);
       }, 0);
@@ -74,7 +74,7 @@ watchEffect(() => {
 function closeDialogWhenClickOutside(e: MouseEvent) {
   const clickOutside = useClickOutside(e, tooltipContentElement.value!);
   if (clickOutside) {
-    injectedValue?.hideTooltip();
+    injectedValue?.hidePopover();
   }
 }
 
@@ -92,12 +92,12 @@ provide<PopoverContentProvideValue>(POPOVER_CONTENT_INJECTION_KEY, {
 <template>
   <div
     ref="tooltipContentElement"
-    v-if="injectedValue?.modelValue.value"
+    v-if="injectedValue?.open.value"
     style="min-width: max-content; will-change: transform; z-index: auto"
     :style="floatingStyles"
   >
     <div
-      :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
+      :data-state="injectedValue?.open.value ? 'open' : 'closed'"
       data-side="bottom"
       role="tooltip"
       :class="props.class"

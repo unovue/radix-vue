@@ -17,9 +17,9 @@ onMounted(() => {
   <button
     type="button"
     ref="triggerElement"
-    :aria-expanded="injectedValue?.modelValue.value || false"
-    :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
-    @click="injectedValue?.showTooltip"
+    :aria-expanded="injectedValue?.open.value || false"
+    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
+    @click="injectedValue?.showPopover"
   >
     <slot />
   </button>

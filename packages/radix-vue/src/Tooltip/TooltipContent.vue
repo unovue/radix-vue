@@ -53,12 +53,12 @@ provide<TooltipContentProvideValue>(TOOLTIP_CONTENT_INJECTION_KEY, {
 <template>
   <div
     ref="tooltipContentElement"
-    v-if="injectedValue?.modelValue.value"
+    v-if="injectedValue?.open.value"
     style="min-width: max-content; will-change: transform; z-index: auto"
     :style="floatingStyles"
   >
     <div
-      :data-state="injectedValue?.modelValue.value ? 'delayed-open' : 'closed'"
+      :data-state="injectedValue?.open.value ? 'delayed-open' : 'closed'"
       data-side="top"
       role="tooltip"
       tabindex="-1"

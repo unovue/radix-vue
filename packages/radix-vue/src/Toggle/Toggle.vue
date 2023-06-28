@@ -2,8 +2,8 @@
 type DataState = "on" | "off";
 
 export interface ToggleProps {
-  defaultValue?: boolean;
-  modelValue?: boolean;
+  defaultPressed?: boolean;
+  pressed?: boolean;
   disabled?: boolean;
   name?: string;
   id?: string;
@@ -11,42 +11,42 @@ export interface ToggleProps {
 </script>
 
 <script setup lang="ts">
-import { ref, computed, watch } from "vue";
+import { computed } from "vue";
 import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<ToggleProps>(), {
   disabled: false,
-  defaultValue: false,
-  modelValue: undefined,
+  defaultPressed: false,
+  pressed: undefined,
 });
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:pressed"]);
 
-const modelValue = useVModel(props, "modelValue", emit, {
-  defaultValue: props.defaultValue,
-  passive: true, // set passive to true so that if no props.modelValue was passed, it will still update
+const pressed = useVModel(props, "pressed", emit, {
+  defaultValue: props.defaultPressed,
+  passive: true, // set passive to true so that if no props.pressed was passed, it will still update
 });
 
-const toggleModelValue = () => {
-  modelValue.value = !modelValue.value;
+const togglePressed = () => {
+  pressed.value = !pressed.value;
 };
 
 const dataState = computed<DataState>(() => {
-  return modelValue.value ? "on" : "off";
+  return pressed.value ? "on" : "off";
 });
 
 function handleKeydown(e: KeyboardEvent) {
   if (e.key === "Enter") {
-    toggleModelValue();
+    togglePressed();
   }
 }
 </script>
 
 <template>
   <div
-    :value="modelValue"
+    :value="pressed"
     role="checkbox"
-    :aria-checked="modelValue"
+    :aria-checked="pressed"
     :data-state="dataState"
     style="position: relative"
   >
@@ -54,9 +54,9 @@ function handleKeydown(e: KeyboardEvent) {
       type="checkbox"
       :id="props.id"
       @keydown="handleKeydown"
-      v-bind="modelValue"
-      @change="toggleModelValue"
-      :checked="modelValue"
+      v-bind="pressed"
+      @change="togglePressed"
+      :checked="pressed"
       :name="props.name"
       aria-hidden="true"
       :disabled="props.disabled"

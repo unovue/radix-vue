@@ -12,7 +12,7 @@ const switchState = ref(true);
       @click="switchState = !switchState"
       class="bg-white/20 px-2 py-1 rounded-md active:scale-90 duration-100 transform hover:bg-white/40 active:bg-white/20"
     >
-      Toggle
+      {{switchState ? 'Off' : 'On'}}
     </button>
   </div>
   <div class="flex gap-2 items-center">
@@ -20,7 +20,6 @@ const switchState = ref(true);
       Airplane mode
     </label>
     <SwitchRoot
-      v-model="switchState"
       class="w-[42px] h-[25px] focus-within:outline focus-within:outline-black flex bg-black/50 shadow-sm rounded-full relative data-[state=checked]:bg-black cursor-default"
       id="airplane-mode"
     >

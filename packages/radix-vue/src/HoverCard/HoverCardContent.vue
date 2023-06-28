@@ -5,6 +5,24 @@ import type { Side, MiddlewareData } from "@floating-ui/dom";
 export const HOVER_CARD_CONTENT_INJECTION_KEY =
   Symbol() as InjectionKey<HoverCardContentProvideValue>;
 
+export type Boundary = Element | null | Array<Element | null>;
+
+export interface HoverCardContentProps {
+  asChild?: boolean;
+  forceMount?: boolean;
+  side?: "top" | "right" | "bottom" | "left"; //"top"
+  sideOffset?: number; //0
+  align?: "start" | "center" | "end";
+  alignOffset?: number; //"center"
+  avoidCollisions?: boolean; //true
+  collisionBoundary?: Boundary; //[]
+  collisionPadding?: number | Partial<Record<Side, number>>; //0
+  arrowPadding?: number; //0
+  sticky?: "partial" | "always"; //"partial"
+  hideWhenDetached?: boolean; //false
+  class: string;
+}
+
 export type HoverCardContentProvideValue = {
   middlewareData: Ref<MiddlewareData>;
   floatPosition: Ref<Side>;
@@ -29,8 +47,9 @@ import { useMouseleaveDelay } from "../shared";
 
 const injectedValue = inject<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY);
 
-const props = defineProps({
-  class: String,
+const props = withDefaults(defineProps<HoverCardContentProps>(), {
+  side: "bottom",
+  align: "center",
 });
 
 const tooltipContentElement = ref<HTMLElement>();
@@ -78,7 +97,8 @@ async function handleMouseleave(e: MouseEvent) {
   >
     <div
       :data-state="injectedValue?.open.value ? 'delayed-open' : 'closed'"
-      data-side="bottom"
+      :data-side="props.side"
+      :data-align="props.align"
       role="tooltip"
       tabindex="-1"
       :class="props.class"

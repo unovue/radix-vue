@@ -1,3 +1,9 @@
+<script lang="ts">
+export interface ToolbarButton {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { ref, inject } from "vue";
 import {
@@ -22,6 +28,7 @@ function handleKeydown(e: KeyboardEvent) {
 
 <template>
   <button
+    :data-orientation="injectedValue?.orientation"
     ref="currentElement"
     type="button"
     :tabindex="

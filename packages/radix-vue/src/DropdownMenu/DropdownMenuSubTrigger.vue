@@ -1,3 +1,11 @@
+<script lang="ts">
+export interface DropdownMenuSubTriggerProps {
+  asChild?: boolean;
+  disabled?: boolean;
+  textValue?: string;
+}
+</script>
+
 <script setup lang="ts">
 import { inject, ref, onMounted, computed, watchEffect } from "vue";
 import {

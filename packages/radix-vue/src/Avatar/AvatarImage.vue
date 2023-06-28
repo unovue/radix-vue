@@ -1,3 +1,10 @@
+<script lang="ts">
+interface AvatarImageProps {
+  asChild?: boolean;
+  onLoadingStatusChange?: void;
+}
+</script>
+
 <script setup lang="ts">
 import { inject, onMounted } from "vue";
 import {
@@ -10,8 +17,12 @@ const injectedValue = inject<AvatarProvideValue>(AVATAR_INJECTION_KEY);
 onMounted(() => {
   injectedValue!.imageLoadingStatus.value = "loaded";
 });
+
+const props = withDefaults(defineProps<AvatarImageProps>(), {
+  asChild: false,
+});
 </script>
 
 <template>
-  <img />
+  <img :asChild="props.asChild ? '' : undefined" />
 </template>

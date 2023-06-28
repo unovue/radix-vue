@@ -19,7 +19,7 @@ const switchState = ref(true);
     <label className="text-white text-[15px] leading-none pr-[15px]" for="airplane-mode">
       Airplane mode
     </label>
-    <SwitchRoot
+    <SwitchRoot v-model:open="switchState"
       class="w-[42px] h-[25px] focus-within:outline focus-within:outline-black flex bg-black/50 shadow-sm rounded-full relative data-[state=checked]:bg-black cursor-default"
       id="airplane-mode"
     >

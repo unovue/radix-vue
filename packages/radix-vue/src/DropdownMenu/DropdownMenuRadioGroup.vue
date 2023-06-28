@@ -2,9 +2,11 @@
 import type { Ref } from "vue";
 
 export interface RadioGroupRootProps {
+  asChild?: boolean;
   value?: string;
   defaultValue?: string;
   //disabled?: boolean;
+  //onValueChange?: void;
   modelValue?: string | string[];
 }
 

@@ -5,6 +5,29 @@ import type { Side, MiddlewareData } from "@floating-ui/dom";
 export const POPOVER_CONTENT_INJECTION_KEY =
   Symbol() as InjectionKey<PopoverContentProvideValue>;
 
+export type Boundary = Element | null | Array<Element | null>;
+
+export interface PopoverContentProps {
+  asChild?: boolean;
+  //onOpenAutoFocus?: void;
+  //onCloseAutoFocus?: void;
+  //onEscapeKeyDown?: void;
+  //onPointerDownOutside?: void;
+  //onInteractOutside?: void;
+  forceMount?: boolean;
+  side?: "top" | "right" | "bottom" | "left"; //"top"
+  sideOffset?: number; //0
+  align?: "start" | "center" | "end";
+  alignOffset?: number; //"center"
+  avoidCollisions?: boolean; //true
+  collisionBoundary?: Boundary; //[]
+  collisionPadding?: number | Partial<Record<Side, number>>; //0
+  arrowPadding?: number; //0
+  sticky?: "partial" | "always"; //"partial"
+  hideWhenDetached?: boolean; //false
+  class: string;
+}
+
 export type PopoverContentProvideValue = {
   middlewareData: Ref<MiddlewareData>;
   floatPosition: Ref<Side>;
@@ -30,8 +53,9 @@ import {
 
 const injectedValue = inject<PopoverProvideValue>(POPOVER_INJECTION_KEY);
 
-const props = defineProps({
-  class: String,
+const props = withDefaults(defineProps<PopoverContentProps>(), {
+  side: "bottom",
+  align: "center",
 });
 
 const tooltipContentElement = ref<HTMLElement>();
@@ -98,7 +122,8 @@ provide<PopoverContentProvideValue>(POPOVER_CONTENT_INJECTION_KEY, {
   >
     <div
       :data-state="injectedValue?.open.value ? 'open' : 'closed'"
-      data-side="bottom"
+      :data-side="props.side"
+      :data-align="props.align"
       role="tooltip"
       :class="props.class"
     >

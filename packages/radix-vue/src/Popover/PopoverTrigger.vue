@@ -1,3 +1,9 @@
+<script lang="ts">
+export interface PopoverTriggerProps {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { inject, ref, onMounted } from "vue";
 import {

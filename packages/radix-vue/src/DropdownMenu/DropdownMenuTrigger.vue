@@ -1,3 +1,9 @@
+<script lang="ts">
+export interface DropdownMenuTriggerProps {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { inject, ref, onMounted } from "vue";
 import {

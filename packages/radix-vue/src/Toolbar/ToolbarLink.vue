@@ -1,3 +1,9 @@
+<script lang="ts">
+export interface ToolbarLink {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { ref, inject } from "vue";
 import {

@@ -4,6 +4,7 @@ import type { Ref, InjectionKey } from "vue";
 export interface TooltipRootProps {
   defaultOpen?: boolean;
   open?: boolean;
+  //onOpenChange?: void;
   delayDuration?: number;
   disableHoverableContent?: boolean;
 }

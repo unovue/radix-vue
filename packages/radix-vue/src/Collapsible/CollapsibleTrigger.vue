@@ -1,3 +1,9 @@
+<script lang="ts">
+export interface CollapsibleTriggerProps {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { inject } from "vue";
 import { PrimitiveButton } from "../Primitive";

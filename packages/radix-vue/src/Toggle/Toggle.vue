@@ -2,9 +2,13 @@
 type DataState = "on" | "off";
 
 export interface ToggleProps {
+  asChild?: boolean;
   defaultPressed?: boolean;
   pressed?: boolean;
+  // onPressedChange?: void;
   disabled?: boolean;
+
+  // INTERNALS
   name?: string;
   id?: string;
 }
@@ -15,6 +19,7 @@ import { computed } from "vue";
 import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<ToggleProps>(), {
+  asChild: false,
   disabled: false,
   defaultPressed: false,
   pressed: undefined,
@@ -48,6 +53,7 @@ function handleKeydown(e: KeyboardEvent) {
     role="checkbox"
     :aria-checked="pressed"
     :data-state="dataState"
+    :data-disabled="props.disabled"
     style="position: relative"
   >
     <input

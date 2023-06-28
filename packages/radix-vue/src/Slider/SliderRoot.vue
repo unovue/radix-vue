@@ -3,8 +3,11 @@ import type { Ref, InjectionKey, ComputedRef } from "vue";
 import type { DataOrientation, Direction } from "../shared/types";
 
 export interface SliderRootProps {
-  // defaultValue?: string;
-  // value?: string;
+  asChild?: boolean;
+  defaultValue?: string;
+  value?: string;
+  //onValueChange?: void;
+  //onValueCommit?: void;
   name: string;
   disabled: boolean;
   orientation?: DataOrientation;
@@ -32,6 +35,7 @@ export interface SliderProvideValue {
   max: number;
   step: number;
   thumbElement?: Ref<HTMLElement | undefined>;
+  disabled: boolean;
 }
 </script>
 
@@ -39,6 +43,7 @@ export interface SliderProvideValue {
 import { ref, toRef, provide, computed } from "vue";
 
 const props = withDefaults(defineProps<SliderRootProps>(), {
+  asChild: false,
   disabled: false,
   orientation: "horizontal",
   activationMode: "automatic",
@@ -79,6 +84,7 @@ provide<SliderProvideValue>(SLIDER_INJECTION_KEY, {
   max: props.max,
   step: props.step,
   thumbElement: thumbElement,
+  disabled: props.disabled,
 });
 
 function updateModelValue(value: number) {

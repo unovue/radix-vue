@@ -2,8 +2,11 @@
 import type { Ref, InjectionKey } from "vue";
 
 export interface ProgressRootProps {
+  asChild?: boolean;
+  value?: number | null;
   modelValue?: number;
   max?: number;
+  //getValueLabel?: void;
 }
 
 export const PROGRESS_INJECTION_KEY =
@@ -30,6 +33,8 @@ provide<ProgressProvideValue>(PROGRESS_INJECTION_KEY, {
   <div
     role="progressbar"
     :data-state="props.modelValue === props.max ? 'complete' : 'loading'"
+    :data-value="props.modelValue"
+    :data-max="props.max"
     :aria-valuenow="props.modelValue"
     :aria-valuemin="0"
     :aria-valuemax="props.max"

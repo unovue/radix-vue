@@ -2,14 +2,15 @@
 import BaseSeparator from "../shared/component/BaseSeparator.vue";
 import type { DataOrientation } from "../shared/types";
 
-export interface BaseSeparatorProps {
+export interface DropdownMenuSeparatorProps {
   orientation?: DataOrientation;
   decorative?: boolean;
+  asChild?: boolean;
 }
 </script>
 
 <script setup lang="ts">
-const props = defineProps<BaseSeparatorProps>();
+const props = defineProps<DropdownMenuSeparatorProps>();
 </script>
 
 <template>

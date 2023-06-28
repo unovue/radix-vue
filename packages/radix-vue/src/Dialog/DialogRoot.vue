@@ -2,8 +2,10 @@
 import type { Ref, InjectionKey } from "vue";
 
 export interface DialogRootProps {
-  defaultOpen?: boolean;
   open?: boolean;
+  defaultOpen?: boolean;
+  //onOpenChange?: void;
+  modal?: boolean; //true;
 }
 
 export const DIALOG_INJECTION_KEY =
@@ -24,6 +26,7 @@ import { useVModel } from "@vueuse/core";
 const props = withDefaults(defineProps<DialogRootProps>(), {
   open: undefined,
   defaultOpen: false,
+  modal: true,
 });
 
 const emit = defineEmits<{

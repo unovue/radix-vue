@@ -1,3 +1,12 @@
+<script lang="ts">
+export interface SliderThumbProps {
+  asChild?: boolean;
+
+  // INTERNAL
+  class?: string;
+}
+</script>
+
 <script setup lang="ts">
 import { inject, ref, onMounted } from "vue";
 import { SLIDER_INJECTION_KEY } from "./SliderRoot.vue";
@@ -9,8 +18,8 @@ onMounted(() => {
   injectedValue.thumbElement.value = thumbElement.value;
 });
 
-const props = defineProps({
-  class: String,
+const props = withDefaults(defineProps<SliderThumbProps>(), {
+  asChild: false,
 });
 
 let extraStep = 2;
@@ -97,6 +106,8 @@ function handleKeydown(e: KeyboardEvent) {
       ref="thumbElement"
       role="slider"
       tabindex="0"
+      :data-disabled="injectedValue?.disabled"
+      :data-orientation="injectedValue?.orientation"
       :aria-valuenow="injectedValue?.modelValue?.value"
       :aria-valuemin="injectedValue?.min"
       :aria-valuemax="injectedValue?.max"

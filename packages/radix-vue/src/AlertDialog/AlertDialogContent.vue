@@ -22,7 +22,7 @@ watchEffect(() => {
       window.removeEventListener("wheel", lockScroll);
       window.removeEventListener("keydown", lockKeydown);
 
-      if (injectedValue.triggerButton.value) {
+      if (injectedValue?.triggerButton.value) {
         injectedValue.triggerButton.value.focus();
       }
     }
@@ -46,7 +46,7 @@ function lockKeydown(e: KeyboardEvent) {
     }
   }
   if (e.key === "Escape") {
-    injectedValue.closeModal();
+    injectedValue?.closeModal();
   }
 }
 </script>

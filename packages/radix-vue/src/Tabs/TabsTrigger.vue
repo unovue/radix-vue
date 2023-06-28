@@ -1,6 +1,8 @@
 <script lang="ts">
 export interface TabsTriggerProps {
+  asChild?: boolean;
   value?: string;
+  disabled: boolean;
 }
 </script>
 
@@ -13,7 +15,10 @@ import { useArrowNavigation } from "../shared";
 const injectedValue = inject<TabsProvideValue>(TABS_INJECTION_KEY);
 const currentToggleElement = ref<HTMLElement>();
 
-const props = defineProps<TabsTriggerProps>();
+const props = withDefaults(defineProps<TabsTriggerProps>(), {
+  asChild: false,
+  disabled: false,
+});
 
 function changeTab(value: string) {
   injectedValue?.changeModelValue(value);
@@ -45,6 +50,7 @@ function handleKeydown(e: KeyboardEvent) {
     :data-state="
       injectedValue?.modelValue?.value === props.value ? 'active' : 'inactive'
     "
+    :data-disabled="props.disabled"
     :tabindex="injectedValue?.modelValue?.value === props.value ? '0' : '-1'"
     :data-orientation="injectedValue?.orientation"
     data-radix-vue-collection-item

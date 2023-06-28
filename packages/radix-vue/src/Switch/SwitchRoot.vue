@@ -2,6 +2,10 @@
 import type { Ref, InjectionKey } from "vue";
 
 export interface SwitchRootProps {
+  asChild?: boolean;
+  defaultChecked?: boolean;
+  checked?: boolean;
+  // onCheckedChange?: void;
   disabled?: boolean;
   required?: boolean;
   name?: string;
@@ -25,6 +29,7 @@ import { provide } from "vue";
 import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<SwitchRootProps>(), {
+  asChild: false,
   disabled: false,
   defaultOpen: false,
   open: undefined,

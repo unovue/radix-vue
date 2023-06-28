@@ -1,6 +1,8 @@
 <script lang="ts">
-export interface TabsTriggerProps {
+export interface TabsContentProps {
+  asChild?: boolean;
   value?: string;
+  forceMount?: boolean;
 }
 </script>
 
@@ -11,7 +13,9 @@ import type { TabsProvideValue } from "./TabsRoot.vue";
 
 const injectedValue = inject<TabsProvideValue>(TABS_INJECTION_KEY);
 
-const props = defineProps<TabsTriggerProps>();
+const props = withDefaults(defineProps<TabsContentProps>(), {
+  asChild: false,
+});
 
 const dataState = computed<"active" | "inactive">(() => {
   return injectedValue?.modelValue?.value === props.value

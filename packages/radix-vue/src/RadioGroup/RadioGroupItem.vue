@@ -7,12 +7,17 @@ import {
 import { useArrowNavigation } from "../shared";
 
 interface RadioGroupItemProps {
+  asChild?: boolean;
   value?: string;
+  disabled?: boolean;
+  required?: boolean;
 }
 
 const injectedValue = inject<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY);
 
-const props = defineProps<RadioGroupItemProps>();
+const props = withDefaults(defineProps<RadioGroupItemProps>(), {
+  asChild: false,
+});
 
 provide("radioItemValue", props.value);
 
@@ -44,6 +49,7 @@ function handleKeydown(e: KeyboardEvent) {
   <button
     type="button"
     :data-state="state"
+    :data-disabled="props.disabled"
     @click="injectedValue?.changeModelValue(props.value)"
     :tabindex="`${
       injectedValue?.modelValue?.value === props.value ? '0' : '-1'

@@ -5,9 +5,11 @@ import type { DataOrientation, Direction } from "../shared/types";
 type TypeEnum = "single" | "multiple";
 
 export interface ToggleGroupProps {
+  asChild?: boolean;
   type?: TypeEnum;
   value?: string;
   defaultValue?: string;
+  //onValueChange?: void;
   disabled?: boolean;
   rovingFocus?: boolean;
   orientation?: DataOrientation;
@@ -24,6 +26,7 @@ export interface ToolbarToggleGroupProvideValue {
   modelValue?: Readonly<Ref<string | string[] | undefined>>;
   changeModelValue(): (value: string) => void;
   parentElement: Ref<HTMLElement | undefined>;
+  orientation: DataOrientation;
 }
 </script>
 
@@ -56,6 +59,7 @@ provide<ToolbarToggleGroupProvideValue>(TOOLBAR_TOGGLE_GROUP_INJECTION_KEY, {
     }
   },
   parentElement: parentElementRef,
+  orientation: props.orientation ? props.orientation : "horizontal",
 });
 </script>
 

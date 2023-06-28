@@ -1,3 +1,10 @@
+<script lang="ts">
+export interface RadioGroupIndicatorProps {
+  asChild?: boolean;
+  forceMount?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { inject } from "vue";
 import {
@@ -15,6 +22,7 @@ const value = inject<string>("radioItemValue");
     :data-state="
       injectedValue?.modelValue?.value === value ? 'checked' : 'unchecked'
     "
+    :data-disabled="injectedValue?.disabled"
   >
     <slot />
   </span>

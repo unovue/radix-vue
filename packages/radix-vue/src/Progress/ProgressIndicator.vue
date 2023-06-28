@@ -1,3 +1,9 @@
+<script lang="ts">
+export interface ProgressIndicatorProps {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { inject } from "vue";
 import { PROGRESS_INJECTION_KEY } from "./ProgressRoot.vue";

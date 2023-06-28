@@ -1,5 +1,16 @@
+<script lang="ts">
+export type TooltipTriggerDataState =
+  | "closed"
+  | "delayed-open"
+  | "instant-open";
+
+export interface TooltipRootProps {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
-import { inject, ref, onMounted } from "vue";
+import { inject, ref, onMounted, computed } from "vue";
 import {
   TOOLTIP_INJECTION_KEY,
   type TooltipProvideValue,
@@ -19,14 +30,18 @@ async function handleMouseEnter(e: MouseEvent) {
     injectedValue?.showTooltip();
   }
 }
+
+const dataState = computed<TooltipTriggerDataState>(() => {
+  return injectedValue?.open.value ? "closed" : "instant-open";
+});
 </script>
 
 <template>
   <button
     type="button"
     ref="triggerElement"
+    :data-state="dataState"
     :aria-expanded="injectedValue?.open.value || false"
-    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
     @mouseenter="handleMouseEnter"
     @mouseleave="injectedValue?.hideTooltip"
     style="cursor: default"

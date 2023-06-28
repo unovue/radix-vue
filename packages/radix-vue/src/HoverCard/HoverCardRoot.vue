@@ -3,8 +3,8 @@ import type { Ref, InjectionKey } from "vue";
 
 export interface HoverCardRootProps {
   modelValue?: boolean;
-  delayDuration?: number;
-  disableHoverableContent?: boolean;
+  openDelay?: number;
+  closeDelay?: number;
 }
 
 export const HOVER_CARD_INJECTION_KEY =
@@ -17,16 +17,18 @@ export type HoverCardProvideValue = {
   triggerElement: Ref<HTMLElement | undefined>;
   floatingElement: Ref<HTMLElement | undefined>;
   arrowElement: Ref<HTMLElement | undefined>;
-  floatingStyles: any;
-  middlewareData: any;
+  openDelay: number;
+  closeDelay: number;
+  isHover: boolean;
 };
 </script>
 
 <script setup lang="ts">
-import { provide, toRef, ref } from "vue";
+import { provide, toRef, ref, watch } from "vue";
 
 const props = withDefaults(defineProps<HoverCardRootProps>(), {
-  delayDuration: 700,
+  openDelay: 700,
+  closeDelay: 300,
 });
 
 const emit = defineEmits<{
@@ -37,19 +39,26 @@ const triggerElement = ref<HTMLElement>();
 const floatingElement = ref<HTMLElement>();
 const arrowElement = ref<HTMLElement>();
 
+const modelValue = ref(props.modelValue ?? false);
+
+watch(modelValue, (newValue) => {
+  emit("update:modelValue", newValue);
+});
+
 provide<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY, {
-  modelValue: toRef(() => props.modelValue),
+  modelValue: toRef(() => modelValue.value),
   showTooltip: () => {
-    emit("update:modelValue", true);
+    modelValue.value = true;
   },
   hideTooltip: () => {
-    emit("update:modelValue", false);
+    modelValue.value = false;
   },
   triggerElement: triggerElement,
   floatingElement: floatingElement,
   arrowElement: arrowElement,
-  floatingStyles: "",
-  middlewareData: "",
+  openDelay: props.openDelay,
+  closeDelay: props.closeDelay,
+  isHover: false,
 });
 </script>
 

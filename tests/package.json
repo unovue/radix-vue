@@ -1,26 +1,26 @@
 {
-  "name": "playground-vue",
+  "name": "tests",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "radix-vue": "link:../radix-vue",
+    "happy-dom": "^9.20.3",
+    "radix-vue": "link:../packages/radix-vue",
     "vue": "^3.2.47"
   },
   "devDependencies": {
-    "@iconify/vue": "^4.1.1",
-    "@radix-ui/colors": "^1.0.0",
     "@vitejs/plugin-vue": "^4.1.0",
-    "autoprefixer": "^10.4.14",
-    "postcss": "^8.4.24",
-    "tailwindcss": "^3.3.2",
+    "@vue/test-utils": "2.4.0-alpha.2",
     "typescript": "^5.0.2",
     "vite": "^4.3.9",
+    "vitest": "^0.32.2",
     "vue-tsc": "^1.4.2"
   }
 }

@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<AlertDialogTitleProps>(), {
 </script>
 
 <template>
-  <PrimitiveH2 :asChild="props.asChild ? '' : undefined">
+  <PrimitiveH2 :asChild="props.asChild">
     <slot />
   </PrimitiveH2>
 </template>

@@ -31,7 +31,7 @@ provide<AvatarProvideValue>(AVATAR_INJECTION_KEY, {
 </script>
 
 <template>
-  <PrimitiveSpan :asChild="props.asChild ? '' : undefined">
+  <PrimitiveSpan :asChild="props.asChild">
     <slot />
   </PrimitiveSpan>
 </template>

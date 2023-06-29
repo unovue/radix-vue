@@ -4,6 +4,7 @@ import {
   AVATAR_INJECTION_KEY,
   type AvatarProvideValue,
 } from "./AvatarRoot.vue";
+import { PrimitiveImg } from "../Primitive";
 
 const injectedValue = inject<AvatarProvideValue>(AVATAR_INJECTION_KEY);
 
@@ -13,5 +14,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <img />
+  <PrimitiveImg />
 </template>

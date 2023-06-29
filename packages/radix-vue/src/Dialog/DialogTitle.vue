@@ -13,5 +13,5 @@ const props = withDefaults(defineProps<DialogTitleProps>(), {
 </script>
 
 <template>
-  <PrimitiveH2 :asChild="props.asChild ? '' : undefined"><slot /></PrimitiveH2>
+  <PrimitiveH2 :asChild="props.asChild"><slot /></PrimitiveH2>
 </template>

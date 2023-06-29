@@ -35,7 +35,7 @@ if (props.delayMs) {
 
 <template>
   <PrimitiveSpan
-    :asChild="props.asChild ? '' : undefined"
+    :asChild="props.asChild"
     v-if="canRender && injectedValue?.imageLoadingStatus.value !== 'loaded'"
   >
     <slot />

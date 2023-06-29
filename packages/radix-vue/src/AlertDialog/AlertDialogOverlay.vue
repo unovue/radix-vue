@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<AlertDialogTriggerProps>(), {
 
 <template>
   <PrimitiveDiv
-    :asChild="props.asChild ? '' : undefined"
+    :asChild="props.asChild"
     v-if="injectedValue?.open.value"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"
     style="pointer-events: auto"

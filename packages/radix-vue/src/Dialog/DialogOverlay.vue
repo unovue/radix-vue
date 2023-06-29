@@ -20,7 +20,7 @@ const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 
 <template>
   <PrimitiveDiv
-    :asChild="props.asChild ? '' : undefined"
+    :asChild="props.asChild"
     v-if="injectedValue?.open.value"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"
     style="pointer-events: auto"

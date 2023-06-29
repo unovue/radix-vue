@@ -64,7 +64,7 @@ function lockKeydown(e: KeyboardEvent) {
 
 <template>
   <PrimitiveDiv
-    :asChild="props.asChild ? '' : undefined"
+    :asChild="props.asChild"
     ref="dialogContentElement"
     v-if="injectedValue?.open.value"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"

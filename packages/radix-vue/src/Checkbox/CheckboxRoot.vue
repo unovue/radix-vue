@@ -50,7 +50,7 @@ let dataState: "checked" | "unchecked" | "indeterminate";
 
 <template>
   <PrimitiveDiv
-    :asChild="props.asChild ? '' : undefined"
+    :asChild="props.asChild"
     :value="props.value"
     role="checkbox"
     :aria-checked="props.modelValue"

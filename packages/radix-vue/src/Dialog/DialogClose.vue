@@ -22,7 +22,7 @@ const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 <template>
   <PrimitiveButton
     type="button"
-    :asChild="props.asChild ? '' : undefined"
+    :asChild="props.asChild"
     :aria-expanded="injectedValue?.open.value || false"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"
     @click="injectedValue?.closeModal"

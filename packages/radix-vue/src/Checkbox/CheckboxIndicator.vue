@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<CheckboxIndicatorProps>(), {
 
 <template>
   <PrimitiveSpan
-    :asChild="props.asChild ? '' : undefined"
+    :asChild="props.asChild"
     v-if="injectedValue?.modelValue.value"
     style="pointer-events: none"
     :data-disabled="injectedValue.disabled ? '' : undefined"

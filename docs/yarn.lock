@@ -5223,7 +5223,7 @@ minimatch@~3.0.4:
   dependencies:
     brace-expansion "^1.1.7"
 
-minimist@^1.2.6, minimist@^1.2.7:
+minimist@^1.2.0, minimist@^1.2.6, minimist@^1.2.7:
   version "1.2.8"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.8.tgz#c1a464e7693302e082a075cee0c057741ac4772c"
   integrity sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==
@@ -6463,6 +6463,13 @@ punycode@^2.1.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.3.0.tgz#f67fa67c94da8f4d0cfff981aee4118064199b8f"
   integrity sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==
+
+push-dir@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/push-dir/-/push-dir-0.4.1.tgz#29481eacd9c2106bbb7941db6d37d122a071ecb4"
+  integrity sha512-Nrrsly0c3kCfu725Jnif/s5adHpBwKCGWBttHVxTndF4iyGBSFtNi/pduFxHF5ks0kWtHcbA3XXP5MEra6iiCA==
+  dependencies:
+    minimist "^1.2.0"
 
 queue-microtask@^1.2.2:
   version "1.2.3"

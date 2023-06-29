@@ -1,8 +1,8 @@
 <script lang="ts">
 import type { Ref } from "vue";
 
-type Direction = "ltr" | "rtl";
-type Sizes = {
+export type Direction = "ltr" | "rtl";
+export type Sizes = {
   content: number;
   viewport: number;
   scrollbar: {
@@ -31,7 +31,7 @@ export interface ScrollAreaProvideValue {
   onScrollbarYEnabledChange(rendered: boolean): void;
   onCornerWidthChange(width: number): void;
   onCornerHeightChange(height: number): void;
-};
+}
 
 export interface ScrollAreaRootProps {
   type?: ScrollAreaProvideValue["type"];
@@ -40,23 +40,21 @@ export interface ScrollAreaRootProps {
 }
 
 export const SCROLL_AREA_INJECTION_KEY = "ScrollArea" as const;
-
-
 </script>
 
 <script setup lang="ts">
 import { ref, toRef, provide } from "vue";
 
 const props = withDefaults(defineProps<ScrollAreaRootProps>(), {
-  type: 'hover',
+  type: "hover",
   dir: undefined,
-  scrollHideDelay: 600
+  scrollHideDelay: 600,
 });
 
 const parentElementRef: Ref<HTMLElement | undefined> = ref();
 
-const cornerWidth = ref(0)
-const cornerHeight = ref(0)
+const cornerWidth = ref(0);
+const cornerHeight = ref(0);
 
 provide<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY, {
   type: props.type,
@@ -66,12 +64,15 @@ provide<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY, {
 </script>
 
 <template>
-  <div ref="parentElementRef" :style="{
+  <div
+    ref="parentElementRef"
+    :style="{
     position: 'relative',
     // Pass corner sizes as CSS vars to reduce re-renders of context consumers
     ['--radix-scroll-area-corner-width' as any]: cornerWidth + 'px',
     ['--radix-scroll-area-corner-height' as any]: cornerHeight + 'px',
-  }">
+  }"
+  >
     <slot />
   </div>
 </template>

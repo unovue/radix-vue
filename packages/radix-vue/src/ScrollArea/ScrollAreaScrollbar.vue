@@ -8,6 +8,7 @@ export interface ScrollAreaScrollbarProps {
 export interface ScrollAreaScollbarProvideValue {
   orientation: Ref<"vertical" | "horizontal">;
   forceMount?: Ref<boolean>;
+  isHorizontal: Ref<boolean>;
 }
 
 export const SCROLL_AREA_SCROLLBAR_INJECTION_KEY =
@@ -50,11 +51,16 @@ onUnmounted(() => {
 provide<ScrollAreaScollbarProvideValue>(SCROLL_AREA_SCROLLBAR_INJECTION_KEY, {
   orientation: toRef(() => props.orientation),
   forceMount: toRef(() => props.forceMount),
+  isHorizontal,
 });
 </script>
 
 <template>
-  <ScrollAreaScrollbarHover v-bind="$attrs" v-if="injectedValue?.type === 'hover'" :forceMount="forceMount" />
+  <ScrollAreaScrollbarHover
+    v-bind="$attrs"
+    v-if="injectedValue?.type === 'hover'"
+    :forceMount="forceMount"
+  />
   <!-- <ScrollAreaScrollbarScroll v-bind="$attrs" v-else-if="injectedValue?.type === 'scroll'" :forceMount="forceMount" />
   <ScrollAreaScrollbarAuto v-bind="$attrs" v-else-if="injectedValue?.type === 'auto'" :forceMount="forceMount" />
   <ScrollAreaScrollbarVisible v-bind="$attrs" v-else-if="injectedValue?.type === 'always'" :forceMount="forceMount" /> -->

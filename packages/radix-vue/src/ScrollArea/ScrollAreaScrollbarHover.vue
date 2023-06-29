@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { inject, ref, watchEffect } from "vue"
-import { ScrollAreaProvideValue, SCROLL_AREA_INJECTION_KEY } from "./ScrollAreaRoot.vue"
+import { inject, ref, watchEffect } from "vue";
+import {
+  ScrollAreaProvideValue,
+  SCROLL_AREA_INJECTION_KEY,
+} from "./ScrollAreaRoot.vue";
 
 const injectedValue = inject<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY);
 
-
-const visible = ref(false)
+const visible = ref(false);
 
 watchEffect(() => {
   const scrollArea = injectedValue?.scrollArea;
@@ -17,27 +19,26 @@ watchEffect(() => {
     };
     const handlePointerLeave = () => {
       hideTimer = window.setTimeout(() => {
-        visible.value = false
+        visible.value = false;
       }, injectedValue?.scrollHideDelay);
     };
-    scrollArea.addEventListener('pointerenter', handlePointerEnter);
-    scrollArea.addEventListener('pointerleave', handlePointerLeave);
+    scrollArea.addEventListener("pointerenter", handlePointerEnter);
+    scrollArea.addEventListener("pointerleave", handlePointerLeave);
     return () => {
       window.clearTimeout(hideTimer);
-      scrollArea.removeEventListener('pointerenter', handlePointerEnter);
-      scrollArea.removeEventListener('pointerleave', handlePointerLeave);
+      scrollArea.removeEventListener("pointerenter", handlePointerEnter);
+      scrollArea.removeEventListener("pointerleave", handlePointerLeave);
     };
   }
-})
-
+});
 </script>
 
 <script lang="ts">
 export default {
-  inheritAttrs: false
-}
+  inheritAttrs: false,
+};
 </script>
 
 <template>
-  <ScrollAreaScrollbarAuto :data-state="{ visible? 'visible': 'hidden' }" />
+  <ScrollAreaScrollbarAuto :data-state="{ visible ? 'visible': 'hidden' }" />
 </template>

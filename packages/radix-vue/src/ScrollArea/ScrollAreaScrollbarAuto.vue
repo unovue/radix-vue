@@ -17,9 +17,7 @@ const injectedValueFromScrollbar = inject<ScrollAreaScollbarProvideValue>(
 );
 
 const visible = ref(false);
-const isHorizontal = computed(
-  () => injectedValueFromScrollbar?.orientation.value === "horizontal"
-);
+injectedValueFromScrollbar?.isHorizontal.value;
 
 // const handleResize = useDebounceCallback(() => {
 //     if (context.viewport) {

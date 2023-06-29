@@ -5,12 +5,12 @@ export interface DialogTriggerProps {
 </script>
 
 <script setup lang="ts">
-import { inject, ref, onMounted } from "vue";
+import { inject, onMounted } from "vue";
 import {
   DIALOG_INJECTION_KEY,
   type DialogProvideValue,
 } from "./DialogRoot.vue";
-import { PrimitiveButton } from "../Primitive";
+import { PrimitiveButton, usePrimitiveElement } from "../Primitive";
 
 const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 
@@ -18,7 +18,9 @@ const props = withDefaults(defineProps<DialogTriggerProps>(), {
   asChild: false,
 });
 
-const triggerElement = ref<HTMLElement>();
+const { primitiveElement, currentElement: triggerElement } =
+  usePrimitiveElement();
+
 onMounted(() => {
   injectedValue.triggerButton.value = triggerElement.value;
 });
@@ -28,7 +30,7 @@ onMounted(() => {
   <PrimitiveButton
     :asChild="props.asChild"
     type="button"
-    ref="triggerElement"
+    ref="primitiveElement"
     :aria-expanded="injectedValue?.open.value || false"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"
     @click="injectedValue?.openModal"

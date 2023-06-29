@@ -28,8 +28,8 @@ export interface ContextMenuGroupProvideValue {
 </script>
 
 <script setup lang="ts">
-import { ref, toRef, provide } from "vue";
-import { PrimitiveDiv } from "@/Primitive";
+import { toRef, provide } from "vue";
+import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 
 const props = withDefaults(defineProps<ContextMenuGroupProps>(), {
   type: "single",
@@ -37,7 +37,8 @@ const props = withDefaults(defineProps<ContextMenuGroupProps>(), {
 
 const emits = defineEmits(["update:modelValue"]);
 
-const parentElementRef = ref<HTMLElement | undefined>();
+const { primitiveElement, currentElement: parentElementRef } =
+  usePrimitiveElement();
 
 provide<ContextMenuGroupProvideValue>(CONTEXT_MENU_GROUP_INJECTION_KEY, {
   type: props.type,
@@ -62,7 +63,7 @@ provide<ContextMenuGroupProvideValue>(CONTEXT_MENU_GROUP_INJECTION_KEY, {
 
 <template>
   <PrimitiveDiv
-    ref="parentElementRef"
+    ref="primitiveElement"
     role="group"
     :dir="props.dir"
     aria-label="Text alignment"

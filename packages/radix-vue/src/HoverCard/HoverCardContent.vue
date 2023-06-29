@@ -32,6 +32,7 @@ const injectedValue = inject<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY);
 
 const props = defineProps({
   class: String,
+  asChild: Boolean,
 });
 
 const tooltipContentElement = ref<HTMLElement>();
@@ -69,7 +70,7 @@ async function handleMouseleave(e: MouseEvent) {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <div
     ref="tooltipContentElement"
     v-if="injectedValue?.modelValue.value"
     style="min-width: max-content; will-change: transform; z-index: auto"
@@ -77,14 +78,15 @@ async function handleMouseleave(e: MouseEvent) {
     @mouseover="injectedValue.isHover = true"
     @mouseleave="handleMouseleave"
   >
-    <div
+    <PrimitiveDiv
       :data-state="injectedValue?.modelValue.value ? 'delayed-open' : 'closed'"
       data-side="bottom"
       role="tooltip"
       tabindex="-1"
+      :asChild="props.asChild"
       :class="props.class"
     >
       <slot />
-    </div>
-  </PrimitiveDiv>
+    </PrimitiveDiv>
+  </div>
 </template>

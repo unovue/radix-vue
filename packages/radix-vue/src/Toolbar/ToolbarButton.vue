@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, inject } from "vue";
-import { PrimitiveButton } from "@/Primitive";
+import { inject } from "vue";
+import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
 import {
   TOOLBAR_INJECTION_KEY,
   type ToolbarProvideValue,
@@ -9,7 +9,7 @@ import { useArrowNavigation } from "../shared";
 
 const injectedValue = inject<ToolbarProvideValue>(TOOLBAR_INJECTION_KEY);
 
-const currentElement = ref<HTMLElement | undefined>();
+const { primitiveElement, currentElement } = usePrimitiveElement();
 
 function handleKeydown(e: KeyboardEvent) {
   const newSelectedElement = useArrowNavigation(
@@ -23,7 +23,7 @@ function handleKeydown(e: KeyboardEvent) {
 
 <template>
   <PrimitiveButton
-    ref="currentElement"
+    ref="primitiveElement"
     type="button"
     :tabindex="
       injectedValue?.activeElement.value === currentElement ? '0' : '-1'

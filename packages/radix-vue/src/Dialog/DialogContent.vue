@@ -5,14 +5,14 @@ export interface DialogContentProps {
 </script>
 
 <script setup lang="ts">
-import { inject, ref, watchEffect } from "vue";
+import { inject, watchEffect } from "vue";
 import { trapFocus } from "../shared";
 import {
   DIALOG_INJECTION_KEY,
   type DialogProvideValue,
 } from "./DialogRoot.vue";
 import { onClickOutside } from "@vueuse/core";
-import { PrimitiveDiv } from "../Primitive";
+import { PrimitiveDiv, usePrimitiveElement } from "../Primitive";
 
 const props = withDefaults(defineProps<DialogContentProps>(), {
   asChild: false,
@@ -20,7 +20,8 @@ const props = withDefaults(defineProps<DialogContentProps>(), {
 
 const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 
-const dialogContentElement = ref<HTMLElement>();
+const { primitiveElement, currentElement: dialogContentElement } =
+  usePrimitiveElement();
 
 onClickOutside(dialogContentElement, onPointerDownOutside);
 
@@ -72,7 +73,7 @@ function lockKeydown(e: KeyboardEvent) {
 <template>
   <PrimitiveDiv
     :asChild="props.asChild"
-    ref="dialogContentElement"
+    ref="primitiveElement"
     v-if="injectedValue?.open.value"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"
     role="dialog"

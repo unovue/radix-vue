@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { inject, ref, onMounted } from "vue";
-import { PrimitiveButton } from "@/Primitive";
+import { inject, onMounted } from "vue";
+import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
 import {
   CONTEXT_MENU_INJECTION_KEY,
   type ContextMenuProvideValue,
@@ -24,7 +24,9 @@ const virtualEl = {
   },
 };
 
-const triggerElement = ref<HTMLElement>();
+const { primitiveElement, currentElement: triggerElement } =
+  usePrimitiveElement();
+
 onMounted(() => {
   injectedValue!.triggerElement.value = virtualEl;
 });
@@ -43,7 +45,7 @@ function handleContextMenu(e: MouseEvent) {
 <template>
   <PrimitiveButton
     type="button"
-    ref="triggerElement"
+    ref="primitiveElement"
     :aria-expanded="injectedValue?.modelValue.value || false"
     :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
     @contextmenu.prevent="handleContextMenu"

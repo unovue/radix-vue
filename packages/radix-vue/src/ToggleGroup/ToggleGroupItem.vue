@@ -5,8 +5,8 @@ interface ToggleGroupItemProps {
 </script>
 
 <script setup lang="ts">
-import { ref, inject, computed } from "vue";
-import { PrimitiveButton } from "@/Primitive";
+import { inject, computed } from "vue";
+import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
 import {
   TOGGLE_GROUP_INJECTION_KEY,
   type ToggleGroupProvideValue,
@@ -19,7 +19,8 @@ const injectedValue = inject<ToggleGroupProvideValue>(
 
 const props = defineProps<ToggleGroupItemProps>();
 
-const currentToggleElement = ref<HTMLElement>();
+const { primitiveElement, currentElement: currentToggleElement } =
+  usePrimitiveElement();
 
 const state = computed(() => {
   if (injectedValue?.type === "multiple") {
@@ -46,7 +47,7 @@ function handleKeydown(e: KeyboardEvent) {
     type="button"
     :data-state="state"
     @click="injectedValue?.changeModelValue(props.value!)"
-    ref="currentToggleElement"
+    ref="primitiveElement"
     @keydown="handleKeydown"
     data-radix-vue-collection-item
   >

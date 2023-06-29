@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { inject, ref, onMounted } from "vue";
-import { PrimitiveSpan } from "@/Primitive";
+import { inject, onMounted } from "vue";
+import { PrimitiveSpan, usePrimitiveElement } from "@/Primitive";
 import { SLIDER_INJECTION_KEY } from "./SliderRoot.vue";
 import type { SliderProvideValue } from "./SliderRoot.vue";
 
 const injectedValue = inject<SliderProvideValue>(SLIDER_INJECTION_KEY);
-const thumbElement = ref();
+const { primitiveElement, currentElement: thumbElement } =
+  usePrimitiveElement();
+
 onMounted(() => {
   injectedValue.thumbElement.value = thumbElement.value;
 });
@@ -95,7 +97,7 @@ function handleKeydown(e: KeyboardEvent) {
   >
     <PrimitiveSpan
       :class="props.class"
-      ref="thumbElement"
+      ref="primitiveElement"
       role="slider"
       tabindex="0"
       :aria-valuenow="injectedValue?.modelValue?.value"

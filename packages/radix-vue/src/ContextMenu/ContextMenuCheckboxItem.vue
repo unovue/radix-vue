@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { Ref } from "vue";
-import { ref, inject, watchEffect, provide, toRef } from "vue";
+import { inject, watchEffect, provide, toRef } from "vue";
 import {
   CONTEXT_MENU_INJECTION_KEY,
   type ContextMenuProvideValue,
 } from "./ContextMenuRoot.vue";
-import { PrimitiveDiv } from "@/Primitive";
+import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 
 interface ContextMenuCheckboxItemProps {
   modelValue?: boolean;
@@ -31,7 +31,7 @@ const emit = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
 }>();
 
-const currentElement = ref<HTMLElement | undefined>();
+const { primitiveElement, currentElement } = usePrimitiveElement();
 
 function handleKeydown(e: KeyboardEvent) {
   if (e.key === "Escape") {
@@ -98,7 +98,7 @@ function updateModelValue() {
 <template>
   <PrimitiveDiv
     role="menuitem"
-    ref="currentElement"
+    ref="primitiveElement"
     @keydown="handleKeydown"
     data-radix-vue-collection-item
     @click.prevent="updateModelValue"

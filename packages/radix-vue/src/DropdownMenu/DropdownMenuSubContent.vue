@@ -46,6 +46,7 @@ const injectedValue = inject<DropdownMenuSubProvideValue>(
 
 const props = defineProps({
   class: String,
+  asChild: Boolean,
 });
 
 const DropdownMenuContentElement = ref<HTMLElement>();
@@ -155,20 +156,21 @@ provide<MenuContentProvider>("MenuContentProvider", {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <div
     ref="DropdownMenuContentElement"
     v-if="injectedValue?.modelValue.value"
     style="min-width: max-content; will-change: transform; z-index: auto"
     :style="floatingStyles"
   >
-    <div
+    <PrimitiveDiv
       :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
       data-side="bottom"
       role="tooltip"
       :class="props.class"
+      :asChild="props.asChild"
       style="pointer-events: auto"
     >
       <slot />
-    </div>
-  </PrimitiveDiv>
+    </PrimitiveDiv>
+  </div>
 </template>

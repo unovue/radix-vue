@@ -5,14 +5,15 @@ export interface TabsTriggerProps {
 </script>
 
 <script setup lang="ts">
-import { inject, ref } from "vue";
-import { PrimitiveButton } from "@/Primitive";
+import { inject } from "vue";
+import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
 import { TABS_INJECTION_KEY } from "./TabsRoot.vue";
 import type { TabsProvideValue } from "./TabsRoot.vue";
 import { useArrowNavigation } from "../shared";
 
 const injectedValue = inject<TabsProvideValue>(TABS_INJECTION_KEY);
-const currentToggleElement = ref<HTMLElement>();
+const { primitiveElement, currentElement: currentToggleElement } =
+  usePrimitiveElement();
 
 const props = defineProps<TabsTriggerProps>();
 
@@ -37,7 +38,7 @@ function handleKeydown(e: KeyboardEvent) {
 
 <template>
   <PrimitiveButton
-    ref="currentToggleElement"
+    ref="primitiveElement"
     type="button"
     role="tab"
     :aria-selected="

@@ -27,6 +27,7 @@ const injectedValue = inject<ContextMenuProvideValue>(
 
 const props = defineProps({
   class: String,
+  asChild: Boolean,
 });
 
 const tooltipContentElement = ref<HTMLElement>();
@@ -114,20 +115,21 @@ provide<ContextMenuContentProvideValue>(CONTEXT_MENU_CONTENT_INJECTION_KEY, {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <div
     ref="tooltipContentElement"
     v-if="injectedValue?.modelValue.value"
     style="min-width: max-content; will-change: transform; z-index: auto"
     :style="floatingStyles"
   >
-    <div
+    <PrimitiveDiv
       :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
       data-side="bottom"
       role="tooltip"
       :class="props.class"
+      :asChild="props.asChild"
       style="pointer-events: auto"
     >
       <slot />
-    </div>
-  </PrimitiveDiv>
+    </PrimitiveDiv>
+  </div>
 </template>

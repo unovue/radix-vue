@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { Ref } from "vue";
-import { PrimitiveDiv } from "@/Primitive";
+import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 
 export interface RadioGroupRootProps {
   value?: string;
@@ -19,26 +19,27 @@ export interface RadioGroupProvideValue {
 </script>
 
 <script setup lang="ts">
-import { ref, toRef, provide } from "vue";
+import { toRef, provide } from "vue";
 
 const props = defineProps<RadioGroupRootProps>();
 
 const emits = defineEmits(["update:modelValue"]);
 
-const parentElementRef: Ref<HTMLElement | undefined> = ref();
+const { primitiveElement, currentElement: parentElement } =
+  usePrimitiveElement();
 
 provide<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY, {
   modelValue: toRef(() => props.modelValue),
   changeModelValue: (value?: string) => {
     emits("update:modelValue", value);
   },
-  parentElement: parentElementRef,
+  parentElement,
 });
 </script>
 
 <template>
   <PrimitiveDiv
-    ref="parentElementRef"
+    ref="primitiveElement"
     role="radiogroup"
     aria-label="radiogroup"
   >

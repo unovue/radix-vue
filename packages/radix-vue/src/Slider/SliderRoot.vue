@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { Ref, InjectionKey, ComputedRef } from "vue";
-import { PrimitiveSpan } from "@/Primitive";
+import { PrimitiveSpan, usePrimitiveElement } from "@/Primitive";
 import type { DataOrientation, Direction } from "../shared/types";
 
 export interface SliderRootProps {
@@ -52,7 +52,8 @@ const props = withDefaults(defineProps<SliderRootProps>(), {
 
 const emits = defineEmits(["update:modelValue"]);
 
-const rootSliderElement = ref<HTMLElement>();
+const { primitiveElement, currentElement: rootSliderElement } =
+  usePrimitiveElement();
 const thumbElement = ref<HTMLElement>();
 
 const thumbOffset = computed(() => {
@@ -158,7 +159,7 @@ function convertToClosestStep(number: number, step: number) {
 </script>
 
 <template>
-  <PrimitiveSpan ref="rootSliderElement" @pointerdown="changeValue">
+  <PrimitiveSpan ref="primitiveElement" @pointerdown="changeValue">
     <slot />
     <input
       style="display: none"

@@ -24,6 +24,7 @@ const injectedValue = inject<TooltipProvideValue>(TOOLTIP_INJECTION_KEY);
 
 const props = defineProps({
   class: String,
+  asChild: Boolean,
 });
 
 const tooltipContentElement = ref<HTMLElement>();
@@ -35,7 +36,7 @@ const {
   floatingStyles,
   middlewareData,
   placement: floatPosition,
-} = useFloating(injectedValue?.triggerElement!, tooltipContentElement, {
+} = useFloating(injectedValue?.triggerElement!, tooltipContentElement!, {
   placement: "top",
   middleware: [
     offset(10),
@@ -52,20 +53,21 @@ provide<TooltipContentProvideValue>(TOOLTIP_CONTENT_INJECTION_KEY, {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <div
     ref="tooltipContentElement"
     v-if="injectedValue?.modelValue.value"
     style="min-width: max-content; will-change: transform; z-index: auto"
     :style="floatingStyles"
   >
-    <div
+    <PrimitiveDiv
       :data-state="injectedValue?.modelValue.value ? 'delayed-open' : 'closed'"
       data-side="top"
       role="tooltip"
       tabindex="-1"
+      :asChild="props.asChild"
       :class="props.class"
     >
       <slot />
-    </div>
-  </PrimitiveDiv>
+    </PrimitiveDiv>
+  </div>
 </template>

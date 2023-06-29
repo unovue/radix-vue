@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, inject, computed, provide } from "vue";
-import { PrimitiveButton } from "@/Primitive";
+import { inject, computed, provide } from "vue";
+import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
 import {
   RADIO_GROUP_INJECTION_KEY,
   type RadioGroupProvideValue,
@@ -25,7 +25,8 @@ function changeTab(value: string) {
   injectedValue?.changeModelValue(value);
 }
 
-const currentRadioElement = ref<HTMLElement>();
+const { primitiveElement, currentElement: currentRadioElement } =
+  usePrimitiveElement();
 
 function handleKeydown(e: KeyboardEvent) {
   const newSelectedElement = useArrowNavigation(
@@ -49,7 +50,7 @@ function handleKeydown(e: KeyboardEvent) {
     :tabindex="`${
       injectedValue?.modelValue?.value === props.value ? '0' : '-1'
     }`"
-    ref="currentRadioElement"
+    ref="primitiveElement"
     @keydown="handleKeydown"
     data-radix-vue-collection-item
     :data-radix-vue-radio-value="props.value"

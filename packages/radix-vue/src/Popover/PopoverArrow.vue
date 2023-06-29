@@ -11,6 +11,7 @@ import {
 import BaseArrow from "../shared/component/BaseArrow.vue";
 
 interface PopoverArrowProps {
+  asChild?: boolean;
   size?: number;
 }
 </script>

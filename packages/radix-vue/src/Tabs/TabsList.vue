@@ -1,5 +1,6 @@
 <script lang="ts">
 export interface TabsListProps {
+  asChild?: boolean;
   loop?: boolean;
 }
 </script>
@@ -9,6 +10,11 @@ import { inject, onMounted } from "vue";
 import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 import { TABS_INJECTION_KEY } from "./TabsRoot.vue";
 import type { TabsProvideValue } from "./TabsRoot.vue";
+
+const props = withDefaults(defineProps<TabsListProps>(), {
+  asChild: false,
+  loop: true,
+});
 
 const injectedValue = inject<TabsProvideValue>(TABS_INJECTION_KEY);
 const { primitiveElement, currentElement: parentElement } =
@@ -21,6 +27,7 @@ onMounted(() => {
 
 <template>
   <PrimitiveDiv
+    :asChild="asChild"
     role="tablist"
     ref="primitiveElement"
     :aria-orientation="injectedValue?.orientation"

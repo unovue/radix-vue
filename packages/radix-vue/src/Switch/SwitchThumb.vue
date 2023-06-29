@@ -1,3 +1,9 @@
+<script lang="ts">
+export interface SwitchThumbProps {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { inject } from "vue";
 import { PrimitiveSpan } from "@/Primitive";
@@ -11,9 +17,9 @@ const injectedValue = inject<SwitchProvideValue>(SWITCH_INJECTION_KEY);
 
 <template>
   <PrimitiveSpan
-    :data-state="injectedValue?.modelValue?.value ? 'checked' : 'unchecked'"
+    :data-state="injectedValue?.open?.value ? 'checked' : 'unchecked'"
     :data-disabled="injectedValue?.disabled ? '' : undefined"
-    @click="injectedValue?.toggleModelValue"
+    @click="injectedValue?.toggleOpen"
   >
     <slot />
   </PrimitiveSpan>

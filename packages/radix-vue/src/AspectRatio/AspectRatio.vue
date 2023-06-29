@@ -1,7 +1,7 @@
 <script lang="ts">
 interface AspectRatioProps {
-  ratio?: number;
   asChild?: boolean;
+  ratio?: number;
 }
 </script>
 

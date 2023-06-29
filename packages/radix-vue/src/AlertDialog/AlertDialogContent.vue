@@ -1,6 +1,10 @@
 <script lang="ts">
 export interface AlertDialogContentProps {
   asChild?: boolean;
+  forceMount?: boolean;
+  //onOpenAutoFocus?: void;
+  //onCloseAutoFocus?: void;
+  //onEscapeKeyDown?: void;
 }
 </script>
 

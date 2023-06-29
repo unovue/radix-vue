@@ -1,6 +1,7 @@
 <script lang="ts">
-export interface AlertDialogTriggerProps {
+export interface AlertDialogOverlayProps {
   asChild?: boolean;
+  forceMount?: boolean;
 }
 </script>
 
@@ -14,7 +15,7 @@ import { PrimitiveDiv } from "../Primitive";
 
 const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 
-const props = withDefaults(defineProps<AlertDialogTriggerProps>(), {
+const props = withDefaults(defineProps<AlertDialogOverlayProps>(), {
   asChild: false,
 });
 </script>

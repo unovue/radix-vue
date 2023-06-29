@@ -20,13 +20,13 @@ Coming soon.
 | Component       | Usable | Complete API | Complete Accessibility |
 | :-------------- | :----: | ------------ | ---------------------- |
 | [Accordion](https://github.com/radix-vue/radix-vue/issues/1)       |   ⏳   |              |                        |
-| [Alert Dialog](https://github.com/radix-vue/radix-vue/issues/2)    |   ✅   |              |                        |
+| [Alert Dialog](https://github.com/radix-vue/radix-vue/issues/2)    |   ✅   |       ⏳       |                        |
 | [Aspect Ratio](https://github.com/radix-vue/radix-vue/issues/3)    |   ✅   |      ✅       |                        |
 | [Avatar](https://github.com/radix-vue/radix-vue/issues/4)          |   ✅   |      ✅       |                        |
-| [Checkbox](https://github.com/radix-vue/radix-vue/issues/5)        |   ✅   |             |                        |
-| [Collapsible](https://github.com/radix-vue/radix-vue/issues/6)     |   ✅   | ✅           |                        |
+| [Checkbox](https://github.com/radix-vue/radix-vue/issues/5)        |   ✅   |      ✅       |                        |
+| [Collapsible](https://github.com/radix-vue/radix-vue/issues/6)     |   ✅   |            |                        |
 | [Context Menu](https://github.com/radix-vue/radix-vue/issues/7)    |   ✅    |              |                        |
-| [Dialog](https://github.com/radix-vue/radix-vue/issues/8)          |   ✅   |              |                        |
+| [Dialog](https://github.com/radix-vue/radix-vue/issues/8)          |   ✅   |        ⏳      |                        |
 | [Dropdown Menu](https://github.com/radix-vue/radix-vue/issues/9)   |   ✅   |              |                        |
 | [Form](https://github.com/radix-vue/radix-vue/issues/10)            |        |              |                        |
 | [Hover Card](https://github.com/radix-vue/radix-vue/issues/11)      |   ✅   |              |                        |
@@ -34,7 +34,7 @@ Coming soon.
 | [Menubar](https://github.com/radix-vue/radix-vue/issues/13)         |        |              |                        |
 | [Navigation Menu](https://github.com/radix-vue/radix-vue/issues/14) |        |              |                        |
 | [Popover](https://github.com/radix-vue/radix-vue/issues/15)         |   ✅   |              |                        |
-| [Progress](https://github.com/radix-vue/radix-vue/issues/16)        |   ✅   |              |                        |
+| [Progress](https://github.com/radix-vue/radix-vue/issues/16)        |   ✅   |       ⏳       |                        |
 | [Radio Group](https://github.com/radix-vue/radix-vue/issues/17)     |   ✅   |              |                        |
 | [Scroll Area](https://github.com/radix-vue/radix-vue/issues/18)     |        |              |                        |
 | [Select](https://github.com/radix-vue/radix-vue/issues/19)          |        |              |                        |

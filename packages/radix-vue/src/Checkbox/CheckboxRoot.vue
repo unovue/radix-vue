@@ -3,6 +3,9 @@ import type { InjectionKey, Ref } from "vue";
 
 export interface CheckboxRootProps {
   asChild?: boolean;
+  defaultChecked?: boolean;
+  checked?: boolean;
+  onCheckedChange?: void;
   modelValue?: boolean;
   disabled?: boolean;
   required?: boolean;

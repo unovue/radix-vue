@@ -2,6 +2,7 @@
 import { PrimitiveLabel } from "@/Primitive";
 
 interface DropdownMenuLabelProps {
+  asChild?: boolean;
   for?: string;
 }
 </script>

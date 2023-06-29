@@ -941,7 +941,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.3.9(@types/node@18.16.18)
+      vite: 4.3.9
       vue: 3.3.4
     dev: true
 

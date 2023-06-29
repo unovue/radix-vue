@@ -1,3 +1,9 @@
+<script lang="ts">
+export interface HoverCardTriggerProps {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { inject, onMounted } from "vue";
 import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
@@ -40,8 +46,8 @@ async function handleMouseleave(e: MouseEvent) {
   <PrimitiveButton
     type="button"
     ref="primitiveElement"
-    :aria-expanded="injectedValue?.modelValue.value || false"
-    :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
+    :aria-expanded="injectedValue?.open.value || false"
+    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
     @mouseover="injectedValue!.isHover = true"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseleave"

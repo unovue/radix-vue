@@ -1,3 +1,9 @@
+<script lang="ts">
+export interface SliderRangeProps {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { inject } from "vue";
 import { PrimitiveSpan } from "@/Primitive";
@@ -9,6 +15,8 @@ const injectedValue = inject<SliderProvideValue>(SLIDER_INJECTION_KEY);
 
 <template>
   <PrimitiveSpan
+    :data-disabled="injectedValue?.disabled"
+    :data-orientation="injectedValue?.orientation"
     :style="`left: 0%; right: ${
       (injectedValue?.max ?? 100) - (injectedValue?.modelValue?.value ?? 0)
     }%`"

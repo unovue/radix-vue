@@ -1,3 +1,9 @@
+<script lang="ts">
+export interface ToolbarButton {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { inject } from "vue";
 import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
@@ -24,6 +30,7 @@ function handleKeydown(e: KeyboardEvent) {
 <template>
   <PrimitiveButton
     ref="primitiveElement"
+    :data-orientation="injectedValue?.orientation"
     type="button"
     :tabindex="
       injectedValue?.activeElement.value === currentElement ? '0' : '-1'

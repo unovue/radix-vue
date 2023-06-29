@@ -1,3 +1,9 @@
+<script lang="ts">
+export interface PopoverTriggerProps {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { inject, onMounted } from "vue";
 import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
@@ -20,9 +26,9 @@ onMounted(() => {
   <PrimitiveButton
     type="button"
     ref="primitiveElement"
-    :aria-expanded="injectedValue?.modelValue.value || false"
-    :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
-    @click="injectedValue?.showTooltip"
+    :aria-expanded="injectedValue?.open.value || false"
+    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
+    @click="injectedValue?.showPopover"
   >
     <slot />
   </PrimitiveButton>

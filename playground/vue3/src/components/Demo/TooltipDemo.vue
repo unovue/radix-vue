@@ -8,15 +8,19 @@ const toggleState = ref(false);
 
 <template>
   <div class="absolute left-4 top-3 text-sm">
-    <p>{{ toggleState ? "checked" : "uncheked" }}</p>
+    <p>Value: {{ toggleState ? "checked" : "unchecked" }}</p>
+    <button
+      @click="toggleState = !toggleState"
+      class="bg-white/20 px-2 py-1 rounded-md active:scale-90 duration-100 transform hover:bg-white/40 active:bg-white/20"
+    >
+      {{ toggleState ? "Close" : "Open" }}
+    </button>
   </div>
-  <TooltipRoot v-model="toggleState">
+  <TooltipRoot v-model:open="toggleState">
     <TooltipTrigger
       class="text-violet11 shadow-blackA7 hover:bg-violet3 inline-flex h-[35px] w-[35px] items-center justify-center rounded-full bg-white shadow-[0_2px_10px] outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
     >
-      <button>
-        <Icon icon="radix-icons:plus" />
-      </button>
+      <Icon icon="radix-icons:plus" />
     </TooltipTrigger>
     <TooltipPortal>
       <TooltipContent

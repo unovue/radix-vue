@@ -1,6 +1,8 @@
 <script lang="ts">
 interface ToggleGroupItemProps {
+  asChild?: boolean;
   value?: string;
+  disabled?: boolean;
 }
 </script>
 
@@ -17,7 +19,9 @@ const injectedValue = inject<ToggleGroupProvideValue>(
   TOGGLE_GROUP_INJECTION_KEY
 );
 
-const props = defineProps<ToggleGroupItemProps>();
+const props = withDefaults(defineProps<ToggleGroupItemProps>(), {
+  asChild: false,
+});
 
 const { primitiveElement, currentElement: currentToggleElement } =
   usePrimitiveElement();
@@ -46,6 +50,8 @@ function handleKeydown(e: KeyboardEvent) {
   <PrimitiveButton
     type="button"
     :data-state="state"
+    :data-disabled="props.disabled"
+    :data-orientation="injectedValue?.orientation"
     @click="injectedValue?.changeModelValue(props.value!)"
     ref="primitiveElement"
     @keydown="handleKeydown"

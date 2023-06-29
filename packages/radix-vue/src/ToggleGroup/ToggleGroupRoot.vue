@@ -5,9 +5,11 @@ import type { DataOrientation, Direction } from "../shared/types";
 type TypeEnum = "single" | "multiple";
 
 export interface ToggleGroupRootProps {
+  asChild?: boolean;
   type?: TypeEnum;
   value?: string;
   defaultValue?: string;
+  //onValueChange?: void;
   disabled?: boolean;
   rovingFocus?: boolean;
   orientation?: DataOrientation;
@@ -25,6 +27,7 @@ export interface ToggleGroupProvideValue {
   changeModelValue: (value: string) => void;
   parentElement: Ref<HTMLElement | undefined>;
   activeValue?: Readonly<Ref<string>>;
+  orientation?: DataOrientation;
 }
 </script>
 
@@ -49,6 +52,7 @@ provide<ToggleGroupProvideValue>(TOGGLE_GROUP_INJECTION_KEY, {
   changeModelValue: changeModelValue,
   parentElement,
   activeValue: activeValue,
+  orientation: props.orientation,
 });
 
 function changeModelValue(value: string) {
@@ -73,6 +77,7 @@ function changeModelValue(value: string) {
     role="group"
     :dir="props.dir"
     aria-label="Text alignment"
+    :data-orientation="props.orientation"
   >
     <slot />
   </PrimitiveDiv>

@@ -22,7 +22,9 @@ const { primitiveElement, currentElement: triggerElement } =
   usePrimitiveElement();
 
 onMounted(() => {
-  injectedValue!.triggerButton.value = triggerElement.value!;
+  if (injectedValue) {
+    injectedValue.triggerButton = triggerElement;
+  }
 });
 </script>
 

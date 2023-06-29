@@ -1,6 +1,7 @@
 <script lang="ts">
 export interface AvatarImageProps {
   asChild?: boolean;
+  onLoadingStatusChange?: void;
 }
 </script>
 
@@ -17,8 +18,12 @@ const injectedValue = inject<AvatarProvideValue>(AVATAR_INJECTION_KEY);
 onMounted(() => {
   injectedValue!.imageLoadingStatus.value = "loaded";
 });
+
+withDefaults(defineProps<AvatarImageProps>(), {
+  asChild: false,
+});
 </script>
 
 <template>
-  <PrimitiveImg />
+  <PrimitiveImg :asChild="asChild" />
 </template>

@@ -1,3 +1,10 @@
+<script lang="ts">
+export interface DropdownMenuItemIndicatorProps {
+  asChild?: boolean;
+  forceMount?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { inject } from "vue";
 import { PrimitiveSpan } from "@/Primitive";

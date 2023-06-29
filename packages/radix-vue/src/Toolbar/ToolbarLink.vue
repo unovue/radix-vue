@@ -1,3 +1,9 @@
+<script lang="ts">
+export interface ToolbarLink {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { inject } from "vue";
 import { PrimitiveA, usePrimitiveElement } from "@/Primitive";

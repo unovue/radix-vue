@@ -2,8 +2,10 @@
 import type { InjectionKey, Ref } from "vue";
 
 export interface CollapsibleRootProps {
+  asChild?: boolean;
   defaultOpen?: boolean;
   open?: boolean;
+  onOpenChange?: void;
   disabled?: boolean;
 }
 
@@ -19,26 +21,29 @@ export const COLLAPSIBLE_INJECTION_KEY =
 </script>
 
 <script setup lang="ts">
-import { provide, toRef, watch, ref } from "vue";
+import { provide } from "vue";
 import { PrimitiveDiv } from "@/Primitive";
+import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<CollapsibleRootProps>(), {
-  open: false,
+  asChild: false,
+  open: undefined,
+  defaultOpen: false,
 });
 const emit = defineEmits<{
   (e: "update:open", value: boolean): void;
 }>();
 
-const open = ref(props.open ?? false);
-
-watch(open, (newValue: boolean) => {
-  emit("update:open", !props.open);
+const open = useVModel(props, "open", emit, {
+  defaultValue: props.defaultOpen,
+  passive: true,
 });
+const disabled = useVModel(props, "disabled");
 
 provide<CollapsibleProvideValue>(COLLAPSIBLE_INJECTION_KEY, {
   contentId: "1",
-  disabled: toRef(() => props.disabled),
-  open: toRef(() => open.value),
+  disabled,
+  open,
   onOpenToggle: () => {
     open.value = !open.value;
   },

@@ -2,54 +2,68 @@
 type DataState = "on" | "off";
 
 export interface ToggleProps {
-  modelValue?: boolean;
+  asChild?: boolean;
+  defaultPressed?: boolean;
+  pressed?: boolean;
+  // onPressedChange?: void;
   disabled?: boolean;
+
+  // INTERNALS
   name?: string;
   id?: string;
 }
 </script>
 
 <script setup lang="ts">
-import { ref, computed, watch } from "vue";
+import { computed } from "vue";
+import { useVModel } from "@vueuse/core";
 import { PrimitiveDiv } from "@/Primitive";
 
 const props = withDefaults(defineProps<ToggleProps>(), {
+  asChild: false,
   disabled: false,
+  defaultPressed: false,
+  pressed: undefined,
 });
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:pressed"]);
 
-const modelValue = ref(props.modelValue ?? false);
-
-watch(modelValue, (newValue) => {
-  emit("update:modelValue", newValue);
+const pressed = useVModel(props, "pressed", emit, {
+  defaultValue: props.defaultPressed,
+  passive: true, // set passive to true so that if no props.pressed was passed, it will still update
 });
+
+const togglePressed = () => {
+  pressed.value = !pressed.value;
+};
 
 const dataState = computed<DataState>(() => {
-  return modelValue.value ? "on" : "off";
+  return pressed.value ? "on" : "off";
 });
 
 function handleKeydown(e: KeyboardEvent) {
   if (e.key === "Enter") {
-    modelValue.value = !modelValue.value;
+    togglePressed();
   }
 }
 </script>
 
 <template>
   <PrimitiveDiv
-    :value="props.modelValue"
+    :value="pressed"
     role="checkbox"
-    :aria-checked="modelValue"
+    :aria-checked="pressed"
     :data-state="dataState"
+    :data-disabled="props.disabled"
     style="position: relative"
   >
     <input
       type="checkbox"
       :id="props.id"
       @keydown="handleKeydown"
-      v-model="modelValue"
-      :checked="modelValue"
+      v-bind="pressed"
+      @change="togglePressed"
+      :checked="pressed"
       :name="props.name"
       aria-hidden="true"
       :disabled="props.disabled"

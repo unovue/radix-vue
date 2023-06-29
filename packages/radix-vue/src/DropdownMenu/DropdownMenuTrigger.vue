@@ -1,3 +1,9 @@
+<script lang="ts">
+export interface DropdownMenuTriggerProps {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { inject, onMounted } from "vue";
 import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";

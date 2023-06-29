@@ -1,5 +1,16 @@
+<script lang="ts">
+export type TooltipTriggerDataState =
+  | "closed"
+  | "delayed-open"
+  | "instant-open";
+
+export interface TooltipRootProps {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
-import { inject, onMounted } from "vue";
+import { inject, onMounted, computed } from "vue";
 import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
 import {
   TOOLTIP_INJECTION_KEY,
@@ -22,14 +33,18 @@ async function handleMouseEnter(e: MouseEvent) {
     injectedValue?.showTooltip();
   }
 }
+
+const dataState = computed<TooltipTriggerDataState>(() => {
+  return injectedValue?.open.value ? "closed" : "instant-open";
+});
 </script>
 
 <template>
   <PrimitiveButton
     type="button"
     ref="primitiveElement"
-    :aria-expanded="injectedValue?.modelValue.value || false"
-    :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
+    :data-state="dataState"
+    :aria-expanded="injectedValue?.open.value || false"
     @mouseenter="handleMouseEnter"
     @mouseleave="injectedValue?.hideTooltip"
     style="cursor: default"

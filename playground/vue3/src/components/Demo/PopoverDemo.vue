@@ -8,9 +8,15 @@ const toggleState = ref(false);
 
 <template>
   <div class="absolute left-4 top-3 text-sm">
-    <p>{{ toggleState ? "checked" : "uncheked" }}</p>
+    <p>Value: {{ toggleState ? "checked" : "unchecked" }}</p>
+    <button
+      @click="toggleState = !toggleState"
+      class="bg-white/20 px-2 py-1 rounded-md active:scale-90 duration-100 transform hover:bg-white/40 active:bg-white/20"
+    >
+      {{ toggleState ? "Close" : "Open" }}
+    </button>
   </div>
-  <PopoverRoot v-model="toggleState">
+  <PopoverRoot v-model:open="toggleState">
     <PopoverTrigger
       class="rounded-full w-[35px] h-[35px] inline-flex items-center justify-center text-violet11 bg-white shadow-[0_2px_10px] shadow-blackA7 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black cursor-default outline-none"
       aria-label="Update dimensions"

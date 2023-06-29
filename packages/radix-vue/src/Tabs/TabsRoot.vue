@@ -3,6 +3,10 @@ import type { Ref, InjectionKey } from "vue";
 import type { DataOrientation, Direction } from "../shared/types";
 
 export interface TabsRootProps {
+  asChild?: boolean;
+  defaultValue?: string;
+  value: string;
+  //onValueChange?: void;
   orientation?: DataOrientation;
   dir?: Direction;
   activationMode?: "automatic" | "manual";
@@ -25,6 +29,7 @@ import { ref, toRef, provide } from "vue";
 import { PrimitiveDiv } from "@/Primitive";
 
 const props = withDefaults(defineProps<TabsRootProps>(), {
+  asChild: false,
   orientation: "horizontal",
   dir: "ltr",
   activationMode: "automatic",

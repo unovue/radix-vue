@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { Ref } from "vue";
+import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 import type { DataOrientation, Direction } from "@/shared/types";
 
 export interface RadioGroupRootProps {
@@ -27,7 +28,7 @@ export interface RadioGroupProvideValue {
 </script>
 
 <script setup lang="ts">
-import { ref, toRef, provide } from "vue";
+import { toRef, provide } from "vue";
 
 const props = withDefaults(defineProps<RadioGroupRootProps>(), {
   asChild: false,
@@ -38,25 +39,26 @@ const props = withDefaults(defineProps<RadioGroupRootProps>(), {
 
 const emits = defineEmits(["update:modelValue"]);
 
-const parentElementRef: Ref<HTMLElement | undefined> = ref();
+const { primitiveElement, currentElement: parentElement } =
+  usePrimitiveElement();
 
 provide<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY, {
   modelValue: toRef(() => props.modelValue),
   changeModelValue: (value?: string) => {
     emits("update:modelValue", value);
   },
-  parentElement: parentElementRef,
+  parentElement,
   disabled: props.disabled,
 });
 </script>
 
 <template>
-  <div
-    ref="parentElementRef"
+  <PrimitiveDiv
+    ref="primitiveElement"
     role="radiogroup"
     aria-label="radiogroup"
     :data-disabled="props.disabled"
   >
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

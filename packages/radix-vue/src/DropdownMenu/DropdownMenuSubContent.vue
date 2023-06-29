@@ -41,6 +41,7 @@ export type MenuContentProvider = {
 
 <script setup lang="ts">
 import { onMounted, inject, ref, watchEffect, watch, provide } from "vue";
+import { PrimitiveDiv } from "@/Primitive";
 import {
   useFloating,
   offset,
@@ -186,16 +187,17 @@ provide<MenuContentProvider>("MenuContentProvider", {
     style="min-width: max-content; will-change: transform; z-index: auto"
     :style="floatingStyles"
   >
-    <div
+    <PrimitiveDiv
       :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
       :data-side="props.side"
       :data-align="props.align"
       :data-orientation="injectedValue.orientation"
       role="tooltip"
       :class="props.class"
+      :asChild="props.asChild"
       style="pointer-events: auto"
     >
       <slot />
-    </div>
+    </PrimitiveDiv>
   </div>
 </template>

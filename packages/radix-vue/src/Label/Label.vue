@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { PrimitiveLabel } from "@/Primitive";
+
 const props = defineProps({
   for: {
     type: String,
@@ -8,5 +10,5 @@ const props = defineProps({
 </script>
 
 <template>
-  <label :for="props.for"><slot /></label>
+  <PrimitiveLabel :for="props.for"><slot /></PrimitiveLabel>
 </template>

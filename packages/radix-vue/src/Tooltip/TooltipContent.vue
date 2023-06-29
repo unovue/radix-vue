@@ -33,6 +33,7 @@ export type TooltipContentProvideValue = {
 
 <script setup lang="ts">
 import { onMounted, inject, ref, provide } from "vue";
+import { PrimitiveDiv } from "@/Primitive";
 import {
   TOOLTIP_INJECTION_KEY,
   type TooltipProvideValue,
@@ -43,6 +44,7 @@ const injectedValue = inject<TooltipProvideValue>(TOOLTIP_INJECTION_KEY);
 
 const props = defineProps({
   class: String,
+  asChild: Boolean,
 });
 
 const tooltipContentElement = ref<HTMLElement>();
@@ -54,7 +56,7 @@ const {
   floatingStyles,
   middlewareData,
   placement: floatPosition,
-} = useFloating(injectedValue?.triggerElement!, tooltipContentElement, {
+} = useFloating(injectedValue?.triggerElement!, tooltipContentElement!, {
   placement: "top",
   middleware: [
     offset(10),
@@ -77,15 +79,16 @@ provide<TooltipContentProvideValue>(TOOLTIP_CONTENT_INJECTION_KEY, {
     style="min-width: max-content; will-change: transform; z-index: auto"
     :style="floatingStyles"
   >
-    <div
+    <PrimitiveDiv
       :data-state="injectedValue?.open.value ? 'delayed-open' : 'closed'"
       data-side="top"
       data-align="center"
       role="tooltip"
       tabindex="-1"
+      :asChild="props.asChild"
       :class="props.class"
     >
       <slot />
-    </div>
+    </PrimitiveDiv>
   </div>
 </template>

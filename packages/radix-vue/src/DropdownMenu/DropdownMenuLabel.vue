@@ -1,4 +1,6 @@
 <script lang="ts">
+import { PrimitiveLabel } from "@/Primitive";
+
 interface DropdownMenuLabelProps {
   asChild?: boolean;
   for?: string;
@@ -10,5 +12,5 @@ const props = defineProps<DropdownMenuLabelProps>();
 </script>
 
 <template>
-  <label :for="props.for"><slot /></label>
+  <PrimitiveLabel :for="props.for"><slot /></PrimitiveLabel>
 </template>

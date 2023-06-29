@@ -26,6 +26,7 @@ export interface SwitchProvideValue {
 
 <script setup lang="ts">
 import { provide } from "vue";
+import { PrimitiveDiv } from "@/Primitive";
 import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<SwitchRootProps>(), {
@@ -60,7 +61,7 @@ function handleKeydown(e: KeyboardEvent) {
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     :value="open"
     role="checkbox"
     :aria-checked="open"
@@ -84,5 +85,5 @@ function handleKeydown(e: KeyboardEvent) {
       style="opacity: 0; position: absolute; inset: 0"
     />
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

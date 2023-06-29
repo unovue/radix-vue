@@ -33,6 +33,7 @@ export interface ToggleGroupProvideValue {
 
 <script setup lang="ts">
 import { ref, toRef, provide } from "vue";
+import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 
 const props = withDefaults(defineProps<ToggleGroupRootProps>(), {
   type: "single",
@@ -40,14 +41,16 @@ const props = withDefaults(defineProps<ToggleGroupRootProps>(), {
 
 const emits = defineEmits(["update:modelValue"]);
 
-const parentElementRef = ref<HTMLElement | undefined>();
+const { primitiveElement, currentElement: parentElement } =
+  usePrimitiveElement();
+
 const activeValue = ref();
 
 provide<ToggleGroupProvideValue>(TOGGLE_GROUP_INJECTION_KEY, {
   type: props.type,
   modelValue: toRef(() => props.modelValue),
   changeModelValue: changeModelValue,
-  parentElement: parentElementRef,
+  parentElement,
   activeValue: activeValue,
   orientation: props.orientation,
 });
@@ -69,13 +72,13 @@ function changeModelValue(value: string) {
 </script>
 
 <template>
-  <div
-    ref="parentElementRef"
+  <PrimitiveDiv
+    ref="primitiveElement"
     role="group"
     :dir="props.dir"
     aria-label="Text alignment"
     :data-orientation="props.orientation"
   >
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

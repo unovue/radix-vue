@@ -6,6 +6,7 @@ export interface ProgressIndicatorProps {
 
 <script setup lang="ts">
 import { inject } from "vue";
+import { PrimitiveDiv } from "@/Primitive";
 import { PROGRESS_INJECTION_KEY } from "./ProgressRoot.vue";
 import type { ProgressProvideValue } from "./ProgressRoot.vue";
 
@@ -13,7 +14,7 @@ const injectedValue = inject<ProgressProvideValue>(PROGRESS_INJECTION_KEY);
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     :data-state="
       injectedValue?.modelValue === injectedValue?.max ? 'complete' : 'loading'
     "
@@ -22,5 +23,7 @@ const injectedValue = inject<ProgressProvideValue>(PROGRESS_INJECTION_KEY);
     :style="`left: 0%; right: ${
       (injectedValue?.max ?? 100) - (injectedValue?.modelValue?.value ?? 0)
     }%`"
-  ></div>
+  >
+    <slot />
+  </PrimitiveDiv>
 </template>

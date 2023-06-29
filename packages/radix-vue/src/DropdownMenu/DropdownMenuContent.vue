@@ -37,6 +37,7 @@ export type DropdownMenuContentProvideValue = {
 
 <script setup lang="ts">
 import { onMounted, inject, ref, watchEffect, provide } from "vue";
+import { PrimitiveDiv } from "@/Primitive";
 import {
   useFloating,
   offset,
@@ -82,7 +83,7 @@ const {
 
 watchEffect(() => {
   if (tooltipContentElement.value) {
-    if (injectedValue.modelValue.value) {
+    if (injectedValue?.modelValue.value) {
       setTimeout(() => {
         document.querySelector("body")!.style.pointerEvents = "none";
         focusFirstRadixElement();
@@ -99,16 +100,16 @@ watchEffect(() => {
 });
 
 function closeDialogWhenClickOutside(e: MouseEvent) {
-  const clickOutside = useClickOutside(e, tooltipContentElement.value);
+  const clickOutside = useClickOutside(e, tooltipContentElement.value!);
   if (clickOutside) {
-    injectedValue.hideTooltip();
+    injectedValue?.hideTooltip();
     window.removeEventListener("mousedown", closeDialogWhenClickOutside);
   }
 }
 
 function focusFirstRadixElement() {
   const allToggleItem = Array.from(
-    tooltipContentElement.value.querySelectorAll(
+    tooltipContentElement.value!.querySelectorAll(
       "[data-radix-vue-collection-item]"
     )
   ) as HTMLElement[];
@@ -120,17 +121,17 @@ function focusFirstRadixElement() {
 
 function fillItemsArray() {
   const allToggleItem = Array.from(
-    tooltipContentElement.value.querySelectorAll(
+    tooltipContentElement.value!.querySelectorAll(
       "[data-radix-vue-collection-item]:not([data-disabled])"
     )
   ) as HTMLElement[];
-  injectedValue.itemsArray = allToggleItem;
+  injectedValue!.itemsArray = allToggleItem;
 }
 
 function handleCloseMenu() {
-  document.querySelector("body").style.pointerEvents = "";
+  document.querySelector("body")!.style.pointerEvents = "";
   setTimeout(() => {
-    injectedValue.triggerElement.value.focus();
+    injectedValue?.triggerElement.value?.focus();
   }, 0);
 }
 
@@ -147,15 +148,16 @@ provide<DropdownMenuContentProvideValue>(DROPDOWN_MENU_CONTENT_INJECTION_KEY, {
     style="min-width: max-content; will-change: transform; z-index: auto"
     :style="floatingStyles"
   >
-    <div
+    <PrimitiveDiv
       :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
       :data-side="props.side"
       :data-align="props.align"
       role="tooltip"
       :class="props.class"
+      :asChild="props.asChild"
       style="pointer-events: auto"
     >
       <slot />
-    </div>
+    </PrimitiveDiv>
   </div>
 </template>

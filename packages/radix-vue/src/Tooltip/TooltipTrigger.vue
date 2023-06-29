@@ -10,7 +10,8 @@ export interface TooltipRootProps {
 </script>
 
 <script setup lang="ts">
-import { inject, ref, onMounted, computed } from "vue";
+import { inject, onMounted, computed } from "vue";
+import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
 import {
   TOOLTIP_INJECTION_KEY,
   type TooltipProvideValue,
@@ -19,7 +20,9 @@ import { useHoverDelay } from "../shared";
 
 const injectedValue = inject<TooltipProvideValue>(TOOLTIP_INJECTION_KEY);
 
-const triggerElement = ref<HTMLElement>();
+const { primitiveElement, currentElement: triggerElement } =
+  usePrimitiveElement();
+
 onMounted(() => {
   injectedValue!.triggerElement.value = triggerElement.value;
 });
@@ -37,9 +40,9 @@ const dataState = computed<TooltipTriggerDataState>(() => {
 </script>
 
 <template>
-  <button
+  <PrimitiveButton
     type="button"
-    ref="triggerElement"
+    ref="primitiveElement"
     :data-state="dataState"
     :aria-expanded="injectedValue?.open.value || false"
     @mouseenter="handleMouseEnter"
@@ -47,5 +50,5 @@ const dataState = computed<TooltipTriggerDataState>(() => {
     style="cursor: default"
   >
     <slot />
-  </button>
+  </PrimitiveButton>
 </template>

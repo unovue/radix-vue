@@ -24,14 +24,15 @@ export const TOOLBAR_TOGGLE_GROUP_INJECTION_KEY =
 export interface ToolbarToggleGroupProvideValue {
   type: TypeEnum;
   modelValue?: Readonly<Ref<string | string[] | undefined>>;
-  changeModelValue(): (value: string) => void;
+  changeModelValue: (value: string) => void;
   parentElement: Ref<HTMLElement | undefined>;
   orientation: DataOrientation;
 }
 </script>
 
 <script setup lang="ts">
-import { ref, toRef, provide } from "vue";
+import { toRef, provide } from "vue";
+import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 
 const props = withDefaults(defineProps<ToggleGroupProps>(), {
   type: "single",
@@ -39,7 +40,8 @@ const props = withDefaults(defineProps<ToggleGroupProps>(), {
 
 const emits = defineEmits(["update:modelValue"]);
 
-const parentElementRef = ref<HTMLElement | undefined>();
+const { primitiveElement, currentElement: parentElement } =
+  usePrimitiveElement();
 
 provide<ToolbarToggleGroupProvideValue>(TOOLBAR_TOGGLE_GROUP_INJECTION_KEY, {
   type: props.type,
@@ -58,18 +60,18 @@ provide<ToolbarToggleGroupProvideValue>(TOOLBAR_TOGGLE_GROUP_INJECTION_KEY, {
       emits("update:modelValue", modelValueArray);
     }
   },
-  parentElement: parentElementRef,
   orientation: props.orientation ? props.orientation : "horizontal",
+  parentElement,
 });
 </script>
 
 <template>
-  <div
-    ref="parentElementRef"
+  <PrimitiveDiv
+    ref="primitiveElement"
     role="group"
     :dir="props.dir"
     aria-label="Text alignment"
   >
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

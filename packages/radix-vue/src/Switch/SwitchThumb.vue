@@ -6,6 +6,7 @@ export interface SwitchThumbProps {
 
 <script setup lang="ts">
 import { inject } from "vue";
+import { PrimitiveSpan } from "@/Primitive";
 import {
   SWITCH_INJECTION_KEY,
   type SwitchProvideValue,
@@ -15,11 +16,11 @@ const injectedValue = inject<SwitchProvideValue>(SWITCH_INJECTION_KEY);
 </script>
 
 <template>
-  <span
+  <PrimitiveSpan
     :data-state="injectedValue?.open?.value ? 'checked' : 'unchecked'"
     :data-disabled="injectedValue?.disabled ? '' : undefined"
     @click="injectedValue?.toggleOpen"
   >
     <slot />
-  </span>
+  </PrimitiveSpan>
 </template>

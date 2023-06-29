@@ -5,7 +5,8 @@ export interface PopoverTriggerProps {
 </script>
 
 <script setup lang="ts">
-import { inject, ref, onMounted } from "vue";
+import { inject, onMounted } from "vue";
+import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
 import {
   POPOVER_INJECTION_KEY,
   type PopoverProvideValue,
@@ -13,20 +14,22 @@ import {
 
 const injectedValue = inject<PopoverProvideValue>(POPOVER_INJECTION_KEY);
 
-const triggerElement = ref<HTMLElement>();
+const { primitiveElement, currentElement: triggerElement } =
+  usePrimitiveElement();
+
 onMounted(() => {
   injectedValue!.triggerElement.value = triggerElement.value;
 });
 </script>
 
 <template>
-  <button
+  <PrimitiveButton
     type="button"
-    ref="triggerElement"
+    ref="primitiveElement"
     :aria-expanded="injectedValue?.open.value || false"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"
     @click="injectedValue?.showPopover"
   >
     <slot />
-  </button>
+  </PrimitiveButton>
 </template>

@@ -2,6 +2,7 @@
 import type { Ref } from "vue";
 import type { DropdownMenuProvideValue } from "../../DropdownMenu/DropdownMenuRoot.vue";
 import type { DropdownMenuSubProvideValue } from "../../DropdownMenu/DropdownMenuSub.vue";
+import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 
 interface BaseMenuItemProps {
   disabled?: boolean;
@@ -14,7 +15,7 @@ interface BaseMenuItemProps {
 </script>
 
 <script setup lang="ts">
-import { ref, watchEffect } from "vue";
+import { watchEffect } from "vue";
 import { useArrowNavigation } from "../useArrowNavigation";
 
 const currentProvider = props.subProvider
@@ -27,7 +28,7 @@ const props = withDefaults(defineProps<BaseMenuItemProps>(), {
 
 const emit = defineEmits(["handle-click", "horizontal-keydown", "mouseover"]);
 
-const currentElement = ref<HTMLElement | undefined>();
+const { primitiveElement, currentElement } = usePrimitiveElement();
 
 function handleKeydown(e: KeyboardEvent) {
   if (e.key === "Escape") {
@@ -90,9 +91,9 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     :role="props.role"
-    ref="currentElement"
+    ref="primitiveElement"
     @keydown.prevent="handleKeydown"
     @click.prevent="handleClick"
     :data-state="props.dataState"
@@ -111,5 +112,5 @@ watchEffect(() => {
     "
   >
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

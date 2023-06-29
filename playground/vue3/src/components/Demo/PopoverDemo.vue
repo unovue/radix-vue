@@ -7,20 +7,21 @@ const toggleState = ref(false);
 </script>
 
 <template>
-   <div class="absolute left-4 top-3 text-sm">
+  <div class="absolute left-4 top-3 text-sm">
     <p>Value: {{ toggleState ? "checked" : "unchecked" }}</p>
     <button
       @click="toggleState = !toggleState"
       class="bg-white/20 px-2 py-1 rounded-md active:scale-90 duration-100 transform hover:bg-white/40 active:bg-white/20"
     >
-    {{ toggleState ? "Close" : "Open" }}
+      {{ toggleState ? "Close" : "Open" }}
     </button>
   </div>
   <PopoverRoot v-model:open="toggleState">
-    <PopoverTrigger class="rounded-full w-[35px] h-[35px] inline-flex items-center justify-center text-violet11 bg-white shadow-[0_2px_10px] shadow-blackA7 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black cursor-default outline-none"
-        aria-label="Update dimensions"
-      >
-        <Icon icon="radix-icons:mixer-horizontal" />
+    <PopoverTrigger
+      class="rounded-full w-[35px] h-[35px] inline-flex items-center justify-center text-violet11 bg-white shadow-[0_2px_10px] shadow-blackA7 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black cursor-default outline-none"
+      aria-label="Update dimensions"
+    >
+      <Icon icon="radix-icons:mixer-horizontal" />
     </PopoverTrigger>
     <PopoverPortal>
       <PopoverContent
@@ -29,9 +30,7 @@ const toggleState = ref(false);
         <div class="flex flex-col gap-2.5">
           <p class="text-mauve12 text-[15px] leading-[19px] font-medium mb-2.5">Dimensions</p>
           <fieldset class="flex gap-5 items-center">
-            <label class="text-[13px] text-violet11 w-[75px]" for="width">
-              Width
-            </label>
+            <label class="text-[13px] text-violet11 w-[75px]" for="width"> Width </label>
             <input
               class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-violet11 shadow-[0_0_0_1px] shadow-violet7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-violet8 outline-none"
               id="width"
@@ -39,9 +38,7 @@ const toggleState = ref(false);
             />
           </fieldset>
           <fieldset class="flex gap-5 items-center">
-            <label class="text-[13px] text-violet11 w-[75px]" for="maxWidth">
-              Max. width
-            </label>
+            <label class="text-[13px] text-violet11 w-[75px]" for="maxWidth"> Max. width </label>
             <input
               class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-violet11 shadow-[0_0_0_1px] shadow-violet7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-violet8 outline-none"
               id="maxWidth"
@@ -49,9 +46,7 @@ const toggleState = ref(false);
             />
           </fieldset>
           <fieldset class="flex gap-5 items-center">
-            <label class="text-[13px] text-violet11 w-[75px]" for="height">
-              Height
-            </label>
+            <label class="text-[13px] text-violet11 w-[75px]" for="height"> Height </label>
             <input
               class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-violet11 shadow-[0_0_0_1px] shadow-violet7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-violet8 outline-none"
               id="height"
@@ -59,9 +54,7 @@ const toggleState = ref(false);
             />
           </fieldset>
           <fieldset class="flex gap-5 items-center">
-            <label class="text-[13px] text-violet11 w-[75px]" for="maxHeight">
-              Max. height
-            </label>
+            <label class="text-[13px] text-violet11 w-[75px]" for="maxHeight"> Max. height </label>
             <input
               class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-violet11 shadow-[0_0_0_1px] shadow-violet7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-violet8 outline-none"
               id="maxHeight"

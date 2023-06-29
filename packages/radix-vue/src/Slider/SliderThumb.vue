@@ -8,12 +8,15 @@ export interface SliderThumbProps {
 </script>
 
 <script setup lang="ts">
-import { inject, ref, onMounted } from "vue";
+import { inject, onMounted } from "vue";
+import { PrimitiveSpan, usePrimitiveElement } from "@/Primitive";
 import { SLIDER_INJECTION_KEY } from "./SliderRoot.vue";
 import type { SliderProvideValue } from "./SliderRoot.vue";
 
 const injectedValue = inject<SliderProvideValue>(SLIDER_INJECTION_KEY);
-const thumbElement = ref();
+const { primitiveElement, currentElement: thumbElement } =
+  usePrimitiveElement();
+
 onMounted(() => {
   injectedValue.thumbElement.value = thumbElement.value;
 });
@@ -101,9 +104,9 @@ function handleKeydown(e: KeyboardEvent) {
   <span
     :style="`transform: translateX(-50%); position: absolute; left: calc(${injectedValue?.modelValue?.value}%)`"
   >
-    <span
+    <PrimitiveSpan
       :class="props.class"
-      ref="thumbElement"
+      ref="primitiveElement"
       role="slider"
       tabindex="0"
       :data-disabled="injectedValue?.disabled"
@@ -114,6 +117,6 @@ function handleKeydown(e: KeyboardEvent) {
       :aria-orientation="injectedValue?.orientation"
       @keydown="handleKeydown"
     >
-    </span>
+    </PrimitiveSpan>
   </span>
 </template>

@@ -11,13 +11,14 @@ import {
   RADIO_GROUP_INJECTION_KEY,
   type RadioGroupProvideValue,
 } from "./RadioGroupRoot.vue";
+import { PrimitiveSpan } from "@/Primitive";
 
 const injectedValue = inject<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY);
 const value = inject<string>("radioItemValue");
 </script>
 
 <template>
-  <span
+  <PrimitiveSpan
     v-if="injectedValue?.modelValue?.value === value"
     :data-state="
       injectedValue?.modelValue?.value === value ? 'checked' : 'unchecked'
@@ -25,5 +26,5 @@ const value = inject<string>("radioItemValue");
     :data-disabled="injectedValue?.disabled"
   >
     <slot />
-  </span>
+  </PrimitiveSpan>
 </template>

@@ -11,6 +11,7 @@ import {
   COLLAPSIBLE_INJECTION_KEY,
   type CollapsibleProvideValue,
 } from "./CollapsibleRoot.vue";
+import { PrimitiveDiv } from "@/Primitive";
 
 const injectedValue = inject<CollapsibleProvideValue>(
   COLLAPSIBLE_INJECTION_KEY
@@ -18,7 +19,7 @@ const injectedValue = inject<CollapsibleProvideValue>(
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     v-if="injectedValue?.open.value"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"
     :data-disabled="injectedValue?.disabled?.value ? 'true' : undefined"
@@ -26,5 +27,5 @@ const injectedValue = inject<CollapsibleProvideValue>(
     :hidden="!injectedValue?.open.value"
   >
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

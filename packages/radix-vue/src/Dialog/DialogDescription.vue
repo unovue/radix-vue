@@ -1,10 +1,7 @@
-<!--
-<script lang="ts">
-export interface DialogTitleProps {
-  asChild?: boolean;
-}
+<script setup lang="ts">
+import { PrimitiveP } from "@/Primitive";
 </script>
--->
+
 <template>
-  <p><slot /></p>
+  <PrimitiveP><slot /></PrimitiveP>
 </template>

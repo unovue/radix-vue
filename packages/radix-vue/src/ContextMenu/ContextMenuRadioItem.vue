@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Ref } from "vue";
-import { ref, inject, provide, watchEffect, toRef } from "vue";
+import { inject, provide, watchEffect, toRef } from "vue";
 import {
   CONTEXT_MENU_INJECTION_KEY,
   type ContextMenuProvideValue,
@@ -9,6 +9,7 @@ import {
   RADIO_GROUP_INJECTION_KEY,
   type RadioGroupProvideValue,
 } from "./ContextMenuRadioGroup.vue";
+import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 
 interface RadioGroupItemProps {
   id?: string;
@@ -28,7 +29,7 @@ const injectedValue = inject<ContextMenuProvideValue>(
 
 const props = defineProps<RadioGroupItemProps>();
 
-const currentElement = ref<HTMLElement>();
+const { primitiveElement, currentElement } = usePrimitiveElement();
 
 function handleKeydown(e: KeyboardEvent) {
   if (e.key === "Escape") {
@@ -98,7 +99,7 @@ provide<ContextMenuCheckboxProvideValue>(
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     role="menuitemradio"
     :data-state="
       radioInjectedValue?.modelValue?.value === props.value ? 'on' : 'off'
@@ -106,7 +107,7 @@ provide<ContextMenuCheckboxProvideValue>(
     @click.prevent="updateModelValue"
     @mouseenter="handleHover"
     @mouseleave="injectedValue!.changeSelected(null)"
-    ref="currentElement"
+    ref="primitiveElement"
     @keydown="handleKeydown"
     data-radix-vue-collection-item
     :data-radix-vue-radio-value="props.value"
@@ -121,5 +122,5 @@ provide<ContextMenuCheckboxProvideValue>(
     "
   >
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

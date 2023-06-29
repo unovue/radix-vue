@@ -31,6 +31,7 @@ export type HoverCardContentProvideValue = {
 
 <script setup lang="ts">
 import { onMounted, inject, ref, provide } from "vue";
+import { PrimitiveDiv } from "@/Primitive";
 import {
   useFloating,
   offset,
@@ -95,15 +96,16 @@ async function handleMouseleave(e: MouseEvent) {
     @mouseover="injectedValue.isHover = true"
     @mouseleave="handleMouseleave"
   >
-    <div
+    <PrimitiveDiv
       :data-state="injectedValue?.open.value ? 'delayed-open' : 'closed'"
       :data-side="props.side"
       :data-align="props.align"
       role="tooltip"
       tabindex="-1"
+      :asChild="props.asChild"
       :class="props.class"
     >
       <slot />
-    </div>
+    </PrimitiveDiv>
   </div>
 </template>

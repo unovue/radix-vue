@@ -3,7 +3,7 @@ export const useMouseleaveDelay = (
   duration = 300
 ) => {
   let isHovered = true;
-  let timeoutId: number | undefined;
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
   let resolvePromise: (value: boolean) => void;
 
   const element = mouseleaveEvent.target as HTMLElement;

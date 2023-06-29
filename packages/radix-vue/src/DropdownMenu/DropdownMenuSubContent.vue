@@ -113,25 +113,28 @@ watchEffect(() => {
 });
 
 // watchers to close if hover over items not in subcontent
-watch(rootInjectedValue?.selectedElement, () => {
-  if (
-    injectedValue?.modelValue.value &&
-    injectedValue.itemsArray.length &&
-    rootInjectedValue?.selectedElement.value
-  ) {
+watch(
+  () => rootInjectedValue?.selectedElement,
+  () => {
     if (
-      !injectedValue.itemsArray.includes(
-        rootInjectedValue?.selectedElement.value
-      )
+      injectedValue?.modelValue.value &&
+      injectedValue.itemsArray.length &&
+      rootInjectedValue?.selectedElement.value
     ) {
-      injectedValue.hideTooltip();
-      console.log("run");
+      if (
+        !injectedValue.itemsArray.includes(
+          rootInjectedValue?.selectedElement.value
+        )
+      ) {
+        injectedValue.hideTooltip();
+        console.log("run");
+      }
     }
   }
-});
+);
 
 function closeDialogWhenClickOutside(e: MouseEvent) {
-  const clickOutside = useClickOutside(e, DropdownMenuContentElement.value);
+  const clickOutside = useClickOutside(e, DropdownMenuContentElement.value!);
   if (clickOutside) {
     injectedValue?.hideTooltip();
     window.removeEventListener("mousedown", closeDialogWhenClickOutside);
@@ -140,7 +143,7 @@ function closeDialogWhenClickOutside(e: MouseEvent) {
 
 function focusFirstRadixElement() {
   const allToggleItem = Array.from(
-    DropdownMenuContentElement.value.querySelectorAll(
+    DropdownMenuContentElement.value!.querySelectorAll(
       "[data-radix-vue-collection-item]"
     )
   ) as HTMLElement[];
@@ -161,9 +164,9 @@ function fillItemsArray() {
 }
 
 function handleCloseMenu() {
-  document.querySelector("body").style.pointerEvents = "";
+  document.querySelector("body")!.style.pointerEvents = "";
   setTimeout(() => {
-    rootInjectedValue?.triggerElement.value.focus();
+    rootInjectedValue?.triggerElement.value?.focus();
   }, 0);
 }
 

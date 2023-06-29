@@ -103,7 +103,7 @@ function updateModelValue() {
     data-radix-vue-collection-item
     @click.prevent="updateModelValue"
     @mouseenter="handleHover"
-    @mouseleave="injectedValue!.changeSelected(null)"
+    @mouseleave="injectedValue!.changeSelected(undefined)"
     :data-highlighted="
       injectedValue?.selectedElement.value === currentElement ? '' : null
     "

@@ -18,7 +18,8 @@ const { primitiveElement, currentElement: thumbElement } =
   usePrimitiveElement();
 
 onMounted(() => {
-  injectedValue.thumbElement.value = thumbElement.value;
+  if (injectedValue?.thumbElement)
+    injectedValue.thumbElement.value = thumbElement.value;
 });
 
 const props = withDefaults(defineProps<SliderThumbProps>(), {
@@ -28,40 +29,33 @@ const props = withDefaults(defineProps<SliderThumbProps>(), {
 let extraStep = 2;
 
 function handleKeydown(e: KeyboardEvent) {
+  if (!injectedValue) return;
   //prevent default when enter/space
   if (e.keyCode === 32 || e.key === "Enter") {
     e.preventDefault();
   }
-  const step = parseInt(injectedValue?.step);
+  const step = Number(injectedValue?.step);
+  const value = Number(injectedValue.modelValue?.value);
   //add value
   if (e.key === "ArrowUp" || e.key === "ArrowRight") {
     if (e.shiftKey) {
       e.preventDefault();
-      if (injectedValue?.modelValue?.value + extraStep >= injectedValue?.max) {
+
+      if (value + extraStep >= injectedValue?.max) {
         injectedValue?.changeModelValue(injectedValue?.max);
-      } else if (
-        injectedValue?.modelValue?.value + extraStep <=
-        injectedValue?.min
-      ) {
+      } else if (value + extraStep <= injectedValue?.min) {
         injectedValue?.changeModelValue(injectedValue?.min);
       } else {
-        injectedValue?.changeModelValue(
-          injectedValue?.modelValue?.value + extraStep
-        );
+        injectedValue?.changeModelValue(value + extraStep);
       }
     } else {
       e.preventDefault();
-      if (injectedValue?.modelValue?.value + step >= injectedValue?.max) {
+      if (value + step >= injectedValue?.max) {
         injectedValue?.changeModelValue(injectedValue?.max);
-      } else if (
-        injectedValue?.modelValue?.value + step <=
-        injectedValue?.min
-      ) {
+      } else if (value + step <= injectedValue?.min) {
         injectedValue?.changeModelValue(injectedValue?.min);
       } else {
-        injectedValue?.changeModelValue(
-          injectedValue?.modelValue?.value + step
-        );
+        injectedValue?.changeModelValue(value + step);
       }
     }
   }
@@ -69,31 +63,21 @@ function handleKeydown(e: KeyboardEvent) {
   if (e.key === "ArrowDown" || e.key === "ArrowLeft") {
     if (e.shiftKey) {
       e.preventDefault();
-      if (injectedValue?.modelValue?.value - extraStep >= injectedValue?.max) {
+      if (value - extraStep >= injectedValue?.max) {
         injectedValue?.changeModelValue(injectedValue?.max);
-      } else if (
-        injectedValue?.modelValue?.value - extraStep <=
-        injectedValue?.min
-      ) {
+      } else if (value - extraStep <= injectedValue?.min) {
         injectedValue?.changeModelValue(injectedValue?.min);
       } else {
-        injectedValue?.changeModelValue(
-          injectedValue?.modelValue?.value - extraStep
-        );
+        injectedValue?.changeModelValue(value - extraStep);
       }
     } else {
       e.preventDefault();
-      if (injectedValue?.modelValue?.value - step >= injectedValue?.max) {
+      if (value - step >= injectedValue?.max) {
         injectedValue?.changeModelValue(injectedValue?.max);
-      } else if (
-        injectedValue?.modelValue?.value - step <=
-        injectedValue?.min
-      ) {
+      } else if (value - step <= injectedValue?.min) {
         injectedValue?.changeModelValue(injectedValue?.min);
       } else {
-        injectedValue?.changeModelValue(
-          injectedValue?.modelValue?.value - step
-        );
+        injectedValue?.changeModelValue(value - step);
       }
     }
   }

@@ -106,7 +106,7 @@ provide<ContextMenuCheckboxProvideValue>(
     "
     @click.prevent="updateModelValue"
     @mouseenter="handleHover"
-    @mouseleave="injectedValue!.changeSelected(null)"
+    @mouseleave="injectedValue!.changeSelected(undefined)"
     ref="primitiveElement"
     @keydown="handleKeydown"
     data-radix-vue-collection-item

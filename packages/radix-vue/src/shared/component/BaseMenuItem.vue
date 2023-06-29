@@ -1,5 +1,4 @@
 <script lang="ts">
-import type { Ref } from "vue";
 import type { DropdownMenuProvideValue } from "../../DropdownMenu/DropdownMenuRoot.vue";
 import type { DropdownMenuSubProvideValue } from "../../DropdownMenu/DropdownMenuSub.vue";
 import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
@@ -8,9 +7,9 @@ interface BaseMenuItemProps {
   disabled?: boolean;
   rootProvider: DropdownMenuProvideValue | undefined;
   subProvider?: DropdownMenuSubProvideValue | undefined;
-  orientation: string | undefined;
+  orientation?: string | undefined;
   role?: string;
-  dataState?: Ref<string>;
+  dataState?: string;
 }
 </script>
 
@@ -18,13 +17,13 @@ interface BaseMenuItemProps {
 import { watchEffect } from "vue";
 import { useArrowNavigation } from "../useArrowNavigation";
 
-const currentProvider = props.subProvider
-  ? props.subProvider
-  : props.rootProvider;
-
 const props = withDefaults(defineProps<BaseMenuItemProps>(), {
   role: "menuitem",
 });
+
+const currentProvider = props.subProvider
+  ? props.subProvider
+  : props.rootProvider;
 
 const emit = defineEmits(["handle-click", "horizontal-keydown", "mouseover"]);
 
@@ -63,15 +62,15 @@ function handleKeydown(e: KeyboardEvent) {
 
 function handleHover() {
   if (!props.disabled) {
-    props.rootProvider.changeSelected(currentElement.value!);
+    props.rootProvider?.changeSelected(currentElement.value!);
   }
 }
 
 function handleCloseMenu() {
-  props.rootProvider.hideTooltip();
+  props.rootProvider?.hideTooltip();
   document.querySelector("body")!.style.pointerEvents = "";
   setTimeout(() => {
-    props.rootProvider.triggerElement.value?.focus();
+    props.rootProvider?.triggerElement.value?.focus();
   }, 0);
 }
 
@@ -84,7 +83,7 @@ function handleMouseover() {
 }
 
 watchEffect(() => {
-  if (props.rootProvider.selectedElement.value === currentElement.value) {
+  if (props.rootProvider?.selectedElement.value === currentElement.value) {
     currentElement.value?.focus();
   }
 });
@@ -100,7 +99,7 @@ watchEffect(() => {
     data-radix-vue-collection-item
     @mouseenter="handleHover"
     @mouseover="handleMouseover"
-    @mouseleave="rootProvider!.changeSelected(null)"
+    @mouseleave="rootProvider!.changeSelected(null as any)"
     :data-highlighted="
       rootProvider?.selectedElement.value === currentElement ? '' : null
     "

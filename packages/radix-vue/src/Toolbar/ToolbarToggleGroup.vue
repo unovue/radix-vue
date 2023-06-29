@@ -24,7 +24,7 @@ export const TOOLBAR_TOGGLE_GROUP_INJECTION_KEY =
 export interface ToolbarToggleGroupProvideValue {
   type: TypeEnum;
   modelValue?: Readonly<Ref<string | string[] | undefined>>;
-  changeModelValue: (value: string) => void;
+  changeModelValue: (value: string | undefined) => void;
   parentElement: Ref<HTMLElement | undefined>;
   orientation: DataOrientation;
 }
@@ -46,10 +46,11 @@ const { primitiveElement, currentElement: parentElement } =
 provide<ToolbarToggleGroupProvideValue>(TOOLBAR_TOGGLE_GROUP_INJECTION_KEY, {
   type: props.type,
   modelValue: toRef(() => props.modelValue),
-  changeModelValue: (value: string) => {
+  changeModelValue: (value: string | undefined) => {
     if (props.type === "single") {
       emits("update:modelValue", value);
     } else {
+      if (!value) return;
       let modelValueArray = props.modelValue as string[];
       if (modelValueArray.includes(value)) {
         let index = modelValueArray.findIndex((i) => i === value);

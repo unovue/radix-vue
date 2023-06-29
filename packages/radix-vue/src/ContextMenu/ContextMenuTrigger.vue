@@ -28,6 +28,7 @@ const { primitiveElement, currentElement: triggerElement } =
   usePrimitiveElement();
 
 onMounted(() => {
+  // @ts-expect-error
   injectedValue!.triggerElement.value = virtualEl;
 });
 

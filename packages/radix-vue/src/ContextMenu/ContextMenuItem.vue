@@ -84,7 +84,7 @@ function handleCloseMenu() {
     @keydown="handleKeydown"
     data-radix-vue-collection-item
     @mouseenter="handleHover"
-    @mouseleave="injectedValue!.changeSelected(null)"
+    @mouseleave="injectedValue!.changeSelected(undefined)"
     :data-highlighted="
       injectedValue?.selectedElement.value === currentElement ? '' : null
     "

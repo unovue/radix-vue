@@ -28,7 +28,7 @@ const injectedContentValue = inject<PopoverContentProvideValue>(
 
 <template>
   <BaseArrow
-    :injected-value="injectedValue"
+    :injected-value="(injectedValue as any)"
     :injected-content-value="injectedContentValue"
     :size="props.size"
   />

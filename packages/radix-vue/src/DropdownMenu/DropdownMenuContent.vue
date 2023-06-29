@@ -92,7 +92,7 @@ watchEffect(() => {
 
       window.addEventListener("mousedown", closeDialogWhenClickOutside);
     } else {
-      if (injectedValue.triggerElement.value) {
+      if (injectedValue?.triggerElement.value) {
         handleCloseMenu();
       }
     }

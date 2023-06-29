@@ -1,19 +1,30 @@
+<script lang="ts">
+interface ToggleGroupItemProps {
+  asChild?: boolean;
+  value?: string;
+  disabled?: boolean;
+}
+</script>
+
 <script setup lang="ts">
-import { ref, inject, computed } from "vue";
+import { inject, computed } from "vue";
+import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
 import {
   TOGGLE_GROUP_INJECTION_KEY,
   type ToggleGroupProvideValue,
 } from "./ToggleGroupRoot.vue";
-
-interface ToggleGroupItemProps {
-  value?: string;
-}
+import { useArrowNavigation } from "../shared";
 
 const injectedValue = inject<ToggleGroupProvideValue>(
   TOGGLE_GROUP_INJECTION_KEY
 );
 
-const props = withDefaults(defineProps<ToggleGroupItemProps>(), {});
+const props = withDefaults(defineProps<ToggleGroupItemProps>(), {
+  asChild: false,
+});
+
+const { primitiveElement, currentElement: currentToggleElement } =
+  usePrimitiveElement();
 
 const state = computed(() => {
   if (injectedValue?.type === "multiple") {
@@ -25,47 +36,27 @@ const state = computed(() => {
   }
 });
 
-const currentToggleElement = ref<HTMLElement | undefined>();
-
 function handleKeydown(e: KeyboardEvent) {
-  const allToggleItem = Array.from(
-    injectedValue!.parentElement.value.querySelectorAll(
-      "[data-radix-vue-collection-item]"
-    )
+  const newSelectedElement = useArrowNavigation(
+    e,
+    currentToggleElement.value!,
+    injectedValue?.parentElement.value!
   );
-  if (allToggleItem.length) {
-    const currentTabIndex = allToggleItem.indexOf(currentToggleElement.value!);
-
-    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-      e.preventDefault();
-      if (allToggleItem[currentTabIndex + 1]) {
-        allToggleItem[currentTabIndex + 1].focus();
-      } else {
-        allToggleItem[0].focus();
-      }
-    }
-
-    if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-      e.preventDefault();
-      if (allToggleItem[currentTabIndex - 1]) {
-        allToggleItem[currentTabIndex - 1].focus();
-      } else {
-        allToggleItem[allToggleItem.length - 1].focus();
-      }
-    }
-  }
+  newSelectedElement?.focus();
 }
 </script>
 
 <template>
-  <button
+  <PrimitiveButton
     type="button"
     :data-state="state"
-    @click="injectedValue!.changeModelValue()"
-    ref="currentToggleElement"
+    :data-disabled="props.disabled"
+    :data-orientation="injectedValue?.orientation"
+    @click="injectedValue?.changeModelValue(props.value!)"
+    ref="primitiveElement"
     @keydown="handleKeydown"
     data-radix-vue-collection-item
   >
     <slot />
-  </button>
+  </PrimitiveButton>
 </template>

@@ -1,9 +1,13 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
+import { PrimitiveDiv } from "@/Primitive";
 
 export interface ProgressRootProps {
+  asChild?: boolean;
+  value?: number | null;
   modelValue?: number;
   max?: number;
+  //getValueLabel?: void;
 }
 
 export const PROGRESS_INJECTION_KEY =
@@ -16,37 +20,26 @@ export interface ProgressProvideValue {
 </script>
 
 <script setup lang="ts">
-import { ref, toRef, provide, computed } from "vue";
+import { toRef, provide } from "vue";
 
 const props = defineProps<ProgressRootProps>();
 
-const emits = defineEmits(["update:modelValue"]);
-
-const rootProgressElement = ref<HTMLElement>();
-
 provide<ProgressProvideValue>(PROGRESS_INJECTION_KEY, {
   modelValue: toRef(() => props.modelValue),
-  changeModelValue: (value: any) => {
-    emits("update:modelValue", value);
-  },
   max: props.max,
-});
-
-const dataState = computed(() => {
-  return "progress";
 });
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     role="progressbar"
-    tabindex="0"
-    :data-state="dataState"
-    :aria-valuenow="injectedValue?.modelValue?.value"
+    :data-state="props.modelValue === props.max ? 'complete' : 'loading'"
+    :data-value="props.modelValue"
+    :data-max="props.max"
+    :aria-valuenow="props.modelValue"
     :aria-valuemin="0"
-    :aria-valuemax="injectedValue?.max"
-    :aria-orientation="injectedValue?.orientation"
+    :aria-valuemax="props.max"
   >
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

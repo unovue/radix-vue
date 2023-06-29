@@ -1,92 +1,89 @@
+<script lang="ts">
+import type { Ref, InjectionKey } from "vue";
+
+export interface SwitchRootProps {
+  asChild?: boolean;
+  defaultChecked?: boolean;
+  checked?: boolean;
+  // onCheckedChange?: void;
+  disabled?: boolean;
+  required?: boolean;
+  name?: string;
+  id?: string;
+  defaultOpen?: boolean;
+  open?: boolean;
+}
+
+export const SWITCH_INJECTION_KEY =
+  Symbol() as InjectionKey<SwitchProvideValue>;
+
+export interface SwitchProvideValue {
+  open?: Readonly<Ref<boolean>>;
+  toggleOpen: (value: string) => void;
+  disabled: boolean;
+}
+</script>
+
 <script setup lang="ts">
-import { ref, computed, provide } from "vue";
+import { provide } from "vue";
+import { PrimitiveDiv } from "@/Primitive";
+import { useVModel } from "@vueuse/core";
 
-const props = defineProps({
-  defaultChecked: {
-    type: Boolean,
-    required: false,
-  },
-  checked: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-  disabled: {
-    type: Boolean,
-    required: false,
-  },
-  required: {
-    type: Boolean,
-    required: false,
-  },
-  name: {
-    type: String,
-    required: false,
-  },
-  value: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-  id: {
-    type: String,
-    required: false,
-  },
-  modelValue: {
-    type: Boolean,
-    required: false,
-    default: null,
-  },
+const props = withDefaults(defineProps<SwitchRootProps>(), {
+  asChild: false,
+  disabled: false,
+  defaultOpen: false,
+  open: undefined,
 });
 
-const emits = defineEmits(["onCheckedChange", "update:modelValue"]);
+const emit = defineEmits(["update:open"]);
 
-let dataState: "checked" | "unchecked";
-let dataDisabled: boolean;
-
-const modelPlaceHolder = ref(props.checked);
-
-const refChecked = computed({
-  get() {
-    if (props.modelValue != null) {
-      return props.modelValue;
-    } else {
-      return modelPlaceHolder.value;
-    }
-  },
-  set(value) {
-    if (props.modelValue != null) {
-      emits("update:modelValue", value);
-    } else {
-      modelPlaceHolder.value = !modelPlaceHolder.value;
-    }
-  },
+const open = useVModel(props, "open", emit, {
+  defaultValue: props.defaultOpen,
+  passive: true, // set passive to true so that if no props.modelValue was passed, it will still update
 });
 
-provide("refChecked", refChecked);
+const toggleOpen = () => {
+  open.value = !open.value;
+};
+
+provide<SwitchProvideValue>(SWITCH_INJECTION_KEY, {
+  open: open,
+  toggleOpen,
+  disabled: props.disabled,
+});
+
+function handleKeydown(e: KeyboardEvent) {
+  if (e.key === "Enter") {
+    toggleOpen();
+  }
+}
 </script>
 
 <template>
-  <div
-    :value="props.value"
+  <PrimitiveDiv
+    :value="open"
     role="checkbox"
-    :aria-checked="refChecked"
-    :data-state="dataState"
+    :aria-checked="open"
+    :data-state="open ? 'checked' : 'unchecked'"
+    :data-disabled="props.disabled ? '' : undefined"
     style="position: relative"
   >
     <input
       type="checkbox"
       :id="props.id"
-      v-model="refChecked"
-      :checked="refChecked"
+      v-bind="open"
+      @change="toggleOpen"
+      :checked="open"
       :name="props.name"
+      @keydown="handleKeydown"
       aria-hidden="true"
       :disabled="props.disabled"
       :required="props.required"
-      :data-state="dataState"
-      :data-disabled="dataDisabled"
+      :data-state="open ? 'checked' : 'unchecked'"
+      :data-disabled="props.disabled ? '' : undefined"
       style="opacity: 0; position: absolute; inset: 0"
     />
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

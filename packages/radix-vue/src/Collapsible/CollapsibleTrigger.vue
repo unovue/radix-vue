@@ -1,5 +1,12 @@
+<script lang="ts">
+export interface CollapsibleTriggerProps {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { inject } from "vue";
+import { PrimitiveButton } from "../Primitive";
 import {
   COLLAPSIBLE_INJECTION_KEY,
   type CollapsibleProvideValue,
@@ -11,7 +18,7 @@ const injectedValue = inject<CollapsibleProvideValue>(
 </script>
 
 <template>
-  <button
+  <PrimitiveButton
     type="button"
     :aria-controls="injectedValue?.contentId"
     :aria-expanded="injectedValue?.open.value || false"
@@ -21,5 +28,5 @@ const injectedValue = inject<CollapsibleProvideValue>(
     @click="injectedValue?.onOpenToggle"
   >
     <slot />
-  </button>
+  </PrimitiveButton>
 </template>

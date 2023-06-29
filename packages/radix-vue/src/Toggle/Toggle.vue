@@ -1,94 +1,76 @@
-<script setup lang="ts">
-import { ref, computed } from "vue";
-import type { ComputedRef } from "vue";
-
-const props = defineProps({
-  defaultChecked: {
-    type: Boolean,
-    required: false,
-  },
-  checked: {
-    type: Boolean,
-    required: false,
-  },
-  disabled: {
-    type: Boolean,
-    required: false,
-  },
-  required: {
-    type: Boolean,
-    required: false,
-  },
-  name: {
-    type: String,
-    required: false,
-  },
-  value: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-  id: {
-    type: String,
-    required: false,
-  },
-  modelValue: {
-    type: Boolean,
-    required: false,
-    default: null,
-  },
-});
-
-const emits = defineEmits(["onCheckedChange", "update:modelValue"]);
-
+<script lang="ts">
 type DataState = "on" | "off";
-let dataDisabled: boolean;
 
-const modelPlaceHolder = ref(props.checked);
+export interface ToggleProps {
+  asChild?: boolean;
+  defaultPressed?: boolean;
+  pressed?: boolean;
+  // onPressedChange?: void;
+  disabled?: boolean;
 
-const refChecked = computed({
-  get() {
-    if (props.modelValue != null) {
-      return props.modelValue;
-    } else {
-      return modelPlaceHolder.value;
-    }
-  },
-  set(value) {
-    if (props.modelValue != null) {
-      emits("update:modelValue", value);
-    } else {
-      modelPlaceHolder.value = !modelPlaceHolder.value;
-    }
-  },
+  // INTERNALS
+  name?: string;
+  id?: string;
+}
+</script>
+
+<script setup lang="ts">
+import { computed } from "vue";
+import { useVModel } from "@vueuse/core";
+import { PrimitiveDiv } from "@/Primitive";
+
+const props = withDefaults(defineProps<ToggleProps>(), {
+  asChild: false,
+  disabled: false,
+  defaultPressed: false,
+  pressed: undefined,
 });
 
-const dataState: ComputedRef<DataState> = computed(() => {
-  return refChecked.value ? "on" : "off";
+const emit = defineEmits(["update:pressed"]);
+
+const pressed = useVModel(props, "pressed", emit, {
+  defaultValue: props.defaultPressed,
+  passive: true, // set passive to true so that if no props.pressed was passed, it will still update
 });
+
+const togglePressed = () => {
+  pressed.value = !pressed.value;
+};
+
+const dataState = computed<DataState>(() => {
+  return pressed.value ? "on" : "off";
+});
+
+function handleKeydown(e: KeyboardEvent) {
+  if (e.key === "Enter") {
+    togglePressed();
+  }
+}
 </script>
 
 <template>
-  <div
-    :value="props.value"
+  <PrimitiveDiv
+    :value="pressed"
     role="checkbox"
-    :aria-checked="refChecked"
+    :aria-checked="pressed"
     :data-state="dataState"
+    :data-disabled="props.disabled"
     style="position: relative"
   >
     <input
       type="checkbox"
       :id="props.id"
-      v-model="refChecked"
-      :checked="refChecked"
+      @keydown="handleKeydown"
+      v-bind="pressed"
+      @change="togglePressed"
+      :checked="pressed"
       :name="props.name"
       aria-hidden="true"
       :disabled="props.disabled"
-      :required="props.required"
       :data-state="dataState"
-      :data-disabled="dataDisabled"
+      :data-disabled="props.disabled"
       style="opacity: 0; position: absolute; inset: 0"
     />
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

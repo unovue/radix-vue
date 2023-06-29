@@ -14,7 +14,6 @@ const { primitiveElement, currentElement: triggerElement } =
   usePrimitiveElement();
 
 onMounted(() => {
-  console.log(triggerElement.value);
   injectedValue!.triggerElement.value = triggerElement.value;
 });
 

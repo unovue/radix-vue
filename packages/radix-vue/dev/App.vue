@@ -12,7 +12,7 @@ const tags = Array.from({ length: 50 }).map(
 </script>
 
 <template>
-  <ScrollAreaRoot class="ScrollAreaRoot" type="always">
+  <ScrollAreaRoot class="ScrollAreaRoot" type="scroll">
     <ScrollAreaViewPort class="ScrollAreaViewport">
       <div style="padding: 15px 20px">
         <div class="Text">Tags</div>

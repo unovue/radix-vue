@@ -47,7 +47,6 @@ const sizes = computed(() => injectedValueFromScrollbarVisible?.sizes.value);
   <ScrollAreaScrollbarImpl
     data-orientation="vertical"
     ref="scrollbarElement"
-    :sizes="sizes"
     :style="{
         top: 0,
         right: injectedValueFromRoot?.dir === 'ltr' ? 0 : undefined,

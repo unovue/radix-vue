@@ -6,7 +6,7 @@ export interface ScrollAreaProvideValue {
   type: "auto" | "always" | "scroll" | "hover";
   dir?: Direction;
   scrollHideDelay: number;
-  scrollArea: HTMLElement | null;
+  scrollArea: Ref<HTMLElement | undefined>;
   viewport: Ref<HTMLElement | undefined>;
   onViewportChange(viewport: HTMLElement | null): void;
   content: HTMLElement | null;
@@ -41,8 +41,6 @@ const props = withDefaults(defineProps<ScrollAreaRootProps>(), {
   scrollHideDelay: 600,
 });
 
-const parentElementRef: Ref<HTMLElement | undefined> = ref();
-
 const cornerWidth = ref(0);
 const cornerHeight = ref(0);
 const viewport = ref<HTMLElement>();
@@ -50,6 +48,7 @@ const scrollbarX = ref<HTMLElement>();
 const scrollbarY = ref<HTMLElement>();
 const scrollbarXEnabled = ref(false);
 const scrollbarYEnabled = ref(false);
+const scrollArea = ref<HTMLElement>();
 
 const onViewportChange = (el: HTMLElement) => {
   viewport.value = el;
@@ -83,12 +82,13 @@ provide<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY, {
   onScrollbarYChange,
   onScrollbarXEnabledChange,
   onScrollbarYEnabledChange,
+  scrollArea,
 });
 </script>
 
 <template>
   <div
-    ref="parentElementRef"
+    ref="scrollArea"
     :style="{
     position: 'relative',
     // Pass corner sizes as CSS vars to reduce re-renders of context consumers

@@ -90,14 +90,6 @@ watchEffect(() => {
     } as any);
 });
 
-/**
- * Update thumb position on sizes change
- */
-//    React.useEffect(handleThumbPositionChange, [sizes, handleThumbPositionChange]);
-
-// useResizeObserver(scrollbar, handleResize);
-// useResizeObserver(context.content, handleResize);
-
 const handleSizeChange = () => {
   if (!scrollbar.value) return;
   injectedValueFromScrollbarVisible?.handleSizeChange({

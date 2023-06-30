@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject } from "vue";
+import { inject, onMounted, ref } from "vue";
 import {
   type ScrollAreaProvideValue,
   SCROLL_AREA_INJECTION_KEY,
@@ -8,10 +8,17 @@ import {
 const injectedValueFromRoot = inject<ScrollAreaProvideValue>(
   SCROLL_AREA_INJECTION_KEY
 );
+
+const viewportElement = ref<HTMLElement>();
+
+onMounted(() => {
+  injectedValueFromRoot?.onViewportChange(viewportElement.value!);
+});
 </script>
 
 <template>
   <div
+    ref="viewportElement"
     data-radix-scroll-area-viewport=""
     :style="{
       /**
@@ -25,8 +32,12 @@ const injectedValueFromRoot = inject<ScrollAreaProvideValue>(
        * the browser from having to work out whether to render native scrollbars or not,
        * we tell it to with the intention of hiding them in CSS.
        */
-      overflowX: injectedValueFromRoot?.scrollbarXEnabled ? 'scroll' : 'hidden',
-      overflowY: injectedValueFromRoot?.scrollbarYEnabled ? 'scroll' : 'hidden',
+      overflowX: injectedValueFromRoot?.scrollbarXEnabled.value
+        ? 'scroll'
+        : 'hidden',
+      overflowY: injectedValueFromRoot?.scrollbarYEnabled.value
+        ? 'scroll'
+        : 'hidden',
     }"
   >
     <div

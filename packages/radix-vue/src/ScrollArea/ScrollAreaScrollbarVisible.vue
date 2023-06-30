@@ -8,6 +8,9 @@ export interface ScrollAreaScrollbarVisibleProvideValue {
     payload: { x: number; y: number }
   ) => void;
   handleThumbUp: (event: MouseEvent) => void;
+  handleSizeChange: (payload: Sizes) => void;
+  onThumbPositionChange: () => void;
+  onThumbChange: (element: HTMLElement) => void;
 }
 
 export const SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY =
@@ -16,8 +19,8 @@ export const SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY =
 
 <script setup lang="ts">
 import { computed, inject, ref, provide, type Ref } from "vue";
+import type { Sizes } from "./types";
 import {
-  type Sizes,
   type ScrollAreaProvideValue,
   SCROLL_AREA_INJECTION_KEY,
 } from "./ScrollAreaRoot.vue";
@@ -25,6 +28,9 @@ import {
   type ScrollAreaScollbarProvideValue,
   SCROLL_AREA_SCROLLBAR_INJECTION_KEY,
 } from "./ScrollAreaScrollbar.vue";
+import ScrollAreaScrollbarX from "./ScrollAreaScrollbarX.vue";
+import ScrollAreaScrollbarY from "./ScrollAreaScrollbarY.vue";
+import { getThumbOffsetFromScroll, getThumbRatio } from "./utils";
 
 const injectedValueFromRoot = inject<ScrollAreaProvideValue>(
   SCROLL_AREA_INJECTION_KEY
@@ -33,47 +39,72 @@ const injectedValueFromScrollbar = inject<ScrollAreaScollbarProvideValue>(
   SCROLL_AREA_SCROLLBAR_INJECTION_KEY
 );
 
-
- const sizes = ref<Sizes>({
+const sizes = ref<Sizes>({
   content: 0,
   viewport: 0,
   scrollbar: { size: 0, paddingStart: 0, paddingEnd: 0 },
- })
-
-
-function getThumbRatio(viewportSize: number, contentSize: number) {
-  const ratio = viewportSize / contentSize;
-  return isNaN(ratio) ? 0 : ratio;
-}
+});
 
 const hasThumb = computed(() => {
-  const thumbRatio = getThumbRatio(sizes.value.viewport, sizes.value.content)
-  return Boolean(thumbRatio > 0 && thumbRatio < 1),
-})
+  const thumbRatio = getThumbRatio(sizes.value.viewport, sizes.value.content);
+  return Boolean(thumbRatio > 0 && thumbRatio < 1);
+});
 
+const thumbRef = ref<HTMLElement>();
 
-const handleWheelScroll =(event: MouseEvent) => {
-  console.log(event)
-}
-const handleThumbDown =(event: MouseEvent) => {
-  console.log(event)
-}
-const handleThumbUp =(event: MouseEvent) => {
-  console.log(event)
-}
+const handleWheelScroll = (event: MouseEvent) => {
+  console.log(event);
+};
+const handleThumbDown = (event: MouseEvent) => {
+  console.log(event);
+};
+const handleThumbUp = (event: MouseEvent) => {
+  console.log(event);
+};
 
-provide<ScrollAreaScrollbarVisibleProvideValue>(SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY, {
-  sizes,
-  hasThumb,
-  handleWheelScroll,
-  handleThumbDown,
-  handleThumbUp
-})
+const handleSizeChange = (payload: Sizes) => {
+  sizes.value = payload;
+};
+
+const isShowingScrollbarX = computed(
+  () => injectedValueFromScrollbar?.isHorizontal.value
+);
+const onThumbPositionChange = () => {
+  if (isShowingScrollbarX.value) {
+    // do something
+  } else {
+    if (injectedValueFromRoot?.viewport.value && thumbRef.value) {
+      const scrollPos = injectedValueFromRoot?.viewport.value.scrollTop;
+      const offset = getThumbOffsetFromScroll(scrollPos, sizes.value);
+      // console.log("thumb position changed", scrollPos, sizes.value, offset);
+      thumbRef.value.style.transform = `translate3d(0, ${offset}px, 0)`;
+    }
+  }
+};
+const onThumbChange = (element: HTMLElement) => {
+  thumbRef.value = element;
+};
+
+provide<ScrollAreaScrollbarVisibleProvideValue>(
+  SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY,
+  {
+    sizes,
+    hasThumb,
+    handleWheelScroll,
+    handleThumbDown,
+    handleThumbUp,
+    handleSizeChange,
+    onThumbPositionChange,
+    onThumbChange,
+  }
+);
 </script>
 
 <template>
-  <ScrollAreaScrollbarX
-    v-if="injectedValueFromScrollbar?.isHorizontal"
-  ></ScrollAreaScrollbarX>
-  <ScrollAreaScrollbarY v-else></ScrollAreaScrollbarY>
+  <ScrollAreaScrollbarX v-if="isShowingScrollbarX">
+    <slot></slot>
+  </ScrollAreaScrollbarX>
+  <ScrollAreaScrollbarY v-else>
+    <slot></slot>
+  </ScrollAreaScrollbarY>
 </template>

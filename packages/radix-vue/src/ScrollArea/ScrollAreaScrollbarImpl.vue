@@ -9,6 +9,8 @@ import {
   type ScrollAreaScrollbarVisibleProvideValue,
   SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY,
 } from "./ScrollAreaScrollbarVisible.vue";
+import { toInt } from "./utils";
+import { useResizeObserver } from "@vueuse/core";
 
 const injectedValueFromRoot = inject<ScrollAreaProvideValue>(
   SCROLL_AREA_INJECTION_KEY
@@ -20,6 +22,8 @@ const injectedValueFromScrollbarVisible =
 
 const emit = defineEmits<{
   (e: "onDragScroll", payload: { x: number; y: number }): void;
+  (e: "onWheelScroll", payload: { x: number; y: number }): void;
+  (e: "onThumbPointerDown", payload: { x: number; y: number }): void;
 }>();
 
 const prevWebkitUserSelectRef = ref("");
@@ -46,7 +50,7 @@ const handlePointerDown = (event: PointerEvent) => {
     prevWebkitUserSelectRef.value = document.body.style.webkitUserSelect;
     document.body.style.webkitUserSelect = "none";
     if (injectedValueFromRoot?.viewport)
-      injectedValueFromRoot.viewport.style.scrollBehavior = "auto";
+      injectedValueFromRoot.viewport.value!.style.scrollBehavior = "auto";
 
     handleDragScroll(event);
   }
@@ -63,7 +67,7 @@ const handlePointerUp = (event: PointerEvent) => {
   }
   document.body.style.webkitUserSelect = prevWebkitUserSelectRef.value;
   if (injectedValueFromRoot?.viewport)
-    injectedValueFromRoot.viewport.style.scrollBehavior = "";
+    injectedValueFromRoot.viewport.value!.style.scrollBehavior = "";
 
   rectRef.value = undefined;
 };
@@ -93,13 +97,38 @@ watchEffect(() => {
 
 // useResizeObserver(scrollbar, handleResize);
 // useResizeObserver(context.content, handleResize);
+
+const handleSizeChange = () => {
+  if (!scrollbar.value) return;
+  injectedValueFromScrollbarVisible?.handleSizeChange({
+    content: injectedValueFromRoot?.viewport.value?.scrollHeight ?? 0,
+    viewport: injectedValueFromRoot?.viewport.value?.offsetHeight ?? 0,
+    scrollbar: {
+      size: scrollbar.value?.clientHeight ?? 0,
+      paddingStart: toInt(getComputedStyle(scrollbar.value!).paddingLeft),
+      paddingEnd: toInt(getComputedStyle(scrollbar.value!).paddingRight),
+    },
+  });
+};
+
+useResizeObserver(scrollbar, (ev) => {
+  console.log({ ev }, "scrollbar");
+  handleSizeChange();
+});
+useResizeObserver(injectedValueFromRoot?.content, (ev) => {
+  console.log({ ev }, "content");
+  handleSizeChange();
+});
 </script>
 
 <template>
   <div
+    ref="scrollbar"
     style="position: absolute"
     @pointerdown="handlePointerDown"
     @pointermove="handlePointerMove"
     @pointerup="handlePointerUp"
-  ></div>
+  >
+    <slot></slot>
+  </div>
 </template>

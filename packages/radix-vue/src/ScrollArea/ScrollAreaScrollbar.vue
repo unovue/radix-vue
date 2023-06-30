@@ -25,6 +25,8 @@ import {
   type ScrollAreaProvideValue,
   SCROLL_AREA_INJECTION_KEY,
 } from "./ScrollAreaRoot.vue";
+// import ScrollAreaScrollbarScroll from "./ScrollAreaScrollbarScroll.vue";
+import ScrollAreaScrollbarVisible from "./ScrollAreaScrollbarVisible.vue";
 
 const injectedValue = inject<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY);
 
@@ -35,13 +37,17 @@ const props = withDefaults(defineProps<ScrollAreaScrollbarProps>(), {
 
 const isHorizontal = computed(() => props.orientation === "horizontal");
 
-watch(isHorizontal, () => {
-  if (isHorizontal.value) {
-    injectedValue?.onScrollbarXEnabledChange(true);
-  } else {
-    injectedValue?.onScrollbarYEnabledChange(true);
-  }
-});
+watch(
+  isHorizontal,
+  () => {
+    if (isHorizontal.value) {
+      injectedValue?.onScrollbarXEnabledChange(true);
+    } else {
+      injectedValue?.onScrollbarYEnabledChange(true);
+    }
+  },
+  { immediate: true }
+);
 
 onUnmounted(() => {
   injectedValue?.onScrollbarXEnabledChange(false);
@@ -60,8 +66,20 @@ provide<ScrollAreaScollbarProvideValue>(SCROLL_AREA_SCROLLBAR_INJECTION_KEY, {
     v-bind="$attrs"
     v-if="injectedValue?.type === 'hover'"
     :forceMount="forceMount"
-  />
-  <!-- <ScrollAreaScrollbarScroll v-bind="$attrs" v-else-if="injectedValue?.type === 'scroll'" :forceMount="forceMount" />
-  <ScrollAreaScrollbarAuto v-bind="$attrs" v-else-if="injectedValue?.type === 'auto'" :forceMount="forceMount" />
-  <ScrollAreaScrollbarVisible v-bind="$attrs" v-else-if="injectedValue?.type === 'always'" :forceMount="forceMount" /> -->
+  >
+    <slot></slot>
+  </ScrollAreaScrollbarHover>
+  <!-- <ScrollAreaScrollbarScroll
+    v-bind="$attrs"
+    v-else-if="injectedValue?.type === 'scroll'"
+    :forceMount="forceMount"
+  /> -->
+  <!-- <ScrollAreaScrollbarAuto v-bind="$attrs" v-else-if="injectedValue?.type === 'auto'" :forceMount="forceMount" /> -->
+  <ScrollAreaScrollbarVisible
+    v-bind="$attrs"
+    v-else-if="injectedValue?.type === 'always'"
+    :forceMount="forceMount"
+  >
+    <slot></slot>
+  </ScrollAreaScrollbarVisible>
 </template>

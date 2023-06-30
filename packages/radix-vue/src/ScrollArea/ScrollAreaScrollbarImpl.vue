@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, ref, watchEffect } from "vue";
+import { computed, inject, ref, watchEffect } from "vue";
 import {
   type ScrollAreaProvideValue,
   SCROLL_AREA_INJECTION_KEY,
@@ -19,6 +19,10 @@ const injectedValueFromScrollbarVisible =
   inject<ScrollAreaScrollbarVisibleProvideValue>(
     SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY
   );
+
+const props = defineProps<{
+  isHorizontal: boolean;
+}>();
 
 const emit = defineEmits<{
   (e: "onDragScroll", payload: { x: number; y: number }): void;
@@ -92,15 +96,27 @@ watchEffect(() => {
 
 const handleSizeChange = () => {
   if (!scrollbar.value) return;
-  injectedValueFromScrollbarVisible?.handleSizeChange({
-    content: injectedValueFromRoot?.viewport.value?.scrollHeight ?? 0,
-    viewport: injectedValueFromRoot?.viewport.value?.offsetHeight ?? 0,
-    scrollbar: {
-      size: scrollbar.value?.clientHeight ?? 0,
-      paddingStart: toInt(getComputedStyle(scrollbar.value!).paddingLeft),
-      paddingEnd: toInt(getComputedStyle(scrollbar.value!).paddingRight),
-    },
-  });
+  if (props.isHorizontal) {
+    injectedValueFromScrollbarVisible?.handleSizeChange({
+      content: injectedValueFromRoot?.viewport.value?.scrollWidth ?? 0,
+      viewport: injectedValueFromRoot?.viewport.value?.offsetWidth ?? 0,
+      scrollbar: {
+        size: scrollbar.value?.clientWidth ?? 0,
+        paddingStart: toInt(getComputedStyle(scrollbar.value!).paddingLeft),
+        paddingEnd: toInt(getComputedStyle(scrollbar.value!).paddingRight),
+      },
+    });
+  } else {
+    injectedValueFromScrollbarVisible?.handleSizeChange({
+      content: injectedValueFromRoot?.viewport.value?.scrollHeight ?? 0,
+      viewport: injectedValueFromRoot?.viewport.value?.offsetHeight ?? 0,
+      scrollbar: {
+        size: scrollbar.value?.clientHeight ?? 0,
+        paddingStart: toInt(getComputedStyle(scrollbar.value!).paddingLeft),
+        paddingEnd: toInt(getComputedStyle(scrollbar.value!).paddingRight),
+      },
+    });
+  }
 };
 
 useResizeObserver(scrollbar, (ev) => {
@@ -111,16 +127,34 @@ useResizeObserver(injectedValueFromRoot?.content, (ev) => {
   console.log({ ev }, "content");
   handleSizeChange();
 });
+
+const sizes = computed(() => injectedValueFromScrollbarVisible?.sizes.value);
+const isScrollbarNeeded = computed(() => {
+  if (props.isHorizontal) {
+    return (
+      injectedValueFromRoot?.viewport.value?.scrollWidth !==
+      injectedValueFromRoot?.viewport.value?.offsetWidth
+    );
+  } else {
+    return (
+      injectedValueFromRoot?.viewport.value?.scrollHeight !==
+      injectedValueFromRoot?.viewport.value?.offsetHeight
+    );
+  }
+});
 </script>
 
 <template>
   <div
+    v-if="isScrollbarNeeded"
     ref="scrollbar"
     style="position: absolute"
     @pointerdown="handlePointerDown"
     @pointermove="handlePointerMove"
     @pointerup="handlePointerUp"
   >
-    <slot></slot>
+    <template v-if="isScrollbarNeeded">
+      <slot></slot>
+    </template>
   </div>
 </template>

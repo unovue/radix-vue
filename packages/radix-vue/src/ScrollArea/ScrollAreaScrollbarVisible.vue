@@ -71,12 +71,19 @@ const isShowingScrollbarX = computed(
 );
 const onThumbPositionChange = () => {
   if (isShowingScrollbarX.value) {
-    // do something
+    if (injectedValueFromRoot?.viewport.value && thumbRef.value) {
+      const scrollPos = injectedValueFromRoot?.viewport.value.scrollLeft;
+      const offset = getThumbOffsetFromScroll(
+        scrollPos,
+        sizes.value,
+        injectedValueFromRoot?.dir
+      );
+      thumbRef.value.style.transform = `translate3d(${offset}px, 0, 0)`;
+    }
   } else {
     if (injectedValueFromRoot?.viewport.value && thumbRef.value) {
       const scrollPos = injectedValueFromRoot?.viewport.value.scrollTop;
       const offset = getThumbOffsetFromScroll(scrollPos, sizes.value);
-      // console.log("thumb position changed", scrollPos, sizes.value, offset);
       thumbRef.value.style.transform = `translate3d(0, ${offset}px, 0)`;
     }
   }

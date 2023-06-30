@@ -1,51 +1,50 @@
 <script setup lang="ts">
-import { inject } from "vue";
+import { computed, inject, onMounted, ref } from "vue";
 import {
-  type ScrollAreaProvideValue,
+  SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY,
+  type ScrollAreaScrollbarVisibleProvideValue,
+} from "./ScrollAreaScrollbarVisible.vue";
+import {
   SCROLL_AREA_INJECTION_KEY,
+  type ScrollAreaProvideValue,
 } from "./ScrollAreaRoot.vue";
+import ScrollAreaScrollbarImpl from "./ScrollAreaScrollbarImpl.vue";
+import { getThumbSize } from "./utils";
+import { unrefElement } from "@vueuse/core";
 
 const injectedValueFromRoot = inject<ScrollAreaProvideValue>(
   SCROLL_AREA_INJECTION_KEY
 );
+
+const injectedValueFromScrollbarVisible =
+  inject<ScrollAreaScrollbarVisibleProvideValue>(
+    SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY
+  );
+
+const scrollbarElement = ref<HTMLElement>();
+
+onMounted(() => {
+  if (scrollbarElement.value)
+    injectedValueFromRoot?.onScrollbarYChange(
+      unrefElement(scrollbarElement) ?? null
+    );
+});
+
+const sizes = computed(() => injectedValueFromScrollbarVisible?.sizes.value);
 </script>
 
 <template>
-  <div
-    data-radix-scroll-area-viewport=""
+  <ScrollAreaScrollbarImpl
+    :is-horizontal="true"
+    data-orientation="horizontal"
+    ref="scrollbarElement"
     :style="{
-      /**
-       * We don't support `visible` because the intention is to have at least one scrollbar
-       * if this component is used and `visible` will behave like `auto` in that case
-       * https://developer.mozilla.org/en-US/docs/Web/CSS/overflowed#description
-       *
-       * We don't handle `auto` because the intention is for the native implementation
-       * to be hidden if using this component. We just want to ensure the node is scrollable
-       * so could have used either `scroll` or `auto` here. We picked `scroll` to prevent
-       * the browser from having to work out whether to render native scrollbars or not,
-       * we tell it to with the intention of hiding them in CSS.
-       */
-      overflowX: injectedValueFromRoot?.scrollbarXEnabled ? 'scroll' : 'hidden',
-      overflowY: injectedValueFromRoot?.scrollbarYEnabled ? 'scroll' : 'hidden',
-    }"
+        bottom: 0,
+        left: injectedValueFromRoot?.dir === 'rtl' ? 'var(--radix-scroll-area-corner-width)' : 0,
+        right: injectedValueFromRoot?.dir === 'ltr' ? 'var(--radix-scroll-area-corner-width)' : 0,
+        ['--radix-scroll-area-thumb-width' as any]: sizes ? getThumbSize(sizes) + 'px' : undefined,
+      }"
   >
-    <div
-      ref="{context.onContentChange}"
-      :style="{ minWidth: '100%', display: 'table' }"
-    >
-      <slot></slot>
-    </div>
-  </div>
+    <slot></slot>
+  </ScrollAreaScrollbarImpl>
 </template>
-
-<style>
-[data-radix-scroll-area-viewport] {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  -webkit-overflow-scrolling: touch;
-}
-
-[data-radix-scroll-area-viewport]::-webkit-scrollbar {
-  display: none;
-}
-</style>

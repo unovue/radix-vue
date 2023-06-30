@@ -12,7 +12,7 @@ const tags = Array.from({ length: 50 }).map(
 </script>
 
 <template>
-  <ScrollAreaRoot class="ScrollAreaRoot" type="scroll">
+  <ScrollAreaRoot class="ScrollAreaRoot" type="always">
     <ScrollAreaViewPort class="ScrollAreaViewport">
       <div style="padding: 15px 20px">
         <div class="Text">Tags</div>
@@ -24,9 +24,9 @@ const tags = Array.from({ length: 50 }).map(
     <ScrollAreaScrollbar class="ScrollAreaScrollbar" orientation="vertical">
       <ScrollAreaThumb class="ScrollAreaThumb" />
     </ScrollAreaScrollbar>
-    <!-- <ScrollAreaScrollbar class="ScrollAreaScrollbar" orientation="horizontal">
+    <ScrollAreaScrollbar class="ScrollAreaScrollbar" orientation="horizontal">
       <ScrollAreaThumb class="ScrollAreaThumb" />
-    </ScrollAreaScrollbar> -->
+    </ScrollAreaScrollbar>
   </ScrollAreaRoot>
 </template>
 
@@ -54,7 +54,7 @@ const tags = Array.from({ length: 50 }).map(
   /* disable browser handling of all panning and zooming gestures on touch devices */
   touch-action: none;
   padding: 2px;
-  background: var(--black-a6);
+  background: #0000001d;
   transition: background 160ms ease-out;
 }
 .ScrollAreaScrollbar:hover {

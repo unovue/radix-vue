@@ -16,7 +16,7 @@ function linearScale(
   };
 }
 
-function getThumbSize(sizes: Sizes) {
+export function getThumbSize(sizes: Sizes) {
   const ratio = getThumbRatio(sizes.viewport, sizes.content);
   const scrollbarPadding =
     sizes.scrollbar.paddingStart + sizes.scrollbar.paddingEnd;

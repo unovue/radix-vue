@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, inject, onMounted, ref } from "vue";
-import type { Sizes } from "./types";
 import {
   SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY,
   type ScrollAreaScrollbarVisibleProvideValue,
@@ -10,7 +9,7 @@ import {
   type ScrollAreaProvideValue,
 } from "./ScrollAreaRoot.vue";
 import ScrollAreaScrollbarImpl from "./ScrollAreaScrollbarImpl.vue";
-import { getThumbRatio } from "./utils";
+import { getThumbSize } from "./utils";
 import { unrefElement } from "@vueuse/core";
 
 const injectedValueFromRoot = inject<ScrollAreaProvideValue>(
@@ -21,15 +20,6 @@ const injectedValueFromScrollbarVisible =
   inject<ScrollAreaScrollbarVisibleProvideValue>(
     SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY
   );
-
-function getThumbSize(sizes: Sizes) {
-  const ratio = getThumbRatio(sizes.viewport, sizes.content);
-  const scrollbarPadding =
-    sizes.scrollbar.paddingStart + sizes.scrollbar.paddingEnd;
-  const thumbSize = (sizes.scrollbar.size - scrollbarPadding) * ratio;
-  // minimum of 18 matches macOS minimum
-  return Math.max(thumbSize, 18);
-}
 
 const scrollbarElement = ref<HTMLElement>();
 
@@ -45,6 +35,7 @@ const sizes = computed(() => injectedValueFromScrollbarVisible?.sizes.value);
 
 <template>
   <ScrollAreaScrollbarImpl
+    :is-horizontal="false"
     data-orientation="vertical"
     ref="scrollbarElement"
     :style="{

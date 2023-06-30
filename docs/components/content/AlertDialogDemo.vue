@@ -19,8 +19,6 @@ function handleAction() {
 </script>
 
 <template>
-  Hello alert dialog
-  <!--
   <AlertDialogRoot>
     <AlertDialogTrigger
       class="text-violet11 hover:bg-mauve3 shadow-blackA7 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
@@ -57,5 +55,4 @@ function handleAction() {
       </AlertDialogContent>
     </AlertDialogPortal>
   </AlertDialogRoot>
-  -->
 </template>

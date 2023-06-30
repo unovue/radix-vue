@@ -20,6 +20,6 @@
   },
   "dependencies": {
     "@nuxtjs/tailwindcss": "^6.8.0",
-    "radix-vue": "link:../packages/radix-vue"
+    "radix-vue": "0.0.1-rc-.1"
   }
 }

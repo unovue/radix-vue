@@ -17,5 +17,9 @@
     "@types/node": "^20.2.5",
     "eslint": "^8.42.0",
     "nuxt": "^3.5.3"
+  },
+  "dependencies": {
+    "@nuxtjs/tailwindcss": "^6.8.0",
+    "radix-vue": "link:../packages/radix-vue"
   }
 }

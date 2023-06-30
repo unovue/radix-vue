@@ -7,28 +7,84 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog
 
 # Alert Dialog
 
-<Description>
   A modal dialog that interrupts the user with important content and expects a
   response.
-</Description>
 
-<HeroContainer>
-  <AlertDialogDemo />
-</HeroContainer>
+::code-group
+::code-block{label="Preview" preview}
+  :alert-dialog-demo
+::
+```vue [Code]
+<script setup lang="ts">
+import {
+  AlertDialogRoot,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogOverlay,
+  AlertDialogCancel,
+  AlertDialogAction,
+  AlertDialogPortal,
+  AlertDialogTitle,
+  AlertDialogDescription,
+} from "radix-vue";
 
-<HeroCodeBlock folder="AlertDialog" />
+const alertDialogOpen = ref(false);
 
-<Highlights
-  features={[
-    'Focus is automatically trapped.',
-    'Can be controlled or uncontrolled.',
-    <span>
-      Manages screen reader announcements with <Code>Title</Code> and{' '}
-      <Code>Description</Code> components.
-    </span>,
-    'Esc closes the component automatically.',
-  ]}
-/>
+function handleAction() {
+  alert("clicked action button!");
+}
+</script>
+
+<template>
+  <AlertDialogRoot>
+    <AlertDialogTrigger
+      class="text-violet11 hover:bg-mauve3 shadow-blackA7 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
+    >
+      Delete account
+    </AlertDialogTrigger>
+    <AlertDialogPortal>
+      <AlertDialogOverlay
+        class="bg-blackA9 data-[state=open]:animate-overlayShow fixed inset-0"
+      />
+      <AlertDialogContent
+        class="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[500px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none"
+      >
+        <AlertDialogTitle class="text-mauve12 m-0 text-[17px] font-medium">
+          Are you absolutely sure?
+        </AlertDialogTitle>
+        <AlertDialogDescription class="text-mauve11 mt-4 mb-5 text-[15px] leading-normal">
+          This action cannot be undone. This will permanently delete your account and
+          remove your data from our servers.
+        </AlertDialogDescription>
+        <div class="flex justify-end gap-[25px]">
+          <AlertDialogCancel
+            class="text-mauve11 bg-mauve4 hover:bg-mauve5 focus:shadow-mauve7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px]"
+          >
+            Cancel
+          </AlertDialogCancel>
+          <AlertDialogAction
+            @click="handleAction"
+            class="text-red11 bg-red4 hover:bg-red5 focus:shadow-red7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px]"
+          >
+            Yes, delete account
+          </AlertDialogAction>
+        </div>
+      </AlertDialogContent>
+    </AlertDialogPortal>
+  </AlertDialogRoot>
+</template>
+```
+::
+
+## Features
+
+::list{type="success"}
+- Focus is automatically trapped.
+- Can be controlled or uncontrolled.
+- Manages screen reader announcements with `Title` and
+      `Description` components.
+- Esc closes the component automatically.
+::
 
 ## Installation
 
@@ -42,23 +98,25 @@ npm install @radix-ui/react-alert-dialog
 
 Import all parts and piece them together.
 
-```jsx
+```vue
+<script setup lang="ts">
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
+</script>
 
-export default () => (
-  <AlertDialog.Root>
-    <AlertDialog.Trigger />
-    <AlertDialog.Portal>
-      <AlertDialog.Overlay />
-      <AlertDialog.Content>
-        <AlertDialog.Title />
-        <AlertDialog.Description />
-        <AlertDialog.Cancel />
-        <AlertDialog.Action />
-      </AlertDialog.Content>
-    </AlertDialog.Portal>
-  </AlertDialog.Root>
-);
+<template>
+  <AlertDialogRoot>
+    <AlertDialogTrigger />
+    <AlertDialogPortal>
+      <AlertDialogOverlay />
+      <AlertDialogContent>
+        <AlertDialogTitle />
+        <AlertDialogDescription />
+        <AlertDialogCancel />
+        <AlertDialogAction />
+      </AlertDialogContent>
+    </AlertDialogPortal>
+  </AlertDialogRoot>
+<template/>
 ```
 
 ## API Reference
@@ -99,6 +157,9 @@ Contains all the parts of an alert dialog.
 
 A button that opens the dialog.
 
+| Prop | Type | Default |
+| -- | -- | -- |
+| `asChild` | false | - |
 <PropsTable
   data={[
     {

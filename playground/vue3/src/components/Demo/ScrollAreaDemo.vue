@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { ScrollAreaRoot, ScrollAreaViewPort, ScrollAreaScrollbar, ScrollAreaThumb } from "radix-vue";
+import { ScrollAreaRoot, ScrollAreaViewport, ScrollAreaScrollbar, ScrollAreaThumb } from "radix-vue";
 
 const tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length - i}`);
 </script>
 
 <template>
   <ScrollAreaRoot class="w-[200px] h-[200px] shadow-lg overflow-hidden rounded bg-white" style="--scrollbar-size: 10px">
-    <ScrollAreaViewPort class="w-full h-full border-[inherit]">
+    <ScrollAreaViewport class="w-full h-full border-[inherit]">
       <div class="p-5">
         <div class="text-base text-blue-500 font-semibold">Tags</div>
         <div v-for="tag in tags" :key="tag" class="text-blue-800 text-sm mt-3 border-t border-t-blue-400 pt-3">
           {{ tag }}
         </div>
       </div>
-    </ScrollAreaViewPort>
+    </ScrollAreaViewport>
     <ScrollAreaScrollbar
       class="flex select-none touch-none p-0.5 bg-black/10 transition hover:bg-black/20 data-[orientation=vertical]:w-[var(--scrollbar-size)]"
       orientation="vertical"

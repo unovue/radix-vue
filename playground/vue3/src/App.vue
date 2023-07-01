@@ -22,6 +22,7 @@ import HoverCardDemo from "./components/Demo/HoverCardDemo.vue";
 import PopoverDemo from "./components/Demo/PopoverDemo.vue";
 import DropdownMenuDemo from "./components/Demo/DropdownMenuDemo.vue";
 import ContextMenuDemo from "./components/Demo/ContextMenuDemo.vue";
+import ScrollAreaDemo from "./components/Demo/ScrollAreaDemo.vue";
 </script>
 
 <template>
@@ -41,6 +42,9 @@ import ContextMenuDemo from "./components/Demo/ContextMenuDemo.vue";
       </Card>
       <Card>
         <CollapsibleDemo />
+      </Card>
+      <Card>
+        <ScrollAreaDemo />
       </Card>
       <Card class="col-span-2">
         <ContextMenuDemo />

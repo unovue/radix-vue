@@ -3,6 +3,10 @@ import type { Ref, InjectionKey } from "vue";
 import type { DataOrientation, Direction } from "../shared/types";
 
 export interface TabsRootProps {
+  asChild?: boolean;
+  defaultValue?: string;
+  value: string;
+  //onValueChange?: void;
   orientation?: DataOrientation;
   dir?: Direction;
   activationMode?: "automatic" | "manual";
@@ -22,8 +26,10 @@ export interface TabsProvideValue {
 
 <script setup lang="ts">
 import { ref, toRef, provide } from "vue";
+import { PrimitiveDiv } from "@/Primitive";
 
 const props = withDefaults(defineProps<TabsRootProps>(), {
+  asChild: false,
   orientation: "horizontal",
   dir: "ltr",
   activationMode: "automatic",
@@ -45,7 +51,7 @@ provide<TabsProvideValue>(TABS_INJECTION_KEY, {
 </script>
 
 <template>
-  <div :dir="props.dir" :data-orientation="props.orientation">
+  <PrimitiveDiv :dir="props.dir" :data-orientation="props.orientation">
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

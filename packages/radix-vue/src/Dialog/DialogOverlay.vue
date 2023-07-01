@@ -1,15 +1,28 @@
+<script lang="ts">
+export interface DialogOverlayProps {
+  asChild?: boolean;
+  forceMount?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { inject } from "vue";
 import {
   DIALOG_INJECTION_KEY,
   type DialogProvideValue,
 } from "./DialogRoot.vue";
+import { PrimitiveDiv } from "../Primitive";
+
+const props = withDefaults(defineProps<DialogOverlayProps>(), {
+  asChild: false,
+});
 
 const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
+    :asChild="props.asChild"
     v-if="injectedValue?.open.value"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"
     style="pointer-events: auto"
@@ -18,5 +31,5 @@ const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
     @click="injectedValue?.closeModal"
   >
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

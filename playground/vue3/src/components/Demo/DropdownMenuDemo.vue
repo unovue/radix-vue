@@ -36,6 +36,12 @@ function handleClick() {
     <p>Checkbox 1: {{ checkboxOne ? "checked" : "unchecked" }}</p>
     <p>Checkbox 2: {{ checkboxTwo ? "checked" : "unchecked" }}</p>
     <p>Person: {{ person }}</p>
+    <button
+      @click="toggleState = !toggleState"
+      class="bg-white/20 px-2 py-1 rounded-md active:scale-90 duration-100 transform hover:bg-white/40 active:bg-white/20"
+    >
+    {{ toggleState ? "Close" : "Open" }}
+    </button>
   </div>
   <DropdownMenuRoot v-model="toggleState">
     <DropdownMenuTrigger

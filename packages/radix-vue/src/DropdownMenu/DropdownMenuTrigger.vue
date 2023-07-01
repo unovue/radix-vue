@@ -1,5 +1,12 @@
+<script lang="ts">
+export interface DropdownMenuTriggerProps {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
-import { inject, ref, onMounted } from "vue";
+import { inject, onMounted } from "vue";
+import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
 import {
   DROPDOWN_MENU_INJECTION_KEY,
   type DropdownMenuProvideValue,
@@ -9,7 +16,9 @@ const injectedValue = inject<DropdownMenuProvideValue>(
   DROPDOWN_MENU_INJECTION_KEY
 );
 
-const triggerElement = ref<HTMLElement>();
+const { primitiveElement, currentElement: triggerElement } =
+  usePrimitiveElement();
+
 onMounted(() => {
   injectedValue!.triggerElement.value = triggerElement.value;
 });
@@ -30,14 +39,14 @@ function handleKeydown(e: KeyboardEvent) {
 </script>
 
 <template>
-  <button
+  <PrimitiveButton
     type="button"
-    ref="triggerElement"
+    ref="primitiveElement"
     :aria-expanded="injectedValue?.modelValue.value || false"
     :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
     @click="handleClick"
     @keydown="handleKeydown"
   >
     <slot />
-  </button>
+  </PrimitiveButton>
 </template>

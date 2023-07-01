@@ -1,3 +1,9 @@
+<script lang="ts">
+export interface AlertDialogActionProps {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { inject } from "vue";
 import {

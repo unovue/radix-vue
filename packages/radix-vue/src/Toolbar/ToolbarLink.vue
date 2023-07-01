@@ -1,5 +1,12 @@
+<script lang="ts">
+export interface ToolbarLink {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
-import { ref, inject } from "vue";
+import { inject } from "vue";
+import { PrimitiveA, usePrimitiveElement } from "@/Primitive";
 import {
   TOOLBAR_INJECTION_KEY,
   type ToolbarProvideValue,
@@ -8,7 +15,7 @@ import { useArrowNavigation } from "../shared";
 
 const injectedValue = inject<ToolbarProvideValue>(TOOLBAR_INJECTION_KEY);
 
-const currentElement = ref<HTMLElement | undefined>();
+const { primitiveElement, currentElement } = usePrimitiveElement();
 
 function handleKeydown(e: KeyboardEvent) {
   const newSelectedElement = useArrowNavigation(
@@ -21,8 +28,8 @@ function handleKeydown(e: KeyboardEvent) {
 </script>
 
 <template>
-  <a
-    ref="currentElement"
+  <PrimitiveA
+    ref="primitiveElement"
     :tabindex="
       injectedValue?.activeElement.value === currentElement ? '0' : '-1'
     "
@@ -30,5 +37,5 @@ function handleKeydown(e: KeyboardEvent) {
     data-radix-vue-collection-item
   >
     <slot />
-  </a>
+  </PrimitiveA>
 </template>

@@ -1,10 +1,19 @@
 <script lang="ts">
 import type { Ref } from "vue";
+import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import type { DataOrientation, Direction } from "@/shared/types";
 
 export interface RadioGroupRootProps {
-  value?: string;
+  asChild?: boolean;
   defaultValue?: string;
-  //disabled?: boolean;
+  value?: string;
+  //onValueChange?: void;
+  disabled?: boolean;
+  name?: string;
+  required?: boolean;
+  orientation?: DataOrientation;
+  dir?: Direction;
+  loop?: boolean;
   modelValue?: string | string[];
 }
 
@@ -14,29 +23,42 @@ export interface RadioGroupProvideValue {
   modelValue?: Readonly<Ref<string | string[] | undefined>>;
   changeModelValue: (value?: string) => void;
   parentElement: Ref<HTMLElement | undefined>;
+  disabled: boolean;
 }
 </script>
 
 <script setup lang="ts">
-import { ref, toRef, provide } from "vue";
+import { toRef, provide } from "vue";
 
-const props = defineProps<RadioGroupRootProps>();
+const props = withDefaults(defineProps<RadioGroupRootProps>(), {
+  asChild: false,
+  disabled: false,
+  orientation: undefined,
+  loop: true,
+});
 
 const emits = defineEmits(["update:modelValue"]);
 
-const parentElementRef: Ref<HTMLElement | undefined> = ref();
+const { primitiveElement, currentElement: parentElement } =
+  usePrimitiveElement();
 
 provide<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY, {
   modelValue: toRef(() => props.modelValue),
   changeModelValue: (value?: string) => {
     emits("update:modelValue", value);
   },
-  parentElement: parentElementRef,
+  parentElement,
+  disabled: props.disabled,
 });
 </script>
 
 <template>
-  <div ref="parentElementRef" role="radiogroup" aria-label="radiogroup">
+  <PrimitiveDiv
+    ref="primitiveElement"
+    role="radiogroup"
+    aria-label="radiogroup"
+    :data-disabled="props.disabled"
+  >
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

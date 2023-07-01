@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Side } from "@floating-ui/dom";
-import { inject, ref, onMounted, computed } from "vue";
+import { inject, onMounted, computed } from "vue";
 import {
   CONTEXT_MENU_INJECTION_KEY,
   type ContextMenuProvideValue,
@@ -9,6 +9,7 @@ import {
   CONTEXT_MENU_CONTENT_INJECTION_KEY,
   type ContextMenuContentProvideValue,
 } from "./ContextMenuContent.vue";
+import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 
 const injectedValue = inject<ContextMenuProvideValue>(
   CONTEXT_MENU_INJECTION_KEY
@@ -18,7 +19,8 @@ const injectedContentValue = inject<ContextMenuContentProvideValue>(
   CONTEXT_MENU_CONTENT_INJECTION_KEY
 );
 
-const arrowElement = ref<HTMLElement>();
+const { primitiveElement, currentElement: arrowElement } =
+  usePrimitiveElement();
 onMounted(() => {
   injectedValue!.arrowElement.value = arrowElement.value;
 });
@@ -46,8 +48,8 @@ const position = computed<Side>(() => {
 </script>
 
 <template>
-  <div
-    ref="arrowElement"
+  <PrimitiveDiv
+    ref="primitiveElement"
     :style="{
       left: arrowX ? `${arrowX}px` : '',
       top: arrowY ? `${arrowY}px` : '',
@@ -61,5 +63,5 @@ const position = computed<Side>(() => {
       z-index: -1;
       pointer-events: none;
     "
-  ></div>
+  ></PrimitiveDiv>
 </template>

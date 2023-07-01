@@ -5,6 +5,30 @@ import type { Side, MiddlewareData } from "@floating-ui/dom";
 export const DROPDOWN_MENU_CONTENT_INJECTION_KEY =
   Symbol() as InjectionKey<DropdownMenuContentProvideValue>;
 
+export type Boundary = Element | null | Array<Element | null>;
+
+export interface DropdownMenuContentProps {
+  asChild?: boolean;
+  loop?: boolean; //false
+  //onOpenAutoFocus?: void;
+  //onCloseAutoFocus?: void;
+  //onEscapeKeyDown?: void;
+  //onPointerDownOutside?: void;
+  //onInteractOutside?: void;
+  forceMount?: boolean;
+  side?: "top" | "right" | "bottom" | "left"; //"top"
+  sideOffset?: number; //0
+  align?: "start" | "center" | "end";
+  alignOffset?: number; //"center"
+  avoidCollisions?: boolean; //true
+  collisionBoundary?: Boundary; //[]
+  collisionPadding?: number | Partial<Record<Side, number>>; //0
+  arrowPadding?: number; //0
+  sticky?: "partial" | "always"; //"partial"
+  hideWhenDetached?: boolean; //false
+  class: string;
+}
+
 export type DropdownMenuContentProvideValue = {
   middlewareData: Ref<MiddlewareData>;
   floatPosition: Ref<Side>;
@@ -13,6 +37,7 @@ export type DropdownMenuContentProvideValue = {
 
 <script setup lang="ts">
 import { onMounted, inject, ref, watchEffect, provide } from "vue";
+import { PrimitiveDiv } from "@/Primitive";
 import {
   useFloating,
   offset,
@@ -31,8 +56,9 @@ const injectedValue = inject<DropdownMenuProvideValue>(
   DROPDOWN_MENU_INJECTION_KEY
 );
 
-const props = defineProps({
-  class: String,
+const props = withDefaults(defineProps<DropdownMenuContentProps>(), {
+  side: "bottom",
+  align: "center",
 });
 
 const tooltipContentElement = ref<HTMLElement>();
@@ -57,7 +83,7 @@ const {
 
 watchEffect(() => {
   if (tooltipContentElement.value) {
-    if (injectedValue.modelValue.value) {
+    if (injectedValue?.modelValue.value) {
       setTimeout(() => {
         document.querySelector("body")!.style.pointerEvents = "none";
         focusFirstRadixElement();
@@ -66,7 +92,7 @@ watchEffect(() => {
 
       window.addEventListener("mousedown", closeDialogWhenClickOutside);
     } else {
-      if (injectedValue.triggerElement.value) {
+      if (injectedValue?.triggerElement.value) {
         handleCloseMenu();
       }
     }
@@ -74,16 +100,16 @@ watchEffect(() => {
 });
 
 function closeDialogWhenClickOutside(e: MouseEvent) {
-  const clickOutside = useClickOutside(e, tooltipContentElement.value);
+  const clickOutside = useClickOutside(e, tooltipContentElement.value!);
   if (clickOutside) {
-    injectedValue.hideTooltip();
+    injectedValue?.hideTooltip();
     window.removeEventListener("mousedown", closeDialogWhenClickOutside);
   }
 }
 
 function focusFirstRadixElement() {
   const allToggleItem = Array.from(
-    tooltipContentElement.value.querySelectorAll(
+    tooltipContentElement.value!.querySelectorAll(
       "[data-radix-vue-collection-item]"
     )
   ) as HTMLElement[];
@@ -95,17 +121,17 @@ function focusFirstRadixElement() {
 
 function fillItemsArray() {
   const allToggleItem = Array.from(
-    tooltipContentElement.value.querySelectorAll(
+    tooltipContentElement.value!.querySelectorAll(
       "[data-radix-vue-collection-item]:not([data-disabled])"
     )
   ) as HTMLElement[];
-  injectedValue.itemsArray = allToggleItem;
+  injectedValue!.itemsArray = allToggleItem;
 }
 
 function handleCloseMenu() {
-  document.querySelector("body").style.pointerEvents = "";
+  document.querySelector("body")!.style.pointerEvents = "";
   setTimeout(() => {
-    injectedValue.triggerElement.value.focus();
+    injectedValue?.triggerElement.value?.focus();
   }, 0);
 }
 
@@ -122,14 +148,16 @@ provide<DropdownMenuContentProvideValue>(DROPDOWN_MENU_CONTENT_INJECTION_KEY, {
     style="min-width: max-content; will-change: transform; z-index: auto"
     :style="floatingStyles"
   >
-    <div
+    <PrimitiveDiv
       :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
-      data-side="bottom"
+      :data-side="props.side"
+      :data-align="props.align"
       role="tooltip"
       :class="props.class"
+      :asChild="props.asChild"
       style="pointer-events: auto"
     >
       <slot />
-    </div>
+    </PrimitiveDiv>
   </div>
 </template>

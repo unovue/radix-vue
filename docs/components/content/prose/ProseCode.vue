@@ -56,7 +56,7 @@ export default defineComponent({
   >
     <button
       variant="solid"
-      class="absolute w-9 h-9 text-lg border opacity-0 rounded-md bg-neutral-900 border-neutral-700 right-3 top-3 group-hover:opacity-100 transition z-[1]"
+      class="absolute w-9 h-9 text-lg border opacity-0 rounded-md bg-neutral-900 hover:bg-neutral-800 border-neutral-700/50 right-3 top-3 group-hover:opacity-100 transition z-[1]"
       size="xs"
       tabindex="-1"
       @click="copy"

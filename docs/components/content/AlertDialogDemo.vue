@@ -22,7 +22,7 @@ function handleAction() {
   <AlertDialogRoot>
     <AlertDialogTrigger
       asChild
-      class="!bg-white !text-black hover:bg-black/10 !shadow-sm inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
+      class="bg-white text-black hover:bg-white/90 shadow-sm inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px] focus:shadow-black transition-all"
     >
       <button>Delete account</button>
     </AlertDialogTrigger>

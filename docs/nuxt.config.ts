@@ -10,7 +10,12 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
   ],
 
-  css: ["@/assets/css/main.css", "@/assets/css/tailwind.css"],
+  pinceau: {
+    preflight: false,
+  },
+
+  css: ["@/assets/css/main.css"],
+
   colorMode: {
     preference: "dark",
   },

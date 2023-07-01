@@ -69,7 +69,7 @@ const {
   middlewareData,
   placement: floatPosition,
 } = useFloating(injectedValue!.triggerElement, tooltipContentElement, {
-  placement: "bottom",
+  placement: props.side,
   middleware: [
     offset(10),
     flip(),

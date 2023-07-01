@@ -8,6 +8,9 @@ dependencies:
   '@nuxtjs/tailwindcss':
     specifier: ^6.8.0
     version: 6.8.0(rollup@3.26.0)(webpack@5.88.1)
+  '@radix-ui/colors':
+    specifier: ^1.0.0
+    version: 1.0.0
   radix-vue:
     specifier: 0.0.1-rc-.1
     version: 0.0.1-rc-.1(vue@3.3.4)
@@ -1568,6 +1571,10 @@ packages:
   /@polka/url@1.0.0-next.21:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
     dev: true
+
+  /@radix-ui/colors@1.0.0:
+    resolution: {integrity: sha512-l8Rfw7zR6sfPsbXrBq3Xit96Xo+CSFyRFqRX/ls8W/w+HXzbwc5dbVvl+qRjsSIRoC9EiTMRV/QpJHziuTjoqg==}
+    dev: false
 
   /@rollup/plugin-alias@5.0.0(rollup@3.26.0):
     resolution: {integrity: sha512-l9hY5chSCjuFRPsnRm16twWBiSApl2uYFLsepQYwtBuAxNMQ/1dJqADld40P0Jkqm65GRTLy/AC6hnpVebtLsA==}

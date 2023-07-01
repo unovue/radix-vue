@@ -16,6 +16,9 @@ dependencies:
     version: 0.0.1-rc-.1(vue@3.3.4)
 
 devDependencies:
+  '@iconify/vue':
+    specifier: ^4.1.1
+    version: 4.1.1(vue@3.3.4)
   '@nuxt-themes/docus':
     specifier: ^1.12.1
     version: 1.12.1(nuxt@3.5.3)(postcss@8.4.24)(rollup@3.26.0)(vue@3.3.4)

@@ -127,9 +127,9 @@ import * as AlertDialog from '@radix-ui/react-alert-dialog';
 
 Contains all the parts of an alert dialog.
 
-<PropsTable
-  data={[
-    {
+::props-table
+---
+data: [{
       name: 'defaultOpen',
       type: 'boolean',
       description:
@@ -138,12 +138,8 @@ Contains all the parts of an alert dialog.
     {
       name: 'open',
       type: 'boolean',
-      description: (
-        <span>
-          The controlled open state of the dialog. Must be used in conjunction
-          with <Code>onOpenChange</Code>.
-        </span>
-      ),
+      description: The controlled open state of the dialog. Must be used in conjunction
+          with `onOpenChange`.,
     },
     {
       name: 'onOpenChange',
@@ -152,8 +148,9 @@ Contains all the parts of an alert dialog.
       description:
         'Event handler called when the open state of the dialog changes.',
     },
-  ]}
-/>
+  ]
+---
+::
 
 ### Trigger
 

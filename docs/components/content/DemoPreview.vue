@@ -40,8 +40,10 @@ const currentTab = ref("app.vue");
           </div>
         </div>
       </div>
-      <div class="bg-neutral-900 overflow-hidden" :style="{ height: height }">
+      <div class="bg-neutral-900 pb-10 block max-h-[80vh]" :class="`${open? 'overflow-scroll': 'overflow-hidden'}`" :style="{ height: height }">
+      <div class="block start-0 relative top-0">
         <slot name="codeSlot" />
+      </div>
         <div
           class="h-20 left-0 w-full flex items-center justify-center bottom-0 absolute rounded-b-lg"
           :class="!open ? 'bg-gradient-to-t from-[var(--color-black)] to-black/0' : ''"
@@ -50,7 +52,7 @@ const currentTab = ref("app.vue");
             class="mt-4 bg-neutral-900 hover:bg-neutral-800 px-3 py-1 rounded border-neutral-700/50 border"
             @click="open = !open"
           >
-            Expand
+            {{open? 'Collapse code' : 'Expand code'}}
           </button>
         </div>
       </div>

@@ -42,8 +42,7 @@ watchEffect(() => {
   if (state.value === "idle") {
     window.setTimeout(
       () => dispatch("HIDE"),
-      400
-      // context.scrollHideDelay
+      injectedValueFromRoot?.scrollHideDelay
     );
   }
 });

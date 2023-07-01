@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, watchEffect } from "vue";
+import { inject, onMounted, onUnmounted } from "vue";
 import {
   type ScrollAreaProvideValue,
   SCROLL_AREA_INJECTION_KEY,
@@ -17,26 +17,33 @@ const injectedValueFromScrollbar = inject<ScrollAreaScollbarProvideValue>(
   SCROLL_AREA_SCROLLBAR_INJECTION_KEY
 );
 
-watchEffect(() => {
+let timeout: ReturnType<typeof setTimeout> | undefined;
+
+const handlePointerEnter = () => {
+  window.clearTimeout(timeout);
+  injectedValueFromScrollbar!.visible.value = true;
+};
+const handlePointerLeave = () => {
+  timeout = window.setTimeout(() => {
+    injectedValueFromScrollbar!.visible.value = false;
+  }, injectedValue?.scrollHideDelay);
+};
+
+onMounted(() => {
   const scrollArea = injectedValue?.scrollArea.value;
-  let hideTimer = 0;
+
   if (scrollArea) {
-    const handlePointerEnter = () => {
-      window.clearTimeout(hideTimer);
-      injectedValueFromScrollbar!.visible.value = true;
-    };
-    const handlePointerLeave = () => {
-      hideTimer = window.setTimeout(() => {
-        injectedValueFromScrollbar!.visible.value = false;
-      }, injectedValue?.scrollHideDelay);
-    };
     scrollArea.addEventListener("pointerenter", handlePointerEnter);
     scrollArea.addEventListener("pointerleave", handlePointerLeave);
-    return () => {
-      window.clearTimeout(hideTimer);
-      scrollArea.removeEventListener("pointerenter", handlePointerEnter);
-      scrollArea.removeEventListener("pointerleave", handlePointerLeave);
-    };
+  }
+});
+
+onUnmounted(() => {
+  const scrollArea = injectedValue?.scrollArea.value;
+  if (scrollArea) {
+    window.clearTimeout(timeout);
+    scrollArea.removeEventListener("pointerenter", handlePointerEnter);
+    scrollArea.removeEventListener("pointerleave", handlePointerLeave);
   }
 });
 </script>

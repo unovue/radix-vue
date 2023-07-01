@@ -1,13 +1,6 @@
 <script setup lang="ts">
 import { PrimitiveDiv, usePrimitiveElement } from "../Primitive";
-import {
-  computed,
-  inject,
-  onMounted,
-  onUnmounted,
-  ref,
-  watchEffect,
-} from "vue";
+import { computed, inject, onUnmounted, ref } from "vue";
 import { addUnlinkedScrollListener } from "./utils";
 
 import {
@@ -19,6 +12,7 @@ import {
   type ScrollAreaScrollbarVisibleProvideValue,
   SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY,
 } from "./ScrollAreaScrollbarVisible.vue";
+import { watchOnce } from "@vueuse/core";
 
 const injectedValueFromRoot = inject<ScrollAreaProvideValue>(
   SCROLL_AREA_INJECTION_KEY
@@ -57,7 +51,10 @@ const handleScroll = () => {
   }
 };
 
-watchEffect(() => {
+const sizes = computed(() => injectedValueFromScrollbarVisible?.sizes.value);
+
+watchOnce(sizes, () => {
+  injectedValueFromScrollbarVisible?.onThumbChange(thumbElement.value!);
   if (viewport.value) {
     /**
      * We only bind to native scroll event so we know when scroll starts and ends.
@@ -71,11 +68,8 @@ watchEffect(() => {
   }
 });
 
-onMounted(() => {
-  injectedValueFromScrollbarVisible?.onThumbChange(thumbElement.value!);
-});
-
 onUnmounted(() => {
+  viewport.value!.removeEventListener("scroll", handleScroll);
   injectedValueFromRoot?.viewport.value?.removeEventListener(
     "scroll",
     handleScroll

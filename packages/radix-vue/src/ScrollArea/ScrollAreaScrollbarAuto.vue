@@ -37,7 +37,7 @@ const handleResize = useDebounceFn(() => {
   }
 }, 10);
 
-useResizeObserver(injectedValueFromRoot?.viewport.value, handleResize);
+useResizeObserver(injectedValueFromRoot?.viewport, handleResize);
 useResizeObserver(injectedValueFromRoot?.content, handleResize);
 </script>
 

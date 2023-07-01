@@ -55,7 +55,7 @@ const onViewportChange = (el: HTMLElement) => {
   viewport.value = el;
 };
 const onContentChange = (el: HTMLElement) => {
-  viewport.value = el;
+  content.value = el;
 };
 
 const onScrollbarXChange = (scrollbar: HTMLElement) => {

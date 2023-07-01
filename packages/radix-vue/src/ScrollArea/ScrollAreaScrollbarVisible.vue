@@ -2,7 +2,7 @@
 export interface ScrollAreaScrollbarVisibleProvideValue {
   sizes: Ref<Sizes>;
   hasThumb: Ref<boolean>;
-  handleWheelScroll: (event: MouseEvent, payload: number) => void;
+  handleWheelScroll: (event: WheelEvent, payload: number) => void;
   handleThumbDown: (
     event: MouseEvent,
     payload: { x: number; y: number }
@@ -10,6 +10,7 @@ export interface ScrollAreaScrollbarVisibleProvideValue {
   handleThumbUp: (event: MouseEvent) => void;
   handleSizeChange: (payload: Sizes) => void;
   onThumbPositionChange: () => void;
+  onDragScroll: (payload: number) => void;
   onThumbChange: (element: HTMLElement) => void;
 }
 
@@ -19,7 +20,7 @@ export const SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY =
 
 <script setup lang="ts">
 import { computed, inject, ref, provide, type Ref } from "vue";
-import type { Sizes } from "./types";
+import type { Sizes, Direction } from "./types";
 import {
   type ScrollAreaProvideValue,
   SCROLL_AREA_INJECTION_KEY,
@@ -30,7 +31,12 @@ import {
 } from "./ScrollAreaScrollbar.vue";
 import ScrollAreaScrollbarX from "./ScrollAreaScrollbarX.vue";
 import ScrollAreaScrollbarY from "./ScrollAreaScrollbarY.vue";
-import { getThumbOffsetFromScroll, getThumbRatio } from "./utils";
+import {
+  getThumbOffsetFromScroll,
+  getThumbRatio,
+  getScrollPositionFromPointer,
+  isScrollingWithinScrollbarBounds,
+} from "./utils";
 
 const injectedValueFromRoot = inject<ScrollAreaProvideValue>(
   SCROLL_AREA_INJECTION_KEY
@@ -51,24 +57,73 @@ const hasThumb = computed(() => {
 });
 
 const thumbRef = ref<HTMLElement>();
+const pointerOffset = ref(0);
 
-const handleWheelScroll = (event: MouseEvent) => {
-  console.log(event);
+const handleWheelScroll = (event: WheelEvent, payload: number) => {
+  if (isShowingScrollbarX.value) {
+    const scrollPos =
+      injectedValueFromRoot!.viewport.value!.scrollLeft + event.deltaY;
+
+    injectedValueFromRoot!.viewport.value!.scrollLeft = scrollPos;
+    // prevent window scroll when wheeling on scrollbar
+    if (isScrollingWithinScrollbarBounds(scrollPos, payload)) {
+      event.preventDefault();
+    }
+  } else {
+    const scrollPos =
+      injectedValueFromRoot!.viewport.value!.scrollTop + event.deltaY;
+
+    injectedValueFromRoot!.viewport.value!.scrollTop = scrollPos;
+    // prevent window scroll when wheeling on scrollbar
+    if (isScrollingWithinScrollbarBounds(scrollPos, payload)) {
+      event.preventDefault();
+    }
+  }
 };
-const handleThumbDown = (event: MouseEvent) => {
-  console.log(event);
+
+const handleThumbDown = (
+  event: MouseEvent,
+  payload: { x: number; y: number }
+) => {
+  if (isShowingScrollbarX.value) {
+    pointerOffset.value = payload.x;
+  } else {
+    pointerOffset.value = payload.y;
+  }
 };
 const handleThumbUp = (event: MouseEvent) => {
-  console.log(event);
+  pointerOffset.value = 0;
 };
 
 const handleSizeChange = (payload: Sizes) => {
   sizes.value = payload;
 };
 
+function getScrollPosition(pointerPos: number, dir?: Direction) {
+  return getScrollPositionFromPointer(
+    pointerPos,
+    pointerOffset.value,
+    sizes.value,
+    dir
+  );
+}
+
 const isShowingScrollbarX = computed(
   () => injectedValueFromScrollbar?.isHorizontal.value
 );
+
+const onDragScroll = (payload: number) => {
+  if (isShowingScrollbarX.value) {
+    injectedValueFromRoot!.viewport.value!.scrollLeft = getScrollPosition(
+      payload,
+      injectedValueFromRoot!.dir
+    );
+  } else {
+    injectedValueFromRoot!.viewport.value!.scrollTop =
+      getScrollPosition(payload);
+  }
+};
+
 const onThumbPositionChange = () => {
   if (isShowingScrollbarX.value) {
     if (injectedValueFromRoot?.viewport.value && thumbRef.value) {
@@ -103,6 +158,7 @@ provide<ScrollAreaScrollbarVisibleProvideValue>(
     handleSizeChange,
     onThumbPositionChange,
     onThumbChange,
+    onDragScroll,
   }
 );
 </script>

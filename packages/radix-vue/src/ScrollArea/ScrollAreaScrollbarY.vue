@@ -38,6 +38,7 @@ const sizes = computed(() => injectedValueFromScrollbarVisible?.sizes.value);
     :is-horizontal="false"
     data-orientation="vertical"
     ref="scrollbarElement"
+    @on-drag-scroll="injectedValueFromScrollbarVisible?.onDragScroll($event.y)"
     :style="{
         top: 0,
         right: injectedValueFromRoot?.dir === 'ltr' ? 0 : undefined,

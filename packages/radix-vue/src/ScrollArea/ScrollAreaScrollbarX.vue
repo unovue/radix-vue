@@ -38,6 +38,7 @@ const sizes = computed(() => injectedValueFromScrollbarVisible?.sizes.value);
     :is-horizontal="true"
     data-orientation="horizontal"
     ref="scrollbarElement"
+    @on-drag-scroll="injectedValueFromScrollbarVisible?.onDragScroll($event.x)"
     :style="{
         bottom: 0,
         left: injectedValueFromRoot?.dir === 'rtl' ? 'var(--radix-scroll-area-corner-width)' : 0,

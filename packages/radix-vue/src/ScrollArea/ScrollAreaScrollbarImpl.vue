@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, ref, watchEffect } from "vue";
+import { computed, inject, onMounted, onUnmounted, ref } from "vue";
 import {
   type ScrollAreaProvideValue,
   SCROLL_AREA_INJECTION_KEY,
@@ -76,22 +76,22 @@ const handlePointerUp = (event: PointerEvent) => {
   rectRef.value = undefined;
 };
 
-watchEffect(() => {
+const handleWheel = (event: WheelEvent) => {
   if (!injectedValueFromScrollbarVisible) return;
-  const handleWheel = (event: WheelEvent) => {
-    const element = event.target as HTMLElement;
-    const isScrollbarWheel = scrollbar.value?.contains(element);
-    const maxScrollPos =
-      injectedValueFromScrollbarVisible.sizes.value.content -
-      injectedValueFromScrollbarVisible.sizes.value.viewport;
-    if (isScrollbarWheel)
-      injectedValueFromScrollbarVisible.handleWheelScroll(event, maxScrollPos);
-  };
+  const element = event.target as HTMLElement;
+  const isScrollbarWheel = scrollbar.value?.contains(element);
+  const maxScrollPos =
+    injectedValueFromScrollbarVisible.sizes.value.content -
+    injectedValueFromScrollbarVisible.sizes.value.viewport;
+  if (isScrollbarWheel)
+    injectedValueFromScrollbarVisible.handleWheelScroll(event, maxScrollPos);
+};
+
+onMounted(() => {
   document.addEventListener("wheel", handleWheel, { passive: false });
-  return () =>
-    document.removeEventListener("wheel", handleWheel, {
-      passive: false,
-    } as any);
+});
+onUnmounted(() => {
+  document.removeEventListener("wheel", handleWheel);
 });
 
 const handleSizeChange = () => {
@@ -119,16 +119,9 @@ const handleSizeChange = () => {
   }
 };
 
-useResizeObserver(scrollbar, (ev) => {
-  console.log({ ev }, "scrollbar");
-  handleSizeChange();
-});
-useResizeObserver(injectedValueFromRoot?.content, (ev) => {
-  console.log({ ev }, "content");
-  handleSizeChange();
-});
+useResizeObserver(scrollbar, handleSizeChange);
+useResizeObserver(injectedValueFromRoot?.content, handleSizeChange);
 
-const sizes = computed(() => injectedValueFromScrollbarVisible?.sizes.value);
 const isScrollbarNeeded = computed(() => {
   if (props.isHorizontal) {
     return (

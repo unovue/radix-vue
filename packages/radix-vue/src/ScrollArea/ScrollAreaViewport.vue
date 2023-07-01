@@ -10,9 +10,11 @@ const injectedValueFromRoot = inject<ScrollAreaProvideValue>(
 );
 
 const viewportElement = ref<HTMLElement>();
+const contentElement = ref<HTMLElement>();
 
 onMounted(() => {
   injectedValueFromRoot?.onViewportChange(viewportElement.value!);
+  injectedValueFromRoot?.onContentChange(contentElement.value!);
 });
 </script>
 
@@ -40,10 +42,7 @@ onMounted(() => {
         : 'hidden',
     }"
   >
-    <div
-      ref="{context.onContentChange}"
-      :style="{ minWidth: '100%', display: 'table' }"
-    >
+    <div ref="contentElement" :style="{ minWidth: '100%', display: 'table' }">
       <slot></slot>
     </div>
   </div>

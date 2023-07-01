@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PrimitiveDiv } from "../Primitive";
+import { PrimitiveDiv, usePrimitiveElement } from "../Primitive";
 import {
   computed,
   inject,
@@ -19,7 +19,6 @@ import {
   type ScrollAreaScrollbarVisibleProvideValue,
   SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY,
 } from "./ScrollAreaScrollbarVisible.vue";
-import { unrefElement } from "@vueuse/core";
 
 const injectedValueFromRoot = inject<ScrollAreaProvideValue>(
   SCROLL_AREA_INJECTION_KEY
@@ -42,7 +41,8 @@ const handlePointerUp = (event: MouseEvent) => {
   injectedValueFromScrollbarVisible?.handleThumbUp(event);
 };
 
-const thumbElement = ref<HTMLElement>();
+const { primitiveElement, currentElement: thumbElement } =
+  usePrimitiveElement();
 const removeUnlinkedScrollListenerRef = ref<() => void>();
 const viewport = computed(() => injectedValueFromRoot?.viewport.value);
 
@@ -72,7 +72,7 @@ watchEffect(() => {
 });
 
 onMounted(() => {
-  injectedValueFromScrollbarVisible?.onThumbChange(unrefElement(thumbElement)!);
+  injectedValueFromScrollbarVisible?.onThumbChange(thumbElement.value!);
 });
 
 onUnmounted(() => {
@@ -85,7 +85,7 @@ onUnmounted(() => {
 
 <template>
   <PrimitiveDiv
-    ref="thumbElement"
+    ref="primitiveElement"
     :data-state="
       injectedValueFromScrollbarVisible?.hasThumb ? 'visible' : 'hidden'
     "

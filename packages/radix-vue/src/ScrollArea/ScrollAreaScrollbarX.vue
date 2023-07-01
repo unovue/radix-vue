@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, ref } from "vue";
+import { computed, inject, onMounted } from "vue";
 import {
   SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY,
   type ScrollAreaScrollbarVisibleProvideValue,
@@ -10,7 +10,7 @@ import {
 } from "./ScrollAreaRoot.vue";
 import ScrollAreaScrollbarImpl from "./ScrollAreaScrollbarImpl.vue";
 import { getThumbSize } from "./utils";
-import { unrefElement } from "@vueuse/core";
+import { usePrimitiveElement } from "@/Primitive";
 
 const injectedValueFromRoot = inject<ScrollAreaProvideValue>(
   SCROLL_AREA_INJECTION_KEY
@@ -21,13 +21,12 @@ const injectedValueFromScrollbarVisible =
     SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY
   );
 
-const scrollbarElement = ref<HTMLElement>();
+const { primitiveElement, currentElement: scrollbarElement } =
+  usePrimitiveElement();
 
 onMounted(() => {
   if (scrollbarElement.value)
-    injectedValueFromRoot?.onScrollbarYChange(
-      unrefElement(scrollbarElement) ?? null
-    );
+    injectedValueFromRoot?.onScrollbarYChange(scrollbarElement.value);
 });
 
 const sizes = computed(() => injectedValueFromScrollbarVisible?.sizes.value);
@@ -37,7 +36,7 @@ const sizes = computed(() => injectedValueFromScrollbarVisible?.sizes.value);
   <ScrollAreaScrollbarImpl
     :is-horizontal="true"
     data-orientation="horizontal"
-    ref="scrollbarElement"
+    ref="primitiveElement"
     @on-drag-scroll="injectedValueFromScrollbarVisible?.onDragScroll($event.x)"
     :style="{
         bottom: 0,

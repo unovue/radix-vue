@@ -9,7 +9,7 @@ export interface ScrollAreaProvideValue {
   scrollArea: Ref<HTMLElement | undefined>;
   viewport: Ref<HTMLElement | undefined>;
   onViewportChange(viewport: HTMLElement | null): void;
-  content: HTMLElement | null;
+  content: Ref<HTMLElement | undefined>;
   onContentChange(content: HTMLElement): void;
   scrollbarX: Ref<HTMLElement | undefined>;
   onScrollbarXChange(scrollbar: HTMLElement | null): void;
@@ -19,8 +19,8 @@ export interface ScrollAreaProvideValue {
   onScrollbarYChange(scrollbar: HTMLElement | null): void;
   scrollbarYEnabled: Ref<boolean>;
   onScrollbarYEnabledChange(rendered: boolean): void;
-  onCornerWidthChange(width: number): void;
-  onCornerHeightChange(height: number): void;
+  // onCornerWidthChange?(width: number): void;
+  // onCornerHeightChange?(height: number): void;
 }
 
 export interface ScrollAreaRootProps {
@@ -44,6 +44,7 @@ const props = withDefaults(defineProps<ScrollAreaRootProps>(), {
 const cornerWidth = ref(0);
 const cornerHeight = ref(0);
 const viewport = ref<HTMLElement>();
+const content = ref<HTMLElement>();
 const scrollbarX = ref<HTMLElement>();
 const scrollbarY = ref<HTMLElement>();
 const scrollbarXEnabled = ref(false);
@@ -51,6 +52,9 @@ const scrollbarYEnabled = ref(false);
 const scrollArea = ref<HTMLElement>();
 
 const onViewportChange = (el: HTMLElement) => {
+  viewport.value = el;
+};
+const onContentChange = (el: HTMLElement) => {
   viewport.value = el;
 };
 
@@ -72,8 +76,11 @@ provide<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY, {
   type: props.type,
   dir: props.dir,
   scrollHideDelay: props.scrollHideDelay,
+  scrollArea,
   viewport,
   onViewportChange,
+  content,
+  onContentChange,
   scrollbarX,
   scrollbarXEnabled,
   scrollbarY,
@@ -82,7 +89,6 @@ provide<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY, {
   onScrollbarYChange,
   onScrollbarXEnabledChange,
   onScrollbarYEnabledChange,
-  scrollArea,
 });
 </script>
 

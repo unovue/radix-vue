@@ -110,3 +110,5 @@ export {
   ContextMenuRadioGroup,
   ContextMenuRadioItem,
 } from "./ContextMenu";
+
+export * from "./ScrollArea";

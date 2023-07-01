@@ -1,63 +1,74 @@
 <script lang="ts">
-import { defineComponent } from '#imports'
+import { defineComponent } from "#imports";
 
 export default defineComponent({
   props: {
     code: {
       type: String,
-      default: ''
+      default: "",
     },
     language: {
       type: String,
-      default: null
+      default: null,
     },
     filename: {
       type: String,
-      default: null
+      default: null,
     },
     highlights: {
       type: Array as () => number[],
-      default: () => []
+      default: () => [],
     },
     meta: {
       type: String,
-      default: null
-    }
+      default: null,
+    },
   },
-  setup (props) {
-    const clipboard = ''
-    const icon = ref('i-heroicons-clipboard-document')
+  setup(props) {
+    let clipboard: Clipboard;
+    const icon = ref("heroicons:clipboard-document");
 
-    function copy () {
-      clipboard.copy(props.code, { title: 'Copied to clipboard!' })
+    onMounted(() => {
+      clipboard = navigator.clipboard;
+    });
 
-      icon.value = 'i-heroicons-clipboard-document-check'
+    async function copy() {
+      await clipboard.writeText(props.code);
+      icon.value = "heroicons:clipboard-document-check";
 
       setTimeout(() => {
-        icon.value = 'i-heroicons-clipboard-document'
-      }, 2000)
+        icon.value = "heroicons:clipboard-document";
+      }, 2000);
     }
 
     return {
       icon,
-      copy
-    }
-  }
-})
+      copy,
+    };
+  },
+});
 </script>
 
 <template>
-  <div class="group relative text-[13px] font-mono overflow-scroll " :class="`language-${language}`">
+  <div
+    class="p-6 bg-neutral-900 group relative text-[13px] group font-mono overflow-auto rounded-md [&:not(:where(.demo-preview_*))]:border border-neutral-800"
+    :class="`language-${language}`"
+  >
     <button
-      :icon="icon"
       variant="solid"
-      class="absolute right-3 top-3 opacity-0 group-hover:opacity-100 transition-opacity z-[1]"
+      class="absolute w-9 h-9 text-lg border opacity-0 rounded-md bg-neutral-900 border-neutral-700 right-3 top-3 group-hover:opacity-100 transition z-[1]"
       size="xs"
       tabindex="-1"
       @click="copy"
-    />
-
-    <span v-if="filename" class="text-gray-400 dark:text-gray-500 absolute right-3 bottom-3 text-sm group-hover:opacity-0 transition-opacity">{{ filename }}</span>
+    >
+      <Icon :name="icon" />
+    </button>
+    <span
+      v-if="filename"
+      class="text-gray-400 dark:text-gray-500 absolute right-3 bottom-3 text-sm group-hover:opacity-0 transition-opacity"
+    >
+      {{ filename }}
+    </span>
 
     <slot />
   </div>

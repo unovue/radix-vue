@@ -1,0 +1,4 @@
+/* Hide away colorMode button */
+#__nuxt > div > header > div > div.section.right > button {
+  display: none;
+}

@@ -7,33 +7,40 @@ const height = computed(() => {
   return open.value ? "auto" : "150px";
 });
 
-const currentTab = ref('app.vue');
+const currentTab = ref("app.vue");
 </script>
 
 <template>
-  <div class="relative rounded-lg overflow-hidden text-sm">
+  <div class="demo-preview relative rounded-lg overflow-hidden text-sm">
     <div
-      class="bg-gradient-to-br from-teal-500 to-green-600 w-full flex relative items-center justify-center flex min-h-[300px]"
+      class="bg-gradient-to-br from-teal-500 to-green-600 w-full relative items-center justify-center flex min-h-[300px]"
     >
       <div class="w-full max-w-[700px] flex flex-col items-center justify-center">
         <slot name="previewSlot" />
       </div>
     </div>
-    <div
-      class="rounded-b-lg relative"
-      style="border: 1px solid var(--elements-border-secondary-static)"
-    >
+    <div class="rounded-b-lg relative" style="border: 1px solid var(--elements-border-secondary-static)">
       <div class="bg-neutral-900 border-b border-neutral-800 flex pr-2">
         <div class="flex justify-between items-center w-full">
-        <div class="flex">
-          <button v-for="tab in tabs" :key="tab" :class="`${tab === currentTab ? 'shadow-[0_1px_0_#FFF] font-medium' : 'opacity-60'}`" class="py-2.5 px-4 border-box" @click="currentTab = tab">
-            {{ tab }}
-          </button>
-        </div>
-        <div><select value="TailwindCSS" class="bg-transparent"><option value="TailwindCSS">Tailwind CSS</option></select></div>
+          <div class="flex">
+            <button
+              v-for="tab in tabs"
+              :key="tab"
+              :class="`${tab === currentTab ? 'shadow-[0_1px_0_#FFF] font-medium' : 'opacity-60'}`"
+              class="py-2.5 px-4 border-box"
+              @click="currentTab = tab"
+            >
+              {{ tab }}
+            </button>
+          </div>
+          <div>
+            <select value="TailwindCSS" class="bg-transparent">
+              <option value="TailwindCSS">Tailwind CSS</option>
+            </select>
+          </div>
         </div>
       </div>
-      <div class="p-6 bg-neutral-900 overflow-hidden" :style="{ height: height }">
+      <div class="bg-neutral-900 overflow-hidden" :style="{ height: height }">
         <slot name="codeSlot" />
         <div
           class="h-20 left-0 w-full flex items-center justify-center bottom-0 absolute rounded-b-lg"
@@ -51,5 +58,4 @@ const currentTab = ref('app.vue');
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

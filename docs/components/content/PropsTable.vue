@@ -43,7 +43,7 @@ const props = defineProps<PropsTableProps>();
               <PopoverTrigger>
                 <Icon icon="radix-icons:info-circled" />
               </PopoverTrigger>
-              <PopoverContent
+              <PopoverContent side="top"
                 class="text-xs rounded px-3 py-2.5 bg-neutral-800 w-[260px]  shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2)] focus:shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2),0_0_0_2px_theme(colors.violet7)] will-change-[transform,opacity] data-[state=open]:data-[side=top]:animate-slideDownAndFade data-[state=open]:data-[side=right]:animate-slideLeftAndFade data-[state=open]:data-[side=bottom]:animate-slideUpAndFade data-[state=open]:data-[side=left]:animate-slideRightAndFade">
                 <p size="2" :css="{ lineHeight: '20px' }">
                   {{ prop.description }}
@@ -63,7 +63,7 @@ const props = defineProps<PropsTableProps>();
               <PopoverTrigger>
                 <Icon icon="radix-icons:info-circled" />
               </PopoverTrigger>
-              <PopoverContent
+              <PopoverContent side="top"
                 class="text-xs rounded px-3 py-2.5 bg-neutral-800 min-w-max shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2)] focus:shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2),0_0_0_2px_theme(colors.violet7)] will-change-[transform,opacity] data-[state=open]:data-[side=top]:animate-slideDownAndFade data-[state=open]:data-[side=right]:animate-slideLeftAndFade data-[state=open]:data-[side=bottom]:animate-slideUpAndFade data-[state=open]:data-[side=left]:animate-slideRightAndFade">
                 <ProseCodeInline class="whitespace-nowrap">
                   {{ prop.type }}

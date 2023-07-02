@@ -11,6 +11,15 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog
   response.
 
 ::demo-preview
+---
+tabs : [{
+  name: 'app.vue',
+  content: ''
+}, {
+  name: 'tailwind.config.js',
+  content: ''
+}]
+---
 #previewSlot
   :alert-dialog-demo
 #codeSlot
@@ -156,56 +165,44 @@ data: [{
 
 A button that opens the dialog.
 
-| Prop | Type | Default |
-| -- | -- | -- |
-| `asChild` | false | - |
-<PropsTable
-  data={[
-    {
+::props-table
+---
+data: [{
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child,
+          merging their props and behavior.',
     },
-  ]}
-/>
+  ]
+---
+::
 
-<DataAttributesTable
-  data={[
+::data-attributes-table
+---
+data: [
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
     },
-  ]}
-/>
+  ]
+---
+::
 
 ### Portal
 
 When used, portals your overlay and content parts into the `body`.
 
-<PropsTable
-  data={[
+::props-table
+---
+data: [
     {
       name: 'forceMount',
       type: 'boolean',
-      description: (
-        <span>
-          Used to force mounting when more control is needed. Useful when
+      description: 'Used to force mounting when more control is needed. Useful when
           controlling animation with React animation libraries. If used on this
-          part, it will be inherited by <Code>AlertDialog.Overlay</Code> and{' '}
-          <Code>AlertDialog.Content</Code>.
-        </span>
-      ),
+          part, it will be inherited by',
     },
     {
       name: 'container',
@@ -213,15 +210,17 @@ When used, portals your overlay and content parts into the `body`.
       default: 'document.body',
       description: 'Specify a container element to portal the content into.',
     },
-  ]}
-/>
+  ]
+---
+::
 
 ### Overlay
 
 A layer that covers the inert portion of the view when the dialog is open.
 
-<PropsTable
-  data={[
+::props-table
+---
+data: [
     {
       name: 'asChild',
       required: false,
@@ -241,25 +240,23 @@ A layer that covers the inert portion of the view when the dialog is open.
     {
       name: 'forceMount',
       type: 'boolean',
-      description: (
-        <span>
-          Used to force mounting when more control is needed. Useful when
-          controlling animation with React animation libraries. It inherits from{' '}
-          <Code>AlertDialog.Portal</Code>.
-        </span>
-      ),
+      description: Used to force mounting when more control is needed. Useful when
+          controlling animation with React animation libraries. It inherits from `AlertDialog.Portal`.,
     },
-  ]}
-/>
+  ]
+---
+::
 
-<DataAttributesTable
-  data={[
+::data-attributes-table
+---
+data: [
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
     },
-  ]}
-/>
+  ]
+---
+::
 
 ### Content
 
@@ -331,14 +328,16 @@ Contains content to be rendered when the dialog is open.
   ]}
 />
 
-<DataAttributesTable
-  data={[
+::data-attributes-table
+---
+data: [
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
     },
-  ]}
-/>
+  ]
+---
+::
 
 ### Cancel
 
@@ -506,31 +505,13 @@ Adheres to the [Alert and Message Dialogs WAI-ARIA design pattern](https://www.w
 
 ### Keyboard Interactions
 
-<KeyboardTable
-  data={[
+::keyboard-table
+---
+data: [
     {
       keys: ['Space'],
       description: 'Opens/closes the dialog.',
     },
-    {
-      keys: ['Enter'],
-      description: 'Opens/closes the dialog.',
-    },
-    {
-      keys: ['Tab'],
-      description: 'Moves focus to the next focusable element.',
-    },
-    {
-      keys: ['Shift + Tab'],
-      description: 'Moves focus to the previous focusable element.',
-    },
-    {
-      keys: ['Esc'],
-      description: (
-        <span>
-          Closes the dialog and moves focus to <Code>AlertDialog.Trigger</Code>.
-        </span>
-      ),
-    },
-  ]}
-/>
+  ]
+---
+::

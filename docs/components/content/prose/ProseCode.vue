@@ -51,7 +51,7 @@ export default defineComponent({
 
 <template>
   <div
-    class="p-6 bg-neutral-900 group relative text-[13px] group font-mono overflow-auto rounded-md [&:not(:where(.demo-preview_*))]:border border-neutral-800"
+    class="p-6 bg-neutral-900 group relative text-[13px] group font-mono overflow-auto rounded-lg"
     :class="`language-${language}`"
   >
     <button

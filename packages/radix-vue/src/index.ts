@@ -1,5 +1,30 @@
+export {
+  AccordionContent,
+  AccordionHeader,
+  AccordionImpl,
+  type AccordionImplProps,
+  type AccordionImplProvideValue,
+  ACCORDION_IMPL_INJECTION_KEY,
+  AccordionImplMultiple,
+  type AccordionImplMultipleProps,
+  type AccordionMultipleProps,
+  type AccordionValueProvideValue,
+  type AccordionCollapsibleProvideValue,
+  ACCORDION_VALUE_INJECTION_KEY,
+  ACCORDION_COLLAPSIBLE_INJECTION_KEY,
+  AccordionImplSingle,
+  type AccordionImplSingleProps,
+  type AccordionSingleProps,
+  AccordionItem,
+  type AccordionItemProps,
+  type AccordionItemProvideValue,
+  ACCORDION_ITEM_INJECTION_KEY,
+  ACCORDION_KEYS,
+  AccordionRoot,
+  type AccordionRootProps,
+  AccordionTrigger,
+} from "./Accordion";
 export { CheckboxIndicator, CheckboxRoot } from "./Checkbox";
-
 export {
   CollapsibleRoot,
   CollapsibleTrigger,
@@ -8,7 +33,6 @@ export {
   type CollapsibleProvideValue,
   type CollapsibleRootProps,
 } from "./Collapsible";
-
 export { SwitchRoot, SwitchThumb } from "./Switch";
 export { Separator } from "./Separator";
 export { Label } from "./Label";

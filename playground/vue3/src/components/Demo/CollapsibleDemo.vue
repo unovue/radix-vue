@@ -5,6 +5,7 @@ import { Icon } from "@iconify/vue";
 
 const rootOpen = ref(false);
 const rootDisabled = ref(false);
+const open = ref(false);
 </script>
 
 <template>
@@ -14,7 +15,7 @@ const rootDisabled = ref(false);
       @click="rootOpen = !rootOpen"
       class="bg-white/20 px-2 py-1 rounded-md active:scale-90 duration-100 transform hover:bg-white/40 active:bg-white/20"
     >
-    {{ rootOpen ? "Close" : "Open" }}
+      {{ rootOpen ? "Close" : "Open" }}
     </button>
   </div>
   <CollapsibleRoot class="w-[300px]" v-model:open="rootOpen" :disabled="rootDisabled">
@@ -30,9 +31,11 @@ const rootDisabled = ref(false);
         </button>
       </CollapsibleTrigger>
     </div>
+
     <div class="bg-white rounded my-[10px] p-[10px] shadow-[0_2px_10px] shadow-blackA7">
       <span class="text-violet11 text-[15px] leading-[25px]">radix-vue/radix-vue</span>
     </div>
+
     <CollapsibleContent>
       <div class="bg-white rounded my-[10px] p-[10px] shadow-[0_2px_10px] shadow-blackA7">
         <span class="text-violet11 text-[15px] leading-[25px]">vuejs/core</span>

@@ -81,7 +81,7 @@ function getItems() {
   const collectionNode = accordionImplInjectedValue?.parentElement.value;
   if (!collectionNode) return [];
   const orderedNodes = Array.from(
-    collectionNode.querySelectorAll(`["data-radix-vue-collection-item"]`)
+    collectionNode.querySelectorAll("[data-radix-vue-collection-item]")
   );
 
   return orderedNodes as HTMLElement[];
@@ -90,6 +90,7 @@ function getItems() {
 const handleKeyDown = (event: KeyboardEvent) => {
   if (!ACCORDION_KEYS.includes(event.key)) return;
 
+  const isDirectionLTR = accordionImplInjectedValue?.direction === "ltr";
   const target = event.target as HTMLElement;
   const triggerCollection = getItems().filter(
     // (item) => !item.ref.current?.disabled
@@ -134,11 +135,11 @@ const handleKeyDown = (event: KeyboardEvent) => {
       break;
     case "ArrowRight":
       if (accordionImplInjectedValue?.orientation === "horizontal") {
-        // if (isDirectionLTR) {
-        //   moveNext();
-        // } else {
-        movePrev();
-        // }
+        if (isDirectionLTR) {
+          moveNext();
+        } else {
+          movePrev();
+        }
       }
       break;
     case "ArrowDown":
@@ -148,11 +149,11 @@ const handleKeyDown = (event: KeyboardEvent) => {
       break;
     case "ArrowLeft":
       if (accordionImplInjectedValue?.orientation === "horizontal") {
-        // if (isDirectionLTR) {
-        //   movePrev();
-        // } else {
-        moveNext();
-        // }
+        if (isDirectionLTR) {
+          movePrev();
+        } else {
+          moveNext();
+        }
       }
       break;
     case "ArrowUp":
@@ -173,7 +174,7 @@ const handleKeyDown = (event: KeyboardEvent) => {
     :data-state="open ? 'open' : 'closed'"
     :disabled="disabled"
     v-model:open="open"
-    @keydown="props.disabled ? undefined : handleKeyDown"
+    @keydown="handleKeyDown"
   >
     <slot />
   </CollapsibleRoot>

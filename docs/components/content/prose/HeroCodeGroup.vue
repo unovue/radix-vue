@@ -3,6 +3,9 @@ defineOptions({
   inheritAttrs: false
 })
 const slots = useSlots();
+const props = defineProps({
+  group: String,
+})
 
 const selectedIndex = ref(0);
 
@@ -51,6 +54,7 @@ watch([open, selectedTab], () => {
           </button>
         </div>
         <div>
+        {{ props.group }}
           <select value="TailwindCSS" class="bg-transparent">
             <option value="TailwindCSS">Tailwind CSS</option>
           </select>

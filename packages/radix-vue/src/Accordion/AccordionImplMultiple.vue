@@ -4,12 +4,13 @@ import type {
   AccordionImplProps,
   AccordionValueProvideValue,
 } from "./AccordionImpl.vue";
+import { useVModel } from "@vueuse/core";
 
 export interface AccordionImplMultipleProps extends AccordionImplProps {
   /**
    * The controlled stateful value of the accordion items whose contents are expanded.
    */
-  value?: string[];
+  modelValue?: string[];
   /**
    * The value of the items whose contents are expanded when the accordion is initially rendered. Use
    * `defaultValue` if you do not need to control the state of an accordion.
@@ -27,36 +28,38 @@ export interface AccordionMultipleProps extends AccordionImplMultipleProps {
 </script>
 
 <script setup lang="ts">
-import { provide, ref, watch } from "vue";
+import { provide } from "vue";
 import AccordionImpl, {
   ACCORDION_COLLAPSIBLE_INJECTION_KEY,
   ACCORDION_VALUE_INJECTION_KEY,
 } from "./AccordionImpl.vue";
 
 const props = withDefaults(defineProps<AccordionMultipleProps>(), {
-  value: () => [],
+  // @ts-expect-error
+  defaultValue: [],
 });
 
 const emit = defineEmits<{
-  (e: "update:value", value: string[] | undefined): void;
+  (e: "update:modelValue", value: string[] | undefined): void;
 }>();
 
-const value = ref(props.value);
-
-watch(value, (newValue) => {
-  emit("update:value", newValue);
+const modelValue = useVModel(props, "modelValue", emit, {
+  defaultValue: props.defaultValue,
+  passive: true,
 });
 
 const handleItemOpen = (itemValue: string) => {
-  value.value = [...value.value, itemValue];
+  modelValue.value = [...modelValue.value, itemValue];
 };
 
 const handleItemClose = (itemValue: string) => {
-  value.value = value.value.filter((value) => value !== itemValue);
+  modelValue.value = [...modelValue.value].filter(
+    (value) => value !== itemValue
+  );
 };
 
 provide<AccordionValueProvideValue>(ACCORDION_VALUE_INJECTION_KEY, {
-  value: value,
+  modelValue,
   onItemOpen: handleItemOpen,
   onItemClose: handleItemClose,
 });

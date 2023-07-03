@@ -12,7 +12,7 @@ import AccordionImplSingle from "./AccordionImplSingle.vue";
 const props = defineProps<AccordionRootProps>();
 
 const emit = defineEmits<{
-  (e: "update:value", value: string | string[] | undefined): void;
+  (e: "update:modelValue", value: string | string[] | undefined): void;
 }>();
 </script>
 
@@ -20,14 +20,14 @@ const emit = defineEmits<{
   <AccordionImplMultiple
     v-if="props.type === 'multiple'"
     v-bind="props"
-    @update:value="(value) => emit('update:value', value)"
+    @update:modelValue="emit('update:modelValue', $event)"
   >
     <slot />
   </AccordionImplMultiple>
   <AccordionImplSingle
     v-else
     v-bind="props"
-    @update:value="(value) => emit('update:value', value)"
+    @update:modelValue="emit('update:modelValue', $event)"
   >
     <slot />
   </AccordionImplSingle>

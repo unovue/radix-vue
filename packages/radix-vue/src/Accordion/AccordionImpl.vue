@@ -21,7 +21,7 @@ export interface AccordionImplProps {
 }
 
 export interface AccordionValueProvideValue {
-  value: Ref<string[]>;
+  modelValue: Ref<string | string[]>;
   onItemOpen(value: string): void;
   onItemClose(value: string): void;
 }

@@ -7,12 +7,13 @@ import {
   ACCORDION_VALUE_INJECTION_KEY,
   type AccordionValueProvideValue,
 } from "./AccordionImpl.vue";
+import { useVModel } from "@vueuse/core";
 
 export interface AccordionImplSingleProps extends AccordionImplProps {
   /**
    * The controlled stateful value of the accordion item whose content is expanded.
    */
-  value?: string;
+  modelValue?: string;
   /**
    * The value of the item whose content is expanded when the accordion is initially rendered. Use
    * `defaultValue` if you do not need to control the state of an accordion.
@@ -35,7 +36,7 @@ export interface AccordionSingleProps extends AccordionImplSingleProps {
 </script>
 
 <script setup lang="ts">
-import { computed, provide, ref, watch } from "vue";
+import { provide, type Ref } from "vue";
 import AccordionImpl, {
   ACCORDION_COLLAPSIBLE_INJECTION_KEY,
 } from "./AccordionImpl.vue";
@@ -46,23 +47,22 @@ const props = withDefaults(defineProps<AccordionSingleProps>(), {
 });
 
 const emit = defineEmits<{
-  (e: "update:value", value: string | undefined): void;
+  (e: "update:modelValue", value: string | undefined): void;
 }>();
 
-const value = ref(props.value);
-
-watch(value, (newValue) => {
-  emit("update:value", newValue);
-});
+const modelValue = useVModel(props, "modelValue", emit, {
+  defaultValue: props.defaultValue ?? "",
+  passive: true,
+}) as Ref<string>;
 
 provide<AccordionValueProvideValue>(ACCORDION_VALUE_INJECTION_KEY, {
-  value: computed(() => (value.value ? [value.value] : [])),
+  modelValue,
   onItemOpen: (val) => {
-    value.value = val;
+    modelValue.value = val;
   },
   onItemClose: (val) => {
     if (props.collapsible) {
-      value.value = "";
+      modelValue.value = "";
     }
   },
 });

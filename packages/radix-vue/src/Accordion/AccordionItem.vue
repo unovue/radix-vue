@@ -57,7 +57,7 @@ const accordianValueInjectedValue = inject<AccordionValueProvideValue>(
 const open = computed({
   get: () =>
     (props.value &&
-      accordianValueInjectedValue?.value.value.includes(props.value)) ||
+      accordianValueInjectedValue?.modelValue.value.includes(props.value)) ||
     false,
   set: (open) => {
     if (open) {

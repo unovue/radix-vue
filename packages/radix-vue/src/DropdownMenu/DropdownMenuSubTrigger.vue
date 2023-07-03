@@ -1,5 +1,13 @@
+<script lang="ts">
+export interface DropdownMenuSubTriggerProps {
+  asChild?: boolean;
+  disabled?: boolean;
+  textValue?: string;
+}
+</script>
+
 <script setup lang="ts">
-import { inject, ref, onMounted, computed, watchEffect } from "vue";
+import { inject, ref, onMounted, computed } from "vue";
 import {
   DROPDOWN_MENU_INJECTION_KEY,
   type DropdownMenuProvideValue,
@@ -21,6 +29,7 @@ const injectedValue = inject<DropdownMenuSubProvideValue>(
 const triggerElement = ref<HTMLElement>();
 onMounted(() => {
   injectedValue!.triggerElement.value = triggerElement.value;
+  // @ts-expect-error
   injectedValue.subTrigger = triggerElement.value.$el;
 });
 

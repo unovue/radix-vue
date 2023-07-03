@@ -24,6 +24,7 @@ import HoverCardDemo from "./components/Demo/HoverCardDemo.vue";
 import PopoverDemo from "./components/Demo/PopoverDemo.vue";
 import DropdownMenuDemo from "./components/Demo/DropdownMenuDemo.vue";
 import ContextMenuDemo from "./components/Demo/ContextMenuDemo.vue";
+import ScrollAreaDemo from "./components/Demo/ScrollAreaDemo.vue";
 </script>
 
 <template>
@@ -33,7 +34,13 @@ import ContextMenuDemo from "./components/Demo/ContextMenuDemo.vue";
         <AccordionDemo />
       </Card>
       <Card>
+        <AlertDialogDemo />
+      </Card>
+      <Card>
         <AspectRatioDemo />
+      </Card>
+      <Card>
+        <AvatarDemo />
       </Card>
       <Card>
         <CheckboxDemo />
@@ -42,13 +49,43 @@ import ContextMenuDemo from "./components/Demo/ContextMenuDemo.vue";
         <CollapsibleDemo />
       </Card>
       <Card>
+        <ScrollAreaDemo />
+      </Card>
+      <Card class="col-span-2">
+        <ContextMenuDemo />
+      </Card>
+      <Card>
+        <DialogDemo />
+      </Card>
+      <Card>
+        <DropdownMenuDemo />
+      </Card>
+      <Card>
+        <HoverCardDemo />
+      </Card>
+      <Card>
         <LabelDemo />
+      </Card>
+      <Card>
+        <PopoverDemo />
+      </Card>
+      <Card>
+        <ProgressDemo />
+      </Card>
+      <Card>
+        <RadioGroupDemo />
       </Card>
       <Card>
         <SeparatorDemo />
       </Card>
       <Card>
+        <SliderDemo />
+      </Card>
+      <Card>
         <SwitchDemo />
+      </Card>
+      <Card>
+        <TabsDemo />
       </Card>
       <Card>
         <ToggleDemo />
@@ -56,44 +93,11 @@ import ContextMenuDemo from "./components/Demo/ContextMenuDemo.vue";
       <Card>
         <ToggleGroupDemo />
       </Card>
-      <Card class="row-span-2">
-        <TabsDemo />
-      </Card>
-      <Card>
-        <SliderDemo />
-      </Card>
-      <Card>
-        <ProgressDemo />
-      </Card>
-      <Card>
-        <DialogDemo />
-      </Card>
-      <Card>
-        <AlertDialogDemo />
-      </Card>
-      <Card>
-        <RadioGroupDemo />
-      </Card>
       <Card class="col-span-2">
         <ToolbarDemo />
       </Card>
       <Card>
-        <AvatarDemo />
-      </Card>
-      <Card>
         <TooltipDemo />
-      </Card>
-      <Card>
-        <HoverCardDemo />
-      </Card>
-      <Card>
-        <PopoverDemo />
-      </Card>
-      <Card>
-        <DropdownMenuDemo />
-      </Card>
-      <Card class="col-span-2">
-        <ContextMenuDemo />
       </Card>
     </div>
   </div>

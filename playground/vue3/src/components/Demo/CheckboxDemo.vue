@@ -10,9 +10,17 @@ const checkboxThree = ref(false);
 
 <template>
   <div class="absolute left-4 top-3 text-sm">
+  <p>
     States: {{ checkboxOne ? "one on" : "one off" }} -
     {{ checkboxTwo ? "two on" : "two off" }} -
     {{ checkboxThree ? "three on" : "three off" }}
+  </p>
+    <button
+      @click="checkboxOne = !checkboxOne"
+      class="bg-white/20 px-2 py-1 rounded-md active:scale-90 duration-100 transform hover:bg-white/40 active:bg-white/20"
+    >
+    {{ checkboxOne ? "Uncheck" : "Check" }} Checkbox 1
+    </button>
   </div>
   <div class="flex flex-col gap-2.5">
     <label class="flex flex-row gap-4 items-center [&>.checkbox]:hover:bg-neutral-100">

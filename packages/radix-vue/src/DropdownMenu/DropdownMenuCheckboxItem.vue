@@ -2,11 +2,16 @@
 import type { Ref } from "vue";
 
 interface DropdownMenuCheckboxItemProps {
+  asChild?: boolean;
+  checked?: boolean;
+  //onCheckedChange?: void;
   modelValue?: boolean;
   id?: string;
   name?: string;
   value?: string;
   disabled?: boolean;
+  onSelect?: void;
+  textValue?: string;
 }
 
 export type DropdownMenuCheckboxProvideValue = Readonly<Ref<boolean>>;

@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref, inject, watchEffect } from "vue";
+import { inject, watchEffect } from "vue";
 import {
   CONTEXT_MENU_INJECTION_KEY,
   type ContextMenuProvideValue,
 } from "./ContextMenuRoot.vue";
+import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 
 const injectedValue = inject<ContextMenuProvideValue>(
   CONTEXT_MENU_INJECTION_KEY
@@ -16,7 +17,7 @@ interface ToggleGroupItemProps {
 
 const props = defineProps<ToggleGroupItemProps>();
 
-const currentElement = ref<HTMLElement | undefined>();
+const { primitiveElement, currentElement } = usePrimitiveElement();
 
 function handleKeydown(e: KeyboardEvent) {
   if (e.key === "Escape") {
@@ -62,28 +63,28 @@ watchEffect(() => {
 });
 
 function handleHover() {
-  if (!props.disabled) {
+  if (!props.disabled && currentElement.value) {
     injectedValue!.changeSelected(currentElement.value);
   }
 }
 
 function handleCloseMenu() {
   injectedValue?.hideTooltip();
-  document.querySelector("body").style.pointerEvents = "";
+  document.querySelector("body")!.style.pointerEvents = "";
   setTimeout(() => {
-    injectedValue.triggerElement.value.focus();
+    injectedValue?.triggerElement.value?.focus();
   }, 0);
 }
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     role="menuitem"
-    ref="currentElement"
+    ref="primitiveElement"
     @keydown="handleKeydown"
     data-radix-vue-collection-item
     @mouseenter="handleHover"
-    @mouseleave="injectedValue!.changeSelected(null)"
+    @mouseleave="injectedValue!.changeSelected(undefined)"
     :data-highlighted="
       injectedValue?.selectedElement.value === currentElement ? '' : null
     "
@@ -95,5 +96,5 @@ function handleCloseMenu() {
     "
   >
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

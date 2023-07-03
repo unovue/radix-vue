@@ -8,14 +8,16 @@ export interface BaseSeparatorProps {
 </script>
 
 <script setup lang="ts">
+import { PrimitiveDiv } from "@/Primitive";
+
 const props = withDefaults(defineProps<BaseSeparatorProps>(), {
   orientation: "horizontal",
 });
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     :data-orientation="props.orientation"
     :role="`${decorative ? 'none' : 'separator'}`"
-  ></div>
+  ></PrimitiveDiv>
 </template>

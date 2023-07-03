@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { TooltipProvideValue } from "../../Tooltip/TooltipRoot.vue";
 import type { TooltipContentProvideValue } from "../../Tooltip/TooltipContent.vue";
+import { PrimitiveDiv } from "@/Primitive";
 
 interface TooltipArrowProps {
   size?: number;
@@ -44,7 +45,7 @@ const position = computed<Side>(() => {
 </script>
 
 <template>
-  <div
+  <PrimitiveDiv
     ref="arrowElement"
     :style="{
       left: arrowX ? `${arrowX}px` : '',
@@ -59,5 +60,5 @@ const position = computed<Side>(() => {
       z-index: -1;
       pointer-events: none;
     "
-  ></div>
+  ></PrimitiveDiv>
 </template>

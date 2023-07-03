@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, inject, computed } from "vue";
+import { PrimitiveButton } from "@/Primitive";
 import {
   TOOLBAR_TOGGLE_GROUP_INJECTION_KEY,
   type ToolbarToggleGroupProvideValue,
@@ -11,7 +12,9 @@ import {
 import { useArrowNavigation } from "../shared";
 
 interface ToggleGroupItemProps {
+  asChild?: boolean;
   value?: string;
+  disabled?: boolean;
 }
 
 const injectedValue = inject<ToolbarToggleGroupProvideValue>(
@@ -19,7 +22,9 @@ const injectedValue = inject<ToolbarToggleGroupProvideValue>(
 );
 const rootInjectedValue = inject<ToolbarProvideValue>(TOOLBAR_INJECTION_KEY);
 
-const props = withDefaults(defineProps<ToggleGroupItemProps>(), {});
+const props = withDefaults(defineProps<ToggleGroupItemProps>(), {
+  asChild: false,
+});
 
 const state = computed(() => {
   if (injectedValue?.type === "multiple") {
@@ -44,14 +49,16 @@ function handleKeydown(e: KeyboardEvent) {
 </script>
 
 <template>
-  <button
+  <PrimitiveButton
     type="button"
     :data-state="state"
+    :data-disabled="props.disabled"
+    :data-orientation="injectedValue?.orientation"
     @click="injectedValue!.changeModelValue(props.value)"
     ref="currentToggleElement"
     @keydown="handleKeydown"
     data-radix-vue-collection-item
   >
     <slot />
-  </button>
+  </PrimitiveButton>
 </template>

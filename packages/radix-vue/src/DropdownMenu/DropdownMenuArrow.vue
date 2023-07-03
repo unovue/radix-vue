@@ -11,6 +11,7 @@ import {
 import BaseArrow from "../shared/component/BaseArrow.vue";
 
 interface DropdownMenuArrowProps {
+  asChild?: boolean;
   size?: number;
 }
 </script>
@@ -29,7 +30,7 @@ const injectedContentValue = inject<DropdownMenuContentProvideValue>(
 
 <template>
   <BaseArrow
-    :injected-value="injectedValue"
+    :injected-value="(injectedValue as any)"
     :injected-content-value="injectedContentValue"
     :size="props.size"
   />

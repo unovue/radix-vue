@@ -16,10 +16,13 @@ import {
 } from "./DropdownMenuRadioGroup.vue";
 
 interface RadioGroupItemProps {
-  id?: string;
-  name?: string;
+  asChild?: boolean;
   value?: string;
   disabled?: boolean;
+  id?: string;
+  name?: string;
+  onSelect?: void;
+  textValue?: string;
 }
 
 const rootInjectedValue = inject<DropdownMenuProvideValue>(

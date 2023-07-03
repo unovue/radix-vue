@@ -48,7 +48,7 @@ watch([open, selectedTab], () => {
       <div class="flex justify-between items-center w-full">
         <div class="flex">
           <button v-for="(tab, index) in tabs" :key="index" tabindex="-1" :class="[
-            selectedIndex === index ? 'shadow-[0_1px_0_#FFF] font-medium' : 'opacity-60',
+            selectedIndex === index ? 'shadow-[0_1px_0_var(--color-primary-500)] font-medium' : 'opacity-60',
           ]" class="py-2.5 px-4 border-box" @click="selectedIndex = index">
             {{ tab.label }}
           </button>

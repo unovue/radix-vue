@@ -10,10 +10,10 @@ import {
   type AccordionItemProvideValue,
 } from "./AccordionItem.vue";
 
-const accordianImplInjectedValue = inject<AccordionImplProvideValue>(
+const accordionImplInjectedValue = inject<AccordionImplProvideValue>(
   ACCORDION_IMPL_INJECTION_KEY
 );
-const accordianItemInjectedValue = inject<AccordionItemProvideValue>(
+const accordionItemInjectedValue = inject<AccordionItemProvideValue>(
   ACCORDION_ITEM_INJECTION_KEY
 );
 </script>
@@ -21,8 +21,8 @@ const accordianItemInjectedValue = inject<AccordionItemProvideValue>(
 <template>
   <CollapsibleContent
     role="region"
-    :aria-labelledby="accordianItemInjectedValue?.triggerId"
-    :data-orientation="accordianImplInjectedValue?.orientation"
+    :aria-labelledby="accordionItemInjectedValue?.triggerId"
+    :data-orientation="accordionImplInjectedValue?.orientation"
     :style="{
       ['--radix-accordion-content-height' as any]: 'var(--radix-collapsible-content-height)',
       ['--radix-accordion-content-width' as any]: 'var(--radix-collapsible-content-width)',

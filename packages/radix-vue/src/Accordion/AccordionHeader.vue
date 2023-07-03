@@ -10,19 +10,19 @@ import {
   type AccordionItemProvideValue,
 } from "./AccordionItem.vue";
 
-const accordianImplInjectedValue = inject<AccordionImplProvideValue>(
+const accordionImplInjectedValue = inject<AccordionImplProvideValue>(
   ACCORDION_IMPL_INJECTION_KEY
 );
-const accordianItemInjectedValue = inject<AccordionItemProvideValue>(
+const accordionItemInjectedValue = inject<AccordionItemProvideValue>(
   ACCORDION_ITEM_INJECTION_KEY
 );
 </script>
 
 <template>
   <PrimitiveH3
-    :data-orientation="accordianImplInjectedValue?.orientation"
-    :data-state="accordianItemInjectedValue?.open ? 'open' : 'closed'"
-    :data-disabled="accordianItemInjectedValue?.disabled ? '' : undefined"
+    :data-orientation="accordionImplInjectedValue?.orientation"
+    :data-state="accordionItemInjectedValue?.open ? 'open' : 'closed'"
+    :data-disabled="accordionItemInjectedValue?.disabled ? '' : undefined"
   >
     <slot />
   </PrimitiveH3>

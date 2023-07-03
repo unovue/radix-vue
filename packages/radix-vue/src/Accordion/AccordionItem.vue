@@ -47,28 +47,28 @@ import {
 
 const props = defineProps<AccordionItemProps>();
 
-const accordianImplInjectedValue = inject<AccordionImplProvideValue>(
+const accordionImplInjectedValue = inject<AccordionImplProvideValue>(
   ACCORDION_IMPL_INJECTION_KEY
 );
-const accordianValueInjectedValue = inject<AccordionValueProvideValue>(
+const accordionValueInjectedValue = inject<AccordionValueProvideValue>(
   ACCORDION_VALUE_INJECTION_KEY
 );
 
 const open = computed({
   get: () =>
     (props.value &&
-      accordianValueInjectedValue?.modelValue.value.includes(props.value)) ||
+      accordionValueInjectedValue?.modelValue.value.includes(props.value)) ||
     false,
   set: (open) => {
     if (open) {
-      accordianValueInjectedValue?.onItemOpen(props.value);
+      accordionValueInjectedValue?.onItemOpen(props.value);
     } else {
-      accordianValueInjectedValue?.onItemClose(props.value);
+      accordionValueInjectedValue?.onItemClose(props.value);
     }
   },
 });
 const disabled = computed(
-  () => accordianImplInjectedValue?.disabled || props.disabled
+  () => accordionImplInjectedValue?.disabled || props.disabled
 );
 
 provide<AccordionItemProvideValue>(ACCORDION_ITEM_INJECTION_KEY, {
@@ -78,7 +78,7 @@ provide<AccordionItemProvideValue>(ACCORDION_ITEM_INJECTION_KEY, {
 });
 
 function getItems() {
-  const collectionNode = accordianImplInjectedValue?.parentElement.value;
+  const collectionNode = accordionImplInjectedValue?.parentElement.value;
   if (!collectionNode) return [];
   const orderedNodes = Array.from(
     collectionNode.querySelectorAll(`["data-radix-vue-collection-item"]`)
@@ -133,7 +133,7 @@ const handleKeyDown = (event: KeyboardEvent) => {
       nextIndex = endIndex;
       break;
     case "ArrowRight":
-      if (accordianImplInjectedValue?.orientation === "horizontal") {
+      if (accordionImplInjectedValue?.orientation === "horizontal") {
         // if (isDirectionLTR) {
         //   moveNext();
         // } else {
@@ -142,12 +142,12 @@ const handleKeyDown = (event: KeyboardEvent) => {
       }
       break;
     case "ArrowDown":
-      if (accordianImplInjectedValue?.orientation === "vertical") {
+      if (accordionImplInjectedValue?.orientation === "vertical") {
         moveNext();
       }
       break;
     case "ArrowLeft":
-      if (accordianImplInjectedValue?.orientation === "horizontal") {
+      if (accordionImplInjectedValue?.orientation === "horizontal") {
         // if (isDirectionLTR) {
         //   movePrev();
         // } else {
@@ -156,7 +156,7 @@ const handleKeyDown = (event: KeyboardEvent) => {
       }
       break;
     case "ArrowUp":
-      if (accordianImplInjectedValue?.orientation === "vertical") {
+      if (accordionImplInjectedValue?.orientation === "vertical") {
         movePrev();
       }
       break;
@@ -169,7 +169,7 @@ const handleKeyDown = (event: KeyboardEvent) => {
 
 <template>
   <CollapsibleRoot
-    :data-orientation="accordianImplInjectedValue?.orientation"
+    :data-orientation="accordionImplInjectedValue?.orientation"
     :data-state="open ? 'open' : 'closed'"
     :disabled="disabled"
     v-model:open="open"

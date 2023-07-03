@@ -23,7 +23,8 @@ tabs : [{
 #previewSlot
   :alert-dialog-demo
 #codeSlot
-```vue
+::hero-code-group
+```vue[App.vue]
 <script setup lang="ts">
 import {
   AlertDialogRoot,
@@ -83,6 +84,40 @@ function handleAction() {
   </AlertDialogRoot>
 </template>
 ```
+  ```js [tailwind.config.js]
+  const { mauve, violet, red, blackA } = require('@radix-ui/colors');
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ['./App.jsx'],
+  theme: {
+    extend: {
+      colors: {
+        ...mauve,
+        ...violet,
+        ...red,
+        ...blackA,
+      },
+      keyframes: {
+        overlayShow: {
+          from: { opacity: 0 },
+          to: { opacity: 1 },
+        },
+        contentShow: {
+          from: { opacity: 0, transform: 'translate(-50%, -48%) scale(0.96)' },
+          to: { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
+        },
+      },
+      animation: {
+        overlayShow: 'overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+        contentShow: 'contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+      },
+    },
+  },
+  plugins: [],
+};
+  ```
+::
 ::
 
 ## Features
@@ -262,71 +297,47 @@ data: [
 
 Contains content to be rendered when the dialog is open.
 
-<PropsTable
-  data={[
+::props-table
+---
+data: [
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child,
+          merging their props and behavior.',
     },
     {
       name: 'forceMount',
       type: 'boolean',
-      description: (
-        <span>
-          Used to force mounting when more control is needed. Useful when
-          controlling animation with React animation libraries. It inherits from{' '}
-          <Code>AlertDialog.Portal</Code>.
-        </span>
-      ),
+      description: 'Used to force mounting when more control is needed. Useful when
+          controlling animation with React animation libraries. It inherits from `AlertDialog.Portal`',
     },
     {
       name: 'onOpenAutoFocus',
       type: '(event: Event) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when focus moves to the destructive action after
-          opening. It can be prevented by calling{' '}
-          <Code>event.preventDefault</Code>.
-        </span>
-      ),
+      description: 'Event handler called when focus moves to the destructive action after
+          opening. It can be prevented by calling `event.preventDefault`',
     },
     {
       name: 'onCloseAutoFocus',
       type: '(event: Event) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when focus moves to the trigger after closing. It
-          can be prevented by calling <Code>event.preventDefault</Code>.
-        </span>
-      ),
+      description: 'Event handler called when focus moves to the destructive action after
+          opening. It can be prevented by calling `event.preventDefault`',
     },
     {
       name: 'onEscapeKeyDown',
       type: '(event: KeyboardEvent) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when the escape key is down. It can be prevented
-          by calling <Code>event.preventDefault</Code>.
-        </span>
-      ),
+      description: 'Event handler called when focus moves to the destructive action after
+          opening. It can be prevented by calling `event.preventDefault`',
     },
-  ]}
-/>
+  ]
+---
+::
 
 ::data-attributes-table
 ---
@@ -343,101 +354,77 @@ data: [
 
 A button that closes the dialog. This button should be distinguished visually from `AlertDialog.Action` buttons.
 
-<PropsTable
-  data={[
+::props-table
+---
+data: [
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child,
+          merging their props and behavior.',
     },
-  ]}
-/>
+  ]
+---
+::
 
 ### Action
 
 A button that closes the dialog. These buttons should be distinguished visually from the `AlertDialog.Cancel` button.
 
-<PropsTable
-  data={[
+::props-table
+---
+data: [
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child,
+          merging their props and behavior.',
     },
-  ]}
-/>
+  ]
+---
+::
 
 ### Title
 
 An accessible name to be announced when the dialog is opened. Alternatively, you can provide `aria-label` or `aria-labelledby` to `AlertDialog.Content` and exclude this component.
 
-<PropsTable
-  data={[
+::props-table
+---
+data: [
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child,
+          merging their props and behavior.',
     },
-  ]}
-/>
+  ]
+---
+::
 
 ### Description
 
 An accessible description to be announced when the dialog is opened. Alternatively, you can provide `aria-describedby` to `AlertDialog.Content` and exclude this component.
 
-<PropsTable
-  data={[
+::props-table
+---
+data: [
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child,
+          merging their props and behavior.',
     },
-  ]}
-/>
+  ]
+---
+::
 
 ## Examples
 

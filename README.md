@@ -19,7 +19,7 @@ Coming soon.
 
 | Component                                                           | Usable | Complete API | Complete Accessibility |
 | :------------------------------------------------------------------ | :----: | ------------ | ---------------------- |
-| [Accordion](https://github.com/radix-vue/radix-vue/issues/1)        |   ⏳   |              |                        |
+| [Accordion](https://github.com/radix-vue/radix-vue/issues/1)        |   ✅   |              |                        |
 | [Alert Dialog](https://github.com/radix-vue/radix-vue/issues/2)     |   ✅   | ⏳           |                        |
 | [Aspect Ratio](https://github.com/radix-vue/radix-vue/issues/3)     |   ✅   | ✅           |                        |
 | [Avatar](https://github.com/radix-vue/radix-vue/issues/4)           |   ✅   | ✅           |                        |

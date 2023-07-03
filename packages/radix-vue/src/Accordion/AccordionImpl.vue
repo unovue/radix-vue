@@ -40,7 +40,7 @@ export interface AccordionImplProvideValue {
   disabled?: boolean;
   direction: AccordionImplProps["dir"];
   orientation: AccordionImplProps["orientation"];
-  parentElement: Ref<HTMLDivElement | undefined>;
+  parentElement: Ref<HTMLElement | undefined>;
 }
 
 export const ACCORDION_IMPL_INJECTION_KEY =
@@ -48,24 +48,26 @@ export const ACCORDION_IMPL_INJECTION_KEY =
 </script>
 
 <script setup lang="ts">
-import { provide, ref } from "vue";
+import { provide } from "vue";
+import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 
 const props = withDefaults(defineProps<AccordionImplProps>(), {
   orientation: "vertical",
 });
 
-const parentElementRef = ref<HTMLDivElement>();
+const { primitiveElement, currentElement: parentElement } =
+  usePrimitiveElement();
 
 provide<AccordionImplProvideValue>(ACCORDION_IMPL_INJECTION_KEY, {
   disabled: props.disabled,
   direction: props.dir,
   orientation: props.orientation,
-  parentElement: parentElementRef,
+  parentElement,
 });
 </script>
 
 <template>
-  <div ref="parentElementRef">
+  <PrimitiveDiv ref="primitiveElement">
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

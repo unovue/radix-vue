@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { inject } from "vue";
+import { PrimitiveH3 } from "@/Primitive";
 import {
   ACCORDION_IMPL_INJECTION_KEY,
   type AccordionImplProvideValue,
@@ -18,11 +19,11 @@ const accordianItemInjectedValue = inject<AccordionItemProvideValue>(
 </script>
 
 <template>
-  <h3
+  <PrimitiveH3
     :data-orientation="accordianImplInjectedValue?.orientation"
     :data-state="accordianItemInjectedValue?.open ? 'open' : 'closed'"
     :data-disabled="accordianItemInjectedValue?.disabled ? '' : undefined"
   >
     <slot />
-  </h3>
+  </PrimitiveH3>
 </template>

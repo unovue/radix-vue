@@ -1,12 +1,5 @@
 <script setup lang="ts">
-import {
-  AccordionRoot,
-  AccordionItem,
-  AccordionHeader,
-  AccordionTrigger,
-  AccordionContent,
-} from "../../../../../packages/radix-vue/src";
-// } from "radix-vue";
+import { AccordionRoot, AccordionItem, AccordionHeader, AccordionTrigger, AccordionContent } from "radix-vue";
 import { ref } from "vue";
 
 const tabValue = ref("item-1");
@@ -19,48 +12,41 @@ const rootDisabled = false;
   </div>
   <AccordionRoot
     class="w-[300px] rounded-md bg-[--line-color] shadow-lg"
-    v-model:value="tabValue"
+    :default-value="'item-2'"
     type="single"
     :disabled="rootDisabled"
     :collapsible="true"
   >
     <AccordionItem class="accordion-item" value="item-1">
       <AccordionHeader class="flex">
-        <AccordionTrigger class="accordion-trigger"
-          >Is it accessible?</AccordionTrigger
-        >
+        <AccordionTrigger class="accordion-trigger">Is it accessible?</AccordionTrigger>
       </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <div class="px-5 py-4">
-          Yes. It adheres to the WAI-ARIA design pattern.
-        </div>
+      <AccordionContent
+        class="accordion-content data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
+      >
+        <div class="px-5 py-4">Yes. It adheres to the WAI-ARIA design pattern.</div>
       </AccordionContent>
     </AccordionItem>
 
     <AccordionItem class="accordion-item" value="item-2">
       <AccordionHeader class="flex">
-        <AccordionTrigger class="accordion-trigger"
-          >Is it unstyled?</AccordionTrigger
-        >
+        <AccordionTrigger class="accordion-trigger">Is it unstyled?</AccordionTrigger>
       </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <div class="px-5 py-4">
-          Yes. It's unstyled by default, giving you freedom over the look and
-          feel.
-        </div>
+      <AccordionContent
+        class="accordion-content data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
+      >
+        <div class="px-5 py-4">Yes. It's unstyled by default, giving you freedom over the look and feel.</div>
       </AccordionContent>
     </AccordionItem>
 
     <AccordionItem class="accordion-item" value="item-3">
       <AccordionHeader class="flex">
-        <AccordionTrigger class="accordion-trigger"
-          >Can it be animated?</AccordionTrigger
-        >
+        <AccordionTrigger class="accordion-trigger">Can it be animated?</AccordionTrigger>
       </AccordionHeader>
-      <AccordionContent class="accordion-content">
-        <div class="px-5 py-4">
-          Yes! You can use the transition prop to configure the animation.
-        </div>
+      <AccordionContent
+        class="accordion-content data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
+      >
+        <div class="px-5 py-4">Yes! You can use the transition prop to configure the animation.</div>
       </AccordionContent>
     </AccordionItem>
   </AccordionRoot>

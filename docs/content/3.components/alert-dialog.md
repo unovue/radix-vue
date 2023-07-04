@@ -25,7 +25,8 @@ tabs : [{
 #previewSlot
   :alert-dialog
 #codeSlot
-:hero-code-group{folder="AlertDialog"}
+::hero-code-group{folder="AlertDialog"}
+::
 ::
 
 ## Features

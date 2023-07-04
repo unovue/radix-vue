@@ -2,8 +2,3 @@
 #__nuxt > div > header > div > div.section.right > button {
   display: none;
 }
-
-/* forcefully set max-width as pinceau is causing layout shift */
-.page-layout .container {
-  @apply xl:!max-w-screen-xl;
-}

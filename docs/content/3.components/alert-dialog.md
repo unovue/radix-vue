@@ -7,21 +7,10 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog
 
 # Alert Dialog
 
-  A modal dialog that interrupts the user with important content and expects a
-  response.
-
-
-
+A modal dialog that interrupts the user with important content and expects a
+response.
+:br
 ::demo-preview
----
-tabs : [{
-  name: 'app.vue',
-  content: ''
-}, {
-  name: 'tailwind.config.js',
-  content: ''
-}]
----
 #previewSlot
   :alert-dialog
 #codeSlot
@@ -30,7 +19,7 @@ tabs : [{
 ::
 
 ## Features
-
+:br
 ::list{type="success"}
 - Focus is automatically trapped.
 - Can be controlled or uncontrolled.

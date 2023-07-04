@@ -38,7 +38,7 @@ async function copy() {
 
 <template>
   <div
-    class="p-6 bg-neutral-900 relative text-[13px] group font-mono overflow-auto rounded-lg"
+    class="p-6 bg-neutral-900 relative text-[13px] group font-mono overflow-auto rounded-lg my-5"
     :class="`language-${props.language}`"
   >
     <button

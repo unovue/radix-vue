@@ -29,7 +29,7 @@ export default defineNuxtConfig({
     config: {
       content() {
         return [
-          './components/**/*.{vue,ts,js}'
+          './components/**/*.{vue,ts,js}', './pages/**/*.{vue,ts,js}'
         ]
       },
     },

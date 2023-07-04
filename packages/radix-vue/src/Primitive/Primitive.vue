@@ -43,6 +43,7 @@ const Primitive = NODES.reduce((primitive, node) => {
       const asChild =
         attrs.asChild === "true" ||
         attrs.asChild === "" ||
+        attrs["as-child"] === true ||
         (attrs.asChild as boolean);
 
       if (asChild) {

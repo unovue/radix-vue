@@ -12,11 +12,18 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/radiobutton
   the buttons can be checked at a time.
 </Description>
 
-<HeroContainer>
-  <RadioGroupDemo />
-</HeroContainer>
+::description
+A set of checkable buttons—known as radio buttons—where no more than one of
+  the buttons can be checked at a time.
+  ::
 
-<HeroCodeBlock folder="RadioGroup" />
+::hero-container
+#previewSlot
+  :radio-group
+#codeSlot
+::hero-code-group{folder="RadioGroup"}
+::
+::
 
 <Highlights
   features={[

@@ -7,15 +7,17 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/switch
 
 # Switch
 
-<Description>
-  A control that allows the user to toggle between checked and not checked.
-</Description>
+::description
+A control that allows the user to toggle between checked and not checked.
+::
 
-<HeroContainer>
-  <SwitchDemo />
-</HeroContainer>
-
-<HeroCodeBlock folder="Switch" />
+::hero-container
+#previewSlot
+  :switch
+#codeSlot
+::hero-code-group{folder="Switch"}
+::
+::
 
 <Highlights
   features={['Full keyboard navigation.', 'Can be controlled or uncontrolled.']}

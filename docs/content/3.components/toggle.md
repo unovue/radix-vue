@@ -7,13 +7,17 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/button
 
 # Toggle
 
-<Description>A two-state button that can be either on or off.</Description>
+::description
+A two-state button that can be either on or off.
+::
 
-<HeroContainer>
-  <ToggleDemo />
-</HeroContainer>
-
-<HeroCodeBlock folder="Toggle" />
+::hero-container
+#previewSlot
+  :toggle
+#codeSlot
+::hero-code-group{folder="Toggle"}
+::
+::
 
 <Highlights
   features={['Full keyboard navigation.', 'Can be controlled or uncontrolled.']}

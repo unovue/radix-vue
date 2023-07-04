@@ -7,15 +7,17 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/button
 
 # Toggle Group
 
-<Description>
-  A set of two-state buttons that can be toggled on or off.
-</Description>
+::description
+A set of two-state buttons that can be toggled on or off.
+::
 
-<HeroContainer>
-  <ToggleGroupDemo />
-</HeroContainer>
-
-<HeroCodeBlock folder="ToggleGroup" />
+::hero-container
+#previewSlot
+  :toggle-group
+#codeSlot
+::hero-code-group{folder="ToggleGroup"}
+::
+::
 
 <Highlights
   features={[

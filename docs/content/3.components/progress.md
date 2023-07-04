@@ -7,16 +7,18 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/meter
 
 # Progress
 
-<Description>
-  Displays an indicator showing the completion progress of a task, typically
+::description
+Displays an indicator showing the completion progress of a task, typically
   displayed as a progress bar.
-</Description>
+  ::
 
-<HeroContainer>
-  <ProgressDemo />
-</HeroContainer>
-
-<HeroCodeBlock folder="Progress" />
+::hero-container
+#previewSlot
+  :progress
+#codeSlot
+::hero-code-group{folder="Progress"}
+::
+::
 
 <Highlights
   features={[

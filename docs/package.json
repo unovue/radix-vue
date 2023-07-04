@@ -22,6 +22,6 @@
   "dependencies": {
     "@nuxtjs/tailwindcss": "^6.8.0",
     "@radix-ui/colors": "^1.0.0",
-    "radix-vue": "0.0.1-rc-.2"
+    "radix-vue": "0.0.1-rc.4"
   }
 }

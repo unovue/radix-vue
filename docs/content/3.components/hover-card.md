@@ -6,15 +6,17 @@ name: hover-card
 
 # Hover Card
 
-<Description>
+::description
   For sighted users to preview content available behind a link.
-</Description>
+::
 
-<HeroContainer>
-  <HoverCardDemo />
-</HeroContainer>
-
-<HeroCodeBlock folder="HoverCard" />
+::hero-container
+#previewSlot
+  :hover-card
+#codeSlot
+::hero-code-group{folder="HoverCard"}
+::
+::
 
 <Highlights
   features={[

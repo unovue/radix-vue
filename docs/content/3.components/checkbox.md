@@ -7,15 +7,17 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/checkbox
 
 # Checkbox
 
-<Description>
-  A control that allows the user to toggle between checked and not checked.
-</Description>
+::description
+A control that allows the user to toggle between checked and not checked.
+::
 
-<HeroContainer>
-  <CheckboxDemo />
-</HeroContainer>
-
-<HeroCodeBlock folder="Checkbox" />
+::hero-container
+#previewSlot
+  :checkbox
+#codeSlot
+::hero-code-group{folder="Checkbox"}
+::
+::
 
 <Highlights
   features={[

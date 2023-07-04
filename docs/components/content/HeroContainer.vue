@@ -8,3 +8,9 @@
     <slot name="codeSlot" />
   </div>
 </template>
+
+<style>
+input {
+  background-color: white;
+}
+</style>

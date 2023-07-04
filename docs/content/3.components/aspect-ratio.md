@@ -6,13 +6,17 @@ name: aspect-ratio
 
 # Aspect Ratio
 
-<Description>Displays content within a desired ratio.</Description>
+::description
+Displays content within a desired ratio.
+::
 
-<HeroContainer>
-  <AspectRatioDemo />
-</HeroContainer>
-
-<HeroCodeBlock folder="AspectRatio" />
+::hero-container
+#previewSlot
+  :aspect-ratio
+#codeSlot
+::hero-code-group{folder="AspectRatio"}
+::
+::
 
 <Highlights features={['Accepts any custom ratio.']} />
 

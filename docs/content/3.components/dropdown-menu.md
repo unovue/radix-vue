@@ -12,11 +12,18 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/menubutton
   a button.
 </Description>
 
-<HeroContainer>
-  <DropdownMenuDemo />
-</HeroContainer>
+::description
+Displays a menu to the user—such as a set of actions or functions—triggered by
+  a button.
+::
 
-<HeroCodeBlock folder="DropdownMenu" />
+::hero-container
+#previewSlot
+  :dropdown-menu
+#codeSlot
+::hero-code-group{folder="DropdownMenu"}
+::
+::
 
 <Highlights
   features={[

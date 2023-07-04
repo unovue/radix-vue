@@ -6,13 +6,17 @@ name: label
 
 # Label
 
-<Description>Renders an accessible label associated with controls.</Description>
+::description
+Renders an accessible label associated with controls.
+::
 
-<HeroContainer>
-  <LabelDemo />
-</HeroContainer>
-
-<HeroCodeBlock folder="Label" />
+::hero-container
+#previewSlot
+  :label
+#codeSlot
+::hero-code-group{folder="Label"}
+::
+::
 
 <Highlights
   features={[

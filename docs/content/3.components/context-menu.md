@@ -7,16 +7,18 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/menu
 
 # Context Menu
 
-<Description>
-  Displays a menu located at the pointer, triggered by a right-click or a
+::description
+Displays a menu located at the pointer, triggered by a right-click or a
   long-press.
-</Description>
+::
 
-<HeroContainer>
-  <ContextMenuDemo />
-</HeroContainer>
-
-<HeroCodeBlock folder="ContextMenu" />
+::hero-container
+#previewSlot
+  :context-menu
+#codeSlot
+::hero-code-group{folder="ContextMenu"}
+::
+::
 
 <Highlights
   features={[

@@ -7,15 +7,17 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/disclosure
 
 # Collapsible
 
-<Description>
-  An interactive component which expands/collapses a panel.
-</Description>
+::description
+An interactive component which expands/collapses a panel.
+::
 
-<HeroContainer>
-  <CollapsibleDemo />
-</HeroContainer>
-
-<HeroCodeBlock folder="Collapsible" />
+::hero-container
+#previewSlot
+  :collapsible
+#codeSlot
+::hero-code-group{folder="Collapsible"}
+::
+::
 
 <Highlights
   features={['Full keyboard navigation.', 'Can be controlled or uncontrolled.']}

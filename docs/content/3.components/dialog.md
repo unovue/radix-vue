@@ -7,16 +7,18 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal
 
 # Dialog
 
-<Description>
-  A window overlaid on either the primary window or another dialog window,
+::description
+A window overlaid on either the primary window or another dialog window,
   rendering the content underneath inert.
-</Description>
+  ::
 
-<HeroContainer>
-  <DialogDemo />
-</HeroContainer>
-
-<HeroCodeBlock folder="Dialog" />
+::hero-container
+#previewSlot
+  :dialog
+#codeSlot
+::hero-code-group{folder="Dialog"}
+::
+::
 
 <Highlights
   features={[

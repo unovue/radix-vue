@@ -7,15 +7,17 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal
 
 # Popover
 
-<Description>
+::description
   Displays rich content in a portal, triggered by a button.
-</Description>
+::
 
-<HeroContainer>
-  <PopoverDemo />
-</HeroContainer>
-
-<HeroCodeBlock folder="Popover" />
+::hero-container
+#previewSlot
+  :popover
+#codeSlot
+::hero-code-group{folder="Popover"}
+::
+::
 
 <Highlights
   features={[

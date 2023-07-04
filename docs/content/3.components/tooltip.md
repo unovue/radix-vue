@@ -7,16 +7,18 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/tooltip
 
 # Tooltip
 
-<Description>
-  A popup that displays information related to an element when the element
-  receives keyboard focus or the mouse hovers over it.
-</Description>
+::description
+A popup that displays information related to an element when the element
+receives keyboard focus or the mouse hovers over it.
+::
 
-<HeroContainer>
-  <TooltipDemo />
-</HeroContainer>
-
-<HeroCodeBlock folder="Tooltip" />
+::hero-container
+#previewSlot
+  :tooltip
+#codeSlot
+::hero-code-group{folder="Tooltip"}
+::
+::
 
 <Highlights
   features={[

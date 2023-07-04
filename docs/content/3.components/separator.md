@@ -7,13 +7,17 @@ aria: https://www.w3.org/TR/wai-aria-1.2/#separator
 
 # Separator
 
-<Description>Visually or semantically separates content.</Description>
+::description
+Visually or semantically separates content.
+::
 
-<HeroContainer>
-  <SeparatorDemo />
-</HeroContainer>
-
-<HeroCodeBlock folder="Separator" />
+::hero-container
+#previewSlot
+  :separator
+#codeSlot
+::hero-code-group{folder="Separator"}
+::
+::
 
 <Highlights features={['Supports horizontal and vertical orientations.']} />
 

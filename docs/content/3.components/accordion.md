@@ -7,16 +7,18 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/accordion
 
 # Accordion
 
-<Description>
-  A vertically stacked set of interactive headings that each reveal an
-  associated section of content.
-</Description>
+::description
+A vertically stacked set of interactive headings that each reveal an
+associated section of content.
+::
 
-<HeroContainer>
-  <AccordionDemo />
-</HeroContainer>
-
-<HeroCodeBlock folder="Accordion" />
+::hero-container
+#previewSlot
+  :accordion
+#codeSlot
+::hero-code-group{folder="Accordion"}
+::
+::
 
 <Highlights
   features={[

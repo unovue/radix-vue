@@ -6,15 +6,17 @@ name: scroll-area
 
 # Scroll Area
 
-<Description>
+::description
   Augments native scroll functionality for custom, cross-browser styling.
-</Description>
+::
 
-<HeroContainer css={{ py: '$8' }}>
-  <ScrollAreaDemo />
-</HeroContainer>
-
-<HeroCodeBlock folder="ScrollArea" />
+::hero-container
+#previewSlot
+  :scroll-area
+#codeSlot
+::hero-code-group{folder="ScrollArea"}
+::
+::
 
 <Highlights
   features={[

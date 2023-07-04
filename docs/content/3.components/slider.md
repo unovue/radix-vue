@@ -7,15 +7,17 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/slidertwothumb
 
 # Slider
 
-<Description>
-  An input where the user selects a value from within a given range.
-</Description>
+::description
+An input where the user selects a value from within a given range.
+::
 
-<HeroContainer>
-  <SliderDemo />
-</HeroContainer>
-
-<HeroCodeBlock folder="Slider" />
+::hero-container
+#previewSlot
+  :slider
+#codeSlot
+::hero-code-group{folder="Slider"}
+::
+::
 
 <Highlights
   features={[

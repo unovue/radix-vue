@@ -6,15 +6,17 @@ name: avatar
 
 # Avatar
 
-<Description>
-  An image element with a fallback for representing the user.
-</Description>
+::description
+An image element with a fallback for representing the user.
+::
 
-<HeroContainer>
-  <AvatarDemo />
-</HeroContainer>
-
-<HeroCodeBlock folder="Avatar" />
+::hero-container
+#previewSlot
+  :avatar
+#codeSlot
+::hero-code-group{folder="Avatar"}
+::
+::
 
 <Highlights
   features={[

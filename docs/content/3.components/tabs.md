@@ -7,16 +7,18 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel
 
 # Tabs
 
-<Description>
-  A set of layered sections of content—known as tab panels—that are displayed
-  one at a time.
-</Description>
+::description
+A set of layered sections of content—known as tab panels—that are displayed
+one at a time.
+::
 
-<HeroContainer>
-  <TabsDemo />
-</HeroContainer>
-
-<HeroCodeBlock folder="Tabs" />
+::hero-container
+#previewSlot
+  :tabs
+#codeSlot
+::hero-code-group{folder="Tabs"}
+::
+::
 
 <Highlights
   features={[

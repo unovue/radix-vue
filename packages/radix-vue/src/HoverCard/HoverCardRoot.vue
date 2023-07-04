@@ -28,6 +28,7 @@ export type HoverCardProvideValue = {
 <script setup lang="ts">
 import { provide, ref } from "vue";
 import { useVModel } from "@vueuse/core";
+import { PopperRoot } from "@/Popper";
 
 const props = withDefaults(defineProps<HoverCardRootProps>(), {
   defaultOpen: false,
@@ -67,5 +68,7 @@ provide<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY, {
 </script>
 
 <template>
-  <slot />
+  <PopperRoot>
+    <slot />
+  </PopperRoot>
 </template>

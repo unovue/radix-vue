@@ -7,20 +7,9 @@ export const HOVER_CARD_CONTENT_INJECTION_KEY =
 
 export type Boundary = Element | null | Array<Element | null>;
 
-export interface HoverCardContentProps {
+export interface HoverCardContentProps extends PopperContentProps {
   asChild?: boolean;
   forceMount?: boolean;
-  side?: "top" | "right" | "bottom" | "left"; //"top"
-  sideOffset?: number; //0
-  align?: "start" | "center" | "end";
-  alignOffset?: number; //"center"
-  avoidCollisions?: boolean; //true
-  collisionBoundary?: Boundary; //[]
-  collisionPadding?: number | Partial<Record<Side, number>>; //0
-  arrowPadding?: number; //0
-  sticky?: "partial" | "always"; //"partial"
-  hideWhenDetached?: boolean; //false
-  class: string;
 }
 
 export type HoverCardContentProvideValue = {
@@ -30,25 +19,17 @@ export type HoverCardContentProvideValue = {
 </script>
 
 <script setup lang="ts">
-import { onMounted, inject, ref, provide } from "vue";
-import { PrimitiveDiv } from "@/Primitive";
-import {
-  useFloating,
-  offset,
-  flip,
-  shift,
-  arrow,
-  autoUpdate,
-} from "@floating-ui/vue";
+import { onMounted, inject, ref } from "vue";
 import {
   HOVER_CARD_INJECTION_KEY,
   type HoverCardProvideValue,
 } from "./HoverCardRoot.vue";
+import { PopperContent, type PopperContentProps } from "@/Popper";
 import { useMouseleaveDelay } from "../shared";
 
 const injectedValue = inject<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY);
 
-const props = withDefaults(defineProps<HoverCardContentProps>(), {
+withDefaults(defineProps<HoverCardContentProps>(), {
   side: "bottom",
   align: "center",
 });
@@ -56,26 +37,6 @@ const props = withDefaults(defineProps<HoverCardContentProps>(), {
 const tooltipContentElement = ref<HTMLElement>();
 onMounted(() => {
   injectedValue!.floatingElement.value = tooltipContentElement.value;
-});
-
-const {
-  floatingStyles,
-  middlewareData,
-  placement: floatPosition,
-} = useFloating(injectedValue!.triggerElement, tooltipContentElement, {
-  placement: "bottom",
-  middleware: [
-    offset(10),
-    flip(),
-    shift(),
-    arrow({ element: injectedValue?.arrowElement }),
-  ],
-  whileElementsMounted: autoUpdate,
-});
-
-provide<HoverCardContentProvideValue>(HOVER_CARD_CONTENT_INJECTION_KEY, {
-  middlewareData: middlewareData,
-  floatPosition: floatPosition as Ref<Side>,
 });
 
 async function handleMouseleave(e: MouseEvent) {
@@ -88,24 +49,15 @@ async function handleMouseleave(e: MouseEvent) {
 </script>
 
 <template>
-  <div
-    ref="tooltipContentElement"
+  <PopperContent
     v-if="injectedValue?.open.value"
-    style="min-width: max-content; will-change: transform; z-index: auto"
-    :style="floatingStyles"
     @mouseover="injectedValue.isHover = true"
     @mouseleave="handleMouseleave"
+    :data-state="injectedValue?.open.value ? 'delayed-open' : 'closed'"
+    role="tooltip"
+    tabindex="-1"
+    :as-child="asChild"
   >
-    <PrimitiveDiv
-      :data-state="injectedValue?.open.value ? 'delayed-open' : 'closed'"
-      :data-side="props.side"
-      :data-align="props.align"
-      role="tooltip"
-      tabindex="-1"
-      :asChild="props.asChild"
-      :class="props.class"
-    >
-      <slot />
-    </PrimitiveDiv>
-  </div>
+    <slot />
+  </PopperContent>
 </template>

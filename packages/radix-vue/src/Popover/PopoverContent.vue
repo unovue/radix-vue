@@ -5,6 +5,29 @@ import type { Side, MiddlewareData } from "@floating-ui/dom";
 export const POPOVER_CONTENT_INJECTION_KEY =
   Symbol() as InjectionKey<PopoverContentProvideValue>;
 
+export type Boundary = Element | null | Array<Element | null>;
+
+export interface PopoverContentProps {
+  asChild?: boolean;
+  //onOpenAutoFocus?: void;
+  //onCloseAutoFocus?: void;
+  //onEscapeKeyDown?: void;
+  //onPointerDownOutside?: void;
+  //onInteractOutside?: void;
+  forceMount?: boolean;
+  side?: "top" | "right" | "bottom" | "left"; //"top"
+  sideOffset?: number; //0
+  align?: "start" | "center" | "end";
+  alignOffset?: number; //"center"
+  avoidCollisions?: boolean; //true
+  collisionBoundary?: Boundary; //[]
+  collisionPadding?: number | Partial<Record<Side, number>>; //0
+  arrowPadding?: number; //0
+  sticky?: "partial" | "always"; //"partial"
+  hideWhenDetached?: boolean; //false
+  class: string;
+}
+
 export type PopoverContentProvideValue = {
   middlewareData: Ref<MiddlewareData>;
   floatPosition: Ref<Side>;
@@ -13,6 +36,7 @@ export type PopoverContentProvideValue = {
 
 <script setup lang="ts">
 import { onMounted, inject, ref, watchEffect, provide } from "vue";
+import { PrimitiveDiv } from "@/Primitive";
 import {
   useFloating,
   offset,
@@ -30,8 +54,9 @@ import {
 
 const injectedValue = inject<PopoverProvideValue>(POPOVER_INJECTION_KEY);
 
-const props = defineProps({
-  class: String,
+const props = withDefaults(defineProps<PopoverContentProps>(), {
+  side: "bottom",
+  align: "center",
 });
 
 const tooltipContentElement = ref<HTMLElement>();
@@ -44,7 +69,7 @@ const {
   middlewareData,
   placement: floatPosition,
 } = useFloating(injectedValue!.triggerElement, tooltipContentElement, {
-  placement: "bottom",
+  placement: props.side,
   middleware: [
     offset(10),
     flip(),
@@ -56,7 +81,7 @@ const {
 
 watchEffect(() => {
   if (tooltipContentElement.value) {
-    if (injectedValue?.modelValue.value) {
+    if (injectedValue?.open.value) {
       setTimeout(() => {
         trapFocus(tooltipContentElement.value!);
       }, 0);
@@ -74,7 +99,7 @@ watchEffect(() => {
 function closeDialogWhenClickOutside(e: MouseEvent) {
   const clickOutside = useClickOutside(e, tooltipContentElement.value!);
   if (clickOutside) {
-    injectedValue?.hideTooltip();
+    injectedValue?.hidePopover();
   }
 }
 
@@ -92,17 +117,19 @@ provide<PopoverContentProvideValue>(POPOVER_CONTENT_INJECTION_KEY, {
 <template>
   <div
     ref="tooltipContentElement"
-    v-if="injectedValue?.modelValue.value"
+    v-if="injectedValue?.open.value"
     style="min-width: max-content; will-change: transform; z-index: auto"
     :style="floatingStyles"
   >
-    <div
-      :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
-      data-side="bottom"
+    <PrimitiveDiv
+      :data-state="injectedValue?.open.value ? 'open' : 'closed'"
+      :data-side="props.side"
+      :data-align="props.align"
       role="tooltip"
       :class="props.class"
+      :asChild="props.asChild"
     >
       <slot />
-    </div>
+    </PrimitiveDiv>
   </div>
 </template>

@@ -1,55 +1,61 @@
+<script lang="ts">
+export interface SliderThumbProps {
+  asChild?: boolean;
+
+  // INTERNAL
+  class?: string;
+}
+</script>
+
 <script setup lang="ts">
-import { inject, ref, onMounted } from "vue";
+import { inject, onMounted } from "vue";
+import { PrimitiveSpan, usePrimitiveElement } from "@/Primitive";
 import { SLIDER_INJECTION_KEY } from "./SliderRoot.vue";
 import type { SliderProvideValue } from "./SliderRoot.vue";
 
 const injectedValue = inject<SliderProvideValue>(SLIDER_INJECTION_KEY);
-const thumbElement = ref();
+const { primitiveElement, currentElement: thumbElement } =
+  usePrimitiveElement();
+
 onMounted(() => {
-  injectedValue.thumbElement.value = thumbElement.value;
+  if (injectedValue?.thumbElement)
+    injectedValue.thumbElement.value = thumbElement.value;
 });
 
-const props = defineProps({
-  class: String,
+const props = withDefaults(defineProps<SliderThumbProps>(), {
+  asChild: false,
 });
 
 let extraStep = 2;
 
 function handleKeydown(e: KeyboardEvent) {
+  if (!injectedValue) return;
   //prevent default when enter/space
   if (e.keyCode === 32 || e.key === "Enter") {
     e.preventDefault();
   }
-  const step = parseInt(injectedValue?.step);
+  const step = Number(injectedValue?.step);
+  const value = Number(injectedValue.modelValue?.value);
   //add value
   if (e.key === "ArrowUp" || e.key === "ArrowRight") {
     if (e.shiftKey) {
       e.preventDefault();
-      if (injectedValue?.modelValue?.value + extraStep >= injectedValue?.max) {
+
+      if (value + extraStep >= injectedValue?.max) {
         injectedValue?.changeModelValue(injectedValue?.max);
-      } else if (
-        injectedValue?.modelValue?.value + extraStep <=
-        injectedValue?.min
-      ) {
+      } else if (value + extraStep <= injectedValue?.min) {
         injectedValue?.changeModelValue(injectedValue?.min);
       } else {
-        injectedValue?.changeModelValue(
-          injectedValue?.modelValue?.value + extraStep
-        );
+        injectedValue?.changeModelValue(value + extraStep);
       }
     } else {
       e.preventDefault();
-      if (injectedValue?.modelValue?.value + step >= injectedValue?.max) {
+      if (value + step >= injectedValue?.max) {
         injectedValue?.changeModelValue(injectedValue?.max);
-      } else if (
-        injectedValue?.modelValue?.value + step <=
-        injectedValue?.min
-      ) {
+      } else if (value + step <= injectedValue?.min) {
         injectedValue?.changeModelValue(injectedValue?.min);
       } else {
-        injectedValue?.changeModelValue(
-          injectedValue?.modelValue?.value + step
-        );
+        injectedValue?.changeModelValue(value + step);
       }
     }
   }
@@ -57,31 +63,21 @@ function handleKeydown(e: KeyboardEvent) {
   if (e.key === "ArrowDown" || e.key === "ArrowLeft") {
     if (e.shiftKey) {
       e.preventDefault();
-      if (injectedValue?.modelValue?.value - extraStep >= injectedValue?.max) {
+      if (value - extraStep >= injectedValue?.max) {
         injectedValue?.changeModelValue(injectedValue?.max);
-      } else if (
-        injectedValue?.modelValue?.value - extraStep <=
-        injectedValue?.min
-      ) {
+      } else if (value - extraStep <= injectedValue?.min) {
         injectedValue?.changeModelValue(injectedValue?.min);
       } else {
-        injectedValue?.changeModelValue(
-          injectedValue?.modelValue?.value - extraStep
-        );
+        injectedValue?.changeModelValue(value - extraStep);
       }
     } else {
       e.preventDefault();
-      if (injectedValue?.modelValue?.value - step >= injectedValue?.max) {
+      if (value - step >= injectedValue?.max) {
         injectedValue?.changeModelValue(injectedValue?.max);
-      } else if (
-        injectedValue?.modelValue?.value - step <=
-        injectedValue?.min
-      ) {
+      } else if (value - step <= injectedValue?.min) {
         injectedValue?.changeModelValue(injectedValue?.min);
       } else {
-        injectedValue?.changeModelValue(
-          injectedValue?.modelValue?.value - step
-        );
+        injectedValue?.changeModelValue(value - step);
       }
     }
   }
@@ -92,17 +88,19 @@ function handleKeydown(e: KeyboardEvent) {
   <span
     :style="`transform: translateX(-50%); position: absolute; left: calc(${injectedValue?.modelValue?.value}%)`"
   >
-    <span
+    <PrimitiveSpan
       :class="props.class"
-      ref="thumbElement"
+      ref="primitiveElement"
       role="slider"
       tabindex="0"
+      :data-disabled="injectedValue?.disabled"
+      :data-orientation="injectedValue?.orientation"
       :aria-valuenow="injectedValue?.modelValue?.value"
       :aria-valuemin="injectedValue?.min"
       :aria-valuemax="injectedValue?.max"
       :aria-orientation="injectedValue?.orientation"
       @keydown="handleKeydown"
     >
-    </span>
+    </PrimitiveSpan>
   </span>
 </template>

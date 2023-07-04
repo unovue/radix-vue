@@ -1,5 +1,12 @@
+<script lang="ts">
+export interface PopoverCloseProps {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { inject } from "vue";
+import { PrimitiveButton } from "@/Primitive";
 import {
   POPOVER_INJECTION_KEY,
   type PopoverProvideValue,
@@ -9,12 +16,12 @@ const injectedValue = inject<PopoverProvideValue>(POPOVER_INJECTION_KEY);
 </script>
 
 <template>
-  <button
+  <PrimitiveButton
     type="button"
-    :aria-expanded="injectedValue?.modelValue.value || false"
-    :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
-    @click="injectedValue?.hideTooltip"
+    :aria-expanded="injectedValue?.open.value || false"
+    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
+    @click="injectedValue?.hidePopover"
   >
     <slot />
-  </button>
+  </PrimitiveButton>
 </template>

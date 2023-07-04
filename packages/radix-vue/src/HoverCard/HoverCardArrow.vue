@@ -10,13 +10,17 @@ import {
 } from "./HoverCardContent.vue";
 import BaseArrow from "../shared/component/BaseArrow.vue";
 
-interface TooltipArrowProps {
+interface HoverCardArrowProps {
+  asChild?: boolean;
   size?: number;
 }
 </script>
 
 <script setup lang="ts">
-const props = defineProps<TooltipArrowProps>();
+const props = withDefaults(defineProps<HoverCardArrowProps>(), {
+  size: 10,
+  asChild: false,
+});
 
 const injectedValue = inject<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY);
 

@@ -11,12 +11,16 @@ import {
 import BaseArrow from "../shared/component/BaseArrow.vue";
 
 interface TooltipArrowProps {
+  asChild?: boolean;
   size?: number;
 }
 </script>
 
 <script setup lang="ts">
-const props = defineProps<TooltipArrowProps>();
+const props = withDefaults(defineProps<TooltipArrowProps>(), {
+  asChild: false,
+  size: 10,
+});
 
 const injectedValue = inject<TooltipProvideValue>(TOOLTIP_INJECTION_KEY);
 

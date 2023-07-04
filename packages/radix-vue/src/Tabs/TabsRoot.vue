@@ -3,17 +3,19 @@ import type { Ref, InjectionKey } from "vue";
 import type { DataOrientation, Direction } from "../shared/types";
 
 export interface TabsRootProps {
+  asChild?: boolean;
+  defaultValue?: string;
   orientation?: DataOrientation;
   dir?: Direction;
   activationMode?: "automatic" | "manual";
-  modelValue?: string | string[];
+  modelValue?: string;
 }
 
 export const TABS_INJECTION_KEY = Symbol() as InjectionKey<TabsProvideValue>;
 
 export interface TabsProvideValue {
-  modelValue?: Readonly<Ref<string | string[] | undefined>>;
-  changeModelValue: (value: any) => void;
+  modelValue?: Readonly<Ref<string | undefined>>;
+  changeModelValue: (value: string) => void;
   parentElement: Ref<HTMLElement | undefined>;
   orientation: DataOrientation;
   dir?: Direction;
@@ -21,9 +23,12 @@ export interface TabsProvideValue {
 </script>
 
 <script setup lang="ts">
-import { ref, toRef, provide } from "vue";
+import { ref, provide } from "vue";
+import { PrimitiveDiv } from "@/Primitive";
+import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<TabsRootProps>(), {
+  asChild: false,
   orientation: "horizontal",
   dir: "ltr",
   activationMode: "automatic",
@@ -33,10 +38,15 @@ const emits = defineEmits(["update:modelValue"]);
 
 const parentElementRef = ref<HTMLElement>();
 
+const modelValue = useVModel(props, "modelValue", emits, {
+  defaultValue: props.defaultValue,
+  passive: true,
+});
+
 provide<TabsProvideValue>(TABS_INJECTION_KEY, {
-  modelValue: toRef(() => props.modelValue),
-  changeModelValue: (value: any) => {
-    emits("update:modelValue", value);
+  modelValue,
+  changeModelValue: (value: string) => {
+    modelValue.value = value;
   },
   parentElement: parentElementRef,
   orientation: props.orientation,
@@ -45,7 +55,7 @@ provide<TabsProvideValue>(TABS_INJECTION_KEY, {
 </script>
 
 <template>
-  <div :dir="props.dir" :data-orientation="props.orientation">
+  <PrimitiveDiv :dir="props.dir" :data-orientation="props.orientation">
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

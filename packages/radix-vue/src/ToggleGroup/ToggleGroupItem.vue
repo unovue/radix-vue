@@ -1,11 +1,14 @@
 <script lang="ts">
 interface ToggleGroupItemProps {
+  asChild?: boolean;
   value?: string;
+  disabled?: boolean;
 }
 </script>
 
 <script setup lang="ts">
-import { ref, inject, computed } from "vue";
+import { inject, computed } from "vue";
+import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
 import {
   TOGGLE_GROUP_INJECTION_KEY,
   type ToggleGroupProvideValue,
@@ -16,9 +19,12 @@ const injectedValue = inject<ToggleGroupProvideValue>(
   TOGGLE_GROUP_INJECTION_KEY
 );
 
-const props = defineProps<ToggleGroupItemProps>();
+const props = withDefaults(defineProps<ToggleGroupItemProps>(), {
+  asChild: false,
+});
 
-const currentToggleElement = ref<HTMLElement>();
+const { primitiveElement, currentElement: currentToggleElement } =
+  usePrimitiveElement();
 
 const state = computed(() => {
   if (injectedValue?.type === "multiple") {
@@ -41,14 +47,16 @@ function handleKeydown(e: KeyboardEvent) {
 </script>
 
 <template>
-  <button
+  <PrimitiveButton
     type="button"
     :data-state="state"
+    :data-disabled="props.disabled"
+    :data-orientation="injectedValue?.orientation"
     @click="injectedValue?.changeModelValue(props.value!)"
-    ref="currentToggleElement"
+    ref="primitiveElement"
     @keydown="handleKeydown"
     data-radix-vue-collection-item
   >
     <slot />
-  </button>
+  </PrimitiveButton>
 </template>

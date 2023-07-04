@@ -9,8 +9,8 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal
 
 ::description
 A window overlaid on either the primary window or another dialog window,
-  rendering the content underneath inert.
-  ::
+rendering the content underneath inert.
+::
 
 ::hero-container
 #previewSlot

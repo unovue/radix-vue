@@ -7,15 +7,10 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/radiobutton
 
 # Radio Group
 
-<Description>
-  A set of checkable buttons—known as radio buttons—where no more than one of
-  the buttons can be checked at a time.
-</Description>
-
 ::description
 A set of checkable buttons—known as radio buttons—where no more than one of
-  the buttons can be checked at a time.
-  ::
+the buttons can be checked at a time.
+::
 
 ::hero-container
 #previewSlot

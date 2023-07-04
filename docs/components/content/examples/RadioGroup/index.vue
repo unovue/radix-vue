@@ -6,9 +6,6 @@ const radioStateSingle = ref("default");
 </script>
 
 <template>
-  <div class="absolute left-4 top-3 text-sm">
-  <p>Single: {{ radioStateSingle }}</p>
-</div>
   <RadioGroupRoot v-model="radioStateSingle" class="flex flex-col gap-2.5" defaultValue="default"
     aria-label="View density">
     <div class="flex items-center">

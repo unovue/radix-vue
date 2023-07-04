@@ -9,8 +9,8 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/meter
 
 ::description
 Displays an indicator showing the completion progress of a task, typically
-  displayed as a progress bar.
-  ::
+displayed as a progress bar.
+::
 
 ::hero-container
 #previewSlot

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import { ProgressRoot, ProgressIndicator } from "radix-vue";
 
 const progressValue = ref(66);

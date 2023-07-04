@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { AccordionRoot, AccordionItem, AccordionHeader, AccordionTrigger, AccordionContent } from "radix-vue";
-import { ref } from "vue";
 
 const rootDisabled = false;
 </script>
@@ -8,7 +7,7 @@ const rootDisabled = false;
 <template>
   <AccordionRoot
     class="w-[300px] rounded-md bg-[--line-color] shadow-lg"
-    :default-value="'item-2'"
+    :default-value="'item-1'"
     type="single"
     :disabled="rootDisabled"
     :collapsible="true"

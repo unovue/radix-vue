@@ -15,7 +15,7 @@ const props = withDefaults(defineProps<ProseCodeProps>(), {
   code: "",
   language: null,
   filename: null,
-  highlights: ()=>[],
+  highlights: () => [],
   meta: null,
 });
 

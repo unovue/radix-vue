@@ -15,11 +15,14 @@ import {
 const injectedValue = inject<CollapsibleProvideValue>(
   COLLAPSIBLE_INJECTION_KEY
 );
+
+defineProps<CollapsibleTriggerProps>();
 </script>
 
 <template>
   <PrimitiveButton
     type="button"
+    :as-child="asChild"
     :aria-controls="injectedValue?.contentId"
     :aria-expanded="injectedValue?.open.value || false"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"

@@ -59,6 +59,7 @@ function handleKeydown(e: KeyboardEvent) {
     :data-radix-vue-tab-value="props.value"
     @click="changeTab(props.value!)"
     @keydown="handleKeydown"
+    :as-child="asChild"
   >
     <slot />
   </PrimitiveButton>

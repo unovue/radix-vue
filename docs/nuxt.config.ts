@@ -25,4 +25,13 @@ export default defineNuxtConfig({
   colorMode: {
     preference: "dark",
   },
+  tailwindcss: {
+    config: {
+      content() {
+        return [
+          './components/**/*.{vue,ts,js}'
+        ]
+      },
+    },
+  }
 });

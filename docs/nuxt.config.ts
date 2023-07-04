@@ -10,6 +10,12 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
   ],
 
+  app: {
+    head: {
+      link: [{ rel: "icon", type: "image/svg", href: "/logo.svg" }],
+    },
+  },
+
   pinceau: {
     preflight: false,
   },

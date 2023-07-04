@@ -1,573 +1,394 @@
 ---
 metaTitle: Form
-metaDescription: Collect information from your users using validation rules.
+metaDescription: A modal dialog that interrupts the user with important content and expects a response.
 name: form
+aria: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog
 ---
 
 # Form
 
-<Description>
-  Collect information from your users using validation rules.
-</Description>
+::description
+A modal dialog that interrupts the user with important content and expects a
+response.
+::
 
-<HeroContainer>
-  <FormDemo />
-</HeroContainer>
+::hero-container
+#previewSlot
+  :alert-dialog
+#codeSlot
+::hero-code-group{folder="AlertDialog"}
+::
+::
 
-<HeroCodeBlock folder="Form" />
-
-<Highlights
-  features={[
-    <>
-      Built on top of the native browser{' '}
-      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation">
-        constraint validation API.
-      </Link>
-    </>,
-    'Supports built-in validation.',
-    'Supports custom validation.',
-    'Full customization of validation messages.',
-    'Accessible validation messages.',
-    'Supports client-side and server-side scenarios.',
-    'Focus is fully managed.',
-  ]}
-/>
+## Features
+:br
+::list{type="success"}
+- Focus is automatically trapped.
+- Can be controlled or uncontrolled.
+- Manages screen reader announcements with `Title` and
+      `Description` components.
+- Esc closes the component automatically.
+::
 
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-form
+npm install @radix-ui/react-alert-dialog
 ```
 
 ## Anatomy
 
 Import all parts and piece them together.
 
-```jsx
-import * as Form from '@radix-ui/react-form';
+```vue
+<script setup lang="ts">
+import * as AlertDialog from '@radix-ui/react-alert-dialog';
+</script>
 
-export default () => (
-  <Form.Root>
-    <Form.Field>
-      <Form.Label />
-      <Form.Control />
-      <Form.Message />
-      <Form.ValidityState />
-    </Form.Field>
-
-    <Form.Message />
-    <Form.ValidityState />
-
-    <Form.Submit />
-  </Form.Root>
-);
+<template>
+  <AlertDialogRoot>
+    <AlertDialogTrigger />
+    <AlertDialogPortal>
+      <AlertDialogOverlay />
+      <AlertDialogContent>
+        <AlertDialogTitle />
+        <AlertDialogDescription />
+        <AlertDialogCancel />
+        <AlertDialogAction />
+      </AlertDialogContent>
+    </AlertDialogPortal>
+  </AlertDialogRoot>
+<template/>
 ```
 
 ## API Reference
 
 ### Root
 
-Contains all the parts of a form.
+Contains all the parts of an alert dialog.
 
-<PropsTable
-  data={[
-    {
-      name: 'asChild',
-      required: false,
+::props-table
+---
+data: [{
+      name: 'defaultOpen',
       type: 'boolean',
-      default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description:
+        'The open state of the dialog when it is initially rendered. Use when you do not need to control its open state.',
     },
     {
-      name: 'onClearServerErrors',
-      required: false,
-      type: '() => void',
+      name: 'open',
+      type: 'boolean',
+      description: The controlled open state of the dialog. Must be used in conjunction
+          with `onOpenChange`.,
+    },
+    {
+      name: 'onOpenChange',
+      type: '(open: boolean) => void',
       typeSimple: 'function',
       description:
-        'Event handler called when the form is submitted or reset and the server errors need to be cleared.',
+        'Event handler called when the open state of the dialog changes.',
     },
-  ]}
-/>
+  ]
+---
+::
 
-### Field
+### Trigger
 
-The wrapper for a field. It handles id/name and label accessibility automatically.
+A button that opens the dialog.
 
-<PropsTable
-  data={[
+::props-table
+---
+data: [{
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child,
+          merging their props and behavior.',
+    },
+  ]
+---
+::
+
+::data-attributes-table
+---
+data: [
+    {
+      attribute: '[data-state]',
+      values: ['open', 'closed'],
+    },
+  ]
+---
+::
+
+### Portal
+
+When used, portals your overlay and content parts into the `body`.
+
+::props-table
+---
+data: [
+    {
+      name: 'forceMount',
+      type: 'boolean',
+      description: 'Used to force mounting when more control is needed. Useful when
+          controlling animation with React animation libraries. If used on this
+          part, it will be inherited by',
+    },
+    {
+      name: 'container',
+      type: 'HTMLElement',
+      default: 'document.body',
+      description: 'Specify a container element to portal the content into.',
+    },
+  ]
+---
+::
+
+### Overlay
+
+A layer that covers the inert portion of the view when the dialog is open.
+
+::props-table
+---
+data: [
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child,
+          merging their props and behavior.',
     },
     {
-      name: 'name',
-      required: true,
-      type: 'string',
-      description:
-        'The name of the field that will be passed down to the control and used to match with validation messages.',
-    },
-    {
-      name: 'serverInvalid',
-      required: false,
+      name: 'forceMount',
       type: 'boolean',
-      description: 'Use this prop to mark the field as invalid on the server.',
+      description: Used to force mounting when more control is needed. Useful when
+          controlling animation with React animation libraries. It inherits from `AlertDialog.Portal`.,
     },
-  ]}
-/>
+  ]
+---
+::
 
-<DataAttributesTable
-  data={[
+::data-attributes-table
+---
+data: [
     {
-      attribute: '[data-invalid]',
-      values: 'Present when the field is invalid',
+      attribute: '[data-state]',
+      values: ['open', 'closed'],
     },
-    {
-      attribute: '[data-valid]',
-      values: 'Present when the field is valid',
-    },
-  ]}
-/>
+  ]
+---
+::
 
-### Label
+### Content
 
-A label element which is automatically wired when nested inside a `Field` part.
+Contains content to be rendered when the dialog is open.
 
-<PropsTable
-  data={[
+::props-table
+---
+data: [
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
-    },
-  ]}
-/>
-
-<DataAttributesTable
-  data={[
-    {
-      attribute: '[data-invalid]',
-      values: 'Present when the field is invalid',
+      description: 'Change the default rendered element for the one passed as a child,
+          merging their props and behavior.',
     },
     {
-      attribute: '[data-valid]',
-      values: 'Present when the field is valid',
-    },
-  ]}
-/>
-
-### Control
-
-A control element (by default an `input`) which is automatically wired when nested inside a `Field` part.
-
-<PropsTable
-  data={[
-    {
-      name: 'asChild',
-      required: false,
+      name: 'forceMount',
       type: 'boolean',
-      default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
-    },
-  ]}
-/>
-
-<DataAttributesTable
-  data={[
-    {
-      attribute: '[data-invalid]',
-      values: 'Present when the field is invalid',
+      description: 'Used to force mounting when more control is needed. Useful when
+          controlling animation with React animation libraries. It inherits from `AlertDialog.Portal`',
     },
     {
-      attribute: '[data-valid]',
-      values: 'Present when the field is valid',
-    },
-  ]}
-/>
-
-### Message
-
-A validation message which is automatically wired (functionality and accessibility) to a given control when nested inside a `Field` part. It can be used for built-in and custom client-side validation, as well as server-side validation. When used outside a `Field` you must pass a `name` prop matching a field.
-
-`Form.Message` accepts a `match` prop which is used to determine when the message should show. It matches the native HTML validity state (`ValidityState` on [MDN](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)) which validates against attributes such as `required`, `min`, `max`. The message will show if the given `match` is `true` on the control’s validity state.
-
-You can also pass a function to `match` to provide custom validation rules.
-
-<PropsTable
-  data={[
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
-    },
-    {
-      name: 'match',
-      required: false,
-      type: (
-        <>
-          | 'badInput'
-          <br />
-          | 'patternMismatch'
-          <br />
-          | 'rangeOverflow'
-          <br />
-          | 'rangeUnderflow'
-          <br />
-          | 'stepMismatch'
-          <br />
-          | 'tooLong'
-          <br />
-          | 'tooShort'
-          <br />
-          | 'typeMismatch'
-          <br />
-          | 'valid'
-          <br />
-          | 'valueMissing'
-          <br />| {`((value: string, formData: FormData) => boolean)`}
-          <br />| {`((value: string, formData: FormData) => Promise<boolean>)`}
-          <br />
-        </>
-      ),
-      typeSimple: 'Matcher',
-      description:
-        'Used to indicate on which condition the message should be visible.',
-    },
-    {
-      name: 'forceMatch',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description:
-        'Forces the message to be shown. This is useful when using server-side validation.',
-    },
-    {
-      name: 'name',
-      required: false,
-      type: 'string',
-      description: (
-        <>
-          Used to target a specific field by name when rendering outside of a{' '}
-          <Code>Field</Code> part.
-        </>
-      ),
-    },
-  ]}
-/>
-
-### ValidityState
-
-Use this render-prop component to access a given field’s validity state in render (see `ValidityState` on [MDN](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)). A field's validity is available automatically when nested inside a `Field` part, otherwise you must pass a `name` prop to associate it.
-
-<PropsTable
-  data={[
-    {
-      name: 'children',
-      required: false,
-      type: '(validity: ValidityState | undefined) => React.ReactNode',
+      name: 'onOpenAutoFocus',
+      type: '(event: Event) => void',
       typeSimple: 'function',
-      description:
-        'A render function that receives the validity state of the field.',
+      description: 'Event handler called when focus moves to the destructive action after
+          opening. It can be prevented by calling `event.preventDefault`',
     },
     {
-      name: 'name',
-      required: false,
-      type: 'string',
-      description: (
-        <>
-          Used to target a specific field by name when rendering outside of a{' '}
-          <Code>Field</Code> part.
-        </>
-      ),
+      name: 'onCloseAutoFocus',
+      type: '(event: Event) => void',
+      typeSimple: 'function',
+      description: 'Event handler called when focus moves to the destructive action after
+          opening. It can be prevented by calling `event.preventDefault`',
     },
-  ]}
-/>
+    {
+      name: 'onEscapeKeyDown',
+      type: '(event: KeyboardEvent) => void',
+      typeSimple: 'function',
+      description: 'Event handler called when focus moves to the destructive action after
+          opening. It can be prevented by calling `event.preventDefault`',
+    },
+  ]
+---
+::
 
-### Submit
+::data-attributes-table
+---
+data: [
+    {
+      attribute: '[data-state]',
+      values: ['open', 'closed'],
+    },
+  ]
+---
+::
 
-The submit button.
+### Cancel
 
-<PropsTable
-  data={[
+A button that closes the dialog. This button should be distinguished visually from `AlertDialog.Action` buttons.
+
+::props-table
+---
+data: [
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child,
+          merging their props and behavior.',
     },
-  ]}
-/>
+  ]
+---
+::
+
+### Action
+
+A button that closes the dialog. These buttons should be distinguished visually from the `AlertDialog.Cancel` button.
+
+::props-table
+---
+data: [
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child,
+          merging their props and behavior.',
+    },
+  ]
+---
+::
+
+### Title
+
+An accessible name to be announced when the dialog is opened. Alternatively, you can provide `aria-label` or `aria-labelledby` to `AlertDialog.Content` and exclude this component.
+
+::props-table
+---
+data: [
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child,
+          merging their props and behavior.',
+    },
+  ]
+---
+::
+
+### Description
+
+An accessible description to be announced when the dialog is opened. Alternatively, you can provide `aria-describedby` to `AlertDialog.Content` and exclude this component.
+
+::props-table
+---
+data: [
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child,
+          merging their props and behavior.',
+    },
+  ]
+---
+::
 
 ## Examples
 
-### Composing with your own components
+### Close after asynchronous form submission
 
-Using `asChild` you can compose the `Form` primitive parts with your own components.
+Use the controlled props to programmatically close the Alert Dialog after an async operation has completed.
 
-```jsx line=3
-<Form.Field name="name">
-  <Form.Label>Full name</Form.Label>
-  <Form.Control __asChild__>
-    <TextField variant="primary" />
-  </Form.Control>
-</Form.Field>
-```
+```jsx line=4,7,10,15,17
+import React from 'react';
+import * as AlertDialog from '@radix-ui/react-alert-dialog';
 
-It can also be used to compose other types of controls, such as a `select`:
+const wait = () => new Promise((resolve) => setTimeout(resolve, 1000));
 
-```jsx line=3
-<Form.Field name="country">
-  <Form.Label>Country</Form.Label>
-  <Form.Control __asChild__>
-    <select>
-      <option value="uk">United Kingdom</option>…
-    </select>
-  </Form.Control>
-</Form.Field>
-```
-
-> Note: At the moment, it is not possible to compose `Form` with Radix's other form primitives such as `Checkbox`, `Select`, etc. We are working on a solution for this.
-
-### Providing your own validation messages
-
-When no `children` are provided, `Form.Message` will render a default error message for the given `match`.
-
-```jsx
-// will yield "This value is missing"
-<Form.Message match="missingValue" />
-```
-
-You can provide a more meaningful message by passing your own `children`. This is also useful for internationalization.
-
-```jsx
-// will yield "Please provide a name"
-<Form.Message match="missingValue">__Please provide a name__</Form.Message>
-```
-
-### Custom validation
-
-On top of all the built-in client-side validation matches described above you can also provide your own custom validation whilst still making use of the platform's validation abilities. It uses the `customError` type present in the [constraint validition API](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation).
-
-You can pass your own validation function into the `match` prop on `Form.Message`. Here's an example:
-
-```jsx line=4
-<Form.Field name="name">
-  <Form.Label>Full name</Form.Label>
-  <Form.Control />
-  <Form.Message __match__={(value, formData) => value !== 'John'}>
-    Only John is allowed.
-  </Form.Message>
-</Form.Field>
-```
-
-> `match` will be called with the current value of the control as first argument and the entire `FormData` as second argument.
-> `match` can also be an `async` function (or return a promise) to perform async validation.
-
-### Styling based on validity
-
-We add `data-valid` and `data-invalid` attributes to the relevant parts. Use it to style your components accordingly.
-Here is an example styling the `Label` part.
-
-```jsx line=8
-//index.jsx
-import * as React from 'react';
-import Form from '@radix-ui/react-form';
-
-export default () => (
-  <Form.Root>
-    <Form.Field name="email">
-      <Form.Label __className__="FormLabel">Email</Form.Label>
-      <Form.Control type="email" />
-    </Form.Field>
-  </Form.Root>
-);
-```
-
-```css line=2,5
-/* styles.css */
-.FormLabel[__data-invalid__] {
-  color: red;
-}
-.FormLabel[__data-valid__] {
-  color: green;
-}
-```
-
-### Accessing the validity state for more control
-
-You may need to access the raw validity state of a field in order to display your own icons, or interface with a component library via it's defined props. You can do this by using the `Form.ValidityState` part:
-
-```jsx line=3-4,7-8
-<Form.Field name="name">
-  <Form.Label>Full name</Form.Label>
-  <Form.ValidityState>
-    {(validity) => (
-      <Form.Control asChild>
-        <TextField variant="primary" state={getTextFieldState(__validity__)} />
-      </Form.Control>
-    )}
-  </Form.ValidityState>
-</Form.Field>
-```
-
-### Server-side validation
-
-The component also supports server-side validation using the same `Form.Message` component.
-You can re-use the same messages you defined for client-side errors by passing a `forceMatch` prop which will force the message to show regardless of the client-side matching logic.
-
-If the message doesn't exist on the client-side, you can render a `Form.Message` without a `match` too.
-The field is marked as invalid by passing a `serverInvalid` boolean prop to the `Form.Field` part.
-
-Here's an example with server-side error handling:
-
-```jsx line=5-8,13,23,28-30,49-54
-import * as React from 'react';
-import * as Form from '@radix-ui/react-form';
-
-function Page() {
-  const [serverErrors, setServerErrors] = React.useState({
-    email: false,
-    password: false,
-  });
+export default () => {
+  const [open, setOpen] = React.useState(false);
 
   return (
-    <Form.Root
-      // `onSubmit` only triggered if it passes client-side validation
-      onSubmit={(event) => {
-        const data = Object.fromEntries(new FormData(event.currentTarget));
-
-        // Submit form data and catch errors in the response
-        submitForm(data)
-          .then(() => {})
-          /**
-           * Map errors from your server response into a structure you'd like to work with.
-           * In this case resulting in this object: `{ email: false, password: true }`
-           */
-          .catch((errors) => __setServerErrors__(mapServerErrors(errors)));
-
-        // prevent default form submission
-        event.preventDefault();
-      }}
-      onClearServerErrors={() =>
-        __setServerErrors__({ email: false, password: false })
-      }
-    >
-      <Form.Field name="email" __serverInvalid__={serverErrors.email}>
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" required />
-        <Form.Message match="valueMissing">
-          Please enter your email.
-        </Form.Message>
-        <Form.Message match="typeMismatch" __forceMatch__={serverErrors.email}>
-          Please provide a valid email.
-        </Form.Message>
-      </Form.Field>
-
-      <Form.Field name="password" __serverInvalid__={serverErrors.password}>
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" required />
-        <Form.Message match="valueMissing">
-          Please enter a password.
-        </Form.Message>
-        {serverErrors.password && (
-          <Form.Message>
-            Please provide a valid password. It should contain at least 1 number
-            and 1 special character.
-          </Form.Message>
-        )}
-      </Form.Field>
-
-      <Form.Submit>Submit</Form.Submit>
-    </Form.Root>
+    <AlertDialog.Root __open__={open} __onOpenChange__={setOpen}>
+      <AlertDialog.Trigger>Open</AlertDialog.Trigger>
+      <AlertDialog.Portal>
+        <AlertDialog.Overlay />
+        <AlertDialog.Content>
+          <form
+            onSubmit={(event) => {
+              wait().then(() => setOpen(false));
+              event.preventDefault();
+            }}
+          >
+            {/** some inputs */}
+            <button type="submit">Submit</button>
+          </form>
+        </AlertDialog.Content>
+      </AlertDialog.Portal>
+    </AlertDialog.Root>
   );
-}
+};
 ```
 
-You should clear the server errors using the `onClearServerErrors` callback prop on the `Form.Root` part. It will clear the server errors before the form is re-submitted, and when the form is reset.
+### Custom portal container
 
-In addition, this provides control over when to reset single server errors. For example you could reset the email server error as soon as the user edits it:
+Customise the element that your alert dialog portals into.
 
-```jsx line=3
-<Form.Field name="email" serverInvalid={serverErrors.email}>
-  <Form.Label>Email address</Form.Label>
-  <Form.Control
-    type="email"
-    __onChange__={() => setServerErrors((prev) => ({ ...prev, email: false }))}
-  />
-  <Form.Message match="missingValue">Please enter your email.</Form.Message>
-  <Form.Message match="typeMismatch" forceMatch={serverErrors.email}>
-    Please provide a valid email.
-  </Form.Message>
-</Form.Field>
+```jsx line=2,13
+export default () => {
+  const [container, setContainer] = React.useState(null);
+  return (
+    <div>
+      <AlertDialog.Root>
+        <AlertDialog.Trigger />
+        <AlertDialog.Portal __container__={container}>
+          <AlertDialog.Overlay />
+          <AlertDialog.Content>...</AlertDialog.Content>
+        </AlertDialog.Portal>
+      </AlertDialog.Root>
+
+      <div ref={setContainer} />
+    </div>
+  );
+};
 ```
 
 ## Accessibility
 
-The component follows the "inline errors" pattern for validation:
+Adheres to the [Alert and Message Dialogs WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog).
 
-- Label and control are associated using the `name` provided on `Form.Field`
-- When one or more client-side error messages display, they are automatically associated with their matching control and announced accordingly
-- Focus is moved to the first invalid control
+### Keyboard Interactions
+
+::keyboard-table
+---
+data: [
+    {
+      keys: ['Space'],
+      description: 'Opens/closes the dialog.',
+    },
+  ]
+---
+:: 

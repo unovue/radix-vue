@@ -35,7 +35,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed, inject, provide, ref, useAttrs, watchEffect } from "vue";
+import { computed, inject, provide, ref, watchEffect } from "vue";
 import { PrimitiveDiv } from "@/Primitive";
 import { POPPER_ROOT_KEY } from "./PopperRoot.vue";
 import { useSize } from "@/shared";
@@ -57,6 +57,7 @@ import {
   flip,
   size,
   type Placement,
+  type Middleware,
 } from "@floating-ui/vue";
 
 const props = withDefaults(defineProps<PopperContentProps>(), {
@@ -66,7 +67,7 @@ const props = withDefaults(defineProps<PopperContentProps>(), {
   alignOffset: 0,
   arrowPadding: 0,
   avoidCollisions: true,
-  collisionBoundary: [] as HTMLElement[],
+  collisionBoundary: () => [],
   collisionPadding: 0,
   sticky: "partial",
   hideWhenDetached: false,
@@ -153,7 +154,7 @@ const computedMiddleware = computed(() => {
     }),
     props.hideWhenDetached &&
       hide({ strategy: "referenceHidden", ...detectOverflowOptions.value }),
-  ];
+  ] as Middleware[];
 });
 
 const { floatingStyles, placement, isPositioned, middlewareData } = useFloating(
@@ -219,8 +220,7 @@ provide(POPPER_CONTENT_KEY, {
         middlewareData.transformOrigin?.x,
         middlewareData.transformOrigin?.y,
       ].join(' '),
-  }"
-    :dir="props.dir"
+    }"
   >
     <PrimitiveDiv
       v-bind="$attrs"

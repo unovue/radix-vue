@@ -88,7 +88,6 @@ onBeforeUnmount(() => {
 
     <!-- TOC -->
     <div
-      v-if="hasToc"
       class="toc"
     >
       <div class="toc-wrapper">

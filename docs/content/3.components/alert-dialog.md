@@ -7,10 +7,12 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog
 
 # Alert Dialog
 
+::description
 A modal dialog that interrupts the user with important content and expects a
 response.
-:br
-::demo-preview
+::
+
+::hero-container
 #previewSlot
   :alert-dialog
 #codeSlot
@@ -40,7 +42,6 @@ npm install @radix-ui/react-alert-dialog
 
 Import all parts and piece them together.
 
-::code-block
 ```vue
 <script setup lang="ts">
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
@@ -61,7 +62,6 @@ import * as AlertDialog from '@radix-ui/react-alert-dialog';
   </AlertDialogRoot>
 <template/>
 ```
-::
 
 ## API Reference
 

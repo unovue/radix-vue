@@ -164,9 +164,9 @@ css({
     // maxWidth: '{docus.readableLine}',
     mx: 'auto',
     '.has-toc &&': {
-      paddingTop: '{space.12}',
+      paddingTop: '{space.14}',
       '@lg': {
-        paddingTop: '{space.8}',
+        paddingTop: '{space.12}',
       }
     },
     '@lg': {

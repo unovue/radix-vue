@@ -20,6 +20,11 @@ export default defineNuxtConfig({
     preflight: false,
   },
 
+  components: [
+    { path: "./components/demo", extensions: ["vue"], global: true }, // import only "vue" as component files in demo folder
+    { path: "./components/home", global: true, pathPrefix: false }, // remove pathPrefix so we don't have <DemoHeroDemoxxx>
+  ],
+
   css: ["@/assets/css/main.css"],
 
   colorMode: {
@@ -28,10 +33,8 @@ export default defineNuxtConfig({
   tailwindcss: {
     config: {
       content() {
-        return [
-          './components/**/*.{vue,ts,js}', './pages/**/*.{vue,ts,js}'
-        ]
+        return ["./components/**/*.{vue,ts,js}", "./pages/**/*.{vue,ts,js}"];
       },
     },
-  }
+  },
 });

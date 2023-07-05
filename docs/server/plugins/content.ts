@@ -25,7 +25,7 @@ export default defineNitroPlugin((nitroApp) => {
 
           let codeBlock = "";
           ["index.vue", "styles.css", "tailwind.config.js"].forEach((f) => {
-            const filePath = `${process.cwd()}/components/content/examples/${params.folder}/${f}`;
+            const filePath = `${process.cwd()}/components/demo/${params.folder}/${f}`;
 
             if (fileExists(filePath)) {
               const extension = f.split(".").pop();

@@ -60,7 +60,7 @@ We would love to have your contributions! All PRs all welcomed! We need help bui
 
 ## Community
 
-- [Discord]([https://discord.gg/dpf7BZY3](https://discord.gg/jZUsrAADe5))
+- [Discord](https://discord.gg/jZUsrAADe5)
 
 ## Authors
 

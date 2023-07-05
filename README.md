@@ -7,6 +7,12 @@ An accessible, unstyled and customisable UI Library for building top quality des
 
 ## Dev Setup
 
+### Docs
+1. Go to the docs directory :  `cd docs`
+2. Run `pnpm i --ignore-workspace`
+3. Run `pnpm run dev`
+
+### Package
 1. Clone the repo
 2. Go to the repo directory: `cd radix-vue`
 3. Run `pnpm run start`
@@ -54,7 +60,7 @@ We would love to have your contributions! All PRs all welcomed! We need help bui
 
 ## Community
 
-- [Discord](https://discord.gg/dpf7BZY3)
+- [Discord](https://discord.gg/jZUsrAADe5)
 
 ## Authors
 

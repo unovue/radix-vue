@@ -22,7 +22,7 @@ export default defineNuxtConfig({
 
   components: [
     { path: "./components/demo", extensions: ["vue"], global: true }, // import only "vue" as component files in demo folder
-    { path: "./components/home", global: true, pathPrefix: false }, // remove pathPrefix so we don't have <DemoHeroDemoxxx>
+    "~/components",
   ],
 
   css: ["@/assets/css/main.css"],

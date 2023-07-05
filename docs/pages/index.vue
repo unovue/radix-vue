@@ -2,6 +2,7 @@
 
 <template>
   <div class="flex flex-col items-center px-5 min-h-screen -mt-20">
+  <div class="z-[-1] bg-black fixed h-screen w-screen" />
     <div
       class="max-w-7xl relative w-full flex flex-col items-center overflow-y-clip h-full py-20"
     >

@@ -27,11 +27,17 @@ const currentStyle = ref<Record<string, string>>();
 // when closing we delay `present` to retrieve dimensions before closing
 const isMountAnimationPrevented = ref(injectedValue?.open.value);
 const isPresent = ref(false);
+const hasAnimations = ref(false);
 
 watch(
   () => [injectedValue?.open.value, currentElement.value],
   async () => {
-    if (injectedValue?.open.value) isPresent.value = true;
+    if (injectedValue?.open.value) {
+      isPresent.value = true;
+    } else if (!hasAnimations.value) {
+      isPresent.value = false;
+    }
+
     await nextTick();
 
     const node = currentElement.value;
@@ -61,11 +67,15 @@ watch(
 );
 
 onMounted(() => {
-  currentElement.value?.addEventListener("animationend", () => {
-    if (!injectedValue?.open.value) {
-      isPresent.value = false;
-    }
-  });
+  const currentElementStyle = getComputedStyle(currentElement.value!);
+  if (currentElementStyle?.animationName !== "none") {
+    hasAnimations.value = true;
+    currentElement.value?.addEventListener("animationend", () => {
+      if (!injectedValue?.open.value) {
+        isPresent.value = false;
+      }
+    });
+  }
 
   requestAnimationFrame(() => {
     isMountAnimationPrevented.value = false;

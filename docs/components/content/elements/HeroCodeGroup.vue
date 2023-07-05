@@ -68,11 +68,11 @@ watch(open, () => {
         </div>
       </TabsContent>
       <div
-        class="h-20 left-0 w-full flex items-center justify-center bottom-0 absolute rounded-b-lg bg-gradient-to-t from-neutral-900 to-neutral-900/0"
+        class="h-20 left-0 w-full flex items-center justify-center bottom-0 absolute rounded-b-lg bg-gradient-to-t from-[#1A1A1AFF] to-[#1A1A1A00]"
       >
         <button
           ref="buttonRef"
-          class="mt-4 bg-neutral-800/50 hover:bg-neutral-700/30 px-3 py-1 rounded border-neutral-700/50 border"
+          class="mt-4 bg-neutral-900 hover:bg-neutral-800 px-3 py-1 rounded border-neutral-700/50 border"
           @click="open = !open"
         >
           {{ open ? "Collapse code" : "Expand code" }}

@@ -29,10 +29,6 @@ watch(open, () => {
   if (!open.value) {
     nextTick(() => {
       codeScrollWrapper.value.scrollTop = 0;
-      window.scrollTo({
-        top: buttonRef.value?.offsetTop,
-        behavior: "instant",
-      });
     });
   }
 });

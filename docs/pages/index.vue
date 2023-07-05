@@ -66,16 +66,16 @@ definePageMeta({
           <HomeDemosAccordion />
         </HomeCard>
         <HomeCard
-          title="Dialog"
+          title="Aspect Ratio"
           description="With modal and non-modal modes, fine-grained focus control, accessible to screen readers."
         >
-          <HomeDemosAlertDialog />
+          <HomeDemosAspectRatio />
         </HomeCard>
         <HomeCard
-          title="Dialog"
+          title="Avatar"
           description="With modal and non-modal modes, fine-grained focus control, accessible to screen readers."
         >
-          <HomeDemosAlertDialog />
+          <HomeDemosAvatar />
         </HomeCard>
         <HomeCard
           title="Slider"

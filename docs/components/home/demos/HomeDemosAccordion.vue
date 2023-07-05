@@ -5,7 +5,7 @@ const rootDisabled = false;
 
 <template>
   <AccordionRoot
-    class="w-[300px] rounded-md bg-[--line-color] shadow-lg text-xs"
+    class="w-[200px] rounded-md bg-[--line-color] shadow-lg text-xs"
     :default-value="'item-2'"
     type="single"
     :disabled="rootDisabled"
@@ -24,7 +24,7 @@ const rootDisabled = false;
 
     <AccordionItem class="accordion-item" value="item-2">
       <AccordionHeader class="flex">
-        <AccordionTrigger class="accordion-trigger text-xs">Is it unstyled?</AccordionTrigger>
+        <AccordionTrigger class="accordion-trigger">Is it unstyled?</AccordionTrigger>
       </AccordionHeader>
       <AccordionContent
         class="accordion-content data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
@@ -48,15 +48,15 @@ const rootDisabled = false;
 
 <style scoped>
 .accordion-item {
-  @apply mt-px overflow-hidden first:mt-0 first:rounded-t last:rounded-b 
+  @apply mt-px overflow-hidden first:mt-0 first:rounded-t-lg last:rounded-b-lg
 			focus-within:relative focus-within:z-10 focus-within:ring-2 focus-within:ring-black;
 }
 .accordion-trigger {
-  @apply flex h-12 flex-1  cursor-pointer items-center
-			justify-between bg-white px-5 text-base font-medium leading-none text-green-700 shadow-[0_1px_0]
-			shadow-[--line-color] outline-none hover:bg-gray-200;
+  @apply flex h-12 flex-1  cursor-pointer items-center text-xs
+			justify-between bg-black px-5 font-medium leading-none text-green-700 shadow-[0_1px_0]
+			shadow-[--line-color] outline-none hover:bg-black;
 }
 .accordion-content {
-  @apply overflow-hidden bg-gray-100 text-sm text-gray-900;
+  @apply overflow-hidden bg-neutral-900 text-[10px] text-white;
 }
 </style>

@@ -11,7 +11,7 @@ defineProps({
 </script>
 
 <template>
-  <header :class="{ 'has-dialog': hasDialog, 'has-doc-search': hasDocSearch }" class="bg-black/20">
+  <header :class="{ 'has-dialog': hasDialog, 'has-doc-search': hasDocSearch }" class="bg-black/10 border-b border-neutral-600/10">
     <Container :fluid="config?.header?.fluid ">
       <div class="section left">
         <AppHeaderDialog v-if="hasDialog" />
@@ -64,7 +64,6 @@ css({
     top: 0,
     zIndex: 10,
     width: '100%',
-    borderBottom: '1px solid {elements.border.primary.static}',
     height: '{docus.header.height}',
 
     '.container': {

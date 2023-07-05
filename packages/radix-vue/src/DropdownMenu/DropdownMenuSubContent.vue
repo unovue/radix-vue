@@ -84,9 +84,9 @@ const {
   middlewareData,
   placement: floatPosition,
 } = useFloating(injectedValue!.triggerElement, DropdownMenuContentElement, {
-  placement: "left-start",
+  placement: "right-start",
   middleware: [
-    offset({ alignmentAxis: -5 }),
+    offset({ alignmentAxis: props.alignOffset, mainAxis: props.sideOffset }),
     flip(),
     shift(),
     arrow({ element: injectedValue?.arrowElement }),

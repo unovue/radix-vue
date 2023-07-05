@@ -73,7 +73,7 @@ const {
 } = useFloating(injectedValue!.triggerElement, tooltipContentElement, {
   placement: "bottom",
   middleware: [
-    offset(10),
+    offset(props.sideOffset),
     flip(),
     shift(),
     arrow({ element: injectedValue?.arrowElement }),

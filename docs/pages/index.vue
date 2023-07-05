@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+definePageMeta({
+  colorMode: 'dark',
+})
+</script>
 
 <template>
   <div class="flex flex-col items-center px-5 min-h-screen -mt-20">

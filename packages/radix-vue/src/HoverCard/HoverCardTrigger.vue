@@ -1,5 +1,12 @@
+<script lang="ts">
+export interface HoverCardTriggerProps {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
-import { inject, ref, onMounted } from "vue";
+import { inject, onMounted } from "vue";
+import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
 import {
   HOVER_CARD_INJECTION_KEY,
   type HoverCardProvideValue,
@@ -8,7 +15,8 @@ import { useHoverDelay, useMouseleaveDelay } from "../shared";
 
 const injectedValue = inject<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY);
 
-const triggerElement = ref<HTMLElement>();
+const { primitiveElement, currentElement: triggerElement } =
+  usePrimitiveElement();
 
 onMounted(() => {
   injectedValue!.triggerElement.value = triggerElement.value;
@@ -35,16 +43,16 @@ async function handleMouseleave(e: MouseEvent) {
 </script>
 
 <template>
-  <button
+  <PrimitiveButton
     type="button"
-    ref="triggerElement"
-    :aria-expanded="injectedValue?.modelValue.value || false"
-    :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
+    ref="primitiveElement"
+    :aria-expanded="injectedValue?.open.value || false"
+    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
     @mouseover="injectedValue!.isHover = true"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseleave"
     style="cursor: default"
   >
     <slot />
-  </button>
+  </PrimitiveButton>
 </template>

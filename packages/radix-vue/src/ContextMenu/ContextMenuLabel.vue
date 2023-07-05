@@ -5,9 +5,10 @@ interface ContextMenuLabelProps {
 </script>
 
 <script setup lang="ts">
+import { PrimitiveLabel } from "@/Primitive";
 const props = defineProps<ContextMenuLabelProps>();
 </script>
 
 <template>
-  <label :for="props.for"><slot /></label>
+  <PrimitiveLabel :for="props.for"><slot /></PrimitiveLabel>
 </template>

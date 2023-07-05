@@ -17,6 +17,8 @@ const PrimitiveSpan = Primitive["span"];
 const PrimitiveSvg = Primitive["svg"];
 const PrimitiveUl = Primitive["ul"];
 
+export { usePrimitiveElement } from "./usePrimitiveElement";
+
 export {
   PrimitiveA,
   PrimitiveButton,

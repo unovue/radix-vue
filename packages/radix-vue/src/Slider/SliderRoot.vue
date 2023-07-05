@@ -1,10 +1,14 @@
 <script lang="ts">
 import type { Ref, InjectionKey, ComputedRef } from "vue";
+import { PrimitiveSpan, usePrimitiveElement } from "@/Primitive";
 import type { DataOrientation, Direction } from "../shared/types";
 
 export interface SliderRootProps {
-  // defaultValue?: string;
-  // value?: string;
+  asChild?: boolean;
+  defaultValue?: string;
+  value?: string;
+  //onValueChange?: void;
+  //onValueCommit?: void;
   name: string;
   disabled: boolean;
   orientation?: DataOrientation;
@@ -32,6 +36,7 @@ export interface SliderProvideValue {
   max: number;
   step: number;
   thumbElement?: Ref<HTMLElement | undefined>;
+  disabled: boolean;
 }
 </script>
 
@@ -39,6 +44,7 @@ export interface SliderProvideValue {
 import { ref, toRef, provide, computed } from "vue";
 
 const props = withDefaults(defineProps<SliderRootProps>(), {
+  asChild: false,
   disabled: false,
   orientation: "horizontal",
   activationMode: "automatic",
@@ -51,7 +57,8 @@ const props = withDefaults(defineProps<SliderRootProps>(), {
 
 const emits = defineEmits(["update:modelValue"]);
 
-const rootSliderElement = ref<HTMLElement>();
+const { primitiveElement, currentElement: rootSliderElement } =
+  usePrimitiveElement();
 const thumbElement = ref<HTMLElement>();
 
 const thumbOffset = computed(() => {
@@ -79,6 +86,7 @@ provide<SliderProvideValue>(SLIDER_INJECTION_KEY, {
   max: props.max,
   step: props.step,
   thumbElement: thumbElement,
+  disabled: props.disabled,
 });
 
 function updateModelValue(value: number) {
@@ -157,7 +165,7 @@ function convertToClosestStep(number: number, step: number) {
 </script>
 
 <template>
-  <span ref="rootSliderElement" @pointerdown="changeValue">
+  <PrimitiveSpan ref="primitiveElement" @pointerdown="changeValue">
     <slot />
     <input
       style="display: none"
@@ -165,5 +173,5 @@ function convertToClosestStep(number: number, step: number) {
       :aria-valuenow="props.modelValue"
       :name="props.name"
     />
-  </span>
+  </PrimitiveSpan>
 </template>

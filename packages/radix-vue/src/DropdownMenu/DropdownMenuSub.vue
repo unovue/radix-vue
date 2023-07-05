@@ -4,6 +4,9 @@ import type { DataOrientation } from "@/shared/types";
 
 export interface DropdownMenuSubRootProps {
   modelValue?: boolean;
+  defaultOpen?: boolean;
+  open?: boolean;
+  //onOpenChange?: void;
   delayDuration?: number;
   disableHoverableContent?: boolean;
   orientation?: DataOrientation;

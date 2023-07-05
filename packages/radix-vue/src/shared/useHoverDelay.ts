@@ -11,7 +11,7 @@ export async function useHoverDelay(
   delayMs = 500
 ): Promise<boolean> {
   let isHovered = true;
-  let timeoutId: number | undefined;
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
   let resolvePromise: (value: boolean) => void;
 
   const timeoutPromise = new Promise<boolean>((resolve) => {

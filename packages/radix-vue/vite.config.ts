@@ -1,11 +1,25 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
+import alias from "@rollup/plugin-alias";
 import { resolve } from "path";
+
+const projectRootDir = resolve(__dirname);
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), vueJsx()],
+  plugins: [
+    vue(),
+    vueJsx(),
+    alias({
+      entries: [
+        {
+          find: "@",
+          replacement: resolve(projectRootDir, "src"),
+        },
+      ],
+    }),
+  ],
   build: {
     lib: {
       name: "radix-vue",

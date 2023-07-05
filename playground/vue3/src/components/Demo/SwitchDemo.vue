@@ -7,14 +7,19 @@ const switchState = ref(true);
 
 <template>
   <div class="absolute left-4 top-3 text-sm">
-  <p>Value: {{ switchState ? "checked" : "unchecked" }}</p>
-  <button @click="switchState = !switchState" class="bg-white/20 px-2 py-1 rounded-md active:scale-90 duration-100 transform hover:bg-white/40 active:bg-white/20">Toggle</button>
-</div>
+    <p>Value: {{ switchState ? "checked" : "unchecked" }}</p>
+    <button
+      @click="switchState = !switchState"
+      class="bg-white/20 px-2 py-1 rounded-md active:scale-90 duration-100 transform hover:bg-white/40 active:bg-white/20"
+    >
+      {{switchState ? 'Off' : 'On'}}
+    </button>
+  </div>
   <div class="flex gap-2 items-center">
     <label className="text-white text-[15px] leading-none pr-[15px]" for="airplane-mode">
       Airplane mode
     </label>
-    <SwitchRoot
+    <SwitchRoot v-model:open="switchState"
       class="w-[42px] h-[25px] focus-within:outline focus-within:outline-black flex bg-black/50 shadow-sm rounded-full relative data-[state=checked]:bg-black cursor-default"
       id="airplane-mode"
     >

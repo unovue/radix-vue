@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { inject, ref, onMounted } from "vue";
+import { inject, onMounted } from "vue";
+import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
 import {
   CONTEXT_MENU_INJECTION_KEY,
   type ContextMenuProvideValue,
@@ -23,8 +24,11 @@ const virtualEl = {
   },
 };
 
-const triggerElement = ref<HTMLElement>();
+const { primitiveElement, currentElement: triggerElement } =
+  usePrimitiveElement();
+
 onMounted(() => {
+  // @ts-expect-error
   injectedValue!.triggerElement.value = virtualEl;
 });
 
@@ -32,21 +36,21 @@ function handleContextMenu(e: MouseEvent) {
   if (injectedValue?.modelValue.value) {
     injectedValue?.hideTooltip();
   } else {
-    injectedValue.clientX.value = e.clientX;
-    injectedValue.clientY.value = e.clientY;
+    injectedValue!.clientX.value = e.clientX;
+    injectedValue!.clientY.value = e.clientY;
     injectedValue?.showTooltip();
   }
 }
 </script>
 
 <template>
-  <button
+  <PrimitiveButton
     type="button"
-    ref="triggerElement"
+    ref="primitiveElement"
     :aria-expanded="injectedValue?.modelValue.value || false"
     :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
     @contextmenu.prevent="handleContextMenu"
   >
     <slot />
-  </button>
+  </PrimitiveButton>
 </template>

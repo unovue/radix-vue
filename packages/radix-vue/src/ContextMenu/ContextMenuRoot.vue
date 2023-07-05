@@ -14,7 +14,7 @@ export const CONTEXT_MENU_INJECTION_KEY =
 
 export type ContextMenuProvideValue = {
   selectedElement: Ref<HTMLElement | undefined>;
-  changeSelected: (value: HTMLElement) => void;
+  changeSelected: (value: HTMLElement | undefined) => void;
   modelValue: Readonly<Ref<boolean>>;
   showTooltip(): void;
   hideTooltip(): void;
@@ -53,7 +53,7 @@ const clientY = ref(0);
 
 provide<ContextMenuProvideValue>(CONTEXT_MENU_INJECTION_KEY, {
   selectedElement: selectedElement,
-  changeSelected: (value: HTMLElement) => {
+  changeSelected: (value: HTMLElement | undefined) => {
     selectedElement.value = value;
   },
   modelValue: toRef(() => props.modelValue),

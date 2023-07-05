@@ -1,14 +1,39 @@
+<script lang="ts">
+export interface DialogContentProps {
+  asChild?: boolean;
+  forceMount?: boolean;
+  //onOpenAutoFocus?: void;
+  //onCloseAutoFocus?: void;
+  //onEscapeKeyDown?: void;
+  //onPointerDownOutside?: void;
+  //onInteractOutside?: void;
+}
+</script>
+
 <script setup lang="ts">
-import { inject, ref, watchEffect } from "vue";
-import { trapFocus } from "../shared/trap-focus.ts";
+import { inject, watchEffect } from "vue";
+import { trapFocus } from "../shared";
 import {
   DIALOG_INJECTION_KEY,
   type DialogProvideValue,
 } from "./DialogRoot.vue";
+import { onClickOutside } from "@vueuse/core";
+import { PrimitiveDiv, usePrimitiveElement } from "../Primitive";
+
+const props = withDefaults(defineProps<DialogContentProps>(), {
+  asChild: false,
+});
 
 const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 
-const dialogContentElement = ref<HTMLElement>();
+const { primitiveElement, currentElement: dialogContentElement } =
+  usePrimitiveElement();
+
+onClickOutside(dialogContentElement, onPointerDownOutside);
+
+function onPointerDownOutside() {
+  alert("click outside!");
+}
 
 watchEffect(() => {
   if (dialogContentElement.value) {
@@ -22,8 +47,8 @@ watchEffect(() => {
       window.removeEventListener("wheel", lockScroll);
       window.removeEventListener("keydown", lockKeydown);
 
-      if (injectedValue.triggerButton.value) {
-        injectedValue.triggerButton.value.focus();
+      if (injectedValue?.triggerButton.value) {
+        injectedValue?.triggerButton.value.focus();
       }
     }
   }
@@ -46,14 +71,15 @@ function lockKeydown(e: KeyboardEvent) {
     }
   }
   if (e.key === "Escape") {
-    injectedValue.closeModal();
+    injectedValue?.closeModal();
   }
 }
 </script>
 
 <template>
-  <div
-    ref="dialogContentElement"
+  <PrimitiveDiv
+    :asChild="props.asChild"
+    ref="primitiveElement"
     v-if="injectedValue?.open.value"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"
     role="dialog"
@@ -61,5 +87,5 @@ function lockKeydown(e: KeyboardEvent) {
     style="pointer-events: auto"
   >
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

@@ -72,7 +72,7 @@ onBeforeUnmount(() => {
     </aside>
 
     <!-- Page Body -->
-    <article class="page-body max-w-4xl px-6">
+    <article class="page-body max-w-3xl px-2 md:px-6">
       <slot v-if="hasBody" />
       <Alert
         v-else

@@ -1,12 +1,19 @@
 <script setup lang="ts">
-import { AccordionRoot, AccordionItem, AccordionHeader, AccordionTrigger, AccordionContent } from "radix-vue";
+import {
+  AccordionRoot,
+  AccordionItem,
+  AccordionHeader,
+  AccordionTrigger,
+  AccordionContent,
+} from "radix-vue";
+import { Icon } from "@iconify/vue";
 
 const rootDisabled = false;
 </script>
 
 <template>
   <AccordionRoot
-    class="w-[300px] rounded-md bg-[--line-color] shadow-lg"
+    class="bg-mauve6 w-[300px] rounded-md shadow-[0_2px_10px] shadow-black/5"
     :default-value="'item-1'"
     type="single"
     :disabled="rootDisabled"
@@ -14,7 +21,14 @@ const rootDisabled = false;
   >
     <AccordionItem class="accordion-item" value="item-1">
       <AccordionHeader class="flex">
-        <AccordionTrigger class="accordion-trigger">Is it accessible?</AccordionTrigger>
+        <AccordionTrigger class="accordion-trigger group"
+          ><span>Is it accessible?</span>
+          <Icon
+            icon="radix-icons:chevron-down"
+            class="text-violet10 ease-[cubic-bezier(0.87,_0,_0.13,_1)] transition-transform duration-300 group-data-[state=open]:rotate-180"
+            aria-hidden
+          />
+        </AccordionTrigger>
       </AccordionHeader>
       <AccordionContent
         class="accordion-content data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
@@ -25,23 +39,41 @@ const rootDisabled = false;
 
     <AccordionItem class="accordion-item" value="item-2">
       <AccordionHeader class="flex">
-        <AccordionTrigger class="accordion-trigger">Is it unstyled?</AccordionTrigger>
+        <AccordionTrigger class="accordion-trigger group"
+          ><span>Is it unstyled?</span>
+          <Icon
+            icon="radix-icons:chevron-down"
+            class="text-violet10 ease-[cubic-bezier(0.87,_0,_0.13,_1)] transition-transform duration-300 group-data-[state=open]:rotate-180"
+            aria-hidden
+          />
+        </AccordionTrigger>
       </AccordionHeader>
       <AccordionContent
         class="accordion-content data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
       >
-        <div class="px-5 py-4">Yes. It's unstyled by default, giving you freedom over the look and feel.</div>
+        <div class="px-5 py-4">
+          Yes. It's unstyled by default, giving you freedom over the look and feel.
+        </div>
       </AccordionContent>
     </AccordionItem>
 
     <AccordionItem class="accordion-item" value="item-3">
       <AccordionHeader class="flex">
-        <AccordionTrigger class="accordion-trigger">Can it be animated?</AccordionTrigger>
+        <AccordionTrigger class="accordion-trigger group"
+          ><span>Can it be animated?</span>
+          <Icon
+            icon="radix-icons:chevron-down"
+            class="text-violet10 ease-[cubic-bezier(0.87,_0,_0.13,_1)] transition-transform duration-300 group-data-[state=open]:rotate-180"
+            aria-hidden
+          />
+        </AccordionTrigger>
       </AccordionHeader>
       <AccordionContent
         class="accordion-content data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
       >
-        <div class="px-5 py-4">Yes! You can use the transition prop to configure the animation.</div>
+        <div class="px-5 py-4">
+          Yes! You can use the transition prop to configure the animation.
+        </div>
       </AccordionContent>
     </AccordionItem>
   </AccordionRoot>
@@ -49,15 +81,14 @@ const rootDisabled = false;
 
 <style scoped>
 .accordion-item {
-  @apply mt-px overflow-hidden first:mt-0 first:rounded-t last:rounded-b 
-			focus-within:relative focus-within:z-10 focus-within:ring-2 focus-within:ring-black;
+  @apply focus-within:shadow-mauve12 mt-px overflow-hidden first:mt-0 first:rounded-t last:rounded-b focus-within:relative focus-within:z-10 focus-within:shadow-[0_0_0_2px];
 }
+
 .accordion-trigger {
-  @apply flex h-12 flex-1  cursor-pointer items-center
-			justify-between bg-white px-5 text-base font-medium leading-none text-green-700 shadow-[0_1px_0]
-			shadow-[--line-color] outline-none hover:bg-gray-200;
+  @apply text-[var(--color-primary-700)]  shadow-mauve6 hover:bg-mauve2 flex h-[45px] flex-1 cursor-default items-center justify-between bg-white px-5 text-[15px] leading-none shadow-[0_1px_0] outline-none;
 }
+
 .accordion-content {
-  @apply overflow-hidden bg-gray-100 text-sm text-gray-900;
+  @apply text-mauve11 bg-mauve2 data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden text-[15px];
 }
 </style>

@@ -20,15 +20,15 @@ associated section of content.
 ::
 ::
 
-<Highlights
-  features={[
-    'Full keyboard navigation.',
-    'Supports horizontal/vertical orientation.',
-    'Supports Right to Left direction.',
-    'Can expand one or multiple items.',
-    'Can be controlled or uncontrolled.',
-  ]}
-/>
+## Features
+:br
+::list{type="success"}
+- Full keyboard navigation.
+- Supports horizontal/vertical orientation.
+- Supports Right to Left direction.
+- Can expand one or multiple items.
+- Can be controlled or uncontrolled.
+::
 
 ## Installation
 
@@ -42,19 +42,21 @@ npm install @radix-ui/react-accordion
 
 Import all parts and piece them together.
 
-```jsx
-import * as Accordion from '@radix-ui/react-accordion';
+```vue
+<script setup>
+import { AccordionRoot, AccordionItem, AccordionHeader, AccordionTrigger, AccordionContent } from "radix-vue";
+</script>
 
-() => (
-  <Accordion.Root>
-    <Accordion.Item>
-      <Accordion.Header>
-        <Accordion.Trigger />
-      </Accordion.Header>
-      <Accordion.Content />
-    </Accordion.Item>
-  </Accordion.Root>
-);
+<template>
+  <AccordionRoot>
+    <AccordionItem>
+      <AccordionHeader>
+        <AccordionTrigger />
+      </AccordionHeader>
+      <AccordionContent />
+    </AccordionItem>
+  </AccordionRoot>
+</template>
 ```
 
 ## API Reference
@@ -63,133 +65,77 @@ import * as Accordion from '@radix-ui/react-accordion';
 
 Contains all the parts of an accordion.
 
-<PropsTable
-  data={[
-    {
+::props-table
+---
+data: [{
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child,
+          merging their props and behavior.',
     },
     {
       name: 'type',
       required: true,
       type: '"single" | "multiple"',
       typeSimple: 'enum',
-      description: (
-        <span>
-          Determines whether one or multiple items can be opened at the same
-          time.
-        </span>
-      ),
+      description: 'Determines whether one or multiple items can be opened at the same time.',
     },
     {
       name: 'value',
       required: false,
       type: 'string',
-      description: (
-        <span>
-          The controlled value of the item to expand when <Code>type</Code> is{' '}
-          <Code>"single"</Code>. Must be used in conjunction with{' '}
-          <Code>onValueChange</Code>.
-        </span>
-      ),
+      description: 'The controlled value of the item to expand when',
     },
     {
       name: 'defaultValue',
       required: false,
       type: 'string',
-      description: (
-        <span>
-          The value of the item to expand when initially rendered and{' '}
-          <Code>type</Code> is <Code>"single"</Code>. Use when you do not need
-          to control the state of the items.
-        </span>
-      ),
+      description: 'The value of the item to expand when initially rendered and',
     },
     {
       name: 'onValueChange',
       required: false,
       type: '(value: string) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when the expanded state of an item changes and{' '}
-          <Code>type</Code> is <Code>"single"</Code>.
-        </span>
-      ),
+      description: 'Event handler called when the expanded state of an item changes and',
     },
     {
       name: 'value',
       required: false,
       default: '[]',
       type: 'string[]',
-      description: (
-        <span>
-          The controlled value of the item to expand when <Code>type</Code> is{' '}
-          <Code>"multiple"</Code>. Must be used in conjunction with{' '}
-          <Code>onValueChange</Code>.
-        </span>
-      ),
+      description: 'The controlled value of the item to expand when',
     },
     {
       name: 'defaultValue',
       required: false,
       default: '[]',
       type: 'string[]',
-      description: (
-        <span>
-          The value of the item to expand when initially rendered when{' '}
-          <Code>type</Code> is <Code>"multiple"</Code>. Use when you do not need
-          to control the state of the items.
-        </span>
-      ),
+      description: 'The value of the item to expand when initially rendered when',
     },
     {
       name: 'onValueChange',
       required: false,
       type: '(value: string[]) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when the expanded state of an item changes and{' '}
-          <Code>type</Code> is <Code>"multiple"</Code>.
-        </span>
-      ),
+      description: 'Event handler called when the expanded state of an item changes and',
     },
     {
       name: 'collapsible',
       required: false,
       default: 'false',
       type: 'boolean',
-      description: (
-        <span>
-          When <Code>type</Code> is <Code>"single"</Code>, allows closing
-          content when clicking trigger for an open item.
-        </span>
-      ),
+      description: 'allows closing content when clicking trigger for an open item.',
     },
     {
       name: 'disabled',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <span>
-          When <Code>true</Code>, prevents the user from interacting with the
-          accordion and all its items.
-        </span>
-      ),
+      description: 'When `true`, prevents the user from interacting with the
+          accordion and all its items.',
     },
     {
       name: 'dir',
@@ -208,51 +154,41 @@ Contains all the parts of an accordion.
       default: '"vertical"',
       description: 'The orientation of the accordion.',
     },
-  ]}
-/>
+  ]
+---
+::
 
-<DataAttributesTable
-  data={[
+::data-attributes-table
+---
+data: [
     {
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
-/>
+  ]
+---
+::
 
 ### Item
 
 Contains all the parts of a collapsible section.
 
-<PropsTable
-  data={[
-    {
+::props-table
+---
+data: [{
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child,
+          merging their props and behavior.',
     },
     {
       name: 'disabled',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <span>
-          When <Code>true</Code>, prevents the user from interacting with the
-          item.
-        </span>
-      ),
+      description: 'When true, prevents the user from interacting with accordion and all items',
     },
     {
       name: 'value',
@@ -260,11 +196,13 @@ Contains all the parts of a collapsible section.
       type: 'string',
       description: 'A unique value for the item.',
     },
-  ]}
-/>
+  ]
+---
+::
 
-<DataAttributesTable
-  data={[
+::data-attributes-table
+---
+data: [
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
@@ -277,36 +215,31 @@ Contains all the parts of a collapsible section.
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
-/>
+  ]
+---
+::
 
 ### Header
 
 Wraps an `Accordion.Trigger`. Use the `asChild` prop to update it to the appropriate heading level for your page.
 
-<PropsTable
-  data={[
-    {
+::props-table
+---
+data: [{
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child,
+          merging their props and behavior.',
     },
-  ]}
-/>
+  ]
+---
+::
 
-<DataAttributesTable
-  data={[
+::data-attributes-table
+---
+data: [
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
@@ -319,36 +252,31 @@ Wraps an `Accordion.Trigger`. Use the `asChild` prop to update it to the appropr
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
-/>
+  ]
+---
+::
 
 ### Trigger
 
 Toggles the collapsed state of its associated item. It should be nested inside of an `Accordion.Header`.
 
-<PropsTable
-  data={[
-    {
+::props-table
+---
+data: [{
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child,
+          merging their props and behavior.',
     },
-  ]}
-/>
+  ]
+---
+::
 
-<DataAttributesTable
-  data={[
+::data-attributes-table
+---
+data: [
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
@@ -361,46 +289,37 @@ Toggles the collapsed state of its associated item. It should be nested inside o
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
-/>
+  ]
+---
+::
 
 ### Content
 
 Contains the collapsible content for an item.
 
-<PropsTable
-  data={[
-    {
+::props-table
+---
+data: [{
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child,
+          merging their props and behavior.',
     },
     {
       name: 'forceMount',
       type: 'boolean',
-      description: (
-        <span>
-          Used to force mounting when more control is needed. Useful when
-          controlling animation with React animation libraries.
-        </span>
-      ),
+      description: 'Used to force mounting when more control is needed. Useful when
+          controlling animation with React animation libraries.',
     },
-  ]}
-/>
+  ]
+---
+::
 
-<DataAttributesTable
-  data={[
+::data-attributes-table
+---
+data: [
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
@@ -413,8 +332,9 @@ Contains the collapsible content for an item.
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
-/>
+  ]
+---
+::
 
 <CssVariablesTable
   data={[
@@ -566,25 +486,16 @@ Adheres to the [Accordion WAI-ARIA design pattern](https://www.w3.org/TR/wai-ari
 
 ### Keyboard Interactions
 
-<KeyboardTable
-  data={[
+::keyboard-table
+---
+data: [
     {
       keys: ['Space'],
-      description: (
-        <span>
-          When focus is on an <Code>Accordion.Trigger</Code> of a collapsed
-          section, expands the section.
-        </span>
-      ),
+      description: 'Moves focus to the next',
     },
     {
       keys: ['Enter'],
-      description: (
-        <span>
-          When focus is on an <Code>Accordion.Trigger</Code> of a collapsed
-          section, expands the section.
-        </span>
-      ),
+      description: 'Moves focus to the next',
     },
     {
       keys: ['Tab'],
@@ -596,57 +507,28 @@ Adheres to the [Accordion WAI-ARIA design pattern](https://www.w3.org/TR/wai-ari
     },
     {
       keys: ['ArrowDown'],
-      description: (
-        <span>
-          Moves focus to the next <Code>Accordion.Trigger</Code> when{' '}
-          <Code>orientation</Code> is <Code>vertical</Code>.
-        </span>
-      ),
+      description: 'Moves focus to the next',
     },
     {
       keys: ['ArrowUp'],
-      description: (
-        <span>
-          Moves focus to the previous <Code>Accordion.Trigger</Code> when{' '}
-          <Code>orientation</Code> is <Code>vertical</Code>.
-        </span>
-      ),
+      description: 'Moves focus to the next',
     },
     {
       keys: ['ArrowRight'],
-      description: (
-        <span>
-          Moves focus to the next <Code>Accordion.Trigger</Code> when{' '}
-          <Code>orientation</Code> is <Code>horizontal</Code>.
-        </span>
-      ),
+      description: 'Moves focus to the next',
     },
     {
       keys: ['ArrowLeft'],
-      description: (
-        <span>
-          Moves focus to the previous <Code>Accordion.Trigger</Code> when{' '}
-          <Code>orientation</Code> is <Code>horizontal</Code>.
-        </span>
-      ),
+      description: 'Moves focus to the next',
     },
     {
       keys: ['Home'],
-      description: (
-        <span>
-          When focus is on an <Code>Accordion.Trigger</Code>, moves focus to the
-          first <Code>Accordion.Trigger</Code>.
-        </span>
-      ),
+      description: 'Moves focus to the next',
     },
     {
       keys: ['End'],
-      description: (
-        <span>
-          When focus is on an <Code>Accordion.Trigger</Code>, moves focus to the
-          last <Code>Accordion.Trigger</Code>.
-        </span>
-      ),
+      description: 'Moves focus to the next',
     },
-  ]}
-/>
+  ]
+---
+::

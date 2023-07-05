@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+definePageMeta({
+  colorMode: 'dark',
+})
+</script>
 
 <template>
   <div class="flex flex-col items-center px-5 min-h-screen -mt-20">
@@ -44,7 +48,7 @@
       </p>
       <div class="mt-11 w-full flex justify-center">
         <NuxtLink to="/overview/getting-started"
-          class="rounded-2xl px-10 py-4 text-xl font-semibold bg-gradient-to-r from-green-600 to-teal-600 items-center hover:from-green-700 hover:to-teal-700 transition-colors duration-200 justify-center flex"
+          class="rounded-2xl px-10 py-4 text-xl font-semibold bg-gradient-to-r from-green-600 to-teal-500 items-center hover:from-green-600 hover:to-teal-400 transition-colors duration-200 justify-center flex"
         >
           Get Started
         </NuxtLink>

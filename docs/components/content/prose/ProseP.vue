@@ -1,3 +1,3 @@
 <template>
-  <p class="mb-5 text-neutral-300"><slot /></p>
+  <p class="mb-5"><slot /></p>
 </template>

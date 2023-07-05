@@ -1,3 +1,3 @@
 <template>
-  <p class="mb-10 opacity-60 text-xl"><slot /></p>
+  <div class="mb-10 text-white/60 text-xl"><slot /></div>
 </template>

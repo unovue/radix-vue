@@ -39,8 +39,8 @@ watch(open, () => {
 </script>
 
 <template>
-  <TabsRoot v-model="currentTab" class="bg-neutral-900" @update:model-value="open = true">
-    <div class="bg-neutral-900 border-b border-neutral-800 flex pr-2 text-sm">
+  <TabsRoot v-model="currentTab" class="bg-[#1a1a1a] border border-neutral-700/40" @update:model-value="open = true">
+    <div class="bg-[#1a1a1a] border-b-2 border-[#272727] flex pr-2 text-sm">
       <div class="flex justify-between items-center w-full">
         <TabsList class="flex">
           <TabsTrigger
@@ -62,13 +62,13 @@ watch(open, () => {
     </div>
     <div
       ref="codeScrollWrapper"
-      class="bg-neutral-900 pb-10 block max-h-[80vh]"
+      class="pb-10 block max-h-[80vh]"
       :class="`${open ? 'overflow-scroll' : 'overflow-hidden'}`"
       :style="{ height: height }"
     >
       <TabsContent v-for="tab in tabs" :key="tab.label" :value="tab.label" as-child>
         <div class="relative -mt-5">
-          <component :is="tab.component" />
+          <component :is="tab.component" class="border-0"/>
         </div>
       </TabsContent>
       <div

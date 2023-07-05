@@ -48,7 +48,7 @@ watch(open, () => {
             :key="index"
             :value="tab.label"
             tabindex="-1"
-            class="py-2.5 px-4 border-box data-[state=active]:shadow-[0_1px_0_var(--color-primary-500)] data-[state=active]:font-medium"
+            class="text-white/70 py-2.5 px-4 border-box data-[state=active]:shadow-[0_1px_0_var(--color-primary-500)] data-[state=active]:font-medium data-[state=active]:text-white"
           >
             {{ tab.label }}
           </TabsTrigger>
@@ -76,7 +76,7 @@ watch(open, () => {
       >
         <button
           ref="buttonRef"
-          class="mt-4 bg-neutral-900 hover:bg-neutral-800 px-3 py-1 rounded border-neutral-700/50 border"
+          class="mt-4 bg-neutral-800 hover:bg-neutral-700/50 px-3 py-1 rounded border-neutral-700 border"
           @click="open = !open"
         >
           {{ open ? "Collapse code" : "Expand code" }}

@@ -1,18 +1,23 @@
 <script setup lang="ts">
-const { config } = useDocus()
-const { navigation } = useContent()
-const { hasDocSearch } = useDocSearch()
+const { config } = useDocus();
+const { navigation } = useContent();
+const { hasDocSearch } = useDocSearch();
 
-const hasDialog = computed(() => navigation.value?.length > 1 || navigation.value?.[0]?.children?.length)
+const hasDialog = computed(
+  () => navigation.value?.length > 1 || navigation.value?.[0]?.children?.length
+);
 
 defineProps({
-  ...variants
-})
+  ...variants,
+});
 </script>
 
 <template>
-  <header :class="{ 'has-dialog': hasDialog, 'has-doc-search': hasDocSearch }" class="bg-black/10 border-b border-neutral-600/10">
-    <Container :fluid="config?.header?.fluid ">
+  <header
+    :class="{ 'has-dialog': hasDialog, 'has-doc-search': hasDocSearch }"
+    class="bg-black/10 border-b border-neutral-600/10"
+  >
+    <Container :fluid="config?.header?.fluid">
       <div class="section left">
         <AppHeaderDialog v-if="hasDialog" />
         <AppHeaderLogo />
@@ -24,6 +29,11 @@ defineProps({
       </div>
 
       <div class="section right">
+        <NuxtLink
+          to="/overview/introduction"
+          class="text-[15px] text-neutral-400 hover:text-white mr-4"
+          >Documentation</NuxtLink
+        >
         <AppSearch v-if="hasDocSearch" />
         <ThemeSelect />
         <div class="social-icons">
@@ -64,7 +74,7 @@ css({
     top: 0,
     zIndex: 10,
     width: '100%',
-    height: '{docus.header.height}',
+    height: '48px',
 
     '.container': {
       display: 'grid',

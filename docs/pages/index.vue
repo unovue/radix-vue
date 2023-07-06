@@ -7,8 +7,8 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="flex flex-col items-center px-5 min-h-screen -mt-20">
-    <div class="z-[-1] bg-black fixed h-screen w-screen" />
+  <div class="flex flex-col items-center px-5 min-h-screen w-full max-w-screen overflow-x-clip -mt-20">
+    <div class="z-[-1] bg-black fixed h-[200vh] w-screen" />
     <div
       class="max-w-7xl relative w-full flex flex-col items-center overflow-y-clip h-full py-20"
     >
@@ -40,25 +40,34 @@ definePageMeta({
         "
       />
       <div class="mt-[90px] flex flex-col items-center">
-      <h1
-        class="font-bold text-center text-5xl md:text-[58px] break-words max-w-[680px] md:leading-[55.8px] tracking-tight"
-      >
-        Build Production Grade Components, in an Instant.
-      </h1>
-      <p class="hero-description">
-      <span class="text-green-400 underline underline-offset-4">Unstyled,</span> <span class="text-green-400 underline underline-offset-4">accessible</span> components for building <span class="text-green-400 underline underline-offset-4">high‑quality</span> design systems and web
-        apps in Vue.
-      </p>
-    </div>
-      <div class="mt-11 w-full flex gap-2 justify-center">
+        <h1
+          class="font-bold text-center text-5xl md:text-[58px] break-words max-w-[680px] md:leading-[55.8px] tracking-tight"
+        >
+          Build Production Grade Components, in an Instant.
+        </h1>
+        <p class="hero-description">
+          <span class="text-green-400 underline underline-offset-4">Unstyled,</span>
+          <span class="text-green-400 underline underline-offset-4">accessible</span>
+          components for building
+          <span class="text-green-400 underline underline-offset-4">high‑quality</span>
+          design systems and web apps in Vue.
+        </p>
+      </div>
+      <div class="mt-11 w-full flex gap-3 justify-center items-center">
         <NuxtLink
           to="/overview/getting-started"
-          class="rounded-2xl px-10 py-4 text-xl font-medium bg-gradient-to-r from-green-600 to-teal-500 items-center hover:from-green-600 hover:to-teal-400 transition-colors duration-200 justify-center flex"
+          class="rounded-2xl px-10 h-[60px] text-xl font-semibold bg-gradient-to-r from-green-600 to-teal-500 items-center hover:from-green-600 hover:to-teal-400 transition-colors duration-200 justify-center flex"
         >
           Quick Start
         </NuxtLink>
+        <HomeHeroCode language="bash">
+        <span class="text-green-400">pnpm</span>
+        <span class="text-green-400"> install </span>
+        <span class="">radix-vue</span></HomeHeroCode>
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mt-28 w-full max-w-5xl gap-x-6 gap-y-5">
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mt-28 w-full max-w-5xl gap-x-6 gap-y-5"
+      >
         <HomeCard
           title="Accordion"
           description="With modal and non-modal modes, fine-grained focus control, accessible to screen readers."

@@ -17,9 +17,6 @@ const tabs = computed(
 );
 
 const open = ref(false);
-const height = computed(() => {
-  return open.value ? "100%" : "150px";
-});
 
 const codeScrollWrapper = ref<HTMLElement | undefined>();
 const buttonRef = ref<HTMLElement | undefined>();
@@ -27,8 +24,13 @@ const currentTab = ref("index.vue");
 
 watch(open, () => {
   if (!open.value) {
-    nextTick(() => {
-      codeScrollWrapper.value.scrollTop = 0;
+    window.scrollTo({
+      top: buttonRef.value?.offsetTop,
+      behavior: "smooth",
+    });
+    codeScrollWrapper.value!.scrollTo({
+      top: 0,
+      behavior: "smooth",
     });
   }
 });
@@ -58,13 +60,12 @@ watch(open, () => {
     </div>
     <div
       ref="codeScrollWrapper"
-      class="pb-10 block max-h-[80vh]"
-      :class="`${open ? 'overflow-scroll' : 'overflow-hidden'}`"
-      :style="{ height: height }"
+      class="pb-10 block h-full transition-[max-height] duration-500"
+      :class="`${open ? 'overflow-scroll max-h-[80vh]' : 'overflow-hidden max-h-[150px]'}`"
     >
       <TabsContent v-for="tab in tabs" :key="tab.label" :value="tab.label" as-child>
         <div class="relative -mt-5">
-          <component :is="tab.component" class="border-0"/>
+          <component :is="tab.component" class="border-0" />
         </div>
       </TabsContent>
       <div

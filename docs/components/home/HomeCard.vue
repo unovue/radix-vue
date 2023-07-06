@@ -7,7 +7,7 @@ const props = defineProps({
 
 <template>
   <div
-    class="h-96 border border-neutral-200 border-opacity-10 rounded-3xl bg-[#818181] bg-opacity-10 flex flex-col">
+    class="h-96 border border-[#77777725] rounded-3xl bg-[#8181811a] flex flex-col">
     <div class="relative w-full flex-grow flex items-center justify-center text-xs">
     <slot />
   </div>

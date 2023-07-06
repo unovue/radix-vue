@@ -1,19 +1,21 @@
 <script setup lang="ts">
+import { Icon } from "@iconify/vue";
+
 definePageMeta({
-  colorMode: 'dark',
-})
+  colorMode: "dark",
+});
 </script>
 
 <template>
   <div class="flex flex-col items-center px-5 min-h-screen -mt-20">
-  <div class="z-[-1] bg-black fixed h-screen w-screen" />
+    <div class="z-[-1] bg-black fixed h-screen w-screen" />
     <div
       class="max-w-7xl relative w-full flex flex-col items-center overflow-y-clip h-full py-20"
     >
       <div
         class="gradient-ball-small absolute"
         style="
-          left: 35%;
+          left: 30%;
           top: 5%;
           transform: translateX(-50%) translateY(-50%);
           z-index: -1;
@@ -37,52 +39,55 @@ definePageMeta({
           z-index: -1;
         "
       />
+      <div class="mt-[90px] flex flex-col items-center">
       <h1
-        class="font-bold text-center text-[58px] break-words max-w-[684px] leading-[55.8px] mt-[100px]"
+        class="font-bold text-center text-5xl md:text-[58px] break-words max-w-[680px] md:leading-[55.8px] tracking-tight"
       >
-        Production Grade Design System, in an instant.
+        Build Production Grade Components, in an Instant.
       </h1>
       <p class="hero-description">
-        Unstyled, accessible components for building high‑quality design systems and web
+      <span class="text-green-400 underline underline-offset-4">Unstyled,</span> <span class="text-green-400 underline underline-offset-4">accessible</span> components for building <span class="text-green-400 underline underline-offset-4">high‑quality</span> design systems and web
         apps in Vue.
       </p>
-      <div class="mt-11 w-full flex justify-center">
-        <NuxtLink to="/overview/getting-started"
-          class="rounded-2xl px-10 py-4 text-xl font-semibold bg-gradient-to-r from-green-600 to-teal-500 items-center hover:from-green-600 hover:to-teal-400 transition-colors duration-200 justify-center flex"
+    </div>
+      <div class="mt-11 w-full flex gap-2 justify-center">
+        <NuxtLink
+          to="/overview/getting-started"
+          class="rounded-2xl px-10 py-4 text-xl font-medium bg-gradient-to-r from-green-600 to-teal-500 items-center hover:from-green-600 hover:to-teal-400 transition-colors duration-200 justify-center flex"
         >
-          Get Started
+          Quick Start
         </NuxtLink>
       </div>
-      <div class="grid grid-cols-3 mt-20 w-full max-w-5xl gap-5">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mt-28 w-full max-w-5xl gap-x-6 gap-y-5">
         <HomeCard
-          title="Dialog"
+          title="Accordion"
           description="With modal and non-modal modes, fine-grained focus control, accessible to screen readers."
         >
-          <HomeDemosAlertDialog />
+          <HomeDemosAccordion />
         </HomeCard>
         <HomeCard
-          title="Dialog"
+          title="Aspect Ratio"
           description="With modal and non-modal modes, fine-grained focus control, accessible to screen readers."
         >
-          <HomeDemosAlertDialog />
+          <HomeDemosAspectRatio />
         </HomeCard>
         <HomeCard
-          title="Dialog"
+          title="Avatar"
           description="With modal and non-modal modes, fine-grained focus control, accessible to screen readers."
         >
-          <HomeDemosAlertDialog />
+          <HomeDemosAvatar />
         </HomeCard>
         <HomeCard
-          title="Dialog"
+          title="Slider"
           description="With modal and non-modal modes, fine-grained focus control, accessible to screen readers."
         >
-          <HomeDemosAlertDialog />
+          <HomeDemosSlider />
         </HomeCard>
         <HomeCard
-          title="Dialog"
+          title="Switch"
           description="With modal and non-modal modes, fine-grained focus control, accessible to screen readers."
         >
-          <HomeDemosAlertDialog />
+          <HomeDemosSwitch />
         </HomeCard>
         <HomeCard
           title="Dialog"
@@ -138,26 +143,26 @@ definePageMeta({
 }
 
 .gradient-ball-small {
-  width: 620px;
-  height: 620px;
+  width: 1020px;
+  height: 1020px;
   background: radial-gradient(
     50% 50% at 50% 50%,
-    rgba(22, 102, 83, 0.47) 10%,
-    rgba(17, 51, 101, 0.1) 90%,
+    rgba(22, 102, 83, 0.47) 0%,
+    rgba(17, 51, 101, 0.15) 75%,
     rgba(17, 51, 101, 0) 100%
   );
   user-select: none;
 }
 
 .gradient-ball {
-  width: 900px;
-  height: 900px;
+  width: 1480px;
+  height: 1480px;
 
   background: radial-gradient(
     50% 50% at 50% 50%,
     rgba(22, 102, 83, 0.47) 0%,
-    rgba(31, 93, 185, 0.05) 90%,
-    rgba(31, 93, 185, 0) 100%
+    rgba(17, 51, 101, 0.15) 75%,
+    rgba(17, 51, 101, 0) 100%
   );
   user-select: none;
 }

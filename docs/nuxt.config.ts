@@ -8,7 +8,12 @@ export default defineNuxtConfig({
     // https://github.com/nuxt/devtools
     "@nuxt/devtools",
     "@nuxtjs/tailwindcss",
+    "@nuxtlabs/github-module",
   ],
+
+  github: {
+    repo: "radix-vue/radix-vue",
+  },
 
   app: {
     head: {
@@ -29,8 +34,8 @@ export default defineNuxtConfig({
 
   colorMode: {
     preference: "dark",
-    fallback: 'dark',
-    classSuffix: '',
+    fallback: "dark",
+    classSuffix: "",
   },
   tailwindcss: {
     config: {

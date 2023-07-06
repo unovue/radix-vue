@@ -10,14 +10,14 @@ function formatDate(dateString) {
   <div>
     <GithubReleases v-slot="{ releases }">
       <div v-for="release in releases" :key="release.name" class="flex flex-col">
-        <div class="mt-16 -mb-6 flex items-center gap-3">
-          <ProseH2 class="mt-0 mb-0">
+        <div class="mt-8 -mb-6 flex items-center gap-3">
+          <h2 class="text-3xl font-semibold">
             {{ formatDate(release.date) }}
-          </ProseH2>
+          </h2>
           <div class="rounded-full bg-neutral-800 px-2">{{ release.name }}</div>
         </div>
         <div>
-          <ProseH3 class="sr-only">Description</ProseH3>
+          <h3 class="sr-only">Description</h3>
 
           <ContentRenderer :value="release">
             <template #empty>

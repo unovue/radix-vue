@@ -19,7 +19,9 @@ const rootDisabled = false;
   >
     <AccordionItem class="accordion-item" value="item-1">
       <AccordionHeader class="flex">
-        <AccordionTrigger class="accordion-trigger">Is it accessible?</AccordionTrigger>
+        <AccordionTrigger class="accordion-trigger" asChild>
+          <button class="custom-trigger">Is it accessible?</button>
+        </AccordionTrigger>
       </AccordionHeader>
       <AccordionContent
         class="accordion-content data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
@@ -46,7 +48,9 @@ const rootDisabled = false;
       <AccordionContent
         class="accordion-content data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
       >
-        <div class="px-5 py-4">Yes! You can use the transition prop to configure the animation.</div>
+        <div>
+          <div class="px-5 py-4">Yes! You can use the transition prop to configure the animation.</div>
+        </div>
       </AccordionContent>
     </AccordionItem>
   </AccordionRoot>

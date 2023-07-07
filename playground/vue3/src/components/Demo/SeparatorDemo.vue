@@ -21,9 +21,11 @@ import { Separator } from "radix-vue";
       <div class="text-white text-[15px] leading-5">Docs</div>
       <Separator
         class="bg-[#d7cff9] data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mx-[15px]"
-        decorative
+        aschild
         orientation="vertical"
-      />
+      >
+      <div></div>
+      </Separator>
       <div class="text-white text-[15px] leading-5">Source</div>
     </div>
   </div>

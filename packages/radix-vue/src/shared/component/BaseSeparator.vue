@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { DataOrientation } from "../types";
+import type { DataOrientation } from "@/shared/types";
 
 export interface BaseSeparatorProps {
   asChild?: boolean;

@@ -24,13 +24,13 @@ const currentTab = ref("index.vue");
 
 watch(open, () => {
   if (!open.value) {
-    window.scrollTo({
-      top: buttonRef.value?.offsetTop,
-      behavior: "smooth",
-    });
+    if (window.scrollY > codeScrollWrapper.value?.offsetHeight! - 150) {
+      window.scrollTo({
+        top: window.scrollY - (codeScrollWrapper.value?.offsetHeight! - 150),
+      });
+    }
     codeScrollWrapper.value!.scrollTo({
       top: 0,
-      behavior: "smooth",
     });
   }
 });
@@ -60,7 +60,7 @@ watch(open, () => {
     </div>
     <div
       ref="codeScrollWrapper"
-      class="pb-10 block h-full transition-[max-height] duration-500"
+      class="pb-10 block h-full"
       :class="`${open ? 'overflow-scroll max-h-[80vh]' : 'overflow-hidden max-h-[150px]'}`"
     >
       <TabsContent v-for="tab in tabs" :key="tab.label" :value="tab.label" as-child>

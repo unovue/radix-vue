@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import {format} from "date-fns"
-function formatDate(dateString) {
-    const date = new Date(dateString);
-    return format(date, 'MMMM d, yyyy');
-  }
+import { format } from "date-fns";
+function formatDate(dateString: string) {
+  const date = new Date(dateString);
+  return format(date, "MMMM d, yyyy");
+}
 </script>
 
 <template>

@@ -3,7 +3,7 @@ interface ProseCodeProps {
   code?: string;
   language?: string | null;
   filename?: string | null;
-  highlights?: () => number[];
+  highlights?: number[];
   meta?: string | null;
 }
 </script>
@@ -38,7 +38,7 @@ async function copy() {
 
 <template>
   <div
-    class="p-6 bg-[#1a1a1a] border border-[#272727] relative text-[13px] group font-mono overflow-auto rounded-lg my-5"
+    class="bg-[#1a1a1a] border border-[#272727] relative text-[13px] group font-mono overflow-auto rounded-lg my-5"
     :class="`language-${props.language}`"
   >
     <button
@@ -62,6 +62,13 @@ async function copy() {
 </template>
 
 <style>
+pre code {
+  @apply px-6;
+
+  & > span {
+    @apply px-6;
+  }
+}
 pre code .line {
   display: block;
   min-height: 1rem;

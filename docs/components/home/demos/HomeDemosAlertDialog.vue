@@ -11,12 +11,6 @@ import {
   AlertDialogDescription,
 } from "radix-vue";
 
-interface AlertDialogDemoProps {
-  refElement: HTMLElement;
-}
-
-const props = defineProps<AlertDialogDemoProps>();
-
 const alertDialogOpen = ref(false);
 
 function handleAction() {
@@ -32,15 +26,11 @@ function handleAction() {
     >
       <button>Delete account</button>
     </AlertDialogTrigger>
-    <AlertDialogOverlay
-      class="data-[state=open]:animate-overlayShow absolute inset-0 z-20"
-    />
+    <AlertDialogOverlay class="data-[state=open]:animate-overlayShow absolute inset-0 z-20" />
     <AlertDialogContent
       class="z-20 data-[state=open]:animate-contentShow absolute top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[228px] translate-x-[-50%] translate-y-[-50%] rounded-[20px] bg-black/60 p-[15px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none"
     >
-      <AlertDialogTitle class="text-white m-0 text-[15px] font-semibold">
-        Edit Profile?
-      </AlertDialogTitle>
+      <AlertDialogTitle class="text-white m-0 text-[15px] font-semibold"> Edit Profile? </AlertDialogTitle>
       <AlertDialogDescription class="text-white/60 mt-1 mb-5 text-[11px] leading-normal">
         Make changes to your profile here. Click save when you’re done.
       </AlertDialogDescription>

@@ -3,7 +3,7 @@ interface ProseCodeProps {
   code?: string;
   language?: string | null;
   filename?: string | null;
-  highlights?: () => number[];
+  highlights?: number[];
   meta?: string | null;
 }
 </script>

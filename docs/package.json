@@ -18,7 +18,8 @@
     "@nuxtlabs/github-module": "^1.6.3",
     "@types/node": "^20.2.5",
     "eslint": "^8.42.0",
-    "nuxt": "^3.5.3"
+    "nuxt": "^3.5.3",
+    "date-fns": "^2.30.0"
   },
   "dependencies": {
     "@nuxtjs/tailwindcss": "^6.8.0",

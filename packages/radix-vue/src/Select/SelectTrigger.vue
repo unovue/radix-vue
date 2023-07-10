@@ -22,7 +22,7 @@ onMounted(() => {
   injectedValue!.triggerElement.value = triggerElement.value;
 });
 
-async function handleClick(e: MouseEvent) {
+async function handleClick() {
   injectedValue?.showTooltip();
   await nextTick();
   if (injectedValue?.modelValue.value) {
@@ -39,17 +39,28 @@ async function handleClick(e: MouseEvent) {
 }
 
 function handleKeydown(e: KeyboardEvent) {
-  if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Enter" || e.keyCode === 32) {
-    handleClick(e)
+  if (
+    e.key === "ArrowDown" ||
+    e.key === "ArrowUp" ||
+    e.key === "Enter" ||
+    e.keyCode === 32
+  ) {
+    handleClick();
   }
 }
 </script>
 
 <template>
   <PopperAnchor asChild>
-    <PrimitiveButton type="button" ref="primitiveElement" :aria-expanded="injectedValue?.isOpen.value || false"
-      :data-state="injectedValue?.isOpen.value ? 'open' : 'closed'" :as-child="false" @click="handleClick"
-      @keydown.prevent="handleKeydown">
+    <PrimitiveButton
+      type="button"
+      ref="primitiveElement"
+      :aria-expanded="injectedValue?.isOpen.value || false"
+      :data-state="injectedValue?.isOpen.value ? 'open' : 'closed'"
+      :as-child="false"
+      @click="handleClick"
+      @keydown.prevent="handleKeydown"
+    >
       <slot />
     </PrimitiveButton>
   </PopperAnchor>

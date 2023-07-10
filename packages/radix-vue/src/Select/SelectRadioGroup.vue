@@ -1,6 +1,5 @@
 <script lang="ts">
 import type { Ref } from "vue";
-import { useVModel } from "@vueuse/core";
 
 export interface RadioGroupRootProps {
   asChild?: boolean;
@@ -15,30 +14,32 @@ export const RADIO_GROUP_INJECTION_KEY = "RadioGroup" as const;
 
 export interface RadioGroupProvideValue {
   modelValue?: Readonly<Ref<string | string[] | undefined>>;
-  changeModelValue: (value?: string) => void;
+  changeModelValue: (value: string) => void;
   parentElement: Ref<HTMLElement | undefined>;
 }
 </script>
 
 <script setup lang="ts">
-import { provide } from "vue";
+import { provide, inject } from "vue";
 import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import {
+  type SelectProvideValue,
+  SELECT_INJECTION_KEY,
+} from "./SelectRoot.vue";
+
+const injectedValue = inject<SelectProvideValue>(SELECT_INJECTION_KEY);
 
 const props = defineProps<RadioGroupRootProps>();
-
-const emits = defineEmits(["update:modelValue"]);
 
 const { primitiveElement, currentElement: parentElement } =
   usePrimitiveElement();
 
-const modelValue = useVModel(props, "modelValue", emits, {
-  passive: true,
-});
+const selectValue = injectedValue?.modelValue;
 
 provide<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY, {
-  modelValue,
-  changeModelValue: (value?: string) => {
-    modelValue.value = value;
+  modelValue: selectValue,
+  changeModelValue: (value: string) => {
+    injectedValue?.setValue(value);
   },
   parentElement,
 });

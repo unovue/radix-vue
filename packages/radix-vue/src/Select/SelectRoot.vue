@@ -6,7 +6,8 @@ export interface SelectRootProps {
   open?: boolean;
   defaultOpen?: boolean;
   //onOpenChange?: void;
-  modelValue?: boolean;
+  defaultValue?: string;
+  modelValue?: string;
   orientation?: DataOrientation;
   dir?: Direction;
 }
@@ -17,7 +18,9 @@ export const SELECT_INJECTION_KEY =
 export type SelectProvideValue = {
   selectedElement: Ref<HTMLElement | undefined>;
   changeSelected: (value: HTMLElement) => void;
-  modelValue: Readonly<Ref<boolean>>;
+  modelValue: Readonly<Ref<string | undefined>>;
+  setValue: (value: string) => void;
+  isOpen: Readonly<Ref<boolean>>;
   showTooltip(): void;
   hideTooltip(): void;
   triggerElement: Ref<HTMLElement | undefined>;
@@ -33,18 +36,21 @@ import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<SelectRootProps>(), {
   orientation: "vertical",
+  defaultValue: "",
 });
 
 const emit = defineEmits<{
-  (e: "update:modelValue", value: boolean): void;
+  (e: "update:modelValue", value: string): void;
 }>();
 
 const modelValue = useVModel(props, "modelValue", emit, {
+  defaultValue: props.defaultValue,
   passive: true,
 });
 
 const selectedElement = ref<HTMLElement>();
 const triggerElement = ref<HTMLElement>();
+const isOpen = ref(false);
 
 provide<SelectProvideValue>(SELECT_INJECTION_KEY, {
   selectedElement: selectedElement,
@@ -53,11 +59,15 @@ provide<SelectProvideValue>(SELECT_INJECTION_KEY, {
     selectedElement.value!.focus();
   },
   modelValue,
+  setValue: (value) => {
+    modelValue.value = value;
+  },
+  isOpen,
   showTooltip: () => {
-    modelValue.value = true;
+    isOpen.value = true;
   },
   hideTooltip: () => {
-    modelValue.value = false;
+    isOpen.value = false;
   },
   triggerElement,
   itemsArray: [],

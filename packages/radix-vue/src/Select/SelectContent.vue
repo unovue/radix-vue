@@ -18,7 +18,6 @@ export interface SelectContentProps extends PopperContentProps {
 <script setup lang="ts">
 import { inject, watchEffect } from "vue";
 import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
-
 import { SELECT_INJECTION_KEY } from "./SelectRoot.vue";
 import { PopperContent, type PopperContentProps } from "@/Popper";
 
@@ -38,7 +37,7 @@ createCollection(tooltipContentElement);
 
 watchEffect(() => {
   if (tooltipContentElement.value) {
-    if (injectedValue?.modelValue.value) {
+    if (injectedValue?.isOpen.value) {
       document.querySelector("body")!.style.pointerEvents = "none";
       injectedValue.itemsArray = getItems(tooltipContentElement.value);
     } else {
@@ -64,10 +63,10 @@ onClickOutside(tooltipContentElement, (event) => {
 </script>
 
 <template>
-  <PopperContent v-bind="props" v-if="injectedValue?.modelValue.value">
+  <PopperContent v-bind="props" v-if="injectedValue?.isOpen.value">
     <PrimitiveDiv
       ref="primitiveElement"
-      :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
+      :data-state="injectedValue?.isOpen.value ? 'open' : 'closed'"
       :data-side="props.side"
       :data-align="props.align"
       role="tooltip"

@@ -18,13 +18,14 @@ interface SelectCheckboxItemProps {
 <script setup lang="ts">
 import { inject, computed, provide } from "vue";
 import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
+import { type DropdownMenuProvideValue } from "../DropdownMenu";
 import { SELECT_ITEM_SYMBOL } from "./utils";
 import {
   SELECT_INJECTION_KEY,
   type SelectProvideValue,
 } from "./SelectRoot.vue";
 
-const injectedValue = inject<SelectProvideValue>(SELECT_INJECTION_KEY);
+const injectedValue = inject<DropdownMenuProvideValue>(SELECT_INJECTION_KEY);
 
 const props = defineProps<SelectCheckboxItemProps>();
 

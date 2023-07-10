@@ -10,6 +10,7 @@ import {
   type RadioGroupProvideValue,
 } from "./SelectRadioGroup.vue";
 import { SELECT_ITEM_SYMBOL } from "./utils";
+import { type DropdownMenuProvideValue } from "../DropdownMenu";
 
 interface RadioGroupItemProps {
   asChild?: boolean;
@@ -21,7 +22,8 @@ interface RadioGroupItemProps {
   textValue?: string;
 }
 
-const rootInjectedValue = inject<SelectProvideValue>(SELECT_INJECTION_KEY);
+const rootInjectedValue =
+  inject<DropdownMenuProvideValue>(SELECT_INJECTION_KEY);
 const radioInjectedValue = inject<RadioGroupProvideValue>(
   RADIO_GROUP_INJECTION_KEY
 );
@@ -34,8 +36,9 @@ const radioDataState = computed(() => {
 
 function handleClick() {
   if (rootInjectedValue?.selectedElement.value) {
-    return radioInjectedValue?.changeModelValue(props.value);
+    radioInjectedValue?.changeModelValue(props.value!);
   }
+  return rootInjectedValue?.hideTooltip();
 }
 
 const modelValue = computed(

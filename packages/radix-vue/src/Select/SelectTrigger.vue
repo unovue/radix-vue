@@ -23,7 +23,7 @@ onMounted(() => {
 });
 
 function handleClick() {
-  if (injectedValue?.modelValue.value) {
+  if (injectedValue?.isOpen.value) {
     injectedValue?.hideTooltip();
   } else {
     injectedValue?.showTooltip();
@@ -34,7 +34,17 @@ async function handleKeydown(e: KeyboardEvent) {
   if (e.key === "ArrowDown") {
     injectedValue?.showTooltip();
     await nextTick();
-    injectedValue?.changeSelected(injectedValue.itemsArray?.[0]);
+    if (injectedValue?.modelValue.value) {
+      const selectedElement = injectedValue.itemsArray?.find((element) => {
+        return (
+          element.getAttribute("data-radix-vue-radio-value") ===
+          injectedValue?.modelValue.value
+        );
+      }) as HTMLElement;
+      injectedValue?.changeSelected(selectedElement);
+    } else {
+      injectedValue?.changeSelected(injectedValue.itemsArray?.[0]);
+    }
   }
 }
 </script>
@@ -44,8 +54,8 @@ async function handleKeydown(e: KeyboardEvent) {
     <PrimitiveButton
       type="button"
       ref="primitiveElement"
-      :aria-expanded="injectedValue?.modelValue.value || false"
-      :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
+      :aria-expanded="injectedValue?.isOpen.value || false"
+      :data-state="injectedValue?.isOpen.value ? 'open' : 'closed'"
       :as-child="false"
       @click="handleClick"
       @keydown.prevent="handleKeydown"

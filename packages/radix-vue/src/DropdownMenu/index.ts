@@ -14,5 +14,6 @@ export { default as DropdownMenuRadioItem } from "./DropdownMenuRadioItem.vue";
 export { default as DropdownMenuSub } from "./DropdownMenuSub.vue";
 export { default as DropdownMenuSubContent } from "./DropdownMenuSubContent.vue";
 export { default as DropdownMenuSubTrigger } from "./DropdownMenuSubTrigger.vue";
+export type { DropdownMenuProvideValue } from "./DropdownMenuRoot.vue";
 
 export * from "./utils";

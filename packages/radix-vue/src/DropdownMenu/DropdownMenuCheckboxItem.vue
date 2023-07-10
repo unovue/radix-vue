@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { Ref } from "vue";
+import { useVModel } from "@vueuse/core";
 
 interface DropdownMenuCheckboxItemProps {
   asChild?: boolean;
@@ -13,13 +13,12 @@ interface DropdownMenuCheckboxItemProps {
   onSelect?: void;
   textValue?: string;
 }
-
-export type DropdownMenuCheckboxProvideValue = Readonly<Ref<boolean>>;
 </script>
 
 <script setup lang="ts">
-import { inject, computed, provide, toRef } from "vue";
+import { inject, computed, provide } from "vue";
 import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
+import { DROPDOWN_MENU_ITEM_SYMBOL } from "./utils";
 import {
   DROPDOWN_MENU_INJECTION_KEY,
   type DropdownMenuProvideValue,
@@ -35,22 +34,17 @@ const emit = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
 }>();
 
-const checkboxDataState = computed(() => {
-  return props.modelValue ? "checked" : "unchecked";
+const modelValue = useVModel(props, "modelValue", emit, {
+  passive: true,
 });
 
-function handleClick(): void {
-  return updateModelValue();
-}
+const checkboxDataState = computed(() => {
+  return modelValue.value ? "checked" : "unchecked";
+});
 
-function updateModelValue(): void {
-  return emit("update:modelValue", !props.modelValue);
-}
-
-provide<DropdownMenuCheckboxProvideValue>(
-  "modelValue",
-  toRef(() => props.modelValue)
-);
+provide(DROPDOWN_MENU_ITEM_SYMBOL, {
+  modelValue,
+});
 </script>
 
 <template>
@@ -59,7 +53,7 @@ provide<DropdownMenuCheckboxProvideValue>(
     :disabled="props.disabled"
     :rootProvider="injectedValue"
     :orientation="injectedValue?.orientation"
-    @handle-click="handleClick"
+    @handle-click="modelValue = !modelValue"
     role="menuitemcheckbox"
     :data-state="checkboxDataState"
     :aria-checked="props.modelValue ? true : false"
@@ -68,7 +62,7 @@ provide<DropdownMenuCheckboxProvideValue>(
       type="checkbox"
       :id="props.id"
       v-bind="props.modelValue"
-      @change="updateModelValue"
+      @change="modelValue = !modelValue"
       :checked="props.modelValue"
       :name="props.name"
       aria-hidden="true"

@@ -11,6 +11,7 @@ import {
   DROPDOWN_MENU_INJECTION_KEY,
   type DropdownMenuProvideValue,
 } from "./DropdownMenuRoot.vue";
+import { PopperAnchor } from "@/Popper";
 
 const injectedValue = inject<DropdownMenuProvideValue>(
   DROPDOWN_MENU_INJECTION_KEY
@@ -34,19 +35,23 @@ function handleClick() {
 function handleKeydown(e: KeyboardEvent) {
   if (e.key === "ArrowDown") {
     injectedValue?.showTooltip();
+    injectedValue?.changeSelected(injectedValue.itemsArray?.[0]);
   }
 }
 </script>
 
 <template>
-  <PrimitiveButton
-    type="button"
-    ref="primitiveElement"
-    :aria-expanded="injectedValue?.modelValue.value || false"
-    :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
-    @click="handleClick"
-    @keydown="handleKeydown"
-  >
-    <slot />
-  </PrimitiveButton>
+  <PopperAnchor asChild>
+    <PrimitiveButton
+      type="button"
+      ref="primitiveElement"
+      :aria-expanded="injectedValue?.modelValue.value || false"
+      :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
+      :as-child="false"
+      @click="handleClick"
+      @keydown.prevent="handleKeydown"
+    >
+      <slot />
+    </PrimitiveButton>
+  </PopperAnchor>
 </template>

@@ -7,7 +7,7 @@ export interface DropdownMenuSubTriggerProps {
 </script>
 
 <script setup lang="ts">
-import { inject, ref, onMounted, computed } from "vue";
+import { inject, onMounted, computed, nextTick } from "vue";
 import {
   DROPDOWN_MENU_INJECTION_KEY,
   type DropdownMenuProvideValue,
@@ -16,6 +16,8 @@ import {
   DROPDOWN_MENU_SUB_INJECTION_KEY,
   type DropdownMenuSubProvideValue,
 } from "./DropdownMenuSub.vue";
+import { PopperAnchor } from "@/Popper";
+import { usePrimitiveElement } from "@/Primitive";
 import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
 
 const rootInjectedValue = inject<DropdownMenuProvideValue>(
@@ -26,24 +28,26 @@ const injectedValue = inject<DropdownMenuSubProvideValue>(
   DROPDOWN_MENU_SUB_INJECTION_KEY
 );
 
-const triggerElement = ref<HTMLElement>();
+const { primitiveElement, currentElement } = usePrimitiveElement();
+
 onMounted(() => {
-  injectedValue!.triggerElement.value = triggerElement.value;
-  // @ts-expect-error
-  injectedValue.subTrigger = triggerElement.value.$el;
+  injectedValue!.triggerElement.value = currentElement.value;
 });
 
 function handleClick() {
-  if (injectedValue?.modelValue.value) {
-    injectedValue?.hideTooltip();
-  } else {
+  if (!injectedValue?.modelValue.value) {
     injectedValue?.showTooltip();
   }
 }
 
 function handleHorizontalKeydown(e: KeyboardEvent) {
   if (e.key === "ArrowRight") {
-    return injectedValue?.showTooltip();
+    injectedValue?.showTooltip();
+    nextTick(() => {
+      const el = injectedValue?.itemsArray?.[0];
+      rootInjectedValue!.selectedElement.value = el;
+      el?.focus();
+    });
   }
 }
 
@@ -57,17 +61,22 @@ function handleMouseover() {
 </script>
 
 <template>
-  <BaseMenuItem
-    ref="triggerElement"
-    :rootProvider="rootInjectedValue"
-    :aria-expanded="injectedValue?.modelValue.value ?? false"
-    :data-state="dataState"
-    @handle-click="handleClick"
-    @mouseover="handleMouseover"
-    @horizontal-keydown="handleHorizontalKeydown"
-    :data-orientation="rootInjectedValue?.orientation"
-    aria-haspopup="menu"
-  >
-    <slot />
-  </BaseMenuItem>
+  <PopperAnchor asChild>
+    <BaseMenuItem
+      ref="primitiveElement"
+      :id="injectedValue?.triggerId"
+      :rootProvider="rootInjectedValue"
+      :subProvider="injectedValue?.parentContext"
+      :aria-expanded="injectedValue?.modelValue.value"
+      :aria-controls="injectedValue?.contentId"
+      :data-state="dataState"
+      :data-orientation="rootInjectedValue?.orientation"
+      aria-haspopup="menu"
+      @handle-click="handleClick"
+      @mouseover="handleMouseover"
+      @horizontal-keydown="handleHorizontalKeydown"
+    >
+      <slot />
+    </BaseMenuItem>
+  </PopperAnchor>
 </template>

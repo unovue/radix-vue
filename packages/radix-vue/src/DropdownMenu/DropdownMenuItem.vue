@@ -31,6 +31,7 @@ const props = defineProps<DropdownMenuItemProps>();
 function handleClick() {
   if (rootInjectedValue?.selectedElement.value) {
     rootInjectedValue.selectedElement.value.click();
+    rootInjectedValue.hideTooltip();
   }
 }
 </script>

@@ -7,7 +7,7 @@ export interface MenubarSubTriggerProps {
 </script>
 
 <script setup lang="ts">
-import { inject, onMounted, computed, nextTick, watchEffect } from "vue";
+import { inject, onMounted, computed, nextTick, watchEffect, watch } from "vue";
 import {
   MENUBAR_INJECTION_KEY,
   type MenubarProvideValue,
@@ -19,7 +19,7 @@ import {
 import { PopperAnchor } from "@/Popper";
 import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
 import { useArrowNavigation } from "@/shared/useArrowNavigation";
-import { useCollection } from "@/shared/useCollection";
+import { useActiveElement } from "@vueuse/core";
 
 const rootInjectedValue = inject<MenubarProvideValue>(MENUBAR_INJECTION_KEY);
 
@@ -28,6 +28,7 @@ const injectedValue = inject<MenubarSubProvideValue>(MENUBAR_SUB_INJECTION_KEY);
 const props = defineProps<MenubarSubTriggerProps>();
 
 const { primitiveElement, currentElement } = usePrimitiveElement();
+const activeElement = useActiveElement();
 
 onMounted(() => {
   injectedValue!.triggerElement.value = currentElement.value;
@@ -94,6 +95,14 @@ const dataState = computed(() => {
   );
 });
 
+const highlightedState = computed(() => {
+  return (
+    activeElement.value === currentElement.value ||
+    (rootInjectedValue?.triggerElement.value === currentElement.value &&
+      rootInjectedValue?.selectedElement.value)
+  );
+});
+
 function handleMouseover() {
   return injectedValue?.showTooltip();
 }
@@ -103,6 +112,17 @@ watchEffect(() => {
     rootInjectedValue!.triggerElement.value = currentElement.value;
   }
 });
+
+watch(
+  activeElement,
+  () => {
+    if (activeElement.value === currentElement.value) {
+      rootInjectedValue!.selectedElement.value = currentElement.value;
+      rootInjectedValue!.triggerElement.value = currentElement.value;
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
@@ -121,13 +141,11 @@ watchEffect(() => {
       @mouseenter="handleHover"
       @mouseover="handleMouseover"
       @click="handleClick"
-      :data-highlighted="
-        rootInjectedValue?.triggerElement.value === currentElement ? '' : null
-      "
+      :data-highlighted="highlightedState ? '' : null"
       :aria-disabled="props.disabled ? true : undefined"
       :data-disabled="props.disabled ? '' : undefined"
       :tabindex="
-        rootInjectedValue?.selectedElement.value === currentElement ? '0' : '-1'
+        rootInjectedValue?.triggerElement.value === currentElement ? '0' : '-1'
       "
     >
       <slot />

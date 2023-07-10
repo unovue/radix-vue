@@ -94,7 +94,6 @@ onClickOutside(tooltipContentElement, (event) => {
   const target = event.target as HTMLElement;
   if (target.closest('[role="menuitem"]')) return;
   rootInjectedValue?.setIsOpen(false);
-  rootInjectedValue!.triggerElement.value = undefined;
   rootInjectedValue!.selectedElement.value = undefined;
 });
 

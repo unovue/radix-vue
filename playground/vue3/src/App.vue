@@ -54,7 +54,7 @@ import ScrollAreaDemo from "./components/Demo/ScrollAreaDemo.vue";
       <Card class="col-span-2">
         <ContextMenuDemo />
       </Card>
-      <Card>
+      <Card class="col-span-2">
         <DialogDemo />
       </Card>
       <Card>

@@ -11,6 +11,8 @@ import {
   HOVER_CARD_INJECTION_KEY,
   type HoverCardProvideValue,
 } from "./HoverCardRoot.vue";
+import { PopperAnchor } from "@/Popper";
+
 import { useHoverDelay, useMouseleaveDelay } from "../shared";
 
 const injectedValue = inject<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY);
@@ -43,16 +45,18 @@ async function handleMouseleave(e: MouseEvent) {
 </script>
 
 <template>
-  <PrimitiveButton
-    type="button"
-    ref="primitiveElement"
-    :aria-expanded="injectedValue?.open.value || false"
-    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
-    @mouseover="injectedValue!.isHover = true"
-    @mouseenter="handleMouseEnter"
-    @mouseleave="handleMouseleave"
-    style="cursor: default"
-  >
-    <slot />
-  </PrimitiveButton>
+  <PopperAnchor asChild>
+    <PrimitiveButton
+      type="button"
+      ref="primitiveElement"
+      :aria-expanded="injectedValue?.open.value || false"
+      :data-state="injectedValue?.open.value ? 'open' : 'closed'"
+      @mouseover="injectedValue!.isHover = true"
+      @mouseenter="handleMouseEnter"
+      @mouseleave="handleMouseleave"
+      style="cursor: default"
+    >
+      <slot />
+    </PrimitiveButton>
+  </PopperAnchor>
 </template>

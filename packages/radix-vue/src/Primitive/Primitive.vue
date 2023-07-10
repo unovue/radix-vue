@@ -8,6 +8,7 @@ import {
   type ReservedProps,
   type VNode,
 } from "vue";
+import Slot from "./Slot.vue";
 
 const NODES = [
   "a",
@@ -47,12 +48,11 @@ export function renderSlotFragments(children?: VNode[]): VNode[] {
 
 const Primitive = NODES.reduce((primitive, node) => {
   const Node = defineComponent({
+    props: {
+      asChild: Boolean,
+    },
     setup(props, { slots, attrs }) {
-      const asChild =
-        attrs.asChild === "true" ||
-        attrs.asChild === "" ||
-        (attrs.asChild as boolean);
-
+      const asChild = !!props.asChild;
       if (asChild) {
         const children = renderSlotFragments(slots.default?.());
 
@@ -77,7 +77,12 @@ const Primitive = NODES.reduce((primitive, node) => {
           );
         }
 
-        return () => h(children[0]);
+        const firstChild = children[0];
+        if (typeof firstChild.type === "string") {
+          return () => h(children[0]);
+        } else {
+          return () => h(Slot, () => slots.default?.());
+        }
       } else {
         return () => h(node, slots.default?.());
       }

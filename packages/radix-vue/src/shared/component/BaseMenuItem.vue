@@ -1,7 +1,6 @@
 <script lang="ts">
 import type { DropdownMenuProvideValue } from "../../DropdownMenu/DropdownMenuRoot.vue";
 import type { DropdownMenuSubProvideValue } from "../../DropdownMenu/DropdownMenuSub.vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 
 interface BaseMenuItemProps {
   disabled?: boolean;
@@ -14,19 +13,17 @@ interface BaseMenuItemProps {
 </script>
 
 <script setup lang="ts">
-import { watchEffect } from "vue";
 import { useArrowNavigation } from "../useArrowNavigation";
+import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import { useCollection } from "../useCollection";
 
 const props = withDefaults(defineProps<BaseMenuItemProps>(), {
   role: "menuitem",
 });
 
-const currentProvider = props.subProvider
-  ? props.subProvider
-  : props.rootProvider;
-
 const emit = defineEmits(["handle-click", "horizontal-keydown", "mouseover"]);
 
+const { getItems } = useCollection();
 const { primitiveElement, currentElement } = usePrimitiveElement();
 
 function handleKeydown(e: KeyboardEvent) {
@@ -34,11 +31,15 @@ function handleKeydown(e: KeyboardEvent) {
     return handleCloseMenu();
   }
   if (e.keyCode === 32 || e.key === "Enter") {
-    return handleClick();
+    (e.target as HTMLElement).click();
+    return;
   }
+
   if (e.key === "ArrowLeft") {
-    if (props.subProvider?.subTrigger) {
-      props.rootProvider?.changeSelected(props.subProvider?.subTrigger);
+    const trigger = props.subProvider?.triggerElement.value;
+
+    if (trigger) {
+      props.rootProvider?.changeSelected(trigger);
       return props.subProvider?.hideTooltip();
     }
     return;
@@ -46,13 +47,14 @@ function handleKeydown(e: KeyboardEvent) {
   if (e.key === "ArrowRight") {
     return emit("horizontal-keydown", e);
   }
+
   const newSelectedElement = useArrowNavigation(
     e,
     currentElement.value!,
     undefined,
     {
       arrowKeyOptions: "vertical",
-      itemsArray: currentProvider?.itemsArray,
+      itemsArray: getItems(),
     }
   );
   if (newSelectedElement) {
@@ -81,12 +83,6 @@ function handleClick() {
 function handleMouseover() {
   emit("mouseover");
 }
-
-watchEffect(() => {
-  if (props.rootProvider?.selectedElement.value === currentElement.value) {
-    currentElement.value?.focus();
-  }
-});
 </script>
 
 <template>
@@ -94,12 +90,11 @@ watchEffect(() => {
     :role="props.role"
     ref="primitiveElement"
     @keydown.prevent="handleKeydown"
-    @click.prevent="handleClick"
     :data-state="props.dataState"
     data-radix-vue-collection-item
     @mouseenter="handleHover"
     @mouseover="handleMouseover"
-    @mouseleave="rootProvider!.changeSelected(null as any)"
+    @click="handleClick"
     :data-highlighted="
       rootProvider?.selectedElement.value === currentElement ? '' : null
     "

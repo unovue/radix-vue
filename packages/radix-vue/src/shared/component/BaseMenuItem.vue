@@ -9,7 +9,6 @@ interface BaseMenuItemProps {
   orientation?: string | undefined;
   role?: string;
   dataState?: string;
-  triggerElement?: HTMLElement;
 }
 </script>
 
@@ -32,7 +31,8 @@ function handleKeydown(e: KeyboardEvent) {
     return handleCloseMenu();
   }
   if (e.keyCode === 32 || e.key === "Enter") {
-    return handleClick();
+    (e.target as HTMLElement).click();
+    return;
   }
 
   if (e.key === "ArrowLeft") {
@@ -94,7 +94,7 @@ function handleMouseover() {
     data-radix-vue-collection-item
     @mouseenter="handleHover"
     @mouseover="handleMouseover"
-    @click="rootProvider?.hideTooltip()"
+    @click="handleClick"
     :data-highlighted="
       rootProvider?.selectedElement.value === currentElement ? '' : null
     "

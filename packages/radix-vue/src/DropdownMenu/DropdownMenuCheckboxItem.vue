@@ -42,6 +42,10 @@ const checkboxDataState = computed(() => {
   return modelValue.value ? "checked" : "unchecked";
 });
 
+function handleClick() {
+  modelValue.value = !modelValue.value;
+}
+
 provide(DROPDOWN_MENU_ITEM_SYMBOL, {
   modelValue,
 });
@@ -53,7 +57,7 @@ provide(DROPDOWN_MENU_ITEM_SYMBOL, {
     :disabled="props.disabled"
     :rootProvider="injectedValue"
     :orientation="injectedValue?.orientation"
-    @handle-click="modelValue = !modelValue"
+    @handle-click="handleClick"
     role="menuitemcheckbox"
     :data-state="checkboxDataState"
     :aria-checked="props.modelValue ? true : false"
@@ -62,7 +66,6 @@ provide(DROPDOWN_MENU_ITEM_SYMBOL, {
       type="checkbox"
       :id="props.id"
       v-bind="props.modelValue"
-      @change="modelValue = !modelValue"
       :checked="props.modelValue"
       :name="props.name"
       aria-hidden="true"

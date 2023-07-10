@@ -1,7 +1,7 @@
 <script lang="ts">
 export type Boundary = Element | null | Array<Element | null>;
 
-export interface MenubarSubContentProps extends PopperContentProps {
+export interface MenubarContentProps extends PopperContentProps {
   asChild?: boolean;
   loop?: boolean; //false
   //onOpenAutoFocus?: void;
@@ -20,8 +20,8 @@ import {
   type MenubarProvideValue,
 } from "./MenubarRoot.vue";
 import {
-  MENUBAR_SUB_INJECTION_KEY,
-  type MenubarSubProvideValue,
+  MENUBAR_MENU_INJECTION_KEY,
+  type MenubarMenuProvideValue,
 } from "./MenubarMenu.vue";
 import { PopperContent, type PopperContentProps } from "@/Popper";
 import { useCollection } from "@/shared";
@@ -29,9 +29,11 @@ import { onClickOutside } from "@vueuse/core";
 
 const rootInjectedValue = inject<MenubarProvideValue>(MENUBAR_INJECTION_KEY);
 
-const injectedValue = inject<MenubarSubProvideValue>(MENUBAR_SUB_INJECTION_KEY);
+const injectedValue = inject<MenubarMenuProvideValue>(
+  MENUBAR_MENU_INJECTION_KEY
+);
 
-const props = withDefaults(defineProps<MenubarSubContentProps>(), {
+const props = withDefaults(defineProps<MenubarContentProps>(), {
   side: "bottom",
   align: "start",
   orientation: "horizontal",

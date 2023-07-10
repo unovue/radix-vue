@@ -3,7 +3,7 @@ import type { Ref, InjectionKey } from "vue";
 import type { DataOrientation } from "@/shared/types";
 import { useVModel } from "@vueuse/core";
 
-export interface MenubarSubRootProps {
+export interface MenubarMenuRootProps {
   modelValue?: boolean;
   defaultOpen?: boolean;
   open?: boolean;
@@ -13,10 +13,10 @@ export interface MenubarSubRootProps {
   orientation?: DataOrientation;
 }
 
-export const MENUBAR_SUB_INJECTION_KEY =
-  Symbol() as InjectionKey<MenubarSubProvideValue>;
+export const MENUBAR_MENU_INJECTION_KEY =
+  Symbol() as InjectionKey<MenubarMenuProvideValue>;
 
-export type MenubarSubProvideValue = {
+export type MenubarMenuProvideValue = {
   modelValue: Readonly<Ref<boolean>>;
   showTooltip(): void;
   hideTooltip(): void;
@@ -25,7 +25,7 @@ export type MenubarSubProvideValue = {
   orientation: DataOrientation;
   triggerId: string;
   contentId: string;
-  parentContext?: MenubarSubProvideValue;
+  parentContext?: MenubarMenuProvideValue;
 };
 </script>
 
@@ -34,7 +34,7 @@ import { inject, provide, ref } from "vue";
 import { PopperRoot } from "@/Popper";
 import { useId } from "@/shared";
 
-const props = withDefaults(defineProps<MenubarSubRootProps>(), {
+const props = withDefaults(defineProps<MenubarMenuRootProps>(), {
   delayDuration: 700,
   orientation: "vertical",
 });
@@ -49,9 +49,9 @@ const modelValue = useVModel(props, "modelValue", emit, {
 
 const triggerElement = ref<HTMLElement>();
 
-const parentContext = inject(MENUBAR_SUB_INJECTION_KEY);
+const parentContext = inject(MENUBAR_MENU_INJECTION_KEY);
 
-provide<MenubarSubProvideValue>(MENUBAR_SUB_INJECTION_KEY, {
+provide<MenubarMenuProvideValue>(MENUBAR_MENU_INJECTION_KEY, {
   modelValue,
   showTooltip: () => {
     modelValue.value = true;

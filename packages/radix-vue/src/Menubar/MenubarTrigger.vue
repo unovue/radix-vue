@@ -1,5 +1,5 @@
 <script lang="ts">
-export interface MenubarSubTriggerProps {
+export interface MenubarMenuTriggerProps {
   asChild?: boolean;
   disabled?: boolean;
   textValue?: string;
@@ -13,8 +13,8 @@ import {
   type MenubarProvideValue,
 } from "./MenubarRoot.vue";
 import {
-  MENUBAR_SUB_INJECTION_KEY,
-  type MenubarSubProvideValue,
+  MENUBAR_MENU_INJECTION_KEY,
+  type MenubarMenuProvideValue,
 } from "./MenubarMenu.vue";
 import { PopperAnchor } from "@/Popper";
 import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
@@ -23,9 +23,11 @@ import { useActiveElement } from "@vueuse/core";
 
 const rootInjectedValue = inject<MenubarProvideValue>(MENUBAR_INJECTION_KEY);
 
-const injectedValue = inject<MenubarSubProvideValue>(MENUBAR_SUB_INJECTION_KEY);
+const injectedValue = inject<MenubarMenuProvideValue>(
+  MENUBAR_MENU_INJECTION_KEY
+);
 
-const props = defineProps<MenubarSubTriggerProps>();
+const props = defineProps<MenubarMenuTriggerProps>();
 
 const { primitiveElement, currentElement } = usePrimitiveElement();
 const activeElement = useActiveElement();

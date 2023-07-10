@@ -34,20 +34,24 @@ onMounted(() => {
   injectedValue!.triggerElement.value = currentElement.value;
 });
 
+async function openAndSelectFirstElement() {
+  injectedValue?.showTooltip();
+
+  await nextTick();
+  const el = injectedValue?.itemsArray?.[0];
+  rootInjectedValue!.selectedElement.value = el;
+  el?.focus();
+}
+
 function handleClick() {
   if (!injectedValue?.modelValue.value) {
-    injectedValue?.showTooltip();
+    openAndSelectFirstElement();
   }
 }
 
 async function handleHorizontalKeydown(e: KeyboardEvent) {
   if (e.key === "ArrowRight") {
-    injectedValue?.showTooltip();
-
-    await nextTick();
-    const el = injectedValue?.itemsArray?.[0];
-    rootInjectedValue!.selectedElement.value = el;
-    el?.focus();
+    openAndSelectFirstElement();
   }
 }
 

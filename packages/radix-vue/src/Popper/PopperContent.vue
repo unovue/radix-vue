@@ -109,7 +109,6 @@ const detectOverflowOptions = computed(() => {
     altBoundary: boundary.value.length > 0,
   };
 });
-console.log(detectOverflowOptions, props);
 
 const computedMiddleware = computedEager(() => {
   return [

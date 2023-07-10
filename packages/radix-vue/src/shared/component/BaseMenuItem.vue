@@ -21,14 +21,20 @@ const props = withDefaults(defineProps<BaseMenuItemProps>(), {
   role: "menuitem",
 });
 
-const emit = defineEmits(["handle-click", "horizontal-keydown", "mouseover"]);
+const emit = defineEmits([
+  "handle-click",
+  "horizontal-keydown",
+  "mouseover",
+  "escape-keydown",
+]);
 
 const { getItems } = useCollection();
 const { primitiveElement, currentElement } = usePrimitiveElement();
 
 function handleKeydown(e: KeyboardEvent) {
   if (e.key === "Escape") {
-    return handleCloseMenu();
+    handleCloseMenu();
+    return emit("escape-keydown", e);
   }
   if (e.keyCode === 32 || e.key === "Enter") {
     (e.target as HTMLElement).click();

@@ -72,6 +72,13 @@ const dataState = computed(() => {
 function handleMouseover() {
   return injectedValue?.showTooltip();
 }
+
+function handleEscapeKeydown(e: KeyboardEvent) {
+  rootInjectedValue!.setIsOpen(false);
+  rootInjectedValue!.changeSelected(
+    rootInjectedValue!.triggerElement.value as HTMLElement
+  );
+}
 </script>
 
 <template>
@@ -89,6 +96,7 @@ function handleMouseover() {
       @handle-click="handleClick"
       @mouseover="handleMouseover"
       @horizontal-keydown="handleHorizontalKeydown"
+      @escape-keydown="handleEscapeKeydown"
     >
       <slot />
     </BaseMenuItem>

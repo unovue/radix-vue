@@ -47,6 +47,13 @@ function handleHorizontalKeydown(e: KeyboardEvent) {
     rootInjectedValue?.changeSelected(newSelectedElement);
   }
 }
+
+function handleEscapeKeydown(e: KeyboardEvent) {
+  rootInjectedValue!.setIsOpen(false);
+  rootInjectedValue!.changeSelected(
+    rootInjectedValue!.triggerElement.value as HTMLElement
+  );
+}
 </script>
 
 <template>
@@ -57,6 +64,7 @@ function handleHorizontalKeydown(e: KeyboardEvent) {
     :orientation="rootInjectedValue?.orientation"
     @handle-click="handleClick"
     @horizontal-keydown="handleHorizontalKeydown"
+    @escape-keydown="handleEscapeKeydown"
   >
     <slot />
   </BaseMenuItem>

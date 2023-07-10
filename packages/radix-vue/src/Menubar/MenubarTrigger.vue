@@ -77,7 +77,7 @@ function handleHover() {
 }
 
 function handleCloseMenu() {
-  rootInjectedValue?.hideTooltip();
+  rootInjectedValue?.setIsOpen(false);
   document.querySelector("body")!.style.pointerEvents = "";
   setTimeout(() => {
     rootInjectedValue?.triggerElement.value?.focus();

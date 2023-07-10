@@ -60,6 +60,13 @@ function handleHorizontalKeydown(e: KeyboardEvent) {
     rootInjectedValue?.changeSelected(newSelectedElement);
   }
 }
+
+function handleEscapeKeydown(e: KeyboardEvent) {
+  rootInjectedValue!.setIsOpen(false);
+  rootInjectedValue!.changeSelected(
+    rootInjectedValue!.triggerElement.value as HTMLElement
+  );
+}
 </script>
 
 <template>
@@ -70,6 +77,7 @@ function handleHorizontalKeydown(e: KeyboardEvent) {
     :data-radix-vue-radio-value="props.value"
     @handle-click="handleClick"
     @horizontal-keydown="handleHorizontalKeydown"
+    @escape-keydown="handleEscapeKeydown"
     role="menuitemradio"
     :data-state="radioDataState"
   >

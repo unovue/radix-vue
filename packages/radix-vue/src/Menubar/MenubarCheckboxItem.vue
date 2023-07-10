@@ -63,6 +63,13 @@ function handleHorizontalKeydown(e: KeyboardEvent) {
     injectedValue?.changeSelected(newSelectedElement);
   }
 }
+
+function handleEscapeKeydown(e: KeyboardEvent) {
+  injectedValue!.setIsOpen(false);
+  injectedValue!.changeSelected(
+    injectedValue!.triggerElement.value as HTMLElement
+  );
+}
 </script>
 
 <template>
@@ -73,6 +80,7 @@ function handleHorizontalKeydown(e: KeyboardEvent) {
     :orientation="injectedValue?.orientation"
     @handle-click="handleClick"
     @horizontal-keydown="handleHorizontalKeydown"
+    @escape-keydown="handleEscapeKeydown"
     role="menuitemcheckbox"
     :data-state="checkboxDataState"
     :aria-checked="props.modelValue ? true : false"

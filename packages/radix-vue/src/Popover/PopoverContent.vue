@@ -1,56 +1,21 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from "vue";
-import type { Side, MiddlewareData } from "@floating-ui/dom";
-
-export const POPOVER_CONTENT_INJECTION_KEY =
-  Symbol() as InjectionKey<PopoverContentProvideValue>;
-
-export type Boundary = Element | null | Array<Element | null>;
-
-export interface PopoverContentProps {
+export interface PopoverContentProps extends PopperContentProps {
   asChild?: boolean;
-  //onOpenAutoFocus?: void;
-  //onCloseAutoFocus?: void;
-  //onEscapeKeyDown?: void;
-  //onPointerDownOutside?: void;
-  //onInteractOutside?: void;
   forceMount?: boolean;
-  side?: "top" | "right" | "bottom" | "left"; //"top"
-  sideOffset?: number; //0
-  align?: "start" | "center" | "end";
-  alignOffset?: number; //"center"
-  avoidCollisions?: boolean; //true
-  collisionBoundary?: Boundary; //[]
-  collisionPadding?: number | Partial<Record<Side, number>>; //0
-  arrowPadding?: number; //0
-  sticky?: "partial" | "always"; //"partial"
-  hideWhenDetached?: boolean; //false
-  class: string;
 }
-
-export type PopoverContentProvideValue = {
-  middlewareData: Ref<MiddlewareData>;
-  floatPosition: Ref<Side>;
-};
 </script>
 
 <script setup lang="ts">
-import { onMounted, inject, ref, watchEffect, provide } from "vue";
-import { PrimitiveDiv } from "@/Primitive";
-import {
-  useFloating,
-  offset,
-  flip,
-  shift,
-  autoUpdate,
-  arrow,
-} from "@floating-ui/vue";
+import { inject, onUnmounted, watchEffect } from "vue";
+
 import { trapFocus } from "../shared/trap-focus";
 import { useClickOutside } from "../shared/useClickOutside";
 import {
   POPOVER_INJECTION_KEY,
   type PopoverProvideValue,
 } from "./PopoverRoot.vue";
+import { PopperContent, type PopperContentProps } from "@/Popper";
+import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 
 const injectedValue = inject<PopoverProvideValue>(POPOVER_INJECTION_KEY);
 
@@ -59,77 +24,61 @@ const props = withDefaults(defineProps<PopoverContentProps>(), {
   align: "center",
 });
 
-const tooltipContentElement = ref<HTMLElement>();
-onMounted(() => {
-  injectedValue!.floatingElement.value = tooltipContentElement.value;
-});
-
-const {
-  floatingStyles,
-  middlewareData,
-  placement: floatPosition,
-} = useFloating(injectedValue!.triggerElement, tooltipContentElement, {
-  placement: props.side,
-  middleware: [
-    offset(10),
-    flip(),
-    shift(),
-    arrow({ element: injectedValue?.arrowElement }),
-  ],
-  whileElementsMounted: autoUpdate,
-});
+const { primitiveElement, currentElement: tooltipContentElement } =
+  usePrimitiveElement();
 
 watchEffect(() => {
   if (tooltipContentElement.value) {
+    injectedValue!.floatingElement.value = tooltipContentElement.value;
     if (injectedValue?.open.value) {
-      setTimeout(() => {
-        trapFocus(tooltipContentElement.value!);
-      }, 0);
-
+      trapFocus(tooltipContentElement.value!);
       window.addEventListener("mousedown", closeDialogWhenClickOutside);
-      window.addEventListener("mouseup", clearEvents);
     } else {
       if (injectedValue?.triggerElement.value) {
         injectedValue?.triggerElement.value.focus();
+        clearEvent();
       }
     }
   }
 });
 
 function closeDialogWhenClickOutside(e: MouseEvent) {
+  if (injectedValue?.triggerElement.value?.contains(e.target as Node)) {
+    return;
+  }
+
   const clickOutside = useClickOutside(e, tooltipContentElement.value!);
   if (clickOutside) {
     injectedValue?.hidePopover();
+    e.preventDefault();
+    e.stopPropagation();
   }
 }
 
-function clearEvents() {
+function clearEvent() {
   window.removeEventListener("mousedown", closeDialogWhenClickOutside);
-  window.removeEventListener("mouseup", clearEvents);
 }
 
-provide<PopoverContentProvideValue>(POPOVER_CONTENT_INJECTION_KEY, {
-  middlewareData: middlewareData,
-  floatPosition: floatPosition as Ref<Side>,
+onUnmounted(() => {
+  clearEvent();
 });
 </script>
 
 <template>
-  <div
-    ref="tooltipContentElement"
+  <PopperContent
+    ref="primitiveElement"
+    v-bind="props"
     v-if="injectedValue?.open.value"
-    style="min-width: max-content; will-change: transform; z-index: auto"
-    :style="floatingStyles"
   >
     <PrimitiveDiv
+      v-if="injectedValue?.open.value"
       :data-state="injectedValue?.open.value ? 'open' : 'closed'"
       :data-side="props.side"
       :data-align="props.align"
       role="tooltip"
-      :class="props.class"
       :asChild="props.asChild"
     >
       <slot />
     </PrimitiveDiv>
-  </div>
+  </PopperContent>
 </template>

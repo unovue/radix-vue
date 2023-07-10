@@ -7,6 +7,7 @@ export interface PopoverTriggerProps {
 <script setup lang="ts">
 import { inject, onMounted } from "vue";
 import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
+import { PopperAnchor } from "@/Popper";
 import {
   POPOVER_INJECTION_KEY,
   type PopoverProvideValue,
@@ -20,16 +21,26 @@ const { primitiveElement, currentElement: triggerElement } =
 onMounted(() => {
   injectedValue!.triggerElement.value = triggerElement.value;
 });
+
+function handleClick() {
+  if (injectedValue?.open.value) {
+    injectedValue?.hidePopover();
+  } else {
+    injectedValue?.showPopover();
+  }
+}
 </script>
 
 <template>
-  <PrimitiveButton
-    type="button"
-    ref="primitiveElement"
-    :aria-expanded="injectedValue?.open.value || false"
-    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
-    @click="injectedValue?.showPopover"
-  >
-    <slot />
-  </PrimitiveButton>
+  <PopperAnchor asChild>
+    <PrimitiveButton
+      type="button"
+      ref="primitiveElement"
+      :aria-expanded="injectedValue?.open.value || false"
+      :data-state="injectedValue?.open.value ? 'open' : 'closed'"
+      @click="handleClick"
+    >
+      <slot />
+    </PrimitiveButton>
+  </PopperAnchor>
 </template>

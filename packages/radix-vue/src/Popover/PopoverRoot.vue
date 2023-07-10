@@ -26,6 +26,7 @@ export type PopoverProvideValue = {
 <script setup lang="ts">
 import { provide, ref } from "vue";
 import { useVModel } from "@vueuse/core";
+import { PopperRoot } from "@/Popper";
 
 const props = withDefaults(defineProps<PopoverRootProps>(), {
   defaultOpen: false,
@@ -63,5 +64,7 @@ provide<PopoverProvideValue>(POPOVER_INJECTION_KEY, {
 </script>
 
 <template>
-  <slot />
+  <PopperRoot>
+    <slot />
+  </PopperRoot>
 </template>

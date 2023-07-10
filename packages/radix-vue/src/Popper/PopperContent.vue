@@ -2,7 +2,7 @@
 import type { Ref, InjectionKey } from "vue";
 
 export type PopperContentContextValue = {
-  placedSide: Side;
+  placedSide: Ref<Side>;
   onArrowChange(arrow: HTMLElement | undefined): void;
   arrowX?: Ref<number>;
   arrowY?: Ref<number>;
@@ -35,7 +35,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed, inject, provide, ref, watchEffect } from "vue";
+import { computed, inject, provide, ref, watch, watchEffect } from "vue";
 import { PrimitiveDiv } from "@/Primitive";
 import { POPPER_ROOT_KEY } from "./PopperRoot.vue";
 import { useSize } from "@/shared";
@@ -109,6 +109,7 @@ const detectOverflowOptions = computed(() => {
     altBoundary: boundary.value.length > 0,
   };
 });
+console.log(detectOverflowOptions, props);
 
 const computedMiddleware = computedEager(() => {
   return [
@@ -174,7 +175,12 @@ const { floatingStyles, placement, isPositioned, middlewareData } = useFloating(
   }
 );
 
-const [placedSide, placedAlign] = getSideAndAlignFromPlacement(placement.value);
+const placedSide = computed(
+  () => getSideAndAlignFromPlacement(placement.value)[0]
+);
+const placedAlign = computed(
+  () => getSideAndAlignFromPlacement(placement.value)[1]
+);
 
 watchEffect(() => {
   if (isPositioned.value) {

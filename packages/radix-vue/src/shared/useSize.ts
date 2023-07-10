@@ -1,12 +1,12 @@
 import { unrefElement, type MaybeElementRef } from "@vueuse/core";
-import { computed, ref, watchEffect } from "vue";
+import { computed, onMounted, ref } from "vue";
 
 export const useSize = (element: MaybeElementRef) => {
   const size = ref<{ width: number; height: number }>();
   const width = computed(() => size.value?.width ?? 0);
   const height = computed(() => size.value?.height ?? 0);
 
-  watchEffect(() => {
+  onMounted(() => {
     const el = unrefElement(element) as HTMLElement;
     if (el) {
       // provide size as early as possible
@@ -22,7 +22,6 @@ export const useSize = (element: MaybeElementRef) => {
         if (!entries.length) {
           return;
         }
-
         const entry = entries[0];
         let width: number;
         let height: number;
@@ -42,7 +41,8 @@ export const useSize = (element: MaybeElementRef) => {
           height = el.offsetHeight;
         }
 
-        size.value = { width, height };
+        // temporary disable width/height from resize observer. borderSizeEntry seems to be incorrect
+        // size.value = { width, height };
       });
 
       resizeObserver.observe(el, { box: "border-box" });

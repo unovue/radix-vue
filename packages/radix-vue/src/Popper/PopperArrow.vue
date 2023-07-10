@@ -11,7 +11,7 @@ export interface PopperArrowProps extends ArrowProps {}
 </script>
 
 <script setup lang="ts">
-import { inject } from "vue";
+import { computed, inject } from "vue";
 import {
   POPPER_CONTENT_KEY,
   type PopperContentContextValue,
@@ -23,9 +23,11 @@ const contentContext = inject<PopperContentContextValue>(POPPER_CONTENT_KEY);
 
 defineProps<PopperArrowProps>();
 
-const baseSide = contentContext?.placedSide
-  ? OPPOSITE_SIDE[contentContext?.placedSide]
-  : "";
+const baseSide = computed(() =>
+  contentContext?.placedSide
+    ? OPPOSITE_SIDE[contentContext?.placedSide.value]
+    : ""
+);
 </script>
 
 <template>
@@ -44,13 +46,13 @@ const baseSide = contentContext?.placedSide
         right: '0 0',
         bottom: 'center 0',
         left: '100% 0',
-      }[contentContext!.placedSide],
+      }[contentContext!.placedSide.value],
       transform: {
         top: 'translateY(100%)',
         right: 'translateY(50%) rotate(90deg) translateX(-50%)',
         bottom: `rotate(180deg)`,
         left: 'translateY(50%) rotate(-90deg) translateX(50%)',
-      }[contentContext!.placedSide],
+      }[contentContext!.placedSide.value],
       visibility: contentContext!.shouldHideArrow.value ? 'hidden' : undefined,
     }"
   >

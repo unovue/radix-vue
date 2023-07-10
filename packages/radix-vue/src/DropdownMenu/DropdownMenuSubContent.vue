@@ -39,6 +39,7 @@ const props = withDefaults(defineProps<DropdownMenuSubContentProps>(), {
   side: "right",
   align: "start",
   orientation: "horizontal",
+  avoidCollisions: true,
 });
 
 const { primitiveElement, currentElement: tooltipContentElement } =

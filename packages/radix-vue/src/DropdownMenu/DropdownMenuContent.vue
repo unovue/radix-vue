@@ -25,6 +25,7 @@ import { PopperContent, type PopperContentProps } from "@/Popper";
 const props = withDefaults(defineProps<DropdownMenuContentProps>(), {
   side: "bottom",
   align: "center",
+  avoidCollisions: true,
 });
 
 const injectedValue = inject(DROPDOWN_MENU_INJECTION_KEY);

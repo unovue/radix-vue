@@ -22,44 +22,34 @@ onMounted(() => {
   injectedValue!.triggerElement.value = triggerElement.value;
 });
 
-function handleClick() {
-  if (injectedValue?.isOpen.value) {
-    injectedValue?.hideTooltip();
+async function handleClick(e: MouseEvent) {
+  injectedValue?.showTooltip();
+  await nextTick();
+  if (injectedValue?.modelValue.value) {
+    const selectedElement = injectedValue.itemsArray?.find((element) => {
+      return (
+        element.getAttribute("data-radix-vue-radio-value") ===
+        injectedValue?.modelValue.value
+      );
+    }) as HTMLElement;
+    injectedValue?.changeSelected(selectedElement);
   } else {
-    injectedValue?.showTooltip();
+    injectedValue?.changeSelected(injectedValue.itemsArray?.[0]);
   }
 }
 
-async function handleKeydown(e: KeyboardEvent) {
-  if (e.key === "ArrowDown" || e.key === "Enter" || e.keyCode === 32) {
-    injectedValue?.showTooltip();
-    await nextTick();
-    if (injectedValue?.modelValue.value) {
-      const selectedElement = injectedValue.itemsArray?.find((element) => {
-        return (
-          element.getAttribute("data-radix-vue-radio-value") ===
-          injectedValue?.modelValue.value
-        );
-      }) as HTMLElement;
-      injectedValue?.changeSelected(selectedElement);
-    } else {
-      injectedValue?.changeSelected(injectedValue.itemsArray?.[0]);
-    }
+function handleKeydown(e: KeyboardEvent) {
+  if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Enter" || e.keyCode === 32) {
+    handleClick(e)
   }
 }
 </script>
 
 <template>
   <PopperAnchor asChild>
-    <PrimitiveButton
-      type="button"
-      ref="primitiveElement"
-      :aria-expanded="injectedValue?.isOpen.value || false"
-      :data-state="injectedValue?.isOpen.value ? 'open' : 'closed'"
-      :as-child="false"
-      @click="handleClick"
-      @keydown.prevent="handleKeydown"
-    >
+    <PrimitiveButton type="button" ref="primitiveElement" :aria-expanded="injectedValue?.isOpen.value || false"
+      :data-state="injectedValue?.isOpen.value ? 'open' : 'closed'" :as-child="false" @click="handleClick"
+      @keydown.prevent="handleKeydown">
       <slot />
     </PrimitiveButton>
   </PopperAnchor>

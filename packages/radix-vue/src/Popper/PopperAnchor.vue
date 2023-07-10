@@ -5,7 +5,7 @@ import { POPPER_ROOT_KEY } from "./PopperRoot.vue";
 
 const { primitiveElement, currentElement } = usePrimitiveElement();
 
-defineProps<{ asChild: boolean }>();
+defineProps<{ asChild?: boolean }>();
 
 const context = inject(POPPER_ROOT_KEY);
 

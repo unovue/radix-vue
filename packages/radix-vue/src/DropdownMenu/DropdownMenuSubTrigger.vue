@@ -40,14 +40,14 @@ function handleClick() {
   }
 }
 
-function handleHorizontalKeydown(e: KeyboardEvent) {
+async function handleHorizontalKeydown(e: KeyboardEvent) {
   if (e.key === "ArrowRight") {
     injectedValue?.showTooltip();
-    nextTick(() => {
-      const el = injectedValue?.itemsArray?.[0];
-      rootInjectedValue!.selectedElement.value = el;
-      el?.focus();
-    });
+
+    await nextTick();
+    const el = injectedValue?.itemsArray?.[0];
+    rootInjectedValue!.selectedElement.value = el;
+    el?.focus();
   }
 }
 

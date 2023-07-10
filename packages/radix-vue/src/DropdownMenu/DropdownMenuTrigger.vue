@@ -5,7 +5,7 @@ export interface DropdownMenuTriggerProps {
 </script>
 
 <script setup lang="ts">
-import { inject, onMounted } from "vue";
+import { inject, nextTick, onMounted } from "vue";
 import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
 import {
   DROPDOWN_MENU_INJECTION_KEY,
@@ -32,9 +32,10 @@ function handleClick() {
   }
 }
 
-function handleKeydown(e: KeyboardEvent) {
+async function handleKeydown(e: KeyboardEvent) {
   if (e.key === "ArrowDown") {
     injectedValue?.showTooltip();
+    await nextTick();
     injectedValue?.changeSelected(injectedValue.itemsArray?.[0]);
   }
 }

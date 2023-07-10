@@ -93,6 +93,9 @@ importers:
       '@radix-ui/colors':
         specifier: ^1.0.0
         version: 1.0.0
+      '@rollup/plugin-alias':
+        specifier: ^5.0.0
+        version: 5.0.0
       '@vitejs/plugin-vue':
         specifier: ^4.1.0
         version: 4.2.3(vite@4.3.9)(vue@3.3.4)
@@ -2326,8 +2329,8 @@ packages:
       '@pkgjs/parseargs': 0.11.0
     dev: true
 
-  /jiti@1.18.2:
-    resolution: {integrity: sha512-QAdOptna2NYiSSpv0O/BwoHBSmz4YhpzJHyi+fnMRTXFjp7B8i/YG5Z8IfusxB1ufjcD2Sre1F3R+nX3fvy7gg==}
+  /jiti@1.19.1:
+    resolution: {integrity: sha512-oVhqoRDaBXf7sjkll95LHVS6Myyyb1zaunVwk4Z0+WPSW4gjS0pl01zYKHScTuyEhQsFxV5L4DR5r+YqSyqyyg==}
     hasBin: true
     dev: true
 
@@ -3114,7 +3117,7 @@ packages:
       fast-glob: 3.2.12
       glob-parent: 6.0.2
       is-glob: 4.0.3
-      jiti: 1.18.2
+      jiti: 1.19.1
       lilconfig: 2.1.0
       micromatch: 4.0.5
       normalize-path: 3.0.0

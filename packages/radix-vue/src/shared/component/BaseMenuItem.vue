@@ -21,7 +21,12 @@ const props = withDefaults(defineProps<BaseMenuItemProps>(), {
   role: "menuitem",
 });
 
-const emit = defineEmits(["handle-click", "horizontal-keydown", "mouseover"]);
+const emit = defineEmits([
+  "handle-click",
+  "horizontal-keydown",
+  "mouseover",
+  "arrow-down-keydown",
+]);
 
 const { getItems } = useCollection();
 const { primitiveElement, currentElement } = usePrimitiveElement();
@@ -46,6 +51,10 @@ function handleKeydown(e: KeyboardEvent) {
   }
   if (e.key === "ArrowRight") {
     return emit("horizontal-keydown", e);
+  }
+
+  if (e.key === "ArrowDown") {
+    return emit("arrow-down-keydown", e);
   }
 
   const newSelectedElement = useArrowNavigation(

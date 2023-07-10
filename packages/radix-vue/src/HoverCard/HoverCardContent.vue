@@ -29,9 +29,10 @@ import { useMouseleaveDelay } from "../shared";
 
 const injectedValue = inject<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY);
 
-withDefaults(defineProps<HoverCardContentProps>(), {
+const props = withDefaults(defineProps<HoverCardContentProps>(), {
   side: "bottom",
   align: "center",
+  avoidCollisions: true,
 });
 
 const tooltipContentElement = ref<HTMLElement>();
@@ -50,6 +51,7 @@ async function handleMouseleave(e: MouseEvent) {
 
 <template>
   <PopperContent
+    v-bind="props"
     v-if="injectedValue?.open.value"
     @mouseover="injectedValue.isHover = true"
     @mouseleave="handleMouseleave"

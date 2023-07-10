@@ -247,10 +247,10 @@ const CHECK_ITEMS = ["Always Show Bookmarks Bar", "Always Show Full URLs"];
         >
           <MenubarCheckboxItem
             v-model="checkboxOne"
-            class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+            class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[20px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
           >
             <MenubarItemIndicator
-              class="absolute left-0 w-[25px] inline-flex items-center justify-center"
+              class="absolute left-0 w-[20px] inline-flex items-center justify-center"
             >
               <Icon icon="radix-icons:check" />
             </MenubarItemIndicator>
@@ -263,10 +263,10 @@ const CHECK_ITEMS = ["Always Show Bookmarks Bar", "Always Show Full URLs"];
           </MenubarCheckboxItem>
           <MenubarCheckboxItem
             v-model="checkboxTwo"
-            class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+            class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[20px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
           >
             <MenubarItemIndicator
-              class="absolute left-0 w-[25px] inline-flex items-center justify-center"
+              class="absolute left-0 w-[20px] inline-flex items-center justify-center"
             >
               <Icon icon="radix-icons:check" />
             </MenubarItemIndicator>
@@ -325,28 +325,36 @@ const CHECK_ITEMS = ["Always Show Bookmarks Bar", "Always Show Full URLs"];
         >
           <MenubarRadioGroup v-model="person">
             <MenubarRadioItem
-              class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+              class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[20px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
               value="pedro"
             >
               <MenubarItemIndicator
-                class="absolute left-0 w-[25px] inline-flex items-center justify-center"
+                class="absolute left-0 w-[20px] inline-flex items-center justify-center"
               >
                 <Icon icon="radix-icons:dot-filled" />
               </MenubarItemIndicator>
               Pedro Duarte
             </MenubarRadioItem>
             <MenubarRadioItem
-              class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+              class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[20px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
               value="colm"
             >
               <MenubarItemIndicator
-                class="absolute left-0 w-[25px] inline-flex items-center justify-center"
+                class="absolute left-0 w-[20px] inline-flex items-center justify-center"
               >
                 <Icon icon="radix-icons:dot-filled" />
               </MenubarItemIndicator>
               Colm Tuite
             </MenubarRadioItem>
           </MenubarRadioGroup>
+          <MenubarSeparator class="h-[1px] bg-violet6 m-[5px]" />
+              <MenubarItem class="text-[13px] leading-none text-violet11 rounded flex items-center h-[25px] px-[10px] relative select-none pl-5 outline-none data-[state=open]:bg-violet4 data-[state=open]:text-violet11 data-[highlighted]:bg-gradient-to-br data-[highlighted]:from-violet9 data-[highlighted]:to-violet10 data-[highlighted]:text-violet1 data-[highlighted]:data-[state=open]:text-violet1 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none">
+                Edit…
+              </MenubarItem>
+              <MenubarSeparator class="h-[1px] bg-violet6 m-[5px]" />
+              <MenubarItem class="text-[13px] leading-none text-violet11 rounded flex items-center h-[25px] px-[10px] relative select-none pl-5 outline-none data-[state=open]:bg-violet4 data-[state=open]:text-violet11 data-[highlighted]:bg-gradient-to-br data-[highlighted]:from-violet9 data-[highlighted]:to-violet10 data-[highlighted]:text-violet1 data-[highlighted]:data-[state=open]:text-violet1 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none">
+                Add Profile…
+              </MenubarItem>
         </MenubarContent>
       </MenubarPortal>
     </MenubarMenu>

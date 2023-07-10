@@ -7,7 +7,7 @@ export interface MenubarSubTriggerProps {
 </script>
 
 <script setup lang="ts">
-import { inject, onMounted, computed, nextTick } from "vue";
+import { inject, onMounted, computed, nextTick, watchEffect } from "vue";
 import {
   MENUBAR_INJECTION_KEY,
   type MenubarProvideValue,
@@ -17,8 +17,7 @@ import {
   type MenubarSubProvideValue,
 } from "./MenubarMenu.vue";
 import { PopperAnchor } from "@/Popper";
-import { usePrimitiveElement } from "@/Primitive";
-import BaseMenuItem from "@/shared/component/BaseMenuItem.vue";
+import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
 import { useArrowNavigation } from "@/shared/useArrowNavigation";
 import { useCollection } from "@/shared/useCollection";
 
@@ -26,40 +25,43 @@ const rootInjectedValue = inject<MenubarProvideValue>(MENUBAR_INJECTION_KEY);
 
 const injectedValue = inject<MenubarSubProvideValue>(MENUBAR_SUB_INJECTION_KEY);
 
-const { getItems } = useCollection();
+const props = defineProps<MenubarSubTriggerProps>();
+
 const { primitiveElement, currentElement } = usePrimitiveElement();
 
 onMounted(() => {
   injectedValue!.triggerElement.value = currentElement.value;
+  rootInjectedValue!.triggerItemsArray.push(currentElement.value!);
 });
 
 async function openAndSelectFirstElement() {
-  injectedValue?.showTooltip();
+  rootInjectedValue?.setIsOpen(true);
 
   await nextTick();
   const el = injectedValue?.itemsArray?.[0];
+  console.log(el);
   rootInjectedValue!.selectedElement.value = el;
   el?.focus();
 }
 
-function handleClick() {
-  if (!injectedValue?.modelValue.value) {
-    openAndSelectFirstElement();
+function handleKeydown(e: KeyboardEvent) {
+  if (e.key === "Escape") {
+    return handleCloseMenu();
   }
-}
+  if (e.keyCode === 32 || e.key === "Enter") {
+    (e.target as HTMLElement).click();
+    return;
+  }
+  if (e.key === "ArrowDown") {
+    return openAndSelectFirstElement();
+  }
 
-async function handleArrowDownKeydown(e: KeyboardEvent) {
-  openAndSelectFirstElement();
-}
-
-function handleHorizontalKeydown(e: KeyboardEvent) {
   const newSelectedElement = useArrowNavigation(
     e,
     currentElement.value!,
-    undefined,
+    currentElement.value!.parentElement! as HTMLElement,
     {
       arrowKeyOptions: "horizontal",
-      itemsArray: getItems(),
     }
   );
   if (newSelectedElement) {
@@ -67,33 +69,68 @@ function handleHorizontalKeydown(e: KeyboardEvent) {
   }
 }
 
+function handleHover() {
+  if (!props.disabled) {
+    rootInjectedValue?.changeSelected(currentElement.value!);
+  }
+}
+
+function handleCloseMenu() {
+  rootInjectedValue?.hideTooltip();
+  document.querySelector("body")!.style.pointerEvents = "";
+  setTimeout(() => {
+    rootInjectedValue?.triggerElement.value?.focus();
+  }, 0);
+}
+
+function handleClick() {
+  rootInjectedValue?.setIsOpen(true);
+}
+
 const dataState = computed(() => {
-  return injectedValue?.modelValue.value ? "open" : "closed";
+  return (
+    rootInjectedValue?.triggerElement.value ===
+      injectedValue?.triggerElement.value && rootInjectedValue?.isOpen.value
+  );
 });
 
 function handleMouseover() {
   return injectedValue?.showTooltip();
 }
+
+watchEffect(() => {
+  if (rootInjectedValue?.selectedElement.value === currentElement.value) {
+    rootInjectedValue!.triggerElement.value = currentElement.value;
+  }
+});
 </script>
 
 <template>
   <PopperAnchor asChild>
-    <BaseMenuItem
+    <PrimitiveButton
+      role="menuitem"
       ref="primitiveElement"
       :id="injectedValue?.triggerId"
-      :rootProvider="rootInjectedValue"
-      :subProvider="injectedValue?.parentContext"
       :aria-expanded="injectedValue?.modelValue.value"
       :aria-controls="injectedValue?.contentId"
       :data-state="dataState"
       :data-orientation="rootInjectedValue?.orientation"
       aria-haspopup="menu"
-      @handle-click="handleClick"
+      @keydown.prevent="handleKeydown"
+      data-radix-vue-collection-item
+      @mouseenter="handleHover"
       @mouseover="handleMouseover"
-      @arrow-down-keydown="handleArrowDownKeydown"
-      @horizontal-keydown="handleHorizontalKeydown"
+      @click="handleClick"
+      :data-highlighted="
+        rootInjectedValue?.triggerElement.value === currentElement ? '' : null
+      "
+      :aria-disabled="props.disabled ? true : undefined"
+      :data-disabled="props.disabled ? '' : undefined"
+      :tabindex="
+        rootInjectedValue?.selectedElement.value === currentElement ? '0' : '-1'
+      "
     >
       <slot />
-    </BaseMenuItem>
+    </PrimitiveButton>
   </PopperAnchor>
 </template>

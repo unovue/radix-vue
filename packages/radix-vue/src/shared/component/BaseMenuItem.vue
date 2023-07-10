@@ -21,12 +21,7 @@ const props = withDefaults(defineProps<BaseMenuItemProps>(), {
   role: "menuitem",
 });
 
-const emit = defineEmits([
-  "handle-click",
-  "horizontal-keydown",
-  "mouseover",
-  "arrow-down-keydown",
-]);
+const emit = defineEmits(["handle-click", "horizontal-keydown", "mouseover"]);
 
 const { getItems } = useCollection();
 const { primitiveElement, currentElement } = usePrimitiveElement();
@@ -47,14 +42,9 @@ function handleKeydown(e: KeyboardEvent) {
       props.rootProvider?.changeSelected(trigger);
       return props.subProvider?.hideTooltip();
     }
-    return;
   }
-  if (e.key === "ArrowRight") {
+  if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
     return emit("horizontal-keydown", e);
-  }
-
-  if (e.key === "ArrowDown") {
-    return emit("arrow-down-keydown", e);
   }
 
   const newSelectedElement = useArrowNavigation(

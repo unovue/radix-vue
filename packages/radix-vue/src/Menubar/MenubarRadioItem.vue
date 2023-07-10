@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { inject, computed, provide } from "vue";
 import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
+import { useArrowNavigation } from "@/shared/useArrowNavigation";
 import {
   MENUBAR_INJECTION_KEY,
   type MenubarProvideValue,
@@ -44,6 +45,21 @@ const modelValue = computed(
 provide(MENUBAR_ITEM_SYMBOL, {
   modelValue,
 });
+
+function handleHorizontalKeydown(e: KeyboardEvent) {
+  const newSelectedElement = useArrowNavigation(
+    e,
+    rootInjectedValue?.triggerElement.value as HTMLElement,
+    undefined,
+    {
+      arrowKeyOptions: "horizontal",
+      itemsArray: rootInjectedValue?.triggerItemsArray,
+    }
+  );
+  if (newSelectedElement) {
+    rootInjectedValue?.changeSelected(newSelectedElement);
+  }
+}
 </script>
 
 <template>
@@ -53,7 +69,7 @@ provide(MENUBAR_ITEM_SYMBOL, {
     :orientation="rootInjectedValue?.orientation"
     :data-radix-vue-radio-value="props.value"
     @handle-click="handleClick"
-    @click="handleClick"
+    @horizontal-keydown="handleHorizontalKeydown"
     role="menuitemradio"
     :data-state="radioDataState"
   >

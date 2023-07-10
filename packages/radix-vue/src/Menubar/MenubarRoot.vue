@@ -17,11 +17,15 @@ export const MENUBAR_INJECTION_KEY =
 
 export type MenubarProvideValue = {
   selectedElement: Ref<HTMLElement | undefined>;
+  isOpen: Readonly<Ref<boolean>>;
+  setIsOpen: (val: boolean) => void;
+  toggleIsOpen: () => void;
   changeSelected: (value: HTMLElement) => void;
   modelValue: Readonly<Ref<boolean>>;
   showTooltip(): void;
   hideTooltip(): void;
   triggerElement: Ref<HTMLElement | undefined>;
+  triggerItemsArray: HTMLElement[];
   itemsArray: HTMLElement[];
   orientation: DataOrientation;
 };
@@ -30,7 +34,7 @@ export type MenubarProvideValue = {
 <script setup lang="ts">
 import { provide, ref } from "vue";
 import { PopperRoot } from "@/Popper";
-import { useVModel } from "@vueuse/core";
+import { useVModel, onClickOutside } from "@vueuse/core";
 
 const props = withDefaults(defineProps<MenubarRootProps>(), {
   orientation: "vertical",
@@ -44,11 +48,20 @@ const modelValue = useVModel(props, "modelValue", emit, {
   passive: true,
 });
 
+const isOpen = ref(false);
 const selectedElement = ref<HTMLElement>();
 const triggerElement = ref<HTMLElement>();
+const menubarContainerElement = ref<HTMLElement>();
 
 provide<MenubarProvideValue>(MENUBAR_INJECTION_KEY, {
   selectedElement: selectedElement,
+  isOpen,
+  setIsOpen: (val) => {
+    isOpen.value = val;
+  },
+  toggleIsOpen: () => {
+    isOpen.value = !isOpen.value;
+  },
   changeSelected: (value: HTMLElement) => {
     selectedElement.value = value;
     selectedElement.value!.focus();
@@ -61,14 +74,22 @@ provide<MenubarProvideValue>(MENUBAR_INJECTION_KEY, {
     modelValue.value = false;
   },
   triggerElement,
+  triggerItemsArray: [],
   itemsArray: [],
   orientation: props.orientation,
+});
+
+onClickOutside(menubarContainerElement, () => {
+  if (isOpen.value === false) {
+    triggerElement.value = undefined;
+    selectedElement.value = undefined;
+  }
 });
 </script>
 
 <template>
   <PopperRoot>
-    <div :class="props.class">
+    <div role="menubar" :class="props.class" ref="menubarContainerElement">
       <slot />
     </div>
   </PopperRoot>

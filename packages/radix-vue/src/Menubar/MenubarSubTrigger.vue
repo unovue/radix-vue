@@ -18,6 +18,7 @@ import {
 } from "./MenubarSub.vue";
 import { PopperAnchor } from "@/Popper";
 import { usePrimitiveElement } from "@/Primitive";
+import { useArrowNavigation } from "@/shared/useArrowNavigation";
 import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
 
 const rootInjectedValue = inject<MenubarProvideValue>(MENUBAR_INJECTION_KEY);
@@ -48,6 +49,19 @@ function handleClick() {
 async function handleHorizontalKeydown(e: KeyboardEvent) {
   if (e.key === "ArrowRight") {
     openAndSelectFirstElement();
+  } else {
+    const newSelectedElement = useArrowNavigation(
+      e,
+      rootInjectedValue?.triggerElement.value as HTMLElement,
+      undefined,
+      {
+        arrowKeyOptions: "horizontal",
+        itemsArray: rootInjectedValue?.triggerItemsArray,
+      }
+    );
+    if (newSelectedElement) {
+      rootInjectedValue?.changeSelected(newSelectedElement);
+    }
   }
 }
 

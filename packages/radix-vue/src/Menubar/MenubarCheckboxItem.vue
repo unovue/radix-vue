@@ -18,6 +18,7 @@ interface MenubarCheckboxItemProps {
 <script setup lang="ts">
 import { inject, computed, provide } from "vue";
 import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
+import { useArrowNavigation } from "@/shared/useArrowNavigation";
 import { MENUBAR_ITEM_SYMBOL } from "./utils";
 import {
   MENUBAR_INJECTION_KEY,
@@ -47,6 +48,21 @@ function handleClick() {
 provide(MENUBAR_ITEM_SYMBOL, {
   modelValue,
 });
+
+function handleHorizontalKeydown(e: KeyboardEvent) {
+  const newSelectedElement = useArrowNavigation(
+    e,
+    injectedValue?.triggerElement.value as HTMLElement,
+    undefined,
+    {
+      arrowKeyOptions: "horizontal",
+      itemsArray: injectedValue?.triggerItemsArray,
+    }
+  );
+  if (newSelectedElement) {
+    injectedValue?.changeSelected(newSelectedElement);
+  }
+}
 </script>
 
 <template>
@@ -56,6 +72,7 @@ provide(MENUBAR_ITEM_SYMBOL, {
     :rootProvider="injectedValue"
     :orientation="injectedValue?.orientation"
     @handle-click="handleClick"
+    @horizontal-keydown="handleHorizontalKeydown"
     role="menuitemcheckbox"
     :data-state="checkboxDataState"
     :aria-checked="props.modelValue ? true : false"

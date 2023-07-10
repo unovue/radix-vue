@@ -13,7 +13,7 @@ export interface MenubarSubContentProps extends PopperContentProps {
 </script>
 
 <script setup lang="ts">
-import { inject, watchEffect, watch } from "vue";
+import { inject, watchEffect, watch, computed } from "vue";
 import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 import {
   MENUBAR_INJECTION_KEY,
@@ -46,7 +46,7 @@ createCollection(tooltipContentElement);
 
 watchEffect(() => {
   if (tooltipContentElement.value) {
-    if (injectedValue?.modelValue.value) {
+    if (contentIsOpen.value) {
       fillItemsArray();
     }
   }
@@ -55,7 +55,7 @@ watchEffect(() => {
 watch(
   () => rootInjectedValue?.selectedElement.value,
   (n) => {
-    if (!injectedValue?.modelValue.value) return;
+    if (!contentIsOpen.value) return;
     const siblingsElement = Array.from(
       n
         ?.closest('[role="tooltip"]')
@@ -65,7 +65,11 @@ watch(
     ) as HTMLElement[];
 
     if (!siblingsElement?.length) return;
-    if (siblingsElement.includes(injectedValue.triggerElement.value!)) {
+    if (
+      siblingsElement.includes(
+        injectedValue!.triggerElement.value as HTMLElement
+      )
+    ) {
       if (
         rootInjectedValue?.selectedElement.value !==
         injectedValue?.triggerElement.value
@@ -89,19 +93,28 @@ function fillItemsArray() {
 onClickOutside(tooltipContentElement, (event) => {
   const target = event.target as HTMLElement;
   if (target.closest('[role="menuitem"]')) return;
-  injectedValue?.hideTooltip();
+  rootInjectedValue?.setIsOpen(false);
+  rootInjectedValue!.triggerElement.value = undefined;
+  rootInjectedValue!.selectedElement.value = undefined;
+});
+
+const contentIsOpen = computed(() => {
+  return (
+    rootInjectedValue?.triggerElement.value ===
+      injectedValue?.triggerElement.value && rootInjectedValue?.isOpen.value
+  );
 });
 </script>
 
 <template>
-  <PopperContent v-bind="props" v-if="injectedValue?.modelValue.value">
+  <PopperContent v-bind="props" v-if="contentIsOpen">
     <PrimitiveDiv
       ref="primitiveElement"
-      :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
+      :data-state="contentIsOpen ? 'open' : 'closed'"
       :data-side="props.side"
       :data-align="props.align"
-      :data-orientation="injectedValue.orientation"
-      :aria-labelledby="injectedValue.triggerId"
+      :data-orientation="injectedValue?.orientation"
+      :aria-labelledby="injectedValue?.triggerId"
       role="tooltip"
       :asChild="props.asChild"
       style="pointer-events: auto"

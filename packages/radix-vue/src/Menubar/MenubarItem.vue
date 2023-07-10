@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { inject } from "vue";
 import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
+import { useArrowNavigation } from "@/shared/useArrowNavigation";
 import {
   MENUBAR_INJECTION_KEY,
   type MenubarProvideValue,
@@ -31,6 +32,21 @@ function handleClick() {
     rootInjectedValue.hideTooltip();
   }
 }
+
+function handleHorizontalKeydown(e: KeyboardEvent) {
+  const newSelectedElement = useArrowNavigation(
+    e,
+    rootInjectedValue?.triggerElement.value as HTMLElement,
+    undefined,
+    {
+      arrowKeyOptions: "horizontal",
+      itemsArray: rootInjectedValue?.triggerItemsArray,
+    }
+  );
+  if (newSelectedElement) {
+    rootInjectedValue?.changeSelected(newSelectedElement);
+  }
+}
 </script>
 
 <template>
@@ -40,6 +56,7 @@ function handleClick() {
     :subProvider="subInjectedValue"
     :orientation="rootInjectedValue?.orientation"
     @handle-click="handleClick"
+    @horizontal-keydown="handleHorizontalKeydown"
   >
     <slot />
   </BaseMenuItem>

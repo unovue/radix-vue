@@ -25,6 +25,7 @@ import PopoverDemo from "./components/Demo/PopoverDemo.vue";
 import DropdownMenuDemo from "./components/Demo/DropdownMenuDemo.vue";
 import ContextMenuDemo from "./components/Demo/ContextMenuDemo.vue";
 import ScrollAreaDemo from "./components/Demo/ScrollAreaDemo.vue";
+import SelectDemo from "./components/Demo/SelectDemo.vue";
 </script>
 
 <template>
@@ -74,6 +75,9 @@ import ScrollAreaDemo from "./components/Demo/ScrollAreaDemo.vue";
       </Card>
       <Card>
         <RadioGroupDemo />
+      </Card>
+      <Card>
+        <SelectDemo />
       </Card>
       <Card>
         <SeparatorDemo />

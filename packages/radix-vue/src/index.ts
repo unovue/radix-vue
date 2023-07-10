@@ -134,5 +134,19 @@ export {
   ContextMenuRadioGroup,
   ContextMenuRadioItem,
 } from "./ContextMenu";
+export {
+  SelectArrow,
+  SelectContent,
+  SelectGroup,
+  SelectPortal,
+  SelectRoot,
+  SelectSeparator,
+  SelectTrigger,
+  SelectCheckboxItem,
+  SelectItemIndicator,
+  SelectLabel,
+  SelectRadioGroup,
+  SelectRadioItem,
+} from "./Select";
 
 export * from "./ScrollArea";

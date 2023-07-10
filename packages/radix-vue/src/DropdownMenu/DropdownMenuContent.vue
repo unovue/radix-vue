@@ -19,20 +19,15 @@ export interface DropdownMenuContentProps extends PopperContentProps {
 import { inject, watchEffect } from "vue";
 import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 
-import {
-  DROPDOWN_MENU_INJECTION_KEY,
-  type DropdownMenuProvideValue,
-} from "./DropdownMenuRoot.vue";
+import { DROPDOWN_MENU_INJECTION_KEY } from "./DropdownMenuRoot.vue";
 import { PopperContent, type PopperContentProps } from "@/Popper";
-
-const injectedValue = inject<DropdownMenuProvideValue>(
-  DROPDOWN_MENU_INJECTION_KEY
-);
 
 const props = withDefaults(defineProps<DropdownMenuContentProps>(), {
   side: "bottom",
   align: "center",
 });
+
+const injectedValue = inject(DROPDOWN_MENU_INJECTION_KEY);
 
 const { primitiveElement, currentElement: tooltipContentElement } =
   usePrimitiveElement();

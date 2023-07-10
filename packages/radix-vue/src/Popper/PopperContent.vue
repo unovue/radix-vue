@@ -39,6 +39,7 @@ import { computed, inject, provide, ref, watchEffect } from "vue";
 import { PrimitiveDiv } from "@/Primitive";
 import { POPPER_ROOT_KEY } from "./PopperRoot.vue";
 import { useSize } from "@/shared";
+import { computedEager } from "@vueuse/core";
 import {
   type Side,
   type Align,
@@ -109,7 +110,7 @@ const detectOverflowOptions = computed(() => {
   };
 });
 
-const computedMiddleware = computed(() => {
+const computedMiddleware = computedEager(() => {
   return [
     offset({
       mainAxis: props.sideOffset + arrowHeight.value,

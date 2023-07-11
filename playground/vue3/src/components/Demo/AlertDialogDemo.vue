@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref } from 'vue'
 import {
-  AlertDialogRoot,
-  AlertDialogTrigger,
-  AlertDialogContent,
-  AlertDialogOverlay,
-  AlertDialogCancel,
   AlertDialogAction,
-  AlertDialogPortal,
-  AlertDialogTitle,
+  AlertDialogCancel,
+  AlertDialogContent,
   AlertDialogDescription,
-} from "radix-vue";
+  AlertDialogOverlay,
+  AlertDialogPortal,
+  AlertDialogRoot,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from 'radix-vue'
 
-const alertDialogOpen = ref(false);
+const alertDialogOpen = ref(false)
 
 function handleAction() {
-  alert("clicked action button!");
+  alert('clicked action button!')
 }
 </script>
 
@@ -23,10 +23,10 @@ function handleAction() {
   <div class="absolute left-4 top-3 text-sm">
     <p>Value: {{ alertDialogOpen ? "checked" : "unchecked" }}</p>
     <button
-      @click="alertDialogOpen = !alertDialogOpen"
       class="bg-white/20 px-2 py-1 rounded-md active:scale-90 duration-100 transform hover:bg-white/40 active:bg-white/20"
+      @click="alertDialogOpen = !alertDialogOpen"
     >
-    {{ alertDialogOpen ? "Close" : "Open" }}
+      {{ alertDialogOpen ? "Close" : "Open" }}
     </button>
   </div>
   <AlertDialogRoot v-model:open="alertDialogOpen">
@@ -56,8 +56,8 @@ function handleAction() {
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction
-            @click="handleAction"
             class="text-red11 bg-red4 hover:bg-red5 focus:shadow-red7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px]"
+            @click="handleAction"
           >
             Yes, delete account
           </AlertDialogAction>

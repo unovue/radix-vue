@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TooltipRoot, TooltipTrigger, TooltipPortal, TooltipContent, TooltipArrow } from "radix-vue";
+import { TooltipRoot, TooltipTrigger, TooltipPortal, TooltipContent, TooltipArrow } from "@/Tooltip";
 import { Icon } from "@iconify/vue";
 import { ref } from "vue";
 
@@ -29,7 +29,7 @@ const toggleState = ref(false);
       >
         <ul>
           Add to library
-          <TooltipArrow class="bg-white" size="8" />
+          <TooltipArrow class="fill-white" />
         </ul>
       </TooltipContent>
     </TooltipPortal>

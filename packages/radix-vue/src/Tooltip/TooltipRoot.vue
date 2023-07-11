@@ -25,6 +25,7 @@ export type TooltipProvideValue = {
 <script setup lang="ts">
 import { provide, ref } from "vue";
 import { useVModel } from "@vueuse/core";
+import { PopperRoot } from "@/Popper";
 
 const props = withDefaults(defineProps<TooltipRootProps>(), {
   defaultOpen: false,
@@ -60,5 +61,7 @@ provide<TooltipProvideValue>(TOOLTIP_INJECTION_KEY, {
 </script>
 
 <template>
-  <slot />
+  <PopperRoot>
+    <slot />
+  </PopperRoot>
 </template>

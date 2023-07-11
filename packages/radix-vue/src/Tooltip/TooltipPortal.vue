@@ -1,13 +1,16 @@
-<!--
 <script lang="ts">
-export interface TooltipPortalProps {
-  forceMount?: boolean;
-  container?: HTMLElement;
-}
+import BasePortal from "../shared/component/BasePortal.vue";
+import type { BasePortalProps } from "../shared/component/BasePortal.vue";
 </script>
--->
+
+<script setup lang="ts">
+const props = withDefaults(defineProps<BasePortalProps>(), {
+  to: "body",
+});
+</script>
+
 <template>
-  <Teleport to="body">
+  <BasePortal :to="props.to">
     <slot />
-  </Teleport>
+  </BasePortal>
 </template>

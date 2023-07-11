@@ -67,11 +67,11 @@ const rootDisabled = false
 
 <style scoped>
 .accordion-item {
-  @apply mt-px overflow-hidden first: mt-0 first:rounded-t last:rounded-b focus-within:relative focus-within:z-10 focus-within:ring-2 focus-within:ring-black;
+  @apply mt-px overflow-hidden first:mt-0 first:rounded-t last:rounded-b focus-within:relative focus-within:z-10 focus-within:ring-2 focus-within:ring-black;
 }
 
 .accordion-trigger {
-  @apply flex h-12 flex-1 cursor-pointer items-center justify-between bg-white px-5 text-base font-medium leading-none text-green-700 shadow-[0_1px_0] shadow-[--line-color] outline-none hover: bg-gray-200;
+  @apply flex h-12 flex-1 cursor-pointer items-center justify-between bg-white px-5 text-base font-medium leading-none text-green-700 shadow-[0_1px_0] shadow-[--line-color] outline-none hover:bg-gray-200;
 }
 
 .accordion-content {

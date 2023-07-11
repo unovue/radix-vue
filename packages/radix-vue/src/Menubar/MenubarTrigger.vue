@@ -51,6 +51,14 @@ async function openAndSelectFirstElement() {
 }
 
 function handleKeydown(e: KeyboardEvent) {
+  if (
+    e.key === "Escape" ||
+    e.keyCode === 32 ||
+    e.key === "Enter" ||
+    e.key === "ArrowDown"
+  ) {
+    e.preventDefault();
+  }
   if (e.key === "Escape") {
     return handleCloseMenu();
   }
@@ -145,7 +153,7 @@ watch(
       :data-state="dataState"
       :data-orientation="rootInjectedValue?.orientation"
       aria-haspopup="menu"
-      @keydown.prevent="handleKeydown"
+      @keydown="handleKeydown"
       data-radix-vue-collection-item
       @mouseenter="handleHover"
       @click="handleClick"

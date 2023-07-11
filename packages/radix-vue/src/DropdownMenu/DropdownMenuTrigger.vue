@@ -33,6 +33,14 @@ function handleClick() {
 }
 
 async function handleKeydown(e: KeyboardEvent) {
+  if (
+    e.key === "Escape" ||
+    e.keyCode === 32 ||
+    e.key === "Enter" ||
+    e.key === "ArrowDown"
+  ) {
+    e.preventDefault();
+  }
   if (e.key === "ArrowDown" || e.key === "Enter" || e.keyCode === 32) {
     injectedValue?.showTooltip();
     await nextTick();
@@ -50,7 +58,7 @@ async function handleKeydown(e: KeyboardEvent) {
       :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
       :as-child="false"
       @click="handleClick"
-      @keydown.prevent="handleKeydown"
+      @keydown="handleKeydown"
     >
       <slot />
     </PrimitiveButton>

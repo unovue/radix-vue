@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { inject, onMounted } from "vue";
-import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
+import { inject } from "vue";
+import { PrimitiveButton } from "@/Primitive";
 import {
   CONTEXT_MENU_INJECTION_KEY,
   type ContextMenuProvideValue,
 } from "./ContextMenuRoot.vue";
+import { PopperAnchor } from "@/Popper";
 
 const injectedValue = inject<ContextMenuProvideValue>(
   CONTEXT_MENU_INJECTION_KEY
@@ -22,15 +23,7 @@ const virtualEl = {
       bottom: injectedValue?.clientY.value,
     };
   },
-};
-
-const { primitiveElement, currentElement: triggerElement } =
-  usePrimitiveElement();
-
-onMounted(() => {
-  // @ts-expect-error
-  injectedValue!.triggerElement.value = virtualEl;
-});
+} as HTMLElement;
 
 function handleContextMenu(e: MouseEvent) {
   if (injectedValue?.modelValue.value) {
@@ -44,13 +37,14 @@ function handleContextMenu(e: MouseEvent) {
 </script>
 
 <template>
-  <PrimitiveButton
-    type="button"
-    ref="primitiveElement"
-    :aria-expanded="injectedValue?.modelValue.value || false"
-    :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
-    @contextmenu.prevent="handleContextMenu"
-  >
-    <slot />
-  </PrimitiveButton>
+  <PopperAnchor :element="virtualEl" asChild>
+    <PrimitiveButton
+      type="button"
+      :aria-expanded="injectedValue?.modelValue.value || false"
+      :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
+      @contextmenu.prevent="handleContextMenu"
+    >
+      <slot />
+    </PrimitiveButton>
+  </PopperAnchor>
 </template>

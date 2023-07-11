@@ -1,56 +1,33 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from "vue";
-import type { Side, MiddlewareData } from "@floating-ui/dom";
-
-export const CONTEXT_MENU_CONTENT_INJECTION_KEY =
-  Symbol() as InjectionKey<ContextMenuContentProvideValue>;
-
-export type ContextMenuContentProvideValue = {
-  middlewareData: Ref<MiddlewareData>;
-  floatPosition: Ref<Side>;
-};
+export interface ContextMenuContentProps extends PopperContentProps {
+  asChild?: boolean;
+  forceMount?: boolean;
+}
 </script>
 
 <script setup lang="ts">
-import { PrimitiveDiv } from "@/Primitive";
-import { onMounted, inject, ref, watchEffect, provide } from "vue";
-import { useFloating, offset, flip, shift, autoUpdate } from "@floating-ui/vue";
+import { inject, watchEffect } from "vue";
 import { useClickOutside } from "../shared/useClickOutside";
 import {
   CONTEXT_MENU_INJECTION_KEY,
   type ContextMenuProvideValue,
 } from "./ContextMenuRoot.vue";
+import { PopperContent, type PopperContentProps } from "@/Popper";
+import { usePrimitiveElement } from "@/Primitive";
 
 const injectedValue = inject<ContextMenuProvideValue>(
   CONTEXT_MENU_INJECTION_KEY
 );
 
-const props = defineProps({
-  class: String,
-  asChild: Boolean,
+const props = withDefaults(defineProps<ContextMenuContentProps>(), {
+  side: "right",
+  align: "start",
+  alignOffset: 3,
+  avoidCollisions: true,
 });
 
-const tooltipContentElement = ref<HTMLElement>();
-onMounted(() => {
-  injectedValue!.floatingElement.value = tooltipContentElement.value;
-});
-
-const {
-  floatingStyles,
-  middlewareData,
-  placement: floatPosition,
-} = useFloating(injectedValue!.triggerElement, tooltipContentElement, {
-  middleware: [
-    offset({ mainAxis: 1, alignmentAxis: 3 }),
-    flip({
-      fallbackPlacements: ["left-start"],
-    }),
-    shift({ padding: 10 }),
-  ],
-  placement: "right-start",
-  strategy: "fixed",
-  whileElementsMounted: autoUpdate,
-});
+const { primitiveElement, currentElement: tooltipContentElement } =
+  usePrimitiveElement();
 
 watchEffect(() => {
   if (tooltipContentElement.value) {
@@ -107,29 +84,19 @@ function fillItemsArray() {
   ) as HTMLElement[];
   injectedValue!.itemsArray = allToggleItem;
 }
-
-provide<ContextMenuContentProvideValue>(CONTEXT_MENU_CONTENT_INJECTION_KEY, {
-  middlewareData: middlewareData,
-  floatPosition: floatPosition as Ref<Side>,
-});
 </script>
 
 <template>
-  <div
-    ref="tooltipContentElement"
+  <PopperContent
+    ref="primitiveElement"
     v-if="injectedValue?.modelValue.value"
-    style="min-width: max-content; will-change: transform; z-index: auto"
-    :style="floatingStyles"
+    v-bind="props"
+    :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
+    :asChild="props.asChild"
+    data-side="bottom"
+    role="tooltip"
+    style="pointer-events: auto"
   >
-    <PrimitiveDiv
-      :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
-      data-side="bottom"
-      role="tooltip"
-      :class="props.class"
-      :asChild="props.asChild"
-      style="pointer-events: auto"
-    >
-      <slot />
-    </PrimitiveDiv>
-  </div>
+    <slot />
+  </PopperContent>
 </template>

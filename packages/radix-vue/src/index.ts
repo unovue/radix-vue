@@ -151,5 +151,24 @@ export {
   MenubarSubTrigger,
   MenubarMenu,
 } from "./Menubar";
+export {
+  NavigationMenuArrow,
+  NavigationMenuContent,
+  NavigationMenuGroup,
+  NavigationMenuItem,
+  NavigationMenuPortal,
+  NavigationMenuRoot,
+  NavigationMenuSeparator,
+  NavigationMenuTrigger,
+  NavigationMenuCheckboxItem,
+  NavigationMenuItemIndicator,
+  NavigationMenuLabel,
+  NavigationMenuRadioGroup,
+  NavigationMenuRadioItem,
+  NavigationMenuSub,
+  NavigationMenuSubContent,
+  NavigationMenuSubTrigger,
+  NavigationMenuMenu,
+} from "./NavigationMenu";
 
 export * from "./ScrollArea";

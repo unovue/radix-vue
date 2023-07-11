@@ -25,6 +25,7 @@ import DropdownMenuDemo from './components/Demo/DropdownMenuDemo.vue'
 import ContextMenuDemo from './components/Demo/ContextMenuDemo.vue'
 import ScrollAreaDemo from './components/Demo/ScrollAreaDemo.vue'
 import MenubarDemo from './components/Demo/MenubarDemo.vue'
+import NavigationMenuDemo from './components/Demo/NavigationMenuDemo.vue'
 </script>
 
 <template>
@@ -62,6 +63,9 @@ import MenubarDemo from './components/Demo/MenubarDemo.vue'
       </Card>
       <Card>
         <MenubarDemo />
+      </Card>
+      <Card>
+        <NavigationMenuDemo />
       </Card>
       <Card>
         <HoverCardDemo />

@@ -98,9 +98,7 @@ function handleCloseMenu() {
 }
 
 function handleClick() {
-  rootInjectedValue?.changeValue(
-    injectedValue?.isOpen.value ? undefined : injectedValue?.value
-  );
+  openAndSelectFirstElement();
 }
 
 const dataState = computed(() => {

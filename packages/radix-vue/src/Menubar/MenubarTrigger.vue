@@ -72,14 +72,19 @@ function handleKeydown(e: KeyboardEvent) {
   );
   if (newSelectedElement) {
     rootInjectedValue?.changeSelected(newSelectedElement);
-    rootInjectedValue?.changeValue(newSelectedElement.id);
+    newSelectedElement.focus();
+    if (rootInjectedValue?.modelValue.value) {
+      rootInjectedValue?.changeValue(newSelectedElement.id);
+    }
   }
 }
 
 function handleHover() {
-  if (!props.disabled && rootInjectedValue?.modelValue.value) {
+  if (!props.disabled) {
     rootInjectedValue?.changeSelected(currentElement.value!);
-    rootInjectedValue?.changeValue(injectedValue?.value);
+    if (rootInjectedValue?.modelValue.value) {
+      rootInjectedValue?.changeValue(injectedValue?.value);
+    }
     return;
   }
 }
@@ -122,6 +127,11 @@ watch(
     if (activeElement.value === currentElement.value) {
       rootInjectedValue!.selectedElement.value = currentElement.value;
       rootInjectedValue!.triggerElement.value = currentElement.value;
+    } else if (
+      !injectedValue?.isOpen.value &&
+      rootInjectedValue!.selectedElement.value === currentElement.value
+    ) {
+      rootInjectedValue!.selectedElement.value = undefined;
     }
   },
   { immediate: true }

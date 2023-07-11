@@ -80,11 +80,9 @@ function handleKeydown(e: KeyboardEvent) {
 }
 
 function handleHover() {
-  if (!props.disabled) {
+  if (!props.disabled && rootInjectedValue?.modelValue.value) {
     rootInjectedValue?.changeSelected(currentElement.value!);
-    if (rootInjectedValue?.modelValue.value) {
-      rootInjectedValue?.changeValue(injectedValue?.value);
-    }
+    rootInjectedValue?.changeValue(injectedValue?.value);
     return;
   }
 }

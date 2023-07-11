@@ -33,6 +33,10 @@ function handleClick() {
     rootInjectedValue.hideTooltip();
   }
 }
+
+function handleEscape() {
+  rootInjectedValue?.hideTooltip();
+}
 </script>
 
 <template>
@@ -42,6 +46,7 @@ function handleClick() {
     :subProvider="subInjectedValue"
     :orientation="rootInjectedValue?.orientation"
     @handle-click="handleClick"
+    @escape-keydown="handleEscape"
   >
     <slot />
   </BaseMenuItem>

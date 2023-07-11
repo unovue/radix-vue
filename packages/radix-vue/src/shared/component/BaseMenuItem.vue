@@ -1,12 +1,17 @@
 <script lang="ts">
 import type { DropdownMenuProvideValue } from "../../DropdownMenu/DropdownMenuRoot.vue";
 import type { DropdownMenuSubProvideValue } from "../../DropdownMenu/DropdownMenuSub.vue";
+import type { MenubarProvideValue } from "../../Menubar/MenubarRoot.vue";
+import type { MenubarSubProvideValue } from "../../Menubar/MenubarSub.vue";
 
 // TODO: improve types for props
 interface BaseMenuItemProps {
   disabled?: boolean;
-  rootProvider: DropdownMenuProvideValue | undefined;
-  subProvider?: DropdownMenuSubProvideValue | undefined;
+  rootProvider: DropdownMenuProvideValue | MenubarProvideValue | undefined;
+  subProvider?:
+    | DropdownMenuSubProvideValue
+    | MenubarSubProvideValue
+    | undefined;
   orientation?: string | undefined;
   role?: string;
   dataState?: string;
@@ -75,7 +80,6 @@ function handleHover() {
 }
 
 function handleCloseMenu() {
-  props.rootProvider?.hideTooltip?.();
   document.querySelector("body")!.style.pointerEvents = "";
   setTimeout(() => {
     props.rootProvider?.triggerElement.value?.focus();

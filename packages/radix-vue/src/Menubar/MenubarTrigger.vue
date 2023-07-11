@@ -87,13 +87,13 @@ function handleCloseMenu() {
 }
 
 function handleClick() {
-  rootInjectedValue?.setIsOpen(true);
+  rootInjectedValue?.setIsOpen(!rootInjectedValue?.open.value);
 }
 
 const dataState = computed(() => {
   return (
     rootInjectedValue?.triggerElement.value ===
-      injectedValue?.triggerElement.value && rootInjectedValue?.isOpen.value
+      injectedValue?.triggerElement.value && rootInjectedValue?.open.value
   );
 });
 
@@ -133,7 +133,7 @@ watch(
       role="menuitem"
       ref="primitiveElement"
       :id="injectedValue?.triggerId"
-      :aria-expanded="injectedValue?.modelValue.value"
+      :aria-expanded="injectedValue?.value.value"
       :aria-controls="injectedValue?.contentId"
       :data-state="dataState"
       :data-orientation="rootInjectedValue?.orientation"

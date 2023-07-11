@@ -102,7 +102,7 @@ onClickOutside(tooltipContentElement, (event) => {
 const contentIsOpen = computed(() => {
   return (
     rootInjectedValue?.triggerElement.value ===
-      injectedValue?.triggerElement.value && rootInjectedValue?.isOpen.value
+      injectedValue?.triggerElement.value && rootInjectedValue?.open.value
   );
 });
 </script>

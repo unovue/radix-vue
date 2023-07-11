@@ -28,9 +28,10 @@ const subInjectedValue = inject<MenubarSubProvideValue>(
 const props = defineProps<MenubarItemProps>();
 
 function handleClick() {
-  if (rootInjectedValue?.selectedElement.value) {
-    rootInjectedValue.hideTooltip();
-  }
+  rootInjectedValue!.setIsOpen(false);
+  rootInjectedValue!.changeSelected(
+    rootInjectedValue!.triggerElement.value as HTMLElement
+  );
 }
 
 function handleHorizontalKeydown(e: KeyboardEvent) {

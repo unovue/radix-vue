@@ -17,9 +17,8 @@ export const MENUBAR_INJECTION_KEY =
 
 export type MenubarProvideValue = {
   selectedElement: Ref<HTMLElement | undefined>;
-  isOpen: Readonly<Ref<boolean>>;
+  open: Readonly<Ref<boolean>>;
   setIsOpen: (val: boolean) => void;
-  toggleIsOpen: () => void;
   changeSelected: (value: HTMLElement) => void;
   modelValue: Readonly<Ref<boolean>>;
   showTooltip(): void;
@@ -42,13 +41,16 @@ const props = withDefaults(defineProps<MenubarRootProps>(), {
 
 const emit = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
+  (e: "update:open", value: boolean): void;
 }>();
 
 const modelValue = useVModel(props, "modelValue", emit, {
   passive: true,
 });
-
-const isOpen = ref(false);
+const open = useVModel(props, "open", emit, {
+  defaultValue: props.open,
+  passive: true,
+});
 const selectedElement = ref<HTMLElement>();
 const triggerElement = ref<HTMLElement>();
 const triggerItemsArray: HTMLElement[] = [];
@@ -57,12 +59,9 @@ const activeElement = useActiveElement();
 
 provide<MenubarProvideValue>(MENUBAR_INJECTION_KEY, {
   selectedElement: selectedElement,
-  isOpen,
+  open,
   setIsOpen: (val) => {
-    isOpen.value = val;
-  },
-  toggleIsOpen: () => {
-    isOpen.value = !isOpen.value;
+    open.value = val;
   },
   changeSelected: (value: HTMLElement) => {
     selectedElement.value = value;
@@ -82,7 +81,7 @@ provide<MenubarProvideValue>(MENUBAR_INJECTION_KEY, {
 });
 
 onClickOutside(menubarContainerElement, () => {
-  if (isOpen.value === false) {
+  if (open.value === false) {
     selectedElement.value = undefined;
   }
 });

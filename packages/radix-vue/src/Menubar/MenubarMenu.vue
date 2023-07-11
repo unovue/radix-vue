@@ -1,10 +1,9 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
 import type { DataOrientation } from "@/shared/types";
-import { useVModel } from "@vueuse/core";
 
 export interface MenubarMenuRootProps {
-  modelValue?: boolean;
+  value?: boolean;
   defaultOpen?: boolean;
   open?: boolean;
   //onOpenChange?: void;
@@ -17,7 +16,7 @@ export const MENUBAR_MENU_INJECTION_KEY =
   Symbol() as InjectionKey<MenubarMenuProvideValue>;
 
 export type MenubarMenuProvideValue = {
-  modelValue: Readonly<Ref<boolean>>;
+  value: Readonly<Ref<boolean>>;
   showTooltip(): void;
   hideTooltip(): void;
   triggerElement: Ref<HTMLElement | undefined>;
@@ -39,25 +38,19 @@ const props = withDefaults(defineProps<MenubarMenuRootProps>(), {
   orientation: "vertical",
 });
 
-const emit = defineEmits<{
-  (e: "update:modelValue", value: boolean): void;
-}>();
-
-const modelValue = useVModel(props, "modelValue", emit, {
-  passive: true,
-});
+const valueRef = ref(false);
 
 const triggerElement = ref<HTMLElement>();
 
 const parentContext = inject(MENUBAR_MENU_INJECTION_KEY);
 
 provide<MenubarMenuProvideValue>(MENUBAR_MENU_INJECTION_KEY, {
-  modelValue,
+  value: valueRef,
   showTooltip: () => {
-    modelValue.value = true;
+    valueRef.value = true;
   },
   hideTooltip: () => {
-    modelValue.value = false;
+    valueRef.value = false;
   },
   triggerElement,
   itemsArray: [],

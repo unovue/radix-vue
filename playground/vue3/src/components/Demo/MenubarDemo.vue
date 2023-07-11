@@ -1,33 +1,33 @@
 <script setup lang="ts">
+import { Icon } from '@iconify/vue'
+import { ref } from 'vue'
 import {
+  MenubarCheckboxItem,
   MenubarContent,
   MenubarItem,
-  MenubarPortal,
-  MenubarRoot,
-  MenubarSeparator,
-  MenubarTrigger,
-  MenubarCheckboxItem,
   MenubarItemIndicator,
   MenubarMenu,
+  MenubarPortal,
   MenubarRadioGroup,
   MenubarRadioItem,
+  MenubarRoot,
+  MenubarSeparator,
   MenubarSub,
   MenubarSubContent,
   MenubarSubTrigger,
-} from "../../../../../packages/radix-vue/src";
-import { Icon } from "@iconify/vue";
-import { ref } from "vue";
+  MenubarTrigger,
+} from '../../../../../packages/radix-vue/src'
 
-const currentMenu = ref("");
-const checkboxOne = ref(false);
-const checkboxTwo = ref(false);
-const person = ref("pedro");
+const currentMenu = ref('')
+const checkboxOne = ref(false)
+const checkboxTwo = ref(false)
+const person = ref('pedro')
 function handleClick() {
-  alert("hello!");
+  alert('hello!')
 }
 
-const RADIO_ITEMS = ["Andy", "Benoît", "Luis"];
-const CHECK_ITEMS = ["Always Show Bookmarks Bar", "Always Show Full URLs"];
+const RADIO_ITEMS = ['Andy', 'Benoît', 'Luis']
+const CHECK_ITEMS = ['Always Show Bookmarks Bar', 'Always Show Full URLs']
 </script>
 
 <template>
@@ -48,8 +48,8 @@ const CHECK_ITEMS = ["Always Show Bookmarks Bar", "Always Show Full URLs"];
         <MenubarContent
           class="min-w-[220px] bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] [animation-duration:_400ms] [animation-timing-function:_cubic-bezier(0.16,_1,_0.3,_1)] will-change-[transform,opacity]"
           align="start"
-          :sideOffset="5"
-          :alignOffset="-3"
+          :side-offset="5"
+          :align-offset="-3"
         >
           <MenubarItem
             class="group text-[13px] leading-none text-violet11 rounded flex items-center h-[25px] px-[10px] relative select-none outline-none data-[state=open]:bg-violet4 data-[state=open]:text-violet11 data-[highlighted]:bg-gradient-to-br data-[highlighted]:from-violet9 data-[highlighted]:to-violet10 data-[highlighted]:text-violet1 data-[highlighted]:data-[state=open]:text-violet1 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none"
@@ -88,7 +88,7 @@ const CHECK_ITEMS = ["Always Show Bookmarks Bar", "Always Show Full URLs"];
             <MenubarPortal>
               <MenubarSubContent
                 class="min-w-[220px] bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] [animation-duration:_400ms] [animation-timing-function:_cubic-bezier(0.16,_1,_0.3,_1)] will-change-[transform,opacity]"
-                :alignOffset="-5"
+                :align-offset="-5"
               >
                 <MenubarItem
                   class="text-[13px] leading-none text-violet11 rounded flex items-center h-[25px] px-[10px] relative select-none outline-none data-[state=open]:bg-violet4 data-[state=open]:text-violet11 data-[highlighted]:bg-gradient-to-br data-[highlighted]:from-violet9 data-[highlighted]:to-violet10 data-[highlighted]:text-violet1 data-[highlighted]::to-violet10 data-[state=open]:text-violet1 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none"
@@ -131,8 +131,8 @@ const CHECK_ITEMS = ["Always Show Bookmarks Bar", "Always Show Full URLs"];
         <MenubarContent
           class="min-w-[220px] bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] [animation-duration:_400ms] [animation-timing-function:_cubic-bezier(0.16,_1,_0.3,_1)] will-change-[transform,opacity]"
           align="start"
-          :sideOffset="5"
-          :alignOffset="-3"
+          :side-offset="5"
+          :align-offset="-3"
         >
           <MenubarItem
             class="group text-[13px] leading-none text-violet11 rounded flex items-center h-[25px] px-[10px] relative select-none outline-none data-[state=open]:bg-violet4 data-[state=open]:text-violet11 data-[highlighted]:bg-gradient-to-br data-[highlighted]:from-violet9 data-[highlighted]:to-violet10 data-[highlighted]:text-violet1 data-[highlighted]:data-[state=open]:text-violet1 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none"
@@ -166,7 +166,7 @@ const CHECK_ITEMS = ["Always Show Bookmarks Bar", "Always Show Full URLs"];
             <MenubarPortal>
               <MenubarSubContent
                 class="min-w-[220px] bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] [animation-duration:_400ms] [animation-timing-function:_cubic-bezier(0.16,_1,_0.3,_1)] will-change-[transform,opacity]"
-                :alignOffset="-5"
+                :align-offset="-5"
               >
                 <MenubarItem
                   class="group text-[13px] leading-none text-violet11 rounded flex items-center h-[25px] px-[10px] relative select-none outline-none data-[state=open]:bg-violet4 data-[state=open]:text-violet11 data-[highlighted]:bg-gradient-to-br data-[highlighted]:from-violet9 data-[highlighted]:to-violet10 data-[highlighted]:text-violet1 data-[highlighted]::to-violet10 data-[state=open]:text-violet1 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none"
@@ -222,8 +222,8 @@ const CHECK_ITEMS = ["Always Show Bookmarks Bar", "Always Show Full URLs"];
         <MenubarContent
           class="min-w-[220px] bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] [animation-duration:_400ms] [animation-timing-function:_cubic-bezier(0.16,_1,_0.3,_1)] will-change-[transform,opacity]"
           align="start"
-          :sideOffset="5"
-          :alignOffset="-14"
+          :side-offset="5"
+          :align-offset="-14"
         >
           <MenubarCheckboxItem
             v-model="checkboxOne"
@@ -292,8 +292,8 @@ const CHECK_ITEMS = ["Always Show Bookmarks Bar", "Always Show Full URLs"];
         <MenubarContent
           class="min-w-[220px] bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] [animation-duration:_400ms] [animation-timing-function:_cubic-bezier(0.16,_1,_0.3,_1)] will-change-[transform,opacity]"
           align="start"
-          :sideOffset="5"
-          :alignOffset="-14"
+          :side-offset="5"
+          :align-offset="-14"
         >
           <MenubarRadioGroup v-model="person">
             <MenubarRadioItem

@@ -1,9 +1,9 @@
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
-import alias from "@rollup/plugin-alias";
-import { resolve } from "path";
+import { resolve } from 'node:path'
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import alias from '@rollup/plugin-alias'
 
-const projectRootDir = resolve(__dirname);
+const projectRootDir = resolve(__dirname)
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -12,10 +12,10 @@ export default defineConfig({
     alias({
       entries: [
         {
-          find: "@",
-          replacement: resolve(projectRootDir, "../../packages/radix-vue/src"),
+          find: '@',
+          replacement: resolve(projectRootDir, '../../packages/radix-vue/src'),
         },
       ],
     }),
   ],
-});
+})

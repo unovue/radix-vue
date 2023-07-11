@@ -61,6 +61,10 @@ async function handleHorizontalKeydown(e: KeyboardEvent) {
     );
     if (newSelectedElement) {
       rootInjectedValue?.changeSelected(newSelectedElement);
+      newSelectedElement.focus();
+      if (rootInjectedValue?.modelValue.value) {
+        rootInjectedValue?.changeValue(newSelectedElement.id);
+      }
     }
   }
 }

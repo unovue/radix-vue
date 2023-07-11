@@ -72,7 +72,10 @@ function handleKeydown(e: KeyboardEvent) {
   );
   if (newSelectedElement) {
     rootInjectedValue?.changeSelected(newSelectedElement);
-    rootInjectedValue?.changeValue(newSelectedElement.id);
+    newSelectedElement.focus();
+    if (rootInjectedValue?.modelValue.value) {
+      rootInjectedValue?.changeValue(newSelectedElement.id);
+    }
   }
 }
 
@@ -93,9 +96,7 @@ function handleCloseMenu() {
 }
 
 function handleClick() {
-  rootInjectedValue?.changeValue(
-    injectedValue?.isOpen.value ? undefined : injectedValue?.value
-  );
+  openAndSelectFirstElement();
 }
 
 const dataState = computed(() => {
@@ -122,6 +123,11 @@ watch(
     if (activeElement.value === currentElement.value) {
       rootInjectedValue!.selectedElement.value = currentElement.value;
       rootInjectedValue!.triggerElement.value = currentElement.value;
+    } else if (
+      !injectedValue?.isOpen.value &&
+      rootInjectedValue!.selectedElement.value === currentElement.value
+    ) {
+      rootInjectedValue!.selectedElement.value = undefined;
     }
   },
   { immediate: true }

@@ -22,6 +22,7 @@ const injectedValue = inject<PopoverProvideValue>(POPOVER_INJECTION_KEY);
 const props = withDefaults(defineProps<PopoverContentProps>(), {
   side: "bottom",
   align: "center",
+  avoidCollisions: true,
 });
 
 const { primitiveElement, currentElement: tooltipContentElement } =

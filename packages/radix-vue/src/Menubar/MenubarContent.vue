@@ -48,7 +48,7 @@ createCollection(tooltipContentElement);
 
 watchEffect(() => {
   if (tooltipContentElement.value) {
-    if (contentIsOpen.value) {
+    if (injectedValue?.isOpen.value) {
       fillItemsArray();
     }
   }
@@ -57,7 +57,7 @@ watchEffect(() => {
 watch(
   () => rootInjectedValue?.selectedElement.value,
   (n) => {
-    if (!contentIsOpen.value) return;
+    if (!injectedValue?.isOpen.value) return;
     const siblingsElement = Array.from(
       n
         ?.closest('[role="tooltip"]')
@@ -76,7 +76,7 @@ watch(
         rootInjectedValue?.selectedElement.value !==
         injectedValue?.triggerElement.value
       ) {
-        injectedValue?.hideTooltip();
+        rootInjectedValue?.changeValue(undefined);
       }
     }
   }
@@ -95,27 +95,24 @@ function fillItemsArray() {
 onClickOutside(tooltipContentElement, (event) => {
   const target = event.target as HTMLElement;
   if (target.closest('[role="menuitem"]')) return;
-  rootInjectedValue?.setIsOpen(false);
+  rootInjectedValue?.changeValue(undefined);
   rootInjectedValue!.selectedElement.value = undefined;
 });
 
-const contentIsOpen = computed(() => {
-  return (
-    rootInjectedValue?.triggerElement.value ===
-      injectedValue?.triggerElement.value && rootInjectedValue?.open.value
-  );
+const dataState = computed(() => {
+  return injectedValue?.isOpen ? "open" : "false";
 });
 </script>
 
 <template>
-  <PopperContent v-bind="props" v-if="contentIsOpen">
+  <PopperContent v-bind="props" v-if="injectedValue?.isOpen.value">
     <PrimitiveDiv
       ref="primitiveElement"
-      :data-state="contentIsOpen ? 'open' : 'closed'"
+      :data-state="dataState"
       :data-side="props.side"
       :data-align="props.align"
-      :data-orientation="injectedValue?.orientation"
       :aria-labelledby="injectedValue?.triggerId"
+      :data-orientation="injectedValue?.orientation"
       role="tooltip"
       :asChild="props.asChild"
       style="pointer-events: auto"

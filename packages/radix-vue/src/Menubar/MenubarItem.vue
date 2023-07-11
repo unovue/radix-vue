@@ -28,7 +28,7 @@ const subInjectedValue = inject<MenubarSubProvideValue>(
 const props = defineProps<MenubarItemProps>();
 
 function handleClick() {
-  rootInjectedValue!.setIsOpen(false);
+  rootInjectedValue!.changeValue(undefined);
   rootInjectedValue!.changeSelected(
     rootInjectedValue!.triggerElement.value as HTMLElement
   );
@@ -46,11 +46,12 @@ function handleHorizontalKeydown(e: KeyboardEvent) {
   );
   if (newSelectedElement) {
     rootInjectedValue?.changeSelected(newSelectedElement);
+    rootInjectedValue?.changeValue(newSelectedElement.id);
   }
 }
 
 function handleEscapeKeydown(e: KeyboardEvent) {
-  rootInjectedValue!.setIsOpen(false);
+  rootInjectedValue!.changeValue(undefined);
   rootInjectedValue!.changeSelected(
     rootInjectedValue!.triggerElement.value as HTMLElement
   );

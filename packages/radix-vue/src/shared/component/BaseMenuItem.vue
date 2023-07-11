@@ -2,6 +2,7 @@
 import type { DropdownMenuProvideValue } from "../../DropdownMenu/DropdownMenuRoot.vue";
 import type { DropdownMenuSubProvideValue } from "../../DropdownMenu/DropdownMenuSub.vue";
 
+// TODO: improve types for props
 interface BaseMenuItemProps {
   disabled?: boolean;
   rootProvider: DropdownMenuProvideValue | undefined;
@@ -74,7 +75,7 @@ function handleHover() {
 }
 
 function handleCloseMenu() {
-  props.rootProvider?.hideTooltip();
+  props.rootProvider?.hideTooltip?.();
   document.querySelector("body")!.style.pointerEvents = "";
   setTimeout(() => {
     props.rootProvider?.triggerElement.value?.focus();

@@ -1,63 +1,51 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
-import type { DataOrientation } from "@/shared/types";
+import type { DataOrientation } from "../shared/types";
 
 export interface MenubarMenuRootProps {
-  value?: boolean;
-  defaultOpen?: boolean;
-  open?: boolean;
-  //onOpenChange?: void;
-  delayDuration?: number;
-  disableHoverableContent?: boolean;
-  orientation?: DataOrientation;
+  value?: string;
 }
 
 export const MENUBAR_MENU_INJECTION_KEY =
   Symbol() as InjectionKey<MenubarMenuProvideValue>;
 
 export type MenubarMenuProvideValue = {
-  value: Readonly<Ref<boolean>>;
-  showTooltip(): void;
-  hideTooltip(): void;
+  value: string;
+  isOpen: Ref<boolean>;
   triggerElement: Ref<HTMLElement | undefined>;
   itemsArray: HTMLElement[];
-  orientation: DataOrientation;
   triggerId: string;
   contentId: string;
+  orientation: DataOrientation;
   parentContext?: MenubarMenuProvideValue;
 };
 </script>
 
 <script setup lang="ts">
-import { inject, provide, ref } from "vue";
+import { computed, inject, provide, ref } from "vue";
 import { PopperRoot } from "@/Popper";
 import { useId } from "@/shared";
+import { MENUBAR_INJECTION_KEY } from "./MenubarRoot.vue";
 
-const props = withDefaults(defineProps<MenubarMenuRootProps>(), {
-  delayDuration: 700,
-  orientation: "vertical",
-});
+const props = defineProps<MenubarMenuRootProps>();
 
-const valueRef = ref(false);
+const value = props.value ?? useId();
+const rootInjectedValue = inject(MENUBAR_INJECTION_KEY);
 
 const triggerElement = ref<HTMLElement>();
 
-const parentContext = inject(MENUBAR_MENU_INJECTION_KEY);
+const isOpen = computed(() => rootInjectedValue?.modelValue.value === value);
 
+const parentContext = inject(MENUBAR_MENU_INJECTION_KEY);
 provide<MenubarMenuProvideValue>(MENUBAR_MENU_INJECTION_KEY, {
-  value: valueRef,
-  showTooltip: () => {
-    valueRef.value = true;
-  },
-  hideTooltip: () => {
-    valueRef.value = false;
-  },
+  value,
+  isOpen,
   triggerElement,
   itemsArray: [],
-  orientation: props.orientation,
-  triggerId: useId(),
+  triggerId: value,
   contentId: useId(),
   parentContext,
+  orientation: "vertical",
 });
 </script>
 

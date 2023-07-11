@@ -74,7 +74,7 @@ function handleMouseover() {
 }
 
 function handleEscapeKeydown(e: KeyboardEvent) {
-  rootInjectedValue!.setIsOpen(false);
+  rootInjectedValue!.changeValue(undefined);
   rootInjectedValue!.changeSelected(
     rootInjectedValue!.triggerElement.value as HTMLElement
   );

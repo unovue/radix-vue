@@ -3,13 +3,10 @@ import type { Ref, InjectionKey } from "vue";
 import type { DataOrientation, Direction } from "../shared/types";
 
 export interface MenubarRootProps {
-  open?: boolean;
-  defaultOpen?: boolean;
-  //onOpenChange?: void;
-  modelValue?: boolean;
+  modelValue?: string;
+  defaultValue?: string;
   orientation?: DataOrientation;
   dir?: Direction;
-  class?: string;
 }
 
 export const MENUBAR_INJECTION_KEY =
@@ -17,26 +14,27 @@ export const MENUBAR_INJECTION_KEY =
 
 export type MenubarProvideValue = {
   selectedElement: Ref<HTMLElement | undefined>;
-  open: Readonly<Ref<boolean>>;
-  setIsOpen: (val: boolean) => void;
   changeSelected: (value: HTMLElement) => void;
-  modelValue: Readonly<Ref<boolean>>;
-  showTooltip(): void;
-  hideTooltip(): void;
+  modelValue: Ref<string | undefined>;
+  changeValue(value?: string): void;
   triggerElement: Ref<HTMLElement | undefined>;
   triggerItemsArray: HTMLElement[];
   itemsArray: HTMLElement[];
   orientation: DataOrientation;
+};
+
+export default {
+  inheritAttrs: false,
 };
 </script>
 
 <script setup lang="ts">
 import { provide, ref, watch } from "vue";
 import { PopperRoot } from "@/Popper";
-import { useVModel, onClickOutside, useActiveElement } from "@vueuse/core";
+import { useVModel, useActiveElement } from "@vueuse/core";
 
 const props = withDefaults(defineProps<MenubarRootProps>(), {
-  orientation: "vertical",
+  orientation: "horizontal",
 });
 
 const emit = defineEmits<{
@@ -46,11 +44,9 @@ const emit = defineEmits<{
 
 const modelValue = useVModel(props, "modelValue", emit, {
   passive: true,
+  defaultValue: props.defaultValue,
 });
-const open = useVModel(props, "open", emit, {
-  defaultValue: props.open,
-  passive: true,
-});
+
 const selectedElement = ref<HTMLElement>();
 const triggerElement = ref<HTMLElement>();
 const triggerItemsArray: HTMLElement[] = [];
@@ -59,31 +55,18 @@ const activeElement = useActiveElement();
 
 provide<MenubarProvideValue>(MENUBAR_INJECTION_KEY, {
   selectedElement: selectedElement,
-  open,
-  setIsOpen: (val) => {
-    open.value = val;
-  },
   changeSelected: (value: HTMLElement) => {
     selectedElement.value = value;
-    selectedElement.value!.focus();
+    selectedElement.value?.focus();
   },
   modelValue,
-  showTooltip: () => {
-    modelValue.value = true;
-  },
-  hideTooltip: () => {
-    modelValue.value = false;
+  changeValue: (value?: string) => {
+    modelValue.value = value;
   },
   triggerElement,
   triggerItemsArray,
   itemsArray: [],
   orientation: props.orientation,
-});
-
-onClickOutside(menubarContainerElement, () => {
-  if (open.value === false) {
-    selectedElement.value = undefined;
-  }
 });
 
 watch(
@@ -105,7 +88,7 @@ watch(
   <PopperRoot>
     <div
       role="menubar"
-      :class="props.class"
+      v-bind="$attrs"
       ref="menubarContainerElement"
       tabindex="0"
     >

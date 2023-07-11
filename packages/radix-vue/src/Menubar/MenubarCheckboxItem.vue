@@ -61,11 +61,12 @@ function handleHorizontalKeydown(e: KeyboardEvent) {
   );
   if (newSelectedElement) {
     injectedValue?.changeSelected(newSelectedElement);
+    injectedValue?.changeValue(newSelectedElement.id);
   }
 }
 
 function handleEscapeKeydown(e: KeyboardEvent) {
-  injectedValue!.setIsOpen(false);
+  injectedValue!.changeValue(undefined);
   injectedValue!.changeSelected(
     injectedValue!.triggerElement.value as HTMLElement
   );

@@ -4,6 +4,10 @@ export interface MenubarMenuTriggerProps {
   disabled?: boolean;
   textValue?: string;
 }
+
+export default {
+  inheritAttrs: false,
+};
 </script>
 
 <script setup lang="ts">
@@ -38,11 +42,10 @@ onMounted(() => {
 });
 
 async function openAndSelectFirstElement() {
-  rootInjectedValue?.setIsOpen(true);
+  rootInjectedValue?.changeValue(injectedValue?.value);
 
   await nextTick();
   const el = injectedValue?.itemsArray?.[0];
-  console.log(el);
   rootInjectedValue!.selectedElement.value = el;
   el?.focus();
 }
@@ -69,17 +72,20 @@ function handleKeydown(e: KeyboardEvent) {
   );
   if (newSelectedElement) {
     rootInjectedValue?.changeSelected(newSelectedElement);
+    rootInjectedValue?.changeValue(newSelectedElement.id);
   }
 }
 
 function handleHover() {
-  if (!props.disabled) {
+  if (!props.disabled && rootInjectedValue?.modelValue.value) {
     rootInjectedValue?.changeSelected(currentElement.value!);
+    rootInjectedValue?.changeValue(injectedValue?.value);
+    return;
   }
 }
 
 function handleCloseMenu() {
-  rootInjectedValue?.setIsOpen(false);
+  rootInjectedValue?.changeValue(undefined);
   document.querySelector("body")!.style.pointerEvents = "";
   setTimeout(() => {
     rootInjectedValue?.triggerElement.value?.focus();
@@ -87,14 +93,13 @@ function handleCloseMenu() {
 }
 
 function handleClick() {
-  rootInjectedValue?.setIsOpen(!rootInjectedValue?.open.value);
+  rootInjectedValue?.changeValue(
+    injectedValue?.isOpen.value ? undefined : injectedValue?.value
+  );
 }
 
 const dataState = computed(() => {
-  return (
-    rootInjectedValue?.triggerElement.value ===
-      injectedValue?.triggerElement.value && rootInjectedValue?.open.value
-  );
+  return injectedValue?.isOpen.value ? "open" : "closed";
 });
 
 const highlightedState = computed(() => {
@@ -104,10 +109,6 @@ const highlightedState = computed(() => {
       rootInjectedValue?.selectedElement.value)
   );
 });
-
-function handleMouseover() {
-  return injectedValue?.showTooltip();
-}
 
 watchEffect(() => {
   if (rootInjectedValue?.selectedElement.value === currentElement.value) {
@@ -133,7 +134,7 @@ watch(
       role="menuitem"
       ref="primitiveElement"
       :id="injectedValue?.triggerId"
-      :aria-expanded="injectedValue?.value.value"
+      :aria-expanded="injectedValue?.isOpen.value"
       :aria-controls="injectedValue?.contentId"
       :data-state="dataState"
       :data-orientation="rootInjectedValue?.orientation"
@@ -141,7 +142,6 @@ watch(
       @keydown.prevent="handleKeydown"
       data-radix-vue-collection-item
       @mouseenter="handleHover"
-      @mouseover="handleMouseover"
       @click="handleClick"
       :data-highlighted="highlightedState ? '' : null"
       :aria-disabled="props.disabled ? true : undefined"
@@ -149,6 +149,7 @@ watch(
       :tabindex="
         rootInjectedValue?.triggerElement.value === currentElement ? '0' : '-1'
       "
+      v-bind="$attrs"
     >
       <slot />
     </PrimitiveButton>

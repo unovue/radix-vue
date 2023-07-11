@@ -13,11 +13,11 @@ pnpm install radix-vue
 
 ## Documentation
 
-For full documentation, visit radix-vue.com.
+For full documentation, visit [radix-vue.com](https://radix-vue.com).
 
 ## Releases
 
-For changelog, visit radix-vue.com/overview/releases.
+For changelog, visit [radix-vue.com/overview/releases](https://radix-vue.com/overview/releases).
 
 ## Todo
 

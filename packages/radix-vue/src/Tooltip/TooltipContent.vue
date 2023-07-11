@@ -6,12 +6,12 @@ export interface TooltipContentProps extends PopperContentProps {
 </script>
 
 <script setup lang="ts">
-import { onMounted, inject } from "vue";
+import { inject } from "vue";
 import {
   TOOLTIP_INJECTION_KEY,
   type TooltipProvideValue,
 } from "./TooltipRoot.vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import { PrimitiveDiv } from "@/Primitive";
 import { PopperContent, type PopperContentProps } from "@/Popper";
 
 const injectedValue = inject<TooltipProvideValue>(TOOLTIP_INJECTION_KEY);
@@ -19,12 +19,6 @@ const injectedValue = inject<TooltipProvideValue>(TOOLTIP_INJECTION_KEY);
 const props = withDefaults(defineProps<TooltipContentProps>(), {
   side: "top",
   align: "center",
-});
-
-const { primitiveElement, currentElement: tooltipContentElement } =
-  usePrimitiveElement();
-onMounted(() => {
-  injectedValue!.floatingElement.value = tooltipContentElement.value;
 });
 </script>
 

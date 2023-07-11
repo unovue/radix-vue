@@ -10,7 +10,7 @@ export interface TooltipRootProps {
 </script>
 
 <script setup lang="ts">
-import { inject, onMounted, computed } from "vue";
+import { inject, computed } from "vue";
 import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
 import {
   TOOLTIP_INJECTION_KEY,
@@ -23,10 +23,6 @@ const injectedValue = inject<TooltipProvideValue>(TOOLTIP_INJECTION_KEY);
 
 const { primitiveElement, currentElement: triggerElement } =
   usePrimitiveElement();
-
-onMounted(() => {
-  injectedValue!.triggerElement.value = triggerElement.value;
-});
 
 async function handleMouseEnter(e: MouseEvent) {
   const result = await useHoverDelay(e, triggerElement.value!);

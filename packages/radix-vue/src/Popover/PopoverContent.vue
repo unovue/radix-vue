@@ -29,7 +29,6 @@ const { primitiveElement, currentElement: tooltipContentElement } =
 
 watchEffect(() => {
   if (tooltipContentElement.value) {
-    injectedValue!.floatingElement.value = tooltipContentElement.value;
     if (injectedValue?.open.value) {
       trapFocus(tooltipContentElement.value!);
       window.addEventListener("mousedown", closeDialogWhenClickOutside);

@@ -42,6 +42,7 @@
   "devDependencies": {
     "@rollup/plugin-alias": "^5.0.0",
     "@rushstack/eslint-patch": "^1.3.2",
+    "@testing-library/vue": "^7.0.0",
     "@tsconfig/node18": "^2.0.1",
     "@types/node": "^18.16.18",
     "@vitejs/plugin-vue": "^4.2.3",

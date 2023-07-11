@@ -33,7 +33,7 @@ function handleClick() {
 }
 
 async function handleKeydown(e: KeyboardEvent) {
-  if (e.key === "ArrowDown") {
+  if (e.key === "ArrowDown" || e.key === "Enter" || e.keyCode === 32) {
     injectedValue?.showTooltip();
     await nextTick();
     injectedValue?.changeSelected(injectedValue.itemsArray?.[0]);

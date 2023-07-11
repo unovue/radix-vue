@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PopoverRoot, PopoverTrigger, PopoverPortal, PopoverContent, PopoverArrow, PopoverClose } from "radix-vue";
+import { PopoverRoot, PopoverTrigger, PopoverPortal, PopoverContent, PopoverArrow, PopoverClose } from "@/Popover";
 import { Icon } from "@iconify/vue";
 import { ref } from "vue";
 
@@ -24,7 +24,9 @@ const toggleState = ref(false);
       <Icon icon="radix-icons:mixer-horizontal" />
     </PopoverTrigger>
     <PopoverPortal>
-      <PopoverContent side="bottom"
+      <PopoverContent
+        side="bottom"
+        :sideOffset="5"
         class="rounded p-5 w-[260px] bg-white shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2)] focus:shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2),0_0_0_2px_theme(colors.violet7)] will-change-[transform,opacity] data-[state=open]:data-[side=top]:animate-slideDownAndFade data-[state=open]:data-[side=right]:animate-slideLeftAndFade data-[state=open]:data-[side=bottom]:animate-slideUpAndFade data-[state=open]:data-[side=left]:animate-slideRightAndFade"
       >
         <div class="flex flex-col gap-2.5">
@@ -68,7 +70,7 @@ const toggleState = ref(false);
         >
           <Icon icon="radix-icons:cross-2" />
         </PopoverClose>
-        <PopoverArrow class="bg-white" :size="8" />
+        <PopoverArrow class="fill-white" />
       </PopoverContent>
     </PopoverPortal>
   </PopoverRoot>

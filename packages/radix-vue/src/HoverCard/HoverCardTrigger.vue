@@ -5,7 +5,7 @@ export interface HoverCardTriggerProps {
 </script>
 
 <script setup lang="ts">
-import { inject, onMounted } from "vue";
+import { inject } from "vue";
 import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
 import {
   HOVER_CARD_INJECTION_KEY,
@@ -19,10 +19,6 @@ const injectedValue = inject<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY);
 
 const { primitiveElement, currentElement: triggerElement } =
   usePrimitiveElement();
-
-onMounted(() => {
-  injectedValue!.triggerElement.value = triggerElement.value;
-});
 
 async function handleMouseEnter(e: MouseEvent) {
   const result = await useHoverDelay(

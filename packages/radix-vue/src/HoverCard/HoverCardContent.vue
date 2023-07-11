@@ -1,25 +1,14 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from "vue";
-import type { Side, MiddlewareData } from "@floating-ui/dom";
-
-export const HOVER_CARD_CONTENT_INJECTION_KEY =
-  Symbol() as InjectionKey<HoverCardContentProvideValue>;
-
 export type Boundary = Element | null | Array<Element | null>;
 
 export interface HoverCardContentProps extends PopperContentProps {
   asChild?: boolean;
   forceMount?: boolean;
 }
-
-export type HoverCardContentProvideValue = {
-  middlewareData: Ref<MiddlewareData>;
-  floatPosition: Ref<Side>;
-};
 </script>
 
 <script setup lang="ts">
-import { onMounted, inject, ref } from "vue";
+import { inject } from "vue";
 import {
   HOVER_CARD_INJECTION_KEY,
   type HoverCardProvideValue,
@@ -33,11 +22,6 @@ const props = withDefaults(defineProps<HoverCardContentProps>(), {
   side: "bottom",
   align: "center",
   avoidCollisions: true,
-});
-
-const tooltipContentElement = ref<HTMLElement>();
-onMounted(() => {
-  injectedValue!.floatingElement.value = tooltipContentElement.value;
 });
 
 async function handleMouseleave(e: MouseEvent) {

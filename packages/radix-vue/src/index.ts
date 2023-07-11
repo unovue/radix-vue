@@ -81,7 +81,6 @@ export {
   TooltipArrow,
   TooltipContent,
   TooltipPortal,
-  TooltipProvider,
   TooltipRoot,
   TooltipTrigger,
 } from "./Tooltip";
@@ -98,7 +97,6 @@ export {
   PopoverPortal,
   PopoverContent,
   PopoverArrow,
-  PopoverAnchor,
   PopoverClose,
 } from "./Popover";
 export {

@@ -14,7 +14,7 @@ response.
 
 ::hero-container
 #previewSlot
-  :alert-dialog
+  :demo-alert-dialog
 #codeSlot
 ::hero-code-group{folder="AlertDialog"}
 ::

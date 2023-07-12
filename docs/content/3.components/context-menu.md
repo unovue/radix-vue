@@ -14,7 +14,7 @@ Displays a menu located at the pointer, triggered by a right-click or a
 
 ::hero-container
 #previewSlot
-  :context-menu
+  :demo-context-menu
 #codeSlot
 ::hero-code-group{folder="ContextMenu"}
 ::

@@ -13,7 +13,7 @@ Visually or semantically separates content.
 
 ::hero-container
 #previewSlot
-  :separator
+  :demo-separator
 #codeSlot
 ::hero-code-group{folder="Separator"}
 ::

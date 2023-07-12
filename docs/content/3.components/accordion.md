@@ -14,7 +14,7 @@ associated section of content.
 
 ::hero-container
 #previewSlot
-  :accordion
+  :demo-accordion
 #codeSlot
 ::hero-code-group{folder="Accordion"}
 ::

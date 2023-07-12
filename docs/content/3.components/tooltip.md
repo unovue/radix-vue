@@ -14,7 +14,7 @@ receives keyboard focus or the mouse hovers over it.
 
 ::hero-container
 #previewSlot
-:tooltip
+  :demo-tooltip
 #codeSlot
 ::hero-code-group{folder="Tooltip"}
 ::

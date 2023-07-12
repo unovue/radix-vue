@@ -12,7 +12,7 @@ name: scroll-area
 
 ::hero-container
 #previewSlot
-  :scroll-area
+  :demo-scroll-area
 #codeSlot
 ::hero-code-group{folder="ScrollArea"}
 ::

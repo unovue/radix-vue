@@ -14,7 +14,7 @@ displayed as a progress bar.
 
 ::hero-container
 #previewSlot
-  :progress
+  :demo-progress
 #codeSlot
 ::hero-code-group{folder="Progress"}
 ::

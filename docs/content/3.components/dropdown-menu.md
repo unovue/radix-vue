@@ -19,7 +19,7 @@ Displays a menu to the user—such as a set of actions or functions—triggered 
 
 ::hero-container
 #previewSlot
-  :dropdown-menu
+  :demo-dropdown-menu
 #codeSlot
 ::hero-code-group{folder="DropdownMenu"}
 ::

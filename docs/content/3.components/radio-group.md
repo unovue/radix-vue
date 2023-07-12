@@ -14,7 +14,7 @@ the buttons can be checked at a time.
 
 ::hero-container
 #previewSlot
-  :radio-group
+  :demo-radio-group
 #codeSlot
 ::hero-code-group{folder="RadioGroup"}
 ::

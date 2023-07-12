@@ -12,7 +12,7 @@ Displays content within a desired ratio.
 
 ::hero-container
 #previewSlot
-  :aspect-ratio
+  :demo-aspect-ratio
 #codeSlot
 ::hero-code-group{folder="AspectRatio"}
 ::

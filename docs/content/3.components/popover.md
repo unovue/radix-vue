@@ -13,7 +13,7 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal
 
 ::hero-container
 #previewSlot
-  :popover
+  :demo-popover
 #codeSlot
 ::hero-code-group{folder="Popover"}
 ::

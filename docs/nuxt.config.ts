@@ -26,7 +26,7 @@ export default defineNuxtConfig({
   },
 
   components: [
-    { path: "./components/demo", extensions: ["vue"], global: true }, // import only "vue" as component files in demo folder
+    { path: "./components/demo", extensions: ["vue"], global: true, prefix: "Demo" }, // import only "vue" as component files in demo folder
     "~/components",
   ],
 

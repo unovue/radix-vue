@@ -13,7 +13,7 @@ An interactive component which expands/collapses a panel.
 
 ::hero-container
 #previewSlot
-  :collapsible
+  :demo-collapsible
 #codeSlot
 ::hero-code-group{folder="Collapsible"}
 ::

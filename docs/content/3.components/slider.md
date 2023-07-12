@@ -13,7 +13,7 @@ An input where the user selects a value from within a given range.
 
 ::hero-container
 #previewSlot
-  :slider
+  :demo-slider
 #codeSlot
 ::hero-code-group{folder="Slider"}
 ::

@@ -13,7 +13,7 @@ A two-state button that can be either on or off.
 
 ::hero-container
 #previewSlot
-  :toggle
+  :demo-toggle
 #codeSlot
 ::hero-code-group{folder="Toggle"}
 ::

@@ -14,7 +14,7 @@ one at a time.
 
 ::hero-container
 #previewSlot
-  :tabs
+  :demo-tabs
 #codeSlot
 ::hero-code-group{folder="Tabs"}
 ::

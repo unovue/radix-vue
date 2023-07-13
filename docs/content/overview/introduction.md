@@ -3,16 +3,20 @@ metaTitle: Introduction
 metaDescription: An open-source UI component library for building high-quality, accessible design systems and web apps using Vue.
 ---
 
+<script setup>
+import Description from '../../components/Description.vue'
+</script>
+
 # Introduction
 
-::description
+<Description>
 An open-source UI component library for building high-quality, accessible
 design systems and web apps using [Vue](https://vuejs.org/).
-::
+</Description>
 
-::alert{type="success"}
+::: tip
 Radix Vue is an unofficial community-led Vue port of [Radix UI](https://www.radix-ui.com/), thus we share the same principal and vision when building primitives.
-::
+:::
 
 Radix Primitives is a low-level UI component library with a focus on accessibility, customization and developer experience. You can use these components either as the base layer of your design system, or adopt them incrementally.
 

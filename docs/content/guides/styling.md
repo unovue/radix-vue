@@ -3,12 +3,16 @@ metaTitle: Styling
 metaDescription: Radix Primitives are unstyled—and compatible with any styling solution—giving you complete control over styling.
 ---
 
+<script setup>
+import Description from '../../components/Description.vue'
+</script>
+
 # Styling
 
-::description
+<Description>
 Radix Primitives are unstyled—and compatible with any styling solution—giving
 you complete control over styling.
-::
+</Description>
 
 ## Styling overview
 
@@ -133,6 +137,6 @@ Radix Primitives were designed to encapsulate accessibility concerns and other c
 
 For convenience, stateful components include a `data-state` attribute.
 
-::alert{type="success"}
+::: tip
 Source: [Radix UI](https://www.radix-ui.com/)
-::
+:::

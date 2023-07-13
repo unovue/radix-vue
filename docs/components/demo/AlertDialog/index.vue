@@ -11,8 +11,6 @@ import {
   AlertDialogDescription,
 } from "radix-vue";
 
-const alertDialogOpen = ref(false);
-
 function handleAction() {
   alert("clicked action button!");
 }

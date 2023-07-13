@@ -3,12 +3,17 @@ metaTitle: Accessibility
 metaDescription: Radix Primitives follow the WAI-ARIA authoring practices guidelines and are tested in a wide selection of modern browsers and commonly used assistive technologies.
 ---
 
+<script setup>
+import Description from '../../components/Description.vue'
+</script>
+
 # Accessibility
-::description
+<Description>
 Radix Primitives follow the WAI-ARIA authoring practices guidelines and are
 tested in a wide selection of modern browsers and commonly used assistive
 technologies.
-::
+</Description>
+
 We take care of many of the difficult implementation details related to accessibility, including `aria` and `role` attributes, focus management, and keyboard navigation. That means that users should be able to use our components as-is in most contexts and rely on functionality to follow the expected accessibility design patterns.
 
 ## WAI-ARIA
@@ -33,6 +38,6 @@ Proper keyboard navigation and good labelling often go hand-in-hand with managin
 
 In many Radix Primitives, we move focus based on the interactions a user normally takes in a given component. For example, in [`AlertDialog`](../components/alert-dialog), when the modal is opened, focus is programatically moved to a `Cancel` button element to anticipate a response to the prompt.
 
-::alert{type="success"}
+::: tip
 Source: [Radix UI](https://www.radix-ui.com/)
-::
+:::

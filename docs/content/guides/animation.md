@@ -3,12 +3,16 @@ metaTitle: Animation
 metaDescription: Animate Radix Primitives with CSS keyframes or the JavaScript animation library of your choice.
 ---
 
+<script setup>
+import Description from '../../components/Description.vue'
+</script>
+
 # Animation
 
-::description
+<Description>
 Animate Radix Primitives with CSS keyframes or the JavaScript animation
 library of your choice.
-::
+</Description>
 
 Adding animation to Radix Primitives should feel similar to any other component, but there are some caveats noted here in regards to exiting animations with JS animation libraries.
 
@@ -48,9 +52,9 @@ You can use CSS animation to animate both mount and unmount phases. The latter i
 }
 ```
 
-::alert{type="success"}
+::: tip
 Source: [Radix UI](https://www.radix-ui.com/)
-::
+:::
 
 <!-- hide away for the moment, as we yet to support forceMount props
 ## Delegating unmounting for JavaScript Animation

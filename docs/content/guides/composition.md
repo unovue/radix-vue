@@ -3,12 +3,16 @@ metaTitle: Composition
 metaDescription: Use the `asChild` prop to compose Radix's functionality onto alternative element types or your own React components.
 ---
 
+<script setup>
+import Description from '../../components/Description.vue'
+</script>
+
 # Composition
 
-::description
+<Description>
 Use the `asChild` prop to compose Radix's functionality onto alternative
 element types or your own React components.
-::
+</Description>
 
 All Radix primitive parts that render a DOM element accept an `asChild` prop. When `asChild` is set to `true`, Radix Vue will not render a default DOM element, instead passing the props and behavior required to make it functional to the first child of the slots.
 

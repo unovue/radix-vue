@@ -1,0 +1,6 @@
+export {default as ProseA } from "./ProseA.vue"
+export {default as ProseH1 } from "./ProseH1.vue"
+export {default as ProseH2 } from "./ProseH2.vue"
+export {default as ProseH3 } from "./ProseH3.vue"
+export {default as ProseP } from "./ProseP.vue"
+export {default as ProseTh } from "./ProseTh.vue"

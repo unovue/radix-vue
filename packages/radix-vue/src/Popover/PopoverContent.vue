@@ -33,6 +33,7 @@ watchEffect(() => {
     if (injectedValue?.open.value) {
       trapFocus(tooltipContentElement.value!);
       window.addEventListener("mousedown", closeDialogWhenClickOutside);
+      window.addEventListener("keydown", closePopoverOnEscape);
     } else {
       if (injectedValue?.triggerElement.value) {
         injectedValue?.triggerElement.value.focus();
@@ -55,8 +56,15 @@ function closeDialogWhenClickOutside(e: MouseEvent) {
   }
 }
 
+function closePopoverOnEscape(e: KeyboardEvent) {
+  if (e.key === "Escape") {
+    injectedValue?.hidePopover();
+  }
+}
+
 function clearEvent() {
   window.removeEventListener("mousedown", closeDialogWhenClickOutside);
+  window.removeEventListener("keydown", closePopoverOnEscape);
 }
 
 onUnmounted(() => {

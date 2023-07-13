@@ -76,7 +76,7 @@ provide<SelectProvideValue>(SELECT_INJECTION_KEY, {
 
 function changeModelValue(value: string) {
   if (props.multiple) {
-    let modelValueArray = modelValue.value as string[];
+    let modelValueArray = [...(modelValue.value as string[])];
     if (modelValueArray.includes(value)) {
       let index = modelValueArray.findIndex((i) => i === value);
       modelValueArray.splice(index, 1);

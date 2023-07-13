@@ -45,6 +45,9 @@ const checkboxDataState = computed(() => {
 function handleClick() {
   modelValue.value = !modelValue.value;
 }
+function handleEscape() {
+  injectedValue?.hideTooltip();
+}
 
 provide(DROPDOWN_MENU_ITEM_SYMBOL, {
   modelValue,
@@ -58,6 +61,7 @@ provide(DROPDOWN_MENU_ITEM_SYMBOL, {
     :rootProvider="injectedValue"
     :orientation="injectedValue?.orientation"
     @handle-click="handleClick"
+    @escape-keydown="handleEscape"
     role="menuitemcheckbox"
     :data-state="checkboxDataState"
     :aria-checked="props.modelValue ? true : false"

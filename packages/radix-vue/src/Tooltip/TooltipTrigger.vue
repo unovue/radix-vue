@@ -10,22 +10,19 @@ export interface TooltipRootProps {
 </script>
 
 <script setup lang="ts">
-import { inject, onMounted, computed } from "vue";
+import { inject, computed } from "vue";
 import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
 import {
   TOOLTIP_INJECTION_KEY,
   type TooltipProvideValue,
 } from "./TooltipRoot.vue";
 import { useHoverDelay } from "../shared";
+import { PopperAnchor } from "@/Popper";
 
 const injectedValue = inject<TooltipProvideValue>(TOOLTIP_INJECTION_KEY);
 
 const { primitiveElement, currentElement: triggerElement } =
   usePrimitiveElement();
-
-onMounted(() => {
-  injectedValue!.triggerElement.value = triggerElement.value;
-});
 
 async function handleMouseEnter(e: MouseEvent) {
   const result = await useHoverDelay(e, triggerElement.value!);
@@ -40,15 +37,17 @@ const dataState = computed<TooltipTriggerDataState>(() => {
 </script>
 
 <template>
-  <PrimitiveButton
-    type="button"
-    ref="primitiveElement"
-    :data-state="dataState"
-    :aria-expanded="injectedValue?.open.value || false"
-    @mouseenter="handleMouseEnter"
-    @mouseleave="injectedValue?.hideTooltip"
-    style="cursor: default"
-  >
-    <slot />
-  </PrimitiveButton>
+  <PopperAnchor asChild>
+    <PrimitiveButton
+      type="button"
+      ref="primitiveElement"
+      :data-state="dataState"
+      :aria-expanded="injectedValue?.open.value || false"
+      @mouseenter="handleMouseEnter"
+      @mouseleave="injectedValue?.hideTooltip"
+      style="cursor: default"
+    >
+      <slot />
+    </PrimitiveButton>
+  </PopperAnchor>
 </template>

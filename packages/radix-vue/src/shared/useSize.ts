@@ -42,7 +42,7 @@ export const useSize = (element: MaybeElementRef) => {
         }
 
         // temporary disable width/height from resize observer. borderSizeEntry seems to be incorrect
-        // size.value = { width, height };
+        size.value = { width, height };
       });
 
       resizeObserver.observe(el, { box: "border-box" });

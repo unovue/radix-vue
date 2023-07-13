@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import Card from "./components/Card.vue";
+import Card from './components/Card.vue'
 
 import AccordionDemo from "./components/Demo/AccordionDemo.vue";
 import CheckboxDemo from "./components/Demo/CheckboxDemo.vue";
@@ -60,6 +59,9 @@ import SelectDemo from "./components/Demo/SelectDemo.vue";
       </Card>
       <Card>
         <DropdownMenuDemo />
+      </Card>
+      <Card>
+        <MenubarDemo />
       </Card>
       <Card>
         <HoverCardDemo />

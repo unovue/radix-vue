@@ -8,6 +8,10 @@ const OPPOSITE_SIDE: Record<Side, Side> = {
 };
 
 export interface PopperArrowProps extends ArrowProps {}
+
+export default {
+  inheritAttrs: false,
+};
 </script>
 
 <script setup lang="ts">
@@ -38,8 +42,8 @@ const baseSide = computed(() =>
     })"
     :style="{
       position: 'absolute',
-      left: `${contentContext!.arrowX?.value}px`,
-      top: `${contentContext!.arrowY?.value}px`,
+      left: contentContext!.arrowX?.value ? `${contentContext!.arrowX?.value}px` : undefined,
+      top: contentContext!.arrowY?.value ? `${contentContext!.arrowY?.value}px` : undefined,
       [baseSide]: 0,
       transformOrigin: {
         top: '',
@@ -57,6 +61,7 @@ const baseSide = computed(() =>
     }"
   >
     <Arrow
+      v-bind="$attrs"
       :style="{
         display: 'block',
       }"

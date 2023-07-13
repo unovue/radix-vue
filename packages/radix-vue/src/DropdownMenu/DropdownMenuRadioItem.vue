@@ -40,6 +40,10 @@ function handleClick() {
   }
 }
 
+function handleEscape() {
+  rootInjectedValue?.hideTooltip();
+}
+
 const modelValue = computed(
   () => radioInjectedValue?.modelValue?.value === props.value
 );
@@ -55,6 +59,7 @@ provide(DROPDOWN_MENU_ITEM_SYMBOL, {
     :orientation="rootInjectedValue?.orientation"
     :data-radix-vue-radio-value="props.value"
     @handle-click="handleClick"
+    @escape-keydown="handleEscape"
     @click="handleClick"
     role="menuitemradio"
     :data-state="radioDataState"

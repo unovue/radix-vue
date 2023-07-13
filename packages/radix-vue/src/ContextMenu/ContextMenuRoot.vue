@@ -18,10 +18,6 @@ export type ContextMenuProvideValue = {
   modelValue: Readonly<Ref<boolean>>;
   showTooltip(): void;
   hideTooltip(): void;
-  triggerElement: Ref<HTMLElement | undefined>;
-  floatingElement: Ref<HTMLElement | undefined>;
-  arrowElement: Ref<HTMLElement | undefined>;
-  floatingStyles: any;
   itemsArray: HTMLElement[];
   orientation: DataOrientation;
   positionPortalLeft?: number;
@@ -33,6 +29,7 @@ export type ContextMenuProvideValue = {
 
 <script setup lang="ts">
 import { provide, toRef, ref } from "vue";
+import { PopperRoot } from "@/Popper";
 
 const props = withDefaults(defineProps<ContextMenuRootProps>(), {
   delayDuration: 700,
@@ -44,10 +41,6 @@ const emit = defineEmits<{
 }>();
 
 const selectedElement = ref<HTMLElement>();
-const triggerElement = ref<HTMLElement>();
-const floatingElement = ref<HTMLElement>();
-const arrowElement = ref<HTMLElement>();
-
 const clientX = ref(0);
 const clientY = ref(0);
 
@@ -63,10 +56,6 @@ provide<ContextMenuProvideValue>(CONTEXT_MENU_INJECTION_KEY, {
   hideTooltip: () => {
     emit("update:modelValue", false);
   },
-  triggerElement: triggerElement,
-  floatingElement: floatingElement,
-  arrowElement: arrowElement,
-  floatingStyles: "",
   itemsArray: [],
   orientation: props.orientation,
   positionPortalLeft: 0,
@@ -77,5 +66,7 @@ provide<ContextMenuProvideValue>(CONTEXT_MENU_INJECTION_KEY, {
 </script>
 
 <template>
-  <slot />
+  <PopperRoot>
+    <slot />
+  </PopperRoot>
 </template>

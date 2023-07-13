@@ -5,21 +5,19 @@
 An unofficial vue port of Radix Primitives.
 An accessible, unstyled and customisable UI Library for building top quality design systems.
 
-## Dev Setup
-
-### Docs
-1. Go to the docs directory :  `cd docs`
-2. Run `pnpm i --ignore-workspace`
-3. Run `pnpm run dev`
-
-### Package
-1. Clone the repo
-2. Go to the repo directory: `cd radix-vue`
-3. Run `pnpm run start`
-
 ## Installation
 
-Coming soon.
+```bash
+pnpm install radix-vue
+```
+
+## Documentation
+
+For full documentation, visit [radix-vue.com](https://radix-vue.com).
+
+## Releases
+
+For changelog, visit [radix-vue.com/overview/releases](https://radix-vue.com/overview/releases).
 
 ## Todo
 
@@ -37,8 +35,8 @@ Coming soon.
 | [Form](https://github.com/radix-vue/radix-vue/issues/10)            |        |              |                        |
 | [Hover Card](https://github.com/radix-vue/radix-vue/issues/11)      |   ✅   |              |                        |
 | [Label](https://github.com/radix-vue/radix-vue/issues/12)           |   ✅   | ✅           | ✅                     |
-| [Menubar](https://github.com/radix-vue/radix-vue/issues/13)         |        |              |                        |
-| [Navigation Menu](https://github.com/radix-vue/radix-vue/issues/14) |        |              |                        |
+| [Menubar](https://github.com/radix-vue/radix-vue/issues/13)         |   ✅   |              |                        |
+| [Navigation Menu](https://github.com/radix-vue/radix-vue/issues/14) |   ⏳   |              |                        |
 | [Popover](https://github.com/radix-vue/radix-vue/issues/15)         |   ✅   |              |                        |
 | [Progress](https://github.com/radix-vue/radix-vue/issues/16)        |   ✅   | ⏳           |                        |
 | [Radio Group](https://github.com/radix-vue/radix-vue/issues/17)     |   ✅   |              |                        |
@@ -58,6 +56,18 @@ Coming soon.
 
 We would love to have your contributions! All PRs all welcomed! We need help building the core components, docs, tests, stories! Join our discord and we will get you up and running!
 
+## Dev Setup
+
+### Docs
+1. Go to the docs directory :  `cd docs`
+2. Run `pnpm i --ignore-workspace`
+3. Run `pnpm run dev`
+
+### Package
+1. Clone the repo
+2. Go to the repo directory: `cd radix-vue`
+3. Run `pnpm run start`
+
 ## Community
 
 - [Discord](https://discord.gg/jZUsrAADe5)
@@ -67,3 +77,12 @@ We would love to have your contributions! All PRs all welcomed! We need help bui
 - [Khairul Haaziq](@khairulhaaziq)
 - [Mujahid Anuar](@mujahidfa)
 - [Zernonia](@zernonia)
+
+## Credits
+
+All credits goes to these open-source works and resources
+- [Radix UI](https://radix-ui.com)
+- [Radix Svelte](https://radix-svelte.com)
+- [Headless UI](https://headlessui.com)
+- [Floating UI](https://floating-ui.com)
+- [Vue Use](https://vueuse.org)

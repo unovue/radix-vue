@@ -40,7 +40,7 @@ For changelog, visit [radix-vue.com/overview/releases](https://radix-vue.com/ove
 | [Progress](https://github.com/radix-vue/radix-vue/issues/16)        |   ✅   | ⏳           |                        |
 | [Radio Group](https://github.com/radix-vue/radix-vue/issues/17)     |   ✅   |              |                        |
 | [Scroll Area](https://github.com/radix-vue/radix-vue/issues/18)     |   ✅   |              |                        |
-| [Select](https://github.com/radix-vue/radix-vue/issues/19)          |   ⏳   |              |                        |
+| [Select](https://github.com/radix-vue/radix-vue/issues/19)          |   ✅   |              |                        |
 | [Separator](https://github.com/radix-vue/radix-vue/issues/20)       |   ✅   | ✅           |                        |
 | [Slider](https://github.com/radix-vue/radix-vue/issues/21)          |   ✅   |              |                        |
 | [Switch](https://github.com/radix-vue/radix-vue/issues/22)          |   ✅   | ✅           |                        |

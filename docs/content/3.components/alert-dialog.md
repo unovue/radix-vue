@@ -60,7 +60,7 @@ import * as AlertDialog from '@radix-ui/react-alert-dialog';
       </AlertDialogContent>
     </AlertDialogPortal>
   </AlertDialogRoot>
-<template/>
+</template>
 ```
 
 ## API Reference
@@ -391,4 +391,4 @@ data: [
     },
   ]
 ---
-:: 
+::

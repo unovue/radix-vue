@@ -11,3 +11,6 @@ export { default as ContextMenuItemIndicator } from "./ContextMenuItemIndicator.
 export { default as ContextMenuLabel } from "./ContextMenuLabel.vue";
 export { default as ContextMenuRadioGroup } from "./ContextMenuRadioGroup.vue";
 export { default as ContextMenuRadioItem } from "./ContextMenuRadioItem.vue";
+export { default as ContextMenuSub } from "./ContextMenuSub.vue";
+export { default as ContextMenuSubContent } from "./ContextMenuSubContent.vue";
+export { default as ContextMenuSubTrigger } from "./ContextMenuSubTrigger.vue";

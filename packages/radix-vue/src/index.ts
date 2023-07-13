@@ -131,6 +131,9 @@ export {
   ContextMenuLabel,
   ContextMenuRadioGroup,
   ContextMenuRadioItem,
+  ContextMenuSub,
+  ContextMenuSubContent,
+  ContextMenuSubTrigger,
 } from "./ContextMenu";
 export {
   SelectArrow,

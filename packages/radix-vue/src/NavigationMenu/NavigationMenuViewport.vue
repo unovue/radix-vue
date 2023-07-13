@@ -26,7 +26,6 @@ onMounted(() => {
   context!.onViewportChange(currentElement.value);
 });
 
-console.log(Array.from(context?.viewportContent.value.values()));
 const viewportContentList = computed(() =>
   // @ts-ignore
   Array.from(context?.viewportContent.value.values()).filter(
@@ -72,7 +71,10 @@ useResizeObserver(content, () => {
       v-for="node in viewportContentList"
       :ref="setRef"
       :key="node.props?.value"
-      v-bind="node.parentProps"
+      v-bind="
+        //@ts-ignore
+        node.parentProps
+      "
       :value="node.props?.value"
       :triggerRef="node.props?.triggerRef"
       :focusProxyRef="node.props?.focusProxyRef"

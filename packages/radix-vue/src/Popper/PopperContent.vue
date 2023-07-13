@@ -24,6 +24,7 @@ export interface PopperContentProps {
   hideWhenDetached?: boolean;
   updatePositionStrategy?: "optimized" | "always";
   onPlaced?: () => void;
+  prioritizePosition?: boolean;
 }
 
 export const POPPER_CONTENT_KEY =
@@ -73,6 +74,7 @@ const props = withDefaults(defineProps<PopperContentProps>(), {
   sticky: "partial",
   hideWhenDetached: false,
   updatePositionStrategy: "optimized",
+  prioritizePosition: false,
 });
 
 const context = inject(POPPER_ROOT_KEY);
@@ -104,7 +106,6 @@ const boundary = computed(() => {
 const detectOverflowOptions = computed(() => {
   return {
     padding: collisionPadding.value,
-    boundary: boundary.value.filter(isNotNull),
     // with `strategy: 'fixed'`, this is the only way to get it to respect boundaries
     altBoundary: boundary.value.length > 0,
   };
@@ -119,16 +120,24 @@ const computedMiddleware = computedEager(() => {
     props.avoidCollisions &&
       shift({
         mainAxis: true,
-        crossAxis: false,
+        crossAxis: props.prioritizePosition ? true : false,
         limiter: props.sticky === "partial" ? limitShift() : undefined,
         ...detectOverflowOptions.value,
       }),
-    props.avoidCollisions && flip({ ...detectOverflowOptions.value }),
+    !props.prioritizePosition &&
+      props.avoidCollisions &&
+      flip({
+        ...detectOverflowOptions.value,
+      }),
     size({
       ...detectOverflowOptions,
       apply: ({ elements, rects, availableWidth, availableHeight }) => {
         const { width: anchorWidth, height: anchorHeight } = rects.reference;
         const contentStyle = elements.floating.style;
+        Object.assign(elements.floating.style, {
+          maxWidth: `${availableWidth}px`,
+          maxHeight: `${availableHeight}px`,
+        });
         contentStyle.setProperty(
           "--radix-popper-available-width",
           `${availableWidth}px`
@@ -218,15 +227,15 @@ provide(POPPER_CONTENT_KEY, {
     ref="floatingRef"
     data-radix-popper-content-wrapper=""
     :style="{
-      ...floatingStyles,
-      transform: isPositioned ? floatingStyles.transform : 'translate(0, -200%)', // keep off the page when measuring
-      minWidth: 'max-content',
-      zIndex: contentZIndex,
-      ['--radix-popper-transform-origin' as any]: [
-        middlewareData.transformOrigin?.x,
-        middlewareData.transformOrigin?.y,
-      ].join(' '),
-    }"
+    ...floatingStyles,
+    transform: isPositioned ? floatingStyles.transform : 'translate(0, -200%)', // keep off the page when measuring
+    minWidth: 'max-content',
+    zIndex: contentZIndex,
+    ['--radix-popper-transform-origin' as any]: [
+      middlewareData.transformOrigin?.x,
+      middlewareData.transformOrigin?.y,
+    ].join(' '),
+  }"
   >
     <PrimitiveDiv
       v-bind="$attrs"

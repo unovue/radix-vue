@@ -1,6 +1,7 @@
 // https://vitepress.dev/guide/custom-theme
 import { h } from 'vue'
 import Theme from 'vitepress/theme'
+import './tailwind.postcss' 
 import './style.css'
 
 export default {

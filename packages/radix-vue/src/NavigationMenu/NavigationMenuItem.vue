@@ -1,75 +1,89 @@
-<script setup lang="ts">
-import { inject } from "vue";
-import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
-import { useArrowNavigation } from "@/shared/useArrowNavigation";
-import {
-  NAVIGATION_MENU_INJECTION_KEY,
-  type NavigationMenuProvideValue,
-} from "./NavigationMenuRoot.vue";
-import {
-  NAVIGATION_MENU_SUB_INJECTION_KEY,
-  type NavigationMenuSubProvideValue,
-} from "./NavigationMenuSub.vue";
-
-interface NavigationMenuItemProps {
-  asChild?: boolean;
+<script lang="ts">
+export interface NavigationMenuItemProps {
   value?: string;
-  disabled?: boolean;
-  //onSelect?: void;
-  textValue?: string;
 }
 
-const rootInjectedValue = inject<NavigationMenuProvideValue>(
-  NAVIGATION_MENU_INJECTION_KEY
-);
+export type NavigationMenuItemContextValue = {
+  value: string;
+  triggerRef: Ref<HTMLElement | undefined>;
+  contentRef: Ref<VNode | undefined>;
+  focusProxyRef: Ref<HTMLElement | undefined>;
+  wasEscapeCloseRef: Ref<boolean>;
+  onEntryKeyDown(): void;
+  // onFocusProxyEnter(side: 'start' | 'end'): void;
+  // onRootContentClose(): void;
+  // onContentFocusOutside(): void;
+};
 
-const subInjectedValue = inject<NavigationMenuSubProvideValue>(
-  NAVIGATION_MENU_SUB_INJECTION_KEY
-);
+export const NAVIGATION_MENU_ITEM_INJECTION_KEY =
+  Symbol() as InjectionKey<NavigationMenuItemContextValue>;
+</script>
+
+<script setup lang="ts">
+import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
+import {
+  provide,
+  ref,
+  type InjectionKey,
+  type Ref,
+  type VNode,
+  inject,
+} from "vue";
+import { PrimitiveLi } from "@/Primitive";
+import { useArrowNavigation, useCollection, useId } from "@/shared";
+import { getTabbableCandidates, focusFirst } from "./utils";
+import { unrefElement } from "@vueuse/core";
 
 const props = defineProps<NavigationMenuItemProps>();
+const { getItems } = useCollection();
+const context = inject(NAVIGATION_MENU_INJECTION_KEY);
 
-function handleClick() {
-  rootInjectedValue!.changeValue(undefined);
-  rootInjectedValue!.changeSelected(
-    rootInjectedValue!.triggerElement.value as HTMLElement
-  );
-}
+const value = props.value || useId();
+const triggerRef = ref<HTMLElement>();
+const contentRef = ref<VNode>();
+const focusProxyRef = ref<HTMLElement>();
 
-function handleHorizontalKeydown(e: KeyboardEvent) {
-  const newSelectedElement = useArrowNavigation(
-    e,
-    rootInjectedValue?.triggerElement.value as HTMLElement,
-    undefined,
-    {
-      arrowKeyOptions: "horizontal",
-      itemsArray: rootInjectedValue?.triggerItemsArray,
+const wasEscapeCloseRef = ref(false);
+
+provide(NAVIGATION_MENU_ITEM_INJECTION_KEY, {
+  value,
+  triggerRef,
+  contentRef,
+  focusProxyRef,
+  wasEscapeCloseRef,
+  onEntryKeyDown: (side = "start") => {
+    // @ts-ignore
+    const el = contentRef.value?.children?.[0]?.el.parentElement as HTMLElement;
+    if (el) {
+      // @ts-ignore
+      const candidates = getTabbableCandidates(unrefElement(el));
+      console.log(el, candidates);
+      if (candidates.length)
+        focusFirst(side === "start" ? candidates : candidates.reverse());
     }
-  );
-  if (newSelectedElement) {
-    rootInjectedValue?.changeSelected(newSelectedElement);
-    rootInjectedValue?.changeValue(newSelectedElement.id);
-  }
-}
+  },
+});
 
-function handleEscapeKeydown(e: KeyboardEvent) {
-  rootInjectedValue!.changeValue(undefined);
-  rootInjectedValue!.changeSelected(
-    rootInjectedValue!.triggerElement.value as HTMLElement
-  );
-}
+const handleKeydown = (ev: KeyboardEvent) => {
+  const currentFocus = document.activeElement as HTMLElement;
+  if (ev.keyCode === 32 || ev.key === "Enter") {
+    (ev.target as HTMLElement).click();
+    return;
+  }
+
+  const newSelectedElement = useArrowNavigation(ev, currentFocus, undefined, {
+    arrowKeyOptions: "horizontal",
+    itemsArray: getItems(),
+  });
+
+  newSelectedElement?.focus();
+
+  // context?.onItemSelect(newSelectedElement?.id.split("trigger-")[1] ?? "");
+};
 </script>
 
 <template>
-  <BaseMenuItem
-    :disabled="props.disabled"
-    :rootProvider="rootInjectedValue"
-    :subProvider="subInjectedValue"
-    :orientation="rootInjectedValue?.orientation"
-    @handle-click="handleClick"
-    @horizontal-keydown="handleHorizontalKeydown"
-    @escape-keydown="handleEscapeKeydown"
-  >
-    <slot />
-  </BaseMenuItem>
+  <PrimitiveLi @keydown.prevent="handleKeydown">
+    <slot></slot>
+  </PrimitiveLi>
 </template>

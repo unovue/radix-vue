@@ -1,98 +1,144 @@
 <script lang="ts">
-import type { Ref, InjectionKey } from "vue";
-import type { DataOrientation, Direction } from "../shared/types";
+import { type InjectionKey, type Ref } from "vue";
+import type { Direction, Orientation } from "./utils";
+import { useCollection, useId } from "@/shared";
 
-export interface NavigationMenuRootProps {
+export interface NavigationMenuProps {
   modelValue?: string;
   defaultValue?: string;
-  orientation?: DataOrientation;
+  changeValue?: (value: string) => void;
   dir?: Direction;
+  orientation?: Orientation;
+  /**
+   * The duration from when the pointer enters the trigger until the tooltip gets opened.
+   * @defaultValue 200
+   */
+  delayDuration?: number;
+  /**
+   * How much time a user has to enter another trigger without incurring a delay again.
+   * @defaultValue 300
+   */
+  skipDelayDuration?: number;
+}
+
+export interface NavigationMenuContextValue {
+  isRootMenu: boolean;
+  modelValue: Ref<string>;
+  previousValue: Ref<string>;
+  baseId: string;
+  dir: Direction;
+  orientation: Orientation;
+  rootNavigationMenu: Ref<HTMLElement | undefined>;
+  indicatorTrack: Ref<HTMLElement | undefined>;
+  onIndicatorTrackChange(indicatorTrack: HTMLElement | undefined): void;
+  viewport: Ref<HTMLElement | undefined>;
+  onViewportChange(viewport: HTMLElement | undefined): void;
+  viewportContent: Ref<Map<string, VNode>>;
+  onViewportContentChange(contentValue: string, contentData: VNode): void;
+  onViewportContentRemove(contentValue: string): void;
+  onTriggerEnter(itemValue: string): void;
+  onTriggerLeave(): void;
+  onContentEnter(itemValue: string): void;
+  onContentLeave(): void;
+  onItemSelect(itemValue: string): void;
+  // onItemDismiss(): void;
 }
 
 export const NAVIGATION_MENU_INJECTION_KEY =
-  Symbol() as InjectionKey<NavigationMenuProvideValue>;
-
-export type NavigationMenuProvideValue = {
-  selectedElement: Ref<HTMLElement | undefined>;
-  changeSelected: (value: HTMLElement) => void;
-  modelValue: Ref<string | undefined>;
-  changeValue(value?: string): void;
-  triggerElement: Ref<HTMLElement | undefined>;
-  triggerItemsArray: HTMLElement[];
-  itemsArray: HTMLElement[];
-  orientation: DataOrientation;
-};
-
-export default {
-  inheritAttrs: false,
-};
+  Symbol() as InjectionKey<NavigationMenuContextValue>;
 </script>
 
 <script setup lang="ts">
-import { provide, ref, watch } from "vue";
-import { PopperRoot } from "@/Popper";
-import { useVModel, useActiveElement } from "@vueuse/core";
+import { useDebounceFn, useVModel } from "@vueuse/core";
+import { provide, ref, type VNode } from "vue";
+import { PrimitiveNav, usePrimitiveElement } from "@/Primitive";
 
-const props = withDefaults(defineProps<NavigationMenuRootProps>(), {
+const props = withDefaults(defineProps<NavigationMenuProps>(), {
+  modelValue: "",
+  delayDuration: 200,
+  skipDelayDuration: 300,
   orientation: "horizontal",
+  dir: "ltr",
 });
 
-const emit = defineEmits<{
-  (e: "update:modelValue", value: boolean): void;
-  (e: "update:open", value: boolean): void;
+const emits = defineEmits<{
+  (e: "update:modelValue", value: string): void;
 }>();
 
-const modelValue = useVModel(props, "modelValue", emit, {
+const modelValue = useVModel(props, "modelValue", emits, {
   passive: true,
-  defaultValue: props.defaultValue,
+  defaultValue: props.defaultValue ?? "",
 });
+const previousValue = ref("");
 
-const selectedElement = ref<HTMLElement>();
-const triggerElement = ref<HTMLElement>();
-const triggerItemsArray: HTMLElement[] = [];
-const NavigationMenuContainerElement = ref<HTMLElement>();
-const activeElement = useActiveElement();
+const { primitiveElement, currentElement: rootNavigationMenu } =
+  usePrimitiveElement();
+const { createCollection } = useCollection();
+createCollection();
 
-provide<NavigationMenuProvideValue>(NAVIGATION_MENU_INJECTION_KEY, {
-  selectedElement: selectedElement,
-  changeSelected: (value: HTMLElement) => {
-    selectedElement.value = value;
-    selectedElement.value?.focus();
-  },
+const indicatorTrack = ref<HTMLElement>();
+const viewport = ref<HTMLElement>();
+const viewportContent = ref<Map<string, VNode>>(new Map());
+
+const debouncedFn = useDebounceFn((val: string) => {
+  previousValue.value = modelValue.value;
+  modelValue.value = val;
+}, props.delayDuration);
+
+provide(NAVIGATION_MENU_INJECTION_KEY, {
+  isRootMenu: true,
   modelValue,
-  changeValue: (value?: string) => {
-    modelValue.value = value;
-  },
-  triggerElement,
-  triggerItemsArray,
-  itemsArray: [],
+  previousValue,
+  baseId: useId(),
+  dir: props.dir,
   orientation: props.orientation,
-});
-
-watch(
-  activeElement,
-  () => {
-    if (activeElement.value === NavigationMenuContainerElement.value) {
-      if (triggerElement.value) {
-        triggerElement.value.focus();
-      } else if (triggerItemsArray.length) {
-        triggerItemsArray[0].focus();
-      }
-    }
+  rootNavigationMenu,
+  indicatorTrack,
+  onIndicatorTrackChange: (val) => {
+    indicatorTrack.value = val;
   },
-  { immediate: true }
-);
+  viewport,
+  onViewportChange: (val) => {
+    viewport.value = val;
+  },
+  viewportContent,
+  onViewportContentChange: (contentValue, contentData) => {
+    const prev = viewportContent.value;
+    viewportContent.value = new Map(prev.set(contentValue, contentData));
+  },
+  onViewportContentRemove: (contentValue) => {
+    const prev = viewportContent.value;
+    if (!prev.has(contentValue)) return prev;
+    prev.delete(contentValue);
+    viewportContent.value = new Map(prev);
+  },
+  onTriggerEnter: (val) => {
+    debouncedFn(val);
+  },
+  onTriggerLeave: () => {
+    debouncedFn("");
+  },
+  onContentEnter: (val) => {
+    debouncedFn(val);
+  },
+  onContentLeave: () => {
+    debouncedFn("");
+  },
+  onItemSelect: (val) => {
+    // When selecting item we trigger update immediately
+    previousValue.value = modelValue.value;
+    modelValue.value = val;
+  },
+});
 </script>
 
 <template>
-  <PopperRoot>
-    <div
-      role="NavigationMenu"
-      v-bind="$attrs"
-      ref="NavigationMenuContainerElement"
-      tabindex="0"
-    >
-      <slot />
-    </div>
-  </PopperRoot>
+  <PrimitiveNav
+    ref="primitiveElement"
+    aria-label="Main"
+    :data-orientation="orientation"
+    :dir="dir"
+  >
+    <slot></slot>
+  </PrimitiveNav>
 </template>

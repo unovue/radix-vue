@@ -135,16 +135,14 @@ export {
 export {
   SelectArrow,
   SelectContent,
-  SelectGroup,
   SelectPortal,
   SelectRoot,
   SelectSeparator,
   SelectTrigger,
-  SelectCheckboxItem,
   SelectItemIndicator,
   SelectLabel,
-  SelectRadioGroup,
-  SelectRadioItem,
+  SelectGroup,
+  SelectItem,
 } from "./Select";
 export {
   MenubarArrow,

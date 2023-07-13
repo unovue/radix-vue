@@ -1,72 +1,21 @@
 <script lang="ts">
-import type { Ref, InjectionKey } from "vue";
-import type { DataOrientation, Direction } from "../shared/types";
-
-type TypeEnum = "single" | "multiple";
-
-export interface SelectGroupProps {
-  type?: TypeEnum;
-  value?: string;
-  defaultValue?: string;
-  disabled?: boolean;
-  rovingFocus?: boolean;
-  orientation?: DataOrientation;
-  dir?: Direction;
-  loop?: boolean;
-  modelValue?: string | string[];
-}
-
-export const SELECT_GROUP_INJECTION_KEY =
-  Symbol() as InjectionKey<SelectGroupProvideValue>;
-
-export interface SelectGroupProvideValue {
-  type: TypeEnum;
-  modelValue?: Readonly<Ref<string | string[] | undefined>>;
-  changeModelValue: (value: string) => void;
-  parentElement: Ref<HTMLElement | undefined>;
+export interface SelectGroupRootProps {
+  asChild?: boolean;
 }
 </script>
 
 <script setup lang="ts">
-import { toRef, provide } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import { PrimitiveDiv } from "@/Primitive";
 
-const props = withDefaults(defineProps<SelectGroupProps>(), {
-  type: "single",
-});
-
-const emits = defineEmits(["update:modelValue"]);
-
-const { primitiveElement, currentElement: parentElement } =
-  usePrimitiveElement();
-
-provide<SelectGroupProvideValue>(SELECT_GROUP_INJECTION_KEY, {
-  type: props.type,
-  modelValue: toRef(() => props.modelValue),
-  changeModelValue: (value: string) => {
-    if (props.type === "single") {
-      emits("update:modelValue", value);
-    } else {
-      let modelValueArray = props.modelValue as string[];
-      if (modelValueArray.includes(value)) {
-        let index = modelValueArray.findIndex((i) => i === value);
-        modelValueArray.splice(index, 1);
-      } else {
-        modelValueArray.push(value);
-      }
-      emits("update:modelValue", modelValueArray);
-    }
-  },
-  parentElement,
-});
+const props = defineProps<SelectGroupRootProps>();
 </script>
 
 <template>
   <PrimitiveDiv
+    :as-child="props.asChild"
     ref="primitiveElement"
     role="group"
-    :dir="props.dir"
-    aria-label="Text alignment"
+    aria-label="group"
   >
     <slot />
   </PrimitiveDiv>

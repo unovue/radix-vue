@@ -5,14 +5,10 @@ import {
   SELECT_INJECTION_KEY,
   type SelectProvideValue,
 } from "./SelectRoot.vue";
-import {
-  RADIO_GROUP_INJECTION_KEY,
-  type RadioGroupProvideValue,
-} from "./SelectRadioGroup.vue";
 import { SELECT_ITEM_SYMBOL } from "./utils";
-import { type DropdownMenuProvideValue } from "../DropdownMenu";
+import { type DropdownMenuProvideValue } from "@/DropdownMenu/DropdownMenuRoot.vue";
 
-interface RadioGroupItemProps {
+interface SelectItemProps {
   asChild?: boolean;
   value?: string;
   disabled?: boolean;
@@ -22,27 +18,23 @@ interface RadioGroupItemProps {
   textValue?: string;
 }
 
-const rootInjectedValue =
-  inject<DropdownMenuProvideValue>(SELECT_INJECTION_KEY);
-const radioInjectedValue = inject<RadioGroupProvideValue>(
-  RADIO_GROUP_INJECTION_KEY
-);
+const rootInjectedValue = inject<SelectProvideValue>(SELECT_INJECTION_KEY);
 
-const props = defineProps<RadioGroupItemProps>();
+const props = defineProps<SelectItemProps>();
 
 const radioDataState = computed(() => {
-  return radioInjectedValue?.modelValue?.value === props.value ? "on" : "off";
+  return rootInjectedValue?.modelValue?.value === props.value ? "on" : "off";
 });
 
 function handleClick() {
   if (rootInjectedValue?.selectedElement.value) {
-    radioInjectedValue?.changeModelValue(props.value!);
+    rootInjectedValue?.setValue(props.value!);
   }
   return rootInjectedValue?.hideTooltip();
 }
 
 const modelValue = computed(
-  () => radioInjectedValue?.modelValue?.value === props.value
+  () => rootInjectedValue?.modelValue?.value === props.value
 );
 provide(SELECT_ITEM_SYMBOL, {
   modelValue,
@@ -56,7 +48,7 @@ function handleEscape() {
 <template>
   <BaseMenuItem
     :disabled="props.disabled"
-    :rootProvider="rootInjectedValue"
+    :rootProvider="(rootInjectedValue as unknown as DropdownMenuProvideValue)"
     :orientation="rootInjectedValue?.orientation"
     :data-radix-vue-radio-value="props.value"
     @handle-click="handleClick"

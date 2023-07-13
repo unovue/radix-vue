@@ -6,11 +6,10 @@ import {
   SelectRoot,
   SelectSeparator,
   SelectTrigger,
-  SelectCheckboxItem,
   SelectItemIndicator,
   SelectLabel,
-  SelectRadioGroup,
-  SelectRadioItem,
+  SelectGroup,
+  SelectItem,
 } from "../../../../../packages/radix-vue/src";
 import { Icon } from "@iconify/vue";
 import { ref } from "vue";
@@ -45,8 +44,8 @@ const vegetables = ["Aubergine", "Broccoli", "Carrot", "Courgette", "Leek"]
       >
 
         <SelectLabel class="px-[25px] text-xs leading-[25px] text-mauve11"> Fruits </SelectLabel>
-        <SelectRadioGroup>
-          <SelectRadioItem
+        <SelectGroup>
+          <SelectItem
             v-for="option in options"
             class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
             :value="option"
@@ -55,12 +54,12 @@ const vegetables = ["Aubergine", "Broccoli", "Carrot", "Courgette", "Leek"]
               <Icon icon="radix-icons:check" />
             </SelectItemIndicator>
             {{option}}
-          </SelectRadioItem>
-        </SelectRadioGroup>
+          </SelectItem>
+        </SelectGroup>
         <SelectSeparator class="h-[1px] bg-violet6 m-[5px]"/>
         <SelectLabel class="px-[25px] text-xs leading-[25px] text-mauve11"> Vegetables </SelectLabel>
-        <SelectRadioGroup>
-          <SelectRadioItem
+        <SelectGroup>
+          <SelectItem
             v-for="option in vegetables"
             class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
             :value="option"
@@ -70,8 +69,8 @@ const vegetables = ["Aubergine", "Broccoli", "Carrot", "Courgette", "Leek"]
               <Icon icon="radix-icons:check" />
             </SelectItemIndicator>
             {{option}}
-          </SelectRadioItem>
-        </SelectRadioGroup>
+          </SelectItem>
+        </SelectGroup>
       </SelectContent>
     </SelectPortal>
   </SelectRoot>

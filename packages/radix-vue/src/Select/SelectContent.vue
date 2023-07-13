@@ -67,14 +67,15 @@ onClickOutside(tooltipContentElement, (event) => {
     v-bind="props"
     v-if="injectedValue?.isOpen.value"
     prioritize-position
+    role="listbox"
+    :data-state="injectedValue?.isOpen.value ? 'open' : 'closed'"
+    :data-side="props.side"
+    :data-align="props.align"
   >
     <PrimitiveDiv
       ref="primitiveElement"
-      :data-state="injectedValue?.isOpen.value ? 'open' : 'closed'"
-      :data-side="props.side"
-      :data-align="props.align"
-      role="tooltip"
       :asChild="props.asChild"
+      role="presentation"
       style="pointer-events: auto"
     >
       <slot />

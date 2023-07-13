@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, computed, provide } from "vue";
+import { inject, provide } from "vue";
 import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
 import {
   SELECT_INJECTION_KEY,
@@ -26,17 +26,9 @@ const rootInjectedValue = inject<SelectProvideValue>(SELECT_INJECTION_KEY);
 
 const props = defineProps<SelectItemProps>();
 
-const selectItemDataState = computed(() => {
-  return rootInjectedValue?.modelValue?.value === props.value ? "on" : "off";
-});
-
 function handleClick() {
   rootInjectedValue?.changeModelValue(props.value);
-  return handleEscape();
-}
-
-function handleEscape() {
-  rootInjectedValue?.hideTooltip();
+  return rootInjectedValue?.hideTooltip();
 }
 
 provide<SelectItemProvideValue>(SELECT_ITEM_SYMBOL, {
@@ -51,9 +43,13 @@ provide<SelectItemProvideValue>(SELECT_ITEM_SYMBOL, {
     :orientation="rootInjectedValue?.orientation"
     :data-radix-vue-radio-value="props.value"
     @handle-click="handleClick"
-    @escape-keydown="handleEscape"
-    role="menuitemradio"
-    :data-state="selectItemDataState"
+    @escape-keydown="rootInjectedValue?.hideTooltip()"
+    role="option"
+    :data-state="
+      rootInjectedValue?.modelValue?.value === props.value
+        ? 'checked'
+        : 'unchecked'
+    "
   >
     <slot />
   </BaseMenuItem>

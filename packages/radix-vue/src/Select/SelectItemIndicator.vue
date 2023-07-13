@@ -33,7 +33,11 @@ const visibleState = computed(() => {
 </script>
 
 <template>
-  <PrimitiveSpan v-if="visibleState" style="pointer-events: none">
+  <PrimitiveSpan
+    v-if="visibleState"
+    aria-hidden="true"
+    style="pointer-events: none"
+  >
     <slot />
   </PrimitiveSpan>
 </template>

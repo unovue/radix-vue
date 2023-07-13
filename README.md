@@ -32,7 +32,6 @@ For changelog, visit [radix-vue.com/overview/releases](https://radix-vue.com/ove
 | [Context Menu](https://github.com/radix-vue/radix-vue/issues/7)     |   ✅   |              |                        |
 | [Dialog](https://github.com/radix-vue/radix-vue/issues/8)           |   ✅   | ⏳           |                        |
 | [Dropdown Menu](https://github.com/radix-vue/radix-vue/issues/9)    |   ✅   |              |                        |
-| [Form](https://github.com/radix-vue/radix-vue/issues/10)            |        |              |                        |
 | [Hover Card](https://github.com/radix-vue/radix-vue/issues/11)      |   ✅   |              |                        |
 | [Label](https://github.com/radix-vue/radix-vue/issues/12)           |   ✅   | ✅           | ✅                     |
 | [Menubar](https://github.com/radix-vue/radix-vue/issues/13)         |   ✅   |              |                        |
@@ -46,7 +45,6 @@ For changelog, visit [radix-vue.com/overview/releases](https://radix-vue.com/ove
 | [Slider](https://github.com/radix-vue/radix-vue/issues/21)          |   ✅   |              |                        |
 | [Switch](https://github.com/radix-vue/radix-vue/issues/22)          |   ✅   | ✅           |                        |
 | [Tabs](https://github.com/radix-vue/radix-vue/issues/23)            |   ✅   |              |                        |
-| [Toast](https://github.com/radix-vue/radix-vue/issues/24)           |        |              |                        |
 | [Toggle](https://github.com/radix-vue/radix-vue/issues/25)          |   ✅   | ✅           |                        |
 | [Toggle Group](https://github.com/radix-vue/radix-vue/issues/26)    |   ✅   |              |                        |
 | [Toolbar](https://github.com/radix-vue/radix-vue/issues/27)         |   ✅   |              |                        |
@@ -74,9 +72,9 @@ We would love to have your contributions! All PRs all welcomed! We need help bui
 
 ## Authors
 
-- [Khairul Haaziq](@khairulhaaziq)
-- [Mujahid Anuar](@mujahidfa)
-- [Zernonia](@zernonia)
+- [Khairul Haaziq](https://github.com/khairulhaaziq)
+- [Mujahid Anuar](https://github.com/mujahidfa)
+- [Zernonia](https://github.com/zernonia)
 
 ## Credits
 

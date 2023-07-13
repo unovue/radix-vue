@@ -12,7 +12,7 @@ name: hover-card
 
 ::hero-container
 #previewSlot
-  :hover-card
+  :demo-hover-card
 #codeSlot
 ::hero-code-group{folder="HoverCard"}
 ::

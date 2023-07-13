@@ -12,7 +12,7 @@ An image element with a fallback for representing the user.
 
 ::hero-container
 #previewSlot
-  :avatar
+  :demo-avatar
 #codeSlot
 ::hero-code-group{folder="Avatar"}
 ::

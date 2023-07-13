@@ -14,7 +14,7 @@ rendering the content underneath inert.
 
 ::hero-container
 #previewSlot
-  :dialog
+  :demo-dialog
 #codeSlot
 ::hero-code-group{folder="Dialog"}
 ::

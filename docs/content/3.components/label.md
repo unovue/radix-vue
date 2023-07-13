@@ -12,7 +12,7 @@ Renders an accessible label associated with controls.
 
 ::hero-container
 #previewSlot
-  :label
+  :demo-label
 #codeSlot
 ::hero-code-group{folder="Label"}
 ::

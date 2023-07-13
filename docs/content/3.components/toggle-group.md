@@ -13,7 +13,7 @@ A set of two-state buttons that can be toggled on or off.
 
 ::hero-container
 #previewSlot
-  :toggle-group
+  :demo-toggle-group
 #codeSlot
 ::hero-code-group{folder="ToggleGroup"}
 ::

@@ -31,7 +31,7 @@ const selectItemDataState = computed(() => {
 });
 
 function handleClick() {
-  rootInjectedValue?.setValue(props.value);
+  rootInjectedValue?.changeModelValue(props.value);
   return handleEscape();
 }
 
@@ -51,7 +51,6 @@ provide<SelectItemProvideValue>(SELECT_ITEM_SYMBOL, {
     :orientation="rootInjectedValue?.orientation"
     :data-radix-vue-radio-value="props.value"
     @handle-click="handleClick"
-    @click="handleClick"
     @escape-keydown="handleEscape"
     role="menuitemradio"
     :data-state="selectItemDataState"

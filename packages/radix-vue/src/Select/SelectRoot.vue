@@ -20,7 +20,7 @@ export type SelectProvideValue = {
   selectedElement: Ref<HTMLElement | undefined>;
   changeSelected: (value: HTMLElement) => void;
   modelValue: Readonly<Ref<string | string[] | undefined>>;
-  setValue: (value: string) => void;
+  changeModelValue: (value: string) => void;
   isOpen: Readonly<Ref<boolean>>;
   showTooltip(): void;
   hideTooltip(): void;
@@ -60,7 +60,7 @@ provide<SelectProvideValue>(SELECT_INJECTION_KEY, {
     selectedElement.value!.focus();
   },
   modelValue,
-  setValue: changeModelValue,
+  changeModelValue: changeModelValue,
   isOpen,
   showTooltip: () => {
     isOpen.value = true;
@@ -83,9 +83,7 @@ function changeModelValue(value: string) {
     } else {
       modelValueArray.push(value);
     }
-    console.log('multiple')
     modelValue.value = modelValueArray;
-    console.log(modelValueArray);
   } else {
     modelValue.value = value;
   }

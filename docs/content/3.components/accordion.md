@@ -180,27 +180,28 @@ Contains all the parts of a collapsible section.
 
 ::props-table
 ---
-data: [{
-name: 'asChild',
-required: false,
-type: 'boolean',
-default: 'false',
-description: 'Change the default rendered element for the one passed as a child,
-merging their props and behavior.',
-},
-{
-name: 'disabled',
-required: false,
-type: 'boolean',
-default: 'false',
-description: 'When true, prevents the user from interacting with accordion and all items',
-},
-{
-name: 'value',
-required: true,
-type: 'string',
-description: 'A unique value for the item.',
-},
+data: [
+  {
+    name: 'asChild',
+    required: false,
+    type: 'boolean',
+    default: 'false',
+    description: 'Change the default rendered element for the one passed as a child,
+    merging their props and behavior.',
+  },
+  {
+    name: 'disabled',
+    required: false,
+    type: 'boolean',
+    default: 'false',
+    description: 'When true, prevents the user from interacting with accordion and all items',
+  },
+  {
+    name: 'value',
+    required: true,
+    type: 'string',
+    description: 'A unique value for the item.',
+  },
 ]
 ---
 ::
@@ -208,18 +209,18 @@ description: 'A unique value for the item.',
 ::data-attributes-table
 ---
 data: [
-{
-attribute: '[data-state]',
-values: ['open', 'closed'],
-},
-{
-attribute: '[data-disabled]',
-values: 'Present when disabled',
-},
-{
-attribute: '[data-orientation]',
-values: ['vertical', 'horizontal'],
-},
+  {
+    attribute: '[data-state]',
+    values: ['open', 'closed'],
+  },
+  {
+    attribute: '[data-disabled]',
+    values: 'Present when disabled',
+  },
+  {
+    attribute: '[data-orientation]',
+    values: ['vertical', 'horizontal'],
+  },
 ]
 ---
 ::
@@ -231,32 +232,31 @@ Wraps an `Accordion.Trigger`. Use the `asChild` prop to update it to the appropr
 ::props-table
 ---
 data: [{
-name: 'asChild',
-required: false,
-type: 'boolean',
-default: 'false',
-description: 'Change the default rendered element for the one passed as a child,
-merging their props and behavior.',
-},
-]
+  name: 'asChild',
+  required: false,
+  type: 'boolean',
+  default: 'false',
+  description: 'Change the default rendered element for the one passed as a child,
+  merging their props and behavior.',
+}]
 ---
 ::
 
 ::data-attributes-table
 ---
 data: [
-{
-attribute: '[data-state]',
-values: ['open', 'closed'],
-},
-{
-attribute: '[data-disabled]',
-values: 'Present when disabled',
-},
-{
-attribute: '[data-orientation]',
-values: ['vertical', 'horizontal'],
-},
+  {
+    attribute: '[data-state]',
+    values: ['open', 'closed'],
+  },
+  {
+    attribute: '[data-disabled]',
+    values: 'Present when disabled',
+  },
+  {
+    attribute: '[data-orientation]',
+    values: ['vertical', 'horizontal'],
+  },
 ]
 ---
 ::
@@ -268,32 +268,31 @@ Toggles the collapsed state of its associated item. It should be nested inside o
 ::props-table
 ---
 data: [{
-name: 'asChild',
-required: false,
-type: 'boolean',
-default: 'false',
-description: 'Change the default rendered element for the one passed as a child,
-merging their props and behavior.',
-},
-]
+  name: 'asChild',
+  required: false,
+  type: 'boolean',
+  default: 'false',
+  description: 'Change the default rendered element for the one passed as a child,
+  merging their props and behavior.',
+}]
 ---
 ::
 
 ::data-attributes-table
 ---
 data: [
-{
-attribute: '[data-state]',
-values: ['open', 'closed'],
-},
-{
-attribute: '[data-disabled]',
-values: 'Present when disabled',
-},
-{
-attribute: '[data-orientation]',
-values: ['vertical', 'horizontal'],
-},
+  {
+    attribute: '[data-state]',
+    values: ['open', 'closed'],
+  },
+  {
+    attribute: '[data-disabled]',
+    values: 'Present when disabled',
+  },
+  {
+    attribute: '[data-orientation]',
+    values: ['vertical', 'horizontal'],
+  },
 ]
 ---
 ::
@@ -304,20 +303,21 @@ Contains the collapsible content for an item.
 
 ::props-table
 ---
-data: [{
-name: 'asChild',
-required: false,
-type: 'boolean',
-default: 'false',
-description: 'Change the default rendered element for the one passed as a child,
-merging their props and behavior.',
-},
-{
-name: 'forceMount',
-type: 'boolean',
-description: 'Used to force mounting when more control is needed. Useful when
-controlling animation with React animation libraries.',
-},
+data: [
+  {
+    name: 'asChild',
+    required: false,
+    type: 'boolean',
+    default: 'false',
+    description: 'Change the default rendered element for the one passed as a child,
+        merging their props and behavior.',
+  },
+  {
+    name: 'forceMount',
+    type: 'boolean',
+    description: 'Used to force mounting when more control is needed. Useful when
+        controlling animation with React animation libraries.',
+  },
 ]
 ---
 ::
@@ -325,18 +325,18 @@ controlling animation with React animation libraries.',
 ::data-attributes-table
 ---
 data: [
-{
-attribute: '[data-state]',
-values: ['open', 'closed'],
-},
-{
-attribute: '[data-disabled]',
-values: 'Present when disabled',
-},
-{
-attribute: '[data-orientation]',
-values: ['vertical', 'horizontal'],
-},
+  {
+    attribute: '[data-state]',
+    values: ['open', 'closed'],
+  },
+  {
+    attribute: '[data-disabled]',
+    values: 'Present when disabled',
+  },
+  {
+    attribute: '[data-orientation]',
+    values: ['vertical', 'horizontal'],
+  },
 ]
 ---
 ::
@@ -344,14 +344,14 @@ values: ['vertical', 'horizontal'],
 ::css-variables-table
 ---
 data: [
-{
-cssVariable: '--radix-accordion-content-width',
-description: 'The width of the content when it opens/closes',
-},
-{
-cssVariable: '--radix-accordion-content-height',
-description: 'The height of the content when it opens/closes',
-},
+  {
+    cssVariable: '--radix-accordion-content-width',
+    description: 'The width of the content when it opens/closes',
+  },
+  {
+    cssVariable: '--radix-accordion-content-height',
+    description: 'The height of the content when it opens/closes',
+  },
 ]
 ---
 ::
@@ -497,46 +497,46 @@ Adheres to the [Accordion WAI-ARIA design pattern](https://www.w3.org/TR/wai-ari
 ::keyboard-table
 ---
 data: [
-{
-keys: ['Space'],
-description: 'Moves focus to the next',
-},
-{
-keys: ['Enter'],
-description: 'Moves focus to the next',
-},
-{
-keys: ['Tab'],
-description: 'Moves focus to the next focusable element.',
-},
-{
-keys: ['Shift + Tab'],
-description: 'Moves focus to the previous focusable element.',
-},
-{
-keys: ['ArrowDown'],
-description: 'Moves focus to the next',
-},
-{
-keys: ['ArrowUp'],
-description: 'Moves focus to the next',
-},
-{
-keys: ['ArrowRight'],
-description: 'Moves focus to the next',
-},
-{
-keys: ['ArrowLeft'],
-description: 'Moves focus to the next',
-},
-{
-keys: ['Home'],
-description: 'Moves focus to the next',
-},
-{
-keys: ['End'],
-description: 'Moves focus to the next',
-},
+  {
+    keys: ['Space'],
+    description: 'Moves focus to the next',
+  },
+  {
+    keys: ['Enter'],
+    description: 'Moves focus to the next',
+  },
+  {
+    keys: ['Tab'],
+    description: 'Moves focus to the next focusable element.',
+  },
+  {
+    keys: ['Shift + Tab'],
+    description: 'Moves focus to the previous focusable element.',
+  },
+  {
+    keys: ['ArrowDown'],
+    description: 'Moves focus to the next',
+  },
+  {
+    keys: ['ArrowUp'],
+    description: 'Moves focus to the next',
+  },
+  {
+    keys: ['ArrowRight'],
+    description: 'Moves focus to the next',
+  },
+  {
+    keys: ['ArrowLeft'],
+    description: 'Moves focus to the next',
+  },
+  {
+    keys: ['Home'],
+    description: 'Moves focus to the next',
+  },
+  {
+    keys: ['End'],
+    description: 'Moves focus to the next',
+  },
 ]
 ---
 ::

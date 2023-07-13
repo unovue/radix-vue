@@ -7,7 +7,8 @@ export interface SelectRootProps {
   defaultOpen?: boolean;
   //onOpenChange?: void;
   defaultValue?: string;
-  modelValue?: string;
+  modelValue?: string | string[];
+  multiple?: boolean;
   orientation?: DataOrientation;
   dir?: Direction;
 }
@@ -18,7 +19,7 @@ export const SELECT_INJECTION_KEY =
 export type SelectProvideValue = {
   selectedElement: Ref<HTMLElement | undefined>;
   changeSelected: (value: HTMLElement) => void;
-  modelValue: Readonly<Ref<string | undefined>>;
+  modelValue: Readonly<Ref<string | string[] | undefined>>;
   setValue: (value: string) => void;
   isOpen: Readonly<Ref<boolean>>;
   showTooltip(): void;
@@ -26,6 +27,7 @@ export type SelectProvideValue = {
   triggerElement: Ref<HTMLElement | undefined>;
   itemsArray: HTMLElement[];
   orientation: DataOrientation;
+  multiple?: boolean;
 };
 </script>
 
@@ -40,12 +42,11 @@ const props = withDefaults(defineProps<SelectRootProps>(), {
 });
 
 const emit = defineEmits<{
-  (e: "update:modelValue", value: string): void;
+  (e: "update:modelValue", value: string | string[]): void;
 }>();
 
 const modelValue = useVModel(props, "modelValue", emit, {
   defaultValue: props.defaultValue,
-  passive: true,
 });
 
 const selectedElement = ref<HTMLElement>();
@@ -59,9 +60,7 @@ provide<SelectProvideValue>(SELECT_INJECTION_KEY, {
     selectedElement.value!.focus();
   },
   modelValue,
-  setValue: (value) => {
-    modelValue.value = value;
-  },
+  setValue: changeModelValue,
   isOpen,
   showTooltip: () => {
     isOpen.value = true;
@@ -72,7 +71,25 @@ provide<SelectProvideValue>(SELECT_INJECTION_KEY, {
   triggerElement,
   itemsArray: [],
   orientation: props.orientation,
+  multiple: props.multiple,
 });
+
+function changeModelValue(value: string) {
+  if (props.multiple) {
+    let modelValueArray = modelValue.value as string[];
+    if (modelValueArray.includes(value)) {
+      let index = modelValueArray.findIndex((i) => i === value);
+      modelValueArray.splice(index, 1);
+    } else {
+      modelValueArray.push(value);
+    }
+    console.log('multiple')
+    modelValue.value = modelValueArray;
+    console.log(modelValueArray);
+  } else {
+    modelValue.value = value;
+  }
+}
 </script>
 
 <template>

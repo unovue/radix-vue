@@ -25,7 +25,7 @@ onMounted(() => {
 async function handleClick() {
   injectedValue?.showTooltip();
   await nextTick();
-  if (injectedValue?.modelValue.value) {
+  if (injectedValue?.modelValue.value && !injectedValue?.multiple) {
     const selectedElement = injectedValue.itemsArray?.find((element) => {
       return (
         element.getAttribute("data-radix-vue-radio-value") ===

@@ -26,6 +26,7 @@ import ContextMenuDemo from "./components/Demo/ContextMenuDemo.vue";
 import ScrollAreaDemo from "./components/Demo/ScrollAreaDemo.vue";
 import SelectDemo from "./components/Demo/SelectDemo.vue";
 import MenubarDemo from "./components/Demo/MenubarDemo.vue";
+import SelectMultipleDemo from './components/Demo/SelectMultipleDemo.vue';
 </script>
 
 <template>
@@ -81,6 +82,9 @@ import MenubarDemo from "./components/Demo/MenubarDemo.vue";
       </Card>
       <Card>
         <SelectDemo />
+      </Card>
+      <Card>
+        <SelectMultipleDemo />
       </Card>
       <Card>
         <SeparatorDemo />

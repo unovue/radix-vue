@@ -8,9 +8,9 @@ import {
 import { SELECT_ITEM_SYMBOL } from "./utils";
 import { type DropdownMenuProvideValue } from "@/DropdownMenu/DropdownMenuRoot.vue";
 
-interface SelectItemProps {
+export interface SelectItemProps {
   asChild?: boolean;
-  value?: string;
+  value: string;
   disabled?: boolean;
   id?: string;
   name?: string;
@@ -18,31 +18,30 @@ interface SelectItemProps {
   textValue?: string;
 }
 
+export type SelectItemProvideValue = {
+  value: string;
+};
+
 const rootInjectedValue = inject<SelectProvideValue>(SELECT_INJECTION_KEY);
 
 const props = defineProps<SelectItemProps>();
 
-const radioDataState = computed(() => {
+const selectItemDataState = computed(() => {
   return rootInjectedValue?.modelValue?.value === props.value ? "on" : "off";
 });
 
 function handleClick() {
-  if (rootInjectedValue?.selectedElement.value) {
-    rootInjectedValue?.setValue(props.value!);
-  }
-  return rootInjectedValue?.hideTooltip();
+  rootInjectedValue?.setValue(props.value);
+  return handleEscape();
 }
-
-const modelValue = computed(
-  () => rootInjectedValue?.modelValue?.value === props.value
-);
-provide(SELECT_ITEM_SYMBOL, {
-  modelValue,
-});
 
 function handleEscape() {
   rootInjectedValue?.hideTooltip();
 }
+
+provide<SelectItemProvideValue>(SELECT_ITEM_SYMBOL, {
+  value: props.value,
+});
 </script>
 
 <template>
@@ -55,7 +54,7 @@ function handleEscape() {
     @click="handleClick"
     @escape-keydown="handleEscape"
     role="menuitemradio"
-    :data-state="radioDataState"
+    :data-state="selectItemDataState"
   >
     <slot />
   </BaseMenuItem>

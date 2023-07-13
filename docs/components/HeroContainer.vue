@@ -12,4 +12,7 @@
 input {
   background-color: white;
 }
+button:focus, button:focus-visible {
+  outline: 0;
+}
 </style>

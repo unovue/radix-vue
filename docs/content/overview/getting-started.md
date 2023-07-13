@@ -4,8 +4,12 @@ metaDescription: A quick tutorial to get you up and running with Radix Primitive
 name: popover
 ---
 
+
 <script setup>
 import Description from '../../components/Description.vue'
+import HeroContainer from '../../components/HeroContainer.vue'
+import DemoGettingStarted from '../../components/demo/GettingStarted/index.vue'
+import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 </script>
 
 # Getting started
@@ -91,13 +95,14 @@ Add styles where desired.
 
 Here's a complete demo.
 
-::hero-container
-#previewSlot
-  :demo-getting-started
-#codeSlot
-::hero-code-group{folder="GettingStarted"}
-::
-::
+<HeroContainer>
+<DemoGettingStarted />
+</HeroContainer>
+
+::: code-group
+<<< ../../components/demo/GettingStarted/index.vue
+<<< ../../components/demo/GettingStarted/styles.css
+:::
 
 ## Summary
 

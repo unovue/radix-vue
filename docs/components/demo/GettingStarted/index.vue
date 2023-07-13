@@ -1,6 +1,13 @@
 <script setup lang="ts">
-import { PopoverRoot, PopoverTrigger, PopoverPortal, PopoverContent, PopoverArrow, PopoverClose } from "radix-vue";
-import './styles.css';
+import {
+  PopoverRoot,
+  PopoverTrigger,
+  PopoverPortal,
+  PopoverContent,
+  PopoverArrow,
+  PopoverClose,
+} from "radix-vue";
+import "./styles.css";
 </script>
 
 <template>

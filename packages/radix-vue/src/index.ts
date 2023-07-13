@@ -133,6 +133,18 @@ export {
   ContextMenuRadioItem,
 } from "./ContextMenu";
 export {
+  SelectArrow,
+  SelectContent,
+  SelectPortal,
+  SelectRoot,
+  SelectSeparator,
+  SelectTrigger,
+  SelectItemIndicator,
+  SelectLabel,
+  SelectGroup,
+  SelectItem,
+} from "./Select";
+export {
   MenubarArrow,
   MenubarContent,
   MenubarGroup,

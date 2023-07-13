@@ -47,6 +47,10 @@ const modelValue = computed(
 provide(SELECT_ITEM_SYMBOL, {
   modelValue,
 });
+
+function handleEscape() {
+  rootInjectedValue?.hideTooltip();
+}
 </script>
 
 <template>
@@ -57,6 +61,7 @@ provide(SELECT_ITEM_SYMBOL, {
     :data-radix-vue-radio-value="props.value"
     @handle-click="handleClick"
     @click="handleClick"
+    @escape-keydown="handleEscape"
     role="menuitemradio"
     :data-state="radioDataState"
   >

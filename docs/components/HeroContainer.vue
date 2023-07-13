@@ -15,4 +15,8 @@ input {
 button:focus, button:focus-visible {
   outline: 0;
 }
+h3 {
+  margin: 0px !important;
+  font-weight: unset !important;
+}
 </style>

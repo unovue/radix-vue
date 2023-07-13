@@ -17,7 +17,7 @@ import { Icon } from "@iconify/vue";
       >
         <ul>
           Add to library
-          <TooltipArrow class="bg-white" size="8" />
+          <TooltipArrow class="fill-white" size="8" />
         </ul>
       </TooltipContent>
     </TooltipPortal>

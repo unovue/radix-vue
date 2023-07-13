@@ -4,20 +4,29 @@ metaDescription: An image element with a fallback for representing the user.
 name: avatar
 ---
 
+<script setup>
+import Description from '../../components/Description.vue'
+import HeroContainer from '../../components/HeroContainer.vue'
+import DemoAvatar from '../../components/demo/Avatar/index.vue'
+import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+</script>
+
 # Avatar
 
-::description
-An image element with a fallback for representing the user.
-::
+<Description>
+A modal dialog that interrupts the user with important content and expects a
+response.
+</Description>
 
-::hero-container
-#previewSlot
-  :demo-avatar
-#codeSlot
-::hero-code-group{folder="Avatar"}
-::
-::
+<HeroContainer>
+<DemoAvatar />
+</HeroContainer>
 
+::: code-group
+<<< ../../components/demo/Avatar/index.vue
+:::
+
+<!--
 <Highlights
   features={[
     'Automatic and manual control over when the image renders.',
@@ -25,6 +34,7 @@ An image element with a fallback for representing the user.
     'Optionally delay fallback rendering to avoid content flashing.',
   ]}
 />
+-->
 
 ## Installation
 
@@ -55,6 +65,7 @@ export default () => (
 
 Contains all the parts of an avatar.
 
+<!--
 <PropsTable
   data={[
     {
@@ -75,11 +86,13 @@ Contains all the parts of an avatar.
     },
   ]}
 />
+-->
 
 ### Image
 
 The image to render. By default it will only render when it has loaded. You can use the `onLoadingStatusChange` handler if you need more control.
 
+<!--
 <PropsTable
   data={[
     {
@@ -107,11 +120,13 @@ The image to render. By default it will only render when it has loaded. You can 
     },
   ]}
 />
+-->
 
 ### Fallback
 
 An element that renders when the image hasn't loaded. This means whilst it's loading, or if there was an error. If you notice a flash during loading, you can provide a `delayMs` prop to delay its rendering so it only renders for those with slower connections. For more control, use the `onLoadingStatusChange` handler on `Avatar.Image`.
 
+<!--
 <PropsTable
   data={[
     {
@@ -138,6 +153,7 @@ An element that renders when the image hasn't loaded. This means whilst it's loa
     },
   ]}
 />
+-->
 
 ## Examples
 

@@ -5,21 +5,28 @@ name: radio-group
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/radiobutton
 ---
 
-# Radio Group
+<script setup>
+import Description from '../../components/Description.vue'
+import HeroContainer from '../../components/HeroContainer.vue'
+import DemoRadioGroup from '../../components/demo/RadioGroup/index.vue'
+import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+</script>
 
-::description
-A set of checkable buttons—known as radio buttons—where no more than one of
-the buttons can be checked at a time.
-::
+# RadioGroup
 
-::hero-container
-#previewSlot
-  :demo-radio-group
-#codeSlot
-::hero-code-group{folder="RadioGroup"}
-::
-::
+<Description>
+A modal dialog that interrupts the user with important content and expects a
+response.
+</Description>
 
+<HeroContainer>
+<DemoRadioGroup />
+</HeroContainer>
+
+::: code-group
+<<< ../../components/demo/RadioGroup/index.vue
+:::
+```
 <Highlights
   features={[
     'Full keyboard navigation.',
@@ -27,7 +34,7 @@ the buttons can be checked at a time.
     'Can be controlled or uncontrolled.',
   ]}
 />
-
+```
 ## Installation
 
 Install the component from your command line.
@@ -57,7 +64,7 @@ export default () => (
 ### Root
 
 Contains all the parts of a radio group.
-
+```
 <PropsTable
   data={[
     {
@@ -168,11 +175,11 @@ Contains all the parts of a radio group.
     },
   ]}
 />
-
+```
 ### Item
 
 An item in the group that can be checked. An `input` will also render when used within a `form` to ensure events propagate correctly.
-
+```
 <PropsTable
   data={[
     {
@@ -235,11 +242,11 @@ An item in the group that can be checked. An `input` will also render when used 
     },
   ]}
 />
-
+```
 ### Indicator
 
 Renders when the radio item is in a checked state. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
-
+```
 <PropsTable
   data={[
     {
@@ -279,13 +286,13 @@ Renders when the radio item is in a checked state. You can style this element di
     },
   ]}
 />
-
+```
 ## Accessibility
 
 Adheres to the [Radio Group WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/radiobutton) and uses [roving tabindex](https://www.w3.org/TR/wai-aria-practices-1.2/examples/radio/radio.html) to manage focus movement among radio items.
 
 ### Keyboard Interactions
-
+```
 <KeyboardTable
   data={[
     {
@@ -315,3 +322,4 @@ Adheres to the [Radio Group WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA
     },
   ]}
 />
+```

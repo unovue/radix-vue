@@ -1,18 +1,20 @@
 ---
-metaTitle: Context Menu
-metaDescription: Displays a menu located at the pointer, triggered by a right-click or a long-press.
-name: context-menu
-aria: https://www.w3.org/WAI/ARIA/apg/patterns/menu
+metaTitle: Menubar
+metaDescription:
+  A visually persistent menu common in desktop applications that provides quick
+  access to a consistent set of commands.
+name: menubar
+aria: https://www.w3.org/WAI/ARIA/apg/patterns/menu/
 ---
 
 <script setup>
 import Description from '../../components/Description.vue'
 import HeroContainer from '../../components/HeroContainer.vue'
-import DemoContextMenu from '../../components/demo/ContextMenu/index.vue'
+import DemoMenubar from '../../components/demo/Menubar/index.vue'
 import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 </script>
 
-# Context Menu
+# Menubar
 
 <Description>
 A modal dialog that interrupts the user with important content and expects a
@@ -20,35 +22,33 @@ response.
 </Description>
 
 <HeroContainer>
-<DemoContextMenu />
+<DemoMenubar />
 </HeroContainer>
 
 ::: code-group
-<<< ../../components/demo/ContextMenu/index.vue
+<<< ../../components/demo/Menubar/index.vue
 :::
-
-<!--
+```
 <Highlights
   features={[
+    'Can be controlled or uncontrolled.',
     'Supports submenus with configurable reading direction.',
     'Supports items, labels, groups of items.',
-    'Supports checkable items (single or multiple) with optional indeterminate state.',
-    'Supports modal and non-modal modes.',
+    'Supports checkable items (single or multiple).',
     'Customize side, alignment, offsets, collision handling.',
+    'Optionally render a pointing arrow.',
     'Focus is fully managed.',
     'Full keyboard navigation.',
     'Typeahead support.',
-    'Dismissing and layering behavior is highly customizable.',
-    'Triggers with a long-press on touch devices',
   ]}
 />
--->
+```
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-context-menu
+npm install @radix-ui/react-menubar
 ```
 
 ## Anatomy
@@ -56,95 +56,53 @@ npm install @radix-ui/react-context-menu
 Import all parts and piece them together.
 
 ```jsx
-import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as Menubar from '@radix-ui/react-menubar';
 
 export default () => (
-  <ContextMenu.Root>
-    <ContextMenu.Trigger />
+  <Menubar.Root>
+    <Menubar.Menu>
+      <Menubar.Trigger />
+      <Menubar.Portal>
+        <Menubar.Content>
+          <Menubar.Label />
+          <Menubar.Item />
 
-    <ContextMenu.Portal>
-      <ContextMenu.Content>
-        <ContextMenu.Label />
-        <ContextMenu.Item />
+          <Menubar.Group>
+            <Menubar.Item />
+          </Menubar.Group>
 
-        <ContextMenu.Group>
-          <ContextMenu.Item />
-        </ContextMenu.Group>
+          <Menubar.CheckboxItem>
+            <Menubar.ItemIndicator />
+          </Menubar.CheckboxItem>
 
-        <ContextMenu.CheckboxItem>
-          <ContextMenu.ItemIndicator />
-        </ContextMenu.CheckboxItem>
+          <Menubar.RadioGroup>
+            <Menubar.RadioItem>
+              <Menubar.ItemIndicator />
+            </Menubar.RadioItem>
+          </Menubar.RadioGroup>
 
-        <ContextMenu.RadioGroup>
-          <ContextMenu.RadioItem>
-            <ContextMenu.ItemIndicator />
-          </ContextMenu.RadioItem>
-        </ContextMenu.RadioGroup>
+          <Menubar.Sub>
+            <Menubar.SubTrigger />
+            <Menubar.Portal>
+              <Menubar.SubContent />
+            </Menubar.Portal>
+          </Menubar.Sub>
 
-        <ContextMenu.Sub>
-          <ContextMenu.SubTrigger />
-          <ContextMenu.Portal>
-            <ContextMenu.SubContent />
-          </ContextMenu.Portal>
-        </ContextMenu.Sub>
-
-        <ContextMenu.Separator />
-      </ContextMenu.Content>
-    </ContextMenu.Portal>
-  </ContextMenu.Root>
+          <Menubar.Separator />
+          <Menubar.Arrow />
+        </Menubar.Content>
+      </Menubar.Portal>
+    </Menubar.Menu>
+  </Menubar.Root>
 );
 ```
 
 ## API Reference
 
-Adheres to the [Menu WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/menu) and uses [roving tabindex](https://www.w3.org/TR/wai-aria-practices-1.2/examples/menu-button/menu-button-actions.html) to manage focus movement among menu items.
-
 ### Root
 
-Contains all the parts of a context menu.
-<!--
-<PropsTable
-  data={[
-    {
-      name: 'dir',
-      required: false,
-      type: '"ltr" | "rtl"',
-      typeSimple: 'enum',
-      description: (
-        <span>
-          The reading direction of submenus when applicable. If omitted,
-          inherits globally from <Code>DirectionProvider</Code> or assumes LTR
-          (left-to-right) reading mode.
-        </span>
-      ),
-    },
-    {
-      name: 'onOpenChange',
-      type: '(open: boolean) => void',
-      typeSimple: 'function',
-      description:
-        'Event handler called when the open state of the context menu changes.',
-    },
-    {
-      name: 'modal',
-      required: false,
-      type: 'boolean',
-      default: 'true',
-      description: (
-        <span>
-          The modality of the context menu. When set to <Code>true</Code>,
-          interaction with outside elements will be disabled and only menu
-          content will be visible to screen readers.
-        </span>
-      ),
-    },
-  ]}
-/>
--->
-### Trigger
-
-The area that opens the context menu. Wrap it around the target you want the context menu to open from when right-clicking (or using the relevant keyboard shortcuts).
-<!--
+Contains all the parts of a menubar.
+```
 <PropsTable
   data={[
     {
@@ -164,16 +122,119 @@ The area that opens the context menu. Wrap it around the target you want the con
       ),
     },
     {
-      name: 'disabled',
+      name: 'defaultValue',
+      required: false,
+      type: 'string',
+      description: (
+        <span>
+          The value of the menu that should be open when initially rendered. Use
+          when you do not need to control the value state.
+        </span>
+      ),
+    },
+    {
+      name: 'value',
+      required: false,
+      type: 'string',
+      description: (
+        <span>
+          The controlled value of the menu to open. Should be used in
+          conjunction with <Code>onValueChange</Code>.
+        </span>
+      ),
+    },
+    {
+      name: 'onValueChange',
+      required: false,
+      type: '(value: string) => void',
+      typeSimple: 'function',
+      description: 'Event handler called when the value changes.',
+    },
+    {
+      name: 'dir',
+      required: false,
+      type: '"ltr" | "rtl"',
+      typeSimple: 'enum',
+      description: (
+        <span>
+          The reading direction. If omitted, inherits globally from{' '}
+          <Code>DirectionProvider</Code> or assumes LTR (left-to-right) reading
+          mode.
+        </span>
+      ),
+    },
+    {
+      name: 'loop',
       required: false,
       type: 'boolean',
       default: 'false',
       description: (
         <span>
-          When <Code>true</Code>, the context menu won't open when
-          right-clicking. Note that this will also restore the native context
-          menu.
+          When <Code>true</Code>, keyboard navigation will loop from last item
+          to first, and vice versa.
         </span>
+      ),
+    },
+  ]}
+/>
+```
+### Menu
+
+A top level menu item, contains a trigger with content combination.
+```
+<PropsTable
+  data={[
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: (
+        <>
+          Change the default rendered element for the one passed as a child,
+          merging their props and behavior.
+          <br />
+          <br />
+          Read our <a href="../guides/composition">Composition</a> guide for more
+          details.
+        </>
+      ),
+    },
+    {
+      name: 'value',
+      required: false,
+      type: 'string',
+      description: (
+        <span>
+          A unique value that associates the item with an active value when the
+          navigation menu is controlled. This prop is managed automatically when
+          uncontrolled.
+        </span>
+      ),
+    },
+  ]}
+/>
+```
+### Trigger
+
+The button that toggles the content. By default, the `Menubar.Content` will position itself against the trigger.
+```
+<PropsTable
+  data={[
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: (
+        <>
+          Change the default rendered element for the one passed as a child,
+          merging their props and behavior.
+          <br />
+          <br />
+          Read our <a href="../guides/composition">Composition</a> guide for more
+          details.
+        </>
       ),
     },
   ]}
@@ -185,13 +246,21 @@ The area that opens the context menu. Wrap it around the target you want the con
       attribute: '[data-state]',
       values: ['open', 'closed'],
     },
+    {
+      attribute: '[data-highlighted]',
+      values: 'Present when highlighted',
+    },
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    },
   ]}
 />
--->
+```
 ### Portal
 
 When used, portals the content part into the `body`.
-<!--
+```
 <PropsTable
   data={[
     {
@@ -201,8 +270,8 @@ When used, portals the content part into the `body`.
         <span>
           Used to force mounting when more control is needed. Useful when
           controlling animation with React animation libraries. If used on this
-          part, it will be inherited by <Code>ContextMenu.Content</Code> and{' '}
-          <Code>ContextMenu.SubContent</Code> respectively.
+          part, it will be inherited by <Code>Menubar.Content</Code> and{' '}
+          <Code>Menubar.SubContent</Code> respectively.
         </span>
       ),
     },
@@ -214,11 +283,11 @@ When used, portals the content part into the `body`.
     },
   ]}
 />
--->
+```
 ### Content
 
-The component that pops out in an open context menu.
-<!--
+The component that pops out when a menu is open.
+```
 <PropsTable
   data={[
     {
@@ -255,8 +324,8 @@ The component that pops out in an open context menu.
       typeSimple: 'function',
       description: (
         <span>
-          Event handler called when focus moves back after closing. It can be
-          prevented by calling <Code>event.preventDefault</Code>.
+          Event handler called when focus moves to the trigger after closing. It
+          can be prevented by calling <Code>event.preventDefault</Code>.
         </span>
       ),
     },
@@ -267,7 +336,7 @@ The component that pops out in an open context menu.
       description: (
         <span>
           Event handler called when the escape key is down. It can be prevented
-          by calling <Code>event.preventDefault</Code>.
+          by calling <Code>event.preventDefault</Code>
         </span>
       ),
     },
@@ -314,7 +383,38 @@ The component that pops out in an open context menu.
         <span>
           Used to force mounting when more control is needed. Useful when
           controlling animation with React animation libraries. It inherits from{' '}
-          <Code>ContextMenu.Portal</Code>.
+          <Code>Menubar.Portal</Code>.
+        </span>
+      ),
+    },
+    {
+      name: 'side',
+      type: '"top" | "right" | "bottom" | "left"',
+      typeSimple: 'enum',
+      default: '"bottom"',
+      description: (
+        <span>
+          The preferred side of the trigger to render against when open. Will be
+          reversed when collisions occur and <Code>avoidCollisions</Code> is
+          enabled.
+        </span>
+      ),
+    },
+    {
+      name: 'sideOffset',
+      type: 'number',
+      default: '0',
+      description: <span>The distance in pixels from the trigger.</span>,
+    },
+    {
+      name: 'align',
+      type: '"start" | "center" | "end"',
+      typeSimple: 'enum',
+      default: '"center"',
+      description: (
+        <span>
+          The preferred alignment against the trigger. May change when
+          collisions occur.
         </span>
       ),
     },
@@ -323,7 +423,10 @@ The component that pops out in an open context menu.
       type: 'number',
       default: '0',
       description: (
-        <span>The vertical distance in pixels from the anchor.</span>
+        <span>
+          An offset in pixels from the <Code>"start"</Code> or{' '}
+          <Code>"end"</Code> alignment options.
+        </span>
       ),
     },
     {
@@ -361,6 +464,18 @@ The component that pops out in an open context menu.
           detection should occur. Accepts a number (same for all sides), or a
           partial padding object, for example: <Code>{`{ top: 20, left: 20 }`}</Code>
           .
+        </span>
+      ),
+    },
+    {
+      name: 'arrowPadding',
+      type: 'number',
+      default: '0',
+      description: (
+        <span>
+          The padding between the arrow and the edges of the content. If your
+          content has <Code>border-radius</Code>, this will prevent it from
+          overflowing the corners.
         </span>
       ),
     },
@@ -411,7 +526,7 @@ The component that pops out in an open context menu.
 <CssVariablesTable
   data={[
     {
-      cssVariable: '--radix-context-menu-content-transform-origin',
+      cssVariable: '--radix-menubar-content-transform-origin',
       description: (
         <>
           The <Code>transform-origin</Code> computed from the content and arrow
@@ -420,32 +535,32 @@ The component that pops out in an open context menu.
       ),
     },
     {
-      cssVariable: '--radix-context-menu-content-available-width',
+      cssVariable: '--radix-menubar-content-available-width',
       description: (
         <>The remaining width between the trigger and the boundary edge</>
       ),
     },
     {
-      cssVariable: '--radix-context-menu-content-available-height',
+      cssVariable: '--radix-menubar-content-available-height',
       description: (
         <>The remaining height between the trigger and the boundary edge</>
       ),
     },
     {
-      cssVariable: '--radix-context-menu-trigger-width',
+      cssVariable: '--radix-menubar-trigger-width',
       description: <>The width of the trigger</>,
     },
     {
-      cssVariable: '--radix-context-menu-trigger-height',
+      cssVariable: '--radix-menubar-trigger-height',
       description: <>The height of the trigger</>,
     },
   ]}
 />
--->
+```
 ### Arrow
 
-An optional arrow element to render alongside a submenu. This can be used to help visually link the trigger item with the `ContextMenu.Content`. Must be rendered inside `ContextMenu.Content`.
-<!--
+An optional arrow element to render alongside a menubar menu. This can be used to help visually link the trigger with the `Menubar.Content`. Must be rendered inside `Menubar.Content`.
+```
 <PropsTable
   data={[
     {
@@ -478,11 +593,11 @@ An optional arrow element to render alongside a submenu. This can be used to hel
     },
   ]}
 />
--->
+```
 ### Item
 
-The component that contains the context menu items.
-<!--
+The component that contains the menubar items.
+```
 <PropsTable
   data={[
     {
@@ -519,7 +634,7 @@ The component that contains the context menu items.
         <span>
           Event handler called when the user selects an item (via mouse or
           keyboard). Calling <Code>event.preventDefault</Code> in this handler
-          will prevent the context menu from closing when selecting that item.
+          will prevent the menubar from closing when selecting that item.
         </span>
       ),
     },
@@ -549,11 +664,11 @@ The component that contains the context menu items.
     },
   ]}
 />
--->
+```
 ### Group
 
-Used to group multiple `ContextMenu.Item`s.
-<!--
+Used to group multiple `Menubar.Item`s.
+```
 <PropsTable
   data={[
     {
@@ -574,11 +689,11 @@ Used to group multiple `ContextMenu.Item`s.
     },
   ]}
 />
--->
+```
 ### Label
 
 Used to render a label. It won't be focusable using arrow keys.
-<!--
+```
 <PropsTable
   data={[
     {
@@ -599,11 +714,11 @@ Used to render a label. It won't be focusable using arrow keys.
     },
   ]}
 />
--->
+```
 ### CheckboxItem
 
 An item that can be controlled and rendered like a checkbox.
-<!--
+```
 <PropsTable
   data={[
     {
@@ -634,7 +749,7 @@ An item that can be controlled and rendered like a checkbox.
     },
     {
       name: 'onCheckedChange',
-      type: `(checked: boolean) => void`,
+      type: '(checked: boolean) => void',
       typeSimple: 'function',
       description: (
         <span>Event handler called when the checked state changes.</span>
@@ -658,7 +773,7 @@ An item that can be controlled and rendered like a checkbox.
         <span>
           Event handler called when the user selects an item (via mouse or
           keyboard). Calling <Code>event.preventDefault</Code> in this handler
-          will prevent the context menu from closing when selecting that item.
+          will prevent the menubar from closing when selecting that item.
         </span>
       ),
     },
@@ -680,7 +795,7 @@ An item that can be controlled and rendered like a checkbox.
   data={[
     {
       attribute: '[data-state]',
-      values: ['checked', 'unchecked', 'indeterminate'],
+      values: ['checked', 'unchecked'],
     },
     {
       attribute: '[data-highlighted]',
@@ -692,11 +807,11 @@ An item that can be controlled and rendered like a checkbox.
     },
   ]}
 />
--->
+```
 ### RadioGroup
 
-Used to group multiple `ContextMenu.RadioItem`s.
-<!--
+Used to group multiple `Menubar.RadioItem`s.
+```
 <PropsTable
   data={[
     {
@@ -728,11 +843,11 @@ Used to group multiple `ContextMenu.RadioItem`s.
     },
   ]}
 />
--->
+```
 ### RadioItem
 
 An item that can be controlled and rendered like a radio.
-<!--
+```
 <PropsTable
   data={[
     {
@@ -775,7 +890,7 @@ An item that can be controlled and rendered like a radio.
         <span>
           Event handler called when the user selects an item (via mouse or
           keyboard). Calling <Code>event.preventDefault</Code> in this handler
-          will prevent the context menu from closing when selecting that item.
+          will prevent the menubar from closing when selecting that item.
         </span>
       ),
     },
@@ -797,7 +912,7 @@ An item that can be controlled and rendered like a radio.
   data={[
     {
       attribute: '[data-state]',
-      values: ['checked', 'unchecked', 'indeterminate'],
+      values: ['checked', 'unchecked'],
     },
     {
       attribute: '[data-highlighted]',
@@ -809,11 +924,11 @@ An item that can be controlled and rendered like a radio.
     },
   ]}
 />
--->
+```
 ### ItemIndicator
 
-Renders when the parent `ContextMenu.CheckboxItem` or `ContextMenu.RadioItem` is checked. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
-<!--
+Renders when the parent `Menubar.CheckboxItem` or `Menubar.RadioItem` is checked. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
+```
 <PropsTable
   data={[
     {
@@ -849,15 +964,15 @@ Renders when the parent `ContextMenu.CheckboxItem` or `ContextMenu.RadioItem` is
   data={[
     {
       attribute: '[data-state]',
-      values: ['checked', 'unchecked', 'indeterminate'],
+      values: ['checked', 'unchecked'],
     },
   ]}
 />
--->
+```
 ### Separator
 
-Used to visually separate items in the context menu.
-<!--
+Used to visually separate items in a menubar menu.
+```
 <PropsTable
   data={[
     {
@@ -878,11 +993,11 @@ Used to visually separate items in the context menu.
     },
   ]}
 />
-
+```
 ### Sub
 
 Contains all the parts of a submenu.
-
+```
 <PropsTable
   data={[
     {
@@ -917,11 +1032,11 @@ Contains all the parts of a submenu.
     },
   ]}
 />
--->
+```
 ### SubTrigger
 
-An item that opens a submenu. Must be rendered inside `ContextMenu.Sub`.
-<!--
+An item that opens a submenu. Must be rendered inside `Menubar.Sub`.
+```
 <PropsTable
   data={[
     {
@@ -980,11 +1095,11 @@ An item that opens a submenu. Must be rendered inside `ContextMenu.Sub`.
     },
   ]}
 />
--->
+```
 ### SubContent
 
-The component that pops out when a submenu is open. Must be rendered inside `ContextMenu.Sub`.
-<!--
+The component that pops out when a submenu is open. Must be rendered inside `Menubar.Sub`.
+```
 <PropsTable
   data={[
     {
@@ -1069,7 +1184,7 @@ The component that pops out when a submenu is open. Must be rendered inside `Con
         <span>
           Used to force mounting when more control is needed. Useful when
           controlling animation with React animation libraries. It inherits from{' '}
-          <Code>ContextMenu.Portal</Code>.
+          <Code>Menubar.Portal</Code>.
         </span>
       ),
     },
@@ -1181,13 +1296,17 @@ The component that pops out when a submenu is open. Must be rendered inside `Con
       attribute: '[data-align]',
       values: ['start', 'end', 'center'],
     },
+    {
+      attribute: '[data-orientation]',
+      values: ['vertical', 'horizontal'],
+    },
   ]}
 />
 
 <CssVariablesTable
   data={[
     {
-      cssVariable: '--radix-context-menu-content-transform-origin',
+      cssVariable: '--radix-menubar-content-transform-origin',
       description: (
         <>
           The <Code>transform-origin</Code> computed from the content and arrow
@@ -1196,86 +1315,90 @@ The component that pops out when a submenu is open. Must be rendered inside `Con
       ),
     },
     {
-      cssVariable: '--radix-context-menu-content-available-width',
+      cssVariable: '--radix-menubar-content-available-width',
       description: (
         <>The remaining width between the trigger and the boundary edge</>
       ),
     },
     {
-      cssVariable: '--radix-context-menu-content-available-height',
+      cssVariable: '--radix-menubar-content-available-height',
       description: (
         <>The remaining height between the trigger and the boundary edge</>
       ),
     },
     {
-      cssVariable: '--radix-context-menu-trigger-width',
+      cssVariable: '--radix-menubar-trigger-width',
       description: <>The width of the trigger</>,
     },
     {
-      cssVariable: '--radix-context-menu-trigger-height',
+      cssVariable: '--radix-menubar-trigger-height',
       description: <>The height of the trigger</>,
     },
   ]}
 />
--->
+```
 ## Examples
 
 ### With submenus
 
-You can create submenus by using `ContextMenu.Sub` in combination with its parts.
+You can create submenus by using `Menubar.Sub` in combination with its parts.
 
-```jsx line=8-17
-<ContextMenu.Root>
-  <ContextMenu.Trigger>…</ContextMenu.Trigger>
-  <ContextMenu.Portal>
-    <ContextMenu.Content>
-      <ContextMenu.Item>…</ContextMenu.Item>
-      <ContextMenu.Item>…</ContextMenu.Item>
-      <ContextMenu.Separator />
-      <ContextMenu.Sub>
-        <ContextMenu.SubTrigger>Sub menu →</ContextMenu.SubTrigger>
-        <ContextMenu.Portal>
-          <ContextMenu.SubContent>
-            <ContextMenu.Item>Sub menu item</ContextMenu.Item>
-            <ContextMenu.Item>Sub menu item</ContextMenu.Item>
-            <ContextMenu.Arrow />
-          </ContextMenu.SubContent>
-        </ContextMenu.Portal>
-      </ContextMenu.Sub>
-      <ContextMenu.Separator />
-      <ContextMenu.Item>…</ContextMenu.Item>
-    </ContextMenu.Content>
-  </ContextMenu.Portal>
-</ContextMenu.Root>
+```jsx line=9-18
+<Menubar.Root>
+  <Menubar.Menu>
+    <Menubar.Trigger>…</Menubar.Trigger>
+    <Menubar.Portal>
+      <Menubar.Content>
+        <Menubar.Item>…</Menubar.Item>
+        <Menubar.Item>…</Menubar.Item>
+        <Menubar.Separator />
+        <Menubar.Sub>
+          <Menubar.SubTrigger>Sub menu →</Menubar.SubTrigger>
+          <Menubar.Portal>
+            <Menubar.SubContent>
+              <Menubar.Item>Sub menu item</Menubar.Item>
+              <Menubar.Item>Sub menu item</Menubar.Item>
+              <Menubar.Arrow />
+            </Menubar.SubContent>
+          </Menubar.Portal>
+        </Menubar.Sub>
+        <Menubar.Separator />
+        <Menubar.Item>…</Menubar.Item>
+      </Menubar.Content>
+    </Menubar.Portal>
+  </Menubar.Menu>
+</Menubar.Root>
 ```
 
 ### With disabled items
 
 You can add special styles to disabled items via the `data-disabled` attribute.
 
-```jsx line=10
+```jsx line=11
 // index.jsx
-import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as Menubar from '@radix-ui/react-menubar';
 import './styles.css';
 
 export default () => (
-  <ContextMenu.Root>
-    <ContextMenu.Trigger>…</ContextMenu.Trigger>
-    <ContextMenu.Portal>
-      <ContextMenu.Content>
-        <ContextMenu.Item __className__="ContextMenuItem" __disabled__>
-          …
-        </ContextMenu.Item>
-        <ContextMenu.Item className="ContextMenuItem">…</ContextMenu.Item>
-      </ContextMenu.Content>
-    </ContextMenu.Portal>
-  </ContextMenu.Root>
+  <Menubar.Root>
+    <Menubar.Menu>
+      <Menubar.Trigger>…</Menubar.Trigger>
+      <Menubar.Portal>
+        <Menubar.Content>
+          <Menubar.Item __className__="MenubarItem" __disabled__>
+            …
+          </Menubar.Item>
+          <Menubar.Item className="MenubarItem">…</Menubar.Item>
+        </Menubar.Content>
+      </Menubar.Portal>
+    </Menubar.Menu>
+  </Menubar.Root>
 );
 ```
 
 ```css line=2
 /* styles.css */
-.ContextMenuItem[__data-disabled__] {
+.MenubarItem[__data-disabled__] {
   color: gainsboro;
 }
 ```
@@ -1284,71 +1407,77 @@ export default () => (
 
 Use the `Separator` part to add a separator between items.
 
-```jsx line=6,8
-<ContextMenu.Root>
-  <ContextMenu.Trigger>…</ContextMenu.Trigger>
-  <ContextMenu.Portal>
-    <ContextMenu.Content>
-      <ContextMenu.Item>…</ContextMenu.Item>
-      <ContextMenu.Separator />
-      <ContextMenu.Item>…</ContextMenu.Item>
-      <ContextMenu.Separator />
-      <ContextMenu.Item>…</ContextMenu.Item>
-    </ContextMenu.Content>
-  </ContextMenu.Portal>
-</ContextMenu.Root>
+```jsx line=7,9
+<Menubar.Root>
+  <Menubar.Menu>
+    <Menubar.Trigger>…</Menubar.Trigger>
+    <Menubar.Portal>
+      <Menubar.Content>
+        <Menubar.Item>…</Menubar.Item>
+        <Menubar.Separator />
+        <Menubar.Item>…</Menubar.Item>
+        <Menubar.Separator />
+        <Menubar.Item>…</Menubar.Item>
+      </Menubar.Content>
+    </Menubar.Portal>
+  </Menubar.Menu>
+</Menubar.Root>
 ```
 
 ### With labels
 
 Use the `Label` part to help label a section.
 
-```jsx line=5
-<ContextMenu.Root>
-  <ContextMenu.Trigger>…</ContextMenu.Trigger>
-  <ContextMenu.Portal>
-    <ContextMenu.Content>
-      <ContextMenu.Label>Label</ContextMenu.Label>
-      <ContextMenu.Item>…</ContextMenu.Item>
-      <ContextMenu.Item>…</ContextMenu.Item>
-      <ContextMenu.Item>…</ContextMenu.Item>
-    </ContextMenu.Content>
-  </ContextMenu.Portal>
-</ContextMenu.Root>
+```jsx line=6
+<Menubar.Root>
+  <Menubar.Menu>
+    <Menubar.Trigger>…</Menubar.Trigger>
+    <Menubar.Portal>
+      <Menubar.Content>
+        <Menubar.Label>Label</Menubar.Label>
+        <Menubar.Item>…</Menubar.Item>
+        <Menubar.Item>…</Menubar.Item>
+        <Menubar.Item>…</Menubar.Item>
+      </Menubar.Content>
+    </Menubar.Portal>
+  </Menubar.Menu>
+</Menubar.Root>
 ```
 
 ### With checkbox items
 
 Use the `CheckboxItem` part to add an item that can be checked.
 
-```jsx line=6,16-21
+```jsx line=6,17-22
 import React from 'react';
 import { CheckIcon } from '@radix-ui/react-icons';
-import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as Menubar from '@radix-ui/react-menubar';
 
 export default () => {
   const [checked, setChecked] = React.useState(true);
 
   return (
-    <ContextMenu.Root>
-      <ContextMenu.Trigger>…</ContextMenu.Trigger>
-      <ContextMenu.Portal>
-        <ContextMenu.Content>
-          <ContextMenu.Item>…</ContextMenu.Item>
-          <ContextMenu.Item>…</ContextMenu.Item>
-          <ContextMenu.Separator />
-          <ContextMenu.CheckboxItem
-            checked={checked}
-            onCheckedChange={setChecked}
-          >
-            <ContextMenu.ItemIndicator>
-              <CheckIcon />
-            </ContextMenu.ItemIndicator>
-            Checkbox item
-          </ContextMenu.CheckboxItem>
-        </ContextMenu.Content>
-      </ContextMenu.Portal>
-    </ContextMenu.Root>
+    <Menubar.Root>
+      <Menubar.Menu>
+        <Menubar.Trigger>…</Menubar.Trigger>
+        <Menubar.Portal>
+          <Menubar.Content>
+            <Menubar.Item>…</Menubar.Item>
+            <Menubar.Item>…</Menubar.Item>
+            <Menubar.Separator />
+            <Menubar.CheckboxItem
+              checked={checked}
+              onCheckedChange={setChecked}
+            >
+              <Menubar.ItemIndicator>
+                <CheckIcon />
+              </Menubar.ItemIndicator>
+              Checkbox item
+            </Menubar.CheckboxItem>
+          </Menubar.Content>
+        </Menubar.Portal>
+      </Menubar.Menu>
+    </Menubar.Root>
   );
 };
 ```
@@ -1357,42 +1486,38 @@ export default () => {
 
 Use the `RadioGroup` and `RadioItem` parts to add an item that can be checked amongst others.
 
-```jsx line=6,13-32
+```jsx line=6,14-27
 import React from 'react';
 import { CheckIcon } from '@radix-ui/react-icons';
-import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as Menubar from '@radix-ui/react-menubar';
 
 export default () => {
   const [color, setColor] = React.useState('blue');
 
   return (
-    <ContextMenu.Root>
-      <ContextMenu.Trigger>…</ContextMenu.Trigger>
-      <ContextMenu.Portal>
-        <ContextMenu.Content>
-          <ContextMenu.RadioGroup value={color} onValueChange={setColor}>
-            <ContextMenu.RadioItem value="red">
-              <ContextMenu.ItemIndicator>
-                <CheckIcon />
-              </ContextMenu.ItemIndicator>
-              Red
-            </ContextMenu.RadioItem>
-            <ContextMenu.RadioItem value="blue">
-              <ContextMenu.ItemIndicator>
-                <CheckIcon />
-              </ContextMenu.ItemIndicator>
-              Blue
-            </ContextMenu.RadioItem>
-            <ContextMenu.RadioItem value="green">
-              <ContextMenu.ItemIndicator>
-                <CheckIcon />
-              </ContextMenu.ItemIndicator>
-              Green
-            </ContextMenu.RadioItem>
-          </ContextMenu.RadioGroup>
-        </ContextMenu.Content>
-      </ContextMenu.Portal>
-    </ContextMenu.Root>
+    <Menubar.Root>
+      <Menubar.Menu>
+        <Menubar.Trigger>…</Menubar.Trigger>
+        <Menubar.Portal>
+          <Menubar.Content>
+            <Menubar.RadioGroup value={color} onValueChange={setColor}>
+              <Menubar.RadioItem value="red">
+                <Menubar.ItemIndicator>
+                  <CheckIcon />
+                </Menubar.ItemIndicator>
+                Red
+              </Menubar.RadioItem>
+              <Menubar.RadioItem value="blue">
+                <Menubar.ItemIndicator>
+                  <CheckIcon />
+                </Menubar.ItemIndicator>
+                Blue
+              </Menubar.RadioItem>
+            </Menubar.RadioGroup>
+          </Menubar.Content>
+        </Menubar.Portal>
+      </Menubar.Menu>
+    </Menubar.Root>
   );
 };
 ```
@@ -1401,25 +1526,27 @@ export default () => {
 
 You can add extra decorative elements in the `Item` parts, such as images.
 
-```jsx line=9,13
-import * as ContextMenu from '@radix-ui/react-context-menu';
+```jsx line=10,14
+import * as Menubar from '@radix-ui/react-menubar';
 
 export default () => (
-  <ContextMenu.Root>
-    <ContextMenu.Trigger>…</ContextMenu.Trigger>
-    <ContextMenu.Portal>
-      <ContextMenu.Content>
-        <ContextMenu.Item>
-          <img src="…" />
-          Adolfo Hess
-        </ContextMenu.Item>
-        <ContextMenu.Item>
-          <img src="…" />
-          Miyah Myles
-        </ContextMenu.Item>
-      </ContextMenu.Content>
-    </ContextMenu.Portal>
-  </ContextMenu.Root>
+  <Menubar.Root>
+    <Menubar.Menu>
+      <Menubar.Trigger>…</Menubar.Trigger>
+      <Menubar.Portal>
+        <Menubar.Content>
+          <Menubar.Item>
+            <img src="…" />
+            Adolfo Hess
+          </Menubar.Item>
+          <Menubar.Item>
+            <img src="…" />
+            Miyah Myles
+          </Menubar.Item>
+        </Menubar.Content>
+      </Menubar.Portal>
+    </Menubar.Menu>
+  </Menubar.Root>
 );
 ```
 
@@ -1427,58 +1554,58 @@ export default () => (
 
 You may want to constrain the width of the content (or sub-content) so that it matches the trigger (or sub-trigger) width. You may also want to constrain its height to not exceed the viewport.
 
-We expose several CSS custom properties such as `--radix-context-menu-trigger-width` and `--radix-context-menu-content-available-height` to support this. Use them to constrain the content dimensions.
+We expose several CSS custom properties such as `--radix-menubar-trigger-width` and `--radix-menubar-content-available-height` to support this. Use them to constrain the content dimensions.
 
 ```jsx line=9
 // index.jsx
-import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as Menubar from '@radix-ui/react-menubar';
 import './styles.css';
 
 export default () => (
-  <ContextMenu.Root>
-    <ContextMenu.Trigger>…</ContextMenu.Trigger>
-    <ContextMenu.Portal>
-      <ContextMenu.Content __className__="ContextMenuContent">
+  <Menubar.Root>
+    <Menubar.Trigger>…</Menubar.Trigger>
+    <Menubar.Portal>
+      <Menubar.Content __className__="MenubarContent" sideOffset={5}>
         …
-      </ContextMenu.Content>
-    </ContextMenu.Portal>
-  </ContextMenu.Root>
+      </Menubar.Content>
+    </Menubar.Portal>
+  </Menubar.Root>
 );
 ```
 
 ```css
 /* styles.css */
-.ContextMenuContent {
-  width: var(__--radix-context-menu-trigger-width__);
-  max-height: var(__--radix-context-menu-content-available-height__);
+.MenubarContent {
+  width: var(__--radix-menubar-trigger-width__);
+  max-height: var(__--radix-menubar-content-available-height__);
 }
 ```
 
 ### Origin-aware animations
 
-We expose a CSS custom property `--radix-context-menu-content-transform-origin`. Use it to animate the content from its computed origin based on `side`, `sideOffset`, `align`, `alignOffset` and any collisions.
+We expose a CSS custom property `--radix-menubar-content-transform-origin`. Use it to animate the content from its computed origin based on `side`, `sideOffset`, `align`, `alignOffset` and any collisions.
 
-```jsx line=9
+```jsx line=10
 // index.jsx
-import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as Menubar from '@radix-ui/react-menubar';
 import './styles.css';
 
 export default () => (
-  <ContextMenu.Root>
-    <ContextMenu.Trigger>…</ContextMenu.Trigger>
-    <ContextMenu.Portal>
-      <ContextMenu.Content __className__="ContextMenuContent">
-        …
-      </ContextMenu.Content>
-    </ContextMenu.Portal>
-  </ContextMenu.Root>
+  <Menubar.Root>
+    <Menubar.Menu>
+      <Menubar.Trigger>…</Menubar.Trigger>
+      <Menubar.Portal>
+        <Menubar.Content __className__="MenubarContent">…</Menubar.Content>
+      </Menubar.Portal>
+    </Menubar.Menu>
+  </Menubar.Root>
 );
 ```
 
 ```css line=3
 /* styles.css */
-.ContextMenuContent {
-  transform-origin: var(__--radix-context-menu-content-transform-origin__);
+.MenubarContent {
+  transform-origin: var(__--radix-menubar-content-transform-origin__);
   animation: scaleIn 0.5s ease-out;
 }
 
@@ -1498,33 +1625,33 @@ export default () => (
 
 We expose `data-side` and `data-align` attributes. Their values will change at runtime to reflect collisions. Use them to create collision and direction-aware animations.
 
-```jsx line=9
+```jsx line=10
 // index.jsx
-import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as Menubar from '@radix-ui/react-menubar';
 import './styles.css';
 
 export default () => (
-  <ContextMenu.Root>
-    <ContextMenu.Trigger>…</ContextMenu.Trigger>
-    <ContextMenu.Portal>
-      <ContextMenu.Content __className__="ContextMenuContent">
-        …
-      </ContextMenu.Content>
-    </ContextMenu.Portal>
-  </ContextMenu.Root>
+  <Menubar.Root>
+    <Menubar.Menu>
+      <Menubar.Trigger>…</Menubar.Trigger>
+      <Menubar.Portal>
+        <Menubar.Content __className__="MenubarContent">…</Menubar.Content>
+      </Menubar.Portal>
+    </Menubar.Menu>
+  </Menubar.Root>
 );
 ```
 
 ```css line=6-11
 /* styles.css */
-.ContextMenuContent {
+.MenubarContent {
   animation-duration: 0.6s;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
-.ContextMenuContent[__data-side='top'__] {
+.MenubarContent[__data-side='top'__] {
   animation-name: slideUp;
 }
-.ContextMenuContent[__data-side='bottom'__] {
+.MenubarContent[__data-side='bottom'__] {
   animation-name: slideDown;
 }
 
@@ -1553,41 +1680,73 @@ export default () => (
 
 ## Accessibility
 
-Uses [roving tabindex](https://www.w3.org/WAI/ARIA/apg/patterns/kbd_roving_tabindex) to manage focus movement among menu items.
+Adheres to the [Menu Button WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/menubutton) and uses [roving tabindex](https://www.w3.org/WAI/ARIA/apg/patterns/kbd_roving_tabindex) to manage focus movement among menu items.
 
 ### Keyboard Interactions
-<!--
+```
 <KeyboardTable
   data={[
     {
       keys: ['Space'],
-      description: <span>Activates the focused item.</span>,
+      description: (
+        <span>
+          When focus is on <Code>Menubar.Trigger</Code>, opens the menubar and
+          focuses the first item.
+          <br />
+          When focus is on an item, activates the focused item.
+        </span>
+      ),
     },
     {
       keys: ['Enter'],
-      description: <span>Activates the focused item.</span>,
+      description: (
+        <span>
+          When focus is on <Code>Menubar.Trigger</Code>, opens the associated
+          menu.
+          <br />
+          When focus is on an item, activates the focused item.
+        </span>
+      ),
     },
     {
       keys: ['ArrowDown'],
-      description: <span>Moves focus to the next item.</span>,
+      description: (
+        <span>
+          When focus is on <Code>Menubar.Trigger</Code>, opens the associated
+          menu.
+          <br />
+          When focus is on an item, moves focus to the next item.
+        </span>
+      ),
     },
     {
       keys: ['ArrowUp'],
-      description: <span>Moves focus to the previous item.</span>,
+      description: (
+        <span>When focus is on an item, moves focus to the previous item.</span>
+      ),
     },
     {
       keys: ['ArrowRight', 'ArrowLeft'],
       description: (
         <span>
-          When focus is on <Code>ContextMenu.SubTrigger</Code>, opens or closes
-          the submenu depending on reading direction.
+          When focus is on a <Code>Menubar.Trigger</Code>, moves focus to the
+          next or previous item. <br />
+          When focus is on a <Code>Menubar.SubTrigger</Code>, opens or closes the
+          submenu depending on reading direction. <br />
+          When focus is within a <Code>Menubar.Content</Code>, opens the next
+          menu in the menubar.
         </span>
       ),
     },
     {
       keys: ['Esc'],
-      description: 'Closes the context menu',
+      description: (
+        <span>
+          Closes the currently open menu and moves focus to its{' '}
+          <Code>Menubar.Trigger</Code>.
+        </span>
+      ),
     },
   ]}
 />
--->
+```

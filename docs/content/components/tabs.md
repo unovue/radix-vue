@@ -5,21 +5,28 @@ name: tabs
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel
 ---
 
+<script setup>
+import Description from '../../components/Description.vue'
+import HeroContainer from '../../components/HeroContainer.vue'
+import DemoTabs from '../../components/demo/Tabs/index.vue'
+import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+</script>
+
 # Tabs
 
-::description
-A set of layered sections of content—known as tab panels—that are displayed
-one at a time.
-::
+<Description>
+A modal dialog that interrupts the user with important content and expects a
+response.
+</Description>
 
-::hero-container
-#previewSlot
-  :demo-tabs
-#codeSlot
-::hero-code-group{folder="Tabs"}
-::
-::
+<HeroContainer>
+<DemoTabs />
+</HeroContainer>
 
+::: code-group
+<<< ../../components/demo/Tabs/index.vue
+:::
+```
 <Highlights
   features={[
     'Can be controlled or uncontrolled.',
@@ -28,7 +35,7 @@ one at a time.
     'Full keyboard navigation.',
   ]}
 />
-
+```
 ## Installation
 
 Install the component from your command line.
@@ -59,7 +66,7 @@ export default () => (
 ### Root
 
 Contains all the tabs component parts.
-
+```
 <PropsTable
   data={[
     {
@@ -148,11 +155,11 @@ Contains all the tabs component parts.
     },
   ]}
 />
-
+```
 ### List
 
 Contains the triggers that are aligned along the edge of the active content.
-
+```
 <PropsTable
   data={[
     {
@@ -194,11 +201,11 @@ Contains the triggers that are aligned along the edge of the active content.
     },
   ]}
 />
-
+```
 ### Trigger
 
 The button that activates its associated content.
-
+```
 <PropsTable
   data={[
     {
@@ -254,11 +261,11 @@ The button that activates its associated content.
     },
   ]}
 />
-
+```
 ### Content
 
 Contains the content associated with each trigger.
-
+```
 <PropsTable
   data={[
     {
@@ -308,7 +315,7 @@ Contains the content associated with each trigger.
     },
   ]}
 />
-
+```
 ## Examples
 
 ### Vertical
@@ -337,7 +344,7 @@ export default () => (
 Adheres to the [Tabs WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel).
 
 ### Keyboard Interactions
-
+```
 <KeyboardTable
   data={[
     {
@@ -403,3 +410,4 @@ Adheres to the [Tabs WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/pa
     },
   ]}
 />
+```

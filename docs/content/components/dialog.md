@@ -5,21 +5,29 @@ name: dialog
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal
 ---
 
+<script setup>
+import Description from '../../components/Description.vue'
+import HeroContainer from '../../components/HeroContainer.vue'
+import DemoDialog from '../../components/demo/Dialog/index.vue'
+import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+</script>
+
 # Dialog
 
-::description
-A window overlaid on either the primary window or another dialog window,
-rendering the content underneath inert.
-::
+<Description>
+A modal dialog that interrupts the user with important content and expects a
+response.
+</Description>
 
-::hero-container
-#previewSlot
-  :demo-dialog
-#codeSlot
-::hero-code-group{folder="Dialog"}
-::
-::
+<HeroContainer>
+<DemoDialog />
+</HeroContainer>
 
+::: code-group
+<<< ../../components/demo/Dialog/index.vue
+:::
+
+<!--
 <Highlights
   features={[
     'Supports modal and non-modal modes.',
@@ -32,7 +40,7 @@ rendering the content underneath inert.
     'Esc closes the component automatically.',
   ]}
 />
-
+-->
 ## Installation
 
 Install the component from your command line.
@@ -68,7 +76,7 @@ export default () => (
 ### Root
 
 Contains all the parts of a dialog.
-
+<!--
 <PropsTable
   data={[
     {
@@ -116,11 +124,11 @@ Contains all the parts of a dialog.
     },
   ]}
 />
-
+-->
 ### Trigger
 
 The button that opens the dialog.
-
+<!--
 <PropsTable
   data={[
     {
@@ -150,11 +158,11 @@ The button that opens the dialog.
     },
   ]}
 />
-
+-->
 ### Portal
 
 When used, portals your overlay and content parts into the `body`.
-
+<!--
 <PropsTable
   data={[
     {
@@ -177,11 +185,11 @@ When used, portals your overlay and content parts into the `body`.
     },
   ]}
 />
-
+-->
 ### Overlay
 
 A layer that covers the inert portion of the view when the dialog is open.
-
+<!--
 <PropsTable
   data={[
     {
@@ -222,11 +230,11 @@ A layer that covers the inert portion of the view when the dialog is open.
     },
   ]}
 />
-
+-->
 ### Content
 
 Contains content to be rendered in the open dialog.
-
+<!--
 <PropsTable
   data={[
     {
@@ -325,11 +333,11 @@ Contains content to be rendered in the open dialog.
     },
   ]}
 />
-
+-->
 ### Close
 
 The button that closes the dialog.
-
+<!--
 <PropsTable
   data={[
     {
@@ -350,13 +358,13 @@ The button that closes the dialog.
     },
   ]}
 />
-
+-->
 ### Title
 
 An accessible title to be announced when the dialog is opened.
 
 If you want to hide the title, wrap it inside our [Visually Hidden](../utilities/visually-hidden) utility like this `<VisuallyHidden asChild>`.
-
+<!--
 <PropsTable
   data={[
     {
@@ -377,13 +385,13 @@ If you want to hide the title, wrap it inside our [Visually Hidden](../utilities
     },
   ]}
 />
-
+-->
 ### Description
 
 An optional accessible description to be announced when the dialog is opened.
 
 If you want to hide the description, wrap it inside our [Visually Hidden](../utilities/visually-hidden) utility like this `<VisuallyHidden asChild>`. If you want to remove the description entirely, remove this part and pass `aria-describedby={undefined}` to `Dialog.Content`.
-
+<!--
 <PropsTable
   data={[
     {
@@ -404,7 +412,7 @@ If you want to hide the description, wrap it inside our [Visually Hidden](../uti
     },
   ]}
 />
-
+-->
 ## Examples
 
 ### Close after asynchronous form submission
@@ -518,7 +526,7 @@ export default () => {
 Adheres to the [Dialog WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal).
 
 ### Keyboard Interactions
-
+<!--
 <KeyboardTable
   data={[
     {
@@ -547,7 +555,7 @@ Adheres to the [Dialog WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/
     },
   ]}
 />
-
+-->
 ## Custom APIs
 
 Create your own API by abstracting the primitive parts into your own component.

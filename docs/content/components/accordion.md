@@ -5,20 +5,28 @@ name: accordion
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/accordion
 ---
 
+<script setup>
+import Description from '../../components/Description.vue'
+import HeroContainer from '../../components/HeroContainer.vue'
+import DemoAccordion from '../../components/demo/Accordion/index.vue'
+import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+</script>
+
 # Accordion
 
-::description
-A vertically stacked set of interactive headings that each reveal an
-associated section of content.
-::
+<Description>
+A modal dialog that interrupts the user with important content and expects a
+response.
+</Description>
 
-::hero-container
-#previewSlot
-  :demo-accordion
-#codeSlot
-::hero-code-group{folder="Accordion"}
-::
-::
+<HeroContainer>
+<DemoAccordion />
+</HeroContainer>
+
+::: code-group
+<<< ../../components/demo/Accordion/index.vue
+<<< ../../components/demo/Accordion/tailwind.config.js
+:::
 
 ## Features
 :br
@@ -336,6 +344,7 @@ data: [
 ---
 ::
 
+<!--
 <CssVariablesTable
   data={[
     {
@@ -348,6 +357,7 @@ data: [
     },
   ]}
 />
+-->
 
 ## Examples
 

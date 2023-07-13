@@ -5,20 +5,27 @@ name: tooltip
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/tooltip
 ---
 
+<script setup>
+import Description from '../../components/Description.vue'
+import HeroContainer from '../../components/HeroContainer.vue'
+import DemoTooltip from '../../components/demo/Tooltip/index.vue'
+import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+</script>
+
 # Tooltip
 
-::description
-A popup that displays information related to an element when the element
-receives keyboard focus or the mouse hovers over it.
-::
+<Description>
+A modal dialog that interrupts the user with important content and expects a
+response.
+</Description>
 
-::hero-container
-#previewSlot
-  :demo-tooltip
-#codeSlot
-::hero-code-group{folder="Tooltip"}
-::
-::
+<HeroContainer>
+<DemoTooltip />
+</HeroContainer>
+
+::: code-group
+<<< ../../components/demo/Tooltip/index.vue
+:::
 
 ## Features
 
@@ -61,7 +68,7 @@ import {
 ### Provider
 
 Wraps your app to provide global functionality to your tooltips.
-
+```
 ::props-table
 ---
 data: [
@@ -91,11 +98,11 @@ data: [
 ]
 ---
 ::
-
+```
 ### Root
 
 Contains all the parts of a tooltip.
-
+```
 ::props-table
 ---
 data: [
@@ -143,11 +150,11 @@ data: [
 ]
 ---
 ::
-
+```
 ### Trigger
 
 The button that toggles the tooltip. By default, the `Tooltip.Content` will position itself against the trigger.
-
+```
 ::props-table
 ---
 data: [
@@ -179,11 +186,11 @@ values: ['closed', 'delayed-open', 'instant-open'],
 ]
 ---
 ::
-
+```
 ### Portal
 
 When used, portals the content part into the `body`.
-
+```
 ::props-table
 ---
 data: [
@@ -207,11 +214,11 @@ description: 'Specify a container element to portal the content into.',
 ]
 ---
 ::
-
+```
 ### Content
 
 The component that pops out when the tooltip is open.
-
+```
 ::props-table
 ---
 data: [
@@ -481,7 +488,7 @@ description: <span>The height of the arrow in pixels.</span>,
 },
 ]}
 />
-
+```
 ## Examples
 
 ### Configure globally
@@ -667,7 +674,7 @@ export default () => (
 ## Accessibility
 
 ### Keyboard Interactions
-
+```
 <KeyboardTable
 data={[
 {
@@ -688,7 +695,7 @@ description: 'If open, closes the tooltip without delay.',
 },
 ]}
 />
-
+```
 ## Custom APIs
 
 Create your own API by abstracting the primitive parts into your own component.

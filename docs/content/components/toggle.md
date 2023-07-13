@@ -5,24 +5,32 @@ name: toggle
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/button
 ---
 
+<script setup>
+import Description from '../../components/Description.vue'
+import HeroContainer from '../../components/HeroContainer.vue'
+import DemoToggle from '../../components/demo/Toggle/index.vue'
+import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+</script>
+
 # Toggle
 
-::description
-A two-state button that can be either on or off.
-::
+<Description>
+A modal dialog that interrupts the user with important content and expects a
+response.
+</Description>
 
-::hero-container
-#previewSlot
-  :demo-toggle
-#codeSlot
-::hero-code-group{folder="Toggle"}
-::
-::
+<HeroContainer>
+<DemoToggle />
+</HeroContainer>
 
+::: code-group
+<<< ../../components/demo/Toggle/index.vue
+:::
+```
 <Highlights
   features={['Full keyboard navigation.', 'Can be controlled or uncontrolled.']}
 />
-
+```
 ## Installation
 
 Install the component from your command line.
@@ -46,7 +54,7 @@ export default () => <Toggle.Root />;
 ### Root
 
 The toggle.
-
+```
 <PropsTable
   data={[
     {
@@ -113,11 +121,11 @@ The toggle.
     },
   ]}
 />
-
+```
 ## Accessibility
 
 ### Keyboard Interactions
-
+```
 <KeyboardTable
   data={[
     {
@@ -130,3 +138,4 @@ The toggle.
     },
   ]}
 />
+```

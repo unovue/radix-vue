@@ -5,20 +5,28 @@ name: popover
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal
 ---
 
+<script setup>
+import Description from '../../components/Description.vue'
+import HeroContainer from '../../components/HeroContainer.vue'
+import DemoPopover from '../../components/demo/Popover/index.vue'
+import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+</script>
+
 # Popover
 
-::description
-  Displays rich content in a portal, triggered by a button.
-::
+<Description>
+A modal dialog that interrupts the user with important content and expects a
+response.
+</Description>
 
-::hero-container
-#previewSlot
-  :demo-popover
-#codeSlot
-::hero-code-group{folder="Popover"}
-::
-::
+<HeroContainer>
+<DemoPopover />
+</HeroContainer>
 
+::: code-group
+<<< ../../components/demo/Popover/index.vue
+:::
+```
 <Highlights
   features={[
     'Can be controlled or uncontrolled.',
@@ -29,7 +37,7 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal
     'Dismissing and layering behavior is highly customizable.',
   ]}
 />
-
+```
 ## Installation
 
 Install the component from your command line.
@@ -64,7 +72,7 @@ export default () => (
 ### Root
 
 Contains all the parts of a popover.
-
+```
 <PropsTable
   data={[
     {
@@ -112,11 +120,11 @@ Contains all the parts of a popover.
     },
   ]}
 />
-
+```
 ### Trigger
 
 The button that toggles the popover. By default, the `Popover.Content` will position itself against the trigger.
-
+```
 <PropsTable
   data={[
     {
@@ -146,11 +154,11 @@ The button that toggles the popover. By default, the `Popover.Content` will posi
     },
   ]}
 />
-
+```
 ### Anchor
 
 An optional element to position the `Popover.Content` against. If this part is not used, the content will position alongside the <Code>Popover.Trigger</Code>.
-
+```
 <PropsTable
   data={[
     {
@@ -171,11 +179,11 @@ An optional element to position the `Popover.Content` against. If this part is n
     },
   ]}
 />
-
+```
 ### Portal
 
 When used, portals the content part into the `body`.
-
+```
 <PropsTable
   data={[
     {
@@ -197,11 +205,11 @@ When used, portals the content part into the `body`.
     },
   ]}
 />
-
+```
 ### Content
 
 The component that pops out when the popover is open.
-
+```
 <PropsTable
   data={[
     {
@@ -470,11 +478,11 @@ The component that pops out when the popover is open.
     },
   ]}
 />
-
+```
 ### Arrow
 
 An optional arrow element to render alongside the popover. This can be used to help visually link the anchor with the `Popover.Content`. Must be rendered inside `Popover.Content`.
-
+```
 <PropsTable
   data={[
     {
@@ -507,11 +515,11 @@ An optional arrow element to render alongside the popover. This can be used to h
     },
   ]}
 />
-
+```
 ### Close
 
 The button that closes an open popover.
-
+```
 <PropsTable
   data={[
     {
@@ -532,7 +540,7 @@ The button that closes an open popover.
     },
   ]}
 />
-
+```
 ## Examples
 
 ### Constrain the content size
@@ -696,7 +704,7 @@ export default () => (
 Adheres to the [Dialog WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal).
 
 ### Keyboard Interactions
-
+```
 <KeyboardTable
   data={[
     {
@@ -725,7 +733,7 @@ Adheres to the [Dialog WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/
     },
   ]}
 />
-
+```
 ## Custom APIs
 
 Create your own API by abstracting the primitive parts into your own component.

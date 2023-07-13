@@ -4,27 +4,35 @@ metaDescription: Renders an accessible label associated with controls.
 name: label
 ---
 
+<script setup>
+import Description from '../../components/Description.vue'
+import HeroContainer from '../../components/HeroContainer.vue'
+import DemoLabel from '../../components/demo/Label/index.vue'
+import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+</script>
+
 # Label
 
-::description
-Renders an accessible label associated with controls.
-::
+<Description>
+A modal dialog that interrupts the user with important content and expects a
+response.
+</Description>
 
-::hero-container
-#previewSlot
-  :demo-label
-#codeSlot
-::hero-code-group{folder="Label"}
-::
-::
+<HeroContainer>
+<DemoLabel />
+</HeroContainer>
 
+::: code-group
+<<< ../../components/demo/Label/index.vue
+:::
+```
 <Highlights
   features={[
     'Text selection is prevented when double clicking label.',
     'Supports nested controls.',
   ]}
 />
-
+```
 ## Installation
 
 Install the component from your command line.
@@ -48,7 +56,7 @@ export default () => <Label.Root />;
 ### Root
 
 Contains the content for the label.
-
+```
 <PropsTable
   data={[
     {
@@ -74,7 +82,7 @@ Contains the content for the label.
     },
   ]}
 />
-
+```
 ## Accessibility
 
 This component is based on the native `label` element, it will automatically apply the correct labelling when wrapping controls or using the `htmlFor` attribute. For your own custom controls to work correctly, ensure they use native elements such as `button` or `input` as a base.

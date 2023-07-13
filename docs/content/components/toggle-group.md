@@ -5,20 +5,28 @@ name: toggle-group
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/button
 ---
 
-# Toggle Group
+<script setup>
+import Description from '../../components/Description.vue'
+import HeroContainer from '../../components/HeroContainer.vue'
+import DemoToggleGroup from '../../components/demo/ToggleGroup/index.vue'
+import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+</script>
 
-::description
-A set of two-state buttons that can be toggled on or off.
-::
+# ToggleGroup
 
-::hero-container
-#previewSlot
-  :demo-toggle-group
-#codeSlot
-::hero-code-group{folder="ToggleGroup"}
-::
-::
+<Description>
+A modal dialog that interrupts the user with important content and expects a
+response.
+</Description>
 
+<HeroContainer>
+<DemoToggleGroup />
+</HeroContainer>
+
+::: code-group
+<<< ../../components/demo/ToggleGroup/index.vue
+:::
+```
 <Highlights
   features={[
     'Full keyboard navigation.',
@@ -27,7 +35,7 @@ A set of two-state buttons that can be toggled on or off.
     'Can be controlled or uncontrolled.',
   ]}
 />
-
+```
 ## Installation
 
 Install the component from your command line.
@@ -55,7 +63,7 @@ export default () => (
 ### Root
 
 Contains all the parts of a toggle group.
-
+```
 <PropsTable
   data={[
     {
@@ -235,11 +243,11 @@ Contains all the parts of a toggle group.
     },
   ]}
 />
-
+```
 ### Item
 
 An item in the group.
-
+```
 <PropsTable
   data={[
     {
@@ -293,7 +301,7 @@ An item in the group.
     },
   ]}
 />
-
+```
 ## Examples
 
 ### Ensuring there is always a value
@@ -334,7 +342,7 @@ export default () => {
 Uses [roving tabindex](https://www.w3.org/TR/wai-aria-practices-1.2/examples/radio/radio.html) to manage focus movement among items.
 
 ### Keyboard Interactions
-
+```
 <KeyboardTable
   data={[
     {
@@ -376,3 +384,4 @@ Uses [roving tabindex](https://www.w3.org/TR/wai-aria-practices-1.2/examples/rad
     },
   ]}
 />
+```

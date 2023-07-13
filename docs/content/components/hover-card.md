@@ -4,20 +4,28 @@ metaDescription: For sighted users to preview content available behind a link.
 name: hover-card
 ---
 
-# Hover Card
+<script setup>
+import Description from '../../components/Description.vue'
+import HeroContainer from '../../components/HeroContainer.vue'
+import DemoHoverCard from '../../components/demo/HoverCard/index.vue'
+import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+</script>
 
-::description
-  For sighted users to preview content available behind a link.
-::
+# HoverCard
 
-::hero-container
-#previewSlot
-  :demo-hover-card
-#codeSlot
-::hero-code-group{folder="HoverCard"}
-::
-::
+<Description>
+A modal dialog that interrupts the user with important content and expects a
+response.
+</Description>
 
+<HeroContainer>
+<DemoHoverCard />
+</HeroContainer>
+
+::: code-group
+<<< ../../components/demo/HoverCard/index.vue
+:::
+```
 <Highlights
   features={[
     'Can be controlled or uncontrolled.',
@@ -28,7 +36,7 @@ name: hover-card
     'Ignored by screen readers.',
   ]}
 />
-
+```
 ## Installation
 
 Install the component from your command line.
@@ -61,7 +69,7 @@ export default () => (
 ### Root
 
 Contains all the parts of a hover card.
-
+```
 <PropsTable
   data={[
     {
@@ -110,11 +118,11 @@ Contains all the parts of a hover card.
     },
   ]}
 />
-
+```
 ### Trigger
 
 The link that opens the hover card when hovered.
-
+```
 <PropsTable
   data={[
     {
@@ -144,11 +152,11 @@ The link that opens the hover card when hovered.
     },
   ]}
 />
-
+```
 ### Portal
 
 When used, portals the content part into the `body`.
-
+```
 <PropsTable
   data={[
     {
@@ -170,11 +178,11 @@ When used, portals the content part into the `body`.
     },
   ]}
 />
-
+```
 ### Content
 
 The component that pops out when the hover card is open.
-
+```
 <PropsTable
   data={[
     {
@@ -377,11 +385,11 @@ The component that pops out when the hover card is open.
     },
   ]}
 />
-
+```
 ### Arrow
 
 An optional arrow element to render alongside the hover card. This can be used to help visually link the trigger with the `HoverCard.Content`. Must be rendered inside `HoverCard.Content`.
-
+```
 <PropsTable
   data={[
     {
@@ -414,7 +422,7 @@ An optional arrow element to render alongside the hover card. This can be used t
     },
   ]}
 />
-
+```
 ## Examples
 
 ### Show instantly

@@ -5,20 +5,29 @@ name: checkbox
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/checkbox
 ---
 
+<script setup>
+import Description from '../../components/Description.vue'
+import HeroContainer from '../../components/HeroContainer.vue'
+import DemoCheckbox from '../../components/demo/Checkbox/index.vue'
+import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+</script>
+
 # Checkbox
 
-::description
-A control that allows the user to toggle between checked and not checked.
-::
+<Description>
+A modal dialog that interrupts the user with important content and expects a
+response.
+</Description>
 
-::hero-container
-#previewSlot
-  :demo-checkbox
-#codeSlot
-::hero-code-group{folder="Checkbox"}
-::
-::
+<HeroContainer>
+<DemoCheckbox />
+</HeroContainer>
 
+::: code-group
+<<< ../../components/demo/Checkbox/index.vue
+:::
+
+<!--
 <Highlights
   features={[
     'Supports indeterminate state.',
@@ -26,6 +35,7 @@ A control that allows the user to toggle between checked and not checked.
     'Can be controlled or uncontrolled.',
   ]}
 />
+-->
 
 ## Installation
 
@@ -55,6 +65,7 @@ export default () => (
 
 Contains all the parts of a checkbox. An `input` will also render when used within a `form` to ensure events propagate correctly.
 
+<!--
 <PropsTable
   data={[
     {
@@ -147,11 +158,11 @@ Contains all the parts of a checkbox. An `input` will also render when used with
     },
   ]}
 />
-
+-->
 ### Indicator
 
 Renders when the checkbox is in a checked or indeterminate state. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
-
+<!--
 <PropsTable
   data={[
     {
@@ -191,7 +202,7 @@ Renders when the checkbox is in a checked or indeterminate state. You can style 
     },
   ]}
 />
-
+-->
 ## Examples
 
 ### Indeterminate
@@ -234,7 +245,7 @@ export default () => {
 Adheres to the [tri-state Checkbox WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/checkbox).
 
 ### Keyboard Interactions
-
+<!--
 <KeyboardTable
   data={[
     {
@@ -243,3 +254,4 @@ Adheres to the [tri-state Checkbox WAI-ARIA design pattern](https://www.w3.org/W
     },
   ]}
 />
+-->

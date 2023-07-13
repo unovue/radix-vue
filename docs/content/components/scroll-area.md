@@ -4,20 +4,28 @@ metaDescription: Augments native scroll functionality for custom, cross-browser 
 name: scroll-area
 ---
 
-# Scroll Area
+<script setup>
+import Description from '../../components/Description.vue'
+import HeroContainer from '../../components/HeroContainer.vue'
+import DemoScrollArea from '../../components/demo/ScrollArea/index.vue'
+import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+</script>
 
-::description
-  Augments native scroll functionality for custom, cross-browser styling.
-::
+# ScrollArea
 
-::hero-container
-#previewSlot
-  :demo-scroll-area
-#codeSlot
-::hero-code-group{folder="ScrollArea"}
-::
-::
+<Description>
+A modal dialog that interrupts the user with important content and expects a
+response.
+</Description>
 
+<HeroContainer>
+<DemoScrollArea />
+</HeroContainer>
+
+::: code-group
+<<< ../../components/demo/ScrollArea/index.vue
+:::
+```
 <Highlights
   features={[
     'Scrollbar sits on top of the scrollable content, taking up no space.',
@@ -26,7 +34,7 @@ name: scroll-area
     'Supports Right to Left direction.',
   ]}
 />
-
+```
 ## Installation
 
 Install the component from your command line.
@@ -61,7 +69,7 @@ export default () => (
 ### Root
 
 Contains all the parts of a scroll area.
-
+```
 <PropsTable
   data={[
     {
@@ -134,11 +142,11 @@ Contains all the parts of a scroll area.
     },
   ]}
 />
-
+```
 ### Viewport
 
 The viewport area of the scroll area.
-
+```
 <PropsTable
   data={[
     {
@@ -159,11 +167,11 @@ The viewport area of the scroll area.
     },
   ]}
 />
-
+```
 ### Scrollbar
 
 The vertical scrollbar. Add a second `Scrollbar` with an `orientation` prop to enable horizontal scrolling.
-
+```
 <PropsTable
   data={[
     {
@@ -215,11 +223,11 @@ The vertical scrollbar. Add a second `Scrollbar` with an `orientation` prop to e
     },
   ]}
 />
-
+```
 ### Thumb
 
 The thumb to be used in `ScrollArea.Scrollbar`.
-
+```
 <PropsTable
   data={[
     {
@@ -249,11 +257,11 @@ The thumb to be used in `ScrollArea.Scrollbar`.
     },
   ]}
 />
-
+```
 ### Corner
 
 The corner where both vertical and horizontal scrollbars meet.
-
+```
 <PropsTable
   data={[
     {
@@ -274,7 +282,7 @@ The corner where both vertical and horizontal scrollbars meet.
     },
   ]}
 />
-
+```
 ## Accessibility
 
 In most cases, it's best to rely on native scrolling and work with the customization options available in CSS. When that isn't enough, `ScrollArea` provides additional customizability while maintaining the browser's native scroll behavior (as well as accessibility features, like keyboard scrolling).

@@ -5,23 +5,29 @@ name: collapsible
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/disclosure
 ---
 
+<script setup>
+import Description from '../../components/Description.vue'
+import HeroContainer from '../../components/HeroContainer.vue'
+import DemoCollapsible from '../../components/demo/Collapsible/index.vue'
+import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+</script>
+
 # Collapsible
 
-::description
-An interactive component which expands/collapses a panel.
-::
+<Description>
+A modal dialog that interrupts the user with important content and expects a
+response.
+</Description>
 
-::hero-container
-#previewSlot
-  :demo-collapsible
-#codeSlot
-::hero-code-group{folder="Collapsible"}
-::
-::
+<HeroContainer>
+<DemoCollapsible />
+</HeroContainer>
 
-<Highlights
-  features={['Full keyboard navigation.', 'Can be controlled or uncontrolled.']}
-/>
+::: code-group
+<<< ../../components/demo/Collapsible/index.vue
+:::
+
+'Full keyboard navigation.', 'Can be controlled or uncontrolled.'
 
 ## Installation
 
@@ -52,6 +58,7 @@ export default () => (
 
 Contains all the parts of a collapsible.
 
+<!--
 <PropsTable
   data={[
     {
@@ -118,11 +125,11 @@ Contains all the parts of a collapsible.
     },
   ]}
 />
-
+-->
 ### Trigger
 
 The button that toggles the collapsible.
-
+<!--
 <PropsTable
   data={[
     {
@@ -156,11 +163,11 @@ The button that toggles the collapsible.
     },
   ]}
 />
-
+-->
 ### Content
 
 The component that contains the collapsible content.
-
+<!--
 <PropsTable
   data={[
     {
@@ -213,7 +220,7 @@ The component that contains the collapsible content.
     },
   ]}
 />
-
+-->
 ## Examples
 
 ### Animating content size
@@ -271,7 +278,7 @@ export default () => (
 Adheres to the [Disclosure WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure).
 
 ### Keyboard Interactions
-
+<!--
 <KeyboardTable
   data={[
     {
@@ -284,3 +291,4 @@ Adheres to the [Disclosure WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/
     },
   ]}
 />
+-->

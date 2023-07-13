@@ -4,21 +4,29 @@ metaDescription: Displays content within a desired ratio.
 name: aspect-ratio
 ---
 
+<script setup>
+import Description from '../../components/Description.vue'
+import HeroContainer from '../../components/HeroContainer.vue'
+import DemoAspectRatio from '../../components/demo/AspectRatio/index.vue'
+import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+</script>
+
 # Aspect Ratio
 
-::description
-Displays content within a desired ratio.
-::
+<Description>
+A modal dialog that interrupts the user with important content and expects a
+response.
+</Description>
 
-::hero-container
-#previewSlot
-  :demo-aspect-ratio
-#codeSlot
-::hero-code-group{folder="AspectRatio"}
-::
-::
+<HeroContainer>
+<DemoAspectRatio />
+</HeroContainer>
 
-<Highlights features={['Accepts any custom ratio.']} />
+::: code-group
+<<< ../../components/demo/AspectRatio/index.vue
+:::
+
+Accepts any custom ratio.
 
 ## Installation
 
@@ -44,23 +52,15 @@ export default () => <AspectRatio.Root />;
 
 Contains the content you want to constrain to a given ratio.
 
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: '',
     },
     {
       name: 'ratio',
@@ -68,5 +68,5 @@ Contains the content you want to constrain to a given ratio.
       default: '1',
       description: 'The desired ratio',
     },
-  ]}
+  ]"
 />

@@ -7,24 +7,29 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/menubutton
 
 # Dropdown Menu
 
+<script setup>
+import Description from '../../components/Description.vue'
+import HeroContainer from '../../components/HeroContainer.vue'
+import DemoDropdownMenu from '../../components/demo/DropdownMenu/index.vue'
+import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+</script>
+
+# DropdownMenu
+
 <Description>
-  Displays a menu to the user—such as a set of actions or functions—triggered by
-  a button.
+A modal dialog that interrupts the user with important content and expects a
+response.
 </Description>
 
-::description
-Displays a menu to the user—such as a set of actions or functions—triggered by
-  a button.
-::
+<HeroContainer>
+<DemoDropdownMenu />
+</HeroContainer>
 
-::hero-container
-#previewSlot
-  :demo-dropdown-menu
-#codeSlot
-::hero-code-group{folder="DropdownMenu"}
-::
-::
+::: code-group
+<<< ../../components/demo/DropdownMenu/index.vue
+:::
 
+<!--
 <Highlights
   features={[
     'Can be controlled or uncontrolled.',
@@ -40,7 +45,7 @@ Displays a menu to the user—such as a set of actions or functions—triggered 
     'Dismissing and layering behavior is highly customizable.',
   ]}
 />
-
+-->
 ## Installation
 
 Install the component from your command line.
@@ -99,7 +104,7 @@ export default () => (
 ### Root
 
 Contains all the parts of a dropdown menu.
-
+<!--
 <PropsTable
   data={[
     {
@@ -160,11 +165,11 @@ Contains all the parts of a dropdown menu.
     },
   ]}
 />
-
+-->
 ### Trigger
 
 The button that toggles the dropdown menu. By default, the `DropdownMenu.Content` will position itself against the trigger.
-
+<!--
 <PropsTable
   data={[
     {
@@ -198,11 +203,11 @@ The button that toggles the dropdown menu. By default, the `DropdownMenu.Content
     },
   ]}
 />
-
+-->
 ### Portal
 
 When used, portals the content part into the `body`.
-
+<!--
 <PropsTable
   data={[
     {
@@ -225,11 +230,11 @@ When used, portals the content part into the `body`.
     },
   ]}
 />
-
+-->
 ### Content
 
 The component that pops out when the dropdown menu is open.
-
+<!--
 <PropsTable
   data={[
     {
@@ -502,11 +507,11 @@ The component that pops out when the dropdown menu is open.
     },
   ]}
 />
-
+-->
 ### Arrow
 
 An optional arrow element to render alongside the dropdown menu. This can be used to help visually link the trigger with the `DropdownMenu.Content`. Must be rendered inside `DropdownMenu.Content`.
-
+<!--
 <PropsTable
   data={[
     {
@@ -539,11 +544,11 @@ An optional arrow element to render alongside the dropdown menu. This can be use
     },
   ]}
 />
-
+-->
 ### Item
 
 The component that contains the dropdown menu items.
-
+<!--
 <PropsTable
   data={[
     {
@@ -614,11 +619,11 @@ The component that contains the dropdown menu items.
     },
   ]}
 />
-
+-->
 ### Group
 
 Used to group multiple `DropdownMenu.Item`s.
-
+<!--
 <PropsTable
   data={[
     {
@@ -639,11 +644,11 @@ Used to group multiple `DropdownMenu.Item`s.
     },
   ]}
 />
-
+-->
 ### Label
 
 Used to render a label. It won't be focusable using arrow keys.
-
+<!--
 <PropsTable
   data={[
     {
@@ -664,11 +669,11 @@ Used to render a label. It won't be focusable using arrow keys.
     },
   ]}
 />
-
+-->
 ### CheckboxItem
 
 An item that can be controlled and rendered like a checkbox.
-
+<!--
 <PropsTable
   data={[
     {
@@ -757,11 +762,11 @@ An item that can be controlled and rendered like a checkbox.
     },
   ]}
 />
-
+-->
 ### RadioGroup
 
 Used to group multiple `DropdownMenu.RadioItem`s.
-
+<!--
 <PropsTable
   data={[
     {
@@ -793,11 +798,11 @@ Used to group multiple `DropdownMenu.RadioItem`s.
     },
   ]}
 />
-
+-->
 ### RadioItem
 
 An item that can be controlled and rendered like a radio.
-
+<!--
 <PropsTable
   data={[
     {
@@ -874,11 +879,11 @@ An item that can be controlled and rendered like a radio.
     },
   ]}
 />
-
+-->
 ### ItemIndicator
 
 Renders when the parent `DropdownMenu.CheckboxItem` or `DropdownMenu.RadioItem` is checked. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
-
+<!--
 <PropsTable
   data={[
     {
@@ -918,11 +923,11 @@ Renders when the parent `DropdownMenu.CheckboxItem` or `DropdownMenu.RadioItem` 
     },
   ]}
 />
-
+-->
 ### Separator
 
 Used to visually separate items in the dropdown menu.
-
+<!--
 <PropsTable
   data={[
     {
@@ -943,11 +948,11 @@ Used to visually separate items in the dropdown menu.
     },
   ]}
 />
-
+-->
 ### Sub
 
 Contains all the parts of a submenu.
-
+<!--
 <PropsTable
   data={[
     {
@@ -982,11 +987,11 @@ Contains all the parts of a submenu.
     },
   ]}
 />
-
+-->
 ### SubTrigger
 
 An item that opens a submenu. Must be rendered inside `DropdownMenu.Sub`.
-
+<!--
 <PropsTable
   data={[
     {
@@ -1079,11 +1084,11 @@ An item that opens a submenu. Must be rendered inside `DropdownMenu.Sub`.
     },
   ]}
 />
-
+-->
 ### SubContent
 
 The component that pops out when a submenu is open. Must be rendered inside `DropdownMenu.Sub`.
-
+<!--
 <PropsTable
   data={[
     {
@@ -1286,7 +1291,7 @@ The component that pops out when a submenu is open. Must be rendered inside `Dro
     },
   ]}
 />
-
+-->
 ## Examples
 
 ### With submenus
@@ -1625,7 +1630,7 @@ export default () => (
 Adheres to the [Menu Button WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/menubutton) and uses [roving tabindex](https://www.w3.org/WAI/ARIA/apg/patterns/kbd_roving_tabindex) to manage focus movement among menu items.
 
 ### Keyboard Interactions
-
+<!--
 <KeyboardTable
   data={[
     {
@@ -1687,7 +1692,7 @@ Adheres to the [Menu Button WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA
     },
   ]}
 />
-
+-->
 ## Custom APIs
 
 Create your own API by abstracting the primitive parts into your own component.

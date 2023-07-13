@@ -5,20 +5,28 @@ name: slider
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/slidertwothumb
 ---
 
+<script setup>
+import Description from '../../components/Description.vue'
+import HeroContainer from '../../components/HeroContainer.vue'
+import DemoSlider from '../../components/demo/Slider/index.vue'
+import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+</script>
+
 # Slider
 
-::description
-An input where the user selects a value from within a given range.
-::
+<Description>
+A modal dialog that interrupts the user with important content and expects a
+response.
+</Description>
 
-::hero-container
-#previewSlot
-  :demo-slider
-#codeSlot
-::hero-code-group{folder="Slider"}
-::
-::
+<HeroContainer>
+<DemoSlider />
+</HeroContainer>
 
+::: code-group
+<<< ../../components/demo/Slider/index.vue
+:::
+```
 <Highlights
   features={[
     'Can be controlled or uncontrolled.',
@@ -29,7 +37,7 @@ An input where the user selects a value from within a given range.
     'Full keyboard navigation.',
   ]}
 />
-
+```
 ## Installation
 
 Install the component from your command line.
@@ -60,7 +68,7 @@ export default () => (
 ### Root
 
 Contains all the parts of a slider. It will render an `input` for each thumb when used within a `form` to ensure events propagate correctly.
-
+```
 <PropsTable
   data={[
     {
@@ -206,11 +214,11 @@ Contains all the parts of a slider. It will render an `input` for each thumb whe
     },
   ]}
 />
-
+```
 ### Track
 
 The track that contains the `Slider.Range`.
-
+```
 <PropsTable
   data={[
     {
@@ -244,11 +252,11 @@ The track that contains the `Slider.Range`.
     },
   ]}
 />
-
+```
 ### Range
 
 The range part. Must live inside `Slider.Track`.
-
+```
 <PropsTable
   data={[
     {
@@ -282,11 +290,11 @@ The range part. Must live inside `Slider.Track`.
     },
   ]}
 />
-
+```
 ### Thumb
 
 A draggable thumb. You can render multiple thumbs.
-
+```
 <PropsTable
   data={[
     {
@@ -320,7 +328,7 @@ A draggable thumb. You can render multiple thumbs.
     },
   ]}
 />
-
+```
 ## Examples
 
 ### Vertical orientation
@@ -442,7 +450,7 @@ export default () => (
 Adheres to the [Slider WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/slidertwothumb).
 
 ### Keyboard Interactions
-
+```
 <KeyboardTable
   data={[
     {
@@ -521,7 +529,7 @@ Adheres to the [Slider WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/
     },
   ]}
 />
-
+```
 ## Custom APIs
 
 Create your own API by abstracting the primitive parts into your own component.

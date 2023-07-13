@@ -5,27 +5,34 @@ name: progress
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/meter
 ---
 
+<script setup>
+import Description from '../../components/Description.vue'
+import HeroContainer from '../../components/HeroContainer.vue'
+import DemoProgress from '../../components/demo/Progress/index.vue'
+import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+</script>
+
 # Progress
 
-::description
-Displays an indicator showing the completion progress of a task, typically
-displayed as a progress bar.
-::
+<Description>
+A modal dialog that interrupts the user with important content and expects a
+response.
+</Description>
 
-::hero-container
-#previewSlot
-  :demo-progress
-#codeSlot
-::hero-code-group{folder="Progress"}
-::
-::
+<HeroContainer>
+<DemoProgress />
+</HeroContainer>
 
+::: code-group
+<<< ../../components/demo/Progress/index.vue
+:::
+```
 <Highlights
   features={[
     'Provides context for assistive technology to read the progress of a task.',
   ]}
 />
-
+```
 ## Installation
 
 Install the component from your command line.
@@ -57,7 +64,7 @@ Adheres to the [`progressbar` role requirements](https://www.w3.org/WAI/ARIA/apg
 ### Root
 
 Contains all of the progress parts.
-
+```
 <PropsTable
   data={[
     {
@@ -112,11 +119,11 @@ Contains all of the progress parts.
     },
   ]}
 />
-
+```
 ### Indicator
 
 Used to show the progress visually. It also makes progress accessible to assistive technologies.
-
+```
 <PropsTable
   data={[
     {
@@ -154,3 +161,4 @@ Used to show the progress visually. It also makes progress accessible to assisti
     },
   ]}
 />
+```

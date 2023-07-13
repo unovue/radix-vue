@@ -21,7 +21,7 @@ response.
 </Description>
 
 <HeroContainer>
-<DemoAlertDialog v-slot="previewSlot"/>
+<DemoAlertDialog />
 </HeroContainer>
 
 ::: code-group

@@ -5,24 +5,32 @@ name: switch
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/switch
 ---
 
+<script setup>
+import Description from '../../components/Description.vue'
+import HeroContainer from '../../components/HeroContainer.vue'
+import DemoSwitch from '../../components/demo/Switch/index.vue'
+import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+</script>
+
 # Switch
 
-::description
-A control that allows the user to toggle between checked and not checked.
-::
+<Description>
+A modal dialog that interrupts the user with important content and expects a
+response.
+</Description>
 
-::hero-container
-#previewSlot
-  :demo-switch
-#codeSlot
-::hero-code-group{folder="Switch"}
-::
-::
+<HeroContainer>
+<DemoSwitch />
+</HeroContainer>
 
+::: code-group
+<<< ../../components/demo/Switch/index.vue
+:::
+```
 <Highlights
   features={['Full keyboard navigation.', 'Can be controlled or uncontrolled.']}
 />
-
+```
 ## Installation
 
 Install the component from your command line.
@@ -50,7 +58,7 @@ export default () => (
 ### Root
 
 Contains all the parts of a switch. An `input` will also render when used within a `form` to ensure events propagate correctly.
-
+```
 <PropsTable
   data={[
     {
@@ -142,11 +150,11 @@ Contains all the parts of a switch. An `input` will also render when used within
     },
   ]}
 />
-
+```
 ### Thumb
 
 The thumb that is used to visually indicate whether the switch is on or off.
-
+```
 <PropsTable
   data={[
     {
@@ -180,13 +188,13 @@ The thumb that is used to visually indicate whether the switch is on or off.
     },
   ]}
 />
-
+```
 ## Accessibility
 
 Adheres to the [`switch` role requirements](https://www.w3.org/WAI/ARIA/apg/patterns/switch).
 
 ### Keyboard Interactions
-
+```
 <KeyboardTable
   data={[
     {
@@ -199,3 +207,4 @@ Adheres to the [`switch` role requirements](https://www.w3.org/WAI/ARIA/apg/patt
     },
   ]}
 />
+```

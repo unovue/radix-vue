@@ -5,22 +5,30 @@ name: separator
 aria: https://www.w3.org/TR/wai-aria-1.2/#separator
 ---
 
+<script setup>
+import Description from '../../components/Description.vue'
+import HeroContainer from '../../components/HeroContainer.vue'
+import DemoSeparator from '../../components/demo/Separator/index.vue'
+import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+</script>
+
 # Separator
 
-::description
-Visually or semantically separates content.
-::
+<Description>
+A modal dialog that interrupts the user with important content and expects a
+response.
+</Description>
 
-::hero-container
-#previewSlot
-  :demo-separator
-#codeSlot
-::hero-code-group{folder="Separator"}
-::
-::
+<HeroContainer>
+<DemoSeparator />
+</HeroContainer>
 
+::: code-group
+<<< ../../components/demo/Separator/index.vue
+:::
+```
 <Highlights features={['Supports horizontal and vertical orientations.']} />
-
+```
 ## Installation
 
 Install the component from your command line.
@@ -44,7 +52,7 @@ export default () => <Separator.Root />;
 ### Root
 
 The separator.
-
+```
 <PropsTable
   data={[
     {
@@ -92,7 +100,7 @@ The separator.
     },
   ]}
 />
-
+```
 ## Accessibility
 
 Adheres to the [`separator` role requirements](https://www.w3.org/TR/wai-aria-1.2/#separator).

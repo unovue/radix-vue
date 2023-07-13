@@ -25,6 +25,7 @@ import DropdownMenuDemo from "./components/Demo/DropdownMenuDemo.vue";
 import ContextMenuDemo from "./components/Demo/ContextMenuDemo.vue";
 import ScrollAreaDemo from "./components/Demo/ScrollAreaDemo.vue";
 import SelectDemo from "./components/Demo/SelectDemo.vue";
+import MenubarDemo from "./components/Demo/MenubarDemo.vue";
 </script>
 
 <template>

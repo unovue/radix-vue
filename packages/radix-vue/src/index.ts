@@ -146,5 +146,24 @@ export {
   SelectRadioGroup,
   SelectRadioItem,
 } from "./Select";
+export {
+  MenubarArrow,
+  MenubarContent,
+  MenubarGroup,
+  MenubarItem,
+  MenubarPortal,
+  MenubarRoot,
+  MenubarSeparator,
+  MenubarTrigger,
+  MenubarCheckboxItem,
+  MenubarItemIndicator,
+  MenubarLabel,
+  MenubarRadioGroup,
+  MenubarRadioItem,
+  MenubarSub,
+  MenubarSubContent,
+  MenubarSubTrigger,
+  MenubarMenu,
+} from "./Menubar";
 
 export * from "./ScrollArea";

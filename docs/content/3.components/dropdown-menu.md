@@ -7,11 +7,6 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/menubutton
 
 # Dropdown Menu
 
-<Description>
-  Displays a menu to the user—such as a set of actions or functions—triggered by
-  a button.
-</Description>
-
 ::description
 Displays a menu to the user—such as a set of actions or functions—triggered by
   a button.

@@ -1,11 +1,13 @@
 <script lang="ts">
+import { PrimitiveLabel } from "@/Primitive";
+
 interface ContextMenuLabelProps {
+  asChild?: boolean;
   for?: string;
 }
 </script>
 
 <script setup lang="ts">
-import { PrimitiveLabel } from "@/Primitive";
 const props = defineProps<ContextMenuLabelProps>();
 </script>
 

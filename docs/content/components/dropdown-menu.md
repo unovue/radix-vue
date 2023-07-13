@@ -5,8 +5,6 @@ name: dropdown-menu
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/menubutton
 ---
 
-# Dropdown Menu
-
 <script setup>
 import Description from '../../components/Description.vue'
 import HeroContainer from '../../components/HeroContainer.vue'

@@ -63,7 +63,11 @@ onClickOutside(tooltipContentElement, (event) => {
 </script>
 
 <template>
-  <PopperContent v-bind="props" v-if="injectedValue?.isOpen.value">
+  <PopperContent
+    v-bind="props"
+    v-if="injectedValue?.isOpen.value"
+    prioritize-position
+  >
     <PrimitiveDiv
       ref="primitiveElement"
       :data-state="injectedValue?.isOpen.value ? 'open' : 'closed'"

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject } from "vue";
+import { inject, onMounted } from "vue";
 import { PrimitiveButton } from "@/Primitive";
 import {
   CONTEXT_MENU_INJECTION_KEY,
@@ -34,6 +34,10 @@ function handleContextMenu(e: MouseEvent) {
     injectedValue?.showTooltip();
   }
 }
+
+onMounted(() => {
+  injectedValue!.triggerElement.value = virtualEl;
+});
 </script>
 
 <template>

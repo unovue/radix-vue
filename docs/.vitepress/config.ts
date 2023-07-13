@@ -58,7 +58,6 @@ function sidebar() {
         { text: 'Hover Card', link: '/components/hover-card' },
         { text: 'Label', link: '/components/label' },
         { text: 'Menubar', link: '/components/menubar' },
-        { text: 'Navigation Menu', link: '/components/navigation-menu' },
         { text: 'Popover', link: '/components/popover' },
         { text: 'Progress', link: '/components/progress' },
         { text: 'Radio Group', link: '/components/radio-group' },

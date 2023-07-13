@@ -19,6 +19,6 @@
     }
   },
   "dependencies": {
-    "radix-vue": "workspace:0.0.1-rc-.6"
+    "radix-vue": "workspace:0.0.1-rc-.7"
   }
 }

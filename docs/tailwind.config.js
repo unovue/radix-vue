@@ -1,4 +1,4 @@
-const { blackA, green, mauve, violet, red } = require("@radix-ui/colors");
+const { blackA, green, grass, mauve, violet, red, teal, cyan } = require("@radix-ui/colors");
 
 export default {
 	content: [
@@ -20,6 +20,9 @@ export default {
 				...violet,
 				...green,
 				...red,
+        ...grass,
+        ...teal,
+        ...cyan,
 			},
 			keyframes: {
 				overlayShow: {

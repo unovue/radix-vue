@@ -26,11 +26,11 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
 <template>
   <SelectRoot v-model="fruit">
     <SelectTrigger
-      class="w-[133px] max-w-[133px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-violet11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-violet9 outline-none"
+      class="inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-green9 outline-none"
       aria-label="Customise options"
     >
       {{ fruit }}
-      <Icon icon="radix-icons:chevron-down" class="h-4 w-4" />
+      <Icon icon="radix-icons:chevron-down" class="h-3.5 w-3.5" />
     </SelectTrigger>
 
     <SelectPortal>
@@ -45,7 +45,7 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
           <SelectItem
             v-for="(option, index) in options"
             :key="index"
-            class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+            class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
             :value="option"
           >
             <SelectItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">
@@ -54,7 +54,7 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
             {{ option }}
           </SelectItem>
         </SelectGroup>
-        <SelectSeparator class="h-[1px] bg-violet6 m-[5px]" />
+        <SelectSeparator class="h-[1px] bg-green6 m-[5px]" />
         <SelectLabel class="px-[25px] text-xs leading-[25px] text-mauve11">
           Vegetables
         </SelectLabel>
@@ -62,7 +62,7 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
           <SelectItem
             v-for="(option, index) in vegetables"
             :key="index"
-            class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+            class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
             :value="option"
             :disabled="option === 'Courgette'"
           >

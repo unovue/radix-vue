@@ -11,7 +11,7 @@ import { AvatarRoot, AvatarImage, AvatarFallback } from "radix-vue";
         alt="Colm Tuite"
       />
       <AvatarFallback
-        class="text-violet11 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium"
+        class="text-grass11 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium"
         :delayMs="600"
       >
         CT
@@ -24,14 +24,14 @@ import { AvatarRoot, AvatarImage, AvatarFallback } from "radix-vue";
         alt="Pedro Duarte"
       />
       <AvatarFallback
-        class="text-violet11 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium"
+        class="text-grass11 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium"
         :delayMs="600"
       >
         JD
       </AvatarFallback>
     </AvatarRoot>
     <AvatarRoot class="bg-blackA3 inline-flex h-[45px] w-[45px] select-none items-center justify-center overflow-hidden rounded-full align-middle">
-      <AvatarFallback class="text-violet11 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium">
+      <AvatarFallback class="text-grass11 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium">
         PD
       </AvatarFallback>
     </AvatarRoot>

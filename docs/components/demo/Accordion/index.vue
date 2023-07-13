@@ -25,7 +25,7 @@ const rootDisabled = false;
           ><span>Is it accessible?</span>
           <Icon
             icon="radix-icons:chevron-down"
-            class="text-violet10 ease-[cubic-bezier(0.87,_0,_0.13,_1)] transition-transform duration-300 group-data-[state=open]:rotate-180"
+            class="text-green10 ease-[cubic-bezier(0.87,_0,_0.13,_1)] transition-transform duration-300 group-data-[state=open]:rotate-180"
             aria-hidden
           />
         </AccordionTrigger>
@@ -43,7 +43,7 @@ const rootDisabled = false;
           ><span>Is it unstyled?</span>
           <Icon
             icon="radix-icons:chevron-down"
-            class="text-violet10 ease-[cubic-bezier(0.87,_0,_0.13,_1)] transition-transform duration-300 group-data-[state=open]:rotate-180"
+            class="text-green10 ease-[cubic-bezier(0.87,_0,_0.13,_1)] transition-transform duration-300 group-data-[state=open]:rotate-180"
             aria-hidden
           />
         </AccordionTrigger>
@@ -63,7 +63,7 @@ const rootDisabled = false;
           ><span>Can it be animated?</span>
           <Icon
             icon="radix-icons:chevron-down"
-            class="text-violet10 ease-[cubic-bezier(0.87,_0,_0.13,_1)] transition-transform duration-300 group-data-[state=open]:rotate-180"
+            class="text-green10 ease-[cubic-bezier(0.87,_0,_0.13,_1)] transition-transform duration-300 group-data-[state=open]:rotate-180"
             aria-hidden
           />
         </AccordionTrigger>
@@ -85,7 +85,7 @@ const rootDisabled = false;
 }
 
 .accordion-trigger {
-  @apply text-[var(--color-primary-700)]  shadow-mauve6 hover:bg-mauve2 flex h-[45px] flex-1 cursor-default items-center justify-between bg-white px-5 text-[15px] leading-none shadow-[0_1px_0] outline-none;
+  @apply text-grass11  shadow-mauve6 hover:bg-mauve2 flex h-[45px] flex-1 cursor-default items-center justify-between bg-white px-5 text-[15px] leading-none shadow-[0_1px_0] outline-none;
 }
 
 .accordion-content {

@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { ProgressRoot, ProgressIndicator } from "radix-vue";
 
-const progressValue = ref(66);
+const progressValue = ref(10);
+
+onMounted(() => {
+  const timer = setTimeout(() => progressValue.value = 66, 500);
+  return () => clearTimeout(timer);
+})
 </script>
 
 <template>
-  <div class="absolute left-4 top-3 text-sm">
-  <p>{{ progressValue.toFixed(2) }}</p>
-  </div>
   <ProgressRoot class="relative overflow-hidden bg-blackA9 rounded-full w-[300px] h-[25px]"
     style="transform: translateZ(0)" v-model="progressValue">
     <ProgressIndicator

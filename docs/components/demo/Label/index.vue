@@ -4,7 +4,7 @@ import { Label } from "radix-vue";
 
 <template>
   <div class="flex flex-wrap items-center gap-[15px] px-5">
-    <Label class="text-[15px] font-medium leading-[35px] text-white" for="firstName">
+    <Label class="text-[15px] font-semibold leading-[35px] text-white" for="firstName">
       First name
     </Label>
     <input

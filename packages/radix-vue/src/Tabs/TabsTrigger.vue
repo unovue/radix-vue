@@ -1,8 +1,8 @@
 <script lang="ts">
 export interface TabsTriggerProps {
-  asChild?: boolean;
-  value?: string;
+  value: string;
   disabled: boolean;
+  asChild?: boolean;
 }
 </script>
 
@@ -31,12 +31,15 @@ function handleKeydown(e: KeyboardEvent) {
     e,
     currentToggleElement.value!,
     injectedValue?.parentElement.value!,
-    { arrowKeyOptions: "horizontal" }
+    { arrowKeyOptions: injectedValue?.orientation, loop: injectedValue?.loop }
   );
 
   if (newSelectedElement) {
     newSelectedElement.focus();
-    changeTab(newSelectedElement?.getAttribute("data-radix-vue-tab-value")!);
+
+    if (injectedValue?.activationMode === "automatic") {
+      changeTab(newSelectedElement?.getAttribute("data-radix-vue-tab-value")!);
+    }
   }
 }
 </script>
@@ -45,6 +48,7 @@ function handleKeydown(e: KeyboardEvent) {
   <PrimitiveButton
     ref="primitiveElement"
     type="button"
+    :asChild="props.asChild"
     role="tab"
     :aria-selected="
       injectedValue?.modelValue?.value === props.value ? 'true' : 'false'
@@ -52,7 +56,8 @@ function handleKeydown(e: KeyboardEvent) {
     :data-state="
       injectedValue?.modelValue?.value === props.value ? 'active' : 'inactive'
     "
-    :data-disabled="props.disabled"
+    :disabled="props.disabled"
+    :data-disabled="props.disabled ? '' : undefined"
     :tabindex="injectedValue?.modelValue?.value === props.value ? '0' : '-1'"
     :data-orientation="injectedValue?.orientation"
     data-radix-vue-collection-item

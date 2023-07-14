@@ -13,6 +13,7 @@ import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 import PropsTable from '../../components/tables/PropsTable.vue'
 import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
 import KeyboardTable from '../../components/tables/KeyboardTable.vue'
+import Highlights from '../../components/Highlights.vue'
 </script>
 
 # Alert Dialog
@@ -33,15 +34,14 @@ response.
 
 ## Features
 
-:br
-::list{type="success"}
-
-- Focus is automatically trapped.
-- Can be controlled or uncontrolled.
-- Manages screen reader announcements with `Title` and
-  `Description` components.
-- Esc closes the component automatically.
-  ::
+<Highlights
+  :features="[
+    'Focus is automatically trapped.',
+    'Can be controlled or uncontrolled.',
+    'Manages screen reader announcements with `Title` and `Description` components.',
+    'Esc closes the component automatically.'
+  ]"
+/>
 
 ## Installation
 

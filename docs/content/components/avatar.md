@@ -9,6 +9,7 @@ import Description from '../../components/Description.vue'
 import HeroContainer from '../../components/HeroContainer.vue'
 import DemoAvatar from '../../components/demo/Avatar/index.vue'
 import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+import Highlights from '../../components/Highlights.vue'
 </script>
 
 # Avatar
@@ -26,15 +27,13 @@ response.
 <<< ../../components/demo/Avatar/index.vue
 :::
 
-<!--
 <Highlights
-  features={[
+  :features="[
     'Automatic and manual control over when the image renders.',
     'Fallback part accepts any children.',
     'Optionally delay fallback rendering to avoid content flashing.',
-  ]}
+  ]"
 />
--->
 
 ## Installation
 

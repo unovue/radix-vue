@@ -15,6 +15,7 @@ import DataAttributesTable from '../../components/tables/DataAttributesTable.vue
 import CssVariablesTable from '../../components/tables/CssVariablesTable.vue'
 import KeyboardTable from '../../components/tables/KeyboardTable.vue'
 import Highlights from '../../components/Highlights.vue'
+import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 </script>
 
 # Accordion
@@ -25,13 +26,27 @@ associated section of content.
 </Description>
 
 <HeroContainer>
+<template v-slot:previewSlot>
 <DemoAccordion />
-</HeroContainer>
+</template>
+<template v-slot:codeSlot>
+<HeroCodeGroup>
 
-::: code-group
+<div filename="index.vue">
+
 <<< ../../components/demo/Accordion/index.vue
+
+</div>
+
+<div filename="tailwind.config.js">
+
 <<< ../../components/demo/Accordion/tailwind.config.js
-:::
+
+</div>
+
+</HeroCodeGroup>
+</template>
+</HeroContainer>
 
 ## Features
 

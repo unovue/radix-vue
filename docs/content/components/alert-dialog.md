@@ -97,8 +97,7 @@ name: 'onOpenChange',
 type: '(open: boolean) => void',
 typeSimple: 'function',
 description: 'Event handler called when the open state of the dialog changes.',
-}]">
-</PropsTable>
+}]" />
 
 
 ### Trigger {class="font-bold mt-10"}
@@ -110,15 +109,13 @@ required: false,
 type: 'boolean',
 default: 'false',
 description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.'
-},
-]" />
+}]" />
 
 
 <DataAttributesTable :data="[{
 attribute: '[data-state]',
 values: ['open', 'closed'],
-},
-]" />
+}]" />
 
 
 ### Portal {class="font-bold mt-10"}
@@ -126,212 +123,124 @@ values: ['open', 'closed'],
 
 
 
-## ::props-table
-
-data: [
-{
+<PropsTable :data="[{
 name: 'forceMount',
 type: 'boolean',
-description: 'Used to force mounting when more control is needed. Useful when
-controlling animation with React animation libraries. If used on this
-part, it will be inherited by',
+description: 'Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries. If used on this part, it will be inherited by',
 },
 {
 name: 'container',
 type: 'HTMLElement',
 default: 'document.body',
 description: 'Specify a container element to portal the content into.',
-},
-]
-
----
-
-::
+}]" />
 
 ### Overlay
 
 A layer that covers the inert portion of the view when the dialog is open.
 
-## ::props-table
-
-data: [
-{
+<PropsTable :data="[{
 name: 'asChild',
 required: false,
 type: 'boolean',
 default: 'false',
-description: 'Change the default rendered element for the one passed as a child,
-merging their props and behavior.',
+description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
 },
 {
 name: 'forceMount',
 type: 'boolean',
-description: Used to force mounting when more control is needed. Useful when
-controlling animation with React animation libraries. It inherits from `AlertDialog.Portal`.,
-},
-]
+description: 'Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries. It inherits from `AlertDialog.Portal`.',
+}]" />
 
----
-
-::
-
-## ::data-attributes-table
-
-data: [
-{
+<DataAttributesTable :data="[{
 attribute: '[data-state]',
 values: ['open', 'closed'],
-},
-]
-
----
-
-::
+}]" />
 
 ### Content
 
 Contains content to be rendered when the dialog is open.
 
-## ::props-table
-
-data: [
-{
+<PropsTable :data="[{
 name: 'asChild',
 required: false,
 type: 'boolean',
 default: 'false',
-description: 'Change the default rendered element for the one passed as a child,
-merging their props and behavior.',
+description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
 },
 {
 name: 'forceMount',
 type: 'boolean',
-description: 'Used to force mounting when more control is needed. Useful when
-controlling animation with React animation libraries. It inherits from `AlertDialog.Portal`',
+description: 'Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries. It inherits from `AlertDialog.Portal`',
 },
 {
 name: 'onOpenAutoFocus',
 type: '(event: Event) => void',
-typeSimple: 'function',
-description: 'Event handler called when focus moves to the destructive action after
-opening. It can be prevented by calling `event.preventDefault`',
+description: 'Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault`',
 },
 {
 name: 'onCloseAutoFocus',
 type: '(event: Event) => void',
-typeSimple: 'function',
-description: 'Event handler called when focus moves to the destructive action after
-opening. It can be prevented by calling `event.preventDefault`',
+description: 'Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault`',
 },
 {
 name: 'onEscapeKeyDown',
 type: '(event: KeyboardEvent) => void',
-typeSimple: 'function',
-description: 'Event handler called when focus moves to the destructive action after
-opening. It can be prevented by calling `event.preventDefault`',
-},
-]
+description: 'Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault`',
+}]" />
 
----
-
-::
-
-## ::data-attributes-table
-
-data: [
-{
+<DataAttributesTable :data="[{
 attribute: '[data-state]',
 values: ['open', 'closed'],
-},
-]
-
----
-
-::
+}]" />
 
 ### Cancel
 
 A button that closes the dialog. This button should be distinguished visually from `AlertDialog.Action` buttons.
 
-## ::props-table
-
-data: [
-{
+<PropsTable :data="[{
 name: 'asChild',
 required: false,
 type: 'boolean',
 default: 'false',
-description: 'Change the default rendered element for the one passed as a child,
-merging their props and behavior.',
-},
-]
-
----
-
-::
+description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
+}]" />
 
 ### Action
 
 A button that closes the dialog. These buttons should be distinguished visually from the `AlertDialog.Cancel` button.
 
-## ::props-table
-
-data: [
-{
+<PropsTable :data="[{
 name: 'asChild',
 required: false,
 type: 'boolean',
 default: 'false',
-description: 'Change the default rendered element for the one passed as a child,
-merging their props and behavior.',
-},
-]
-
----
-
-::
+description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
+}]" />
 
 ### Title
 
 An accessible name to be announced when the dialog is opened. Alternatively, you can provide `aria-label` or `aria-labelledby` to `AlertDialog.Content` and exclude this component.
 
-## ::props-table
-
-data: [
-{
+<PropsTable :data="[{
 name: 'asChild',
 required: false,
 type: 'boolean',
 default: 'false',
-description: 'Change the default rendered element for the one passed as a child,
-merging their props and behavior.',
-},
-]
-
----
-
-::
+description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
+}]" />
 
 ### Description
 
 An accessible description to be announced when the dialog is opened. Alternatively, you can provide `aria-describedby` to `AlertDialog.Content` and exclude this component.
 
-## ::props-table
-
-data: [
-{
+<PropsTable :data="[{
 name: 'asChild',
 required: false,
 type: 'boolean',
 default: 'false',
-description: 'Change the default rendered element for the one passed as a child,
-merging their props and behavior.',
-},
-]
-
----
-
-::
+description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
+}]" />
 
 ## Examples
 
@@ -399,9 +308,7 @@ Adheres to the [Alert and Message Dialogs WAI-ARIA design pattern](https://www.w
 
 ### Keyboard Interactions
 
-<KeyboardTable :data="[
-{
+<KeyboardTable :data="[{
 keys: ['Space'],
 description: 'Opens/closes the dialog.',
-},
-]" />
+}]" />

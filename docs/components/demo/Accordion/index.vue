@@ -14,9 +14,8 @@ const rootDisabled = false;
 <template>
   <AccordionRoot
     class="bg-mauve6 w-[300px] rounded-md shadow-[0_2px_10px] shadow-black/5"
-    :default-value="'item-1'"
+    default-value="'item-1'"
     type="single"
-    :disabled="rootDisabled"
     :collapsible="true"
   >
     <AccordionItem class="accordion-item" value="item-1">
@@ -31,7 +30,7 @@ const rootDisabled = false;
         </AccordionTrigger>
       </AccordionHeader>
       <AccordionContent
-        class="accordion-content data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
+        class="accordion-content"
       >
         <div class="px-5 py-4">Yes. It adheres to the WAI-ARIA design pattern.</div>
       </AccordionContent>
@@ -49,7 +48,7 @@ const rootDisabled = false;
         </AccordionTrigger>
       </AccordionHeader>
       <AccordionContent
-        class="accordion-content data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
+        class="accordion-content"
       >
         <div class="px-5 py-4">
           Yes. It's unstyled by default, giving you freedom over the look and feel.
@@ -69,7 +68,7 @@ const rootDisabled = false;
         </AccordionTrigger>
       </AccordionHeader>
       <AccordionContent
-        class="accordion-content data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
+        class="accordion-content"
       >
         <div class="px-5 py-4">
           Yes! You can use the transition prop to configure the animation.

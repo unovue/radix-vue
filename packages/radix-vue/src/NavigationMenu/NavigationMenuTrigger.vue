@@ -69,6 +69,7 @@ const handleKeydown = (ev: KeyboardEvent) => {
     itemContext!.onEntryKeyDown();
     // Prevent FocusGroupItem from handling the event
     ev.preventDefault();
+    ev.stopPropagation();
   }
 };
 </script>

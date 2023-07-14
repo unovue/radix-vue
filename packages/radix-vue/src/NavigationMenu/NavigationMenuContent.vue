@@ -49,6 +49,10 @@ onMounted(() => {
     context.onViewportContentChange(itemContext!.value, vnode);
   }
 });
+
+const handleEscape = () => {
+  itemContext!.wasEscapeCloseRef.value = true;
+};
 </script>
 
 <template>
@@ -60,7 +64,7 @@ onMounted(() => {
         pointerEvents: !open && context?.isRootMenu ? 'none' : undefined,
       }"
       v-bind="($attrs, commonProps)"
-      @escape="itemContext!.wasEscapeCloseRef.value = true"
+      @escape="handleEscape"
     >
       <slot></slot>
     </NavigationMenuContentImpl>

@@ -57,33 +57,47 @@ provide(NAVIGATION_MENU_ITEM_INJECTION_KEY, {
     if (el) {
       // @ts-ignore
       const candidates = getTabbableCandidates(unrefElement(el));
-      console.log(el, candidates);
       if (candidates.length)
         focusFirst(side === "start" ? candidates : candidates.reverse());
     }
   },
 });
 
+const handleClose = () => {
+  context?.onItemSelect("");
+  triggerRef.value?.focus();
+};
+
 const handleKeydown = (ev: KeyboardEvent) => {
   const currentFocus = document.activeElement as HTMLElement;
   if (ev.keyCode === 32 || ev.key === "Enter") {
-    (ev.target as HTMLElement).click();
+    if (context?.modelValue.value === value) {
+      handleClose();
+      ev.preventDefault();
+      return;
+    } else {
+      (ev.target as HTMLElement).click();
+      ev.preventDefault();
+      return;
+    }
+  }
+
+  if (ev.key === "Escape") {
+    wasEscapeCloseRef.value = true;
+    triggerRef.value?.focus();
+    context!.modelValue.value = "";
     return;
   }
 
   const newSelectedElement = useArrowNavigation(ev, currentFocus, undefined, {
-    arrowKeyOptions: "horizontal",
     itemsArray: getItems(),
   });
-
   newSelectedElement?.focus();
-
-  // context?.onItemSelect(newSelectedElement?.id.split("trigger-")[1] ?? "");
 };
 </script>
 
 <template>
-  <PrimitiveLi @keydown.prevent="handleKeydown">
+  <PrimitiveLi @keydown="handleKeydown">
     <slot></slot>
   </PrimitiveLi>
 </template>

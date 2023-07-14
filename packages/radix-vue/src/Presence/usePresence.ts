@@ -52,7 +52,7 @@ export function usePresence(present: Ref<boolean>, node: HTMLElement) {
          * fires after `animation-delay` has expired which would be too late.
          */
         const isAnimating = prevAnimationName !== currentAnimationName;
-        console.log(isAnimating, prevAnimationName, currentAnimationName);
+        // console.log(isAnimating, prevAnimationName, currentAnimationName);
         if (wasPresent && isAnimating) {
           dispatch("ANIMATION_OUT");
         } else {

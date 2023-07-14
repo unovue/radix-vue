@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
-import { NAVIGATION_MENU_ITEM_INJECTION_KEY } from "./NavigationMenuItem.vue";
 import { computed, inject, onMounted, ref, type VNode } from "vue";
 import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 import { getOpenState } from "./utils";
@@ -11,7 +10,6 @@ import NavigationMenuContentImpl from "./NavigationMenuContentImpl.vue";
 const { primitiveElement, currentElement } = usePrimitiveElement();
 
 const context = inject(NAVIGATION_MENU_INJECTION_KEY);
-const itemContext = inject(NAVIGATION_MENU_ITEM_INJECTION_KEY);
 
 const content = ref<HTMLElement>();
 const size = ref<{ width: number; height: number }>();
@@ -41,6 +39,12 @@ const setRef = (node: VNode) => {
     content.value = unrefElement(node);
   }
   return undefined;
+};
+
+const handleClose = (node: VNode) => {
+  context!.modelValue.value = "";
+  node.props?.triggerRef?.value?.focus();
+  node.props!.wasEscapeCloseRef.value = true;
 };
 
 useResizeObserver(content, () => {
@@ -84,7 +88,8 @@ defineOptions({
             :value="node.props?.value"
             :triggerRef="node.props?.triggerRef"
             :focusProxyRef="node.props?.focusProxyRef"
-            @escape="itemContext!.wasEscapeCloseRef.value = true"
+            :wasEscapeCloseRef="node.props?.wasEscapeCloseRef"
+            @escape="handleClose(node)"
           >
             <component :is="node"></component>
           </NavigationMenuContentImpl>

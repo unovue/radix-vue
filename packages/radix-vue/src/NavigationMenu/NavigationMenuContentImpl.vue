@@ -20,7 +20,7 @@ import {
   makeContentId,
   makeTriggerId,
 } from "./utils";
-import { useCollection } from "@/shared";
+import { useArrowNavigation, useCollection } from "@/shared";
 
 const props = defineProps<NavigationMenuContentImplProps>();
 const emits = defineEmits<{
@@ -68,11 +68,10 @@ const motionAttribute = computed(() => {
 });
 
 const handleKeydown = (ev: KeyboardEvent) => {
-  console.log(ev);
   const isMetaKey = ev.altKey || ev.ctrlKey || ev.metaKey;
   const isTabKey = ev.key === "Tab" && !isMetaKey;
+  const candidates = getTabbableCandidates(ev.currentTarget as HTMLElement);
   if (isTabKey) {
-    const candidates = getTabbableCandidates(ev.currentTarget as HTMLElement);
     const focusedElement = document.activeElement;
     const index = candidates.findIndex(
       (candidate) => candidate === focusedElement
@@ -92,6 +91,15 @@ const handleKeydown = (ev: KeyboardEvent) => {
       props.focusProxyRef.value?.focus();
     }
   }
+
+  const newSelectedElement = useArrowNavigation(
+    ev,
+    document.activeElement as HTMLElement,
+    undefined,
+    { itemsArray: candidates }
+  );
+
+  newSelectedElement?.focus();
 };
 
 const handleEscape = (ev: KeyboardEvent) => {
@@ -99,7 +107,7 @@ const handleEscape = (ev: KeyboardEvent) => {
 };
 
 defineExpose({
-  value: props.value,
+  ...props,
 });
 </script>
 

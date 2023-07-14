@@ -718,7 +718,7 @@ export default () => (
 
 #### Implementation
 
-Use the [`asChild` prop](/docs/primitives/guides/composition) to convert the trigger part into a slottable area. It will replace the trigger with the child that gets passed to it.
+Use the [`asChild` prop](/guides/composition) to convert the trigger part into a slottable area. It will replace the trigger with the child that gets passed to it.
 
 ```jsx line=8-10
 // your-tooltip.jsx

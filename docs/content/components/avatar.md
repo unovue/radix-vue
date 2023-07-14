@@ -159,7 +159,7 @@ An element that renders when the image hasn't loaded. This means whilst it's loa
 
 ### Clickable Avatar with tooltip
 
-You can compose the Avatar with a [Tooltip](/docs/primitives/components/tooltip) to display extra information.
+You can compose the Avatar with a [Tooltip](/components/tooltip) to display extra information.
 
 ```jsx line=2,5,6,8,10-14
 import * as Avatar from '@radix-ui/react-avatar';

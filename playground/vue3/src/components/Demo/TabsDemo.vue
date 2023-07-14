@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { TabsContent, TabsList, TabsRoot, TabsTrigger } from '../../../../../packages/radix-vue/src'
 import { ref } from 'vue'
+import { TabsContent, TabsList, TabsRoot, TabsTrigger } from '../../../../../packages/radix-vue/src'
 
 const toggleStateSingle = ref('tab1')
 </script>

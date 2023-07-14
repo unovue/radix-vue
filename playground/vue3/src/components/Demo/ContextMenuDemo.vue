@@ -12,10 +12,10 @@ import {
   ContextMenuRadioItem,
   ContextMenuRoot,
   ContextMenuSeparator,
-  ContextMenuTrigger,
   ContextMenuSub,
   ContextMenuSubContent,
-  ContextMenuSubTrigger
+  ContextMenuSubTrigger,
+  ContextMenuTrigger,
 } from '../../../../../packages/radix-vue/src'
 
 const toggleState = ref(false)

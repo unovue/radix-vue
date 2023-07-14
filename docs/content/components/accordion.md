@@ -26,9 +26,7 @@ associated section of content.
 </Description>
 
 <HeroContainer>
-<template v-slot:previewSlot>
 <DemoAccordion />
-</template>
 <template v-slot:codeSlot>
 <HeroCodeGroup>
 

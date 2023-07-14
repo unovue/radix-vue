@@ -65,7 +65,7 @@ const handleKeydown = (ev: KeyboardEvent) => {
   const entryKey = { horizontal: "ArrowDown", vertical: verticalEntryKey }[
     context!.orientation
   ];
-  if (open.value && ev.key === entryKey) {
+  if (open.value && (ev.key === entryKey || ev.key === "Tab")) {
     itemContext!.onEntryKeyDown();
     // Prevent FocusGroupItem from handling the event
     ev.preventDefault();

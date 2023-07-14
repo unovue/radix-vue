@@ -96,7 +96,7 @@ const handleKeydown = (ev: KeyboardEvent) => {
     ev,
     document.activeElement as HTMLElement,
     undefined,
-    { itemsArray: candidates }
+    { itemsArray: candidates, loop: false }
   );
 
   newSelectedElement?.focus();

@@ -99,6 +99,7 @@ const handleKeydown = (ev: KeyboardEvent) => {
 
   const newSelectedElement = useArrowNavigation(ev, currentFocus, undefined, {
     itemsArray: getItems(),
+    loop: false,
   });
   newSelectedElement?.focus();
 };

@@ -25,11 +25,13 @@ const currentTab = ref("index.vue");
 
 watch(open, () => {
   if (!open.value) {
+    /*
     if (window.scrollY > codeScrollWrapper.value?.offsetHeight! - 150) {
       window.scrollTo({
         top: window.scrollY - (codeScrollWrapper.value?.offsetHeight! - 150),
       });
     }
+    */
     codeScrollWrapper.value!.scrollTo({
       top: 0,
     });
@@ -38,8 +40,8 @@ watch(open, () => {
 </script>
 
 <template>
-  <TabsRoot v-model="currentTab" class="bg-[#1a1a1a] border border-neutral-700/40" @update:model-value="open = true">
-    <div class="bg-[#1a1a1a] border-b-2 border-[#272727] flex pr-2">
+  <TabsRoot v-model="currentTab" class="bg-[var(--vp-code-block-bg)] border border-neutral-700/40 rounded-b-lg overflow-hidden" @update:model-value="open = true">
+    <div class="bg-[var(--vp-code-block-bg)] border-b-2 border-[#272727] flex pr-2">
       <div class="flex justify-between items-center w-full">
         <TabsList class="flex">
           <TabsTrigger
@@ -70,7 +72,7 @@ watch(open, () => {
         </div>
       </TabsContent>
       <div
-        class="h-20 left-0 w-full flex items-center justify-center bottom-0 absolute rounded-b-lg bg-gradient-to-t from-[#1A1A1AFF] to-[#1A1A1A00]"
+        class="h-20 left-0 w-full flex items-center justify-center bottom-0 absolute rounded-b-lg bg-gradient-to-t from-[var(--vp-code-block-bg)FF] to-[var(--vp-code-block-bg)00]"
       >
         <button
           ref="buttonRef"

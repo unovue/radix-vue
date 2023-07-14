@@ -1,3 +1,9 @@
+<script lang="ts">
+export interface AccordionTriggerProps {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { inject } from "vue";
 import { CollapsibleTrigger } from "../Collapsible/";
@@ -20,11 +26,16 @@ const accordionItemInjectedValue = inject<AccordionItemProvideValue>(
 );
 const accordionCollapsibleInjectedValue =
   inject<AccordionCollapsibleProvideValue>(ACCORDION_COLLAPSIBLE_INJECTION_KEY);
+
+const props = withDefaults(defineProps<AccordionTriggerProps>(), {
+  asChild: false,
+})
 </script>
 
 <template>
   <CollapsibleTrigger
     data-radix-vue-collection-item
+    :asChild="props.asChild"
     :aria-disabled="
       (accordionItemInjectedValue?.open &&
         !accordionCollapsibleInjectedValue?.collapsible) ||

@@ -20,10 +20,6 @@ export interface AccordionImplSingleProps extends AccordionImplProps {
    */
   defaultValue?: string;
   /**
-   * The callback that fires when the state of the accordion changes.
-   */
-  onValueChange?(value: string): void;
-  /**
    * Whether an accordion item can be collapsed after it has been opened.
    * @default false
    */
@@ -42,7 +38,6 @@ import AccordionImpl, {
 } from "./AccordionImpl.vue";
 
 const props = withDefaults(defineProps<AccordionSingleProps>(), {
-  onValueChange: () => {},
   collapsible: false,
 });
 

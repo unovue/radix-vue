@@ -16,10 +16,6 @@ export interface AccordionImplMultipleProps extends AccordionImplProps {
    * `defaultValue` if you do not need to control the state of an accordion.
    */
   defaultValue?: string[];
-  /**
-   * The callback that fires when the state of the accordion changes.
-   */
-  onValueChange?(value: string[]): void;
 }
 
 export interface AccordionMultipleProps extends AccordionImplMultipleProps {

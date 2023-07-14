@@ -1,6 +1,7 @@
 <script lang="ts" context="module">
 import type { InjectionKey } from "vue";
 import type { CollapsibleRootProps } from "../Collapsible";
+import { useId } from "@/shared";
 
 export interface AccordionItemProps
   extends Omit<CollapsibleRootProps, "open" | "defaultOpen" | "onOpenChange"> {
@@ -74,7 +75,7 @@ const disabled = computed(
 provide<AccordionItemProvideValue>(ACCORDION_ITEM_INJECTION_KEY, {
   open: open.value,
   disabled: disabled.value,
-  triggerId: "1", // TODO
+  triggerId: useId(), // TODO
 });
 
 function getItems() {

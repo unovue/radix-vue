@@ -18,7 +18,7 @@ const emit = defineEmits<{
 
 <template>
   <AccordionImplMultiple
-    v-if="props.type === 'multiple'"
+    v-if="props?.type === 'multiple'"
     v-bind="props"
     @update:modelValue="emit('update:modelValue', $event)"
   >

@@ -1,3 +1,9 @@
+<script lang="ts">
+export interface AccordionTriggerProps {
+  asChild?: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import { inject } from "vue";
 import { PrimitiveH3 } from "@/Primitive";
@@ -16,10 +22,15 @@ const accordionImplInjectedValue = inject<AccordionImplProvideValue>(
 const accordionItemInjectedValue = inject<AccordionItemProvideValue>(
   ACCORDION_ITEM_INJECTION_KEY
 );
+
+const props = withDefaults(defineProps<AccordionTriggerProps>(), {
+  asChild: false,
+})
 </script>
 
 <template>
   <PrimitiveH3
+    :asChild="props.asChild"
     :data-orientation="accordionImplInjectedValue?.orientation"
     :data-state="accordionItemInjectedValue?.open ? 'open' : 'closed'"
     :data-disabled="accordionItemInjectedValue?.disabled ? '' : undefined"

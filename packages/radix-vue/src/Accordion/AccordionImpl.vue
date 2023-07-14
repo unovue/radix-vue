@@ -3,6 +3,7 @@ import type { InjectionKey, Ref } from "vue";
 export type Direction = "ltr" | "rtl";
 
 export interface AccordionImplProps {
+  asChild?: boolean;
   /**
    * Whether or not an accordion is disabled from user interaction.
    *
@@ -52,6 +53,7 @@ import { provide } from "vue";
 import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 
 const props = withDefaults(defineProps<AccordionImplProps>(), {
+  asChild: false,
   orientation: "vertical",
 });
 
@@ -67,7 +69,10 @@ provide<AccordionImplProvideValue>(ACCORDION_IMPL_INJECTION_KEY, {
 </script>
 
 <template>
-  <PrimitiveDiv ref="primitiveElement">
+  <PrimitiveDiv
+    ref="primitiveElement"
+    :asChild="props.asChild"
+    >
     <slot />
   </PrimitiveDiv>
 </template>

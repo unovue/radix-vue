@@ -5,7 +5,7 @@ import {
   AccordionItem,
   AccordionRoot,
   AccordionTrigger,
-} from 'radix-vue'
+} from '../../../../../packages/radix-vue/src'
 import { ref } from 'vue'
 
 const tabValue = ref('item-1')
@@ -17,15 +17,15 @@ const rootDisabled = false
     <p>Tab value: {{ tabValue }}</p>
   </div>
   <AccordionRoot
-    class="w-[300px] rounded-md bg-[--line-color] shadow-lg" default-value="item-2" type="single"
-    :disabled="rootDisabled" :collapsible="true"
+    class="w-[300px] rounded-md bg-[--line-color] shadow-lg" default-value="item-2" v-model="tabValue"
+    :disabled="rootDisabled" :collapsible="false" orientation="horizontal"
   >
-    <AccordionItem class="accordion-item" value="item-1">
+    <AccordionItem class="accordion-item" value="item-1" disabled>
       <AccordionHeader class="flex">
         <AccordionTrigger class="accordion-trigger" as-child>
-          <button class="custom-trigger">
+          <custombutton class="custom-trigger">
             Is it accessible?
-          </button>
+          </custombutton>
         </AccordionTrigger>
       </AccordionHeader>
       <AccordionContent class="accordion-content data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp">

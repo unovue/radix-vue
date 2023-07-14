@@ -44,7 +44,7 @@ For changelog, visit [radix-vue.com/overview/releases](https://radix-vue.com/ove
 | [Separator](https://github.com/radix-vue/radix-vue/issues/20)       |   ✅   | ✅           |                        |
 | [Slider](https://github.com/radix-vue/radix-vue/issues/21)          |   ✅   |              |                        |
 | [Switch](https://github.com/radix-vue/radix-vue/issues/22)          |   ✅   | ✅           |                        |
-| [Tabs](https://github.com/radix-vue/radix-vue/issues/23)            |   ✅   |              |                        |
+| [Tabs](https://github.com/radix-vue/radix-vue/issues/23)            |   ✅   | ✅           |                        |
 | [Toggle](https://github.com/radix-vue/radix-vue/issues/25)          |   ✅   | ✅           |                        |
 | [Toggle Group](https://github.com/radix-vue/radix-vue/issues/26)    |   ✅   |              |                        |
 | [Toolbar](https://github.com/radix-vue/radix-vue/issues/27)         |   ✅   |              |                        |

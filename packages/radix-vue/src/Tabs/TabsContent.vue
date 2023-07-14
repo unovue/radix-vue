@@ -27,6 +27,7 @@ const dataState = computed<"active" | "inactive">(() => {
 
 <template>
   <PrimitiveDiv
+    :asChild="asChild"
     v-if="injectedValue?.modelValue?.value === props.value"
     role="tabpanel"
     :data-state="dataState"

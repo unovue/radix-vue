@@ -89,6 +89,10 @@
   --docsearch-primary-color: var(--vp-c-brand) !important;
 }
 
+.blocks {
+  max-height: 80vh;
+  overflow: scroll;
+}
 
 @tailwind base;
 @tailwind components;

@@ -12,6 +12,7 @@ import DemoAlertDialog from '../../components/demo/AlertDialog/index.vue'
 import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 import PropsTable from '../../components/tables/PropsTable.vue'
 import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
+import KeyboardTable from '../../components/tables/KeyboardTable.vue'
 </script>
 
 # Alert Dialog
@@ -78,9 +79,8 @@ import * as AlertDialog from "@radix-ui/react-alert-dialog";
 
 ## API Reference
 
-### Root
-
-Contains all the parts of an alert dialog.
+### Root {class="font-bold mt-10"}
+<p class="mt-2">Contains all the parts of an alert dialog.</p>
 
 <PropsTable :data="[{
 name: 'defaultOpen',
@@ -101,9 +101,8 @@ description: 'Event handler called when the open state of the dialog changes.',
 </PropsTable>
 
 
-### Trigger
-
-A button that opens the dialog.
+### Trigger {class="font-bold mt-10"}
+<p class="mt-2">A button that opens the dialog.</p>
 
 <PropsTable :data="[{
 name: 'asChild',
@@ -121,9 +120,11 @@ values: ['open', 'closed'],
 },
 ]" />
 
-### Portal
 
-When used, portals your overlay and content parts into the `body`.
+### Portal {class="font-bold mt-10"}
+<p class="mt-2">When used, portals your overlay and content parts into the <code>body</code>.</p>
+
+
 
 ## ::props-table
 
@@ -398,15 +399,9 @@ Adheres to the [Alert and Message Dialogs WAI-ARIA design pattern](https://www.w
 
 ### Keyboard Interactions
 
-## ::keyboard-table
-
-data: [
+<KeyboardTable :data="[
 {
 keys: ['Space'],
 description: 'Opens/closes the dialog.',
 },
-]
-
----
-
-::
+]" />

@@ -12,6 +12,7 @@ export default {
 	options: {
 		safelist: ["html", "body"],
 	},
+  important: true,
 	theme: {
 		extend: {
 			colors: {

@@ -7,15 +7,14 @@ export interface TabsTriggerProps {
 </script>
 
 <script setup lang="ts">
-import { inject } from "vue";
+import { inject, computed } from "vue";
 import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
 import { TABS_INJECTION_KEY } from "./TabsRoot.vue";
 import type { TabsProvideValue } from "./TabsRoot.vue";
 import { useArrowNavigation } from "../shared";
 
 const injectedValue = inject<TabsProvideValue>(TABS_INJECTION_KEY);
-const { primitiveElement, currentElement: currentToggleElement } =
-  usePrimitiveElement();
+const { primitiveElement, currentElement } = usePrimitiveElement();
 
 const props = withDefaults(defineProps<TabsTriggerProps>(), {
   asChild: false,
@@ -27,21 +26,42 @@ function changeTab(value: string) {
 }
 
 function handleKeydown(e: KeyboardEvent) {
+  if (
+    injectedValue?.orientation === "horizontal" &&
+    (e.key === "ArrowLeft" || e.key === "ArrowRight")
+  ) {
+    e.preventDefault();
+  } else if (
+    injectedValue?.orientation === "vertical" &&
+    (e.key === "ArrowUp" || e.key === "ArrowDown")
+  ) {
+    e.preventDefault();
+  }
   const newSelectedElement = useArrowNavigation(
     e,
-    currentToggleElement.value!,
+    currentElement.value!,
     injectedValue?.parentElement.value!,
     { arrowKeyOptions: injectedValue?.orientation, loop: injectedValue?.loop }
   );
 
   if (newSelectedElement) {
     newSelectedElement.focus();
+    injectedValue!.currentFocusedElement!.value = newSelectedElement;
 
     if (injectedValue?.activationMode === "automatic") {
       changeTab(newSelectedElement?.getAttribute("data-radix-vue-tab-value")!);
     }
   }
 }
+
+const getTabIndex = computed(() => {
+  if (!injectedValue?.currentFocusedElement?.value) {
+    return injectedValue?.modelValue?.value === props.value ? "0" : "-1";
+  } else
+    return injectedValue?.currentFocusedElement?.value === currentElement.value
+      ? "0"
+      : "-1";
+});
 </script>
 
 <template>
@@ -58,7 +78,7 @@ function handleKeydown(e: KeyboardEvent) {
     "
     :disabled="props.disabled"
     :data-disabled="props.disabled ? '' : undefined"
-    :tabindex="injectedValue?.modelValue?.value === props.value ? '0' : '-1'"
+    :tabindex="getTabIndex"
     :data-orientation="injectedValue?.orientation"
     data-radix-vue-collection-item
     :data-radix-vue-tab-value="props.value"

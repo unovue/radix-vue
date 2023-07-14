@@ -16,6 +16,7 @@ export const TABS_INJECTION_KEY = Symbol() as InjectionKey<TabsProvideValue>;
 
 export interface TabsProvideValue {
   modelValue?: Readonly<Ref<string | undefined>>;
+  currentFocusedElement?: Ref<HTMLElement | undefined>;
   changeModelValue: (value: string) => void;
   parentElement: Ref<HTMLElement | undefined>;
   orientation: DataOrientation;
@@ -40,6 +41,7 @@ const props = withDefaults(defineProps<TabsRootProps>(), {
 const emits = defineEmits(["update:modelValue"]);
 
 const parentElementRef = ref<HTMLElement>();
+const currentFocusedElementRef = ref<HTMLElement>();
 
 const modelValue = useVModel(props, "modelValue", emits, {
   defaultValue: props.defaultValue,
@@ -54,6 +56,7 @@ provide<TabsProvideValue>(TABS_INJECTION_KEY, {
       props.onValueChange(value);
     }
   },
+  currentFocusedElement: currentFocusedElementRef,
   parentElement: parentElementRef,
   orientation: props.orientation,
   dir: props.dir,

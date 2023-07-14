@@ -4,27 +4,30 @@ interface ArrowNavigationOptions {
   attributeName?: string;
   arrowKeyOptions?: ArrowKeyOptions; //default to both
   itemsArray?: HTMLElement[];
+  loop?: boolean;
 }
 
 // recursive function to find the next focusable element to avoid disabled elements
 function findNextFocusableElement(
   elements: HTMLElement[],
   currentElement: HTMLElement,
-  direction: "next" | "previous"
+  direction: "next" | "previous",
+  loop = true
 ): HTMLElement | null {
   const index = elements.indexOf(currentElement);
-  const newIndex =
-    (direction === "next" ? index + 1 : index - 1 + elements.length) %
-    elements.length;
-  const candidate = elements[newIndex];
+  const newIndex = direction === "next" ? index + 1 : index - 1;
 
+  if (!loop && (newIndex < 0 || newIndex >= elements.length)) return null;
+
+  const adjustedNewIndex = (newIndex + elements.length) % elements.length;
+  const candidate = elements[adjustedNewIndex];
   if (!candidate) return null;
 
   const isDisabled =
     candidate.hasAttribute("disabled") &&
     candidate.getAttribute("disabled") !== "false";
   if (isDisabled) {
-    return findNextFocusableElement(elements, candidate, direction);
+    return findNextFocusableElement(elements, candidate, direction, loop);
   }
   return candidate;
 }
@@ -77,7 +80,8 @@ export function useArrowNavigation(
     return findNextFocusableElement(
       allCollectionItems,
       currentElement,
-      nextKeys.includes(e.key) ? "next" : "previous"
+      nextKeys.includes(e.key) ? "next" : "previous",
+      options.loop
     );
   }
 

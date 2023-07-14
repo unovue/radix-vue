@@ -8,14 +8,14 @@
   </div>
 </template>
 
-<style>
-input {
+<style scoped>
+::v-deep input {
   background-color: white;
 }
-button:focus, button:focus-visible {
+::v-deep button:focus, ::v-deep button:focus-visible {
   outline: 0;
 }
-h3 {
+::v-deep h3 {
   margin: 0px !important;
   font-weight: unset !important;
 }

@@ -105,7 +105,8 @@
 }
 
 .vp-doc h3 {
-  @apply !font-semibold mt-10;
+  font-weight: 600;
+  margin-top: 40px;
 }
 
 .vp-doc p {

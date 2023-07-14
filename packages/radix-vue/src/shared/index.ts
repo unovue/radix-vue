@@ -7,3 +7,4 @@ export { useCollection } from "./useCollection";
 export { useSize } from "./useSize";
 export { useId } from "./useId";
 export { trapFocus } from "./trap-focus";
+export { renderSlotFragments } from "./renderSlotFragments";

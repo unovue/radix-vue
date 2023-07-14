@@ -98,12 +98,21 @@ Here's a complete demo.
 
 <HeroContainer>
 <DemoGettingStarted />
-</HeroContainer>
+<template v-slot:codeSlot>
+<HeroCodeGroup>
+<div filename="index.vue">
 
-::: code-group
 <<< ../../components/demo/GettingStarted/index.vue
+
+</div>
+<div filename="styles.css">
+
 <<< ../../components/demo/GettingStarted/styles.css
-:::
+
+</div>
+</HeroCodeGroup>
+</template>
+</HeroContainer>
 
 ## Summary
 

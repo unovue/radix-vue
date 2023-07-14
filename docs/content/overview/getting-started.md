@@ -1,4 +1,5 @@
 ---
+outline: deep
 metaTitle: Getting started
 metaDescription: A quick tutorial to get you up and running with Radix Primitives.
 name: popover

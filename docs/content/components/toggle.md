@@ -1,4 +1,5 @@
 ---
+outline: deep
 metaTitle: Toggle
 metaDescription: A two-state button that can be either on or off.
 name: toggle

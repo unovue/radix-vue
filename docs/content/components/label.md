@@ -1,4 +1,5 @@
 ---
+outline: deep
 metaTitle: Label
 metaDescription: Renders an accessible label associated with controls.
 name: label

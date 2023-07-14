@@ -1,4 +1,5 @@
 ---
+outline: deep
 metaTitle: Avatar
 metaDescription: An image element with a fallback for representing the user.
 name: avatar

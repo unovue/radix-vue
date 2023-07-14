@@ -1,4 +1,5 @@
 ---
+outline: deep
 metaTitle: Radio Group
 metaDescription: A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.
 name: radio-group

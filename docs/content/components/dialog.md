@@ -1,4 +1,5 @@
 ---
+outline: deep
 metaTitle: Dialog
 metaDescription: A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.
 name: dialog

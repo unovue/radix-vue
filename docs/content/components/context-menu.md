@@ -1,4 +1,5 @@
 ---
+outline: deep
 metaTitle: Context Menu
 metaDescription: Displays a menu located at the pointer, triggered by a right-click or a long-press.
 name: context-menu

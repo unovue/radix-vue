@@ -1,4 +1,5 @@
 ---
+outline: deep
 metaTitle: Menubar
 metaDescription:
   A visually persistent menu common in desktop applications that provides quick

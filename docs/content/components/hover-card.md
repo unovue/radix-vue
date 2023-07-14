@@ -1,4 +1,5 @@
 ---
+outline: deep
 metaTitle: Hover Card
 metaDescription: For sighted users to preview content available behind a link.
 name: hover-card

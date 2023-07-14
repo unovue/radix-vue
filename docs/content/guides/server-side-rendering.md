@@ -1,4 +1,5 @@
 ---
+outline: deep
 metaTitle: Server side rendering
 metaDescription: Radix Primitives can be rendered on the server.
 ---

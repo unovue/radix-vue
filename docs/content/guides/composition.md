@@ -1,4 +1,5 @@
 ---
+outline: deep
 metaTitle: Composition
 metaDescription: Use the `asChild` prop to compose Radix's functionality onto alternative element types or your own React components.
 ---

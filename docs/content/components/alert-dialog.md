@@ -1,4 +1,5 @@
 ---
+outline: deep
 metaTitle: Alert Dialog
 metaDescription: A modal dialog that interrupts the user with important content and expects a response.
 name: alert-dialog

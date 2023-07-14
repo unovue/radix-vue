@@ -1,4 +1,5 @@
 ---
+outline: deep
 metaTitle: Scroll Area
 metaDescription: Augments native scroll functionality for custom, cross-browser styling.
 name: scroll-area

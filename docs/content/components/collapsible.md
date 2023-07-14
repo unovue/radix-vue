@@ -1,4 +1,5 @@
 ---
+outline: deep
 metaTitle: Collapsible
 metaDescription: An interactive component which expands/collapses a panel.
 name: collapsible

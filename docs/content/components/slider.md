@@ -1,4 +1,5 @@
 ---
+outline: deep
 metaTitle: Slider
 metaDescription: An input where the user selects a value from within a given range.
 name: slider

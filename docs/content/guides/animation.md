@@ -1,4 +1,5 @@
 ---
+outline: deep
 metaTitle: Animation
 metaDescription: Animate Radix Primitives with CSS keyframes or the JavaScript animation library of your choice.
 ---

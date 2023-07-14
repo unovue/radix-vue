@@ -1,4 +1,5 @@
 ---
+outline: deep
 metaTitle: Separator
 metaDescription: Visually or semantically separates content.
 name: separator

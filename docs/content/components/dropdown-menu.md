@@ -1,4 +1,5 @@
 ---
+outline: deep
 metaTitle: Dropdown Menu
 metaDescription: Displays a menu to the user—such as a set of actions or functions—triggered by a button.
 name: dropdown-menu

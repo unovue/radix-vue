@@ -1,4 +1,5 @@
 ---
+outline: deep
 metaTitle: Styling
 metaDescription: Radix Primitives are unstyled—and compatible with any styling solution—giving you complete control over styling.
 ---

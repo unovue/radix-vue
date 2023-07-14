@@ -5,7 +5,6 @@ module.exports = {
   options: {
     safelist: ["html", "body"],
   },
-  important: true,
   theme: {
     extend: {
       colors: {

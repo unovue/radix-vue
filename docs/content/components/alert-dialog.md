@@ -266,6 +266,7 @@ export default () => {
 	);
 };
 ```
+<br />
 
 ### Custom portal container {class="font-bold mt-10"}
 <p class="mt-2">Customise the element that your alert dialog portals into.</p>

@@ -1,7 +1,6 @@
 <script lang="ts">
 export interface CollapsibleContentProps {
   asChild?: boolean;
-  forceMount?: boolean;
 }
 </script>
 
@@ -81,13 +80,18 @@ onMounted(() => {
     isMountAnimationPrevented.value = false;
   });
 });
+
+const props = withDefaults(defineProps<CollapsibleContentProps>(), {
+  asChild: false,
+});
 </script>
 
 <template>
   <PrimitiveDiv
     ref="primitiveElement"
+    :asChild="props.asChild"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"
-    :data-disabled="injectedValue?.disabled?.value ? 'true' : undefined"
+    :data-disabled="injectedValue?.disabled?.value ? '' : undefined"
     :id="injectedValue?.contentId"
     :hidden="!isPresent"
     :style="{

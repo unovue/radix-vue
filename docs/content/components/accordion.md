@@ -9,14 +9,18 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/accordion
 import Description from '../../components/Description.vue'
 import HeroContainer from '../../components/HeroContainer.vue'
 import DemoAccordion from '../../components/demo/Accordion/index.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+import PropsTable from '../../components/tables/PropsTable.vue'
+import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
+import CssVariablesTable from '../../components/tables/CssVariablesTable.vue'
+import KeyboardTable from '../../components/tables/KeyboardTable.vue'
+import Highlights from '../../components/Highlights.vue'
 </script>
 
 # Accordion
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+A vertically stacked set of interactive headings that each reveal an
+associated section of content.
 </Description>
 
 <HeroContainer>
@@ -29,14 +33,16 @@ response.
 :::
 
 ## Features
-:br
-::list{type="success"}
-- Full keyboard navigation.
-- Supports horizontal/vertical orientation.
-- Supports Right to Left direction.
-- Can expand one or multiple items.
-- Can be controlled or uncontrolled.
-::
+
+<Highlights
+  :features="[
+    'Full keyboard navigation.',
+    'Supports horizontal/vertical orientation.',
+    'Supports Right to Left direction.',
+    'Can expand one or multiple items.',
+    'Can be controlled or uncontrolled.'
+  ]"
+/>
 
 ## Installation
 
@@ -72,21 +78,18 @@ import { AccordionRoot, AccordionItem, AccordionHeader, AccordionTrigger, Accord
 ### Root
 
 Contains all the parts of an accordion.
-
-::props-table
----
-data: [{
+<!---->
+<PropsTable :data="[{
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: 'Change the default rendered element for the one passed as a child,
-          merging their props and behavior.',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
     },
     {
       name: 'type',
       required: true,
-      type: '"single" | "multiple"',
+      type: '&quot;single&quot; | &quot;multiple&quot;',
       typeSimple: 'enum',
       description: 'Determines whether one or multiple items can be opened at the same time.',
     },
@@ -142,54 +145,42 @@ data: [{
       required: false,
       type: 'boolean',
       default: 'false',
-      description: 'When `true`, prevents the user from interacting with the
-          accordion and all its items.',
+      description: 'When `true`, prevents the user from interacting with the accordion and all its items.',
     },
     {
       name: 'dir',
       required: false,
-      type: '"ltr" | "rtl"',
+      type: '&quot;ltr&quot; | &quot;rtl&quot;',
       typeSimple: 'enum',
-      default: '"ltr"',
-      description:
-        'The reading direction of the accordion when applicable. If omitted, assumes LTR (left-to-right) reading mode.',
+      default: '&quot;ltr&quot;',
+      description: 'The reading direction of the accordion when applicable. If omitted, assumes LTR (left-to-right) reading mode.',
     },
     {
       name: 'orientation',
       required: false,
-      type: '"horizontal" | "vertical"',
+      type: '&quot;horizontal&quot; | &quot;vertical&quot;',
       typeSimple: 'enum',
-      default: '"vertical"',
+      default: '&quot;vertical&quot;',
       description: 'The orientation of the accordion.',
-    },
-  ]
----
-::
+    }]" />
 
-::data-attributes-table
----
-data: [
+
+<DataAttributesTable :data="[
     {
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
-    },
-  ]
----
-::
+    }]" />
 
 ### Item
 
 Contains all the parts of a collapsible section.
 
-::props-table
----
-data: [{
+<PropsTable :data="[{
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: 'Change the default rendered element for the one passed as a child,
-          merging their props and behavior.',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
     },
     {
       name: 'disabled',
@@ -203,14 +194,9 @@ data: [{
       required: true,
       type: 'string',
       description: 'A unique value for the item.',
-    },
-  ]
----
-::
+    }]" />
 
-::data-attributes-table
----
-data: [
+<DataAttributesTable :data="[
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
@@ -222,32 +208,21 @@ data: [
     {
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
-    },
-  ]
----
-::
+    }]" />
 
 ### Header
 
 Wraps an `Accordion.Trigger`. Use the `asChild` prop to update it to the appropriate heading level for your page.
 
-::props-table
----
-data: [{
+<PropsTable :data="[{
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: 'Change the default rendered element for the one passed as a child,
-          merging their props and behavior.',
-    },
-  ]
----
-::
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
+    }]" />
 
-::data-attributes-table
----
-data: [
+<DataAttributesTable :data="[
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
@@ -259,32 +234,21 @@ data: [
     {
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
-    },
-  ]
----
-::
+    }]" />
 
 ### Trigger
 
 Toggles the collapsed state of its associated item. It should be nested inside of an `Accordion.Header`.
 
-::props-table
----
-data: [{
+<PropsTable :data="[{
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: 'Change the default rendered element for the one passed as a child,
-          merging their props and behavior.',
-    },
-  ]
----
-::
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
+    }]" />
 
-::data-attributes-table
----
-data: [
+<DataAttributesTable :data="[
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
@@ -296,38 +260,26 @@ data: [
     {
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
-    },
-  ]
----
-::
+    }]" />
 
 ### Content
 
 Contains the collapsible content for an item.
 
-::props-table
----
-data: [{
+<PropsTable :data="[{
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: 'Change the default rendered element for the one passed as a child,
-          merging their props and behavior.',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
     },
     {
       name: 'forceMount',
       type: 'boolean',
-      description: 'Used to force mounting when more control is needed. Useful when
-          controlling animation with React animation libraries.',
-    },
-  ]
----
-::
+      description: 'Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries.',
+    }]" />
 
-::data-attributes-table
----
-data: [
+<DataAttributesTable :data="[
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
@@ -339,14 +291,9 @@ data: [
     {
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
-    },
-  ]
----
-::
+    }]" />
 
-<!--
-<CssVariablesTable
-  data={[
+<CssVariablesTable :data="[
     {
       cssVariable: '--radix-accordion-content-width',
       description: 'The width of the content when it opens/closes',
@@ -354,10 +301,8 @@ data: [
     {
       cssVariable: '--radix-accordion-content-height',
       description: 'The height of the content when it opens/closes',
-    },
-  ]}
+    }]"
 />
--->
 
 ## Examples
 
@@ -496,9 +441,7 @@ Adheres to the [Accordion WAI-ARIA design pattern](https://www.w3.org/TR/wai-ari
 
 ### Keyboard Interactions
 
-::keyboard-table
----
-data: [
+<KeyboardTable :data="[
     {
       keys: ['Space'],
       description: 'Moves focus to the next',
@@ -538,7 +481,4 @@ data: [
     {
       keys: ['End'],
       description: 'Moves focus to the next',
-    },
-  ]
----
-::
+    }]" />

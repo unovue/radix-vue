@@ -1,39 +1,41 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
-import type { DataOrientation, Direction } from "../shared/types";
+import type { DataOrientation } from "@/shared/types";
+import { useVModel } from "@vueuse/core";
 
-export interface ContextMenuRootProps {
-  open?: boolean;
-  defaultOpen?: boolean;
-  //onOpenChange?: void;
+export interface ContextMenuSubRootProps {
   modelValue?: boolean;
+  defaultOpen?: boolean;
+  open?: boolean;
+  //onOpenChange?: void;
+  delayDuration?: number;
+  disableHoverableContent?: boolean;
   orientation?: DataOrientation;
-  dir?: Direction;
 }
 
-export const CONTEXT_MENU_INJECTION_KEY =
-  Symbol() as InjectionKey<ContextMenuProvideValue>;
+export const CONTEXT_MENU_SUB_INJECTION_KEY =
+  Symbol() as InjectionKey<ContextMenuSubProvideValue>;
 
-export type ContextMenuProvideValue = {
-  selectedElement: Ref<HTMLElement | undefined>;
-  changeSelected: (value: HTMLElement) => void;
+export type ContextMenuSubProvideValue = {
   modelValue: Readonly<Ref<boolean>>;
   showTooltip(): void;
   hideTooltip(): void;
   triggerElement: Ref<HTMLElement | undefined>;
   itemsArray: HTMLElement[];
   orientation: DataOrientation;
-  clientX: Ref<number>;
-  clientY: Ref<number>;
+  triggerId: string;
+  contentId: string;
+  parentContext?: ContextMenuSubProvideValue;
 };
 </script>
 
 <script setup lang="ts">
-import { provide, ref } from "vue";
+import { inject, provide, ref } from "vue";
 import { PopperRoot } from "@/Popper";
-import { useVModel } from "@vueuse/core";
+import { useId } from "@/shared";
 
-const props = withDefaults(defineProps<ContextMenuRootProps>(), {
+const props = withDefaults(defineProps<ContextMenuSubRootProps>(), {
+  delayDuration: 700,
   orientation: "vertical",
 });
 
@@ -45,17 +47,11 @@ const modelValue = useVModel(props, "modelValue", emit, {
   passive: true,
 });
 
-const selectedElement = ref<HTMLElement>();
 const triggerElement = ref<HTMLElement>();
-const clientX = ref(0);
-const clientY = ref(0);
 
-provide<ContextMenuProvideValue>(CONTEXT_MENU_INJECTION_KEY, {
-  selectedElement: selectedElement,
-  changeSelected: (value: HTMLElement) => {
-    selectedElement.value = value;
-    selectedElement.value!.focus();
-  },
+const parentContext = inject(CONTEXT_MENU_SUB_INJECTION_KEY);
+
+provide<ContextMenuSubProvideValue>(CONTEXT_MENU_SUB_INJECTION_KEY, {
   modelValue,
   showTooltip: () => {
     modelValue.value = true;
@@ -66,8 +62,9 @@ provide<ContextMenuProvideValue>(CONTEXT_MENU_INJECTION_KEY, {
   triggerElement,
   itemsArray: [],
   orientation: props.orientation,
-  clientX,
-  clientY,
+  triggerId: useId(),
+  contentId: useId(),
+  parentContext,
 });
 </script>
 

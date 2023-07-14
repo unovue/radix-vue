@@ -22,6 +22,7 @@ const { primitiveElement, currentElement: parentElement } =
 
 onMounted(() => {
   injectedValue!.parentElement.value = parentElement.value;
+  injectedValue!.loop = props.loop;
 });
 </script>
 

@@ -37,7 +37,7 @@ const props = withDefaults(defineProps<ContextMenuGroupProps>(), {
 
 const emits = defineEmits(["update:modelValue"]);
 
-const { primitiveElement, currentElement: parentElementRef } =
+const { primitiveElement, currentElement: parentElement } =
   usePrimitiveElement();
 
 provide<ContextMenuGroupProvideValue>(CONTEXT_MENU_GROUP_INJECTION_KEY, {
@@ -57,7 +57,7 @@ provide<ContextMenuGroupProvideValue>(CONTEXT_MENU_GROUP_INJECTION_KEY, {
       emits("update:modelValue", modelValueArray);
     }
   },
-  parentElement: parentElementRef,
+  parentElement,
 });
 </script>
 

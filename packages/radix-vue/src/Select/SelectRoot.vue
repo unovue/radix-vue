@@ -2,29 +2,32 @@
 import type { Ref, InjectionKey } from "vue";
 import type { DataOrientation, Direction } from "../shared/types";
 
-export interface ContextMenuRootProps {
+export interface SelectRootProps {
   open?: boolean;
   defaultOpen?: boolean;
   //onOpenChange?: void;
-  modelValue?: boolean;
+  defaultValue?: string;
+  modelValue?: string | string[];
+  multiple?: boolean;
   orientation?: DataOrientation;
   dir?: Direction;
 }
 
-export const CONTEXT_MENU_INJECTION_KEY =
-  Symbol() as InjectionKey<ContextMenuProvideValue>;
+export const SELECT_INJECTION_KEY =
+  Symbol() as InjectionKey<SelectProvideValue>;
 
-export type ContextMenuProvideValue = {
+export type SelectProvideValue = {
   selectedElement: Ref<HTMLElement | undefined>;
   changeSelected: (value: HTMLElement) => void;
-  modelValue: Readonly<Ref<boolean>>;
+  modelValue: Readonly<Ref<string | string[] | undefined>>;
+  changeModelValue: (value: string) => void;
+  isOpen: Readonly<Ref<boolean>>;
   showTooltip(): void;
   hideTooltip(): void;
   triggerElement: Ref<HTMLElement | undefined>;
   itemsArray: HTMLElement[];
   orientation: DataOrientation;
-  clientX: Ref<number>;
-  clientY: Ref<number>;
+  multiple?: boolean;
 };
 </script>
 
@@ -33,42 +36,58 @@ import { provide, ref } from "vue";
 import { PopperRoot } from "@/Popper";
 import { useVModel } from "@vueuse/core";
 
-const props = withDefaults(defineProps<ContextMenuRootProps>(), {
+const props = withDefaults(defineProps<SelectRootProps>(), {
   orientation: "vertical",
+  defaultValue: "",
 });
 
 const emit = defineEmits<{
-  (e: "update:modelValue", value: boolean): void;
+  (e: "update:modelValue", value: string | string[]): void;
 }>();
 
 const modelValue = useVModel(props, "modelValue", emit, {
-  passive: true,
+  defaultValue: props.defaultValue,
 });
 
 const selectedElement = ref<HTMLElement>();
 const triggerElement = ref<HTMLElement>();
-const clientX = ref(0);
-const clientY = ref(0);
+const isOpen = ref(false);
 
-provide<ContextMenuProvideValue>(CONTEXT_MENU_INJECTION_KEY, {
+provide<SelectProvideValue>(SELECT_INJECTION_KEY, {
   selectedElement: selectedElement,
   changeSelected: (value: HTMLElement) => {
     selectedElement.value = value;
     selectedElement.value!.focus();
   },
   modelValue,
+  changeModelValue: changeModelValue,
+  isOpen,
   showTooltip: () => {
-    modelValue.value = true;
+    isOpen.value = true;
   },
   hideTooltip: () => {
-    modelValue.value = false;
+    isOpen.value = false;
   },
   triggerElement,
   itemsArray: [],
   orientation: props.orientation,
-  clientX,
-  clientY,
+  multiple: props.multiple,
 });
+
+function changeModelValue(value: string) {
+  if (props.multiple) {
+    let modelValueArray = [...(modelValue.value as string[])];
+    if (modelValueArray.includes(value)) {
+      let index = modelValueArray.findIndex((i) => i === value);
+      modelValueArray.splice(index, 1);
+    } else {
+      modelValueArray.push(value);
+    }
+    modelValue.value = modelValueArray;
+  } else {
+    modelValue.value = value;
+  }
+}
 </script>
 
 <template>

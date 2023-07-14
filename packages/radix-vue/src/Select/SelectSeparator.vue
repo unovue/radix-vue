@@ -2,7 +2,7 @@
 import BaseSeparator from "../shared/component/BaseSeparator.vue";
 import type { DataOrientation } from "../shared/types";
 
-export interface ContextMenuSeparatorProps {
+export interface SelectSeparatorProps {
   orientation?: DataOrientation;
   decorative?: boolean;
   asChild?: boolean;
@@ -10,7 +10,7 @@ export interface ContextMenuSeparatorProps {
 </script>
 
 <script setup lang="ts">
-const props = defineProps<ContextMenuSeparatorProps>();
+const props = defineProps<SelectSeparatorProps>();
 </script>
 
 <template>

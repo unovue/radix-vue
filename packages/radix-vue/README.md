@@ -1,54 +1,16 @@
-# radix-vue
+# Radix Vue
 
-This is a short description about your library.
+## Why can't vue have nice things?
+
+An unofficial vue port of Radix Primitives.
+An accessible, unstyled and customisable UI Library for building top quality design systems.
 
 ## Installation
 
-Install the package:
-
-```sh
-npm install radix-vue
-# or
+```bash
 pnpm install radix-vue
-# or
-yarn add radix-vue
 ```
 
-Import the components directly:
+## Documentation
 
-<!-- prettier-ignore -->
-```vue
-<script setup lang="ts">
-import { CoolCounter, CoolButton } from "radix-vue";
-</script>
-
-<template>
-  <CoolCounter :startingCount="10" />
-  <CoolButton backgroundColor="blue">
-    Hello, I'm a cool button!
-  </CoolButton>
-</template>
-
-<style>
-@import "radix-vue/index.css";
-</style>
-```
-
-## Development
-
-```sh
-pnpm install
-
-cd packages/radix-vue/
-pnpm dev
-
-pnpm build
-cd ../demo/
-pnpm dev
-```
-
-## Credits
-
-MIT License
-
-Copyright (c) 2023 Radix Vue Contributors <<https://github.com/radix-vue>>
+For full documentation, visit [radix-vue.com](https://radix-vue.com).

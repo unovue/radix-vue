@@ -1,14 +1,14 @@
 <script lang="ts">
 import { PrimitiveLabel } from "@/Primitive";
 
-interface ContextMenuLabelProps {
+interface SelectLabelProps {
   asChild?: boolean;
   for?: string;
 }
 </script>
 
 <script setup lang="ts">
-const props = defineProps<ContextMenuLabelProps>();
+const props = defineProps<SelectLabelProps>();
 </script>
 
 <template>

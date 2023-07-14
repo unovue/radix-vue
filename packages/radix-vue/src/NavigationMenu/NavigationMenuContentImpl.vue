@@ -71,17 +71,25 @@ const handleKeydown = (ev: KeyboardEvent) => {
   const isMetaKey = ev.altKey || ev.ctrlKey || ev.metaKey;
   const isTabKey = ev.key === "Tab" && !isMetaKey;
   const candidates = getTabbableCandidates(ev.currentTarget as HTMLElement);
-  const currentContentIndex = candidates.findIndex(
-    (i) => i === document.activeElement
+  const triggerItems = getItems(context?.rootNavigationMenu.value);
+  const triggerButtonIndex = triggerItems.findIndex(
+    (i) => i === props.triggerRef.value
   );
+  const nextTriggerButton = triggerItems[triggerButtonIndex + 1];
 
   if (isTabKey) {
     const focusedElement = document.activeElement;
     const index = candidates.findIndex(
       (candidate) => candidate === focusedElement
     );
+    if (
+      index === candidates.length - 1 &&
+      triggerButtonIndex !== triggerItems.length - 1
+    ) {
+      return nextTriggerButton.focus();
+    }
     const isMovingBackwards = ev.shiftKey;
-    if (isMovingBackwards && currentContentIndex === 0) {
+    if (isMovingBackwards && index === 0) {
       props.triggerRef.value?.focus();
     } else {
       const nextCandidates = isMovingBackwards

@@ -16,7 +16,7 @@ jobs:
         node-version: 14
 
     - name: Install dependencies
-      run: cd packages/radix-vue && npm ci
+      run: cd packages/radix-vue && npm install
 
     - name: Build
       run: cd packages/radix-vue && npm run build

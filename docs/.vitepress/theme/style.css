@@ -3,6 +3,10 @@
  * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
  */
 
+ @tailwind base;
+ @tailwind components;
+ @tailwind utilities;
+
 /**
  * Colors
  * -------------------------------------------------------------------------- */
@@ -100,7 +104,10 @@
   border-radius: 0px;
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.vp-doc h3 {
+  @apply !font-semibold mt-10;
+}
 
+.vp-doc p {
+  @apply mt-0.5 md:mt-2;
+}

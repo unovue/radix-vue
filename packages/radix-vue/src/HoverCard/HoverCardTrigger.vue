@@ -16,6 +16,9 @@ import { PopperAnchor } from "@/Popper";
 import { useHoverDelay, useMouseleaveDelay } from "../shared";
 
 const injectedValue = inject<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY);
+const props = withDefaults(defineProps<HoverCardTriggerProps>(), {
+  asChild: false,
+})
 
 const { primitiveElement, currentElement: triggerElement } =
   usePrimitiveElement();
@@ -43,8 +46,8 @@ async function handleMouseleave(e: MouseEvent) {
 <template>
   <PopperAnchor asChild>
     <PrimitiveButton
-      type="button"
       ref="primitiveElement"
+      :asChild="props.asChild"
       :aria-expanded="injectedValue?.open.value || false"
       :data-state="injectedValue?.open.value ? 'open' : 'closed'"
       @mouseover="injectedValue!.isHover = true"

@@ -39,10 +39,10 @@ async function handleMouseleave(e: MouseEvent) {
     v-if="injectedValue?.open.value"
     @mouseover="injectedValue.isHover = true"
     @mouseleave="handleMouseleave"
-    :data-state="injectedValue?.open.value ? 'delayed-open' : 'closed'"
+    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
     role="tooltip"
     tabindex="-1"
-    :as-child="asChild"
+    :as-child="props.asChild"
   >
     <slot />
   </PopperContent>

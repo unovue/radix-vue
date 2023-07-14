@@ -1,6 +1,5 @@
 <script lang="ts">
 import BasePortal from "../shared/component/BasePortal.vue";
-import type { BasePortalProps } from "../shared/component/BasePortal.vue";
 
 export interface HoverCardPortalProps {
   forceMount?: boolean;
@@ -9,13 +8,13 @@ export interface HoverCardPortalProps {
 </script>
 
 <script setup lang="ts">
-const props = withDefaults(defineProps<BasePortalProps>(), {
-  to: "body",
+const props = withDefaults(defineProps<HoverCardPortalProps>(), {
+  container: "body",
 });
 </script>
 
 <template>
-  <BasePortal :to="props.to">
+  <BasePortal :to="props.container">
     <slot />
   </BasePortal>
 </template>

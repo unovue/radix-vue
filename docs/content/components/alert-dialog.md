@@ -14,6 +14,7 @@ import PropsTable from '../../components/tables/PropsTable.vue'
 import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
 import KeyboardTable from '../../components/tables/KeyboardTable.vue'
 import Highlights from '../../components/Highlights.vue'
+import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 </script>
 
 # Alert Dialog

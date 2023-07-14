@@ -11,6 +11,7 @@ import HeroContainer from '../../components/HeroContainer.vue'
 import DemoAlertDialog from '../../components/demo/AlertDialog/index.vue'
 import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 import PropsTable from '../../components/tables/PropsTable.vue'
+import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
 </script>
 
 # Alert Dialog
@@ -99,42 +100,26 @@ description: 'Event handler called when the open state of the dialog changes.',
 }]">
 </PropsTable>
 
----
-
-::
 
 ### Trigger
 
 A button that opens the dialog.
 
-## ::props-table
-
-data: [{
+<PropsTable :data="[{
 name: 'asChild',
 required: false,
 type: 'boolean',
 default: 'false',
-description: 'Change the default rendered element for the one passed as a child,
-merging their props and behavior.',
+description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.'
 },
-]
+]" />
 
----
 
-::
-
-## ::data-attributes-table
-
-data: [
-{
+<DataAttributesTable :data="[{
 attribute: '[data-state]',
 values: ['open', 'closed'],
 },
-]
-
----
-
-::
+]" />
 
 ### Portal
 

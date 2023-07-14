@@ -5,6 +5,8 @@
     "packages/*"
   ],
   "scripts": {
+    "docs:install": "pnpm --filter docs install",
+    "docs:dev": "pnpm --filter docs docs:dev",
     "build": "pnpm run -r --filter=!docs build",
     "start": "cd packages/radix-vue && pnpm i && pnpm run build && cd ../../playground/vue3 && pnpm i && pnpm i ../../packages/radix-vue && pnpm run dev"
   },

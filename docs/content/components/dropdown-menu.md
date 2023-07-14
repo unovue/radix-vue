@@ -22,11 +22,16 @@ response.
 
 <HeroContainer>
 <DemoDropdownMenu />
-</HeroContainer>
+<template v-slot:codeSlot>
+<HeroCodeGroup>
+<div filename="index.vue">
 
-::: code-group
 <<< ../../components/demo/DropdownMenu/index.vue
-:::
+
+</div>
+</HeroCodeGroup>
+</template>
+</HeroContainer>
 
 <!--
 <Highlights

@@ -72,7 +72,7 @@ watch(open, () => {
         </div>
       </TabsContent>
       <div
-        class="bg-gradient-to-t from-[#161618FF] to-[#16161800] bottom-[1px] left-[1px] right-[1px] z-10 h-20 flex items-center justify-center absolute rounded-b-lg"
+        class="h-20 left-0 w-full flex items-center justify-center bottom-0 absolute rounded-b-lg bg-gradient-to-t from-[var(--vp-code-block-bg)FF] to-[var(--vp-code-block-bg)00]"
       >
         <button
           ref="buttonRef"
@@ -90,5 +90,4 @@ watch(open, () => {
 ::v-deep * {
   color: white;
 }
-
 </style>

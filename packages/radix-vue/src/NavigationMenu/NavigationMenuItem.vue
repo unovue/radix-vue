@@ -70,6 +70,14 @@ const handleClose = () => {
 
 const handleKeydown = (ev: KeyboardEvent) => {
   const currentFocus = document.activeElement as HTMLElement;
+  if (
+    ev.key === "ArrowUp" ||
+    ev.key === "ArrowDown" ||
+    ev.key === "ArrowLeft" ||
+    ev.key === "ArrowRight"
+  ) {
+    ev.preventDefault();
+  }
   if (ev.keyCode === 32 || ev.key === "Enter") {
     if (context?.modelValue.value === value) {
       handleClose();

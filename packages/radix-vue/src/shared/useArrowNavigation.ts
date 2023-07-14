@@ -4,7 +4,34 @@ interface ArrowNavigationOptions {
   attributeName?: string;
   arrowKeyOptions?: ArrowKeyOptions; //default to both
   itemsArray?: HTMLElement[];
+  loop?: boolean;
 }
+
+// recursive function to find the next focusable element to avoid disabled elements
+function findNextFocusableElement(
+  elements: HTMLElement[],
+  currentElement: HTMLElement,
+  direction: "next" | "previous",
+  loop = true
+): HTMLElement | null {
+  const index = elements.indexOf(currentElement);
+  const newIndex = direction === "next" ? index + 1 : index - 1;
+
+  if (!loop && (newIndex < 0 || newIndex >= elements.length)) return null;
+
+  const adjustedNewIndex = (newIndex + elements.length) % elements.length;
+  const candidate = elements[adjustedNewIndex];
+  if (!candidate) return null;
+
+  const isDisabled =
+    candidate.hasAttribute("disabled") &&
+    candidate.getAttribute("disabled") !== "false";
+  if (isDisabled) {
+    return findNextFocusableElement(elements, candidate, direction, loop);
+  }
+  return candidate;
+}
+
 /**
  * allow arrow navigation for every html element with data-radix-vue-collection-item tag
  * @param e               Keyboard event
@@ -32,10 +59,6 @@ export function useArrowNavigation(
   }
 
   if (allCollectionItems.length) {
-    const currentTabIndex = allCollectionItems.indexOf(currentElement!);
-
-    let newFocusedElement: HTMLElement | null = null;
-
     let nextKeys = ["ArrowRight", "ArrowDown"];
     let previousKeys = ["ArrowLeft", "ArrowUp"];
 
@@ -47,24 +70,19 @@ export function useArrowNavigation(
       previousKeys = ["ArrowUp"];
     }
 
-    if (nextKeys.includes(e.key)) {
-      e.preventDefault();
-      if (allCollectionItems[currentTabIndex + 1]) {
-        newFocusedElement = allCollectionItems[currentTabIndex + 1];
-      } else {
-        newFocusedElement = allCollectionItems[0];
-      }
+    const isNextKey = nextKeys.includes(e.key);
+    const isPreviousKey = previousKeys.includes(e.key);
+
+    if (!isNextKey && !isPreviousKey) {
+      return null;
     }
 
-    if (previousKeys.includes(e.key)) {
-      e.preventDefault();
-      if (allCollectionItems[currentTabIndex - 1]) {
-        newFocusedElement = allCollectionItems[currentTabIndex - 1];
-      } else {
-        newFocusedElement = allCollectionItems[allCollectionItems.length - 1];
-      }
-    }
-    return newFocusedElement;
+    return findNextFocusableElement(
+      allCollectionItems,
+      currentElement,
+      nextKeys.includes(e.key) ? "next" : "previous",
+      options.loop
+    );
   }
 
   return null;

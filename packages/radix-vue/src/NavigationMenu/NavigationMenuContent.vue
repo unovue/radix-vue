@@ -12,6 +12,7 @@ import {
 } from "vue";
 import { getOpenState } from "./utils";
 import NavigationMenuContentImpl from "./NavigationMenuContentImpl.vue";
+import { Presence } from "@/Presence";
 
 defineOptions({
   inheritAttrs: false,
@@ -51,16 +52,17 @@ onMounted(() => {
 </script>
 
 <template>
-  <NavigationMenuContentImpl
-    v-if="!context?.viewport"
-    ref="elementRef"
-    :data-state="getOpenState(open)"
-    :style="{
-      pointerEvents: !open && context?.isRootMenu ? 'none' : undefined,
-    }"
-    v-bind="($attrs, commonProps)"
-    @escape="itemContext!.wasEscapeCloseRef.value = true"
-  >
-    <slot></slot>
-  </NavigationMenuContentImpl>
+  <Presence v-if="!context?.viewport" :present="open">
+    <NavigationMenuContentImpl
+      ref="elementRef"
+      :data-state="getOpenState(open)"
+      :style="{
+        pointerEvents: !open && context?.isRootMenu ? 'none' : undefined,
+      }"
+      v-bind="($attrs, commonProps)"
+      @escape="itemContext!.wasEscapeCloseRef.value = true"
+    >
+      <slot></slot>
+    </NavigationMenuContentImpl>
+  </Presence>
 </template>

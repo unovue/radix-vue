@@ -11,8 +11,8 @@ export interface CollapsibleRootProps {
 
 export interface CollapsibleProvideValue {
   contentId: string;
-  disabled?: Readonly<Ref<boolean>>;
-  open: Readonly<Ref<boolean>>;
+  disabled?: Ref<boolean>;
+  open: Ref<boolean>;
   onOpenToggle(): void;
 }
 

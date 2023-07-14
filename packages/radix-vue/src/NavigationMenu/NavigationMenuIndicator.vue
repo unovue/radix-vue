@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed, inject, ref, watch, watchEffect } from "vue";
+import { computed, inject, ref, watchEffect } from "vue";
 import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
 import { useCollection } from "@/shared";
 import { PrimitiveDiv } from "@/Primitive";
 import { useResizeObserver } from "@vueuse/core";
+import { Presence } from "@/Presence";
 
 defineOptions({
   inheritAttrs: false,
@@ -52,28 +53,29 @@ useResizeObserver(context!.indicatorTrack, handlePositionChange);
     v-if="context?.indicatorTrack.value"
     :to="context?.indicatorTrack.value"
   >
-    <PrimitiveDiv
-      v-if="position"
-      aria-hidden
-      :data-state="isVisible ? 'visible' : 'hidden'"
-      :data-orientation="context.orientation"
-      :style="{
-        position: 'absolute',
-        ...(isHorizontal
-          ? {
-              left: 0,
-              width: position.size + 'px',
-              transform: `translateX(${position.offset}px)`,
-            }
-          : {
-              top: 0,
-              height: position.size + 'px',
-              transform: `translateY(${position.offset}px)`,
-            }),
-      }"
-      v-bind="$attrs"
-    >
-      <slot></slot>
-    </PrimitiveDiv>
+    <Presence :present="isVisible">
+      <PrimitiveDiv
+        aria-hidden
+        :data-state="isVisible ? 'visible' : 'hidden'"
+        :data-orientation="context.orientation"
+        :style="{
+          position: 'absolute',
+          ...(isHorizontal
+            ? {
+                left: 0,
+                width: position?.size + 'px',
+                transform: `translateX(${position?.offset}px)`,
+              }
+            : {
+                top: 0,
+                height: position?.size + 'px',
+                transform: `translateY(${position?.offset}px)`,
+              }),
+        }"
+        v-bind="$attrs"
+      >
+        <slot></slot>
+      </PrimitiveDiv>
+    </Presence>
   </Teleport>
 </template>

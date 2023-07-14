@@ -5,6 +5,7 @@ import { computed, inject, onMounted, ref, type VNode } from "vue";
 import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 import { getOpenState } from "./utils";
 import { unrefElement, useResizeObserver } from "@vueuse/core";
+import { Presence } from "@/Presence";
 import NavigationMenuContentImpl from "./NavigationMenuContentImpl.vue";
 
 const { primitiveElement, currentElement } = usePrimitiveElement();
@@ -28,15 +29,14 @@ onMounted(() => {
 
 const viewportContentList = computed(() =>
   // @ts-ignore
-  Array.from(context?.viewportContent.value.values()).filter(
-    (node) => open.value && node?.props?.value === activeContentValue.value
-  )
+  Array.from(context?.viewportContent.value.values())
 );
 
+const isActive = ref(false);
 const setRef = (node: VNode) => {
   // @ts-ignore
-  const isActive = activeContentValue.value === node?.value;
-  if (isActive) {
+  isActive.value = activeContentValue.value === node?.value;
+  if (isActive.value) {
     // @ts-ignore
     content.value = unrefElement(node);
   }
@@ -51,36 +51,45 @@ useResizeObserver(content, () => {
     };
   }
 });
+
+defineOptions({
+  inheritAttrs: false,
+});
 </script>
 
 <template>
-  <PrimitiveDiv
-    ref="primitiveElement"
-    :data-state="getOpenState(open)"
-    :data-orientation="context?.orientation"
-    :style="{
+  <Presence :present="open">
+    <PrimitiveDiv
+      v-bind="$attrs"
+      ref="primitiveElement"
+      :data-state="getOpenState(open)"
+      :data-orientation="context?.orientation"
+      :style="{
         // Prevent interaction when animating out
         pointerEvents: !open && context?.isRootMenu ? 'none' : undefined,
         ['--radix-navigation-menu-viewport-width' as any]: size ? size?.width + 'px' : undefined,
         ['--radix-navigation-menu-viewport-height' as any]: size ? size?.height + 'px' : undefined,
       }"
-    @pointerenter="context?.onContentEnter(activeContentValue)"
-    @pointerleave="context?.onContentLeave()"
-  >
-    <NavigationMenuContentImpl
-      v-for="node in viewportContentList"
-      :ref="setRef"
-      :key="node.props?.value"
-      v-bind="
-        //@ts-ignore
-        node.parentProps
-      "
-      :value="node.props?.value"
-      :triggerRef="node.props?.triggerRef"
-      :focusProxyRef="node.props?.focusProxyRef"
-      @escape="itemContext!.wasEscapeCloseRef.value = true"
+      @pointerenter="context?.onContentEnter(activeContentValue)"
+      @pointerleave="context?.onContentLeave()"
     >
-      <component :is="node"></component>
-    </NavigationMenuContentImpl>
-  </PrimitiveDiv>
+      <template v-for="node in viewportContentList" :key="node.props?.value">
+        <Presence :present="activeContentValue === node.props?.value">
+          <NavigationMenuContentImpl
+            :ref="setRef"
+            v-bind="
+              //@ts-ignore
+              node.parentProps
+            "
+            :value="node.props?.value"
+            :triggerRef="node.props?.triggerRef"
+            :focusProxyRef="node.props?.focusProxyRef"
+            @escape="itemContext!.wasEscapeCloseRef.value = true"
+          >
+            <component :is="node"></component>
+          </NavigationMenuContentImpl>
+        </Presence>
+      </template>
+    </PrimitiveDiv>
+  </Presence>
 </template>

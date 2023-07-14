@@ -71,24 +71,32 @@ const handleKeydown = (ev: KeyboardEvent) => {
   const isMetaKey = ev.altKey || ev.ctrlKey || ev.metaKey;
   const isTabKey = ev.key === "Tab" && !isMetaKey;
   const candidates = getTabbableCandidates(ev.currentTarget as HTMLElement);
+  const currentContentIndex = candidates.findIndex(
+    (i) => i === document.activeElement
+  );
+
   if (isTabKey) {
     const focusedElement = document.activeElement;
     const index = candidates.findIndex(
       (candidate) => candidate === focusedElement
     );
     const isMovingBackwards = ev.shiftKey;
-    const nextCandidates = isMovingBackwards
-      ? candidates.slice(0, index).reverse()
-      : candidates.slice(index + 1, candidates.length);
-
-    if (focusFirst(nextCandidates)) {
-      // prevent browser tab keydown because we've handled focus
-      ev.preventDefault();
+    if (isMovingBackwards && currentContentIndex === 0) {
+      props.triggerRef.value?.focus();
     } else {
-      // If we can't focus that means we're at the edges
-      // so focus the proxy and let browser handle
-      // tab/shift+tab keypress on the proxy instead
-      props.focusProxyRef.value?.focus();
+      const nextCandidates = isMovingBackwards
+        ? candidates.slice(0, index).reverse()
+        : candidates.slice(index + 1, candidates.length);
+
+      if (focusFirst(nextCandidates)) {
+        // prevent browser tab keydown because we've handled focus
+        ev.preventDefault();
+      } else {
+        // If we can't focus that means we're at the edges
+        // so focus the proxy and let browser handle
+        // tab/shift+tab keypress on the proxy instead
+        props.focusProxyRef.value?.focus();
+      }
     }
   }
 

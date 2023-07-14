@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ProseTh, ProseTd, ProseTr, ProseCodeInline, ProseTable, ProseThead } from "../prose"
+import { ProseTh, ProseTd, ProseTr, ProseCodeInline, ProseTable, ProseThead, ProseTbody } from "../prose"
 
 type KeyboardDef = {
   attribute: string;
@@ -17,17 +17,17 @@ const props = defineProps<DataAttributesTableProps>();
     <ProseThead>
       <ProseTr>
         <ProseTh class="w-[45%]">
-          <p>Data Attribute</p>
+          <span>Data Attribute</span>
         </ProseTh>
         <ProseTh class="w-[55%]">
-          <p>Value</p>
+          <span>Value</span>
         </ProseTh>
       </ProseTr>
     </ProseThead>
     <ProseTbody>
       <ProseTr v-for="(prop, index) in props.data" :key="`${prop.attribute}-${index}`">
-        <ProseTd class="flex items-center gap-1">
-          <div>
+        <ProseTd>
+          <div class="flex items-center gap-1">
             <ProseCodeInline class="!text-[13px]">
               {{ prop.attribute }}
             </ProseCodeInline>

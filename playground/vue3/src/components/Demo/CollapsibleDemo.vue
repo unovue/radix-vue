@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from 'radix-vue'
-import { Icon } from '@iconify/vue'
+import { ref } from "vue";
+import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from "@/Collapsible";
+import { Icon } from "@iconify/vue";
 
-const rootOpen = ref(false)
-const rootDisabled = ref(false)
-const open = ref(false)
+const rootOpen = ref(false);
+const rootDisabled = ref(false);
+const open = ref(false);
 </script>
 
 <template>

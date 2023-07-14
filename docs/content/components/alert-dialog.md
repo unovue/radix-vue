@@ -37,7 +37,7 @@ response.
   :features="[
     'Focus is automatically trapped.',
     'Can be controlled or uncontrolled.',
-    'Manages screen reader announcements with `Title` and `Description` components.',
+    'Manages screen reader announcements with <code>Title</code> and <code>Description</code> components.',
     'Esc closes the component automatically.'
   ]"
 />

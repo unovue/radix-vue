@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import {ProseH3} from "./prose"
 import { Icon } from "@iconify/vue";
 
 interface HighlightsProps {
@@ -14,7 +13,7 @@ const props = defineProps<HighlightsProps>()
     <li class="flex items-center gap-4" v-for="feature in props.features">
       <span class="icon-bg rounded-full h-6 aspect-square !w-6 flex-none flex items-center justify-center">
         <Icon icon="radix-icons:check" class="h-4 w-4 !text-green-500" />
-      </span><span>{{ feature }}</span>
+      </span><span v-html="feature"></span>
     </li>
   </ul>
 </template>

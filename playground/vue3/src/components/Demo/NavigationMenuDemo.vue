@@ -39,7 +39,7 @@ const currentTrigger = ref("");
         >
           <ul class="one m-0 grid list-none gap-x-[10px] p-[22px] sm:w-[500px] sm:grid-cols-[0.75fr_1fr]">
             <li class="row-span-3 grid">
-              <NavigationMenuLink asChild>
+              <NavigationMenuLink as-child>
                 <a
                   class="focus:shadow-violet7 from-purple9 to-indigo9 flex h-full w-full select-none flex-col justify-end rounded-[6px] bg-gradient-to-b p-[25px] no-underline outline-none focus:shadow-[0_0_0_2px]"
                   href="/"

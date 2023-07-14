@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ToggleGroupItem, ToggleGroupRoot } from 'radix-vue'
+import { ToggleGroupItem, ToggleGroupRoot } from '../../../../../packages/radix-vue/src'
 import { Icon } from '@iconify/vue'
 import { ref } from 'vue'
 

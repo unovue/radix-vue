@@ -9,7 +9,6 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog
 import Description from '../../components/Description.vue'
 import HeroContainer from '../../components/HeroContainer.vue'
 import DemoAlertDialog from '../../components/demo/AlertDialog/index.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 import PropsTable from '../../components/tables/PropsTable.vue'
 import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
 import KeyboardTable from '../../components/tables/KeyboardTable.vue'
@@ -99,7 +98,6 @@ typeSimple: 'function',
 description: 'Event handler called when the open state of the dialog changes.',
 }]" />
 
-
 ### Trigger {class="font-bold mt-10"}
 <p class="mt-2">A button that opens the dialog.</p>
 
@@ -111,17 +109,13 @@ default: 'false',
 description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.'
 }]" />
 
-
 <DataAttributesTable :data="[{
 attribute: '[data-state]',
 values: ['open', 'closed'],
 }]" />
 
-
 ### Portal {class="font-bold mt-10"}
 <p class="mt-2">When used, portals your overlay and content parts into the <code>body</code>.</p>
-
-
 
 <PropsTable :data="[{
 name: 'forceMount',
@@ -135,9 +129,8 @@ default: 'document.body',
 description: 'Specify a container element to portal the content into.',
 }]" />
 
-### Overlay
-
-A layer that covers the inert portion of the view when the dialog is open.
+### Overlay {class="font-bold mt-10"}
+<p class="mt-2">A layer that covers the inert portion of the view when the dialog is open.</p>
 
 <PropsTable :data="[{
 name: 'asChild',
@@ -157,9 +150,8 @@ attribute: '[data-state]',
 values: ['open', 'closed'],
 }]" />
 
-### Content
-
-Contains content to be rendered when the dialog is open.
+### Content {class="font-bold mt-10"}
+<p class="mt-2">Contains content to be rendered when the dialog is open.</p>
 
 <PropsTable :data="[{
 name: 'asChild',
@@ -194,21 +186,8 @@ attribute: '[data-state]',
 values: ['open', 'closed'],
 }]" />
 
-### Cancel
-
-A button that closes the dialog. This button should be distinguished visually from `AlertDialog.Action` buttons.
-
-<PropsTable :data="[{
-name: 'asChild',
-required: false,
-type: 'boolean',
-default: 'false',
-description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
-}]" />
-
-### Action
-
-A button that closes the dialog. These buttons should be distinguished visually from the `AlertDialog.Cancel` button.
+### Cancel {class="font-bold mt-10"}
+<p class="mt-2">A button that closes the dialog. This button should be distinguished visually from `AlertDialog.Action` buttons.</p>
 
 <PropsTable :data="[{
 name: 'asChild',
@@ -218,9 +197,8 @@ default: 'false',
 description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
 }]" />
 
-### Title
-
-An accessible name to be announced when the dialog is opened. Alternatively, you can provide `aria-label` or `aria-labelledby` to `AlertDialog.Content` and exclude this component.
+### Action {class="font-bold mt-10"}
+<p class="mt-2">A button that closes the dialog. These buttons should be distinguished visually from the `AlertDialog.Cancel` button.</p>
 
 <PropsTable :data="[{
 name: 'asChild',
@@ -230,9 +208,19 @@ default: 'false',
 description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
 }]" />
 
-### Description
+### Title {class="font-bold mt-10"}
+<p class="mt-2">An accessible name to be announced when the dialog is opened. Alternatively, you can provide `aria-label` or `aria-labelledby` to `AlertDialog.Content` and exclude this component.</p>
 
-An accessible description to be announced when the dialog is opened. Alternatively, you can provide `aria-describedby` to `AlertDialog.Content` and exclude this component.
+<PropsTable :data="[{
+name: 'asChild',
+required: false,
+type: 'boolean',
+default: 'false',
+description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
+}]" />
+
+### Description {class="font-bold mt-10"}
+<p class="mt-2">An accessible description to be announced when the dialog is opened. Alternatively, you can provide `aria-describedby` to `AlertDialog.Content` and exclude this component.</p>
 
 <PropsTable :data="[{
 name: 'asChild',
@@ -244,9 +232,8 @@ description: 'Change the default rendered element for the one passed as a child,
 
 ## Examples
 
-### Close after asynchronous form submission
-
-Use the controlled props to programmatically close the Alert Dialog after an async operation has completed.
+### Close after asynchronous form submission {class="font-bold mt-10"}
+<p class="mt-2">Use the controlled props to programmatically close the Alert Dialog after an async operation has completed.</p>
 
 ```jsx line=4,7,10,15,17
 import React from "react";
@@ -279,9 +266,8 @@ export default () => {
 };
 ```
 
-### Custom portal container
-
-Customise the element that your alert dialog portals into.
+### Custom portal container {class="font-bold mt-10"}
+<p class="mt-2">Customise the element that your alert dialog portals into.</p>
 
 ```jsx line=2,13
 export default () => {

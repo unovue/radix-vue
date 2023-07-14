@@ -22,11 +22,17 @@ response.
 
 <HeroContainer>
 <DemoToggle />
+<template v-slot:codeSlot>
+<HeroCodeGroup>
+<div filename="index.vue">
+
+<<< ../../components/demo/Toggle/index.vue
+
+</div>
+</HeroCodeGroup>
+</template>
 </HeroContainer>
 
-::: code-group
-<<< ../../components/demo/Toggle/index.vue
-:::
 ```
 <Highlights
   features={['Full keyboard navigation.', 'Can be controlled or uncontrolled.']}

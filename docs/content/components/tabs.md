@@ -22,11 +22,17 @@ response.
 
 <HeroContainer>
 <DemoTabs />
+<template v-slot:codeSlot>
+<HeroCodeGroup>
+<div filename="index.vue">
+
+<<< ../../components/demo/Tabs/index.vue
+
+</div>
+</HeroCodeGroup>
+</template>
 </HeroContainer>
 
-::: code-group
-<<< ../../components/demo/Tabs/index.vue
-:::
 ```
 <Highlights
   features={[

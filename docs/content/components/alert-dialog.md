@@ -26,12 +26,21 @@ response.
 
 <HeroContainer>
 <DemoAlertDialog />
-</HeroContainer>
+<template v-slot:codeSlot>
+<HeroCodeGroup>
+<div filename="index.vue">
 
-::: code-group
 <<< ../../components/demo/AlertDialog/index.vue
+
+</div>
+<div filename="tailwind.config.js">
+
 <<< ../../components/demo/AlertDialog/tailwind.config.js
-:::
+
+</div>
+</HeroCodeGroup>
+</template>
+</HeroContainer>
 
 ## Features
 

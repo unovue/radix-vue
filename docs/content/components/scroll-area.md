@@ -21,11 +21,17 @@ response.
 
 <HeroContainer>
 <DemoScrollArea />
+<template v-slot:codeSlot>
+<HeroCodeGroup>
+<div filename="index.vue">
+
+<<< ../../components/demo/ScrollArea/index.vue
+
+</div>
+</HeroCodeGroup>
+</template>
 </HeroContainer>
 
-::: code-group
-<<< ../../components/demo/ScrollArea/index.vue
-:::
 ```
 <Highlights
   features={[

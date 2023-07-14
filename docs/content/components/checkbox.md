@@ -22,11 +22,16 @@ response.
 
 <HeroContainer>
 <DemoCheckbox />
-</HeroContainer>
+<template v-slot:codeSlot>
+<HeroCodeGroup>
+<div filename="index.vue">
 
-::: code-group
 <<< ../../components/demo/Checkbox/index.vue
-:::
+
+</div>
+</HeroCodeGroup>
+</template>
+</HeroContainer>
 
 <!--
 <Highlights

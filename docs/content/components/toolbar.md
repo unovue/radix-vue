@@ -22,11 +22,17 @@ dropdown menus.
 
 <HeroContainer>
 <DemoToolbar />
+<template v-slot:codeSlot>
+<HeroCodeGroup>
+<div filename="index.vue">
+
+<<< ../../components/demo/Toolbar/index.vue
+
+</div>
+</HeroCodeGroup>
+</template>
 </HeroContainer>
 
-::: code-group
-<<< ../../components/demo/Toolbar/index.vue
-:::
 ```
 <HeroContainer
   css={{

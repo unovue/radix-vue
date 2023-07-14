@@ -22,11 +22,17 @@ response.
 
 <HeroContainer>
 <DemoRadioGroup />
+<template v-slot:codeSlot>
+<HeroCodeGroup>
+<div filename="index.vue">
+
+<<< ../../components/demo/AspectRatio/index.vue
+
+</div>
+</HeroCodeGroup>
+</template>
 </HeroContainer>
 
-::: code-group
-<<< ../../components/demo/RadioGroup/index.vue
-:::
 ```
 <Highlights
   features={[

@@ -21,11 +21,16 @@ response.
 
 <HeroContainer>
 <DemoAspectRatio />
-</HeroContainer>
+<template v-slot:codeSlot>
+<HeroCodeGroup>
+<div filename="index.vue">
 
-::: code-group
 <<< ../../components/demo/AspectRatio/index.vue
-:::
+
+</div>
+</HeroCodeGroup>
+</template>
+</HeroContainer>
 
 Accepts any custom ratio.
 

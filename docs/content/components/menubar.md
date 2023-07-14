@@ -24,11 +24,17 @@ response.
 
 <HeroContainer>
 <DemoMenubar />
+<template v-slot:codeSlot>
+<HeroCodeGroup>
+<div filename="index.vue">
+
+<<< ../../components/demo/Menubar/index.vue
+
+</div>
+</HeroCodeGroup>
+</template>
 </HeroContainer>
 
-::: code-group
-<<< ../../components/demo/Menubar/index.vue
-:::
 ```
 <Highlights
   features={[

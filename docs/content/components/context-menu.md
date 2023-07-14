@@ -22,11 +22,16 @@ response.
 
 <HeroContainer>
 <DemoContextMenu />
-</HeroContainer>
+<template v-slot:codeSlot>
+<HeroCodeGroup>
+<div filename="index.vue">
 
-::: code-group
 <<< ../../components/demo/ContextMenu/index.vue
-:::
+
+</div>
+</HeroCodeGroup>
+</template>
+</HeroContainer>
 
 <!--
 <Highlights

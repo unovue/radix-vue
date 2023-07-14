@@ -21,11 +21,17 @@ Displays a list of options for the user to pick from—triggered by a button.
 
 <HeroContainer>
 <DemoSelect />
+<template v-slot:codeSlot>
+<HeroCodeGroup>
+<div filename="index.vue">
+
+<<< ../../components/demo/Select/index.vue
+
+</div>
+</HeroCodeGroup>
+</template>
 </HeroContainer>
 
-::: code-group
-<<< ../../components/demo/Select/index.vue
-:::
 ```
 <Highlights
   features={[

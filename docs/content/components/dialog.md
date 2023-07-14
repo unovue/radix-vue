@@ -22,11 +22,16 @@ response.
 
 <HeroContainer>
 <DemoDialog />
-</HeroContainer>
+<template v-slot:codeSlot>
+<HeroCodeGroup>
+<div filename="index.vue">
 
-::: code-group
 <<< ../../components/demo/Dialog/index.vue
-:::
+
+</div>
+</HeroCodeGroup>
+</template>
+</HeroContainer>
 
 <!--
 <Highlights

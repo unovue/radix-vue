@@ -22,11 +22,17 @@ response.
 
 <HeroContainer>
 <DemoSeparator />
+<template v-slot:codeSlot>
+<HeroCodeGroup>
+<div filename="index.vue">
+
+<<< ../../components/demo/Separator/index.vue
+
+</div>
+</HeroCodeGroup>
+</template>
 </HeroContainer>
 
-::: code-group
-<<< ../../components/demo/Separator/index.vue
-:::
 ```
 <Highlights features={['Supports horizontal and vertical orientations.']} />
 ```

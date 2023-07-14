@@ -22,11 +22,17 @@ response.
 
 <HeroContainer>
 <DemoPopover />
+<template v-slot:codeSlot>
+<HeroCodeGroup>
+<div filename="index.vue">
+
+<<< ../../components/demo/Popover/index.vue
+
+</div>
+</HeroCodeGroup>
+</template>
 </HeroContainer>
 
-::: code-group
-<<< ../../components/demo/Popover/index.vue
-:::
 ```
 <Highlights
   features={[

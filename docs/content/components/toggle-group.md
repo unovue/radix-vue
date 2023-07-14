@@ -20,13 +20,20 @@ A modal dialog that interrupts the user with important content and expects a
 response.
 </Description>
 
+
 <HeroContainer>
 <DemoToggleGroup />
+<template v-slot:codeSlot>
+<HeroCodeGroup>
+<div filename="index.vue">
+
+<<< ../../components/demo/ToggleGroup/index.vue
+
+</div>
+</HeroCodeGroup>
+</template>
 </HeroContainer>
 
-::: code-group
-<<< ../../components/demo/ToggleGroup/index.vue
-:::
 ```
 <Highlights
   features={[

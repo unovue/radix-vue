@@ -29,19 +29,16 @@ associated section of content.
 <DemoAccordion />
 <template v-slot:codeSlot>
 <HeroCodeGroup>
-
 <div filename="index.vue">
 
 <<< ../../components/demo/Accordion/index.vue
 
 </div>
-
 <div filename="tailwind.config.js">
 
 <<< ../../components/demo/Accordion/tailwind.config.js
 
 </div>
-
 </HeroCodeGroup>
 </template>
 </HeroContainer>

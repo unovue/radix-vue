@@ -22,11 +22,16 @@ response.
 
 <HeroContainer>
 <DemoTooltip />
-</HeroContainer>
+<template v-slot:codeSlot>
+<HeroCodeGroup>
+<div filename="index.vue">
 
-::: code-group
 <<< ../../components/demo/Tooltip/index.vue
-:::
+
+</div>
+</HeroCodeGroup>
+</template>
+</HeroContainer>
 
 ## Features
 

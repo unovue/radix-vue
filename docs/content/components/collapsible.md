@@ -22,11 +22,16 @@ response.
 
 <HeroContainer>
 <DemoCollapsible />
-</HeroContainer>
+<template v-slot:codeSlot>
+<HeroCodeGroup>
+<div filename="index.vue">
 
-::: code-group
 <<< ../../components/demo/Collapsible/index.vue
-:::
+
+</div>
+</HeroCodeGroup>
+</template>
+</HeroContainer>
 
 'Full keyboard navigation.', 'Can be controlled or uncontrolled.'
 

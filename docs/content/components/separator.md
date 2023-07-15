@@ -21,8 +21,7 @@ import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 # Separator
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+Visually or semantically separates content.
 </Description>
 
 <HeroContainer>
@@ -38,15 +37,15 @@ response.
 </template>
 </HeroContainer>
 
-```
-<Highlights features={['Supports horizontal and vertical orientations.']} />
-```
+## Features
+<Highlights :features="['Supports horizontal and vertical orientations.']" />
+
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-separator
+npm install radix-vue
 ```
 
 ## Anatomy
@@ -54,7 +53,7 @@ npm install @radix-ui/react-separator
 Import all parts and piece them together.
 
 ```jsx
-import * as Separator from '@radix-ui/react-separator';
+import * as Separator from 'radix-vue';
 
 export default () => <Separator.Root />;
 ```

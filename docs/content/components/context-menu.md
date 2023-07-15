@@ -21,8 +21,7 @@ import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 # Context Menu
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+Displays a menu located at the pointer, triggered by a right-click or a long-press.
 </Description>
 
 <HeroContainer>
@@ -38,9 +37,9 @@ response.
 </template>
 </HeroContainer>
 
-<!--
+## Features
 <Highlights
-  features={[
+  :features="[
     'Supports submenus with configurable reading direction.',
     'Supports items, labels, groups of items.',
     'Supports checkable items (single or multiple) with optional indeterminate state.',
@@ -51,15 +50,15 @@ response.
     'Typeahead support.',
     'Dismissing and layering behavior is highly customizable.',
     'Triggers with a long-press on touch devices',
-  ]}
+  ]"
 />
--->
+
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-context-menu
+npm install radix-vue
 ```
 
 ## Anatomy
@@ -67,7 +66,7 @@ npm install @radix-ui/react-context-menu
 Import all parts and piece them together.
 
 ```jsx
-import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as ContextMenu from 'radix-vue';
 
 export default () => (
   <ContextMenu.Root>
@@ -1149,7 +1148,7 @@ You can add special styles to disabled items via the `data-disabled` attribute.
 
 ```jsx line=10
 // index.jsx
-import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as ContextMenu from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -1218,7 +1217,7 @@ Use the `CheckboxItem` part to add an item that can be checked.
 ```jsx line=6,16-21
 import React from 'react';
 import { CheckIcon } from '@radix-ui/react-icons';
-import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as ContextMenu from 'radix-vue';
 
 export default () => {
   const [checked, setChecked] = React.useState(true);
@@ -1254,7 +1253,7 @@ Use the `RadioGroup` and `RadioItem` parts to add an item that can be checked am
 ```jsx line=6,13-32
 import React from 'react';
 import { CheckIcon } from '@radix-ui/react-icons';
-import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as ContextMenu from 'radix-vue';
 
 export default () => {
   const [color, setColor] = React.useState('blue');
@@ -1296,7 +1295,7 @@ export default () => {
 You can add extra decorative elements in the `Item` parts, such as images.
 
 ```jsx line=9,13
-import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as ContextMenu from 'radix-vue';
 
 export default () => (
   <ContextMenu.Root>
@@ -1325,7 +1324,7 @@ We expose several CSS custom properties such as `--radix-context-menu-trigger-wi
 
 ```jsx line=9
 // index.jsx
-import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as ContextMenu from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -1354,7 +1353,7 @@ We expose a CSS custom property `--radix-context-menu-content-transform-origin`.
 
 ```jsx line=9
 // index.jsx
-import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as ContextMenu from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -1394,7 +1393,7 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 
 ```jsx line=9
 // index.jsx
-import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as ContextMenu from 'radix-vue';
 import './styles.css';
 
 export default () => (

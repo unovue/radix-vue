@@ -21,8 +21,7 @@ import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 # Popover
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+Displays rich content in a portal, triggered by a button.
 </Description>
 
 <HeroContainer>
@@ -38,24 +37,24 @@ response.
 </template>
 </HeroContainer>
 
-```
+## Features
 <Highlights
-  features={[
+  :features="[
     'Can be controlled or uncontrolled.',
     'Customize side, alignment, offsets, collision handling.',
     'Optionally render a pointing arrow.',
     'Focus is fully managed and customizable.',
     'Supports modal and non-modal modes.',
     'Dismissing and layering behavior is highly customizable.',
-  ]}
+  ]"
 />
-```
+
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-popover
+npm install radix-vue
 ```
 
 ## Anatomy
@@ -63,7 +62,7 @@ npm install @radix-ui/react-popover
 Import all parts and piece them together.
 
 ```jsx
-import * as Popover from '@radix-ui/react-popover';
+import * as Popover from 'radix-vue';
 
 export default () => (
   <Popover.Root>
@@ -518,7 +517,7 @@ We expose several CSS custom properties such as `--radix-popover-trigger-width` 
 
 ```jsx line=9
 // index.jsx
-import * as Popover from '@radix-ui/react-popover';
+import * as Popover from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -547,7 +546,7 @@ We expose a CSS custom property `--radix-popover-content-transform-origin`. Use 
 
 ```jsx line=9
 // index.jsx
-import * as Popover from '@radix-ui/react-popover';
+import * as Popover from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -585,7 +584,7 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 
 ```jsx line=9
 // index.jsx
-import * as Popover from '@radix-ui/react-popover';
+import * as Popover from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -640,7 +639,7 @@ You can anchor the content to another element if you do not want to use the trig
 
 ```jsx line=7-11
 // index.jsx
-import * as Popover from '@radix-ui/react-popover';
+import * as Popover from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -727,7 +726,7 @@ export default () => (
 ```jsx
 // your-popover.jsx
 import React from 'react';
-import * as PopoverPrimitive from '@radix-ui/react-popover';
+import * as PopoverPrimitive from 'radix-vue';
 
 export const Popover = PopoverPrimitive.Root;
 export const PopoverTrigger = PopoverPrimitive.Trigger;

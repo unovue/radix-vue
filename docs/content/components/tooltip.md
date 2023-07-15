@@ -21,8 +21,7 @@ import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 # Tooltip
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
 </Description>
 
 <HeroContainer>
@@ -507,7 +506,7 @@ description: <span>The height of the arrow in pixels.</span>,
 Use the `Provider` to control `delayDuration` and `skipDelayDuration` globally.
 
 ```jsx line=4
-import * as Tooltip from "@radix-ui/react-tooltip";
+import * as Tooltip from "radix-vue";
 
 export default () => (
   <Tooltip.Provider __delayDuration__={800} __skipDelayDuration__={500}>
@@ -528,7 +527,7 @@ export default () => (
 Use the `delayDuration` prop to control the time it takes for the tooltip to open.
 
 ```jsx line=4
-import * as Tooltip from "@radix-ui/react-tooltip";
+import * as Tooltip from "radix-vue";
 
 export default () => (
   <Tooltip.Root __delayDuration__={0}>
@@ -546,7 +545,7 @@ Since disabled buttons don't fire events, you need to:
 - Ensure the `button` has no `pointerEvents`.
 
 ```jsx line=5-11
-import * as Tooltip from "@radix-ui/react-tooltip";
+import * as Tooltip from "radix-vue";
 
 export default () => (
   <Tooltip.Root>
@@ -570,7 +569,7 @@ We expose several CSS custom properties such as `--radix-tooltip-trigger-width` 
 
 ```jsx line=9
 // index.jsx
-import * as Tooltip from "@radix-ui/react-tooltip";
+import * as Tooltip from "radix-vue";
 import "./styles.css";
 
 export default () => (
@@ -599,7 +598,7 @@ We expose a CSS custom property `--radix-tooltip-content-transform-origin`. Use 
 
 ```jsx line=8
 // index.jsx
-import * as Tooltip from "@radix-ui/react-tooltip";
+import * as Tooltip from "radix-vue";
 import "./styles.css";
 
 export default () => (
@@ -635,7 +634,7 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 
 ```jsx line=8
 // index.jsx
-import * as Tooltip from "@radix-ui/react-tooltip";
+import * as Tooltip from "radix-vue";
 import "./styles.css";
 
 export default () => (
@@ -734,7 +733,7 @@ Use the [`asChild` prop](/guides/composition) to convert the trigger part into a
 ```jsx line=8-10
 // your-tooltip.jsx
 import React from "react";
-import * as TooltipPrimitive from "@radix-ui/react-tooltip";
+import * as TooltipPrimitive from "radix-vue";
 
 export function Tooltip({ children, content, open, defaultOpen, onOpenChange, ...props }) {
   return (

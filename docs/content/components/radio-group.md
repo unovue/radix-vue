@@ -21,8 +21,7 @@ import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 # RadioGroup
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.
 </Description>
 
 <HeroContainer>
@@ -38,21 +37,21 @@ response.
 </template>
 </HeroContainer>
 
-```
+## Features
 <Highlights
-  features={[
+  :features="[
     'Full keyboard navigation.',
     'Supports horizontal/vertical orientation.',
     'Can be controlled or uncontrolled.',
-  ]}
+  ]"
 />
-```
+
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-radio-group
+npm install radix-vue
 ```
 
 ## Anatomy
@@ -60,7 +59,7 @@ npm install @radix-ui/react-radio-group
 Import all parts and piece them together.
 
 ```jsx
-import * as RadioGroup from '@radix-ui/react-radio-group';
+import * as RadioGroup from 'radix-vue';
 
 export default () => (
   <RadioGroup.Root>

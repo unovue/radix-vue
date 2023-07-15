@@ -21,8 +21,7 @@ import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 # Toggle
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+A two-state button that can be either on or off.
 </Description>
 
 <HeroContainer>
@@ -38,25 +37,25 @@ response.
 </template>
 </HeroContainer>
 
-```
+## Features
 <Highlights
-  features={['Full keyboard navigation.', 'Can be controlled or uncontrolled.']}
+  :features="['Full keyboard navigation.', 'Can be controlled or uncontrolled.']"
 />
-```
+
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-toggle
+npm install radix-vue
 ```
 
 ## Anatomy
 
 Import the component.
 
-```jsx
-import * as Toggle from '@radix-ui/react-toggle';
+```vue
+import * as Toggle from 'radix-vue';
 
 export default () => <Toggle.Root />;
 ```

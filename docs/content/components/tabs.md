@@ -21,8 +21,7 @@ import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 # Tabs
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+A set of layered sections of content—known as tab panels—that are displayed one at a time.
 </Description>
 
 <HeroContainer>
@@ -38,22 +37,22 @@ response.
 </template>
 </HeroContainer>
 
-```
+## Features
 <Highlights
-  features={[
+  :features="[
     'Can be controlled or uncontrolled.',
     'Supports horizontal/vertical orientation.',
     'Supports automatic/manual activation.',
     'Full keyboard navigation.',
-  ]}
+  ]"
 />
-```
+
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-tabs
+npm install radix-vue
 ```
 
 ## Anatomy
@@ -61,7 +60,7 @@ npm install @radix-ui/react-tabs
 Import all parts and piece them together.
 
 ```jsx
-import * as Tabs from '@radix-ui/react-tabs';
+import * as Tabs from 'radix-vue';
 
 export default () => (
   <Tabs.Root>
@@ -299,7 +298,7 @@ Contains the content associated with each trigger.
 You can create vertical tabs by using the `orientation` prop.
 
 ```jsx line=4
-import * as Tabs from '@radix-ui/react-tabs';
+import * as Tabs from 'radix-vue';
 
 export default () => (
   <Tabs.Root defaultValue="tab1" __orientation__="vertical">

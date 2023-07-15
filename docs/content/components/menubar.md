@@ -23,8 +23,7 @@ import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 # Menubar
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+A visually persistent menu common in desktop applications that provides quick access to a consistent set of commands.
 </Description>
 
 <HeroContainer>
@@ -40,9 +39,10 @@ response.
 </template>
 </HeroContainer>
 
-```
+## Features
+
 <Highlights
-  features={[
+  :features="[
     'Can be controlled or uncontrolled.',
     'Supports submenus with configurable reading direction.',
     'Supports items, labels, groups of items.',
@@ -52,15 +52,15 @@ response.
     'Focus is fully managed.',
     'Full keyboard navigation.',
     'Typeahead support.',
-  ]}
+  ]"
 />
-```
+
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-menubar
+npm install radix-vue
 ```
 
 ## Anatomy
@@ -68,7 +68,7 @@ npm install @radix-ui/react-menubar
 Import all parts and piece them together.
 
 ```jsx
-import * as Menubar from '@radix-ui/react-menubar';
+import * as Menubar from 'radix-vue';
 
 export default () => (
   <Menubar.Root>
@@ -1253,7 +1253,7 @@ You can add special styles to disabled items via the `data-disabled` attribute.
 
 ```jsx line=11
 // index.jsx
-import * as Menubar from '@radix-ui/react-menubar';
+import * as Menubar from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -1328,7 +1328,7 @@ Use the `CheckboxItem` part to add an item that can be checked.
 ```jsx line=6,17-22
 import React from 'react';
 import { CheckIcon } from '@radix-ui/react-icons';
-import * as Menubar from '@radix-ui/react-menubar';
+import * as Menubar from 'radix-vue';
 
 export default () => {
   const [checked, setChecked] = React.useState(true);
@@ -1366,7 +1366,7 @@ Use the `RadioGroup` and `RadioItem` parts to add an item that can be checked am
 ```jsx line=6,14-27
 import React from 'react';
 import { CheckIcon } from '@radix-ui/react-icons';
-import * as Menubar from '@radix-ui/react-menubar';
+import * as Menubar from 'radix-vue';
 
 export default () => {
   const [color, setColor] = React.useState('blue');
@@ -1404,7 +1404,7 @@ export default () => {
 You can add extra decorative elements in the `Item` parts, such as images.
 
 ```jsx line=10,14
-import * as Menubar from '@radix-ui/react-menubar';
+import * as Menubar from 'radix-vue';
 
 export default () => (
   <Menubar.Root>
@@ -1435,7 +1435,7 @@ We expose several CSS custom properties such as `--radix-menubar-trigger-width` 
 
 ```jsx line=9
 // index.jsx
-import * as Menubar from '@radix-ui/react-menubar';
+import * as Menubar from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -1464,7 +1464,7 @@ We expose a CSS custom property `--radix-menubar-content-transform-origin`. Use 
 
 ```jsx line=10
 // index.jsx
-import * as Menubar from '@radix-ui/react-menubar';
+import * as Menubar from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -1504,7 +1504,7 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 
 ```jsx line=10
 // index.jsx
-import * as Menubar from '@radix-ui/react-menubar';
+import * as Menubar from 'radix-vue';
 import './styles.css';
 
 export default () => (

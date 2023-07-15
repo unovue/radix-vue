@@ -21,8 +21,7 @@ import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 # ToggleGroup
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+A set of two-state buttons that can be toggled on or off.
 </Description>
 
 
@@ -39,22 +38,22 @@ response.
 </template>
 </HeroContainer>
 
-```
+## Features
 <Highlights
-  features={[
+  :features="[
     'Full keyboard navigation.',
     'Supports horizontal/vertical orientation.',
     'Support single and multiple pressed buttons.',
     'Can be controlled or uncontrolled.',
-  ]}
+  ]"
 />
-```
+
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-toggle-group
+npm install radix-vue
 ```
 
 ## Anatomy
@@ -62,7 +61,7 @@ npm install @radix-ui/react-toggle-group
 Import the component.
 
 ```jsx
-import * as ToggleGroup from '@radix-ui/react-toggle-group';
+import * as ToggleGroup from 'radix-vue';
 
 export default () => (
   <ToggleGroup.Root>
@@ -305,7 +304,7 @@ You can control the component to ensure a value.
 
 ```jsx line=5,8
 import * as React from 'react';
-import * as ToggleGroup from '@radix-ui/react-toggle-group';
+import * as ToggleGroup from 'radix-vue';
 
 export default () => {
   const [value, setValue] = React.useState('left');

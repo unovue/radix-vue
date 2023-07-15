@@ -21,8 +21,7 @@ import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 # Progress
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.
 </Description>
 
 <HeroContainer>
@@ -38,19 +37,19 @@ response.
 </template>
 </HeroContainer>
 
-```
+## Features
 <Highlights
-  features={[
+  :features="[
     'Provides context for assistive technology to read the progress of a task.',
-  ]}
+  ]"
 />
-```
+
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-progress
+npm install radix-vue
 ```
 
 ### Anatomy
@@ -58,7 +57,7 @@ npm install @radix-ui/react-progress
 Import all parts and piece them together.
 
 ```jsx
-import * as Progress from '@radix-ui/react-progress';
+import * as Progress from 'radix-vue';
 
 export default () => (
   <Progress.Root>

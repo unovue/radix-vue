@@ -21,8 +21,7 @@ import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 # Slider
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+An input where the user selects a value from within a given range.
 </Description>
 
 <HeroContainer>
@@ -38,24 +37,24 @@ response.
 </template>
 </HeroContainer>
 
-```
+## Features
 <Highlights
-  features={[
+  :features="[
     'Can be controlled or uncontrolled.',
     'Supports multiple thumbs.',
     'Supports a minimum value between thumbs.',
     'Supports touch or click on track to update value.',
     'Supports Right to Left direction.',
     'Full keyboard navigation.',
-  ]}
+  ]"
 />
-```
+
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-slider
+npm install radix-vue
 ```
 
 ## Anatomy
@@ -63,7 +62,7 @@ npm install @radix-ui/react-slider
 Import all parts and piece them together.
 
 ```jsx
-import * as Slider from '@radix-ui/react-slider';
+import * as Slider from 'radix-vue';
 
 export default () => (
   <Slider.Root>
@@ -313,7 +312,7 @@ Use the `orientation` prop to create a vertical slider.
 
 ```jsx line=6
 // index.jsx
-import * as Slider from '@radix-ui/react-slider';
+import * as Slider from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -373,7 +372,7 @@ export default () => (
 Add multiple thumbs and values to create a range slider.
 
 ```jsx line=4,8-9
-import * as Slider from '@radix-ui/react-slider';
+import * as Slider from 'radix-vue';
 
 export default () => (
   <Slider.Root defaultValue={__[25, 75]__}>
@@ -391,7 +390,7 @@ export default () => (
 Use the `step` prop to increase the stepping interval.
 
 ```jsx line=4
-import * as Slider from '@radix-ui/react-slider';
+import * as Slider from 'radix-vue';
 
 export default () => (
   <Slider.Root defaultValue={[50]} __step__={10}>
@@ -408,7 +407,7 @@ export default () => (
 Use `minStepsBetweenThumbs` to avoid thumbs with equal values.
 
 ```jsx line=4
-import * as Slider from '@radix-ui/react-slider';
+import * as Slider from 'radix-vue';
 
 export default () => (
   <Slider.Root defaultValue={[25, 75]} step={10} __minStepsBetweenThumbs__={1}>
@@ -526,7 +525,7 @@ export default () => <Slider defaultValue={[25]} />;
 
 ```jsx
 // your-slider.jsx
-import * as SliderPrimitive from '@radix-ui/react-slider';
+import * as SliderPrimitive from 'radix-vue';
 
 export const Slider = React.forwardRef((props, forwardedRef) => {
   const value = props.value || props.defaultValue;

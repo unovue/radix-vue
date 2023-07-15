@@ -20,8 +20,7 @@ import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 # ScrollArea
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+Augments native scroll functionality for custom, cross-browser styling.
 </Description>
 
 <HeroContainer>
@@ -37,22 +36,22 @@ response.
 </template>
 </HeroContainer>
 
-```
+## Features
 <Highlights
-  features={[
+  :features="[
     'Scrollbar sits on top of the scrollable content, taking up no space.',
     'Scrolling is native; no underlying position movements via CSS transformations.',
     'Shims pointer behaviors only when interacting with the controls, so keyboard controls are unaffected.',
     'Supports Right to Left direction.',
-  ]}
+  ]"
 />
-```
+
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-scroll-area
+npm install radix-vue
 ```
 
 ## Anatomy
@@ -60,7 +59,7 @@ npm install @radix-ui/react-scroll-area
 Import all parts and piece them together.
 
 ```jsx
-import * as ScrollArea from '@radix-ui/react-scroll-area';
+import * as ScrollArea from 'radix-vue';
 
 export default () => (
   <ScrollArea.Root>

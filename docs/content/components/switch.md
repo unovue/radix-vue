@@ -21,8 +21,7 @@ import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 # Switch
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+A control that allows the user to toggle between checked and not checked.
 </Description>
 
 <HeroContainer>
@@ -38,17 +37,17 @@ response.
 </template>
 </HeroContainer>
 
-```
+## Features
 <Highlights
-  features={['Full keyboard navigation.', 'Can be controlled or uncontrolled.']}
+  :features="['Full keyboard navigation.', 'Can be controlled or uncontrolled.']"
 />
-```
+
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-switch
+npm install radix-vue
 ```
 
 ## Anatomy
@@ -56,7 +55,7 @@ npm install @radix-ui/react-switch
 Import all parts and piece them together.
 
 ```jsx
-import * as Switch from '@radix-ui/react-switch';
+import * as Switch from 'radix-vue';
 
 export default () => (
   <Switch.Root>

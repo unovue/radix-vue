@@ -37,9 +37,9 @@ Displays a list of options for the user to pick from—triggered by a button.
 </template>
 </HeroContainer>
 
-```
+## Features
 <Highlights
-  features={[
+  :features="[
     'Can be controlled or uncontrolled.',
     'Offers 2 positioning modes.',
     'Supports items, labels, groups of items.',
@@ -48,15 +48,15 @@ Displays a list of options for the user to pick from—triggered by a button.
     'Supports custom placeholder.',
     'Typeahead support.',
     'Supports Right to Left direction.',
-  ]}
+  ]"
 />
-```
+
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-select
+npm install radix-vue
 ```
 
 ## Anatomy
@@ -64,7 +64,7 @@ npm install @radix-ui/react-select
 Import all parts and piece them together.
 
 ```jsx
-import * as Select from '@radix-ui/react-select';
+import * as Select from 'radix-vue';
 
 export default () => (
   <Select.Root>
@@ -787,7 +787,7 @@ By default, `Select` will behave similarly to a native MacOS menu by positioning
 
 ```jsx line=8
 // index.jsx
-import * as Select from '@radix-ui/react-select';
+import * as Select from 'radix-vue';
 
 export default () => (
   <Select.Root>
@@ -809,7 +809,7 @@ We expose several CSS custom properties such as `--radix-select-trigger-width` a
 
 ```jsx line=9
 // index.jsx
-import * as Select from '@radix-ui/react-select';
+import * as Select from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -842,7 +842,7 @@ You can add special styles to disabled items via the `data-disabled` attribute.
 
 ```jsx line=11
 // index.jsx
-import * as Select from '@radix-ui/react-select';
+import * as Select from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -876,7 +876,7 @@ You can use the `placeholder` prop on `Value` for when the select has no value. 
 
 ```jsx line=7,8
 // index.jsx
-import * as Select from '@radix-ui/react-select';
+import * as Select from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -948,7 +948,7 @@ Use the `Group` and `Label` parts to group items in a section.
 You can use custom content in your items.
 
 ```jsx line=11
-import * as Select from '@radix-ui/react-select';
+import * as Select from 'radix-vue';
 
 export default () => (
   <Select.Root>
@@ -1020,8 +1020,8 @@ The native scrollbar is hidden by default as we recommend using the `ScrollUpBut
 
 ```jsx line=11,13,19-21
 // index.jsx
-import * as Select from '@radix-ui/react-select';
-import * as ScrollArea from '@radix-ui/react-scroll-area';
+import * as Select from 'radix-vue';
+import * as ScrollArea from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -1141,8 +1141,8 @@ See the W3C [Select-Only Combobox](https://www.w3.org/TR/wai-aria-practices/exam
 Use our [Label](label) component in order to offer a visual and accessible label for the select.
 
 ```jsx line=6,9,13
-import * as Select from '@radix-ui/react-select';
-import { Label } from '@radix-ui/react-label';
+import * as Select from 'radix-vue';
+import { Label } from 'radix-vue';
 
 export default () => (
   <>
@@ -1191,7 +1191,7 @@ export default () => (
 ```jsx
 // your-select.jsx
 import React from 'react';
-import * as SelectPrimitive from '@radix-ui/react-select';
+import * as SelectPrimitive from 'radix-vue';
 import {
   CheckIcon,
   ChevronDownIcon,

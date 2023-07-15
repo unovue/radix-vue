@@ -38,33 +38,16 @@ dropdown menus.
 </template>
 </HeroContainer>
 
-```
-<HeroContainer
-  css={{
-    justifyContent: 'flex-start',
-    overflow: 'auto',
-    '@bp2': {
-      justifyContent: 'center',
-    },
-  }}
->
-  <Box css={{ flex: '0 0 20px', '@bp1': { flex: '0 0 60px' } }} />
-  <Box css={{ flex: 1 }}>
-    <ToolbarDemo />
-  </Box>
-  <Box css={{ flex: '0 0 20px', '@bp1': { flex: '0 0 60px' } }} />
-</HeroContainer>
+## Features
 
-<HeroCodeBlock folder="Toolbar" />
+<Highlights :features="['Full keyboard navigation.']" />
 
-<Highlights features={['Full keyboard navigation.']} />
-```
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-toolbar
+npm install radix-vue
 ```
 
 ## Anatomy
@@ -72,7 +55,7 @@ npm install @radix-ui/react-toolbar
 Import the component.
 
 ```jsx
-import * as Toolbar from '@radix-ui/react-toolbar';
+import * as Toolbar from 'radix-vue';
 
 export default () => (
   <Toolbar.Root>
@@ -393,8 +376,8 @@ All our primitives which expose a `Trigger` part, such as `Dialog`, `AlertDialog
 Here is an example using our `DropdownMenu` primitive.
 
 ```jsx line=9-11
-import * as Toolbar from '@radix-ui/react-toolbar';
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import * as Toolbar from 'radix-vue';
+import * as DropdownMenu from 'radix-vue';
 
 export default () => (
   <Toolbar.Root>

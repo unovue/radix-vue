@@ -95,7 +95,7 @@ Contains all the parts of an Accordion
       required: false,
       type: 'boolean',
       default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'type',
@@ -163,7 +163,7 @@ Contains all the parts of a collapsible section.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'disabled',
@@ -202,7 +202,7 @@ Wraps an `AccordionTrigger`. Use the `asChild` prop to update it to the appropri
       required: false,
       type: 'boolean',
       default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     }]" />
 
 <DataAttributesTable :data="[
@@ -228,7 +228,7 @@ Toggles the collapsed state of its associated item. It should be nested inside o
       required: false,
       type: 'boolean',
       default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     }]" />
 
 <DataAttributesTable :data="[
@@ -254,7 +254,7 @@ Contains the collapsible content for an item.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     }]" />
 
 <DataAttributesTable :data="[

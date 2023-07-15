@@ -123,7 +123,7 @@ name: 'asChild',
 required: false,
 type: 'boolean',
 default: 'false',
-description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.'
+description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.'
 }]" />
 
 <DataAttributesTable :data="[{
@@ -152,7 +152,7 @@ name: 'asChild',
 required: false,
 type: 'boolean',
 default: 'false',
-description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
+description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
 }]" />
 
 <DataAttributesTable :data="[{
@@ -169,7 +169,7 @@ name: 'asChild',
 required: false,
 type: 'boolean',
 default: 'false',
-description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
+description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
 },
 {
 name: 'onOpenAutoFocus',
@@ -224,7 +224,7 @@ name: 'asChild',
 required: false,
 type: 'boolean',
 default: 'false',
-description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
+description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
 }]" />
 
 ### Action
@@ -236,7 +236,7 @@ name: 'asChild',
 required: false,
 type: 'boolean',
 default: 'false',
-description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
+description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
 }]" />
 
 ### Title
@@ -248,7 +248,7 @@ name: 'asChild',
 required: false,
 type: 'boolean',
 default: 'false',
-description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
+description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
 }]" />
 
 ### Description
@@ -260,7 +260,7 @@ name: 'asChild',
 required: false,
 type: 'boolean',
 default: 'false',
-description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
+description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
 }]" />
 
 ## Examples

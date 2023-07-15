@@ -25,9 +25,9 @@ const props = withDefaults(defineProps<ToggleGroupItemProps>(), {
 
 const { primitiveElement, currentElement } = usePrimitiveElement();
 
-onMounted(()=>{
-  injectedValue?.itemsArray.value?.push(currentElement.value!)
-})
+onMounted(() => {
+  injectedValue?.itemsArray.value?.push(currentElement.value!);
+});
 
 const state = computed(() => {
   if (injectedValue?.type === "multiple") {
@@ -40,7 +40,12 @@ const state = computed(() => {
 });
 
 function handleKeydown(e: KeyboardEvent) {
-  if (e.key === "ArrowLeft" || e.key === "ArrowRight" || e.key === "ArrowUp" || e.key === "ArrowDown") {
+  if (
+    e.key === "ArrowLeft" ||
+    e.key === "ArrowRight" ||
+    e.key === "ArrowUp" ||
+    e.key === "ArrowDown"
+  ) {
     e.preventDefault();
   }
   const newSelectedElement = useArrowNavigation(
@@ -66,8 +71,13 @@ const getTabIndex = computed(() => {
 });
 
 const getRole = computed(() => {
-  return injectedValue?.type === "multiple" ? 'checkbox' : 'radio'
-})
+  return injectedValue?.type === "multiple" ? "checkbox" : "radio";
+});
+
+function handleChangeValue() {
+  injectedValue?.changeModelValue(props.value!);
+  injectedValue!.currentFocusedElement.value = currentElement.value;
+}
 </script>
 
 <template>
@@ -78,7 +88,7 @@ const getRole = computed(() => {
     :data-state="state"
     :data-disabled="props.disabled"
     :data-orientation="injectedValue?.orientation"
-    @click="injectedValue?.changeModelValue(props.value!)"
+    @click="handleChangeValue"
     @keydown="handleKeydown"
     data-radix-vue-collection-item
     :tabindex="getTabIndex"

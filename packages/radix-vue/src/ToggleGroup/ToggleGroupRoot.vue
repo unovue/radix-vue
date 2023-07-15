@@ -92,9 +92,14 @@ watch(
   activeElement,
   () => {
     if (activeElement.value === parentElement.value) {
-      if (itemsArray.value.length && !currentFocusedElementRef.value) {
+      if (!itemsArray.value.length) {
+        return;
+      }
+      if (!currentFocusedElementRef.value) {
         itemsArray.value[0].focus();
         currentFocusedElementRef.value = itemsArray.value[0];
+      } else {
+        currentFocusedElementRef.value.focus();
       }
     }
   },

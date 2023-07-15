@@ -16,10 +16,10 @@ jobs:
         node-version: 14
 
     - name: Install dependencies
-      run: cd packages/radix-vue && npm install
+      run: cd packages/radix-vue && pnpm install
 
     - name: Build
-      run: cd packages/radix-vue && npm run build
+      run: cd packages/radix-vue && pnpm run -r --filter=!docs build
 
     - name: Check for errors
       run: |

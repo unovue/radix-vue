@@ -42,7 +42,7 @@ watch(open, () => {
 <template>
   <TabsRoot v-model="currentTab" class="bg-[var(--vp-code-block-bg)] border border-neutral-700/40 rounded-b-lg overflow-hidden" @update:model-value="open = true">
     <div class="bg-[var(--vp-code-block-bg)] border-b-2 border-[#272727] flex pr-2">
-      <div class="flex justify-between items-center w-full">
+      <div class="flex justify-between items-center w-full text-[13px]">
         <TabsList class="flex">
           <TabsTrigger
             v-for="(tab, index) in tabs"
@@ -55,7 +55,7 @@ watch(open, () => {
           </TabsTrigger>
         </TabsList>
         <div>
-          <select value="TailwindCSS" class="bg-transparent">
+          <select value="TailwindCSS" class="bg-transparent text-white/70">
             <option value="TailwindCSS">Tailwind CSS</option>
           </select>
         </div>

@@ -12,7 +12,7 @@ const props = defineProps<HighlightsProps>()
   <ul class="flex flex-col gap-1 no-ml">
     <li class="flex items-center gap-4" v-for="feature in props.features">
       <span class="icon-bg rounded-full h-6 aspect-square !w-6 flex-none flex items-center justify-center">
-        <Icon icon="radix-icons:check" class="h-4 w-4 !text-green-500" />
+        <Icon icon="radix-icons:check" class="h-4 w-4 !text-[#4CC38A]" />
       </span><span v-html="feature"></span>
     </li>
   </ul>
@@ -20,7 +20,7 @@ const props = defineProps<HighlightsProps>()
 
 <style>
 .icon-bg {
-  @apply bg-green12
+  @apply bg-[#0F291E]
 }
 
 .no-ml {

@@ -118,5 +118,6 @@
 }
 
 .vp-doc :not(pre) > code {
-  @apply px-0.5 rounded-sm !bg-green12 !text-green-500;
+  @apply px-0.5 rounded-sm !bg-[#0F291E] !text-[#4CC38A];
 }
+

@@ -3,7 +3,7 @@ const { blackA, green, grass, mauve, violet, red, teal, cyan } = require("@radix
 module.exports = {
   content: ["./docs/.vitepress/**/*.{js,ts,vue}", "./docs/**/*.md", "./components/**/*.vue"],
   options: {
-    safelist: ["html", "body"],
+    safelist: ["html"],
   },
   important: true,
   theme: {

@@ -62,6 +62,13 @@ npm install radix-vue
 Import all parts and piece them together.
 
 ```jsx
+<script setup>
+import { Separator } from "radix-vue";
+</script>
+
+<template>
+  <Separator />
+</template>
 import * as Slider from 'radix-vue';
 
 export default () => (

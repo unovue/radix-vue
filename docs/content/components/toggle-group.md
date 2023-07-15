@@ -61,6 +61,13 @@ npm install radix-vue
 Import the component.
 
 ```jsx
+<script setup>
+import { Separator } from "radix-vue";
+</script>
+
+<template>
+  <Separator />
+</template>
 import * as ToggleGroup from 'radix-vue';
 
 export default () => (

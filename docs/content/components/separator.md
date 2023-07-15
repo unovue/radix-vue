@@ -52,10 +52,14 @@ npm install radix-vue
 
 Import all parts and piece them together.
 
-```jsx
-import * as Separator from 'radix-vue';
+```vue
+<script setup>
+import { Separator } from "radix-vue";
+</script>
 
-export default () => <Separator.Root />;
+<template>
+  <Separator />
+</template>
 ```
 
 ## API Reference
@@ -63,9 +67,9 @@ export default () => <Separator.Root />;
 ### Root
 
 The separator.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -75,34 +79,28 @@ The separator.
     },
     {
       name: 'orientation',
-      type: '"horizontal" | "vertical"',
+      type: '&quot;horizontal&quot; | &quot;vertical&quot;',
       typeSimple: 'enum',
-      default: '"horizontal"',
+      default: '&quot;horizontal&quot;',
       description: 'The orientation of the separator.',
     },
     {
       name: 'decorative',
       type: 'boolean',
-      description: (
-        <span>
-          When <Code>true</Code>, signifies that it is purely visual, carries no
-          semantic meaning, and ensures it is not present in the accessibility
-          tree.
-        </span>
-      ),
+      description: '<span> When <Code>true</Code>, signifies that it is purely visual, carries no semantic meaning, and ensures it is not present in the accessibility tree.</span>',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
+  ]"
 />
-```
+
 ## Accessibility
 
 Adheres to the [`separator` role requirements](https://www.w3.org/TR/wai-aria-1.2/#separator).

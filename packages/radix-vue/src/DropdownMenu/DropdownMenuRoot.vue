@@ -21,18 +21,15 @@ export type DropdownMenuProvideValue = {
   showTooltip(): void;
   hideTooltip(): void;
   triggerElement: Ref<HTMLElement | undefined>;
-  floatingElement: Ref<HTMLElement | undefined>;
-  arrowElement: Ref<HTMLElement | undefined>;
-  subTriggerElement: Ref<HTMLElement | undefined>;
-  floatingStyles: any;
-  middlewareData: any;
   itemsArray: HTMLElement[];
   orientation: DataOrientation;
 };
 </script>
 
 <script setup lang="ts">
-import { provide, toRef, ref } from "vue";
+import { provide, ref } from "vue";
+import { PopperRoot } from "@/Popper";
+import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<DropdownMenuRootProps>(), {
   orientation: "vertical",
@@ -42,35 +39,34 @@ const emit = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
 }>();
 
+const modelValue = useVModel(props, "modelValue", emit, {
+  passive: true,
+});
+
 const selectedElement = ref<HTMLElement>();
 const triggerElement = ref<HTMLElement>();
-const floatingElement = ref<HTMLElement>();
-const arrowElement = ref<HTMLElement>();
-const subTriggerElement = ref<HTMLElement>();
 
 provide<DropdownMenuProvideValue>(DROPDOWN_MENU_INJECTION_KEY, {
   selectedElement: selectedElement,
   changeSelected: (value: HTMLElement) => {
     selectedElement.value = value;
+    selectedElement.value!.focus();
   },
-  modelValue: toRef(() => props.modelValue),
+  modelValue,
   showTooltip: () => {
-    emit("update:modelValue", true);
+    modelValue.value = true;
   },
   hideTooltip: () => {
-    emit("update:modelValue", false);
+    modelValue.value = false;
   },
-  triggerElement: triggerElement,
-  floatingElement: floatingElement,
-  arrowElement: arrowElement,
-  subTriggerElement: subTriggerElement,
-  floatingStyles: "",
-  middlewareData: "",
+  triggerElement,
   itemsArray: [],
   orientation: props.orientation,
 });
 </script>
 
 <template>
-  <slot />
+  <PopperRoot>
+    <slot />
+  </PopperRoot>
 </template>

@@ -30,8 +30,12 @@ const props = defineProps<DropdownMenuItemProps>();
 
 function handleClick() {
   if (rootInjectedValue?.selectedElement.value) {
-    rootInjectedValue.selectedElement.value.click();
+    rootInjectedValue.hideTooltip();
   }
+}
+
+function handleEscape() {
+  rootInjectedValue?.hideTooltip();
 }
 </script>
 
@@ -42,6 +46,7 @@ function handleClick() {
     :subProvider="subInjectedValue"
     :orientation="rootInjectedValue?.orientation"
     @handle-click="handleClick"
+    @escape-keydown="handleEscape"
   >
     <slot />
   </BaseMenuItem>

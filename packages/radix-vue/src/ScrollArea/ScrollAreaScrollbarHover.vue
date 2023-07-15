@@ -17,7 +17,7 @@ const injectedValueFromScrollbar = inject<ScrollAreaScollbarProvideValue>(
   SCROLL_AREA_SCROLLBAR_INJECTION_KEY
 );
 
-let timeout: ReturnType<typeof setTimeout> | undefined;
+let timeout: ReturnType<typeof setTimeout> | undefined | number;
 
 const handlePointerEnter = () => {
   window.clearTimeout(timeout);

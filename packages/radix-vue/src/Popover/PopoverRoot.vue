@@ -16,16 +16,13 @@ export type PopoverProvideValue = {
   showPopover(): void;
   hidePopover(): void;
   triggerElement: Ref<HTMLElement | undefined>;
-  floatingElement: Ref<HTMLElement | undefined>;
-  arrowElement: Ref<HTMLElement | undefined>;
-  floatingStyles: any;
-  middlewareData: any;
 };
 </script>
 
 <script setup lang="ts">
 import { provide, ref } from "vue";
 import { useVModel } from "@vueuse/core";
+import { PopperRoot } from "@/Popper";
 
 const props = withDefaults(defineProps<PopoverRootProps>(), {
   defaultOpen: false,
@@ -43,8 +40,6 @@ const open = useVModel(props, "open", emit, {
 });
 
 const triggerElement = ref<HTMLElement>();
-const floatingElement = ref<HTMLElement>();
-const arrowElement = ref<HTMLElement>();
 
 provide<PopoverProvideValue>(POPOVER_INJECTION_KEY, {
   open,
@@ -54,14 +49,12 @@ provide<PopoverProvideValue>(POPOVER_INJECTION_KEY, {
   hidePopover: () => {
     open.value = false;
   },
-  triggerElement: triggerElement,
-  floatingElement: floatingElement,
-  arrowElement: arrowElement,
-  floatingStyles: "",
-  middlewareData: "",
+  triggerElement,
 });
 </script>
 
 <template>
-  <slot />
+  <PopperRoot>
+    <slot />
+  </PopperRoot>
 </template>

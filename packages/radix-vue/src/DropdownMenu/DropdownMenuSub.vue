@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
 import type { DataOrientation } from "@/shared/types";
+import { useVModel } from "@vueuse/core";
 
 export interface DropdownMenuSubRootProps {
   modelValue?: boolean;
@@ -20,18 +21,18 @@ export type DropdownMenuSubProvideValue = {
   showTooltip(): void;
   hideTooltip(): void;
   triggerElement: Ref<HTMLElement | undefined>;
-  floatingElement: Ref<HTMLElement | undefined>;
-  arrowElement: Ref<HTMLElement | undefined>;
-  subTrigger: HTMLElement | undefined;
-  floatingStyles: any;
-  middlewareData: any;
   itemsArray: HTMLElement[];
   orientation: DataOrientation;
+  triggerId: string;
+  contentId: string;
+  parentContext?: DropdownMenuSubProvideValue;
 };
 </script>
 
 <script setup lang="ts">
-import { provide, toRef, ref, watch } from "vue";
+import { inject, provide, ref } from "vue";
+import { PopperRoot } from "@/Popper";
+import { useId } from "@/shared";
 
 const props = withDefaults(defineProps<DropdownMenuSubRootProps>(), {
   delayDuration: 700,
@@ -42,35 +43,33 @@ const emit = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
 }>();
 
-const modelValue = ref(props.modelValue ?? false);
-
-watch(modelValue, (newValue) => {
-  emit("update:modelValue", newValue);
+const modelValue = useVModel(props, "modelValue", emit, {
+  passive: true,
 });
 
 const triggerElement = ref<HTMLElement>();
-const floatingElement = ref<HTMLElement>();
-const arrowElement = ref<HTMLElement>();
+
+const parentContext = inject(DROPDOWN_MENU_SUB_INJECTION_KEY);
 
 provide<DropdownMenuSubProvideValue>(DROPDOWN_MENU_SUB_INJECTION_KEY, {
-  modelValue: toRef(() => modelValue.value),
+  modelValue,
   showTooltip: () => {
     modelValue.value = true;
   },
   hideTooltip: () => {
     modelValue.value = false;
   },
-  triggerElement: triggerElement,
-  floatingElement: floatingElement,
-  arrowElement: arrowElement,
-  subTrigger: undefined,
-  floatingStyles: "",
-  middlewareData: "",
+  triggerElement,
   itemsArray: [],
   orientation: props.orientation,
+  triggerId: useId(),
+  contentId: useId(),
+  parentContext,
 });
 </script>
 
 <template>
-  <slot />
+  <PopperRoot>
+    <slot />
+  </PopperRoot>
 </template>

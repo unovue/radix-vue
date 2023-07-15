@@ -1,10 +1,5 @@
-<script lang="ts">
-import type { Ref } from "vue";
-
-export type DropdownMenuCheckboxProvideValue = Readonly<Ref<boolean>>;
-</script>
 <script setup lang="ts">
-import { inject, computed, provide, toRef } from "vue";
+import { inject, computed, provide } from "vue";
 import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
 import {
   DROPDOWN_MENU_INJECTION_KEY,
@@ -14,6 +9,7 @@ import {
   RADIO_GROUP_INJECTION_KEY,
   type RadioGroupProvideValue,
 } from "./DropdownMenuRadioGroup.vue";
+import { DROPDOWN_MENU_ITEM_SYMBOL } from "./utils";
 
 interface RadioGroupItemProps {
   asChild?: boolean;
@@ -44,10 +40,16 @@ function handleClick() {
   }
 }
 
-provide<DropdownMenuCheckboxProvideValue>(
-  "modelValue",
-  toRef(() => radioInjectedValue?.modelValue?.value === props.value)
+function handleEscape() {
+  rootInjectedValue?.hideTooltip();
+}
+
+const modelValue = computed(
+  () => radioInjectedValue?.modelValue?.value === props.value
 );
+provide(DROPDOWN_MENU_ITEM_SYMBOL, {
+  modelValue,
+});
 </script>
 
 <template>
@@ -57,6 +59,8 @@ provide<DropdownMenuCheckboxProvideValue>(
     :orientation="rootInjectedValue?.orientation"
     :data-radix-vue-radio-value="props.value"
     @handle-click="handleClick"
+    @escape-keydown="handleEscape"
+    @click="handleClick"
     role="menuitemradio"
     :data-state="radioDataState"
   >

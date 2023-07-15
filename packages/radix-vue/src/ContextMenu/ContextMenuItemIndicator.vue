@@ -1,13 +1,19 @@
-<script setup lang="ts">
-import { PrimitiveSpan } from "@/Primitive";
-import { inject } from "vue";
-import type { ContextMenuCheckboxProvideValue } from "./ContextMenuCheckboxItem.vue";
+<script lang="ts">
+export interface ContextMenuItemIndicatorProps {
+  asChild?: boolean;
+  forceMount?: boolean;
+}
+</script>
 
-const modelValue = inject<ContextMenuCheckboxProvideValue>("modelValue");
+<script setup lang="ts">
+import { inject } from "vue";
+import { PrimitiveSpan } from "@/Primitive";
+import { CONTEXT_MENU_ITEM_SYMBOL } from "./utils";
+const context = inject(CONTEXT_MENU_ITEM_SYMBOL);
 </script>
 
 <template>
-  <PrimitiveSpan v-if="modelValue" style="pointer-events: none">
+  <PrimitiveSpan v-if="context?.modelValue.value" style="pointer-events: none">
     <slot />
   </PrimitiveSpan>
 </template>

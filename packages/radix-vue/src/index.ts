@@ -81,7 +81,6 @@ export {
   TooltipArrow,
   TooltipContent,
   TooltipPortal,
-  TooltipProvider,
   TooltipRoot,
   TooltipTrigger,
 } from "./Tooltip";
@@ -98,7 +97,6 @@ export {
   PopoverPortal,
   PopoverContent,
   PopoverArrow,
-  PopoverAnchor,
   PopoverClose,
 } from "./Popover";
 export {
@@ -133,6 +131,40 @@ export {
   ContextMenuLabel,
   ContextMenuRadioGroup,
   ContextMenuRadioItem,
+  ContextMenuSub,
+  ContextMenuSubContent,
+  ContextMenuSubTrigger,
 } from "./ContextMenu";
+export {
+  SelectArrow,
+  SelectContent,
+  SelectPortal,
+  SelectRoot,
+  SelectSeparator,
+  SelectTrigger,
+  SelectItemIndicator,
+  SelectLabel,
+  SelectGroup,
+  SelectItem,
+} from "./Select";
+export {
+  MenubarArrow,
+  MenubarContent,
+  MenubarGroup,
+  MenubarItem,
+  MenubarPortal,
+  MenubarRoot,
+  MenubarSeparator,
+  MenubarTrigger,
+  MenubarCheckboxItem,
+  MenubarItemIndicator,
+  MenubarLabel,
+  MenubarRadioGroup,
+  MenubarRadioItem,
+  MenubarSub,
+  MenubarSubContent,
+  MenubarSubTrigger,
+  MenubarMenu,
+} from "./Menubar";
 
 export * from "./ScrollArea";

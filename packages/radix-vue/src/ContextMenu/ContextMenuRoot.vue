@@ -1,12 +1,14 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
-import type { DataOrientation } from "../shared/types";
+import type { DataOrientation, Direction } from "../shared/types";
 
 export interface ContextMenuRootProps {
+  open?: boolean;
+  defaultOpen?: boolean;
+  //onOpenChange?: void;
   modelValue?: boolean;
-  delayDuration?: number;
-  disableHoverableContent?: boolean;
   orientation?: DataOrientation;
+  dir?: Direction;
 }
 
 export const CONTEXT_MENU_INJECTION_KEY =
@@ -14,28 +16,24 @@ export const CONTEXT_MENU_INJECTION_KEY =
 
 export type ContextMenuProvideValue = {
   selectedElement: Ref<HTMLElement | undefined>;
-  changeSelected: (value: HTMLElement | undefined) => void;
+  changeSelected: (value: HTMLElement) => void;
   modelValue: Readonly<Ref<boolean>>;
   showTooltip(): void;
   hideTooltip(): void;
   triggerElement: Ref<HTMLElement | undefined>;
-  floatingElement: Ref<HTMLElement | undefined>;
-  arrowElement: Ref<HTMLElement | undefined>;
-  floatingStyles: any;
   itemsArray: HTMLElement[];
   orientation: DataOrientation;
-  positionPortalLeft?: number;
-  positionPortalTop?: number;
   clientX: Ref<number>;
   clientY: Ref<number>;
 };
 </script>
 
 <script setup lang="ts">
-import { provide, toRef, ref } from "vue";
+import { provide, ref } from "vue";
+import { PopperRoot } from "@/Popper";
+import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<ContextMenuRootProps>(), {
-  delayDuration: 700,
   orientation: "vertical",
 });
 
@@ -43,39 +41,38 @@ const emit = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
 }>();
 
+const modelValue = useVModel(props, "modelValue", emit, {
+  passive: true,
+});
+
 const selectedElement = ref<HTMLElement>();
 const triggerElement = ref<HTMLElement>();
-const floatingElement = ref<HTMLElement>();
-const arrowElement = ref<HTMLElement>();
-
 const clientX = ref(0);
 const clientY = ref(0);
 
 provide<ContextMenuProvideValue>(CONTEXT_MENU_INJECTION_KEY, {
   selectedElement: selectedElement,
-  changeSelected: (value: HTMLElement | undefined) => {
+  changeSelected: (value: HTMLElement) => {
     selectedElement.value = value;
+    selectedElement.value!.focus();
   },
-  modelValue: toRef(() => props.modelValue),
+  modelValue,
   showTooltip: () => {
-    emit("update:modelValue", true);
+    modelValue.value = true;
   },
   hideTooltip: () => {
-    emit("update:modelValue", false);
+    modelValue.value = false;
   },
-  triggerElement: triggerElement,
-  floatingElement: floatingElement,
-  arrowElement: arrowElement,
-  floatingStyles: "",
+  triggerElement,
   itemsArray: [],
   orientation: props.orientation,
-  positionPortalLeft: 0,
-  positionPortalTop: 0,
-  clientX: clientX,
-  clientY: clientY,
+  clientX,
+  clientY,
 });
 </script>
 
 <template>
-  <slot />
+  <PopperRoot>
+    <slot />
+  </PopperRoot>
 </template>

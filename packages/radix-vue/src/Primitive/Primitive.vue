@@ -3,8 +3,10 @@ import {
   defineComponent,
   h,
   getCurrentInstance,
+  Fragment,
   type NativeElements,
   type ReservedProps,
+  type VNode,
 } from "vue";
 import Slot from "./Slot.vue";
 
@@ -34,20 +36,28 @@ type Primitives = {
     };
 };
 
+export function renderSlotFragments(children?: VNode[]): VNode[] {
+  if (!children) return [];
+  return children.flatMap((child) => {
+    if (child.type === Fragment) {
+      return renderSlotFragments(child.children as VNode[]);
+    }
+    return [child];
+  });
+}
+
 const Primitive = NODES.reduce((primitive, node) => {
   const Node = defineComponent({
+    props: {
+      asChild: Boolean,
+    },
     setup(props, { slots, attrs }) {
-      const numberOfChildElements =
-        (slots.default?.()[0].children?.length as number) ?? 0;
-
-      const asChild =
-        attrs.asChild === "true" ||
-        attrs.asChild === "" ||
-        (attrs.asChild as boolean);
-
+      const asChild = !!props.asChild;
       if (asChild) {
+        const children = renderSlotFragments(slots.default?.());
+
         const instance = getCurrentInstance();
-        if (numberOfChildElements > 1) {
+        if (children.length > 1) {
           const componentName = instance?.parent?.type.__name
             ? `<${instance.parent.type.__name} />`
             : "component";
@@ -67,7 +77,12 @@ const Primitive = NODES.reduce((primitive, node) => {
           );
         }
 
-        return () => h(Slot, slots.default?.());
+        const firstChild = children[0];
+        if (typeof firstChild.type === "string") {
+          return () => h(children[0]);
+        } else {
+          return () => h(Slot, () => slots.default?.());
+        }
       } else {
         return () => h(node, slots.default?.());
       }

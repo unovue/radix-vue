@@ -1,135 +1,106 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from "vue";
-import type { Side, MiddlewareData } from "@floating-ui/dom";
+import { onClickOutside } from "@vueuse/core";
+import { useCollection } from "@/shared";
 
-export const CONTEXT_MENU_CONTENT_INJECTION_KEY =
-  Symbol() as InjectionKey<ContextMenuContentProvideValue>;
+export type Boundary = Element | null | Array<Element | null>;
 
-export type ContextMenuContentProvideValue = {
-  middlewareData: Ref<MiddlewareData>;
-  floatPosition: Ref<Side>;
-};
+export interface ContextMenuContentProps extends PopperContentProps {
+  asChild?: boolean;
+  loop?: boolean; //false
+  //onOpenAutoFocus?: void;
+  //onCloseAutoFocus?: void;
+  //onEscapeKeyDown?: void;
+  //onPointerDownOutside?: void;
+  //onInteractOutside?: void;
+}
 </script>
 
 <script setup lang="ts">
-import { PrimitiveDiv } from "@/Primitive";
-import { onMounted, inject, ref, watchEffect, provide } from "vue";
-import { useFloating, offset, flip, shift, autoUpdate } from "@floating-ui/vue";
-import { useClickOutside } from "../shared/useClickOutside";
-import {
-  CONTEXT_MENU_INJECTION_KEY,
-  type ContextMenuProvideValue,
-} from "./ContextMenuRoot.vue";
+import { inject, watchEffect, nextTick } from "vue";
+import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 
-const injectedValue = inject<ContextMenuProvideValue>(
-  CONTEXT_MENU_INJECTION_KEY
-);
+import { CONTEXT_MENU_INJECTION_KEY } from "./ContextMenuRoot.vue";
+import { PopperContent, type PopperContentProps } from "@/Popper";
 
-const props = defineProps({
-  class: String,
-  asChild: Boolean,
+const props = withDefaults(defineProps<ContextMenuContentProps>(), {
+  side: "bottom",
+  align: "start",
+  avoidCollisions: true,
 });
 
-const tooltipContentElement = ref<HTMLElement>();
-onMounted(() => {
-  injectedValue!.floatingElement.value = tooltipContentElement.value;
-});
+const injectedValue = inject(CONTEXT_MENU_INJECTION_KEY);
 
-const {
-  floatingStyles,
-  middlewareData,
-  placement: floatPosition,
-} = useFloating(injectedValue!.triggerElement, tooltipContentElement, {
-  middleware: [
-    offset({ mainAxis: 1, alignmentAxis: 3 }),
-    flip({
-      fallbackPlacements: ["left-start"],
-    }),
-    shift({ padding: 10 }),
-  ],
-  placement: "right-start",
-  strategy: "fixed",
-  whileElementsMounted: autoUpdate,
-});
+const { primitiveElement, currentElement: tooltipContentElement } =
+  usePrimitiveElement();
+
+const { createCollection, getItems } = useCollection();
+createCollection(tooltipContentElement);
 
 watchEffect(() => {
   if (tooltipContentElement.value) {
     if (injectedValue?.modelValue.value) {
-      setTimeout(() => {
-        focusFirstRadixElement();
-        fillItemsArray();
-      }, 0);
-
-      window.addEventListener("mousedown", closeDialogWhenClickOutside);
+      injectedValue.itemsArray = getItems(tooltipContentElement.value);
+      window.addEventListener("keydown", handleKeydown);
       window.addEventListener("scroll", closeDialogWhenScrolled);
+    } else {
+      cleanupEvents();
     }
   }
 });
 
-function closeDialogWhenClickOutside(e: MouseEvent) {
-  if (tooltipContentElement.value) {
-    const clickOutside = useClickOutside(e, tooltipContentElement.value);
-    if (clickOutside) {
-      injectedValue?.hideTooltip();
-      window.removeEventListener("mousedown", closeDialogWhenClickOutside);
-    }
+watchEffect(() => {
+  if (injectedValue?.selectedElement.value) {
+    cleanupEvents();
   }
+});
+
+function cleanupEvents() {
+  window.removeEventListener("keydown", handleKeydown);
+  window.removeEventListener("scroll", closeDialogWhenScrolled);
 }
+
+onClickOutside(tooltipContentElement, (event) => {
+  const target = event.target as HTMLElement;
+  if (target.closest('[role="menuitem"]')) return;
+  injectedValue?.hideTooltip();
+});
 
 function closeDialogWhenScrolled() {
   injectedValue?.hideTooltip();
   window.removeEventListener("scroll", closeDialogWhenScrolled);
 }
 
-function focusFirstRadixElement() {
-  if (!tooltipContentElement.value) {
-    return console.log("tooltipContentElement not found!");
+async function handleKeydown(e: KeyboardEvent) {
+  e.preventDefault();
+  if (e.key === "ArrowDown" || e.key === "Enter" || e.keyCode === 32) {
+    injectedValue?.changeSelected(injectedValue.itemsArray?.[0]);
+    injectedValue?.selectedElement.value?.focus();
+  } else if (e.key === "ArrowUp") {
+    const newSelectedElement =
+      injectedValue?.itemsArray?.[injectedValue?.itemsArray.length - 1];
+    injectedValue?.changeSelected(newSelectedElement!);
+    newSelectedElement?.focus();
   }
-  const allToggleItem = Array.from(
-    tooltipContentElement.value.querySelectorAll(
-      "[data-radix-vue-collection-item]"
-    )
-  ) as HTMLElement[];
-  if (allToggleItem.length) {
-    injectedValue!.selectedElement.value = allToggleItem[0];
-    allToggleItem[0].focus();
-  }
+  window.removeEventListener("keydown", handleKeydown);
 }
-
-function fillItemsArray() {
-  if (!tooltipContentElement.value) {
-    return console.log("tooltipContentElement not found!");
-  }
-  const allToggleItem = Array.from(
-    tooltipContentElement.value.querySelectorAll(
-      "[data-radix-vue-collection-item]:not([data-disabled])"
-    )
-  ) as HTMLElement[];
-  injectedValue!.itemsArray = allToggleItem;
-}
-
-provide<ContextMenuContentProvideValue>(CONTEXT_MENU_CONTENT_INJECTION_KEY, {
-  middlewareData: middlewareData,
-  floatPosition: floatPosition as Ref<Side>,
-});
 </script>
 
 <template>
-  <div
-    ref="tooltipContentElement"
+  <PopperContent
+    v-bind="props"
     v-if="injectedValue?.modelValue.value"
-    style="min-width: max-content; will-change: transform; z-index: auto"
-    :style="floatingStyles"
+    prioritize-position
   >
     <PrimitiveDiv
+      ref="primitiveElement"
       :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
-      data-side="bottom"
+      :data-side="props.side"
+      :data-align="props.align"
       role="tooltip"
-      :class="props.class"
       :asChild="props.asChild"
       style="pointer-events: auto"
     >
       <slot />
     </PrimitiveDiv>
-  </div>
+  </PopperContent>
 </template>

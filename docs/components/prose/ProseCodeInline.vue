@@ -10,6 +10,8 @@ const props = withDefaults(defineProps<ProseCodeInlineProps>(), {
 </script>
 
 <template>
+  <pre class="contents">
   <code class="px-1 text-[13px] rounded-sm"
     :class="`${props.variant === 'primary' ? '!bg-green12 !text-green-500' : '!bg-neutral-600/30 !text-neutral-400'}`"><slot /></code>
+  </pre>
 </template>

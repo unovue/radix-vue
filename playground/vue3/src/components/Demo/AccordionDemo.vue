@@ -13,7 +13,7 @@ const rootDisabled = false
 </script>
 
 <template>
-  <div>
+  <div class="absolute left-4 top-3 text-sm">
     <p>Tab value: {{ tabValue }}</p>
   </div>
   <AccordionRoot

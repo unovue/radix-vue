@@ -5,7 +5,9 @@ import AlertDialogDemo from "../Demo/AlertDialogDemo.vue"
 <template>
   <Story title="Alert Dialog" :layout="{ type: 'single', iframe: true }">
     <Variant title="default">
-      <AlertDialogDemo />
+      <div class="h-full flex items-center justify-center">
+        <AlertDialogDemo />
+      </div>
     </Variant>
   </Story>
 </template>

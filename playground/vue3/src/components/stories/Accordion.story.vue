@@ -1,11 +1,13 @@
 <script setup>
-import AccordionDemo from "../Demo/AccordionDemo.vue"
+import AccordionDemo from "../Demo/AccordionDemo.vue";
 </script>
 
 <template>
   <Story title="Accordion" :layout="{ type: 'single', iframe: true }">
     <Variant title="default">
-      <AccordionDemo />
+      <div class="h-full flex items-center justify-center">
+        <AccordionDemo />
+      </div>
     </Variant>
   </Story>
 </template>

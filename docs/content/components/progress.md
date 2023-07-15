@@ -56,14 +56,16 @@ npm install radix-vue
 
 Import all parts and piece them together.
 
-```jsx
-import * as Progress from 'radix-vue';
+```vue
+<script setup>
+import { ProgressRoot, ProgressIndicator } from "radix-vue";
+</script>
 
-export default () => (
-  <Progress.Root>
-    <Progress.Indicator />
-  </Progress.Root>
-);
+<template>
+  <ProgressRoot>
+    <ProgressIndicator />
+  </ProgressRoot>
+</template>
 ```
 
 ## Accessibility
@@ -75,9 +77,9 @@ Adheres to the [`progressbar` role requirements](https://www.w3.org/WAI/ARIA/apg
 ### Root
 
 Contains all of the progress parts.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -102,11 +104,11 @@ Contains all of the progress parts.
       description:
         'A function to get the accessible label text representing the current value in a human-readable format. If not provided, the value label will be read as the numeric value as a percentage of the max value.',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['complete', 'indeterminate', 'loading'],
@@ -119,15 +121,15 @@ Contains all of the progress parts.
       attribute: '[data-max]',
       values: 'The max value',
     },
-  ]}
+  ]"
 />
-```
+
 ### Indicator
 
 Used to show the progress visually. It also makes progress accessible to assistive technologies.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -135,11 +137,11 @@ Used to show the progress visually. It also makes progress accessible to assisti
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['complete', 'indeterminate', 'loading'],
@@ -152,6 +154,5 @@ Used to show the progress visually. It also makes progress accessible to assisti
       attribute: '[data-max]',
       values: 'The max value',
     },
-  ]}
+  ]"
 />
-```

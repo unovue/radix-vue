@@ -3,7 +3,7 @@ import { ToggleGroupItem, ToggleGroupRoot } from '../../../../../packages/radix-
 import { Icon } from '@iconify/vue'
 import { ref } from 'vue'
 
-const toggleStateSingle = ref('left')
+const toggleStateSingle = ref()
 const toggleStateMultiple = ref(['italic'])
 
 const toggleGroupItemClasses
@@ -15,7 +15,7 @@ const toggleGroupItemClasses
     <p>Single: {{ toggleStateSingle }}</p>
     <p>Multiple: {{ toggleStateMultiple }}</p>
   </div>
-  <ToggleGroupRoot v-model="toggleStateSingle" class="flex">
+  <ToggleGroupRoot v-model="toggleStateSingle" disabled class="flex">
     <ToggleGroupItem value="left" aria-label="Toggle italic" :class="toggleGroupItemClasses">
       <Icon icon="radix-icons:text-align-left" class="text-black" />
     </ToggleGroupItem>
@@ -28,7 +28,7 @@ const toggleGroupItemClasses
   </ToggleGroupRoot>
   <br>
   <ToggleGroupRoot v-model="toggleStateMultiple" type="multiple" class="flex">
-    <ToggleGroupItem disabled value="bold" aria-label="Toggle italic" :class="toggleGroupItemClasses">
+    <ToggleGroupItem value="bold" aria-label="Toggle italic" :class="toggleGroupItemClasses">
       <Icon icon="radix-icons:font-bold" class="text-black" />
     </ToggleGroupItem>
     <ToggleGroupItem value="italic" aria-label="Toggle italic" :class="toggleGroupItemClasses">

@@ -39,7 +39,18 @@ const state = computed(() => {
   }
 });
 
+const checkedState = computed(() => {
+  if (injectedValue?.type === "multiple") {
+    return injectedValue?.modelValue?.value?.includes(props.value!);
+  } else {
+    return injectedValue?.modelValue?.value === props.value;
+  }
+});
+
 function handleKeydown(e: KeyboardEvent) {
+  if (!injectedValue?.rovingFocus || injectedValue?.rootDisabled) {
+    return;
+  }
   if (
     e.key === "ArrowLeft" ||
     e.key === "ArrowRight" ||
@@ -75,6 +86,9 @@ const getRole = computed(() => {
 });
 
 function handleChangeValue() {
+  if (injectedValue?.rootDisabled) {
+    return;
+  }
   injectedValue?.changeModelValue(props.value!);
   injectedValue!.currentFocusedElement.value = currentElement.value;
 }
@@ -87,8 +101,9 @@ function handleChangeValue() {
     type="button"
     :role="getRole"
     :data-state="state"
-    :disabled="props.disabled"
+    :disabled="props.disabled || injectedValue?.rootDisabled"
     :data-disabled="props.disabled ? '' : undefined"
+    :aria-checked="checkedState"
     :data-orientation="injectedValue?.orientation"
     @click="handleChangeValue"
     @keydown="handleKeydown"

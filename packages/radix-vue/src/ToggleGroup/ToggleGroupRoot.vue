@@ -31,6 +31,8 @@ export interface ToggleGroupProvideValue {
   orientation?: DataOrientation;
   loop: boolean;
   itemsArray: Ref<HTMLElement[] | undefined>;
+  rovingFocus: boolean;
+  rootDisabled?: boolean;
 }
 </script>
 
@@ -41,7 +43,11 @@ import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 
 const props = withDefaults(defineProps<ToggleGroupRootProps>(), {
   type: "single",
-  loop: true,
+  loop: false,
+  dir: "ltr",
+  orientation: "horizontal",
+  rovingFocus: true,
+  disabled: false,
 });
 
 const emits = defineEmits(["update:modelValue"]);
@@ -69,6 +75,8 @@ provide<ToggleGroupProvideValue>(TOGGLE_GROUP_INJECTION_KEY, {
   orientation: props.orientation,
   loop: props.loop,
   itemsArray,
+  rovingFocus: props.rovingFocus,
+  rootDisabled: props.disabled,
 });
 
 function changeModelValue(value: string) {
@@ -89,7 +97,7 @@ function changeModelValue(value: string) {
 watch(
   activeElement,
   () => {
-    if (activeElement.value === parentElement.value) {
+    if (activeElement.value === parentElement.value && !props.disabled) {
       if (!itemsArray.value.length) {
         return;
       }

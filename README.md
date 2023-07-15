@@ -28,7 +28,7 @@ For changelog, visit [radix-vue.com/overview/releases](https://radix-vue.com/ove
 | [Aspect Ratio](https://github.com/radix-vue/radix-vue/issues/3)     |   ✅   | ✅           |                        |
 | [Avatar](https://github.com/radix-vue/radix-vue/issues/4)           |   ✅   | ✅           |                        |
 | [Checkbox](https://github.com/radix-vue/radix-vue/issues/5)         |   ✅   | ✅           |                        |
-| [Collapsible](https://github.com/radix-vue/radix-vue/issues/6)      |   ✅   |              |                        |
+| [Collapsible](https://github.com/radix-vue/radix-vue/issues/6)      |   ✅   | ✅           |                        |
 | [Context Menu](https://github.com/radix-vue/radix-vue/issues/7)     |   ✅   |              |                        |
 | [Dialog](https://github.com/radix-vue/radix-vue/issues/8)           |   ✅   | ⏳           |                        |
 | [Dropdown Menu](https://github.com/radix-vue/radix-vue/issues/9)    |   ✅   |              |                        |
@@ -46,7 +46,7 @@ For changelog, visit [radix-vue.com/overview/releases](https://radix-vue.com/ove
 | [Switch](https://github.com/radix-vue/radix-vue/issues/22)          |   ✅   | ✅           |                        |
 | [Tabs](https://github.com/radix-vue/radix-vue/issues/23)            |   ✅   | ✅           |                        |
 | [Toggle](https://github.com/radix-vue/radix-vue/issues/25)          |   ✅   | ✅           |                        |
-| [Toggle Group](https://github.com/radix-vue/radix-vue/issues/26)    |   ✅   |              |                        |
+| [Toggle Group](https://github.com/radix-vue/radix-vue/issues/26)    |   ✅   | ✅           |                        |
 | [Toolbar](https://github.com/radix-vue/radix-vue/issues/27)         |   ✅   |              |                        |
 | [Tooltip](https://github.com/radix-vue/radix-vue/issues/28)         |   ✅   |              |                        |
 

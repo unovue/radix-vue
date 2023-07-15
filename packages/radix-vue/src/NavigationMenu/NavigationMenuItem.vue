@@ -10,9 +10,9 @@ export type NavigationMenuItemContextValue = {
   focusProxyRef: Ref<HTMLElement | undefined>;
   wasEscapeCloseRef: Ref<boolean>;
   onEntryKeyDown(): void;
-  // onFocusProxyEnter(side: 'start' | 'end'): void;
+  onFocusProxyEnter(side: "start" | "end"): void;
   // onRootContentClose(): void;
-  // onContentFocusOutside(): void;
+  onContentFocusOutside(): void;
 };
 
 export const NAVIGATION_MENU_ITEM_INJECTION_KEY =
@@ -31,7 +31,7 @@ import {
 } from "vue";
 import { PrimitiveLi } from "@/Primitive";
 import { useArrowNavigation, useCollection, useId } from "@/shared";
-import { getTabbableCandidates, focusFirst } from "./utils";
+import { getTabbableCandidates, removeFromTabOrder, focusFirst } from "./utils";
 import { unrefElement } from "@vueuse/core";
 
 const props = defineProps<NavigationMenuItemProps>();
@@ -42,8 +42,29 @@ const value = props.value || useId();
 const triggerRef = ref<HTMLElement>();
 const contentRef = ref<VNode>();
 const focusProxyRef = ref<HTMLElement>();
+let restoreContentTabOrderRef: () => void = () => ({});
 
 const wasEscapeCloseRef = ref(false);
+const handleContentEntry = async (side = "start") => {
+  // @ts-ignore
+  const el = contentRef.value?.children?.[0]?.el.parentElement as HTMLElement;
+  if (el) {
+    restoreContentTabOrderRef();
+    const candidates = getTabbableCandidates(unrefElement(el) as HTMLElement);
+    if (candidates.length)
+      focusFirst(side === "start" ? candidates : candidates.reverse());
+  }
+};
+
+const handleContentExit = () => {
+  // @ts-ignore
+  const el = contentRef.value?.children?.[0]?.el.parentElement as HTMLElement;
+  if (el) {
+    const candidates = getTabbableCandidates(unrefElement(el) as HTMLElement);
+    if (candidates.length)
+      restoreContentTabOrderRef = removeFromTabOrder(candidates);
+  }
+};
 
 provide(NAVIGATION_MENU_ITEM_INJECTION_KEY, {
   value,
@@ -51,16 +72,9 @@ provide(NAVIGATION_MENU_ITEM_INJECTION_KEY, {
   contentRef,
   focusProxyRef,
   wasEscapeCloseRef,
-  onEntryKeyDown: (side = "start") => {
-    // @ts-ignore
-    const el = contentRef.value?.children?.[0]?.el.parentElement as HTMLElement;
-    if (el) {
-      // @ts-ignore
-      const candidates = getTabbableCandidates(unrefElement(el));
-      if (candidates.length)
-        focusFirst(side === "start" ? candidates : candidates.reverse());
-    }
-  },
+  onEntryKeyDown: handleContentEntry,
+  onFocusProxyEnter: handleContentEntry,
+  onContentFocusOutside: handleContentExit,
 });
 
 const handleClose = () => {

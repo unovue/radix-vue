@@ -6,7 +6,7 @@ interface NavigationMenuContentImplProps {
   triggerRef: Ref<HTMLElement | undefined>;
   focusProxyRef: Ref<HTMLElement | undefined>;
   wasEscapeCloseRef: Ref<boolean>;
-  // onContentFocusOutside(): void;
+  onContentFocusOutside(): void;
   // onRootContentClose(): void;
 }
 </script>
@@ -20,7 +20,7 @@ import {
   makeContentId,
   makeTriggerId,
 } from "./utils";
-import { useArrowNavigation, useCollection } from "@/shared";
+import { useArrowNavigation, useCollection, onFocusOutside } from "@/shared";
 
 const props = defineProps<NavigationMenuContentImplProps>();
 const emits = defineEmits<{
@@ -29,6 +29,7 @@ const emits = defineEmits<{
 
 const { getItems } = useCollection();
 
+const elementRef = ref<HTMLElement>();
 const context = inject(NAVIGATION_MENU_INJECTION_KEY);
 const triggerId = makeTriggerId(context!.baseId, props.value);
 const contentId = makeContentId(context!.baseId, props.value);
@@ -67,44 +68,37 @@ const motionAttribute = computed(() => {
   return attribute;
 });
 
+onFocusOutside(elementRef, (ev) => {
+  props.onContentFocusOutside();
+  const target = ev.target as HTMLElement;
+  // Only dismiss content when focus moves outside of the menu
+  if (context!.rootNavigationMenu?.value?.contains(target)) ev.preventDefault();
+});
+
 const handleKeydown = (ev: KeyboardEvent) => {
   const isMetaKey = ev.altKey || ev.ctrlKey || ev.metaKey;
   const isTabKey = ev.key === "Tab" && !isMetaKey;
   const candidates = getTabbableCandidates(ev.currentTarget as HTMLElement);
-  const triggerItems = getItems(context?.rootNavigationMenu.value);
-  const triggerButtonIndex = triggerItems.findIndex(
-    (i) => i === props.triggerRef.value
-  );
-  const nextTriggerButton = triggerItems[triggerButtonIndex + 1];
 
   if (isTabKey) {
     const focusedElement = document.activeElement;
     const index = candidates.findIndex(
       (candidate) => candidate === focusedElement
     );
-    if (
-      index === candidates.length - 1 &&
-      triggerButtonIndex !== triggerItems.length - 1
-    ) {
-      return nextTriggerButton.focus();
-    }
     const isMovingBackwards = ev.shiftKey;
-    if (isMovingBackwards && index === 0) {
-      props.triggerRef.value?.focus();
-    } else {
-      const nextCandidates = isMovingBackwards
-        ? candidates.slice(0, index).reverse()
-        : candidates.slice(index + 1, candidates.length);
+    const nextCandidates = isMovingBackwards
+      ? candidates.slice(0, index).reverse()
+      : candidates.slice(index + 1, candidates.length);
 
-      if (focusFirst(nextCandidates)) {
-        // prevent browser tab keydown because we've handled focus
-        ev.preventDefault();
-      } else {
-        // If we can't focus that means we're at the edges
-        // so focus the proxy and let browser handle
-        // tab/shift+tab keypress on the proxy instead
-        props.focusProxyRef.value?.focus();
-      }
+    if (focusFirst(nextCandidates)) {
+      // prevent browser tab keydown because we've handled focus
+      ev.preventDefault();
+    } else {
+      // If we can't focus that means we're at the edges
+      // so focus the proxy and let browser handle
+      // tab/shift+tab keypress on the proxy instead
+      props.focusProxyRef.value?.focus();
+      return;
     }
   }
 
@@ -114,8 +108,8 @@ const handleKeydown = (ev: KeyboardEvent) => {
     undefined,
     { itemsArray: candidates, loop: false }
   );
-
   newSelectedElement?.focus();
+  ev.preventDefault();
 };
 
 const handleEscape = (ev: KeyboardEvent) => {
@@ -129,10 +123,11 @@ defineExpose({
 
 <template>
   <div
+    ref="elementRef"
     :id="contentId"
     :aria-labelledby="triggerId"
     :data-motion="motionAttribute"
-    @keydown.prevent="handleKeydown"
+    @keydown="handleKeydown"
     @keydown.escape.prevent="handleEscape"
   >
     <slot></slot>

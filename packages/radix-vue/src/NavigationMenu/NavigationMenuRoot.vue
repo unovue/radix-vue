@@ -1,7 +1,7 @@
 <script lang="ts">
 import { type InjectionKey, type Ref } from "vue";
 import type { Direction, Orientation } from "./utils";
-import { useCollection, useId } from "@/shared";
+import { onFocusOutside, useCollection, useId } from "@/shared";
 
 export interface NavigationMenuProps {
   modelValue?: string;
@@ -21,6 +21,10 @@ export interface NavigationMenuProps {
   skipDelayDuration?: number;
 }
 
+interface VNodeWithParentProps extends VNode {
+  parentProps: any;
+}
+
 export interface NavigationMenuContextValue {
   isRootMenu: boolean;
   modelValue: Ref<string>;
@@ -33,8 +37,11 @@ export interface NavigationMenuContextValue {
   onIndicatorTrackChange(indicatorTrack: HTMLElement | undefined): void;
   viewport: Ref<HTMLElement | undefined>;
   onViewportChange(viewport: HTMLElement | undefined): void;
-  viewportContent: Ref<Map<string, VNode>>;
-  onViewportContentChange(contentValue: string, contentData: VNode): void;
+  viewportContent: Ref<Map<string, VNodeWithParentProps>>;
+  onViewportContentChange(
+    contentValue: string,
+    contentData: VNodeWithParentProps
+  ): void;
   onViewportContentRemove(contentValue: string): void;
   onTriggerEnter(itemValue: string): void;
   onTriggerLeave(): void;
@@ -49,8 +56,13 @@ export const NAVIGATION_MENU_INJECTION_KEY =
 </script>
 
 <script setup lang="ts">
-import { useDebounceFn, useVModel } from "@vueuse/core";
-import { provide, ref, type VNode } from "vue";
+import {
+  onClickOutside,
+  useDebounceFn,
+  useFocusWithin,
+  useVModel,
+} from "@vueuse/core";
+import { provide, ref, watch, type VNode } from "vue";
 import { PrimitiveNav, usePrimitiveElement } from "@/Primitive";
 
 const props = withDefaults(defineProps<NavigationMenuProps>(), {
@@ -76,9 +88,20 @@ const { primitiveElement, currentElement: rootNavigationMenu } =
 const { createCollection } = useCollection();
 createCollection();
 
+const closeMenu = () => {
+  modelValue.value = "";
+};
+
+onClickOutside(rootNavigationMenu, () => {
+  closeMenu();
+});
+onFocusOutside(rootNavigationMenu, () => {
+  closeMenu();
+});
+
 const indicatorTrack = ref<HTMLElement>();
 const viewport = ref<HTMLElement>();
-const viewportContent = ref<Map<string, VNode>>(new Map());
+const viewportContent = ref<Map<string, VNodeWithParentProps>>(new Map());
 
 const debouncedFn = useDebounceFn((val: string) => {
   previousValue.value = modelValue.value;

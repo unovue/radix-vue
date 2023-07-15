@@ -81,14 +81,7 @@ defineOptions({
         <Presence :present="activeContentValue === node.props?.value">
           <NavigationMenuContentImpl
             :ref="setRef"
-            v-bind="
-              //@ts-ignore
-              node.parentProps
-            "
-            :value="node.props?.value"
-            :triggerRef="node.props?.triggerRef"
-            :focusProxyRef="node.props?.focusProxyRef"
-            :wasEscapeCloseRef="node.props?.wasEscapeCloseRef"
+            v-bind="{ ...node.props, ...node.parentProps }"
             @escape="handleClose(node)"
           >
             <component :is="node"></component>

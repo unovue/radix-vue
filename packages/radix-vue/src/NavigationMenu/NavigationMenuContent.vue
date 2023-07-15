@@ -28,7 +28,7 @@ const commonProps = computed(() => ({
   triggerRef: itemContext!.triggerRef,
   focusProxyRef: itemContext!.focusProxyRef,
   wasEscapeCloseRef: itemContext!.wasEscapeCloseRef,
-  // onContentFocusOutside: itemContext!.onContentFocusOutside,
+  onContentFocusOutside: itemContext!.onContentFocusOutside,
   // onRootContentClose: itemContext!.onRootContentClose,
 }));
 

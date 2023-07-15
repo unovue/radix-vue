@@ -7,7 +7,6 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog
 ---
 
 <script setup>
-import Description from '../../components/Description.vue'
 import HeroContainer from '../../components/HeroContainer.vue'
 import DemoAlertDialog from '../../components/demo/AlertDialog/index.vue'
 import PropsTable from '../../components/tables/PropsTable.vue'
@@ -23,6 +22,11 @@ import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 A modal dialog that interrupts the user with important content and expects a
 response.
 </Description>
+
+::Description
+A modal dialog that interrupts the user with important content and expects a
+response.
+::
 
 <HeroContainer>
 <DemoAlertDialog />

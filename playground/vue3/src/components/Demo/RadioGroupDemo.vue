@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from 'radix-vue'
+import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from '../../../../../packages/radix-vue/src'
 import { ref } from 'vue'
 
 const radioStateSingle = ref('default')
 </script>
 
 <template>
-  <div class="absolute left-4 top-3 text-sm">
+  <div class="absolute text-sm left-4 top-3">
     <p>Single: {{ radioStateSingle }}</p>
   </div>
   <RadioGroupRoot

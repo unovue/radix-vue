@@ -10,14 +10,15 @@
 </template>
 
 <style scoped>
-::v-deep input {
+:deep(input) {
   background-color: white;
 }
 
-::v-deep button:focus, ::v-deep button:focus-visible {
+:deep(button:focus), :deep(button:focus-visible) {
   outline: 0;
 }
-::v-deep h3 {
+
+:deep(h3) {
   margin: 0px !important;
   font-weight: unset !important;
 }

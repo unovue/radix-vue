@@ -87,7 +87,7 @@ watch(open, () => {
 </template>
 
 <style scoped>
-::v-deep * {
+:deep(*) {
   color: white;
 }
 </style>

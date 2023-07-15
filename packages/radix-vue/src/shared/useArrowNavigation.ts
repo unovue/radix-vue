@@ -117,8 +117,11 @@ export function useArrowNavigation(
 function findNextFocusableElement(
   elements: HTMLElement[],
   currentElement: HTMLElement,
-  { goForward, loop }: { goForward: boolean; loop?: boolean }
+  { goForward, loop }: { goForward: boolean; loop?: boolean },
+  iterations = elements.length
 ): HTMLElement | null {
+  if (--iterations === 0) return null;
+
   const index = elements.indexOf(currentElement);
   const newIndex = goForward ? index + 1 : index - 1;
 
@@ -132,7 +135,12 @@ function findNextFocusableElement(
     candidate.hasAttribute("disabled") &&
     candidate.getAttribute("disabled") !== "false";
   if (isDisabled) {
-    return findNextFocusableElement(elements, candidate, { goForward, loop });
+    return findNextFocusableElement(
+      elements,
+      candidate,
+      { goForward, loop },
+      iterations
+    );
   }
   return candidate;
 }

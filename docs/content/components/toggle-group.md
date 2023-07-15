@@ -24,7 +24,6 @@ import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 A set of two-state buttons that can be toggled on or off.
 </Description>
 
-
 <HeroContainer>
 <DemoToggleGroup />
 <template v-slot:codeSlot>
@@ -39,6 +38,7 @@ A set of two-state buttons that can be toggled on or off.
 </HeroContainer>
 
 ## Features
+
 <Highlights
   :features="[
     'Full keyboard navigation.',
@@ -60,21 +60,16 @@ npm install radix-vue
 
 Import the component.
 
-```jsx
+```vue
 <script setup>
-import { Separator } from "radix-vue";
+import { ToggleGroupRoot, ToggleGroupItem } from "radix-vue";
 </script>
 
 <template>
-  <Separator />
+	<ToggleGroupRoot>
+		<ToggleGroupItem />
+	</ToggleGroupRoot>
 </template>
-import * as ToggleGroup from 'radix-vue';
-
-export default () => (
-  <ToggleGroup.Root>
-    <ToggleGroup.Item />
-  </ToggleGroup.Root>
-);
 ```
 
 ## API Reference
@@ -82,9 +77,9 @@ export default () => (
 ### Root
 
 Contains all the parts of a toggle group.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -95,171 +90,76 @@ Contains all the parts of a toggle group.
     {
       name: 'type',
       required: true,
-      type: '"single" | "multiple"',
+      type: '&quot;single&quot; | &quot;multiple&quot;',
       typeSimple: 'enum',
-      description: (
-        <span>
-          Determines whether a single or multiple items can be pressed at a
-          time.
-        </span>
-      ),
+      description: '<span> Determines whether a single or multiple items can be pressed at a time. </span>',
     },
     {
       name: 'value',
       required: false,
-      type: 'string',
-      description: (
-        <span>
-          The controlled value of the pressed item when <Code>type</Code> is{' '}
-          <Code>"single"</Code>. Must be used in conjunction with{' '}
-          <Code>onValueChange</Code>.
-        </span>
-      ),
+      type: 'string | string[]',
+      description: '<span> The controlled value of the pressed item. Must be binded with <Code>v-model</Code>. </span>',
     },
     {
       name: 'defaultValue',
       required: false,
-      type: 'string',
-      description: (
-        <span>
-          The value of the item to show as pressed when initially rendered and{' '}
-          <Code>type</Code> is <Code>"single"</Code>. Use when you do not need
-          to control the state of the items.
-        </span>
-      ),
-    },
-    {
-      name: 'onValueChange',
-      required: false,
-      type: '(value: string) => void',
-      typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when the pressed state of an item changes and{' '}
-          <Code>type</Code> is <Code>"single"</Code>.
-        </span>
-      ),
-    },
-    {
-      name: 'value',
-      required: false,
-      default: '[]',
-      type: 'string[]',
-      description: (
-        <span>
-          The controlled value of the pressed items when <Code>type</Code> is{' '}
-          <Code>"multiple"</Code>. Must be used in conjunction with{' '}
-          <Code>onValueChange</Code>.
-        </span>
-      ),
-    },
-    {
-      name: 'defaultValue',
-      required: false,
-      default: '[]',
-      type: 'string[]',
-      description: (
-        <span>
-          The values of the items to show as pressed when initially rendered and{' '}
-          <Code>type</Code> is <Code>"multiple"</Code>. Use when you do not need
-          to control the state of the items.
-        </span>
-      ),
-    },
-    {
-      name: 'onValueChange',
-      required: false,
-      type: '(value: string[]) => void',
-      typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when the pressed state of an item changes and{' '}
-          <Code>type</Code> is <Code>"multiple"</Code>.
-        </span>
-      ),
+      type: 'string | string[]',
+      description: '<span> The value of the item to show as pressed when initially rendered. Use when you do not need to control the state of the items. </span>',
     },
     {
       name: 'disabled',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <span>
-          When <Code>true</Code>, prevents the user from interacting with the
-          toggle group and all its items.
-        </span>
-      ),
+      description: '<span> When <Code>true</Code>, prevents the user from interacting with the toggle group and all its items. </span>',
     },
     {
       name: 'rovingFocus',
       required: false,
       type: 'boolean',
       default: 'true',
-      description: (
-        <span>
-          When <Code>false</Code>, navigating through the items using arrow keys
-          will be disabled.
-        </span>
-      ),
+      description: '<span> When <Code>false</Code>, navigating through the items using arrow keys will be disabled. </span>',
     },
     {
       name: 'orientation',
       required: false,
-      type: '"horizontal" | "vertical" | undefined',
+      type: '&quot;horizontal&quot; | &quot;vertical&quot; | undefined',
       typeSimple: 'enum',
       default: 'undefined',
-      description: (
-        <span>
-          The orientation of the component, which determines how focus moves:{' '}
-          <Code>horizontal</Code> for left/right arrows and{' '}
-          <Code>vertical</Code> for up/down arrows.
-        </span>
-      ),
+      description: '<span> The orientation of the component, which determines how focus moves: <Code>horizontal</Code> for left/right arrows and <Code>vertical</Code> for up/down arrows. </span>',
     },
     {
       name: 'dir',
       required: false,
-      type: '"ltr" | "rtl"',
+      type: '&quot;ltr&quot; | &quot;rtl&quot;',
       typeSimple: 'enum',
-      description: (
-        <span>
-          The reading direction of the toggle group. If omitted, inherits
-          globally from <Code>DirectionProvider</Code> or assumes LTR
-          (left-to-right) reading mode.
-        </span>
-      ),
+      description: '<span> The reading direction of the toggle group. If omitted, inherits globally from <Code>DirectionProvider</Code> or assumes LTR (left-to-right) reading mode. </span>',
     },
     {
       name: 'loop',
       required: false,
       type: 'boolean',
       default: 'true',
-      description: (
-        <span>
-          When <Code>true</Code> and <Code>rovingFocus</Code> is{' '}
-          <Code>true</Code>, keyboard navigation will loop from last item to
-          first, and vice versa.
-        </span>
-      ),
+      description: '<span> When <Code>true</Code> and <Code>rovingFocus</Code> is <Code>true</Code>, keyboard navigation will loop from last item to first, and vice versa. </span>',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
+  ]"
 />
-```
+
 ### Item
 
 An item in the group.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -276,18 +176,13 @@ An item in the group.
     {
       name: 'disabled',
       type: 'boolean',
-      description: (
-        <span>
-          When <Code>true</Code>, prevents the user from interacting with the
-          item.
-        </span>
-      ),
+      description: '<span> When <Code>true</Code>, prevents the user from interacting with the item. </span>',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['on', 'off'],
@@ -300,42 +195,35 @@ An item in the group.
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
+  ]"
 />
-```
+
 ## Examples
 
 ### Ensuring there is always a value
 
 You can control the component to ensure a value.
 
-```jsx line=5,8
-import * as React from 'react';
-import * as ToggleGroup from 'radix-vue';
+```vue line=4,8
+<script setup>
+import { ref } from "vue";
+import { ToggleGroupRoot, ToggleGroupItem } from "radix-vue";
+const value = ref("left");
+</script>
 
-export default () => {
-  const [value, setValue] = React.useState('left');
-
-  return (
-    <ToggleGroup.Root
-      type="single"
-      value={value}
-      onValueChange={(value) => {
-        if (value) setValue(value);
-      }}
-    >
-      <ToggleGroup.Item value="left">
-        <TextAlignLeftIcon />
-      </ToggleGroup.Item>
-      <ToggleGroup.Item value="center">
-        <TextAlignCenterIcon />
-      </ToggleGroup.Item>
-      <ToggleGroup.Item value="right">
-        <TextAlignRightIcon />
-      </ToggleGroup.Item>
-    </ToggleGroup.Root>
-  );
-};
+<template>
+	<ToggleGroupRoot type="single" v-model="value">
+		<ToggleGroupItem value="left">
+			<TextAlignLeftIcon />
+		</ToggleGroupItem>
+		<ToggleGroupItem value="center">
+			<TextAlignCenterIcon />
+		</ToggleGroupItem>
+		<ToggleGroupItem value="right">
+			<TextAlignRightIcon />
+		</ToggleGroupItem>
+	</ToggleGroupRoot>
+</template>
 ```
 
 ## Accessibility
@@ -343,9 +231,9 @@ export default () => {
 Uses [roving tabindex](https://www.w3.org/TR/wai-aria-practices-1.2/examples/radio/radio.html) to manage focus movement among items.
 
 ### Keyboard Interactions
-```
+
 <KeyboardTable
-  data={[
+  :data="[
     {
       keys: ['Tab'],
       description:
@@ -383,6 +271,5 @@ Uses [roving tabindex](https://www.w3.org/TR/wai-aria-practices-1.2/examples/rad
       keys: ['End'],
       description: 'Moves focus to the last item.',
     },
-  ]}
+  ]"
 />
-```

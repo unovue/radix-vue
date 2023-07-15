@@ -382,7 +382,7 @@ import {
 </script>
 
 <template>
-<TooltipProvider :delayDuration="800" :skipDelayDuration="500">
+	<TooltipProvider :delayDuration="800" :skipDelayDuration="500">
 		<TooltipRoot>
 			<TooltipTrigger>…</TooltipTrigger>
 			<TooltipContent>…</TooltipContent>
@@ -410,7 +410,7 @@ import {
 </script>
 
 <template>
-<TooltipRoot :delayDuration="0">
+	<TooltipRoot :delayDuration="0">
 		<TooltipTrigger>…</TooltipTrigger>
 		<TooltipContent>…</TooltipContent>
 	</TooltipRoot>
@@ -435,17 +435,16 @@ import {
 </script>
 
 <template>
-<TooltipRoot>
+	<TooltipRoot>
 		<TooltipTrigger asChild>
-			<span tabIndex=0>
-				<button disabled style={{ pointerEvents: "none" }}>
-					…
-				</button>
+			<span tabindex="0">
+				<button disabled style="{ pointerEvents: 'none' }">…</button>
 			</span>
 		</TooltipTrigger>
 		<TooltipContent>…</TooltipContent>
 	</TooltipRoot>
-<template>
+	<template></template>
+</template>
 ```
 
 ### Constrain the content size
@@ -467,7 +466,7 @@ import "./styles.css";
 </script>
 
 <template>
-<TooltipRoot>
+	<TooltipRoot>
 		<TooltipTrigger>…</TooltipTrigger>
 		<TooltipPortal>
 			<TooltipContent class="TooltipContent" :sideOffset="5">
@@ -503,7 +502,7 @@ import "./styles.css";
 </script>
 
 <template>
-<TooltipRoot>
+	<TooltipRoot>
 		<TooltipTrigger>…</TooltipTrigger>
 		<TooltipContent class="TooltipContent">…</TooltipContent>
 	</TooltipRoot>
@@ -546,7 +545,7 @@ import "./styles.css";
 </script>
 
 <template>
-<TooltipRoot>
+	<TooltipRoot>
 		<TooltipTrigger>…</TooltipTrigger>
 		<TooltipContent class="TooltipContent">…</TooltipContent>
 	</TooltipRoot>

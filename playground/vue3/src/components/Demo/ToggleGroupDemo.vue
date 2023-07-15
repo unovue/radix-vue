@@ -28,7 +28,7 @@ const toggleGroupItemClasses
   </ToggleGroupRoot>
   <br>
   <ToggleGroupRoot v-model="toggleStateMultiple" type="multiple" class="flex">
-    <ToggleGroupItem value="bold" aria-label="Toggle italic" :class="toggleGroupItemClasses">
+    <ToggleGroupItem disabled value="bold" aria-label="Toggle italic" :class="toggleGroupItemClasses">
       <Icon icon="radix-icons:font-bold" class="text-black" />
     </ToggleGroupItem>
     <ToggleGroupItem value="italic" aria-label="Toggle italic" :class="toggleGroupItemClasses">

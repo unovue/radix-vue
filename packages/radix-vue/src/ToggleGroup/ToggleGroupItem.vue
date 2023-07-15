@@ -82,11 +82,13 @@ function handleChangeValue() {
 
 <template>
   <PrimitiveButton
+    :as-child="props.asChild"
     ref="primitiveElement"
     type="button"
     :role="getRole"
     :data-state="state"
-    :data-disabled="props.disabled"
+    :disabled="props.disabled"
+    :data-disabled="props.disabled ? '' : undefined"
     :data-orientation="injectedValue?.orientation"
     @click="handleChangeValue"
     @keydown="handleKeydown"

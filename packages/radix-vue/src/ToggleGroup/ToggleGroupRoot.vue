@@ -18,8 +18,7 @@ export interface ToggleGroupRootProps {
   modelValue?: string | string[];
 }
 
-export const TOGGLE_GROUP_INJECTION_KEY =
-  Symbol() as InjectionKey<ToggleGroupProvideValue>;
+export const TOGGLE_GROUP_INJECTION_KEY = Symbol() as InjectionKey<ToggleGroupProvideValue>;
 
 export interface ToggleGroupProvideValue {
   type: TypeEnum;
@@ -47,8 +46,7 @@ const props = withDefaults(defineProps<ToggleGroupRootProps>(), {
 
 const emits = defineEmits(["update:modelValue"]);
 
-const { primitiveElement, currentElement: parentElement } =
-  usePrimitiveElement();
+const { primitiveElement, currentElement: parentElement } = usePrimitiveElement();
 
 const activeValue = ref();
 const currentFocusedElementRef = ref<HTMLElement>();
@@ -96,8 +94,11 @@ watch(
         return;
       }
       if (!currentFocusedElementRef.value) {
-        itemsArray.value[0].focus();
-        currentFocusedElementRef.value = itemsArray.value[0];
+        let filteredItemsArray = itemsArray.value.filter(
+          (i) => !i.hasAttribute("disabled") && !i.hasAttribute("data-disabled")
+        );
+        filteredItemsArray[0].focus();
+        currentFocusedElementRef.value = filteredItemsArray[0];
       } else {
         currentFocusedElementRef.value.focus();
       }
@@ -109,6 +110,7 @@ watch(
 
 <template>
   <PrimitiveDiv
+    :as-child="props.asChild"
     ref="primitiveElement"
     role="group"
     :dir="props.dir"

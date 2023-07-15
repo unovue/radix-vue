@@ -269,7 +269,7 @@ description: 'Change the default rendered element for the one passed as a child,
 
 Use the controlled props to programmatically close the Alert Dialog after an async operation has completed.
 
-```vue line=14,15,18,23,24,25,26,27,28,29,32
+```vue line=14,15,18,23-29,32
 <script setup>
 import {
 	AlertDialogAction,

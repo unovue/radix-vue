@@ -35,8 +35,7 @@ const props = defineProps<DataAttributesTableProps>();
         </ProseTd>
         <ProseTd class="">
           <div class="flex items-center gap-1">
-            <span>
-              {{ prop.description }}
+            <span v-html="prop.description">
             </span>
           </div>
         </ProseTd>

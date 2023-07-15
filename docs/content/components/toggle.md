@@ -56,15 +56,12 @@ Import the component.
 
 ```vue
 <script setup>
-import { Separator } from "radix-vue";
+import { Toggle } from "radix-vue";
 </script>
 
 <template>
-  <Separator />
+  <Toggle />
 </template>
-import * as Toggle from 'radix-vue';
-
-export default () => <Toggle.Root />;
 ```
 
 ## API Reference
@@ -72,9 +69,9 @@ export default () => <Toggle.Root />;
 ### Root
 
 The toggle.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -85,41 +82,23 @@ The toggle.
     {
       name: 'defaultPressed',
       type: 'boolean',
-      description:
-        'The pressed state of the toggle when it is initially rendered. Use when you do not need to control its pressed state.',
+      description: 'The pressed state of the toggle when it is initially rendered. Use when you do not need to control its pressed state.',
     },
     {
       name: 'pressed',
       type: 'boolean',
-      description: (
-        <span>
-          The controlled pressed state of the toggle. Must be used in
-          conjunction with <Code>onPressedChange</Code>.
-        </span>
-      ),
-    },
-    {
-      name: 'onPressedChange',
-      type: '(pressed: boolean) => void',
-      typeSimple: 'function',
-      description:
-        'Event handler called when the pressed state of the toggle changes.',
+      description: '<span> The controlled pressed state of the toggle. Must be binded with <Code>v-model</Code>.</span>',
     },
     {
       name: 'disabled',
       type: 'boolean',
-      description: (
-        <span>
-          When <Code>true</Code>, prevents the user from interacting with the
-          toggle.
-        </span>
-      ),
+      description: '<span> When <Code>true</Code>, prevents the user from interacting with the toggle.</span>',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['on', 'off'],
@@ -128,15 +107,15 @@ The toggle.
       attribute: '[data-disabled]',
       values: 'Present when disabled',
     },
-  ]}
+  ]"
 />
-```
+
 ## Accessibility
 
 ### Keyboard Interactions
-```
+
 <KeyboardTable
-  data={[
+  :data="[
     {
       keys: ['Space'],
       description: 'Activates/deactivates the toggle.',
@@ -145,6 +124,5 @@ The toggle.
       keys: ['Enter'],
       description: 'Activates/deactivates the toggle.',
     },
-  ]}
+  ]"
 />
-```

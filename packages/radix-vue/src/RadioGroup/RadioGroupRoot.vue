@@ -1,20 +1,21 @@
 <script lang="ts">
-import type { Ref } from "vue";
 import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 import type { DataOrientation, Direction } from "@/shared/types";
+import { useVModel } from "@vueuse/core";
+import type { ComputedRef, Ref } from "vue";
 
 export interface RadioGroupRootProps {
   asChild?: boolean;
+  modelValue?: string | string[];
+  onValueChange?: (value: string) => void;
   defaultValue?: string;
   value?: string;
-  //onValueChange?: void;
   disabled?: boolean;
   name?: string;
   required?: boolean;
   orientation?: DataOrientation;
   dir?: Direction;
   loop?: boolean;
-  modelValue?: string | string[];
 }
 
 export const RADIO_GROUP_INJECTION_KEY = "RadioGroup" as const;
@@ -23,17 +24,31 @@ export interface RadioGroupProvideValue {
   modelValue?: Readonly<Ref<string | string[] | undefined>>;
   changeModelValue: (value?: string) => void;
   parentElement: Ref<HTMLElement | undefined>;
-  disabled: boolean;
+  currentFocusedElement?: Ref<HTMLElement | undefined>;
+  disabled: Ref<boolean>;
+  loop: Ref<boolean>;
+  orientation: Ref<DataOrientation | undefined>;
+  name?: string;
+  required: Ref<boolean>;
+}
+
+export const RADIO_ITEM_INJECTION_KEY = Symbol();
+
+export interface RadioItemProvideValue {
+  disabled: ComputedRef<boolean>;
+  checked: ComputedRef<boolean>;
 }
 </script>
 
 <script setup lang="ts">
-import { toRef, provide } from "vue";
+import { provide, ref } from "vue";
 
 const props = withDefaults(defineProps<RadioGroupRootProps>(), {
   asChild: false,
   disabled: false,
+  required: false,
   orientation: undefined,
+  dir: "ltr",
   loop: true,
 });
 
@@ -42,22 +57,39 @@ const emits = defineEmits(["update:modelValue"]);
 const { primitiveElement, currentElement: parentElement } =
   usePrimitiveElement();
 
+const modelValue = useVModel(props, "modelValue", emits, {
+  defaultValue: props.defaultValue,
+  passive: true,
+});
+
 provide<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY, {
-  modelValue: toRef(() => props.modelValue),
+  modelValue,
   changeModelValue: (value?: string) => {
-    emits("update:modelValue", value);
+    modelValue.value = value;
+    if (value && props.onValueChange) {
+      props.onValueChange(value);
+    }
   },
   parentElement,
-  disabled: props.disabled,
+  currentFocusedElement: ref(),
+  disabled: ref(props.disabled),
+  loop: ref(props.loop),
+  orientation: ref(props.orientation),
+  name: props.name,
+  required: ref(props.required),
 });
 </script>
 
 <template>
   <PrimitiveDiv
+    :asChild="props.asChild"
     ref="primitiveElement"
     role="radiogroup"
-    aria-label="radiogroup"
-    :data-disabled="props.disabled"
+    :data-disabled="props.disabled ? '' : undefined"
+    :required="props.required"
+    :aria-required="props.required"
+    :dir="props.dir"
+    :name="props.name"
   >
     <slot />
   </PrimitiveDiv>

@@ -1,7 +1,6 @@
 <script lang="ts">
 export interface CollapsibleContentProps {
   asChild?: boolean;
-  forceMount?: boolean;
 }
 </script>
 
@@ -67,6 +66,10 @@ requestAnimationFrame(() => {
 defineOptions({
   inheritAttrs: false,
 });
+
+const props = withDefaults(defineProps<CollapsibleContentProps>(), {
+  asChild: false,
+});
 </script>
 
 <template>
@@ -74,6 +77,7 @@ defineOptions({
     <PrimitiveDiv
       ref="primitiveElement"
       v-bind="$attrs"
+      :asChild="props.asChild"
       :data-state="injectedValue?.open.value ? 'open' : 'closed'"
       :data-disabled="injectedValue?.disabled?.value ? 'true' : undefined"
       :id="injectedValue?.contentId"

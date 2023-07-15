@@ -14,6 +14,10 @@
   background-color: white;
 }
 
+::v-deep li {
+  margin-top: 0 !important;
+}
+
 ::v-deep button:focus, ::v-deep button:focus-visible {
   outline: 0;
 }

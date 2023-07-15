@@ -9,7 +9,7 @@ import {
   DialogRoot,
   DialogTitle,
   DialogTrigger,
-} from 'radix-vue'
+} from '../../../../../packages/radix-vue/src'
 import { Icon } from '@iconify/vue'
 
 const dialogOpen = ref(false)

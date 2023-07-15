@@ -38,6 +38,7 @@ An input where the user selects a value from within a given range.
 </HeroContainer>
 
 ## Features
+
 <Highlights
   :features="[
     'Can be controlled or uncontrolled.',
@@ -61,24 +62,19 @@ npm install radix-vue
 
 Import all parts and piece them together.
 
-```jsx
+```vue
 <script setup>
-import { Separator } from "radix-vue";
+import { SliderRoot, SliderTrack, SliderRange, SliderThumb } from "radix-vue";
 </script>
 
 <template>
-  <Separator />
+	<SliderRoot>
+		<SliderTrack>
+			<SliderRange />
+		</SliderTrack>
+		<SliderThumb />
+	</SliderRoot>
 </template>
-import * as Slider from 'radix-vue';
-
-export default () => (
-  <Slider.Root>
-    <Slider.Track>
-      <Slider.Range />
-    </Slider.Track>
-    <Slider.Thumb />
-  </Slider.Root>
-);
 ```
 
 ## API Reference
@@ -86,9 +82,9 @@ export default () => (
 ### Root
 
 Contains all the parts of a slider. It will render an `input` for each thumb when used within a `form` to ensure events propagate correctly.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -100,74 +96,48 @@ Contains all the parts of a slider. It will render an `input` for each thumb whe
       name: 'defaultValue',
       required: false,
       type: 'number[]',
-      description:
-        'The value of the slider when initially rendered. Use when you do not need to control the state of the slider.',
+      description: 'The value of the slider when initially rendered. Use when you do not need to control the state of the slider.',
     },
     {
       name: 'value',
       required: false,
       type: 'number[]',
-      description: (
-        <span>
-          The controlled value of the slider. Must be used in conjunction with{' '}
-          <Code>onValueChange</Code>.
-        </span>
-      ),
-    },
-    {
-      name: 'onValueChange',
-      required: false,
-      type: 'onValueChange?(value: number[]): void',
-      typeSimple: 'function',
-      description: 'Event handler called when the value changes.',
+      description: '<span> The controlled value of the slider. Must be binded with <Code>v-model</Code>. </span>',
     },
     {
       name: 'onValueCommit',
       required: false,
       type: 'onValueCommit?(value: number[]): void',
       typeSimple: 'function',
-      description:
-        'Event handler called when the value changes at the end of an interaction. Useful when you only need to capture a final value e.g. to update a backend service.',
+      description: 'Event handler called when the value changes at the end of an interaction. Useful when you only need to capture a final value e.g. to update a backend service.',
     },
     {
       name: 'name',
       required: false,
       type: 'string',
-      description:
-        'The name of the slider. Submitted with its owning form as part of a name/value pair.',
+      description: 'The name of the slider. Submitted with its owning form as part of a name/value pair.',
     },
     {
       name: 'disabled',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <span>
-          When <Code>true</Code>, prevents the user from interacting with the
-          slider.
-        </span>
-      ),
+      description: '<span> When <Code>true</Code>, prevents the user from interacting with the slider. </span>',
     },
     {
       name: 'orientation',
       required: false,
-      type: '"horizontal" | "vertical"',
+      type: '&quot;horizontal&quot; | &quot;vertical&quot;',
       typeSimple: 'enum',
-      default: '"horizontal"',
+      default: '&quot;horizontal&quot;',
       description: 'The orientation of the slider.',
     },
     {
       name: 'dir',
       required: false,
-      type: '"ltr" | "rtl"',
+      type: '&quot;ltr&quot; | &quot;rtl&quot;',
       typeSimple: 'enum',
-      description: (
-        <span>
-          The reading direction of the slider. If omitted, inherits globally
-          from <Code>DirectionProvider</Code> or assumes LTR (left-to-right)
-          reading mode.
-        </span>
-      ),
+      description: '<span> The reading direction of the slider. If omitted, inherits globally from <Code>DirectionProvider</Code> or assumes LTR (left-to-right) reading mode. </span>',
     },
     {
       name: 'inverted',
@@ -202,17 +172,13 @@ Contains all the parts of a slider. It will render an `input` for each thumb whe
       required: false,
       type: 'number',
       default: '0',
-      description: (
-        <span>
-          The minimum permitted <Code>step</Code>s between multiple thumbs.
-        </span>
-      ),
+      description: '<span> The minimum permitted <Code>step</Code>s between multiple thumbs. </span>',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-disabled]',
       values: 'Present when disabled',
@@ -221,15 +187,15 @@ Contains all the parts of a slider. It will render an `input` for each thumb whe
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
+  ]"
 />
-```
+
 ### Track
 
-The track that contains the `Slider.Range`.
-```
+The track that contains the `SliderRange`.
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -237,11 +203,11 @@ The track that contains the `Slider.Range`.
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-disabled]',
       values: 'Present when disabled',
@@ -250,15 +216,15 @@ The track that contains the `Slider.Range`.
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
+  ]"
 />
-```
+
 ### Range
 
-The range part. Must live inside `Slider.Track`.
-```
+The range part. Must live inside `SliderTrack`.
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -266,11 +232,11 @@ The range part. Must live inside `Slider.Track`.
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-disabled]',
       values: 'Present when disabled',
@@ -279,15 +245,15 @@ The range part. Must live inside `Slider.Track`.
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
+  ]"
 />
-```
+
 ### Thumb
 
 A draggable thumb. You can render multiple thumbs.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -295,11 +261,11 @@ A draggable thumb. You can render multiple thumbs.
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-disabled]',
       values: 'Present when disabled',
@@ -308,69 +274,70 @@ A draggable thumb. You can render multiple thumbs.
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
+  ]"
 />
-```
+
 ## Examples
 
 ### Vertical orientation
 
 Use the `orientation` prop to create a vertical slider.
 
-```jsx line=6
-// index.jsx
-import * as Slider from 'radix-vue';
-import './styles.css';
+```vue line=11
+// index.vue
+<script setup>
+import { SliderRoot, SliderTrack, SliderRange, SliderThumb } from "radix-vue";
+import "./styles.css";
+</script>
 
-export default () => (
-  <Slider.Root
-    className="SliderRoot"
-    defaultValue={[50]}
-    __orientation__="vertical"
-  >
-    <Slider.Track className="SliderTrack">
-      <Slider.Range className="SliderRange" />
-    </Slider.Track>
-    <Slider.Thumb className="SliderThumb" />
-  </Slider.Root>
-);
+<template>
+	<SliderRoot
+    class="SliderRoot"
+    :defaultValue="[50]"
+    orientation="vertical">
+		<SliderTrack class="SliderTrack">
+			<SliderRange class="SliderRange" />
+		</SliderTrack>
+		<SliderThumb class="SliderThumb" />
+	</SliderRoot>
+</template>
 ```
 
 ```css line=7,18,26
 /* styles.css */
 .SliderRoot {
-  position: relative;
-  display: flex;
-  align-items: center;
+	position: relative;
+	display: flex;
+	align-items: center;
 }
-.SliderRoot[__data-orientation='vertical'__] {
-  flex-direction: column;
-  width: 20px;
-  height: 100px;
+.SliderRoot[data-orientation="vertical"] {
+	flex-direction: column;
+	width: 20px;
+	height: 100px;
 }
 
 .SliderTrack {
-  position: relative;
-  flex-grow: 1;
-  background-color: grey;
+	position: relative;
+	flex-grow: 1;
+	background-color: grey;
 }
-.SliderTrack[__data-orientation='vertical'__] {
-  width: 3px;
+.SliderTrack[data-orientation="vertical"] {
+	width: 3px;
 }
 
 .SliderRange {
-  position: absolute;
-  background-color: black;
+	position: absolute;
+	background-color: black;
 }
-.SliderRange[__data-orientation='vertical'__] {
-  width: 100%;
+.SliderRange[data-orientation="vertical"] {
+	width: 100%;
 }
 
 .SliderThumb {
-  display: block;
-  width: 20px;
-  height: 20px;
-  background-color: black;
+	display: block;
+	width: 20px;
+	height: 20px;
+	background-color: black;
 }
 ```
 
@@ -378,53 +345,70 @@ export default () => (
 
 Add multiple thumbs and values to create a range slider.
 
-```jsx line=4,8-9
-import * as Slider from 'radix-vue';
+```vue line=8,12-13
+// index.vue
+<script setup>
+import { SliderRoot, SliderTrack, SliderRange, SliderThumb } from "radix-vue";
+import "./styles.css";
+</script>
 
-export default () => (
-  <Slider.Root defaultValue={__[25, 75]__}>
-    <Slider.Track>
-      <Slider.Range />
-    </Slider.Track>
-    <Slider.Thumb />
-    <Slider.Thumb />
-  </Slider.Root>
-);
+<template>
+	<SliderRoot :defaultValue="[25,75]">
+		<SliderTrack>
+			<SliderRange />
+		</SliderTrack>
+		<SliderThumb />
+		<SliderThumb />
+	</SliderRoot>
+</template>
 ```
 
 ### Define step size
 
 Use the `step` prop to increase the stepping interval.
 
-```jsx line=4
-import * as Slider from 'radix-vue';
+```vue line=9
+// index.vue
+<script setup>
+import { SliderRoot, SliderTrack, SliderRange, SliderThumb } from "radix-vue";
+import "./styles.css";
+</script>
 
-export default () => (
-  <Slider.Root defaultValue={[50]} __step__={10}>
-    <Slider.Track>
-      <Slider.Range />
-    </Slider.Track>
-    <Slider.Thumb />
-  </Slider.Root>
-);
+<template>
+	<SliderRoot
+    :defaultValue="[50]"
+    :step="10">
+		<SliderTrack>
+			<SliderRange />
+		</SliderTrack>
+		<SliderThumb />
+	</SliderRoot>
+</template>
 ```
 
 ### Prevent thumb overlap
 
 Use `minStepsBetweenThumbs` to avoid thumbs with equal values.
 
-```jsx line=4
-import * as Slider from 'radix-vue';
+```vue line=9-11
+// index.vue
+<script setup>
+import { SliderRoot, SliderTrack, SliderRange, SliderThumb } from "radix-vue";
+import "./styles.css";
+</script>
 
-export default () => (
-  <Slider.Root defaultValue={[25, 75]} step={10} __minStepsBetweenThumbs__={1}>
-    <Slider.Track>
-      <Slider.Range />
-    </Slider.Track>
-    <Slider.Thumb />
-    <Slider.Thumb />
-  </Slider.Root>
-);
+<template>
+	<SliderRoot
+    :defaultValue="[25, 75]"
+    :step="10"
+    :minStepsBetweenThumbs="1">
+		<SliderTrack>
+			<SliderRange />
+		</SliderTrack>
+		<SliderThumb />
+		<SliderThumb />
+	</SliderRoot>
+</template>
 ```
 
 ## Accessibility
@@ -432,74 +416,40 @@ export default () => (
 Adheres to the [Slider WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/slidertwothumb).
 
 ### Keyboard Interactions
-```
+
 <KeyboardTable
-  data={[
+  :data="[
     {
       keys: ['ArrowRight'],
-      description: (
-        <span>
-          Increments/decrements by the <Code>step</Code> value depending on{' '}
-          <Code>orientation</Code>.
-        </span>
-      ),
+      description: '<span> Increments/decrements by the <Code>step</Code> value depending on <Code>orientation</Code>. </span>',
     },
     {
       keys: ['ArrowLeft'],
-      description: (
-        <span>
-          Increments/decrements by the <Code>step</Code> value depending on{' '}
-          <Code>orientation</Code>.
-        </span>
-      ),
+      description: '<span> Increments/decrements by the <Code>step</Code> value depending on <Code>orientation</Code>. </span>',
     },
     {
       keys: ['ArrowUp'],
-      description: (
-        <span>
-          Increases the value by the <Code>step</Code> amount.
-        </span>
-      ),
+      description: '<span> Increases the value by the <Code>step</Code> amount. </span>',
     },
     {
       keys: ['ArrowDown'],
-      description: (
-        <span>
-          Decreases the value by the <Code>step</Code> amount.
-        </span>
-      ),
+      description: '<span> Decreases the value by the <Code>step</Code> amount. </span>',
     },
     {
       keys: ['PageUp'],
-      description: (
-        <span>
-          Increases the value by a larger <Code>step</Code>.
-        </span>
-      ),
+      description: '<span> Increases the value by a larger <Code>step</Code>. </span>',
     },
     {
       keys: ['PageDown'],
-      description: (
-        <span>
-          Decreases the value by a larger <Code>step</Code>.
-        </span>
-      ),
+      description: '<span> Decreases the value by a larger <Code>step</Code>. </span>',
     },
     {
       keys: ['Shift + ArrowUp'],
-      description: (
-        <span>
-          Increases the value by a larger <Code>step</Code>.
-        </span>
-      ),
+      description: '<span> Increases the value by a larger <Code>step</Code>. </span>',
     },
     {
       keys: ['Shift + ArrowDown'],
-      description: (
-        <span>
-          Decreases the value by a larger <Code>step</Code>.
-        </span>
-      ),
+      description: '<span> Decreases the value by a larger <Code>step</Code>. </span>',
     },
     {
       keys: ['Home'],
@@ -509,9 +459,10 @@ Adheres to the [Slider WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/
       keys: ['End'],
       description: 'Sets the value to its maximum.',
     },
-  ]}
+  ]"
 />
-```
+
+<!--
 ## Custom APIs
 
 Create your own API by abstracting the primitive parts into your own component.
@@ -522,47 +473,42 @@ This example abstracts all of the `Slider` parts so it can be used as a self clo
 
 #### Usage
 
-```jsx
-import { Slider } from './your-slider';
-
-export default () => <Slider defaultValue={[25]} />;
+```vue
+import { Slider } from './your-slider'; export default () =>
+<Slider :defaultValue="[25]}" />
+;
 ```
 
 #### Implementation
 
-```jsx
-// your-slider.jsx
-import * as SliderPrimitive from 'radix-vue';
-
-export const Slider = React.forwardRef((props, forwardedRef) => {
-  const value = props.value || props.defaultValue;
-
-  return (
-    <SliderPrimitive.Slider {...props} ref={forwardedRef}>
-      <SliderPrimitive.Track>
-        <SliderPrimitive.Range />
+```vue
+// your-slider.vue import * as SliderPrimitive from 'radix-vue'; export const
+Slider = React.forwardRef((props, forwardedRef) => { const value = props.value
+|| props.defaultValue; return (
+<SliderPrimitive.Slider {...props} ref="{forwardedRef}">
+      <SliderPrimitive.Track> <SliderPrimitive.Range />
       </SliderPrimitive.Track>
-      {value.map((_, i) => (
-        <SliderThumb key={i} />
-      ))}
+      {value.map((_, i) => '<SliderThumb key={i} />')}
     </SliderPrimitive.Slider>
-  );
-});
+  </template> });
 ```
 
 ## Caveats
 
 ### Mouse events are not fired
 
-Because of [a limitation](https://github.com/radix-ui/primitives/blob/83a8c13bf66f3d9f17d77caeb187a69eb146930b/packages/react/slider/src/Slider.tsx#L383-L384) we faced during implementation, the following example won't work as expected and the `onMouseDown` and `onMouseUp` event handlers won't be fired:
+Because of [a limitation](https://github.com/radix-ui/primitives/blob/83a8c13bf66f3d9f17d77caeb187a69eb146930b/packages/react/slider/src/Slidertsx#L383-L384) we faced during implementation, the following example won't work as expected and the `onMouseDown` and `onMouseUp` event handlers won't be fired:
 
-```jsx
-<Slider.Root
+```vue
+<SliderRoot
   onMouseDown={() => console.log('onMouseDown')}
   onMouseUp={() => console.log('onMouseUp')}
 >
   …
-</Slider.Root>
+</SliderRoot>
 ```
 
 We recommend using pointer events instead (eg. `onPointerDown`, `onPointerUp`). Regardless of the above limitation, these events are better suited for cross-platform/device handling as they are fired for all pointer input types (mouse, touch, pen, etc.).
+-->
+
+Ï

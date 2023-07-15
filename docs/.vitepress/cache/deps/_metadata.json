@@ -1,29 +1,29 @@
 {
-  "hash": "57c22001",
-  "browserHash": "819958bd",
+  "hash": "c40c8001",
+  "browserHash": "54c2c5dc",
   "optimized": {
     "vue": {
       "src": "../../../node_modules/.pnpm/vue@3.3.4/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "3ddb09e5",
+      "fileHash": "45f443fc",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../node_modules/.pnpm/@vue+devtools-api@6.5.0/node_modules/@vue/devtools-api/lib/esm/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "828517f4",
+      "fileHash": "5c0bee0d",
       "needsInterop": false
     },
     "radix-vue": {
-      "src": "../../../node_modules/.pnpm/radix-vue@0.0.1-rc-.9_vue@3.3.4/node_modules/radix-vue/dist/index.js",
+      "src": "../../../node_modules/.pnpm/radix-vue@0.1.1_vue@3.3.4/node_modules/radix-vue/dist/index.js",
       "file": "radix-vue.js",
-      "fileHash": "9dbcdef4",
+      "fileHash": "c2efbb49",
       "needsInterop": false
     },
     "@iconify/vue": {
       "src": "../../../node_modules/.pnpm/@iconify+vue@4.1.1_vue@3.3.4/node_modules/@iconify/vue/dist/iconify.mjs",
       "file": "@iconify_vue.js",
-      "fileHash": "4f514bee",
+      "fileHash": "9909a44f",
       "needsInterop": false
     }
   },

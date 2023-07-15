@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from 'radix-vue'
 import { ref } from 'vue'
+import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from '../../../../../packages/radix-vue/src'
 
 const radioStateSingle = ref('default')
 </script>
 
 <template>
-  <div class="absolute left-4 top-3 text-sm">
+  <div class="absolute text-sm left-4 top-3">
     <p>Single: {{ radioStateSingle }}</p>
   </div>
   <RadioGroupRoot
-    v-model="radioStateSingle" class="flex flex-col gap-2.5" default-value="default"
+    v-model="radioStateSingle"
+    :loop="false" class="flex flex-col gap-2.5" default-value="default"
     aria-label="View density"
   >
     <div class="flex items-center">
@@ -29,7 +30,8 @@ const radioStateSingle = ref('default')
     <div class="flex items-center">
       <RadioGroupItem
         id="r2"
-        class="bg-white w-[25px] h-[25px] rounded-full shadow-[0_2px_10px] shadow-blackA7 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black outline-none cursor-default" value="comfortable"
+        disabled
+        class="bg-white w-[25px] h-[25px] rounded-full shadow-[0_2px_10px] shadow-blackA7 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black outline-none cursor-default data-[disabled]:bg-red-500" value="comfortable"
       >
         <RadioGroupIndicator
           class="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-violet11"
@@ -42,11 +44,14 @@ const radioStateSingle = ref('default')
     <div class="flex items-center">
       <RadioGroupItem
         id="r3"
+        as-child
         class="bg-white w-[25px] h-[25px] rounded-full shadow-[0_2px_10px] shadow-blackA7 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black outline-none cursor-default" value="compact"
       >
-        <RadioGroupIndicator
-          class="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-violet11"
-        />
+        <button>
+          <RadioGroupIndicator
+            class="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-violet11"
+          />
+        </button>
       </RadioGroupItem>
       <label class="text-white text-[15px] leading-none pl-[15px]" for="r3">
         Compact

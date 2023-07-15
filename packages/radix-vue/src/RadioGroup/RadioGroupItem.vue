@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
 import { computed, inject, provide, readonly } from "vue";
-import { useArrowNavigation } from "../shared";
+import { useArrowNavigation } from "@/shared";
 import {
   RADIO_GROUP_INJECTION_KEY,
   RADIO_ITEM_INJECTION_KEY,
@@ -41,16 +41,15 @@ function changeOption(value: string) {
   injectedValue?.changeModelValue(value);
 }
 
-const { primitiveElement, currentElement: currentRadioElement } =
-  usePrimitiveElement();
+const { primitiveElement, currentElement } = usePrimitiveElement();
 
 function handleKeydown(e: KeyboardEvent) {
   if (disabled.value) return;
 
   const newSelectedElement = useArrowNavigation(
     e,
-    currentRadioElement.value!,
-    injectedValue?.parentElement.value!,
+    currentElement.value!,
+    injectedValue?.parentElement.value,
     {
       arrowKeyOptions: injectedValue?.orientation.value,
       loop: injectedValue?.loop.value,
@@ -58,11 +57,9 @@ function handleKeydown(e: KeyboardEvent) {
   );
 
   if (newSelectedElement) {
-    newSelectedElement.focus();
-    changeOption(
-      newSelectedElement?.getAttribute("data-radix-vue-radio-value")!
-    );
+    changeOption(newSelectedElement?.getAttribute("value")!);
     injectedValue!.currentFocusedElement!.value = newSelectedElement;
+    newSelectedElement.focus();
   }
 }
 
@@ -70,8 +67,7 @@ const getTabIndex = computed(() => {
   if (!injectedValue?.currentFocusedElement?.value) {
     return checked.value ? "0" : "-1";
   } else
-    return injectedValue?.currentFocusedElement?.value ===
-      currentRadioElement.value
+    return injectedValue?.currentFocusedElement?.value === currentElement.value
       ? "0"
       : "-1";
 });
@@ -81,18 +77,37 @@ const getTabIndex = computed(() => {
   <PrimitiveButton
     type="button"
     ref="primitiveElement"
+    role="radio"
     data-radix-vue-collection-item
+    v-bind="$attrs"
     :asChild="props.asChild"
+    :disabled="disabled ? true : undefined"
     :data-state="checked ? 'checked' : 'unchecked'"
-    :required="required"
-    :disabled="disabled"
     :data-disabled="disabled ? '' : undefined"
     :tabindex="getTabIndex"
-    :data-radix-vue-radio-value="props.value"
+    :value="props.value"
     :name="injectedValue?.name"
     @click="changeOption(props.value!)"
     @keydown="handleKeydown"
   >
     <slot />
   </PrimitiveButton>
+  <input
+    type="radio"
+    aria-hidden="true"
+    tabindex="-1"
+    :value="props.value"
+    :required="required"
+    :disabled="disabled"
+    style="
+      transform: translateX(-100%);
+      position: absolute;
+      pointer-events: none;
+      opacity: 0;
+      margin: 0px;
+      width: 25px;
+      height: 25px;
+    "
+    :checked="checked"
+  />
 </template>

@@ -84,7 +84,6 @@ provide<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY, {
     :asChild="props.asChild"
     ref="primitiveElement"
     role="radiogroup"
-    aria-label="radiogroup"
     :data-disabled="props.disabled ? '' : undefined"
     :required="props.required"
     :aria-required="props.required"

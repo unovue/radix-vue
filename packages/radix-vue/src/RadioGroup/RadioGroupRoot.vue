@@ -48,6 +48,7 @@ const props = withDefaults(defineProps<RadioGroupRootProps>(), {
   disabled: false,
   required: false,
   orientation: undefined,
+  dir: "ltr",
   loop: true,
 });
 
@@ -87,6 +88,7 @@ provide<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY, {
     :data-disabled="props.disabled ? '' : undefined"
     :required="props.required"
     :aria-required="props.required"
+    :dir="props.dir"
     :name="props.name"
   >
     <slot />

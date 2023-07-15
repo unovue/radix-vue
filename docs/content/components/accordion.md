@@ -60,7 +60,7 @@ associated section of content.
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-accordion
+npm install radix-vue/react-accordion
 ```
 
 ## Anatomy
@@ -88,7 +88,7 @@ import { AccordionRoot, AccordionItem, AccordionHeader, AccordionTrigger, Accord
 
 ### Root
 
-Contains all the parts of an accordion.
+Contains all the parts of an Accordion
 <!---->
 <PropsTable :data="[{
       name: 'asChild',
@@ -105,51 +105,23 @@ Contains all the parts of an accordion.
       description: 'Determines whether one or multiple items can be opened at the same time.',
     },
     {
-      name: 'value',
-      required: false,
-      type: 'string',
-      description: 'The controlled value of the item to expand when',
-    },
-    {
       name: 'defaultValue',
       required: false,
-      type: 'string',
-      description: 'The value of the item to expand when initially rendered and',
-    },
-    {
-      name: 'onValueChange',
-      required: false,
-      type: '(value: string) => void',
-      typeSimple: 'function',
-      description: 'Event handler called when the expanded state of an item changes and',
+      type: 'string | string[]',
+      description: 'The value of the item to expand when initially rendered. Use when you do not need to control the state of the items.',
     },
     {
       name: 'value',
       required: false,
-      default: '[]',
-      type: 'string[]',
-      description: 'The controlled value of the item to expand when',
-    },
-    {
-      name: 'defaultValue',
-      required: false,
-      default: '[]',
-      type: 'string[]',
-      description: 'The value of the item to expand when initially rendered when',
-    },
-    {
-      name: 'onValueChange',
-      required: false,
-      type: '(value: string[]) => void',
-      typeSimple: 'function',
-      description: 'Event handler called when the expanded state of an item changes and',
+      type: 'string | string[]',
+      description: 'The controlled value of the item to expand. Must be binded with v-model.',
     },
     {
       name: 'collapsible',
       required: false,
       default: 'false',
       type: 'boolean',
-      description: 'allows closing content when clicking trigger for an open item.',
+      description: 'When <code>type</code> is <code>&quot;single&quot;</code>, allows closing content when clicking trigger for an open item.',
     },
     {
       name: 'disabled',
@@ -172,7 +144,7 @@ Contains all the parts of an accordion.
       type: '&quot;horizontal&quot; | &quot;vertical&quot;',
       typeSimple: 'enum',
       default: '&quot;vertical&quot;',
-      description: 'The orientation of the accordion.',
+      description: 'The orientation of the Accordion',
     }]" />
 
 
@@ -223,7 +195,7 @@ Contains all the parts of a collapsible section.
 
 ### Header
 
-Wraps an `Accordion.Trigger`. Use the `asChild` prop to update it to the appropriate heading level for your page.
+Wraps an `AccordionTrigger`. Use the `asChild` prop to update it to the appropriate heading level for your page.
 
 <PropsTable :data="[{
       name: 'asChild',
@@ -249,7 +221,7 @@ Wraps an `Accordion.Trigger`. Use the `asChild` prop to update it to the appropr
 
 ### Trigger
 
-Toggles the collapsed state of its associated item. It should be nested inside of an `Accordion.Header`.
+Toggles the collapsed state of its associated item. It should be nested inside of an `AccordionHeader`.
 
 <PropsTable :data="[{
       name: 'asChild',
@@ -283,11 +255,6 @@ Contains the collapsible content for an item.
       type: 'boolean',
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.',
-    },
-    {
-      name: 'forceMount',
-      type: 'boolean',
-      description: 'Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries.',
     }]" />
 
 <DataAttributesTable :data="[
@@ -321,58 +288,66 @@ Contains the collapsible content for an item.
 
 Use the `defaultValue` prop to define the open item by default.
 
-```jsx line=1
-<Accordion.Root type="single" __defaultValue__="item-2">
-  <Accordion.Item value="item-1">…</Accordion.Item>
-  <Accordion.Item value="item-2">…</Accordion.Item>
-</Accordion.Root>
+```vue line=2
+<template>
+  <AccordionRoot type="single" defaultValue="item-2">
+    <AccordionItem value="item-1">…</AccordionItem>
+    <AccordionItem value="item-2">…</AccordionItem>
+  </AccordionRoot>
+</template>
 ```
 
 ### Allow collapsing all items
 
 Use the `collapsible` prop to allow all items to close.
 
-```jsx line=1
-<Accordion.Root type="single" __collapsible__>
-  <Accordion.Item value="item-1">…</Accordion.Item>
-  <Accordion.Item value="item-2">…</Accordion.Item>
-</Accordion.Root>
+```vue line=2
+<template>
+  <AccordionRoot type="single" collapsible>
+    <AccordionItem value="item-1">…</AccordionItem>
+    <AccordionItem value="item-2">…</AccordionItem>
+  </AccordionRoot>
+</template>
 ```
 
 ### Multiple items open at the same time
 
 Set the `type` prop to `multiple` to enable opening multiple items at once.
 
-```jsx line=1
-<Accordion.Root type="__multiple__">
-  <Accordion.Item value="item-1">…</Accordion.Item>
-  <Accordion.Item value="item-2">…</Accordion.Item>
-</Accordion.Root>
+```vue line=2
+<template>
+  <AccordionRoot type="multiple">
+    <AccordionItem value="item-1">…</AccordionItem>
+    <AccordionItem value="item-2">…</AccordionItem>
+  </AccordionRoot>
+</template>
 ```
 
 ### Rotated icon when open
 
 You can add extra decorative elements, such as chevrons, and rotate it when the item is open.
 
-```jsx line=12
-// index.jsx
-import * as Accordion from '@radix-ui/react-accordion';
+```vue line=14
+// index.vue
+<script setup>
+import { AccordionRoot, AccordionItem, AccordionHeader, AccordionTrigger, AccordionContent } from 'radix-vue';
 import { ChevronDownIcon } from '@radix-ui/react-icons';
 import './styles.css';
+</script>
 
-export default () => (
-  <Accordion.Root type="single">
-    <Accordion.Item value="item-1">
-      <Accordion.Header>
-        <Accordion.Trigger className="AccordionTrigger">
+<template>
+  <AccordionRoot type="single">
+    <AccordionItem value="item-1">
+      <AccordionHeader>
+        <AccordionTrigger class="AccordionTrigger">
           <span>Trigger text</span>
-          <ChevronDownIcon __className__="AccordionChevron" aria-hidden />
-        </Accordion.Trigger>
-      </Accordion.Header>
-      <Accordion.Content>…</Accordion.Content>
-    </Accordion.Item>
-  </Accordion.Root>
-);
+          <ChevronDownIcon class="AccordionChevron" aria-hidden />
+        </AccordionTrigger>
+      </AccordionHeader>
+      <AccordionContent>…</AccordionContent>
+    </AccordionItem>
+  </AccordionRoot>
+</template>
 ```
 
 ```css line=5-7
@@ -387,32 +362,36 @@ export default () => (
 
 ### Horizontal orientation
 
-Use the `orientation` prop to create a horizontal accordion.
+Use the `orientation` prop to create a horizontal Accordion
 
-```jsx line=1
-<Accordion.Root __orientation__="horizontal">
-  <Accordion.Item value="item-1">…</Accordion.Item>
-  <Accordion.Item value="item-2">…</Accordion.Item>
-</Accordion.Root>
+```vue line=2
+<template>
+  <AccordionRoot orientation="horizontal">
+    <AccordionItem value="item-1">…</AccordionItem>
+    <AccordionItem value="item-2">…</AccordionItem>
+  </AccordionRoot>
+</template>
 ```
 
 ### Animating content size
 
 Use the `--radix-accordion-content-width` and/or `--radix-accordion-content-height` CSS variables to animate the size of the content when it opens/closes:
 
-```jsx line=9
-// index.jsx
-import * as Accordion from '@radix-ui/react-accordion';
+```vue line=11
+// index.vue
+<script setup>
+import { AccordionRoot, AccordionItem, AccordionHeader, AccordionTrigger, AccordionContent } from 'radix-vue';
 import './styles.css';
+</script>
 
-export default () => (
-  <Accordion.Root type="single">
-    <Accordion.Item value="item-1">
-      <Accordion.Header>…</Accordion.Header>
-      <Accordion.Content __className__="AccordionContent">…</Accordion.Content>
-    </Accordion.Item>
-  </Accordion.Root>
-);
+<template>
+  <AccordionRoot type="single">
+    <AccordionItem value="item-1">
+      <AccordionHeader>…</AccordionHeader>
+      <AccordionContent class="AccordionContent">…</AccordionContent>
+    </AccordionItem>
+  </AccordionRoot>
+</template>
 ```
 
 ```css line=21,27
@@ -432,13 +411,13 @@ export default () => (
     height: 0;
   }
   to {
-    height: var(__--radix-accordion-content-height__);
+    height: var(--radix-accordion-content-height);
   }
 }
 
 @keyframes slideUp {
   from {
-    height: var(__--radix-accordion-content-height__);
+    height: var(--radix-accordion-content-height);
   }
   to {
     height: 0;

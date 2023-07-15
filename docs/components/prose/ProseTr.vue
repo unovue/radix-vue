@@ -1,5 +1,5 @@
 <template>
-  <tr class=" h-12 min-h-12 rounded-md overflow-hidden bg-transparent">
+  <tr class="rounded-md overflow-hidden bg-transparent">
     <slot />
   </tr>
 </template>

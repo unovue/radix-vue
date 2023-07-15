@@ -1,5 +1,5 @@
 <template>
-  <th class="pb-1 [&:not(:first-child)]:pl-4 text-left">
+  <th class="h-10 pb-1 [&:not(:first-child)]:pl-4 text-left">
     <slot />
   </th>
 </template>

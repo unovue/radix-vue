@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { CheckboxRoot, CheckboxIndicator } from "radix-vue";
 import { Icon } from "@iconify/vue";
 
-const checkboxOne = ref(false);
+const checkboxOne = ref(true);
 </script>
 
 <template>

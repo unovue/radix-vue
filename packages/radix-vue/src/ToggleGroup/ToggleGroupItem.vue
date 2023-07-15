@@ -7,7 +7,7 @@ interface ToggleGroupItemProps {
 </script>
 
 <script setup lang="ts">
-import { inject, computed } from "vue";
+import { inject, computed, onMounted } from "vue";
 import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
 import {
   TOGGLE_GROUP_INJECTION_KEY,
@@ -23,8 +23,11 @@ const props = withDefaults(defineProps<ToggleGroupItemProps>(), {
   asChild: false,
 });
 
-const { primitiveElement, currentElement: currentToggleElement } =
-  usePrimitiveElement();
+const { primitiveElement, currentElement } = usePrimitiveElement();
+
+onMounted(()=>{
+  injectedValue?.itemsArray.value?.push(currentElement.value!)
+})
 
 const state = computed(() => {
   if (injectedValue?.type === "multiple") {
@@ -37,25 +40,48 @@ const state = computed(() => {
 });
 
 function handleKeydown(e: KeyboardEvent) {
+  if (e.key === "ArrowLeft" || e.key === "ArrowRight" || e.key === "ArrowUp" || e.key === "ArrowDown") {
+    e.preventDefault();
+  }
   const newSelectedElement = useArrowNavigation(
     e,
-    currentToggleElement.value!,
-    injectedValue?.parentElement.value!
+    currentElement.value!,
+    injectedValue?.parentElement.value!,
+    { loop: injectedValue?.loop }
   );
-  newSelectedElement?.focus();
+
+  if (newSelectedElement) {
+    newSelectedElement.focus();
+    injectedValue!.currentFocusedElement!.value = newSelectedElement;
+  }
 }
+
+const getTabIndex = computed(() => {
+  if (!injectedValue?.currentFocusedElement?.value) {
+    return injectedValue?.modelValue?.value === props.value ? "0" : "-1";
+  } else
+    return injectedValue?.currentFocusedElement?.value === currentElement.value
+      ? "0"
+      : "-1";
+});
+
+const getRole = computed(() => {
+  return injectedValue?.type === "multiple" ? 'checkbox' : 'radio'
+})
 </script>
 
 <template>
   <PrimitiveButton
+    ref="primitiveElement"
     type="button"
+    :role="getRole"
     :data-state="state"
     :data-disabled="props.disabled"
     :data-orientation="injectedValue?.orientation"
     @click="injectedValue?.changeModelValue(props.value!)"
-    ref="primitiveElement"
     @keydown="handleKeydown"
     data-radix-vue-collection-item
+    :tabindex="getTabIndex"
   >
     <slot />
   </PrimitiveButton>

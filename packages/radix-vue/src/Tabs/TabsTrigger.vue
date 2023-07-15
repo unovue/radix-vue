@@ -26,22 +26,14 @@ function changeTab(value: string) {
 }
 
 function handleKeydown(e: KeyboardEvent) {
-  if (
-    injectedValue?.orientation === "horizontal" &&
-    (e.key === "ArrowLeft" || e.key === "ArrowRight")
-  ) {
-    e.preventDefault();
-  } else if (
-    injectedValue?.orientation === "vertical" &&
-    (e.key === "ArrowUp" || e.key === "ArrowDown")
-  ) {
-    e.preventDefault();
-  }
   const newSelectedElement = useArrowNavigation(
     e,
     currentElement.value!,
     injectedValue?.parentElement.value!,
-    { arrowKeyOptions: injectedValue?.orientation, loop: injectedValue?.loop }
+    {
+      arrowKeyOptions: injectedValue?.orientation,
+      loop: injectedValue?.loop,
+    }
   );
 
   if (newSelectedElement) {

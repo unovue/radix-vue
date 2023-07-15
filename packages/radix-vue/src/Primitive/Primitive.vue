@@ -3,12 +3,11 @@ import {
   defineComponent,
   h,
   getCurrentInstance,
-  Fragment,
   type NativeElements,
   type ReservedProps,
-  type VNode,
 } from "vue";
 import Slot from "./Slot.vue";
+import { renderSlotFragments } from "@/shared";
 
 const NODES = [
   "a",
@@ -35,16 +34,6 @@ type Primitives = {
       asChild?: boolean;
     };
 };
-
-export function renderSlotFragments(children?: VNode[]): VNode[] {
-  if (!children) return [];
-  return children.flatMap((child) => {
-    if (child.type === Fragment) {
-      return renderSlotFragments(child.children as VNode[]);
-    }
-    return [child];
-  });
-}
 
 const Primitive = NODES.reduce((primitive, node) => {
   const Node = defineComponent({

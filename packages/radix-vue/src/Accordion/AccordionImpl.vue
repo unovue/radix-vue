@@ -1,8 +1,9 @@
 <script lang="ts">
 import type { InjectionKey, Ref } from "vue";
 export type Direction = "ltr" | "rtl";
+import { type PrimitiveProps } from "@/Primitive";
 
-export interface AccordionImplProps {
+export interface AccordionImplProps extends PrimitiveProps {
   /**
    * Whether or not an accordion is disabled from user interaction.
    *

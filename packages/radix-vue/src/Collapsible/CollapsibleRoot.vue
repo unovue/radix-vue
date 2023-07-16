@@ -1,9 +1,9 @@
 <script lang="ts">
 import type { InjectionKey, Ref } from "vue";
+import { type PrimitiveProps } from "@/Primitive";
 import { useId } from "@/shared";
 
-export interface CollapsibleRootProps {
-  asChild?: boolean;
+export interface CollapsibleRootProps extends PrimitiveProps {
   defaultOpen?: boolean;
   open?: boolean;
   disabled?: boolean;
@@ -26,7 +26,6 @@ import { PrimitiveDiv } from "@/Primitive";
 import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<CollapsibleRootProps>(), {
-  asChild: false,
   open: undefined,
   defaultOpen: false,
 });
@@ -54,7 +53,7 @@ provide<CollapsibleProvideValue>(COLLAPSIBLE_INJECTION_KEY, {
 
 <template>
   <PrimitiveDiv
-    :asChild="props.asChild"
+    :as-child="props.asChild"
     :data-state="props.open ? 'open' : 'closed'"
     :data-disabled="props.disabled ? '' : undefined"
   >

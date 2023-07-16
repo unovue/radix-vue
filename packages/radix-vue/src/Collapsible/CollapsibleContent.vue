@@ -1,7 +1,7 @@
 <script lang="ts">
-export interface CollapsibleContentProps {
-  asChild?: boolean;
-}
+import { type PrimitiveProps } from "@/Primitive";
+
+export interface CollapsibleContentProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
@@ -67,9 +67,7 @@ defineOptions({
   inheritAttrs: false,
 });
 
-const props = withDefaults(defineProps<CollapsibleContentProps>(), {
-  asChild: false,
-});
+const props = defineProps<CollapsibleContentProps>();
 </script>
 
 <template>
@@ -77,7 +75,7 @@ const props = withDefaults(defineProps<CollapsibleContentProps>(), {
     <PrimitiveDiv
       ref="primitiveElement"
       v-bind="$attrs"
-      :asChild="props.asChild"
+      :as-child="props.asChild"
       :data-state="injectedValue?.open.value ? 'open' : 'closed'"
       :data-disabled="injectedValue?.disabled?.value ? 'true' : undefined"
       :id="injectedValue?.contentId"

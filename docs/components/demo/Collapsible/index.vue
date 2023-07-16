@@ -21,12 +21,12 @@ const open = ref(false);
     </div>
 
     <div class="bg-white rounded my-[10px] p-[10px] shadow-[0_2px_10px] shadow-blackA7">
-      <span class="text-grass11 text-[15px] leading-[25px]">radix-vue/radix-vue</span>
+      <span class="text-grass11 text-[15px] leading-[25px]">@radix-vue/radix-vue</span>
     </div>
 
     <CollapsibleContent>
       <div class="bg-white rounded my-[10px] p-[10px] shadow-[0_2px_10px] shadow-blackA7">
-        <span class="text-grass11 text-[15px] leading-[25px]">vuejs/core</span>
+        <span class="text-grass11 text-[15px] leading-[25px]">@vuejs/core</span>
       </div>
       <div class="bg-white rounded my-[10px] p-[10px] shadow-[0_2px_10px] shadow-blackA7">
         <span class="text-grass11 text-[15px] leading-[25px]">@radix-ui/primitives</span>

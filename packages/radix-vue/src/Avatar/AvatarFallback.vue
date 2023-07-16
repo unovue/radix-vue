@@ -1,6 +1,7 @@
 <script lang="ts">
-export interface AvatarFallbackProps {
-  asChild?: boolean;
+import { type PrimitiveProps } from "@/Primitive";
+
+export interface AvatarFallbackProps extends PrimitiveProps {
   delayMs?: number;
 }
 </script>
@@ -16,7 +17,6 @@ import { PrimitiveSpan } from "../Primitive";
 const injectedValue = inject<AvatarProvideValue>(AVATAR_INJECTION_KEY);
 
 const props = withDefaults(defineProps<AvatarFallbackProps>(), {
-  asChild: false,
   delayMs: 0,
 });
 
@@ -35,8 +35,8 @@ if (props.delayMs) {
 
 <template>
   <PrimitiveSpan
-    :asChild="props.asChild"
     v-if="canRender && injectedValue?.imageLoadingStatus.value !== 'loaded'"
+    :as-child="props.asChild"
   >
     <slot />
   </PrimitiveSpan>

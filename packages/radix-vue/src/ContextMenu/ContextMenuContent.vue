@@ -16,7 +16,7 @@ export interface ContextMenuContentProps extends PopperContentProps {
 </script>
 
 <script setup lang="ts">
-import { inject, watchEffect, nextTick } from "vue";
+import { inject, watchEffect } from "vue";
 import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 
 import { CONTEXT_MENU_INJECTION_KEY } from "./ContextMenuRoot.vue";

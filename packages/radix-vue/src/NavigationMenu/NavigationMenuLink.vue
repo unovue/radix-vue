@@ -6,7 +6,7 @@ export interface NavigationMenuLinkProps {
 
 <script setup lang="ts">
 import { PrimitiveA } from "@/Primitive";
-const LINK_SELECT = "navigationMenu.linkSelect";
+// const LINK_SELECT = "navigationMenu.linkSelect";
 
 defineProps<NavigationMenuLinkProps>();
 

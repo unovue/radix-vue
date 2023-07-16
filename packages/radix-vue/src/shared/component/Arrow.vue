@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { SVGAttributes } from "vue";
 
-export interface ArrowProps {
+export interface ArrowProps extends SVGAttributes {
   width?: number;
   height?: number;
 }

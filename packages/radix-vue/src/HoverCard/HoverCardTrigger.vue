@@ -18,7 +18,7 @@ import { useHoverDelay, useMouseleaveDelay } from "../shared";
 const injectedValue = inject<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY);
 const props = withDefaults(defineProps<HoverCardTriggerProps>(), {
   asChild: false,
-})
+});
 
 const { primitiveElement, currentElement: triggerElement } =
   usePrimitiveElement();

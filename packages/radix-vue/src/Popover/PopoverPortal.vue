@@ -1,21 +1,14 @@
-<script lang="ts">
+<script setup lang="ts">
 import BasePortal from "../shared/component/BasePortal.vue";
 import type { BasePortalProps } from "../shared/component/BasePortal.vue";
 
-export interface HoverCardPortalProps {
-  forceMount?: boolean;
-  container?: HTMLElement | string;
-}
-</script>
+export interface PopoverPortalProps extends BasePortalProps {}
 
-<script setup lang="ts">
-const props = withDefaults(defineProps<BasePortalProps>(), {
-  to: "body",
-});
+const props = defineProps<PopoverPortalProps>();
 </script>
 
 <template>
-  <BasePortal :to="props.to">
+  <BasePortal v-bind="props">
     <slot />
   </BasePortal>
 </template>

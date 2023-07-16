@@ -48,3 +48,22 @@ jobs:
 
     - name: Lint
       run: cd packages/radix-vue && npm run lint
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16
+
+    - name: Install dependencies
+      run: cd packages/radix-vue && npm install
+
+    - name: Test
+      run: cd packages/radix-vue && npm run test

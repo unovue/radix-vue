@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, onUnmounted, ref } from "vue";
+import { inject, onMounted, onUnmounted, ref } from "vue";
 import {
   type ScrollAreaProvideValue,
   SCROLL_AREA_INJECTION_KEY,
 } from "./ScrollAreaRoot.vue";
-
 import {
   type ScrollAreaScrollbarVisibleProvideValue,
   SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY,
 } from "./ScrollAreaScrollbarVisible.vue";
+import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 import { toInt } from "./utils";
 import { useResizeObserver } from "@vueuse/core";
 
@@ -30,8 +30,8 @@ const emit = defineEmits<{
   (e: "onThumbPointerDown", payload: { x: number; y: number }): void;
 }>();
 
+const { primitiveElement, currentElement: scrollbar } = usePrimitiveElement();
 const prevWebkitUserSelectRef = ref("");
-const scrollbar = ref<HTMLElement>();
 const rectRef = ref<DOMRect>();
 
 function handleDragScroll(event: MouseEvent) {
@@ -121,33 +121,16 @@ const handleSizeChange = () => {
 
 useResizeObserver(scrollbar, handleSizeChange);
 useResizeObserver(injectedValueFromRoot?.content, handleSizeChange);
-
-const isScrollbarNeeded = computed(() => {
-  if (props.isHorizontal) {
-    return (
-      injectedValueFromRoot?.viewport.value?.scrollWidth !==
-      injectedValueFromRoot?.viewport.value?.offsetWidth
-    );
-  } else {
-    return (
-      injectedValueFromRoot?.viewport.value?.scrollHeight !==
-      injectedValueFromRoot?.viewport.value?.offsetHeight
-    );
-  }
-});
 </script>
 
 <template>
-  <div
-    v-if="isScrollbarNeeded"
-    ref="scrollbar"
+  <PrimitiveDiv
+    ref="primitiveElement"
     style="position: absolute"
     @pointerdown="handlePointerDown"
     @pointermove="handlePointerMove"
     @pointerup="handlePointerUp"
   >
-    <template v-if="isScrollbarNeeded">
-      <slot></slot>
-    </template>
-  </div>
+    <slot></slot>
+  </PrimitiveDiv>
 </template>

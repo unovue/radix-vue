@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, onMounted, onUnmounted } from "vue";
+import { inject, onMounted, onUnmounted, ref } from "vue";
 import {
   type ScrollAreaProvideValue,
   SCROLL_AREA_INJECTION_KEY,
@@ -8,7 +8,6 @@ import {
   type ScrollAreaScollbarProvideValue,
   SCROLL_AREA_SCROLLBAR_INJECTION_KEY,
 } from "./ScrollAreaScrollbar.vue";
-
 import ScrollAreaScrollbarAuto from "./ScrollAreaScrollbarAuto.vue";
 
 const injectedValue = inject<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY);
@@ -18,14 +17,16 @@ const injectedValueFromScrollbar = inject<ScrollAreaScollbarProvideValue>(
 );
 
 let timeout: ReturnType<typeof setTimeout> | undefined | number;
+const visible = ref(false);
 
 const handlePointerEnter = () => {
   window.clearTimeout(timeout);
-  injectedValueFromScrollbar!.visible.value = true;
+  visible.value = true;
+  console.log(injectedValueFromScrollbar);
 };
 const handlePointerLeave = () => {
   timeout = window.setTimeout(() => {
-    injectedValueFromScrollbar!.visible.value = false;
+    visible.value = false;
   }, injectedValue?.scrollHideDelay);
 };
 
@@ -56,10 +57,9 @@ export default {
 
 <template>
   <ScrollAreaScrollbarAuto
+    v-if="visible"
     v-bind="$attrs"
-    :data-state="
-      injectedValueFromScrollbar?.visible.value ? 'visible' : 'hidden'
-    "
+    :data-state="visible ? 'visible' : 'hidden'"
   >
     <slot></slot>
   </ScrollAreaScrollbarAuto>

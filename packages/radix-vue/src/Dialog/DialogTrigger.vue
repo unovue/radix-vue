@@ -11,13 +11,21 @@ import {
 } from "@/Primitive";
 
 export interface DialogTriggerProps extends PrimitiveProps {}
-const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 
+const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 const { primitiveElement, currentElement } = usePrimitiveElement();
+
+function showErrorInjectedValueNotExist() {
+  console.error(
+    "Injected value not found, DialogTrigger possibly not wrapped with DialogRoot. Component may not be working properly."
+  );
+}
 
 onMounted(() => {
   if (injectedValue) {
     injectedValue.triggerButton.value = currentElement.value;
+  } else {
+    showErrorInjectedValueNotExist();
   }
 });
 

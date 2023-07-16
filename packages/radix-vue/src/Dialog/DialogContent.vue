@@ -1,9 +1,17 @@
 <script lang="ts">
 export interface DialogContentProps extends PrimitiveProps {
-  asChild?: boolean;
-  //onOpenAutoFocus?: void;
-  //onCloseAutoFocus?: void;
-  //onEscapeKeyDown?: void;
+  isOpenAutoFocus?: boolean;
+  isCloseAutoFocus?: boolean;
+  isEscapeKeyDownDefault?: boolean;
+  isPointerDownOutsideDefault?: boolean;
+  isDisableInteractOutside?: boolean;
+}
+
+export interface DialogContentEmit {
+  (e: "open"): void;
+  (e: "close"): void;
+  (e: "escapeKeyDown"): void;
+  (e: "pointerDownOutside"): void;
 }
 </script>
 
@@ -24,31 +32,58 @@ import { vOnClickOutside } from "@vueuse/components";
 const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 
 const props = withDefaults(defineProps<DialogContentProps>(), {
-  asChild: false,
+  isOpenAutoFocus: true,
+  isCloseAutoFocus: undefined,
+  isEscapeKeyDownDefault: true,
+  isPointerDownOutsideDefault: true,
+  isDisableInteractOutside: undefined,
 });
+
+const emit = defineEmits<DialogContentEmit>();
 
 const { primitiveElement, currentElement } = usePrimitiveElement();
 
-watchEffect(() => {
-  if (currentElement.value) {
-    if (injectedValue?.open.value) {
-      trapFocus(currentElement.value);
-      if (injectedValue?.modal) {
-        setBodyUninteractive();
-        window.addEventListener("wheel", lockScroll, { passive: false });
-        window.addEventListener("keydown", lockKeydown);
-      }
-      window.addEventListener("keydown", closeOnEscape);
-    } else {
-      setBodyInteractive();
-      window.removeEventListener("wheel", lockScroll);
-      window.removeEventListener("keydown", lockKeydown);
-      window.removeEventListener("keydown", closeOnEscape);
+const validDisableInteractOutside = () => {
+  return (
+    props.isDisableInteractOutside ||
+    (injectedValue!.modal && props.isDisableInteractOutside === undefined)
+  );
+};
 
-      if (injectedValue?.modal) {
-        injectedValue?.triggerButton.value?.focus();
-      }
+const validCloseAutoFocus = () => {
+  return (
+    props.isCloseAutoFocus ||
+    (injectedValue!.modal && props.isCloseAutoFocus === undefined)
+  );
+};
+watchEffect(() => {
+  if (!currentElement.value) {
+    return;
+  }
+  if (injectedValue?.open.value) {
+    if (props.isOpenAutoFocus) {
+      trapFocus(currentElement.value);
     }
+    if (validDisableInteractOutside()) {
+      setBodyUninteractive();
+    }
+    if (injectedValue?.modal) {
+      window.addEventListener("wheel", lockScroll, { passive: false });
+      window.addEventListener("keydown", lockKeydown);
+    }
+    window.addEventListener("keydown", handleKeydown);
+    emit("open");
+  } else {
+    setBodyInteractive();
+    window.removeEventListener("wheel", lockScroll);
+    window.removeEventListener("keydown", lockKeydown);
+    window.removeEventListener("keydown", handleKeydown);
+
+    if (validCloseAutoFocus()) {
+      injectedValue?.triggerButton.value?.focus();
+    }
+
+    emit("close");
   }
 });
 
@@ -79,14 +114,22 @@ function setBodyInteractive() {
 }
 
 function handleOnClickOutside() {
-  injectedValue?.closeModal();
+  if (props.isPointerDownOutsideDefault) {
+    injectedValue?.closeModal();
+  }
+  emit("pointerDownOutside");
 }
 
-function closeOnEscape(e: KeyboardEvent) {
+function handleKeydown(e: KeyboardEvent) {
   if (e.key === "Escape") {
-    e.preventDefault();
-    injectedValue?.closeModal();
-    injectedValue?.triggerButton.value?.focus();
+    if (props.isEscapeKeyDownDefault) {
+      e.preventDefault();
+      injectedValue?.closeModal();
+      if (validCloseAutoFocus()) {
+        injectedValue?.triggerButton.value?.focus();
+      }
+    }
+    emit("escapeKeyDown");
   }
 }
 </script>

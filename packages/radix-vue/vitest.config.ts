@@ -17,7 +17,7 @@ export default defineConfig({
     exclude: ["**/node_modules/**"],
     include: ["./**/*.test.{ts,js}"],
     coverage: {
-      provider: 'istanbul' // or 'v8'
+      provider: "istanbul", // or 'v8'
     },
   },
 });

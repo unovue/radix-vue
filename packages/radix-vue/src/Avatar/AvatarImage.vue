@@ -25,5 +25,5 @@ function setImageLoad() {
 </script>
 
 <template>
-  <PrimitiveImg :asChild="asChild" @load="setImageLoad"/>
+  <PrimitiveImg :asChild="asChild" @load="setImageLoad" />
 </template>

@@ -3,15 +3,12 @@ export interface AlertDialogContentProps extends PrimitiveProps {
   isOpenAutoFocus?: boolean;
   isCloseAutoFocus?: boolean;
   isEscapeKeyDownDefault?: boolean;
-  isPointerDownOutsideDefault?: boolean;
-  isDisableInteractOutside?: boolean;
 }
 
 export interface AlertDialogContentEmit {
   (e: "open"): void;
   (e: "close"): void;
   (e: "escapeKeyDown"): void;
-  (e: "pointerDownOutside"): void;
 }
 </script>
 
@@ -37,26 +34,14 @@ const props = withDefaults(defineProps<AlertDialogContentProps>(), {
   isOpenAutoFocus: true,
   isCloseAutoFocus: undefined,
   isEscapeKeyDownDefault: true,
-  isPointerDownOutsideDefault: true,
-  isDisableInteractOutside: undefined,
 });
 
 const emit = defineEmits<AlertDialogContentEmit>();
 
 const { primitiveElement, currentElement } = usePrimitiveElement();
 
-const validDisableInteractOutside = () => {
-  return (
-    props.isDisableInteractOutside ||
-    (injectedValue!.modal && props.isDisableInteractOutside === undefined)
-  );
-};
-
 const validCloseAutoFocus = () => {
-  return (
-    props.isCloseAutoFocus ||
-    (injectedValue!.modal && props.isCloseAutoFocus === undefined)
-  );
+  return props.isCloseAutoFocus;
 };
 watchEffect(() => {
   if (!currentElement.value) {
@@ -66,13 +51,9 @@ watchEffect(() => {
     if (props.isOpenAutoFocus) {
       trapFocus(currentElement.value);
     }
-    if (validDisableInteractOutside()) {
-      setBodyUninteractive();
-    }
-    if (injectedValue?.modal) {
-      window.addEventListener("wheel", lockScroll, { passive: false });
-      window.addEventListener("keydown", lockKeydown);
-    }
+    setBodyUninteractive();
+    window.addEventListener("wheel", lockScroll, { passive: false });
+    window.addEventListener("keydown", lockKeydown);
     window.addEventListener("keydown", handleKeydown);
     emit("open");
   } else {
@@ -116,10 +97,7 @@ function setBodyInteractive() {
 }
 
 function handleOnClickOutside() {
-  if (props.isPointerDownOutsideDefault) {
-    injectedValue?.closeModal();
-  }
-  emit("pointerDownOutside");
+  injectedValue?.closeModal();
 }
 
 function handleKeydown(e: KeyboardEvent) {

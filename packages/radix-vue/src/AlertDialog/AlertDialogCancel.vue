@@ -1,34 +1,26 @@
-<script lang="ts">
-export interface AlertDialogCancelProps {
-  asChild?: boolean;
-}
-</script>
-
 <script setup lang="ts">
 import { inject } from "vue";
+import { PrimitiveButton, type PrimitiveProps } from "@/Primitive";
 import {
   ALERT_DIALOG_INJECTION_KEY,
   type AlertDialogProvideValue,
 } from "./AlertDialogRoot.vue";
-import { PrimitiveButton } from "../Primitive";
 
-const props = withDefaults(defineProps<AlertDialogCancelProps>(), {
-  asChild: false,
-});
+export interface AlertDialogCancelProps extends PrimitiveProps {}
+const props = defineProps<AlertDialogCancelProps>();
 
 const injectedValue = inject<AlertDialogProvideValue>(
   ALERT_DIALOG_INJECTION_KEY
 );
+
+function handleClick() {
+  injectedValue?.closeModal();
+  injectedValue?.triggerButton.value?.focus();
+}
 </script>
 
 <template>
-  <PrimitiveButton
-    :asChild="props.asChild"
-    type="button"
-    :aria-expanded="injectedValue?.open.value || false"
-    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
-    @click="injectedValue?.closeModal"
-  >
+  <PrimitiveButton v-bind="props" type="button" @click="handleClick">
     <slot />
   </PrimitiveButton>
 </template>

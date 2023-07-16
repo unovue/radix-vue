@@ -4,7 +4,6 @@ import type { Ref, InjectionKey } from "vue";
 export interface AlertDialogRootProps {
   open?: boolean;
   defaultOpen?: boolean;
-  modal?: boolean;
 }
 
 export const ALERT_DIALOG_INJECTION_KEY =
@@ -12,7 +11,6 @@ export const ALERT_DIALOG_INJECTION_KEY =
 
 export type AlertDialogProvideValue = {
   open: Readonly<Ref<boolean>>;
-  modal: boolean;
   openModal(): void;
   closeModal(): void;
   triggerButton: Ref<HTMLElement | undefined>;
@@ -26,7 +24,6 @@ import { useVModel } from "@vueuse/core";
 const props = withDefaults(defineProps<AlertDialogRootProps>(), {
   open: undefined,
   defaultOpen: false,
-  modal: true,
 });
 
 const emit = defineEmits<{
@@ -40,7 +37,6 @@ const open = useVModel(props, "open", emit, {
 
 provide<AlertDialogProvideValue>(ALERT_DIALOG_INJECTION_KEY, {
   open,
-  modal: props.modal,
   openModal: () => {
     open.value = true;
   },

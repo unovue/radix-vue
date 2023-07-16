@@ -7,8 +7,8 @@ export interface AlertDialogCancelProps {
 <script setup lang="ts">
 import { inject } from "vue";
 import {
-  DIALOG_INJECTION_KEY,
-  type DialogProvideValue,
+  ALERT_DIALOG_INJECTION_KEY,
+  type AlertDialogProvideValue,
 } from "./AlertDialogRoot.vue";
 import { PrimitiveButton } from "../Primitive";
 
@@ -16,7 +16,9 @@ const props = withDefaults(defineProps<AlertDialogCancelProps>(), {
   asChild: false,
 });
 
-const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
+const injectedValue = inject<AlertDialogProvideValue>(
+  ALERT_DIALOG_INJECTION_KEY
+);
 </script>
 
 <template>

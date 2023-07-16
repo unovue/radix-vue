@@ -7,11 +7,13 @@ export interface AlertDialogActionProps {
 <script setup lang="ts">
 import { inject } from "vue";
 import {
-  DIALOG_INJECTION_KEY,
-  type DialogProvideValue,
+  ALERT_DIALOG_INJECTION_KEY,
+  type AlertDialogProvideValue,
 } from "./AlertDialogRoot.vue";
 
-const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
+const injectedValue = inject<AlertDialogProvideValue>(
+  ALERT_DIALOG_INJECTION_KEY
+);
 </script>
 
 <template>

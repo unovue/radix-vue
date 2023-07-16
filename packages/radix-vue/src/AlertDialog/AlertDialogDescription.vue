@@ -1,19 +1,10 @@
-<script lang="ts">
-export interface AlertDialogDescriptionProps {
-  asChild?: boolean;
-}
-</script>
-
 <script setup lang="ts">
-import { PrimitiveP } from "../Primitive";
+import { PrimitiveP, type PrimitiveProps } from "@/Primitive";
 
-const props = withDefaults(defineProps<AlertDialogDescriptionProps>(), {
-  asChild: false,
-});
+export interface AlertDialogDescriptionProps extends PrimitiveProps {}
+const props = defineProps<AlertDialogDescriptionProps>();
 </script>
 
 <template>
-  <PrimitiveP :asChild="props.asChild">
-    <slot />
-  </PrimitiveP>
+  <PrimitiveP v-bind="props"><slot /></PrimitiveP>
 </template>

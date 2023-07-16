@@ -1,7 +1,7 @@
 <script lang="ts">
-export interface AlertDialogTriggerProps {
-  asChild?: boolean;
-}
+import { type PrimitiveProps } from "@/Primitive";
+
+export interface AlertDialogTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
@@ -14,9 +14,7 @@ import { PrimitiveButton, usePrimitiveElement } from "../Primitive";
 
 const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 
-const props = withDefaults(defineProps<AlertDialogTriggerProps>(), {
-  asChild: false,
-});
+const props = defineProps<AlertDialogTriggerProps>();
 
 const { primitiveElement, currentElement: triggerElement } =
   usePrimitiveElement();
@@ -30,7 +28,7 @@ onMounted(() => {
 
 <template>
   <PrimitiveButton
-    :asChild="props.asChild"
+    :as-child="props.asChild"
     type="button"
     ref="primitiveElement"
     :aria-expanded="injectedValue?.open.value || false"

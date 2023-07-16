@@ -1,6 +1,7 @@
 <script lang="ts">
-export interface AlertDialogContentProps {
-  asChild?: boolean;
+import { type PrimitiveProps } from "@/Primitive";
+
+export interface AlertDialogContentProps extends PrimitiveProps {
   forceMount?: boolean;
   //onOpenAutoFocus?: void;
   //onCloseAutoFocus?: void;
@@ -19,9 +20,7 @@ import { PrimitiveDiv, usePrimitiveElement } from "../Primitive";
 
 const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 
-const props = withDefaults(defineProps<AlertDialogContentProps>(), {
-  asChild: false,
-});
+const props = defineProps<AlertDialogContentProps>();
 
 const { primitiveElement, currentElement: dialogContentElement } =
   usePrimitiveElement();
@@ -69,9 +68,9 @@ function lockKeydown(e: KeyboardEvent) {
 
 <template>
   <PrimitiveDiv
-    :asChild="props.asChild"
-    ref="primitiveElement"
     v-if="injectedValue?.open.value"
+    ref="primitiveElement"
+    :as-child="props.asChild"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"
     role="dialog"
     tabindex="-1"

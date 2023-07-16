@@ -1,6 +1,7 @@
 <script lang="ts">
-export interface AlertDialogOverlayProps {
-  asChild?: boolean;
+import { type PrimitiveProps } from "@/Primitive";
+
+export interface AlertDialogOverlayProps extends PrimitiveProps {
   forceMount?: boolean;
 }
 </script>
@@ -15,15 +16,13 @@ import { PrimitiveDiv } from "../Primitive";
 
 const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 
-const props = withDefaults(defineProps<AlertDialogOverlayProps>(), {
-  asChild: false,
-});
+const props = defineProps<AlertDialogOverlayProps>();
 </script>
 
 <template>
   <PrimitiveDiv
-    :asChild="props.asChild"
     v-if="injectedValue?.open.value"
+    :as-child="props.asChild"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"
     style="pointer-events: auto"
     data-aria-hidden="true"

@@ -1,19 +1,17 @@
 <script lang="ts">
-export interface AlertDialogTitleProps {
-  asChild?: boolean;
-}
+import { type PrimitiveProps } from "@/Primitive";
+
+export interface AlertDialogTitleProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
 import { PrimitiveH2 } from "../Primitive";
 
-const props = withDefaults(defineProps<AlertDialogTitleProps>(), {
-  asChild: false,
-});
+const props = defineProps<AlertDialogTitleProps>();
 </script>
 
 <template>
-  <PrimitiveH2 :asChild="props.asChild">
+  <PrimitiveH2 :as-child="props.asChild">
     <slot />
   </PrimitiveH2>
 </template>

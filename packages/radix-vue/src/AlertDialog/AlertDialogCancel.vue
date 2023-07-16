@@ -1,7 +1,7 @@
 <script lang="ts">
-export interface AlertDialogCancelProps {
-  asChild?: boolean;
-}
+import { type PrimitiveProps } from "@/Primitive";
+
+export interface AlertDialogCancelProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
@@ -12,16 +12,14 @@ import {
 } from "./AlertDialogRoot.vue";
 import { PrimitiveButton } from "../Primitive";
 
-const props = withDefaults(defineProps<AlertDialogCancelProps>(), {
-  asChild: false,
-});
+const props = defineProps<AlertDialogCancelProps>();
 
 const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 </script>
 
 <template>
   <PrimitiveButton
-    :asChild="props.asChild"
+    :as-child="props.asChild"
     type="button"
     :aria-expanded="injectedValue?.open.value || false"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"

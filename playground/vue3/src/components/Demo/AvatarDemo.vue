@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AvatarFallback, AvatarImage, AvatarRoot } from 'radix-vue'
+import { AvatarFallback, AvatarImage, AvatarRoot } from '../../../../../packages/radix-vue/src'
 </script>
 
 <template>
@@ -25,7 +25,6 @@ import { AvatarFallback, AvatarImage, AvatarRoot } from 'radix-vue'
       />
       <AvatarFallback
         class="text-violet11 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium"
-        :delay-ms="600"
       >
         JD
       </AvatarFallback>

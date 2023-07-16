@@ -113,72 +113,47 @@ export default () => (
 ### Root
 
 Contains all the parts of a dropdown menu.
-<!--
+
 <PropsTable
   :data="[
     {
       name: 'defaultOpen',
       type: 'boolean',
-      description: (
-        <span>
-          The open state of the dropdown menu when it is initially rendered. Use
-          when you do not need to control its open state.
-        </span>
-      ),
+      description: 'The open state of the dropdown menu when it is initially rendered. Use when you do not need to control its open state.'
     },
     {
       name: 'open',
       type: 'boolean',
-      description: (
-        <span>
-          The controlled open state of the dropdown menu. Must be used in
-          conjunction with <Code>onOpenChange</Code>.
-        </span>
-      ),
+      description: 'The controlled open state of the dropdown menu. Must be used in conjunction with <Code>onOpenChange</Code>.'
     },
     {
       name: 'onOpenChange',
       type: '(open: boolean) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when the open state of the dropdown menu changes.
-        </span>
-      ),
+      description: 'Event handler called when the open state of the dropdown menu changes.'
     },
     {
       name: 'modal',
       required: false,
       type: 'boolean',
       default: 'true',
-      description: (
-        <span>
-          The modality of the dropdown menu. When set to <Code>true</Code>,
-          interaction with outside elements will be disabled and only menu
-          content will be visible to screen readers.
-        </span>
-      ),
+      description: 'The modality of the dropdown menu. When set to <Code>true</Code>, interaction with outside elements will be disabled and only menu content will be visible to screen readers.'
     },
     {
       name: 'dir',
       required: false,
-      type: '"ltr" | "rtl"',
+      type: '&quot;ltr&quot; | &quot;rtl&quot;',
       typeSimple: 'enum',
-      description: (
-        <span>
-          The reading direction of submenus when applicable. If omitted,
-          inherits globally from <Code>DirectionProvider</Code> or assumes LTR
-          (left-to-right) reading mode.
-        </span>
-      ),
+      description: 'The reading direction of submenus when applicable. If omitted, inherits globally from <Code>DirectionProvider</Code> or assumes LTR (left-to-right) reading mode.'
     },
   ]"
 />
--->
+
+
 ### Trigger
 
 The button that toggles the dropdown menu. By default, the `DropdownMenuContent` will position itself against the trigger.
-<!--
+
 <PropsTable
   :data="[
     {
@@ -203,24 +178,18 @@ The button that toggles the dropdown menu. By default, the `DropdownMenuContent`
     },
   ]"
 />
--->
+
+
 ### Portal
 
 When used, portals the content part into the `body`.
-<!--
+
 <PropsTable
   :data="[
     {
       name: 'forceMount',
       type: 'boolean',
-      description: (
-        <span>
-          Used to force mounting when more control is needed. Useful when
-          controlling animation with React animation libraries. If used on this
-          part, it will be inherited by <Code>DropdownMenuContent</Code> and{' '}
-          <Code>DropdownMenuSubContent</Code> respectively.
-        </span>
-      ),
+      description: 'Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries. If used on this part, it will be inherited by <Code>DropdownMenuContent</Code> and <Code>DropdownMenuSubContent</Code> respectively.'
     },
     {
       name: 'container',
@@ -230,11 +199,12 @@ When used, portals the content part into the `body`.
     },
   ]"
 />
--->
+
+
 ### Content
 
 The component that pops out when the dropdown menu is open.
-<!--
+
 <PropsTable
   :data="[
     {
@@ -249,197 +219,107 @@ The component that pops out when the dropdown menu is open.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <span>
-          When <Code>true</Code>, keyboard navigation will loop from last item
-          to first, and vice versa.
-        </span>
-      ),
+      description: 'When <Code>true</Code>, keyboard navigation will loop from last item to first, and vice versa.'
     },
     {
       name: 'onCloseAutoFocus',
       type: '(event: Event) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when focus moves to the trigger after closing. It
-          can be prevented by calling <Code>event.preventDefault</Code>.
-        </span>
-      ),
+      description: 'Event handler called when focus moves to the trigger after closing. It can be prevented by calling <Code>event.preventDefault</Code>.'
     },
     {
       name: 'onEscapeKeyDown',
       type: '(event: KeyboardEvent) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when the escape key is down. It can be prevented
-          by calling <Code>event.preventDefault</Code>
-        </span>
-      ),
+      description: 'Event handler called when the escape key is down. It can be prevented by calling <Code>event.preventDefault</Code>'
     },
     {
       name: 'onPointerDownOutside',
       type: '(event: PointerDownOutsideEvent) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when a pointer event occurs outside the bounds of
-          the component. It can be prevented by calling{' '}
-          <Code>event.preventDefault</Code>.
-        </span>
-      ),
+      description: 'Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by Calling <Code>event.preventDefault</Code>.'
     },
     {
       name: 'onFocusOutside',
       type: '(event: FocusOutsideEvent) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when focus moves outside the bounds of the
-          component. It can be prevented by calling{' '}
-          <Code>event.preventDefault</Code>.
-        </span>
-      ),
+      description: 'Event handler called when focus moves outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.'
     },
     {
       name: 'onInteractOutside',
       type: '(event: PointerDownOutsideEvent | FocusOutsideEvent) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when an interaction (pointer or focus event)
-          happens outside the bounds of the component. It can be prevented by
-          calling <Code>event.preventDefault</Code>.
-        </span>
-      ),
+      description: 'Event handler called when an interaction (pointer or focus event) happens outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.'
     },
     {
       name: 'forceMount',
       type: 'boolean',
-      description: (
-        <span>
-          Used to force mounting when more control is needed. Useful when
-          controlling animation with React animation libraries. It inherits from{' '}
-          <Code>DropdownMenuPortal</Code>.
-        </span>
-      ),
+      description: 'Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries. It inherits from <Code>DropdownMenuPortal</Code>.'
     },
     {
       name: 'side',
-      type: '"top" | "right" | "bottom" | "left"',
+      type: '&quot;top&quot; | &quot;right&quot; | &quot;bottom&quot; | &quot;left&quot;',
       typeSimple: 'enum',
-      default: '"bottom"',
-      description: (
-        <span>
-          The preferred side of the trigger to render against when open. Will be
-          reversed when collisions occur and <Code>avoidCollisions</Code> is
-          enabled.
-        </span>
-      ),
+      default: '&quot;bottom&quot;',
+      description: 'The preferred side of the trigger to render against when open. Will be reversed when collisions occur and <Code>avoidCollisions</Code> is enabled.'
     },
     {
       name: 'sideOffset',
       type: 'number',
       default: '0',
-      description: <span>The distance in pixels from the trigger.</span>,
+      description: 'The distance in pixels from the trigger.'
     },
     {
       name: 'align',
-      type: '"start" | "center" | "end"',
+      type: '&quot;start&quot; | &quot;center&quot; | &quot;end&quot;',
       typeSimple: 'enum',
-      default: '"center"',
-      description: (
-        <span>
-          The preferred alignment against the trigger. May change when
-          collisions occur.
-        </span>
-      ),
+      default: '&quot;center&quot;',
+      description: 'The preferred alignment against the trigger. May change when collisions occur.'
     },
     {
       name: 'alignOffset',
       type: 'number',
       default: '0',
-      description: (
-        <span>
-          An offset in pixels from the <Code>"start"</Code> or{' '}
-          <Code>"end"</Code> alignment options.
-        </span>
-      ),
+      description: 'An offset in pixels from the <Code>&quot;start&quot;</Code> or <Code>&quot;end&quot;</Code> alignment options.'
     },
     {
       name: 'avoidCollisions',
       type: 'boolean',
       default: 'true',
-      description: (
-        <span>
-          When <Code>true</Code>, overrides the <Code>side</Code> and
-          <Code>align</Code> preferences to prevent collisions with boundary edges.
-        </span>
-      ),
+      description: 'When <Code>true</Code>, overrides the <Code>side</Code> and <Code>align</Code> preferences to prevent collisions with boundary edges.'
     },
     {
       name: 'collisionBoundary',
       type: 'Element | null | Array<Element | null>',
       typeSimple: 'Boundary',
       default: '[]',
-      description: (
-        <span>
-          The element used as the collision boundary. By default this is the
-          viewport, though you can provide additional element(s) to be included
-          in this check.
-        </span>
-      ),
+      description: 'The element used as the collision boundary. By default this is the viewport, though you can provide additional element(s) to be included in this check.'
     },
     {
       name: 'collisionPadding',
       type: 'number | Partial<Record<Side, number>>',
       typeSimple: 'number | Padding',
       default: '0',
-      description: (
-        <span>
-          The distance in pixels from the boundary edges where collision
-          detection should occur. Accepts a number (same for all sides), or a
-          partial padding object, for example: <Code>{`{ top: 20, left: 20 }`}</Code>
-          .
-        </span>
-      ),
+      description: 'The distance in pixels from the boundary edges where collision detection should occur. Accepts a number (same for all sides), or a partial padding object, for example: <Code>{ top: 20, left: 20 }</Code>.'
     },
     {
       name: 'arrowPadding',
       type: 'number',
       default: '0',
-      description: (
-        <span>
-          The padding between the arrow and the edges of the content. If your
-          content has <Code>border-radius</Code>, this will prevent it from
-          overflowing the corners.
-        </span>
-      ),
+      description: 'The padding between the arrow and the edges of the content. If your content has <Code>border-radius</Code>, this will prevent it from overflowing the corners.'
     },
     {
       name: 'sticky',
-      type: '"partial" | "always"',
+      type: '&quot;partial&quot; | &quot;always&quot;',
       typeSimple: 'enum',
-      default: '"partial"',
-      description: (
-        <span>
-          The sticky behavior on the align axis. <Code>"partial"</Code> will
-          keep the content in the boundary as long as the trigger is at least
-          partially in the boundary whilst <Code>"always"</Code> will keep the
-          content in the boundary regardless.
-        </span>
-      ),
+      default: '&quot;partial&quot;',
+      description: 'The sticky behavior on the align axis. <Code>&quot;partial&quot;</Code> will keep the content in the boundary as long as the trigger is at least partially in the boundary whilst <Code>&quot;always&quot;</Code> will keep the content in the boundary regardless.'
     },
     {
       name: 'hideWhenDetached',
       type: 'boolean',
       default: 'false',
-      description: (
-        <span>
-          Whether to hide the content when the trigger becomes fully occluded.
-        </span>
-      ),
+      description: 'Whether to hide the content when the trigger becomes fully occluded.'
     },
   ]"
 />
@@ -465,44 +345,36 @@ The component that pops out when the dropdown menu is open.
   ]"
 />
 
+
 <CssVariablesTable
   :data="[
     {
       cssVariable: '--radix-dropdown-menu-content-transform-origin',
-      description: (
-        <>
-          The <Code>transform-origin</Code> computed from the content and arrow
-          positions/offsets
-        </>
-      ),
+      description: 'The <Code>transform-origin</Code> computed from the content and arrow positions/offsets'
     },
     {
       cssVariable: '--radix-dropdown-menu-content-available-width',
-      description: (
-        <>The remaining width between the trigger and the boundary edge</>
-      ),
+      description: 'The remaining width between the trigger and the boundary edge'
     },
     {
       cssVariable: '--radix-dropdown-menu-content-available-height',
-      description: (
-        <>The remaining height between the trigger and the boundary edge</>
-      ),
+      description: 'The remaining height between the trigger and the boundary edge'
     },
     {
       cssVariable: '--radix-dropdown-menu-trigger-width',
-      description: <>The width of the trigger</>,
+      description: 'The width of the trigger',
     },
     {
       cssVariable: '--radix-dropdown-menu-trigger-height',
-      description: <>The height of the trigger</>,
+      description: 'The height of the trigger',
     },
   ]"
 />
--->
+
 ### Arrow
 
 An optional arrow element to render alongside the dropdown menu. This can be used to help visually link the trigger with the `DropdownMenuContent`. Must be rendered inside `DropdownMenuContent`.
-<!--
+
 <PropsTable
   :data="[
     {
@@ -516,21 +388,21 @@ An optional arrow element to render alongside the dropdown menu. This can be use
       name: 'width',
       type: 'number',
       default: 10,
-      description: <span>The width of the arrow in pixels.</span>,
+      description: 'The width of the arrow in pixels.',
     },
     {
       name: 'height',
       type: 'number',
       default: 5,
-      description: <span>The height of the arrow in pixels.</span>,
+      description: 'The height of the arrow in pixels.',
     },
   ]"
 />
--->
+
 ### Item
 
 The component that contains the dropdown menu items.
-<!--
+
 <PropsTable
   :data="[
     {
@@ -543,35 +415,18 @@ The component that contains the dropdown menu items.
     {
       name: 'disabled',
       type: 'boolean',
-      description: (
-        <span>
-          When <Code>true</Code>, prevents the user from interacting with the
-          item.
-        </span>
-      ),
+      description: 'When <Code>true</Code>, prevents the user from interacting with the item.',
     },
     {
       name: 'onSelect',
       type: '(event: Event) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when the user selects an item (via mouse or
-          keyboard). Calling <Code>event.preventDefault</Code> in this handler
-          will prevent the dropdown menu from closing when selecting that item.
-        </span>
-      ),
+      description: 'Event handler called when the user selects an item (via mouse or keyboard). Calling <Code>event.preventDefault</Code> in this handler will prevent the dropdown menu from closing when selecting that item.',
     },
     {
       name: 'textValue',
       type: 'string',
-      description: (
-        <span>
-          Optional text used for typeahead purposes. By default the typeahead
-          behavior will use the <Code>.textContent</Code> of the item. Use this
-          when the content is complex, or you have non-textual content inside.
-        </span>
-      ),
+      description: 'Optional text used for typeahead purposes. By default the typeahead behavior will use the <Code>.textContent</Code> of the item. Use this when the content is complex, or you have non-textual content inside.',
     },
   ]"
 />
@@ -592,11 +447,11 @@ The component that contains the dropdown menu items.
     },
   ]"
 />
--->
+
 ### Group
 
 Used to group multiple `DropdownMenuItem`s.
-<!--
+
 <PropsTable
   :data="[
     {
@@ -608,11 +463,11 @@ Used to group multiple `DropdownMenuItem`s.
     },
   ]"
 />
--->
+
 ### Label
 
 Used to render a label. It won't be focusable using arrow keys.
-<!--
+
 <PropsTable
   :data="[
     {
@@ -624,11 +479,11 @@ Used to render a label. It won't be focusable using arrow keys.
     },
   ]"
 />
--->
+
 ### CheckboxItem
 
 An item that can be controlled and rendered like a checkbox.
-<!--
+
 <PropsTable
   :data="[
     {
@@ -641,53 +496,29 @@ An item that can be controlled and rendered like a checkbox.
     {
       name: 'checked',
       type: `boolean | 'indeterminate'`,
-      description: (
-        <span>
-          The controlled checked state of the item. Must be used in conjunction
-          with <Code>onCheckedChange</Code>.
-        </span>
-      ),
+      description: 'The controlled checked state of the item. Must be used in conjunction with <Code>onCheckedChange</Code>.',
     },
     {
       name: 'onCheckedChange',
       type: `(checked: boolean) => void`,
       typeSimple: 'function',
-      description: (
-        <span>Event handler called when the checked state changes.</span>
-      ),
+      description: 'Event handler called when the checked state changes.',
     },
     {
       name: 'disabled',
       type: 'boolean',
-      description: (
-        <span>
-          When <Code>true</Code>, prevents the user from interacting with the
-          item.
-        </span>
-      ),
+      description: 'When <Code>true</Code>, prevents the user from interacting with the item.',
     },
     {
       name: 'onSelect',
       type: '(event: Event) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when the user selects an item (via mouse or
-          keyboard). Calling <Code>event.preventDefault</Code> in this handler
-          will prevent the dropdown menu from closing when selecting that item.
-        </span>
-      ),
+      description: 'Event handler called when the user selects an item (via mouse or keyboard). Calling <Code>event.preventDefault</Code> in this handler will prevent the dropdown menu from closing when selecting that item.',
     },
     {
       name: 'textValue',
       type: 'string',
-      description: (
-        <span>
-          Optional text used for typeahead purposes. By default the typeahead
-          behavior will use the <Code>.textContent</Code> of the item. Use this
-          when the content is complex, or you have non-textual content inside.
-        </span>
-      ),
+      description: 'Optional text used for typeahead purposes. By default the typeahead behavior will use the <Code>.textContent</Code> of the item. Use this when the content is complex, or you have non-textual content inside.',
     },
   ]"
 />
@@ -708,11 +539,12 @@ An item that can be controlled and rendered like a checkbox.
     },
   ]"
 />
--->
+
+
 ### RadioGroup
 
 Used to group multiple `DropdownMenuRadioItem`s.
-<!--
+
 <PropsTable
   :data="[
     {
@@ -735,11 +567,11 @@ Used to group multiple `DropdownMenuRadioItem`s.
     },
   ]"
 />
--->
+
 ### RadioItem
 
 An item that can be controlled and rendered like a radio.
-<!--
+
 <PropsTable
   :data="[
     {
@@ -758,35 +590,18 @@ An item that can be controlled and rendered like a radio.
     {
       name: 'disabled',
       type: 'boolean',
-      description: (
-        <span>
-          When <Code>true</Code>, prevents the user from interacting with the
-          item.
-        </span>
-      ),
+      description: 'When <Code>true</Code>, prevents the user from interacting with the item.',
     },
     {
       name: 'onSelect',
       type: '(event: Event) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when the user selects an item (via mouse or
-          keyboard). Calling <Code>event.preventDefault</Code> in this handler
-          will prevent the dropdown menu from closing when selecting that item.
-        </span>
-      ),
+      description: 'Event handler called when the user selects an item (via mouse or keyboard). Calling <Code>event.preventDefault</Code> in this handler will prevent the dropdown menu from closing when selecting that item.',
     },
     {
       name: 'textValue',
       type: 'string',
-      description: (
-        <span>
-          Optional text used for typeahead purposes. By default the typeahead
-          behavior will use the <Code>.textContent</Code> of the item. Use this
-          when the content is complex, or you have non-textual content inside.
-        </span>
-      ),
+      description: 'Optional text used for typeahead purposes. By default the typeahead behavior will use the <Code>.textContent</Code> of the item. Use this when the content is complex, or you have non-textual content inside.',
     },
   ]"
 />
@@ -807,11 +622,11 @@ An item that can be controlled and rendered like a radio.
     },
   ]"
 />
--->
+
 ### ItemIndicator
 
 Renders when the parent `DropdownMenuCheckboxItem` or `DropdownMenuRadioItem` is checked. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
-<!--
+
 <PropsTable
   :data="[
     {
@@ -824,12 +639,7 @@ Renders when the parent `DropdownMenuCheckboxItem` or `DropdownMenuRadioItem` is
     {
       name: 'forceMount',
       type: 'boolean',
-      description: (
-        <span>
-          Used to force mounting when more control is needed. Useful when
-          controlling animation with React animation libraries.
-        </span>
-      ),
+      description: 'Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries.',
     },
   ]"
 />
@@ -842,11 +652,11 @@ Renders when the parent `DropdownMenuCheckboxItem` or `DropdownMenuRadioItem` is
     },
   ]"
 />
--->
+
 ### Separator
 
 Used to visually separate items in the dropdown menu.
-<!--
+
 <PropsTable
   :data="[
     {
@@ -858,50 +668,36 @@ Used to visually separate items in the dropdown menu.
     },
   ]"
 />
--->
+
 ### Sub
 
 Contains all the parts of a submenu.
-<!--
+
 <PropsTable
   :data="[
     {
       name: 'defaultOpen',
       type: 'boolean',
-      description: (
-        <span>
-          The open state of the submenu when it is initially rendered. Use when
-          you do not need to control its open state.
-        </span>
-      ),
+      description: 'The open state of the submenu when it is initially rendered. Use when you do not need to control its open state.',
     },
     {
       name: 'open',
       type: 'boolean',
-      description: (
-        <span>
-          The controlled open state of the submenu. Must be used in conjunction
-          with <Code>onOpenChange</Code>.
-        </span>
-      ),
+      description: 'The controlled open state of the submenu. Must be used in conjunction with <Code>onOpenChange</Code>.',
     },
     {
       name: 'onOpenChange',
       type: '(open: boolean) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when the open state of the submenu changes.
-        </span>
-      ),
+      description: 'Event handler called when the open state of the submenu changes.',
     },
   ]"
 />
--->
+
 ### SubTrigger
 
 An item that opens a submenu. Must be rendered inside `DropdownMenuSub`.
-<!--
+
 <PropsTable
   :data="[
     {
@@ -914,27 +710,26 @@ An item that opens a submenu. Must be rendered inside `DropdownMenuSub`.
     {
       name: 'disabled',
       type: 'boolean',
-      description: (
+      description: `
         <span>
           When <Code>true</Code>, prevents the user from interacting with the
           item.
         </span>
-      ),
+      `,
     },
     {
       name: 'textValue',
       type: 'string',
-      description: (
+      description: `
         <span>
           Optional text used for typeahead purposes. By default the typeahead
           behavior will use the <Code>.textContent</Code> of the item. Use this
           when the content is complex, or you have non-textual content inside.
         </span>
-      ),
+      `,
     },
   ]"
 />
--->
 
 <DataAttributesTable
   :data="[

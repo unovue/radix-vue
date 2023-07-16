@@ -9,7 +9,6 @@ export interface ScrollAreaScollbarProvideValue {
   orientation: Ref<"vertical" | "horizontal">;
   forceMount?: Ref<boolean>;
   isHorizontal: Ref<boolean>;
-  visible: Ref<boolean>;
 }
 
 export const SCROLL_AREA_SCROLLBAR_INJECTION_KEY =
@@ -21,7 +20,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed, inject, onUnmounted, watch, provide, toRef, ref } from "vue";
+import { computed, inject, onUnmounted, watch, provide, toRef } from "vue";
 import {
   type ScrollAreaProvideValue,
   SCROLL_AREA_INJECTION_KEY,
@@ -38,7 +37,6 @@ const props = withDefaults(defineProps<ScrollAreaScrollbarProps>(), {
   forceMount: undefined,
 });
 
-const visible = ref(false);
 const isHorizontal = computed(() => props.orientation === "horizontal");
 
 watch(
@@ -62,7 +60,6 @@ provide<ScrollAreaScollbarProvideValue>(SCROLL_AREA_SCROLLBAR_INJECTION_KEY, {
   orientation: toRef(() => props.orientation),
   forceMount: toRef(() => props.forceMount),
   isHorizontal,
-  visible,
 });
 </script>
 

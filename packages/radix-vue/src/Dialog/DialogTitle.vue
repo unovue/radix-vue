@@ -1,13 +1,8 @@
-<script lang="ts">
-export interface DialogTitleProps extends PrimitiveProps {}
-</script>
-
 <script setup lang="ts">
-import { PrimitiveH2, type PrimitiveProps } from "../Primitive";
+import { PrimitiveH2, type PrimitiveProps } from "@/Primitive";
 
-const props = withDefaults(defineProps<DialogTitleProps>(), {
-  asChild: false,
-});
+export interface DialogTitleProps extends PrimitiveProps {}
+const props = defineProps<DialogTitleProps>();
 </script>
 
 <template>

@@ -33,8 +33,6 @@ const emit = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
 }>();
 
-const triggerButton = ref<HTMLElement>();
-
 const open = useVModel(props, "open", emit, {
   defaultValue: props.defaultOpen,
   passive: true,
@@ -49,7 +47,7 @@ provide<DialogProvideValue>(DIALOG_INJECTION_KEY, {
   closeModal: () => {
     open.value = false;
   },
-  triggerButton: triggerButton,
+  triggerButton: ref<HTMLElement>(),
 });
 </script>
 

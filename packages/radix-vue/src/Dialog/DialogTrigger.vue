@@ -1,7 +1,3 @@
-<script lang="ts">
-export interface DialogTriggerProps extends PrimitiveProps {}
-</script>
-
 <script setup lang="ts">
 import { inject, onMounted } from "vue";
 import {
@@ -12,8 +8,9 @@ import {
   PrimitiveButton,
   type PrimitiveProps,
   usePrimitiveElement,
-} from "../Primitive";
+} from "@/Primitive";
 
+export interface DialogTriggerProps extends PrimitiveProps {}
 const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 
 const { primitiveElement, currentElement } = usePrimitiveElement();
@@ -24,9 +21,8 @@ onMounted(() => {
   }
 });
 
-const props = withDefaults(defineProps<DialogTriggerProps>(), {
-  asChild: false,
-});
+const props = defineProps<DialogTriggerProps>();
+
 </script>
 
 <template>

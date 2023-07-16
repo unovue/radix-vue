@@ -1,17 +1,10 @@
-<script lang="ts">
-export interface DialogDescriptionProps {
-  asChild?: boolean;
-}
-</script>
-
 <script setup lang="ts">
-import { PrimitiveP } from "@/Primitive";
+import { PrimitiveP, type PrimitiveProps } from "@/Primitive";
 
-withDefaults(defineProps<DialogDescriptionProps>(), {
-  asChild: false,
-});
+export interface DialogDescriptionProps extends PrimitiveProps {}
+const props = defineProps<DialogDescriptionProps>();
 </script>
 
 <template>
-  <PrimitiveP :asChild="asChild"><slot /></PrimitiveP>
+  <PrimitiveP v-bind="props"><slot /></PrimitiveP>
 </template>

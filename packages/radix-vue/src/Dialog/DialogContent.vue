@@ -1,7 +1,6 @@
 <script lang="ts">
-export interface DialogContentProps {
+export interface DialogContentProps extends PrimitiveProps {
   asChild?: boolean;
-  forceMount?: boolean;
   //onOpenAutoFocus?: void;
   //onCloseAutoFocus?: void;
   //onEscapeKeyDown?: void;
@@ -15,7 +14,11 @@ import {
   DIALOG_INJECTION_KEY,
   type DialogProvideValue,
 } from "./DialogRoot.vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveDiv,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import { vOnClickOutside } from "@vueuse/components";
 
 const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
@@ -42,8 +45,8 @@ watchEffect(() => {
       window.removeEventListener("keydown", lockKeydown);
       window.removeEventListener("keydown", closeOnEscape);
 
-      if (injectedValue?.triggerButton.value && injectedValue?.modal) {
-        injectedValue?.triggerButton.value.focus();
+      if (injectedValue?.modal) {
+        injectedValue?.triggerButton.value?.focus();
       }
     }
   }
@@ -83,9 +86,7 @@ function closeOnEscape(e: KeyboardEvent) {
   if (e.key === "Escape") {
     e.preventDefault();
     injectedValue?.closeModal();
-    if (injectedValue?.triggerButton.value) {
-      injectedValue?.triggerButton.value.focus();
-    }
+    injectedValue?.triggerButton.value?.focus();
   }
 }
 </script>

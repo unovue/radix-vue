@@ -1,7 +1,3 @@
-<script lang="ts">
-export interface DialogOverlayProps extends PrimitiveProps {}
-</script>
-
 <script setup lang="ts">
 import { inject } from "vue";
 import {
@@ -10,9 +6,8 @@ import {
 } from "./DialogRoot.vue";
 import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
 
-const props = withDefaults(defineProps<DialogOverlayProps>(), {
-  asChild: false,
-});
+export interface DialogOverlayProps extends PrimitiveProps {}
+const props = defineProps<DialogOverlayProps>();
 
 const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 </script>

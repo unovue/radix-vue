@@ -38,7 +38,10 @@ type Primitives = {
 const Primitive = NODES.reduce((primitive, node) => {
   const Node = defineComponent({
     props: {
-      asChild: Boolean,
+      asChild: {
+        type: Boolean,
+        default: false,
+      },
     },
     setup(props, { slots }) {
       const asChild = !!props.asChild;

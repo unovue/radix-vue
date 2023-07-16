@@ -1,30 +1,26 @@
-<script lang="ts">
-export interface DialogCloseProps extends PrimitiveProps {}
-</script>
-
 <script setup lang="ts">
 import { inject } from "vue";
-import { PrimitiveButton, type PrimitiveProps } from "../Primitive";
+import { PrimitiveButton, type PrimitiveProps } from "@/Primitive";
 import {
   DIALOG_INJECTION_KEY,
   type DialogProvideValue,
 } from "./DialogRoot.vue";
 
-const props = withDefaults(defineProps<DialogCloseProps>(), {
-  asChild: false,
-});
+export interface DialogCloseProps extends PrimitiveProps {}
+const props = defineProps<DialogCloseProps>();
 
 const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 
 function handleClick() {
   injectedValue?.closeModal();
+  injectedValue?.triggerButton.value?.focus();
 }
 </script>
 
 <template>
   <PrimitiveButton
-    type="button"
     v-bind="props"
+    type="button"
     aria-label="Close"
     @click="handleClick"
   >

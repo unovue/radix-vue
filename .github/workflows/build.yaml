@@ -66,4 +66,4 @@ jobs:
       run: cd packages/radix-vue && npm install
 
     - name: Test
-      run: cd packages/radix-vue && npm run test --reporter verbose --coverage
+      run: cd packages/radix-vue && npm run test

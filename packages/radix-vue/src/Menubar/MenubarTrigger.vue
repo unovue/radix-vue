@@ -1,6 +1,7 @@
 <script lang="ts">
-export interface MenubarMenuTriggerProps {
-  asChild?: boolean;
+import { type PrimitiveProps } from "@/Primitive";
+
+export interface MenubarMenuTriggerProps extends PrimitiveProps {
   disabled?: boolean;
   textValue?: string;
 }
@@ -152,6 +153,7 @@ watch(
       :data-highlighted="highlightedState ? '' : null"
       :aria-disabled="props.disabled ? true : undefined"
       :data-disabled="props.disabled ? '' : undefined"
+      :as-child="props.asChild"
       :tabindex="
         rootInjectedValue?.triggerElement.value === currentElement ? '0' : '-1'
       "

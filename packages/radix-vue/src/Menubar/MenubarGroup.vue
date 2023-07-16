@@ -1,10 +1,11 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
 import type { DataOrientation, Direction } from "../shared/types";
+import { type PrimitiveProps } from "@/Primitive";
 
 type TypeEnum = "single" | "multiple";
 
-export interface MenubarGroupProps {
+export interface MenubarGroupProps extends PrimitiveProps {
   type?: TypeEnum;
   value?: string;
   defaultValue?: string;
@@ -66,6 +67,7 @@ provide<MenubarGroupProvideValue>(MENUBAR_GROUP_INJECTION_KEY, {
     ref="primitiveElement"
     role="group"
     :dir="props.dir"
+    :as-child="props.asChild"
     aria-label="Text alignment"
   >
     <slot />

@@ -1,6 +1,7 @@
 <script lang="ts">
-export interface MenubarSubTriggerProps {
-  asChild?: boolean;
+import { type PrimitiveProps } from "@/Primitive";
+
+export interface MenubarSubTriggerProps extends PrimitiveProps {
   disabled?: boolean;
   textValue?: string;
 }
@@ -20,6 +21,8 @@ import { PopperAnchor } from "@/Popper";
 import { usePrimitiveElement } from "@/Primitive";
 import { useArrowNavigation } from "@/shared/useArrowNavigation";
 import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
+
+const props = defineProps<MenubarSubTriggerProps>();
 
 const rootInjectedValue = inject<MenubarProvideValue>(MENUBAR_INJECTION_KEY);
 
@@ -96,6 +99,7 @@ function handleEscapeKeydown(e: KeyboardEvent) {
       :aria-controls="injectedValue?.contentId"
       :data-state="dataState"
       :data-orientation="rootInjectedValue?.orientation"
+      :as-child="props.asChild"
       aria-haspopup="menu"
       @handle-click="handleClick"
       @mouseover="handleMouseover"

@@ -10,9 +10,9 @@ import {
   MENUBAR_SUB_INJECTION_KEY,
   type MenubarSubProvideValue,
 } from "./MenubarSub.vue";
+import { type PrimitiveProps } from "@/Primitive";
 
-interface MenubarItemProps {
-  asChild?: boolean;
+interface MenubarItemProps extends PrimitiveProps {
   value?: string;
   disabled?: boolean;
   //onSelect?: void;
@@ -64,6 +64,7 @@ function handleEscapeKeydown() {
     :rootProvider="rootInjectedValue"
     :subProvider="subInjectedValue"
     :orientation="rootInjectedValue?.orientation"
+    :as-child="props.asChild"
     @handle-click="handleClick"
     @horizontal-keydown="handleHorizontalKeydown"
     @escape-keydown="handleEscapeKeydown"

@@ -11,9 +11,9 @@ import {
   type RadioGroupProvideValue,
 } from "./MenubarRadioGroup.vue";
 import { MENUBAR_ITEM_SYMBOL } from "./utils";
+import { type PrimitiveProps } from "@/Primitive";
 
-interface RadioGroupItemProps {
-  asChild?: boolean;
+interface RadioGroupItemProps extends PrimitiveProps {
   value?: string;
   disabled?: boolean;
   id?: string;
@@ -76,6 +76,7 @@ function handleEscapeKeydown() {
     :rootProvider="rootInjectedValue"
     :orientation="rootInjectedValue?.orientation"
     :data-radix-vue-radio-value="props.value"
+    :as-child="props.asChild"
     @handle-click="handleClick"
     @horizontal-keydown="handleHorizontalKeydown"
     @escape-keydown="handleEscapeKeydown"

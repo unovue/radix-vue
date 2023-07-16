@@ -2,7 +2,6 @@
 export type Boundary = Element | null | Array<Element | null>;
 
 export interface MenubarContentProps extends PopperContentProps {
-  asChild?: boolean;
   loop?: boolean; //false
   //onOpenAutoFocus?: void;
   //onCloseAutoFocus?: void;
@@ -114,7 +113,7 @@ const dataState = computed(() => {
       :aria-labelledby="injectedValue?.triggerId"
       :data-orientation="injectedValue?.orientation"
       role="tooltip"
-      :asChild="props.asChild"
+      :as-child="props.asChild"
       style="pointer-events: auto"
     >
       <slot />

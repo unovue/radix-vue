@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { PrimitiveLabel } from "@/Primitive";
+import { type PrimitiveProps } from "@/Primitive";
 
-const props = defineProps({
-  for: {
-    type: String,
-    required: false,
-  },
-});
+interface LabelProps extends PrimitiveProps {
+  for?: string;
+}
+
+const props = defineProps<LabelProps>();
 </script>
 
 <template>
-  <PrimitiveLabel :for="props.for"><slot /></PrimitiveLabel>
+  <PrimitiveLabel v-bind="props"><slot /></PrimitiveLabel>
 </template>

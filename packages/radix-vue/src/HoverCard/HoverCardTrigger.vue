@@ -1,7 +1,7 @@
 <script lang="ts">
-export interface HoverCardTriggerProps {
-  asChild?: boolean;
-}
+import { type PrimitiveProps } from "@/Primitive";
+
+export interface HoverCardTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
@@ -17,9 +17,7 @@ import { useHoverDelay, useMouseleaveDelay } from "../shared";
 
 const injectedValue = inject<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY);
 
-const props = withDefaults(defineProps<HoverCardTriggerProps>(), {
-  asChild: false,
-});
+const props = defineProps<HoverCardTriggerProps>();
 
 const { primitiveElement, currentElement } = usePrimitiveElement();
 
@@ -47,7 +45,7 @@ async function handleMouseleave(e: MouseEvent) {
   <PopperAnchor asChild>
     <PrimitiveButton
       ref="primitiveElement"
-      :asChild="props.asChild"
+      :as-child="props.asChild"
       :aria-expanded="injectedValue?.open.value || false"
       :data-state="injectedValue?.open.value ? 'open' : 'closed'"
       @mouseover="injectedValue!.isHover = true"

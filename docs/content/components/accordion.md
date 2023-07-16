@@ -60,7 +60,7 @@ associated section of content.
 Install the component from your command line.
 
 ```bash
-npm install radix-vue/react-accordion
+npm install radix-vue
 ```
 
 ## Anatomy
@@ -69,7 +69,13 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { AccordionRoot, AccordionItem, AccordionHeader, AccordionTrigger, AccordionContent } from "radix-vue";
+import {
+  AccordionRoot,
+  AccordionItem,
+  AccordionHeader,
+  AccordionTrigger,
+  AccordionContent
+} from "radix-vue";
 </script>
 
 <template>
@@ -89,8 +95,10 @@ import { AccordionRoot, AccordionItem, AccordionHeader, AccordionTrigger, Accord
 ### Root
 
 Contains all the parts of an Accordion
-<!---->
-<PropsTable :data="[{
+
+<PropsTable
+  :data="[
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -145,14 +153,18 @@ Contains all the parts of an Accordion
       typeSimple: 'enum',
       default: '&quot;vertical&quot;',
       description: 'The orientation of the Accordion',
-    }]" />
+    }
+  ]"
+/>
 
 
-<DataAttributesTable :data="[
+<DataAttributesTable
+  :data="[
     {
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
-    }]" />
+  }]"
+/>
 
 ### Item
 
@@ -427,7 +439,7 @@ import './styles.css';
 
 ## Accessibility
 
-Adheres to the [Accordion WAI-ARIA design pattern](https://www.w3.org/TR/wai-aria-practices-1.1/#accordion).
+Adheres to the [Accordion WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion).
 
 ### Keyboard Interactions
 

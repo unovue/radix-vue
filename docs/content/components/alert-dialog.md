@@ -69,31 +69,31 @@ Import all parts and piece them together.
 ```vue
 <script setup lang="ts">
 import {
-	AlertDialogAction,
-	AlertDialogCancel,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogOverlay,
-	AlertDialogPortal,
-	AlertDialogRoot,
-	AlertDialogTitle,
-	AlertDialogTrigger,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogOverlay,
+  AlertDialogPortal,
+  AlertDialogRoot,
+  AlertDialogTitle,
+  AlertDialogTrigger,
 } from "radix-vue";
 </script>
 
 <template>
-	<AlertDialogRoot>
-		<AlertDialogTrigger />
-		<AlertDialogPortal>
-			<AlertDialogOverlay />
-			<AlertDialogContent>
-				<AlertDialogTitle />
-				<AlertDialogDescription />
-				<AlertDialogCancel />
-				<AlertDialogAction />
-			</AlertDialogContent>
-		</AlertDialogPortal>
-	</AlertDialogRoot>
+  <AlertDialogRoot>
+    <AlertDialogTrigger />
+    <AlertDialogPortal>
+      <AlertDialogOverlay />
+      <AlertDialogContent>
+        <AlertDialogTitle />
+        <AlertDialogDescription />
+        <AlertDialogCancel />
+        <AlertDialogAction />
+      </AlertDialogContent>
+    </AlertDialogPortal>
+  </AlertDialogRoot>
 </template>
 ```
 
@@ -272,40 +272,40 @@ Use the controlled props to programmatically close the Alert Dialog after an asy
 ```vue line=14,15,18,23-29,32
 <script setup>
 import {
-	AlertDialogAction,
-	AlertDialogCancel,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogOverlay,
-	AlertDialogPortal,
-	AlertDialogRoot,
-	AlertDialogTitle,
-	AlertDialogTrigger,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogOverlay,
+  AlertDialogPortal,
+  AlertDialogRoot,
+  AlertDialogTitle,
+  AlertDialogTrigger,
 } from "radix-vue";
 
 const wait = () => new Promise((resolve) => setTimeout(resolve, 1000));
 const open = ref(false);
 </script>
 <template>
-	<AlertDialogRoot v-model:open="open">
-		<AlertDialogTrigger>Open</AlertDialogTrigger>
-		<AlertDialogPortal>
-			<AlertDialogOverlay />
-			<AlertDialogContent>
-				<form
-					@submit="
-						(event) => {
-							wait().then(() => setOpen(false));
-							event.preventDefault();
-						}
-					"
-				>
-				    <!-- some inputs -->
-					<button type="submit">Submit</button>
-				</form>
-			</AlertDialogContent>
-		</AlertDialogPortal>
-	</AlertDialogRoot>
+  <AlertDialogRoot v-model:open="open">
+    <AlertDialogTrigger>Open</AlertDialogTrigger>
+    <AlertDialogPortal>
+      <AlertDialogOverlay />
+      <AlertDialogContent>
+        <form
+          @submit="
+            (event) => {
+              wait().then(() => setOpen(false));
+              event.preventDefault();
+            }
+          "
+        >
+          <!-- some inputs -->
+          <button type="submit">Submit</button>
+        </form>
+      </AlertDialogContent>
+    </AlertDialogPortal>
+  </AlertDialogRoot>
 </template>
 ```
 
@@ -323,17 +323,17 @@ const container = ref(null);
 </script>
 
 <template>
-	<div>
-		<AlertDialogRoot>
-			<AlertDialogTrigger />
-			<AlertDialogPortal :container="container">
-				<AlertDialogOverlay />
-				<AlertDialogContent>...</AlertDialogContent>
-			</AlertDialogPortal>
-		</AlertDialogRoot>
+  <div>
+    <AlertDialogRoot>
+      <AlertDialogTrigger />
+      <AlertDialogPortal :container="container">
+        <AlertDialogOverlay />
+        <AlertDialogContent>...</AlertDialogContent>
+      </AlertDialogPortal>
+    </AlertDialogRoot>
 
-		<div ref="Container" />
-	</div>
+    <div ref="Container" />
+  </div>
 </template>
 ```
 

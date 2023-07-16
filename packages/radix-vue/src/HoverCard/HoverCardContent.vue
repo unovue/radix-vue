@@ -1,10 +1,7 @@
 <script lang="ts">
 export type Boundary = Element | null | Array<Element | null>;
 
-export interface HoverCardContentProps extends PopperContentProps {
-  asChild?: boolean;
-  forceMount?: boolean;
-}
+export interface HoverCardContentProps extends PopperContentProps {}
 </script>
 
 <script setup lang="ts">
@@ -39,10 +36,9 @@ async function handleMouseleave(e: MouseEvent) {
     v-if="injectedValue?.open.value"
     @mouseover="injectedValue.isHover = true"
     @mouseleave="handleMouseleave"
-    :data-state="injectedValue?.open.value ? 'delayed-open' : 'closed'"
-    role="tooltip"
-    tabindex="-1"
-    :as-child="asChild"
+    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
+    :data-side="props.side"
+    :data-align="props.align"
   >
     <slot />
   </PopperContent>

@@ -1,25 +1,14 @@
-<!--
-<script lang="ts">
-export interface AlertDialogPortalrProps {
-  forceMount?: boolean;
-  container?: HTMLElement | string;
-}
-</script>
--->
-
-<script lang="ts">
+<script setup lang="ts">
 import BasePortal from "../shared/component/BasePortal.vue";
 import type { BasePortalProps } from "../shared/component/BasePortal.vue";
-</script>
 
-<script setup lang="ts">
-const props = withDefaults(defineProps<BasePortalProps>(), {
-  to: "body",
-});
+export interface DialogPortalProps extends BasePortalProps {}
+
+const props = defineProps<DialogPortalProps>();
 </script>
 
 <template>
-  <BasePortal :to="props.to">
+  <BasePortal v-bind="props">
     <slot />
   </BasePortal>
 </template>

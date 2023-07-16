@@ -1,27 +1,8 @@
 export {
   AccordionContent,
   AccordionHeader,
-  AccordionImpl,
-  type AccordionImplProps,
-  type AccordionImplProvideValue,
-  ACCORDION_IMPL_INJECTION_KEY,
-  AccordionImplMultiple,
-  type AccordionImplMultipleProps,
-  type AccordionMultipleProps,
-  type AccordionValueProvideValue,
-  type AccordionCollapsibleProvideValue,
-  ACCORDION_VALUE_INJECTION_KEY,
-  ACCORDION_COLLAPSIBLE_INJECTION_KEY,
-  AccordionImplSingle,
-  type AccordionImplSingleProps,
-  type AccordionSingleProps,
   AccordionItem,
-  type AccordionItemProps,
-  type AccordionItemProvideValue,
-  ACCORDION_ITEM_INJECTION_KEY,
-  ACCORDION_KEYS,
   AccordionRoot,
-  type AccordionRootProps,
   AccordionTrigger,
 } from "./Accordion";
 export { CheckboxIndicator, CheckboxRoot } from "./Checkbox";
@@ -29,7 +10,6 @@ export {
   CollapsibleRoot,
   CollapsibleTrigger,
   CollapsibleContent,
-  COLLAPSIBLE_INJECTION_KEY,
   type CollapsibleProvideValue,
   type CollapsibleRootProps,
 } from "./Collapsible";
@@ -166,5 +146,15 @@ export {
   MenubarSubTrigger,
   MenubarMenu,
 } from "./Menubar";
+export {
+  NavigationMenuLink,
+  NavigationMenuIndicator,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuRoot,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+} from "./NavigationMenu";
 
 export * from "./ScrollArea";

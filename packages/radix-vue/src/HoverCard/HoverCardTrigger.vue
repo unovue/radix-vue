@@ -16,17 +16,18 @@ import { PopperAnchor } from "@/Popper";
 import { useHoverDelay, useMouseleaveDelay } from "../shared";
 
 const injectedValue = inject<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY);
+
 const props = withDefaults(defineProps<HoverCardTriggerProps>(), {
   asChild: false,
 });
 
-const { primitiveElement, currentElement: triggerElement } =
+const { primitiveElement, currentElement } =
   usePrimitiveElement();
 
 async function handleMouseEnter(e: MouseEvent) {
   const result = await useHoverDelay(
     e,
-    triggerElement.value!,
+    currentElement.value!,
     injectedValue?.openDelay
   );
   if (result) {

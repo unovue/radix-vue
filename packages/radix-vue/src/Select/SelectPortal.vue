@@ -1,14 +1,14 @@
-<!--
-<script lang="ts">
-export interface DropdwonMenuPortalProps {
-  forceMount?: boolean;
-  container?: HTMLElement | string;
-}
+<script setup lang="ts">
+import BasePortal from "../shared/component/BasePortal.vue";
+import type { BasePortalProps } from "../shared/component/BasePortal.vue";
+
+export interface SelectPortalProps extends BasePortalProps {}
+
+const props = defineProps<SelectPortalProps>();
 </script>
--->
 
 <template>
-  <Teleport to="body">
+  <BasePortal v-bind="props">
     <slot />
-  </Teleport>
+  </BasePortal>
 </template>

@@ -36,7 +36,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed, inject, provide, ref, watch, watchEffect } from "vue";
+import { computed, inject, provide, ref, watchEffect } from "vue";
 import { PrimitiveDiv } from "@/Primitive";
 import { POPPER_ROOT_KEY } from "./PopperRoot.vue";
 import { useSize } from "@/shared";
@@ -46,7 +46,6 @@ import {
   type Align,
   getSideAndAlignFromPlacement,
   transformOrigin,
-  isNotNull,
 } from "./utils";
 import {
   useFloating,

@@ -40,7 +40,7 @@ const Primitive = NODES.reduce((primitive, node) => {
     props: {
       asChild: Boolean,
     },
-    setup(props, { slots, attrs }) {
+    setup(props, { slots }) {
       const asChild = !!props.asChild;
       if (asChild) {
         const children = renderSlotFragments(slots.default?.());

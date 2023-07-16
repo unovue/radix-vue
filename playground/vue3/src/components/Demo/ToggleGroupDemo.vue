@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ToggleGroupItem, ToggleGroupRoot } from 'radix-vue'
+import { ToggleGroupItem, ToggleGroupRoot } from '../../../../../packages/radix-vue/src'
 import { Icon } from '@iconify/vue'
 import { ref } from 'vue'
 
-const toggleStateSingle = ref('left')
+const toggleStateSingle = ref()
 const toggleStateMultiple = ref(['italic'])
 
 const toggleGroupItemClasses
@@ -15,7 +15,7 @@ const toggleGroupItemClasses
     <p>Single: {{ toggleStateSingle }}</p>
     <p>Multiple: {{ toggleStateMultiple }}</p>
   </div>
-  <ToggleGroupRoot v-model="toggleStateSingle" class="flex">
+  <ToggleGroupRoot v-model="toggleStateSingle" disabled class="flex">
     <ToggleGroupItem value="left" aria-label="Toggle italic" :class="toggleGroupItemClasses">
       <Icon icon="radix-icons:text-align-left" class="text-black" />
     </ToggleGroupItem>

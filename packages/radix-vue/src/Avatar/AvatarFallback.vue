@@ -20,13 +20,13 @@ const props = withDefaults(defineProps<AvatarFallbackProps>(), {
   delayMs: 0,
 });
 
-let canRender = ref<boolean>();
+let canRender = ref(false);
 let timeout: ReturnType<typeof setTimeout> | undefined;
 
 if (props.delayMs) {
-  if (timeout) clearTimeout(timeout);
   timeout = setTimeout(() => {
     canRender.value = true;
+    clearTimeout(timeout);
   }, props.delayMs);
 } else {
   canRender.value = true;

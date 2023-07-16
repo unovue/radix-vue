@@ -54,7 +54,7 @@ provide<SwitchProvideValue>(SWITCH_INJECTION_KEY, {
 });
 
 function handleKeydown(e: KeyboardEvent) {
-  if (e.key === "Enter") {
+  if (e.key === "Enter" || e.keyCode === 32) {
     toggleOpen();
   }
 }

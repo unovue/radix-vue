@@ -6,7 +6,7 @@ export interface AvatarImageProps {
 </script>
 
 <script setup lang="ts">
-import { inject, onMounted } from "vue";
+import { inject } from "vue";
 import {
   AVATAR_INJECTION_KEY,
   type AvatarProvideValue,
@@ -15,15 +15,15 @@ import { PrimitiveImg } from "../Primitive";
 
 const injectedValue = inject<AvatarProvideValue>(AVATAR_INJECTION_KEY);
 
-onMounted(() => {
-  injectedValue!.imageLoadingStatus.value = "loaded";
-});
-
 withDefaults(defineProps<AvatarImageProps>(), {
   asChild: false,
 });
+
+function setImageLoad() {
+  injectedValue!.imageLoadingStatus.value = "loaded";
+}
 </script>
 
 <template>
-  <PrimitiveImg :asChild="asChild" />
+  <PrimitiveImg :asChild="asChild" @load="setImageLoad" />
 </template>

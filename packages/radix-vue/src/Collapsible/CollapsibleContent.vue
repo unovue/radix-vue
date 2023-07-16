@@ -5,40 +5,34 @@ export interface CollapsibleContentProps {
 </script>
 
 <script setup lang="ts">
-import { inject, nextTick, onMounted, ref, watch } from "vue";
+import { computed, inject, nextTick, ref, watch } from "vue";
 import {
   COLLAPSIBLE_INJECTION_KEY,
   type CollapsibleProvideValue,
 } from "./CollapsibleRoot.vue";
 import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import { Presence } from "@/Presence";
 
 const injectedValue = inject<CollapsibleProvideValue>(
   COLLAPSIBLE_INJECTION_KEY
 );
 
+const presentRef = ref<InstanceType<typeof Presence>>();
 const { primitiveElement, currentElement } = usePrimitiveElement();
 
 const width = ref(0);
 const height = ref(0);
-const currentStyle = ref<Record<string, string>>();
 
 // when opening we want it to immediately open to retrieve dimensions
 // when closing we delay `present` to retrieve dimensions before closing
-const isMountAnimationPrevented = ref(injectedValue?.open.value);
-const isPresent = ref(false);
-const hasAnimations = ref(false);
+const isOpen = computed(() => injectedValue?.open.value);
+const isMountAnimationPrevented = ref(isOpen.value);
+const currentStyle = ref<Record<string, string>>();
 
 watch(
-  () => [injectedValue?.open.value, currentElement.value],
+  () => [isOpen.value, presentRef.value?.present],
   async () => {
-    if (injectedValue?.open.value) {
-      isPresent.value = true;
-    } else if (!hasAnimations.value) {
-      isPresent.value = false;
-    }
-
     await nextTick();
-
     const node = currentElement.value;
     if (!node) return;
     currentStyle.value = currentStyle.value || {
@@ -65,20 +59,12 @@ watch(
   }
 );
 
-onMounted(() => {
-  const currentElementStyle = getComputedStyle(currentElement.value!);
-  if (currentElementStyle?.animationName !== "none") {
-    hasAnimations.value = true;
-    currentElement.value?.addEventListener("animationend", () => {
-      if (!injectedValue?.open.value) {
-        isPresent.value = false;
-      }
-    });
-  }
+requestAnimationFrame(() => {
+  isMountAnimationPrevented.value = false;
+});
 
-  requestAnimationFrame(() => {
-    isMountAnimationPrevented.value = false;
-  });
+defineOptions({
+  inheritAttrs: false,
 });
 
 const props = withDefaults(defineProps<CollapsibleContentProps>(), {
@@ -87,20 +73,21 @@ const props = withDefaults(defineProps<CollapsibleContentProps>(), {
 </script>
 
 <template>
-  <PrimitiveDiv
-    ref="primitiveElement"
-    :asChild="props.asChild"
-    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
-    :data-disabled="injectedValue?.disabled?.value ? '' : undefined"
-    :id="injectedValue?.contentId"
-    :hidden="!isPresent"
-    :style="{
-      [`--radix-collapsible-content-height`]: `${height}px`,
-      [`--radix-collapsible-content-width`]: `${width}px`,
-    }"
-  >
-    <template v-if="isPresent">
+  <Presence ref="presentRef" :present="injectedValue!.open.value">
+    <PrimitiveDiv
+      ref="primitiveElement"
+      v-bind="$attrs"
+      :asChild="props.asChild"
+      :data-state="injectedValue?.open.value ? 'open' : 'closed'"
+      :data-disabled="injectedValue?.disabled?.value ? 'true' : undefined"
+      :id="injectedValue?.contentId"
+      :hidden="!injectedValue?.open"
+      :style="{
+        [`--radix-collapsible-content-height`]: `${height}px`,
+        [`--radix-collapsible-content-width`]: `${width}px`,
+      }"
+    >
       <slot />
-    </template>
-  </PrimitiveDiv>
+    </PrimitiveDiv>
+  </Presence>
 </template>

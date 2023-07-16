@@ -15,6 +15,9 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     exclude: ["**/node_modules/**"],
-    include: ["./**/*.test.ts"],
+    include: ["./**/*.test.{ts,js}"],
+    coverage: {
+      provider: "istanbul", // or 'v8'
+    },
   },
 });

@@ -28,16 +28,14 @@ const props = defineProps<DataAttributesTableProps>();
       <ProseTr v-for="(prop, index) in props.data" :key="`${prop.cssVariable}-${index}`">
         <ProseTd>
           <div class="flex items-center gap-1">
-          <ProseCodeInline class="!whitespace-normal py-1">
-            {{ prop.cssVariable }}
-          </ProseCodeInline>
+            <ProseCodeInline class="!whitespace-normal py-1">
+              {{ prop.cssVariable }}
+            </ProseCodeInline>
           </div>
         </ProseTd>
         <ProseTd class="">
           <div class="flex items-center gap-1">
-          <span>
-          {{ prop.description }}
-        </span>
+            <span size="2" class="leading-5" v-html="prop.description" />
           </div>
         </ProseTd>
       </ProseTr>

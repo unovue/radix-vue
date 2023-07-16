@@ -934,6 +934,7 @@ An item that opens a submenu. Must be rendered inside `DropdownMenuSub`.
     },
   ]"
 />
+-->
 
 <DataAttributesTable
   :data="[
@@ -956,36 +957,28 @@ An item that opens a submenu. Must be rendered inside `DropdownMenuSub`.
   :data="[
     {
       cssVariable: '--radix-dropdown-menu-content-transform-origin',
-      description: (
-        <>
-          The <Code>transform-origin</Code> computed from the content and arrow
-          positions/offsets
-        </>
-      ),
+      description: 'The <Code>transform-origin</Code> computed from the content and arrow positions/offsets',
     },
     {
       cssVariable: '--radix-dropdown-menu-content-available-width',
-      description: (
-        <>The remaining width between the trigger and the boundary edge</>
-      ),
+      description: `
+        The remaining width between the trigger and the boundary edge
+      `,
     },
     {
       cssVariable: '--radix-dropdown-menu-content-available-height',
-      description: (
-        <>The remaining height between the trigger and the boundary edge</>
-      ),
+      description: 'The remaining height between the trigger and the boundary edge',
     },
     {
       cssVariable: '--radix-dropdown-menu-trigger-width',
-      description: <>The width of the trigger</>,
+      description: 'The width of the trigger',
     },
     {
       cssVariable: '--radix-dropdown-menu-trigger-height',
-      description: <>The height of the trigger</>,
+      description: 'The height of the trigger'
     },
   ]"
 />
--->
 
 ### SubContent
 

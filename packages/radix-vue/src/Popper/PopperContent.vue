@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
+import { type PrimitiveProps } from "@/Primitive";
 
 export type PopperContentContextValue = {
   placedSide: Ref<Side>;
@@ -9,9 +10,7 @@ export type PopperContentContextValue = {
   shouldHideArrow: Ref<boolean>;
 };
 
-export interface PopperContentProps {
-  asChild?: boolean;
-
+export interface PopperContentProps extends PrimitiveProps {
   side?: Side;
   sideOffset?: number;
   align?: Align;

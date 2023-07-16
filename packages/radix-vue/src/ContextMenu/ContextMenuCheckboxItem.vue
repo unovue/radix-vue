@@ -1,8 +1,8 @@
 <script lang="ts">
 import { useVModel } from "@vueuse/core";
+import { type PrimitiveProps } from "@/Primitive";
 
-interface ContextMenuCheckboxItemProps {
-  asChild?: boolean;
+interface ContextMenuCheckboxItemProps extends PrimitiveProps {
   checked?: boolean;
   //onCheckedChange?: void;
   modelValue?: boolean;

@@ -3,9 +3,10 @@ import type { DropdownMenuProvideValue } from "../../DropdownMenu/DropdownMenuRo
 import type { DropdownMenuSubProvideValue } from "../../DropdownMenu/DropdownMenuSub.vue";
 import type { MenubarProvideValue } from "../../Menubar/MenubarRoot.vue";
 import type { MenubarSubProvideValue } from "../../Menubar/MenubarSub.vue";
+import { type PrimitiveProps } from "@/Primitive";
 
 // TODO: improve types for props
-interface BaseMenuItemProps {
+interface BaseMenuItemProps extends PrimitiveProps {
   disabled?: boolean;
   rootProvider: DropdownMenuProvideValue | MenubarProvideValue | undefined;
   subProvider?:

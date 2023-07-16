@@ -1,8 +1,11 @@
 <script lang="ts">
+import { type PrimitiveProps } from "@/Primitive";
+
 export type Boundary = Element | null | Array<Element | null>;
 
-export interface ContextMenuSubContentProps extends PopperContentProps {
-  asChild?: boolean;
+export interface ContextMenuSubContentProps
+  extends PopperContentProps,
+    PrimitiveProps {
   loop?: boolean; //false
   //onOpenAutoFocus?: void;
   //onCloseAutoFocus?: void;
@@ -107,7 +110,7 @@ onClickOutside(tooltipContentElement, (event) => {
       :data-orientation="injectedValue.orientation"
       :aria-labelledby="injectedValue.triggerId"
       role="tooltip"
-      :asChild="props.asChild"
+      :as-child="props.asChild"
       style="pointer-events: auto"
     >
       <slot />

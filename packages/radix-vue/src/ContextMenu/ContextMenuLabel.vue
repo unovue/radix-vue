@@ -1,8 +1,8 @@
 <script lang="ts">
 import { PrimitiveLabel } from "@/Primitive";
+import { type PrimitiveProps } from "@/Primitive";
 
-interface ContextMenuLabelProps {
-  asChild?: boolean;
+interface ContextMenuLabelProps extends PrimitiveProps {
   for?: string;
 }
 </script>

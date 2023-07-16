@@ -1,6 +1,7 @@
 <script lang="ts">
-export interface ContextMenuItemIndicatorProps {
-  asChild?: boolean;
+import { type PrimitiveProps } from "@/Primitive";
+
+export interface ContextMenuItemIndicatorProps extends PrimitiveProps {
   forceMount?: boolean;
 }
 </script>

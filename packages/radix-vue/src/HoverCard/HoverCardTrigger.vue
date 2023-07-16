@@ -21,8 +21,7 @@ const props = withDefaults(defineProps<HoverCardTriggerProps>(), {
   asChild: false,
 });
 
-const { primitiveElement, currentElement } =
-  usePrimitiveElement();
+const { primitiveElement, currentElement } = usePrimitiveElement();
 
 async function handleMouseEnter(e: MouseEvent) {
   const result = await useHoverDelay(
@@ -37,7 +36,7 @@ async function handleMouseEnter(e: MouseEvent) {
 
 async function handleMouseleave(e: MouseEvent) {
   injectedValue!.isHover = false;
-  const result = await useMouseleaveDelay(e, injectedValue?.closeDelay!);
+  const result = await useMouseleaveDelay(e, injectedValue?.closeDelay);
   if (result && !injectedValue?.isHover) {
     injectedValue?.hideTooltip();
   }

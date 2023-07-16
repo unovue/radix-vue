@@ -10,14 +10,18 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/checkbox
 import Description from '../../components/Description.vue'
 import HeroContainer from '../../components/HeroContainer.vue'
 import DemoCheckbox from '../../components/demo/Checkbox/index.vue'
+import PropsTable from '../../components/tables/PropsTable.vue'
+import EmitsTable from '../../components/tables/EmitsTable.vue'
+import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
+import KeyboardTable from '../../components/tables/KeyboardTable.vue'
+import Highlights from '../../components/Highlights.vue'
 import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 </script>
 
 # Checkbox
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+A control that allows the user to toggle between checked and not checked.
 </Description>
 
 <HeroContainer>
@@ -33,36 +37,38 @@ response.
 </template>
 </HeroContainer>
 
-<!--
+## Features
+
 <Highlights
-  features={[
+  :features="[
     'Supports indeterminate state.',
     'Full keyboard navigation.',
     'Can be controlled or uncontrolled.',
-  ]}
+  ]"
 />
--->
 
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-checkbox
+npm install radix-vue
 ```
 
 ## Anatomy
 
 Import all parts and piece them together.
 
-```jsx
-import * as Checkbox from '@radix-ui/react-checkbox';
+```vue
+<script setup>
+import { CheckboxRoot, CheckboxIndicator } from "radix-vue";
+</script>
 
-export default () => (
-  <Checkbox.Root>
-    <Checkbox.Indicator />
-  </Checkbox.Root>
-);
+<template>
+	<CheckboxRoot>
+		<CheckboxIndicator />
+	</CheckboxRoot>
+</template>
 ```
 
 ## API Reference
@@ -71,24 +77,14 @@ export default () => (
 
 Contains all the parts of a checkbox. An `input` will also render when used within a `form` to ensure events propagate correctly.
 
-<!--
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'defaultChecked',
@@ -99,61 +95,35 @@ Contains all the parts of a checkbox. An `input` will also render when used with
     {
       name: 'checked',
       type: 'boolean',
-      description: (
-        <span>
-          The controlled checked state of the checkbox. Must be used in
-          conjunction with <Code>onCheckedChange</Code>.
-        </span>
-      ),
-    },
-    {
-      name: 'onCheckedChange',
-      type: `(checked: boolean | 'indeterminate') => void`,
-      typeSimple: 'function',
-      description:
-        'Event handler called when the checked state of the checkbox changes.',
+      description: '<span> The controlled checked state of the checkbox Must be binded with <Code>v-model</Code>.</span>',
     },
     {
       name: 'disabled',
       type: 'boolean',
-      description: (
-        <span>
-          When <Code>true</Code>, prevents the user from interacting with the
-          checkbox.
-        </span>
-      ),
+      description: '<span> When <Code>true</Code>, prevents the user from interacting with the checkbox </span>',
     },
     {
       name: 'required',
       type: 'boolean',
-      description: (
-        <span>
-          When <Code>true</Code>, indicates that the user must check the
-          checkbox before the owning form can be submitted.
-        </span>
-      ),
+      description: '<span> When <Code>true</Code>, indicates that the user must check the checkbox before the owning form can be submitted.</span>',
     },
     {
       name: 'name',
       type: 'string',
       description:
-        'The name of the checkbox. Submitted with its owning form as part of a name/value pair.',
+        'The name of the checkbox Submitted with its owning form as part of a name/value pair.',
     },
     {
       name: 'value',
       type: 'string',
       default: 'on',
-      description: (
-        <span>
-          The value given as data when submitted with a <Code>name</Code>.
-        </span>
-      ),
+      description: '<span> The value given as data when submitted with a <Code>name</Code>.</span>',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['checked', 'unchecked', 'indeterminate'],
@@ -162,42 +132,27 @@ Contains all the parts of a checkbox. An `input` will also render when used with
       attribute: '[data-disabled]',
       values: 'Present when disabled',
     },
-  ]}
+  ]"
 />
--->
+
 ### Indicator
 
 Renders when the checkbox is in a checked or indeterminate state. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
-<!--
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-    {
-      name: 'forceMount',
-      type: 'boolean',
-      description:
-        'Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries.',
-    },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['checked', 'unchecked', 'indeterminate'],
@@ -206,44 +161,40 @@ Renders when the checkbox is in a checked or indeterminate state. You can style 
       attribute: '[data-disabled]',
       values: 'Present when disabled',
     },
-  ]}
+  ]"
 />
--->
+
 ## Examples
 
 ### Indeterminate
 
 You can set the checkbox to `indeterminate` by taking control of its state.
 
-```jsx line=5,9-14,16
-import { DividerHorizontalIcon, CheckIcon } from '@radix-ui/react-icons';
-import * as Checkbox from '@radix-ui/react-checkbox';
+```vue line=5,9-14,16-21
+<script setup>
+import { Icon } from "@iconify/vue";;
+import { CheckboxRoot, CheckboxIndicator } from "radix-vue";
 
-export default () => {
-  const [checked, setChecked] = React.useState('indeterminate');
+const checked = ref("indeterminate");
+</script>
 
-  return (
-    <>
-      <StyledCheckbox checked={checked} onCheckedChange={setChecked}>
-        <Checkbox.Indicator>
-          {checked === 'indeterminate' && <DividerHorizontalIcon />}
-          {checked === true && <CheckIcon />}
-        </Checkbox.Indicator>
-      </StyledCheckbox>
+<template>
+	<StyledCheckbox v-model:checked="checked">
+		<Icon icon="radix-icons:checkbox-indicator">
+			<Icon icon="radix-icons:divider-horizontal" v-if="checked === 'indeterminate'" />
+			<Icon icon="radix-icons:check" v-if="checked" />
+		</Icon>
+	</StyledCheckbox>
 
-      <button
-        type="button"
-        onClick={() =>
-          setChecked((prevIsChecked) =>
-            prevIsChecked === 'indeterminate' ? false : 'indeterminate'
-          )
-        }
-      >
-        Toggle indeterminate
-      </button>
-    </>
-  );
-};
+	<button
+		type="button"
+		@click="
+			() => checked === 'indeterminate' ? checked = false : checked = 'indeterminate'
+		"
+	>
+		Toggle indeterminate
+	</button>
+</template>
 ```
 
 ## Accessibility
@@ -251,13 +202,12 @@ export default () => {
 Adheres to the [tri-state Checkbox WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/checkbox).
 
 ### Keyboard Interactions
-<!--
+
 <KeyboardTable
-  data={[
+  :data="[
     {
       keys: ['Space'],
-      description: 'Checks/unchecks the checkbox.',
+      description: 'Checks/unchecks the checkbox',
     },
-  ]}
+  ]"
 />
--->

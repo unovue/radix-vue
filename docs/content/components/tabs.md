@@ -10,14 +10,18 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel
 import Description from '../../components/Description.vue'
 import HeroContainer from '../../components/HeroContainer.vue'
 import DemoTabs from '../../components/demo/Tabs/index.vue'
+import PropsTable from '../../components/tables/PropsTable.vue'
+import EmitsTable from '../../components/tables/EmitsTable.vue'
+import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
+import KeyboardTable from '../../components/tables/KeyboardTable.vue'
+import Highlights from '../../components/Highlights.vue'
 import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 </script>
 
 # Tabs
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+A set of layered sections of content—known as tab panels—that are displayed one at a time.
 </Description>
 
 <HeroContainer>
@@ -33,22 +37,22 @@ response.
 </template>
 </HeroContainer>
 
-```
+## Features
 <Highlights
-  features={[
+  :features="[
     'Can be controlled or uncontrolled.',
     'Supports horizontal/vertical orientation.',
     'Supports automatic/manual activation.',
     'Full keyboard navigation.',
-  ]}
+  ]"
 />
-```
+
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-tabs
+npm install radix-vue
 ```
 
 ## Anatomy
@@ -56,7 +60,14 @@ npm install @radix-ui/react-tabs
 Import all parts and piece them together.
 
 ```jsx
-import * as Tabs from '@radix-ui/react-tabs';
+<script setup>
+import { Separator } from "radix-vue";
+</script>
+
+<template>
+  <Separator />
+</template>
+import * as Tabs from 'radix-vue';
 
 export default () => (
   <Tabs.Root>
@@ -81,16 +92,7 @@ Contains all the tabs component parts.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'defaultValue',
@@ -174,16 +176,7 @@ Contains the triggers that are aligned along the edge of the active content.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'loop',
@@ -220,16 +213,7 @@ The button that activates its associated content.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'value',
@@ -280,16 +264,7 @@ Contains the content associated with each trigger.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'value',
@@ -330,7 +305,7 @@ Contains the content associated with each trigger.
 You can create vertical tabs by using the `orientation` prop.
 
 ```jsx line=4
-import * as Tabs from '@radix-ui/react-tabs';
+import * as Tabs from 'radix-vue';
 
 export default () => (
   <Tabs.Root defaultValue="tab1" __orientation__="vertical">

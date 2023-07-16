@@ -10,6 +10,11 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/listbox
 import Description from '../../components/Description.vue'
 import HeroContainer from '../../components/HeroContainer.vue'
 import DemoSelect from '../../components/demo/Select/index.vue'
+import PropsTable from '../../components/tables/PropsTable.vue'
+import EmitsTable from '../../components/tables/EmitsTable.vue'
+import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
+import KeyboardTable from '../../components/tables/KeyboardTable.vue'
+import Highlights from '../../components/Highlights.vue'
 import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 </script>
 
@@ -32,9 +37,9 @@ Displays a list of options for the user to pick from—triggered by a button.
 </template>
 </HeroContainer>
 
-```
+## Features
 <Highlights
-  features={[
+  :features="[
     'Can be controlled or uncontrolled.',
     'Offers 2 positioning modes.',
     'Supports items, labels, groups of items.',
@@ -43,15 +48,15 @@ Displays a list of options for the user to pick from—triggered by a button.
     'Supports custom placeholder.',
     'Typeahead support.',
     'Supports Right to Left direction.',
-  ]}
+  ]"
 />
-```
+
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-select
+npm install radix-vue
 ```
 
 ## Anatomy
@@ -59,7 +64,7 @@ npm install @radix-ui/react-select
 Import all parts and piece them together.
 
 ```jsx
-import * as Select from '@radix-ui/react-select';
+import * as Select from 'radix-vue';
 
 export default () => (
   <Select.Root>
@@ -207,16 +212,7 @@ The button that toggles the select. The `Select.Content` will position itself by
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]}
 />
@@ -249,16 +245,7 @@ The part that reflects the selected value. By default the selected item's text w
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'placeholder',
@@ -285,16 +272,7 @@ A small icon often displayed next to the value as a visual affordance for the fa
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]}
 />
@@ -325,16 +303,7 @@ The component that pops out when the select is open.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'onCloseAutoFocus',
@@ -600,16 +569,7 @@ The scrolling viewport that contains all of the items.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]}
 />
@@ -625,16 +585,7 @@ The component that contains the select items.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'value',
@@ -699,16 +650,7 @@ The textual part of the item. It should only contain the text you want to see in
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]}
 />
@@ -724,16 +666,7 @@ Renders when the item is selected. You can style this element directly, or you c
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]}
 />
@@ -749,16 +682,7 @@ An optional button used as an affordance to show the viewport overflow as well a
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]}
 />
@@ -774,16 +698,7 @@ An optional button used as an affordance to show the viewport overflow as well a
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]}
 />
@@ -799,16 +714,7 @@ Used to group multiple items. use in conjunction with `Select.Label` to ensure g
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]}
 />
@@ -824,16 +730,7 @@ Used to render the label of a group. It won't be focusable using arrow keys.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]}
 />
@@ -849,16 +746,7 @@ Used to visually separate items in the select.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]}
 />
@@ -874,16 +762,7 @@ An optional arrow element to render alongside the content. This can be used to h
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'width',
@@ -908,7 +787,7 @@ By default, `Select` will behave similarly to a native MacOS menu by positioning
 
 ```jsx line=8
 // index.jsx
-import * as Select from '@radix-ui/react-select';
+import * as Select from 'radix-vue';
 
 export default () => (
   <Select.Root>
@@ -930,7 +809,7 @@ We expose several CSS custom properties such as `--radix-select-trigger-width` a
 
 ```jsx line=9
 // index.jsx
-import * as Select from '@radix-ui/react-select';
+import * as Select from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -963,7 +842,7 @@ You can add special styles to disabled items via the `data-disabled` attribute.
 
 ```jsx line=11
 // index.jsx
-import * as Select from '@radix-ui/react-select';
+import * as Select from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -997,7 +876,7 @@ You can use the `placeholder` prop on `Value` for when the select has no value. 
 
 ```jsx line=7,8
 // index.jsx
-import * as Select from '@radix-ui/react-select';
+import * as Select from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -1069,7 +948,7 @@ Use the `Group` and `Label` parts to group items in a section.
 You can use custom content in your items.
 
 ```jsx line=11
-import * as Select from '@radix-ui/react-select';
+import * as Select from 'radix-vue';
 
 export default () => (
   <Select.Root>
@@ -1141,8 +1020,8 @@ The native scrollbar is hidden by default as we recommend using the `ScrollUpBut
 
 ```jsx line=11,13,19-21
 // index.jsx
-import * as Select from '@radix-ui/react-select';
-import * as ScrollArea from '@radix-ui/react-scroll-area';
+import * as Select from 'radix-vue';
+import * as ScrollArea from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -1262,8 +1141,8 @@ See the W3C [Select-Only Combobox](https://www.w3.org/TR/wai-aria-practices/exam
 Use our [Label](label) component in order to offer a visual and accessible label for the select.
 
 ```jsx line=6,9,13
-import * as Select from '@radix-ui/react-select';
-import { Label } from '@radix-ui/react-label';
+import * as Select from 'radix-vue';
+import { Label } from 'radix-vue';
 
 export default () => (
   <>
@@ -1312,7 +1191,7 @@ export default () => (
 ```jsx
 // your-select.jsx
 import React from 'react';
-import * as SelectPrimitive from '@radix-ui/react-select';
+import * as SelectPrimitive from 'radix-vue';
 import {
   CheckIcon,
   ChevronDownIcon,

@@ -10,14 +10,18 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/menubutton
 import Description from '../../components/Description.vue'
 import HeroContainer from '../../components/HeroContainer.vue'
 import DemoDropdownMenu from '../../components/demo/DropdownMenu/index.vue'
+import PropsTable from '../../components/tables/PropsTable.vue'
+import EmitsTable from '../../components/tables/EmitsTable.vue'
+import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
+import KeyboardTable from '../../components/tables/KeyboardTable.vue'
+import Highlights from '../../components/Highlights.vue'
 import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 </script>
 
 # DropdownMenu
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+Displays a menu to the user—such as a set of actions or functions—triggered by a button.
 </Description>
 
 <HeroContainer>
@@ -33,9 +37,9 @@ response.
 </template>
 </HeroContainer>
 
-<!--
+## Features
 <Highlights
-  features={[
+  :features="[
     'Can be controlled or uncontrolled.',
     'Supports submenus with configurable reading direction.',
     'Supports items, labels, groups of items.',
@@ -47,15 +51,15 @@ response.
     'Full keyboard navigation.',
     'Typeahead support.',
     'Dismissing and layering behavior is highly customizable.',
-  ]}
+  ]"
 />
--->
+
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-dropdown-menu
+npm install radix-vue
 ```
 
 ## Anatomy
@@ -63,43 +67,43 @@ npm install @radix-ui/react-dropdown-menu
 Import all parts and piece them together.
 
 ```jsx
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import * as DropdownMenu from 'radix-vue';
 
 export default () => (
-  <DropdownMenu.Root>
-    <DropdownMenu.Trigger />
+  <DropdownMenuRoot>
+    <DropdownMenuTrigger />
 
-    <DropdownMenu.Portal>
-      <DropdownMenu.Content>
-        <DropdownMenu.Label />
-        <DropdownMenu.Item />
+    <DropdownMenuPortal>
+      <DropdownMenuContent>
+        <DropdownMenuLabel />
+        <DropdownMenuItem />
 
-        <DropdownMenu.Group>
-          <DropdownMenu.Item />
-        </DropdownMenu.Group>
+        <DropdownMenuGroup>
+          <DropdownMenuItem />
+        </DropdownMenuGroup>
 
-        <DropdownMenu.CheckboxItem>
-          <DropdownMenu.ItemIndicator />
-        </DropdownMenu.CheckboxItem>
+        <DropdownMenuCheckboxItem>
+          <DropdownMenuItemIndicator />
+        </DropdownMenuCheckboxItem>
 
-        <DropdownMenu.RadioGroup>
-          <DropdownMenu.RadioItem>
-            <DropdownMenu.ItemIndicator />
-          </DropdownMenu.RadioItem>
-        </DropdownMenu.RadioGroup>
+        <DropdownMenuRadioGroup>
+          <DropdownMenuRadioItem>
+            <DropdownMenuItemIndicator />
+          </DropdownMenuRadioItem>
+        </DropdownMenuRadioGroup>
 
-        <DropdownMenu.Sub>
-          <DropdownMenu.SubTrigger />
-          <DropdownMenu.Portal>
-            <DropdownMenu.SubContent />
-          </DropdownMenu.Portal>
-        </DropdownMenu.Sub>
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger />
+          <DropdownMenuPortal>
+            <DropdownMenuSubContent />
+          </DropdownMenuPortal>
+        </DropdownMenuSub>
 
-        <DropdownMenu.Separator />
-        <DropdownMenu.Arrow />
-      </DropdownMenu.Content>
-    </DropdownMenu.Portal>
-  </DropdownMenu.Root>
+        <DropdownMenuSeparator />
+        <DropdownMenuArrow />
+      </DropdownMenuContent>
+    </DropdownMenuPortal>
+  </DropdownMenuRoot>
 );
 ```
 
@@ -110,7 +114,7 @@ export default () => (
 Contains all the parts of a dropdown menu.
 <!--
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'defaultOpen',
       type: 'boolean',
@@ -167,36 +171,27 @@ Contains all the parts of a dropdown menu.
         </span>
       ),
     },
-  ]}
+  ]"
 />
 -->
 ### Trigger
 
-The button that toggles the dropdown menu. By default, the `DropdownMenu.Content` will position itself against the trigger.
+The button that toggles the dropdown menu. By default, the `DropdownMenuContent` will position itself against the trigger.
 <!--
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
@@ -205,7 +200,7 @@ The button that toggles the dropdown menu. By default, the `DropdownMenu.Content
       attribute: '[data-disabled]',
       values: 'Present when disabled',
     },
-  ]}
+  ]"
 />
 -->
 ### Portal
@@ -213,7 +208,7 @@ The button that toggles the dropdown menu. By default, the `DropdownMenu.Content
 When used, portals the content part into the `body`.
 <!--
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'forceMount',
       type: 'boolean',
@@ -221,8 +216,8 @@ When used, portals the content part into the `body`.
         <span>
           Used to force mounting when more control is needed. Useful when
           controlling animation with React animation libraries. If used on this
-          part, it will be inherited by <Code>DropdownMenu.Content</Code> and{' '}
-          <Code>DropdownMenu.SubContent</Code> respectively.
+          part, it will be inherited by <Code>DropdownMenuContent</Code> and{' '}
+          <Code>DropdownMenuSubContent</Code> respectively.
         </span>
       ),
     },
@@ -232,7 +227,7 @@ When used, portals the content part into the `body`.
       default: 'document.body',
       description: 'Specify a container element to portal the content into.',
     },
-  ]}
+  ]"
 />
 -->
 ### Content
@@ -240,22 +235,13 @@ When used, portals the content part into the `body`.
 The component that pops out when the dropdown menu is open.
 <!--
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'loop',
@@ -334,7 +320,7 @@ The component that pops out when the dropdown menu is open.
         <span>
           Used to force mounting when more control is needed. Useful when
           controlling animation with React animation libraries. It inherits from{' '}
-          <Code>DropdownMenu.Portal</Code>.
+          <Code>DropdownMenuPortal</Code>.
         </span>
       ),
     },
@@ -454,11 +440,11 @@ The component that pops out when the dropdown menu is open.
         </span>
       ),
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
@@ -475,11 +461,11 @@ The component that pops out when the dropdown menu is open.
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
+  ]"
 />
 
 <CssVariablesTable
-  data={[
+  :data="[
     {
       cssVariable: '--radix-dropdown-menu-content-transform-origin',
       description: (
@@ -509,30 +495,21 @@ The component that pops out when the dropdown menu is open.
       cssVariable: '--radix-dropdown-menu-trigger-height',
       description: <>The height of the trigger</>,
     },
-  ]}
+  ]"
 />
 -->
 ### Arrow
 
-An optional arrow element to render alongside the dropdown menu. This can be used to help visually link the trigger with the `DropdownMenu.Content`. Must be rendered inside `DropdownMenu.Content`.
+An optional arrow element to render alongside the dropdown menu. This can be used to help visually link the trigger with the `DropdownMenuContent`. Must be rendered inside `DropdownMenuContent`.
 <!--
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'width',
@@ -546,7 +523,7 @@ An optional arrow element to render alongside the dropdown menu. This can be use
       default: 5,
       description: <span>The height of the arrow in pixels.</span>,
     },
-  ]}
+  ]"
 />
 -->
 ### Item
@@ -554,22 +531,13 @@ An optional arrow element to render alongside the dropdown menu. This can be use
 The component that contains the dropdown menu items.
 <!--
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'disabled',
@@ -604,11 +572,11 @@ The component that contains the dropdown menu items.
         </span>
       ),
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
@@ -621,32 +589,23 @@ The component that contains the dropdown menu items.
       attribute: '[data-disabled]',
       values: 'Present when disabled',
     },
-  ]}
+  ]"
 />
 -->
 ### Group
 
-Used to group multiple `DropdownMenu.Item`s.
+Used to group multiple `DropdownMenuItem`s.
 <!--
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-  ]}
+  ]"
 />
 -->
 ### Label
@@ -654,24 +613,15 @@ Used to group multiple `DropdownMenu.Item`s.
 Used to render a label. It won't be focusable using arrow keys.
 <!--
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-  ]}
+  ]"
 />
 -->
 ### CheckboxItem
@@ -679,22 +629,13 @@ Used to render a label. It won't be focusable using arrow keys.
 An item that can be controlled and rendered like a checkbox.
 <!--
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'checked',
@@ -747,11 +688,11 @@ An item that can be controlled and rendered like a checkbox.
         </span>
       ),
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['checked', 'unchecked', 'indeterminate'],
@@ -764,30 +705,21 @@ An item that can be controlled and rendered like a checkbox.
       attribute: '[data-disabled]',
       values: 'Present when disabled',
     },
-  ]}
+  ]"
 />
 -->
 ### RadioGroup
 
-Used to group multiple `DropdownMenu.RadioItem`s.
+Used to group multiple `DropdownMenuRadioItem`s.
 <!--
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'value',
@@ -800,7 +732,7 @@ Used to group multiple `DropdownMenu.RadioItem`s.
       typeSimple: 'function',
       description: 'Event handler called when the value changes.',
     },
-  ]}
+  ]"
 />
 -->
 ### RadioItem
@@ -808,22 +740,13 @@ Used to group multiple `DropdownMenu.RadioItem`s.
 An item that can be controlled and rendered like a radio.
 <!--
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'value',
@@ -864,11 +787,11 @@ An item that can be controlled and rendered like a radio.
         </span>
       ),
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['checked', 'unchecked', 'indeterminate'],
@@ -881,30 +804,21 @@ An item that can be controlled and rendered like a radio.
       attribute: '[data-disabled]',
       values: 'Present when disabled',
     },
-  ]}
+  ]"
 />
 -->
 ### ItemIndicator
 
-Renders when the parent `DropdownMenu.CheckboxItem` or `DropdownMenu.RadioItem` is checked. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
+Renders when the parent `DropdownMenuCheckboxItem` or `DropdownMenuRadioItem` is checked. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
 <!--
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'forceMount',
@@ -916,16 +830,16 @@ Renders when the parent `DropdownMenu.CheckboxItem` or `DropdownMenu.RadioItem` 
         </span>
       ),
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['checked', 'unchecked', 'indeterminate'],
     },
-  ]}
+  ]"
 />
 -->
 ### Separator
@@ -933,24 +847,15 @@ Renders when the parent `DropdownMenu.CheckboxItem` or `DropdownMenu.RadioItem` 
 Used to visually separate items in the dropdown menu.
 <!--
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-  ]}
+  ]"
 />
 -->
 ### Sub
@@ -958,7 +863,7 @@ Used to visually separate items in the dropdown menu.
 Contains all the parts of a submenu.
 <!--
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'defaultOpen',
       type: 'boolean',
@@ -989,30 +894,21 @@ Contains all the parts of a submenu.
         </span>
       ),
     },
-  ]}
+  ]"
 />
 -->
 ### SubTrigger
 
-An item that opens a submenu. Must be rendered inside `DropdownMenu.Sub`.
+An item that opens a submenu. Must be rendered inside `DropdownMenuSub`.
 <!--
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'disabled',
@@ -1035,11 +931,11 @@ An item that opens a submenu. Must be rendered inside `DropdownMenu.Sub`.
         </span>
       ),
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
@@ -1052,11 +948,11 @@ An item that opens a submenu. Must be rendered inside `DropdownMenu.Sub`.
       attribute: '[data-disabled]',
       values: 'Present when disabled',
     },
-  ]}
+  ]"
 />
 
 <CssVariablesTable
-  data={[
+  :data="[
     {
       cssVariable: '--radix-dropdown-menu-content-transform-origin',
       description: (
@@ -1086,30 +982,21 @@ An item that opens a submenu. Must be rendered inside `DropdownMenu.Sub`.
       cssVariable: '--radix-dropdown-menu-trigger-height',
       description: <>The height of the trigger</>,
     },
-  ]}
+  ]"
 />
 -->
 ### SubContent
 
-The component that pops out when a submenu is open. Must be rendered inside `DropdownMenu.Sub`.
+The component that pops out when a submenu is open. Must be rendered inside `DropdownMenuSub`.
 <!--
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'loop',
@@ -1177,7 +1064,7 @@ The component that pops out when a submenu is open. Must be rendered inside `Dro
         <span>
           Used to force mounting when more control is needed. Useful when
           controlling animation with React animation libraries. It inherits from{' '}
-          <Code>DropdownMenu.Portal</Code>.
+          <Code>DropdownMenuPortal</Code>.
         </span>
       ),
     },
@@ -1272,11 +1159,11 @@ The component that pops out when a submenu is open. Must be rendered inside `Dro
         </span>
       ),
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
@@ -1293,38 +1180,38 @@ The component that pops out when a submenu is open. Must be rendered inside `Dro
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
+  ]"
 />
 -->
 ## Examples
 
 ### With submenus
 
-You can create submenus by using `DropdownMenu.Sub` in combination with its parts.
+You can create submenus by using `DropdownMenuSub` in combination with its parts.
 
 ```jsx line=8-17
-<DropdownMenu.Root>
-  <DropdownMenu.Trigger>…</DropdownMenu.Trigger>
-  <DropdownMenu.Portal>
-    <DropdownMenu.Content>
-      <DropdownMenu.Item>…</DropdownMenu.Item>
-      <DropdownMenu.Item>…</DropdownMenu.Item>
-      <DropdownMenu.Separator />
-      <DropdownMenu.Sub>
-        <DropdownMenu.SubTrigger>Sub menu →</DropdownMenu.SubTrigger>
-        <DropdownMenu.Portal>
-          <DropdownMenu.SubContent>
-            <DropdownMenu.Item>Sub menu item</DropdownMenu.Item>
-            <DropdownMenu.Item>Sub menu item</DropdownMenu.Item>
-            <DropdownMenu.Arrow />
-          </DropdownMenu.SubContent>
-        </DropdownMenu.Portal>
-      </DropdownMenu.Sub>
-      <DropdownMenu.Separator />
-      <DropdownMenu.Item>…</DropdownMenu.Item>
-    </DropdownMenu.Content>
-  </DropdownMenu.Portal>
-</DropdownMenu.Root>
+<DropdownMenuRoot>
+  <DropdownMenuTrigger>…</DropdownMenuTrigger>
+  <DropdownMenuPortal>
+    <DropdownMenuContent>
+      <DropdownMenuItem>…</DropdownMenuItem>
+      <DropdownMenuItem>…</DropdownMenuItem>
+      <DropdownMenuSeparator />
+      <DropdownMenuSub>
+        <DropdownMenuSubTrigger>Sub menu →</DropdownMenuSubTrigger>
+        <DropdownMenuPortal>
+          <DropdownMenuSubContent>
+            <DropdownMenuItem>Sub menu item</DropdownMenuItem>
+            <DropdownMenuItem>Sub menu item</DropdownMenuItem>
+            <DropdownMenuArrow />
+          </DropdownMenuSubContent>
+        </DropdownMenuPortal>
+      </DropdownMenuSub>
+      <DropdownMenuSeparator />
+      <DropdownMenuItem>…</DropdownMenuItem>
+    </DropdownMenuContent>
+  </DropdownMenuPortal>
+</DropdownMenuRoot>
 ```
 
 ### With disabled items
@@ -1333,21 +1220,21 @@ You can add special styles to disabled items via the `data-disabled` attribute.
 
 ```jsx line=10
 // index.jsx
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import * as DropdownMenu from 'radix-vue';
 import './styles.css';
 
 export default () => (
-  <DropdownMenu.Root>
-    <DropdownMenu.Trigger>…</DropdownMenu.Trigger>
-    <DropdownMenu.Portal>
-      <DropdownMenu.Content>
-        <DropdownMenu.Item __className__="DropdownMenuItem" __disabled__>
+  <DropdownMenuRoot>
+    <DropdownMenuTrigger>…</DropdownMenuTrigger>
+    <DropdownMenuPortal>
+      <DropdownMenuContent>
+        <DropdownMenuItem __className__="DropdownMenuItem" __disabled__>
           …
-        </DropdownMenu.Item>
-        <DropdownMenu.Item className="DropdownMenuItem">…</DropdownMenu.Item>
-      </DropdownMenu.Content>
-    </DropdownMenu.Portal>
-  </DropdownMenu.Root>
+        </DropdownMenuItem>
+        <DropdownMenuItem className="DropdownMenuItem">…</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenuPortal>
+  </DropdownMenuRoot>
 );
 ```
 
@@ -1363,18 +1250,18 @@ export default () => (
 Use the `Separator` part to add a separator between items.
 
 ```jsx line=6,8
-<DropdownMenu.Root>
-  <DropdownMenu.Trigger>…</DropdownMenu.Trigger>
-  <DropdownMenu.Portal>
-    <DropdownMenu.Content>
-      <DropdownMenu.Item>…</DropdownMenu.Item>
-      <DropdownMenu.Separator />
-      <DropdownMenu.Item>…</DropdownMenu.Item>
-      <DropdownMenu.Separator />
-      <DropdownMenu.Item>…</DropdownMenu.Item>
-    </DropdownMenu.Content>
-  </DropdownMenu.Portal>
-</DropdownMenu.Root>
+<DropdownMenuRoot>
+  <DropdownMenuTrigger>…</DropdownMenuTrigger>
+  <DropdownMenuPortal>
+    <DropdownMenuContent>
+      <DropdownMenuItem>…</DropdownMenuItem>
+      <DropdownMenuSeparator />
+      <DropdownMenuItem>…</DropdownMenuItem>
+      <DropdownMenuSeparator />
+      <DropdownMenuItem>…</DropdownMenuItem>
+    </DropdownMenuContent>
+  </DropdownMenuPortal>
+</DropdownMenuRoot>
 ```
 
 ### With labels
@@ -1382,17 +1269,17 @@ Use the `Separator` part to add a separator between items.
 Use the `Label` part to help label a section.
 
 ```jsx line=5
-<DropdownMenu.Root>
-  <DropdownMenu.Trigger>…</DropdownMenu.Trigger>
-  <DropdownMenu.Portal>
-    <DropdownMenu.Content>
-      <DropdownMenu.Label>Label</DropdownMenu.Label>
-      <DropdownMenu.Item>…</DropdownMenu.Item>
-      <DropdownMenu.Item>…</DropdownMenu.Item>
-      <DropdownMenu.Item>…</DropdownMenu.Item>
-    </DropdownMenu.Content>
-  </DropdownMenu.Portal>
-</DropdownMenu.Root>
+<DropdownMenuRoot>
+  <DropdownMenuTrigger>…</DropdownMenuTrigger>
+  <DropdownMenuPortal>
+    <DropdownMenuContent>
+      <DropdownMenuLabel>Label</DropdownMenuLabel>
+      <DropdownMenuItem>…</DropdownMenuItem>
+      <DropdownMenuItem>…</DropdownMenuItem>
+      <DropdownMenuItem>…</DropdownMenuItem>
+    </DropdownMenuContent>
+  </DropdownMenuPortal>
+</DropdownMenuRoot>
 ```
 
 ### With checkbox items
@@ -1402,31 +1289,31 @@ Use the `CheckboxItem` part to add an item that can be checked.
 ```jsx line=6,16-21
 import React from 'react';
 import { CheckIcon } from '@radix-ui/react-icons';
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import * as DropdownMenu from 'radix-vue';
 
 export default () => {
   const [checked, setChecked] = React.useState(true);
 
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger>…</DropdownMenu.Trigger>
-      <DropdownMenu.Portal>
-        <DropdownMenu.Content>
-          <DropdownMenu.Item>…</DropdownMenu.Item>
-          <DropdownMenu.Item>…</DropdownMenu.Item>
-          <DropdownMenu.Separator />
-          <DropdownMenu.CheckboxItem
+    <DropdownMenuRoot>
+      <DropdownMenuTrigger>…</DropdownMenuTrigger>
+      <DropdownMenuPortal>
+        <DropdownMenuContent>
+          <DropdownMenuItem>…</DropdownMenuItem>
+          <DropdownMenuItem>…</DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuCheckboxItem
             checked={checked}
             onCheckedChange={setChecked}
           >
-            <DropdownMenu.ItemIndicator>
+            <DropdownMenuItemIndicator>
               <CheckIcon />
-            </DropdownMenu.ItemIndicator>
+            </DropdownMenuItemIndicator>
             Checkbox item
-          </DropdownMenu.CheckboxItem>
-        </DropdownMenu.Content>
-      </DropdownMenu.Portal>
-    </DropdownMenu.Root>
+          </DropdownMenuCheckboxItem>
+        </DropdownMenuContent>
+      </DropdownMenuPortal>
+    </DropdownMenuRoot>
   );
 };
 ```
@@ -1438,39 +1325,39 @@ Use the `RadioGroup` and `RadioItem` parts to add an item that can be checked am
 ```jsx line=6,13-32
 import React from 'react';
 import { CheckIcon } from '@radix-ui/react-icons';
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import * as DropdownMenu from 'radix-vue';
 
 export default () => {
   const [color, setColor] = React.useState('blue');
 
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger>…</DropdownMenu.Trigger>
-      <DropdownMenu.Portal>
-        <DropdownMenu.Content>
-          <DropdownMenu.RadioGroup value={color} onValueChange={setColor}>
-            <DropdownMenu.RadioItem value="red">
-              <DropdownMenu.ItemIndicator>
+    <DropdownMenuRoot>
+      <DropdownMenuTrigger>…</DropdownMenuTrigger>
+      <DropdownMenuPortal>
+        <DropdownMenuContent>
+          <DropdownMenuRadioGroup value={color} onValueChange={setColor}>
+            <DropdownMenuRadioItem value="red">
+              <DropdownMenuItemIndicator>
                 <CheckIcon />
-              </DropdownMenu.ItemIndicator>
+              </DropdownMenuItemIndicator>
               Red
-            </DropdownMenu.RadioItem>
-            <DropdownMenu.RadioItem value="blue">
-              <DropdownMenu.ItemIndicator>
+            </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="blue">
+              <DropdownMenuItemIndicator>
                 <CheckIcon />
-              </DropdownMenu.ItemIndicator>
+              </DropdownMenuItemIndicator>
               Blue
-            </DropdownMenu.RadioItem>
-            <DropdownMenu.RadioItem value="green">
-              <DropdownMenu.ItemIndicator>
+            </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="green">
+              <DropdownMenuItemIndicator>
                 <CheckIcon />
-              </DropdownMenu.ItemIndicator>
+              </DropdownMenuItemIndicator>
               Green
-            </DropdownMenu.RadioItem>
-          </DropdownMenu.RadioGroup>
-        </DropdownMenu.Content>
-      </DropdownMenu.Portal>
-    </DropdownMenu.Root>
+            </DropdownMenuRadioItem>
+          </DropdownMenuRadioGroup>
+        </DropdownMenuContent>
+      </DropdownMenuPortal>
+    </DropdownMenuRoot>
   );
 };
 ```
@@ -1480,24 +1367,24 @@ export default () => {
 You can add extra decorative elements in the `Item` parts, such as images.
 
 ```jsx line=9,13
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import * as DropdownMenu from 'radix-vue';
 
 export default () => (
-  <DropdownMenu.Root>
-    <DropdownMenu.Trigger>…</DropdownMenu.Trigger>
-    <DropdownMenu.Portal>
-      <DropdownMenu.Content>
-        <DropdownMenu.Item>
+  <DropdownMenuRoot>
+    <DropdownMenuTrigger>…</DropdownMenuTrigger>
+    <DropdownMenuPortal>
+      <DropdownMenuContent>
+        <DropdownMenuItem>
           <img src="…" />
           Adolfo Hess
-        </DropdownMenu.Item>
-        <DropdownMenu.Item>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
           <img src="…" />
           Miyah Myles
-        </DropdownMenu.Item>
-      </DropdownMenu.Content>
-    </DropdownMenu.Portal>
-  </DropdownMenu.Root>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenuPortal>
+  </DropdownMenuRoot>
 );
 ```
 
@@ -1509,18 +1396,18 @@ We expose several CSS custom properties such as `--radix-dropdown-menu-trigger-w
 
 ```jsx line=9
 // index.jsx
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import * as DropdownMenu from 'radix-vue';
 import './styles.css';
 
 export default () => (
-  <DropdownMenu.Root>
-    <DropdownMenu.Trigger>…</DropdownMenu.Trigger>
-    <DropdownMenu.Portal>
-      <DropdownMenu.Content __className__="DropdownMenuContent" sideOffset={5}>
+  <DropdownMenuRoot>
+    <DropdownMenuTrigger>…</DropdownMenuTrigger>
+    <DropdownMenuPortal>
+      <DropdownMenuContent __className__="DropdownMenuContent" sideOffset={5}>
         …
-      </DropdownMenu.Content>
-    </DropdownMenu.Portal>
-  </DropdownMenu.Root>
+      </DropdownMenuContent>
+    </DropdownMenuPortal>
+  </DropdownMenuRoot>
 );
 ```
 
@@ -1538,18 +1425,18 @@ We expose a CSS custom property `--radix-dropdown-menu-content-transform-origin`
 
 ```jsx line=9
 // index.jsx
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import * as DropdownMenu from 'radix-vue';
 import './styles.css';
 
 export default () => (
-  <DropdownMenu.Root>
-    <DropdownMenu.Trigger>…</DropdownMenu.Trigger>
-    <DropdownMenu.Portal>
-      <DropdownMenu.Content __className__="DropdownMenuContent">
+  <DropdownMenuRoot>
+    <DropdownMenuTrigger>…</DropdownMenuTrigger>
+    <DropdownMenuPortal>
+      <DropdownMenuContent __className__="DropdownMenuContent">
         …
-      </DropdownMenu.Content>
-    </DropdownMenu.Portal>
-  </DropdownMenu.Root>
+      </DropdownMenuContent>
+    </DropdownMenuPortal>
+  </DropdownMenuRoot>
 );
 ```
 
@@ -1578,18 +1465,18 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 
 ```jsx line=9
 // index.jsx
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import * as DropdownMenu from 'radix-vue';
 import './styles.css';
 
 export default () => (
-  <DropdownMenu.Root>
-    <DropdownMenu.Trigger>…</DropdownMenu.Trigger>
-    <DropdownMenu.Portal>
-      <DropdownMenu.Content __className__="DropdownMenuContent">
+  <DropdownMenuRoot>
+    <DropdownMenuTrigger>…</DropdownMenuTrigger>
+    <DropdownMenuPortal>
+      <DropdownMenuContent __className__="DropdownMenuContent">
         …
-      </DropdownMenu.Content>
-    </DropdownMenu.Portal>
-  </DropdownMenu.Root>
+      </DropdownMenuContent>
+    </DropdownMenuPortal>
+  </DropdownMenuRoot>
 );
 ```
 
@@ -1636,12 +1523,12 @@ Adheres to the [Menu Button WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA
 ### Keyboard Interactions
 <!--
 <KeyboardTable
-  data={[
+  :data="[
     {
       keys: ['Space'],
       description: (
         <span>
-          When focus is on <Code>DropdownMenu.Trigger</Code>, opens the dropdown
+          When focus is on <Code>DropdownMenuTrigger</Code>, opens the dropdown
           menu and focuses the first item.
           <br />
           When focus is on an item, activates the focused item.
@@ -1652,7 +1539,7 @@ Adheres to the [Menu Button WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA
       keys: ['Enter'],
       description: (
         <span>
-          When focus is on <Code>DropdownMenu.Trigger</Code>, opens the dropdown
+          When focus is on <Code>DropdownMenuTrigger</Code>, opens the dropdown
           menu and focuses the first item.
           <br />
           When focus is on an item, activates the focused item.
@@ -1663,7 +1550,7 @@ Adheres to the [Menu Button WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA
       keys: ['ArrowDown'],
       description: (
         <span>
-          When focus is on <Code>DropdownMenu.Trigger</Code>, opens the dropdown
+          When focus is on <Code>DropdownMenuTrigger</Code>, opens the dropdown
           menu.
           <br />
           When focus is on an item, moves focus to the next item.
@@ -1680,7 +1567,7 @@ Adheres to the [Menu Button WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA
       keys: ['ArrowRight', 'ArrowLeft'],
       description: (
         <span>
-          When focus is on <Code>DropdownMenu.SubTrigger</Code>, opens or closes
+          When focus is on <Code>DropdownMenuSubTrigger</Code>, opens or closes
           the submenu depending on reading direction.
         </span>
       ),
@@ -1690,11 +1577,11 @@ Adheres to the [Menu Button WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA
       description: (
         <span>
           Closes the dropdown menu and moves focus to{' '}
-          <Code>DropdownMenu.Trigger</Code>.
+          <Code>DropdownMenuTrigger</Code>.
         </span>
       ),
     },
-  ]}
+  ]"
 />
 -->
 ## Custom APIs
@@ -1703,7 +1590,7 @@ Create your own API by abstracting the primitive parts into your own component.
 
 ### Abstract the arrow and item indicators
 
-This example abstracts the `DropdownMenu.Arrow` and `DropdownMenu.ItemIndicator` parts. It also wraps implementation details for `CheckboxItem` and `RadioItem`.
+This example abstracts the `DropdownMenuArrow` and `DropdownMenuItemIndicator` parts. It also wraps implementation details for `CheckboxItem` and `RadioItem`.
 
 #### Usage
 
@@ -1744,7 +1631,7 @@ export default () => (
 ```jsx
 // your-dropdown-menu.jsx
 import React from 'react';
-import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
+import * as DropdownMenuPrimitive from 'radix-vue';
 import { CheckIcon, DividerHorizontalIcon } from '@radix-ui/react-icons';
 
 export const DropdownMenu = DropdownMenuPrimitive.Root;

@@ -7,7 +7,7 @@ titleTemplate: Vite & Vue Powered Static Site Generator
 hero:
   name: Radix Vue
   text: Vue Port of Radix UI
-  tagline: Simple, powerful, and fast. Meet the modern SSG framework you've always wanted.
+  tagline: Unstyled, accessible components for building high‑quality design systems and web apps in Vue.
   actions:
     - theme: brand
       text: Get Started

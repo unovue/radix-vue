@@ -116,3 +116,8 @@
 [data-radix-popper-content-wrapper] {
   z-index: 1000;
 }
+
+.vp-doc :not(pre) > code {
+  @apply px-0.5 rounded-sm !bg-[#0F291E] !text-[#4CC38A];
+}
+

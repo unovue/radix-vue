@@ -10,6 +10,11 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/toolbar
 import Description from '../../components/Description.vue'
 import HeroContainer from '../../components/HeroContainer.vue'
 import DemoToolbar from '../../components/demo/Toolbar/index.vue'
+import PropsTable from '../../components/tables/PropsTable.vue'
+import EmitsTable from '../../components/tables/EmitsTable.vue'
+import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
+import KeyboardTable from '../../components/tables/KeyboardTable.vue'
+import Highlights from '../../components/Highlights.vue'
 import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 </script>
 
@@ -33,33 +38,16 @@ dropdown menus.
 </template>
 </HeroContainer>
 
-```
-<HeroContainer
-  css={{
-    justifyContent: 'flex-start',
-    overflow: 'auto',
-    '@bp2': {
-      justifyContent: 'center',
-    },
-  }}
->
-  <Box css={{ flex: '0 0 20px', '@bp1': { flex: '0 0 60px' } }} />
-  <Box css={{ flex: 1 }}>
-    <ToolbarDemo />
-  </Box>
-  <Box css={{ flex: '0 0 20px', '@bp1': { flex: '0 0 60px' } }} />
-</HeroContainer>
+## Features
 
-<HeroCodeBlock folder="Toolbar" />
+<Highlights :features="['Full keyboard navigation.']" />
 
-<Highlights features={['Full keyboard navigation.']} />
-```
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-toolbar
+npm install radix-vue
 ```
 
 ## Anatomy
@@ -67,7 +55,14 @@ npm install @radix-ui/react-toolbar
 Import the component.
 
 ```jsx
-import * as Toolbar from '@radix-ui/react-toolbar';
+<script setup>
+import { Separator } from "radix-vue";
+</script>
+
+<template>
+  <Separator />
+</template>
+import * as Toolbar from 'radix-vue';
 
 export default () => (
   <Toolbar.Root>
@@ -94,16 +89,7 @@ Contains all the toolbar component parts.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'orientation',
@@ -161,16 +147,7 @@ A button item.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]}
 />
@@ -195,16 +172,7 @@ A link item.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]}
 />
@@ -220,16 +188,7 @@ A set of two-state buttons that can be toggled on or off.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'type',
@@ -352,16 +311,7 @@ An item in the group.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'value',
@@ -410,16 +360,7 @@ Used to visually separate items in the toolbar.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]}
 />
@@ -442,8 +383,8 @@ All our primitives which expose a `Trigger` part, such as `Dialog`, `AlertDialog
 Here is an example using our `DropdownMenu` primitive.
 
 ```jsx line=9-11
-import * as Toolbar from '@radix-ui/react-toolbar';
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import * as Toolbar from 'radix-vue';
+import * as DropdownMenu from 'radix-vue';
 
 export default () => (
   <Toolbar.Root>

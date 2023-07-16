@@ -1,3 +1,4 @@
+export { onFocusOutside } from "./onFocusOutside";
 export { useArrowNavigation } from "./useArrowNavigation";
 export { useMouseInElement } from "./useMouseInElement";
 export { useHoverDelay } from "./useHoverDelay";
@@ -7,3 +8,4 @@ export { useCollection } from "./useCollection";
 export { useSize } from "./useSize";
 export { useId } from "./useId";
 export { trapFocus } from "./trap-focus";
+export { renderSlotFragments } from "./renderSlotFragments";

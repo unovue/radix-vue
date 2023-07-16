@@ -10,14 +10,18 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/menu
 import Description from '../../components/Description.vue'
 import HeroContainer from '../../components/HeroContainer.vue'
 import DemoContextMenu from '../../components/demo/ContextMenu/index.vue'
+import PropsTable from '../../components/tables/PropsTable.vue'
+import EmitsTable from '../../components/tables/EmitsTable.vue'
+import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
+import KeyboardTable from '../../components/tables/KeyboardTable.vue'
+import Highlights from '../../components/Highlights.vue'
 import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 </script>
 
 # Context Menu
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+Displays a menu located at the pointer, triggered by a right-click or a long-press.
 </Description>
 
 <HeroContainer>
@@ -33,9 +37,9 @@ response.
 </template>
 </HeroContainer>
 
-<!--
+## Features
 <Highlights
-  features={[
+  :features="[
     'Supports submenus with configurable reading direction.',
     'Supports items, labels, groups of items.',
     'Supports checkable items (single or multiple) with optional indeterminate state.',
@@ -46,15 +50,15 @@ response.
     'Typeahead support.',
     'Dismissing and layering behavior is highly customizable.',
     'Triggers with a long-press on touch devices',
-  ]}
+  ]"
 />
--->
+
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-context-menu
+npm install radix-vue
 ```
 
 ## Anatomy
@@ -62,7 +66,7 @@ npm install @radix-ui/react-context-menu
 Import all parts and piece them together.
 
 ```jsx
-import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as ContextMenu from 'radix-vue';
 
 export default () => (
   <ContextMenu.Root>
@@ -158,16 +162,7 @@ The area that opens the context menu. Wrap it around the target you want the con
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'disabled',
@@ -232,16 +227,7 @@ The component that pops out in an open context menu.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'loop',
@@ -459,16 +445,7 @@ An optional arrow element to render alongside a submenu. This can be used to hel
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'width',
@@ -496,16 +473,7 @@ The component that contains the context menu items.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'disabled',
@@ -567,16 +535,7 @@ Used to group multiple `ContextMenu.Item`s.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]}
 />
@@ -592,16 +551,7 @@ Used to render a label. It won't be focusable using arrow keys.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]}
 />
@@ -617,16 +567,7 @@ An item that can be controlled and rendered like a checkbox.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'checked',
@@ -710,16 +651,7 @@ Used to group multiple `ContextMenu.RadioItem`s.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'value',
@@ -746,16 +678,7 @@ An item that can be controlled and rendered like a radio.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'value',
@@ -827,16 +750,7 @@ Renders when the parent `ContextMenu.CheckboxItem` or `ContextMenu.RadioItem` is
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'forceMount',
@@ -871,16 +785,7 @@ Used to visually separate items in the context menu.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]}
 />
@@ -935,16 +840,7 @@ An item that opens a submenu. Must be rendered inside `ContextMenu.Sub`.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'disabled',
@@ -998,16 +894,7 @@ The component that pops out when a submenu is open. Must be rendered inside `Con
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'loop',
@@ -1261,7 +1148,7 @@ You can add special styles to disabled items via the `data-disabled` attribute.
 
 ```jsx line=10
 // index.jsx
-import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as ContextMenu from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -1330,7 +1217,7 @@ Use the `CheckboxItem` part to add an item that can be checked.
 ```jsx line=6,16-21
 import React from 'react';
 import { CheckIcon } from '@radix-ui/react-icons';
-import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as ContextMenu from 'radix-vue';
 
 export default () => {
   const [checked, setChecked] = React.useState(true);
@@ -1366,7 +1253,7 @@ Use the `RadioGroup` and `RadioItem` parts to add an item that can be checked am
 ```jsx line=6,13-32
 import React from 'react';
 import { CheckIcon } from '@radix-ui/react-icons';
-import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as ContextMenu from 'radix-vue';
 
 export default () => {
   const [color, setColor] = React.useState('blue');
@@ -1408,7 +1295,7 @@ export default () => {
 You can add extra decorative elements in the `Item` parts, such as images.
 
 ```jsx line=9,13
-import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as ContextMenu from 'radix-vue';
 
 export default () => (
   <ContextMenu.Root>
@@ -1437,7 +1324,7 @@ We expose several CSS custom properties such as `--radix-context-menu-trigger-wi
 
 ```jsx line=9
 // index.jsx
-import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as ContextMenu from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -1466,7 +1353,7 @@ We expose a CSS custom property `--radix-context-menu-content-transform-origin`.
 
 ```jsx line=9
 // index.jsx
-import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as ContextMenu from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -1506,7 +1393,7 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 
 ```jsx line=9
 // index.jsx
-import * as ContextMenu from '@radix-ui/react-context-menu';
+import * as ContextMenu from 'radix-vue';
 import './styles.css';
 
 export default () => (

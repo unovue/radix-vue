@@ -10,14 +10,18 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal
 import Description from '../../components/Description.vue'
 import HeroContainer from '../../components/HeroContainer.vue'
 import DemoDialog from '../../components/demo/Dialog/index.vue'
+import PropsTable from '../../components/tables/PropsTable.vue'
+import EmitsTable from '../../components/tables/EmitsTable.vue'
+import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
+import KeyboardTable from '../../components/tables/KeyboardTable.vue'
+import Highlights from '../../components/Highlights.vue'
 import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 </script>
 
 # Dialog
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.
 </Description>
 
 <HeroContainer>
@@ -33,471 +37,381 @@ response.
 </template>
 </HeroContainer>
 
-<!--
+## Features
+
 <Highlights
-  features={[
+  :features="[
     'Supports modal and non-modal modes.',
     'Focus is automatically trapped when modal.',
     'Can be controlled or uncontrolled.',
-    <span>
-      Manages screen reader announcements with <Code>Title</Code> and{' '}
-      <Code>Description</Code> components.
-    </span>,
+    '<span> Manages screen reader announcements with <Code>Title</Code> and<Code>Description</Code> components.</span>',
     'Esc closes the component automatically.',
-  ]}
+  ]"
 />
--->
+
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-dialog
+npm install radix-vue
 ```
 
 ## Anatomy
 
 Import all parts and piece them together.
 
-```jsx
-import * as Dialog from '@radix-ui/react-dialog';
+```vue
+<script setup>
+import {
+	DialogRoot,
+	DialogTrigger,
+	DialogContent,
+	DialogOverlay,
+	DialogClose,
+	DialogPortal,
+	DialogTitle,
+	DialogDescription,
+} from "radix-vue";
+</script>
 
-export default () => (
-  <Dialog.Root>
-    <Dialog.Trigger />
-    <Dialog.Portal>
-      <Dialog.Overlay />
-      <Dialog.Content>
-        <Dialog.Title />
-        <Dialog.Description />
-        <Dialog.Close />
-      </Dialog.Content>
-    </Dialog.Portal>
-  </Dialog.Root>
-);
+<template>
+	<DialogRoot>
+		<DialogTrigger />
+		<DialogPortal>
+			<DialogOverlay />
+			<DialogContent>
+				<DialogTitle />
+				<DialogDescription />
+				<DialogClose />
+			</DialogContent>
+		</DialogPortal>
+	</DialogRoot>
+</template>
 ```
 
 ## API Reference
 
 ### Root
 
-Contains all the parts of a dialog.
-<!--
+Contains all the parts of a dialog
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'defaultOpen',
       type: 'boolean',
-      description: (
-        <span>
-          The open state of the dialog when it is initially rendered. Use when
-          you do not need to control its open state.
-        </span>
-      ),
+      description: '<span>The open state of the dialog when it is initially rendered. Use when you do not need to control its open state.</span>',
     },
     {
       name: 'open',
       type: 'boolean',
-      description: (
-        <span>
-          The controlled open state of the dialog. Must be used in conjunction
-          with <Code>onOpenChange</Code>.
-        </span>
-      ),
-    },
-    {
-      name: 'onOpenChange',
-      type: '(open: boolean) => void',
-      typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when the open state of the dialog changes.
-        </span>
-      ),
+      description: '<span>The controlled open state of the dialog Must be binded with <Code>v-model</Code>.</span>',
     },
     {
       name: 'modal',
       required: false,
       type: 'boolean',
       default: 'true',
-      description: (
-        <span>
-          The modality of the dialog. When set to <Code>true</Code>, interaction
-          with outside elements will be disabled and only dialog content will be
-          visible to screen readers.
-        </span>
-      ),
+      description: '<span>The modality of the dialog When set to <Code>true</Code>, interaction with outside elements will be disabled and only dialog content will be visible to screen readers.</span>',
     },
-  ]}
+  ]"
 />
--->
+
 ### Trigger
 
-The button that opens the dialog.
-<!--
+The button that opens the dialog
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
     },
-  ]}
+  ]"
 />
--->
+
 ### Portal
 
 When used, portals your overlay and content parts into the `body`.
-<!--
+
 <PropsTable
-  data={[
-    {
-      name: 'forceMount',
-      type: 'boolean',
-      description: (
-        <span>
-          Used to force mounting when more control is needed. Useful when
-          controlling animation with React animation libraries. If used on this
-          part, it will be inherited by <Code>Dialog.Overlay</Code> and{' '}
-          <Code>Dialog.Content</Code>.
-        </span>
-      ),
-    },
+  :data="[
     {
       name: 'container',
       type: 'HTMLElement',
       default: 'document.body',
       description: 'Specify a container element to portal the content into.',
     },
-  ]}
+  ]"
 />
--->
+
 ### Overlay
 
 A layer that covers the inert portion of the view when the dialog is open.
-<!--
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-    {
-      name: 'forceMount',
-      type: 'boolean',
-      description: (
-        <span>
-          Used to force mounting when more control is needed. Useful when
-          controlling animation with React animation libraries. It inherits from{' '}
-          <Code>Dialog.Portal</Code>.
-        </span>
-      ),
-    },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
     },
-  ]}
+  ]"
 />
--->
+
 ### Content
 
-Contains content to be rendered in the open dialog.
-<!--
+Contains content to be rendered in the open dialog
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
-    },
-    {
-      name: 'forceMount',
-      type: 'boolean',
-      description: (
-        <span>
-          Used to force mounting when more control is needed. Useful when
-          controlling animation with React animation libraries. It inherits from{' '}
-          <Code>Dialog.Portal</Code>.
-        </span>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'onOpenAutoFocus',
-      type: '(event: Event) => void',
-      typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when focus moves into the component after
-          opening. It can be prevented by calling{' '}
-          <Code>event.preventDefault</Code>.
-        </span>
-      ),
+      required: false,
+      type: 'boolean',
+      default: 'true',
+      description: '<span>Event handler called when focus moves into the component after opening. It can be prevented by calling <Code>event.preventDefault</Code>.</span>',
     },
     {
       name: 'onCloseAutoFocus',
-      type: '(event: Event) => void',
-      typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when focus moves to the trigger after closing. It
-          can be prevented by calling <Code>event.preventDefault</Code>.
-        </span>
-      ),
+      required: false,
+      type: 'boolean',
+      default: 'true',
+      description: '<span>Event handler called when focus moves to the trigger after closing. It can be prevented by calling <Code>event.preventDefault</Code>.</span>',
     },
     {
       name: 'onEscapeKeyDown',
-      type: '(event: KeyboardEvent) => void',
-      typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when the escape key is down. It can be prevented
-          by calling <Code>event.preventDefault</Code>.
-        </span>
-      ),
+      required: false,
+      type: 'boolean',
+      default: 'true',
+      description: '<span>Event handler called when the escape key is down. It can be prevented by calling <Code>event.preventDefault</Code>.</span>',
     },
     {
       name: 'onPointerDownOutside',
-      type: '(event: PointerDownOutsideEvent) => void',
-      typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when a pointer event occurs outside the bounds of
-          the component. It can be prevented by calling{' '}
-          <Code>event.preventDefault</Code>.
-        </span>
-      ),
+      required: false,
+      type: 'boolean',
+      default: 'true',
+      description: '<span>Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.</span>',
     },
     {
       name: 'onInteractOutside',
       type: '(event: React.FocusEvent | MouseEvent | TouchEvent) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when an interaction (pointer or focus event)
-          happens outside the bounds of the component. It can be prevented by
-          calling <Code>event.preventDefault</Code>.
-        </span>
-      ),
+      description: '<span>Event handler called when an interaction (pointer or focus event) happens outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.</span>',
     },
-  ]}
+  ]"
 />
 
+<EmitsTable :data="[
+{
+name: '@open',
+type: '(event: Event) => void',
+description: 'Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault`',
+},
+{
+name: '@close',
+type: '(event: Event) => void',
+description: 'Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault`',
+},
+{
+name: '@escape-key-down',
+type: '(event: KeyboardEvent) => void',
+description: 'Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault`',
+},
+{
+name: '@pointer-down-outside',
+type: '(event: KeyboardEvent) => void',
+description: '<span>Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.</span>',
+},
+{
+name: '@interact-outside',
+type: '(event: KeyboardEvent) => void',
+description: '<span>Event handler called when an interaction (pointer or focus event) happens outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.</span>',
+}]" />
+
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
     },
-  ]}
+  ]"
 />
--->
+
 ### Close
 
-The button that closes the dialog.
-<!--
+The button that closes the dialog
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-  ]}
+  ]"
 />
--->
+
 ### Title
 
 An accessible title to be announced when the dialog is opened.
 
 If you want to hide the title, wrap it inside our Visually Hidden utility like this `<VisuallyHidden asChild>`.
-<!--
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-  ]}
+  ]"
 />
--->
+
 ### Description
 
 An optional accessible description to be announced when the dialog is opened.
 
-If you want to hide the description, wrap it inside our Visually Hidden utility like this `<VisuallyHidden asChild>`. If you want to remove the description entirely, remove this part and pass `aria-describedby={undefined}` to `Dialog.Content`.
-<!--
+If you want to hide the description, wrap it inside our Visually Hidden utility like this `<VisuallyHidden asChild>`. If you want to remove the description entirely, remove this part and pass `aria-describedby="undefined}` to `DialogContent`.
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-  ]}
+  ]"
 />
--->
+
 ## Examples
 
 ### Close after asynchronous form submission
 
 Use the controlled props to programmatically close the Dialog after an async operation has completed.
 
-```jsx line=4,7,10,15,17
-import React from 'react';
-import * as Dialog from '@radix-ui/react-dialog';
+```vue line=10,11,16,21-26,28
+<script setup>
+import {
+	DialogRoot,
+	DialogTrigger,
+	DialogContent,
+	DialogOverlay,
+	DialogPortal,
+} from "radix-vue";
 
 const wait = () => new Promise((resolve) => setTimeout(resolve, 1000));
+const open = ref(false);
+</script>
 
-export default () => {
-  const [open, setOpen] = React.useState(false);
-
-  return (
-    <Dialog.Root __open__={open} __onOpenChange__={setOpen}>
-      <Dialog.Trigger>Open</Dialog.Trigger>
-      <Dialog.Portal>
-        <Dialog.Overlay />
-        <Dialog.Content>
-          <form
-            onSubmit={(event) => {
-              wait().then(() => setOpen(false));
-              event.preventDefault();
-            }}
-          >
-            {/** some inputs */}
-            <button type="submit">Submit</button>
-          </form>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
-  );
-};
+<template>
+	<DialogRoot v-model:open="open">
+		<DialogTrigger>Open</DialogTrigger>
+		<DialogPortal>
+			<DialogOverlay />
+			<DialogContent>
+				<form
+					@submit="
+						(event) => {
+							wait().then(() => (open = false));
+							event.preventDefault();
+						}
+					"
+				>
+					<!-- some inputs -->
+					<button type="submit">Submit</button>
+				</form>
+			</DialogContent>
+		</DialogPortal>
+	</DialogRoot>
+</template>
 ```
 
 ### Scrollable overlay
 
 Move the content inside the overlay to render a dialog with overflow.
 
-```jsx
-// index.jsx
-import * as Dialog from '@radix-ui/react-dialog';
-import './styles.css';
+```vue
+// index.vue
+<script setup>
+import {
+	DialogRoot,
+	DialogTrigger,
+	DialogContent,
+	DialogOverlay,
+	DialogPortal,
+} from "radix-vue";
+import "./styles.css";
+</script>
 
-export default () => {
-  return (
-    <Dialog.Root>
-      <Dialog.Trigger />
-      <Dialog.Portal>
-        <Dialog.Overlay className="DialogOverlay">
-          <Dialog.Content className="DialogContent">...</Dialog.Content>
-        </Dialog.Overlay>
-      </Dialog.Portal>
-    </Dialog.Root>
-  );
-};
+<template>
+	<DialogRoot>
+		<DialogTrigger />
+		<DialogPortal>
+			<DialogOverlay class="DialogOverlay">
+				<DialogContent class="DialogContent">...</DialogContent>
+			</DialogOverlay>
+		</DialogPortal>
+	</DialogRoot>
+</template>
 ```
 
 ```css
 /* styles.css */
 .DialogOverlay {
-  background: rgba(0 0 0 / 0.5);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: grid;
-  place-items: center;
-  overflow-y: auto;
+	background: rgba(0 0 0 / 0.5);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: grid;
+	place-items: center;
+	overflow-y: auto;
 }
 
 .DialogContent {
-  min-width: 300px;
-  background: white;
-  padding: 30px;
-  border-radius: 4px;
+	min-width: 300px;
+	background: white;
+	padding: 30px;
+	border-radius: 4px;
 }
 ```
 
@@ -505,26 +419,31 @@ export default () => {
 
 Customise the element that your dialog portals into.
 
-```jsx line=5,10,16
-import React from 'react';
-import * as Dialog from '@radix-ui/react-dialog';
+```vue line=10,16,22
+<script setup>
+import {
+	DialogRoot,
+	DialogTrigger,
+	DialogContent,
+	DialogOverlay,
+	DialogPortal,
+} from "radix-vue";
 
-export default () => {
-  const [container, setContainer] = React.useState(null);
-  return (
-    <div>
-      <Dialog.Root>
-        <Dialog.Trigger />
-        <Dialog.Portal __container__={container}>
-          <Dialog.Overlay />
-          <Dialog.Content>...</Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
+const container = ref(null);
+</script>
+<template>
+	<div>
+		<DialogRoot>
+			<DialogTrigger />
+			<DialogPortal container="container">
+				<DialogOverlay />
+				<DialogContent>...</DialogContent>
+			</DialogPortal>
+		</DialogRoot>
 
-      <div ref={__setContainer__} />
-    </div>
-  );
-};
+		<div ref="container" />
+	</div>
+</template>
 ```
 
 ## Accessibility
@@ -532,16 +451,16 @@ export default () => {
 Adheres to the [Dialog WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal).
 
 ### Keyboard Interactions
-<!--
+
 <KeyboardTable
-  data={[
+  :data="[
     {
       keys: ['Space'],
-      description: 'Opens/closes the dialog.',
+      description: 'Opens/closes the dialog',
     },
     {
       keys: ['Enter'],
-      description: 'Opens/closes the dialog.',
+      description: 'Opens/closes the dialog',
     },
     {
       keys: ['Tab'],
@@ -553,49 +472,48 @@ Adheres to the [Dialog WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/
     },
     {
       keys: ['Esc'],
-      description: (
-        <span>
-          Closes the dialog and moves focus to <Code>Dialog.Trigger</Code>.
-        </span>
-      ),
+      description: '<span>Closes the dialog and moves focus to <Code>DialogTrigger</Code>.</span>',
     },
-  ]}
+  ]"
 />
--->
+
+<!--TODO
 ## Custom APIs
 
 Create your own API by abstracting the primitive parts into your own component.
 
 ### Abstract the overlay and the close button
 
-This example abstracts the `Dialog.Overlay` and `Dialog.Close` parts.
+This example abstracts the `DialogOverlay` and `DialogClose` parts.
 
 #### Usage
 
-```jsx
+```vue
+<script setup>
 import { Dialog, DialogTrigger, DialogContent } from './your-dialog';
+</script>
 
-export default () => (
+<template>
   <Dialog>
     <DialogTrigger>Dialog trigger</DialogTrigger>
     <DialogContent>Dialog Content</DialogContent>
   </Dialog>
-);
+</template>
 ```
 
 #### Implementation
 
-```jsx
-// your-dialog.jsx
+```vue
+// your-dialogvue
 import React from 'react';
-import * as DialogPrimitive from '@radix-ui/react-dialog';
+import * as DialogPrimitive from 'radix-vue';
 import { Cross1Icon } from '@radix-ui/react-icons';
 
 export const DialogContent = React.forwardRef(
   ({ children, ...props }, forwardedRef) => (
     <DialogPrimitive.Portal>
       <DialogPrimitive.Overlay />
-      <DialogPrimitive.Content {...props} ref={forwardedRef}>
+      <DialogPrimitive.Content {...props} ref="forwardedRef}>
         {children}
         <DialogPrimitive.Close aria-label="Close">
           <Cross1Icon />
@@ -608,3 +526,4 @@ export const DialogContent = React.forwardRef(
 export const Dialog = DialogPrimitive.Root;
 export const DialogTrigger = DialogPrimitive.Trigger;
 ```
+-->

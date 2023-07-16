@@ -42,7 +42,7 @@ watch(open, () => {
 <template>
   <TabsRoot v-model="currentTab" class="bg-[var(--vp-code-block-bg)] border border-neutral-700/40 rounded-b-lg overflow-hidden" @update:model-value="open = true">
     <div class="bg-[var(--vp-code-block-bg)] border-b-2 border-[#272727] flex pr-2">
-      <div class="flex justify-between items-center w-full">
+      <div class="flex justify-between items-center w-full text-[13px]">
         <TabsList class="flex">
           <TabsTrigger
             v-for="(tab, index) in tabs"
@@ -55,7 +55,7 @@ watch(open, () => {
           </TabsTrigger>
         </TabsList>
         <div>
-          <select value="TailwindCSS" class="bg-transparent">
+          <select value="TailwindCSS" class="bg-transparent text-white/70">
             <option value="TailwindCSS">Tailwind CSS</option>
           </select>
         </div>
@@ -72,11 +72,11 @@ watch(open, () => {
         </div>
       </TabsContent>
       <div
-        class="bg-gradient-to-t from-[#161618FF] to-[#16161800] bottom-[1px] left-[1px] right-[1px] z-10 h-20 flex items-center justify-center absolute rounded-b-lg"
+        class="bg-gradient-to-t from-[#161618FF] to-[#16161800] bottom-[1px] left-[1px] right-[1px] h-20 flex items-center justify-center absolute rounded-b-lg"
       >
         <button
           ref="buttonRef"
-          class="mt-4 bg-neutral-800/80 hover:bg-neutral-800 px-3 py-1 rounded border-neutral-700/50 border z-10"
+          class="mt-4 bg-neutral-800 hover:bg-neutral-700 px-3 py-1 rounded border-neutral-700 border"
           @click="open = !open"
         >
           {{ open ? "Collapse code" : "Expand code" }}

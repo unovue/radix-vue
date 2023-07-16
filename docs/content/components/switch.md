@@ -10,14 +10,18 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/switch
 import Description from '../../components/Description.vue'
 import HeroContainer from '../../components/HeroContainer.vue'
 import DemoSwitch from '../../components/demo/Switch/index.vue'
+import PropsTable from '../../components/tables/PropsTable.vue'
+import EmitsTable from '../../components/tables/EmitsTable.vue'
+import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
+import KeyboardTable from '../../components/tables/KeyboardTable.vue'
+import Highlights from '../../components/Highlights.vue'
 import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 </script>
 
 # Switch
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+A control that allows the user to toggle between checked and not checked.
 </Description>
 
 <HeroContainer>
@@ -33,31 +37,33 @@ response.
 </template>
 </HeroContainer>
 
-```
+## Features
 <Highlights
-  features={['Full keyboard navigation.', 'Can be controlled or uncontrolled.']}
+  :features="['Full keyboard navigation.', 'Can be controlled or uncontrolled.']"
 />
-```
+
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-switch
+npm install radix-vue
 ```
 
 ## Anatomy
 
 Import all parts and piece them together.
 
-```jsx
-import * as Switch from '@radix-ui/react-switch';
+```vue
+<script setup>
+import { SwitchRoot, SwitchThumb } from "radix-vue";
+</script>
 
-export default () => (
-  <Switch.Root>
-    <Switch.Thumb />
-  </Switch.Root>
-);
+<template>
+  <SwitchRoot>
+    <SwitchThumb />
+  </SwitchRoot>
+</template>
 ```
 
 ## API Reference
@@ -65,66 +71,35 @@ export default () => (
 ### Root
 
 Contains all the parts of a switch. An `input` will also render when used within a `form` to ensure events propagate correctly.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'defaultChecked',
       type: 'boolean',
-      description:
-        'The state of the switch when it is initially rendered. Use when you do not need to control its state.',
+      description: 'The state of the switch when it is initially rendered. Use when you do not need to control its state.',
     },
     {
       name: 'checked',
       type: 'boolean',
-      description: (
-        <span>
-          The controlled state of the switch. Must be used in conjunction with{' '}
-          <Code>onCheckedChange</Code>.
-        </span>
-      ),
-    },
-    {
-      name: 'onCheckedChange',
-      type: '(checked: boolean) => void',
-      typeSimple: 'function',
-      description: 'Event handler called when the state of the switch changes.',
+      description: '<span> The controlled state of the switch. Must be binded with <Code>v-model</Code>.</span>',
     },
     {
       name: 'disabled',
       type: 'boolean',
-      description: (
-        <span>
-          When <Code>true</Code>, prevents the user from interacting with the
-          switch.
-        </span>
-      ),
+      description: '<span> When <Code>true</Code>, prevents the user from interacting with the switch.</span>',
     },
     {
       name: 'required',
       type: 'boolean',
-      description: (
-        <span>
-          When <Code>true</Code>, indicates that the user must check the switch
-          before the owning form can be submitted.
-        </span>
-      ),
+      description: '<span> When <Code>true</Code>, indicates that the user must check the switch before the owning form can be submitted.</span>',
     },
     {
       name: 'name',
@@ -136,17 +111,13 @@ Contains all the parts of a switch. An `input` will also render when used within
       name: 'value',
       type: 'string',
       default: 'on',
-      description: (
-        <span>
-          The value given as data when submitted with a <Code>name</Code>.
-        </span>
-      ),
+      description: '<span> The value given as data when submitted with a <Code>name</Code>.</span>',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['checked', 'unchecked'],
@@ -155,36 +126,27 @@ Contains all the parts of a switch. An `input` will also render when used within
       attribute: '[data-disabled]',
       values: 'Present when disabled',
     },
-  ]}
+  ]"
 />
-```
+
 ### Thumb
 
 The thumb that is used to visually indicate whether the switch is on or off.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['checked', 'unchecked'],
@@ -193,25 +155,24 @@ The thumb that is used to visually indicate whether the switch is on or off.
       attribute: '[data-disabled]',
       values: 'Present when disabled',
     },
-  ]}
+  ]"
 />
-```
+
 ## Accessibility
 
 Adheres to the [`switch` role requirements](https://www.w3.org/WAI/ARIA/apg/patterns/switch).
 
 ### Keyboard Interactions
-```
+
 <KeyboardTable
-  data={[
+  :data="[
     {
       keys: ['Space'],
-      description: "Toggles the component's state.",
+      description: 'Toggles the component\'s state.',
     },
     {
       keys: ['Enter'],
-      description: "Toggles the component's state.",
+      description: 'Toggles the component\'s state.',
     },
-  ]}
+  ]"
 />
-```

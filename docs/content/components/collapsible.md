@@ -10,14 +10,18 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/disclosure
 import Description from '../../components/Description.vue'
 import HeroContainer from '../../components/HeroContainer.vue'
 import DemoCollapsible from '../../components/demo/Collapsible/index.vue'
+import PropsTable from '../../components/tables/PropsTable.vue'
+import EmitsTable from '../../components/tables/EmitsTable.vue'
+import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
+import KeyboardTable from '../../components/tables/KeyboardTable.vue'
+import Highlights from '../../components/Highlights.vue'
 import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 </script>
 
 # Collapsible
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+An interactive component which expands/collapses a panel.
 </Description>
 
 <HeroContainer>
@@ -33,55 +37,58 @@ response.
 </template>
 </HeroContainer>
 
-'Full keyboard navigation.', 'Can be controlled or uncontrolled.'
+## Features
+
+<Highlights
+  :features="[
+    'Full keyboard navigation.',
+    'Can be controlled or uncontrolled.',
+  ]"
+/>
 
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-collapsible
+npm install radix-vue
 ```
 
 ## Anatomy
 
 Import the components and piece the parts together.
 
-```jsx
-import * as Collapsible from '@radix-ui/react-collapsible';
+```vue
+<script setup>
+import {
+	CollapsibleRoot,
+	CollapsibleTrigger,
+	CollapsibleContent,
+} from "radix-vue";
+</script>
 
-export default () => (
-  <Collapsible.Root>
-    <Collapsible.Trigger />
-    <Collapsible.Content />
-  </Collapsible.Root>
-);
+<template>
+	<CollapsibleRoot>
+		<CollapsibleTrigger />
+		<CollapsibleContent />
+	</CollapsibleRoot>
+</template>
 ```
 
 ## API Reference
 
 ### Root
 
-Contains all the parts of a collapsible.
+Contains all the parts of a collapsible
 
-<!--
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'defaultOpen',
@@ -92,35 +99,18 @@ Contains all the parts of a collapsible.
     {
       name: 'open',
       type: 'boolean',
-      description: (
-        <span>
-          The controlled open state of the collapsible. Must be used in
-          conjunction with <Code>onOpenChange</Code>.
-        </span>
-      ),
-    },
-    {
-      name: 'onOpenChange',
-      type: '(open: boolean) => void',
-      typeSimple: 'function',
-      description:
-        'Event handler called when the open state of the collapsible changes.',
+      description: '<span>The controlled open state of the collapsible. Must be binded with <Code>v-model</Code>.</span>',
     },
     {
       name: 'disabled',
       type: 'boolean',
-      description: (
-        <span>
-          When <Code>true</Code>, prevents the user from interacting with the
-          collapsible.
-        </span>
-      ),
+      description: '<span>When <Code>true</Code>, prevents the user from interacting with the collapsible.</span>',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
@@ -129,36 +119,27 @@ Contains all the parts of a collapsible.
       attribute: '[data-disabled]',
       values: 'Present when disabled',
     },
-  ]}
+  ]"
 />
--->
+
 ### Trigger
 
-The button that toggles the collapsible.
-<!--
+The button that toggles the collapsible
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
@@ -167,30 +148,21 @@ The button that toggles the collapsible.
       attribute: '[data-disabled]',
       values: 'Present when disabled',
     },
-  ]}
+  ]"
 />
--->
+
 ### Content
 
 The component that contains the collapsible content.
-<!--
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'forceMount',
@@ -198,11 +170,11 @@ The component that contains the collapsible content.
       description:
         'Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries.',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
@@ -211,11 +183,11 @@ The component that contains the collapsible content.
       attribute: '[data-disabled]',
       values: 'Present when disabled',
     },
-  ]}
+  ]"
 />
 
 <CssVariablesTable
-  data={[
+  :data="[
     {
       cssVariable: '--radix-collapsible-content-width',
       description: 'The width of the content when it opens/closes',
@@ -224,58 +196,60 @@ The component that contains the collapsible content.
       cssVariable: '--radix-collapsible-content-height',
       description: 'The height of the content when it opens/closes',
     },
-  ]}
+  ]"
 />
--->
+
 ## Examples
 
 ### Animating content size
 
 Use the `--radix-collapsible-content-width` and/or `--radix-collapsible-content-height` CSS variables to animate the size of the content when it opens/closes. Here's a demo:
 
-```jsx line=8
-// index.jsx
-import * as Collapsible from '@radix-ui/react-collapsible';
+```vue line=10
+// index.vue
+<script setup>
+import { CollapsibleRoot, CollapsibleTrigger, CollapsibleContent } from "radix-vue";
 import './styles.css';
+</script>
 
-export default () => (
-  <Collapsible.Root>
-    <Collapsible.Trigger>…</Collapsible.Trigger>
-    <Collapsible.Content __className__="CollapsibleContent">
+<template>
+  <CollapsibleRoot>
+    <CollapsibleTrigger>…</CollapsibleTrigger>
+    <CollapsibleContent class="CollapsibleContent">
       …
-    </Collapsible.Content>
-  </Collapsible.Root>
-);
+    </CollapsibleContent>
+  </CollapsibleRoot>
+</template>
 ```
 
 ```css line=17,23
 /* styles.css */
 .CollapsibleContent {
-  overflow: hidden;
+	overflow: hidden;
 }
-.CollapsibleContent[data-state='open'] {
-  animation: slideDown 300ms ease-out;
+.CollapsibleContent[data-state="open"] {
+	animation: slideDown 300ms ease-out;
 }
-.CollapsibleContent[data-state='closed'] {
-  animation: slideUp 300ms ease-out;
+.CollapsibleContent[data-state="closed"] {
+	animation: slideUp 300ms ease-out;
 }
 
 @keyframes slideDown {
-  from {
-    height: 0;
-  }
-  to {
-    height: var(__--radix-collapsible-content-height__);
-  }
+	from {
+		height: 0;
+	}
+	to {
+		height: var(__--radix-collapsible-content-height__);
+	}
 }
 
 @keyframes slideUp {
-  from {
-    height: var(__--radix-collapsible-content-height__);
-  }
-  to {
-    height: 0;
-  }
+	from {
+		height: var(__--radix-collapsible-content-height__);
+	}
+	to {
+		height: 0;
+	}
 }
 ```
 
@@ -284,17 +258,16 @@ export default () => (
 Adheres to the [Disclosure WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure).
 
 ### Keyboard Interactions
-<!--
+
 <KeyboardTable
-  data={[
+  :data="[
     {
       keys: ['Space'],
-      description: 'Opens/closes the collapsible.',
+      description: 'Opens/closes the collapsible',
     },
     {
       keys: ['Enter'],
-      description: 'Opens/closes the collapsible.',
+      description: 'Opens/closes the collapsible',
     },
-  ]}
+  ]"
 />
--->

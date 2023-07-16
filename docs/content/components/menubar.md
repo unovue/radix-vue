@@ -12,14 +12,18 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/menu/
 import Description from '../../components/Description.vue'
 import HeroContainer from '../../components/HeroContainer.vue'
 import DemoMenubar from '../../components/demo/Menubar/index.vue'
+import PropsTable from '../../components/tables/PropsTable.vue'
+import EmitsTable from '../../components/tables/EmitsTable.vue'
+import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
+import KeyboardTable from '../../components/tables/KeyboardTable.vue'
+import Highlights from '../../components/Highlights.vue'
 import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 </script>
 
 # Menubar
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+A visually persistent menu common in desktop applications that provides quick access to a consistent set of commands.
 </Description>
 
 <HeroContainer>
@@ -35,9 +39,10 @@ response.
 </template>
 </HeroContainer>
 
-```
+## Features
+
 <Highlights
-  features={[
+  :features="[
     'Can be controlled or uncontrolled.',
     'Supports submenus with configurable reading direction.',
     'Supports items, labels, groups of items.',
@@ -47,15 +52,15 @@ response.
     'Focus is fully managed.',
     'Full keyboard navigation.',
     'Typeahead support.',
-  ]}
+  ]"
 />
-```
+
 ## Installation
 
 Install the component from your command line.
 
 ```bash
-npm install @radix-ui/react-menubar
+npm install radix-vue
 ```
 
 ## Anatomy
@@ -63,7 +68,7 @@ npm install @radix-ui/react-menubar
 Import all parts and piece them together.
 
 ```jsx
-import * as Menubar from '@radix-ui/react-menubar';
+import * as Menubar from 'radix-vue';
 
 export default () => (
   <Menubar.Root>
@@ -117,16 +122,7 @@ Contains all the parts of a menubar.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'defaultValue',
@@ -196,16 +192,7 @@ A top level menu item, contains a trigger with content combination.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'value',
@@ -233,16 +220,7 @@ The button that toggles the content. By default, the `Menubar.Content` will posi
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]}
 />
@@ -302,16 +280,7 @@ The component that pops out when a menu is open.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'loop',
@@ -575,16 +544,7 @@ An optional arrow element to render alongside a menubar menu. This can be used t
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'width',
@@ -612,16 +572,7 @@ The component that contains the menubar items.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'disabled',
@@ -683,16 +634,7 @@ Used to group multiple `Menubar.Item`s.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]}
 />
@@ -708,16 +650,7 @@ Used to render a label. It won't be focusable using arrow keys.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]}
 />
@@ -733,16 +666,7 @@ An item that can be controlled and rendered like a checkbox.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'checked',
@@ -826,16 +750,7 @@ Used to group multiple `Menubar.RadioItem`s.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'value',
@@ -862,16 +777,7 @@ An item that can be controlled and rendered like a radio.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'value',
@@ -943,16 +849,7 @@ Renders when the parent `Menubar.CheckboxItem` or `Menubar.RadioItem` is checked
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'forceMount',
@@ -987,16 +884,7 @@ Used to visually separate items in a menubar menu.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]}
 />
@@ -1051,16 +939,7 @@ An item that opens a submenu. Must be rendered inside `Menubar.Sub`.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'disabled',
@@ -1114,16 +993,7 @@ The component that pops out when a submenu is open. Must be rendered inside `Men
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href="../guides/composition">Composition</a> guide for more
-          details.
-        </>
-      ),
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
       name: 'loop',
@@ -1383,7 +1253,7 @@ You can add special styles to disabled items via the `data-disabled` attribute.
 
 ```jsx line=11
 // index.jsx
-import * as Menubar from '@radix-ui/react-menubar';
+import * as Menubar from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -1458,7 +1328,7 @@ Use the `CheckboxItem` part to add an item that can be checked.
 ```jsx line=6,17-22
 import React from 'react';
 import { CheckIcon } from '@radix-ui/react-icons';
-import * as Menubar from '@radix-ui/react-menubar';
+import * as Menubar from 'radix-vue';
 
 export default () => {
   const [checked, setChecked] = React.useState(true);
@@ -1496,7 +1366,7 @@ Use the `RadioGroup` and `RadioItem` parts to add an item that can be checked am
 ```jsx line=6,14-27
 import React from 'react';
 import { CheckIcon } from '@radix-ui/react-icons';
-import * as Menubar from '@radix-ui/react-menubar';
+import * as Menubar from 'radix-vue';
 
 export default () => {
   const [color, setColor] = React.useState('blue');
@@ -1534,7 +1404,7 @@ export default () => {
 You can add extra decorative elements in the `Item` parts, such as images.
 
 ```jsx line=10,14
-import * as Menubar from '@radix-ui/react-menubar';
+import * as Menubar from 'radix-vue';
 
 export default () => (
   <Menubar.Root>
@@ -1565,7 +1435,7 @@ We expose several CSS custom properties such as `--radix-menubar-trigger-width` 
 
 ```jsx line=9
 // index.jsx
-import * as Menubar from '@radix-ui/react-menubar';
+import * as Menubar from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -1594,7 +1464,7 @@ We expose a CSS custom property `--radix-menubar-content-transform-origin`. Use 
 
 ```jsx line=10
 // index.jsx
-import * as Menubar from '@radix-ui/react-menubar';
+import * as Menubar from 'radix-vue';
 import './styles.css';
 
 export default () => (
@@ -1634,7 +1504,7 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 
 ```jsx line=10
 // index.jsx
-import * as Menubar from '@radix-ui/react-menubar';
+import * as Menubar from 'radix-vue';
 import './styles.css';
 
 export default () => (

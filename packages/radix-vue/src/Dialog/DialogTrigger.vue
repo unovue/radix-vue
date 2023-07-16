@@ -17,12 +17,12 @@ const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 const triggerElement = ref<HTMLElement>();
 
 onMounted(() => {
-  injectedValue.triggerButton.value = triggerElement.value;
+  injectedValue!.triggerButton.value = triggerElement.value;
 });
 
-withDefaults(defineProps<DialogTriggerProps>(),{
+withDefaults(defineProps<DialogTriggerProps>(), {
   asChild: false,
-})
+});
 </script>
 
 <template>

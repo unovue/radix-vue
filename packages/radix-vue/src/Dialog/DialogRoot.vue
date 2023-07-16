@@ -15,7 +15,7 @@ export type DialogProvideValue = {
   open: Readonly<Ref<boolean>>;
   openModal(): void;
   closeModal(): void;
-  triggerButton: Readonly<Ref<HTMLElement | undefined>>;
+  triggerButton: Ref<HTMLElement | undefined>;
 };
 </script>
 

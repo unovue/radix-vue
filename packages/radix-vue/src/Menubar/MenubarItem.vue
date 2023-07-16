@@ -50,7 +50,7 @@ function handleHorizontalKeydown(e: KeyboardEvent) {
   }
 }
 
-function handleEscapeKeydown(e: KeyboardEvent) {
+function handleEscapeKeydown() {
   rootInjectedValue!.changeValue(undefined);
   rootInjectedValue!.changeSelected(
     rootInjectedValue!.triggerElement.value as HTMLElement

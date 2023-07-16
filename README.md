@@ -32,7 +32,7 @@ For changelog, visit [radix-vue.com/overview/releases](https://radix-vue.com/ove
 | [Context Menu](https://radix-vue.com/components/context-menu)       |   ✅   |              |                        |
 | [Dialog](https://radix-vue.com/components/dialog)                   |   ✅   | ⏳           |                        |
 | [Dropdown Menu](https://radix-vue.com/components/dropdown-menu)     |   ✅   |              |                        |
-| [Hover Card](https://radix-vue.com/components/hover-card)           |   ✅   |              |                        |
+| [Hover Card](https://radix-vue.com/components/hover-card)           |   ✅   | ✅           |                        |
 | [Label](https://radix-vue.com/components/label)                     |   ✅   | ✅           | ✅                     |
 | [Menubar](https://radix-vue.com/components/menubar)                 |   ✅   |              |                        |
 | [Navigation Menu](https://radix-vue.com/components/navigation-menu) |   ✅   |              |                        |

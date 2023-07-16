@@ -30,7 +30,7 @@ onMounted(() => {
   itemContext!.triggerRef = triggerElement;
 });
 
-const handlePointerEnter = (ev: PointerEvent) => {
+const handlePointerEnter = () => {
   wasClickCloseRef.value = false;
   itemContext!.wasEscapeCloseRef.value = false;
 };
@@ -57,7 +57,7 @@ const handlePointerLeave = (ev: PointerEvent) => {
   }
 };
 
-const handleClick = (ev: MouseEvent) => {
+const handleClick = () => {
   if (open.value) {
     context?.onItemSelect("");
   } else {

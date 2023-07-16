@@ -56,13 +56,8 @@ export const NAVIGATION_MENU_INJECTION_KEY =
 </script>
 
 <script setup lang="ts">
-import {
-  onClickOutside,
-  useDebounceFn,
-  useFocusWithin,
-  useVModel,
-} from "@vueuse/core";
-import { provide, ref, watch, type VNode } from "vue";
+import { onClickOutside, useDebounceFn, useVModel } from "@vueuse/core";
+import { provide, ref, type VNode } from "vue";
 import { PrimitiveNav, usePrimitiveElement } from "@/Primitive";
 
 const props = withDefaults(defineProps<NavigationMenuProps>(), {

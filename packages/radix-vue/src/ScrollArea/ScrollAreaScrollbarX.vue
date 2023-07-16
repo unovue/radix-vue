@@ -28,7 +28,6 @@ onMounted(() => {
   if (scrollbarElement.value)
     injectedValueFromRoot?.onScrollbarYChange(scrollbarElement.value);
 });
-
 const sizes = computed(() => injectedValueFromScrollbarVisible?.sizes.value);
 </script>
 

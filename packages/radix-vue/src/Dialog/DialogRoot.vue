@@ -4,8 +4,7 @@ import type { Ref, InjectionKey } from "vue";
 export interface DialogRootProps {
   open?: boolean;
   defaultOpen?: boolean;
-  //onOpenChange?: void;
-  modal?: boolean; //true;
+  modal?: boolean;
 }
 
 export const DIALOG_INJECTION_KEY =
@@ -13,6 +12,7 @@ export const DIALOG_INJECTION_KEY =
 
 export type DialogProvideValue = {
   open: Readonly<Ref<boolean>>;
+  modal: boolean;
   openModal(): void;
   closeModal(): void;
   triggerButton: Ref<HTMLElement | undefined>;
@@ -42,6 +42,7 @@ const open = useVModel(props, "open", emit, {
 
 provide<DialogProvideValue>(DIALOG_INJECTION_KEY, {
   open,
+  modal: props.modal,
   openModal: () => {
     open.value = true;
   },

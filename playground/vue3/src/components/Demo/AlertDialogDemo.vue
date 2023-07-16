@@ -10,7 +10,7 @@ import {
   AlertDialogRoot,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from 'radix-vue'
+} from '../../../../../packages/radix-vue/src'
 
 const alertDialogOpen = ref(false)
 

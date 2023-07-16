@@ -22,7 +22,6 @@ onMounted(() => {
 });
 
 const props = defineProps<DialogTriggerProps>();
-
 </script>
 
 <template>

@@ -13,6 +13,7 @@ import DemoDropdownMenu from '../../components/demo/DropdownMenu/index.vue'
 import PropsTable from '../../components/tables/PropsTable.vue'
 import EmitsTable from '../../components/tables/EmitsTable.vue'
 import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
+import CssVariablesTable from '../../components/tables/CssVariablesTable.vue'
 import KeyboardTable from '../../components/tables/KeyboardTable.vue'
 import Highlights from '../../components/Highlights.vue'
 import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
@@ -1521,69 +1522,69 @@ export default () => (
 Adheres to the [Menu Button WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/menubutton) and uses [roving tabindex](https://www.w3.org/WAI/ARIA/apg/patterns/kbd_roving_tabindex) to manage focus movement among menu items.
 
 ### Keyboard Interactions
-<!--
+
 <KeyboardTable
   :data="[
     {
       keys: ['Space'],
-      description: (
+      description: `
         <span>
           When focus is on <Code>DropdownMenuTrigger</Code>, opens the dropdown
           menu and focuses the first item.
           <br />
           When focus is on an item, activates the focused item.
         </span>
-      ),
+      `,
     },
     {
       keys: ['Enter'],
-      description: (
+      description: `
         <span>
           When focus is on <Code>DropdownMenuTrigger</Code>, opens the dropdown
           menu and focuses the first item.
           <br />
           When focus is on an item, activates the focused item.
         </span>
-      ),
+      `,
     },
     {
       keys: ['ArrowDown'],
-      description: (
+      description: `
         <span>
           When focus is on <Code>DropdownMenuTrigger</Code>, opens the dropdown
           menu.
           <br />
           When focus is on an item, moves focus to the next item.
         </span>
-      ),
+      `,
     },
     {
       keys: ['ArrowUp'],
-      description: (
+      description: `
         <span>When focus is on an item, moves focus to the previous item.</span>
-      ),
+      `,
     },
     {
       keys: ['ArrowRight', 'ArrowLeft'],
-      description: (
+      description: `
         <span>
           When focus is on <Code>DropdownMenuSubTrigger</Code>, opens or closes
           the submenu depending on reading direction.
         </span>
-      ),
+      `,
     },
     {
       keys: ['Esc'],
-      description: (
+      description: `
         <span>
           Closes the dropdown menu and moves focus to{' '}
           <Code>DropdownMenuTrigger</Code>.
         </span>
-      ),
+      `,
     },
   ]"
 />
--->
+
 ## Custom APIs
 
 Create your own API by abstracting the primitive parts into your own component.

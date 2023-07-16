@@ -23,7 +23,7 @@ describe("test switch functionalities", () => {
   test("keydown enter thumb will toggle value", async () => {
     const { container } = render(Switch1);
     screen.getByTestId("thumb");
-    const input = container.querySelector("input");
+    const input = container.querySelector("input")!;
     screen.getByText("unchecked");
 
     await fireEvent.keyDown(input, { key: "Enter" });
@@ -36,7 +36,7 @@ describe("test switch functionalities", () => {
   test("keydown space thumb will toggle value", async () => {
     const { container } = render(Switch1);
     screen.getByTestId("thumb");
-    const input = container.querySelector("input");
+    const input = container.querySelector("input")!;
     screen.getByText("unchecked");
 
     await fireEvent.keyDown(input, { keyCode: 32 });
@@ -49,7 +49,7 @@ describe("test switch functionalities", () => {
   test("thumb has data state & reactive", async () => {
     const { container } = render(Switch1);
     const thumb = screen.getByTestId("thumb");
-    const input = container.querySelector("input");
+    const input = container.querySelector("input")!;
     screen.getByText("unchecked");
 
     await fireEvent.keyDown(input, { keyCode: 32 });

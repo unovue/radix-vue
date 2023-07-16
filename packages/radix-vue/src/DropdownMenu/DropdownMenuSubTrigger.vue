@@ -1,6 +1,7 @@
 <script lang="ts">
-export interface DropdownMenuSubTriggerProps {
-  asChild?: boolean;
+import { type PrimitiveProps } from "@/Primitive";
+
+export interface DropdownMenuSubTriggerProps extends PrimitiveProps {
   disabled?: boolean;
   textValue?: string;
 }
@@ -28,6 +29,7 @@ const injectedValue = inject<DropdownMenuSubProvideValue>(
   DROPDOWN_MENU_SUB_INJECTION_KEY
 );
 
+const props = defineProps<DropdownMenuSubTriggerProps>();
 const { primitiveElement, currentElement } = usePrimitiveElement();
 
 onMounted(() => {
@@ -75,6 +77,7 @@ function handleMouseover() {
       :aria-controls="injectedValue?.contentId"
       :data-state="dataState"
       :data-orientation="rootInjectedValue?.orientation"
+      :as-child="props.asChild"
       aria-haspopup="menu"
       @handle-click="handleClick"
       @mouseover="handleMouseover"

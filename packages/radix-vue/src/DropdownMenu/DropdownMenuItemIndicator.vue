@@ -1,6 +1,7 @@
 <script lang="ts">
-export interface DropdownMenuItemIndicatorProps {
-  asChild?: boolean;
+import { type PrimitiveProps } from "@/Primitive";
+
+export interface DropdownMenuItemIndicatorProps extends PrimitiveProps {
   forceMount?: boolean;
 }
 </script>

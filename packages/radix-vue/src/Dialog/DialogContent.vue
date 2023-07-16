@@ -136,7 +136,7 @@ function handleKeydown(e: KeyboardEvent) {
 
 <template>
   <PrimitiveDiv
-    :asChild="props.asChild"
+    :as-child="props.asChild"
     ref="primitiveElement"
     v-if="injectedValue?.open.value"
     v-on-click-outside="handleOnClickOutside"

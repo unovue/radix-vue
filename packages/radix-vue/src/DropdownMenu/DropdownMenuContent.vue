@@ -5,7 +5,6 @@ import { useCollection } from "@/shared";
 export type Boundary = Element | null | Array<Element | null>;
 
 export interface DropdownMenuContentProps extends PopperContentProps {
-  asChild?: boolean;
   loop?: boolean; //false
   //onOpenAutoFocus?: void;
   //onCloseAutoFocus?: void;
@@ -71,7 +70,7 @@ onClickOutside(tooltipContentElement, (event) => {
       :data-side="props.side"
       :data-align="props.align"
       role="tooltip"
-      :asChild="props.asChild"
+      :as-child="props.asChild"
       style="pointer-events: auto"
     >
       <slot />

@@ -1,6 +1,7 @@
 <script lang="ts">
-export interface CheckboxIndicatorProps {
-  asChild?: boolean;
+import { type PrimitiveProps } from "@/Primitive";
+
+export interface CheckboxIndicatorProps extends PrimitiveProps {
   forceMount?: boolean;
 }
 </script>
@@ -15,16 +16,14 @@ import { PrimitiveSpan } from "@/Primitive";
 
 const injectedValue = inject<CheckboxProvideValue>(CHECKBOX_INJECTION_KEY);
 
-const props = withDefaults(defineProps<CheckboxIndicatorProps>(), {
-  asChild: false,
-});
+const props = defineProps<CheckboxIndicatorProps>();
 </script>
 
 <template>
   <PrimitiveSpan
-    :asChild="props.asChild"
     v-if="injectedValue?.modelValue.value"
     style="pointer-events: none"
+    :as-child="props.asChild"
     :data-disabled="injectedValue.disabled ? '' : undefined"
     :data-state="injectedValue.modelValue.value ? 'checked' : 'unchecked'"
   >

@@ -1,8 +1,8 @@
 <script lang="ts">
 import { useVModel } from "@vueuse/core";
+import { type PrimitiveProps } from "@/Primitive";
 
-interface DropdownMenuCheckboxItemProps {
-  asChild?: boolean;
+interface DropdownMenuCheckboxItemProps extends PrimitiveProps {
   checked?: boolean;
   //onCheckedChange?: void;
   modelValue?: boolean;
@@ -64,6 +64,7 @@ provide(DROPDOWN_MENU_ITEM_SYMBOL, {
     @escape-keydown="handleEscape"
     role="menuitemcheckbox"
     :data-state="checkboxDataState"
+    :as-child="props.asChild"
     :aria-checked="props.modelValue ? true : false"
   >
     <input

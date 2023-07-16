@@ -1,10 +1,11 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
 import type { DataOrientation, Direction } from "../shared/types";
+import { type PrimitiveProps } from "@/Primitive";
 
 type TypeEnum = "single" | "multiple";
 
-export interface DropdownMenuGroupProps {
+export interface DropdownMenuGroupProps extends PrimitiveProps {
   type?: TypeEnum;
   value?: string;
   defaultValue?: string;

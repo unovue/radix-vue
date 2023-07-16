@@ -1,8 +1,8 @@
 <script lang="ts">
 import { PrimitiveLabel } from "@/Primitive";
+import { type PrimitiveProps } from "@/Primitive";
 
-interface DropdownMenuLabelProps {
-  asChild?: boolean;
+interface DropdownMenuLabelProps extends PrimitiveProps {
   for?: string;
 }
 </script>
@@ -12,5 +12,5 @@ const props = defineProps<DropdownMenuLabelProps>();
 </script>
 
 <template>
-  <PrimitiveLabel :for="props.for"><slot /></PrimitiveLabel>
+  <PrimitiveLabel v-bind="props"><slot /></PrimitiveLabel>
 </template>

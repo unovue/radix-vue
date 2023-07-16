@@ -11,7 +11,6 @@ const { primitiveElement, currentElement } = usePrimitiveElement();
 
 const context = inject(NAVIGATION_MENU_INJECTION_KEY);
 
-const content = ref<HTMLElement>();
 const size = ref<{ width: number; height: number }>();
 
 const open = computed(() => !!context?.modelValue.value);
@@ -30,16 +29,14 @@ const viewportContentList = computed(() =>
   Array.from(context?.viewportContent.value.values())
 );
 
-const isActive = ref(false);
-const setRef = (node: VNode) => {
+const items = ref<InstanceType<typeof NavigationMenuContentImpl>[]>();
+const content = computed(() => {
+  const activeNode = items.value?.find(
+    (i) => i?.value === activeContentValue.value
+  );
   // @ts-ignore
-  isActive.value = activeContentValue.value === node?.value;
-  if (isActive.value) {
-    // @ts-ignore
-    content.value = unrefElement(node);
-  }
-  return undefined;
-};
+  return unrefElement(activeNode?.$el);
+});
 
 const handleClose = (node: VNode) => {
   context!.modelValue.value = "";
@@ -80,7 +77,7 @@ defineOptions({
       <template v-for="node in viewportContentList" :key="node.props?.value">
         <Presence :present="activeContentValue === node.props?.value">
           <NavigationMenuContentImpl
-            :ref="setRef"
+            ref="items"
             v-bind="{ ...node.props, ...node.parentProps }"
             @escape="handleClose(node)"
           >

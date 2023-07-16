@@ -986,10 +986,11 @@ An item that opens a submenu. Must be rendered inside `DropdownMenuSub`.
   ]"
 />
 -->
+
 ### SubContent
 
 The component that pops out when a submenu is open. Must be rendered inside `DropdownMenuSub`.
-<!--
+
 <PropsTable
   :data="[
     {
@@ -1004,161 +1005,162 @@ The component that pops out when a submenu is open. Must be rendered inside `Dro
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
+      description: `
         <span>
           When <Code>true</Code>, keyboard navigation will loop from last item
           to first, and vice versa.
         </span>
-      ),
+      `,
     },
     {
       name: 'onEscapeKeyDown',
       type: '(event: KeyboardEvent) => void',
       typeSimple: 'function',
-      description: (
+      description: `
         <span>
           Event handler called when the escape key is down. It can be prevented
           by calling <Code>event.preventDefault</Code>
         </span>
-      ),
+      `,
     },
     {
       name: 'onPointerDownOutside',
       type: '(event: PointerDownOutsideEvent) => void',
       typeSimple: 'function',
-      description: (
+      description: `
         <span>
           Event handler called when a pointer event occurs outside the bounds of
           the component. It can be prevented by calling{' '}
           <Code>event.preventDefault</Code>.
         </span>
-      ),
+      `,
     },
     {
       name: 'onFocusOutside',
       type: '(event: FocusOutsideEvent) => void',
       typeSimple: 'function',
-      description: (
+      description: `
         <span>
           Event handler called when focus moves outside the bounds of the
           component. It can be prevented by calling{' '}
           <Code>event.preventDefault</Code>.
         </span>
-      ),
+      `,
     },
     {
       name: 'onInteractOutside',
       type: '(event: PointerDownOutsideEvent | FocusOutsideEvent) => void',
       typeSimple: 'function',
-      description: (
+      description: `
         <span>
           Event handler called when an interaction (pointer or focus event)
           happens outside the bounds of the component. It can be prevented by
           calling <Code>event.preventDefault</Code>.
         </span>
-      ),
+      `,
     },
     {
       name: 'forceMount',
       type: 'boolean',
-      description: (
+      description: `
         <span>
           Used to force mounting when more control is needed. Useful when
           controlling animation with React animation libraries. It inherits from{' '}
           <Code>DropdownMenuPortal</Code>.
         </span>
-      ),
+      `,
     },
     {
       name: 'sideOffset',
       type: 'number',
       default: '0',
-      description: <span>The distance in pixels from the trigger.</span>,
+      description: `
+        <span>The distance in pixels from the trigger.</span>
+      `,
     },
     {
       name: 'alignOffset',
       type: 'number',
       default: '0',
-      description: (
+      description: `
         <span>
-          An offset in pixels from the <Code>"start"</Code> or{' '}
-          <Code>"end"</Code> alignment options.
+          An offset in pixels from the <Code>&quot;start&quot;</Code> or <Code>&quot;end&quot;</Code> alignment options.
         </span>
-      ),
+      `,
     },
     {
       name: 'avoidCollisions',
       type: 'boolean',
       default: 'true',
-      description: (
+      description: `
         <span>
           When <Code>true</Code>, overrides the <Code>side</Code> and
           <Code>align</Code> preferences to prevent collisions with boundary edges.
         </span>
-      ),
+      `,
     },
     {
       name: 'collisionBoundary',
       type: 'Element | null | Array<Element | null>',
       typeSimple: 'Boundary',
       default: '[]',
-      description: (
+      description: `
         <span>
           The element used as the collision boundary. By default this is the
           viewport, though you can provide additional element(s) to be included
           in this check.
         </span>
-      ),
+      `,
     },
     {
       name: 'collisionPadding',
       type: 'number | Partial<Record<Side, number>>',
       typeSimple: 'number | Padding',
       default: '0',
-      description: (
+      description: `
         <span>
           The distance in pixels from the boundary edges where collision
           detection should occur. Accepts a number (same for all sides), or a
-          partial padding object, for example: <Code>{`{ top: 20, left: 20 }`}</Code>
+          partial padding object, for example: <Code>{ top: 20, left: 20 }</Code>
           .
         </span>
-      ),
+      `,
     },
     {
       name: 'arrowPadding',
       type: 'number',
       default: '0',
-      description: (
+      description: `
         <span>
           The padding between the arrow and the edges of the content. If your
           content has <Code>border-radius</Code>, this will prevent it from
           overflowing the corners.
         </span>
-      ),
+      `,
     },
     {
       name: 'sticky',
-      type: '"partial" | "always"',
+      type: '&quot;partial&quot; | &quot;always&quot;',
       typeSimple: 'enum',
-      default: '"partial"',
-      description: (
+      default: '&quot;partial&quot;',
+      description: `
         <span>
-          The sticky behavior on the align axis. <Code>"partial"</Code> will
+          The sticky behavior on the align axis. <Code>&quot;partial&quot;</Code> will
           keep the content in the boundary as long as the trigger is at least
-          partially in the boundary whilst <Code>"always"</Code> will keep the
+          partially in the boundary whilst <Code>&quot;always&quot;</Code> will keep the
           content in the boundary regardless.
         </span>
-      ),
+      `,
     },
     {
       name: 'hideWhenDetached',
       type: 'boolean',
       default: 'false',
-      description: (
+      description: `
         <span>
           Whether to hide the content when the trigger becomes fully occluded.
         </span>
-      ),
+      `,
     },
   ]"
 />
@@ -1183,7 +1185,7 @@ The component that pops out when a submenu is open. Must be rendered inside `Dro
     },
   ]"
 />
--->
+
 ## Examples
 
 ### With submenus

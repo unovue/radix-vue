@@ -1,48 +1,72 @@
 <script lang="ts">
 export interface AlertDialogContentProps extends PrimitiveProps {
-  forceMount?: boolean;
-  //onOpenAutoFocus?: void;
-  //onCloseAutoFocus?: void;
-  //onEscapeKeyDown?: void;
+  isOpenAutoFocus?: boolean;
+  isCloseAutoFocus?: boolean;
+  isEscapeKeyDownDefault?: boolean;
+}
+
+export interface AlertDialogContentEmit {
+  (e: "open"): void;
+  (e: "close"): void;
+  (e: "escapeKeyDown"): void;
 }
 </script>
 
 <script setup lang="ts">
 import { inject, watchEffect } from "vue";
-import { trapFocus } from "../shared";
+import { trapFocus } from "@/shared";
 import {
-  DIALOG_INJECTION_KEY,
-  type DialogProvideValue,
+  ALERT_DIALOG_INJECTION_KEY,
+  type AlertDialogProvideValue,
 } from "./AlertDialogRoot.vue";
 import {
   PrimitiveDiv,
   usePrimitiveElement,
   type PrimitiveProps,
-} from "../Primitive";
+} from "@/Primitive";
+import { vOnClickOutside } from "@vueuse/components";
 
-const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
+const injectedValue = inject<AlertDialogProvideValue>(
+  ALERT_DIALOG_INJECTION_KEY
+);
 
-const props = defineProps<AlertDialogContentProps>();
+const props = withDefaults(defineProps<AlertDialogContentProps>(), {
+  isOpenAutoFocus: true,
+  isCloseAutoFocus: undefined,
+  isEscapeKeyDownDefault: true,
+});
 
-const { primitiveElement, currentElement: dialogContentElement } =
-  usePrimitiveElement();
+const emit = defineEmits<AlertDialogContentEmit>();
 
+const { primitiveElement, currentElement } = usePrimitiveElement();
+
+const validCloseAutoFocus = () => {
+  return props.isCloseAutoFocus;
+};
 watchEffect(() => {
-  if (dialogContentElement.value) {
-    if (injectedValue?.open.value) {
-      trapFocus(dialogContentElement.value);
-      document.querySelector("body")!.style.pointerEvents = "none";
-      window.addEventListener("wheel", lockScroll, { passive: false });
-      window.addEventListener("keydown", lockKeydown);
-    } else {
-      document.querySelector("body")!.style.pointerEvents = "";
-      window.removeEventListener("wheel", lockScroll);
-      window.removeEventListener("keydown", lockKeydown);
-
-      if (injectedValue?.triggerButton.value) {
-        injectedValue?.triggerButton.value.focus();
-      }
+  if (!currentElement.value) {
+    return;
+  }
+  if (injectedValue?.open.value) {
+    if (props.isOpenAutoFocus) {
+      trapFocus(currentElement.value);
     }
+    setBodyUninteractive();
+    window.addEventListener("wheel", lockScroll, { passive: false });
+    window.addEventListener("keydown", lockKeydown);
+    window.addEventListener("keydown", handleKeydown);
+    emit("open");
+  } else {
+    setBodyInteractive();
+    window.removeEventListener("wheel", lockScroll);
+    window.removeEventListener("keydown", lockKeydown);
+    window.removeEventListener("keydown", handleKeydown);
+
+    if (validCloseAutoFocus()) {
+      injectedValue?.triggerButton.value?.focus();
+    }
+
+    emit("close");
   }
 });
 
@@ -62,8 +86,30 @@ function lockKeydown(e: KeyboardEvent) {
       e.preventDefault();
     }
   }
+}
+
+function setBodyUninteractive() {
+  document.querySelector("body")!.style.pointerEvents = "none";
+}
+
+function setBodyInteractive() {
+  document.querySelector("body")!.style.pointerEvents = "";
+}
+
+function handleOnClickOutside() {
+  injectedValue?.closeModal();
+}
+
+function handleKeydown(e: KeyboardEvent) {
   if (e.key === "Escape") {
-    injectedValue?.closeModal();
+    if (props.isEscapeKeyDownDefault) {
+      e.preventDefault();
+      injectedValue?.closeModal();
+      if (validCloseAutoFocus()) {
+        injectedValue?.triggerButton.value?.focus();
+      }
+    }
+    emit("escapeKeyDown");
   }
 }
 </script>
@@ -72,7 +118,7 @@ function lockKeydown(e: KeyboardEvent) {
   <PrimitiveDiv
     v-if="injectedValue?.open.value"
     ref="primitiveElement"
-    :as-child="props.asChild"
+    v-on-click-outside="handleOnClickOutside"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"
     role="dialog"
     tabindex="-1"

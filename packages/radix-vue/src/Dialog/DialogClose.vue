@@ -13,7 +13,6 @@ const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 
 function handleClick() {
   injectedValue?.closeModal();
-  injectedValue?.triggerButton.value?.focus();
 }
 </script>
 

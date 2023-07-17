@@ -1,36 +1,42 @@
-<script lang="ts">
-export interface AlertDialogTriggerProps extends PrimitiveProps {}
-</script>
-
 <script setup lang="ts">
 import { inject, onMounted } from "vue";
 import {
-  DIALOG_INJECTION_KEY,
-  type DialogProvideValue,
+  ALERT_DIALOG_INJECTION_KEY,
+  type AlertDialogProvideValue,
 } from "./AlertDialogRoot.vue";
 import {
   PrimitiveButton,
   usePrimitiveElement,
   type PrimitiveProps,
-} from "../Primitive";
+} from "@/Primitive";
 
-const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
+export interface AlertDialogTriggerProps extends PrimitiveProps {}
 
-const props = defineProps<AlertDialogTriggerProps>();
+const injectedValue = inject<AlertDialogProvideValue>(
+  ALERT_DIALOG_INJECTION_KEY
+);
+const { primitiveElement, currentElement } = usePrimitiveElement();
 
-const { primitiveElement, currentElement: triggerElement } =
-  usePrimitiveElement();
+function showErrorInjectedValueNotExist() {
+  console.error(
+    "Injected value not found, AlertDialogTrigger possibly not wrapped with AlertDialogRoot. Component may not be working properly."
+  );
+}
 
 onMounted(() => {
   if (injectedValue) {
-    injectedValue.triggerButton = triggerElement;
+    injectedValue.triggerButton.value = currentElement.value;
+  } else {
+    showErrorInjectedValueNotExist();
   }
 });
+
+const props = defineProps<AlertDialogTriggerProps>();
 </script>
 
 <template>
   <PrimitiveButton
-    :as-child="props.asChild"
+    v-bind="props"
     type="button"
     ref="primitiveElement"
     :aria-expanded="injectedValue?.open.value || false"

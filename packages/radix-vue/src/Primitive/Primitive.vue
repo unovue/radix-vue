@@ -1,11 +1,5 @@
 <script lang="ts">
-import {
-  defineComponent,
-  h,
-  getCurrentInstance,
-  type NativeElements,
-  type ReservedProps,
-} from "vue";
+import { defineComponent, h, getCurrentInstance } from "vue";
 import Slot from "./Slot.vue";
 import { renderSlotFragments } from "@/shared";
 
@@ -28,15 +22,8 @@ const NODES = [
   "ul",
 ] as const;
 
-type Primitives = {
-  [E in (typeof NODES)[number]]: NativeElements[E] &
-    ReservedProps & {
-      asChild?: boolean;
-    };
-};
-
-const Primitive = NODES.reduce((primitive, node) => {
-  const Node = defineComponent({
+const createComponent = (node: (typeof NODES)[number]) =>
+  defineComponent({
     props: {
       asChild: {
         type: Boolean,
@@ -80,6 +67,13 @@ const Primitive = NODES.reduce((primitive, node) => {
       }
     },
   });
+
+type Primitives = {
+  [E in (typeof NODES)[number]]: ReturnType<typeof createComponent>;
+};
+
+const Primitive = NODES.reduce((primitive, node) => {
+  const Node = createComponent(node);
 
   return { ...primitive, [node]: Node };
 }, {} as Primitives);

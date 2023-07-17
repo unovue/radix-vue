@@ -189,7 +189,7 @@ When used, portals the content part into the `body`.
       name: 'forceMount',
       type: 'boolean',
       description: `
-        Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries. If used on this part, it will be inherited by <Code>ContextMenu.Content</Code> and <Code>ContextMenu.SubContent</Code> respectively.
+        Used to force mounting when more control is needed. Useful when controlling animation with vue animation libraries. If used on this part, it will be inherited by <Code>ContextMenu.Content</Code> and <Code>ContextMenu.SubContent</Code> respectively.
       `,
     },
     {
@@ -267,7 +267,7 @@ The component that pops out in an open context menu.
       name: 'forceMount',
       type: 'boolean',
       description: `
-        Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries. It inherits from <Code>ContextMenu.Portal</Code>.
+        Used to force mounting when more control is needed. Useful when controlling animation with vue animation libraries. It inherits from <Code>ContextMenu.Portal</Code>.
       `,
     },
     {
@@ -681,7 +681,7 @@ Renders when the parent `ContextMenu.CheckboxItem` or `ContextMenu.RadioItem` is
       name: 'forceMount',
       type: 'boolean',
       description: `
-        Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries.
+        Used to force mounting when more control is needed. Useful when controlling animation with vue animation libraries.
       `,
     },
   ]"
@@ -858,7 +858,7 @@ The component that pops out when a submenu is open. Must be rendered inside `Con
       name: 'forceMount',
       type: 'boolean',
       description: `
-        Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries. It inherits from <Code>ContextMenu.Portal</Code>.
+        Used to force mounting when more control is needed. Useful when controlling animation with vue animation libraries. It inherits from <Code>ContextMenu.Portal</Code>.
       `,
     },
     {
@@ -1079,6 +1079,7 @@ Use the `Label` part to help label a section.
 Use the `CheckboxItem` part to add an item that can be checked.
 
 ```jsx line=6,16-21
+// TODO: denniss - react code
 import React from 'react';
 import { CheckIcon } from '@radix-ui/react-icons';
 import * as ContextMenu from 'radix-vue';

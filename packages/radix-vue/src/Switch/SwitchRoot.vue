@@ -1,8 +1,7 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
 
-export interface SwitchRootProps {
-  asChild?: boolean;
+export interface SwitchRootProps extends PrimitiveProps {
   defaultChecked?: boolean;
   checked?: boolean;
   // onCheckedChange?: void;
@@ -26,7 +25,7 @@ export interface SwitchProvideValue {
 
 <script setup lang="ts">
 import { provide } from "vue";
-import { PrimitiveDiv } from "@/Primitive";
+import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
 import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<SwitchRootProps>(), {
@@ -67,6 +66,7 @@ function handleKeydown(e: KeyboardEvent) {
     :aria-checked="open"
     :data-state="open ? 'checked' : 'unchecked'"
     :data-disabled="props.disabled ? '' : undefined"
+    :as-child="props.asChild"
     style="position: relative"
   >
     <input

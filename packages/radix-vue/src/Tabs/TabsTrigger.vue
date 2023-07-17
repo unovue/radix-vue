@@ -1,14 +1,17 @@
 <script lang="ts">
-export interface TabsTriggerProps {
+export interface TabsTriggerProps extends PrimitiveProps {
   value: string;
   disabled: boolean;
-  asChild?: boolean;
 }
 </script>
 
 <script setup lang="ts">
 import { inject, computed } from "vue";
-import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveButton,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import { TABS_INJECTION_KEY } from "./TabsRoot.vue";
 import type { TabsProvideValue } from "./TabsRoot.vue";
 import { useArrowNavigation } from "../shared";
@@ -17,7 +20,6 @@ const injectedValue = inject<TabsProvideValue>(TABS_INJECTION_KEY);
 const { primitiveElement, currentElement } = usePrimitiveElement();
 
 const props = withDefaults(defineProps<TabsTriggerProps>(), {
-  asChild: false,
   disabled: false,
 });
 
@@ -60,7 +62,7 @@ const getTabIndex = computed(() => {
   <PrimitiveButton
     ref="primitiveElement"
     type="button"
-    :asChild="props.asChild"
+    :as-child="props.asChild"
     role="tab"
     :aria-selected="
       injectedValue?.modelValue?.value === props.value ? 'true' : 'false'

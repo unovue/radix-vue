@@ -7,9 +7,9 @@ import {
 } from "./SelectRoot.vue";
 import { SELECT_ITEM_SYMBOL } from "./utils";
 import { type DropdownMenuProvideValue } from "@/DropdownMenu/DropdownMenuRoot.vue";
+import { type PrimitiveProps } from "@/Primitive";
 
-export interface SelectItemProps {
-  asChild?: boolean;
+export interface SelectItemProps extends PrimitiveProps {
   value: string;
   disabled?: boolean;
   id?: string;
@@ -42,6 +42,7 @@ provide<SelectItemProvideValue>(SELECT_ITEM_SYMBOL, {
     :rootProvider="(rootInjectedValue as unknown as DropdownMenuProvideValue)"
     :orientation="rootInjectedValue?.orientation"
     :data-radix-vue-radio-value="props.value"
+    :as-child="props.asChild"
     @handle-click="handleClick"
     @escape-keydown="rootInjectedValue?.hideTooltip()"
     role="option"

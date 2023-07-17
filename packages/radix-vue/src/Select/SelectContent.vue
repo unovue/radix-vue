@@ -5,7 +5,6 @@ import { useCollection } from "@/shared";
 export type Boundary = Element | null | Array<Element | null>;
 
 export interface SelectContentProps extends PopperContentProps {
-  asChild?: boolean;
   loop?: boolean; //false
   //onOpenAutoFocus?: void;
   //onCloseAutoFocus?: void;
@@ -74,7 +73,7 @@ onClickOutside(tooltipContentElement, (event) => {
   >
     <PrimitiveDiv
       ref="primitiveElement"
-      :asChild="props.asChild"
+      :as-child="props.asChild"
       role="presentation"
       style="pointer-events: auto"
     >

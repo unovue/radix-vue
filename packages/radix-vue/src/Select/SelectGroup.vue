@@ -1,7 +1,7 @@
 <script lang="ts">
-export interface SelectGroupRootProps {
-  asChild?: boolean;
-}
+import { type PrimitiveProps } from "@/Primitive";
+
+export interface SelectGroupRootProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">

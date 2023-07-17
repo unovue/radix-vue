@@ -1,6 +1,5 @@
 <script lang="ts">
-export interface TabsContentProps {
-  asChild?: boolean;
+export interface TabsContentProps extends PrimitiveProps {
   value?: string;
   forceMount?: boolean;
 }
@@ -8,15 +7,13 @@ export interface TabsContentProps {
 
 <script setup lang="ts">
 import { inject, computed } from "vue";
-import { PrimitiveDiv } from "@/Primitive";
+import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
 import { TABS_INJECTION_KEY } from "./TabsRoot.vue";
 import type { TabsProvideValue } from "./TabsRoot.vue";
 
 const injectedValue = inject<TabsProvideValue>(TABS_INJECTION_KEY);
 
-const props = withDefaults(defineProps<TabsContentProps>(), {
-  asChild: false,
-});
+const props = defineProps<TabsContentProps>();
 
 const dataState = computed<"active" | "inactive">(() => {
   return injectedValue?.modelValue?.value === props.value
@@ -27,7 +24,7 @@ const dataState = computed<"active" | "inactive">(() => {
 
 <template>
   <PrimitiveDiv
-    :asChild="asChild"
+    :as-child="props.asChild"
     v-if="injectedValue?.modelValue?.value === props.value"
     role="tabpanel"
     :data-state="dataState"

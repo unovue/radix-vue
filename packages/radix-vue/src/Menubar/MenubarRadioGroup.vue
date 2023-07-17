@@ -21,7 +21,11 @@ export interface RadioGroupProvideValue {
 
 <script setup lang="ts">
 import { provide } from "vue";
-import { PrimitiveDiv, usePrimitiveElement, ,type PrimitiveProps } from "@/Primitive";
+import {
+  PrimitiveDiv,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 
 const props = defineProps<RadioGroupRootProps>();
 

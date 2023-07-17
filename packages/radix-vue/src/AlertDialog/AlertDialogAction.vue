@@ -15,7 +15,6 @@ const injectedValue = inject<AlertDialogProvideValue>(
 
 function handleClick() {
   injectedValue?.closeModal();
-  injectedValue?.triggerButton.value?.focus();
 }
 </script>
 

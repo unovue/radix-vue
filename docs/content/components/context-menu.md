@@ -113,21 +113,17 @@ Adheres to the [Menu WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/pa
 ### Root
 
 Contains all the parts of a context menu.
-<!--
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'dir',
       required: false,
-      type: '"ltr" | "rtl"',
+      type: '&quot;ltr&quot; | &quot;rtl&quot;',
       typeSimple: 'enum',
-      description: (
-        <span>
-          The reading direction of submenus when applicable. If omitted,
-          inherits globally from <Code>DirectionProvider</Code> or assumes LTR
-          (left-to-right) reading mode.
-        </span>
-      ),
+      description: `
+        The reading direction of submenus when applicable. If omitted, inherits globally from <Code>DirectionProvider</Code> or assumes LTR (left-to-right) reading mode.
+      `,
     },
     {
       name: 'onOpenChange',
@@ -141,23 +137,19 @@ Contains all the parts of a context menu.
       required: false,
       type: 'boolean',
       default: 'true',
-      description: (
-        <span>
-          The modality of the context menu. When set to <Code>true</Code>,
-          interaction with outside elements will be disabled and only menu
-          content will be visible to screen readers.
-        </span>
-      ),
+      description: `
+        The modality of the context menu. When set to <Code>true</Code>, interaction with outside elements will be disabled and only menu content will be visible to screen readers.
+      `,
     },
-  ]}
+  ]"
 />
--->
+
 ### Trigger
 
 The area that opens the context menu. Wrap it around the target you want the context menu to open from when right-clicking (or using the relevant keyboard shortcuts).
-<!--
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -170,43 +162,35 @@ The area that opens the context menu. Wrap it around the target you want the con
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <span>
-          When <Code>true</Code>, the context menu won't open when
-          right-clicking. Note that this will also restore the native context
-          menu.
-        </span>
-      ),
+      description: `
+        When <Code>true</Code>, the context menu won't open when right-clicking. Note that this will also restore the native context menu.
+      `,
     },
-  ]}
+  ]"
 />
 
+
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
     },
-  ]}
+  ]"
 />
--->
+
 ### Portal
 
 When used, portals the content part into the `body`.
-<!--
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'forceMount',
       type: 'boolean',
-      description: (
-        <span>
-          Used to force mounting when more control is needed. Useful when
-          controlling animation with React animation libraries. If used on this
-          part, it will be inherited by <Code>ContextMenu.Content</Code> and{' '}
-          <Code>ContextMenu.SubContent</Code> respectively.
-        </span>
-      ),
+      description: `
+        Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries. If used on this part, it will be inherited by <Code>ContextMenu.Content</Code> and <Code>ContextMenu.SubContent</Code> respectively.
+      `,
     },
     {
       name: 'container',
@@ -214,15 +198,15 @@ When used, portals the content part into the `body`.
       default: 'document.body',
       description: 'Specify a container element to portal the content into.',
     },
-  ]}
+  ]"
 />
--->
+
 ### Content
 
 The component that pops out in an open context menu.
-<!--
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -235,157 +219,111 @@ The component that pops out in an open context menu.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <span>
-          When <Code>true</Code>, keyboard navigation will loop from last item
-          to first, and vice versa.
-        </span>
-      ),
+      description: `
+        When <Code>true</Code>, keyboard navigation will loop from last item to first, and vice versa.
+      `,
     },
     {
       name: 'onCloseAutoFocus',
       type: '(event: Event) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when focus moves back after closing. It can be
-          prevented by calling <Code>event.preventDefault</Code>.
-        </span>
-      ),
+      description: `
+        Event handler called when focus moves back after closing. It can be prevented by calling <Code>event.preventDefault</Code>.
+      `,
     },
     {
       name: 'onEscapeKeyDown',
       type: '(event: KeyboardEvent) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when the escape key is down. It can be prevented
-          by calling <Code>event.preventDefault</Code>.
-        </span>
-      ),
+      description: `
+        Event handler called when the escape key is down. It can be prevented by calling <Code>event.preventDefault</Code>.
+      `,
     },
     {
       name: 'onPointerDownOutside',
       type: '(event: PointerDownOutsideEvent) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when a pointer event occurs outside the bounds of
-          the component. It can be prevented by calling{' '}
-          <Code>event.preventDefault</Code>.
-        </span>
-      ),
+      description: `
+        Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.
+      `,
     },
     {
       name: 'onFocusOutside',
       type: '(event: FocusOutsideEvent) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when focus moves outside the bounds of the
-          component. It can be prevented by calling{' '}
-          <Code>event.preventDefault</Code>.
-        </span>
-      ),
+      description: `
+          Event handler called when focus moves outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.
+      `,
     },
     {
       name: 'onInteractOutside',
       type: '(event: PointerDownOutsideEvent | FocusOutsideEvent) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when an interaction (pointer or focus event)
-          happens outside the bounds of the component. It can be prevented by
-          calling <Code>event.preventDefault</Code>.
-        </span>
-      ),
+      description: `
+        Event handler called when an interaction (pointer or focus event) happens outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.
+      `,
     },
     {
       name: 'forceMount',
       type: 'boolean',
-      description: (
-        <span>
-          Used to force mounting when more control is needed. Useful when
-          controlling animation with React animation libraries. It inherits from{' '}
-          <Code>ContextMenu.Portal</Code>.
-        </span>
-      ),
+      description: `
+        Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries. It inherits from <Code>ContextMenu.Portal</Code>.
+      `,
     },
     {
       name: 'alignOffset',
       type: 'number',
       default: '0',
-      description: (
-        <span>The vertical distance in pixels from the anchor.</span>
-      ),
+      description: `The vertical distance in pixels from the anchor.`,
     },
     {
       name: 'avoidCollisions',
       type: 'boolean',
       default: 'true',
-      description: (
-        <span>
-          When <Code>true</Code>, overrides the <Code>side</Code> and
-          <Code>align</Code> preferences to prevent collisions with boundary edges.
-        </span>
-      ),
+      description: `
+        When <Code>true</Code>, overrides the <Code>side</Code> and <Code>align</Code> preferences to prevent collisions with boundary edges.
+      `,
     },
     {
       name: 'collisionBoundary',
       type: 'Element | null | Array<Element | null>',
       typeSimple: 'Boundary',
       default: '[]',
-      description: (
-        <span>
-          The element used as the collision boundary. By default this is the
-          viewport, though you can provide additional element(s) to be included
-          in this check.
-        </span>
-      ),
+      description: `
+        The element used as the collision boundary. By default this is the viewport, though you can provide additional element(s) to be included in this check.
+      `,
     },
     {
       name: 'collisionPadding',
       type: 'number | Partial<Record<Side, number>>',
       typeSimple: 'number | Padding',
       default: '0',
-      description: (
-        <span>
-          The distance in pixels from the boundary edges where collision
-          detection should occur. Accepts a number (same for all sides), or a
-          partial padding object, for example: <Code>{`{ top: 20, left: 20 }`}</Code>
-          .
-        </span>
-      ),
+      description: `
+        The distance in pixels from the boundary edges where collision detection should occur. Accepts a number (same for all sides), or a partial padding object, for example: <Code>{ top: 20, left: 20 }</Code>.
+      `,
     },
     {
       name: 'sticky',
-      type: '"partial" | "always"',
+      type: '&quot;partial&quot; | &quot;always&quot;',
       typeSimple: 'enum',
-      default: '"partial"',
-      description: (
-        <span>
-          The sticky behavior on the align axis. <Code>"partial"</Code> will
-          keep the content in the boundary as long as the trigger is at least
-          partially in the boundary whilst <Code>"always"</Code> will keep the
-          content in the boundary regardless.
-        </span>
-      ),
+      default: '&quot;partial&quot;',
+      description: `
+        The sticky behavior on the align axis. <Code>&quot;partial&quot;</Code> will keep the content in the boundary as long as the trigger is at least partially in the boundary whilst <Code>&quot;always&quot;</Code> will keep the content in the boundary regardless.
+      `,
     },
     {
       name: 'hideWhenDetached',
       type: 'boolean',
       default: 'false',
-      description: (
-        <span>
-          Whether to hide the content when the trigger becomes fully occluded.
-        </span>
-      ),
+      description: `
+        Whether to hide the content when the trigger becomes fully occluded.
+      `,
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
@@ -398,49 +336,46 @@ The component that pops out in an open context menu.
       attribute: '[data-align]',
       values: ['start', 'end', 'center'],
     },
-  ]}
+  ]"
 />
 
 <CssVariablesTable
-  data={[
+  :data="[
     {
       cssVariable: '--radix-context-menu-content-transform-origin',
-      description: (
-        <>
-          The <Code>transform-origin</Code> computed from the content and arrow
-          positions/offsets
-        </>
-      ),
+      description: `
+        The <Code>transform-origin</Code> computed from the content and arrow positions/offsets
+      `,
     },
     {
       cssVariable: '--radix-context-menu-content-available-width',
-      description: (
-        <>The remaining width between the trigger and the boundary edge</>
-      ),
+      description: `
+        The remaining width between the trigger and the boundary edge
+      `,
     },
     {
       cssVariable: '--radix-context-menu-content-available-height',
-      description: (
-        <>The remaining height between the trigger and the boundary edge</>
-      ),
+      description: `
+        The remaining height between the trigger and the boundary edge
+      `,
     },
     {
       cssVariable: '--radix-context-menu-trigger-width',
-      description: <>The width of the trigger</>,
+      description: `The width of the trigger`,
     },
     {
       cssVariable: '--radix-context-menu-trigger-height',
-      description: <>The height of the trigger</>,
+      description: 'The height of the trigger',
     },
-  ]}
+  ]"
 />
--->
+
 ### Arrow
 
 An optional arrow element to render alongside a submenu. This can be used to help visually link the trigger item with the `ContextMenu.Content`. Must be rendered inside `ContextMenu.Content`.
-<!--
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -452,23 +387,23 @@ An optional arrow element to render alongside a submenu. This can be used to hel
       name: 'width',
       type: 'number',
       default: 10,
-      description: <span>The width of the arrow in pixels.</span>,
+      description: 'The width of the arrow in pixels.',
     },
     {
       name: 'height',
       type: 'number',
       default: 5,
-      description: <span>The height of the arrow in pixels.</span>,
+      description: 'The height of the arrow in pixels.',
     },
-  ]}
+  ]"
 />
--->
+
 ### Item
 
 The component that contains the context menu items.
-<!--
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -479,41 +414,30 @@ The component that contains the context menu items.
     {
       name: 'disabled',
       type: 'boolean',
-      description: (
-        <span>
-          When <Code>true</Code>, prevents the user from interacting with the
-          item.
-        </span>
-      ),
+      description: `
+        When <Code>true</Code>, prevents the user from interacting with the item.
+      `,
     },
     {
       name: 'onSelect',
       type: '(event: Event) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when the user selects an item (via mouse or
-          keyboard). Calling <Code>event.preventDefault</Code> in this handler
-          will prevent the context menu from closing when selecting that item.
-        </span>
-      ),
+      description: `
+        Event handler called when the user selects an item (via mouse or keyboard). Calling <Code>event.preventDefault</Code> in this handler will prevent the context menu from closing when selecting that item.
+      `,
     },
     {
       name: 'textValue',
       type: 'string',
-      description: (
-        <span>
-          Optional text used for typeahead purposes. By default the typeahead
-          behavior will use the <Code>.textContent</Code> of the item. Use this
-          when the content is complex, or you have non-textual content inside.
-        </span>
-      ),
+      description: `
+        Optional text used for typeahead purposes. By default the typeahead behavior will use the <Code>.textContent</Code> of the item. Use this when the content is complex, or you have non-textual content inside.
+      `,
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-highlighted]',
       values: 'Present when highlighted',
@@ -522,15 +446,15 @@ The component that contains the context menu items.
       attribute: '[data-disabled]',
       values: 'Present when disabled',
     },
-  ]}
+  ]"
 />
--->
+
 ### Group
 
 Used to group multiple `ContextMenu.Item`s.
-<!--
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -538,15 +462,15 @@ Used to group multiple `ContextMenu.Item`s.
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-  ]}
+  ]"
 />
--->
+
 ### Label
 
 Used to render a label. It won't be focusable using arrow keys.
-<!--
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -554,15 +478,15 @@ Used to render a label. It won't be focusable using arrow keys.
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-  ]}
+  ]"
 />
--->
+
 ### CheckboxItem
 
 An item that can be controlled and rendered like a checkbox.
-<!--
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -573,59 +497,59 @@ An item that can be controlled and rendered like a checkbox.
     {
       name: 'checked',
       type: `boolean | 'indeterminate'`,
-      description: (
+      description: `
         <span>
           The controlled checked state of the item. Must be used in conjunction
           with <Code>onCheckedChange</Code>.
         </span>
-      ),
+      `,
     },
     {
       name: 'onCheckedChange',
       type: `(checked: boolean) => void`,
       typeSimple: 'function',
-      description: (
+      description: `
         <span>Event handler called when the checked state changes.</span>
-      ),
+      `,
     },
     {
       name: 'disabled',
       type: 'boolean',
-      description: (
+      description: `
         <span>
           When <Code>true</Code>, prevents the user from interacting with the
           item.
         </span>
-      ),
+      `,
     },
     {
       name: 'onSelect',
       type: '(event: Event) => void',
       typeSimple: 'function',
-      description: (
+      description: `
         <span>
           Event handler called when the user selects an item (via mouse or
           keyboard). Calling <Code>event.preventDefault</Code> in this handler
           will prevent the context menu from closing when selecting that item.
         </span>
-      ),
+      `,
     },
     {
       name: 'textValue',
       type: 'string',
-      description: (
+      description: `
         <span>
           Optional text used for typeahead purposes. By default the typeahead
           behavior will use the <Code>.textContent</Code> of the item. Use this
           when the content is complex, or you have non-textual content inside.
         </span>
-      ),
+      `,
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['checked', 'unchecked', 'indeterminate'],
@@ -638,15 +562,15 @@ An item that can be controlled and rendered like a checkbox.
       attribute: '[data-disabled]',
       values: 'Present when disabled',
     },
-  ]}
+  ]"
 />
--->
+
 ### RadioGroup
 
 Used to group multiple `ContextMenu.RadioItem`s.
-<!--
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -665,15 +589,15 @@ Used to group multiple `ContextMenu.RadioItem`s.
       typeSimple: 'function',
       description: 'Event handler called when the value changes.',
     },
-  ]}
+  ]"
 />
--->
+
 ### RadioItem
 
 An item that can be controlled and rendered like a radio.
-<!--
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -690,39 +614,38 @@ An item that can be controlled and rendered like a radio.
     {
       name: 'disabled',
       type: 'boolean',
-      description: (
+      description: `
         <span>
           When <Code>true</Code>, prevents the user from interacting with the
           item.
         </span>
-      ),
+      `,
     },
     {
       name: 'onSelect',
       type: '(event: Event) => void',
       typeSimple: 'function',
-      description: (
+      description: `
         <span>
           Event handler called when the user selects an item (via mouse or
           keyboard). Calling <Code>event.preventDefault</Code> in this handler
           will prevent the context menu from closing when selecting that item.
         </span>
-      ),
+      `,
     },
     {
       name: 'textValue',
       type: 'string',
-      description: (
+      description: `
         <span>
           Optional text used for typeahead purposes. By default the typeahead
           behavior will use the <Code>.textContent</Code> of the item. Use this
           when the content is complex, or you have non-textual content inside.
         </span>
-      ),
+      `,
     },
-  ]}
+  ]"
 />
--->
 
 <DataAttributesTable
   :data="[

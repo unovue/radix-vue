@@ -1214,6 +1214,7 @@ The component that pops out when a submenu is open. Must be rendered inside `Men
   ]}
 />
 ```
+
 ## Examples
 
 ### With submenus
@@ -1560,72 +1561,48 @@ export default () => (
 Adheres to the [Menu Button WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/menubutton) and uses [roving tabindex](https://www.w3.org/WAI/ARIA/apg/patterns/kbd_roving_tabindex) to manage focus movement among menu items.
 
 ### Keyboard Interactions
-```
+
 <KeyboardTable
-  data={[
+  :data="[
     {
       keys: ['Space'],
-      description: (
-        <span>
-          When focus is on <Code>Menubar.Trigger</Code>, opens the menubar and
-          focuses the first item.
-          <br />
-          When focus is on an item, activates the focused item.
-        </span>
-      ),
+      description: `
+        When focus is on <Code>Menubar.Trigger</Code>, opens the menubar and focuses the first item.
+        <br />
+        When focus is on an item, activates the focused item.
+      `,
     },
     {
       keys: ['Enter'],
-      description: (
-        <span>
-          When focus is on <Code>Menubar.Trigger</Code>, opens the associated
-          menu.
-          <br />
-          When focus is on an item, activates the focused item.
-        </span>
-      ),
+      description: `
+        When focus is on <Code>Menubar.Trigger</Code>, opens the associated menu.
+        <br />
+        When focus is on an item, activates the focused item.
+      `,
     },
     {
       keys: ['ArrowDown'],
-      description: (
-        <span>
-          When focus is on <Code>Menubar.Trigger</Code>, opens the associated
-          menu.
-          <br />
-          When focus is on an item, moves focus to the next item.
-        </span>
-      ),
+      description: `
+        When focus is on <Code>Menubar.Trigger</Code>, opens the associated menu.
+        <br />
+        When focus is on an item, moves focus to the next item.
+      `,
     },
     {
       keys: ['ArrowUp'],
-      description: (
-        <span>When focus is on an item, moves focus to the previous item.</span>
-      ),
+      description: `When focus is on an item, moves focus to the previous item.`,
     },
     {
       keys: ['ArrowRight', 'ArrowLeft'],
-      description: (
-        <span>
-          When focus is on a <Code>Menubar.Trigger</Code>, moves focus to the
-          next or previous item. <br />
-          When focus is on a <Code>Menubar.SubTrigger</Code>, opens or closes the
-          submenu depending on reading direction. <br />
-          When focus is within a <Code>Menubar.Content</Code>, opens the next
-          menu in the menubar.
-        </span>
-      ),
+      description: `
+        When focus is on a <Code>Menubar.Trigger</Code>, moves focus to the next or previous item. <br /> When focus is on a <Code>Menubar.SubTrigger</Code>, opens or closes the submenu depending on reading direction. <br /> When focus is within a <Code>Menubar.Content</Code>, opens the next menu in the menubar.
+      `,
     },
     {
       keys: ['Esc'],
-      description: (
-        <span>
-          Closes the currently open menu and moves focus to its{' '}
-          <Code>Menubar.Trigger</Code>.
-        </span>
-      ),
+      description: `
+        Closes the currently open menu and moves focus to its <Code>Menubar.Trigger</Code>.
+      `,
     },
-  ]}
+  ]"
 />
-```
-
-<!-- TODO: denniss make work -->

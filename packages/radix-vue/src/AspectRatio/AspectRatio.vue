@@ -1,13 +1,11 @@
 <script lang="ts">
-import { type PrimitiveProps } from "@/Primitive";
-
 interface AspectRatioProps extends PrimitiveProps {
   ratio?: number;
 }
 </script>
 
 <script setup lang="ts">
-import { PrimitiveDiv } from "@/Primitive";
+import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
 import { computed } from "vue";
 
 const props = withDefaults(defineProps<AspectRatioProps>(), {

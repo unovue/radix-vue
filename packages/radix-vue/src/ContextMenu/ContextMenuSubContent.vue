@@ -1,6 +1,4 @@
 <script lang="ts">
-import { type PrimitiveProps } from "@/Primitive";
-
 export type Boundary = Element | null | Array<Element | null>;
 
 export interface ContextMenuSubContentProps
@@ -17,7 +15,11 @@ export interface ContextMenuSubContentProps
 
 <script setup lang="ts">
 import { inject, watchEffect, watch } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveDiv,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import {
   CONTEXT_MENU_INJECTION_KEY,
   type ContextMenuProvideValue,

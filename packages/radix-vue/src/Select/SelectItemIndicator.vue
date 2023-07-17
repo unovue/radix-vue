@@ -1,6 +1,4 @@
 <script lang="ts">
-import { type PrimitiveProps } from "@/Primitive";
-
 export interface SelectItemIndicatorProps extends PrimitiveProps {
   forceMount?: boolean;
 }
@@ -8,7 +6,7 @@ export interface SelectItemIndicatorProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { inject, computed } from "vue";
-import { PrimitiveSpan } from "@/Primitive";
+import { PrimitiveSpan, type PrimitiveProps } from "@/Primitive";
 import { SELECT_ITEM_SYMBOL } from "./utils";
 import { type SelectItemProvideValue } from "./SelectItem.vue";
 import {

@@ -1,6 +1,4 @@
 <script lang="ts">
-import { type PrimitiveProps } from "@/Primitive";
-
 export interface MenubarSubTriggerProps extends PrimitiveProps {
   disabled?: boolean;
   textValue?: string;
@@ -18,7 +16,7 @@ import {
   type MenubarSubProvideValue,
 } from "./MenubarSub.vue";
 import { PopperAnchor } from "@/Popper";
-import { usePrimitiveElement } from "@/Primitive";
+import { usePrimitiveElement, type PrimitiveProps } from "@/Primitive";
 import { useArrowNavigation } from "@/shared/useArrowNavigation";
 import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
 

@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveButton,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import { computed, inject, provide, readonly } from "vue";
 import { useArrowNavigation } from "@/shared";
 import {
@@ -7,7 +11,6 @@ import {
   RADIO_ITEM_INJECTION_KEY,
   type RadioGroupProvideValue,
 } from "./RadioGroupRoot.vue";
-import { type PrimitiveProps } from "@/Primitive";
 
 interface RadioGroupItemProps extends PrimitiveProps {
   value?: string;

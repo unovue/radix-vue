@@ -45,6 +45,7 @@ function handleEscape() {
     :rootProvider="rootInjectedValue"
     :subProvider="subInjectedValue"
     :orientation="rootInjectedValue?.orientation"
+    :as-child="props.asChild"
     @handle-click="handleClick"
     @escape-keydown="handleEscape"
   >

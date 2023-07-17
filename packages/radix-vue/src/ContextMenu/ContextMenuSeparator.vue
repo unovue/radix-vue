@@ -14,8 +14,5 @@ const props = defineProps<ContextMenuSeparatorProps>();
 </script>
 
 <template>
-  <BaseSeparator
-    :orientation="props.orientation"
-    :decorative="props.decorative"
-  />
+  <BaseSeparator v-bind="props" />
 </template>

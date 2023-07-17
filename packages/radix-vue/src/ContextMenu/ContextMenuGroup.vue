@@ -1,7 +1,6 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
 import type { DataOrientation, Direction } from "../shared/types";
-import { type PrimitiveProps } from "@/Primitive";
 
 type TypeEnum = "single" | "multiple";
 
@@ -30,7 +29,11 @@ export interface ContextMenuGroupProvideValue {
 
 <script setup lang="ts">
 import { toRef, provide } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveDiv,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 
 const props = withDefaults(defineProps<ContextMenuGroupProps>(), {
   type: "single",

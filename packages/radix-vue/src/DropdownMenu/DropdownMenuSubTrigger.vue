@@ -1,6 +1,4 @@
 <script lang="ts">
-import { type PrimitiveProps } from "@/Primitive";
-
 export interface DropdownMenuSubTriggerProps extends PrimitiveProps {
   disabled?: boolean;
   textValue?: string;
@@ -18,7 +16,7 @@ import {
   type DropdownMenuSubProvideValue,
 } from "./DropdownMenuSub.vue";
 import { PopperAnchor } from "@/Popper";
-import { usePrimitiveElement } from "@/Primitive";
+import { usePrimitiveElement, type PrimitiveProps } from "@/Primitive";
 import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
 
 const rootInjectedValue = inject<DropdownMenuProvideValue>(

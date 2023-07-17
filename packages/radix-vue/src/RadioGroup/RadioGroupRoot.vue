@@ -1,9 +1,12 @@
 <script lang="ts">
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveDiv,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import type { DataOrientation, Direction } from "@/shared/types";
 import { useVModel } from "@vueuse/core";
 import type { ComputedRef, Ref } from "vue";
-import { type PrimitiveProps } from "@/Primitive";
 
 export interface RadioGroupRootProps extends PrimitiveProps {
   modelValue?: string | string[];

@@ -2,11 +2,14 @@
 import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
 import { NAVIGATION_MENU_ITEM_INJECTION_KEY } from "./NavigationMenuItem.vue";
 import { computed, inject, onMounted, ref, type VNode } from "vue";
-import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveButton,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import { VisuallyHidden } from "@/VisuallyHidden";
 import { makeTriggerId, makeContentId, getOpenState } from "./utils";
 import { unrefElement } from "@vueuse/core";
-import { type PrimitiveProps } from "@/Primitive";
 
 interface NavigationMenuTriggerProps extends PrimitiveProps {
   disabled?: boolean;

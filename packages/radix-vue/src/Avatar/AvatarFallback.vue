@@ -1,6 +1,4 @@
 <script lang="ts">
-import { type PrimitiveProps } from "@/Primitive";
-
 export interface AvatarFallbackProps extends PrimitiveProps {
   delayMs?: number;
 }
@@ -12,7 +10,7 @@ import {
   AVATAR_INJECTION_KEY,
   type AvatarProvideValue,
 } from "./AvatarRoot.vue";
-import { PrimitiveSpan } from "../Primitive";
+import { PrimitiveSpan, type PrimitiveProps } from "../Primitive";
 
 const injectedValue = inject<AvatarProvideValue>(AVATAR_INJECTION_KEY);
 

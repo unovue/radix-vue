@@ -1,11 +1,9 @@
 <script lang="ts">
-import { type PrimitiveProps } from "@/Primitive";
-
 export interface AlertDialogDescriptionProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { PrimitiveP } from "@/Primitive";
+import { PrimitiveP, type PrimitiveProps } from "@/Primitive";
 
 const props = defineProps<AlertDialogDescriptionProps>();
 </script>

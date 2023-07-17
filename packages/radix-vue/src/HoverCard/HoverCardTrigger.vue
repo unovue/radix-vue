@@ -1,12 +1,14 @@
 <script lang="ts">
-import { type PrimitiveProps } from "@/Primitive";
-
 export interface HoverCardTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
 import { inject } from "vue";
-import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveButton,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import {
   HOVER_CARD_INJECTION_KEY,
   type HoverCardProvideValue,

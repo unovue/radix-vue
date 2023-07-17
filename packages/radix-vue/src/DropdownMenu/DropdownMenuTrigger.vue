@@ -1,12 +1,14 @@
 <script lang="ts">
-import { type PrimitiveProps } from "@/Primitive";
-
 export interface DropdownMenuTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
 import { inject, nextTick, onMounted } from "vue";
-import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveButton,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import {
   DROPDOWN_MENU_INJECTION_KEY,
   type DropdownMenuProvideValue,

@@ -1,6 +1,5 @@
 <script lang="ts">
 import type { InjectionKey, Ref } from "vue";
-import { type PrimitiveProps } from "@/Primitive";
 import { useId } from "@/shared";
 
 export interface CollapsibleRootProps extends PrimitiveProps {
@@ -22,7 +21,7 @@ export const COLLAPSIBLE_INJECTION_KEY =
 
 <script setup lang="ts">
 import { provide } from "vue";
-import { PrimitiveDiv } from "@/Primitive";
+import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
 import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<CollapsibleRootProps>(), {

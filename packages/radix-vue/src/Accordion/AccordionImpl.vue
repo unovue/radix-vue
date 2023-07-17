@@ -1,7 +1,6 @@
 <script lang="ts">
 import type { InjectionKey, Ref } from "vue";
 export type Direction = "ltr" | "rtl";
-import { type PrimitiveProps } from "@/Primitive";
 
 export interface AccordionImplProps extends PrimitiveProps {
   /**
@@ -50,7 +49,11 @@ export const ACCORDION_IMPL_INJECTION_KEY =
 
 <script setup lang="ts">
 import { provide } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveDiv,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 
 const props = withDefaults(defineProps<AccordionImplProps>(), {
   orientation: "vertical",

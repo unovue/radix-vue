@@ -1,7 +1,6 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
-import { PrimitiveDiv } from "@/Primitive";
-import { type PrimitiveProps } from "@/Primitive";
+import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
 
 export interface ProgressRootProps extends PrimitiveProps {
   value?: number | null;

@@ -1,6 +1,5 @@
 <script lang="ts">
-import { PrimitiveLabel } from "@/Primitive";
-import { type PrimitiveProps } from "@/Primitive";
+import { PrimitiveLabel, type PrimitiveProps } from "@/Primitive";
 
 interface DropdownMenuLabelProps extends PrimitiveProps {
   for?: string;

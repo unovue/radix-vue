@@ -3,7 +3,6 @@ import type { DropdownMenuProvideValue } from "../../DropdownMenu/DropdownMenuRo
 import type { DropdownMenuSubProvideValue } from "../../DropdownMenu/DropdownMenuSub.vue";
 import type { MenubarProvideValue } from "../../Menubar/MenubarRoot.vue";
 import type { MenubarSubProvideValue } from "../../Menubar/MenubarSub.vue";
-import { type PrimitiveProps } from "@/Primitive";
 
 // TODO: improve types for props
 interface BaseMenuItemProps extends PrimitiveProps {
@@ -21,7 +20,11 @@ interface BaseMenuItemProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { useArrowNavigation } from "../useArrowNavigation";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveDiv,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import { useCollection } from "../useCollection";
 
 const props = withDefaults(defineProps<BaseMenuItemProps>(), {

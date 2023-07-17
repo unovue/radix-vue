@@ -1,6 +1,5 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
-import { type PrimitiveProps } from "@/Primitive";
 
 export type PopperContentContextValue = {
   placedSide: Ref<Side>;
@@ -36,7 +35,7 @@ export default {
 
 <script setup lang="ts">
 import { computed, inject, provide, ref, watchEffect } from "vue";
-import { PrimitiveDiv } from "@/Primitive";
+import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
 import { POPPER_ROOT_KEY } from "./PopperRoot.vue";
 import { useSize } from "@/shared";
 import { computedEager } from "@vueuse/core";

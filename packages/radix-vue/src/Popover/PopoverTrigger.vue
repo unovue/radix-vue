@@ -1,12 +1,14 @@
 <script lang="ts">
-import { type PrimitiveProps } from "@/Primitive";
-
 export interface PopoverTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
 import { inject, onMounted } from "vue";
-import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveButton,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import { PopperAnchor } from "@/Popper";
 import {
   POPOVER_INJECTION_KEY,

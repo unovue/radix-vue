@@ -17,10 +17,7 @@ const props = withDefaults(defineProps<BaseSeparatorProps>(), {
 </script>
 
 <template>
-  <PrimitiveDiv
-    :data-orientation="props.orientation"
-    :role="`${decorative ? 'none' : 'separator'}`"
-  >
+  <PrimitiveDiv v-bind="props" :role="`${decorative ? 'none' : 'separator'}`">
     <slot></slot>
   </PrimitiveDiv>
 </template>

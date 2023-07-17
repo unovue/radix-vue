@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { inject } from "vue";
-import { PrimitiveH3 } from "@/Primitive";
-import { type PrimitiveProps } from "@/Primitive";
+import { PrimitiveH3, type PrimitiveProps } from "@/Primitive";
 
 interface AccordionHeaderProps extends PrimitiveProps {}
 const props = defineProps<AccordionHeaderProps>();

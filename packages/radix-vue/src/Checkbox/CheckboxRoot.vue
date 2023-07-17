@@ -1,6 +1,5 @@
 <script lang="ts">
 import type { InjectionKey, Ref } from "vue";
-import { type PrimitiveProps } from "@/Primitive";
 
 export interface CheckboxRootProps extends PrimitiveProps {
   defaultChecked?: boolean;
@@ -25,7 +24,7 @@ export const CHECKBOX_INJECTION_KEY =
 </script>
 
 <script setup lang="ts">
-import { PrimitiveDiv } from "@/Primitive";
+import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
 import { toRef, provide } from "vue";
 
 const props = withDefaults(defineProps<CheckboxRootProps>(), {

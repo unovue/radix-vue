@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { inject, onMounted } from "vue";
 import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
-import { PrimitiveDiv, PrimitiveUl, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveDiv,
+  PrimitiveUl,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import { useCollection } from "@/shared";
-import { type PrimitiveProps } from "@/Primitive";
 
 interface NavigationMenuListProps extends PrimitiveProps {}
 const props = defineProps<NavigationMenuListProps>();

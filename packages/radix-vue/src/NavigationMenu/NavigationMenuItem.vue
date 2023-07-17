@@ -1,6 +1,4 @@
 <script lang="ts">
-import { type PrimitiveProps } from "@/Primitive";
-
 export interface NavigationMenuItemProps extends PrimitiveProps {
   value?: string;
 }
@@ -31,7 +29,7 @@ import {
   type VNode,
   inject,
 } from "vue";
-import { PrimitiveLi } from "@/Primitive";
+import { PrimitiveLi, type PrimitiveProps } from "@/Primitive";
 import { useArrowNavigation, useCollection, useId } from "@/shared";
 import { getTabbableCandidates, removeFromTabOrder, focusFirst } from "./utils";
 import { unrefElement } from "@vueuse/core";

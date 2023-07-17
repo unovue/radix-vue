@@ -60,6 +60,7 @@ provide(CONTEXT_MENU_ITEM_SYMBOL, {
     :disabled="props.disabled"
     :rootProvider="injectedValue"
     :orientation="injectedValue?.orientation"
+    :as-child="props.asChild"
     @handle-click="handleClick"
     @escape-keydown="handleEscape"
     role="menuitemcheckbox"

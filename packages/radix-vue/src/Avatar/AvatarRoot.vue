@@ -1,6 +1,5 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
-import { type PrimitiveProps } from "@/Primitive";
 
 type ImageLoadingStatus = "loading" | "loaded";
 
@@ -16,7 +15,7 @@ export interface AvatarProvideValue {
 
 <script setup lang="ts">
 import { ref, provide } from "vue";
-import { PrimitiveSpan } from "../Primitive";
+import { PrimitiveSpan, type PrimitiveProps } from "../Primitive";
 
 const imageLoadingStatusRef = ref<ImageLoadingStatus>("loading");
 

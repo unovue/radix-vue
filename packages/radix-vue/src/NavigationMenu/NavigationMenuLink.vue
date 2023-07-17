@@ -1,13 +1,11 @@
 <script lang="ts">
-import { type PrimitiveProps } from "@/Primitive";
-
 export interface NavigationMenuLinkProps extends PrimitiveProps {
   active?: boolean;
 }
 </script>
 
 <script setup lang="ts">
-import { PrimitiveA } from "@/Primitive";
+import { PrimitiveA, type PrimitiveProps } from "@/Primitive";
 // const LINK_SELECT = "navigationMenu.linkSelect";
 
 const props = defineProps<NavigationMenuLinkProps>();

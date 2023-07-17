@@ -2,10 +2,9 @@
 import { computed, inject, ref, watchEffect } from "vue";
 import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
 import { useCollection } from "@/shared";
-import { PrimitiveDiv } from "@/Primitive";
+import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
 import { useResizeObserver } from "@vueuse/core";
 import { Presence } from "@/Presence";
-import { type PrimitiveProps } from "@/Primitive";
 
 interface NavigationMenuIndicatorProps extends PrimitiveProps {}
 

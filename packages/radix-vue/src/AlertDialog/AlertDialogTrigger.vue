@@ -1,6 +1,4 @@
 <script lang="ts">
-import { type PrimitiveProps } from "@/Primitive";
-
 export interface AlertDialogTriggerProps extends PrimitiveProps {}
 </script>
 
@@ -10,7 +8,11 @@ import {
   DIALOG_INJECTION_KEY,
   type DialogProvideValue,
 } from "./AlertDialogRoot.vue";
-import { PrimitiveButton, usePrimitiveElement } from "../Primitive";
+import {
+  PrimitiveButton,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "../Primitive";
 
 const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 

@@ -1,11 +1,9 @@
 <script lang="ts">
-import { type PrimitiveProps } from "@/Primitive";
-
 export interface RadioGroupIndicatorProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { PrimitiveSpan } from "@/Primitive";
+import { PrimitiveSpan, type PrimitiveProps } from "@/Primitive";
 import { inject } from "vue";
 import {
   RADIO_ITEM_INJECTION_KEY,

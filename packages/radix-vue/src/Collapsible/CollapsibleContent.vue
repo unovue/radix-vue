@@ -1,6 +1,4 @@
 <script lang="ts">
-import { type PrimitiveProps } from "@/Primitive";
-
 export interface CollapsibleContentProps extends PrimitiveProps {}
 </script>
 
@@ -10,7 +8,11 @@ import {
   COLLAPSIBLE_INJECTION_KEY,
   type CollapsibleProvideValue,
 } from "./CollapsibleRoot.vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveDiv,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import { Presence } from "@/Presence";
 
 const injectedValue = inject<CollapsibleProvideValue>(

@@ -1,6 +1,4 @@
 <script lang="ts">
-import { type PrimitiveProps } from "@/Primitive";
-
 export interface AlertDialogOverlayProps extends PrimitiveProps {
   forceMount?: boolean;
 }
@@ -12,7 +10,7 @@ import {
   DIALOG_INJECTION_KEY,
   type DialogProvideValue,
 } from "./AlertDialogRoot.vue";
-import { PrimitiveDiv } from "../Primitive";
+import { PrimitiveDiv, type PrimitiveProps } from "../Primitive";
 
 const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 

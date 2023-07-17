@@ -1,12 +1,10 @@
 <script lang="ts">
-import { type PrimitiveProps } from "@/Primitive";
-
 export interface CollapsibleTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
 import { inject } from "vue";
-import { PrimitiveButton } from "../Primitive";
+import { PrimitiveButton, type PrimitiveProps } from "../Primitive";
 import {
   COLLAPSIBLE_INJECTION_KEY,
   type CollapsibleProvideValue,

@@ -13,6 +13,7 @@ import DemoContextMenu from '../../components/demo/ContextMenu/index.vue'
 import PropsTable from '../../components/tables/PropsTable.vue'
 import EmitsTable from '../../components/tables/EmitsTable.vue'
 import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
+import CssVariablesTable from '../../components/tables/CssVariablesTable.vue'
 import KeyboardTable from '../../components/tables/KeyboardTable.vue'
 import Highlights from '../../components/Highlights.vue'
 import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
@@ -1076,41 +1077,35 @@ The component that pops out when a submenu is open. Must be rendered inside `Con
     },
   ]}
 />
+-->
 
 <CssVariablesTable
-  data={[
+  :data="[
     {
       cssVariable: '--radix-context-menu-content-transform-origin',
-      description: (
-        <>
-          The <Code>transform-origin</Code> computed from the content and arrow
-          positions/offsets
-        </>
-      ),
+      description: `
+        The <Code>transform-origin</Code> computed from the content and arrow positions/offsets
+      `,
     },
     {
       cssVariable: '--radix-context-menu-content-available-width',
-      description: (
-        <>The remaining width between the trigger and the boundary edge</>
-      ),
+      description: `The remaining width between the trigger and the boundary edge`,
     },
     {
       cssVariable: '--radix-context-menu-content-available-height',
-      description: (
-        <>The remaining height between the trigger and the boundary edge</>
-      ),
+      description: `The remaining height between the trigger and the boundary edge`,
     },
     {
       cssVariable: '--radix-context-menu-trigger-width',
-      description: <>The width of the trigger</>,
+      description: 'The width of the trigger',
     },
     {
       cssVariable: '--radix-context-menu-trigger-height',
-      description: <>The height of the trigger</>,
+      description: 'The height of the trigger',
     },
-  ]}
+  ]"
 />
--->
+
 ## Examples
 
 ### With submenus

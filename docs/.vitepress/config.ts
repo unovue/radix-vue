@@ -19,9 +19,10 @@ export default defineConfig({
 
     search: {
       provider: 'local'
-    }
+    },
   },
-  srcDir: 'content'
+  srcDir: 'content',
+  appearance: 'dark',
 })
 
 function sidebar() {

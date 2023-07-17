@@ -1,8 +1,7 @@
 <script lang="ts">
 import type { ComputedRef, InjectionKey, Ref } from "vue";
 
-export interface ProgressRootProps {
-  asChild?: boolean;
+export interface ProgressRootProps extends PrimitiveProps {
   modelValue?: number | null;
   max?: number;
   getValueLabel?: (value: number, max: number) => string;
@@ -52,7 +51,7 @@ function validateMax(max: number): number {
 </script>
 
 <script setup lang="ts">
-import { PrimitiveDiv } from "@/Primitive";
+import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
 import { useVModel } from "@vueuse/core";
 import { computed, nextTick, provide, watch } from "vue";
 
@@ -113,6 +112,7 @@ provide<ProgressProvideValue>(PROGRESS_INJECTION_KEY, {
 
 <template>
   <PrimitiveDiv
+    :asChild="props.asChild"
     :aria-valuemax="max"
     :aria-valuemin="0"
     :aria-valuenow="isNumber(modelValue) ? modelValue : undefined"

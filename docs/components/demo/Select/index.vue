@@ -13,7 +13,7 @@ import {
   SelectTrigger,
 } from 'radix-vue'
 
-const fruit = ref('Apple')
+const fruit = ref()
 
 function handleClick() {
   alert('hello!')
@@ -29,7 +29,7 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
       class="inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-green9 outline-none"
       aria-label="Customise options"
     >
-      {{ fruit }}
+      {{ fruit ? fruit : 'Select a fruit...' }}
       <Icon icon="radix-icons:chevron-down" class="h-3.5 w-3.5" />
     </SelectTrigger>
 

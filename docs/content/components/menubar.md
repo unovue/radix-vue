@@ -15,6 +15,7 @@ import DemoMenubar from '../../components/demo/Menubar/index.vue'
 import PropsTable from '../../components/tables/PropsTable.vue'
 import EmitsTable from '../../components/tables/EmitsTable.vue'
 import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
+import CssVariablesTable from '../../components/tables/CssVariablesTable.vue'
 import KeyboardTable from '../../components/tables/KeyboardTable.vue'
 import Highlights from '../../components/Highlights.vue'
 import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
@@ -721,9 +722,10 @@ An item that can be controlled and rendered like a checkbox.
     },
   ]}
 />
+```
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['checked', 'unchecked'],
@@ -736,15 +738,15 @@ An item that can be controlled and rendered like a checkbox.
       attribute: '[data-disabled]',
       values: 'Present when disabled',
     },
-  ]}
+  ]"
 />
-```
+
 ### RadioGroup
 
 Used to group multiple `Menubar.RadioItem`s.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -763,15 +765,15 @@ Used to group multiple `Menubar.RadioItem`s.
       typeSimple: 'function',
       description: 'Event handler called when the value changes.',
     },
-  ]}
+  ]"
 />
-```
+
 ### RadioItem
 
 An item that can be controlled and rendered like a radio.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -788,41 +790,30 @@ An item that can be controlled and rendered like a radio.
     {
       name: 'disabled',
       type: 'boolean',
-      description: (
-        <span>
-          When <Code>true</Code>, prevents the user from interacting with the
-          item.
-        </span>
-      ),
+      description: `
+        When <Code>true</Code>, prevents the user from interacting with the item.
+      `,
     },
     {
       name: 'onSelect',
       type: '(event: Event) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when the user selects an item (via mouse or
-          keyboard). Calling <Code>event.preventDefault</Code> in this handler
-          will prevent the menubar from closing when selecting that item.
-        </span>
-      ),
+      description: `
+        Event handler called when the user selects an item (via mouse or keyboard). Calling <Code>event.preventDefault</Code> in this handler will prevent the menubar from closing when selecting that item.
+      `,
     },
     {
       name: 'textValue',
       type: 'string',
-      description: (
-        <span>
-          Optional text used for typeahead purposes. By default the typeahead
-          behavior will use the <Code>.textContent</Code> of the item. Use this
-          when the content is complex, or you have non-textual content inside.
-        </span>
-      ),
+      description: `
+        Optional text used for typeahead purposes. By default the typeahead behavior will use the <Code>.textContent</Code> of the item. Use this when the content is complex, or you have non-textual content inside.
+      `,
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['checked', 'unchecked'],
@@ -835,15 +826,15 @@ An item that can be controlled and rendered like a radio.
       attribute: '[data-disabled]',
       values: 'Present when disabled',
     },
-  ]}
+  ]"
 />
-```
+
 ### ItemIndicator
 
 Renders when the parent `Menubar.CheckboxItem` or `Menubar.RadioItem` is checked. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -854,31 +845,28 @@ Renders when the parent `Menubar.CheckboxItem` or `Menubar.RadioItem` is checked
     {
       name: 'forceMount',
       type: 'boolean',
-      description: (
-        <span>
-          Used to force mounting when more control is needed. Useful when
-          controlling animation with React animation libraries.
-        </span>
-      ),
+      description: `
+        Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries.
+      `,
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['checked', 'unchecked'],
     },
-  ]}
+  ]"
 />
-```
+
 ### Separator
 
 Used to visually separate items in a menubar menu.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -886,54 +874,46 @@ Used to visually separate items in a menubar menu.
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-  ]}
+  ]"
 />
-```
+
 ### Sub
 
 Contains all the parts of a submenu.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'defaultOpen',
       type: 'boolean',
-      description: (
-        <span>
-          The open state of the submenu when it is initially rendered. Use when
-          you do not need to control its open state.
-        </span>
-      ),
+      description: `
+        The open state of the submenu when it is initially rendered. Use when you do not need to control its open state.
+      `,
     },
     {
       name: 'open',
       type: 'boolean',
-      description: (
-        <span>
-          The controlled open state of the submenu. Must be used in conjunction
-          with <Code>onOpenChange</Code>.
-        </span>
-      ),
+      description: `
+        The controlled open state of the submenu. Must be used in conjunction with <Code>onOpenChange</Code>.
+      `,
     },
     {
       name: 'onOpenChange',
       type: '(open: boolean) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when the open state of the submenu changes.
-        </span>
-      ),
+      description: `
+        Event handler called when the open state of the submenu changes.
+      `,
     },
-  ]}
+  ]"
 />
-```
+
 ### SubTrigger
 
 An item that opens a submenu. Must be rendered inside `Menubar.Sub`.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -944,29 +924,22 @@ An item that opens a submenu. Must be rendered inside `Menubar.Sub`.
     {
       name: 'disabled',
       type: 'boolean',
-      description: (
-        <span>
-          When <Code>true</Code>, prevents the user from interacting with the
-          item.
-        </span>
-      ),
+      description: `
+        When <Code>true</Code>, prevents the user from interacting with the item.
+      `,
     },
     {
       name: 'textValue',
       type: 'string',
-      description: (
-        <span>
-          Optional text used for typeahead purposes. By default the typeahead
-          behavior will use the <Code>.textContent</Code> of the item. Use this
-          when the content is complex, or you have non-textual content inside.
-        </span>
-      ),
+      description: `
+        Optional text used for typeahead purposes. By default the typeahead behavior will use the <Code>.textContent</Code> of the item. Use this when the content is complex, or you have non-textual content inside.
+      `,
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
@@ -979,15 +952,15 @@ An item that opens a submenu. Must be rendered inside `Menubar.Sub`.
       attribute: '[data-disabled]',
       values: 'Present when disabled',
     },
-  ]}
+  ]"
 />
-```
+
 ### SubContent
 
 The component that pops out when a submenu is open. Must be rendered inside `Menubar.Sub`.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -1000,167 +973,153 @@ The component that pops out when a submenu is open. Must be rendered inside `Men
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
+      description: `
         <span>
           When <Code>true</Code>, keyboard navigation will loop from last item
           to first, and vice versa.
         </span>
-      ),
+      `,
     },
     {
       name: 'onEscapeKeyDown',
       type: '(event: KeyboardEvent) => void',
       typeSimple: 'function',
-      description: (
+      description: `
         <span>
           Event handler called when the escape key is down. It can be prevented
           by calling <Code>event.preventDefault</Code>
         </span>
-      ),
+      `,
     },
     {
       name: 'onPointerDownOutside',
       type: '(event: PointerDownOutsideEvent) => void',
       typeSimple: 'function',
-      description: (
+      description: `
         <span>
           Event handler called when a pointer event occurs outside the bounds of
           the component. It can be prevented by calling{' '}
           <Code>event.preventDefault</Code>.
         </span>
-      ),
+      `,
     },
     {
       name: 'onFocusOutside',
       type: '(event: FocusOutsideEvent) => void',
       typeSimple: 'function',
-      description: (
+      description: `
         <span>
           Event handler called when focus moves outside the bounds of the
           component. It can be prevented by calling{' '}
           <Code>event.preventDefault</Code>.
         </span>
-      ),
+      `,
     },
     {
       name: 'onInteractOutside',
       type: '(event: PointerDownOutsideEvent | FocusOutsideEvent) => void',
       typeSimple: 'function',
-      description: (
+      description: `
         <span>
           Event handler called when an interaction (pointer or focus event)
           happens outside the bounds of the component. It can be prevented by
           calling <Code>event.preventDefault</Code>.
         </span>
-      ),
+      `,
     },
     {
       name: 'forceMount',
       type: 'boolean',
-      description: (
+      description: `
         <span>
           Used to force mounting when more control is needed. Useful when
           controlling animation with React animation libraries. It inherits from{' '}
           <Code>Menubar.Portal</Code>.
         </span>
-      ),
+      `,
     },
     {
       name: 'sideOffset',
       type: 'number',
       default: '0',
-      description: <span>The distance in pixels from the trigger.</span>,
+      description: `span>The distance in pixels from the trigger.</span`,
     },
     {
       name: 'alignOffset',
       type: 'number',
       default: '0',
-      description: (
-        <span>
-          An offset in pixels from the <Code>"start"</Code> or{' '}
-          <Code>"end"</Code> alignment options.
-        </span>
-      ),
+      description: `
+        An offset in pixels from the <Code>&quot;start&quot;</Code> or <Code>&quot;end&quot;</Code> alignment options.
+      `,
     },
     {
       name: 'avoidCollisions',
       type: 'boolean',
       default: 'true',
-      description: (
-        <span>
-          When <Code>true</Code>, overrides the <Code>side</Code> and
-          <Code>align</Code> preferences to prevent collisions with boundary edges.
-        </span>
-      ),
+      description: `
+        When <Code>true</Code>, overrides the <Code>side</Code> and <Code>align</Code> preferences to prevent collisions with boundary edges.
+      `,
     },
     {
       name: 'collisionBoundary',
       type: 'Element | null | Array<Element | null>',
       typeSimple: 'Boundary',
       default: '[]',
-      description: (
-        <span>
-          The element used as the collision boundary. By default this is the
-          viewport, though you can provide additional element(s) to be included
-          in this check.
-        </span>
-      ),
+      description: `
+        The element used as the collision boundary. By default this is the viewport, though you can provide additional element(s) to be included in this check.
+      `,
     },
     {
       name: 'collisionPadding',
       type: 'number | Partial<Record<Side, number>>',
       typeSimple: 'number | Padding',
       default: '0',
-      description: (
-        <span>
-          The distance in pixels from the boundary edges where collision
-          detection should occur. Accepts a number (same for all sides), or a
-          partial padding object, for example: <Code>{`{ top: 20, left: 20 }`}</Code>
-          .
-        </span>
-      ),
+      description: `
+        The distance in pixels from the boundary edges where collision detection should occur. Accepts a number (same for all sides), or a partial padding object, for example: <Code>{ top: 20, left: 20 }</Code>.
+      `,
     },
     {
       name: 'arrowPadding',
       type: 'number',
       default: '0',
-      description: (
+      description: `
         <span>
           The padding between the arrow and the edges of the content. If your
           content has <Code>border-radius</Code>, this will prevent it from
           overflowing the corners.
         </span>
-      ),
+      `,
     },
     {
       name: 'sticky',
-      type: '"partial" | "always"',
+      type: '&quot;partial&quot; | &quot;always&quot;',
       typeSimple: 'enum',
-      default: '"partial"',
-      description: (
+      default: '&quot;partial&quot;',
+      description: `
         <span>
-          The sticky behavior on the align axis. <Code>"partial"</Code> will
+          The sticky behavior on the align axis. <Code>&quot;partial&quot;</Code> will
           keep the content in the boundary as long as the trigger is at least
-          partially in the boundary whilst <Code>"always"</Code> will keep the
+          partially in the boundary whilst <Code>&quot;always&quot;</Code> will keep the
           content in the boundary regardless.
         </span>
-      ),
+      `,
     },
     {
       name: 'hideWhenDetached',
       type: 'boolean',
       default: 'false',
-      description: (
+      description: `
         <span>
           Whether to hide the content when the trigger becomes fully occluded.
         </span>
-      ),
+      `,
     },
-  ]}
+  ]"
 />
 
+
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
@@ -1177,43 +1136,39 @@ The component that pops out when a submenu is open. Must be rendered inside `Men
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
+  ]"
 />
 
 <CssVariablesTable
-  data={[
+  :data="[
     {
       cssVariable: '--radix-menubar-content-transform-origin',
-      description: (
-        <>
-          The <Code>transform-origin</Code> computed from the content and arrow
-          positions/offsets
-        </>
-      ),
+      description: `
+        The <Code>transform-origin</Code> computed from the content and arrow positions/offsets
+      `,
     },
     {
       cssVariable: '--radix-menubar-content-available-width',
-      description: (
-        <>The remaining width between the trigger and the boundary edge</>
-      ),
+      description: `
+        The remaining width between the trigger and the boundary edge
+      `,
     },
     {
       cssVariable: '--radix-menubar-content-available-height',
-      description: (
-        <>The remaining height between the trigger and the boundary edge</>
-      ),
+      description: `
+        The remaining height between the trigger and the boundary edge
+      `,
     },
     {
       cssVariable: '--radix-menubar-trigger-width',
-      description: <>The width of the trigger</>,
+      description: 'The width of the trigger',
     },
     {
       cssVariable: '--radix-menubar-trigger-height',
-      description: <>The height of the trigger</>,
+      description: 'The height of the trigger',
     },
-  ]}
+  ]"
 />
-```
 
 ## Examples
 

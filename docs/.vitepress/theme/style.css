@@ -104,13 +104,18 @@
   border-radius: 0px;
 }
 
+.vp-doc h2 {
+  @apply mb-2 md:mb-2.5 text-xl md:text-2xl
+}
+
 .vp-doc h3 {
+  @apply text-[17px] md:text-xl;
   font-weight: 600;
   margin-top: 40px;
 }
 
 .vp-doc p {
-  @apply mt-0.5 md:mt-2;
+  @apply mt-0 md:mt-2 text-[15px] md:text-base;
 }
 
 [data-radix-popper-content-wrapper] {
@@ -121,3 +126,6 @@
   @apply px-0.5 rounded-sm !bg-[#0F291E] !text-[#4CC38A];
 }
 
+li > span {
+  @apply text-[15px] md:text-base
+}

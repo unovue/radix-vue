@@ -1449,40 +1449,37 @@ export default () => (
 Uses [roving tabindex](https://www.w3.org/WAI/ARIA/apg/patterns/kbd_roving_tabindex) to manage focus movement among menu items.
 
 ### Keyboard Interactions
-<!--
+
 <KeyboardTable
-  data={[
+  :data="[
     {
       keys: ['Space'],
-      description: <span>Activates the focused item.</span>,
+      description: `<span>Activates the focused item.</span>`
     },
     {
       keys: ['Enter'],
-      description: <span>Activates the focused item.</span>,
+      description: '<span>Activates the focused item.</span>',
     },
     {
       keys: ['ArrowDown'],
-      description: <span>Moves focus to the next item.</span>,
+      description: '<span>Moves focus to the next item.</span>',
     },
     {
       keys: ['ArrowUp'],
-      description: <span>Moves focus to the previous item.</span>,
+      description: '<span>Moves focus to the previous item.</span>',
     },
     {
       keys: ['ArrowRight', 'ArrowLeft'],
-      description: (
+      description: `
         <span>
           When focus is on <Code>ContextMenu.SubTrigger</Code>, opens or closes
           the submenu depending on reading direction.
         </span>
-      ),
+      `,
     },
     {
       keys: ['Esc'],
       description: 'Closes the context menu',
     },
-  ]}
+  ]"
 />
--->
-
-<!-- TODO: denniss make work -->

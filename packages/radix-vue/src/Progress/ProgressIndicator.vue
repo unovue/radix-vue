@@ -15,14 +15,9 @@ const injectedValue = inject<ProgressProvideValue>(PROGRESS_INJECTION_KEY);
 
 <template>
   <PrimitiveDiv
-    :data-state="
-      injectedValue?.modelValue === injectedValue?.max ? 'complete' : 'loading'
-    "
-    :data-value="injectedValue?.modelValue"
-    :data-max="injectedValue?.max"
-    :style="`left: 0%; right: ${
-      (injectedValue?.max ?? 100) - (injectedValue?.modelValue?.value ?? 0)
-    }%`"
+    :data-state="injectedValue?.progressState.value"
+    :data-value="injectedValue?.modelValue?.value"
+    :data-max="injectedValue?.max.value"
   >
     <slot />
   </PrimitiveDiv>

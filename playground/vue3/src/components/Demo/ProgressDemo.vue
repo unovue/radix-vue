@@ -6,7 +6,7 @@ const progressValue = ref(66)
 </script>
 
 <template>
-  <div class="absolute left-4 top-3 text-sm">
+  <div class="absolute text-sm left-4 top-3">
     <p>{{ progressValue.toFixed(2) }}</p>
   </div>
   <ProgressRoot

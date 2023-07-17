@@ -4,14 +4,16 @@ export type TooltipTriggerDataState =
   | "delayed-open"
   | "instant-open";
 
-export interface TooltipRootProps {
-  asChild?: boolean;
-}
+export interface TooltipRootProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
 import { inject, computed } from "vue";
-import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveButton,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import {
   TOOLTIP_INJECTION_KEY,
   type TooltipProvideValue,
@@ -19,6 +21,7 @@ import {
 import { useHoverDelay } from "../shared";
 import { PopperAnchor } from "@/Popper";
 
+const props = defineProps<TooltipRootProps>();
 const injectedValue = inject<TooltipProvideValue>(TOOLTIP_INJECTION_KEY);
 
 const { primitiveElement, currentElement: triggerElement } =
@@ -43,6 +46,7 @@ const dataState = computed<TooltipTriggerDataState>(() => {
       ref="primitiveElement"
       :data-state="dataState"
       :aria-expanded="injectedValue?.open.value || false"
+      :as-child="props.asChild"
       @mouseenter="handleMouseEnter"
       @mouseleave="injectedValue?.hideTooltip"
       style="cursor: default"

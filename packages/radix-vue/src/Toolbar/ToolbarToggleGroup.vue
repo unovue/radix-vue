@@ -4,8 +4,7 @@ import type { DataOrientation, Direction } from "../shared/types";
 
 type TypeEnum = "single" | "multiple";
 
-export interface ToggleGroupProps {
-  asChild?: boolean;
+export interface ToggleGroupProps extends PrimitiveProps {
   type?: TypeEnum;
   value?: string;
   defaultValue?: string;
@@ -32,7 +31,11 @@ export interface ToolbarToggleGroupProvideValue {
 
 <script setup lang="ts">
 import { toRef, provide } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveDiv,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 
 const props = withDefaults(defineProps<ToggleGroupProps>(), {
   type: "single",
@@ -71,6 +74,7 @@ provide<ToolbarToggleGroupProvideValue>(TOOLBAR_TOGGLE_GROUP_INJECTION_KEY, {
     ref="primitiveElement"
     role="group"
     :dir="props.dir"
+    :as-child="props.asChild"
     aria-label="Text alignment"
   >
     <slot />

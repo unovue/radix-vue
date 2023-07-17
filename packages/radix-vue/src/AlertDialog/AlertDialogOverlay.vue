@@ -1,34 +1,27 @@
-<script lang="ts">
-export interface AlertDialogOverlayProps {
-  asChild?: boolean;
-  forceMount?: boolean;
-}
-</script>
-
 <script setup lang="ts">
 import { inject } from "vue";
 import {
-  DIALOG_INJECTION_KEY,
-  type DialogProvideValue,
+  ALERT_DIALOG_INJECTION_KEY,
+  type AlertDialogProvideValue,
 } from "./AlertDialogRoot.vue";
-import { PrimitiveDiv } from "../Primitive";
+import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
 
-const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
+export interface AlertDialogOverlayProps extends PrimitiveProps {}
+const props = defineProps<AlertDialogOverlayProps>();
 
-const props = withDefaults(defineProps<AlertDialogOverlayProps>(), {
-  asChild: false,
-});
+const injectedValue = inject<AlertDialogProvideValue>(
+  ALERT_DIALOG_INJECTION_KEY
+);
 </script>
 
 <template>
   <PrimitiveDiv
-    :asChild="props.asChild"
+    v-bind="props"
     v-if="injectedValue?.open.value"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"
     style="pointer-events: auto"
     data-aria-hidden="true"
     aria-hidden="true"
-    @click="injectedValue?.closeModal"
   >
     <slot />
   </PrimitiveDiv>

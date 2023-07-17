@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { PrimitiveP } from "@/Primitive";
+import { PrimitiveP, type PrimitiveProps } from "@/Primitive";
+
+export interface DialogDescriptionProps extends PrimitiveProps {}
+const props = defineProps<DialogDescriptionProps>();
 </script>
 
 <template>
-  <PrimitiveP><slot /></PrimitiveP>
+  <PrimitiveP v-bind="props"><slot /></PrimitiveP>
 </template>

@@ -37,3 +37,7 @@ export {
   PrimitiveSvg,
   PrimitiveUl,
 };
+
+export interface PrimitiveProps {
+  asChild?: boolean;
+}

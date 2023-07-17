@@ -3,6 +3,10 @@ import { inject, onMounted } from "vue";
 import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
 import { PrimitiveDiv, PrimitiveUl, usePrimitiveElement } from "@/Primitive";
 import { useCollection } from "@/shared";
+import { type PrimitiveProps } from "@/Primitive";
+
+interface NavigationMenuListProps extends PrimitiveProps {}
+const props = defineProps<NavigationMenuListProps>();
 
 const context = inject(NAVIGATION_MENU_INJECTION_KEY);
 const { primitiveElement, currentElement } = usePrimitiveElement();
@@ -20,7 +24,11 @@ defineOptions({
 
 <template>
   <PrimitiveDiv ref="primitiveElement" style="position: relative">
-    <PrimitiveUl v-bind="$attrs" :data-orientation="context?.orientation">
+    <PrimitiveUl
+      v-bind="$attrs"
+      :as-child="props.asChild"
+      :data-orientation="context?.orientation"
+    >
       <slot></slot>
     </PrimitiveUl>
   </PrimitiveDiv>

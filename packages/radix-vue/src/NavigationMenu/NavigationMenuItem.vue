@@ -1,5 +1,7 @@
 <script lang="ts">
-export interface NavigationMenuItemProps {
+import { type PrimitiveProps } from "@/Primitive";
+
+export interface NavigationMenuItemProps extends PrimitiveProps {
   value?: string;
 }
 
@@ -120,7 +122,7 @@ const handleKeydown = (ev: KeyboardEvent) => {
 </script>
 
 <template>
-  <PrimitiveLi @keydown="handleKeydown">
+  <PrimitiveLi :as-child="props.asChild" @keydown="handleKeydown">
     <slot></slot>
   </PrimitiveLi>
 </template>

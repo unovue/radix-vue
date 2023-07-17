@@ -1,16 +1,26 @@
 <script setup lang="ts">
 import { inject, onMounted, ref } from "vue";
 import {
+  PrimitiveDiv,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
+import {
   type ScrollAreaProvideValue,
   SCROLL_AREA_INJECTION_KEY,
 } from "./ScrollAreaRoot.vue";
+
+interface ScrollAreaViewport extends PrimitiveProps {}
+const props = defineProps<ScrollAreaViewport>();
 
 const injectedValueFromRoot = inject<ScrollAreaProvideValue>(
   SCROLL_AREA_INJECTION_KEY
 );
 
+const { primitiveElement, currentElement: contentElement } =
+  usePrimitiveElement();
+
 const viewportElement = ref<HTMLElement>();
-const contentElement = ref<HTMLElement>();
 
 onMounted(() => {
   injectedValueFromRoot?.onViewportChange(viewportElement.value!);
@@ -42,9 +52,13 @@ onMounted(() => {
         : 'hidden',
     }"
   >
-    <div ref="contentElement" :style="{ minWidth: '100%', display: 'table' }">
+    <PrimitiveDiv
+      ref="primitiveElement"
+      :style="{ minWidth: '100%', display: 'table' }"
+      :as-child="props.asChild"
+    >
       <slot></slot>
-    </div>
+    </PrimitiveDiv>
   </div>
 </template>
 

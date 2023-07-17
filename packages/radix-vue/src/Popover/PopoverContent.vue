@@ -1,6 +1,5 @@
 <script lang="ts">
 export interface PopoverContentProps extends PopperContentProps {
-  asChild?: boolean;
   forceMount?: boolean;
 }
 </script>
@@ -84,7 +83,7 @@ onUnmounted(() => {
       :data-side="props.side"
       :data-align="props.align"
       role="tooltip"
-      :asChild="props.asChild"
+      :as-child="props.asChild"
     >
       <slot />
     </PrimitiveDiv>

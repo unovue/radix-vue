@@ -3,9 +3,9 @@ import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 import type { DataOrientation, Direction } from "@/shared/types";
 import { useVModel } from "@vueuse/core";
 import type { ComputedRef, Ref } from "vue";
+import { type PrimitiveProps } from "@/Primitive";
 
-export interface RadioGroupRootProps {
-  asChild?: boolean;
+export interface RadioGroupRootProps extends PrimitiveProps {
   modelValue?: string | string[];
   onValueChange?: (value: string) => void;
   defaultValue?: string;
@@ -44,7 +44,6 @@ export interface RadioItemProvideValue {
 import { provide, ref } from "vue";
 
 const props = withDefaults(defineProps<RadioGroupRootProps>(), {
-  asChild: false,
   disabled: false,
   required: false,
   orientation: undefined,
@@ -82,10 +81,10 @@ provide<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY, {
 
 <template>
   <PrimitiveDiv
-    :asChild="props.asChild"
     ref="primitiveElement"
     role="radiogroup"
     :data-disabled="props.disabled ? '' : undefined"
+    :as-child="props.asChild"
     :required="props.required"
     :aria-required="props.required"
     :dir="props.dir"

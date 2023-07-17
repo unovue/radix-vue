@@ -1,7 +1,7 @@
 <script lang="ts">
-export interface RadioGroupIndicatorProps {
-  asChild?: boolean;
-}
+import { type PrimitiveProps } from "@/Primitive";
+
+export interface RadioGroupIndicatorProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
@@ -21,10 +21,10 @@ const injectedItem = inject<RadioItemProvideValue>(RADIO_ITEM_INJECTION_KEY);
 
 <template>
   <PrimitiveSpan
-    :asChild="asChild"
     v-if="injectedItem?.checked"
     :data-state="injectedItem?.checked ? 'checked' : 'unchecked'"
     :data-disabled="injectedItem?.disabled ? '' : undefined"
+    :as-child="asChild"
   >
     <slot />
   </PrimitiveSpan>

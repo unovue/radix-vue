@@ -1,5 +1,7 @@
 <script lang="ts">
-export interface NavigationMenuLinkProps {
+import { type PrimitiveProps } from "@/Primitive";
+
+export interface NavigationMenuLinkProps extends PrimitiveProps {
   active?: boolean;
 }
 </script>
@@ -8,7 +10,7 @@ export interface NavigationMenuLinkProps {
 import { PrimitiveA } from "@/Primitive";
 // const LINK_SELECT = "navigationMenu.linkSelect";
 
-defineProps<NavigationMenuLinkProps>();
+const props = defineProps<NavigationMenuLinkProps>();
 
 const handleClick = (ev: MouseEvent) => {
   //  TODO: dispatch custom event (https://github.com/radix-ui/primitives/blob/main/packages/react/navigation-menu/src/NavigationMenu.tsx#L604)
@@ -19,6 +21,7 @@ const handleClick = (ev: MouseEvent) => {
   <PrimitiveA
     :data-active="active ? '' : undefined"
     :aria-current="active ? 'page' : undefined"
+    :as-child="props.asChild"
     @click="handleClick"
     data-radix-vue-collection-item
   >

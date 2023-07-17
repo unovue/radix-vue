@@ -1,9 +1,9 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
 import { PrimitiveDiv } from "@/Primitive";
+import { type PrimitiveProps } from "@/Primitive";
 
-export interface ProgressRootProps {
-  asChild?: boolean;
+export interface ProgressRootProps extends PrimitiveProps {
   value?: number | null;
   modelValue?: number;
   max?: number;
@@ -39,6 +39,7 @@ provide<ProgressProvideValue>(PROGRESS_INJECTION_KEY, {
     :aria-valuenow="props.modelValue"
     :aria-valuemin="0"
     :aria-valuemax="props.max"
+    :as-child="props.asChild"
   >
     <slot />
   </PrimitiveDiv>

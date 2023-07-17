@@ -37,7 +37,7 @@ For changelog, visit [radix-vue.com/overview/releases](https://radix-vue.com/ove
 | [Menubar](https://radix-vue.com/components/menubar)                 |   ✅   |              |                        |
 | [Navigation Menu](https://radix-vue.com/components/navigation-menu) |   ✅   |              |                        |
 | [Popover](https://radix-vue.com/components/popover)                 |   ✅   |              |                        |
-| [Progress](https://radix-vue.com/components/progress)               |   ✅   | ⏳           |                        |
+| [Progress](https://radix-vue.com/components/progress)               |   ✅   | ✅           | ✅                     |
 | [Radio Group](https://radix-vue.com/components/radio-group)         |   ✅   | ✅           |                        |
 | [Scroll Area](https://radix-vue.com/components/scroll-area)         |   ✅   |              |                        |
 | [Select](https://radix-vue.com/components/select)                   |   ✅   |              |                        |

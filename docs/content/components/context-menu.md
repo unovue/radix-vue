@@ -1078,14 +1078,9 @@ Use the `Label` part to help label a section.
 
 Use the `CheckboxItem` part to add an item that can be checked.
 
-```jsx line=6,16-21
-// TODO: denniss - react code
-import React from 'react';
-import { CheckIcon } from '@radix-ui/react-icons';
-import * as ContextMenu from 'radix-vue';
-
+```jsx line=2,12-20
 export default () => {
-  const [checked, setChecked] = React.useState(true);
+  const checked = ref(true)
 
   return (
     <ContextMenu.Root>
@@ -1115,13 +1110,9 @@ export default () => {
 
 Use the `RadioGroup` and `RadioItem` parts to add an item that can be checked amongst others.
 
-```jsx line=6,13-32
-import React from 'react';
-import { CheckIcon } from '@radix-ui/react-icons';
-import * as ContextMenu from 'radix-vue';
-
+```jsx line=2,9-28
 export default () => {
-  const [color, setColor] = React.useState('blue');
+  const color = ref('blue');
 
   return (
     <ContextMenu.Root>

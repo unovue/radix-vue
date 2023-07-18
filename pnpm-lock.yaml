@@ -13,6 +13,12 @@ importers:
       '@antfu/eslint-config':
         specifier: ^0.39.7
         version: 0.39.7(eslint@8.43.0)(typescript@5.1.3)
+      '@floating-ui/dom':
+        specifier: ^1.4.2
+        version: 1.4.2
+      '@floating-ui/vue':
+        specifier: ^1.0.1
+        version: 1.0.1(vue@3.3.4)
       '@histoire/plugin-vue':
         specifier: ^0.16.1
         version: 0.16.1(histoire@0.16.2)(vite@4.3.9)(vue@3.3.4)
@@ -841,13 +847,11 @@ packages:
 
   /@floating-ui/core@1.3.1:
     resolution: {integrity: sha512-Bu+AMaXNjrpjh41znzHqaz3r2Nr8hHuHZT6V2LBKMhyMl0FgKA62PNYbqnfgmzOhoWZj70Zecisbo4H1rotP5g==}
-    dev: false
 
   /@floating-ui/dom@1.4.2:
     resolution: {integrity: sha512-VKmvHVatWnewmGGy+7Mdy4cTJX71Pli6v/Wjb5RQBuq5wjUYx+Ef+kRThi8qggZqDgD8CogCpqhRoVp3+yQk+g==}
     dependencies:
       '@floating-ui/core': 1.3.1
-    dev: false
 
   /@floating-ui/vue@1.0.1(vue@3.3.4):
     resolution: {integrity: sha512-HZmmNWaztKYKOQxXvMzJYCYtfgG07cL/bPQvZ92AFG3Ktw71bvvLKXsZDAyIxGpqRo9WiTPsYknnSuLV2H/riA==}
@@ -857,7 +861,6 @@ packages:
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
-    dev: false
 
   /@histoire/app@0.16.1(vite@4.3.9):
     resolution: {integrity: sha512-13komnhVk1Pk0wMmkJKDPWT8RKpA5HfAbeeXSHAq29pvFP9Faq+dAa62g1wqOpoyJD5C7SkI0OPI3eJwJHgTiQ==}

@@ -12,6 +12,9 @@
   }
 
   .accordion-content {
+    @apply overflow-hidden bg-gray-100 text-sm text-gray-900 px-5 py-4;
+  }
+  .accordion-animated-content {
     @apply overflow-hidden bg-gray-100 text-sm text-gray-900;
   }
 }

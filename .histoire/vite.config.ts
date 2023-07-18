@@ -25,7 +25,7 @@ export default defineConfig({
     },
   },
   histoire: {
-    plugins: [HstVue()],
+    plugins: [{ name: "builtin:tailwind-tokens" }, HstVue()],
     setupFile: "./setup.ts",
     storyMatch: [resolve(projectRootDir, "../packages/radix-vue/src/**/*.story.vue")],
     outDir: "./dist",

@@ -80,6 +80,26 @@ export default {
           from: { opacity: 1 },
           to: { opacity: 0 },
         },
+        open2D: {
+          from: {
+            width: 0,
+            height: 0,
+          },
+          to: {
+            width: "var(--radix-accordion-content-width)",
+            height: "var(--radix-accordion-content-height)",
+          },
+        },
+        close2D: {
+          from: {
+            width: "var(--radix-accordion-content-width)",
+            height: "var(--radix-accordion-content-height)",
+          },
+          to: {
+            width: 0,
+            height: 0,
+          },
+        },
       },
       animation: {
         overlayShow: "overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
@@ -90,6 +110,8 @@ export default {
         slideRightAndFade: "slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
         slideDown: "slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1)",
         slideUp: "slideUp 300ms cubic-bezier(0.87, 0, 0.13, 1)",
+        open2D: "open2D 1000ms ease-out",
+        close2D: "close2D 1000ms ease-out",
         scaleIn: "scaleIn 200ms ease",
         scaleOut: "scaleOut 200ms ease",
         fadeIn: "fadeIn 200ms ease",

@@ -117,7 +117,7 @@ export default () => (
 Contains all the parts of a menubar.
 ```
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -179,7 +179,7 @@ Contains all the parts of a menubar.
         </span>
       ),
     },
-  ]}
+  ]"
 />
 ```
 ### Menu
@@ -187,7 +187,7 @@ Contains all the parts of a menubar.
 A top level menu item, contains a trigger with content combination.
 ```
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -207,7 +207,7 @@ A top level menu item, contains a trigger with content combination.
         </span>
       ),
     },
-  ]}
+  ]"
 />
 ```
 ### Trigger
@@ -215,7 +215,7 @@ A top level menu item, contains a trigger with content combination.
 The button that toggles the content. By default, the `Menubar.Content` will position itself against the trigger.
 ```
 <PropsTable
-  data={[
+  data="[
     {
       name: 'asChild',
       required: false,
@@ -223,11 +223,11 @@ The button that toggles the content. By default, the `Menubar.Content` will posi
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
@@ -240,7 +240,7 @@ The button that toggles the content. By default, the `Menubar.Content` will posi
       attribute: '[data-disabled]',
       values: 'Present when disabled',
     },
-  ]}
+  ]"
 />
 ```
 ### Portal
@@ -248,7 +248,7 @@ The button that toggles the content. By default, the `Menubar.Content` will posi
 When used, portals the content part into the `body`.
 ```
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'forceMount',
       type: 'boolean',
@@ -267,7 +267,7 @@ When used, portals the content part into the `body`.
       default: 'document.body',
       description: 'Specify a container element to portal the content into.',
     },
-  ]}
+  ]"
 />
 ```
 ### Content
@@ -275,7 +275,7 @@ When used, portals the content part into the `body`.
 The component that pops out when a menu is open.
 ```
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -480,11 +480,12 @@ The component that pops out when a menu is open.
         </span>
       ),
     },
-  ]}
+  ]"
 />
+```
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
@@ -497,49 +498,46 @@ The component that pops out when a menu is open.
       attribute: '[data-align]',
       values: ['start', 'end', 'center'],
     },
-  ]}
+  ]"
 />
 
 <CssVariablesTable
-  data={[
+  :data="[
     {
       cssVariable: '--radix-menubar-content-transform-origin',
-      description: (
-        <>
-          The <Code>transform-origin</Code> computed from the content and arrow
-          positions/offsets
-        </>
-      ),
+      description: `
+        The <Code>transform-origin</Code> computed from the content and arrow positions/offsets
+      `,
     },
     {
       cssVariable: '--radix-menubar-content-available-width',
-      description: (
-        <>The remaining width between the trigger and the boundary edge</>
-      ),
+      description: `
+        The remaining width between the trigger and the boundary edge
+      `,
     },
     {
       cssVariable: '--radix-menubar-content-available-height',
-      description: (
-        <>The remaining height between the trigger and the boundary edge</>
-      ),
+      description: `
+        The remaining height between the trigger and the boundary edge
+      `,
     },
     {
       cssVariable: '--radix-menubar-trigger-width',
-      description: <>The width of the trigger</>,
+      description: 'The width of the trigger',
     },
     {
       cssVariable: '--radix-menubar-trigger-height',
-      description: <>The height of the trigger</>,
+      description: 'The height of the trigger',
     },
-  ]}
+  ]"
 />
-```
+
 ### Arrow
 
 An optional arrow element to render alongside a menubar menu. This can be used to help visually link the trigger with the `Menubar.Content`. Must be rendered inside `Menubar.Content`.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -551,23 +549,23 @@ An optional arrow element to render alongside a menubar menu. This can be used t
       name: 'width',
       type: 'number',
       default: 10,
-      description: <span>The width of the arrow in pixels.</span>,
+      description: 'The width of the arrow in pixels.',
     },
     {
       name: 'height',
       type: 'number',
       default: 5,
-      description: <span>The height of the arrow in pixels.</span>,
+      description: 'The height of the arrow in pixels.',
     },
-  ]}
+  ]"
 />
-```
+
 ### Item
 
 The component that contains the menubar items.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -578,41 +576,41 @@ The component that contains the menubar items.
     {
       name: 'disabled',
       type: 'boolean',
-      description: (
+      description: `
         <span>
           When <Code>true</Code>, prevents the user from interacting with the
           item.
         </span>
-      ),
+      `,
     },
     {
       name: 'onSelect',
       type: '(event: Event) => void',
       typeSimple: 'function',
-      description: (
+      description: `
         <span>
           Event handler called when the user selects an item (via mouse or
           keyboard). Calling <Code>event.preventDefault</Code> in this handler
           will prevent the menubar from closing when selecting that item.
         </span>
-      ),
+      `,
     },
     {
       name: 'textValue',
       type: 'string',
-      description: (
+      description: `
         <span>
           Optional text used for typeahead purposes. By default the typeahead
           behavior will use the <Code>.textContent</Code> of the item. Use this
           when the content is complex, or you have non-textual content inside.
         </span>
-      ),
+      `,
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-highlighted]',
       values: 'Present when highlighted',
@@ -621,15 +619,15 @@ The component that contains the menubar items.
       attribute: '[data-disabled]',
       values: 'Present when disabled',
     },
-  ]}
+  ]"
 />
-```
+
 ### Group
 
 Used to group multiple `Menubar.Item`s.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -637,15 +635,15 @@ Used to group multiple `Menubar.Item`s.
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-  ]}
+  ]"
 />
-```
+
 ### Label
 
 Used to render a label. It won't be focusable using arrow keys.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -653,15 +651,15 @@ Used to render a label. It won't be focusable using arrow keys.
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-  ]}
+  ]"
 />
-```
+
 ### CheckboxItem
 
 An item that can be controlled and rendered like a checkbox.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -672,57 +670,57 @@ An item that can be controlled and rendered like a checkbox.
     {
       name: 'checked',
       type: `boolean | 'indeterminate'`,
-      description: (
+      description: `
         <span>
           The controlled checked state of the item. Must be used in conjunction
           with <Code>onCheckedChange</Code>.
         </span>
-      ),
+      `,
     },
     {
       name: 'onCheckedChange',
       type: '(checked: boolean) => void',
       typeSimple: 'function',
-      description: (
+      description: `
         <span>Event handler called when the checked state changes.</span>
-      ),
+      `,
     },
     {
       name: 'disabled',
       type: 'boolean',
-      description: (
+      description: `
         <span>
           When <Code>true</Code>, prevents the user from interacting with the
           item.
         </span>
-      ),
+      `,
     },
     {
       name: 'onSelect',
       type: '(event: Event) => void',
       typeSimple: 'function',
-      description: (
+      description: `
         <span>
           Event handler called when the user selects an item (via mouse or
           keyboard). Calling <Code>event.preventDefault</Code> in this handler
           will prevent the menubar from closing when selecting that item.
         </span>
-      ),
+      `,
     },
     {
       name: 'textValue',
       type: 'string',
-      description: (
+      description: `
         <span>
           Optional text used for typeahead purposes. By default the typeahead
           behavior will use the <Code>.textContent</Code> of the item. Use this
           when the content is complex, or you have non-textual content inside.
         </span>
-      ),
+      `,
     },
-  ]}
+  ]"
 />
-```
+
 
 <DataAttributesTable
   :data="[

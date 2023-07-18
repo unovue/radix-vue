@@ -343,7 +343,7 @@ You can add extra decorative elements, such as chevrons, and rotate it when the 
 // index.vue
 <script setup>
 import { AccordionRoot, AccordionItem, AccordionHeader, AccordionTrigger, AccordionContent } from 'radix-vue';
-import { ChevronDownIcon } from '@radix-ui/react-icons';
+import { Icon } from "@iconify/vue";
 import './styles.css';
 </script>
 
@@ -353,7 +353,7 @@ import './styles.css';
       <AccordionHeader>
         <AccordionTrigger class="AccordionTrigger">
           <span>Trigger text</span>
-          <ChevronDownIcon class="AccordionChevron" aria-hidden />
+          <Icon icon="radix-icons:chevron-down" class="AccordionChevron" aria-hidden />
         </AccordionTrigger>
       </AccordionHeader>
       <AccordionContent>…</AccordionContent>

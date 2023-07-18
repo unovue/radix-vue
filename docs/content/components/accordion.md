@@ -446,11 +446,11 @@ Adheres to the [Accordion WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/a
 <KeyboardTable :data="[
     {
       keys: ['Space'],
-      description: 'Moves focus to the next',
+      description: 'When focus is on an <code>AccordionTrigger</code> of a collapsed section, expands the section.',
     },
     {
       keys: ['Enter'],
-      description: 'Moves focus to the next',
+      description: 'When focus is on an <code>AccordionTrigger</code> of a collapsed section, expands the section.',
     },
     {
       keys: ['Tab'],
@@ -462,25 +462,25 @@ Adheres to the [Accordion WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/a
     },
     {
       keys: ['ArrowDown'],
-      description: 'Moves focus to the next',
+      description: 'Moves focus to the next <code>AccordionTrigger</code> when <code>orientation</code> is <code>vertical</code>.',
     },
     {
       keys: ['ArrowUp'],
-      description: 'Moves focus to the next',
+      description: 'Moves focus to the previous <code>AccordionTrigger</code> when <code>orientation</code> is <code>vertical</code>.',
     },
     {
       keys: ['ArrowRight'],
-      description: 'Moves focus to the next',
+      description: 'Moves focus to the next <code>AccordionTrigger</code> when <code>orientation</code> is <code>horizontal</code>.',
     },
     {
       keys: ['ArrowLeft'],
-      description: 'Moves focus to the next',
+      description: 'Moves focus to the previous <code>AccordionTrigger</code> when <code>orientation</code> is <code>horizontal</code>.',
     },
     {
       keys: ['Home'],
-      description: 'Moves focus to the next',
+      description: 'When focus is on an <code>AccordionTrigger</code>, moves focus to the start <code>AccordionTrigger</code>.',
     },
     {
       keys: ['End'],
-      description: 'Moves focus to the next',
+      description: 'When focus is on an <code>AccordionTrigger</code>, moves focus to the last <code>AccordionTrigger</code>.',
     }]" />

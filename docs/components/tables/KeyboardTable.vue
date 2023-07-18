@@ -16,10 +16,10 @@ const props = defineProps<DataAttributesTableProps>();
   <ProseTable>
     <ProseThead>
       <ProseTr>
-        <ProseTh class="w-[45%]">
+        <ProseTh class="">
           <span>Key</span>
         </ProseTh>
-        <ProseTh class="w-[55%]">
+        <ProseTh class="">
           <span>Description</span>
         </ProseTh>
       </ProseTr>

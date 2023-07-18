@@ -269,7 +269,7 @@ description: 'Change the default rendered element for the one passed as a child,
 
 Use the controlled props to programmatically close the Alert Dialog after an async operation has completed.
 
-```vue line=14,15,18,23-29,32
+```vue line=14,15,18,23-30,32
 <script setup>
 import {
   AlertDialogAction,
@@ -346,4 +346,16 @@ Adheres to the [Alert and Message Dialogs WAI-ARIA design pattern](https://www.w
 <KeyboardTable :data="[{
 keys: ['Space'],
 description: 'Opens/closes the dialog.',
+},{
+keys: ['Enter'],
+description: 'Opens/closes the dialog.',
+},{
+keys: ['Tab'],
+description: 'Moves focus to the next focusable element.',
+},{
+keys: ['Shift + Tab'],
+description: 'Moves focus to the previous focusable element.',
+},{
+keys: ['Esc'],
+description: 'Closes the dialog and moves focus to <Code>AlertDialogTrigger</code>.',
 }]" />

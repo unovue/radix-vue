@@ -327,7 +327,7 @@ If you want to hide the description, wrap it inside our Visually Hidden utility 
 
 Use the controlled props to programmatically close the Dialog after an async operation has completed.
 
-```vue line=10,11,16,21-26,28
+```vue line=10,11,15,20-27,29
 <script setup>
 import {
 	DialogRoot,

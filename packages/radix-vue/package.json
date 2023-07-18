@@ -33,7 +33,7 @@
     "dev": "vite",
     "build": "run-p format lint && run-p type-check build-only",
     "build-only": "rimraf dist && vite build",
-    "type-check": "vue-tsc --noEmit",
+    "type-check": "vue-tsc -p tsconfig.check.json --noEmit",
     "type-gen": "vue-tsc --declaration  --emitDeclarationOnly",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,css,md,vue}\" --ignore-path .gitignore",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",

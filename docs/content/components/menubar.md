@@ -1278,13 +1278,11 @@ Use the `Label` part to help label a section.
 
 Use the `CheckboxItem` part to add an item that can be checked.
 
-```jsx line=6,17-22
-import React from 'react';
-import { CheckIcon } from '@radix-ui/react-icons';
+```jsx line=4,15-23
 import * as Menubar from 'radix-vue';
 
 export default () => {
-  const [checked, setChecked] = React.useState(true);
+  const checked = ref(true);
 
   return (
     <Menubar.Root>
@@ -1316,13 +1314,11 @@ export default () => {
 
 Use the `RadioGroup` and `RadioItem` parts to add an item that can be checked amongst others.
 
-```jsx line=6,14-27
-import React from 'react';
-import { CheckIcon } from '@radix-ui/react-icons';
+```jsx line=4,12-25
 import * as Menubar from 'radix-vue';
 
 export default () => {
-  const [color, setColor] = React.useState('blue');
+  const color = ref('blue')
 
   return (
     <Menubar.Root>

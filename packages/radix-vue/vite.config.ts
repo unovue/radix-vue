@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import alias from "@rollup/plugin-alias";
+import dts from "vite-plugin-dts";
 import { resolve } from "path";
 
 const projectRootDir = resolve(__dirname);
@@ -11,6 +12,7 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
+    dts(),
     alias({
       entries: [
         {
@@ -28,8 +30,9 @@ export default defineConfig({
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
-      // into your library
-      external: ["vue"],
+      // into your library (Vue)
+      // we also exclude histoire files
+      external: ["vue", new RegExp(/\.story\.vue$/)],
       output: {
         // Provide global variables to use in the UMD build
         // for externalized deps

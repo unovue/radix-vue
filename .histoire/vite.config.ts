@@ -19,6 +19,11 @@ export default defineConfig({
       ],
     }),
   ],
+  resolve: {
+    alias: {
+      "@iconify/vue": "./node_modules/@iconify/vue/dist/iconify.mjs",
+    },
+  },
   histoire: {
     plugins: [HstVue()],
     setupFile: "./setup.ts",

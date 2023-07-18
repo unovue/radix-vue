@@ -7,14 +7,11 @@
     "src/**/*.tsx",
     "src/**/*.vue"
   ],
-  "exclude": [
-    "src/**/__tests__/*",
-    "**/*.test.ts",
-    "**/*.test.js",
-  ],
+  "exclude": ["src/**/__tests__/*", "**/*.test.ts", "**/*.test.js"],
   "compilerOptions": {
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@iconify/vue": ["../../.histoire/node_modules/@iconify/vue"]
     },
     "target": "esnext",
     "module": "esnext",

@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": "..",
+    "paths": {
+      "@iconify/vue": ["./node_modules/@iconify/vue/dist/iconify.mjs"]
+    }
+  },
+  "includes": ["../packages/radix-vue/src/**/*.vue"]
+}

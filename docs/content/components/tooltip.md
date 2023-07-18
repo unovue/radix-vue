@@ -424,7 +424,7 @@ Since disabled buttons don't fire events, you need to:
 - Render the `Trigger` as `span`.
 - Ensure the `button` has no `pointerEvents`.
 
-```vue line=12-18
+```vue line=12-16
 <script setup>
 import {
 	TooltipProvider,

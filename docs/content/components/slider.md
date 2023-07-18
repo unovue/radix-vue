@@ -283,7 +283,7 @@ A draggable thumb. You can render multiple thumbs.
 
 Use the `orientation` prop to create a vertical slider.
 
-```vue line=11
+```vue line=8-12
 // index.vue
 <script setup>
 import { SliderRoot, SliderTrack, SliderRange, SliderThumb } from "radix-vue";
@@ -294,7 +294,8 @@ import "./styles.css";
 	<SliderRoot
     class="SliderRoot"
     :defaultValue="[50]"
-    orientation="vertical">
+    orientation="vertical"
+    >
 		<SliderTrack class="SliderTrack">
 			<SliderRange class="SliderRange" />
 		</SliderTrack>
@@ -353,7 +354,7 @@ import "./styles.css";
 </script>
 
 <template>
-	<SliderRoot :defaultValue="[25,75]">
+	<SliderRoot :defaultValue="[25, 75]">
 		<SliderTrack>
 			<SliderRange />
 		</SliderTrack>
@@ -367,7 +368,7 @@ import "./styles.css";
 
 Use the `step` prop to increase the stepping interval.
 
-```vue line=9
+```vue line=8
 // index.vue
 <script setup>
 import { SliderRoot, SliderTrack, SliderRange, SliderThumb } from "radix-vue";
@@ -375,9 +376,7 @@ import "./styles.css";
 </script>
 
 <template>
-	<SliderRoot
-    :defaultValue="[50]"
-    :step="10">
+	<SliderRoot :defaultValue="[50]" :step="10">
 		<SliderTrack>
 			<SliderRange />
 		</SliderTrack>
@@ -390,7 +389,7 @@ import "./styles.css";
 
 Use `minStepsBetweenThumbs` to avoid thumbs with equal values.
 
-```vue line=9-11
+```vue line=8-12
 // index.vue
 <script setup>
 import { SliderRoot, SliderTrack, SliderRange, SliderThumb } from "radix-vue";
@@ -401,7 +400,8 @@ import "./styles.css";
 	<SliderRoot
     :defaultValue="[25, 75]"
     :step="10"
-    :minStepsBetweenThumbs="1">
+    :minStepsBetweenThumbs="1"
+    >
 		<SliderTrack>
 			<SliderRange />
 		</SliderTrack>
@@ -510,5 +510,3 @@ Because of [a limitation](https://github.com/radix-ui/primitives/blob/83a8c13bf6
 
 We recommend using pointer events instead (eg. `onPointerDown`, `onPointerUp`). Regardless of the above limitation, these events are better suited for cross-platform/device handling as they are fired for all pointer input types (mouse, touch, pen, etc.).
 -->
-
-Ï

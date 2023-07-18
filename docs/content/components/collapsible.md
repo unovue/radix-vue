@@ -168,7 +168,7 @@ The component that contains the collapsible content.
       name: 'forceMount',
       type: 'boolean',
       description:
-        'Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries.',
+        'Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.',
     },
   ]"
 />

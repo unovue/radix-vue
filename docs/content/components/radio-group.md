@@ -206,7 +206,7 @@ Renders when the radio item is in a checked state. You can style this element di
     {
       name: 'forceMount',
       type: 'boolean',
-      description: 'Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries.',
+      description: 'Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.',
     },
   ]"
 />

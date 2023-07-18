@@ -255,7 +255,7 @@ When used, portals the content part into the `body`.
       description: `
         <span>
           Used to force mounting when more control is needed. Useful when
-          controlling animation with React animation libraries. If used on this
+          controlling animation with Vue.js animation libraries. If used on this
           part, it will be inherited by <Code>Menubar.Content</Code> and{' '}
           <Code>Menubar.SubContent</Code> respectively.
         </span>
@@ -359,7 +359,7 @@ The component that pops out when a menu is open.
       description: `
         <span>
           Used to force mounting when more control is needed. Useful when
-          controlling animation with React animation libraries. It inherits from{' '}
+          controlling animation with Vue.js animation libraries. It inherits from{' '}
           <Code>Menubar.Portal</Code>.
         </span>
       `,
@@ -843,7 +843,7 @@ Renders when the parent `Menubar.CheckboxItem` or `Menubar.RadioItem` is checked
       name: 'forceMount',
       type: 'boolean',
       description: `
-        Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries.
+        Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.
       `,
     },
   ]"
@@ -1030,7 +1030,7 @@ The component that pops out when a submenu is open. Must be rendered inside `Men
       description: `
         <span>
           Used to force mounting when more control is needed. Useful when
-          controlling animation with React animation libraries. It inherits from{' '}
+          controlling animation with Vue.js animation libraries. It inherits from{' '}
           <Code>Menubar.Portal</Code>.
         </span>
       `,

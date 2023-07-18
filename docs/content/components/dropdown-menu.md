@@ -189,7 +189,7 @@ When used, portals the content part into the `body`.
     {
       name: 'forceMount',
       type: 'boolean',
-      description: 'Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries. If used on this part, it will be inherited by <Code>DropdownMenuContent</Code> and <Code>DropdownMenuSubContent</Code> respectively.'
+      description: 'Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries. If used on this part, it will be inherited by <Code>DropdownMenuContent</Code> and <Code>DropdownMenuSubContent</Code> respectively.'
     },
     {
       name: 'container',
@@ -254,7 +254,7 @@ The component that pops out when the dropdown menu is open.
     {
       name: 'forceMount',
       type: 'boolean',
-      description: 'Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries. It inherits from <Code>DropdownMenuPortal</Code>.'
+      description: 'Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries. It inherits from <Code>DropdownMenuPortal</Code>.'
     },
     {
       name: 'side',
@@ -639,7 +639,7 @@ Renders when the parent `DropdownMenuCheckboxItem` or `DropdownMenuRadioItem` is
     {
       name: 'forceMount',
       type: 'boolean',
-      description: 'Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries.',
+      description: 'Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.',
     },
   ]"
 />
@@ -853,7 +853,7 @@ The component that pops out when a submenu is open. Must be rendered inside `Dro
       description: `
         <span>
           Used to force mounting when more control is needed. Useful when
-          controlling animation with React animation libraries. It inherits from{' '}
+          controlling animation with Vue.js animation libraries. It inherits from{' '}
           <Code>DropdownMenuPortal</Code>.
         </span>
       `,

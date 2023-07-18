@@ -1,10 +1,13 @@
 <script lang="ts">
 import type { Ref, InjectionKey, ComputedRef } from "vue";
-import { PrimitiveSpan, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveSpan,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import type { DataOrientation, Direction } from "../shared/types";
 
-export interface SliderRootProps {
-  asChild?: boolean;
+export interface SliderRootProps extends PrimitiveProps {
   defaultValue?: string;
   value?: string;
   //onValueChange?: void;
@@ -165,7 +168,11 @@ function convertToClosestStep(number: number, step: number) {
 </script>
 
 <template>
-  <PrimitiveSpan ref="primitiveElement" @pointerdown="changeValue">
+  <PrimitiveSpan
+    ref="primitiveElement"
+    :as-child="props.asChild"
+    @pointerdown="changeValue"
+  >
     <slot />
     <input
       style="display: none"

@@ -1,5 +1,7 @@
 <script lang="ts">
 import type { Side } from "./utils";
+import { type PrimitiveProps } from "@/Primitive";
+
 const OPPOSITE_SIDE: Record<Side, Side> = {
   top: "bottom",
   right: "left",
@@ -7,7 +9,7 @@ const OPPOSITE_SIDE: Record<Side, Side> = {
   left: "right",
 };
 
-export interface PopperArrowProps extends ArrowProps {}
+export interface PopperArrowProps extends ArrowProps, PrimitiveProps {}
 
 export default {
   inheritAttrs: false,

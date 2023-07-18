@@ -4,8 +4,7 @@ import type { DataOrientation, Direction } from "../shared/types";
 
 type TypeEnum = "single" | "multiple";
 
-export interface ToggleGroupRootProps {
-  asChild?: boolean;
+export interface ToggleGroupRootProps extends PrimitiveProps {
   type?: TypeEnum;
   value?: string;
   defaultValue?: string;
@@ -40,7 +39,11 @@ export interface ToggleGroupProvideValue {
 <script setup lang="ts">
 import { ref, provide, watch } from "vue";
 import { useVModel, useActiveElement } from "@vueuse/core";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveDiv,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 
 const props = withDefaults(defineProps<ToggleGroupRootProps>(), {
   type: "single",

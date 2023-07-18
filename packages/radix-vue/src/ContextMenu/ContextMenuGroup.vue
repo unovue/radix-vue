@@ -4,7 +4,7 @@ import type { DataOrientation, Direction } from "../shared/types";
 
 type TypeEnum = "single" | "multiple";
 
-export interface ContextMenuGroupProps {
+export interface ContextMenuGroupProps extends PrimitiveProps {
   type?: TypeEnum;
   value?: string;
   defaultValue?: string;
@@ -29,7 +29,11 @@ export interface ContextMenuGroupProvideValue {
 
 <script setup lang="ts">
 import { toRef, provide } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveDiv,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 
 const props = withDefaults(defineProps<ContextMenuGroupProps>(), {
   type: "single",

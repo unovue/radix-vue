@@ -1,6 +1,5 @@
 <script lang="ts">
 export interface TooltipContentProps extends PopperContentProps {
-  asChild?: boolean;
   forceMount?: boolean;
 }
 </script>

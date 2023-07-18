@@ -18,6 +18,7 @@ const injectedValue = inject<AlertDialogProvideValue>(
   <PrimitiveDiv
     v-bind="props"
     v-if="injectedValue?.open.value"
+    :as-child="props.asChild"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"
     style="pointer-events: auto"
     data-aria-hidden="true"

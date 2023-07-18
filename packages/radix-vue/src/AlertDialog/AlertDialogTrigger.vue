@@ -6,8 +6,8 @@ import {
 } from "./AlertDialogRoot.vue";
 import {
   PrimitiveButton,
-  type PrimitiveProps,
   usePrimitiveElement,
+  type PrimitiveProps,
 } from "@/Primitive";
 
 export interface AlertDialogTriggerProps extends PrimitiveProps {}

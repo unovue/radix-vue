@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { PrimitiveDiv, usePrimitiveElement } from "../Primitive";
+import {
+  PrimitiveDiv,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "../Primitive";
 import { computed, inject, onUnmounted, ref } from "vue";
 import { addUnlinkedScrollListener } from "./utils";
 
@@ -13,6 +17,9 @@ import {
   SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY,
 } from "./ScrollAreaScrollbarVisible.vue";
 import { watchOnce } from "@vueuse/core";
+
+interface ScrollAreaThumbProps extends PrimitiveProps {}
+const props = defineProps<ScrollAreaThumbProps>();
 
 const injectedValueFromRoot = inject<ScrollAreaProvideValue>(
   SCROLL_AREA_INJECTION_KEY
@@ -87,6 +94,7 @@ onUnmounted(() => {
       width: 'var(--radix-scroll-area-thumb-width)',
       height: 'var(--radix-scroll-area-thumb-height)',
     }"
+    :as-child="props.asChild"
     @pointerdown="handlePointerDown"
     @pointerup="handlePointerUp"
   />

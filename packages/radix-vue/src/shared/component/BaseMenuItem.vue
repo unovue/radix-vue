@@ -5,7 +5,7 @@ import type { MenubarProvideValue } from "../../Menubar/MenubarRoot.vue";
 import type { MenubarSubProvideValue } from "../../Menubar/MenubarSub.vue";
 
 // TODO: improve types for props
-interface BaseMenuItemProps {
+interface BaseMenuItemProps extends PrimitiveProps {
   disabled?: boolean;
   rootProvider: DropdownMenuProvideValue | MenubarProvideValue | undefined;
   subProvider?:
@@ -20,7 +20,11 @@ interface BaseMenuItemProps {
 
 <script setup lang="ts">
 import { useArrowNavigation } from "../useArrowNavigation";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveDiv,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import { useCollection } from "../useCollection";
 
 const props = withDefaults(defineProps<BaseMenuItemProps>(), {

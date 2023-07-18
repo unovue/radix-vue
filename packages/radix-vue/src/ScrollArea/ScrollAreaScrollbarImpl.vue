@@ -8,6 +8,10 @@ import {
   type ScrollAreaScrollbarVisibleProvideValue,
   SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY,
 } from "./ScrollAreaScrollbarVisible.vue";
+import {
+  type ScrollAreaScrollbarProps,
+  SCROLL_AREA_SCROLLBAR_INJECTION_KEY,
+} from "./ScrollAreaScrollbar.vue";
 import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 import { toInt } from "./utils";
 import { useResizeObserver } from "@vueuse/core";
@@ -19,6 +23,10 @@ const injectedValueFromScrollbarVisible =
   inject<ScrollAreaScrollbarVisibleProvideValue>(
     SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY
   );
+
+const injectedValueFromScrollbar = inject<ScrollAreaScrollbarProps>(
+  SCROLL_AREA_SCROLLBAR_INJECTION_KEY
+);
 
 const props = defineProps<{
   isHorizontal: boolean;
@@ -127,6 +135,7 @@ useResizeObserver(injectedValueFromRoot?.content, handleSizeChange);
   <PrimitiveDiv
     ref="primitiveElement"
     style="position: absolute"
+    :as-child="injectedValueFromScrollbar?.asChild"
     @pointerdown="handlePointerDown"
     @pointermove="handlePointerMove"
     @pointerup="handlePointerUp"

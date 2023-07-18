@@ -1,6 +1,5 @@
 <script lang="ts">
-export interface MenubarMenuTriggerProps {
-  asChild?: boolean;
+export interface MenubarMenuTriggerProps extends PrimitiveProps {
   disabled?: boolean;
   textValue?: string;
 }
@@ -21,7 +20,11 @@ import {
   type MenubarMenuProvideValue,
 } from "./MenubarMenu.vue";
 import { PopperAnchor } from "@/Popper";
-import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveButton,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import { useArrowNavigation } from "@/shared/useArrowNavigation";
 import { useActiveElement } from "@vueuse/core";
 
@@ -152,6 +155,7 @@ watch(
       :data-highlighted="highlightedState ? '' : null"
       :aria-disabled="props.disabled ? true : undefined"
       :data-disabled="props.disabled ? '' : undefined"
+      :as-child="props.asChild"
       :tabindex="
         rootInjectedValue?.triggerElement.value === currentElement ? '0' : '-1'
       "

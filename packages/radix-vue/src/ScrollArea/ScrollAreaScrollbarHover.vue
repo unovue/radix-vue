@@ -22,7 +22,6 @@ const visible = ref(false);
 const handlePointerEnter = () => {
   window.clearTimeout(timeout);
   visible.value = true;
-  console.log(injectedValueFromScrollbar);
 };
 const handlePointerLeave = () => {
   timeout = window.setTimeout(() => {

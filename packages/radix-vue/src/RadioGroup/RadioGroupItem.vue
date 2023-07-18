@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveButton,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import { computed, inject, provide, readonly } from "vue";
 import { useArrowNavigation } from "@/shared";
 import {
@@ -8,8 +12,7 @@ import {
   type RadioGroupProvideValue,
 } from "./RadioGroupRoot.vue";
 
-interface RadioGroupItemProps {
-  asChild?: boolean;
+interface RadioGroupItemProps extends PrimitiveProps {
   value?: string;
   disabled?: boolean;
   required?: boolean;
@@ -18,7 +21,6 @@ interface RadioGroupItemProps {
 const injectedValue = inject<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY);
 
 const props = withDefaults(defineProps<RadioGroupItemProps>(), {
-  asChild: false,
   disabled: false,
 });
 
@@ -80,7 +82,7 @@ const getTabIndex = computed(() => {
     role="radio"
     data-radix-vue-collection-item
     v-bind="$attrs"
-    :asChild="props.asChild"
+    :as-child="props.asChild"
     :disabled="disabled ? true : undefined"
     :data-state="checked ? 'checked' : 'unchecked'"
     :data-disabled="disabled ? '' : undefined"

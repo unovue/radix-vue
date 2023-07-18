@@ -2,7 +2,7 @@
 import type { InjectionKey, Ref } from "vue";
 export type Direction = "ltr" | "rtl";
 
-export interface AccordionImplProps {
+export interface AccordionImplProps extends PrimitiveProps {
   /**
    * Whether or not an accordion is disabled from user interaction.
    *
@@ -49,7 +49,11 @@ export const ACCORDION_IMPL_INJECTION_KEY =
 
 <script setup lang="ts">
 import { provide } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveDiv,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 
 const props = withDefaults(defineProps<AccordionImplProps>(), {
   orientation: "vertical",

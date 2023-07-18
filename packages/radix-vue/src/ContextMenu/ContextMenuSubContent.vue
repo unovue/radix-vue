@@ -1,8 +1,9 @@
 <script lang="ts">
 export type Boundary = Element | null | Array<Element | null>;
 
-export interface ContextMenuSubContentProps extends PopperContentProps {
-  asChild?: boolean;
+export interface ContextMenuSubContentProps
+  extends PopperContentProps,
+    PrimitiveProps {
   loop?: boolean; //false
   //onOpenAutoFocus?: void;
   //onCloseAutoFocus?: void;
@@ -14,7 +15,11 @@ export interface ContextMenuSubContentProps extends PopperContentProps {
 
 <script setup lang="ts">
 import { inject, watchEffect, watch } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveDiv,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import {
   CONTEXT_MENU_INJECTION_KEY,
   type ContextMenuProvideValue,
@@ -107,7 +112,7 @@ onClickOutside(tooltipContentElement, (event) => {
       :data-orientation="injectedValue.orientation"
       :aria-labelledby="injectedValue.triggerId"
       role="tooltip"
-      :asChild="props.asChild"
+      :as-child="props.asChild"
       style="pointer-events: auto"
     >
       <slot />

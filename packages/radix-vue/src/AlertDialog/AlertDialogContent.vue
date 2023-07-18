@@ -116,9 +116,8 @@ function handleKeydown(e: KeyboardEvent) {
 
 <template>
   <PrimitiveDiv
-    :asChild="props.asChild"
-    ref="primitiveElement"
     v-if="injectedValue?.open.value"
+    ref="primitiveElement"
     v-on-click-outside="handleOnClickOutside"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"
     role="dialog"

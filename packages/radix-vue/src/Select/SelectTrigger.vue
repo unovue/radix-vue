@@ -1,18 +1,21 @@
 <script lang="ts">
-export interface SelectTriggerProps {
-  asChild?: boolean;
-}
+export interface SelectTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
 import { inject, nextTick, onMounted } from "vue";
-import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveButton,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import {
   SELECT_INJECTION_KEY,
   type SelectProvideValue,
 } from "./SelectRoot.vue";
 import { PopperAnchor } from "@/Popper";
 
+const props = defineProps<SelectTriggerProps>();
 const injectedValue = inject<SelectProvideValue>(SELECT_INJECTION_KEY);
 
 const { primitiveElement, currentElement: triggerElement } =
@@ -57,7 +60,7 @@ function handleKeydown(e: KeyboardEvent) {
       ref="primitiveElement"
       :aria-expanded="injectedValue?.isOpen.value || false"
       :data-state="injectedValue?.isOpen.value ? 'open' : 'closed'"
-      :as-child="false"
+      :as-child="props.asChild"
       @click="handleClick"
       @keydown.prevent="handleKeydown"
     >

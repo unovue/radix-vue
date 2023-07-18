@@ -2,8 +2,7 @@
 import type { Ref } from "vue";
 import { useVModel } from "@vueuse/core";
 
-export interface RadioGroupRootProps {
-  asChild?: boolean;
+export interface RadioGroupRootProps extends PrimitiveProps {
   value?: string;
   defaultValue?: string;
   //disabled?: boolean;
@@ -22,7 +21,11 @@ export interface RadioGroupProvideValue {
 
 <script setup lang="ts">
 import { provide } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveDiv,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 
 const props = defineProps<RadioGroupRootProps>();
 
@@ -49,6 +52,7 @@ provide<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY, {
     ref="primitiveElement"
     role="radiogroup"
     aria-label="radiogroup"
+    :as-child="props.asChild"
   >
     <slot />
   </PrimitiveDiv>

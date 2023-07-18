@@ -2,9 +2,13 @@
 import { computed, inject, ref, watchEffect } from "vue";
 import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
 import { useCollection } from "@/shared";
-import { PrimitiveDiv } from "@/Primitive";
+import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
 import { useResizeObserver } from "@vueuse/core";
 import { Presence } from "@/Presence";
+
+interface NavigationMenuIndicatorProps extends PrimitiveProps {}
+
+const props = defineProps<NavigationMenuIndicatorProps>();
 
 defineOptions({
   inheritAttrs: false,
@@ -58,6 +62,7 @@ useResizeObserver(context!.indicatorTrack, handlePositionChange);
         aria-hidden
         :data-state="isVisible ? 'visible' : 'hidden'"
         :data-orientation="context.orientation"
+        :as-child="props.asChild"
         :style="{
           position: 'absolute',
           ...(isHorizontal

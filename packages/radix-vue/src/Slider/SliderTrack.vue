@@ -1,17 +1,15 @@
 <script lang="ts">
-export interface SliderTrackProps {
-  asChild?: boolean;
-}
+export interface SliderTrackProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { PrimitiveSpan } from "@/Primitive";
+import { PrimitiveSpan, type PrimitiveProps } from "@/Primitive";
 
-defineProps<SliderTrackProps>();
+const props = defineProps<SliderTrackProps>();
 </script>
 
 <template>
-  <PrimitiveSpan :asChild="asChild">
+  <PrimitiveSpan :as-child="props.asChild">
     <slot />
   </PrimitiveSpan>
 </template>

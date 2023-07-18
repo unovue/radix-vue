@@ -1,18 +1,20 @@
 <script lang="ts">
-export interface TabsListProps {
-  asChild?: boolean;
+export interface TabsListProps extends PrimitiveProps {
   loop?: boolean;
 }
 </script>
 
 <script setup lang="ts">
 import { inject, onMounted } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveDiv,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import { TABS_INJECTION_KEY } from "./TabsRoot.vue";
 import type { TabsProvideValue } from "./TabsRoot.vue";
 
 const props = withDefaults(defineProps<TabsListProps>(), {
-  asChild: false,
   loop: true,
 });
 
@@ -28,9 +30,9 @@ onMounted(() => {
 
 <template>
   <PrimitiveDiv
-    :asChild="asChild"
     role="tablist"
     ref="primitiveElement"
+    :as-child="props.asChild"
     :aria-orientation="injectedValue?.orientation"
     tabindex="0"
     :data-orientation="injectedValue?.orientation"

@@ -4,7 +4,7 @@ import type { DataOrientation, Direction } from "../shared/types";
 
 type TypeEnum = "single" | "multiple";
 
-export interface DropdownMenuGroupProps {
+export interface DropdownMenuGroupProps extends PrimitiveProps {
   type?: TypeEnum;
   value?: string;
   defaultValue?: string;
@@ -29,7 +29,11 @@ export interface DropdownMenuGroupProvideValue {
 
 <script setup lang="ts">
 import { toRef, provide } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveDiv,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 
 const props = withDefaults(defineProps<DropdownMenuGroupProps>(), {
   type: "single",
@@ -66,6 +70,7 @@ provide<DropdownMenuGroupProvideValue>(DROPDOWN_MENU_GROUP_INJECTION_KEY, {
     ref="primitiveElement"
     role="group"
     :dir="props.dir"
+    :as-child="props.asChild"
     aria-label="Text alignment"
   >
     <slot />

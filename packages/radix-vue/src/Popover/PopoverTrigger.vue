@@ -1,17 +1,21 @@
 <script lang="ts">
-export interface PopoverTriggerProps {
-  asChild?: boolean;
-}
+export interface PopoverTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
 import { inject, onMounted } from "vue";
-import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveButton,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import { PopperAnchor } from "@/Popper";
 import {
   POPOVER_INJECTION_KEY,
   type PopoverProvideValue,
 } from "./PopoverRoot.vue";
+
+const props = defineProps<PopoverTriggerProps>();
 
 const injectedValue = inject<PopoverProvideValue>(POPOVER_INJECTION_KEY);
 
@@ -38,6 +42,7 @@ function handleClick() {
       ref="primitiveElement"
       :aria-expanded="injectedValue?.open.value || false"
       :data-state="injectedValue?.open.value ? 'open' : 'closed'"
+      :as-child="props.asChild"
       @click="handleClick"
     >
       <slot />

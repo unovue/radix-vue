@@ -1,11 +1,9 @@
 <script lang="ts">
-export interface SelectGroupRootProps {
-  asChild?: boolean;
-}
+export interface SelectGroupRootProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { PrimitiveDiv } from "@/Primitive";
+import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
 
 const props = defineProps<SelectGroupRootProps>();
 </script>

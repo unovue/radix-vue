@@ -2,7 +2,6 @@
 export type Boundary = Element | null | Array<Element | null>;
 
 export interface DropdownMenuSubContentProps extends PopperContentProps {
-  asChild?: boolean;
   loop?: boolean; //false
   //onOpenAutoFocus?: void;
   //onCloseAutoFocus?: void;
@@ -107,7 +106,7 @@ onClickOutside(tooltipContentElement, (event) => {
       :data-orientation="injectedValue.orientation"
       :aria-labelledby="injectedValue.triggerId"
       role="tooltip"
-      :asChild="props.asChild"
+      :as-child="props.asChild"
       style="pointer-events: auto"
     >
       <slot />

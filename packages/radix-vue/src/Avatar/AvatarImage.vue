@@ -1,6 +1,5 @@
 <script lang="ts">
-export interface AvatarImageProps {
-  asChild?: boolean;
+export interface AvatarImageProps extends PrimitiveProps {
   onLoadingStatusChange?: void;
 }
 </script>
@@ -11,13 +10,11 @@ import {
   AVATAR_INJECTION_KEY,
   type AvatarProvideValue,
 } from "./AvatarRoot.vue";
-import { PrimitiveImg } from "../Primitive";
+import { PrimitiveImg, type PrimitiveProps } from "../Primitive";
 
 const injectedValue = inject<AvatarProvideValue>(AVATAR_INJECTION_KEY);
 
-withDefaults(defineProps<AvatarImageProps>(), {
-  asChild: false,
-});
+const props = defineProps<AvatarImageProps>();
 
 function setImageLoad() {
   injectedValue!.imageLoadingStatus.value = "loaded";
@@ -25,5 +22,5 @@ function setImageLoad() {
 </script>
 
 <template>
-  <PrimitiveImg :asChild="asChild" @load="setImageLoad" />
+  <PrimitiveImg :as-child="props.asChild" @load="setImageLoad" />
 </template>

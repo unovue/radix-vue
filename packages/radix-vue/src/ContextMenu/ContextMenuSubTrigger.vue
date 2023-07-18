@@ -1,6 +1,5 @@
 <script lang="ts">
-export interface ContextMenuSubTriggerProps {
-  asChild?: boolean;
+export interface ContextMenuSubTriggerProps extends PrimitiveProps {
   disabled?: boolean;
   textValue?: string;
 }
@@ -17,8 +16,10 @@ import {
   type ContextMenuSubProvideValue,
 } from "./ContextMenuSub.vue";
 import { PopperAnchor } from "@/Popper";
-import { usePrimitiveElement } from "@/Primitive";
+import { usePrimitiveElement, type PrimitiveProps } from "@/Primitive";
 import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
+
+const props = defineProps<ContextMenuSubTriggerProps>();
 
 const rootInjectedValue = inject<ContextMenuProvideValue>(
   CONTEXT_MENU_INJECTION_KEY
@@ -74,6 +75,7 @@ function handleMouseover() {
       :aria-expanded="injectedValue?.modelValue.value"
       :aria-controls="injectedValue?.contentId"
       :data-state="dataState"
+      :as-child="props.asChild"
       :data-orientation="rootInjectedValue?.orientation"
       aria-haspopup="menu"
       @handle-click="handleClick"

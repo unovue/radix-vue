@@ -1,7 +1,8 @@
 <script lang="ts">
 import type { DataOrientation } from "../types";
+import { type PrimitiveProps } from "@/Primitive";
 
-export interface BaseSeparatorProps {
+export interface BaseSeparatorProps extends PrimitiveProps {
   orientation?: DataOrientation;
   decorative?: boolean;
 }
@@ -16,8 +17,7 @@ const props = withDefaults(defineProps<BaseSeparatorProps>(), {
 </script>
 
 <template>
-  <PrimitiveDiv
-    :data-orientation="props.orientation"
-    :role="`${decorative ? 'none' : 'separator'}`"
-  ></PrimitiveDiv>
+  <PrimitiveDiv v-bind="props" :role="`${decorative ? 'none' : 'separator'}`">
+    <slot></slot>
+  </PrimitiveDiv>
 </template>

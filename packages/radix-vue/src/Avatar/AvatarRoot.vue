@@ -3,9 +3,7 @@ import type { Ref, InjectionKey } from "vue";
 
 type ImageLoadingStatus = "loading" | "loaded";
 
-export interface AvatarRootProps {
-  asChild?: boolean;
-}
+export interface AvatarRootProps extends PrimitiveProps {}
 
 export const AVATAR_INJECTION_KEY =
   Symbol() as InjectionKey<AvatarProvideValue>;
@@ -17,13 +15,11 @@ export interface AvatarProvideValue {
 
 <script setup lang="ts">
 import { ref, provide } from "vue";
-import { PrimitiveSpan } from "../Primitive";
+import { PrimitiveSpan, type PrimitiveProps } from "../Primitive";
 
 const imageLoadingStatusRef = ref<ImageLoadingStatus>("loading");
 
-const props = withDefaults(defineProps<AvatarRootProps>(), {
-  asChild: false,
-});
+const props = defineProps<AvatarRootProps>();
 
 provide<AvatarProvideValue>(AVATAR_INJECTION_KEY, {
   imageLoadingStatus: imageLoadingStatusRef,
@@ -31,7 +27,7 @@ provide<AvatarProvideValue>(AVATAR_INJECTION_KEY, {
 </script>
 
 <template>
-  <PrimitiveSpan :asChild="props.asChild">
+  <PrimitiveSpan :as-child="props.asChild">
     <slot />
   </PrimitiveSpan>
 </template>

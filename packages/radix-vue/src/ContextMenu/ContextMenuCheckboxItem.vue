@@ -1,8 +1,8 @@
 <script lang="ts">
 import { useVModel } from "@vueuse/core";
+import { type PrimitiveProps } from "@/Primitive";
 
-interface ContextMenuCheckboxItemProps {
-  asChild?: boolean;
+interface ContextMenuCheckboxItemProps extends PrimitiveProps {
   checked?: boolean;
   //onCheckedChange?: void;
   modelValue?: boolean;
@@ -60,6 +60,7 @@ provide(CONTEXT_MENU_ITEM_SYMBOL, {
     :disabled="props.disabled"
     :rootProvider="injectedValue"
     :orientation="injectedValue?.orientation"
+    :as-child="props.asChild"
     @handle-click="handleClick"
     @escape-keydown="handleEscape"
     role="menuitemcheckbox"

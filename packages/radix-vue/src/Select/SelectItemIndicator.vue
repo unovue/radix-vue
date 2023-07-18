@@ -1,19 +1,20 @@
 <script lang="ts">
-export interface SelectItemIndicatorProps {
-  asChild?: boolean;
+export interface SelectItemIndicatorProps extends PrimitiveProps {
   forceMount?: boolean;
 }
 </script>
 
 <script setup lang="ts">
 import { inject, computed } from "vue";
-import { PrimitiveSpan } from "@/Primitive";
+import { PrimitiveSpan, type PrimitiveProps } from "@/Primitive";
 import { SELECT_ITEM_SYMBOL } from "./utils";
 import { type SelectItemProvideValue } from "./SelectItem.vue";
 import {
   SELECT_INJECTION_KEY,
   type SelectProvideValue,
 } from "./SelectRoot.vue";
+
+const props = defineProps<SelectItemIndicatorProps>();
 
 const rootInjectedValue = inject<SelectProvideValue>(SELECT_INJECTION_KEY);
 const selectItemInjectedValue =
@@ -37,6 +38,7 @@ const visibleState = computed(() => {
     v-if="visibleState"
     aria-hidden="true"
     style="pointer-events: none"
+    :as-child="props.asChild"
   >
     <slot />
   </PrimitiveSpan>

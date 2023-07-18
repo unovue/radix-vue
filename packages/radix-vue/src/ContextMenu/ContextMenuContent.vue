@@ -5,7 +5,6 @@ import { useCollection } from "@/shared";
 export type Boundary = Element | null | Array<Element | null>;
 
 export interface ContextMenuContentProps extends PopperContentProps {
-  asChild?: boolean;
   loop?: boolean; //false
   //onOpenAutoFocus?: void;
   //onCloseAutoFocus?: void;

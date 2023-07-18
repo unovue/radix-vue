@@ -10,9 +10,9 @@ import {
   type RadioGroupProvideValue,
 } from "./DropdownMenuRadioGroup.vue";
 import { DROPDOWN_MENU_ITEM_SYMBOL } from "./utils";
+import { type PrimitiveProps } from "@/Primitive";
 
-interface RadioGroupItemProps {
-  asChild?: boolean;
+interface RadioGroupItemProps extends PrimitiveProps {
   value?: string;
   disabled?: boolean;
   id?: string;
@@ -63,6 +63,7 @@ provide(DROPDOWN_MENU_ITEM_SYMBOL, {
     @click="handleClick"
     role="menuitemradio"
     :data-state="radioDataState"
+    :as-child="props.asChild"
   >
     <slot />
   </BaseMenuItem>

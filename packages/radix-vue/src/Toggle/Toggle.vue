@@ -1,8 +1,7 @@
 <script lang="ts">
 type DataState = "on" | "off";
 
-export interface ToggleProps {
-  asChild?: boolean;
+export interface ToggleProps extends PrimitiveProps {
   defaultPressed?: boolean;
   pressed?: boolean;
   // onPressedChange?: void;
@@ -17,10 +16,9 @@ export interface ToggleProps {
 <script setup lang="ts">
 import { computed } from "vue";
 import { useVModel } from "@vueuse/core";
-import { PrimitiveDiv } from "@/Primitive";
+import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
 
 const props = withDefaults(defineProps<ToggleProps>(), {
-  asChild: false,
   disabled: false,
   defaultPressed: false,
   pressed: undefined,
@@ -55,6 +53,7 @@ function handleKeydown(e: KeyboardEvent) {
     :aria-checked="pressed"
     :data-state="dataState"
     :data-disabled="props.disabled"
+    :as-child="props.asChild"
     style="position: relative"
   >
     <input

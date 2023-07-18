@@ -2,14 +2,20 @@
 import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
 import { NAVIGATION_MENU_ITEM_INJECTION_KEY } from "./NavigationMenuItem.vue";
 import { computed, inject, onMounted, ref, type VNode } from "vue";
-import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveButton,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import { VisuallyHidden } from "@/VisuallyHidden";
 import { makeTriggerId, makeContentId, getOpenState } from "./utils";
 import { unrefElement } from "@vueuse/core";
 
-const props = defineProps<{
+interface NavigationMenuTriggerProps extends PrimitiveProps {
   disabled?: boolean;
-}>();
+}
+
+const props = defineProps<NavigationMenuTriggerProps>();
 defineOptions({
   inheritAttrs: false,
 });
@@ -109,6 +115,7 @@ const handleVisuallyHiddenFocus = (ev: FocusEvent) => {
     :data-state="getOpenState(open)"
     :aria-expanded="open"
     :aria-controls="contentId"
+    :as-child="props.asChild"
     @pointerenter="handlePointerEnter"
     @pointermove="handlePointerMove"
     @pointerleave="handlePointerLeave"

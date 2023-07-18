@@ -1,8 +1,8 @@
 <script lang="ts">
 import { useVModel } from "@vueuse/core";
+import { type PrimitiveProps } from "@/Primitive";
 
-interface MenubarCheckboxItemProps {
-  asChild?: boolean;
+interface MenubarCheckboxItemProps extends PrimitiveProps {
   checked?: boolean;
   //onCheckedChange?: void;
   modelValue?: boolean;
@@ -85,6 +85,7 @@ function handleEscapeKeydown(e: KeyboardEvent) {
     role="menuitemcheckbox"
     :data-state="checkboxDataState"
     :aria-checked="props.modelValue ? true : false"
+    :as-child="props.asChild"
   >
     <input
       type="checkbox"

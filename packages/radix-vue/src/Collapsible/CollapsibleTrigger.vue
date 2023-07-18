@@ -1,12 +1,10 @@
 <script lang="ts">
-export interface CollapsibleTriggerProps {
-  asChild?: boolean;
-}
+export interface CollapsibleTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
 import { inject } from "vue";
-import { PrimitiveButton } from "../Primitive";
+import { PrimitiveButton, type PrimitiveProps } from "../Primitive";
 import {
   COLLAPSIBLE_INJECTION_KEY,
   type CollapsibleProvideValue,
@@ -16,15 +14,13 @@ const injectedValue = inject<CollapsibleProvideValue>(
   COLLAPSIBLE_INJECTION_KEY
 );
 
-const props = withDefaults(defineProps<CollapsibleTriggerProps>(), {
-  asChild: false,
-});
+const props = defineProps<CollapsibleTriggerProps>();
 </script>
 
 <template>
   <PrimitiveButton
     type="button"
-    :asChild="props.asChild"
+    :as-child="props.asChild"
     :aria-controls="injectedValue?.contentId"
     :aria-expanded="injectedValue?.open.value || false"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"

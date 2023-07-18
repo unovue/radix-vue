@@ -1,8 +1,7 @@
 <script lang="ts">
-import { PrimitiveLabel } from "@/Primitive";
+import { PrimitiveLabel, type PrimitiveProps } from "@/Primitive";
 
-interface ContextMenuLabelProps {
-  asChild?: boolean;
+interface ContextMenuLabelProps extends PrimitiveProps {
   for?: string;
 }
 </script>
@@ -12,5 +11,5 @@ const props = defineProps<ContextMenuLabelProps>();
 </script>
 
 <template>
-  <PrimitiveLabel :for="props.for"><slot /></PrimitiveLabel>
+  <PrimitiveLabel v-bind="props"><slot /></PrimitiveLabel>
 </template>

@@ -9,9 +9,9 @@ import {
   CONTEXT_MENU_SUB_INJECTION_KEY,
   type ContextMenuSubProvideValue,
 } from "./ContextMenuSub.vue";
+import { type PrimitiveProps } from "@/Primitive";
 
-interface ContextMenuItemProps {
-  asChild?: boolean;
+interface ContextMenuItemProps extends PrimitiveProps {
   value?: string;
   disabled?: boolean;
   //onSelect?: void;
@@ -45,6 +45,7 @@ function handleEscape() {
     :rootProvider="rootInjectedValue"
     :subProvider="subInjectedValue"
     :orientation="rootInjectedValue?.orientation"
+    :as-child="props.asChild"
     @handle-click="handleClick"
     @escape-keydown="handleEscape"
   >

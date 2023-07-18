@@ -23,7 +23,7 @@ export interface ScrollAreaProvideValue {
   // onCornerHeightChange?(height: number): void;
 }
 
-export interface ScrollAreaRootProps {
+export interface ScrollAreaRootProps extends PrimitiveProps {
   type?: ScrollAreaProvideValue["type"];
   dir?: ScrollAreaProvideValue["dir"];
   scrollHideDelay?: number;
@@ -34,12 +34,19 @@ export const SCROLL_AREA_INJECTION_KEY = "ScrollArea" as const;
 
 <script setup lang="ts">
 import { ref, provide } from "vue";
+import {
+  PrimitiveDiv,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 
 const props = withDefaults(defineProps<ScrollAreaRootProps>(), {
   type: "hover",
   dir: "ltr",
   scrollHideDelay: 600,
 });
+
+const { primitiveElement, currentElement: scrollArea } = usePrimitiveElement();
 
 const cornerWidth = ref(0);
 const cornerHeight = ref(0);
@@ -49,7 +56,6 @@ const scrollbarX = ref<HTMLElement>();
 const scrollbarY = ref<HTMLElement>();
 const scrollbarXEnabled = ref(false);
 const scrollbarYEnabled = ref(false);
-const scrollArea = ref<HTMLElement>();
 
 const onViewportChange = (el: HTMLElement) => {
   viewport.value = el;
@@ -93,8 +99,9 @@ provide<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY, {
 </script>
 
 <template>
-  <div
-    ref="scrollArea"
+  <PrimitiveDiv
+    ref="primitiveElement"
+    :as-child="props.asChild"
     :style="{
     position: 'relative',
     // Pass corner sizes as CSS vars to reduce re-renders of context consumers
@@ -103,5 +110,5 @@ provide<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY, {
   }"
   >
     <slot />
-  </div>
+  </PrimitiveDiv>
 </template>

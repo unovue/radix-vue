@@ -9,9 +9,7 @@ export type PopperContentContextValue = {
   shouldHideArrow: Ref<boolean>;
 };
 
-export interface PopperContentProps {
-  asChild?: boolean;
-
+export interface PopperContentProps extends PrimitiveProps {
   side?: Side;
   sideOffset?: number;
   align?: Align;
@@ -37,7 +35,7 @@ export default {
 
 <script setup lang="ts">
 import { computed, inject, provide, ref, watchEffect } from "vue";
-import { PrimitiveDiv } from "@/Primitive";
+import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
 import { POPPER_ROOT_KEY } from "./PopperRoot.vue";
 import { useSize } from "@/shared";
 import { computedEager } from "@vueuse/core";

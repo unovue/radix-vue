@@ -65,8 +65,8 @@ We would love to have your contributions! All PRs all welcomed! We need help bui
 ### Package
 
 1. Clone the repo
-2. Go to the repo directory: `cd radix-vue`
-3. Run `pnpm run start`
+2. Run `pnpm i`
+3. Run `pnpm story:dev` to run histoire (storybook)
 
 ## Community
 

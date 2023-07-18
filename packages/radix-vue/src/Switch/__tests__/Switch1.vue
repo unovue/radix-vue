@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import SwitchRoot from "../SwitchRoot.vue";
 import SwitchThumb from "../SwitchThumb.vue";
 import { ref } from "vue";

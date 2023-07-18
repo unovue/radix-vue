@@ -15,15 +15,10 @@ const props = defineProps<ProgressIndicatorProps>();
 
 <template>
   <PrimitiveDiv
-    :data-state="
-      injectedValue?.modelValue === injectedValue?.max ? 'complete' : 'loading'
-    "
-    :data-value="injectedValue?.modelValue"
-    :data-max="injectedValue?.max"
-    :as-child="props.asChild"
-    :style="`left: 0%; right: ${
-      (injectedValue?.max ?? 100) - (injectedValue?.modelValue?.value ?? 0)
-    }%`"
+    v-bind="props"
+    :data-state="injectedValue?.progressState.value"
+    :data-value="injectedValue?.modelValue?.value ?? undefined"
+    :data-max="injectedValue?.max.value"
   >
     <slot />
   </PrimitiveDiv>

@@ -1,5 +1,5 @@
 import { render, fireEvent, screen } from "@testing-library/vue";
-import { describe, expect, test } from "vitest";
+import { describe, test } from "vitest";
 import Switch1 from "./Switch1.vue";
 
 describe("test switch functionalities", () => {
@@ -45,7 +45,7 @@ describe("test switch functionalities", () => {
     screen.getByText("unchecked");
   });
 
-  
+
   test("root has data state & reactive", async () => {
     const { container } = render(Switch1);
     const root = container.querySelector("input")!;

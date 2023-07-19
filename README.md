@@ -67,6 +67,7 @@ We would love to have your contributions! All PRs all welcomed! We need help bui
 1. Clone the repo
 2. Run `pnpm i`
 3. Run `pnpm story:dev` to run histoire (storybook)
+4. Open `http://localhost:6006`
 
 ## Community
 

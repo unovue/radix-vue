@@ -59,24 +59,19 @@ npm install radix-vue
 
 Import all parts and piece them together.
 
-```jsx
+```vue
 <script setup>
-import { Separator } from "radix-vue";
+import { TabsRoot, TabsList, TabsTrigger, TabsContent } from "radix-vue";
 </script>
 
 <template>
-  <Separator />
+  <TabsRoot>
+    <TabsList>
+      <TabsTrigger />
+    </TabsList>
+    <TabsContent />
+  </TabsRoot>
 </template>
-import * as Tabs from 'radix-vue';
-
-export default () => (
-  <Tabs.Root>
-    <Tabs.List>
-      <Tabs.Trigger />
-    </Tabs.List>
-    <Tabs.Content />
-  </Tabs.Root>
-);
 ```
 
 ## API Reference
@@ -84,9 +79,9 @@ export default () => (
 ### Root
 
 Contains all the tabs component parts.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -99,18 +94,13 @@ Contains all the tabs component parts.
       required: false,
       type: 'string',
       description:
-        'The value of the tab that should be active when initially rendered. Use when you do not need to control the state of the tabs.',
+        'The value of the tab that should be active when initially rendered. Use when you do not need to control the state of the tabs',
     },
     {
       name: 'value',
       required: false,
       type: 'string',
-      description: (
-        <span>
-          The controlled value of the tab to activate. Should be used in
-          conjunction with <Code>onValueChange</Code>.
-        </span>
-      ),
+      description: '<span> The controlled value of the tab to activate. Should be used in conjunction with <Code>onValueChange</Code>.</span>',
     },
     {
       name: 'onValueChange',
@@ -122,55 +112,44 @@ Contains all the tabs component parts.
     {
       name: 'orientation',
       required: false,
-      type: '"horizontal" | "vertical" | undefined',
+      type: '&quot;horizontal&quot; | &quot;vertical&quot; | undefined',
       typeSimple: 'enum',
-      default: '"horizontal"',
+      default: '&quot;horizontal&quot;',
       description: 'The orientation of the component.',
     },
     {
       name: 'dir',
       required: false,
-      type: '"ltr" | "rtl"',
+      type: '&quot;ltr&quot; | &quot;rtl&quot;',
       typeSimple: 'enum',
-      description: (
-        <span>
-          The reading direction of the tabs. If omitted, inherits globally from{' '}
-          <Code>DirectionProvider</Code> or assumes LTR (left-to-right) reading
-          mode.
-        </span>
-      ),
+      description: '<span> The reading direction of the tabs If omitted, inherits globally from <Code>DirectionProvider</Code> or assumes LTR (left-to-right) reading mode.</span>',
     },
     {
       name: 'activationMode',
       required: false,
-      type: '"automatic" | "manual"',
+      type: '&quot;automatic&quot; | &quot;manual&quot;',
       typeSimple: 'enum',
-      default: '"automatic"',
-      description: (
-        <span>
-          When <Code>automatic</Code>, tabs are activated when receiving focus.
-          When <Code>manual</Code>, tabs are activated when clicked.
-        </span>
-      ),
+      default: '&quot;automatic&quot;',
+      description: '<span> When <Code>automatic</Code>, tabs are activated when receiving focus. When <Code>manual</Code>, tabs are activated when clicked.</span>',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
+  ]"
 />
-```
+
 ### List
 
 Contains the triggers that are aligned along the edge of the active content.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -183,31 +162,26 @@ Contains the triggers that are aligned along the edge of the active content.
       required: false,
       type: 'boolean',
       default: 'true',
-      description: (
-        <span>
-          When <Code>true</Code>, keyboard navigation will loop from last tab to
-          first, and vice versa.
-        </span>
-      ),
+      description: '<span> When <Code>true</Code>, keyboard navigation will loop from last tab to first, and vice versa.</span>',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
+  ]"
 />
-```
+
 ### Trigger
 
 The button that activates its associated content.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -226,18 +200,13 @@ The button that activates its associated content.
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <span>
-          When <Code>true</Code>, prevents the user from interacting with the
-          tab.
-        </span>
-      ),
+      description: '<span> When <Code>true</Code>, prevents the user from interacting with the tab.</span>',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['active', 'inactive'],
@@ -250,15 +219,15 @@ The button that activates its associated content.
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
+  ]"
 />
-```
+
 ### Content
 
 Contains the content associated with each trigger.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -275,18 +244,13 @@ Contains the content associated with each trigger.
     {
       name: 'forceMount',
       type: 'boolean',
-      description: (
-        <span>
-          Used to force mounting when more control is needed. Useful when
-          controlling animation with Vue.js animation libraries.
-        </span>
-      ),
+      description: '<span> Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.</span>',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['active', 'inactive'],
@@ -295,30 +259,32 @@ Contains the content associated with each trigger.
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
+  ]"
 />
-```
+
 ## Examples
 
 ### Vertical
 
 You can create vertical tabs by using the `orientation` prop.
 
-```jsx line=4
-import * as Tabs from 'radix-vue';
+```vue line=6
+<script setup>
+import { TabsRoot, TabsList, TabsTrigger, TabsContent } from "radix-vue";
+</script>
 
-export default () => (
-  <Tabs.Root defaultValue="tab1" __orientation__="vertical">
-    <Tabs.List aria-label="tabs example">
-      <Tabs.Trigger value="tab1">One</Tabs.Trigger>
-      <Tabs.Trigger value="tab2">Two</Tabs.Trigger>
-      <Tabs.Trigger value="tab3">Three</Tabs.Trigger>
-    </Tabs.List>
-    <Tabs.Content value="tab1">Tab one content</Tabs.Content>
-    <Tabs.Content value="tab2">Tab two content</Tabs.Content>
-    <Tabs.Content value="tab3">Tab three content</Tabs.Content>
-  </Tabs.Root>
-);
+<template>
+  <TabsRoot defaultValue="tab1" orientation="vertical">
+    <TabsList aria-label="tabs example">
+      <TabsTrigger value="tab1">One</TabsTrigger>
+      <TabsTrigger value="tab2">Two</TabsTrigger>
+      <TabsTrigger value="tab3">Three</TabsTrigger>
+    </TabsList>
+    <TabsContent value="tab1">Tab one content</TabsContent>
+    <TabsContent value="tab2">Tab two content</TabsContent>
+    <TabsContent value="tab3">Tab three content</TabsContent>
+  </TabsRoot>
+</template>
 ```
 
 ## Accessibility
@@ -326,70 +292,36 @@ export default () => (
 Adheres to the [Tabs WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel).
 
 ### Keyboard Interactions
-```
+
 <KeyboardTable
-  data={[
+  :data="[
     {
       keys: ['Tab'],
-      description: (
-        <span>
-          When focus moves onto the tabs, focuses the active trigger. When a
-          trigger is focused, moves focus to the active content.
-        </span>
-      ),
+      description: '<span> When focus moves onto the tabs, focuses the active trigger. When a trigger is focused, moves focus to the active content.</span>',
     },
     {
       keys: ['ArrowDown'],
-      description: (
-        <span>
-          Moves focus to the next trigger depending on <Code>orientation</Code>{' '}
-          and activates its associated content.
-        </span>
-      ),
+      description: '<span> Moves focus to the next trigger depending on <Code>orientation</Code> and activates its associated content.</span>',
     },
     {
       keys: ['ArrowRight'],
-      description: (
-        <span>
-          Moves focus to the next trigger depending on <Code>orientation</Code>{' '}
-          and activates its associated content.
-        </span>
-      ),
+      description: '<span> Moves focus to the next trigger depending on <Code>orientation</Code> and activates its associated content.</span>',
     },
     {
       keys: ['ArrowUp'],
-      description: (
-        <span>
-          Moves focus to the previous trigger depending on{' '}
-          <Code>orientation</Code> and activates its associated content.
-        </span>
-      ),
+      description: '<span> Moves focus to the previous trigger depending on <Code>orientation</Code> and activates its associated content.</span>',
     },
     {
       keys: ['ArrowLeft'],
-      description: (
-        <span>
-          Moves focus to the previous trigger depending on{' '}
-          <Code>orientation</Code> and activates its associated content.
-        </span>
-      ),
+      description: '<span> Moves focus to the previous trigger depending on <Code>orientation</Code> and activates its associated content.</span>',
     },
     {
       keys: ['Home'],
-      description: (
-        <span>
-          Moves focus to the first trigger and activates its associated content.
-        </span>
-      ),
+      description: '<span> Moves focus to the first trigger and activates its associated content.</span>',
     },
     {
       keys: ['End'],
-      description: (
-        <span>
-          Moves focus to the last trigger and activates its associated content.
-        </span>
-      ),
+      description: '<span> Moves focus to the last trigger and activates its associated content.</span>',
     },
-  ]}
+  ]"
 />
-```

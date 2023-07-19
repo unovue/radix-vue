@@ -32,7 +32,7 @@ describe("test switch functionalities", () => {
     await fireEvent.keyDown(input, { key: "Enter" });
     screen.getByText("unchecked");
   });
-/*
+  /*
   test("keydown space root will toggle value", async () => {
     const { container } = render(Switch1);
     const input = container.querySelector("input")!;

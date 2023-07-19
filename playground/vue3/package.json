@@ -8,10 +8,7 @@
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "story:dev": "histoire dev",
-    "story:build": "histoire build",
-    "story:preview": "histoire preview"
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "radix-vue": "link:../../packages/radix-vue",
@@ -19,14 +16,12 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.39.7",
-    "@histoire/plugin-vue": "^0.16.1",
     "@iconify/vue": "^4.1.1",
     "@radix-ui/colors": "^1.0.0",
     "@rollup/plugin-alias": "^5.0.0",
     "@vitejs/plugin-vue": "^4.1.0",
     "autoprefixer": "^10.4.14",
     "eslint": "^8.43.0",
-    "histoire": "^0.16.2",
     "postcss": "^8.4.24",
     "tailwindcss": "^3.3.2",
     "typescript": "^5.0.2",

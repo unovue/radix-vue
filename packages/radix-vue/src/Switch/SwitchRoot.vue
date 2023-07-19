@@ -74,7 +74,6 @@ function handleKeydown(e: KeyboardEvent) {
       type="checkbox"
       :id="props.id"
       v-bind="open"
-      :checked="open"
       :name="props.name"
       @click="toggleOpen"
       @keydown="handleKeydown"

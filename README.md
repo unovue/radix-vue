@@ -23,7 +23,7 @@ For changelog, visit [radix-vue.com/overview/releases](https://radix-vue.com/ove
 
 | Component                                                           | Usable | Complete API | Complete Accessibility |
 | :------------------------------------------------------------------ | :----: | ------------ | ---------------------- |
-| [Accordion](https://radix-vue.com/components/accordion)             |   ✅   |              |                        |
+| [Accordion](https://radix-vue.com/components/accordion)             |   ✅   | ✅           | ✅                     |
 | [Alert Dialog](https://radix-vue.com/components/alert-dialog)       |   ✅   | ✅           |                        |
 | [Aspect Ratio](https://radix-vue.com/components/aspect-ratio)       |   ✅   | ✅           |                        |
 | [Avatar](https://radix-vue.com/components/avatar)                   |   ✅   | ✅           |                        |

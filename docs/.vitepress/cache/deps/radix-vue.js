@@ -17,7 +17,6 @@ import {
   inject,
   mergeProps,
   nextTick,
-  normalizeClass,
   normalizeProps,
   normalizeStyle,
   onMounted,
@@ -45,56 +44,56 @@ import {
   withModifiers
 } from "./chunk-OX6HOUGK.js";
 
-// node_modules/.pnpm/radix-vue@0.1.5_vue@3.3.4/node_modules/radix-vue/dist/index.js
-var Ct = (n, t) => {
+// node_modules/.pnpm/radix-vue@0.1.8_vue@3.3.4/node_modules/radix-vue/dist/index.js
+var xt = (n, o) => {
   const e = n.__vccOpts || n;
-  for (const [o, a] of t)
-    e[o] = a;
+  for (const [t, l] of o)
+    e[t] = l;
   return e;
 };
-var Yn = {};
-function Wn(n, t) {
-  var e, o, a;
+var Wn = {};
+function Un(n, o) {
+  var e, t, l;
   return openBlock(), createBlock(resolveDynamicComponent(
     // @ts-ignore we can ignore this as we have validated the existence of 1 child in Primitive.vue
-    (a = (o = (e = n.$slots).default) == null ? void 0 : o.call(e)[0].children) == null ? void 0 : a[0]
+    (l = (t = (e = n.$slots).default) == null ? void 0 : t.call(e)[0].children) == null ? void 0 : l[0]
   ), normalizeProps(guardReactiveProps(n.$attrs)), null, 16);
 }
-var Un = Ct(Yn, [["render", Wn]]);
-var qn = Object.defineProperty;
-var Gn = Object.defineProperties;
+var qn = xt(Wn, [["render", Un]]);
+var Gn = Object.defineProperty;
+var Fn = Object.defineProperties;
 var Xn = Object.getOwnPropertyDescriptors;
-var ho = Object.getOwnPropertySymbols;
-var Fn = Object.prototype.hasOwnProperty;
-var Jn = Object.prototype.propertyIsEnumerable;
-var _o = (n, t, e) => t in n ? qn(n, t, { enumerable: true, configurable: true, writable: true, value: e }) : n[t] = e;
-var Zn = (n, t) => {
-  for (var e in t || (t = {}))
-    Fn.call(t, e) && _o(n, e, t[e]);
-  if (ho)
-    for (var e of ho(t))
-      Jn.call(t, e) && _o(n, e, t[e]);
+var yo = Object.getOwnPropertySymbols;
+var Jn = Object.prototype.hasOwnProperty;
+var Zn = Object.prototype.propertyIsEnumerable;
+var go = (n, o, e) => o in n ? Gn(n, o, { enumerable: true, configurable: true, writable: true, value: e }) : n[o] = e;
+var Qn = (n, o) => {
+  for (var e in o || (o = {}))
+    Jn.call(o, e) && go(n, e, o[e]);
+  if (yo)
+    for (var e of yo(o))
+      Zn.call(o, e) && go(n, e, o[e]);
   return n;
 };
-var Qn = (n, t) => Gn(n, Xn(t));
-function Vn(n, t) {
+var Vn = (n, o) => Fn(n, Xn(o));
+function jn(n, o) {
   var e;
-  const o = shallowRef();
+  const t = shallowRef();
   return watchEffect(() => {
-    o.value = n();
-  }, Qn(Zn({}, t), {
-    flush: (e = t == null ? void 0 : t.flush) != null ? e : "sync"
-  })), readonly(o);
+    t.value = n();
+  }, Vn(Qn({}, o), {
+    flush: (e = o == null ? void 0 : o.flush) != null ? e : "sync"
+  })), readonly(t);
 }
-function jn(n, t) {
-  let e, o, a;
-  const l = ref(true), r = () => {
-    l.value = true, a();
+function ea(n, o) {
+  let e, t, l;
+  const a = ref(true), r = () => {
+    a.value = true, l();
   };
   watch(n, r, { flush: "sync" });
-  const s = typeof t == "function" ? t : t.get, i = typeof t == "function" ? void 0 : t.set, d = customRef((p, c) => (o = p, a = c, {
+  const s = typeof o == "function" ? o : o.get, i = typeof o == "function" ? void 0 : o.set, d = customRef((p, c) => (t = p, l = c, {
     get() {
-      return l.value && (e = s(), l.value = false), o(), e;
+      return a.value && (e = s(), a.value = false), t(), e;
     },
     set(m) {
       i == null || i(m);
@@ -102,209 +101,209 @@ function jn(n, t) {
   }));
   return Object.isExtensible(d) && (d.trigger = r), d;
 }
-function Lo(n) {
+function zo(n) {
   return getCurrentScope() ? (onScopeDispose(n), true) : false;
 }
-function ea(n) {
-  let t = false, e;
-  const o = effectScope(true);
-  return (...a) => (t || (e = o.run(() => n(...a)), t = true), e);
+function ta(n) {
+  let o = false, e;
+  const t = effectScope(true);
+  return (...l) => (o || (e = t.run(() => n(...l)), o = true), e);
 }
-function mt(n) {
+function vt(n) {
   return typeof n == "function" ? n() : unref(n);
 }
-var Ko = typeof window < "u";
-var ta = (n) => typeof n < "u";
-var vt = () => {
+var Yo = typeof window < "u";
+var oa = (n) => typeof n < "u";
+var ht = () => {
 };
-var oa = na();
-function na() {
+var na = aa();
+function aa() {
   var n;
-  return Ko && ((n = window == null ? void 0 : window.navigator) == null ? void 0 : n.userAgent) && /iP(ad|hone|od)/.test(window.navigator.userAgent);
+  return Yo && ((n = window == null ? void 0 : window.navigator) == null ? void 0 : n.userAgent) && /iP(ad|hone|od)/.test(window.navigator.userAgent);
 }
-function aa(n, t) {
-  function e(...o) {
-    return new Promise((a, l) => {
-      Promise.resolve(n(() => t.apply(this, o), { fn: t, thisArg: this, args: o })).then(a).catch(l);
+function la(n, o) {
+  function e(...t) {
+    return new Promise((l, a) => {
+      Promise.resolve(n(() => o.apply(this, t), { fn: o, thisArg: this, args: t })).then(l).catch(a);
     });
   }
   return e;
 }
-function la(n, t = {}) {
-  let e, o, a = vt;
-  const l = (s) => {
-    clearTimeout(s), a(), a = vt;
+function ra(n, o = {}) {
+  let e, t, l = ht;
+  const a = (s) => {
+    clearTimeout(s), l(), l = ht;
   };
   return (s) => {
-    const i = mt(n), d = mt(t.maxWait);
-    return e && l(e), i <= 0 || d !== void 0 && d <= 0 ? (o && (l(o), o = null), Promise.resolve(s())) : new Promise((p, c) => {
-      a = t.rejectOnCancel ? c : p, d && !o && (o = setTimeout(() => {
-        e && l(e), o = null, p(s());
+    const i = vt(n), d = vt(o.maxWait);
+    return e && a(e), i <= 0 || d !== void 0 && d <= 0 ? (t && (a(t), t = null), Promise.resolve(s())) : new Promise((p, c) => {
+      l = o.rejectOnCancel ? c : p, d && !t && (t = setTimeout(() => {
+        e && a(e), t = null, p(s());
       }, d)), e = setTimeout(() => {
-        o && l(o), o = null, p(s());
+        t && a(t), t = null, p(s());
       }, i);
     });
   };
 }
-function Gt(n, t = 200, e = {}) {
-  return aa(
-    la(t, e),
+function Ft(n, o = 200, e = {}) {
+  return la(
+    ra(o, e),
     n
   );
 }
-function ra(n, t, e = {}) {
-  var o, a;
+function ia(n, o, e = {}) {
+  var t, l;
   const {
-    flush: l = "sync",
+    flush: a = "sync",
     deep: r = false,
     immediate: s = true,
     direction: i = "both",
     transform: d = {}
   } = e;
   let p, c;
-  const m = (o = d.ltr) != null ? o : (v) => v, f = (a = d.rtl) != null ? a : (v) => v;
+  const m = (t = d.ltr) != null ? t : (v) => v, f = (l = d.rtl) != null ? l : (v) => v;
   return (i === "both" || i === "ltr") && (p = watch(
     n,
-    (v) => t.value = m(v),
-    { flush: l, deep: r, immediate: s }
+    (v) => o.value = m(v),
+    { flush: a, deep: r, immediate: s }
   )), (i === "both" || i === "rtl") && (c = watch(
-    t,
+    o,
     (v) => n.value = f(v),
-    { flush: l, deep: r, immediate: s }
+    { flush: a, deep: r, immediate: s }
   )), () => {
     p == null || p(), c == null || c();
   };
 }
-function ia(n, t, e) {
-  const o = watch(n, (...a) => (nextTick(() => o()), t(...a)), e);
+function sa(n, o, e) {
+  const t = watch(n, (...l) => (nextTick(() => t()), o(...l)), e);
 }
-function J(n) {
-  var t;
-  const e = mt(n);
-  return (t = e == null ? void 0 : e.$el) != null ? t : e;
+function Z(n) {
+  var o;
+  const e = vt(n);
+  return (o = e == null ? void 0 : e.$el) != null ? o : e;
 }
-var xt = Ko ? window : void 0;
-function Je(...n) {
-  let t, e, o, a;
-  if (typeof n[0] == "string" || Array.isArray(n[0]) ? ([e, o, a] = n, t = xt) : [t, e, o, a] = n, !t)
-    return vt;
-  Array.isArray(e) || (e = [e]), Array.isArray(o) || (o = [o]);
-  const l = [], r = () => {
-    l.forEach((p) => p()), l.length = 0;
+var $t = Yo ? window : void 0;
+function Ze(...n) {
+  let o, e, t, l;
+  if (typeof n[0] == "string" || Array.isArray(n[0]) ? ([e, t, l] = n, o = $t) : [o, e, t, l] = n, !o)
+    return ht;
+  Array.isArray(e) || (e = [e]), Array.isArray(t) || (t = [t]);
+  const a = [], r = () => {
+    a.forEach((p) => p()), a.length = 0;
   }, s = (p, c, m, f) => (p.addEventListener(c, m, f), () => p.removeEventListener(c, m, f)), i = watch(
-    () => [J(t), mt(a)],
+    () => [Z(o), vt(l)],
     ([p, c]) => {
-      r(), p && l.push(
-        ...e.flatMap((m) => o.map((f) => s(p, m, f, c)))
+      r(), p && a.push(
+        ...e.flatMap((m) => t.map((f) => s(p, m, f, c)))
       );
     },
     { immediate: true, flush: "post" }
   ), d = () => {
     i(), r();
   };
-  return Lo(d), d;
+  return zo(d), d;
 }
-var yo = false;
-function ke(n, t, e = {}) {
-  const { window: o = xt, ignore: a = [], capture: l = true, detectIframe: r = false } = e;
-  if (!o)
+var bo = false;
+function $e(n, o, e = {}) {
+  const { window: t = $t, ignore: l = [], capture: a = true, detectIframe: r = false } = e;
+  if (!t)
     return;
-  oa && !yo && (yo = true, Array.from(o.document.body.children).forEach((m) => m.addEventListener("click", vt)));
+  na && !bo && (bo = true, Array.from(t.document.body.children).forEach((m) => m.addEventListener("click", ht)));
   let s = true;
-  const i = (m) => a.some((f) => {
+  const i = (m) => l.some((f) => {
     if (typeof f == "string")
-      return Array.from(o.document.querySelectorAll(f)).some((v) => v === m.target || m.composedPath().includes(v));
+      return Array.from(t.document.querySelectorAll(f)).some((v) => v === m.target || m.composedPath().includes(v));
     {
-      const v = J(f);
+      const v = Z(f);
       return v && (m.target === v || m.composedPath().includes(v));
     }
   }), p = [
-    Je(o, "click", (m) => {
-      const f = J(n);
+    Ze(t, "click", (m) => {
+      const f = Z(n);
       if (!(!f || f === m.target || m.composedPath().includes(f))) {
         if (m.detail === 0 && (s = !i(m)), !s) {
           s = true;
           return;
         }
-        t(m);
+        o(m);
       }
-    }, { passive: true, capture: l }),
-    Je(o, "pointerdown", (m) => {
-      const f = J(n);
+    }, { passive: true, capture: a }),
+    Ze(t, "pointerdown", (m) => {
+      const f = Z(n);
       f && (s = !m.composedPath().includes(f) && !i(m));
     }, { passive: true }),
-    r && Je(o, "blur", (m) => {
+    r && Ze(t, "blur", (m) => {
       setTimeout(() => {
         var f;
-        const v = J(n);
-        ((f = o.document.activeElement) == null ? void 0 : f.tagName) === "IFRAME" && !(v != null && v.contains(o.document.activeElement)) && t(m);
+        const v = Z(n);
+        ((f = t.document.activeElement) == null ? void 0 : f.tagName) === "IFRAME" && !(v != null && v.contains(t.document.activeElement)) && o(m);
       }, 0);
     })
   ].filter(Boolean);
   return () => p.forEach((m) => m());
 }
 function Xt(n = {}) {
-  var t;
-  const { window: e = xt } = n, o = (t = n.document) != null ? t : e == null ? void 0 : e.document, a = jn(
+  var o;
+  const { window: e = $t } = n, t = (o = n.document) != null ? o : e == null ? void 0 : e.document, l = ea(
     () => null,
-    () => o == null ? void 0 : o.activeElement
+    () => t == null ? void 0 : t.activeElement
   );
-  return e && (Je(e, "blur", (l) => {
-    l.relatedTarget === null && a.trigger();
-  }, true), Je(e, "focus", a.trigger, true)), a;
+  return e && (Ze(e, "blur", (a) => {
+    a.relatedTarget === null && l.trigger();
+  }, true), Ze(e, "focus", l.trigger, true)), l;
 }
-function sa() {
+function ua() {
   const n = ref(false);
   return getCurrentInstance() && onMounted(() => {
     n.value = true;
   }), n;
 }
-function ua(n) {
-  const t = sa();
-  return computed(() => (t.value, !!n()));
-}
 function da(n) {
+  const o = ua();
+  return computed(() => (o.value, !!n()));
+}
+function ca(n) {
   return JSON.parse(JSON.stringify(n));
 }
-var go = Object.getOwnPropertySymbols;
-var ca = Object.prototype.hasOwnProperty;
-var pa = Object.prototype.propertyIsEnumerable;
-var fa = (n, t) => {
+var wo = Object.getOwnPropertySymbols;
+var pa = Object.prototype.hasOwnProperty;
+var fa = Object.prototype.propertyIsEnumerable;
+var ma = (n, o) => {
   var e = {};
-  for (var o in n)
-    ca.call(n, o) && t.indexOf(o) < 0 && (e[o] = n[o]);
-  if (n != null && go)
-    for (var o of go(n))
-      t.indexOf(o) < 0 && pa.call(n, o) && (e[o] = n[o]);
+  for (var t in n)
+    pa.call(n, t) && o.indexOf(t) < 0 && (e[t] = n[t]);
+  if (n != null && wo)
+    for (var t of wo(n))
+      o.indexOf(t) < 0 && fa.call(n, t) && (e[t] = n[t]);
   return e;
 };
-function He(n, t, e = {}) {
-  const o = e, { window: a = xt } = o, l = fa(o, ["window"]);
+function He(n, o, e = {}) {
+  const t = e, { window: l = $t } = t, a = ma(t, ["window"]);
   let r;
-  const s = ua(() => a && "ResizeObserver" in a), i = () => {
+  const s = da(() => l && "ResizeObserver" in l), i = () => {
     r && (r.disconnect(), r = void 0);
   }, d = computed(
-    () => Array.isArray(n) ? n.map((m) => J(m)) : [J(n)]
+    () => Array.isArray(n) ? n.map((m) => Z(m)) : [Z(n)]
   ), p = watch(
     d,
     (m) => {
-      if (i(), s.value && a) {
-        r = new ResizeObserver(t);
+      if (i(), s.value && l) {
+        r = new ResizeObserver(o);
         for (const f of m)
-          f && r.observe(f, l);
+          f && r.observe(f, a);
       }
     },
     { immediate: true, flush: "post", deep: true }
   ), c = () => {
     i(), p();
   };
-  return Lo(c), {
+  return zo(c), {
     isSupported: s,
     stop: c
   };
 }
-function K(n, t, e, o = {}) {
-  var a, l, r;
+function K(n, o, e, t = {}) {
+  var l, a, r;
   const {
     clone: s = false,
     passive: i = false,
@@ -312,157 +311,157 @@ function K(n, t, e, o = {}) {
     deep: p = false,
     defaultValue: c,
     shouldEmit: m
-  } = o, f = getCurrentInstance(), v = e || (f == null ? void 0 : f.emit) || ((a = f == null ? void 0 : f.$emit) == null ? void 0 : a.bind(f)) || ((r = (l = f == null ? void 0 : f.proxy) == null ? void 0 : l.$emit) == null ? void 0 : r.bind(f == null ? void 0 : f.proxy));
-  let h2 = d;
-  t || (t = "modelValue"), h2 = h2 || `update:${t.toString()}`;
-  const y = (S) => s ? typeof s == "function" ? s(S) : da(S) : S, C = () => ta(n[t]) ? y(n[t]) : c, $ = (S) => {
-    m ? m(S) && v(h2, S) : v(h2, S);
+  } = t, f = getCurrentInstance(), v = e || (f == null ? void 0 : f.emit) || ((l = f == null ? void 0 : f.$emit) == null ? void 0 : l.bind(f)) || ((r = (a = f == null ? void 0 : f.proxy) == null ? void 0 : a.$emit) == null ? void 0 : r.bind(f == null ? void 0 : f.proxy));
+  let g = d;
+  o || (o = "modelValue"), g = g || `update:${o.toString()}`;
+  const h2 = (S) => s ? typeof s == "function" ? s(S) : ca(S) : S, x = () => oa(n[o]) ? h2(n[o]) : c, C = (S) => {
+    m ? m(S) && v(g, S) : v(g, S);
   };
   if (i) {
-    const S = C(), P = ref(S);
+    const S = x(), B = ref(S);
     return watch(
-      () => n[t],
-      (R) => P.value = y(R)
+      () => n[o],
+      (R) => B.value = h2(R)
     ), watch(
-      P,
+      B,
       (R) => {
-        (R !== n[t] || p) && $(R);
+        (R !== n[o] || p) && C(R);
       },
       { deep: p }
-    ), P;
+    ), B;
   } else
     return computed({
       get() {
-        return C();
+        return x();
       },
       set(S) {
-        $(S);
+        C(S);
       }
     });
 }
-var Ho = (n, t) => {
-  const e = (o) => {
-    const a = J(n);
-    (a == null ? void 0 : a.contains(o.relatedTarget)) || t(o);
+var Wo = (n, o) => {
+  const e = (t) => {
+    const l = Z(n);
+    (l == null ? void 0 : l.contains(t.relatedTarget)) || o(t);
   };
   onMounted(() => {
-    const o = J(n);
-    o == null || o.addEventListener("focusout", e);
+    const t = Z(n);
+    t == null || t.addEventListener("focusout", e);
   }), onUnmounted(() => {
-    const o = J(n);
-    o == null || o.removeEventListener("focusout", e);
+    const t = Z(n);
+    t == null || t.removeEventListener("focusout", e);
   });
 };
-function oe(n, t, e, o = {}) {
+function ne(n, o, e, t = {}) {
   const {
-    arrowKeyOptions: a = "both",
-    attributeName: l = "data-radix-vue-collection-item",
+    arrowKeyOptions: l = "both",
+    attributeName: a = "data-radix-vue-collection-item",
     itemsArray: r = [],
     loop: s = true,
     dir: i = "ltr",
     preventScroll: d = true
-  } = o, [p, c, m, f] = [
+  } = t, [p, c, m, f] = [
     n.key === "ArrowRight",
     n.key === "ArrowLeft",
     n.key === "ArrowUp",
     n.key === "ArrowDown"
-  ], v = m || f, h2 = p || c;
-  if (!v && !h2 || a === "vertical" && h2 || a === "horizontal" && v)
+  ], v = m || f, g = p || c;
+  if (!v && !g || l === "vertical" && g || l === "horizontal" && v)
     return null;
-  const y = e ? Array.from(e.querySelectorAll(`[${l}]`)) : r;
-  return y.length ? (d && n.preventDefault(), zo(y, t, {
+  const h2 = e ? Array.from(e.querySelectorAll(`[${a}]`)) : r;
+  return h2.length ? (d && n.preventDefault(), Uo(h2, o, {
     goForward: v ? f : i === "ltr" ? p : c,
     loop: s
   })) : null;
 }
-function zo(n, t, { goForward: e, loop: o }, a = n.length) {
-  if (--a === 0)
+function Uo(n, o, { goForward: e, loop: t }, l = n.length) {
+  if (--l === 0)
     return null;
-  const l = n.indexOf(t), r = e ? l + 1 : l - 1;
-  if (!o && (r < 0 || r >= n.length))
+  const a = n.indexOf(o), r = e ? a + 1 : a - 1;
+  if (!t && (r < 0 || r >= n.length))
     return null;
   const s = (r + n.length) % n.length, i = n[s];
-  return i ? i.hasAttribute("disabled") && i.getAttribute("disabled") !== "false" ? zo(
+  return i ? i.hasAttribute("disabled") && i.getAttribute("disabled") !== "false" ? Uo(
     n,
     i,
-    { goForward: e, loop: o },
-    a
+    { goForward: e, loop: t },
+    l
   ) : i : null;
 }
-async function Yo(n, t, e = 500) {
-  let o = true, a, l;
+async function qo(n, o, e = 500) {
+  let t = true, l, a;
   const r = new Promise((d) => {
-    l = d, a = setTimeout(() => {
-      i(), d(o);
+    a = d, l = setTimeout(() => {
+      i(), d(t);
     }, e);
   });
   function s() {
-    o = false, i(), clearTimeout(a), a = void 0, l(false);
+    t = false, i(), clearTimeout(l), l = void 0, a(false);
   }
   function i() {
-    t.removeEventListener("mouseleave", s);
+    o.removeEventListener("mouseleave", s);
   }
-  return t.addEventListener("mouseleave", s), r;
+  return o.addEventListener("mouseleave", s), r;
 }
-var Wo = (n, t = 300) => {
-  let e = true, o, a;
-  const l = n.target, r = new Promise((d) => {
-    a = d, o = setTimeout(() => {
+var Go = (n, o = 300) => {
+  let e = true, t, l;
+  const a = n.target, r = new Promise((d) => {
+    l = d, t = setTimeout(() => {
       i(), d(e);
-    }, t);
+    }, o);
   });
   function s() {
-    e = false, i(), clearTimeout(o), o = void 0, a(false);
+    e = false, i(), clearTimeout(t), t = void 0, l(false);
   }
   function i() {
-    l.removeEventListener("mouseenter", s);
+    a.removeEventListener("mouseenter", s);
   }
-  return l.addEventListener("mouseenter", s), r;
+  return a.addEventListener("mouseenter", s), r;
 };
-function Uo(n, t) {
+function Fo(n, o) {
   const e = ref(n);
-  function o(l) {
-    return t[e.value][l] ?? e.value;
+  function t(a) {
+    return o[e.value][a] ?? e.value;
   }
   return {
     state: e,
-    dispatch: (l) => {
-      e.value = o(l);
+    dispatch: (a) => {
+      e.value = t(a);
     }
   };
 }
-var ma = "data-radix-vue-collection-item";
-var bo = Symbol();
-var re = () => {
-  const n = (a) => {
-    provide(bo, {
-      collectionRef: a
+var va = "data-radix-vue-collection-item";
+var Eo = Symbol();
+var le = () => {
+  const n = (l) => {
+    provide(Eo, {
+      collectionRef: l
     });
-  }, t = inject(bo);
-  return { createCollection: n, setCollection: (a) => {
-    t && (t.collectionRef = a);
-  }, getItems: (a) => {
-    const l = a ?? J(t == null ? void 0 : t.collectionRef);
-    return l ? Array.from(
-      l.querySelectorAll(
-        `[${ma}]:not([data-disabled])`
+  }, o = inject(Eo);
+  return { createCollection: n, setCollection: (l) => {
+    o && (o.collectionRef = l);
+  }, getItems: (l) => {
+    const a = l ?? Z(o == null ? void 0 : o.collectionRef);
+    return a ? Array.from(
+      a.querySelectorAll(
+        `[${va}]:not([data-disabled])`
       )
     ) : [];
   } };
 };
-var va = (n) => {
-  const t = ref(), e = computed(() => {
-    var a;
-    return ((a = t.value) == null ? void 0 : a.width) ?? 0;
-  }), o = computed(() => {
-    var a;
-    return ((a = t.value) == null ? void 0 : a.height) ?? 0;
+var ha = (n) => {
+  const o = ref(), e = computed(() => {
+    var l;
+    return ((l = o.value) == null ? void 0 : l.width) ?? 0;
+  }), t = computed(() => {
+    var l;
+    return ((l = o.value) == null ? void 0 : l.height) ?? 0;
   });
   return onMounted(() => {
-    const a = J(n);
-    if (a) {
-      t.value = { width: a.offsetWidth, height: a.offsetHeight };
-      const l = new ResizeObserver((r) => {
+    const l = Z(n);
+    if (l) {
+      o.value = { width: l.offsetWidth, height: l.offsetHeight };
+      const a = new ResizeObserver((r) => {
         if (!Array.isArray(r) || !r.length)
           return;
         const s = r[0];
@@ -471,42 +470,42 @@ var va = (n) => {
           const p = s.borderBoxSize, c = Array.isArray(p) ? p[0] : p;
           i = c.inlineSize, d = c.blockSize;
         } else
-          i = a.offsetWidth, d = a.offsetHeight;
-        t.value = { width: i, height: d };
+          i = l.offsetWidth, d = l.offsetHeight;
+        o.value = { width: i, height: d };
       });
-      return l.observe(a, { box: "border-box" }), () => l.unobserve(a);
+      return a.observe(l, { box: "border-box" }), () => a.unobserve(l);
     } else
-      t.value = void 0;
+      o.value = void 0;
   }), {
     width: e,
-    height: o
+    height: t
   };
 };
-var ha = ea(() => ({ count: ref(0) }));
+var _a = ta(() => ({ count: ref(0) }));
 var ce = (n) => {
-  const { count: t } = ha();
-  return n || t.value++, n || `radix-${t.value}`;
+  const { count: o } = _a();
+  return n || o.value++, n || `radix-${o.value}`;
 };
-function Ft(n) {
+function Jt(n) {
   if (n) {
-    const t = [
+    const o = [
       ...Array.from(
         n.querySelectorAll(
           'a[href], button, input, textarea, select, details,[tabindex]:not([tabindex="-1"])'
         )
       )
     ].filter(
-      (l) => !l.hasAttribute("disabled") && !l.getAttribute("aria-hidden")
-    ), e = t[0], o = t[t.length - 1], a = 9;
-    return e && e.focus(), n.addEventListener("keydown", function(l) {
-      (l.key === "Tab" || l.keyCode === a) && (l.shiftKey ? document.activeElement === e && (o.focus(), l.preventDefault()) : document.activeElement === o && (e.focus(), l.preventDefault()));
+      (a) => !a.hasAttribute("disabled") && !a.getAttribute("aria-hidden")
+    ), e = o[0], t = o[o.length - 1], l = 9;
+    return e && e.focus(), n.addEventListener("keydown", function(a) {
+      (a.key === "Tab" || a.keyCode === l) && (a.shiftKey ? document.activeElement === e && (t.focus(), a.preventDefault()) : document.activeElement === t && (e.focus(), a.preventDefault()));
     }), e;
   }
 }
-function qo(n) {
-  return n ? n.flatMap((t) => t.type === Fragment ? qo(t.children) : [t]) : [];
+function Xo(n) {
+  return n ? n.flatMap((o) => o.type === Fragment ? Xo(o.children) : [o]) : [];
 }
-var _a = [
+var ya = [
   "a",
   "button",
   "div",
@@ -524,120 +523,121 @@ var _a = [
   "svg",
   "ul"
 ];
-var Q = _a.reduce((n, t) => {
-  const e = defineComponent({
-    props: {
-      asChild: {
-        type: Boolean,
-        default: false
-      }
-    },
-    setup(o, { slots: a }) {
-      var r, s;
-      if (!!o.asChild) {
-        const i = qo((r = a.default) == null ? void 0 : r.call(a)), d = getCurrentInstance();
-        if (i.length > 1) {
-          const c = (s = d == null ? void 0 : d.parent) != null && s.type.__name ? `<${d.parent.type.__name} />` : "component";
-          throw new Error(
-            [
-              `Detected an invalid children for \`${c}\` with \`asChild\` prop.`,
-              "",
-              "Note: All components accepting `asChild` expect only one direct child of valid VNode type.",
-              "You can apply a few solutions:",
-              [
-                "Provide a single child element so that we can forward the props onto that element.",
-                "Ensure the first child is an actual element instead of a raw text node or comment node."
-              ].map((m) => `  - ${m}`).join(`
-`)
-            ].join(`
-`)
-          );
-        }
-        return typeof i[0].type == "string" ? () => h(i[0]) : () => h(Un, () => {
-          var c;
-          return (c = a.default) == null ? void 0 : c.call(a);
-        });
-      } else
-        return () => {
-          var i;
-          return h(t, (i = a.default) == null ? void 0 : i.call(a));
-        };
+var ga = (n) => defineComponent({
+  props: {
+    asChild: {
+      type: Boolean,
+      default: false
     }
-  });
-  return { ...n, [t]: e };
+  },
+  setup(o, { slots: e }) {
+    var l, a;
+    if (!!o.asChild) {
+      const r = Xo((l = e.default) == null ? void 0 : l.call(e)), s = getCurrentInstance();
+      if (r.length > 1) {
+        const d = (a = s == null ? void 0 : s.parent) != null && a.type.__name ? `<${s.parent.type.__name} />` : "component";
+        throw new Error(
+          [
+            `Detected an invalid children for \`${d}\` with \`asChild\` prop.`,
+            "",
+            "Note: All components accepting `asChild` expect only one direct child of valid VNode type.",
+            "You can apply a few solutions:",
+            [
+              "Provide a single child element so that we can forward the props onto that element.",
+              "Ensure the first child is an actual element instead of a raw text node or comment node."
+            ].map((p) => `  - ${p}`).join(`
+`)
+          ].join(`
+`)
+        );
+      }
+      return typeof r[0].type == "string" ? () => h(r[0]) : () => h(qn, () => {
+        var d;
+        return (d = e.default) == null ? void 0 : d.call(e);
+      });
+    } else
+      return () => {
+        var r;
+        return h(n, (r = e.default) == null ? void 0 : r.call(e));
+      };
+  }
+});
+var V = ya.reduce((n, o) => {
+  const e = ga(o);
+  return { ...n, [o]: e };
 }, {});
-var B = () => {
-  const n = ref(), t = computed(() => J(n));
+var P = () => {
+  const n = ref(), o = computed(() => Z(n));
   return {
     primitiveElement: n,
-    currentElement: t
+    currentElement: o
   };
 };
-var Go = Q.a;
-var X = Q.button;
-var D = Q.div;
-Q.form;
-var Xo = Q.h2;
-var ya = Q.h3;
-var ga = Q.img;
-Q.input;
-var lt = Q.label;
-var ba = Q.li;
-var wa = Q.nav;
-Q.ol;
-var Fo = Q.p;
-var ne = Q.span;
-var Ea = Q.svg;
-var Ca = Q.ul;
-var Jt = Symbol();
-var xa = defineComponent({
+var Jo = V.a;
+var X = V.button;
+var D = V.div;
+V.form;
+var Zo = V.h2;
+var ba = V.h3;
+var wa = V.img;
+V.input;
+var it = V.label;
+var Ea = V.li;
+var Ca = V.nav;
+V.ol;
+var Qo = V.p;
+var ae = V.span;
+var xa = V.svg;
+var $a = V.ul;
+var Zt = Symbol();
+var ka = defineComponent({
   __name: "CollapsibleRoot",
   props: {
-    asChild: { type: Boolean, default: false },
     defaultOpen: { type: Boolean, default: false },
     open: { type: Boolean, default: void 0 },
-    disabled: { type: Boolean }
+    disabled: { type: Boolean },
+    asChild: { type: Boolean }
   },
   emits: ["update:open"],
-  setup(n, { emit: t }) {
-    const e = n, o = K(e, "open", t, {
+  setup(n, { emit: o }) {
+    const e = n, t = K(e, "open", o, {
       defaultValue: e.defaultOpen,
       passive: true
-    }), a = K(e, "disabled");
-    return provide(Jt, {
+    }), l = K(e, "disabled");
+    return provide(Zt, {
       contentId: ce(),
-      disabled: a,
-      open: o,
+      disabled: l,
+      open: t,
       onOpenToggle: () => {
-        o.value = !o.value;
+        t.value = !t.value;
       }
-    }), (l, r) => (openBlock(), createBlock(unref(D), {
-      asChild: e.asChild,
+    }), (a, r) => (openBlock(), createBlock(unref(D), {
+      "as-child": e.asChild,
       "data-state": e.open ? "open" : "closed",
       "data-disabled": e.disabled ? "" : void 0
     }, {
       default: withCtx(() => [
-        renderSlot(l.$slots, "default", { open: unref(o) })
+        renderSlot(a.$slots, "default", { open: unref(t) })
       ]),
       _: 3
-    }, 8, ["asChild", "data-state", "data-disabled"]));
+    }, 8, ["as-child", "data-state", "data-disabled"]));
   }
 });
-var $a = defineComponent({
+var Sa = defineComponent({
   __name: "CollapsibleTrigger",
   props: {
-    asChild: { type: Boolean, default: false }
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(
-      Jt
+    const o = n, e = inject(
+      Zt
     );
-    return (o, a) => {
-      var l, r, s, i, d, p, c, m;
+    return (t, l) => {
+      var a, r, s, i, d, p, c, m;
       return openBlock(), createBlock(unref(X), {
         type: "button",
-        asChild: t.asChild,
-        "aria-controls": (l = unref(e)) == null ? void 0 : l.contentId,
+        "as-child": o.asChild,
+        "aria-controls": (a = unref(e)) == null ? void 0 : a.contentId,
         "aria-expanded": ((r = unref(e)) == null ? void 0 : r.open.value) || false,
         "data-state": (s = unref(e)) != null && s.open.value ? "open" : "closed",
         "data-disabled": (d = (i = unref(e)) == null ? void 0 : i.disabled) != null && d.value ? "" : void 0,
@@ -645,15 +645,15 @@ var $a = defineComponent({
         onClick: (m = unref(e)) == null ? void 0 : m.onOpenToggle
       }, {
         default: withCtx(() => [
-          renderSlot(o.$slots, "default")
+          renderSlot(t.$slots, "default")
         ]),
         _: 3
-      }, 8, ["asChild", "aria-controls", "aria-expanded", "data-state", "data-disabled", "disabled", "onClick"]);
+      }, 8, ["as-child", "aria-controls", "aria-expanded", "data-state", "data-disabled", "disabled", "onClick"]);
     };
   }
 });
-function ka(n, t) {
-  const e = ref({}), o = ref(n.value), a = ref("none"), l = n.value ? "mounted" : "unmounted", { state: r, dispatch: s } = Uo(l, {
+function Aa(n, o) {
+  const e = ref({}), t = ref(n.value), l = ref("none"), a = n.value ? "mounted" : "unmounted", { state: r, dispatch: s } = Fo(a, {
     mounted: {
       UNMOUNT: "unmounted",
       ANIMATION_OUT: "unmountSuspended"
@@ -667,79 +667,79 @@ function ka(n, t) {
     }
   });
   if (watchEffect(async () => {
-    const d = e.value, p = o.value, c = p !== n.value;
+    const d = e.value, p = t.value, c = p !== n.value;
     if (await nextTick(), c) {
-      const m = a.value, f = Mt(t);
-      n.value ? s("MOUNT") : f === "none" || (d == null ? void 0 : d.display) === "none" ? s("UNMOUNT") : s(p && m !== f ? "ANIMATION_OUT" : "UNMOUNT"), o.value = n.value;
+      const m = l.value, f = Dt(o);
+      n.value ? s("MOUNT") : f === "none" || (d == null ? void 0 : d.display) === "none" ? s("UNMOUNT") : s(p && m !== f ? "ANIMATION_OUT" : "UNMOUNT"), t.value = n.value;
     }
-  }), t) {
+  }), o) {
     const d = (c) => {
-      const f = Mt(t).includes(
+      const f = Dt(o).includes(
         c.animationName
       );
-      c.target === t && f && s("ANIMATION_END");
+      c.target === o && f && s("ANIMATION_END");
     }, p = (c) => {
-      c.target === t && (a.value = Mt(t));
+      c.target === o && (l.value = Dt(o));
     };
-    t.addEventListener("animationstart", p), t.addEventListener("animationcancel", d), t.addEventListener("animationend", d);
+    o.addEventListener("animationstart", p), o.addEventListener("animationcancel", d), o.addEventListener("animationend", d);
   } else
     s("ANIMATION_END");
   const i = computed(
     () => ["mounted", "unmountSuspended"].includes(r.value)
   );
-  return e.value = getComputedStyle(t), {
+  return e.value = getComputedStyle(o), {
     isPresent: i
   };
 }
-function Mt(n) {
+function Dt(n) {
   return n && getComputedStyle(n).animationName || "none";
 }
-var Qe = defineComponent({
+var Ve = defineComponent({
   __name: "Presence",
   props: {
     present: { type: Boolean }
   },
-  setup(n, { expose: t }) {
-    const e = n, { present: o } = toRefs(e), a = useSlots();
-    let l = ref(false);
+  setup(n, { expose: o }) {
+    const e = n, { present: t } = toRefs(e), l = useSlots();
+    let a = ref(false);
     const r = {
       created(i) {
-        const { isPresent: d } = ka(o, i);
-        ra(l, d, { direction: "rtl" });
+        const { isPresent: d } = Aa(t, i);
+        ia(a, d, { direction: "rtl" });
       }
     }, s = () => {
       var i, d;
       return (
         // @ts-ignore
-        withDirectives((d = (i = a.default) == null ? void 0 : i.call(a)) == null ? void 0 : d[0], [
+        withDirectives((d = (i = l.default) == null ? void 0 : i.call(l)) == null ? void 0 : d[0], [
           [r],
-          [vShow, l.value]
+          [vShow, a.value]
         ])
       );
     };
-    return t({
-      present: l
+    return o({
+      present: a
     }), (i, d) => (openBlock(), createBlock(s));
   }
 });
-var Sa = defineComponent({
+var Ba = defineComponent({
   inheritAttrs: false,
   __name: "CollapsibleContent",
   props: {
-    asChild: { type: Boolean, default: false }
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(
-      Jt
-    ), o = ref(), { primitiveElement: a, currentElement: l } = B(), r = ref(0), s = ref(0), i = computed(() => e == null ? void 0 : e.open.value), d = ref(i.value), p = ref();
+    const o = n, e = inject(
+      Zt
+    ), t = ref(), { primitiveElement: l, currentElement: a } = P(), r = ref(0), s = ref(0), i = computed(() => e == null ? void 0 : e.open.value), d = ref(i.value), p = ref();
     return watch(
       () => {
         var c;
-        return [i.value, (c = o.value) == null ? void 0 : c.present];
+        return [i.value, (c = t.value) == null ? void 0 : c.present];
       },
       async () => {
         await nextTick();
-        const c = l.value;
+        const c = a.value;
         if (!c)
           return;
         p.value = p.value || {
@@ -754,23 +754,23 @@ var Sa = defineComponent({
       }
     ), requestAnimationFrame(() => {
       d.value = false;
-    }), (c, m) => (openBlock(), createBlock(unref(Qe), {
+    }), (c, m) => (openBlock(), createBlock(unref(Ve), {
       ref_key: "presentRef",
-      ref: o,
+      ref: t,
       present: unref(e).open.value
     }, {
       default: withCtx(() => {
-        var f, v, h2, y, C;
+        var f, v, g, h2, x;
         return [
           createVNode(unref(D), mergeProps({
             ref_key: "primitiveElement",
-            ref: a
+            ref: l
           }, c.$attrs, {
-            asChild: t.asChild,
+            "as-child": o.asChild,
             "data-state": (f = unref(e)) != null && f.open.value ? "open" : "closed",
-            "data-disabled": (h2 = (v = unref(e)) == null ? void 0 : v.disabled) != null && h2.value ? "true" : void 0,
-            id: (y = unref(e)) == null ? void 0 : y.contentId,
-            hidden: !((C = unref(e)) != null && C.open),
+            "data-disabled": (g = (v = unref(e)) == null ? void 0 : v.disabled) != null && g.value ? "true" : void 0,
+            id: (h2 = unref(e)) == null ? void 0 : h2.contentId,
+            hidden: !((x = unref(e)) != null && x.open),
             style: {
               ["--radix-collapsible-content-height"]: `${s.value}px`,
               ["--radix-collapsible-content-width"]: `${r.value}px`
@@ -780,43 +780,44 @@ var Sa = defineComponent({
               renderSlot(c.$slots, "default")
             ]),
             _: 3
-          }, 16, ["asChild", "data-state", "data-disabled", "id", "hidden", "style"])
+          }, 16, ["as-child", "data-state", "data-disabled", "id", "hidden", "style"])
         ];
       }),
       _: 3
     }, 8, ["present"]));
   }
 });
-var Zt = Symbol();
 var Qt = Symbol();
-var rt = Symbol();
-var Jo = defineComponent({
+var Vt = Symbol();
+var st = Symbol();
+var Vo = defineComponent({
   __name: "AccordionImpl",
   props: {
     disabled: { type: Boolean },
     orientation: { default: "vertical" },
-    dir: {}
+    dir: {},
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, { primitiveElement: e, currentElement: o } = B();
-    return provide(rt, {
-      disabled: t.disabled,
-      direction: t.dir,
-      orientation: t.orientation,
-      parentElement: o
-    }), (a, l) => (openBlock(), createBlock(unref(D), {
+    const o = n, { primitiveElement: e, currentElement: t } = P();
+    return provide(st, {
+      disabled: o.disabled,
+      direction: o.dir,
+      orientation: o.orientation,
+      parentElement: t
+    }), (l, a) => (openBlock(), createBlock(unref(D), {
       ref_key: "primitiveElement",
       ref: e
     }, {
       default: withCtx(() => [
-        renderSlot(a.$slots, "default")
+        renderSlot(l.$slots, "default")
       ]),
       _: 3
     }, 512));
   }
 });
-var $t = Symbol();
-var Aa = [
+var kt = Symbol();
+var Ta = [
   "Home",
   "End",
   "ArrowDown",
@@ -824,7 +825,7 @@ var Aa = [
   "ArrowLeft",
   "ArrowRight"
 ];
-var Hl = defineComponent({
+var Ul = defineComponent({
   __name: "AccordionItem",
   props: {
     disabled: { type: Boolean },
@@ -832,21 +833,21 @@ var Hl = defineComponent({
     asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(
-      rt
-    ), o = inject(
-      Zt
-    ), a = computed({
-      get: () => t.value && (o == null ? void 0 : o.modelValue.value.includes(t.value)) || false,
+    const o = n, e = inject(
+      st
+    ), t = inject(
+      Qt
+    ), l = computed({
+      get: () => o.value && (t == null ? void 0 : t.modelValue.value.includes(o.value)) || false,
       set: (i) => {
-        i ? o == null || o.onItemOpen(t.value) : o == null || o.onItemClose(t.value);
+        i ? t == null || t.onItemOpen(o.value) : t == null || t.onItemClose(o.value);
       }
-    }), l = computed(
-      () => (e == null ? void 0 : e.disabled) || t.disabled
+    }), a = computed(
+      () => (e == null ? void 0 : e.disabled) || o.disabled
     );
-    provide($t, {
-      open: a.value,
-      disabled: l.value,
+    provide(kt, {
+      open: l.value,
+      disabled: a.value,
       triggerId: "1"
       // TODO
     });
@@ -857,43 +858,43 @@ var Hl = defineComponent({
       ) : [];
     }
     const s = (i) => {
-      if (!Aa.includes(i.key))
+      if (!Ta.includes(i.key))
         return;
       const d = (e == null ? void 0 : e.direction) === "ltr", p = i.target, c = r().filter(
         // (item) => !item.ref.current?.disabled
         // (item) => !item.disabled
-        (P) => P
+        (B) => B
       ), m = c.findIndex(
         // (item) => item.ref.current === target
-        (P) => P === p
+        (B) => B === p
       ), f = c.length;
       if (m === -1)
         return;
       i.preventDefault();
       let v = m;
-      const h2 = 0, y = f - 1, C = () => {
-        v = m + 1, v > y && (v = h2);
-      }, $ = () => {
-        v = m - 1, v < h2 && (v = y);
+      const g = 0, h2 = f - 1, x = () => {
+        v = m + 1, v > h2 && (v = g);
+      }, C = () => {
+        v = m - 1, v < g && (v = h2);
       };
       switch (i.key) {
         case "Home":
-          v = h2;
+          v = g;
           break;
         case "End":
-          v = y;
+          v = h2;
           break;
         case "ArrowRight":
-          (e == null ? void 0 : e.orientation) === "horizontal" && (d ? C() : $());
+          (e == null ? void 0 : e.orientation) === "horizontal" && (d ? x() : C());
           break;
         case "ArrowDown":
-          (e == null ? void 0 : e.orientation) === "vertical" && C();
+          (e == null ? void 0 : e.orientation) === "vertical" && x();
           break;
         case "ArrowLeft":
-          (e == null ? void 0 : e.orientation) === "horizontal" && (d ? $() : C());
+          (e == null ? void 0 : e.orientation) === "horizontal" && (d ? C() : x());
           break;
         case "ArrowUp":
-          (e == null ? void 0 : e.orientation) === "vertical" && $();
+          (e == null ? void 0 : e.orientation) === "vertical" && C();
           break;
       }
       const S = v % f;
@@ -901,12 +902,12 @@ var Hl = defineComponent({
     };
     return (i, d) => {
       var p;
-      return openBlock(), createBlock(unref(xa), {
+      return openBlock(), createBlock(unref(ka), {
         "data-orientation": (p = unref(e)) == null ? void 0 : p.orientation,
-        "data-state": a.value ? "open" : "closed",
-        disabled: l.value,
-        open: a.value,
-        "onUpdate:open": d[0] || (d[0] = (c) => a.value = c),
+        "data-state": l.value ? "open" : "closed",
+        disabled: a.value,
+        open: l.value,
+        "onUpdate:open": d[0] || (d[0] = (c) => l.value = c),
         onKeydown: s
       }, {
         default: withCtx(() => [
@@ -917,57 +918,61 @@ var Hl = defineComponent({
     };
   }
 });
-var zl = defineComponent({
+var ql = defineComponent({
   __name: "AccordionContent",
   setup(n) {
-    const t = inject(
-      rt
+    const o = inject(
+      st
     ), e = inject(
-      $t
+      kt
     );
-    return (o, a) => {
-      var l, r;
-      return openBlock(), createBlock(unref(Sa), {
+    return (t, l) => {
+      var a, r;
+      return openBlock(), createBlock(unref(Ba), {
         role: "region",
-        "aria-labelledby": (l = unref(e)) == null ? void 0 : l.triggerId,
-        "data-orientation": (r = unref(t)) == null ? void 0 : r.orientation,
+        "aria-labelledby": (a = unref(e)) == null ? void 0 : a.triggerId,
+        "data-orientation": (r = unref(o)) == null ? void 0 : r.orientation,
         style: normalizeStyle({
           ["--radix-accordion-content-height"]: "var(--radix-collapsible-content-height)",
           ["--radix-accordion-content-width"]: "var(--radix-collapsible-content-width)"
         })
       }, {
         default: withCtx(() => [
-          renderSlot(o.$slots, "default")
+          renderSlot(t.$slots, "default")
         ]),
         _: 3
       }, 8, ["aria-labelledby", "data-orientation", "style"]);
     };
   }
 });
-var Yl = defineComponent({
+var Gl = defineComponent({
   __name: "AccordionHeader",
+  props: {
+    asChild: { type: Boolean }
+  },
   setup(n) {
-    const t = inject(
-      rt
-    ), e = inject(
-      $t
+    const o = n, e = inject(
+      st
+    ), t = inject(
+      kt
     );
-    return (o, a) => {
-      var l, r, s;
-      return openBlock(), createBlock(unref(ya), {
-        "data-orientation": (l = unref(t)) == null ? void 0 : l.orientation,
-        "data-state": (r = unref(e)) != null && r.open ? "open" : "closed",
-        "data-disabled": (s = unref(e)) != null && s.disabled ? "" : void 0
+    return (l, a) => {
+      var r, s, i;
+      return openBlock(), createBlock(unref(ba), {
+        "data-orientation": (r = unref(e)) == null ? void 0 : r.orientation,
+        "data-state": (s = unref(t)) != null && s.open ? "open" : "closed",
+        "data-disabled": (i = unref(t)) != null && i.disabled ? "" : void 0,
+        "as-child": o.asChild
       }, {
         default: withCtx(() => [
-          renderSlot(o.$slots, "default")
+          renderSlot(l.$slots, "default")
         ]),
         _: 3
-      }, 8, ["data-orientation", "data-state", "data-disabled"]);
+      }, 8, ["data-orientation", "data-state", "data-disabled", "as-child"]);
     };
   }
 });
-var Ta = defineComponent({
+var Pa = defineComponent({
   __name: "AccordionImplMultiple",
   props: {
     type: {},
@@ -976,27 +981,28 @@ var Ta = defineComponent({
     onValueChange: {},
     disabled: { type: Boolean },
     orientation: {},
-    dir: {}
+    dir: {},
+    asChild: { type: Boolean }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, o = K(e, "modelValue", t, {
+  setup(n, { emit: o }) {
+    const e = n, t = K(e, "modelValue", o, {
       defaultValue: e.defaultValue,
       passive: true
     });
-    return provide(Zt, {
-      modelValue: o,
+    return provide(Qt, {
+      modelValue: t,
       onItemOpen: (r) => {
-        o.value = [...o.value, r];
+        t.value = [...t.value, r];
       },
       onItemClose: (r) => {
-        o.value = [...o.value].filter(
+        t.value = [...t.value].filter(
           (s) => s !== r
         );
       }
-    }), provide(Qt, {
+    }), provide(Vt, {
       collapsible: false
-    }), (r, s) => (openBlock(), createBlock(Jo, normalizeProps(guardReactiveProps(e)), {
+    }), (r, s) => (openBlock(), createBlock(Vo, normalizeProps(guardReactiveProps(e)), {
       default: withCtx(() => [
         renderSlot(r.$slots, "default")
       ]),
@@ -1004,7 +1010,7 @@ var Ta = defineComponent({
     }, 16));
   }
 });
-var Pa = defineComponent({
+var Oa = defineComponent({
   __name: "AccordionImplSingle",
   props: {
     type: {},
@@ -1015,33 +1021,34 @@ var Pa = defineComponent({
     collapsible: { type: Boolean, default: false },
     disabled: { type: Boolean },
     orientation: {},
-    dir: {}
+    dir: {},
+    asChild: { type: Boolean }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, o = K(e, "modelValue", t, {
+  setup(n, { emit: o }) {
+    const e = n, t = K(e, "modelValue", o, {
       defaultValue: e.defaultValue ?? "",
       passive: true
     });
-    return provide(Zt, {
-      modelValue: o,
-      onItemOpen: (a) => {
-        o.value = a;
+    return provide(Qt, {
+      modelValue: t,
+      onItemOpen: (l) => {
+        t.value = l;
       },
-      onItemClose: (a) => {
-        e.collapsible && (o.value = "");
+      onItemClose: (l) => {
+        e.collapsible && (t.value = "");
       }
-    }), provide(Qt, {
+    }), provide(Vt, {
       collapsible: e.collapsible
-    }), (a, l) => (openBlock(), createBlock(Jo, normalizeProps(guardReactiveProps(e)), {
+    }), (l, a) => (openBlock(), createBlock(Vo, normalizeProps(guardReactiveProps(e)), {
       default: withCtx(() => [
-        renderSlot(a.$slots, "default")
+        renderSlot(l.$slots, "default")
       ]),
       _: 3
     }, 16));
   }
 });
-var Wl = defineComponent({
+var Fl = defineComponent({
   __name: "AccordionRoot",
   props: {
     type: {},
@@ -1051,58 +1058,58 @@ var Wl = defineComponent({
     collapsible: { type: Boolean },
     disabled: { type: Boolean },
     orientation: {},
-    dir: {}
+    dir: {},
+    asChild: { type: Boolean }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
+  setup(n, { emit: o }) {
     const e = n;
-    return (o, a) => e.type === "multiple" ? (openBlock(), createBlock(Ta, mergeProps({ key: 0 }, e, {
-      "onUpdate:modelValue": a[0] || (a[0] = (l) => t("update:modelValue", l))
+    return (t, l) => e.type === "multiple" ? (openBlock(), createBlock(Pa, mergeProps({ key: 0 }, e, {
+      "onUpdate:modelValue": l[0] || (l[0] = (a) => o("update:modelValue", a))
     }), {
       default: withCtx(() => [
-        renderSlot(o.$slots, "default")
+        renderSlot(t.$slots, "default")
       ]),
       _: 3
-    }, 16)) : (openBlock(), createBlock(Pa, mergeProps({ key: 1 }, e, {
-      "onUpdate:modelValue": a[1] || (a[1] = (l) => t("update:modelValue", l))
+    }, 16)) : (openBlock(), createBlock(Oa, mergeProps({ key: 1 }, e, {
+      "onUpdate:modelValue": l[1] || (l[1] = (a) => o("update:modelValue", a))
     }), {
       default: withCtx(() => [
-        renderSlot(o.$slots, "default")
+        renderSlot(t.$slots, "default")
       ]),
       _: 3
     }, 16));
   }
 });
-var Ul = defineComponent({
+var Xl = defineComponent({
   __name: "AccordionTrigger",
   setup(n) {
-    const t = inject(
-      rt
+    const o = inject(
+      st
     ), e = inject(
-      $t
-    ), o = inject(Qt);
-    return (a, l) => {
+      kt
+    ), t = inject(Vt);
+    return (l, a) => {
       var r, s, i, d;
-      return openBlock(), createBlock(unref($a), {
+      return openBlock(), createBlock(unref(Sa), {
         "data-radix-vue-collection-item": "",
-        "aria-disabled": ((r = unref(e)) == null ? void 0 : r.open) && !((s = unref(o)) != null && s.collapsible) || void 0,
-        "data-orientation": (i = unref(t)) == null ? void 0 : i.orientation,
+        "aria-disabled": ((r = unref(e)) == null ? void 0 : r.open) && !((s = unref(t)) != null && s.collapsible) || void 0,
+        "data-orientation": (i = unref(o)) == null ? void 0 : i.orientation,
         id: (d = unref(e)) == null ? void 0 : d.triggerId
       }, {
         default: withCtx(() => [
-          renderSlot(a.$slots, "default")
+          renderSlot(l.$slots, "default")
         ]),
         _: 3
       }, 8, ["aria-disabled", "data-orientation", "id"]);
     };
   }
 });
-var Oa = ["id", "checked", "name", "disabled", "required", "data-state"];
-var Zo = Symbol();
-var ql = defineComponent({
+var Ma = ["id", "checked", "name", "disabled", "required", "data-state"];
+var jo = Symbol();
+var Jl = defineComponent({
   __name: "CheckboxRoot",
   props: {
-    asChild: { type: Boolean, default: false },
     defaultChecked: { type: Boolean },
     checked: { type: Boolean },
     onCheckedChange: {},
@@ -1111,26 +1118,27 @@ var ql = defineComponent({
     required: { type: Boolean },
     name: {},
     value: { default: "on" },
-    id: {}
+    id: {},
+    asChild: { type: Boolean }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
+  setup(n, { emit: o }) {
     const e = n;
-    provide(Zo, {
+    provide(jo, {
       required: e.required,
       disabled: e.disabled,
       modelValue: toRef(() => e.modelValue)
     });
-    function o() {
-      return t("update:modelValue", !e.modelValue);
+    function t() {
+      return o("update:modelValue", !e.modelValue);
     }
-    let a;
-    return (l, r) => (openBlock(), createBlock(unref(D), {
-      asChild: e.asChild,
+    let l;
+    return (a, r) => (openBlock(), createBlock(unref(D), {
+      "as-child": e.asChild,
       value: e.value,
       role: "checkbox",
       "aria-checked": e.modelValue,
-      "data-state": unref(a),
+      "data-state": unref(l),
       style: { position: "relative" },
       "data-disabled": e.disabled ? "" : void 0
     }, {
@@ -1139,52 +1147,51 @@ var ql = defineComponent({
           type: "checkbox",
           id: e.id
         }, e.modelValue, {
-          onChange: o,
+          onChange: t,
           checked: e.modelValue,
           name: e.name,
           "aria-hidden": "true",
           disabled: e.disabled,
           required: e.required,
-          "data-state": unref(a),
+          "data-state": unref(l),
           style: { opacity: "0", position: "absolute", inset: "0" }
-        }), null, 16, Oa),
-        renderSlot(l.$slots, "default")
+        }), null, 16, Ma),
+        renderSlot(a.$slots, "default")
       ]),
       _: 3
-    }, 8, ["asChild", "value", "aria-checked", "data-state", "data-disabled"]));
+    }, 8, ["as-child", "value", "aria-checked", "data-state", "data-disabled"]));
   }
 });
-var Gl = defineComponent({
+var Zl = defineComponent({
   __name: "CheckboxIndicator",
   props: {
-    asChild: { type: Boolean, default: false },
-    forceMount: { type: Boolean }
+    forceMount: { type: Boolean },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(Zo);
-    return (o, a) => {
-      var l;
-      return (l = unref(e)) != null && l.modelValue.value ? (openBlock(), createBlock(unref(ne), {
+    const o = n, e = inject(jo);
+    return (t, l) => {
+      var a;
+      return (a = unref(e)) != null && a.modelValue.value ? (openBlock(), createBlock(unref(ae), {
         key: 0,
-        asChild: t.asChild,
         style: { "pointer-events": "none" },
+        "as-child": o.asChild,
         "data-disabled": unref(e).disabled ? "" : void 0,
         "data-state": unref(e).modelValue.value ? "checked" : "unchecked"
       }, {
         default: withCtx(() => [
-          renderSlot(o.$slots, "default")
+          renderSlot(t.$slots, "default")
         ]),
         _: 3
-      }, 8, ["asChild", "data-disabled", "data-state"])) : createCommentVNode("", true);
+      }, 8, ["as-child", "data-disabled", "data-state"])) : createCommentVNode("", true);
     };
   }
 });
-var Ba = ["id", "checked", "name", "disabled", "required", "data-state", "data-disabled"];
-var Qo = Symbol();
-var Xl = defineComponent({
+var Da = ["id", "name", "disabled", "required", "data-state", "data-disabled"];
+var en = Symbol();
+var Ql = defineComponent({
   __name: "SwitchRoot",
   props: {
-    asChild: { type: Boolean, default: false },
     defaultChecked: { type: Boolean },
     checked: { type: Boolean },
     disabled: { type: Boolean, default: false },
@@ -1192,71 +1199,75 @@ var Xl = defineComponent({
     name: {},
     id: {},
     defaultOpen: { type: Boolean, default: false },
-    open: { type: Boolean, default: void 0 }
+    open: { type: Boolean, default: void 0 },
+    asChild: { type: Boolean, default: false }
   },
   emits: ["update:open"],
-  setup(n, { emit: t }) {
-    const e = n, o = K(e, "open", t, {
+  setup(n, { emit: o }) {
+    const e = n, t = K(e, "open", o, {
       defaultValue: e.defaultOpen,
       passive: true
       // set passive to true so that if no props.modelValue was passed, it will still update
-    }), a = () => {
-      o.value = !o.value;
+    }), l = () => {
+      t.value = !t.value;
     };
-    provide(Qo, {
-      open: o,
-      toggleOpen: a,
+    provide(en, {
+      open: t,
+      toggleOpen: l,
       disabled: e.disabled
     });
-    function l(r) {
-      (r.key === "Enter" || r.keyCode === 32) && a();
+    function a(r) {
+      r.key === "Enter" && l();
     }
     return (r, s) => (openBlock(), createBlock(unref(D), {
-      value: unref(o),
-      role: "checkbox",
-      "aria-checked": unref(o),
-      "data-state": unref(o) ? "checked" : "unchecked",
+      value: unref(t),
+      role: "switch",
+      "aria-checked": unref(t),
+      "data-state": unref(t) ? "checked" : "unchecked",
       "data-disabled": e.disabled ? "" : void 0,
+      "as-child": e.asChild,
       style: { position: "relative" }
     }, {
       default: withCtx(() => [
+        renderSlot(r.$slots, "default"),
         createBaseVNode("input", mergeProps({
           type: "checkbox",
           id: e.id
-        }, unref(o), {
-          onChange: a,
-          checked: unref(o),
+        }, unref(t), {
           name: e.name,
-          onKeydown: l,
+          onClick: l,
+          onKeydown: a,
           "aria-hidden": "true",
           disabled: e.disabled,
           required: e.required,
-          "data-state": unref(o) ? "checked" : "unchecked",
+          "data-state": unref(t) ? "checked" : "unchecked",
           "data-disabled": e.disabled ? "" : void 0,
           style: { opacity: "0", position: "absolute", inset: "0" }
-        }), null, 16, Ba),
-        renderSlot(r.$slots, "default")
+        }), null, 16, Da)
       ]),
       _: 3
-    }, 8, ["value", "aria-checked", "data-state", "data-disabled"]));
+    }, 8, ["value", "aria-checked", "data-state", "data-disabled", "as-child"]));
   }
 });
-var Fl = defineComponent({
+var Vl = defineComponent({
   __name: "SwitchThumb",
+  props: {
+    asChild: { type: Boolean }
+  },
   setup(n) {
-    const t = inject(Qo);
-    return (e, o) => {
-      var a, l, r, s;
-      return openBlock(), createBlock(unref(ne), {
-        "data-state": (l = (a = unref(t)) == null ? void 0 : a.open) != null && l.value ? "checked" : "unchecked",
-        "data-disabled": (r = unref(t)) != null && r.disabled ? "" : void 0,
-        onClick: (s = unref(t)) == null ? void 0 : s.toggleOpen
+    const o = inject(en);
+    return (e, t) => {
+      var l, a, r;
+      return openBlock(), createBlock(unref(ae), {
+        "data-state": (a = (l = unref(o)) == null ? void 0 : l.open) != null && a.value ? "checked" : "unchecked",
+        "data-disabled": (r = unref(o)) != null && r.disabled ? "" : void 0,
+        "as-child": e.asChild
       }, {
         default: withCtx(() => [
           renderSlot(e.$slots, "default")
         ]),
         _: 3
-      }, 8, ["data-state", "data-disabled", "onClick"]);
+      }, 8, ["data-state", "data-disabled", "as-child"]);
     };
   }
 });
@@ -1264,81 +1275,81 @@ var Ue = defineComponent({
   __name: "BaseSeparator",
   props: {
     orientation: { default: "horizontal" },
-    decorative: { type: Boolean }
+    decorative: { type: Boolean },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(unref(D), {
-      "data-orientation": t.orientation,
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(unref(D), mergeProps(o, {
       role: `${e.decorative ? "none" : "separator"}`
-    }, null, 8, ["data-orientation", "role"]));
-  }
-});
-var Jl = defineComponent({
-  __name: "Separator",
-  props: {
-    asChild: { type: Boolean, default: false },
-    orientation: { default: "horizontal" },
-    decorative: { type: Boolean }
-  },
-  setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(Ue, {
-      orientation: t.orientation,
-      decorative: t.decorative,
-      "data-orientation": t.orientation
-    }, null, 8, ["orientation", "decorative", "data-orientation"]));
-  }
-});
-var Zl = defineComponent({
-  __name: "Label",
-  props: {
-    for: {
-      type: String,
-      required: false
-    }
-  },
-  setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(unref(lt), {
-      for: t.for
-    }, {
+    }), {
       default: withCtx(() => [
         renderSlot(e.$slots, "default")
       ]),
       _: 3
-    }, 8, ["for"]));
+    }, 16, ["role"]));
   }
 });
-var Ma = ["id", "checked", "name", "disabled", "data-state", "data-disabled"];
-var Ql = defineComponent({
+var jl = defineComponent({
+  __name: "Separator",
+  props: {
+    orientation: { default: "horizontal" },
+    decorative: { type: Boolean },
+    asChild: { type: Boolean }
+  },
+  setup(n) {
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(Ue, mergeProps(o, {
+      "data-orientation": o.orientation
+    }), null, 16, ["data-orientation"]));
+  }
+});
+var er = defineComponent({
+  __name: "Label",
+  props: {
+    for: {},
+    asChild: { type: Boolean }
+  },
+  setup(n) {
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(unref(it), normalizeProps(guardReactiveProps(o)), {
+      default: withCtx(() => [
+        renderSlot(e.$slots, "default")
+      ]),
+      _: 3
+    }, 16));
+  }
+});
+var Ra = ["id", "checked", "name", "disabled", "data-state", "data-disabled"];
+var tr = defineComponent({
   __name: "Toggle",
   props: {
-    asChild: { type: Boolean, default: false },
     defaultPressed: { type: Boolean, default: false },
     pressed: { type: Boolean, default: void 0 },
     disabled: { type: Boolean, default: false },
     name: {},
-    id: {}
+    id: {},
+    asChild: { type: Boolean }
   },
   emits: ["update:pressed"],
-  setup(n, { emit: t }) {
-    const e = n, o = K(e, "pressed", t, {
+  setup(n, { emit: o }) {
+    const e = n, t = K(e, "pressed", o, {
       defaultValue: e.defaultPressed,
       passive: true
       // set passive to true so that if no props.pressed was passed, it will still update
-    }), a = () => {
-      o.value = !o.value;
-    }, l = computed(() => o.value ? "on" : "off");
+    }), l = () => {
+      t.value = !t.value;
+    }, a = computed(() => t.value ? "on" : "off");
     function r(s) {
-      s.key === "Enter" && a();
+      s.key === "Enter" && l();
     }
     return (s, i) => (openBlock(), createBlock(unref(D), {
-      value: unref(o),
+      value: unref(t),
       role: "checkbox",
-      "aria-checked": unref(o),
-      "data-state": l.value,
+      "aria-checked": unref(t),
+      "data-state": a.value,
       "data-disabled": e.disabled,
+      "as-child": e.asChild,
       style: { position: "relative" }
     }, {
       default: withCtx(() => [
@@ -1346,27 +1357,26 @@ var Ql = defineComponent({
           type: "checkbox",
           id: e.id,
           onKeydown: r
-        }, unref(o), {
-          onChange: a,
-          checked: unref(o),
+        }, unref(t), {
+          onChange: l,
+          checked: unref(t),
           name: e.name,
           "aria-hidden": "true",
           disabled: e.disabled,
-          "data-state": l.value,
+          "data-state": a.value,
           "data-disabled": e.disabled,
           style: { opacity: "0", position: "absolute", inset: "0" }
-        }), null, 16, Ma),
+        }), null, 16, Ra),
         renderSlot(s.$slots, "default")
       ]),
       _: 3
-    }, 8, ["value", "aria-checked", "data-state", "data-disabled"]));
+    }, 8, ["value", "aria-checked", "data-state", "data-disabled", "as-child"]));
   }
 });
-var Vo = Symbol();
-var Vl = defineComponent({
+var tn = Symbol();
+var or = defineComponent({
   __name: "ToggleGroupRoot",
   props: {
-    asChild: { type: Boolean },
     type: { default: "single" },
     value: {},
     defaultValue: {},
@@ -1375,20 +1385,21 @@ var Vl = defineComponent({
     orientation: { default: "horizontal" },
     dir: { default: "ltr" },
     loop: { type: Boolean, default: false },
-    modelValue: {}
+    modelValue: {},
+    asChild: { type: Boolean }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, { primitiveElement: o, currentElement: a } = B(), l = ref(), r = ref(), s = Xt(), i = ref([]), d = K(e, "modelValue", t, {
+  setup(n, { emit: o }) {
+    const e = n, { primitiveElement: t, currentElement: l } = P(), a = ref(), r = ref(), s = Xt(), i = ref([]), d = K(e, "modelValue", o, {
       defaultValue: e.defaultValue,
       passive: true
     });
-    provide(Vo, {
+    provide(tn, {
       type: e.type,
       modelValue: d,
       changeModelValue: p,
-      parentElement: a,
-      activeValue: l,
+      parentElement: l,
+      activeValue: a,
       currentFocusedElement: r,
       dir: e.dir,
       orientation: e.orientation,
@@ -1413,7 +1424,7 @@ var Vl = defineComponent({
     return watch(
       s,
       () => {
-        if (s.value === a.value && !e.disabled) {
+        if (s.value === l.value && !e.disabled) {
           if (!i.value.length)
             return;
           if (r.value)
@@ -1430,7 +1441,7 @@ var Vl = defineComponent({
     ), (c, m) => (openBlock(), createBlock(unref(D), {
       "as-child": e.asChild,
       ref_key: "primitiveElement",
-      ref: o,
+      ref: t,
       role: "group",
       dir: e.dir,
       tabindex: "0",
@@ -1444,35 +1455,35 @@ var Vl = defineComponent({
     }, 8, ["as-child", "dir", "data-orientation"]));
   }
 });
-var jl = defineComponent({
+var nr = defineComponent({
   __name: "ToggleGroupItem",
   props: {
-    asChild: { type: Boolean, default: false },
     value: {},
-    disabled: { type: Boolean }
+    disabled: { type: Boolean },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(
-      Vo
-    ), { primitiveElement: o, currentElement: a } = B();
+    const o = n, e = inject(
+      tn
+    ), { primitiveElement: t, currentElement: l } = P();
     onMounted(() => {
       var c;
-      (c = e == null ? void 0 : e.itemsArray.value) == null || c.push(a.value);
+      (c = e == null ? void 0 : e.itemsArray.value) == null || c.push(l.value);
     });
-    const l = computed(() => {
+    const a = computed(() => {
       var c, m, f;
-      return (e == null ? void 0 : e.type) === "multiple" ? (m = (c = e == null ? void 0 : e.modelValue) == null ? void 0 : c.value) != null && m.includes(t.value) ? "on" : "off" : ((f = e == null ? void 0 : e.modelValue) == null ? void 0 : f.value) === t.value ? "on" : "off";
+      return (e == null ? void 0 : e.type) === "multiple" ? (m = (c = e == null ? void 0 : e.modelValue) == null ? void 0 : c.value) != null && m.includes(o.value) ? "on" : "off" : ((f = e == null ? void 0 : e.modelValue) == null ? void 0 : f.value) === o.value ? "on" : "off";
     }), r = computed(() => {
       var c, m, f;
-      return (e == null ? void 0 : e.type) === "multiple" ? (m = (c = e == null ? void 0 : e.modelValue) == null ? void 0 : c.value) == null ? void 0 : m.includes(t.value) : ((f = e == null ? void 0 : e.modelValue) == null ? void 0 : f.value) === t.value;
+      return (e == null ? void 0 : e.type) === "multiple" ? (m = (c = e == null ? void 0 : e.modelValue) == null ? void 0 : c.value) == null ? void 0 : m.includes(o.value) : ((f = e == null ? void 0 : e.modelValue) == null ? void 0 : f.value) === o.value;
     });
     function s(c) {
       if (!(e != null && e.rovingFocus) || e != null && e.rootDisabled)
         return;
       (c.key === "ArrowLeft" || c.key === "ArrowRight" || c.key === "ArrowUp" || c.key === "ArrowDown") && c.preventDefault();
-      const m = oe(
+      const m = ne(
         c,
-        a.value,
+        l.value,
         e == null ? void 0 : e.parentElement.value,
         { loop: e == null ? void 0 : e.loop }
       );
@@ -1480,22 +1491,22 @@ var jl = defineComponent({
     }
     const i = computed(() => {
       var c, m, f;
-      return (c = e == null ? void 0 : e.currentFocusedElement) != null && c.value ? ((f = e == null ? void 0 : e.currentFocusedElement) == null ? void 0 : f.value) === a.value ? "0" : "-1" : ((m = e == null ? void 0 : e.modelValue) == null ? void 0 : m.value) === t.value ? "0" : "-1";
+      return (c = e == null ? void 0 : e.currentFocusedElement) != null && c.value ? ((f = e == null ? void 0 : e.currentFocusedElement) == null ? void 0 : f.value) === l.value ? "0" : "-1" : ((m = e == null ? void 0 : e.modelValue) == null ? void 0 : m.value) === o.value ? "0" : "-1";
     }), d = computed(() => (e == null ? void 0 : e.type) === "multiple" ? "checkbox" : "radio");
     function p() {
-      e != null && e.rootDisabled || (e == null || e.changeModelValue(t.value), e.currentFocusedElement.value = a.value);
+      e != null && e.rootDisabled || (e == null || e.changeModelValue(o.value), e.currentFocusedElement.value = l.value);
     }
     return (c, m) => {
       var f, v;
       return openBlock(), createBlock(unref(X), {
-        "as-child": t.asChild,
+        "as-child": o.asChild,
         ref_key: "primitiveElement",
-        ref: o,
+        ref: t,
         type: "button",
         role: d.value,
-        "data-state": l.value,
-        disabled: t.disabled || ((f = unref(e)) == null ? void 0 : f.rootDisabled),
-        "data-disabled": t.disabled ? "" : void 0,
+        "data-state": a.value,
+        disabled: o.disabled || ((f = unref(e)) == null ? void 0 : f.rootDisabled),
+        "data-disabled": o.disabled ? "" : void 0,
         "aria-checked": r.value,
         "data-orientation": (v = unref(e)) == null ? void 0 : v.orientation,
         onClick: p,
@@ -1511,191 +1522,190 @@ var jl = defineComponent({
     };
   }
 });
-var er = defineComponent({
+var ar = defineComponent({
   __name: "AspectRatio",
   props: {
-    asChild: { type: Boolean },
-    ratio: { default: 1 }
+    ratio: { default: 1 },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = computed(() => 1 / t.ratio * 100);
-    return (o, a) => (openBlock(), createElementBlock("div", {
+    const o = n, e = computed(() => 1 / o.ratio * 100);
+    return (t, l) => (openBlock(), createElementBlock("div", {
       style: normalizeStyle(`position: relative; width: 100%; padding-bottom: ${e.value}%`)
     }, [
       createVNode(unref(D), {
-        asChild: o.asChild,
+        "as-child": t.asChild,
         style: { position: "absolute", inset: "0px" }
       }, {
         default: withCtx(() => [
-          renderSlot(o.$slots, "default")
+          renderSlot(t.$slots, "default")
         ]),
         _: 3
-      }, 8, ["asChild"])
+      }, 8, ["as-child"])
     ], 4));
   }
 });
-var kt = Symbol();
-var tr = defineComponent({
+var St = Symbol();
+var lr = defineComponent({
   __name: "TabsRoot",
   props: {
-    asChild: { type: Boolean, default: false },
     defaultValue: {},
     orientation: { default: "horizontal" },
     dir: { default: "ltr" },
     activationMode: { default: "automatic" },
     modelValue: {},
-    onValueChange: {}
+    onValueChange: {},
+    asChild: { type: Boolean }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, o = ref(), a = ref(), l = K(e, "modelValue", t, {
+  setup(n, { emit: o }) {
+    const e = n, t = ref(), l = ref(), a = K(e, "modelValue", o, {
       defaultValue: e.defaultValue,
       passive: true
     });
-    return provide(kt, {
-      modelValue: l,
+    return provide(St, {
+      modelValue: a,
       changeModelValue: (r) => {
-        l.value = r, r && e.onValueChange && e.onValueChange(r);
+        a.value = r, r && e.onValueChange && e.onValueChange(r);
       },
-      currentFocusedElement: a,
-      parentElement: o,
+      currentFocusedElement: l,
+      parentElement: t,
       orientation: e.orientation,
       dir: e.dir,
       loop: true,
       activationMode: e.activationMode
     }), (r, s) => (openBlock(), createBlock(unref(D), {
-      asChild: r.asChild,
       dir: e.dir,
-      "data-orientation": e.orientation
+      "data-orientation": e.orientation,
+      "as-child": e.asChild
     }, {
       default: withCtx(() => [
         renderSlot(r.$slots, "default")
       ]),
       _: 3
-    }, 8, ["asChild", "dir", "data-orientation"]));
+    }, 8, ["dir", "data-orientation", "as-child"]));
   }
 });
-var or = defineComponent({
+var rr = defineComponent({
   __name: "TabsList",
   props: {
-    asChild: { type: Boolean, default: false },
-    loop: { type: Boolean, default: true }
+    loop: { type: Boolean, default: true },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(kt), { primitiveElement: o, currentElement: a } = B();
+    const o = n, e = inject(St), { primitiveElement: t, currentElement: l } = P();
     return onMounted(() => {
-      e.parentElement.value = a.value, e.loop = t.loop;
-    }), (l, r) => {
+      e.parentElement.value = l.value, e.loop = o.loop;
+    }), (a, r) => {
       var s, i;
       return openBlock(), createBlock(unref(D), {
-        asChild: l.asChild,
         role: "tablist",
         ref_key: "primitiveElement",
-        ref: o,
+        ref: t,
+        "as-child": o.asChild,
         "aria-orientation": (s = unref(e)) == null ? void 0 : s.orientation,
         tabindex: "0",
         "data-orientation": (i = unref(e)) == null ? void 0 : i.orientation,
         style: { outline: "none" }
       }, {
         default: withCtx(() => [
-          renderSlot(l.$slots, "default")
+          renderSlot(a.$slots, "default")
         ]),
         _: 3
-      }, 8, ["asChild", "aria-orientation", "data-orientation"]);
+      }, 8, ["as-child", "aria-orientation", "data-orientation"]);
     };
   }
 });
-var nr = defineComponent({
+var ir = defineComponent({
   __name: "TabsContent",
   props: {
-    asChild: { type: Boolean, default: false },
     value: {},
-    forceMount: { type: Boolean }
+    forceMount: { type: Boolean },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(kt), o = computed(() => {
-      var a;
-      return ((a = e == null ? void 0 : e.modelValue) == null ? void 0 : a.value) === t.value ? "active" : "inactive";
+    const o = n, e = inject(St), t = computed(() => {
+      var l;
+      return ((l = e == null ? void 0 : e.modelValue) == null ? void 0 : l.value) === o.value ? "active" : "inactive";
     });
-    return (a, l) => {
+    return (l, a) => {
       var r, s, i;
-      return ((s = (r = unref(e)) == null ? void 0 : r.modelValue) == null ? void 0 : s.value) === t.value ? (openBlock(), createBlock(unref(D), {
+      return ((s = (r = unref(e)) == null ? void 0 : r.modelValue) == null ? void 0 : s.value) === o.value ? (openBlock(), createBlock(unref(D), {
         key: 0,
-        asChild: a.asChild,
+        "as-child": o.asChild,
         role: "tabpanel",
-        "data-state": o.value,
+        "data-state": t.value,
         "data-orientation": (i = unref(e)) == null ? void 0 : i.orientation,
         tabindex: "0"
       }, {
         default: withCtx(() => [
-          renderSlot(a.$slots, "default")
+          renderSlot(l.$slots, "default")
         ]),
         _: 3
-      }, 8, ["asChild", "data-state", "data-orientation"])) : createCommentVNode("", true);
+      }, 8, ["as-child", "data-state", "data-orientation"])) : createCommentVNode("", true);
     };
   }
 });
-var ar = defineComponent({
+var sr = defineComponent({
   __name: "TabsTrigger",
   props: {
     value: {},
     disabled: { type: Boolean, default: false },
-    asChild: { type: Boolean, default: false }
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(kt), { primitiveElement: o, currentElement: a } = B();
-    function l(i) {
+    const o = n, e = inject(St), { primitiveElement: t, currentElement: l } = P();
+    function a(i) {
       e == null || e.changeModelValue(i);
     }
     function r(i) {
-      const d = oe(
+      const d = ne(
         i,
-        a.value,
+        l.value,
         e == null ? void 0 : e.parentElement.value,
         {
           arrowKeyOptions: e == null ? void 0 : e.orientation,
           loop: e == null ? void 0 : e.loop
         }
       );
-      d && (d.focus(), e.currentFocusedElement.value = d, (e == null ? void 0 : e.activationMode) === "automatic" && l(d == null ? void 0 : d.getAttribute("data-radix-vue-tab-value")));
+      d && (d.focus(), e.currentFocusedElement.value = d, (e == null ? void 0 : e.activationMode) === "automatic" && a(d == null ? void 0 : d.getAttribute("data-radix-vue-tab-value")));
     }
     const s = computed(() => {
       var i, d, p;
-      return (i = e == null ? void 0 : e.currentFocusedElement) != null && i.value ? ((p = e == null ? void 0 : e.currentFocusedElement) == null ? void 0 : p.value) === a.value ? "0" : "-1" : ((d = e == null ? void 0 : e.modelValue) == null ? void 0 : d.value) === t.value ? "0" : "-1";
+      return (i = e == null ? void 0 : e.currentFocusedElement) != null && i.value ? ((p = e == null ? void 0 : e.currentFocusedElement) == null ? void 0 : p.value) === l.value ? "0" : "-1" : ((d = e == null ? void 0 : e.modelValue) == null ? void 0 : d.value) === o.value ? "0" : "-1";
     });
     return (i, d) => {
       var p, c, m, f, v;
       return openBlock(), createBlock(unref(X), {
         ref_key: "primitiveElement",
-        ref: o,
+        ref: t,
         type: "button",
-        asChild: t.asChild,
+        "as-child": o.asChild,
         role: "tab",
-        "aria-selected": ((c = (p = unref(e)) == null ? void 0 : p.modelValue) == null ? void 0 : c.value) === t.value ? "true" : "false",
-        "data-state": ((f = (m = unref(e)) == null ? void 0 : m.modelValue) == null ? void 0 : f.value) === t.value ? "active" : "inactive",
-        disabled: t.disabled,
-        "data-disabled": t.disabled ? "" : void 0,
+        "aria-selected": ((c = (p = unref(e)) == null ? void 0 : p.modelValue) == null ? void 0 : c.value) === o.value ? "true" : "false",
+        "data-state": ((f = (m = unref(e)) == null ? void 0 : m.modelValue) == null ? void 0 : f.value) === o.value ? "active" : "inactive",
+        disabled: o.disabled,
+        "data-disabled": o.disabled ? "" : void 0,
         tabindex: s.value,
         "data-orientation": (v = unref(e)) == null ? void 0 : v.orientation,
         "data-radix-vue-collection-item": "",
-        "data-radix-vue-tab-value": t.value,
-        onClick: d[0] || (d[0] = (h2) => l(t.value)),
+        "data-radix-vue-tab-value": o.value,
+        onClick: d[0] || (d[0] = (g) => a(o.value)),
         onKeydown: r
       }, {
         default: withCtx(() => [
           renderSlot(i.$slots, "default")
         ]),
         _: 3
-      }, 8, ["asChild", "aria-selected", "data-state", "disabled", "data-disabled", "tabindex", "data-orientation", "data-radix-vue-tab-value"]);
+      }, 8, ["as-child", "aria-selected", "data-state", "disabled", "data-disabled", "tabindex", "data-orientation", "data-radix-vue-tab-value"]);
     };
   }
 });
-var Da = ["value", "aria-valuenow", "name"];
-var Vt = Symbol();
-var lr = defineComponent({
+var Ia = ["value", "aria-valuenow", "name"];
+var jt = Symbol();
+var ur = defineComponent({
   __name: "SliderRoot",
   props: {
-    asChild: { type: Boolean, default: false },
     defaultValue: {},
     value: {},
     name: {},
@@ -1708,51 +1718,53 @@ var lr = defineComponent({
     max: { default: 100 },
     step: { default: 1 },
     extraStep: {},
-    minStepsBetweenThumbs: { default: 0 }
+    minStepsBetweenThumbs: { default: 0 },
+    asChild: { type: Boolean, default: false }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, { primitiveElement: o, currentElement: a } = B(), l = ref(), r = computed(() => e.modelValue ? e.modelValue < 50 ? (e.modelValue - 50) / 50 * 10 : (e.modelValue - 50) / 50 * -10 : 0);
-    provide(Vt, {
+  setup(n, { emit: o }) {
+    const e = n, { primitiveElement: t, currentElement: l } = P(), a = ref(), r = computed(() => e.modelValue ? e.modelValue < 50 ? (e.modelValue - 50) / 50 * 10 : (e.modelValue - 50) / 50 * -10 : 0);
+    provide(jt, {
       modelValue: toRef(() => e.modelValue),
       changeModelValue: (f) => {
-        t("update:modelValue", f);
+        o("update:modelValue", f);
       },
-      rootSliderElement: a,
+      rootSliderElement: l,
       orientation: e.orientation,
       dir: e.dir,
       thumbOffset: r,
       min: e.min,
       max: e.max,
       step: e.step,
-      thumbElement: l,
+      thumbElement: a,
       disabled: e.disabled
     });
     function s(f) {
-      t("update:modelValue", m(f, e.step));
+      o("update:modelValue", m(f, e.step));
     }
     let i;
     function d(f) {
-      l.value && l.value.focus(), f.preventDefault(), a.value && (i = a.value.getBoundingClientRect(), f.clientX - 10 - r.value > i.left && f.clientX - 10 - r.value < i.left + i.width && s(
+      a.value && a.value.focus(), f.preventDefault(), l.value && (i = l.value.getBoundingClientRect(), f.clientX - 10 - r.value > i.left && f.clientX - 10 - r.value < i.left + i.width && s(
         Math.round(
           (f.clientX - 10 - r.value - i.left) / i.width * 100
         )
       ), document.addEventListener("pointermove", p), document.addEventListener("pointerup", c));
     }
     const p = (f) => {
-      l.value && l.value.focus(), f.clientX - 10 - r.value > i.left && f.clientX - 10 - r.value < i.left + i.width && s(
+      a.value && a.value.focus(), f.clientX - 10 - r.value > i.left && f.clientX - 10 - r.value < i.left + i.width && s(
         (f.clientX - 10 - r.value - i.left) / i.width * 100
       ), f.clientX - 10 - r.value <= i.left && s(e.min), f.clientX - 10 - r.value >= i.left + i.width && s(e.max);
     }, c = (f) => {
       document.removeEventListener("pointermove", p), document.removeEventListener("pointerup", c);
     };
     function m(f, v) {
-      const h2 = Math.floor(f / v);
-      return f % v <= v / 2 ? h2 * v : (h2 + 1) * v;
+      const g = Math.floor(f / v);
+      return f % v <= v / 2 ? g * v : (g + 1) * v;
     }
-    return (f, v) => (openBlock(), createBlock(unref(ne), {
+    return (f, v) => (openBlock(), createBlock(unref(ae), {
       ref_key: "primitiveElement",
-      ref: o,
+      ref: t,
+      "as-child": e.asChild,
       onPointerdown: d
     }, {
       default: withCtx(() => [
@@ -1762,89 +1774,94 @@ var lr = defineComponent({
           value: e.modelValue,
           "aria-valuenow": e.modelValue,
           name: e.name
-        }, null, 8, Da)
+        }, null, 8, Ia)
       ]),
       _: 3
-    }, 512));
+    }, 8, ["as-child"]));
   }
 });
-var rr = defineComponent({
+var dr = defineComponent({
   __name: "SliderThumb",
   props: {
-    asChild: { type: Boolean, default: false },
-    class: {}
+    asChild: { type: Boolean, default: false }
   },
   setup(n) {
-    const t = n, e = inject(Vt), { primitiveElement: o, currentElement: a } = B();
+    const o = n, e = inject(jt), { primitiveElement: t, currentElement: l } = P();
     onMounted(() => {
-      e != null && e.thumbElement && (e.thumbElement.value = a.value);
+      e != null && e.thumbElement && (e.thumbElement.value = l.value);
     });
-    let l = 2;
+    let a = 2;
     function r(s) {
       var p;
       if (!e)
         return;
       (s.keyCode === 32 || s.key === "Enter") && s.preventDefault();
       const i = Number(e == null ? void 0 : e.step), d = Number((p = e.modelValue) == null ? void 0 : p.value);
-      (s.key === "ArrowUp" || s.key === "ArrowRight") && (s.shiftKey ? (s.preventDefault(), d + l >= (e == null ? void 0 : e.max) ? e == null || e.changeModelValue(e == null ? void 0 : e.max) : d + l <= (e == null ? void 0 : e.min) ? e == null || e.changeModelValue(e == null ? void 0 : e.min) : e == null || e.changeModelValue(d + l)) : (s.preventDefault(), d + i >= (e == null ? void 0 : e.max) ? e == null || e.changeModelValue(e == null ? void 0 : e.max) : d + i <= (e == null ? void 0 : e.min) ? e == null || e.changeModelValue(e == null ? void 0 : e.min) : e == null || e.changeModelValue(d + i))), (s.key === "ArrowDown" || s.key === "ArrowLeft") && (s.shiftKey ? (s.preventDefault(), d - l >= (e == null ? void 0 : e.max) ? e == null || e.changeModelValue(e == null ? void 0 : e.max) : d - l <= (e == null ? void 0 : e.min) ? e == null || e.changeModelValue(e == null ? void 0 : e.min) : e == null || e.changeModelValue(d - l)) : (s.preventDefault(), d - i >= (e == null ? void 0 : e.max) ? e == null || e.changeModelValue(e == null ? void 0 : e.max) : d - i <= (e == null ? void 0 : e.min) ? e == null || e.changeModelValue(e == null ? void 0 : e.min) : e == null || e.changeModelValue(d - i)));
+      (s.key === "ArrowUp" || s.key === "ArrowRight") && (s.shiftKey ? (s.preventDefault(), d + a >= (e == null ? void 0 : e.max) ? e == null || e.changeModelValue(e == null ? void 0 : e.max) : d + a <= (e == null ? void 0 : e.min) ? e == null || e.changeModelValue(e == null ? void 0 : e.min) : e == null || e.changeModelValue(d + a)) : (s.preventDefault(), d + i >= (e == null ? void 0 : e.max) ? e == null || e.changeModelValue(e == null ? void 0 : e.max) : d + i <= (e == null ? void 0 : e.min) ? e == null || e.changeModelValue(e == null ? void 0 : e.min) : e == null || e.changeModelValue(d + i))), (s.key === "ArrowDown" || s.key === "ArrowLeft") && (s.shiftKey ? (s.preventDefault(), d - a >= (e == null ? void 0 : e.max) ? e == null || e.changeModelValue(e == null ? void 0 : e.max) : d - a <= (e == null ? void 0 : e.min) ? e == null || e.changeModelValue(e == null ? void 0 : e.min) : e == null || e.changeModelValue(d - a)) : (s.preventDefault(), d - i >= (e == null ? void 0 : e.max) ? e == null || e.changeModelValue(e == null ? void 0 : e.max) : d - i <= (e == null ? void 0 : e.min) ? e == null || e.changeModelValue(e == null ? void 0 : e.min) : e == null || e.changeModelValue(d - i)));
     }
     return (s, i) => {
-      var d, p, c, m, f, v, h2, y, C;
+      var d, p, c, m, f, v, g, h2, x;
       return openBlock(), createElementBlock("span", {
         style: normalizeStyle(`transform: translateX(-50%); position: absolute; left: calc(${(p = (d = unref(e)) == null ? void 0 : d.modelValue) == null ? void 0 : p.value}%)`)
       }, [
-        createVNode(unref(ne), {
-          class: normalizeClass(t.class),
+        createVNode(unref(ae), mergeProps(s.$attrs, {
           ref_key: "primitiveElement",
-          ref: o,
+          ref: t,
           role: "slider",
           tabindex: "0",
           "data-disabled": (c = unref(e)) == null ? void 0 : c.disabled,
           "data-orientation": (m = unref(e)) == null ? void 0 : m.orientation,
           "aria-valuenow": (v = (f = unref(e)) == null ? void 0 : f.modelValue) == null ? void 0 : v.value,
-          "aria-valuemin": (h2 = unref(e)) == null ? void 0 : h2.min,
-          "aria-valuemax": (y = unref(e)) == null ? void 0 : y.max,
-          "aria-orientation": (C = unref(e)) == null ? void 0 : C.orientation,
+          "aria-valuemin": (g = unref(e)) == null ? void 0 : g.min,
+          "aria-valuemax": (h2 = unref(e)) == null ? void 0 : h2.max,
+          "aria-orientation": (x = unref(e)) == null ? void 0 : x.orientation,
+          "as-child": o.asChild,
           onKeydown: r
-        }, null, 8, ["class", "data-disabled", "data-orientation", "aria-valuenow", "aria-valuemin", "aria-valuemax", "aria-orientation"])
+        }), null, 16, ["data-disabled", "data-orientation", "aria-valuenow", "aria-valuemin", "aria-valuemax", "aria-orientation", "as-child"])
       ], 4);
     };
   }
 });
-var ir = defineComponent({
+var cr = defineComponent({
   __name: "SliderTrack",
   props: {
     asChild: { type: Boolean }
   },
   setup(n) {
-    return (t, e) => (openBlock(), createBlock(unref(ne), { asChild: t.asChild }, {
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(unref(ae), {
+      "as-child": o.asChild
+    }, {
       default: withCtx(() => [
-        renderSlot(t.$slots, "default")
+        renderSlot(e.$slots, "default")
       ]),
       _: 3
-    }, 8, ["asChild"]));
+    }, 8, ["as-child"]));
   }
 });
-var sr = defineComponent({
+var pr = defineComponent({
   __name: "SliderRange",
+  props: {
+    asChild: { type: Boolean }
+  },
   setup(n) {
-    const t = inject(Vt);
-    return (e, o) => {
-      var a, l, r, s, i;
-      return openBlock(), createBlock(unref(ne), {
-        "data-disabled": (a = unref(t)) == null ? void 0 : a.disabled,
-        "data-orientation": (l = unref(t)) == null ? void 0 : l.orientation,
-        style: normalizeStyle(`left: 0%; right: ${(((r = unref(t)) == null ? void 0 : r.max) ?? 100) - (((i = (s = unref(t)) == null ? void 0 : s.modelValue) == null ? void 0 : i.value) ?? 0)}%`)
-      }, null, 8, ["data-disabled", "data-orientation", "style"]);
+    const o = n, e = inject(jt);
+    return (t, l) => {
+      var a, r, s, i, d;
+      return openBlock(), createBlock(unref(ae), {
+        "data-disabled": (a = unref(e)) == null ? void 0 : a.disabled,
+        "data-orientation": (r = unref(e)) == null ? void 0 : r.orientation,
+        "as-child": o.asChild,
+        style: normalizeStyle(`left: 0%; right: ${(((s = unref(e)) == null ? void 0 : s.max) ?? 100) - (((d = (i = unref(e)) == null ? void 0 : i.modelValue) == null ? void 0 : d.value) ?? 0)}%`)
+      }, null, 8, ["data-disabled", "data-orientation", "as-child", "style"]);
     };
   }
 });
-var jo = "RadioGroup";
-var en = Symbol();
-var ur = defineComponent({
+var on = "RadioGroup";
+var nn = Symbol();
+var fr = defineComponent({
   __name: "RadioGroupRoot",
   props: {
-    asChild: { type: Boolean, default: false },
     modelValue: {},
     onValueChange: {},
     defaultValue: {},
@@ -1854,20 +1871,21 @@ var ur = defineComponent({
     required: { type: Boolean, default: false },
     orientation: { default: void 0 },
     dir: { default: "ltr" },
-    loop: { type: Boolean, default: true }
+    loop: { type: Boolean, default: true },
+    asChild: { type: Boolean }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, { primitiveElement: o, currentElement: a } = B(), l = K(e, "modelValue", t, {
+  setup(n, { emit: o }) {
+    const e = n, { primitiveElement: t, currentElement: l } = P(), a = K(e, "modelValue", o, {
       defaultValue: e.defaultValue,
       passive: true
     });
-    return provide(jo, {
-      modelValue: l,
+    return provide(on, {
+      modelValue: a,
       changeModelValue: (r) => {
-        l.value = r, r && e.onValueChange && e.onValueChange(r);
+        a.value = r, r && e.onValueChange && e.onValueChange(r);
       },
-      parentElement: a,
+      parentElement: l,
       currentFocusedElement: ref(),
       disabled: ref(e.disabled),
       loop: ref(e.loop),
@@ -1875,11 +1893,11 @@ var ur = defineComponent({
       name: e.name,
       required: ref(e.required)
     }), (r, s) => (openBlock(), createBlock(unref(D), {
-      asChild: e.asChild,
       ref_key: "primitiveElement",
-      ref: o,
+      ref: t,
       role: "radiogroup",
       "data-disabled": e.disabled ? "" : void 0,
+      "as-child": e.asChild,
       required: e.required,
       "aria-required": e.required,
       dir: e.dir,
@@ -1889,32 +1907,32 @@ var ur = defineComponent({
         renderSlot(r.$slots, "default")
       ]),
       _: 3
-    }, 8, ["asChild", "data-disabled", "required", "aria-required", "dir", "name"]));
+    }, 8, ["data-disabled", "as-child", "required", "aria-required", "dir", "name"]));
   }
 });
-var Ra = ["value", "required", "disabled", "checked"];
-var dr = defineComponent({
+var Na = ["value", "required", "disabled", "checked"];
+var mr = defineComponent({
   __name: "RadioGroupItem",
   props: {
-    asChild: { type: Boolean, default: false },
     value: {},
     disabled: { type: Boolean, default: false },
-    required: { type: Boolean }
+    required: { type: Boolean },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(jo), o = computed(() => (e == null ? void 0 : e.disabled.value) || t.disabled), a = computed(() => (e == null ? void 0 : e.required.value) || t.required), l = computed(() => {
+    const o = n, e = inject(on), t = computed(() => (e == null ? void 0 : e.disabled.value) || o.disabled), l = computed(() => (e == null ? void 0 : e.required.value) || o.required), a = computed(() => {
       var c;
-      return ((c = e == null ? void 0 : e.modelValue) == null ? void 0 : c.value) === t.value;
+      return ((c = e == null ? void 0 : e.modelValue) == null ? void 0 : c.value) === o.value;
     });
-    provide(en, readonly({ disabled: o, checked: l }));
+    provide(nn, readonly({ disabled: t, checked: a }));
     function r(c) {
-      o.value || e == null || e.changeModelValue(c);
+      t.value || e == null || e.changeModelValue(c);
     }
-    const { primitiveElement: s, currentElement: i } = B();
+    const { primitiveElement: s, currentElement: i } = P();
     function d(c) {
-      if (o.value)
+      if (t.value)
         return;
-      const m = oe(
+      const m = ne(
         c,
         i.value,
         e == null ? void 0 : e.parentElement.value,
@@ -1927,7 +1945,7 @@ var dr = defineComponent({
     }
     const p = computed(() => {
       var c, m;
-      return (c = e == null ? void 0 : e.currentFocusedElement) != null && c.value ? ((m = e == null ? void 0 : e.currentFocusedElement) == null ? void 0 : m.value) === i.value ? "0" : "-1" : l.value ? "0" : "-1";
+      return (c = e == null ? void 0 : e.currentFocusedElement) != null && c.value ? ((m = e == null ? void 0 : e.currentFocusedElement) == null ? void 0 : m.value) === i.value ? "0" : "-1" : a.value ? "0" : "-1";
     });
     return (c, m) => {
       var f;
@@ -1939,110 +1957,151 @@ var dr = defineComponent({
           role: "radio",
           "data-radix-vue-collection-item": ""
         }, c.$attrs, {
-          asChild: t.asChild,
-          disabled: o.value ? true : void 0,
-          "data-state": l.value ? "checked" : "unchecked",
-          "data-disabled": o.value ? "" : void 0,
+          "as-child": o.asChild,
+          disabled: t.value ? true : void 0,
+          "data-state": a.value ? "checked" : "unchecked",
+          "data-disabled": t.value ? "" : void 0,
           tabindex: p.value,
-          value: t.value,
+          value: o.value,
           name: (f = unref(e)) == null ? void 0 : f.name,
-          onClick: m[0] || (m[0] = (v) => r(t.value)),
+          onClick: m[0] || (m[0] = (v) => r(o.value)),
           onKeydown: d
         }), {
           default: withCtx(() => [
             renderSlot(c.$slots, "default")
           ]),
           _: 3
-        }, 16, ["asChild", "disabled", "data-state", "data-disabled", "tabindex", "value", "name"]),
+        }, 16, ["as-child", "disabled", "data-state", "data-disabled", "tabindex", "value", "name"]),
         createBaseVNode("input", {
           type: "radio",
           "aria-hidden": "true",
           tabindex: "-1",
-          value: t.value,
-          required: a.value,
-          disabled: o.value,
+          value: o.value,
+          required: l.value,
+          disabled: t.value,
           style: { transform: "translateX(-100%)", position: "absolute", "pointer-events": "none", opacity: "0", margin: "0px", width: "25px", height: "25px" },
-          checked: l.value
-        }, null, 8, Ra)
+          checked: a.value
+        }, null, 8, Na)
       ], 64);
     };
   }
 });
-var cr = defineComponent({
+var vr = defineComponent({
   __name: "RadioGroupIndicator",
   props: {
     asChild: { type: Boolean, default: false }
   },
   setup(n) {
-    const t = inject(en);
-    return (e, o) => {
-      var a, l, r;
-      return (a = unref(t)) != null && a.checked ? (openBlock(), createBlock(unref(ne), {
+    const o = inject(nn);
+    return (e, t) => {
+      var l, a, r;
+      return (l = unref(o)) != null && l.checked ? (openBlock(), createBlock(unref(ae), {
         key: 0,
-        asChild: e.asChild,
-        "data-state": (l = unref(t)) != null && l.checked ? "checked" : "unchecked",
-        "data-disabled": (r = unref(t)) != null && r.disabled ? "" : void 0
+        "data-state": (a = unref(o)) != null && a.checked ? "checked" : "unchecked",
+        "data-disabled": (r = unref(o)) != null && r.disabled ? "" : void 0,
+        "as-child": e.asChild
       }, {
         default: withCtx(() => [
           renderSlot(e.$slots, "default")
         ]),
         _: 3
-      }, 8, ["asChild", "data-state", "data-disabled"])) : createCommentVNode("", true);
+      }, 8, ["data-state", "data-disabled", "as-child"])) : createCommentVNode("", true);
     };
   }
 });
-var tn = Symbol();
-var pr = defineComponent({
+var an = Symbol();
+var eo = (n) => typeof n == "number";
+function La(n, o) {
+  return n === null || eo(n) && !isNaN(n) && n <= o && n >= 0 ? n : (console.error(`Invalid prop \`value\` of value \`${n}\` supplied to \`ProgressRoot\`. The \`value\` prop must be:
+  - a positive number
+  - less than the value passed to \`max\` (or ${je} if no \`max\` prop is set)
+  - \`null\` if the progress is indeterminate.
+
+Defaulting to \`null\`.`), null);
+}
+var je = 100;
+function Ka(n) {
+  return eo(n) && !isNaN(n) && n > 0 ? n : (console.error(
+    `Invalid prop \`max\` of value \`${n}\` supplied to \`ProgressRoot\`. Only numbers greater than 0 are valid max values. Defaulting to \`${je}\`.`
+  ), je);
+}
+var hr = defineComponent({
   __name: "ProgressRoot",
   props: {
-    asChild: { type: Boolean },
-    value: {},
     modelValue: {},
-    max: {}
+    max: { default: je },
+    getValueLabel: { type: Function, default: (n, o) => `${Math.round(n / o * je)}%` },
+    asChild: { type: Boolean }
   },
-  setup(n) {
-    const t = n;
-    return provide(tn, {
-      modelValue: toRef(() => t.modelValue),
-      max: t.max
-    }), (e, o) => (openBlock(), createBlock(unref(D), {
-      role: "progressbar",
-      "data-state": t.modelValue === t.max ? "complete" : "loading",
-      "data-value": t.modelValue,
-      "data-max": t.max,
-      "aria-valuenow": t.modelValue,
+  emits: ["update:modelValue", "update:max"],
+  setup(n, { emit: o }) {
+    const e = n, t = K(e, "modelValue", o, {
+      passive: true
+    }), l = K(e, "max", o, {
+      passive: true
+    });
+    watch(
+      () => t.value,
+      async (r) => {
+        const s = La(r, e.max);
+        s !== r && (await nextTick(), t.value = s);
+      },
+      { immediate: true }
+    ), watch(
+      () => e.max,
+      (r) => {
+        const s = Ka(e.max);
+        s !== r && (l.value = s);
+      },
+      { immediate: true }
+    );
+    const a = computed(() => t.value ? t.value === l.value ? "complete" : "loading" : "indeterminate");
+    return provide(an, {
+      modelValue: t,
+      max: l,
+      progressState: a
+    }), (r, s) => (openBlock(), createBlock(unref(D), {
+      asChild: e.asChild,
+      "aria-valuemax": unref(l),
       "aria-valuemin": 0,
-      "aria-valuemax": t.max
+      "aria-valuenow": eo(unref(t)) ? unref(t) : void 0,
+      "aria-valuetext": r.getValueLabel(unref(t), unref(l)),
+      role: "progressbar",
+      "data-state": a.value,
+      "data-value": unref(t) ?? void 0,
+      "data-max": unref(l)
     }, {
       default: withCtx(() => [
-        renderSlot(e.$slots, "default")
+        renderSlot(r.$slots, "default")
       ]),
       _: 3
-    }, 8, ["data-state", "data-value", "data-max", "aria-valuenow", "aria-valuemax"]));
+    }, 8, ["asChild", "aria-valuemax", "aria-valuenow", "aria-valuetext", "data-state", "data-value", "data-max"]));
   }
 });
-var fr = defineComponent({
+var _r = defineComponent({
   __name: "ProgressIndicator",
+  props: {
+    asChild: { type: Boolean }
+  },
   setup(n) {
-    const t = inject(tn);
-    return (e, o) => {
-      var a, l, r, s, i, d, p;
-      return openBlock(), createBlock(unref(D), {
-        "data-state": ((a = unref(t)) == null ? void 0 : a.modelValue) === ((l = unref(t)) == null ? void 0 : l.max) ? "complete" : "loading",
-        "data-value": (r = unref(t)) == null ? void 0 : r.modelValue,
-        "data-max": (s = unref(t)) == null ? void 0 : s.max,
-        style: normalizeStyle(`left: 0%; right: ${(((i = unref(t)) == null ? void 0 : i.max) ?? 100) - (((p = (d = unref(t)) == null ? void 0 : d.modelValue) == null ? void 0 : p.value) ?? 0)}%`)
-      }, {
+    const o = n, e = inject(an);
+    return (t, l) => {
+      var a, r, s, i;
+      return openBlock(), createBlock(unref(D), mergeProps(o, {
+        "data-state": (a = unref(e)) == null ? void 0 : a.progressState.value,
+        "data-value": ((s = (r = unref(e)) == null ? void 0 : r.modelValue) == null ? void 0 : s.value) ?? void 0,
+        "data-max": (i = unref(e)) == null ? void 0 : i.max.value
+      }), {
         default: withCtx(() => [
-          renderSlot(e.$slots, "default")
+          renderSlot(t.$slots, "default")
         ]),
         _: 3
-      }, 8, ["data-state", "data-value", "data-max", "style"]);
+      }, 16, ["data-state", "data-value", "data-max"]);
     };
   }
 });
-var it = Symbol();
-var mr = defineComponent({
+var ut = Symbol();
+var yr = defineComponent({
   __name: "DialogRoot",
   props: {
     open: { type: Boolean, default: void 0 },
@@ -2050,44 +2109,44 @@ var mr = defineComponent({
     modal: { type: Boolean, default: true }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, o = K(e, "open", t, {
+  setup(n, { emit: o }) {
+    const e = n, t = K(e, "open", o, {
       defaultValue: e.defaultOpen,
       passive: true
     });
-    return provide(it, {
-      open: o,
+    return provide(ut, {
+      open: t,
       modal: e.modal,
       openModal: () => {
-        o.value = true;
+        t.value = true;
       },
       closeModal: () => {
-        o.value = false;
+        t.value = false;
       },
       triggerButton: ref()
-    }), (a, l) => renderSlot(a.$slots, "default");
+    }), (l, a) => renderSlot(l.$slots, "default");
   }
 });
-var vr = defineComponent({
+var gr = defineComponent({
   __name: "DialogTrigger",
   props: {
     asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(it), { primitiveElement: o, currentElement: a } = B();
-    function l() {
+    const o = n, e = inject(ut), { primitiveElement: t, currentElement: l } = P();
+    function a() {
       console.error(
         "Injected value not found, DialogTrigger possibly not wrapped with DialogRoot. Component may not be working properly."
       );
     }
     return onMounted(() => {
-      e ? e.triggerButton.value = a.value : l();
+      e ? e.triggerButton.value = l.value : a();
     }), (r, s) => {
       var i, d, p;
-      return openBlock(), createBlock(unref(X), mergeProps(t, {
+      return openBlock(), createBlock(unref(X), mergeProps(o, {
         type: "button",
         ref_key: "primitiveElement",
-        ref: o,
+        ref: t,
         "aria-expanded": ((i = unref(e)) == null ? void 0 : i.open.value) || false,
         "data-state": (d = unref(e)) != null && d.open.value ? "open" : "closed",
         onClick: (p = unref(e)) == null ? void 0 : p.openModal
@@ -2106,42 +2165,42 @@ var qe = defineComponent({
     container: { default: "body" }
   },
   setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(Teleport, {
-      to: t.container
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(Teleport, {
+      to: o.container
     }, [
       renderSlot(e.$slots, "default")
     ], 8, ["to"]));
   }
 });
-var Ia = createBaseVNode("polygon", { points: "0,0 30,0 15,10" }, null, -1);
-var Na = defineComponent({
+var Ha = createBaseVNode("polygon", { points: "0,0 30,0 15,10" }, null, -1);
+var za = defineComponent({
   __name: "Arrow",
   props: {
     width: { default: 10 },
     height: { default: 5 }
   },
   setup(n) {
-    const t = n, { primitiveElement: e } = B();
-    return (o, a) => (openBlock(), createBlock(unref(Ea), mergeProps({
+    const o = n, { primitiveElement: e } = P();
+    return (t, l) => (openBlock(), createBlock(unref(xa), mergeProps({
       ref_key: "primitiveElement",
       ref: e
-    }, t, {
-      width: o.width,
-      height: o.height,
+    }, o, {
+      width: t.width,
+      height: t.height,
       viewBox: "0 0 30 10",
       preserveAspectRatio: "none"
     }), {
       default: withCtx(() => [
-        renderSlot(o.$slots, "default", {}, () => [
-          Ia
+        renderSlot(t.$slots, "default", {}, () => [
+          Ha
         ])
       ]),
       _: 3
     }, 16, ["width", "height"]));
   }
 });
-var ie = defineComponent({
+var re = defineComponent({
   __name: "BaseMenuItem",
   props: {
     disabled: { type: Boolean },
@@ -2149,7 +2208,8 @@ var ie = defineComponent({
     subProvider: {},
     orientation: {},
     role: { default: "menuitem" },
-    dataState: {}
+    dataState: {},
+    asChild: { type: Boolean }
   },
   emits: [
     "handle-click",
@@ -2157,37 +2217,37 @@ var ie = defineComponent({
     "mouseover",
     "escape-keydown"
   ],
-  setup(n, { emit: t }) {
-    const e = n, { getItems: o } = re(), { primitiveElement: a, currentElement: l } = B();
+  setup(n, { emit: o }) {
+    const e = n, { getItems: t } = le(), { primitiveElement: l, currentElement: a } = P();
     function r(c) {
-      var f, v, h2, y;
+      var f, v, g, h2;
       if (c.key === "Escape")
-        return i(), t("escape-keydown", c);
+        return i(), o("escape-keydown", c);
       if (c.keyCode === 32 || c.key === "Enter") {
         c.target.click();
         return;
       }
       if (c.key === "ArrowLeft") {
-        const C = (f = e.subProvider) == null ? void 0 : f.triggerElement.value;
-        if (C)
-          return (v = e.rootProvider) == null || v.changeSelected(C), (h2 = e.subProvider) == null ? void 0 : h2.hideTooltip();
+        const x = (f = e.subProvider) == null ? void 0 : f.triggerElement.value;
+        if (x)
+          return (v = e.rootProvider) == null || v.changeSelected(x), (g = e.subProvider) == null ? void 0 : g.hideTooltip();
       }
       if (c.key === "ArrowRight" || c.key === "ArrowLeft")
-        return t("horizontal-keydown", c);
-      const m = oe(
+        return o("horizontal-keydown", c);
+      const m = ne(
         c,
-        l.value,
+        a.value,
         void 0,
         {
           arrowKeyOptions: "vertical",
-          itemsArray: o()
+          itemsArray: t()
         }
       );
-      m && ((y = e.rootProvider) == null || y.changeSelected(m));
+      m && ((h2 = e.rootProvider) == null || h2.changeSelected(m));
     }
     function s() {
       var c;
-      e.disabled || (c = e.rootProvider) == null || c.changeSelected(l.value);
+      e.disabled || (c = e.rootProvider) == null || c.changeSelected(a.value);
     }
     function i() {
       document.querySelector("body").style.pointerEvents = "", setTimeout(() => {
@@ -2196,28 +2256,28 @@ var ie = defineComponent({
       }, 0);
     }
     function d() {
-      t("handle-click");
+      o("handle-click");
     }
     function p() {
-      t("mouseover");
+      o("mouseover");
     }
     return (c, m) => {
-      var f, v, h2;
+      var f, v, g;
       return openBlock(), createBlock(unref(D), {
         role: e.role,
         ref_key: "primitiveElement",
-        ref: a,
+        ref: l,
         onKeydown: withModifiers(r, ["prevent"]),
         "data-state": e.dataState,
         "data-radix-vue-collection-item": "",
         onMouseenter: s,
         onMouseover: p,
         onClick: d,
-        "data-highlighted": ((f = c.rootProvider) == null ? void 0 : f.selectedElement.value) === unref(l) ? "" : null,
+        "data-highlighted": ((f = c.rootProvider) == null ? void 0 : f.selectedElement.value) === unref(a) ? "" : null,
         "aria-disabled": e.disabled ? true : void 0,
         "data-disabled": e.disabled ? "" : void 0,
         "data-orientation": (v = c.rootProvider) == null ? void 0 : v.orientation,
-        tabindex: ((h2 = c.rootProvider) == null ? void 0 : h2.selectedElement.value) === unref(l) ? "0" : "-1"
+        tabindex: ((g = c.rootProvider) == null ? void 0 : g.selectedElement.value) === unref(a) ? "0" : "-1"
       }, {
         default: withCtx(() => [
           renderSlot(c.$slots, "default")
@@ -2227,14 +2287,14 @@ var ie = defineComponent({
     };
   }
 });
-var hr = defineComponent({
+var br = defineComponent({
   __name: "DialogPortal",
   props: {
     container: {}
   },
   setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(unref(qe), normalizeProps(guardReactiveProps(t)), {
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(unref(qe), normalizeProps(guardReactiveProps(o)), {
       default: withCtx(() => [
         renderSlot(e.$slots, "default")
       ]),
@@ -2242,170 +2302,170 @@ var hr = defineComponent({
     }, 16));
   }
 });
-function on(n) {
+function ln(n) {
   return getCurrentScope() ? (onScopeDispose(n), true) : false;
 }
-function ht(n) {
+function _t(n) {
   return typeof n == "function" ? n() : unref(n);
 }
-var nn = typeof window < "u";
-var jt = () => {
+var rn = typeof window < "u";
+var to = () => {
 };
-var Rt = La();
-function La() {
+var It = Ya();
+function Ya() {
   var n;
-  return nn && ((n = window == null ? void 0 : window.navigator) == null ? void 0 : n.userAgent) && /iP(ad|hone|od)/.test(window.navigator.userAgent);
+  return rn && ((n = window == null ? void 0 : window.navigator) == null ? void 0 : n.userAgent) && /iP(ad|hone|od)/.test(window.navigator.userAgent);
 }
-var wo = {
+var Co = {
   mounted: "mounted",
   updated: "updated",
   unmounted: "unmounted"
 };
-function Ka(...n) {
+function Wa(...n) {
   if (n.length !== 1)
     return toRef(...n);
-  const t = n[0];
-  return typeof t == "function" ? readonly(customRef(() => ({ get: t, set: jt }))) : ref(t);
+  const o = n[0];
+  return typeof o == "function" ? readonly(customRef(() => ({ get: o, set: to }))) : ref(o);
 }
-function Fe(n) {
-  var t;
-  const e = ht(n);
-  return (t = e == null ? void 0 : e.$el) != null ? t : e;
+function Je(n) {
+  var o;
+  const e = _t(n);
+  return (o = e == null ? void 0 : e.$el) != null ? o : e;
 }
-var an = nn ? window : void 0;
-function ft(...n) {
-  let t, e, o, a;
-  if (typeof n[0] == "string" || Array.isArray(n[0]) ? ([e, o, a] = n, t = an) : [t, e, o, a] = n, !t)
-    return jt;
-  Array.isArray(e) || (e = [e]), Array.isArray(o) || (o = [o]);
-  const l = [], r = () => {
-    l.forEach((p) => p()), l.length = 0;
+var sn = rn ? window : void 0;
+function mt(...n) {
+  let o, e, t, l;
+  if (typeof n[0] == "string" || Array.isArray(n[0]) ? ([e, t, l] = n, o = sn) : [o, e, t, l] = n, !o)
+    return to;
+  Array.isArray(e) || (e = [e]), Array.isArray(t) || (t = [t]);
+  const a = [], r = () => {
+    a.forEach((p) => p()), a.length = 0;
   }, s = (p, c, m, f) => (p.addEventListener(c, m, f), () => p.removeEventListener(c, m, f)), i = watch(
-    () => [Fe(t), ht(a)],
+    () => [Je(o), _t(l)],
     ([p, c]) => {
-      r(), p && l.push(
-        ...e.flatMap((m) => o.map((f) => s(p, m, f, c)))
+      r(), p && a.push(
+        ...e.flatMap((m) => t.map((f) => s(p, m, f, c)))
       );
     },
     { immediate: true, flush: "post" }
   ), d = () => {
     i(), r();
   };
-  return on(d), d;
+  return ln(d), d;
 }
-var Eo = false;
-function Co(n, t, e = {}) {
-  const { window: o = an, ignore: a = [], capture: l = true, detectIframe: r = false } = e;
-  if (!o)
+var xo = false;
+function $o(n, o, e = {}) {
+  const { window: t = sn, ignore: l = [], capture: a = true, detectIframe: r = false } = e;
+  if (!t)
     return;
-  Rt && !Eo && (Eo = true, Array.from(o.document.body.children).forEach((m) => m.addEventListener("click", jt)));
+  It && !xo && (xo = true, Array.from(t.document.body.children).forEach((m) => m.addEventListener("click", to)));
   let s = true;
-  const i = (m) => a.some((f) => {
+  const i = (m) => l.some((f) => {
     if (typeof f == "string")
-      return Array.from(o.document.querySelectorAll(f)).some((v) => v === m.target || m.composedPath().includes(v));
+      return Array.from(t.document.querySelectorAll(f)).some((v) => v === m.target || m.composedPath().includes(v));
     {
-      const v = Fe(f);
+      const v = Je(f);
       return v && (m.target === v || m.composedPath().includes(v));
     }
   }), p = [
-    ft(o, "click", (m) => {
-      const f = Fe(n);
+    mt(t, "click", (m) => {
+      const f = Je(n);
       if (!(!f || f === m.target || m.composedPath().includes(f))) {
         if (m.detail === 0 && (s = !i(m)), !s) {
           s = true;
           return;
         }
-        t(m);
+        o(m);
       }
-    }, { passive: true, capture: l }),
-    ft(o, "pointerdown", (m) => {
-      const f = Fe(n);
+    }, { passive: true, capture: a }),
+    mt(t, "pointerdown", (m) => {
+      const f = Je(n);
       f && (s = !m.composedPath().includes(f) && !i(m));
     }, { passive: true }),
-    r && ft(o, "blur", (m) => {
+    r && mt(t, "blur", (m) => {
       setTimeout(() => {
         var f;
-        const v = Fe(n);
-        ((f = o.document.activeElement) == null ? void 0 : f.tagName) === "IFRAME" && !(v != null && v.contains(o.document.activeElement)) && t(m);
+        const v = Je(n);
+        ((f = t.document.activeElement) == null ? void 0 : f.tagName) === "IFRAME" && !(v != null && v.contains(t.document.activeElement)) && o(m);
       }, 0);
     })
   ].filter(Boolean);
   return () => p.forEach((m) => m());
 }
-var ln = {
-  [wo.mounted](n, t) {
-    const e = !t.modifiers.bubble;
-    if (typeof t.value == "function")
-      n.__onClickOutside_stop = Co(n, t.value, { capture: e });
+var un = {
+  [Co.mounted](n, o) {
+    const e = !o.modifiers.bubble;
+    if (typeof o.value == "function")
+      n.__onClickOutside_stop = $o(n, o.value, { capture: e });
     else {
-      const [o, a] = t.value;
-      n.__onClickOutside_stop = Co(n, o, Object.assign({ capture: e }, a));
+      const [t, l] = o.value;
+      n.__onClickOutside_stop = $o(n, t, Object.assign({ capture: e }, l));
     }
   },
-  [wo.unmounted](n) {
+  [Co.unmounted](n) {
     n.__onClickOutside_stop();
   }
 };
-function rn(n) {
-  const t = window.getComputedStyle(n);
-  if (t.overflowX === "scroll" || t.overflowY === "scroll" || t.overflowX === "auto" && n.clientWidth < n.scrollWidth || t.overflowY === "auto" && n.clientHeight < n.scrollHeight)
+function dn(n) {
+  const o = window.getComputedStyle(n);
+  if (o.overflowX === "scroll" || o.overflowY === "scroll" || o.overflowX === "auto" && n.clientWidth < n.scrollWidth || o.overflowY === "auto" && n.clientHeight < n.scrollHeight)
     return true;
   {
     const e = n.parentNode;
-    return !e || e.tagName === "BODY" ? false : rn(e);
+    return !e || e.tagName === "BODY" ? false : dn(e);
   }
 }
-function Ha(n) {
-  const t = n || window.event, e = t.target;
-  return rn(e) ? false : t.touches.length > 1 ? true : (t.preventDefault && t.preventDefault(), false);
+function Ua(n) {
+  const o = n || window.event, e = o.target;
+  return dn(e) ? false : o.touches.length > 1 ? true : (o.preventDefault && o.preventDefault(), false);
 }
-function za(n, t = false) {
-  const e = ref(t);
-  let o = null, a;
-  watch(Ka(n), (s) => {
+function qa(n, o = false) {
+  const e = ref(o);
+  let t = null, l;
+  watch(Wa(n), (s) => {
     if (s) {
       const i = s;
-      a = i.style.overflow, e.value && (i.style.overflow = "hidden");
+      l = i.style.overflow, e.value && (i.style.overflow = "hidden");
     }
   }, {
     immediate: true
   });
-  const l = () => {
-    const s = ht(n);
-    !s || e.value || (Rt && (o = ft(
+  const a = () => {
+    const s = _t(n);
+    !s || e.value || (It && (t = mt(
       s,
       "touchmove",
       (i) => {
-        Ha(i);
+        Ua(i);
       },
       { passive: false }
     )), s.style.overflow = "hidden", e.value = true);
   }, r = () => {
-    const s = ht(n);
-    !s || !e.value || (Rt && (o == null || o()), s.style.overflow = a, e.value = false);
+    const s = _t(n);
+    !s || !e.value || (It && (t == null || t()), s.style.overflow = l, e.value = false);
   };
-  return on(r), computed({
+  return ln(r), computed({
     get() {
       return e.value;
     },
     set(s) {
-      s ? l() : r();
+      s ? a() : r();
     }
   });
 }
-function Ya() {
+function Ga() {
   let n = false;
-  const t = ref(false);
-  return (e, o) => {
-    if (t.value = o.value, n)
+  const o = ref(false);
+  return (e, t) => {
+    if (o.value = t.value, n)
       return;
     n = true;
-    const a = za(e, o.value);
-    watch(t, (l) => a.value = l);
+    const l = qa(e, t.value);
+    watch(o, (a) => l.value = a);
   };
 }
-Ya();
-var _r = defineComponent({
+Ga();
+var wr = defineComponent({
   __name: "DialogContent",
   props: {
     isOpenAutoFocus: { type: Boolean, default: true },
@@ -2416,19 +2476,19 @@ var _r = defineComponent({
     asChild: { type: Boolean }
   },
   emits: ["open", "close", "escapeKeyDown", "pointerDownOutside"],
-  setup(n, { emit: t }) {
-    const e = n, o = inject(it), { primitiveElement: a, currentElement: l } = B(), r = () => e.isDisableInteractOutside || o.modal && e.isDisableInteractOutside === void 0, s = () => e.isCloseAutoFocus || o.modal && e.isCloseAutoFocus === void 0;
+  setup(n, { emit: o }) {
+    const e = n, t = inject(ut), { primitiveElement: l, currentElement: a } = P(), r = () => e.isDisableInteractOutside || t.modal && e.isDisableInteractOutside === void 0, s = () => e.isCloseAutoFocus || t.modal && e.isCloseAutoFocus === void 0;
     watchEffect(() => {
       var v;
-      l.value && (o != null && o.open.value ? (e.isOpenAutoFocus && Ft(l.value), r() && p(), o != null && o.modal && (window.addEventListener("wheel", i, { passive: false }), window.addEventListener("keydown", d)), window.addEventListener("keydown", f), t("open")) : (c(), window.removeEventListener("wheel", i), window.removeEventListener("keydown", d), window.removeEventListener("keydown", f), s() && ((v = o == null ? void 0 : o.triggerButton.value) == null || v.focus()), t("close")));
+      a.value && (t != null && t.open.value ? (e.isOpenAutoFocus && Jt(a.value), r() && p(), t != null && t.modal && (window.addEventListener("wheel", i, { passive: false }), window.addEventListener("keydown", d)), window.addEventListener("keydown", f), o("open")) : (c(), window.removeEventListener("wheel", i), window.removeEventListener("keydown", d), window.removeEventListener("keydown", f), s() && ((v = t == null ? void 0 : t.triggerButton.value) == null || v.focus()), o("close")));
     });
     function i(v) {
       v.preventDefault();
     }
     function d(v) {
       if (v.key === "ArrowDown" || v.key === "ArrowUp") {
-        const h2 = document.activeElement;
-        h2 && ["input", "select", "textarea"].indexOf(h2.tagName.toLowerCase()) === -1 && v.preventDefault();
+        const g = document.activeElement;
+        g && ["input", "select", "textarea"].indexOf(g.tagName.toLowerCase()) === -1 && v.preventDefault();
       }
     }
     function p() {
@@ -2438,20 +2498,20 @@ var _r = defineComponent({
       document.querySelector("body").style.pointerEvents = "";
     }
     function m() {
-      e.isPointerDownOutsideDefault && (o == null || o.closeModal()), t("pointerDownOutside");
+      e.isPointerDownOutsideDefault && (t == null || t.closeModal()), o("pointerDownOutside");
     }
     function f(v) {
-      var h2;
-      v.key === "Escape" && (e.isEscapeKeyDownDefault && (v.preventDefault(), o == null || o.closeModal(), s() && ((h2 = o == null ? void 0 : o.triggerButton.value) == null || h2.focus())), t("escapeKeyDown"));
+      var g;
+      v.key === "Escape" && (e.isEscapeKeyDownDefault && (v.preventDefault(), t == null || t.closeModal(), s() && ((g = t == null ? void 0 : t.triggerButton.value) == null || g.focus())), o("escapeKeyDown"));
     }
-    return (v, h2) => {
-      var y, C;
-      return (y = unref(o)) != null && y.open.value ? withDirectives((openBlock(), createBlock(unref(D), {
+    return (v, g) => {
+      var h2, x;
+      return (h2 = unref(t)) != null && h2.open.value ? withDirectives((openBlock(), createBlock(unref(D), {
         key: 0,
-        asChild: e.asChild,
+        "as-child": e.asChild,
         ref_key: "primitiveElement",
-        ref: a,
-        "data-state": (C = unref(o)) != null && C.open.value ? "open" : "closed",
+        ref: l,
+        "data-state": (x = unref(t)) != null && x.open.value ? "open" : "closed",
         role: "dialog",
         tabindex: "-1",
         style: { "pointer-events": "auto" }
@@ -2460,65 +2520,65 @@ var _r = defineComponent({
           renderSlot(v.$slots, "default")
         ]),
         _: 3
-      }, 8, ["asChild", "data-state"])), [
-        [unref(ln), m]
+      }, 8, ["as-child", "data-state"])), [
+        [unref(un), m]
       ]) : createCommentVNode("", true);
     };
   }
 });
-var yr = defineComponent({
+var Er = defineComponent({
   __name: "DialogOverlay",
   props: {
     asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(it);
-    return (o, a) => {
-      var l, r;
-      return (l = unref(e)) != null && l.open.value ? (openBlock(), createBlock(unref(D), mergeProps({ key: 0 }, t, {
+    const o = n, e = inject(ut);
+    return (t, l) => {
+      var a, r;
+      return (a = unref(e)) != null && a.open.value ? (openBlock(), createBlock(unref(D), mergeProps({ key: 0 }, o, {
         "data-state": (r = unref(e)) != null && r.open.value ? "open" : "closed",
         style: { "pointer-events": "auto" },
         "data-aria-hidden": "true",
         "aria-hidden": "true"
       }), {
         default: withCtx(() => [
-          renderSlot(o.$slots, "default")
+          renderSlot(t.$slots, "default")
         ]),
         _: 3
       }, 16, ["data-state"])) : createCommentVNode("", true);
     };
   }
 });
-var gr = defineComponent({
+var Cr = defineComponent({
   __name: "DialogClose",
   props: {
     asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(it);
-    function o() {
+    const o = n, e = inject(ut);
+    function t() {
       e == null || e.closeModal();
     }
-    return (a, l) => (openBlock(), createBlock(unref(X), mergeProps(t, {
+    return (l, a) => (openBlock(), createBlock(unref(X), mergeProps(o, {
       type: "button",
       "aria-label": "Close",
-      onClick: o
+      onClick: t
     }), {
       default: withCtx(() => [
-        renderSlot(a.$slots, "default")
+        renderSlot(l.$slots, "default")
       ]),
       _: 3
     }, 16));
   }
 });
-var br = defineComponent({
+var xr = defineComponent({
   __name: "DialogTitle",
   props: {
     asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(unref(Xo), normalizeProps(guardReactiveProps(t)), {
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(unref(Zo), normalizeProps(guardReactiveProps(o)), {
       default: withCtx(() => [
         renderSlot(e.$slots, "default")
       ]),
@@ -2526,14 +2586,14 @@ var br = defineComponent({
     }, 16));
   }
 });
-var wr = defineComponent({
+var $r = defineComponent({
   __name: "DialogDescription",
   props: {
     asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(unref(Fo), normalizeProps(guardReactiveProps(t)), {
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(unref(Qo), normalizeProps(guardReactiveProps(o)), {
       default: withCtx(() => [
         renderSlot(e.$slots, "default")
       ]),
@@ -2542,52 +2602,52 @@ var wr = defineComponent({
   }
 });
 var Ge = Symbol();
-var Er = defineComponent({
+var kr = defineComponent({
   __name: "AlertDialogRoot",
   props: {
     open: { type: Boolean, default: void 0 },
     defaultOpen: { type: Boolean, default: false }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, o = K(e, "open", t, {
+  setup(n, { emit: o }) {
+    const e = n, t = K(e, "open", o, {
       defaultValue: e.defaultOpen,
       passive: true
     });
     return provide(Ge, {
-      open: o,
+      open: t,
       openModal: () => {
-        o.value = true;
+        t.value = true;
       },
       closeModal: () => {
-        o.value = false;
+        t.value = false;
       },
       triggerButton: ref()
-    }), (a, l) => renderSlot(a.$slots, "default");
+    }), (l, a) => renderSlot(l.$slots, "default");
   }
 });
-var Cr = defineComponent({
+var Sr = defineComponent({
   __name: "AlertDialogTrigger",
   props: {
     asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(
+    const o = n, e = inject(
       Ge
-    ), { primitiveElement: o, currentElement: a } = B();
-    function l() {
+    ), { primitiveElement: t, currentElement: l } = P();
+    function a() {
       console.error(
         "Injected value not found, AlertDialogTrigger possibly not wrapped with AlertDialogRoot. Component may not be working properly."
       );
     }
     return onMounted(() => {
-      e ? e.triggerButton.value = a.value : l();
+      e ? e.triggerButton.value = l.value : a();
     }), (r, s) => {
       var i, d, p;
-      return openBlock(), createBlock(unref(X), mergeProps(t, {
+      return openBlock(), createBlock(unref(X), mergeProps(o, {
         type: "button",
         ref_key: "primitiveElement",
-        ref: o,
+        ref: t,
         "aria-expanded": ((i = unref(e)) == null ? void 0 : i.open.value) || false,
         "data-state": (d = unref(e)) != null && d.open.value ? "open" : "closed",
         onClick: (p = unref(e)) == null ? void 0 : p.openModal
@@ -2600,14 +2660,14 @@ var Cr = defineComponent({
     };
   }
 });
-var xr = defineComponent({
+var Ar = defineComponent({
   __name: "AlertDialogPortal",
   props: {
     container: {}
   },
   setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(qe, normalizeProps(guardReactiveProps(t)), {
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(qe, normalizeProps(guardReactiveProps(o)), {
       default: withCtx(() => [
         renderSlot(e.$slots, "default")
       ]),
@@ -2615,7 +2675,7 @@ var xr = defineComponent({
     }, 16));
   }
 });
-var $r = defineComponent({
+var Br = defineComponent({
   __name: "AlertDialogContent",
   props: {
     isOpenAutoFocus: { type: Boolean, default: true },
@@ -2624,13 +2684,13 @@ var $r = defineComponent({
     asChild: { type: Boolean }
   },
   emits: ["open", "close", "escapeKeyDown"],
-  setup(n, { emit: t }) {
-    const e = n, o = inject(
+  setup(n, { emit: o }) {
+    const e = n, t = inject(
       Ge
-    ), { primitiveElement: a, currentElement: l } = B(), r = () => e.isCloseAutoFocus;
+    ), { primitiveElement: l, currentElement: a } = P(), r = () => e.isCloseAutoFocus;
     watchEffect(() => {
       var f;
-      l.value && (o != null && o.open.value ? (e.isOpenAutoFocus && Ft(l.value), d(), window.addEventListener("wheel", s, { passive: false }), window.addEventListener("keydown", i), window.addEventListener("keydown", m), t("open")) : (p(), window.removeEventListener("wheel", s), window.removeEventListener("keydown", i), window.removeEventListener("keydown", m), r() && ((f = o == null ? void 0 : o.triggerButton.value) == null || f.focus()), t("close")));
+      a.value && (t != null && t.open.value ? (e.isOpenAutoFocus && Jt(a.value), d(), window.addEventListener("wheel", s, { passive: false }), window.addEventListener("keydown", i), window.addEventListener("keydown", m), o("open")) : (p(), window.removeEventListener("wheel", s), window.removeEventListener("keydown", i), window.removeEventListener("keydown", m), r() && ((f = t == null ? void 0 : t.triggerButton.value) == null || f.focus()), o("close")));
     });
     function s(f) {
       f.preventDefault();
@@ -2648,20 +2708,19 @@ var $r = defineComponent({
       document.querySelector("body").style.pointerEvents = "";
     }
     function c() {
-      o == null || o.closeModal();
+      t == null || t.closeModal();
     }
     function m(f) {
       var v;
-      f.key === "Escape" && (e.isEscapeKeyDownDefault && (f.preventDefault(), o == null || o.closeModal(), r() && ((v = o == null ? void 0 : o.triggerButton.value) == null || v.focus())), t("escapeKeyDown"));
+      f.key === "Escape" && (e.isEscapeKeyDownDefault && (f.preventDefault(), t == null || t.closeModal(), r() && ((v = t == null ? void 0 : t.triggerButton.value) == null || v.focus())), o("escapeKeyDown"));
     }
     return (f, v) => {
-      var h2, y;
-      return (h2 = unref(o)) != null && h2.open.value ? withDirectives((openBlock(), createBlock(unref(D), {
+      var g, h2;
+      return (g = unref(t)) != null && g.open.value ? withDirectives((openBlock(), createBlock(unref(D), {
         key: 0,
-        asChild: e.asChild,
         ref_key: "primitiveElement",
-        ref: a,
-        "data-state": (y = unref(o)) != null && y.open.value ? "open" : "closed",
+        ref: l,
+        "data-state": (h2 = unref(t)) != null && h2.open.value ? "open" : "closed",
         role: "dialog",
         tabindex: "-1",
         style: { "pointer-events": "auto" }
@@ -2670,68 +2729,69 @@ var $r = defineComponent({
           renderSlot(f.$slots, "default")
         ]),
         _: 3
-      }, 8, ["asChild", "data-state"])), [
-        [unref(ln), c]
+      }, 8, ["data-state"])), [
+        [unref(un), c]
       ]) : createCommentVNode("", true);
     };
   }
 });
-var kr = defineComponent({
+var Tr = defineComponent({
   __name: "AlertDialogOverlay",
   props: {
     asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(
+    const o = n, e = inject(
       Ge
     );
-    return (o, a) => {
-      var l, r;
-      return (l = unref(e)) != null && l.open.value ? (openBlock(), createBlock(unref(D), mergeProps({ key: 0 }, t, {
+    return (t, l) => {
+      var a, r;
+      return (a = unref(e)) != null && a.open.value ? (openBlock(), createBlock(unref(D), mergeProps({ key: 0 }, o, {
+        "as-child": o.asChild,
         "data-state": (r = unref(e)) != null && r.open.value ? "open" : "closed",
         style: { "pointer-events": "auto" },
         "data-aria-hidden": "true",
         "aria-hidden": "true"
       }), {
         default: withCtx(() => [
-          renderSlot(o.$slots, "default")
+          renderSlot(t.$slots, "default")
         ]),
         _: 3
-      }, 16, ["data-state"])) : createCommentVNode("", true);
+      }, 16, ["as-child", "data-state"])) : createCommentVNode("", true);
     };
   }
 });
-var Sr = defineComponent({
+var Pr = defineComponent({
   __name: "AlertDialogCancel",
   props: {
     asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(
+    const o = n, e = inject(
       Ge
     );
-    function o() {
+    function t() {
       e == null || e.closeModal();
     }
-    return (a, l) => (openBlock(), createBlock(unref(X), mergeProps(t, {
+    return (l, a) => (openBlock(), createBlock(unref(X), mergeProps(o, {
       type: "button",
-      onClick: o
+      onClick: t
     }), {
       default: withCtx(() => [
-        renderSlot(a.$slots, "default")
+        renderSlot(l.$slots, "default")
       ]),
       _: 3
     }, 16));
   }
 });
-var Ar = defineComponent({
+var Or = defineComponent({
   __name: "AlertDialogTitle",
   props: {
     asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(unref(Xo), normalizeProps(guardReactiveProps(t)), {
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(unref(Zo), normalizeProps(guardReactiveProps(o)), {
       default: withCtx(() => [
         renderSlot(e.$slots, "default")
       ]),
@@ -2739,14 +2799,14 @@ var Ar = defineComponent({
     }, 16));
   }
 });
-var Tr = defineComponent({
+var Mr = defineComponent({
   __name: "AlertDialogDescription",
   props: {
     asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(unref(Fo), normalizeProps(guardReactiveProps(t)), {
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(unref(Qo), normalizeProps(guardReactiveProps(o)), {
       default: withCtx(() => [
         renderSlot(e.$slots, "default")
       ]),
@@ -2754,126 +2814,134 @@ var Tr = defineComponent({
     }, 16));
   }
 });
-var Pr = defineComponent({
+var Dr = defineComponent({
   __name: "AlertDialogAction",
   props: {
     asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(
+    const o = n, e = inject(
       Ge
     );
-    function o() {
+    function t() {
       e == null || e.closeModal();
     }
-    return (a, l) => (openBlock(), createBlock(unref(X), mergeProps(t, {
+    return (l, a) => (openBlock(), createBlock(unref(X), mergeProps(o, {
       type: "button",
-      onClick: o
+      onClick: t
     }), {
       default: withCtx(() => [
-        renderSlot(a.$slots, "default")
+        renderSlot(l.$slots, "default")
       ]),
       _: 3
     }, 16));
   }
 });
-var St = Symbol();
-var Or = defineComponent({
+var At = Symbol();
+var Rr = defineComponent({
   __name: "ToolbarRoot",
   props: {
-    asChild: { type: Boolean, default: false },
     orientation: { default: "horizontal" },
     dir: { default: "ltr" },
-    loop: { type: Boolean }
+    loop: { type: Boolean },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, { primitiveElement: e, currentElement: o } = B(), a = ref();
-    return provide(St, {
-      parentElement: o,
-      activeElement: a,
-      orientation: t.orientation
-    }), (l, r) => (openBlock(), createBlock(unref(D), {
+    const o = n, { primitiveElement: e, currentElement: t } = P(), l = ref();
+    return provide(At, {
+      parentElement: t,
+      activeElement: l,
+      orientation: o.orientation
+    }), (a, r) => (openBlock(), createBlock(unref(D), {
       ref_key: "primitiveElement",
       ref: e,
       role: "toolbar",
       tabindex: "0",
       style: { outline: "none" },
-      "aria-orientation": t.orientation,
-      dir: t.dir,
-      "data-orientation": t.orientation
+      "aria-orientation": o.orientation,
+      dir: o.dir,
+      "data-orientation": o.orientation,
+      "as-child": o.asChild
     }, {
       default: withCtx(() => [
-        renderSlot(l.$slots, "default")
+        renderSlot(a.$slots, "default")
       ]),
       _: 3
-    }, 8, ["aria-orientation", "dir", "data-orientation"]));
+    }, 8, ["aria-orientation", "dir", "data-orientation", "as-child"]));
   }
 });
-var Br = defineComponent({
+var Ir = defineComponent({
   __name: "ToolbarButton",
+  props: {
+    asChild: { type: Boolean }
+  },
   setup(n) {
-    const t = inject(St), { primitiveElement: e, currentElement: o } = B();
-    function a(l) {
-      const r = oe(
-        l,
-        o.value,
-        t == null ? void 0 : t.parentElement.value
+    const o = n, e = inject(At), { primitiveElement: t, currentElement: l } = P();
+    function a(r) {
+      const s = ne(
+        r,
+        l.value,
+        e == null ? void 0 : e.parentElement.value
       );
-      r == null || r.focus();
+      s == null || s.focus();
     }
-    return (l, r) => {
-      var s, i;
+    return (r, s) => {
+      var i, d;
       return openBlock(), createBlock(unref(X), {
         ref_key: "primitiveElement",
-        ref: e,
-        "data-orientation": (s = unref(t)) == null ? void 0 : s.orientation,
+        ref: t,
+        "data-orientation": (i = unref(e)) == null ? void 0 : i.orientation,
+        "as-child": o.asChild,
         type: "button",
-        tabindex: ((i = unref(t)) == null ? void 0 : i.activeElement.value) === unref(o) ? "0" : "-1",
+        tabindex: ((d = unref(e)) == null ? void 0 : d.activeElement.value) === unref(l) ? "0" : "-1",
         onKeydown: a,
         "data-radix-vue-collection-item": ""
       }, {
         default: withCtx(() => [
-          renderSlot(l.$slots, "default")
+          renderSlot(r.$slots, "default")
         ]),
         _: 3
-      }, 8, ["data-orientation", "tabindex"]);
+      }, 8, ["data-orientation", "as-child", "tabindex"]);
     };
   }
 });
-var Mr = defineComponent({
+var Nr = defineComponent({
   __name: "ToolbarLink",
+  props: {
+    asChild: { type: Boolean }
+  },
   setup(n) {
-    const t = inject(St), { primitiveElement: e, currentElement: o } = B();
-    function a(l) {
-      const r = oe(
-        l,
-        o.value,
-        t == null ? void 0 : t.parentElement.value
+    const o = n, e = inject(At), { primitiveElement: t, currentElement: l } = P();
+    function a(r) {
+      const s = ne(
+        r,
+        l.value,
+        e == null ? void 0 : e.parentElement.value
       );
-      r == null || r.focus();
+      s == null || s.focus();
     }
-    return (l, r) => {
-      var s;
-      return openBlock(), createBlock(unref(Go), {
+    return (r, s) => {
+      var i;
+      return openBlock(), createBlock(unref(Jo), {
         ref_key: "primitiveElement",
-        ref: e,
-        tabindex: ((s = unref(t)) == null ? void 0 : s.activeElement.value) === unref(o) ? "0" : "-1",
+        ref: t,
+        tabindex: ((i = unref(e)) == null ? void 0 : i.activeElement.value) === unref(l) ? "0" : "-1",
+        "as-child": o.asChild,
         onKeydown: a,
         "data-radix-vue-collection-item": ""
       }, {
         default: withCtx(() => [
-          renderSlot(l.$slots, "default")
+          renderSlot(r.$slots, "default")
         ]),
         _: 3
-      }, 8, ["tabindex"]);
+      }, 8, ["tabindex", "as-child"]);
     };
   }
 });
-var sn = Symbol();
-var Dr = defineComponent({
+var cn = Symbol();
+var Lr = defineComponent({
   __name: "ToolbarToggleGroup",
   props: {
-    asChild: { type: Boolean },
     type: { default: "single" },
     value: {},
     defaultValue: {},
@@ -2882,64 +2950,66 @@ var Dr = defineComponent({
     orientation: {},
     dir: {},
     loop: { type: Boolean },
-    modelValue: {}
+    modelValue: {},
+    asChild: { type: Boolean }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, { primitiveElement: o, currentElement: a } = B();
-    return provide(sn, {
+  setup(n, { emit: o }) {
+    const e = n, { primitiveElement: t, currentElement: l } = P();
+    return provide(cn, {
       type: e.type,
       modelValue: toRef(() => e.modelValue),
-      changeModelValue: (l) => {
+      changeModelValue: (a) => {
         if (e.type === "single")
-          t("update:modelValue", l);
+          o("update:modelValue", a);
         else {
-          if (!l)
+          if (!a)
             return;
           let r = e.modelValue;
-          if (r.includes(l)) {
-            let s = r.findIndex((i) => i === l);
+          if (r.includes(a)) {
+            let s = r.findIndex((i) => i === a);
             r.splice(s, 1);
           } else
-            r.push(l);
-          t("update:modelValue", r);
+            r.push(a);
+          o("update:modelValue", r);
         }
       },
       orientation: e.orientation ? e.orientation : "horizontal",
-      parentElement: a
-    }), (l, r) => (openBlock(), createBlock(unref(D), {
+      parentElement: l
+    }), (a, r) => (openBlock(), createBlock(unref(D), {
       ref_key: "primitiveElement",
-      ref: o,
+      ref: t,
       role: "group",
       dir: e.dir,
+      "as-child": e.asChild,
       "aria-label": "Text alignment"
     }, {
       default: withCtx(() => [
-        renderSlot(l.$slots, "default")
+        renderSlot(a.$slots, "default")
       ]),
       _: 3
-    }, 8, ["dir"]));
+    }, 8, ["dir", "as-child"]));
   }
 });
-var Rr = defineComponent({
+var Kr = defineComponent({
   __name: "ToolbarToggleItem",
   props: {
-    asChild: { type: Boolean, default: false },
     value: {},
-    disabled: { type: Boolean }
+    disabled: { type: Boolean },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(
-      sn
-    ), o = inject(St), a = computed(() => {
+    const o = n, e = inject(
+      cn
+    ), t = inject(At), l = computed(() => {
       var s, i, d;
-      return (e == null ? void 0 : e.type) === "multiple" ? (i = (s = e == null ? void 0 : e.modelValue) == null ? void 0 : s.value) != null && i.includes(t.value) ? "on" : "off" : ((d = e == null ? void 0 : e.modelValue) == null ? void 0 : d.value) === t.value ? "on" : "off";
-    }), l = ref();
+      return (e == null ? void 0 : e.type) === "multiple" ? (i = (s = e == null ? void 0 : e.modelValue) == null ? void 0 : s.value) != null && i.includes(o.value) ? "on" : "off" : ((d = e == null ? void 0 : e.modelValue) == null ? void 0 : d.value) === o.value ? "on" : "off";
+    }), a = ref();
     function r(s) {
-      const i = oe(
+      const i = ne(
         s,
-        l.value,
-        o == null ? void 0 : o.parentElement.value
+        a.value,
+        t == null ? void 0 : t.parentElement.value
       );
       i == null || i.focus();
     }
@@ -2947,12 +3017,13 @@ var Rr = defineComponent({
       var d;
       return openBlock(), createBlock(unref(X), {
         type: "button",
-        "data-state": a.value,
-        "data-disabled": t.disabled,
+        "data-state": l.value,
+        "data-disabled": o.disabled,
         "data-orientation": (d = unref(e)) == null ? void 0 : d.orientation,
-        onClick: i[0] || (i[0] = (p) => unref(e).changeModelValue(t.value)),
+        "as-child": o.asChild,
+        onClick: i[0] || (i[0] = (p) => unref(e).changeModelValue(o.value)),
         ref_key: "currentToggleElement",
-        ref: l,
+        ref: a,
         onKeydown: r,
         "data-radix-vue-collection-item": ""
       }, {
@@ -2960,137 +3031,137 @@ var Rr = defineComponent({
           renderSlot(s.$slots, "default")
         ]),
         _: 3
-      }, 8, ["data-state", "data-disabled", "data-orientation"]);
+      }, 8, ["data-state", "data-disabled", "data-orientation", "as-child"]);
     };
   }
 });
-var Ir = defineComponent({
+var Hr = defineComponent({
   __name: "ToolbarSeparator",
   props: {
-    asChild: { type: Boolean, default: false }
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(Ue, {
-      asChild: t.asChild
-    }, null, 8, ["asChild"]));
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(Ue, {
+      "as-child": o.asChild
+    }, null, 8, ["as-child"]));
   }
 });
-var eo = Symbol();
-var Nr = defineComponent({
+var oo = Symbol();
+var zr = defineComponent({
   __name: "AvatarRoot",
   props: {
-    asChild: { type: Boolean, default: false }
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = ref("loading");
-    return provide(eo, {
+    const o = n, e = ref("loading");
+    return provide(oo, {
       imageLoadingStatus: e
-    }), (o, a) => (openBlock(), createBlock(unref(ne), {
-      asChild: t.asChild
+    }), (t, l) => (openBlock(), createBlock(unref(ae), {
+      "as-child": o.asChild
     }, {
       default: withCtx(() => [
-        renderSlot(o.$slots, "default")
-      ]),
-      _: 3
-    }, 8, ["asChild"]));
-  }
-});
-var Lr = defineComponent({
-  __name: "AvatarImage",
-  props: {
-    asChild: { type: Boolean, default: false },
-    onLoadingStatusChange: {}
-  },
-  setup(n) {
-    const t = inject(eo);
-    function e() {
-      t.imageLoadingStatus.value = "loaded";
-    }
-    return (o, a) => (openBlock(), createBlock(unref(ga), {
-      asChild: o.asChild,
-      onLoad: e
-    }, null, 8, ["asChild"]));
-  }
-});
-var Kr = defineComponent({
-  __name: "AvatarFallback",
-  props: {
-    asChild: { type: Boolean, default: false },
-    delayMs: { default: 0 }
-  },
-  setup(n) {
-    const t = n, e = inject(eo);
-    let o = ref(false), a;
-    return t.delayMs ? a = setTimeout(() => {
-      o.value = true, clearTimeout(a);
-    }, t.delayMs) : o.value = true, (l, r) => {
-      var s;
-      return unref(o) && ((s = unref(e)) == null ? void 0 : s.imageLoadingStatus.value) !== "loaded" ? (openBlock(), createBlock(unref(ne), {
-        key: 0,
-        asChild: t.asChild
-      }, {
-        default: withCtx(() => [
-          renderSlot(l.$slots, "default")
-        ]),
-        _: 3
-      }, 8, ["asChild"])) : createCommentVNode("", true);
-    };
-  }
-});
-var to = Symbol();
-var me = defineComponent({
-  __name: "PopperRoot",
-  setup(n) {
-    const t = ref();
-    return provide(to, {
-      anchor: t,
-      onAnchorChange: (e) => {
-        t.value = e;
-      }
-    }), (e, o) => renderSlot(e.$slots, "default");
-  }
-});
-var _e = defineComponent({
-  __name: "PopperAnchor",
-  props: {
-    asChild: { type: Boolean },
-    element: {}
-  },
-  setup(n) {
-    const t = n, { primitiveElement: e, currentElement: o } = B(), a = inject(to);
-    return watch(o, () => {
-      a == null || a.onAnchorChange(t.element ?? o.value);
-    }), (l, r) => (openBlock(), createBlock(unref(D), {
-      "as-child": l.asChild,
-      ref_key: "primitiveElement",
-      ref: e
-    }, {
-      default: withCtx(() => [
-        renderSlot(l.$slots, "default")
+        renderSlot(t.$slots, "default")
       ]),
       _: 3
     }, 8, ["as-child"]));
   }
 });
-var Wa = (n) => ({
-  name: "transformOrigin",
-  options: n,
-  fn(t) {
-    var y, C, $;
-    const { placement: e, rects: o, middlewareData: a } = t, r = ((y = a.arrow) == null ? void 0 : y.centerOffset) !== 0, s = r ? 0 : n.arrowWidth, i = r ? 0 : n.arrowHeight, [d, p] = It(e), c = { start: "0%", center: "50%", end: "100%" }[p], m = (((C = a.arrow) == null ? void 0 : C.x) ?? 0) + s / 2, f = ((($ = a.arrow) == null ? void 0 : $.y) ?? 0) + i / 2;
-    let v = "", h2 = "";
-    return d === "bottom" ? (v = r ? c : `${m}px`, h2 = `${-i}px`) : d === "top" ? (v = r ? c : `${m}px`, h2 = `${o.floating.height + i}px`) : d === "right" ? (v = `${-i}px`, h2 = r ? c : `${f}px`) : d === "left" && (v = `${o.floating.width + i}px`, h2 = r ? c : `${f}px`), { data: { x: v, y: h2 } };
+var Yr = defineComponent({
+  __name: "AvatarImage",
+  props: {
+    onLoadingStatusChange: {},
+    asChild: { type: Boolean }
+  },
+  setup(n) {
+    const o = n, e = inject(oo);
+    function t() {
+      e.imageLoadingStatus.value = "loaded";
+    }
+    return (l, a) => (openBlock(), createBlock(unref(wa), {
+      "as-child": o.asChild,
+      onLoad: t
+    }, null, 8, ["as-child"]));
   }
 });
-function It(n) {
-  const [t, e = "center"] = n.split("-");
-  return [t, e];
+var Wr = defineComponent({
+  __name: "AvatarFallback",
+  props: {
+    delayMs: { default: 0 },
+    asChild: { type: Boolean }
+  },
+  setup(n) {
+    const o = n, e = inject(oo);
+    let t = ref(false), l;
+    return o.delayMs ? l = setTimeout(() => {
+      t.value = true, clearTimeout(l);
+    }, o.delayMs) : t.value = true, (a, r) => {
+      var s;
+      return unref(t) && ((s = unref(e)) == null ? void 0 : s.imageLoadingStatus.value) !== "loaded" ? (openBlock(), createBlock(unref(ae), {
+        key: 0,
+        "as-child": o.asChild
+      }, {
+        default: withCtx(() => [
+          renderSlot(a.$slots, "default")
+        ]),
+        _: 3
+      }, 8, ["as-child"])) : createCommentVNode("", true);
+    };
+  }
+});
+var no = Symbol();
+var fe = defineComponent({
+  __name: "PopperRoot",
+  setup(n) {
+    const o = ref();
+    return provide(no, {
+      anchor: o,
+      onAnchorChange: (e) => {
+        o.value = e;
+      }
+    }), (e, t) => renderSlot(e.$slots, "default");
+  }
+});
+var _e = defineComponent({
+  __name: "PopperAnchor",
+  props: {
+    element: {},
+    asChild: { type: Boolean }
+  },
+  setup(n) {
+    const o = n, { primitiveElement: e, currentElement: t } = P(), l = inject(no);
+    return watch(t, () => {
+      l == null || l.onAnchorChange(o.element ?? t.value);
+    }), (a, r) => (openBlock(), createBlock(unref(D), {
+      "as-child": a.asChild,
+      ref_key: "primitiveElement",
+      ref: e
+    }, {
+      default: withCtx(() => [
+        renderSlot(a.$slots, "default")
+      ]),
+      _: 3
+    }, 8, ["as-child"]));
+  }
+});
+var Fa = (n) => ({
+  name: "transformOrigin",
+  options: n,
+  fn(o) {
+    var h2, x, C;
+    const { placement: e, rects: t, middlewareData: l } = o, r = ((h2 = l.arrow) == null ? void 0 : h2.centerOffset) !== 0, s = r ? 0 : n.arrowWidth, i = r ? 0 : n.arrowHeight, [d, p] = Nt(e), c = { start: "0%", center: "50%", end: "100%" }[p], m = (((x = l.arrow) == null ? void 0 : x.x) ?? 0) + s / 2, f = (((C = l.arrow) == null ? void 0 : C.y) ?? 0) + i / 2;
+    let v = "", g = "";
+    return d === "bottom" ? (v = r ? c : `${m}px`, g = `${-i}px`) : d === "top" ? (v = r ? c : `${m}px`, g = `${t.floating.height + i}px`) : d === "right" ? (v = `${-i}px`, g = r ? c : `${f}px`) : d === "left" && (v = `${t.floating.width + i}px`, g = r ? c : `${f}px`), { data: { x: v, y: g } };
+  }
+});
+function Nt(n) {
+  const [o, e = "center"] = n.split("-");
+  return [o, e];
 }
-function Xe(n) {
+function Fe(n) {
   return n.split("-")[1];
 }
-function oo(n) {
+function ao(n) {
   return n === "y" ? "height" : "width";
 }
 function ge(n) {
@@ -3099,27 +3170,27 @@ function ge(n) {
 function Re(n) {
   return ["top", "bottom"].includes(ge(n)) ? "x" : "y";
 }
-function xo(n, t, e) {
-  let { reference: o, floating: a } = n;
-  const l = o.x + o.width / 2 - a.width / 2, r = o.y + o.height / 2 - a.height / 2, s = Re(t), i = oo(s), d = o[i] / 2 - a[i] / 2, p = s === "x";
+function ko(n, o, e) {
+  let { reference: t, floating: l } = n;
+  const a = t.x + t.width / 2 - l.width / 2, r = t.y + t.height / 2 - l.height / 2, s = Re(o), i = ao(s), d = t[i] / 2 - l[i] / 2, p = s === "x";
   let c;
-  switch (ge(t)) {
+  switch (ge(o)) {
     case "top":
-      c = { x: l, y: o.y - a.height };
+      c = { x: a, y: t.y - l.height };
       break;
     case "bottom":
-      c = { x: l, y: o.y + o.height };
+      c = { x: a, y: t.y + t.height };
       break;
     case "right":
-      c = { x: o.x + o.width, y: r };
+      c = { x: t.x + t.width, y: r };
       break;
     case "left":
-      c = { x: o.x - a.width, y: r };
+      c = { x: t.x - l.width, y: r };
       break;
     default:
-      c = { x: o.x, y: o.y };
+      c = { x: t.x, y: t.y };
   }
-  switch (Xe(t)) {
+  switch (Fe(o)) {
     case "start":
       c[s] -= d * (e && p ? -1 : 1);
       break;
@@ -3128,506 +3199,506 @@ function xo(n, t, e) {
   }
   return c;
 }
-var Ua = async (n, t, e) => {
-  const { placement: o = "bottom", strategy: a = "absolute", middleware: l = [], platform: r } = e, s = l.filter(Boolean), i = await (r.isRTL == null ? void 0 : r.isRTL(t));
-  let d = await r.getElementRects({ reference: n, floating: t, strategy: a }), { x: p, y: c } = xo(d, o, i), m = o, f = {}, v = 0;
-  for (let h2 = 0; h2 < s.length; h2++) {
-    const { name: y, fn: C } = s[h2], { x: $, y: S, data: P, reset: R } = await C({ x: p, y: c, initialPlacement: o, placement: m, strategy: a, middlewareData: f, rects: d, platform: r, elements: { reference: n, floating: t } });
-    p = $ ?? p, c = S ?? c, f = { ...f, [y]: { ...f[y], ...P } }, R && v <= 50 && (v++, typeof R == "object" && (R.placement && (m = R.placement), R.rects && (d = R.rects === true ? await r.getElementRects({ reference: n, floating: t, strategy: a }) : R.rects), { x: p, y: c } = xo(d, m, i)), h2 = -1);
+var Xa = async (n, o, e) => {
+  const { placement: t = "bottom", strategy: l = "absolute", middleware: a = [], platform: r } = e, s = a.filter(Boolean), i = await (r.isRTL == null ? void 0 : r.isRTL(o));
+  let d = await r.getElementRects({ reference: n, floating: o, strategy: l }), { x: p, y: c } = ko(d, t, i), m = t, f = {}, v = 0;
+  for (let g = 0; g < s.length; g++) {
+    const { name: h2, fn: x } = s[g], { x: C, y: S, data: B, reset: R } = await x({ x: p, y: c, initialPlacement: t, placement: m, strategy: l, middlewareData: f, rects: d, platform: r, elements: { reference: n, floating: o } });
+    p = C ?? p, c = S ?? c, f = { ...f, [h2]: { ...f[h2], ...B } }, R && v <= 50 && (v++, typeof R == "object" && (R.placement && (m = R.placement), R.rects && (d = R.rects === true ? await r.getElementRects({ reference: n, floating: o, strategy: l }) : R.rects), { x: p, y: c } = ko(d, m, i)), g = -1);
   }
-  return { x: p, y: c, placement: m, strategy: a, middlewareData: f };
+  return { x: p, y: c, placement: m, strategy: l, middlewareData: f };
 };
-function Ee(n, t) {
-  return typeof n == "function" ? n(t) : n;
+function Ee(n, o) {
+  return typeof n == "function" ? n(o) : n;
 }
-function un(n) {
-  return typeof n != "number" ? function(t) {
-    return { top: 0, right: 0, bottom: 0, left: 0, ...t };
+function pn(n) {
+  return typeof n != "number" ? function(o) {
+    return { top: 0, right: 0, bottom: 0, left: 0, ...o };
   }(n) : { top: n, right: n, bottom: n, left: n };
 }
-function _t(n) {
+function yt(n) {
   return { ...n, top: n.y, left: n.x, right: n.x + n.width, bottom: n.y + n.height };
 }
-async function Ve(n, t) {
+async function et(n, o) {
   var e;
-  t === void 0 && (t = {});
-  const { x: o, y: a, platform: l, rects: r, elements: s, strategy: i } = n, { boundary: d = "clippingAncestors", rootBoundary: p = "viewport", elementContext: c = "floating", altBoundary: m = false, padding: f = 0 } = Ee(t, n), v = un(f), h2 = s[m ? c === "floating" ? "reference" : "floating" : c], y = _t(await l.getClippingRect({ element: (e = await (l.isElement == null ? void 0 : l.isElement(h2))) == null || e ? h2 : h2.contextElement || await (l.getDocumentElement == null ? void 0 : l.getDocumentElement(s.floating)), boundary: d, rootBoundary: p, strategy: i })), C = c === "floating" ? { ...r.floating, x: o, y: a } : r.reference, $ = await (l.getOffsetParent == null ? void 0 : l.getOffsetParent(s.floating)), S = await (l.isElement == null ? void 0 : l.isElement($)) && await (l.getScale == null ? void 0 : l.getScale($)) || { x: 1, y: 1 }, P = _t(l.convertOffsetParentRelativeRectToViewportRelativeRect ? await l.convertOffsetParentRelativeRectToViewportRelativeRect({ rect: C, offsetParent: $, strategy: i }) : C);
-  return { top: (y.top - P.top + v.top) / S.y, bottom: (P.bottom - y.bottom + v.bottom) / S.y, left: (y.left - P.left + v.left) / S.x, right: (P.right - y.right + v.right) / S.x };
+  o === void 0 && (o = {});
+  const { x: t, y: l, platform: a, rects: r, elements: s, strategy: i } = n, { boundary: d = "clippingAncestors", rootBoundary: p = "viewport", elementContext: c = "floating", altBoundary: m = false, padding: f = 0 } = Ee(o, n), v = pn(f), g = s[m ? c === "floating" ? "reference" : "floating" : c], h2 = yt(await a.getClippingRect({ element: (e = await (a.isElement == null ? void 0 : a.isElement(g))) == null || e ? g : g.contextElement || await (a.getDocumentElement == null ? void 0 : a.getDocumentElement(s.floating)), boundary: d, rootBoundary: p, strategy: i })), x = c === "floating" ? { ...r.floating, x: t, y: l } : r.reference, C = await (a.getOffsetParent == null ? void 0 : a.getOffsetParent(s.floating)), S = await (a.isElement == null ? void 0 : a.isElement(C)) && await (a.getScale == null ? void 0 : a.getScale(C)) || { x: 1, y: 1 }, B = yt(a.convertOffsetParentRelativeRectToViewportRelativeRect ? await a.convertOffsetParentRelativeRectToViewportRelativeRect({ rect: x, offsetParent: C, strategy: i }) : x);
+  return { top: (h2.top - B.top + v.top) / S.y, bottom: (B.bottom - h2.bottom + v.bottom) / S.y, left: (h2.left - B.left + v.left) / S.x, right: (B.right - h2.right + v.right) / S.x };
 }
-var je = Math.min;
-var Be = Math.max;
-function Nt(n, t, e) {
-  return Be(n, je(t, e));
+var tt = Math.min;
+var Pe = Math.max;
+function Lt(n, o, e) {
+  return Pe(n, tt(o, e));
 }
-var qa = (n) => ({ name: "arrow", options: n, async fn(t) {
-  const { x: e, y: o, placement: a, rects: l, platform: r, elements: s } = t, { element: i, padding: d = 0 } = Ee(n, t) || {};
+var Ja = (n) => ({ name: "arrow", options: n, async fn(o) {
+  const { x: e, y: t, placement: l, rects: a, platform: r, elements: s } = o, { element: i, padding: d = 0 } = Ee(n, o) || {};
   if (i == null)
     return {};
-  const p = un(d), c = { x: e, y: o }, m = Re(a), f = oo(m), v = await r.getDimensions(i), h2 = m === "y", y = h2 ? "top" : "left", C = h2 ? "bottom" : "right", $ = h2 ? "clientHeight" : "clientWidth", S = l.reference[f] + l.reference[m] - c[m] - l.floating[f], P = c[m] - l.reference[m], R = await (r.getOffsetParent == null ? void 0 : r.getOffsetParent(i));
-  let I = R ? R[$] : 0;
-  I && await (r.isElement == null ? void 0 : r.isElement(R)) || (I = s.floating[$] || l.floating[f]);
-  const T = S / 2 - P / 2, U = I / 2 - v[f] / 2 - 1, q = je(p[y], U), j = je(p[C], U), H = q, Z = I - v[f] - j, W = I / 2 - v[f] / 2 + T, ee = Nt(H, W, Z), te = Xe(a) != null && W != ee && l.reference[f] / 2 - (W < H ? q : j) - v[f] / 2 < 0 ? W < H ? H - W : Z - W : 0;
-  return { [m]: c[m] - te, data: { [m]: ee, centerOffset: W - ee + te } };
+  const p = pn(d), c = { x: e, y: t }, m = Re(l), f = ao(m), v = await r.getDimensions(i), g = m === "y", h2 = g ? "top" : "left", x = g ? "bottom" : "right", C = g ? "clientHeight" : "clientWidth", S = a.reference[f] + a.reference[m] - c[m] - a.floating[f], B = c[m] - a.reference[m], R = await (r.getOffsetParent == null ? void 0 : r.getOffsetParent(i));
+  let I = R ? R[C] : 0;
+  I && await (r.isElement == null ? void 0 : r.isElement(R)) || (I = s.floating[C] || a.floating[f]);
+  const T = S / 2 - B / 2, q = I / 2 - v[f] / 2 - 1, F = tt(p[h2], q), ee = tt(p[x], q), Y = F, Q = I - v[f] - ee, U = I / 2 - v[f] / 2 + T, te = Lt(Y, U, Q), oe = Fe(l) != null && U != te && a.reference[f] / 2 - (U < Y ? F : ee) - v[f] / 2 < 0 ? U < Y ? Y - U : Q - U : 0;
+  return { [m]: c[m] - oe, data: { [m]: te, centerOffset: U - te + oe } };
 } });
-var dn = ["top", "right", "bottom", "left"];
-dn.reduce((n, t) => n.concat(t, t + "-start", t + "-end"), []);
-var Ga = { left: "right", right: "left", bottom: "top", top: "bottom" };
-function yt(n) {
-  return n.replace(/left|right|bottom|top/g, (t) => Ga[t]);
+var fn = ["top", "right", "bottom", "left"];
+fn.reduce((n, o) => n.concat(o, o + "-start", o + "-end"), []);
+var Za = { left: "right", right: "left", bottom: "top", top: "bottom" };
+function gt(n) {
+  return n.replace(/left|right|bottom|top/g, (o) => Za[o]);
 }
-function Xa(n, t, e) {
+function Qa(n, o, e) {
   e === void 0 && (e = false);
-  const o = Xe(n), a = Re(n), l = oo(a);
-  let r = a === "x" ? o === (e ? "end" : "start") ? "right" : "left" : o === "start" ? "bottom" : "top";
-  return t.reference[l] > t.floating[l] && (r = yt(r)), { main: r, cross: yt(r) };
+  const t = Fe(n), l = Re(n), a = ao(l);
+  let r = l === "x" ? t === (e ? "end" : "start") ? "right" : "left" : t === "start" ? "bottom" : "top";
+  return o.reference[a] > o.floating[a] && (r = gt(r)), { main: r, cross: gt(r) };
 }
-var Fa = { start: "end", end: "start" };
-function Dt(n) {
-  return n.replace(/start|end/g, (t) => Fa[t]);
+var Va = { start: "end", end: "start" };
+function Rt(n) {
+  return n.replace(/start|end/g, (o) => Va[o]);
 }
-var Ja = function(n) {
-  return n === void 0 && (n = {}), { name: "flip", options: n, async fn(t) {
+var ja = function(n) {
+  return n === void 0 && (n = {}), { name: "flip", options: n, async fn(o) {
     var e;
-    const { placement: o, middlewareData: a, rects: l, initialPlacement: r, platform: s, elements: i } = t, { mainAxis: d = true, crossAxis: p = true, fallbackPlacements: c, fallbackStrategy: m = "bestFit", fallbackAxisSideDirection: f = "none", flipAlignment: v = true, ...h2 } = Ee(n, t), y = ge(o), C = ge(r) === r, $ = await (s.isRTL == null ? void 0 : s.isRTL(i.floating)), S = c || (C || !v ? [yt(r)] : function(H) {
-      const Z = yt(H);
-      return [Dt(H), Z, Dt(Z)];
+    const { placement: t, middlewareData: l, rects: a, initialPlacement: r, platform: s, elements: i } = o, { mainAxis: d = true, crossAxis: p = true, fallbackPlacements: c, fallbackStrategy: m = "bestFit", fallbackAxisSideDirection: f = "none", flipAlignment: v = true, ...g } = Ee(n, o), h2 = ge(t), x = ge(r) === r, C = await (s.isRTL == null ? void 0 : s.isRTL(i.floating)), S = c || (x || !v ? [gt(r)] : function(Y) {
+      const Q = gt(Y);
+      return [Rt(Y), Q, Rt(Q)];
     }(r));
-    c || f === "none" || S.push(...function(H, Z, W, ee) {
-      const te = Xe(H);
-      let V = function(Pe, Oe, Bn) {
-        const mo = ["left", "right"], vo = ["right", "left"], Mn = ["top", "bottom"], Dn = ["bottom", "top"];
-        switch (Pe) {
+    c || f === "none" || S.push(...function(Y, Q, U, te) {
+      const oe = Fe(Y);
+      let j = function(Be, Te, Rn) {
+        const ho = ["left", "right"], _o = ["right", "left"], In = ["top", "bottom"], Nn = ["bottom", "top"];
+        switch (Be) {
           case "top":
           case "bottom":
-            return Bn ? Oe ? vo : mo : Oe ? mo : vo;
+            return Rn ? Te ? _o : ho : Te ? ho : _o;
           case "left":
           case "right":
-            return Oe ? Mn : Dn;
+            return Te ? In : Nn;
           default:
             return [];
         }
-      }(ge(H), W === "start", ee);
-      return te && (V = V.map((Pe) => Pe + "-" + te), Z && (V = V.concat(V.map(Dt)))), V;
-    }(r, v, f, $));
-    const P = [r, ...S], R = await Ve(t, h2), I = [];
-    let T = ((e = a.flip) == null ? void 0 : e.overflows) || [];
-    if (d && I.push(R[y]), p) {
-      const { main: H, cross: Z } = Xa(o, l, $);
-      I.push(R[H], R[Z]);
+      }(ge(Y), U === "start", te);
+      return oe && (j = j.map((Be) => Be + "-" + oe), Q && (j = j.concat(j.map(Rt)))), j;
+    }(r, v, f, C));
+    const B = [r, ...S], R = await et(o, g), I = [];
+    let T = ((e = l.flip) == null ? void 0 : e.overflows) || [];
+    if (d && I.push(R[h2]), p) {
+      const { main: Y, cross: Q } = Qa(t, a, C);
+      I.push(R[Y], R[Q]);
     }
-    if (T = [...T, { placement: o, overflows: I }], !I.every((H) => H <= 0)) {
-      var U, q;
-      const H = (((U = a.flip) == null ? void 0 : U.index) || 0) + 1, Z = P[H];
-      if (Z)
-        return { data: { index: H, overflows: T }, reset: { placement: Z } };
-      let W = (q = T.filter((ee) => ee.overflows[0] <= 0).sort((ee, te) => ee.overflows[1] - te.overflows[1])[0]) == null ? void 0 : q.placement;
-      if (!W)
+    if (T = [...T, { placement: t, overflows: I }], !I.every((Y) => Y <= 0)) {
+      var q, F;
+      const Y = (((q = l.flip) == null ? void 0 : q.index) || 0) + 1, Q = B[Y];
+      if (Q)
+        return { data: { index: Y, overflows: T }, reset: { placement: Q } };
+      let U = (F = T.filter((te) => te.overflows[0] <= 0).sort((te, oe) => te.overflows[1] - oe.overflows[1])[0]) == null ? void 0 : F.placement;
+      if (!U)
         switch (m) {
           case "bestFit": {
-            var j;
-            const ee = (j = T.map((te) => [te.placement, te.overflows.filter((V) => V > 0).reduce((V, Pe) => V + Pe, 0)]).sort((te, V) => te[1] - V[1])[0]) == null ? void 0 : j[0];
-            ee && (W = ee);
+            var ee;
+            const te = (ee = T.map((oe) => [oe.placement, oe.overflows.filter((j) => j > 0).reduce((j, Be) => j + Be, 0)]).sort((oe, j) => oe[1] - j[1])[0]) == null ? void 0 : ee[0];
+            te && (U = te);
             break;
           }
           case "initialPlacement":
-            W = r;
+            U = r;
         }
-      if (o !== W)
-        return { reset: { placement: W } };
+      if (t !== U)
+        return { reset: { placement: U } };
     }
     return {};
   } };
 };
-function $o(n, t) {
-  return { top: n.top - t.height, right: n.right - t.width, bottom: n.bottom - t.height, left: n.left - t.width };
+function So(n, o) {
+  return { top: n.top - o.height, right: n.right - o.width, bottom: n.bottom - o.height, left: n.left - o.width };
 }
-function ko(n) {
-  return dn.some((t) => n[t] >= 0);
+function Ao(n) {
+  return fn.some((o) => n[o] >= 0);
 }
-var Za = function(n) {
-  return n === void 0 && (n = {}), { name: "hide", options: n, async fn(t) {
-    const { rects: e } = t, { strategy: o = "referenceHidden", ...a } = Ee(n, t);
-    switch (o) {
+var el = function(n) {
+  return n === void 0 && (n = {}), { name: "hide", options: n, async fn(o) {
+    const { rects: e } = o, { strategy: t = "referenceHidden", ...l } = Ee(n, o);
+    switch (t) {
       case "referenceHidden": {
-        const l = $o(await Ve(t, { ...a, elementContext: "reference" }), e.reference);
-        return { data: { referenceHiddenOffsets: l, referenceHidden: ko(l) } };
+        const a = So(await et(o, { ...l, elementContext: "reference" }), e.reference);
+        return { data: { referenceHiddenOffsets: a, referenceHidden: Ao(a) } };
       }
       case "escaped": {
-        const l = $o(await Ve(t, { ...a, altBoundary: true }), e.floating);
-        return { data: { escapedOffsets: l, escaped: ko(l) } };
+        const a = So(await et(o, { ...l, altBoundary: true }), e.floating);
+        return { data: { escapedOffsets: a, escaped: Ao(a) } };
       }
       default:
         return {};
     }
   } };
 };
-var Qa = function(n) {
-  return n === void 0 && (n = 0), { name: "offset", options: n, async fn(t) {
-    const { x: e, y: o } = t, a = await async function(l, r) {
-      const { placement: s, platform: i, elements: d } = l, p = await (i.isRTL == null ? void 0 : i.isRTL(d.floating)), c = ge(s), m = Xe(s), f = Re(s) === "x", v = ["left", "top"].includes(c) ? -1 : 1, h2 = p && f ? -1 : 1, y = Ee(r, l);
-      let { mainAxis: C, crossAxis: $, alignmentAxis: S } = typeof y == "number" ? { mainAxis: y, crossAxis: 0, alignmentAxis: null } : { mainAxis: 0, crossAxis: 0, alignmentAxis: null, ...y };
-      return m && typeof S == "number" && ($ = m === "end" ? -1 * S : S), f ? { x: $ * h2, y: C * v } : { x: C * v, y: $ * h2 };
-    }(t, n);
-    return { x: e + a.x, y: o + a.y, data: a };
+var tl = function(n) {
+  return n === void 0 && (n = 0), { name: "offset", options: n, async fn(o) {
+    const { x: e, y: t } = o, l = await async function(a, r) {
+      const { placement: s, platform: i, elements: d } = a, p = await (i.isRTL == null ? void 0 : i.isRTL(d.floating)), c = ge(s), m = Fe(s), f = Re(s) === "x", v = ["left", "top"].includes(c) ? -1 : 1, g = p && f ? -1 : 1, h2 = Ee(r, a);
+      let { mainAxis: x, crossAxis: C, alignmentAxis: S } = typeof h2 == "number" ? { mainAxis: h2, crossAxis: 0, alignmentAxis: null } : { mainAxis: 0, crossAxis: 0, alignmentAxis: null, ...h2 };
+      return m && typeof S == "number" && (C = m === "end" ? -1 * S : S), f ? { x: C * g, y: x * v } : { x: x * v, y: C * g };
+    }(o, n);
+    return { x: e + l.x, y: t + l.y, data: l };
   } };
 };
-function cn(n) {
+function mn(n) {
   return n === "x" ? "y" : "x";
 }
-var Va = function(n) {
-  return n === void 0 && (n = {}), { name: "shift", options: n, async fn(t) {
-    const { x: e, y: o, placement: a } = t, { mainAxis: l = true, crossAxis: r = false, limiter: s = { fn: (y) => {
-      let { x: C, y: $ } = y;
-      return { x: C, y: $ };
-    } }, ...i } = Ee(n, t), d = { x: e, y: o }, p = await Ve(t, i), c = Re(ge(a)), m = cn(c);
+var ol = function(n) {
+  return n === void 0 && (n = {}), { name: "shift", options: n, async fn(o) {
+    const { x: e, y: t, placement: l } = o, { mainAxis: a = true, crossAxis: r = false, limiter: s = { fn: (h2) => {
+      let { x, y: C } = h2;
+      return { x, y: C };
+    } }, ...i } = Ee(n, o), d = { x: e, y: t }, p = await et(o, i), c = Re(ge(l)), m = mn(c);
     let f = d[c], v = d[m];
-    if (l) {
-      const y = c === "y" ? "bottom" : "right";
-      f = Nt(f + p[c === "y" ? "top" : "left"], f, f - p[y]);
+    if (a) {
+      const h2 = c === "y" ? "bottom" : "right";
+      f = Lt(f + p[c === "y" ? "top" : "left"], f, f - p[h2]);
     }
     if (r) {
-      const y = m === "y" ? "bottom" : "right";
-      v = Nt(v + p[m === "y" ? "top" : "left"], v, v - p[y]);
+      const h2 = m === "y" ? "bottom" : "right";
+      v = Lt(v + p[m === "y" ? "top" : "left"], v, v - p[h2]);
     }
-    const h2 = s.fn({ ...t, [c]: f, [m]: v });
-    return { ...h2, data: { x: h2.x - e, y: h2.y - o } };
+    const g = s.fn({ ...o, [c]: f, [m]: v });
+    return { ...g, data: { x: g.x - e, y: g.y - t } };
   } };
 };
-var ja = function(n) {
-  return n === void 0 && (n = {}), { options: n, fn(t) {
-    const { x: e, y: o, placement: a, rects: l, middlewareData: r } = t, { offset: s = 0, mainAxis: i = true, crossAxis: d = true } = Ee(n, t), p = { x: e, y: o }, c = Re(a), m = cn(c);
+var nl = function(n) {
+  return n === void 0 && (n = {}), { options: n, fn(o) {
+    const { x: e, y: t, placement: l, rects: a, middlewareData: r } = o, { offset: s = 0, mainAxis: i = true, crossAxis: d = true } = Ee(n, o), p = { x: e, y: t }, c = Re(l), m = mn(c);
     let f = p[c], v = p[m];
-    const h2 = Ee(s, t), y = typeof h2 == "number" ? { mainAxis: h2, crossAxis: 0 } : { mainAxis: 0, crossAxis: 0, ...h2 };
+    const g = Ee(s, o), h2 = typeof g == "number" ? { mainAxis: g, crossAxis: 0 } : { mainAxis: 0, crossAxis: 0, ...g };
     if (i) {
-      const S = c === "y" ? "height" : "width", P = l.reference[c] - l.floating[S] + y.mainAxis, R = l.reference[c] + l.reference[S] - y.mainAxis;
-      f < P ? f = P : f > R && (f = R);
+      const S = c === "y" ? "height" : "width", B = a.reference[c] - a.floating[S] + h2.mainAxis, R = a.reference[c] + a.reference[S] - h2.mainAxis;
+      f < B ? f = B : f > R && (f = R);
     }
     if (d) {
-      var C, $;
-      const S = c === "y" ? "width" : "height", P = ["top", "left"].includes(ge(a)), R = l.reference[m] - l.floating[S] + (P && ((C = r.offset) == null ? void 0 : C[m]) || 0) + (P ? 0 : y.crossAxis), I = l.reference[m] + l.reference[S] + (P ? 0 : (($ = r.offset) == null ? void 0 : $[m]) || 0) - (P ? y.crossAxis : 0);
+      var x, C;
+      const S = c === "y" ? "width" : "height", B = ["top", "left"].includes(ge(l)), R = a.reference[m] - a.floating[S] + (B && ((x = r.offset) == null ? void 0 : x[m]) || 0) + (B ? 0 : h2.crossAxis), I = a.reference[m] + a.reference[S] + (B ? 0 : ((C = r.offset) == null ? void 0 : C[m]) || 0) - (B ? h2.crossAxis : 0);
       v < R ? v = R : v > I && (v = I);
     }
     return { [c]: f, [m]: v };
   } };
 };
-var el = function(n) {
-  return n === void 0 && (n = {}), { name: "size", options: n, async fn(t) {
-    const { placement: e, rects: o, platform: a, elements: l } = t, { apply: r = () => {
-    }, ...s } = Ee(n, t), i = await Ve(t, s), d = ge(e), p = Xe(e), c = Re(e) === "x", { width: m, height: f } = o.floating;
-    let v, h2;
-    d === "top" || d === "bottom" ? (v = d, h2 = p === (await (a.isRTL == null ? void 0 : a.isRTL(l.floating)) ? "start" : "end") ? "left" : "right") : (h2 = d, v = p === "end" ? "top" : "bottom");
-    const y = f - i[v], C = m - i[h2], $ = !t.middlewareData.shift;
-    let S = y, P = C;
+var al = function(n) {
+  return n === void 0 && (n = {}), { name: "size", options: n, async fn(o) {
+    const { placement: e, rects: t, platform: l, elements: a } = o, { apply: r = () => {
+    }, ...s } = Ee(n, o), i = await et(o, s), d = ge(e), p = Fe(e), c = Re(e) === "x", { width: m, height: f } = t.floating;
+    let v, g;
+    d === "top" || d === "bottom" ? (v = d, g = p === (await (l.isRTL == null ? void 0 : l.isRTL(a.floating)) ? "start" : "end") ? "left" : "right") : (g = d, v = p === "end" ? "top" : "bottom");
+    const h2 = f - i[v], x = m - i[g], C = !o.middlewareData.shift;
+    let S = h2, B = x;
     if (c) {
       const I = m - i.left - i.right;
-      P = p || $ ? je(C, I) : I;
+      B = p || C ? tt(x, I) : I;
     } else {
       const I = f - i.top - i.bottom;
-      S = p || $ ? je(y, I) : I;
+      S = p || C ? tt(h2, I) : I;
     }
-    if ($ && !p) {
-      const I = Be(i.left, 0), T = Be(i.right, 0), U = Be(i.top, 0), q = Be(i.bottom, 0);
-      c ? P = m - 2 * (I !== 0 || T !== 0 ? I + T : Be(i.left, i.right)) : S = f - 2 * (U !== 0 || q !== 0 ? U + q : Be(i.top, i.bottom));
+    if (C && !p) {
+      const I = Pe(i.left, 0), T = Pe(i.right, 0), q = Pe(i.top, 0), F = Pe(i.bottom, 0);
+      c ? B = m - 2 * (I !== 0 || T !== 0 ? I + T : Pe(i.left, i.right)) : S = f - 2 * (q !== 0 || F !== 0 ? q + F : Pe(i.top, i.bottom));
     }
-    await r({ ...t, availableWidth: P, availableHeight: S });
-    const R = await a.getDimensions(l.floating);
+    await r({ ...o, availableWidth: B, availableHeight: S });
+    const R = await l.getDimensions(a.floating);
     return m !== R.width || f !== R.height ? { reset: { rects: true } } : {};
   } };
 };
-function ue(n) {
-  var t;
-  return ((t = n.ownerDocument) == null ? void 0 : t.defaultView) || window;
+function ie(n) {
+  var o;
+  return ((o = n.ownerDocument) == null ? void 0 : o.defaultView) || window;
 }
 function de(n) {
-  return ue(n).getComputedStyle(n);
+  return ie(n).getComputedStyle(n);
 }
-function pn(n) {
-  return n instanceof ue(n).Node;
+function vn(n) {
+  return n instanceof ie(n).Node;
 }
-function $e(n) {
-  return pn(n) ? (n.nodeName || "").toLowerCase() : "#document";
+function xe(n) {
+  return vn(n) ? (n.nodeName || "").toLowerCase() : "#document";
 }
 function pe(n) {
-  return n instanceof ue(n).HTMLElement;
+  return n instanceof ie(n).HTMLElement;
 }
 function be(n) {
-  return n instanceof ue(n).Element;
+  return n instanceof ie(n).Element;
 }
-function So(n) {
-  return typeof ShadowRoot < "u" && (n instanceof ue(n).ShadowRoot || n instanceof ShadowRoot);
+function Bo(n) {
+  return typeof ShadowRoot < "u" && (n instanceof ie(n).ShadowRoot || n instanceof ShadowRoot);
 }
-function et(n) {
-  const { overflow: t, overflowX: e, overflowY: o, display: a } = de(n);
-  return /auto|scroll|overlay|hidden|clip/.test(t + o + e) && !["inline", "contents"].includes(a);
+function ot(n) {
+  const { overflow: o, overflowX: e, overflowY: t, display: l } = de(n);
+  return /auto|scroll|overlay|hidden|clip/.test(o + t + e) && !["inline", "contents"].includes(l);
 }
-function tl(n) {
-  return ["table", "td", "th"].includes($e(n));
+function ll(n) {
+  return ["table", "td", "th"].includes(xe(n));
 }
-function Lt(n) {
-  const t = no(), e = de(n);
-  return e.transform !== "none" || e.perspective !== "none" || !t && !!e.backdropFilter && e.backdropFilter !== "none" || !t && !!e.filter && e.filter !== "none" || ["transform", "perspective", "filter"].some((o) => (e.willChange || "").includes(o)) || ["paint", "layout", "strict", "content"].some((o) => (e.contain || "").includes(o));
+function Kt(n) {
+  const o = lo(), e = de(n);
+  return e.transform !== "none" || e.perspective !== "none" || !o && !!e.backdropFilter && e.backdropFilter !== "none" || !o && !!e.filter && e.filter !== "none" || ["transform", "perspective", "filter"].some((t) => (e.willChange || "").includes(t)) || ["paint", "layout", "strict", "content"].some((t) => (e.contain || "").includes(t));
 }
-function no() {
+function lo() {
   return !(typeof CSS > "u" || !CSS.supports) && CSS.supports("-webkit-backdrop-filter", "none");
 }
-function At(n) {
-  return ["html", "body", "#document"].includes($e(n));
+function Bt(n) {
+  return ["html", "body", "#document"].includes(xe(n));
 }
-var Kt = Math.min;
+var Ht = Math.min;
 var Le = Math.max;
-var gt = Math.round;
-var ct = Math.floor;
-var Me = (n) => ({ x: n, y: n });
-function fn(n) {
-  const t = de(n);
-  let e = parseFloat(t.width) || 0, o = parseFloat(t.height) || 0;
-  const a = pe(n), l = a ? n.offsetWidth : e, r = a ? n.offsetHeight : o, s = gt(e) !== l || gt(o) !== r;
-  return s && (e = l, o = r), { width: e, height: o, $: s };
+var bt = Math.round;
+var pt = Math.floor;
+var Oe = (n) => ({ x: n, y: n });
+function hn(n) {
+  const o = de(n);
+  let e = parseFloat(o.width) || 0, t = parseFloat(o.height) || 0;
+  const l = pe(n), a = l ? n.offsetWidth : e, r = l ? n.offsetHeight : t, s = bt(e) !== a || bt(t) !== r;
+  return s && (e = a, t = r), { width: e, height: t, $: s };
 }
-function ao(n) {
+function ro(n) {
   return be(n) ? n : n.contextElement;
 }
 function Ke(n) {
-  const t = ao(n);
-  if (!pe(t))
-    return Me(1);
-  const e = t.getBoundingClientRect(), { width: o, height: a, $: l } = fn(t);
-  let r = (l ? gt(e.width) : e.width) / o, s = (l ? gt(e.height) : e.height) / a;
+  const o = ro(n);
+  if (!pe(o))
+    return Oe(1);
+  const e = o.getBoundingClientRect(), { width: t, height: l, $: a } = hn(o);
+  let r = (a ? bt(e.width) : e.width) / t, s = (a ? bt(e.height) : e.height) / l;
   return r && Number.isFinite(r) || (r = 1), s && Number.isFinite(s) || (s = 1), { x: r, y: s };
 }
-var Ao = Me(0);
-function mn(n, t, e) {
-  var o, a;
-  if (t === void 0 && (t = true), !no())
-    return Ao;
-  const l = n ? ue(n) : window;
-  return !e || t && e !== l ? Ao : { x: ((o = l.visualViewport) == null ? void 0 : o.offsetLeft) || 0, y: ((a = l.visualViewport) == null ? void 0 : a.offsetTop) || 0 };
+var To = Oe(0);
+function _n(n, o, e) {
+  var t, l;
+  if (o === void 0 && (o = true), !lo())
+    return To;
+  const a = n ? ie(n) : window;
+  return !e || o && e !== a ? To : { x: ((t = a.visualViewport) == null ? void 0 : t.offsetLeft) || 0, y: ((l = a.visualViewport) == null ? void 0 : l.offsetTop) || 0 };
 }
-function De(n, t, e, o) {
-  t === void 0 && (t = false), e === void 0 && (e = false);
-  const a = n.getBoundingClientRect(), l = ao(n);
-  let r = Me(1);
-  t && (o ? be(o) && (r = Ke(o)) : r = Ke(n));
-  const s = mn(l, e, o);
-  let i = (a.left + s.x) / r.x, d = (a.top + s.y) / r.y, p = a.width / r.x, c = a.height / r.y;
-  if (l) {
-    const m = ue(l), f = o && be(o) ? ue(o) : o;
+function Me(n, o, e, t) {
+  o === void 0 && (o = false), e === void 0 && (e = false);
+  const l = n.getBoundingClientRect(), a = ro(n);
+  let r = Oe(1);
+  o && (t ? be(t) && (r = Ke(t)) : r = Ke(n));
+  const s = _n(a, e, t);
+  let i = (l.left + s.x) / r.x, d = (l.top + s.y) / r.y, p = l.width / r.x, c = l.height / r.y;
+  if (a) {
+    const m = ie(a), f = t && be(t) ? ie(t) : t;
     let v = m.frameElement;
-    for (; v && o && f !== m; ) {
-      const h2 = Ke(v), y = v.getBoundingClientRect(), C = getComputedStyle(v), $ = y.left + (v.clientLeft + parseFloat(C.paddingLeft)) * h2.x, S = y.top + (v.clientTop + parseFloat(C.paddingTop)) * h2.y;
-      i *= h2.x, d *= h2.y, p *= h2.x, c *= h2.y, i += $, d += S, v = ue(v).frameElement;
+    for (; v && t && f !== m; ) {
+      const g = Ke(v), h2 = v.getBoundingClientRect(), x = getComputedStyle(v), C = h2.left + (v.clientLeft + parseFloat(x.paddingLeft)) * g.x, S = h2.top + (v.clientTop + parseFloat(x.paddingTop)) * g.y;
+      i *= g.x, d *= g.y, p *= g.x, c *= g.y, i += C, d += S, v = ie(v).frameElement;
     }
   }
-  return _t({ width: p, height: c, x: i, y: d });
+  return yt({ width: p, height: c, x: i, y: d });
 }
 function we(n) {
-  return ((pn(n) ? n.ownerDocument : n.document) || window.document).documentElement;
+  return ((vn(n) ? n.ownerDocument : n.document) || window.document).documentElement;
 }
 function Tt(n) {
   return be(n) ? { scrollLeft: n.scrollLeft, scrollTop: n.scrollTop } : { scrollLeft: n.pageXOffset, scrollTop: n.pageYOffset };
 }
-function vn(n) {
-  return De(we(n)).left + Tt(n).scrollLeft;
+function yn(n) {
+  return Me(we(n)).left + Tt(n).scrollLeft;
 }
 function ze(n) {
-  if ($e(n) === "html")
+  if (xe(n) === "html")
     return n;
-  const t = n.assignedSlot || n.parentNode || So(n) && n.host || we(n);
-  return So(t) ? t.host : t;
+  const o = n.assignedSlot || n.parentNode || Bo(n) && n.host || we(n);
+  return Bo(o) ? o.host : o;
 }
-function hn(n) {
-  const t = ze(n);
-  return At(t) ? n.ownerDocument ? n.ownerDocument.body : n.body : pe(t) && et(t) ? t : hn(t);
+function gn(n) {
+  const o = ze(n);
+  return Bt(o) ? n.ownerDocument ? n.ownerDocument.body : n.body : pe(o) && ot(o) ? o : gn(o);
 }
-function bt(n, t) {
+function wt(n, o) {
   var e;
-  t === void 0 && (t = []);
-  const o = hn(n), a = o === ((e = n.ownerDocument) == null ? void 0 : e.body), l = ue(o);
-  return a ? t.concat(l, l.visualViewport || [], et(o) ? o : []) : t.concat(o, bt(o));
+  o === void 0 && (o = []);
+  const t = gn(n), l = t === ((e = n.ownerDocument) == null ? void 0 : e.body), a = ie(t);
+  return l ? o.concat(a, a.visualViewport || [], ot(t) ? t : []) : o.concat(t, wt(t));
 }
-function To(n, t, e) {
-  let o;
-  if (t === "viewport")
-    o = function(a, l) {
-      const r = ue(a), s = we(a), i = r.visualViewport;
+function Po(n, o, e) {
+  let t;
+  if (o === "viewport")
+    t = function(l, a) {
+      const r = ie(l), s = we(l), i = r.visualViewport;
       let d = s.clientWidth, p = s.clientHeight, c = 0, m = 0;
       if (i) {
         d = i.width, p = i.height;
-        const f = no();
-        (!f || f && l === "fixed") && (c = i.offsetLeft, m = i.offsetTop);
+        const f = lo();
+        (!f || f && a === "fixed") && (c = i.offsetLeft, m = i.offsetTop);
       }
       return { width: d, height: p, x: c, y: m };
     }(n, e);
-  else if (t === "document")
-    o = function(a) {
-      const l = we(a), r = Tt(a), s = a.ownerDocument.body, i = Le(l.scrollWidth, l.clientWidth, s.scrollWidth, s.clientWidth), d = Le(l.scrollHeight, l.clientHeight, s.scrollHeight, s.clientHeight);
-      let p = -r.scrollLeft + vn(a);
+  else if (o === "document")
+    t = function(l) {
+      const a = we(l), r = Tt(l), s = l.ownerDocument.body, i = Le(a.scrollWidth, a.clientWidth, s.scrollWidth, s.clientWidth), d = Le(a.scrollHeight, a.clientHeight, s.scrollHeight, s.clientHeight);
+      let p = -r.scrollLeft + yn(l);
       const c = -r.scrollTop;
-      return de(s).direction === "rtl" && (p += Le(l.clientWidth, s.clientWidth) - i), { width: i, height: d, x: p, y: c };
+      return de(s).direction === "rtl" && (p += Le(a.clientWidth, s.clientWidth) - i), { width: i, height: d, x: p, y: c };
     }(we(n));
-  else if (be(t))
-    o = function(a, l) {
-      const r = De(a, true, l === "fixed"), s = r.top + a.clientTop, i = r.left + a.clientLeft, d = pe(a) ? Ke(a) : Me(1);
-      return { width: a.clientWidth * d.x, height: a.clientHeight * d.y, x: i * d.x, y: s * d.y };
-    }(t, e);
+  else if (be(o))
+    t = function(l, a) {
+      const r = Me(l, true, a === "fixed"), s = r.top + l.clientTop, i = r.left + l.clientLeft, d = pe(l) ? Ke(l) : Oe(1);
+      return { width: l.clientWidth * d.x, height: l.clientHeight * d.y, x: i * d.x, y: s * d.y };
+    }(o, e);
   else {
-    const a = mn(n);
-    o = { ...t, x: t.x - a.x, y: t.y - a.y };
+    const l = _n(n);
+    t = { ...o, x: o.x - l.x, y: o.y - l.y };
   }
-  return _t(o);
+  return yt(t);
 }
-function _n(n, t) {
+function bn(n, o) {
   const e = ze(n);
-  return !(e === t || !be(e) || At(e)) && (de(e).position === "fixed" || _n(e, t));
+  return !(e === o || !be(e) || Bt(e)) && (de(e).position === "fixed" || bn(e, o));
 }
-function Po(n, t) {
-  return pe(n) && de(n).position !== "fixed" ? t ? t(n) : n.offsetParent : null;
+function Oo(n, o) {
+  return pe(n) && de(n).position !== "fixed" ? o ? o(n) : n.offsetParent : null;
 }
-function Oo(n, t) {
-  const e = ue(n);
+function Mo(n, o) {
+  const e = ie(n);
   if (!pe(n))
     return e;
-  let o = Po(n, t);
-  for (; o && tl(o) && de(o).position === "static"; )
-    o = Po(o, t);
-  return o && ($e(o) === "html" || $e(o) === "body" && de(o).position === "static" && !Lt(o)) ? e : o || function(a) {
-    let l = ze(a);
-    for (; pe(l) && !At(l); ) {
-      if (Lt(l))
-        return l;
-      l = ze(l);
+  let t = Oo(n, o);
+  for (; t && ll(t) && de(t).position === "static"; )
+    t = Oo(t, o);
+  return t && (xe(t) === "html" || xe(t) === "body" && de(t).position === "static" && !Kt(t)) ? e : t || function(l) {
+    let a = ze(l);
+    for (; pe(a) && !Bt(a); ) {
+      if (Kt(a))
+        return a;
+      a = ze(a);
     }
     return null;
   }(n) || e;
 }
-function ol(n, t, e) {
-  const o = pe(t), a = we(t), l = e === "fixed", r = De(n, true, l, t);
+function rl(n, o, e) {
+  const t = pe(o), l = we(o), a = e === "fixed", r = Me(n, true, a, o);
   let s = { scrollLeft: 0, scrollTop: 0 };
-  const i = Me(0);
-  if (o || !o && !l)
-    if (($e(t) !== "body" || et(a)) && (s = Tt(t)), pe(t)) {
-      const d = De(t, true, l, t);
-      i.x = d.x + t.clientLeft, i.y = d.y + t.clientTop;
+  const i = Oe(0);
+  if (t || !t && !a)
+    if ((xe(o) !== "body" || ot(l)) && (s = Tt(o)), pe(o)) {
+      const d = Me(o, true, a, o);
+      i.x = d.x + o.clientLeft, i.y = d.y + o.clientTop;
     } else
-      a && (i.x = vn(a));
+      l && (i.x = yn(l));
   return { x: r.left + s.scrollLeft - i.x, y: r.top + s.scrollTop - i.y, width: r.width, height: r.height };
 }
-var nl = { getClippingRect: function(n) {
-  let { element: t, boundary: e, rootBoundary: o, strategy: a } = n;
-  const l = e === "clippingAncestors" ? function(d, p) {
+var il = { getClippingRect: function(n) {
+  let { element: o, boundary: e, rootBoundary: t, strategy: l } = n;
+  const a = e === "clippingAncestors" ? function(d, p) {
     const c = p.get(d);
     if (c)
       return c;
-    let m = bt(d).filter((y) => be(y) && $e(y) !== "body"), f = null;
+    let m = wt(d).filter((h2) => be(h2) && xe(h2) !== "body"), f = null;
     const v = de(d).position === "fixed";
-    let h2 = v ? ze(d) : d;
-    for (; be(h2) && !At(h2); ) {
-      const y = de(h2), C = Lt(h2);
-      C || y.position !== "fixed" || (f = null), (v ? !C && !f : !C && y.position === "static" && f && ["absolute", "fixed"].includes(f.position) || et(h2) && !C && _n(d, h2)) ? m = m.filter(($) => $ !== h2) : f = y, h2 = ze(h2);
+    let g = v ? ze(d) : d;
+    for (; be(g) && !Bt(g); ) {
+      const h2 = de(g), x = Kt(g);
+      x || h2.position !== "fixed" || (f = null), (v ? !x && !f : !x && h2.position === "static" && f && ["absolute", "fixed"].includes(f.position) || ot(g) && !x && bn(d, g)) ? m = m.filter((C) => C !== g) : f = h2, g = ze(g);
     }
     return p.set(d, m), m;
-  }(t, this._c) : [].concat(e), r = [...l, o], s = r[0], i = r.reduce((d, p) => {
-    const c = To(t, p, a);
-    return d.top = Le(c.top, d.top), d.right = Kt(c.right, d.right), d.bottom = Kt(c.bottom, d.bottom), d.left = Le(c.left, d.left), d;
-  }, To(t, s, a));
+  }(o, this._c) : [].concat(e), r = [...a, t], s = r[0], i = r.reduce((d, p) => {
+    const c = Po(o, p, l);
+    return d.top = Le(c.top, d.top), d.right = Ht(c.right, d.right), d.bottom = Ht(c.bottom, d.bottom), d.left = Le(c.left, d.left), d;
+  }, Po(o, s, l));
   return { width: i.right - i.left, height: i.bottom - i.top, x: i.left, y: i.top };
 }, convertOffsetParentRelativeRectToViewportRelativeRect: function(n) {
-  let { rect: t, offsetParent: e, strategy: o } = n;
-  const a = pe(e), l = we(e);
-  if (e === l)
-    return t;
-  let r = { scrollLeft: 0, scrollTop: 0 }, s = Me(1);
-  const i = Me(0);
-  if ((a || !a && o !== "fixed") && (($e(e) !== "body" || et(l)) && (r = Tt(e)), pe(e))) {
-    const d = De(e);
+  let { rect: o, offsetParent: e, strategy: t } = n;
+  const l = pe(e), a = we(e);
+  if (e === a)
+    return o;
+  let r = { scrollLeft: 0, scrollTop: 0 }, s = Oe(1);
+  const i = Oe(0);
+  if ((l || !l && t !== "fixed") && ((xe(e) !== "body" || ot(a)) && (r = Tt(e)), pe(e))) {
+    const d = Me(e);
     s = Ke(e), i.x = d.x + e.clientLeft, i.y = d.y + e.clientTop;
   }
-  return { width: t.width * s.x, height: t.height * s.y, x: t.x * s.x - r.scrollLeft * s.x + i.x, y: t.y * s.y - r.scrollTop * s.y + i.y };
+  return { width: o.width * s.x, height: o.height * s.y, x: o.x * s.x - r.scrollLeft * s.x + i.x, y: o.y * s.y - r.scrollTop * s.y + i.y };
 }, isElement: be, getDimensions: function(n) {
-  return fn(n);
-}, getOffsetParent: Oo, getDocumentElement: we, getScale: Ke, async getElementRects(n) {
-  let { reference: t, floating: e, strategy: o } = n;
-  const a = this.getOffsetParent || Oo, l = this.getDimensions;
-  return { reference: ol(t, await a(e), o), floating: { x: 0, y: 0, ...await l(e) } };
+  return hn(n);
+}, getOffsetParent: Mo, getDocumentElement: we, getScale: Ke, async getElementRects(n) {
+  let { reference: o, floating: e, strategy: t } = n;
+  const l = this.getOffsetParent || Mo, a = this.getDimensions;
+  return { reference: rl(o, await l(e), t), floating: { x: 0, y: 0, ...await a(e) } };
 }, getClientRects: (n) => Array.from(n.getClientRects()), isRTL: (n) => de(n).direction === "rtl" };
-function al(n, t, e, o) {
-  o === void 0 && (o = {});
-  const { ancestorScroll: a = true, ancestorResize: l = true, elementResize: r = true, layoutShift: s = typeof IntersectionObserver == "function", animationFrame: i = false } = o, d = ao(n), p = a || l ? [...d ? bt(d) : [], ...bt(t)] : [];
-  p.forEach((h2) => {
-    a && h2.addEventListener("scroll", e, { passive: true }), l && h2.addEventListener("resize", e);
+function sl(n, o, e, t) {
+  t === void 0 && (t = {});
+  const { ancestorScroll: l = true, ancestorResize: a = true, elementResize: r = true, layoutShift: s = typeof IntersectionObserver == "function", animationFrame: i = false } = t, d = ro(n), p = l || a ? [...d ? wt(d) : [], ...wt(o)] : [];
+  p.forEach((g) => {
+    l && g.addEventListener("scroll", e, { passive: true }), a && g.addEventListener("resize", e);
   });
-  const c = d && s ? function(h2, y) {
-    let C, $ = null;
-    const S = we(h2);
-    function P() {
-      clearTimeout(C), $ && $.disconnect(), $ = null;
+  const c = d && s ? function(g, h2) {
+    let x, C = null;
+    const S = we(g);
+    function B() {
+      clearTimeout(x), C && C.disconnect(), C = null;
     }
     return function R(I, T) {
-      I === void 0 && (I = false), T === void 0 && (T = 1), P();
-      const { left: U, top: q, width: j, height: H } = h2.getBoundingClientRect();
-      if (I || y(), !j || !H)
+      I === void 0 && (I = false), T === void 0 && (T = 1), B();
+      const { left: q, top: F, width: ee, height: Y } = g.getBoundingClientRect();
+      if (I || h2(), !ee || !Y)
         return;
-      const Z = ct(q), W = ct(S.clientWidth - (U + j)), ee = ct(S.clientHeight - (q + H)), te = ct(U);
-      let V = true;
-      $ = new IntersectionObserver((Pe) => {
-        const Oe = Pe[0].intersectionRatio;
-        if (Oe !== T) {
-          if (!V)
+      const Q = pt(F), U = pt(S.clientWidth - (q + ee)), te = pt(S.clientHeight - (F + Y)), oe = pt(q);
+      let j = true;
+      C = new IntersectionObserver((Be) => {
+        const Te = Be[0].intersectionRatio;
+        if (Te !== T) {
+          if (!j)
             return R();
-          Oe ? R(false, Oe) : C = setTimeout(() => {
+          Te ? R(false, Te) : x = setTimeout(() => {
             R(false, 1e-7);
           }, 100);
         }
-        V = false;
-      }, { rootMargin: -Z + "px " + -W + "px " + -ee + "px " + -te + "px", threshold: Le(0, Kt(1, T)) || 1 }), $.observe(h2);
-    }(true), P;
+        j = false;
+      }, { rootMargin: -Q + "px " + -U + "px " + -te + "px " + -oe + "px", threshold: Le(0, Ht(1, T)) || 1 }), C.observe(g);
+    }(true), B;
   }(d, e) : null;
   let m, f = null;
-  r && (f = new ResizeObserver(e), d && !i && f.observe(d), f.observe(t));
-  let v = i ? De(n) : null;
-  return i && function h2() {
-    const y = De(n);
-    !v || y.x === v.x && y.y === v.y && y.width === v.width && y.height === v.height || e(), v = y, m = requestAnimationFrame(h2);
+  r && (f = new ResizeObserver(e), d && !i && f.observe(d), f.observe(o));
+  let v = i ? Me(n) : null;
+  return i && function g() {
+    const h2 = Me(n);
+    !v || h2.x === v.x && h2.y === v.y && h2.width === v.width && h2.height === v.height || e(), v = h2, m = requestAnimationFrame(g);
   }(), e(), () => {
-    p.forEach((h2) => {
-      a && h2.removeEventListener("scroll", e), l && h2.removeEventListener("resize", e);
+    p.forEach((g) => {
+      l && g.removeEventListener("scroll", e), a && g.removeEventListener("resize", e);
     }), c && c(), f && f.disconnect(), f = null, i && cancelAnimationFrame(m);
   };
 }
-var ll = (n, t, e) => {
-  const o = /* @__PURE__ */ new Map(), a = { platform: nl, ...e }, l = { ...a.platform, _c: o };
-  return Ua(n, t, { ...a, platform: l });
+var ul = (n, o, e) => {
+  const t = /* @__PURE__ */ new Map(), l = { platform: il, ...e }, a = { ...l.platform, _c: t };
+  return Xa(n, o, { ...l, platform: a });
 };
-function Ht(n) {
-  var t;
-  return (t = n == null ? void 0 : n.$el) != null ? t : n;
+function zt(n) {
+  var o;
+  return (o = n == null ? void 0 : n.$el) != null ? o : n;
 }
-function rl(n) {
+function dl(n) {
   return {
     name: "arrow",
     options: n,
-    fn(t) {
-      const e = Ht(unref(n.element));
-      return e == null ? {} : qa({
+    fn(o) {
+      const e = zt(unref(n.element));
+      return e == null ? {} : Ja({
         element: e,
         padding: n.padding
-      }).fn(t);
+      }).fn(o);
     }
   };
 }
-function yn(n) {
+function wn(n) {
   return typeof window > "u" ? 1 : (n.ownerDocument.defaultView || window).devicePixelRatio || 1;
 }
-function Bo(n, t) {
-  const e = yn(n);
-  return Math.round(t * e) / e;
+function Do(n, o) {
+  const e = wn(n);
+  return Math.round(o * e) / e;
 }
-function il(n, t, e) {
+function cl(n, o, e) {
   e === void 0 && (e = {});
-  const o = e.whileElementsMounted, a = computed(() => {
+  const t = e.whileElementsMounted, l = computed(() => {
     var T;
     return (T = unref(e.open)) != null ? T : true;
-  }), l = computed(() => unref(e.middleware)), r = computed(() => {
+  }), a = computed(() => unref(e.middleware)), r = computed(() => {
     var T;
     return (T = unref(e.placement)) != null ? T : "bottom";
   }), s = computed(() => {
@@ -3636,7 +3707,7 @@ function il(n, t, e) {
   }), i = computed(() => {
     var T;
     return (T = unref(e.transform)) != null ? T : true;
-  }), d = computed(() => Ht(n.value)), p = computed(() => Ht(t.value)), c = ref(0), m = ref(0), f = ref(s.value), v = ref(r.value), h2 = shallowRef({}), y = ref(false), C = computed(() => {
+  }), d = computed(() => zt(n.value)), p = computed(() => zt(o.value)), c = ref(0), m = ref(0), f = ref(s.value), v = ref(r.value), g = shallowRef({}), h2 = ref(false), x = computed(() => {
     const T = {
       position: f.value,
       left: "0",
@@ -3644,71 +3715,70 @@ function il(n, t, e) {
     };
     if (!p.value)
       return T;
-    const U = Bo(p.value, c.value), q = Bo(p.value, m.value);
+    const q = Do(p.value, c.value), F = Do(p.value, m.value);
     return i.value ? {
       ...T,
-      transform: "translate(" + U + "px, " + q + "px)",
-      ...yn(p.value) >= 1.5 && {
+      transform: "translate(" + q + "px, " + F + "px)",
+      ...wn(p.value) >= 1.5 && {
         willChange: "transform"
       }
     } : {
       position: f.value,
-      left: U + "px",
-      top: q + "px"
+      left: q + "px",
+      top: F + "px"
     };
   });
-  let $;
+  let C;
   function S() {
-    d.value == null || p.value == null || ll(d.value, p.value, {
-      middleware: l.value,
+    d.value == null || p.value == null || ul(d.value, p.value, {
+      middleware: a.value,
       placement: r.value,
       strategy: s.value
     }).then((T) => {
-      c.value = T.x, m.value = T.y, f.value = T.strategy, v.value = T.placement, h2.value = T.middlewareData, y.value = true;
+      c.value = T.x, m.value = T.y, f.value = T.strategy, v.value = T.placement, g.value = T.middlewareData, h2.value = true;
     });
   }
-  function P() {
-    typeof $ == "function" && ($(), $ = void 0);
+  function B() {
+    typeof C == "function" && (C(), C = void 0);
   }
   function R() {
-    if (P(), o === void 0) {
+    if (B(), t === void 0) {
       S();
       return;
     }
     if (d.value != null && p.value != null) {
-      $ = o(d.value, p.value, S);
+      C = t(d.value, p.value, S);
       return;
     }
   }
   function I() {
-    a.value || (y.value = false);
+    l.value || (h2.value = false);
   }
-  return watch([l, r, s], S, {
+  return watch([a, r, s], S, {
     flush: "sync"
   }), watch([d, p], R, {
     flush: "sync"
-  }), watch(a, I, {
+  }), watch(l, I, {
     flush: "sync"
-  }), getCurrentScope() && onScopeDispose(P), {
+  }), getCurrentScope() && onScopeDispose(B), {
     x: shallowReadonly(c),
     y: shallowReadonly(m),
     strategy: shallowReadonly(f),
     placement: shallowReadonly(v),
-    middlewareData: shallowReadonly(h2),
-    isPositioned: shallowReadonly(y),
-    floatingStyles: C,
+    middlewareData: shallowReadonly(g),
+    isPositioned: shallowReadonly(h2),
+    floatingStyles: x,
     update: S
   };
 }
-var gn = Symbol();
-var sl = {
+var En = Symbol();
+var pl = {
   inheritAttrs: false
 };
 var ye = defineComponent({
-  ...sl,
+  ...pl,
   __name: "PopperContent",
   props: {
-    asChild: { type: Boolean },
     side: { default: "bottom" },
     sideOffset: { default: 0 },
     align: { default: "center" },
@@ -3721,129 +3791,130 @@ var ye = defineComponent({
     hideWhenDetached: { type: Boolean, default: false },
     updatePositionStrategy: { default: "optimized" },
     onPlaced: {},
-    prioritizePosition: { type: Boolean, default: false }
+    prioritizePosition: { type: Boolean, default: false },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(to), o = ref(), a = ref(), l = ref(), { width: r, height: s } = va(l), i = computed(
-      () => t.side + (t.align !== "center" ? "-" + t.align : "")
-    ), d = computed(() => typeof t.collisionPadding == "number" ? t.collisionPadding : { top: 0, right: 0, bottom: 0, left: 0, ...t.collisionPadding }), p = computed(() => Array.isArray(t.collisionBoundary) ? t.collisionBoundary : [t.collisionBoundary]), c = computed(() => ({
+    const o = n, e = inject(no), t = ref(), l = ref(), a = ref(), { width: r, height: s } = ha(a), i = computed(
+      () => o.side + (o.align !== "center" ? "-" + o.align : "")
+    ), d = computed(() => typeof o.collisionPadding == "number" ? o.collisionPadding : { top: 0, right: 0, bottom: 0, left: 0, ...o.collisionPadding }), p = computed(() => Array.isArray(o.collisionBoundary) ? o.collisionBoundary : [o.collisionBoundary]), c = computed(() => ({
       padding: d.value,
       // with `strategy: 'fixed'`, this is the only way to get it to respect boundaries
       altBoundary: p.value.length > 0
-    })), m = Vn(() => [
-      Qa({
-        mainAxis: t.sideOffset + s.value,
-        alignmentAxis: t.alignOffset
+    })), m = jn(() => [
+      tl({
+        mainAxis: o.sideOffset + s.value,
+        alignmentAxis: o.alignOffset
       }),
-      t.avoidCollisions && Va({
+      o.avoidCollisions && ol({
         mainAxis: true,
-        crossAxis: !!t.prioritizePosition,
-        limiter: t.sticky === "partial" ? ja() : void 0,
+        crossAxis: !!o.prioritizePosition,
+        limiter: o.sticky === "partial" ? nl() : void 0,
         ...c.value
       }),
-      !t.prioritizePosition && t.avoidCollisions && Ja({
+      !o.prioritizePosition && o.avoidCollisions && ja({
         ...c.value
       }),
-      el({
+      al({
         ...c,
-        apply: ({ elements: T, rects: U, availableWidth: q, availableHeight: j }) => {
-          const { width: H, height: Z } = U.reference, W = T.floating.style;
+        apply: ({ elements: T, rects: q, availableWidth: F, availableHeight: ee }) => {
+          const { width: Y, height: Q } = q.reference, U = T.floating.style;
           Object.assign(T.floating.style, {
-            maxWidth: `${q}px`,
-            maxHeight: `${j}px`
-          }), W.setProperty(
+            maxWidth: `${F}px`,
+            maxHeight: `${ee}px`
+          }), U.setProperty(
             "--radix-popper-available-width",
-            `${q}px`
-          ), W.setProperty(
+            `${F}px`
+          ), U.setProperty(
             "--radix-popper-available-height",
-            `${j}px`
-          ), W.setProperty(
+            `${ee}px`
+          ), U.setProperty(
             "--radix-popper-anchor-width",
-            `${H}px`
-          ), W.setProperty(
+            `${Y}px`
+          ), U.setProperty(
             "--radix-popper-anchor-height",
-            `${Z}px`
+            `${Q}px`
           );
         }
       }),
-      l.value && rl({ element: l.value, padding: t.arrowPadding }),
-      Wa({
+      a.value && dl({ element: a.value, padding: o.arrowPadding }),
+      Fa({
         arrowWidth: r.value,
         arrowHeight: s.value
       }),
-      t.hideWhenDetached && Za({ strategy: "referenceHidden", ...c.value })
-    ]), { floatingStyles: f, placement: v, isPositioned: h2, middlewareData: y } = il(
+      o.hideWhenDetached && el({ strategy: "referenceHidden", ...c.value })
+    ]), { floatingStyles: f, placement: v, isPositioned: g, middlewareData: h2 } = cl(
       e.anchor,
-      o,
+      t,
       {
         strategy: "fixed",
         placement: i,
-        whileElementsMounted: (...T) => al(...T, {
-          animationFrame: t.updatePositionStrategy === "always"
+        whileElementsMounted: (...T) => sl(...T, {
+          animationFrame: o.updatePositionStrategy === "always"
         }),
         middleware: m
       }
+    ), x = computed(
+      () => Nt(v.value)[0]
     ), C = computed(
-      () => It(v.value)[0]
-    ), $ = computed(
-      () => It(v.value)[1]
+      () => Nt(v.value)[1]
     );
     watchEffect(() => {
       var T;
-      h2.value && ((T = t.onPlaced) == null || T.call(t));
+      g.value && ((T = o.onPlaced) == null || T.call(o));
     });
     const S = computed(
       () => {
         var T;
-        return ((T = y.value.arrow) == null ? void 0 : T.centerOffset) !== 0;
+        return ((T = h2.value.arrow) == null ? void 0 : T.centerOffset) !== 0;
       }
-    ), P = ref("");
+    ), B = ref("");
     watchEffect(() => {
-      a.value && (P.value = window.getComputedStyle(a.value).zIndex);
+      l.value && (B.value = window.getComputedStyle(l.value).zIndex);
     });
     const R = computed(() => {
       var T;
-      return ((T = y.value.arrow) == null ? void 0 : T.x) ?? 0;
+      return ((T = h2.value.arrow) == null ? void 0 : T.x) ?? 0;
     }), I = computed(() => {
       var T;
-      return ((T = y.value.arrow) == null ? void 0 : T.y) ?? 0;
+      return ((T = h2.value.arrow) == null ? void 0 : T.y) ?? 0;
     });
-    return provide(gn, {
-      placedSide: C,
+    return provide(En, {
+      placedSide: x,
       onArrowChange: (T) => {
-        l.value = T;
+        a.value = T;
       },
       arrowX: R,
       arrowY: I,
       shouldHideArrow: S
-    }), (T, U) => {
-      var q, j, H;
+    }), (T, q) => {
+      var F, ee, Y;
       return openBlock(), createElementBlock("div", {
         ref_key: "floatingRef",
-        ref: o,
+        ref: t,
         "data-radix-popper-content-wrapper": "",
         style: normalizeStyle({
           ...unref(f),
-          transform: unref(h2) ? unref(f).transform : "translate(0, -200%)",
+          transform: unref(g) ? unref(f).transform : "translate(0, -200%)",
           // keep off the page when measuring
           minWidth: "max-content",
-          zIndex: P.value,
+          zIndex: B.value,
           ["--radix-popper-transform-origin"]: [
-            (q = unref(y).transformOrigin) == null ? void 0 : q.x,
-            (j = unref(y).transformOrigin) == null ? void 0 : j.y
+            (F = unref(h2).transformOrigin) == null ? void 0 : F.x,
+            (ee = unref(h2).transformOrigin) == null ? void 0 : ee.y
           ].join(" ")
         })
       }, [
         createVNode(unref(D), mergeProps(T.$attrs, {
-          "as-child": t.asChild,
-          "data-side": C.value,
-          "data-align": $.value,
+          "as-child": o.asChild,
+          "data-side": x.value,
+          "data-align": C.value,
           style: {
             // if the PopperContent hasn't been placed yet (not all measurements done)
             // we prevent animations so that users's animation don't kick in too early referring wrong sides
-            animation: unref(h2) ? void 0 : "none",
+            animation: unref(g) ? void 0 : "none",
             // hide the content if using the hide middleware and should be hidden
-            opacity: (H = unref(y).hide) != null && H.referenceHidden ? 0 : void 0
+            opacity: (Y = unref(h2).hide) != null && Y.referenceHidden ? 0 : void 0
           }
         }), {
           default: withCtx(() => [
@@ -3855,61 +3926,62 @@ var ye = defineComponent({
     };
   }
 });
-var ul = {
+var fl = {
   top: "bottom",
   right: "left",
   bottom: "top",
   left: "right"
 };
-var dl = {
+var ml = {
   inheritAttrs: false
 };
 var Ie = defineComponent({
-  ...dl,
+  ...ml,
   __name: "PopperArrow",
   props: {
     width: {},
-    height: {}
+    height: {},
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = inject(gn), e = computed(
-      () => t != null && t.placedSide ? ul[t == null ? void 0 : t.placedSide.value] : ""
+    const o = inject(En), e = computed(
+      () => o != null && o.placedSide ? fl[o == null ? void 0 : o.placedSide.value] : ""
     );
-    return (o, a) => {
-      var l, r, s, i;
+    return (t, l) => {
+      var a, r, s, i;
       return openBlock(), createElementBlock("span", {
         ref: (d) => {
-          unref(t).onArrowChange(d);
+          unref(o).onArrowChange(d);
         },
         style: normalizeStyle({
           position: "absolute",
-          left: (l = unref(t).arrowX) != null && l.value ? `${(r = unref(t).arrowX) == null ? void 0 : r.value}px` : void 0,
-          top: (s = unref(t).arrowY) != null && s.value ? `${(i = unref(t).arrowY) == null ? void 0 : i.value}px` : void 0,
+          left: (a = unref(o).arrowX) != null && a.value ? `${(r = unref(o).arrowX) == null ? void 0 : r.value}px` : void 0,
+          top: (s = unref(o).arrowY) != null && s.value ? `${(i = unref(o).arrowY) == null ? void 0 : i.value}px` : void 0,
           [e.value]: 0,
           transformOrigin: {
             top: "",
             right: "0 0",
             bottom: "center 0",
             left: "100% 0"
-          }[unref(t).placedSide.value],
+          }[unref(o).placedSide.value],
           transform: {
             top: "translateY(100%)",
             right: "translateY(50%) rotate(90deg) translateX(-50%)",
             bottom: "rotate(180deg)",
             left: "translateY(50%) rotate(-90deg) translateX(50%)"
-          }[unref(t).placedSide.value],
-          visibility: unref(t).shouldHideArrow.value ? "hidden" : void 0
+          }[unref(o).placedSide.value],
+          visibility: unref(o).shouldHideArrow.value ? "hidden" : void 0
         })
       }, [
-        createVNode(Na, mergeProps(o.$attrs, { style: {
+        createVNode(za, mergeProps(t.$attrs, { style: {
           display: "block"
         } }), null, 16)
       ], 4);
     };
   }
 });
-var lo = Symbol();
-var Hr = defineComponent({
+var io = Symbol();
+var Ur = defineComponent({
   __name: "TooltipRoot",
   props: {
     defaultOpen: { type: Boolean, default: false },
@@ -3918,68 +3990,72 @@ var Hr = defineComponent({
     disableHoverableContent: { type: Boolean }
   },
   emits: ["update:open"],
-  setup(n, { emit: t }) {
-    const e = n, o = K(e, "open", t, {
+  setup(n, { emit: o }) {
+    const e = n, t = K(e, "open", o, {
       defaultValue: e.defaultOpen,
       passive: true
     });
-    return provide(lo, {
-      open: o,
+    return provide(io, {
+      open: t,
       showTooltip: () => {
-        o.value = true;
+        t.value = true;
       },
       hideTooltip: () => {
-        o.value = false;
+        t.value = false;
       }
-    }), (a, l) => (openBlock(), createBlock(unref(me), null, {
+    }), (l, a) => (openBlock(), createBlock(unref(fe), null, {
       default: withCtx(() => [
-        renderSlot(a.$slots, "default")
+        renderSlot(l.$slots, "default")
       ]),
       _: 3
     }));
   }
 });
-var zr = defineComponent({
+var qr = defineComponent({
   __name: "TooltipTrigger",
+  props: {
+    asChild: { type: Boolean }
+  },
   setup(n) {
-    const t = inject(lo), { primitiveElement: e, currentElement: o } = B();
-    async function a(r) {
-      await Yo(r, o.value) && (t == null || t.showTooltip());
+    const o = n, e = inject(io), { primitiveElement: t, currentElement: l } = P();
+    async function a(s) {
+      await qo(s, l.value) && (e == null || e.showTooltip());
     }
-    const l = computed(() => t != null && t.open.value ? "closed" : "instant-open");
-    return (r, s) => (openBlock(), createBlock(unref(_e), { asChild: "" }, {
+    const r = computed(() => e != null && e.open.value ? "closed" : "instant-open");
+    return (s, i) => (openBlock(), createBlock(unref(_e), { asChild: "" }, {
       default: withCtx(() => {
-        var i, d;
+        var d, p;
         return [
           createVNode(unref(X), {
             type: "button",
             ref_key: "primitiveElement",
-            ref: e,
-            "data-state": l.value,
-            "aria-expanded": ((i = unref(t)) == null ? void 0 : i.open.value) || false,
+            ref: t,
+            "data-state": r.value,
+            "aria-expanded": ((d = unref(e)) == null ? void 0 : d.open.value) || false,
+            "as-child": o.asChild,
             onMouseenter: a,
-            onMouseleave: (d = unref(t)) == null ? void 0 : d.hideTooltip,
+            onMouseleave: (p = unref(e)) == null ? void 0 : p.hideTooltip,
             style: { cursor: "default" }
           }, {
             default: withCtx(() => [
-              renderSlot(r.$slots, "default")
+              renderSlot(s.$slots, "default")
             ]),
             _: 3
-          }, 8, ["data-state", "aria-expanded", "onMouseleave"])
+          }, 8, ["data-state", "aria-expanded", "as-child", "onMouseleave"])
         ];
       }),
       _: 3
     }));
   }
 });
-var Yr = defineComponent({
+var Gr = defineComponent({
   __name: "TooltipPortal",
   props: {
     container: {}
   },
   setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(qe, normalizeProps(guardReactiveProps(t)), {
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(qe, normalizeProps(guardReactiveProps(o)), {
       default: withCtx(() => [
         renderSlot(e.$slots, "default")
       ]),
@@ -3987,10 +4063,9 @@ var Yr = defineComponent({
     }, 16));
   }
 });
-var Wr = defineComponent({
+var Fr = defineComponent({
   __name: "TooltipContent",
   props: {
-    asChild: { type: Boolean },
     forceMount: { type: Boolean },
     side: { default: "top" },
     sideOffset: {},
@@ -4004,13 +4079,14 @@ var Wr = defineComponent({
     hideWhenDetached: { type: Boolean },
     updatePositionStrategy: {},
     onPlaced: {},
-    prioritizePosition: { type: Boolean }
+    prioritizePosition: { type: Boolean },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(lo);
-    return (o, a) => {
-      var l;
-      return (l = unref(e)) != null && l.open.value ? (openBlock(), createBlock(unref(ye), normalizeProps(mergeProps({ key: 0 }, t)), {
+    const o = n, e = inject(io);
+    return (t, l) => {
+      var a;
+      return (a = unref(e)) != null && a.open.value ? (openBlock(), createBlock(unref(ye), normalizeProps(mergeProps({ key: 0 }, o)), {
         default: withCtx(() => {
           var r;
           return [
@@ -4021,10 +4097,10 @@ var Wr = defineComponent({
               "data-align": "center",
               role: "tooltip",
               tabindex: "-1",
-              asChild: t.asChild
+              asChild: o.asChild
             }, {
               default: withCtx(() => [
-                renderSlot(o.$slots, "default")
+                renderSlot(t.$slots, "default")
               ]),
               _: 3
             }, 8, ["data-state", "asChild"])
@@ -4035,14 +4111,14 @@ var Wr = defineComponent({
     };
   }
 });
-var Ur = defineComponent({
+var Xr = defineComponent({
   __name: "TooltipArrow",
   setup(n) {
-    return (t, e) => (openBlock(), createBlock(unref(Ie)));
+    return (o, e) => (openBlock(), createBlock(unref(Ie)));
   }
 });
-var ro = Symbol();
-var qr = defineComponent({
+var so = Symbol();
+var Jr = defineComponent({
   __name: "HoverCardRoot",
   props: {
     defaultOpen: { type: Boolean, default: false },
@@ -4051,46 +4127,46 @@ var qr = defineComponent({
     closeDelay: { default: 300 }
   },
   emits: ["update:open"],
-  setup(n, { emit: t }) {
-    const e = n, o = K(e, "open", t, {
+  setup(n, { emit: o }) {
+    const e = n, t = K(e, "open", o, {
       defaultValue: e.defaultOpen,
       passive: true
     });
-    return provide(ro, {
-      open: o,
+    return provide(so, {
+      open: t,
       showTooltip: () => {
-        o.value = true;
+        t.value = true;
       },
       hideTooltip: () => {
-        o.value = false;
+        t.value = false;
       },
       openDelay: e.openDelay,
       closeDelay: e.closeDelay,
       isHover: false
-    }), (a, l) => (openBlock(), createBlock(unref(me), null, {
+    }), (l, a) => (openBlock(), createBlock(unref(fe), null, {
       default: withCtx(() => [
-        renderSlot(a.$slots, "default")
+        renderSlot(l.$slots, "default")
       ]),
       _: 3
     }));
   }
 });
-var Gr = defineComponent({
+var Zr = defineComponent({
   __name: "HoverCardTrigger",
   props: {
-    asChild: { type: Boolean, default: false }
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(ro), { primitiveElement: o, currentElement: a } = B();
-    async function l(s) {
-      await Yo(
+    const o = n, e = inject(so), { primitiveElement: t, currentElement: l } = P();
+    async function a(s) {
+      await qo(
         s,
-        a.value,
+        l.value,
         e == null ? void 0 : e.openDelay
       ) && (e == null || e.showTooltip());
     }
     async function r(s) {
-      e.isHover = false, await Wo(s, e == null ? void 0 : e.closeDelay) && !(e != null && e.isHover) && (e == null || e.hideTooltip());
+      e.isHover = false, await Go(s, e == null ? void 0 : e.closeDelay) && !(e != null && e.isHover) && (e == null || e.hideTooltip());
     }
     return (s, i) => (openBlock(), createBlock(unref(_e), { asChild: "" }, {
       default: withCtx(() => {
@@ -4098,12 +4174,12 @@ var Gr = defineComponent({
         return [
           createVNode(unref(X), {
             ref_key: "primitiveElement",
-            ref: o,
-            asChild: t.asChild,
+            ref: t,
+            "as-child": o.asChild,
             "aria-expanded": ((d = unref(e)) == null ? void 0 : d.open.value) || false,
             "data-state": (p = unref(e)) != null && p.open.value ? "open" : "closed",
             onMouseover: i[0] || (i[0] = (c) => unref(e).isHover = true),
-            onMouseenter: l,
+            onMouseenter: a,
             onMouseleave: r,
             style: { cursor: "default" }
           }, {
@@ -4111,21 +4187,21 @@ var Gr = defineComponent({
               renderSlot(s.$slots, "default")
             ]),
             _: 3
-          }, 8, ["asChild", "aria-expanded", "data-state"])
+          }, 8, ["as-child", "aria-expanded", "data-state"])
         ];
       }),
       _: 3
     }));
   }
 });
-var Xr = defineComponent({
+var Qr = defineComponent({
   __name: "HoverCardPortal",
   props: {
     container: {}
   },
   setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(qe, normalizeProps(guardReactiveProps(t)), {
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(qe, normalizeProps(guardReactiveProps(o)), {
       default: withCtx(() => [
         renderSlot(e.$slots, "default")
       ]),
@@ -4133,10 +4209,9 @@ var Xr = defineComponent({
     }, 16));
   }
 });
-var Fr = defineComponent({
+var Vr = defineComponent({
   __name: "HoverCardContent",
   props: {
-    asChild: { type: Boolean },
     side: { default: "bottom" },
     sideOffset: {},
     align: { default: "center" },
@@ -4149,38 +4224,39 @@ var Fr = defineComponent({
     hideWhenDetached: { type: Boolean },
     updatePositionStrategy: {},
     onPlaced: {},
-    prioritizePosition: { type: Boolean }
+    prioritizePosition: { type: Boolean },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(ro);
-    async function o(a) {
-      e.isHover = false, await Wo(a, e == null ? void 0 : e.closeDelay) && !(e != null && e.isHover) && (e == null || e.hideTooltip());
+    const o = n, e = inject(so);
+    async function t(l) {
+      e.isHover = false, await Go(l, e == null ? void 0 : e.closeDelay) && !(e != null && e.isHover) && (e == null || e.hideTooltip());
     }
-    return (a, l) => {
+    return (l, a) => {
       var r, s;
-      return (r = unref(e)) != null && r.open.value ? (openBlock(), createBlock(unref(ye), mergeProps({ key: 0 }, t, {
-        onMouseover: l[0] || (l[0] = (i) => unref(e).isHover = true),
-        onMouseleave: o,
+      return (r = unref(e)) != null && r.open.value ? (openBlock(), createBlock(unref(ye), mergeProps({ key: 0 }, o, {
+        onMouseover: a[0] || (a[0] = (i) => unref(e).isHover = true),
+        onMouseleave: t,
         "data-state": (s = unref(e)) != null && s.open.value ? "open" : "closed",
-        "data-side": t.side,
-        "data-align": t.align
+        "data-side": o.side,
+        "data-align": o.align
       }), {
         default: withCtx(() => [
-          renderSlot(a.$slots, "default")
+          renderSlot(l.$slots, "default")
         ]),
         _: 3
       }, 16, ["data-state", "data-side", "data-align"])) : createCommentVNode("", true);
     };
   }
 });
-var Jr = defineComponent({
+var jr = defineComponent({
   __name: "HoverCardArrow",
   setup(n) {
-    return (t, e) => (openBlock(), createBlock(unref(Ie)));
+    return (o, e) => (openBlock(), createBlock(unref(Ie)));
   }
 });
 var Pt = Symbol();
-var Zr = defineComponent({
+var ei = defineComponent({
   __name: "PopoverRoot",
   props: {
     defaultOpen: { type: Boolean, default: false },
@@ -4188,69 +4264,73 @@ var Zr = defineComponent({
     modal: { type: Boolean, default: false }
   },
   emits: ["update:open"],
-  setup(n, { emit: t }) {
-    const e = n, o = K(e, "open", t, {
+  setup(n, { emit: o }) {
+    const e = n, t = K(e, "open", o, {
       defaultValue: e.defaultOpen,
       passive: true
-    }), a = ref();
+    }), l = ref();
     return provide(Pt, {
-      open: o,
+      open: t,
       showPopover: () => {
-        o.value = true;
+        t.value = true;
       },
       hidePopover: () => {
-        o.value = false;
+        t.value = false;
       },
-      triggerElement: a
-    }), (l, r) => (openBlock(), createBlock(unref(me), null, {
+      triggerElement: l
+    }), (a, r) => (openBlock(), createBlock(unref(fe), null, {
       default: withCtx(() => [
-        renderSlot(l.$slots, "default")
+        renderSlot(a.$slots, "default")
       ]),
       _: 3
     }));
   }
 });
-var Qr = defineComponent({
+var ti = defineComponent({
   __name: "PopoverTrigger",
+  props: {
+    asChild: { type: Boolean }
+  },
   setup(n) {
-    const t = inject(Pt), { primitiveElement: e, currentElement: o } = B();
+    const o = n, e = inject(Pt), { primitiveElement: t, currentElement: l } = P();
     onMounted(() => {
-      t.triggerElement.value = o.value;
+      e.triggerElement.value = l.value;
     });
     function a() {
-      t != null && t.open.value ? t == null || t.hidePopover() : t == null || t.showPopover();
+      e != null && e.open.value ? e == null || e.hidePopover() : e == null || e.showPopover();
     }
-    return (l, r) => (openBlock(), createBlock(unref(_e), { asChild: "" }, {
+    return (r, s) => (openBlock(), createBlock(unref(_e), { asChild: "" }, {
       default: withCtx(() => {
-        var s, i;
+        var i, d;
         return [
           createVNode(unref(X), {
             type: "button",
             ref_key: "primitiveElement",
-            ref: e,
-            "aria-expanded": ((s = unref(t)) == null ? void 0 : s.open.value) || false,
-            "data-state": (i = unref(t)) != null && i.open.value ? "open" : "closed",
+            ref: t,
+            "aria-expanded": ((i = unref(e)) == null ? void 0 : i.open.value) || false,
+            "data-state": (d = unref(e)) != null && d.open.value ? "open" : "closed",
+            "as-child": o.asChild,
             onClick: a
           }, {
             default: withCtx(() => [
-              renderSlot(l.$slots, "default")
+              renderSlot(r.$slots, "default")
             ]),
             _: 3
-          }, 8, ["aria-expanded", "data-state"])
+          }, 8, ["aria-expanded", "data-state", "as-child"])
         ];
       }),
       _: 3
     }));
   }
 });
-var Vr = defineComponent({
+var oi = defineComponent({
   __name: "PopoverPortal",
   props: {
     container: {}
   },
   setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(qe, normalizeProps(guardReactiveProps(t)), {
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(qe, normalizeProps(guardReactiveProps(o)), {
       default: withCtx(() => [
         renderSlot(e.$slots, "default")
       ]),
@@ -4258,16 +4338,15 @@ var Vr = defineComponent({
     }, 16));
   }
 });
-function cl(n, t) {
-  if (t) {
-    const e = t.getBoundingClientRect();
+function vl(n, o) {
+  if (o) {
+    const e = o.getBoundingClientRect();
     return !(n.clientX > e.left && n.clientX < e.right && n.clientY > e.top && n.clientY < e.bottom);
   }
 }
-var jr = defineComponent({
+var ni = defineComponent({
   __name: "PopoverContent",
   props: {
-    asChild: { type: Boolean },
     forceMount: { type: Boolean },
     side: { default: "bottom" },
     sideOffset: {},
@@ -4281,24 +4360,25 @@ var jr = defineComponent({
     hideWhenDetached: { type: Boolean },
     updatePositionStrategy: {},
     onPlaced: {},
-    prioritizePosition: { type: Boolean }
+    prioritizePosition: { type: Boolean },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(Pt), { primitiveElement: o, currentElement: a } = B();
+    const o = n, e = inject(Pt), { primitiveElement: t, currentElement: l } = P();
     watchEffect(() => {
-      a.value && (e != null && e.open.value ? (Ft(a.value), window.addEventListener("mousedown", l), window.addEventListener("keydown", r)) : e != null && e.triggerElement.value && (e == null || e.triggerElement.value.focus(), s()));
+      l.value && (e != null && e.open.value ? (Jt(l.value), window.addEventListener("mousedown", a), window.addEventListener("keydown", r)) : e != null && e.triggerElement.value && (e == null || e.triggerElement.value.focus(), s()));
     });
-    function l(i) {
+    function a(i) {
       var p;
       if ((p = e == null ? void 0 : e.triggerElement.value) != null && p.contains(i.target))
         return;
-      cl(i, a.value) && (e == null || e.hidePopover(), i.preventDefault(), i.stopPropagation());
+      vl(i, l.value) && (e == null || e.hidePopover(), i.preventDefault(), i.stopPropagation());
     }
     function r(i) {
       i.key === "Escape" && (e == null || e.hidePopover());
     }
     function s() {
-      window.removeEventListener("mousedown", l), window.removeEventListener("keydown", r);
+      window.removeEventListener("mousedown", a), window.removeEventListener("keydown", r);
     }
     return onUnmounted(() => {
       s();
@@ -4307,24 +4387,24 @@ var jr = defineComponent({
       return (p = unref(e)) != null && p.open.value ? (openBlock(), createBlock(unref(ye), mergeProps({
         key: 0,
         ref_key: "primitiveElement",
-        ref: o
-      }, t), {
+        ref: t
+      }, o), {
         default: withCtx(() => {
           var c, m;
           return [
             (c = unref(e)) != null && c.open.value ? (openBlock(), createBlock(unref(D), {
               key: 0,
               "data-state": (m = unref(e)) != null && m.open.value ? "open" : "closed",
-              "data-side": t.side,
-              "data-align": t.align,
+              "data-side": o.side,
+              "data-align": o.align,
               role: "tooltip",
-              asChild: t.asChild
+              "as-child": o.asChild
             }, {
               default: withCtx(() => [
                 renderSlot(i.$slots, "default")
               ]),
               _: 3
-            }, 8, ["data-state", "data-side", "data-align", "asChild"])) : createCommentVNode("", true)
+            }, 8, ["data-state", "data-side", "data-align", "as-child"])) : createCommentVNode("", true)
           ];
         }),
         _: 3
@@ -4332,34 +4412,38 @@ var jr = defineComponent({
     };
   }
 });
-var ei = defineComponent({
+var ai = defineComponent({
   __name: "PopoverArrow",
   setup(n) {
-    return (t, e) => (openBlock(), createBlock(unref(Ie)));
+    return (o, e) => (openBlock(), createBlock(unref(Ie)));
   }
 });
-var ti = defineComponent({
+var li = defineComponent({
   __name: "PopoverClose",
+  props: {
+    asChild: { type: Boolean }
+  },
   setup(n) {
-    const t = inject(Pt);
-    return (e, o) => {
-      var a, l, r;
+    const o = n, e = inject(Pt);
+    return (t, l) => {
+      var a, r, s;
       return openBlock(), createBlock(unref(X), {
         type: "button",
-        "aria-expanded": ((a = unref(t)) == null ? void 0 : a.open.value) || false,
-        "data-state": (l = unref(t)) != null && l.open.value ? "open" : "closed",
-        onClick: (r = unref(t)) == null ? void 0 : r.hidePopover
+        "aria-expanded": ((a = unref(e)) == null ? void 0 : a.open.value) || false,
+        "data-state": (r = unref(e)) != null && r.open.value ? "open" : "closed",
+        "as-child": o.asChild,
+        onClick: (s = unref(e)) == null ? void 0 : s.hidePopover
       }, {
         default: withCtx(() => [
-          renderSlot(e.$slots, "default")
+          renderSlot(t.$slots, "default")
         ]),
         _: 3
-      }, 8, ["aria-expanded", "data-state", "onClick"]);
+      }, 8, ["aria-expanded", "data-state", "as-child", "onClick"]);
     };
   }
 });
-var Se = Symbol();
-var oi = defineComponent({
+var ke = Symbol();
+var ri = defineComponent({
   __name: "DropdownMenuRoot",
   props: {
     open: { type: Boolean },
@@ -4369,26 +4453,26 @@ var oi = defineComponent({
     dir: {}
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, o = K(e, "modelValue", t, {
+  setup(n, { emit: o }) {
+    const e = n, t = K(e, "modelValue", o, {
       passive: true
-    }), a = ref(), l = ref();
-    return provide(Se, {
-      selectedElement: a,
+    }), l = ref(), a = ref();
+    return provide(ke, {
+      selectedElement: l,
       changeSelected: (r) => {
-        a.value = r, a.value.focus();
+        l.value = r, l.value.focus();
       },
-      modelValue: o,
+      modelValue: t,
       showTooltip: () => {
-        o.value = true;
+        t.value = true;
       },
       hideTooltip: () => {
-        o.value = false;
+        t.value = false;
       },
-      triggerElement: l,
+      triggerElement: a,
       itemsArray: [],
       orientation: e.orientation
-    }), (r, s) => (openBlock(), createBlock(unref(me), null, {
+    }), (r, s) => (openBlock(), createBlock(unref(fe), null, {
       default: withCtx(() => [
         renderSlot(r.$slots, "default")
       ]),
@@ -4396,58 +4480,60 @@ var oi = defineComponent({
     }));
   }
 });
-var ni = defineComponent({
+var ii = defineComponent({
   __name: "DropdownMenuTrigger",
+  props: {
+    asChild: { type: Boolean }
+  },
   setup(n) {
-    const t = inject(
-      Se
-    ), { primitiveElement: e, currentElement: o } = B();
+    const o = n, e = inject(
+      ke
+    ), { primitiveElement: t, currentElement: l } = P();
     onMounted(() => {
-      t.triggerElement.value = o.value;
+      e.triggerElement.value = l.value;
     });
     function a() {
-      t != null && t.modelValue.value ? t == null || t.hideTooltip() : t == null || t.showTooltip();
+      e != null && e.modelValue.value ? e == null || e.hideTooltip() : e == null || e.showTooltip();
     }
-    async function l(r) {
-      var s;
-      (r.key === "ArrowDown" || r.key === "Enter" || r.keyCode === 32) && (t == null || t.showTooltip(), await nextTick(), t == null || t.changeSelected((s = t.itemsArray) == null ? void 0 : s[0]));
+    async function r(s) {
+      var i;
+      (s.key === "ArrowDown" || s.key === "Enter" || s.keyCode === 32) && (e == null || e.showTooltip(), await nextTick(), e == null || e.changeSelected((i = e.itemsArray) == null ? void 0 : i[0]));
     }
-    return (r, s) => (openBlock(), createBlock(unref(_e), { asChild: "" }, {
+    return (s, i) => (openBlock(), createBlock(unref(_e), { asChild: "" }, {
       default: withCtx(() => {
-        var i, d;
+        var d, p;
         return [
           createVNode(unref(X), {
             type: "button",
             ref_key: "primitiveElement",
-            ref: e,
-            "aria-expanded": ((i = unref(t)) == null ? void 0 : i.modelValue.value) || false,
-            "data-state": (d = unref(t)) != null && d.modelValue.value ? "open" : "closed",
-            "as-child": false,
+            ref: t,
+            "aria-expanded": ((d = unref(e)) == null ? void 0 : d.modelValue.value) || false,
+            "data-state": (p = unref(e)) != null && p.modelValue.value ? "open" : "closed",
+            "as-child": o.asChild,
             onClick: a,
-            onKeydown: withModifiers(l, ["prevent"])
+            onKeydown: withModifiers(r, ["prevent"])
           }, {
             default: withCtx(() => [
-              renderSlot(r.$slots, "default")
+              renderSlot(s.$slots, "default")
             ]),
             _: 3
-          }, 8, ["aria-expanded", "data-state", "onKeydown"])
+          }, 8, ["aria-expanded", "data-state", "as-child", "onKeydown"])
         ];
       }),
       _: 3
     }));
   }
 });
-var pl = {};
-function fl(n, t) {
+var hl = {};
+function _l(n, o) {
   return openBlock(), createBlock(Teleport, { to: "body" }, [
     renderSlot(n.$slots, "default")
   ]);
 }
-var ai = Ct(pl, [["render", fl]]);
-var li = defineComponent({
+var si = xt(hl, [["render", _l]]);
+var ui = defineComponent({
   __name: "DropdownMenuContent",
   props: {
-    asChild: { type: Boolean },
     loop: { type: Boolean },
     side: { default: "bottom" },
     sideOffset: {},
@@ -4461,12 +4547,13 @@ var li = defineComponent({
     hideWhenDetached: { type: Boolean },
     updatePositionStrategy: {},
     onPlaced: {},
-    prioritizePosition: { type: Boolean }
+    prioritizePosition: { type: Boolean },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(Se), { primitiveElement: o, currentElement: a } = B(), { createCollection: l, getItems: r } = re();
-    l(a), watchEffect(() => {
-      a.value && (e != null && e.modelValue.value ? (document.querySelector("body").style.pointerEvents = "none", e.itemsArray = r(a.value)) : e != null && e.triggerElement.value && s());
+    const o = n, e = inject(ke), { primitiveElement: t, currentElement: l } = P(), { createCollection: a, getItems: r } = le();
+    a(l), watchEffect(() => {
+      l.value && (e != null && e.modelValue.value ? (document.querySelector("body").style.pointerEvents = "none", e.itemsArray = r(l.value)) : e != null && e.triggerElement.value && s());
     });
     function s() {
       document.querySelector("body").style.pointerEvents = "", setTimeout(() => {
@@ -4474,29 +4561,29 @@ var li = defineComponent({
         (i = e == null ? void 0 : e.triggerElement.value) == null || i.focus();
       }, 0);
     }
-    return ke(a, (i) => {
+    return $e(l, (i) => {
       i.target.closest('[role="menuitem"]') || e == null || e.hideTooltip();
     }), (i, d) => {
       var p;
-      return (p = unref(e)) != null && p.modelValue.value ? (openBlock(), createBlock(unref(ye), normalizeProps(mergeProps({ key: 0 }, t)), {
+      return (p = unref(e)) != null && p.modelValue.value ? (openBlock(), createBlock(unref(ye), normalizeProps(mergeProps({ key: 0 }, o)), {
         default: withCtx(() => {
           var c;
           return [
             createVNode(unref(D), {
               ref_key: "primitiveElement",
-              ref: o,
+              ref: t,
               "data-state": (c = unref(e)) != null && c.modelValue.value ? "open" : "closed",
-              "data-side": t.side,
-              "data-align": t.align,
+              "data-side": o.side,
+              "data-align": o.align,
               role: "tooltip",
-              asChild: t.asChild,
+              "as-child": o.asChild,
               style: { "pointer-events": "auto" }
             }, {
               default: withCtx(() => [
                 renderSlot(i.$slots, "default")
               ]),
               _: 3
-            }, 8, ["data-state", "data-side", "data-align", "asChild"])
+            }, 8, ["data-state", "data-side", "data-align", "as-child"])
           ];
         }),
         _: 3
@@ -4504,14 +4591,14 @@ var li = defineComponent({
     };
   }
 });
-var ri = defineComponent({
+var di = defineComponent({
   __name: "DropdownMenuArrow",
   setup(n) {
-    return (t, e) => (openBlock(), createBlock(unref(Ie)));
+    return (o, e) => (openBlock(), createBlock(unref(Ie)));
   }
 });
-var tt = Symbol();
-var ii = defineComponent({
+var nt = Symbol();
+var ci = defineComponent({
   __name: "DropdownMenuSub",
   props: {
     modelValue: { type: Boolean },
@@ -4522,25 +4609,25 @@ var ii = defineComponent({
     orientation: { default: "vertical" }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, o = K(e, "modelValue", t, {
+  setup(n, { emit: o }) {
+    const e = n, t = K(e, "modelValue", o, {
       passive: true
-    }), a = ref(), l = inject(tt);
-    return provide(tt, {
-      modelValue: o,
+    }), l = ref(), a = inject(nt);
+    return provide(nt, {
+      modelValue: t,
       showTooltip: () => {
-        o.value = true;
+        t.value = true;
       },
       hideTooltip: () => {
-        o.value = false;
+        t.value = false;
       },
-      triggerElement: a,
+      triggerElement: l,
       itemsArray: [],
       orientation: e.orientation,
       triggerId: ce(),
       contentId: ce(),
-      parentContext: l
-    }), (r, s) => (openBlock(), createBlock(unref(me), null, {
+      parentContext: a
+    }), (r, s) => (openBlock(), createBlock(unref(fe), null, {
       default: withCtx(() => [
         renderSlot(r.$slots, "default")
       ]),
@@ -4548,46 +4635,47 @@ var ii = defineComponent({
     }));
   }
 });
-var si = defineComponent({
+var pi = defineComponent({
   __name: "DropdownMenuItem",
   props: {
-    asChild: { type: Boolean },
     value: {},
     disabled: { type: Boolean },
-    textValue: {}
+    textValue: {},
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(
-      Se
-    ), o = inject(
-      tt
+    const o = n, e = inject(
+      ke
+    ), t = inject(
+      nt
     );
-    function a() {
+    function l() {
       e != null && e.selectedElement.value && e.hideTooltip();
     }
-    function l() {
+    function a() {
       e == null || e.hideTooltip();
     }
     return (r, s) => {
       var i;
-      return openBlock(), createBlock(ie, {
-        disabled: t.disabled,
+      return openBlock(), createBlock(re, {
+        disabled: o.disabled,
         rootProvider: unref(e),
-        subProvider: unref(o),
+        subProvider: unref(t),
         orientation: (i = unref(e)) == null ? void 0 : i.orientation,
-        onHandleClick: a,
-        onEscapeKeydown: l
+        "as-child": o.asChild,
+        onHandleClick: l,
+        onEscapeKeydown: a
       }, {
         default: withCtx(() => [
           renderSlot(r.$slots, "default")
         ]),
         _: 3
-      }, 8, ["disabled", "rootProvider", "subProvider", "orientation"]);
+      }, 8, ["disabled", "rootProvider", "subProvider", "orientation", "as-child"]);
     };
   }
 });
-var ml = Symbol();
-var ui = defineComponent({
+var yl = Symbol();
+var fi = defineComponent({
   __name: "DropdownMenuGroup",
   props: {
     type: { default: "single" },
@@ -4598,43 +4686,45 @@ var ui = defineComponent({
     orientation: {},
     dir: {},
     loop: { type: Boolean },
-    modelValue: {}
+    modelValue: {},
+    asChild: { type: Boolean }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, { primitiveElement: o, currentElement: a } = B();
-    return provide(ml, {
+  setup(n, { emit: o }) {
+    const e = n, { primitiveElement: t, currentElement: l } = P();
+    return provide(yl, {
       type: e.type,
       modelValue: toRef(() => e.modelValue),
-      changeModelValue: (l) => {
+      changeModelValue: (a) => {
         if (e.type === "single")
-          t("update:modelValue", l);
+          o("update:modelValue", a);
         else {
           let r = e.modelValue;
-          if (r.includes(l)) {
-            let s = r.findIndex((i) => i === l);
+          if (r.includes(a)) {
+            let s = r.findIndex((i) => i === a);
             r.splice(s, 1);
           } else
-            r.push(l);
-          t("update:modelValue", r);
+            r.push(a);
+          o("update:modelValue", r);
         }
       },
-      parentElement: a
-    }), (l, r) => (openBlock(), createBlock(unref(D), {
+      parentElement: l
+    }), (a, r) => (openBlock(), createBlock(unref(D), {
       ref_key: "primitiveElement",
-      ref: o,
+      ref: t,
       role: "group",
       dir: e.dir,
+      "as-child": e.asChild,
       "aria-label": "Text alignment"
     }, {
       default: withCtx(() => [
-        renderSlot(l.$slots, "default")
+        renderSlot(a.$slots, "default")
       ]),
       _: 3
-    }, 8, ["dir"]));
+    }, 8, ["dir", "as-child"]));
   }
 });
-var di = defineComponent({
+var mi = defineComponent({
   __name: "DropdownMenuSeparator",
   props: {
     orientation: {},
@@ -4642,19 +4732,15 @@ var di = defineComponent({
     asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(Ue, {
-      orientation: t.orientation,
-      decorative: t.decorative
-    }, null, 8, ["orientation", "decorative"]));
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(Ue, normalizeProps(guardReactiveProps(o)), null, 16));
   }
 });
-var io = Symbol();
-var vl = ["id", "checked", "name", "disabled"];
-var ci = defineComponent({
+var uo = Symbol();
+var gl = ["id", "checked", "name", "disabled"];
+var vi = defineComponent({
   __name: "DropdownMenuCheckboxItem",
   props: {
-    asChild: { type: Boolean },
     checked: { type: Boolean },
     modelValue: { type: Boolean },
     id: {},
@@ -4662,34 +4748,36 @@ var ci = defineComponent({
     value: {},
     disabled: { type: Boolean },
     onSelect: {},
-    textValue: {}
+    textValue: {},
+    asChild: { type: Boolean }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, o = inject(
-      Se
-    ), a = K(e, "modelValue", t, {
+  setup(n, { emit: o }) {
+    const e = n, t = inject(
+      ke
+    ), l = K(e, "modelValue", o, {
       passive: true
-    }), l = computed(() => a.value ? "checked" : "unchecked");
+    }), a = computed(() => l.value ? "checked" : "unchecked");
     function r() {
-      a.value = !a.value;
+      l.value = !l.value;
     }
     function s() {
-      o == null || o.hideTooltip();
+      t == null || t.hideTooltip();
     }
-    return provide(io, {
-      modelValue: a
+    return provide(uo, {
+      modelValue: l
     }), (i, d) => {
       var p;
-      return openBlock(), createBlock(ie, {
+      return openBlock(), createBlock(re, {
         ref: "currentElement",
         disabled: e.disabled,
-        rootProvider: unref(o),
-        orientation: (p = unref(o)) == null ? void 0 : p.orientation,
+        rootProvider: unref(t),
+        orientation: (p = unref(t)) == null ? void 0 : p.orientation,
         onHandleClick: r,
         onEscapeKeydown: s,
         role: "menuitemcheckbox",
-        "data-state": l.value,
+        "data-state": a.value,
+        "as-child": e.asChild,
         "aria-checked": !!e.modelValue
       }, {
         default: withCtx(() => [
@@ -4702,106 +4790,106 @@ var ci = defineComponent({
             "aria-hidden": "true",
             disabled: e.disabled,
             style: { opacity: "0", position: "absolute", inset: "0" }
-          }), null, 16, vl),
+          }), null, 16, gl),
           renderSlot(i.$slots, "default")
         ]),
         _: 3
-      }, 8, ["disabled", "rootProvider", "orientation", "data-state", "aria-checked"]);
+      }, 8, ["disabled", "rootProvider", "orientation", "data-state", "as-child", "aria-checked"]);
     };
   }
 });
-var pi = defineComponent({
+var hi = defineComponent({
   __name: "DropdownMenuItemIndicator",
-  setup(n) {
-    const t = inject(io);
-    return (e, o) => {
-      var a;
-      return (a = unref(t)) != null && a.modelValue.value ? (openBlock(), createBlock(unref(ne), {
-        key: 0,
-        style: { "pointer-events": "none" }
-      }, {
-        default: withCtx(() => [
-          renderSlot(e.$slots, "default")
-        ]),
-        _: 3
-      })) : createCommentVNode("", true);
-    };
-  }
-});
-var fi = defineComponent({
-  __name: "DropdownMenuLabel",
   props: {
-    asChild: { type: Boolean },
-    for: {}
+    forceMount: { type: Boolean },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(unref(lt), {
-      for: t.for
-    }, {
+    const o = n, e = inject(uo);
+    return (t, l) => {
+      var a;
+      return (a = unref(e)) != null && a.modelValue.value ? (openBlock(), createBlock(unref(ae), mergeProps({ key: 0 }, o, { style: { "pointer-events": "none" } }), {
+        default: withCtx(() => [
+          renderSlot(t.$slots, "default")
+        ]),
+        _: 3
+      }, 16)) : createCommentVNode("", true);
+    };
+  }
+});
+var _i = defineComponent({
+  __name: "DropdownMenuLabel",
+  props: {
+    for: {},
+    asChild: { type: Boolean }
+  },
+  setup(n) {
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(unref(it), normalizeProps(guardReactiveProps(o)), {
       default: withCtx(() => [
         renderSlot(e.$slots, "default")
       ]),
       _: 3
-    }, 8, ["for"]));
+    }, 16));
   }
 });
-var bn = "RadioGroup";
-var mi = defineComponent({
+var Cn = "RadioGroup";
+var yi = defineComponent({
   __name: "DropdownMenuRadioGroup",
   props: {
-    asChild: { type: Boolean },
     value: {},
     defaultValue: {},
-    modelValue: {}
+    modelValue: {},
+    asChild: { type: Boolean }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, { primitiveElement: o, currentElement: a } = B(), l = K(e, "modelValue", t, {
+  setup(n, { emit: o }) {
+    const e = n, { primitiveElement: t, currentElement: l } = P(), a = K(e, "modelValue", o, {
       passive: true
     });
-    return provide(bn, {
-      modelValue: l,
+    return provide(Cn, {
+      modelValue: a,
       changeModelValue: (r) => {
-        l.value = r;
+        a.value = r;
       },
-      parentElement: a
+      parentElement: l
     }), (r, s) => (openBlock(), createBlock(unref(D), {
       ref_key: "primitiveElement",
-      ref: o,
+      ref: t,
       role: "radiogroup",
-      "aria-label": "radiogroup"
+      "aria-label": "radiogroup",
+      "as-child": e.asChild
     }, {
       default: withCtx(() => [
         renderSlot(r.$slots, "default")
       ]),
       _: 3
-    }, 512));
+    }, 8, ["as-child"]));
   }
 });
-var vi = defineComponent({
+var gi = defineComponent({
   __name: "DropdownMenuRadioItem",
   props: {
-    asChild: { type: Boolean },
     value: {},
     disabled: { type: Boolean },
     id: {},
     name: {},
     onSelect: {},
-    textValue: {}
+    textValue: {},
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(
-      Se
-    ), o = inject(
-      bn
-    ), a = computed(() => {
+    const o = n, e = inject(
+      ke
+    ), t = inject(
+      Cn
+    ), l = computed(() => {
       var i;
-      return ((i = o == null ? void 0 : o.modelValue) == null ? void 0 : i.value) === t.value ? "on" : "off";
+      return ((i = t == null ? void 0 : t.modelValue) == null ? void 0 : i.value) === o.value ? "on" : "off";
     });
-    function l() {
+    function a() {
       if (e != null && e.selectedElement.value)
-        return o == null ? void 0 : o.changeModelValue(t.value);
+        return t == null ? void 0 : t.changeModelValue(o.value);
     }
     function r() {
       e == null || e.hideTooltip();
@@ -4809,36 +4897,36 @@ var vi = defineComponent({
     const s = computed(
       () => {
         var i;
-        return ((i = o == null ? void 0 : o.modelValue) == null ? void 0 : i.value) === t.value;
+        return ((i = t == null ? void 0 : t.modelValue) == null ? void 0 : i.value) === o.value;
       }
     );
-    return provide(io, {
+    return provide(uo, {
       modelValue: s
     }), (i, d) => {
       var p;
-      return openBlock(), createBlock(ie, {
-        disabled: t.disabled,
+      return openBlock(), createBlock(re, {
+        disabled: o.disabled,
         rootProvider: unref(e),
         orientation: (p = unref(e)) == null ? void 0 : p.orientation,
-        "data-radix-vue-radio-value": t.value,
-        onHandleClick: l,
+        "data-radix-vue-radio-value": o.value,
+        onHandleClick: a,
         onEscapeKeydown: r,
-        onClick: l,
+        onClick: a,
         role: "menuitemradio",
-        "data-state": a.value
+        "data-state": l.value,
+        "as-child": o.asChild
       }, {
         default: withCtx(() => [
           renderSlot(i.$slots, "default")
         ]),
         _: 3
-      }, 8, ["disabled", "rootProvider", "orientation", "data-radix-vue-radio-value", "data-state"]);
+      }, 8, ["disabled", "rootProvider", "orientation", "data-radix-vue-radio-value", "data-state", "as-child"]);
     };
   }
 });
-var hi = defineComponent({
+var bi = defineComponent({
   __name: "DropdownMenuSubContent",
   props: {
-    asChild: { type: Boolean },
     loop: { type: Boolean },
     side: { default: "right" },
     sideOffset: {},
@@ -4852,63 +4940,64 @@ var hi = defineComponent({
     hideWhenDetached: { type: Boolean },
     updatePositionStrategy: {},
     onPlaced: {},
-    prioritizePosition: { type: Boolean }
+    prioritizePosition: { type: Boolean },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(
-      Se
-    ), o = inject(
-      tt
-    ), { primitiveElement: a, currentElement: l } = B(), { createCollection: r } = re();
-    r(l), watchEffect(() => {
-      l.value && o != null && o.modelValue.value && s();
+    const o = n, e = inject(
+      ke
+    ), t = inject(
+      nt
+    ), { primitiveElement: l, currentElement: a } = P(), { createCollection: r } = le();
+    r(a), watchEffect(() => {
+      a.value && t != null && t.modelValue.value && s();
     }), watch(
       () => e == null ? void 0 : e.selectedElement.value,
       (i) => {
         var p;
-        if (!(o != null && o.modelValue.value))
+        if (!(t != null && t.modelValue.value))
           return;
         const d = Array.from(
           ((p = i == null ? void 0 : i.closest('[role="tooltip"]')) == null ? void 0 : p.querySelectorAll(
             "[data-radix-vue-collection-item]:not([data-disabled])"
           )) ?? []
         );
-        d != null && d.length && d.includes(o.triggerElement.value) && (e == null ? void 0 : e.selectedElement.value) !== (o == null ? void 0 : o.triggerElement.value) && (o == null || o.hideTooltip());
+        d != null && d.length && d.includes(t.triggerElement.value) && (e == null ? void 0 : e.selectedElement.value) !== (t == null ? void 0 : t.triggerElement.value) && (t == null || t.hideTooltip());
       }
     );
     function s() {
       const i = Array.from(
-        l.value.querySelectorAll(
+        a.value.querySelectorAll(
           "[data-radix-vue-collection-item]:not([data-disabled])"
         )
       );
-      return o.itemsArray = i, i;
+      return t.itemsArray = i, i;
     }
-    return ke(l, (i) => {
-      i.target.closest('[role="menuitem"]') || o == null || o.hideTooltip();
+    return $e(a, (i) => {
+      i.target.closest('[role="menuitem"]') || t == null || t.hideTooltip();
     }), (i, d) => {
       var p;
-      return (p = unref(o)) != null && p.modelValue.value ? (openBlock(), createBlock(unref(ye), normalizeProps(mergeProps({ key: 0 }, t)), {
+      return (p = unref(t)) != null && p.modelValue.value ? (openBlock(), createBlock(unref(ye), normalizeProps(mergeProps({ key: 0 }, o)), {
         default: withCtx(() => {
           var c;
           return [
             createVNode(unref(D), {
               ref_key: "primitiveElement",
-              ref: a,
-              "data-state": (c = unref(o)) != null && c.modelValue.value ? "open" : "closed",
-              "data-side": t.side,
-              "data-align": t.align,
-              "data-orientation": unref(o).orientation,
-              "aria-labelledby": unref(o).triggerId,
+              ref: l,
+              "data-state": (c = unref(t)) != null && c.modelValue.value ? "open" : "closed",
+              "data-side": o.side,
+              "data-align": o.align,
+              "data-orientation": unref(t).orientation,
+              "aria-labelledby": unref(t).triggerId,
               role: "tooltip",
-              asChild: t.asChild,
+              "as-child": o.asChild,
               style: { "pointer-events": "auto" }
             }, {
               default: withCtx(() => [
                 renderSlot(i.$slots, "default")
               ]),
               _: 3
-            }, 8, ["data-state", "data-side", "data-align", "data-orientation", "aria-labelledby", "asChild"])
+            }, 8, ["data-state", "data-side", "data-align", "data-orientation", "aria-labelledby", "as-child"])
           ];
         }),
         _: 3
@@ -4916,65 +5005,71 @@ var hi = defineComponent({
     };
   }
 });
-var _i = defineComponent({
+var wi = defineComponent({
   __name: "DropdownMenuSubTrigger",
+  props: {
+    disabled: { type: Boolean },
+    textValue: {},
+    asChild: { type: Boolean }
+  },
   setup(n) {
-    const t = inject(
-      Se
-    ), e = inject(
-      tt
-    ), { primitiveElement: o, currentElement: a } = B();
+    const o = n, e = inject(
+      ke
+    ), t = inject(
+      nt
+    ), { primitiveElement: l, currentElement: a } = P();
     onMounted(() => {
-      e.triggerElement.value = a.value;
+      t.triggerElement.value = a.value;
     });
-    async function l() {
-      var c;
-      e == null || e.showTooltip(), await nextTick();
-      const p = (c = e == null ? void 0 : e.itemsArray) == null ? void 0 : c[0];
-      t.selectedElement.value = p, p == null || p.focus();
+    async function r() {
+      var m;
+      t == null || t.showTooltip(), await nextTick();
+      const c = (m = t == null ? void 0 : t.itemsArray) == null ? void 0 : m[0];
+      e.selectedElement.value = c, c == null || c.focus();
     }
-    function r() {
-      e != null && e.modelValue.value || l();
+    function s() {
+      t != null && t.modelValue.value || r();
     }
-    async function s(p) {
-      p.key === "ArrowRight" && l();
+    async function i(c) {
+      c.key === "ArrowRight" && r();
     }
-    const i = computed(() => e != null && e.modelValue.value ? "open" : "closed");
-    function d() {
-      return e == null ? void 0 : e.showTooltip();
+    const d = computed(() => t != null && t.modelValue.value ? "open" : "closed");
+    function p() {
+      return t == null ? void 0 : t.showTooltip();
     }
-    return (p, c) => (openBlock(), createBlock(unref(_e), { asChild: "" }, {
+    return (c, m) => (openBlock(), createBlock(unref(_e), { asChild: "" }, {
       default: withCtx(() => {
-        var m, f, v, h2, y;
+        var f, v, g, h2, x;
         return [
-          createVNode(ie, {
+          createVNode(re, {
             ref_key: "primitiveElement",
-            ref: o,
-            id: (m = unref(e)) == null ? void 0 : m.triggerId,
-            rootProvider: unref(t),
-            subProvider: (f = unref(e)) == null ? void 0 : f.parentContext,
-            "aria-expanded": (v = unref(e)) == null ? void 0 : v.modelValue.value,
-            "aria-controls": (h2 = unref(e)) == null ? void 0 : h2.contentId,
-            "data-state": i.value,
-            "data-orientation": (y = unref(t)) == null ? void 0 : y.orientation,
+            ref: l,
+            id: (f = unref(t)) == null ? void 0 : f.triggerId,
+            rootProvider: unref(e),
+            subProvider: (v = unref(t)) == null ? void 0 : v.parentContext,
+            "aria-expanded": (g = unref(t)) == null ? void 0 : g.modelValue.value,
+            "aria-controls": (h2 = unref(t)) == null ? void 0 : h2.contentId,
+            "data-state": d.value,
+            "data-orientation": (x = unref(e)) == null ? void 0 : x.orientation,
+            "as-child": o.asChild,
             "aria-haspopup": "menu",
-            onHandleClick: r,
-            onMouseover: d,
-            onHorizontalKeydown: s
+            onHandleClick: s,
+            onMouseover: p,
+            onHorizontalKeydown: i
           }, {
             default: withCtx(() => [
-              renderSlot(p.$slots, "default")
+              renderSlot(c.$slots, "default")
             ]),
             _: 3
-          }, 8, ["id", "rootProvider", "subProvider", "aria-expanded", "aria-controls", "data-state", "data-orientation"])
+          }, 8, ["id", "rootProvider", "subProvider", "aria-expanded", "aria-controls", "data-state", "data-orientation", "as-child"])
         ];
       }),
       _: 3
     }));
   }
 });
-var Ae = Symbol();
-var yi = defineComponent({
+var Se = Symbol();
+var Ei = defineComponent({
   __name: "ContextMenuRoot",
   props: {
     open: { type: Boolean },
@@ -4984,28 +5079,28 @@ var yi = defineComponent({
     dir: {}
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, o = K(e, "modelValue", t, {
+  setup(n, { emit: o }) {
+    const e = n, t = K(e, "modelValue", o, {
       passive: true
-    }), a = ref(), l = ref(), r = ref(0), s = ref(0);
-    return provide(Ae, {
-      selectedElement: a,
+    }), l = ref(), a = ref(), r = ref(0), s = ref(0);
+    return provide(Se, {
+      selectedElement: l,
       changeSelected: (i) => {
-        a.value = i, a.value.focus();
+        l.value = i, l.value.focus();
       },
-      modelValue: o,
+      modelValue: t,
       showTooltip: () => {
-        o.value = true;
+        t.value = true;
       },
       hideTooltip: () => {
-        o.value = false;
+        t.value = false;
       },
-      triggerElement: l,
+      triggerElement: a,
       itemsArray: [],
       orientation: e.orientation,
       clientX: r,
       clientY: s
-    }), (i, d) => (openBlock(), createBlock(unref(me), null, {
+    }), (i, d) => (openBlock(), createBlock(unref(fe), null, {
       default: withCtx(() => [
         renderSlot(i.$slots, "default")
       ]),
@@ -5013,65 +5108,68 @@ var yi = defineComponent({
     }));
   }
 });
-var gi = defineComponent({
+var Ci = defineComponent({
   __name: "ContextMenuTrigger",
+  props: {
+    asChild: { type: Boolean }
+  },
   setup(n) {
-    const t = inject(
-      Ae
-    ), e = {
+    const o = n, e = inject(
+      Se
+    ), t = {
       getBoundingClientRect() {
         return {
           width: 0,
           height: 0,
-          x: t == null ? void 0 : t.clientX.value,
-          y: t == null ? void 0 : t.clientY.value,
-          top: t == null ? void 0 : t.clientY.value,
-          left: t == null ? void 0 : t.clientX.value,
-          right: t == null ? void 0 : t.clientX.value,
-          bottom: t == null ? void 0 : t.clientY.value
+          x: e == null ? void 0 : e.clientX.value,
+          y: e == null ? void 0 : e.clientY.value,
+          top: e == null ? void 0 : e.clientY.value,
+          left: e == null ? void 0 : e.clientX.value,
+          right: e == null ? void 0 : e.clientX.value,
+          bottom: e == null ? void 0 : e.clientY.value
         };
       }
     };
-    function o(a) {
-      t != null && t.modelValue.value ? t == null || t.hideTooltip() : (t.clientX.value = a.clientX, t.clientY.value = a.clientY, t == null || t.showTooltip());
+    function l(a) {
+      e != null && e.modelValue.value ? e == null || e.hideTooltip() : (e.clientX.value = a.clientX, e.clientY.value = a.clientY, e == null || e.showTooltip());
     }
     return onMounted(() => {
-      t.triggerElement.value = e;
-    }), (a, l) => (openBlock(), createBlock(unref(_e), {
-      element: e,
+      e.triggerElement.value = t;
+    }), (a, r) => (openBlock(), createBlock(unref(_e), {
+      element: t,
       asChild: ""
     }, {
       default: withCtx(() => {
-        var r, s;
+        var s, i;
         return [
           createVNode(unref(X), {
             type: "button",
-            "aria-expanded": ((r = unref(t)) == null ? void 0 : r.modelValue.value) || false,
-            "data-state": (s = unref(t)) != null && s.modelValue.value ? "open" : "closed",
-            onContextmenu: withModifiers(o, ["prevent"])
+            "aria-expanded": ((s = unref(e)) == null ? void 0 : s.modelValue.value) || false,
+            "data-state": (i = unref(e)) != null && i.modelValue.value ? "open" : "closed",
+            "as-child": o.asChild,
+            onContextmenu: withModifiers(l, ["prevent"])
           }, {
             default: withCtx(() => [
               renderSlot(a.$slots, "default")
             ]),
             _: 3
-          }, 8, ["aria-expanded", "data-state", "onContextmenu"])
+          }, 8, ["aria-expanded", "data-state", "as-child", "onContextmenu"])
         ];
       }),
       _: 3
     }));
   }
 });
-var hl = {};
-function _l(n, t) {
+var bl = {};
+function wl(n, o) {
   return openBlock(), createBlock(Teleport, { to: "body" }, [
     renderSlot(n.$slots, "default")
   ]);
 }
-var bi = Ct(hl, [["render", _l]]);
-var wi = defineComponent({
+var xi = xt(bl, [["render", wl]]);
+var $i = defineComponent({
   __name: "ContextMenuContent",
   props: {
-    asChild: { type: Boolean },
     loop: { type: Boolean },
     side: { default: "bottom" },
     sideOffset: {},
@@ -5085,19 +5183,20 @@ var wi = defineComponent({
     hideWhenDetached: { type: Boolean },
     updatePositionStrategy: {},
     onPlaced: {},
-    prioritizePosition: { type: Boolean }
+    prioritizePosition: { type: Boolean },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(Ae), { primitiveElement: o, currentElement: a } = B(), { createCollection: l, getItems: r } = re();
-    l(a), watchEffect(() => {
-      a.value && (e != null && e.modelValue.value ? (e.itemsArray = r(a.value), window.addEventListener("keydown", d), window.addEventListener("scroll", i)) : s());
+    const o = n, e = inject(Se), { primitiveElement: t, currentElement: l } = P(), { createCollection: a, getItems: r } = le();
+    a(l), watchEffect(() => {
+      l.value && (e != null && e.modelValue.value ? (e.itemsArray = r(l.value), window.addEventListener("keydown", d), window.addEventListener("scroll", i)) : s());
     }), watchEffect(() => {
       e != null && e.selectedElement.value && s();
     });
     function s() {
       window.removeEventListener("keydown", d), window.removeEventListener("scroll", i);
     }
-    ke(a, (p) => {
+    $e(l, (p) => {
       p.target.closest('[role="menuitem"]') || e == null || e.hideTooltip();
     });
     function i() {
@@ -5115,18 +5214,18 @@ var wi = defineComponent({
     }
     return (p, c) => {
       var m;
-      return (m = unref(e)) != null && m.modelValue.value ? (openBlock(), createBlock(unref(ye), mergeProps({ key: 0 }, t, { "prioritize-position": "" }), {
+      return (m = unref(e)) != null && m.modelValue.value ? (openBlock(), createBlock(unref(ye), mergeProps({ key: 0 }, o, { "prioritize-position": "" }), {
         default: withCtx(() => {
           var f;
           return [
             createVNode(unref(D), {
               ref_key: "primitiveElement",
-              ref: o,
+              ref: t,
               "data-state": (f = unref(e)) != null && f.modelValue.value ? "open" : "closed",
-              "data-side": t.side,
-              "data-align": t.align,
+              "data-side": o.side,
+              "data-align": o.align,
               role: "tooltip",
-              asChild: t.asChild,
+              asChild: o.asChild,
               style: { "pointer-events": "auto" }
             }, {
               default: withCtx(() => [
@@ -5141,14 +5240,14 @@ var wi = defineComponent({
     };
   }
 });
-var Ei = defineComponent({
+var ki = defineComponent({
   __name: "ContextMenuArrow",
   setup(n) {
-    return (t, e) => (openBlock(), createBlock(unref(Ie)));
+    return (o, e) => (openBlock(), createBlock(unref(Ie)));
   }
 });
-var ot = Symbol();
-var Ci = defineComponent({
+var at = Symbol();
+var Si = defineComponent({
   __name: "ContextMenuSub",
   props: {
     modelValue: { type: Boolean },
@@ -5159,25 +5258,25 @@ var Ci = defineComponent({
     orientation: { default: "vertical" }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, o = K(e, "modelValue", t, {
+  setup(n, { emit: o }) {
+    const e = n, t = K(e, "modelValue", o, {
       passive: true
-    }), a = ref(), l = inject(ot);
-    return provide(ot, {
-      modelValue: o,
+    }), l = ref(), a = inject(at);
+    return provide(at, {
+      modelValue: t,
       showTooltip: () => {
-        o.value = true;
+        t.value = true;
       },
       hideTooltip: () => {
-        o.value = false;
+        t.value = false;
       },
-      triggerElement: a,
+      triggerElement: l,
       itemsArray: [],
       orientation: e.orientation,
       triggerId: ce(),
       contentId: ce(),
-      parentContext: l
-    }), (r, s) => (openBlock(), createBlock(unref(me), null, {
+      parentContext: a
+    }), (r, s) => (openBlock(), createBlock(unref(fe), null, {
       default: withCtx(() => [
         renderSlot(r.$slots, "default")
       ]),
@@ -5185,46 +5284,47 @@ var Ci = defineComponent({
     }));
   }
 });
-var xi = defineComponent({
+var Ai = defineComponent({
   __name: "ContextMenuItem",
   props: {
-    asChild: { type: Boolean },
     value: {},
     disabled: { type: Boolean },
-    textValue: {}
+    textValue: {},
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(
-      Ae
-    ), o = inject(
-      ot
+    const o = n, e = inject(
+      Se
+    ), t = inject(
+      at
     );
-    function a() {
+    function l() {
       e != null && e.selectedElement.value && e.hideTooltip();
     }
-    function l() {
+    function a() {
       e == null || e.hideTooltip();
     }
     return (r, s) => {
       var i;
-      return openBlock(), createBlock(ie, {
-        disabled: t.disabled,
+      return openBlock(), createBlock(re, {
+        disabled: o.disabled,
         rootProvider: unref(e),
-        subProvider: unref(o),
+        subProvider: unref(t),
         orientation: (i = unref(e)) == null ? void 0 : i.orientation,
-        onHandleClick: a,
-        onEscapeKeydown: l
+        "as-child": o.asChild,
+        onHandleClick: l,
+        onEscapeKeydown: a
       }, {
         default: withCtx(() => [
           renderSlot(r.$slots, "default")
         ]),
         _: 3
-      }, 8, ["disabled", "rootProvider", "subProvider", "orientation"]);
+      }, 8, ["disabled", "rootProvider", "subProvider", "orientation", "as-child"]);
     };
   }
 });
-var yl = Symbol();
-var $i = defineComponent({
+var El = Symbol();
+var Bi = defineComponent({
   __name: "ContextMenuGroup",
   props: {
     type: { default: "single" },
@@ -5235,43 +5335,44 @@ var $i = defineComponent({
     orientation: {},
     dir: {},
     loop: { type: Boolean },
-    modelValue: {}
+    modelValue: {},
+    asChild: { type: Boolean }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, { primitiveElement: o, currentElement: a } = B();
-    return provide(yl, {
+  setup(n, { emit: o }) {
+    const e = n, { primitiveElement: t, currentElement: l } = P();
+    return provide(El, {
       type: e.type,
       modelValue: toRef(() => e.modelValue),
-      changeModelValue: (l) => {
+      changeModelValue: (a) => {
         if (e.type === "single")
-          t("update:modelValue", l);
+          o("update:modelValue", a);
         else {
           let r = e.modelValue;
-          if (r.includes(l)) {
-            let s = r.findIndex((i) => i === l);
+          if (r.includes(a)) {
+            let s = r.findIndex((i) => i === a);
             r.splice(s, 1);
           } else
-            r.push(l);
-          t("update:modelValue", r);
+            r.push(a);
+          o("update:modelValue", r);
         }
       },
-      parentElement: a
-    }), (l, r) => (openBlock(), createBlock(unref(D), {
+      parentElement: l
+    }), (a, r) => (openBlock(), createBlock(unref(D), {
       ref_key: "primitiveElement",
-      ref: o,
+      ref: t,
       role: "group",
       dir: e.dir,
       "aria-label": "Text alignment"
     }, {
       default: withCtx(() => [
-        renderSlot(l.$slots, "default")
+        renderSlot(a.$slots, "default")
       ]),
       _: 3
     }, 8, ["dir"]));
   }
 });
-var ki = defineComponent({
+var Ti = defineComponent({
   __name: "ContextMenuSeparator",
   props: {
     orientation: {},
@@ -5279,19 +5380,15 @@ var ki = defineComponent({
     asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(Ue, {
-      orientation: t.orientation,
-      decorative: t.decorative
-    }, null, 8, ["orientation", "decorative"]));
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(Ue, normalizeProps(guardReactiveProps(o)), null, 16));
   }
 });
-var so = Symbol();
-var gl = ["id", "checked", "name", "disabled"];
-var Si = defineComponent({
+var co = Symbol();
+var Cl = ["id", "checked", "name", "disabled"];
+var Pi = defineComponent({
   __name: "ContextMenuCheckboxItem",
   props: {
-    asChild: { type: Boolean },
     checked: { type: Boolean },
     modelValue: { type: Boolean },
     id: {},
@@ -5299,34 +5396,36 @@ var Si = defineComponent({
     value: {},
     disabled: { type: Boolean },
     onSelect: {},
-    textValue: {}
+    textValue: {},
+    asChild: { type: Boolean }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, o = inject(
-      Ae
-    ), a = K(e, "modelValue", t, {
+  setup(n, { emit: o }) {
+    const e = n, t = inject(
+      Se
+    ), l = K(e, "modelValue", o, {
       passive: true
-    }), l = computed(() => a.value ? "checked" : "unchecked");
+    }), a = computed(() => l.value ? "checked" : "unchecked");
     function r() {
-      a.value = !a.value;
+      l.value = !l.value;
     }
     function s() {
-      o == null || o.hideTooltip();
+      t == null || t.hideTooltip();
     }
-    return provide(so, {
-      modelValue: a
+    return provide(co, {
+      modelValue: l
     }), (i, d) => {
       var p;
-      return openBlock(), createBlock(ie, {
+      return openBlock(), createBlock(re, {
         ref: "currentElement",
         disabled: e.disabled,
-        rootProvider: unref(o),
-        orientation: (p = unref(o)) == null ? void 0 : p.orientation,
+        rootProvider: unref(t),
+        orientation: (p = unref(t)) == null ? void 0 : p.orientation,
+        "as-child": e.asChild,
         onHandleClick: r,
         onEscapeKeydown: s,
         role: "menuitemcheckbox",
-        "data-state": l.value,
+        "data-state": a.value,
         "aria-checked": !!e.modelValue
       }, {
         default: withCtx(() => [
@@ -5339,106 +5438,110 @@ var Si = defineComponent({
             "aria-hidden": "true",
             disabled: e.disabled,
             style: { opacity: "0", position: "absolute", inset: "0" }
-          }), null, 16, gl),
+          }), null, 16, Cl),
           renderSlot(i.$slots, "default")
         ]),
         _: 3
-      }, 8, ["disabled", "rootProvider", "orientation", "data-state", "aria-checked"]);
+      }, 8, ["disabled", "rootProvider", "orientation", "as-child", "data-state", "aria-checked"]);
     };
   }
 });
-var Ai = defineComponent({
+var Oi = defineComponent({
   __name: "ContextMenuItemIndicator",
+  props: {
+    forceMount: { type: Boolean },
+    asChild: { type: Boolean }
+  },
   setup(n) {
-    const t = inject(so);
-    return (e, o) => {
+    const o = n, e = inject(co);
+    return (t, l) => {
       var a;
-      return (a = unref(t)) != null && a.modelValue.value ? (openBlock(), createBlock(unref(ne), {
+      return (a = unref(e)) != null && a.modelValue.value ? (openBlock(), createBlock(unref(ae), {
         key: 0,
+        "as-child": o.asChild,
         style: { "pointer-events": "none" }
       }, {
         default: withCtx(() => [
-          renderSlot(e.$slots, "default")
+          renderSlot(t.$slots, "default")
         ]),
         _: 3
-      })) : createCommentVNode("", true);
+      }, 8, ["as-child"])) : createCommentVNode("", true);
     };
   }
 });
-var Ti = defineComponent({
+var Mi = defineComponent({
   __name: "ContextMenuLabel",
   props: {
-    asChild: { type: Boolean },
-    for: {}
+    for: {},
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(unref(lt), {
-      for: t.for
-    }, {
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(unref(it), normalizeProps(guardReactiveProps(o)), {
       default: withCtx(() => [
         renderSlot(e.$slots, "default")
       ]),
       _: 3
-    }, 8, ["for"]));
+    }, 16));
   }
 });
-var wn = "RadioGroup";
-var Pi = defineComponent({
+var xn = "RadioGroup";
+var Di = defineComponent({
   __name: "ContextMenuRadioGroup",
   props: {
-    asChild: { type: Boolean },
     value: {},
     defaultValue: {},
-    modelValue: {}
+    modelValue: {},
+    asChild: { type: Boolean }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, { primitiveElement: o, currentElement: a } = B(), l = K(e, "modelValue", t, {
+  setup(n, { emit: o }) {
+    const e = n, { primitiveElement: t, currentElement: l } = P(), a = K(e, "modelValue", o, {
       passive: true
     });
-    return provide(wn, {
-      modelValue: l,
+    return provide(xn, {
+      modelValue: a,
       changeModelValue: (r) => {
-        l.value = r;
+        a.value = r;
       },
-      parentElement: a
+      parentElement: l
     }), (r, s) => (openBlock(), createBlock(unref(D), {
       ref_key: "primitiveElement",
-      ref: o,
+      ref: t,
       role: "radiogroup",
-      "aria-label": "radiogroup"
+      "aria-label": "radiogroup",
+      "as-child": e.asChild
     }, {
       default: withCtx(() => [
         renderSlot(r.$slots, "default")
       ]),
       _: 3
-    }, 512));
+    }, 8, ["as-child"]));
   }
 });
-var Oi = defineComponent({
+var Ri = defineComponent({
   __name: "ContextMenuRadioItem",
   props: {
-    asChild: { type: Boolean },
     value: {},
     disabled: { type: Boolean },
     id: {},
     name: {},
     onSelect: {},
-    textValue: {}
+    textValue: {},
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(
-      Ae
-    ), o = inject(
-      wn
-    ), a = computed(() => {
+    const o = n, e = inject(
+      Se
+    ), t = inject(
+      xn
+    ), l = computed(() => {
       var i;
-      return ((i = o == null ? void 0 : o.modelValue) == null ? void 0 : i.value) === t.value ? "on" : "off";
+      return ((i = t == null ? void 0 : t.modelValue) == null ? void 0 : i.value) === o.value ? "on" : "off";
     });
-    function l() {
+    function a() {
       if (e != null && e.selectedElement.value)
-        return o == null ? void 0 : o.changeModelValue(t.value);
+        return t == null ? void 0 : t.changeModelValue(o.value);
     }
     function r() {
       e == null || e.hideTooltip();
@@ -5446,36 +5549,36 @@ var Oi = defineComponent({
     const s = computed(
       () => {
         var i;
-        return ((i = o == null ? void 0 : o.modelValue) == null ? void 0 : i.value) === t.value;
+        return ((i = t == null ? void 0 : t.modelValue) == null ? void 0 : i.value) === o.value;
       }
     );
-    return provide(so, {
+    return provide(co, {
       modelValue: s
     }), (i, d) => {
       var p;
-      return openBlock(), createBlock(ie, {
-        disabled: t.disabled,
+      return openBlock(), createBlock(re, {
+        disabled: o.disabled,
         rootProvider: unref(e),
         orientation: (p = unref(e)) == null ? void 0 : p.orientation,
-        "data-radix-vue-radio-value": t.value,
-        onHandleClick: l,
+        "data-radix-vue-radio-value": o.value,
+        "as-child": o.asChild,
+        onHandleClick: a,
         onEscapeKeydown: r,
-        onClick: l,
+        onClick: a,
         role: "menuitemradio",
-        "data-state": a.value
+        "data-state": l.value
       }, {
         default: withCtx(() => [
           renderSlot(i.$slots, "default")
         ]),
         _: 3
-      }, 8, ["disabled", "rootProvider", "orientation", "data-radix-vue-radio-value", "data-state"]);
+      }, 8, ["disabled", "rootProvider", "orientation", "data-radix-vue-radio-value", "as-child", "data-state"]);
     };
   }
 });
-var Bi = defineComponent({
+var Ii = defineComponent({
   __name: "ContextMenuSubContent",
   props: {
-    asChild: { type: Boolean },
     loop: { type: Boolean },
     side: { default: "right" },
     sideOffset: {},
@@ -5489,63 +5592,64 @@ var Bi = defineComponent({
     hideWhenDetached: { type: Boolean },
     updatePositionStrategy: {},
     onPlaced: {},
-    prioritizePosition: { type: Boolean }
+    prioritizePosition: { type: Boolean },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(
-      Ae
-    ), o = inject(
-      ot
-    ), { primitiveElement: a, currentElement: l } = B(), { createCollection: r } = re();
-    r(l), watchEffect(() => {
-      l.value && o != null && o.modelValue.value && s();
+    const o = n, e = inject(
+      Se
+    ), t = inject(
+      at
+    ), { primitiveElement: l, currentElement: a } = P(), { createCollection: r } = le();
+    r(a), watchEffect(() => {
+      a.value && t != null && t.modelValue.value && s();
     }), watch(
       () => e == null ? void 0 : e.selectedElement.value,
       (i) => {
         var p;
-        if (!(o != null && o.modelValue.value))
+        if (!(t != null && t.modelValue.value))
           return;
         const d = Array.from(
           ((p = i == null ? void 0 : i.closest('[role="tooltip"]')) == null ? void 0 : p.querySelectorAll(
             "[data-radix-vue-collection-item]:not([data-disabled])"
           )) ?? []
         );
-        d != null && d.length && d.includes(o.triggerElement.value) && (e == null ? void 0 : e.selectedElement.value) !== (o == null ? void 0 : o.triggerElement.value) && (o == null || o.hideTooltip());
+        d != null && d.length && d.includes(t.triggerElement.value) && (e == null ? void 0 : e.selectedElement.value) !== (t == null ? void 0 : t.triggerElement.value) && (t == null || t.hideTooltip());
       }
     );
     function s() {
       const i = Array.from(
-        l.value.querySelectorAll(
+        a.value.querySelectorAll(
           "[data-radix-vue-collection-item]:not([data-disabled])"
         )
       );
-      return o.itemsArray = i, i;
+      return t.itemsArray = i, i;
     }
-    return ke(l, (i) => {
-      i.target.closest('[role="menuitem"]') || o == null || o.hideTooltip();
+    return $e(a, (i) => {
+      i.target.closest('[role="menuitem"]') || t == null || t.hideTooltip();
     }), (i, d) => {
       var p;
-      return (p = unref(o)) != null && p.modelValue.value ? (openBlock(), createBlock(unref(ye), normalizeProps(mergeProps({ key: 0 }, t)), {
+      return (p = unref(t)) != null && p.modelValue.value ? (openBlock(), createBlock(unref(ye), normalizeProps(mergeProps({ key: 0 }, o)), {
         default: withCtx(() => {
           var c;
           return [
             createVNode(unref(D), {
               ref_key: "primitiveElement",
-              ref: a,
-              "data-state": (c = unref(o)) != null && c.modelValue.value ? "open" : "closed",
-              "data-side": t.side,
-              "data-align": t.align,
-              "data-orientation": unref(o).orientation,
-              "aria-labelledby": unref(o).triggerId,
+              ref: l,
+              "data-state": (c = unref(t)) != null && c.modelValue.value ? "open" : "closed",
+              "data-side": o.side,
+              "data-align": o.align,
+              "data-orientation": unref(t).orientation,
+              "aria-labelledby": unref(t).triggerId,
               role: "tooltip",
-              asChild: t.asChild,
+              "as-child": o.asChild,
               style: { "pointer-events": "auto" }
             }, {
               default: withCtx(() => [
                 renderSlot(i.$slots, "default")
               ]),
               _: 3
-            }, 8, ["data-state", "data-side", "data-align", "data-orientation", "aria-labelledby", "asChild"])
+            }, 8, ["data-state", "data-side", "data-align", "data-orientation", "aria-labelledby", "as-child"])
           ];
         }),
         _: 3
@@ -5553,65 +5657,71 @@ var Bi = defineComponent({
     };
   }
 });
-var Mi = defineComponent({
+var Ni = defineComponent({
   __name: "ContextMenuSubTrigger",
+  props: {
+    disabled: { type: Boolean },
+    textValue: {},
+    asChild: { type: Boolean }
+  },
   setup(n) {
-    const t = inject(
-      Ae
-    ), e = inject(
-      ot
-    ), { primitiveElement: o, currentElement: a } = B();
+    const o = n, e = inject(
+      Se
+    ), t = inject(
+      at
+    ), { primitiveElement: l, currentElement: a } = P();
     onMounted(() => {
-      e.triggerElement.value = a.value;
+      t.triggerElement.value = a.value;
     });
-    async function l() {
-      var c;
-      e == null || e.showTooltip(), await nextTick();
-      const p = (c = e == null ? void 0 : e.itemsArray) == null ? void 0 : c[0];
-      t.selectedElement.value = p, p == null || p.focus();
+    async function r() {
+      var m;
+      t == null || t.showTooltip(), await nextTick();
+      const c = (m = t == null ? void 0 : t.itemsArray) == null ? void 0 : m[0];
+      e.selectedElement.value = c, c == null || c.focus();
     }
-    function r() {
-      e != null && e.modelValue.value || l();
+    function s() {
+      t != null && t.modelValue.value || r();
     }
-    async function s(p) {
-      p.key === "ArrowRight" && l();
+    async function i(c) {
+      c.key === "ArrowRight" && r();
     }
-    const i = computed(() => e != null && e.modelValue.value ? "open" : "closed");
-    function d() {
-      return e == null ? void 0 : e.showTooltip();
+    const d = computed(() => t != null && t.modelValue.value ? "open" : "closed");
+    function p() {
+      return t == null ? void 0 : t.showTooltip();
     }
-    return (p, c) => (openBlock(), createBlock(unref(_e), { asChild: "" }, {
+    return (c, m) => (openBlock(), createBlock(unref(_e), { asChild: "" }, {
       default: withCtx(() => {
-        var m, f, v, h2, y;
+        var f, v, g, h2, x;
         return [
-          createVNode(ie, {
+          createVNode(re, {
             ref_key: "primitiveElement",
-            ref: o,
-            id: (m = unref(e)) == null ? void 0 : m.triggerId,
-            rootProvider: unref(t),
-            subProvider: (f = unref(e)) == null ? void 0 : f.parentContext,
-            "aria-expanded": (v = unref(e)) == null ? void 0 : v.modelValue.value,
-            "aria-controls": (h2 = unref(e)) == null ? void 0 : h2.contentId,
-            "data-state": i.value,
-            "data-orientation": (y = unref(t)) == null ? void 0 : y.orientation,
+            ref: l,
+            id: (f = unref(t)) == null ? void 0 : f.triggerId,
+            rootProvider: unref(e),
+            subProvider: (v = unref(t)) == null ? void 0 : v.parentContext,
+            "aria-expanded": (g = unref(t)) == null ? void 0 : g.modelValue.value,
+            "aria-controls": (h2 = unref(t)) == null ? void 0 : h2.contentId,
+            "data-state": d.value,
+            "as-child": o.asChild,
+            "data-orientation": (x = unref(e)) == null ? void 0 : x.orientation,
             "aria-haspopup": "menu",
-            onHandleClick: r,
-            onMouseover: d,
-            onHorizontalKeydown: s
+            onHandleClick: s,
+            onMouseover: p,
+            onHorizontalKeydown: i
           }, {
             default: withCtx(() => [
-              renderSlot(p.$slots, "default")
+              renderSlot(c.$slots, "default")
             ]),
             _: 3
-          }, 8, ["id", "rootProvider", "subProvider", "aria-expanded", "aria-controls", "data-state", "data-orientation"])
+          }, 8, ["id", "rootProvider", "subProvider", "aria-expanded", "aria-controls", "data-state", "as-child", "data-orientation"])
         ];
       }),
       _: 3
     }));
   }
 });
-var st = Symbol();
-var Di = defineComponent({
+var dt = Symbol();
+var Li = defineComponent({
   __name: "SelectRoot",
   props: {
     open: { type: Boolean },
@@ -5623,16 +5733,16 @@ var Di = defineComponent({
     dir: {}
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, o = K(e, "modelValue", t, {
+  setup(n, { emit: o }) {
+    const e = n, t = K(e, "modelValue", o, {
       defaultValue: e.defaultValue
-    }), a = ref(), l = ref(), r = ref(false);
-    provide(st, {
-      selectedElement: a,
+    }), l = ref(), a = ref(), r = ref(false);
+    provide(dt, {
+      selectedElement: l,
       changeSelected: (i) => {
-        a.value = i, a.value.focus();
+        l.value = i, l.value.focus();
       },
-      modelValue: o,
+      modelValue: t,
       changeModelValue: s,
       isOpen: r,
       showTooltip: () => {
@@ -5641,24 +5751,24 @@ var Di = defineComponent({
       hideTooltip: () => {
         r.value = false;
       },
-      triggerElement: l,
+      triggerElement: a,
       itemsArray: [],
       orientation: e.orientation,
       multiple: e.multiple
     });
     function s(i) {
       if (e.multiple) {
-        let d = [...o.value];
+        let d = [...t.value];
         if (d.includes(i)) {
           let p = d.findIndex((c) => c === i);
           d.splice(p, 1);
         } else
           d.push(i);
-        o.value = d;
+        t.value = d;
       } else
-        o.value = i;
+        t.value = i;
     }
-    return (i, d) => (openBlock(), createBlock(unref(me), null, {
+    return (i, d) => (openBlock(), createBlock(unref(fe), null, {
       default: withCtx(() => [
         renderSlot(i.$slots, "default")
       ]),
@@ -5666,57 +5776,60 @@ var Di = defineComponent({
     }));
   }
 });
-var Ri = defineComponent({
+var Ki = defineComponent({
   __name: "SelectTrigger",
+  props: {
+    asChild: { type: Boolean }
+  },
   setup(n) {
-    const t = inject(st), { primitiveElement: e, currentElement: o } = B();
+    const o = n, e = inject(dt), { primitiveElement: t, currentElement: l } = P();
     onMounted(() => {
-      t.triggerElement.value = o.value;
+      e.triggerElement.value = l.value;
     });
     async function a() {
-      var r, s;
-      if (t == null || t.showTooltip(), await nextTick(), t != null && t.modelValue.value && !(t != null && t.multiple)) {
-        const i = (r = t.itemsArray) == null ? void 0 : r.find((d) => d.getAttribute("data-radix-vue-radio-value") === (t == null ? void 0 : t.modelValue.value));
-        t == null || t.changeSelected(i);
+      var s, i;
+      if (e == null || e.showTooltip(), await nextTick(), e != null && e.modelValue.value && !(e != null && e.multiple)) {
+        const d = (s = e.itemsArray) == null ? void 0 : s.find((p) => p.getAttribute("data-radix-vue-radio-value") === (e == null ? void 0 : e.modelValue.value));
+        e == null || e.changeSelected(d);
       } else
-        t == null || t.changeSelected((s = t.itemsArray) == null ? void 0 : s[0]);
+        e == null || e.changeSelected((i = e.itemsArray) == null ? void 0 : i[0]);
     }
-    function l(r) {
-      (r.key === "ArrowDown" || r.key === "ArrowUp" || r.key === "Enter" || r.keyCode === 32) && a();
+    function r(s) {
+      (s.key === "ArrowDown" || s.key === "ArrowUp" || s.key === "Enter" || s.keyCode === 32) && a();
     }
-    return (r, s) => (openBlock(), createBlock(unref(_e), { asChild: "" }, {
+    return (s, i) => (openBlock(), createBlock(unref(_e), { asChild: "" }, {
       default: withCtx(() => {
-        var i, d;
+        var d, p;
         return [
           createVNode(unref(X), {
             type: "button",
             ref_key: "primitiveElement",
-            ref: e,
-            "aria-expanded": ((i = unref(t)) == null ? void 0 : i.isOpen.value) || false,
-            "data-state": (d = unref(t)) != null && d.isOpen.value ? "open" : "closed",
-            "as-child": false,
+            ref: t,
+            "aria-expanded": ((d = unref(e)) == null ? void 0 : d.isOpen.value) || false,
+            "data-state": (p = unref(e)) != null && p.isOpen.value ? "open" : "closed",
+            "as-child": o.asChild,
             onClick: a,
-            onKeydown: withModifiers(l, ["prevent"])
+            onKeydown: withModifiers(r, ["prevent"])
           }, {
             default: withCtx(() => [
-              renderSlot(r.$slots, "default")
+              renderSlot(s.$slots, "default")
             ]),
             _: 3
-          }, 8, ["aria-expanded", "data-state", "onKeydown"])
+          }, 8, ["aria-expanded", "data-state", "as-child", "onKeydown"])
         ];
       }),
       _: 3
     }));
   }
 });
-var Ii = defineComponent({
+var Hi = defineComponent({
   __name: "SelectPortal",
   props: {
     container: {}
   },
   setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(qe, normalizeProps(guardReactiveProps(t)), {
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(qe, normalizeProps(guardReactiveProps(o)), {
       default: withCtx(() => [
         renderSlot(e.$slots, "default")
       ]),
@@ -5724,10 +5837,9 @@ var Ii = defineComponent({
     }, 16));
   }
 });
-var Ni = defineComponent({
+var zi = defineComponent({
   __name: "SelectContent",
   props: {
-    asChild: { type: Boolean },
     loop: { type: Boolean },
     side: { default: "bottom" },
     sideOffset: {},
@@ -5741,12 +5853,13 @@ var Ni = defineComponent({
     hideWhenDetached: { type: Boolean },
     updatePositionStrategy: {},
     onPlaced: {},
-    prioritizePosition: { type: Boolean }
+    prioritizePosition: { type: Boolean },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(st), { primitiveElement: o, currentElement: a } = B(), { createCollection: l, getItems: r } = re();
-    l(a), watchEffect(() => {
-      a.value && (e != null && e.isOpen.value ? (document.querySelector("body").style.pointerEvents = "none", e.itemsArray = r(a.value)) : e != null && e.triggerElement.value && s());
+    const o = n, e = inject(dt), { primitiveElement: t, currentElement: l } = P(), { createCollection: a, getItems: r } = le();
+    a(l), watchEffect(() => {
+      l.value && (e != null && e.isOpen.value ? (document.querySelector("body").style.pointerEvents = "none", e.itemsArray = r(l.value)) : e != null && e.triggerElement.value && s());
     });
     function s() {
       document.querySelector("body").style.pointerEvents = "", setTimeout(() => {
@@ -5754,22 +5867,22 @@ var Ni = defineComponent({
         (i = e == null ? void 0 : e.triggerElement.value) == null || i.focus();
       }, 0);
     }
-    return ke(a, (i) => {
+    return $e(l, (i) => {
       i.target.closest('[role="menuitem"]') || e == null || e.hideTooltip();
     }), (i, d) => {
       var p, c;
-      return (p = unref(e)) != null && p.isOpen.value ? (openBlock(), createBlock(unref(ye), mergeProps({ key: 0 }, t, {
+      return (p = unref(e)) != null && p.isOpen.value ? (openBlock(), createBlock(unref(ye), mergeProps({ key: 0 }, o, {
         "prioritize-position": "",
         role: "listbox",
         "data-state": (c = unref(e)) != null && c.isOpen.value ? "open" : "closed",
-        "data-side": t.side,
-        "data-align": t.align
+        "data-side": o.side,
+        "data-align": o.align
       }), {
         default: withCtx(() => [
           createVNode(unref(D), {
             ref_key: "primitiveElement",
-            ref: o,
-            asChild: t.asChild,
+            ref: t,
+            "as-child": o.asChild,
             role: "presentation",
             style: { "pointer-events": "auto" }
           }, {
@@ -5777,20 +5890,20 @@ var Ni = defineComponent({
               renderSlot(i.$slots, "default")
             ]),
             _: 3
-          }, 8, ["asChild"])
+          }, 8, ["as-child"])
         ]),
         _: 3
       }, 16, ["data-state", "data-side", "data-align"])) : createCommentVNode("", true);
     };
   }
 });
-var Li = defineComponent({
+var Yi = defineComponent({
   __name: "SelectArrow",
   setup(n) {
-    return (t, e) => (openBlock(), createBlock(unref(Ie)));
+    return (o, e) => (openBlock(), createBlock(unref(Ie)));
   }
 });
-var Ki = defineComponent({
+var Wi = defineComponent({
   __name: "SelectSeparator",
   props: {
     orientation: {},
@@ -5798,62 +5911,65 @@ var Ki = defineComponent({
     asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(Ue, {
-      orientation: t.orientation,
-      decorative: t.decorative
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(Ue, {
+      orientation: o.orientation,
+      decorative: o.decorative
     }, null, 8, ["orientation", "decorative"]));
   }
 });
-var En = Symbol();
-var Hi = defineComponent({
+var $n = Symbol();
+var Ui = defineComponent({
   __name: "SelectItemIndicator",
+  props: {
+    forceMount: { type: Boolean },
+    asChild: { type: Boolean }
+  },
   setup(n) {
-    const t = inject(st), e = inject(En), o = computed(() => {
+    const o = n, e = inject(dt), t = inject($n), l = computed(() => {
       var a;
-      return t != null && t.multiple ? (a = t == null ? void 0 : t.modelValue.value) == null ? void 0 : a.includes(
-        e.value
-      ) : (t == null ? void 0 : t.modelValue.value) === (e == null ? void 0 : e.value);
+      return e != null && e.multiple ? (a = e == null ? void 0 : e.modelValue.value) == null ? void 0 : a.includes(
+        t.value
+      ) : (e == null ? void 0 : e.modelValue.value) === (t == null ? void 0 : t.value);
     });
-    return (a, l) => o.value ? (openBlock(), createBlock(unref(ne), {
+    return (a, r) => l.value ? (openBlock(), createBlock(unref(ae), {
       key: 0,
       "aria-hidden": "true",
-      style: { "pointer-events": "none" }
+      style: { "pointer-events": "none" },
+      "as-child": o.asChild
     }, {
       default: withCtx(() => [
         renderSlot(a.$slots, "default")
       ]),
       _: 3
-    })) : createCommentVNode("", true);
+    }, 8, ["as-child"])) : createCommentVNode("", true);
   }
 });
-var zi = defineComponent({
+var qi = defineComponent({
   __name: "SelectLabel",
   props: {
-    asChild: { type: Boolean },
-    for: {}
+    for: {},
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(unref(lt), {
-      for: t.for
-    }, {
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(unref(it), normalizeProps(guardReactiveProps(o)), {
       default: withCtx(() => [
         renderSlot(e.$slots, "default")
       ]),
       _: 3
-    }, 8, ["for"]));
+    }, 16));
   }
 });
-var Yi = defineComponent({
+var Gi = defineComponent({
   __name: "SelectGroup",
   props: {
     asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(unref(D), {
-      "as-child": t.asChild,
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(unref(D), {
+      "as-child": o.asChild,
       ref: "primitiveElement",
       role: "group",
       "aria-label": "group"
@@ -5865,53 +5981,54 @@ var Yi = defineComponent({
     }, 8, ["as-child"]));
   }
 });
-var Wi = defineComponent({
+var Fi = defineComponent({
   __name: "SelectItem",
   props: {
-    asChild: { type: Boolean },
     value: {},
     disabled: { type: Boolean },
     id: {},
     name: {},
     onSelect: {},
-    textValue: {}
+    textValue: {},
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(st);
-    function o() {
-      return e == null || e.changeModelValue(t.value), e == null ? void 0 : e.hideTooltip();
+    const o = n, e = inject(dt);
+    function t() {
+      return e == null || e.changeModelValue(o.value), e == null ? void 0 : e.hideTooltip();
     }
-    return provide(En, {
-      value: t.value
-    }), (a, l) => {
+    return provide($n, {
+      value: o.value
+    }), (l, a) => {
       var r, s, i;
-      return openBlock(), createBlock(ie, {
-        disabled: t.disabled,
+      return openBlock(), createBlock(re, {
+        disabled: o.disabled,
         rootProvider: unref(e),
         orientation: (r = unref(e)) == null ? void 0 : r.orientation,
-        "data-radix-vue-radio-value": t.value,
-        onHandleClick: o,
-        onEscapeKeydown: l[0] || (l[0] = (d) => {
+        "data-radix-vue-radio-value": o.value,
+        "as-child": o.asChild,
+        onHandleClick: t,
+        onEscapeKeydown: a[0] || (a[0] = (d) => {
           var p;
           return (p = unref(e)) == null ? void 0 : p.hideTooltip();
         }),
         role: "option",
-        "data-state": ((i = (s = unref(e)) == null ? void 0 : s.modelValue) == null ? void 0 : i.value) === t.value ? "checked" : "unchecked"
+        "data-state": ((i = (s = unref(e)) == null ? void 0 : s.modelValue) == null ? void 0 : i.value) === o.value ? "checked" : "unchecked"
       }, {
         default: withCtx(() => [
-          renderSlot(a.$slots, "default")
+          renderSlot(l.$slots, "default")
         ]),
         _: 3
-      }, 8, ["disabled", "rootProvider", "orientation", "data-radix-vue-radio-value", "data-state"]);
+      }, 8, ["disabled", "rootProvider", "orientation", "data-radix-vue-radio-value", "as-child", "data-state"]);
     };
   }
 });
-var xe = Symbol();
-var bl = {
+var Ce = Symbol();
+var xl = {
   inheritAttrs: false
 };
-var Ui = defineComponent({
-  ...bl,
+var Xi = defineComponent({
+  ...xl,
   __name: "MenubarRoot",
   props: {
     modelValue: {},
@@ -5920,32 +6037,32 @@ var Ui = defineComponent({
     dir: {}
   },
   emits: ["update:modelValue", "update:open"],
-  setup(n, { emit: t }) {
-    const e = n, o = K(e, "modelValue", t, {
+  setup(n, { emit: o }) {
+    const e = n, t = K(e, "modelValue", o, {
       passive: true,
       defaultValue: e.defaultValue
-    }), a = ref(), l = ref(), r = [], s = ref(), i = Xt();
-    return provide(xe, {
-      selectedElement: a,
+    }), l = ref(), a = ref(), r = [], s = ref(), i = Xt();
+    return provide(Ce, {
+      selectedElement: l,
       changeSelected: (d) => {
         var p;
-        a.value = d, (p = a.value) == null || p.focus();
+        l.value = d, (p = l.value) == null || p.focus();
       },
-      modelValue: o,
+      modelValue: t,
       changeValue: (d) => {
-        o.value = d;
+        t.value = d;
       },
-      triggerElement: l,
+      triggerElement: a,
       triggerItemsArray: r,
       itemsArray: [],
       orientation: e.orientation
     }), watch(
       i,
       () => {
-        i.value === s.value && (l.value ? l.value.focus() : r.length && r[0].focus());
+        i.value === s.value && (a.value ? a.value.focus() : r.length && r[0].focus());
       },
       { immediate: true }
-    ), (d, p) => (openBlock(), createBlock(unref(me), null, {
+    ), (d, p) => (openBlock(), createBlock(unref(fe), null, {
       default: withCtx(() => [
         createBaseVNode("div", mergeProps({ role: "menubar" }, d.$attrs, {
           ref_key: "menubarContainerElement",
@@ -5959,24 +6076,24 @@ var Ui = defineComponent({
     }));
   }
 });
-var wt = Symbol();
-var qi = defineComponent({
+var Et = Symbol();
+var Ji = defineComponent({
   __name: "MenubarMenu",
   props: {
     value: {}
   },
   setup(n) {
-    const e = n.value ?? ce(), o = inject(xe), a = ref(), l = computed(() => (o == null ? void 0 : o.modelValue.value) === e), r = inject(wt);
-    return provide(wt, {
+    const e = n.value ?? ce(), t = inject(Ce), l = ref(), a = computed(() => (t == null ? void 0 : t.modelValue.value) === e), r = inject(Et);
+    return provide(Et, {
       value: e,
-      isOpen: l,
-      triggerElement: a,
+      isOpen: a,
+      triggerElement: l,
       itemsArray: [],
       triggerId: e,
       contentId: ce(),
       parentContext: r,
       orientation: "vertical"
-    }), (s, i) => (openBlock(), createBlock(unref(me), null, {
+    }), (s, i) => (openBlock(), createBlock(unref(fe), null, {
       default: withCtx(() => [
         renderSlot(s.$slots, "default")
       ]),
@@ -5984,28 +6101,28 @@ var qi = defineComponent({
     }));
   }
 });
-var wl = {
+var $l = {
   inheritAttrs: false
 };
-var Gi = defineComponent({
-  ...wl,
+var Zi = defineComponent({
+  ...$l,
   __name: "MenubarTrigger",
   props: {
-    asChild: { type: Boolean },
     disabled: { type: Boolean },
-    textValue: {}
+    textValue: {},
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(xe), o = inject(
-      wt
-    ), { primitiveElement: a, currentElement: l } = B(), r = Xt();
+    const o = n, e = inject(Ce), t = inject(
+      Et
+    ), { primitiveElement: l, currentElement: a } = P(), r = Xt();
     onMounted(() => {
-      o.triggerElement.value = l.value, e.triggerItemsArray.push(l.value);
+      t.triggerElement.value = a.value, e.triggerItemsArray.push(a.value);
     });
     async function s() {
-      var h2;
-      e == null || e.changeValue(o == null ? void 0 : o.value), await nextTick();
-      const v = (h2 = o == null ? void 0 : o.itemsArray) == null ? void 0 : h2[0];
+      var g;
+      e == null || e.changeValue(t == null ? void 0 : t.value), await nextTick();
+      const v = (g = t == null ? void 0 : t.itemsArray) == null ? void 0 : g[0];
       e.selectedElement.value = v, v == null || v.focus();
     }
     function i(v) {
@@ -6017,19 +6134,19 @@ var Gi = defineComponent({
       }
       if (v.key === "ArrowDown")
         return s();
-      const h2 = oe(
+      const g = ne(
         v,
-        l.value,
-        l.value.parentElement,
+        a.value,
+        a.value.parentElement,
         {
           arrowKeyOptions: "horizontal"
         }
       );
-      h2 && (e == null || e.changeSelected(h2), h2.focus(), e != null && e.modelValue.value && (e == null || e.changeValue(h2.id)));
+      g && (e == null || e.changeSelected(g), g.focus(), e != null && e.modelValue.value && (e == null || e.changeValue(g.id)));
     }
     function d() {
-      if (!t.disabled && (e != null && e.modelValue.value)) {
-        e == null || e.changeSelected(l.value), e == null || e.changeValue(o == null ? void 0 : o.value);
+      if (!o.disabled && (e != null && e.modelValue.value)) {
+        e == null || e.changeSelected(a.value), e == null || e.changeValue(t == null ? void 0 : t.value);
         return;
       }
     }
@@ -6042,26 +6159,26 @@ var Gi = defineComponent({
     function c() {
       s();
     }
-    const m = computed(() => o != null && o.isOpen.value ? "open" : "closed"), f = computed(() => r.value === l.value || (e == null ? void 0 : e.triggerElement.value) === l.value && (e == null ? void 0 : e.selectedElement.value));
+    const m = computed(() => t != null && t.isOpen.value ? "open" : "closed"), f = computed(() => r.value === a.value || (e == null ? void 0 : e.triggerElement.value) === a.value && (e == null ? void 0 : e.selectedElement.value));
     return watchEffect(() => {
-      (e == null ? void 0 : e.selectedElement.value) === l.value && (e.triggerElement.value = l.value);
+      (e == null ? void 0 : e.selectedElement.value) === a.value && (e.triggerElement.value = a.value);
     }), watch(
       r,
       () => {
-        r.value === l.value ? (e.selectedElement.value = l.value, e.triggerElement.value = l.value) : !(o != null && o.isOpen.value) && e.selectedElement.value === l.value && (e.selectedElement.value = void 0);
+        r.value === a.value ? (e.selectedElement.value = a.value, e.triggerElement.value = a.value) : !(t != null && t.isOpen.value) && e.selectedElement.value === a.value && (e.selectedElement.value = void 0);
       },
       { immediate: true }
-    ), (v, h2) => (openBlock(), createBlock(unref(_e), { asChild: "" }, {
+    ), (v, g) => (openBlock(), createBlock(unref(_e), { asChild: "" }, {
       default: withCtx(() => {
-        var y, C, $, S, P;
+        var h2, x, C, S, B;
         return [
           createVNode(unref(X), mergeProps({
             role: "menuitem",
             ref_key: "primitiveElement",
-            ref: a,
-            id: (y = unref(o)) == null ? void 0 : y.triggerId,
-            "aria-expanded": (C = unref(o)) == null ? void 0 : C.isOpen.value,
-            "aria-controls": ($ = unref(o)) == null ? void 0 : $.contentId,
+            ref: l,
+            id: (h2 = unref(t)) == null ? void 0 : h2.triggerId,
+            "aria-expanded": (x = unref(t)) == null ? void 0 : x.isOpen.value,
+            "aria-controls": (C = unref(t)) == null ? void 0 : C.contentId,
             "data-state": m.value,
             "data-orientation": (S = unref(e)) == null ? void 0 : S.orientation,
             "aria-haspopup": "menu",
@@ -6070,32 +6187,32 @@ var Gi = defineComponent({
             onMouseenter: d,
             onClick: c,
             "data-highlighted": f.value ? "" : null,
-            "aria-disabled": t.disabled ? true : void 0,
-            "data-disabled": t.disabled ? "" : void 0,
-            tabindex: ((P = unref(e)) == null ? void 0 : P.triggerElement.value) === unref(l) ? "0" : "-1"
+            "aria-disabled": o.disabled ? true : void 0,
+            "data-disabled": o.disabled ? "" : void 0,
+            "as-child": o.asChild,
+            tabindex: ((B = unref(e)) == null ? void 0 : B.triggerElement.value) === unref(a) ? "0" : "-1"
           }, v.$attrs), {
             default: withCtx(() => [
               renderSlot(v.$slots, "default")
             ]),
             _: 3
-          }, 16, ["id", "aria-expanded", "aria-controls", "data-state", "data-orientation", "onKeydown", "data-highlighted", "aria-disabled", "data-disabled", "tabindex"])
+          }, 16, ["id", "aria-expanded", "aria-controls", "data-state", "data-orientation", "onKeydown", "data-highlighted", "aria-disabled", "data-disabled", "as-child", "tabindex"])
         ];
       }),
       _: 3
     }));
   }
 });
-var El = {};
-function Cl(n, t) {
+var kl = {};
+function Sl(n, o) {
   return openBlock(), createBlock(Teleport, { to: "body" }, [
     renderSlot(n.$slots, "default")
   ]);
 }
-var Xi = Ct(El, [["render", Cl]]);
-var Fi = defineComponent({
+var Qi = xt(kl, [["render", Sl]]);
+var Vi = defineComponent({
   __name: "MenubarContent",
   props: {
-    asChild: { type: Boolean },
     loop: { type: Boolean },
     side: { default: "bottom" },
     sideOffset: {},
@@ -6109,19 +6226,20 @@ var Fi = defineComponent({
     hideWhenDetached: { type: Boolean },
     updatePositionStrategy: {},
     onPlaced: {},
-    prioritizePosition: { type: Boolean }
+    prioritizePosition: { type: Boolean },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(xe), o = inject(
-      wt
-    ), { primitiveElement: a, currentElement: l } = B(), { createCollection: r } = re();
-    r(l), watchEffect(() => {
-      l.value && o != null && o.isOpen.value && s();
+    const o = n, e = inject(Ce), t = inject(
+      Et
+    ), { primitiveElement: l, currentElement: a } = P(), { createCollection: r } = le();
+    r(a), watchEffect(() => {
+      a.value && t != null && t.isOpen.value && s();
     }), watch(
       () => e == null ? void 0 : e.selectedElement.value,
       (d) => {
         var c;
-        if (!(o != null && o.isOpen.value))
+        if (!(t != null && t.isOpen.value))
           return;
         const p = Array.from(
           ((c = d == null ? void 0 : d.closest('[role="tooltip"]')) == null ? void 0 : c.querySelectorAll(
@@ -6129,45 +6247,45 @@ var Fi = defineComponent({
           )) ?? []
         );
         p != null && p.length && p.includes(
-          o.triggerElement.value
-        ) && (e == null ? void 0 : e.selectedElement.value) !== (o == null ? void 0 : o.triggerElement.value) && (e == null || e.changeValue(void 0));
+          t.triggerElement.value
+        ) && (e == null ? void 0 : e.selectedElement.value) !== (t == null ? void 0 : t.triggerElement.value) && (e == null || e.changeValue(void 0));
       }
     );
     function s() {
       const d = Array.from(
-        l.value.querySelectorAll(
+        a.value.querySelectorAll(
           "[data-radix-vue-collection-item]:not([data-disabled])"
         )
       );
-      return o.itemsArray = d, d;
+      return t.itemsArray = d, d;
     }
-    ke(l, (d) => {
+    $e(a, (d) => {
       d.target.closest('[role="menuitem"]') || (e == null || e.changeValue(void 0), e.selectedElement.value = void 0);
     });
-    const i = computed(() => o != null && o.isOpen ? "open" : "false");
+    const i = computed(() => t != null && t.isOpen ? "open" : "false");
     return (d, p) => {
       var c;
-      return (c = unref(o)) != null && c.isOpen.value ? (openBlock(), createBlock(unref(ye), normalizeProps(mergeProps({ key: 0 }, t)), {
+      return (c = unref(t)) != null && c.isOpen.value ? (openBlock(), createBlock(unref(ye), normalizeProps(mergeProps({ key: 0 }, o)), {
         default: withCtx(() => {
           var m, f;
           return [
             createVNode(unref(D), {
               ref_key: "primitiveElement",
-              ref: a,
+              ref: l,
               "data-state": i.value,
-              "data-side": t.side,
-              "data-align": t.align,
-              "aria-labelledby": (m = unref(o)) == null ? void 0 : m.triggerId,
-              "data-orientation": (f = unref(o)) == null ? void 0 : f.orientation,
+              "data-side": o.side,
+              "data-align": o.align,
+              "aria-labelledby": (m = unref(t)) == null ? void 0 : m.triggerId,
+              "data-orientation": (f = unref(t)) == null ? void 0 : f.orientation,
               role: "tooltip",
-              asChild: t.asChild,
+              "as-child": o.asChild,
               style: { "pointer-events": "auto" }
             }, {
               default: withCtx(() => [
                 renderSlot(d.$slots, "default")
               ]),
               _: 3
-            }, 8, ["data-state", "data-side", "data-align", "aria-labelledby", "data-orientation", "asChild"])
+            }, 8, ["data-state", "data-side", "data-align", "aria-labelledby", "data-orientation", "as-child"])
           ];
         }),
         _: 3
@@ -6175,14 +6293,14 @@ var Fi = defineComponent({
     };
   }
 });
-var Ji = defineComponent({
+var ji = defineComponent({
   __name: "MenubarArrow",
   setup(n) {
-    return (t, e) => (openBlock(), createBlock(unref(Ie)));
+    return (o, e) => (openBlock(), createBlock(unref(Ie)));
   }
 });
-var nt = Symbol();
-var Zi = defineComponent({
+var lt = Symbol();
+var es = defineComponent({
   __name: "MenubarSub",
   props: {
     modelValue: { type: Boolean },
@@ -6193,25 +6311,25 @@ var Zi = defineComponent({
     orientation: { default: "vertical" }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, o = K(e, "modelValue", t, {
+  setup(n, { emit: o }) {
+    const e = n, t = K(e, "modelValue", o, {
       passive: true
-    }), a = ref(), l = inject(nt);
-    return provide(nt, {
-      modelValue: o,
+    }), l = ref(), a = inject(lt);
+    return provide(lt, {
+      modelValue: t,
       showTooltip: () => {
-        o.value = true;
+        t.value = true;
       },
       hideTooltip: () => {
-        o.value = false;
+        t.value = false;
       },
-      triggerElement: a,
+      triggerElement: l,
       itemsArray: [],
       orientation: e.orientation,
       triggerId: ce(),
       contentId: ce(),
-      parentContext: l
-    }), (r, s) => (openBlock(), createBlock(unref(me), null, {
+      parentContext: a
+    }), (r, s) => (openBlock(), createBlock(unref(fe), null, {
       default: withCtx(() => [
         renderSlot(r.$slots, "default")
       ]),
@@ -6219,25 +6337,25 @@ var Zi = defineComponent({
     }));
   }
 });
-var Qi = defineComponent({
+var ts = defineComponent({
   __name: "MenubarItem",
   props: {
-    asChild: { type: Boolean },
     value: {},
     disabled: { type: Boolean },
-    textValue: {}
+    textValue: {},
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(xe), o = inject(
-      nt
+    const o = n, e = inject(Ce), t = inject(
+      lt
     );
-    function a() {
+    function l() {
       e.changeValue(void 0), e.changeSelected(
         e.triggerElement.value
       );
     }
-    function l(s) {
-      const i = oe(
+    function a(s) {
+      const i = ne(
         s,
         e == null ? void 0 : e.triggerElement.value,
         void 0,
@@ -6255,25 +6373,26 @@ var Qi = defineComponent({
     }
     return (s, i) => {
       var d;
-      return openBlock(), createBlock(ie, {
-        disabled: t.disabled,
+      return openBlock(), createBlock(re, {
+        disabled: o.disabled,
         rootProvider: unref(e),
-        subProvider: unref(o),
+        subProvider: unref(t),
         orientation: (d = unref(e)) == null ? void 0 : d.orientation,
-        onHandleClick: a,
-        onHorizontalKeydown: l,
+        "as-child": o.asChild,
+        onHandleClick: l,
+        onHorizontalKeydown: a,
         onEscapeKeydown: r
       }, {
         default: withCtx(() => [
           renderSlot(s.$slots, "default")
         ]),
         _: 3
-      }, 8, ["disabled", "rootProvider", "subProvider", "orientation"]);
+      }, 8, ["disabled", "rootProvider", "subProvider", "orientation", "as-child"]);
     };
   }
 });
-var xl = Symbol();
-var Vi = defineComponent({
+var Al = Symbol();
+var os = defineComponent({
   __name: "MenubarGroup",
   props: {
     type: { default: "single" },
@@ -6284,43 +6403,45 @@ var Vi = defineComponent({
     orientation: {},
     dir: {},
     loop: { type: Boolean },
-    modelValue: {}
+    modelValue: {},
+    asChild: { type: Boolean }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, { primitiveElement: o, currentElement: a } = B();
-    return provide(xl, {
+  setup(n, { emit: o }) {
+    const e = n, { primitiveElement: t, currentElement: l } = P();
+    return provide(Al, {
       type: e.type,
       modelValue: toRef(() => e.modelValue),
-      changeModelValue: (l) => {
+      changeModelValue: (a) => {
         if (e.type === "single")
-          t("update:modelValue", l);
+          o("update:modelValue", a);
         else {
           let r = e.modelValue;
-          if (r.includes(l)) {
-            let s = r.findIndex((i) => i === l);
+          if (r.includes(a)) {
+            let s = r.findIndex((i) => i === a);
             r.splice(s, 1);
           } else
-            r.push(l);
-          t("update:modelValue", r);
+            r.push(a);
+          o("update:modelValue", r);
         }
       },
-      parentElement: a
-    }), (l, r) => (openBlock(), createBlock(unref(D), {
+      parentElement: l
+    }), (a, r) => (openBlock(), createBlock(unref(D), {
       ref_key: "primitiveElement",
-      ref: o,
+      ref: t,
       role: "group",
       dir: e.dir,
+      "as-child": e.asChild,
       "aria-label": "Text alignment"
     }, {
       default: withCtx(() => [
-        renderSlot(l.$slots, "default")
+        renderSlot(a.$slots, "default")
       ]),
       _: 3
-    }, 8, ["dir"]));
+    }, 8, ["dir", "as-child"]));
   }
 });
-var ji = defineComponent({
+var ns = defineComponent({
   __name: "MenubarSeparator",
   props: {
     orientation: {},
@@ -6328,19 +6449,15 @@ var ji = defineComponent({
     asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(Ue, {
-      orientation: t.orientation,
-      decorative: t.decorative
-    }, null, 8, ["orientation", "decorative"]));
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(Ue, normalizeProps(guardReactiveProps(o)), null, 16));
   }
 });
-var uo = Symbol();
-var $l = ["id", "checked", "name", "disabled"];
-var es = defineComponent({
+var po = Symbol();
+var Bl = ["id", "checked", "name", "disabled"];
+var as = defineComponent({
   __name: "MenubarCheckboxItem",
   props: {
-    asChild: { type: Boolean },
     checked: { type: Boolean },
     modelValue: { type: Boolean },
     id: {},
@@ -6348,49 +6465,51 @@ var es = defineComponent({
     value: {},
     disabled: { type: Boolean },
     onSelect: {},
-    textValue: {}
+    textValue: {},
+    asChild: { type: Boolean }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, o = inject(xe), a = K(e, "modelValue", t, {
+  setup(n, { emit: o }) {
+    const e = n, t = inject(Ce), l = K(e, "modelValue", o, {
       passive: true
-    }), l = computed(() => a.value ? "checked" : "unchecked");
+    }), a = computed(() => l.value ? "checked" : "unchecked");
     function r() {
-      a.value = !a.value;
+      l.value = !l.value;
     }
-    provide(uo, {
-      modelValue: a
+    provide(po, {
+      modelValue: l
     });
     function s(d) {
-      const p = oe(
+      const p = ne(
         d,
-        o == null ? void 0 : o.triggerElement.value,
+        t == null ? void 0 : t.triggerElement.value,
         void 0,
         {
           arrowKeyOptions: "horizontal",
-          itemsArray: o == null ? void 0 : o.triggerItemsArray
+          itemsArray: t == null ? void 0 : t.triggerItemsArray
         }
       );
-      p && (o == null || o.changeSelected(p), o == null || o.changeValue(p.id));
+      p && (t == null || t.changeSelected(p), t == null || t.changeValue(p.id));
     }
     function i(d) {
-      o.changeValue(void 0), o.changeSelected(
-        o.triggerElement.value
+      t.changeValue(void 0), t.changeSelected(
+        t.triggerElement.value
       );
     }
     return (d, p) => {
       var c;
-      return openBlock(), createBlock(ie, {
+      return openBlock(), createBlock(re, {
         ref: "currentElement",
         disabled: e.disabled,
-        rootProvider: unref(o),
-        orientation: (c = unref(o)) == null ? void 0 : c.orientation,
+        rootProvider: unref(t),
+        orientation: (c = unref(t)) == null ? void 0 : c.orientation,
         onHandleClick: r,
         onHorizontalKeydown: s,
         onEscapeKeydown: i,
         role: "menuitemcheckbox",
-        "data-state": l.value,
-        "aria-checked": !!e.modelValue
+        "data-state": a.value,
+        "aria-checked": !!e.modelValue,
+        "as-child": e.asChild
       }, {
         default: withCtx(() => [
           createBaseVNode("input", mergeProps({
@@ -6402,116 +6521,116 @@ var es = defineComponent({
             "aria-hidden": "true",
             disabled: e.disabled,
             style: { opacity: "0", position: "absolute", inset: "0" }
-          }), null, 16, $l),
+          }), null, 16, Bl),
           renderSlot(d.$slots, "default")
         ]),
         _: 3
-      }, 8, ["disabled", "rootProvider", "orientation", "data-state", "aria-checked"]);
+      }, 8, ["disabled", "rootProvider", "orientation", "data-state", "aria-checked", "as-child"]);
     };
   }
 });
-var ts = defineComponent({
+var ls = defineComponent({
   __name: "MenubarItemIndicator",
-  setup(n) {
-    const t = inject(uo);
-    return (e, o) => {
-      var a;
-      return (a = unref(t)) != null && a.modelValue.value ? (openBlock(), createBlock(unref(ne), {
-        key: 0,
-        style: { "pointer-events": "none" }
-      }, {
-        default: withCtx(() => [
-          renderSlot(e.$slots, "default")
-        ]),
-        _: 3
-      })) : createCommentVNode("", true);
-    };
-  }
-});
-var os = defineComponent({
-  __name: "MenubarLabel",
   props: {
-    asChild: { type: Boolean },
-    for: {}
+    forceMount: { type: Boolean },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n;
-    return (e, o) => (openBlock(), createBlock(unref(lt), {
-      for: t.for
-    }, {
+    const o = n, e = inject(po);
+    return (t, l) => {
+      var a;
+      return (a = unref(e)) != null && a.modelValue.value ? (openBlock(), createBlock(unref(ae), mergeProps({ key: 0 }, o, { style: { "pointer-events": "none" } }), {
+        default: withCtx(() => [
+          renderSlot(t.$slots, "default")
+        ]),
+        _: 3
+      }, 16)) : createCommentVNode("", true);
+    };
+  }
+});
+var rs = defineComponent({
+  __name: "MenubarLabel",
+  props: {
+    for: {},
+    asChild: { type: Boolean }
+  },
+  setup(n) {
+    const o = n;
+    return (e, t) => (openBlock(), createBlock(unref(it), normalizeProps(guardReactiveProps(o)), {
       default: withCtx(() => [
         renderSlot(e.$slots, "default")
       ]),
       _: 3
-    }, 8, ["for"]));
+    }, 16));
   }
 });
-var Cn = "RadioGroup";
-var ns = defineComponent({
+var kn = "RadioGroup";
+var is = defineComponent({
   __name: "MenubarRadioGroup",
   props: {
-    asChild: { type: Boolean },
     value: {},
     defaultValue: {},
-    modelValue: {}
+    modelValue: {},
+    asChild: { type: Boolean }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, { primitiveElement: o, currentElement: a } = B(), l = K(e, "modelValue", t, {
+  setup(n, { emit: o }) {
+    const e = n, { primitiveElement: t, currentElement: l } = P(), a = K(e, "modelValue", o, {
       passive: true
     });
-    return provide(Cn, {
-      modelValue: l,
+    return provide(kn, {
+      modelValue: a,
       changeModelValue: (r) => {
-        l.value = r;
+        a.value = r;
       },
-      parentElement: a
+      parentElement: l
     }), (r, s) => (openBlock(), createBlock(unref(D), {
       ref_key: "primitiveElement",
-      ref: o,
+      ref: t,
       role: "radiogroup",
-      "aria-label": "radiogroup"
+      "aria-label": "radiogroup",
+      "as-child": e.asChild
     }, {
       default: withCtx(() => [
         renderSlot(r.$slots, "default")
       ]),
       _: 3
-    }, 512));
+    }, 8, ["as-child"]));
   }
 });
-var as = defineComponent({
+var ss = defineComponent({
   __name: "MenubarRadioItem",
   props: {
-    asChild: { type: Boolean },
     value: {},
     disabled: { type: Boolean },
     id: {},
     name: {},
     onSelect: {},
-    textValue: {}
+    textValue: {},
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(xe), o = inject(
-      Cn
-    ), a = computed(() => {
+    const o = n, e = inject(Ce), t = inject(
+      kn
+    ), l = computed(() => {
       var d;
-      return ((d = o == null ? void 0 : o.modelValue) == null ? void 0 : d.value) === t.value ? "on" : "off";
+      return ((d = t == null ? void 0 : t.modelValue) == null ? void 0 : d.value) === o.value ? "on" : "off";
     });
-    function l() {
+    function a() {
       if (e != null && e.selectedElement.value)
-        return o == null ? void 0 : o.changeModelValue(t.value);
+        return t == null ? void 0 : t.changeModelValue(o.value);
     }
     const r = computed(
       () => {
         var d;
-        return ((d = o == null ? void 0 : o.modelValue) == null ? void 0 : d.value) === t.value;
+        return ((d = t == null ? void 0 : t.modelValue) == null ? void 0 : d.value) === o.value;
       }
     );
-    provide(uo, {
+    provide(po, {
       modelValue: r
     });
     function s(d) {
-      const p = oe(
+      const p = ne(
         d,
         e == null ? void 0 : e.triggerElement.value,
         void 0,
@@ -6529,29 +6648,29 @@ var as = defineComponent({
     }
     return (d, p) => {
       var c;
-      return openBlock(), createBlock(ie, {
-        disabled: t.disabled,
+      return openBlock(), createBlock(re, {
+        disabled: o.disabled,
         rootProvider: unref(e),
         orientation: (c = unref(e)) == null ? void 0 : c.orientation,
-        "data-radix-vue-radio-value": t.value,
-        onHandleClick: l,
+        "data-radix-vue-radio-value": o.value,
+        "as-child": o.asChild,
+        onHandleClick: a,
         onHorizontalKeydown: s,
         onEscapeKeydown: i,
         role: "menuitemradio",
-        "data-state": a.value
+        "data-state": l.value
       }, {
         default: withCtx(() => [
           renderSlot(d.$slots, "default")
         ]),
         _: 3
-      }, 8, ["disabled", "rootProvider", "orientation", "data-radix-vue-radio-value", "data-state"]);
+      }, 8, ["disabled", "rootProvider", "orientation", "data-radix-vue-radio-value", "as-child", "data-state"]);
     };
   }
 });
-var ls = defineComponent({
+var us = defineComponent({
   __name: "MenubarSubContent",
   props: {
-    asChild: { type: Boolean },
     loop: { type: Boolean },
     side: { default: "right" },
     sideOffset: {},
@@ -6565,52 +6684,53 @@ var ls = defineComponent({
     hideWhenDetached: { type: Boolean },
     updatePositionStrategy: {},
     onPlaced: {},
-    prioritizePosition: { type: Boolean }
+    prioritizePosition: { type: Boolean },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(xe), o = inject(nt), { primitiveElement: a, currentElement: l } = B(), { createCollection: r } = re();
-    r(l), watchEffect(() => {
-      l.value && o != null && o.modelValue.value && s();
+    const o = n, e = inject(Ce), t = inject(lt), { primitiveElement: l, currentElement: a } = P(), { createCollection: r } = le();
+    r(a), watchEffect(() => {
+      a.value && t != null && t.modelValue.value && s();
     }), watch(
       () => e == null ? void 0 : e.selectedElement.value,
       (i) => {
         var p;
-        if (!(o != null && o.modelValue.value))
+        if (!(t != null && t.modelValue.value))
           return;
         const d = Array.from(
           ((p = i == null ? void 0 : i.closest('[role="tooltip"]')) == null ? void 0 : p.querySelectorAll(
             "[data-radix-vue-collection-item]:not([data-disabled])"
           )) ?? []
         );
-        d != null && d.length && d.includes(o.triggerElement.value) && (e == null ? void 0 : e.selectedElement.value) !== (o == null ? void 0 : o.triggerElement.value) && (o == null || o.hideTooltip());
+        d != null && d.length && d.includes(t.triggerElement.value) && (e == null ? void 0 : e.selectedElement.value) !== (t == null ? void 0 : t.triggerElement.value) && (t == null || t.hideTooltip());
       }
     );
     function s() {
       const i = Array.from(
-        l.value.querySelectorAll(
+        a.value.querySelectorAll(
           "[data-radix-vue-collection-item]:not([data-disabled])"
         )
       );
-      return o.itemsArray = i, i;
+      return t.itemsArray = i, i;
     }
-    return ke(l, (i) => {
-      i.target.closest('[role="menuitem"]') || o == null || o.hideTooltip();
+    return $e(a, (i) => {
+      i.target.closest('[role="menuitem"]') || t == null || t.hideTooltip();
     }), (i, d) => {
       var p;
-      return (p = unref(o)) != null && p.modelValue.value ? (openBlock(), createBlock(unref(ye), normalizeProps(mergeProps({ key: 0 }, t)), {
+      return (p = unref(t)) != null && p.modelValue.value ? (openBlock(), createBlock(unref(ye), normalizeProps(mergeProps({ key: 0 }, o)), {
         default: withCtx(() => {
           var c;
           return [
             createVNode(unref(D), {
               ref_key: "primitiveElement",
-              ref: a,
-              "data-state": (c = unref(o)) != null && c.modelValue.value ? "open" : "closed",
-              "data-side": t.side,
-              "data-align": t.align,
-              "data-orientation": unref(o).orientation,
-              "aria-labelledby": unref(o).triggerId,
+              ref: l,
+              "data-state": (c = unref(t)) != null && c.modelValue.value ? "open" : "closed",
+              "data-side": o.side,
+              "data-align": o.align,
+              "data-orientation": unref(t).orientation,
+              "aria-labelledby": unref(t).triggerId,
               role: "tooltip",
-              asChild: t.asChild,
+              asChild: o.asChild,
               style: { "pointer-events": "auto" }
             }, {
               default: withCtx(() => [
@@ -6625,80 +6745,86 @@ var ls = defineComponent({
     };
   }
 });
-var rs = defineComponent({
+var ds = defineComponent({
   __name: "MenubarSubTrigger",
+  props: {
+    disabled: { type: Boolean },
+    textValue: {},
+    asChild: { type: Boolean }
+  },
   setup(n) {
-    const t = inject(xe), e = inject(nt), { primitiveElement: o, currentElement: a } = B();
+    const o = n, e = inject(Ce), t = inject(lt), { primitiveElement: l, currentElement: a } = P();
     onMounted(() => {
-      e.triggerElement.value = a.value;
+      t.triggerElement.value = a.value;
     });
-    async function l() {
-      var m;
-      e == null || e.showTooltip(), await nextTick();
-      const c = (m = e == null ? void 0 : e.itemsArray) == null ? void 0 : m[0];
-      t.selectedElement.value = c, c == null || c.focus();
+    async function r() {
+      var f;
+      t == null || t.showTooltip(), await nextTick();
+      const m = (f = t == null ? void 0 : t.itemsArray) == null ? void 0 : f[0];
+      e.selectedElement.value = m, m == null || m.focus();
     }
-    function r() {
-      e != null && e.modelValue.value || l();
+    function s() {
+      t != null && t.modelValue.value || r();
     }
-    async function s(c) {
-      if (c.key === "ArrowRight")
-        l();
+    async function i(m) {
+      if (m.key === "ArrowRight")
+        r();
       else {
-        const m = oe(
-          c,
-          t == null ? void 0 : t.triggerElement.value,
+        const f = ne(
+          m,
+          e == null ? void 0 : e.triggerElement.value,
           void 0,
           {
             arrowKeyOptions: "horizontal",
-            itemsArray: t == null ? void 0 : t.triggerItemsArray
+            itemsArray: e == null ? void 0 : e.triggerItemsArray
           }
         );
-        m && (t == null || t.changeSelected(m), m.focus(), t != null && t.modelValue.value && (t == null || t.changeValue(m.id)));
+        f && (e == null || e.changeSelected(f), f.focus(), e != null && e.modelValue.value && (e == null || e.changeValue(f.id)));
       }
     }
-    const i = computed(() => e != null && e.modelValue.value ? "open" : "closed");
-    function d() {
-      return e == null ? void 0 : e.showTooltip();
+    const d = computed(() => t != null && t.modelValue.value ? "open" : "closed");
+    function p() {
+      return t == null ? void 0 : t.showTooltip();
     }
-    function p(c) {
-      t.changeValue(void 0), t.changeSelected(
-        t.triggerElement.value
+    function c(m) {
+      e.changeValue(void 0), e.changeSelected(
+        e.triggerElement.value
       );
     }
-    return (c, m) => (openBlock(), createBlock(unref(_e), { asChild: "" }, {
+    return (m, f) => (openBlock(), createBlock(unref(_e), { asChild: "" }, {
       default: withCtx(() => {
-        var f, v, h2, y, C;
+        var v, g, h2, x, C;
         return [
-          createVNode(ie, {
+          createVNode(re, {
             ref_key: "primitiveElement",
-            ref: o,
-            id: (f = unref(e)) == null ? void 0 : f.triggerId,
-            rootProvider: unref(t),
-            subProvider: (v = unref(e)) == null ? void 0 : v.parentContext,
-            "aria-expanded": (h2 = unref(e)) == null ? void 0 : h2.modelValue.value,
-            "aria-controls": (y = unref(e)) == null ? void 0 : y.contentId,
-            "data-state": i.value,
-            "data-orientation": (C = unref(t)) == null ? void 0 : C.orientation,
+            ref: l,
+            id: (v = unref(t)) == null ? void 0 : v.triggerId,
+            rootProvider: unref(e),
+            subProvider: (g = unref(t)) == null ? void 0 : g.parentContext,
+            "aria-expanded": (h2 = unref(t)) == null ? void 0 : h2.modelValue.value,
+            "aria-controls": (x = unref(t)) == null ? void 0 : x.contentId,
+            "data-state": d.value,
+            "data-orientation": (C = unref(e)) == null ? void 0 : C.orientation,
+            "as-child": o.asChild,
             "aria-haspopup": "menu",
-            onHandleClick: r,
-            onMouseover: d,
-            onHorizontalKeydown: s,
-            onEscapeKeydown: p
+            onHandleClick: s,
+            onMouseover: p,
+            onHorizontalKeydown: i,
+            onEscapeKeydown: c
           }, {
             default: withCtx(() => [
-              renderSlot(c.$slots, "default")
+              renderSlot(m.$slots, "default")
             ]),
             _: 3
-          }, 8, ["id", "rootProvider", "subProvider", "aria-expanded", "aria-controls", "data-state", "data-orientation"])
+          }, 8, ["id", "rootProvider", "subProvider", "aria-expanded", "aria-controls", "data-state", "data-orientation", "as-child"])
         ];
       }),
       _: 3
     }));
   }
 });
-var Te = Symbol();
-var is = defineComponent({
+var Ae = Symbol();
+var cs = defineComponent({
   __name: "NavigationMenuRoot",
   props: {
     modelValue: { default: "" },
@@ -6710,27 +6836,27 @@ var is = defineComponent({
     skipDelayDuration: { default: 300 }
   },
   emits: ["update:modelValue"],
-  setup(n, { emit: t }) {
-    const e = n, o = K(e, "modelValue", t, {
+  setup(n, { emit: o }) {
+    const e = n, t = K(e, "modelValue", o, {
       passive: true,
       defaultValue: e.defaultValue ?? ""
-    }), a = ref(""), { primitiveElement: l, currentElement: r } = B(), { createCollection: s } = re();
+    }), l = ref(""), { primitiveElement: a, currentElement: r } = P(), { createCollection: s } = le();
     s();
     const i = () => {
-      o.value = "";
+      t.value = "";
     };
-    ke(r, () => {
+    $e(r, () => {
       i();
-    }), Ho(r, () => {
+    }), Wo(r, () => {
       i();
     });
-    const d = ref(), p = ref(), c = ref(/* @__PURE__ */ new Map()), m = Gt((f) => {
-      a.value = o.value, o.value = f;
+    const d = ref(), p = ref(), c = ref(/* @__PURE__ */ new Map()), m = Ft((f) => {
+      l.value = t.value, t.value = f;
     }, e.delayDuration);
-    return provide(Te, {
+    return provide(Ae, {
       isRootMenu: true,
-      modelValue: o,
-      previousValue: a,
+      modelValue: t,
+      previousValue: l,
       baseId: ce(),
       dir: e.dir,
       orientation: e.orientation,
@@ -6745,8 +6871,8 @@ var is = defineComponent({
       },
       viewportContent: c,
       onViewportContentChange: (f, v) => {
-        const h2 = c.value;
-        c.value = new Map(h2.set(f, v));
+        const g = c.value;
+        c.value = new Map(g.set(f, v));
       },
       onViewportContentRemove: (f) => {
         const v = c.value;
@@ -6767,11 +6893,11 @@ var is = defineComponent({
         m("");
       },
       onItemSelect: (f) => {
-        a.value = o.value, o.value = f;
+        l.value = t.value, t.value = f;
       }
-    }), (f, v) => (openBlock(), createBlock(unref(wa), {
+    }), (f, v) => (openBlock(), createBlock(unref(Ca), {
       ref_key: "primitiveElement",
-      ref: l,
+      ref: a,
       "aria-label": "Main",
       "data-orientation": f.orientation,
       dir: f.dir
@@ -6783,83 +6909,84 @@ var is = defineComponent({
     }, 8, ["data-orientation", "dir"]));
   }
 });
-function co(n) {
+function fo(n) {
   return n ? "open" : "closed";
 }
-function xn(n, t) {
-  return `${n}-trigger-${t}`;
+function Sn(n, o) {
+  return `${n}-trigger-${o}`;
 }
-function $n(n, t) {
-  return `${n}-content-${t}`;
+function An(n, o) {
+  return `${n}-content-${o}`;
 }
-function zt(n) {
-  const t = [], e = document.createTreeWalker(n, NodeFilter.SHOW_ELEMENT, {
-    acceptNode: (o) => {
-      const a = o.tagName === "INPUT" && o.type === "hidden";
-      return o.disabled || o.hidden || a ? NodeFilter.FILTER_SKIP : o.tabIndex >= 0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+function Yt(n) {
+  const o = [], e = document.createTreeWalker(n, NodeFilter.SHOW_ELEMENT, {
+    acceptNode: (t) => {
+      const l = t.tagName === "INPUT" && t.type === "hidden";
+      return t.disabled || t.hidden || l ? NodeFilter.FILTER_SKIP : t.tabIndex >= 0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
     }
   });
   for (; e.nextNode(); )
-    t.push(e.currentNode);
-  return t;
+    o.push(e.currentNode);
+  return o;
 }
-function kn(n) {
-  const t = document.activeElement;
-  return n.some((e) => e === t ? true : (e.focus(), document.activeElement !== t));
+function Bn(n) {
+  const o = document.activeElement;
+  return n.some((e) => e === o ? true : (e.focus(), document.activeElement !== o));
 }
-function kl(n) {
-  return n.forEach((t) => {
-    t.dataset.tabindex = t.getAttribute("tabindex") || "", t.setAttribute("tabindex", "-1");
+function Tl(n) {
+  return n.forEach((o) => {
+    o.dataset.tabindex = o.getAttribute("tabindex") || "", o.setAttribute("tabindex", "-1");
   }), () => {
-    n.forEach((t) => {
-      const e = t.dataset.tabindex;
-      t.setAttribute("tabindex", e);
+    n.forEach((o) => {
+      const e = o.dataset.tabindex;
+      o.setAttribute("tabindex", e);
     });
   };
 }
-var po = Symbol();
-var ss = defineComponent({
+var mo = Symbol();
+var ps = defineComponent({
   __name: "NavigationMenuItem",
   props: {
-    value: {}
+    value: {},
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, { getItems: e } = re(), o = inject(Te), a = t.value || ce(), l = ref(), r = ref(), s = ref();
+    const o = n, { getItems: e } = le(), t = inject(Ae), l = o.value || ce(), a = ref(), r = ref(), s = ref();
     let i = () => ({});
     const d = ref(false), p = async (v = "start") => {
-      var y, C, $;
-      const h2 = ($ = (C = (y = r.value) == null ? void 0 : y.children) == null ? void 0 : C[0]) == null ? void 0 : $.el.parentElement;
-      if (h2) {
+      var h2, x, C;
+      const g = (C = (x = (h2 = r.value) == null ? void 0 : h2.children) == null ? void 0 : x[0]) == null ? void 0 : C.el.parentElement;
+      if (g) {
         i();
-        const S = zt(J(h2));
-        S.length && kn(v === "start" ? S : S.reverse());
+        const S = Yt(Z(g));
+        S.length && Bn(v === "start" ? S : S.reverse());
       }
     };
-    provide(po, {
-      value: a,
-      triggerRef: l,
+    provide(mo, {
+      value: l,
+      triggerRef: a,
       contentRef: r,
       focusProxyRef: s,
       wasEscapeCloseRef: d,
       onEntryKeyDown: p,
       onFocusProxyEnter: p,
       onContentFocusOutside: () => {
-        var h2, y, C;
-        const v = (C = (y = (h2 = r.value) == null ? void 0 : h2.children) == null ? void 0 : y[0]) == null ? void 0 : C.el.parentElement;
+        var g, h2, x;
+        const v = (x = (h2 = (g = r.value) == null ? void 0 : g.children) == null ? void 0 : h2[0]) == null ? void 0 : x.el.parentElement;
         if (v) {
-          const $ = zt(J(v));
-          $.length && (i = kl($));
+          const C = Yt(Z(v));
+          C.length && (i = Tl(C));
         }
       }
     });
     const m = () => {
       var v;
-      o == null || o.onItemSelect(""), (v = l.value) == null || v.focus();
+      t == null || t.onItemSelect(""), (v = a.value) == null || v.focus();
     }, f = (v) => {
-      var C;
-      const h2 = document.activeElement;
+      var x;
+      const g = document.activeElement;
       if ((v.key === "ArrowUp" || v.key === "ArrowDown" || v.key === "ArrowLeft" || v.key === "ArrowRight") && v.preventDefault(), v.keyCode === 32 || v.key === "Enter")
-        if ((o == null ? void 0 : o.modelValue.value) === a) {
+        if ((t == null ? void 0 : t.modelValue.value) === l) {
           m(), v.preventDefault();
           return;
         } else {
@@ -6867,25 +6994,28 @@ var ss = defineComponent({
           return;
         }
       if (v.key === "Escape") {
-        d.value = true, (C = l.value) == null || C.focus(), o.modelValue.value = "";
+        d.value = true, (x = a.value) == null || x.focus(), t.modelValue.value = "";
         return;
       }
-      const y = oe(v, h2, void 0, {
+      const h2 = ne(v, g, void 0, {
         itemsArray: e(),
         loop: false
       });
-      y == null || y.focus();
+      h2 == null || h2.focus();
     };
-    return (v, h2) => (openBlock(), createBlock(unref(ba), { onKeydown: f }, {
+    return (v, g) => (openBlock(), createBlock(unref(Ea), {
+      "as-child": o.asChild,
+      onKeydown: f
+    }, {
       default: withCtx(() => [
         renderSlot(v.$slots, "default")
       ]),
       _: 3
-    }));
+    }, 8, ["as-child"]));
   }
 });
-var Sl = ["id", "aria-labelledby", "data-motion", "onKeydown"];
-var Sn = defineComponent({
+var Pl = ["id", "aria-labelledby", "data-motion", "onKeydown"];
+var Tn = defineComponent({
   __name: "NavigationMenuContentImpl",
   props: {
     value: {},
@@ -6895,59 +7025,59 @@ var Sn = defineComponent({
     onContentFocusOutside: { type: Function }
   },
   emits: ["escape"],
-  setup(n, { expose: t, emit: e }) {
-    const o = n, { getItems: a } = re(), l = ref(), r = inject(Te), s = xn(r.baseId, o.value), i = $n(r.baseId, o.value), d = ref(null), p = computed(() => {
-      const v = a().map((P) => P.id.split("trigger-")[1]);
+  setup(n, { expose: o, emit: e }) {
+    const t = n, { getItems: l } = le(), a = ref(), r = inject(Ae), s = Sn(r.baseId, t.value), i = An(r.baseId, t.value), d = ref(null), p = computed(() => {
+      const v = l().map((B) => B.id.split("trigger-")[1]);
       (r == null ? void 0 : r.dir) === "rtl" && v.reverse();
-      const h2 = v.indexOf(r.modelValue.value), y = v.indexOf(r.previousValue.value), C = o.value === (r == null ? void 0 : r.modelValue.value), $ = y === v.indexOf(o.value);
-      if (!C && !$)
+      const g = v.indexOf(r.modelValue.value), h2 = v.indexOf(r.previousValue.value), x = t.value === (r == null ? void 0 : r.modelValue.value), C = h2 === v.indexOf(t.value);
+      if (!x && !C)
         return d.value;
       const S = (() => {
-        if (h2 !== y) {
-          if (C && y !== -1)
-            return h2 > y ? "from-end" : "from-start";
-          if ($ && h2 !== -1)
-            return h2 > y ? "to-start" : "to-end";
+        if (g !== h2) {
+          if (x && h2 !== -1)
+            return g > h2 ? "from-end" : "from-start";
+          if (C && g !== -1)
+            return g > h2 ? "to-start" : "to-end";
         }
         return null;
       })();
       return d.value = S, S;
     });
-    Ho(l, (f) => {
-      var h2, y;
-      o.onContentFocusOutside();
+    Wo(a, (f) => {
+      var g, h2;
+      t.onContentFocusOutside();
       const v = f.target;
-      (y = (h2 = r.rootNavigationMenu) == null ? void 0 : h2.value) != null && y.contains(v) && f.preventDefault();
+      (h2 = (g = r.rootNavigationMenu) == null ? void 0 : g.value) != null && h2.contains(v) && f.preventDefault();
     });
     const c = (f) => {
-      var $;
-      const v = f.altKey || f.ctrlKey || f.metaKey, h2 = f.key === "Tab" && !v, y = zt(f.currentTarget);
-      if (h2) {
-        const S = document.activeElement, P = y.findIndex(
+      var C;
+      const v = f.altKey || f.ctrlKey || f.metaKey, g = f.key === "Tab" && !v, h2 = Yt(f.currentTarget);
+      if (g) {
+        const S = document.activeElement, B = h2.findIndex(
           (T) => T === S
-        ), I = f.shiftKey ? y.slice(0, P).reverse() : y.slice(P + 1, y.length);
-        if (kn(I))
+        ), I = f.shiftKey ? h2.slice(0, B).reverse() : h2.slice(B + 1, h2.length);
+        if (Bn(I))
           f.preventDefault();
         else {
-          ($ = o.focusProxyRef.value) == null || $.focus();
+          (C = t.focusProxyRef.value) == null || C.focus();
           return;
         }
       }
-      const C = oe(
+      const x = ne(
         f,
         document.activeElement,
         void 0,
-        { itemsArray: y, loop: false }
+        { itemsArray: h2, loop: false }
       );
-      C == null || C.focus(), f.preventDefault();
+      x == null || x.focus(), f.preventDefault();
     }, m = (f) => {
       e("escape", f);
     };
-    return t({
-      ...o
+    return o({
+      ...t
     }), (f, v) => (openBlock(), createElementBlock("div", {
       ref_key: "elementRef",
-      ref: l,
+      ref: a,
       id: unref(i),
       "aria-labelledby": unref(s),
       "data-motion": p.value,
@@ -6957,50 +7087,50 @@ var Sn = defineComponent({
       ]
     }, [
       renderSlot(f.$slots, "default")
-    ], 40, Sl));
+    ], 40, Pl));
   }
 });
-var us = defineComponent({
+var fs = defineComponent({
   inheritAttrs: false,
   __name: "NavigationMenuContent",
   setup(n) {
-    const t = inject(Te), e = inject(po), o = computed(() => (e == null ? void 0 : e.value) === (t == null ? void 0 : t.modelValue.value)), a = computed(() => ({
+    const o = inject(Ae), e = inject(mo), t = computed(() => (e == null ? void 0 : e.value) === (o == null ? void 0 : o.modelValue.value)), l = computed(() => ({
       value: e.value,
       triggerRef: e.triggerRef,
       focusProxyRef: e.focusProxyRef,
       wasEscapeCloseRef: e.wasEscapeCloseRef,
       onContentFocusOutside: e.onContentFocusOutside
       // onRootContentClose: itemContext!.onRootContentClose,
-    })), l = ref();
-    watch(l, () => {
-      e.contentRef.value = l.value;
+    })), a = ref();
+    watch(a, () => {
+      e.contentRef.value = a.value;
     });
     const r = getCurrentInstance();
     onMounted(() => {
       var d, p;
       const i = (p = (d = r == null ? void 0 : r.vnode.children) == null ? void 0 : d.default()) == null ? void 0 : p[0];
-      t != null && t.viewport && i && (i.props = { ...i.props, ...a.value }, i.parentProps = r.vnode.props, e.contentRef.value = i, t.onViewportContentChange(e.value, i));
+      o != null && o.viewport && i && (i.props = { ...i.props, ...l.value }, i.parentProps = r.vnode.props, e.contentRef.value = i, o.onViewportContentChange(e.value, i));
     });
     const s = () => {
       e.wasEscapeCloseRef.value = true;
     };
     return (i, d) => {
       var p;
-      return (p = unref(t)) != null && p.viewport ? createCommentVNode("", true) : (openBlock(), createBlock(unref(Qe), {
+      return (p = unref(o)) != null && p.viewport ? createCommentVNode("", true) : (openBlock(), createBlock(unref(Ve), {
         key: 0,
-        present: o.value
+        present: t.value
       }, {
         default: withCtx(() => {
           var c;
           return [
-            createVNode(Sn, mergeProps({
+            createVNode(Tn, mergeProps({
               ref_key: "elementRef",
-              ref: l,
-              "data-state": unref(co)(o.value),
+              ref: a,
+              "data-state": unref(fo)(t.value),
               style: {
-                pointerEvents: !o.value && ((c = unref(t)) != null && c.isRootMenu) ? "none" : void 0
+                pointerEvents: !t.value && ((c = unref(o)) != null && c.isRootMenu) ? "none" : void 0
               }
-            }, (i.$attrs, a.value), { onEscape: s }), {
+            }, (i.$attrs, l.value), { onEscape: s }), {
               default: withCtx(() => [
                 renderSlot(i.$slots, "default")
               ]),
@@ -7013,59 +7143,63 @@ var us = defineComponent({
     };
   }
 });
-var ds = defineComponent({
+var ms = defineComponent({
   inheritAttrs: false,
   __name: "NavigationMenuIndicator",
+  props: {
+    asChild: { type: Boolean }
+  },
   setup(n) {
-    const { getItems: t } = re(), e = inject(Te), o = ref(), a = computed(() => (e == null ? void 0 : e.orientation) === "horizontal"), l = computed(() => !!(e != null && e.modelValue.value)), r = ref();
+    const o = n, { getItems: e } = le(), t = inject(Ae), l = ref(), a = computed(() => (t == null ? void 0 : t.orientation) === "horizontal"), r = computed(() => !!(t != null && t.modelValue.value)), s = ref();
     watchEffect(() => {
-      if (!(e != null && e.modelValue.value)) {
-        o.value = void 0;
+      if (!(t != null && t.modelValue.value)) {
+        l.value = void 0;
         return;
       }
-      const i = t();
-      r.value = i.find(
-        (d) => d.id.includes(e == null ? void 0 : e.modelValue.value)
-      ), s();
+      const d = e();
+      s.value = d.find(
+        (p) => p.id.includes(t == null ? void 0 : t.modelValue.value)
+      ), i();
     });
-    const s = () => {
-      r.value && (o.value = {
-        size: a.value ? r.value.offsetWidth : r.value.offsetHeight,
-        offset: a.value ? r.value.offsetLeft : r.value.offsetTop
+    const i = () => {
+      s.value && (l.value = {
+        size: a.value ? s.value.offsetWidth : s.value.offsetHeight,
+        offset: a.value ? s.value.offsetLeft : s.value.offsetTop
       });
     };
-    return He(e.indicatorTrack, s), (i, d) => {
-      var p, c;
-      return (p = unref(e)) != null && p.indicatorTrack.value ? (openBlock(), createBlock(Teleport, {
+    return He(t.indicatorTrack, i), (d, p) => {
+      var c, m;
+      return (c = unref(t)) != null && c.indicatorTrack.value ? (openBlock(), createBlock(Teleport, {
         key: 0,
-        to: (c = unref(e)) == null ? void 0 : c.indicatorTrack.value
+        to: (m = unref(t)) == null ? void 0 : m.indicatorTrack.value
       }, [
-        createVNode(unref(Qe), { present: l.value }, {
+        createVNode(unref(Ve), { present: r.value }, {
           default: withCtx(() => {
-            var m, f, v, h2;
+            var f, v, g, h2;
             return [
               createVNode(unref(D), mergeProps({
                 "aria-hidden": "",
-                "data-state": l.value ? "visible" : "hidden",
-                "data-orientation": unref(e).orientation,
+                "data-state": r.value ? "visible" : "hidden",
+                "data-orientation": unref(t).orientation,
+                "as-child": o.asChild,
                 style: {
                   position: "absolute",
                   ...a.value ? {
                     left: 0,
-                    width: ((m = o.value) == null ? void 0 : m.size) + "px",
-                    transform: `translateX(${(f = o.value) == null ? void 0 : f.offset}px)`
+                    width: ((f = l.value) == null ? void 0 : f.size) + "px",
+                    transform: `translateX(${(v = l.value) == null ? void 0 : v.offset}px)`
                   } : {
                     top: 0,
-                    height: ((v = o.value) == null ? void 0 : v.size) + "px",
-                    transform: `translateY(${(h2 = o.value) == null ? void 0 : h2.offset}px)`
+                    height: ((g = l.value) == null ? void 0 : g.size) + "px",
+                    transform: `translateY(${(h2 = l.value) == null ? void 0 : h2.offset}px)`
                   }
                 }
-              }, i.$attrs), {
+              }, d.$attrs), {
                 default: withCtx(() => [
-                  renderSlot(i.$slots, "default")
+                  renderSlot(d.$slots, "default")
                 ]),
                 _: 3
-              }, 16, ["data-state", "data-orientation", "style"])
+              }, 16, ["data-state", "data-orientation", "as-child", "style"])
             ];
           }),
           _: 3
@@ -7074,31 +7208,33 @@ var ds = defineComponent({
     };
   }
 });
-var cs = defineComponent({
+var vs = defineComponent({
   __name: "NavigationMenuLink",
   props: {
-    active: { type: Boolean }
+    active: { type: Boolean },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = (e) => {
+    const o = n, e = (t) => {
     };
-    return (e, o) => (openBlock(), createBlock(unref(Go), {
-      "data-active": e.active ? "" : void 0,
-      "aria-current": e.active ? "page" : void 0,
-      onClick: t,
+    return (t, l) => (openBlock(), createBlock(unref(Jo), {
+      "data-active": t.active ? "" : void 0,
+      "aria-current": t.active ? "page" : void 0,
+      "as-child": o.asChild,
+      onClick: e,
       "data-radix-vue-collection-item": ""
     }, {
       default: withCtx(() => [
-        renderSlot(e.$slots, "default")
+        renderSlot(t.$slots, "default")
       ]),
       _: 3
-    }, 8, ["data-active", "aria-current"]));
+    }, 8, ["data-active", "aria-current", "as-child"]));
   }
 });
-var Al = defineComponent({
+var Ol = defineComponent({
   __name: "VisuallyHidden",
   setup(n) {
-    return (t, e) => (openBlock(), createBlock(unref(ne), {
+    return (o, e) => (openBlock(), createBlock(unref(ae), {
       style: normalizeStyle({
         // See: https://github.com/twbs/bootstrap/blob/master/scss/mixins/_screen-reader.scss
         position: "absolute",
@@ -7115,186 +7251,192 @@ var Al = defineComponent({
     }, null, 8, ["style"]));
   }
 });
-var Tl = ["aria-owns"];
-var ps = defineComponent({
+var Ml = ["aria-owns"];
+var hs = defineComponent({
   inheritAttrs: false,
   __name: "NavigationMenuTrigger",
   props: {
-    disabled: { type: Boolean }
+    disabled: { type: Boolean },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(Te), o = inject(po), { primitiveElement: a, currentElement: l } = B(), r = xn(e.baseId, o.value), s = $n(e.baseId, o.value), i = ref(false), d = ref(false), p = computed(() => (o == null ? void 0 : o.value) === (e == null ? void 0 : e.modelValue.value));
+    const o = n, e = inject(Ae), t = inject(mo), { primitiveElement: l, currentElement: a } = P(), r = Sn(e.baseId, t.value), s = An(e.baseId, t.value), i = ref(false), d = ref(false), p = computed(() => (t == null ? void 0 : t.value) === (e == null ? void 0 : e.modelValue.value));
     onMounted(() => {
-      o.triggerRef = l;
+      t.triggerRef = a;
     });
     const c = () => {
-      d.value = false, o.wasEscapeCloseRef.value = false;
-    }, m = ($) => {
-      if ($.pointerType === "mouse") {
-        if (t.disabled || d.value || o.wasEscapeCloseRef.value || i.value)
+      d.value = false, t.wasEscapeCloseRef.value = false;
+    }, m = (C) => {
+      if (C.pointerType === "mouse") {
+        if (o.disabled || d.value || t.wasEscapeCloseRef.value || i.value)
           return;
-        e.onTriggerEnter(o.value), i.value = true;
+        e.onTriggerEnter(t.value), i.value = true;
       }
-    }, f = ($) => {
-      if ($.pointerType === "mouse") {
-        if (t.disabled)
+    }, f = (C) => {
+      if (C.pointerType === "mouse") {
+        if (o.disabled)
           return;
         e.onTriggerLeave(), i.value = false;
       }
     }, v = () => {
-      p.value ? e == null || e.onItemSelect("") : e == null || e.onItemSelect(o.value), d.value = p.value;
-    }, h2 = ($) => {
-      const P = { horizontal: "ArrowDown", vertical: e.dir === "rtl" ? "ArrowLeft" : "ArrowRight" }[e.orientation];
-      p.value && $.key === P && (o.onEntryKeyDown(), $.preventDefault(), $.stopPropagation());
-    }, y = ($) => {
-      o.focusProxyRef.value = J($);
-    }, C = ($) => {
-      var T, U;
+      p.value ? e == null || e.onItemSelect("") : e == null || e.onItemSelect(t.value), d.value = p.value;
+    }, g = (C) => {
+      const B = { horizontal: "ArrowDown", vertical: e.dir === "rtl" ? "ArrowLeft" : "ArrowRight" }[e.orientation];
+      p.value && C.key === B && (t.onEntryKeyDown(), C.preventDefault(), C.stopPropagation());
+    }, h2 = (C) => {
+      t.focusProxyRef.value = Z(C);
+    }, x = (C) => {
+      var T, q;
       const S = (
         // @ts-ignore
-        ((U = (T = o.contentRef.value) == null ? void 0 : T.children) == null ? void 0 : U[0].el).parentElement
-      ), P = $.relatedTarget, R = P === l.value, I = S == null ? void 0 : S.contains(P);
-      (R || !I) && o.onFocusProxyEnter(R ? "start" : "end");
+        ((q = (T = t.contentRef.value) == null ? void 0 : T.children) == null ? void 0 : q[0].el).parentElement
+      ), B = C.relatedTarget, R = B === a.value, I = S == null ? void 0 : S.contains(B);
+      (R || !I) && t.onFocusProxyEnter(R ? "start" : "end");
     };
-    return ($, S) => {
-      var P;
+    return (C, S) => {
+      var B;
       return openBlock(), createElementBlock(Fragment, null, [
         createVNode(unref(X), mergeProps({
           ref_key: "primitiveElement",
-          ref: a,
+          ref: l,
           id: unref(r),
-          disabled: $.disabled,
-          "data-disabled": $.disabled ? "" : void 0,
-          "data-state": unref(co)(p.value),
+          disabled: C.disabled,
+          "data-disabled": C.disabled ? "" : void 0,
+          "data-state": unref(fo)(p.value),
           "aria-expanded": p.value,
           "aria-controls": unref(s),
+          "as-child": o.asChild,
           onPointerenter: c,
           onPointermove: m,
           onPointerleave: f,
           onClick: v,
-          onKeydown: h2
-        }, $.$attrs, { "data-radix-vue-collection-item": "" }), {
+          onKeydown: g
+        }, C.$attrs, { "data-radix-vue-collection-item": "" }), {
           default: withCtx(() => [
-            renderSlot($.$slots, "default")
+            renderSlot(C.$slots, "default")
           ]),
           _: 3
-        }, 16, ["id", "disabled", "data-disabled", "data-state", "aria-expanded", "aria-controls"]),
+        }, 16, ["id", "disabled", "data-disabled", "data-state", "aria-expanded", "aria-controls", "as-child"]),
         p.value ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
-          createVNode(unref(Al), {
+          createVNode(unref(Ol), {
             "aria-hidden": "",
             tabIndex: 0,
-            ref: y,
-            onFocus: C
+            ref: h2,
+            onFocus: x
           }),
-          (P = unref(e)) != null && P.viewport ? (openBlock(), createElementBlock("span", {
+          (B = unref(e)) != null && B.viewport ? (openBlock(), createElementBlock("span", {
             key: 0,
             "aria-owns": unref(s)
-          }, null, 8, Tl)) : createCommentVNode("", true)
+          }, null, 8, Ml)) : createCommentVNode("", true)
         ], 64)) : createCommentVNode("", true)
       ], 64);
     };
   }
 });
-var fs = defineComponent({
+var _s = defineComponent({
   inheritAttrs: false,
   __name: "NavigationMenuList",
+  props: {
+    asChild: { type: Boolean }
+  },
   setup(n) {
-    const t = inject(Te), { primitiveElement: e, currentElement: o } = B(), { setCollection: a } = re();
-    return a(o), onMounted(() => {
-      t == null || t.onIndicatorTrackChange(o.value);
-    }), (l, r) => (openBlock(), createBlock(unref(D), {
+    const o = n, e = inject(Ae), { primitiveElement: t, currentElement: l } = P(), { setCollection: a } = le();
+    return a(l), onMounted(() => {
+      e == null || e.onIndicatorTrackChange(l.value);
+    }), (r, s) => (openBlock(), createBlock(unref(D), {
       ref_key: "primitiveElement",
-      ref: e,
+      ref: t,
       style: { position: "relative" }
     }, {
       default: withCtx(() => {
-        var s;
+        var i;
         return [
-          createVNode(unref(Ca), mergeProps(l.$attrs, {
-            "data-orientation": (s = unref(t)) == null ? void 0 : s.orientation
+          createVNode(unref($a), mergeProps(r.$attrs, {
+            "as-child": o.asChild,
+            "data-orientation": (i = unref(e)) == null ? void 0 : i.orientation
           }), {
             default: withCtx(() => [
-              renderSlot(l.$slots, "default")
+              renderSlot(r.$slots, "default")
             ]),
             _: 3
-          }, 16, ["data-orientation"])
+          }, 16, ["as-child", "data-orientation"])
         ];
       }),
       _: 3
     }, 512));
   }
 });
-var ms = defineComponent({
+var ys = defineComponent({
   inheritAttrs: false,
   __name: "NavigationMenuViewport",
   setup(n) {
-    const { primitiveElement: t, currentElement: e } = B(), o = inject(Te), a = ref(), l = computed(() => !!(o != null && o.modelValue.value)), r = computed(
-      () => l.value ? o.modelValue.value : o.previousValue.value
+    const { primitiveElement: o, currentElement: e } = P(), t = inject(Ae), l = ref(), a = computed(() => !!(t != null && t.modelValue.value)), r = computed(
+      () => a.value ? t.modelValue.value : t.previousValue.value
     );
     onMounted(() => {
-      o.onViewportChange(e.value);
+      t.onViewportChange(e.value);
     });
     const s = computed(
       () => (
         // @ts-ignore
-        Array.from(o == null ? void 0 : o.viewportContent.value.values())
+        Array.from(t == null ? void 0 : t.viewportContent.value.values())
       )
     ), i = ref(), d = computed(() => {
       var m;
       const c = (m = i.value) == null ? void 0 : m.find(
         (f) => (f == null ? void 0 : f.value) === r.value
       );
-      return J(c == null ? void 0 : c.$el);
+      return Z(c == null ? void 0 : c.$el);
     }), p = (c) => {
       var m, f, v;
-      o.modelValue.value = "", (v = (f = (m = c.props) == null ? void 0 : m.triggerRef) == null ? void 0 : f.value) == null || v.focus(), c.props.wasEscapeCloseRef.value = true;
+      t.modelValue.value = "", (v = (f = (m = c.props) == null ? void 0 : m.triggerRef) == null ? void 0 : f.value) == null || v.focus(), c.props.wasEscapeCloseRef.value = true;
     };
     return He(d, () => {
-      d.value && (a.value = {
+      d.value && (l.value = {
         width: d.value.offsetWidth,
         height: d.value.offsetHeight
       });
-    }), (c, m) => (openBlock(), createBlock(unref(Qe), { present: l.value }, {
+    }), (c, m) => (openBlock(), createBlock(unref(Ve), { present: a.value }, {
       default: withCtx(() => {
-        var f, v, h2, y;
+        var f, v, g, h2;
         return [
           createVNode(unref(D), mergeProps(c.$attrs, {
             ref_key: "primitiveElement",
-            ref: t,
-            "data-state": unref(co)(l.value),
-            "data-orientation": (f = unref(o)) == null ? void 0 : f.orientation,
+            ref: o,
+            "data-state": unref(fo)(a.value),
+            "data-orientation": (f = unref(t)) == null ? void 0 : f.orientation,
             style: {
               // Prevent interaction when animating out
-              pointerEvents: !l.value && ((v = unref(o)) != null && v.isRootMenu) ? "none" : void 0,
-              ["--radix-navigation-menu-viewport-width"]: a.value ? ((h2 = a.value) == null ? void 0 : h2.width) + "px" : void 0,
-              ["--radix-navigation-menu-viewport-height"]: a.value ? ((y = a.value) == null ? void 0 : y.height) + "px" : void 0
+              pointerEvents: !a.value && ((v = unref(t)) != null && v.isRootMenu) ? "none" : void 0,
+              ["--radix-navigation-menu-viewport-width"]: l.value ? ((g = l.value) == null ? void 0 : g.width) + "px" : void 0,
+              ["--radix-navigation-menu-viewport-height"]: l.value ? ((h2 = l.value) == null ? void 0 : h2.height) + "px" : void 0
             },
-            onPointerenter: m[0] || (m[0] = (C) => {
-              var $;
-              return ($ = unref(o)) == null ? void 0 : $.onContentEnter(r.value);
+            onPointerenter: m[0] || (m[0] = (x) => {
+              var C;
+              return (C = unref(t)) == null ? void 0 : C.onContentEnter(r.value);
             }),
-            onPointerleave: m[1] || (m[1] = (C) => {
-              var $;
-              return ($ = unref(o)) == null ? void 0 : $.onContentLeave();
+            onPointerleave: m[1] || (m[1] = (x) => {
+              var C;
+              return (C = unref(t)) == null ? void 0 : C.onContentLeave();
             })
           }), {
             default: withCtx(() => [
-              (openBlock(true), createElementBlock(Fragment, null, renderList(s.value, (C) => {
-                var $, S;
-                return openBlock(), createBlock(unref(Qe), {
-                  key: ($ = C.props) == null ? void 0 : $.value,
-                  present: r.value === ((S = C.props) == null ? void 0 : S.value)
+              (openBlock(true), createElementBlock(Fragment, null, renderList(s.value, (x) => {
+                var C, S;
+                return openBlock(), createBlock(unref(Ve), {
+                  key: (C = x.props) == null ? void 0 : C.value,
+                  present: r.value === ((S = x.props) == null ? void 0 : S.value)
                 }, {
                   default: withCtx(() => [
-                    createVNode(Sn, mergeProps({
+                    createVNode(Tn, mergeProps({
                       ref_for: true,
                       ref_key: "items",
                       ref: i
-                    }, { ...C.props, ...C.parentProps }, {
-                      onEscape: (P) => p(C)
+                    }, { ...x.props, ...x.parentProps }, {
+                      onEscape: (B) => p(x)
                     }), {
                       default: withCtx(() => [
-                        (openBlock(), createBlock(resolveDynamicComponent(C)))
+                        (openBlock(), createBlock(resolveDynamicComponent(x)))
                       ]),
                       _: 2
                     }, 1040, ["onEscape"])
@@ -7311,72 +7453,80 @@ var ms = defineComponent({
     }, 8, ["present"]));
   }
 });
-var ve = "ScrollArea";
-var vs = defineComponent({
+var me = "ScrollArea";
+var gs = defineComponent({
   __name: "ScrollAreaRoot",
   props: {
     type: { default: "hover" },
     dir: { default: "ltr" },
-    scrollHideDelay: { default: 600 }
+    scrollHideDelay: { default: 600 },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = ref(0), o = ref(0), a = ref(), l = ref(), r = ref(), s = ref(), i = ref(false), d = ref(false), p = ref(), c = (C) => {
-      a.value = C;
-    }, m = (C) => {
-      l.value = C;
-    }, f = (C) => {
+    const o = n, { primitiveElement: e, currentElement: t } = P(), l = ref(0), a = ref(0), r = ref(), s = ref(), i = ref(), d = ref(), p = ref(false), c = ref(false), m = (C) => {
       r.value = C;
-    }, v = (C) => {
+    }, f = (C) => {
       s.value = C;
-    }, h2 = (C) => {
+    }, v = (C) => {
       i.value = C;
-    }, y = (C) => {
+    }, g = (C) => {
       d.value = C;
+    }, h2 = (C) => {
+      p.value = C;
+    }, x = (C) => {
+      c.value = C;
     };
-    return provide(ve, {
-      type: t.type,
-      dir: t.dir,
-      scrollHideDelay: t.scrollHideDelay,
-      scrollArea: p,
-      viewport: a,
-      onViewportChange: c,
-      content: l,
-      onContentChange: m,
-      scrollbarX: r,
-      scrollbarXEnabled: i,
-      scrollbarY: s,
-      scrollbarYEnabled: d,
-      onScrollbarXChange: f,
-      onScrollbarYChange: v,
+    return provide(me, {
+      type: o.type,
+      dir: o.dir,
+      scrollHideDelay: o.scrollHideDelay,
+      scrollArea: t,
+      viewport: r,
+      onViewportChange: m,
+      content: s,
+      onContentChange: f,
+      scrollbarX: i,
+      scrollbarXEnabled: p,
+      scrollbarY: d,
+      scrollbarYEnabled: c,
+      onScrollbarXChange: v,
+      onScrollbarYChange: g,
       onScrollbarXEnabledChange: h2,
-      onScrollbarYEnabledChange: y
-    }), (C, $) => (openBlock(), createElementBlock("div", {
-      ref_key: "scrollArea",
-      ref: p,
+      onScrollbarYEnabledChange: x
+    }), (C, S) => (openBlock(), createBlock(unref(D), {
+      ref_key: "primitiveElement",
+      ref: e,
+      "as-child": o.asChild,
       style: normalizeStyle({
         position: "relative",
         // Pass corner sizes as CSS vars to reduce re-renders of context consumers
-        ["--radix-scroll-area-corner-width"]: e.value + "px",
-        ["--radix-scroll-area-corner-height"]: o.value + "px"
+        ["--radix-scroll-area-corner-width"]: l.value + "px",
+        ["--radix-scroll-area-corner-height"]: a.value + "px"
       })
-    }, [
-      renderSlot(C.$slots, "default")
-    ], 4));
+    }, {
+      default: withCtx(() => [
+        renderSlot(C.$slots, "default")
+      ]),
+      _: 3
+    }, 8, ["as-child", "style"]));
   }
 });
-var hs = defineComponent({
+var bs = defineComponent({
   __name: "ScrollAreaViewport",
+  props: {
+    asChild: { type: Boolean }
+  },
   setup(n) {
-    const t = inject(
-      ve
-    ), e = ref(), o = ref();
+    const o = n, e = inject(
+      me
+    ), { primitiveElement: t, currentElement: l } = P(), a = ref();
     return onMounted(() => {
-      t == null || t.onViewportChange(e.value), t == null || t.onContentChange(o.value);
-    }), (a, l) => {
-      var r, s;
+      e == null || e.onViewportChange(a.value), e == null || e.onContentChange(l.value);
+    }), (r, s) => {
+      var i, d;
       return openBlock(), createElementBlock("div", {
         ref_key: "viewportElement",
-        ref: e,
+        ref: a,
         "data-radix-scroll-area-viewport": "",
         style: normalizeStyle({
           /**
@@ -7390,169 +7540,179 @@ var hs = defineComponent({
            * the browser from having to work out whether to render native scrollbars or not,
            * we tell it to with the intention of hiding them in CSS.
            */
-          overflowX: (r = unref(t)) != null && r.scrollbarXEnabled.value ? "scroll" : "hidden",
-          overflowY: (s = unref(t)) != null && s.scrollbarYEnabled.value ? "scroll" : "hidden"
+          overflowX: (i = unref(e)) != null && i.scrollbarXEnabled.value ? "scroll" : "hidden",
+          overflowY: (d = unref(e)) != null && d.scrollbarYEnabled.value ? "scroll" : "hidden"
         })
       }, [
-        createBaseVNode("div", {
-          ref_key: "contentElement",
-          ref: o,
-          style: { minWidth: "100%", display: "table" }
-        }, [
-          renderSlot(a.$slots, "default")
-        ], 512)
+        createVNode(unref(D), {
+          ref_key: "primitiveElement",
+          ref: t,
+          style: { minWidth: "100%", display: "table" },
+          "as-child": o.asChild
+        }, {
+          default: withCtx(() => [
+            renderSlot(r.$slots, "default")
+          ]),
+          _: 3
+        }, 8, ["as-child"])
       ], 4);
     };
   }
 });
-function Pl(n, [t, e]) {
-  return Math.min(e, Math.max(t, n));
+function Dl(n, [o, e]) {
+  return Math.min(e, Math.max(o, n));
 }
-function An(n, t) {
+function Pn(n, o) {
   return (e) => {
-    if (n[0] === n[1] || t[0] === t[1])
-      return t[0];
-    const o = (t[1] - t[0]) / (n[1] - n[0]);
-    return t[0] + o * (e - n[0]);
+    if (n[0] === n[1] || o[0] === o[1])
+      return o[0];
+    const t = (o[1] - o[0]) / (n[1] - n[0]);
+    return o[0] + t * (e - n[0]);
   };
 }
 function Ot(n) {
-  const t = Tn(n.viewport, n.content), e = n.scrollbar.paddingStart + n.scrollbar.paddingEnd, o = (n.scrollbar.size - e) * t;
-  return Math.max(o, 18);
+  const o = On(n.viewport, n.content), e = n.scrollbar.paddingStart + n.scrollbar.paddingEnd, t = (n.scrollbar.size - e) * o;
+  return Math.max(t, 18);
 }
-function Tn(n, t) {
-  const e = n / t;
+function On(n, o) {
+  const e = n / o;
   return isNaN(e) ? 0 : e;
 }
-var Ol = (n, t = () => {
+var Rl = (n, o = () => {
 }) => {
-  let e = { left: n.scrollLeft, top: n.scrollTop }, o = 0;
-  return function a() {
-    const l = { left: n.scrollLeft, top: n.scrollTop }, r = e.left !== l.left, s = e.top !== l.top;
-    (r || s) && t(), e = l, o = window.requestAnimationFrame(a);
-  }(), () => window.cancelAnimationFrame(o);
+  let e = { left: n.scrollLeft, top: n.scrollTop }, t = 0;
+  return function l() {
+    const a = { left: n.scrollLeft, top: n.scrollTop }, r = e.left !== a.left, s = e.top !== a.top;
+    (r || s) && o(), e = a, t = window.requestAnimationFrame(l);
+  }(), () => window.cancelAnimationFrame(t);
 };
-function Mo(n, t, e = "ltr") {
-  const o = Ot(t), a = t.scrollbar.paddingStart + t.scrollbar.paddingEnd, l = t.scrollbar.size - a, r = t.content - t.viewport, s = l - o, i = e === "ltr" ? [0, r] : [r * -1, 0], d = Pl(
+function Ro(n, o, e = "ltr") {
+  const t = Ot(o), l = o.scrollbar.paddingStart + o.scrollbar.paddingEnd, a = o.scrollbar.size - l, r = o.content - o.viewport, s = a - t, i = e === "ltr" ? [0, r] : [r * -1, 0], d = Dl(
     n,
     i
   );
-  return An([0, r], [0, s])(d);
+  return Pn([0, r], [0, s])(d);
 }
-function pt(n) {
+function ft(n) {
   return n ? parseInt(n, 10) : 0;
 }
-function Bl(n, t, e, o = "ltr") {
-  const a = Ot(e), l = a / 2, r = t || l, s = a - r, i = e.scrollbar.paddingStart + r, d = e.scrollbar.size - e.scrollbar.paddingEnd - s, p = e.content - e.viewport, c = o === "ltr" ? [0, p] : [p * -1, 0];
-  return An(
+function Il(n, o, e, t = "ltr") {
+  const l = Ot(e), a = l / 2, r = o || a, s = l - r, i = e.scrollbar.paddingStart + r, d = e.scrollbar.size - e.scrollbar.paddingEnd - s, p = e.content - e.viewport, c = t === "ltr" ? [0, p] : [p * -1, 0];
+  return Pn(
     [i, d],
     c
   )(n);
 }
-function Do(n, t) {
-  return n > 0 && n < t;
+function Io(n, o) {
+  return n > 0 && n < o;
 }
-var Pn = defineComponent({
+var Mn = defineComponent({
   __name: "ScrollAreaScrollbarImpl",
   props: {
     isHorizontal: { type: Boolean }
   },
   emits: ["onDragScroll", "onWheelScroll", "onThumbPointerDown"],
-  setup(n, { emit: t }) {
-    const e = n, o = inject(
-      ve
+  setup(n, { emit: o }) {
+    const e = n, t = inject(
+      me
+    ), l = inject(
+      ct
     ), a = inject(
-      ut
-    ), { primitiveElement: l, currentElement: r } = B(), s = ref(""), i = ref();
-    function d(h2) {
-      var y, C;
-      if (i.value) {
-        const $ = h2.clientX - ((y = i.value) == null ? void 0 : y.left), S = h2.clientY - ((C = i.value) == null ? void 0 : C.top);
-        t("onDragScroll", { x: $, y: S });
+      Xe
+    ), { primitiveElement: r, currentElement: s } = P(), i = ref(""), d = ref();
+    function p(h2) {
+      var x, C;
+      if (d.value) {
+        const S = h2.clientX - ((x = d.value) == null ? void 0 : x.left), B = h2.clientY - ((C = d.value) == null ? void 0 : C.top);
+        o("onDragScroll", { x: S, y: B });
       }
     }
-    const p = (h2) => {
-      h2.button === 0 && (h2.target.setPointerCapture(h2.pointerId), i.value = r.value.getBoundingClientRect(), s.value = document.body.style.webkitUserSelect, document.body.style.webkitUserSelect = "none", o != null && o.viewport && (o.viewport.value.style.scrollBehavior = "auto"), d(h2));
-    }, c = (h2) => {
-      d(h2);
+    const c = (h2) => {
+      h2.button === 0 && (h2.target.setPointerCapture(h2.pointerId), d.value = s.value.getBoundingClientRect(), i.value = document.body.style.webkitUserSelect, document.body.style.webkitUserSelect = "none", t != null && t.viewport && (t.viewport.value.style.scrollBehavior = "auto"), p(h2));
     }, m = (h2) => {
-      const y = h2.target;
-      y.hasPointerCapture(h2.pointerId) && y.releasePointerCapture(h2.pointerId), document.body.style.webkitUserSelect = s.value, o != null && o.viewport && (o.viewport.value.style.scrollBehavior = ""), i.value = void 0;
+      p(h2);
     }, f = (h2) => {
-      var S;
-      if (!a)
+      const x = h2.target;
+      x.hasPointerCapture(h2.pointerId) && x.releasePointerCapture(h2.pointerId), document.body.style.webkitUserSelect = i.value, t != null && t.viewport && (t.viewport.value.style.scrollBehavior = ""), d.value = void 0;
+    }, v = (h2) => {
+      var B;
+      if (!l)
         return;
-      const y = h2.target, C = (S = r.value) == null ? void 0 : S.contains(y), $ = a.sizes.value.content - a.sizes.value.viewport;
-      C && a.handleWheelScroll(h2, $);
+      const x = h2.target, C = (B = s.value) == null ? void 0 : B.contains(x), S = l.sizes.value.content - l.sizes.value.viewport;
+      C && l.handleWheelScroll(h2, S);
     };
     onMounted(() => {
-      document.addEventListener("wheel", f, { passive: false });
+      document.addEventListener("wheel", v, { passive: false });
     }), onUnmounted(() => {
-      document.removeEventListener("wheel", f);
+      document.removeEventListener("wheel", v);
     });
-    const v = () => {
-      var h2, y, C, $, S, P;
-      r.value && (e.isHorizontal ? a == null || a.handleSizeChange({
-        content: ((h2 = o == null ? void 0 : o.viewport.value) == null ? void 0 : h2.scrollWidth) ?? 0,
-        viewport: ((y = o == null ? void 0 : o.viewport.value) == null ? void 0 : y.offsetWidth) ?? 0,
+    const g = () => {
+      var h2, x, C, S, B, R;
+      s.value && (e.isHorizontal ? l == null || l.handleSizeChange({
+        content: ((h2 = t == null ? void 0 : t.viewport.value) == null ? void 0 : h2.scrollWidth) ?? 0,
+        viewport: ((x = t == null ? void 0 : t.viewport.value) == null ? void 0 : x.offsetWidth) ?? 0,
         scrollbar: {
-          size: ((C = r.value) == null ? void 0 : C.clientWidth) ?? 0,
-          paddingStart: pt(getComputedStyle(r.value).paddingLeft),
-          paddingEnd: pt(getComputedStyle(r.value).paddingRight)
+          size: ((C = s.value) == null ? void 0 : C.clientWidth) ?? 0,
+          paddingStart: ft(getComputedStyle(s.value).paddingLeft),
+          paddingEnd: ft(getComputedStyle(s.value).paddingRight)
         }
-      }) : a == null || a.handleSizeChange({
-        content: (($ = o == null ? void 0 : o.viewport.value) == null ? void 0 : $.scrollHeight) ?? 0,
-        viewport: ((S = o == null ? void 0 : o.viewport.value) == null ? void 0 : S.offsetHeight) ?? 0,
+      }) : l == null || l.handleSizeChange({
+        content: ((S = t == null ? void 0 : t.viewport.value) == null ? void 0 : S.scrollHeight) ?? 0,
+        viewport: ((B = t == null ? void 0 : t.viewport.value) == null ? void 0 : B.offsetHeight) ?? 0,
         scrollbar: {
-          size: ((P = r.value) == null ? void 0 : P.clientHeight) ?? 0,
-          paddingStart: pt(getComputedStyle(r.value).paddingLeft),
-          paddingEnd: pt(getComputedStyle(r.value).paddingRight)
+          size: ((R = s.value) == null ? void 0 : R.clientHeight) ?? 0,
+          paddingStart: ft(getComputedStyle(s.value).paddingLeft),
+          paddingEnd: ft(getComputedStyle(s.value).paddingRight)
         }
       }));
     };
-    return He(r, v), He(o == null ? void 0 : o.content, v), (h2, y) => (openBlock(), createBlock(unref(D), {
-      ref_key: "primitiveElement",
-      ref: l,
-      style: { position: "absolute" },
-      onPointerdown: p,
-      onPointermove: c,
-      onPointerup: m
-    }, {
-      default: withCtx(() => [
-        renderSlot(h2.$slots, "default")
-      ]),
-      _: 3
-    }, 512));
+    return He(s, g), He(t == null ? void 0 : t.content, g), (h2, x) => {
+      var C;
+      return openBlock(), createBlock(unref(D), {
+        ref_key: "primitiveElement",
+        ref: r,
+        style: { position: "absolute" },
+        "as-child": (C = unref(a)) == null ? void 0 : C.asChild,
+        onPointerdown: c,
+        onPointermove: m,
+        onPointerup: f
+      }, {
+        default: withCtx(() => [
+          renderSlot(h2.$slots, "default")
+        ]),
+        _: 3
+      }, 8, ["as-child"]);
+    };
   }
 });
-var Ml = defineComponent({
+var Nl = defineComponent({
   __name: "ScrollAreaScrollbarX",
   setup(n) {
-    const t = inject(
-      ve
+    const o = inject(
+      me
     ), e = inject(
-      ut
-    ), { primitiveElement: o, currentElement: a } = B();
+      ct
+    ), { primitiveElement: t, currentElement: l } = P();
     onMounted(() => {
-      a.value && (t == null || t.onScrollbarYChange(a.value));
+      l.value && (o == null || o.onScrollbarYChange(l.value));
     });
-    const l = computed(() => e == null ? void 0 : e.sizes.value);
+    const a = computed(() => e == null ? void 0 : e.sizes.value);
     return (r, s) => {
       var i, d;
-      return openBlock(), createBlock(Pn, {
+      return openBlock(), createBlock(Mn, {
         "is-horizontal": true,
         "data-orientation": "horizontal",
         ref_key: "primitiveElement",
-        ref: o,
+        ref: t,
         onOnDragScroll: s[0] || (s[0] = (p) => {
           var c;
           return (c = unref(e)) == null ? void 0 : c.onDragScroll(p.x);
         }),
         style: normalizeStyle({
           bottom: 0,
-          left: ((i = unref(t)) == null ? void 0 : i.dir) === "rtl" ? "var(--radix-scroll-area-corner-width)" : 0,
-          right: ((d = unref(t)) == null ? void 0 : d.dir) === "ltr" ? "var(--radix-scroll-area-corner-width)" : 0,
-          ["--radix-scroll-area-thumb-width"]: l.value ? unref(Ot)(l.value) + "px" : void 0
+          left: ((i = unref(o)) == null ? void 0 : i.dir) === "rtl" ? "var(--radix-scroll-area-corner-width)" : 0,
+          right: ((d = unref(o)) == null ? void 0 : d.dir) === "ltr" ? "var(--radix-scroll-area-corner-width)" : 0,
+          ["--radix-scroll-area-thumb-width"]: a.value ? unref(Ot)(a.value) + "px" : void 0
         })
       }, {
         default: withCtx(() => [
@@ -7563,35 +7723,35 @@ var Ml = defineComponent({
     };
   }
 });
-var Dl = defineComponent({
+var Ll = defineComponent({
   __name: "ScrollAreaScrollbarY",
   setup(n) {
-    const t = inject(
-      ve
+    const o = inject(
+      me
     ), e = inject(
-      ut
-    ), { primitiveElement: o, currentElement: a } = B();
+      ct
+    ), { primitiveElement: t, currentElement: l } = P();
     onMounted(() => {
-      a.value && (t == null || t.onScrollbarYChange(a.value));
+      l.value && (o == null || o.onScrollbarYChange(l.value));
     });
-    const l = computed(() => e == null ? void 0 : e.sizes.value);
+    const a = computed(() => e == null ? void 0 : e.sizes.value);
     return (r, s) => {
       var i, d;
-      return openBlock(), createBlock(Pn, {
+      return openBlock(), createBlock(Mn, {
         "is-horizontal": false,
         "data-orientation": "vertical",
         ref_key: "primitiveElement",
-        ref: o,
+        ref: t,
         onOnDragScroll: s[0] || (s[0] = (p) => {
           var c;
           return (c = unref(e)) == null ? void 0 : c.onDragScroll(p.y);
         }),
         style: normalizeStyle({
           top: 0,
-          right: ((i = unref(t)) == null ? void 0 : i.dir) === "ltr" ? 0 : void 0,
-          left: ((d = unref(t)) == null ? void 0 : d.dir) === "rtl" ? 0 : void 0,
+          right: ((i = unref(o)) == null ? void 0 : i.dir) === "ltr" ? 0 : void 0,
+          left: ((d = unref(o)) == null ? void 0 : d.dir) === "rtl" ? 0 : void 0,
           bottom: "var(--radix-scroll-area-corner-height)",
-          ["--radix-scroll-area-thumb-height"]: l.value ? unref(Ot)(l.value) + "px" : void 0
+          ["--radix-scroll-area-thumb-height"]: a.value ? unref(Ot)(a.value) + "px" : void 0
         })
       }, {
         default: withCtx(() => [
@@ -7602,159 +7762,160 @@ var Dl = defineComponent({
     };
   }
 });
-var ut = "ScrollAreaScrollbarVisible";
-var fo = defineComponent({
+var ct = "ScrollAreaScrollbarVisible";
+var vo = defineComponent({
   __name: "ScrollAreaScrollbarVisible",
   setup(n) {
-    const t = inject(
-      ve
+    const o = inject(
+      me
     ), e = inject(
-      dt
-    ), o = ref({
+      Xe
+    ), t = ref({
       content: 0,
       viewport: 0,
       scrollbar: { size: 0, paddingStart: 0, paddingEnd: 0 }
-    }), a = computed(() => {
-      const y = Tn(o.value.viewport, o.value.content);
-      return y > 0 && y < 1;
-    }), l = ref(), r = ref(0), s = (y, C) => {
+    }), l = computed(() => {
+      const h2 = On(t.value.viewport, t.value.content);
+      return h2 > 0 && h2 < 1;
+    }), a = ref(), r = ref(0), s = (h2, x) => {
       if (m.value) {
-        const $ = t.viewport.value.scrollLeft + y.deltaY;
-        t.viewport.value.scrollLeft = $, Do($, C) && y.preventDefault();
+        const C = o.viewport.value.scrollLeft + h2.deltaY;
+        o.viewport.value.scrollLeft = C, Io(C, x) && h2.preventDefault();
       } else {
-        const $ = t.viewport.value.scrollTop + y.deltaY;
-        t.viewport.value.scrollTop = $, Do($, C) && y.preventDefault();
+        const C = o.viewport.value.scrollTop + h2.deltaY;
+        o.viewport.value.scrollTop = C, Io(C, x) && h2.preventDefault();
       }
-    }, i = (y, C) => {
-      m.value ? r.value = C.x : r.value = C.y;
-    }, d = (y) => {
+    }, i = (h2, x) => {
+      m.value ? r.value = x.x : r.value = x.y;
+    }, d = (h2) => {
       r.value = 0;
-    }, p = (y) => {
-      o.value = y;
+    }, p = (h2) => {
+      t.value = h2;
     };
-    function c(y, C) {
-      return Bl(
-        y,
+    function c(h2, x) {
+      return Il(
+        h2,
         r.value,
-        o.value,
-        C
+        t.value,
+        x
       );
     }
     const m = computed(
       () => e == null ? void 0 : e.isHorizontal.value
     );
     return provide(
-      ut,
+      ct,
       {
-        sizes: o,
-        hasThumb: a,
+        sizes: t,
+        hasThumb: l,
         handleWheelScroll: s,
         handleThumbDown: i,
         handleThumbUp: d,
         handleSizeChange: p,
         onThumbPositionChange: () => {
           if (m.value) {
-            if (t != null && t.viewport.value && l.value) {
-              const y = t == null ? void 0 : t.viewport.value.scrollLeft, C = Mo(
-                y,
-                o.value,
-                t == null ? void 0 : t.dir
+            if (o != null && o.viewport.value && a.value) {
+              const h2 = o == null ? void 0 : o.viewport.value.scrollLeft, x = Ro(
+                h2,
+                t.value,
+                o == null ? void 0 : o.dir
               );
-              l.value.style.transform = `translate3d(${C}px, 0, 0)`;
+              a.value.style.transform = `translate3d(${x}px, 0, 0)`;
             }
-          } else if (t != null && t.viewport.value && l.value) {
-            const y = t == null ? void 0 : t.viewport.value.scrollTop, C = Mo(y, o.value);
-            l.value.style.transform = `translate3d(0, ${C}px, 0)`;
+          } else if (o != null && o.viewport.value && a.value) {
+            const h2 = o == null ? void 0 : o.viewport.value.scrollTop, x = Ro(h2, t.value);
+            a.value.style.transform = `translate3d(0, ${x}px, 0)`;
           }
         },
-        onThumbChange: (y) => {
-          l.value = y;
+        onThumbChange: (h2) => {
+          a.value = h2;
         },
-        onDragScroll: (y) => {
-          m.value ? t.viewport.value.scrollLeft = c(
-            y,
-            t.dir
-          ) : t.viewport.value.scrollTop = c(y);
+        onDragScroll: (h2) => {
+          m.value ? o.viewport.value.scrollLeft = c(
+            h2,
+            o.dir
+          ) : o.viewport.value.scrollTop = c(h2);
         }
       }
-    ), (y, C) => m.value ? (openBlock(), createBlock(Ml, { key: 0 }, {
+    ), (h2, x) => m.value ? (openBlock(), createBlock(Nl, { key: 0 }, {
       default: withCtx(() => [
-        renderSlot(y.$slots, "default")
+        renderSlot(h2.$slots, "default")
       ]),
       _: 3
-    })) : (openBlock(), createBlock(Dl, { key: 1 }, {
+    })) : (openBlock(), createBlock(Ll, { key: 1 }, {
       default: withCtx(() => [
-        renderSlot(y.$slots, "default")
+        renderSlot(h2.$slots, "default")
       ]),
       _: 3
     }));
   }
 });
-var On = defineComponent({
+var Dn = defineComponent({
   __name: "ScrollAreaScrollbarAuto",
   setup(n) {
-    const t = inject(
-      ve
+    const o = inject(
+      me
     ), e = inject(
-      dt
-    ), o = ref(false), a = Gt(() => {
-      if (t != null && t.viewport.value) {
-        const l = (t == null ? void 0 : t.viewport.value.offsetWidth) < (t == null ? void 0 : t.viewport.value.scrollWidth), r = (t == null ? void 0 : t.viewport.value.offsetHeight) < (t == null ? void 0 : t.viewport.value.scrollHeight);
-        o.value = e != null && e.isHorizontal.value ? l : r;
+      Xe
+    ), t = ref(false), l = Ft(() => {
+      if (o != null && o.viewport.value) {
+        const a = (o == null ? void 0 : o.viewport.value.offsetWidth) < (o == null ? void 0 : o.viewport.value.scrollWidth), r = (o == null ? void 0 : o.viewport.value.offsetHeight) < (o == null ? void 0 : o.viewport.value.scrollHeight);
+        t.value = e != null && e.isHorizontal.value ? a : r;
       }
     }, 10);
-    return He(t == null ? void 0 : t.viewport, a), He(t == null ? void 0 : t.content, a), (l, r) => o.value ? (openBlock(), createBlock(fo, mergeProps({ key: 0 }, l.$attrs, {
-      "data-state": o.value ? "visible" : "hidden"
+    return He(o == null ? void 0 : o.viewport, l), He(o == null ? void 0 : o.content, l), (a, r) => t.value ? (openBlock(), createBlock(vo, mergeProps({ key: 0 }, a.$attrs, {
+      "data-state": t.value ? "visible" : "hidden"
     }), {
       default: withCtx(() => [
-        renderSlot(l.$slots, "default")
+        renderSlot(a.$slots, "default")
       ]),
       _: 3
     }, 16, ["data-state"])) : createCommentVNode("", true);
   }
 });
-var Rl = {
+var Kl = {
   inheritAttrs: false
 };
-var Il = defineComponent({
-  ...Rl,
+var Hl = defineComponent({
+  ...Kl,
   __name: "ScrollAreaScrollbarHover",
   setup(n) {
-    const t = inject(ve), e = inject(
-      dt
+    const o = inject(me);
+    inject(
+      Xe
     );
-    let o;
-    const a = ref(false), l = () => {
-      window.clearTimeout(o), a.value = true, console.log(e);
-    }, r = () => {
-      o = window.setTimeout(() => {
-        a.value = false;
-      }, t == null ? void 0 : t.scrollHideDelay);
+    let e;
+    const t = ref(false), l = () => {
+      window.clearTimeout(e), t.value = true;
+    }, a = () => {
+      e = window.setTimeout(() => {
+        t.value = false;
+      }, o == null ? void 0 : o.scrollHideDelay);
     };
     return onMounted(() => {
-      const s = t == null ? void 0 : t.scrollArea.value;
-      s && (s.addEventListener("pointerenter", l), s.addEventListener("pointerleave", r));
+      const r = o == null ? void 0 : o.scrollArea.value;
+      r && (r.addEventListener("pointerenter", l), r.addEventListener("pointerleave", a));
     }), onUnmounted(() => {
-      const s = t == null ? void 0 : t.scrollArea.value;
-      s && (window.clearTimeout(o), s.removeEventListener("pointerenter", l), s.removeEventListener("pointerleave", r));
-    }), (s, i) => a.value ? (openBlock(), createBlock(On, mergeProps({ key: 0 }, s.$attrs, {
-      "data-state": a.value ? "visible" : "hidden"
+      const r = o == null ? void 0 : o.scrollArea.value;
+      r && (window.clearTimeout(e), r.removeEventListener("pointerenter", l), r.removeEventListener("pointerleave", a));
+    }), (r, s) => t.value ? (openBlock(), createBlock(Dn, mergeProps({ key: 0 }, r.$attrs, {
+      "data-state": t.value ? "visible" : "hidden"
     }), {
       default: withCtx(() => [
-        renderSlot(s.$slots, "default")
+        renderSlot(r.$slots, "default")
       ]),
       _: 3
     }, 16, ["data-state"])) : createCommentVNode("", true);
   }
 });
-var Nl = defineComponent({
+var zl = defineComponent({
   __name: "ScrollAreaScrollbarScroll",
   setup(n) {
-    const t = inject(
-      ve
+    const o = inject(
+      me
     ), e = inject(
-      dt
-    ), { state: o, dispatch: a } = Uo("hidden", {
+      Xe
+    ), { state: t, dispatch: l } = Fo("hidden", {
       hidden: {
         SCROLL: "scrolling"
       },
@@ -7773,23 +7934,23 @@ var Nl = defineComponent({
       }
     });
     watchEffect(() => {
-      o.value === "idle" && window.setTimeout(
-        () => a("HIDE"),
-        t == null ? void 0 : t.scrollHideDelay
+      t.value === "idle" && window.setTimeout(
+        () => l("HIDE"),
+        o == null ? void 0 : o.scrollHideDelay
       );
     });
-    const l = Gt(() => a("SCROLL_END"), 100);
+    const a = Ft(() => l("SCROLL_END"), 100);
     return watchEffect(() => {
-      const r = t == null ? void 0 : t.viewport.value, s = e != null && e.isHorizontal.value ? "scrollLeft" : "scrollTop";
+      const r = o == null ? void 0 : o.viewport.value, s = e != null && e.isHorizontal.value ? "scrollLeft" : "scrollTop";
       if (r) {
         let i = r[s];
         const d = () => {
           const p = r[s];
-          i !== p && (a("SCROLL"), l()), i = p;
+          i !== p && (l("SCROLL"), a()), i = p;
         };
         r.addEventListener("scroll", d);
       }
-    }), (r, s) => unref(o) !== "hidden" ? (openBlock(), createBlock(fo, normalizeProps(mergeProps({ key: 0 }, r.$attrs)), {
+    }), (r, s) => unref(t) !== "hidden" ? (openBlock(), createBlock(vo, normalizeProps(mergeProps({ key: 0 }, r.$attrs)), {
       default: withCtx(() => [
         renderSlot(r.$slots, "default")
       ]),
@@ -7797,246 +7958,254 @@ var Nl = defineComponent({
     }, 16)) : createCommentVNode("", true);
   }
 });
-var dt = "ScrollAreaScrollbar";
-var Ll = {
+var Xe = "ScrollAreaScrollbar";
+var Yl = {
   inheritAttrs: false
 };
-var _s = defineComponent({
-  ...Ll,
+var ws = defineComponent({
+  ...Yl,
   __name: "ScrollAreaScrollbar",
   props: {
     orientation: { default: "vertical" },
-    forceMount: { type: Boolean, default: void 0 }
+    forceMount: { type: Boolean, default: void 0 },
+    asChild: { type: Boolean }
   },
   setup(n) {
-    const t = n, e = inject(ve), o = computed(() => t.orientation === "horizontal");
-    return watch(
-      o,
+    const o = n, e = inject(me), t = computed(() => o.orientation === "horizontal");
+    watch(
+      t,
       () => {
-        o.value ? e == null || e.onScrollbarXEnabledChange(true) : e == null || e.onScrollbarYEnabledChange(true);
+        t.value ? e == null || e.onScrollbarXEnabledChange(true) : e == null || e.onScrollbarYEnabledChange(true);
       },
       { immediate: true }
     ), onUnmounted(() => {
       e == null || e.onScrollbarXEnabledChange(false), e == null || e.onScrollbarYEnabledChange(false);
-    }), provide(dt, {
-      orientation: toRef(() => t.orientation),
-      forceMount: toRef(() => t.forceMount),
-      isHorizontal: o
-    }), (a, l) => {
-      var r, s, i, d;
-      return ((r = unref(e)) == null ? void 0 : r.type) === "hover" ? (openBlock(), createBlock(Il, mergeProps({ key: 0 }, a.$attrs, { forceMount: a.forceMount }), {
+    });
+    const { orientation: l, forceMount: a, asChild: r } = toRefs(o);
+    return provide(Xe, {
+      orientation: l,
+      forceMount: a,
+      isHorizontal: t,
+      asChild: r
+    }), (s, i) => {
+      var d, p, c, m;
+      return ((d = unref(e)) == null ? void 0 : d.type) === "hover" ? (openBlock(), createBlock(Hl, mergeProps({ key: 0 }, s.$attrs, { forceMount: unref(a) }), {
         default: withCtx(() => [
-          renderSlot(a.$slots, "default")
+          renderSlot(s.$slots, "default")
         ]),
         _: 3
-      }, 16, ["forceMount"])) : ((s = unref(e)) == null ? void 0 : s.type) === "scroll" ? (openBlock(), createBlock(Nl, mergeProps({ key: 1 }, a.$attrs, { forceMount: a.forceMount }), {
+      }, 16, ["forceMount"])) : ((p = unref(e)) == null ? void 0 : p.type) === "scroll" ? (openBlock(), createBlock(zl, mergeProps({ key: 1 }, s.$attrs, { forceMount: unref(a) }), {
         default: withCtx(() => [
-          renderSlot(a.$slots, "default")
+          renderSlot(s.$slots, "default")
         ]),
         _: 3
-      }, 16, ["forceMount"])) : ((i = unref(e)) == null ? void 0 : i.type) === "auto" ? (openBlock(), createBlock(On, mergeProps({ key: 2 }, a.$attrs, { forceMount: a.forceMount }), {
+      }, 16, ["forceMount"])) : ((c = unref(e)) == null ? void 0 : c.type) === "auto" ? (openBlock(), createBlock(Dn, mergeProps({ key: 2 }, s.$attrs, { forceMount: unref(a) }), {
         default: withCtx(() => [
-          renderSlot(a.$slots, "default")
+          renderSlot(s.$slots, "default")
         ]),
         _: 3
-      }, 16, ["forceMount"])) : ((d = unref(e)) == null ? void 0 : d.type) === "always" ? (openBlock(), createBlock(fo, mergeProps({ key: 3 }, a.$attrs, { forceMount: a.forceMount }), {
+      }, 16, ["forceMount"])) : ((m = unref(e)) == null ? void 0 : m.type) === "always" ? (openBlock(), createBlock(vo, mergeProps({ key: 3 }, s.$attrs, { forceMount: unref(a) }), {
         default: withCtx(() => [
-          renderSlot(a.$slots, "default")
+          renderSlot(s.$slots, "default")
         ]),
         _: 3
       }, 16, ["forceMount"])) : createCommentVNode("", true);
     };
   }
 });
-var ys = defineComponent({
+var Es = defineComponent({
   __name: "ScrollAreaThumb",
+  props: {
+    asChild: { type: Boolean }
+  },
   setup(n) {
-    const t = inject(
-      ve
-    ), e = inject(
-      ut
-    ), o = (c) => {
-      const f = c.target.getBoundingClientRect(), v = c.clientX - f.left, h2 = c.clientY - f.top;
-      e == null || e.handleThumbDown(c, { x: v, y: h2 });
-    }, a = (c) => {
-      e == null || e.handleThumbUp(c);
-    }, { primitiveElement: l, currentElement: r } = B(), s = ref(), i = computed(() => t == null ? void 0 : t.viewport.value), d = () => {
-      if (!s.value) {
-        const c = Ol(
-          i.value,
-          e == null ? void 0 : e.onThumbPositionChange
+    const o = n, e = inject(
+      me
+    ), t = inject(
+      ct
+    ), l = (m) => {
+      const v = m.target.getBoundingClientRect(), g = m.clientX - v.left, h2 = m.clientY - v.top;
+      t == null || t.handleThumbDown(m, { x: g, y: h2 });
+    }, a = (m) => {
+      t == null || t.handleThumbUp(m);
+    }, { primitiveElement: r, currentElement: s } = P(), i = ref(), d = computed(() => e == null ? void 0 : e.viewport.value), p = () => {
+      if (!i.value) {
+        const m = Rl(
+          d.value,
+          t == null ? void 0 : t.onThumbPositionChange
         );
-        s.value = c, e == null || e.onThumbPositionChange();
+        i.value = m, t == null || t.onThumbPositionChange();
       }
-    }, p = computed(() => e == null ? void 0 : e.sizes.value);
-    return ia(p, () => {
-      e == null || e.onThumbChange(r.value), i.value && (e == null || e.onThumbPositionChange(), i.value.addEventListener("scroll", d));
+    }, c = computed(() => t == null ? void 0 : t.sizes.value);
+    return sa(c, () => {
+      t == null || t.onThumbChange(s.value), d.value && (t == null || t.onThumbPositionChange(), d.value.addEventListener("scroll", p));
     }), onUnmounted(() => {
-      var c;
-      i.value.removeEventListener("scroll", d), (c = t == null ? void 0 : t.viewport.value) == null || c.removeEventListener(
+      var m;
+      d.value.removeEventListener("scroll", p), (m = e == null ? void 0 : e.viewport.value) == null || m.removeEventListener(
         "scroll",
-        d
+        p
       );
-    }), (c, m) => {
-      var f;
+    }), (m, f) => {
+      var v;
       return openBlock(), createBlock(unref(D), {
         ref_key: "primitiveElement",
-        ref: l,
-        "data-state": (f = unref(e)) != null && f.hasThumb ? "visible" : "hidden",
+        ref: r,
+        "data-state": (v = unref(t)) != null && v.hasThumb ? "visible" : "hidden",
         style: normalizeStyle({
           width: "var(--radix-scroll-area-thumb-width)",
           height: "var(--radix-scroll-area-thumb-height)"
         }),
-        onPointerdown: o,
+        "as-child": o.asChild,
+        onPointerdown: l,
         onPointerup: a
-      }, null, 8, ["data-state", "style"]);
+      }, null, 8, ["data-state", "style", "as-child"]);
     };
   }
 });
 export {
-  zl as AccordionContent,
-  Yl as AccordionHeader,
-  Hl as AccordionItem,
-  Wl as AccordionRoot,
-  Ul as AccordionTrigger,
-  Pr as AlertDialogAction,
-  Sr as AlertDialogCancel,
-  $r as AlertDialogContent,
-  Tr as AlertDialogDescription,
-  kr as AlertDialogOverlay,
-  xr as AlertDialogPortal,
-  Er as AlertDialogRoot,
-  Ar as AlertDialogTitle,
-  Cr as AlertDialogTrigger,
-  er as AspectRatio,
-  Kr as AvatarFallback,
-  Lr as AvatarImage,
-  Nr as AvatarRoot,
-  Gl as CheckboxIndicator,
-  ql as CheckboxRoot,
-  Sa as CollapsibleContent,
-  xa as CollapsibleRoot,
-  $a as CollapsibleTrigger,
-  Ei as ContextMenuArrow,
-  Si as ContextMenuCheckboxItem,
-  wi as ContextMenuContent,
-  $i as ContextMenuGroup,
-  xi as ContextMenuItem,
-  Ai as ContextMenuItemIndicator,
-  Ti as ContextMenuLabel,
-  bi as ContextMenuPortal,
-  Pi as ContextMenuRadioGroup,
-  Oi as ContextMenuRadioItem,
-  yi as ContextMenuRoot,
-  ki as ContextMenuSeparator,
-  Ci as ContextMenuSub,
-  Bi as ContextMenuSubContent,
-  Mi as ContextMenuSubTrigger,
-  gi as ContextMenuTrigger,
-  gr as DialogClose,
-  _r as DialogContent,
-  wr as DialogDescription,
-  yr as DialogOverlay,
-  hr as DialogPortal,
-  mr as DialogRoot,
-  br as DialogTitle,
-  vr as DialogTrigger,
-  ri as DropdownMenuArrow,
-  ci as DropdownMenuCheckboxItem,
-  li as DropdownMenuContent,
-  ui as DropdownMenuGroup,
-  si as DropdownMenuItem,
-  pi as DropdownMenuItemIndicator,
-  fi as DropdownMenuLabel,
-  ai as DropdownMenuPortal,
-  mi as DropdownMenuRadioGroup,
-  vi as DropdownMenuRadioItem,
-  oi as DropdownMenuRoot,
-  di as DropdownMenuSeparator,
-  ii as DropdownMenuSub,
-  hi as DropdownMenuSubContent,
-  _i as DropdownMenuSubTrigger,
-  ni as DropdownMenuTrigger,
-  Jr as HoverCardArrow,
-  Fr as HoverCardContent,
-  Xr as HoverCardPortal,
-  qr as HoverCardRoot,
-  Gr as HoverCardTrigger,
-  Zl as Label,
-  Ji as MenubarArrow,
-  es as MenubarCheckboxItem,
-  Fi as MenubarContent,
-  Vi as MenubarGroup,
-  Qi as MenubarItem,
-  ts as MenubarItemIndicator,
-  os as MenubarLabel,
-  qi as MenubarMenu,
-  Xi as MenubarPortal,
-  ns as MenubarRadioGroup,
-  as as MenubarRadioItem,
-  Ui as MenubarRoot,
-  ji as MenubarSeparator,
-  Zi as MenubarSub,
-  ls as MenubarSubContent,
-  rs as MenubarSubTrigger,
-  Gi as MenubarTrigger,
-  us as NavigationMenuContent,
-  ds as NavigationMenuIndicator,
-  ss as NavigationMenuItem,
-  cs as NavigationMenuLink,
-  fs as NavigationMenuList,
-  is as NavigationMenuRoot,
-  ps as NavigationMenuTrigger,
-  ms as NavigationMenuViewport,
-  ei as PopoverArrow,
-  ti as PopoverClose,
-  jr as PopoverContent,
-  Vr as PopoverPortal,
-  Zr as PopoverRoot,
-  Qr as PopoverTrigger,
-  fr as ProgressIndicator,
-  pr as ProgressRoot,
-  cr as RadioGroupIndicator,
-  dr as RadioGroupItem,
-  ur as RadioGroupRoot,
-  vs as ScrollAreaRoot,
-  _s as ScrollAreaScrollbar,
-  ys as ScrollAreaThumb,
-  hs as ScrollAreaViewport,
-  Li as SelectArrow,
-  Ni as SelectContent,
-  Yi as SelectGroup,
-  Wi as SelectItem,
-  Hi as SelectItemIndicator,
-  zi as SelectLabel,
-  Ii as SelectPortal,
-  Di as SelectRoot,
-  Ki as SelectSeparator,
-  Ri as SelectTrigger,
-  Jl as Separator,
-  sr as SliderRange,
-  lr as SliderRoot,
-  rr as SliderThumb,
-  ir as SliderTrack,
-  Xl as SwitchRoot,
-  Fl as SwitchThumb,
-  nr as TabsContent,
-  or as TabsList,
-  tr as TabsRoot,
-  ar as TabsTrigger,
-  Ql as Toggle,
-  jl as ToggleGroupItem,
-  Vl as ToggleGroupRoot,
-  Br as ToolbarButton,
-  Mr as ToolbarLink,
-  Or as ToolbarRoot,
-  Ir as ToolbarSeparator,
-  Dr as ToolbarToggleGroup,
-  Rr as ToolbarToggleItem,
-  Ur as TooltipArrow,
-  Wr as TooltipContent,
-  Yr as TooltipPortal,
-  Hr as TooltipRoot,
-  zr as TooltipTrigger
+  ql as AccordionContent,
+  Gl as AccordionHeader,
+  Ul as AccordionItem,
+  Fl as AccordionRoot,
+  Xl as AccordionTrigger,
+  Dr as AlertDialogAction,
+  Pr as AlertDialogCancel,
+  Br as AlertDialogContent,
+  Mr as AlertDialogDescription,
+  Tr as AlertDialogOverlay,
+  Ar as AlertDialogPortal,
+  kr as AlertDialogRoot,
+  Or as AlertDialogTitle,
+  Sr as AlertDialogTrigger,
+  ar as AspectRatio,
+  Wr as AvatarFallback,
+  Yr as AvatarImage,
+  zr as AvatarRoot,
+  Zl as CheckboxIndicator,
+  Jl as CheckboxRoot,
+  Ba as CollapsibleContent,
+  ka as CollapsibleRoot,
+  Sa as CollapsibleTrigger,
+  ki as ContextMenuArrow,
+  Pi as ContextMenuCheckboxItem,
+  $i as ContextMenuContent,
+  Bi as ContextMenuGroup,
+  Ai as ContextMenuItem,
+  Oi as ContextMenuItemIndicator,
+  Mi as ContextMenuLabel,
+  xi as ContextMenuPortal,
+  Di as ContextMenuRadioGroup,
+  Ri as ContextMenuRadioItem,
+  Ei as ContextMenuRoot,
+  Ti as ContextMenuSeparator,
+  Si as ContextMenuSub,
+  Ii as ContextMenuSubContent,
+  Ni as ContextMenuSubTrigger,
+  Ci as ContextMenuTrigger,
+  Cr as DialogClose,
+  wr as DialogContent,
+  $r as DialogDescription,
+  Er as DialogOverlay,
+  br as DialogPortal,
+  yr as DialogRoot,
+  xr as DialogTitle,
+  gr as DialogTrigger,
+  di as DropdownMenuArrow,
+  vi as DropdownMenuCheckboxItem,
+  ui as DropdownMenuContent,
+  fi as DropdownMenuGroup,
+  pi as DropdownMenuItem,
+  hi as DropdownMenuItemIndicator,
+  _i as DropdownMenuLabel,
+  si as DropdownMenuPortal,
+  yi as DropdownMenuRadioGroup,
+  gi as DropdownMenuRadioItem,
+  ri as DropdownMenuRoot,
+  mi as DropdownMenuSeparator,
+  ci as DropdownMenuSub,
+  bi as DropdownMenuSubContent,
+  wi as DropdownMenuSubTrigger,
+  ii as DropdownMenuTrigger,
+  jr as HoverCardArrow,
+  Vr as HoverCardContent,
+  Qr as HoverCardPortal,
+  Jr as HoverCardRoot,
+  Zr as HoverCardTrigger,
+  er as Label,
+  ji as MenubarArrow,
+  as as MenubarCheckboxItem,
+  Vi as MenubarContent,
+  os as MenubarGroup,
+  ts as MenubarItem,
+  ls as MenubarItemIndicator,
+  rs as MenubarLabel,
+  Ji as MenubarMenu,
+  Qi as MenubarPortal,
+  is as MenubarRadioGroup,
+  ss as MenubarRadioItem,
+  Xi as MenubarRoot,
+  ns as MenubarSeparator,
+  es as MenubarSub,
+  us as MenubarSubContent,
+  ds as MenubarSubTrigger,
+  Zi as MenubarTrigger,
+  fs as NavigationMenuContent,
+  ms as NavigationMenuIndicator,
+  ps as NavigationMenuItem,
+  vs as NavigationMenuLink,
+  _s as NavigationMenuList,
+  cs as NavigationMenuRoot,
+  hs as NavigationMenuTrigger,
+  ys as NavigationMenuViewport,
+  ai as PopoverArrow,
+  li as PopoverClose,
+  ni as PopoverContent,
+  oi as PopoverPortal,
+  ei as PopoverRoot,
+  ti as PopoverTrigger,
+  _r as ProgressIndicator,
+  hr as ProgressRoot,
+  vr as RadioGroupIndicator,
+  mr as RadioGroupItem,
+  fr as RadioGroupRoot,
+  gs as ScrollAreaRoot,
+  ws as ScrollAreaScrollbar,
+  Es as ScrollAreaThumb,
+  bs as ScrollAreaViewport,
+  Yi as SelectArrow,
+  zi as SelectContent,
+  Gi as SelectGroup,
+  Fi as SelectItem,
+  Ui as SelectItemIndicator,
+  qi as SelectLabel,
+  Hi as SelectPortal,
+  Li as SelectRoot,
+  Wi as SelectSeparator,
+  Ki as SelectTrigger,
+  jl as Separator,
+  pr as SliderRange,
+  ur as SliderRoot,
+  dr as SliderThumb,
+  cr as SliderTrack,
+  Ql as SwitchRoot,
+  Vl as SwitchThumb,
+  ir as TabsContent,
+  rr as TabsList,
+  lr as TabsRoot,
+  sr as TabsTrigger,
+  tr as Toggle,
+  nr as ToggleGroupItem,
+  or as ToggleGroupRoot,
+  Ir as ToolbarButton,
+  Nr as ToolbarLink,
+  Rr as ToolbarRoot,
+  Hr as ToolbarSeparator,
+  Lr as ToolbarToggleGroup,
+  Kr as ToolbarToggleItem,
+  Xr as TooltipArrow,
+  Fr as TooltipContent,
+  Gr as TooltipPortal,
+  Ur as TooltipRoot,
+  qr as TooltipTrigger
 };
 //# sourceMappingURL=radix-vue.js.map

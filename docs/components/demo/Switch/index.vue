@@ -7,7 +7,7 @@ const switchState = ref(false);
 
 <template>
   <div class="flex gap-2 items-center">
-    <label className="text-white text-[15px] leading-none pr-[15px]" for="airplane-mode">
+    <label className="text-white text-[15px] leading-none pr-[15px] select-none" for="airplane-mode">
       Airplane mode
     </label>
     <SwitchRoot v-model:open="switchState"

@@ -18,9 +18,7 @@ const injectedItem = inject<AccordionItemProvideValue>(
   ACCORDION_ITEM_INJECTION_KEY
 );
 
-const props = withDefaults(defineProps<AccordionHeaderProps>(), {
-  asChild: false,
-});
+const props = defineProps<AccordionHeaderProps>();
 </script>
 
 <template>

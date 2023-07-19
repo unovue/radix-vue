@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { inject } from "vue";
-import { CollapsibleTrigger } from "../Collapsible/";
+interface AccordionTriggerProps extends PrimitiveProps {}
+
+import type { PrimitiveButton, PrimitiveProps } from "@/Primitive";
+import { inject, onMounted, ref } from "vue";
 import {
   ACCORDION_ITEM_INJECTION_KEY,
   type AccordionItemProvideValue,
@@ -15,21 +17,33 @@ const injectedItem = inject<AccordionItemProvideValue>(
   ACCORDION_ITEM_INJECTION_KEY
 );
 
-const props = withDefaults(defineProps<{ asChild?: boolean }>(), {
-  asChild: false,
+const props = defineProps<AccordionTriggerProps>();
+
+const element = ref<HTMLElement>();
+
+onMounted(() => {
+  if (element.value) {
+    injectedItem?.setTriggerElement(element.value);
+  }
 });
 </script>
 
 <template>
-  <CollapsibleTrigger
+  <PrimitiveButton
+    ref="element"
     :as-child="props.asChild"
-    :aria-disabled="injectedItem?.disabled.value || undefined"
-    :data-disabled="injectedItem?.dataDisabled.value"
     :aria-controls="injectedItem?.triggerId"
+    :aria-disabled="injectedItem?.disabled.value || undefined"
+    :aria-expanded="injectedItem?.open.value || false"
+    :data-disabled="injectedItem?.dataDisabled.value"
     :data-orientation="injectedRoot?.orientation"
-    :data-state="injectedItem?.dataDisabled.value"
+    :data-state="injectedItem?.dataState.value"
+    :disabled="injectedItem?.disabled?.value"
     :id="injectedItem?.triggerId"
+    @click="
+      injectedItem && injectedRoot?.changeModelValue(injectedItem.value.value)
+    "
   >
     <slot />
-  </CollapsibleTrigger>
+  </PrimitiveButton>
 </template>

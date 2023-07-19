@@ -1,6 +1,8 @@
 <script setup lang="ts">
+interface AccordionContentProps extends PrimitiveProps {}
+
+import type { PrimitiveProps } from "@/Primitive";
 import { inject } from "vue";
-import { CollapsibleContent } from "../Collapsible";
 import {
   ACCORDION_ITEM_INJECTION_KEY,
   type AccordionItemProvideValue,
@@ -15,14 +17,14 @@ const injectedItem = inject<AccordionItemProvideValue>(
   ACCORDION_ITEM_INJECTION_KEY
 );
 
-const props = withDefaults(defineProps<{ asChild?: boolean }>(), {
-  asChild: false,
-});
+const props = defineProps<AccordionContentProps>();
 </script>
 
 <template>
-  <CollapsibleContent
+  <PrimitiveDiv
     role="region"
+    :id="injectedItem?.triggerId"
+    :hidden="!injectedItem?.open"
     :as-child="props.asChild"
     :aria-labelledby="injectedItem?.triggerId"
     :data-state="injectedItem?.dataState.value"
@@ -34,5 +36,5 @@ const props = withDefaults(defineProps<{ asChild?: boolean }>(), {
     `"
   >
     <slot />
-  </CollapsibleContent>
+  </PrimitiveDiv>
 </template>

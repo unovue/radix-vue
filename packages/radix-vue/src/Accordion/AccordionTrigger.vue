@@ -2,36 +2,33 @@
 import { inject } from "vue";
 import { CollapsibleTrigger } from "../Collapsible/";
 import {
-  ACCORDION_IMPL_INJECTION_KEY,
-  type AccordionImplProvideValue,
-  ACCORDION_COLLAPSIBLE_INJECTION_KEY,
-  type AccordionCollapsibleProvideValue,
-} from "./AccordionImpl.vue";
-import {
   ACCORDION_ITEM_INJECTION_KEY,
   type AccordionItemProvideValue,
 } from "./AccordionItem.vue";
+import {
+  ACCORDION_INJECTION_KEY,
+  type AccordionProvideValue,
+} from "./AccordionRoot.vue";
 
-const accordionImplInjectedValue = inject<AccordionImplProvideValue>(
-  ACCORDION_IMPL_INJECTION_KEY
-);
-const accordionItemInjectedValue = inject<AccordionItemProvideValue>(
+const injectedRoot = inject<AccordionProvideValue>(ACCORDION_INJECTION_KEY);
+const injectedItem = inject<AccordionItemProvideValue>(
   ACCORDION_ITEM_INJECTION_KEY
 );
-const accordionCollapsibleInjectedValue =
-  inject<AccordionCollapsibleProvideValue>(ACCORDION_COLLAPSIBLE_INJECTION_KEY);
+
+const props = withDefaults(defineProps<{ asChild?: boolean }>(), {
+  asChild: false,
+});
 </script>
 
 <template>
   <CollapsibleTrigger
-    data-radix-vue-collection-item
-    :aria-disabled="
-      (accordionItemInjectedValue?.open &&
-        !accordionCollapsibleInjectedValue?.collapsible) ||
-      undefined
-    "
-    :data-orientation="accordionImplInjectedValue?.orientation"
-    :id="accordionItemInjectedValue?.triggerId"
+    :as-child="props.asChild"
+    :aria-disabled="injectedItem?.disabled.value || undefined"
+    :data-disabled="injectedItem?.dataDisabled.value"
+    :aria-controls="injectedItem?.triggerId"
+    :data-orientation="injectedRoot?.orientation"
+    :data-state="injectedItem?.dataDisabled.value"
+    :id="injectedItem?.triggerId"
   >
     <slot />
   </CollapsibleTrigger>

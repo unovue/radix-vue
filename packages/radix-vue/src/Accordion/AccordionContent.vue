@@ -2,31 +2,36 @@
 import { inject } from "vue";
 import { CollapsibleContent } from "../Collapsible";
 import {
-  ACCORDION_IMPL_INJECTION_KEY,
-  type AccordionImplProvideValue,
-} from "./AccordionImpl.vue";
-import {
   ACCORDION_ITEM_INJECTION_KEY,
   type AccordionItemProvideValue,
 } from "./AccordionItem.vue";
+import {
+  ACCORDION_INJECTION_KEY,
+  type AccordionProvideValue,
+} from "./AccordionRoot.vue";
 
-const accordionImplInjectedValue = inject<AccordionImplProvideValue>(
-  ACCORDION_IMPL_INJECTION_KEY
-);
-const accordionItemInjectedValue = inject<AccordionItemProvideValue>(
+const injectedRoot = inject<AccordionProvideValue>(ACCORDION_INJECTION_KEY);
+const injectedItem = inject<AccordionItemProvideValue>(
   ACCORDION_ITEM_INJECTION_KEY
 );
+
+const props = withDefaults(defineProps<{ asChild?: boolean }>(), {
+  asChild: false,
+});
 </script>
 
 <template>
   <CollapsibleContent
     role="region"
-    :aria-labelledby="accordionItemInjectedValue?.triggerId"
-    :data-orientation="accordionImplInjectedValue?.orientation"
-    :style="{
-      ['--radix-accordion-content-height' as any]: 'var(--radix-collapsible-content-height)',
-      ['--radix-accordion-content-width' as any]: 'var(--radix-collapsible-content-width)',
-    }"
+    :as-child="props.asChild"
+    :aria-labelledby="injectedItem?.triggerId"
+    :data-state="injectedItem?.dataState.value"
+    :data-disabled="injectedItem?.dataDisabled.value"
+    :data-orientation="injectedRoot?.orientation"
+    :style="`
+      --radix-accordion-content-width: var(--radix-collapsible-content-width);
+      --radix-accordion-content-height: var(--radix-collapsible-content-height);
+    `"
   >
     <slot />
   </CollapsibleContent>

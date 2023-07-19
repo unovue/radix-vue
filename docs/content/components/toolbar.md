@@ -54,26 +54,28 @@ npm install radix-vue
 
 Import the component.
 
-```jsx
-<script setup>
-import { Separator } from "radix-vue";
+```vue
+<script setup lang="ts">
+import {
+  ToolbarRoot,
+  ToolbarToggleGroup,
+  ToolbarToggleItem,
+  ToolbarSeparator,
+  ToolbarButton,
+  ToolbarLink,
+} from "radix-vue";
 </script>
 
 <template>
-  <Separator />
+  <ToolbarRoot>
+    <ToolbarButton />
+    <ToolbarSeparator />
+    <ToolbarLink />
+    <ToolbarToggleGroup>
+      <ToolbarToggleItem />
+    </ToolbarToggleGroup>
+  </ToolbarRoot>
 </template>
-import * as Toolbar from 'radix-vue';
-
-export default () => (
-  <Toolbar.Root>
-    <Toolbar.Button />
-    <Toolbar.Separator />
-    <Toolbar.Link />
-    <Toolbar.ToggleGroup>
-      <Toolbar.ToggleItem />
-    </Toolbar.ToggleGroup>
-  </Toolbar.Root>
-);
 ```
 
 ## API Reference
@@ -81,9 +83,9 @@ export default () => (
 ### Root
 
 Contains all the toolbar component parts.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -94,54 +96,43 @@ Contains all the toolbar component parts.
     {
       name: 'orientation',
       required: false,
-      type: '"horizontal" | "vertical" | undefined',
+      type: '&quot;horizontal&quot; | &quot;vertical&quot; | undefined',
       typeSimple: 'enum',
-      default: '"horizontal"',
-      description: 'The orientation of the toolbar.',
+      default: '&quot;horizontal&quot;',
+      description: 'The orientation of the toolbar',
     },
     {
       name: 'dir',
       required: false,
-      type: '"ltr" | "rtl"',
+      type: '&quot;ltr&quot; | &quot;rtl&quot;',
       typeSimple: 'enum',
-      description: (
-        <span>
-          The reading direction of the toolbar. If omitted, inherits globally
-          from <Code>DirectionProvider</Code> or assumes LTR (left-to-right)
-          reading mode.
-        </span>
-      ),
+      description: '<span> The reading direction of the toolbar If omitted, inherits globally from <Code>DirectionProvider</Code> or assumes LTR (left-to-right) reading mode.</span>',
     },
     {
       name: 'loop',
       required: false,
       type: 'boolean',
       default: 'true',
-      description: (
-        <span>
-          When <Code>true</Code>, keyboard navigation will loop from last tab to
-          first, and vice versa.
-        </span>
-      ),
+      description: '<span> When <Code>true</Code>, keyboard navigation will loop from last tab to first, and vice versa.</span>',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
+  ]"
 />
-```
+
 ### Button
 
 A button item.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -149,24 +140,24 @@ A button item.
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
+  ]"
 />
-```
+
 ### Link
 
 A link item.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -174,15 +165,15 @@ A link item.
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-  ]}
+  ]"
 />
-```
+
 ### ToggleGroup
 
 A set of two-state buttons that can be toggled on or off.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -193,119 +184,75 @@ A set of two-state buttons that can be toggled on or off.
     {
       name: 'type',
       required: true,
-      type: '"single" | "multiple"',
+      type: '&quot;single&quot; | &quot;multiple&quot;',
       typeSimple: 'enum',
-      description: (
-        <span>
-          Determines whether a single or multiple items can be pressed at a
-          time.
-        </span>
-      ),
+      description: '<span> Determines whether a single or multiple items can be pressed at a time.</span>',
     },
     {
       name: 'value',
       required: false,
       type: 'string',
-      description: (
-        <span>
-          The controlled value of the pressed item when <Code>type</Code> is{' '}
-          <Code>"single"</Code>. Must be used in conjunction with{' '}
-          <Code>onValueChange</Code>.
-        </span>
-      ),
+      description: '<span> The controlled value of the pressed item when <Code>type</Code> is <Code>&quot;single&quot;</Code>. Must be used in conjunction with <Code>onValueChange</Code>.</span>',
     },
     {
       name: 'defaultValue',
       required: false,
       type: 'string',
-      description: (
-        <span>
-          The value of the item to show as pressed when initially rendered and{' '}
-          <Code>type</Code> is <Code>"single"</Code>. Use when you do not need
-          to control the state of the items.
-        </span>
-      ),
+      description: '<span> The value of the item to show as pressed when initially rendered and <Code>type</Code> is <Code>&quot;single&quot;</Code>. Use when you do not need to control the state of the items.</span>',
     },
     {
       name: 'onValueChange',
       required: false,
       type: '(value: string) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when the pressed state of an item changes and{' '}
-          <Code>type</Code> is <Code>"single"</Code>.
-        </span>
-      ),
+      description: '<span> Event handler called when the pressed state of an item changes and <Code>type</Code> is <Code>&quot;single&quot;</Code>.</span>',
     },
     {
       name: 'value',
       required: false,
       default: '[]',
       type: 'string[]',
-      description: (
-        <span>
-          The controlled value of the pressed items when <Code>type</Code> is{' '}
-          <Code>"multiple"</Code>. Must be used in conjunction with{' '}
-          <Code>onValueChange</Code>.
-        </span>
-      ),
+      description: '<span> The controlled value of the pressed items when <Code>type</Code> is <Code>&quot;multiple&quot;</Code>. Must be used in conjunction with <Code>onValueChange</Code>.</span>',
     },
     {
       name: 'defaultValue',
       required: false,
       default: '[]',
       type: 'string[]',
-      description: (
-        <span>
-          The values of the items to show as pressed when initially rendered and{' '}
-          <Code>type</Code> is <Code>"multiple"</Code>. Use when you do not need
-          to control the state of the items.
-        </span>
-      ),
+      description: '<span> The values of the items to show as pressed when initially rendered and <Code>type</Code> is <Code>&quot;multiple&quot;</Code>. Use when you do not need to control the state of the items.</span>',
     },
     {
       name: 'onValueChange',
       required: false,
       type: '(value: string[]) => void',
       typeSimple: 'function',
-      description: (
-        <span>
-          Event handler called when the pressed state of an item changes and{' '}
-          <Code>type</Code> is <Code>"multiple"</Code>.
-        </span>
-      ),
+      description: '<span> Event handler called when the pressed state of an item changes and <Code>type</Code> is <Code>&quot;multiple&quot;</Code>.</span>',
     },
     {
       name: 'disabled',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: (
-        <span>
-          When <Code>true</Code>, prevents the user from interacting with the
-          toggle group and all its items.
-        </span>
-      ),
+      description: '<span> When <Code>true</Code>, prevents the user from interacting with the toggle group and all its items.</span>',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
+  ]"
 />
-```
+
 ### ToggleItem
 
 An item in the group.
-```
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -322,18 +269,13 @@ An item in the group.
     {
       name: 'disabled',
       type: 'boolean',
-      description: (
-        <span>
-          When <Code>true</Code>, prevents the user from interacting with the
-          item.
-        </span>
-      ),
+      description: '<span> When <Code>true</Code>, prevents the user from interacting with the item.</span>',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-state]',
       values: ['on', 'off'],
@@ -346,15 +288,15 @@ An item in the group.
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
+  ]"
 />
-```
+
 ### Separator
 
-Used to visually separate items in the toolbar.
-```
+Used to visually separate items in the toolbar
+
 <PropsTable
-  data={[
+  :data="[
     {
       name: 'asChild',
       required: false,
@@ -362,18 +304,18 @@ Used to visually separate items in the toolbar.
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
-  ]}
+  ]"
 />
 
 <DataAttributesTable
-  data={[
+  :data="[
     {
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     },
-  ]}
+  ]"
 />
-```
+
 ## Examples
 
 ### Use with other primitives
@@ -382,22 +324,34 @@ All our primitives which expose a `Trigger` part, such as `Dialog`, `AlertDialog
 
 Here is an example using our `DropdownMenu` primitive.
 
-```jsx line=9-11
-import * as Toolbar from 'radix-vue';
-import * as DropdownMenu from 'radix-vue';
+```vue line=21-23
+<script setup lang="ts">
+import {
+  ToolbarRoot,
+  ToolbarToggleGroup,
+  ToolbarToggleItem,
+  ToolbarSeparator,
+  ToolbarButton,
+  ToolbarLink,
+  DropdownMenuRoot,
+  DropdownMenuTrigger,
+  DropdownMenuContent
+} from "radix-vue";
 
-export default () => (
-  <Toolbar.Root>
-    <Toolbar.Button>Action 1</Toolbar.Button>
-    <Toolbar.Separator />
-    <DropdownMenu.Root>
-      <Toolbar.Button __asChild__>
-        <DropdownMenu.Trigger>Trigger</DropdownMenu.Trigger>
-      </Toolbar.Button>
-      <DropdownMenu.Content>…</DropdownMenu.Content>
-    </DropdownMenu.Root>
-  </Toolbar.Root>
-);
+</script>
+
+<template>
+  <ToolbarRoot>
+    <ToolbarButton>Action 1</ToolbarButton>
+    <ToolbarSeparator />
+    <DropdownMenuRoot>
+      <ToolbarButton asChild>
+        <DropdownMenuTrigger>Trigger</DropdownMenuTrigger>
+      </ToolbarButton>
+      <DropdownMenuContent>…</DropdownMenuContent>
+    </DropdownMenuRoot>
+  </ToolbarRoot>
+</template>
 ```
 
 ## Accessibility
@@ -405,9 +359,9 @@ export default () => (
 Uses [roving tabindex](https://www.w3.org/TR/wai-aria-practices-1.2/examples/radio/radio.html) to manage focus movement among items.
 
 ### Keyboard Interactions
-```
+
 <KeyboardTable
-  data={[
+  :data="[
     {
       keys: ['Tab'],
       description: 'Moves focus to the first item in the group.',
@@ -422,46 +376,27 @@ Uses [roving tabindex](https://www.w3.org/TR/wai-aria-practices-1.2/examples/rad
     },
     {
       keys: ['ArrowDown'],
-      description: (
-        <span>
-          Moves focus to the next item depending on <Code>orientation</Code>.
-        </span>
-      ),
+      description: '<span> Moves focus to the next item depending on <Code>orientation</Code>.</span>',
     },
     {
       keys: ['ArrowRight'],
-      description: (
-        <span>
-          Moves focus to the next item depending on <Code>orientation</Code>.
-        </span>
-      ),
+      description: '<span> Moves focus to the next item depending on <Code>orientation</Code>.</span>',
     },
     {
       keys: ['ArrowUp'],
-      description: (
-        <span>
-          Moves focus to the previous item depending on <Code>orientation</Code>
-          .
-        </span>
-      ),
+      description: '<span> Moves focus to the previous item depending on <Code>orientation</Code> .</span>',
     },
     {
       keys: ['ArrowLeft'],
-      description: (
-        <span>
-          Moves focus to the previous item depending on <Code>orientation</Code>
-          .
-        </span>
-      ),
+      description: '<span> Moves focus to the previous item depending on <Code>orientation</Code> .</span>',
     },
     {
       keys: ['Home'],
-      description: <span>Moves focus to the first item.</span>,
+      description: '<span>Moves focus to the first item.</span>',
     },
     {
       keys: ['End'],
-      description: <span>Moves focus to the last item.</span>,
+      description: '<span>Moves focus to the last item.</span>',
     },
-  ]}
+  ]"
 />
-```

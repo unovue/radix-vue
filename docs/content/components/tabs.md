@@ -100,14 +100,7 @@ Contains all the tabs component parts.
       name: 'value',
       required: false,
       type: 'string',
-      description: '<span> The controlled value of the tab to activate. Should be used in conjunction with <Code>onValueChange</Code>.</span>',
-    },
-    {
-      name: 'onValueChange',
-      required: false,
-      type: '(value: string) => void',
-      typeSimple: 'function',
-      description: 'Event handler called when the value changes.',
+      description: '<span> The controlled value of the tab to activate. Should be binded with <Code>v-model</Code>.</span>',
     },
     {
       name: 'orientation',

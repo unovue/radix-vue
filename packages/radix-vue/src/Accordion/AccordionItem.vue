@@ -1,7 +1,6 @@
 <script lang="ts" context="module">
-import { usePrimitiveElement, type PrimitiveProps } from "@/Primitive";
-import { useArrowNavigation, useId } from "@/shared";
-import type { ComputedRef, InjectionKey } from "vue";
+import type { ComputedRef, InjectionKey, Ref } from "vue";
+import type { CollapsibleRootProps } from "../Collapsible";
 import {
   ACCORDION_INJECTION_KEY,
   type AccordionProvideValue,
@@ -12,18 +11,19 @@ enum AccordionItemState {
   Closed = "closed",
 }
 
-export interface AccordionItemProps extends PrimitiveProps {
+export interface AccordionItemProps
+  extends Omit<CollapsibleRootProps, "open" | "defaultOpen" | "onOpenChange"> {
   /**
-   * A unique value for the item.
-   */
-  value: string;
-
-  /**
+   * Whether or not an accordion item is disabled from user interaction.
    * When true, prevents the user from interacting with the item.
    *
    * @defaultValue false
    */
   disabled?: boolean;
+  /**
+   * A string value for the accordion item. All items within an accordion should use a unique value.
+   */
+  value: string;
 }
 
 export interface AccordionItemProvideValue {
@@ -32,7 +32,8 @@ export interface AccordionItemProvideValue {
   disabled: ComputedRef<boolean>;
   dataDisabled: ComputedRef<"" | undefined>;
   triggerId: string;
-  setTriggerElement: (element: HTMLElement) => void;
+  primitiveElement: Ref<HTMLElement | undefined>;
+  currentElement: ComputedRef<HTMLElement | undefined>;
   value: ComputedRef<string>;
 }
 
@@ -41,7 +42,10 @@ export const ACCORDION_ITEM_INJECTION_KEY =
 </script>
 
 <script setup lang="ts">
-import { computed, inject, provide, ref } from "vue";
+import { CollapsibleRoot } from "@/Collapsible";
+import { usePrimitiveElement } from "@/Primitive";
+import { useArrowNavigation, useId } from "@/shared";
+import { computed, inject, provide } from "vue";
 
 const props = defineProps<AccordionItemProps>();
 
@@ -54,12 +58,13 @@ const open = computed(() =>
       !!injectedRoot?.modelValue.value.includes(props.value)
 );
 
-const disabled = computed(
-  () =>
+const disabled = computed(() => {
+  return (
     injectedRoot?.disabled ||
     props.disabled ||
-    (!!open.value && !injectedRoot?.collapsible)
-);
+    (!!injectedRoot?.isSingle.value && open.value && !injectedRoot?.collapsible)
+  );
+});
 
 const dataDisabled = computed(() => (disabled.value ? "" : undefined));
 
@@ -67,50 +72,43 @@ const dataState = computed(() =>
   open.value ? AccordionItemState.Open : AccordionItemState.Closed
 );
 
-const triggerElement = ref<HTMLElement>();
+const { primitiveElement, currentElement } = usePrimitiveElement();
+
 provide<AccordionItemProvideValue>(ACCORDION_ITEM_INJECTION_KEY, {
   open,
   dataState,
   disabled,
   dataDisabled,
   triggerId: useId(),
-  setTriggerElement: (element) => (triggerElement.value = element),
+  primitiveElement,
+  currentElement,
   value: computed(() => props.value),
 });
 
-const { primitiveElement, currentElement } = usePrimitiveElement();
-
 function handleArrowKey(e: KeyboardEvent) {
-  if (!triggerElement.value) return;
-
-  const newSelectedElement = useArrowNavigation(
+  useArrowNavigation(
     e,
     currentElement.value!,
     injectedRoot?.parentElement.value!,
     {
       arrowKeyOptions: injectedRoot?.orientation,
       dir: injectedRoot?.direction,
+      focus: true,
     }
   );
-
-  if (!newSelectedElement) return;
-
-  triggerElement.value.focus();
 }
 </script>
 
 <template>
-  <PrimitiveDiv
-    ref="primitiveElement"
+  <CollapsibleRoot
     :data-orientation="injectedRoot?.orientation"
     :data-disabled="dataDisabled"
     :data-state="dataState"
     :disabled="disabled"
     v-model:open="open"
-    @keydown.up.down.left.right="handleArrowKey"
-    data-radix-vue-collection-item
+    @keydown.up.down.left.right.home.end="handleArrowKey"
     :as-child="props.asChild"
   >
     <slot :open="open" />
-  </PrimitiveDiv>
+  </CollapsibleRoot>
 </template>

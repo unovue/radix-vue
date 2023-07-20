@@ -1,12 +1,6 @@
 <script lang="ts">
-import type { DataOrientation, Direction } from "@/shared/types";
-import { useSingleOrMultipleValue } from "@/shared/useSingleOrMultipleValue";
+import type { DataOrientation, Direction, Type } from "@/shared/types";
 import type { ComputedRef, InjectionKey, Ref } from "vue";
-
-export enum AccordionType {
-  Single = "single",
-  Multiple = "multiple",
-}
 
 export type AccordionRootProps = {
   asChild?: boolean;
@@ -14,7 +8,7 @@ export type AccordionRootProps = {
   /**
    * Determines whether one or multiple items can be opened at the same time.
    */
-  type: AccordionType.Single | AccordionType.Multiple;
+  type: Type;
 
   /**
    * The controlled value of the item to expand when type is "single" or the controlled values of the items to expand when type is "multiple".
@@ -73,7 +67,8 @@ export type AccordionProvideValue = {
 </script>
 
 <script setup lang="ts">
-import { usePrimitiveElement } from "@/Primitive";
+import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import { useSingleOrMultipleValue } from "@/shared/useSingleOrMultipleValue";
 import { computed, provide } from "vue";
 
 const props = withDefaults(defineProps<AccordionRootProps>(), {
@@ -93,14 +88,12 @@ const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emits);
 const { primitiveElement, currentElement: parentElement } =
   usePrimitiveElement();
 
-const isSingle = computed(() => props.type === AccordionType.Single);
-
 provide<AccordionProvideValue>(ACCORDION_INJECTION_KEY, {
   disabled: props.disabled,
   direction: props.dir,
   orientation: props.orientation,
   parentElement,
-  isSingle,
+  isSingle: computed(() => props.type === "single"),
   collapsible: props.collapsible,
   modelValue,
   changeModelValue,

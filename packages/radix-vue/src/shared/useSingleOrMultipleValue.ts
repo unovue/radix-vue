@@ -106,7 +106,7 @@ export function useSingleOrMultipleValue<
     if (props.type === "single") {
       modelValue.value = value;
     } else {
-      const modelValueArray = props.modelValue as string[];
+      const modelValueArray = (modelValue.value as string[]) || [];
       if (modelValueArray.includes(value)) {
         const index = modelValueArray.findIndex((i) => i === value);
         modelValueArray.splice(index, 1);

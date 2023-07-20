@@ -11,15 +11,14 @@ import {
 } from "./SwitchRoot.vue";
 
 const injectedValue = inject<SwitchProvideValue>(SWITCH_INJECTION_KEY);
-const props = defineProps<SwitchThumbProps>();
+defineProps<SwitchThumbProps>();
 </script>
 
 <template>
   <PrimitiveSpan
     :data-state="injectedValue?.open?.value ? 'checked' : 'unchecked'"
     :data-disabled="injectedValue?.disabled ? '' : undefined"
-    :as-child="props.asChild"
-    @click="injectedValue?.toggleOpen"
+    :as-child="asChild"
   >
     <slot />
   </PrimitiveSpan>

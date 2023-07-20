@@ -15,12 +15,15 @@
     "@histoire/plugin-vue": "^0.16.1",
     "@iconify/vue": "^4.1.1",
     "@radix-ui/colors": "^1.0.0",
+    "@rollup/plugin-alias": "^5.0.0",
     "@vitejs/plugin-vue": "^4.1.0",
+    "@vitejs/plugin-vue-jsx": "^3.0.1",
     "autoprefixer": "^10.4.14",
     "eslint": "^8.43.0",
     "histoire": "^0.16.2",
     "postcss": "^8.4.26",
     "tailwindcss": "^3.3.3",
-    "vite": "^4.3.9"
+    "vite": "^4.3.9",
+    "vue": "^3.3.4"
   }
 }

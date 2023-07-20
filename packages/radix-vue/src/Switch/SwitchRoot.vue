@@ -18,7 +18,7 @@ export const SWITCH_INJECTION_KEY =
 
 export interface SwitchProvideValue {
   open?: Readonly<Ref<boolean>>;
-  toggleOpen: (value: string) => void;
+  toggleOpen: () => void;
   disabled: boolean;
 }
 </script>
@@ -53,7 +53,7 @@ provide<SwitchProvideValue>(SWITCH_INJECTION_KEY, {
 });
 
 function handleKeydown(e: KeyboardEvent) {
-  if (e.key === "Enter" || e.keyCode === 32) {
+  if (e.key === "Enter") {
     toggleOpen();
   }
 }
@@ -62,20 +62,20 @@ function handleKeydown(e: KeyboardEvent) {
 <template>
   <PrimitiveDiv
     :value="open"
-    role="checkbox"
+    role="switch"
     :aria-checked="open"
     :data-state="open ? 'checked' : 'unchecked'"
     :data-disabled="props.disabled ? '' : undefined"
     :as-child="props.asChild"
     style="position: relative"
   >
+    <slot />
     <input
       type="checkbox"
       :id="props.id"
       v-bind="open"
-      @change="toggleOpen"
-      :checked="open"
       :name="props.name"
+      @click="toggleOpen"
       @keydown="handleKeydown"
       aria-hidden="true"
       :disabled="props.disabled"
@@ -84,6 +84,5 @@ function handleKeydown(e: KeyboardEvent) {
       :data-disabled="props.disabled ? '' : undefined"
       style="opacity: 0; position: absolute; inset: 0"
     />
-    <slot />
   </PrimitiveDiv>
 </template>

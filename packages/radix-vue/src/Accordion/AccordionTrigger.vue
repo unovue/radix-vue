@@ -13,6 +13,7 @@ const injectedRoot = inject(ACCORDION_INJECTION_KEY);
 const injectedItem = inject(ACCORDION_ITEM_INJECTION_KEY);
 
 function changeItem() {
+  if (injectedItem?.disabled.value) return;
   injectedItem && injectedRoot?.changeModelValue(injectedItem.value.value);
 }
 </script>

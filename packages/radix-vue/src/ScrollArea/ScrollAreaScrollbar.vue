@@ -13,7 +13,7 @@ export interface ScrollAreaScollbarProvideValue {
 }
 
 export const SCROLL_AREA_SCROLLBAR_INJECTION_KEY =
-  "ScrollAreaScrollbar" as const;
+  Symbol() as InjectionKey<ScrollAreaScollbarProvideValue>;
 
 export default {
   inheritAttrs: false,
@@ -21,7 +21,15 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed, inject, onUnmounted, watch, provide, toRefs } from "vue";
+import {
+  computed,
+  inject,
+  onUnmounted,
+  watch,
+  provide,
+  toRefs,
+  type InjectionKey,
+} from "vue";
 import {
   type ScrollAreaProvideValue,
   SCROLL_AREA_INJECTION_KEY,

@@ -1,10 +1,7 @@
 <script lang="ts" context="module">
 import type { ComputedRef, InjectionKey, Ref } from "vue";
 import type { CollapsibleRootProps } from "../Collapsible";
-import {
-  ACCORDION_INJECTION_KEY,
-  type AccordionProvideValue,
-} from "./AccordionRoot.vue";
+import { ACCORDION_INJECTION_KEY } from "./AccordionRoot.vue";
 
 enum AccordionItemState {
   Open = "open",
@@ -49,7 +46,7 @@ import { computed, inject, provide } from "vue";
 
 const props = defineProps<AccordionItemProps>();
 
-const injectedRoot = inject<AccordionProvideValue>(ACCORDION_INJECTION_KEY);
+const injectedRoot = inject(ACCORDION_INJECTION_KEY);
 
 const open = computed(() =>
   injectedRoot?.isSingle.value

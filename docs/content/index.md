@@ -1,8 +1,7 @@
 ---
 layout: home
 
-title: Radix Vue
-titleTemplate: Vite & Vue Powered Static Site Generator
+titleTemplate: Unstyled, accessible components for building high‑quality design systems and web apps in Vue
 
 hero:
   name: Radix Vue

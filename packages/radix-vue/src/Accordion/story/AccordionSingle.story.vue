@@ -104,11 +104,11 @@ const selectedValue = ref("item-2");
       </AccordionRoot>
     </Variant>
 
-    <Variant title="Not Collapsible">
+    <Variant title="Collapsible">
       <AccordionRoot
         class="w-[300px] rounded-md bg-[--line-color] shadow-lg"
         type="single"
-        :collapsible="false"
+        :collapsible="true"
         model-value="item-2"
       >
         <AccordionItem class="accordion-item" value="item-1">

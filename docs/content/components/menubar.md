@@ -1383,19 +1383,33 @@ You may want to constrain the width of the content (or sub-content) so that it m
 We expose several CSS custom properties such as `--radix-menubar-trigger-width` and `--radix-menubar-content-available-height` to support this. Use them to constrain the content dimensions.
 
 ```jsx line=9
-// index.jsx
-import * as Menubar from 'radix-vue';
-import './styles.css';
+import {
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarPortal,
+  MenubarRoot,
+  MenubarTrigger,
+} from "radix-vue";
 
 export default () => (
-  <Menubar.Root>
-    <Menubar.Trigger>…</Menubar.Trigger>
-    <Menubar.Portal>
-      <Menubar.Content __className__="MenubarContent" sideOffset={5}>
-        …
-      </Menubar.Content>
-    </Menubar.Portal>
-  </Menubar.Root>
+  <MenubarRoot>
+    <MenubarMenu>
+      <MenubarTrigger>
+        Trigger
+      </MenubarTrigger>
+      <MenubarPortal>
+        <MenubarContent
+          :side-offset="5"
+          :align-offset="-3"
+        >
+          <MenubarItem>
+            New Tab
+          </MenubarItem>
+        </MenubarContent>
+      </MenubarPortal>
+    </MenubarMenu>
+  </MenubarRoot>
 );
 ```
 

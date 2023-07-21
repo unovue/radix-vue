@@ -1,7 +1,13 @@
 <script lang="ts">
-import { defineComponent, h, getCurrentInstance } from "vue";
-import Slot from "./Slot.vue";
-import { renderSlotFragments } from "@/shared";
+// Thanks to: https://github.com/chakra-ui/ark/blob/main/packages/vue/src/factory.tsx for better code for Primitives
+import {
+  defineComponent,
+  h,
+  getCurrentInstance,
+  mergeProps,
+  cloneVNode,
+} from "vue";
+import { renderSlotFragments, isValidVNodeElement } from "@/shared";
 
 const NODES = [
   "a",
@@ -30,40 +36,65 @@ const createComponent = (node: (typeof NODES)[number]) =>
         default: false,
       },
     },
-    setup(props, { slots }) {
-      const asChild = !!props.asChild;
-      if (asChild) {
-        const children = renderSlotFragments(slots.default?.());
+    setup(props, { attrs, slots }) {
+      const instance = getCurrentInstance();
 
-        const instance = getCurrentInstance();
-        if (children.length > 1) {
-          const componentName = instance?.parent?.type.__name
-            ? `<${instance.parent.type.__name} />`
-            : "component";
-          throw new Error(
-            [
-              `Detected an invalid children for \`${componentName}\` with \`asChild\` prop.`,
-              "",
-              `Note: All components accepting \`asChild\` expect only one direct child of valid VNode type.`,
-              "You can apply a few solutions:",
-              [
-                "Provide a single child element so that we can forward the props onto that element.",
-                "Ensure the first child is an actual element instead of a raw text node or comment node.",
-              ]
-                .map((line) => `  - ${line}`)
-                .join("\n"),
-            ].join("\n")
+      if (!props.asChild) {
+        return () =>
+          h(
+            node,
+            { ...attrs },
+            { default: () => slots.default && slots.default() }
           );
-        }
-
-        const firstChild = children[0];
-        if (typeof firstChild.type === "string") {
-          return () => h(children[0]);
-        } else {
-          return () => h(Slot, () => slots.default?.());
-        }
       } else {
-        return () => h(node, slots.default?.());
+        return () => {
+          let children = slots.default?.();
+          children = renderSlotFragments(children || []);
+
+          if (Object.keys(attrs).length > 0) {
+            const [firstChild, ...otherChildren] = children;
+            if (!isValidVNodeElement(firstChild) || otherChildren.length > 0) {
+              const componentName = instance?.parent?.type.name
+                ? `<${instance.parent.type.name} />`
+                : "component";
+              throw new Error(
+                [
+                  `Detected an invalid children for \`${componentName}\` with \`asChild\` prop.`,
+                  "",
+                  "Note: All components accepting `asChild` expect only one direct child of valid VNode type.",
+                  "You can apply a few solutions:",
+                  [
+                    "Provide a single child element so that we can forward the props onto that element.",
+                    "Ensure the first child is an actual element instead of a raw text node or comment node.",
+                  ]
+                    .map((line) => `  - ${line}`)
+                    .join("\n"),
+                ].join("\n")
+              );
+            }
+
+            // remove props ref from being inferred
+            delete firstChild.props?.ref;
+            const mergedProps = mergeProps(firstChild.props ?? {}, attrs);
+            const cloned = cloneVNode(firstChild, mergedProps);
+            // Explicitly override props starting with `on`.
+            // It seems cloneVNode from Vue doesn't like overriding `onXXX` props. So
+            // we have to do it manually.
+            for (const prop in mergedProps) {
+              if (prop.startsWith("on")) {
+                cloned.props ||= {};
+                cloned.props[prop] = mergedProps[prop];
+              }
+            }
+            return cloned;
+          } else if (Array.isArray(children) && children.length === 1) {
+            // No props to inherit
+            return children[0];
+          } else {
+            // No children.
+            return null;
+          }
+        };
       }
     },
   });

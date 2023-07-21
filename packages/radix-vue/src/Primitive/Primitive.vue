@@ -73,6 +73,8 @@ const createComponent = (node: (typeof NODES)[number]) =>
               );
             }
 
+            // remove props ref from being inferred
+            delete firstChild.props?.ref;
             const mergedProps = mergeProps(firstChild.props ?? {}, attrs);
             const cloned = cloneVNode(firstChild, mergedProps);
             // Explicitly override props starting with `on`.

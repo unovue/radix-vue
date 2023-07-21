@@ -2,10 +2,6 @@ import { useVModel } from "@vueuse/core";
 import type { Type } from "./types";
 import { watch, type Ref } from "vue";
 
-export type UseSingleOrMultipleValueOptions = {
-  defaultValue?: string | string[];
-};
-
 function validateModelValue(
   type: Type,
   modelValue?: string | string[] | undefined
@@ -36,7 +32,7 @@ Defaulting to empty array (\`[]\`).`);
   return modelValue;
 }
 
-function validateDefaultValue(type: Type, defaultValue?: string | string[]) {
+function getDefaultValue({ type, defaultValue }: Props) {
   if (type === "multiple") {
     if (Array.isArray(defaultValue)) {
       return defaultValue;
@@ -72,22 +68,17 @@ Defaulting to \`undefined\`.`
   }
 }
 
-export function useSingleOrMultipleValue<
-  P extends {
-    modelValue?: string | string[];
-    type: Type;
-    defaultValue?: string | string[];
-  },
-  Name extends string
->(
+type Props = {
+  modelValue?: string | string[];
+  type: Type;
+  defaultValue?: string | string[];
+};
+export function useSingleOrMultipleValue<P extends Props, Name extends string>(
   props: P,
-  emits: (name: Name, ...args: any[]) => void,
-  options: UseSingleOrMultipleValueOptions = {}
+  emits: (name: Name, ...args: any[]) => void
 ) {
-  const { defaultValue } = options;
-
   const modelValue = useVModel(props, "modelValue", emits, {
-    defaultValue: validateDefaultValue(props.type, defaultValue),
+    defaultValue: getDefaultValue(props),
     passive: true,
   }) as Ref<string | string[] | undefined>;
 

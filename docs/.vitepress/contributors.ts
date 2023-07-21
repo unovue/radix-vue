@@ -46,8 +46,6 @@ const plainTeamMembers: CoreTeam[] = [
     name: "Khairul Haaziq",
     github: "khairulhaaziq",
     twitter: "khairulhaaziq",
-    org: "NuxtLabs",
-    orgLink: "https://nuxtlabs.com/",
     desc: "Core team member of Radix Vue",
   },
   {
@@ -55,8 +53,6 @@ const plainTeamMembers: CoreTeam[] = [
     name: "Zernonia",
     github: "zernonia",
     twitter: "zernonia",
-    org: "NuxtLabs",
-    orgLink: "https://nuxtlabs.com/",
     desc: "Core team member of Radix Vue",
   },
   {
@@ -64,8 +60,6 @@ const plainTeamMembers: CoreTeam[] = [
     name: "Mujahid Anuar",
     github: "mujahidfa",
     twitter: "mujahid_fa",
-    org: "NuxtLabs",
-    orgLink: "https://nuxtlabs.com/",
     desc: "Core team member of Radix Vue",
   },
 ];

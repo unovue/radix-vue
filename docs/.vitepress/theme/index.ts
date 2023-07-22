@@ -4,6 +4,7 @@ import Theme from "vitepress/theme";
 import HomePage from "../components/HomePage.vue";
 import "./style.css";
 import "./tailwind.postcss";
+import "radix-vue/index.css";
 
 const regex = /\/(\w+)\.vue/;
 const baseModules = import.meta.glob("../../components/*.vue", { eager: true });

@@ -7,6 +7,9 @@ hero:
   name: Radix Vue
   text: Vue Port of Radix UI
   tagline: Unstyled, accessible components for building high‑quality design systems and web apps in Vue.
+  image:
+    src: /logo.svg
+    alt: Radix-Vue
   actions:
     - theme: brand
       text: Get Started

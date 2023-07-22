@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Icon } from '@iconify/vue'
-import { ref } from 'vue'
+import { Icon } from "@iconify/vue";
+import { ref } from "vue";
 import {
   ContextMenuCheckboxItem,
   ContextMenuContent,
@@ -15,15 +15,15 @@ import {
   ContextMenuTrigger,
   ContextMenuSub,
   ContextMenuSubContent,
-  ContextMenuSubTrigger
-} from 'radix-vue'
+  ContextMenuSubTrigger,
+} from "radix-vue";
 
-const checkboxOne = ref(false)
-const checkboxTwo = ref(false)
-const person = ref('pedro')
+const checkboxOne = ref(false);
+const checkboxTwo = ref(false);
+const person = ref("pedro");
 
 function handleClick() {
-  alert('hello!')
+  alert("hello!");
 }
 </script>
 
@@ -31,11 +31,9 @@ function handleClick() {
   <ContextMenuRoot>
     <ContextMenuTrigger
       as-child
-      class="block border-2 border-white border-dashed text-white rounded text-[15px] select-none py-[45px] w-[300px] text-center"
+      class="block border-2 border-white border-dashed text-white rounded text-[15px] select-none py-[45px] w-full sm:w-[300px] text-center"
     >
-    <span>
-      Right click here.
-    </span>
+      <span> Right click here. </span>
     </ContextMenuTrigger>
 
     <ContextMenuPortal>
@@ -297,9 +295,7 @@ function handleClick() {
         </ContextMenuCheckboxItem>
         <ContextMenuSeparator class="h-[1px] bg-green6 m-[5px]" />
 
-        <ContextMenuLabel class="pl-[25px] text-xs leading-[25px] text-mauve11">
-          People
-        </ContextMenuLabel>
+        <ContextMenuLabel class="pl-[25px] text-xs leading-[25px] text-mauve11"> People </ContextMenuLabel>
         <ContextMenuRadioGroup v-model="person">
           <ContextMenuRadioItem
             class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"

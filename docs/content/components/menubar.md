@@ -1382,7 +1382,8 @@ You may want to constrain the width of the content (or sub-content) so that it m
 
 We expose several CSS custom properties such as `--radix-menubar-trigger-width` and `--radix-menubar-content-available-height` to support this. Use them to constrain the content dimensions.
 
-```jsx line=9
+```vue line=20
+<script setup>
 import {
   MenubarContent,
   MenubarItem,
@@ -1391,8 +1392,9 @@ import {
   MenubarRoot,
   MenubarTrigger,
 } from "radix-vue";
+</script>
 
-export default () => (
+<template>
   <MenubarRoot>
     <MenubarMenu>
       <MenubarTrigger>
@@ -1400,6 +1402,7 @@ export default () => (
       </MenubarTrigger>
       <MenubarPortal>
         <MenubarContent
+          class="MenubarContent"
           :side-offset="5"
           :align-offset="-3"
         >
@@ -1410,7 +1413,7 @@ export default () => (
       </MenubarPortal>
     </MenubarMenu>
   </MenubarRoot>
-);
+</template>
 ```
 
 ```css
@@ -1425,12 +1428,19 @@ export default () => (
 
 We expose a CSS custom property `--radix-menubar-content-transform-origin`. Use it to animate the content from its computed origin based on `side`, `sideOffset`, `align`, `alignOffset` and any collisions.
 
-```jsx line=10
-// index.jsx
-import * as Menubar from 'radix-vue';
-import './styles.css';
+```vue line=10
+<script setup>
+import {
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarPortal,
+  MenubarRoot,
+  MenubarTrigger,
+} from "radix-vue";
+</script>
 
-export default () => (
+<template>
   <Menubar.Root>
     <Menubar.Menu>
       <Menubar.Trigger>…</Menubar.Trigger>
@@ -1439,7 +1449,7 @@ export default () => (
       </Menubar.Portal>
     </Menubar.Menu>
   </Menubar.Root>
-);
+</template>
 ```
 
 ```css line=3

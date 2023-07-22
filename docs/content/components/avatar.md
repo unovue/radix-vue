@@ -5,16 +5,8 @@ metaDescription: An image element with a fallback for representing the user.
 name: avatar
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
-import DemoAvatar from '../../components/demo/Avatar/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import EmitsTable from '../../components/tables/EmitsTable.vue'
-import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
-import KeyboardTable from '../../components/tables/KeyboardTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+<script setup> 
+import DemoAvatar from '../../components/demo/Avatar/index.vue' 
 </script>
 
 # Avatar
@@ -65,10 +57,10 @@ import { AvatarRoot, AvatarImage } from "radix-vue";
 </script>
 
 <template>
-	<AvatarRoot>
-		<AvatarImage />
-		<AvatarFallback />
-	</AvatarRoot>
+  <AvatarRoot>
+    <AvatarImage />
+    <AvatarFallback />
+  </AvatarRoot>
 </template>
 ```
 
@@ -140,25 +132,19 @@ You can compose the Avatar with a [Tooltip](/components/tooltip) to display extr
 
 ```vue line=5,6,7,12,13,15,17-21
 <script setup>
-import {
-	AvatarRoot,
-	AvatarImage,
-	TooltipRoot,
-	TooltipTrigger,
-	TooltipArrow,
-} from "radix-vue";
+import { AvatarRoot, AvatarImage, TooltipRoot, TooltipTrigger, TooltipArrow } from "radix-vue";
 </script>
 
 <template>
-	<TooltipRoot>
-		<TooltipTrigger>
-			<AvatarRoot>…</AvatarRoot>
-		</TooltipTrigger>
+  <TooltipRoot>
+    <TooltipTrigger>
+      <AvatarRoot>…</AvatarRoot>
+    </TooltipTrigger>
 
-		<TooltipContent side="top">
-			Tooltip content
-			<TooltipArrow />
-		</TooltipContent>
-	</TooltipRoot>
+    <TooltipContent side="top">
+      Tooltip content
+      <TooltipArrow />
+    </TooltipContent>
+  </TooltipRoot>
 </template>
 ```

@@ -5,13 +5,8 @@ metaDescription: Renders an accessible label associated with controls.
 name: label
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
-import DemoLabel from '../../components/demo/Label/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+<script setup> 
+import DemoLabel from '../../components/demo/Label/index.vue' 
 </script>
 
 # Label
@@ -56,7 +51,7 @@ Import the component.
 
 ```vue
 <script setup>
-import { Label } from 'radix-vue';
+import { Label } from "radix-vue";
 </script>
 
 <template>

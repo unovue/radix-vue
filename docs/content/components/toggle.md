@@ -6,16 +6,8 @@ name: toggle
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/button
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
-import DemoToggle from '../../components/demo/Toggle/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import EmitsTable from '../../components/tables/EmitsTable.vue'
-import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
-import KeyboardTable from '../../components/tables/KeyboardTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+<script setup> 
+import DemoToggle from '../../components/demo/Toggle/index.vue' 
 </script>
 
 # Toggle
@@ -38,6 +30,7 @@ A two-state button that can be either on or off.
 </HeroContainer>
 
 ## Features
+
 <Highlights
   :features="['Full keyboard navigation.', 'Can be controlled or uncontrolled.']"
 />

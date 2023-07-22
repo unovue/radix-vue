@@ -6,16 +6,8 @@ name: progress
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/meter
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
-import DemoProgress from '../../components/demo/Progress/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import EmitsTable from '../../components/tables/EmitsTable.vue'
-import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
-import KeyboardTable from '../../components/tables/KeyboardTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+<script setup> 
+import DemoProgress from '../../components/demo/Progress/index.vue' 
 </script>
 
 # Progress
@@ -38,6 +30,7 @@ Displays an indicator showing the completion progress of a task, typically displ
 </HeroContainer>
 
 ## Features
+
 <Highlights
   :features="[
     'Provides context for assistive technology to read the progress of a task.',

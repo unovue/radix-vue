@@ -6,16 +6,8 @@ name: toggle-group
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/button
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
-import DemoToggleGroup from '../../components/demo/ToggleGroup/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import EmitsTable from '../../components/tables/EmitsTable.vue'
-import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
-import KeyboardTable from '../../components/tables/KeyboardTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+<script setup> 
+import DemoToggleGroup from '../../components/demo/ToggleGroup/index.vue' 
 </script>
 
 # ToggleGroup
@@ -66,9 +58,9 @@ import { ToggleGroupRoot, ToggleGroupItem } from "radix-vue";
 </script>
 
 <template>
-	<ToggleGroupRoot>
-		<ToggleGroupItem />
-	</ToggleGroupRoot>
+  <ToggleGroupRoot>
+    <ToggleGroupItem />
+  </ToggleGroupRoot>
 </template>
 ```
 
@@ -212,17 +204,17 @@ const value = ref("left");
 </script>
 
 <template>
-	<ToggleGroupRoot type="single" v-model="value">
-		<ToggleGroupItem value="left">
-			<TextAlignLeftIcon />
-		</ToggleGroupItem>
-		<ToggleGroupItem value="center">
-			<TextAlignCenterIcon />
-		</ToggleGroupItem>
-		<ToggleGroupItem value="right">
-			<TextAlignRightIcon />
-		</ToggleGroupItem>
-	</ToggleGroupRoot>
+  <ToggleGroupRoot type="single" v-model="value">
+    <ToggleGroupItem value="left">
+      <TextAlignLeftIcon />
+    </ToggleGroupItem>
+    <ToggleGroupItem value="center">
+      <TextAlignCenterIcon />
+    </ToggleGroupItem>
+    <ToggleGroupItem value="right">
+      <TextAlignRightIcon />
+    </ToggleGroupItem>
+  </ToggleGroupRoot>
 </template>
 ```
 

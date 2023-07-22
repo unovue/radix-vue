@@ -6,16 +6,8 @@ name: toolbar
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/toolbar
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
-import DemoToolbar from '../../components/demo/Toolbar/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import EmitsTable from '../../components/tables/EmitsTable.vue'
-import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
-import KeyboardTable from '../../components/tables/KeyboardTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+<script setup> 
+import DemoToolbar from '../../components/demo/Toolbar/index.vue' 
 </script>
 
 # Toolbar
@@ -307,9 +299,8 @@ import {
   ToolbarLink,
   DropdownMenuRoot,
   DropdownMenuTrigger,
-  DropdownMenuContent
+  DropdownMenuContent,
 } from "radix-vue";
-
 </script>
 
 <template>

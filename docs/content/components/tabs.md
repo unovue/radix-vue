@@ -6,16 +6,8 @@ name: tabs
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
-import DemoTabs from '../../components/demo/Tabs/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import EmitsTable from '../../components/tables/EmitsTable.vue'
-import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
-import KeyboardTable from '../../components/tables/KeyboardTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+<script setup> 
+import DemoTabs from '../../components/demo/Tabs/index.vue' 
 </script>
 
 # Tabs
@@ -38,6 +30,7 @@ A set of layered sections of content—known as tab panels—that are displayed 
 </HeroContainer>
 
 ## Features
+
 <Highlights
   :features="[
     'Can be controlled or uncontrolled.',

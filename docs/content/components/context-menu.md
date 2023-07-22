@@ -6,17 +6,8 @@ name: context-menu
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/menu
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
-import DemoContextMenu from '../../components/demo/ContextMenu/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import EmitsTable from '../../components/tables/EmitsTable.vue'
-import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
-import CssVariablesTable from '../../components/tables/CssVariablesTable.vue'
-import KeyboardTable from '../../components/tables/KeyboardTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+<script setup> 
+import DemoContextMenu from '../../components/demo/ContextMenu/index.vue' 
 </script>
 
 # Context Menu
@@ -39,6 +30,7 @@ Displays a menu located at the pointer, triggered by a right-click or a long-pre
 </HeroContainer>
 
 ## Features
+
 <Highlights
   :features="[
     'Supports submenus with configurable reading direction.',
@@ -67,7 +59,7 @@ npm install radix-vue
 Import all parts and piece them together.
 
 ```jsx
-import * as ContextMenu from 'radix-vue';
+import * as ContextMenu from "radix-vue";
 
 export default () => (
   <ContextMenu.Root>
@@ -168,7 +160,6 @@ The area that opens the context menu. Wrap it around the target you want the con
     },
   ]"
 />
-
 
 <DataAttributesTable
   :data="[
@@ -1012,8 +1003,8 @@ You can add special styles to disabled items via the `data-disabled` attribute.
 
 ```jsx line=10
 // index.jsx
-import * as ContextMenu from 'radix-vue';
-import './styles.css';
+import * as ContextMenu from "radix-vue";
+import "./styles.css";
 
 export default () => (
   <ContextMenu.Root>
@@ -1080,7 +1071,7 @@ Use the `CheckboxItem` part to add an item that can be checked.
 
 ```jsx line=2,12-20
 export default () => {
-  const checked = ref(true)
+  const checked = ref(true);
 
   return (
     <ContextMenu.Root>
@@ -1090,10 +1081,7 @@ export default () => {
           <ContextMenu.Item>…</ContextMenu.Item>
           <ContextMenu.Item>…</ContextMenu.Item>
           <ContextMenu.Separator />
-          <ContextMenu.CheckboxItem
-            checked={checked}
-            onCheckedChange={setChecked}
-          >
+          <ContextMenu.CheckboxItem checked={checked} onCheckedChange={setChecked}>
             <ContextMenu.ItemIndicator>
               <CheckIcon />
             </ContextMenu.ItemIndicator>
@@ -1112,7 +1100,7 @@ Use the `RadioGroup` and `RadioItem` parts to add an item that can be checked am
 
 ```jsx line=2,9-28
 export default () => {
-  const color = ref('blue');
+  const color = ref("blue");
 
   return (
     <ContextMenu.Root>
@@ -1151,7 +1139,7 @@ export default () => {
 You can add extra decorative elements in the `Item` parts, such as images.
 
 ```jsx line=9,13
-import * as ContextMenu from 'radix-vue';
+import * as ContextMenu from "radix-vue";
 
 export default () => (
   <ContextMenu.Root>
@@ -1180,16 +1168,14 @@ We expose several CSS custom properties such as `--radix-context-menu-trigger-wi
 
 ```jsx line=9
 // index.jsx
-import * as ContextMenu from 'radix-vue';
-import './styles.css';
+import * as ContextMenu from "radix-vue";
+import "./styles.css";
 
 export default () => (
   <ContextMenu.Root>
     <ContextMenu.Trigger>…</ContextMenu.Trigger>
     <ContextMenu.Portal>
-      <ContextMenu.Content __className__="ContextMenuContent">
-        …
-      </ContextMenu.Content>
+      <ContextMenu.Content __className__="ContextMenuContent">…</ContextMenu.Content>
     </ContextMenu.Portal>
   </ContextMenu.Root>
 );
@@ -1209,16 +1195,14 @@ We expose a CSS custom property `--radix-context-menu-content-transform-origin`.
 
 ```jsx line=9
 // index.jsx
-import * as ContextMenu from 'radix-vue';
-import './styles.css';
+import * as ContextMenu from "radix-vue";
+import "./styles.css";
 
 export default () => (
   <ContextMenu.Root>
     <ContextMenu.Trigger>…</ContextMenu.Trigger>
     <ContextMenu.Portal>
-      <ContextMenu.Content __className__="ContextMenuContent">
-        …
-      </ContextMenu.Content>
+      <ContextMenu.Content __className__="ContextMenuContent">…</ContextMenu.Content>
     </ContextMenu.Portal>
   </ContextMenu.Root>
 );
@@ -1249,16 +1233,14 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 
 ```jsx line=9
 // index.jsx
-import * as ContextMenu from 'radix-vue';
-import './styles.css';
+import * as ContextMenu from "radix-vue";
+import "./styles.css";
 
 export default () => (
   <ContextMenu.Root>
     <ContextMenu.Trigger>…</ContextMenu.Trigger>
     <ContextMenu.Portal>
-      <ContextMenu.Content __className__="ContextMenuContent">
-        …
-      </ContextMenu.Content>
+      <ContextMenu.Content __className__="ContextMenuContent">…</ContextMenu.Content>
     </ContextMenu.Portal>
   </ContextMenu.Root>
 );
@@ -1270,10 +1252,10 @@ export default () => (
   animation-duration: 0.6s;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
-.ContextMenuContent[__data-side='top'__] {
+.ContextMenuContent[__data-side="top"__] {
   animation-name: slideUp;
 }
-.ContextMenuContent[__data-side='bottom'__] {
+.ContextMenuContent[__data-side="bottom"__] {
   animation-name: slideDown;
 }
 

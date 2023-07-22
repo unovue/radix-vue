@@ -7,15 +7,7 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/accordion
 ---
 
 <script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
 import DemoAccordion from '../../components/demo/Accordion/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
-import CssVariablesTable from '../../components/tables/CssVariablesTable.vue'
-import KeyboardTable from '../../components/tables/KeyboardTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 </script>
 
 # Accordion
@@ -69,13 +61,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import {
-  AccordionRoot,
-  AccordionItem,
-  AccordionHeader,
-  AccordionTrigger,
-  AccordionContent
-} from "radix-vue";
+import { AccordionRoot, AccordionItem, AccordionHeader, AccordionTrigger, AccordionContent } from "radix-vue";
 </script>
 
 <template>
@@ -156,7 +142,6 @@ Contains all the parts of an Accordion
     }
   ]"
 />
-
 
 <DataAttributesTable
   :data="[
@@ -342,9 +327,9 @@ You can add extra decorative elements, such as chevrons, and rotate it when the 
 ```vue line=14
 // index.vue
 <script setup>
-import { AccordionRoot, AccordionItem, AccordionHeader, AccordionTrigger, AccordionContent } from 'radix-vue';
+import { AccordionRoot, AccordionItem, AccordionHeader, AccordionTrigger, AccordionContent } from "radix-vue";
 import { Icon } from "@iconify/vue";
-import './styles.css';
+import "./styles.css";
 </script>
 
 <template>
@@ -367,7 +352,7 @@ import './styles.css';
 .AccordionChevron {
   transition: transform 300ms;
 }
-.AccordionTrigger[data-state='open'] > .AccordionChevron {
+.AccordionTrigger[data-state="open"] > .AccordionChevron {
   transform: rotate(180deg);
 }
 ```
@@ -392,8 +377,8 @@ Use the `--radix-accordion-content-width` and/or `--radix-accordion-content-heig
 ```vue line=11
 // index.vue
 <script setup>
-import { AccordionRoot, AccordionItem, AccordionHeader, AccordionTrigger, AccordionContent } from 'radix-vue';
-import './styles.css';
+import { AccordionRoot, AccordionItem, AccordionHeader, AccordionTrigger, AccordionContent } from "radix-vue";
+import "./styles.css";
 </script>
 
 <template>
@@ -411,10 +396,10 @@ import './styles.css';
 .AccordionContent {
   overflow: hidden;
 }
-.AccordionContent[data-state='open'] {
+.AccordionContent[data-state="open"] {
   animation: slideDown 300ms ease-out;
 }
-.AccordionContent[data-state='closed'] {
+.AccordionContent[data-state="closed"] {
   animation: slideUp 300ms ease-out;
 }
 

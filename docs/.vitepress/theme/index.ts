@@ -5,6 +5,10 @@ import HomePage from "../components/HomePage.vue";
 import "./style.css";
 import "./tailwind.postcss";
 
+const regex = /\/(\w+)\.vue/;
+const baseModules = import.meta.glob("../../components/*.vue", { eager: true });
+const tableModules = import.meta.glob("../../components/tables/*.vue", { eager: true });
+
 export default {
   extends: Theme,
   Layout: () => {
@@ -14,6 +18,11 @@ export default {
     });
   },
   enhanceApp({ app, router, siteData }) {
-    // ...
+    for (const path in baseModules) {
+      app.component(path.match(regex)?.[1], baseModules[path]?.default);
+    }
+    for (const path in tableModules) {
+      app.component(path.match(regex)?.[1], tableModules[path]?.default);
+    }
   },
 };

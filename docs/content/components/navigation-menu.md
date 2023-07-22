@@ -5,16 +5,8 @@ name: navigation-menu
 aria: https://www.w3.org/TR/wai-aria/#navigation
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
-import DemoNavigationMenu from '../../components/demo/NavigationMenu/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import EmitsTable from '../../components/tables/EmitsTable.vue'
-import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
-import KeyboardTable from '../../components/tables/KeyboardTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+<script setup> 
+import DemoNavigationMenu from '../../components/demo/NavigationMenu/index.vue' 
 </script>
 
 # Navigation Menu
@@ -57,6 +49,7 @@ Install the component from your command line.
 ```bash
 npm install radix-vue
 ```
+
 <!--
 ## Anatomy
 

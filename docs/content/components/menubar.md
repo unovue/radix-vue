@@ -1,24 +1,14 @@
 ---
 outline: deep
 metaTitle: Menubar
-metaDescription:
-  A visually persistent menu common in desktop applications that provides quick
+metaDescription: A visually persistent menu common in desktop applications that provides quick
   access to a consistent set of commands.
 name: menubar
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/menu/
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
-import DemoMenubar from '../../components/demo/Menubar/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import EmitsTable from '../../components/tables/EmitsTable.vue'
-import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
-import CssVariablesTable from '../../components/tables/CssVariablesTable.vue'
-import KeyboardTable from '../../components/tables/KeyboardTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+<script setup> 
+import DemoMenubar from '../../components/demo/Menubar/index.vue' 
 </script>
 
 # Menubar
@@ -69,7 +59,7 @@ npm install radix-vue
 Import all parts and piece them together.
 
 ```jsx
-import * as Menubar from 'radix-vue';
+import * as Menubar from "radix-vue";
 
 export default () => (
   <Menubar.Root>
@@ -720,7 +710,6 @@ An item that can be controlled and rendered like a checkbox.
   ]"
 />
 
-
 <DataAttributesTable
   :data="[
     {
@@ -1114,7 +1103,6 @@ The component that pops out when a submenu is open. Must be rendered inside `Men
   ]"
 />
 
-
 <DataAttributesTable
   :data="[
     {
@@ -1206,8 +1194,8 @@ You can add special styles to disabled items via the `data-disabled` attribute.
 
 ```jsx line=11
 // index.jsx
-import * as Menubar from 'radix-vue';
-import './styles.css';
+import * as Menubar from "radix-vue";
+import "./styles.css";
 
 export default () => (
   <Menubar.Root>
@@ -1279,7 +1267,7 @@ Use the `Label` part to help label a section.
 Use the `CheckboxItem` part to add an item that can be checked.
 
 ```jsx line=4,15-23
-import * as Menubar from 'radix-vue';
+import * as Menubar from "radix-vue";
 
 export default () => {
   const checked = ref(true);
@@ -1293,10 +1281,7 @@ export default () => {
             <Menubar.Item>…</Menubar.Item>
             <Menubar.Item>…</Menubar.Item>
             <Menubar.Separator />
-            <Menubar.CheckboxItem
-              checked={checked}
-              onCheckedChange={setChecked}
-            >
+            <Menubar.CheckboxItem checked={checked} onCheckedChange={setChecked}>
               <Menubar.ItemIndicator>
                 <CheckIcon />
               </Menubar.ItemIndicator>
@@ -1315,10 +1300,10 @@ export default () => {
 Use the `RadioGroup` and `RadioItem` parts to add an item that can be checked amongst others.
 
 ```jsx line=4,12-25
-import * as Menubar from 'radix-vue';
+import * as Menubar from "radix-vue";
 
 export default () => {
-  const color = ref('blue')
+  const color = ref("blue");
 
   return (
     <Menubar.Root>
@@ -1353,7 +1338,7 @@ export default () => {
 You can add extra decorative elements in the `Item` parts, such as images.
 
 ```jsx line=10,14
-import * as Menubar from 'radix-vue';
+import * as Menubar from "radix-vue";
 
 export default () => (
   <Menubar.Root>
@@ -1384,8 +1369,8 @@ We expose several CSS custom properties such as `--radix-menubar-trigger-width` 
 
 ```jsx line=9
 // index.jsx
-import * as Menubar from 'radix-vue';
-import './styles.css';
+import * as Menubar from "radix-vue";
+import "./styles.css";
 
 export default () => (
   <Menubar.Root>
@@ -1413,8 +1398,8 @@ We expose a CSS custom property `--radix-menubar-content-transform-origin`. Use 
 
 ```jsx line=10
 // index.jsx
-import * as Menubar from 'radix-vue';
-import './styles.css';
+import * as Menubar from "radix-vue";
+import "./styles.css";
 
 export default () => (
   <Menubar.Root>
@@ -1453,8 +1438,8 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 
 ```jsx line=10
 // index.jsx
-import * as Menubar from 'radix-vue';
-import './styles.css';
+import * as Menubar from "radix-vue";
+import "./styles.css";
 
 export default () => (
   <Menubar.Root>
@@ -1474,10 +1459,10 @@ export default () => (
   animation-duration: 0.6s;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
-.MenubarContent[__data-side='top'__] {
+.MenubarContent[__data-side="top"__] {
   animation-name: slideUp;
 }
-.MenubarContent[__data-side='bottom'__] {
+.MenubarContent[__data-side="bottom"__] {
   animation-name: slideDown;
 }
 

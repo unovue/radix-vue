@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {useSlots, computed, ref, watch} from 'vue'
+import { useSlots, computed, ref, watch } from "vue";
 import { TabsRoot, TabsList, TabsTrigger, TabsContent } from "radix-vue";
 
 defineOptions({
@@ -40,7 +40,11 @@ watch(open, () => {
 </script>
 
 <template>
-  <TabsRoot v-model="currentTab" class="bg-[var(--vp-code-block-bg)] border border-neutral-700/40 rounded-b-lg overflow-hidden" @update:model-value="open = true">
+  <TabsRoot
+    v-model="currentTab"
+    class="bg-[var(--vp-code-block-bg)] border border-neutral-700/40 rounded-b-lg overflow-hidden"
+    @update:model-value="open = true"
+  >
     <div class="bg-[var(--vp-code-block-bg)] border-b-2 border-[#272727] flex pr-2">
       <div class="flex justify-between items-center w-full text-[13px]">
         <TabsList class="flex">

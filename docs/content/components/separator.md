@@ -6,16 +6,8 @@ name: separator
 aria: https://www.w3.org/TR/wai-aria-1.2/#separator
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
-import DemoSeparator from '../../components/demo/Separator/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import EmitsTable from '../../components/tables/EmitsTable.vue'
-import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
-import KeyboardTable from '../../components/tables/KeyboardTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+<script setup> 
+import DemoSeparator from '../../components/demo/Separator/index.vue' 
 </script>
 
 # Separator
@@ -38,6 +30,7 @@ Visually or semantically separates content.
 </HeroContainer>
 
 ## Features
+
 <Highlights :features="['Supports horizontal and vertical orientations.']" />
 
 ## Installation

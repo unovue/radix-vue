@@ -5,16 +5,8 @@ metaDescription: For sighted users to preview content available behind a link.
 name: hover-card
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
-import DemoHoverCard from '../../components/demo/HoverCard/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import EmitsTable from '../../components/tables/EmitsTable.vue'
-import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
-import KeyboardTable from '../../components/tables/KeyboardTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+<script setup> 
+import DemoHoverCard from '../../components/demo/HoverCard/index.vue' 
 </script>
 
 # HoverCard
@@ -63,24 +55,18 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import {
-	HoverCardRoot,
-	HoverCardTrigger,
-	HoverCardPortal,
-	HoverCardContent,
-	HoverCardArrow,
-} from "radix-vue";
+import { HoverCardRoot, HoverCardTrigger, HoverCardPortal, HoverCardContent, HoverCardArrow } from "radix-vue";
 </script>
 
 <template>
-	<HoverCardRoot>
-		<HoverCardTrigger />
-		<HoverCardPortal>
-			<HoverCardContent>
-				<HoverCardArrow />
-			</HoverCardContent>
-		</HoverCardPortal>
-	</HoverCardRoot>
+  <HoverCardRoot>
+    <HoverCardTrigger />
+    <HoverCardPortal>
+      <HoverCardContent>
+        <HoverCardArrow />
+      </HoverCardContent>
+    </HoverCardPortal>
+  </HoverCardRoot>
 </template>
 ```
 
@@ -118,7 +104,8 @@ Contains all the parts of a hover card.
     },
   ]"
 />
-```
+
+````
 
 ### Trigger
 
@@ -334,7 +321,7 @@ import {
 		<HoverCardContent>…</HoverCardContent>
 	</HoverCardRoot>
 </template>
-```
+````
 
 ### Constrain the content size
 
@@ -345,33 +332,25 @@ We expose several CSS custom properties such as `--radix-hover-card-trigger-widt
 ```vue line=17
 // index.vue
 <script setup>
-import {
-	HoverCardRoot,
-	HoverCardTrigger,
-	HoverCardPortal,
-	HoverCardContent,
-	HoverCardArrow,
-} from "radix-vue";
-import './styles.css';
+import { HoverCardRoot, HoverCardTrigger, HoverCardPortal, HoverCardContent, HoverCardArrow } from "radix-vue";
+import "./styles.css";
 </script>
 
 <template>
-	<HoverCardRoot>
-		<HoverCardTrigger>…</HoverCardTrigger>
-		<HoverCardPortal>
-			<HoverCardContent class="HoverCardContent" :sideOffset="5">
-				…
-			</HoverCardContent>
-		</HoverCardPortal>
-	</HoverCardRoot>
+  <HoverCardRoot>
+    <HoverCardTrigger>…</HoverCardTrigger>
+    <HoverCardPortal>
+      <HoverCardContent class="HoverCardContent" :sideOffset="5"> … </HoverCardContent>
+    </HoverCardPortal>
+  </HoverCardRoot>
 </template>
 ```
 
 ```css
 /* styles.css */
 .HoverCardContent {
-	width: var(--radix-hover-card-trigger-width);
-	max-height: var(--radix-hover-card-content-available-height);
+  width: var(--radix-hover-card-trigger-width);
+  max-height: var(--radix-hover-card-content-available-height);
 }
 ```
 
@@ -382,40 +361,34 @@ We expose a CSS custom property `--radix-hover-card-content-transform-origin`. U
 ```vue line=16
 // index.vue
 <script setup>
-import {
-	HoverCardRoot,
-	HoverCardTrigger,
-	HoverCardPortal,
-	HoverCardContent,
-	HoverCardArrow,
-} from "radix-vue";
-import './styles.css';
+import { HoverCardRoot, HoverCardTrigger, HoverCardPortal, HoverCardContent, HoverCardArrow } from "radix-vue";
+import "./styles.css";
 </script>
 
 <template>
-	<HoverCardRoot>
-		<HoverCardTrigger>…</HoverCardTrigger>
-		<HoverCardContent class="HoverCardContent">…</HoverCardContent>
-	</HoverCardRoot>
+  <HoverCardRoot>
+    <HoverCardTrigger>…</HoverCardTrigger>
+    <HoverCardContent class="HoverCardContent">…</HoverCardContent>
+  </HoverCardRoot>
 </template>
 ```
 
 ```css line=3
 /* styles.css */
 .HoverCardContent {
-	transform-origin: var(--radix-hover-card-content-transform-origin);
-	animation: scaleIn 0.5s ease-out;
+  transform-origin: var(--radix-hover-card-content-transform-origin);
+  animation: scaleIn 0.5s ease-out;
 }
 
 @keyframes scaleIn {
-	from {
-		opacity: 0;
-		transform: scale(0);
-	}
-	to {
-		opacity: 1;
-		transform: scale(1);
-	}
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 ```
 
@@ -426,57 +399,51 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 ```vue line=16
 // index.vue
 <script setup>
-import {
-	HoverCardRoot,
-	HoverCardTrigger,
-	HoverCardPortal,
-	HoverCardContent,
-	HoverCardArrow,
-} from "radix-vue";
-import './styles.css';
+import { HoverCardRoot, HoverCardTrigger, HoverCardPortal, HoverCardContent, HoverCardArrow } from "radix-vue";
+import "./styles.css";
 </script>
 
 <template>
-	<HoverCardRoot>
-		<HoverCardTrigger>…</HoverCardTrigger>
-		<HoverCardContent class="HoverCardContent">…</HoverCardContent>
-	</HoverCardRoot>
+  <HoverCardRoot>
+    <HoverCardTrigger>…</HoverCardTrigger>
+    <HoverCardContent class="HoverCardContent">…</HoverCardContent>
+  </HoverCardRoot>
 </template>
 ```
 
 ```css line=6-11
 /* styles.css */
 .HoverCardContent {
-	animation-duration: 0.6s;
-	animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-duration: 0.6s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 .HoverCardContent[data-side="top"] {
-	animation-name: slideUp;
+  animation-name: slideUp;
 }
 .HoverCardContent[data-side="bottom"] {
-	animation-name: slideDown;
+  animation-name: slideDown;
 }
 
 @keyframes slideUp {
-	from {
-		opacity: 0;
-		transform: translateY(10px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideDown {
-	from {
-		opacity: 0;
-		transform: translateY(-10px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 ```
 

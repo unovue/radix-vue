@@ -1,7 +1,8 @@
 const { blackA, green, grass, mauve, violet, red, teal, cyan, indigo, purple } = require("@radix-ui/colors");
 
 module.exports = {
-  content: ["./docs/.vitepress/**/*.{js,ts,vue}", "./docs/**/*.md", "./components/**/*.vue"],
+  darkMode: "class",
+  content: [".vitepress/**/*.{js,ts,vue}", "./docs/**/*.md", "./components/**/*.vue"],
   options: {
     safelist: ["html"],
   },
@@ -18,7 +19,7 @@ module.exports = {
         ...teal,
         ...cyan,
         ...indigo,
-        ...purple
+        ...purple,
       },
       keyframes: {
         overlayShow: {

@@ -6,16 +6,8 @@ name: select
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/listbox
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
-import DemoSelect from '../../components/demo/Select/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import EmitsTable from '../../components/tables/EmitsTable.vue'
-import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
-import KeyboardTable from '../../components/tables/KeyboardTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+<script setup> 
+import DemoSelect from '../../components/demo/Select/index.vue' 
 </script>
 
 # Select
@@ -67,47 +59,47 @@ Import all parts and piece them together.
 ```vue
 <script setup lang="ts">
 import {
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectItemIndicator,
-	SelectLabel,
-	SelectPortal,
-	SelectRoot,
-	SelectSeparator,
-	SelectTrigger,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectItemIndicator,
+  SelectLabel,
+  SelectPortal,
+  SelectRoot,
+  SelectSeparator,
+  SelectTrigger,
 } from "radix-vue";
 </script>
 
 <template>
-	<SelectRoot>
-		<SelectTrigger>
-			<SelectValue />
-			<SelectIcon />
-		</SelectTrigger>
+  <SelectRoot>
+    <SelectTrigger>
+      <SelectValue />
+      <SelectIcon />
+    </SelectTrigger>
 
-		<SelectPortal>
-			<SelectContent>
-				<SelectScrollUpButton />
-				<SelectViewport>
-					<SelectItem> 
+    <SelectPortal>
+      <SelectContent>
+        <SelectScrollUpButton />
+        <SelectViewport>
+          <SelectItem>
             <SelectItemText />
             <SelectItemIndicator />
           </SelectItem>
-					<SelectGroup>
-						<SelectLabel />
-						<SelectItem>
-							<SelectItemText />
+          <SelectGroup>
+            <SelectLabel />
+            <SelectItem>
+              <SelectItemText />
               <SelectItemIndicator />
-						</SelectItem>
-					</SelectGroup>
-					<SelectSeparator />
-				</SelectViewport>
-				<SelectScrollDownButton />
-				<SelectArrow />
-			</SelectContent>
-		</SelectPortal>
-	</SelectRoot>
+            </SelectItem>
+          </SelectGroup>
+          <SelectSeparator />
+        </SelectViewport>
+        <SelectScrollDownButton />
+        <SelectArrow />
+      </SelectContent>
+    </SelectPortal>
+  </SelectRoot>
 </template>
 ```
 
@@ -166,7 +158,6 @@ Contains all the parts of a Select
     },
   ]"
 />
-
 
 ### Trigger
 
@@ -402,7 +393,6 @@ The component that pops out when the select is open.
   ]"
 />
 
-
 ### Viewport
 
 The scrolling viewport that contains all of the items.
@@ -618,27 +608,25 @@ By default, `Select` will behave similarly to a native MacOS menu by positioning
 // index.vue
 <script setup lang="ts">
 import {
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectItemIndicator,
-	SelectLabel,
-	SelectPortal,
-	SelectRoot,
-	SelectSeparator,
-	SelectTrigger,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectItemIndicator,
+  SelectLabel,
+  SelectPortal,
+  SelectRoot,
+  SelectSeparator,
+  SelectTrigger,
 } from "radix-vue";
 </script>
 
 <template>
-	<SelectRoot>
-		<SelectTrigger>…</SelectTrigger>
-		<SelectPortal>
-			<SelectContent position="popper" sideOffset="{5}">
-				…
-			</SelectContent>
-		</SelectPortal>
-	</SelectRoot>
+  <SelectRoot>
+    <SelectTrigger>…</SelectTrigger>
+    <SelectPortal>
+      <SelectContent position="popper" sideOffset="{5}"> … </SelectContent>
+    </SelectPortal>
+  </SelectRoot>
 </template>
 ```
 
@@ -652,40 +640,34 @@ We expose several CSS custom properties such as `--radix-select-trigger-width` a
 // index.vue
 <script setup lang="ts">
 import {
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectItemIndicator,
-	SelectLabel,
-	SelectPortal,
-	SelectRoot,
-	SelectSeparator,
-	SelectTrigger,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectItemIndicator,
+  SelectLabel,
+  SelectPortal,
+  SelectRoot,
+  SelectSeparator,
+  SelectTrigger,
 } from "radix-vue";
 import "./styles.css";
 </script>
 
 <template>
-	<SelectRoot>
-		<SelectTrigger>…</SelectTrigger>
-		<SelectPortal>
-			<SelectContent
-				class="SelectContent"
-				position="popper"
-				:sideOffset="5"
-			>
-				…
-			</SelectContent>
-		</SelectPortal>
-	</SelectRoot>
+  <SelectRoot>
+    <SelectTrigger>…</SelectTrigger>
+    <SelectPortal>
+      <SelectContent class="SelectContent" position="popper" :sideOffset="5"> … </SelectContent>
+    </SelectPortal>
+  </SelectRoot>
 </template>
 ```
 
 ```css
 /* styles.css */
 .SelectContent {
-	width: var(--radix-select-trigger-width);
-	max-height: var(--radix-select-content-available-height);
+  width: var(--radix-select-trigger-width);
+  max-height: var(--radix-select-content-available-height);
 }
 ```
 
@@ -697,15 +679,15 @@ You can add special styles to disabled items via the `data-disabled` attribute.
 // index.vue
 <script setup lang="ts">
 import {
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectItemIndicator,
-	SelectLabel,
-	SelectPortal,
-	SelectRoot,
-	SelectSeparator,
-	SelectTrigger,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectItemIndicator,
+  SelectLabel,
+  SelectPortal,
+  SelectRoot,
+  SelectSeparator,
+  SelectTrigger,
 } from "radix-vue";
 import "./styles.css";
 </script>
@@ -729,7 +711,7 @@ import "./styles.css";
 ```css line=2
 /* styles.css */
 .SelectItem[data-disabled] {
-	color: "gainsboro";
+  color: "gainsboro";
 }
 ```
 
@@ -741,36 +723,36 @@ You can use the `placeholder` prop on `Value` for when the select has no value. 
 // index.vue
 <script setup lang="ts">
 import {
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectItemIndicator,
-	SelectLabel,
-	SelectPortal,
-	SelectRoot,
-	SelectSeparator,
-	SelectTrigger,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectItemIndicator,
+  SelectLabel,
+  SelectPortal,
+  SelectRoot,
+  SelectSeparator,
+  SelectTrigger,
 } from "radix-vue";
 import "./styles.css";
 </script>
 
 <template>
-	<SelectRoot>
-		<SelectTrigger class="SelectTrigger">
-			<SelectValue placeholder="Pick an option" />
-			<SelectIcon />
-		</SelectTrigger>
-		<SelectPortal>
-			<SelectContent>…</SelectContent>
-		</SelectPortal>
-	</SelectRoot>
+  <SelectRoot>
+    <SelectTrigger class="SelectTrigger">
+      <SelectValue placeholder="Pick an option" />
+      <SelectIcon />
+    </SelectTrigger>
+    <SelectPortal>
+      <SelectContent>…</SelectContent>
+    </SelectPortal>
+  </SelectRoot>
 </template>
 ```
 
 ```css line=2
 /* styles.css */
 .SelectTrigger[data-placeholder] {
-	color: "gainsboro";
+  color: "gainsboro";
 }
 ```
 
@@ -829,15 +811,15 @@ You can use custom content in your items.
 ```vue line=23
 <script setup lang="ts">
 import {
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectItemIndicator,
-	SelectLabel,
-	SelectPortal,
-	SelectRoot,
-	SelectSeparator,
-	SelectTrigger,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectItemIndicator,
+  SelectLabel,
+  SelectPortal,
+  SelectRoot,
+  SelectSeparator,
+  SelectTrigger,
 } from "radix-vue";
 </script>
 
@@ -870,16 +852,16 @@ If you need more flexibility, you can control the component using `value`/`v-mod
 
 ```vue line=3,5,8
 <script setup>
-const countries = { france: '🇫🇷', 'united-kingdom': '🇬🇧', spain: '🇪🇸' };
+const countries = { france: "🇫🇷", "united-kingdom": "🇬🇧", spain: "🇪🇸" };
 
-const value = ref('france')
+const value = ref("france");
 </script>
 
 <template>
   <SelectRoot v-model="value">
     <SelectTrigger>
       <SelectValue aria-label="value">
-        {{countries[value]}}
+        {{ countries[value] }}
       </SelectValue>
       <SelectIcon />
     </SelectTrigger>
@@ -913,15 +895,15 @@ The native scrollbar is hidden by default as we recommend using the `ScrollUpBut
 // index.vue
 <script setup lang="ts">
 import {
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectItemIndicator,
-	SelectLabel,
-	SelectPortal,
-	SelectRoot,
-	SelectSeparator,
-	SelectTrigger,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectItemIndicator,
+  SelectLabel,
+  SelectPortal,
+  SelectRoot,
+  SelectSeparator,
+  SelectTrigger,
   ScrollAreaRoot,
   ScrollAreaViewport,
   ScrollAreaScrollbar,
@@ -932,50 +914,47 @@ import "./styles.css";
 </script>
 
 <template>
-	<SelectRoot>
-		<SelectTrigger>…</SelectTrigger>
-		<SelectPortal>
-			<SelectContent>
-				<ScrollAreaRoot class="ScrollAreaRoot" type="auto">
-					<SelectViewport asChild>
-						<ScrollAreaViewport class="ScrollAreaViewport">
-							<StyledItem>…</StyledItem> <StyledItem>…</StyledItem>
-							<StyledItem>…</StyledItem>
-						</ScrollAreaViewport>
-					</SelectViewport>
-					<ScrollAreaScrollbar
-						class="ScrollAreaScrollbar"
-						orientation="vertical"
-					>
-						<ScrollAreaThumb class="ScrollAreaThumb" />
-					</ScrollAreaScrollbar>
-				</ScrollAreaRoot>
-			</SelectContent>
-		</SelectPortal>
-	</SelectRoot>
+  <SelectRoot>
+    <SelectTrigger>…</SelectTrigger>
+    <SelectPortal>
+      <SelectContent>
+        <ScrollAreaRoot class="ScrollAreaRoot" type="auto">
+          <SelectViewport asChild>
+            <ScrollAreaViewport class="ScrollAreaViewport">
+              <StyledItem>…</StyledItem> <StyledItem>…</StyledItem>
+              <StyledItem>…</StyledItem>
+            </ScrollAreaViewport>
+          </SelectViewport>
+          <ScrollAreaScrollbar class="ScrollAreaScrollbar" orientation="vertical">
+            <ScrollAreaThumb class="ScrollAreaThumb" />
+          </ScrollAreaScrollbar>
+        </ScrollAreaRoot>
+      </SelectContent>
+    </SelectPortal>
+  </SelectRoot>
 </template>
 ```
 
 ```css
 /* styles.css */
 .ScrollAreaRoot {
-	width: 100%;
-	height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .ScrollAreaViewport {
-	width: 100%;
-	height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .ScrollAreaScrollbar {
-	width: 4px;
-	padding: 5px 2px;
+  width: 4px;
+  padding: 5px 2px;
 }
 
 .ScrollAreaThumb {
-	background: rgba(0, 0, 0, 0.3);
-	borderradius: 3px;
+  background: rgba(0, 0, 0, 0.3);
+  borderradius: 3px;
 }
 ```
 
@@ -1018,8 +997,8 @@ Use our [Label](label) component in order to offer a visual and accessible label
 
 ```vue line=19,22,26
 <script setup lang="ts">
-import { Icon } from '@iconify/vue'
-import { ref } from 'vue'
+import { Icon } from "@iconify/vue";
+import { ref } from "vue";
 import {
   SelectContent,
   SelectGroup,
@@ -1030,25 +1009,25 @@ import {
   SelectRoot,
   SelectSeparator,
   SelectTrigger,
-  Label
-} from 'radix-vue'
+  Label,
+} from "radix-vue";
 </script>
 
 <template>
-    <Label>
-      Country
-      <SelectRoot>…</SelectRoot>
-    </Label>
+  <Label>
+    Country
+    <SelectRoot>…</SelectRoot>
+  </Label>
 
-    <!-- or -->
+  <!-- or -->
 
-    <Label for="country">Country</Label>
-    <SelectRoot>
-      <SelectTrigger id="country">…</SelectTrigger>
-      <SelectPortal>
-        <SelectContent>…</SelectContent>
-      </SelectPortal>
-    </SelectRoot>
+  <Label for="country">Country</Label>
+  <SelectRoot>
+    <SelectTrigger id="country">…</SelectTrigger>
+    <SelectPortal>
+      <SelectContent>…</SelectContent>
+    </SelectPortal>
+  </SelectRoot>
 </template>
 ```
 

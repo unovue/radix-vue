@@ -6,16 +6,8 @@ name: popover
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
-import DemoPopover from '../../components/demo/Popover/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import EmitsTable from '../../components/tables/EmitsTable.vue'
-import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
-import KeyboardTable from '../../components/tables/KeyboardTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+<script setup> 
+import DemoPopover from '../../components/demo/Popover/index.vue' 
 </script>
 
 # Popover
@@ -64,27 +56,20 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import {
-	PopoverArrow,
-	PopoverClose,
-	PopoverContent,
-	PopoverPortal,
-	PopoverRoot,
-	PopoverTrigger,
-} from "radix-vue";
+import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from "radix-vue";
 </script>
 
 <template>
-	<PopoverRoot>
-		<PopoverTrigger />
-		<PopoverAnchor />
-		<PopoverPortal>
-			<PopoverContent>
-				<PopoverClose />
-				<PopoverArrow />
-			</PopoverContent>
-		</PopoverPortal>
-	</PopoverRoot>
+  <PopoverRoot>
+    <PopoverTrigger />
+    <PopoverAnchor />
+    <PopoverPortal>
+      <PopoverContent>
+        <PopoverClose />
+        <PopoverArrow />
+      </PopoverContent>
+    </PopoverPortal>
+  </PopoverRoot>
 </template>
 ```
 
@@ -411,35 +396,26 @@ We expose several CSS custom properties such as `--radix-popover-trigger-width` 
 ```vue line=18
 // index.vue
 <script setup>
-import {
-	PopoverArrow,
-	PopoverClose,
-	PopoverContent,
-	PopoverPortal,
-	PopoverRoot,
-	PopoverTrigger,
-} from "radix-vue";
+import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from "radix-vue";
 import "./styles.css";
 </script>
 ;
 
 <template>
-	<PopoverRoot>
-		<PopoverTrigger>…</PopoverTrigger>
-		<PopoverPortal>
-			<PopoverContent class="PopoverContent" :sideOffset="5">
-				…
-			</PopoverContent>
-		</PopoverPortal>
-	</PopoverRoot>
+  <PopoverRoot>
+    <PopoverTrigger>…</PopoverTrigger>
+    <PopoverPortal>
+      <PopoverContent class="PopoverContent" :sideOffset="5"> … </PopoverContent>
+    </PopoverPortal>
+  </PopoverRoot>
 </template>
 ```
 
 ```css
 /* styles.css */
 .PopoverContent {
-	width: var(--radix-popover-trigger-width);
-	max-height: var(--radix-popover-content-available-height);
+  width: var(--radix-popover-trigger-width);
+  max-height: var(--radix-popover-content-available-height);
 }
 ```
 
@@ -450,44 +426,37 @@ We expose a CSS custom property `--radix-popover-content-transform-origin`. Use 
 ```vue line=18
 // index.vue
 <script setup>
-import {
-	PopoverArrow,
-	PopoverClose,
-	PopoverContent,
-	PopoverPortal,
-	PopoverRoot,
-	PopoverTrigger,
-} from "radix-vue";
+import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from "radix-vue";
 import "./styles.css";
 </script>
 ;
 
 <template>
-	<PopoverRoot>
-		<PopoverTrigger>…</PopoverTrigger>
-		<PopoverPortal>
-			<PopoverContent class="PopoverContent">…</PopoverContent>
-		</PopoverPortal>
-	</PopoverRoot>
+  <PopoverRoot>
+    <PopoverTrigger>…</PopoverTrigger>
+    <PopoverPortal>
+      <PopoverContent class="PopoverContent">…</PopoverContent>
+    </PopoverPortal>
+  </PopoverRoot>
 </template>
 ```
 
 ```css line=3
 /* styles.css */
 .PopoverContent {
-	transform-origin: var(--radix-popover-content-transform-origin);
-	animation: scaleIn 0.5s ease-out;
+  transform-origin: var(--radix-popover-content-transform-origin);
+  animation: scaleIn 0.5s ease-out;
 }
 
 @keyframes scaleIn {
-	from {
-		opacity: 0;
-		transform: scale(0);
-	}
-	to {
-		opacity: 1;
-		transform: scale(1);
-	}
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 ```
 
@@ -498,61 +467,54 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 ```vue line=18
 // index.vue
 <script setup>
-import {
-	PopoverArrow,
-	PopoverClose,
-	PopoverContent,
-	PopoverPortal,
-	PopoverRoot,
-	PopoverTrigger,
-} from "radix-vue";
+import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from "radix-vue";
 import "./styles.css";
 </script>
 ;
 
 <template>
-	<PopoverRoot>
-		<PopoverTrigger>…</PopoverTrigger>
-		<PopoverPortal>
-			<PopoverContent class="PopoverContent">…</PopoverContent>
-		</PopoverPortal>
-	</PopoverRoot>
+  <PopoverRoot>
+    <PopoverTrigger>…</PopoverTrigger>
+    <PopoverPortal>
+      <PopoverContent class="PopoverContent">…</PopoverContent>
+    </PopoverPortal>
+  </PopoverRoot>
 </template>
 ```
 
 ```css line=6-11
 /* styles.css */
 .PopoverContent {
-	animation-duration: 0.6s;
-	animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-duration: 0.6s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 .PopoverContent[data-side="top"] {
-	animation-name: slideUp;
+  animation-name: slideUp;
 }
 .PopoverContent[data-side="bottom"] {
-	animation-name: slideDown;
+  animation-name: slideDown;
 }
 
 @keyframes slideDown {
-	from {
-		opacity: 0;
-		transform: translateY(-10px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideUp {
-	from {
-		opacity: 0;
-		transform: translateY(10px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 ```
 
@@ -563,38 +525,29 @@ You can anchor the content to another element if you do not want to use the trig
 ```vue line=16-20
 // index.vue
 <script setup>
-import {
-	PopoverArrow,
-	PopoverClose,
-	PopoverContent,
-	PopoverPortal,
-	PopoverRoot,
-	PopoverTrigger,
-} from "radix-vue";
+import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from "radix-vue";
 import "./styles.css";
 </script>
 ;
 
 <template>
-	<PopoverRoot>
-		<PopoverAnchor asChild>
-			<div class="Row">
-				Row as anchor <PopoverTrigger>Trigger</PopoverTrigger>
-			</div>
-		</PopoverAnchor>
+  <PopoverRoot>
+    <PopoverAnchor asChild>
+      <div class="Row">Row as anchor <PopoverTrigger>Trigger</PopoverTrigger></div>
+    </PopoverAnchor>
 
-		<PopoverPortal>
-			<PopoverContent>…</PopoverContent>
-		</PopoverPortal>
-	</PopoverRoot>
+    <PopoverPortal>
+      <PopoverContent>…</PopoverContent>
+    </PopoverPortal>
+  </PopoverRoot>
 </template>
 ```
 
 ```css
 /* styles.css */
 .Row {
-	background-color: gainsboro;
-	padding: 20px;
+  background-color: gainsboro;
+  padding: 20px;
 }
 ```
 

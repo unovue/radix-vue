@@ -6,16 +6,8 @@ name: switch
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/switch
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
-import DemoSwitch from '../../components/demo/Switch/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import EmitsTable from '../../components/tables/EmitsTable.vue'
-import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
-import KeyboardTable from '../../components/tables/KeyboardTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+<script setup> 
+import DemoSwitch from '../../components/demo/Switch/index.vue' 
 </script>
 
 # Switch
@@ -38,6 +30,7 @@ A control that allows the user to toggle between checked and not checked.
 </HeroContainer>
 
 ## Features
+
 <Highlights
   :features="['Full keyboard navigation.', 'Can be controlled or uncontrolled.']"
 />

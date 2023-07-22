@@ -3,15 +3,15 @@
  * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
  */
 
- @tailwind base;
- @tailwind components;
- @tailwind utilities;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /**
  * Colors
  * -------------------------------------------------------------------------- */
 
- :root {
+:root {
   --vp-c-brand: #10b981;
   --vp-c-brand-light: #10b981;
   --vp-c-brand-lighter: #34d399;
@@ -43,17 +43,9 @@
 
 :root {
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: -webkit-linear-gradient(
-    120deg,
-    #14b8a6 30%,
-    #22c55e
-  );
+  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #14b8a6 30%, #22c55e);
 
-  --vp-home-hero-image-background-image: linear-gradient(
-    -45deg,
-    #bd34fe 50%,
-    #47caff 50%
-  );
+  --vp-home-hero-image-background-image: linear-gradient(-45deg, #bd34fe 50%, #47caff 50%);
   --vp-home-hero-image-filter: blur(40px);
 }
 
@@ -105,7 +97,7 @@
 }
 
 .vp-doc h2 {
-  @apply mb-2 md:mb-2.5 text-xl md:text-2xl
+  @apply mb-2 md:mb-2.5 text-xl md:text-2xl;
 }
 
 .vp-doc h3 {
@@ -123,9 +115,9 @@
 }
 
 .vp-doc :not(pre) > code {
-  @apply px-0.5 rounded-sm !bg-[#0F291E] !text-[#4CC38A];
+  @apply text-green-600 dark:text-green-500;
 }
 
 li > span {
-  @apply text-[15px] md:text-base
+  @apply text-[15px] md:text-base;
 }

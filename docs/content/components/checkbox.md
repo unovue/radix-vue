@@ -6,16 +6,8 @@ name: checkbox
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/checkbox
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
-import DemoCheckbox from '../../components/demo/Checkbox/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import EmitsTable from '../../components/tables/EmitsTable.vue'
-import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
-import KeyboardTable from '../../components/tables/KeyboardTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+<script setup> 
+import DemoCheckbox from '../../components/demo/Checkbox/index.vue' 
 </script>
 
 # Checkbox
@@ -65,9 +57,9 @@ import { CheckboxRoot, CheckboxIndicator } from "radix-vue";
 </script>
 
 <template>
-	<CheckboxRoot>
-		<CheckboxIndicator />
-	</CheckboxRoot>
+  <CheckboxRoot>
+    <CheckboxIndicator />
+  </CheckboxRoot>
 </template>
 ```
 
@@ -172,28 +164,23 @@ You can set the checkbox to `indeterminate` by taking control of its state.
 
 ```vue line=5,9-14,16-21
 <script setup>
-import { Icon } from "@iconify/vue";;
+import { Icon } from "@iconify/vue";
 import { CheckboxRoot, CheckboxIndicator } from "radix-vue";
 
 const checked = ref("indeterminate");
 </script>
 
 <template>
-	<StyledCheckbox v-model:checked="checked">
-		<Icon icon="radix-icons:checkbox-indicator">
-			<Icon icon="radix-icons:divider-horizontal" v-if="checked === 'indeterminate'" />
-			<Icon icon="radix-icons:check" v-if="checked" />
-		</Icon>
-	</StyledCheckbox>
+  <StyledCheckbox v-model:checked="checked">
+    <Icon icon="radix-icons:checkbox-indicator">
+      <Icon icon="radix-icons:divider-horizontal" v-if="checked === 'indeterminate'" />
+      <Icon icon="radix-icons:check" v-if="checked" />
+    </Icon>
+  </StyledCheckbox>
 
-	<button
-		type="button"
-		@click="
-			() => checked === 'indeterminate' ? checked = false : checked = 'indeterminate'
-		"
-	>
-		Toggle indeterminate
-	</button>
+  <button type="button" @click="() => (checked === 'indeterminate' ? (checked = false) : (checked = 'indeterminate'))">
+    Toggle indeterminate
+  </button>
 </template>
 ```
 

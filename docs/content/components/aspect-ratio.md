@@ -5,16 +5,8 @@ metaDescription: Displays content within a desired ratio.
 name: aspect-ratio
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
-import DemoAspectRatio from '../../components/demo/AspectRatio/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import EmitsTable from '../../components/tables/EmitsTable.vue'
-import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
-import KeyboardTable from '../../components/tables/KeyboardTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+<script setup> 
+import DemoAspectRatio from '../../components/demo/AspectRatio/index.vue' 
 </script>
 
 # Aspect Ratio
@@ -64,7 +56,7 @@ Import the component.
 
 ```vue
 <script setup>
-import { AspectRatio } from 'radix-vue'
+import { AspectRatio } from "radix-vue";
 </script>
 
 <template>

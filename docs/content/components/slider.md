@@ -6,16 +6,8 @@ name: slider
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/slidertwothumb
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
-import DemoSlider from '../../components/demo/Slider/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import EmitsTable from '../../components/tables/EmitsTable.vue'
-import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
-import KeyboardTable from '../../components/tables/KeyboardTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+<script setup> 
+import DemoSlider from '../../components/demo/Slider/index.vue' 
 </script>
 
 # Slider
@@ -68,12 +60,12 @@ import { SliderRoot, SliderTrack, SliderRange, SliderThumb } from "radix-vue";
 </script>
 
 <template>
-	<SliderRoot>
-		<SliderTrack>
-			<SliderRange />
-		</SliderTrack>
-		<SliderThumb />
-	</SliderRoot>
+  <SliderRoot>
+    <SliderTrack>
+      <SliderRange />
+    </SliderTrack>
+    <SliderThumb />
+  </SliderRoot>
 </template>
 ```
 
@@ -291,54 +283,50 @@ import "./styles.css";
 </script>
 
 <template>
-	<SliderRoot
-    class="SliderRoot"
-    :defaultValue="[50]"
-    orientation="vertical"
-    >
-		<SliderTrack class="SliderTrack">
-			<SliderRange class="SliderRange" />
-		</SliderTrack>
-		<SliderThumb class="SliderThumb" />
-	</SliderRoot>
+  <SliderRoot class="SliderRoot" :defaultValue="[50]" orientation="vertical">
+    <SliderTrack class="SliderTrack">
+      <SliderRange class="SliderRange" />
+    </SliderTrack>
+    <SliderThumb class="SliderThumb" />
+  </SliderRoot>
 </template>
 ```
 
 ```css line=7,18,26
 /* styles.css */
 .SliderRoot {
-	position: relative;
-	display: flex;
-	align-items: center;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 .SliderRoot[data-orientation="vertical"] {
-	flex-direction: column;
-	width: 20px;
-	height: 100px;
+  flex-direction: column;
+  width: 20px;
+  height: 100px;
 }
 
 .SliderTrack {
-	position: relative;
-	flex-grow: 1;
-	background-color: grey;
+  position: relative;
+  flex-grow: 1;
+  background-color: grey;
 }
 .SliderTrack[data-orientation="vertical"] {
-	width: 3px;
+  width: 3px;
 }
 
 .SliderRange {
-	position: absolute;
-	background-color: black;
+  position: absolute;
+  background-color: black;
 }
 .SliderRange[data-orientation="vertical"] {
-	width: 100%;
+  width: 100%;
 }
 
 .SliderThumb {
-	display: block;
-	width: 20px;
-	height: 20px;
-	background-color: black;
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-color: black;
 }
 ```
 
@@ -354,13 +342,13 @@ import "./styles.css";
 </script>
 
 <template>
-	<SliderRoot :defaultValue="[25, 75]">
-		<SliderTrack>
-			<SliderRange />
-		</SliderTrack>
-		<SliderThumb />
-		<SliderThumb />
-	</SliderRoot>
+  <SliderRoot :defaultValue="[25, 75]">
+    <SliderTrack>
+      <SliderRange />
+    </SliderTrack>
+    <SliderThumb />
+    <SliderThumb />
+  </SliderRoot>
 </template>
 ```
 
@@ -376,12 +364,12 @@ import "./styles.css";
 </script>
 
 <template>
-	<SliderRoot :defaultValue="[50]" :step="10">
-		<SliderTrack>
-			<SliderRange />
-		</SliderTrack>
-		<SliderThumb />
-	</SliderRoot>
+  <SliderRoot :defaultValue="[50]" :step="10">
+    <SliderTrack>
+      <SliderRange />
+    </SliderTrack>
+    <SliderThumb />
+  </SliderRoot>
 </template>
 ```
 
@@ -397,17 +385,13 @@ import "./styles.css";
 </script>
 
 <template>
-	<SliderRoot
-    :defaultValue="[25, 75]"
-    :step="10"
-    :minStepsBetweenThumbs="1"
-    >
-		<SliderTrack>
-			<SliderRange />
-		</SliderTrack>
-		<SliderThumb />
-		<SliderThumb />
-	</SliderRoot>
+  <SliderRoot :defaultValue="[25, 75]" :step="10" :minStepsBetweenThumbs="1">
+    <SliderTrack>
+      <SliderRange />
+    </SliderTrack>
+    <SliderThumb />
+    <SliderThumb />
+  </SliderRoot>
 </template>
 ```
 

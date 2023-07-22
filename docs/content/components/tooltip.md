@@ -6,16 +6,8 @@ name: tooltip
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/tooltip
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
-import DemoTooltip from '../../components/demo/Tooltip/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import EmitsTable from '../../components/tables/EmitsTable.vue'
-import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
-import KeyboardTable from '../../components/tables/KeyboardTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+<script setup> 
+import DemoTooltip from '../../components/demo/Tooltip/index.vue' 
 </script>
 
 # Tooltip
@@ -53,27 +45,20 @@ Import all parts and piece them together.
 
 ```vue
 <script setup lang="ts">
-import {
-	TooltipProvider,
-	TooltipRoot,
-	TooltipTrigger,
-	TooltipPortal,
-	TooltipContent,
-	TooltipArrow,
-} from "radix-vue";
+import { TooltipProvider, TooltipRoot, TooltipTrigger, TooltipPortal, TooltipContent, TooltipArrow } from "radix-vue";
 </script>
 
 <template>
-	<TooltipProvider>
-		<TooltipRoot>
-			<TooltipTrigger />
-			<TooltipPortal>
-				<TooltipContent>
-					<TooltipArrow />
-				</TooltipContent>
-			</TooltipPortal>
-		</TooltipRoot>
-	</TooltipProvider>
+  <TooltipProvider>
+    <TooltipRoot>
+      <TooltipTrigger />
+      <TooltipPortal>
+        <TooltipContent>
+          <TooltipArrow />
+        </TooltipContent>
+      </TooltipPortal>
+    </TooltipRoot>
+  </TooltipProvider>
 </template>
 ```
 
@@ -373,25 +358,20 @@ Use the `Provider` to control `delayDuration` and `skipDelayDuration` globally.
 
 ```vue line=11
 <script setup>
-import {
-	TooltipProvider,
-	TooltipRoot,
-	TooltipTrigger,
-	TooltipContent,
-} from "radix-vue";
+import { TooltipProvider, TooltipRoot, TooltipTrigger, TooltipContent } from "radix-vue";
 </script>
 
 <template>
-	<TooltipProvider :delayDuration="800" :skipDelayDuration="500">
-		<TooltipRoot>
-			<TooltipTrigger>…</TooltipTrigger>
-			<TooltipContent>…</TooltipContent>
-		</TooltipRoot>
-		<TooltipRoot>
-			<TooltipTrigger>…</TooltipTrigger>
-			<TooltipContent>…</TooltipContent>
-		</TooltipRoot>
-	</TooltipProvider>
+  <TooltipProvider :delayDuration="800" :skipDelayDuration="500">
+    <TooltipRoot>
+      <TooltipTrigger>…</TooltipTrigger>
+      <TooltipContent>…</TooltipContent>
+    </TooltipRoot>
+    <TooltipRoot>
+      <TooltipTrigger>…</TooltipTrigger>
+      <TooltipContent>…</TooltipContent>
+    </TooltipRoot>
+  </TooltipProvider>
 </template>
 ```
 
@@ -401,19 +381,14 @@ Use the `delayDuration` prop to control the time it takes for the tooltip to ope
 
 ```vue line=11
 <script setup>
-import {
-	TooltipProvider,
-	TooltipRoot,
-	TooltipTrigger,
-	TooltipContent,
-} from "radix-vue";
+import { TooltipProvider, TooltipRoot, TooltipTrigger, TooltipContent } from "radix-vue";
 </script>
 
 <template>
-	<TooltipRoot :delayDuration="0">
-		<TooltipTrigger>…</TooltipTrigger>
-		<TooltipContent>…</TooltipContent>
-	</TooltipRoot>
+  <TooltipRoot :delayDuration="0">
+    <TooltipTrigger>…</TooltipTrigger>
+    <TooltipContent>…</TooltipContent>
+  </TooltipRoot>
 </template>
 ```
 
@@ -426,24 +401,19 @@ Since disabled buttons don't fire events, you need to:
 
 ```vue line=12-16
 <script setup>
-import {
-	TooltipProvider,
-	TooltipRoot,
-	TooltipTrigger,
-	TooltipContent,
-} from "radix-vue";
+import { TooltipProvider, TooltipRoot, TooltipTrigger, TooltipContent } from "radix-vue";
 </script>
 
 <template>
-	<TooltipRoot>
-		<TooltipTrigger asChild>
-			<span tabindex="0">
-				<button disabled style="{ pointerEvents: 'none' }">…</button>
-			</span>
-		</TooltipTrigger>
-		<TooltipContent>…</TooltipContent>
-	</TooltipRoot>
-	<template></template>
+  <TooltipRoot>
+    <TooltipTrigger asChild>
+      <span tabindex="0">
+        <button disabled style="{ pointerEvents: 'none' }">…</button>
+      </span>
+    </TooltipTrigger>
+    <TooltipContent>…</TooltipContent>
+  </TooltipRoot>
+  <template></template>
 </template>
 ```
 
@@ -456,32 +426,25 @@ We expose several CSS custom properties such as `--radix-tooltip-trigger-width` 
 ```vue line=16
 // index.vue
 <script setup>
-import {
-	TooltipProvider,
-	TooltipRoot,
-	TooltipTrigger,
-	TooltipContent,
-} from "radix-vue";
+import { TooltipProvider, TooltipRoot, TooltipTrigger, TooltipContent } from "radix-vue";
 import "./styles.css";
 </script>
 
 <template>
-	<TooltipRoot>
-		<TooltipTrigger>…</TooltipTrigger>
-		<TooltipPortal>
-			<TooltipContent class="TooltipContent" :sideOffset="5">
-				…
-			</TooltipContent>
-		</TooltipPortal>
-	</TooltipRoot>
+  <TooltipRoot>
+    <TooltipTrigger>…</TooltipTrigger>
+    <TooltipPortal>
+      <TooltipContent class="TooltipContent" :sideOffset="5"> … </TooltipContent>
+    </TooltipPortal>
+  </TooltipRoot>
 </template>
 ```
 
 ```css
 /* styles.css */
 .TooltipContent {
-	width: var(--radix-tooltip-trigger-width);
-	max-height: var(--radix-tooltip-content-available-height);
+  width: var(--radix-tooltip-trigger-width);
+  max-height: var(--radix-tooltip-content-available-height);
 }
 ```
 
@@ -492,39 +455,34 @@ We expose a CSS custom property `--radix-tooltip-content-transform-origin`. Use 
 ```vue line=15
 // index.vue
 <script setup>
-import {
-	TooltipProvider,
-	TooltipRoot,
-	TooltipTrigger,
-	TooltipContent,
-} from "radix-vue";
+import { TooltipProvider, TooltipRoot, TooltipTrigger, TooltipContent } from "radix-vue";
 import "./styles.css";
 </script>
 
 <template>
-	<TooltipRoot>
-		<TooltipTrigger>…</TooltipTrigger>
-		<TooltipContent class="TooltipContent">…</TooltipContent>
-	</TooltipRoot>
+  <TooltipRoot>
+    <TooltipTrigger>…</TooltipTrigger>
+    <TooltipContent class="TooltipContent">…</TooltipContent>
+  </TooltipRoot>
 </template>
 ```
 
 ```css line=3-4
 /* styles.css */
 .TooltipContent {
-	transform-origin: var(--radix-tooltip-content-transform-origin);
-	animation: scaleIn 0.5s ease-out;
+  transform-origin: var(--radix-tooltip-content-transform-origin);
+  animation: scaleIn 0.5s ease-out;
 }
 
 @keyframes scaleIn {
-	from {
-		opacity: 0;
-		transform: scale(0);
-	}
-	to {
-		opacity: 1;
-		transform: scale(1);
-	}
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 ```
 
@@ -535,56 +493,51 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 ```vue line=15
 // index.vue
 <script setup>
-import {
-	TooltipProvider,
-	TooltipRoot,
-	TooltipTrigger,
-	TooltipContent,
-} from "radix-vue";
+import { TooltipProvider, TooltipRoot, TooltipTrigger, TooltipContent } from "radix-vue";
 import "./styles.css";
 </script>
 
 <template>
-	<TooltipRoot>
-		<TooltipTrigger>…</TooltipTrigger>
-		<TooltipContent class="TooltipContent">…</TooltipContent>
-	</TooltipRoot>
+  <TooltipRoot>
+    <TooltipTrigger>…</TooltipTrigger>
+    <TooltipContent class="TooltipContent">…</TooltipContent>
+  </TooltipRoot>
 </template>
 ```
 
 ```css line=6,9
 /* styles.css */
 .TooltipContent {
-	animation-duration: 0.6s;
-	animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-duration: 0.6s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 .TooltipContent[data-side="top"] {
-	animation-name: slideUp;
+  animation-name: slideUp;
 }
 .TooltipContent[data-side="bottom"] {
-	animation-name: slideDown;
+  animation-name: slideDown;
 }
 
 @keyframes slideDown {
-	from {
-		opacity: 0;
-		transform: translateY(-10px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideUp {
-	from {
-		opacity: 0;
-		transform: translateY(10px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 ```
 

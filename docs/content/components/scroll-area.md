@@ -5,16 +5,8 @@ metaDescription: Augments native scroll functionality for custom, cross-browser 
 name: scroll-area
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
-import DemoScrollArea from '../../components/demo/ScrollArea/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import EmitsTable from '../../components/tables/EmitsTable.vue'
-import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
-import KeyboardTable from '../../components/tables/KeyboardTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+<script setup> 
+import DemoScrollArea from '../../components/demo/ScrollArea/index.vue' 
 </script>
 
 # ScrollArea
@@ -37,6 +29,7 @@ Augments native scroll functionality for custom, cross-browser styling.
 </HeroContainer>
 
 ## Features
+
 <Highlights
   :features="[
     'Scrollbar sits on top of the scrollable content, taking up no space.',

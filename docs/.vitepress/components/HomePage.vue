@@ -5,7 +5,7 @@ import Contributors from "./Contributors.vue";
 </script>
 
 <template>
-  <div class="content px-[64px]">
+  <div class="content px-6 sm:px-[48px] lg:px-[64px]">
     <div class="mx-auto w-full container max-w-[1152px]">
       <main class="w-full">
         <div class="vp-doc flex flex-col items-center mt-10">

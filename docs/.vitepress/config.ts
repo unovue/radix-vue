@@ -48,10 +48,7 @@ export default defineConfig({
   lastUpdated: true,
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    nav: [
-      { text: "Home", link: "/" },
-      { text: "Demo", link: "/#demo" },
-    ],
+    nav: [{ text: "Home", link: "/" }],
     logo: "/logo.svg",
 
     sidebar: sidebar(),

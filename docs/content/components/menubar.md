@@ -1337,38 +1337,36 @@ const checked = ref(true);
 
 Use the `RadioGroup` and `RadioItem` parts to add an item that can be checked amongst others.
 
-```jsx line=4,12-25
-import * as Menubar from "radix-vue";
+```vue line=2,11-24
+<script setup lang="ts">
+const color = ref("blue");
+</script>
 
-export default () => {
-  const color = ref("blue");
-
-  return (
-    <Menubar.Root>
-      <Menubar.Menu>
-        <Menubar.Trigger>…</Menubar.Trigger>
-        <Menubar.Portal>
-          <Menubar.Content>
-            <Menubar.RadioGroup value={color} onValueChange={setColor}>
-              <Menubar.RadioItem value="red">
-                <Menubar.ItemIndicator>
-                  <CheckIcon />
-                </Menubar.ItemIndicator>
-                Red
-              </Menubar.RadioItem>
-              <Menubar.RadioItem value="blue">
-                <Menubar.ItemIndicator>
-                  <CheckIcon />
-                </Menubar.ItemIndicator>
-                Blue
-              </Menubar.RadioItem>
-            </Menubar.RadioGroup>
-          </Menubar.Content>
-        </Menubar.Portal>
-      </Menubar.Menu>
-    </Menubar.Root>
-  );
-};
+<template>
+  <MenubarRoot>
+    <MenubarMenu>
+      <MenubarTrigger>…</MenubarTrigger>
+      <MenubarPortal>
+        <MenubarContent>
+          <MenubarRadioGroup value={color} onValueChange={setColor}>
+            <MenubarRadioItem value="red">
+              <MenubarItemIndicator>
+                <CheckIcon />
+              </MenubarItemIndicator>
+              Red
+            </MenubarRadioItem>
+            <MenubarRadioItem value="blue">
+              <MenubarItemIndicator>
+                <CheckIcon />
+              </MenubarItemIndicator>
+              Blue
+            </MenubarRadioItem>
+          </MenubarRadioGroup>
+        </MenubarContent>
+      </MenubarPortal>
+    </MenubarMenu>
+  </MenubarRoot>
+</template>
 ```
 
 ### With complex items

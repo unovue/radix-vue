@@ -52,6 +52,7 @@ export default defineConfig({
       { text: "Home", link: "/" },
       { text: "Demo", link: "/#demo" },
     ],
+    logo: "/logo.svg",
 
     sidebar: sidebar(),
 

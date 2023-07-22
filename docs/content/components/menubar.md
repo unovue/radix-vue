@@ -58,46 +58,65 @@ npm install radix-vue
 
 Import all parts and piece them together.
 
-```jsx
-import * as Menubar from "radix-vue";
+```vue
+<script setup lang="ts">
+import { Icon } from "@iconify/vue";
+import { ref } from "vue";
+import {
+  MenubarCheckboxItem,
+  MenubarContent,
+  MenubarItem,
+  MenubarItemIndicator,
+  MenubarMenu,
+  MenubarPortal,
+  MenubarRadioGroup,
+  MenubarRadioItem,
+  MenubarRoot,
+  MenubarSeparator,
+  MenubarSub,
+  MenubarSubContent,
+  MenubarSubTrigger,
+  MenubarTrigger,
+} from "./";
+</script>
 
-export default () => (
-  <Menubar.Root>
-    <Menubar.Menu>
-      <Menubar.Trigger />
-      <Menubar.Portal>
-        <Menubar.Content>
-          <Menubar.Label />
-          <Menubar.Item />
+<template>
+  <MenubarRoot>
+    <MenubarMenu>
+      <MenubarTrigger />
+      <MenubarPortal>
+        <MenubarContent>
+          <MenubarLabel />
+          <MenubarItem />
 
-          <Menubar.Group>
-            <Menubar.Item />
-          </Menubar.Group>
+          <MenubarGroup>
+            <MenubarItem />
+          </MenubarGroup>
 
-          <Menubar.CheckboxItem>
-            <Menubar.ItemIndicator />
-          </Menubar.CheckboxItem>
+          <MenubarCheckboxItem>
+            <MenubarItemIndicator />
+          </MenubarCheckboxItem>
 
-          <Menubar.RadioGroup>
-            <Menubar.RadioItem>
-              <Menubar.ItemIndicator />
-            </Menubar.RadioItem>
-          </Menubar.RadioGroup>
+          <MenubarRadioGroup>
+            <MenubarRadioItem>
+              <MenubarItemIndicator />
+            </MenubarRadioItem>
+          </MenubarRadioGroup>
 
-          <Menubar.Sub>
-            <Menubar.SubTrigger />
-            <Menubar.Portal>
-              <Menubar.SubContent />
-            </Menubar.Portal>
-          </Menubar.Sub>
+          <MenubarSub>
+            <MenubarSubTrigger />
+            <MenubarPortal>
+              <MenubarSubContent />
+            </MenubarPortal>
+          </MenubarSub>
 
-          <Menubar.Separator />
-          <Menubar.Arrow />
-        </Menubar.Content>
-      </Menubar.Portal>
-    </Menubar.Menu>
-  </Menubar.Root>
-);
+          <MenubarSeparator />
+          <MenubarArrow />
+        </MenubarContent>
+      </MenubarPortal>
+    </MenubarMenu>
+  </MenubarRoot>
+</template>
 ```
 
 ## API Reference

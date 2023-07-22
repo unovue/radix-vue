@@ -1211,26 +1211,43 @@ You can create submenus by using `Menubar.Sub` in combination with its parts.
 
 You can add special styles to disabled items via the `data-disabled` attribute.
 
-```jsx line=11
-// index.jsx
-import * as Menubar from "radix-vue";
-import "./styles.css";
+```vue line=28
+<script setup lang="ts">
+import { Icon } from "@iconify/vue";
+import { ref } from "vue";
+import {
+  MenubarCheckboxItem,
+  MenubarContent,
+  MenubarItem,
+  MenubarItemIndicator,
+  MenubarMenu,
+  MenubarPortal,
+  MenubarRadioGroup,
+  MenubarRadioItem,
+  MenubarRoot,
+  MenubarSeparator,
+  MenubarSub,
+  MenubarSubContent,
+  MenubarSubTrigger,
+  MenubarTrigger,
+} from "./";
+</script>
 
-export default () => (
-  <Menubar.Root>
-    <Menubar.Menu>
-      <Menubar.Trigger>…</Menubar.Trigger>
-      <Menubar.Portal>
-        <Menubar.Content>
-          <Menubar.Item __className__="MenubarItem" __disabled__>
+<template>
+  <MenubarRoot>
+    <MenubarMenu>
+      <MenubarTrigger>…</MenubarTrigger>
+      <MenubarPortal>
+        <MenubarContent>
+          <MenubarItem class="MenubarItem" disabled>
             …
-          </Menubar.Item>
-          <Menubar.Item className="MenubarItem">…</Menubar.Item>
-        </Menubar.Content>
-      </Menubar.Portal>
-    </Menubar.Menu>
-  </Menubar.Root>
-);
+          </MenubarItem>
+          <MenubarItem class="MenubarItem">…</MenubarItem>
+        </MenubarContent>
+      </MenubarPortal>
+    </MenubarMenu>
+  </MenubarRoot>
+</template>
 ```
 
 ```css line=2
@@ -1244,74 +1261,76 @@ export default () => (
 
 Use the `Separator` part to add a separator between items.
 
-```jsx line=7,9
-<Menubar.Root>
-  <Menubar.Menu>
-    <Menubar.Trigger>…</Menubar.Trigger>
-    <Menubar.Portal>
-      <Menubar.Content>
-        <Menubar.Item>…</Menubar.Item>
-        <Menubar.Separator />
-        <Menubar.Item>…</Menubar.Item>
-        <Menubar.Separator />
-        <Menubar.Item>…</Menubar.Item>
-      </Menubar.Content>
-    </Menubar.Portal>
-  </Menubar.Menu>
-</Menubar.Root>
+```vue line=7,9
+<template>
+  <MenubarRoot>
+    <MenubarMenu>
+      <MenubarTrigger>…</MenubarTrigger>
+      <MenubarPortal>
+        <MenubarContent>
+          <MenubarItem>…</MenubarItem>
+          <MenubarSeparator />
+          <MenubarItem>…</MenubarItem>
+          <MenubarSeparator />
+          <MenubarItem>…</MenubarItem>
+        </MenubarContent>
+      </MenubarPortal>
+    </MenubarMenu>
+</MenubarRoot>
+</template>
 ```
 
 ### With labels
 
 Use the `Label` part to help label a section.
 
-```jsx line=6
-<Menubar.Root>
-  <Menubar.Menu>
-    <Menubar.Trigger>…</Menubar.Trigger>
-    <Menubar.Portal>
-      <Menubar.Content>
-        <Menubar.Label>Label</Menubar.Label>
-        <Menubar.Item>…</Menubar.Item>
-        <Menubar.Item>…</Menubar.Item>
-        <Menubar.Item>…</Menubar.Item>
-      </Menubar.Content>
-    </Menubar.Portal>
-  </Menubar.Menu>
-</Menubar.Root>
+```vue line=6
+<template>
+  <MenubarRoot>
+    <MenubarMenu>
+      <MenubarTrigger>…</MenubarTrigger>
+      <MenubarPortal>
+        <MenubarContent>
+          <MenubarLabel>Label</MenubarLabel>
+          <MenubarItem>…</MenubarItem>
+          <MenubarItem>…</MenubarItem>
+          <MenubarItem>…</MenubarItem>
+        </MenubarContent>
+      </MenubarPortal>
+    </MenubarMenu>
+  </MenubarRoot>
+</template>
 ```
 
 ### With checkbox items
 
 Use the `CheckboxItem` part to add an item that can be checked.
 
-```jsx line=4,15-23
-import * as Menubar from "radix-vue";
+```vue line=4,14-23
+<script setup lang="ts">
+const checked = ref(true);
+</script>
 
-export default () => {
-  const checked = ref(true);
-
-  return (
-    <Menubar.Root>
-      <Menubar.Menu>
-        <Menubar.Trigger>…</Menubar.Trigger>
-        <Menubar.Portal>
-          <Menubar.Content>
-            <Menubar.Item>…</Menubar.Item>
-            <Menubar.Item>…</Menubar.Item>
-            <Menubar.Separator />
-            <Menubar.CheckboxItem checked={checked} onCheckedChange={setChecked}>
-              <Menubar.ItemIndicator>
-                <CheckIcon />
-              </Menubar.ItemIndicator>
-              Checkbox item
-            </Menubar.CheckboxItem>
-          </Menubar.Content>
-        </Menubar.Portal>
-      </Menubar.Menu>
-    </Menubar.Root>
-  );
-};
+<template>
+  <MenubarRoot>
+    <MenubarMenu>
+      <MenubarTrigger>…</MenubarTrigger>
+      <MenubarPortal>
+        <MenubarContent>
+          <MenubarItem>…</MenubarItem>
+          <MenubarItem>…</MenubarItem>
+          <MenubarSeparator />
+          <MenubarCheckboxItem checked={checked} onCheckedChange={setChecked}>
+            <MenubarItemIndicator>
+              <CheckIcon />
+            </MenubarItemIndicator>
+            Checkbox item
+          </MenubarCheckboxItem>
+        </MenubarContent>
+      </MenubarPortal>
+    </MenubarMenu>
+  </MenubarRoot>
+</template>
 ```
 
 ### With radio items

@@ -1,11 +1,18 @@
 <script lang="ts" context="module">
-import type { InjectionKey } from "vue";
+import type { ComputedRef, InjectionKey, Ref } from "vue";
 import type { CollapsibleRootProps } from "../Collapsible";
+import { ACCORDION_INJECTION_KEY } from "./AccordionRoot.vue";
+
+enum AccordionItemState {
+  Open = "open",
+  Closed = "closed",
+}
 
 export interface AccordionItemProps
   extends Omit<CollapsibleRootProps, "open" | "defaultOpen" | "onOpenChange"> {
   /**
    * Whether or not an accordion item is disabled from user interaction.
+   * When true, prevents the user from interacting with the item.
    *
    * @defaultValue false
    */
@@ -17,165 +24,88 @@ export interface AccordionItemProps
 }
 
 export interface AccordionItemProvideValue {
-  open?: boolean;
-  disabled?: boolean;
+  open: ComputedRef<boolean>;
+  dataState: ComputedRef<AccordionItemState>;
+  disabled: ComputedRef<boolean>;
+  dataDisabled: ComputedRef<"" | undefined>;
   triggerId: string;
+  primitiveElement: Ref<HTMLElement | undefined>;
+  currentElement: ComputedRef<HTMLElement | undefined>;
+  value: ComputedRef<string>;
 }
 
 export const ACCORDION_ITEM_INJECTION_KEY =
   Symbol() as InjectionKey<AccordionItemProvideValue>;
-
-export const ACCORDION_KEYS = [
-  "Home",
-  "End",
-  "ArrowDown",
-  "ArrowUp",
-  "ArrowLeft",
-  "ArrowRight",
-];
 </script>
 
 <script setup lang="ts">
+import { CollapsibleRoot } from "@/Collapsible";
+import { usePrimitiveElement } from "@/Primitive";
+import { useArrowNavigation, useId } from "@/shared";
 import { computed, inject, provide } from "vue";
-import { CollapsibleRoot } from "../Collapsible";
-import {
-  ACCORDION_IMPL_INJECTION_KEY,
-  type AccordionImplProvideValue,
-  ACCORDION_VALUE_INJECTION_KEY,
-  type AccordionValueProvideValue,
-} from "./AccordionImpl.vue";
 
 const props = defineProps<AccordionItemProps>();
 
-const accordionImplInjectedValue = inject<AccordionImplProvideValue>(
-  ACCORDION_IMPL_INJECTION_KEY
-);
-const accordionValueInjectedValue = inject<AccordionValueProvideValue>(
-  ACCORDION_VALUE_INJECTION_KEY
+const injectedRoot = inject(ACCORDION_INJECTION_KEY);
+
+const open = computed(() =>
+  injectedRoot?.isSingle.value
+    ? props.value === injectedRoot.modelValue.value
+    : Array.isArray(injectedRoot?.modelValue.value) &&
+      !!injectedRoot?.modelValue.value.includes(props.value)
 );
 
-const open = computed({
-  get: () =>
-    (props.value &&
-      accordionValueInjectedValue?.modelValue.value.includes(props.value)) ||
-    false,
-  set: (open) => {
-    if (open) {
-      accordionValueInjectedValue?.onItemOpen(props.value);
-    } else {
-      accordionValueInjectedValue?.onItemClose(props.value);
-    }
-  },
+const disabled = computed(() => {
+  return (
+    injectedRoot?.disabled ||
+    props.disabled ||
+    (!!injectedRoot?.isSingle.value && open.value && !injectedRoot?.collapsible)
+  );
 });
-const disabled = computed(
-  () => accordionImplInjectedValue?.disabled || props.disabled
+
+const dataDisabled = computed(() => (disabled.value ? "" : undefined));
+
+const dataState = computed(() =>
+  open.value ? AccordionItemState.Open : AccordionItemState.Closed
 );
+
+const { primitiveElement, currentElement } = usePrimitiveElement();
 
 provide<AccordionItemProvideValue>(ACCORDION_ITEM_INJECTION_KEY, {
-  open: open.value,
-  disabled: disabled.value,
-  triggerId: "1", // TODO
+  open,
+  dataState,
+  disabled,
+  dataDisabled,
+  triggerId: useId(),
+  primitiveElement,
+  currentElement,
+  value: computed(() => props.value),
 });
 
-function getItems() {
-  const collectionNode = accordionImplInjectedValue?.parentElement.value;
-  if (!collectionNode) return [];
-  const orderedNodes = Array.from(
-    collectionNode.querySelectorAll("[data-radix-vue-collection-item]")
+function handleArrowKey(e: KeyboardEvent) {
+  useArrowNavigation(
+    e,
+    currentElement.value!,
+    injectedRoot?.parentElement.value!,
+    {
+      arrowKeyOptions: injectedRoot?.orientation,
+      dir: injectedRoot?.direction,
+      focus: true,
+    }
   );
-
-  return orderedNodes as HTMLElement[];
 }
-
-const handleKeyDown = (event: KeyboardEvent) => {
-  if (!ACCORDION_KEYS.includes(event.key)) return;
-
-  const isDirectionLTR = accordionImplInjectedValue?.direction === "ltr";
-  const target = event.target as HTMLElement;
-  const triggerCollection = getItems().filter(
-    // (item) => !item.ref.current?.disabled
-    // (item) => !item.disabled
-    (item) => item
-  );
-  const triggerIndex = triggerCollection.findIndex(
-    // (item) => item.ref.current === target
-    (item) => item === target
-  );
-  const triggerCount = triggerCollection.length;
-
-  if (triggerIndex === -1) return;
-
-  // Prevents page scroll while user is navigating
-  event.preventDefault();
-
-  let nextIndex = triggerIndex;
-  const homeIndex = 0;
-  const endIndex = triggerCount - 1;
-
-  const moveNext = () => {
-    nextIndex = triggerIndex + 1;
-    if (nextIndex > endIndex) {
-      nextIndex = homeIndex;
-    }
-  };
-
-  const movePrev = () => {
-    nextIndex = triggerIndex - 1;
-    if (nextIndex < homeIndex) {
-      nextIndex = endIndex;
-    }
-  };
-
-  switch (event.key) {
-    case "Home":
-      nextIndex = homeIndex;
-      break;
-    case "End":
-      nextIndex = endIndex;
-      break;
-    case "ArrowRight":
-      if (accordionImplInjectedValue?.orientation === "horizontal") {
-        if (isDirectionLTR) {
-          moveNext();
-        } else {
-          movePrev();
-        }
-      }
-      break;
-    case "ArrowDown":
-      if (accordionImplInjectedValue?.orientation === "vertical") {
-        moveNext();
-      }
-      break;
-    case "ArrowLeft":
-      if (accordionImplInjectedValue?.orientation === "horizontal") {
-        if (isDirectionLTR) {
-          movePrev();
-        } else {
-          moveNext();
-        }
-      }
-      break;
-    case "ArrowUp":
-      if (accordionImplInjectedValue?.orientation === "vertical") {
-        movePrev();
-      }
-      break;
-  }
-
-  const clampedIndex = nextIndex % triggerCount;
-  triggerCollection[clampedIndex].focus();
-};
 </script>
 
 <template>
   <CollapsibleRoot
-    :data-orientation="accordionImplInjectedValue?.orientation"
-    :data-state="open ? 'open' : 'closed'"
+    :data-orientation="injectedRoot?.orientation"
+    :data-disabled="dataDisabled"
+    :data-state="dataState"
     :disabled="disabled"
     v-model:open="open"
-    @keydown="handleKeyDown"
+    @keydown.up.down.left.right.home.end="handleArrowKey"
+    :as-child="props.asChild"
   >
-    <slot />
+    <slot :open="open" />
   </CollapsibleRoot>
 </template>

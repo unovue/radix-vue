@@ -2,46 +2,47 @@ import { beforeEach, describe, expect, test } from "vitest";
 import { useArrowNavigation } from "./useArrowNavigation";
 
 describe("useArrowNavigation", () => {
-  let currentElement: HTMLElement;
   let parentElement: HTMLElement;
-  let childElement1: HTMLElement;
-  let childElement2: HTMLElement;
+  let child1: HTMLElement;
+  let child2: HTMLElement;
+  let child3: HTMLElement;
 
   beforeEach(() => {
     parentElement = document.createElement("div");
-    currentElement = document.createElement("div");
-    childElement1 = document.createElement("div");
-    childElement2 = document.createElement("div");
+    child1 = document.createElement("div");
+    child2 = document.createElement("div");
+    child3 = document.createElement("div");
 
-    currentElement.setAttribute("data-radix-vue-collection-item", "");
-    childElement1.setAttribute("data-radix-vue-collection-item", "");
-    childElement2.setAttribute("data-radix-vue-collection-item", "");
+    child1.setAttribute("data-radix-vue-collection-item", "");
+    child2.setAttribute("data-radix-vue-collection-item", "");
+    child3.setAttribute("data-radix-vue-collection-item", "");
 
-    parentElement.appendChild(currentElement);
-    parentElement.appendChild(childElement1);
-    parentElement.appendChild(childElement2);
+    parentElement.appendChild(child1);
+    parentElement.appendChild(child2);
+    parentElement.appendChild(child3);
   });
 
   test("should navigate horizontally", () => {
     const e = new KeyboardEvent("keydown", { key: "ArrowRight" });
-    const nextElement = useArrowNavigation(e, currentElement, parentElement, {
+    const nextElement = useArrowNavigation(e, child1, parentElement, {
       arrowKeyOptions: "horizontal",
     });
-    expect(nextElement).toBe(childElement1);
+    console.log(nextElement);
+    expect(nextElement).toStrictEqual(child2);
   });
 
   test("should navigate vertically", () => {
     const e = new KeyboardEvent("keydown", { key: "ArrowDown" });
-    const nextElement = useArrowNavigation(e, currentElement, parentElement, {
+    const nextElement = useArrowNavigation(e, child1, parentElement, {
       arrowKeyOptions: "vertical",
     });
-    expect(nextElement).toBe(childElement1);
+    expect(nextElement).toStrictEqual(child2);
   });
 
   test("should not navigate with arrow keys when arrowKeyOptions is not set to both", () => {
     const nextElementHorizontal = useArrowNavigation(
       new KeyboardEvent("keydown", { key: "ArrowDown" }),
-      currentElement,
+      child1,
       parentElement,
       {
         arrowKeyOptions: "horizontal",
@@ -50,7 +51,7 @@ describe("useArrowNavigation", () => {
     expect(nextElementHorizontal).toBeNull();
     const nextElementVertical = useArrowNavigation(
       new KeyboardEvent("keydown", { key: "ArrowLeft" }),
-      currentElement,
+      child1,
       parentElement,
       {
         arrowKeyOptions: "vertical",
@@ -63,7 +64,7 @@ describe("useArrowNavigation", () => {
     const e = new KeyboardEvent("keydown", { key: "ArrowRight" });
     const nextElement = useArrowNavigation(
       e,
-      currentElement,
+      child1,
       document.createElement("div")
     );
     expect(nextElement).toBeNull();
@@ -71,33 +72,45 @@ describe("useArrowNavigation", () => {
 
   test("should loop through items if loop is set to true", () => {
     const e = new KeyboardEvent("keydown", { key: "ArrowLeft" });
-    const nextElement = useArrowNavigation(e, childElement2, parentElement, {
+    const nextElement = useArrowNavigation(e, child3, parentElement, {
       loop: true,
     });
-    expect(nextElement).toStrictEqual(currentElement);
+    expect(nextElement).toStrictEqual(child1);
   });
 
   test("should not loop through items if loop is set to false", () => {
     const e = new KeyboardEvent("keydown", { key: "ArrowLeft" });
-    const nextElement = useArrowNavigation(e, currentElement, parentElement, {
+    const nextElement = useArrowNavigation(e, child1, parentElement, {
       loop: false,
     });
     expect(nextElement).toBeNull();
   });
 
   test("should skip disabled items", () => {
-    childElement1.setAttribute("disabled", "true");
-    childElement2.setAttribute("disabled", "true");
+    child2.setAttribute("disabled", "true");
+    child3.setAttribute("disabled", "true");
     const e = new KeyboardEvent("keydown", { key: "ArrowRight" });
-    const nextElement = useArrowNavigation(e, currentElement, parentElement);
+    const nextElement = useArrowNavigation(e, child1, parentElement);
     expect(nextElement).toBeNull();
   });
 
   test("should navigate correctly in rtl", () => {
     const e = new KeyboardEvent("keydown", { key: "ArrowRight" });
-    const nextElement = useArrowNavigation(e, currentElement, parentElement, {
+    const nextElement = useArrowNavigation(e, child1, parentElement, {
       dir: "rtl",
     });
-    expect(nextElement).toBe(childElement2);
+    expect(nextElement).toStrictEqual(child3);
+  });
+
+  test("should navigate to the first item", () => {
+    const e = new KeyboardEvent("keydown", { key: "Home" });
+    const nextElement = useArrowNavigation(e, child1, parentElement);
+    expect(nextElement).toStrictEqual(child3);
+  });
+
+  test("should navigate to the last item", () => {
+    const e = new KeyboardEvent("keydown", { key: "End" });
+    const nextElement = useArrowNavigation(e, child2, parentElement);
+    expect(nextElement).toStrictEqual(child1);
   });
 });

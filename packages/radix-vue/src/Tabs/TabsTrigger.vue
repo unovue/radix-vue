@@ -35,16 +35,16 @@ function handleKeydown(e: KeyboardEvent) {
     {
       arrowKeyOptions: injectedValue?.orientation,
       loop: injectedValue?.loop,
+      focus: true,
     }
   );
 
-  if (newSelectedElement) {
-    newSelectedElement.focus();
-    injectedValue!.currentFocusedElement!.value = newSelectedElement;
+  if (!newSelectedElement) return;
 
-    if (injectedValue?.activationMode === "automatic") {
-      changeTab(newSelectedElement?.getAttribute("data-radix-vue-tab-value")!);
-    }
+  injectedValue!.currentFocusedElement!.value = newSelectedElement;
+
+  if (injectedValue?.activationMode === "automatic") {
+    changeTab(newSelectedElement?.getAttribute("data-radix-vue-tab-value")!);
   }
 }
 
@@ -77,7 +77,7 @@ const getTabIndex = computed(() => {
     data-radix-vue-collection-item
     :data-radix-vue-tab-value="props.value"
     @click="changeTab(props.value!)"
-    @keydown="handleKeydown"
+    @keydown.up.down.left.right.home.end="handleKeydown"
   >
     <slot />
   </PrimitiveButton>

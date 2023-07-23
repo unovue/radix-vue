@@ -11,15 +11,14 @@ import Description from '../../components/Description.vue'
 # Styling
 
 <Description>
-Radix Primitives are unstyled—and compatible with any styling solution—giving
-you complete control over styling.
+Radix Primitives are unstyled and compatible with any styling solution giving you complete control over styling.
 </Description>
 
 ## Styling overview
 
 ### Functional styles
 
-You are in control of all aspects of styling, including functional styles. For example—by default—a [Dialog Overlay](../components/dialog) won't cover the entire viewport. You're responsible for adding those styles, plus any presentation styles.
+You are in control of all aspects of styling, including functional styles. For example, by default, a [Dialog Overlay](../components/dialog) won't cover the entire viewport. You're responsible for adding those styles, plus any presentation styles.
 
 ### Classes
 

@@ -96,9 +96,7 @@ function setBodyInteractive() {
   document.querySelector("body")!.style.pointerEvents = "";
 }
 
-function handleOnClickOutside() {
-  injectedValue?.closeModal();
-}
+function handleOnClickOutside() {}
 
 function handleKeydown(e: KeyboardEvent) {
   if (e.key === "Escape") {

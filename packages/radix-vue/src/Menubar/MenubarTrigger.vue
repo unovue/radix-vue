@@ -108,7 +108,7 @@ const dataState = computed(() => {
 
 const highlightedState = computed(() => {
   return (
-    activeElement.value === currentElement.value ||
+    (activeElement.value && activeElement.value === currentElement.value) ||
     (rootInjectedValue?.triggerElement.value === currentElement.value &&
       rootInjectedValue?.selectedElement.value)
   );

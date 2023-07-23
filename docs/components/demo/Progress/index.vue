@@ -12,7 +12,7 @@ onMounted(() => {
 
 <template>
   <ProgressRoot
-    class="relative overflow-hidden bg-blackA9 rounded-full w-full sm:w-[300px] h-4 sm:h-5"
+    class="relative overflow-hidden bg-blackA9 rounded-full w-[300px] h-4 sm:h-5"
     style="transform: translateZ(0)"
     v-model="progressValue"
   >

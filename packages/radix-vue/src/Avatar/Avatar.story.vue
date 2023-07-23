@@ -3,7 +3,7 @@ import { AvatarFallback, AvatarImage, AvatarRoot } from "./";
 </script>
 
 <template>
-  <Story title="Avatar" :layout="{ type: 'single', iframe: true }">
+  <Story title="Avatar">
     <Variant title="default">
       <AvatarRoot
         class="bg-blackA3 inline-flex h-[45px] w-[45px] select-none items-center justify-center overflow-hidden rounded-full align-middle"
@@ -32,6 +32,20 @@ import { AvatarFallback, AvatarImage, AvatarRoot } from "./";
           class="text-violet11 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium"
         >
           JD
+        </AvatarFallback>
+      </AvatarRoot>
+      <AvatarRoot
+        class="bg-blackA3 inline-flex h-[45px] w-[45px] select-none items-center justify-center overflow-hidden rounded-full align-middle"
+      >
+        <AvatarImage
+          class="h-full w-full rounded-[inherit] object-cover"
+          src="https://www.radix-vue.com/og.png"
+          alt="Pedro Duarte"
+        />
+        <AvatarFallback
+          class="text-violet11 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium"
+        >
+          RD
         </AvatarFallback>
       </AvatarRoot>
       <AvatarRoot

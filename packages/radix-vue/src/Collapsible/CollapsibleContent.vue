@@ -3,7 +3,7 @@ export interface CollapsibleContentProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { computed, inject, nextTick, ref, watch } from "vue";
+import { computed, inject, nextTick, onMounted, ref, watch } from "vue";
 import {
   COLLAPSIBLE_INJECTION_KEY,
   type CollapsibleProvideValue,
@@ -61,8 +61,10 @@ watch(
   }
 );
 
-requestAnimationFrame(() => {
-  isMountAnimationPrevented.value = false;
+onMounted(() => {
+  requestAnimationFrame(() => {
+    isMountAnimationPrevented.value = false;
+  });
 });
 
 defineOptions({

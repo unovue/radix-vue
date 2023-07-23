@@ -6,8 +6,8 @@ name: context-menu
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/menu
 ---
 
-<script setup> 
-import DemoContextMenu from '../../components/demo/ContextMenu/index.vue' 
+<script setup>
+import DemoContextMenu from '../../components/demo/ContextMenu/index.vue'
 </script>
 
 # Context Menu
@@ -58,44 +58,62 @@ npm install radix-vue
 
 Import all parts and piece them together.
 
-```jsx
-import * as ContextMenu from "radix-vue";
+```vue
+<script setup lang="ts">
+import {
+  ContextMenuRoot,
+  ContextMenuTrigger,
+  ContextMenuPortal,
+  ContextMenuContent,
+  ContextMenuLabel,
+  ContextMenuItem,
+  ContextMenuGroup,
+  ContextMenuCheckboxItem,
+  ContextMenuItemIndicator,
+  ContextMenuRadioGroup,
+  ContextMenuRadioItem,
+  ContextMenuSub,
+  ContextMenuSubTrigger,
+  ContextMenuSubContent,
+  ContextMenuSeparator,
+} from "radix-vue";
+</script>
 
-export default () => (
-  <ContextMenu.Root>
-    <ContextMenu.Trigger />
+<template>
+  <ContextMenuRoot>
+    <ContextMenuTrigger />
 
-    <ContextMenu.Portal>
-      <ContextMenu.Content>
-        <ContextMenu.Label />
-        <ContextMenu.Item />
+    <ContextMenuPortal>
+      <ContextMenuContent>
+        <ContextMenuLabel />
+        <ContextMenuItem />
 
-        <ContextMenu.Group>
-          <ContextMenu.Item />
-        </ContextMenu.Group>
+        <ContextMenuGroup>
+          <ContextMenuItem />
+        </ContextMenuGroup>
 
-        <ContextMenu.CheckboxItem>
-          <ContextMenu.ItemIndicator />
-        </ContextMenu.CheckboxItem>
+        <ContextMenuCheckboxItem>
+          <ContextMenuItemIndicator />
+        </ContextMenuCheckboxItem>
 
-        <ContextMenu.RadioGroup>
-          <ContextMenu.RadioItem>
-            <ContextMenu.ItemIndicator />
-          </ContextMenu.RadioItem>
-        </ContextMenu.RadioGroup>
+        <ContextMenuRadioGroup>
+          <ContextMenuRadioItem>
+            <ContextMenuItemIndicator />
+          </ContextMenuRadioItem>
+        </ContextMenuRadioGroup>
 
-        <ContextMenu.Sub>
-          <ContextMenu.SubTrigger />
-          <ContextMenu.Portal>
-            <ContextMenu.SubContent />
-          </ContextMenu.Portal>
-        </ContextMenu.Sub>
+        <ContextMenuSub>
+          <ContextMenuSubTrigger />
+          <ContextMenuPortal>
+            <ContextMenuSubContent />
+          </ContextMenuPortal>
+        </ContextMenuSub>
 
-        <ContextMenu.Separator />
-      </ContextMenu.Content>
-    </ContextMenu.Portal>
-  </ContextMenu.Root>
-);
+        <ContextMenuSeparator />
+      </ContextMenuContent>
+    </ContextMenuPortal>
+  </ContextMenuRoot>
+</template>
 ```
 
 ## API Reference
@@ -970,60 +988,83 @@ The component that pops out when a submenu is open. Must be rendered inside `Con
 
 ### With submenus
 
-You can create submenus by using `ContextMenu.Sub` in combination with its parts.
+You can create submenus by using `ContextMenuSub` in combination with its parts.
 
-```jsx line=8-17
-<ContextMenu.Root>
-  <ContextMenu.Trigger>…</ContextMenu.Trigger>
-  <ContextMenu.Portal>
-    <ContextMenu.Content>
-      <ContextMenu.Item>…</ContextMenu.Item>
-      <ContextMenu.Item>…</ContextMenu.Item>
-      <ContextMenu.Separator />
-      <ContextMenu.Sub>
-        <ContextMenu.SubTrigger>Sub menu →</ContextMenu.SubTrigger>
-        <ContextMenu.Portal>
-          <ContextMenu.SubContent>
-            <ContextMenu.Item>Sub menu item</ContextMenu.Item>
-            <ContextMenu.Item>Sub menu item</ContextMenu.Item>
-            <ContextMenu.Arrow />
-          </ContextMenu.SubContent>
-        </ContextMenu.Portal>
-      </ContextMenu.Sub>
-      <ContextMenu.Separator />
-      <ContextMenu.Item>…</ContextMenu.Item>
-    </ContextMenu.Content>
-  </ContextMenu.Portal>
-</ContextMenu.Root>
+```vue line=24-33
+<script setup lang="ts">
+import {
+  ContextMenuRoot,
+  ContextMenuTrigger,
+  ContextMenuPortal,
+  ContextMenuContent,
+  ContextMenuLabel,
+  ContextMenuItem,
+  ContextMenuSub,
+  ContextMenuSubTrigger,
+  ContextMenuSubContent,
+  ContextMenuSeparator,
+} from "radix-vue";
+</script>
+
+<template>
+  <ContextMenuRoot>
+    <ContextMenuTrigger>…</ContextMenuTrigger>
+    <ContextMenuPortal>
+      <ContextMenuContent>
+        <ContextMenuItem>…</ContextMenuItem>
+        <ContextMenuItem>…</ContextMenuItem>
+        <ContextMenuSeparator />
+        <ContextMenuSub>
+          <ContextMenuSubTrigger>Sub menu →</ContextMenuSubTrigger>
+          <ContextMenuPortal>
+            <ContextMenuSubContent>
+              <ContextMenuItem>Sub menu item</ContextMenuItem>
+              <ContextMenuItem>Sub menu item</ContextMenuItem>
+              <ContextMenuArrow />
+            </ContextMenuSubContent>
+          </ContextMenuPortal>
+        </ContextMenuSub>
+        <ContextMenuSeparator />
+        <ContextMenuItem>…</ContextMenuItem>
+      </ContextMenuContent>
+    </ContextMenuPortal>
+  </ContextMenuRoot>
+</template>
 ```
 
 ### With disabled items
 
 You can add special styles to disabled items via the `data-disabled` attribute.
 
-```jsx line=10
-// index.jsx
-import * as ContextMenu from "radix-vue";
-import "./styles.css";
+```vue line=16
+<script setup lang="ts">
+import {
+  ContextMenuRoot,
+  ContextMenuTrigger,
+  ContextMenuPortal,
+  ContextMenuContent,
+  ContextMenuItem,
+} from "radix-vue";
+</script>
 
-export default () => (
-  <ContextMenu.Root>
-    <ContextMenu.Trigger>…</ContextMenu.Trigger>
-    <ContextMenu.Portal>
-      <ContextMenu.Content>
-        <ContextMenu.Item __className__="ContextMenuItem" __disabled__>
+<template>
+  <ContextMenuRoot>
+    <ContextMenuTrigger>…</ContextMenuTrigger>
+    <ContextMenuPortal>
+      <ContextMenuContent>
+        <ContextMenuItem class="ContextMenuItem" disabled>
           …
-        </ContextMenu.Item>
-        <ContextMenu.Item className="ContextMenuItem">…</ContextMenu.Item>
-      </ContextMenu.Content>
-    </ContextMenu.Portal>
-  </ContextMenu.Root>
-);
+        </ContextMenuItem>
+        <ContextMenuItem className="ContextMenuItem">…</ContextMenuItem>
+      </ContextMenuContent>
+    </ContextMenuPortal>
+  </ContextMenuRoot>
+</template>
 ```
 
 ```css line=2
 /* styles.css */
-.ContextMenuItem[__data-disabled__] {
+.ContextMenuItem[data-disabled] {
   color: gainsboro;
 }
 ```
@@ -1032,132 +1073,192 @@ export default () => (
 
 Use the `Separator` part to add a separator between items.
 
-```jsx line=6,8
-<ContextMenu.Root>
-  <ContextMenu.Trigger>…</ContextMenu.Trigger>
-  <ContextMenu.Portal>
-    <ContextMenu.Content>
-      <ContextMenu.Item>…</ContextMenu.Item>
-      <ContextMenu.Separator />
-      <ContextMenu.Item>…</ContextMenu.Item>
-      <ContextMenu.Separator />
-      <ContextMenu.Item>…</ContextMenu.Item>
-    </ContextMenu.Content>
-  </ContextMenu.Portal>
-</ContextMenu.Root>
+```vue line=8,18,20
+<script setup lang="ts">
+import {
+  ContextMenuRoot,
+  ContextMenuTrigger,
+  ContextMenuPortal,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuSeparator,
+} from "radix-vue";
+</script>
+
+<template>
+  <ContextMenuRoot>
+    <ContextMenuTrigger>…</ContextMenuTrigger>
+    <ContextMenuPortal>
+      <ContextMenuContent>
+        <ContextMenuItem>…</ContextMenuItem>
+        <ContextMenuSeparator />
+        <ContextMenuItem>…</ContextMenuItem>
+        <ContextMenuSeparator />
+        <ContextMenuItem>…</ContextMenuItem>
+      </ContextMenuContent>
+    </ContextMenuPortal>
+  </ContextMenuRoot>
+</template>
 ```
 
 ### With labels
 
 Use the `Label` part to help label a section.
 
-```jsx line=5
-<ContextMenu.Root>
-  <ContextMenu.Trigger>…</ContextMenu.Trigger>
-  <ContextMenu.Portal>
-    <ContextMenu.Content>
-      <ContextMenu.Label>Label</ContextMenu.Label>
-      <ContextMenu.Item>…</ContextMenu.Item>
-      <ContextMenu.Item>…</ContextMenu.Item>
-      <ContextMenu.Item>…</ContextMenu.Item>
-    </ContextMenu.Content>
-  </ContextMenu.Portal>
-</ContextMenu.Root>
+```vue line=8,17
+<script setup lang="ts">
+import {
+  ContextMenuRoot,
+  ContextMenuTrigger,
+  ContextMenuPortal,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuLabel,
+} from "radix-vue";
+</script>
+
+<template>
+  <ContextMenuRoot>
+    <ContextMenuTrigger>…</ContextMenuTrigger>
+    <ContextMenuPortal>
+      <ContextMenuContent>
+        <ContextMenuLabel>Label</ContextMenuLabel>
+        <ContextMenuItem>…</ContextMenuItem>
+        <ContextMenuItem>…</ContextMenuItem>
+        <ContextMenuItem>…</ContextMenuItem>
+      </ContextMenuContent>
+    </ContextMenuPortal>
+  </ContextMenuRoot>
+</template>
 ```
 
 ### With checkbox items
 
 Use the `CheckboxItem` part to add an item that can be checked.
 
-```jsx line=2,12-20
-export default () => {
-  const checked = ref(true);
+```vue line=9,25-30
+<script setup lang="ts">
+import {
+  ContextMenuRoot,
+  ContextMenuTrigger,
+  ContextMenuPortal,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuSeparator,
+  ContextMenuCheckboxItem,
+  ContextMenuItemIndicator
+} from "radix-vue";
+import { Icon } from "@iconify/vue";
 
-  return (
-    <ContextMenu.Root>
-      <ContextMenu.Trigger>…</ContextMenu.Trigger>
-      <ContextMenu.Portal>
-        <ContextMenu.Content>
-          <ContextMenu.Item>…</ContextMenu.Item>
-          <ContextMenu.Item>…</ContextMenu.Item>
-          <ContextMenu.Separator />
-          <ContextMenu.CheckboxItem checked={checked} onCheckedChange={setChecked}>
-            <ContextMenu.ItemIndicator>
-              <CheckIcon />
-            </ContextMenu.ItemIndicator>
-            Checkbox item
-          </ContextMenu.CheckboxItem>
-        </ContextMenu.Content>
-      </ContextMenu.Portal>
-    </ContextMenu.Root>
-  );
-};
+const checked = ref(true);
+</script>
+
+<template>
+  <ContextMenuRoot>
+    <ContextMenuTrigger>…</ContextMenuTrigger>
+    <ContextMenuPortal>
+      <ContextMenuContent>
+        <ContextMenuItem>…</ContextMenuItem>
+        <ContextMenuItem>…</ContextMenuItem>
+        <ContextMenuSeparator />
+        <ContextMenuCheckboxItem v-model={checked}>
+          <ContextMenuItemIndicator>
+            <Icon icon="radix-icons:check" />
+          </ContextMenuItemIndicator>
+          Checkbox item
+        </ContextMenuCheckboxItem>
+      </ContextMenuContent>
+    </ContextMenuPortal>
+  </ContextMenuRoot>
+</template>
 ```
 
 ### With radio items
 
 Use the `RadioGroup` and `RadioItem` parts to add an item that can be checked amongst others.
 
-```jsx line=2,9-28
-export default () => {
-  const color = ref("blue");
+```vue line=11,12,24-43
+<script setup lang="ts">
+import {
+  ContextMenuRoot,
+  ContextMenuTrigger,
+  ContextMenuPortal,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuSeparator,
+  ContextMenuCheckboxItem,
+  ContextMenuItemIndicator,
+  ContextMenuRadioGroup,
+  ContextMenuRadioItem,
+} from "radix-vue";
+import { Icon } from "@iconify/vue";
 
-  return (
-    <ContextMenu.Root>
-      <ContextMenu.Trigger>…</ContextMenu.Trigger>
-      <ContextMenu.Portal>
-        <ContextMenu.Content>
-          <ContextMenu.RadioGroup value={color} onValueChange={setColor}>
-            <ContextMenu.RadioItem value="red">
-              <ContextMenu.ItemIndicator>
-                <CheckIcon />
-              </ContextMenu.ItemIndicator>
-              Red
-            </ContextMenu.RadioItem>
-            <ContextMenu.RadioItem value="blue">
-              <ContextMenu.ItemIndicator>
-                <CheckIcon />
-              </ContextMenu.ItemIndicator>
-              Blue
-            </ContextMenu.RadioItem>
-            <ContextMenu.RadioItem value="green">
-              <ContextMenu.ItemIndicator>
-                <CheckIcon />
-              </ContextMenu.ItemIndicator>
-              Green
-            </ContextMenu.RadioItem>
-          </ContextMenu.RadioGroup>
-        </ContextMenu.Content>
-      </ContextMenu.Portal>
-    </ContextMenu.Root>
-  );
-};
+const color = ref("blue");
+</script>
+
+<template>
+  <ContextMenuRoot>
+    <ContextMenuTrigger>…</ContextMenuTrigger>
+    <ContextMenuPortal>
+      <ContextMenuContent>
+        <ContextMenuRadioGroup v-model={color}>
+          <ContextMenuRadioItem value="red">
+            <ContextMenuItemIndicator>
+              <Icon icon="radix-icons:check" />
+            </ContextMenuItemIndicator>
+            Red
+          </ContextMenuRadioItem>
+          <ContextMenuRadioItem value="blue">
+            <ContextMenuItemIndicator>
+              <Icon icon="radix-icons:check" />
+            </ContextMenuItemIndicator>
+            Blue
+          </ContextMenuRadioItem>
+          <ContextMenuRadioItem value="green">
+            <ContextMenuItemIndicator>
+              <Icon icon="radix-icons:check" />
+            </ContextMenuItemIndicator>
+            Green
+          </ContextMenuRadioItem>
+        </ContextMenuRadioGroup>
+      </ContextMenuContent>
+    </ContextMenuPortal>
+  </ContextMenuRoot>
+</template>
 ```
 
 ### With complex items
 
 You can add extra decorative elements in the `Item` parts, such as images.
 
-```jsx line=9,13
-import * as ContextMenu from "radix-vue";
+```vue line=17,21
+<script setup lang="ts">
+import {
+  ContextMenuRoot,
+  ContextMenuTrigger,
+  ContextMenuPortal,
+  ContextMenuContent,
+  ContextMenuItem,
+} from "radix-vue";
+</script>
 
-export default () => (
-  <ContextMenu.Root>
-    <ContextMenu.Trigger>…</ContextMenu.Trigger>
-    <ContextMenu.Portal>
-      <ContextMenu.Content>
-        <ContextMenu.Item>
+<template>
+  <ContextMenuRoot>
+    <ContextMenuTrigger>…</ContextMenuTrigger>
+    <ContextMenuPortal>
+      <ContextMenuContent>
+        <ContextMenuItem>
           <img src="…" />
           Adolfo Hess
-        </ContextMenu.Item>
-        <ContextMenu.Item>
+        </ContextMenuItem>
+        <ContextMenuItem>
           <img src="…" />
           Miyah Myles
-        </ContextMenu.Item>
-      </ContextMenu.Content>
-    </ContextMenu.Portal>
-  </ContextMenu.Root>
-);
+        </ContextMenuItem>
+      </ContextMenuContent>
+    </ContextMenuPortal>
+  </ContextMenuRoot>
+</template>
 ```
 
 ### Constrain the content/sub-content size
@@ -1166,26 +1267,32 @@ You may want to constrain the width of the content (or sub-content) so that it m
 
 We expose several CSS custom properties such as `--radix-context-menu-trigger-width` and `--radix-context-menu-content-available-height` to support this. Use them to constrain the content dimensions.
 
-```jsx line=9
-// index.jsx
-import * as ContextMenu from "radix-vue";
-import "./styles.css";
+```vue line=15
+<script setup lang="ts">
+import {
+  ContextMenuRoot,
+  ContextMenuTrigger,
+  ContextMenuPortal,
+  ContextMenuContent,
+  ContextMenuItem,
+} from "radix-vue";
+</script>
 
-export default () => (
-  <ContextMenu.Root>
-    <ContextMenu.Trigger>…</ContextMenu.Trigger>
-    <ContextMenu.Portal>
-      <ContextMenu.Content __className__="ContextMenuContent">…</ContextMenu.Content>
-    </ContextMenu.Portal>
-  </ContextMenu.Root>
-);
+<template>
+  <ContextMenuRoot>
+    <ContextMenuTrigger>…</ContextMenuTrigger>
+    <ContextMenuPortal>
+      <ContextMenuContent class="ContextMenuContent">…</ContextMenuContent>
+    </ContextMenuPortal>
+  </ContextMenuRoot>
+</template>
 ```
 
 ```css
 /* styles.css */
 .ContextMenuContent {
-  width: var(__--radix-context-menu-trigger-width__);
-  max-height: var(__--radix-context-menu-content-available-height__);
+  width: var(--radix-context-menu-trigger-width);
+  max-height: var(--radix-context-menu-content-available-height);
 }
 ```
 
@@ -1193,25 +1300,30 @@ export default () => (
 
 We expose a CSS custom property `--radix-context-menu-content-transform-origin`. Use it to animate the content from its computed origin based on `side`, `sideOffset`, `align`, `alignOffset` and any collisions.
 
-```jsx line=9
-// index.jsx
-import * as ContextMenu from "radix-vue";
-import "./styles.css";
+```vue line=14
+<script setup lang="ts">
+import {
+  ContextMenuRoot,
+  ContextMenuTrigger,
+  ContextMenuPortal,
+  ContextMenuContent,
+} from "radix-vue";
+</script>
 
-export default () => (
-  <ContextMenu.Root>
-    <ContextMenu.Trigger>…</ContextMenu.Trigger>
-    <ContextMenu.Portal>
-      <ContextMenu.Content __className__="ContextMenuContent">…</ContextMenu.Content>
-    </ContextMenu.Portal>
-  </ContextMenu.Root>
-);
+<template>
+  <ContextMenuRoot>
+    <ContextMenuTrigger>…</ContextMenuTrigger>
+    <ContextMenuPortal>
+      <ContextMenuContent class="ContextMenuContent">…</ContextMenuContent>
+    </ContextMenuPortal>
+  </ContextMenuRoot>
+</template>
 ```
 
 ```css line=3
 /* styles.css */
 .ContextMenuContent {
-  transform-origin: var(__--radix-context-menu-content-transform-origin__);
+  transform-origin: var(--radix-context-menu-content-transform-origin);
   animation: scaleIn 0.5s ease-out;
 }
 
@@ -1231,19 +1343,24 @@ export default () => (
 
 We expose `data-side` and `data-align` attributes. Their values will change at runtime to reflect collisions. Use them to create collision and direction-aware animations.
 
-```jsx line=9
-// index.jsx
-import * as ContextMenu from "radix-vue";
-import "./styles.css";
+```vue line=14
+<script setup lang="ts">
+import {
+  ContextMenuRoot,
+  ContextMenuTrigger,
+  ContextMenuPortal,
+  ContextMenuContent,
+} from "radix-vue";
+</script>
 
-export default () => (
-  <ContextMenu.Root>
-    <ContextMenu.Trigger>…</ContextMenu.Trigger>
-    <ContextMenu.Portal>
-      <ContextMenu.Content __className__="ContextMenuContent">…</ContextMenu.Content>
-    </ContextMenu.Portal>
-  </ContextMenu.Root>
-);
+<template>
+  <ContextMenuRoot>
+    <ContextMenuTrigger>…</ContextMenuTrigger>
+    <ContextMenuPortal>
+      <ContextMenuContent class="ContextMenuContent">…</ContextMenuContent>
+    </ContextMenuPortal>
+  </ContextMenuRoot>
+</template>
 ```
 
 ```css line=6-11
@@ -1252,10 +1369,10 @@ export default () => (
   animation-duration: 0.6s;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
-.ContextMenuContent[__data-side="top"__] {
+.ContextMenuContent[data-side="top"] {
   animation-name: slideUp;
 }
-.ContextMenuContent[__data-side="bottom"__] {
+.ContextMenuContent[data-side="bottom"] {
   animation-name: slideDown;
 }
 

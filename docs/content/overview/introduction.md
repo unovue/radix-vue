@@ -12,7 +12,7 @@ import Description from '../../components/Description.vue'
 
 <Description>
 An open-source UI component library for building high-quality, accessible
-design systems and web apps using [Vue](https://vuejs.org/).
+design systems and web apps using <a href="https://vuejs.org" target="_blank" rel="noopener noreferrer">Vue.js</a>.
 </Description>
 
 ::: tip

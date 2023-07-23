@@ -6,8 +6,8 @@ name: dropdown-menu
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/menubutton
 ---
 
-<script setup> 
-import DemoDropdownMenu from '../../components/demo/DropdownMenu/index.vue' 
+<script setup>
+import DemoDropdownMenu from '../../components/demo/DropdownMenu/index.vue'
 </script>
 
 # DropdownMenu
@@ -59,10 +59,29 @@ npm install radix-vue
 
 Import all parts and piece them together.
 
-```jsx
-import * as DropdownMenu from "radix-vue";
+```vue
+<script setup lang="ts">
+import {
+  DropdownMenuRoot,
+  DropdownMenuTrigger,
+  DropdownMenuPortal,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuItem,
+  DropdownMenuGroup,
+  DropdownMenuCheckboxItem,
+  DropdownMenuItemIndicator,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent,
+  DropdownMenuArrow,
+  DropdownMenuSeparator,
+} from "radix-vue";
+</script>
 
-export default () => (
+<template>
   <DropdownMenuRoot>
     <DropdownMenuTrigger />
 
@@ -97,7 +116,7 @@ export default () => (
       </DropdownMenuContent>
     </DropdownMenuPortal>
   </DropdownMenuRoot>
-);
+</template>
 ```
 
 ## API Reference
@@ -967,58 +986,81 @@ The component that pops out when a submenu is open. Must be rendered inside `Dro
 
 You can create submenus by using `DropdownMenuSub` in combination with its parts.
 
-```jsx line=8-17
-<DropdownMenuRoot>
-  <DropdownMenuTrigger>…</DropdownMenuTrigger>
-  <DropdownMenuPortal>
-    <DropdownMenuContent>
-      <DropdownMenuItem>…</DropdownMenuItem>
-      <DropdownMenuItem>…</DropdownMenuItem>
-      <DropdownMenuSeparator />
-      <DropdownMenuSub>
-        <DropdownMenuSubTrigger>Sub menu →</DropdownMenuSubTrigger>
-        <DropdownMenuPortal>
-          <DropdownMenuSubContent>
-            <DropdownMenuItem>Sub menu item</DropdownMenuItem>
-            <DropdownMenuItem>Sub menu item</DropdownMenuItem>
-            <DropdownMenuArrow />
-          </DropdownMenuSubContent>
-        </DropdownMenuPortal>
-      </DropdownMenuSub>
-      <DropdownMenuSeparator />
-      <DropdownMenuItem>…</DropdownMenuItem>
-    </DropdownMenuContent>
-  </DropdownMenuPortal>
-</DropdownMenuRoot>
+```vue line=8-10,24-33
+<script setup lang="ts">
+import {
+  DropdownMenuRoot,
+  DropdownMenuTrigger,
+  DropdownMenuPortal,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent,
+  DropdownMenuArrow,
+  DropdownMenuSeparator,
+} from "radix-vue";
+</script>
+
+<template>
+  <DropdownMenuRoot>
+    <DropdownMenuTrigger>…</DropdownMenuTrigger>
+    <DropdownMenuPortal>
+      <DropdownMenuContent>
+        <DropdownMenuItem>…</DropdownMenuItem>
+        <DropdownMenuItem>…</DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger>Sub menu →</DropdownMenuSubTrigger>
+          <DropdownMenuPortal>
+            <DropdownMenuSubContent>
+              <DropdownMenuItem>Sub menu item</DropdownMenuItem>
+              <DropdownMenuItem>Sub menu item</DropdownMenuItem>
+              <DropdownMenuArrow />
+            </DropdownMenuSubContent>
+          </DropdownMenuPortal>
+        </DropdownMenuSub>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>…</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenuPortal>
+  </DropdownMenuRoot>
+</template>
 ```
 
 ### With disabled items
 
 You can add special styles to disabled items via the `data-disabled` attribute.
 
-```jsx line=10
-// index.jsx
-import * as DropdownMenu from "radix-vue";
-import "./styles.css";
+```vue line=16
+<script setup lang="ts">
+import {
+  DropdownMenuRoot,
+  DropdownMenuTrigger,
+  DropdownMenuPortal,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "radix-vue";
+</script>
 
-export default () => (
+<template>
   <DropdownMenuRoot>
     <DropdownMenuTrigger>…</DropdownMenuTrigger>
     <DropdownMenuPortal>
       <DropdownMenuContent>
-        <DropdownMenuItem __className__="DropdownMenuItem" __disabled__>
+        <DropdownMenuItem className="DropdownMenuItem" disabled>
           …
         </DropdownMenuItem>
         <DropdownMenuItem className="DropdownMenuItem">…</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenuPortal>
   </DropdownMenuRoot>
-);
+</template>
 ```
 
 ```css line=2
 /* styles.css */
-.DropdownMenuItem[__data-disabled__] {
+.DropdownMenuItem[data-disabled] {
   color: gainsboro;
 }
 ```
@@ -1027,124 +1069,175 @@ export default () => (
 
 Use the `Separator` part to add a separator between items.
 
-```jsx line=6,8
-<DropdownMenuRoot>
-  <DropdownMenuTrigger>…</DropdownMenuTrigger>
-  <DropdownMenuPortal>
-    <DropdownMenuContent>
-      <DropdownMenuItem>…</DropdownMenuItem>
-      <DropdownMenuSeparator />
-      <DropdownMenuItem>…</DropdownMenuItem>
-      <DropdownMenuSeparator />
-      <DropdownMenuItem>…</DropdownMenuItem>
-    </DropdownMenuContent>
-  </DropdownMenuPortal>
-</DropdownMenuRoot>
+```vue line=8,18,20
+<script setup lang="ts">
+import {
+  DropdownMenuRoot,
+  DropdownMenuTrigger,
+  DropdownMenuPortal,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "radix-vue";
+</script>
+
+<template>
+  <DropdownMenuRoot>
+    <DropdownMenuTrigger>…</DropdownMenuTrigger>
+    <DropdownMenuPortal>
+      <DropdownMenuContent>
+        <DropdownMenuItem>…</DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>…</DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>…</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenuPortal>
+  </DropdownMenuRoot>
+</template>
 ```
 
 ### With labels
 
 Use the `Label` part to help label a section.
 
-```jsx line=5
-<DropdownMenuRoot>
-  <DropdownMenuTrigger>…</DropdownMenuTrigger>
-  <DropdownMenuPortal>
-    <DropdownMenuContent>
-      <DropdownMenuLabel>Label</DropdownMenuLabel>
-      <DropdownMenuItem>…</DropdownMenuItem>
-      <DropdownMenuItem>…</DropdownMenuItem>
-      <DropdownMenuItem>…</DropdownMenuItem>
-    </DropdownMenuContent>
-  </DropdownMenuPortal>
-</DropdownMenuRoot>
+```vue line=8,17
+<script setup lang="ts">
+import {
+  DropdownMenuRoot,
+  DropdownMenuTrigger,
+  DropdownMenuPortal,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+} from "radix-vue";
+</script>
+
+<template>
+  <DropdownMenuRoot>
+    <DropdownMenuTrigger>…</DropdownMenuTrigger>
+    <DropdownMenuPortal>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>Label</DropdownMenuLabel>
+        <DropdownMenuItem>…</DropdownMenuItem>
+        <DropdownMenuItem>…</DropdownMenuItem>
+        <DropdownMenuItem>…</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenuPortal>
+  </DropdownMenuRoot>
+</template>
 ```
 
 ### With checkbox items
 
 Use the `CheckboxItem` part to add an item that can be checked.
 
-```jsx line=6,16-21
-import React from "react";
-import { CheckIcon } from "@radix-ui/react-icons";
-import * as DropdownMenu from "radix-vue";
+```vue line=11,26-31
+<script setup lang="ts">
+import { Icon } from "@iconify/vue";
+import { ref } from "vue";
+import {
+  DropdownMenuRoot,
+  DropdownMenuTrigger,
+  DropdownMenuPortal,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuCheckboxItem,
+  DropdownMenuItemIndicator,
+} from "radix-vue";
 
-export default () => {
-  const [checked, setChecked] = React.useState(true);
+const checked = ref(false);
+</script>
 
-  return (
-    <DropdownMenuRoot>
-      <DropdownMenuTrigger>…</DropdownMenuTrigger>
-      <DropdownMenuPortal>
-        <DropdownMenuContent>
-          <DropdownMenuItem>…</DropdownMenuItem>
-          <DropdownMenuItem>…</DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuCheckboxItem checked={checked} onCheckedChange={setChecked}>
-            <DropdownMenuItemIndicator>
-              <CheckIcon />
-            </DropdownMenuItemIndicator>
-            Checkbox item
-          </DropdownMenuCheckboxItem>
-        </DropdownMenuContent>
-      </DropdownMenuPortal>
-    </DropdownMenuRoot>
-  );
-};
+<template>
+  <DropdownMenuRoot>
+    <DropdownMenuTrigger>…</DropdownMenuTrigger>
+    <DropdownMenuPortal>
+      <DropdownMenuContent>
+        <DropdownMenuItem>…</DropdownMenuItem>
+        <DropdownMenuItem>…</DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuCheckboxItem v-model={checked}>
+          <DropdownMenuItemIndicator>
+            <Icon icon="radix-icons:check" />
+          </DropdownMenuItemIndicator>
+          Checkbox item
+        </DropdownMenuCheckboxItem>
+      </DropdownMenuContent>
+    </DropdownMenuPortal>
+  </DropdownMenuRoot>
+</template>
 ```
 
 ### With radio items
 
 Use the `RadioGroup` and `RadioItem` parts to add an item that can be checked amongst others.
 
-```jsx line=6,13-32
-import React from "react";
-import { CheckIcon } from "@radix-ui/react-icons";
-import * as DropdownMenu from "radix-vue";
+```vue line=9-10,22-41
+<script setup lang="ts">
+import { Icon } from "@iconify/vue";
+import { ref } from "vue";
+import {
+  DropdownMenuRoot,
+  DropdownMenuTrigger,
+  DropdownMenuPortal,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuItemIndicator,
+} from "radix-vue";
 
-export default () => {
-  const [color, setColor] = React.useState("blue");
+const color = ref(false);
+</script>
 
-  return (
-    <DropdownMenuRoot>
-      <DropdownMenuTrigger>…</DropdownMenuTrigger>
-      <DropdownMenuPortal>
-        <DropdownMenuContent>
-          <DropdownMenuRadioGroup value={color} onValueChange={setColor}>
-            <DropdownMenuRadioItem value="red">
-              <DropdownMenuItemIndicator>
-                <CheckIcon />
-              </DropdownMenuItemIndicator>
-              Red
-            </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="blue">
-              <DropdownMenuItemIndicator>
-                <CheckIcon />
-              </DropdownMenuItemIndicator>
-              Blue
-            </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="green">
-              <DropdownMenuItemIndicator>
-                <CheckIcon />
-              </DropdownMenuItemIndicator>
-              Green
-            </DropdownMenuRadioItem>
-          </DropdownMenuRadioGroup>
-        </DropdownMenuContent>
-      </DropdownMenuPortal>
-    </DropdownMenuRoot>
-  );
-};
+<template>
+  <DropdownMenuRoot>
+    <DropdownMenuTrigger>…</DropdownMenuTrigger>
+    <DropdownMenuPortal>
+      <DropdownMenuContent>
+        <DropdownMenuRadioGroup v-model={color}>
+          <DropdownMenuRadioItem value="red">
+            <DropdownMenuItemIndicator>
+              <Icon icon="radix-icons:check" />
+            </DropdownMenuItemIndicator>
+            Red
+          </DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="blue">
+            <DropdownMenuItemIndicator>
+              <Icon icon="radix-icons:check" />
+            </DropdownMenuItemIndicator>
+            Blue
+          </DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="green">
+            <DropdownMenuItemIndicator>
+              <Icon icon="radix-icons:check" />
+            </DropdownMenuItemIndicator>
+            Green
+          </DropdownMenuRadioItem>
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenuPortal>
+  </DropdownMenuRoot>
+</template>
 ```
 
 ### With complex items
 
 You can add extra decorative elements in the `Item` parts, such as images.
 
-```jsx line=9,13
-import * as DropdownMenu from "radix-vue";
+```vue line=17,21
+<script setup lang="ts">
+import {
+  DropdownMenuRoot,
+  DropdownMenuTrigger,
+  DropdownMenuPortal,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "radix-vue";
+</script>
 
-export default () => (
+<template>
   <DropdownMenuRoot>
     <DropdownMenuTrigger>…</DropdownMenuTrigger>
     <DropdownMenuPortal>
@@ -1160,7 +1253,7 @@ export default () => (
       </DropdownMenuContent>
     </DropdownMenuPortal>
   </DropdownMenuRoot>
-);
+</template>
 ```
 
 ### Constrain the content/sub-content size
@@ -1169,28 +1262,36 @@ You may want to constrain the width of the content (or sub-content) so that it m
 
 We expose several CSS custom properties such as `--radix-dropdown-menu-trigger-width` and `--radix-dropdown-menu-content-available-height` to support this. Use them to constrain the content dimensions.
 
-```jsx line=9
-// index.jsx
-import * as DropdownMenu from "radix-vue";
-import "./styles.css";
+```vue line=15
+<script setup lang="ts">
+import {
+  DropdownMenuRoot,
+  DropdownMenuTrigger,
+  DropdownMenuPortal,
+  DropdownMenuContent,
+} from "radix-vue";
+</script>
 
-export default () => (
+<template>
   <DropdownMenuRoot>
     <DropdownMenuTrigger>…</DropdownMenuTrigger>
     <DropdownMenuPortal>
-      <DropdownMenuContent __className__="DropdownMenuContent" sideOffset={5}>
+      <DropdownMenuContent
+        class="DropdownMenuContent"
+        sideOffset={5}
+      >
         …
       </DropdownMenuContent>
     </DropdownMenuPortal>
   </DropdownMenuRoot>
-);
+</template>
 ```
 
 ```css
 /* styles.css */
 .DropdownMenuContent {
-  width: var(__--radix-dropdown-menu-trigger-width__);
-  max-height: var(__--radix-dropdown-menu-content-available-height__);
+  width: var(--radix-dropdown-menu-trigger-width);
+  max-height: var(--radix-dropdown-menu-content-available-height);
 }
 ```
 
@@ -1198,25 +1299,30 @@ export default () => (
 
 We expose a CSS custom property `--radix-dropdown-menu-content-transform-origin`. Use it to animate the content from its computed origin based on `side`, `sideOffset`, `align`, `alignOffset` and any collisions.
 
-```jsx line=9
-// index.jsx
-import * as DropdownMenu from "radix-vue";
-import "./styles.css";
+```vue line=14
+<script setup lang="ts">
+import {
+  DropdownMenuRoot,
+  DropdownMenuTrigger,
+  DropdownMenuPortal,
+  DropdownMenuContent,
+} from "radix-vue";
+</script>
 
-export default () => (
+<template>
   <DropdownMenuRoot>
     <DropdownMenuTrigger>…</DropdownMenuTrigger>
     <DropdownMenuPortal>
-      <DropdownMenuContent __className__="DropdownMenuContent">…</DropdownMenuContent>
+      <DropdownMenuContent class="DropdownMenuContent">…</DropdownMenuContent>
     </DropdownMenuPortal>
   </DropdownMenuRoot>
-);
+</template>
 ```
 
 ```css line=3
 /* styles.css */
 .DropdownMenuContent {
-  transform-origin: var(__--radix-dropdown-menu-content-transform-origin__);
+  transform-origin: var(--radix-dropdown-menu-content-transform-origin);
   animation: scaleIn 0.5s ease-out;
 }
 
@@ -1236,19 +1342,24 @@ export default () => (
 
 We expose `data-side` and `data-align` attributes. Their values will change at runtime to reflect collisions. Use them to create collision and direction-aware animations.
 
-```jsx line=9
-// index.jsx
-import * as DropdownMenu from "radix-vue";
-import "./styles.css";
+```vue line=14
+<script setup lang="ts">
+import {
+  DropdownMenuRoot,
+  DropdownMenuTrigger,
+  DropdownMenuPortal,
+  DropdownMenuContent,
+} from "radix-vue";
+</script>
 
-export default () => (
+<template>
   <DropdownMenuRoot>
     <DropdownMenuTrigger>…</DropdownMenuTrigger>
     <DropdownMenuPortal>
-      <DropdownMenuContent __className__="DropdownMenuContent">…</DropdownMenuContent>
+      <DropdownMenuContent class="DropdownMenuContent">…</DropdownMenuContent>
     </DropdownMenuPortal>
   </DropdownMenuRoot>
-);
+</template>
 ```
 
 ```css line=6-11
@@ -1257,10 +1368,10 @@ export default () => (
   animation-duration: 0.6s;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
-.DropdownMenuContent[__data-side="top"__] {
+.DropdownMenuContent[data-side="top"] {
   animation-name: slideUp;
 }
-.DropdownMenuContent[__data-side="bottom"__] {
+.DropdownMenuContent[data-side="bottom"] {
   animation-name: slideDown;
 }
 
@@ -1399,6 +1510,7 @@ export default () => (
 
 #### Implementation
 
+<!-- TODO: fix react code - maybe implement in demo?-->
 ```jsx
 // your-dropdown-menu.jsx
 import React from "react";
@@ -1450,5 +1562,3 @@ export const DropdownMenuRadioItem = React.forwardRef(({ children, ...props }, f
 
 export const DropdownMenuSeparator = DropdownMenuPrimitive.Separator;
 ```
-
-<!-- TODO: denniss fix react code-->

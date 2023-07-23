@@ -5,15 +5,14 @@ metaDescription: Displays content within a desired ratio.
 name: aspect-ratio
 ---
 
-<script setup> 
-import DemoAspectRatio from '../../components/demo/AspectRatio/index.vue' 
+<script setup>
+import DemoAspectRatio from '../../components/demo/AspectRatio/index.vue'
 </script>
 
 # Aspect Ratio
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+Displays content within a desired ratio.
 </Description>
 
 <HeroContainer>

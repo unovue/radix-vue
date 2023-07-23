@@ -5,15 +5,14 @@ metaDescription: An image element with a fallback for representing the user.
 name: avatar
 ---
 
-<script setup> 
-import DemoAvatar from '../../components/demo/Avatar/index.vue' 
+<script setup>
+import DemoAvatar from '../../components/demo/Avatar/index.vue'
 </script>
 
 # Avatar
 
 <Description>
-A modal dialog that interrupts the user with important content and expects a
-response.
+An image element with a fallback for representing the user.
 </Description>
 
 <HeroContainer>
@@ -132,7 +131,13 @@ You can compose the Avatar with a [Tooltip](/components/tooltip) to display extr
 
 ```vue line=5,6,7,12,13,15,17-21
 <script setup>
-import { AvatarRoot, AvatarImage, TooltipRoot, TooltipTrigger, TooltipArrow } from "radix-vue";
+import {
+  AvatarRoot,
+  AvatarImage,
+  TooltipRoot,
+  TooltipTrigger,
+  TooltipArrow
+} from "radix-vue";
 </script>
 
 <template>

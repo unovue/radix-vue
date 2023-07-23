@@ -13,5 +13,4 @@ import Description from '../../components/Description.vue'
 Discover the latest release of Radix Vue.
 </Description>
 
-::releases
-::
+[Latest releases on github](https://github.com/radix-vue/radix-vue/releases)

@@ -16,16 +16,16 @@ onMounted(() => {
 </script>
 
 <template>
-    <a v-if="title"
-        class="capitalize md:text-lg font-semibold mb-2 ml-2 inline-flex items-center group"
-        :href="`/components/${title?.replace(' ', '-')}.html`"
-        >{{ title }}
+  <div>
+    <a
+      class="capitalize text-lg font-semibold mb-2 ml-2 inline-flex items-center group"
+      :href="`/components/${title?.replace(' ', '-')}.html`"
+      >{{ title }}
 
         <Icon icon="ic-round-arrow-forward" class="ml-2 group-focus:ml-3 group-hover:ml-3 transition-[margin]"></Icon>
     </a>
-    <div ref="demo"
-        class="bg-gradient-to-br rounded-t-lg from-teal9 to-green9 relative grid place-items-center py-10 md:py-24 min-h-[256px] lg:h-[400px] overflow-x-auto"
-        :class="{'px-5': needsPadding}"
+    <div
+      class="custom-justify-center p-4 md:p-10 min-h-[256px] lg:h-[400px] bg-gradient-to-br rounded-xl from-teal9 to-green9 w-full relative items-center flex overflow-x-auto"
     >
         <slot />
     </div>

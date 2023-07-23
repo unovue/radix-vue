@@ -1,7 +1,6 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
-
-type ImageLoadingStatus = "loading" | "loaded";
+import type { ImageLoadingStatus } from "./utils";
 
 export interface AvatarRootProps extends PrimitiveProps {}
 

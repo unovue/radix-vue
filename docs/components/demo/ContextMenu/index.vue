@@ -31,7 +31,7 @@ function handleClick() {
   <ContextMenuRoot>
     <ContextMenuTrigger
       as-child
-      class="block border-2 border-white border-dashed text-white rounded text-[15px] select-none py-[45px] w-full sm:w-[300px] text-center"
+      class="block border-2 border-white border-dashed text-white rounded text-[15px] select-none py-[45px] w-[300px] text-center"
     >
       <span> Right click here. </span>
     </ContextMenuTrigger>

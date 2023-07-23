@@ -110,6 +110,10 @@
   @apply mt-0 md:mt-2 text-[15px] md:text-base;
 }
 
+.vp-doc div[class*='language-'] {
+    @apply mx-0;
+}
+
 [data-radix-popper-content-wrapper] {
   z-index: 1000;
 }
@@ -124,10 +128,4 @@ li > span {
 
 .image-bg {
   @apply scale-75 !transform !-translate-x-1/2 !-translate-y-1/2;
-}
-
-.custom-justify-center:before,
-.custom-justify-center:after {
-  content: "";
-  flex: 1;
 }

@@ -6,8 +6,8 @@ name: toolbar
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/toolbar
 ---
 
-<script setup> 
-import DemoToolbar from '../../components/demo/Toolbar/index.vue' 
+<script setup>
+import DemoToolbar from '../../components/demo/Toolbar/index.vue'
 </script>
 
 # Toolbar
@@ -17,7 +17,7 @@ A container for grouping a set of controls, such as buttons, Toolbar groups or
 dropdown menus.
 </Description>
 
-<HeroContainer overflow>
+<HeroContainer>
 <DemoToolbar />
 <template v-slot:codeSlot>
 <HeroCodeGroup>

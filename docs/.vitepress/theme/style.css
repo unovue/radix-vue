@@ -110,6 +110,10 @@
   @apply mt-0 md:mt-2 text-[15px] md:text-base;
 }
 
+.vp-doc div[class*='language-'] {
+    @apply mx-0;
+}
+
 [data-radix-popper-content-wrapper] {
   z-index: 1000;
 }

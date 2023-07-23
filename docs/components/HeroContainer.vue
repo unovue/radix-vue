@@ -1,7 +1,16 @@
+<script setup lang="ts">
+defineProps<{
+  overflow?: boolean;
+}>();
+</script>
+
 <template>
   <div class="relative text-[15px] text-black">
-    <div class="bg-gradient-to-br rounded-t-lg from-teal9 to-green9 w-full relative items-center justify-center flex">
-      <div class="w-full max-w-[700px] flex flex-col items-center justify-center py-[100px]">
+    <div
+      class="bg-gradient-to-br p-4 rounded-t-lg from-teal9 to-green9 w-full relative items-center justify-center flex"
+      :class="{ 'overflow-x-auto': overflow }"
+    >
+      <div class="w-full max-w-[700px] flex items-center py-12 sm:py-[100px] justify-center z-10">
         <slot />
       </div>
     </div>
@@ -18,7 +27,8 @@
   margin-top: 0 !important;
 }
 
-:deep(button:focus), :deep(button:focus-visible) {
+:deep(button:focus),
+:deep(button:focus-visible) {
   outline: 0;
 }
 

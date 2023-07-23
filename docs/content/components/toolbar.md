@@ -6,8 +6,8 @@ name: toolbar
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/toolbar
 ---
 
-<script setup> 
-import DemoToolbar from '../../components/demo/Toolbar/index.vue' 
+<script setup>
+import DemoToolbar from '../../components/demo/Toolbar/index.vue'
 </script>
 
 # Toolbar

@@ -49,6 +49,8 @@ const dataState = computed<TooltipTriggerDataState>(() => {
       :as-child="props.asChild"
       @mouseenter="handleMouseEnter"
       @mouseleave="injectedValue?.hideTooltip"
+      @focus="injectedValue?.showTooltip"
+      @blur="injectedValue?.hideTooltip"
       style="cursor: default"
     >
       <slot />

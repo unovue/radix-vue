@@ -6,17 +6,8 @@ name: dropdown-menu
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/menubutton
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
-import DemoDropdownMenu from '../../components/demo/DropdownMenu/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import EmitsTable from '../../components/tables/EmitsTable.vue'
-import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
-import CssVariablesTable from '../../components/tables/CssVariablesTable.vue'
-import KeyboardTable from '../../components/tables/KeyboardTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+<script setup> 
+import DemoDropdownMenu from '../../components/demo/DropdownMenu/index.vue' 
 </script>
 
 # DropdownMenu
@@ -39,6 +30,7 @@ Displays a menu to the user—such as a set of actions or functions—triggered 
 </HeroContainer>
 
 ## Features
+
 <Highlights
   :features="[
     'Can be controlled or uncontrolled.',
@@ -68,7 +60,7 @@ npm install radix-vue
 Import all parts and piece them together.
 
 ```jsx
-import * as DropdownMenu from 'radix-vue';
+import * as DropdownMenu from "radix-vue";
 
 export default () => (
   <DropdownMenuRoot>
@@ -149,7 +141,6 @@ Contains all the parts of a dropdown menu.
   ]"
 />
 
-
 ### Trigger
 
 The button that toggles the dropdown menu. By default, the `DropdownMenuContent` will position itself against the trigger.
@@ -179,7 +170,6 @@ The button that toggles the dropdown menu. By default, the `DropdownMenuContent`
   ]"
 />
 
-
 ### Portal
 
 When used, portals the content part into the `body`.
@@ -199,7 +189,6 @@ When used, portals the content part into the `body`.
     },
   ]"
 />
-
 
 ### Content
 
@@ -344,7 +333,6 @@ The component that pops out when the dropdown menu is open.
     },
   ]"
 />
-
 
 <CssVariablesTable
   :data="[
@@ -539,7 +527,6 @@ An item that can be controlled and rendered like a checkbox.
     },
   ]"
 />
-
 
 ### RadioGroup
 
@@ -1011,8 +998,8 @@ You can add special styles to disabled items via the `data-disabled` attribute.
 
 ```jsx line=10
 // index.jsx
-import * as DropdownMenu from 'radix-vue';
-import './styles.css';
+import * as DropdownMenu from "radix-vue";
+import "./styles.css";
 
 export default () => (
   <DropdownMenuRoot>
@@ -1078,9 +1065,9 @@ Use the `Label` part to help label a section.
 Use the `CheckboxItem` part to add an item that can be checked.
 
 ```jsx line=6,16-21
-import React from 'react';
-import { CheckIcon } from '@radix-ui/react-icons';
-import * as DropdownMenu from 'radix-vue';
+import React from "react";
+import { CheckIcon } from "@radix-ui/react-icons";
+import * as DropdownMenu from "radix-vue";
 
 export default () => {
   const [checked, setChecked] = React.useState(true);
@@ -1093,10 +1080,7 @@ export default () => {
           <DropdownMenuItem>…</DropdownMenuItem>
           <DropdownMenuItem>…</DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuCheckboxItem
-            checked={checked}
-            onCheckedChange={setChecked}
-          >
+          <DropdownMenuCheckboxItem checked={checked} onCheckedChange={setChecked}>
             <DropdownMenuItemIndicator>
               <CheckIcon />
             </DropdownMenuItemIndicator>
@@ -1114,12 +1098,12 @@ export default () => {
 Use the `RadioGroup` and `RadioItem` parts to add an item that can be checked amongst others.
 
 ```jsx line=6,13-32
-import React from 'react';
-import { CheckIcon } from '@radix-ui/react-icons';
-import * as DropdownMenu from 'radix-vue';
+import React from "react";
+import { CheckIcon } from "@radix-ui/react-icons";
+import * as DropdownMenu from "radix-vue";
 
 export default () => {
-  const [color, setColor] = React.useState('blue');
+  const [color, setColor] = React.useState("blue");
 
   return (
     <DropdownMenuRoot>
@@ -1158,7 +1142,7 @@ export default () => {
 You can add extra decorative elements in the `Item` parts, such as images.
 
 ```jsx line=9,13
-import * as DropdownMenu from 'radix-vue';
+import * as DropdownMenu from "radix-vue";
 
 export default () => (
   <DropdownMenuRoot>
@@ -1187,8 +1171,8 @@ We expose several CSS custom properties such as `--radix-dropdown-menu-trigger-w
 
 ```jsx line=9
 // index.jsx
-import * as DropdownMenu from 'radix-vue';
-import './styles.css';
+import * as DropdownMenu from "radix-vue";
+import "./styles.css";
 
 export default () => (
   <DropdownMenuRoot>
@@ -1216,16 +1200,14 @@ We expose a CSS custom property `--radix-dropdown-menu-content-transform-origin`
 
 ```jsx line=9
 // index.jsx
-import * as DropdownMenu from 'radix-vue';
-import './styles.css';
+import * as DropdownMenu from "radix-vue";
+import "./styles.css";
 
 export default () => (
   <DropdownMenuRoot>
     <DropdownMenuTrigger>…</DropdownMenuTrigger>
     <DropdownMenuPortal>
-      <DropdownMenuContent __className__="DropdownMenuContent">
-        …
-      </DropdownMenuContent>
+      <DropdownMenuContent __className__="DropdownMenuContent">…</DropdownMenuContent>
     </DropdownMenuPortal>
   </DropdownMenuRoot>
 );
@@ -1256,16 +1238,14 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 
 ```jsx line=9
 // index.jsx
-import * as DropdownMenu from 'radix-vue';
-import './styles.css';
+import * as DropdownMenu from "radix-vue";
+import "./styles.css";
 
 export default () => (
   <DropdownMenuRoot>
     <DropdownMenuTrigger>…</DropdownMenuTrigger>
     <DropdownMenuPortal>
-      <DropdownMenuContent __className__="DropdownMenuContent">
-        …
-      </DropdownMenuContent>
+      <DropdownMenuContent __className__="DropdownMenuContent">…</DropdownMenuContent>
     </DropdownMenuPortal>
   </DropdownMenuRoot>
 );
@@ -1277,10 +1257,10 @@ export default () => (
   animation-duration: 0.6s;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
-.DropdownMenuContent[__data-side='top'__] {
+.DropdownMenuContent[__data-side="top"__] {
   animation-name: slideUp;
 }
-.DropdownMenuContent[__data-side='bottom'__] {
+.DropdownMenuContent[__data-side="bottom"__] {
   animation-name: slideDown;
 }
 
@@ -1397,7 +1377,7 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
-} from './your-dropdown-menu';
+} from "./your-dropdown-menu";
 
 export default () => (
   <DropdownMenu>
@@ -1421,58 +1401,52 @@ export default () => (
 
 ```jsx
 // your-dropdown-menu.jsx
-import React from 'react';
-import * as DropdownMenuPrimitive from 'radix-vue';
-import { CheckIcon, DividerHorizontalIcon } from '@radix-ui/react-icons';
+import React from "react";
+import * as DropdownMenuPrimitive from "radix-vue";
+import { CheckIcon, DividerHorizontalIcon } from "@radix-ui/react-icons";
 
 export const DropdownMenu = DropdownMenuPrimitive.Root;
 export const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
 
-export const DropdownMenuContent = React.forwardRef(
-  ({ children, ...props }, forwardedRef) => {
-    return (
-      <DropdownMenuPrimitive.Portal>
-        <DropdownMenuPrimitive.Content {...props} ref={forwardedRef}>
-          {children}
-          <DropdownMenuPrimitive.Arrow />
-        </DropdownMenuPrimitive.Content>
-      </DropdownMenuPrimitive.Portal>
-    );
-  }
-);
+export const DropdownMenuContent = React.forwardRef(({ children, ...props }, forwardedRef) => {
+  return (
+    <DropdownMenuPrimitive.Portal>
+      <DropdownMenuPrimitive.Content {...props} ref={forwardedRef}>
+        {children}
+        <DropdownMenuPrimitive.Arrow />
+      </DropdownMenuPrimitive.Content>
+    </DropdownMenuPrimitive.Portal>
+  );
+});
 
 export const DropdownMenuLabel = DropdownMenuPrimitive.Label;
 export const DropdownMenuItem = DropdownMenuPrimitive.Item;
 export const DropdownMenuGroup = DropdownMenuPrimitive.Group;
 
-export const DropdownMenuCheckboxItem = React.forwardRef(
-  ({ children, ...props }, forwardedRef) => {
-    return (
-      <DropdownMenuPrimitive.CheckboxItem {...props} ref={forwardedRef}>
-        {children}
-        <DropdownMenuPrimitive.ItemIndicator>
-          {props.checked === 'indeterminate' && <DividerHorizontalIcon />}
-          {props.checked === true && <CheckIcon />}
-        </DropdownMenuPrimitive.ItemIndicator>
-      </DropdownMenuPrimitive.CheckboxItem>
-    );
-  }
-);
+export const DropdownMenuCheckboxItem = React.forwardRef(({ children, ...props }, forwardedRef) => {
+  return (
+    <DropdownMenuPrimitive.CheckboxItem {...props} ref={forwardedRef}>
+      {children}
+      <DropdownMenuPrimitive.ItemIndicator>
+        {props.checked === "indeterminate" && <DividerHorizontalIcon />}
+        {props.checked === true && <CheckIcon />}
+      </DropdownMenuPrimitive.ItemIndicator>
+    </DropdownMenuPrimitive.CheckboxItem>
+  );
+});
 
 export const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
 
-export const DropdownMenuRadioItem = React.forwardRef(
-  ({ children, ...props }, forwardedRef) => {
-    return (
-      <DropdownMenuPrimitive.RadioItem {...props} ref={forwardedRef}>
-        {children}
-        <DropdownMenuPrimitive.ItemIndicator>
-          <CheckIcon />
-        </DropdownMenuPrimitive.ItemIndicator>
-      </DropdownMenuPrimitive.RadioItem>
-    );
-  }
-);
+export const DropdownMenuRadioItem = React.forwardRef(({ children, ...props }, forwardedRef) => {
+  return (
+    <DropdownMenuPrimitive.RadioItem {...props} ref={forwardedRef}>
+      {children}
+      <DropdownMenuPrimitive.ItemIndicator>
+        <CheckIcon />
+      </DropdownMenuPrimitive.ItemIndicator>
+    </DropdownMenuPrimitive.RadioItem>
+  );
+});
 
 export const DropdownMenuSeparator = DropdownMenuPrimitive.Separator;
 ```

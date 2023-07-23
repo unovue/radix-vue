@@ -11,27 +11,29 @@ const toggleGroupItemClasses =
 </script>
 
 <template>
-  <ToggleGroupRoot class="flex" v-model="toggleStateSingle">
-    <ToggleGroupItem value="left" aria-label="Toggle italic" :class="toggleGroupItemClasses">
-      <Icon icon="radix-icons:text-align-left" class="w-[15px] h-[15px]" />
-    </ToggleGroupItem>
-    <ToggleGroupItem value="center" aria-label="Toggle italic" :class="toggleGroupItemClasses">
-      <Icon icon="radix-icons:text-align-center" class="w-[15px] h-[15px]" />
-    </ToggleGroupItem>
-    <ToggleGroupItem value="right" aria-label="Toggle italic" :class="toggleGroupItemClasses">
-      <Icon icon="radix-icons:text-align-right" class="w-[15px] h-[15px]" />
-    </ToggleGroupItem>
-  </ToggleGroupRoot>
-  <br />
-  <ToggleGroupRoot type="multiple" class="flex" v-model="toggleStateMultiple">
-    <ToggleGroupItem value="bold" aria-label="Toggle italic" :class="toggleGroupItemClasses">
-      <Icon icon="radix-icons:font-bold" class="w-[15px] h-[15px]" />
-    </ToggleGroupItem>
-    <ToggleGroupItem value="italic" aria-label="Toggle italic" :class="toggleGroupItemClasses">
-      <Icon icon="radix-icons:font-italic" class="w-[15px] h-[15px]" />
-    </ToggleGroupItem>
-    <ToggleGroupItem value="strikethrough" aria-label="Toggle italic" :class="toggleGroupItemClasses">
-      <Icon icon="radix-icons:strikethrough" class="w-[15px] h-[15px]" />
-    </ToggleGroupItem>
-  </ToggleGroupRoot>
+  <div>
+    <ToggleGroupRoot class="flex" v-model="toggleStateSingle">
+      <ToggleGroupItem value="left" aria-label="Toggle italic" :class="toggleGroupItemClasses">
+        <Icon icon="radix-icons:text-align-left" class="w-[15px] h-[15px]" />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="center" aria-label="Toggle italic" :class="toggleGroupItemClasses">
+        <Icon icon="radix-icons:text-align-center" class="w-[15px] h-[15px]" />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="right" aria-label="Toggle italic" :class="toggleGroupItemClasses">
+        <Icon icon="radix-icons:text-align-right" class="w-[15px] h-[15px]" />
+      </ToggleGroupItem>
+    </ToggleGroupRoot>
+    <br />
+    <ToggleGroupRoot type="multiple" class="flex" v-model="toggleStateMultiple">
+      <ToggleGroupItem value="bold" aria-label="Toggle italic" :class="toggleGroupItemClasses">
+        <Icon icon="radix-icons:font-bold" class="w-[15px] h-[15px]" />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="italic" aria-label="Toggle italic" :class="toggleGroupItemClasses">
+        <Icon icon="radix-icons:font-italic" class="w-[15px] h-[15px]" />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="strikethrough" aria-label="Toggle italic" :class="toggleGroupItemClasses">
+        <Icon icon="radix-icons:strikethrough" class="w-[15px] h-[15px]" />
+      </ToggleGroupItem>
+    </ToggleGroupRoot>
+  </div>
 </template>

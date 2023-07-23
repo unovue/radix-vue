@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ProseTh, ProseTd, ProseTr, ProseTable, ProseThead, ProseTbody } from "../prose"
+import { ProseTh, ProseTd, ProseTr, ProseTable, ProseThead, ProseTbody } from "../prose";
 
 type KeyboardDef = {
   keys: string[];
@@ -28,15 +28,18 @@ const props = defineProps<DataAttributesTableProps>();
       <ProseTr v-for="(prop, index) in props.data" :key="`${prop}-${index}`">
         <ProseTd>
           <div class="flex items-center gap-1">
-            <kbd class="font-sans rounded-md border bg-neutral-900 border-neutral-700 border-b-2 px-1.5 py-[1px]" v-for="(key, propIndex) in prop.keys" :key="`${key}-${propIndex}`">
+            <kbd
+              class="font-sans rounded-md border bg-gray-100 dark:bg-neutral-900 dark:border-neutral-700 border-b-2 px-1.5 py-[1px]"
+              v-for="(key, propIndex) in prop.keys"
+              :key="`${key}-${propIndex}`"
+            >
               {{ key }}
             </kbd>
           </div>
         </ProseTd>
         <ProseTd class="">
           <div class="flex items-center gap-1">
-            <span v-html="prop.description">
-            </span>
+            <span v-html="prop.description"> </span>
           </div>
         </ProseTd>
       </ProseTr>

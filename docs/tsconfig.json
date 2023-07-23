@@ -1,0 +1,4 @@
+{
+  "extends": ["../packages/radix-vue/tsconfig.json"],
+  "include": ["/**/*.vue", ".vitepress/**/*.vue"]
+}

@@ -1,12 +1,12 @@
+<script setup lang="ts">
+import DemoContainer from './DemoContainer.vue'
+</script>
+
 <template>
-  <div class="relative text-[15px] text-black">
-    <div class="bg-gradient-to-br rounded-t-lg from-teal9 to-green9 w-full relative items-center justify-center flex">
-      <div class="w-full max-w-[700px] flex flex-col items-center justify-center py-[100px]">
+    <DemoContainer>
         <slot />
-      </div>
-    </div>
+    </DemoContainer>
     <slot name="codeSlot" />
-  </div>
 </template>
 
 <style scoped>
@@ -18,7 +18,8 @@
   margin-top: 0 !important;
 }
 
-:deep(button:focus), :deep(button:focus-visible) {
+:deep(button:focus),
+:deep(button:focus-visible) {
   outline: 0;
 }
 

@@ -6,16 +6,8 @@ name: collapsible
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/disclosure
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
+<script setup> 
 import DemoCollapsible from '../../components/demo/Collapsible/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import EmitsTable from '../../components/tables/EmitsTable.vue'
-import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
-import KeyboardTable from '../../components/tables/KeyboardTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
 </script>
 
 # Collapsible
@@ -60,18 +52,14 @@ Import the components and piece the parts together.
 
 ```vue
 <script setup>
-import {
-	CollapsibleRoot,
-	CollapsibleTrigger,
-	CollapsibleContent,
-} from "radix-vue";
+import { CollapsibleRoot, CollapsibleTrigger, CollapsibleContent } from "radix-vue";
 </script>
 
 <template>
-	<CollapsibleRoot>
-		<CollapsibleTrigger />
-		<CollapsibleContent />
-	</CollapsibleRoot>
+  <CollapsibleRoot>
+    <CollapsibleTrigger />
+    <CollapsibleContent />
+  </CollapsibleRoot>
 </template>
 ```
 
@@ -209,15 +197,13 @@ Use the `--radix-collapsible-content-width` and/or `--radix-collapsible-content-
 // index.vue
 <script setup>
 import { CollapsibleRoot, CollapsibleTrigger, CollapsibleContent } from "radix-vue";
-import './styles.css';
+import "./styles.css";
 </script>
 
 <template>
   <CollapsibleRoot>
     <CollapsibleTrigger>…</CollapsibleTrigger>
-    <CollapsibleContent class="CollapsibleContent">
-      …
-    </CollapsibleContent>
+    <CollapsibleContent class="CollapsibleContent"> … </CollapsibleContent>
   </CollapsibleRoot>
 </template>
 ```
@@ -225,31 +211,31 @@ import './styles.css';
 ```css line=17,23
 /* styles.css */
 .CollapsibleContent {
-	overflow: hidden;
+  overflow: hidden;
 }
 .CollapsibleContent[data-state="open"] {
-	animation: slideDown 300ms ease-out;
+  animation: slideDown 300ms ease-out;
 }
 .CollapsibleContent[data-state="closed"] {
-	animation: slideUp 300ms ease-out;
+  animation: slideUp 300ms ease-out;
 }
 
 @keyframes slideDown {
-	from {
-		height: 0;
-	}
-	to {
-		height: var(__--radix-collapsible-content-height__);
-	}
+  from {
+    height: 0;
+  }
+  to {
+    height: var(__--radix-collapsible-content-height__);
+  }
 }
 
 @keyframes slideUp {
-	from {
-		height: var(__--radix-collapsible-content-height__);
-	}
-	to {
-		height: 0;
-	}
+  from {
+    height: var(__--radix-collapsible-content-height__);
+  }
+  to {
+    height: 0;
+  }
 }
 ```
 

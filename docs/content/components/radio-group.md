@@ -6,16 +6,8 @@ name: radio-group
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/radiobutton
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-import HeroContainer from '../../components/HeroContainer.vue'
-import DemoRadioGroup from '../../components/demo/RadioGroup/index.vue'
-import PropsTable from '../../components/tables/PropsTable.vue'
-import EmitsTable from '../../components/tables/EmitsTable.vue'
-import DataAttributesTable from '../../components/tables/DataAttributesTable.vue'
-import KeyboardTable from '../../components/tables/KeyboardTable.vue'
-import Highlights from '../../components/Highlights.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
+<script setup> 
+import DemoRadioGroup from '../../components/demo/RadioGroup/index.vue' 
 </script>
 
 # RadioGroup
@@ -38,6 +30,7 @@ A set of checkable buttons—known as radio buttons—where no more than one of 
 </HeroContainer>
 
 ## Features
+
 <Highlights
   :features="[
     'Full keyboard navigation.',

@@ -25,9 +25,9 @@ const props = withDefaults(defineProps<TooltipContentProps>(), {
   <PopperContent v-bind="props" v-if="injectedValue?.open.value">
     <PrimitiveDiv
       ref="primitiveElement"
-      :data-state="injectedValue?.open.value ? 'delayed-open' : 'closed'"
-      data-side="top"
-      data-align="center"
+      :data-state="injectedValue.open.value ? 'delayed-open' : 'closed'"
+      :data-side="side"
+      :data-align="align"
       role="tooltip"
       tabindex="-1"
       :asChild="props.asChild"

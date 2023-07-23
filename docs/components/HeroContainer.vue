@@ -1,9 +1,3 @@
-<script setup lang="ts">
-defineProps<{
-  overflow?: boolean;
-}>();
-</script>
-
 <template>
   <div class="relative text-[15px] text-black">
     <div class="bg-gradient-to-br rounded-t-lg from-teal9 to-green9 w-full relative items-center justify-center flex">

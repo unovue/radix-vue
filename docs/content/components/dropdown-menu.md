@@ -1510,6 +1510,7 @@ export default () => (
 
 #### Implementation
 
+<!-- TODO: fix react code - maybe implement in demo?-->
 ```jsx
 // your-dropdown-menu.jsx
 import React from "react";
@@ -1561,5 +1562,3 @@ export const DropdownMenuRadioItem = React.forwardRef(({ children, ...props }, f
 
 export const DropdownMenuSeparator = DropdownMenuPrimitive.Separator;
 ```
-
-<!-- TODO: denniss fix react code-->

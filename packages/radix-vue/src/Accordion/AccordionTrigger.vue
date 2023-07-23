@@ -1,37 +1,37 @@
 <script setup lang="ts">
+import { CollapsibleTrigger } from "@/Collapsible";
+import { type PrimitiveProps } from "@/Primitive";
 import { inject } from "vue";
-import { CollapsibleTrigger } from "../Collapsible/";
-import {
-  ACCORDION_IMPL_INJECTION_KEY,
-  type AccordionImplProvideValue,
-  ACCORDION_COLLAPSIBLE_INJECTION_KEY,
-  type AccordionCollapsibleProvideValue,
-} from "./AccordionImpl.vue";
-import {
-  ACCORDION_ITEM_INJECTION_KEY,
-  type AccordionItemProvideValue,
-} from "./AccordionItem.vue";
+import { ACCORDION_ITEM_INJECTION_KEY } from "./AccordionItem.vue";
+import { ACCORDION_INJECTION_KEY } from "./AccordionRoot.vue";
 
-const accordionImplInjectedValue = inject<AccordionImplProvideValue>(
-  ACCORDION_IMPL_INJECTION_KEY
-);
-const accordionItemInjectedValue = inject<AccordionItemProvideValue>(
-  ACCORDION_ITEM_INJECTION_KEY
-);
-const accordionCollapsibleInjectedValue =
-  inject<AccordionCollapsibleProvideValue>(ACCORDION_COLLAPSIBLE_INJECTION_KEY);
+interface AccordionTriggerProps extends PrimitiveProps {}
+
+const props = defineProps<AccordionTriggerProps>();
+
+const injectedRoot = inject(ACCORDION_INJECTION_KEY);
+const injectedItem = inject(ACCORDION_ITEM_INJECTION_KEY);
+
+function changeItem() {
+  if (injectedItem?.disabled.value) return;
+  injectedItem && injectedRoot?.changeModelValue(injectedItem.value.value);
+}
 </script>
 
 <template>
   <CollapsibleTrigger
+    :ref="injectedItem?.primitiveElement"
     data-radix-vue-collection-item
-    :aria-disabled="
-      (accordionItemInjectedValue?.open &&
-        !accordionCollapsibleInjectedValue?.collapsible) ||
-      undefined
-    "
-    :data-orientation="accordionImplInjectedValue?.orientation"
-    :id="accordionItemInjectedValue?.triggerId"
+    :as-child="props.asChild"
+    :aria-controls="injectedItem?.triggerId"
+    :aria-disabled="injectedItem?.disabled.value || undefined"
+    :aria-expanded="injectedItem?.open.value || false"
+    :data-disabled="injectedItem?.dataDisabled.value"
+    :data-orientation="injectedRoot?.orientation"
+    :data-state="injectedItem?.dataState.value"
+    :disabled="injectedItem?.disabled?.value"
+    @click="changeItem"
+    :id="injectedItem?.triggerId"
   >
     <slot />
   </CollapsibleTrigger>

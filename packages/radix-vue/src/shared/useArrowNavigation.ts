@@ -46,6 +46,13 @@ interface ArrowNavigationOptions {
    * @default true
    */
   preventScroll?: boolean;
+
+  /**
+   * Focus the element after navigation
+   *
+   * @default false
+   */
+  focus?: boolean;
 }
 
 /**
@@ -63,6 +70,8 @@ export function useArrowNavigation(
   parentElement: HTMLElement | undefined,
   options: ArrowNavigationOptions = {}
 ): HTMLElement | null {
+  if (!currentElement) return null;
+
   const {
     arrowKeyOptions = "both",
     attributeName = "data-radix-vue-collection-item",
@@ -70,20 +79,25 @@ export function useArrowNavigation(
     loop = true,
     dir = "ltr",
     preventScroll = true,
+    focus = false,
   } = options;
 
-  const [right, left, up, down] = [
+  const [right, left, up, down, home, end] = [
     e.key === "ArrowRight",
     e.key === "ArrowLeft",
     e.key === "ArrowUp",
     e.key === "ArrowDown",
+    e.key === "Home",
+    e.key === "End",
   ];
   const goingVertical = up || down;
   const goingHorizontal = right || left;
   if (
-    (!goingVertical && !goingHorizontal) ||
-    (arrowKeyOptions === "vertical" && goingHorizontal) ||
-    (arrowKeyOptions === "horizontal" && goingVertical)
+    !home &&
+    !end &&
+    ((!goingVertical && !goingHorizontal) ||
+      (arrowKeyOptions === "vertical" && goingHorizontal) ||
+      (arrowKeyOptions === "horizontal" && goingVertical))
   ) {
     return null;
   }
@@ -98,12 +112,23 @@ export function useArrowNavigation(
     e.preventDefault();
   }
 
-  const goForward = goingVertical ? down : dir === "ltr" ? right : left;
+  let item: HTMLElement | null = null;
 
-  return findNextFocusableElement(allCollectionItems, currentElement, {
-    goForward,
-    loop,
-  });
+  if (goingHorizontal || goingVertical) {
+    const goForward = goingVertical ? down : dir === "ltr" ? right : left;
+    item = findNextFocusableElement(allCollectionItems, currentElement, {
+      goForward,
+      loop,
+    });
+  } else if (home) {
+    item = allCollectionItems.at(0) || null;
+  } else if (end) {
+    item = allCollectionItems.at(-1) || null;
+  }
+
+  if (focus) item?.focus();
+
+  return item;
 }
 
 /**

@@ -189,7 +189,7 @@ The component that pops out when the tooltip is open.
       name: 'side',
       type: '&quot;top&quot; | &quot;right&quot; | &quot;bottom&quot; | &quot;left&quot;',
       typeSimple: 'enum',
-      default: '&quot;bottom&quot;',
+      default: '&quot;top&quot;',
       description: '<span> The preferred side of the trigger to render against when open. Will be reversed when collisions occur and <Code>avoidCollisions</Code> is enabled.</span>',
     },
     {

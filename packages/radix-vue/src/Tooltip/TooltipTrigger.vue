@@ -30,7 +30,8 @@ useHover(triggerElement, {
   <PopperAnchor ref="triggerElement" :as-child="props.asChild">
     <PrimitiveButton type="button" :aria-describedby="injectedValue?.open ? injectedValue.contentId : undefined
       " :as-child="props.asChild" :data-state="injectedValue?.dataState.value"
-      :aria-expanded="injectedValue?.open.value || false" style="cursor: default">
+      :aria-expanded="injectedValue?.open.value || false" @focus="injectedValue?.showTooltip"
+      @blur="injectedValue?.hideTooltip" style="cursor: default">
       <slot />
     </PrimitiveButton>
   </PopperAnchor>

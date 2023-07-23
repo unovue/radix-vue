@@ -48,7 +48,7 @@ const handlePositionChange = () => {
   }
 };
 
-// useResizeObserver(activeTrigger, handlePositionChange);
+useResizeObserver(activeTrigger, handlePositionChange);
 useResizeObserver(context!.indicatorTrack, handlePositionChange);
 </script>
 

@@ -112,7 +112,6 @@ if (props.onPointerDownOutside) {
     <PrimitiveDiv :data-state="injectedValue?.dataState.value" :data-side="props.side" :data-align="props.align"
       role="tooltip" tabindex="-1">
       <slot />
-
       <ScreenReaderOnly :id="injectedValue?.contentId" :ariaLabel="ariaLabel" />
     </PrimitiveDiv>
   </PopperContent>

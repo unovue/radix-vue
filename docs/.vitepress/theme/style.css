@@ -129,9 +129,3 @@ li > span {
 .image-bg {
   @apply scale-75 !transform !-translate-x-1/2 !-translate-y-1/2;
 }
-
-.custom-justify-center:before,
-.custom-justify-center:after {
-  content: "";
-  flex: 1;
-}

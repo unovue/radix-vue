@@ -3,36 +3,40 @@ import {
   ref,
   toRefs,
   useSlots,
-  vShow,
   withDirectives,
   type Directive,
+  type VNode,
 } from "vue";
 import { usePresence } from "./usePresence";
 import { syncRef } from "@vueuse/core";
 
 interface PresenceProps {
-  // children: HTMLElement | ((props: { present: boolean }) => HTMLElement);
   present: boolean;
+  forceMount?: boolean;
 }
+
 const props = defineProps<PresenceProps>();
-const { present } = toRefs(props);
+const { present, forceMount } = toRefs(props);
 
 const slots = useSlots();
-let isLocalPresence = ref(false);
+const isLocalPresence = ref(props.forceMount || props.present);
+const node = ref<HTMLElement>();
+const { isPresent } = usePresence(present, node);
 
-const vTest: Directive = {
+const vPresence: Directive = {
   created(el) {
-    const { isPresent } = usePresence(present, el);
     syncRef(isLocalPresence, isPresent, { direction: "rtl" });
+    node.value = el;
   },
 };
 
 const render = () =>
-  // @ts-ignore
-  withDirectives(slots.default?.()?.[0], [
-    [vTest],
-    [vShow, isLocalPresence.value],
-  ]);
+  forceMount.value || present.value || isLocalPresence.value
+    ? withDirectives(
+        slots.default?.({ present: isLocalPresence })?.[0] as VNode,
+        [[vPresence]]
+      )
+    : null;
 
 defineExpose({
   present: isLocalPresence,
@@ -40,5 +44,5 @@ defineExpose({
 </script>
 
 <template>
-  <render></render>
+  <render />
 </template>

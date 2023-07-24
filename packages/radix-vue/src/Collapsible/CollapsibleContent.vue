@@ -75,7 +75,11 @@ const props = defineProps<CollapsibleContentProps>();
 </script>
 
 <template>
-  <Presence ref="presentRef" :present="injectedValue!.open.value">
+  <Presence
+    ref="presentRef"
+    :force-mount="true"
+    :present="injectedValue!.open.value"
+  >
     <PrimitiveDiv
       ref="primitiveElement"
       v-bind="$attrs"
@@ -83,13 +87,13 @@ const props = defineProps<CollapsibleContentProps>();
       :data-state="injectedValue?.open.value ? 'open' : 'closed'"
       :data-disabled="injectedValue?.disabled?.value ? 'true' : undefined"
       :id="injectedValue?.contentId"
-      :hidden="!injectedValue?.open"
+      :hidden="!presentRef?.present"
       :style="{
         [`--radix-collapsible-content-height`]: `${height}px`,
         [`--radix-collapsible-content-width`]: `${width}px`,
       }"
     >
-      <slot />
+      <slot v-if="presentRef?.present" />
     </PrimitiveDiv>
   </Presence>
 </template>

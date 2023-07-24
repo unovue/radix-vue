@@ -25,8 +25,9 @@ const itemContext = inject(NAVIGATION_MENU_ITEM_INJECTION_KEY);
 
 const { primitiveElement, currentElement: triggerElement } =
   usePrimitiveElement();
-const triggerId = makeTriggerId(context!.baseId, itemContext!.value);
-const contentId = makeContentId(context!.baseId, itemContext!.value);
+let triggerId = ref("");
+let contentId = ref("");
+
 const hasPointerMoveOpenedRef = ref(false);
 const wasClickCloseRef = ref(false);
 
@@ -34,6 +35,8 @@ const open = computed(() => itemContext?.value === context?.modelValue.value);
 
 onMounted(() => {
   itemContext!.triggerRef = triggerElement;
+  triggerId.value = makeTriggerId(context!.baseId, itemContext!.value);
+  contentId.value = makeContentId(context!.baseId, itemContext!.value);
 });
 
 const handlePointerEnter = () => {
@@ -50,6 +53,7 @@ const handlePointerMove = (ev: PointerEvent) => {
       hasPointerMoveOpenedRef.value
     )
       return;
+
     context!.onTriggerEnter(itemContext!.value);
     hasPointerMoveOpenedRef.value = true;
   }

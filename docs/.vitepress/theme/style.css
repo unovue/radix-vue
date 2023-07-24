@@ -19,6 +19,7 @@
   --vp-c-brand-dark: #059669;
   --vp-c-brand-darker: #047857;
   --vp-c-brand-dimm: rgba(100, 108, 255, 0.08);
+  --vp-c-text-code: rgba(60, 60, 67);
 }
 
 /**
@@ -62,22 +63,6 @@
 }
 
 /**
- * Component: Custom Block
- * -------------------------------------------------------------------------- */
-
-:root {
-  --vp-custom-block-tip-border: var(--vp-c-brand);
-  --vp-custom-block-tip-text: var(--vp-c-brand-darker);
-  --vp-custom-block-tip-bg: var(--vp-c-brand-dimm);
-}
-
-.dark {
-  --vp-custom-block-tip-border: var(--vp-c-brand);
-  --vp-custom-block-tip-text: var(--vp-c-brand-lightest);
-  --vp-custom-block-tip-bg: var(--vp-c-brand-dimm);
-}
-
-/**
  * Component: Algolia
  * -------------------------------------------------------------------------- */
 
@@ -106,16 +91,13 @@
   margin-top: 40px;
 }
 
-.vp-doc p {
-  @apply mt-0 md:mt-2 text-[15px] md:text-base;
-}
-
 [data-radix-popper-content-wrapper] {
   z-index: 1000;
 }
 
 .vp-doc :not(pre) > code {
-  @apply text-green-600 dark:text-green-500;
+  font-size: max(12px, 85%);
+  @apply dark:text-[var(--vp-c-brand)]  dark:bg-[#0F291E];
 }
 
 li > span {

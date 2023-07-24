@@ -2,10 +2,10 @@
 import { Icon } from "@iconify/vue";
 
 interface HighlightsProps {
-  features: string[]
+  features: string[];
 }
 
-const props = defineProps<HighlightsProps>()
+const props = defineProps<HighlightsProps>();
 </script>
 
 <template>
@@ -13,17 +13,18 @@ const props = defineProps<HighlightsProps>()
     <li class="flex items-center gap-4" v-for="feature in props.features">
       <span class="icon-bg rounded-full h-6 aspect-square !w-6 flex-none flex items-center justify-center">
         <Icon icon="radix-icons:check" class="h-4 w-4 !text-[#4CC38A]" />
-      </span><span v-html="feature"></span>
+      </span>
+      <span v-html="feature"></span>
     </li>
   </ul>
 </template>
 
 <style>
 .icon-bg {
-  @apply bg-[#0F291E]
+  @apply bg-[var(--vp-c-brand-lightest)] dark:bg-[#0F291E];
 }
 
 .no-ml {
-  @apply !pl-0
+  @apply !pl-0;
 }
 </style>

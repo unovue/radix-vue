@@ -1,17 +1,22 @@
 <script setup lang="ts">
-
 interface ProseCodeInlineProps {
-  variant?: 'primary' | 'secondary';
+  variant?: "primary" | "secondary";
 }
 
 const props = withDefaults(defineProps<ProseCodeInlineProps>(), {
-  variant: 'primary',
-})
+  variant: "primary",
+});
 </script>
 
 <template>
-  <pre class="contents">
-  <code class="px-1 text-[13px] rounded-sm"
-    :class="`${props.variant === 'primary' ? '!bg-[#0F291E] !text-[#4CC38A]' : '!bg-neutral-600/30 !text-neutral-400'}`"><slot /></code>
-  </pre>
+  <code
+    class="py-0.5 px-1 rounded-none inline"
+    :class="`${
+      props.variant === 'primary'
+        ? 'dark:!bg-[#0F291E] dark:!text-[#4CC38A]'
+        : 'dark:!bg-neutral-600/30 dark:!text-neutral-400'
+    }`"
+  >
+    <slot />
+  </code>
 </template>

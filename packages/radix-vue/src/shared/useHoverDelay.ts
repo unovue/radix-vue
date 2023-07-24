@@ -1,40 +1,82 @@
+import { useEventListener, type Fn } from "@vueuse/core";
+import { watch, type ComputedRef, type Ref, ref, unref } from "vue";
+
+type UseHoverDelayHandler = {
+  /**
+   * A callback that is called when the hover ends.
+   */
+  fn: () => void;
+
+  /**
+   * The duration in milliseconds to wait for the hover before triggering fn
+   */
+  delayMs: number;
+};
+
+type UseHoverDelayHandlers = {
+  onEnter?: UseHoverDelayHandler;
+  onLeave?: UseHoverDelayHandler;
+};
+
+type UseHoverDelayOptions = {
+  /**
+   * If true, the hover delay will not be triggered.
+   *
+   * @default false
+   */
+  disabled?: ComputedRef<boolean> | boolean;
+};
+
 /**
- * Tracks mouse hover within an element and resolves a promise when the hover ends or a timeout occurs.
- * @param {MouseEvent} e - The hover event.
- * @param {HTMLElement} element - The element to track mouse hover within.
- * @param {number} [delayMs=500] - The duration in milliseconds to wait for the hover to end before resolving the promise.
- * @returns {Promise<boolean>} A promise that resolves to `true` if the hover continues until the timeout ends, or `false` if the hover ends before the timeout.
+ * Tracks mouse hover within an element and after a delay triggers the handler
+ *
+ * @param target - The element to track mouse hover within.
+ * @param openHandler - The function to call when the hover starts after a delay.
+ * @param closeHandler - The function to call when the hover ends after a delay.
  */
 export async function useHoverDelay(
-  e: MouseEvent,
-  element: HTMLElement,
-  delayMs = 500
-): Promise<boolean> {
-  let isHovered = true;
-  let timeoutId: ReturnType<typeof setTimeout> | undefined;
-  let resolvePromise: (value: boolean) => void;
+  target: ComputedRef<HTMLElement | undefined>,
+  handlers: UseHoverDelayHandlers,
+  options: UseHoverDelayOptions = {}
+) {
+  const { disabled = false } = options;
 
-  const timeoutPromise = new Promise<boolean>((resolve) => {
-    resolvePromise = resolve;
-    timeoutId = setTimeout(() => {
-      cleanupEvents();
-      resolve(isHovered);
-    }, delayMs);
-  });
+  let timeout: ReturnType<typeof setTimeout> | undefined;
 
-  function handleMouseleave() {
-    isHovered = false;
-    cleanupEvents();
-    clearTimeout(timeoutId);
-    timeoutId = undefined;
-    resolvePromise(false);
+  function clear() {
+    if (timeout) {
+      clearTimeout(timeout);
+      timeout = undefined;
+    }
   }
 
-  function cleanupEvents() {
-    element.removeEventListener("mouseleave", handleMouseleave);
+  function trigger(
+    event: keyof DocumentEventMap,
+    handler?: UseHoverDelayHandler
+  ) {
+    if (!handler) return;
+    return useEventListener(target, event, () => () => {
+      clear();
+      timeout = setTimeout(handler.fn, handler.delayMs);
+    });
   }
 
-  element.addEventListener("mouseleave", handleMouseleave);
+  let openHandler: Fn | undefined;
+  let closeHandler: Fn | undefined;
 
-  return timeoutPromise;
+  watch(
+    () => disabled,
+    () => {
+      clear();
+      if (unref(disabled)) {
+        openHandler?.();
+        closeHandler?.();
+        return;
+      } else {
+        openHandler = trigger("mouseenter", handlers.onEnter);
+        closeHandler = trigger("mouseleave", handlers.onLeave);
+      }
+    },
+    { immediate: true }
+  );
 }

@@ -4,34 +4,24 @@ export interface HoverCardTriggerProps extends PrimitiveProps { }
 
 <script setup lang="ts">
 import { PopperAnchor } from "@/Popper";
-import {
-  PrimitiveButton,
-  usePrimitiveElement,
-  type PrimitiveProps,
-} from "@/Primitive";
-import { inject } from "vue";
+import { PrimitiveButton, type PrimitiveProps } from "@/Primitive";
+import { useHover } from "@/shared";
+import { inject, ref } from "vue";
 import {
   HOVER_CARD_INJECTION_KEY,
   type HoverCardProvideValue,
 } from "./HoverCardRoot.vue";
 
-import { useHoverDelay, useMouseleaveDelay } from "../shared";
-
 const injectedValue = inject<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY);
 
 const props = defineProps<HoverCardTriggerProps>();
+const triggerElement = ref<HTMLElement>();
 
-const { primitiveElement, currentElement } = usePrimitiveElement();
-
-useHoverDelay(currentElement, {
-  onEnter: {
-    fn: () => injectedValue?.showTooltip(),
-    delayMs: injectedValue?.openDelay,
-  },
-  onLeave: {
-    fn: () => injectedValue?.hideTooltip(),
-    delayMs: injectedValue?.closeDelay,
-  },
+const isHovered = useHover(triggerElement, {
+  delayEnter: injectedValue?.openDelay,
+  onHoverEnter: () => injectedValue?.showTooltip(),
+  delayLeave: injectedValue?.closeDelay,
+  onHoverLeave: () => injectedValue?.hideTooltip(),
 });
 </script>
 

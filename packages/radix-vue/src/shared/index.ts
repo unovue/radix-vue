@@ -1,7 +1,7 @@
 export { onFocusOutside } from "./onFocusOutside";
 export { useArrowNavigation } from "./useArrowNavigation";
 export { useMouseInElement } from "./useMouseInElement";
-export { useHoverDelay } from "./useHoverDelay";
+export { useHover } from "./useHover";
 export { useMouseleaveDelay } from "./useMouseleaveDelay";
 export { useStateMachine } from "./useStateMachine";
 export { useCollection } from "./useCollection";

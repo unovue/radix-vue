@@ -7,6 +7,10 @@
   "scripts": {
     "story:dev": "pnpm --filter histoire story:dev",
     "build": "pnpm run -r --filter=!docs build",
-    "start": "cd packages/radix-vue && pnpm i && pnpm run build && cd ../../playground/vue3 && pnpm i && pnpm i ../../packages/radix-vue && pnpm run dev"
+    "start": "cd packages/radix-vue && pnpm i && pnpm run build && cd ../../playground/vue3 && pnpm i && pnpm i ../../packages/radix-vue && pnpm run dev",
+    "format": "prettier --write \"packages/**/*.{js,jsx,ts,tsx,css,md,vue}\" --ignore-path .gitignore"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.8"
   }
 }

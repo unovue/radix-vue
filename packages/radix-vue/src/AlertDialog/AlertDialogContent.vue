@@ -24,7 +24,6 @@ import {
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
-import { vOnClickOutside } from "@vueuse/components";
 
 const injectedValue = inject<AlertDialogProvideValue>(
   ALERT_DIALOG_INJECTION_KEY
@@ -96,10 +95,6 @@ function setBodyInteractive() {
   document.querySelector("body")!.style.pointerEvents = "";
 }
 
-function handleOnClickOutside() {
-  injectedValue?.closeModal();
-}
-
 function handleKeydown(e: KeyboardEvent) {
   if (e.key === "Escape") {
     if (props.isEscapeKeyDownDefault) {
@@ -118,7 +113,6 @@ function handleKeydown(e: KeyboardEvent) {
   <PrimitiveDiv
     v-if="injectedValue?.open.value"
     ref="primitiveElement"
-    v-on-click-outside="handleOnClickOutside"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"
     role="dialog"
     tabindex="-1"

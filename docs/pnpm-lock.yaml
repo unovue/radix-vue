@@ -1653,8 +1653,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /radix-vue@0.1.9(vue@3.3.4):
-    resolution: {integrity: sha512-V3DeKSKjwm/H3m49DIFZVMPIEha6MhDe45GATc12jK2sY4XeAniSTgCxqux6EMwMU8uR3u32TBwg+qosGsOQJA==}
+  /radix-vue@0.1.11(vue@3.3.4):
+    resolution: {integrity: sha512-UKi49r9VmC9vq+HBrT6rJaeUqzAKKIez8FUrccZWDk+4r/0KPvtGRqBQjlJ3qshBUoCokMhfDONTV9gK87wRBQ==}
     dependencies:
       '@floating-ui/dom': 1.4.5
       '@floating-ui/vue': 1.0.2(vue@3.3.4)

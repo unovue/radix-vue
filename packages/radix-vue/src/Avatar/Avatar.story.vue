@@ -5,58 +5,60 @@ import { AvatarFallback, AvatarImage, AvatarRoot } from "./";
 <template>
   <Story title="Avatar">
     <Variant title="default">
-      <AvatarRoot
-        class="bg-blackA3 inline-flex h-[45px] w-[45px] select-none items-center justify-center overflow-hidden rounded-full align-middle"
-      >
-        <AvatarImage
-          class="h-full w-full rounded-[inherit] object-cover"
-          src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
-          alt="Colm Tuite"
-        />
-        <AvatarFallback
-          class="text-violet11 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium"
-          :delay-ms="600"
+      <div class="min-h-screen w-full flex items-center justify-center">
+        <AvatarRoot
+          class="bg-blackA3 inline-flex h-[45px] w-[45px] select-none items-center justify-center overflow-hidden rounded-full align-middle"
         >
-          CT
-        </AvatarFallback>
-      </AvatarRoot>
-      <AvatarRoot
-        class="bg-blackA3 inline-flex h-[45px] w-[45px] select-none items-center justify-center overflow-hidden rounded-full align-middle"
-      >
-        <AvatarImage
-          class="h-full w-full rounded-[inherit] object-cover"
-          src="https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-1.2.1&w=128&h=128&dpr=2&q=80"
-          alt="Pedro Duarte"
-        />
-        <AvatarFallback
-          class="text-violet11 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium"
+          <AvatarImage
+            class="h-full w-full rounded-[inherit] object-cover"
+            src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
+            alt="Colm Tuite"
+          />
+          <AvatarFallback
+            class="text-violet11 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium"
+            :delay-ms="600"
+          >
+            CT
+          </AvatarFallback>
+        </AvatarRoot>
+        <AvatarRoot
+          class="bg-blackA3 inline-flex h-[45px] w-[45px] select-none items-center justify-center overflow-hidden rounded-full align-middle"
         >
-          JD
-        </AvatarFallback>
-      </AvatarRoot>
-      <AvatarRoot
-        class="bg-blackA3 inline-flex h-[45px] w-[45px] select-none items-center justify-center overflow-hidden rounded-full align-middle"
-      >
-        <AvatarImage
-          class="h-full w-full rounded-[inherit] object-cover"
-          src="https://www.radix-vue.com/og.png"
-          alt="Pedro Duarte"
-        />
-        <AvatarFallback
-          class="text-violet11 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium"
+          <AvatarImage
+            class="h-full w-full rounded-[inherit] object-cover"
+            src="https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-1.2.1&w=128&h=128&dpr=2&q=80"
+            alt="Pedro Duarte"
+          />
+          <AvatarFallback
+            class="text-violet11 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium"
+          >
+            JD
+          </AvatarFallback>
+        </AvatarRoot>
+        <AvatarRoot
+          class="bg-blackA3 inline-flex h-[45px] w-[45px] select-none items-center justify-center overflow-hidden rounded-full align-middle"
         >
-          RD
-        </AvatarFallback>
-      </AvatarRoot>
-      <AvatarRoot
-        class="bg-blackA3 inline-flex h-[45px] w-[45px] select-none items-center justify-center overflow-hidden rounded-full align-middle"
-      >
-        <AvatarFallback
-          class="text-violet11 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium"
+          <AvatarImage
+            class="h-full w-full rounded-[inherit] object-cover"
+            src="https://www.radix-vue.com/og.png"
+            alt="Pedro Duarte"
+          />
+          <AvatarFallback
+            class="text-violet11 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium"
+          >
+            RD
+          </AvatarFallback>
+        </AvatarRoot>
+        <AvatarRoot
+          class="bg-blackA3 inline-flex h-[45px] w-[45px] select-none items-center justify-center overflow-hidden rounded-full align-middle"
         >
-          PD
-        </AvatarFallback>
-      </AvatarRoot>
+          <AvatarFallback
+            class="text-violet11 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium"
+          >
+            PD
+          </AvatarFallback>
+        </AvatarRoot>
+      </div>
     </Variant>
   </Story>
 </template>

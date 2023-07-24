@@ -1,38 +1,126 @@
 <script lang="ts">
-export interface TooltipContentProps extends PopperContentProps {
-  forceMount?: boolean;
+import type { PopperContentProps } from "@/Popper";
+import { onClickOutside } from "@vueuse/core";
+
+export interface TooltipContentProps
+  extends PrimitiveProps,
+  Pick<
+    PopperContentProps,
+    | "side"
+    | "sideOffset"
+    | "align"
+    | "alignOffset"
+    | "avoidCollisions"
+    | "collisionBoundary"
+    | "collisionPadding"
+    | "arrowPadding"
+    | "sticky"
+    | "hideWhenDetached"
+  > {
+  /**
+   * By default, screenreaders will announce the content inside
+   * the component. If this is not descriptive enough, or you have
+   * content that cannot be announced, use aria-label as a more
+   * descriptive label.
+   *
+   * @default String
+   */
+  ariaLabel?: string;
+
+  /**
+   * Event handler called when the escape key is down. It can be
+   * prevented by calling event.preventDefault.
+   */
+  onEscapeKeyDown?: (event: KeyboardEvent) => void;
+
+  /**
+   * Event handler called when a pointer event occurs outside the
+   * bounds of the component. It can be prevented by calling
+   * event.preventDefault.
+   */
+  onPointerDownOutside?: (event: Event) => void;
 }
 </script>
 
 <script setup lang="ts">
-import { inject } from "vue";
-import {
-  TOOLTIP_INJECTION_KEY,
-  type TooltipProvideValue,
-} from "./TooltipRoot.vue";
-import { PrimitiveDiv } from "@/Primitive";
-import { PopperContent, type PopperContentProps } from "@/Popper";
+import { PopperContent } from "@/Popper";
+import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
+import { computed, inject, ref, useSlots, type VNode } from "vue";
+import { TOOLTIP_INJECTION_KEY } from "./TooltipRoot.vue";
 
-const injectedValue = inject<TooltipProvideValue>(TOOLTIP_INJECTION_KEY);
+const contentElement = ref<HTMLElement>();
+
+const injectedValue = inject(TOOLTIP_INJECTION_KEY);
 
 const props = withDefaults(defineProps<TooltipContentProps>(), {
+  asChild: false,
   side: "top",
+  sideOffset: 0,
   align: "center",
+  avoidCollisions: true,
+  collisionBoundary: () => [],
+  collisionPadding: 0,
+  arrowPadding: 0,
+  sticky: "partial",
+  hideWhenDetached: false,
 });
+
+const ariaLabel = computed(() => {
+  if (props.ariaLabel) return props.ariaLabel;
+  const defaultSlot = useSlots().default?.();
+  let content: string = "";
+
+  function recursiveTextSearch(node: VNode) {
+    if (typeof node.children === "string") {
+      content += node.children;
+    } else if (Array.isArray(node.children)) {
+      node.children.forEach((child) => recursiveTextSearch(child as VNode));
+    }
+  }
+
+  defaultSlot?.forEach((node) => recursiveTextSearch(node));
+  return content;
+});
+
+if (props.onPointerDownOutside) {
+  onClickOutside(contentElement, props.onPointerDownOutside);
+}
 </script>
 
 <template>
-  <PopperContent v-bind="props" v-if="injectedValue?.open.value">
-    <PrimitiveDiv
-      ref="primitiveElement"
-      :data-state="injectedValue?.open.value ? 'delayed-open' : 'closed'"
-      data-side="top"
-      data-align="center"
-      role="tooltip"
-      tabindex="-1"
-      :asChild="props.asChild"
-    >
+  <PopperContent v-if="injectedValue?.open.value" ref="contentElement" :as-child="props.asChild" :side="props.side"
+    :sideOffset="props.sideOffset" :align="props.align" :alignOffset="props.alignOffset"
+    :avoidCollisions="props.avoidCollisions" :collisionBoundary="props.collisionBoundary"
+    :collisionPadding="props.collisionPadding" :arrowPadding="props.arrowPadding" :sticky="props.sticky"
+    :hideWhenDetached="props.hideWhenDetached" style="
+      --radix-tooltip-content-transform-origin: var(
+        --radix-popper-transform-origin
+      );
+      --radix-tooltip-content-available-width: var(
+        --radix-popper-available-width
+      );
+      --radix-tooltip-content-available-height: var(
+        --radix-popper-available-height
+      );
+      --radix-tooltip-trigger-width: var(--radix-popper-anchor-width);
+      --radix-tooltip-trigger-height: var(--radix-popper-anchor-height);
+    " @keydown.esc="onEscapeKeyDown?.($event)">
+    <PrimitiveDiv :data-state="injectedValue?.dataState.value" :data-side="props.side" :data-align="props.align"
+      role="tooltip" tabindex="-1">
       <slot />
+
+      <span id="radix-2" role="tooltip" style="
+          position: absolute;
+          border: 0px;
+          width: 1px;
+          height: 1px;
+          padding: 0px;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0px, 0px, 0px, 0px);
+          white-space: nowrap;
+          overflow-wrap: normal;
+        ">{{ ariaLabel }}</span>
     </PrimitiveDiv>
   </PopperContent>
 </template>

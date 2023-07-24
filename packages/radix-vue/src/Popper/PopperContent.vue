@@ -10,16 +10,89 @@ export type PopperContentContextValue = {
 };
 
 export interface PopperContentProps extends PrimitiveProps {
+  /**
+   * The preferred side of the trigger to render against when open.
+   * Will be reversed when collisions occur and avoidCollisions
+   * is enabled.
+   *
+   * @default "top"
+   */
   side?: Side;
+
+  /**
+   * The distance in pixels from the trigger.
+   *
+   * @default 0
+   */
   sideOffset?: number;
+
+  /**
+   * The preferred alignment against the trigger.
+   * May change when collisions occur.
+   *
+   * @default "center"
+   */
   align?: Align;
+
+  /**
+   * An offset in pixels from the "start" or "end" alignment options.
+   *
+   * @default 0
+   */
   alignOffset?: number;
-  arrowPadding?: number;
+
+  /**
+   * When true, overrides the side andalign preferences
+   * to prevent collisions with boundary edges.
+   *
+   * @default true
+   */
   avoidCollisions?: boolean;
-  collisionBoundary?: HTMLElement | HTMLElement[];
+
+  /**
+   * The element used as the collision boundary. By default
+   * this is the viewport, though you can provide additional
+   * element(s) to be included in this check.
+   *
+   * @default []
+   */
+  collisionBoundary?: Element | null | Array<Element | null>;
+
+  /**
+   * The distance in pixels from the boundary edges where collision
+   * detection should occur. Accepts a number (same for all sides),
+   * or a partial padding object, for example: { top: 20, left: 20 }.
+   *
+   * @default 0
+   */
   collisionPadding?: number | Partial<Record<Side, number>>;
+
+  /**
+   * The padding between the arrow and the edges of the content.
+   * If your content has border-radius, this will prevent it from
+   * overflowing the corners.
+   *
+   * @default 0
+   */
+  arrowPadding?: number;
+
+  /**
+   * The sticky behavior on the align axis. "partial" will keep the
+   * content in the boundary as long as the trigger is at least partially
+   * in the boundary whilst "always" will keep the content in the boundary
+   * regardless.
+   *
+   * @default "partial"
+   */
   sticky?: "partial" | "always";
+
+  /**
+   * Whether to hide the content when the trigger becomes fully occluded.
+   *
+   * @default false
+   */
   hideWhenDetached?: boolean;
+
   updatePositionStrategy?: "optimized" | "always";
   onPlaced?: () => void;
   prioritizePosition?: boolean;
@@ -115,17 +188,17 @@ const computedMiddleware = computedEager(() => {
       alignmentAxis: props.alignOffset,
     }),
     props.avoidCollisions &&
-      shift({
-        mainAxis: true,
-        crossAxis: props.prioritizePosition ? true : false,
-        limiter: props.sticky === "partial" ? limitShift() : undefined,
-        ...detectOverflowOptions.value,
-      }),
+    shift({
+      mainAxis: true,
+      crossAxis: props.prioritizePosition ? true : false,
+      limiter: props.sticky === "partial" ? limitShift() : undefined,
+      ...detectOverflowOptions.value,
+    }),
     !props.prioritizePosition &&
-      props.avoidCollisions &&
-      flip({
-        ...detectOverflowOptions.value,
-      }),
+    props.avoidCollisions &&
+    flip({
+      ...detectOverflowOptions.value,
+    }),
     size({
       ...detectOverflowOptions,
       apply: ({ elements, rects, availableWidth, availableHeight }) => {
@@ -154,13 +227,13 @@ const computedMiddleware = computedEager(() => {
       },
     }),
     arrow.value &&
-      floatingUIarrow({ element: arrow.value, padding: props.arrowPadding }),
+    floatingUIarrow({ element: arrow.value, padding: props.arrowPadding }),
     transformOrigin({
       arrowWidth: arrowWidth.value,
       arrowHeight: arrowHeight.value,
     }),
     props.hideWhenDetached &&
-      hide({ strategy: "referenceHidden", ...detectOverflowOptions.value }),
+    hide({ strategy: "referenceHidden", ...detectOverflowOptions.value }),
   ] as Middleware[];
 });
 
@@ -220,10 +293,7 @@ provide(POPPER_CONTENT_KEY, {
 </script>
 
 <template>
-  <div
-    ref="floatingRef"
-    data-radix-popper-content-wrapper=""
-    :style="{
+  <div ref="floatingRef" data-radix-popper-content-wrapper="" :style="{
     ...floatingStyles,
     transform: isPositioned ? floatingStyles.transform : 'translate(0, -200%)', // keep off the page when measuring
     minWidth: 'max-content',
@@ -232,21 +302,14 @@ provide(POPPER_CONTENT_KEY, {
       middlewareData.transformOrigin?.x,
       middlewareData.transformOrigin?.y,
     ].join(' '),
-  }"
-  >
-    <PrimitiveDiv
-      v-bind="$attrs"
-      :as-child="props.asChild"
-      :data-side="placedSide"
-      :data-align="placedAlign"
-      :style="{
-        // if the PopperContent hasn't been placed yet (not all measurements done)
-        // we prevent animations so that users's animation don't kick in too early referring wrong sides
-        animation: !isPositioned ? 'none' : undefined,
-        // hide the content if using the hide middleware and should be hidden
-        opacity: middlewareData.hide?.referenceHidden ? 0 : undefined,
-      }"
-    >
+  }">
+    <PrimitiveDiv v-bind="$attrs" :as-child="props.asChild" :data-side="placedSide" :data-align="placedAlign" :style="{
+      // if the PopperContent hasn't been placed yet (not all measurements done)
+      // we prevent animations so that users's animation don't kick in too early referring wrong sides
+      animation: !isPositioned ? 'none' : undefined,
+      // hide the content if using the hide middleware and should be hidden
+      opacity: middlewareData.hide?.referenceHidden ? 0 : undefined,
+    }">
       <slot></slot>
     </PrimitiveDiv>
   </div>

@@ -30,6 +30,7 @@ const NODES = [
 
 const createComponent = (node: (typeof NODES)[number]) =>
   defineComponent({
+    inheritAttrs: false,
     props: {
       asChild: {
         type: Boolean,
@@ -75,7 +76,8 @@ const createComponent = (node: (typeof NODES)[number]) =>
 
             // remove props ref from being inferred
             delete firstChild.props?.ref;
-            const mergedProps = mergeProps(firstChild.props ?? {}, attrs);
+
+            const mergedProps = mergeProps(attrs, firstChild.props ?? {});
             const cloned = cloneVNode(firstChild, mergedProps);
             // Explicitly override props starting with `on`.
             // It seems cloneVNode from Vue doesn't like overriding `onXXX` props. So

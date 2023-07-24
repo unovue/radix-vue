@@ -134,10 +134,10 @@ function sidebar() {
     //     }
     //   ]
     // },
-    {
-      text: "Config & API Reference",
-      link: "/reference/site-config",
-    },
+    // {
+    //   text: "Config & API Reference",
+    //   link: "/reference/site-config",
+    // },
   ];
 }
 

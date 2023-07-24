@@ -44,7 +44,11 @@ export interface TooltipContentProps
 
 <script setup lang="ts">
 import { PopperContent } from "@/Popper";
-import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
+import {
+  PrimitiveDiv,
+  ScreenReaderOnly,
+  type PrimitiveProps,
+} from "@/Primitive";
 import { computed, inject, ref, useSlots, type VNode } from "vue";
 import { TOOLTIP_INJECTION_KEY } from "./TooltipRoot.vue";
 
@@ -109,18 +113,7 @@ if (props.onPointerDownOutside) {
       role="tooltip" tabindex="-1">
       <slot />
 
-      <span id="radix-2" role="tooltip" style="
-          position: absolute;
-          border: 0px;
-          width: 1px;
-          height: 1px;
-          padding: 0px;
-          margin: -1px;
-          overflow: hidden;
-          clip: rect(0px, 0px, 0px, 0px);
-          white-space: nowrap;
-          overflow-wrap: normal;
-        ">{{ ariaLabel }}</span>
+      <ScreenReaderOnly :id="injectedValue?.contentId" :ariaLabel="ariaLabel" />
     </PrimitiveDiv>
   </PopperContent>
 </template>

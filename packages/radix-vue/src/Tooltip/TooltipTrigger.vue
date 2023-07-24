@@ -27,10 +27,10 @@ useHover(triggerElement, {
 </script>
 
 <template>
-  <PopperAnchor :as-child="props.asChild">
-    <PrimitiveButton type="button" ref="triggerElement" :as-child="props.asChild"
-      :data-state="injectedValue?.dataState.value" :aria-expanded="injectedValue?.open.value || false"
-      style="cursor: default">
+  <PopperAnchor ref="triggerElement" :as-child="props.asChild">
+    <PrimitiveButton type="button" :aria-describedby="injectedValue?.open ? injectedValue.contentId : undefined
+      " :as-child="props.asChild" :data-state="injectedValue?.dataState.value"
+      :aria-expanded="injectedValue?.open.value || false" style="cursor: default">
       <slot />
     </PrimitiveButton>
   </PopperAnchor>

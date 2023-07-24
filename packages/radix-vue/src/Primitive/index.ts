@@ -1,4 +1,5 @@
 import Primitive from "./Primitive.vue";
+import ScreenReaderOnly from "./ScreenReaderOnly.vue";
 
 const PrimitiveA = Primitive["a"];
 const PrimitiveButton = Primitive["button"];
@@ -37,6 +38,8 @@ export {
   PrimitiveSvg,
   PrimitiveUl,
 };
+
+export { ScreenReaderOnly };
 
 export interface PrimitiveProps {
   asChild?: boolean;

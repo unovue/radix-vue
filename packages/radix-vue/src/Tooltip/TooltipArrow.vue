@@ -5,14 +5,14 @@ export interface TooltipArrowProps extends PrimitiveProps {
    *
    * @default 10
    */
-  width: number;
+  width?: number;
 
   /**
    * The height of the arrow in pixels.
    *
    * @default 5
    */
-  height: number;
+  height?: number;
 }
 </script>
 

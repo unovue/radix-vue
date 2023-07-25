@@ -13,7 +13,7 @@ const toggleState = ref(false);
 </script>
 
 <template>
-  <Story title="Tooltip" :layout="{ type: 'single', iframe: true }">
+  <Story title="Tooltip" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="default">
       <TooltipRoot v-model:open="toggleState">
         <TooltipTrigger

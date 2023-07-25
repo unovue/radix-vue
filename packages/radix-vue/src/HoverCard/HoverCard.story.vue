@@ -12,7 +12,7 @@ const hoverState = ref(false);
 </script>
 
 <template>
-  <Story title="Hover Card" :layout="{ type: 'single', iframe: true }">
+  <Story title="Hover Card" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="default">
       <HoverCardRoot v-model:open="hoverState">
         <HoverCardTrigger

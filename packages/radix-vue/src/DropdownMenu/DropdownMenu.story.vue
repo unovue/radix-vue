@@ -30,7 +30,7 @@ function handleClick() {
 </script>
 
 <template>
-  <Story title="DropdownMenu" :layout="{ type: 'single', iframe: true }">
+  <Story title="DropdownMenu" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="default">
       <DropdownMenuRoot v-model="toggleState">
         <DropdownMenuTrigger

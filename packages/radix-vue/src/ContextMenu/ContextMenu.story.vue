@@ -29,7 +29,7 @@ function handleClick() {
 </script>
 
 <template>
-  <Story title="Context Menu" :layout="{ type: 'single', iframe: true }">
+  <Story title="Context Menu" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="default">
       <ContextMenuRoot v-model="toggleState">
         <ContextMenuTrigger

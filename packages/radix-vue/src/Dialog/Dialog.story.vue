@@ -20,7 +20,7 @@ function handleEvent() {
 </script>
 
 <template>
-  <Story title="Dialog" :layout="{ type: 'single', iframe: true }">
+  <Story title="Dialog" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="default">
       <DialogRoot v-model:open="dialogOpen" :modal="false">
         <DialogTrigger

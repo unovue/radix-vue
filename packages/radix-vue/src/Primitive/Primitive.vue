@@ -6,6 +6,7 @@ import {
   getCurrentInstance,
   mergeProps,
   cloneVNode,
+  type ComponentInternalInstance,
 } from "vue";
 import { renderSlotFragments, isValidVNodeElement } from "@/shared";
 
@@ -27,6 +28,27 @@ const NODES = [
   "svg",
   "ul",
 ] as const;
+
+const throwError = (instance: ComponentInternalInstance | null) => {
+  const componentName = instance?.parent?.type.name
+    ? `<${instance.parent.type.name} />`
+    : "component";
+
+  throw new Error(
+    [
+      `Detected an invalid children for \`${componentName}\` with \`asChild\` prop.`,
+      "",
+      "Note: All components accepting `asChild` expect only one direct child of valid VNode type.",
+      "You can apply a few solutions:",
+      [
+        "Provide a single child element so that we can forward the props onto that element.",
+        "Ensure the first child is an actual element instead of a raw text node or comment node.",
+      ]
+        .map((line) => `  - ${line}`)
+        .join("\n"),
+    ].join("\n")
+  );
+};
 
 const createComponent = (node: (typeof NODES)[number]) =>
   defineComponent({
@@ -55,29 +77,16 @@ const createComponent = (node: (typeof NODES)[number]) =>
           if (Object.keys(attrs).length > 0) {
             const [firstChild, ...otherChildren] = children;
             if (!isValidVNodeElement(firstChild) || otherChildren.length > 0) {
-              const componentName = instance?.parent?.type.name
-                ? `<${instance.parent.type.name} />`
-                : "component";
-              throw new Error(
-                [
-                  `Detected an invalid children for \`${componentName}\` with \`asChild\` prop.`,
-                  "",
-                  "Note: All components accepting `asChild` expect only one direct child of valid VNode type.",
-                  "You can apply a few solutions:",
-                  [
-                    "Provide a single child element so that we can forward the props onto that element.",
-                    "Ensure the first child is an actual element instead of a raw text node or comment node.",
-                  ]
-                    .map((line) => `  - ${line}`)
-                    .join("\n"),
-                ].join("\n")
-              );
+              throwError(instance);
             }
 
             // remove props ref from being inferred
             delete firstChild.props?.ref;
 
             const mergedProps = mergeProps(attrs, firstChild.props ?? {});
+            // remove class to prevent duplicated
+            delete firstChild.props?.class;
+
             const cloned = cloneVNode(firstChild, mergedProps);
             // Explicitly override props starting with `on`.
             // It seems cloneVNode from Vue doesn't like overriding `onXXX` props. So
@@ -89,6 +98,8 @@ const createComponent = (node: (typeof NODES)[number]) =>
               }
             }
             return cloned;
+          } else if (Array.isArray(children) && children.length > 1) {
+            throwError(instance);
           } else if (Array.isArray(children) && children.length === 1) {
             // No props to inherit
             return children[0];

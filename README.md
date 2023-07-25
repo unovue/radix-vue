@@ -48,7 +48,7 @@ For changelog, visit [radix-vue.com/overview/releases](https://radix-vue.com/ove
 | [Toggle](https://radix-vue.com/components/toggle)                   |   ✅   | ✅           |                        |
 | [Toggle Group](https://radix-vue.com/components/toggle-group)       |   ✅   | ✅           |                        |
 | [Toolbar](https://radix-vue.com/components/toolbar)                 |   ✅   |              |                        |
-| [Tooltip](https://radix-vue.com/components/tooltip)                 |   ✅   |              |                        |
+| [Tooltip](https://radix-vue.com/components/tooltip)                 |   ✅   | ✅           |                        |
 
 ## Contributing
 

@@ -1,3 +1,4 @@
+// TODO - Migrate to useHover.ts
 /**
  * Tracks mouse hover within an element and resolves a promise when the hover ends or a timeout occurs.
  * @param {MouseEvent} e - The hover event.

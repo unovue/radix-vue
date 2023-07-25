@@ -124,9 +124,9 @@ const ariaLabel = computed(() => {
       tabindex="-1"
     >
       <slot />
-      <VisuallyHidden :id="injectedValue?.contentId">
-        {{ ariaLabel }}
-      </VisuallyHidden>
     </PrimitiveDiv>
+    <VisuallyHidden :id="injectedValue?.contentId" role="tooltip">
+      {{ ariaLabel }}
+    </VisuallyHidden>
   </PopperContent>
 </template>

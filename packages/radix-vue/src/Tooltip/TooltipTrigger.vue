@@ -9,28 +9,35 @@ export interface TooltipTriggerProps extends PrimitiveProps {}
 
 <script setup lang="ts">
 import { PopperAnchor } from "@/Popper";
-import { PrimitiveButton, type PrimitiveProps } from "@/Primitive";
+import {
+  PrimitiveButton,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import { useHover } from "@/shared";
-import { inject, ref } from "vue";
+import { inject } from "vue";
 import { TOOLTIP_INJECTION_KEY } from "./TooltipRoot.vue";
 
 const props = defineProps<TooltipTriggerProps>();
 const injectedValue = inject(TOOLTIP_INJECTION_KEY);
 
-const triggerElement = ref<HTMLElement>();
+const { primitiveElement, currentElement: triggerElement } =
+  usePrimitiveElement();
+
 useHover(triggerElement, {
   delayEnter: injectedValue?.delayMs,
   onHoverEnter: () => injectedValue?.showTooltip(true),
-  delayLeave: injectedValue?.delayMs,
+  delayLeave: 0,
   onHoverLeave: () => injectedValue?.hideTooltip(),
   disabled: injectedValue?.disableHoverableContent,
 });
 </script>
 
 <template>
-  <PopperAnchor ref="triggerElement" asChild>
+  <PopperAnchor asChild>
     <PrimitiveButton
       type="button"
+      ref="primitiveElement"
       :aria-describedby="
         injectedValue?.open ? injectedValue.contentId : undefined
       "

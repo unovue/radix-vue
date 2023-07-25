@@ -90,7 +90,7 @@ const ariaLabel = computed(() => {
 </script>
 
 <template>
-  <PopperContent v-if="injectedValue?.open.value" ref="contentElement" :as-child="props.asChild" :side="props.side"
+<PopperContent v-if="injectedValue?.open.value" ref="contentElement" :as-child="props.asChild" :side="props.side"
     :sideOffset="props.sideOffset" :align="props.align" :alignOffset="props.alignOffset"
     :avoidCollisions="props.avoidCollisions" :collisionBoundary="props.collisionBoundary"
     :collisionPadding="props.collisionPadding" :arrowPadding="props.arrowPadding" :sticky="props.sticky"

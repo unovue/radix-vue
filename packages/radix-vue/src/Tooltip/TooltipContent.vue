@@ -36,11 +36,8 @@ export interface TooltipContentEmit {
 
 <script setup lang="ts">
 import { PopperContent } from "@/Popper";
-import {
-  PrimitiveDiv,
-  ScreenReaderOnly,
-  type PrimitiveProps,
-} from "@/Primitive";
+import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
+import { VisuallyHidden } from "@/VisuallyHidden";
 import { computed, inject, ref, useSlots, type VNode } from "vue";
 import { TOOLTIP_INJECTION_KEY } from "./TooltipRoot.vue";
 
@@ -90,7 +87,7 @@ const ariaLabel = computed(() => {
 </script>
 
 <template>
-<PopperContent v-if="injectedValue?.open.value" ref="contentElement" :as-child="props.asChild" :side="props.side"
+  <PopperContent v-if="injectedValue?.open.value" ref="contentElement" :as-child="props.asChild" :side="props.side"
     :sideOffset="props.sideOffset" :align="props.align" :alignOffset="props.alignOffset"
     :avoidCollisions="props.avoidCollisions" :collisionBoundary="props.collisionBoundary"
     :collisionPadding="props.collisionPadding" :arrowPadding="props.arrowPadding" :sticky="props.sticky"
@@ -110,7 +107,9 @@ const ariaLabel = computed(() => {
     <PrimitiveDiv :data-state="injectedValue?.dataState.value" :data-side="props.side" :data-align="props.align"
       role="tooltip" tabindex="-1">
       <slot />
-      <ScreenReaderOnly :id="injectedValue?.contentId" :ariaLabel="ariaLabel" />
+      <VisuallyHidden :id="injectedValue?.contentId">
+        {{ ariaLabel }}
+      </VisuallyHidden>
     </PrimitiveDiv>
   </PopperContent>
 </template>

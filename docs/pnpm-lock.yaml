@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   radix-vue:
-    specifier: 0.1.11
-    version: 0.1.11(vue@3.3.4)
+    specifier: 0.1.12
+    version: 0.1.12(vue@3.3.4)
 
 devDependencies:
   '@iconify/vue':
@@ -1653,8 +1653,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /radix-vue@0.1.11(vue@3.3.4):
-    resolution: {integrity: sha512-UKi49r9VmC9vq+HBrT6rJaeUqzAKKIez8FUrccZWDk+4r/0KPvtGRqBQjlJ3qshBUoCokMhfDONTV9gK87wRBQ==}
+  /radix-vue@0.1.12(vue@3.3.4):
+    resolution: {integrity: sha512-nq81fVdJYo3K/nRUnGhsgqt6udm9HKmkrw3YGL11M6CFDTKvr9nlJV1x4TVL3sZ2eK4FaGtAZTiunfC4Ym4F4g==}
     dependencies:
       '@floating-ui/dom': 1.4.5
       '@floating-ui/vue': 1.0.2(vue@3.3.4)

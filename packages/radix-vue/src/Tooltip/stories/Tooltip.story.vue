@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
 import { ref } from "vue";
-import { TooltipArrow, TooltipContent, TooltipRoot, TooltipTrigger } from "./";
+import { TooltipArrow, TooltipContent, TooltipRoot, TooltipTrigger } from "..";
 
 const toggleState = ref(false);
 </script>
 
 <template>
-  <Story title="Tooltip" :layout="{ type: 'single', iframe: true }">
+  <Story title="Tooltip/Default" :layout="{ type: 'single', iframe: true }">
     <Variant title="default">
       <TooltipRoot v-model:open="toggleState">
         <TooltipTrigger

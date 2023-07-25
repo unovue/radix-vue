@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
 import { Presence } from "../";
-import Animation from "./_Animation.story.vue";
-import Toggle from "./_Toggle.story.vue";
+import Animation from "./_Animation.vue";
+import Toggle from "./_Toggle.vue";
 
 const node = ref<HTMLElement>();
 const timerRef = ref(0);

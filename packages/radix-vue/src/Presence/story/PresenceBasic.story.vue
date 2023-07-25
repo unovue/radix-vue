@@ -13,11 +13,13 @@ const open = ref(false);
   >
     <Variant title="Basic">
       <div>
-        <button @click="open = !open">toggle</button>
+        <div>
+          <button @click="open = !open">toggle</button>
+        </div>
+        <Presence :present="open">
+          <div>Content</div>
+        </Presence>
       </div>
-      <Presence :present="open">
-        <div>Content</div>
-      </Presence>
     </Variant>
   </Story>
 </template>

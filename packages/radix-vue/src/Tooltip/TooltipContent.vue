@@ -26,19 +26,11 @@ export interface TooltipContentProps
    * @default String
    */
   ariaLabel?: string;
+}
 
-  /**
-   * Event handler called when the escape key is down. It can be
-   * prevented by calling event.preventDefault.
-   */
-  onEscapeKeyDown?: (event: KeyboardEvent) => void;
-
-  /**
-   * Event handler called when a pointer event occurs outside the
-   * bounds of the component. It can be prevented by calling
-   * event.preventDefault.
-   */
-  onPointerDownOutside?: (event: Event) => void;
+export interface TooltipContentEmit {
+  (e: "escapeKeyDown", event: KeyboardEvent): void;
+  (e: "pointerDownOutside", event: Event): void;
 }
 </script>
 
@@ -69,6 +61,16 @@ const props = withDefaults(defineProps<TooltipContentProps>(), {
   hideWhenDetached: false,
 });
 
+const emit = defineEmits<TooltipContentEmit>();
+
+onClickOutside(contentElement, () => {
+  emit("pointerDownOutside", new Event("pointerdown"));
+});
+
+function onEscapeKeyDown(event: KeyboardEvent) {
+  emit("escapeKeyDown", event);
+}
+
 const ariaLabel = computed(() => {
   if (props.ariaLabel) return props.ariaLabel;
   const defaultSlot = useSlots().default?.();
@@ -85,10 +87,6 @@ const ariaLabel = computed(() => {
   defaultSlot?.forEach((node) => recursiveTextSearch(node));
   return content;
 });
-
-if (props.onPointerDownOutside) {
-  onClickOutside(contentElement, props.onPointerDownOutside);
-}
 </script>
 
 <template>
@@ -108,7 +106,7 @@ if (props.onPointerDownOutside) {
       );
       --radix-tooltip-trigger-width: var(--radix-popper-anchor-width);
       --radix-tooltip-trigger-height: var(--radix-popper-anchor-height);
-    " @keydown.esc="onEscapeKeyDown?.($event)">
+    " @keydown.esc="onEscapeKeyDown($event)">
     <PrimitiveDiv :data-state="injectedValue?.dataState.value" :data-side="props.side" :data-align="props.align"
       role="tooltip" tabindex="-1">
       <slot />

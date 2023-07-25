@@ -4,7 +4,7 @@ export type TooltipTriggerDataState =
   | "delayed-open"
   | "instant-open";
 
-export interface TooltipTriggerProps extends PrimitiveProps { }
+export interface TooltipTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
@@ -28,11 +28,19 @@ useHover(triggerElement, {
 </script>
 
 <template>
-  <PopperAnchor ref="triggerElement" :as-child="props.asChild">
-    <PrimitiveButton type="button" :aria-describedby="injectedValue?.open ? injectedValue.contentId : undefined
-      " :as-child="props.asChild" :data-state="injectedValue?.dataState.value"
-      :aria-expanded="injectedValue?.open.value || false" @focus="injectedValue?.showTooltip(false)"
-      @blur="injectedValue?.hideTooltip" style="cursor: default">
+  <PopperAnchor ref="triggerElement" asChild>
+    <PrimitiveButton
+      type="button"
+      :aria-describedby="
+        injectedValue?.open ? injectedValue.contentId : undefined
+      "
+      :as-child="props.asChild"
+      :data-state="injectedValue?.dataState.value"
+      :aria-expanded="injectedValue?.open.value || false"
+      @focus="injectedValue?.showTooltip(false)"
+      @blur="injectedValue?.hideTooltip"
+      style="cursor: default"
+    >
       <slot />
     </PrimitiveButton>
   </PopperAnchor>

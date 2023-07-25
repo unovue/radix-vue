@@ -188,17 +188,17 @@ const computedMiddleware = computedEager(() => {
       alignmentAxis: props.alignOffset,
     }),
     props.avoidCollisions &&
-    shift({
-      mainAxis: true,
-      crossAxis: props.prioritizePosition ? true : false,
-      limiter: props.sticky === "partial" ? limitShift() : undefined,
-      ...detectOverflowOptions.value,
-    }),
+      shift({
+        mainAxis: true,
+        crossAxis: props.prioritizePosition ? true : false,
+        limiter: props.sticky === "partial" ? limitShift() : undefined,
+        ...detectOverflowOptions.value,
+      }),
     !props.prioritizePosition &&
-    props.avoidCollisions &&
-    flip({
-      ...detectOverflowOptions.value,
-    }),
+      props.avoidCollisions &&
+      flip({
+        ...detectOverflowOptions.value,
+      }),
     size({
       ...detectOverflowOptions,
       apply: ({ elements, rects, availableWidth, availableHeight }) => {
@@ -227,13 +227,13 @@ const computedMiddleware = computedEager(() => {
       },
     }),
     arrow.value &&
-    floatingUIarrow({ element: arrow.value, padding: props.arrowPadding }),
+      floatingUIarrow({ element: arrow.value, padding: props.arrowPadding }),
     transformOrigin({
       arrowWidth: arrowWidth.value,
       arrowHeight: arrowHeight.value,
     }),
     props.hideWhenDetached &&
-    hide({ strategy: "referenceHidden", ...detectOverflowOptions.value }),
+      hide({ strategy: "referenceHidden", ...detectOverflowOptions.value }),
   ] as Middleware[];
 });
 
@@ -293,7 +293,10 @@ provide(POPPER_CONTENT_KEY, {
 </script>
 
 <template>
-  <div ref="floatingRef" data-radix-popper-content-wrapper="" :style="{
+  <div
+    ref="floatingRef"
+    data-radix-popper-content-wrapper=""
+    :style="{
     ...floatingStyles,
     transform: isPositioned ? floatingStyles.transform : 'translate(0, -200%)', // keep off the page when measuring
     minWidth: 'max-content',
@@ -302,14 +305,21 @@ provide(POPPER_CONTENT_KEY, {
       middlewareData.transformOrigin?.x,
       middlewareData.transformOrigin?.y,
     ].join(' '),
-  }">
-    <PrimitiveDiv v-bind="$attrs" :as-child="props.asChild" :data-side="placedSide" :data-align="placedAlign" :style="{
-      // if the PopperContent hasn't been placed yet (not all measurements done)
-      // we prevent animations so that users's animation don't kick in too early referring wrong sides
-      animation: !isPositioned ? 'none' : undefined,
-      // hide the content if using the hide middleware and should be hidden
-      opacity: middlewareData.hide?.referenceHidden ? 0 : undefined,
-    }">
+  }"
+  >
+    <PrimitiveDiv
+      v-bind="$attrs"
+      :as-child="props.asChild"
+      :data-side="placedSide"
+      :data-align="placedAlign"
+      :style="{
+        // if the PopperContent hasn't been placed yet (not all measurements done)
+        // we prevent animations so that users's animation don't kick in too early referring wrong sides
+        animation: !isPositioned ? 'none' : undefined,
+        // hide the content if using the hide middleware and should be hidden
+        opacity: middlewareData.hide?.referenceHidden ? 0 : undefined,
+      }"
+    >
       <slot></slot>
     </PrimitiveDiv>
   </div>

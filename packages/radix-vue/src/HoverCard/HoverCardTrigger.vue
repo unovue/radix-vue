@@ -1,5 +1,5 @@
 <script lang="ts">
-export interface HoverCardTriggerProps extends PrimitiveProps { }
+export interface HoverCardTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
@@ -45,9 +45,16 @@ async function handleMouseleave(e: MouseEvent) {
 
 <template>
   <PopperAnchor asChild>
-    <PrimitiveButton ref="primitiveElement" :as-child="props.asChild" :aria-expanded="injectedValue?.open.value || false"
-      :data-state="injectedValue?.open.value ? 'open' : 'closed'" @mouseover="injectedValue!.isHover = true"
-      @mouseenter="handleMouseEnter" @mouseleave="handleMouseleave" style="cursor: default">
+    <PrimitiveButton
+      ref="primitiveElement"
+      :as-child="props.asChild"
+      :aria-expanded="injectedValue?.open.value || false"
+      :data-state="injectedValue?.open.value ? 'open' : 'closed'"
+      @mouseover="injectedValue!.isHover = true"
+      @mouseenter="handleMouseEnter"
+      @mouseleave="handleMouseleave"
+      style="cursor: default"
+    >
       <slot />
     </PrimitiveButton>
   </PopperAnchor>

@@ -4,19 +4,19 @@ import { onClickOutside } from "@vueuse/core";
 
 export interface TooltipContentProps
   extends PrimitiveProps,
-  Pick<
-    PopperContentProps,
-    | "side"
-    | "sideOffset"
-    | "align"
-    | "alignOffset"
-    | "avoidCollisions"
-    | "collisionBoundary"
-    | "collisionPadding"
-    | "arrowPadding"
-    | "sticky"
-    | "hideWhenDetached"
-  > {
+    Pick<
+      PopperContentProps,
+      | "side"
+      | "sideOffset"
+      | "align"
+      | "alignOffset"
+      | "avoidCollisions"
+      | "collisionBoundary"
+      | "collisionPadding"
+      | "arrowPadding"
+      | "sticky"
+      | "hideWhenDetached"
+    > {
   /**
    * By default, screenreaders will announce the content inside
    * the component. If this is not descriptive enough, or you have
@@ -87,11 +87,20 @@ const ariaLabel = computed(() => {
 </script>
 
 <template>
-  <PopperContent v-if="injectedValue?.open.value" ref="contentElement" :as-child="props.asChild" :side="props.side"
-    :sideOffset="props.sideOffset" :align="props.align" :alignOffset="props.alignOffset"
-    :avoidCollisions="props.avoidCollisions" :collisionBoundary="props.collisionBoundary"
-    :collisionPadding="props.collisionPadding" :arrowPadding="props.arrowPadding" :sticky="props.sticky"
-    :hideWhenDetached="props.hideWhenDetached" style="
+  <PopperContent
+    v-if="injectedValue?.open.value"
+    ref="contentElement"
+    :side="props.side"
+    :sideOffset="props.sideOffset"
+    :align="props.align"
+    :alignOffset="props.alignOffset"
+    :avoidCollisions="props.avoidCollisions"
+    :collisionBoundary="props.collisionBoundary"
+    :collisionPadding="props.collisionPadding"
+    :arrowPadding="props.arrowPadding"
+    :sticky="props.sticky"
+    :hideWhenDetached="props.hideWhenDetached"
+    style="
       --radix-tooltip-content-transform-origin: var(
         --radix-popper-transform-origin
       );
@@ -103,9 +112,17 @@ const ariaLabel = computed(() => {
       );
       --radix-tooltip-trigger-width: var(--radix-popper-anchor-width);
       --radix-tooltip-trigger-height: var(--radix-popper-anchor-height);
-    " @keydown.esc="onEscapeKeyDown($event)">
-    <PrimitiveDiv :data-state="injectedValue?.dataState.value" :data-side="props.side" :data-align="props.align"
-      role="tooltip" tabindex="-1">
+    "
+    @keydown.esc="onEscapeKeyDown($event)"
+  >
+    <PrimitiveDiv
+      :data-state="injectedValue?.dataState.value"
+      :data-side="props.side"
+      :data-align="props.align"
+      :as-child="props.asChild"
+      role="tooltip"
+      tabindex="-1"
+    >
       <slot />
       <VisuallyHidden :id="injectedValue?.contentId">
         {{ ariaLabel }}

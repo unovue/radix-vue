@@ -60,7 +60,6 @@ export { AvatarRoot, AvatarImage, AvatarFallback } from "./Avatar";
 export {
   TooltipArrow,
   TooltipContent,
-  TooltipPortal,
   TooltipRoot,
   TooltipTrigger,
 } from "./Tooltip";

@@ -4,38 +4,32 @@ export type TooltipTriggerDataState =
   | "delayed-open"
   | "instant-open";
 
-export interface TooltipRootProps extends PrimitiveProps {}
+export interface TooltipTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { inject, computed } from "vue";
+import { PopperAnchor } from "@/Popper";
 import {
   PrimitiveButton,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
-import {
-  TOOLTIP_INJECTION_KEY,
-  type TooltipProvideValue,
-} from "./TooltipRoot.vue";
-import { useHoverDelay } from "../shared";
-import { PopperAnchor } from "@/Popper";
+import { useHover } from "@/shared";
+import { inject } from "vue";
+import { TOOLTIP_INJECTION_KEY } from "./TooltipRoot.vue";
 
-const props = defineProps<TooltipRootProps>();
-const injectedValue = inject<TooltipProvideValue>(TOOLTIP_INJECTION_KEY);
+const props = defineProps<TooltipTriggerProps>();
+const injectedValue = inject(TOOLTIP_INJECTION_KEY);
 
 const { primitiveElement, currentElement: triggerElement } =
   usePrimitiveElement();
 
-async function handleMouseEnter(e: MouseEvent) {
-  const result = await useHoverDelay(e, triggerElement.value!);
-  if (result) {
-    injectedValue?.showTooltip();
-  }
-}
-
-const dataState = computed<TooltipTriggerDataState>(() => {
-  return injectedValue?.open.value ? "closed" : "instant-open";
+useHover(triggerElement, {
+  delayEnter: injectedValue?.delayMs,
+  onHoverEnter: () => injectedValue?.showTooltip(true),
+  delayLeave: 0,
+  onHoverLeave: () => injectedValue?.hideTooltip(),
+  disabled: injectedValue?.disableHoverableContent,
 });
 </script>
 
@@ -44,12 +38,13 @@ const dataState = computed<TooltipTriggerDataState>(() => {
     <PrimitiveButton
       type="button"
       ref="primitiveElement"
-      :data-state="dataState"
-      :aria-expanded="injectedValue?.open.value || false"
+      :aria-describedby="
+        injectedValue?.open ? injectedValue.contentId : undefined
+      "
       :as-child="props.asChild"
-      @mouseenter="handleMouseEnter"
-      @mouseleave="injectedValue?.hideTooltip"
-      @focus="injectedValue?.showTooltip"
+      :data-state="injectedValue?.dataState.value"
+      :aria-expanded="injectedValue?.open.value || false"
+      @focus="injectedValue?.showTooltip(false)"
       @blur="injectedValue?.hideTooltip"
       style="cursor: default"
     >

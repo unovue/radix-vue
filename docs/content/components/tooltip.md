@@ -45,18 +45,18 @@ Import all parts and piece them together.
 
 ```vue
 <script setup lang="ts">
-import { TooltipProvider, TooltipRoot, TooltipTrigger, TooltipPortal, TooltipContent, TooltipArrow } from "radix-vue";
+import { TooltipProvider, TooltipRoot, TooltipTrigger, TooltipContent, TooltipArrow } from "radix-vue";
 </script>
 
 <template>
   <TooltipProvider>
     <TooltipRoot>
       <TooltipTrigger />
-      <TooltipPortal>
+      <Tooltip>
         <TooltipContent>
           <TooltipArrow />
         </TooltipContent>
-      </TooltipPortal>
+      </Tooltip>
     </TooltipRoot>
   </TooltipProvider>
 </template>

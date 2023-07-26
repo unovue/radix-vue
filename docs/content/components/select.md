@@ -16,13 +16,18 @@ import DemoSelect from '../../components/demo/Select/index.vue'
 Displays a list of options for the user to pick from—triggered by a button.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="Select">
 <DemoSelect />
 <template v-slot:codeSlot>
 <HeroCodeGroup>
 <div filename="index.vue">
 
 <<< ../../components/demo/Select/index.vue
+
+</div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Select/tailwind.config.js
 
 </div>
 </HeroCodeGroup>

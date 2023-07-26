@@ -17,13 +17,18 @@ A container for grouping a set of controls, such as buttons, Toolbar groups or
 dropdown menus.
 </Description>
 
-<HeroContainer overflow>
+<HeroContainer folder="Toolbar" overflow>
 <DemoToolbar />
 <template v-slot:codeSlot>
 <HeroCodeGroup>
 <div filename="index.vue">
 
 <<< ../../components/demo/Toolbar/index.vue
+
+</div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Toolbar/tailwind.config.js
 
 </div>
 </HeroCodeGroup>

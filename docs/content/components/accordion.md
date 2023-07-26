@@ -17,7 +17,7 @@ A vertically stacked set of interactive headings that each reveal an
 associated section of content.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="Accordion">
 <DemoAccordion />
 <template v-slot:codeSlot>
 <HeroCodeGroup>

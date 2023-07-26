@@ -16,13 +16,18 @@ import DemoDropdownMenu from '../../components/demo/DropdownMenu/index.vue'
 Displays a menu to the user—such as a set of actions or functions—triggered by a button.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="DropdownMenu">
 <DemoDropdownMenu />
 <template v-slot:codeSlot>
 <HeroCodeGroup>
 <div filename="index.vue">
 
 <<< ../../components/demo/DropdownMenu/index.vue
+
+</div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/DropdownMenu/tailwind.config.js
 
 </div>
 </HeroCodeGroup>
@@ -1048,9 +1053,7 @@ import {
     <DropdownMenuTrigger>…</DropdownMenuTrigger>
     <DropdownMenuPortal>
       <DropdownMenuContent>
-        <DropdownMenuItem className="DropdownMenuItem" disabled>
-          …
-        </DropdownMenuItem>
+        <DropdownMenuItem className="DropdownMenuItem" disabled> … </DropdownMenuItem>
         <DropdownMenuItem className="DropdownMenuItem">…</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenuPortal>
@@ -1158,7 +1161,7 @@ const checked = ref(false);
         <DropdownMenuItem>…</DropdownMenuItem>
         <DropdownMenuItem>…</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuCheckboxItem v-model={checked}>
+        <DropdownMenuCheckboxItem v-model="{ checked }">
           <DropdownMenuItemIndicator>
             <Icon icon="radix-icons:check" />
           </DropdownMenuItemIndicator>
@@ -1196,7 +1199,7 @@ const color = ref(false);
     <DropdownMenuTrigger>…</DropdownMenuTrigger>
     <DropdownMenuPortal>
       <DropdownMenuContent>
-        <DropdownMenuRadioGroup v-model={color}>
+        <DropdownMenuRadioGroup v-model="{ color }">
           <DropdownMenuRadioItem value="red">
             <DropdownMenuItemIndicator>
               <Icon icon="radix-icons:check" />
@@ -1264,24 +1267,14 @@ We expose several CSS custom properties such as `--radix-dropdown-menu-trigger-w
 
 ```vue line=15
 <script setup lang="ts">
-import {
-  DropdownMenuRoot,
-  DropdownMenuTrigger,
-  DropdownMenuPortal,
-  DropdownMenuContent,
-} from "radix-vue";
+import { DropdownMenuRoot, DropdownMenuTrigger, DropdownMenuPortal, DropdownMenuContent } from "radix-vue";
 </script>
 
 <template>
   <DropdownMenuRoot>
     <DropdownMenuTrigger>…</DropdownMenuTrigger>
     <DropdownMenuPortal>
-      <DropdownMenuContent
-        class="DropdownMenuContent"
-        sideOffset={5}
-      >
-        …
-      </DropdownMenuContent>
+      <DropdownMenuContent class="DropdownMenuContent" sideOffset="{5}"> … </DropdownMenuContent>
     </DropdownMenuPortal>
   </DropdownMenuRoot>
 </template>
@@ -1301,12 +1294,7 @@ We expose a CSS custom property `--radix-dropdown-menu-content-transform-origin`
 
 ```vue line=14
 <script setup lang="ts">
-import {
-  DropdownMenuRoot,
-  DropdownMenuTrigger,
-  DropdownMenuPortal,
-  DropdownMenuContent,
-} from "radix-vue";
+import { DropdownMenuRoot, DropdownMenuTrigger, DropdownMenuPortal, DropdownMenuContent } from "radix-vue";
 </script>
 
 <template>
@@ -1344,12 +1332,7 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 
 ```vue line=14
 <script setup lang="ts">
-import {
-  DropdownMenuRoot,
-  DropdownMenuTrigger,
-  DropdownMenuPortal,
-  DropdownMenuContent,
-} from "radix-vue";
+import { DropdownMenuRoot, DropdownMenuTrigger, DropdownMenuPortal, DropdownMenuContent } from "radix-vue";
 </script>
 
 <template>
@@ -1511,6 +1494,7 @@ export default () => (
 #### Implementation
 
 <!-- TODO: fix react code - maybe implement in demo?-->
+
 ```jsx
 // your-dropdown-menu.jsx
 import React from "react";

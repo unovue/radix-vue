@@ -16,13 +16,18 @@ import DemoDialog from '../../components/demo/Dialog/index.vue'
 A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="Dialog">
 <DemoDialog />
 <template v-slot:codeSlot>
 <HeroCodeGroup>
 <div filename="index.vue">
 
 <<< ../../components/demo/Dialog/index.vue
+
+</div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Dialog/tailwind.config.js
 
 </div>
 </HeroCodeGroup>

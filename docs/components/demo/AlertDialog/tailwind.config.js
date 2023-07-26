@@ -1,14 +1,14 @@
-const { mauve, violet, red, blackA } = require("@radix-ui/colors");
+const { mauve, green, grass, blackA } = require("@radix-ui/colors");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./index.vue"],
+  content: ["./**/*.vue"],
   theme: {
     extend: {
       colors: {
         ...mauve,
-        ...violet,
-        ...red,
+        ...green,
+        ...grass,
         ...blackA,
       },
       keyframes: {

@@ -17,13 +17,18 @@ import DemoMenubar from '../../components/demo/Menubar/index.vue'
 A visually persistent menu common in desktop applications that provides quick access to a consistent set of commands.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="Menubar">
 <DemoMenubar />
 <template v-slot:codeSlot>
 <HeroCodeGroup>
 <div filename="index.vue">
 
 <<< ../../components/demo/Menubar/index.vue
+
+</div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Menubar/tailwind.config.js
 
 </div>
 </HeroCodeGroup>
@@ -1230,14 +1235,7 @@ You can add special styles to disabled items via the `data-disabled` attribute.
 
 ```vue line=18
 <script setup lang="ts">
-import {
-  MenubarRoot,
-  MenubarMenu,
-  MenubarTrigger,
-  MenubarPortal,
-  MenubarContent,
-  MenubarItem,
-} from "radix-vue";
+import { MenubarRoot, MenubarMenu, MenubarTrigger, MenubarPortal, MenubarContent, MenubarItem } from "radix-vue";
 </script>
 
 <template>
@@ -1246,9 +1244,7 @@ import {
       <MenubarTrigger>…</MenubarTrigger>
       <MenubarPortal>
         <MenubarContent>
-          <MenubarItem class="MenubarItem" disabled>
-            …
-          </MenubarItem>
+          <MenubarItem class="MenubarItem" disabled> … </MenubarItem>
           <MenubarItem class="MenubarItem">…</MenubarItem>
         </MenubarContent>
       </MenubarPortal>
@@ -1295,7 +1291,7 @@ import {
         </MenubarContent>
       </MenubarPortal>
     </MenubarMenu>
-</MenubarRoot>
+  </MenubarRoot>
 </template>
 ```
 
@@ -1364,7 +1360,7 @@ const checked = ref(true);
           <MenubarItem>…</MenubarItem>
           <MenubarItem>…</MenubarItem>
           <MenubarSeparator />
-          <MenubarCheckboxItem checked={checked} onCheckedChange={setChecked}>
+          <MenubarCheckboxItem checked="{checked}" onCheckedChange="{setChecked}">
             <MenubarItemIndicator>
               <Icon icon="radix-icons:check" />
             </MenubarItemIndicator>
@@ -1407,7 +1403,7 @@ const color = ref("blue");
       <MenubarTrigger>…</MenubarTrigger>
       <MenubarPortal>
         <MenubarContent>
-          <MenubarRadioGroup v-model={color}>
+          <MenubarRadioGroup v-model="{ color }">
             <MenubarRadioItem value="red">
               <MenubarItemIndicator>
                 <Icon icon="radix-icons:check" />
@@ -1434,14 +1430,7 @@ You can add extra decorative elements in the `Item` parts, such as images.
 
 ```vue line=19,24
 <script setup lang="ts">
-import {
-  MenubarRoot,
-  MenubarMenu,
-  MenubarTrigger,
-  MenubarPortal,
-  MenubarContent,
-  MenubarItem,
-} from "radix-vue";
+import { MenubarRoot, MenubarMenu, MenubarTrigger, MenubarPortal, MenubarContent, MenubarItem } from "radix-vue";
 </script>
 
 <template>
@@ -1473,31 +1462,16 @@ We expose several CSS custom properties such as `--radix-menubar-trigger-width` 
 
 ```vue line=20
 <script setup lang="ts">
-import {
-  MenubarRoot,
-  MenubarMenu,
-  MenubarTrigger,
-  MenubarPortal,
-  MenubarContent,
-  MenubarItem,
-} from "radix-vue";
+import { MenubarRoot, MenubarMenu, MenubarTrigger, MenubarPortal, MenubarContent, MenubarItem } from "radix-vue";
 </script>
 
 <template>
   <MenubarRoot>
     <MenubarMenu>
-      <MenubarTrigger>
-        Trigger
-      </MenubarTrigger>
+      <MenubarTrigger> Trigger </MenubarTrigger>
       <MenubarPortal>
-        <MenubarContent
-          class="MenubarContent"
-          :side-offset="5"
-          :align-offset="-3"
-        >
-          <MenubarItem>
-            New Tab
-          </MenubarItem>
+        <MenubarContent class="MenubarContent" :side-offset="5" :align-offset="-3">
+          <MenubarItem> New Tab </MenubarItem>
         </MenubarContent>
       </MenubarPortal>
     </MenubarMenu>
@@ -1519,13 +1493,7 @@ We expose a CSS custom property `--radix-menubar-content-transform-origin`. Use 
 
 ```vue line=16
 <script setup lang="ts">
-import {
-  MenubarRoot,
-  MenubarMenu,
-  MenubarTrigger,
-  MenubarPortal,
-  MenubarContent,
-} from "radix-vue";
+import { MenubarRoot, MenubarMenu, MenubarTrigger, MenubarPortal, MenubarContent } from "radix-vue";
 </script>
 
 <template>
@@ -1565,13 +1533,7 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 
 ```vue line=16
 <script setup lang="ts">
-import {
-  MenubarRoot,
-  MenubarMenu,
-  MenubarTrigger,
-  MenubarPortal,
-  MenubarContent,
-} from "radix-vue";
+import { MenubarRoot, MenubarMenu, MenubarTrigger, MenubarPortal, MenubarContent } from "radix-vue";
 </script>
 
 <template>

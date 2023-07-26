@@ -16,13 +16,18 @@ import DemoCollapsible from '../../components/demo/Collapsible/index.vue'
 An interactive component which expands/collapses a panel.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="Collapsible">
 <DemoCollapsible />
 <template v-slot:codeSlot>
 <HeroCodeGroup>
 <div filename="index.vue">
 
 <<< ../../components/demo/Collapsible/index.vue
+
+</div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Collapsible/tailwind.config.js
 
 </div>
 </HeroCodeGroup>

@@ -16,13 +16,18 @@ import DemoTooltip from '../../components/demo/Tooltip/index.vue'
 A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="Tooltip">
 <DemoTooltip />
 <template v-slot:codeSlot>
 <HeroCodeGroup>
 <div filename="index.vue">
 
 <<< ../../components/demo/Tooltip/index.vue
+
+</div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Tooltip/tailwind.config.js
 
 </div>
 </HeroCodeGroup>

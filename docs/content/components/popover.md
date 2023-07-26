@@ -16,13 +16,18 @@ import DemoPopover from '../../components/demo/Popover/index.vue'
 Displays rich content in a portal, triggered by a button.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="Popover">
 <DemoPopover />
 <template v-slot:codeSlot>
 <HeroCodeGroup>
 <div filename="index.vue">
 
 <<< ../../components/demo/Popover/index.vue
+
+</div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Popover/tailwind.config.js
 
 </div>
 </HeroCodeGroup>

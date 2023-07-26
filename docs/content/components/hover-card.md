@@ -15,13 +15,18 @@ import DemoHoverCard from '../../components/demo/HoverCard/index.vue'
 For sighted users to preview content available behind a link.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="HoverCard">
 <DemoHoverCard />
 <template v-slot:codeSlot>
 <HeroCodeGroup>
 <div filename="index.vue">
 
 <<< ../../components/demo/HoverCard/index.vue
+
+</div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/HoverCard/tailwind.config.js
 
 </div>
 </HeroCodeGroup>

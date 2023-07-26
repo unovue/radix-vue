@@ -16,13 +16,18 @@ import DemoSlider from '../../components/demo/Slider/index.vue'
 An input where the user selects a value from within a given range.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="Slider">
 <DemoSlider />
 <template v-slot:codeSlot>
 <HeroCodeGroup>
 <div filename="index.vue">
 
 <<< ../../components/demo/Slider/index.vue
+
+</div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Slider/tailwind.config.js
 
 </div>
 </HeroCodeGroup>

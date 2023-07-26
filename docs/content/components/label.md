@@ -15,13 +15,18 @@ import DemoLabel from '../../components/demo/Label/index.vue'
 Renders an accessible label associated with controls.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="Label">
 <DemoLabel />
 <template v-slot:codeSlot>
 <HeroCodeGroup>
 <div filename="index.vue">
 
 <<< ../../components/demo/Label/index.vue
+
+</div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Label/tailwind.config.js
 
 </div>
 </HeroCodeGroup>

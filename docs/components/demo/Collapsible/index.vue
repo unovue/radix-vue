@@ -9,7 +9,7 @@ const open = ref(false);
 </script>
 
 <template>
-  <CollapsibleRoot class="sm:w-[300px]" v-model:open="rootOpen" :disabled="rootDisabled">
+  <CollapsibleRoot class="w-[300px]" v-model:open="rootOpen" :disabled="rootDisabled">
     <div style="display: flex; align-items: center; justify-content: space-between">
       <span class="text-white text-[15px] leading-[25px]"> @peduarte starred 3 repos </span>
       <CollapsibleTrigger

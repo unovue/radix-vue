@@ -16,13 +16,18 @@ import DemoCheckbox from '../../components/demo/Checkbox/index.vue'
 A control that allows the user to toggle between checked and not checked.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="Checkbox">
 <DemoCheckbox />
 <template v-slot:codeSlot>
 <HeroCodeGroup>
 <div filename="index.vue">
 
 <<< ../../components/demo/Checkbox/index.vue
+
+</div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Checkbox/tailwind.config.js
 
 </div>
 </HeroCodeGroup>

@@ -23,7 +23,7 @@ const accordionItems = [
 
 <template>
   <AccordionRoot
-    class="bg-mauve6 sm:w-[300px] rounded-md shadow-[0_2px_10px] shadow-black/5"
+    class="bg-mauve6 w-[300px] rounded-md shadow-[0_2px_10px] shadow-black/5"
     default-value="'item-1'"
     type="single"
     :collapsible="true"

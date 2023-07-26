@@ -15,13 +15,18 @@ import DemoScrollArea from '../../components/demo/ScrollArea/index.vue'
 Augments native scroll functionality for custom, cross-browser styling.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="ScrollArea">
 <DemoScrollArea />
 <template v-slot:codeSlot>
 <HeroCodeGroup>
 <div filename="index.vue">
 
 <<< ../../components/demo/ScrollArea/index.vue
+
+</div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/ScrollArea/tailwind.config.js
 
 </div>
 </HeroCodeGroup>

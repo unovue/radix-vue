@@ -16,13 +16,18 @@ import DemoSeparator from '../../components/demo/Separator/index.vue'
 Visually or semantically separates content.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="Separator">
 <DemoSeparator />
 <template v-slot:codeSlot>
 <HeroCodeGroup>
 <div filename="index.vue">
 
 <<< ../../components/demo/Separator/index.vue
+
+</div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Separator/tailwind.config.js
 
 </div>
 </HeroCodeGroup>

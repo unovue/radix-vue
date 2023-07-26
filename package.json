@@ -1,4 +1,5 @@
 {
+  "name": "Radix Vue Accordion",
   "private": true,
   "packageManager": "pnpm@8.6.3",
   "workspaces": [

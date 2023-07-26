@@ -16,13 +16,18 @@ import DemoSwitch from '../../components/demo/Switch/index.vue'
 A control that allows the user to toggle between checked and not checked.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="Switch">
 <DemoSwitch />
 <template v-slot:codeSlot>
 <HeroCodeGroup>
 <div filename="index.vue">
 
 <<< ../../components/demo/Switch/index.vue
+
+</div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Switch/tailwind.config.js
 
 </div>
 </HeroCodeGroup>

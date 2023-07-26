@@ -15,13 +15,23 @@ import DemoNavigationMenu from '../../components/demo/NavigationMenu/index.vue'
 A collection of links for navigating websites.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="NavigationMenu">
 <DemoNavigationMenu />
 <template v-slot:codeSlot>
 <HeroCodeGroup>
 <div filename="index.vue">
 
 <<< ../../components/demo/NavigationMenu/index.vue
+
+</div>
+<div filename="NavigationMenuListItem.vue">
+
+<<< ../../components/demo/NavigationMenu/NavigationMenuListItem.vue
+
+</div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/NavigationMenu/tailwind.config.js
 
 </div>
 </HeroCodeGroup>
@@ -66,7 +76,7 @@ import {
   NavigationMenuIndicator,
   NavigationMenuViewport,
   NavigationMenuSub,
-} from "radix-vue"
+} from "radix-vue";
 </script>
 
 <template>
@@ -180,7 +190,6 @@ Contains all the parts of a navigation menu.
   ]"
 />
 
-
 ### Sub
 
 Signifies a submenu. Use it in place of the root part when nested to create a submenu.
@@ -230,7 +239,6 @@ Signifies a submenu. Use it in place of the root part when nested to create a su
     },
   ]"
 />
-
 
 ### List
 
@@ -329,7 +337,6 @@ The button that toggles the content.
   ]"
 />
 
-
 ### Content
 
 Contains the content associated with each trigger.
@@ -416,7 +423,6 @@ Contains the content associated with each trigger.
     },
   ]"
 />
-
 
 <DataAttributesTable
   :data="[
@@ -564,7 +570,6 @@ An optional viewport element that is used to render active content outside of th
   ]"
 />
 
-
 <DataAttributesTable
   :data="[
     {
@@ -578,7 +583,6 @@ An optional viewport element that is used to render active content outside of th
   ]"
 />
 
-
 <CssVariablesTable
   :data="[
     {
@@ -591,7 +595,6 @@ An optional viewport element that is used to render active content outside of th
     },
   ]"
 />
-
 
 ## Examples
 
@@ -611,7 +614,7 @@ import {
   NavigationMenuIndicator,
   NavigationMenuViewport,
   NavigationMenuSub,
-} from "radix-vue"
+} from "radix-vue";
 </script>
 
 <template>
@@ -645,7 +648,7 @@ import {
   NavigationMenuTrigger,
   NavigationMenuContent,
   NavigationMenuViewport,
-} from "radix-vue"
+} from "radix-vue";
 </script>
 
 <template>
@@ -681,7 +684,7 @@ import {
   NavigationMenuTrigger,
   NavigationMenuContent,
   NavigationMenuViewport,
-} from "radix-vue"
+} from "radix-vue";
 </script>
 
 <template>
@@ -731,7 +734,7 @@ import {
   NavigationMenuContent,
   NavigationMenuViewport,
   NavigationMenuSub,
-} from "radix-vue"
+} from "radix-vue";
 </script>
 
 <template>
@@ -748,15 +751,11 @@ import {
             <NavigationMenuList>
               <NavigationMenuItem value="sub1">
                 <NavigationMenuTrigger>Sub item one</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  Sub item one content
-                </NavigationMenuContent>
+                <NavigationMenuContent> Sub item one content </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem value="sub2">
                 <NavigationMenuTrigger>Sub item two</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  Sub item two content
-                </NavigationMenuContent>
+                <NavigationMenuContent> Sub item two content </NavigationMenuContent>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenuSub>
@@ -774,12 +773,8 @@ This will ensure accessibility and consistent keyboard control is maintained. He
 
 ```vue line=7,14,17
 <script setup lang="ts">
-import {
-  NavigationMenuRoot,
-  NavigationMenuList,
-  NavigationMenuItem,
-} from "radix-vue"
-import Link from 'your-framework';
+import { NavigationMenuRoot, NavigationMenuList, NavigationMenuItem } from "radix-vue";
+import Link from "your-framework";
 </script>
 
 <template>
@@ -802,7 +797,7 @@ import Link from 'your-framework';
   text-decoration: none;
 }
 .NavigationMenuLink[data-active] {
-  text-decoration: 'underline';
+  text-decoration: "underline";
 }
 ```
 
@@ -821,7 +816,7 @@ import {
   NavigationMenuTrigger,
   NavigationMenuContent,
   NavigationMenuViewport,
-} from "radix-vue"
+} from "radix-vue";
 </script>
 
 <template>
@@ -829,15 +824,11 @@ import {
     <NavigationMenuList>
       <NavigationMenuItem>
         <NavigationMenuTrigger>Item one</NavigationMenuTrigger>
-        <NavigationMenuContent class="NavigationMenuContent">
-          Item one content
-        </NavigationMenuContent>
+        <NavigationMenuContent class="NavigationMenuContent"> Item one content </NavigationMenuContent>
       </NavigationMenuItem>
       <NavigationMenuItem>
         <NavigationMenuTrigger>Item two</NavigationMenuTrigger>
-        <NavigationMenuContent class="NavigationMenuContent">
-          Item two content
-        </NavigationMenuContent>
+        <NavigationMenuContent class="NavigationMenuContent"> Item two content </NavigationMenuContent>
       </NavigationMenuItem>
     </NavigationMenuList>
 
@@ -855,16 +846,16 @@ import {
   animation-duration: 250ms;
   animation-timing-function: ease;
 }
-.NavigationMenuContent[data-motion='from-start'] {
+.NavigationMenuContent[data-motion="from-start"] {
   animation-name: enterFromLeft;
 }
-.NavigationMenuContent[data-motion='from-end'] {
+.NavigationMenuContent[data-motion="from-end"] {
   animation-name: enterFromRight;
 }
-.NavigationMenuContent[data-motion='to-start'] {
+.NavigationMenuContent[data-motion="to-start"] {
   animation-name: exitToLeft;
 }
-.NavigationMenuContent[data-motion='to-end'] {
+.NavigationMenuContent[data-motion="to-end"] {
   animation-name: exitToRight;
 }
 

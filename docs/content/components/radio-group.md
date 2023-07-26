@@ -16,13 +16,18 @@ import DemoRadioGroup from '../../components/demo/RadioGroup/index.vue'
 A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="RadioGroup"> 
 <DemoRadioGroup />
 <template v-slot:codeSlot>
 <HeroCodeGroup>
 <div filename="index.vue">
 
 <<< ../../components/demo/RadioGroup/index.vue
+
+</div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/RadioGroup/tailwind.config.js
 
 </div>
 </HeroCodeGroup>

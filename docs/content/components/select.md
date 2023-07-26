@@ -25,6 +25,11 @@ Displays a list of options for the user to pick from—triggered by a button.
 <<< ../../components/demo/Select/index.vue
 
 </div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Select/tailwind.config.js
+
+</div>
 </HeroCodeGroup>
 </template>
 </HeroContainer>

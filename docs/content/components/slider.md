@@ -25,6 +25,11 @@ An input where the user selects a value from within a given range.
 <<< ../../components/demo/Slider/index.vue
 
 </div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Slider/tailwind.config.js
+
+</div>
 </HeroCodeGroup>
 </template>
 </HeroContainer>

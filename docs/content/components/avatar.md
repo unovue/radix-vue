@@ -15,13 +15,18 @@ import DemoAvatar from '../../components/demo/Avatar/index.vue'
 An image element with a fallback for representing the user.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="Avatar">
 <DemoAvatar />
 <template v-slot:codeSlot>
 <HeroCodeGroup>
 <div filename="index.vue">
 
 <<< ../../components/demo/Avatar/index.vue
+
+</div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Avatar/tailwind.config.js
 
 </div>
 </HeroCodeGroup>
@@ -131,13 +136,7 @@ You can compose the Avatar with a [Tooltip](/components/tooltip) to display extr
 
 ```vue line=5,6,7,12,13,15,17-21
 <script setup>
-import {
-  AvatarRoot,
-  AvatarImage,
-  TooltipRoot,
-  TooltipTrigger,
-  TooltipArrow
-} from "radix-vue";
+import { AvatarRoot, AvatarImage, TooltipRoot, TooltipTrigger, TooltipArrow } from "radix-vue";
 </script>
 
 <template>

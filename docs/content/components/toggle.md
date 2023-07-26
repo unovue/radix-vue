@@ -25,6 +25,11 @@ A two-state button that can be either on or off.
 <<< ../../components/demo/Toggle/index.vue
 
 </div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Toggle/tailwind.config.js
+
+</div>
 </HeroCodeGroup>
 </template>
 </HeroContainer>

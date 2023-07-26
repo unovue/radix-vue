@@ -25,6 +25,11 @@ Visually or semantically separates content.
 <<< ../../components/demo/Separator/index.vue
 
 </div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Separator/tailwind.config.js
+
+</div>
 </HeroCodeGroup>
 </template>
 </HeroContainer>

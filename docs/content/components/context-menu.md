@@ -16,13 +16,18 @@ import DemoContextMenu from '../../components/demo/ContextMenu/index.vue'
 Displays a menu located at the pointer, triggered by a right-click or a long-press.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="ContextMenu">
 <DemoContextMenu />
 <template v-slot:codeSlot>
 <HeroCodeGroup>
 <div filename="index.vue">
 
 <<< ../../components/demo/ContextMenu/index.vue
+
+</div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/ContextMenu/tailwind.config.js
 
 </div>
 </HeroCodeGroup>
@@ -1038,13 +1043,7 @@ You can add special styles to disabled items via the `data-disabled` attribute.
 
 ```vue line=16
 <script setup lang="ts">
-import {
-  ContextMenuRoot,
-  ContextMenuTrigger,
-  ContextMenuPortal,
-  ContextMenuContent,
-  ContextMenuItem,
-} from "radix-vue";
+import { ContextMenuRoot, ContextMenuTrigger, ContextMenuPortal, ContextMenuContent, ContextMenuItem } from "radix-vue";
 </script>
 
 <template>
@@ -1052,9 +1051,7 @@ import {
     <ContextMenuTrigger>…</ContextMenuTrigger>
     <ContextMenuPortal>
       <ContextMenuContent>
-        <ContextMenuItem class="ContextMenuItem" disabled>
-          …
-        </ContextMenuItem>
+        <ContextMenuItem class="ContextMenuItem" disabled> … </ContextMenuItem>
         <ContextMenuItem className="ContextMenuItem">…</ContextMenuItem>
       </ContextMenuContent>
     </ContextMenuPortal>
@@ -1146,7 +1143,7 @@ import {
   ContextMenuItem,
   ContextMenuSeparator,
   ContextMenuCheckboxItem,
-  ContextMenuItemIndicator
+  ContextMenuItemIndicator,
 } from "radix-vue";
 import { Icon } from "@iconify/vue";
 
@@ -1161,7 +1158,7 @@ const checked = ref(true);
         <ContextMenuItem>…</ContextMenuItem>
         <ContextMenuItem>…</ContextMenuItem>
         <ContextMenuSeparator />
-        <ContextMenuCheckboxItem v-model={checked}>
+        <ContextMenuCheckboxItem v-model="{ checked }">
           <ContextMenuItemIndicator>
             <Icon icon="radix-icons:check" />
           </ContextMenuItemIndicator>
@@ -1201,7 +1198,7 @@ const color = ref("blue");
     <ContextMenuTrigger>…</ContextMenuTrigger>
     <ContextMenuPortal>
       <ContextMenuContent>
-        <ContextMenuRadioGroup v-model={color}>
+        <ContextMenuRadioGroup v-model="{ color }">
           <ContextMenuRadioItem value="red">
             <ContextMenuItemIndicator>
               <Icon icon="radix-icons:check" />
@@ -1233,13 +1230,7 @@ You can add extra decorative elements in the `Item` parts, such as images.
 
 ```vue line=17,21
 <script setup lang="ts">
-import {
-  ContextMenuRoot,
-  ContextMenuTrigger,
-  ContextMenuPortal,
-  ContextMenuContent,
-  ContextMenuItem,
-} from "radix-vue";
+import { ContextMenuRoot, ContextMenuTrigger, ContextMenuPortal, ContextMenuContent, ContextMenuItem } from "radix-vue";
 </script>
 
 <template>
@@ -1269,13 +1260,7 @@ We expose several CSS custom properties such as `--radix-context-menu-trigger-wi
 
 ```vue line=15
 <script setup lang="ts">
-import {
-  ContextMenuRoot,
-  ContextMenuTrigger,
-  ContextMenuPortal,
-  ContextMenuContent,
-  ContextMenuItem,
-} from "radix-vue";
+import { ContextMenuRoot, ContextMenuTrigger, ContextMenuPortal, ContextMenuContent, ContextMenuItem } from "radix-vue";
 </script>
 
 <template>
@@ -1302,12 +1287,7 @@ We expose a CSS custom property `--radix-context-menu-content-transform-origin`.
 
 ```vue line=14
 <script setup lang="ts">
-import {
-  ContextMenuRoot,
-  ContextMenuTrigger,
-  ContextMenuPortal,
-  ContextMenuContent,
-} from "radix-vue";
+import { ContextMenuRoot, ContextMenuTrigger, ContextMenuPortal, ContextMenuContent } from "radix-vue";
 </script>
 
 <template>
@@ -1345,12 +1325,7 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 
 ```vue line=14
 <script setup lang="ts">
-import {
-  ContextMenuRoot,
-  ContextMenuTrigger,
-  ContextMenuPortal,
-  ContextMenuContent,
-} from "radix-vue";
+import { ContextMenuRoot, ContextMenuTrigger, ContextMenuPortal, ContextMenuContent } from "radix-vue";
 </script>
 
 <template>

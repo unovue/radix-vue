@@ -25,6 +25,11 @@ A popup that displays information related to an element when the element receive
 <<< ../../components/demo/Tooltip/index.vue
 
 </div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Tooltip/tailwind.config.js
+
+</div>
 </HeroCodeGroup>
 </template>
 </HeroContainer>

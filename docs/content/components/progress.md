@@ -25,6 +25,11 @@ Displays an indicator showing the completion progress of a task, typically displ
 <<< ../../components/demo/Progress/index.vue
 
 </div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Progress/tailwind.config.js
+
+</div>
 </HeroCodeGroup>
 </template>
 </HeroContainer>

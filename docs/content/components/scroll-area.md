@@ -24,6 +24,11 @@ Augments native scroll functionality for custom, cross-browser styling.
 <<< ../../components/demo/ScrollArea/index.vue
 
 </div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/ScrollArea/tailwind.config.js
+
+</div>
 </HeroCodeGroup>
 </template>
 </HeroContainer>

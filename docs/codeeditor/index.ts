@@ -27,6 +27,7 @@ const makeTailwindConfig = (componentName: string, sources: Record<string, strin
   const files = {
     "package.json": {
       content: {
+        name: `radix-vue-${componentName.toLowerCase().replace(/ /g, "-")}`,
         scripts: { start: "vite" },
         dependencies,
         devDependencies,
@@ -68,7 +69,7 @@ body {
   font-family: system-ui;
   width: 100vw;
   height: 100vh;
-  background-image: linear-gradient(330deg, hsl(272, 53%, 50%) 0%, hsl(226, 68%, 56%) 100%);
+  background-image: linear-gradient(to bottom right, hsl(173, 80.0%, 36.0%) 0%, hsl(151, 55.0%, 41.5%) 100%);
   display: flex;
   align-items: flex-start;
   justify-content: center;

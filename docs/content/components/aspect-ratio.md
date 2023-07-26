@@ -15,7 +15,7 @@ import DemoAspectRatio from '../../components/demo/AspectRatio/index.vue'
 Displays content within a desired ratio.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="AspectRatio">
 <DemoAspectRatio />
 <template v-slot:codeSlot>
 <HeroCodeGroup>

@@ -25,6 +25,11 @@ Displays rich content in a portal, triggered by a button.
 <<< ../../components/demo/Popover/index.vue
 
 </div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Popover/tailwind.config.js
+
+</div>
 </HeroCodeGroup>
 </template>
 </HeroContainer>

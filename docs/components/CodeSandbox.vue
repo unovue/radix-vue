@@ -23,7 +23,7 @@ props.files?.forEach((file) => {
     <input type="hidden" name="hidedevtools" value="1" />
     <input type="hidden" name="parameters" :value="makeCodeSandboxParams(name, sources)" />
 
-    <Tooltip :content="`Open ${name} demo in CodeSandbox`">
+    <Tooltip :content="`Open ${name} in CodeSandbox`">
       <button type="submit">
         <Icon icon="ph-codesandbox-logo"></Icon>
       </button>

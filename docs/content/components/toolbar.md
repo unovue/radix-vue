@@ -26,6 +26,11 @@ dropdown menus.
 <<< ../../components/demo/Toolbar/index.vue
 
 </div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Toolbar/tailwind.config.js
+
+</div>
 </HeroCodeGroup>
 </template>
 </HeroContainer>

@@ -25,6 +25,11 @@ A set of layered sections of content—known as tab panels—that are displayed 
 <<< ../../components/demo/Tabs/index.vue
 
 </div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Tabs/tailwind.config.js
+
+</div>
 </HeroCodeGroup>
 </template>
 </HeroContainer>

@@ -24,6 +24,11 @@ Renders an accessible label associated with controls.
 <<< ../../components/demo/Label/index.vue
 
 </div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Label/tailwind.config.js
+
+</div>
 </HeroCodeGroup>
 </template>
 </HeroContainer>

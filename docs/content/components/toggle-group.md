@@ -25,6 +25,11 @@ A set of two-state buttons that can be toggled on or off.
 <<< ../../components/demo/ToggleGroup/index.vue
 
 </div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/ToggleGroup/tailwind.config.js
+
+</div>
 </HeroCodeGroup>
 </template>
 </HeroContainer>

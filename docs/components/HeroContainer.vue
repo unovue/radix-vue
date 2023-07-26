@@ -25,7 +25,7 @@ const files = computed<string[]>(
       <div class="w-full max-w-[700px] flex items-center py-12 sm:py-[100px] custom-justify-center z-10">
         <slot />
 
-        <CodeSandbox class="absolute bottom-4 right-4" v-if="folder" :name="folder" :files="files" />
+        <CodeSandbox class="hidden sm:block absolute bottom-4 right-4" v-if="folder" :name="folder" :files="files" />
       </div>
     </div>
     <slot name="codeSlot" />

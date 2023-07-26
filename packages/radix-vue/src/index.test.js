@@ -197,5 +197,6 @@ it("should expose the correct components", () => {
     "ScrollAreaViewport",
     "ScrollAreaScrollbar",
     "ScrollAreaThumb",
+    "ScrollAreaCorner",
   ]);
 });

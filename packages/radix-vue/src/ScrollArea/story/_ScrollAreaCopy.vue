@@ -1,5 +1,5 @@
 <template>
-  <p>
+  <p class="w-[4000px]">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sit amet eros
     iaculis, bibendum tellus ac, lobortis odio. Aliquam bibendum elit est, in
     iaculis est commodo id. Donec pulvinar est libero. Proin consectetur

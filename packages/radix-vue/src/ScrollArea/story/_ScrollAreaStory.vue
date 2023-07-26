@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 <template>
   <ScrollAreaRoot
-    class="w-[200px] h-[200px] shadow-lg overflow-hidden rounded bg-white"
+    class="w-[200px] h-[200px] shadow-lg overflow-hidden rounded bg-white text-gray-900"
     style="--scrollbar-size: 10px"
     v-bind="props"
   >
@@ -37,17 +37,25 @@ const props = withDefaults(defineProps<Props>(), {
       v-if="vertical"
     >
       <ScrollAreaThumb
-        class="flex-1 bg-gray-400 rounded-[var(--scrollbar-size)] relative ScrollAreaThumb"
+        :class="
+          animated &&
+          'data-[state=visible]:animate-fadeIn data-[state=hidden]:animate-fadeOut'
+        "
+        class="flex-1 bg-gray-400 rounded-[var(--scrollbar-size)] relative"
       />
     </ScrollAreaScrollbar>
 
     <ScrollAreaScrollbar
-      class="flex select-none touch-none p-0.5 bg-black/10 transition hover:bg-black/20 data-[orientation=horizontal]:h-[var(--scrollbar-size)]"
+      class="flex select-none touch-none p-0.5 bg-black/10 transition hover:bg-black/20 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:h-[var(--scrollbar-size)]"
       orientation="horizontal"
       v-if="horizontal"
     >
       <ScrollAreaThumb
-        class="flex-1 bg-gray-400 rounded-[var(--scrollbar-size)] relative ScrollAreaThumb"
+        :class="
+          animated &&
+          'data-[state=visible]:animate-fadeIn data-[state=hidden]:animate-fadeOut'
+        "
+        class="flex-1 bg-gray-400 rounded-[var(--scrollbar-size)] relative"
       />
     </ScrollAreaScrollbar>
 

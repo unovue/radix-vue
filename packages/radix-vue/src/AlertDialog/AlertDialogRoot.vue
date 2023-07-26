@@ -27,7 +27,7 @@ const props = withDefaults(defineProps<AlertDialogRootProps>(), {
 });
 
 const emit = defineEmits<{
-  (e: "update:modelValue", value: boolean): void;
+  (e: "update:open", value: boolean): void;
 }>();
 
 const open = useVModel(props, "open", emit, {

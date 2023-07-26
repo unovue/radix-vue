@@ -1,20 +1,9 @@
 <script setup lang="ts">
 import { inject, onMounted, onUnmounted, ref } from "vue";
-import {
-  type ScrollAreaProvideValue,
-  SCROLL_AREA_INJECTION_KEY,
-} from "./ScrollAreaRoot.vue";
-import {
-  type ScrollAreaScollbarProvideValue,
-  SCROLL_AREA_SCROLLBAR_INJECTION_KEY,
-} from "./ScrollAreaScrollbar.vue";
+import { SCROLL_AREA_INJECTION_KEY } from "./ScrollAreaRoot.vue";
 import ScrollAreaScrollbarAuto from "./ScrollAreaScrollbarAuto.vue";
 
-const injectedValue = inject<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY);
-
-const injectedValueFromScrollbar = inject<ScrollAreaScollbarProvideValue>(
-  SCROLL_AREA_SCROLLBAR_INJECTION_KEY
-);
+const injectedValue = inject(SCROLL_AREA_INJECTION_KEY);
 
 let timeout: ReturnType<typeof setTimeout> | undefined | number;
 const visible = ref(false);
@@ -26,7 +15,7 @@ const handlePointerEnter = () => {
 const handlePointerLeave = () => {
   timeout = window.setTimeout(() => {
     visible.value = false;
-  }, injectedValue?.scrollHideDelay);
+  }, injectedValue?.scrollHideDelay.value);
 };
 
 onMounted(() => {

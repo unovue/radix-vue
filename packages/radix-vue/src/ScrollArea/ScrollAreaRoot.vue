@@ -1,11 +1,11 @@
 <script lang="ts">
-import type { Ref } from "vue";
-import type { Direction } from "./types";
+import type { InjectionKey, Ref } from "vue";
+import type { Direction, ScrollType } from "./types";
 
 export interface ScrollAreaProvideValue {
-  type: "auto" | "always" | "scroll" | "hover";
-  dir?: Direction;
-  scrollHideDelay: number;
+  type: Ref<ScrollType>;
+  dir: Ref<Direction>;
+  scrollHideDelay: Ref<number>;
   scrollArea: Ref<HTMLElement | undefined>;
   viewport: Ref<HTMLElement | undefined>;
   onViewportChange(viewport: HTMLElement | null): void;
@@ -19,21 +19,22 @@ export interface ScrollAreaProvideValue {
   onScrollbarYChange(scrollbar: HTMLElement | null): void;
   scrollbarYEnabled: Ref<boolean>;
   onScrollbarYEnabledChange(rendered: boolean): void;
-  // onCornerWidthChange?(width: number): void;
-  // onCornerHeightChange?(height: number): void;
+  onCornerWidthChange(width: number): void;
+  onCornerHeightChange(height: number): void;
 }
 
 export interface ScrollAreaRootProps extends PrimitiveProps {
-  type?: ScrollAreaProvideValue["type"];
-  dir?: ScrollAreaProvideValue["dir"];
+  type?: ScrollType;
+  dir?: Direction;
   scrollHideDelay?: number;
 }
 
-export const SCROLL_AREA_INJECTION_KEY = "ScrollArea" as const;
+export const SCROLL_AREA_INJECTION_KEY =
+  Symbol() as InjectionKey<ScrollAreaProvideValue>;
 </script>
 
 <script setup lang="ts">
-import { ref, provide } from "vue";
+import { ref, provide, toRefs } from "vue";
 import {
   PrimitiveDiv,
   usePrimitiveElement,
@@ -78,10 +79,18 @@ const onScrollbarYEnabledChange = (rendered: boolean) => {
   scrollbarYEnabled.value = rendered;
 };
 
+const onCornerWidthChange = (width: number) => {
+  cornerWidth.value = width;
+};
+const onCornerHeightChange = (height: number) => {
+  cornerHeight.value = height;
+};
+
+const { type, dir, scrollHideDelay } = toRefs(props);
 provide<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY, {
-  type: props.type,
-  dir: props.dir,
-  scrollHideDelay: props.scrollHideDelay,
+  type,
+  dir,
+  scrollHideDelay,
   scrollArea,
   viewport,
   onViewportChange,
@@ -95,6 +104,8 @@ provide<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY, {
   onScrollbarYChange,
   onScrollbarXEnabledChange,
   onScrollbarYEnabledChange,
+  onCornerWidthChange,
+  onCornerHeightChange,
 });
 </script>
 
@@ -102,6 +113,7 @@ provide<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY, {
   <PrimitiveDiv
     ref="primitiveElement"
     :as-child="props.asChild"
+    :dir="props.dir"
     :style="{
     position: 'relative',
     // Pass corner sizes as CSS vars to reduce re-renders of context consumers

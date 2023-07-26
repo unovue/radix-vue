@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { makeCodeSandboxParams } from "../codeeditor/index";
 import Tooltip from "./Tooltip.vue";
 import { Icon } from "@iconify/vue";
@@ -11,8 +11,10 @@ const props = defineProps<{
 
 const sources = ref<Record<string, string>>({});
 
-props.files?.forEach((file) => {
-  import(`../components/demo/${props.name}/${file}?raw`).then((res) => (sources.value[file] = res.default));
+onMounted(() => {
+  props.files?.forEach((file) => {
+    import(`../components/demo/${props.name}/${file}?raw`).then((res) => (sources.value[file] = res.default));
+  });
 });
 </script>
 

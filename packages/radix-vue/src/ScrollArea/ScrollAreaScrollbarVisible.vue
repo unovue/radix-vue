@@ -21,14 +21,8 @@ export const SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY =
 <script setup lang="ts">
 import { computed, inject, ref, provide, type Ref } from "vue";
 import type { Sizes, Direction } from "./types";
-import {
-  type ScrollAreaProvideValue,
-  SCROLL_AREA_INJECTION_KEY,
-} from "./ScrollAreaRoot.vue";
-import {
-  type ScrollAreaScollbarProvideValue,
-  SCROLL_AREA_SCROLLBAR_INJECTION_KEY,
-} from "./ScrollAreaScrollbar.vue";
+import { SCROLL_AREA_INJECTION_KEY } from "./ScrollAreaRoot.vue";
+import { SCROLL_AREA_SCROLLBAR_INJECTION_KEY } from "./ScrollAreaScrollbar.vue";
 import ScrollAreaScrollbarX from "./ScrollAreaScrollbarX.vue";
 import ScrollAreaScrollbarY from "./ScrollAreaScrollbarY.vue";
 import {
@@ -38,12 +32,8 @@ import {
   isScrollingWithinScrollbarBounds,
 } from "./utils";
 
-const injectedValueFromRoot = inject<ScrollAreaProvideValue>(
-  SCROLL_AREA_INJECTION_KEY
-);
-const injectedValueFromScrollbar = inject<ScrollAreaScollbarProvideValue>(
-  SCROLL_AREA_SCROLLBAR_INJECTION_KEY
-);
+const rootContext = inject(SCROLL_AREA_INJECTION_KEY);
+const scrollbarContext = inject(SCROLL_AREA_SCROLLBAR_INJECTION_KEY);
 
 const sizes = ref<Sizes>({
   content: 0,
@@ -61,19 +51,17 @@ const pointerOffset = ref(0);
 
 const handleWheelScroll = (event: WheelEvent, payload: number) => {
   if (isShowingScrollbarX.value) {
-    const scrollPos =
-      injectedValueFromRoot!.viewport.value!.scrollLeft + event.deltaY;
+    const scrollPos = rootContext!.viewport.value!.scrollLeft + event.deltaY;
 
-    injectedValueFromRoot!.viewport.value!.scrollLeft = scrollPos;
+    rootContext!.viewport.value!.scrollLeft = scrollPos;
     // prevent window scroll when wheeling on scrollbar
     if (isScrollingWithinScrollbarBounds(scrollPos, payload)) {
       event.preventDefault();
     }
   } else {
-    const scrollPos =
-      injectedValueFromRoot!.viewport.value!.scrollTop + event.deltaY;
+    const scrollPos = rootContext!.viewport.value!.scrollTop + event.deltaY;
 
-    injectedValueFromRoot!.viewport.value!.scrollTop = scrollPos;
+    rootContext!.viewport.value!.scrollTop = scrollPos;
     // prevent window scroll when wheeling on scrollbar
     if (isScrollingWithinScrollbarBounds(scrollPos, payload)) {
       event.preventDefault();
@@ -109,35 +97,34 @@ function getScrollPosition(pointerPos: number, dir?: Direction) {
 }
 
 const isShowingScrollbarX = computed(
-  () => injectedValueFromScrollbar?.isHorizontal.value
+  () => scrollbarContext?.isHorizontal.value
 );
 
 const onDragScroll = (payload: number) => {
   if (isShowingScrollbarX.value) {
-    injectedValueFromRoot!.viewport.value!.scrollLeft = getScrollPosition(
+    rootContext!.viewport.value!.scrollLeft = getScrollPosition(
       payload,
-      injectedValueFromRoot!.dir
+      rootContext!.dir?.value
     );
   } else {
-    injectedValueFromRoot!.viewport.value!.scrollTop =
-      getScrollPosition(payload);
+    rootContext!.viewport.value!.scrollTop = getScrollPosition(payload);
   }
 };
 
 const onThumbPositionChange = () => {
   if (isShowingScrollbarX.value) {
-    if (injectedValueFromRoot?.viewport.value && thumbRef.value) {
-      const scrollPos = injectedValueFromRoot?.viewport.value.scrollLeft;
+    if (rootContext?.viewport.value && thumbRef.value) {
+      const scrollPos = rootContext?.viewport.value.scrollLeft;
       const offset = getThumbOffsetFromScroll(
         scrollPos,
         sizes.value,
-        injectedValueFromRoot?.dir
+        rootContext?.dir?.value
       );
       thumbRef.value.style.transform = `translate3d(${offset}px, 0, 0)`;
     }
   } else {
-    if (injectedValueFromRoot?.viewport.value && thumbRef.value) {
-      const scrollPos = injectedValueFromRoot?.viewport.value.scrollTop;
+    if (rootContext?.viewport.value && thumbRef.value) {
+      const scrollPos = rootContext?.viewport.value.scrollTop;
       const offset = getThumbOffsetFromScroll(scrollPos, sizes.value);
       thumbRef.value.style.transform = `translate3d(0, ${offset}px, 0)`;
     }

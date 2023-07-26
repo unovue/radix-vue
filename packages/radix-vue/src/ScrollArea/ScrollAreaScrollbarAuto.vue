@@ -1,42 +1,32 @@
 <script setup lang="ts">
 import { inject, ref } from "vue";
-import {
-  type ScrollAreaProvideValue,
-  SCROLL_AREA_INJECTION_KEY,
-} from "./ScrollAreaRoot.vue";
-import {
-  type ScrollAreaScollbarProvideValue,
-  SCROLL_AREA_SCROLLBAR_INJECTION_KEY,
-} from "./ScrollAreaScrollbar.vue";
+import { SCROLL_AREA_INJECTION_KEY } from "./ScrollAreaRoot.vue";
+import { SCROLL_AREA_SCROLLBAR_INJECTION_KEY } from "./ScrollAreaScrollbar.vue";
 import ScrollAreaScrollbarVisible from "./ScrollAreaScrollbarVisible.vue";
 import { useDebounceFn, useResizeObserver } from "@vueuse/core";
 
-const injectedValueFromRoot = inject<ScrollAreaProvideValue>(
-  SCROLL_AREA_INJECTION_KEY
-);
-const injectedValueFromScrollbar = inject<ScrollAreaScollbarProvideValue>(
-  SCROLL_AREA_SCROLLBAR_INJECTION_KEY
-);
+const rootContext = inject(SCROLL_AREA_INJECTION_KEY);
+const scrollbarContext = inject(SCROLL_AREA_SCROLLBAR_INJECTION_KEY);
 
 const visible = ref(false);
 
 const handleResize = useDebounceFn(() => {
-  if (injectedValueFromRoot?.viewport.value) {
+  if (rootContext?.viewport.value) {
     const isOverflowX =
-      injectedValueFromRoot?.viewport.value.offsetWidth <
-      injectedValueFromRoot?.viewport.value.scrollWidth;
+      rootContext?.viewport.value.offsetWidth <
+      rootContext?.viewport.value.scrollWidth;
     const isOverflowY =
-      injectedValueFromRoot?.viewport.value.offsetHeight <
-      injectedValueFromRoot?.viewport.value.scrollHeight;
+      rootContext?.viewport.value.offsetHeight <
+      rootContext?.viewport.value.scrollHeight;
 
-    visible.value = injectedValueFromScrollbar?.isHorizontal.value
+    visible.value = scrollbarContext?.isHorizontal.value
       ? isOverflowX
       : isOverflowY;
   }
 }, 10);
 
-useResizeObserver(injectedValueFromRoot?.viewport, handleResize);
-useResizeObserver(injectedValueFromRoot?.content, handleResize);
+useResizeObserver(rootContext?.viewport, handleResize);
+useResizeObserver(rootContext?.content, handleResize);
 </script>
 
 <template>

@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import { inject, onMounted, onUnmounted, ref, useSlots } from "vue";
-import {
-  type ScrollAreaProvideValue,
-  SCROLL_AREA_INJECTION_KEY,
-} from "./ScrollAreaRoot.vue";
+import { inject, onMounted, onUnmounted, ref } from "vue";
+import { SCROLL_AREA_INJECTION_KEY } from "./ScrollAreaRoot.vue";
 import {
   type ScrollAreaScrollbarVisibleProvideValue,
   SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY,
@@ -13,15 +10,12 @@ import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 import { toInt } from "./utils";
 import { useResizeObserver } from "@vueuse/core";
 
-const injectedValueFromRoot = inject<ScrollAreaProvideValue>(
-  SCROLL_AREA_INJECTION_KEY
+const rootContext = inject(SCROLL_AREA_INJECTION_KEY);
+const scrollbarContextVisible = inject<ScrollAreaScrollbarVisibleProvideValue>(
+  SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY
 );
-const injectedValueFromScrollbarVisible =
-  inject<ScrollAreaScrollbarVisibleProvideValue>(
-    SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY
-  );
 
-const injectedValueFromScrollbar = inject(SCROLL_AREA_SCROLLBAR_INJECTION_KEY);
+const scrollbarContext = inject(SCROLL_AREA_SCROLLBAR_INJECTION_KEY);
 
 const props = defineProps<{
   isHorizontal: boolean;
@@ -56,8 +50,8 @@ const handlePointerDown = (event: PointerEvent) => {
     // so we remove text selection manually when scrolling
     prevWebkitUserSelectRef.value = document.body.style.webkitUserSelect;
     document.body.style.webkitUserSelect = "none";
-    if (injectedValueFromRoot?.viewport)
-      injectedValueFromRoot.viewport.value!.style.scrollBehavior = "auto";
+    if (rootContext?.viewport)
+      rootContext.viewport.value!.style.scrollBehavior = "auto";
 
     handleDragScroll(event);
   }
@@ -73,21 +67,21 @@ const handlePointerUp = (event: PointerEvent) => {
     element.releasePointerCapture(event.pointerId);
   }
   document.body.style.webkitUserSelect = prevWebkitUserSelectRef.value;
-  if (injectedValueFromRoot?.viewport)
-    injectedValueFromRoot.viewport.value!.style.scrollBehavior = "";
+  if (rootContext?.viewport)
+    rootContext.viewport.value!.style.scrollBehavior = "";
 
   rectRef.value = undefined;
 };
 
 const handleWheel = (event: WheelEvent) => {
-  if (!injectedValueFromScrollbarVisible) return;
+  if (!scrollbarContextVisible) return;
   const element = event.target as HTMLElement;
   const isScrollbarWheel = scrollbar.value?.contains(element);
   const maxScrollPos =
-    injectedValueFromScrollbarVisible.sizes.value.content -
-    injectedValueFromScrollbarVisible.sizes.value.viewport;
+    scrollbarContextVisible.sizes.value.content -
+    scrollbarContextVisible.sizes.value.viewport;
   if (isScrollbarWheel)
-    injectedValueFromScrollbarVisible.handleWheelScroll(event, maxScrollPos);
+    scrollbarContextVisible.handleWheelScroll(event, maxScrollPos);
 };
 
 onMounted(() => {
@@ -100,9 +94,9 @@ onUnmounted(() => {
 const handleSizeChange = () => {
   if (!scrollbar.value) return;
   if (props.isHorizontal) {
-    injectedValueFromScrollbarVisible?.handleSizeChange({
-      content: injectedValueFromRoot?.viewport.value?.scrollWidth ?? 0,
-      viewport: injectedValueFromRoot?.viewport.value?.offsetWidth ?? 0,
+    scrollbarContextVisible?.handleSizeChange({
+      content: rootContext?.viewport.value?.scrollWidth ?? 0,
+      viewport: rootContext?.viewport.value?.offsetWidth ?? 0,
       scrollbar: {
         size: scrollbar.value?.clientWidth ?? 0,
         paddingStart: toInt(getComputedStyle(scrollbar.value!).paddingLeft),
@@ -110,9 +104,9 @@ const handleSizeChange = () => {
       },
     });
   } else {
-    injectedValueFromScrollbarVisible?.handleSizeChange({
-      content: injectedValueFromRoot?.viewport.value?.scrollHeight ?? 0,
-      viewport: injectedValueFromRoot?.viewport.value?.offsetHeight ?? 0,
+    scrollbarContextVisible?.handleSizeChange({
+      content: rootContext?.viewport.value?.scrollHeight ?? 0,
+      viewport: rootContext?.viewport.value?.offsetHeight ?? 0,
       scrollbar: {
         size: scrollbar.value?.clientHeight ?? 0,
         paddingStart: toInt(getComputedStyle(scrollbar.value!).paddingLeft),
@@ -123,7 +117,7 @@ const handleSizeChange = () => {
 };
 
 useResizeObserver(scrollbar, handleSizeChange);
-useResizeObserver(injectedValueFromRoot?.content, handleSizeChange);
+useResizeObserver(rootContext?.content, handleSizeChange);
 </script>
 
 <template>
@@ -131,7 +125,7 @@ useResizeObserver(injectedValueFromRoot?.content, handleSizeChange);
     ref="primitiveElement"
     style="position: absolute"
     data-scrollbarimpl
-    :as-child="injectedValueFromScrollbar?.asChild.value"
+    :as-child="scrollbarContext?.asChild.value"
     @pointerdown="handlePointerDown"
     @pointermove="handlePointerMove"
     @pointerup="handlePointerUp"

@@ -1,11 +1,13 @@
 <script lang="ts">
-import type { Ref } from "vue";
+import type { InjectionKey, Ref } from "vue";
 import type { Direction } from "./types";
 
+type ScrollType = "auto" | "always" | "scroll" | "hover";
+
 export interface ScrollAreaProvideValue {
-  type: "auto" | "always" | "scroll" | "hover";
-  dir?: Direction;
-  scrollHideDelay: number;
+  type: Ref<ScrollType>;
+  dir?: Ref<Direction>;
+  scrollHideDelay: Ref<number>;
   scrollArea: Ref<HTMLElement | undefined>;
   viewport: Ref<HTMLElement | undefined>;
   onViewportChange(viewport: HTMLElement | null): void;
@@ -24,16 +26,17 @@ export interface ScrollAreaProvideValue {
 }
 
 export interface ScrollAreaRootProps extends PrimitiveProps {
-  type?: ScrollAreaProvideValue["type"];
-  dir?: ScrollAreaProvideValue["dir"];
+  type?: ScrollType;
+  dir?: Direction;
   scrollHideDelay?: number;
 }
 
-export const SCROLL_AREA_INJECTION_KEY = "ScrollArea" as const;
+export const SCROLL_AREA_INJECTION_KEY =
+  Symbol() as InjectionKey<ScrollAreaProvideValue>;
 </script>
 
 <script setup lang="ts">
-import { ref, provide } from "vue";
+import { ref, provide, toRefs } from "vue";
 import {
   PrimitiveDiv,
   usePrimitiveElement,
@@ -78,10 +81,11 @@ const onScrollbarYEnabledChange = (rendered: boolean) => {
   scrollbarYEnabled.value = rendered;
 };
 
+const { type, dir, scrollHideDelay } = toRefs(props);
 provide<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY, {
-  type: props.type,
-  dir: props.dir,
-  scrollHideDelay: props.scrollHideDelay,
+  type,
+  dir,
+  scrollHideDelay,
   scrollArea,
   viewport,
   onViewportChange,

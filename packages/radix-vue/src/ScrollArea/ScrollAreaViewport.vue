@@ -5,17 +5,12 @@ import {
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
-import {
-  type ScrollAreaProvideValue,
-  SCROLL_AREA_INJECTION_KEY,
-} from "./ScrollAreaRoot.vue";
+import { SCROLL_AREA_INJECTION_KEY } from "./ScrollAreaRoot.vue";
 
 interface ScrollAreaViewport extends PrimitiveProps {}
 const props = defineProps<ScrollAreaViewport>();
 
-const injectedValueFromRoot = inject<ScrollAreaProvideValue>(
-  SCROLL_AREA_INJECTION_KEY
-);
+const rootContext = inject(SCROLL_AREA_INJECTION_KEY);
 
 const { primitiveElement, currentElement: contentElement } =
   usePrimitiveElement();
@@ -23,8 +18,8 @@ const { primitiveElement, currentElement: contentElement } =
 const viewportElement = ref<HTMLElement>();
 
 onMounted(() => {
-  injectedValueFromRoot?.onViewportChange(viewportElement.value!);
-  injectedValueFromRoot?.onContentChange(contentElement.value!);
+  rootContext?.onViewportChange(viewportElement.value!);
+  rootContext?.onContentChange(contentElement.value!);
 });
 </script>
 
@@ -44,12 +39,8 @@ onMounted(() => {
        * the browser from having to work out whether to render native scrollbars or not,
        * we tell it to with the intention of hiding them in CSS.
        */
-      overflowX: injectedValueFromRoot?.scrollbarXEnabled.value
-        ? 'scroll'
-        : 'hidden',
-      overflowY: injectedValueFromRoot?.scrollbarYEnabled.value
-        ? 'scroll'
-        : 'hidden',
+      overflowX: rootContext?.scrollbarXEnabled.value ? 'scroll' : 'hidden',
+      overflowY: rootContext?.scrollbarYEnabled.value ? 'scroll' : 'hidden',
     }"
   >
     <PrimitiveDiv

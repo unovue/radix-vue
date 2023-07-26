@@ -30,17 +30,14 @@ import {
   toRefs,
   type InjectionKey,
 } from "vue";
-import {
-  type ScrollAreaProvideValue,
-  SCROLL_AREA_INJECTION_KEY,
-} from "./ScrollAreaRoot.vue";
+import { SCROLL_AREA_INJECTION_KEY } from "./ScrollAreaRoot.vue";
 import { type PrimitiveProps } from "@/Primitive";
 import ScrollAreaScrollbarHover from "./ScrollAreaScrollbarHover.vue";
 import ScrollAreaScrollbarScroll from "./ScrollAreaScrollbarScroll.vue";
 import ScrollAreaScrollbarAuto from "./ScrollAreaScrollbarAuto.vue";
 import ScrollAreaScrollbarVisible from "./ScrollAreaScrollbarVisible.vue";
 
-const injectedValue = inject<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY);
+const injectedValue = inject(SCROLL_AREA_INJECTION_KEY);
 
 const props = withDefaults(defineProps<ScrollAreaScrollbarProps>(), {
   orientation: "vertical",
@@ -78,28 +75,28 @@ provide<ScrollAreaScollbarProvideValue>(SCROLL_AREA_SCROLLBAR_INJECTION_KEY, {
 <template>
   <ScrollAreaScrollbarHover
     v-bind="$attrs"
-    v-if="injectedValue?.type === 'hover'"
+    v-if="injectedValue?.type.value === 'hover'"
     :forceMount="forceMount"
   >
     <slot></slot>
   </ScrollAreaScrollbarHover>
   <ScrollAreaScrollbarScroll
     v-bind="$attrs"
-    v-else-if="injectedValue?.type === 'scroll'"
+    v-else-if="injectedValue?.type.value === 'scroll'"
     :forceMount="forceMount"
   >
     <slot></slot>
   </ScrollAreaScrollbarScroll>
   <ScrollAreaScrollbarAuto
     v-bind="$attrs"
-    v-else-if="injectedValue?.type === 'auto'"
+    v-else-if="injectedValue?.type.value === 'auto'"
     :forceMount="forceMount"
   >
     <slot></slot>
   </ScrollAreaScrollbarAuto>
   <ScrollAreaScrollbarVisible
     v-bind="$attrs"
-    v-else-if="injectedValue?.type === 'always'"
+    v-else-if="injectedValue?.type.value === 'always'"
     :forceMount="forceMount"
   >
     <slot></slot>

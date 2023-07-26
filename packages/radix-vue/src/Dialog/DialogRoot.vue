@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<DialogRootProps>(), {
 });
 
 const emit = defineEmits<{
-  (e: "update:modelValue", value: boolean): void;
+  (e: "update:open", value: boolean): void;
 }>();
 
 const open = useVModel(props, "open", emit, {

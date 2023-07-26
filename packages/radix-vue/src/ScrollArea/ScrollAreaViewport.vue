@@ -24,6 +24,11 @@ onMounted(() => {
 </script>
 
 <template>
+  <component :is="'style'">
+    [data-radix-scroll-area-viewport] { scrollbar-width: none;
+    -ms-overflow-style: none; -webkit-overflow-scrolling: touch; }
+    [data-radix-scroll-area-viewport]::-webkit-scrollbar { display: none; }
+  </component>
   <div
     ref="viewportElement"
     data-radix-scroll-area-viewport=""
@@ -52,15 +57,3 @@ onMounted(() => {
     </PrimitiveDiv>
   </div>
 </template>
-
-<style>
-[data-radix-scroll-area-viewport] {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  -webkit-overflow-scrolling: touch;
-}
-
-[data-radix-scroll-area-viewport]::-webkit-scrollbar {
-  display: none;
-}
-</style>

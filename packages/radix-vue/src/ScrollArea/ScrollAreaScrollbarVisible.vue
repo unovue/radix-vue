@@ -26,7 +26,6 @@ import {
   provide,
   type Ref,
   type InjectionKey,
-  useAttrs,
 } from "vue";
 import type { Sizes, Direction } from "./types";
 import { SCROLL_AREA_INJECTION_KEY } from "./ScrollAreaRoot.vue";

@@ -16,7 +16,7 @@ import DemoToggle from '../../components/demo/Toggle/index.vue'
 A two-state button that can be either on or off.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="Toggle">
 <DemoToggle />
 <template v-slot:codeSlot>
 <HeroCodeGroup>

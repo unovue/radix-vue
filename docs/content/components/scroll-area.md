@@ -15,7 +15,7 @@ import DemoScrollArea from '../../components/demo/ScrollArea/index.vue'
 Augments native scroll functionality for custom, cross-browser styling.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="ScrollArea">
 <DemoScrollArea />
 <template v-slot:codeSlot>
 <HeroCodeGroup>

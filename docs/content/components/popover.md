@@ -16,7 +16,7 @@ import DemoPopover from '../../components/demo/Popover/index.vue'
 Displays rich content in a portal, triggered by a button.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="Popover">
 <DemoPopover />
 <template v-slot:codeSlot>
 <HeroCodeGroup>

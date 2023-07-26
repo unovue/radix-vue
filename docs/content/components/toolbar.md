@@ -17,7 +17,7 @@ A container for grouping a set of controls, such as buttons, Toolbar groups or
 dropdown menus.
 </Description>
 
-<HeroContainer overflow>
+<HeroContainer folder="Toolbar" overflow>
 <DemoToolbar />
 <template v-slot:codeSlot>
 <HeroCodeGroup>

@@ -16,7 +16,7 @@ import DemoSelect from '../../components/demo/Select/index.vue'
 Displays a list of options for the user to pick from—triggered by a button.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="Select">
 <DemoSelect />
 <template v-slot:codeSlot>
 <HeroCodeGroup>

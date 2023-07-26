@@ -16,7 +16,7 @@ import DemoSeparator from '../../components/demo/Separator/index.vue'
 Visually or semantically separates content.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="Separator">
 <DemoSeparator />
 <template v-slot:codeSlot>
 <HeroCodeGroup>

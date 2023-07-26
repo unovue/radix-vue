@@ -16,7 +16,7 @@ import DemoTabs from '../../components/demo/Tabs/index.vue'
 A set of layered sections of content—known as tab panels—that are displayed one at a time.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="Tabs">
 <DemoTabs />
 <template v-slot:codeSlot>
 <HeroCodeGroup>

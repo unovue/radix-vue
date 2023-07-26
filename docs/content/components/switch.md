@@ -16,7 +16,7 @@ import DemoSwitch from '../../components/demo/Switch/index.vue'
 A control that allows the user to toggle between checked and not checked.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="Switch">
 <DemoSwitch />
 <template v-slot:codeSlot>
 <HeroCodeGroup>

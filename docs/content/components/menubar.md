@@ -17,7 +17,7 @@ import DemoMenubar from '../../components/demo/Menubar/index.vue'
 A visually persistent menu common in desktop applications that provides quick access to a consistent set of commands.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="Menubar">
 <DemoMenubar />
 <template v-slot:codeSlot>
 <HeroCodeGroup>

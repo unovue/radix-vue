@@ -16,7 +16,7 @@ import DemoProgress from '../../components/demo/Progress/index.vue'
 Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="Progress">
 <DemoProgress />
 <template v-slot:codeSlot>
 <HeroCodeGroup>

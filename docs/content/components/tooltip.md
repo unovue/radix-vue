@@ -16,7 +16,7 @@ import DemoTooltip from '../../components/demo/Tooltip/index.vue'
 A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="Tooltip">
 <DemoTooltip />
 <template v-slot:codeSlot>
 <HeroCodeGroup>

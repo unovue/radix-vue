@@ -16,7 +16,7 @@ import DemoToggleGroup from '../../components/demo/ToggleGroup/index.vue'
 A set of two-state buttons that can be toggled on or off.
 </Description>
 
-<HeroContainer>
+<HeroContainer folder="ToggleGroup">
 <DemoToggleGroup />
 <template v-slot:codeSlot>
 <HeroCodeGroup>

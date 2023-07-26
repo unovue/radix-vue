@@ -4,6 +4,7 @@ import {
   ScrollAreaScrollbar,
   ScrollAreaThumb,
   ScrollAreaViewport,
+  ScrollAreaCorner,
 } from "../";
 import type { ScrollAreaRootProps } from "../ScrollAreaRoot.vue";
 
@@ -49,5 +50,7 @@ const props = withDefaults(defineProps<Props>(), {
         class="flex-1 bg-gray-400 rounded-[var(--scrollbar-size)] relative ScrollAreaThumb"
       />
     </ScrollAreaScrollbar>
+
+    <ScrollAreaCorner class="bg-gray-300"></ScrollAreaCorner>
   </ScrollAreaRoot>
 </template>

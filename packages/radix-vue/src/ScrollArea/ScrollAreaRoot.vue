@@ -6,7 +6,7 @@ type ScrollType = "auto" | "always" | "scroll" | "hover";
 
 export interface ScrollAreaProvideValue {
   type: Ref<ScrollType>;
-  dir?: Ref<Direction>;
+  dir: Ref<Direction>;
   scrollHideDelay: Ref<number>;
   scrollArea: Ref<HTMLElement | undefined>;
   viewport: Ref<HTMLElement | undefined>;
@@ -21,8 +21,8 @@ export interface ScrollAreaProvideValue {
   onScrollbarYChange(scrollbar: HTMLElement | null): void;
   scrollbarYEnabled: Ref<boolean>;
   onScrollbarYEnabledChange(rendered: boolean): void;
-  // onCornerWidthChange?(width: number): void;
-  // onCornerHeightChange?(height: number): void;
+  onCornerWidthChange(width: number): void;
+  onCornerHeightChange(height: number): void;
 }
 
 export interface ScrollAreaRootProps extends PrimitiveProps {
@@ -81,6 +81,13 @@ const onScrollbarYEnabledChange = (rendered: boolean) => {
   scrollbarYEnabled.value = rendered;
 };
 
+const onCornerWidthChange = (width: number) => {
+  cornerWidth.value = width;
+};
+const onCornerHeightChange = (height: number) => {
+  cornerHeight.value = height;
+};
+
 const { type, dir, scrollHideDelay } = toRefs(props);
 provide<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY, {
   type,
@@ -99,6 +106,8 @@ provide<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY, {
   onScrollbarYChange,
   onScrollbarXEnabledChange,
   onScrollbarYEnabledChange,
+  onCornerWidthChange,
+  onCornerHeightChange,
 });
 </script>
 

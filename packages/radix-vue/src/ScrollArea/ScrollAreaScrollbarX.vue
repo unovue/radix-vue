@@ -20,7 +20,7 @@ const { primitiveElement, currentElement: scrollbarElement } =
 
 onMounted(() => {
   if (scrollbarElement.value)
-    rootContext?.onScrollbarYChange(scrollbarElement.value);
+    rootContext?.onScrollbarXChange(scrollbarElement.value);
 });
 const sizes = computed(() => scrollbarContextVisible?.sizes.value);
 </script>

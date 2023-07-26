@@ -96,6 +96,7 @@ provide<ScrollAreaScollbarProvideValue>(SCROLL_AREA_SCROLLBAR_INJECTION_KEY, {
   </ScrollAreaScrollbarAuto>
   <ScrollAreaScrollbarVisible
     v-bind="$attrs"
+    data-state="visible"
     v-else-if="injectedValue?.type.value === 'always'"
     :forceMount="forceMount"
   >

@@ -1,8 +1,6 @@
 <script lang="ts">
 import type { InjectionKey, Ref } from "vue";
-import type { Direction } from "./types";
-
-type ScrollType = "auto" | "always" | "scroll" | "hover";
+import type { Direction, ScrollType } from "./types";
 
 export interface ScrollAreaProvideValue {
   type: Ref<ScrollType>;

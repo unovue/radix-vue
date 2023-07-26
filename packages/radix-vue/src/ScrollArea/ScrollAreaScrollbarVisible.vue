@@ -26,6 +26,7 @@ import {
   provide,
   type Ref,
   type InjectionKey,
+  useAttrs,
 } from "vue";
 import type { Sizes, Direction } from "./types";
 import { SCROLL_AREA_INJECTION_KEY } from "./ScrollAreaRoot.vue";
@@ -158,10 +159,10 @@ provide<ScrollAreaScrollbarVisibleProvideValue>(
 </script>
 
 <template>
-  <ScrollAreaScrollbarX v-if="isShowingScrollbarX">
+  <ScrollAreaScrollbarX v-bind="$attrs" v-if="isShowingScrollbarX">
     <slot></slot>
   </ScrollAreaScrollbarX>
-  <ScrollAreaScrollbarY v-else>
+  <ScrollAreaScrollbarY v-bind="$attrs" v-else>
     <slot></slot>
   </ScrollAreaScrollbarY>
 </template>

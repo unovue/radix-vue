@@ -11,7 +11,7 @@ const toggleGroupItemClasses =
 </script>
 
 <template>
-  <Story title="Toggle Group" :layout="{ type: 'single', iframe: true }">
+  <Story title="Toggle Group" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="default">
       <ToggleGroupRoot v-model="toggleStateSingle" disabled class="flex">
         <ToggleGroupItem

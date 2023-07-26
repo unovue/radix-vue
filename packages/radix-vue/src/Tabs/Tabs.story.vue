@@ -3,7 +3,7 @@ import { TabsContent, TabsList, TabsRoot, TabsTrigger } from "./";
 </script>
 
 <template>
-  <Story title="Tabs" :layout="{ type: 'single', iframe: true }">
+  <Story title="Tabs" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="default">
       <TabsRoot
         orientation="vertical"

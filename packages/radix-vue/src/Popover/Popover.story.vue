@@ -14,7 +14,7 @@ const toggleState = ref(false);
 </script>
 
 <template>
-  <Story title="Popover" :layout="{ type: 'single', iframe: true }">
+  <Story title="Popover" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="default">
       <PopoverRoot v-model:open="toggleState">
         <PopoverTrigger

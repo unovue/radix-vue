@@ -6,7 +6,7 @@ import { ref } from "vue";
 const toggleState = ref(true);
 </script>
 <template>
-  <Story title="Toggle" :layout="{ type: 'single', iframe: true }">
+  <Story title="Toggle" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="default">
       <Toggle
         v-model:pressed="toggleState"

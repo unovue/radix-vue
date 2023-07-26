@@ -20,7 +20,7 @@ const vegetables = ["Aubergine", "Broccoli", "Carrot", "Courgette", "Leek"];
 </script>
 
 <template>
-  <Story title="Select" :layout="{ type: 'single', iframe: true }">
+  <Story title="Select" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="default">
       <SelectRoot v-model="fruit">
         <SelectTrigger

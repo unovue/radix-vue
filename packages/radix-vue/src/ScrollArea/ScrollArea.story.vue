@@ -11,7 +11,7 @@ const tags = Array.from({ length: 50 }).map(
 );
 </script>
 <template>
-  <Story title="Scroll Area" :layout="{ type: 'single', iframe: true }">
+  <Story title="Scroll Area" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="default">
       <ScrollAreaRoot
         class="w-[200px] h-[200px] shadow-lg overflow-hidden rounded bg-white"

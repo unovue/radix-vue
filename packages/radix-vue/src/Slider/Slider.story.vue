@@ -6,7 +6,7 @@ const sliderValue = ref(50);
 </script>
 
 <template>
-  <Story title="Slider" :layout="{ type: 'single', iframe: true }">
+  <Story title="Slider" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="default">
       <SliderRoot
         name="slider"

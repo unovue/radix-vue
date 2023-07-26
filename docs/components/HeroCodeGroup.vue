@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { useSlots, computed, ref, watch } from "vue";
+import { useSlots, computed, ref, watch, onMounted } from "vue";
 import { TabsRoot, TabsList, TabsTrigger, TabsContent } from "radix-vue";
+import CodeSandbox from "./CodeSandbox.vue";
 
 defineOptions({
   inheritAttrs: false,
@@ -25,13 +26,6 @@ const currentTab = ref("index.vue");
 
 watch(open, () => {
   if (!open.value) {
-    /*
-    if (window.scrollY > codeScrollWrapper.value?.offsetHeight! - 150) {
-      window.scrollTo({
-        top: window.scrollY - (codeScrollWrapper.value?.offsetHeight! - 150),
-      });
-    }
-    */
     codeScrollWrapper.value!.scrollTo({
       top: 0,
     });

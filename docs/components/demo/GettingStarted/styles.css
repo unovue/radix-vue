@@ -1,6 +1,6 @@
-@import '@radix-ui/colors/black-alpha.css';
-@import '@radix-ui/colors/mauve.css';
-@import '@radix-ui/colors/violet.css';
+@import "@radix-ui/colors/black-alpha.css";
+@import "@radix-ui/colors/mauve.css";
+@import "@radix-ui/colors/violet.css";
 
 .PopoverTrigger {
   display: inline-flex;
@@ -12,7 +12,7 @@
   line-height: 1;
   font-weight: 500;
   height: 35px;
-  background-color: white;
+  background-color: white !important;
   color: var(--violet-11);
   box-shadow: 0 2px 10px var(--black-a7);
 }

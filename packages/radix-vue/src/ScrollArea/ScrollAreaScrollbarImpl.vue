@@ -1,17 +1,14 @@
 <script setup lang="ts">
 import { inject, onMounted, onUnmounted, ref } from "vue";
 import { SCROLL_AREA_INJECTION_KEY } from "./ScrollAreaRoot.vue";
-import {
-  type ScrollAreaScrollbarVisibleProvideValue,
-  SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY,
-} from "./ScrollAreaScrollbarVisible.vue";
+import { SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY } from "./ScrollAreaScrollbarVisible.vue";
 import { SCROLL_AREA_SCROLLBAR_INJECTION_KEY } from "./ScrollAreaScrollbar.vue";
 import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 import { toInt } from "./utils";
 import { useResizeObserver } from "@vueuse/core";
 
 const rootContext = inject(SCROLL_AREA_INJECTION_KEY);
-const scrollbarContextVisible = inject<ScrollAreaScrollbarVisibleProvideValue>(
+const scrollbarVisibleContext = inject(
   SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY
 );
 
@@ -74,14 +71,14 @@ const handlePointerUp = (event: PointerEvent) => {
 };
 
 const handleWheel = (event: WheelEvent) => {
-  if (!scrollbarContextVisible) return;
+  if (!scrollbarVisibleContext) return;
   const element = event.target as HTMLElement;
   const isScrollbarWheel = scrollbar.value?.contains(element);
   const maxScrollPos =
-    scrollbarContextVisible.sizes.value.content -
-    scrollbarContextVisible.sizes.value.viewport;
+    scrollbarVisibleContext.sizes.value.content -
+    scrollbarVisibleContext.sizes.value.viewport;
   if (isScrollbarWheel)
-    scrollbarContextVisible.handleWheelScroll(event, maxScrollPos);
+    scrollbarVisibleContext.handleWheelScroll(event, maxScrollPos);
 };
 
 onMounted(() => {
@@ -94,7 +91,7 @@ onUnmounted(() => {
 const handleSizeChange = () => {
   if (!scrollbar.value) return;
   if (props.isHorizontal) {
-    scrollbarContextVisible?.handleSizeChange({
+    scrollbarVisibleContext?.handleSizeChange({
       content: rootContext?.viewport.value?.scrollWidth ?? 0,
       viewport: rootContext?.viewport.value?.offsetWidth ?? 0,
       scrollbar: {
@@ -104,7 +101,7 @@ const handleSizeChange = () => {
       },
     });
   } else {
-    scrollbarContextVisible?.handleSizeChange({
+    scrollbarVisibleContext?.handleSizeChange({
       content: rootContext?.viewport.value?.scrollHeight ?? 0,
       viewport: rootContext?.viewport.value?.offsetHeight ?? 0,
       scrollbar: {

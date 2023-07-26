@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, inject, ref } from "vue";
+import { computed, inject, ref, watch } from "vue";
 import { SCROLL_AREA_INJECTION_KEY } from "./ScrollAreaRoot.vue";
-import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
+import { PrimitiveDiv } from "@/Primitive";
 import { useResizeObserver } from "@vueuse/core";
 
 const context = inject(SCROLL_AREA_INJECTION_KEY);
@@ -11,17 +11,23 @@ const height = ref(0);
 
 const hasSize = computed(() => !!width.value && !!height.value);
 
-useResizeObserver(context?.scrollbarX.value, () => {
+const setCornerHeight = () => {
   const offsetHeight = context?.scrollbarX.value?.offsetHeight || 0;
   context?.onCornerHeightChange(offsetHeight);
   height.value = offsetHeight;
-});
-
-useResizeObserver(context?.scrollbarY.value, () => {
+};
+const setCornerWidth = () => {
   const offsetWidth = context?.scrollbarY.value?.offsetWidth || 0;
   context?.onCornerWidthChange(offsetWidth);
   width.value = offsetWidth;
-});
+};
+
+useResizeObserver(context?.scrollbarX.value, setCornerHeight);
+useResizeObserver(context?.scrollbarY.value, setCornerWidth);
+
+// because we are not remounting the component, useResizeObserver doesn't trigger, thus using watcher here
+watch(() => context?.scrollbarX.value, setCornerHeight);
+watch(() => context?.scrollbarY.value, setCornerWidth);
 </script>
 
 <template>

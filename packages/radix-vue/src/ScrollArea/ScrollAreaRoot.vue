@@ -115,6 +115,7 @@ provide<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY, {
   <PrimitiveDiv
     ref="primitiveElement"
     :as-child="props.asChild"
+    :dir="props.dir"
     :style="{
     position: 'relative',
     // Pass corner sizes as CSS vars to reduce re-renders of context consumers

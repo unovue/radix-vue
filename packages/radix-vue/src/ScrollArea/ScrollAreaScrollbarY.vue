@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, onMounted } from "vue";
-import {
-  SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY,
-  type ScrollAreaScrollbarVisibleProvideValue,
-} from "./ScrollAreaScrollbarVisible.vue";
+import { SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY } from "./ScrollAreaScrollbarVisible.vue";
 import { SCROLL_AREA_INJECTION_KEY } from "./ScrollAreaRoot.vue";
 import ScrollAreaScrollbarImpl from "./ScrollAreaScrollbarImpl.vue";
 import { getThumbSize } from "./utils";
@@ -11,7 +8,7 @@ import { usePrimitiveElement } from "@/Primitive";
 
 const rootContext = inject(SCROLL_AREA_INJECTION_KEY);
 
-const scrollbarContextVisible = inject<ScrollAreaScrollbarVisibleProvideValue>(
+const scrollbarContextVisible = inject(
   SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY
 );
 

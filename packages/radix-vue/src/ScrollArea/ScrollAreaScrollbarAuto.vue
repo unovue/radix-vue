@@ -2,8 +2,8 @@
 import { inject, ref } from "vue";
 import { SCROLL_AREA_INJECTION_KEY } from "./ScrollAreaRoot.vue";
 import { SCROLL_AREA_SCROLLBAR_INJECTION_KEY } from "./ScrollAreaScrollbar.vue";
-import ScrollAreaScrollbarVisible from "./ScrollAreaScrollbarVisible.vue";
 import { useDebounceFn, useResizeObserver } from "@vueuse/core";
+import ScrollAreaScrollbarVisible from "./ScrollAreaScrollbarVisible.vue";
 
 const rootContext = inject(SCROLL_AREA_INJECTION_KEY);
 const scrollbarContext = inject(SCROLL_AREA_SCROLLBAR_INJECTION_KEY);

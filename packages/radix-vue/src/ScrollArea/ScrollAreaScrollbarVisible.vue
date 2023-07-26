@@ -15,11 +15,18 @@ export interface ScrollAreaScrollbarVisibleProvideValue {
 }
 
 export const SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY =
-  "ScrollAreaScrollbarVisible" as const;
+  Symbol() as InjectionKey<ScrollAreaScrollbarVisibleProvideValue>;
 </script>
 
 <script setup lang="ts">
-import { computed, inject, ref, provide, type Ref } from "vue";
+import {
+  computed,
+  inject,
+  ref,
+  provide,
+  type Ref,
+  type InjectionKey,
+} from "vue";
 import type { Sizes, Direction } from "./types";
 import { SCROLL_AREA_INJECTION_KEY } from "./ScrollAreaRoot.vue";
 import { SCROLL_AREA_SCROLLBAR_INJECTION_KEY } from "./ScrollAreaScrollbar.vue";

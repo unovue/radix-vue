@@ -24,6 +24,15 @@ const makeTailwindConfig = (componentName: string, sources: Record<string, strin
     "@codesandbox/vue-preview": "^0.1.1-alpha.16",
   };
 
+  const componentFiles = Object.keys(sources).filter((key) => key.endsWith(".vue") && key !== "index.vue");
+  const components: Record<string, any> = {};
+  componentFiles.forEach((i) => {
+    components[`src/${i}`] = {
+      isBinary: false,
+      content: sources[i],
+    };
+  });
+
   const files = {
     "package.json": {
       content: {
@@ -60,6 +69,7 @@ createApp(App).mount('#app')`,
       isBinary: false,
       content: sources["index.vue"],
     },
+    ...components,
     "src/global.css": {
       content: `@tailwind base;
 @tailwind components;

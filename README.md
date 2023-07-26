@@ -3,7 +3,7 @@
 ## Why can't vue have nice things?
 
 An unofficial vue port of Radix Primitives.
-An accessible, unstyled and customisable UI Library for building top quality design systems.
+Radix is an unstyled, customisable UI Library with built in accessibility for building top quality design systems.
 
 ## Installation
 
@@ -17,7 +17,7 @@ For full documentation, visit [radix-vue.com](https://radix-vue.com).
 
 ## Releases
 
-For changelog, visit [radix-vue.com/overview/releases](https://radix-vue.com/overview/releases).
+For changelog, visit [releases](https://github.com/radix-vue/radix-vue/releases).
 
 ## Todo
 
@@ -71,7 +71,7 @@ We would love to have your contributions! All PRs all welcomed! We need help bui
 
 ## Community
 
-- [Discord](https://discord.gg/jZUsrAADe5)
+- [Discord](https://discord.gg/jZUsrAADe5). [Join us!](https://discord.gg/jZUsrAADe5)
 
 ## Authors
 

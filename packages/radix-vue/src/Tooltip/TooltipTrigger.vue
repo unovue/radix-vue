@@ -46,7 +46,6 @@ useHover(triggerElement, {
       :aria-expanded="injectedValue?.open.value || false"
       @focus="injectedValue?.showTooltip(false)"
       @blur="injectedValue?.hideTooltip"
-      style="cursor: default"
     >
       <slot />
     </PrimitiveButton>

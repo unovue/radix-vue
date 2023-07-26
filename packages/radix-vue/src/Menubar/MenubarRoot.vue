@@ -39,7 +39,6 @@ const props = withDefaults(defineProps<MenubarRootProps>(), {
 
 const emit = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
-  (e: "update:open", value: boolean): void;
 }>();
 
 const modelValue = useVModel(props, "modelValue", emit, {

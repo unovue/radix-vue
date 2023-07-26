@@ -18,3 +18,8 @@
     @apply overflow-hidden bg-gray-100 text-sm text-gray-900;
   }
 }
+
+/* center all element inside stories */
+.histoire-generic-render-story:not(.__histoire-render-custom-controls) [data-v-app] {
+  @apply flex justify-center;
+}

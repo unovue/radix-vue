@@ -68,14 +68,12 @@ watchEffect(() => {
       setBodyUninteractive();
     }
     if (injectedValue?.modal) {
-      window.addEventListener("wheel", lockScroll, { passive: false });
       window.addEventListener("keydown", lockKeydown);
     }
     window.addEventListener("keydown", handleKeydown);
     emit("open");
   } else {
     setBodyInteractive();
-    window.removeEventListener("wheel", lockScroll);
     window.removeEventListener("keydown", lockKeydown);
     window.removeEventListener("keydown", handleKeydown);
 
@@ -86,10 +84,6 @@ watchEffect(() => {
     emit("close");
   }
 });
-
-function lockScroll(e: WheelEvent) {
-  e.preventDefault();
-}
 
 function lockKeydown(e: KeyboardEvent) {
   if (e.key === "ArrowDown" || e.key === "ArrowUp") {

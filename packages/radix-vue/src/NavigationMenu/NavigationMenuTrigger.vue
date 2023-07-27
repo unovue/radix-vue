@@ -92,9 +92,7 @@ const setFocusProxyRef = (node: VNode) => {
 };
 
 const handleVisuallyHiddenFocus = (ev: FocusEvent) => {
-  const content = // @ts-ignore
-    (itemContext!.contentRef.value?.children?.[0].el as HTMLElement)
-      .parentElement;
+  const content = document.getElementById(itemContext!.contentId);
   const prevFocusedElement = ev.relatedTarget as HTMLElement | null;
 
   const wasTriggerFocused = prevFocusedElement === triggerElement.value;

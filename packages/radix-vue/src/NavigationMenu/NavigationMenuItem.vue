@@ -5,8 +5,8 @@ export interface NavigationMenuItemProps extends PrimitiveProps {
 
 export type NavigationMenuItemContextValue = {
   value: string;
+  contentId: string;
   triggerRef: Ref<HTMLElement | undefined>;
-  contentRef: Ref<VNode | undefined>;
   focusProxyRef: Ref<HTMLElement | undefined>;
   wasEscapeCloseRef: Ref<boolean>;
   onEntryKeyDown(): void;
@@ -21,17 +21,15 @@ export const NAVIGATION_MENU_ITEM_INJECTION_KEY =
 
 <script setup lang="ts">
 import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
-import {
-  provide,
-  ref,
-  type InjectionKey,
-  type Ref,
-  type VNode,
-  inject,
-} from "vue";
+import { provide, ref, type InjectionKey, type Ref, inject } from "vue";
 import { PrimitiveLi, type PrimitiveProps } from "@/Primitive";
 import { useArrowNavigation, useCollection, useId } from "@/shared";
-import { getTabbableCandidates, removeFromTabOrder, focusFirst } from "./utils";
+import {
+  getTabbableCandidates,
+  removeFromTabOrder,
+  focusFirst,
+  makeContentId,
+} from "./utils";
 import { unrefElement } from "@vueuse/core";
 
 const props = defineProps<NavigationMenuItemProps>();
@@ -40,14 +38,16 @@ const context = inject(NAVIGATION_MENU_INJECTION_KEY);
 
 const value = props.value || useId();
 const triggerRef = ref<HTMLElement>();
-const contentRef = ref<VNode>();
 const focusProxyRef = ref<HTMLElement>();
+
+const contentId = makeContentId(context!.baseId, value);
+
 let restoreContentTabOrderRef: () => void = () => ({});
 
 const wasEscapeCloseRef = ref(false);
 const handleContentEntry = async (side = "start") => {
   // @ts-ignore
-  const el = contentRef.value?.children?.[0]?.el.parentElement as HTMLElement;
+  const el = document.getElementById(contentId);
   if (el) {
     restoreContentTabOrderRef();
     const candidates = getTabbableCandidates(unrefElement(el) as HTMLElement);
@@ -58,7 +58,7 @@ const handleContentEntry = async (side = "start") => {
 
 const handleContentExit = () => {
   // @ts-ignore
-  const el = contentRef.value?.children?.[0]?.el.parentElement as HTMLElement;
+  const el = document.getElementById(contentId);
   if (el) {
     const candidates = getTabbableCandidates(unrefElement(el) as HTMLElement);
     if (candidates.length)
@@ -68,8 +68,8 @@ const handleContentExit = () => {
 
 provide(NAVIGATION_MENU_ITEM_INJECTION_KEY, {
   value,
+  contentId,
   triggerRef,
-  contentRef,
   focusProxyRef,
   wasEscapeCloseRef,
   onEntryKeyDown: handleContentEntry,
@@ -107,6 +107,7 @@ const handleKeydown = (ev: KeyboardEvent) => {
   if (ev.key === "Escape") {
     wasEscapeCloseRef.value = true;
     triggerRef.value?.focus();
+    console.log("escape", triggerRef.value);
     context!.modelValue.value = "";
     return;
   }

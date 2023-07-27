@@ -42,6 +42,7 @@ const handleClose = (node: VNode) => {
   context!.modelValue.value = "";
   node.props?.triggerRef?.value?.focus();
   node.props!.wasEscapeCloseRef.value = true;
+  console.log(node);
 };
 
 useResizeObserver(content, () => {

@@ -1,15 +1,7 @@
 <script setup lang="ts">
 import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
 import { NAVIGATION_MENU_ITEM_INJECTION_KEY } from "./NavigationMenuItem.vue";
-import {
-  computed,
-  inject,
-  onMounted,
-  ref,
-  watch,
-  type VNode,
-  getCurrentInstance,
-} from "vue";
+import { computed, inject, getCurrentInstance, onMounted } from "vue";
 import { getOpenState } from "./utils";
 import NavigationMenuContentImpl from "./NavigationMenuContentImpl.vue";
 import { Presence } from "@/Presence";
@@ -32,20 +24,20 @@ const commonProps = computed(() => ({
   // onRootContentClose: itemContext!.onRootContentClose,
 }));
 
-const elementRef = ref<VNode>();
-
-watch(elementRef, () => {
-  itemContext!.contentRef.value = elementRef.value;
-});
-
 const instance = getCurrentInstance();
+
 onMounted(() => {
   // @ts-ignore
   const vnode = instance?.vnode.children?.default()?.[0];
   if (context?.viewport && vnode) {
-    vnode.props = { ...vnode.props, ...commonProps.value };
+    vnode.props = {
+      ...vnode.props,
+      ...commonProps.value,
+      triggerRef: itemContext!.triggerRef,
+      focusProxyRef: itemContext!.focusProxyRef,
+      wasEscapeCloseRef: itemContext!.wasEscapeCloseRef,
+    };
     vnode.parentProps = instance.vnode.props;
-    itemContext!.contentRef.value = vnode;
     context.onViewportContentChange(itemContext!.value, vnode);
   }
 });
@@ -56,9 +48,8 @@ const handleEscape = () => {
 </script>
 
 <template>
-  <Presence v-if="!context?.viewport" :present="open">
+  <Presence v-if="!context?.viewport.value" :present="open">
     <NavigationMenuContentImpl
-      ref="elementRef"
       :data-state="getOpenState(open)"
       :style="{
         pointerEvents: !open && context?.isRootMenu ? 'none' : undefined,

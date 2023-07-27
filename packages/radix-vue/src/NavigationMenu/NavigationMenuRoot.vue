@@ -87,10 +87,10 @@ const closeMenu = () => {
   modelValue.value = "";
 };
 
-onClickOutside(rootNavigationMenu, () => {
+onClickOutside(rootNavigationMenu, (ev) => {
   closeMenu();
 });
-onFocusOutside(rootNavigationMenu, () => {
+onFocusOutside(rootNavigationMenu, (ev) => {
   closeMenu();
 });
 

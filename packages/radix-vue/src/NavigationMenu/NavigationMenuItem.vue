@@ -107,13 +107,16 @@ const handleKeydown = (ev: KeyboardEvent) => {
   if (ev.key === "Escape") {
     wasEscapeCloseRef.value = true;
     triggerRef.value?.focus();
-    console.log("escape", triggerRef.value);
     context!.modelValue.value = "";
     return;
   }
 
+  const itemsArray = getItems().filter((i) =>
+    i.parentElement?.hasAttribute("aria-menu-item")
+  );
+
   const newSelectedElement = useArrowNavigation(ev, currentFocus, undefined, {
-    itemsArray: getItems(),
+    itemsArray,
     loop: false,
   });
   newSelectedElement?.focus();
@@ -121,7 +124,11 @@ const handleKeydown = (ev: KeyboardEvent) => {
 </script>
 
 <template>
-  <PrimitiveLi :as-child="props.asChild" @keydown="handleKeydown">
+  <PrimitiveLi
+    aria-menu-item
+    :as-child="props.asChild"
+    @keydown="handleKeydown"
+  >
     <slot></slot>
   </PrimitiveLi>
 </template>

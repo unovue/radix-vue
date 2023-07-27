@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
 import { NAVIGATION_MENU_ITEM_INJECTION_KEY } from "./NavigationMenuItem.vue";
-import { computed, inject, getCurrentInstance, onMounted } from "vue";
+import { computed, inject, getCurrentInstance, watch } from "vue";
 import { getOpenState } from "./utils";
 import NavigationMenuContentImpl from "./NavigationMenuContentImpl.vue";
 import { Presence } from "@/Presence";
@@ -26,23 +26,31 @@ const commonProps = computed(() => ({
 
 const instance = getCurrentInstance();
 
-onMounted(() => {
-  // @ts-ignore
-  const vnode = instance?.vnode.children?.default()?.[0];
-  if (context?.viewport && vnode) {
-    vnode.props = {
-      ...vnode.props,
-      ...commonProps.value,
-      triggerRef: itemContext!.triggerRef,
-      focusProxyRef: itemContext!.focusProxyRef,
-      wasEscapeCloseRef: itemContext!.wasEscapeCloseRef,
-    };
-    vnode.parentProps = instance.vnode.props;
-    context.onViewportContentChange(itemContext!.value, vnode);
-  }
-});
+watch(
+  open,
+  () => {
+    // Everytime we remove mounted vnode using `v-if`, we would need to reset the vnode,
+    // thus having this watcher is crucial is important for SSR
+    // @ts-ignore
+    const vnode = instance?.vnode.children?.default()?.[0];
+    if (context?.viewport && vnode) {
+      vnode.props = {
+        ...vnode.props,
+        ...commonProps.value,
+        triggerRef: itemContext!.triggerRef,
+        focusProxyRef: itemContext!.focusProxyRef,
+        wasEscapeCloseRef: itemContext!.wasEscapeCloseRef,
+      };
+      vnode.parentProps = instance.vnode.props;
+      context.onViewportContentChange(itemContext!.value, vnode);
+    }
+  },
+  { immediate: true }
+);
 
 const handleEscape = () => {
+  context!.modelValue.value = "";
+  itemContext!.triggerRef?.value?.focus();
   itemContext!.wasEscapeCloseRef.value = true;
 };
 </script>
@@ -54,7 +62,7 @@ const handleEscape = () => {
       :style="{
         pointerEvents: !open && context?.isRootMenu ? 'none' : undefined,
       }"
-      v-bind="($attrs, commonProps)"
+      v-bind="{ ...$attrs, ...commonProps }"
       @escape="handleEscape"
     >
       <slot></slot>

@@ -110,6 +110,7 @@ const handleKeydown = (ev: KeyboardEvent) => {
   );
   newSelectedElement?.focus();
   ev.preventDefault();
+  ev.stopPropagation();
 };
 
 const handleEscape = (ev: KeyboardEvent) => {

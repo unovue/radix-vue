@@ -35,6 +35,20 @@ const emit = defineEmits<AlertDialogContentEmits>();
 const { primitiveElement, currentElement } = usePrimitiveElement();
 
 watchEffect((onCleanup) => {
+  onCleanup(() => {
+    document.body.style.pointerEvents = "";
+
+    window.removeEventListener("wheel", lockScroll);
+    window.removeEventListener("keydown", lockKeydown);
+    window.removeEventListener("keydown", handleKeydown);
+
+    if (props.isCloseAutoFocus) {
+      injectedValue?.triggerButton.value?.focus();
+    }
+
+    emit("close");
+  });
+
   if (!currentElement.value) {
     return;
   }
@@ -50,20 +64,6 @@ watchEffect((onCleanup) => {
     window.addEventListener("keydown", handleKeydown);
     emit("open");
   }
-
-  onCleanup(() => {
-    document.body.style.pointerEvents = "";
-
-    window.removeEventListener("wheel", lockScroll);
-    window.removeEventListener("keydown", lockKeydown);
-    window.removeEventListener("keydown", handleKeydown);
-
-    if (props.isCloseAutoFocus) {
-      injectedValue?.triggerButton.value?.focus();
-    }
-
-    emit("close");
-  });
 });
 
 const lockScroll = (e: WheelEvent) => e.preventDefault();

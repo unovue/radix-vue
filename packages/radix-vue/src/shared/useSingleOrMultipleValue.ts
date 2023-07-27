@@ -83,7 +83,7 @@ export function useSingleOrMultipleValue<P extends Props, Name extends string>(
   }) as Ref<string | string[] | undefined>;
 
   watch(
-    [props.type, props.modelValue],
+    () => [props.type, props.modelValue],
     () => {
       const validatedValue = validateModelValue(props.type, modelValue.value);
       if (modelValue.value !== validatedValue) {

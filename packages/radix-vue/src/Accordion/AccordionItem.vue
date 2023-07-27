@@ -102,7 +102,7 @@ function handleArrowKey(e: KeyboardEvent) {
     :data-disabled="dataDisabled"
     :data-state="dataState"
     :disabled="disabled"
-    v-model:open="open"
+    :open="open"
     @keydown.up.down.left.right.home.end="handleArrowKey"
     :as-child="props.asChild"
   >

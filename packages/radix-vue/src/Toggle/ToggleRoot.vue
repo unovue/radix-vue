@@ -34,6 +34,7 @@ const emits = defineEmits<{
 
 const pressed = useVModel(props, "modelValue", emits, {
   defaultValue: props.defaultValue,
+  passive: true,
 });
 
 const togglePressed = () => {

@@ -171,6 +171,9 @@ function convertToClosestStep(number: number, step: number) {
   <PrimitiveSpan
     ref="primitiveElement"
     :as-child="props.asChild"
+    :aria-disabled="props.disabled"
+    :data-disabled="props.disabled"
+    :data-orientation="props.orientation"
     @pointerdown="changeValue"
   >
     <slot />
@@ -179,6 +182,8 @@ function convertToClosestStep(number: number, step: number) {
       :value="props.modelValue"
       :aria-valuenow="props.modelValue"
       :name="props.name"
+      :disabled="props.disabled"
+      :data-disabled="props.disabled"
     />
   </PrimitiveSpan>
 </template>

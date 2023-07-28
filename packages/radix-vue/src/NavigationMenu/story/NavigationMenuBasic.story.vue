@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 import {
   NavigationMenuLink,
   NavigationMenuContent,
@@ -13,6 +13,10 @@ import LinkGroup from "./_LinkGroup.vue";
 import StoryFrame from "./_StoryFrame.vue";
 
 const currentTrigger = ref("");
+const state = reactive({
+  delayDuration: 600,
+  skipDelayDuration: 1000,
+});
 </script>
 
 <template>
@@ -21,6 +25,8 @@ const currentTrigger = ref("");
       <StoryFrame>
         <NavigationMenuRoot
           v-model="currentTrigger"
+          :delay-duration="state.delayDuration"
+          :skip-delay-duration="state.skipDelayDuration"
           class="relative z-[1] flex w-full justify-center"
         >
           <NavigationMenuList
@@ -109,6 +115,17 @@ const currentTrigger = ref("");
           </NavigationMenuList>
         </NavigationMenuRoot>
       </StoryFrame>
+
+      <template #controls>
+        <HstNumber
+          v-model="state.delayDuration"
+          title="Delay Duration"
+        ></HstNumber>
+        <HstNumber
+          v-model="state.skipDelayDuration"
+          title="Skip Delay Duration"
+        ></HstNumber>
+      </template>
     </Variant>
   </Story>
 </template>

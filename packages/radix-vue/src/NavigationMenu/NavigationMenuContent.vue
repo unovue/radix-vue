@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
 import { NAVIGATION_MENU_ITEM_INJECTION_KEY } from "./NavigationMenuItem.vue";
-import { computed, inject, getCurrentInstance, watch } from "vue";
+import { computed, inject, getCurrentInstance, watch, nextTick } from "vue";
 import { getOpenState } from "./utils";
 import NavigationMenuContentImpl from "./NavigationMenuContentImpl.vue";
 import { Presence } from "@/Presence";
@@ -28,12 +28,14 @@ const instance = getCurrentInstance();
 
 watch(
   open,
-  () => {
+  async () => {
+    // Next tick to flush DOM for other dependent elements to mount
+    await nextTick();
     // Everytime we remove mounted vnode using `v-if`, we would need to reset the vnode,
     // thus having this watcher is crucial is important for SSR
     // @ts-ignore
     const vnode = instance?.vnode.children?.default()?.[0];
-    if (context?.viewport && vnode) {
+    if (context?.viewport && vnode && itemContext?.triggerRef.value) {
       vnode.props = {
         ...vnode.props,
         ...commonProps.value,
@@ -45,7 +47,7 @@ watch(
       context.onViewportContentChange(itemContext!.value, vnode);
     }
   },
-  { immediate: true }
+  { immediate: true, deep: true }
 );
 
 const handleEscape = () => {

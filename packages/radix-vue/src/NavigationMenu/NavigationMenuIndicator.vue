@@ -32,7 +32,7 @@ watchEffect(() => {
   activeTrigger.value = items.find((item) =>
     item.id.includes(context?.modelValue.value)
   );
-  handlePositionChange();
+  // handlePositionChange();
 });
 
 const handlePositionChange = () => {

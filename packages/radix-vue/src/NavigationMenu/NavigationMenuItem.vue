@@ -84,14 +84,6 @@ const handleClose = () => {
 
 const handleKeydown = (ev: KeyboardEvent) => {
   const currentFocus = document.activeElement as HTMLElement;
-  if (
-    ev.key === "ArrowUp" ||
-    ev.key === "ArrowDown" ||
-    ev.key === "ArrowLeft" ||
-    ev.key === "ArrowRight"
-  ) {
-    ev.preventDefault();
-  }
   if (ev.keyCode === 32 || ev.key === "Enter") {
     if (context?.modelValue.value === value) {
       handleClose();
@@ -119,7 +111,12 @@ const handleKeydown = (ev: KeyboardEvent) => {
     itemsArray,
     loop: false,
   });
-  newSelectedElement?.focus();
+
+  if (newSelectedElement) {
+    newSelectedElement?.focus();
+  }
+  ev.preventDefault();
+  ev.stopPropagation();
 };
 </script>
 
@@ -127,7 +124,7 @@ const handleKeydown = (ev: KeyboardEvent) => {
   <PrimitiveLi
     aria-menu-item
     :as-child="props.asChild"
-    @keydown="handleKeydown"
+    @keydown.up.down.left.right.home.end.escape.space="handleKeydown"
   >
     <slot></slot>
   </PrimitiveLi>

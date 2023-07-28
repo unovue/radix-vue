@@ -3,11 +3,13 @@ import { Icon } from "@iconify/vue";
 import { ref } from "vue";
 import {
   NavigationMenuLink,
+  NavigationMenuIndicator,
   NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuList,
   NavigationMenuRoot,
   NavigationMenuTrigger,
+  NavigationMenuViewport,
 } from "../";
 import LinkGroup from "./_LinkGroup.vue";
 import StoryFrame from "./_StoryFrame.vue";
@@ -16,7 +18,7 @@ const currentTrigger = ref("");
 </script>
 
 <template>
-  <Story title="Navigation Menu/Basic">
+  <Story title="Navigation Menu/Viewport">
     <Variant title="Default">
       <StoryFrame>
         <NavigationMenuRoot
@@ -39,7 +41,7 @@ const currentTrigger = ref("");
               </NavigationMenuTrigger>
 
               <NavigationMenuContent
-                class="absolute top-10 left-0 bg-white rounded-xl w-full sm:w-auto"
+                class="absolute top-0 left-0 bg-white rounded-xl w-full sm:w-auto"
               >
                 <LinkGroup
                   :items="[
@@ -66,7 +68,7 @@ const currentTrigger = ref("");
                 />
               </NavigationMenuTrigger>
               <NavigationMenuContent
-                class="absolute top-10 left-0 bg-white rounded-xl w-full sm:w-auto"
+                class="absolute top-0 left-0 bg-white rounded-xl w-full sm:w-auto"
               >
                 <LinkGroup
                   :items="[
@@ -90,7 +92,7 @@ const currentTrigger = ref("");
                 />
               </NavigationMenuTrigger>
               <NavigationMenuContent
-                class="absolute top-10 left-0 bg-white rounded-xl w-full sm:w-auto"
+                class="absolute top-0 left-0 bg-white rounded-xl w-full sm:w-auto"
               >
                 <LinkGroup
                   :items="['Aliquam porttitor', 'Pellentesque']"
@@ -106,7 +108,23 @@ const currentTrigger = ref("");
                 Link
               </NavigationMenuLink>
             </NavigationMenuItem>
+
+            <NavigationMenuIndicator
+              class="data-[state=hidden]:opacity-0 duration-200 data-[state=visible]:animate-fadeIn data-[state=hidden]:animate-fadeOut top-full z-[1] flex h-[10px] items-end justify-center overflow-hidden transition-[all,transform_250ms_ease]"
+            >
+              <div
+                class="relative top-[70%] h-[10px] w-[10px] rotate-[45deg] rounded-tl-[2px] bg-white"
+              />
+            </NavigationMenuIndicator>
           </NavigationMenuList>
+
+          <div
+            class="perspective-[2000px] absolute top-full left-0 flex w-full justify-center"
+          >
+            <NavigationMenuViewport
+              class="data-[state=open]:animate-scaleIn data-[state=closed]:animate-scaleOut relative mt-[10px] h-[var(--radix-navigation-menu-viewport-height)] w-full origin-[top_center] overflow-hidden rounded-[6px] bg-white transition-[width,_height] duration-300 sm:w-[var(--radix-navigation-menu-viewport-width)]"
+            />
+          </div>
         </NavigationMenuRoot>
       </StoryFrame>
     </Variant>

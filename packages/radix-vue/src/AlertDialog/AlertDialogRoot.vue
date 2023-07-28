@@ -25,8 +25,8 @@ export type AlertDialogRootEmits = {
 </script>
 
 <script setup lang="ts">
-import { provide, ref } from "vue";
-import { useVModel } from "@vueuse/core";
+import { provide, ref, watchEffect } from "vue";
+import { useScrollLock, useVModel } from "@vueuse/core";
 import { useId } from "@/shared";
 
 const props = withDefaults(defineProps<AlertDialogRootProps>(), {
@@ -39,6 +39,12 @@ const emit = defineEmits<AlertDialogRootEmits>();
 const open = useVModel(props, "open", emit, {
   defaultValue: props.defaultOpen,
   passive: true,
+});
+
+const locked = useScrollLock(document.querySelector("body"), open.value);
+
+watchEffect(() => {
+  locked.value = open.value;
 });
 
 provide(ALERT_DIALOG_INJECTION_KEY, {

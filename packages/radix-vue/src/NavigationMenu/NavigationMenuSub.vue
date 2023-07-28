@@ -67,7 +67,13 @@ provide(NAVIGATION_MENU_INJECTION_KEY, {
     modelValue.value = val;
   },
   onTriggerLeave: () => {
-    modelValue.value = "";
+    // do nothing for submenu
+  },
+  onContentEnter: () => {
+    // do nothing for submenu
+  },
+  onContentLeave: () => {
+    // do nothing for submenu
   },
   onItemSelect: (val) => {
     modelValue.value = val;

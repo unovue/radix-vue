@@ -60,31 +60,32 @@ defineOptions({
 </script>
 
 <template>
-  <PrimitiveDiv
-    v-show="open"
-    v-bind="$attrs"
-    ref="primitiveElement"
-    :data-state="getOpenState(open)"
-    :data-orientation="context?.orientation"
-    :style="{
+  <Presence :present="open">
+    <PrimitiveDiv
+      v-bind="$attrs"
+      ref="primitiveElement"
+      :data-state="getOpenState(open)"
+      :data-orientation="context?.orientation"
+      :style="{
         // Prevent interaction when animating out
         pointerEvents: !open && context?.isRootMenu ? 'none' : undefined,
         ['--radix-navigation-menu-viewport-width' as any]: size ? size?.width + 'px' : undefined,
         ['--radix-navigation-menu-viewport-height' as any]: size ? size?.height + 'px' : undefined,
       }"
-    @pointerenter="context?.onContentEnter(activeContentValue)"
-    @pointerleave="context?.onContentLeave()"
-  >
-    <template v-for="node in viewportContentList" :key="node.props?.value">
-      <NavigationMenuContentImpl
-        ref="items"
-        v-bind="{ ...node.props, ...node.parentProps }"
-        @escape="handleClose(node)"
-      >
-        <div v-if="activeContentValue === node.props?.value">
-          <component :is="node"></component>
-        </div>
-      </NavigationMenuContentImpl>
-    </template>
-  </PrimitiveDiv>
+      @pointerenter="context?.onContentEnter(activeContentValue)"
+      @pointerleave="context?.onContentLeave()"
+    >
+      <template v-for="node in viewportContentList" :key="node.props?.value">
+        <NavigationMenuContentImpl
+          ref="items"
+          v-bind="{ ...node.props, ...node.parentProps }"
+          @escape="handleClose(node)"
+        >
+          <Presence :present="activeContentValue === node.props?.value">
+            <component :is="node"></component>
+          </Presence>
+        </NavigationMenuContentImpl>
+      </template>
+    </PrimitiveDiv>
+  </Presence>
 </template>

@@ -1,4 +1,4 @@
-const { blackA, green, mauve, violet, red, indigo, purple } = require("@radix-ui/colors");
+const { blackA, green, mauve, violet, red, indigo, purple, teal } = require("@radix-ui/colors");
 const plugin = require("tailwindcss/plugin");
 
 /** @type {import('tailwindcss').Config} */
@@ -14,6 +14,7 @@ export default {
         ...red,
         ...indigo,
         ...purple,
+        ...teal,
       },
       keyframes: {
         overlayShow: {

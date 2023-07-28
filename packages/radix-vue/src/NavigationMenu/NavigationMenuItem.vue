@@ -11,8 +11,8 @@ export type NavigationMenuItemContextValue = {
   wasEscapeCloseRef: Ref<boolean>;
   onEntryKeyDown(): void;
   onFocusProxyEnter(side: "start" | "end"): void;
-  // onRootContentClose(): void;
   onContentFocusOutside(): void;
+  onRootContentClose(): void;
 };
 
 export const NAVIGATION_MENU_ITEM_INJECTION_KEY =
@@ -30,7 +30,6 @@ import {
   focusFirst,
   makeContentId,
 } from "./utils";
-import { unrefElement } from "@vueuse/core";
 
 const props = defineProps<NavigationMenuItemProps>();
 const { getItems } = useCollection();
@@ -50,7 +49,7 @@ const handleContentEntry = async (side = "start") => {
   const el = document.getElementById(contentId);
   if (el) {
     restoreContentTabOrderRef();
-    const candidates = getTabbableCandidates(unrefElement(el) as HTMLElement);
+    const candidates = getTabbableCandidates(el);
     if (candidates.length)
       focusFirst(side === "start" ? candidates : candidates.reverse());
   }
@@ -60,7 +59,7 @@ const handleContentExit = () => {
   // @ts-ignore
   const el = document.getElementById(contentId);
   if (el) {
-    const candidates = getTabbableCandidates(unrefElement(el) as HTMLElement);
+    const candidates = getTabbableCandidates(el);
     if (candidates.length)
       restoreContentTabOrderRef = removeFromTabOrder(candidates);
   }
@@ -75,10 +74,11 @@ provide(NAVIGATION_MENU_ITEM_INJECTION_KEY, {
   onEntryKeyDown: handleContentEntry,
   onFocusProxyEnter: handleContentEntry,
   onContentFocusOutside: handleContentExit,
+  onRootContentClose: handleContentExit,
 });
 
 const handleClose = () => {
-  context?.onItemSelect("");
+  context?.onItemDismiss();
   triggerRef.value?.focus();
 };
 
@@ -99,7 +99,7 @@ const handleKeydown = (ev: KeyboardEvent) => {
   if (ev.key === "Escape") {
     wasEscapeCloseRef.value = true;
     triggerRef.value?.focus();
-    context!.modelValue.value = "";
+    context!.onItemDismiss();
     return;
   }
 

@@ -47,7 +47,7 @@ export interface NavigationMenuContextValue {
   onContentEnter(itemValue: string): void;
   onContentLeave(): void;
   onItemSelect(itemValue: string): void;
-  // onItemDismiss(): void;
+  onItemDismiss(): void;
 }
 
 export const NAVIGATION_MENU_INJECTION_KEY =
@@ -163,6 +163,10 @@ provide(NAVIGATION_MENU_INJECTION_KEY, {
     // When selecting item we trigger update immediately
     previousValue.value = modelValue.value;
     modelValue.value = val;
+  },
+  onItemDismiss: () => {
+    previousValue.value = modelValue.value;
+    modelValue.value = "";
   },
 });
 </script>

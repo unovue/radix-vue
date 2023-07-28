@@ -7,13 +7,13 @@ interface NavigationMenuContentImplProps {
   focusProxyRef: Ref<HTMLElement | undefined>;
   wasEscapeCloseRef: Ref<boolean>;
   onContentFocusOutside(): void;
-  // onRootContentClose(): void;
+  onRootContentClose(): void;
 }
 </script>
 
 <script setup lang="ts">
 import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
-import { computed, inject, ref, type Ref } from "vue";
+import { computed, inject, ref, watchEffect, type Ref } from "vue";
 import {
   focusFirst,
   getTabbableCandidates,
@@ -21,6 +21,7 @@ import {
   makeTriggerId,
 } from "./utils";
 import { useArrowNavigation, useCollection, onFocusOutside } from "@/shared";
+import { getOpenState, EVENT_ROOT_CONTENT_DISMISS } from "./utils";
 
 const props = defineProps<NavigationMenuContentImplProps>();
 const emits = defineEmits<{
@@ -75,6 +76,23 @@ onFocusOutside(elementRef, (ev) => {
   if (context!.rootNavigationMenu?.value?.contains(target)) ev.preventDefault();
 });
 
+watchEffect((stopper) => {
+  const content = elementRef.value;
+  if (context?.isRootMenu && content) {
+    // Bubble dismiss to the root content node and focus its trigger
+    const handleClose = () => {
+      context.onItemDismiss();
+      props.onRootContentClose();
+      if (content.contains(document.activeElement))
+        props.triggerRef.value?.focus();
+    };
+    content.addEventListener(EVENT_ROOT_CONTENT_DISMISS, handleClose);
+    stopper(() =>
+      content.removeEventListener(EVENT_ROOT_CONTENT_DISMISS, handleClose)
+    );
+  }
+});
+
 const handleKeydown = (ev: KeyboardEvent) => {
   const isMetaKey = ev.altKey || ev.ctrlKey || ev.metaKey;
   const isTabKey = ev.key === "Tab" && !isMetaKey;
@@ -109,6 +127,8 @@ const handleKeydown = (ev: KeyboardEvent) => {
     { itemsArray: candidates, loop: false }
   );
   newSelectedElement?.focus();
+
+  if (ev.key === "Enter") return;
   ev.preventDefault();
   ev.stopPropagation();
 };
@@ -116,7 +136,6 @@ const handleKeydown = (ev: KeyboardEvent) => {
 const handleEscape = (ev: KeyboardEvent) => {
   emits("escape", ev);
 };
-
 defineExpose({
   ...props,
 });
@@ -128,6 +147,8 @@ defineExpose({
     :id="contentId"
     :aria-labelledby="triggerId"
     :data-motion="motionAttribute"
+    :data-state="getOpenState(context?.modelValue.value === props.value)"
+    :data-orientation="context?.orientation"
     @keydown="handleKeydown"
     @keydown.escape.prevent="handleEscape"
   >

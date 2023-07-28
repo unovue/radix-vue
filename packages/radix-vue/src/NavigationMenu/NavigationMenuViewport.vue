@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
-import { computed, inject, onMounted, ref, type VNode } from "vue";
+import { computed, inject, watch, ref, type VNode } from "vue";
 import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 import { getOpenState } from "./utils";
 import { unrefElement, useResizeObserver } from "@vueuse/core";
@@ -20,7 +20,7 @@ const activeContentValue = computed(() =>
   open.value ? context!.modelValue.value : context!.previousValue.value
 );
 
-onMounted(() => {
+watch(currentElement, () => {
   context!.onViewportChange(currentElement.value);
 });
 
@@ -39,10 +39,9 @@ const content = computed(() => {
 });
 
 const handleClose = (node: VNode) => {
-  context!.modelValue.value = "";
+  context!.onItemDismiss();
   node.props?.triggerRef?.value?.focus();
   node.props!.wasEscapeCloseRef.value = true;
-  console.log(node);
 };
 
 useResizeObserver(content, () => {
@@ -81,9 +80,10 @@ defineOptions({
           v-bind="{ ...node.props, ...node.parentProps }"
           @escape="handleClose(node)"
         >
-          <Presence :present="activeContentValue === node.props?.value">
-            <component :is="node"></component>
-          </Presence>
+          <component
+            v-if="activeContentValue === node.props?.value"
+            :is="node"
+          ></component>
         </NavigationMenuContentImpl>
       </template>
     </PrimitiveDiv>

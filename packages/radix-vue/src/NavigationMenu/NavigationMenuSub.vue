@@ -78,6 +78,9 @@ provide(NAVIGATION_MENU_INJECTION_KEY, {
   onItemSelect: (val) => {
     modelValue.value = val;
   },
+  onItemDismiss: () => {
+    modelValue.value = "";
+  },
 });
 </script>
 

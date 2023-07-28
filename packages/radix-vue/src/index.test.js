@@ -97,7 +97,6 @@ it("should expose the correct components", () => {
     // Tooltip
     "TooltipArrow",
     "TooltipContent",
-    "TooltipPortal",
     "TooltipRoot",
     "TooltipTrigger",
 
@@ -198,5 +197,6 @@ it("should expose the correct components", () => {
     "ScrollAreaViewport",
     "ScrollAreaScrollbar",
     "ScrollAreaThumb",
+    "ScrollAreaCorner",
   ]);
 });

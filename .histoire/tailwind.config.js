@@ -3,7 +3,7 @@ const plugin = require("tailwindcss/plugin");
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["../packages/radix-vue/src/**/*.story.vue"],
+  content: ["../packages/radix-vue/src/**/*.story.vue", "../packages/radix-vue/src/**/story/*.vue"],
   theme: {
     extend: {
       colors: {

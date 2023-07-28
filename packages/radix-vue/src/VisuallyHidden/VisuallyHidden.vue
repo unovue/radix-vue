@@ -18,5 +18,6 @@ import { PrimitiveSpan } from "@/Primitive";
       wordWrap: 'normal',
     }"
   >
+    <slot />
   </PrimitiveSpan>
 </template>

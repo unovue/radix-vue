@@ -1,19 +1,13 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
 import { ref } from "vue";
-import {
-  TooltipArrow,
-  TooltipContent,
-  TooltipPortal,
-  TooltipRoot,
-  TooltipTrigger,
-} from "./";
+import { TooltipArrow, TooltipContent, TooltipRoot, TooltipTrigger } from "..";
 
 const toggleState = ref(false);
 </script>
 
 <template>
-  <Story title="Tooltip" :layout="{ type: 'single', iframe: true }">
+  <Story title="Tooltip/Default" :layout="{ type: 'single', iframe: true }">
     <Variant title="default">
       <TooltipRoot v-model:open="toggleState">
         <TooltipTrigger
@@ -21,7 +15,7 @@ const toggleState = ref(false);
         >
           <Icon icon="radix-icons:plus" />
         </TooltipTrigger>
-        <TooltipPortal>
+        <Teleport to="body">
           <TooltipContent
             as-child
             :side-offset="5"
@@ -32,7 +26,7 @@ const toggleState = ref(false);
               <TooltipArrow class="fill-white" />
             </ul>
           </TooltipContent>
-        </TooltipPortal>
+        </Teleport>
       </TooltipRoot>
     </Variant>
   </Story>

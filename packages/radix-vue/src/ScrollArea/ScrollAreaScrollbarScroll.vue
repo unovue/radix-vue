@@ -1,23 +1,13 @@
 <script setup lang="ts">
 import { inject, watchEffect } from "vue";
-import {
-  type ScrollAreaProvideValue,
-  SCROLL_AREA_INJECTION_KEY,
-} from "./ScrollAreaRoot.vue";
-import {
-  type ScrollAreaScollbarProvideValue,
-  SCROLL_AREA_SCROLLBAR_INJECTION_KEY,
-} from "./ScrollAreaScrollbar.vue";
+import { SCROLL_AREA_INJECTION_KEY } from "./ScrollAreaRoot.vue";
+import { SCROLL_AREA_SCROLLBAR_INJECTION_KEY } from "./ScrollAreaScrollbar.vue";
 import ScrollAreaScrollbarVisible from "./ScrollAreaScrollbarVisible.vue";
 import { useStateMachine } from "../shared/useStateMachine";
 import { useDebounceFn } from "@vueuse/core";
 
-const injectedValueFromRoot = inject<ScrollAreaProvideValue>(
-  SCROLL_AREA_INJECTION_KEY
-);
-const injectedValueFromScrollbar = inject<ScrollAreaScollbarProvideValue>(
-  SCROLL_AREA_SCROLLBAR_INJECTION_KEY
-);
+const rootContext = inject(SCROLL_AREA_INJECTION_KEY);
+const scrollbarContext = inject(SCROLL_AREA_SCROLLBAR_INJECTION_KEY);
 
 const { state, dispatch } = useStateMachine("hidden", {
   hidden: {
@@ -42,7 +32,7 @@ watchEffect(() => {
   if (state.value === "idle") {
     window.setTimeout(
       () => dispatch("HIDE"),
-      injectedValueFromRoot?.scrollHideDelay
+      rootContext?.scrollHideDelay.value
     );
   }
 });
@@ -50,8 +40,8 @@ watchEffect(() => {
 const debounceScrollEnd = useDebounceFn(() => dispatch("SCROLL_END"), 100);
 
 watchEffect(() => {
-  const viewport = injectedValueFromRoot?.viewport.value;
-  const scrollDirection = injectedValueFromScrollbar?.isHorizontal.value
+  const viewport = rootContext?.viewport.value;
+  const scrollDirection = scrollbarContext?.isHorizontal.value
     ? "scrollLeft"
     : "scrollTop";
 

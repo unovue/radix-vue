@@ -30,9 +30,11 @@ export type PopoverProvideValue = {
   open: Readonly<Ref<boolean>>;
   showPopover(): void;
   hidePopover(): void;
-  triggerElement: Ref<HTMLElement | undefined>;
+  setTriggerElement(element: HTMLElement): void;
+  triggerElement: ComputedRef<HTMLElement | undefined>;
   dataState: ComputedRef<PopoverState>;
   contentId: string;
+  modal: ComputedRef<boolean>;
 };
 </script>
 
@@ -42,8 +44,6 @@ import { useVModel } from "@vueuse/core";
 import { PopperRoot } from "@/Popper";
 
 const props = withDefaults(defineProps<PopoverRootProps>(), {
-  defaultOpen: false,
-  open: undefined,
   modal: false,
 });
 
@@ -66,9 +66,13 @@ provide<PopoverProvideValue>(POPOVER_INJECTION_KEY, {
   hidePopover: () => {
     open.value = false;
   },
-  triggerElement,
+  triggerElement: computed(() => triggerElement.value),
+  setTriggerElement: (element) => {
+    triggerElement.value = element;
+  },
   dataState: computed(() => (open.value ? "open" : "closed")),
   contentId: useId(),
+  modal: computed(() => props.modal),
 });
 </script>
 

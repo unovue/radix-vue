@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { PopperArrowProps } from "@/Popper/PopperArrow.vue";
 
-export interface TooltipArrowProps extends PopperArrowProps { }
+export interface TooltipArrowProps extends PopperArrowProps {}
 </script>
 
 <script setup lang="ts">

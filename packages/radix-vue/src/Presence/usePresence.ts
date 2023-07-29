@@ -106,8 +106,15 @@ export function usePresence(
     { immediate: true }
   );
 
+  const stateWatcher = watch(state, () => {
+    const currentAnimationName = getAnimationName(node.value);
+    prevAnimationNameRef.value =
+      state.value === "mounted" ? currentAnimationName : "none";
+  });
+
   onUnmounted(() => {
     watcher();
+    stateWatcher();
   });
 
   const isPresent = computed(() =>

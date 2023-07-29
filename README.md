@@ -3,7 +3,7 @@
 ## Why can't vue have nice things?
 
 An unofficial vue port of Radix Primitives.
-An accessible, unstyled and customisable UI Library for building top quality design systems.
+Radix is an unstyled, customisable UI Library with built in accessibility for building top quality design systems.
 
 ## Installation
 
@@ -17,7 +17,7 @@ For full documentation, visit [radix-vue.com](https://radix-vue.com).
 
 ## Releases
 
-For changelog, visit [radix-vue.com/overview/releases](https://radix-vue.com/overview/releases).
+For changelog, visit [releases](https://github.com/radix-vue/radix-vue/releases).
 
 ## Todo
 
@@ -39,7 +39,7 @@ For changelog, visit [radix-vue.com/overview/releases](https://radix-vue.com/ove
 | [Popover](https://radix-vue.com/components/popover)                 |   ✅   |              |                        |
 | [Progress](https://radix-vue.com/components/progress)               |   ✅   | ✅           | ✅                     |
 | [Radio Group](https://radix-vue.com/components/radio-group)         |   ✅   | ✅           |                        |
-| [Scroll Area](https://radix-vue.com/components/scroll-area)         |   ✅   |              |                        |
+| [Scroll Area](https://radix-vue.com/components/scroll-area)         |   ✅   | ✅           |                        |
 | [Select](https://radix-vue.com/components/select)                   |   ✅   |              |                        |
 | [Separator](https://radix-vue.com/components/separator)             |   ✅   | ✅           |                        |
 | [Slider](https://radix-vue.com/components/slider)                   |   ✅   |              |                        |
@@ -48,7 +48,7 @@ For changelog, visit [radix-vue.com/overview/releases](https://radix-vue.com/ove
 | [Toggle](https://radix-vue.com/components/toggle)                   |   ✅   | ✅           |                        |
 | [Toggle Group](https://radix-vue.com/components/toggle-group)       |   ✅   | ✅           |                        |
 | [Toolbar](https://radix-vue.com/components/toolbar)                 |   ✅   |              |                        |
-| [Tooltip](https://radix-vue.com/components/tooltip)                 |   ✅   |              |                        |
+| [Tooltip](https://radix-vue.com/components/tooltip)                 |   ✅   | ✅           |                        |
 
 ## Contributing
 
@@ -71,7 +71,7 @@ We would love to have your contributions! All PRs all welcomed! We need help bui
 
 ## Community
 
-- [Discord](https://discord.gg/jZUsrAADe5)
+- [Discord](https://discord.gg/jZUsrAADe5). [Join us!](https://discord.gg/jZUsrAADe5)
 
 ## Authors
 

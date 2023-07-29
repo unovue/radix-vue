@@ -10,32 +10,47 @@ export const ALERT_DIALOG_INJECTION_KEY =
   Symbol() as InjectionKey<AlertDialogProvideValue>;
 
 export type AlertDialogProvideValue = {
+  contentId: string;
+  titleId: string;
+  descriptionId: string;
   open: Readonly<Ref<boolean>>;
   openModal(): void;
   closeModal(): void;
   triggerButton: Ref<HTMLElement | undefined>;
 };
+
+export type AlertDialogRootEmits = {
+  (e: "update:open", value: boolean): void;
+};
 </script>
 
 <script setup lang="ts">
-import { provide, ref } from "vue";
-import { useVModel } from "@vueuse/core";
+import { provide, ref, watchEffect } from "vue";
+import { useScrollLock, useVModel } from "@vueuse/core";
+import { useId } from "@/shared";
 
 const props = withDefaults(defineProps<AlertDialogRootProps>(), {
   open: undefined,
   defaultOpen: false,
 });
 
-const emit = defineEmits<{
-  (e: "update:modelValue", value: boolean): void;
-}>();
+const emit = defineEmits<AlertDialogRootEmits>();
 
 const open = useVModel(props, "open", emit, {
   defaultValue: props.defaultOpen,
   passive: true,
 });
 
-provide<AlertDialogProvideValue>(ALERT_DIALOG_INJECTION_KEY, {
+const locked = useScrollLock(document.querySelector("body"), open.value);
+
+watchEffect(() => {
+  locked.value = open.value;
+});
+
+provide(ALERT_DIALOG_INJECTION_KEY, {
+  contentId: useId(),
+  titleId: useId(),
+  descriptionId: useId(),
   open,
   openModal: () => {
     open.value = true;

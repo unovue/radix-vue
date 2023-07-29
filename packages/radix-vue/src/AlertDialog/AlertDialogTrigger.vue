@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { inject, onMounted } from "vue";
-import {
-  ALERT_DIALOG_INJECTION_KEY,
-  type AlertDialogProvideValue,
-} from "./AlertDialogRoot.vue";
+import { ALERT_DIALOG_INJECTION_KEY } from "./AlertDialogRoot.vue";
 import {
   PrimitiveButton,
   usePrimitiveElement,
@@ -12,22 +9,16 @@ import {
 
 export interface AlertDialogTriggerProps extends PrimitiveProps {}
 
-const injectedValue = inject<AlertDialogProvideValue>(
-  ALERT_DIALOG_INJECTION_KEY
-);
+const injectedValue = inject(ALERT_DIALOG_INJECTION_KEY);
 const { primitiveElement, currentElement } = usePrimitiveElement();
-
-function showErrorInjectedValueNotExist() {
-  console.error(
-    "Injected value not found, AlertDialogTrigger possibly not wrapped with AlertDialogRoot. Component may not be working properly."
-  );
-}
 
 onMounted(() => {
   if (injectedValue) {
     injectedValue.triggerButton.value = currentElement.value;
   } else {
-    showErrorInjectedValueNotExist();
+    console.error(
+      "Injected value not found, AlertDialogTrigger possibly not wrapped with AlertDialogRoot. Component may not be working properly."
+    );
   }
 });
 
@@ -39,6 +30,8 @@ const props = defineProps<AlertDialogTriggerProps>();
     v-bind="props"
     type="button"
     ref="primitiveElement"
+    aria-haspopup="dialog"
+    :aria-controls="injectedValue?.contentId"
     :aria-expanded="injectedValue?.open.value || false"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"
     @click="injectedValue?.openModal"

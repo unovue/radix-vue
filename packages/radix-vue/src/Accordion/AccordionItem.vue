@@ -42,7 +42,7 @@ export const ACCORDION_ITEM_INJECTION_KEY =
 import { CollapsibleRoot } from "@/Collapsible";
 import { usePrimitiveElement } from "@/Primitive";
 import { useArrowNavigation, useId } from "@/shared";
-import { computed, inject, provide } from "vue";
+import { computed, inject, provide, watch } from "vue";
 
 const props = defineProps<AccordionItemProps>();
 
@@ -68,6 +68,10 @@ const dataDisabled = computed(() => (disabled.value ? "" : undefined));
 const dataState = computed(() =>
   open.value ? AccordionItemState.Open : AccordionItemState.Closed
 );
+
+watch(dataState, () => {
+  console.log("run");
+});
 
 const { primitiveElement, currentElement } = usePrimitiveElement();
 
@@ -102,7 +106,7 @@ function handleArrowKey(e: KeyboardEvent) {
     :data-disabled="dataDisabled"
     :data-state="dataState"
     :disabled="disabled"
-    v-model:open="open"
+    :open="open"
     @keydown.up.down.left.right.home.end="handleArrowKey"
     :as-child="props.asChild"
   >

@@ -7,14 +7,15 @@ import NavigationMenuContentImpl from "./NavigationMenuContentImpl.vue";
 import { Presence } from "@/Presence";
 import { type PrimitiveProps } from "@/Primitive";
 
-interface NavigationMenuContentProps extends PrimitiveProps {
-  onEscapeKeyDown?: boolean;
-  onPointerDownOutside?: boolean;
-  onFocusOutside?: boolean;
-  onInteractOutside?: boolean;
-}
+interface NavigationMenuContentProps extends PrimitiveProps {}
 
 const props = defineProps<NavigationMenuContentProps>();
+
+const emits = defineEmits<{
+  pointerDownOutside: [event: Event];
+  focusOutside: [event: Event];
+  interactOutside: [event: Event];
+}>();
 
 defineOptions({
   inheritAttrs: false,
@@ -66,20 +67,29 @@ const handleEscape = () => {
   itemContext!.triggerRef?.value?.focus();
   itemContext!.wasEscapeCloseRef.value = true;
 };
+
+const handlePointerDown = (ev: PointerEvent) => {
+  emits("pointerDownOutside", ev);
+  context?.onContentLeave();
+};
 </script>
 
 <template>
-  <NavigationMenuContentImpl
-    v-if="!context?.viewport.value && open"
-    :data-state="getOpenState(open)"
-    :style="{
-      pointerEvents: !open && context?.isRootMenu ? 'none' : undefined,
-    }"
-    v-bind="{ ...$attrs, ...commonProps }"
-    @escape="handleEscape"
-    @pointerenter="context?.onContentEnter(itemContext!.value)"
-    @pointerleave="context?.onContentLeave()"
-  >
-    <slot></slot>
-  </NavigationMenuContentImpl>
+  <Presence v-if="!context?.viewport.value" :present="open">
+    <NavigationMenuContentImpl
+      :data-state="getOpenState(open)"
+      :style="{
+        pointerEvents: !open && context?.isRootMenu ? 'none' : undefined,
+      }"
+      v-bind="{ ...$attrs, ...commonProps }"
+      @escape="handleEscape"
+      @pointerenter="context?.onContentEnter(itemContext!.value)"
+      @pointerleave="context?.onContentLeave()"
+      @pointerdown="handlePointerDown"
+      @focus-outside="emits('focusOutside', $event)"
+      @interact-outside="emits('interactOutside', $event)"
+    >
+      <slot></slot>
+    </NavigationMenuContentImpl>
+  </Presence>
 </template>

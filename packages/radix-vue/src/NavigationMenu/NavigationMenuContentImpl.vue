@@ -25,7 +25,9 @@ import { getOpenState, EVENT_ROOT_CONTENT_DISMISS } from "./utils";
 
 const props = defineProps<NavigationMenuContentImplProps>();
 const emits = defineEmits<{
-  (e: "escape", event: KeyboardEvent): void;
+  escape: [event: KeyboardEvent];
+  focusOutside: [event: FocusEvent];
+  interactOutside: [event: Event];
 }>();
 
 const { getItems } = useCollection();
@@ -70,10 +72,18 @@ const motionAttribute = computed(() => {
 });
 
 onFocusOutside(elementRef, (ev) => {
-  props.onContentFocusOutside();
-  const target = ev.target as HTMLElement;
-  // Only dismiss content when focus moves outside of the menu
-  if (context!.rootNavigationMenu?.value?.contains(target)) ev.preventDefault();
+  emits("focusOutside", ev);
+  // tentatively use the same as focusoutside
+  // TODO: Add dismissibleLayer
+  emits("interactOutside", ev);
+
+  if (!ev.defaultPrevented) {
+    props.onContentFocusOutside();
+    const target = ev.target as HTMLElement;
+    // Only dismiss content when focus moves outside of the menu
+    if (context!.rootNavigationMenu?.value?.contains(target))
+      ev.preventDefault();
+  }
 });
 
 watchEffect((stopper) => {

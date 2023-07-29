@@ -12,9 +12,9 @@ interface NavigationMenuContentProps extends PrimitiveProps {}
 const props = defineProps<NavigationMenuContentProps>();
 
 const emits = defineEmits<{
-  pointerDownOutside: [event: Event];
-  focusOutside: [event: Event];
-  interactOutside: [event: Event];
+  (e: "pointerDownOutside", event: Event): void;
+  (e: "focusOutside", event: Event): void;
+  (e: "interactOutside", event: Event): void;
 }>();
 
 defineOptions({

@@ -25,9 +25,9 @@ import { getOpenState, EVENT_ROOT_CONTENT_DISMISS } from "./utils";
 
 const props = defineProps<NavigationMenuContentImplProps>();
 const emits = defineEmits<{
-  escape: [event: KeyboardEvent];
-  focusOutside: [event: FocusEvent];
-  interactOutside: [event: Event];
+  (e: "escape", event: KeyboardEvent): void;
+  (e: "focusOutside", event: Event): void;
+  (e: "interactOutside", event: Event): void;
 }>();
 
 const { getItems } = useCollection();

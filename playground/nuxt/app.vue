@@ -5,7 +5,7 @@ import Card from "./components/Card.vue";
 <template>
   <div class="w-full flex flex-col items-center">
     <div class="max-w-6xl w-full grid grid-cols-3 gap-4 pt-40 pb-40">
-      <Card>
+<!--       <Card>
         <AccordionDemo />
       </Card>
       <Card>
@@ -31,11 +31,17 @@ import Card from "./components/Card.vue";
       </Card>
       <Card class="col-span-2">
         <DialogDemo />
+      </Card> -->
+      <Card>
+        <DropdownMenuDemo />
       </Card>
       <Card>
         <DropdownMenuDemo />
       </Card>
       <Card>
+        <DropdownMenuDemo />
+      </Card>
+      <!-- <Card>
         <MenubarDemo />
       </Card>
       <Card class="col-span-2">
@@ -85,7 +91,7 @@ import Card from "./components/Card.vue";
       </Card>
       <Card>
         <TooltipDemo />
-      </Card>
+      </Card> -->
     </div>
   </div>
 </template>

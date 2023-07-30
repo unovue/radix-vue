@@ -10,7 +10,10 @@ import {
   radixVueDescription,
   radixVueName,
 } from "./meta";
+import { dependencies } from "../package.json";
 import { teamMembers } from "./contributors";
+
+const version = dependencies["radix-vue"];
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -48,7 +51,22 @@ export default defineConfig({
   lastUpdated: true,
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    nav: [{ text: "Home", link: "/" }],
+    nav: [
+      { text: "Home", link: "/" },
+      {
+        text: `v${version}`,
+        items: [
+          {
+            text: "Release Notes ",
+            link: releases,
+          },
+          // {
+          //   text: "Contributing ",
+          //   link: contributing,
+          // },
+        ],
+      },
+    ],
     logo: "/logo.svg",
 
     sidebar: sidebar(),

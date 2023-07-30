@@ -4,6 +4,8 @@ import type { DropdownMenuSubProvideValue } from "../../DropdownMenu/DropdownMen
 import type { MenubarProvideValue } from "../../Menubar/MenubarRoot.vue";
 import type { MenubarSubProvideValue } from "../../Menubar/MenubarSub.vue";
 
+import { injectCollection } from "../provideInjectCollection";
+
 // TODO: improve types for props
 interface BaseMenuItemProps extends PrimitiveProps {
   disabled?: boolean;
@@ -25,7 +27,6 @@ import {
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
-import { useCollection } from "../useCollection";
 
 const props = withDefaults(defineProps<BaseMenuItemProps>(), {
   role: "menuitem",
@@ -38,8 +39,9 @@ const emit = defineEmits([
   "escape-keydown",
 ]);
 
-const { getItems } = useCollection();
 const { primitiveElement, currentElement } = usePrimitiveElement();
+
+const items = injectCollection();
 
 function handleKeydown(e: KeyboardEvent) {
   if (e.key === "Escape") {
@@ -52,7 +54,7 @@ function handleKeydown(e: KeyboardEvent) {
   }
 
   if (e.key === "ArrowLeft") {
-    const trigger = props.subProvider?.triggerElement.value;
+    const trigger = props.subProvider?.triggerElement?.value;
 
     if (trigger) {
       props.rootProvider?.changeSelected(trigger);
@@ -69,7 +71,7 @@ function handleKeydown(e: KeyboardEvent) {
     undefined,
     {
       arrowKeyOptions: "vertical",
-      itemsArray: getItems(),
+      itemsArray: items.value,
     }
   );
   if (newSelectedElement) {
@@ -110,13 +112,13 @@ function handleMouseover() {
     @mouseover="handleMouseover"
     @click="handleClick"
     :data-highlighted="
-      rootProvider?.selectedElement.value === currentElement ? '' : null
+      rootProvider?.selectedElement?.value === currentElement ? '' : null
     "
     :aria-disabled="props.disabled ? true : undefined"
     :data-disabled="props.disabled ? '' : undefined"
     :data-orientation="rootProvider?.orientation"
     :tabindex="
-      rootProvider?.selectedElement.value === currentElement ? '0' : '-1'
+      rootProvider?.selectedElement?.value === currentElement ? '0' : '-1'
     "
   >
     <slot />

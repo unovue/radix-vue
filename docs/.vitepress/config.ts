@@ -10,7 +10,10 @@ import {
   radixVueDescription,
   radixVueName,
 } from "./meta";
+import { dependencies } from "../package.json";
 import { teamMembers } from "./contributors";
+
+const version = dependencies["radix-vue"];
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -18,7 +21,7 @@ export default defineConfig({
   description: radixVueDescription,
   head: [
     ["meta", { name: "theme-color", content: "#729b1a" }],
-    ["link", { rel: "icon", href: "/favicon.ico", sizes: "any" }],
+    ["link", { rel: "icon", href: "/logo.png" }],
     ["link", { rel: "icon", href: "/logo.svg", type: "image/svg+xml" }],
     [
       "meta",
@@ -48,7 +51,22 @@ export default defineConfig({
   lastUpdated: true,
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    nav: [{ text: "Home", link: "/" }],
+    nav: [
+      { text: "Home", link: "/" },
+      {
+        text: `v${version}`,
+        items: [
+          {
+            text: "Release Notes ",
+            link: releases,
+          },
+          // {
+          //   text: "Contributing ",
+          //   link: contributing,
+          // },
+        ],
+      },
+    ],
     logo: "/logo.svg",
 
     sidebar: sidebar(),

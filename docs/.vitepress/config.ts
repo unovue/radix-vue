@@ -21,7 +21,7 @@ export default defineConfig({
   description: radixVueDescription,
   head: [
     ["meta", { name: "theme-color", content: "#729b1a" }],
-    ["link", { rel: "icon", href: "/favicon.ico", sizes: "any" }],
+    ["link", { rel: "icon", href: "/logo.png" }],
     ["link", { rel: "icon", href: "/logo.svg", type: "image/svg+xml" }],
     [
       "meta",

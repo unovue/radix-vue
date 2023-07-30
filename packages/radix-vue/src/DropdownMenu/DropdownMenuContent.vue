@@ -1,6 +1,7 @@
 <script lang="ts">
 import { onClickOutside } from "@vueuse/core";
 import { isSSR } from "@/shared/utils";
+import { Components } from "./constants";
 
 export type Boundary = Element | null | Array<Element | null>;
 
@@ -35,7 +36,7 @@ const props = withDefaults(defineProps<DropdownMenuContentProps>(), {
 
 const injectedValue = injectSafely(
   DROPDOWN_MENU_INJECTION_KEY,
-  "DropdownMenuRoot"
+  Components.ROOT
 );
 
 const { primitiveElement, currentElement: tooltipContentElement } =

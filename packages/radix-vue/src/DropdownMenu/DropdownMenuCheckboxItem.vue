@@ -1,6 +1,14 @@
 <script lang="ts">
+import type { Ref, InjectionKey } from "vue";
 import { useVModel } from "@vueuse/core";
 import { type PrimitiveProps } from "@/Primitive";
+
+export type DropdownMenuCheckboxValue = {
+  modelValue: Ref<boolean>;
+};
+
+export const DROPDOWN_CHECKBOX_ITEM_SYMBOL =
+  Symbol() as InjectionKey<DropdownMenuCheckboxValue>;
 
 interface DropdownMenuCheckboxItemProps extends PrimitiveProps {
   checked?: boolean;
@@ -16,16 +24,18 @@ interface DropdownMenuCheckboxItemProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { inject, computed, provide } from "vue";
+import { computed, provide } from "vue";
 import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
-import { DROPDOWN_MENU_ITEM_SYMBOL } from "./utils";
+import { injectSafely } from "./utils";
+import { Components } from "./constants";
 import {
   DROPDOWN_MENU_INJECTION_KEY,
   type DropdownMenuProvideValue,
 } from "./DropdownMenuRoot.vue";
 
-const injectedValue = inject<DropdownMenuProvideValue>(
-  DROPDOWN_MENU_INJECTION_KEY
+const injectedValue = injectSafely<DropdownMenuProvideValue>(
+  DROPDOWN_MENU_INJECTION_KEY,
+  Components.ROOT
 );
 
 const props = defineProps<DropdownMenuCheckboxItemProps>();
@@ -33,6 +43,8 @@ const props = defineProps<DropdownMenuCheckboxItemProps>();
 const emit = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
 }>();
+
+defineExpose({ providerName: Components.CHECKBOX_ITEM });
 
 const modelValue = useVModel(props, "modelValue", emit, {
   passive: true,
@@ -49,7 +61,7 @@ function handleEscape() {
   injectedValue?.hideTooltip();
 }
 
-provide(DROPDOWN_MENU_ITEM_SYMBOL, {
+provide(DROPDOWN_CHECKBOX_ITEM_SYMBOL, {
   modelValue,
 });
 </script>

@@ -10,7 +10,7 @@ export interface RadioGroupRootProps extends PrimitiveProps {
   modelValue?: string | string[];
 }
 
-export const RADIO_GROUP_INJECTION_KEY = "RadioGroup" as const;
+export const RADIO_GROUP_INJECTION_KEY = Symbol();
 
 export interface RadioGroupProvideValue {
   modelValue?: Readonly<Ref<string | string[] | undefined>>;
@@ -26,10 +26,13 @@ import {
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
+import { Components } from "./constants";
 
 const props = defineProps<RadioGroupRootProps>();
 
 const emits = defineEmits(["update:modelValue"]);
+
+defineExpose({ providerName: Components.RADIO_GROUP });
 
 const { primitiveElement, currentElement: parentElement } =
   usePrimitiveElement();

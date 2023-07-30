@@ -41,9 +41,22 @@ const open = useVModel(props, "open", emit, {
   passive: true,
 });
 
-const locked = useScrollLock(document.querySelector("body"), open.value);
+const locked = useScrollLock(document.body, open.value);
 
 watchEffect(() => {
+  if (open.value) {
+    const verticalScrollbarWidth =
+      window.innerWidth - document.body.clientWidth;
+
+    if (verticalScrollbarWidth) {
+      document.body.style.marginRight = verticalScrollbarWidth + "px";
+    }
+
+    document.body.style.pointerEvents = "none";
+  } else {
+    document.body.style.marginRight = "";
+    document.body.style.pointerEvents = "";
+  }
   locked.value = open.value;
 });
 

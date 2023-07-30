@@ -37,7 +37,7 @@ const props = withDefaults(defineProps<DropdownMenuSubContentProps>(), {
 });
 
 defineExpose({
-  injectsCollection: true,
+  providesCollection: true,
 });
 
 const rootInjectedValue = injectSafely<DropdownMenuProvideValue>(

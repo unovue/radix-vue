@@ -25,7 +25,7 @@ import { provideCollection } from "@/shared/provideInjectCollection";
 import { injectSafely } from "./utils";
 
 defineExpose({
-  injectsCollection: true,
+  providesCollection: true,
 });
 
 const props = withDefaults(defineProps<DropdownMenuContentProps>(), {

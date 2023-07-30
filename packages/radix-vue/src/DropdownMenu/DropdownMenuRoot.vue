@@ -48,7 +48,10 @@ const modelValue = useVModel(props, "modelValue", emit, {
 const selectedElement = ref<HTMLElement>();
 const triggerElement = ref<HTMLElement>();
 
-defineExpose({ providerName: Components.ROOT });
+defineExpose({
+  providerName: Components.ROOT,
+  isRoot: true,
+});
 
 provide<DropdownMenuProvideValue>(DROPDOWN_MENU_INJECTION_KEY, {
   selectedElement: selectedElement,

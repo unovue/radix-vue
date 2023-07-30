@@ -63,7 +63,7 @@ export function provideCollection(sourceRef: Ref<HTMLElement | undefined>) {
 
 /**
  * Injects the nearest collection which has been provided
- * by a component using `provideCollection` and defineExpose({ injectsCollection: true }})
+ * by a component using `provideCollection` and defineExpose({ providesCollection: true }})
  *
  * The key to inject is computed dynamically based on the parent component id.
  *
@@ -84,9 +84,9 @@ export function injectCollection(): Ref<HTMLElement[]> {
 
   // eslint-disable-next-line no-constant-condition
   while (true) {
-    if (parent === null) break; // Reaches root
+    if (parent === null) break; // Reaches App root
 
-    if (parent?.exposed?.injectsCollection === true) {
+    if (parent?.exposed?.providesCollection === true) {
       shouldInject = true;
       parentId = parent.uid;
 

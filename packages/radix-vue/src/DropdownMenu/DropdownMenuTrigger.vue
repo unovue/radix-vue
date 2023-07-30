@@ -3,7 +3,7 @@ export interface DropdownMenuTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { inject, nextTick, onMounted } from "vue";
+import { nextTick, onMounted } from "vue";
 import {
   PrimitiveButton,
   usePrimitiveElement,
@@ -14,18 +14,23 @@ import {
   type DropdownMenuProvideValue,
 } from "./DropdownMenuRoot.vue";
 import { PopperAnchor } from "@/Popper";
+import { injectSafely } from "./utils";
+import { Components } from "./constants";
 
 const props = defineProps<DropdownMenuTriggerProps>();
 
-const injectedValue = inject<DropdownMenuProvideValue>(
-  DROPDOWN_MENU_INJECTION_KEY
+const injectedValue = injectSafely<DropdownMenuProvideValue>(
+  DROPDOWN_MENU_INJECTION_KEY,
+  Components.ROOT
 );
 
 const { primitiveElement, currentElement: triggerElement } =
   usePrimitiveElement();
 
 onMounted(() => {
-  injectedValue!.triggerElement.value = triggerElement.value;
+  if (!injectedValue) return;
+
+  injectedValue.triggerElement.value = triggerElement.value;
 });
 
 function handleClick() {
@@ -50,8 +55,8 @@ async function handleKeydown(e: KeyboardEvent) {
     <PrimitiveButton
       type="button"
       ref="primitiveElement"
-      :aria-expanded="injectedValue?.modelValue.value || false"
-      :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
+      :aria-expanded="injectedValue?.modelValue?.value || false"
+      :data-state="injectedValue?.modelValue?.value ? 'open' : 'closed'"
       :as-child="props.asChild"
       @click="handleClick"
       @keydown.prevent="handleKeydown"

@@ -34,12 +34,15 @@ import {
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
+import { Components } from "./constants";
 
 const props = withDefaults(defineProps<DropdownMenuGroupProps>(), {
   type: "single",
 });
 
 const emits = defineEmits(["update:modelValue"]);
+
+defineExpose({ providerName: Components.GROUP });
 
 const { primitiveElement, currentElement: parentElement } =
   usePrimitiveElement();

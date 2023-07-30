@@ -1,5 +1,16 @@
+<script lang="ts">
+import type { InjectionKey, Ref } from "vue";
+
+export type DropdownMenuRadioValue = {
+  modelValue: Ref<boolean>;
+};
+
+export const DROPDOWN_RADIO_ITEM_SYMBOL =
+  Symbol() as InjectionKey<DropdownMenuRadioValue>;
+</script>
+
 <script setup lang="ts">
-import { inject, computed, provide } from "vue";
+import { computed, provide } from "vue";
 import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
 import {
   DROPDOWN_MENU_INJECTION_KEY,
@@ -9,7 +20,8 @@ import {
   RADIO_GROUP_INJECTION_KEY,
   type RadioGroupProvideValue,
 } from "./DropdownMenuRadioGroup.vue";
-import { DROPDOWN_MENU_ITEM_SYMBOL } from "./utils";
+import { injectSafely } from "./utils";
+import { Components } from "./constants";
 import { type PrimitiveProps } from "@/Primitive";
 
 interface RadioGroupItemProps extends PrimitiveProps {
@@ -21,14 +33,19 @@ interface RadioGroupItemProps extends PrimitiveProps {
   textValue?: string;
 }
 
-const rootInjectedValue = inject<DropdownMenuProvideValue>(
-  DROPDOWN_MENU_INJECTION_KEY
+const rootInjectedValue = injectSafely<DropdownMenuProvideValue>(
+  DROPDOWN_MENU_INJECTION_KEY,
+  Components.ROOT
 );
-const radioInjectedValue = inject<RadioGroupProvideValue>(
-  RADIO_GROUP_INJECTION_KEY
+
+const radioInjectedValue = injectSafely<RadioGroupProvideValue>(
+  RADIO_GROUP_INJECTION_KEY,
+  Components.RADIO_GROUP
 );
 
 const props = defineProps<RadioGroupItemProps>();
+
+defineExpose({ providerName: Components.RADIO_ITEM });
 
 const radioDataState = computed(() => {
   return radioInjectedValue?.modelValue?.value === props.value ? "on" : "off";
@@ -47,7 +64,8 @@ function handleEscape() {
 const modelValue = computed(
   () => radioInjectedValue?.modelValue?.value === props.value
 );
-provide(DROPDOWN_MENU_ITEM_SYMBOL, {
+
+provide(DROPDOWN_RADIO_ITEM_SYMBOL, {
   modelValue,
 });
 </script>

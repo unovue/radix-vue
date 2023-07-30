@@ -6,7 +6,7 @@ export interface DropdownMenuSubTriggerProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { inject, onMounted, computed, nextTick } from "vue";
+import { onMounted, computed, nextTick } from "vue";
 import {
   DROPDOWN_MENU_INJECTION_KEY,
   type DropdownMenuProvideValue,
@@ -18,20 +18,26 @@ import {
 import { PopperAnchor } from "@/Popper";
 import { usePrimitiveElement, type PrimitiveProps } from "@/Primitive";
 import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
+import { injectSafely } from "./utils";
+import { Components } from "./constants";
 
-const rootInjectedValue = inject<DropdownMenuProvideValue>(
-  DROPDOWN_MENU_INJECTION_KEY
+const rootInjectedValue = injectSafely<DropdownMenuProvideValue>(
+  DROPDOWN_MENU_INJECTION_KEY,
+  Components.ROOT
 );
 
-const injectedValue = inject<DropdownMenuSubProvideValue>(
-  DROPDOWN_MENU_SUB_INJECTION_KEY
+const injectedValue = injectSafely<DropdownMenuSubProvideValue>(
+  DROPDOWN_MENU_SUB_INJECTION_KEY,
+  Components.SUB_MENU
 );
 
 const props = defineProps<DropdownMenuSubTriggerProps>();
 const { primitiveElement, currentElement } = usePrimitiveElement();
 
 onMounted(() => {
-  injectedValue!.triggerElement.value = currentElement.value;
+  if (!injectedValue) return;
+
+  injectedValue.triggerElement.value = currentElement.value;
 });
 
 async function openAndSelectFirstElement() {
@@ -56,7 +62,7 @@ async function handleHorizontalKeydown(e: KeyboardEvent) {
 }
 
 const dataState = computed(() => {
-  return injectedValue?.modelValue.value ? "open" : "closed";
+  return injectedValue?.modelValue?.value ? "open" : "closed";
 });
 
 function handleMouseover() {
@@ -71,7 +77,7 @@ function handleMouseover() {
       :id="injectedValue?.triggerId"
       :rootProvider="rootInjectedValue"
       :subProvider="injectedValue?.parentContext"
-      :aria-expanded="injectedValue?.modelValue.value"
+      :aria-expanded="injectedValue?.modelValue?.value"
       :aria-controls="injectedValue?.contentId"
       :data-state="dataState"
       :data-orientation="rootInjectedValue?.orientation"

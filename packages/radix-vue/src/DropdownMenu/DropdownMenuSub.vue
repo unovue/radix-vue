@@ -30,9 +30,10 @@ export type DropdownMenuSubProvideValue = {
 </script>
 
 <script setup lang="ts">
-import { inject, provide, ref } from "vue";
+import { provide, ref } from "vue";
 import { PopperRoot } from "@/Popper";
 import { useId } from "@/shared";
+import { Components } from "./constants";
 
 const props = withDefaults(defineProps<DropdownMenuSubRootProps>(), {
   delayDuration: 700,
@@ -43,15 +44,15 @@ const emit = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
 }>();
 
+defineExpose({ providerName: Components.SUB_MENU });
+
 const modelValue = useVModel(props, "modelValue", emit, {
   passive: true,
 });
 
 const triggerElement = ref<HTMLElement>();
 
-const parentContext = inject(DROPDOWN_MENU_SUB_INJECTION_KEY);
-
-provide<DropdownMenuSubProvideValue>(DROPDOWN_MENU_SUB_INJECTION_KEY, {
+const currentContext = {
   modelValue,
   showTooltip: () => {
     modelValue.value = true;
@@ -64,7 +65,11 @@ provide<DropdownMenuSubProvideValue>(DROPDOWN_MENU_SUB_INJECTION_KEY, {
   orientation: props.orientation,
   triggerId: useId(),
   contentId: useId(),
-  parentContext,
+};
+
+provide<DropdownMenuSubProvideValue>(DROPDOWN_MENU_SUB_INJECTION_KEY, {
+  ...currentContext,
+  parentContext: currentContext,
 });
 </script>
 

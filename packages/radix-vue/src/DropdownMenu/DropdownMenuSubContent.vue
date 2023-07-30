@@ -12,7 +12,7 @@ export interface DropdownMenuSubContentProps extends PopperContentProps {
 </script>
 
 <script setup lang="ts">
-import { inject, watchEffect, watch } from "vue";
+import { watchEffect, watch } from "vue";
 import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 import {
   DROPDOWN_MENU_INJECTION_KEY,
@@ -23,16 +23,11 @@ import {
   type DropdownMenuSubProvideValue,
 } from "./DropdownMenuSub.vue";
 import { PopperContent, type PopperContentProps } from "@/Popper";
-import { useCollection } from "@/shared";
 import { onClickOutside } from "@vueuse/core";
-
-const rootInjectedValue = inject<DropdownMenuProvideValue>(
-  DROPDOWN_MENU_INJECTION_KEY
-);
-
-const injectedValue = inject<DropdownMenuSubProvideValue>(
-  DROPDOWN_MENU_SUB_INJECTION_KEY
-);
+import { injectSafely } from "./utils";
+import { Components } from "./constants";
+import { provideCollection } from "@/shared/provideInjectCollection";
+import { isSSR } from "@/shared/utils";
 
 const props = withDefaults(defineProps<DropdownMenuSubContentProps>(), {
   side: "right",
@@ -41,13 +36,28 @@ const props = withDefaults(defineProps<DropdownMenuSubContentProps>(), {
   avoidCollisions: true,
 });
 
+defineExpose({
+  injectsCollection: true,
+});
+
+const rootInjectedValue = injectSafely<DropdownMenuProvideValue>(
+  DROPDOWN_MENU_INJECTION_KEY,
+  Components.ROOT
+);
+
+const injectedValue = injectSafely<DropdownMenuSubProvideValue>(
+  DROPDOWN_MENU_SUB_INJECTION_KEY,
+  Components.SUB_MENU
+);
+
 const { primitiveElement, currentElement: tooltipContentElement } =
   usePrimitiveElement();
 
-const { createCollection } = useCollection();
-createCollection(tooltipContentElement);
+provideCollection(tooltipContentElement);
 
 watchEffect(() => {
+  if (isSSR) return;
+
   if (tooltipContentElement.value) {
     if (injectedValue?.modelValue.value) {
       fillItemsArray();
@@ -56,7 +66,7 @@ watchEffect(() => {
 });
 
 watch(
-  () => rootInjectedValue?.selectedElement.value,
+  () => rootInjectedValue?.selectedElement?.value,
   (n) => {
     if (!injectedValue?.modelValue.value) return;
     const siblingsElement = Array.from(
@@ -97,10 +107,10 @@ onClickOutside(tooltipContentElement, (event) => {
 </script>
 
 <template>
-  <PopperContent v-bind="props" v-if="injectedValue?.modelValue.value">
+  <PopperContent v-bind="props" v-if="injectedValue?.modelValue?.value">
     <PrimitiveDiv
       ref="primitiveElement"
-      :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
+      :data-state="injectedValue?.modelValue?.value ? 'open' : 'closed'"
       :data-side="props.side"
       :data-align="props.align"
       :data-orientation="injectedValue.orientation"

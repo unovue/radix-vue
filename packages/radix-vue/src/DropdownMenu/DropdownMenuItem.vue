@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { inject } from "vue";
 import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
 import {
   DROPDOWN_MENU_INJECTION_KEY,
@@ -10,6 +9,8 @@ import {
   type DropdownMenuSubProvideValue,
 } from "./DropdownMenuSub.vue";
 import { type PrimitiveProps } from "@/Primitive";
+import { injectSafely } from "./utils";
+import { Components } from "./constants";
 
 interface DropdownMenuItemProps extends PrimitiveProps {
   value?: string;
@@ -18,12 +19,14 @@ interface DropdownMenuItemProps extends PrimitiveProps {
   textValue?: string;
 }
 
-const rootInjectedValue = inject<DropdownMenuProvideValue>(
-  DROPDOWN_MENU_INJECTION_KEY
+const rootInjectedValue = injectSafely<DropdownMenuProvideValue>(
+  DROPDOWN_MENU_INJECTION_KEY,
+  Components.ROOT
 );
 
-const subInjectedValue = inject<DropdownMenuSubProvideValue>(
-  DROPDOWN_MENU_SUB_INJECTION_KEY
+const subInjectedValue = injectSafely<DropdownMenuSubProvideValue>(
+  DROPDOWN_MENU_SUB_INJECTION_KEY,
+  Components.SUB_MENU
 );
 
 const props = defineProps<DropdownMenuItemProps>();

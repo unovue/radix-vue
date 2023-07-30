@@ -17,7 +17,7 @@ import { inject, watchEffect } from "vue";
 import { trapFocus } from "@/shared";
 import { ALERT_DIALOG_INJECTION_KEY } from "./AlertDialogRoot.vue";
 import {
-  PrimitiveDiv,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -85,8 +85,10 @@ const handleKeydown = (e: KeyboardEvent) => {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     v-if="injectedValue?.open.value"
+    :as="props.as"
+    :as-child="props.asChild"
     ref="primitiveElement"
     :id="injectedValue?.contentId"
     :aria-labelledby="injectedValue?.titleId"
@@ -97,5 +99,5 @@ const handleKeydown = (e: KeyboardEvent) => {
     style="pointer-events: auto"
   >
     <slot />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

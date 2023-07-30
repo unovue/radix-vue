@@ -1,15 +1,15 @@
 import { mount } from "@vue/test-utils";
-import { PrimitiveDiv } from "./";
+import { Primitive } from "./";
 import { describe, expect, it } from "vitest";
 
 describe("test Primitive functionalities", () => {
   it("should render div element correctly", () => {
-    const wrapper = mount(PrimitiveDiv);
+    const wrapper = mount(Primitive);
     expect(wrapper.find("div").exists()).toBe(true);
   });
 
   it("should renders div element with custom attribute", () => {
-    const wrapper = mount(PrimitiveDiv, {
+    const wrapper = mount(Primitive, {
       attrs: {
         type: "button",
       },
@@ -21,7 +21,7 @@ describe("test Primitive functionalities", () => {
   });
 
   it("should renders multiple child elements", () => {
-    const wrapper = mount(PrimitiveDiv, {
+    const wrapper = mount(Primitive, {
       slots: {
         default: "<div>1</div><div>2</div><div>3</div>",
       },
@@ -35,7 +35,7 @@ describe("test Primitive functionalities", () => {
   describe("asChild", () => {
     it("should throw error when multiple child elements exists", () => {
       const wrapper = () =>
-        mount(PrimitiveDiv, {
+        mount(Primitive, {
           props: {
             asChild: true,
           },
@@ -48,7 +48,7 @@ describe("test Primitive functionalities", () => {
     });
 
     it("should merge child's class together", () => {
-      const wrapper = mount(PrimitiveDiv, {
+      const wrapper = mount(Primitive, {
         props: {
           asChild: true,
         },
@@ -68,7 +68,7 @@ describe("test Primitive functionalities", () => {
     });
 
     it("should render the child class element tag", () => {
-      const wrapper = mount(PrimitiveDiv, {
+      const wrapper = mount(Primitive, {
         props: {
           asChild: true,
         },
@@ -87,7 +87,7 @@ describe("test Primitive functionalities", () => {
         template: '<div id="child">Hello world</div>',
       };
       const RootComponent = {
-        components: { ChildComponent, PrimitiveDiv },
+        components: { ChildComponent, Primitive },
         template: "<PrimitiveDiv><ChildComponent /></PrimitiveDiv>",
       };
 
@@ -102,7 +102,7 @@ describe("test Primitive functionalities", () => {
     });
 
     it("should inherit parent attributes and the child attributes", () => {
-      const wrapper = mount(PrimitiveDiv, {
+      const wrapper = mount(Primitive, {
         props: {
           asChild: true,
         },
@@ -120,7 +120,7 @@ describe("test Primitive functionalities", () => {
     });
 
     it("should replace parent attributes with child's attributes", () => {
-      const wrapper = mount(PrimitiveDiv, {
+      const wrapper = mount(Primitive, {
         props: {
           asChild: true,
         },

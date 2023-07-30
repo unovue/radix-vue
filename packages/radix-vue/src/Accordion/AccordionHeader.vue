@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PrimitiveH3, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { inject } from "vue";
 import { ACCORDION_ITEM_INJECTION_KEY } from "./AccordionItem.vue";
 import { ACCORDION_INJECTION_KEY } from "./AccordionRoot.vue";
@@ -13,12 +13,13 @@ const injectedItem = inject(ACCORDION_ITEM_INJECTION_KEY);
 </script>
 
 <template>
-  <PrimitiveH3
+  <Primitive
+    :as="props.as || 'h3'"
     :as-child="props.asChild"
     :data-orientation="injectedRoot?.orientation"
     :data-state="injectedItem?.dataState.value"
     :data-disabled="injectedItem?.dataDisabled.value"
   >
     <slot />
-  </PrimitiveH3>
+  </Primitive>
 </template>

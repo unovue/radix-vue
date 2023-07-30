@@ -1,8 +1,15 @@
-import { type InjectionKey, type Ref } from "vue";
+import type { InjectionKey } from "vue";
 
-type DropdownMenuItemContextValue = {
-  modelValue: Ref<boolean>;
-};
+import { injectSafely as _injectSafely } from "@/shared/injectSafely";
+import { Components } from "./constants";
 
-export const DROPDOWN_MENU_ITEM_SYMBOL =
-  Symbol() as InjectionKey<DropdownMenuItemContextValue>;
+/**
+ * This is just an alias for the original injectSafely function
+ * which avoids to have to pass always the root component name.
+ */
+export function injectSafely<T>(
+  injectionKey: InjectionKey<T>,
+  provideComponentName: string
+) {
+  return _injectSafely<T>(injectionKey, provideComponentName, Components.ROOT);
+}

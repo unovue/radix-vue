@@ -10,7 +10,7 @@ export interface ToggleRootProps extends PrimitiveProps {
   /**
    * The controlled pressed state of the toggle.
    */
-  modelValue?: boolean;
+  pressed?: boolean;
   /**
    * Disables the trigger.
    */
@@ -21,7 +21,7 @@ export const TOGGLE_INJECTION_KEY =
   Symbol() as InjectionKey<ToggleProvideValue>;
 
 export interface ToggleProvideValue {
-  modelValue?: Readonly<Ref<ToggleRootProps["modelValue"]>>;
+  modelValue?: Readonly<Ref<ToggleRootProps["pressed"]>>;
   dataState: ComputedRef<DataState>;
 }
 
@@ -33,15 +33,15 @@ import { PrimitiveButton, type PrimitiveProps } from "@/Primitive";
 import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<ToggleRootProps>(), {
-  value: false,
+  pressed: undefined,
   disabled: false,
 });
 
 const emits = defineEmits<{
-  (e: "update:modelValue", value: boolean): void;
+  (e: "update:pressed", value: boolean): void;
 }>();
 
-const pressed = useVModel(props, "modelValue", emits, {
+const pressed = useVModel(props, "pressed", emits, {
   defaultValue: props.defaultValue,
   passive: true,
 });

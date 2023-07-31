@@ -5,6 +5,10 @@ import { Toggle } from "./";
 
 const toggleState = ref<boolean>(false);
 const toggleStateDefaultOn = ref<boolean>();
+
+const onChange = () => {
+  alert("On Change Event");
+};
 </script>
 
 <template>
@@ -31,9 +35,8 @@ const toggleStateDefaultOn = ref<boolean>();
     <Variant title="onPressedChange Event">
       <Toggle
         aria-label="Toggle bold"
-        :default-value="true"
-        v-model="toggleStateDefaultOn"
-        @
+        v-model="toggleState"
+        @update:pressed="onChange"
         class="hover:bg-violet3 color-mauve11 data-[state=on]:bg-violet6 data-[state=on]:text-violet12 shadow-blackA7 flex h-[35px] w-[35px] items-center justify-center rounded bg-white text-base leading-4 shadow-[0_2px_10px] focus-within:shadow-[0_0_0_2px] focus-within:shadow-black"
       >
         <Icon icon="radix-icons:font-bold" class="text-black" />

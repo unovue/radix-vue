@@ -4,9 +4,9 @@ import {
   inject,
   provide,
   ref,
-  // onBeforeUpdate,
+  onBeforeUpdate,
   onMounted,
-  // onUpdated,
+  onUpdated,
   getCurrentInstance,
   type Ref,
 } from "vue";
@@ -47,14 +47,12 @@ export function provideCollection(sourceRef: Ref<HTMLElement | undefined>) {
     ) as HTMLElement[]);
   }
 
-  // Either use onMounted or onMounted+onBeforeUpdate, the second one hurts a bit performance, feel free to choose
-
-  /*   onBeforeUpdate(() => {
+  onBeforeUpdate(() => {
     items.value = [];
-  }); */
+  });
 
   onMounted(setCollection);
-  // onUpdated(setCollection);
+  onUpdated(setCollection);
 
   provide(getProvideCollectionKey(), items);
 

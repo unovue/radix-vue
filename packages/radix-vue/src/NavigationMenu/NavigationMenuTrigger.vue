@@ -27,6 +27,7 @@ const { primitiveElement, currentElement: triggerElement } =
   usePrimitiveElement();
 const triggerId = makeTriggerId(context!.baseId, itemContext!.value);
 const contentId = makeContentId(context!.baseId, itemContext!.value);
+
 const hasPointerMoveOpenedRef = ref(false);
 const wasClickCloseRef = ref(false);
 

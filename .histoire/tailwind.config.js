@@ -12,10 +12,7 @@ const plugin = require("tailwindcss/plugin");
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: "class",
-  content: [
-    "../packages/radix-vue/src/**/*.story.vue",
-    "../packages/radix-vue/src/**/story/*.vue",
-  ],
+  content: ["../packages/radix-vue/src/**/*.vue"],
   theme: {
     extend: {
       colors: {

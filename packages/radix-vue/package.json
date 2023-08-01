@@ -1,6 +1,6 @@
 {
   "name": "radix-vue",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "Vue port for Radix UI Primitives.",
   "type": "module",
   "main": "./dist/index.umd.cjs",
@@ -53,7 +53,7 @@
     "@vue/test-utils": "^2.4.0",
     "@vue/tsconfig": "^0.4.0",
     "@vueuse/components": "^10.2.1",
-    "@vueuse/core": "^10.2.0",
+    "@vueuse/core": "^10.3.0",
     "dts-bundle": "^0.7.3",
     "eslint": "^8.43.0",
     "eslint-plugin-vue": "^9.15.0",

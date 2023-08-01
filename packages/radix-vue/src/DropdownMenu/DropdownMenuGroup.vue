@@ -34,7 +34,6 @@ import {
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
-import { Components } from "./constants";
 
 const props = withDefaults(defineProps<DropdownMenuGroupProps>(), {
   type: "single",
@@ -42,7 +41,7 @@ const props = withDefaults(defineProps<DropdownMenuGroupProps>(), {
 
 const emits = defineEmits(["update:modelValue"]);
 
-defineExpose({ providerName: Components.GROUP });
+defineExpose({ providerKey: DROPDOWN_MENU_GROUP_INJECTION_KEY });
 
 const { primitiveElement, currentElement: parentElement } =
   usePrimitiveElement();

@@ -24,8 +24,7 @@ import {
 } from "./DropdownMenuSub.vue";
 import { PopperContent, type PopperContentProps } from "@/Popper";
 import { onClickOutside } from "@vueuse/core";
-import { injectSafely } from "./utils";
-import { Components } from "./constants";
+import { injectSafely } from "@/shared/injectSafely";
 import { provideCollection } from "@/shared/provideInjectCollection";
 import { isSSR } from "@/shared/utils";
 
@@ -41,13 +40,11 @@ defineExpose({
 });
 
 const rootInjectedValue = injectSafely<DropdownMenuProvideValue>(
-  DROPDOWN_MENU_INJECTION_KEY,
-  Components.ROOT
+  DROPDOWN_MENU_INJECTION_KEY
 );
 
 const injectedValue = injectSafely<DropdownMenuSubProvideValue>(
-  DROPDOWN_MENU_SUB_INJECTION_KEY,
-  Components.SUB_MENU
+  DROPDOWN_MENU_SUB_INJECTION_KEY
 );
 
 const { primitiveElement, currentElement: tooltipContentElement } =

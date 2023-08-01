@@ -1,7 +1,6 @@
 <script lang="ts">
 import { onClickOutside } from "@vueuse/core";
 import { isSSR } from "@/shared/utils";
-import { Components } from "./constants";
 
 export type Boundary = Element | null | Array<Element | null>;
 
@@ -22,7 +21,7 @@ import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
 import { DROPDOWN_MENU_INJECTION_KEY } from "./DropdownMenuRoot.vue";
 import { PopperContent, type PopperContentProps } from "@/Popper";
 import { provideCollection } from "@/shared/provideInjectCollection";
-import { injectSafely } from "./utils";
+import { injectSafely } from "@/shared/injectSafely";
 
 defineExpose({
   providesCollection: true,
@@ -34,10 +33,7 @@ const props = withDefaults(defineProps<DropdownMenuContentProps>(), {
   avoidCollisions: true,
 });
 
-const injectedValue = injectSafely(
-  DROPDOWN_MENU_INJECTION_KEY,
-  Components.ROOT
-);
+const injectedValue = injectSafely(DROPDOWN_MENU_INJECTION_KEY);
 
 const { primitiveElement, currentElement: tooltipContentElement } =
   usePrimitiveElement();

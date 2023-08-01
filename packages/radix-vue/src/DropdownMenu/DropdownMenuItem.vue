@@ -9,8 +9,7 @@ import {
   type DropdownMenuSubProvideValue,
 } from "./DropdownMenuSub.vue";
 import { type PrimitiveProps } from "@/Primitive";
-import { injectSafely } from "./utils";
-import { Components } from "./constants";
+import { injectSafely } from "@/shared/injectSafely";
 
 interface DropdownMenuItemProps extends PrimitiveProps {
   value?: string;
@@ -20,13 +19,11 @@ interface DropdownMenuItemProps extends PrimitiveProps {
 }
 
 const rootInjectedValue = injectSafely<DropdownMenuProvideValue>(
-  DROPDOWN_MENU_INJECTION_KEY,
-  Components.ROOT
+  DROPDOWN_MENU_INJECTION_KEY
 );
 
 const subInjectedValue = injectSafely<DropdownMenuSubProvideValue>(
-  DROPDOWN_MENU_SUB_INJECTION_KEY,
-  Components.SUB_MENU
+  DROPDOWN_MENU_SUB_INJECTION_KEY
 );
 
 const props = defineProps<DropdownMenuItemProps>();

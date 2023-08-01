@@ -18,17 +18,14 @@ import {
 import { PopperAnchor } from "@/Popper";
 import { usePrimitiveElement, type PrimitiveProps } from "@/Primitive";
 import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
-import { injectSafely } from "./utils";
-import { Components } from "./constants";
+import { injectSafely } from "@/shared/injectSafely";
 
 const rootInjectedValue = injectSafely<DropdownMenuProvideValue>(
-  DROPDOWN_MENU_INJECTION_KEY,
-  Components.ROOT
+  DROPDOWN_MENU_INJECTION_KEY
 );
 
 const injectedValue = injectSafely<DropdownMenuSubProvideValue>(
-  DROPDOWN_MENU_SUB_INJECTION_KEY,
-  Components.SUB_MENU
+  DROPDOWN_MENU_SUB_INJECTION_KEY
 );
 
 const props = defineProps<DropdownMenuSubTriggerProps>();

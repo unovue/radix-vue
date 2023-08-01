@@ -26,13 +26,12 @@ import {
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
-import { Components } from "./constants";
 
 const props = defineProps<RadioGroupRootProps>();
 
 const emits = defineEmits(["update:modelValue"]);
 
-defineExpose({ providerName: Components.RADIO_GROUP });
+defineExpose({ providerKey: RADIO_GROUP_INJECTION_KEY });
 
 const { primitiveElement, currentElement: parentElement } =
   usePrimitiveElement();

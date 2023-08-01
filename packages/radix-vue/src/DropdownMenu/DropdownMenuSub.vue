@@ -33,7 +33,6 @@ export type DropdownMenuSubProvideValue = {
 import { provide, ref } from "vue";
 import { PopperRoot } from "@/Popper";
 import { useId } from "@/shared";
-import { Components } from "./constants";
 
 const props = withDefaults(defineProps<DropdownMenuSubRootProps>(), {
   delayDuration: 700,
@@ -44,7 +43,7 @@ const emit = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
 }>();
 
-defineExpose({ providerName: Components.SUB_MENU });
+defineExpose({ providerKey: DROPDOWN_MENU_SUB_INJECTION_KEY });
 
 const modelValue = useVModel(props, "modelValue", emit, {
   passive: true,

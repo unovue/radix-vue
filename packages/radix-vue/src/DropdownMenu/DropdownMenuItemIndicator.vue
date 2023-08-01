@@ -5,8 +5,9 @@ export interface DropdownMenuItemIndicatorProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
+import { computed } from "vue";
 import { PrimitiveSpan, type PrimitiveProps } from "@/Primitive";
-import { injectSafely } from "./utils";
+import { injectSafely } from "@/shared/injectSafely";
 
 import {
   DROPDOWN_CHECKBOX_ITEM_SYMBOL,
@@ -16,19 +17,15 @@ import {
   DROPDOWN_RADIO_ITEM_SYMBOL,
   type DropdownMenuRadioValue,
 } from "./DropdownMenuRadioItem.vue";
-import { Components } from "./constants";
-import { computed } from "vue";
 
 const props = defineProps<DropdownMenuItemIndicatorProps>();
 
 const checkboxInjectedValue = injectSafely<DropdownMenuCheckboxValue>(
-  DROPDOWN_CHECKBOX_ITEM_SYMBOL,
-  Components.CHECKBOX_ITEM
+  DROPDOWN_CHECKBOX_ITEM_SYMBOL
 );
 
 const radioInjectedValue = injectSafely<DropdownMenuRadioValue>(
-  DROPDOWN_RADIO_ITEM_SYMBOL,
-  Components.RADIO_ITEM
+  DROPDOWN_RADIO_ITEM_SYMBOL
 );
 
 const injectedValue = computed(() => {

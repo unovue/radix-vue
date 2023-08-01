@@ -20,8 +20,7 @@ import {
   RADIO_GROUP_INJECTION_KEY,
   type RadioGroupProvideValue,
 } from "./DropdownMenuRadioGroup.vue";
-import { injectSafely } from "./utils";
-import { Components } from "./constants";
+import { injectSafely } from "@/shared/injectSafely";
 import { type PrimitiveProps } from "@/Primitive";
 
 interface RadioGroupItemProps extends PrimitiveProps {
@@ -34,18 +33,16 @@ interface RadioGroupItemProps extends PrimitiveProps {
 }
 
 const rootInjectedValue = injectSafely<DropdownMenuProvideValue>(
-  DROPDOWN_MENU_INJECTION_KEY,
-  Components.ROOT
+  DROPDOWN_MENU_INJECTION_KEY
 );
 
 const radioInjectedValue = injectSafely<RadioGroupProvideValue>(
-  RADIO_GROUP_INJECTION_KEY,
-  Components.RADIO_GROUP
+  RADIO_GROUP_INJECTION_KEY
 );
 
 const props = defineProps<RadioGroupItemProps>();
 
-defineExpose({ providerName: Components.RADIO_ITEM });
+defineExpose({ providerKey: DROPDOWN_RADIO_ITEM_SYMBOL });
 
 const radioDataState = computed(() => {
   return radioInjectedValue?.modelValue?.value === props.value ? "on" : "off";

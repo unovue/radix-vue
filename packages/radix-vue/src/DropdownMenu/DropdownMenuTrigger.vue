@@ -14,14 +14,12 @@ import {
   type DropdownMenuProvideValue,
 } from "./DropdownMenuRoot.vue";
 import { PopperAnchor } from "@/Popper";
-import { injectSafely } from "./utils";
-import { Components } from "./constants";
+import { injectSafely } from "@/shared/injectSafely";
 
 const props = defineProps<DropdownMenuTriggerProps>();
 
 const injectedValue = injectSafely<DropdownMenuProvideValue>(
-  DROPDOWN_MENU_INJECTION_KEY,
-  Components.ROOT
+  DROPDOWN_MENU_INJECTION_KEY
 );
 
 const { primitiveElement, currentElement: triggerElement } =

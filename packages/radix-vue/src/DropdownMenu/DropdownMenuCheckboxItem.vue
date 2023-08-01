@@ -26,16 +26,14 @@ interface DropdownMenuCheckboxItemProps extends PrimitiveProps {
 <script setup lang="ts">
 import { computed, provide } from "vue";
 import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
-import { injectSafely } from "./utils";
-import { Components } from "./constants";
+import { injectSafely } from "@/shared/injectSafely";
 import {
   DROPDOWN_MENU_INJECTION_KEY,
   type DropdownMenuProvideValue,
 } from "./DropdownMenuRoot.vue";
 
 const injectedValue = injectSafely<DropdownMenuProvideValue>(
-  DROPDOWN_MENU_INJECTION_KEY,
-  Components.ROOT
+  DROPDOWN_MENU_INJECTION_KEY
 );
 
 const props = defineProps<DropdownMenuCheckboxItemProps>();
@@ -44,7 +42,7 @@ const emit = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
 }>();
 
-defineExpose({ providerName: Components.CHECKBOX_ITEM });
+defineExpose({ providerKey: DROPDOWN_CHECKBOX_ITEM_SYMBOL });
 
 const modelValue = useVModel(props, "modelValue", emit, {
   passive: true,

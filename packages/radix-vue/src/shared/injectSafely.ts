@@ -5,16 +5,16 @@ import { isSSR } from "@/shared/utils";
  * Returns the name of the component which provides the data to
  * be injected by loooking up the parent chain.
  *
- * The name is exposed via defineExpose({ providerName }) in the component
+ * The key is exposed via defineExpose({ providerKey }) in the component
  * setup() function.
  *
- * @param {string} provideComponentName - The name of the component that provides the injection.
- * @param {string} rootComponentName - The root component to break the loop and stop searching for the injection.
+ * @param {InjectionKey<T>} providerKey - The key that provides the injection.
+ *
+ * @returns {InjectionKey<T> | undefined} - The key of the component which provides the injection or undefined if no key is found.
  */
-function getProviderName(
-  provideComponentName: string,
-  rootComponentName: string
-) {
+function getProviderKey<T>(
+  providerKey: InjectionKey<T>
+): InjectionKey<T> | undefined {
   const instance = getCurrentInstance();
 
   if (!instance) {
@@ -23,7 +23,7 @@ function getProviderName(
     );
   }
 
-  let providerName;
+  let providerKey_: InjectionKey<T> | undefined = undefined;
   let parent = instance.parent;
 
   // eslint-disable-next-line no-constant-condition
@@ -33,40 +33,33 @@ function getProviderName(
     }
 
     if (
-      parent?.exposed?.providerName === provideComponentName ||
-      parent?.exposed?.providerName === rootComponentName
+      parent?.exposed?.providerKey === providerKey ||
+      parent?.exposed?.isComponentRoot
     ) {
-      providerName = parent.exposed.providerName;
+      providerKey_ = parent.exposed.providerKey;
       break;
     }
 
     parent = parent.parent;
   }
 
-  return providerName;
+  return providerKey_;
 }
 
 /**
  * Injects the provided value only if actually provided by an ancestor component.
  * Otherwise returns an empty object.
  *
- *
  * @param {InjectionKey<T>} injectionKey - The key to inject.
- * @param {string} provideComponentName - The name of the component that provides the injection.
- * @param {string} rootComponentName - The root component to break the loop and stop searching for the injection.
  *
  * @returns {T} - Mocked value on the server or if not provided by an ancestor component or the actual value if provided.
  */
-export function injectSafely<T>(
-  injectionKey: InjectionKey<T>,
-  provideComponentName: string,
-  rootComponentName: string
-) {
+export function injectSafely<T>(injectionKey: InjectionKey<T>) {
   if (isSSR) return {} as T; // Suppress Nuxt SSR warning
 
-  const providerName = getProviderName(provideComponentName, rootComponentName);
+  const providerKey = getProviderKey(injectionKey);
 
-  if (providerName === provideComponentName) return inject(injectionKey);
+  if (providerKey === injectionKey) return inject(injectionKey);
 
   return {} as T;
 }

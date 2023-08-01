@@ -2,8 +2,6 @@
 import type { Ref, InjectionKey } from "vue";
 import type { DataOrientation, Direction } from "../shared/types";
 
-import { Components } from "./constants";
-
 export interface DropdownMenuRootProps {
   open?: boolean;
   defaultOpen?: boolean;
@@ -49,8 +47,8 @@ const selectedElement = ref<HTMLElement>();
 const triggerElement = ref<HTMLElement>();
 
 defineExpose({
-  providerName: Components.ROOT,
-  isRoot: true,
+  providerKey: DROPDOWN_MENU_INJECTION_KEY,
+  isComponentRoot: true,
 });
 
 provide<DropdownMenuProvideValue>(DROPDOWN_MENU_INJECTION_KEY, {

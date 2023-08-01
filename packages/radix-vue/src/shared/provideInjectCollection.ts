@@ -91,7 +91,7 @@ export function injectCollection(): Ref<HTMLElement[]> {
       break;
     }
 
-    if (parent.exposed?.isRoot) break; // Reaches component root
+    if (parent.exposed?.isComponentRoot) break; // Reaches component root
 
     parent = parent.parent;
   }

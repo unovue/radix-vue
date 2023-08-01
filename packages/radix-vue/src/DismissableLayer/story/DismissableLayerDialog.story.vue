@@ -1,24 +1,9 @@
 <script setup lang="ts">
-import { nextTick, reactive, ref, watch } from "vue";
+import { nextTick, ref, watch } from "vue";
 import DummyDialog from "./_DummyDialog.vue";
-import { DismissableLayer } from "../";
-import DismissableBox from "./_DismissableBox.vue";
 import { trapFocus } from "@/shared";
 
-const open = ref(false);
-
-const handleClick = () => {
-  console.log("click");
-};
-
-const state = reactive({
-  isEscapeKeyDownPrevented: false,
-  isPointerDownOutsidePrevented: false,
-  isFocusOutsidePrevented: false,
-});
-
 const openWithFocusScope = ref(false);
-const openButtonRef = ref<HTMLElement>();
 const trappedRef = ref<HTMLElement>();
 
 watch(openWithFocusScope, async () => {

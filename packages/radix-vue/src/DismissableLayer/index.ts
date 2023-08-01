@@ -1,1 +1,4 @@
-export { default as DismissableLayer } from "./DismissableLayer.vue";
+export {
+  default as DismissableLayer,
+  type DismissableLayerEmits,
+} from "./DismissableLayer.vue";

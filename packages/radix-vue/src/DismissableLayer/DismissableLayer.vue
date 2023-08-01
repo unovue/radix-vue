@@ -81,7 +81,6 @@ const focusOutside = useFocusOutside((event) => {
 onKeyStroke("Escape", (event) => {
   emits("escapeKeyDown", event);
   if (!event.defaultPrevented) {
-    event.preventDefault();
     emits("dismiss");
   }
 });

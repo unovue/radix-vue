@@ -5,6 +5,7 @@ export { useHoverDelay } from "./useHoverDelay";
 export { useHover } from "./useHover";
 export { useMouseleaveDelay } from "./useMouseleaveDelay";
 export { useStateMachine } from "./useStateMachine";
+export { useFocusGuards } from "./useFocusGuards";
 export { useCollection } from "./useCollection";
 export { useSize } from "./useSize";
 export { useId } from "./useId";

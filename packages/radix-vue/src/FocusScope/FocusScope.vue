@@ -149,18 +149,21 @@ watchEffect(async (cleanupFn) => {
     container.removeEventListener(AUTOFOCUS_ON_MOUNT, (ev) =>
       emits("mountAutoFocus", ev)
     );
-    const unmountEvent = new CustomEvent(AUTOFOCUS_ON_UNMOUNT, EVENT_OPTIONS);
-    container.addEventListener(AUTOFOCUS_ON_UNMOUNT, (ev) =>
-      emits("unmountAutoFocus", ev)
-    );
-    container.dispatchEvent(unmountEvent);
-    if (!unmountEvent.defaultPrevented) {
-      focus(previouslyFocusedElement ?? document.body, { select: true });
-    }
-    // we need to remove the listener after we `dispatchEvent`
-    container.removeEventListener(AUTOFOCUS_ON_UNMOUNT, (ev) =>
-      emits("unmountAutoFocus", ev)
-    );
+
+    setTimeout(() => {
+      const unmountEvent = new CustomEvent(AUTOFOCUS_ON_UNMOUNT, EVENT_OPTIONS);
+      container.addEventListener(AUTOFOCUS_ON_UNMOUNT, (ev) =>
+        emits("unmountAutoFocus", ev)
+      );
+      container.dispatchEvent(unmountEvent);
+      if (!unmountEvent.defaultPrevented) {
+        focus(previouslyFocusedElement ?? document.body, { select: true });
+      }
+      // we need to remove the listener after we `dispatchEvent`
+      container.removeEventListener(AUTOFOCUS_ON_UNMOUNT, (ev) =>
+        emits("unmountAutoFocus", ev)
+      );
+    }, 0);
   });
 });
 

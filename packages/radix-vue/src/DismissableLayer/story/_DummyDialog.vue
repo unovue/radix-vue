@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { nextTick, ref, watch } from "vue";
+import { ref } from "vue";
 import { DismissableLayer } from "../";
-import { trapFocus } from "@/shared";
+import { FocusGuards } from "@/FocusGuards";
+import { FocusScope } from "@/FocusScope";
 
 defineProps<{
   openLabel?: string;
@@ -9,37 +10,43 @@ defineProps<{
 }>();
 
 const open = ref(false);
-
-const dialogRef = ref();
-watch(open, async () => {
-  await nextTick();
-  dialogRef.value && trapFocus(dialogRef.value);
-});
 </script>
 
 <template>
-  <button type="button" @click="open = !open">
+  <button
+    class="py-2 rounded bg-gray-500 focus:outline focus:outline-blue-500"
+    type="button"
+    @click="open = !open"
+  >
     {{ openLabel }}
   </button>
 
   <div v-if="open">
-    <Teleport to="body">
-      <div
-        class="fixed top-0 left-0 bottom-0 right-0 pointer-event-none bg-black/30"
-      ></div>
-    </Teleport>
-
-    <Teleport to="body">
-      <DismissableLayer asChild @dismiss="open = false">
+    <FocusGuards>
+      <Teleport to="body">
         <div
-          ref="dialogRef"
-          class="flex items-start gap-4 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white min-w-[300px] min-height-[200px] rounded-lg p-8 bg-white shadow-xl"
+          class="fixed top-0 left-0 bottom-0 right-0 pointer-event-none bg-black/30"
+        ></div>
+      </Teleport>
+
+      <Teleport to="body">
+        <DismissableLayer
+          disableOutsidePointerEvents
+          asChild
+          @dismiss="open = false"
         >
-          <slot></slot>
-          <button type="button" @click="open = false">{{ closeLabel }}</button>
-          <input type="text" value="Hello world" />
-        </div>
-      </DismissableLayer>
-    </Teleport>
+          <FocusScope
+            trapped
+            class="flex items-start gap-4 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white min-w-[300px] min-height-[200px] rounded-lg p-8 bg-white shadow-xl"
+          >
+            <slot></slot>
+            <button type="button" @click="open = false">
+              {{ closeLabel }}
+            </button>
+            <input type="text" value="Hello world" />
+          </FocusScope>
+        </DismissableLayer>
+      </Teleport>
+    </FocusGuards>
   </div>
 </template>

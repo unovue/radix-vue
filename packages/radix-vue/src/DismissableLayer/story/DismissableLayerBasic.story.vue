@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { nextTick, onMounted, reactive, ref, watch } from "vue";
+import { reactive, ref } from "vue";
 import { DismissableLayer } from "../";
 import DismissableBox from "./_DismissableBox.vue";
-import { trapFocus } from "@/shared";
+import { FocusScope } from "@/FocusScope";
 
 const open = ref(false);
 
@@ -18,12 +18,6 @@ const state = reactive({
 
 const openWithFocusScope = ref(false);
 const openButtonRef = ref<HTMLElement>();
-const trappedRef = ref<HTMLElement>();
-
-watch(openWithFocusScope, async () => {
-  await nextTick();
-  if (trappedRef.value) trapFocus(trappedRef.value);
-});
 </script>
 
 <template>
@@ -94,7 +88,7 @@ watch(openWithFocusScope, async () => {
     </Variant>
 
     <Variant title="Focus trap">
-      <div>
+      <div class="flex flex-col justify-center">
         <button
           ref="openButtonRef"
           @click="openWithFocusScope = !openWithFocusScope"
@@ -105,7 +99,7 @@ watch(openWithFocusScope, async () => {
         <DismissableLayer
           v-if="openWithFocusScope"
           asChild
-          disableOutsidePointerEvents
+          disable-outside-pointer-events
           @dismiss="openWithFocusScope = false"
           @pointer-down-outside="
             (ev) => {
@@ -113,12 +107,15 @@ watch(openWithFocusScope, async () => {
             }
           "
         >
-          <div
-            ref="trappedRef"
-            class="w-[400px] h-[300px] bg-black rounded flex items-center justify-center"
+          <FocusScope
+            trapped
+            loop
+            class="w-[400px] h-[300px] bg-black rounded flex flex-col items-center justify-center"
           >
             <input type="text" />
-          </div>
+            <input type="text" />
+            <input type="text" />
+          </FocusScope>
         </DismissableLayer>
       </div>
     </Variant>

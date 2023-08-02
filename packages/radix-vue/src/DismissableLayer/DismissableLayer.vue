@@ -10,8 +10,22 @@ import {
   usePointerDownOutside,
   useFocusOutside,
 } from "./utils";
-import { computed, nextTick, watchEffect } from "vue";
+import {
+  computed,
+  nextTick,
+  provide,
+  ref,
+  watchEffect,
+  inject,
+  watch,
+  type Ref,
+} from "vue";
 import { onKeyStroke } from "@vueuse/core";
+
+interface DismissableLayerProvideValue {
+  layers: Ref<Set<HTMLElement>>;
+  layersWithOutsidePointerEventsDisabled: Ref<Set<HTMLElement>>;
+}
 
 export interface DismissableLayerProps extends PrimitiveProps {
   /**
@@ -65,7 +79,49 @@ const ownerDocument = computed(
   () => layerElement.value?.ownerDocument ?? globalThis.document
 );
 
+const layers = ref<Set<HTMLElement>>(new Set());
+const layersWithOutsidePointerEventsDisabled = ref<Set<HTMLElement>>(new Set());
+
+provide<DismissableLayerProvideValue>("dismissable", {
+  layers,
+  layersWithOutsidePointerEventsDisabled,
+});
+const context = inject<DismissableLayerProvideValue>("dismissable", {
+  layers,
+  layersWithOutsidePointerEventsDisabled,
+});
+
+watch(
+  () => context,
+  () => {
+    if (context?.layers.value) layers.value = context.layers.value;
+    if (context?.layersWithOutsidePointerEventsDisabled.value)
+      layersWithOutsidePointerEventsDisabled.value =
+        context.layersWithOutsidePointerEventsDisabled.value;
+  },
+  { immediate: true, deep: true }
+);
+
+const index = computed(() => {
+  return layerElement.value
+    ? Array.from(layers.value).indexOf(layerElement.value)
+    : -1;
+});
+
+const isBodyPointerEventsDisabled = computed(() => {
+  return layersWithOutsidePointerEventsDisabled.value.size > 0;
+});
+
+const isPointerEventsEnabled = computed(() => {
+  const localLayers = Array.from(layers.value);
+  const [highestLayerWithOutsidePointerEventsDisabled] = [...layersWithOutsidePointerEventsDisabled.value].slice(-1); // prettier-ignore
+  const highestLayerWithOutsidePointerEventsDisabledIndex = localLayers.indexOf(highestLayerWithOutsidePointerEventsDisabled); // prettier-ignore
+
+  return index.value >= highestLayerWithOutsidePointerEventsDisabledIndex;
+});
+
 const pointerDownOutside = usePointerDownOutside(async (event) => {
+  if (!isPointerEventsEnabled.value) return;
   emits("pointerDownOutside", event);
   emits("interactOutside", event);
   await nextTick();
@@ -79,6 +135,8 @@ const focusOutside = useFocusOutside((event) => {
 }, ownerDocument.value);
 
 onKeyStroke("Escape", (event) => {
+  const isHighestLayer = index.value === layers.value.size - 1;
+  if (!isHighestLayer) return;
   emits("escapeKeyDown", event);
   if (!event.defaultPrevented) {
     emits("dismiss");
@@ -86,15 +144,32 @@ onKeyStroke("Escape", (event) => {
 });
 
 watchEffect((cleanupFn) => {
+  if (!layerElement.value) return;
   let originalBodyPointerEvents: string;
   if (props.disableOutsidePointerEvents) {
-    originalBodyPointerEvents = ownerDocument.value.body.style.pointerEvents;
-    ownerDocument.value.body.style.pointerEvents = "none";
+    if (layersWithOutsidePointerEventsDisabled.value.size === 0) {
+      originalBodyPointerEvents = ownerDocument.value.body.style.pointerEvents;
+      ownerDocument.value.body.style.pointerEvents = "none";
+    }
+    layersWithOutsidePointerEventsDisabled.value.add(layerElement.value);
   }
+  layers.value.add(layerElement.value);
+
   cleanupFn(() => {
-    if (props.disableOutsidePointerEvents) {
+    if (
+      props.disableOutsidePointerEvents &&
+      layersWithOutsidePointerEventsDisabled.value.size === 1
+    ) {
       ownerDocument.value.body.style.pointerEvents = originalBodyPointerEvents;
     }
+  });
+});
+
+watchEffect((cleanupFn) => {
+  cleanupFn(() => {
+    if (!layerElement.value) return;
+    layers.value.delete(layerElement.value);
+    layersWithOutsidePointerEventsDisabled.value.delete(layerElement.value);
   });
 });
 </script>
@@ -102,6 +177,14 @@ watchEffect((cleanupFn) => {
 <template>
   <PrimitiveDiv
     ref="primitiveElement"
+    :as-child="asChild"
+    :style="{
+      pointerEvents: isBodyPointerEventsDisabled
+        ? isPointerEventsEnabled
+          ? 'auto'
+          : 'none'
+        : undefined,
+    }"
     @focus.capture="focusOutside.onFocusCapture"
     @blur.capture="focusOutside.onBlurCapture"
     @pointerdown.capture="pointerDownOutside.onPointerDownCapture"

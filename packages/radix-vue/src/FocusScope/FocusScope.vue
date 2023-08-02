@@ -13,8 +13,8 @@ import {
   AUTOFOCUS_ON_UNMOUNT,
   EVENT_OPTIONS,
 } from "./utils";
-import { createFocusScopesStack, removeLinks } from "./stack";
-import { reactive, ref, watchEffect } from "vue";
+import { removeLinks } from "./stack";
+import { nextTick, ref, watchEffect } from "vue";
 
 export interface FocusScopeProps extends PrimitiveProps {
   /**
@@ -56,25 +56,14 @@ const props = withDefaults(defineProps<FocusScopeProps>(), {
 const emits = defineEmits<FocusScopeEmits>();
 
 const { primitiveElement, currentElement } = usePrimitiveElement();
-const focusScopesStack = createFocusScopesStack();
-
 const lastFocusedElementRef = ref<HTMLElement | null>(null);
-const focusScope = reactive({
-  paused: false,
-  pause() {
-    this.paused = true;
-  },
-  resume() {
-    this.paused = false;
-  },
-});
 
 watchEffect((cleanupFn) => {
   const container = currentElement.value;
   if (!props.trapped) return;
 
   function handleFocusIn(event: FocusEvent) {
-    if (focusScope.paused || !container) return;
+    if (!container) return;
     const target = event.target as HTMLElement | null;
     if (container.contains(target)) {
       lastFocusedElementRef.value = target;
@@ -84,7 +73,7 @@ watchEffect((cleanupFn) => {
   }
 
   function handleFocusOut(event: FocusEvent) {
-    if (focusScope.paused || !container) return;
+    if (!container) return;
     const relatedTarget = event.relatedTarget as HTMLElement | null;
 
     // A `focusout` event with a `null` `relatedTarget` will happen in at least two cases:
@@ -130,10 +119,12 @@ watchEffect((cleanupFn) => {
   });
 });
 
-watchEffect((cleanupFn) => {
+watchEffect(async (cleanupFn) => {
   const container = currentElement.value;
+
+  await nextTick();
   if (!container) return;
-  focusScopesStack.add(focusScope);
+
   const previouslyFocusedElement = document.activeElement as HTMLElement | null;
   const hasFocusedCandidate = container.contains(previouslyFocusedElement);
 
@@ -170,14 +161,11 @@ watchEffect((cleanupFn) => {
     container.removeEventListener(AUTOFOCUS_ON_UNMOUNT, (ev) =>
       emits("unmountAutoFocus", ev)
     );
-
-    focusScopesStack.remove(focusScope);
   });
 });
 
 const handleKeyDown = (event: KeyboardEvent) => {
   if (!props.loop && !props.trapped) return;
-  if (focusScope.paused) return;
 
   const isTabKey =
     event.key === "Tab" && !event.altKey && !event.ctrlKey && !event.metaKey;
@@ -202,8 +190,6 @@ const handleKeyDown = (event: KeyboardEvent) => {
     }
   }
 };
-
-console.log(currentElement);
 </script>
 
 <template>

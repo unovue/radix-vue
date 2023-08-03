@@ -8,6 +8,8 @@ interface NavigationMenuContentImplProps {
   wasEscapeCloseRef: Ref<boolean>;
   onContentFocusOutside(): void;
   onRootContentClose(): void;
+
+  disableOutsidePointerEvents?: boolean;
 }
 </script>
 
@@ -193,6 +195,7 @@ defineExpose({
     :data-motion="motionAttribute"
     :data-state="getOpenState(context?.modelValue.value === props.value)"
     :data-orientation="context?.orientation"
+    :disable-outside-pointer-events="disableOutsidePointerEvents"
     @keydown="handleKeydown"
     @escape-key-down="handleEscapeKeyDown"
     @pointer-down-outside="handlePointerDownOutside"

@@ -3,7 +3,7 @@ import { type InjectionKey, type Ref } from "vue";
 import type { Direction, Orientation } from "./utils";
 import { useCollection, useId } from "@/shared";
 
-export interface NavigationMenuProps {
+export interface NavigationMenuProps extends PrimitiveProps {
   modelValue?: string;
   defaultValue?: string;
   dir?: Direction;
@@ -57,7 +57,11 @@ export const NAVIGATION_MENU_INJECTION_KEY =
 <script setup lang="ts">
 import { refAutoReset, useDebounceFn, useVModel } from "@vueuse/core";
 import { computed, provide, ref, toRefs, type VNode } from "vue";
-import { PrimitiveNav, usePrimitiveElement } from "@/Primitive";
+import {
+  PrimitiveNav,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 
 const props = withDefaults(defineProps<NavigationMenuProps>(), {
   modelValue: "",
@@ -161,6 +165,7 @@ provide(NAVIGATION_MENU_INJECTION_KEY, {
     aria-label="Main"
     :data-orientation="orientation"
     :dir="dir"
+    :as-child="props.asChild"
   >
     <slot></slot>
   </PrimitiveNav>

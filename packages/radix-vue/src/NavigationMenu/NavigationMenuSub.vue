@@ -85,7 +85,11 @@ provide(NAVIGATION_MENU_INJECTION_KEY, {
 </script>
 
 <template>
-  <PrimitiveDiv ref="primitiveElement" :data-orientation="orientation">
+  <PrimitiveDiv
+    ref="primitiveElement"
+    :data-orientation="orientation"
+    :as-child="props.asChild"
+  >
     <slot></slot>
   </PrimitiveDiv>
 </template>

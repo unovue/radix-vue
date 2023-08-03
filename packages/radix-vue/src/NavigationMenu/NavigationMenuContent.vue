@@ -6,13 +6,13 @@ import { getOpenState } from "./utils";
 import NavigationMenuContentImpl from "./NavigationMenuContentImpl.vue";
 import { Presence } from "@/Presence";
 import {
+  type DismissableLayerProps,
   type DismissableLayerEmits,
   type PointerDownOutsideEvent,
 } from "@/DismissableLayer";
-import { type PrimitiveProps } from "@/Primitive";
 import { computedWithControl } from "@vueuse/core";
 
-interface NavigationMenuContentProps extends PrimitiveProps {}
+interface NavigationMenuContentProps extends DismissableLayerProps {}
 
 const props = defineProps<NavigationMenuContentProps>();
 

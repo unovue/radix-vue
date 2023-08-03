@@ -41,8 +41,6 @@ const instance = getCurrentInstance();
 watch(
   open,
   async () => {
-    // Next tick to flush DOM for other dependent elements to mount
-    await nextTick();
     // Everytime we remove mounted vnode using `v-if`, we would need to reset the vnode,
     // thus having this watcher is crucial is important for SSR
     // @ts-ignore

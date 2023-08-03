@@ -14,14 +14,17 @@ import Card from "./components/Card.vue";
       <Card>
         <AspectRatioDemo />
       </Card>
+      <Card class="col-span-2">
+        <NavigationMenuDemo />
+      </Card>
+      <Card>
+        <CollapsibleDemo />
+      </Card>
       <Card>
         <AvatarDemo />
       </Card>
       <Card>
         <CheckboxDemo />
-      </Card>
-      <Card>
-        <CollapsibleDemo />
       </Card>
       <Card>
         <ScrollAreaDemo />

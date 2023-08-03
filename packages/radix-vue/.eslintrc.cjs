@@ -12,5 +12,8 @@ module.exports = {
   parserOptions: {
     ecmaVersion: "latest",
   },
-  rules: { "vue/multi-word-component-names": 0 },
+  rules: {
+    "vue/multi-word-component-names": 0,
+    "vue/no-setup-props-destructure": 1,
+  },
 };

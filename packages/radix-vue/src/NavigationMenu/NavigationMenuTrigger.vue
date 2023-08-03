@@ -27,8 +27,9 @@ const itemContext = inject(NAVIGATION_MENU_ITEM_INJECTION_KEY);
 
 const { primitiveElement, currentElement: triggerElement } =
   usePrimitiveElement();
-const triggerId = makeTriggerId(context!.baseId, itemContext!.value);
-const contentId = makeContentId(context!.baseId, itemContext!.value);
+const triggerId = ref("");
+const contentId = ref("");
+
 const hasPointerMoveOpenedRef = ref(false);
 const wasClickCloseRef = ref(false);
 
@@ -36,6 +37,8 @@ const open = computed(() => itemContext?.value === context?.modelValue.value);
 
 onMounted(() => {
   itemContext!.triggerRef = triggerElement;
+  triggerId.value = makeTriggerId(context!.baseId, itemContext!.value);
+  contentId.value = makeContentId(context!.baseId, itemContext!.value);
 });
 
 const handlePointerEnter = () => {
@@ -94,9 +97,7 @@ const setFocusProxyRef = (node: VNode) => {
 };
 
 const handleVisuallyHiddenFocus = (ev: FocusEvent) => {
-  const content = // @ts-ignore
-    (itemContext!.contentRef.value?.children?.[0].el as HTMLElement)
-      .parentElement;
+  const content = document.getElementById(itemContext!.contentId);
   const prevFocusedElement = ev.relatedTarget as HTMLElement | null;
 
   const wasTriggerFocused = prevFocusedElement === triggerElement.value;

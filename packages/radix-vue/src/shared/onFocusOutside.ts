@@ -7,6 +7,7 @@ export const onFocusOutside = (
 ) => {
   const handleFocusOut = (ev: FocusEvent) => {
     const el = unrefElement(element);
+    if (!ev.relatedTarget) return;
     const isFocusInsideElement = el?.contains(ev.relatedTarget as Node);
 
     if (!isFocusInsideElement) {

@@ -52,6 +52,7 @@ export type PrimitiveProps = {
 
 export const Primitive = defineComponent({
   inheritAttrs: false,
+  name: "Primitive",
   props: {
     asChild: {
       type: Boolean,
@@ -82,7 +83,9 @@ export const Primitive = defineComponent({
         // remove props ref from being inferred
         delete firstChildren.props?.ref;
         const mergedProps = mergeProps(attrs, firstChildren.props ?? {});
-        delete firstChildren.props?.class;
+        // remove class to prevent duplicated
+        if (attrs.class && firstChildren.props?.class)
+          delete firstChildren.props.class;
 
         const cloned = cloneVNode(firstChildren, mergedProps);
         // Explicitly override props starting with `on`.

@@ -6,14 +6,29 @@ export interface NavigationMenuLinkProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { Primitive, type PrimitiveProps } from "@/Primitive";
+import { EVENT_ROOT_CONTENT_DISMISS } from "./utils";
+import { nextTick } from "vue";
 // const LINK_SELECT = "navigationMenu.linkSelect";
 
 const props = withDefaults(defineProps<NavigationMenuLinkProps>(), {
   as: "a",
 });
+const emits = defineEmits<{ (e: "select", payload: MouseEvent): void }>();
 
-const handleClick = (ev: MouseEvent) => {
-  //  TODO: dispatch custom event (https://github.com/radix-ui/primitives/blob/main/packages/react/navigation-menu/src/NavigationMenu.tsx#L604)
+const handleClick = async (ev: MouseEvent) => {
+  emits("select", ev);
+
+  await nextTick();
+  if (!ev.defaultPrevented && !ev.metaKey) {
+    const rootContentDismissEvent = new CustomEvent(
+      EVENT_ROOT_CONTENT_DISMISS,
+      {
+        bubbles: true,
+        cancelable: true,
+      }
+    );
+    ev.target?.dispatchEvent(rootContentDismissEvent);
+  }
 };
 </script>
 

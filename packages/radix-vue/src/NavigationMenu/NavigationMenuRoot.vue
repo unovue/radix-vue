@@ -1,12 +1,11 @@
 <script lang="ts">
 import { type InjectionKey, type Ref } from "vue";
 import type { Direction, Orientation } from "./utils";
-import { onFocusOutside, useCollection, useId } from "@/shared";
+import { useCollection, useId } from "@/shared";
 
 export interface NavigationMenuProps extends PrimitiveProps {
   modelValue?: string;
   defaultValue?: string;
-  changeValue?: (value: string) => void;
   dir?: Direction;
   orientation?: Orientation;
   /**
@@ -48,7 +47,7 @@ export interface NavigationMenuContextValue {
   onContentEnter(itemValue: string): void;
   onContentLeave(): void;
   onItemSelect(itemValue: string): void;
-  // onItemDismiss(): void;
+  onItemDismiss(): void;
 }
 
 export const NAVIGATION_MENU_INJECTION_KEY =
@@ -56,8 +55,8 @@ export const NAVIGATION_MENU_INJECTION_KEY =
 </script>
 
 <script setup lang="ts">
-import { onClickOutside, useDebounceFn, useVModel } from "@vueuse/core";
-import { provide, ref, type VNode } from "vue";
+import { refAutoReset, useDebounceFn, useVModel } from "@vueuse/core";
+import { computed, provide, ref, toRefs, type VNode } from "vue";
 import {
   Primitive,
   usePrimitiveElement,
@@ -88,25 +87,26 @@ const { primitiveElement, currentElement: rootNavigationMenu } =
 const { createCollection } = useCollection();
 createCollection();
 
-const closeMenu = () => {
-  modelValue.value = "";
-};
-
-onClickOutside(rootNavigationMenu, () => {
-  closeMenu();
-});
-onFocusOutside(rootNavigationMenu, () => {
-  closeMenu();
-});
-
 const indicatorTrack = ref<HTMLElement>();
 const viewport = ref<HTMLElement>();
 const viewportContent = ref<Map<string, VNodeWithParentProps>>(new Map());
 
+const { delayDuration, skipDelayDuration } = toRefs(props);
+
+const isDelaySkipped = refAutoReset(false, skipDelayDuration);
+const computedDelay = computed(() => {
+  const isOpen = modelValue.value !== "";
+  if (isOpen || isDelaySkipped.value) {
+    return 150; // 150ms for user to switch trigger or move into content view
+  } else {
+    return delayDuration.value;
+  }
+});
+
 const debouncedFn = useDebounceFn((val: string) => {
   previousValue.value = modelValue.value;
   modelValue.value = val;
-}, props.delayDuration);
+}, computedDelay);
 
 provide(NAVIGATION_MENU_INJECTION_KEY, {
   isRootMenu: true,
@@ -139,6 +139,7 @@ provide(NAVIGATION_MENU_INJECTION_KEY, {
     debouncedFn(val);
   },
   onTriggerLeave: () => {
+    isDelaySkipped.value = true;
     debouncedFn("");
   },
   onContentEnter: (val) => {
@@ -151,6 +152,10 @@ provide(NAVIGATION_MENU_INJECTION_KEY, {
     // When selecting item we trigger update immediately
     previousValue.value = modelValue.value;
     modelValue.value = val;
+  },
+  onItemDismiss: () => {
+    previousValue.value = modelValue.value;
+    modelValue.value = "";
   },
 });
 </script>

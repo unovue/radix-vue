@@ -23,18 +23,6 @@ const isVisible = computed(() => !!context?.modelValue.value);
 
 const activeTrigger = ref<HTMLElement>();
 
-watchEffect(() => {
-  if (!context?.modelValue.value) {
-    position.value = undefined;
-    return;
-  }
-  const items = getItems();
-  activeTrigger.value = items.find((item) =>
-    item.id.includes(context?.modelValue.value)
-  );
-  handlePositionChange();
-});
-
 const handlePositionChange = () => {
   if (activeTrigger.value) {
     position.value = {
@@ -47,6 +35,18 @@ const handlePositionChange = () => {
     };
   }
 };
+
+watchEffect(() => {
+  if (!context?.modelValue.value) {
+    position.value = undefined;
+    return;
+  }
+  const items = getItems();
+  activeTrigger.value = items.find((item) =>
+    item.id.includes(context?.modelValue.value)
+  );
+  handlePositionChange();
+});
 
 useResizeObserver(activeTrigger, handlePositionChange);
 useResizeObserver(context!.indicatorTrack, handlePositionChange);

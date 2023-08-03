@@ -1,0 +1,95 @@
+<script setup lang="ts">
+import {
+  PrimitiveDiv,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
+import type { Orientation } from "./utils";
+import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
+import { inject, provide, ref, type Ref, type VNode } from "vue";
+import { useVModel } from "@vueuse/core";
+import { useCollection } from "@/shared";
+
+interface VNodeWithParentProps extends VNode {
+  parentProps: any;
+}
+
+interface NavigationMenuSubProps extends PrimitiveProps {
+  modelValue?: string;
+  defaultValue?: string;
+  orientation?: Orientation;
+}
+
+const props = withDefaults(defineProps<NavigationMenuSubProps>(), {
+  orientation: "horizontal",
+});
+
+const emits = defineEmits<{
+  (e: "update:modelValue", value: string): void;
+}>();
+
+const modelValue = useVModel(props, "modelValue", emits, {
+  passive: true,
+  defaultValue: props.defaultValue ?? "",
+}) as Ref<string>;
+const previousValue = ref("");
+
+const context = inject(NAVIGATION_MENU_INJECTION_KEY);
+const { primitiveElement, currentElement } = usePrimitiveElement();
+const { createCollection } = useCollection();
+createCollection();
+
+const indicatorTrack = ref<HTMLElement>();
+const viewport = ref<HTMLElement>();
+const viewportContent = ref<Map<string, VNodeWithParentProps>>(new Map());
+
+provide(NAVIGATION_MENU_INJECTION_KEY, {
+  ...context!,
+  isRootMenu: false,
+  modelValue,
+  previousValue,
+  orientation: props.orientation,
+  rootNavigationMenu: currentElement,
+  indicatorTrack,
+  onIndicatorTrackChange: (val) => {
+    indicatorTrack.value = val;
+  },
+  viewport,
+  onViewportChange: (val) => {
+    viewport.value = val;
+  },
+  viewportContent,
+  onViewportContentChange: (contentValue, contentData) => {
+    const prev = viewportContent.value;
+    viewportContent.value = new Map(prev.set(contentValue, contentData));
+  },
+  onTriggerEnter: (val) => {
+    modelValue.value = val;
+  },
+  onTriggerLeave: () => {
+    // do nothing for submenu
+  },
+  onContentEnter: () => {
+    // do nothing for submenu
+  },
+  onContentLeave: () => {
+    // do nothing for submenu
+  },
+  onItemSelect: (val) => {
+    modelValue.value = val;
+  },
+  onItemDismiss: () => {
+    modelValue.value = "";
+  },
+});
+</script>
+
+<template>
+  <PrimitiveDiv
+    ref="primitiveElement"
+    :data-orientation="orientation"
+    :as-child="props.asChild"
+  >
+    <slot></slot>
+  </PrimitiveDiv>
+</template>

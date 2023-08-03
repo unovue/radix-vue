@@ -7,6 +7,7 @@ import {
   mergeProps,
   cloneVNode,
   type ComponentInternalInstance,
+  capitalize,
 } from "vue";
 import { renderSlotFragments, isValidVNodeElement } from "@/shared";
 
@@ -59,6 +60,7 @@ const createComponent = (node: (typeof NODES)[number]) =>
         default: false,
       },
     },
+    name: `Primitive${capitalize(node)}`,
     setup(props, { attrs, slots }) {
       const instance = getCurrentInstance();
 
@@ -85,7 +87,8 @@ const createComponent = (node: (typeof NODES)[number]) =>
 
             const mergedProps = mergeProps(attrs, firstChild.props ?? {});
             // remove class to prevent duplicated
-            delete firstChild.props?.class;
+            if (attrs.class && firstChild.props?.class)
+              delete firstChild.props?.class;
 
             const cloned = cloneVNode(firstChild, mergedProps);
             // Explicitly override props starting with `on`.

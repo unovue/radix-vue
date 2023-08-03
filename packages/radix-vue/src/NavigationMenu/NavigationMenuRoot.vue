@@ -1,7 +1,7 @@
 <script lang="ts">
 import { type InjectionKey, type Ref } from "vue";
 import type { Direction, Orientation } from "./utils";
-import { onFocusOutside, useCollection, useId } from "@/shared";
+import { useCollection, useId } from "@/shared";
 
 export interface NavigationMenuProps {
   modelValue?: string;
@@ -55,12 +55,7 @@ export const NAVIGATION_MENU_INJECTION_KEY =
 </script>
 
 <script setup lang="ts">
-import {
-  onClickOutside,
-  refAutoReset,
-  useDebounceFn,
-  useVModel,
-} from "@vueuse/core";
+import { refAutoReset, useDebounceFn, useVModel } from "@vueuse/core";
 import { computed, provide, ref, toRefs, type VNode } from "vue";
 import { PrimitiveNav, usePrimitiveElement } from "@/Primitive";
 
@@ -86,17 +81,6 @@ const { primitiveElement, currentElement: rootNavigationMenu } =
   usePrimitiveElement();
 const { createCollection } = useCollection();
 createCollection();
-
-const closeMenu = () => {
-  modelValue.value = "";
-};
-
-onClickOutside(rootNavigationMenu, (ev) => {
-  closeMenu();
-});
-onFocusOutside(rootNavigationMenu, (ev) => {
-  closeMenu();
-});
 
 const indicatorTrack = ref<HTMLElement>();
 const viewport = ref<HTMLElement>();

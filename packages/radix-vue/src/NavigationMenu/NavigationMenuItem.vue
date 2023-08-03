@@ -96,13 +96,6 @@ const handleKeydown = (ev: KeyboardEvent) => {
     }
   }
 
-  if (ev.key === "Escape") {
-    wasEscapeCloseRef.value = true;
-    triggerRef.value?.focus();
-    context!.onItemDismiss();
-    return;
-  }
-
   const itemsArray = getItems().filter((i) =>
     i.parentElement?.hasAttribute("aria-menu-item")
   );
@@ -124,7 +117,7 @@ const handleKeydown = (ev: KeyboardEvent) => {
   <PrimitiveLi
     aria-menu-item
     :as-child="props.asChild"
-    @keydown.up.down.left.right.home.end.escape.space="handleKeydown"
+    @keydown.up.down.left.right.home.end.space="handleKeydown"
   >
     <slot></slot>
   </PrimitiveLi>

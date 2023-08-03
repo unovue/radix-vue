@@ -5,17 +5,17 @@ import { computed, inject, getCurrentInstance, watch, nextTick } from "vue";
 import { getOpenState } from "./utils";
 import NavigationMenuContentImpl from "./NavigationMenuContentImpl.vue";
 import { Presence } from "@/Presence";
+import {
+  type DismissableLayerEmits,
+  type PointerDownOutsideEvent,
+} from "@/DismissableLayer";
 import { type PrimitiveProps } from "@/Primitive";
 
 interface NavigationMenuContentProps extends PrimitiveProps {}
 
 const props = defineProps<NavigationMenuContentProps>();
 
-const emits = defineEmits<{
-  (e: "pointerDownOutside", event: Event): void;
-  (e: "focusOutside", event: Event): void;
-  (e: "interactOutside", event: Event): void;
-}>();
+const emits = defineEmits<DismissableLayerEmits>();
 
 defineOptions({
   inheritAttrs: false,
@@ -62,15 +62,9 @@ watch(
   { immediate: true, deep: true }
 );
 
-const handleEscape = () => {
-  context!.onItemDismiss();
-  itemContext!.triggerRef?.value?.focus();
-  itemContext!.wasEscapeCloseRef.value = true;
-};
-
-const handlePointerDown = (ev: PointerEvent) => {
+const handlePointerDown = (ev: PointerDownOutsideEvent) => {
   emits("pointerDownOutside", ev);
-  context?.onContentLeave();
+  if (!ev.preventDefault) context?.onContentLeave();
 };
 </script>
 
@@ -82,7 +76,6 @@ const handlePointerDown = (ev: PointerEvent) => {
         pointerEvents: !open && context?.isRootMenu ? 'none' : undefined,
       }"
       v-bind="{ ...$attrs, ...commonProps }"
-      @escape="handleEscape"
       @pointerenter="context?.onContentEnter(itemContext!.value)"
       @pointerleave="context?.onContentLeave()"
       @pointerdown="handlePointerDown"

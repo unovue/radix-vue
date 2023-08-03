@@ -39,6 +39,9 @@ const currentTrigger = ref("");
                 />
               </NavigationMenuTrigger>
               <NavigationMenuContent
+                @escape-key-down.prevent
+                @pointer-down-outside.prevent
+                @focus-outside.prevent
                 class="data-[motion=from-start]:animate-enterFromLeft data-[motion=from-end]:animate-enterFromRight data-[motion=to-start]:animate-exitToLeft data-[motion=to-end]:animate-exitToRight absolute top-0 left-0 w-full sm:w-auto"
               >
                 <ul
@@ -48,7 +51,7 @@ const currentTrigger = ref("");
                     <NavigationMenuLink
                       href="/"
                       target="_blank"
-                      @click.prevent
+                      @select.prevent
                       class="focus:shadow-green7 from-green9 to-teal9 flex h-full w-full select-none flex-col justify-end rounded-[6px] bg-gradient-to-b p-[25px] no-underline outline-none focus:shadow-[0_0_0_2px]"
                     >
                       <svg

@@ -25,8 +25,8 @@ const itemContext = inject(NAVIGATION_MENU_ITEM_INJECTION_KEY);
 
 const { primitiveElement, currentElement: triggerElement } =
   usePrimitiveElement();
-let triggerId = ref("");
-let contentId = ref("");
+const triggerId = ref("");
+const contentId = ref("");
 
 const hasPointerMoveOpenedRef = ref(false);
 const wasClickCloseRef = ref(false);

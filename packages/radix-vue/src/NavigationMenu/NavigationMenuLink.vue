@@ -10,8 +10,11 @@ import { EVENT_ROOT_CONTENT_DISMISS } from "./utils";
 import { nextTick } from "vue";
 
 const props = defineProps<NavigationMenuLinkProps>();
+const emits = defineEmits<{ (e: "select", payload: MouseEvent): void }>();
 
 const handleClick = async (ev: MouseEvent) => {
+  emits("select", ev);
+
   await nextTick();
   if (!ev.defaultPrevented && !ev.metaKey) {
     const rootContentDismissEvent = new CustomEvent(

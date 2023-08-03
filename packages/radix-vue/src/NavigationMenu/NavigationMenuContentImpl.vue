@@ -14,25 +14,30 @@ interface NavigationMenuContentImplProps {
 <script setup lang="ts">
 import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
 import { computed, inject, ref, watchEffect, type Ref } from "vue";
+
+import {
+  DismissableLayer,
+  type FocusOutsideEvent,
+  type DismissableLayerEmits,
+} from "@/DismissableLayer";
+import { usePrimitiveElement } from "@/Primitive";
+import { useArrowNavigation, useCollection } from "@/shared";
 import {
   focusFirst,
   getTabbableCandidates,
   makeContentId,
   makeTriggerId,
+  getOpenState,
+  EVENT_ROOT_CONTENT_DISMISS,
 } from "./utils";
-import { useArrowNavigation, useCollection, onFocusOutside } from "@/shared";
-import { getOpenState, EVENT_ROOT_CONTENT_DISMISS } from "./utils";
+import type { PointerDownOutsideEvent } from "@/DismissableLayer/utils";
 
 const props = defineProps<NavigationMenuContentImplProps>();
-const emits = defineEmits<{
-  (e: "escape", event: KeyboardEvent): void;
-  (e: "focusOutside", event: Event): void;
-  (e: "interactOutside", event: Event): void;
-}>();
+const emits = defineEmits<DismissableLayerEmits>();
 
 const { getItems } = useCollection();
+const { primitiveElement, currentElement } = usePrimitiveElement();
 
-const elementRef = ref<HTMLElement>();
 const context = inject(NAVIGATION_MENU_INJECTION_KEY);
 const triggerId = makeTriggerId(context!.baseId, props.value);
 const contentId = makeContentId(context!.baseId, props.value);
@@ -71,23 +76,36 @@ const motionAttribute = computed(() => {
   return attribute;
 });
 
-onFocusOutside(elementRef, (ev) => {
+const handleFocusOutside = (ev: FocusOutsideEvent) => {
   emits("focusOutside", ev);
-  // tentatively use the same as focusoutside
-  // TODO: Add dismissibleLayer
   emits("interactOutside", ev);
 
   if (!ev.defaultPrevented) {
     props.onContentFocusOutside();
+
     const target = ev.target as HTMLElement;
     // Only dismiss content when focus moves outside of the menu
     if (context!.rootNavigationMenu?.value?.contains(target))
       ev.preventDefault();
   }
-});
+};
 
-watchEffect((stopper) => {
-  const content = elementRef.value;
+const handlePointerDownOutside = (ev: PointerDownOutsideEvent) => {
+  emits("pointerDownOutside", ev);
+
+  if (!ev.defaultPrevented) {
+    const target = ev.target as HTMLElement;
+    const isTrigger = getItems().some((item) => item.contains(target));
+    const isRootViewport =
+      context?.isRootMenu && context.viewport.value?.contains(target);
+
+    if (isTrigger || isRootViewport || !context?.isRootMenu)
+      ev.preventDefault();
+  }
+};
+
+watchEffect((cleanupFn) => {
+  const content = currentElement.value;
   if (context?.isRootMenu && content) {
     // Bubble dismiss to the root content node and focus its trigger
     const handleClose = () => {
@@ -97,11 +115,22 @@ watchEffect((stopper) => {
         props.triggerRef.value?.focus();
     };
     content.addEventListener(EVENT_ROOT_CONTENT_DISMISS, handleClose);
-    stopper(() =>
+
+    cleanupFn(() =>
       content.removeEventListener(EVENT_ROOT_CONTENT_DISMISS, handleClose)
     );
   }
 });
+
+const handleEscapeKeyDown = (ev: KeyboardEvent) => {
+  emits("escapeKeyDown", ev);
+
+  if (!ev.defaultPrevented) {
+    context!.onItemDismiss();
+    props?.triggerRef?.value?.focus();
+    props!.wasEscapeCloseRef.value = true;
+  }
+};
 
 const handleKeydown = (ev: KeyboardEvent) => {
   const isMetaKey = ev.altKey || ev.ctrlKey || ev.metaKey;
@@ -138,30 +167,38 @@ const handleKeydown = (ev: KeyboardEvent) => {
   );
   newSelectedElement?.focus();
 
-  if (ev.key === "Enter") return;
+  if (ev.key === "Enter" || ev.key === "Escape") return;
   ev.preventDefault();
   ev.stopPropagation();
 };
 
-const handleEscape = (ev: KeyboardEvent) => {
-  emits("escape", ev);
+const handleDismiss = () => {
+  const rootContentDismissEvent = new Event(EVENT_ROOT_CONTENT_DISMISS, {
+    bubbles: true,
+    cancelable: true,
+  });
+  currentElement.value?.dispatchEvent(rootContentDismissEvent);
 };
+
 defineExpose({
   ...props,
 });
 </script>
 
 <template>
-  <div
-    ref="elementRef"
+  <DismissableLayer
+    ref="primitiveElement"
     :id="contentId"
     :aria-labelledby="triggerId"
     :data-motion="motionAttribute"
     :data-state="getOpenState(context?.modelValue.value === props.value)"
     :data-orientation="context?.orientation"
     @keydown="handleKeydown"
-    @keydown.escape.prevent="handleEscape"
+    @escape-key-down="handleEscapeKeyDown"
+    @pointer-down-outside="handlePointerDownOutside"
+    @focus-outside="handleFocusOutside"
+    @dismiss="handleDismiss"
   >
     <slot></slot>
-  </div>
+  </DismissableLayer>
 </template>

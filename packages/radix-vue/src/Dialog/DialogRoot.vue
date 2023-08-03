@@ -38,10 +38,30 @@ const open = useVModel(props, "open", emit, {
   passive: true,
 });
 
-const locked = useScrollLock(document.querySelector("body"), open.value);
+const locked = useScrollLock(document.body, open.value);
 
-watchEffect(() => {
-  locked.value = open.value;
+const cleanupBodyLock = () => {
+  document.body.style.marginRight = "";
+  document.body.style.pointerEvents = "";
+  locked.value = false;
+};
+
+watchEffect((onCleanup) => {
+  if (open.value) {
+    const verticalScrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
+
+    if (verticalScrollbarWidth > 0) {
+      document.body.style.marginRight = verticalScrollbarWidth + "px";
+    }
+
+    document.body.style.pointerEvents = "none";
+    locked.value = true;
+  } else {
+    cleanupBodyLock();
+  }
+
+  onCleanup(cleanupBodyLock);
 });
 
 provide<DialogProvideValue>(DIALOG_INJECTION_KEY, {

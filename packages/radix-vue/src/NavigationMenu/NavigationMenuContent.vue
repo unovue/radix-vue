@@ -10,6 +10,7 @@ import {
   type PointerDownOutsideEvent,
 } from "@/DismissableLayer";
 import { type PrimitiveProps } from "@/Primitive";
+import { computedWithControl } from "@vueuse/core";
 
 interface NavigationMenuContentProps extends PrimitiveProps {}
 
@@ -26,21 +27,28 @@ const itemContext = inject(NAVIGATION_MENU_ITEM_INJECTION_KEY);
 
 const open = computed(() => itemContext?.value === context?.modelValue.value);
 
-const commonProps = computed(() => ({
-  value: itemContext!.value,
-  triggerRef: itemContext!.triggerRef,
-  focusProxyRef: itemContext!.focusProxyRef,
-  wasEscapeCloseRef: itemContext!.wasEscapeCloseRef,
-  onContentFocusOutside: itemContext!.onContentFocusOutside,
-  onRootContentClose: itemContext!.onRootContentClose,
-  ...props,
-}));
+const commonProps = computedWithControl(
+  () => itemContext,
+  () => ({
+    ...props,
+    value: itemContext!.value,
+    triggerRef: itemContext!.triggerRef,
+    focusProxyRef: itemContext!.focusProxyRef,
+    wasEscapeCloseRef: itemContext!.wasEscapeCloseRef,
+    onContentFocusOutside: itemContext!.onContentFocusOutside,
+    onRootContentClose: itemContext!.onRootContentClose,
+  })
+);
 
 const instance = getCurrentInstance();
 
 watch(
   open,
   async () => {
+    if (!context?.isRootMenu) {
+      // Next tick to flush DOM for other dependent elements to mount
+      await nextTick();
+    }
     // Everytime we remove mounted vnode using `v-if`, we would need to reset the vnode,
     // thus having this watcher is crucial is important for SSR
     // @ts-ignore
@@ -55,6 +63,7 @@ watch(
       };
       vnode.parentProps = instance.vnode.props;
       context.onViewportContentChange(itemContext!.value, vnode);
+      commonProps.trigger();
     }
   },
   { immediate: true, deep: true }

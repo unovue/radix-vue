@@ -3,7 +3,8 @@
   "scripts": {
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
-    "docs:preview": "vitepress preview"
+    "docs:preview": "vitepress preview",
+    "docs:contributors": "esno scripts/update-contributors.ts"
   },
   "devDependencies": {
     "@iconify/vue": "^4.1.1",
@@ -11,6 +12,8 @@
     "@tailwindcss/postcss7-compat": "^2.2.17",
     "autoprefixer": "^10.4.14",
     "codesandbox": "^2.2.3",
+    "esno": "^0.17.0",
+    "ohmyfetch": "^0.4.21",
     "postcss": "^8.4.25",
     "tailwindcss": "^3.3.2",
     "vitepress": "1.0.0-beta.5"
@@ -22,6 +25,6 @@
     }
   },
   "dependencies": {
-    "radix-vue": "0.1.15"
+    "radix-vue": "0.1.17"
   }
 }

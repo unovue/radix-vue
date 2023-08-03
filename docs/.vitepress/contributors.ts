@@ -61,6 +61,13 @@ const plainTeamMembers: CoreTeam[] = [
     twitter: "mujahid_fa",
     desc: "Core team member of Radix Vue",
   },
+  {
+    avatar: contributorsAvatars.onmax,
+    name: "Max",
+    github: "onmax",
+    twitter: "iam_mad_max",
+    desc: "Core team member of Radix Vue",
+  },
 ];
 
 const teamMembers = plainTeamMembers.map((tm) => createLinks(tm));

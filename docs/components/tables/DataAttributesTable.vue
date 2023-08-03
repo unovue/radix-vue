@@ -32,14 +32,12 @@ const props = defineProps<DataAttributesTableProps>();
           </ProseCodeInline>
         </ProseTd>
         <ProseTd class="">
-          <div class="flex items-center gap-1">
-            <ProseCodeInline variant="secondary" v-if="Array.isArray(prop.values)">
-              <span v-for="(value, propIndex) in prop.values" :key="value">
-                {{ propIndex + 1 !== prop.values.length ? `"${value}" | ` : `"${value}"` }}
-              </span>
-            </ProseCodeInline>
-            <span v-else>{{ prop.values }}</span>
-          </div>
+          <ProseCodeInline variant="secondary" v-if="Array.isArray(prop.values)">
+            <span v-for="(value, propIndex) in prop.values" :key="value">
+              {{ propIndex + 1 !== prop.values.length ? `"${value}" | ` : `"${value}"` }}
+            </span>
+          </ProseCodeInline>
+          <span v-else>{{ prop.values }}</span>
         </ProseTd>
       </ProseTr>
     </ProseTbody>

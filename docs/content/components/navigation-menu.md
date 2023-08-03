@@ -120,13 +120,7 @@ Contains all the parts of a navigation menu.
 <PropsTable
   :data="[
     {
-      name: 'defaultValue',
-      required: false,
-      type: 'string',
-      description: 'The value of the menu item that should be active when initially rendered. Use when you do not need to control the value state.',
-    },
-    {
-      name: 'value',
+      name: 'modelValue',
       required: false,
       type: 'string',
       description: `
@@ -137,11 +131,10 @@ Contains all the parts of a navigation menu.
       `,
     },
     {
-      name: 'onValueChange',
+      name: 'defaultValue',
       required: false,
-      type: '(value: string) => void',
-      typeSimple: 'function',
-      description: 'Event handler called when the value changes.',
+      type: 'string',
+      description: 'The value of the menu item that should be active when initially rendered. Use when you do not need to control the value state.',
     },
     {
       name: 'delayDuration',
@@ -181,6 +174,16 @@ Contains all the parts of a navigation menu.
   ]"
 />
 
+<EmitsTable
+  :data="[
+    {
+    name: '@update:modelValue',
+    type: '(payload: string) => void',
+    description: 'Event handler called when the value changes.',
+    }
+  ]"
+/>
+
 <DataAttributesTable
   :data="[
     {
@@ -197,13 +200,7 @@ Signifies a submenu. Use it in place of the root part when nested to create a su
 <PropsTable
   :data="[
     {
-      name: 'defaultValue',
-      required: false,
-      type: 'string',
-      description: 'The value of the menu item that should be active when initially rendered. Use when you do not need to control the value state.',
-    },
-    {
-      name: 'value',
+      name: 'modelValue',
       required: false,
       type: 'string',
       description: `
@@ -214,12 +211,11 @@ Signifies a submenu. Use it in place of the root part when nested to create a su
       `,
     },
     {
-      name: 'onValueChange',
+      name: 'defaultValue',
       required: false,
-      type: '(value: string) => void',
-      typeSimple: 'function',
-      description: 'Event handler called when the value changes.',
-    },
+      type: 'string',
+      description: 'The value of the menu item that should be active when initially rendered. Use when you do not need to control the value state.',
+    }, 
     {
       name: 'orientation',
       required: false,
@@ -228,6 +224,16 @@ Signifies a submenu. Use it in place of the root part when nested to create a su
       default: '&quot;horizontal&quot;',
       description: 'The orientation of the menu.',
     },
+  ]"
+/>
+
+<EmitsTable
+  :data="[
+    {
+    name: '@update:modelValue',
+    type: '(payload: string) => void',
+    description: 'Event handler called when the value changes.',
+    }
   ]"
 />
 
@@ -369,8 +375,23 @@ Contains the content associated with each trigger.
       `,
     },
     {
-      name: 'onEscapeKeyDown',
-      type: '(event: KeyboardEvent) => void',
+      name: 'forceMount',
+      type: 'boolean',
+      description: `
+        <span>
+          Used to force mounting when more control is needed. Useful when
+          controlling animation with Vue.js animation libraries.
+        </span>
+      `,
+    },
+  ]"
+/>
+
+<EmitsTable
+  :data="[
+    {
+    name: '@escapeKeyDown',
+    type: '(event: KeyboardEvent) => void',
       typeSimple: 'function',
       description: `
         <span>
@@ -379,7 +400,7 @@ Contains the content associated with each trigger.
       `,
     },
     {
-      name: 'onPointerDownOutside',
+      name: '@pointerDownOutside',
       type: '(event: PointerDownOutsideEvent) => void',
       typeSimple: 'function',
       description: `
@@ -389,7 +410,7 @@ Contains the content associated with each trigger.
       `,
     },
     {
-      name: 'onFocusOutside',
+      name: '@focusOutside',
       type: '(event: FocusOutsideEvent) => void',
       typeSimple: 'function',
       description: `
@@ -400,7 +421,7 @@ Contains the content associated with each trigger.
       `,
     },
     {
-      name: 'onInteractOutside',
+      name: '@interactOutside',
       type: '(event: FocusEvent | MouseEvent | TouchEvent) => void',
       typeSimple: 'function',
       description: `
@@ -408,16 +429,6 @@ Contains the content associated with each trigger.
           Event handler called when an interaction (pointer or focus event)
           happens outside the bounds of the component. It can be prevented by
           calling <Code>event.preventDefault</Code>.
-        </span>
-      `,
-    },
-    {
-      name: 'forceMount',
-      type: 'boolean',
-      description: `
-        <span>
-          Used to force mounting when more control is needed. Useful when
-          controlling animation with Vue.js animation libraries.
         </span>
       `,
     },
@@ -768,37 +779,31 @@ import {
 
 ### With client side routing
 
-If you need to use the `Link` component provided by your routing package then we recommend composing with `NavigationMenu.Link` via a custom component.
+If you need to use the `RouterLink` component provided by your routing package then we recommend adding `asChild="true"` to `NavigationMenuLink`.
 This will ensure accessibility and consistent keyboard control is maintained. Here's an example using Next.js:
 
-```vue line=7,14,17
+```vue line=10-12,15-17
 <script setup lang="ts">
 import { NavigationMenuRoot, NavigationMenuList, NavigationMenuItem } from "radix-vue";
-import Link from "your-framework";
+// RouterLink should be injected by default if using `vue-router`
 </script>
 
 <template>
   <NavigationMenuRoot>
     <NavigationMenuList>
       <NavigationMenuItem>
-        <Link href="/">Home</Link>
+        <NavigationMenuLink asChild>
+          <RouterLink to="/">Home</RouterLink>
+        <NavigationMenuLink/>
       </NavigationMenuItem>
       <NavigationMenuItem>
-        <Link href="/about">About</Link>
+        <NavigationMenuLink asChild>
+          <RouterLink to="/about">About</RouterLink>
+        <NavigationMenuLink/>
       </NavigationMenuItem>
     </NavigationMenuList>
   </NavigationMenuRoot>
 </template>
-```
-
-```css
-/* styles.css */
-.NavigationMenuLink {
-  text-decoration: none;
-}
-.NavigationMenuLink[data-active] {
-  text-decoration: "underline";
-}
 ```
 
 ### Advanced animation

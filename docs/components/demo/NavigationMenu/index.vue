@@ -44,13 +44,7 @@ const currentTrigger = ref("");
                   class="focus:shadow-green7 from-green9 to-teal9 flex h-full w-full select-none flex-col justify-end rounded-[6px] bg-gradient-to-b p-[25px] no-underline outline-none focus:shadow-[0_0_0_2px]"
                   href="/"
                 >
-                  <svg aria-hidden width="38" height="38" viewBox="0 0 25 25" fill="white">
-                    <path d="M12 25C7.58173 25 4 21.4183 4 17C4 12.5817 7.58173 9 12 9V25Z"></path>
-                    <path d="M12 0H4V8H12V0Z"></path>
-                    <path
-                      d="M17 8C19.2091 8 21 6.20914 21 4C21 1.79086 19.2091 0 17 0C14.7909 0 13 1.79086 13 4C13 6.20914 14.7909 8 17 8Z"
-                    ></path>
-                  </svg>
+                  <img class="w-16" src="/logo.svg" />
                   <div class="mt-4 mb-[7px] text-[18px] font-medium leading-[1.2] text-white">Radix Primitives</div>
                   <p class="text-mauve4 text-[14px] leading-[1.3]">Unstyled, accessible components for React.</p>
                 </a>
@@ -108,7 +102,7 @@ const currentTrigger = ref("");
       <NavigationMenuItem>
         <NavigationMenuLink
           class="text-grass11 hover:bg-green3 focus:shadow-green7 block select-none rounded-[4px] px-3 py-2 text-[15px] font-medium leading-none no-underline outline-none focus:shadow-[0_0_0_2px]"
-          href="https://github.com/radix-ui"
+          href="https://github.com/radix-vue"
         >
           Github
         </NavigationMenuLink>
@@ -123,7 +117,7 @@ const currentTrigger = ref("");
 
     <div class="perspective-[2000px] absolute top-full left-0 flex w-full justify-center">
       <NavigationMenuViewport
-        class="data-[state=open]:animate-scaleIn data-[state=closed]:animate-scaleOut relative mt-[10px] h-[var(--radix-navigation-menu-viewport-height)] w-full origin-[top_center] overflow-hidden rounded-[6px] bg-white transition-[width,_height] duration-300 sm:w-[var(--radix-navigation-menu-viewport-width)]"
+        class="data-[state=open]:animate-scaleIn data-[state=closed]:animate-scaleOut relative mt-[10px] h-[var(--radix-navigation-menu-viewport-height)] w-full origin-[top_center] overflow-hidden rounded-[10px] bg-white transition-[width,_height] duration-300 sm:w-[var(--radix-navigation-menu-viewport-width)]"
       />
     </div>
   </NavigationMenuRoot>

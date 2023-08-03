@@ -14,7 +14,7 @@ import {
   type PopoverProvideValue,
 } from "./PopoverRoot.vue";
 import { PopperContent, type PopperContentProps } from "@/Popper";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import { Primitive, usePrimitiveElement } from "@/Primitive";
 
 const injectedValue = inject<PopoverProvideValue>(POPOVER_INJECTION_KEY);
 
@@ -77,15 +77,16 @@ onUnmounted(() => {
     v-bind="props"
     v-if="injectedValue?.open.value"
   >
-    <PrimitiveDiv
+    <Primitive
       v-if="injectedValue?.open.value"
       :data-state="injectedValue?.open.value ? 'open' : 'closed'"
       :data-side="props.side"
       :data-align="props.align"
       role="tooltip"
       :as-child="props.asChild"
+      :as="as"
     >
       <slot />
-    </PrimitiveDiv>
+    </Primitive>
   </PopperContent>
 </template>

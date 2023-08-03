@@ -5,7 +5,7 @@ export interface HoverCardTriggerProps extends PrimitiveProps {}
 <script setup lang="ts">
 import { inject } from "vue";
 import {
-  PrimitiveButton,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -19,7 +19,9 @@ import { useHoverDelay, useMouseleaveDelay } from "../shared";
 
 const injectedValue = inject<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY);
 
-const props = defineProps<HoverCardTriggerProps>();
+const props = withDefaults(defineProps<HoverCardTriggerProps>(), {
+  as: "button",
+});
 
 const { primitiveElement, currentElement } = usePrimitiveElement();
 
@@ -45,9 +47,10 @@ async function handleMouseleave(e: MouseEvent) {
 
 <template>
   <PopperAnchor asChild>
-    <PrimitiveButton
+    <Primitive
       ref="primitiveElement"
       :as-child="props.asChild"
+      :as="as"
       :aria-expanded="injectedValue?.open.value || false"
       :data-state="injectedValue?.open.value ? 'open' : 'closed'"
       @mouseover="injectedValue!.isHover = true"
@@ -56,6 +59,6 @@ async function handleMouseleave(e: MouseEvent) {
       style="cursor: default"
     >
       <slot />
-    </PrimitiveButton>
+    </Primitive>
   </PopperAnchor>
 </template>

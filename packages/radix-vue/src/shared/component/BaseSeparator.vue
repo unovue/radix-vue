@@ -9,7 +9,7 @@ export interface BaseSeparatorProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { PrimitiveDiv } from "@/Primitive";
+import { Primitive } from "@/Primitive";
 
 const props = withDefaults(defineProps<BaseSeparatorProps>(), {
   orientation: "horizontal",
@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<BaseSeparatorProps>(), {
 </script>
 
 <template>
-  <PrimitiveDiv v-bind="props" :role="`${decorative ? 'none' : 'separator'}`">
+  <Primitive v-bind="props" :role="`${decorative ? 'none' : 'separator'}`">
     <slot></slot>
-  </PrimitiveDiv>
+  </Primitive>
 </template>

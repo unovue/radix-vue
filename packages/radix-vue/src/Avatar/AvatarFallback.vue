@@ -10,12 +10,13 @@ import {
   AVATAR_INJECTION_KEY,
   type AvatarProvideValue,
 } from "./AvatarRoot.vue";
-import { PrimitiveSpan, type PrimitiveProps } from "../Primitive";
+import { Primitive, type PrimitiveProps } from "../Primitive";
 
 const injectedValue = inject<AvatarProvideValue>(AVATAR_INJECTION_KEY);
 
 const props = withDefaults(defineProps<AvatarFallbackProps>(), {
   delayMs: 0,
+  as: "span",
 });
 
 let canRender = ref(false);
@@ -32,10 +33,11 @@ if (props.delayMs) {
 </script>
 
 <template>
-  <PrimitiveSpan
+  <Primitive
     v-if="canRender && injectedValue?.imageLoadingStatus.value !== 'loaded'"
     :as-child="props.asChild"
+    :as="as"
   >
     <slot />
-  </PrimitiveSpan>
+  </Primitive>
 </template>

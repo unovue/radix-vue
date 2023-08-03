@@ -14,11 +14,13 @@ export interface AvatarProvideValue {
 
 <script setup lang="ts">
 import { ref, provide } from "vue";
-import { PrimitiveSpan, type PrimitiveProps } from "../Primitive";
+import { Primitive, type PrimitiveProps } from "../Primitive";
 
 const imageLoadingStatusRef = ref<ImageLoadingStatus>("loading");
 
-const props = defineProps<AvatarRootProps>();
+const props = withDefaults(defineProps<AvatarRootProps>(), {
+  as: "span",
+});
 
 provide<AvatarProvideValue>(AVATAR_INJECTION_KEY, {
   imageLoadingStatus: imageLoadingStatusRef,
@@ -26,7 +28,7 @@ provide<AvatarProvideValue>(AVATAR_INJECTION_KEY, {
 </script>
 
 <template>
-  <PrimitiveSpan :as-child="props.asChild">
+  <Primitive :as="as" :as-child="props.asChild">
     <slot />
-  </PrimitiveSpan>
+  </Primitive>
 </template>

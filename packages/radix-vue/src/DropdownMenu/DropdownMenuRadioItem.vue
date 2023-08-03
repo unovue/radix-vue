@@ -64,6 +64,7 @@ provide(DROPDOWN_MENU_ITEM_SYMBOL, {
     role="menuitemradio"
     :data-state="radioDataState"
     :as-child="props.asChild"
+    :as="as"
   >
     <slot />
   </BaseMenuItem>

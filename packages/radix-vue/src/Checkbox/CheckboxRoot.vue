@@ -24,7 +24,7 @@ export const CHECKBOX_INJECTION_KEY =
 </script>
 
 <script setup lang="ts">
-import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { toRef, provide } from "vue";
 
 const props = withDefaults(defineProps<CheckboxRootProps>(), {
@@ -50,8 +50,9 @@ let dataState: "checked" | "unchecked" | "indeterminate";
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     :as-child="props.asChild"
+    :as="as"
     :value="props.value"
     role="checkbox"
     :aria-checked="props.modelValue"
@@ -73,5 +74,5 @@ let dataState: "checked" | "unchecked" | "indeterminate";
       style="opacity: 0; position: absolute; inset: 0"
     />
     <slot />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

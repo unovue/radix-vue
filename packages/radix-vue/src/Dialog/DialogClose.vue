@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { inject } from "vue";
-import { PrimitiveButton, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 import {
   DIALOG_INJECTION_KEY,
   type DialogProvideValue,
 } from "./DialogRoot.vue";
 
 export interface DialogCloseProps extends PrimitiveProps {}
-const props = defineProps<DialogCloseProps>();
+const props = withDefaults(defineProps<DialogCloseProps>(), {
+  as: "button",
+});
 
 const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 
@@ -17,12 +19,12 @@ function handleClick() {
 </script>
 
 <template>
-  <PrimitiveButton
+  <Primitive
     v-bind="props"
-    type="button"
+    :type="as === 'button' ? 'button' : undefined"
     aria-label="Close"
     @click="handleClick"
   >
     <slot />
-  </PrimitiveButton>
+  </Primitive>
 </template>

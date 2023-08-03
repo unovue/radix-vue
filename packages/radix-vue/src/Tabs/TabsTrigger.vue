@@ -8,7 +8,7 @@ export interface TabsTriggerProps extends PrimitiveProps {
 <script setup lang="ts">
 import { inject, computed } from "vue";
 import {
-  PrimitiveButton,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -21,6 +21,7 @@ const { primitiveElement, currentElement } = usePrimitiveElement();
 
 const props = withDefaults(defineProps<TabsTriggerProps>(), {
   disabled: false,
+  as: "button",
 });
 
 function changeTab(value: string) {
@@ -59,9 +60,10 @@ const getTabIndex = computed(() => {
 </script>
 
 <template>
-  <PrimitiveButton
+  <Primitive
     ref="primitiveElement"
-    type="button"
+    :type="as === 'button' ? 'button' : undefined"
+    :as="as"
     :as-child="props.asChild"
     role="tab"
     :aria-selected="
@@ -80,5 +82,5 @@ const getTabIndex = computed(() => {
     @keydown.up.down.left.right.home.end="handleKeydown"
   >
     <slot />
-  </PrimitiveButton>
+  </Primitive>
 </template>

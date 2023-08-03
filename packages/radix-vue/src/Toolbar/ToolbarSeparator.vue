@@ -10,5 +10,5 @@ const props = defineProps<BaseSeparatorProps>();
 </script>
 
 <template>
-  <BaseSeparator :as-child="props.asChild" />
+  <BaseSeparator :as-child="props.asChild" :as="as" />
 </template>

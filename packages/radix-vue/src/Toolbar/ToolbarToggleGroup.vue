@@ -32,7 +32,7 @@ export interface ToolbarToggleGroupProvideValue {
 <script setup lang="ts">
 import { toRef, provide } from "vue";
 import {
-  PrimitiveDiv,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -70,13 +70,14 @@ provide<ToolbarToggleGroupProvideValue>(TOOLBAR_TOGGLE_GROUP_INJECTION_KEY, {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     ref="primitiveElement"
     role="group"
     :dir="props.dir"
     :as-child="props.asChild"
+    :as="as"
     aria-label="Text alignment"
   >
     <slot />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

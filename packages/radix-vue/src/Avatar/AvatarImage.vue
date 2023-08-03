@@ -10,12 +10,12 @@ import {
   AVATAR_INJECTION_KEY,
   type AvatarProvideValue,
 } from "./AvatarRoot.vue";
-import { PrimitiveImg, type PrimitiveProps } from "../Primitive";
+import { Primitive, type PrimitiveProps } from "../Primitive";
 import { useImageLoadingStatus } from "./utils";
 
 const injectedValue = inject<AvatarProvideValue>(AVATAR_INJECTION_KEY);
 
-const props = defineProps<AvatarImageProps>();
+const props = withDefaults(defineProps<AvatarImageProps>(), { as: "img" });
 const src = useAttrs().src as string;
 const imageLoadingStatus = useImageLoadingStatus(src);
 
@@ -29,10 +29,11 @@ watch(
 </script>
 
 <template>
-  <PrimitiveImg
+  <Primitive
     v-if="imageLoadingStatus === 'loaded'"
     :as-child="props.asChild"
+    :as="as"
   >
     <slot></slot>
-  </PrimitiveImg>
+  </Primitive>
 </template>

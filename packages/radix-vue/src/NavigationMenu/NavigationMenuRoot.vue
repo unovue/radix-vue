@@ -3,7 +3,7 @@ import { type InjectionKey, type Ref } from "vue";
 import type { Direction, Orientation } from "./utils";
 import { onFocusOutside, useCollection, useId } from "@/shared";
 
-export interface NavigationMenuProps {
+export interface NavigationMenuProps extends PrimitiveProps {
   modelValue?: string;
   defaultValue?: string;
   changeValue?: (value: string) => void;
@@ -58,7 +58,11 @@ export const NAVIGATION_MENU_INJECTION_KEY =
 <script setup lang="ts">
 import { onClickOutside, useDebounceFn, useVModel } from "@vueuse/core";
 import { provide, ref, type VNode } from "vue";
-import { PrimitiveNav, usePrimitiveElement } from "@/Primitive";
+import {
+  Primitive,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 
 const props = withDefaults(defineProps<NavigationMenuProps>(), {
   modelValue: "",
@@ -66,6 +70,7 @@ const props = withDefaults(defineProps<NavigationMenuProps>(), {
   skipDelayDuration: 300,
   orientation: "horizontal",
   dir: "ltr",
+  as: "nav",
 });
 
 const emits = defineEmits<{
@@ -151,12 +156,14 @@ provide(NAVIGATION_MENU_INJECTION_KEY, {
 </script>
 
 <template>
-  <PrimitiveNav
+  <Primitive
     ref="primitiveElement"
     aria-label="Main"
+    :as="as"
+    :as-child="asChild"
     :data-orientation="orientation"
     :dir="dir"
   >
     <slot></slot>
-  </PrimitiveNav>
+  </Primitive>
 </template>

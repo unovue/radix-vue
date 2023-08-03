@@ -25,7 +25,7 @@ export interface SwitchProvideValue {
 
 <script setup lang="ts">
 import { provide } from "vue";
-import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<SwitchRootProps>(), {
@@ -60,13 +60,14 @@ function handleKeydown(e: KeyboardEvent) {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     :value="open"
     role="switch"
     :aria-checked="open"
     :data-state="open ? 'checked' : 'unchecked'"
     :data-disabled="props.disabled ? '' : undefined"
     :as-child="props.asChild"
+    :as="as"
     style="position: relative"
   >
     <slot />
@@ -84,5 +85,5 @@ function handleKeydown(e: KeyboardEvent) {
       :data-disabled="props.disabled ? '' : undefined"
       style="opacity: 0; position: absolute; inset: 0"
     />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

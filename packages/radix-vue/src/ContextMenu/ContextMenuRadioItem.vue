@@ -59,6 +59,7 @@ provide(CONTEXT_MENU_ITEM_SYMBOL, {
     :orientation="rootInjectedValue?.orientation"
     :data-radix-vue-radio-value="props.value"
     :as-child="props.asChild"
+    :as="as"
     @handle-click="handleClick"
     @escape-keydown="handleEscape"
     @click="handleClick"

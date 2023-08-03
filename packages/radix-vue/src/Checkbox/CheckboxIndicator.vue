@@ -10,21 +10,24 @@ import {
   CHECKBOX_INJECTION_KEY,
   type CheckboxProvideValue,
 } from "./CheckboxRoot.vue";
-import { PrimitiveSpan, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 
 const injectedValue = inject<CheckboxProvideValue>(CHECKBOX_INJECTION_KEY);
 
-const props = defineProps<CheckboxIndicatorProps>();
+const props = withDefaults(defineProps<CheckboxIndicatorProps>(), {
+  as: "span",
+});
 </script>
 
 <template>
-  <PrimitiveSpan
+  <Primitive
     v-if="injectedValue?.modelValue.value"
     style="pointer-events: none"
     :as-child="props.asChild"
+    :as="as"
     :data-disabled="injectedValue.disabled ? '' : undefined"
     :data-state="injectedValue.modelValue.value ? 'checked' : 'unchecked'"
   >
     <slot />
-  </PrimitiveSpan>
+  </Primitive>
 </template>

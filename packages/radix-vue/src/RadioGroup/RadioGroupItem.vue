@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  PrimitiveButton,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -76,8 +76,9 @@ const getTabIndex = computed(() => {
 </script>
 
 <template>
-  <PrimitiveButton
-    type="button"
+  <Primitive
+    :type="as === 'button' ? 'button' : undefined"
+    :as="as"
     ref="primitiveElement"
     role="radio"
     data-radix-vue-collection-item
@@ -93,7 +94,7 @@ const getTabIndex = computed(() => {
     @keydown="handleKeydown"
   >
     <slot />
-  </PrimitiveButton>
+  </Primitive>
   <input
     type="radio"
     aria-hidden="true"

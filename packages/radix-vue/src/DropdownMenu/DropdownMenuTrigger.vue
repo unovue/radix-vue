@@ -5,7 +5,7 @@ export interface DropdownMenuTriggerProps extends PrimitiveProps {}
 <script setup lang="ts">
 import { inject, nextTick, onMounted } from "vue";
 import {
-  PrimitiveButton,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -15,7 +15,9 @@ import {
 } from "./DropdownMenuRoot.vue";
 import { PopperAnchor } from "@/Popper";
 
-const props = defineProps<DropdownMenuTriggerProps>();
+const props = withDefaults(defineProps<DropdownMenuTriggerProps>(), {
+  as: "button",
+});
 
 const injectedValue = inject<DropdownMenuProvideValue>(
   DROPDOWN_MENU_INJECTION_KEY
@@ -47,16 +49,17 @@ async function handleKeydown(e: KeyboardEvent) {
 
 <template>
   <PopperAnchor asChild>
-    <PrimitiveButton
-      type="button"
+    <Primitive
+      :type="as === 'button' ? 'button' : undefined"
       ref="primitiveElement"
       :aria-expanded="injectedValue?.modelValue.value || false"
       :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
       :as-child="props.asChild"
+      :as="as"
       @click="handleClick"
       @keydown.prevent="handleKeydown"
     >
       <slot />
-    </PrimitiveButton>
+    </Primitive>
   </PopperAnchor>
 </template>

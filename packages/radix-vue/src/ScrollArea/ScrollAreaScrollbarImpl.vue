@@ -3,7 +3,7 @@ import { inject, onMounted, onUnmounted, ref } from "vue";
 import { SCROLL_AREA_INJECTION_KEY } from "./ScrollAreaRoot.vue";
 import { SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY } from "./ScrollAreaScrollbarVisible.vue";
 import { SCROLL_AREA_SCROLLBAR_INJECTION_KEY } from "./ScrollAreaScrollbar.vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import { Primitive, usePrimitiveElement } from "@/Primitive";
 import { toInt } from "./utils";
 import { useResizeObserver } from "@vueuse/core";
 
@@ -14,9 +14,11 @@ const scrollbarVisibleContext = inject(
 
 const scrollbarContext = inject(SCROLL_AREA_SCROLLBAR_INJECTION_KEY);
 
-const props = defineProps<{
+export interface ScrollAreaScrollbarImplProps {
   isHorizontal: boolean;
-}>();
+}
+
+const props = defineProps<ScrollAreaScrollbarImplProps>();
 
 const emit = defineEmits<{
   (e: "onDragScroll", payload: { x: number; y: number }): void;
@@ -118,7 +120,7 @@ useResizeObserver(rootContext?.content, handleSizeChange);
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     ref="primitiveElement"
     style="position: absolute"
     data-scrollbarimpl
@@ -128,5 +130,5 @@ useResizeObserver(rootContext?.content, handleSizeChange);
     @pointerup="handlePointerUp"
   >
     <slot></slot>
-  </PrimitiveDiv>
+  </Primitive>
 </template>

@@ -3,7 +3,7 @@ import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
 import { NAVIGATION_MENU_ITEM_INJECTION_KEY } from "./NavigationMenuItem.vue";
 import { computed, inject, onMounted, ref, type VNode } from "vue";
 import {
-  PrimitiveButton,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -15,7 +15,9 @@ interface NavigationMenuTriggerProps extends PrimitiveProps {
   disabled?: boolean;
 }
 
-const props = defineProps<NavigationMenuTriggerProps>();
+const props = withDefaults(defineProps<NavigationMenuTriggerProps>(), {
+  as: "button",
+});
 defineOptions({
   inheritAttrs: false,
 });
@@ -107,7 +109,7 @@ const handleVisuallyHiddenFocus = (ev: FocusEvent) => {
 </script>
 
 <template>
-  <PrimitiveButton
+  <Primitive
     ref="primitiveElement"
     :id="triggerId"
     :disabled="disabled"
@@ -116,6 +118,7 @@ const handleVisuallyHiddenFocus = (ev: FocusEvent) => {
     :aria-expanded="open"
     :aria-controls="contentId"
     :as-child="props.asChild"
+    :as="as"
     @pointerenter="handlePointerEnter"
     @pointermove="handlePointerMove"
     @pointerleave="handlePointerLeave"
@@ -125,7 +128,7 @@ const handleVisuallyHiddenFocus = (ev: FocusEvent) => {
     data-radix-vue-collection-item
   >
     <slot></slot>
-  </PrimitiveButton>
+  </Primitive>
 
   <template v-if="open">
     <VisuallyHidden

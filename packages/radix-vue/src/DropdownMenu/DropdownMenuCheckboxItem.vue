@@ -65,6 +65,7 @@ provide(DROPDOWN_MENU_ITEM_SYMBOL, {
     role="menuitemcheckbox"
     :data-state="checkboxDataState"
     :as-child="props.asChild"
+    :as="as"
     :aria-checked="props.modelValue ? true : false"
   >
     <input

@@ -23,7 +23,7 @@ import {
   type DialogProvideValue,
 } from "./DialogRoot.vue";
 import {
-  PrimitiveDiv,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -129,7 +129,8 @@ function handleKeydown(e: KeyboardEvent) {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
+    :as="as"
     :as-child="props.asChild"
     ref="primitiveElement"
     v-if="injectedValue?.open.value"
@@ -140,5 +141,5 @@ function handleKeydown(e: KeyboardEvent) {
     style="pointer-events: auto"
   >
     <slot />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

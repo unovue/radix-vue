@@ -7,7 +7,7 @@ export interface TabsListProps extends PrimitiveProps {
 <script setup lang="ts">
 import { inject, onMounted } from "vue";
 import {
-  PrimitiveDiv,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -29,15 +29,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     role="tablist"
     ref="primitiveElement"
     :as-child="props.asChild"
+    :as="as"
     :aria-orientation="injectedValue?.orientation"
     tabindex="0"
     :data-orientation="injectedValue?.orientation"
     style="outline: none"
   >
     <slot />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

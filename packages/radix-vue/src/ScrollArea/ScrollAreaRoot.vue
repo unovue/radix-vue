@@ -36,7 +36,7 @@ export const SCROLL_AREA_INJECTION_KEY =
 <script setup lang="ts">
 import { ref, provide, toRefs } from "vue";
 import {
-  PrimitiveDiv,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -110,9 +110,10 @@ provide<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY, {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     ref="primitiveElement"
     :as-child="props.asChild"
+    :as="as"
     :dir="props.dir"
     :style="{
     position: 'relative',
@@ -122,5 +123,5 @@ provide<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY, {
   }"
   >
     <slot />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

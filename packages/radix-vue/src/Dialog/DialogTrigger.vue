@@ -5,7 +5,7 @@ import {
   type DialogProvideValue,
 } from "./DialogRoot.vue";
 import {
-  PrimitiveButton,
+  Primitive,
   type PrimitiveProps,
   usePrimitiveElement,
 } from "@/Primitive";
@@ -29,18 +29,20 @@ onMounted(() => {
   }
 });
 
-const props = defineProps<DialogTriggerProps>();
+const props = withDefaults(defineProps<DialogTriggerProps>(), {
+  as: "button",
+});
 </script>
 
 <template>
-  <PrimitiveButton
+  <Primitive
     v-bind="props"
-    type="button"
+    :type="as === 'button' ? 'button' : undefined"
     ref="primitiveElement"
     :aria-expanded="injectedValue?.open.value || false"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"
     @click="injectedValue?.openModal"
   >
     <slot />
-  </PrimitiveButton>
+  </Primitive>
 </template>

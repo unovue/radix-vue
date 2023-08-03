@@ -21,7 +21,7 @@ import {
 } from "./MenubarMenu.vue";
 import { PopperAnchor } from "@/Popper";
 import {
-  PrimitiveButton,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -34,7 +34,9 @@ const injectedValue = inject<MenubarMenuProvideValue>(
   MENUBAR_MENU_INJECTION_KEY
 );
 
-const props = defineProps<MenubarMenuTriggerProps>();
+const props = withDefaults(defineProps<MenubarMenuTriggerProps>(), {
+  as: "button",
+});
 
 const { primitiveElement, currentElement } = usePrimitiveElement();
 const activeElement = useActiveElement();
@@ -156,6 +158,7 @@ watch(
       :aria-disabled="props.disabled ? true : undefined"
       :data-disabled="props.disabled ? '' : undefined"
       :as-child="props.asChild"
+      :as="as"
       :tabindex="
         rootInjectedValue?.triggerElement.value === currentElement ? '0' : '-1'
       "

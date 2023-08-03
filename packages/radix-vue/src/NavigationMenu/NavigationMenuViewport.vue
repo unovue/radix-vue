@@ -1,11 +1,19 @@
 <script setup lang="ts">
 import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
 import { computed, inject, onMounted, ref, type VNode } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import {
+  Primitive,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import { getOpenState } from "./utils";
 import { unrefElement, useResizeObserver } from "@vueuse/core";
 import { Presence } from "@/Presence";
 import NavigationMenuContentImpl from "./NavigationMenuContentImpl.vue";
+
+export interface NavigationMenuViewportProps extends PrimitiveProps {}
+
+defineProps<NavigationMenuViewportProps>();
 
 const { primitiveElement, currentElement } = usePrimitiveElement();
 
@@ -60,8 +68,10 @@ defineOptions({
 
 <template>
   <Presence :present="open">
-    <PrimitiveDiv
+    <Primitive
       v-bind="$attrs"
+      :as="as"
+      :as-child="asChild"
       ref="primitiveElement"
       :data-state="getOpenState(open)"
       :data-orientation="context?.orientation"
@@ -85,6 +95,6 @@ defineOptions({
           </NavigationMenuContentImpl>
         </Presence>
       </template>
-    </PrimitiveDiv>
+    </Primitive>
   </Presence>
 </template>

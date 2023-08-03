@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject, onMounted, ref } from "vue";
 import {
-  PrimitiveDiv,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -43,13 +43,14 @@ onMounted(() => {
       overflowY: rootContext?.scrollbarYEnabled.value ? 'scroll' : 'hidden',
     }"
   >
-    <PrimitiveDiv
+    <Primitive
       ref="primitiveElement"
       :style="{ minWidth: '100%', display: 'table' }"
       :as-child="props.asChild"
+      :as="as"
     >
       <slot></slot>
-    </PrimitiveDiv>
+    </Primitive>
   </div>
 </template>
 

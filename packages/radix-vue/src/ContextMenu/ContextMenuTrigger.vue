@@ -4,14 +4,16 @@ interface ContextMenuTriggerProps extends PrimitiveProps {}
 
 <script setup lang="ts">
 import { inject, onMounted } from "vue";
-import { PrimitiveButton, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 import {
   CONTEXT_MENU_INJECTION_KEY,
   type ContextMenuProvideValue,
 } from "./ContextMenuRoot.vue";
 import { PopperAnchor } from "@/Popper";
 
-const props = defineProps<ContextMenuTriggerProps>();
+const props = withDefaults(defineProps<ContextMenuTriggerProps>(), {
+  as: "button",
+});
 
 const injectedValue = inject<ContextMenuProvideValue>(
   CONTEXT_MENU_INJECTION_KEY
@@ -48,14 +50,15 @@ onMounted(() => {
 
 <template>
   <PopperAnchor :element="virtualEl" asChild>
-    <PrimitiveButton
-      type="button"
+    <Primitive
+      :as="as"
+      :type="as === 'button' ? 'button' : undefined"
       :aria-expanded="injectedValue?.modelValue.value || false"
       :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
       :as-child="props.asChild"
       @contextmenu.prevent="handleContextMenu"
     >
       <slot />
-    </PrimitiveButton>
+    </Primitive>
   </PopperAnchor>
 </template>

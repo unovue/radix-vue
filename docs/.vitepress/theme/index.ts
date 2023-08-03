@@ -5,6 +5,7 @@ import HomePage from "../components/HomePage.vue";
 import HomePageDemo from "../components/HomePageDemo.vue";
 import "./style.css";
 import "./tailwind.postcss";
+import "radix-vue/index.css";
 
 const regex = /\/(\w+)\.vue/;
 // @ts-ignore

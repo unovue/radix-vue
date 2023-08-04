@@ -16,7 +16,7 @@ export interface ContextMenuContentProps extends PopperContentProps {
 
 <script setup lang="ts">
 import { inject, watchEffect } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import { Primitive, usePrimitiveElement } from "@/Primitive";
 
 import { CONTEXT_MENU_INJECTION_KEY } from "./ContextMenuRoot.vue";
 import { PopperContent, type PopperContentProps } from "@/Popper";
@@ -90,16 +90,17 @@ async function handleKeydown(e: KeyboardEvent) {
     v-if="injectedValue?.modelValue.value"
     prioritize-position
   >
-    <PrimitiveDiv
+    <Primitive
       ref="primitiveElement"
       :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
       :data-side="props.side"
       :data-align="props.align"
       role="tooltip"
+      :as="as"
       :asChild="props.asChild"
       style="pointer-events: auto"
     >
       <slot />
-    </PrimitiveDiv>
+    </Primitive>
   </PopperContent>
 </template>

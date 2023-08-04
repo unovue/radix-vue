@@ -1,9 +1,15 @@
 <script setup lang="ts">
-import { PrimitiveSpan } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
+
+export interface VisuallyHiddenProps extends PrimitiveProps {}
+
+withDefaults(defineProps<VisuallyHiddenProps>(), { as: "span" });
 </script>
 
 <template>
-  <PrimitiveSpan
+  <Primitive
+    :as="as"
+    :as-child="asChild"
     :style="{
       // See: https://github.com/twbs/bootstrap/blob/master/scss/mixins/_screen-reader.scss
       position: 'absolute',
@@ -19,5 +25,5 @@ import { PrimitiveSpan } from "@/Primitive";
     }"
   >
     <slot />
-  </PrimitiveSpan>
+  </Primitive>
 </template>

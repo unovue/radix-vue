@@ -8,7 +8,7 @@ interface ToggleGroupItemProps extends PrimitiveProps {
 <script setup lang="ts">
 import { inject, computed, onMounted } from "vue";
 import {
-  PrimitiveButton,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -22,7 +22,9 @@ const injectedValue = inject<ToggleGroupProvideValue>(
   TOGGLE_GROUP_INJECTION_KEY
 );
 
-const props = defineProps<ToggleGroupItemProps>();
+const props = withDefaults(defineProps<ToggleGroupItemProps>(), {
+  as: "button",
+});
 
 const { primitiveElement, currentElement } = usePrimitiveElement();
 
@@ -96,10 +98,11 @@ function handleChangeValue() {
 </script>
 
 <template>
-  <PrimitiveButton
+  <Primitive
     :as-child="props.asChild"
+    :as="as"
     ref="primitiveElement"
-    type="button"
+    :type="as === 'button' ? 'button' : undefined"
     :role="getRole"
     :data-state="state"
     :disabled="props.disabled || injectedValue?.rootDisabled"
@@ -112,5 +115,5 @@ function handleChangeValue() {
     :tabindex="getTabIndex"
   >
     <slot />
-  </PrimitiveButton>
+  </Primitive>
 </template>

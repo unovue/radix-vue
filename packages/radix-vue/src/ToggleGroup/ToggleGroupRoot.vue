@@ -40,7 +40,7 @@ export interface ToggleGroupProvideValue {
 import { ref, provide, watch } from "vue";
 import { useVModel, useActiveElement } from "@vueuse/core";
 import {
-  PrimitiveDiv,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -122,8 +122,9 @@ watch(
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     :as-child="props.asChild"
+    :as="as"
     ref="primitiveElement"
     role="group"
     :dir="props.dir"
@@ -132,5 +133,5 @@ watch(
     :data-orientation="props.orientation"
   >
     <slot />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

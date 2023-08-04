@@ -21,7 +21,7 @@ interface BaseMenuItemProps extends PrimitiveProps {
 <script setup lang="ts">
 import { useArrowNavigation } from "../useArrowNavigation";
 import {
-  PrimitiveDiv,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -100,11 +100,13 @@ function handleMouseover() {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     :role="props.role"
     ref="primitiveElement"
     @keydown.prevent="handleKeydown"
     :data-state="props.dataState"
+    :as-child="asChild"
+    :as="as"
     data-radix-vue-collection-item
     @mouseenter="handleHover"
     @mouseover="handleMouseover"
@@ -120,5 +122,5 @@ function handleMouseover() {
     "
   >
     <slot />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

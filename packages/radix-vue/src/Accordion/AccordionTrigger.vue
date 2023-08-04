@@ -22,6 +22,7 @@ function changeItem() {
   <CollapsibleTrigger
     :ref="injectedItem?.primitiveElement"
     data-radix-vue-collection-item
+    :as="props.as"
     :as-child="props.asChild"
     :aria-controls="injectedItem?.triggerId"
     :aria-disabled="injectedItem?.disabled.value || undefined"

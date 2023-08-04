@@ -13,7 +13,7 @@ export interface MenubarSubContentProps extends PopperContentProps {
 
 <script setup lang="ts">
 import { inject, watchEffect, watch } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import { Primitive, usePrimitiveElement } from "@/Primitive";
 import {
   MENUBAR_INJECTION_KEY,
   type MenubarProvideValue,
@@ -94,18 +94,19 @@ onClickOutside(tooltipContentElement, (event) => {
 
 <template>
   <PopperContent v-bind="props" v-if="injectedValue?.modelValue.value">
-    <PrimitiveDiv
+    <Primitive
       ref="primitiveElement"
       :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
       :data-side="props.side"
       :data-align="props.align"
       :data-orientation="injectedValue.orientation"
       :aria-labelledby="injectedValue.triggerId"
+      :as="as"
       role="tooltip"
       :asChild="props.asChild"
       style="pointer-events: auto"
     >
       <slot />
-    </PrimitiveDiv>
+    </Primitive>
   </PopperContent>
 </template>

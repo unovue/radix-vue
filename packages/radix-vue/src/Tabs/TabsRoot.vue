@@ -26,7 +26,7 @@ export interface TabsProvideValue {
 </script>
 
 <script setup lang="ts">
-import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { useVModel } from "@vueuse/core";
 import { provide, ref } from "vue";
 
@@ -64,11 +64,12 @@ provide<TabsProvideValue>(TABS_INJECTION_KEY, {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     :dir="props.dir"
     :data-orientation="props.orientation"
     :as-child="props.asChild"
+    :as="as"
   >
     <slot />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

@@ -1,20 +1,22 @@
 <script setup lang="ts">
 import { inject } from "vue";
-import { PrimitiveButton, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { ALERT_DIALOG_INJECTION_KEY } from "./AlertDialogRoot.vue";
 
 export interface AlertDialogActionProps extends PrimitiveProps {}
-const props = defineProps<AlertDialogActionProps>();
+const props = withDefaults(defineProps<AlertDialogActionProps>(), {
+  as: "button",
+});
 
 const injectedValue = inject(ALERT_DIALOG_INJECTION_KEY);
 </script>
 
 <template>
-  <PrimitiveButton
+  <Primitive
     v-bind="props"
-    type="button"
+    :type="props.as === 'button' ? 'button' : undefined"
     @click="injectedValue?.closeModal()"
   >
     <slot />
-  </PrimitiveButton>
+  </Primitive>
 </template>

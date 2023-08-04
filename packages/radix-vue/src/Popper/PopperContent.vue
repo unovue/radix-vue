@@ -108,7 +108,7 @@ export default {
 
 <script setup lang="ts">
 import { computed, inject, provide, ref, watchEffect } from "vue";
-import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { POPPER_ROOT_KEY } from "./PopperRoot.vue";
 import { useSize } from "@/shared";
 import { computedEager } from "@vueuse/core";
@@ -307,9 +307,10 @@ provide(POPPER_CONTENT_KEY, {
     ].join(' '),
   }"
   >
-    <PrimitiveDiv
+    <Primitive
       v-bind="$attrs"
       :as-child="props.asChild"
+      :as="as"
       :data-side="placedSide"
       :data-align="placedAlign"
       :style="{
@@ -321,6 +322,6 @@ provide(POPPER_CONTENT_KEY, {
       }"
     >
       <slot></slot>
-    </PrimitiveDiv>
+    </Primitive>
   </div>
 </template>

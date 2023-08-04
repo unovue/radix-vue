@@ -30,7 +30,7 @@ export interface ContextMenuGroupProvideValue {
 <script setup lang="ts">
 import { toRef, provide } from "vue";
 import {
-  PrimitiveDiv,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -66,12 +66,14 @@ provide<ContextMenuGroupProvideValue>(CONTEXT_MENU_GROUP_INJECTION_KEY, {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     ref="primitiveElement"
     role="group"
+    :as="as"
+    :as-child="asChild"
     :dir="props.dir"
     aria-label="Text alignment"
   >
     <slot />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

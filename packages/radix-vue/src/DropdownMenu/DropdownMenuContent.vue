@@ -16,7 +16,7 @@ export interface DropdownMenuContentProps extends PopperContentProps {
 
 <script setup lang="ts">
 import { inject, watchEffect } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import { Primitive, usePrimitiveElement } from "@/Primitive";
 
 import { DROPDOWN_MENU_INJECTION_KEY } from "./DropdownMenuRoot.vue";
 import { PopperContent, type PopperContentProps } from "@/Popper";
@@ -64,16 +64,17 @@ onClickOutside(tooltipContentElement, (event) => {
 
 <template>
   <PopperContent v-bind="props" v-if="injectedValue?.modelValue.value">
-    <PrimitiveDiv
+    <Primitive
       ref="primitiveElement"
       :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
       :data-side="props.side"
       :data-align="props.align"
       role="tooltip"
       :as-child="props.asChild"
+      :as="as"
       style="pointer-events: auto"
     >
       <slot />
-    </PrimitiveDiv>
+    </Primitive>
   </PopperContent>
 </template>

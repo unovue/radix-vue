@@ -43,6 +43,7 @@ provide<SelectItemProvideValue>(SELECT_ITEM_SYMBOL, {
     :orientation="rootInjectedValue?.orientation"
     :data-radix-vue-radio-value="props.value"
     :as-child="props.asChild"
+    :as="as"
     @handle-click="handleClick"
     @escape-keydown="rootInjectedValue?.hideTooltip()"
     role="option"

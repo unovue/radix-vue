@@ -2,7 +2,7 @@
 import { computed, inject, ref, watchEffect } from "vue";
 import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
 import { useCollection } from "@/shared";
-import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { useResizeObserver } from "@vueuse/core";
 import { Presence } from "@/Presence";
 
@@ -58,11 +58,12 @@ useResizeObserver(context!.indicatorTrack, handlePositionChange);
     :to="context?.indicatorTrack.value"
   >
     <Presence :present="isVisible">
-      <PrimitiveDiv
+      <Primitive
         aria-hidden
         :data-state="isVisible ? 'visible' : 'hidden'"
         :data-orientation="context.orientation"
         :as-child="props.asChild"
+        :as="as"
         :style="{
           position: 'absolute',
           ...(isHorizontal
@@ -80,7 +81,7 @@ useResizeObserver(context!.indicatorTrack, handlePositionChange);
         v-bind="$attrs"
       >
         <slot></slot>
-      </PrimitiveDiv>
+      </Primitive>
     </Presence>
   </Teleport>
 </template>

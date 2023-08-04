@@ -5,7 +5,7 @@ export interface ToolbarLink extends PrimitiveProps {}
 <script setup lang="ts">
 import { inject } from "vue";
 import {
-  PrimitiveA,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -15,7 +15,7 @@ import {
 } from "./ToolbarRoot.vue";
 import { useArrowNavigation } from "../shared";
 
-const props = defineProps<ToolbarLink>();
+const props = withDefaults(defineProps<ToolbarLink>(), { as: "a" });
 const injectedValue = inject<ToolbarProvideValue>(TOOLBAR_INJECTION_KEY);
 
 const { primitiveElement, currentElement } = usePrimitiveElement();
@@ -31,15 +31,16 @@ function handleKeydown(e: KeyboardEvent) {
 </script>
 
 <template>
-  <PrimitiveA
+  <Primitive
     ref="primitiveElement"
     :tabindex="
       injectedValue?.activeElement.value === currentElement ? '0' : '-1'
     "
+    :as="as"
     :as-child="props.asChild"
     @keydown="handleKeydown"
     data-radix-vue-collection-item
   >
     <slot />
-  </PrimitiveA>
+  </Primitive>
 </template>

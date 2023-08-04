@@ -58,7 +58,7 @@ export const NAVIGATION_MENU_INJECTION_KEY =
 import { refAutoReset, useDebounceFn, useVModel } from "@vueuse/core";
 import { computed, provide, ref, toRefs, type VNode } from "vue";
 import {
-  PrimitiveNav,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -69,6 +69,7 @@ const props = withDefaults(defineProps<NavigationMenuProps>(), {
   skipDelayDuration: 300,
   orientation: "horizontal",
   dir: "ltr",
+  as: "nav",
 });
 
 const emits = defineEmits<{
@@ -160,13 +161,14 @@ provide(NAVIGATION_MENU_INJECTION_KEY, {
 </script>
 
 <template>
-  <PrimitiveNav
+  <Primitive
     ref="primitiveElement"
     aria-label="Main"
+    :as="as"
+    :as-child="asChild"
     :data-orientation="orientation"
     :dir="dir"
-    :as-child="props.asChild"
   >
     <slot></slot>
-  </PrimitiveNav>
+  </Primitive>
 </template>

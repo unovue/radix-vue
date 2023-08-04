@@ -2,7 +2,7 @@
 import { inject, onMounted } from "vue";
 import { ALERT_DIALOG_INJECTION_KEY } from "./AlertDialogRoot.vue";
 import {
-  PrimitiveButton,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -22,13 +22,15 @@ onMounted(() => {
   }
 });
 
-const props = defineProps<AlertDialogTriggerProps>();
+const props = withDefaults(defineProps<AlertDialogTriggerProps>(), {
+  as: "button",
+});
 </script>
 
 <template>
-  <PrimitiveButton
+  <Primitive
     v-bind="props"
-    type="button"
+    :type="props.as === 'button' ? 'button' : undefined"
     ref="primitiveElement"
     aria-haspopup="dialog"
     :aria-controls="injectedValue?.contentId"
@@ -37,5 +39,5 @@ const props = defineProps<AlertDialogTriggerProps>();
     @click="injectedValue?.openModal"
   >
     <slot />
-  </PrimitiveButton>
+  </Primitive>
 </template>

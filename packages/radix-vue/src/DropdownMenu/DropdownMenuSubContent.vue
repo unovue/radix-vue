@@ -13,7 +13,7 @@ export interface DropdownMenuSubContentProps extends PopperContentProps {
 
 <script setup lang="ts">
 import { inject, watchEffect, watch } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import { Primitive, usePrimitiveElement } from "@/Primitive";
 import {
   DROPDOWN_MENU_INJECTION_KEY,
   type DropdownMenuProvideValue,
@@ -98,7 +98,7 @@ onClickOutside(tooltipContentElement, (event) => {
 
 <template>
   <PopperContent v-bind="props" v-if="injectedValue?.modelValue.value">
-    <PrimitiveDiv
+    <Primitive
       ref="primitiveElement"
       :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
       :data-side="props.side"
@@ -107,9 +107,10 @@ onClickOutside(tooltipContentElement, (event) => {
       :aria-labelledby="injectedValue.triggerId"
       role="tooltip"
       :as-child="props.asChild"
+      :as="as"
       style="pointer-events: auto"
     >
       <slot />
-    </PrimitiveDiv>
+    </Primitive>
   </PopperContent>
 </template>

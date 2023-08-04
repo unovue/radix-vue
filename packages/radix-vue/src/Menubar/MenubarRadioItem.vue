@@ -77,6 +77,7 @@ function handleEscapeKeydown() {
     :orientation="rootInjectedValue?.orientation"
     :data-radix-vue-radio-value="props.value"
     :as-child="props.asChild"
+    :as="as"
     @handle-click="handleClick"
     @horizontal-keydown="handleHorizontalKeydown"
     @escape-keydown="handleEscapeKeydown"

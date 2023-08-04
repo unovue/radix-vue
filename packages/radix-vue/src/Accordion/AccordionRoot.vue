@@ -2,9 +2,7 @@
 import type { DataOrientation, Direction, Type } from "@/shared/types";
 import type { ComputedRef, InjectionKey, Ref } from "vue";
 
-export type AccordionRootProps = {
-  asChild?: boolean;
-
+export interface AccordionRootProps extends PrimitiveProps {
   /**
    * Determines whether one or multiple items can be opened at the same time.
    */
@@ -49,7 +47,7 @@ export type AccordionRootProps = {
    * @default "vertical"
    */
   orientation?: DataOrientation;
-};
+}
 
 export const ACCORDION_INJECTION_KEY =
   Symbol() as InjectionKey<AccordionProvideValue>;
@@ -67,7 +65,11 @@ export type AccordionProvideValue = {
 </script>
 
 <script setup lang="ts">
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import {
+  Primitive,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import { useSingleOrMultipleValue } from "@/shared/useSingleOrMultipleValue";
 import { computed, provide } from "vue";
 
@@ -101,7 +103,7 @@ provide<AccordionProvideValue>(ACCORDION_INJECTION_KEY, {
 </script>
 
 <template>
-  <PrimitiveDiv ref="primitiveElement" :as-child="props.asChild">
+  <Primitive ref="primitiveElement" :as-child="props.asChild" :as="props.as">
     <slot />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

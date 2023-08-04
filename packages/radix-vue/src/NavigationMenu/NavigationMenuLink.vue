@@ -5,11 +5,14 @@ export interface NavigationMenuLinkProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { PrimitiveA, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { EVENT_ROOT_CONTENT_DISMISS } from "./utils";
 import { nextTick } from "vue";
+// const LINK_SELECT = "navigationMenu.linkSelect";
 
-const props = defineProps<NavigationMenuLinkProps>();
+const props = withDefaults(defineProps<NavigationMenuLinkProps>(), {
+  as: "a",
+});
 const emits = defineEmits<{ (e: "select", payload: MouseEvent): void }>();
 
 const handleClick = async (ev: MouseEvent) => {
@@ -30,7 +33,8 @@ const handleClick = async (ev: MouseEvent) => {
 </script>
 
 <template>
-  <PrimitiveA
+  <Primitive
+    :as="as"
     :data-active="active ? '' : undefined"
     :aria-current="active ? 'page' : undefined"
     :as-child="props.asChild"
@@ -38,5 +42,5 @@ const handleClick = async (ev: MouseEvent) => {
     data-radix-vue-collection-item
   >
     <slot></slot>
-  </PrimitiveA>
+  </Primitive>
 </template>

@@ -13,7 +13,7 @@ export interface MenubarContentProps extends PopperContentProps {
 
 <script setup lang="ts">
 import { inject, watchEffect, watch, computed } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import { Primitive, usePrimitiveElement } from "@/Primitive";
 import {
   MENUBAR_INJECTION_KEY,
   type MenubarProvideValue,
@@ -105,7 +105,7 @@ const dataState = computed(() => {
 
 <template>
   <PopperContent v-bind="props" v-if="injectedValue?.isOpen.value">
-    <PrimitiveDiv
+    <Primitive
       ref="primitiveElement"
       :data-state="dataState"
       :data-side="props.side"
@@ -114,9 +114,10 @@ const dataState = computed(() => {
       :data-orientation="injectedValue?.orientation"
       role="tooltip"
       :as-child="props.asChild"
+      :as="as"
       style="pointer-events: auto"
     >
       <slot />
-    </PrimitiveDiv>
+    </Primitive>
   </PopperContent>
 </template>

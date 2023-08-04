@@ -1,6 +1,6 @@
 <script lang="ts">
 import {
-  PrimitiveDiv,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -83,16 +83,17 @@ provide<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY, {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     ref="primitiveElement"
     role="radiogroup"
     :data-disabled="props.disabled ? '' : undefined"
     :as-child="props.asChild"
+    :as="as"
     :required="props.required"
     :aria-required="props.required"
     :dir="props.dir"
     :name="props.name"
   >
     <slot />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

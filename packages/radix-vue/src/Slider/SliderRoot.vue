@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref, InjectionKey, ComputedRef } from "vue";
 import {
-  PrimitiveSpan,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -55,6 +55,7 @@ const props = withDefaults(defineProps<SliderRootProps>(), {
   min: 0,
   max: 100,
   step: 1,
+  as: "span",
   minStepsBetweenThumbs: 0,
 });
 
@@ -168,9 +169,10 @@ function convertToClosestStep(number: number, step: number) {
 </script>
 
 <template>
-  <PrimitiveSpan
+  <Primitive
     ref="primitiveElement"
     :as-child="props.asChild"
+    :as="as"
     @pointerdown="changeValue"
   >
     <slot />
@@ -180,5 +182,5 @@ function convertToClosestStep(number: number, step: number) {
       :aria-valuenow="props.modelValue"
       :name="props.name"
     />
-  </PrimitiveSpan>
+  </Primitive>
 </template>

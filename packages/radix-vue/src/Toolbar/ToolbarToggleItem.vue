@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, inject, computed } from "vue";
-import { PrimitiveButton, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 import {
   TOOLBAR_TOGGLE_GROUP_INJECTION_KEY,
   type ToolbarToggleGroupProvideValue,
@@ -46,17 +46,18 @@ function handleKeydown(e: KeyboardEvent) {
 </script>
 
 <template>
-  <PrimitiveButton
+  <Primitive
     type="button"
     :data-state="state"
     :data-disabled="props.disabled"
     :data-orientation="injectedValue?.orientation"
     :as-child="props.asChild"
+    :as="as"
     @click="injectedValue!.changeModelValue(props.value)"
     ref="currentToggleElement"
     @keydown="handleKeydown"
     data-radix-vue-collection-item
   >
     <slot />
-  </PrimitiveButton>
+  </Primitive>
 </template>

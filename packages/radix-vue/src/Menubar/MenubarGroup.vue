@@ -30,7 +30,7 @@ export interface MenubarGroupProvideValue {
 <script setup lang="ts">
 import { toRef, provide } from "vue";
 import {
-  PrimitiveDiv,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -66,13 +66,14 @@ provide<MenubarGroupProvideValue>(MENUBAR_GROUP_INJECTION_KEY, {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     ref="primitiveElement"
     role="group"
     :dir="props.dir"
+    :as="as"
     :as-child="props.asChild"
     aria-label="Text alignment"
   >
     <slot />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

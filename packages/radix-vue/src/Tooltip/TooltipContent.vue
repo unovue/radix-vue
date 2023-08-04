@@ -36,7 +36,7 @@ export interface TooltipContentEmit {
 
 <script setup lang="ts">
 import { PopperContent } from "@/Popper";
-import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { VisuallyHidden } from "@/VisuallyHidden";
 import { computed, inject, ref, useSlots, type VNode } from "vue";
 import { TOOLTIP_INJECTION_KEY } from "./TooltipRoot.vue";
@@ -115,16 +115,17 @@ const ariaLabel = computed(() => {
     "
     @keydown.esc="onEscapeKeyDown($event)"
   >
-    <PrimitiveDiv
+    <Primitive
       :data-state="injectedValue?.dataState.value"
       :data-side="props.side"
       :data-align="props.align"
       :as-child="props.asChild"
+      :as="as"
       role="tooltip"
       tabindex="-1"
     >
       <slot />
-    </PrimitiveDiv>
+    </Primitive>
     <VisuallyHidden :id="injectedValue?.contentId" role="tooltip">
       {{ ariaLabel }}
     </VisuallyHidden>

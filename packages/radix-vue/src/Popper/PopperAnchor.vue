@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject, watch } from "vue";
 import {
-  PrimitiveDiv,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -23,7 +23,7 @@ watch(currentElement, () => {
 </script>
 
 <template>
-  <PrimitiveDiv :as-child="asChild" ref="primitiveElement">
+  <Primitive :as="as" :as-child="asChild" ref="primitiveElement">
     <slot></slot>
-  </PrimitiveDiv>
+  </Primitive>
 </template>

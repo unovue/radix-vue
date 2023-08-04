@@ -22,7 +22,7 @@ export const NAVIGATION_MENU_ITEM_INJECTION_KEY =
 <script setup lang="ts">
 import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
 import { provide, ref, type InjectionKey, type Ref, inject } from "vue";
-import { PrimitiveLi, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { useArrowNavigation, useCollection, useId } from "@/shared";
 import {
   getTabbableCandidates,
@@ -31,7 +31,9 @@ import {
   makeContentId,
 } from "./utils";
 
-const props = defineProps<NavigationMenuItemProps>();
+const props = withDefaults(defineProps<NavigationMenuItemProps>(), {
+  as: "li",
+});
 const { getItems } = useCollection();
 const context = inject(NAVIGATION_MENU_INJECTION_KEY);
 
@@ -114,11 +116,12 @@ const handleKeydown = (ev: KeyboardEvent) => {
 </script>
 
 <template>
-  <PrimitiveLi
-    aria-menu-item
+  <Primitive
     :as-child="props.asChild"
+    :as="as"
     @keydown.up.down.left.right.home.end.space="handleKeydown"
+    aria-menu-item
   >
     <slot></slot>
-  </PrimitiveLi>
+  </Primitive>
 </template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  PrimitiveDiv,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -196,7 +196,7 @@ const handleKeyDown = (event: KeyboardEvent) => {
 </script>
 
 <template>
-  <PrimitiveDiv ref="primitiveElement" tabIndex="-1" @keydown="handleKeyDown">
+  <Primitive ref="primitiveElement" tabIndex="-1" @keydown="handleKeyDown">
     <slot></slot>
-  </PrimitiveDiv>
+  </Primitive>
 </template>

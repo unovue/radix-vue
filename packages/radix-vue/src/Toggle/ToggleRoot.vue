@@ -29,12 +29,13 @@ export type DataState = "on" | "off";
 </script>
 
 <script setup lang="ts">
-import { PrimitiveButton, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<ToggleRootProps>(), {
   pressed: undefined,
   disabled: false,
+  as: "button",
 });
 
 const emits = defineEmits<{
@@ -62,8 +63,9 @@ const handleKeydown = (e: KeyboardEvent) => {
 </script>
 
 <template>
-  <PrimitiveButton
+  <Primitive
     :as-child="props.asChild"
+    :as="as"
     :value="pressed"
     v-bind="pressed"
     role="checkbox"
@@ -76,5 +78,5 @@ const handleKeydown = (e: KeyboardEvent) => {
     style="position: relative"
   >
     <slot />
-  </PrimitiveButton>
+  </Primitive>
 </template>

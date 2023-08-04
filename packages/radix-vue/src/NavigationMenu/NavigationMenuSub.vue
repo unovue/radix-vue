@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  PrimitiveDiv,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -85,11 +85,12 @@ provide(NAVIGATION_MENU_INJECTION_KEY, {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     ref="primitiveElement"
     :data-orientation="orientation"
     :as-child="props.asChild"
+    :as="as"
   >
     <slot></slot>
-  </PrimitiveDiv>
+  </Primitive>
 </template>

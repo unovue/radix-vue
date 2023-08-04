@@ -5,7 +5,7 @@ export interface SliderThumbProps extends PrimitiveProps {}
 <script setup lang="ts">
 import { inject, onMounted } from "vue";
 import {
-  PrimitiveSpan,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -22,7 +22,7 @@ onMounted(() => {
 });
 
 const props = withDefaults(defineProps<SliderThumbProps>(), {
-  asChild: false,
+  as: "span",
 });
 
 let extraStep = 2;
@@ -87,7 +87,7 @@ function handleKeydown(e: KeyboardEvent) {
   <span
     :style="`transform: translateX(-50%); position: absolute; left: calc(${injectedValue?.modelValue?.value}%)`"
   >
-    <PrimitiveSpan
+    <Primitive
       v-bind="$attrs"
       ref="primitiveElement"
       role="slider"
@@ -99,8 +99,9 @@ function handleKeydown(e: KeyboardEvent) {
       :aria-valuemax="injectedValue?.max"
       :aria-orientation="injectedValue?.orientation"
       :as-child="props.asChild"
+      :as="as"
       @keydown="handleKeydown"
     >
-    </PrimitiveSpan>
+    </Primitive>
   </span>
 </template>

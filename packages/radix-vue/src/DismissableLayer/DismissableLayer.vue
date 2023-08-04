@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {
   type PrimitiveProps,
-  PrimitiveDiv,
   usePrimitiveElement,
+  Primitive,
 } from "@/Primitive";
 import {
   type PointerDownOutsideEvent,
@@ -175,9 +175,10 @@ watchEffect((cleanupFn) => {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     ref="primitiveElement"
     :as-child="asChild"
+    :as="as"
     :style="{
       pointerEvents: isBodyPointerEventsDisabled
         ? isPointerEventsEnabled
@@ -190,5 +191,5 @@ watchEffect((cleanupFn) => {
     @pointerdown.capture="pointerDownOutside.onPointerDownCapture"
   >
     <slot></slot>
-  </PrimitiveDiv>
+  </Primitive>
 </template>

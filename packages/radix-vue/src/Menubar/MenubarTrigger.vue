@@ -141,7 +141,7 @@ watch(
 
 <template>
   <PopperAnchor asChild>
-    <PrimitiveButton
+    <Primitive
       role="menuitem"
       ref="primitiveElement"
       :id="injectedValue?.triggerId"
@@ -165,6 +165,6 @@ watch(
       v-bind="$attrs"
     >
       <slot />
-    </PrimitiveButton>
+    </Primitive>
   </PopperAnchor>
 </template>

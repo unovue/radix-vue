@@ -48,7 +48,7 @@ provide<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY, {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     ref="primitiveElement"
     role="radiogroup"
     aria-label="radiogroup"
@@ -56,5 +56,5 @@ provide<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY, {
     :as="as"
   >
     <slot />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

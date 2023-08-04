@@ -8,6 +8,15 @@ describe("test Primitive functionalities", () => {
     expect(wrapper.find("div").exists()).toBe(true);
   });
 
+  it("should render button element correctly", () => {
+    const wrapper = mount(Primitive, {
+      props: {
+        as: "button",
+      },
+    });
+    expect(wrapper.find("button").exists()).toBe(true);
+  });
+
   it("should renders div element with custom attribute", () => {
     const wrapper = mount(Primitive, {
       attrs: {
@@ -32,12 +41,12 @@ describe("test Primitive functionalities", () => {
   });
 
   // ref: https://vitest.dev/api/expect.html#tothrowerror
-  describe("asChild", () => {
+  describe("render as template (asChild)", () => {
     it("should throw error when multiple child elements exists", () => {
       const wrapper = () =>
         mount(Primitive, {
           props: {
-            asChild: true,
+            as: "template",
           },
           slots: {
             default: "<div>1</div><div>2</div><div>3</div>",
@@ -50,7 +59,7 @@ describe("test Primitive functionalities", () => {
     it("should merge child's class together", () => {
       const wrapper = mount(Primitive, {
         props: {
-          asChild: true,
+          as: "template",
         },
         attrs: {
           class: "parent-class",
@@ -70,7 +79,7 @@ describe("test Primitive functionalities", () => {
     it("should render the child class element tag", () => {
       const wrapper = mount(Primitive, {
         props: {
-          asChild: true,
+          as: "template",
         },
 
         slots: {
@@ -88,12 +97,12 @@ describe("test Primitive functionalities", () => {
       };
       const RootComponent = {
         components: { ChildComponent, Primitive },
-        template: "<PrimitiveDiv><ChildComponent /></PrimitiveDiv>",
+        template: "<Primitive><ChildComponent /></Primitive>",
       };
 
       const wrapper = mount(RootComponent, {
         props: {
-          asChild: true,
+          as: "template",
         },
       });
 
@@ -104,7 +113,7 @@ describe("test Primitive functionalities", () => {
     it("should inherit parent attributes and the child attributes", () => {
       const wrapper = mount(Primitive, {
         props: {
-          asChild: true,
+          as: "template",
         },
         attrs: {
           "data-parent-attr": "",
@@ -122,7 +131,7 @@ describe("test Primitive functionalities", () => {
     it("should replace parent attributes with child's attributes", () => {
       const wrapper = mount(Primitive, {
         props: {
-          asChild: true,
+          as: "template",
         },
         attrs: {
           id: "parent",
@@ -136,6 +145,24 @@ describe("test Primitive functionalities", () => {
       const element = wrapper.find("div");
       expect(element.attributes("data-type")).toBe("primary");
       expect(element.attributes("id")).toBe("child");
+    });
+
+    it("'asChild=true' should work the same as 'as=template'", () => {
+      const wrapper = mount(Primitive, {
+        props: {
+          asChild: true,
+        },
+        attrs: {
+          class: "parent-class",
+        },
+        slots: {
+          default: '<button class="child-class">Child element</button>',
+        },
+      });
+
+      const element = wrapper.find("button");
+      expect(element.exists()).toBe(true);
+      expect(element.attributes("class")).toBe("parent-class child-class");
     });
   });
 });

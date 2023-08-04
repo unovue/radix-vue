@@ -124,6 +124,7 @@ useResizeObserver(rootContext?.content, handleSizeChange);
     ref="primitiveElement"
     style="position: absolute"
     data-scrollbarimpl
+    :as="scrollbarContext?.as.value"
     :as-child="scrollbarContext?.asChild.value"
     @pointerdown="handlePointerDown"
     @pointermove="handlePointerMove"

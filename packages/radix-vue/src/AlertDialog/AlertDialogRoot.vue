@@ -26,8 +26,8 @@ export type AlertDialogRootEmits = {
 
 <script setup lang="ts">
 import { provide, ref, watchEffect } from "vue";
-import { useScrollLock, useVModel } from "@vueuse/core";
-import { useId } from "@/shared";
+import { useVModel } from "@vueuse/core";
+import { useId, useBodyScrollLock } from "@/shared";
 
 const props = withDefaults(defineProps<AlertDialogRootProps>(), {
   open: undefined,
@@ -41,10 +41,11 @@ const open = useVModel(props, "open", emit, {
   passive: true,
 });
 
-const locked = useScrollLock(document.querySelector("body"), open.value);
+const isBodyLocked = useBodyScrollLock(open.value);
 
-watchEffect(() => {
-  locked.value = open.value;
+watchEffect((onCleanup) => {
+  isBodyLocked.value = open.value;
+  onCleanup(() => (isBodyLocked.value = false));
 });
 
 provide(ALERT_DIALOG_INJECTION_KEY, {

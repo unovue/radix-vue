@@ -1,0 +1,33 @@
+name: release-please
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        with:
+          release-type: node
+          path: packages/radix-vue
+
+#      - name: Get repository
+#        if: ${{ steps.release.outputs.release_created }}
+#        uses: actions/checkout@v3
+#        with:
+#          fetch-depth: 0
+#
+#      - name: Setup
+#        if: ${{ steps.release.outputs.release_created }}
+#        uses: ./.github/actions/setup
+#
+#      - name: Publish
+#        if: ${{ steps.release.outputs.release_created }}
+#        run: pnpm publish

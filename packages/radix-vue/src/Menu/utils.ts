@@ -1,6 +1,8 @@
 export type CheckedState = boolean | "indeterminate";
 export type Direction = "ltr" | "rtl";
 
+export const ITEM_NAME = "MenuItem";
+export const ITEM_SELECT = "menu.itemSelect";
 export const SELECTION_KEYS = ["Enter", " "];
 export const FIRST_KEYS = ["ArrowDown", "PageUp", "Home"];
 export const LAST_KEYS = ["ArrowUp", "PageDown", "End"];

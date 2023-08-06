@@ -30,22 +30,19 @@ export interface FocusScopeProps extends PrimitiveProps {
    * @defaultValue false
    */
   trapped?: boolean;
+}
 
+export interface FocusScopeEmits {
   /**
    * Event handler called when auto-focusing on mount.
    * Can be prevented.
    */
-  onMountAutoFocus?: (event: Event) => void;
+  (e: "mountAutoFocus", event: Event): void;
 
   /**
    * Event handler called when auto-focusing on unmount.
    * Can be prevented.
    */
-  onUnmountAutoFocus?: (event: Event) => void;
-}
-
-export interface FocusScopeEmits {
-  (e: "mountAutoFocus", event: Event): void;
   (e: "unmountAutoFocus", event: Event): void;
 }
 
@@ -196,7 +193,13 @@ const handleKeyDown = (event: KeyboardEvent) => {
 </script>
 
 <template>
-  <Primitive ref="primitiveElement" tabIndex="-1" @keydown="handleKeyDown">
+  <Primitive
+    ref="primitiveElement"
+    tabIndex="-1"
+    @keydown="handleKeyDown"
+    :asChild="props.asChild"
+    :as="props.as"
+  >
     <slot></slot>
   </Primitive>
 </template>

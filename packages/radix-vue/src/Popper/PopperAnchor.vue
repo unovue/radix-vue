@@ -7,7 +7,7 @@ import {
 } from "@/Primitive";
 import { POPPER_ROOT_KEY } from "./PopperRoot.vue";
 
-interface PopperAnchorProps extends PrimitiveProps {
+export interface PopperAnchorProps extends PrimitiveProps {
   element?: HTMLElement;
 }
 

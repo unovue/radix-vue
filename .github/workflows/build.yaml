@@ -1,6 +1,10 @@
 name: Build & Lint
 
 on:
+  push:
+    branches:
+      - main
+
   pull_request:
     branches:
       - main

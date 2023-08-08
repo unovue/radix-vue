@@ -29,9 +29,8 @@ const handleSelect = () => {
       bubbles: true,
       cancelable: true,
     });
-    menuItem.addEventListener(ITEM_SELECT, (event) => emits("select", event), {
-      once: true,
-    });
+    emits("select", itemSelectEvent);
+
     if (itemSelectEvent.defaultPrevented) {
       isPointerDownRef.value = false;
     } else {
@@ -45,12 +44,7 @@ const handleSelect = () => {
   <MenuItemImpl
     ref="primitiveElement"
     :disabled="disabled"
-    @click="
-      async () => {
-        await nextTick();
-        handleSelect();
-      }
-    "
+    @click="handleSelect"
     @pointerdown="
       () => {
         isPointerDownRef = true;

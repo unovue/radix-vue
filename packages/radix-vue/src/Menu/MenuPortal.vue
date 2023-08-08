@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import { Presence } from "@/Presence";
 import { MENU_INJECTION_KEY } from "./MenuRoot.vue";
-import { inject, type TeleportProps } from "vue";
+import { inject, type RendererElement } from "vue";
 
-interface MenuPortalProps extends TeleportProps {}
-const props = defineProps<MenuPortalProps>();
+interface MenuPortalProps {
+  to?: string | RendererElement | null | undefined;
+  disabled?: boolean;
+}
+const props = withDefaults(defineProps<MenuPortalProps>(), {
+  to: "body",
+});
 
 const context = inject(MENU_INJECTION_KEY);
 </script>

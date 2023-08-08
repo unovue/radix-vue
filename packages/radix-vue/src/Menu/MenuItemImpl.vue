@@ -1,5 +1,5 @@
 <script lang="ts">
-import { whenMouse } from "./utils";
+import { isMouseEvent } from "./utils";
 export interface MenuItemImplProps extends PrimitiveProps {
   disabled?: boolean;
   textValue?: string;
@@ -25,23 +25,25 @@ const isFocused = ref(false);
 const handlePointerMove = async (event: PointerEvent) => {
   await nextTick();
   if (event.defaultPrevented) return;
-  whenMouse((event) => {
-    if (props.disabled) {
-      contentContext!.onItemLeave(event);
-    } else {
-      contentContext!.onItemEnter(event);
-      if (!event.defaultPrevented) {
-        const item = event.currentTarget;
-        item && (item as HTMLElement).focus();
-      }
+  if (!isMouseEvent(event)) return;
+
+  if (props.disabled) {
+    contentContext!.onItemLeave(event);
+  } else {
+    contentContext!.onItemEnter(event);
+    if (!event.defaultPrevented) {
+      const item = event.currentTarget;
+      item && (item as HTMLElement).focus();
     }
-  });
+  }
 };
 
 const handlePointerLeave = async (event: PointerEvent) => {
   await nextTick();
   if (event.defaultPrevented) return;
-  whenMouse((event) => contentContext!.onItemLeave(event));
+  if (!isMouseEvent(event)) return;
+
+  contentContext!.onItemLeave(event);
 };
 </script>
 
@@ -49,16 +51,18 @@ const handlePointerLeave = async (event: PointerEvent) => {
   <Primitive
     ref="primitiveElement"
     role="menuitem"
+    tabindex="-1"
     data-radix-vue-collection-item
-    :data-highlighted="isFocused ? '' : undefined"
     :aria-disabled="disabled || undefined"
     :data-disabled="disabled ? '' : undefined"
+    :disabled="disabled"
+    :data-highlighted="isFocused ? '' : undefined"
     @pointermove="handlePointerMove"
     @pointerleave="handlePointerLeave"
     @focus="
       async (event) => {
         await nextTick();
-        if (event.defaultPrevented) return;
+        if (event.defaultPrevented || disabled) return;
         isFocused = true;
       }
     "

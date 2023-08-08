@@ -1,12 +1,14 @@
-<script>
+<script lang="ts">
 export interface MenuSubContextValue {
   contentId: string;
   triggerId: string;
-  trigger: Ref< HTMLElement | undefined>;
+  trigger: Ref<HTMLElement | undefined>;
   onTriggerChange(trigger: HTMLElement | undefined): void;
+  parentMenuContext?: MenuContextValue;
 }
 
-export const MENU_SUB_INJECTION_KEY = Symbol() as InjectionKey<MenuSubContextValue>
+export const MENU_SUB_INJECTION_KEY =
+  Symbol() as InjectionKey<MenuSubContextValue>;
 
 export interface MenuSubProps {
   open?: boolean;
@@ -22,7 +24,7 @@ import {
   type InjectionKey,
   type Ref,
 } from "vue";
-import { MENU_INJECTION_KEY } from "./MenuRoot.vue";
+import { MENU_INJECTION_KEY, type MenuContextValue } from "./MenuRoot.vue";
 import { useVModel } from "@vueuse/core";
 import { PopperRoot } from "@/Popper";
 import { useId } from "@/shared";

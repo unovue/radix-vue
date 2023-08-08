@@ -1,9 +1,10 @@
-<script>
+<script lang="ts">
 interface MenuItemIndicatorContextValue {
-  checked: Ref<CheckedState>
+  checked: Ref<CheckedState>;
 }
 
-export const MENU_ITEM_INDICATOR_INJECTION_KEY = Symbol() as InjectionKey<MenuItemIndicatorContextValue>
+export const MENU_ITEM_INDICATOR_INJECTION_KEY =
+  Symbol() as InjectionKey<MenuItemIndicatorContextValue>;
 </script>
 
 <script setup lang="ts">

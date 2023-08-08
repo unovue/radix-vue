@@ -54,10 +54,10 @@ export interface MenuContentImplProps
 export interface MenuRootContentTypeProps
   extends Omit<MenuContentImplProps, keyof MenuContentImplPrivateProps> {}
 
-export interface MenuContentEmits extends DismissableLayerEmits {
+export type MenuContentImplEmits = DismissableLayerEmits & {
   (e: "openAutoFocus", event: Event): void;
   (e: "closeAutoFocus", event: Event): void;
-}
+};
 </script>
 
 <script setup lang="ts">
@@ -78,25 +78,27 @@ import {
   type InjectionKey,
   provide,
   toRefs,
+  watch,
 } from "vue";
-import { useNewCollection, useFocusGuards } from "@/shared";
+import { useNewCollection, useFocusGuards, useArrowNavigation } from "@/shared";
 import {
   type GraceIntent,
   type Side,
   getOpenState,
   getNextMatch,
   isPointerInGraceArea,
-  whenMouse,
+  isMouseEvent,
   focusFirst,
   FIRST_LAST_KEYS,
   LAST_KEYS,
 } from "./utils";
 
+useFocusGuards();
 const context = inject(MENU_INJECTION_KEY);
 const rootContext = inject(MENU_ROOT_INJECTION_KEY);
 
 const props = defineProps<MenuContentImplProps>();
-const emits = defineEmits<MenuContentEmits>();
+const emits = defineEmits<MenuContentImplEmits>();
 const { trapFocus, disableOutsidePointerEvents } = toRefs(props);
 
 const searchRef = ref("");
@@ -107,10 +109,14 @@ const pointerDirRef = ref<Side>("right");
 const lastPointerXRef = ref(0);
 const currentItemId = ref<string | null>(null);
 
-const { injectCollection } = useNewCollection();
+const { createCollection } = useNewCollection();
 const { primitiveElement, currentElement: contentElement } =
   usePrimitiveElement();
-const collectionItems = injectCollection();
+const collectionItems = createCollection(contentElement);
+
+watch(contentElement, (el) => {
+  context!.onContentChange(el);
+});
 
 const handleTypeaheadSearch = (key: string) => {
   const search = searchRef.value + key;
@@ -146,6 +152,7 @@ onUnmounted(() => {
 const isPointerMovingToSubmenu = (event: PointerEvent) => {
   const isMovingTowards =
     pointerDirRef.value === pointerGraceIntentRef.value?.side;
+
   return (
     isMovingTowards &&
     isPointerInGraceArea(event, pointerGraceIntentRef.value?.area)
@@ -157,8 +164,13 @@ const handleMountAutoFocus = (event: Event) => {
 
   // when opening, explicitly focus the content area only and leave
   // `onEntryFocus` in  control of focusing first item
-  event.preventDefault();
   contentElement.value?.focus();
+
+  // only focus first item when using keyboard
+  if (rootContext?.isUsingKeyboardRef.value) {
+    collectionItems.value?.[0]?.focus();
+    event.preventDefault();
+  }
 };
 
 const handleKeyDown = (event: KeyboardEvent) => {
@@ -168,11 +180,29 @@ const handleKeyDown = (event: KeyboardEvent) => {
     target.closest("[data-radix-menu-content]") === event.currentTarget;
   const isModifierKey = event.ctrlKey || event.altKey || event.metaKey;
   const isCharacterKey = event.key.length === 1;
+
+  const el = useArrowNavigation(
+    event,
+    document.activeElement as HTMLElement,
+    contentElement.value,
+    {
+      loop: false,
+      arrowKeyOptions: "vertical",
+      dir: rootContext?.dir.value,
+      focus: true,
+    }
+  );
+  if (el) return el?.focus();
+
+  // prevent "Space" taken account into handleTypeahead
+  if (event.code === "Space") return;
+
   if (isKeyDownInside) {
     // menus should not be navigated using tab key so we prevent it
     if (event.key === "Tab") event.preventDefault();
     if (!isModifierKey && isCharacterKey) handleTypeaheadSearch(event.key);
   }
+
   // focus first/last item based on key pressed
   if (event.target !== contentElement.value) return;
   if (!FIRST_LAST_KEYS.includes(event.key)) return;
@@ -192,21 +222,20 @@ const handleBlur = (event: FocusEvent) => {
 };
 
 const handlePointerMove = (event: PointerEvent) => {
-  whenMouse((event) => {
-    const target = event.target as HTMLElement;
-    const pointerXHasChanged = lastPointerXRef.value !== event.clientX;
+  if (!isMouseEvent(event)) return;
+  const target = event.target as HTMLElement;
+  const pointerXHasChanged = lastPointerXRef.value !== event.clientX;
 
-    // We don't use `event.movementX` for this check because Safari will
-    // always return `0` on a pointer event.
-    if (
-      (event?.currentTarget as HTMLElement)?.contains(target) &&
-      pointerXHasChanged
-    ) {
-      const newDir = event.clientX > lastPointerXRef.value ? "right" : "left";
-      pointerDirRef.value = newDir;
-      lastPointerXRef.value = event.clientX;
-    }
-  });
+  // We don't use `event.movementX` for this check because Safari will
+  // always return `0` on a pointer event.
+  if (
+    (event?.currentTarget as HTMLElement)?.contains(target) &&
+    pointerXHasChanged
+  ) {
+    const newDir = event.clientX > lastPointerXRef.value ? "right" : "left";
+    pointerDirRef.value = newDir;
+    lastPointerXRef.value = event.clientX;
+  }
 };
 
 provide(MENU_CONTENT_INJECTION_KEY, {
@@ -246,6 +275,7 @@ provide(MENU_CONTENT_INJECTION_KEY, {
       @dismiss="emits('dismiss')"
     >
       <PopperContent
+        v-bind="props"
         ref="primitiveElement"
         role="menu"
         aria-orientation="vertical"

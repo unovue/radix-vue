@@ -118,9 +118,6 @@ export function isPointerInGraceArea(event: PointerEvent, area?: Polygon) {
   return isPointInPolygon(cursorPos, area);
 }
 
-export function whenMouse<E>(
-  handler: (ev: PointerEvent) => E
-): (ev: PointerEvent) => E | undefined {
-  return (event) =>
-    event.pointerType === "mouse" ? handler(event) : undefined;
+export function isMouseEvent(event: PointerEvent) {
+  return event.pointerType === "mouse";
 }

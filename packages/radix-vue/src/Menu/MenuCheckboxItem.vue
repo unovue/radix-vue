@@ -10,9 +10,9 @@ import { provide, toRefs } from "vue";
 interface MenuCheckboxItemProps extends MenuItemProps {
   checked?: CheckedState;
 }
-interface MenuCheckboxItemEmits extends MenuItemEmits {
+type MenuCheckboxItemEmits = MenuItemEmits & {
   (e: "update:checked", payload: boolean): void;
-}
+};
 
 const props = withDefaults(defineProps<MenuCheckboxItemProps>(), {
   checked: false,

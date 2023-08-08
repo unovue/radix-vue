@@ -11,7 +11,7 @@ import { SUB_CLOSE_KEYS } from "./utils";
 
 interface MenuSubContentProps extends MenuContentImplProps {}
 
-const props = defineProps<MenuSubContentProps>();
+defineProps<MenuSubContentProps>();
 
 const context = inject(MENU_INJECTION_KEY);
 const rootContext = inject(MENU_ROOT_INJECTION_KEY);

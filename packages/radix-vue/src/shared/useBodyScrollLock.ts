@@ -1,14 +1,17 @@
-import { useScrollLock } from "@vueuse/core";
+import { useScrollLock, defaultDocument } from "@vueuse/core";
+import { isClient } from "@vueuse/shared";
 import { computed } from "vue";
 
 export const useBodyScrollLock = (initialState?: boolean | undefined) => {
-  const locked = useScrollLock(document.body, initialState);
+  const locked = useScrollLock(defaultDocument?.body, initialState);
 
   return computed<boolean>({
     get() {
       return locked.value;
     },
     set(newLocked) {
+      if (!isClient) return;
+
       if (newLocked) {
         const verticalScrollbarWidth =
           window.innerWidth - document.documentElement.clientWidth;

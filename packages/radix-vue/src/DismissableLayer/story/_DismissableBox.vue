@@ -8,12 +8,13 @@ const buttonRef = ref<HTMLElement>();
 </script>
 
 <template>
-  <DismissableLayer v-bind="{ ...$attrs }">
-    <div>
-      <button ref="buttonRef" type="button" @click="open = !open">
-        {{ open ? "Close" : "Open" }} new layer
-      </button>
-    </div>
+  <DismissableLayer
+    v-bind="{ ...$attrs }"
+    class="p-4 rounded-xl bg-gray-100/10"
+  >
+    <button ref="buttonRef" type="button" @click="open = !open">
+      {{ open ? "Close" : "Open" }} new layer
+    </button>
 
     <DismissableBox
       v-if="open"

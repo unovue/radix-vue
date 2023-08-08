@@ -10,12 +10,14 @@ withDefaults(
     closeLabel?: string;
     trapped?: boolean;
     disableOutsidePointerEvents?: boolean;
+    color?: string;
   }>(),
   {
     openLabel: "Open",
     closeLabel: "Close",
-    trapped: true,
+    trapped: false,
     disableOutsidePointerEvents: false,
+    color: "white",
   }
 );
 
@@ -44,9 +46,13 @@ const openButtonRef = ref();
       >
         <FocusScope asChild :trapped="trapped">
           <PopperContent
-            class="flex items-start gap-4 bg-white min-w-[200px] min-h-[150px] p-6 rounded-md bg-white"
+            class="flex items-start gap-4 bg-white min-w-[200px] min-h-[150px] p-6 rounded-md"
+            :style="{
+              backgroundColor: color,
+            }"
             :side="'bottom'"
             :side-offset="10"
+            :align="'start'"
           >
             <slot></slot>
 
@@ -55,7 +61,9 @@ const openButtonRef = ref();
             <PopperArrow
               :width="10"
               :height="4"
-              class="fill-white"
+              :style="{
+                fill: color,
+              }"
             ></PopperArrow>
           </PopperContent>
         </FocusScope>

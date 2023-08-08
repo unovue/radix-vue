@@ -14,7 +14,7 @@ const handleAlert = () => {
     :layout="{ type: 'grid', width: '50%' }"
   >
     <Variant title="Dialog (fully modal example)">
-      <div class="h-[300vh] flex flex-col justify-center">
+      <div class="h-[300vh]">
         <ul class="list-disc ml-4">
           <li>✅ focus should move inside `Dialog` when mounted</li>
           <li>✅ focus should be trapped inside `Dialog`</li>
@@ -42,7 +42,7 @@ const handleAlert = () => {
     </Variant>
 
     <Variant title="Popover (fully modal example)">
-      <div class="h-[300vh] flex flex-col justify-center">
+      <div class="h-[300vh]">
         <ul class="list-disc ml-4">
           <li>✅ focus should move inside `Popover` when mounted</li>
           <li>✅ focus should be trapped inside `Popover`</li>

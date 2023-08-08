@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { ProgressIndicator, ProgressRoot } from "radix-vue";
-
 const progressValue = ref(66);
 </script>
 

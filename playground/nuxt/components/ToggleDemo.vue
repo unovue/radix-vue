@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { Toggle } from 'radix-vue'
 import { Icon } from '@iconify/vue'
-import { ref } from 'vue'
 
 const toggleState = ref(true)
 </script>

@@ -1,23 +1,5 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
-import { ref } from "vue";
-import {
-  DropdownMenuArrow,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuItemIndicator,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuRoot,
-  DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
-} from "radix-vue";
 
 const toggleState = ref(false);
 const checkboxOne = ref(false);

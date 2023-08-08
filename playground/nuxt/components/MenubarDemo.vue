@@ -1,22 +1,5 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
-import { ref } from "vue";
-import {
-  MenubarCheckboxItem,
-  MenubarContent,
-  MenubarItem,
-  MenubarItemIndicator,
-  MenubarMenu,
-  MenubarPortal,
-  MenubarRadioGroup,
-  MenubarRadioItem,
-  MenubarRoot,
-  MenubarSeparator,
-  MenubarSub,
-  MenubarSubContent,
-  MenubarSubTrigger,
-  MenubarTrigger,
-} from "radix-vue";
 
 const currentMenu = ref("");
 const checkboxOne = ref(false);

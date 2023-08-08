@@ -1,15 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import {
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogOverlay,
-  DialogPortal,
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
-} from "radix-vue";
+
 import { Icon } from "@iconify/vue";
 
 const dialogOpen = ref(false);

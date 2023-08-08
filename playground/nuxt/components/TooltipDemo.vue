@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
-import { TooltipArrow, TooltipContent, TooltipRoot, TooltipTrigger } from "radix-vue";
-import { ref } from "vue";
 
 const toggleState = ref(false);
 </script>

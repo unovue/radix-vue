@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from "radix-vue";
-
 const radioStateSingle = ref("default");
 </script>
 

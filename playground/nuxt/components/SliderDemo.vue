@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue'
-
 const sliderValue = ref(50)
 </script>
 

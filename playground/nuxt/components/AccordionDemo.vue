@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from "radix-vue";
-import { ref } from "vue";
-
 const tabValue = ref("item-1");
 const rootDisabled = false;
 </script>

@@ -3,7 +3,7 @@ import { Presence } from "@/Presence";
 import { MENU_INJECTION_KEY } from "./MenuRoot.vue";
 import { inject, type RendererElement } from "vue";
 
-interface MenuPortalProps {
+export interface MenuPortalProps {
   to?: string | RendererElement | null | undefined;
   disabled?: boolean;
 }

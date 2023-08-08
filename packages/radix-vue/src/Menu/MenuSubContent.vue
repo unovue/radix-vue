@@ -2,6 +2,7 @@
 import { inject } from "vue";
 import MenuContentImpl, {
   type MenuContentImplProps,
+  type MenuContentImplEmits,
 } from "./MenuContentImpl.vue";
 import { Presence } from "@/Presence";
 import { MENU_INJECTION_KEY, MENU_ROOT_INJECTION_KEY } from "./MenuRoot.vue";
@@ -9,7 +10,8 @@ import { MENU_SUB_INJECTION_KEY } from "./MenuSub.vue";
 import { usePrimitiveElement } from "@/Primitive";
 import { SUB_CLOSE_KEYS } from "./utils";
 
-interface MenuSubContentProps extends MenuContentImplProps {}
+export interface MenuSubContentProps extends MenuContentImplProps {}
+export interface MenuSubContentEmits extends MenuContentImplEmits {}
 
 defineProps<MenuSubContentProps>();
 

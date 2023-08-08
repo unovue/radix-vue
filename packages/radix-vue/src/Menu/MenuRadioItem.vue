@@ -8,10 +8,10 @@ import { computed, inject, provide, toRefs } from "vue";
 import { MENU_RADIO_GROUP_INJECTION_KEY } from "./MenuRadioGroup.vue";
 import { MENU_ITEM_INDICATOR_INJECTION_KEY } from "./MenuItemIndicator.vue";
 
-interface MenuRadioItemProps extends MenuItemProps {
+export interface MenuRadioItemProps extends MenuItemProps {
   value: string;
 }
-interface MenuRadioItemEmits extends MenuItemEmits {}
+export interface MenuRadioItemEmits extends MenuItemEmits {}
 
 const props = defineProps<MenuRadioItemProps>();
 const emits = defineEmits<MenuRadioItemEmits>();

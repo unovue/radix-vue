@@ -7,7 +7,7 @@ import { MENU_CONTENT_INJECTION_KEY } from "./MenuContentImpl.vue";
 import MenuAnchor from "./MenuAnchor.vue";
 import { getOpenState, isMouseEvent, type Side, SUB_OPEN_KEYS } from "./utils";
 
-interface MenuSubTriggerProps extends MenuItemImplProps {}
+export interface MenuSubTriggerProps extends MenuItemImplProps {}
 
 const props = defineProps<MenuSubTriggerProps>();
 

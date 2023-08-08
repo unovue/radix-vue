@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { Primitive, type PrimitiveProps } from "@/Primitive";
 
-interface MenuLabelProps extends PrimitiveProps {}
-const props = defineProps<MenuLabelProps>();
+export interface MenuLabelProps extends PrimitiveProps {}
+const props = withDefaults(defineProps<MenuLabelProps>(), {
+  as: "label",
+});
 </script>
 
 <template>

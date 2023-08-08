@@ -7,10 +7,10 @@ import MenuItem, {
 import { MENU_ITEM_INDICATOR_INJECTION_KEY } from "./MenuItemIndicator.vue";
 import { provide, toRefs } from "vue";
 
-interface MenuCheckboxItemProps extends MenuItemProps {
+export interface MenuCheckboxItemProps extends MenuItemProps {
   checked?: CheckedState;
 }
-type MenuCheckboxItemEmits = MenuItemEmits & {
+export type MenuCheckboxItemEmits = MenuItemEmits & {
   (e: "update:checked", payload: boolean): void;
 };
 

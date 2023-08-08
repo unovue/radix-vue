@@ -1,4 +1,4 @@
-import { ref, watchEffect } from "vue";
+import { ref, watchEffect, type Ref } from "vue";
 
 export type PointerDownOutsideEvent = CustomEvent<{
   originalEvent: PointerEvent;
@@ -10,6 +10,31 @@ export const CONTEXT_UPDATE = "dismissableLayer.update";
 export const POINTER_DOWN_OUTSIDE = "dismissableLayer.pointerDownOutside";
 export const FOCUS_OUTSIDE = "dismissableLayer.focusOutside";
 
+function isLayerExist(layerElement: HTMLElement, targetElement: HTMLElement) {
+  const targetLayer = targetElement.closest(
+    "[data-dismissable-layer]"
+  ) as HTMLElement;
+
+  const mainLayer = layerElement.querySelector(
+    "[data-dismissable-layer]"
+  ) as HTMLElement;
+
+  if (!mainLayer) {
+    return false;
+  }
+  const nodeList = Array.from(
+    layerElement.ownerDocument.querySelectorAll("[data-dismissable-layer]")
+  );
+  if (
+    mainLayer === targetLayer ||
+    nodeList.indexOf(mainLayer) < nodeList.indexOf(targetLayer)
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 /**
  * Listens for `pointerdown` outside a DOM subtree. We use `pointerdown` rather than `pointerup`
  * to mimic layer dismissing behaviour present in OS.
@@ -17,18 +42,27 @@ export const FOCUS_OUTSIDE = "dismissableLayer.focusOutside";
  */
 export function usePointerDownOutside(
   onPointerDownOutside?: (event: PointerDownOutsideEvent) => void,
-  ownerDocument: Document = globalThis?.document
+  element?: Ref<HTMLElement | undefined>
 ) {
+  const ownerDocument: Document =
+    element?.value?.ownerDocument ?? globalThis?.document;
+
   const isPointerInsideDOMTree = ref(false);
   const handleClickRef = ref(() => {});
 
   watchEffect((cleanupFn) => {
     const handlePointerDown = (event: PointerEvent) => {
+      if (!element?.value) return;
+      if (isLayerExist(element.value, event.target as HTMLElement)) return;
+
       if (event.target && !isPointerInsideDOMTree.value) {
         const eventDetail = { originalEvent: event };
 
         // eslint-disable-next-line no-inner-declarations
         function handleAndDispatchPointerDownOutsideEvent() {
+          const target = event.target as HTMLElement;
+          if (target.closest("[data-dismissable-layer]")) return;
+
           handleAndDispatchCustomEvent(
             POINTER_DOWN_OUTSIDE,
             onPointerDownOutside,
@@ -99,12 +133,17 @@ export function usePointerDownOutside(
  */
 export function useFocusOutside(
   onFocusOutside?: (event: FocusOutsideEvent) => void,
-  ownerDocument: Document = globalThis?.document
+  element?: Ref<HTMLElement | undefined>
 ) {
-  const isFocusInsideDOMTree = ref(false);
+  const ownerDocument: Document =
+    element?.value?.ownerDocument ?? globalThis?.document;
 
-  watchEffect((cleanupFn) => {
-    const handleFocus = (event: FocusEvent) => {
+  const isFocusInsideDOMTree = ref(false);
+  watchEffect(async (cleanupFn) => {
+    const handleFocus = async (event: FocusEvent) => {
+      if (!element?.value) return;
+      if (isLayerExist(element.value, event.target as HTMLElement)) return;
+
       if (event.target && !isFocusInsideDOMTree.value) {
         const eventDetail = { originalEvent: event };
         handleAndDispatchCustomEvent(

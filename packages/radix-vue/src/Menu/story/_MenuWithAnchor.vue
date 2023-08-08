@@ -21,7 +21,7 @@ const open = useVModel(props, "open");
     <MenuAnchor :style="{ display: 'inline-block' }" />
     <MenuPortal>
       <MenuContent
-        class="inline-block box-border min-w-[130px] bg-white border border-gray-100 rounded-[6px] p-[5px] shadow-md font-sans text-sm focus-within:border-black"
+        class="inline-block box-border min-w-[130px] bg-white border border-gray-100 rounded-[6px] p-[5px] shadow-md font-sans text-[13px] focus-within:border-black"
         @close-auto-focus.prevent
         :align="'start'"
       >

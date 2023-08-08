@@ -1,8 +1,8 @@
 {
   "name": "@radix-vue/nuxt",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
-  "description": "Nuxt module for UnoCSS",
+  "description": "Nuxt module for Radix Vue",
   "license": "MIT",
   "keywords": [
     "radix",
@@ -34,9 +34,5 @@
     "@nuxt/schema": "^3.6.5",
     "radix-vue": "file:../radix-vue",
     "unbuild": "^0.8.11"
-  },
-  "devDependencies": {
-    "fast-glob": "^3.3.1",
-    "glob": "^10.3.3"
   }
 }

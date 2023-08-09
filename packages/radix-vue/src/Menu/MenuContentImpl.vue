@@ -26,6 +26,7 @@ export type MenuContentImplPrivateProps = {
    */
   trapFocus?: FocusScopeProps["trapped"];
 };
+
 export interface MenuContentImplProps
   extends MenuContentImplPrivateProps,
     Omit<PopperContentProps, "dir" | "onPlaced"> {
@@ -36,8 +37,14 @@ export interface MenuContentImplProps
   loop?: boolean;
 }
 
-export interface MenuRootContentTypeProps
-  extends Omit<MenuContentImplProps, keyof MenuContentImplPrivateProps> {}
+export interface MenuRootContentProps
+  extends Omit<PopperContentProps, "dir" | "onPlaced"> {
+  /**
+   * Whether keyboard navigation should loop around
+   * @defaultValue false
+   */
+  loop?: boolean;
+}
 
 export type MenuContentImplEmits = DismissableLayerEmits & {
   (e: "openAutoFocus", event: Event): void;

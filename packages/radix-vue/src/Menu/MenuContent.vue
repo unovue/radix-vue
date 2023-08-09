@@ -5,12 +5,12 @@ import MenuRootContentModal from "./MenuRootContentModal.vue";
 import MenuRootContentNonModal from "./MenuRootContentNonModal.vue";
 import { MENU_INJECTION_KEY, MENU_ROOT_INJECTION_KEY } from "./MenuRoot.vue";
 import {
-  type MenuContentImplProps,
+  type MenuRootContentProps,
   type MenuContentImplEmits,
 } from "./MenuContentImpl.vue";
 import { useEmitAsProps } from "@/shared";
 
-export interface MenuContentProps extends MenuContentImplProps {}
+export interface MenuContentProps extends MenuRootContentProps {}
 export type MenuContentEmits = MenuContentImplEmits;
 
 const props = defineProps<MenuContentProps>();

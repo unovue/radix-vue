@@ -2,14 +2,14 @@
 import { inject } from "vue";
 import MenuContentImpl, {
   type MenuContentImplEmits,
-  type MenuContentImplProps,
+  type MenuRootContentProps,
 } from "./MenuContentImpl.vue";
 import { MENU_INJECTION_KEY } from "./MenuRoot.vue";
 import { useEmitAsProps } from "@/shared";
 
 const context = inject(MENU_INJECTION_KEY);
 
-interface MenuRootContentNonModalProps extends MenuContentImplProps {}
+interface MenuRootContentNonModalProps extends MenuRootContentProps {}
 type MenuRootContentModalEmits = MenuContentImplEmits;
 
 const props = defineProps<MenuRootContentNonModalProps>();

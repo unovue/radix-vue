@@ -126,13 +126,13 @@ const pointerDownOutside = usePointerDownOutside(async (event) => {
   emits("interactOutside", event);
   await nextTick();
   if (!event.defaultPrevented) emits("dismiss");
-}, ownerDocument.value);
+}, layerElement);
 
 const focusOutside = useFocusOutside((event) => {
   emits("focusOutside", event);
   emits("interactOutside", event);
   if (!event.defaultPrevented) emits("dismiss");
-}, ownerDocument.value);
+}, layerElement);
 
 onKeyStroke("Escape", (event) => {
   const isHighestLayer = index.value === layers.value.size - 1;
@@ -179,6 +179,7 @@ watchEffect((cleanupFn) => {
     ref="primitiveElement"
     :as-child="asChild"
     :as="as"
+    data-dismissable-layer
     :style="{
       pointerEvents: isBodyPointerEventsDisabled
         ? isPointerEventsEnabled

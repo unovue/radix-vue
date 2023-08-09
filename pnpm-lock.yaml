@@ -37,6 +37,9 @@ importers:
       '@vitejs/plugin-vue-jsx':
         specifier: ^3.0.1
         version: 3.0.1(vite@4.3.9)(vue@3.3.4)
+      '@vueuse/components':
+        specifier: ^10.2.1
+        version: 10.2.1(vue@3.3.4)
       autoprefixer:
         specifier: ^10.4.14
         version: 10.4.14(postcss@8.4.26)

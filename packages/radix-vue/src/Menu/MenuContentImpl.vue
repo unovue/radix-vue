@@ -67,7 +67,11 @@ import {
   type DismissableLayerProps,
   type DismissableLayerEmits,
 } from "@/DismissableLayer";
-import { PopperContent, type PopperContentProps } from "@/Popper";
+import {
+  PopperContent,
+  type PopperContentProps,
+  PopperContentPropsDefaultValue,
+} from "@/Popper";
 import { usePrimitiveElement } from "@/Primitive";
 import { MENU_INJECTION_KEY, MENU_ROOT_INJECTION_KEY } from "./MenuRoot.vue";
 import {
@@ -97,7 +101,9 @@ useFocusGuards();
 const context = inject(MENU_INJECTION_KEY);
 const rootContext = inject(MENU_ROOT_INJECTION_KEY);
 
-const props = defineProps<MenuContentImplProps>();
+const props = withDefaults(defineProps<MenuContentImplProps>(), {
+  ...PopperContentPropsDefaultValue,
+});
 const emits = defineEmits<MenuContentImplEmits>();
 const { trapFocus, disableOutsidePointerEvents } = toRefs(props);
 
@@ -275,7 +281,16 @@ provide(MENU_CONTENT_INJECTION_KEY, {
       @dismiss="emits('dismiss')"
     >
       <PopperContent
-        v-bind="props"
+        :side="side"
+        :sideOffset="sideOffset"
+        :align="align"
+        :alignOffset="alignOffset"
+        :avoidCollisions="avoidCollisions"
+        :collisionBoundary="collisionBoundary"
+        :collisionPadding="collisionPadding"
+        :arrowPadding="arrowPadding"
+        :sticky="sticky"
+        :hideWhenDetached="hideWhenDetached"
         ref="primitiveElement"
         role="menu"
         aria-orientation="vertical"

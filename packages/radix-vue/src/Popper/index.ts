@@ -6,6 +6,7 @@ export {
 export {
   default as PopperContent,
   type PopperContentProps,
+  PopperContentPropsDefaultValue,
 } from "./PopperContent.vue";
 export {
   default as PopperArrow,

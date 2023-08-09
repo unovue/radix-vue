@@ -9,6 +9,21 @@ export type PopperContentContextValue = {
   shouldHideArrow: Ref<boolean>;
 };
 
+export const PopperContentPropsDefaultValue = {
+  side: "bottom" as Side,
+  sideOffset: 0,
+  align: "center" as Align,
+  alignOffset: 0,
+  arrowPadding: 0,
+  avoidCollisions: true,
+  collisionBoundary: () => [],
+  collisionPadding: 0,
+  sticky: "partial" as "partial" | "always",
+  hideWhenDetached: false,
+  updatePositionStrategy: "optimized" as "optimized" | "always",
+  prioritizePosition: false,
+};
+
 export interface PopperContentProps extends PrimitiveProps {
   /**
    * The preferred side of the trigger to render against when open.
@@ -133,20 +148,8 @@ import {
 } from "@floating-ui/vue";
 
 const props = withDefaults(defineProps<PopperContentProps>(), {
-  side: "bottom",
-  sideOffset: 0,
-  align: "center",
-  alignOffset: 0,
-  arrowPadding: 0,
-  avoidCollisions: true,
-  collisionBoundary: () => [],
-  collisionPadding: 0,
-  sticky: "partial",
-  hideWhenDetached: false,
-  updatePositionStrategy: "optimized",
-  prioritizePosition: false,
+  ...PopperContentPropsDefaultValue,
 });
-
 const context = inject(POPPER_ROOT_KEY);
 
 const floatingRef = ref<HTMLElement>();

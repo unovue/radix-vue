@@ -1,24 +1,32 @@
+import { createGlobalState } from "@vueuse/core";
+import { ref } from "vue";
+
 type FocusScopeAPI = { paused: boolean; pause(): void; resume(): void };
+
+const useFocusStackState = createGlobalState(() => {
+  const stack = ref<FocusScopeAPI[]>([]);
+  return stack;
+});
 
 export function createFocusScopesStack() {
   /** A stack of focus scopes, with the active one at the top */
-  let stack: FocusScopeAPI[] = [];
+  const stack = useFocusStackState();
 
   return {
     add(focusScope: FocusScopeAPI) {
       // pause the currently active focus scope (at the top of the stack)
-      const activeFocusScope = stack[0];
+      const activeFocusScope = stack.value[0];
       if (focusScope !== activeFocusScope) {
         activeFocusScope?.pause();
       }
       // remove in case it already exists (because we'll re-add it at the top of the stack)
-      stack = arrayRemove(stack, focusScope);
-      stack.unshift(focusScope);
+      stack.value = arrayRemove(stack.value, focusScope);
+      stack.value.unshift(focusScope);
     },
 
     remove(focusScope: FocusScopeAPI) {
-      stack = arrayRemove(stack, focusScope);
-      stack[0]?.resume();
+      stack.value = arrayRemove(stack.value, focusScope);
+      stack.value[0]?.resume();
     },
   };
 }

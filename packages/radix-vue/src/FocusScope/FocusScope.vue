@@ -13,8 +13,8 @@ import {
   AUTOFOCUS_ON_UNMOUNT,
   EVENT_OPTIONS,
 } from "./utils";
-import { removeLinks } from "./stack";
-import { nextTick, ref, watchEffect } from "vue";
+import { createFocusScopesStack, removeLinks } from "./stack";
+import { nextTick, reactive, ref, watchEffect } from "vue";
 
 export interface FocusScopeProps extends PrimitiveProps {
   /**
@@ -54,13 +54,24 @@ const emits = defineEmits<FocusScopeEmits>();
 
 const { primitiveElement, currentElement } = usePrimitiveElement();
 const lastFocusedElementRef = ref<HTMLElement | null>(null);
+const focusScopesStack = createFocusScopesStack();
+
+const focusScope = reactive({
+  paused: false,
+  pause() {
+    this.paused = true;
+  },
+  resume() {
+    this.paused = false;
+  },
+});
 
 watchEffect((cleanupFn) => {
   const container = currentElement.value;
   if (!props.trapped) return;
 
   function handleFocusIn(event: FocusEvent) {
-    if (!container) return;
+    if (focusScope.paused || !container) return;
     const target = event.target as HTMLElement | null;
     if (container.contains(target)) {
       lastFocusedElementRef.value = target;
@@ -70,7 +81,7 @@ watchEffect((cleanupFn) => {
   }
 
   function handleFocusOut(event: FocusEvent) {
-    if (!container) return;
+    if (focusScope.paused || !container) return;
     const relatedTarget = event.relatedTarget as HTMLElement | null;
 
     // A `focusout` event with a `null` `relatedTarget` will happen in at least two cases:
@@ -121,7 +132,7 @@ watchEffect(async (cleanupFn) => {
 
   await nextTick();
   if (!container) return;
-
+  focusScopesStack.add(focusScope);
   const previouslyFocusedElement = document.activeElement as HTMLElement | null;
   const hasFocusedCandidate = container.contains(previouslyFocusedElement);
 
@@ -160,12 +171,15 @@ watchEffect(async (cleanupFn) => {
       container.removeEventListener(AUTOFOCUS_ON_UNMOUNT, (ev) =>
         emits("unmountAutoFocus", ev)
       );
+
+      focusScopesStack.remove(focusScope);
     }, 0);
   });
 });
 
 const handleKeyDown = (event: KeyboardEvent) => {
   if (!props.loop && !props.trapped) return;
+  if (focusScope.paused) return;
 
   const isTabKey =
     event.key === "Tab" && !event.altKey && !event.ctrlKey && !event.metaKey;

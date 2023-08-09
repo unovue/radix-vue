@@ -123,7 +123,11 @@ export default {
 
 <script setup lang="ts">
 import { computed, inject, provide, ref, watchEffect } from "vue";
-import { Primitive, type PrimitiveProps } from "@/Primitive";
+import {
+  Primitive,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import { POPPER_ROOT_KEY } from "./PopperRoot.vue";
 import { useSize } from "@/shared";
 import { computedEager } from "@vueuse/core";
@@ -151,6 +155,9 @@ const props = withDefaults(defineProps<PopperContentProps>(), {
   ...PopperContentPropsDefaultValue,
 });
 const context = inject(POPPER_ROOT_KEY);
+
+const { primitiveElement, currentElement: contentElement } =
+  usePrimitiveElement();
 
 const floatingRef = ref<HTMLElement>();
 
@@ -293,6 +300,10 @@ provide(POPPER_CONTENT_KEY, {
   arrowY,
   shouldHideArrow: cannotCenterArrow,
 });
+
+defineExpose({
+  $el: contentElement,
+});
 </script>
 
 <template>
@@ -311,6 +322,7 @@ provide(POPPER_CONTENT_KEY, {
   }"
   >
     <Primitive
+      ref="primitiveElement"
       v-bind="$attrs"
       :as-child="props.asChild"
       :as="as"

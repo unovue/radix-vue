@@ -5,10 +5,10 @@ import {
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
-import { POPPER_ROOT_KEY } from "./PopperRoot.vue";
+import { POPPER_ROOT_KEY, type Measurable } from "./PopperRoot.vue";
 
 export interface PopperAnchorProps extends PrimitiveProps {
-  element?: HTMLElement;
+  element?: Measurable;
 }
 
 const { primitiveElement, currentElement } = usePrimitiveElement();

@@ -3,8 +3,8 @@ import type { Ref, InjectionKey } from "vue";
 export type Measurable = { getBoundingClientRect(): DOMRect };
 
 type PopperContextValue = {
-  anchor: Ref<HTMLElement | undefined>;
-  onAnchorChange(element: HTMLElement | undefined): void;
+  anchor: Ref<Measurable | HTMLElement | undefined>;
+  onAnchorChange(element: Measurable | HTMLElement | undefined): void;
 };
 
 export const POPPER_ROOT_KEY = Symbol() as InjectionKey<PopperContextValue>;
@@ -13,11 +13,11 @@ export const POPPER_ROOT_KEY = Symbol() as InjectionKey<PopperContextValue>;
 <script setup lang="ts">
 import { provide, ref } from "vue";
 
-const anchor = ref<HTMLElement>();
+const anchor = ref<Measurable | HTMLElement>();
 
 provide(POPPER_ROOT_KEY, {
   anchor,
-  onAnchorChange: (element: HTMLElement | undefined) => {
+  onAnchorChange: (element: Measurable | HTMLElement | undefined) => {
     anchor.value = element;
   },
 });

@@ -8,13 +8,16 @@ import { Presence } from "@/Presence";
 import { MENU_INJECTION_KEY, MENU_ROOT_INJECTION_KEY } from "./MenuRoot.vue";
 import { MENU_SUB_INJECTION_KEY } from "./MenuSub.vue";
 import { usePrimitiveElement } from "@/Primitive";
+import { PopperContentPropsDefaultValue } from "@/Popper";
 import { SUB_CLOSE_KEYS } from "./utils";
 import { useEmitAsProps } from "@/shared";
 
 export interface MenuSubContentProps extends MenuContentImplProps {}
 export type MenuSubContentEmits = MenuContentImplEmits;
 
-const props = defineProps<MenuSubContentProps>();
+const props = withDefaults(defineProps<MenuSubContentProps>(), {
+  ...PopperContentPropsDefaultValue,
+});
 const emits = defineEmits<MenuSubContentEmits>();
 
 const emitsAsProps = useEmitAsProps(emits);

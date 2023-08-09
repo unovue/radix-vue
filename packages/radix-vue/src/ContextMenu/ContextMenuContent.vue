@@ -11,7 +11,17 @@ export interface ContextMenuContentProps
   extends Omit<MenuContentProps, "side" | "sideOffset" | "align"> {}
 export interface ContextMenuContentEmits extends MenuContentEmits {}
 
-const props = defineProps<ContextMenuContentProps>();
+const props = withDefaults(defineProps<ContextMenuContentProps>(), {
+  alignOffset: 0,
+  arrowPadding: 0,
+  avoidCollisions: true,
+  collisionBoundary: () => [],
+  collisionPadding: 0,
+  sticky: "partial",
+  hideWhenDetached: false,
+  updatePositionStrategy: "optimized",
+  prioritizePosition: false,
+});
 const emits = defineEmits<ContextMenuContentEmits>();
 
 const context = inject(CONTEXT_MENU_INJECTION_KEY);
@@ -20,10 +30,10 @@ const hasInteractedOutside = ref(false);
 
 <template>
   <MenuContent
+    v-bind="props"
     :side="'right'"
     :sideOffset="2"
     :align="'start'"
-    v-bind="props"
     @closeAutoFocus="
       (event) => {
         emits('closeAutoFocus', event);

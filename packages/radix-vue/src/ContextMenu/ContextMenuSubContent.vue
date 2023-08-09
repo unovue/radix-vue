@@ -4,11 +4,14 @@ import {
   type MenuSubContentEmits,
   type MenuSubContentProps,
 } from "@/Menu";
+import { PopperContentPropsDefaultValue } from "@/Popper";
 
 interface ContextMenuSubContentProps extends MenuSubContentProps {}
 interface ContextMenuSubContentEmits extends MenuSubContentEmits {}
 
-const props = defineProps<ContextMenuSubContentProps>();
+const props = withDefaults(defineProps<ContextMenuSubContentProps>(), {
+  ...PopperContentPropsDefaultValue,
+});
 const emits = defineEmits<ContextMenuSubContentEmits>();
 </script>
 

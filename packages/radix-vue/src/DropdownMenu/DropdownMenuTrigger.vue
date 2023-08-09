@@ -5,7 +5,7 @@ export interface DropdownMenuTriggerProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { inject } from "vue";
+import { inject, onMounted } from "vue";
 import {
   Primitive,
   usePrimitiveElement,
@@ -26,7 +26,9 @@ const context = inject<DropdownMenuProvideValue>(DROPDOWN_MENU_INJECTION_KEY);
 const { primitiveElement, currentElement: triggerElement } =
   usePrimitiveElement();
 
-context!.triggerElement = triggerElement;
+onMounted(() => {
+  context!.triggerElement = triggerElement;
+});
 </script>
 
 <template>
@@ -39,7 +41,7 @@ context!.triggerElement = triggerElement;
       :as="as"
       aria-haspopup="menu"
       :aria-expanded="context?.open.value"
-      :aria-controls="context?.open ? context?.contentId : undefined"
+      :aria-controls="context?.open.value ? context?.contentId : undefined"
       :data-disabled="disabled ? '' : undefined"
       :disabled="disabled"
       :data-state="context?.open.value ? 'open' : 'closed'"
@@ -51,7 +53,7 @@ context!.triggerElement = triggerElement;
             context?.onOpenToggle();
             // prevent trigger focusing when opening
             // this allows the content to be given focus without competition
-            if (!context?.open) event.preventDefault();
+            if (!context?.open.value) event.preventDefault();
           }
         }
       "

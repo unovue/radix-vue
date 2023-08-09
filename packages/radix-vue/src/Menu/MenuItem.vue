@@ -22,7 +22,7 @@ const contentContext = inject(MENU_CONTENT_INJECTION_KEY);
 
 const isPointerDownRef = ref(false);
 
-const handleSelect = () => {
+const handleSelect = async () => {
   const menuItem = currentElement.value;
   if (!props.disabled && menuItem) {
     const itemSelectEvent = new CustomEvent(ITEM_SELECT, {
@@ -30,7 +30,8 @@ const handleSelect = () => {
       cancelable: true,
     });
     emits("select", itemSelectEvent);
-
+    // let select event finish
+    await nextTick();
     if (itemSelectEvent.defaultPrevented) {
       isPointerDownRef.value = false;
     } else {

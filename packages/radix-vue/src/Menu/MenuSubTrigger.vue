@@ -51,8 +51,7 @@ const handlePointerLeave = (event: PointerEvent) => {
 
   if (contentRect) {
     // TODO: make sure to update this when we change positioning logic
-    const side = (context!.content.value?.firstChild as HTMLElement)?.dataset
-      .side as Side;
+    const side = context!.content.value?.dataset.side as Side;
 
     const rightSide = side === "right";
     const bleed = rightSide ? -5 : +5;
@@ -95,7 +94,7 @@ const handleKeyDown = async (event: KeyboardEvent) => {
     await nextTick();
     // The trigger may hold focus if opened via pointer interaction
     // so we ensure content is given focus again when switching to keyboard.
-    // context!.content.value?.focus();
+    context!.content.value?.focus();
     // prevent window from scrolling
     event.preventDefault();
   }

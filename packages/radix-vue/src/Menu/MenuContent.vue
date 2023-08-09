@@ -8,26 +8,32 @@ import {
   type MenuContentImplProps,
   type MenuContentImplEmits,
 } from "./MenuContentImpl.vue";
+import { useEmitAsProps } from "@/shared";
 
 export interface MenuContentProps extends MenuContentImplProps {}
-export interface MenuContentEmits extends MenuContentImplEmits {}
+export type MenuContentEmits = MenuContentImplEmits;
 
 const props = defineProps<MenuContentProps>();
 const emits = defineEmits<MenuContentEmits>();
 
 const context = inject(MENU_INJECTION_KEY);
 const rootContext = inject(MENU_ROOT_INJECTION_KEY);
+
+const emitsAsProps = useEmitAsProps(emits);
 </script>
 
 <template>
   <Presence :present="context!.open.value">
     <MenuRootContentModal
-      v-bind="{ ...$attrs, ...props }"
+      v-bind="{ ...$attrs, ...props, ...emitsAsProps }"
       v-if="rootContext?.modal.value"
     >
       <slot></slot>
     </MenuRootContentModal>
-    <MenuRootContentNonModal v-bind="{ ...$attrs, ...props }" v-else>
+    <MenuRootContentNonModal
+      v-bind="{ ...$attrs, ...props, ...emitsAsProps }"
+      v-else
+    >
       <slot></slot>
     </MenuRootContentNonModal>
   </Presence>

@@ -6,9 +6,10 @@ import {
   type MenuContentProps,
 } from "@/Menu";
 import { DROPDOWN_MENU_INJECTION_KEY } from "./DropdownMenuRoot.vue";
+import { useEmitAsProps } from "@/shared";
 
 export interface DropdownMenuContentProps extends MenuContentProps {}
-export interface DropdownMenuContentEmits extends MenuContentEmits {}
+export type DropdownMenuContentEmits = MenuContentEmits;
 
 const props = defineProps<DropdownMenuContentProps>();
 const emits = defineEmits<DropdownMenuContentEmits>();
@@ -16,11 +17,13 @@ const emits = defineEmits<DropdownMenuContentEmits>();
 const context = inject(DROPDOWN_MENU_INJECTION_KEY);
 
 const hasInteractedOutsideRef = ref(false);
+
+const emitsAsProps = useEmitAsProps(emits);
 </script>
 
 <template>
   <MenuContent
-    v-bind="props"
+    v-bind="{ ...props, emitsAsProps }"
     :id="context?.contentId"
     :aria-labelledby="context?.triggerId"
     @close-auto-focus="

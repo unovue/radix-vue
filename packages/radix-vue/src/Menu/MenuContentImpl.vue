@@ -12,8 +12,6 @@ export const MENU_CONTENT_INJECTION_KEY =
   Symbol() as InjectionKey<MenuContentContextValue>;
 
 export type MenuContentImplPrivateProps = {
-  // onOpenAutoFocus?: FocusScopeProps["onMountAutoFocus"];
-  // onDismiss?: DismissableLayerProps["onDismiss"];
   disableOutsidePointerEvents?: DismissableLayerProps["disableOutsidePointerEvents"];
 
   /**
@@ -32,23 +30,10 @@ export interface MenuContentImplProps
   extends MenuContentImplPrivateProps,
     Omit<PopperContentProps, "dir" | "onPlaced"> {
   /**
-   * Event handler called when auto-focusing on close.
-   * Can be prevented.
-   */
-  // onCloseAutoFocus?: FocusScopeProps["onUnmountAutoFocus"];
-
-  /**
    * Whether keyboard navigation should loop around
    * @defaultValue false
    */
-  // loop?: RovingFocusGroupProps["loop"];
   loop?: boolean;
-
-  // onEntryFocus?: RovingFocusGroupProps["onEntryFocus"];
-  // onEscapeKeyDown?: DismissableLayerProps["onEscapeKeyDown"];
-  // onPointerDownOutside?: DismissableLayerProps["onPointerDownOutside"];
-  // onFocusOutside?: DismissableLayerProps["onFocusOutside"];
-  // onInteractOutside?: DismissableLayerProps["onInteractOutside"];
 }
 
 export interface MenuRootContentTypeProps
@@ -56,6 +41,10 @@ export interface MenuRootContentTypeProps
 
 export type MenuContentImplEmits = DismissableLayerEmits & {
   (e: "openAutoFocus", event: Event): void;
+  /**
+   * Event handler called when auto-focusing on close.
+   * Can be prevented.
+   */
   (e: "closeAutoFocus", event: Event): void;
 };
 </script>
@@ -83,8 +72,14 @@ import {
   provide,
   toRefs,
   watch,
+  nextTick,
 } from "vue";
-import { useNewCollection, useFocusGuards, useArrowNavigation } from "@/shared";
+import {
+  useNewCollection,
+  useFocusGuards,
+  useArrowNavigation,
+  useBodyScrollLock,
+} from "@/shared";
 import {
   type GraceIntent,
   type Side,
@@ -97,7 +92,6 @@ import {
   LAST_KEYS,
 } from "./utils";
 
-useFocusGuards();
 const context = inject(MENU_INJECTION_KEY);
 const rootContext = inject(MENU_ROOT_INJECTION_KEY);
 
@@ -106,6 +100,9 @@ const props = withDefaults(defineProps<MenuContentImplProps>(), {
 });
 const emits = defineEmits<MenuContentImplEmits>();
 const { trapFocus, disableOutsidePointerEvents } = toRefs(props);
+
+useFocusGuards();
+useBodyScrollLock(props.disableOutsideScroll);
 
 const searchRef = ref("");
 const timerRef = ref(0);
@@ -165,7 +162,7 @@ const isPointerMovingToSubmenu = (event: PointerEvent) => {
   );
 };
 
-const handleMountAutoFocus = (event: Event) => {
+const handleMountAutoFocus = async (event: Event) => {
   emits("openAutoFocus", event);
 
   // when opening, explicitly focus the content area only and leave
@@ -174,6 +171,7 @@ const handleMountAutoFocus = (event: Event) => {
 
   // only focus first item when using keyboard
   if (rootContext?.isUsingKeyboardRef.value) {
+    await nextTick();
     collectionItems.value?.[0]?.focus();
     event.preventDefault();
   }
@@ -192,7 +190,7 @@ const handleKeyDown = (event: KeyboardEvent) => {
     document.activeElement as HTMLElement,
     contentElement.value,
     {
-      loop: false,
+      loop: props.loop,
       arrowKeyOptions: "vertical",
       dir: rootContext?.dir.value,
       focus: true,
@@ -281,6 +279,17 @@ provide(MENU_CONTENT_INJECTION_KEY, {
       @dismiss="emits('dismiss')"
     >
       <PopperContent
+        ref="primitiveElement"
+        role="menu"
+        :as="as"
+        :as-child="asChild"
+        aria-orientation="vertical"
+        data-radix-menu-content
+        :data-state="getOpenState(context!.open.value)"
+        :dir="rootContext!.dir.value"
+        @keydown="handleKeyDown"
+        @blur="handleBlur"
+        @pointermove="handlePointerMove"
         :side="side"
         :sideOffset="sideOffset"
         :align="align"
@@ -291,15 +300,6 @@ provide(MENU_CONTENT_INJECTION_KEY, {
         :arrowPadding="arrowPadding"
         :sticky="sticky"
         :hideWhenDetached="hideWhenDetached"
-        ref="primitiveElement"
-        role="menu"
-        aria-orientation="vertical"
-        data-radix-menu-content
-        :data-state="getOpenState(context!.open.value)"
-        :dir="rootContext!.dir.value"
-        @keydown="handleKeyDown"
-        @blur="handleBlur"
-        @pointermove="handlePointerMove"
       >
         <slot></slot>
       </PopperContent>

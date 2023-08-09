@@ -13,8 +13,8 @@
       "import": "./dist/index.js"
     },
     "./nuxt": {
-      "require": "./../radix-nuxt/dist/index.cjs",
-      "import": "./../radix-nuxt/dist/index.mjs"
+      "require": "./dist/nuxt/index.cjs",
+      "import": "./dist/nuxt/index.mjs"
     },
     "./index.css": "./dist/index.css"
   },

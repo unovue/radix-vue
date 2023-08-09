@@ -23,16 +23,16 @@ const emitsAsProps = useEmitAsProps(emits);
 
 <template>
   <MenuContent
-    v-bind="{ ...props, emitsAsProps }"
+    v-bind="{ ...props, ...emitsAsProps }"
     :id="context?.contentId"
     :aria-labelledby="context?.triggerId"
     @close-auto-focus="
       (event) => {
         emits('closeAutoFocus', event);
         if (event.defaultPrevented) return;
-
         if (!hasInteractedOutsideRef) context?.triggerElement.value?.focus();
         hasInteractedOutsideRef = false;
+
         // Always prevent auto focus because we either focus manually or want user agent focus
         event.preventDefault();
       }

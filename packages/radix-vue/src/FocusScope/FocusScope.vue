@@ -158,19 +158,19 @@ watchEffect(async (cleanupFn) => {
       emits("mountAutoFocus", ev)
     );
 
+    const unmountEvent = new CustomEvent(AUTOFOCUS_ON_UNMOUNT, EVENT_OPTIONS);
+    const unmountEventHandler = (ev: Event) => {
+      emits("unmountAutoFocus", ev);
+    };
+    container.addEventListener(AUTOFOCUS_ON_UNMOUNT, unmountEventHandler);
+    container.dispatchEvent(unmountEvent);
+
     setTimeout(() => {
-      const unmountEvent = new CustomEvent(AUTOFOCUS_ON_UNMOUNT, EVENT_OPTIONS);
-      container.addEventListener(AUTOFOCUS_ON_UNMOUNT, (ev) =>
-        emits("unmountAutoFocus", ev)
-      );
-      container.dispatchEvent(unmountEvent);
       if (!unmountEvent.defaultPrevented) {
         focus(previouslyFocusedElement ?? document.body, { select: true });
       }
       // we need to remove the listener after we `dispatchEvent`
-      container.removeEventListener(AUTOFOCUS_ON_UNMOUNT, (ev) =>
-        emits("unmountAutoFocus", ev)
-      );
+      container.removeEventListener(AUTOFOCUS_ON_UNMOUNT, unmountEventHandler);
 
       focusScopesStack.remove(focusScope);
     }, 0);

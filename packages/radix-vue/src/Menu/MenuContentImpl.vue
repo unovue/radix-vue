@@ -99,10 +99,10 @@ const props = withDefaults(defineProps<MenuContentImplProps>(), {
   ...PopperContentPropsDefaultValue,
 });
 const emits = defineEmits<MenuContentImplEmits>();
-const { trapFocus, disableOutsidePointerEvents } = toRefs(props);
+const { trapFocus, disableOutsidePointerEvents, loop } = toRefs(props);
 
 useFocusGuards();
-useBodyScrollLock(props.disableOutsideScroll);
+useBodyScrollLock(disableOutsidePointerEvents.value);
 
 const searchRef = ref("");
 const timerRef = ref(0);
@@ -190,7 +190,7 @@ const handleKeyDown = (event: KeyboardEvent) => {
     document.activeElement as HTMLElement,
     contentElement.value,
     {
-      loop: props.loop,
+      loop: loop.value,
       arrowKeyOptions: "vertical",
       dir: rootContext?.dir.value,
       focus: true,

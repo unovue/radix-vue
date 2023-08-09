@@ -33,6 +33,7 @@ import { useId } from "@/shared";
 const props = withDefaults(defineProps<DropdownMenuRootProps>(), {
   modal: true,
   dir: "ltr",
+  open: undefined,
 });
 
 const emit = defineEmits<{
@@ -40,8 +41,8 @@ const emit = defineEmits<{
 }>();
 
 const open = useVModel(props, "open", emit, {
+  defaultValue: props.defaultOpen,
   passive: true,
-  defaultValue: props.defaultOpen ?? false,
 });
 
 const triggerElement = ref<HTMLElement>();

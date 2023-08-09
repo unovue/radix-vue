@@ -45,9 +45,7 @@ const props = withDefaults(defineProps<MenuProps>(), {
 const emits = defineEmits<{ (e: "update:open", payload: boolean): void }>();
 const { modal, dir } = toRefs(props);
 
-const open = useVModel(props, "open", emits, {
-  passive: true,
-});
+const open = useVModel(props, "open", emits);
 
 const content = ref<HTMLElement>();
 const isUsingKeyboardRef = ref(false);

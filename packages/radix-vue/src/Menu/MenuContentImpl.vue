@@ -133,10 +133,11 @@ const handleTypeaheadSearch = (key: string) => {
   const items = collectionItems.value;
   const currentItem = document.activeElement;
   const currentMatch =
-    items.find((item) => item === currentItem)?.textContent ?? "";
-  const values = items.map((item) => item.textContent ?? "");
+    items.find((item) => item === currentItem)?.textContent?.trim() ?? "";
+  const values = items.map((item) => item.textContent?.trim() ?? "");
   const nextMatch = getNextMatch(values, search, currentMatch);
-  const newItem = items.find((item) => item.textContent === nextMatch);
+
+  const newItem = items.find((item) => item.textContent?.trim() === nextMatch);
 
   // Reset `searchRef` 1 second after it was last updated
   (function updateSearch(value: string) {

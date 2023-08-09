@@ -45,6 +45,10 @@ const handlePointerLeave = async (event: PointerEvent) => {
 
   contentContext!.onItemLeave(event);
 };
+
+defineExpose({
+  el: currentElement,
+});
 </script>
 
 <template>

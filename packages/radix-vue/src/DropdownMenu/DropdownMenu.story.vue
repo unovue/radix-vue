@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import {
   DropdownMenuArrow,
   DropdownMenuCheckboxItem,
@@ -27,12 +27,19 @@ const person = ref("pedro");
 function handleClick() {
   alert("hello!");
 }
+
+const handleCheck = (ev: any) => {
+  // checkboxOne.value = ev;
+  console.log(ev);
+};
 </script>
 
 <template>
-  <Story title="DropdownMenu" :layout="{ type: 'single', iframe: true }">
+  <Story title="DropdownMenu" :layout="{ type: 'grid' }">
     <Variant title="default">
-      <DropdownMenuRoot v-model="toggleState">
+      {{ checkboxOne }}
+      {{ toggleState }}
+      <DropdownMenuRoot v-model:open="toggleState">
         <DropdownMenuTrigger
           class="rounded-full w-[35px] h-[35px] inline-flex items-center justify-center text-violet11 bg-white shadow-[0_2px_10px] shadow-blackA7 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black"
           aria-label="Customise options"
@@ -279,7 +286,8 @@ function handleClick() {
             </DropdownMenuSub>
             <DropdownMenuSeparator class="h-[1px] bg-violet6 m-[5px]" />
             <DropdownMenuCheckboxItem
-              v-model="checkboxOne"
+              v-model:checked="checkboxOne"
+              @select="handleCheck"
               class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
             >
               <DropdownMenuItemIndicator
@@ -295,7 +303,7 @@ function handleClick() {
               </div>
             </DropdownMenuCheckboxItem>
             <DropdownMenuCheckboxItem
-              v-model="checkboxTwo"
+              v-model:checked="checkboxTwo"
               class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
             >
               <DropdownMenuItemIndicator

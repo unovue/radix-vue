@@ -5,7 +5,8 @@ import MenuItem, {
   type MenuItemEmits,
 } from "./MenuItem.vue";
 import { MENU_ITEM_INDICATOR_INJECTION_KEY } from "./MenuItemIndicator.vue";
-import { provide, toRefs } from "vue";
+import { provide } from "vue";
+import { useVModel } from "@vueuse/core";
 
 export interface MenuCheckboxItemProps extends MenuItemProps {
   checked?: CheckedState;
@@ -18,7 +19,7 @@ const props = withDefaults(defineProps<MenuCheckboxItemProps>(), {
   checked: false,
 });
 const emits = defineEmits<MenuCheckboxItemEmits>();
-const { checked } = toRefs(props);
+const checked = useVModel(props, "checked", emits);
 
 provide(MENU_ITEM_INDICATOR_INJECTION_KEY, {
   checked,
@@ -35,9 +36,9 @@ provide(MENU_ITEM_INDICATOR_INJECTION_KEY, {
       async (event) => {
         emits('select', event);
         if (isIndeterminate(checked)) {
-          emits('update:checked', true);
+          checked = true;
         } else {
-          emits('update:checked', !checked);
+          checked = !checked;
         }
       }
     "

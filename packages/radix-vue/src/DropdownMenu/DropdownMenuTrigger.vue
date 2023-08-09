@@ -53,7 +53,7 @@ onMounted(() => {
             context?.onOpenToggle();
             // prevent trigger focusing when opening
             // this allows the content to be given focus without competition
-            if (!context?.open.value) event.preventDefault();
+            if (context?.open.value) event.preventDefault();
           }
         }
       "

@@ -1,17 +1,14 @@
 <script lang="ts">
-import type { DropdownMenuProvideValue } from "../../DropdownMenu/DropdownMenuRoot.vue";
-import type { DropdownMenuSubProvideValue } from "../../DropdownMenu/DropdownMenuSub.vue";
+import type { ContextMenuProvideValue } from "../../ContextMenu/ContextMenuRoot.vue";
+import type { ContextMenuSubProvideValue } from "../../ContextMenu/ContextMenuSub.vue";
 import type { MenubarProvideValue } from "../../Menubar/MenubarRoot.vue";
 import type { MenubarSubProvideValue } from "../../Menubar/MenubarSub.vue";
 
 // TODO: improve types for props
 interface BaseMenuItemProps extends PrimitiveProps {
   disabled?: boolean;
-  rootProvider: DropdownMenuProvideValue | MenubarProvideValue | undefined;
-  subProvider?:
-    | DropdownMenuSubProvideValue
-    | MenubarSubProvideValue
-    | undefined;
+  rootProvider: ContextMenuProvideValue | MenubarProvideValue | undefined;
+  subProvider?: ContextMenuSubProvideValue | MenubarSubProvideValue | undefined;
   orientation?: string | undefined;
   role?: string;
   dataState?: string;

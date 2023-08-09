@@ -2,6 +2,7 @@
 import { Icon } from "@iconify/vue";
 import { ref } from "vue";
 import {
+  ContextMenuArrow,
   ContextMenuCheckboxItem,
   ContextMenuContent,
   ContextMenuItem,
@@ -18,7 +19,6 @@ import {
   ContextMenuTrigger,
 } from "./";
 
-const toggleState = ref(false);
 const checkboxOne = ref(false);
 const checkboxTwo = ref(false);
 const person = ref("pedro");
@@ -29,9 +29,9 @@ function handleClick() {
 </script>
 
 <template>
-  <Story title="Context Menu" :layout="{ type: 'single', iframe: true }">
+  <Story title="Context Menu" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
-      <ContextMenuRoot v-model="toggleState">
+      <ContextMenuRoot>
         <ContextMenuTrigger
           class="block border-2 border-white border-dashed text-white rounded text-[15px] select-none py-[45px] w-[300px] text-center"
         >
@@ -99,6 +99,8 @@ function handleClick() {
                   >
                     Developer Tools
                   </ContextMenuItem>
+
+                  <ContextMenuArrow class="fill-white" />
                 </ContextMenuSubContent>
               </ContextMenuPortal>
             </ContextMenuSub>
@@ -334,7 +336,6 @@ function handleClick() {
                 Colm Tuite
               </ContextMenuRadioItem>
             </ContextMenuRadioGroup>
-            <ContextMenuArrow class="fill-white" />
           </ContextMenuContent>
         </ContextMenuPortal>
       </ContextMenuRoot>

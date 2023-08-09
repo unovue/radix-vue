@@ -1,17 +1,9 @@
-<script lang="ts">
-import { Primitive, type PrimitiveProps } from "@/Primitive";
-
-interface ContextMenuLabelProps extends PrimitiveProps {
-  for?: string;
-}
-</script>
-
 <script setup lang="ts">
-const props = withDefaults(defineProps<ContextMenuLabelProps>(), {
-  as: "label",
-});
+import { MenuLabel, type MenuLabelProps } from "@/Menu";
+
+const props = defineProps<MenuLabelProps>();
 </script>
 
 <template>
-  <Primitive v-bind="props"><slot /></Primitive>
+  <MenuLabel v-bind="props"><slot /></MenuLabel>
 </template>

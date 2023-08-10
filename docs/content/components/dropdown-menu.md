@@ -143,12 +143,6 @@ Contains all the parts of a dropdown menu.
       description: 'The controlled open state of the dropdown menu. Must be used in conjunction with <Code>onOpenChange</Code>.'
     },
     {
-      name: 'onOpenChange',
-      type: '(open: boolean) => void',
-      typeSimple: 'function',
-      description: 'Event handler called when the open state of the dropdown menu changes.'
-    },
-    {
       name: 'modal',
       required: false,
       type: 'boolean',
@@ -163,6 +157,16 @@ Contains all the parts of a dropdown menu.
       description: 'The reading direction of submenus when applicable. If omitted, inherits globally from <Code>DirectionProvider</Code> or assumes LTR (left-to-right) reading mode.'
     },
   ]"
+/>
+
+<EmitsTable 
+  :data="[
+    {
+      name: '@update:open',
+      type: '(open: boolean) => void',
+      description: 'Event handler called when the open state of the dropdown menu changes.'
+    },
+  ]" 
 />
 
 ### Trigger
@@ -201,15 +205,10 @@ When used, portals the content part into the `body`.
 <PropsTable
   :data="[
     {
-      name: 'forceMount',
-      type: 'boolean',
-      description: 'Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries. If used on this part, it will be inherited by <Code>DropdownMenuContent</Code> and <Code>DropdownMenuSubContent</Code> respectively.'
-    },
-    {
-      name: 'container',
-      type: 'HTMLElement',
-      default: 'document.body',
-      description: 'Specify a container element to portal the content into.',
+      name: 'to',
+      type:  'string | HTMLElement',
+      default: 'body',
+      description: 'Vue native teleport component props. (to)',
     },
   ]"
 />
@@ -221,48 +220,11 @@ The component that pops out when the dropdown menu is open.
 <PropsTable
   :data="[
     {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
       name: 'loop',
       required: false,
       type: 'boolean',
       default: 'false',
       description: 'When <Code>true</Code>, keyboard navigation will loop from last item to first, and vice versa.'
-    },
-    {
-      name: 'onCloseAutoFocus',
-      type: '(event: Event) => void',
-      typeSimple: 'function',
-      description: 'Event handler called when focus moves to the trigger after closing. It can be prevented by calling <Code>event.preventDefault</Code>.'
-    },
-    {
-      name: 'onEscapeKeyDown',
-      type: '(event: KeyboardEvent) => void',
-      typeSimple: 'function',
-      description: 'Event handler called when the escape key is down. It can be prevented by calling <Code>event.preventDefault</Code>'
-    },
-    {
-      name: 'onPointerDownOutside',
-      type: '(event: PointerDownOutsideEvent) => void',
-      typeSimple: 'function',
-      description: 'Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by Calling <Code>event.preventDefault</Code>.'
-    },
-    {
-      name: 'onFocusOutside',
-      type: '(event: FocusOutsideEvent) => void',
-      typeSimple: 'function',
-      description: 'Event handler called when focus moves outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.'
-    },
-    {
-      name: 'onInteractOutside',
-      type: '(event: PointerDownOutsideEvent | FocusOutsideEvent) => void',
-      typeSimple: 'function',
-      description: 'Event handler called when an interaction (pointer or focus event) happens outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.'
     },
     {
       name: 'forceMount',
@@ -334,6 +296,62 @@ The component that pops out when the dropdown menu is open.
       default: 'false',
       description: 'Whether to hide the content when the trigger becomes fully occluded.'
     },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    },
+  ]"
+/>
+
+<EmitsTable
+  :data="[
+    {
+      name: '@closeAutoFocus',
+      type: '(event: Event) => void',
+      description: 'Event handler called when focus moves to the trigger after closing. It can be prevented by calling <Code>event.preventDefault</Code>.'
+    }, 
+    {
+    name: '@escapeKeyDown',
+    type: '(event: KeyboardEvent) => void',
+      description: `
+        <span>
+          Event handler called when the escape key is down. It can be prevented by calling <Code>event.preventDefault</Code>.
+        </span>
+      `,
+    },
+    {
+      name: '@pointerDownOutside',
+      type: '(event: PointerDownOutsideEvent) => void',
+      description: `
+        <span>
+          Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.
+        </span>
+      `,
+    },
+    {
+      name: '@focusOutside',
+      type: '(event: FocusOutsideEvent) => void',
+      description: `
+        <span>
+          Event handler called when focus moves outside the bounds of the
+          component. It can be prevented by calling <Code>event.preventDefault</Code>.
+        </span>
+      `,
+    },
+    {
+      name: '@interactOutside',
+      type: '(event: FocusEvent | MouseEvent | TouchEvent) => void',
+      description: `
+        <span>
+          Event handler called when an interaction (pointer or focus event)
+          happens outside the bounds of the component. It can be prevented by
+          calling <Code>event.preventDefault</Code>.
+        </span>
+      `,
+    },
   ]"
 />
 
@@ -390,13 +408,6 @@ An optional arrow element to render alongside the dropdown menu. This can be use
 <PropsTable
   :data="[
     {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
       name: 'width',
       type: 'number',
       default: 10,
@@ -408,6 +419,13 @@ An optional arrow element to render alongside the dropdown menu. This can be use
       default: 5,
       description: 'The height of the arrow in pixels.',
     },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    },
   ]"
 />
 
@@ -418,27 +436,31 @@ The component that contains the dropdown menu items.
 <PropsTable
   :data="[
     {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When <Code>true</Code>, prevents the user from interacting with the item.',
+    },
+    {
+      name: 'textValue',
+      type: 'string',
+      description: 'Optional text used for typeahead purposes. By default the typeahead behavior will use the <Code>.textContent</Code> of the item. Use this when the content is complex, or you have non-textual content inside.',
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
+  ]"
+/>
+
+<EmitsTable
+  :data="[
     {
-      name: 'disabled',
-      type: 'boolean',
-      description: 'When <Code>true</Code>, prevents the user from interacting with the item.',
-    },
-    {
-      name: 'onSelect',
+      name: '@select',
       type: '(event: Event) => void',
-      typeSimple: 'function',
       description: 'Event handler called when the user selects an item (via mouse or keyboard). Calling <Code>event.preventDefault</Code> in this handler will prevent the dropdown menu from closing when selecting that item.',
-    },
-    {
-      name: 'textValue',
-      type: 'string',
-      description: 'Optional text used for typeahead purposes. By default the typeahead behavior will use the <Code>.textContent</Code> of the item. Use this when the content is complex, or you have non-textual content inside.',
     },
   ]"
 />
@@ -499,38 +521,41 @@ An item that can be controlled and rendered like a checkbox.
 <PropsTable
   :data="[
     {
+      name: 'checked',
+      type: `boolean | 'indeterminate'`,
+      description: 'The controlled checked state of the item. Must be used in conjunction with <Code>onCheckedChange</Code>.',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When <Code>true</Code>, prevents the user from interacting with the item.',
+    }, 
+    {
+      name: 'textValue',
+      type: 'string',
+      description: 'Optional text used for typeahead purposes. By default the typeahead behavior will use the <Code>.textContent</Code> of the item. Use this when the content is complex, or you have non-textual content inside.',
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
+  ]"
+/>
+
+<EmitsTable
+  :data="[
     {
-      name: 'checked',
-      type: `boolean | 'indeterminate'`,
-      description: 'The controlled checked state of the item. Must be used in conjunction with <Code>onCheckedChange</Code>.',
-    },
-    {
-      name: 'onCheckedChange',
+      name: '@update:checked',
       type: `(checked: boolean) => void`,
-      typeSimple: 'function',
       description: 'Event handler called when the checked state changes.',
     },
     {
-      name: 'disabled',
-      type: 'boolean',
-      description: 'When <Code>true</Code>, prevents the user from interacting with the item.',
-    },
-    {
-      name: 'onSelect',
+      name: '@select',
       type: '(event: Event) => void',
-      typeSimple: 'function',
       description: 'Event handler called when the user selects an item (via mouse or keyboard). Calling <Code>event.preventDefault</Code> in this handler will prevent the dropdown menu from closing when selecting that item.',
-    },
-    {
-      name: 'textValue',
-      type: 'string',
-      description: 'Optional text used for typeahead purposes. By default the typeahead behavior will use the <Code>.textContent</Code> of the item. Use this when the content is complex, or you have non-textual content inside.',
     },
   ]"
 />
@@ -559,21 +584,25 @@ Used to group multiple `DropdownMenuRadioItem`s.
 <PropsTable
   :data="[
     {
+      name: 'modelValue',
+      type: 'string',
+      description: 'The value of the selected item in the group.',
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
+  ]"
+/>
+
+<EmitsTable
+  :data="[
     {
-      name: 'value',
-      type: 'string',
-      description: 'The value of the selected item in the group.',
-    },
-    {
-      name: 'onValueChange',
+      name: '@update:modelValue',
       type: '(value: string) => void',
-      typeSimple: 'function',
       description: 'Event handler called when the value changes.',
     },
   ]"
@@ -586,13 +615,6 @@ An item that can be controlled and rendered like a radio.
 <PropsTable
   :data="[
     {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
       name: 'value',
       type: 'string',
       required: true,
@@ -604,15 +626,26 @@ An item that can be controlled and rendered like a radio.
       description: 'When <Code>true</Code>, prevents the user from interacting with the item.',
     },
     {
-      name: 'onSelect',
-      type: '(event: Event) => void',
-      typeSimple: 'function',
-      description: 'Event handler called when the user selects an item (via mouse or keyboard). Calling <Code>event.preventDefault</Code> in this handler will prevent the dropdown menu from closing when selecting that item.',
-    },
-    {
       name: 'textValue',
       type: 'string',
       description: 'Optional text used for typeahead purposes. By default the typeahead behavior will use the <Code>.textContent</Code> of the item. Use this when the content is complex, or you have non-textual content inside.',
+    },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    },
+  ]"
+/>
+
+<EmitsTable
+  :data="[
+    {
+      name: '@select',
+      type: '(event: Event) => void',
+      description: 'Event handler called when the user selects an item (via mouse or keyboard). Calling <Code>event.preventDefault</Code> in this handler will prevent the dropdown menu from closing when selecting that item.',
     },
   ]"
 />
@@ -687,19 +720,23 @@ Contains all the parts of a submenu.
 <PropsTable
   :data="[
     {
-      name: 'defaultOpen',
-      type: 'boolean',
-      description: 'The open state of the submenu when it is initially rendered. Use when you do not need to control its open state.',
-    },
-    {
       name: 'open',
       type: 'boolean',
       description: 'The controlled open state of the submenu. Must be used in conjunction with <Code>onOpenChange</Code>.',
     },
     {
-      name: 'onOpenChange',
+      name: 'defaultOpen',
+      type: 'boolean',
+      description: 'The open state of the submenu when it is initially rendered. Use when you do not need to control its open state.',
+    },
+  ]"
+/>
+
+<EmitsTable
+  :data="[
+    {
+      name: '@update:open',
       type: '(open: boolean) => void',
-      typeSimple: 'function',
       description: 'Event handler called when the open state of the submenu changes.',
     },
   ]"
@@ -793,13 +830,6 @@ The component that pops out when a submenu is open. Must be rendered inside `Dro
 <PropsTable
   :data="[
     {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
       name: 'loop',
       required: false,
       type: 'boolean',
@@ -810,54 +840,7 @@ The component that pops out when a submenu is open. Must be rendered inside `Dro
           to first, and vice versa.
         </span>
       `,
-    },
-    {
-      name: 'onEscapeKeyDown',
-      type: '(event: KeyboardEvent) => void',
-      typeSimple: 'function',
-      description: `
-        <span>
-          Event handler called when the escape key is down. It can be prevented
-          by calling <Code>event.preventDefault</Code>
-        </span>
-      `,
-    },
-    {
-      name: 'onPointerDownOutside',
-      type: '(event: PointerDownOutsideEvent) => void',
-      typeSimple: 'function',
-      description: `
-        <span>
-          Event handler called when a pointer event occurs outside the bounds of
-          the component. It can be prevented by calling{' '}
-          <Code>event.preventDefault</Code>.
-        </span>
-      `,
-    },
-    {
-      name: 'onFocusOutside',
-      type: '(event: FocusOutsideEvent) => void',
-      typeSimple: 'function',
-      description: `
-        <span>
-          Event handler called when focus moves outside the bounds of the
-          component. It can be prevented by calling{' '}
-          <Code>event.preventDefault</Code>.
-        </span>
-      `,
-    },
-    {
-      name: 'onInteractOutside',
-      type: '(event: PointerDownOutsideEvent | FocusOutsideEvent) => void',
-      typeSimple: 'function',
-      description: `
-        <span>
-          Event handler called when an interaction (pointer or focus event)
-          happens outside the bounds of the component. It can be prevented by
-          calling <Code>event.preventDefault</Code>.
-        </span>
-      `,
-    },
+    }, 
     {
       name: 'forceMount',
       type: 'boolean',
@@ -958,6 +941,57 @@ The component that pops out when a submenu is open. Must be rendered inside `Dro
       description: `
         <span>
           Whether to hide the content when the trigger becomes fully occluded.
+        </span>
+      `,
+    },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    },
+  ]"
+/>
+
+<EmitsTable
+  :data="[ 
+    {
+    name: '@escapeKeyDown',
+    type: '(event: KeyboardEvent) => void',
+      description: `
+        <span>
+          Event handler called when the escape key is down. It can be prevented by calling <Code>event.preventDefault</Code>.
+        </span>
+      `,
+    },
+    {
+      name: '@pointerDownOutside',
+      type: '(event: PointerDownOutsideEvent) => void',
+      description: `
+        <span>
+          Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.
+        </span>
+      `,
+    },
+    {
+      name: '@focusOutside',
+      type: '(event: FocusOutsideEvent) => void',
+      description: `
+        <span>
+          Event handler called when focus moves outside the bounds of the
+          component. It can be prevented by calling <Code>event.preventDefault</Code>.
+        </span>
+      `,
+    },
+    {
+      name: '@interactOutside',
+      type: '(event: FocusEvent | MouseEvent | TouchEvent) => void',
+      description: `
+        <span>
+          Event handler called when an interaction (pointer or focus event)
+          happens outside the bounds of the component. It can be prevented by
+          calling <Code>event.preventDefault</Code>.
         </span>
       `,
     },
@@ -1161,7 +1195,7 @@ const checked = ref(false);
         <DropdownMenuItem>…</DropdownMenuItem>
         <DropdownMenuItem>…</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuCheckboxItem v-model="{ checked }">
+        <DropdownMenuCheckboxItem v-model:checked="checked">
           <DropdownMenuItemIndicator>
             <Icon icon="radix-icons:check" />
           </DropdownMenuItemIndicator>
@@ -1199,7 +1233,7 @@ const color = ref(false);
     <DropdownMenuTrigger>…</DropdownMenuTrigger>
     <DropdownMenuPortal>
       <DropdownMenuContent>
-        <DropdownMenuRadioGroup v-model="{ color }">
+        <DropdownMenuRadioGroup v-model="color">
           <DropdownMenuRadioItem value="red">
             <DropdownMenuItemIndicator>
               <Icon icon="radix-icons:check" />
@@ -1274,7 +1308,7 @@ import { DropdownMenuRoot, DropdownMenuTrigger, DropdownMenuPortal, DropdownMenu
   <DropdownMenuRoot>
     <DropdownMenuTrigger>…</DropdownMenuTrigger>
     <DropdownMenuPortal>
-      <DropdownMenuContent class="DropdownMenuContent" sideOffset="{5}"> … </DropdownMenuContent>
+      <DropdownMenuContent class="DropdownMenuContent" :sideOffset="5"> … </DropdownMenuContent>
     </DropdownMenuPortal>
   </DropdownMenuRoot>
 </template>
@@ -1449,6 +1483,8 @@ Adheres to the [Menu Button WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA
   ]"
 />
 
+<!-- TODO: fix react code - maybe implement in demo?
+
 ## Custom APIs
 
 Create your own API by abstracting the primitive parts into your own component.
@@ -1493,7 +1529,6 @@ export default () => (
 
 #### Implementation
 
-<!-- TODO: fix react code - maybe implement in demo?-->
 
 ```jsx
 // your-dropdown-menu.jsx
@@ -1546,3 +1581,5 @@ export const DropdownMenuRadioItem = React.forwardRef(({ children, ...props }, f
 
 export const DropdownMenuSeparator = DropdownMenuPrimitive.Separator;
 ```
+
+-->

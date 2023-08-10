@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   radix-vue:
-    specifier: 0.1.17
-    version: 0.1.17(vue@3.3.4)
+    specifier: 0.1.18
+    version: 0.1.18(vue@3.3.4)
 
 devDependencies:
   '@iconify/vue':
@@ -2718,7 +2718,7 @@ packages:
       destr: 1.2.2
       node-fetch-native: 0.1.8
       ufo: 0.8.6
-      undici: 5.22.1
+      undici: 5.23.0
     dev: true
 
   /once@1.4.0:
@@ -3132,8 +3132,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /radix-vue@0.1.17(vue@3.3.4):
-    resolution: {integrity: sha512-4MALGKTAqlnR+XUrBtlsE2Y9F53C1MCSkxP3dUb95Ex5QT+K8D0MSCVd+H+GNqF8qyw357tlWVEtHrgAjB6X3Q==}
+  /radix-vue@0.1.18(vue@3.3.4):
+    resolution: {integrity: sha512-iAw4hYj2/ZoiA1E7VQ3CEVwCop2lKv4zGFux9NrgZdopgu6BSmhJpQaCMnDil9PhXTBbnCZZ0g+awNyIjKCH1A==}
     dependencies:
       '@floating-ui/dom': 1.4.5
       '@floating-ui/vue': 1.0.2(vue@3.3.4)
@@ -3694,8 +3694,8 @@ packages:
     resolution: {integrity: sha512-fk6CmUgwKCfX79EzcDQQpSCMxrHstvbLswFChHS0Vump+kFkw7nJBfTZoC1j0bOGoY9I7R3n2DGek5ajbcYnOw==}
     dev: true
 
-  /undici@5.22.1:
-    resolution: {integrity: sha512-Ji2IJhFXZY0x/0tVBXeQwgPlLWw13GVzpsWPQ3rV50IFMMof2I55PZZxtm4P6iNq+L5znYN9nSTAq0ZyE6lSJw==}
+  /undici@5.23.0:
+    resolution: {integrity: sha512-1D7w+fvRsqlQ9GscLBwcAJinqcZGHUKjbOmXdlE/v8BvEGXjeWAax+341q44EuTcHXXnfyKNbKRq4Lg7OzhMmg==}
     engines: {node: '>=14.0'}
     dependencies:
       busboy: 1.6.0

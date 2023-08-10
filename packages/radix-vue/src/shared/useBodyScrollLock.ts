@@ -24,26 +24,29 @@ export const useBodyScrollLock = (initialState?: boolean | undefined) => {
           window.innerWidth - document.documentElement.clientWidth;
 
         if (verticalScrollbarWidth > 0) {
-          document.body.style.marginRight = verticalScrollbarWidth + "px";
+          document.body.style.paddingRight = verticalScrollbarWidth + "px";
         }
 
         document.body.style.pointerEvents = "none";
         locked.value = true;
       } else {
-        document.body.style.marginRight = "";
+        document.body.style.paddingRight = "";
         document.body.style.pointerEvents = "";
         locked.value = false;
       }
     },
   });
 
-  if (initialState) writableLock.value = initialState;
-  stack.value++;
+  if (initialState) {
+    stack.value++;
+    writableLock.value = initialState;
+  }
 
   onBeforeUnmount(() => {
+    if (!initialState) return;
     stack.value--;
     if (stack.value === 0) {
-      document.body.style.marginRight = "";
+      document.body.style.paddingRight = "";
       document.body.style.pointerEvents = "";
     }
   });

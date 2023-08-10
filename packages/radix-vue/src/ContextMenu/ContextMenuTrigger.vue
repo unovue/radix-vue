@@ -34,7 +34,9 @@ const virtualEl = computed(() => ({
 }));
 
 const longPressTimer = ref(0);
-const clearLongPress = () => {};
+const clearLongPress = () => {
+  window.clearTimeout(longPressTimer.value);
+};
 
 const handleOpen = (event: MouseEvent | PointerEvent) => {
   point.value = { x: event.clientX, y: event.clientY };

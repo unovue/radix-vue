@@ -7,11 +7,14 @@ import {
 } from "@/Menu";
 import { DROPDOWN_MENU_INJECTION_KEY } from "./DropdownMenuRoot.vue";
 import { useEmitAsProps } from "@/shared";
+import { PopperContentPropsDefaultValue } from "@/Popper";
 
 export interface DropdownMenuContentProps extends MenuContentProps {}
 export type DropdownMenuContentEmits = MenuContentEmits;
 
-const props = defineProps<DropdownMenuContentProps>();
+const props = withDefaults(defineProps<DropdownMenuContentProps>(), {
+  ...PopperContentPropsDefaultValue,
+});
 const emits = defineEmits<DropdownMenuContentEmits>();
 
 const context = inject(DROPDOWN_MENU_INJECTION_KEY);

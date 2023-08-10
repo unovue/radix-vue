@@ -1,18 +1,5 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
-import { ref } from "vue";
-import {
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectItemIndicator,
-  SelectLabel,
-  SelectPortal,
-  SelectRoot,
-  SelectSeparator,
-  SelectTrigger,
-} from "radix-vue";
-
 const fruits = ref(["Apple"]);
 
 function handleClick() {

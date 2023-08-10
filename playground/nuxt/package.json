@@ -9,7 +9,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "radix-vue": "link:../../packages/radix-vue"
+    "radix-vue": "file:../../packages/radix-vue"
   },
   "devDependencies": {
     "@iconify/vue": "^4.1.1",

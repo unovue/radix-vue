@@ -1,7 +1,3 @@
-<script setup lang="ts">
-import { AvatarFallback, AvatarImage, AvatarRoot } from "radix-vue";
-</script>
-
 <template>
   <div class="flex gap-5">
     <AvatarRoot

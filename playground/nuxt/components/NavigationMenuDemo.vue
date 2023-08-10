@@ -1,16 +1,5 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
-import { ref } from "vue";
-import {
-  NavigationMenuLink,
-  NavigationMenuIndicator,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuList,
-  NavigationMenuRoot,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
-} from "radix-vue";
 
 function handleClick() {
   alert("hello!");

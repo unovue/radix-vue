@@ -1,7 +1,3 @@
-<script setup lang="ts">
-import { Separator } from 'radix-vue'
-</script>
-
 <template>
   <div class="w-full max-w-[300px] mx-[15px]">
     <div class="text-white text-[15px] leading-5 font-medium">

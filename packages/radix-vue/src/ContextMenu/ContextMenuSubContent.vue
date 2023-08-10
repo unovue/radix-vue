@@ -5,6 +5,7 @@ import {
   type MenuSubContentProps,
 } from "@/Menu";
 import { PopperContentPropsDefaultValue } from "@/Popper";
+import { useEmitAsProps } from "@/shared";
 
 interface ContextMenuSubContentProps extends MenuSubContentProps {}
 interface ContextMenuSubContentEmits extends MenuSubContentEmits {}
@@ -12,12 +13,14 @@ interface ContextMenuSubContentEmits extends MenuSubContentEmits {}
 const props = withDefaults(defineProps<ContextMenuSubContentProps>(), {
   ...PopperContentPropsDefaultValue,
 });
+
 const emits = defineEmits<ContextMenuSubContentEmits>();
+const emitsAsProps = useEmitAsProps(emits);
 </script>
 
 <template>
   <MenuSubContent
-    v-bind="{ ...props, ...emits }"
+    v-bind="{ ...props, ...emitsAsProps }"
     :style="{
       '--radix-context-menu-content-transform-origin':
         'var(--radix-popper-transform-origin)',

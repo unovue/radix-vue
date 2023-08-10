@@ -2,12 +2,12 @@
 import {
   MenuRadioItem,
   type MenuRadioItemProps,
-  type MenuRadioItemEmits,
+  type MenuItemEmits,
 } from "@/Menu";
 import { useEmitAsProps } from "@/shared";
 
 const props = defineProps<MenuRadioItemProps>();
-const emits = defineEmits<MenuRadioItemEmits>();
+const emits = defineEmits<MenuItemEmits>();
 
 const emitsAsProps = useEmitAsProps(emits);
 </script>

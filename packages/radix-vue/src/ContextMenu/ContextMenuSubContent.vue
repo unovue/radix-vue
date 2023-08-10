@@ -8,7 +8,7 @@ import { PopperContentPropsDefaultValue } from "@/Popper";
 import { useEmitAsProps } from "@/shared";
 
 interface ContextMenuSubContentProps extends MenuSubContentProps {}
-interface ContextMenuSubContentEmits extends MenuSubContentEmits {}
+type ContextMenuSubContentEmits = MenuSubContentEmits;
 
 const props = withDefaults(defineProps<ContextMenuSubContentProps>(), {
   ...PopperContentPropsDefaultValue,

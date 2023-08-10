@@ -10,7 +10,13 @@ export const useEmitAsProps = <Name extends string>(
   const events = vm?.type.emits as Name[];
   const result: Record<string, any> = {};
 
-  events.forEach((ev) => {
+  if (!events?.length) {
+    console.warn(
+      `No emitted event found. Please check component: ${vm?.type.__name}`
+    );
+  }
+
+  events?.forEach((ev) => {
     result[toHandlerKey(camelize(ev))] = (...arg: any) => emit(ev, ...arg);
   });
   return result;

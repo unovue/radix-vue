@@ -8,19 +8,24 @@ import {
 } from "@/Menu";
 
 export interface ContextMenuContentProps
-  extends Omit<MenuContentProps, "side" | "sideOffset" | "align"> {}
+  extends Omit<
+    MenuContentProps,
+    | "side"
+    | "sideOffset"
+    | "align"
+    | "arrowPadding"
+    | "updatePositionStrategy"
+    | "prioritizePosition"
+  > {}
 export interface ContextMenuContentEmits extends MenuContentEmits {}
 
 const props = withDefaults(defineProps<ContextMenuContentProps>(), {
   alignOffset: 0,
-  arrowPadding: 0,
   avoidCollisions: true,
   collisionBoundary: () => [],
   collisionPadding: 0,
   sticky: "partial",
   hideWhenDetached: false,
-  updatePositionStrategy: "optimized",
-  prioritizePosition: false,
 });
 const emits = defineEmits<ContextMenuContentEmits>();
 

@@ -1,6 +1,6 @@
 {
   "name": "radix-vue",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "description": "Vue port for Radix UI Primitives.",
   "type": "module",
   "main": "./dist/index.umd.cjs",

@@ -53,16 +53,16 @@ export function usePointerDownOutside(
   watchEffect((cleanupFn) => {
     const handlePointerDown = (event: PointerEvent) => {
       if (!element?.value) return;
-      if (isLayerExist(element.value, event.target as HTMLElement)) return;
+      if (isLayerExist(element.value, event.target as HTMLElement)) {
+        isPointerInsideDOMTree.value = false;
+        return;
+      }
 
       if (event.target && !isPointerInsideDOMTree.value) {
         const eventDetail = { originalEvent: event };
 
         // eslint-disable-next-line no-inner-declarations
         function handleAndDispatchPointerDownOutsideEvent() {
-          const target = event.target as HTMLElement;
-          if (target.closest("[data-dismissable-layer]")) return;
-
           handleAndDispatchCustomEvent(
             POINTER_DOWN_OUTSIDE,
             onPointerDownOutside,

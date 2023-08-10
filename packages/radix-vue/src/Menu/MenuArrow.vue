@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { PopperArrow, type PopperArrowProps } from "@/Popper";
 
-interface MenuArrowProps extends PopperArrowProps {}
+export interface MenuArrowProps extends PopperArrowProps {}
 
 const props = defineProps<MenuArrowProps>();
 </script>

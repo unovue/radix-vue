@@ -12,8 +12,6 @@ export const MENU_CONTENT_INJECTION_KEY =
   Symbol() as InjectionKey<MenuContentContextValue>;
 
 export type MenuContentImplPrivateProps = {
-  // onOpenAutoFocus?: FocusScopeProps["onMountAutoFocus"];
-  // onDismiss?: DismissableLayerProps["onDismiss"];
   disableOutsidePointerEvents?: DismissableLayerProps["disableOutsidePointerEvents"];
 
   /**
@@ -28,34 +26,32 @@ export type MenuContentImplPrivateProps = {
    */
   trapFocus?: FocusScopeProps["trapped"];
 };
+
 export interface MenuContentImplProps
   extends MenuContentImplPrivateProps,
     Omit<PopperContentProps, "dir" | "onPlaced"> {
   /**
-   * Event handler called when auto-focusing on close.
-   * Can be prevented.
+   * Whether keyboard navigation should loop around
+   * @defaultValue false
    */
-  // onCloseAutoFocus?: FocusScopeProps["onUnmountAutoFocus"];
+  loop?: boolean;
+}
 
+export interface MenuRootContentProps
+  extends Omit<PopperContentProps, "dir" | "onPlaced"> {
   /**
    * Whether keyboard navigation should loop around
    * @defaultValue false
    */
-  // loop?: RovingFocusGroupProps["loop"];
   loop?: boolean;
-
-  // onEntryFocus?: RovingFocusGroupProps["onEntryFocus"];
-  // onEscapeKeyDown?: DismissableLayerProps["onEscapeKeyDown"];
-  // onPointerDownOutside?: DismissableLayerProps["onPointerDownOutside"];
-  // onFocusOutside?: DismissableLayerProps["onFocusOutside"];
-  // onInteractOutside?: DismissableLayerProps["onInteractOutside"];
 }
-
-export interface MenuRootContentTypeProps
-  extends Omit<MenuContentImplProps, keyof MenuContentImplPrivateProps> {}
 
 export type MenuContentImplEmits = DismissableLayerEmits & {
   (e: "openAutoFocus", event: Event): void;
+  /**
+   * Event handler called when auto-focusing on close.
+   * Can be prevented.
+   */
   (e: "closeAutoFocus", event: Event): void;
 };
 </script>
@@ -67,7 +63,11 @@ import {
   type DismissableLayerProps,
   type DismissableLayerEmits,
 } from "@/DismissableLayer";
-import { PopperContent, type PopperContentProps } from "@/Popper";
+import {
+  PopperContent,
+  type PopperContentProps,
+  PopperContentPropsDefaultValue,
+} from "@/Popper";
 import { usePrimitiveElement } from "@/Primitive";
 import { MENU_INJECTION_KEY, MENU_ROOT_INJECTION_KEY } from "./MenuRoot.vue";
 import {
@@ -79,8 +79,14 @@ import {
   provide,
   toRefs,
   watch,
+  nextTick,
 } from "vue";
-import { useNewCollection, useFocusGuards, useArrowNavigation } from "@/shared";
+import {
+  useNewCollection,
+  useFocusGuards,
+  useArrowNavigation,
+  useBodyScrollLock,
+} from "@/shared";
 import {
   type GraceIntent,
   type Side,
@@ -93,13 +99,17 @@ import {
   LAST_KEYS,
 } from "./utils";
 
-useFocusGuards();
 const context = inject(MENU_INJECTION_KEY);
 const rootContext = inject(MENU_ROOT_INJECTION_KEY);
 
-const props = defineProps<MenuContentImplProps>();
+const props = withDefaults(defineProps<MenuContentImplProps>(), {
+  ...PopperContentPropsDefaultValue,
+});
 const emits = defineEmits<MenuContentImplEmits>();
-const { trapFocus, disableOutsidePointerEvents } = toRefs(props);
+const { trapFocus, disableOutsidePointerEvents, loop } = toRefs(props);
+
+useFocusGuards();
+useBodyScrollLock(disableOutsidePointerEvents.value);
 
 const searchRef = ref("");
 const timerRef = ref(0);
@@ -123,10 +133,11 @@ const handleTypeaheadSearch = (key: string) => {
   const items = collectionItems.value;
   const currentItem = document.activeElement;
   const currentMatch =
-    items.find((item) => item === currentItem)?.textContent ?? "";
-  const values = items.map((item) => item.textContent ?? "");
+    items.find((item) => item === currentItem)?.textContent?.trim() ?? "";
+  const values = items.map((item) => item.textContent?.trim() ?? "");
   const nextMatch = getNextMatch(values, search, currentMatch);
-  const newItem = items.find((item) => item.textContent === nextMatch);
+
+  const newItem = items.find((item) => item.textContent?.trim() === nextMatch);
 
   // Reset `searchRef` 1 second after it was last updated
   (function updateSearch(value: string) {
@@ -159,7 +170,7 @@ const isPointerMovingToSubmenu = (event: PointerEvent) => {
   );
 };
 
-const handleMountAutoFocus = (event: Event) => {
+const handleMountAutoFocus = async (event: Event) => {
   emits("openAutoFocus", event);
 
   // when opening, explicitly focus the content area only and leave
@@ -168,6 +179,7 @@ const handleMountAutoFocus = (event: Event) => {
 
   // only focus first item when using keyboard
   if (rootContext?.isUsingKeyboardRef.value) {
+    await nextTick();
     collectionItems.value?.[0]?.focus();
     event.preventDefault();
   }
@@ -186,7 +198,7 @@ const handleKeyDown = (event: KeyboardEvent) => {
     document.activeElement as HTMLElement,
     contentElement.value,
     {
-      loop: false,
+      loop: loop.value,
       arrowKeyOptions: "vertical",
       dir: rootContext?.dir.value,
       focus: true,
@@ -275,9 +287,10 @@ provide(MENU_CONTENT_INJECTION_KEY, {
       @dismiss="emits('dismiss')"
     >
       <PopperContent
-        v-bind="props"
         ref="primitiveElement"
         role="menu"
+        :as="as"
+        :as-child="asChild"
         aria-orientation="vertical"
         data-radix-menu-content
         :data-state="getOpenState(context!.open.value)"
@@ -285,6 +298,16 @@ provide(MENU_CONTENT_INJECTION_KEY, {
         @keydown="handleKeyDown"
         @blur="handleBlur"
         @pointermove="handlePointerMove"
+        :side="side"
+        :sideOffset="sideOffset"
+        :align="align"
+        :alignOffset="alignOffset"
+        :avoidCollisions="avoidCollisions"
+        :collisionBoundary="collisionBoundary"
+        :collisionPadding="collisionPadding"
+        :arrowPadding="arrowPadding"
+        :sticky="sticky"
+        :hideWhenDetached="hideWhenDetached"
       >
         <slot></slot>
       </PopperContent>

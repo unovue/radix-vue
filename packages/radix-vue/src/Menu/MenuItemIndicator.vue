@@ -13,7 +13,7 @@ import { Presence } from "@/Presence";
 import { ref, inject, type InjectionKey, type Ref } from "vue";
 import { isIndeterminate, getCheckedState, type CheckedState } from "./utils";
 
-interface MenuItemIndicatorProps extends PrimitiveProps {}
+export interface MenuItemIndicatorProps extends PrimitiveProps {}
 
 withDefaults(defineProps<MenuItemIndicatorProps>(), {
   as: "span",

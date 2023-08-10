@@ -2,16 +2,22 @@
 import { inject } from "vue";
 import MenuContentImpl, {
   type MenuContentImplProps,
+  type MenuContentImplEmits,
 } from "./MenuContentImpl.vue";
 import { Presence } from "@/Presence";
 import { MENU_INJECTION_KEY, MENU_ROOT_INJECTION_KEY } from "./MenuRoot.vue";
 import { MENU_SUB_INJECTION_KEY } from "./MenuSub.vue";
 import { usePrimitiveElement } from "@/Primitive";
 import { SUB_CLOSE_KEYS } from "./utils";
+import { useEmitAsProps } from "@/shared";
 
-interface MenuSubContentProps extends MenuContentImplProps {}
+export interface MenuSubContentProps extends MenuContentImplProps {}
+export type MenuSubContentEmits = MenuContentImplEmits;
 
-defineProps<MenuSubContentProps>();
+const props = defineProps<MenuSubContentProps>();
+const emits = defineEmits<MenuSubContentEmits>();
+
+const emitsAsProps = useEmitAsProps(emits);
 
 const context = inject(MENU_INJECTION_KEY);
 const rootContext = inject(MENU_ROOT_INJECTION_KEY);
@@ -25,6 +31,7 @@ const { primitiveElement, currentElement: subContentElement } =
   <Presence :present="context!.open.value">
     <MenuContentImpl
       ref="primitiveElement"
+      v-bind="{ ...props, ...emitsAsProps }"
       :id="subContext!.contentId"
       :aria-labelledby="subContext!.triggerId"
       :align="'start'"

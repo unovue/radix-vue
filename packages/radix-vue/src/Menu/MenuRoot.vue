@@ -35,6 +35,7 @@ import {
 } from "vue";
 import { type Direction } from "./utils";
 import { PopperRoot } from "@/Popper";
+import { isClient } from "@vueuse/shared";
 import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<MenuProps>(), {
@@ -45,14 +46,13 @@ const props = withDefaults(defineProps<MenuProps>(), {
 const emits = defineEmits<{ (e: "update:open", payload: boolean): void }>();
 const { modal, dir } = toRefs(props);
 
-const open = useVModel(props, "open", emits, {
-  passive: true,
-});
+const open = useVModel(props, "open", emits);
 
 const content = ref<HTMLElement>();
 const isUsingKeyboardRef = ref(false);
 
 watchEffect((cleanupFn) => {
+  if (!isClient) return;
   // Capture phase ensures we set the boolean before any side effects execute
   // in response to the key or pointer event as they might depend on this value.
   const handleKeyDown = () => {

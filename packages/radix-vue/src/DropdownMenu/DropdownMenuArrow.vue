@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { PopperArrow } from "@/Popper";
+import { MenuArrow, type MenuArrowProps } from "@/Menu";
+
+const props = defineProps<MenuArrowProps>();
 </script>
 
 <template>
-  <PopperArrow></PopperArrow>
+  <MenuArrow v-bind="props">
+    <slot></slot>
+  </MenuArrow>
 </template>

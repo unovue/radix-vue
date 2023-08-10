@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { inject } from "vue";
 import MenuContentImpl, {
-  type MenuContentImplProps,
+  type MenuRootContentProps,
   type MenuContentImplEmits,
 } from "./MenuContentImpl.vue";
 import { MENU_INJECTION_KEY } from "./MenuRoot.vue";
+import { useEmitAsProps } from "@/shared";
 
 const context = inject(MENU_INJECTION_KEY);
 
-interface MenuRootContentModalProps extends MenuContentImplProps {}
-interface MenuRootContentModalEmits extends MenuContentImplEmits {}
+interface MenuRootContentModalProps extends MenuRootContentProps {}
+type MenuRootContentModalEmits = MenuContentImplEmits;
 
 const props = defineProps<MenuRootContentModalProps>();
 const emits = defineEmits<MenuRootContentModalEmits>();
@@ -19,11 +20,13 @@ const emits = defineEmits<MenuRootContentModalEmits>();
 //   const content = ref.current;
 //   if (content) return hideOthers(content);
 // }, []);
+
+const emitsAsProps = useEmitAsProps(emits);
 </script>
 
 <template>
   <MenuContentImpl
-    v-bind="props"
+    v-bind="{ ...props, ...emitsAsProps }"
     :trap-focus="context?.open.value"
     :disable-outside-pointer-events="context?.open.value"
     :disable-outside-scroll="true"

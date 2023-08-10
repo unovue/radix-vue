@@ -13,17 +13,17 @@ import MenuGroup, { type MenuGroupProps } from "./MenuGroup.vue";
 import { provide, type InjectionKey, type Ref } from "vue";
 import { useVModel } from "@vueuse/core";
 
-interface MenuRadioGroupProps extends MenuGroupProps {
+export interface MenuRadioGroupProps extends MenuGroupProps {
   modelValue?: string;
 }
-interface MenuCheckboxItemEmits {
+export interface MenuRadioGroupEmits {
   (e: "update:modelValue", payload: boolean): void;
 }
 
 const props = withDefaults(defineProps<MenuRadioGroupProps>(), {
   modelValue: "",
 });
-const emits = defineEmits<MenuCheckboxItemEmits>();
+const emits = defineEmits<MenuRadioGroupEmits>();
 const modelValue = useVModel(props, "modelValue", emits);
 
 provide(MENU_RADIO_GROUP_INJECTION_KEY, {

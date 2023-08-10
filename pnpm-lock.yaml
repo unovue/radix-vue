@@ -40,6 +40,12 @@ importers:
       '@vueuse/components':
         specifier: ^10.2.1
         version: 10.2.1(vue@3.3.4)
+      '@vueuse/core':
+        specifier: ^10.3.0
+        version: 10.3.0(vue@3.3.4)
+      '@vueuse/shared':
+        specifier: ^10.3.0
+        version: 10.3.0(vue@3.3.4)
       autoprefixer:
         specifier: ^10.4.14
         version: 10.4.14(postcss@8.4.26)

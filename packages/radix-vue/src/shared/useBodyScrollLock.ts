@@ -37,10 +37,13 @@ export const useBodyScrollLock = (initialState?: boolean | undefined) => {
     },
   });
 
-  if (initialState) writableLock.value = initialState;
-  stack.value++;
+  if (initialState) {
+    stack.value++;
+    writableLock.value = initialState;
+  }
 
   onBeforeUnmount(() => {
+    if (!initialState) return;
     stack.value--;
     if (stack.value === 0) {
       document.body.style.marginRight = "";

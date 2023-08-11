@@ -16,7 +16,7 @@ export interface SelectContentProps extends PopperContentProps {
 
 <script setup lang="ts">
 import { inject, watchEffect } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import { Primitive, usePrimitiveElement } from "@/Primitive";
 import { SELECT_INJECTION_KEY } from "./SelectRoot.vue";
 import { PopperContent, type PopperContentProps } from "@/Popper";
 
@@ -71,13 +71,14 @@ onClickOutside(tooltipContentElement, (event) => {
     :data-side="props.side"
     :data-align="props.align"
   >
-    <PrimitiveDiv
+    <Primitive
       ref="primitiveElement"
       :as-child="props.asChild"
+      :as="as"
       role="presentation"
       style="pointer-events: auto"
     >
       <slot />
-    </PrimitiveDiv>
+    </Primitive>
   </PopperContent>
 </template>

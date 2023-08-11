@@ -22,7 +22,7 @@ export interface RadioGroupProvideValue {
 <script setup lang="ts">
 import { provide } from "vue";
 import {
-  PrimitiveDiv,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -48,12 +48,13 @@ provide<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY, {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     ref="primitiveElement"
     role="radiogroup"
     aria-label="radiogroup"
     :as-child="props.asChild"
+    :as="as"
   >
     <slot />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

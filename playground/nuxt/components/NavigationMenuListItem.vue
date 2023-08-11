@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { NavigationMenuLink } from "radix-vue";
-
 const props = defineProps({
   title: String,
 });

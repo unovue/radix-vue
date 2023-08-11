@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { PrimitiveH2, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 
 export interface DialogTitleProps extends PrimitiveProps {}
-const props = defineProps<DialogTitleProps>();
+const props = withDefaults(defineProps<DialogTitleProps>(), { as: "h2" });
 </script>
 
 <template>
-  <PrimitiveH2 v-bind="props"><slot /></PrimitiveH2>
+  <Primitive v-bind="props"><slot /></Primitive>
 </template>

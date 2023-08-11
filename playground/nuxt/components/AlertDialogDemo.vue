@@ -1,17 +1,4 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import {
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogOverlay,
-  AlertDialogPortal,
-  AlertDialogRoot,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "radix-vue";
-
 const alertDialogOpen = ref(false);
 
 function handleAction() {

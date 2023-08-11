@@ -30,6 +30,7 @@ const props = withDefaults(defineProps<TooltipArrowProps>(), {
 <template>
   <PopperArrow
     :as-child="props.asChild"
+    :as="as"
     :height="props.height"
     :width="props.width"
   ></PopperArrow>

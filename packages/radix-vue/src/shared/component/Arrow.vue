@@ -1,24 +1,27 @@
 <script lang="ts">
-import type { SVGAttributes } from "vue";
-
-export interface ArrowProps {
+export interface ArrowProps extends PrimitiveProps {
   width?: number;
   height?: number;
 }
 </script>
 <script setup lang="ts">
-import { PrimitiveSvg, usePrimitiveElement } from "@/Primitive";
+import {
+  Primitive,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 
 const props = withDefaults(defineProps<ArrowProps>(), {
   width: 10,
   height: 5,
+  as: "svg",
 });
 
 const { primitiveElement } = usePrimitiveElement();
 </script>
 
 <template>
-  <PrimitiveSvg
+  <Primitive
     ref="primitiveElement"
     v-bind="props"
     :width="width"
@@ -27,5 +30,5 @@ const { primitiveElement } = usePrimitiveElement();
     preserveAspectRatio="none"
   >
     <slot><polygon points="0,0 30,0 15,10" /></slot>
-  </PrimitiveSvg>
+  </Primitive>
 </template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject, onMounted, ref } from "vue";
 import {
-  PrimitiveDiv,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -21,14 +21,19 @@ onMounted(() => {
   rootContext?.onViewportChange(viewportElement.value!);
   rootContext?.onContentChange(contentElement.value!);
 });
+
+defineOptions({
+  inheritAttrs: false,
+});
 </script>
 
 <template>
-  <component :is="'style'">
-    [data-radix-scroll-area-viewport] { scrollbar-width: none;
-    -ms-overflow-style: none; -webkit-overflow-scrolling: touch; }
+  <Primitive as="style">
+    /* Hide scrollbars cross-browser and enable momentum scroll for touch
+    devices */ [data-radix-scroll-area-viewport] { -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch; }
     [data-radix-scroll-area-viewport]::-webkit-scrollbar { display: none; }
-  </component>
+  </Primitive>
   <div
     ref="viewportElement"
     data-radix-scroll-area-viewport=""
@@ -47,13 +52,15 @@ onMounted(() => {
       overflowX: rootContext?.scrollbarXEnabled.value ? 'scroll' : 'hidden',
       overflowY: rootContext?.scrollbarYEnabled.value ? 'scroll' : 'hidden',
     }"
+    v-bind="$attrs"
   >
-    <PrimitiveDiv
+    <Primitive
       ref="primitiveElement"
       :style="{ minWidth: '100%', display: 'table' }"
       :as-child="props.asChild"
+      :as="as"
     >
       <slot></slot>
-    </PrimitiveDiv>
+    </Primitive>
   </div>
 </template>

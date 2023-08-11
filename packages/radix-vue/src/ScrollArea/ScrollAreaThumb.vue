@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  PrimitiveDiv,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "../Primitive";
@@ -71,7 +71,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     ref="primitiveElement"
     :data-state="scrollbarContextVisible?.hasThumb ? 'visible' : 'hidden'"
     :style="{
@@ -79,9 +79,10 @@ onUnmounted(() => {
       height: 'var(--radix-scroll-area-thumb-height)',
     }"
     :as-child="props.asChild"
+    :as="as"
     @pointerdown="handlePointerDown"
     @pointerup="handlePointerUp"
   >
     <slot></slot>
-  </PrimitiveDiv>
+  </Primitive>
 </template>

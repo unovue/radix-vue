@@ -3,7 +3,7 @@ import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
 import { NAVIGATION_MENU_ITEM_INJECTION_KEY } from "./NavigationMenuItem.vue";
 import { computed, inject, onMounted, ref, type VNode } from "vue";
 import {
-  PrimitiveButton,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -15,7 +15,9 @@ interface NavigationMenuTriggerProps extends PrimitiveProps {
   disabled?: boolean;
 }
 
-const props = defineProps<NavigationMenuTriggerProps>();
+const props = withDefaults(defineProps<NavigationMenuTriggerProps>(), {
+  as: "button",
+});
 defineOptions({
   inheritAttrs: false,
 });
@@ -25,8 +27,9 @@ const itemContext = inject(NAVIGATION_MENU_ITEM_INJECTION_KEY);
 
 const { primitiveElement, currentElement: triggerElement } =
   usePrimitiveElement();
-const triggerId = makeTriggerId(context!.baseId, itemContext!.value);
-const contentId = makeContentId(context!.baseId, itemContext!.value);
+const triggerId = ref("");
+const contentId = ref("");
+
 const hasPointerMoveOpenedRef = ref(false);
 const wasClickCloseRef = ref(false);
 
@@ -34,6 +37,8 @@ const open = computed(() => itemContext?.value === context?.modelValue.value);
 
 onMounted(() => {
   itemContext!.triggerRef = triggerElement;
+  triggerId.value = makeTriggerId(context!.baseId, itemContext!.value);
+  contentId.value = makeContentId(context!.baseId, itemContext!.value);
 });
 
 const handlePointerEnter = () => {
@@ -92,9 +97,7 @@ const setFocusProxyRef = (node: VNode) => {
 };
 
 const handleVisuallyHiddenFocus = (ev: FocusEvent) => {
-  const content = // @ts-ignore
-    (itemContext!.contentRef.value?.children?.[0].el as HTMLElement)
-      .parentElement;
+  const content = document.getElementById(itemContext!.contentId);
   const prevFocusedElement = ev.relatedTarget as HTMLElement | null;
 
   const wasTriggerFocused = prevFocusedElement === triggerElement.value;
@@ -107,7 +110,7 @@ const handleVisuallyHiddenFocus = (ev: FocusEvent) => {
 </script>
 
 <template>
-  <PrimitiveButton
+  <Primitive
     ref="primitiveElement"
     :id="triggerId"
     :disabled="disabled"
@@ -116,6 +119,7 @@ const handleVisuallyHiddenFocus = (ev: FocusEvent) => {
     :aria-expanded="open"
     :aria-controls="contentId"
     :as-child="props.asChild"
+    :as="as"
     @pointerenter="handlePointerEnter"
     @pointermove="handlePointerMove"
     @pointerleave="handlePointerLeave"
@@ -125,7 +129,7 @@ const handleVisuallyHiddenFocus = (ev: FocusEvent) => {
     data-radix-vue-collection-item
   >
     <slot></slot>
-  </PrimitiveButton>
+  </Primitive>
 
   <template v-if="open">
     <VisuallyHidden

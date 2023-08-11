@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { ToggleGroupItem, ToggleGroupRoot } from "radix-vue";
 import { Icon } from "@iconify/vue";
-import { ref } from "vue";
 
 const toggleStateSingle = ref();
 const toggleStateMultiple = ref(["italic"]);

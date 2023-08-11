@@ -6,7 +6,7 @@ import {
   type SelectProvideValue,
 } from "./SelectRoot.vue";
 import { SELECT_ITEM_SYMBOL } from "./utils";
-import { type DropdownMenuProvideValue } from "@/DropdownMenu/DropdownMenuRoot.vue";
+import { type ContextMenuProvideValue } from "@/ContextMenu/ContextMenuRoot.vue";
 import { type PrimitiveProps } from "@/Primitive";
 
 export interface SelectItemProps extends PrimitiveProps {
@@ -39,10 +39,11 @@ provide<SelectItemProvideValue>(SELECT_ITEM_SYMBOL, {
 <template>
   <BaseMenuItem
     :disabled="props.disabled"
-    :rootProvider="(rootInjectedValue as unknown as DropdownMenuProvideValue)"
+    :rootProvider="(rootInjectedValue as unknown as ContextMenuProvideValue)"
     :orientation="rootInjectedValue?.orientation"
     :data-radix-vue-radio-value="props.value"
     :as-child="props.asChild"
+    :as="as"
     @handle-click="handleClick"
     @escape-keydown="rootInjectedValue?.hideTooltip()"
     role="option"

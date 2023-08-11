@@ -20,8 +20,9 @@ export type DialogProvideValue = {
 </script>
 
 <script setup lang="ts">
-import { provide, ref } from "vue";
+import { provide, ref, watchEffect } from "vue";
 import { useVModel } from "@vueuse/core";
+import { useBodyScrollLock } from "@/shared";
 
 const props = withDefaults(defineProps<DialogRootProps>(), {
   open: undefined,
@@ -36,6 +37,13 @@ const emit = defineEmits<{
 const open = useVModel(props, "open", emit, {
   defaultValue: props.defaultOpen,
   passive: true,
+});
+
+const isBodyLocked = useBodyScrollLock(open.value);
+
+watchEffect((onCleanup) => {
+  isBodyLocked.value = open.value;
+  onCleanup(() => (isBodyLocked.value = false));
 });
 
 provide<DialogProvideValue>(DIALOG_INJECTION_KEY, {

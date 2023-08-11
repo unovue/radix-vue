@@ -10,7 +10,7 @@ export interface TooltipTriggerProps extends PrimitiveProps {}
 <script setup lang="ts">
 import { PopperAnchor } from "@/Popper";
 import {
-  PrimitiveButton,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -18,7 +18,9 @@ import { useHover } from "@/shared";
 import { inject } from "vue";
 import { TOOLTIP_INJECTION_KEY } from "./TooltipRoot.vue";
 
-const props = defineProps<TooltipTriggerProps>();
+const props = withDefaults(defineProps<TooltipTriggerProps>(), {
+  as: "button",
+});
 const injectedValue = inject(TOOLTIP_INJECTION_KEY);
 
 const { primitiveElement, currentElement: triggerElement } =
@@ -35,12 +37,13 @@ useHover(triggerElement, {
 
 <template>
   <PopperAnchor asChild>
-    <PrimitiveButton
-      type="button"
+    <Primitive
+      :type="as === 'button' ? 'button' : undefined"
       ref="primitiveElement"
       :aria-describedby="
         injectedValue?.open ? injectedValue.contentId : undefined
       "
+      :as="as"
       :as-child="props.asChild"
       :data-state="injectedValue?.dataState.value"
       :aria-expanded="injectedValue?.open.value || false"
@@ -48,6 +51,6 @@ useHover(triggerElement, {
       @blur="injectedValue?.hideTooltip"
     >
       <slot />
-    </PrimitiveButton>
+    </Primitive>
   </PopperAnchor>
 </template>

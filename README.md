@@ -35,7 +35,7 @@ For changelog, visit [releases](https://github.com/radix-vue/radix-vue/releases)
 | [Hover Card](https://radix-vue.com/components/hover-card)           |   ✅   | ✅           |                        |
 | [Label](https://radix-vue.com/components/label)                     |   ✅   | ✅           | ✅                     |
 | [Menubar](https://radix-vue.com/components/menubar)                 |   ✅   |              |                        |
-| [Navigation Menu](https://radix-vue.com/components/navigation-menu) |   ✅   |              |                        |
+| [Navigation Menu](https://radix-vue.com/components/navigation-menu) |   ✅   | ✅           |                        |
 | [Popover](https://radix-vue.com/components/popover)                 |   ✅   |              |                        |
 | [Progress](https://radix-vue.com/components/progress)               |   ✅   | ✅           | ✅                     |
 | [Radio Group](https://radix-vue.com/components/radio-group)         |   ✅   | ✅           |                        |

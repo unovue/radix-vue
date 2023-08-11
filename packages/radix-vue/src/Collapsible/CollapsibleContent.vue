@@ -9,7 +9,7 @@ import {
   type CollapsibleProvideValue,
 } from "./CollapsibleRoot.vue";
 import {
-  PrimitiveDiv,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -75,21 +75,26 @@ const props = defineProps<CollapsibleContentProps>();
 </script>
 
 <template>
-  <Presence ref="presentRef" :present="injectedValue!.open.value">
-    <PrimitiveDiv
+  <Presence
+    ref="presentRef"
+    :present="injectedValue!.open.value"
+    :force-mount="true"
+  >
+    <Primitive
       ref="primitiveElement"
       v-bind="$attrs"
       :as-child="props.asChild"
+      :as="as"
       :data-state="injectedValue?.open.value ? 'open' : 'closed'"
       :data-disabled="injectedValue?.disabled?.value ? 'true' : undefined"
       :id="injectedValue?.contentId"
-      :hidden="!injectedValue?.open"
+      :hidden="!presentRef?.present"
       :style="{
         [`--radix-collapsible-content-height`]: `${height}px`,
         [`--radix-collapsible-content-width`]: `${width}px`,
       }"
     >
       <slot />
-    </PrimitiveDiv>
+    </Primitive>
   </Presence>
 </template>

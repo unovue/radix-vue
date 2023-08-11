@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { inject, watch } from "vue";
 import {
-  PrimitiveDiv,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
 import { POPPER_ROOT_KEY } from "./PopperRoot.vue";
 
-interface PopperAnchorProps extends PrimitiveProps {
+export interface PopperAnchorProps extends PrimitiveProps {
   element?: HTMLElement;
 }
 
@@ -23,7 +23,7 @@ watch(currentElement, () => {
 </script>
 
 <template>
-  <PrimitiveDiv :as-child="asChild" ref="primitiveElement">
+  <Primitive :as="as" :as-child="asChild" ref="primitiveElement">
     <slot></slot>
-  </PrimitiveDiv>
+  </Primitive>
 </template>

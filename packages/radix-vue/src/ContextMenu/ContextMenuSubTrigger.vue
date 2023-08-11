@@ -76,6 +76,7 @@ function handleMouseover() {
       :aria-controls="injectedValue?.contentId"
       :data-state="dataState"
       :as-child="props.asChild"
+      :as="as"
       :data-orientation="rootInjectedValue?.orientation"
       aria-haspopup="menu"
       @handle-click="handleClick"

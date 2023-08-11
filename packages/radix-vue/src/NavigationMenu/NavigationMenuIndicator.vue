@@ -2,7 +2,7 @@
 import { computed, inject, ref, watchEffect } from "vue";
 import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
 import { useCollection } from "@/shared";
-import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { useResizeObserver } from "@vueuse/core";
 import { Presence } from "@/Presence";
 
@@ -23,18 +23,6 @@ const isVisible = computed(() => !!context?.modelValue.value);
 
 const activeTrigger = ref<HTMLElement>();
 
-watchEffect(() => {
-  if (!context?.modelValue.value) {
-    position.value = undefined;
-    return;
-  }
-  const items = getItems();
-  activeTrigger.value = items.find((item) =>
-    item.id.includes(context?.modelValue.value)
-  );
-  handlePositionChange();
-});
-
 const handlePositionChange = () => {
   if (activeTrigger.value) {
     position.value = {
@@ -48,6 +36,18 @@ const handlePositionChange = () => {
   }
 };
 
+watchEffect(() => {
+  if (!context?.modelValue.value) {
+    position.value = undefined;
+    return;
+  }
+  const items = getItems();
+  activeTrigger.value = items.find((item) =>
+    item.id.includes(context?.modelValue.value)
+  );
+  handlePositionChange();
+});
+
 useResizeObserver(activeTrigger, handlePositionChange);
 useResizeObserver(context!.indicatorTrack, handlePositionChange);
 </script>
@@ -58,11 +58,12 @@ useResizeObserver(context!.indicatorTrack, handlePositionChange);
     :to="context?.indicatorTrack.value"
   >
     <Presence :present="isVisible">
-      <PrimitiveDiv
+      <Primitive
         aria-hidden
         :data-state="isVisible ? 'visible' : 'hidden'"
         :data-orientation="context.orientation"
         :as-child="props.asChild"
+        :as="as"
         :style="{
           position: 'absolute',
           ...(isHorizontal
@@ -80,7 +81,7 @@ useResizeObserver(context!.indicatorTrack, handlePositionChange);
         v-bind="$attrs"
       >
         <slot></slot>
-      </PrimitiveDiv>
+      </Primitive>
     </Presence>
   </Teleport>
 </template>

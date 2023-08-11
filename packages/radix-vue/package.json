@@ -1,6 +1,6 @@
 {
   "name": "radix-vue",
-  "version": "0.1.13",
+  "version": "0.1.19",
   "description": "Vue port for Radix UI Primitives.",
   "type": "module",
   "main": "./dist/index.umd.cjs",
@@ -11,6 +11,10 @@
     ".": {
       "require": "./dist/index.umd.cjs",
       "import": "./dist/index.js"
+    },
+    "./nuxt": {
+      "require": "./dist/nuxt/index.cjs",
+      "import": "./dist/nuxt/index.mjs"
     },
     "./index.css": "./dist/index.css"
   },
@@ -53,7 +57,8 @@
     "@vue/test-utils": "^2.4.0",
     "@vue/tsconfig": "^0.4.0",
     "@vueuse/components": "^10.2.1",
-    "@vueuse/core": "^10.2.0",
+    "@vueuse/core": "^10.3.0",
+    "@vueuse/shared": "^10.3.0",
     "dts-bundle": "^0.7.3",
     "eslint": "^8.43.0",
     "eslint-plugin-vue": "^9.15.0",

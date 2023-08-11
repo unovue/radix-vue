@@ -1,75 +1,28 @@
 <script lang="ts">
-import type { Ref, InjectionKey } from "vue";
-import type { DataOrientation } from "@/shared/types";
-import { useVModel } from "@vueuse/core";
-
-export interface DropdownMenuSubRootProps {
-  modelValue?: boolean;
-  defaultOpen?: boolean;
+export interface DropdownMenuSubProps {
   open?: boolean;
-  //onOpenChange?: void;
-  delayDuration?: number;
-  disableHoverableContent?: boolean;
-  orientation?: DataOrientation;
+  defaultOpen?: boolean;
 }
-
-export const DROPDOWN_MENU_SUB_INJECTION_KEY =
-  Symbol() as InjectionKey<DropdownMenuSubProvideValue>;
-
-export type DropdownMenuSubProvideValue = {
-  modelValue: Readonly<Ref<boolean>>;
-  showTooltip(): void;
-  hideTooltip(): void;
-  triggerElement: Ref<HTMLElement | undefined>;
-  itemsArray: HTMLElement[];
-  orientation: DataOrientation;
-  triggerId: string;
-  contentId: string;
-  parentContext?: DropdownMenuSubProvideValue;
-};
 </script>
 
 <script setup lang="ts">
-import { inject, provide, ref } from "vue";
-import { PopperRoot } from "@/Popper";
-import { useId } from "@/shared";
+import { useVModel } from "@vueuse/core";
+import { MenuSub } from "@/Menu";
 
-const props = withDefaults(defineProps<DropdownMenuSubRootProps>(), {
-  delayDuration: 700,
-  orientation: "vertical",
-});
+const props = defineProps<DropdownMenuSubProps>();
 
 const emit = defineEmits<{
-  (e: "update:modelValue", value: boolean): void;
+  (e: "update:open", value: boolean): void;
 }>();
 
-const modelValue = useVModel(props, "modelValue", emit, {
+const open = useVModel(props, "open", emit, {
   passive: true,
-});
-
-const triggerElement = ref<HTMLElement>();
-
-const parentContext = inject(DROPDOWN_MENU_SUB_INJECTION_KEY);
-
-provide<DropdownMenuSubProvideValue>(DROPDOWN_MENU_SUB_INJECTION_KEY, {
-  modelValue,
-  showTooltip: () => {
-    modelValue.value = true;
-  },
-  hideTooltip: () => {
-    modelValue.value = false;
-  },
-  triggerElement,
-  itemsArray: [],
-  orientation: props.orientation,
-  triggerId: useId(),
-  contentId: useId(),
-  parentContext,
+  defaultValue: props.defaultOpen ?? false,
 });
 </script>
 
 <template>
-  <PopperRoot>
+  <MenuSub v-model:open="open">
     <slot />
-  </PopperRoot>
+  </MenuSub>
 </template>

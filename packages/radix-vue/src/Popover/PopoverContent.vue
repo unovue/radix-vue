@@ -6,15 +6,14 @@ export interface PopoverContentProps extends PopperContentProps {
 
 <script setup lang="ts">
 import { inject, onUnmounted, watchEffect } from "vue";
-
 import { trapFocus } from "../shared/trap-focus";
-import { useClickOutside } from "../shared/useClickOutside";
 import {
   POPOVER_INJECTION_KEY,
   type PopoverProvideValue,
 } from "./PopoverRoot.vue";
 import { PopperContent, type PopperContentProps } from "@/Popper";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import { Primitive, usePrimitiveElement } from "@/Primitive";
+import { onClickOutside } from "@vueuse/core";
 
 const injectedValue = inject<PopoverProvideValue>(POPOVER_INJECTION_KEY);
 
@@ -31,7 +30,6 @@ watchEffect(() => {
   if (tooltipContentElement.value) {
     if (injectedValue?.open.value) {
       trapFocus(tooltipContentElement.value!);
-      window.addEventListener("mousedown", closeDialogWhenClickOutside);
       window.addEventListener("keydown", closePopoverOnEscape);
     } else {
       if (injectedValue?.triggerElement.value) {
@@ -42,18 +40,11 @@ watchEffect(() => {
   }
 });
 
-function closeDialogWhenClickOutside(e: MouseEvent) {
-  if (injectedValue?.triggerElement.value?.contains(e.target as Node)) {
-    return;
-  }
-
-  const clickOutside = useClickOutside(e, tooltipContentElement.value!);
-  if (clickOutside) {
-    injectedValue?.hidePopover();
-    e.preventDefault();
-    e.stopPropagation();
-  }
-}
+onClickOutside(tooltipContentElement, (event) => {
+  injectedValue?.hidePopover();
+  event.preventDefault();
+  event.stopPropagation();
+});
 
 function closePopoverOnEscape(e: KeyboardEvent) {
   if (e.key === "Escape") {
@@ -62,7 +53,6 @@ function closePopoverOnEscape(e: KeyboardEvent) {
 }
 
 function clearEvent() {
-  window.removeEventListener("mousedown", closeDialogWhenClickOutside);
   window.removeEventListener("keydown", closePopoverOnEscape);
 }
 
@@ -77,15 +67,16 @@ onUnmounted(() => {
     v-bind="props"
     v-if="injectedValue?.open.value"
   >
-    <PrimitiveDiv
+    <Primitive
       v-if="injectedValue?.open.value"
       :data-state="injectedValue?.open.value ? 'open' : 'closed'"
       :data-side="props.side"
       :data-align="props.align"
       role="tooltip"
       :as-child="props.asChild"
+      :as="as"
     >
       <slot />
-    </PrimitiveDiv>
+    </Primitive>
   </PopperContent>
 </template>

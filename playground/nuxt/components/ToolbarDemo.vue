@@ -1,14 +1,5 @@
 <script setup lang="ts">
-import {
-  ToolbarButton,
-  ToolbarLink,
-  ToolbarRoot,
-  ToolbarSeparator,
-  ToolbarToggleGroup,
-  ToolbarToggleItem,
-} from 'radix-vue'
 import { Icon } from '@iconify/vue'
-import { ref } from 'vue'
 
 const toggleStateSingle = ref('center')
 const toggleStateMultiple = ref([])

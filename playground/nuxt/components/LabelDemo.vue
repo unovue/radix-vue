@@ -1,7 +1,3 @@
-<script setup>
-import { Label } from 'radix-vue'
-</script>
-
 <template>
   <div class="flex flex-wrap items-center gap-[15px] px-5">
     <Label class="text-[15px] font-medium leading-[35px] text-white" for="firstName">

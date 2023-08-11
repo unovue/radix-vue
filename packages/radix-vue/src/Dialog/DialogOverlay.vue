@@ -4,7 +4,7 @@ import {
   DIALOG_INJECTION_KEY,
   type DialogProvideValue,
 } from "./DialogRoot.vue";
-import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 
 export interface DialogOverlayProps extends PrimitiveProps {}
 const props = defineProps<DialogOverlayProps>();
@@ -13,7 +13,7 @@ const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     v-bind="props"
     v-if="injectedValue?.open.value"
     :data-state="injectedValue?.open.value ? 'open' : 'closed'"
@@ -22,5 +22,5 @@ const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
     aria-hidden="true"
   >
     <slot />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

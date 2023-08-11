@@ -6,6 +6,7 @@ export interface ScrollAreaScrollbarProps extends PrimitiveProps {
 }
 
 export interface ScrollAreaScollbarProvideValue {
+  as: Ref<AsTag>;
   orientation: Ref<"vertical" | "horizontal">;
   forceMount?: Ref<boolean>;
   isHorizontal: Ref<boolean>;
@@ -31,7 +32,7 @@ import {
   type InjectionKey,
 } from "vue";
 import { SCROLL_AREA_INJECTION_KEY } from "./ScrollAreaRoot.vue";
-import { type PrimitiveProps } from "@/Primitive";
+import { type AsTag, type PrimitiveProps } from "@/Primitive";
 import ScrollAreaScrollbarHover from "./ScrollAreaScrollbarHover.vue";
 import ScrollAreaScrollbarScroll from "./ScrollAreaScrollbarScroll.vue";
 import ScrollAreaScrollbarAuto from "./ScrollAreaScrollbarAuto.vue";
@@ -42,6 +43,7 @@ const injectedValue = inject(SCROLL_AREA_INJECTION_KEY);
 const props = withDefaults(defineProps<ScrollAreaScrollbarProps>(), {
   orientation: "vertical",
   forceMount: undefined,
+  as: "div",
 });
 
 const isHorizontal = computed(() => props.orientation === "horizontal");
@@ -63,11 +65,12 @@ onUnmounted(() => {
   injectedValue?.onScrollbarYEnabledChange(false);
 });
 
-const { orientation, forceMount, asChild } = toRefs(props);
+const { orientation, forceMount, asChild, as } = toRefs(props);
 provide<ScrollAreaScollbarProvideValue>(SCROLL_AREA_SCROLLBAR_INJECTION_KEY, {
   orientation,
   forceMount,
   isHorizontal,
+  as,
   asChild,
 });
 </script>

@@ -9,6 +9,21 @@ export type PopperContentContextValue = {
   shouldHideArrow: Ref<boolean>;
 };
 
+export const PopperContentPropsDefaultValue = {
+  side: "bottom" as Side,
+  sideOffset: 0,
+  align: "center" as Align,
+  alignOffset: 0,
+  arrowPadding: 0,
+  avoidCollisions: true,
+  collisionBoundary: () => [],
+  collisionPadding: 0,
+  sticky: "partial" as "partial" | "always",
+  hideWhenDetached: false,
+  updatePositionStrategy: "optimized" as "optimized" | "always",
+  prioritizePosition: false,
+};
+
 export interface PopperContentProps extends PrimitiveProps {
   /**
    * The preferred side of the trigger to render against when open.
@@ -108,7 +123,11 @@ export default {
 
 <script setup lang="ts">
 import { computed, inject, provide, ref, watchEffect } from "vue";
-import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
+import {
+  Primitive,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import { POPPER_ROOT_KEY } from "./PopperRoot.vue";
 import { useSize } from "@/shared";
 import { computedEager } from "@vueuse/core";
@@ -133,21 +152,12 @@ import {
 } from "@floating-ui/vue";
 
 const props = withDefaults(defineProps<PopperContentProps>(), {
-  side: "bottom",
-  sideOffset: 0,
-  align: "center",
-  alignOffset: 0,
-  arrowPadding: 0,
-  avoidCollisions: true,
-  collisionBoundary: () => [],
-  collisionPadding: 0,
-  sticky: "partial",
-  hideWhenDetached: false,
-  updatePositionStrategy: "optimized",
-  prioritizePosition: false,
+  ...PopperContentPropsDefaultValue,
 });
-
 const context = inject(POPPER_ROOT_KEY);
+
+const { primitiveElement, currentElement: contentElement } =
+  usePrimitiveElement();
 
 const floatingRef = ref<HTMLElement>();
 
@@ -290,6 +300,10 @@ provide(POPPER_CONTENT_KEY, {
   arrowY,
   shouldHideArrow: cannotCenterArrow,
 });
+
+defineExpose({
+  $el: contentElement,
+});
 </script>
 
 <template>
@@ -307,9 +321,11 @@ provide(POPPER_CONTENT_KEY, {
     ].join(' '),
   }"
   >
-    <PrimitiveDiv
+    <Primitive
+      ref="primitiveElement"
       v-bind="$attrs"
       :as-child="props.asChild"
+      :as="as"
       :data-side="placedSide"
       :data-align="placedAlign"
       :style="{
@@ -321,6 +337,6 @@ provide(POPPER_CONTENT_KEY, {
       }"
     >
       <slot></slot>
-    </PrimitiveDiv>
+    </Primitive>
   </div>
 </template>

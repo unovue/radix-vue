@@ -1,17 +1,14 @@
 <script lang="ts">
-import type { DropdownMenuProvideValue } from "../../DropdownMenu/DropdownMenuRoot.vue";
-import type { DropdownMenuSubProvideValue } from "../../DropdownMenu/DropdownMenuSub.vue";
+import type { ContextMenuProvideValue } from "../../ContextMenu/ContextMenuRoot.vue";
+import type { ContextMenuSubProvideValue } from "../../ContextMenu/ContextMenuSub.vue";
 import type { MenubarProvideValue } from "../../Menubar/MenubarRoot.vue";
 import type { MenubarSubProvideValue } from "../../Menubar/MenubarSub.vue";
 
 // TODO: improve types for props
 interface BaseMenuItemProps extends PrimitiveProps {
   disabled?: boolean;
-  rootProvider: DropdownMenuProvideValue | MenubarProvideValue | undefined;
-  subProvider?:
-    | DropdownMenuSubProvideValue
-    | MenubarSubProvideValue
-    | undefined;
+  rootProvider: ContextMenuProvideValue | MenubarProvideValue | undefined;
+  subProvider?: ContextMenuSubProvideValue | MenubarSubProvideValue | undefined;
   orientation?: string | undefined;
   role?: string;
   dataState?: string;
@@ -21,7 +18,7 @@ interface BaseMenuItemProps extends PrimitiveProps {
 <script setup lang="ts">
 import { useArrowNavigation } from "../useArrowNavigation";
 import {
-  PrimitiveDiv,
+  Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
@@ -100,11 +97,13 @@ function handleMouseover() {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     :role="props.role"
     ref="primitiveElement"
     @keydown.prevent="handleKeydown"
     :data-state="props.dataState"
+    :as-child="asChild"
+    :as="as"
     data-radix-vue-collection-item
     @mouseenter="handleHover"
     @mouseover="handleMouseover"
@@ -120,5 +119,5 @@ function handleMouseover() {
     "
   >
     <slot />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

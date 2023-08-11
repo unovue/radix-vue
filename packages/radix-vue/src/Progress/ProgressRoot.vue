@@ -51,7 +51,7 @@ function validateMax(max: number): number {
 </script>
 
 <script setup lang="ts">
-import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { useVModel } from "@vueuse/core";
 import { computed, nextTick, provide, watch } from "vue";
 
@@ -111,8 +111,9 @@ provide<ProgressProvideValue>(PROGRESS_INJECTION_KEY, {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     :asChild="props.asChild"
+    :as="as"
     :aria-valuemax="max"
     :aria-valuemin="0"
     :aria-valuenow="isNumber(modelValue) ? modelValue : undefined"
@@ -123,5 +124,5 @@ provide<ProgressProvideValue>(PROGRESS_INJECTION_KEY, {
     :data-max="max"
   >
     <slot />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

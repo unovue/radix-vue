@@ -6,7 +6,7 @@ export interface SelectItemIndicatorProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { inject, computed } from "vue";
-import { PrimitiveSpan, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { SELECT_ITEM_SYMBOL } from "./utils";
 import { type SelectItemProvideValue } from "./SelectItem.vue";
 import {
@@ -34,12 +34,13 @@ const visibleState = computed(() => {
 </script>
 
 <template>
-  <PrimitiveSpan
+  <Primitive
     v-if="visibleState"
     aria-hidden="true"
     style="pointer-events: none"
     :as-child="props.asChild"
+    :as="as"
   >
     <slot />
-  </PrimitiveSpan>
+  </Primitive>
 </template>

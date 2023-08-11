@@ -3,18 +3,19 @@ export interface SelectGroupRootProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { PrimitiveDiv, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 
 const props = defineProps<SelectGroupRootProps>();
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     :as-child="props.asChild"
+    :as="as"
     ref="primitiveElement"
     role="group"
     aria-label="group"
   >
     <slot />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

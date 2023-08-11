@@ -86,6 +86,7 @@ function handleEscapeKeydown(e: KeyboardEvent) {
     :data-state="checkboxDataState"
     :aria-checked="props.modelValue ? true : false"
     :as-child="props.asChild"
+    :as="as"
   >
     <input
       type="checkbox"

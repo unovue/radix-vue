@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, ref, watch } from "vue";
 import { SCROLL_AREA_INJECTION_KEY } from "./ScrollAreaRoot.vue";
-import { PrimitiveDiv } from "@/Primitive";
+import { Primitive } from "@/Primitive";
 import { useResizeObserver } from "@vueuse/core";
 
 const context = inject(SCROLL_AREA_INJECTION_KEY);
@@ -31,7 +31,7 @@ watch(() => context?.scrollbarY.value, setCornerWidth);
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     v-if="hasSize"
     :style="{
       width: width + 'px',
@@ -44,5 +44,5 @@ watch(() => context?.scrollbarY.value, setCornerWidth);
     v-bind="$parent?.$props"
   >
     <slot></slot>
-  </PrimitiveDiv>
+  </Primitive>
 </template>

@@ -1,54 +1,15 @@
 <script setup lang="ts">
-import { inject } from "vue";
-import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
-import {
-  DROPDOWN_MENU_INJECTION_KEY,
-  type DropdownMenuProvideValue,
-} from "./DropdownMenuRoot.vue";
-import {
-  DROPDOWN_MENU_SUB_INJECTION_KEY,
-  type DropdownMenuSubProvideValue,
-} from "./DropdownMenuSub.vue";
-import { type PrimitiveProps } from "@/Primitive";
+import { MenuItem, type MenuItemProps, type MenuItemEmits } from "@/Menu";
+import { useEmitAsProps } from "@/shared";
 
-interface DropdownMenuItemProps extends PrimitiveProps {
-  value?: string;
-  disabled?: boolean;
-  //onSelect?: void;
-  textValue?: string;
-}
+const props = defineProps<MenuItemProps>();
+const emits = defineEmits<MenuItemEmits>();
 
-const rootInjectedValue = inject<DropdownMenuProvideValue>(
-  DROPDOWN_MENU_INJECTION_KEY
-);
-
-const subInjectedValue = inject<DropdownMenuSubProvideValue>(
-  DROPDOWN_MENU_SUB_INJECTION_KEY
-);
-
-const props = defineProps<DropdownMenuItemProps>();
-
-function handleClick() {
-  if (rootInjectedValue?.selectedElement.value) {
-    rootInjectedValue.hideTooltip();
-  }
-}
-
-function handleEscape() {
-  rootInjectedValue?.hideTooltip();
-}
+const emitsAsProps = useEmitAsProps(emits);
 </script>
 
 <template>
-  <BaseMenuItem
-    :disabled="props.disabled"
-    :rootProvider="rootInjectedValue"
-    :subProvider="subInjectedValue"
-    :orientation="rootInjectedValue?.orientation"
-    :as-child="props.asChild"
-    @handle-click="handleClick"
-    @escape-keydown="handleEscape"
-  >
-    <slot />
-  </BaseMenuItem>
+  <MenuItem v-bind="{ ...props, ...emitsAsProps }">
+    <slot></slot>
+  </MenuItem>
 </template>

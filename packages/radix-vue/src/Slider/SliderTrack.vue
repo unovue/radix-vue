@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<SliderTrackProps>(), { as: "span" });
 </script>
 
 <template>
-  <PrimitiveSpan
+  <Primitive
     :as-child="props.asChild"
     :as="as"
     :data-disabled="injectedValue?.disabled"

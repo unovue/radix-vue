@@ -1,3 +1,4 @@
+import { isClient } from "@vueuse/shared";
 import { ref, watchEffect, type Ref } from "vue";
 
 export type PointerDownOutsideEvent = CustomEvent<{
@@ -51,6 +52,7 @@ export function usePointerDownOutside(
   const handleClickRef = ref(() => {});
 
   watchEffect((cleanupFn) => {
+    if (!isClient) return;
     const handlePointerDown = (event: PointerEvent) => {
       if (!element?.value) return;
       if (isLayerExist(element.value, event.target as HTMLElement)) {
@@ -140,6 +142,7 @@ export function useFocusOutside(
 
   const isFocusInsideDOMTree = ref(false);
   watchEffect(async (cleanupFn) => {
+    if (!isClient) return;
     const handleFocus = async (event: FocusEvent) => {
       if (!element?.value) return;
       if (isLayerExist(element.value, event.target as HTMLElement)) return;

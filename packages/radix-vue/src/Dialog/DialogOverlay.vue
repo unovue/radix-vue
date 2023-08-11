@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject } from "vue";
+import { inject, watch } from "vue";
 import { DIALOG_INJECTION_KEY } from "./DialogRoot.vue";
 import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { Presence } from "@/Presence";
@@ -10,7 +10,11 @@ const props = defineProps<DialogOverlayProps>();
 
 const context = inject(DIALOG_INJECTION_KEY);
 
-useBodyScrollLock(true);
+const isLocked = useBodyScrollLock();
+watch(
+  () => context?.open.value,
+  (n) => (isLocked.value = n ?? false)
+);
 </script>
 
 <template>

@@ -11,6 +11,7 @@ import {
 } from "@/Primitive";
 import { SLIDER_INJECTION_KEY } from "./SliderRoot.vue";
 import type { SliderProvideValue } from "./SliderRoot.vue";
+import { clamp } from "./utils";
 
 const injectedValue = inject<SliderProvideValue>(SLIDER_INJECTION_KEY);
 const { primitiveElement, currentElement: thumbElement } =
@@ -25,61 +26,41 @@ const props = withDefaults(defineProps<SliderThumbProps>(), {
   as: "span",
 });
 
-let extraStep = 2;
+let extraStep = 10;
 
 function handleKeydown(e: KeyboardEvent) {
   if (!injectedValue) return;
-  //prevent default when enter/space
+
+  // Prevent default when enter/space
   if (e.keyCode === 32 || e.key === "Enter") {
     e.preventDefault();
   }
-  const step = Number(injectedValue?.step);
-  const value = Number(injectedValue.modelValue?.value);
-  //add value
-  if (e.key === "ArrowUp" || e.key === "ArrowRight") {
-    if (e.shiftKey) {
-      e.preventDefault();
 
-      if (value + extraStep >= injectedValue?.max) {
-        injectedValue?.changeModelValue(injectedValue?.max);
-      } else if (value + extraStep <= injectedValue?.min) {
-        injectedValue?.changeModelValue(injectedValue?.min);
-      } else {
-        injectedValue?.changeModelValue(value + extraStep);
-      }
-    } else {
-      e.preventDefault();
-      if (value + step >= injectedValue?.max) {
-        injectedValue?.changeModelValue(injectedValue?.max);
-      } else if (value + step <= injectedValue?.min) {
-        injectedValue?.changeModelValue(injectedValue?.min);
-      } else {
-        injectedValue?.changeModelValue(value + step);
-      }
+  const step = Number(injectedValue.step);
+  const value = Number(injectedValue.modelValue?.value);
+  const isShiftPressed = e.shiftKey;
+  let newValue = value;
+
+  const isArrowUpOrRight = e.key === "ArrowUp" || e.key === "ArrowRight";
+  const isArrowDownOrLeft = e.key === "ArrowDown" || e.key === "ArrowLeft";
+
+  if (injectedValue.inverted) {
+    if (isArrowDownOrLeft) {
+      newValue += isShiftPressed ? extraStep : step;
+    } else if (isArrowUpOrRight) {
+      newValue -= isShiftPressed ? extraStep : step;
+    }
+  } else {
+    if (isArrowUpOrRight) {
+      newValue += isShiftPressed ? extraStep : step;
+    } else if (isArrowDownOrLeft) {
+      newValue -= isShiftPressed ? extraStep : step;
     }
   }
-  //subtract value
-  if (e.key === "ArrowDown" || e.key === "ArrowLeft") {
-    if (e.shiftKey) {
-      e.preventDefault();
-      if (value - extraStep >= injectedValue?.max) {
-        injectedValue?.changeModelValue(injectedValue?.max);
-      } else if (value - extraStep <= injectedValue?.min) {
-        injectedValue?.changeModelValue(injectedValue?.min);
-      } else {
-        injectedValue?.changeModelValue(value - extraStep);
-      }
-    } else {
-      e.preventDefault();
-      if (value - step >= injectedValue?.max) {
-        injectedValue?.changeModelValue(injectedValue?.max);
-      } else if (value - step <= injectedValue?.min) {
-        injectedValue?.changeModelValue(injectedValue?.min);
-      } else {
-        injectedValue?.changeModelValue(value - step);
-      }
-    }
-  }
+
+  newValue = clamp(newValue, injectedValue.min, injectedValue.max);
+
+  injectedValue.changeModelValue(newValue);
 }
 
 const thumbStyle = computed(() => {

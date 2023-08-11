@@ -12,17 +12,22 @@ export const DIALOG_INJECTION_KEY =
 
 export type DialogProvideValue = {
   open: Readonly<Ref<boolean>>;
-  modal: boolean;
+  modal: Ref<boolean>;
   openModal(): void;
-  closeModal(): void;
-  triggerButton: Ref<HTMLElement | undefined>;
+  onOpenChange(value: boolean): void;
+  onOpenToggle(): void;
+  triggerElement: Ref<HTMLElement | undefined>;
+  contentElement: Ref<HTMLElement | undefined>;
+  contentId: string;
+  titleId: string;
+  descriptionId: string;
 };
 </script>
 
 <script setup lang="ts">
-import { provide, ref, watchEffect } from "vue";
+import { provide, ref, toRefs } from "vue";
 import { useVModel } from "@vueuse/core";
-import { useBodyScrollLock } from "@/shared";
+import { useId } from "@/shared";
 
 const props = withDefaults(defineProps<DialogRootProps>(), {
   open: undefined,
@@ -39,23 +44,26 @@ const open = useVModel(props, "open", emit, {
   passive: true,
 });
 
-const isBodyLocked = useBodyScrollLock(open.value);
-
-watchEffect((onCleanup) => {
-  isBodyLocked.value = open.value;
-  onCleanup(() => (isBodyLocked.value = false));
-});
-
+const triggerElement = ref<HTMLElement>();
+const contentElement = ref<HTMLElement>();
+const { modal } = toRefs(props);
 provide<DialogProvideValue>(DIALOG_INJECTION_KEY, {
   open,
-  modal: props.modal,
+  modal,
   openModal: () => {
     open.value = true;
   },
-  closeModal: () => {
-    open.value = false;
+  onOpenChange: (value) => {
+    open.value = value;
   },
-  triggerButton: ref<HTMLElement>(),
+  onOpenToggle: () => {
+    open.value = !open.value;
+  },
+  contentId: useId(),
+  titleId: useId(),
+  descriptionId: useId(),
+  triggerElement,
+  contentElement,
 });
 </script>
 

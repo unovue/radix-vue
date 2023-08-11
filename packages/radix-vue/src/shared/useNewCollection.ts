@@ -14,9 +14,13 @@ const ITEM_DATA_ATTR = "data-radix-vue-collection-item";
 
 type ContextValue = Ref<HTMLElement[]>;
 
-export const COLLECTION_SYMBOL = Symbol() as InjectionKey<ContextValue>;
+/**
+ * Composables for provide/inject collections
+ * @param key (optional) Name to replace the default `Symbol()` as provide's key
+ */
+export const useNewCollection = (key?: string) => {
+  const COLLECTION_SYMBOL = key ?? (Symbol() as InjectionKey<ContextValue>);
 
-export const useNewCollection = () => {
   const createCollection = (sourceRef?: Ref<HTMLElement | undefined>) => {
     const items = ref<HTMLElement[]>([]);
 

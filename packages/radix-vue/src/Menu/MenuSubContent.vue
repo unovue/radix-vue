@@ -41,7 +41,7 @@ const { primitiveElement, currentElement: subContentElement } =
       :trapFocus="false"
       @open-auto-focus="(event) => {
         if (rootContext!.isUsingKeyboardRef.value) subContentElement?.focus();
-        event.preventDefault();
+        // event.preventDefault();
       }"
       @close-auto-focus.prevent
       @focus-outside="

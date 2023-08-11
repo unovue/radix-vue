@@ -44,17 +44,19 @@ function handleKeydown(e: KeyboardEvent) {
   const isArrowUpOrRight = e.key === "ArrowUp" || e.key === "ArrowRight";
   const isArrowDownOrLeft = e.key === "ArrowDown" || e.key === "ArrowLeft";
 
+  const adjustedExtraStep = isShiftPressed ? extraStep * step : step;
+
   if (injectedValue.inverted) {
     if (isArrowDownOrLeft) {
-      newValue += isShiftPressed ? extraStep : step;
+      newValue += adjustedExtraStep;
     } else if (isArrowUpOrRight) {
-      newValue -= isShiftPressed ? extraStep : step;
+      newValue -= adjustedExtraStep;
     }
   } else {
     if (isArrowUpOrRight) {
-      newValue += isShiftPressed ? extraStep : step;
+      newValue += adjustedExtraStep;
     } else if (isArrowDownOrLeft) {
-      newValue -= isShiftPressed ? extraStep : step;
+      newValue -= adjustedExtraStep;
     }
   }
 

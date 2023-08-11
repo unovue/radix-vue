@@ -60,6 +60,12 @@ function handleKeydown(e: KeyboardEvent) {
     }
   }
 
+  if (e.key === "Home") {
+    newValue = injectedValue.min;
+  } else if (e.key === "End") {
+    newValue = injectedValue.max;
+  }
+
   newValue = clamp(newValue, injectedValue.min, injectedValue.max);
 
   injectedValue.changeModelValue(newValue);

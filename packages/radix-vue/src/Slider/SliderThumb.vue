@@ -92,7 +92,7 @@ const thumbStyle = computed(() => {
     if (injectedValue.inverted) {
       style.left = `${100 - (injectedValue.modelValue?.value ?? 0)}%`;
     } else {
-      style.right = `${injectedValue.modelValue?.value ?? 0}%`;
+      style.left = `${injectedValue.modelValue?.value ?? 0}%`;
     }
 
     return style;

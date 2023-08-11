@@ -45,6 +45,7 @@ export interface SliderProvideValue {
 
 <script setup lang="ts">
 import { ref, toRef, provide, computed } from "vue";
+import { clamp } from "./utils";
 
 const props = withDefaults(defineProps<SliderRootProps>(), {
   asChild: false,
@@ -175,10 +176,6 @@ const pointerup = () => {
   document.removeEventListener("pointermove", pointermove);
   document.removeEventListener("pointerup", pointerup);
 };
-
-function clamp(value: number, min: number, max: number) {
-  return Math.min(Math.max(value, min), max);
-}
 
 function convertToClosestStep(number: number, step: number) {
   const quotient = Math.floor(number / step);

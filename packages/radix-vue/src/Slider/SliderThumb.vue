@@ -3,7 +3,7 @@ export interface SliderThumbProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { inject, onMounted } from "vue";
+import { computed, inject, onMounted } from "vue";
 import {
   Primitive,
   usePrimitiveElement,
@@ -81,12 +81,29 @@ function handleKeydown(e: KeyboardEvent) {
     }
   }
 }
+
+const thumbStyle = computed(() => {
+  if (injectedValue) {
+    const style: Record<string, string | number> = {
+      transform: "translateX(-50%)",
+      position: "absolute",
+    };
+
+    if (injectedValue.inverted) {
+      style.left = `${100 - (injectedValue.modelValue?.value ?? 0)}%`;
+    } else {
+      style.right = `${injectedValue.modelValue?.value ?? 0}%`;
+    }
+
+    return style;
+  }
+
+  return {};
+});
 </script>
 
 <template>
-  <span
-    :style="`transform: translateX(-50%); position: absolute; left: calc(${injectedValue?.modelValue?.value}%)`"
-  >
+  <span :style="thumbStyle">
     <Primitive
       v-bind="$attrs"
       ref="primitiveElement"

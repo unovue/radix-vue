@@ -44,6 +44,9 @@ function handleKeydown(e: KeyboardEvent) {
   const isArrowUpOrRight = e.key === "ArrowUp" || e.key === "ArrowRight";
   const isArrowDownOrLeft = e.key === "ArrowDown" || e.key === "ArrowLeft";
 
+  const isPageUp = e.key === "PageUp";
+  const isPageDown = e.key === "PageDown";
+
   const adjustedExtraStep = isShiftPressed ? extraStep * step : step;
 
   if (injectedValue.reversed?.value) {
@@ -58,6 +61,24 @@ function handleKeydown(e: KeyboardEvent) {
     } else if (isArrowDownOrLeft) {
       newValue -= adjustedExtraStep;
     }
+  }
+
+  if (isPageUp || isPageDown) {
+    e.preventDefault();
+
+    const step = Number(injectedValue.step);
+    const value = Number(injectedValue.modelValue?.value);
+    let newValue = value;
+
+    if (isPageUp) {
+      newValue += step * extraStep;
+    } else if (isPageDown) {
+      newValue -= step * extraStep;
+    }
+
+    newValue = clamp(newValue, injectedValue.min, injectedValue.max);
+
+    injectedValue.changeModelValue(newValue);
   }
 
   if (e.key === "Home") {

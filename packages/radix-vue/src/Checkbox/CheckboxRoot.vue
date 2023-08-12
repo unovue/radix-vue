@@ -61,11 +61,29 @@ let dataState: "checked" | "unchecked" | "indeterminate";
 </script>
 
 <template>
-  <Primitive :as-child="props.asChild" :as="as" :value="props.value" role="checkbox" :aria-checked="props.modelValue"
-    :data-state="dataState" style="position: relative" :data-disabled="props.disabled ? '' : undefined">
-    <input type="checkbox" :id="props.id" v-bind="props.modelValue" @change="updateModelValue" :checked="props.modelValue"
-      :name="props.name" aria-hidden="true" :disabled="props.disabled" :required="props.required" :data-state="dataState"
-      style="opacity: 0; position: absolute; inset: 0" />
+  <Primitive
+    :as-child="props.asChild"
+    :as="as"
+    :value="props.value"
+    role="checkbox"
+    :aria-checked="props.modelValue"
+    :data-state="dataState"
+    style="position: relative"
+    :data-disabled="props.disabled ? '' : undefined"
+  >
+    <input
+      type="checkbox"
+      :id="props.id"
+      v-bind="props.modelValue"
+      @change="updateModelValue"
+      :checked="props.modelValue"
+      :name="props.name"
+      aria-hidden="true"
+      :disabled="props.disabled"
+      :required="props.required"
+      :data-state="dataState"
+      style="opacity: 0; position: absolute; inset: 0"
+    />
     <slot />
   </Primitive>
 </template>

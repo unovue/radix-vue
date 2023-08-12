@@ -46,7 +46,7 @@ function handleKeydown(e: KeyboardEvent) {
 
   const adjustedExtraStep = isShiftPressed ? extraStep * step : step;
 
-  if (injectedValue.inverted) {
+  if (injectedValue.reversed?.value) {
     if (isArrowDownOrLeft) {
       newValue += adjustedExtraStep;
     } else if (isArrowUpOrRight) {
@@ -78,7 +78,7 @@ const thumbStyle = computed(() => {
       position: "absolute",
     };
 
-    if (injectedValue.inverted) {
+    if (injectedValue.reversed?.value) {
       style.left = `${100 - (injectedValue.modelValue?.value ?? 0)}%`;
     } else {
       style.left = `${injectedValue.modelValue?.value ?? 0}%`;

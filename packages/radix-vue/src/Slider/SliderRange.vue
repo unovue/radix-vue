@@ -15,7 +15,7 @@ const sliderRangeStyle = computed(() => {
   if (injectedValue) {
     const style: Record<string, string | number> = {};
 
-    if (injectedValue.inverted) {
+    if (injectedValue.reversed?.value) {
       style.left = `${100 - (injectedValue.modelValue?.value ?? 0)}%`;
       style.right = 0;
     } else {

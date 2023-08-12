@@ -33,7 +33,7 @@ export interface SliderProvideValue {
   rootSliderElement: Ref<HTMLElement | undefined>;
   orientation: DataOrientation;
   dir?: Direction;
-  inverted?: boolean;
+  reversed?: Ref<boolean>;
   thumbOffset: Readonly<ComputedRef<number | undefined>>;
   min: number;
   max: number;
@@ -75,6 +75,14 @@ const thumbOffset = computed(() => {
   return ((props.modelValue - 50) / 50) * 10 * offsetMultiplier;
 });
 
+const reversed = computed<boolean>(() => {
+  if (props.dir === "rtl" && props.inverted) {
+    return false;
+  }
+
+  return props.dir === "rtl" || props.inverted;
+});
+
 provide<SliderProvideValue>(SLIDER_INJECTION_KEY, {
   modelValue: toRef(() => props.modelValue),
   changeModelValue: (value: any) => {
@@ -83,7 +91,7 @@ provide<SliderProvideValue>(SLIDER_INJECTION_KEY, {
   rootSliderElement: rootSliderElement,
   orientation: props.orientation,
   dir: props.dir,
-  inverted: props.inverted,
+  reversed: reversed,
   thumbOffset: thumbOffset,
   min: props.min,
   max: props.max,
@@ -136,7 +144,7 @@ function changeValue(e: MouseEvent) {
     rootSliderRect
   );
 
-  if (props.inverted) {
+  if (reversed.value) {
     const newModelValue = Math.round((1 - sliderRelativePosition) * 100);
     updateModelValue(newModelValue);
   } else {
@@ -163,7 +171,7 @@ const pointermove = (e: PointerEvent) => {
     rootSliderRect
   );
 
-  if (props.inverted) {
+  if (reversed.value) {
     const newModelValue = Math.round((1 - sliderRelativePosition) * 100);
     updateModelValue(newModelValue);
   } else {

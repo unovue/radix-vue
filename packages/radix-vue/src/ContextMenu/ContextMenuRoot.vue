@@ -1,78 +1,49 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
-import type { DataOrientation, Direction } from "../shared/types";
+import type { Direction } from "../shared/types";
 
-export interface ContextMenuRootProps {
-  open?: boolean;
-  defaultOpen?: boolean;
-  //onOpenChange?: void;
-  modelValue?: boolean;
-  orientation?: DataOrientation;
-  dir?: Direction;
+export interface ContextMenuContextValue {
+  open: Ref<boolean>;
+  onOpenChange(open: boolean): void;
+  modal: Ref<boolean>;
+  dir: Ref<Direction>;
 }
 
 export const CONTEXT_MENU_INJECTION_KEY =
-  Symbol() as InjectionKey<ContextMenuProvideValue>;
+  Symbol() as InjectionKey<ContextMenuContextValue>;
 
-export type ContextMenuProvideValue = {
-  selectedElement: Ref<HTMLElement | undefined>;
-  changeSelected: (value: HTMLElement) => void;
-  modelValue: Readonly<Ref<boolean>>;
-  showTooltip(): void;
-  hideTooltip(): void;
-  triggerElement: Ref<HTMLElement | undefined>;
-  itemsArray: HTMLElement[];
-  orientation: DataOrientation;
-  clientX: Ref<number>;
-  clientY: Ref<number>;
-};
+export interface ContextMenuRootProps {
+  dir?: Direction;
+  modal?: boolean;
+}
 </script>
 
 <script setup lang="ts">
-import { provide, ref } from "vue";
-import { PopperRoot } from "@/Popper";
-import { useVModel } from "@vueuse/core";
+import { provide, ref, toRefs } from "vue";
+import { MenuRoot } from "@/Menu";
 
 const props = withDefaults(defineProps<ContextMenuRootProps>(), {
-  orientation: "vertical",
+  dir: "ltr",
+  modal: true,
 });
+const { dir, modal } = toRefs(props);
 
-const emit = defineEmits<{
-  (e: "update:modelValue", value: boolean): void;
-}>();
+const open = ref(false);
+const emits = defineEmits<{ (e: "update:open", value: boolean): void }>();
 
-const modelValue = useVModel(props, "modelValue", emit, {
-  passive: true,
-});
-
-const selectedElement = ref<HTMLElement>();
-const triggerElement = ref<HTMLElement>();
-const clientX = ref(0);
-const clientY = ref(0);
-
-provide<ContextMenuProvideValue>(CONTEXT_MENU_INJECTION_KEY, {
-  selectedElement: selectedElement,
-  changeSelected: (value: HTMLElement) => {
-    selectedElement.value = value;
-    selectedElement.value!.focus();
+provide(CONTEXT_MENU_INJECTION_KEY, {
+  open,
+  onOpenChange: (value: boolean) => {
+    open.value = value;
+    emits("update:open", value);
   },
-  modelValue,
-  showTooltip: () => {
-    modelValue.value = true;
-  },
-  hideTooltip: () => {
-    modelValue.value = false;
-  },
-  triggerElement,
-  itemsArray: [],
-  orientation: props.orientation,
-  clientX,
-  clientY,
+  dir,
+  modal,
 });
 </script>
 
 <template>
-  <PopperRoot>
+  <MenuRoot v-model:open="open" :dir="dir" :modal="modal">
     <slot />
-  </PopperRoot>
+  </MenuRoot>
 </template>

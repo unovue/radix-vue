@@ -1,27 +1,11 @@
-<script lang="ts">
-export interface ContextMenuItemIndicatorProps extends PrimitiveProps {
-  forceMount?: boolean;
-}
-</script>
-
 <script setup lang="ts">
-import { inject } from "vue";
-import { Primitive, type PrimitiveProps } from "@/Primitive";
-import { CONTEXT_MENU_ITEM_SYMBOL } from "./utils";
-const context = inject(CONTEXT_MENU_ITEM_SYMBOL);
+import { MenuItemIndicator, type MenuItemIndicatorProps } from "@/Menu";
 
-const props = withDefaults(defineProps<ContextMenuItemIndicatorProps>(), {
-  as: "span",
-});
+const props = defineProps<MenuItemIndicatorProps>();
 </script>
 
 <template>
-  <Primitive
-    :as="as"
-    v-if="context?.modelValue.value"
-    :as-child="props.asChild"
-    style="pointer-events: none"
-  >
-    <slot />
-  </Primitive>
+  <MenuItemIndicator v-bind="props">
+    <slot></slot>
+  </MenuItemIndicator>
 </template>

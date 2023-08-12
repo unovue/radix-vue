@@ -15,6 +15,7 @@ import {
 } from "./utils";
 import { createFocusScopesStack, removeLinks } from "./stack";
 import { nextTick, reactive, ref, watchEffect } from "vue";
+import { isClient } from "@vueuse/shared";
 
 export interface FocusScopeProps extends PrimitiveProps {
   /**
@@ -67,6 +68,7 @@ const focusScope = reactive({
 });
 
 watchEffect((cleanupFn) => {
+  if (!isClient) return;
   const container = currentElement.value;
   if (!props.trapped) return;
 

@@ -6,7 +6,6 @@ import {
   type SelectProvideValue,
 } from "./SelectRoot.vue";
 import { SELECT_ITEM_SYMBOL } from "./utils";
-import { type ContextMenuProvideValue } from "@/ContextMenu/ContextMenuRoot.vue";
 import { type PrimitiveProps } from "@/Primitive";
 
 export interface SelectItemProps extends PrimitiveProps {
@@ -39,7 +38,7 @@ provide<SelectItemProvideValue>(SELECT_ITEM_SYMBOL, {
 <template>
   <BaseMenuItem
     :disabled="props.disabled"
-    :rootProvider="(rootInjectedValue as unknown as ContextMenuProvideValue)"
+    :rootProvider="rootInjectedValue"
     :orientation="rootInjectedValue?.orientation"
     :data-radix-vue-radio-value="props.value"
     :as-child="props.asChild"

@@ -1,3 +1,4 @@
+import { isClient } from "@vueuse/shared";
 import { watchEffect } from "vue";
 /** Number of components which have requested interest to have focus guards */
 let count = 0;
@@ -8,6 +9,7 @@ let count = 0;
  */
 export function useFocusGuards() {
   watchEffect((cleanupFn) => {
+    if (!isClient) return;
     const edgeGuards = document.querySelectorAll("[data-radix-focus-guard]");
     document.body.insertAdjacentElement(
       "afterbegin",

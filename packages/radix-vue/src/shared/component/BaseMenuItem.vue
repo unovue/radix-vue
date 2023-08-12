@@ -1,13 +1,10 @@
 <script lang="ts">
 import type { SelectProvideValue } from "../../Select/SelectRoot.vue";
-import type { MenubarProvideValue } from "../../Menubar/MenubarRoot.vue";
-import type { MenubarSubProvideValue } from "../../Menubar/MenubarSub.vue";
 
 // TODO: improve types for props
 interface BaseMenuItemProps extends PrimitiveProps {
   disabled?: boolean;
-  rootProvider: SelectProvideValue | MenubarProvideValue | undefined;
-  subProvider?: MenubarSubProvideValue | undefined;
+  rootProvider: SelectProvideValue | undefined;
   orientation?: string | undefined;
   role?: string;
   dataState?: string;
@@ -47,14 +44,6 @@ function handleKeydown(e: KeyboardEvent) {
     return;
   }
 
-  if (e.key === "ArrowLeft") {
-    const trigger = props.subProvider?.triggerElement.value;
-
-    if (trigger) {
-      props.rootProvider?.changeSelected(trigger);
-      return props.subProvider?.hideTooltip();
-    }
-  }
   if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
     return emit("horizontal-keydown", e);
   }

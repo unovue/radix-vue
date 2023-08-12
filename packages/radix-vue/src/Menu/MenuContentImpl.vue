@@ -79,7 +79,6 @@ import {
   provide,
   toRefs,
   watch,
-  nextTick,
 } from "vue";
 import {
   useNewCollection,
@@ -173,16 +172,15 @@ const isPointerMovingToSubmenu = (event: PointerEvent) => {
 const handleMountAutoFocus = async (event: Event) => {
   emits("openAutoFocus", event);
 
-  // when opening, explicitly focus the content area only and leave
-  // `onEntryFocus` in  control of focusing first item
-  contentElement.value?.focus();
+  setTimeout(() => {
+    contentElement.value?.focus();
 
-  // only focus first item when using keyboard
-  if (rootContext?.isUsingKeyboardRef.value) {
-    await nextTick();
-    collectionItems.value?.[0]?.focus();
-    event.preventDefault();
-  }
+    // only focus first item when using keyboard
+    if (rootContext?.isUsingKeyboardRef.value && !event.defaultPrevented) {
+      collectionItems.value?.[0]?.focus();
+      event.preventDefault();
+    }
+  }, 0);
 };
 
 const handleKeyDown = (event: KeyboardEvent) => {

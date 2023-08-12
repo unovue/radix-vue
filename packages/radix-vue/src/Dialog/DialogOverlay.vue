@@ -12,8 +12,8 @@ export interface DialogOverlayProps extends PrimitiveProps {
    */
   forceMount?: boolean;
 }
-const props = defineProps<DialogOverlayProps>();
 
+defineProps<DialogOverlayProps>();
 const context = inject(DIALOG_INJECTION_KEY);
 
 const isLocked = useBodyScrollLock();
@@ -26,7 +26,9 @@ watch(
 <template>
   <Presence :present="forceMount || context!.open.value">
     <Primitive
-      v-bind="{ ...props, ...$attrs }"
+      v-bind="$attrs"
+      :as="as"
+      :asChild="asChild"
       :data-state="context?.open.value ? 'open' : 'closed'"
       style="pointer-events: auto"
       data-aria-hidden="true"

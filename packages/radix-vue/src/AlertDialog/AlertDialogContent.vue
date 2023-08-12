@@ -1,103 +1,44 @@
 <script lang="ts">
-export interface AlertDialogContentProps extends PrimitiveProps {
-  isOpenAutoFocus?: boolean;
-  isCloseAutoFocus?: boolean;
-  isEscapeKeyDownDefault?: boolean;
-}
+type AlertDialogContentContextValue = {
+  cancelElement: Ref<HTMLElement | undefined>;
+};
 
-export interface AlertDialogContentEmits {
-  (e: "open"): void;
-  (e: "close"): void;
-  (e: "escapeKeyDown"): void;
-}
+export const ALERT_DIALOG_CONTENT_INJECTION_KEY =
+  Symbol() as InjectionKey<AlertDialogContentContextValue>;
 </script>
 
 <script setup lang="ts">
-import { inject, watchEffect } from "vue";
-import { trapFocus } from "@/shared";
-import { ALERT_DIALOG_INJECTION_KEY } from "./AlertDialogRoot.vue";
 import {
-  Primitive,
-  usePrimitiveElement,
-  type PrimitiveProps,
-} from "@/Primitive";
+  DialogContent,
+  type DialogContentProps,
+  type DialogContentEmits,
+} from "@/Dialog";
+import { provide, type InjectionKey, type Ref, ref } from "vue";
 
-const injectedValue = inject(ALERT_DIALOG_INJECTION_KEY);
+const props = defineProps<DialogContentProps>();
+defineEmits<DialogContentEmits>();
 
-const props = withDefaults(defineProps<AlertDialogContentProps>(), {
-  isOpenAutoFocus: true,
-  isCloseAutoFocus: undefined,
-  isEscapeKeyDownDefault: true,
+const cancelElement = ref<HTMLElement | undefined>();
+
+provide(ALERT_DIALOG_CONTENT_INJECTION_KEY, {
+  cancelElement,
 });
-
-const emit = defineEmits<AlertDialogContentEmits>();
-
-const { primitiveElement, currentElement } = usePrimitiveElement();
-
-watchEffect((onCleanup) => {
-  onCleanup(() => {
-    if (props.isCloseAutoFocus) {
-      injectedValue?.triggerButton.value?.focus();
-    }
-
-    window.removeEventListener("keydown", handleKeydown);
-    emit("close");
-  });
-
-  if (!currentElement.value) {
-    return;
-  }
-
-  if (injectedValue?.open.value) {
-    if (props.isOpenAutoFocus) {
-      trapFocus(currentElement.value);
-    }
-
-    window.addEventListener("keydown", handleKeydown);
-    emit("open");
-  }
-});
-
-const handleKeydown = (e: KeyboardEvent) => {
-  if (e.key === "Escape") {
-    if (props.isEscapeKeyDownDefault) {
-      e.preventDefault();
-      injectedValue?.closeModal();
-      if (props.isCloseAutoFocus) {
-        injectedValue?.triggerButton.value?.focus();
-      }
-    }
-    return emit("escapeKeyDown");
-  }
-
-  if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-    const activeElement = document.activeElement;
-    const inputs = ["input", "select", "textarea"];
-
-    if (
-      activeElement &&
-      inputs.indexOf(activeElement.tagName.toLowerCase()) === -1
-    ) {
-      e.preventDefault();
-    }
-  }
-};
 </script>
 
 <template>
-  <Primitive
-    v-if="injectedValue?.open.value"
-    :as="props.as"
-    :as-child="props.asChild"
-    ref="primitiveElement"
-    :id="injectedValue?.contentId"
-    :aria-labelledby="injectedValue?.titleId"
-    :aria-describedby="injectedValue?.descriptionId"
-    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
+  <DialogContent
+    v-bind="props"
     role="alertdialog"
-    tabindex="-1"
-    style="pointer-events: auto"
+    @pointer-down-outside.prevent
+    @interact-outside.prevent
+    @open-auto-focus.prevent="
+      () => {
+        cancelElement?.focus({
+          preventScroll: true,
+        });
+      }
+    "
   >
-    <slot />
-  </Primitive>
+    <slot></slot>
+  </DialogContent>
 </template>

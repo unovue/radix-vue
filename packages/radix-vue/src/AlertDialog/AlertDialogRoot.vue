@@ -1,68 +1,18 @@
-<script lang="ts">
-import type { Ref, InjectionKey } from "vue";
-
-export interface AlertDialogRootProps {
-  open?: boolean;
-  defaultOpen?: boolean;
-}
-
-export const ALERT_DIALOG_INJECTION_KEY =
-  Symbol() as InjectionKey<AlertDialogProvideValue>;
-
-export type AlertDialogProvideValue = {
-  contentId: string;
-  titleId: string;
-  descriptionId: string;
-  open: Readonly<Ref<boolean>>;
-  openModal(): void;
-  closeModal(): void;
-  triggerButton: Ref<HTMLElement | undefined>;
-};
-
-export type AlertDialogRootEmits = {
-  (e: "update:open", value: boolean): void;
-};
-</script>
-
 <script setup lang="ts">
-import { provide, ref, watchEffect } from "vue";
-import { useVModel } from "@vueuse/core";
-import { useId, useBodyScrollLock } from "@/shared";
+import {
+  DialogRoot,
+  type DialogRootProps,
+  type DialogRootEmits,
+} from "@/Dialog";
 
-const props = withDefaults(defineProps<AlertDialogRootProps>(), {
-  open: undefined,
-  defaultOpen: false,
-});
+interface AlertDialogProps extends Omit<DialogRootProps, "modal"> {}
 
-const emit = defineEmits<AlertDialogRootEmits>();
-
-const open = useVModel(props, "open", emit, {
-  defaultValue: props.defaultOpen,
-  passive: true,
-});
-
-const isBodyLocked = useBodyScrollLock(open.value);
-
-watchEffect((onCleanup) => {
-  isBodyLocked.value = open.value;
-  onCleanup(() => (isBodyLocked.value = false));
-});
-
-provide(ALERT_DIALOG_INJECTION_KEY, {
-  contentId: useId(),
-  titleId: useId(),
-  descriptionId: useId(),
-  open,
-  openModal: () => {
-    open.value = true;
-  },
-  closeModal: () => {
-    open.value = false;
-  },
-  triggerButton: ref<HTMLElement>(),
-});
+const props = defineProps<AlertDialogProps>();
+const emits = defineEmits<DialogRootEmits>();
 </script>
 
 <template>
-  <slot />
+  <DialogRoot v-bind="props" :modal="true">
+    <slot />
+  </DialogRoot>
 </template>

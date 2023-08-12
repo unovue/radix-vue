@@ -11,8 +11,11 @@ import { Presence } from "@/Presence";
 
 const context = inject(DIALOG_INJECTION_KEY);
 
-const props = defineProps<DialogContentImplProps>();
-const emits = defineEmits<DialogContentImplEmits>();
+export interface DialogContentProps extends DialogContentImplProps {}
+export interface DialogContentEmits extends DialogContentImplEmits {}
+
+const props = defineProps<DialogContentProps>();
+const emits = defineEmits<DialogContentEmits>();
 </script>
 
 <template>

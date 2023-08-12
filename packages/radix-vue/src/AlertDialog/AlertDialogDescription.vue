@@ -1,18 +1,11 @@
 <script setup lang="ts">
-import { inject } from "vue";
-import { Primitive, type PrimitiveProps } from "@/Primitive";
-import { ALERT_DIALOG_INJECTION_KEY } from "./AlertDialogRoot.vue";
+import { DialogDescription, type DialogDescriptionProps } from "@/Dialog";
 
-export interface AlertDialogDescriptionProps extends PrimitiveProps {}
-const props = withDefaults(defineProps<AlertDialogDescriptionProps>(), {
-  as: "p",
-});
-
-const injectedValue = inject(ALERT_DIALOG_INJECTION_KEY);
+const props = defineProps<DialogDescriptionProps>();
 </script>
 
 <template>
-  <Primitive v-bind="props" :id="injectedValue?.descriptionId">
-    <slot />
-  </Primitive>
+  <DialogDescription v-bind="props">
+    <slot></slot>
+  </DialogDescription>
 </template>

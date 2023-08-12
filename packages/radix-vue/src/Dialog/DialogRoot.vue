@@ -7,6 +7,10 @@ export interface DialogRootProps {
   modal?: boolean;
 }
 
+export interface DialogRootEmits {
+  (e: "update:open", value: boolean): void;
+}
+
 export const DIALOG_INJECTION_KEY =
   Symbol() as InjectionKey<DialogProvideValue>;
 
@@ -35,9 +39,7 @@ const props = withDefaults(defineProps<DialogRootProps>(), {
   modal: true,
 });
 
-const emit = defineEmits<{
-  (e: "update:open", value: boolean): void;
-}>();
+const emit = defineEmits<DialogRootEmits>();
 
 const open = useVModel(props, "open", emit, {
   defaultValue: props.defaultOpen,

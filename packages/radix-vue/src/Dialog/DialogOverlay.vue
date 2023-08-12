@@ -5,7 +5,13 @@ import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { Presence } from "@/Presence";
 import { useBodyScrollLock } from "@/shared";
 
-export interface DialogOverlayProps extends PrimitiveProps {}
+export interface DialogOverlayProps extends PrimitiveProps {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling transntion with Vue native transition or other animation libraries.
+   */
+  forceMount?: boolean;
+}
 const props = defineProps<DialogOverlayProps>();
 
 const context = inject(DIALOG_INJECTION_KEY);
@@ -18,7 +24,7 @@ watch(
 </script>
 
 <template>
-  <Presence :present="context!.open.value">
+  <Presence :present="forceMount || context!.open.value">
     <Primitive
       v-bind="{ ...props, ...$attrs }"
       :data-state="context?.open.value ? 'open' : 'closed'"

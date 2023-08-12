@@ -114,8 +114,8 @@ export default {
       animation: {
         overlayShow: "overlayShow 300ms cubic-bezier(0.16, 1, 0.3, 1)",
         overlayHide: "overlayHide 300ms cubic-bezier(0.16, 1, 0.3, 1)",
-        contentShow: "contentShow 500ms cubic-bezier(0.16, 1, 0.3, 1)",
-        contentHide: "contentHide 500ms cubic-bezier(0.16, 1, 0.3, 1)",
+        contentShow: "contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
+        contentHide: "contentHide 150ms cubic-bezier(0.16, 1, 0.3, 1)",
         slideDownAndFade: "slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
         slideLeftAndFade: "slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
         slideUpAndFade: "slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",

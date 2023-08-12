@@ -29,9 +29,13 @@ function handleEvent() {
           Edit profile
         </DialogTrigger>
         <DialogPortal>
-          <DialogOverlay
-            class="bg-blackA9 data-[state=open]:animate-overlayShow data-[state=closed]:animate-overlayHide fixed inset-0"
-          />
+          <Transition name="fade">
+            <DialogOverlay
+              v-if="dialogOpen"
+              force-mount
+              class="bg-blackA9 fixed inset-0"
+            />
+          </Transition>
           <DialogContent
             :isEscapeKeyDownDefault="true"
             @escapeKeyDown="handleEvent"
@@ -92,3 +96,15 @@ function handleEvent() {
     </Variant>
   </Story>
 </template>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

@@ -11,6 +11,11 @@ import { getOpenState } from "@/Menu/utils";
 
 export interface DialogContentImplProps extends DismissableLayerProps {
   /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling transntion with Vue native transition or other animation libraries.
+   */
+  forceMount?: boolean;
+  /**
    * When `true`, focus cannot escape the `Content` via keyboard,
    * pointer, or a programmatic focus.
    * @defaultValue false

@@ -13,10 +13,13 @@ import {
   type DialogContentProps,
   type DialogContentEmits,
 } from "@/Dialog";
-import { provide, type InjectionKey, type Ref, ref, nextTick } from "vue";
+import { useEmitAsProps } from "@/shared";
+import { provide, type InjectionKey, ref, nextTick } from "vue";
 
 const props = defineProps<DialogContentProps>();
-defineEmits<DialogContentEmits>();
+const emits = defineEmits<DialogContentEmits>();
+
+const emitsAsProps = useEmitAsProps(emits);
 
 const cancelElement = ref<HTMLElement | undefined>();
 
@@ -29,7 +32,7 @@ provide(ALERT_DIALOG_CONTENT_INJECTION_KEY, {
 
 <template>
   <DialogContent
-    v-bind="props"
+    v-bind="{ ...props, ...emitsAsProps }"
     role="alertdialog"
     @pointer-down-outside.prevent
     @interact-outside.prevent

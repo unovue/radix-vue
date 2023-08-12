@@ -12,7 +12,7 @@ import {
 } from "./";
 import { Icon } from "@iconify/vue";
 
-const dialogOpen = ref(false);
+const dialogOpen = ref(true);
 
 function handleEvent() {
   // alert("event initiated!");

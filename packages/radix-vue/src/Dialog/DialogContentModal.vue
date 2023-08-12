@@ -5,12 +5,14 @@ import DialogContentImpl, {
   type DialogContentImplProps,
   type DialogContentImplEmits,
 } from "./DialogContentImpl.vue";
+import { useEmitAsProps } from "@/shared";
 
 const props = defineProps<DialogContentImplProps>();
 const emits = defineEmits<DialogContentImplEmits>();
 
 const context = inject(DIALOG_INJECTION_KEY);
 
+const emitsAsProps = useEmitAsProps(emits);
 // TODO: Accessbiliy (3/3)
 // aria-hide everything except the content (better supported equivalent to setting aria-modal)
 //  React.useEffect(() => {
@@ -21,7 +23,7 @@ const context = inject(DIALOG_INJECTION_KEY);
 
 <template>
   <DialogContentImpl
-    v-bind="props"
+    v-bind="{ ...props, ...emitsAsProps }"
     :trap-focus="context?.open.value"
     :disable-outside-pointer-events="true"
     @close-auto-focus="

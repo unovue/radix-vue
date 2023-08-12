@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import {
   AlertDialogAction,
   AlertDialogCancel,
@@ -10,12 +11,14 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./";
+
+const isOpen = ref(true);
 </script>
 
 <template>
   <Story title="Alert Dialog" :layout="{ type: 'single', iframe: true }">
     <Variant title="default">
-      <AlertDialogRoot>
+      <AlertDialogRoot v-model:open="isOpen">
         <AlertDialogTrigger
           class="text-violet11 hover:bg-mauve3 shadow-blackA7 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
         >

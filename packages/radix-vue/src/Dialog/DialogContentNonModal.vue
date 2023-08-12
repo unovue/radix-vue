@@ -5,9 +5,12 @@ import DialogContentImpl, {
   type DialogContentImplProps,
   type DialogContentImplEmits,
 } from "./DialogContentImpl.vue";
+import { useEmitAsProps } from "@/shared";
 
 const props = defineProps<DialogContentImplProps>();
 const emits = defineEmits<DialogContentImplEmits>();
+
+const emitsAsProps = useEmitAsProps(emits);
 
 const context = inject(DIALOG_INJECTION_KEY);
 const hasInteractedOutsideRef = ref(false);
@@ -16,7 +19,7 @@ const hasPointerDownOutsideRef = ref(false);
 
 <template>
   <DialogContentImpl
-    v-bind="props"
+    v-bind="{ ...props, ...emitsAsProps }"
     :trap-focus="false"
     :disable-outside-pointer-events="false"
     @close-auto-focus="

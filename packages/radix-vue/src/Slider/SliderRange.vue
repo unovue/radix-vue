@@ -15,14 +15,19 @@ const sliderRangeStyle = computed(() => {
   if (injectedValue) {
     const style: Record<string, string | number> = {};
 
+    const minValue = injectedValue.min;
+    const maxValue = injectedValue.max;
+    const modelValue = injectedValue.modelValue?.value ?? 0;
+
+    // Calculate the percentage value based on min, max, and modelValue
+    const percentage = ((modelValue - minValue) / (maxValue - minValue)) * 100;
+
     if (injectedValue.reversed?.value) {
-      style.left = `${100 - (injectedValue.modelValue?.value ?? 0)}%`;
+      style.left = `${100 - percentage}%`;
       style.right = 0;
     } else {
-      const max = injectedValue.max ?? 100;
-      const modelValue = injectedValue.modelValue?.value ?? 0;
       style.left = 0;
-      style.right = `${max - modelValue}%`;
+      style.right = `${100 - percentage}%`;
     }
 
     return style;

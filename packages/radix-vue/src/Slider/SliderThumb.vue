@@ -78,10 +78,17 @@ const thumbStyle = computed(() => {
       position: "absolute",
     };
 
+    const minValue = injectedValue.min;
+    const maxValue = injectedValue.max;
+    const modelValue = injectedValue.modelValue?.value ?? 0;
+
+    // Calculate the percentage value based on min, max, and modelValue
+    const percentage = ((modelValue - minValue) / (maxValue - minValue)) * 100;
+
     if (injectedValue.reversed?.value) {
-      style.left = `${100 - (injectedValue.modelValue?.value ?? 0)}%`;
+      style.left = `${100 - percentage}%`;
     } else {
-      style.left = `${injectedValue.modelValue?.value ?? 0}%`;
+      style.left = `${percentage}%`;
     }
 
     return style;

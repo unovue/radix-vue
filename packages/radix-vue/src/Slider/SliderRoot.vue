@@ -100,6 +100,30 @@ provide<SliderProvideValue>(SLIDER_INJECTION_KEY, {
   disabled: props.disabled,
 });
 
+function convertToClosestStep(number: number, step: number) {
+  const quotient = Math.floor(number / step);
+  const remainder = number % step;
+
+  const roundedValue =
+    remainder <= step / 2 ? quotient * step : (quotient + 1) * step;
+
+  return clamp(roundedValue, props.min, props.max);
+}
+
+function calculateModelValueFromPosition(position: number) {
+  const range = props.max - props.min;
+  let newValue = position * range;
+
+  if (reversed.value) {
+    newValue = props.max - newValue;
+  }
+
+  newValue = clamp(newValue + (reversed.value ? 0 : props.min), props.min, props.max);
+  newValue = convertToClosestStep(newValue, props.step);
+
+  return newValue;
+}
+
 function updateModelValue(value: number) {
   emits("update:modelValue", convertToClosestStep(value, props.step));
 }
@@ -129,6 +153,7 @@ function changeValue(e: MouseEvent) {
   if (thumbElement.value) {
     thumbElement.value.focus();
   }
+
   e.preventDefault();
 
   const sliderElement = rootSliderElement.value;
@@ -137,20 +162,16 @@ function changeValue(e: MouseEvent) {
   }
 
   rootSliderRect = sliderElement.getBoundingClientRect();
-  const pointerPositionX = e.clientX - 10 - thumbOffset.value;
+  const pointerPositionX =
+    e.clientX - (thumbElement.value?.offsetWidth ?? 0) / 2 - thumbOffset.value;
 
   const sliderRelativePosition = calculateSliderRelativePosition(
     pointerPositionX,
     rootSliderRect
   );
 
-  if (reversed.value) {
-    const newModelValue = Math.round((1 - sliderRelativePosition) * 100);
-    updateModelValue(newModelValue);
-  } else {
-    const newModelValue = Math.round(sliderRelativePosition * 100);
-    updateModelValue(newModelValue);
-  }
+  const newModelValue = calculateModelValueFromPosition(sliderRelativePosition);
+  updateModelValue(newModelValue);
 
   document.addEventListener("pointermove", pointermove);
   document.addEventListener("pointerup", pointerup);
@@ -161,39 +182,21 @@ const pointermove = (e: PointerEvent) => {
     return;
   }
 
-  if (thumbElement.value) {
-    thumbElement.value.focus();
-  }
-
-  const pointerPositionX = e.clientX - 10 - thumbOffset.value;
+  const pointerPositionX =
+    e.clientX - (thumbElement.value?.offsetWidth ?? 0) / 2 - thumbOffset.value;
   const sliderRelativePosition = calculateSliderRelativePosition(
     pointerPositionX,
     rootSliderRect
   );
 
-  if (reversed.value) {
-    const newModelValue = Math.round((1 - sliderRelativePosition) * 100);
-    updateModelValue(newModelValue);
-  } else {
-    const newModelValue = Math.round(sliderRelativePosition * 100);
-    updateModelValue(newModelValue);
-  }
+  const newModelValue = calculateModelValueFromPosition(sliderRelativePosition);
+  updateModelValue(newModelValue);
 };
 
 const pointerup = () => {
   document.removeEventListener("pointermove", pointermove);
   document.removeEventListener("pointerup", pointerup);
 };
-
-function convertToClosestStep(number: number, step: number) {
-  const quotient = Math.floor(number / step);
-  const remainder = number % step;
-
-  const roundedValue =
-    remainder <= step / 2 ? quotient * step : (quotient + 1) * step;
-
-  return clamp(roundedValue, props.min, props.max);
-}
 </script>
 
 <template>

@@ -69,10 +69,6 @@ const dataState = computed(() =>
   open.value ? AccordionItemState.Open : AccordionItemState.Closed
 );
 
-watch(dataState, () => {
-  console.log("run");
-});
-
 const { primitiveElement, currentElement } = usePrimitiveElement();
 
 provide<AccordionItemProvideValue>(ACCORDION_ITEM_INJECTION_KEY, {

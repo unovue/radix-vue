@@ -2,6 +2,7 @@
 import { Icon } from "@iconify/vue";
 import { ref } from "vue";
 import {
+  ContextMenuArrow,
   ContextMenuCheckboxItem,
   ContextMenuContent,
   ContextMenuItem,
@@ -18,7 +19,6 @@ import {
   ContextMenuTrigger,
 } from "./";
 
-const toggleState = ref(false);
 const checkboxOne = ref(false);
 const checkboxTwo = ref(false);
 const person = ref("pedro");
@@ -29,9 +29,9 @@ function handleClick() {
 </script>
 
 <template>
-  <Story title="Context Menu" :layout="{ type: 'single', iframe: true }">
+  <Story title="Context Menu" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
-      <ContextMenuRoot v-model="toggleState">
+      <ContextMenuRoot :modal="true">
         <ContextMenuTrigger
           class="block border-2 border-white border-dashed text-white rounded text-[15px] select-none py-[45px] w-[300px] text-center"
         >
@@ -99,6 +99,8 @@ function handleClick() {
                   >
                     Developer Tools
                   </ContextMenuItem>
+
+                  <ContextMenuArrow class="fill-white" />
                 </ContextMenuSubContent>
               </ContextMenuPortal>
             </ContextMenuSub>
@@ -277,7 +279,8 @@ function handleClick() {
             </ContextMenuSub>
             <ContextMenuSeparator class="h-[1px] bg-violet6 m-[5px]" />
             <ContextMenuCheckboxItem
-              v-model="checkboxOne"
+              v-model:checked="checkboxOne"
+              @select.prevent
               class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
             >
               <ContextMenuItemIndicator
@@ -293,7 +296,8 @@ function handleClick() {
               </div>
             </ContextMenuCheckboxItem>
             <ContextMenuCheckboxItem
-              v-model="checkboxTwo"
+              v-model:checked="checkboxTwo"
+              @select.prevent
               class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
             >
               <ContextMenuItemIndicator
@@ -334,7 +338,6 @@ function handleClick() {
                 Colm Tuite
               </ContextMenuRadioItem>
             </ContextMenuRadioGroup>
-            <ContextMenuArrow class="fill-white" />
           </ContextMenuContent>
         </ContextMenuPortal>
       </ContextMenuRoot>

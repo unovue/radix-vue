@@ -37,6 +37,7 @@ import {
               This action cannot be undone. This will permanently delete your
               account and remove your data from our servers.
             </AlertDialogDescription>
+            <button>hihi</button>
             <div class="flex justify-end gap-[25px]">
               <AlertDialogCancel
                 class="text-mauve11 bg-mauve4 hover:bg-mauve5 focus:shadow-mauve7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px]"

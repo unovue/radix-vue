@@ -23,6 +23,7 @@ const emits = defineEmits<DialogContentEmits>();
     <DialogContentModal
       v-if="context?.modal.value"
       v-bind="{ ...props, ...$attrs }"
+      @open-auto-focus="emits('openAutoFocus', $event)"
     >
       <slot></slot>
     </DialogContentModal>

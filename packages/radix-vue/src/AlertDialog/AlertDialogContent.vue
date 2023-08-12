@@ -1,6 +1,6 @@
 <script lang="ts">
 type AlertDialogContentContextValue = {
-  cancelElement: Ref<HTMLElement | undefined>;
+  onCancelElementChange(el: HTMLElement | undefined): void;
 };
 
 export const ALERT_DIALOG_CONTENT_INJECTION_KEY =
@@ -13,7 +13,7 @@ import {
   type DialogContentProps,
   type DialogContentEmits,
 } from "@/Dialog";
-import { provide, type InjectionKey, type Ref, ref } from "vue";
+import { provide, type InjectionKey, type Ref, ref, nextTick } from "vue";
 
 const props = defineProps<DialogContentProps>();
 defineEmits<DialogContentEmits>();
@@ -21,7 +21,9 @@ defineEmits<DialogContentEmits>();
 const cancelElement = ref<HTMLElement | undefined>();
 
 provide(ALERT_DIALOG_CONTENT_INJECTION_KEY, {
-  cancelElement,
+  onCancelElementChange: (el) => {
+    cancelElement.value = el;
+  },
 });
 </script>
 
@@ -31,10 +33,12 @@ provide(ALERT_DIALOG_CONTENT_INJECTION_KEY, {
     role="alertdialog"
     @pointer-down-outside.prevent
     @interact-outside.prevent
-    @open-auto-focus.prevent="
+    @open-auto-focus="
       () => {
-        cancelElement?.focus({
-          preventScroll: true,
+        nextTick(() => {
+          cancelElement?.focus({
+            preventScroll: true,
+          });
         });
       }
     "

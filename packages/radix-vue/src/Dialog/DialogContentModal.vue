@@ -53,6 +53,7 @@ const context = inject(DIALOG_INJECTION_KEY);
         event.preventDefault();
       }
     "
+    @open-auto-focus="emits('openAutoFocus', $event)"
   >
     <slot></slot>
   </DialogContentImpl>

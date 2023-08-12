@@ -10,7 +10,7 @@ const { primitiveElement, currentElement } = usePrimitiveElement();
 const props = defineProps<DialogCloseProps>();
 
 onMounted(() => {
-  contentContext!.cancelElement = currentElement;
+  contentContext!.onCancelElementChange(currentElement.value);
 });
 </script>
 

@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PopperContentProps } from "@/Popper";
+import type { PrimitiveProps } from "@/Primitive";
 
 export interface PopoverContentProps
   extends PrimitiveProps,
@@ -15,81 +16,48 @@ export interface PopoverContentProps
     | "arrowPadding"
     | "sticky"
     | "hideWhenDetached"
-  > {
-  /**
-   * Whether or not prevent default be called on the pointerDownOutside event.
-   *
-   * @default true
-   */
-  onOpenAutoFocus?: MaybeRef<boolean>;
-
-  /**
-   * Whether or not prevent default be called on the focusOutside event.
-   */
-  onCloseAutoFocus?: MaybeRef<boolean>;
-
-  /**
-   * Whether or not prevent default be called on the escapeKeyDown event.
-   */
-  onEscapeKeyDown?: MaybeRef<boolean>;
-
-  /**
-   * Whether or not prevent default be called on the pointerDownOutside event.
-   */
-  onPointerDownOutside?: MaybeRef<boolean>;
-
-  /**
-   * Whether or not prevent default be called on the focusOutside event.
-   */
-  onInteractOutside?: MaybeRef<boolean>;
-}
+  > { }
 
 export interface PopoverContentEmit {
   /**
    * Event handler called when focus moves into the component after opening.
    */
-  (e: "openAutoFocus", event: Event): void;
+  (e: "open"): void;
 
   /**
    * Event handler called when focus moves to the trigger after closing.
    */
-  (e: "closeAutoFocus", event: Event): void;
+  (e: "close"): void;
 
   /**
    * Event handler called when the escape key is down.
    */
-  (e: "escapeKeyDown", event: KeyboardEvent): void;
+  (e: "escape-key-down", event: KeyboardEvent): void;
 
   /**
    * Event handler called when a pointer event occurs outside the bounds of the component.
    */
-  (e: "pointerDownOutside", event: PointerEvent): void;
+  (e: "pointer-down-outside", event: PointerEvent): void;
 
   /**
    * Event handler called when focus moves outside the bounds of the component.
    */
-  (e: "focusOutside", event: Event): void;
-
-  /**
-   * Event handler called when an interaction (pointer or focus event) happens outside the bounds of the component.
-   */
-  (e: "interactOutside", event: Event): void;
+  (e: "interact-outside", event: Event): void;
 }
 </script>
 
 <script setup lang="ts">
 import { PopperContent } from "@/Popper";
+import { Primitive, usePrimitiveElement } from "@/Primitive";
 import {
-  Primitive,
-  usePrimitiveElement,
-  type PrimitiveProps,
-} from "@/Primitive";
-import { trapFocus } from "@/shared";
-import { onClickOutside } from "@vueuse/core";
-import { inject, watch, watchEffect, type MaybeRef } from "vue";
+  useEventListener,
+  useFocusGuards,
+  useInjected,
+  useModalInteraction,
+} from "@/shared";
+import { useEmitCancelableEvent } from "@/shared/useEmitCancelableEvent";
+import { computed, onMounted } from "vue";
 import { POPOVER_INJECTION_KEY } from "./PopoverRoot.vue";
-
-const injectedValue = inject(POPOVER_INJECTION_KEY);
 
 const props = withDefaults(defineProps<PopoverContentProps>(), {
   asChild: false,
@@ -102,55 +70,58 @@ const props = withDefaults(defineProps<PopoverContentProps>(), {
   arrowPadding: 0,
   sticky: "partial",
   hideWhenDetached: false,
-  onOpenAutoFocus: true,
-  onCloseAutoFocus: false,
-  onEscapeKeyDown: false,
-  onPointerDownOutside: true,
-  onInteractOutside: false,
 });
 
-const { primitiveElement, currentElement: popoverContentElement } =
-  usePrimitiveElement();
+const { primitiveElement } = usePrimitiveElement();
 
-watchEffect(() => {
-  if (!props.onOpenAutoFocus) return;
-
-  if (popoverContentElement.value && injectedValue?.open.value) {
-    trapFocus(popoverContentElement.value!);
-  } else if (injectedValue?.triggerElement.value) {
-    injectedValue?.triggerElement.value.focus();
-  }
-});
+const { open, triggerElement, hidePopover, dataState, contentId } = useInjected(
+  POPOVER_INJECTION_KEY
+);
 
 const emit = defineEmits<PopoverContentEmit>();
 
-let onClickOutsideCleanup: (() => void) | undefined;
+useModalInteraction(primitiveElement, { open, triggerElement }, emit);
 
-watch(
-  () => props.onPointerDownOutside,
-  () => {
-    if (props.onPointerDownOutside) {
-      onClickOutsideCleanup = onClickOutside(popoverContentElement, (e) => {
-        emit("pointerDownOutside", e);
-      });
-    } else {
-      onClickOutsideCleanup?.();
-    }
+const disabled = computed(() => !open.value);
+
+useEventListener(
+  document.documentElement,
+  "click",
+  (e) => {
+    useEmitCancelableEvent(emit, "pointer-down-outside", hidePopover, e);
+    useEmitCancelableEvent(emit, "interact-outside", hidePopover, e);
   },
-  {
-    immediate: true,
-    flush: "post",
-  }
+  { disabled, exclude: [primitiveElement, triggerElement] }
 );
 
-function onEscapeKeyDownFn(event: KeyboardEvent) {
-  injectedValue?.hidePopover();
-  emit("escapeKeyDown", event);
-}
+useEventListener(
+  document.documentElement,
+  "focus",
+  (e) => {
+    console.log("focus");
+    useEmitCancelableEvent(emit, "interact-outside", hidePopover, e);
+  },
+  { disabled, exclude: [primitiveElement, triggerElement] }
+);
+
+useEventListener(
+  document.documentElement,
+  "keydown",
+  (e) => {
+    if (e.key !== "Escape") return;
+    useEmitCancelableEvent(emit, "escape-key-down", hidePopover, e);
+  },
+  { disabled }
+);
+
+onMounted(() => useFocusGuards());
 </script>
 
 <template>
-  <PopperContent v-if="injectedValue?.open.value" ref="primitiveElement" v-bind="props" style="
+  <PopperContent v-if="open" ref="primitiveElement" :side="props.side" :sideOffset="props.sideOffset" :align="props.align"
+    :alignOffset="props.alignOffset" :avoidCollisions="props.avoidCollisions" :collisionBoundary="props.collisionBoundary"
+    :collisionPadding="props.collisionPadding" :arrowPadding="props.arrowPadding" :sticky="props.sticky"
+    :hideWhenDetached="props.hideWhenDetached" style="
       --radix-popover-content-transform-origin: var(
         --radix-popper-transform-origin
       );
@@ -162,9 +133,10 @@ function onEscapeKeyDownFn(event: KeyboardEvent) {
       );
       --radix-popover-trigger-width: var(--radix-popper-anchor-width);
       --radix-popover-trigger-height: var(--radix-popper-anchor-height);
-    " @keydown.esc="props.onEscapeKeyDown && onEscapeKeyDownFn($event)">
-    <Primitive :data-state="injectedValue?.dataState.value" :data-side="props.side" :data-align="props.align"
-      :as-child="props.asChild" role="tooltip" tabindex="-1" :id="injectedValue?.contentId" :as="props.as">
+    ">
+    <Primitive :data-state="dataState" :data-side="props.side" :data-align="props.align" :as-child="props.asChild"
+      role="tooltip" tabindex="-1" :id="contentId" :as="props.as">
+      >>>>>>> ce75f2a ([ModalComposables]: Added composables for modals)
       <slot />
     </Primitive>
   </PopperContent>

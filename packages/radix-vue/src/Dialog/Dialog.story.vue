@@ -12,30 +12,34 @@ import {
 } from "./";
 import { Icon } from "@iconify/vue";
 
-const dialogOpen = ref(false);
+const dialogOpen = ref(true);
 
 function handleEvent() {
-  alert("event initiated!");
+  // alert("event initiated!");
 }
 </script>
 
 <template>
-  <Story title="Dialog" :layout="{ type: 'single', iframe: true }">
+  <Story title="Dialog" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
-      <DialogRoot v-model:open="dialogOpen" :modal="false">
+      <DialogRoot v-model:open="dialogOpen" :modal="true">
         <DialogTrigger
           class="text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none"
         >
           Edit profile
         </DialogTrigger>
         <DialogPortal>
-          <DialogOverlay
-            class="bg-blackA9 data-[state=open]:animate-overlayShow fixed inset-0"
-          />
+          <Transition name="fade">
+            <DialogOverlay
+              v-if="dialogOpen"
+              force-mount
+              class="bg-blackA9 fixed inset-0"
+            />
+          </Transition>
           <DialogContent
             :isEscapeKeyDownDefault="true"
             @escapeKeyDown="handleEvent"
-            class="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none"
+            class="data-[state=open]:animate-contentShow data-[state=closed]:animate-contentHide fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none"
           >
             <DialogTitle class="text-mauve12 m-0 text-[17px] font-medium">
               Edit profile
@@ -92,3 +96,15 @@ function handleEvent() {
     </Variant>
   </Story>
 </template>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

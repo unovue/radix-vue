@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { BasePortal, type BasePortalProps } from "@/shared/component";
-
-export interface DialogPortalProps extends BasePortalProps {}
-
-const props = defineProps<DialogPortalProps>();
+export interface DialogPortalProps {
+  to?: string | HTMLElement;
+  disabled?: boolean;
+}
+const props = withDefaults(defineProps<DialogPortalProps>(), {
+  to: "body",
+});
 </script>
 
 <template>
-  <BasePortal v-bind="props">
-    <slot />
-  </BasePortal>
+  <Teleport v-bind="props">
+    <slot></slot>
+  </Teleport>
 </template>

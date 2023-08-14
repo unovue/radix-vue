@@ -8,9 +8,9 @@ import Card from "./components/Card.vue";
       <Card>
         <AccordionDemo />
       </Card>
-      <!-- <Card>
+      <Card>
         <AlertDialogDemo />
-      </Card> -->
+      </Card>
       <Card>
         <AspectRatioDemo />
       </Card>
@@ -32,9 +32,9 @@ import Card from "./components/Card.vue";
       <Card class="col-span-2">
         <ContextMenuDemo />
       </Card>
-      <!-- <Card class="col-span-2">
+      <Card class="col-span-2">
         <DialogDemo />
-      </Card> -->
+      </Card>
       <Card>
         <DropdownMenuDemo />
       </Card>

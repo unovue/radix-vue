@@ -4,7 +4,7 @@ import {
   createGlobalState,
 } from "@vueuse/core";
 import { isClient } from "@vueuse/shared";
-import { computed, onBeforeUnmount, ref } from "vue";
+import { computed, nextTick, onBeforeUnmount, ref } from "vue";
 
 const useBodyLockStackCount = createGlobalState(() => ref(0));
 
@@ -27,8 +27,11 @@ export const useBodyScrollLock = (initialState?: boolean | undefined) => {
           document.body.style.paddingRight = verticalScrollbarWidth + "px";
         }
 
-        document.body.style.pointerEvents = "none";
-        locked.value = true;
+        // let dismissibleLayer set previous pointerEvent first
+        nextTick(() => {
+          document.body.style.pointerEvents = "none";
+          locked.value = true;
+        });
       } else {
         document.body.style.paddingRight = "";
         document.body.style.pointerEvents = "";

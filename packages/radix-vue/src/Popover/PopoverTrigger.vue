@@ -1,5 +1,5 @@
 <script lang="ts">
-export interface PopoverTriggerProps extends PrimitiveProps {}
+export interface PopoverTriggerProps extends PrimitiveProps { }
 </script>
 
 <script setup lang="ts">
@@ -39,15 +39,9 @@ function handleClick() {
 
 <template>
   <PopperAnchor asChild>
-    <Primitive
-      :as="as"
-      :type="as === 'button' ? 'button' : undefined"
-      ref="primitiveElement"
-      :aria-expanded="injectedValue?.open.value || false"
-      :data-state="injectedValue?.open.value ? 'open' : 'closed'"
-      :as-child="props.asChild"
-      @click="handleClick"
-    >
+    <Primitive type="button" ref="primitiveElement" :as="props.as" :aria-expanded="injectedValue?.open.value || false"
+      :aria-controls="injectedValue?.contentId" aria-haspopup="dialog" :data-state="injectedValue?.dataState.value"
+      :as-child="props.asChild" @click="handleClick">
       <slot />
     </Primitive>
   </PopperAnchor>

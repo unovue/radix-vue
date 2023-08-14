@@ -1,37 +1,15 @@
 <script lang="ts">
-export interface TooltipArrowProps extends PrimitiveProps {
-  /**
-   * The width of the arrow in pixels.
-   *
-   * @default 10
-   */
-  width?: number;
+import type { PopperArrowProps } from "@/Popper/PopperArrow.vue";
 
-  /**
-   * The height of the arrow in pixels.
-   *
-   * @default 5
-   */
-  height?: number;
-}
+export interface TooltipArrowProps extends PopperArrowProps { }
 </script>
 
 <script setup lang="ts">
 import { PopperArrow } from "@/Popper";
-import type { PrimitiveProps } from "@/Primitive";
 
-const props = withDefaults(defineProps<TooltipArrowProps>(), {
-  asChild: false,
-  width: 10,
-  height: 5,
-});
+const props = defineProps<TooltipArrowProps>();
 </script>
 
 <template>
-  <PopperArrow
-    :as-child="props.asChild"
-    :as="as"
-    :height="props.height"
-    :width="props.width"
-  ></PopperArrow>
+  <PopperArrow :as-child="props.asChild" :as="props.as" :height="props.height" :width="props.width"></PopperArrow>
 </template>

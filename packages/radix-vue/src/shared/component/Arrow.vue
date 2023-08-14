@@ -1,6 +1,17 @@
 <script lang="ts">
 export interface ArrowProps extends PrimitiveProps {
+  /**
+   * The width of the arrow in pixels.
+   *
+   * @default 10
+   */
   width?: number;
+
+  /**
+   * The height of the arrow in pixels.
+   *
+   * @default 5
+   */
   height?: number;
 }
 </script>
@@ -21,14 +32,10 @@ const { primitiveElement } = usePrimitiveElement();
 </script>
 
 <template>
-  <Primitive
-    ref="primitiveElement"
-    v-bind="props"
-    :width="width"
-    :height="height"
-    viewBox="0 0 30 10"
-    preserveAspectRatio="none"
-  >
-    <slot><polygon points="0,0 30,0 15,10" /></slot>
+  <Primitive ref="primitiveElement" v-bind="props" :width="width" :height="height" viewBox="0 0 30 10"
+    preserveAspectRatio="none">
+    <slot>
+      <polygon points="0,0 30,0 15,10" />
+    </slot>
   </Primitive>
 </template>

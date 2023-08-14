@@ -1,10 +1,25 @@
 <script lang="ts">
-import type { Ref, InjectionKey } from "vue";
+import type { Ref, InjectionKey, ComputedRef } from "vue";
+import { useId } from "@/shared";
+
+type PopoverState = "open" | "closed";
 
 export interface PopoverRootProps {
+  /**
+   * The open state of the popover when it is initially rendered. Use when you do not need to control its open state.
+   */
   defaultOpen?: boolean;
+
+  /**
+   * The controlled open state of the popover.
+   */
   open?: boolean;
-  //onOpenChange?: void;
+
+  /**
+   * The modality of the popover. When set to true, interaction with outside elements will be disabled and only popover content will be visible to screen readers.
+   *
+   * @default false
+   */
   modal?: boolean;
 }
 
@@ -16,11 +31,13 @@ export type PopoverProvideValue = {
   showPopover(): void;
   hidePopover(): void;
   triggerElement: Ref<HTMLElement | undefined>;
+  dataState: ComputedRef<PopoverState>;
+  contentId: string;
 };
 </script>
 
 <script setup lang="ts">
-import { provide, ref } from "vue";
+import { computed, provide, ref } from "vue";
 import { useVModel } from "@vueuse/core";
 import { PopperRoot } from "@/Popper";
 
@@ -50,6 +67,8 @@ provide<PopoverProvideValue>(POPOVER_INJECTION_KEY, {
     open.value = false;
   },
   triggerElement,
+  dataState: computed(() => (open.value ? "open" : "closed")),
+  contentId: useId(),
 });
 </script>
 

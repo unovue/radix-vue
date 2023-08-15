@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { Primitive } from "@/Primitive";
-import { inject, ref, watchEffect } from "vue";
+import { inject, onBeforeUnmount, ref, watchEffect } from "vue";
 import { SELECT_CONTENT_INJECTION_KEY } from "./SelectContentImpl.vue";
 import { useNewCollection } from "@/shared";
 
 export interface SelectScrollButtonImplEmits {
-  (e: "autoScroll"): void;
+  (e: "auto-scroll"): void;
 }
 
 const emits = defineEmits<SelectScrollButtonImplEmits>();
@@ -31,22 +31,22 @@ watchEffect(() => {
 
 const handlePointerDown = () => {
   if (autoScrollTimerRef.value === null) {
-    autoScrollTimerRef.value = window.setInterval(
-      () => emits("autoScroll"),
-      50
-    );
+    autoScrollTimerRef.value = window.setInterval(() => {
+      emits("auto-scroll");
+    }, 50);
   }
 };
 
 const handlePointerMove = () => {
   contentContext!.onItemLeave();
   if (autoScrollTimerRef.value === null) {
-    autoScrollTimerRef.value = window.setInterval(
-      () => emits("autoScroll"),
-      50
-    );
+    autoScrollTimerRef.value = window.setInterval(() => {
+      emits("auto-scroll");
+    }, 50);
   }
 };
+
+onBeforeUnmount(() => clearAutoScrollTimer());
 </script>
 
 <template>

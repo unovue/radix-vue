@@ -51,7 +51,10 @@ const isFocused = ref(false);
 const textValue = ref(props.textValue ?? "");
 const textId = useId();
 
-const handleSelect = () => {
+const handleSelect = async (ev?: PointerEvent) => {
+  await nextTick();
+  if (ev?.defaultPrevented) return;
+
   if (!disabled.value) {
     context!.onValueChange(props.value);
     context!.onOpenChange(false);

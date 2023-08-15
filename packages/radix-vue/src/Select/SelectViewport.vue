@@ -17,20 +17,17 @@ import {
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
-import {
-  onMounted,
-  type InjectionKey,
-  type Ref,
-  inject,
-  provide,
-  ref,
-} from "vue";
+import { onMounted, type InjectionKey, type Ref, inject, ref } from "vue";
 import { SELECT_CONTENT_INJECTION_KEY } from "./SelectContentImpl.vue";
 import { CONTENT_MARGIN } from "./utils";
-import { SELECT_INJECTION_KEY } from "./SelectRoot.vue";
 
 const props = defineProps<SelectViewportProps>();
 const contentContext = inject(SELECT_CONTENT_INJECTION_KEY);
+const viewportContext =
+  contentContext!.position === "item-aligned"
+    ? inject(SELECT_VIEWPORT_INJECTION_KEY)
+    : undefined;
+
 const { primitiveElement, currentElement } = usePrimitiveElement();
 
 onMounted(() => {
@@ -38,12 +35,11 @@ onMounted(() => {
 });
 
 const prevScrollTopRef = ref(0);
-const contentWrapper = ref<HTMLElement>();
-const shouldExpandOnScrollRef = ref(false);
 
 const handleScroll = (event: WheelEvent) => {
   const viewport = event.currentTarget as HTMLElement;
-  if (shouldExpandOnScrollRef.value && contentWrapper.value) {
+  const { shouldExpandOnScrollRef, contentWrapper } = viewportContext!;
+  if (shouldExpandOnScrollRef?.value && contentWrapper?.value) {
     const scrolledBy = Math.abs(prevScrollTopRef.value - viewport.scrollTop);
     if (scrolledBy > 0) {
       const availableHeight = window.innerHeight - CONTENT_MARGIN * 2;
@@ -67,14 +63,6 @@ const handleScroll = (event: WheelEvent) => {
   }
   prevScrollTopRef.value = viewport.scrollTop;
 };
-
-provide(SELECT_VIEWPORT_INJECTION_KEY, {
-  contentWrapper,
-  shouldExpandOnScrollRef,
-  onScrollButtonChange: (node) => {
-    console.log(node);
-  },
-});
 </script>
 
 <template>

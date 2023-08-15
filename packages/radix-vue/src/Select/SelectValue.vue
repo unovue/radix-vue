@@ -6,13 +6,13 @@ import {
 } from "@/Primitive";
 import { shouldShowPlaceholder } from "./utils";
 import { SELECT_INJECTION_KEY } from "./SelectRoot.vue";
-import { inject, onMounted } from "vue";
+import { inject, onMounted, useSlots } from "vue";
 
 interface SelectValueProps extends PrimitiveProps {
   placeholder?: string;
 }
 
-const props = withDefaults(defineProps<SelectValueProps>(), {
+withDefaults(defineProps<SelectValueProps>(), {
   as: "span",
   placeholder: "",
 });
@@ -23,7 +23,8 @@ const context = inject(SELECT_INJECTION_KEY);
 
 onMounted(() => {
   context!.valueElement = currentElement;
-  // context!.valueElementHasChildren // check slot has children or not
+  const hasChildren = !!useSlots()?.default?.();
+  context!.onValueElementHasChildrenChange(hasChildren);
 });
 </script>
 

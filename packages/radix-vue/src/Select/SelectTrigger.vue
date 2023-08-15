@@ -36,7 +36,8 @@ onMounted(() => {
 const { injectCollection } = useNewCollection();
 const collectionItems = injectCollection();
 
-const { handleTypeaheadSearch, resetTypeahead } = useTypeahead(collectionItems);
+const { search, handleTypeaheadSearch, resetTypeahead } =
+  useTypeahead(collectionItems);
 const handleOpen = () => {
   if (!isDisabled.value) {
     context!.onOpenChange(true);
@@ -65,9 +66,7 @@ const handleOpen = () => {
       :as-child="asChild"
       :as="as"
       @click="
-        async (event: MouseEvent) => {
-          await nextTick();
-          if (event.defaultPrevented) return;
+        (event: MouseEvent) => {
           // Whilst browsers generally have no issue focusing the trigger when clicking
           // on a label, Safari seems to struggle with the fact that there's no `onClick`.
           // We force `focus` in this case. Note: this doesn't create any other side-effect
@@ -77,9 +76,7 @@ const handleOpen = () => {
         }
       "
       @pointerdown="
-        async (event: PointerEvent) => {
-          await nextTick();
-          if (event.defaultPrevented) return;
+          (event: PointerEvent) => {
           // prevent implicit pointer capture
           // https://www.w3.org/TR/pointerevents3/#implicit-pointer-capture
           const target = event.target as HTMLElement;
@@ -100,12 +97,14 @@ const handleOpen = () => {
           }
         }
       "
+      @pointerup.prevent
       @keydown="
         (event) => {
+          const isTypingAhead = search !== '';
           const isModifierKey = event.ctrlKey || event.altKey || event.metaKey;
           if (!isModifierKey && event.key.length === 1)
-            handleTypeaheadSearch(event.key);
-          if (event.key === ' ') return;
+            if (isTypingAhead && event.key === ' ') return;
+          handleTypeaheadSearch(event.key);
           if (OPEN_KEYS.includes(event.key)) {
             handleOpen();
             event.preventDefault();

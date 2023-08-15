@@ -64,11 +64,12 @@ const context = inject(SELECT_INJECTION_KEY);
 
 useFocusGuards();
 useBodyScrollLock(true);
-const { injectCollection } = useNewCollection();
-const collectionItems = injectCollection();
-const { search, handleTypeaheadSearch } = useTypeahead(collectionItems);
+const { createCollection } = useNewCollection();
 
 const content = ref<HTMLElement>();
+const collectionItems = createCollection(content);
+const { search, handleTypeaheadSearch } = useTypeahead(collectionItems);
+
 const viewport = ref<HTMLElement>();
 const selectedItem = ref<HTMLElement>();
 const selectedItemText = ref<HTMLElement>();
@@ -137,14 +138,13 @@ watchEffect((cleanupFn) => {
 });
 
 watchEffect((cleanupFn) => {
-  const close = () => onOpenChange(false);
-  window.addEventListener("blur", close);
-  window.addEventListener("resize", close);
-
-  cleanupFn(() => {
-    window.removeEventListener("blur", close);
-    window.removeEventListener("resize", close);
-  });
+  // const close = () => onOpenChange(false);
+  // window.addEventListener("blur", close);
+  // window.addEventListener("resize", close);
+  // cleanupFn(() => {
+  //   window.removeEventListener("blur", close);
+  //   window.removeEventListener("resize", close);
+  // });
 });
 
 const handleKeyDown = (event: KeyboardEvent) => {
@@ -217,6 +217,7 @@ provide(SELECT_CONTENT_INJECTION_KEY, {
 
 <template>
   <FocusScope
+    asChild
     @mount-auto-focus.prevent
     @unmount-auto-focus.prevent="
       context?.triggerElement.value?.focus({ preventScroll: true })

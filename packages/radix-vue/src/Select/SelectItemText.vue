@@ -31,6 +31,10 @@ onMounted(() => {
     itemContext!.disabled.value
   );
 });
+
+defineOptions({
+  inheritAttrs: false,
+});
 </script>
 
 <template>

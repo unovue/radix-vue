@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref, InjectionKey, OptionHTMLAttributes } from "vue";
 import type { DataOrientation, Direction } from "../shared/types";
-import { useId, useNewCollection } from "@/shared";
+import { useId } from "@/shared";
 
 export interface SelectRootProps {
   open?: boolean;
@@ -63,8 +63,6 @@ const emits = defineEmits<{
   (e: "update:open", value: string): void;
 }>();
 
-const { createCollection } = useNewCollection();
-
 const modelValue = useVModel(props, "modelValue", emits, {
   defaultValue: props.defaultValue,
   passive: true,
@@ -75,15 +73,12 @@ const open = useVModel(props, "open", emits, {
   passive: true,
 });
 
-const contentElement = ref<HTMLElement>();
 const triggerElement = ref<HTMLElement>();
 const valueElement = ref<HTMLElement>();
 const triggerPointerDownPosRef = ref({
   x: 0,
   y: 0,
 });
-
-createCollection(contentElement);
 
 const { required, disabled, dir } = toRefs(props);
 provide<SelectProvideValue>(SELECT_INJECTION_KEY, {

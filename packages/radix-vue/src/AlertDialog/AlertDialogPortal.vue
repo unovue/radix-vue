@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import BasePortal from "@/shared/component/BasePortal.vue";
-import type { BasePortalProps } from "@/shared/component/BasePortal.vue";
+import { DialogPortal, type DialogPortalProps } from "@/Dialog";
 
-export interface AlertDialogPortalProps extends BasePortalProps {}
-
-const props = defineProps<AlertDialogPortalProps>();
+const props = defineProps<DialogPortalProps>();
 </script>
 
 <template>
-  <BasePortal v-bind="props">
-    <slot />
-  </BasePortal>
+  <DialogPortal v-bind="props">
+    <slot></slot>
+  </DialogPortal>
 </template>

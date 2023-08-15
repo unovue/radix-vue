@@ -28,6 +28,7 @@ export const useTypeahead = (collections: Ref<HTMLElement[]>) => {
   };
 
   return {
+    search,
     handleTypeaheadSearch,
     resetTypeahead,
   };

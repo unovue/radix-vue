@@ -20,7 +20,7 @@ const vegetables = ["Aubergine", "Broccoli", "Carrot", "Courgette", "Leek"];
 </script>
 
 <template>
-  <Story title="Select" :layout="{ type: 'single', iframe: true }">
+  <Story title="Select" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
       <SelectRoot v-model="fruit">
         <SelectTrigger
@@ -35,6 +35,7 @@ const vegetables = ["Aubergine", "Broccoli", "Carrot", "Courgette", "Leek"];
           <SelectContent
             class="w-[133px] bg-white rounded p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
             :side-offset="5"
+            :position="'popper'"
           >
             <SelectLabel class="px-[25px] text-xs leading-[25px] text-mauve11">
               Fruits

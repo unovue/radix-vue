@@ -1,97 +1,126 @@
 <script lang="ts">
-import type { Ref, InjectionKey } from "vue";
+import type { Ref, InjectionKey, OptionHTMLAttributes } from "vue";
 import type { DataOrientation, Direction } from "../shared/types";
+import { useId, useNewCollection } from "@/shared";
 
 export interface SelectRootProps {
   open?: boolean;
   defaultOpen?: boolean;
-  //onOpenChange?: void;
   defaultValue?: string;
-  modelValue?: string | string[];
-  multiple?: boolean;
+  modelValue?: string;
   orientation?: DataOrientation;
   dir?: Direction;
+  name?: string;
+  disabled?: boolean;
+  required?: boolean;
 }
 
 export const SELECT_INJECTION_KEY =
   Symbol() as InjectionKey<SelectProvideValue>;
 
 export type SelectProvideValue = {
-  selectedElement: Ref<HTMLElement | undefined>;
-  changeSelected: (value: HTMLElement) => void;
-  modelValue: Readonly<Ref<string | string[] | undefined>>;
-  changeModelValue: (value: string) => void;
-  isOpen: Readonly<Ref<boolean>>;
-  showTooltip(): void;
-  hideTooltip(): void;
   triggerElement: Ref<HTMLElement | undefined>;
-  itemsArray: HTMLElement[];
-  orientation: DataOrientation;
-  multiple?: boolean;
+  onTriggerChange(node: HTMLElement | undefined): void;
+  valueElement: Ref<HTMLElement | undefined>;
+  onValueElementChange(node: HTMLElement): void;
+  valueElementHasChildren: boolean;
+  onValueElementHasChildrenChange(hasChildren: boolean): void;
+  contentId: string;
+  modelValue?: Ref<string>;
+  onValueChange(value: string): void;
+  open: Ref<boolean>;
+  required?: Ref<boolean>;
+  onOpenChange(open: boolean): void;
+  dir: Ref<Direction>;
+  triggerPointerDownPosRef: Ref<{ x: number; y: number } | null>;
+  disabled?: Ref<boolean>;
 };
+
+export type SelectNativeOptionsContextValue = {
+  onNativeOptionAdd(option: OptionHTMLAttributes): void;
+  onNativeOptionRemove(option: OptionHTMLAttributes): void;
+};
+
+export const SELECT_NATIVE_OPTIONS_INJECTION_KEY =
+  Symbol() as InjectionKey<SelectNativeOptionsContextValue>;
 </script>
 
 <script setup lang="ts">
-import { provide, ref } from "vue";
+import { provide, ref, toRefs } from "vue";
 import { PopperRoot } from "@/Popper";
 import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<SelectRootProps>(), {
   orientation: "vertical",
   defaultValue: "",
+  modelValue: "",
+  open: false,
+  dir: "ltr",
 });
 
-const emit = defineEmits<{
-  (e: "update:modelValue", value: string | string[]): void;
+const emits = defineEmits<{
+  (e: "update:modelValue", value: string): void;
+  (e: "update:open", value: string): void;
 }>();
 
-const modelValue = useVModel(props, "modelValue", emit, {
+const { createCollection } = useNewCollection();
+
+const modelValue = useVModel(props, "modelValue", emits, {
   defaultValue: props.defaultValue,
+  passive: true,
 });
 
-const selectedElement = ref<HTMLElement>();
+const open = useVModel(props, "open", emits, {
+  defaultValue: props.defaultOpen,
+  passive: true,
+});
+
+const contentElement = ref<HTMLElement>();
 const triggerElement = ref<HTMLElement>();
-const isOpen = ref(false);
-
-provide<SelectProvideValue>(SELECT_INJECTION_KEY, {
-  selectedElement: selectedElement,
-  changeSelected: (value: HTMLElement) => {
-    selectedElement.value = value;
-    selectedElement.value!.focus();
-  },
-  modelValue,
-  changeModelValue: changeModelValue,
-  isOpen,
-  showTooltip: () => {
-    isOpen.value = true;
-  },
-  hideTooltip: () => {
-    isOpen.value = false;
-  },
-  triggerElement,
-  itemsArray: [],
-  orientation: props.orientation,
-  multiple: props.multiple,
+const valueElement = ref<HTMLElement>();
+const triggerPointerDownPosRef = ref({
+  x: 0,
+  y: 0,
 });
 
-function changeModelValue(value: string) {
-  if (props.multiple) {
-    let modelValueArray = [...(modelValue.value as string[])];
-    if (modelValueArray.includes(value)) {
-      let index = modelValueArray.findIndex((i) => i === value);
-      modelValueArray.splice(index, 1);
-    } else {
-      modelValueArray.push(value);
-    }
-    modelValue.value = modelValueArray;
-  } else {
+createCollection(contentElement);
+
+const { required, disabled, dir } = toRefs(props);
+provide<SelectProvideValue>(SELECT_INJECTION_KEY, {
+  triggerElement,
+  onTriggerChange: (node: HTMLElement | undefined) => {
+    triggerElement.value = node;
+  },
+  valueElement,
+  onValueElementChange: (node: HTMLElement | undefined) => {
+    valueElement.value = node;
+  },
+  valueElementHasChildren: false,
+  onValueElementHasChildrenChange: (hasChildren: boolean) => {},
+  contentId: useId(),
+  modelValue,
+  onValueChange: (value: string) => {
     modelValue.value = value;
-  }
-}
+  },
+  open,
+  required,
+  onOpenChange: (value: boolean) => {
+    open.value = value;
+  },
+  dir,
+  triggerPointerDownPosRef,
+  disabled,
+});
+
+// temporary ignore native options for accessbitlity (3/3)
+// provide(SELECT_NATIVE_OPTIONS_INJECTION_KEY, {
+// })
 </script>
 
 <template>
-  <PopperRoot>
+  <PopperRoot v-bind="$attrs">
     <slot />
+
+    <!-- BubbleSelect -->
   </PopperRoot>
 </template>

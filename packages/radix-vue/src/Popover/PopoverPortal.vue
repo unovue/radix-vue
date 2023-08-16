@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { BasePortalProps } from "@/shared/component/BasePortal.vue";
 
-export interface PopoverPortalProps extends BasePortalProps { }
+export interface PopoverPortalProps extends BasePortalProps {}
 </script>
 
 <script setup lang="ts">

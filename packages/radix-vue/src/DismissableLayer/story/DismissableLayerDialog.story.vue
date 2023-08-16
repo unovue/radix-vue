@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { nextTick, ref, watch } from "vue";
 import DummyDialog from "./_DummyDialog.vue";
 import DummyPopover from "./_DummyPopover.vue";
 
@@ -15,7 +14,7 @@ const handleAlert = () => {
   >
     <Variant title="Dialog (fully modal example)">
       <div class="h-[300vh]">
-        <ul class="list-disc ml-4">
+        <ul class="ml-4 list-disc">
           <li>✅ focus should move inside `Dialog` when mounted</li>
           <li>✅ focus should be trapped inside `Dialog`</li>
           <li>✅ scrolling outside `Dialog` should be disabled</li>
@@ -43,7 +42,7 @@ const handleAlert = () => {
 
     <Variant title="Popover (fully modal example)">
       <div class="h-[300vh]">
-        <ul class="list-disc ml-4">
+        <ul class="ml-4 list-disc">
           <li>✅ focus should move inside `Popover` when mounted</li>
           <li>✅ focus should be trapped inside `Popover`</li>
           <li>✅ scrolling outside `Popover` should be disabled</li>

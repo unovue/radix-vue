@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { PopperAnchorProps } from "@/Popper";
 
-export interface PopoverAnchorProps extends PopperAnchorProps { }
+export interface PopoverAnchorProps extends PopperAnchorProps {}
 </script>
 
 <script setup lang="ts">

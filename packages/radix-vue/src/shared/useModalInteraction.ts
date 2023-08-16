@@ -1,14 +1,7 @@
-import {
-  nextTick,
-  unref,
-  watch,
-  type MaybeRef,
-  type Ref,
-  VueElement,
-} from "vue";
+import { unrefElement, type MaybeRefOrGetter } from "@vueuse/core";
+import { nextTick, unref, watch, type MaybeRef, type Ref } from "vue";
 import { trapFocus } from "./trap-focus";
 import { useEmitCancelableEvent } from "./useEmitCancelableEvent";
-import { unrefElement, type MaybeRefOrGetter } from "@vueuse/core";
 
 type InjectedModalValue = {
   open: Ref<boolean>;

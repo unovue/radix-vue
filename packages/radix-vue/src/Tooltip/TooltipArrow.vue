@@ -11,5 +11,10 @@ const props = defineProps<TooltipArrowProps>();
 </script>
 
 <template>
-  <PopperArrow :as-child="props.asChild" :as="props.as" :height="props.height" :width="props.width"></PopperArrow>
+  <PopperArrow
+    :as-child="props.asChild"
+    :as="props.as"
+    :height="props.height"
+    :width="props.width"
+  ></PopperArrow>
 </template>

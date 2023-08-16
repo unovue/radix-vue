@@ -65,7 +65,7 @@ export function useEventListener<
     cleanups.push(register(el));
   }
 
-  let stopWatch: Function = () => { };
+  let stopWatch: Function = () => {};
 
   const stop = () => {
     stopWatch();

@@ -27,7 +27,6 @@ describe("useArrowNavigation", () => {
     const nextElement = useArrowNavigation(e, child1, parentElement, {
       arrowKeyOptions: "horizontal",
     });
-    console.log(nextElement);
     expect(nextElement).toStrictEqual(child2);
   });
 

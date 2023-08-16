@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { nextTick, ref, watch } from "vue";
-import DummyDialog from "./_DummyDialog.vue";
 import DummyPopover from "./_DummyPopover.vue";
 
 const handleAlert = () => {
@@ -15,7 +13,7 @@ const handleAlert = () => {
   >
     <Variant title="Dialog (fully modal example)">
       <div class="h-[300vh]">
-        <ul class="list-disc ml-4">
+        <ul class="ml-4 list-disc">
           <li>
             ✅ dismissing a `Popover` by pressing escape should only dismiss
             that given `Popover`, not its parents

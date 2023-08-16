@@ -9,7 +9,7 @@ import { SELECT_INJECTION_KEY } from "./SelectRoot.vue";
 import { useEmitAsProps } from "@/shared";
 
 interface SelectContentProps extends SelectContentImplProps {}
-interface SelectContentEmits extends SelectContentImplEmits {}
+type SelectContentEmits = SelectContentImplEmits;
 
 const context = inject(SELECT_INJECTION_KEY);
 

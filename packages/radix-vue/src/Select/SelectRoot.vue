@@ -137,7 +137,7 @@ provide(SELECT_NATIVE_OPTIONS_INJECTION_KEY, {
 </script>
 
 <template>
-  <PopperRoot v-bind="$attrs">
+  <PopperRoot>
     <slot />
 
     <BubbleSelect

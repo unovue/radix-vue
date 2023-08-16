@@ -125,6 +125,11 @@ export {
   SelectLabel,
   SelectGroup,
   SelectItem,
+  SelectItemText,
+  SelectValue,
+  SelectViewport,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
 } from "./Select";
 export {
   MenubarArrow,

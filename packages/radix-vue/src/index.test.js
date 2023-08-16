@@ -162,6 +162,11 @@ it("should expose the correct components", () => {
     "SelectLabel",
     "SelectGroup",
     "SelectItem",
+    "SelectItemText",
+    "SelectValue",
+    "SelectViewport",
+    "SelectScrollDownButton",
+    "SelectScrollUpButton",
 
     // Menubar
     "MenubarArrow",

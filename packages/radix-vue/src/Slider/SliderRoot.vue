@@ -131,18 +131,24 @@ function updateModelValue(value: number) {
 let rootSliderRect: DOMRect | undefined;
 
 function calculateSliderRelativePosition(
-  pointerPositionX: number,
+  pointerPosition: number,
   sliderRect: DOMRect
 ): number {
+  let sliderSize = sliderRect.width;
+  let sliderPosition = pointerPosition - sliderRect.left;
+
+  if (props.orientation === "vertical") {
+    sliderSize = sliderRect.height;
+    sliderPosition = pointerPosition - sliderRect.top;
+  }
+
   const isPointerInsideSlider =
-    pointerPositionX >= sliderRect.left &&
-    pointerPositionX <= sliderRect.left + sliderRect.width;
+    sliderPosition >= 0 && sliderPosition <= sliderSize;
 
   if (isPointerInsideSlider) {
-    const sliderRelativePosition =
-      (pointerPositionX - sliderRect.left) / sliderRect.width;
+    const sliderRelativePosition = sliderPosition / sliderSize;
     return sliderRelativePosition;
-  } else if (pointerPositionX <= sliderRect.left) {
+  } else if (sliderPosition <= 0) {
     return 0;
   } else {
     return 1;
@@ -162,11 +168,16 @@ function changeValue(e: MouseEvent) {
   }
 
   rootSliderRect = sliderElement.getBoundingClientRect();
-  const pointerPositionX =
-    e.clientX - (thumbElement.value?.offsetWidth ?? 0) / 2 - thumbOffset.value;
+
+  let pointerPosition = e.clientX;
+  if (props.orientation === "vertical") {
+    pointerPosition = e.clientY;
+  }
+
+  pointerPosition -= (thumbElement.value?.offsetWidth ?? 0) / 2 - thumbOffset.value;
 
   const sliderRelativePosition = calculateSliderRelativePosition(
-    pointerPositionX,
+    pointerPosition,
     rootSliderRect
   );
 
@@ -182,16 +193,21 @@ const pointermove = (e: PointerEvent) => {
     return;
   }
 
-  const pointerPositionX =
-    e.clientX - (thumbElement.value?.offsetWidth ?? 0) / 2 - thumbOffset.value;
+  let pointerPosition = e.clientX;
+  if (props.orientation === "vertical") {
+    pointerPosition = e.clientY;
+  }
+
+  pointerPosition -= (thumbElement.value?.offsetWidth ?? 0) / 2 - thumbOffset.value;
   const sliderRelativePosition = calculateSliderRelativePosition(
-    pointerPositionX,
+    pointerPosition,
     rootSliderRect
   );
 
   const newModelValue = calculateModelValueFromPosition(sliderRelativePosition);
   updateModelValue(newModelValue);
 };
+
 
 const pointerup = () => {
   document.removeEventListener("pointermove", pointermove);

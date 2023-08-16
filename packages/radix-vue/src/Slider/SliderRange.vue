@@ -12,29 +12,22 @@ const props = withDefaults(defineProps<SliderRangeProps>(), { as: "span" });
 const injectedValue = inject<SliderProvideValue>(SLIDER_INJECTION_KEY);
 
 const sliderRangeStyle = computed(() => {
-  if (injectedValue) {
-    const style: Record<string, string | number> = {};
-
-    const minValue = injectedValue.min;
-    const maxValue = injectedValue.max;
-    const modelValue = injectedValue.modelValue?.value ?? 0;
-
-    // Calculate the percentage value based on min, max, and modelValue
-    const percentage = ((modelValue - minValue) / (maxValue - minValue)) * 100;
-
-    if (injectedValue.reversed?.value) {
-      style.left = `${100 - percentage}%`;
-      style.right = 0;
-    } else {
-      style.left = 0;
-      style.right = `${100 - percentage}%`;
-    }
-
-    return style;
+  if (!injectedValue) {
+    return {};
   }
 
-  return {};
+  const { orientation, reversed, min, max, modelValue } = injectedValue;
+  const percentage = ((modelValue?.value ?? 0 - min) / (max - min)) * 100;
+
+  const style: Record<string, string | number> = {
+    position: "absolute",
+    [orientation === "vertical" ? "top" : "left"]: `${reversed?.value ? 100 - percentage : 0}%`,
+    [orientation === "vertical" ? "bottom" : "right"]: `${reversed?.value ? 0 : 100 - percentage}%`,
+  };
+
+  return style;
 });
+
 </script>
 
 <template>

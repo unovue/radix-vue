@@ -93,29 +93,25 @@ function handleKeydown(e: KeyboardEvent) {
 }
 
 const thumbStyle = computed(() => {
-  if (injectedValue) {
-    const style: Record<string, string | number> = {
-      transform: "translateX(-50%)",
-      position: "absolute",
-    };
-
-    const minValue = injectedValue.min;
-    const maxValue = injectedValue.max;
-    const modelValue = injectedValue.modelValue?.value ?? 0;
-
-    // Calculate the percentage value based on min, max, and modelValue
-    const percentage = ((modelValue - minValue) / (maxValue - minValue)) * 100;
-
-    if (injectedValue.reversed?.value) {
-      style.left = `${100 - percentage}%`;
-    } else {
-      style.left = `${percentage}%`;
-    }
-
-    return style;
+  if (!injectedValue) {
+    return {};
   }
 
-  return {};
+  const { orientation, reversed, min, max, modelValue } = injectedValue;
+  const style: Record<string, string | number> = {
+    position: "absolute",
+    transform: orientation === "vertical" ? "translateY(-50%)" : "translateX(-50%)",
+  };
+
+  const percentage = ((modelValue?.value ?? 0 - min) / (max - min)) * 100;
+
+  if (orientation === "vertical") {
+    style.top = `${reversed?.value ? 100 - percentage : percentage}%`;
+  } else {
+    style.left = `${reversed?.value ? 100 - percentage : percentage}%`;
+  }
+
+  return style;
 });
 </script>
 

@@ -56,7 +56,7 @@ const props = withDefaults(defineProps<SelectRootProps>(), {
   orientation: "vertical",
   defaultValue: "",
   modelValue: "",
-  open: false,
+  open: undefined,
   dir: "ltr",
 });
 

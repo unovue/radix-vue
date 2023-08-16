@@ -5,7 +5,7 @@ export interface SelectTriggerProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { computed, inject, nextTick, onMounted } from "vue";
+import { computed, inject, onMounted } from "vue";
 import {
   Primitive,
   usePrimitiveElement,
@@ -55,7 +55,7 @@ const handleOpen = () => {
       :type="as === 'button' ? 'button' : undefined"
       :aria-controls="context?.contentId"
       :aria-expanded="context?.open.value || false"
-      :aria-required="context?.required"
+      :aria-required="context?.required?.value"
       aria-autocomplete="none"
       :dir="context?.dir.value"
       :data-state="context?.open.value ? 'open' : 'closed'"

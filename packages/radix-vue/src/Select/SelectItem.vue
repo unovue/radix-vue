@@ -93,7 +93,7 @@ const handleKeyDown = async (event: KeyboardEvent) => {
 
 if (props.value === "") {
   throw new Error(
-    "A <Select.Item /> must have a value prop that is not an empty string. This is because the Select value can be set to an empty string to clear the selection and show the placeholder."
+    "A <SelectItem /> must have a value prop that is not an empty string. This is because the Select value can be set to an empty string to clear the selection and show the placeholder."
   );
 }
 
@@ -128,6 +128,8 @@ provide(SELECT_ITEM_INJECTION_KEY, {
     :aria-disabled="disabled || undefined"
     :data-disabled="disabled ? '' : undefined"
     :tabIndex="disabled ? undefined : -1"
+    :as="as"
+    :as-child="asChild"
     @focus="isFocused = true"
     @blur="isFocused = false"
     @pointerup="handleSelect"

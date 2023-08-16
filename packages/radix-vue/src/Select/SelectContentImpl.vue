@@ -28,6 +28,20 @@ export const SELECT_CONTENT_INJECTION_KEY =
 export interface SelectContentImplProps extends PopperContentProps {
   position?: "item-aligned" | "popper";
 }
+
+export interface SelectContentImplEmits {
+  (e: "closeAutoFocus", event: Event): void;
+  /**
+   * Event handler called when the escape key is down.
+   * Can be prevented.
+   */
+  (e: "escapeKeyDown", event: KeyboardEvent): void;
+  /**
+   * Event handler called when the a `pointerdown` event happens outside of the `DismissableLayer`.
+   * Can be prevented.
+   */
+  (e: "pointerDownOutside", event: PointerDownOutsideEvent): void;
+}
 </script>
 
 <script setup lang="ts">
@@ -40,6 +54,7 @@ import {
   watchEffect,
   provide,
   type ComponentPublicInstance,
+  computed,
 } from "vue";
 import { SELECT_INJECTION_KEY } from "./SelectRoot.vue";
 import {
@@ -49,7 +64,10 @@ import {
   useTypeahead,
 } from "@/shared";
 import { FocusScope } from "@/FocusScope";
-import { DismissableLayer } from "@/DismissableLayer";
+import {
+  DismissableLayer,
+  type PointerDownOutsideEvent,
+} from "@/DismissableLayer";
 import { focusFirst } from "@/Menu/utils";
 import type { PopperContentProps } from "@/Popper";
 import SelectItemAlignedPosition from "./SelectItemAlignedPosition.vue";
@@ -59,6 +77,7 @@ import { unrefElement } from "@vueuse/core";
 const props = withDefaults(defineProps<SelectContentImplProps>(), {
   position: "item-aligned",
 });
+const emits = defineEmits<SelectContentImplEmits>();
 
 const context = inject(SELECT_INJECTION_KEY);
 
@@ -80,6 +99,7 @@ const firstValidItemFoundRef = ref(false);
 // React.useEffect(() => {
 //   if (content) return hideOthers(content);
 // }, [content]);
+
 const focusSelectedItem = () => {
   if (selectedItem.value && content.value) {
     focusFirst([selectedItem.value, content.value]);
@@ -137,16 +157,6 @@ watchEffect((cleanupFn) => {
   });
 });
 
-watchEffect((cleanupFn) => {
-  // const close = () => onOpenChange(false);
-  // window.addEventListener("blur", close);
-  // window.addEventListener("resize", close);
-  // cleanupFn(() => {
-  //   window.removeEventListener("blur", close);
-  //   window.removeEventListener("resize", close);
-  // });
-});
-
 const handleKeyDown = (event: KeyboardEvent) => {
   const isModifierKey = event.ctrlKey || event.altKey || event.metaKey;
 
@@ -177,6 +187,11 @@ const handleKeyDown = (event: KeyboardEvent) => {
     event.preventDefault();
   }
 };
+
+const pickedProps = computed(() => {
+  if (props.position === "popper") return props;
+  else return {};
+});
 
 provide(SELECT_CONTENT_INJECTION_KEY, {
   content,
@@ -219,8 +234,13 @@ provide(SELECT_CONTENT_INJECTION_KEY, {
   <FocusScope
     asChild
     @mount-auto-focus.prevent
-    @unmount-auto-focus.prevent="
-      context?.triggerElement.value?.focus({ preventScroll: true })
+    @unmount-auto-focus="
+      (event) => {
+        emits('closeAutoFocus', event);
+        if (event.defaultPrevented) return;
+        context?.triggerElement.value?.focus({ preventScroll: true });
+        event.preventDefault();
+      }
     "
   >
     <DismissableLayer
@@ -228,6 +248,8 @@ provide(SELECT_CONTENT_INJECTION_KEY, {
       disableOutsidePointerEvents
       @focus-outside.prevent
       @dismiss="context?.onOpenChange(false)"
+      @escape-key-down="emits('escapeKeyDown', $event)"
+      @pointer-down-outside="emits('pointerDownOutside', $event)"
     >
       <component
         :ref="
@@ -241,7 +263,7 @@ provide(SELECT_CONTENT_INJECTION_KEY, {
             ? SelectPopperPosition
             : SelectItemAlignedPosition
         "
-        v-bind="$attrs"
+        v-bind="{ ...$attrs, ...pickedProps }"
         role="listbox"
         :id="context?.contentId"
         :data-state="context?.open.value ? 'open' : 'closed'"

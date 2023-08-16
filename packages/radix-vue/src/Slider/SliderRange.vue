@@ -21,8 +21,12 @@ const sliderRangeStyle = computed(() => {
 
   const style: Record<string, string | number> = {
     position: "absolute",
-    [orientation === "vertical" ? "top" : "left"]: `${reversed?.value ? 100 - percentage : 0}%`,
-    [orientation === "vertical" ? "bottom" : "right"]: `${reversed?.value ? 0 : 100 - percentage}%`,
+    [orientation === "vertical" ? "top" : "left"]: `${
+      reversed?.value ? 100 - percentage : 0
+    }%`,
+    [orientation === "vertical" ? "bottom" : "right"]: `${
+      reversed?.value ? 0 : 100 - percentage
+    }%`,
   };
 
   return style;

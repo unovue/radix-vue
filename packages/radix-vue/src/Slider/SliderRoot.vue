@@ -118,7 +118,11 @@ function calculateModelValueFromPosition(position: number) {
     newValue = props.max - newValue;
   }
 
-  newValue = clamp(newValue + (reversed.value ? 0 : props.min), props.min, props.max);
+  newValue = clamp(
+    newValue + (reversed.value ? 0 : props.min),
+    props.min,
+    props.max
+  );
   newValue = convertToClosestStep(newValue, props.step);
 
   return newValue;
@@ -174,7 +178,8 @@ function changeValue(e: MouseEvent) {
     pointerPosition = e.clientY;
   }
 
-  pointerPosition -= (thumbElement.value?.offsetWidth ?? 0) / 2 - thumbOffset.value;
+  pointerPosition -=
+    (thumbElement.value?.offsetWidth ?? 0) / 2 - thumbOffset.value;
 
   const sliderRelativePosition = calculateSliderRelativePosition(
     pointerPosition,

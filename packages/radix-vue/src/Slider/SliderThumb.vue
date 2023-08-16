@@ -26,8 +26,6 @@ const props = withDefaults(defineProps<SliderThumbProps>(), {
   as: "span",
 });
 
-let extraStep = 10;
-
 function handleKeydown(e: KeyboardEvent) {
   if (!injectedValue) return;
 
@@ -37,59 +35,48 @@ function handleKeydown(e: KeyboardEvent) {
   }
 
   const step = Number(injectedValue.step);
-  const value = Number(injectedValue.modelValue?.value);
+  const modelValue = Number(injectedValue.modelValue?.value);
   const isShiftPressed = e.shiftKey;
-  let newValue = value;
+  const extraStep = 10;
 
-  const isArrowUpOrRight = e.key === "ArrowUp" || e.key === "ArrowRight";
-  const isArrowDownOrLeft = e.key === "ArrowDown" || e.key === "ArrowLeft";
+  let newValue = modelValue;
 
-  const isPageUp = e.key === "PageUp";
-  const isPageDown = e.key === "PageDown";
+  const isArrowUpOrRight = ["ArrowUp", "ArrowRight"].includes(e.key);
+  const isArrowDownOrLeft = ["ArrowDown", "ArrowLeft"].includes(e.key);
 
-  const adjustedExtraStep = isShiftPressed ? extraStep * step : step;
+  if (isArrowUpOrRight || isArrowDownOrLeft) {
+    const adjustedExtraStep = isShiftPressed ? extraStep * step : step;
 
-  if (injectedValue.reversed?.value) {
-    if (isArrowDownOrLeft) {
-      newValue += adjustedExtraStep;
-    } else if (isArrowUpOrRight) {
-      newValue -= adjustedExtraStep;
+    newValue += isArrowUpOrRight ? adjustedExtraStep : -adjustedExtraStep;
+
+    if (isArrowDownOrLeft && injectedValue.reversed?.value) {
+      newValue = Math.max(newValue, injectedValue.min);
+    } else if (isArrowUpOrRight && !injectedValue.reversed?.value) {
+      newValue = Math.min(newValue, injectedValue.max);
+    } else if (isArrowDownOrLeft && !injectedValue.reversed?.value) {
+      newValue = Math.max(newValue, injectedValue.min);
+    } else if (isArrowUpOrRight && injectedValue.reversed?.value) {
+      newValue = Math.min(newValue, injectedValue.max);
     }
-  } else {
-    if (isArrowUpOrRight) {
-      newValue += adjustedExtraStep;
-    } else if (isArrowDownOrLeft) {
-      newValue -= adjustedExtraStep;
-    }
+
+    injectedValue.changeModelValue(
+      clamp(newValue, injectedValue.min, injectedValue.max)
+    );
   }
 
-  if (isPageUp || isPageDown) {
-    e.preventDefault();
+  if (["PageUp", "PageDown"].includes(e.key)) {
+    const pageMultiplier = e.key === "PageUp" ? extraStep : -extraStep;
+    newValue += step * pageMultiplier;
 
-    const step = Number(injectedValue.step);
-    const value = Number(injectedValue.modelValue?.value);
-    let newValue = value;
+    injectedValue.changeModelValue(
+      clamp(newValue, injectedValue.min, injectedValue.max)
+    );
+  }
 
-    if (isPageUp) {
-      newValue += step * extraStep;
-    } else if (isPageDown) {
-      newValue -= step * extraStep;
-    }
-
-    newValue = clamp(newValue, injectedValue.min, injectedValue.max);
-
+  if (["Home", "End"].includes(e.key)) {
+    newValue = e.key === "Home" ? injectedValue.min : injectedValue.max;
     injectedValue.changeModelValue(newValue);
   }
-
-  if (e.key === "Home") {
-    newValue = injectedValue.min;
-  } else if (e.key === "End") {
-    newValue = injectedValue.max;
-  }
-
-  newValue = clamp(newValue, injectedValue.min, injectedValue.max);
-
-  injectedValue.changeModelValue(newValue);
 }
 
 const thumbStyle = computed(() => {

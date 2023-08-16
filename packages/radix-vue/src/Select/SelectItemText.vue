@@ -4,8 +4,18 @@ import {
   type PrimitiveProps,
   usePrimitiveElement,
 } from "@/Primitive";
-import { inject, onMounted } from "vue";
-import { SELECT_INJECTION_KEY } from "./SelectRoot.vue";
+import {
+  inject,
+  onMounted,
+  h,
+  computed,
+  onUnmounted,
+  onBeforeUnmount,
+} from "vue";
+import {
+  SELECT_INJECTION_KEY,
+  SELECT_NATIVE_OPTIONS_INJECTION_KEY,
+} from "./SelectRoot.vue";
 import { SELECT_CONTENT_INJECTION_KEY } from "./SelectContentImpl.vue";
 import { SELECT_ITEM_INJECTION_KEY } from "./SelectItem.vue";
 
@@ -15,13 +25,23 @@ const props = withDefaults(defineProps<SelectItemTextProps>(), {
   as: "span",
 });
 
-const context = inject(SELECT_INJECTION_KEY);
 const contentContext = inject(SELECT_CONTENT_INJECTION_KEY);
+const nativeOptionContext = inject(SELECT_NATIVE_OPTIONS_INJECTION_KEY);
 const itemContext = inject(SELECT_ITEM_INJECTION_KEY);
 
 const { primitiveElement, currentElement: itemTextElement } =
   usePrimitiveElement();
 
+const nativeOption = computed(() => {
+  return h("option", {
+    key: itemContext?.value,
+    value: itemContext?.value,
+    disabled: itemContext?.disabled.value,
+    innerHTML: itemTextElement.value?.textContent,
+  });
+});
+
+const { onNativeOptionAdd, onNativeOptionRemove } = nativeOptionContext!;
 onMounted(() => {
   if (!itemTextElement.value) return;
   itemContext?.onItemTextChange(itemTextElement.value);
@@ -30,6 +50,11 @@ onMounted(() => {
     itemContext!.value,
     itemContext!.disabled.value
   );
+  onNativeOptionAdd(nativeOption.value);
+});
+
+onBeforeUnmount(() => {
+  onNativeOptionRemove(nativeOption.value);
 });
 
 defineOptions({

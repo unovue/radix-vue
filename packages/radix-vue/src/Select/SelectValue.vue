@@ -39,7 +39,7 @@ onMounted(() => {
       {{ placeholder }}
     </template>
     <template v-else>
-      <slot></slot>
+      <slot>{{ context?.modelValue?.value }}</slot>
     </template>
   </Primitive>
 </template>

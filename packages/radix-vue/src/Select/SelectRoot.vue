@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { Ref, InjectionKey, OptionHTMLAttributes } from "vue";
+import type { Ref, InjectionKey, VNode } from "vue";
 import type { DataOrientation, Direction } from "../shared/types";
 import { useId } from "@/shared";
 
@@ -11,6 +11,7 @@ export interface SelectRootProps {
   orientation?: DataOrientation;
   dir?: Direction;
   name?: string;
+  autocomplete?: string;
   disabled?: boolean;
   required?: boolean;
 }
@@ -37,8 +38,8 @@ export type SelectProvideValue = {
 };
 
 export type SelectNativeOptionsContextValue = {
-  onNativeOptionAdd(option: OptionHTMLAttributes): void;
-  onNativeOptionRemove(option: OptionHTMLAttributes): void;
+  onNativeOptionAdd(option: VNode): void;
+  onNativeOptionRemove(option: VNode): void;
 };
 
 export const SELECT_NATIVE_OPTIONS_INJECTION_KEY =
@@ -46,9 +47,10 @@ export const SELECT_NATIVE_OPTIONS_INJECTION_KEY =
 </script>
 
 <script setup lang="ts">
-import { provide, ref, toRefs } from "vue";
+import { computed, provide, ref, toRefs } from "vue";
 import { PopperRoot } from "@/Popper";
 import { useVModel } from "@vueuse/core";
+import BubbleSelect from "./BubbleSelect.vue";
 
 const props = withDefaults(defineProps<SelectRootProps>(), {
   orientation: "vertical",
@@ -107,15 +109,56 @@ provide<SelectProvideValue>(SELECT_INJECTION_KEY, {
   disabled,
 });
 
-// temporary ignore native options for accessbitlity (3/3)
-// provide(SELECT_NATIVE_OPTIONS_INJECTION_KEY, {
-// })
+// We set this to true by default so that events bubble to forms without JS (SSR)
+const isFormControl = computed(() =>
+  triggerElement.value ? Boolean(triggerElement.value.closest("form")) : true
+);
+const nativeOptionsSet = ref<Set<VNode>>(new Set());
+
+// The native `select` only associates the correct default value if the corresponding
+// `option` is rendered as a child **at the same time** as itself.
+// Because it might take a few renders for our items to gather the information to build
+// the native `option`(s), we generate a key on the `select` to make sure React re-builds it
+// each time the options change.
+const nativeSelectKey = computed(() => {
+  return Array.from(nativeOptionsSet.value)
+    .map((option) => option.props?.value)
+    .join(";");
+});
+
+provide(SELECT_NATIVE_OPTIONS_INJECTION_KEY, {
+  onNativeOptionAdd: (option) => {
+    nativeOptionsSet.value.add(option);
+  },
+  onNativeOptionRemove: (option) => {
+    nativeOptionsSet.value.delete(option);
+  },
+});
 </script>
 
 <template>
   <PopperRoot v-bind="$attrs">
     <slot />
 
-    <!-- BubbleSelect -->
+    <BubbleSelect
+      v-if="isFormControl"
+      aria-hidden
+      tabIndex="-1"
+      :key="nativeSelectKey"
+      :required="required"
+      :name="name"
+      :autocomplete="autocomplete"
+      :disabled="disabled"
+      :value="modelValue"
+      @change="modelValue = $event.target.value"
+    >
+      <option value="" v-if="modelValue === undefined"></option>
+      <component
+        v-for="option in Array.from(nativeOptionsSet)"
+        v-bind="option.props"
+        :is="option"
+        :key="option.key ?? ''"
+      ></component>
+    </BubbleSelect>
   </PopperRoot>
 </template>

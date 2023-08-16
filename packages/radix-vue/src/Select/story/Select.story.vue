@@ -16,9 +16,9 @@ import {
   SelectValue,
   SelectScrollUpButton,
   SelectScrollDownButton,
-} from "./";
+} from "../";
 
-const fruit = ref("");
+const fruit = ref("Apple");
 
 const options = ["Apple", "Banana", "Blueberry", "Grapes", "Pineapple"];
 const vegetables = ["Aubergine", "Broccoli", "Carrot", "Courgette", "Leek"];

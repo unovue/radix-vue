@@ -4,18 +4,8 @@ import {
   type PrimitiveProps,
   usePrimitiveElement,
 } from "@/Primitive";
-import {
-  inject,
-  onMounted,
-  h,
-  computed,
-  onUnmounted,
-  onBeforeUnmount,
-} from "vue";
-import {
-  SELECT_INJECTION_KEY,
-  SELECT_NATIVE_OPTIONS_INJECTION_KEY,
-} from "./SelectRoot.vue";
+import { inject, onMounted, h, computed } from "vue";
+import { SELECT_NATIVE_OPTIONS_INJECTION_KEY } from "./SelectRoot.vue";
 import { SELECT_CONTENT_INJECTION_KEY } from "./SelectContentImpl.vue";
 import { SELECT_ITEM_INJECTION_KEY } from "./SelectItem.vue";
 
@@ -53,9 +43,9 @@ onMounted(() => {
   onNativeOptionAdd(nativeOption.value);
 });
 
-onBeforeUnmount(() => {
-  onNativeOptionRemove(nativeOption.value);
-});
+// onBeforeUnmount(() => {
+//   onNativeOptionRemove(nativeOption.value);
+// });
 
 defineOptions({
   inheritAttrs: false,

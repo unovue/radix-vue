@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { toRefs, ref, watchEffect } from "vue";
+import { toRefs, ref, watchEffect, watch } from "vue";
 import { VisuallyHidden } from "@/VisuallyHidden";
 import { usePrevious } from "@vueuse/core";
 
@@ -20,7 +20,9 @@ const { value } = toRefs(props);
 const prevValue = usePrevious(value);
 const selectElement = ref<HTMLElement>();
 
-// watchEffect(() => {
+// This would bubble "change" event to form, with the target as Select element.
+// We temporary disable this as not sure if it will be needed for Vue
+// watch(value, () => {
 //   const selectProto = window.HTMLSelectElement.prototype;
 //   const descriptor = Object.getOwnPropertyDescriptor(
 //     selectProto,
@@ -48,8 +50,13 @@ const selectElement = ref<HTMLElement>();
 
 <template>
   <VisuallyHidden asChild>
-    <select ref="selectElement" :default-value="value" v-bind="props">
-    <slot></slot>
+    <select
+      ref="selectElement"
+      :default-value="value"
+      v-bind="props"
+      v-model="value"
+    >
+      <slot></slot>
     </select>
   </VisuallyHidden>
 </template>

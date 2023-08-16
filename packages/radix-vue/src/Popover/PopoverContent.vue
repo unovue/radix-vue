@@ -1,62 +1,44 @@
 <script lang="ts">
+import type {
+  DismissableLayerEmits,
+  DismissableLayerProps,
+} from "@/DismissableLayer";
 import type { PopperContentProps } from "@/Popper";
 import type { PrimitiveProps } from "@/Primitive";
 
 export interface PopoverContentProps
   extends PrimitiveProps,
-  Pick<
-    PopperContentProps,
-    | "side"
-    | "sideOffset"
-    | "align"
-    | "alignOffset"
-    | "avoidCollisions"
-    | "collisionBoundary"
-    | "collisionPadding"
-    | "arrowPadding"
-    | "sticky"
-    | "hideWhenDetached"
-  > { }
+    DismissableLayerProps,
+    Pick<
+      PopperContentProps,
+      | "side"
+      | "sideOffset"
+      | "align"
+      | "alignOffset"
+      | "avoidCollisions"
+      | "collisionBoundary"
+      | "collisionPadding"
+      | "arrowPadding"
+      | "sticky"
+      | "hideWhenDetached"
+    > {}
 
-export interface PopoverContentEmit {
+export type PopoverContentEmit = DismissableLayerEmits & {
+  (e: "openAutoFocus", event: Event): void;
   /**
-   * Event handler called when focus moves into the component after opening.
+   * Event handler called when auto-focusing on close.
+   * Can be prevented.
    */
-  (e: "open"): void;
-
-  /**
-   * Event handler called when focus moves to the trigger after closing.
-   */
-  (e: "close"): void;
-
-  /**
-   * Event handler called when the escape key is down.
-   */
-  (e: "escape-key-down", event: KeyboardEvent): void;
-
-  /**
-   * Event handler called when a pointer event occurs outside the bounds of the component.
-   */
-  (e: "pointer-down-outside", event: PointerEvent): void;
-
-  /**
-   * Event handler called when focus moves outside the bounds of the component.
-   */
-  (e: "interact-outside", event: Event): void;
-}
+  (e: "closeAutoFocus", event: Event): void;
+};
 </script>
 
 <script setup lang="ts">
+import { DismissableLayer } from "@/DismissableLayer";
+import { FocusScope } from "@/FocusScope";
 import { PopperContent } from "@/Popper";
-import { Primitive, usePrimitiveElement } from "@/Primitive";
-import {
-  useEventListener,
-  useFocusGuards,
-  useInjected,
-  useModalInteraction,
-} from "@/shared";
-import { useEmitCancelableEvent } from "@/shared/useEmitCancelableEvent";
-import { computed, onMounted } from "vue";
+import { usePrimitiveElement } from "@/Primitive";
+import { useFocusGuards, useInjected } from "@/shared";
 import { POPOVER_INJECTION_KEY } from "./PopoverRoot.vue";
 
 const props = withDefaults(defineProps<PopoverContentProps>(), {
@@ -72,72 +54,82 @@ const props = withDefaults(defineProps<PopoverContentProps>(), {
   hideWhenDetached: false,
 });
 
-const { primitiveElement } = usePrimitiveElement();
+const emits = defineEmits<PopoverContentEmit>();
 
-const { open, triggerElement, hidePopover, dataState, contentId } = useInjected(
-  POPOVER_INJECTION_KEY
-);
+const { primitiveElement, currentElement } = usePrimitiveElement();
 
-const emit = defineEmits<PopoverContentEmit>();
+const { open, dataState, contentId } = useInjected(POPOVER_INJECTION_KEY);
 
-useModalInteraction(primitiveElement, { open, triggerElement }, emit);
+useFocusGuards();
 
-const disabled = computed(() => !open.value);
+const handleMountAutoFocus = async (event: Event) => {
+  emits("openAutoFocus", event);
 
-useEventListener(
-  document.documentElement,
-  "click",
-  (e) => {
-    useEmitCancelableEvent(emit, "pointer-down-outside", hidePopover, e);
-    useEmitCancelableEvent(emit, "interact-outside", hidePopover, e);
-  },
-  { disabled, exclude: [primitiveElement, triggerElement] }
-);
+  setTimeout(() => {
+    currentElement.value?.focus();
 
-useEventListener(
-  document.documentElement,
-  "focus",
-  (e) => {
-    console.log("focus");
-    useEmitCancelableEvent(emit, "interact-outside", hidePopover, e);
-  },
-  { disabled, exclude: [primitiveElement, triggerElement] }
-);
-
-useEventListener(
-  document.documentElement,
-  "keydown",
-  (e) => {
-    if (e.key !== "Escape") return;
-    useEmitCancelableEvent(emit, "escape-key-down", hidePopover, e);
-  },
-  { disabled }
-);
-
-onMounted(() => useFocusGuards());
+    // only focus first item when using keyboard
+    // if (isUsingKeyboardRef.value && !event.defaultPrevented) {
+    //   event.preventDefault();
+    // }
+  }, 0);
+};
 </script>
 
 <template>
-  <PopperContent v-if="open" ref="primitiveElement" :side="props.side" :sideOffset="props.sideOffset" :align="props.align"
-    :alignOffset="props.alignOffset" :avoidCollisions="props.avoidCollisions" :collisionBoundary="props.collisionBoundary"
-    :collisionPadding="props.collisionPadding" :arrowPadding="props.arrowPadding" :sticky="props.sticky"
-    :hideWhenDetached="props.hideWhenDetached" style="
-      --radix-popover-content-transform-origin: var(
-        --radix-popper-transform-origin
-      );
-      --radix-popover-content-available-width: var(
-        --radix-popper-available-width
-      );
-      --radix-popover-content-available-height: var(
-        --radix-popper-available-height
-      );
-      --radix-popover-trigger-width: var(--radix-popper-anchor-width);
-      --radix-popover-trigger-height: var(--radix-popper-anchor-height);
-    ">
-    <Primitive :data-state="dataState" :data-side="props.side" :data-align="props.align" :as-child="props.asChild"
-      role="tooltip" tabindex="-1" :id="contentId" :as="props.as">
-      >>>>>>> ce75f2a ([ModalComposables]: Added composables for modals)
-      <slot />
-    </Primitive>
-  </PopperContent>
+  <FocusScope
+    v-if="open"
+    as-child
+    @mountAutoFocus="handleMountAutoFocus"
+    @unmountAutoFocus="emits('closeAutoFocus', $event)"
+  >
+    <DismissableLayer
+      as-child
+      :disableOutsidePointerEvents="disableOutsidePointerEvents"
+      @escapeKeyDown="emits('escapeKeyDown', $event)"
+      @pointerDownOutside="emits('pointerDownOutside', $event)"
+      @focusOutside="emits('focusOutside', $event)"
+      @interactOutside="emits('interactOutside', $event)"
+      @dismiss="emits('dismiss')"
+    >
+      <PopperContent
+        ref="primitiveElement"
+        :data-state="dataState"
+        :data-side="props.side"
+        :data-align="props.align"
+        tabindex="-1"
+        :side="props.side"
+        :sideOffset="props.sideOffset"
+        :id="contentId"
+        :align="props.align"
+        :alignOffset="props.alignOffset"
+        :avoidCollisions="props.avoidCollisions"
+        :collisionBoundary="props.collisionBoundary"
+        :collisionPadding="props.collisionPadding"
+        :arrowPadding="props.arrowPadding"
+        role="tooltip"
+        :as="as"
+        :as-child="props.asChild"
+        aria-orientation="vertical"
+        data-radix-menu-content
+        :sticky="props.sticky"
+        :hideWhenDetached="props.hideWhenDetached"
+        style="
+          --radix-popover-content-transform-origin: var(
+            --radix-popper-transform-origin
+          );
+          --radix-popover-content-available-width: var(
+            --radix-popper-available-width
+          );
+          --radix-popover-content-available-height: var(
+            --radix-popper-available-height
+          );
+          --radix-popover-trigger-width: var(--radix-popper-anchor-width);
+          --radix-popover-trigger-height: var(--radix-popper-anchor-height);
+        "
+      >
+        <slot />
+      </PopperContent>
+    </DismissableLayer>
+  </FocusScope>
 </template>

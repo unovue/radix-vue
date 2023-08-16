@@ -1,5 +1,5 @@
 <script lang="ts">
-export interface PopoverCloseProps extends PrimitiveProps { }
+export interface PopoverCloseProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
@@ -15,8 +15,14 @@ const props = withDefaults(defineProps<PopoverCloseProps>(), {
 </script>
 
 <template>
-  <Primitive :type="as === 'button' ? 'button' : undefined" :as="props.as" :aria-expanded="open || false"
-    :data-state="dataState" :as-child="props.asChild" @click="hidePopover()">
+  <Primitive
+    :type="as === 'button' ? 'button' : undefined"
+    :as="props.as"
+    :aria-expanded="open || false"
+    :data-state="dataState"
+    :as-child="props.asChild"
+    @click="hidePopover()"
+  >
     <slot />
   </Primitive>
 </template>

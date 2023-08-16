@@ -35,7 +35,7 @@ const toggleState = ref(false);
               >
                 Dimensions
               </p>
-              <fieldset class="flex gap-5 items-center">
+              <fieldset class="flex items-center gap-5">
                 <label class="text-[13px] text-violet11 w-[75px]" for="width">
                   Width
                 </label>
@@ -45,7 +45,7 @@ const toggleState = ref(false);
                   defaultValue="100%"
                 />
               </fieldset>
-              <fieldset class="flex gap-5 items-center">
+              <fieldset class="flex items-center gap-5">
                 <label
                   class="text-[13px] text-violet11 w-[75px]"
                   for="maxWidth"
@@ -58,7 +58,7 @@ const toggleState = ref(false);
                   defaultValue="300px"
                 />
               </fieldset>
-              <fieldset class="flex gap-5 items-center">
+              <fieldset class="flex items-center gap-5">
                 <label class="text-[13px] text-violet11 w-[75px]" for="height">
                   Height
                 </label>
@@ -68,7 +68,7 @@ const toggleState = ref(false);
                   defaultValue="25px"
                 />
               </fieldset>
-              <fieldset class="flex gap-5 items-center">
+              <fieldset class="flex items-center gap-5">
                 <label
                   class="text-[13px] text-violet11 w-[75px]"
                   for="maxHeight"

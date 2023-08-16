@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { PrimitiveProps } from "@/Primitive";
 
-export interface PopoverTriggerProps extends PrimitiveProps { }
+export interface PopoverTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
@@ -29,10 +29,18 @@ onMounted(() => setTriggerElement(primitiveElement.value!));
 </script>
 
 <template>
-  <PopperAnchor asChild>
-    <Primitive type="button" ref="primitiveElement" :as="props.as" :aria-expanded="open || false"
-      :aria-controls="contentId" aria-haspopup="dialog" :data-state="dataState" :as-child="props.asChild"
-      @click="open ? showPopover() : hidePopover()">
+  <PopperAnchor as-child>
+    <Primitive
+      type="button"
+      ref="primitiveElement"
+      :as="props.as"
+      :aria-expanded="open || false"
+      :aria-controls="contentId"
+      aria-haspopup="dialog"
+      :data-state="dataState"
+      :as-child="props.asChild"
+      @click="open ? hidePopover() : showPopover()"
+    >
       <slot />
     </Primitive>
   </PopperAnchor>

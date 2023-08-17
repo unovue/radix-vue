@@ -133,13 +133,6 @@ Contains all the parts of a menubar.
 <PropsTable
   :data="[
     {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
       name: 'defaultValue',
       required: false,
       type: 'string',
@@ -151,7 +144,7 @@ Contains all the parts of a menubar.
       `,
     },
     {
-      name: 'value',
+      name: 'modelValue',
       required: false,
       type: 'string',
       description: `
@@ -160,13 +153,6 @@ Contains all the parts of a menubar.
           conjunction with <Code>onValueChange</Code>.
         </span>
       `,
-    },
-    {
-      name: 'onValueChange',
-      required: false,
-      type: '(value: string) => void',
-      typeSimple: 'function',
-      description: 'Event handler called when the value changes.',
     },
     {
       name: 'dir',
@@ -193,7 +179,25 @@ Contains all the parts of a menubar.
         </span>
       `,
     },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    },
   ]"
+/>
+
+<EmitsTable 
+  :data="[
+    {
+      name: '@update:modelValue',
+      required: false,
+      type: '(value: string) => void',
+      description: 'Event handler called when the value changes.',
+    },
+  ]" 
 />
 
 ### Menu
@@ -202,13 +206,6 @@ A top level menu item, contains a trigger with content combination.
 
 <PropsTable
   :data="[
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
     {
       name: 'value',
       required: false,
@@ -220,6 +217,13 @@ A top level menu item, contains a trigger with content combination.
           uncontrolled.
         </span>
       `,
+    },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]"
 />
@@ -264,22 +268,10 @@ When used, portals the content part into the `body`.
 <PropsTable
   :data="[
     {
-      name: 'forceMount',
-      type: 'boolean',
-      description: `
-        <span>
-          Used to force mounting when more control is needed. Useful when
-          controlling animation with Vue.js animation libraries. If used on this
-          part, it will be inherited by <Code>Menubar.Content</Code> and{' '}
-          <Code>Menubar.SubContent</Code> respectively.
-        </span>
-      `,
-    },
-    {
-      name: 'container',
-      type: 'HTMLElement',
-      default: 'document.body',
-      description: 'Specify a container element to portal the content into.',
+      name: 'to',
+      type:  'string | HTMLElement',
+      default: 'body',
+      description: 'Vue native teleport component props. (to)',
     },
   ]"
 />
@@ -291,13 +283,6 @@ The component that pops out when a menu is open.
 <PropsTable
   :data="[
     {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
       name: 'loop',
       required: false,
       type: 'boolean',
@@ -306,64 +291,6 @@ The component that pops out when a menu is open.
         <span>
           When <Code>true</Code>, keyboard navigation will loop from last item
           to first, and vice versa.
-        </span>
-      `,
-    },
-    {
-      name: 'onCloseAutoFocus',
-      type: '(event: Event) => void',
-      typeSimple: 'function',
-      description: `
-        <span>
-          Event handler called when focus moves to the trigger after closing. It
-          can be prevented by calling <Code>event.preventDefault</Code>.
-        </span>
-      `,
-    },
-    {
-      name: 'onEscapeKeyDown',
-      type: '(event: KeyboardEvent) => void',
-      typeSimple: 'function',
-      description: `
-        <span>
-          Event handler called when the escape key is down. It can be prevented
-          by calling <Code>event.preventDefault</Code>
-        </span>
-      `,
-    },
-    {
-      name: 'onPointerDownOutside',
-      type: '(event: PointerDownOutsideEvent) => void',
-      typeSimple: 'function',
-      description: `
-        <span>
-          Event handler called when a pointer event occurs outside the bounds of
-          the component. It can be prevented by calling{' '}
-          <Code>event.preventDefault</Code>.
-        </span>
-      `,
-    },
-    {
-      name: 'onFocusOutside',
-      type: '(event: FocusOutsideEvent) => void',
-      typeSimple: 'function',
-      description: `
-        <span>
-          Event handler called when focus moves outside the bounds of the
-          component. It can be prevented by calling{' '}
-          <Code>event.preventDefault</Code>.
-        </span>
-      `,
-    },
-    {
-      name: 'onInteractOutside',
-      type: '(event: PointerDownOutsideEvent | FocusOutsideEvent) => void',
-      typeSimple: 'function',
-      description: `
-        <span>
-          Event handler called when an interaction (pointer or focus event)
-          happens outside the bounds of the component. It can be prevented by
-          calling <Code>event.preventDefault</Code>.
         </span>
       `,
     },
@@ -494,6 +421,62 @@ The component that pops out when a menu is open.
         </span>
       `,
     },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    },
+  ]"
+/>
+
+<EmitsTable
+  :data="[
+    {
+      name: '@closeAutoFocus',
+      type: '(event: Event) => void',
+      description: 'Event handler called when focus moves to the trigger after closing. It can be prevented by calling <Code>event.preventDefault</Code>.'
+    }, 
+    {
+    name: '@escapeKeyDown',
+    type: '(event: KeyboardEvent) => void',
+      description: `
+        <span>
+          Event handler called when the escape key is down. It can be prevented by calling <Code>event.preventDefault</Code>.
+        </span>
+      `,
+    },
+    {
+      name: '@pointerDownOutside',
+      type: '(event: PointerDownOutsideEvent) => void',
+      description: `
+        <span>
+          Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.
+        </span>
+      `,
+    },
+    {
+      name: '@focusOutside',
+      type: '(event: FocusOutsideEvent) => void',
+      description: `
+        <span>
+          Event handler called when focus moves outside the bounds of the
+          component. It can be prevented by calling <Code>event.preventDefault</Code>.
+        </span>
+      `,
+    },
+    {
+      name: '@interactOutside',
+      type: '(event: FocusEvent | MouseEvent | TouchEvent) => void',
+      description: `
+        <span>
+          Event handler called when an interaction (pointer or focus event)
+          happens outside the bounds of the component. It can be prevented by
+          calling <Code>event.preventDefault</Code>.
+        </span>
+      `,
+    },
   ]"
 />
 
@@ -580,13 +563,6 @@ The component that contains the menubar items.
 <PropsTable
   :data="[
     {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
       name: 'disabled',
       type: 'boolean',
       description: `
@@ -595,19 +571,7 @@ The component that contains the menubar items.
           item.
         </span>
       `,
-    },
-    {
-      name: 'onSelect',
-      type: '(event: Event) => void',
-      typeSimple: 'function',
-      description: `
-        <span>
-          Event handler called when the user selects an item (via mouse or
-          keyboard). Calling <Code>event.preventDefault</Code> in this handler
-          will prevent the menubar from closing when selecting that item.
-        </span>
-      `,
-    },
+    }, 
     {
       name: 'textValue',
       type: 'string',
@@ -618,6 +582,23 @@ The component that contains the menubar items.
           when the content is complex, or you have non-textual content inside.
         </span>
       `,
+    },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    },
+  ]"
+/>
+
+<EmitsTable
+  :data="[
+    {
+      name: '@select',
+      type: '(event: Event) => void',
+      description: 'Event handler called when the user selects an item (via mouse or keyboard). Calling <Code>event.preventDefault</Code> in this handler will prevent the menubar from closing when selecting that item.',
     },
   ]"
 />
@@ -674,13 +655,6 @@ An item that can be controlled and rendered like a checkbox.
 <PropsTable
   :data="[
     {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
       name: 'checked',
       type: `boolean | 'indeterminate'`,
       description: `
@@ -689,15 +663,7 @@ An item that can be controlled and rendered like a checkbox.
           with <Code>onCheckedChange</Code>.
         </span>
       `,
-    },
-    {
-      name: 'onCheckedChange',
-      type: '(checked: boolean) => void',
-      typeSimple: 'function',
-      description: `
-        <span>Event handler called when the checked state changes.</span>
-      `,
-    },
+    }, 
     {
       name: 'disabled',
       type: 'boolean',
@@ -707,19 +673,7 @@ An item that can be controlled and rendered like a checkbox.
           item.
         </span>
       `,
-    },
-    {
-      name: 'onSelect',
-      type: '(event: Event) => void',
-      typeSimple: 'function',
-      description: `
-        <span>
-          Event handler called when the user selects an item (via mouse or
-          keyboard). Calling <Code>event.preventDefault</Code> in this handler
-          will prevent the menubar from closing when selecting that item.
-        </span>
-      `,
-    },
+    }, 
     {
       name: 'textValue',
       type: 'string',
@@ -730,6 +684,28 @@ An item that can be controlled and rendered like a checkbox.
           when the content is complex, or you have non-textual content inside.
         </span>
       `,
+    },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    },
+  ]"
+/>
+
+<EmitsTable
+  :data="[
+    {
+      name: '@update:checked',
+      type: `(checked: boolean) => void`,
+      description: 'Event handler called when the checked state changes.',
+    },
+    {
+      name: '@select',
+      type: '(event: Event) => void',
+      description: 'Event handler called when the user selects an item (via mouse or keyboard). Calling <Code>event.preventDefault</Code> in this handler will prevent the menunar from closing when selecting that item.',
     },
   ]"
 />
@@ -765,14 +741,18 @@ Used to group multiple `Menubar.RadioItem`s.
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
     {
-      name: 'value',
+      name: 'modelValue',
       type: 'string',
       description: 'The value of the selected item in the group.',
-    },
+    }, 
+  ]"
+/>
+
+<EmitsTable
+  :data="[
     {
-      name: 'onValueChange',
+      name: '@update:modelValue',
       type: '(value: string) => void',
-      typeSimple: 'function',
       description: 'Event handler called when the value changes.',
     },
   ]"
@@ -803,21 +783,23 @@ An item that can be controlled and rendered like a radio.
       description: `
         When <Code>true</Code>, prevents the user from interacting with the item.
       `,
-    },
-    {
-      name: 'onSelect',
-      type: '(event: Event) => void',
-      typeSimple: 'function',
-      description: `
-        Event handler called when the user selects an item (via mouse or keyboard). Calling <Code>event.preventDefault</Code> in this handler will prevent the menubar from closing when selecting that item.
-      `,
-    },
+    }, 
     {
       name: 'textValue',
       type: 'string',
       description: `
         Optional text used for typeahead purposes. By default the typeahead behavior will use the <Code>.textContent</Code> of the item. Use this when the content is complex, or you have non-textual content inside.
       `,
+    },
+  ]"
+/>
+
+<EmitsTable
+  :data="[
+    {
+      name: '@select',
+      type: '(event: Event) => void',
+      description: 'Event handler called when the user selects an item (via mouse or keyboard). Calling <Code>event.preventDefault</Code> in this handler will prevent the menubar from closing when selecting that item.',
     },
   ]"
 />
@@ -906,14 +888,16 @@ Contains all the parts of a submenu.
       description: `
         The controlled open state of the submenu. Must be used in conjunction with <Code>onOpenChange</Code>.
       `,
-    },
+    }, 
+  ]"
+/>
+
+<EmitsTable
+  :data="[
     {
-      name: 'onOpenChange',
+      name: '@update:open',
       type: '(open: boolean) => void',
-      typeSimple: 'function',
-      description: `
-        Event handler called when the open state of the submenu changes.
-      `,
+      description: 'Event handler called when the open state of the submenu changes.',
     },
   ]"
 />
@@ -972,13 +956,6 @@ The component that pops out when a submenu is open. Must be rendered inside `Men
 <PropsTable
   :data="[
     {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
       name: 'loop',
       required: false,
       type: 'boolean',
@@ -989,54 +966,7 @@ The component that pops out when a submenu is open. Must be rendered inside `Men
           to first, and vice versa.
         </span>
       `,
-    },
-    {
-      name: 'onEscapeKeyDown',
-      type: '(event: KeyboardEvent) => void',
-      typeSimple: 'function',
-      description: `
-        <span>
-          Event handler called when the escape key is down. It can be prevented
-          by calling <Code>event.preventDefault</Code>
-        </span>
-      `,
-    },
-    {
-      name: 'onPointerDownOutside',
-      type: '(event: PointerDownOutsideEvent) => void',
-      typeSimple: 'function',
-      description: `
-        <span>
-          Event handler called when a pointer event occurs outside the bounds of
-          the component. It can be prevented by calling{' '}
-          <Code>event.preventDefault</Code>.
-        </span>
-      `,
-    },
-    {
-      name: 'onFocusOutside',
-      type: '(event: FocusOutsideEvent) => void',
-      typeSimple: 'function',
-      description: `
-        <span>
-          Event handler called when focus moves outside the bounds of the
-          component. It can be prevented by calling{' '}
-          <Code>event.preventDefault</Code>.
-        </span>
-      `,
-    },
-    {
-      name: 'onInteractOutside',
-      type: '(event: PointerDownOutsideEvent | FocusOutsideEvent) => void',
-      typeSimple: 'function',
-      description: `
-        <span>
-          Event handler called when an interaction (pointer or focus event)
-          happens outside the bounds of the component. It can be prevented by
-          calling <Code>event.preventDefault</Code>.
-        </span>
-      `,
-    },
+    }, 
     {
       name: 'forceMount',
       type: 'boolean',
@@ -1121,6 +1051,57 @@ The component that pops out when a submenu is open. Must be rendered inside `Men
       description: `
         <span>
           Whether to hide the content when the trigger becomes fully occluded.
+        </span>
+      `,
+    },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    },
+  ]"
+/>
+
+<EmitsTable
+  :data="[ 
+    {
+    name: '@escapeKeyDown',
+    type: '(event: KeyboardEvent) => void',
+      description: `
+        <span>
+          Event handler called when the escape key is down. It can be prevented by calling <Code>event.preventDefault</Code>.
+        </span>
+      `,
+    },
+    {
+      name: '@pointerDownOutside',
+      type: '(event: PointerDownOutsideEvent) => void',
+      description: `
+        <span>
+          Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.
+        </span>
+      `,
+    },
+    {
+      name: '@focusOutside',
+      type: '(event: FocusOutsideEvent) => void',
+      description: `
+        <span>
+          Event handler called when focus moves outside the bounds of the
+          component. It can be prevented by calling <Code>event.preventDefault</Code>.
+        </span>
+      `,
+    },
+    {
+      name: '@interactOutside',
+      type: '(event: FocusEvent | MouseEvent | TouchEvent) => void',
+      description: `
+        <span>
+          Event handler called when an interaction (pointer or focus event)
+          happens outside the bounds of the component. It can be prevented by
+          calling <Code>event.preventDefault</Code>.
         </span>
       `,
     },

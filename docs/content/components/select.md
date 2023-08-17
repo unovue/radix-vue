@@ -123,7 +123,7 @@ Contains all the parts of a Select
       description: 'The value of the select when initially rendered. Use when you do not need to control the state of the Select',
     },
     {
-      name: 'value',
+      name: 'modelValue',
       required: false,
       type: 'string',
       description: '<span> The controlled value of the Select Should be binded-with with <Code>v-model</Code>. </span>',
@@ -162,6 +162,22 @@ Contains all the parts of a Select
       description: '<span> When <Code>true</Code>, indicates that the user must select a value before the owning form can be submitted. </span>',
     },
   ]"
+/>
+
+<EmitsTable 
+  :data="[
+    {
+      name: '@update:modelValue',
+      required: false,
+      type: '(value: string) => void',
+      description: 'Event handler called when the value changes.',
+    },
+    {
+      name: '@update:open',
+      type: '(open: boolean) => void',
+      description: 'Event handler called when the open state of the context menu changes.'
+    },
+  ]" 
 />
 
 ### Trigger
@@ -204,17 +220,17 @@ The part that reflects the selected value. By default the selected item's text w
 <PropsTable
   :data="[
     {
+      name: 'placeholder',
+      required: false,
+      type: 'ReactNode',
+      description: 'The content that will be rendered inside the <Code>SelectValue</Code> when no <Code>value</Code> or <Code>defaultValue</Code> is set.',
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'placeholder',
-      required: false,
-      type: 'ReactNode',
-      description: 'The content that will be rendered inside the <Code>SelectValue</Code> when no <Code>value</Code> or <Code>defaultValue</Code> is set.',
     },
   ]"
 />
@@ -242,10 +258,10 @@ When used, portals the content part into the `body`.
 <PropsTable
   :data="[
     {
-      name: 'container',
-      type: 'HTMLElement',
-      default: 'document.body',
-      description: 'Specify a container element to portal the content into.',
+      name: 'to',
+      type:  'string | HTMLElement',
+      default: 'body',
+      description: 'Vue native teleport component props. (to)',
     },
   ]"
 />
@@ -256,31 +272,6 @@ The component that pops out when the select is open.
 
 <PropsTable
   :data="[
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'onCloseAutoFocus',
-      type: '(event: Event) => void',
-      typeSimple: 'function',
-      description: '<span> Event handler called when focus moves to the trigger after closing. It can be prevented by calling <Code>event.preventDefault</Code>. </span>',
-    },
-    {
-      name: 'onEscapeKeyDown',
-      type: '(event: KeyboardEvent) => void',
-      typeSimple: 'function',
-      description: '<span> Event handler called when the escape key is down. It can be prevented by calling <Code>event.preventDefault</Code>. </span>',
-    },
-    {
-      name: 'onPointerDownOutside',
-      type: '(event: PointerDownOutsideEvent) => void',
-      typeSimple: 'function',
-      description: '<span> Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>. </span>',
-    },
     {
       name: 'position',
       type: '&quot;item-aligned&quot; | &quot;popper&quot;',
@@ -353,6 +344,33 @@ The component that pops out when the select is open.
       default: 'false',
       description: '<span> Whether to hide the content when the trigger becomes fully occluded. Only available when <Code>position</Code> is set to <Code>popper</Code>. </span>',
     },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    },
+  ]"
+/>
+
+<EmitsTable
+  :data="[
+    {
+      name: '@closeAutoFocus',
+      type: '(event: Event) => void',
+      description: '<span> Event handler called when focus moves to the trigger after closing. It can be prevented by calling <Code>event.preventDefault</Code>. </span>',
+    },
+    {
+      name: '@escapeKeyDown',
+      type: '(event: KeyboardEvent) => void',
+      description: '<span> Event handler called when the escape key is down. It can be prevented by calling <Code>event.preventDefault</Code>. </span>',
+    },
+    {
+      name: '@pointerDownOutside',
+      type: '(event: PointerDownOutsideEvent) => void',
+      description: '<span> Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>. </span>',
+    },
   ]"
 />
 
@@ -421,13 +439,6 @@ The component that contains the select items.
 <PropsTable
   :data="[
     {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
       name: 'value',
       required: true,
       type: 'string',
@@ -442,6 +453,13 @@ The component that contains the select items.
       name: 'textValue',
       type: 'string',
       description: '<span> Optional text used for typeahead purposes. By default the typeahead behavior will use the <Code>.textContent</Code> of the <Code>SelectItemText</Code> part. Use this when the content is complex, or you have non-textual content inside. </span>',
+    },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]"
 />
@@ -629,7 +647,7 @@ import {
   <SelectRoot>
     <SelectTrigger>…</SelectTrigger>
     <SelectPortal>
-      <SelectContent position="popper" sideOffset="{5}"> … </SelectContent>
+      <SelectContent position="popper" :sideOffset="5"> … </SelectContent>
     </SelectPortal>
   </SelectRoot>
 </template>
@@ -641,7 +659,7 @@ When using `position="popper"` on `SelectContent`, you may want to constrain the
 
 We expose several CSS custom properties such as `--radix-select-trigger-width` and `--radix-select-content-available-height` to support this. Use them to constrain the content dimensions.
 
-```vue line=21-25
+```vue line=21
 // index.vue
 <script setup lang="ts">
 import {
@@ -789,7 +807,7 @@ Use the `Separator` part to add a separator between items.
 
 Use the `Group` and `Label` parts to group items in a section.
 
-```vue line=7-8,12
+```vue line=7,12
 <template>
   <SelectRoot>
     <SelectTrigger>…</SelectTrigger>
@@ -853,9 +871,9 @@ import {
 
 By default the trigger will automatically display the selected item `ItemText`'s content. You can control what appears by chosing to put things inside/outside the `ItemText` part.
 
-If you need more flexibility, you can control the component using `value`/`v-model` props and passing `children` to `SelectValue`. Remember to make sure what you put in there is accessible.
+If you need more flexibility, you can control the component using `v-model` props and passing `slot` to `SelectValue`. Remember to make sure what you put in there is accessible.
 
-```vue line=3,5,8
+```vue line=2,4,8
 <script setup>
 const countries = { france: "🇫🇷", "united-kingdom": "🇬🇧", spain: "🇪🇸" };
 
@@ -996,6 +1014,7 @@ See the W3C [Select-Only Combobox](https://www.w3.org/TR/wai-aria-practices/exam
   ]"
 />
 
+<!--
 ### Labelling
 
 Use our [Label](label) component in order to offer a visual and accessible label for the Select
@@ -1024,7 +1043,6 @@ import {
     <SelectRoot>…</SelectRoot>
   </Label>
 
-  <!-- or -->
 
   <Label for="country">Country</Label>
   <SelectRoot>
@@ -1035,6 +1053,7 @@ import {
   </SelectRoot>
 </template>
 ```
+-->
 
 <!--
 ## Custom APIs

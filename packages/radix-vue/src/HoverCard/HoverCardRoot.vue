@@ -2,9 +2,8 @@
 import type { Ref, InjectionKey } from "vue";
 
 export interface HoverCardRootProps {
-  defaultOpen: false;
+  defaultOpen?: false;
   open?: boolean;
-  //onOpenChange?: void;
   openDelay?: number;
   closeDelay?: number;
 }
@@ -16,9 +15,6 @@ export type HoverCardProvideValue = {
   open: Readonly<Ref<boolean>>;
   showTooltip(): void;
   hideTooltip(): void;
-  triggerElement: Ref<HTMLElement | undefined>;
-  floatingElement: Ref<HTMLElement | undefined>;
-  arrowElement: Ref<HTMLElement | undefined>;
   openDelay: number;
   closeDelay: number;
   isHover: boolean;
@@ -26,8 +22,9 @@ export type HoverCardProvideValue = {
 </script>
 
 <script setup lang="ts">
-import { provide, ref } from "vue";
+import { provide } from "vue";
 import { useVModel } from "@vueuse/core";
+import { PopperRoot } from "@/Popper";
 
 const props = withDefaults(defineProps<HoverCardRootProps>(), {
   defaultOpen: false,
@@ -39,10 +36,6 @@ const props = withDefaults(defineProps<HoverCardRootProps>(), {
 const emit = defineEmits<{
   (e: "update:open", value: boolean): void;
 }>();
-
-const triggerElement = ref<HTMLElement>();
-const floatingElement = ref<HTMLElement>();
-const arrowElement = ref<HTMLElement>();
 
 const open = useVModel(props, "open", emit, {
   defaultValue: props.defaultOpen,
@@ -57,9 +50,6 @@ provide<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY, {
   hideTooltip: () => {
     open.value = false;
   },
-  triggerElement: triggerElement,
-  floatingElement: floatingElement,
-  arrowElement: arrowElement,
   openDelay: props.openDelay,
   closeDelay: props.closeDelay,
   isHover: false,
@@ -67,5 +57,7 @@ provide<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY, {
 </script>
 
 <template>
-  <slot />
+  <PopperRoot>
+    <slot />
+  </PopperRoot>
 </template>

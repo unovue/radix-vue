@@ -1,30 +1,31 @@
-<script setup>
-import { ref } from "vue";
-import { CheckboxRoot, CheckboxIndicator } from "radix-vue";
-import { Icon } from "@iconify/vue";
+<script setup lang="ts">
+import { ref } from 'vue'
+import { CheckboxIndicator, CheckboxRoot } from 'radix-vue'
+import { Icon } from '@iconify/vue'
 
-const checkboxOne = ref(false);
-const checkboxTwo = ref(false);
-const checkboxThree = ref(false);
+const checkboxOne = ref(false)
+const checkboxTwo = ref(false)
+const checkboxThree = ref(false)
 </script>
 
 <template>
   <div class="absolute left-4 top-3 text-sm">
-  <p>
-    States: {{ checkboxOne ? "one on" : "one off" }} -
-    {{ checkboxTwo ? "two on" : "two off" }} -
-    {{ checkboxThree ? "three on" : "three off" }}
-  </p>
+    <p>
+      States: {{ checkboxOne ? "one on" : "one off" }} -
+      {{ checkboxTwo ? "two on" : "two off" }} -
+      {{ checkboxThree ? "three on" : "three off" }}
+    </p>
     <button
-      @click="checkboxOne = !checkboxOne"
       class="bg-white/20 px-2 py-1 rounded-md active:scale-90 duration-100 transform hover:bg-white/40 active:bg-white/20"
+      @click="checkboxOne = !checkboxOne"
     >
-    {{ checkboxOne ? "Uncheck" : "Check" }} Checkbox 1
+      {{ checkboxOne ? "Uncheck" : "Check" }} Checkbox 1
     </button>
   </div>
   <div class="flex flex-col gap-2.5">
     <label class="flex flex-row gap-4 items-center [&>.checkbox]:hover:bg-neutral-100">
-      <CheckboxRoot v-model="checkboxOne"
+      <CheckboxRoot
+        v-model="checkboxOne"
         class="shadow-blackA7 hover:bg-violet3 flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-[4px] bg-white shadow-[0_2px_10px] outline-none focus-within:shadow-[0_0_0_2px_black]"
       >
         <CheckboxIndicator
@@ -49,7 +50,8 @@ const checkboxThree = ref(false);
       <span class="select-none">Disabled Checkbox</span>
     </label>
     <label class="flex flex-row gap-4 items-center [&>.checkbox]:hover:bg-neutral-100">
-      <CheckboxRoot  v-model="checkboxThree"
+      <CheckboxRoot
+        v-model="checkboxThree"
         required
         class="shadow-blackA7 hover:bg-violet3 flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-[4px] bg-white shadow-[0_2px_10px] outline-none focus-within:shadow-[0_0_0_2px_black]"
       >

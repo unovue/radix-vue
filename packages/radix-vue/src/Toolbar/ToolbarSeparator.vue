@@ -1,17 +1,14 @@
 <script lang="ts">
 import BaseSeparator from "../shared/component/BaseSeparator.vue";
+import { type PrimitiveProps } from "@/Primitive";
 
-export interface BaseSeparatorProps {
-  asChild?: boolean;
-}
+export interface BaseSeparatorProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-const props = withDefaults(defineProps<BaseSeparatorProps>(), {
-  asChild: false,
-});
+const props = defineProps<BaseSeparatorProps>();
 </script>
 
 <template>
-  <BaseSeparator :asChild="props.asChild" />
+  <BaseSeparator :as-child="props.asChild" :as="as" />
 </template>

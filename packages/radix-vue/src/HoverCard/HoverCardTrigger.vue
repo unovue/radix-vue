@@ -1,31 +1,34 @@
 <script lang="ts">
-export interface HoverCardTriggerProps {
-  asChild?: boolean;
-}
+export interface HoverCardTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { inject, onMounted } from "vue";
-import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
+import { inject } from "vue";
+import {
+  Primitive,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import {
   HOVER_CARD_INJECTION_KEY,
   type HoverCardProvideValue,
 } from "./HoverCardRoot.vue";
+import { PopperAnchor } from "@/Popper";
+
 import { useHoverDelay, useMouseleaveDelay } from "../shared";
 
 const injectedValue = inject<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY);
 
-const { primitiveElement, currentElement: triggerElement } =
-  usePrimitiveElement();
-
-onMounted(() => {
-  injectedValue!.triggerElement.value = triggerElement.value;
+const props = withDefaults(defineProps<HoverCardTriggerProps>(), {
+  as: "button",
 });
+
+const { primitiveElement, currentElement } = usePrimitiveElement();
 
 async function handleMouseEnter(e: MouseEvent) {
   const result = await useHoverDelay(
     e,
-    triggerElement.value!,
+    currentElement.value!,
     injectedValue?.openDelay
   );
   if (result) {
@@ -35,7 +38,7 @@ async function handleMouseEnter(e: MouseEvent) {
 
 async function handleMouseleave(e: MouseEvent) {
   injectedValue!.isHover = false;
-  const result = await useMouseleaveDelay(e, injectedValue?.closeDelay!);
+  const result = await useMouseleaveDelay(e, injectedValue?.closeDelay);
   if (result && !injectedValue?.isHover) {
     injectedValue?.hideTooltip();
   }
@@ -43,16 +46,19 @@ async function handleMouseleave(e: MouseEvent) {
 </script>
 
 <template>
-  <PrimitiveButton
-    type="button"
-    ref="primitiveElement"
-    :aria-expanded="injectedValue?.open.value || false"
-    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
-    @mouseover="injectedValue!.isHover = true"
-    @mouseenter="handleMouseEnter"
-    @mouseleave="handleMouseleave"
-    style="cursor: default"
-  >
-    <slot />
-  </PrimitiveButton>
+  <PopperAnchor asChild>
+    <Primitive
+      ref="primitiveElement"
+      :as-child="props.asChild"
+      :as="as"
+      :aria-expanded="injectedValue?.open.value || false"
+      :data-state="injectedValue?.open.value ? 'open' : 'closed'"
+      @mouseover="injectedValue!.isHover = true"
+      @mouseenter="handleMouseEnter"
+      @mouseleave="handleMouseleave"
+      style="cursor: default"
+    >
+      <slot />
+    </Primitive>
+  </PopperAnchor>
 </template>

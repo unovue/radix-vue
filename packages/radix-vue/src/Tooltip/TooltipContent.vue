@@ -1,94 +1,133 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from "vue";
-import type { Side, MiddlewareData } from "@floating-ui/dom";
+import type { PopperContentProps } from "@/Popper";
+import { onClickOutside } from "@vueuse/core";
 
-export type Boundary = Element | null | Array<Element | null>;
-
-export interface TooltipContentProps {
-  asChild?: boolean;
+export interface TooltipContentProps
+  extends PrimitiveProps,
+    Pick<
+      PopperContentProps,
+      | "side"
+      | "sideOffset"
+      | "align"
+      | "alignOffset"
+      | "avoidCollisions"
+      | "collisionBoundary"
+      | "collisionPadding"
+      | "arrowPadding"
+      | "sticky"
+      | "hideWhenDetached"
+    > {
+  /**
+   * By default, screenreaders will announce the content inside
+   * the component. If this is not descriptive enough, or you have
+   * content that cannot be announced, use aria-label as a more
+   * descriptive label.
+   *
+   * @default String
+   */
   ariaLabel?: string;
-  onEscapeKeyDown?: void;
-  onPointerDownOutside?: void;
-  forceMount?: boolean;
-  side?: "top" | "right" | "bottom" | "left"; //"top"
-  sideOffset?: number; //0
-  align?: boolean;
-  alignOffset?: "start" | "center" | "end"; //"center"
-  avoidCollisions?: boolean; //true
-  collisionBoundary?: Boundary; //[]
-  collisionPadding?: number | Partial<Record<Side, number>>; //0
-  arrowPadding?: number; //0
-  sticky?: "partial" | "always"; //"partial"
-  hideWhenDetached?: boolean; //false
 }
 
-export const TOOLTIP_CONTENT_INJECTION_KEY =
-  Symbol() as InjectionKey<TooltipContentProvideValue>;
-
-export type TooltipContentProvideValue = {
-  middlewareData: Ref<MiddlewareData>;
-  floatPosition: Ref<Side>;
-};
+export interface TooltipContentEmit {
+  (e: "escapeKeyDown", event: KeyboardEvent): void;
+  (e: "pointerDownOutside", event: Event): void;
+}
 </script>
 
 <script setup lang="ts">
-import { onMounted, inject, ref, provide } from "vue";
-import { PrimitiveDiv } from "@/Primitive";
-import {
-  TOOLTIP_INJECTION_KEY,
-  type TooltipProvideValue,
-} from "./TooltipRoot.vue";
-import { useFloating, offset, flip, shift, arrow } from "@floating-ui/vue";
+import { PopperContent } from "@/Popper";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
+import { VisuallyHidden } from "@/VisuallyHidden";
+import { computed, inject, ref, useSlots, type VNode } from "vue";
+import { TOOLTIP_INJECTION_KEY } from "./TooltipRoot.vue";
 
-const injectedValue = inject<TooltipProvideValue>(TOOLTIP_INJECTION_KEY);
+const contentElement = ref<HTMLElement>();
 
-const props = defineProps({
-  class: String,
-  asChild: Boolean,
+const injectedValue = inject(TOOLTIP_INJECTION_KEY);
+
+const props = withDefaults(defineProps<TooltipContentProps>(), {
+  asChild: false,
+  side: "top",
+  sideOffset: 0,
+  align: "center",
+  avoidCollisions: true,
+  collisionBoundary: () => [],
+  collisionPadding: 0,
+  arrowPadding: 0,
+  sticky: "partial",
+  hideWhenDetached: false,
 });
 
-const tooltipContentElement = ref<HTMLElement>();
-onMounted(() => {
-  injectedValue!.floatingElement.value = tooltipContentElement.value;
+const emit = defineEmits<TooltipContentEmit>();
+
+onClickOutside(contentElement, () => {
+  emit("pointerDownOutside", new Event("pointerdown"));
 });
 
-const {
-  floatingStyles,
-  middlewareData,
-  placement: floatPosition,
-} = useFloating(injectedValue?.triggerElement!, tooltipContentElement!, {
-  placement: "top",
-  middleware: [
-    offset(10),
-    flip(),
-    shift(),
-    arrow({ element: injectedValue?.arrowElement }),
-  ],
-});
+function onEscapeKeyDown(event: KeyboardEvent) {
+  emit("escapeKeyDown", event);
+}
 
-provide<TooltipContentProvideValue>(TOOLTIP_CONTENT_INJECTION_KEY, {
-  middlewareData: middlewareData,
-  floatPosition: floatPosition as Ref<Side>,
+const ariaLabel = computed(() => {
+  if (props.ariaLabel) return props.ariaLabel;
+  const defaultSlot = useSlots().default?.();
+  let content: string = "";
+
+  function recursiveTextSearch(node: VNode) {
+    if (typeof node.children === "string") {
+      content += node.children;
+    } else if (Array.isArray(node.children)) {
+      node.children.forEach((child) => recursiveTextSearch(child as VNode));
+    }
+  }
+
+  defaultSlot?.forEach((node) => recursiveTextSearch(node));
+  return content;
 });
 </script>
 
 <template>
-  <div
-    ref="tooltipContentElement"
+  <PopperContent
     v-if="injectedValue?.open.value"
-    style="min-width: max-content; will-change: transform; z-index: auto"
-    :style="floatingStyles"
+    ref="contentElement"
+    :side="props.side"
+    :sideOffset="props.sideOffset"
+    :align="props.align"
+    :alignOffset="props.alignOffset"
+    :avoidCollisions="props.avoidCollisions"
+    :collisionBoundary="props.collisionBoundary"
+    :collisionPadding="props.collisionPadding"
+    :arrowPadding="props.arrowPadding"
+    :sticky="props.sticky"
+    :hideWhenDetached="props.hideWhenDetached"
+    style="
+      --radix-tooltip-content-transform-origin: var(
+        --radix-popper-transform-origin
+      );
+      --radix-tooltip-content-available-width: var(
+        --radix-popper-available-width
+      );
+      --radix-tooltip-content-available-height: var(
+        --radix-popper-available-height
+      );
+      --radix-tooltip-trigger-width: var(--radix-popper-anchor-width);
+      --radix-tooltip-trigger-height: var(--radix-popper-anchor-height);
+    "
+    @keydown.esc="onEscapeKeyDown($event)"
   >
-    <PrimitiveDiv
-      :data-state="injectedValue?.open.value ? 'delayed-open' : 'closed'"
-      data-side="top"
-      data-align="center"
+    <Primitive
+      :data-state="injectedValue?.dataState.value"
+      :data-side="props.side"
+      :data-align="props.align"
+      :as-child="props.asChild"
+      :as="as"
       role="tooltip"
       tabindex="-1"
-      :asChild="props.asChild"
-      :class="props.class"
     >
       <slot />
-    </PrimitiveDiv>
-  </div>
+    </Primitive>
+    <VisuallyHidden :id="injectedValue?.contentId" role="tooltip">
+      {{ ariaLabel }}
+    </VisuallyHidden>
+  </PopperContent>
 </template>

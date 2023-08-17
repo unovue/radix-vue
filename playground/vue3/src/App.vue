@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import Card from "./components/Card.vue";
 
 import AccordionDemo from "./components/Demo/AccordionDemo.vue";
@@ -25,6 +24,10 @@ import PopoverDemo from "./components/Demo/PopoverDemo.vue";
 import DropdownMenuDemo from "./components/Demo/DropdownMenuDemo.vue";
 import ContextMenuDemo from "./components/Demo/ContextMenuDemo.vue";
 import ScrollAreaDemo from "./components/Demo/ScrollAreaDemo.vue";
+import SelectDemo from "./components/Demo/SelectDemo.vue";
+import MenubarDemo from "./components/Demo/MenubarDemo.vue";
+import SelectMultipleDemo from "./components/Demo/SelectMultipleDemo.vue";
+import NavigationMenuDemo from "./components/Demo/NavigationMenuDemo.vue";
 </script>
 
 <template>
@@ -54,11 +57,17 @@ import ScrollAreaDemo from "./components/Demo/ScrollAreaDemo.vue";
       <Card class="col-span-2">
         <ContextMenuDemo />
       </Card>
-      <Card>
+      <Card class="col-span-2">
         <DialogDemo />
       </Card>
       <Card>
         <DropdownMenuDemo />
+      </Card>
+      <Card>
+        <MenubarDemo />
+      </Card>
+      <Card class="col-span-2">
+        <NavigationMenuDemo />
       </Card>
       <Card>
         <HoverCardDemo />
@@ -74,6 +83,12 @@ import ScrollAreaDemo from "./components/Demo/ScrollAreaDemo.vue";
       </Card>
       <Card>
         <RadioGroupDemo />
+      </Card>
+      <Card>
+        <SelectDemo />
+      </Card>
+      <Card>
+        <SelectMultipleDemo />
       </Card>
       <Card>
         <SeparatorDemo />

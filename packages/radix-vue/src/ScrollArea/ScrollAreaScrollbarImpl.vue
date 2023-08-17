@@ -1,28 +1,24 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, onUnmounted, ref } from "vue";
-import {
-  type ScrollAreaProvideValue,
-  SCROLL_AREA_INJECTION_KEY,
-} from "./ScrollAreaRoot.vue";
-
-import {
-  type ScrollAreaScrollbarVisibleProvideValue,
-  SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY,
-} from "./ScrollAreaScrollbarVisible.vue";
+import { inject, onMounted, onUnmounted, ref } from "vue";
+import { SCROLL_AREA_INJECTION_KEY } from "./ScrollAreaRoot.vue";
+import { SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY } from "./ScrollAreaScrollbarVisible.vue";
+import { SCROLL_AREA_SCROLLBAR_INJECTION_KEY } from "./ScrollAreaScrollbar.vue";
+import { Primitive, usePrimitiveElement } from "@/Primitive";
 import { toInt } from "./utils";
 import { useResizeObserver } from "@vueuse/core";
 
-const injectedValueFromRoot = inject<ScrollAreaProvideValue>(
-  SCROLL_AREA_INJECTION_KEY
+const rootContext = inject(SCROLL_AREA_INJECTION_KEY);
+const scrollbarVisibleContext = inject(
+  SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY
 );
-const injectedValueFromScrollbarVisible =
-  inject<ScrollAreaScrollbarVisibleProvideValue>(
-    SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY
-  );
 
-const props = defineProps<{
+const scrollbarContext = inject(SCROLL_AREA_SCROLLBAR_INJECTION_KEY);
+
+export interface ScrollAreaScrollbarImplProps {
   isHorizontal: boolean;
-}>();
+}
+
+const props = defineProps<ScrollAreaScrollbarImplProps>();
 
 const emit = defineEmits<{
   (e: "onDragScroll", payload: { x: number; y: number }): void;
@@ -30,8 +26,8 @@ const emit = defineEmits<{
   (e: "onThumbPointerDown", payload: { x: number; y: number }): void;
 }>();
 
+const { primitiveElement, currentElement: scrollbar } = usePrimitiveElement();
 const prevWebkitUserSelectRef = ref("");
-const scrollbar = ref<HTMLElement>();
 const rectRef = ref<DOMRect>();
 
 function handleDragScroll(event: MouseEvent) {
@@ -53,8 +49,8 @@ const handlePointerDown = (event: PointerEvent) => {
     // so we remove text selection manually when scrolling
     prevWebkitUserSelectRef.value = document.body.style.webkitUserSelect;
     document.body.style.webkitUserSelect = "none";
-    if (injectedValueFromRoot?.viewport)
-      injectedValueFromRoot.viewport.value!.style.scrollBehavior = "auto";
+    if (rootContext?.viewport)
+      rootContext.viewport.value!.style.scrollBehavior = "auto";
 
     handleDragScroll(event);
   }
@@ -70,21 +66,21 @@ const handlePointerUp = (event: PointerEvent) => {
     element.releasePointerCapture(event.pointerId);
   }
   document.body.style.webkitUserSelect = prevWebkitUserSelectRef.value;
-  if (injectedValueFromRoot?.viewport)
-    injectedValueFromRoot.viewport.value!.style.scrollBehavior = "";
+  if (rootContext?.viewport)
+    rootContext.viewport.value!.style.scrollBehavior = "";
 
   rectRef.value = undefined;
 };
 
 const handleWheel = (event: WheelEvent) => {
-  if (!injectedValueFromScrollbarVisible) return;
+  if (!scrollbarVisibleContext) return;
   const element = event.target as HTMLElement;
   const isScrollbarWheel = scrollbar.value?.contains(element);
   const maxScrollPos =
-    injectedValueFromScrollbarVisible.sizes.value.content -
-    injectedValueFromScrollbarVisible.sizes.value.viewport;
+    scrollbarVisibleContext.sizes.value.content -
+    scrollbarVisibleContext.sizes.value.viewport;
   if (isScrollbarWheel)
-    injectedValueFromScrollbarVisible.handleWheelScroll(event, maxScrollPos);
+    scrollbarVisibleContext.handleWheelScroll(event, maxScrollPos);
 };
 
 onMounted(() => {
@@ -97,9 +93,9 @@ onUnmounted(() => {
 const handleSizeChange = () => {
   if (!scrollbar.value) return;
   if (props.isHorizontal) {
-    injectedValueFromScrollbarVisible?.handleSizeChange({
-      content: injectedValueFromRoot?.viewport.value?.scrollWidth ?? 0,
-      viewport: injectedValueFromRoot?.viewport.value?.offsetWidth ?? 0,
+    scrollbarVisibleContext?.handleSizeChange({
+      content: rootContext?.viewport.value?.scrollWidth ?? 0,
+      viewport: rootContext?.viewport.value?.offsetWidth ?? 0,
       scrollbar: {
         size: scrollbar.value?.clientWidth ?? 0,
         paddingStart: toInt(getComputedStyle(scrollbar.value!).paddingLeft),
@@ -107,9 +103,9 @@ const handleSizeChange = () => {
       },
     });
   } else {
-    injectedValueFromScrollbarVisible?.handleSizeChange({
-      content: injectedValueFromRoot?.viewport.value?.scrollHeight ?? 0,
-      viewport: injectedValueFromRoot?.viewport.value?.offsetHeight ?? 0,
+    scrollbarVisibleContext?.handleSizeChange({
+      content: rootContext?.viewport.value?.scrollHeight ?? 0,
+      viewport: rootContext?.viewport.value?.offsetHeight ?? 0,
       scrollbar: {
         size: scrollbar.value?.clientHeight ?? 0,
         paddingStart: toInt(getComputedStyle(scrollbar.value!).paddingLeft),
@@ -120,34 +116,20 @@ const handleSizeChange = () => {
 };
 
 useResizeObserver(scrollbar, handleSizeChange);
-useResizeObserver(injectedValueFromRoot?.content, handleSizeChange);
-
-const isScrollbarNeeded = computed(() => {
-  if (props.isHorizontal) {
-    return (
-      injectedValueFromRoot?.viewport.value?.scrollWidth !==
-      injectedValueFromRoot?.viewport.value?.offsetWidth
-    );
-  } else {
-    return (
-      injectedValueFromRoot?.viewport.value?.scrollHeight !==
-      injectedValueFromRoot?.viewport.value?.offsetHeight
-    );
-  }
-});
+useResizeObserver(rootContext?.content, handleSizeChange);
 </script>
 
 <template>
-  <div
-    v-if="isScrollbarNeeded"
-    ref="scrollbar"
+  <Primitive
+    ref="primitiveElement"
     style="position: absolute"
+    data-scrollbarimpl
+    :as="scrollbarContext?.as.value"
+    :as-child="scrollbarContext?.asChild.value"
     @pointerdown="handlePointerDown"
     @pointermove="handlePointerMove"
     @pointerup="handlePointerUp"
   >
-    <template v-if="isScrollbarNeeded">
-      <slot></slot>
-    </template>
-  </div>
+    <slot></slot>
+  </Primitive>
 </template>

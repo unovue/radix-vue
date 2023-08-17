@@ -1,14 +1,17 @@
 <script lang="ts">
-interface ToggleGroupItemProps {
-  asChild?: boolean;
+interface ToggleGroupItemProps extends PrimitiveProps {
   value?: string;
   disabled?: boolean;
 }
 </script>
 
 <script setup lang="ts">
-import { inject, computed } from "vue";
-import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
+import { inject, computed, onMounted } from "vue";
+import {
+  Primitive,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import {
   TOGGLE_GROUP_INJECTION_KEY,
   type ToggleGroupProvideValue,
@@ -20,11 +23,14 @@ const injectedValue = inject<ToggleGroupProvideValue>(
 );
 
 const props = withDefaults(defineProps<ToggleGroupItemProps>(), {
-  asChild: false,
+  as: "button",
 });
 
-const { primitiveElement, currentElement: currentToggleElement } =
-  usePrimitiveElement();
+const { primitiveElement, currentElement } = usePrimitiveElement();
+
+onMounted(() => {
+  injectedValue?.itemsArray.value?.push(currentElement.value!);
+});
 
 const state = computed(() => {
   if (injectedValue?.type === "multiple") {
@@ -36,27 +42,78 @@ const state = computed(() => {
   }
 });
 
+const checkedState = computed(() => {
+  if (injectedValue?.type === "multiple") {
+    return injectedValue?.modelValue?.value?.includes(props.value!);
+  } else {
+    return injectedValue?.modelValue?.value === props.value;
+  }
+});
+
 function handleKeydown(e: KeyboardEvent) {
+  if (!injectedValue?.rovingFocus || injectedValue?.rootDisabled) {
+    return;
+  }
+  if (
+    e.key === "ArrowLeft" ||
+    e.key === "ArrowRight" ||
+    e.key === "ArrowUp" ||
+    e.key === "ArrowDown"
+  ) {
+    e.preventDefault();
+  }
   const newSelectedElement = useArrowNavigation(
     e,
-    currentToggleElement.value!,
-    injectedValue?.parentElement.value!
+    currentElement.value!,
+    injectedValue?.parentElement.value!,
+    { loop: injectedValue?.loop }
   );
-  newSelectedElement?.focus();
+
+  if (newSelectedElement) {
+    newSelectedElement.focus();
+    injectedValue!.currentFocusedElement!.value = newSelectedElement;
+  }
+}
+
+const getTabIndex = computed(() => {
+  if (!injectedValue?.currentFocusedElement?.value) {
+    return injectedValue?.modelValue?.value === props.value ? "0" : "-1";
+  } else
+    return injectedValue?.currentFocusedElement?.value === currentElement.value
+      ? "0"
+      : "-1";
+});
+
+const getRole = computed(() => {
+  return injectedValue?.type === "multiple" ? "checkbox" : "radio";
+});
+
+function handleChangeValue() {
+  if (injectedValue?.rootDisabled) {
+    return;
+  }
+  injectedValue?.changeModelValue(props.value!);
+  injectedValue!.currentFocusedElement.value = currentElement.value;
 }
 </script>
 
 <template>
-  <PrimitiveButton
-    type="button"
-    :data-state="state"
-    :data-disabled="props.disabled"
-    :data-orientation="injectedValue?.orientation"
-    @click="injectedValue?.changeModelValue(props.value!)"
+  <Primitive
+    :as-child="props.asChild"
+    :as="as"
     ref="primitiveElement"
+    :type="as === 'button' ? 'button' : undefined"
+    :role="getRole"
+    :data-state="state"
+    :disabled="props.disabled || injectedValue?.rootDisabled"
+    :data-disabled="props.disabled ? '' : undefined"
+    :aria-checked="checkedState"
+    :data-orientation="injectedValue?.orientation"
+    @click="handleChangeValue"
     @keydown="handleKeydown"
     data-radix-vue-collection-item
+    :tabindex="getTabIndex"
   >
     <slot />
-  </PrimitiveButton>
+  </Primitive>
 </template>

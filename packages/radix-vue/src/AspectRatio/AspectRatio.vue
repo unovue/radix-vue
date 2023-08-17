@@ -1,12 +1,11 @@
 <script lang="ts">
-interface AspectRatioProps {
-  asChild?: boolean;
+interface AspectRatioProps extends PrimitiveProps {
   ratio?: number;
 }
 </script>
 
 <script setup lang="ts">
-import { PrimitiveDiv } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { computed } from "vue";
 
 const props = withDefaults(defineProps<AspectRatioProps>(), {
@@ -20,8 +19,12 @@ const aspect = computed(() => {
 
 <template>
   <div :style="`position: relative; width: 100%; padding-bottom: ${aspect}%`">
-    <PrimitiveDiv :asChild="asChild" style="position: absolute; inset: 0px">
+    <Primitive
+      :as-child="asChild"
+      :as="as"
+      style="position: absolute; inset: 0px"
+    >
       <slot />
-    </PrimitiveDiv>
+    </Primitive>
   </div>
 </template>

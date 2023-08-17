@@ -1,18 +1,17 @@
 <script lang="ts">
 import type { InjectionKey, Ref } from "vue";
+import { useId } from "@/shared";
 
-export interface CollapsibleRootProps {
-  asChild?: boolean;
+export interface CollapsibleRootProps extends PrimitiveProps {
   defaultOpen?: boolean;
   open?: boolean;
-  onOpenChange?: void;
   disabled?: boolean;
 }
 
 export interface CollapsibleProvideValue {
   contentId: string;
-  disabled?: Readonly<Ref<boolean>>;
-  open: Readonly<Ref<boolean>>;
+  disabled?: Ref<boolean>;
+  open: Ref<boolean>;
   onOpenToggle(): void;
 }
 
@@ -22,11 +21,10 @@ export const COLLAPSIBLE_INJECTION_KEY =
 
 <script setup lang="ts">
 import { provide } from "vue";
-import { PrimitiveDiv } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<CollapsibleRootProps>(), {
-  asChild: false,
   open: undefined,
   defaultOpen: false,
 });
@@ -39,10 +37,11 @@ const open = useVModel(props, "open", emit, {
   defaultValue: props.defaultOpen,
   passive: true,
 });
+
 const disabled = useVModel(props, "disabled");
 
 provide<CollapsibleProvideValue>(COLLAPSIBLE_INJECTION_KEY, {
-  contentId: "1",
+  contentId: useId(),
   disabled,
   open,
   onOpenToggle: () => {
@@ -52,10 +51,12 @@ provide<CollapsibleProvideValue>(COLLAPSIBLE_INJECTION_KEY, {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
+    :as="as"
+    :as-child="props.asChild"
     :data-state="props.open ? 'open' : 'closed'"
-    :data-disabled="props.disabled ? 'true' : undefined"
+    :data-disabled="props.disabled ? '' : undefined"
   >
     <slot :open="open" />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

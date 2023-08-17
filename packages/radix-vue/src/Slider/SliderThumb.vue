@@ -1,15 +1,14 @@
 <script lang="ts">
-export interface SliderThumbProps {
-  asChild?: boolean;
-
-  // INTERNAL
-  class?: string;
-}
+export interface SliderThumbProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
 import { inject, onMounted } from "vue";
-import { PrimitiveSpan, usePrimitiveElement } from "@/Primitive";
+import {
+  Primitive,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import { SLIDER_INJECTION_KEY } from "./SliderRoot.vue";
 import type { SliderProvideValue } from "./SliderRoot.vue";
 
@@ -23,7 +22,7 @@ onMounted(() => {
 });
 
 const props = withDefaults(defineProps<SliderThumbProps>(), {
-  asChild: false,
+  as: "span",
 });
 
 let extraStep = 2;
@@ -88,8 +87,8 @@ function handleKeydown(e: KeyboardEvent) {
   <span
     :style="`transform: translateX(-50%); position: absolute; left: calc(${injectedValue?.modelValue?.value}%)`"
   >
-    <PrimitiveSpan
-      :class="props.class"
+    <Primitive
+      v-bind="$attrs"
       ref="primitiveElement"
       role="slider"
       tabindex="0"
@@ -99,8 +98,10 @@ function handleKeydown(e: KeyboardEvent) {
       :aria-valuemin="injectedValue?.min"
       :aria-valuemax="injectedValue?.max"
       :aria-orientation="injectedValue?.orientation"
+      :as-child="props.asChild"
+      :as="as"
       @keydown="handleKeydown"
     >
-    </PrimitiveSpan>
+    </Primitive>
   </span>
 </template>

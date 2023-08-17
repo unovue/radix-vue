@@ -1,91 +1,40 @@
-<script lang="ts">
-export interface DialogContentProps {
-  asChild?: boolean;
-  forceMount?: boolean;
-  //onOpenAutoFocus?: void;
-  //onCloseAutoFocus?: void;
-  //onEscapeKeyDown?: void;
-  //onPointerDownOutside?: void;
-  //onInteractOutside?: void;
-}
-</script>
-
 <script setup lang="ts">
-import { inject, watchEffect } from "vue";
-import { trapFocus } from "../shared";
+import DialogContentModal from "./DialogContentModal.vue";
+import DialogContentNonModal from "./DialogContentNonModal.vue";
 import {
-  DIALOG_INJECTION_KEY,
-  type DialogProvideValue,
-} from "./DialogRoot.vue";
-import { onClickOutside } from "@vueuse/core";
-import { PrimitiveDiv, usePrimitiveElement } from "../Primitive";
+  type DialogContentImplProps,
+  type DialogContentImplEmits,
+} from "./DialogContentImpl.vue";
+import { inject } from "vue";
+import { DIALOG_INJECTION_KEY } from "./DialogRoot.vue";
+import { Presence } from "@/Presence";
+import { useEmitAsProps } from "@/shared";
 
-const props = withDefaults(defineProps<DialogContentProps>(), {
-  asChild: false,
-});
+const context = inject(DIALOG_INJECTION_KEY);
 
-const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
+export interface DialogContentProps extends DialogContentImplProps {}
+export type DialogContentEmits = DialogContentImplEmits;
 
-const { primitiveElement, currentElement: dialogContentElement } =
-  usePrimitiveElement();
+const props = defineProps<DialogContentProps>();
+const emits = defineEmits<DialogContentEmits>();
 
-onClickOutside(dialogContentElement, onPointerDownOutside);
-
-function onPointerDownOutside() {
-  alert("click outside!");
-}
-
-watchEffect(() => {
-  if (dialogContentElement.value) {
-    if (injectedValue?.open.value) {
-      trapFocus(dialogContentElement.value);
-      document.querySelector("body")!.style.pointerEvents = "none";
-      window.addEventListener("wheel", lockScroll, { passive: false });
-      window.addEventListener("keydown", lockKeydown);
-    } else {
-      document.querySelector("body")!.style.pointerEvents = "";
-      window.removeEventListener("wheel", lockScroll);
-      window.removeEventListener("keydown", lockKeydown);
-
-      if (injectedValue?.triggerButton.value) {
-        injectedValue?.triggerButton.value.focus();
-      }
-    }
-  }
-});
-
-function lockScroll(e: WheelEvent) {
-  e.preventDefault();
-}
-
-function lockKeydown(e: KeyboardEvent) {
-  if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-    const activeElement = document.activeElement;
-    const inputs = ["input", "select", "textarea"];
-
-    if (
-      activeElement &&
-      inputs.indexOf(activeElement.tagName.toLowerCase()) === -1
-    ) {
-      e.preventDefault();
-    }
-  }
-  if (e.key === "Escape") {
-    injectedValue?.closeModal();
-  }
-}
+const emitsAsProps = useEmitAsProps(emits);
 </script>
 
 <template>
-  <PrimitiveDiv
-    :asChild="props.asChild"
-    ref="primitiveElement"
-    v-if="injectedValue?.open.value"
-    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
-    role="dialog"
-    tabindex="-1"
-    style="pointer-events: auto"
-  >
-    <slot />
-  </PrimitiveDiv>
+  <Presence :present="context!.open.value">
+    <DialogContentModal
+      v-if="context?.modal.value"
+      v-bind="{ ...props, ...emitsAsProps, ...$attrs }"
+      @open-auto-focus="emits('openAutoFocus', $event)"
+    >
+      <slot></slot>
+    </DialogContentModal>
+    <DialogContentNonModal
+      v-bind="{ ...props, ...emitsAsProps, ...$attrs }"
+      v-else
+    >
+      <slot></slot>
+    </DialogContentNonModal>
+  </Presence>
 </template>

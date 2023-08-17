@@ -1,163 +1,69 @@
-<script lang="ts">
-import type { InjectionKey, Ref } from "vue";
-import type { Side, MiddlewareData } from "@floating-ui/dom";
+<script setup lang="ts">
+import { inject, ref } from "vue";
+import {
+  MenuContent,
+  type MenuContentEmits,
+  type MenuContentProps,
+} from "@/Menu";
+import { DROPDOWN_MENU_INJECTION_KEY } from "./DropdownMenuRoot.vue";
+import { useEmitAsProps } from "@/shared";
+import { PopperContentPropsDefaultValue } from "@/Popper";
 
-export const DROPDOWN_MENU_CONTENT_INJECTION_KEY =
-  Symbol() as InjectionKey<DropdownMenuContentProvideValue>;
+export interface DropdownMenuContentProps extends MenuContentProps {}
+export type DropdownMenuContentEmits = MenuContentEmits;
 
-export type Boundary = Element | null | Array<Element | null>;
+const props = withDefaults(defineProps<DropdownMenuContentProps>(), {
+  ...PopperContentPropsDefaultValue,
+});
+const emits = defineEmits<DropdownMenuContentEmits>();
 
-export interface DropdownMenuContentProps {
-  asChild?: boolean;
-  loop?: boolean; //false
-  //onOpenAutoFocus?: void;
-  //onCloseAutoFocus?: void;
-  //onEscapeKeyDown?: void;
-  //onPointerDownOutside?: void;
-  //onInteractOutside?: void;
-  forceMount?: boolean;
-  side?: "top" | "right" | "bottom" | "left"; //"top"
-  sideOffset?: number; //0
-  align?: "start" | "center" | "end";
-  alignOffset?: number; //"center"
-  avoidCollisions?: boolean; //true
-  collisionBoundary?: Boundary; //[]
-  collisionPadding?: number | Partial<Record<Side, number>>; //0
-  arrowPadding?: number; //0
-  sticky?: "partial" | "always"; //"partial"
-  hideWhenDetached?: boolean; //false
-  class: string;
-}
+const context = inject(DROPDOWN_MENU_INJECTION_KEY);
 
-export type DropdownMenuContentProvideValue = {
-  middlewareData: Ref<MiddlewareData>;
-  floatPosition: Ref<Side>;
+const hasInteractedOutsideRef = ref(false);
+
+const emitsAsProps = useEmitAsProps(emits);
+
+const handleCloseAutoFocus = (event: Event) => {
+  emits("closeAutoFocus", event);
+  if (event.defaultPrevented) return;
+  if (!hasInteractedOutsideRef.value) {
+    setTimeout(() => {
+      context?.triggerElement.value?.focus();
+    }, 0);
+  }
+  hasInteractedOutsideRef.value = false;
+
+  // Always prevent auto focus because we either focus manually or want user agent focus
+  event.preventDefault();
 };
 </script>
 
-<script setup lang="ts">
-import { onMounted, inject, ref, watchEffect, provide } from "vue";
-import { PrimitiveDiv } from "@/Primitive";
-import {
-  useFloating,
-  offset,
-  flip,
-  shift,
-  autoUpdate,
-  arrow,
-} from "@floating-ui/vue";
-import { useClickOutside } from "../shared/useClickOutside";
-import {
-  DROPDOWN_MENU_INJECTION_KEY,
-  type DropdownMenuProvideValue,
-} from "./DropdownMenuRoot.vue";
-
-const injectedValue = inject<DropdownMenuProvideValue>(
-  DROPDOWN_MENU_INJECTION_KEY
-);
-
-const props = withDefaults(defineProps<DropdownMenuContentProps>(), {
-  side: "bottom",
-  align: "center",
-});
-
-const tooltipContentElement = ref<HTMLElement>();
-onMounted(() => {
-  injectedValue!.floatingElement.value = tooltipContentElement.value;
-});
-
-const {
-  floatingStyles,
-  middlewareData,
-  placement: floatPosition,
-} = useFloating(injectedValue!.triggerElement, tooltipContentElement, {
-  placement: "bottom",
-  middleware: [
-    offset(10),
-    flip(),
-    shift(),
-    arrow({ element: injectedValue?.arrowElement }),
-  ],
-  whileElementsMounted: autoUpdate,
-});
-
-watchEffect(() => {
-  if (tooltipContentElement.value) {
-    if (injectedValue?.modelValue.value) {
-      setTimeout(() => {
-        document.querySelector("body")!.style.pointerEvents = "none";
-        focusFirstRadixElement();
-        fillItemsArray();
-      }, 0);
-
-      window.addEventListener("mousedown", closeDialogWhenClickOutside);
-    } else {
-      if (injectedValue?.triggerElement.value) {
-        handleCloseMenu();
-      }
-    }
-  }
-});
-
-function closeDialogWhenClickOutside(e: MouseEvent) {
-  const clickOutside = useClickOutside(e, tooltipContentElement.value!);
-  if (clickOutside) {
-    injectedValue?.hideTooltip();
-    window.removeEventListener("mousedown", closeDialogWhenClickOutside);
-  }
-}
-
-function focusFirstRadixElement() {
-  const allToggleItem = Array.from(
-    tooltipContentElement.value!.querySelectorAll(
-      "[data-radix-vue-collection-item]"
-    )
-  ) as HTMLElement[];
-  if (allToggleItem.length) {
-    injectedValue!.selectedElement.value = allToggleItem[0];
-    allToggleItem[0].focus();
-  }
-}
-
-function fillItemsArray() {
-  const allToggleItem = Array.from(
-    tooltipContentElement.value!.querySelectorAll(
-      "[data-radix-vue-collection-item]:not([data-disabled])"
-    )
-  ) as HTMLElement[];
-  injectedValue!.itemsArray = allToggleItem;
-}
-
-function handleCloseMenu() {
-  document.querySelector("body")!.style.pointerEvents = "";
-  setTimeout(() => {
-    injectedValue?.triggerElement.value?.focus();
-  }, 0);
-}
-
-provide<DropdownMenuContentProvideValue>(DROPDOWN_MENU_CONTENT_INJECTION_KEY, {
-  middlewareData: middlewareData,
-  floatPosition: floatPosition as Ref<Side>,
-});
-</script>
-
 <template>
-  <div
-    ref="tooltipContentElement"
-    v-if="injectedValue?.modelValue.value"
-    style="min-width: max-content; will-change: transform; z-index: auto"
-    :style="floatingStyles"
+  <MenuContent
+    v-bind="{ ...props, ...emitsAsProps }"
+    :id="context?.contentId"
+    :aria-labelledby="context?.triggerId"
+    @close-auto-focus="handleCloseAutoFocus"
+    @interact-outside="(event) => {
+      emits('interactOutside', event)
+      if(event.defaultPrevented)  return
+      const originalEvent = event.detail.originalEvent as PointerEvent;
+      const ctrlLeftClick = originalEvent.button === 0 && originalEvent.ctrlKey === true;
+      const isRightClick = originalEvent.button === 2 || ctrlLeftClick;
+      if (!context?.modal.value || isRightClick) hasInteractedOutsideRef = true;
+    }"
+    :style="{
+      '--radix-dropdown-menu-content-transform-origin':
+        'var(--radix-popper-transform-origin)',
+      '--radix-dropdown-menu-content-available-width':
+        'var(--radix-popper-available-width)',
+      '--radix-dropdown-menu-content-available-height':
+        'var(--radix-popper-available-height)',
+      '--radix-dropdown-menu-trigger-width': 'var(--radix-popper-anchor-width)',
+      '--radix-dropdown-menu-trigger-height':
+        'var(--radix-popper-anchor-height)',
+    }"
   >
-    <PrimitiveDiv
-      :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
-      :data-side="props.side"
-      :data-align="props.align"
-      role="tooltip"
-      :class="props.class"
-      :asChild="props.asChild"
-      style="pointer-events: auto"
-    >
-      <slot />
-    </PrimitiveDiv>
-  </div>
+    <slot></slot>
+  </MenuContent>
 </template>

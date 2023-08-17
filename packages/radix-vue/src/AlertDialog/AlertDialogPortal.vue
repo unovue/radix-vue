@@ -1,14 +1,11 @@
-<!--
-<script lang="ts">
-export interface AlertDialogPortalrProps {
-  forceMount?: boolean;
-  container?: HTMLElement | string;
-}
+<script setup lang="ts">
+import { DialogPortal, type DialogPortalProps } from "@/Dialog";
+
+const props = defineProps<DialogPortalProps>();
 </script>
--->
 
 <template>
-  <Teleport to="body">
-    <slot />
-  </Teleport>
+  <DialogPortal v-bind="props">
+    <slot></slot>
+  </DialogPortal>
 </template>

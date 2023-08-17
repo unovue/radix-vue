@@ -1,135 +1,73 @@
-<script lang="ts">
-import type { InjectionKey, Ref } from "vue";
-import type { Side, MiddlewareData } from "@floating-ui/dom";
-
-export const CONTEXT_MENU_CONTENT_INJECTION_KEY =
-  Symbol() as InjectionKey<ContextMenuContentProvideValue>;
-
-export type ContextMenuContentProvideValue = {
-  middlewareData: Ref<MiddlewareData>;
-  floatPosition: Ref<Side>;
-};
-</script>
-
 <script setup lang="ts">
-import { PrimitiveDiv } from "@/Primitive";
-import { onMounted, inject, ref, watchEffect, provide } from "vue";
-import { useFloating, offset, flip, shift, autoUpdate } from "@floating-ui/vue";
-import { useClickOutside } from "../shared/useClickOutside";
+import { inject, ref } from "vue";
+import { CONTEXT_MENU_INJECTION_KEY } from "./ContextMenuRoot.vue";
 import {
-  CONTEXT_MENU_INJECTION_KEY,
-  type ContextMenuProvideValue,
-} from "./ContextMenuRoot.vue";
+  MenuContent,
+  type MenuContentEmits,
+  type MenuContentProps,
+} from "@/Menu";
 
-const injectedValue = inject<ContextMenuProvideValue>(
-  CONTEXT_MENU_INJECTION_KEY
-);
+export interface ContextMenuContentProps
+  extends Omit<
+    MenuContentProps,
+    | "side"
+    | "sideOffset"
+    | "align"
+    | "arrowPadding"
+    | "updatePositionStrategy"
+    | "prioritizePosition"
+  > {}
+export interface ContextMenuContentEmits extends MenuContentEmits {}
 
-const props = defineProps({
-  class: String,
-  asChild: Boolean,
+const props = withDefaults(defineProps<ContextMenuContentProps>(), {
+  alignOffset: 0,
+  avoidCollisions: true,
+  collisionBoundary: () => [],
+  collisionPadding: 0,
+  sticky: "partial",
+  hideWhenDetached: false,
 });
+const emits = defineEmits<ContextMenuContentEmits>();
 
-const tooltipContentElement = ref<HTMLElement>();
-onMounted(() => {
-  injectedValue!.floatingElement.value = tooltipContentElement.value;
-});
-
-const {
-  floatingStyles,
-  middlewareData,
-  placement: floatPosition,
-} = useFloating(injectedValue!.triggerElement, tooltipContentElement, {
-  middleware: [
-    offset({ mainAxis: 1, alignmentAxis: 3 }),
-    flip({
-      fallbackPlacements: ["left-start"],
-    }),
-    shift({ padding: 10 }),
-  ],
-  placement: "right-start",
-  strategy: "fixed",
-  whileElementsMounted: autoUpdate,
-});
-
-watchEffect(() => {
-  if (tooltipContentElement.value) {
-    if (injectedValue?.modelValue.value) {
-      setTimeout(() => {
-        focusFirstRadixElement();
-        fillItemsArray();
-      }, 0);
-
-      window.addEventListener("mousedown", closeDialogWhenClickOutside);
-      window.addEventListener("scroll", closeDialogWhenScrolled);
-    }
-  }
-});
-
-function closeDialogWhenClickOutside(e: MouseEvent) {
-  if (tooltipContentElement.value) {
-    const clickOutside = useClickOutside(e, tooltipContentElement.value);
-    if (clickOutside) {
-      injectedValue?.hideTooltip();
-      window.removeEventListener("mousedown", closeDialogWhenClickOutside);
-    }
-  }
-}
-
-function closeDialogWhenScrolled() {
-  injectedValue?.hideTooltip();
-  window.removeEventListener("scroll", closeDialogWhenScrolled);
-}
-
-function focusFirstRadixElement() {
-  if (!tooltipContentElement.value) {
-    return console.log("tooltipContentElement not found!");
-  }
-  const allToggleItem = Array.from(
-    tooltipContentElement.value.querySelectorAll(
-      "[data-radix-vue-collection-item]"
-    )
-  ) as HTMLElement[];
-  if (allToggleItem.length) {
-    injectedValue!.selectedElement.value = allToggleItem[0];
-    allToggleItem[0].focus();
-  }
-}
-
-function fillItemsArray() {
-  if (!tooltipContentElement.value) {
-    return console.log("tooltipContentElement not found!");
-  }
-  const allToggleItem = Array.from(
-    tooltipContentElement.value.querySelectorAll(
-      "[data-radix-vue-collection-item]:not([data-disabled])"
-    )
-  ) as HTMLElement[];
-  injectedValue!.itemsArray = allToggleItem;
-}
-
-provide<ContextMenuContentProvideValue>(CONTEXT_MENU_CONTENT_INJECTION_KEY, {
-  middlewareData: middlewareData,
-  floatPosition: floatPosition as Ref<Side>,
-});
+const context = inject(CONTEXT_MENU_INJECTION_KEY);
+const hasInteractedOutside = ref(false);
 </script>
 
 <template>
-  <div
-    ref="tooltipContentElement"
-    v-if="injectedValue?.modelValue.value"
-    style="min-width: max-content; will-change: transform; z-index: auto"
-    :style="floatingStyles"
+  <MenuContent
+    v-bind="props"
+    :side="'right'"
+    :sideOffset="2"
+    :align="'start'"
+    @closeAutoFocus="
+      (event) => {
+        emits('closeAutoFocus', event);
+
+        if (!event.defaultPrevented && hasInteractedOutside) {
+          event.preventDefault();
+        }
+        hasInteractedOutside = false;
+      }
+    "
+    @interactOutside="
+      (event) => {
+        emits('interactOutside', event);
+        if (!event.defaultPrevented && !context?.modal.value)
+          hasInteractedOutside = true;
+      }
+    "
+    :style="{
+      '--radix-context-menu-content-transform-origin':
+        'var(--radix-popper-transform-origin)',
+      '--radix-context-menu-content-available-width':
+        'var(--radix-popper-available-width)',
+      '--radix-context-menu-content-available-height':
+        'var(--radix-popper-available-height)',
+      '--radix-context-menu-trigger-width': 'var(--radix-popper-anchor-width)',
+      '--radix-context-menu-trigger-height':
+        'var(--radix-popper-anchor-height)',
+    }"
   >
-    <PrimitiveDiv
-      :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
-      data-side="bottom"
-      role="tooltip"
-      :class="props.class"
-      :asChild="props.asChild"
-      style="pointer-events: auto"
-    >
-      <slot />
-    </PrimitiveDiv>
-  </div>
+    <slot></slot>
+  </MenuContent>
 </template>

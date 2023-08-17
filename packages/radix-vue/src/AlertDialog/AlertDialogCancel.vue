@@ -1,32 +1,21 @@
-<script lang="ts">
-export interface AlertDialogCancelProps {
-  asChild?: boolean;
-}
-</script>
-
 <script setup lang="ts">
-import { inject } from "vue";
-import {
-  DIALOG_INJECTION_KEY,
-  type DialogProvideValue,
-} from "./AlertDialogRoot.vue";
-import { PrimitiveButton } from "../Primitive";
+import { DialogClose, type DialogCloseProps } from "@/Dialog";
+import { ALERT_DIALOG_CONTENT_INJECTION_KEY } from "./AlertDialogContent.vue";
+import { inject, onMounted } from "vue";
+import { usePrimitiveElement } from "@/Primitive";
 
-const props = withDefaults(defineProps<AlertDialogCancelProps>(), {
-  asChild: false,
+const contentContext = inject(ALERT_DIALOG_CONTENT_INJECTION_KEY);
+const { primitiveElement, currentElement } = usePrimitiveElement();
+
+const props = defineProps<DialogCloseProps>();
+
+onMounted(() => {
+  contentContext!.onCancelElementChange(currentElement.value);
 });
-
-const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
 </script>
 
 <template>
-  <PrimitiveButton
-    :asChild="props.asChild"
-    type="button"
-    :aria-expanded="injectedValue?.open.value || false"
-    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
-    @click="injectedValue?.closeModal"
-  >
-    <slot />
-  </PrimitiveButton>
+  <DialogClose v-bind="props" ref="primitiveElement">
+    <slot></slot>
+  </DialogClose>
 </template>

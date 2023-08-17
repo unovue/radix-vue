@@ -1,25 +1,27 @@
 <script lang="ts">
-export interface TabsTriggerProps {
-  asChild?: boolean;
-  value?: string;
+export interface TabsTriggerProps extends PrimitiveProps {
+  value: string;
   disabled: boolean;
 }
 </script>
 
 <script setup lang="ts">
-import { inject } from "vue";
-import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
+import { inject, computed } from "vue";
+import {
+  Primitive,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 import { TABS_INJECTION_KEY } from "./TabsRoot.vue";
 import type { TabsProvideValue } from "./TabsRoot.vue";
 import { useArrowNavigation } from "../shared";
 
 const injectedValue = inject<TabsProvideValue>(TABS_INJECTION_KEY);
-const { primitiveElement, currentElement: currentToggleElement } =
-  usePrimitiveElement();
+const { primitiveElement, currentElement } = usePrimitiveElement();
 
 const props = withDefaults(defineProps<TabsTriggerProps>(), {
-  asChild: false,
   disabled: false,
+  as: "button",
 });
 
 function changeTab(value: string) {
@@ -29,22 +31,40 @@ function changeTab(value: string) {
 function handleKeydown(e: KeyboardEvent) {
   const newSelectedElement = useArrowNavigation(
     e,
-    currentToggleElement.value!,
+    currentElement.value!,
     injectedValue?.parentElement.value!,
-    { arrowKeyOptions: "horizontal" }
+    {
+      arrowKeyOptions: injectedValue?.orientation,
+      loop: injectedValue?.loop,
+      focus: true,
+    }
   );
 
-  if (newSelectedElement) {
-    newSelectedElement.focus();
+  if (!newSelectedElement) return;
+
+  injectedValue!.currentFocusedElement!.value = newSelectedElement;
+
+  if (injectedValue?.activationMode === "automatic") {
     changeTab(newSelectedElement?.getAttribute("data-radix-vue-tab-value")!);
   }
 }
+
+const getTabIndex = computed(() => {
+  if (!injectedValue?.currentFocusedElement?.value) {
+    return injectedValue?.modelValue?.value === props.value ? "0" : "-1";
+  } else
+    return injectedValue?.currentFocusedElement?.value === currentElement.value
+      ? "0"
+      : "-1";
+});
 </script>
 
 <template>
-  <PrimitiveButton
+  <Primitive
     ref="primitiveElement"
-    type="button"
+    :type="as === 'button' ? 'button' : undefined"
+    :as="as"
+    :as-child="props.asChild"
     role="tab"
     :aria-selected="
       injectedValue?.modelValue?.value === props.value ? 'true' : 'false'
@@ -52,14 +72,15 @@ function handleKeydown(e: KeyboardEvent) {
     :data-state="
       injectedValue?.modelValue?.value === props.value ? 'active' : 'inactive'
     "
-    :data-disabled="props.disabled"
-    :tabindex="injectedValue?.modelValue?.value === props.value ? '0' : '-1'"
+    :disabled="props.disabled"
+    :data-disabled="props.disabled ? '' : undefined"
+    :tabindex="getTabIndex"
     :data-orientation="injectedValue?.orientation"
     data-radix-vue-collection-item
     :data-radix-vue-tab-value="props.value"
     @click="changeTab(props.value!)"
-    @keydown="handleKeydown"
+    @keydown.up.down.left.right.home.end="handleKeydown"
   >
     <slot />
-  </PrimitiveButton>
+  </Primitive>
 </template>

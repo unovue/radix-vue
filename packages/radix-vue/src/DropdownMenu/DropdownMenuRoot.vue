@@ -1,76 +1,71 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
-import type { DataOrientation, Direction } from "../shared/types";
+import type { Direction } from "../shared/types";
 
 export interface DropdownMenuRootProps {
   open?: boolean;
   defaultOpen?: boolean;
-  //onOpenChange?: void;
-  modelValue?: boolean;
-  orientation?: DataOrientation;
   dir?: Direction;
+  modal?: boolean;
 }
 
 export const DROPDOWN_MENU_INJECTION_KEY =
   Symbol() as InjectionKey<DropdownMenuProvideValue>;
 
 export type DropdownMenuProvideValue = {
-  selectedElement: Ref<HTMLElement | undefined>;
-  changeSelected: (value: HTMLElement) => void;
-  modelValue: Readonly<Ref<boolean>>;
-  showTooltip(): void;
-  hideTooltip(): void;
+  open: Readonly<Ref<boolean>>;
+  onOpenChange(open: boolean): void;
+  onOpenToggle(): void;
+  triggerId: string;
   triggerElement: Ref<HTMLElement | undefined>;
-  floatingElement: Ref<HTMLElement | undefined>;
-  arrowElement: Ref<HTMLElement | undefined>;
-  subTriggerElement: Ref<HTMLElement | undefined>;
-  floatingStyles: any;
-  middlewareData: any;
-  itemsArray: HTMLElement[];
-  orientation: DataOrientation;
+  contentId: string;
+  modal: Ref<boolean>;
+  dir: Ref<Direction>;
 };
 </script>
 
 <script setup lang="ts">
-import { provide, toRef, ref } from "vue";
+import { provide, ref, toRefs } from "vue";
+import { useVModel } from "@vueuse/core";
+import { MenuRoot } from "@/Menu";
+import { useId } from "@/shared";
 
 const props = withDefaults(defineProps<DropdownMenuRootProps>(), {
-  orientation: "vertical",
+  modal: true,
+  dir: "ltr",
+  open: undefined,
 });
 
 const emit = defineEmits<{
-  (e: "update:modelValue", value: boolean): void;
+  (e: "update:open", value: boolean): void;
 }>();
 
-const selectedElement = ref<HTMLElement>();
-const triggerElement = ref<HTMLElement>();
-const floatingElement = ref<HTMLElement>();
-const arrowElement = ref<HTMLElement>();
-const subTriggerElement = ref<HTMLElement>();
+const open = useVModel(props, "open", emit, {
+  defaultValue: props.defaultOpen,
+  passive: true,
+});
 
+const triggerElement = ref<HTMLElement>();
+
+const { modal, dir } = toRefs(props);
 provide<DropdownMenuProvideValue>(DROPDOWN_MENU_INJECTION_KEY, {
-  selectedElement: selectedElement,
-  changeSelected: (value: HTMLElement) => {
-    selectedElement.value = value;
+  open,
+  onOpenChange: (value) => {
+    open.value = value;
   },
-  modelValue: toRef(() => props.modelValue),
-  showTooltip: () => {
-    emit("update:modelValue", true);
+  onOpenToggle: () => {
+    open.value = !open.value;
   },
-  hideTooltip: () => {
-    emit("update:modelValue", false);
-  },
-  triggerElement: triggerElement,
-  floatingElement: floatingElement,
-  arrowElement: arrowElement,
-  subTriggerElement: subTriggerElement,
-  floatingStyles: "",
-  middlewareData: "",
-  itemsArray: [],
-  orientation: props.orientation,
+  triggerId: useId(),
+  triggerElement,
+  contentId: useId(),
+  modal,
+  dir,
 });
 </script>
 
 <template>
-  <slot />
+  <MenuRoot v-model:open="open" :dir="dir" :modal="modal">
+    <slot />
+  </MenuRoot>
 </template>

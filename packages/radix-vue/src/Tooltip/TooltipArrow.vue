@@ -1,38 +1,37 @@
 <script lang="ts">
-import { inject } from "vue";
-import {
-  TOOLTIP_INJECTION_KEY,
-  type TooltipProvideValue,
-} from "./TooltipRoot.vue";
-import {
-  TOOLTIP_CONTENT_INJECTION_KEY,
-  type TooltipContentProvideValue,
-} from "./TooltipContent.vue";
-import BaseArrow from "../shared/component/BaseArrow.vue";
+export interface TooltipArrowProps extends PrimitiveProps {
+  /**
+   * The width of the arrow in pixels.
+   *
+   * @default 10
+   */
+  width?: number;
 
-interface TooltipArrowProps {
-  asChild?: boolean;
-  size?: number;
+  /**
+   * The height of the arrow in pixels.
+   *
+   * @default 5
+   */
+  height?: number;
 }
 </script>
 
 <script setup lang="ts">
+import { PopperArrow } from "@/Popper";
+import type { PrimitiveProps } from "@/Primitive";
+
 const props = withDefaults(defineProps<TooltipArrowProps>(), {
   asChild: false,
-  size: 10,
+  width: 10,
+  height: 5,
 });
-
-const injectedValue = inject<TooltipProvideValue>(TOOLTIP_INJECTION_KEY);
-
-const injectedContentValue = inject<TooltipContentProvideValue>(
-  TOOLTIP_CONTENT_INJECTION_KEY
-);
 </script>
 
 <template>
-  <BaseArrow
-    :injected-value="injectedValue"
-    :injected-content-value="injectedContentValue"
-    :size="props.size"
-  />
+  <PopperArrow
+    :as-child="props.asChild"
+    :as="as"
+    :height="props.height"
+    :width="props.width"
+  ></PopperArrow>
 </template>

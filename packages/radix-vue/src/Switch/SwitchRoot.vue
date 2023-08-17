@@ -1,8 +1,7 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
 
-export interface SwitchRootProps {
-  asChild?: boolean;
+export interface SwitchRootProps extends PrimitiveProps {
   defaultChecked?: boolean;
   checked?: boolean;
   // onCheckedChange?: void;
@@ -19,14 +18,14 @@ export const SWITCH_INJECTION_KEY =
 
 export interface SwitchProvideValue {
   open?: Readonly<Ref<boolean>>;
-  toggleOpen: (value: string) => void;
+  toggleOpen: () => void;
   disabled: boolean;
 }
 </script>
 
 <script setup lang="ts">
 import { provide } from "vue";
-import { PrimitiveDiv } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { useVModel } from "@vueuse/core";
 
 const props = withDefaults(defineProps<SwitchRootProps>(), {
@@ -61,21 +60,23 @@ function handleKeydown(e: KeyboardEvent) {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     :value="open"
-    role="checkbox"
+    role="switch"
     :aria-checked="open"
     :data-state="open ? 'checked' : 'unchecked'"
     :data-disabled="props.disabled ? '' : undefined"
+    :as-child="props.asChild"
+    :as="as"
     style="position: relative"
   >
+    <slot />
     <input
       type="checkbox"
       :id="props.id"
       v-bind="open"
-      @change="toggleOpen"
-      :checked="open"
       :name="props.name"
+      @click="toggleOpen"
       @keydown="handleKeydown"
       aria-hidden="true"
       :disabled="props.disabled"
@@ -84,6 +85,5 @@ function handleKeydown(e: KeyboardEvent) {
       :data-disabled="props.disabled ? '' : undefined"
       style="opacity: 0; position: absolute; inset: 0"
     />
-    <slot />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

@@ -2,8 +2,7 @@
 import type { Ref, InjectionKey } from "vue";
 import type { DataOrientation, Direction } from "../shared/types";
 
-export interface ToolbarRootProps {
-  asChild?: boolean;
+export interface ToolbarRootProps extends PrimitiveProps {
   orientation?: DataOrientation;
   dir?: Direction;
   loop?: boolean;
@@ -21,10 +20,13 @@ export interface ToolbarProvideValue {
 
 <script setup lang="ts">
 import { ref, provide } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import {
+  Primitive,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
 
 const props = withDefaults(defineProps<ToolbarRootProps>(), {
-  asChild: false,
   orientation: "horizontal",
   dir: "ltr",
 });
@@ -42,7 +44,7 @@ provide<ToolbarProvideValue>(TOOLBAR_INJECTION_KEY, {
 </script>
 
 <template>
-  <PrimitiveDiv
+  <Primitive
     ref="primitiveElement"
     role="toolbar"
     tabindex="0"
@@ -50,7 +52,9 @@ provide<ToolbarProvideValue>(TOOLBAR_INJECTION_KEY, {
     :aria-orientation="props.orientation"
     :dir="props.dir"
     :data-orientation="props.orientation"
+    :as-child="props.asChild"
+    :as="as"
   >
     <slot />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

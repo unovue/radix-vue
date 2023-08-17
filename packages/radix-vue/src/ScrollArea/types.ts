@@ -8,3 +8,5 @@ export type Sizes = {
     paddingEnd: number;
   };
 };
+
+export type ScrollType = "auto" | "always" | "scroll" | "hover";

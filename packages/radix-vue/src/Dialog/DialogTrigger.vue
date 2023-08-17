@@ -1,42 +1,37 @@
-<script lang="ts">
-export interface DialogTriggerProps {
-  asChild?: boolean;
-}
-</script>
-
 <script setup lang="ts">
 import { inject, onMounted } from "vue";
+import { DIALOG_INJECTION_KEY } from "./DialogRoot.vue";
 import {
-  DIALOG_INJECTION_KEY,
-  type DialogProvideValue,
-} from "./DialogRoot.vue";
-import { PrimitiveButton, usePrimitiveElement } from "../Primitive";
+  Primitive,
+  type PrimitiveProps,
+  usePrimitiveElement,
+} from "@/Primitive";
 
-const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
+export interface DialogTriggerProps extends PrimitiveProps {}
 
-const props = withDefaults(defineProps<DialogTriggerProps>(), {
-  asChild: false,
-});
-
-const { primitiveElement, currentElement: triggerElement } =
-  usePrimitiveElement();
+const context = inject(DIALOG_INJECTION_KEY);
+const { primitiveElement, currentElement } = usePrimitiveElement();
 
 onMounted(() => {
-  if (injectedValue) {
-    injectedValue.triggerButton = triggerElement;
-  }
+  context!.triggerElement = currentElement;
+});
+
+const props = withDefaults(defineProps<DialogTriggerProps>(), {
+  as: "button",
 });
 </script>
 
 <template>
-  <PrimitiveButton
-    :asChild="props.asChild"
-    type="button"
+  <Primitive
     ref="primitiveElement"
-    :aria-expanded="injectedValue?.open.value || false"
-    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
-    @click="injectedValue?.openModal"
+    v-bind="props"
+    :type="as === 'button' ? 'button' : undefined"
+    aria-haspopup="dialog"
+    :aria-expanded="context?.open.value || false"
+    :aria-controls="context?.contentId"
+    :data-state="context?.open.value ? 'open' : 'closed'"
+    @click="context?.onOpenToggle"
   >
     <slot />
-  </PrimitiveButton>
+  </Primitive>
 </template>

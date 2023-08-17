@@ -4,51 +4,53 @@ export type TooltipTriggerDataState =
   | "delayed-open"
   | "instant-open";
 
-export interface TooltipRootProps {
-  asChild?: boolean;
-}
+export interface TooltipTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { inject, onMounted, computed } from "vue";
-import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
+import { PopperAnchor } from "@/Popper";
 import {
-  TOOLTIP_INJECTION_KEY,
-  type TooltipProvideValue,
-} from "./TooltipRoot.vue";
-import { useHoverDelay } from "../shared";
+  Primitive,
+  usePrimitiveElement,
+  type PrimitiveProps,
+} from "@/Primitive";
+import { useHover } from "@/shared";
+import { inject } from "vue";
+import { TOOLTIP_INJECTION_KEY } from "./TooltipRoot.vue";
 
-const injectedValue = inject<TooltipProvideValue>(TOOLTIP_INJECTION_KEY);
+const props = withDefaults(defineProps<TooltipTriggerProps>(), {
+  as: "button",
+});
+const injectedValue = inject(TOOLTIP_INJECTION_KEY);
 
 const { primitiveElement, currentElement: triggerElement } =
   usePrimitiveElement();
 
-onMounted(() => {
-  injectedValue!.triggerElement.value = triggerElement.value;
-});
-
-async function handleMouseEnter(e: MouseEvent) {
-  const result = await useHoverDelay(e, triggerElement.value!);
-  if (result) {
-    injectedValue?.showTooltip();
-  }
-}
-
-const dataState = computed<TooltipTriggerDataState>(() => {
-  return injectedValue?.open.value ? "closed" : "instant-open";
+useHover(triggerElement, {
+  delayEnter: injectedValue?.delayMs,
+  onHoverEnter: () => injectedValue?.showTooltip(true),
+  delayLeave: 0,
+  onHoverLeave: () => injectedValue?.hideTooltip(),
+  disabled: injectedValue?.disableHoverableContent,
 });
 </script>
 
 <template>
-  <PrimitiveButton
-    type="button"
-    ref="primitiveElement"
-    :data-state="dataState"
-    :aria-expanded="injectedValue?.open.value || false"
-    @mouseenter="handleMouseEnter"
-    @mouseleave="injectedValue?.hideTooltip"
-    style="cursor: default"
-  >
-    <slot />
-  </PrimitiveButton>
+  <PopperAnchor asChild>
+    <Primitive
+      :type="as === 'button' ? 'button' : undefined"
+      ref="primitiveElement"
+      :aria-describedby="
+        injectedValue?.open ? injectedValue.contentId : undefined
+      "
+      :as="as"
+      :as-child="props.asChild"
+      :data-state="injectedValue?.dataState.value"
+      :aria-expanded="injectedValue?.open.value || false"
+      @focus="injectedValue?.showTooltip(false)"
+      @blur="injectedValue?.hideTooltip"
+    >
+      <slot />
+    </Primitive>
+  </PopperAnchor>
 </template>

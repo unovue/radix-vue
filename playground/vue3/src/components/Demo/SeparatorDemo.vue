@@ -5,9 +5,7 @@ import { Separator } from "radix-vue";
 <template>
   <div class="w-full max-w-[300px] mx-[15px]">
     <div class="text-white text-[15px] leading-5 font-medium">Radix Primitives</div>
-    <div class="text-white text-[15px] leading-5">
-      An open-source UI component library.
-    </div>
+    <div class="text-white text-[15px] leading-5">An open-source UI component library.</div>
     <Separator
       class="bg-[#d7cff9] data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[15px]"
     />
@@ -23,9 +21,7 @@ import { Separator } from "radix-vue";
         class="bg-[#d7cff9] data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mx-[15px]"
         aschild
         orientation="vertical"
-      >
-      <div></div>
-      </Separator>
+      />
       <div class="text-white text-[15px] leading-5">Source</div>
     </div>
   </div>

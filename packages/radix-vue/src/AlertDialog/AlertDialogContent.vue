@@ -1,82 +1,51 @@
 <script lang="ts">
-export interface AlertDialogContentProps {
-  asChild?: boolean;
-  forceMount?: boolean;
-  //onOpenAutoFocus?: void;
-  //onCloseAutoFocus?: void;
-  //onEscapeKeyDown?: void;
-}
+type AlertDialogContentContextValue = {
+  onCancelElementChange(el: HTMLElement | undefined): void;
+};
+
+export const ALERT_DIALOG_CONTENT_INJECTION_KEY =
+  Symbol() as InjectionKey<AlertDialogContentContextValue>;
 </script>
 
 <script setup lang="ts">
-import { inject, watchEffect } from "vue";
-import { trapFocus } from "../shared";
 import {
-  DIALOG_INJECTION_KEY,
-  type DialogProvideValue,
-} from "./AlertDialogRoot.vue";
-import { PrimitiveDiv, usePrimitiveElement } from "../Primitive";
+  DialogContent,
+  type DialogContentProps,
+  type DialogContentEmits,
+} from "@/Dialog";
+import { useEmitAsProps } from "@/shared";
+import { provide, type InjectionKey, ref, nextTick } from "vue";
 
-const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
+const props = defineProps<DialogContentProps>();
+const emits = defineEmits<DialogContentEmits>();
 
-const props = withDefaults(defineProps<AlertDialogContentProps>(), {
-  asChild: false,
+const emitsAsProps = useEmitAsProps(emits);
+
+const cancelElement = ref<HTMLElement | undefined>();
+
+provide(ALERT_DIALOG_CONTENT_INJECTION_KEY, {
+  onCancelElementChange: (el) => {
+    cancelElement.value = el;
+  },
 });
-
-const { primitiveElement, currentElement: dialogContentElement } =
-  usePrimitiveElement();
-
-watchEffect(() => {
-  if (dialogContentElement.value) {
-    if (injectedValue?.open.value) {
-      trapFocus(dialogContentElement.value);
-      document.querySelector("body")!.style.pointerEvents = "none";
-      window.addEventListener("wheel", lockScroll, { passive: false });
-      window.addEventListener("keydown", lockKeydown);
-    } else {
-      document.querySelector("body")!.style.pointerEvents = "";
-      window.removeEventListener("wheel", lockScroll);
-      window.removeEventListener("keydown", lockKeydown);
-
-      if (injectedValue?.triggerButton.value) {
-        injectedValue?.triggerButton.value.focus();
-      }
-    }
-  }
-});
-
-function lockScroll(e: WheelEvent) {
-  e.preventDefault();
-}
-
-function lockKeydown(e: KeyboardEvent) {
-  if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-    const activeElement = document.activeElement;
-    const inputs = ["input", "select", "textarea"];
-
-    if (
-      activeElement &&
-      inputs.indexOf(activeElement.tagName.toLowerCase()) === -1
-    ) {
-      e.preventDefault();
-    }
-  }
-  if (e.key === "Escape") {
-    injectedValue?.closeModal();
-  }
-}
 </script>
 
 <template>
-  <PrimitiveDiv
-    :asChild="props.asChild"
-    ref="primitiveElement"
-    v-if="injectedValue?.open.value"
-    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
-    role="dialog"
-    tabindex="-1"
-    style="pointer-events: auto"
+  <DialogContent
+    v-bind="{ ...props, ...emitsAsProps }"
+    role="alertdialog"
+    @pointer-down-outside.prevent
+    @interact-outside.prevent
+    @open-auto-focus="
+      () => {
+        nextTick(() => {
+          cancelElement?.focus({
+            preventScroll: true,
+          });
+        });
+      }
+    "
   >
-    <slot />
-  </PrimitiveDiv>
+    <slot></slot>
+  </DialogContent>
 </template>

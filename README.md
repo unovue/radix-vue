@@ -29,19 +29,19 @@ For changelog, visit [releases](https://github.com/radix-vue/radix-vue/releases)
 | [Avatar](https://radix-vue.com/components/avatar)                   |   ✅   | ✅           |                        |
 | [Checkbox](https://radix-vue.com/components/checkbox)               |   ✅   | ✅           |                        |
 | [Collapsible](https://radix-vue.com/components/collapsible)         |   ✅   | ✅           |                        |
-| [Context Menu](https://radix-vue.com/components/context-menu)       |   ✅   |              |                        |
+| [Context Menu](https://radix-vue.com/components/context-menu)       |   ✅   | ✅           |                        |
 | [Dialog](https://radix-vue.com/components/dialog)                   |   ✅   | ✅           |                        |
-| [Dropdown Menu](https://radix-vue.com/components/dropdown-menu)     |   ✅   |              |                        |
+| [Dropdown Menu](https://radix-vue.com/components/dropdown-menu)     |   ✅   | ✅           |                        |
 | [Hover Card](https://radix-vue.com/components/hover-card)           |   ✅   | ✅           |                        |
 | [Label](https://radix-vue.com/components/label)                     |   ✅   | ✅           | ✅                     |
-| [Menubar](https://radix-vue.com/components/menubar)                 |   ✅   |              |                        |
+| [Menubar](https://radix-vue.com/components/menubar)                 |   ✅   | ✅           |                        |
 | [Navigation Menu](https://radix-vue.com/components/navigation-menu) |   ✅   | ✅           |                        |
 | [Popover](https://radix-vue.com/components/popover)                 |   ✅   |              |                        |
 | [Progress](https://radix-vue.com/components/progress)               |   ✅   | ✅           | ✅                     |
 | [Radio Group](https://radix-vue.com/components/radio-group)         |   ✅   | ✅           |                        |
 | [Scroll Area](https://radix-vue.com/components/scroll-area)         |   ✅   | ✅           |                        |
-| [Select](https://radix-vue.com/components/select)                   |   ✅   |              |                        |
-| [Separator](https://radix-vue.com/components/separator)             |   ✅   | ✅           |                        |
+| [Select](https://radix-vue.com/components/select)                   |   ✅   | ✅           |                        |
+| [Separator](https://radix-vue.com/components/separator)             |   ✅   | ✅           | ✅                     |
 | [Slider](https://radix-vue.com/components/slider)                   |   ✅   |              |                        |
 | [Switch](https://radix-vue.com/components/switch)                   |   ✅   | ✅           |                        |
 | [Tabs](https://radix-vue.com/components/tabs)                       |   ✅   | ✅           |                        |

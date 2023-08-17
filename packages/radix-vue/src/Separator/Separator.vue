@@ -1,20 +1,19 @@
 <script lang="ts">
-import BaseSeparator from "../shared/component/BaseSeparator.vue";
-import type { DataOrientation } from "../shared/types";
-import { type PrimitiveProps } from "@/Primitive";
+import BaseSeparator, {
+  type BaseSeparatorProps,
+} from "@/shared/component/BaseSeparator.vue";
 
-export interface BaseSeparatorProps extends PrimitiveProps {
-  orientation?: DataOrientation;
-  decorative?: boolean;
-}
+export interface SeparatorProps extends BaseSeparatorProps {}
 </script>
 
 <script setup lang="ts">
-const props = withDefaults(defineProps<BaseSeparatorProps>(), {
+const props = withDefaults(defineProps<SeparatorProps>(), {
   orientation: "horizontal",
 });
 </script>
 
 <template>
-  <BaseSeparator v-bind="props" :data-orientation="props.orientation" />
+  <BaseSeparator v-bind="props">
+    <slot></slot>
+  </BaseSeparator>
 </template>

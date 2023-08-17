@@ -8,7 +8,7 @@ import { PopperContentPropsDefaultValue } from "@/Popper";
 import { inject } from "vue";
 import { MENUBAR_INJECTION_KEY } from "./MenubarRoot.vue";
 import { useNewCollection } from "@/shared";
-import { wrapArray } from "@/Menu/utils";
+import { wrapArray } from "@/shared/useTypeahead";
 import { MENUBAR_MENU_INJECTION_KEY } from "./MenubarMenu.vue";
 
 interface MenubarSubContentProps extends MenuSubContentProps {}

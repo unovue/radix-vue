@@ -8,5 +8,10 @@ export { default as SelectItemIndicator } from "./SelectItemIndicator.vue";
 export { default as SelectLabel } from "./SelectLabel.vue";
 export { default as SelectGroup } from "./SelectGroup.vue";
 export { default as SelectItem } from "./SelectItem.vue";
+export { default as SelectItemText } from "./SelectItemText.vue";
+export { default as SelectViewport } from "./SelectViewport.vue";
+export { default as SelectScrollUpButton } from "./SelectScrollUpButton.vue";
+export { default as SelectScrollDownButton } from "./SelectScrollDownButton.vue";
+export { default as SelectValue } from "./SelectValue.vue";
 
 export * from "./utils";

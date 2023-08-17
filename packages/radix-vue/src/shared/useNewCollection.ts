@@ -8,6 +8,7 @@ import {
   onBeforeUpdate,
   onMounted,
   onUpdated,
+  watch,
 } from "vue";
 
 const ITEM_DATA_ATTR = "data-radix-vue-collection-item";
@@ -39,6 +40,8 @@ export const useNewCollection = (key?: string) => {
 
     onMounted(setCollection);
     onUpdated(setCollection);
+
+    watch(() => sourceRef?.value, setCollection, { immediate: true });
 
     provide(COLLECTION_SYMBOL, items);
 

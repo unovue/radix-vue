@@ -9,7 +9,11 @@ const handleSelect = (text: string) => {
 </script>
 
 <template>
-  <Story title="Menu/Styled" :layout="{ type: 'single', iframe: true }">
+  <Story
+    group="utilities"
+    title="Menu/Styled"
+    :layout="{ type: 'single', iframe: true }"
+  >
     <Variant title="default">
       <MenuWithAnchor>
         <MenuItem

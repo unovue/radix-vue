@@ -10,6 +10,7 @@ const handleAlert = () => {
 
 <template>
   <Story
+    group="utilities"
     title="DismissableLayer/PopoverNested"
     :layout="{ type: 'grid', width: '50%' }"
   >

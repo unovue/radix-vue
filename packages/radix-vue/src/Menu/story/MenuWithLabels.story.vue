@@ -51,7 +51,11 @@ const foodGroups: Array<{
 </script>
 
 <template>
-  <Story title="Menu/WithLabels" :layout="{ type: 'single', iframe: true }">
+  <Story
+    group="utilities"
+    title="Menu/WithLabels"
+    :layout="{ type: 'single', iframe: true }"
+  >
     <Variant title="default">
       <MenuWithAnchor>
         <MenuGroup v-for="(foodGroup, index) in foodGroups" :key="index">

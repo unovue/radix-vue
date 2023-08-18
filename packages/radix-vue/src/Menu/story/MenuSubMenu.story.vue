@@ -13,7 +13,11 @@ const open2 = ref(false);
 </script>
 
 <template>
-  <Story title="Menu/SubMenu" :layout="{ type: 'single', iframe: false }">
+  <Story
+    group="utilities"
+    title="Menu/SubMenu"
+    :layout="{ type: 'single', iframe: false }"
+  >
     <Variant title="default">
       <div class="text-black">
         <span>{{ open1 }}</span>

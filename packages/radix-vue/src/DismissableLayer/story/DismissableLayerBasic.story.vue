@@ -22,6 +22,7 @@ const openButtonRef = ref<HTMLElement>();
 
 <template>
   <Story
+    group="utilities"
     title="DismissableLayer/Basic"
     :layout="{ type: 'grid', width: '50%' }"
   >

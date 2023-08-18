@@ -7,7 +7,11 @@ const trapped2 = ref(false);
 </script>
 
 <template>
-  <Story title="FocusScope/Multiple" :layout="{ type: 'single' }">
+  <Story
+    group="utilities"
+    title="FocusScope/Multiple"
+    :layout="{ type: 'single' }"
+  >
     <div>
       <div>
         <button type="button" @click="trapped1 = true">Trap 1</button>

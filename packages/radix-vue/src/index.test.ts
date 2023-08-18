@@ -114,6 +114,7 @@ it("should expose the correct components", () => {
     "PopoverContent",
     "PopoverArrow",
     "PopoverClose",
+    "PopoverAnchor",
 
     // Dropdown Menu
     "DropdownMenuRoot",

@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { DialogOverlay, type DialogOverlayProps } from "@/Dialog";
 
-const props = defineProps<DialogOverlayProps>();
+export interface AlertDialogOverlayProps extends DialogOverlayProps {}
+
+const props = defineProps<AlertDialogOverlayProps>();
 </script>
 
 <template>

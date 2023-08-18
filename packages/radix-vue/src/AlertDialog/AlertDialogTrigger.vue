@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { DialogTrigger, type DialogTriggerProps } from "@/Dialog";
 
-const props = defineProps<DialogTriggerProps>();
+export interface AlertDialogTriggerProps extends DialogTriggerProps {}
+
+const props = defineProps<AlertDialogTriggerProps>();
 </script>
 
 <template>

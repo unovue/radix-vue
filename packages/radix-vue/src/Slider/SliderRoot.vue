@@ -24,6 +24,9 @@ export interface SliderRootProps extends PrimitiveProps {
   extraStep: number;
   minStepsBetweenThumbs: number;
 }
+export interface SliderRootEmits {
+  (e: "update:modelValue", payload: number): void;
+}
 
 export const SLIDER_INJECTION_KEY =
   Symbol() as InjectionKey<SliderProvideValue>;
@@ -59,7 +62,7 @@ const props = withDefaults(defineProps<SliderRootProps>(), {
   minStepsBetweenThumbs: 0,
 });
 
-const emits = defineEmits(["update:modelValue"]);
+const emits = defineEmits<SliderRootEmits>();
 
 const { primitiveElement, currentElement: rootSliderElement } =
   usePrimitiveElement();

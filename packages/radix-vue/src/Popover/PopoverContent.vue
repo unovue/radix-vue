@@ -1,82 +1,42 @@
-<script lang="ts">
-export interface PopoverContentProps extends PopperContentProps {
-  forceMount?: boolean;
-}
-</script>
-
 <script setup lang="ts">
-import { inject, onUnmounted, watchEffect } from "vue";
-import { trapFocus } from "../shared/trap-focus";
+import PopoverContentModal from "./PopoverContentModal.vue";
+import PopoverContentNonModal from "./PopoverContentNonModal.vue";
 import {
-  POPOVER_INJECTION_KEY,
-  type PopoverProvideValue,
-} from "./PopoverRoot.vue";
-import { PopperContent, type PopperContentProps } from "@/Popper";
-import { Primitive, usePrimitiveElement } from "@/Primitive";
-import { onClickOutside } from "@vueuse/core";
+  type PopoverContentImplProps,
+  type PopoverContentImplEmits,
+} from "./PopoverContentImpl.vue";
+import { useEmitAsProps } from "@/shared";
+import { Presence } from "@/Presence";
+import { inject } from "vue";
+import { POPOVER_INJECTION_KEY } from "./PopoverRoot.vue";
 
-const injectedValue = inject<PopoverProvideValue>(POPOVER_INJECTION_KEY);
-
-const props = withDefaults(defineProps<PopoverContentProps>(), {
-  side: "bottom",
-  align: "center",
-  avoidCollisions: true,
-});
-
-const { primitiveElement, currentElement: tooltipContentElement } =
-  usePrimitiveElement();
-
-watchEffect(() => {
-  if (tooltipContentElement.value) {
-    if (injectedValue?.open.value) {
-      trapFocus(tooltipContentElement.value!);
-      window.addEventListener("keydown", closePopoverOnEscape);
-    } else {
-      if (injectedValue?.triggerElement.value) {
-        injectedValue?.triggerElement.value.focus();
-        clearEvent();
-      }
-    }
-  }
-});
-
-onClickOutside(tooltipContentElement, (event) => {
-  injectedValue?.hidePopover();
-  event.preventDefault();
-  event.stopPropagation();
-});
-
-function closePopoverOnEscape(e: KeyboardEvent) {
-  if (e.key === "Escape") {
-    injectedValue?.hidePopover();
-  }
+export interface PopoverContentProps extends PopoverContentImplProps {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with React animation libraries.
+   */
+  forceMount?: true;
 }
+export type PopoverContentEmits = PopoverContentImplEmits;
 
-function clearEvent() {
-  window.removeEventListener("keydown", closePopoverOnEscape);
-}
+const props = defineProps<PopoverContentProps>();
+const emits = defineEmits<PopoverContentEmits>();
 
-onUnmounted(() => {
-  clearEvent();
-});
+const context = inject(POPOVER_INJECTION_KEY);
+
+const emitsAsProps = useEmitAsProps(emits);
 </script>
 
 <template>
-  <PopperContent
-    ref="primitiveElement"
-    v-bind="props"
-    v-if="injectedValue?.open.value"
-  >
-    <Primitive
-      v-if="injectedValue?.open.value"
-      :data-state="injectedValue?.open.value ? 'open' : 'closed'"
-      :data-side="props.side"
-      :data-align="props.align"
-      role="tooltip"
-      :as-child="props.asChild"
-      :as="as"
+  <Presence :present="forceMount || context!.open.value">
+    <PopoverContentModal
+      v-if="context?.modal.value"
+      v-bind="{ ...props, ...emitsAsProps }"
     >
-      <slot />
-    </Primitive>
-  </PopperContent>
+      <slot></slot>
+    </PopoverContentModal>
+    <PopoverContentNonModal v-else v-bind="{ ...props, ...emitsAsProps }">
+      <slot></slot>
+    </PopoverContentNonModal>
+  </Presence>
 </template>

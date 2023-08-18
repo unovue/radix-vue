@@ -1,10 +1,10 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
+import { useId } from "@/shared";
 
 export interface PopoverRootProps {
-  defaultOpen?: boolean;
   open?: boolean;
-  //onOpenChange?: void;
+  defaultOpen?: boolean;
   modal?: boolean;
 }
 export interface PopoverRootEmits {
@@ -15,15 +15,18 @@ export const POPOVER_INJECTION_KEY =
   Symbol() as InjectionKey<PopoverProvideValue>;
 
 export type PopoverProvideValue = {
-  open: Readonly<Ref<boolean>>;
-  showPopover(): void;
-  hidePopover(): void;
   triggerElement: Ref<HTMLElement | undefined>;
+  contentId: string;
+  open: Ref<boolean>;
+  modal: Ref<boolean>;
+  onOpenChange(value: boolean): void;
+  onOpenToggle(): void;
+  hasCustomAnchor: Ref<boolean>;
 };
 </script>
 
 <script setup lang="ts">
-import { provide, ref } from "vue";
+import { provide, ref, toRefs } from "vue";
 import { useVModel } from "@vueuse/core";
 import { PopperRoot } from "@/Popper";
 
@@ -32,6 +35,7 @@ const props = withDefaults(defineProps<PopoverRootProps>(), {
   open: undefined,
   modal: false,
 });
+const { modal } = toRefs(props);
 const emit = defineEmits<PopoverRootEmits>();
 
 const open = useVModel(props, "open", emit, {
@@ -40,16 +44,20 @@ const open = useVModel(props, "open", emit, {
 });
 
 const triggerElement = ref<HTMLElement>();
+const hasCustomAnchor = ref(false);
 
 provide<PopoverProvideValue>(POPOVER_INJECTION_KEY, {
+  contentId: useId(),
+  modal,
   open,
-  showPopover: () => {
-    open.value = true;
+  onOpenChange: (value) => {
+    open.value = value;
   },
-  hidePopover: () => {
-    open.value = false;
+  onOpenToggle: () => {
+    open.value = !open.value;
   },
   triggerElement,
+  hasCustomAnchor,
 });
 </script>
 

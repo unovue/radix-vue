@@ -8,8 +8,8 @@ import { Presence } from "@/Presence";
 import { SELECT_INJECTION_KEY } from "./SelectRoot.vue";
 import { useEmitAsProps } from "@/shared";
 
-interface SelectContentProps extends SelectContentImplProps {}
-type SelectContentEmits = SelectContentImplEmits;
+export interface SelectContentProps extends SelectContentImplProps {}
+export type SelectContentEmits = SelectContentImplEmits;
 
 const context = inject(SELECT_INJECTION_KEY);
 

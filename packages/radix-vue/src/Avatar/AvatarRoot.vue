@@ -7,7 +7,7 @@ export interface AvatarRootProps extends PrimitiveProps {}
 export const AVATAR_INJECTION_KEY =
   Symbol() as InjectionKey<AvatarProvideValue>;
 
-export interface AvatarProvideValue {
+interface AvatarProvideValue {
   imageLoadingStatus: Ref<ImageLoadingStatus>;
 }
 </script>
@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<AvatarRootProps>(), {
   as: "span",
 });
 
-provide<AvatarProvideValue>(AVATAR_INJECTION_KEY, {
+provide(AVATAR_INJECTION_KEY, {
   imageLoadingStatus: imageLoadingStatusRef,
 });
 </script>

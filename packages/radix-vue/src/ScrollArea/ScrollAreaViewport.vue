@@ -7,8 +7,8 @@ import {
 } from "@/Primitive";
 import { SCROLL_AREA_INJECTION_KEY } from "./ScrollAreaRoot.vue";
 
-interface ScrollAreaViewport extends PrimitiveProps {}
-const props = defineProps<ScrollAreaViewport>();
+export interface ScrollAreaViewportProps extends PrimitiveProps {}
+const props = defineProps<ScrollAreaViewportProps>();
 
 const rootContext = inject(SCROLL_AREA_INJECTION_KEY);
 
@@ -21,10 +21,12 @@ onMounted(() => {
   rootContext?.onViewportChange(viewportElement.value!);
   rootContext?.onContentChange(contentElement.value!);
 });
+</script>
 
-defineOptions({
+<script lang="ts">
+export default {
   inheritAttrs: false,
-});
+};
 </script>
 
 <template>

@@ -1,8 +1,13 @@
 export {
   default as CollapsibleRoot,
-  COLLAPSIBLE_INJECTION_KEY,
-  type CollapsibleProvideValue,
   type CollapsibleRootProps,
+  type CollapsibleRootEmits,
 } from "./CollapsibleRoot.vue";
-export { default as CollapsibleTrigger } from "./CollapsibleTrigger.vue";
-export { default as CollapsibleContent } from "./CollapsibleContent.vue";
+export {
+  default as CollapsibleTrigger,
+  type CollapsibleTriggerProps,
+} from "./CollapsibleTrigger.vue";
+export {
+  default as CollapsibleContent,
+  type CollapsibleContentProps,
+} from "./CollapsibleContent.vue";

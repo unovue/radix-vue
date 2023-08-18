@@ -1,5 +1,5 @@
 <script lang="ts">
-interface ToggleGroupItemProps extends PrimitiveProps {
+export interface ToggleGroupItemProps extends PrimitiveProps {
   value?: string;
   disabled?: boolean;
 }
@@ -12,15 +12,10 @@ import {
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
-import {
-  TOGGLE_GROUP_INJECTION_KEY,
-  type ToggleGroupProvideValue,
-} from "./ToggleGroupRoot.vue";
+import { TOGGLE_GROUP_INJECTION_KEY } from "./ToggleGroupRoot.vue";
 import { useArrowNavigation } from "../shared";
 
-const injectedValue = inject<ToggleGroupProvideValue>(
-  TOGGLE_GROUP_INJECTION_KEY
-);
+const injectedValue = inject(TOGGLE_GROUP_INJECTION_KEY);
 
 const props = withDefaults(defineProps<ToggleGroupItemProps>(), {
   as: "button",

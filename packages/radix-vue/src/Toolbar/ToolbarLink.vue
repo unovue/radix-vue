@@ -1,5 +1,5 @@
 <script lang="ts">
-export interface ToolbarLink extends PrimitiveProps {}
+export interface ToolbarLinkProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
@@ -9,14 +9,11 @@ import {
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
-import {
-  TOOLBAR_INJECTION_KEY,
-  type ToolbarProvideValue,
-} from "./ToolbarRoot.vue";
+import { TOOLBAR_INJECTION_KEY } from "./ToolbarRoot.vue";
 import { useArrowNavigation } from "../shared";
 
-const props = withDefaults(defineProps<ToolbarLink>(), { as: "a" });
-const injectedValue = inject<ToolbarProvideValue>(TOOLBAR_INJECTION_KEY);
+const props = withDefaults(defineProps<ToolbarLinkProps>(), { as: "a" });
+const injectedValue = inject(TOOLBAR_INJECTION_KEY);
 
 const { primitiveElement, currentElement } = usePrimitiveElement();
 

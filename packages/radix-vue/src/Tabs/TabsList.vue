@@ -5,26 +5,26 @@ export interface TabsListProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { inject, onMounted } from "vue";
+import { inject, onMounted, toRefs } from "vue";
 import {
   Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
 import { TABS_INJECTION_KEY } from "./TabsRoot.vue";
-import type { TabsProvideValue } from "./TabsRoot.vue";
 
 const props = withDefaults(defineProps<TabsListProps>(), {
   loop: true,
 });
+const { loop } = toRefs(props);
 
-const injectedValue = inject<TabsProvideValue>(TABS_INJECTION_KEY);
+const injectedValue = inject(TABS_INJECTION_KEY);
 const { primitiveElement, currentElement: parentElement } =
   usePrimitiveElement();
 
 onMounted(() => {
   injectedValue!.parentElement.value = parentElement.value;
-  injectedValue!.loop = props.loop;
+  injectedValue!.loop = loop;
 });
 </script>
 

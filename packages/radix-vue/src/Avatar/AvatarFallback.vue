@@ -6,13 +6,10 @@ export interface AvatarFallbackProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { inject, ref } from "vue";
-import {
-  AVATAR_INJECTION_KEY,
-  type AvatarProvideValue,
-} from "./AvatarRoot.vue";
+import { AVATAR_INJECTION_KEY } from "./AvatarRoot.vue";
 import { Primitive, type PrimitiveProps } from "../Primitive";
 
-const injectedValue = inject<AvatarProvideValue>(AVATAR_INJECTION_KEY);
+const injectedValue = inject(AVATAR_INJECTION_KEY);
 
 const props = withDefaults(defineProps<AvatarFallbackProps>(), {
   delayMs: 0,

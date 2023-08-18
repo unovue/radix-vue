@@ -1,27 +1,19 @@
 <script setup lang="ts">
 import { ref, inject, computed } from "vue";
 import { Primitive, type PrimitiveProps } from "@/Primitive";
-import {
-  TOOLBAR_TOGGLE_GROUP_INJECTION_KEY,
-  type ToolbarToggleGroupProvideValue,
-} from "./ToolbarToggleGroup.vue";
-import {
-  TOOLBAR_INJECTION_KEY,
-  type ToolbarProvideValue,
-} from "./ToolbarRoot.vue";
+import { TOOLBAR_TOGGLE_GROUP_INJECTION_KEY } from "./ToolbarToggleGroup.vue";
+import { TOOLBAR_INJECTION_KEY } from "./ToolbarRoot.vue";
 import { useArrowNavigation } from "../shared";
 
-interface ToggleGroupItemProps extends PrimitiveProps {
+export interface ToolbarToggleItemProps extends PrimitiveProps {
   value?: string;
   disabled?: boolean;
 }
 
-const injectedValue = inject<ToolbarToggleGroupProvideValue>(
-  TOOLBAR_TOGGLE_GROUP_INJECTION_KEY
-);
-const rootInjectedValue = inject<ToolbarProvideValue>(TOOLBAR_INJECTION_KEY);
+const injectedValue = inject(TOOLBAR_TOGGLE_GROUP_INJECTION_KEY);
+const rootInjectedValue = inject(TOOLBAR_INJECTION_KEY);
 
-const props = defineProps<ToggleGroupItemProps>();
+const props = defineProps<ToolbarToggleItemProps>();
 
 const state = computed(() => {
   if (injectedValue?.type === "multiple") {

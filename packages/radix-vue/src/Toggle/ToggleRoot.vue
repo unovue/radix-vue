@@ -1,7 +1,7 @@
 <script lang="ts">
 import { computed, type ComputedRef, type InjectionKey, type Ref } from "vue";
 
-export interface ToggleRootProps extends PrimitiveProps {
+export interface ToggleProps extends PrimitiveProps {
   /**
    * The pressed state of the toggle when it is initially rendered. Use when you do not need to control its open state.
    */
@@ -16,12 +16,15 @@ export interface ToggleRootProps extends PrimitiveProps {
    */
   disabled?: boolean;
 }
+export interface ToggleEmits {
+  (e: "update:pressed", value: boolean): void;
+}
 
 export const TOGGLE_INJECTION_KEY =
   Symbol() as InjectionKey<ToggleProvideValue>;
 
 export interface ToggleProvideValue {
-  modelValue?: Readonly<Ref<ToggleRootProps["pressed"]>>;
+  modelValue?: Readonly<Ref<ToggleProps["pressed"]>>;
   dataState: ComputedRef<DataState>;
 }
 
@@ -32,15 +35,13 @@ export type DataState = "on" | "off";
 import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { useVModel } from "@vueuse/core";
 
-const props = withDefaults(defineProps<ToggleRootProps>(), {
+const props = withDefaults(defineProps<ToggleProps>(), {
   pressed: undefined,
   disabled: false,
   as: "button",
 });
 
-const emits = defineEmits<{
-  (e: "update:pressed", value: boolean): void;
-}>();
+const emits = defineEmits<ToggleEmits>();
 
 const pressed = useVModel(props, "pressed", emits, {
   defaultValue: props.defaultValue,

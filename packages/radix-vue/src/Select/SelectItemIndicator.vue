@@ -3,7 +3,7 @@ import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { inject } from "vue";
 import { SELECT_ITEM_INJECTION_KEY } from "./SelectItem.vue";
 
-interface SelectItemIndicatorProps extends PrimitiveProps {}
+export interface SelectItemIndicatorProps extends PrimitiveProps {}
 const props = withDefaults(defineProps<SelectItemIndicatorProps>(), {
   as: "span",
 });

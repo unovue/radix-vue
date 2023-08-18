@@ -11,8 +11,8 @@ import { useNewCollection } from "@/shared";
 import { wrapArray } from "@/shared/useTypeahead";
 import { MENUBAR_MENU_INJECTION_KEY } from "./MenubarMenu.vue";
 
-interface MenubarSubContentProps extends MenuSubContentProps {}
-interface MenubarSubContentEmits extends MenuSubContentEmits {}
+export interface MenubarSubContentProps extends MenuSubContentProps {}
+export type MenubarSubContentEmits = MenuSubContentEmits;
 
 const props = withDefaults(defineProps<MenubarSubContentProps>(), {
   ...PopperContentPropsDefaultValue,

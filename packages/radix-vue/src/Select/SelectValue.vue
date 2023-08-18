@@ -8,7 +8,7 @@ import { shouldShowPlaceholder } from "./utils";
 import { SELECT_INJECTION_KEY } from "./SelectRoot.vue";
 import { inject, onMounted, useSlots } from "vue";
 
-interface SelectValueProps extends PrimitiveProps {
+export interface SelectValueProps extends PrimitiveProps {
   placeholder?: string;
 }
 

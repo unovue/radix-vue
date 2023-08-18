@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { DialogTitle, type DialogTitleProps } from "@/Dialog";
 
-const props = defineProps<DialogTitleProps>();
+export interface AlertDialogTitleProps extends DialogTitleProps {}
+
+const props = defineProps<AlertDialogTitleProps>();
 </script>
 
 <template>

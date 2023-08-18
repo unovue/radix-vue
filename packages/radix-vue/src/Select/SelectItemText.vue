@@ -9,7 +9,7 @@ import { SELECT_NATIVE_OPTIONS_INJECTION_KEY } from "./SelectRoot.vue";
 import { SELECT_CONTENT_INJECTION_KEY } from "./SelectContentImpl.vue";
 import { SELECT_ITEM_INJECTION_KEY } from "./SelectItem.vue";
 
-interface SelectItemTextProps extends PrimitiveProps {}
+export interface SelectItemTextProps extends PrimitiveProps {}
 
 const props = withDefaults(defineProps<SelectItemTextProps>(), {
   as: "span",
@@ -46,10 +46,12 @@ onMounted(() => {
 // onBeforeUnmount(() => {
 //   onNativeOptionRemove(nativeOption.value);
 // });
+</script>
 
-defineOptions({
+<script lang="ts">
+export default {
   inheritAttrs: false,
-});
+};
 </script>
 
 <template>

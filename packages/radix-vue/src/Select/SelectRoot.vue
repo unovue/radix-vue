@@ -15,6 +15,10 @@ export interface SelectRootProps {
   disabled?: boolean;
   required?: boolean;
 }
+export interface SelectRootEmits {
+  (e: "update:modelValue", value: string): void;
+  (e: "update:open", value: string): void;
+}
 
 export const SELECT_INJECTION_KEY =
   Symbol() as InjectionKey<SelectProvideValue>;
@@ -60,10 +64,7 @@ const props = withDefaults(defineProps<SelectRootProps>(), {
   dir: "ltr",
 });
 
-const emits = defineEmits<{
-  (e: "update:modelValue", value: string): void;
-  (e: "update:open", value: string): void;
-}>();
+const emits = defineEmits<SelectRootEmits>();
 
 const modelValue = useVModel(props, "modelValue", emits, {
   defaultValue: props.defaultValue,

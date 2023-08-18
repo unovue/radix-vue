@@ -1,2 +1,9 @@
-export { default as ToggleGroupRoot } from "./ToggleGroupRoot.vue";
-export { default as ToggleGroupItem } from "./ToggleGroupItem.vue";
+export {
+  default as ToggleGroupRoot,
+  type ToggleGroupRootProps,
+  type ToggleGroupRootEmits,
+} from "./ToggleGroupRoot.vue";
+export {
+  default as ToggleGroupItem,
+  type ToggleGroupItemProps,
+} from "./ToggleGroupItem.vue";

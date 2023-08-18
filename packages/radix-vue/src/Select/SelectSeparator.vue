@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Primitive, type PrimitiveProps } from "@/Primitive";
 
-interface SelectSeparatorProps extends PrimitiveProps {}
+export interface SelectSeparatorProps extends PrimitiveProps {}
 const props = defineProps<SelectSeparatorProps>();
 </script>
 

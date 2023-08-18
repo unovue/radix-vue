@@ -29,6 +29,10 @@ export interface TooltipRootProps {
   disableHoverableContent?: boolean;
 }
 
+export interface TooltipRootEmits {
+  (e: "update:open", value: boolean): void;
+}
+
 export const TOOLTIP_INJECTION_KEY =
   Symbol() as InjectionKey<TooltipProvideValue>;
 
@@ -55,9 +59,7 @@ const props = withDefaults(defineProps<TooltipRootProps>(), {
   delayDuration: 700,
 });
 
-const emit = defineEmits<{
-  (e: "update:open", value: boolean): void;
-}>();
+const emit = defineEmits<TooltipRootEmits>();
 
 const open = useVModel(props, "open", emit, {
   defaultValue: props.defaultOpen,

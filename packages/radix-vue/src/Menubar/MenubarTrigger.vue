@@ -10,14 +10,14 @@ import {
 import { MenuAnchor } from "@/Menu";
 import { useArrowNavigation, useNewCollection } from "@/shared";
 
-export interface MenubarMenuTriggerProps extends PrimitiveProps {
+export interface MenubarTriggerProps extends PrimitiveProps {
   disabled?: boolean;
 }
 
 const context = inject(MENUBAR_INJECTION_KEY);
 const menuContext = inject(MENUBAR_MENU_INJECTION_KEY);
 
-withDefaults(defineProps<MenubarMenuTriggerProps>(), {
+withDefaults(defineProps<MenubarTriggerProps>(), {
   as: "button",
 });
 

@@ -6,8 +6,11 @@ import {
 } from "@/Menu";
 import { useEmitAsProps } from "@/shared";
 
-const props = defineProps<MenuCheckboxItemProps>();
-const emits = defineEmits<MenuCheckboxItemEmits>();
+export interface DropdownMenuCheckboxItemProps extends MenuCheckboxItemProps {}
+export type DropdownMenuCheckboxItemEmits = MenuCheckboxItemEmits;
+
+const props = defineProps<DropdownMenuCheckboxItemProps>();
+const emits = defineEmits<DropdownMenuCheckboxItemEmits>();
 
 const emitsAsProps = useEmitAsProps(emits);
 </script>

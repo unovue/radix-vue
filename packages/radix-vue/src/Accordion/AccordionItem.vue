@@ -23,7 +23,7 @@ export interface AccordionItemProps
   value: string;
 }
 
-export interface AccordionItemProvideValue {
+interface AccordionItemProvideValue {
   open: ComputedRef<boolean>;
   dataState: ComputedRef<AccordionItemState>;
   disabled: ComputedRef<boolean>;
@@ -42,7 +42,7 @@ export const ACCORDION_ITEM_INJECTION_KEY =
 import { CollapsibleRoot } from "@/Collapsible";
 import { usePrimitiveElement } from "@/Primitive";
 import { useArrowNavigation, useId } from "@/shared";
-import { computed, inject, provide, watch } from "vue";
+import { computed, inject, provide } from "vue";
 
 const props = defineProps<AccordionItemProps>();
 
@@ -71,7 +71,7 @@ const dataState = computed(() =>
 
 const { primitiveElement, currentElement } = usePrimitiveElement();
 
-provide<AccordionItemProvideValue>(ACCORDION_ITEM_INJECTION_KEY, {
+provide(ACCORDION_ITEM_INJECTION_KEY, {
   open,
   dataState,
   disabled,
@@ -94,6 +94,8 @@ function handleArrowKey(e: KeyboardEvent) {
     }
   );
 }
+
+defineExpose({ open });
 </script>
 
 <template>

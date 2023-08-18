@@ -16,11 +16,14 @@ export interface ToggleGroupRootProps extends PrimitiveProps {
   loop: boolean;
   modelValue?: string | string[];
 }
+export interface ToggleGroupRootEmits {
+  (e: "update:modelValue", payload: string): void;
+}
 
 export const TOGGLE_GROUP_INJECTION_KEY =
   Symbol() as InjectionKey<ToggleGroupProvideValue>;
 
-export interface ToggleGroupProvideValue {
+interface ToggleGroupProvideValue {
   type: TypeEnum;
   modelValue?: Readonly<Ref<string | string[] | undefined>>;
   changeModelValue: (value: string) => void;
@@ -54,7 +57,7 @@ const props = withDefaults(defineProps<ToggleGroupRootProps>(), {
   disabled: false,
 });
 
-const emits = defineEmits(["update:modelValue"]);
+const emits = defineEmits<ToggleGroupRootEmits>();
 
 const { primitiveElement, currentElement: parentElement } =
   usePrimitiveElement();
@@ -69,7 +72,7 @@ const modelValue = useVModel(props, "modelValue", emits, {
   passive: true,
 });
 
-provide<ToggleGroupProvideValue>(TOGGLE_GROUP_INJECTION_KEY, {
+provide(TOGGLE_GROUP_INJECTION_KEY, {
   type: props.type,
   modelValue,
   changeModelValue: changeModelValue,

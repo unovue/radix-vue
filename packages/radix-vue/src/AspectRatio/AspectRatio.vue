@@ -1,5 +1,5 @@
 <script lang="ts">
-interface AspectRatioProps extends PrimitiveProps {
+export interface AspectRatioProps extends PrimitiveProps {
   ratio?: number;
 }
 </script>
@@ -24,7 +24,7 @@ const aspect = computed(() => {
       :as="as"
       style="position: absolute; inset: 0px"
     >
-      <slot />
+      <slot :aspect="aspect" />
     </Primitive>
   </div>
 </template>

@@ -1,2 +1,9 @@
-export { default as SwitchRoot } from "./SwitchRoot.vue";
-export { default as SwitchThumb } from "./SwitchThumb.vue";
+export {
+  default as SwitchRoot,
+  type SwitchRootProps,
+  type SwitchRootEmits,
+} from "./SwitchRoot.vue";
+export {
+  default as SwitchThumb,
+  type SwitchThumbProps,
+} from "./SwitchThumb.vue";

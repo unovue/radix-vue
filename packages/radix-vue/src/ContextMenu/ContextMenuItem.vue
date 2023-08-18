@@ -2,6 +2,9 @@
 import { MenuItem, type MenuItemProps, type MenuItemEmits } from "@/Menu";
 import { useEmitAsProps } from "@/shared";
 
+export interface ContextMenuItemProps extends MenuItemProps {}
+export type ContextMenuItemEmits = MenuItemEmits;
+
 const props = defineProps<MenuItemProps>();
 const emits = defineEmits<MenuItemEmits>();
 

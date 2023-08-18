@@ -8,25 +8,25 @@ import type { Orientation } from "./utils";
 import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
 import { inject, provide, ref, type Ref, type VNode } from "vue";
 import { useVModel } from "@vueuse/core";
-import { useCollection } from "@/shared";
+import { useNewCollection } from "@/shared";
 
 interface VNodeWithParentProps extends VNode {
   parentProps: any;
 }
 
-interface NavigationMenuSubProps extends PrimitiveProps {
+export interface NavigationMenuSubProps extends PrimitiveProps {
   modelValue?: string;
   defaultValue?: string;
   orientation?: Orientation;
+}
+export interface NavigationMenuSubEmits {
+  (e: "update:modelValue", value: string): void;
 }
 
 const props = withDefaults(defineProps<NavigationMenuSubProps>(), {
   orientation: "horizontal",
 });
-
-const emits = defineEmits<{
-  (e: "update:modelValue", value: string): void;
-}>();
+const emits = defineEmits<NavigationMenuSubEmits>();
 
 const modelValue = useVModel(props, "modelValue", emits, {
   passive: true,
@@ -36,12 +36,13 @@ const previousValue = ref("");
 
 const context = inject(NAVIGATION_MENU_INJECTION_KEY);
 const { primitiveElement, currentElement } = usePrimitiveElement();
-const { createCollection } = useCollection();
-createCollection();
 
 const indicatorTrack = ref<HTMLElement>();
 const viewport = ref<HTMLElement>();
 const viewportContent = ref<Map<string, VNodeWithParentProps>>(new Map());
+
+const { createCollection } = useNewCollection("nav");
+createCollection(indicatorTrack);
 
 provide(NAVIGATION_MENU_INJECTION_KEY, {
   ...context!,

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { inject, onMounted, ref, watch, watchEffect } from "vue";
+import { inject, ref, watch, watchEffect } from "vue";
 import { SELECT_CONTENT_INJECTION_KEY } from "./SelectContentImpl.vue";
 import { SELECT_VIEWPORT_INJECTION_KEY } from "./SelectViewport.vue";
 import { usePrimitiveElement, type PrimitiveProps } from "@/Primitive";
 import SelectScrollButtonImpl from "./SelectScrollButtonImpl.vue";
 
-interface SelectScrollDownButtonProps extends PrimitiveProps {}
-defineProps<SelectScrollDownButtonProps>();
+export interface SelectScrollUpButtonProps extends PrimitiveProps {}
+defineProps<SelectScrollUpButtonProps>();
 
 const contentContext = inject(SELECT_CONTENT_INJECTION_KEY);
 const viewportContext =

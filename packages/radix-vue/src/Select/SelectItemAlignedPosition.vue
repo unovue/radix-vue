@@ -197,10 +197,12 @@ provide(SELECT_VIEWPORT_INJECTION_KEY, {
   shouldExpandOnScrollRef,
   onScrollButtonChange: handleScrollButtonChange,
 });
+</script>
 
-defineOptions({
+<script lang="ts">
+export default {
   inheritAttrs: false,
-});
+};
 </script>
 
 <template>

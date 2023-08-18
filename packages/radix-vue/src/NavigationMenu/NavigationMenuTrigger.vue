@@ -18,9 +18,6 @@ interface NavigationMenuTriggerProps extends PrimitiveProps {
 const props = withDefaults(defineProps<NavigationMenuTriggerProps>(), {
   as: "button",
 });
-defineOptions({
-  inheritAttrs: false,
-});
 
 const context = inject(NAVIGATION_MENU_INJECTION_KEY);
 const itemContext = inject(NAVIGATION_MENU_ITEM_INJECTION_KEY);
@@ -106,6 +103,12 @@ const handleVisuallyHiddenFocus = (ev: FocusEvent) => {
   if (wasTriggerFocused || !wasFocusFromContent) {
     itemContext!.onFocusProxyEnter(wasTriggerFocused ? "start" : "end");
   }
+};
+</script>
+
+<script lang="ts">
+export default {
+  inheritAttrs: false,
 };
 </script>
 

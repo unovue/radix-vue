@@ -21,10 +21,12 @@ onMounted(() => {
   rootContext?.onViewportChange(viewportElement.value!);
   rootContext?.onContentChange(contentElement.value!);
 });
+</script>
 
-defineOptions({
+<script lang="ts">
+export default {
   inheritAttrs: false,
-});
+};
 </script>
 
 <template>

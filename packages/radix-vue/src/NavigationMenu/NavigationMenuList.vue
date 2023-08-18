@@ -21,10 +21,12 @@ setCollection(currentElement);
 onMounted(() => {
   context?.onIndicatorTrackChange(currentElement.value);
 });
+</script>
 
-defineOptions({
+<script lang="ts">
+export default {
   inheritAttrs: false,
-});
+};
 </script>
 
 <template>

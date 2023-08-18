@@ -10,10 +10,6 @@ interface NavigationMenuIndicatorProps extends PrimitiveProps {}
 
 const props = defineProps<NavigationMenuIndicatorProps>();
 
-defineOptions({
-  inheritAttrs: false,
-});
-
 const { getItems } = useCollection();
 const context = inject(NAVIGATION_MENU_INJECTION_KEY);
 
@@ -50,6 +46,12 @@ watchEffect(() => {
 
 useResizeObserver(activeTrigger, handlePositionChange);
 useResizeObserver(context!.indicatorTrack, handlePositionChange);
+</script>
+
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+};
 </script>
 
 <template>

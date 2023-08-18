@@ -52,10 +52,12 @@ useResizeObserver(content, () => {
     };
   }
 });
+</script>
 
-defineOptions({
+<script lang="ts">
+export default {
   inheritAttrs: false,
-});
+};
 </script>
 
 <template>

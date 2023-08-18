@@ -46,10 +46,12 @@ onMounted(() => {
 // onBeforeUnmount(() => {
 //   onNativeOptionRemove(nativeOption.value);
 // });
+</script>
 
-defineOptions({
+<script lang="ts">
+export default {
   inheritAttrs: false,
-});
+};
 </script>
 
 <template>

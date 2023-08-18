@@ -1,5 +1,8 @@
 <script lang="ts">
 export interface CollapsibleContentProps extends PrimitiveProps {}
+export default {
+  inheritAttrs: false,
+};
 </script>
 
 <script setup lang="ts">
@@ -65,10 +68,6 @@ onMounted(() => {
   requestAnimationFrame(() => {
     isMountAnimationPrevented.value = false;
   });
-});
-
-defineOptions({
-  inheritAttrs: false,
 });
 
 const props = defineProps<CollapsibleContentProps>();

@@ -7,6 +7,9 @@ export interface PopoverRootProps {
   //onOpenChange?: void;
   modal?: boolean;
 }
+export interface PopoverRootEmits {
+  (e: "update:open", value: boolean): void;
+}
 
 export const POPOVER_INJECTION_KEY =
   Symbol() as InjectionKey<PopoverProvideValue>;
@@ -29,10 +32,7 @@ const props = withDefaults(defineProps<PopoverRootProps>(), {
   open: undefined,
   modal: false,
 });
-
-const emit = defineEmits<{
-  (e: "update:open", value: boolean): void;
-}>();
+const emit = defineEmits<PopoverRootEmits>();
 
 const open = useVModel(props, "open", emit, {
   defaultValue: props.defaultOpen,

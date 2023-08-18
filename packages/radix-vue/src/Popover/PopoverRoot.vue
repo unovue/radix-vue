@@ -3,8 +3,19 @@ import type { Ref, InjectionKey } from "vue";
 import { useId } from "@/shared";
 
 export interface PopoverRootProps {
-  open?: boolean;
+  /**
+   * The open state of the popover when it is initially rendered. Use when you do not need to control its open state.
+   */
   defaultOpen?: boolean;
+  /**
+   * The controlled open state of the popover.
+   */
+  open?: boolean;
+  /**
+   * The modality of the popover. When set to true, interaction with outside elements will be disabled and only popover content will be visible to screen readers.
+   *
+   * @default false
+   */
   modal?: boolean;
 }
 export interface PopoverRootEmits {

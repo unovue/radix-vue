@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
 
-const dialogOpen = ref(true);
+const dialogOpen = ref(false);
 
 function handleEvent(e) {
   alert("event initiated!", e);

@@ -1,5 +1,5 @@
 <script lang="ts">
-interface ContextMenuTriggerProps extends PrimitiveProps {
+export interface ContextMenuTriggerProps extends PrimitiveProps {
   disabled?: boolean;
 }
 export default {

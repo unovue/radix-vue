@@ -6,8 +6,11 @@ import {
 } from "@/Menu";
 import { useEmitAsProps } from "@/shared";
 
-const props = defineProps<MenuRadioItemProps>();
-const emits = defineEmits<MenuItemEmits>();
+export interface ContextMenuRadioItemProps extends MenuRadioItemProps {}
+export type ContextMenuRadioItemEmits = MenuItemEmits;
+
+const props = defineProps<ContextMenuRadioItemProps>();
+const emits = defineEmits<ContextMenuRadioItemEmits>();
 
 const emitsAsProps = useEmitAsProps(emits);
 </script>

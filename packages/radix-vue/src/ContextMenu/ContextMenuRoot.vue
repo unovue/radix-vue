@@ -2,7 +2,7 @@
 import type { Ref, InjectionKey } from "vue";
 import type { Direction } from "../shared/types";
 
-export interface ContextMenuContextValue {
+interface ContextMenuContextValue {
   open: Ref<boolean>;
   onOpenChange(open: boolean): void;
   modal: Ref<boolean>;
@@ -16,6 +16,9 @@ export interface ContextMenuRootProps {
   dir?: Direction;
   modal?: boolean;
 }
+export interface ContextMenuRootEmits {
+  (e: "update:open", value: boolean): void;
+}
 </script>
 
 <script setup lang="ts">
@@ -26,10 +29,10 @@ const props = withDefaults(defineProps<ContextMenuRootProps>(), {
   dir: "ltr",
   modal: true,
 });
+const emits = defineEmits<ContextMenuRootEmits>();
 const { dir, modal } = toRefs(props);
 
 const open = ref(false);
-const emits = defineEmits<{ (e: "update:open", value: boolean): void }>();
 
 provide(CONTEXT_MENU_INJECTION_KEY, {
   open,

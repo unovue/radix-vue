@@ -4,8 +4,8 @@ import { SCROLL_AREA_INJECTION_KEY } from "./ScrollAreaRoot.vue";
 import { type PrimitiveProps } from "@/Primitive";
 import ScrollAreaCornerImpl from "./ScrollAreaCornerImpl.vue";
 
-interface ScrollAreaCorner extends PrimitiveProps {}
-const props = defineProps<ScrollAreaCorner>();
+export interface ScrollAreaCornerProps extends PrimitiveProps {}
+const props = defineProps<ScrollAreaCornerProps>();
 
 const context = inject(SCROLL_AREA_INJECTION_KEY);
 

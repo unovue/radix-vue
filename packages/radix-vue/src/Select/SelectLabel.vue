@@ -1,7 +1,7 @@
 <script lang="ts">
 import { Primitive, type PrimitiveProps } from "@/Primitive";
 
-interface SelectLabelProps extends PrimitiveProps {
+export interface SelectLabelProps extends PrimitiveProps {
   for?: string;
 }
 </script>

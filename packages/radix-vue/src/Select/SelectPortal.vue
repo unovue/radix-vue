@@ -1,9 +1,9 @@
 <script setup lang="ts">
-export interface MenuPortalProps {
+export interface SelectPortalProps {
   to?: string | HTMLElement;
   disabled?: boolean;
 }
-const props = withDefaults(defineProps<MenuPortalProps>(), {
+const props = withDefaults(defineProps<SelectPortalProps>(), {
   to: "body",
 });
 </script>

@@ -9,6 +9,9 @@ export interface MenubarRootProps {
   dir?: Direction;
   loop?: boolean;
 }
+export interface MenubarRootEmits {
+  (e: "update:modelValue", value: boolean): void;
+}
 
 export const MENUBAR_INJECTION_KEY =
   Symbol() as InjectionKey<MenubarContextValue>;
@@ -32,10 +35,7 @@ const props = withDefaults(defineProps<MenubarRootProps>(), {
   dir: "ltr",
   loop: false,
 });
-
-const emit = defineEmits<{
-  (e: "update:modelValue", value: boolean): void;
-}>();
+const emit = defineEmits<MenubarRootEmits>();
 
 const { primitiveElement, currentElement } = usePrimitiveElement();
 const { createCollection } = useNewCollection("menubar");

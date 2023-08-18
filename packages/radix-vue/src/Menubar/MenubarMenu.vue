@@ -1,14 +1,14 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
 
-export interface MenubarMenuRootProps {
+export interface MenubarMenuProps {
   value?: string;
 }
 
 export const MENUBAR_MENU_INJECTION_KEY =
   Symbol() as InjectionKey<MenubarMenuProvideValue>;
 
-export type MenubarMenuProvideValue = {
+type MenubarMenuProvideValue = {
   value: string;
   triggerId: string;
   triggerElement: Ref<HTMLElement | undefined>;
@@ -23,7 +23,7 @@ import { useId } from "@/shared";
 import { MenuRoot } from "@/Menu";
 import { MENUBAR_INJECTION_KEY } from "./MenubarRoot.vue";
 
-const props = defineProps<MenubarMenuRootProps>();
+const props = defineProps<MenubarMenuProps>();
 
 const value = props.value ?? useId();
 const context = inject(MENUBAR_INJECTION_KEY);

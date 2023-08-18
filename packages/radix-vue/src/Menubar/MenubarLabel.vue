@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { MenuLabel, type MenuLabelProps } from "@/Menu";
 
-const props = defineProps<MenuLabelProps>();
+export interface MenubarLabelProps extends MenuLabelProps {}
+const props = defineProps<MenubarLabelProps>();
 </script>
 
 <template>

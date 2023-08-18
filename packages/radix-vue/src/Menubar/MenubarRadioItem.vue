@@ -5,6 +5,9 @@ import {
   type MenuRadioItemEmits,
 } from "@/Menu";
 
+export interface MenubarRadioItemProps extends MenuRadioItemProps {}
+export type MenubarRadioItemEmits = MenuRadioItemEmits;
+
 const props = defineProps<MenuRadioItemProps>();
 const emits = defineEmits<MenuRadioItemEmits>();
 </script>

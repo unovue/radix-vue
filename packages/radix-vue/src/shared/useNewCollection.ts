@@ -52,5 +52,5 @@ export const useNewCollection = (key?: string) => {
     return inject(COLLECTION_SYMBOL, ref([]));
   };
 
-  return { createCollection, injectCollection };
+  return { createCollection, injectCollection, COLLECTION_SYMBOL };
 };

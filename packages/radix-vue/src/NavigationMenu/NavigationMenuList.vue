@@ -6,17 +6,14 @@ import {
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
-import { useCollection } from "@/shared";
 
-interface NavigationMenuListProps extends PrimitiveProps {}
+export interface NavigationMenuListProps extends PrimitiveProps {}
 const props = withDefaults(defineProps<NavigationMenuListProps>(), {
   as: "ul",
 });
 
 const context = inject(NAVIGATION_MENU_INJECTION_KEY);
 const { primitiveElement, currentElement } = usePrimitiveElement();
-const { setCollection } = useCollection();
-setCollection(currentElement);
 
 onMounted(() => {
   context?.onIndicatorTrackChange(currentElement.value);

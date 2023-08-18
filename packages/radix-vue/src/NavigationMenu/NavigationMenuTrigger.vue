@@ -11,7 +11,7 @@ import { VisuallyHidden } from "@/VisuallyHidden";
 import { makeTriggerId, makeContentId, getOpenState } from "./utils";
 import { unrefElement } from "@vueuse/core";
 
-interface NavigationMenuTriggerProps extends PrimitiveProps {
+export interface NavigationMenuTriggerProps extends PrimitiveProps {
   disabled?: boolean;
 }
 

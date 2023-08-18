@@ -18,7 +18,6 @@ import { Presence } from "@/Presence";
 import NavigationMenuContentImpl from "./NavigationMenuContentImpl.vue";
 
 export interface NavigationMenuViewportProps extends PrimitiveProps {}
-
 defineProps<NavigationMenuViewportProps>();
 
 const { primitiveElement, currentElement } = usePrimitiveElement();

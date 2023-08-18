@@ -12,11 +12,11 @@ import {
 } from "@/DismissableLayer";
 import { computedWithControl } from "@vueuse/core";
 
-interface NavigationMenuContentProps extends DismissableLayerProps {}
+export interface NavigationMenuContentProps extends DismissableLayerProps {}
+export type NavigationMenuContentEmits = DismissableLayerEmits;
 
 const props = defineProps<NavigationMenuContentProps>();
-
-const emits = defineEmits<DismissableLayerEmits>();
+const emits = defineEmits<NavigationMenuContentEmits>();
 
 const context = inject(NAVIGATION_MENU_INJECTION_KEY);
 const itemContext = inject(NAVIGATION_MENU_ITEM_INJECTION_KEY);

@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { computed, inject, ref, watchEffect } from "vue";
 import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
-import { useCollection } from "@/shared";
+import { useNewCollection } from "@/shared";
 import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { useResizeObserver } from "@vueuse/core";
 import { Presence } from "@/Presence";
 
-interface NavigationMenuIndicatorProps extends PrimitiveProps {}
-
+export interface NavigationMenuIndicatorProps extends PrimitiveProps {}
 const props = defineProps<NavigationMenuIndicatorProps>();
 
-const { getItems } = useCollection();
+const { injectCollection } = useNewCollection("nav");
+const collectionItems = injectCollection();
 const context = inject(NAVIGATION_MENU_INJECTION_KEY);
 
 const position = ref<{ size: number; offset: number }>();
@@ -37,7 +37,7 @@ watchEffect(() => {
     position.value = undefined;
     return;
   }
-  const items = getItems();
+  const items = collectionItems.value;
   activeTrigger.value = items.find((item) =>
     item.id.includes(context?.modelValue.value)
   );

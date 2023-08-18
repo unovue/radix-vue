@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { MenuPortal, type MenuPortalProps } from "@/Menu";
-interface DropdownMenuPortalProps extends MenuPortalProps {}
 
+export interface DropdownMenuPortalProps extends MenuPortalProps {}
 const props = defineProps<DropdownMenuPortalProps>();
 </script>
 

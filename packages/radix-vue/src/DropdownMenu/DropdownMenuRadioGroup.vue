@@ -6,6 +6,9 @@ import {
 } from "@/Menu";
 import { useEmitAsProps } from "@/shared";
 
+export interface DropdownMenuRadioGroupProps extends MenuRadioGroupProps {}
+export type DropdownMenuRadioGroupEmits = MenuRadioGroupEmits;
+
 const props = defineProps<MenuRadioGroupProps>();
 const emits = defineEmits<MenuRadioGroupEmits>();
 

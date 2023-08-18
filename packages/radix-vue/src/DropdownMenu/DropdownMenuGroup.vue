@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { MenuGroup, type MenuGroupProps } from "@/Menu";
 
-interface DropdownMenuGroupProps extends MenuGroupProps {}
-
+export interface DropdownMenuGroupProps extends MenuGroupProps {}
 const props = defineProps<DropdownMenuGroupProps>();
 </script>
 

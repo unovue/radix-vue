@@ -2,11 +2,11 @@
 import BaseSeparator from "../shared/component/BaseSeparator.vue";
 import { type PrimitiveProps } from "@/Primitive";
 
-export interface BaseSeparatorProps extends PrimitiveProps {}
+export interface ToolbarSeparatorProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-const props = defineProps<BaseSeparatorProps>();
+const props = defineProps<ToolbarSeparatorProps>();
 </script>
 
 <template>

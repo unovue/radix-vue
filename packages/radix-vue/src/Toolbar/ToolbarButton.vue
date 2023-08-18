@@ -1,5 +1,5 @@
 <script lang="ts">
-export interface ToolbarButton extends PrimitiveProps {}
+export interface ToolbarButtonProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
@@ -9,14 +9,11 @@ import {
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
-import {
-  TOOLBAR_INJECTION_KEY,
-  type ToolbarProvideValue,
-} from "./ToolbarRoot.vue";
+import { TOOLBAR_INJECTION_KEY } from "./ToolbarRoot.vue";
 import { useArrowNavigation } from "../shared";
 
-const props = withDefaults(defineProps<ToolbarButton>(), { as: "button" });
-const injectedValue = inject<ToolbarProvideValue>(TOOLBAR_INJECTION_KEY);
+const props = withDefaults(defineProps<ToolbarButtonProps>(), { as: "button" });
+const injectedValue = inject(TOOLBAR_INJECTION_KEY);
 
 const { primitiveElement, currentElement } = usePrimitiveElement();
 

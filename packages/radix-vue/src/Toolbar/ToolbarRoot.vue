@@ -36,7 +36,7 @@ const { primitiveElement, currentElement: parentElement } =
 
 const activeElementRef = ref<HTMLElement>();
 
-provide<ToolbarProvideValue>(TOOLBAR_INJECTION_KEY, {
+provide(TOOLBAR_INJECTION_KEY, {
   parentElement,
   activeElement: activeElementRef,
   orientation: props.orientation,

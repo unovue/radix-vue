@@ -4,7 +4,7 @@ import type { DataOrientation, Direction } from "../shared/types";
 
 type TypeEnum = "single" | "multiple";
 
-export interface ToggleGroupProps extends PrimitiveProps {
+export interface ToolbarToggleGroupProps extends PrimitiveProps {
   type?: TypeEnum;
   value?: string;
   defaultValue?: string;
@@ -15,6 +15,9 @@ export interface ToggleGroupProps extends PrimitiveProps {
   dir?: Direction;
   loop?: boolean;
   modelValue?: string | string[];
+}
+export interface ToolbarToggleGroupEmits {
+  (e: "update:modelValue", payload: string | string[] | undefined): void;
 }
 
 export const TOOLBAR_TOGGLE_GROUP_INJECTION_KEY =
@@ -37,16 +40,16 @@ import {
   type PrimitiveProps,
 } from "@/Primitive";
 
-const props = withDefaults(defineProps<ToggleGroupProps>(), {
+const props = withDefaults(defineProps<ToolbarToggleGroupProps>(), {
   type: "single",
 });
 
-const emits = defineEmits(["update:modelValue"]);
+const emits = defineEmits<ToolbarToggleGroupEmits>();
 
 const { primitiveElement, currentElement: parentElement } =
   usePrimitiveElement();
 
-provide<ToolbarToggleGroupProvideValue>(TOOLBAR_TOGGLE_GROUP_INJECTION_KEY, {
+provide(TOOLBAR_TOGGLE_GROUP_INJECTION_KEY, {
   type: props.type,
   modelValue: toRef(() => props.modelValue),
   changeModelValue: (value: string | undefined) => {

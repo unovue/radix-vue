@@ -21,10 +21,15 @@ const { primitiveElement, currentElement: triggerElement } =
 onMounted(() => {
   context!.triggerElement.value = triggerElement.value;
 });
+
+defineExpose({ $el: triggerElement });
 </script>
 
 <template>
-  <component :is="context?.hasCustomAnchor.value ? '' : PopperAnchor" asChild>
+  <component
+    :is="context?.hasCustomAnchor.value ? Primitive : PopperAnchor"
+    asChild
+  >
     <Primitive
       :type="as === 'button' ? 'button' : undefined"
       ref="primitiveElement"

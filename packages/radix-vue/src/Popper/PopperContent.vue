@@ -136,6 +136,7 @@ import {
   type Align,
   getSideAndAlignFromPlacement,
   transformOrigin,
+  isNotNull,
 } from "./utils";
 import {
   useFloating,
@@ -186,6 +187,7 @@ const boundary = computed(() => {
 const detectOverflowOptions = computed(() => {
   return {
     padding: collisionPadding.value,
+    boundary: boundary.value.filter(isNotNull),
     // with `strategy: 'fixed'`, this is the only way to get it to respect boundaries
     altBoundary: boundary.value.length > 0,
   };
@@ -210,7 +212,7 @@ const computedMiddleware = computedEager(() => {
         ...detectOverflowOptions.value,
       }),
     size({
-      ...detectOverflowOptions,
+      ...detectOverflowOptions.value,
       apply: ({ elements, rects, availableWidth, availableHeight }) => {
         const { width: anchorWidth, height: anchorHeight } = rects.reference;
         const contentStyle = elements.floating.style;

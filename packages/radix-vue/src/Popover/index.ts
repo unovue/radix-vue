@@ -21,3 +21,7 @@ export {
   default as PopoverClose,
   type PopoverCloseProps,
 } from "./PopoverClose.vue";
+export {
+  default as PopoverAnchor,
+  type PopoverAnchorProps,
+} from "./PopoverAnchor.vue";

@@ -8,20 +8,22 @@ import {
   PopoverPortal,
   PopoverRoot,
   PopoverTrigger,
-} from "./";
+} from "../";
 
 const toggleState = ref(false);
 </script>
 
 <template>
-  <Story title="Popover" :layout="{ type: 'single', iframe: false }">
+  <Story title="Popover/Demo" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
       <PopoverRoot v-model:open="toggleState" :modal="false">
         <PopoverTrigger
           class="rounded-full w-[35px] h-[35px] inline-flex items-center justify-center text-violet11 bg-white shadow-[0_2px_10px] shadow-blackA7 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black cursor-default outline-none"
           aria-label="Update dimensions"
         >
-          <Icon icon="radix-icons:mixer-horizontal" />
+          <button>
+            <Icon icon="radix-icons:mixer-horizontal" />
+          </button>
         </PopoverTrigger>
         <PopoverPortal>
           <PopoverContent

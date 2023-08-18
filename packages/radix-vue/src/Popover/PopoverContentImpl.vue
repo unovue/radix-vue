@@ -33,7 +33,7 @@ export type PopoverContentImplEmits = DismissableLayerEmits & {
   (e: "closeAutoFocus", event: Event): void;
 };
 
-defineProps<PopoverContentImplProps>();
+const props = defineProps<PopoverContentImplProps>();
 const emits = defineEmits<PopoverContentImplEmits>();
 
 const context = inject(POPOVER_INJECTION_KEY);
@@ -58,6 +58,7 @@ useFocusGuards();
       @dismiss="context?.onOpenChange(false)"
     >
       <PopperContent
+        v-bind="props"
         :data-state="context?.open.value ? 'open' : 'closed'"
         role="dialog"
         :id="context?.contentId"

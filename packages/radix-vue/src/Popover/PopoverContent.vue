@@ -9,6 +9,7 @@ import { useEmitAsProps } from "@/shared";
 import { Presence } from "@/Presence";
 import { inject } from "vue";
 import { POPOVER_INJECTION_KEY } from "./PopoverRoot.vue";
+import { PopperContentPropsDefaultValue } from "@/Popper";
 
 export interface PopoverContentProps extends PopoverContentImplProps {
   /**
@@ -19,7 +20,9 @@ export interface PopoverContentProps extends PopoverContentImplProps {
 }
 export type PopoverContentEmits = PopoverContentImplEmits;
 
-const props = defineProps<PopoverContentProps>();
+const props = withDefaults(defineProps<PopoverContentProps>(), {
+  ...PopperContentPropsDefaultValue,
+});
 const emits = defineEmits<PopoverContentEmits>();
 
 const context = inject(POPOVER_INJECTION_KEY);

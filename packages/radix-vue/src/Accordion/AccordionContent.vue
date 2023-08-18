@@ -5,7 +5,7 @@ import { CollapsibleContent } from "../Collapsible";
 import { ACCORDION_ITEM_INJECTION_KEY } from "./AccordionItem.vue";
 import { ACCORDION_INJECTION_KEY } from "./AccordionRoot.vue";
 
-interface AccordionContentProps extends PrimitiveProps {}
+export interface AccordionContentProps extends PrimitiveProps {}
 
 const props = defineProps<AccordionContentProps>();
 

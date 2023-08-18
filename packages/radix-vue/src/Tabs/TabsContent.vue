@@ -9,9 +9,8 @@ export interface TabsContentProps extends PrimitiveProps {
 import { inject, computed } from "vue";
 import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { TABS_INJECTION_KEY } from "./TabsRoot.vue";
-import type { TabsProvideValue } from "./TabsRoot.vue";
 
-const injectedValue = inject<TabsProvideValue>(TABS_INJECTION_KEY);
+const injectedValue = inject(TABS_INJECTION_KEY);
 
 const props = defineProps<TabsContentProps>();
 

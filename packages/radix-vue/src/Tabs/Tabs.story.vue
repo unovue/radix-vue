@@ -6,7 +6,6 @@ import { TabsContent, TabsList, TabsRoot, TabsTrigger } from "./";
   <Story title="Tabs" :layout="{ type: 'single', iframe: true }">
     <Variant title="default">
       <TabsRoot
-        orientation="vertical"
         class="flex flex-col w-[300px] shadow-[0_2px_10px] shadow-blackA4"
         default-value="tab1"
       >

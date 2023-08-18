@@ -70,5 +70,3 @@ export {
   default as DropdownMenuSubTrigger,
   type DropdownMenuSubTriggerProps,
 } from "./DropdownMenuSubTrigger.vue";
-
-export * from "./utils";

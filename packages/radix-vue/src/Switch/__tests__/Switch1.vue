@@ -8,7 +8,7 @@ const checked = ref(false);
 
 <template>
   <p>{{ checked ? "checked" : "unchecked" }}</p>
-  <SwitchRoot v-model:open="checked" id="airplane-mode" data-testId="root">
+  <SwitchRoot v-model:checked="checked" id="airplane-mode" data-testId="root">
     <SwitchThumb data-testId="thumb"></SwitchThumb>
   </SwitchRoot>
 </template>

@@ -56,6 +56,8 @@ defineExpose({
     ref="primitiveElement"
     role="menuitem"
     tabindex="-1"
+    :as="as"
+    :as-child="asChild"
     data-radix-vue-collection-item
     :aria-disabled="disabled || undefined"
     :data-disabled="disabled ? '' : undefined"

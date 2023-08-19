@@ -1,0 +1,62 @@
+name: 🐞 Bug report
+description: Create a report to help us improve radix-vue.
+title: '[Bug]: '
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to fill out this bug report!
+
+        Please check if issue already exists before submitting a new one. Thanks!
+  - type: textarea
+    id: bug-env
+    attributes:
+      label: Environment
+      description: Please provide the following information about your environment.
+      value: |
+        Developement/Production OS: Windows 10 19043.1110
+        Node version: 16.0.0
+        Package manager: pnpm@8.6.0
+        Radix Vue version: 1.0.0
+        Vue version: 3.0.0
+        Nuxt version: 3.0.0
+        Nuxt mode: universal
+        Nuxt target: server
+        CSS framework: tailwindcss@3.3.3
+        Client OS: Windows 10 19043.1110
+        Browser: Chrome 90.0.4430.212
+      render: bash
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: How do you trigger this bug? Please walk us through it step by step.
+      value: |
+        1.
+        2.
+        3.
+        ...
+      render: bash
+    validations:
+      required: true
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is. If you intend to submit a PR for this issue, tell us in the description. Thanks!
+      placeholder: Bug description
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: A clear and concise description of what you expected to happen.
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots (if applicable)
+      description: If applicable, add screenshots to help explain your problem.

@@ -68,9 +68,9 @@ provide(TOGGLE_GROUP_INJECTION_KEY, {
   <component
     :is="rovingFocus ? RovingFocusGroup : Primitive"
     asChild
-    :orientation="orientation"
+    :orientation="rovingFocus ? orientation : undefined"
     :dir="dir"
-    :loop="loop"
+    :loop="rovingFocus ? loop : undefined"
   >
     <Primitive ref="primitiveElement" role="group" :as-child="asChild" :as="as">
       <slot :model-value="modelValue" />

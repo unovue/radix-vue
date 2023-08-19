@@ -11,7 +11,7 @@ const props = withDefaults(defineProps<ToolbarLinkProps>(), { as: "a" });
     <Primitive
       v-bind="props"
       @keydown="(event: KeyboardEvent) => {
-      if(event.key === '') (event.currentTarget as HTMLElement)?.click()
+      if(event.key === ' ') (event.currentTarget as HTMLElement)?.click()
     }"
     >
       <slot></slot>

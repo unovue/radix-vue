@@ -6,9 +6,18 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you for taking the time to fill out this bug report!
+        **Before You Start...**
 
-        Please check if issue already exists before submitting a new one. Thanks!
+        This form is only for submitting bug reports. If you have a usage question
+        or are unsure if this is really a bug, make sure to:
+
+        - Read the [docs](https://radix-vue.com/)
+        - Ask on [Discord Chat](https://chat.radix-vue.com/)
+        - Ask on [GitHub Discussions](https://github.com/radix-vue/radix-vue/discussions)
+
+        Also try to search for your issue - it may have already been answered or even fixed.
+        However, if you find that an old, closed issue still persists in the latest version,
+        you should open a new issue using the form below instead of commenting on the old issue.
   - type: textarea
     id: bug-env
     attributes:
@@ -29,17 +38,29 @@ body:
       render: bash
     validations:
       required: true
-  - type: textarea
-    id: reproduction
+  - type: input
+    id: reproduction-link
     attributes:
-      label: Reproduction steps
-      description: How do you trigger this bug? Please walk us through it step by step.
-      value: |
-        1.
-        2.
-        3.
-        ...
-      render: bash
+      label: Link to minimal reproduction
+      description: |
+        Please provide a link to a minimal reproduction of the bug.
+        A minimal reproduction is a CodeSandbox, CodePen, or a StackBlitz that contains the bare minimum amount of code needed to show the bug.
+        A minimal reproduction is required unless you are absolutely sure that the issue is obvious and the provided information is enough to understand the problem
+
+        This is **required** for us to be able to triage your issue in a timely manner.
+
+        Please do not just fill in a random link. The issue will be closed if no valid reproduction is provided.
+      placeholder: Reproduction Link
+    validations:
+      required: true
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to reproduce
+      description: |
+        How do you trigger this bug? Please walk us through it step by step.
+        Note that you can use [Markdown](https://guides.github.com/features/mastering-markdown/) to format lists and code.
+      placeholder: Steps to reproduce
     validations:
       required: true
   - type: textarea
@@ -58,5 +79,7 @@ body:
   - type: textarea
     id: screenshots
     attributes:
-      label: Screenshots (if applicable)
-      description: If applicable, add screenshots to help explain your problem.
+      label: Conext & Screenshots (if applicable)
+      description: |
+        If applicable, provide any additional context or screenshots of the bug.
+        You can drag and drop images here to add them to the issue.

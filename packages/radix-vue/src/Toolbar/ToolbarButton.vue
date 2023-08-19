@@ -1,45 +1,17 @@
-<script lang="ts">
-export interface ToolbarButtonProps extends PrimitiveProps {}
-</script>
-
 <script setup lang="ts">
-import { inject } from "vue";
-import {
-  Primitive,
-  usePrimitiveElement,
-  type PrimitiveProps,
-} from "@/Primitive";
-import { TOOLBAR_INJECTION_KEY } from "./ToolbarRoot.vue";
-import { useArrowNavigation } from "../shared";
+import { Primitive, type PrimitiveProps } from "@/Primitive";
+import { RovingFocusItem } from "@/RovingFocus";
 
-const props = withDefaults(defineProps<ToolbarButtonProps>(), { as: "button" });
-const injectedValue = inject(TOOLBAR_INJECTION_KEY);
-
-const { primitiveElement, currentElement } = usePrimitiveElement();
-
-function handleKeydown(e: KeyboardEvent) {
-  const newSelectedElement = useArrowNavigation(
-    e,
-    currentElement.value!,
-    injectedValue?.parentElement.value!
-  );
-  newSelectedElement?.focus();
+export interface ToolbarButtonProps extends PrimitiveProps {
+  disabled?: boolean;
 }
+const props = withDefaults(defineProps<ToolbarButtonProps>(), { as: "button" });
 </script>
 
 <template>
-  <Primitive
-    ref="primitiveElement"
-    :data-orientation="injectedValue?.orientation"
-    :as-child="props.asChild"
-    :as="as"
-    :type="as === 'button' ? 'button' : undefined"
-    :tabindex="
-      injectedValue?.activeElement.value === currentElement ? '0' : '-1'
-    "
-    @keydown="handleKeydown"
-    data-radix-vue-collection-item
-  >
-    <slot />
-  </Primitive>
+  <RovingFocusItem asChild :focusable="!disabled">
+    <Primitive :type="as === 'button' ? 'button' : undefined" v-bind="props">
+      <slot></slot>
+    </Primitive>
+  </RovingFocusItem>
 </template>

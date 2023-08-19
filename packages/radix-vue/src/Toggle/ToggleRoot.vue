@@ -55,28 +55,19 @@ const togglePressed = () => {
 const dataState = computed<DataState>(() => {
   return pressed.value ? "on" : "off";
 });
-
-const handleKeydown = (e: KeyboardEvent) => {
-  if (e.key === "Enter") {
-    togglePressed();
-  }
-};
 </script>
 
 <template>
   <Primitive
+    :type="as === 'button' ? 'button' : undefined"
     :as-child="props.asChild"
     :as="as"
-    :value="pressed"
-    v-bind="pressed"
-    role="checkbox"
-    :aria-checked="pressed"
+    :aria-pressed="pressed"
     :data-state="dataState"
-    :data-disabled="props.disabled"
-    :disabled="props.disabled"
+    :data-disabled="disabled ? '' : undefined"
+    :disabled="disabled"
     @click="togglePressed"
-    @keydown="handleKeydown"
-    style="position: relative"
+    @keydown.enter="togglePressed"
   >
     <slot />
   </Primitive>

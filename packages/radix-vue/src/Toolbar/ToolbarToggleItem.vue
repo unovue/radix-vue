@@ -2,8 +2,8 @@
 import { ToggleGroupItem, type ToggleGroupItemProps } from "@/ToggleGroup";
 import ToolbarButton from "./ToolbarButton.vue";
 
-export interface ToolbarToggleItem extends ToggleGroupItemProps {}
-const props = defineProps<ToolbarToggleItem>();
+export interface ToolbarToggleItemProps extends ToggleGroupItemProps {}
+const props = defineProps<ToolbarToggleItemProps>();
 </script>
 
 <template>

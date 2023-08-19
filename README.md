@@ -1,9 +1,32 @@
-# Radix Vue
+<br />
+<p align="center">
+  <a href="https://github.com/radix-vue/radix-vue">
+    <img src="https://www.radix-vue.com/logo.svg" alt="Logo" width="150" />
+  </a>
 
-## Why can't vue have nice things?
-
-An unofficial vue port of Radix Primitives.
+<h1 align="center">
+Radix Vue
+</h1>
+<p align="center">
+An unofficial Vue port of Radix UI. <br>
 Radix is an unstyled, customisable UI Library with built in accessibility for building top quality design systems.
+
+<p>
+
+<p align="center">
+<a href='https://github.com/radix-vue/radix-vue/actions/workflows/test.yml'>
+</a>
+<a href="https://www.npmjs.com/package/radix-vue" target="__blank"><img src="https://img.shields.io/npm/v/radix-vue?style=flat&colorA=002438&colorB=41c399" alt="NPM version"></a>
+<a href="https://www.npmjs.com/package/radix-vue" target="__blank"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/radix-vue?flat&colorA=002438&colorB=41c399"></a>
+<a href="https://github.com/radix-vue/radix-vue" target="__blank"><img alt="GitHub stars" src="https://img.shields.io/github/stars/radix-vue/radix-vue?flat&colorA=002438&colorB=41c399"></a>
+</p>
+
+<p align="center">
+<a href="https://chat.radix-vue.com"><b>Get involved!</b></a>
+</p>
+<p align="center">
+ <a href="https://radix-vue.com">Documentation</a> | <a href="https://www.radix-vue.com/overview/getting-started.html">Getting Started</a> | <a href="https://www.radix-vue.com/">Examples</a> | <a href="https://www.radix-vue.com/overview/introduction.html">Why Vitest?</a>
+</p>
 
 ## Installation
 
@@ -69,10 +92,6 @@ We would love to have your contributions! All PRs all welcomed! We need help bui
 3. Run `pnpm story:dev` to run histoire (storybook)
 4. Open `http://localhost:6006`
 
-## Community
-
-- [Discord](https://discord.gg/jZUsrAADe5). [Join us!](https://discord.gg/jZUsrAADe5)
-
 ## Authors
 
 - [Khairul Haaziq](https://github.com/khairulhaaziq)
@@ -83,8 +102,9 @@ We would love to have your contributions! All PRs all welcomed! We need help bui
 
 All credits goes to these open-source works and resources
 
-- [Radix UI](https://radix-ui.com)
+- [Radix UI](https://radix-ui.com) for doing all the hard work to make sure components are accessible
+- [Floating UI](https://floating-ui.com) for creating powerful component that as the base of many Radix Vue componetns
+- [VueUse](https://vueuse.org) for providing many useful utlities.
+- [Ark UI](https://ark-ui.com) for the `<Primitive>` component
 - [Radix Svelte](https://radix-svelte.com)
 - [Headless UI](https://headlessui.com)
-- [Floating UI](https://floating-ui.com)
-- [Vue Use](https://vueuse.org)

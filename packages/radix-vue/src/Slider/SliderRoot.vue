@@ -8,10 +8,8 @@ import {
 import type { DataOrientation, Direction } from "../shared/types";
 
 export interface SliderRootProps extends PrimitiveProps {
-  defaultValue?: string;
-  value?: string;
-  //onValueChange?: void;
-  //onValueCommit?: void;
+  defaultValue?: number;
+  onValueCommit?: (value: any) => void;
   name?: string;
   disabled?: boolean;
   orientation?: DataOrientation;
@@ -44,7 +42,8 @@ export interface SliderProvideValue {
 </script>
 
 <script setup lang="ts">
-import { ref, toRef, provide, computed } from "vue";
+import { ref, provide, computed } from "vue";
+import { useVModel } from "@vueuse/core";
 import { clamp } from "./utils";
 
 const props = withDefaults(defineProps<SliderRootProps>(), {
@@ -61,6 +60,11 @@ const props = withDefaults(defineProps<SliderRootProps>(), {
 });
 
 const emits = defineEmits(["update:modelValue"]);
+
+const modelValue = useVModel(props, "modelValue", emits, {
+  defaultValue: props.defaultValue,
+  passive: true,
+});
 
 const { primitiveElement, currentElement: rootSliderElement } =
   usePrimitiveElement();
@@ -84,9 +88,12 @@ const reversed = computed<boolean>(() => {
 });
 
 provide<SliderProvideValue>(SLIDER_INJECTION_KEY, {
-  modelValue: toRef(() => props.modelValue),
+  modelValue,
   changeModelValue: (value: any) => {
-    emits("update:modelValue", value);
+    modelValue.value = value;
+    if (value && props.onValueCommit) {
+      props.onValueCommit(value);
+    }
   },
   rootSliderElement: rootSliderElement,
   orientation: props.orientation,
@@ -129,7 +136,7 @@ function calculateModelValueFromPosition(position: number) {
 }
 
 function updateModelValue(value: number) {
-  emits("update:modelValue", convertToClosestStep(value, props.step));
+  modelValue.value = convertToClosestStep(value, props.step);
 }
 
 let rootSliderRect: DOMRect | undefined;

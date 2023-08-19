@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { MenuSeparator, type MenuSeparatorProps } from "@/Menu";
 
-const props = defineProps<MenuSeparatorProps>();
+export interface ContextMenuSeparatorProps extends MenuSeparatorProps {}
+const props = defineProps<ContextMenuSeparatorProps>();
 </script>
 
 <template>

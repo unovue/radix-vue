@@ -1,13 +1,13 @@
 <script lang="ts">
 export interface CollapsibleContentProps extends PrimitiveProps {}
+export default {
+  inheritAttrs: false,
+};
 </script>
 
 <script setup lang="ts">
 import { computed, inject, nextTick, onMounted, ref, watch } from "vue";
-import {
-  COLLAPSIBLE_INJECTION_KEY,
-  type CollapsibleProvideValue,
-} from "./CollapsibleRoot.vue";
+import { COLLAPSIBLE_INJECTION_KEY } from "./CollapsibleRoot.vue";
 import {
   Primitive,
   usePrimitiveElement,
@@ -15,9 +15,7 @@ import {
 } from "@/Primitive";
 import { Presence } from "@/Presence";
 
-const injectedValue = inject<CollapsibleProvideValue>(
-  COLLAPSIBLE_INJECTION_KEY
-);
+const injectedValue = inject(COLLAPSIBLE_INJECTION_KEY);
 
 const presentRef = ref<InstanceType<typeof Presence>>();
 const { primitiveElement, currentElement } = usePrimitiveElement();
@@ -65,10 +63,6 @@ onMounted(() => {
   requestAnimationFrame(() => {
     isMountAnimationPrevented.value = false;
   });
-});
-
-defineOptions({
-  inheritAttrs: false,
 });
 
 const props = defineProps<CollapsibleContentProps>();

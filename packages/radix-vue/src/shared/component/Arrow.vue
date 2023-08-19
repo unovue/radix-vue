@@ -1,6 +1,16 @@
 <script lang="ts">
 export interface ArrowProps extends PrimitiveProps {
+  /**
+   * The width of the arrow in pixels.
+   *
+   * @default 10
+   */
   width?: number;
+  /**
+   * The height of the arrow in pixels.
+   *
+   * @default 5
+   */
   height?: number;
 }
 </script>

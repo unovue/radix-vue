@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { MenuSubTrigger, type MenuSubTriggerProps } from "@/Menu";
 
-const props = defineProps<MenuSubTriggerProps>();
+export interface MenubarSubTriggerProps extends MenuSubTriggerProps {}
+const props = defineProps<MenubarSubTriggerProps>();
 </script>
 
 <template>

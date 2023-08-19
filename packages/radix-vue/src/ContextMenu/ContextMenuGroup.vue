@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { MenuGroup, type MenuGroupProps } from "@/Menu";
 
-interface ContextMenuGroupProps extends MenuGroupProps {}
-
+export interface ContextMenuGroupProps extends MenuGroupProps {}
 const props = defineProps<ContextMenuGroupProps>();
 </script>
 

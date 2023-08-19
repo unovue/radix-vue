@@ -6,9 +6,8 @@ export interface ProgressIndicatorProps extends PrimitiveProps {}
 import { inject } from "vue";
 import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { PROGRESS_INJECTION_KEY } from "./ProgressRoot.vue";
-import type { ProgressProvideValue } from "./ProgressRoot.vue";
 
-const injectedValue = inject<ProgressProvideValue>(PROGRESS_INJECTION_KEY);
+const injectedValue = inject(PROGRESS_INJECTION_KEY);
 
 const props = defineProps<ProgressIndicatorProps>();
 </script>

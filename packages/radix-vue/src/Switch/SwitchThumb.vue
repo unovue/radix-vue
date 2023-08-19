@@ -16,8 +16,8 @@ withDefaults(defineProps<SwitchThumbProps>(), { as: "span" });
 
 <template>
   <Primitive
-    :data-state="injectedValue?.open?.value ? 'checked' : 'unchecked'"
-    :data-disabled="injectedValue?.disabled ? '' : undefined"
+    :data-state="injectedValue?.checked?.value ? 'checked' : 'unchecked'"
+    :data-disabled="injectedValue?.disabled.value ? '' : undefined"
     :as-child="asChild"
     :as="as"
   >

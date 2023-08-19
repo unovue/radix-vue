@@ -1,46 +1,58 @@
+<script lang="ts">
+export interface RadioGroupItemProps extends PrimitiveProps {
+  value?: string;
+  disabled?: boolean;
+  required?: boolean;
+}
+
+interface RadioItemProvideValue {
+  disabled: ComputedRef<boolean>;
+  checked: ComputedRef<boolean>;
+}
+
+export const RADIO_GROUP_ITEM_INJECTION_KEY =
+  Symbol() as InjectionKey<RadioItemProvideValue>;
+</script>
+
 <script setup lang="ts">
 import {
   Primitive,
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
-import { computed, inject, provide, readonly } from "vue";
-import { useArrowNavigation } from "@/shared";
 import {
-  RADIO_GROUP_INJECTION_KEY,
-  RADIO_ITEM_INJECTION_KEY,
-  type RadioGroupProvideValue,
-} from "./RadioGroupRoot.vue";
+  computed,
+  inject,
+  provide,
+  type ComputedRef,
+  type InjectionKey,
+} from "vue";
+import { useArrowNavigation } from "@/shared";
+import { RADIO_GROUP_INJECTION_KEY } from "./RadioGroupRoot.vue";
 
-interface RadioGroupItemProps extends PrimitiveProps {
-  value?: string;
-  disabled?: boolean;
-  required?: boolean;
-}
-
-const injectedValue = inject<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY);
+const context = inject(RADIO_GROUP_INJECTION_KEY);
 
 const props = withDefaults(defineProps<RadioGroupItemProps>(), {
   disabled: false,
 });
 
 const disabled = computed(() => {
-  return injectedValue?.disabled.value || props.disabled;
+  return context?.disabled.value || props.disabled;
 });
 
 const required = computed(() => {
-  return injectedValue?.required.value || props.required;
+  return context?.required.value || props.required;
 });
 
 const checked = computed(() => {
-  return injectedValue?.modelValue?.value === props.value;
+  return context?.modelValue?.value === props.value;
 });
 
-provide(RADIO_ITEM_INJECTION_KEY, readonly({ disabled, checked }));
+provide(RADIO_GROUP_ITEM_INJECTION_KEY, { disabled, checked });
 
 function changeOption(value: string) {
   if (disabled.value) return;
-  injectedValue?.changeModelValue(value);
+  context?.changeModelValue(value);
 }
 
 const { primitiveElement, currentElement } = usePrimitiveElement();
@@ -51,25 +63,25 @@ function handleKeydown(e: KeyboardEvent) {
   const newSelectedElement = useArrowNavigation(
     e,
     currentElement.value!,
-    injectedValue?.parentElement.value,
+    context?.parentElement.value,
     {
-      arrowKeyOptions: injectedValue?.orientation.value,
-      loop: injectedValue?.loop.value,
+      arrowKeyOptions: context?.orientation.value,
+      loop: context?.loop.value,
     }
   );
 
   if (newSelectedElement) {
     changeOption(newSelectedElement?.getAttribute("value")!);
-    injectedValue!.currentFocusedElement!.value = newSelectedElement;
+    context!.currentFocusedElement!.value = newSelectedElement;
     newSelectedElement.focus();
   }
 }
 
 const getTabIndex = computed(() => {
-  if (!injectedValue?.currentFocusedElement?.value) {
+  if (!context?.currentFocusedElement?.value) {
     return checked.value ? "0" : "-1";
   } else
-    return injectedValue?.currentFocusedElement?.value === currentElement.value
+    return context?.currentFocusedElement?.value === currentElement.value
       ? "0"
       : "-1";
 });
@@ -89,7 +101,7 @@ const getTabIndex = computed(() => {
     :data-disabled="disabled ? '' : undefined"
     :tabindex="getTabIndex"
     :value="props.value"
-    :name="injectedValue?.name"
+    :name="context?.name"
     @click="changeOption(props.value!)"
     @keydown="handleKeydown"
   >

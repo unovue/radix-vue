@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { DialogClose, type DialogCloseProps } from "@/Dialog";
 
-const props = defineProps<DialogCloseProps>();
+export interface AlertDialogActionProps extends DialogCloseProps {}
+
+const props = defineProps<AlertDialogActionProps>();
 </script>
 
 <template>

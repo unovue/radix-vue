@@ -6,11 +6,15 @@ export interface ProgressRootProps extends PrimitiveProps {
   max?: number;
   getValueLabel?: (value: number, max: number) => string;
 }
+export interface ProgressRootEmits {
+  (e: "update:modelValue", value: string[] | undefined): void;
+  (e: "update:max", value: number): void;
+}
 
 export const PROGRESS_INJECTION_KEY =
   Symbol() as InjectionKey<ProgressProvideValue>;
 
-export interface ProgressProvideValue {
+interface ProgressProvideValue {
   modelValue?: Readonly<Ref<ProgressRootProps["modelValue"]>>;
   max: Readonly<Ref<number>>;
   progressState: ComputedRef<ProgressState>;
@@ -61,10 +65,7 @@ const props = withDefaults(defineProps<ProgressRootProps>(), {
     `${Math.round((value / max) * DEFAULT_MAX)}%`,
 });
 
-const emit = defineEmits<{
-  (e: "update:modelValue", value: string[] | undefined): void;
-  (e: "update:max", value: number): void;
-}>();
+const emit = defineEmits<ProgressRootEmits>();
 
 const modelValue = useVModel(props, "modelValue", emit, {
   passive: true,
@@ -103,7 +104,7 @@ const progressState = computed<ProgressState>(() => {
   return "loading";
 });
 
-provide<ProgressProvideValue>(PROGRESS_INJECTION_KEY, {
+provide(PROGRESS_INJECTION_KEY, {
   modelValue,
   max,
   progressState,

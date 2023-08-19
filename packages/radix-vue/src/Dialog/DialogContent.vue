@@ -13,7 +13,7 @@ import { useEmitAsProps } from "@/shared";
 const context = inject(DIALOG_INJECTION_KEY);
 
 export interface DialogContentProps extends DialogContentImplProps {}
-export interface DialogContentEmits extends DialogContentImplEmits {}
+export type DialogContentEmits = DialogContentImplEmits;
 
 const props = defineProps<DialogContentProps>();
 const emits = defineEmits<DialogContentEmits>();

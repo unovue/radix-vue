@@ -17,7 +17,7 @@ export interface ContextMenuContentProps
     | "updatePositionStrategy"
     | "prioritizePosition"
   > {}
-export interface ContextMenuContentEmits extends MenuContentEmits {}
+export type ContextMenuContentEmits = MenuContentEmits;
 
 const props = withDefaults(defineProps<ContextMenuContentProps>(), {
   alignOffset: 0,

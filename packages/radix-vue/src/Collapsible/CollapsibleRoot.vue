@@ -8,7 +8,11 @@ export interface CollapsibleRootProps extends PrimitiveProps {
   disabled?: boolean;
 }
 
-export interface CollapsibleProvideValue {
+export interface CollapsibleRootEmits {
+  (e: "update:open", value: boolean): void;
+}
+
+interface CollapsibleProvideValue {
   contentId: string;
   disabled?: Ref<boolean>;
   open: Ref<boolean>;
@@ -29,9 +33,7 @@ const props = withDefaults(defineProps<CollapsibleRootProps>(), {
   defaultOpen: false,
 });
 
-const emit = defineEmits<{
-  (e: "update:open", value: boolean): void;
-}>();
+const emit = defineEmits<CollapsibleRootEmits>();
 
 const open = useVModel(props, "open", emit, {
   defaultValue: props.defaultOpen,
@@ -40,7 +42,7 @@ const open = useVModel(props, "open", emit, {
 
 const disabled = useVModel(props, "disabled");
 
-provide<CollapsibleProvideValue>(COLLAPSIBLE_INJECTION_KEY, {
+provide(COLLAPSIBLE_INJECTION_KEY, {
   contentId: useId(),
   disabled,
   open,
@@ -48,6 +50,8 @@ provide<CollapsibleProvideValue>(COLLAPSIBLE_INJECTION_KEY, {
     open.value = !open.value;
   },
 });
+
+defineExpose({ open });
 </script>
 
 <template>

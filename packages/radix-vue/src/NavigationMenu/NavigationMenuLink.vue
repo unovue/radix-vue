@@ -2,6 +2,9 @@
 export interface NavigationMenuLinkProps extends PrimitiveProps {
   active?: boolean;
 }
+export interface NavigationMenuLinkEmits {
+  (e: "select", payload: MouseEvent): void;
+}
 </script>
 
 <script setup lang="ts">
@@ -13,7 +16,7 @@ import { nextTick } from "vue";
 const props = withDefaults(defineProps<NavigationMenuLinkProps>(), {
   as: "a",
 });
-const emits = defineEmits<{ (e: "select", payload: MouseEvent): void }>();
+const emits = defineEmits<NavigationMenuLinkEmits>();
 
 const handleClick = async (ev: MouseEvent) => {
   emits("select", ev);

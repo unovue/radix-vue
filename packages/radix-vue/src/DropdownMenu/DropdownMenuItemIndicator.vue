@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { MenuItemIndicator, type MenuItemIndicatorProps } from "@/Menu";
 
-const props = defineProps<MenuItemIndicatorProps>();
+export interface DropdownMenuItemIndicatorProps
+  extends MenuItemIndicatorProps {}
+const props = defineProps<DropdownMenuItemIndicatorProps>();
 </script>
 
 <template>

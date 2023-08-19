@@ -5,6 +5,9 @@ type AlertDialogContentContextValue = {
 
 export const ALERT_DIALOG_CONTENT_INJECTION_KEY =
   Symbol() as InjectionKey<AlertDialogContentContextValue>;
+
+export interface AlertDialogContentProps extends DialogContentProps {}
+export type AlertDialogContentEmits = DialogContentEmits;
 </script>
 
 <script setup lang="ts">
@@ -16,8 +19,8 @@ import {
 import { useEmitAsProps } from "@/shared";
 import { provide, type InjectionKey, ref, nextTick } from "vue";
 
-const props = defineProps<DialogContentProps>();
-const emits = defineEmits<DialogContentEmits>();
+const props = defineProps<AlertDialogContentProps>();
+const emits = defineEmits<AlertDialogContentEmits>();
 
 const emitsAsProps = useEmitAsProps(emits);
 

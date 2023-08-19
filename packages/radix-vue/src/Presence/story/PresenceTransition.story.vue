@@ -7,6 +7,7 @@ const isOpen = ref(false);
 
 <template>
   <Story
+    group="utilities"
     title="Presence/Transition"
     :layout="{ type: 'grid', width: '33%' }"
     auto-props-disabled

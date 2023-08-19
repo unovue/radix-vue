@@ -2,8 +2,11 @@
 import { MenuItem, type MenuItemProps, type MenuItemEmits } from "@/Menu";
 import { useEmitAsProps } from "@/shared";
 
-const props = defineProps<MenuItemProps>();
-const emits = defineEmits<MenuItemEmits>();
+export interface DropdownMenuItemProps extends MenuItemProps {}
+export type DropdownMenuItemEmits = MenuItemEmits;
+
+const props = defineProps<DropdownMenuItemProps>();
+const emits = defineEmits<DropdownMenuItemEmits>();
 
 const emitsAsProps = useEmitAsProps(emits);
 </script>

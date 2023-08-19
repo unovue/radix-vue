@@ -18,7 +18,11 @@ const handleSelectAll = () => {
 </script>
 
 <template>
-  <Story title="Menu/CheckboxItems" :layout="{ type: 'single', iframe: true }">
+  <Story
+    group="utilities"
+    title="Menu/CheckboxItems"
+    :layout="{ type: 'single', iframe: true }"
+  >
     <Variant title="default">
       <MenuWithAnchor>
         <MenuCheckboxItem

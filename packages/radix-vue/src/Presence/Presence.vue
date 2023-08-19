@@ -36,8 +36,13 @@ const node = ref<HTMLElement>();
 const { isPresent } = usePresence(present, node);
 
 const vPresence: Directive = {
-  created(el) {
-    node.value = el;
+  beforeMount(el: HTMLElement) {
+    // special case to handle animation for PopperContent
+    if (el.hasAttribute("data-radix-popper-content-wrapper")) {
+      node.value = el.firstChild as HTMLElement;
+    } else {
+      node.value = el;
+    }
   },
 };
 

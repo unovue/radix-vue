@@ -3,7 +3,7 @@ import { ToggleGroupItem, ToggleGroupRoot } from "./";
 import { Icon } from "@iconify/vue";
 import { ref } from "vue";
 
-const toggleStateSingle = ref();
+const toggleStateSingle = ref("left");
 const toggleStateMultiple = ref(["italic"]);
 
 const toggleGroupItemClasses =
@@ -11,9 +11,9 @@ const toggleGroupItemClasses =
 </script>
 
 <template>
-  <Story title="Toggle Group" :layout="{ type: 'single', iframe: true }">
+  <Story title="Toggle Group" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
-      <ToggleGroupRoot v-model="toggleStateSingle" disabled class="flex">
+      <ToggleGroupRoot v-model="toggleStateSingle" class="flex">
         <ToggleGroupItem
           value="left"
           aria-label="Toggle italic"
@@ -38,13 +38,13 @@ const toggleGroupItemClasses =
       </ToggleGroupRoot>
       <br />
       <ToggleGroupRoot
-        v-model="toggleStateMultiple"
+        :default-value="['bold', 'italic']"
         type="multiple"
         class="flex"
       >
         <ToggleGroupItem
           value="bold"
-          aria-label="Toggle italic"
+          aria-label="Toggle Bold"
           :class="toggleGroupItemClasses"
         >
           <Icon icon="radix-icons:font-bold" class="text-black" />
@@ -58,7 +58,7 @@ const toggleGroupItemClasses =
         </ToggleGroupItem>
         <ToggleGroupItem
           value="strikethrough"
-          aria-label="Toggle italic"
+          aria-label="Toggle Strikethrough"
           :class="toggleGroupItemClasses"
         >
           <Icon icon="radix-icons:strikethrough" class="text-black" />

@@ -1,7 +1,3 @@
-<script lang="ts">
-export interface PopoverTriggerProps extends PrimitiveProps {}
-</script>
-
 <script setup lang="ts">
 import { inject, onMounted } from "vue";
 import {
@@ -10,45 +6,42 @@ import {
   type PrimitiveProps,
 } from "@/Primitive";
 import { PopperAnchor } from "@/Popper";
-import {
-  POPOVER_INJECTION_KEY,
-  type PopoverProvideValue,
-} from "./PopoverRoot.vue";
+import { POPOVER_INJECTION_KEY } from "./PopoverRoot.vue";
 
+export interface PopoverTriggerProps extends PrimitiveProps {}
 const props = withDefaults(defineProps<PopoverTriggerProps>(), {
   as: "button",
 });
 
-const injectedValue = inject<PopoverProvideValue>(POPOVER_INJECTION_KEY);
+const context = inject(POPOVER_INJECTION_KEY);
 
 const { primitiveElement, currentElement: triggerElement } =
   usePrimitiveElement();
 
 onMounted(() => {
-  injectedValue!.triggerElement.value = triggerElement.value;
+  context!.triggerElement.value = triggerElement.value;
 });
 
-function handleClick() {
-  if (injectedValue?.open.value) {
-    injectedValue?.hidePopover();
-  } else {
-    injectedValue?.showPopover();
-  }
-}
+defineExpose({ $el: triggerElement });
 </script>
 
 <template>
-  <PopperAnchor asChild>
+  <component
+    :is="context?.hasCustomAnchor.value ? Primitive : PopperAnchor"
+    asChild
+  >
     <Primitive
-      :as="as"
       :type="as === 'button' ? 'button' : undefined"
       ref="primitiveElement"
-      :aria-expanded="injectedValue?.open.value || false"
-      :data-state="injectedValue?.open.value ? 'open' : 'closed'"
+      aria-haspopup="dialog"
+      :aria-expanded="context?.open.value"
+      :aria-controls="context?.contentId"
+      :data-state="context?.open.value ? 'open' : 'closed'"
+      :as="as"
       :as-child="props.asChild"
-      @click="handleClick"
+      @click="context!.onOpenToggle"
     >
       <slot />
     </Primitive>
-  </PopperAnchor>
+  </component>
 </template>

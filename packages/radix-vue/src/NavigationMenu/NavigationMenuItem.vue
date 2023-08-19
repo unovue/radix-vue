@@ -23,7 +23,7 @@ export const NAVIGATION_MENU_ITEM_INJECTION_KEY =
 import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
 import { provide, ref, type InjectionKey, type Ref, inject } from "vue";
 import { Primitive, type PrimitiveProps } from "@/Primitive";
-import { useArrowNavigation, useCollection, useId } from "@/shared";
+import { useArrowNavigation, useNewCollection, useId } from "@/shared";
 import {
   getTabbableCandidates,
   removeFromTabOrder,
@@ -34,7 +34,9 @@ import {
 const props = withDefaults(defineProps<NavigationMenuItemProps>(), {
   as: "li",
 });
-const { getItems } = useCollection();
+const { injectCollection } = useNewCollection("nav");
+const collectionItems = injectCollection();
+
 const context = inject(NAVIGATION_MENU_INJECTION_KEY);
 
 const value = props.value || useId();
@@ -98,7 +100,7 @@ const handleKeydown = (ev: KeyboardEvent) => {
     }
   }
 
-  const itemsArray = getItems().filter((i) =>
+  const itemsArray = collectionItems.value.filter((i) =>
     i.parentElement?.hasAttribute("aria-menu-item")
   );
 

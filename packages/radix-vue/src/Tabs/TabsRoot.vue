@@ -10,6 +10,9 @@ export interface TabsRootProps extends PrimitiveProps {
   modelValue?: string;
   onValueChange?: (value: string) => void;
 }
+export interface TabsRootEmits {
+  (e: "update:modelValue", payload: string): void;
+}
 
 export const TABS_INJECTION_KEY = Symbol() as InjectionKey<TabsProvideValue>;
 
@@ -21,7 +24,7 @@ export interface TabsProvideValue {
   orientation: DataOrientation;
   dir: Direction;
   activationMode: "automatic" | "manual";
-  loop: boolean;
+  loop: Ref<boolean>;
 }
 </script>
 
@@ -35,8 +38,7 @@ const props = withDefaults(defineProps<TabsRootProps>(), {
   dir: "ltr",
   activationMode: "automatic",
 });
-
-const emits = defineEmits(["update:modelValue"]);
+const emits = defineEmits<TabsRootEmits>();
 
 const parentElementRef = ref<HTMLElement>();
 const currentFocusedElementRef = ref<HTMLElement>();
@@ -58,7 +60,7 @@ provide<TabsProvideValue>(TABS_INJECTION_KEY, {
   parentElement: parentElementRef,
   orientation: props.orientation,
   dir: props.dir,
-  loop: true,
+  loop: ref(true),
   activationMode: props.activationMode,
 });
 </script>

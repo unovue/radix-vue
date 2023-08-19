@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { MenuArrow, type MenuArrowProps } from "@/Menu";
 
-const props = defineProps<MenuArrowProps>();
+export interface ContextMenuArrowProps extends MenuArrowProps {}
+const props = defineProps<ContextMenuArrowProps>();
 </script>
 
 <template>

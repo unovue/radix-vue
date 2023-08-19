@@ -1,21 +1,25 @@
 <script lang="ts">
-export interface SelectGroupRootProps extends PrimitiveProps {}
-</script>
+export interface SelectGroupProps extends PrimitiveProps {}
 
+type SelectGroupContextValue = { id: string };
+export const SELECT_GROUP_INJECTION_KEY =
+  Symbol() as InjectionKey<SelectGroupContextValue>;
+</script>
 <script setup lang="ts">
 import { Primitive, type PrimitiveProps } from "@/Primitive";
+import { useId } from "@/shared";
+import { provide, type InjectionKey } from "vue";
 
-const props = defineProps<SelectGroupRootProps>();
+const props = defineProps<SelectGroupProps>();
+
+const id = useId();
+provide(SELECT_GROUP_INJECTION_KEY, {
+  id,
+});
 </script>
 
 <template>
-  <Primitive
-    :as-child="props.asChild"
-    :as="as"
-    ref="primitiveElement"
-    role="group"
-    aria-label="group"
-  >
-    <slot />
+  <Primitive role="group" v-bind="props" :aria-labelledby="id">
+    <slot></slot>
   </Primitive>
 </template>

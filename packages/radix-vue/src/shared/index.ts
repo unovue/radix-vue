@@ -15,3 +15,4 @@ export { trapFocus } from "./trap-focus";
 export { renderSlotFragments } from "./renderSlotFragments";
 export { isValidVNodeElement } from "./isValidVNodeElement";
 export { useBodyScrollLock } from "./useBodyScrollLock";
+export { useTypeahead } from "./useTypeahead";

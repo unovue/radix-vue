@@ -8,6 +8,9 @@ export interface DropdownMenuRootProps {
   dir?: Direction;
   modal?: boolean;
 }
+export interface DropdownMenuRootEmits {
+  (e: "update:open", value: boolean): void;
+}
 
 export const DROPDOWN_MENU_INJECTION_KEY =
   Symbol() as InjectionKey<DropdownMenuProvideValue>;
@@ -35,10 +38,7 @@ const props = withDefaults(defineProps<DropdownMenuRootProps>(), {
   dir: "ltr",
   open: undefined,
 });
-
-const emit = defineEmits<{
-  (e: "update:open", value: boolean): void;
-}>();
+const emit = defineEmits<DropdownMenuRootEmits>();
 
 const open = useVModel(props, "open", emit, {
   defaultValue: props.defaultOpen,

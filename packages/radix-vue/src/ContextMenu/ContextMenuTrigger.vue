@@ -1,7 +1,10 @@
 <script lang="ts">
-interface ContextMenuTriggerProps extends PrimitiveProps {
+export interface ContextMenuTriggerProps extends PrimitiveProps {
   disabled?: boolean;
 }
+export default {
+  inheritAttrs: false,
+};
 </script>
 
 <script setup lang="ts">
@@ -74,10 +77,6 @@ const handlePointerEvent = async (event: PointerEvent) => {
     }
   }
 };
-
-defineOptions({
-  inheritAttrs: false,
-});
 </script>
 
 <template>

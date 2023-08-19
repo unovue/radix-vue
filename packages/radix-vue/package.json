@@ -34,7 +34,6 @@
   },
   "keywords": [],
   "scripts": {
-    "dev": "vite",
     "build": "run-p format lint && run-p type-check build-only",
     "build-only": "rimraf dist && vite build",
     "type-check": "vue-tsc -p tsconfig.check.json --noEmit",

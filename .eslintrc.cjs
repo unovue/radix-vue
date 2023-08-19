@@ -11,5 +11,6 @@ module.exports = {
     '@typescript-eslint/semi': ['error', 'always'],
     'vue/no-multiple-template-root': 'off',
     'vue/component-options-name-casing': ['error', 'kebab-case'],
+    'no-console': ['warn', { allow: ['warn', 'error'] }],
   },
 };

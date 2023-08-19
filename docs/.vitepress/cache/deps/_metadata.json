@@ -1,35 +1,35 @@
 {
-  "hash": "0334f869",
-  "browserHash": "9429786a",
+  "hash": "bd7f1478",
+  "browserHash": "899ae11c",
   "optimized": {
     "vue": {
       "src": "../../../node_modules/.pnpm/vue@3.3.4/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "797f459b",
+      "fileHash": "fd82322c",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
-      "src": "../../../node_modules/.pnpm/@vue+devtools-api@6.5.0/node_modules/@vue/devtools-api/lib/esm/index.js",
+      "src": "../../../../node_modules/.pnpm/@vue+devtools-api@6.5.0/node_modules/@vue/devtools-api/lib/esm/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "b61848b6",
-      "needsInterop": false
-    },
-    "@iconify/vue": {
-      "src": "../../../node_modules/.pnpm/@iconify+vue@4.1.1_vue@3.3.4/node_modules/@iconify/vue/dist/iconify.mjs",
-      "file": "@iconify_vue.js",
-      "fileHash": "c51284bb",
+      "fileHash": "aae90c4b",
       "needsInterop": false
     },
     "radix-vue": {
-      "src": "../../../node_modules/.pnpm/radix-vue@0.1.20_vue@3.3.4/node_modules/radix-vue/dist/index.js",
+      "src": "../../../../node_modules/.pnpm/radix-vue@0.1.21_vue@3.3.4/node_modules/radix-vue/dist/index.js",
       "file": "radix-vue.js",
-      "fileHash": "8d83d650",
+      "fileHash": "81b4a38b",
+      "needsInterop": false
+    },
+    "@iconify/vue": {
+      "src": "../../../../node_modules/.pnpm/@iconify+vue@4.1.1_vue@3.3.4/node_modules/@iconify/vue/dist/iconify.mjs",
+      "file": "@iconify_vue.js",
+      "fileHash": "168537d7",
       "needsInterop": false
     },
     "codesandbox/lib/api/define": {
-      "src": "../../../node_modules/.pnpm/codesandbox@2.2.3/node_modules/codesandbox/lib/api/define.js",
+      "src": "../../../../node_modules/.pnpm/codesandbox@2.2.3/node_modules/codesandbox/lib/api/define.js",
       "file": "codesandbox_lib_api_define.js",
-      "fileHash": "2b7f96f4",
+      "fileHash": "d7c886eb",
       "needsInterop": true
     }
   },

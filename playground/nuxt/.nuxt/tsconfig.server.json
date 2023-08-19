@@ -1,0 +1,61 @@
+{
+  "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "jsx": "preserve",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
+    "paths": {
+      "#imports": [
+        "/Users/zernonia/Desktop/Radix Vue/radix-vue/playground/nuxt/.nuxt/types/nitro-imports"
+      ],
+      "#paths": [
+        "/Users/zernonia/Desktop/Radix Vue/radix-vue/playground/nuxt/node_modules/.pnpm/nuxt@3.6.5_@types+node@18.17.0/node_modules/nuxt/dist/core/runtime/nitro/paths"
+      ],
+      "~": [
+        "/Users/zernonia/Desktop/Radix Vue/radix-vue/playground/nuxt"
+      ],
+      "~/*": [
+        "/Users/zernonia/Desktop/Radix Vue/radix-vue/playground/nuxt/*"
+      ],
+      "@": [
+        "/Users/zernonia/Desktop/Radix Vue/radix-vue/playground/nuxt"
+      ],
+      "@/*": [
+        "/Users/zernonia/Desktop/Radix Vue/radix-vue/playground/nuxt/*"
+      ],
+      "~~": [
+        "/Users/zernonia/Desktop/Radix Vue/radix-vue/playground/nuxt"
+      ],
+      "~~/*": [
+        "/Users/zernonia/Desktop/Radix Vue/radix-vue/playground/nuxt/*"
+      ],
+      "@@": [
+        "/Users/zernonia/Desktop/Radix Vue/radix-vue/playground/nuxt"
+      ],
+      "@@/*": [
+        "/Users/zernonia/Desktop/Radix Vue/radix-vue/playground/nuxt/*"
+      ],
+      "assets": [
+        "/Users/zernonia/Desktop/Radix Vue/radix-vue/playground/nuxt/assets"
+      ],
+      "public": [
+        "/Users/zernonia/Desktop/Radix Vue/radix-vue/playground/nuxt/public"
+      ],
+      "public/*": [
+        "/Users/zernonia/Desktop/Radix Vue/radix-vue/playground/nuxt/public/*"
+      ]
+    }
+  },
+  "include": [
+    "/Users/zernonia/Desktop/Radix Vue/radix-vue/playground/nuxt/.nuxt/types/nitro-nuxt.d.ts",
+    "./types/nitro.d.ts",
+    "../**/*",
+    "../server/**/*"
+  ]
+}

@@ -59,7 +59,7 @@ For changelog, visit [releases](https://github.com/radix-vue/radix-vue/releases)
 | [Label](https://radix-vue.com/components/label)                     |   ✅   | ✅           | ✅                     |
 | [Menubar](https://radix-vue.com/components/menubar)                 |   ✅   | ✅           |                        |
 | [Navigation Menu](https://radix-vue.com/components/navigation-menu) |   ✅   | ✅           |                        |
-| [Popover](https://radix-vue.com/components/popover)                 |   ✅   |              |                        |
+| [Popover](https://radix-vue.com/components/popover)                 |   ✅   | ✅           |                        |
 | [Progress](https://radix-vue.com/components/progress)               |   ✅   | ✅           | ✅                     |
 | [Radio Group](https://radix-vue.com/components/radio-group)         |   ✅   | ✅           |                        |
 | [Scroll Area](https://radix-vue.com/components/scroll-area)         |   ✅   | ✅           |                        |
@@ -70,7 +70,7 @@ For changelog, visit [releases](https://github.com/radix-vue/radix-vue/releases)
 | [Tabs](https://radix-vue.com/components/tabs)                       |   ✅   | ✅           |                        |
 | [Toggle](https://radix-vue.com/components/toggle)                   |   ✅   | ✅           |                        |
 | [Toggle Group](https://radix-vue.com/components/toggle-group)       |   ✅   | ✅           |                        |
-| [Toolbar](https://radix-vue.com/components/toolbar)                 |   ✅   |              |                        |
+| [Toolbar](https://radix-vue.com/components/toolbar)                 |   ✅   | ✅           |                        |
 | [Tooltip](https://radix-vue.com/components/tooltip)                 |   ✅   | ✅           |                        |
 
 ## Contributing

@@ -100,6 +100,10 @@ const thumbStyle = computed(() => {
 
   return style;
 });
+
+defineOptions({
+  inheritAttrs: false,
+});
 </script>
 
 <template>

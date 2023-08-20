@@ -78,13 +78,6 @@ Contains all the parts of a toggle group.
 <PropsTable
   :data="[
     {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
       name: 'type',
       required: true,
       type: '&quot;single&quot; | &quot;multiple&quot;',
@@ -92,10 +85,10 @@ Contains all the parts of a toggle group.
       description: '<span> Determines whether a single or multiple items can be pressed at a time. </span>',
     },
     {
-      name: 'value',
+      name: 'modelValue',
       required: false,
       type: 'string | string[]',
-      description: '<span> The controlled value of the pressed item. Must be binded with <Code>v-model</Code>. </span>',
+      description: '<span> The controlled value of the pressed item. Can be binded with <Code>v-model</Code>. </span>',
     },
     {
       name: 'defaultValue',
@@ -139,6 +132,23 @@ Contains all the parts of a toggle group.
       default: 'true',
       description: '<span> When <Code>true</Code> and <Code>rovingFocus</Code> is <Code>true</Code>, keyboard navigation will loop from last item to first, and vice versa. </span>',
     },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    },
+  ]"
+/>
+
+<EmitsTable
+  :data="[
+    {
+    name: '@update:modelValue',
+    type: '(payload: string | string[]) => void',
+    description: 'Event handler called when the value changes.',
+    }
   ]"
 />
 

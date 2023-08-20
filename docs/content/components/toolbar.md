@@ -84,13 +84,6 @@ Contains all the toolbar component parts.
 <PropsTable
   :data="[
     {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
       name: 'orientation',
       required: false,
       type: '&quot;horizontal&quot; | &quot;vertical&quot; | undefined',
@@ -111,6 +104,13 @@ Contains all the toolbar component parts.
       type: 'boolean',
       default: 'true',
       description: '<span> When <Code>true</Code>, keyboard navigation will loop from last tab to first, and vice versa.</span>',
+    },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]"
 />
@@ -172,13 +172,6 @@ A set of two-state buttons that can be toggled on or off.
 <PropsTable
   :data="[
     {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
       name: 'type',
       required: true,
       type: '&quot;single&quot; | &quot;multiple&quot;',
@@ -186,10 +179,10 @@ A set of two-state buttons that can be toggled on or off.
       description: '<span> Determines whether a single or multiple items can be pressed at a time.</span>',
     },
     {
-      name: 'value',
+      name: 'modelValue',
       required: false,
       type: 'string | string[]',
-      description: '<span> The controlled value of the pressed item when <Code>type</Code> is <Code>&quot;single&quot;</Code>. Must be binded with <Code>v-model</Code>.</span>',
+      description: '<span> The controlled value of the pressed items. Can be binded with <Code>v-model</Code>.</span>',
     },
     {
       name: 'defaultValue',
@@ -204,6 +197,23 @@ A set of two-state buttons that can be toggled on or off.
       default: 'false',
       description: '<span> When <Code>true</Code>, prevents the user from interacting with the toggle group and all its items.</span>',
     },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    },
+  ]"
+/>
+
+<EmitsTable
+  :data="[
+    {
+    name: '@update:modelValue',
+    type: '(payload: string | string[]) => void',
+    description: 'Event handler called when the value changes.',
+    }
   ]"
 />
 

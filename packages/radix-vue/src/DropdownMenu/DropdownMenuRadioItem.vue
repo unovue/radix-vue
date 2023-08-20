@@ -5,8 +5,11 @@ import {
   type MenuRadioItemEmits,
 } from "@/Menu";
 
-const props = defineProps<MenuRadioItemProps>();
-const emits = defineEmits<MenuRadioItemEmits>();
+export interface DropdownMenuRadioItemProps extends MenuRadioItemProps {}
+export type DropdownMenuRadioItemEmits = MenuRadioItemEmits;
+
+const props = defineProps<DropdownMenuRadioItemProps>();
+const emits = defineEmits<DropdownMenuRadioItemEmits>();
 </script>
 
 <template>

@@ -6,8 +6,8 @@ import {
 } from "@/Menu";
 import { PopperContentPropsDefaultValue } from "@/Popper";
 
-interface DropdownMenuSubContentProps extends MenuSubContentProps {}
-interface DropdownMenuSubContentEmits extends MenuSubContentEmits {}
+export interface DropdownMenuSubContentProps extends MenuSubContentProps {}
+export type DropdownMenuSubContentEmits = MenuSubContentEmits;
 
 const props = withDefaults(defineProps<DropdownMenuSubContentProps>(), {
   ...PopperContentPropsDefaultValue,

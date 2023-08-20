@@ -1,9 +1,9 @@
 <script lang="ts">
 import { type InjectionKey, type Ref } from "vue";
 import type { Direction, Orientation } from "./utils";
-import { useCollection, useId } from "@/shared";
+import { useId, useNewCollection } from "@/shared";
 
-export interface NavigationMenuProps extends PrimitiveProps {
+export interface NavigationMenuRootProps extends PrimitiveProps {
   modelValue?: string;
   defaultValue?: string;
   dir?: Direction;
@@ -18,6 +18,9 @@ export interface NavigationMenuProps extends PrimitiveProps {
    * @defaultValue 300
    */
   skipDelayDuration?: number;
+}
+export interface NavigationMenuRootEmits {
+  (e: "update:modelValue", value: string): void;
 }
 
 interface VNodeWithParentProps extends VNode {
@@ -63,7 +66,7 @@ import {
   type PrimitiveProps,
 } from "@/Primitive";
 
-const props = withDefaults(defineProps<NavigationMenuProps>(), {
+const props = withDefaults(defineProps<NavigationMenuRootProps>(), {
   modelValue: "",
   delayDuration: 200,
   skipDelayDuration: 300,
@@ -71,10 +74,7 @@ const props = withDefaults(defineProps<NavigationMenuProps>(), {
   dir: "ltr",
   as: "nav",
 });
-
-const emits = defineEmits<{
-  (e: "update:modelValue", value: string): void;
-}>();
+const emits = defineEmits<NavigationMenuRootEmits>();
 
 const modelValue = useVModel(props, "modelValue", emits, {
   passive: true,
@@ -84,12 +84,13 @@ const previousValue = ref("");
 
 const { primitiveElement, currentElement: rootNavigationMenu } =
   usePrimitiveElement();
-const { createCollection } = useCollection();
-createCollection();
 
 const indicatorTrack = ref<HTMLElement>();
 const viewport = ref<HTMLElement>();
 const viewportContent = ref<Map<string, VNodeWithParentProps>>(new Map());
+
+const { createCollection } = useNewCollection("nav");
+createCollection(indicatorTrack);
 
 const { delayDuration, skipDelayDuration } = toRefs(props);
 

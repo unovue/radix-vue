@@ -10,7 +10,7 @@ import { SCROLL_AREA_INJECTION_KEY } from "./ScrollAreaRoot.vue";
 import { SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY } from "./ScrollAreaScrollbarVisible.vue";
 import { watchOnce } from "@vueuse/core";
 
-interface ScrollAreaThumbProps extends PrimitiveProps {}
+export interface ScrollAreaThumbProps extends PrimitiveProps {}
 const props = defineProps<ScrollAreaThumbProps>();
 
 const rootContext = inject(SCROLL_AREA_INJECTION_KEY);

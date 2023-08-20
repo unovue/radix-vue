@@ -79,19 +79,18 @@ import {
   provide,
   toRefs,
   watch,
-  nextTick,
 } from "vue";
 import {
   useNewCollection,
   useFocusGuards,
   useArrowNavigation,
   useBodyScrollLock,
+  useTypeahead,
 } from "@/shared";
 import {
   type GraceIntent,
   type Side,
   getOpenState,
-  getNextMatch,
   isPointerInGraceArea,
   isMouseEvent,
   focusFirst,
@@ -128,33 +127,7 @@ watch(contentElement, (el) => {
   context!.onContentChange(el);
 });
 
-const handleTypeaheadSearch = (key: string) => {
-  const search = searchRef.value + key;
-  const items = collectionItems.value;
-  const currentItem = document.activeElement;
-  const currentMatch =
-    items.find((item) => item === currentItem)?.textContent?.trim() ?? "";
-  const values = items.map((item) => item.textContent?.trim() ?? "");
-  const nextMatch = getNextMatch(values, search, currentMatch);
-
-  const newItem = items.find((item) => item.textContent?.trim() === nextMatch);
-
-  // Reset `searchRef` 1 second after it was last updated
-  (function updateSearch(value: string) {
-    searchRef.value = value;
-    window.clearTimeout(timerRef.value);
-    if (value !== "")
-      timerRef.value = window.setTimeout(() => updateSearch(""), 1000);
-  })(search);
-
-  if (newItem) {
-    /**
-     * Imperative focus during keydown is risky so we prevent React's batching updates
-     * to avoid potential bugs. See: https://github.com/facebook/react/issues/20332
-     */
-    setTimeout(() => (newItem as HTMLElement).focus());
-  }
-};
+const { handleTypeaheadSearch } = useTypeahead(collectionItems);
 
 onUnmounted(() => {
   window.clearTimeout(timerRef.value);
@@ -173,16 +146,15 @@ const isPointerMovingToSubmenu = (event: PointerEvent) => {
 const handleMountAutoFocus = async (event: Event) => {
   emits("openAutoFocus", event);
 
-  // when opening, explicitly focus the content area only and leave
-  // `onEntryFocus` in  control of focusing first item
-  contentElement.value?.focus();
+  setTimeout(() => {
+    contentElement.value?.focus();
 
-  // only focus first item when using keyboard
-  if (rootContext?.isUsingKeyboardRef.value) {
-    await nextTick();
-    collectionItems.value?.[0]?.focus();
-    event.preventDefault();
-  }
+    // only focus first item when using keyboard
+    if (rootContext?.isUsingKeyboardRef.value && !event.defaultPrevented) {
+      collectionItems.value?.[0]?.focus();
+      event.preventDefault();
+    }
+  }, 0);
 };
 
 const handleKeyDown = (event: KeyboardEvent) => {

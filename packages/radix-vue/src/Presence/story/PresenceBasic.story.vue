@@ -7,6 +7,7 @@ const open = ref(false);
 
 <template>
   <Story
+    group="utilities"
     title="Presence/Basic"
     :layout="{ type: 'grid', width: '33%' }"
     auto-props-disabled

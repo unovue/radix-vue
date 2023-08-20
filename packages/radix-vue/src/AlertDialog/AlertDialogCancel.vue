@@ -1,22 +1,23 @@
 <script setup lang="ts">
-import { inject } from "vue";
-import { Primitive, type PrimitiveProps } from "@/Primitive";
-import { ALERT_DIALOG_INJECTION_KEY } from "./AlertDialogRoot.vue";
+import { DialogClose, type DialogCloseProps } from "@/Dialog";
+import { ALERT_DIALOG_CONTENT_INJECTION_KEY } from "./AlertDialogContent.vue";
+import { inject, onMounted } from "vue";
+import { usePrimitiveElement } from "@/Primitive";
 
-export interface AlertDialogCancelProps extends PrimitiveProps {}
-const props = withDefaults(defineProps<AlertDialogCancelProps>(), {
-  as: "button",
+export interface AlertDialogCancelProps extends DialogCloseProps {}
+
+const contentContext = inject(ALERT_DIALOG_CONTENT_INJECTION_KEY);
+const { primitiveElement, currentElement } = usePrimitiveElement();
+
+const props = defineProps<AlertDialogCancelProps>();
+
+onMounted(() => {
+  contentContext!.onCancelElementChange(currentElement.value);
 });
-
-const injectedValue = inject(ALERT_DIALOG_INJECTION_KEY);
 </script>
 
 <template>
-  <Primitive
-    v-bind="props"
-    :type="props.as === 'button' ? 'button' : undefined"
-    @click="injectedValue?.closeModal()"
-  >
-    <slot />
-  </Primitive>
+  <DialogClose v-bind="props" ref="primitiveElement">
+    <slot></slot>
+  </DialogClose>
 </template>

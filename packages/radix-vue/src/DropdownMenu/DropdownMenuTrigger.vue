@@ -11,17 +11,14 @@ import {
   usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
-import {
-  DROPDOWN_MENU_INJECTION_KEY,
-  type DropdownMenuProvideValue,
-} from "./DropdownMenuRoot.vue";
+import { DROPDOWN_MENU_INJECTION_KEY } from "./DropdownMenuRoot.vue";
 import { MenuAnchor } from "@/Menu";
 
 const props = withDefaults(defineProps<DropdownMenuTriggerProps>(), {
   as: "button",
 });
 
-const context = inject<DropdownMenuProvideValue>(DROPDOWN_MENU_INJECTION_KEY);
+const context = inject(DROPDOWN_MENU_INJECTION_KEY);
 
 const { primitiveElement, currentElement: triggerElement } =
   usePrimitiveElement();

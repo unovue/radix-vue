@@ -13,7 +13,11 @@ export interface CheckboxRootProps extends PrimitiveProps {
   id?: string;
 }
 
-export type CheckboxProvideValue = {
+export interface CheckboxRootEmits {
+  (e: "update:modelValue", value: boolean): void;
+}
+
+type CheckboxProvideValue = {
   disabled: boolean;
   required: boolean;
   modelValue: Readonly<Ref<boolean>>;
@@ -32,11 +36,9 @@ const props = withDefaults(defineProps<CheckboxRootProps>(), {
   value: "on",
 });
 
-const emit = defineEmits<{
-  (e: "update:modelValue", value: boolean): void;
-}>();
+const emit = defineEmits<CheckboxRootEmits>();
 
-provide<CheckboxProvideValue>(CHECKBOX_INJECTION_KEY, {
+provide(CHECKBOX_INJECTION_KEY, {
   required: props.required,
   disabled: props.disabled,
   modelValue: toRef(() => props.modelValue),

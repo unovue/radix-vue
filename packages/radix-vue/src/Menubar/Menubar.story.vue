@@ -28,7 +28,7 @@ function handleClick() {
 </script>
 
 <template>
-  <Story title="Menubar" :layout="{ type: 'single', iframe: true }">
+  <Story title="Menubar" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
       <MenubarRoot
         v-model="currentMenu"

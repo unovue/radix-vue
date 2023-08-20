@@ -7,6 +7,9 @@ export interface HoverCardRootProps {
   openDelay?: number;
   closeDelay?: number;
 }
+export interface HoverCardRootEmits {
+  (e: "update:open", value: boolean): void;
+}
 
 export const HOVER_CARD_INJECTION_KEY =
   Symbol() as InjectionKey<HoverCardProvideValue>;
@@ -33,9 +36,7 @@ const props = withDefaults(defineProps<HoverCardRootProps>(), {
   closeDelay: 300,
 });
 
-const emit = defineEmits<{
-  (e: "update:open", value: boolean): void;
-}>();
+const emit = defineEmits<HoverCardRootEmits>();
 
 const open = useVModel(props, "open", emit, {
   defaultValue: props.defaultOpen,

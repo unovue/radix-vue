@@ -1,7 +1,7 @@
 <script lang="ts">
 export interface TabsTriggerProps extends PrimitiveProps {
   value: string;
-  disabled: boolean;
+  disabled?: boolean;
 }
 </script>
 
@@ -13,10 +13,9 @@ import {
   type PrimitiveProps,
 } from "@/Primitive";
 import { TABS_INJECTION_KEY } from "./TabsRoot.vue";
-import type { TabsProvideValue } from "./TabsRoot.vue";
 import { useArrowNavigation } from "../shared";
 
-const injectedValue = inject<TabsProvideValue>(TABS_INJECTION_KEY);
+const injectedValue = inject(TABS_INJECTION_KEY);
 const { primitiveElement, currentElement } = usePrimitiveElement();
 
 const props = withDefaults(defineProps<TabsTriggerProps>(), {
@@ -35,7 +34,7 @@ function handleKeydown(e: KeyboardEvent) {
     injectedValue?.parentElement.value!,
     {
       arrowKeyOptions: injectedValue?.orientation,
-      loop: injectedValue?.loop,
+      loop: injectedValue?.loop.value,
       focus: true,
     }
   );

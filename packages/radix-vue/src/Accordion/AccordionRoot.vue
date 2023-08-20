@@ -49,6 +49,10 @@ export interface AccordionRootProps extends PrimitiveProps {
   orientation?: DataOrientation;
 }
 
+export interface AccordionRootEmits {
+  (e: "update:modelValue", value: string | string[] | undefined): void;
+}
+
 export const ACCORDION_INJECTION_KEY =
   Symbol() as InjectionKey<AccordionProvideValue>;
 
@@ -81,9 +85,7 @@ const props = withDefaults(defineProps<AccordionRootProps>(), {
   collapsible: false,
 });
 
-const emits = defineEmits<{
-  (e: "update:modelValue", value: string | string[] | undefined): void;
-}>();
+const emits = defineEmits<AccordionRootEmits>();
 
 const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emits);
 
@@ -100,10 +102,14 @@ provide<AccordionProvideValue>(ACCORDION_INJECTION_KEY, {
   modelValue,
   changeModelValue,
 });
+
+defineExpose({
+  modelValue,
+});
 </script>
 
 <template>
   <Primitive ref="primitiveElement" :as-child="props.asChild" :as="props.as">
-    <slot />
+    <slot :modelValue="modelValue" />
   </Primitive>
 </template>

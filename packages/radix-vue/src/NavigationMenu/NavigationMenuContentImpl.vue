@@ -23,7 +23,7 @@ import {
   type DismissableLayerEmits,
 } from "@/DismissableLayer";
 import { usePrimitiveElement } from "@/Primitive";
-import { useArrowNavigation, useCollection } from "@/shared";
+import { useArrowNavigation, useNewCollection } from "@/shared";
 import {
   focusFirst,
   getTabbableCandidates,
@@ -37,7 +37,8 @@ import type { PointerDownOutsideEvent } from "@/DismissableLayer/utils";
 const props = defineProps<NavigationMenuContentImplProps>();
 const emits = defineEmits<DismissableLayerEmits>();
 
-const { getItems } = useCollection();
+const { injectCollection } = useNewCollection("nav");
+const collectionItems = injectCollection();
 const { primitiveElement, currentElement } = usePrimitiveElement();
 
 const context = inject(NAVIGATION_MENU_INJECTION_KEY);
@@ -46,7 +47,7 @@ const contentId = makeContentId(context!.baseId, props.value);
 
 const prevMotionAttributeRef = ref<MotionAttribute | null>(null);
 const motionAttribute = computed(() => {
-  const items = getItems();
+  const items = collectionItems.value;
   const values = items.map((item) => item.id.split("trigger-")[1]);
   if (context?.dir === "rtl") values.reverse();
   const index = values.indexOf(context!.modelValue.value);
@@ -97,7 +98,9 @@ const handlePointerDownOutside = (ev: PointerDownOutsideEvent) => {
 
   if (!ev.defaultPrevented) {
     const target = ev.target as HTMLElement;
-    const isTrigger = getItems().some((item) => item.contains(target));
+    const isTrigger = collectionItems.value.some((item) =>
+      item.contains(target)
+    );
     const isRootViewport =
       context?.isRootMenu && context.viewport.value?.contains(target);
 

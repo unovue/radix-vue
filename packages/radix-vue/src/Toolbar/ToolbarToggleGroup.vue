@@ -1,83 +1,31 @@
-<script lang="ts">
-import type { Ref, InjectionKey } from "vue";
-import type { DataOrientation, Direction } from "../shared/types";
-
-type TypeEnum = "single" | "multiple";
-
-export interface ToggleGroupProps extends PrimitiveProps {
-  type?: TypeEnum;
-  value?: string;
-  defaultValue?: string;
-  //onValueChange?: void;
-  disabled?: boolean;
-  rovingFocus?: boolean;
-  orientation?: DataOrientation;
-  dir?: Direction;
-  loop?: boolean;
-  modelValue?: string | string[];
-}
-
-export const TOOLBAR_TOGGLE_GROUP_INJECTION_KEY =
-  Symbol() as InjectionKey<ToolbarToggleGroupProvideValue>;
-
-export interface ToolbarToggleGroupProvideValue {
-  type: TypeEnum;
-  modelValue?: Readonly<Ref<string | string[] | undefined>>;
-  changeModelValue: (value: string | undefined) => void;
-  parentElement: Ref<HTMLElement | undefined>;
-  orientation: DataOrientation;
-}
-</script>
-
 <script setup lang="ts">
-import { toRef, provide } from "vue";
 import {
-  Primitive,
-  usePrimitiveElement,
-  type PrimitiveProps,
-} from "@/Primitive";
+  ToggleGroupRoot,
+  type ToggleGroupRootProps,
+  type ToggleGroupRootEmits,
+} from "@/ToggleGroup";
+import { inject } from "vue";
+import { TOOLBAR_INJECTION_KEY } from "./ToolbarRoot.vue";
+import { useEmitAsProps } from "@/shared";
 
-const props = withDefaults(defineProps<ToggleGroupProps>(), {
-  type: "single",
-});
+const context = inject(TOOLBAR_INJECTION_KEY);
 
-const emits = defineEmits(["update:modelValue"]);
+export interface ToolbarToggleGroupProps extends ToggleGroupRootProps {}
+export type ToolbarToggleGroupEmits = ToggleGroupRootEmits;
 
-const { primitiveElement, currentElement: parentElement } =
-  usePrimitiveElement();
+const props = defineProps<ToolbarToggleGroupProps>();
+const emits = defineEmits<ToolbarToggleGroupEmits>();
 
-provide<ToolbarToggleGroupProvideValue>(TOOLBAR_TOGGLE_GROUP_INJECTION_KEY, {
-  type: props.type,
-  modelValue: toRef(() => props.modelValue),
-  changeModelValue: (value: string | undefined) => {
-    if (props.type === "single") {
-      emits("update:modelValue", value);
-    } else {
-      if (!value) return;
-      let modelValueArray = props.modelValue as string[];
-      if (modelValueArray.includes(value)) {
-        let index = modelValueArray.findIndex((i) => i === value);
-        modelValueArray.splice(index, 1);
-      } else {
-        modelValueArray.push(value);
-      }
-      emits("update:modelValue", modelValueArray);
-    }
-  },
-  orientation: props.orientation ? props.orientation : "horizontal",
-  parentElement,
-});
+const emitsAsProps = useEmitAsProps(emits);
 </script>
 
 <template>
-  <Primitive
-    ref="primitiveElement"
-    role="group"
-    :dir="props.dir"
-    :as-child="props.asChild"
-    :as="as"
-    aria-label="Text alignment"
+  <ToggleGroupRoot
+    v-bind="{ ...props, ...emitsAsProps }"
+    :data-orientation="context?.orientation.value"
+    :dir="context?.dir.value"
+    :roving-focus="false"
   >
-    <slot />
-  </Primitive>
+    <slot></slot>
+  </ToggleGroupRoot>
 </template>

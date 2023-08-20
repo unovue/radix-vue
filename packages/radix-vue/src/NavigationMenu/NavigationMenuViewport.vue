@@ -18,7 +18,6 @@ import { Presence } from "@/Presence";
 import NavigationMenuContentImpl from "./NavigationMenuContentImpl.vue";
 
 export interface NavigationMenuViewportProps extends PrimitiveProps {}
-
 defineProps<NavigationMenuViewportProps>();
 
 const { primitiveElement, currentElement } = usePrimitiveElement();
@@ -52,10 +51,12 @@ useResizeObserver(content, () => {
     };
   }
 });
+</script>
 
-defineOptions({
+<script lang="ts">
+export default {
   inheritAttrs: false,
-});
+};
 </script>
 
 <template>

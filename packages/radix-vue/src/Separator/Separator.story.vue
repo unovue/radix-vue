@@ -13,6 +13,7 @@ import { Separator } from "./";
           An open-source UI component library.
         </div>
         <Separator
+          decorative
           class="bg-[#d7cff9] data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[15px]"
         />
         <div class="flex h-5 items-center">

@@ -28,7 +28,7 @@ export interface TooltipContentProps
   ariaLabel?: string;
 }
 
-export interface TooltipContentEmit {
+export interface TooltipContentEmits {
   (e: "escapeKeyDown", event: KeyboardEvent): void;
   (e: "pointerDownOutside", event: Event): void;
 }
@@ -58,7 +58,7 @@ const props = withDefaults(defineProps<TooltipContentProps>(), {
   hideWhenDetached: false,
 });
 
-const emit = defineEmits<TooltipContentEmit>();
+const emit = defineEmits<TooltipContentEmits>();
 
 onClickOutside(contentElement, () => {
   emit("pointerDownOutside", new Event("pointerdown"));

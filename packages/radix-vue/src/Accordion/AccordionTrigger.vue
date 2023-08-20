@@ -5,7 +5,7 @@ import { inject } from "vue";
 import { ACCORDION_ITEM_INJECTION_KEY } from "./AccordionItem.vue";
 import { ACCORDION_INJECTION_KEY } from "./AccordionRoot.vue";
 
-interface AccordionTriggerProps extends PrimitiveProps {}
+export interface AccordionTriggerProps extends PrimitiveProps {}
 
 const props = defineProps<AccordionTriggerProps>();
 

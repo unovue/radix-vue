@@ -1,23 +1,13 @@
 <script setup lang="ts">
-import { ALERT_DIALOG_INJECTION_KEY } from "./AlertDialogRoot.vue";
-import { Primitive, type PrimitiveProps } from "@/Primitive";
-import { inject } from "vue";
+import { DialogOverlay, type DialogOverlayProps } from "@/Dialog";
 
-export interface AlertDialogOverlayProps extends PrimitiveProps {}
+export interface AlertDialogOverlayProps extends DialogOverlayProps {}
+
 const props = defineProps<AlertDialogOverlayProps>();
-
-const injectedValue = inject(ALERT_DIALOG_INJECTION_KEY);
 </script>
 
 <template>
-  <Primitive
-    v-if="injectedValue?.open.value"
-    v-bind="props"
-    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
-    style="pointer-events: auto"
-    data-aria-hidden="true"
-    aria-hidden="true"
-  >
-    <slot />
-  </Primitive>
+  <DialogOverlay v-bind="props">
+    <slot></slot>
+  </DialogOverlay>
 </template>

@@ -11,15 +11,12 @@ import { VisuallyHidden } from "@/VisuallyHidden";
 import { makeTriggerId, makeContentId, getOpenState } from "./utils";
 import { unrefElement } from "@vueuse/core";
 
-interface NavigationMenuTriggerProps extends PrimitiveProps {
+export interface NavigationMenuTriggerProps extends PrimitiveProps {
   disabled?: boolean;
 }
 
 const props = withDefaults(defineProps<NavigationMenuTriggerProps>(), {
   as: "button",
-});
-defineOptions({
-  inheritAttrs: false,
 });
 
 const context = inject(NAVIGATION_MENU_INJECTION_KEY);
@@ -106,6 +103,12 @@ const handleVisuallyHiddenFocus = (ev: FocusEvent) => {
   if (wasTriggerFocused || !wasFocusFromContent) {
     itemContext!.onFocusProxyEnter(wasTriggerFocused ? "start" : "end");
   }
+};
+</script>
+
+<script lang="ts">
+export default {
+  inheritAttrs: false,
 };
 </script>
 

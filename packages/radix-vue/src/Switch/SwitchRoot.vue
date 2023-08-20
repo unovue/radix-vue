@@ -9,22 +9,24 @@ export interface SwitchRootProps extends PrimitiveProps {
   required?: boolean;
   name?: string;
   id?: string;
-  defaultOpen?: boolean;
-  open?: boolean;
+}
+
+export interface SwitchRootEmits {
+  (e: "update:checked", payload: boolean): void;
 }
 
 export const SWITCH_INJECTION_KEY =
   Symbol() as InjectionKey<SwitchProvideValue>;
 
 export interface SwitchProvideValue {
-  open?: Readonly<Ref<boolean>>;
-  toggleOpen: () => void;
-  disabled: boolean;
+  checked?: Ref<boolean>;
+  toggleCheck: () => void;
+  disabled: Ref<boolean>;
 }
 </script>
 
 <script setup lang="ts">
-import { provide } from "vue";
+import { provide, toRefs } from "vue";
 import { Primitive, type PrimitiveProps } from "@/Primitive";
 import { useVModel } from "@vueuse/core";
 
@@ -32,57 +34,56 @@ const props = withDefaults(defineProps<SwitchRootProps>(), {
   asChild: false,
   disabled: false,
   defaultOpen: false,
-  open: undefined,
 });
+const emit = defineEmits<SwitchRootEmits>();
+const { disabled } = toRefs(props);
 
-const emit = defineEmits(["update:open"]);
-
-const open = useVModel(props, "open", emit, {
-  defaultValue: props.defaultOpen,
+const checked = useVModel(props, "checked", emit, {
+  defaultValue: props.defaultChecked,
   passive: true, // set passive to true so that if no props.modelValue was passed, it will still update
 });
 
-const toggleOpen = () => {
-  open.value = !open.value;
+const toggleCheck = () => {
+  checked.value = !checked.value;
 };
 
 provide<SwitchProvideValue>(SWITCH_INJECTION_KEY, {
-  open: open,
-  toggleOpen,
-  disabled: props.disabled,
+  checked,
+  toggleCheck,
+  disabled,
 });
 
 function handleKeydown(e: KeyboardEvent) {
   if (e.key === "Enter") {
-    toggleOpen();
+    toggleCheck();
   }
 }
 </script>
 
 <template>
   <Primitive
-    :value="open"
+    :value="checked"
     role="switch"
-    :aria-checked="open"
-    :data-state="open ? 'checked' : 'unchecked'"
-    :data-disabled="props.disabled ? '' : undefined"
-    :as-child="props.asChild"
+    :aria-checked="checked"
+    :data-state="checked ? 'checked' : 'unchecked'"
+    :data-disabled="disabled ? '' : undefined"
+    :as-child="asChild"
     :as="as"
     style="position: relative"
   >
     <slot />
     <input
       type="checkbox"
-      :id="props.id"
-      v-bind="open"
-      :name="props.name"
-      @click="toggleOpen"
+      :id="id"
+      v-bind="checked"
+      :name="name"
+      @click="toggleCheck"
       @keydown="handleKeydown"
       aria-hidden="true"
-      :disabled="props.disabled"
-      :required="props.required"
-      :data-state="open ? 'checked' : 'unchecked'"
-      :data-disabled="props.disabled ? '' : undefined"
+      :disabled="disabled"
+      :required="required"
+      :data-state="checked ? 'checked' : 'unchecked'"
+      :data-disabled="disabled ? '' : undefined"
       style="opacity: 0; position: absolute; inset: 0"
     />
   </Primitive>

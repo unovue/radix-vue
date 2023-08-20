@@ -29,6 +29,12 @@ export default defineConfig({
     setupFile: "./setup.ts",
     storyMatch: [resolve(projectRootDir, "../packages/radix-vue/src/**/*.story.vue")],
     outDir: "./dist",
+    tree: {
+      groups: [
+        { title: "Components", include: (file) => true },
+        { id: "utilities", title: "Utilities" },
+      ],
+    },
   },
 
   server: {

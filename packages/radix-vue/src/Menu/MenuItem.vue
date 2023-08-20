@@ -43,8 +43,8 @@ const handleSelect = async () => {
 
 <template>
   <MenuItemImpl
+    v-bind="props"
     ref="primitiveElement"
-    :disabled="disabled"
     @click="handleSelect"
     @pointerdown="
       () => {

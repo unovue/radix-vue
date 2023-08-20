@@ -95,16 +95,30 @@ import {
 
 Contains all the parts of an alert dialog.
 
-<PropsTable :data="[{
-name: 'defaultOpen',
-type: 'boolean',
-description: 'The open state of the dialog when it is initially rendered. Use when you do not need to control its open state.',
-},
-{
-name: 'open',
-type: 'boolean',
-description: 'The controlled open state of the dialog. Must be binded with `v-model`.',
-}]" />
+<PropsTable 
+  :data="[
+    {
+      name: 'defaultOpen',
+      type: 'boolean',
+      description: 'The open state of the dialog when it is initially rendered. Use when you do not need to control its open state.',
+    },
+    {
+      name: 'open',
+      type: 'boolean',
+      description: 'The controlled open state of the dialog. Can be binded with `v-model`.',
+    }
+  ]" 
+/>
+
+<EmitsTable 
+  :data="[
+    {
+      name: '@update:open',
+      type: '(open: boolean) => void',
+      description: 'Event handler called when the open state of the alert dialog changes.'
+    },
+  ]" 
+/>
 
 ### Trigger
 
@@ -127,13 +141,16 @@ values: ['open', 'closed'],
 
 When used, portals your overlay and content parts into the <code>body</code>.
 
-<PropsTable :data="[
-{
-name: 'container',
-type: 'HTMLElement',
-default: 'document.body',
-description: 'Specify a container element to portal the content into.',
-}]" />
+<PropsTable
+  :data="[
+    {
+      name: 'to',
+      type:  'string | HTMLElement',
+      default: 'body',
+      description: 'Vue native teleport component props. (to)',
+    },
+  ]"
+/>
 
 ### Overlay
 
@@ -156,51 +173,41 @@ values: ['open', 'closed'],
 
 Contains content to be rendered when the dialog is open.
 
-<PropsTable :data="[{
-name: 'asChild',
-required: false,
-type: 'boolean',
-default: 'false',
-description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-},
-{
-name: 'onOpenAutoFocus',
-required: false,
-type: 'boolean',
-default: 'true',
-description: 'Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault`',
-},
-{
-name: 'onCloseAutoFocus',
-required: false,
-type: 'boolean',
-default: 'true',
-description: 'Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault`',
-},
-{
-name: 'onEscapeKeyDown',
-required: false,
-type: 'boolean',
-default: 'true',
-description: 'Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault`',
-}]" />
+<PropsTable
+  :data="[
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    }
+  ]" 
+/>
 
-<EmitsTable :data="[
-{
-name: '@open',
-type: '(event: Event) => void',
-description: 'Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault`',
-},
-{
-name: '@close',
-type: '(event: Event) => void',
-description: 'Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault`',
-},
-{
-name: '@escape-key-down',
-type: '(event: KeyboardEvent) => void',
-description: 'Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault`',
-}]" />
+<EmitsTable
+  :data="[
+    {
+      name: '@openAutoFocus',
+      type: '(event: Event) => void',
+      description: 'Event handler called when focus moves into the component after opening. It can be prevented by  calling<Code>event.preventDefault</Code>.'
+    }, 
+    {
+      name: '@closeAutoFocus',
+      type: '(event: Event) => void',
+      description: 'Event handler called when focus moves to the trigger after closing. It can be prevented by calling <Code>event.preventDefault</Code>.'
+    }, 
+    {
+    name: '@escapeKeyDown',
+    type: '(event: KeyboardEvent) => void',
+      description: `
+        <span>
+          Event handler called when the escape key is down. It can be prevented by calling <Code>event.preventDefault</Code>.
+        </span>
+      `,
+    }
+  ]"
+/>
 
 <DataAttributesTable :data="[{
 attribute: '[data-state]',

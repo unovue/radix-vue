@@ -94,7 +94,7 @@ Contains all the parts of a popover.
     {
       name: 'open',
       type: 'boolean',
-      description: '<span> The controlled open state of the popover. Must be binded with <Code>v-model</Code>.</span>',
+      description: '<span> The controlled open state of the popover. Can be binded with <Code>v-model</Code>.</span>',
     },
     {
       name: 'modal',
@@ -103,6 +103,16 @@ Contains all the parts of a popover.
       default: 'false',
       description: '<span> The modality of the popover. When set to <Code>true</Code>, interaction with outside elements will be disabled and only popover content will be visible to screen readers.</span>',
     },
+  ]"
+/>
+
+<EmitsTable
+  :data="[
+    {
+    name: '@update:open',
+    type: '(open: boolean) => void',
+    description: 'Event handler called when the open state of the popover changes.',
+    }
   ]"
 />
 
@@ -169,47 +179,6 @@ The component that pops out when the popover is open.
 <PropsTable
   :data="[
     {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'onOpenAutoFocus',
-      required: false,
-      type: 'boolean',
-      default: 'true',
-      description: '<span>Event handler called when focus moves into the component after opening. It can be prevented by calling <Code>event.preventDefault</Code>.</span>',
-    },
-    {
-      name: 'onCloseAutoFocus',
-      required: false,
-      type: 'boolean',
-      default: 'true',
-      description: '<span>Event handler called when focus moves to the trigger after closing. It can be prevented by calling <Code>event.preventDefault</Code>.</span>',
-    },
-    {
-      name: 'onEscapeKeyDown',
-      required: false,
-      type: 'boolean',
-      default: 'true',
-      description: '<span>Event handler called when the escape key is down. It can be prevented by calling <Code>event.preventDefault</Code>.</span>',
-    },
-    {
-      name: 'onPointerDownOutside',
-      required: false,
-      type: 'boolean',
-      default: 'true',
-      description: '<span>Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.</span>',
-    },
-    {
-      name: 'onInteractOutside',
-      type: '(event: React.FocusEvent | MouseEvent | TouchEvent) => void',
-      typeSimple: 'function',
-      description: '<span>Event handler called when an interaction (pointer or focus event) happens outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.</span>',
-    },
-    {
       name: 'side',
       type: '&quot;top&quot; | &quot;right&quot; | &quot;bottom&quot; | &quot;left&quot;',
       typeSimple: 'enum',
@@ -274,35 +243,59 @@ The component that pops out when the popover is open.
       default: 'false',
       description: '<span> Whether to hide the content when the trigger becomes fully occluded.</span>',
     },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    }, 
   ]"
 />
 
-<EmitsTable :data="[
-{
-name: '@open',
-type: '(event: Event) => void',
-description: 'Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault`',
-},
-{
-name: '@close',
-type: '(event: Event) => void',
-description: 'Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault`',
-},
-{
-name: '@escape-key-down',
-type: '(event: KeyboardEvent) => void',
-description: 'Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault`',
-},
-{
-name: '@pointer-down-outside',
-type: '(event: KeyboardEvent) => void',
-description: '<span>Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.</span>',
-},
-{
-name: '@interact-outside',
-type: '(event: KeyboardEvent) => void',
-description: '<span>Event handler called when an interaction (pointer or focus event) happens outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.</span>',
-}]" />
+<EmitsTable
+  :data="[
+    {
+      name: '@openAutoFocus',
+      type: '(event: Event) => void',
+      description: 'Event handler called when focus moves into the component after opening. It can be prevented by  calling<Code>event.preventDefault</Code>.'
+    }, 
+    {
+      name: '@closeAutoFocus',
+      type: '(event: Event) => void',
+      description: 'Event handler called when focus moves to the trigger after closing. It can be prevented by calling <Code>event.preventDefault</Code>.'
+    }, 
+    {
+    name: '@escapeKeyDown',
+    type: '(event: KeyboardEvent) => void',
+      description: `
+        <span>
+          Event handler called when the escape key is down. It can be prevented by calling <Code>event.preventDefault</Code>.
+        </span>
+      `,
+    },
+    {
+      name: '@pointerDownOutside',
+      type: '(event: PointerDownOutsideEvent) => void',
+      description: `
+        <span>
+          Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.
+        </span>
+      `,
+    }, 
+    {
+      name: '@interactOutside',
+      type: '(event: FocusEvent | MouseEvent | TouchEvent) => void',
+      description: `
+        <span>
+          Event handler called when an interaction (pointer or focus event)
+          happens outside the bounds of the component. It can be prevented by
+          calling <Code>event.preventDefault</Code>.
+        </span>
+      `,
+    },
+  ]"
+/>
 
 <DataAttributesTable
   :data="[

@@ -1,73 +1,72 @@
 <script lang="ts">
 import {
   Primitive,
-  usePrimitiveElement,
   type PrimitiveProps,
-} from "@/Primitive";
-import type { DataOrientation, Direction } from "@/shared/types";
-import { useVModel } from "@vueuse/core";
-import type { InjectionKey, Ref } from "vue";
+  usePrimitiveElement,
+} from '@/Primitive'
+import type { DataOrientation, Direction } from '@/shared/types'
+import { useVModel } from '@vueuse/core'
+import type { InjectionKey, Ref } from 'vue'
 
 export interface RadioGroupRootProps extends PrimitiveProps {
-  modelValue?: string | string[];
-  onValueChange?: (value: string) => void;
-  defaultValue?: string;
-  value?: string;
-  disabled?: boolean;
-  name?: string;
-  required?: boolean;
-  orientation?: DataOrientation;
-  dir?: Direction;
-  loop?: boolean;
+  modelValue?: string | string[]
+  onValueChange?: (value: string) => void
+  defaultValue?: string
+  value?: string
+  disabled?: boolean
+  name?: string
+  required?: boolean
+  orientation?: DataOrientation
+  dir?: Direction
+  loop?: boolean
 }
 export interface RadioGroupRootEmits {
-  (e: "update:modelValue", payload: string | string[]): void;
+  (e: 'update:modelValue', payload: string | string[]): void
 }
 
 interface RadioGroupProvideValue {
-  modelValue?: Readonly<Ref<string | string[] | undefined>>;
-  changeModelValue: (value?: string) => void;
-  parentElement: Ref<HTMLElement | undefined>;
-  currentFocusedElement?: Ref<HTMLElement | undefined>;
-  disabled: Ref<boolean>;
-  loop: Ref<boolean>;
-  orientation: Ref<DataOrientation | undefined>;
-  name?: string;
-  required: Ref<boolean>;
+  modelValue?: Readonly<Ref<string | string[] | undefined>>
+  changeModelValue: (value?: string) => void
+  parentElement: Ref<HTMLElement | undefined>
+  currentFocusedElement?: Ref<HTMLElement | undefined>
+  disabled: Ref<boolean>
+  loop: Ref<boolean>
+  orientation: Ref<DataOrientation | undefined>
+  name?: string
+  required: Ref<boolean>
 }
 
-export const RADIO_GROUP_INJECTION_KEY =
-  Symbol() as InjectionKey<RadioGroupProvideValue>;
+export const RADIO_GROUP_INJECTION_KEY
+  = Symbol() as InjectionKey<RadioGroupProvideValue>
 </script>
 
 <script setup lang="ts">
-import { provide, ref } from "vue";
+import { provide, ref } from 'vue'
 
 const props = withDefaults(defineProps<RadioGroupRootProps>(), {
   disabled: false,
   required: false,
   orientation: undefined,
-  dir: "ltr",
+  dir: 'ltr',
   loop: true,
-});
+})
 
-const emits = defineEmits<RadioGroupRootEmits>();
+const emits = defineEmits<RadioGroupRootEmits>()
 
-const { primitiveElement, currentElement: parentElement } =
-  usePrimitiveElement();
+const { primitiveElement, currentElement: parentElement }
+  = usePrimitiveElement()
 
-const modelValue = useVModel(props, "modelValue", emits, {
+const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
   passive: true,
-});
+})
 
 provide<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY, {
   modelValue,
   changeModelValue: (value?: string) => {
-    modelValue.value = value;
-    if (value && props.onValueChange) {
-      props.onValueChange(value);
-    }
+    modelValue.value = value
+    if (value && props.onValueChange)
+      props.onValueChange(value)
   },
   parentElement,
   currentFocusedElement: ref(),
@@ -76,7 +75,7 @@ provide<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY, {
   orientation: ref(props.orientation),
   name: props.name,
   required: ref(props.required),
-});
+})
 </script>
 
 <template>

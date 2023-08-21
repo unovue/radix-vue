@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { SwitchRoot, SwitchThumb } from "./";
-import { ref } from "vue";
+import { ref } from 'vue'
+import { SwitchRoot, SwitchThumb } from './'
 
-const switchState = ref(true);
+const switchState = ref(true)
 </script>
 
 <template>

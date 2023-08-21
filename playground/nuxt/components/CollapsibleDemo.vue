@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-const rootOpen = ref(false);
-const rootDisabled = ref(false);
+import { Icon } from '@iconify/vue'
+
+const rootOpen = ref(false)
+const rootDisabled = ref(false)
 </script>
 
 <template>

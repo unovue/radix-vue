@@ -1,21 +1,21 @@
 <script lang="ts">
-import type { PopperContentProps } from "@/Popper";
-import { onClickOutside } from "@vueuse/core";
+import { onClickOutside } from '@vueuse/core'
+import type { PopperContentProps } from '@/Popper'
 
 export interface TooltipContentProps
   extends PrimitiveProps,
-    Pick<
+  Pick<
       PopperContentProps,
-      | "side"
-      | "sideOffset"
-      | "align"
-      | "alignOffset"
-      | "avoidCollisions"
-      | "collisionBoundary"
-      | "collisionPadding"
-      | "arrowPadding"
-      | "sticky"
-      | "hideWhenDetached"
+      | 'side'
+      | 'sideOffset'
+      | 'align'
+      | 'alignOffset'
+      | 'avoidCollisions'
+      | 'collisionBoundary'
+      | 'collisionPadding'
+      | 'arrowPadding'
+      | 'sticky'
+      | 'hideWhenDetached'
     > {
   /**
    * By default, screenreaders will announce the content inside
@@ -25,65 +25,65 @@ export interface TooltipContentProps
    *
    * @default String
    */
-  ariaLabel?: string;
+  ariaLabel?: string
 }
 
 export interface TooltipContentEmits {
-  (e: "escapeKeyDown", event: KeyboardEvent): void;
-  (e: "pointerDownOutside", event: Event): void;
+  (e: 'escapeKeyDown', event: KeyboardEvent): void
+  (e: 'pointerDownOutside', event: Event): void
 }
 </script>
 
 <script setup lang="ts">
-import { PopperContent } from "@/Popper";
-import { Primitive, type PrimitiveProps } from "@/Primitive";
-import { VisuallyHidden } from "@/VisuallyHidden";
-import { computed, inject, ref, useSlots, type VNode } from "vue";
-import { TOOLTIP_INJECTION_KEY } from "./TooltipRoot.vue";
-
-const contentElement = ref<HTMLElement>();
-
-const injectedValue = inject(TOOLTIP_INJECTION_KEY);
+import { PopperContent } from '@/Popper'
+import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { VisuallyHidden } from '@/VisuallyHidden'
+import { type VNode, computed, inject, ref, useSlots } from 'vue'
+import { TOOLTIP_INJECTION_KEY } from './TooltipRoot.vue'
 
 const props = withDefaults(defineProps<TooltipContentProps>(), {
   asChild: false,
-  side: "top",
+  side: 'top',
   sideOffset: 0,
-  align: "center",
+  align: 'center',
   avoidCollisions: true,
   collisionBoundary: () => [],
   collisionPadding: 0,
   arrowPadding: 0,
-  sticky: "partial",
+  sticky: 'partial',
   hideWhenDetached: false,
-});
+})
 
-const emit = defineEmits<TooltipContentEmits>();
+const emit = defineEmits<TooltipContentEmits>()
+
+const contentElement = ref<HTMLElement>()
+
+const injectedValue = inject(TOOLTIP_INJECTION_KEY)
 
 onClickOutside(contentElement, () => {
-  emit("pointerDownOutside", new Event("pointerdown"));
-});
+  emit('pointerDownOutside', new Event('pointerdown'))
+})
 
 function onEscapeKeyDown(event: KeyboardEvent) {
-  emit("escapeKeyDown", event);
+  emit('escapeKeyDown', event)
 }
 
 const ariaLabel = computed(() => {
-  if (props.ariaLabel) return props.ariaLabel;
-  const defaultSlot = useSlots().default?.();
-  let content: string = "";
+  if (props.ariaLabel)
+    return props.ariaLabel
+  const defaultSlot = useSlots().default?.()
+  let content = ''
 
   function recursiveTextSearch(node: VNode) {
-    if (typeof node.children === "string") {
-      content += node.children;
-    } else if (Array.isArray(node.children)) {
-      node.children.forEach((child) => recursiveTextSearch(child as VNode));
-    }
+    if (typeof node.children === 'string')
+      content += node.children
+    else if (Array.isArray(node.children))
+      node.children.forEach(child => recursiveTextSearch(child as VNode))
   }
 
-  defaultSlot?.forEach((node) => recursiveTextSearch(node));
-  return content;
-});
+  defaultSlot?.forEach(node => recursiveTextSearch(node))
+  return content
+})
 </script>
 
 <template>
@@ -91,15 +91,15 @@ const ariaLabel = computed(() => {
     v-if="injectedValue?.open.value"
     ref="contentElement"
     :side="props.side"
-    :sideOffset="props.sideOffset"
+    :side-offset="props.sideOffset"
     :align="props.align"
-    :alignOffset="props.alignOffset"
-    :avoidCollisions="props.avoidCollisions"
-    :collisionBoundary="props.collisionBoundary"
-    :collisionPadding="props.collisionPadding"
-    :arrowPadding="props.arrowPadding"
+    :align-offset="props.alignOffset"
+    :avoid-collisions="props.avoidCollisions"
+    :collision-boundary="props.collisionBoundary"
+    :collision-padding="props.collisionPadding"
+    :arrow-padding="props.arrowPadding"
     :sticky="props.sticky"
-    :hideWhenDetached="props.hideWhenDetached"
+    :hide-when-detached="props.hideWhenDetached"
     style="
       --radix-tooltip-content-transform-origin: var(
         --radix-popper-transform-origin

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { Presence } from "../";
+import { ref } from 'vue'
+import { Presence } from '../'
 
-const isOpen = ref(false);
+const isOpen = ref(false)
 </script>
 
 <template>
@@ -14,7 +14,9 @@ const isOpen = ref(false);
   >
     <Variant title="With Vue Transition">
       <div>
-        <button @click="isOpen = !isOpen">Toogle content</button>
+        <button @click="isOpen = !isOpen">
+          Toogle content
+        </button>
 
         <Transition>
           <Presence :present="isOpen" force-mount>

@@ -3,9 +3,9 @@ export interface SliderTrackProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { Primitive, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from '@/Primitive'
 
-const props = withDefaults(defineProps<SliderTrackProps>(), { as: "span" });
+const props = withDefaults(defineProps<SliderTrackProps>(), { as: 'span' })
 </script>
 
 <template>

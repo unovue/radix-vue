@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const progressValue = ref(66);
+const progressValue = ref(66)
 </script>
 
 <template>

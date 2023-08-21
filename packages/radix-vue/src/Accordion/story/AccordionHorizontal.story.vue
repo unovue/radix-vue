@@ -5,7 +5,7 @@ import {
   AccordionItem,
   AccordionRoot,
   AccordionTrigger,
-} from "../";
+} from '../'
 </script>
 
 <template>

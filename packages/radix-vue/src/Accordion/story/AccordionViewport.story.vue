@@ -5,7 +5,7 @@ import {
   AccordionItem,
   AccordionRoot,
   AccordionTrigger,
-} from "../";
+} from '../'
 </script>
 
 <template>
@@ -25,7 +25,9 @@ import {
       <AccordionRoot type="single" class="">
         <AccordionItem class="accordion-item" value="one">
           <AccordionHeader class="flex">
-            <AccordionTrigger class="accordion-trigger">One</AccordionTrigger>
+            <AccordionTrigger class="accordion-trigger">
+              One
+            </AccordionTrigger>
           </AccordionHeader>
           <AccordionContent class="accordion-content">
             Per erat orci nostra luctus sociosqu mus risus penatibus, duis elit
@@ -35,7 +37,9 @@ import {
         </AccordionItem>
         <AccordionItem class="accordion-item" value="two">
           <AccordionHeader class="flex">
-            <AccordionTrigger class="accordion-trigger">Two</AccordionTrigger>
+            <AccordionTrigger class="accordion-trigger">
+              Two
+            </AccordionTrigger>
           </AccordionHeader>
           <AccordionContent class="accordion-content">
             Cursus sed mattis commodo fermentum conubia ipsum pulvinar sagittis,
@@ -45,9 +49,9 @@ import {
         </AccordionItem>
         <AccordionItem class="accordion-item" value="three" disabled>
           <AccordionHeader class="flex">
-            <AccordionTrigger class="accordion-trigger"
-              >Three (disabled)</AccordionTrigger
-            >
+            <AccordionTrigger class="accordion-trigger">
+              Three (disabled)
+            </AccordionTrigger>
           </AccordionHeader>
           <AccordionContent class="accordion-content">
             Sociis hac sapien turpis conubia sagittis justo dui, inceptos
@@ -57,7 +61,9 @@ import {
         </AccordionItem>
         <AccordionItem class="accordion-item" value="four">
           <AccordionHeader class="flex">
-            <AccordionTrigger class="accordion-trigger">Four</AccordionTrigger>
+            <AccordionTrigger class="accordion-trigger">
+              Four
+            </AccordionTrigger>
           </AccordionHeader>
           <AccordionContent class="accordion-content">
             Odio placerat <a href="#">quisque</a> sapien sagittis non sociis

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { Primitive, type PrimitiveProps } from "@/Primitive";
-import { inject } from "vue";
-import { DIALOG_INJECTION_KEY } from "./DialogRoot.vue";
+import { inject } from 'vue'
+import { DIALOG_INJECTION_KEY } from './DialogRoot.vue'
+import { Primitive, type PrimitiveProps } from '@/Primitive'
 
 export interface DialogTitleProps extends PrimitiveProps {}
-const props = withDefaults(defineProps<DialogTitleProps>(), { as: "h2" });
+const props = withDefaults(defineProps<DialogTitleProps>(), { as: 'h2' })
 
-const context = inject(DIALOG_INJECTION_KEY);
+const context = inject(DIALOG_INJECTION_KEY)
 </script>
 
 <template>

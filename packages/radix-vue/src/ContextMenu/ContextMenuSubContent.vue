@@ -3,19 +3,19 @@ import {
   MenuSubContent,
   type MenuSubContentEmits,
   type MenuSubContentProps,
-} from "@/Menu";
-import { PopperContentPropsDefaultValue } from "@/Popper";
-import { useEmitAsProps } from "@/shared";
+} from '@/Menu'
+import { PopperContentPropsDefaultValue } from '@/Popper'
+import { useEmitAsProps } from '@/shared'
 
 export interface ContextMenuSubContentProps extends MenuSubContentProps {}
-export type ContextMenuSubContentEmits = MenuSubContentEmits;
+export type ContextMenuSubContentEmits = MenuSubContentEmits
 
 const props = withDefaults(defineProps<ContextMenuSubContentProps>(), {
   ...PopperContentPropsDefaultValue,
-});
+})
 
-const emits = defineEmits<ContextMenuSubContentEmits>();
-const emitsAsProps = useEmitAsProps(emits);
+const emits = defineEmits<ContextMenuSubContentEmits>()
+const emitsAsProps = useEmitAsProps(emits)
 </script>
 
 <template>
@@ -33,6 +33,6 @@ const emitsAsProps = useEmitAsProps(emits);
         'var(--radix-popper-anchor-height)',
     }"
   >
-    <slot></slot>
+    <slot />
   </MenuSubContent>
 </template>

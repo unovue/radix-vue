@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { NavigationMenuLink } from "@/NavigationMenu";
+import { NavigationMenuLink } from '@/NavigationMenu'
 
 const props = defineProps({
   title: String,
-});
+})
 </script>
 
 <template>
   <li>
-    <NavigationMenuLink asChild>
+    <NavigationMenuLink as-child>
       <a
         v-bind="$attrs"
         class="focus:shadow-[0_0_0_2px] focus:shadow-violet7 hover:bg-mauve3 block select-none rounded-[6px] p-3 text-[15px] leading-none no-underline outline-none transition-colors"

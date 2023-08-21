@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref } from 'vue'
 import {
   AccordionContent,
   AccordionHeader,
   AccordionItem,
   AccordionRoot,
   AccordionTrigger,
-} from "../";
+} from '../'
 
-const selectedValue = ref("item-2");
+const selectedValue = ref('item-2')
 </script>
 
 <template>
@@ -60,13 +60,13 @@ const selectedValue = ref("item-2");
 
     <Variant title="Controlled">
       <template #controls>
-        modelValue: <input type="text" v-model="selectedValue" />
+        modelValue: <input v-model="selectedValue" type="text">
       </template>
 
       <AccordionRoot
+        v-model="selectedValue"
         class="w-[300px] rounded-md bg-[--line-color] shadow-lg"
         type="single"
-        v-model="selectedValue"
       >
         <AccordionItem class="accordion-item" value="item-1">
           <AccordionHeader class="flex">

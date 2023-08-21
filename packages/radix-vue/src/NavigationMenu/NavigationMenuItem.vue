@@ -1,73 +1,71 @@
 <script lang="ts">
 export interface NavigationMenuItemProps extends PrimitiveProps {
-  value?: string;
+  value?: string
 }
 
-export type NavigationMenuItemContextValue = {
-  value: string;
-  contentId: string;
-  triggerRef: Ref<HTMLElement | undefined>;
-  focusProxyRef: Ref<HTMLElement | undefined>;
-  wasEscapeCloseRef: Ref<boolean>;
-  onEntryKeyDown(): void;
-  onFocusProxyEnter(side: "start" | "end"): void;
-  onContentFocusOutside(): void;
-  onRootContentClose(): void;
-};
+export interface NavigationMenuItemContextValue {
+  value: string
+  contentId: string
+  triggerRef: Ref<HTMLElement | undefined>
+  focusProxyRef: Ref<HTMLElement | undefined>
+  wasEscapeCloseRef: Ref<boolean>
+  onEntryKeyDown(): void
+  onFocusProxyEnter(side: 'start' | 'end'): void
+  onContentFocusOutside(): void
+  onRootContentClose(): void
+}
 
-export const NAVIGATION_MENU_ITEM_INJECTION_KEY =
-  Symbol() as InjectionKey<NavigationMenuItemContextValue>;
+export const NAVIGATION_MENU_ITEM_INJECTION_KEY
+  = Symbol() as InjectionKey<NavigationMenuItemContextValue>
 </script>
 
 <script setup lang="ts">
-import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
-import { provide, ref, type InjectionKey, type Ref, inject } from "vue";
-import { Primitive, type PrimitiveProps } from "@/Primitive";
-import { useArrowNavigation, useNewCollection, useId } from "@/shared";
+import { type InjectionKey, type Ref, inject, provide, ref } from 'vue'
+import { NAVIGATION_MENU_INJECTION_KEY } from './NavigationMenuRoot.vue'
 import {
-  getTabbableCandidates,
-  removeFromTabOrder,
   focusFirst,
+  getTabbableCandidates,
   makeContentId,
-} from "./utils";
+  removeFromTabOrder,
+} from './utils'
+import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { useArrowNavigation, useId, useNewCollection } from '@/shared'
 
 const props = withDefaults(defineProps<NavigationMenuItemProps>(), {
-  as: "li",
-});
-const { injectCollection } = useNewCollection("nav");
-const collectionItems = injectCollection();
+  as: 'li',
+})
+const { injectCollection } = useNewCollection('nav')
+const collectionItems = injectCollection()
 
-const context = inject(NAVIGATION_MENU_INJECTION_KEY);
+const context = inject(NAVIGATION_MENU_INJECTION_KEY)
 
-const value = props.value || useId();
-const triggerRef = ref<HTMLElement>();
-const focusProxyRef = ref<HTMLElement>();
+const value = props.value || useId()
+const triggerRef = ref<HTMLElement>()
+const focusProxyRef = ref<HTMLElement>()
 
-const contentId = makeContentId(context!.baseId, value);
+const contentId = makeContentId(context!.baseId, value)
 
-let restoreContentTabOrderRef: () => void = () => ({});
+let restoreContentTabOrderRef: () => void = () => ({})
 
-const wasEscapeCloseRef = ref(false);
-const handleContentEntry = async (side = "start") => {
-  // @ts-ignore
-  const el = document.getElementById(contentId);
+const wasEscapeCloseRef = ref(false)
+async function handleContentEntry(side = 'start') {
+  const el = document.getElementById(contentId)
   if (el) {
-    restoreContentTabOrderRef();
-    const candidates = getTabbableCandidates(el);
+    restoreContentTabOrderRef()
+    const candidates = getTabbableCandidates(el)
     if (candidates.length)
-      focusFirst(side === "start" ? candidates : candidates.reverse());
+      focusFirst(side === 'start' ? candidates : candidates.reverse())
   }
-};
+}
 
-const handleContentExit = () => {
-  // @ts-ignore
-  const el = document.getElementById(contentId);
+function handleContentExit() {
+  const el = document.getElementById(contentId)
   if (el) {
-    const candidates = getTabbableCandidates(el);
+    const candidates = getTabbableCandidates(el)
     if (candidates.length)
-      restoreContentTabOrderRef = removeFromTabOrder(candidates);
+      restoreContentTabOrderRef = removeFromTabOrder(candidates)
   }
-};
+}
 
 provide(NAVIGATION_MENU_ITEM_INJECTION_KEY, {
   value,
@@ -79,51 +77,52 @@ provide(NAVIGATION_MENU_ITEM_INJECTION_KEY, {
   onFocusProxyEnter: handleContentEntry,
   onContentFocusOutside: handleContentExit,
   onRootContentClose: handleContentExit,
-});
+})
 
-const handleClose = () => {
-  context?.onItemDismiss();
-  triggerRef.value?.focus();
-};
+function handleClose() {
+  context?.onItemDismiss()
+  triggerRef.value?.focus()
+}
 
-const handleKeydown = (ev: KeyboardEvent) => {
-  const currentFocus = document.activeElement as HTMLElement;
-  if (ev.keyCode === 32 || ev.key === "Enter") {
+function handleKeydown(ev: KeyboardEvent) {
+  const currentFocus = document.activeElement as HTMLElement
+  if (ev.keyCode === 32 || ev.key === 'Enter') {
     if (context?.modelValue.value === value) {
-      handleClose();
-      ev.preventDefault();
-      return;
-    } else {
-      (ev.target as HTMLElement).click();
-      ev.preventDefault();
-      return;
+      handleClose()
+      ev.preventDefault()
+      return
+    }
+    else {
+      (ev.target as HTMLElement).click()
+      ev.preventDefault()
+      return
     }
   }
 
-  const itemsArray = collectionItems.value.filter((i) =>
-    i.parentElement?.hasAttribute("aria-menu-item")
-  );
+  const itemsArray = collectionItems.value.filter(i =>
+    i.parentElement?.hasAttribute('aria-menu-item'),
+  )
 
   const newSelectedElement = useArrowNavigation(ev, currentFocus, undefined, {
     itemsArray,
     loop: false,
-  });
+  })
 
-  if (newSelectedElement) {
-    newSelectedElement?.focus();
-  }
-  ev.preventDefault();
-  ev.stopPropagation();
-};
+  if (newSelectedElement)
+    newSelectedElement?.focus()
+
+  ev.preventDefault()
+  ev.stopPropagation()
+}
 </script>
 
 <template>
   <Primitive
     :as-child="props.asChild"
     :as="as"
-    @keydown.up.down.left.right.home.end.space="handleKeydown"
     aria-menu-item
+    @keydown.up.down.left.right.home.end.space="handleKeydown"
   >
-    <slot></slot>
+    <slot />
   </Primitive>
 </template>

@@ -1,168 +1,168 @@
-import { mount } from "@vue/test-utils";
-import { Primitive } from "./";
-import { describe, expect, it } from "vitest";
+import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
+import { Primitive } from './'
 
-describe("test Primitive functionalities", () => {
-  it("should render div element correctly", () => {
-    const wrapper = mount(Primitive);
-    expect(wrapper.find("div").exists()).toBe(true);
-  });
+describe('test Primitive functionalities', () => {
+  it('should render div element correctly', () => {
+    const wrapper = mount(Primitive)
+    expect(wrapper.find('div').exists()).toBe(true)
+  })
 
-  it("should render button element correctly", () => {
+  it('should render button element correctly', () => {
     const wrapper = mount(Primitive, {
       props: {
-        as: "button",
+        as: 'button',
       },
-    });
-    expect(wrapper.find("button").exists()).toBe(true);
-  });
+    })
+    expect(wrapper.find('button').exists()).toBe(true)
+  })
 
-  it("should renders div element with custom attribute", () => {
+  it('should renders div element with custom attribute', () => {
     const wrapper = mount(Primitive, {
       attrs: {
-        type: "button",
+        type: 'button',
       },
-    });
+    })
 
-    const element = wrapper.find("div");
+    const element = wrapper.find('div')
 
-    expect(element.attributes("type")).toBe("button");
-  });
+    expect(element.attributes('type')).toBe('button')
+  })
 
-  it("should renders multiple child elements", () => {
+  it('should renders multiple child elements', () => {
     const wrapper = mount(Primitive, {
       slots: {
-        default: "<div>1</div><div>2</div><div>3</div>",
+        default: '<div>1</div><div>2</div><div>3</div>',
       },
-    });
+    })
 
-    const element = wrapper.find("div");
-    expect(element.findAll("div").length).toBe(3);
-  });
+    const element = wrapper.find('div')
+    expect(element.findAll('div').length).toBe(3)
+  })
 
   // ref: https://vitest.dev/api/expect.html#tothrowerror
-  describe("render as template (asChild)", () => {
-    it("should throw error when multiple child elements exists", () => {
+  describe('render as template (asChild)', () => {
+    it('should throw error when multiple child elements exists', () => {
       const wrapper = () =>
         mount(Primitive, {
           props: {
-            as: "template",
+            as: 'template',
           },
           slots: {
-            default: "<div>1</div><div>2</div><div>3</div>",
+            default: '<div>1</div><div>2</div><div>3</div>',
           },
-        });
+        })
 
-      expect(() => wrapper()).toThrowError(/invalid children/);
-    });
+      expect(() => wrapper()).toThrowError(/invalid children/)
+    })
 
-    it("should merge child's class together", () => {
+    it('should merge child\'s class together', () => {
       const wrapper = mount(Primitive, {
         props: {
-          as: "template",
+          as: 'template',
         },
         attrs: {
-          class: "parent-class",
+          class: 'parent-class',
         },
         slots: {
           default:
             '<div class="child-class more-child-class">Child class</div>',
         },
-      });
+      })
 
-      const element = wrapper.find("div");
-      expect(element.attributes("class")).toBe(
-        "parent-class child-class more-child-class"
-      );
-    });
+      const element = wrapper.find('div')
+      expect(element.attributes('class')).toBe(
+        'parent-class child-class more-child-class',
+      )
+    })
 
-    it("should render the child class element tag", () => {
+    it('should render the child class element tag', () => {
       const wrapper = mount(Primitive, {
         props: {
-          as: "template",
+          as: 'template',
         },
 
         slots: {
-          default: "<a>Child class</a>",
+          default: '<a>Child class</a>',
         },
-      });
+      })
 
-      const element = wrapper.find("a");
-      expect(element.exists()).toBeTruthy();
-    });
+      const element = wrapper.find('a')
+      expect(element.exists()).toBeTruthy()
+    })
 
-    it("should render the child component", () => {
+    it('should render the child component', () => {
       const ChildComponent = {
         template: '<div id="child">Hello world</div>',
-      };
+      }
       const RootComponent = {
         components: { ChildComponent, Primitive },
-        template: "<Primitive><ChildComponent /></Primitive>",
-      };
+        template: '<Primitive><ChildComponent /></Primitive>',
+      }
 
       const wrapper = mount(RootComponent, {
         props: {
-          as: "template",
+          as: 'template',
         },
-      });
+      })
 
-      const element = wrapper.find("div");
-      expect(element.html()).toBe('<div id="child">Hello world</div>');
-    });
+      const element = wrapper.find('div')
+      expect(element.html()).toBe('<div id="child">Hello world</div>')
+    })
 
-    it("should inherit parent attributes and the child attributes", () => {
+    it('should inherit parent attributes and the child attributes', () => {
       const wrapper = mount(Primitive, {
         props: {
-          as: "template",
+          as: 'template',
         },
         attrs: {
-          "data-parent-attr": "",
+          'data-parent-attr': '',
         },
         slots: {
-          default: "<div data-child-attr>Child class</div>",
+          default: '<div data-child-attr>Child class</div>',
         },
-      });
+      })
 
-      const element = wrapper.find("div");
-      expect(element.attributes("data-parent-attr")).toBe("");
-      expect(element.attributes("data-child-attr")).toBe("");
-    });
+      const element = wrapper.find('div')
+      expect(element.attributes('data-parent-attr')).toBe('')
+      expect(element.attributes('data-child-attr')).toBe('')
+    })
 
-    it("should replace parent attributes with child's attributes", () => {
+    it('should replace parent attributes with child\'s attributes', () => {
       const wrapper = mount(Primitive, {
         props: {
-          as: "template",
+          as: 'template',
         },
         attrs: {
-          id: "parent",
-          "data-type": "button",
+          'id': 'parent',
+          'data-type': 'button',
         },
         slots: {
           default: '<div id="child" data-type="primary">Child class</div>',
         },
-      });
+      })
 
-      const element = wrapper.find("div");
-      expect(element.attributes("data-type")).toBe("primary");
-      expect(element.attributes("id")).toBe("child");
-    });
+      const element = wrapper.find('div')
+      expect(element.attributes('data-type')).toBe('primary')
+      expect(element.attributes('id')).toBe('child')
+    })
 
-    it("'asChild=true' should work the same as 'as=template'", () => {
+    it('\'asChild=true\' should work the same as \'as=template\'', () => {
       const wrapper = mount(Primitive, {
         props: {
           asChild: true,
         },
         attrs: {
-          class: "parent-class",
+          class: 'parent-class',
         },
         slots: {
           default: '<button class="child-class">Child element</button>',
         },
-      });
+      })
 
-      const element = wrapper.find("button");
-      expect(element.exists()).toBe(true);
-      expect(element.attributes("class")).toBe("parent-class child-class");
-    });
-  });
-});
+      const element = wrapper.find('button')
+      expect(element.exists()).toBe(true)
+      expect(element.attributes('class')).toBe('parent-class child-class')
+    })
+  })
+})

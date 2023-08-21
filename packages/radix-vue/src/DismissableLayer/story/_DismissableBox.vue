@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { DismissableLayer } from "../";
-import DismissableBox from "./_DismissableBox.vue";
+import { ref } from 'vue'
+import { DismissableLayer } from '../'
+import DismissableBox from './_DismissableBox.vue'
 
-const open = ref(false);
-const buttonRef = ref<HTMLElement>();
+const open = ref(false)
+const buttonRef = ref<HTMLElement>()
 </script>
 
 <template>
@@ -27,7 +27,6 @@ const buttonRef = ref<HTMLElement>();
           }
         }
       "
-    >
-    </DismissableBox>
+    />
   </DismissableLayer>
 </template>

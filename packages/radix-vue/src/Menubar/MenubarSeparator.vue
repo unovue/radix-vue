@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { MenuSeparator, type MenuSeparatorProps } from "@/Menu";
+import { MenuSeparator, type MenuSeparatorProps } from '@/Menu'
 
 export interface MenubarSeparatorProps extends MenuSeparatorProps {}
-const props = defineProps<MenubarSeparatorProps>();
+const props = defineProps<MenubarSeparatorProps>()
 </script>
 
 <template>
   <MenuSeparator v-bind="props">
-    <slot></slot>
+    <slot />
   </MenuSeparator>
 </template>

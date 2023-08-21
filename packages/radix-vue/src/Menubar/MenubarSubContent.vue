@@ -8,7 +8,7 @@ import {
   type MenuSubContentProps,
 } from '@/Menu'
 import { PopperContentPropsDefaultValue } from '@/Popper'
-import { useNewCollection } from '@/shared'
+import { useCollection } from '@/shared'
 import { wrapArray } from '@/shared/useTypeahead'
 
 export interface MenubarSubContentProps extends MenuSubContentProps {}
@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<MenubarSubContentProps>(), {
 })
 const emits = defineEmits<MenubarSubContentEmits>()
 
-const { injectCollection } = useNewCollection('menubar')
+const { injectCollection } = useCollection('menubar')
 
 const context = inject(MENUBAR_INJECTION_KEY)
 const menuContext = inject(MENUBAR_MENU_INJECTION_KEY)

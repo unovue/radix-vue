@@ -8,7 +8,7 @@ import {
   type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
-import { useNewCollection } from '@/shared'
+import { useCollection } from '@/shared'
 
 interface VNodeWithParentProps extends VNode {
   parentProps: any
@@ -41,7 +41,7 @@ const indicatorTrack = ref<HTMLElement>()
 const viewport = ref<HTMLElement>()
 const viewportContent = ref<Map<string, VNodeWithParentProps>>(new Map())
 
-const { createCollection } = useNewCollection('nav')
+const { createCollection } = useCollection('nav')
 createCollection(indicatorTrack)
 
 provide(NAVIGATION_MENU_INJECTION_KEY, {

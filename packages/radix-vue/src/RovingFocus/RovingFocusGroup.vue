@@ -47,7 +47,7 @@ import {
   type Orientation,
 } from './utils'
 import { focusFirst } from './utils'
-import { useNewCollection } from '@/shared'
+import { useCollection } from '@/shared'
 import {
   Primitive,
   type PrimitiveProps,
@@ -68,7 +68,7 @@ const focusableItemsCount = ref(0)
 
 const activeElement = useActiveElement()
 const { primitiveElement, currentElement } = usePrimitiveElement()
-const { createCollection } = useNewCollection('rovingFocus')
+const { createCollection } = useCollection('rovingFocus')
 const collections = createCollection(currentElement)
 
 function handleFocus(event: FocusEvent) {

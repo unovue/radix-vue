@@ -2,14 +2,14 @@
 import { inject, onBeforeUnmount, ref, watchEffect } from 'vue'
 import { SELECT_CONTENT_INJECTION_KEY } from './SelectContentImpl.vue'
 import { Primitive } from '@/Primitive'
-import { useNewCollection } from '@/shared'
+import { useCollection } from '@/shared'
 
 export interface SelectScrollButtonImplEmits {
   (e: 'autoScroll'): void
 }
 
 const emits = defineEmits<SelectScrollButtonImplEmits>()
-const { injectCollection } = useNewCollection()
+const { injectCollection } = useCollection()
 
 const collectionItems = injectCollection()
 const contentContext = inject(SELECT_CONTENT_INJECTION_KEY)

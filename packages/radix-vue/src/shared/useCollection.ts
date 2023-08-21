@@ -19,7 +19,7 @@ type ContextValue = Ref<HTMLElement[]>
  * Composables for provide/inject collections
  * @param key (optional) Name to replace the default `Symbol()` as provide's key
  */
-export function useNewCollection(key?: string) {
+export function useCollection(key?: string) {
   const COLLECTION_SYMBOL = key ?? (Symbol() as InjectionKey<ContextValue>)
 
   const createCollection = (sourceRef?: Ref<HTMLElement | undefined>) => {

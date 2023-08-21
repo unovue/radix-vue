@@ -2,14 +2,14 @@
 import { computed, inject, ref, watchEffect } from 'vue'
 import { useResizeObserver } from '@vueuse/core'
 import { NAVIGATION_MENU_INJECTION_KEY } from './NavigationMenuRoot.vue'
-import { useNewCollection } from '@/shared'
+import { useCollection } from '@/shared'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { Presence } from '@/Presence'
 
 export interface NavigationMenuIndicatorProps extends PrimitiveProps {}
 const props = defineProps<NavigationMenuIndicatorProps>()
 
-const { injectCollection } = useNewCollection('nav')
+const { injectCollection } = useCollection('nav')
 const collectionItems = injectCollection()
 const context = inject(NAVIGATION_MENU_INJECTION_KEY)
 

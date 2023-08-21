@@ -31,13 +31,13 @@ import {
   type FocusOutsideEvent,
 } from '@/DismissableLayer'
 import { usePrimitiveElement } from '@/Primitive'
-import { useArrowNavigation, useNewCollection } from '@/shared'
+import { useArrowNavigation, useCollection } from '@/shared'
 import type { PointerDownOutsideEvent } from '@/DismissableLayer/utils'
 
 const props = defineProps<NavigationMenuContentImplProps>()
 const emits = defineEmits<DismissableLayerEmits>()
 
-const { injectCollection } = useNewCollection('nav')
+const { injectCollection } = useCollection('nav')
 const collectionItems = injectCollection()
 const { primitiveElement, currentElement } = usePrimitiveElement()
 

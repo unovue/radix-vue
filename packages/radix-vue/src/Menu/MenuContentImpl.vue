@@ -93,8 +93,8 @@ import { usePrimitiveElement } from '@/Primitive'
 import {
   useArrowNavigation,
   useBodyScrollLock,
+  useCollection,
   useFocusGuards,
-  useNewCollection,
   useTypeahead,
 } from '@/shared'
 
@@ -118,7 +118,7 @@ const pointerDirRef = ref<Side>('right')
 const lastPointerXRef = ref(0)
 const currentItemId = ref<string | null>(null)
 
-const { createCollection } = useNewCollection()
+const { createCollection } = useCollection()
 const { primitiveElement, currentElement: contentElement }
   = usePrimitiveElement()
 const collectionItems = createCollection(contentElement)

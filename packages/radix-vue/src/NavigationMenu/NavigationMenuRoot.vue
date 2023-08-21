@@ -9,7 +9,7 @@ import {
   toRefs,
 } from 'vue'
 import type { Direction, Orientation } from './utils'
-import { useId, useNewCollection } from '@/shared'
+import { useCollection, useId } from '@/shared'
 
 export interface NavigationMenuRootProps extends PrimitiveProps {
   modelValue?: string
@@ -96,7 +96,7 @@ const indicatorTrack = ref<HTMLElement>()
 const viewport = ref<HTMLElement>()
 const viewportContent = ref<Map<string, VNodeWithParentProps>>(new Map())
 
-const { createCollection } = useNewCollection('nav')
+const { createCollection } = useCollection('nav')
 createCollection(indicatorTrack)
 
 const { delayDuration, skipDelayDuration } = toRefs(props)

@@ -17,7 +17,7 @@ import {
   usePrimitiveElement,
 } from '@/Primitive'
 import { PopperAnchor } from '@/Popper'
-import { useNewCollection, useTypeahead } from '@/shared'
+import { useCollection, useTypeahead } from '@/shared'
 
 const props = withDefaults(defineProps<SelectTriggerProps>(), {
   as: 'button',
@@ -33,7 +33,7 @@ onMounted(() => {
   context!.triggerElement = triggerElement
 })
 
-const { injectCollection } = useNewCollection()
+const { injectCollection } = useCollection()
 const collectionItems = injectCollection()
 
 const { search, handleTypeaheadSearch, resetTypeahead }

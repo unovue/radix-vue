@@ -2,17 +2,14 @@
 import {
   Primitive,
   type PrimitiveProps,
-  usePrimitiveElement,
 } from '@/Primitive'
 import type { DataOrientation, Direction } from '@/shared/types'
 import { useVModel } from '@vueuse/core'
 import type { InjectionKey, Ref } from 'vue'
 
 export interface RadioGroupRootProps extends PrimitiveProps {
-  modelValue?: string | string[]
-  onValueChange?: (value: string) => void
+  modelValue?: string
   defaultValue?: string
-  value?: string
   disabled?: boolean
   name?: string
   required?: boolean
@@ -21,14 +18,12 @@ export interface RadioGroupRootProps extends PrimitiveProps {
   loop?: boolean
 }
 export interface RadioGroupRootEmits {
-  (e: 'update:modelValue', payload: string | string[]): void
+  (e: 'update:modelValue', payload: string): void
 }
 
 interface RadioGroupProvideValue {
-  modelValue?: Readonly<Ref<string | string[] | undefined>>
+  modelValue?: Readonly<Ref<string | undefined>>
   changeModelValue: (value?: string) => void
-  parentElement: Ref<HTMLElement | undefined>
-  currentFocusedElement?: Ref<HTMLElement | undefined>
   disabled: Ref<boolean>
   loop: Ref<boolean>
   orientation: Ref<DataOrientation | undefined>
@@ -41,7 +36,8 @@ export const RADIO_GROUP_INJECTION_KEY
 </script>
 
 <script setup lang="ts">
-import { provide, ref } from 'vue'
+import { provide, toRefs } from 'vue'
+import { RovingFocusGroup } from '@/RovingFocus'
 
 const props = withDefaults(defineProps<RadioGroupRootProps>(), {
   disabled: false,
@@ -53,43 +49,39 @@ const props = withDefaults(defineProps<RadioGroupRootProps>(), {
 
 const emits = defineEmits<RadioGroupRootEmits>()
 
-const { primitiveElement, currentElement: parentElement }
-  = usePrimitiveElement()
-
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
   passive: true,
 })
 
+const { disabled, loop, orientation, name, required } = toRefs(props)
 provide<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY, {
   modelValue,
   changeModelValue: (value?: string) => {
     modelValue.value = value
-    if (value && props.onValueChange)
-      props.onValueChange(value)
   },
-  parentElement,
-  currentFocusedElement: ref(),
-  disabled: ref(props.disabled),
-  loop: ref(props.loop),
-  orientation: ref(props.orientation),
-  name: props.name,
-  required: ref(props.required),
+  disabled,
+  loop,
+  orientation,
+  name: name?.value,
+  required,
 })
 </script>
 
 <template>
-  <Primitive
-    ref="primitiveElement"
-    role="radiogroup"
-    :data-disabled="props.disabled ? '' : undefined"
-    :as-child="props.asChild"
-    :as="as"
-    :required="props.required"
-    :aria-required="props.required"
-    :dir="props.dir"
-    :name="props.name"
-  >
-    <slot />
-  </Primitive>
+  <RovingFocusGroup as-child :orientation="orientation" :dir="dir" :loop="loop">
+    <Primitive
+      role="radiogroup"
+      :data-disabled="disabled ? '' : undefined"
+      :as-child="asChild"
+      :as="as"
+      :required="required"
+      :aria-orientation="orientation"
+      :aria-required="required"
+      :dir="dir"
+      :name="name"
+    >
+      <slot />
+    </Primitive>
+  </RovingFocusGroup>
 </template>

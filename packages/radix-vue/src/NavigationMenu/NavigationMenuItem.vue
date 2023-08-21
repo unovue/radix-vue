@@ -100,7 +100,7 @@ function handleKeydown(ev: KeyboardEvent) {
   }
 
   const itemsArray = collectionItems.value.filter(i =>
-    i.parentElement?.hasAttribute('aria-menu-item'),
+    i.parentElement?.hasAttribute('data-menu-item'),
   )
 
   const newSelectedElement = useArrowNavigation(ev, currentFocus, undefined, {
@@ -120,7 +120,7 @@ function handleKeydown(ev: KeyboardEvent) {
   <Primitive
     :as-child="props.asChild"
     :as="as"
-    aria-menu-item
+    data-menu-item
     @keydown.up.down.left.right.home.end.space="handleKeydown"
   >
     <slot />

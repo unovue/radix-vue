@@ -88,7 +88,7 @@ function handleKeydown(ev: KeyboardEvent) {
 }
 
 function setFocusProxyRef(node: VNode) {
-  // @ts-expect-error
+  // @ts-expect-error unrefElement expect MaybeRef, but also support Vnode
   itemContext!.focusProxyRef.value = unrefElement(node)
   return undefined
 }
@@ -137,7 +137,7 @@ export default {
     <VisuallyHidden
       :ref="setFocusProxyRef"
       aria-hidden
-      :tab-index="0"
+      :tabindex="0"
       @focus="handleVisuallyHiddenFocus"
     />
     <span v-if="context?.viewport" :aria-owns="contentId" />

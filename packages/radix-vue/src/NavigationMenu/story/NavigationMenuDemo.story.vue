@@ -17,7 +17,7 @@ const currentTrigger = ref('')
 </script>
 
 <template>
-  <Story title="Navigation Menu/Demo">
+  <Story title="Navigation Menu/Demo" :layout="{ type: 'single', iframe: false }">
     <Variant title="Default">
       <div class="w-full h-[600px]">
         <NavigationMenuRoot

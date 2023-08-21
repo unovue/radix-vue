@@ -1,4 +1,4 @@
-const { blackA, green, mauve, violet, red, indigo, purple, teal } = require("@radix-ui/colors");
+const { blackA, green, grass, mauve, violet, red, indigo, purple, teal } = require("@radix-ui/colors");
 const plugin = require("tailwindcss/plugin");
 
 /** @type {import('tailwindcss').Config} */
@@ -12,6 +12,7 @@ export default {
         ...mauve,
         ...violet,
         ...green,
+        ...grass,
         ...red,
         ...indigo,
         ...purple,

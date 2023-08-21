@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import {
-  type ComponentPublicInstance,
   computed,
   inject,
+  nextTick,
   ref,
   watch,
 } from 'vue'
-import { unrefElement, useResizeObserver } from '@vueuse/core'
+import { useResizeObserver } from '@vueuse/core'
 import { NAVIGATION_MENU_INJECTION_KEY } from './NavigationMenuRoot.vue'
 import { getOpenState } from './utils'
-import NavigationMenuContentImpl from './NavigationMenuContentImpl.vue'
 import {
   Primitive,
   type PrimitiveProps,
@@ -29,20 +28,24 @@ const size = ref<{ width: number; height: number }>()
 const open = computed(() => !!context?.modelValue.value)
 // We persist the last active content value as the viewport may be animating out
 // and we want the content to remain mounted for the lifecycle of the viewport.
-const activeContentValue = computed(() =>
-  open.value ? context!.modelValue.value : context!.previousValue.value,
-)
+const activeContentValue = computed(() => context!.modelValue.value)
 
 watch(currentElement, () => {
-  context!.onViewportChange(currentElement.value)
+  if (currentElement.value)
+    context!.onViewportChange(currentElement.value)
 })
 
-const viewportContentList = computed(() =>
-  // @ts-expect-error
-  Array.from(context?.viewportContent.value.values()),
-)
-
 const content = ref<HTMLElement>()
+
+watch([activeContentValue, open], async () => {
+  await nextTick()
+  if (!currentElement.value)
+    return
+
+  const el = (currentElement.value as HTMLElement).querySelector('[data-state=open]')?.children?.[0] as HTMLElement | undefined
+  content.value = el
+}, { immediate: true })
+
 useResizeObserver(content, () => {
   if (content.value) {
     size.value = {
@@ -74,23 +77,10 @@ export default {
         ['--radix-navigation-menu-viewport-width' as any]: size ? `${size?.width}px` : undefined,
         ['--radix-navigation-menu-viewport-height' as any]: size ? `${size?.height}px` : undefined,
       }"
-      @pointerenter="context?.onContentEnter(activeContentValue)"
+      @pointerenter="context?.onContentEnter(context!.modelValue.value)"
       @pointerleave="context?.onContentLeave()"
     >
-      <Presence
-        v-for="node in viewportContentList"
-        :key="node.props?.value"
-        :present="activeContentValue === node.props?.value"
-      >
-        <NavigationMenuContentImpl
-          :ref="(n: ComponentPublicInstance) => {
-            if (activeContentValue === node.props?.value && n) content = unrefElement(n.$el)
-          }"
-          v-bind="{ ...node.props, ...node.parentProps }"
-        >
-          <component :is="node" />
-        </NavigationMenuContentImpl>
-      </Presence>
+      <slot />
     </Primitive>
   </Presence>
 </template>

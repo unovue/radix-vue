@@ -1,20 +1,11 @@
 <script lang="ts">
 type MotionAttribute = 'to-start' | 'to-end' | 'from-start' | 'from-end'
 
-interface NavigationMenuContentImplProps {
-  value: string
-  triggerRef: Ref<HTMLElement | undefined>
-  focusProxyRef: Ref<HTMLElement | undefined>
-  wasEscapeCloseRef: Ref<boolean>
-  onContentFocusOutside(): void
-  onRootContentClose(): void
-
-  disableOutsidePointerEvents?: boolean
-}
+interface NavigationMenuContentImplProps extends DismissableLayerProps {}
 </script>
 
 <script setup lang="ts">
-import { type Ref, computed, inject, ref, watchEffect } from 'vue'
+import { computed, inject, ref, watchEffect } from 'vue'
 import { NAVIGATION_MENU_INJECTION_KEY } from './NavigationMenuRoot.vue'
 
 import {
@@ -28,11 +19,13 @@ import {
 import {
   DismissableLayer,
   type DismissableLayerEmits,
+  type DismissableLayerProps,
   type FocusOutsideEvent,
 } from '@/DismissableLayer'
 import { usePrimitiveElement } from '@/Primitive'
 import { useArrowNavigation, useCollection } from '@/shared'
 import type { PointerDownOutsideEvent } from '@/DismissableLayer/utils'
+import { NAVIGATION_MENU_ITEM_INJECTION_KEY } from './NavigationMenuItem.vue'
 
 const props = defineProps<NavigationMenuContentImplProps>()
 const emits = defineEmits<DismissableLayerEmits>()
@@ -42,8 +35,10 @@ const collectionItems = injectCollection()
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
 const context = inject(NAVIGATION_MENU_INJECTION_KEY)
-const triggerId = makeTriggerId(context!.baseId, props.value)
-const contentId = makeContentId(context!.baseId, props.value)
+const itemContext = inject(NAVIGATION_MENU_ITEM_INJECTION_KEY)
+
+const triggerId = makeTriggerId(context!.baseId, itemContext!.value)
+const contentId = makeContentId(context!.baseId, itemContext!.value)
 
 const prevMotionAttributeRef = ref<MotionAttribute | null>(null)
 const motionAttribute = computed(() => {
@@ -53,8 +48,8 @@ const motionAttribute = computed(() => {
     values.reverse()
   const index = values.indexOf(context!.modelValue.value)
   const prevIndex = values.indexOf(context!.previousValue.value)
-  const isSelected = props.value === context?.modelValue.value
-  const wasSelected = prevIndex === values.indexOf(props.value)
+  const isSelected = itemContext!.value === context?.modelValue.value
+  const wasSelected = prevIndex === values.indexOf(itemContext!.value)
 
   // We only want to update selected and the last selected content
   // this avoids animations being interrupted outside of that range
@@ -86,7 +81,7 @@ function handleFocusOutside(ev: FocusOutsideEvent) {
   emits('interactOutside', ev)
 
   if (!ev.defaultPrevented) {
-    props.onContentFocusOutside()
+    itemContext!.onContentFocusOutside()
 
     const target = ev.target as HTMLElement
     // Only dismiss content when focus moves outside of the menu
@@ -116,10 +111,9 @@ watchEffect((cleanupFn) => {
   if (context?.isRootMenu && content) {
     // Bubble dismiss to the root content node and focus its trigger
     const handleClose = () => {
-      context.onItemDismiss()
-      props.onRootContentClose()
+      itemContext!.onRootContentClose()
       if (content.contains(document.activeElement))
-        props.triggerRef.value?.focus()
+        itemContext!.triggerRef.value?.focus()
     }
     content.addEventListener(EVENT_ROOT_CONTENT_DISMISS, handleClose)
 
@@ -134,8 +128,8 @@ function handleEscapeKeyDown(ev: KeyboardEvent) {
 
   if (!ev.defaultPrevented) {
     context!.onItemDismiss()
-    props?.triggerRef?.value?.focus()
-    props!.wasEscapeCloseRef.value = true
+    itemContext!.triggerRef?.value?.focus()
+    itemContext!.wasEscapeCloseRef.value = true
   }
 }
 
@@ -162,7 +156,7 @@ function handleKeydown(ev: KeyboardEvent) {
       // If we can't focus that means we're at the edges
       // so focus the proxy and let browser handle
       // tab/shift+tab keypress on the proxy instead
-      props.focusProxyRef.value?.focus()
+      itemContext!.focusProxyRef.value?.focus()
       return
     }
   }
@@ -200,7 +194,7 @@ defineExpose({
     ref="primitiveElement"
     :aria-labelledby="triggerId"
     :data-motion="motionAttribute"
-    :data-state="getOpenState(context?.modelValue.value === props.value)"
+    :data-state="getOpenState(context?.modelValue.value === itemContext!.value)"
     :data-orientation="context?.orientation"
     :disable-outside-pointer-events="disableOutsidePointerEvents"
     @keydown="handleKeydown"

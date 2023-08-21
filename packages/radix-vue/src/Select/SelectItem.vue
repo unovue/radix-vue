@@ -135,7 +135,7 @@ provide(SELECT_ITEM_INJECTION_KEY, {
     :data-state="isSelected ? 'checked' : 'unchecked'"
     :aria-disabled="disabled || undefined"
     :data-disabled="disabled ? '' : undefined"
-    :tab-index="disabled ? undefined : -1"
+    :tabindex="disabled ? undefined : -1"
     :as="as"
     :as-child="asChild"
     @focus="isFocused = true"

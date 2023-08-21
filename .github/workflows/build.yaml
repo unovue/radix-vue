@@ -45,7 +45,7 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: pnpm run -r --filter=!docs build
+        run: pnpm --filter radix-vue build
 
       - name: Check for errors
         run: |

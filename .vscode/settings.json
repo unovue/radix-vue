@@ -1,9 +1,11 @@
 {
+  "prettier.enable": false,
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
     "source.organizeImports": false
   },
+ 
   "eslint.validate": [
     "javascript",
     "javascriptreact",
@@ -15,6 +17,5 @@
     "json",
     "jsonc",
     "yaml"
-  ],
-  "typescript.tsdk": "node_modules/typescript/lib"
+  ]
 }

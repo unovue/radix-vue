@@ -1,18 +1,19 @@
-export const AUTOFOCUS_ON_MOUNT = "focusScope.autoFocusOnMount";
-export const AUTOFOCUS_ON_UNMOUNT = "focusScope.autoFocusOnUnmount";
-export const EVENT_OPTIONS = { bubbles: false, cancelable: true };
+export const AUTOFOCUS_ON_MOUNT = 'focusScope.autoFocusOnMount'
+export const AUTOFOCUS_ON_UNMOUNT = 'focusScope.autoFocusOnUnmount'
+export const EVENT_OPTIONS = { bubbles: false, cancelable: true }
 
-type FocusableTarget = HTMLElement | { focus(): void };
+type FocusableTarget = HTMLElement | { focus(): void }
 
 /**
  * Attempts focusing the first element in a list of candidates.
  * Stops when focus has actually moved.
  */
 export function focusFirst(candidates: HTMLElement[], { select = false } = {}) {
-  const previouslyFocusedElement = document.activeElement;
+  const previouslyFocusedElement = document.activeElement
   for (const candidate of candidates) {
-    focus(candidate, { select });
-    if (document.activeElement !== previouslyFocusedElement) return;
+    focus(candidate, { select })
+    if (document.activeElement !== previouslyFocusedElement)
+      return
   }
 }
 
@@ -20,10 +21,10 @@ export function focusFirst(candidates: HTMLElement[], { select = false } = {}) {
  * Returns the first and last tabbable elements inside a container.
  */
 export function getTabbableEdges(container: HTMLElement) {
-  const candidates = getTabbableCandidates(container);
-  const first = findVisible(candidates, container);
-  const last = findVisible(candidates.reverse(), container);
-  return [first, last] as const;
+  const candidates = getTabbableCandidates(container)
+  const first = findVisible(candidates, container)
+  const last = findVisible(candidates.reverse(), container)
+  return [first, last] as const
 }
 
 /**
@@ -37,24 +38,24 @@ export function getTabbableEdges(container: HTMLElement) {
  * Credit: https://github.com/discord/focus-layers/blob/master/src/util/wrapFocus.tsx#L1
  */
 export function getTabbableCandidates(container: HTMLElement) {
-  const nodes: HTMLElement[] = [];
+  const nodes: HTMLElement[] = []
   const walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT, {
     acceptNode: (node: any) => {
-      const isHiddenInput = node.tagName === "INPUT" && node.type === "hidden";
+      const isHiddenInput = node.tagName === 'INPUT' && node.type === 'hidden'
       if (node.disabled || node.hidden || isHiddenInput)
-        return NodeFilter.FILTER_SKIP;
+        return NodeFilter.FILTER_SKIP
       // `.tabIndex` is not the same as the `tabindex` attribute. It works on the
       // runtime's understanding of tabbability, so this automatically accounts
       // for any kind of element that could be tabbed to.
       return node.tabIndex >= 0
         ? NodeFilter.FILTER_ACCEPT
-        : NodeFilter.FILTER_SKIP;
+        : NodeFilter.FILTER_SKIP
     },
-  });
-  while (walker.nextNode()) nodes.push(walker.currentNode as HTMLElement);
+  })
+  while (walker.nextNode()) nodes.push(walker.currentNode as HTMLElement)
   // we do not take into account the order of nodes with positive `tabIndex` as it
   // hinders accessibility to have tab order different from visual order.
-  return nodes;
+  return nodes
 }
 
 /**
@@ -64,42 +65,46 @@ export function getTabbableCandidates(container: HTMLElement) {
 export function findVisible(elements: HTMLElement[], container: HTMLElement) {
   for (const element of elements) {
     // we stop checking if it's hidden at the `container` level (excluding)
-    if (!isHidden(element, { upTo: container })) return element;
+    if (!isHidden(element, { upTo: container }))
+      return element
   }
 }
 
 export function isHidden(node: HTMLElement, { upTo }: { upTo?: HTMLElement }) {
-  if (getComputedStyle(node).visibility === "hidden") return true;
+  if (getComputedStyle(node).visibility === 'hidden')
+    return true
   while (node) {
     // we stop at `upTo` (excluding it)
-    if (upTo !== undefined && node === upTo) return false;
-    if (getComputedStyle(node).display === "none") return true;
-    node = node.parentElement as HTMLElement;
+    if (upTo !== undefined && node === upTo)
+      return false
+    if (getComputedStyle(node).display === 'none')
+      return true
+    node = node.parentElement as HTMLElement
   }
-  return false;
+  return false
 }
 
 export function isSelectableInput(
-  element: any
+  element: any,
 ): element is FocusableTarget & { select: () => void } {
-  return element instanceof HTMLInputElement && "select" in element;
+  return element instanceof HTMLInputElement && 'select' in element
 }
 
 export function focus(
   element?: FocusableTarget | null,
-  { select = false } = {}
+  { select = false } = {},
 ) {
   // only focus if that element is focusable
   if (element && element.focus) {
-    const previouslyFocusedElement = document.activeElement;
+    const previouslyFocusedElement = document.activeElement
     // NOTE: we prevent scrolling on focus, to minimize jarring transitions for users
-    element.focus({ preventScroll: true });
+    element.focus({ preventScroll: true })
     // only select if its not the same element, it supports selection and we need to select
     if (
-      element !== previouslyFocusedElement &&
-      isSelectableInput(element) &&
-      select
+      element !== previouslyFocusedElement
+      && isSelectableInput(element)
+      && select
     )
-      element.select();
+      element.select()
   }
 }

@@ -1,21 +1,20 @@
 <script setup lang="ts">
-import { useBodyScrollLock, useEmitAsProps } from "@/shared";
-import { inject, ref } from "vue";
+import { inject, ref } from 'vue'
 import PopoverContentImpl, {
-  type PopoverContentImplProps,
   type PopoverContentImplEmits,
-} from "./PopoverContentImpl.vue";
-import { POPOVER_INJECTION_KEY } from "./PopoverRoot.vue";
+  type PopoverContentImplProps,
+} from './PopoverContentImpl.vue'
+import { POPOVER_INJECTION_KEY } from './PopoverRoot.vue'
+import { useBodyScrollLock, useEmitAsProps } from '@/shared'
 
-const context = inject(POPOVER_INJECTION_KEY);
-const isRightClickOutsideRef = ref(false);
+const props = defineProps<PopoverContentImplProps>()
+const emits = defineEmits<PopoverContentImplEmits>()
+const context = inject(POPOVER_INJECTION_KEY)
+const isRightClickOutsideRef = ref(false)
 
-useBodyScrollLock(true);
+useBodyScrollLock(true)
 
-const props = defineProps<PopoverContentImplProps>();
-const emits = defineEmits<PopoverContentImplEmits>();
-
-const emitsAsProps = useEmitAsProps(emits);
+const emitsAsProps = useEmitAsProps(emits)
 
 // aria-hide everything except the content (better supported equivalent to setting aria-modal)
 // React.useEffect(() => {
@@ -28,7 +27,7 @@ const emitsAsProps = useEmitAsProps(emits);
   <PopoverContentImpl
     v-bind="{ ...props, ...emitsAsProps }"
     :trap-focus="context?.open.value"
-    disableOutsidePointerEvents
+    disable-outside-pointer-events
     @close-auto-focus.prevent="
       (event) => {
         emits('closeAutoFocus', event);
@@ -41,8 +40,8 @@ const emitsAsProps = useEmitAsProps(emits);
         emits('pointerDownOutside', event);
 
         const originalEvent = event.detail.originalEvent;
-        const ctrlLeftClick =
-          originalEvent.button === 0 && originalEvent.ctrlKey === true;
+        const ctrlLeftClick
+          = originalEvent.button === 0 && originalEvent.ctrlKey === true;
         const isRightClick = originalEvent.button === 2 || ctrlLeftClick;
 
         isRightClickOutsideRef = isRightClick;
@@ -50,6 +49,6 @@ const emitsAsProps = useEmitAsProps(emits);
     "
     @focus-outside.prevent
   >
-    <slot></slot>
+    <slot />
   </PopoverContentImpl>
 </template>

@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { reactive, ref } from "vue";
-import { DismissableLayer } from "../";
-import DismissableBox from "./_DismissableBox.vue";
-import { FocusScope } from "@/FocusScope";
+import { reactive, ref } from 'vue'
+import { DismissableLayer } from '../'
+import DismissableBox from './_DismissableBox.vue'
+import { FocusScope } from '@/FocusScope'
 
-const open = ref(false);
+const open = ref(false)
 
-const handleClick = () => {
-  console.log("click");
-};
+function handleClick() {
+  console.log('click')
+}
 
 const state = reactive({
   isEscapeKeyDownPrevented: false,
   isPointerDownOutsidePrevented: false,
   isFocusOutsidePrevented: false,
-});
+})
 
-const openWithFocusScope = ref(false);
-const openButtonRef = ref<HTMLElement>();
+const openWithFocusScope = ref(false)
+const openButtonRef = ref<HTMLElement>()
 </script>
 
 <template>
@@ -31,22 +31,35 @@ const openButtonRef = ref<HTMLElement>();
         <HstCheckbox
           v-model="state.isEscapeKeyDownPrevented"
           title="Dismiss on escape?"
-        ></HstCheckbox>
+        />
         <HstCheckbox
           v-model="state.isPointerDownOutsidePrevented"
           title="Dismiss on pointer down outside?"
-        ></HstCheckbox>
+        />
         <HstCheckbox
           v-model="state.isFocusOutsidePrevented"
           title="Dismiss on focus outside?"
-        ></HstCheckbox>
+        />
       </template>
 
       <div class="flex flex-col">
-        <button @click="open = !open">open</button>
+        <button @click="open = !open">
+          open
+        </button>
 
         <DismissableLayer
           v-if="open"
+          :style="{
+            display: 'inline-flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            verticalAlign: 'middle',
+            width: 400,
+            height: 300,
+            backgroundColor: 'black',
+            borderRadius: 10,
+            marginBottom: 20,
+          }"
           @dismiss="open = false"
           @escape-key-down="
             (ev) => {
@@ -63,29 +76,20 @@ const openButtonRef = ref<HTMLElement>();
               if (state.isFocusOutsidePrevented) ev.preventDefault();
             }
           "
-          :style="{
-            display: 'inline-flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            verticalAlign: 'middle',
-            width: 400,
-            height: 300,
-            backgroundColor: 'black',
-            borderRadius: 10,
-            marginBottom: 20,
-          }"
         >
           <div class="p-4 bg-gray-400">
-            <input type="text" />
+            <input type="text">
           </div>
         </DismissableLayer>
 
-        <button @click="handleClick">Hey heeey!</button>
+        <button @click="handleClick">
+          Hey heeey!
+        </button>
       </div>
     </Variant>
 
     <Variant title="Nested">
-      <DismissableBox></DismissableBox>
+      <DismissableBox />
     </Variant>
 
     <Variant title="Focus trap">
@@ -99,7 +103,7 @@ const openButtonRef = ref<HTMLElement>();
 
         <DismissableLayer
           v-if="openWithFocusScope"
-          asChild
+          as-child
           disable-outside-pointer-events
           @dismiss="openWithFocusScope = false"
           @pointer-down-outside="
@@ -113,9 +117,9 @@ const openButtonRef = ref<HTMLElement>();
             loop
             class="w-[400px] h-[300px] bg-black rounded flex flex-col items-center justify-center"
           >
-            <input type="text" />
-            <input type="text" />
-            <input type="text" />
+            <input type="text">
+            <input type="text">
+            <input type="text">
           </FocusScope>
         </DismissableLayer>
       </div>

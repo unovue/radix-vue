@@ -23,12 +23,12 @@ const hoverState = ref(false)
       rel="noreferrer noopener"
       as-child
     >
-    <a>
-      <img
-        class="block h-[45px] w-[45px] rounded-full"
-        src="https://pbs.twimg.com/profile_images/1337055608613253126/r_eiMp2H_400x400.png"
-        alt="Radix UI"
-      >
+      <a>
+        <img
+          class="block h-[45px] w-[45px] rounded-full"
+          src="https://pbs.twimg.com/profile_images/1337055608613253126/r_eiMp2H_400x400.png"
+          alt="Radix UI"
+        >
       </a>
     </HoverCardTrigger>
     <HoverCardPortal>
@@ -37,51 +37,51 @@ const hoverState = ref(false)
         :side-offset="5"
         side="top"
         align="end"
-        :avoidCollisions="true"
+        :avoid-collisions="true"
         as-child
       >
-      <div>
-        <div class="flex flex-col gap-[7px]">
-          <img
-            class="block h-[60px] w-[60px] rounded-full"
-            src="https://pbs.twimg.com/profile_images/1337055608613253126/r_eiMp2H_400x400.png"
-            alt="Radix UI"
-          >
-          <div class="flex flex-col gap-[15px]">
-            <div>
-              <div class="text-mauve12 m-0 text-[15px] font-medium leading-[1.5]">
-                Radix
-              </div>
-              <div class="text-mauve10 m-0 text-[15px] leading-[1.5]">
-                @radix_ui
-              </div>
-            </div>
-            <div class="text-mauve12 m-0 text-[15px] leading-[1.5]">
-              Components, icons, colors, and templates for building high-quality, accessible UI. Free and open-source.
-            </div>
-            <div class="flex gap-[15px]">
-              <div class="flex gap-[5px]">
+        <div>
+          <div class="flex flex-col gap-[7px]">
+            <img
+              class="block h-[60px] w-[60px] rounded-full"
+              src="https://pbs.twimg.com/profile_images/1337055608613253126/r_eiMp2H_400x400.png"
+              alt="Radix UI"
+            >
+            <div class="flex flex-col gap-[15px]">
+              <div>
                 <div class="text-mauve12 m-0 text-[15px] font-medium leading-[1.5]">
-                  0
+                  Radix
                 </div>
                 <div class="text-mauve10 m-0 text-[15px] leading-[1.5]">
-                  Following
+                  @radix_ui
                 </div>
               </div>
-              <div class="flex gap-[5px]">
-                <div class="text-mauve12 m-0 text-[15px] font-medium leading-[1.5]">
-                  2,900
+              <div class="text-mauve12 m-0 text-[15px] leading-[1.5]">
+                Components, icons, colors, and templates for building high-quality, accessible UI. Free and open-source.
+              </div>
+              <div class="flex gap-[15px]">
+                <div class="flex gap-[5px]">
+                  <div class="text-mauve12 m-0 text-[15px] font-medium leading-[1.5]">
+                    0
+                  </div>
+                  <div class="text-mauve10 m-0 text-[15px] leading-[1.5]">
+                    Following
+                  </div>
                 </div>
-                <div class="text-mauve10 m-0 text-[15px] leading-[1.5]">
-                  Followers
+                <div class="flex gap-[5px]">
+                  <div class="text-mauve12 m-0 text-[15px] font-medium leading-[1.5]">
+                    2,900
+                  </div>
+                  <div class="text-mauve10 m-0 text-[15px] leading-[1.5]">
+                    Followers
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <HoverCardArrow class="fill-white" size="8" />
-      </div>
+          <HoverCardArrow class="fill-white" size="8" />
+        </div>
       </HoverCardContent>
     </HoverCardPortal>
   </HoverCardRoot>

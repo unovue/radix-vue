@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-import { ref } from "vue";
+import { Icon } from '@iconify/vue'
+import { ref } from 'vue'
 import {
-  NavigationMenuLink,
-  NavigationMenuIndicator,
   NavigationMenuContent,
+  NavigationMenuIndicator,
   NavigationMenuItem,
+  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuRoot,
   NavigationMenuTrigger,
   NavigationMenuViewport,
-} from "../";
-import LinkGroup from "./_LinkGroup.vue";
-import StoryFrame from "./_StoryFrame.vue";
+} from '../'
+import LinkGroup from './_LinkGroup.vue'
+import StoryFrame from './_StoryFrame.vue'
 
-const currentTrigger = ref("");
+const currentTrigger = ref('')
 </script>
 
 <template>
@@ -52,7 +52,7 @@ const currentTrigger = ref("");
                     'Aliquam porttitor',
                     'Pellentesque',
                   ]"
-                ></LinkGroup>
+                />
               </NavigationMenuContent>
             </NavigationMenuItem>
 
@@ -76,7 +76,7 @@ const currentTrigger = ref("");
                     'Aliquam porttitor',
                     'Pellentesque',
                   ]"
-                ></LinkGroup>
+                />
               </NavigationMenuContent>
             </NavigationMenuItem>
 
@@ -94,9 +94,7 @@ const currentTrigger = ref("");
               <NavigationMenuContent
                 class="absolute top-0 left-0 bg-white rounded-xl w-full sm:w-auto"
               >
-                <LinkGroup
-                  :items="['Aliquam porttitor', 'Pellentesque']"
-                ></LinkGroup>
+                <LinkGroup :items="['Aliquam porttitor', 'Pellentesque']" />
               </NavigationMenuContent>
             </NavigationMenuItem>
 

@@ -1,31 +1,31 @@
 <script setup lang="ts">
+import { inject, onMounted, useSlots } from 'vue'
+import { shouldShowPlaceholder } from './utils'
+import { SELECT_INJECTION_KEY } from './SelectRoot.vue'
 import {
   Primitive,
-  usePrimitiveElement,
   type PrimitiveProps,
-} from "@/Primitive";
-import { shouldShowPlaceholder } from "./utils";
-import { SELECT_INJECTION_KEY } from "./SelectRoot.vue";
-import { inject, onMounted, useSlots } from "vue";
+  usePrimitiveElement,
+} from '@/Primitive'
 
 export interface SelectValueProps extends PrimitiveProps {
-  placeholder?: string;
+  placeholder?: string
 }
 
 withDefaults(defineProps<SelectValueProps>(), {
-  as: "span",
-  placeholder: "",
-});
+  as: 'span',
+  placeholder: '',
+})
 
-const { primitiveElement, currentElement } = usePrimitiveElement();
+const { primitiveElement, currentElement } = usePrimitiveElement()
 
-const context = inject(SELECT_INJECTION_KEY);
+const context = inject(SELECT_INJECTION_KEY)
 
 onMounted(() => {
-  context!.valueElement = currentElement;
-  const hasChildren = !!useSlots()?.default?.();
-  context!.onValueElementHasChildrenChange(hasChildren);
-});
+  context!.valueElement = currentElement
+  const hasChildren = !!useSlots()?.default?.()
+  context!.onValueElementHasChildrenChange(hasChildren)
+})
 </script>
 
 <template>

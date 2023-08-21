@@ -1,28 +1,28 @@
 <script lang="ts">
 export interface ContextMenuTriggerProps extends PrimitiveProps {
-  disabled?: boolean;
+  disabled?: boolean
 }
 export default {
   inheritAttrs: false,
-};
+}
 </script>
 
 <script setup lang="ts">
-import { computed, inject, nextTick, ref, toRefs } from "vue";
-import { Primitive, type PrimitiveProps } from "@/Primitive";
-import { CONTEXT_MENU_INJECTION_KEY } from "./ContextMenuRoot.vue";
-import { MenuAnchor } from "@/Menu";
-import type { Point } from "@/Menu/utils";
-import { isTouchOrPen } from "./utils";
+import { computed, inject, nextTick, ref, toRefs } from 'vue'
+import { CONTEXT_MENU_INJECTION_KEY } from './ContextMenuRoot.vue'
+import { isTouchOrPen } from './utils'
+import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { MenuAnchor } from '@/Menu'
+import type { Point } from '@/Menu/utils'
 
 const props = withDefaults(defineProps<ContextMenuTriggerProps>(), {
-  as: "span",
+  as: 'span',
   disabled: false,
-});
-const { disabled } = toRefs(props);
+})
+const { disabled } = toRefs(props)
 
-const context = inject(CONTEXT_MENU_INJECTION_KEY);
-const point = ref<Point>({ x: 0, y: 0 });
+const context = inject(CONTEXT_MENU_INJECTION_KEY)
+const point = ref<Point>({ x: 0, y: 0 })
 const virtualEl = computed(() => ({
   getBoundingClientRect: () =>
     ({
@@ -34,53 +34,52 @@ const virtualEl = computed(() => ({
       bottom: point.value.y,
       ...point.value,
     } as DOMRect),
-}));
+}))
 
-const longPressTimer = ref(0);
-const clearLongPress = () => {
-  window.clearTimeout(longPressTimer.value);
-};
+const longPressTimer = ref(0)
+function clearLongPress() {
+  window.clearTimeout(longPressTimer.value)
+}
 
-const handleOpen = (event: MouseEvent | PointerEvent) => {
-  point.value = { x: event.clientX, y: event.clientY };
-  context?.onOpenChange(true);
-};
+function handleOpen(event: MouseEvent | PointerEvent) {
+  point.value = { x: event.clientX, y: event.clientY }
+  context?.onOpenChange(true)
+}
 
-const handleContextMenu = async (event: PointerEvent) => {
+async function handleContextMenu(event: PointerEvent) {
   if (!disabled.value) {
-    await nextTick();
+    await nextTick()
     if (!event.defaultPrevented) {
-      clearLongPress();
-      handleOpen(event);
-      event.preventDefault();
+      clearLongPress()
+      handleOpen(event)
+      event.preventDefault()
     }
   }
-};
+}
 
-const handlePointerDown = async (event: PointerEvent) => {
+async function handlePointerDown(event: PointerEvent) {
   if (!disabled.value) {
-    await nextTick();
+    await nextTick()
 
     if (isTouchOrPen(event) && !event.defaultPrevented) {
       // clear the long press here in case there's multiple touch points
-      clearLongPress();
-      longPressTimer.value = window.setTimeout(() => handleOpen(event), 700);
+      clearLongPress()
+      longPressTimer.value = window.setTimeout(() => handleOpen(event), 700)
     }
   }
-};
+}
 
-const handlePointerEvent = async (event: PointerEvent) => {
+async function handlePointerEvent(event: PointerEvent) {
   if (!disabled.value) {
-    await nextTick();
-    if (isTouchOrPen(event) && !event.defaultPrevented) {
-      clearLongPress();
-    }
+    await nextTick()
+    if (isTouchOrPen(event) && !event.defaultPrevented)
+      clearLongPress()
   }
-};
+}
 </script>
 
 <template>
-  <MenuAnchor as="div" :element="virtualEl"></MenuAnchor>
+  <MenuAnchor as="div" :element="virtualEl" />
 
   <Primitive
     :as="as"

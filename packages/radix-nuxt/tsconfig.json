@@ -1,10 +1,10 @@
 {
-    "compilerOptions": {
-        "moduleResolution": "node",
-        "module": "es2020"
-    },
-    "exclude": [
-        "node_modules",
-        "dist"
-    ],
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "module": "es2020"
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

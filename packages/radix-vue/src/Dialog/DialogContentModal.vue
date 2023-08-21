@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { inject } from "vue";
-import { DIALOG_INJECTION_KEY } from "./DialogRoot.vue";
+import { inject } from 'vue'
+import { DIALOG_INJECTION_KEY } from './DialogRoot.vue'
 import DialogContentImpl, {
-  type DialogContentImplProps,
   type DialogContentImplEmits,
-} from "./DialogContentImpl.vue";
-import { useEmitAsProps } from "@/shared";
+  type DialogContentImplProps,
+} from './DialogContentImpl.vue'
+import { useEmitAsProps } from '@/shared'
 
-const props = defineProps<DialogContentImplProps>();
-const emits = defineEmits<DialogContentImplEmits>();
+const props = defineProps<DialogContentImplProps>()
+const emits = defineEmits<DialogContentImplEmits>()
 
-const context = inject(DIALOG_INJECTION_KEY);
+const context = inject(DIALOG_INJECTION_KEY)
 
-const emitsAsProps = useEmitAsProps(emits);
+const emitsAsProps = useEmitAsProps(emits)
 // TODO: Accessbiliy (3/3)
 // aria-hide everything except the content (better supported equivalent to setting aria-modal)
 //  React.useEffect(() => {
@@ -39,8 +39,8 @@ const emitsAsProps = useEmitAsProps(emits);
     @pointer-down-outside="
       (event) => {
         const originalEvent = event.detail.originalEvent;
-        const ctrlLeftClick =
-          originalEvent.button === 0 && originalEvent.ctrlKey === true;
+        const ctrlLeftClick
+          = originalEvent.button === 0 && originalEvent.ctrlKey === true;
         const isRightClick = originalEvent.button === 2 || ctrlLeftClick;
 
         // If the event is a right-click, we shouldn't close because
@@ -57,6 +57,6 @@ const emitsAsProps = useEmitAsProps(emits);
     "
     @open-auto-focus="emits('openAutoFocus', $event)"
   >
-    <slot></slot>
+    <slot />
   </DialogContentImpl>
 </template>

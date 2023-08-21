@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { FocusScope } from "..";
+import { ref } from 'vue'
+import { FocusScope } from '..'
 
-const trapped1 = ref(false);
-const trapped2 = ref(false);
+const trapped1 = ref(false)
+const trapped2 = ref(false)
 </script>
 
 <template>
@@ -14,11 +14,13 @@ const trapped2 = ref(false);
   >
     <div>
       <div>
-        <button type="button" @click="trapped1 = true">Trap 1</button>
+        <button type="button" @click="trapped1 = true">
+          Trap 1
+        </button>
 
         <FocusScope
           v-if="trapped1"
-          asChild
+          as-child
           :loop="trapped1"
           :trapped="trapped1"
         >
@@ -33,19 +35,23 @@ const trapped2 = ref(false);
             }"
           >
             <h1>One</h1>
-            <input type="text" placeholder="First name" />
-            <input type="text" placeholder="Last name" />
-            <input type="number" placeholder="Age" />
-            <button type="button" @click="trapped1 = false">Close</button>
+            <input type="text" placeholder="First name">
+            <input type="text" placeholder="Last name">
+            <input type="number" placeholder="Age">
+            <button type="button" @click="trapped1 = false">
+              Close
+            </button>
           </form>
         </FocusScope>
       </div>
       <div>
-        <button type="button" @click="trapped2 = true">Trap 2</button>
+        <button type="button" @click="trapped2 = true">
+          Trap 2
+        </button>
 
         <FocusScope
           v-if="trapped2"
-          asChild
+          as-child
           :loop="trapped2"
           :trapped="trapped2"
         >
@@ -60,10 +66,12 @@ const trapped2 = ref(false);
             }"
           >
             <h1>One</h1>
-            <input type="text" placeholder="First name" />
-            <input type="text" placeholder="Last name" />
-            <input type="number" placeholder="Age" />
-            <button type="button" @click="trapped2 = false">Close</button>
+            <input type="text" placeholder="First name">
+            <input type="text" placeholder="Last name">
+            <input type="number" placeholder="Age">
+            <button type="button" @click="trapped2 = false">
+              Close
+            </button>
           </form>
         </FocusScope>
       </div>

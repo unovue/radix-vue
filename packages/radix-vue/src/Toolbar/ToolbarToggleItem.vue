@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { ToggleGroupItem, type ToggleGroupItemProps } from "@/ToggleGroup";
-import ToolbarButton from "./ToolbarButton.vue";
+import ToolbarButton from './ToolbarButton.vue'
+import { ToggleGroupItem, type ToggleGroupItemProps } from '@/ToggleGroup'
 
 export interface ToolbarToggleItemProps extends ToggleGroupItemProps {}
-const props = defineProps<ToolbarToggleItemProps>();
+const props = defineProps<ToolbarToggleItemProps>()
 </script>
 
 <template>
-  <ToolbarButton asChild>
+  <ToolbarButton as-child>
     <ToggleGroupItem v-bind="props">
-      <slot></slot>
+      <slot />
     </ToggleGroupItem>
   </ToolbarButton>
 </template>

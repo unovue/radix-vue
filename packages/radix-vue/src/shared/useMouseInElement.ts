@@ -6,18 +6,16 @@
  */
 export function useMouseInElement(
   e: MouseEvent,
-  element: HTMLElement
+  element: HTMLElement,
 ): boolean {
-  const { left, top, right, bottom } = element.getBoundingClientRect();
-  const { clientX, clientY } = e;
+  const { left, top, right, bottom } = element.getBoundingClientRect()
+  const { clientX, clientY } = e
   if (
-    clientX >= left &&
-    clientX <= right &&
-    clientY >= top &&
-    clientY <= bottom
-  ) {
-    return true;
-  } else {
-    return false;
-  }
+    clientX >= left
+    && clientX <= right
+    && clientY >= top
+    && clientY <= bottom
+  )
+    return true
+  else return false
 }

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { MenuGroup, type MenuGroupProps } from "@/Menu";
+import { MenuGroup, type MenuGroupProps } from '@/Menu'
 
 export interface DropdownMenuGroupProps extends MenuGroupProps {}
-const props = defineProps<DropdownMenuGroupProps>();
+const props = defineProps<DropdownMenuGroupProps>()
 </script>
 
 <template>
   <MenuGroup v-bind="props">
-    <slot></slot>
+    <slot />
   </MenuGroup>
 </template>

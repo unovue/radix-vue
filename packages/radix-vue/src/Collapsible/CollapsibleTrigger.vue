@@ -3,15 +3,15 @@ export interface CollapsibleTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { inject } from "vue";
-import { Primitive, type PrimitiveProps } from "../Primitive";
-import { COLLAPSIBLE_INJECTION_KEY } from "./CollapsibleRoot.vue";
-
-const injectedValue = inject(COLLAPSIBLE_INJECTION_KEY);
+import { inject } from 'vue'
+import { Primitive, type PrimitiveProps } from '../Primitive'
+import { COLLAPSIBLE_INJECTION_KEY } from './CollapsibleRoot.vue'
 
 const props = withDefaults(defineProps<CollapsibleTriggerProps>(), {
-  as: "button",
-});
+  as: 'button',
+})
+
+const injectedValue = inject(COLLAPSIBLE_INJECTION_KEY)
 </script>
 
 <template>

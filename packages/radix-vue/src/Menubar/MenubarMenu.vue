@@ -1,41 +1,42 @@
 <script lang="ts">
-import type { Ref, InjectionKey } from "vue";
+import type { InjectionKey, Ref } from 'vue'
 
 export interface MenubarMenuProps {
-  value?: string;
+  value?: string
 }
 
-export const MENUBAR_MENU_INJECTION_KEY =
-  Symbol() as InjectionKey<MenubarMenuProvideValue>;
+export const MENUBAR_MENU_INJECTION_KEY
+  = Symbol() as InjectionKey<MenubarMenuProvideValue>
 
-type MenubarMenuProvideValue = {
-  value: string;
-  triggerId: string;
-  triggerElement: Ref<HTMLElement | undefined>;
-  contentId: string;
-  wasKeyboardTriggerOpenRef: Ref<boolean>;
-};
+interface MenubarMenuProvideValue {
+  value: string
+  triggerId: string
+  triggerElement: Ref<HTMLElement | undefined>
+  contentId: string
+  wasKeyboardTriggerOpenRef: Ref<boolean>
+}
 </script>
 
 <script setup lang="ts">
-import { computed, inject, provide, ref, watch } from "vue";
-import { useId } from "@/shared";
-import { MenuRoot } from "@/Menu";
-import { MENUBAR_INJECTION_KEY } from "./MenubarRoot.vue";
+import { computed, inject, provide, ref, watch } from 'vue'
+import { MENUBAR_INJECTION_KEY } from './MenubarRoot.vue'
+import { useId } from '@/shared'
+import { MenuRoot } from '@/Menu'
 
-const props = defineProps<MenubarMenuProps>();
+const props = defineProps<MenubarMenuProps>()
 
-const value = props.value ?? useId();
-const context = inject(MENUBAR_INJECTION_KEY);
+const value = props.value ?? useId()
+const context = inject(MENUBAR_INJECTION_KEY)
 
-const triggerElement = ref<HTMLElement>();
-const wasKeyboardTriggerOpenRef = ref(false);
+const triggerElement = ref<HTMLElement>()
+const wasKeyboardTriggerOpenRef = ref(false)
 
-const open = computed(() => context?.modelValue.value === value);
+const open = computed(() => context?.modelValue.value === value)
 
 watch(open, () => {
-  if (!open.value) wasKeyboardTriggerOpenRef.value = false;
-});
+  if (!open.value)
+    wasKeyboardTriggerOpenRef.value = false
+})
 
 provide(MENUBAR_MENU_INJECTION_KEY, {
   value,
@@ -43,7 +44,7 @@ provide(MENUBAR_MENU_INJECTION_KEY, {
   triggerId: value,
   contentId: useId(),
   wasKeyboardTriggerOpenRef,
-});
+})
 </script>
 
 <template>

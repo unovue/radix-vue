@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import { Primitive, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from '@/Primitive'
 
 export interface LabelProps extends PrimitiveProps {
-  for?: string;
+  for?: string
 }
 
 const props = withDefaults(defineProps<LabelProps>(), {
-  as: "label",
-});
+  as: 'label',
+})
 </script>
 
 <template>
-  <Primitive v-bind="props"><slot /></Primitive>
+  <Primitive v-bind="props">
+    <slot />
+  </Primitive>
 </template>

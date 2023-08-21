@@ -10,7 +10,6 @@
   "scripts": {
     "story:dev": "pnpm --filter histoire story:dev",
     "build": "pnpm run -r --filter=!docs build",
-    "start": "cd packages/radix-vue && pnpm i && pnpm run build && cd ../../playground/vue3 && pnpm i && pnpm i ../../packages/radix-vue && pnpm run dev",
     "prepare": "pnpm simple-git-hooks"
   },
   "devDependencies": {
@@ -19,7 +18,8 @@
     "@commitlint/config-conventional": "^17.7.0",
     "eslint": "^8.43.0",
     "lint-staged": "^14.0.0",
-    "simple-git-hooks": "^2.9.0"
+    "simple-git-hooks": "^2.9.0",
+    "pnpm": "^8.6.12"
   },
   "commitlint": {
     "extends": [

@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { MenuItem, MenuSeparator } from "..";
-import MenuWithAnchor from "./_MenuWithAnchor.vue";
-import Submenu from "./_Submenu.vue";
+import { ref } from 'vue'
+import { MenuItem, MenuSeparator } from '..'
+import MenuWithAnchor from './_MenuWithAnchor.vue'
+import Submenu from './_Submenu.vue'
 
-const handleSelect = (text: string) => {
-  console.log({ text });
-};
+function handleSelect(text: string) {
+  console.log({ text })
+}
 
-const open1 = ref(false);
-const open2 = ref(false);
+const open1 = ref(false)
+const open2 = ref(false)
 </script>
 
 <template>
@@ -86,14 +86,12 @@ const open2 = ref(false);
           Cut
         </MenuItem>
 
-        <MenuSeparator
-          class="h-[1px] my-[5px] mx-[10px] bg-gray-200"
-        ></MenuSeparator>
+        <MenuSeparator class="h-[1px] my-[5px] mx-[10px] bg-gray-200" />
 
         <MenuItem
           class="flex items-center justify-between leading-[1] cursor-default select-none whitespace-nowrap h-[25px] px-[10px] text-black rounded-[3px] outline-none data-[highlighted]:text-white data-[highlighted]:bg-black data-[disabled]:text-gray-100"
-          @select="handleSelect('copy')"
           :disabled="true"
+          @select="handleSelect('copy')"
         >
           Copy
         </MenuItem>

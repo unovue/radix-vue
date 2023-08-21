@@ -1,47 +1,47 @@
 <script setup lang="ts">
-import { inject } from "vue";
+import { inject } from 'vue'
 import MenuContentImpl, {
-  type MenuContentImplProps,
   type MenuContentImplEmits,
-} from "./MenuContentImpl.vue";
-import { Presence } from "@/Presence";
-import { MENU_INJECTION_KEY, MENU_ROOT_INJECTION_KEY } from "./MenuRoot.vue";
-import { MENU_SUB_INJECTION_KEY } from "./MenuSub.vue";
-import { usePrimitiveElement } from "@/Primitive";
-import { PopperContentPropsDefaultValue } from "@/Popper";
-import { SUB_CLOSE_KEYS } from "./utils";
-import { useEmitAsProps } from "@/shared";
+  type MenuContentImplProps,
+} from './MenuContentImpl.vue'
+import { MENU_INJECTION_KEY, MENU_ROOT_INJECTION_KEY } from './MenuRoot.vue'
+import { MENU_SUB_INJECTION_KEY } from './MenuSub.vue'
+import { SUB_CLOSE_KEYS } from './utils'
+import { Presence } from '@/Presence'
+import { usePrimitiveElement } from '@/Primitive'
+import { PopperContentPropsDefaultValue } from '@/Popper'
+import { useEmitAsProps } from '@/shared'
 
 export interface MenuSubContentProps extends MenuContentImplProps {}
-export type MenuSubContentEmits = MenuContentImplEmits;
+export type MenuSubContentEmits = MenuContentImplEmits
 
 const props = withDefaults(defineProps<MenuSubContentProps>(), {
   ...PopperContentPropsDefaultValue,
-});
-const emits = defineEmits<MenuSubContentEmits>();
+})
+const emits = defineEmits<MenuSubContentEmits>()
 
-const emitsAsProps = useEmitAsProps(emits);
+const emitsAsProps = useEmitAsProps(emits)
 
-const context = inject(MENU_INJECTION_KEY);
-const rootContext = inject(MENU_ROOT_INJECTION_KEY);
-const subContext = inject(MENU_SUB_INJECTION_KEY);
+const context = inject(MENU_INJECTION_KEY)
+const rootContext = inject(MENU_ROOT_INJECTION_KEY)
+const subContext = inject(MENU_SUB_INJECTION_KEY)
 
-const { primitiveElement, currentElement: subContentElement } =
-  usePrimitiveElement();
+const { primitiveElement, currentElement: subContentElement }
+  = usePrimitiveElement()
 </script>
 
 <template>
   <Presence :present="context!.open.value">
     <MenuContentImpl
-      ref="primitiveElement"
       v-bind="{ ...props, ...emitsAsProps }"
       :id="subContext!.contentId"
+      ref="primitiveElement"
       :aria-labelledby="subContext!.triggerId"
-      :align="'start'"
+      align="start"
       :side="rootContext!.dir.value === 'rtl' ? 'left' : 'right'"
-      :disableOutsidePointerEvents="false"
-      :disableOutsideScroll="false"
-      :trapFocus="false"
+      :disable-outside-pointer-events="false"
+      :disable-outside-scroll="false"
+      :trap-focus="false"
       @open-auto-focus="(event) => {
         if (rootContext!.isUsingKeyboardRef.value) subContentElement?.focus();
         // event.preventDefault();
@@ -76,7 +76,7 @@ const { primitiveElement, currentElement: subContentElement } =
         }
       }"
     >
-      <slot></slot>
+      <slot />
     </MenuContentImpl>
   </Presence>
 </template>

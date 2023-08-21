@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { NavigationMenuLink } from "../";
+import { NavigationMenuLink } from '../'
 
 defineProps<{
-  items: string[];
-}>();
+  items: string[]
+}>()
 </script>
 
 <template>

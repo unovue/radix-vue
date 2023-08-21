@@ -1,22 +1,22 @@
 <script setup lang="ts">
 import {
   MenuRadioGroup,
-  type MenuRadioGroupProps,
   type MenuRadioGroupEmits,
-} from "@/Menu";
-import { useEmitAsProps } from "@/shared";
+  type MenuRadioGroupProps,
+} from '@/Menu'
+import { useEmitAsProps } from '@/shared'
 
 export interface MenubarRadioGroupProps extends MenuRadioGroupProps {}
-export type MenubarRadioGroupEmits = MenuRadioGroupEmits;
+export type MenubarRadioGroupEmits = MenuRadioGroupEmits
 
-const props = defineProps<MenubarRadioGroupProps>();
-const emits = defineEmits<MenubarRadioGroupEmits>();
+const props = defineProps<MenubarRadioGroupProps>()
+const emits = defineEmits<MenubarRadioGroupEmits>()
 
-const emitsAsProps = useEmitAsProps(emits);
+const emitsAsProps = useEmitAsProps(emits)
 </script>
 
 <template>
   <MenuRadioGroup v-bind="{ ...props, ...emitsAsProps }">
-    <slot></slot>
+    <slot />
   </MenuRadioGroup>
 </template>

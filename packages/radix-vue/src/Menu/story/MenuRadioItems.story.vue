@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref } from 'vue'
 import {
-  MenuSeparator,
-  MenuItemIndicator,
   MenuItem,
+  MenuItemIndicator,
   MenuRadioGroup,
   MenuRadioItem,
-} from "..";
-import MenuWithAnchor from "./_MenuWithAnchor.vue";
-import TickIcon from "./_TickIcon.vue";
+  MenuSeparator,
+} from '..'
+import MenuWithAnchor from './_MenuWithAnchor.vue'
+import TickIcon from './_TickIcon.vue'
 
-const files = ["README.md", "index.js", "page.css"];
+const files = ['README.md', 'index.js', 'page.css']
 
-const selectedFiles = ref(files[1]);
+const selectedFiles = ref(files[1])
 
-const handleSelect = (text: string) => {
-  console.log({ text });
-};
+function handleSelect(text: string) {
+  console.log({ text })
+}
 </script>
 
 <template>
@@ -42,9 +42,7 @@ const handleSelect = (text: string) => {
           Smaller
         </MenuItem>
 
-        <MenuSeparator
-          class="h-[1px] my-[5px] mx-[10px] bg-gray-200"
-        ></MenuSeparator>
+        <MenuSeparator class="h-[1px] my-[5px] mx-[10px] bg-gray-200" />
 
         <MenuRadioGroup v-model="selectedFiles">
           <MenuRadioItem
@@ -55,7 +53,7 @@ const handleSelect = (text: string) => {
           >
             {{ file }}
             <MenuItemIndicator>
-              <TickIcon></TickIcon>
+              <TickIcon />
             </MenuItemIndicator>
           </MenuRadioItem>
         </MenuRadioGroup>

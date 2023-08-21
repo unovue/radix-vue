@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Icon } from '@iconify/vue'
+import { ref } from 'vue'
 import {
   ToolbarButton,
   ToolbarLink,
@@ -6,12 +8,10 @@ import {
   ToolbarSeparator,
   ToolbarToggleGroup,
   ToolbarToggleItem,
-} from "./";
-import { Icon } from "@iconify/vue";
-import { ref } from "vue";
+} from './'
 
-const toggleStateSingle = ref("center");
-const toggleStateMultiple = ref([]);
+const toggleStateSingle = ref('center')
+const toggleStateMultiple = ref([])
 </script>
 
 <template>

@@ -5,9 +5,9 @@ import {
   AccordionItem,
   AccordionRoot,
   AccordionTrigger,
-} from "../";
+} from '../'
 
-const items = ["One", "Two", "Three", "Four"];
+const items = ['One', 'Two', 'Three', 'Four']
 </script>
 
 <template>

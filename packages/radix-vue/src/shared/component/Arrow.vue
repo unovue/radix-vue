@@ -5,29 +5,30 @@ export interface ArrowProps extends PrimitiveProps {
    *
    * @default 10
    */
-  width?: number;
+  width?: number
   /**
    * The height of the arrow in pixels.
    *
    * @default 5
    */
-  height?: number;
+  height?: number
 }
 </script>
+
 <script setup lang="ts">
 import {
   Primitive,
-  usePrimitiveElement,
   type PrimitiveProps,
-} from "@/Primitive";
+  usePrimitiveElement,
+} from '@/Primitive'
 
 const props = withDefaults(defineProps<ArrowProps>(), {
   width: 10,
   height: 5,
-  as: "svg",
-});
+  as: 'svg',
+})
 
-const { primitiveElement } = usePrimitiveElement();
+const { primitiveElement } = usePrimitiveElement()
 </script>
 
 <template>

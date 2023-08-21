@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref } from 'vue'
 import {
   HoverCardArrow,
   HoverCardContent,
   HoverCardPortal,
   HoverCardRoot,
   HoverCardTrigger,
-} from "./";
+} from './'
 
-const hoverState = ref(false);
+const hoverState = ref(false)
 </script>
 
 <template>
@@ -27,7 +27,7 @@ const hoverState = ref(false);
               class="block h-[45px] w-[45px] rounded-full"
               src="https://pbs.twimg.com/profile_images/1337055608613253126/r_eiMp2H_400x400.png"
               alt="Radix UI"
-            />
+            >
           </a>
         </HoverCardTrigger>
         <HoverCardPortal>
@@ -36,7 +36,7 @@ const hoverState = ref(false);
             :side-offset="5"
             side="top"
             align="end"
-            :avoidCollisions="true"
+            :avoid-collisions="true"
             as-child
           >
             <div>
@@ -45,7 +45,7 @@ const hoverState = ref(false);
                   class="block h-[60px] w-[60px] rounded-full"
                   src="https://pbs.twimg.com/profile_images/1337055608613253126/r_eiMp2H_400x400.png"
                   alt="Radix UI"
-                />
+                >
                 <div class="flex flex-col gap-[15px]">
                   <div>
                     <div

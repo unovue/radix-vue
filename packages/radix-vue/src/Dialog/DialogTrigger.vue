@@ -1,24 +1,23 @@
 <script setup lang="ts">
-import { inject, onMounted } from "vue";
-import { DIALOG_INJECTION_KEY } from "./DialogRoot.vue";
+import { inject, onMounted } from 'vue'
+import { DIALOG_INJECTION_KEY } from './DialogRoot.vue'
 import {
   Primitive,
   type PrimitiveProps,
   usePrimitiveElement,
-} from "@/Primitive";
+} from '@/Primitive'
 
 export interface DialogTriggerProps extends PrimitiveProps {}
 
-const context = inject(DIALOG_INJECTION_KEY);
-const { primitiveElement, currentElement } = usePrimitiveElement();
+const props = withDefaults(defineProps<DialogTriggerProps>(), {
+  as: 'button',
+})
+const context = inject(DIALOG_INJECTION_KEY)
+const { primitiveElement, currentElement } = usePrimitiveElement()
 
 onMounted(() => {
-  context!.triggerElement = currentElement;
-});
-
-const props = withDefaults(defineProps<DialogTriggerProps>(), {
-  as: "button",
-});
+  context!.triggerElement = currentElement
+})
 </script>
 
 <template>

@@ -87,8 +87,8 @@ importers:
         specifier: ^3.6.5
         version: 3.6.5(rollup@2.79.1)
       radix-vue:
-        specifier: link:../radix-vue
-        version: link:../radix-vue
+        specifier: file:../radix-vue
+        version: file:packages/radix-vue(vue@3.3.4)
       unbuild:
         specifier: ^0.8.11
         version: 0.8.11
@@ -7008,3 +7008,16 @@ packages:
     optionalDependencies:
       commander: 9.5.0
     dev: true
+
+  file:packages/radix-vue(vue@3.3.4):
+    resolution: {directory: packages/radix-vue, type: directory}
+    id: file:packages/radix-vue
+    name: radix-vue
+    version: 0.1.21
+    dependencies:
+      '@floating-ui/dom': 1.4.2
+      '@floating-ui/vue': 1.0.1(vue@3.3.4)
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+    dev: false

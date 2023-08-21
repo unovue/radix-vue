@@ -4,7 +4,6 @@ export type Direction = 'ltr' | 'rtl'
 export const ENTRY_FOCUS = 'rovingFocusGroup.onEntryFocus'
 export const EVENT_OPTIONS = { bubbles: false, cancelable: true }
 
-// prettier-ignore
 export const MAP_KEY_TO_FOCUS_INTENT: Record<string, FocusIntent> = {
   ArrowLeft: 'prev',
   ArrowUp: 'prev',

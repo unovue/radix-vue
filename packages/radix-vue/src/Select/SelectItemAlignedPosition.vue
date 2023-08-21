@@ -104,7 +104,8 @@ function position() {
       contentStyles.paddingBottom,
       10,
     )
-    const fullContentHeight = contentBorderTopWidth + contentPaddingTop + itemsHeight + contentPaddingBottom + contentBorderBottomWidth // prettier-ignore
+
+    const fullContentHeight = contentBorderTopWidth + contentPaddingTop + itemsHeight + contentPaddingBottom + contentBorderBottomWidth
     const minContentHeight = Math.min(
       selectedItem.value.offsetHeight * 5,
       fullContentHeight,

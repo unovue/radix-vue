@@ -116,8 +116,8 @@ const isBodyPointerEventsDisabled = computed(() => {
 
 const isPointerEventsEnabled = computed(() => {
   const localLayers = Array.from(layers.value)
-  const [highestLayerWithOutsidePointerEventsDisabled] = [...layersWithOutsidePointerEventsDisabled.value].slice(-1) // prettier-ignore
-  const highestLayerWithOutsidePointerEventsDisabledIndex = localLayers.indexOf(highestLayerWithOutsidePointerEventsDisabled) // prettier-ignore
+  const [highestLayerWithOutsidePointerEventsDisabled] = [...layersWithOutsidePointerEventsDisabled.value].slice(-1)
+  const highestLayerWithOutsidePointerEventsDisabledIndex = localLayers.indexOf(highestLayerWithOutsidePointerEventsDisabled)
 
   return index.value >= highestLayerWithOutsidePointerEventsDisabledIndex
 })

@@ -1,7 +1,8 @@
 <script lang="ts">
 type MotionAttribute = 'to-start' | 'to-end' | 'from-start' | 'from-end'
 
-interface NavigationMenuContentImplProps extends DismissableLayerProps {}
+export interface NavigationMenuContentImplProps extends DismissableLayerProps {}
+export type NavigationMenuContentImplEmits = DismissableLayerEmits
 </script>
 
 <script setup lang="ts">
@@ -28,7 +29,7 @@ import type { PointerDownOutsideEvent } from '@/DismissableLayer/utils'
 import { NAVIGATION_MENU_ITEM_INJECTION_KEY } from './NavigationMenuItem.vue'
 
 const props = defineProps<NavigationMenuContentImplProps>()
-const emits = defineEmits<DismissableLayerEmits>()
+const emits = defineEmits<NavigationMenuContentImplEmits>()
 
 const { injectCollection } = useCollection('nav')
 const collectionItems = injectCollection()

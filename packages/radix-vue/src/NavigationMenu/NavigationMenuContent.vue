@@ -3,19 +3,18 @@ import { computed, inject } from 'vue'
 import { NAVIGATION_MENU_INJECTION_KEY } from './NavigationMenuRoot.vue'
 import { NAVIGATION_MENU_ITEM_INJECTION_KEY } from './NavigationMenuItem.vue'
 import { getOpenState } from './utils'
-import NavigationMenuContentImpl from './NavigationMenuContentImpl.vue'
 import { Presence } from '@/Presence'
-import {
-  type DismissableLayerEmits,
-  type DismissableLayerProps,
-  type PointerDownOutsideEvent,
-} from '@/DismissableLayer'
+import { type PointerDownOutsideEvent } from '@/DismissableLayer'
+import NavigationMenuContentImpl, { type NavigationMenuContentImplEmits, type NavigationMenuContentImplProps } from './NavigationMenuContentImpl.vue'
+import { useEmitAsProps } from '@/shared'
 
-export interface NavigationMenuContentProps extends DismissableLayerProps {}
-export type NavigationMenuContentEmits = DismissableLayerEmits
+export interface NavigationMenuContentProps extends NavigationMenuContentImplProps {}
+export type NavigationMenuContentEmits = NavigationMenuContentImplEmits
 
 const props = defineProps<NavigationMenuContentProps>()
 const emits = defineEmits<NavigationMenuContentEmits>()
+
+const emitsAsProps = useEmitAsProps(emits)
 
 const context = inject(NAVIGATION_MENU_INJECTION_KEY)
 const itemContext = inject(NAVIGATION_MENU_ITEM_INJECTION_KEY)
@@ -51,7 +50,7 @@ export default {
         :style="{
           pointerEvents: !open && context?.isRootMenu ? 'none' : undefined,
         }"
-        v-bind="{ ...$attrs, ...props }"
+        v-bind="{ ...$attrs, ...props, ...emitsAsProps }"
         @pointerenter="context?.onContentEnter(itemContext!.value)"
         @pointerleave="context?.onContentLeave()"
         @pointerdown="handlePointerDown"

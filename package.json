@@ -1,18 +1,36 @@
 {
+  "name": "radix-vue",
   "private": true,
   "packageManager": "pnpm@8.6.3",
+  "license": "MIT",
+  "repository": "radix-vue/radix-vue",
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
     "story:dev": "pnpm --filter histoire story:dev",
     "build": "pnpm run -r --filter=!docs build",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "prepare": "pnpm simple-git-hooks"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.39.7",
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0",
     "eslint": "^8.43.0",
+    "lint-staged": "^14.0.0",
+    "simple-git-hooks": "^2.9.0",
     "pnpm": "^8.6.12"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged",
+    "commit-msg": "pnpm commitlint --edit ${1}"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
   }
 }

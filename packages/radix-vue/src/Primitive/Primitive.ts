@@ -1,58 +1,59 @@
-import { defineComponent, h, mergeProps, cloneVNode, type PropType } from "vue";
-import { renderSlotFragments, isValidVNodeElement } from "@/shared";
+import { type PropType, cloneVNode, defineComponent, h, mergeProps } from 'vue'
+import { isValidVNodeElement, renderSlotFragments } from '@/shared'
 
 export type AsTag =
-  | "a"
-  | "button"
-  | "div"
-  | "form"
-  | "h2"
-  | "h3"
-  | "img"
-  | "input"
-  | "label"
-  | "li"
-  | "nav"
-  | "ol"
-  | "p"
-  | "span"
-  | "svg"
-  | "ul"
-  | "template"
-  | ({} & string); // any other string
+  | 'a'
+  | 'button'
+  | 'div'
+  | 'form'
+  | 'h2'
+  | 'h3'
+  | 'img'
+  | 'input'
+  | 'label'
+  | 'li'
+  | 'nav'
+  | 'ol'
+  | 'p'
+  | 'span'
+  | 'svg'
+  | 'ul'
+  | 'template'
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  | ({} & string) // any other string
 
-const throwError = (componentName: string) => {
+function throwError(componentName: string) {
   throw new Error(
     [
       `Detected an invalid children for \`${componentName}\` with \`asChild\` prop.`,
-      "",
-      "Note: All components accepting `asChild` expect only one direct child of valid VNode type.",
-      "You can apply a few solutions:",
+      '',
+      'Note: All components accepting `asChild` expect only one direct child of valid VNode type.',
+      'You can apply a few solutions:',
       [
-        "Provide a single child element so that we can forward the props onto that element.",
-        "Ensure the first child is an actual element instead of a raw text node or comment node.",
+        'Provide a single child element so that we can forward the props onto that element.',
+        'Ensure the first child is an actual element instead of a raw text node or comment node.',
       ]
-        .map((line) => `  - ${line}`)
-        .join("\n"),
-    ].join("\n")
-  );
-};
+        .map(line => `  - ${line}`)
+        .join('\n'),
+    ].join('\n'),
+  )
+}
 
-export type PrimitiveProps = {
+export interface PrimitiveProps {
   /**
    * Setting "asChild" to true has the same effect as setting "as" to "template".
    * @default false
    */
-  asChild?: boolean;
+  asChild?: boolean
   /**
    * @default "div"
    */
-  as?: AsTag;
-};
+  as?: AsTag
+}
 
 export const Primitive = defineComponent({
+  name: 'Primitive',
   inheritAttrs: false,
-  name: "Primitive",
   props: {
     asChild: {
       type: Boolean,
@@ -60,48 +61,50 @@ export const Primitive = defineComponent({
     },
     as: {
       type: String as PropType<AsTag>,
-      default: "div",
+      default: 'div',
     },
   },
   setup(props, { attrs, slots }) {
-    const asTag = props.asChild ? "template" : props.as;
+    const asTag = props.asChild ? 'template' : props.as
 
-    if (asTag !== "template") {
-      return () => h(props.as, attrs, { default: slots.default });
-    }
+    if (asTag !== 'template')
+      return () => h(props.as, attrs, { default: slots.default })
 
     return () => {
-      if (!slots.default) return null;
-      const childrens = renderSlotFragments(slots.default());
+      if (!slots.default)
+        return null
+      const childrens = renderSlotFragments(slots.default())
 
-      if (childrens.length !== 1) throwError(asTag);
+      if (childrens.length !== 1)
+        throwError(asTag)
 
-      const firstChildren = childrens[0];
-      if (!isValidVNodeElement(firstChildren)) throwError(asTag);
+      const firstChildren = childrens[0]
+      if (!isValidVNodeElement(firstChildren))
+        throwError(asTag)
 
       if (Object.keys(attrs).length > 0) {
         // remove props ref from being inferred
-        delete firstChildren.props?.ref;
-        const mergedProps = mergeProps(attrs, firstChildren.props ?? {});
+        delete firstChildren.props?.ref
+        const mergedProps = mergeProps(attrs, firstChildren.props ?? {})
         // remove class to prevent duplicated
         if (attrs.class && firstChildren.props?.class)
-          delete firstChildren.props.class;
+          delete firstChildren.props.class
 
-        const cloned = cloneVNode(firstChildren, mergedProps);
+        const cloned = cloneVNode(firstChildren, mergedProps)
         // Explicitly override props starting with `on`.
         // It seems cloneVNode from Vue doesn't like overriding `onXXX` props. So
         // we have to do it manually.
         for (const prop in mergedProps) {
-          if (prop.startsWith("on")) {
-            cloned.props ||= {};
-            cloned.props[prop] = mergedProps[prop];
+          if (prop.startsWith('on')) {
+            cloned.props ||= {}
+            cloned.props[prop] = mergedProps[prop]
           }
         }
 
-        return cloned;
+        return cloned
       }
 
-      return firstChildren;
-    };
+      return firstChildren
+    }
   },
-});
+})

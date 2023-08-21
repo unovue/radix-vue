@@ -3,15 +3,15 @@ export interface SwitchThumbProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { inject } from "vue";
-import { Primitive, type PrimitiveProps } from "@/Primitive";
+import { inject } from 'vue'
 import {
   SWITCH_INJECTION_KEY,
   type SwitchProvideValue,
-} from "./SwitchRoot.vue";
+} from './SwitchRoot.vue'
+import { Primitive, type PrimitiveProps } from '@/Primitive'
 
-const injectedValue = inject<SwitchProvideValue>(SWITCH_INJECTION_KEY);
-withDefaults(defineProps<SwitchThumbProps>(), { as: "span" });
+withDefaults(defineProps<SwitchThumbProps>(), { as: 'span' })
+const injectedValue = inject<SwitchProvideValue>(SWITCH_INJECTION_KEY)
 </script>
 
 <template>

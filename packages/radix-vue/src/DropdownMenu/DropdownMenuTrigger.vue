@@ -1,38 +1,38 @@
 <script lang="ts">
 export interface DropdownMenuTriggerProps extends PrimitiveProps {
-  disabled?: boolean;
+  disabled?: boolean
 }
 </script>
 
 <script setup lang="ts">
-import { inject, onMounted } from "vue";
+import { inject, onMounted } from 'vue'
+import { DROPDOWN_MENU_INJECTION_KEY } from './DropdownMenuRoot.vue'
 import {
   Primitive,
-  usePrimitiveElement,
   type PrimitiveProps,
-} from "@/Primitive";
-import { DROPDOWN_MENU_INJECTION_KEY } from "./DropdownMenuRoot.vue";
-import { MenuAnchor } from "@/Menu";
+  usePrimitiveElement,
+} from '@/Primitive'
+import { MenuAnchor } from '@/Menu'
 
 const props = withDefaults(defineProps<DropdownMenuTriggerProps>(), {
-  as: "button",
-});
+  as: 'button',
+})
 
-const context = inject(DROPDOWN_MENU_INJECTION_KEY);
+const context = inject(DROPDOWN_MENU_INJECTION_KEY)
 
-const { primitiveElement, currentElement: triggerElement } =
-  usePrimitiveElement();
+const { primitiveElement, currentElement: triggerElement }
+  = usePrimitiveElement()
 
 onMounted(() => {
-  context!.triggerElement = triggerElement;
-});
+  context!.triggerElement = triggerElement
+})
 </script>
 
 <template>
-  <MenuAnchor asChild>
+  <MenuAnchor as-child>
     <Primitive
-      ref="primitiveElement"
       :id="context?.triggerId"
+      ref="primitiveElement"
       :type="as === 'button' ? 'button' : undefined"
       :as-child="props.asChild"
       :as="as"

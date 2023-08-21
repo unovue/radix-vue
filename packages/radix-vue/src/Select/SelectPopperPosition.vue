@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { PopperContent, type PopperContentProps } from "@/Popper";
-import { CONTENT_MARGIN } from "./utils";
+import { CONTENT_MARGIN } from './utils'
+import { PopperContent, type PopperContentProps } from '@/Popper'
 
 export interface SelectPopperPositionProps extends PopperContentProps {}
 
 const props = withDefaults(defineProps<SelectPopperPositionProps>(), {
-  align: "start",
+  align: 'start',
   collisionPadding: CONTENT_MARGIN,
-});
+})
 </script>
 
 <template>
@@ -15,7 +15,7 @@ const props = withDefaults(defineProps<SelectPopperPositionProps>(), {
     v-bind="props"
     :style="{
       // Ensure border-box for floating-ui calculations
-      boxSizing: 'border-box',
+      'boxSizing': 'border-box',
       '--radix-select-content-transform-origin':
         'var(--radix-popper-transform-origin)',
       '--radix-select-content-available-width':
@@ -26,6 +26,6 @@ const props = withDefaults(defineProps<SelectPopperPositionProps>(), {
       '--radix-select-trigger-height': 'var(--radix-popper-anchor-height)',
     }"
   >
-    <slot></slot>
+    <slot />
   </PopperContent>
 </template>

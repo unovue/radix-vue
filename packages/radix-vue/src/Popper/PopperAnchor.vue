@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import { inject, watch } from "vue";
+import { inject, watch } from 'vue'
+import { type Measurable, POPPER_ROOT_KEY } from './PopperRoot.vue'
 import {
   Primitive,
-  usePrimitiveElement,
   type PrimitiveProps,
-} from "@/Primitive";
-import { POPPER_ROOT_KEY, type Measurable } from "./PopperRoot.vue";
+  usePrimitiveElement,
+} from '@/Primitive'
 
 export interface PopperAnchorProps extends PrimitiveProps {
-  element?: Measurable;
+  element?: Measurable
 }
 
-const { primitiveElement, currentElement } = usePrimitiveElement();
+const props = defineProps<PopperAnchorProps>()
 
-const props = defineProps<PopperAnchorProps>();
+const { primitiveElement, currentElement } = usePrimitiveElement()
 
-const context = inject(POPPER_ROOT_KEY);
+const context = inject(POPPER_ROOT_KEY)
 
 watch(currentElement, () => {
-  context?.onAnchorChange(props.element ?? currentElement.value);
-});
+  context?.onAnchorChange(props.element ?? currentElement.value)
+})
 </script>
 
 <template>
-  <Primitive :as="as" :as-child="asChild" ref="primitiveElement">
-    <slot></slot>
+  <Primitive ref="primitiveElement" :as="as" :as-child="asChild">
+    <slot />
   </Primitive>
 </template>

@@ -1,6 +1,6 @@
-import type { Direction } from "./types";
+import type { Direction } from './types'
 
-type ArrowKeyOptions = "horizontal" | "vertical" | "both";
+type ArrowKeyOptions = 'horizontal' | 'vertical' | 'both'
 
 interface ArrowNavigationOptions {
   /**
@@ -8,14 +8,14 @@ interface ArrowNavigationOptions {
    *
    * @default "both"
    */
-  arrowKeyOptions?: ArrowKeyOptions;
+  arrowKeyOptions?: ArrowKeyOptions
 
   /**
    * The attribute name to find the collection items in the parent element.
    *
    * @default "data-radix-vue-collection-item"
    */
-  attributeName?: string;
+  attributeName?: string
 
   /**
    * The parent element where contains all the collection items, this will collect every item to be used when nav
@@ -23,21 +23,21 @@ interface ArrowNavigationOptions {
    *
    * @default []
    */
-  itemsArray?: HTMLElement[];
+  itemsArray?: HTMLElement[]
 
   /**
    * Allow loop navigation. If false, it will stop at the first and last element
    *
    * @default true
    */
-  loop?: boolean;
+  loop?: boolean
 
   /**
    * The orientation of the collection
    *
    * @default "ltr"
    */
-  dir?: Direction;
+  dir?: Direction
 
   /**
    * Prevent the scroll when navigating. This happens when the direction of the
@@ -45,14 +45,14 @@ interface ArrowNavigationOptions {
    *
    * @default true
    */
-  preventScroll?: boolean;
+  preventScroll?: boolean
 
   /**
    * Focus the element after navigation
    *
    * @default false
    */
-  focus?: boolean;
+  focus?: boolean
 }
 
 /**
@@ -68,67 +68,70 @@ export function useArrowNavigation(
   e: KeyboardEvent,
   currentElement: HTMLElement,
   parentElement: HTMLElement | undefined,
-  options: ArrowNavigationOptions = {}
+  options: ArrowNavigationOptions = {},
 ): HTMLElement | null {
-  if (!currentElement) return null;
+  if (!currentElement)
+    return null
 
   const {
-    arrowKeyOptions = "both",
-    attributeName = "data-radix-vue-collection-item",
+    arrowKeyOptions = 'both',
+    attributeName = 'data-radix-vue-collection-item',
     itemsArray = [],
     loop = true,
-    dir = "ltr",
+    dir = 'ltr',
     preventScroll = true,
     focus = false,
-  } = options;
+  } = options
 
   const [right, left, up, down, home, end] = [
-    e.key === "ArrowRight",
-    e.key === "ArrowLeft",
-    e.key === "ArrowUp",
-    e.key === "ArrowDown",
-    e.key === "Home",
-    e.key === "End",
-  ];
-  const goingVertical = up || down;
-  const goingHorizontal = right || left;
+    e.key === 'ArrowRight',
+    e.key === 'ArrowLeft',
+    e.key === 'ArrowUp',
+    e.key === 'ArrowDown',
+    e.key === 'Home',
+    e.key === 'End',
+  ]
+  const goingVertical = up || down
+  const goingHorizontal = right || left
   if (
-    !home &&
-    !end &&
-    ((!goingVertical && !goingHorizontal) ||
-      (arrowKeyOptions === "vertical" && goingHorizontal) ||
-      (arrowKeyOptions === "horizontal" && goingVertical))
-  ) {
-    return null;
-  }
+    !home
+    && !end
+    && ((!goingVertical && !goingHorizontal)
+      || (arrowKeyOptions === 'vertical' && goingHorizontal)
+      || (arrowKeyOptions === 'horizontal' && goingVertical))
+  )
+    return null
 
   const allCollectionItems: HTMLElement[] = parentElement
     ? Array.from(parentElement.querySelectorAll(`[${attributeName}]`))
-    : itemsArray;
+    : itemsArray
 
-  if (!allCollectionItems.length) return null;
+  if (!allCollectionItems.length)
+    return null
 
-  if (preventScroll) {
-    e.preventDefault();
-  }
+  if (preventScroll)
+    e.preventDefault()
 
-  let item: HTMLElement | null = null;
+  let item: HTMLElement | null = null
 
   if (goingHorizontal || goingVertical) {
-    const goForward = goingVertical ? down : dir === "ltr" ? right : left;
+    const goForward = goingVertical ? down : dir === 'ltr' ? right : left
     item = findNextFocusableElement(allCollectionItems, currentElement, {
       goForward,
       loop,
-    });
-  } else if (home) {
-    item = allCollectionItems.at(0) || null;
-  } else if (end) {
-    item = allCollectionItems.at(-1) || null;
+    })
+  }
+  else if (home) {
+    item = allCollectionItems.at(0) || null
+  }
+  else if (end) {
+    item = allCollectionItems.at(-1) || null
   }
 
-  if (focus) item?.focus();
+  if (focus)
+    item?.focus()
 
-  return item;
+  return item
 }
 
 /**
@@ -143,29 +146,32 @@ function findNextFocusableElement(
   elements: HTMLElement[],
   currentElement: HTMLElement,
   { goForward, loop }: { goForward: boolean; loop?: boolean },
-  iterations = elements.length
+  iterations = elements.length,
 ): HTMLElement | null {
-  if (--iterations === 0) return null;
+  if (--iterations === 0)
+    return null
 
-  const index = elements.indexOf(currentElement);
-  const newIndex = goForward ? index + 1 : index - 1;
+  const index = elements.indexOf(currentElement)
+  const newIndex = goForward ? index + 1 : index - 1
 
-  if (!loop && (newIndex < 0 || newIndex >= elements.length)) return null;
+  if (!loop && (newIndex < 0 || newIndex >= elements.length))
+    return null
 
-  const adjustedNewIndex = (newIndex + elements.length) % elements.length;
-  const candidate = elements[adjustedNewIndex];
-  if (!candidate) return null;
+  const adjustedNewIndex = (newIndex + elements.length) % elements.length
+  const candidate = elements[adjustedNewIndex]
+  if (!candidate)
+    return null
 
-  const isDisabled =
-    candidate.hasAttribute("disabled") &&
-    candidate.getAttribute("disabled") !== "false";
+  const isDisabled
+    = candidate.hasAttribute('disabled')
+    && candidate.getAttribute('disabled') !== 'false'
   if (isDisabled) {
     return findNextFocusableElement(
       elements,
       candidate,
       { goForward, loop },
-      iterations
-    );
+      iterations,
+    )
   }
-  return candidate;
+  return candidate
 }

@@ -1,25 +1,25 @@
 <script lang="ts">
 export interface DropdownMenuSubProps {
-  open?: boolean;
-  defaultOpen?: boolean;
+  open?: boolean
+  defaultOpen?: boolean
 }
 
 export interface DropdownMenuSubEmits {
-  (e: "update:open", value: boolean): void;
+  (e: 'update:open', value: boolean): void
 }
 </script>
 
 <script setup lang="ts">
-import { useVModel } from "@vueuse/core";
-import { MenuSub } from "@/Menu";
+import { useVModel } from '@vueuse/core'
+import { MenuSub } from '@/Menu'
 
-const props = defineProps<DropdownMenuSubProps>();
-const emit = defineEmits<DropdownMenuSubEmits>();
+const props = defineProps<DropdownMenuSubProps>()
+const emit = defineEmits<DropdownMenuSubEmits>()
 
-const open = useVModel(props, "open", emit, {
+const open = useVModel(props, 'open', emit, {
   passive: true,
   defaultValue: props.defaultOpen ?? false,
-});
+})
 </script>
 
 <template>

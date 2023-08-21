@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { Primitive, type PrimitiveProps } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from '@/Primitive'
 
 export interface MenuLabelProps extends PrimitiveProps {}
 const props = withDefaults(defineProps<MenuLabelProps>(), {
-  as: "label",
-});
+  as: 'label',
+})
 </script>
 
 <template>
   <Primitive role="group" v-bind="props">
-    <slot></slot>
+    <slot />
   </Primitive>
 </template>

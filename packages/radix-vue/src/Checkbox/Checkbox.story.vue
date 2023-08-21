@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { CheckboxIndicator, CheckboxRoot } from "./";
-import { Icon } from "@iconify/vue";
+import { ref } from 'vue'
+import { Icon } from '@iconify/vue'
+import { CheckboxIndicator, CheckboxRoot } from './'
 
-const checkboxOne = ref(false);
-const checkboxTwo = ref(false);
-const checkboxThree = ref(false);
+const checkboxOne = ref(false)
+const checkboxTwo = ref(false)
+const checkboxThree = ref(false)
 </script>
 
 <template>

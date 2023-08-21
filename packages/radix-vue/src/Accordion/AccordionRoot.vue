@@ -1,23 +1,23 @@
 <script lang="ts">
-import type { DataOrientation, Direction, Type } from "@/shared/types";
-import type { ComputedRef, InjectionKey, Ref } from "vue";
+import type { ComputedRef, InjectionKey, Ref } from 'vue'
+import type { DataOrientation, Direction, Type } from '@/shared/types'
 
 export interface AccordionRootProps extends PrimitiveProps {
   /**
    * Determines whether one or multiple items can be opened at the same time.
    */
-  type: Type;
+  type: Type
 
   /**
    * The controlled value of the item to expand when type is "single" or the controlled values of the items to expand when type is "multiple".
    */
-  modelValue?: string | string[];
+  modelValue?: string | string[]
 
   /**
    * The default value of the item to expand when type is "single" or the default values of the items to expand when type is "multiple".
    * Use when you do not need to control the state of the item(s).
    */
-  defaultValue?: string | string[];
+  defaultValue?: string | string[]
 
   /**
    * When type is "single", allows closing content when clicking trigger for an open item.
@@ -25,91 +25,91 @@ export interface AccordionRootProps extends PrimitiveProps {
    *
    * @default false
    */
-  collapsible?: boolean;
+  collapsible?: boolean
 
   /**
    * When true, prevents the user from interacting with the accordion and all its items
    *
    * @default false
    */
-  disabled?: boolean;
+  disabled?: boolean
 
   /**
    * The reading direction of the accordion when applicable. If omitted, assumes LTR (left-to-right) reading mode.
    *
    * @default "ltr"
    */
-  dir?: Direction;
+  dir?: Direction
 
   /**
    * The orientation of the accordion.
    *
    * @default "vertical"
    */
-  orientation?: DataOrientation;
+  orientation?: DataOrientation
 }
 
 export interface AccordionRootEmits {
-  (e: "update:modelValue", value: string | string[] | undefined): void;
+  (e: 'update:modelValue', value: string | string[] | undefined): void
 }
 
-export const ACCORDION_INJECTION_KEY =
-  Symbol() as InjectionKey<AccordionProvideValue>;
+export const ACCORDION_INJECTION_KEY
+  = Symbol() as InjectionKey<AccordionProvideValue>
 
-export type AccordionProvideValue = {
-  disabled?: AccordionRootProps["disabled"];
-  direction: AccordionRootProps["dir"];
-  orientation: AccordionRootProps["orientation"];
-  parentElement: Ref<HTMLElement | undefined>;
-  changeModelValue(value: string): void;
-  isSingle: ComputedRef<boolean>;
-  modelValue: Ref<string | undefined | string[]>;
-  collapsible: boolean;
-};
+export interface AccordionProvideValue {
+  disabled?: AccordionRootProps['disabled']
+  direction: AccordionRootProps['dir']
+  orientation: AccordionRootProps['orientation']
+  parentElement: Ref<HTMLElement | undefined>
+  changeModelValue(value: string): void
+  isSingle: ComputedRef<boolean>
+  modelValue: Ref<string | undefined | string[]>
+  collapsible: boolean
+}
 </script>
 
 <script setup lang="ts">
 import {
   Primitive,
-  usePrimitiveElement,
   type PrimitiveProps,
-} from "@/Primitive";
-import { useSingleOrMultipleValue } from "@/shared/useSingleOrMultipleValue";
-import { computed, provide } from "vue";
+  usePrimitiveElement,
+} from '@/Primitive'
+import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
+import { computed, provide } from 'vue'
 
 const props = withDefaults(defineProps<AccordionRootProps>(), {
   asChild: false,
-  dir: "ltr",
+  dir: 'ltr',
   disabled: false,
-  orientation: "vertical",
+  orientation: 'vertical',
   collapsible: false,
-});
+})
 
-const emits = defineEmits<AccordionRootEmits>();
+const emits = defineEmits<AccordionRootEmits>()
 
-const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emits);
+const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emits)
 
-const { primitiveElement, currentElement: parentElement } =
-  usePrimitiveElement();
+const { primitiveElement, currentElement: parentElement }
+  = usePrimitiveElement()
 
 provide<AccordionProvideValue>(ACCORDION_INJECTION_KEY, {
   disabled: props.disabled,
   direction: props.dir,
   orientation: props.orientation,
   parentElement,
-  isSingle: computed(() => props.type === "single"),
+  isSingle: computed(() => props.type === 'single'),
   collapsible: props.collapsible,
   modelValue,
   changeModelValue,
-});
+})
 
 defineExpose({
   modelValue,
-});
+})
 </script>
 
 <template>
   <Primitive ref="primitiveElement" :as-child="props.asChild" :as="props.as">
-    <slot :modelValue="modelValue" />
+    <slot :model-value="modelValue" />
   </Primitive>
 </template>

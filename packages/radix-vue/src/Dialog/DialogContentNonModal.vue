@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { inject, ref } from "vue";
-import { DIALOG_INJECTION_KEY } from "./DialogRoot.vue";
+import { inject, ref } from 'vue'
+import { DIALOG_INJECTION_KEY } from './DialogRoot.vue'
 import DialogContentImpl, {
-  type DialogContentImplProps,
   type DialogContentImplEmits,
-} from "./DialogContentImpl.vue";
-import { useEmitAsProps } from "@/shared";
+  type DialogContentImplProps,
+} from './DialogContentImpl.vue'
+import { useEmitAsProps } from '@/shared'
 
-const props = defineProps<DialogContentImplProps>();
-const emits = defineEmits<DialogContentImplEmits>();
+const props = defineProps<DialogContentImplProps>()
+const emits = defineEmits<DialogContentImplEmits>()
 
-const emitsAsProps = useEmitAsProps(emits);
+const emitsAsProps = useEmitAsProps(emits)
 
-const context = inject(DIALOG_INJECTION_KEY);
-const hasInteractedOutsideRef = ref(false);
-const hasPointerDownOutsideRef = ref(false);
+const context = inject(DIALOG_INJECTION_KEY)
+const hasInteractedOutsideRef = ref(false)
+const hasPointerDownOutsideRef = ref(false)
 </script>
 
 <template>
@@ -36,7 +36,7 @@ const hasPointerDownOutsideRef = ref(false);
         hasPointerDownOutsideRef = false;
       }
     "
-    @interact-outside="(event) => { 
+    @interact-outside="(event) => {
       if (!event.defaultPrevented) {
         hasInteractedOutsideRef = true;
         if (event.detail.originalEvent.type === 'pointerdown') {
@@ -60,6 +60,6 @@ const hasPointerDownOutsideRef = ref(false);
       }
     }"
   >
-    <slot></slot>
+    <slot />
   </DialogContentImpl>
 </template>

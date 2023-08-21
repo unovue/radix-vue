@@ -1,64 +1,66 @@
 <script lang="ts">
 export interface RadioGroupItemProps extends PrimitiveProps {
-  value?: string;
-  disabled?: boolean;
-  required?: boolean;
+  value?: string
+  disabled?: boolean
+  required?: boolean
 }
 
 interface RadioItemProvideValue {
-  disabled: ComputedRef<boolean>;
-  checked: ComputedRef<boolean>;
+  disabled: ComputedRef<boolean>
+  checked: ComputedRef<boolean>
 }
 
-export const RADIO_GROUP_ITEM_INJECTION_KEY =
-  Symbol() as InjectionKey<RadioItemProvideValue>;
+export const RADIO_GROUP_ITEM_INJECTION_KEY
+  = Symbol() as InjectionKey<RadioItemProvideValue>
 </script>
 
 <script setup lang="ts">
 import {
-  Primitive,
-  usePrimitiveElement,
-  type PrimitiveProps,
-} from "@/Primitive";
-import {
+  type ComputedRef,
+  type InjectionKey,
   computed,
   inject,
   provide,
-  type ComputedRef,
-  type InjectionKey,
-} from "vue";
-import { useArrowNavigation } from "@/shared";
-import { RADIO_GROUP_INJECTION_KEY } from "./RadioGroupRoot.vue";
-
-const context = inject(RADIO_GROUP_INJECTION_KEY);
+} from 'vue'
+import { RADIO_GROUP_INJECTION_KEY } from './RadioGroupRoot.vue'
+import {
+  Primitive,
+  type PrimitiveProps,
+  usePrimitiveElement,
+} from '@/Primitive'
+import { useArrowNavigation } from '@/shared'
 
 const props = withDefaults(defineProps<RadioGroupItemProps>(), {
   disabled: false,
-});
+})
+
+const context = inject(RADIO_GROUP_INJECTION_KEY)
 
 const disabled = computed(() => {
-  return context?.disabled.value || props.disabled;
-});
+  return context?.disabled.value || props.disabled
+})
 
 const required = computed(() => {
-  return context?.required.value || props.required;
-});
+  return context?.required.value || props.required
+})
 
 const checked = computed(() => {
-  return context?.modelValue?.value === props.value;
-});
+  return context?.modelValue?.value === props.value
+})
 
-provide(RADIO_GROUP_ITEM_INJECTION_KEY, { disabled, checked });
+provide(RADIO_GROUP_ITEM_INJECTION_KEY, { disabled, checked })
 
 function changeOption(value: string) {
-  if (disabled.value) return;
-  context?.changeModelValue(value);
+  if (disabled.value)
+    return
+  context?.changeModelValue(value)
 }
 
-const { primitiveElement, currentElement } = usePrimitiveElement();
+const { primitiveElement, currentElement } = usePrimitiveElement()
 
 function handleKeydown(e: KeyboardEvent) {
-  if (disabled.value) return;
+  if (disabled.value)
+    return
 
   const newSelectedElement = useArrowNavigation(
     e,
@@ -67,31 +69,33 @@ function handleKeydown(e: KeyboardEvent) {
     {
       arrowKeyOptions: context?.orientation.value,
       loop: context?.loop.value,
-    }
-  );
+    },
+  )
 
   if (newSelectedElement) {
-    changeOption(newSelectedElement?.getAttribute("value")!);
-    context!.currentFocusedElement!.value = newSelectedElement;
-    newSelectedElement.focus();
+    changeOption(newSelectedElement?.getAttribute('value')!)
+    context!.currentFocusedElement!.value = newSelectedElement
+    newSelectedElement.focus()
   }
 }
 
 const getTabIndex = computed(() => {
   if (!context?.currentFocusedElement?.value) {
-    return checked.value ? "0" : "-1";
-  } else
+    return checked.value ? '0' : '-1'
+  }
+  else {
     return context?.currentFocusedElement?.value === currentElement.value
-      ? "0"
-      : "-1";
-});
+      ? '0'
+      : '-1'
+  }
+})
 </script>
 
 <template>
   <Primitive
+    ref="primitiveElement"
     :type="as === 'button' ? 'button' : undefined"
     :as="as"
-    ref="primitiveElement"
     role="radio"
     data-radix-vue-collection-item
     v-bind="$attrs"
@@ -124,5 +128,5 @@ const getTabIndex = computed(() => {
       height: 25px;
     "
     :checked="checked"
-  />
+  >
 </template>

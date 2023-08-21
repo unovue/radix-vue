@@ -3,16 +3,16 @@ import {
   MenuSubContent,
   type MenuSubContentEmits,
   type MenuSubContentProps,
-} from "@/Menu";
-import { PopperContentPropsDefaultValue } from "@/Popper";
+} from '@/Menu'
+import { PopperContentPropsDefaultValue } from '@/Popper'
 
 export interface DropdownMenuSubContentProps extends MenuSubContentProps {}
-export type DropdownMenuSubContentEmits = MenuSubContentEmits;
+export type DropdownMenuSubContentEmits = MenuSubContentEmits
 
 const props = withDefaults(defineProps<DropdownMenuSubContentProps>(), {
   ...PopperContentPropsDefaultValue,
-});
-const emits = defineEmits<DropdownMenuSubContentEmits>();
+})
+const emits = defineEmits<DropdownMenuSubContentEmits>()
 </script>
 
 <template>
@@ -30,6 +30,6 @@ const emits = defineEmits<DropdownMenuSubContentEmits>();
         'var(--radix-popper-anchor-height)',
     }"
   >
-    <slot></slot>
+    <slot />
   </MenuSubContent>
 </template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { SwitchRoot, SwitchThumb } from '../../../../../packages/radix-vue/src'
 import { ref } from 'vue'
+import { SwitchRoot, SwitchThumb } from '../../../../../packages/radix-vue/src'
 
 const switchState = ref(true)
 </script>

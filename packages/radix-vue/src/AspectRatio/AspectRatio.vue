@@ -1,20 +1,20 @@
 <script lang="ts">
 export interface AspectRatioProps extends PrimitiveProps {
-  ratio?: number;
+  ratio?: number
 }
 </script>
 
 <script setup lang="ts">
-import { Primitive, type PrimitiveProps } from "@/Primitive";
-import { computed } from "vue";
+import { computed } from 'vue'
+import { Primitive, type PrimitiveProps } from '@/Primitive'
 
 const props = withDefaults(defineProps<AspectRatioProps>(), {
   ratio: 1,
-});
+})
 
 const aspect = computed(() => {
-  return (1 / props.ratio) * 100;
-});
+  return (1 / props.ratio) * 100
+})
 </script>
 
 <template>

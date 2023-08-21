@@ -1,27 +1,27 @@
 <script setup lang="ts">
-import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
-import { NAVIGATION_MENU_ITEM_INJECTION_KEY } from "./NavigationMenuItem.vue";
-import { computed, inject, getCurrentInstance, watch, nextTick } from "vue";
-import { getOpenState } from "./utils";
-import NavigationMenuContentImpl from "./NavigationMenuContentImpl.vue";
-import { Presence } from "@/Presence";
+import { computed, getCurrentInstance, inject, nextTick, watch } from 'vue'
+import { computedWithControl } from '@vueuse/core'
+import { NAVIGATION_MENU_INJECTION_KEY } from './NavigationMenuRoot.vue'
+import { NAVIGATION_MENU_ITEM_INJECTION_KEY } from './NavigationMenuItem.vue'
+import { getOpenState } from './utils'
+import NavigationMenuContentImpl from './NavigationMenuContentImpl.vue'
+import { Presence } from '@/Presence'
 import {
-  type DismissableLayerProps,
   type DismissableLayerEmits,
+  type DismissableLayerProps,
   type PointerDownOutsideEvent,
-} from "@/DismissableLayer";
-import { computedWithControl } from "@vueuse/core";
+} from '@/DismissableLayer'
 
 export interface NavigationMenuContentProps extends DismissableLayerProps {}
-export type NavigationMenuContentEmits = DismissableLayerEmits;
+export type NavigationMenuContentEmits = DismissableLayerEmits
 
-const props = defineProps<NavigationMenuContentProps>();
-const emits = defineEmits<NavigationMenuContentEmits>();
+const props = defineProps<NavigationMenuContentProps>()
+const emits = defineEmits<NavigationMenuContentEmits>()
 
-const context = inject(NAVIGATION_MENU_INJECTION_KEY);
-const itemContext = inject(NAVIGATION_MENU_ITEM_INJECTION_KEY);
+const context = inject(NAVIGATION_MENU_INJECTION_KEY)
+const itemContext = inject(NAVIGATION_MENU_ITEM_INJECTION_KEY)
 
-const open = computed(() => itemContext?.value === context?.modelValue.value);
+const open = computed(() => itemContext?.value === context?.modelValue.value)
 
 const commonProps = computedWithControl(
   () => itemContext,
@@ -33,22 +33,22 @@ const commonProps = computedWithControl(
     wasEscapeCloseRef: itemContext!.wasEscapeCloseRef,
     onContentFocusOutside: itemContext!.onContentFocusOutside,
     onRootContentClose: itemContext!.onRootContentClose,
-  })
-);
+  }),
+)
 
-const instance = getCurrentInstance();
+const instance = getCurrentInstance()
 
 watch(
   open,
   async () => {
     if (!context?.isRootMenu) {
       // Next tick to flush DOM for other dependent elements to mount
-      await nextTick();
+      await nextTick()
     }
     // Everytime we remove mounted vnode using `v-if`, we would need to reset the vnode,
     // thus having this watcher is crucial is important for SSR
-    // @ts-ignore
-    const vnode = instance?.vnode.children?.default()?.[0];
+    // @ts-expect-error
+    const vnode = instance?.vnode.children?.default()?.[0]
     if (context?.viewport && vnode && itemContext?.triggerRef.value) {
       vnode.props = {
         ...vnode.props,
@@ -56,25 +56,26 @@ watch(
         triggerRef: itemContext!.triggerRef,
         focusProxyRef: itemContext!.focusProxyRef,
         wasEscapeCloseRef: itemContext!.wasEscapeCloseRef,
-      };
-      vnode.parentProps = instance.vnode.props;
-      context.onViewportContentChange(itemContext!.value, vnode);
-      commonProps.trigger();
+      }
+      vnode.parentProps = instance.vnode.props
+      context.onViewportContentChange(itemContext!.value, vnode)
+      commonProps.trigger()
     }
   },
-  { immediate: true, deep: true }
-);
+  { immediate: true, deep: true },
+)
 
-const handlePointerDown = (ev: PointerDownOutsideEvent) => {
-  emits("pointerDownOutside", ev);
-  if (!ev.preventDefault) context?.onContentLeave();
-};
+function handlePointerDown(ev: PointerDownOutsideEvent) {
+  emits('pointerDownOutside', ev)
+  if (!ev.preventDefault)
+    context?.onContentLeave()
+}
 </script>
 
 <script lang="ts">
 export default {
   inheritAttrs: false,
-};
+}
 </script>
 
 <template>
@@ -91,7 +92,7 @@ export default {
       @focus-outside="emits('focusOutside', $event)"
       @interact-outside="emits('interactOutside', $event)"
     >
-      <slot></slot>
+      <slot />
     </NavigationMenuContentImpl>
   </Presence>
 </template>

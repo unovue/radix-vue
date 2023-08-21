@@ -1,24 +1,25 @@
 <script setup lang="ts">
-import { computed, inject, ref } from "vue";
-import { RovingFocusItem, type RovingFocusItemProps } from "../";
+import { computed, inject, ref } from 'vue'
+import { RovingFocusItem, type RovingFocusItemProps } from '../'
 
 interface Props extends RovingFocusItemProps {
-  value: string;
-  disabled?: boolean;
+  value: string
+  disabled?: boolean
 }
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 
-const context = inject("rovingFocusDemo", {
-  value: ref(""),
-});
-const isSelected = computed(() => context.value.value === props.value);
+const context = inject('rovingFocusDemo', {
+  value: ref(''),
+})
+const isSelected = computed(() => context.value.value === props.value)
 </script>
 
 <template>
-  <RovingFocusItem asChild :active="isSelected" :focusable="!disabled">
+  <RovingFocusItem as-child :active="isSelected" :focusable="!disabled">
     <button
       class="border-2 border-blue-600 px-4 py-2 rounded-md"
       :class="{ 'bg-gray-900 text-white': isSelected }"
+      :disabled="disabled"
       @click="context.value.value = props.value"
       @focus="
         (event: FocusEvent) => {
@@ -27,9 +28,8 @@ const isSelected = computed(() => context.value.value === props.value);
           }
         }
       "
-      :disabled="disabled"
     >
-      <slot></slot>
+      <slot />
     </button>
   </RovingFocusItem>
 </template>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-import { ref } from "vue";
-import { TooltipArrow, TooltipContent, TooltipRoot, TooltipTrigger } from "..";
+import { Icon } from '@iconify/vue'
+import { ref } from 'vue'
+import { TooltipArrow, TooltipContent, TooltipRoot, TooltipTrigger } from '..'
 
-const toggleState = ref(false);
+const toggleState = ref(false)
 </script>
 
 <template>

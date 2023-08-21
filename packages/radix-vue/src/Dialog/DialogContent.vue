@@ -1,24 +1,25 @@
 <script setup lang="ts">
-import DialogContentModal from "./DialogContentModal.vue";
-import DialogContentNonModal from "./DialogContentNonModal.vue";
+import { inject } from 'vue'
+import DialogContentModal from './DialogContentModal.vue'
+import DialogContentNonModal from './DialogContentNonModal.vue'
 import {
-  type DialogContentImplProps,
   type DialogContentImplEmits,
-} from "./DialogContentImpl.vue";
-import { inject } from "vue";
-import { DIALOG_INJECTION_KEY } from "./DialogRoot.vue";
-import { Presence } from "@/Presence";
-import { useEmitAsProps } from "@/shared";
+  type DialogContentImplProps,
+} from './DialogContentImpl.vue'
+import { DIALOG_INJECTION_KEY } from './DialogRoot.vue'
+import { Presence } from '@/Presence'
+import { useEmitAsProps } from '@/shared'
 
-const context = inject(DIALOG_INJECTION_KEY);
+const props = defineProps<DialogContentProps>()
+
+const emits = defineEmits<DialogContentEmits>()
+
+const context = inject(DIALOG_INJECTION_KEY)
 
 export interface DialogContentProps extends DialogContentImplProps {}
-export type DialogContentEmits = DialogContentImplEmits;
+export type DialogContentEmits = DialogContentImplEmits
 
-const props = defineProps<DialogContentProps>();
-const emits = defineEmits<DialogContentEmits>();
-
-const emitsAsProps = useEmitAsProps(emits);
+const emitsAsProps = useEmitAsProps(emits)
 </script>
 
 <template>
@@ -28,13 +29,13 @@ const emitsAsProps = useEmitAsProps(emits);
       v-bind="{ ...props, ...emitsAsProps, ...$attrs }"
       @open-auto-focus="emits('openAutoFocus', $event)"
     >
-      <slot></slot>
+      <slot />
     </DialogContentModal>
     <DialogContentNonModal
-      v-bind="{ ...props, ...emitsAsProps, ...$attrs }"
       v-else
+      v-bind="{ ...props, ...emitsAsProps, ...$attrs }"
     >
-      <slot></slot>
+      <slot />
     </DialogContentNonModal>
   </Presence>
 </template>

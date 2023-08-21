@@ -1,20 +1,18 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { MenuSeparator, MenuCheckboxItem, MenuItemIndicator } from "..";
-import MenuWithAnchor from "./_MenuWithAnchor.vue";
-import TickIcon from "./_TickIcon.vue";
+import { ref } from 'vue'
+import { MenuCheckboxItem, MenuItemIndicator, MenuSeparator } from '..'
+import MenuWithAnchor from './_MenuWithAnchor.vue'
+import TickIcon from './_TickIcon.vue'
 
-const options = ["Crows", "Ravens", "Magpies", "Jackdaws"];
+const options = ['Crows', 'Ravens', 'Magpies', 'Jackdaws']
 
-const selection = ref<string[]>([]);
+const selection = ref<string[]>([])
 
-const handleSelectAll = () => {
-  if (selection.value.length === options.length) {
-    selection.value = [];
-  } else {
-    selection.value = options;
-  }
-};
+function handleSelectAll() {
+  if (selection.value.length === options.length)
+    selection.value = []
+  else selection.value = options
+}
 </script>
 
 <template>
@@ -31,31 +29,30 @@ const handleSelectAll = () => {
             selection.length === options.length
               ? true
               : selection.length
-              ? 'indeterminate'
-              : false
+                ? 'indeterminate'
+                : false
           "
           @update:checked="handleSelectAll"
         >
           Select All
           <MenuItemIndicator>
-            <TickIcon v-if="selection.length === options.length"></TickIcon>
+            <TickIcon v-if="selection.length === options.length" />
           </MenuItemIndicator>
         </MenuCheckboxItem>
 
-        <MenuSeparator
-          class="h-[1px] my-[5px] mx-[10px] bg-gray-200"
-        ></MenuSeparator>
+        <MenuSeparator class="h-[1px] my-[5px] mx-[10px] bg-gray-200" />
 
         <MenuCheckboxItem
-          class="flex items-center justify-between leading-[1] cursor-default select-none whitespace-nowrap h-[25px] px-[10px] text-black rounded-[3px] outline-none data-[highlighted]:bg-black data-[highlighted]:text-white data-[disabled]:text-gray-100"
           v-for="(option, index) in options"
           :key="index"
+          class="flex items-center justify-between leading-[1] cursor-default select-none whitespace-nowrap h-[25px] px-[10px] text-black rounded-[3px] outline-none data-[highlighted]:bg-black data-[highlighted]:text-white data-[disabled]:text-gray-100"
           :checked="selection.includes(option)"
           @update:checked="
             () => {
               if (selection.includes(option)) {
                 selection = selection.filter((el) => el !== option);
-              } else {
+              }
+              else {
                 selection = selection.concat(option);
               }
             }
@@ -64,7 +61,7 @@ const handleSelectAll = () => {
           {{ option }}
 
           <MenuItemIndicator>
-            <TickIcon></TickIcon>
+            <TickIcon />
           </MenuItemIndicator>
         </MenuCheckboxItem>
       </MenuWithAnchor>

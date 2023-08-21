@@ -1,22 +1,23 @@
 <script setup lang="ts">
-import { ref, watchEffect } from "vue";
-import { Presence } from "../";
-import Animation from "./_Animation.vue";
-import Toggle from "./_Toggle.vue";
+import { ref, watchEffect } from 'vue'
+import { Presence } from '../'
+import Animation from './_Animation.vue'
+import Toggle from './_Toggle.vue'
 
-const node = ref<HTMLElement>();
-const timerRef = ref(0);
-const open = ref(false);
-const animate = ref(false);
+const node = ref<HTMLElement>()
+const timerRef = ref(0)
+const open = ref(false)
+const animate = ref(false)
 
 watchEffect(() => {
   if (open.value) {
-    timerRef.value = window.setTimeout(() => (animate.value = true), 150);
-  } else {
-    animate.value = false;
-    window.clearTimeout(timerRef.value);
+    timerRef.value = window.setTimeout(() => (animate.value = true), 150)
   }
-});
+  else {
+    animate.value = false
+    window.clearTimeout(timerRef.value)
+  }
+})
 </script>
 
 <template>
@@ -27,26 +28,25 @@ watchEffect(() => {
     auto-props-disabled
   >
     <Variant title="With Mount Animation">
-      <Animation class="animate-fadeIn"></Animation>
+      <Animation class="animate-fadeIn" />
     </Variant>
 
     <Variant title="With Unmount Animation">
-      <Animation class="data-[state=closed]:animate-fadeOut"></Animation>
+      <Animation class="data-[state=closed]:animate-fadeOut" />
     </Variant>
 
     <Variant title="With Multiple Animation">
-      <Animation class="multipleMountAnimationsClass"></Animation>
+      <Animation class="multipleMountAnimationsClass" />
     </Variant>
 
     <Variant title="With Open & Close Animation">
       <Animation
         class="data-[state=open]:animate-fadeIn data-[state=closed]:animate-fadeOut"
-      >
-      </Animation>
+      />
     </Variant>
 
     <Variant title="With Mutliple Open & Close Animation">
-      <Animation class="multipleOpenAndCloseAnimationsClass"> </Animation>
+      <Animation class="multipleOpenAndCloseAnimationsClass" />
     </Variant>
 
     <Variant title="With Deferred Mount Animation">
@@ -55,9 +55,9 @@ watchEffect(() => {
           Deferred animation should unmount correctly when toggled. Content will
           flash briefly while we wait for animation to be applied.
         </p>
-        <Toggle :node="node" v-model:open="open" />
+        <Toggle v-model:open="open" :node="node" />
         <Presence :present="open">
-          <div :class="animate ? 'animate-fadeIn' : undefined" ref="node">
+          <div ref="node" :class="animate ? 'animate-fadeIn' : undefined">
             Content
           </div>
         </Presence>

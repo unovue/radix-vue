@@ -116,7 +116,7 @@ provide<SliderProvideValue>(SLIDER_INJECTION_KEY, {
   >
     <slot />
     <input
-      v-for="value in modelValue?.values"
+      v-for="value in modelValue"
       :key="value"
       style="display: none"
       :value="props.modelValue"

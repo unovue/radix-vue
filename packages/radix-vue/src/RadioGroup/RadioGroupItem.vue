@@ -88,12 +88,12 @@ function handleFocus() {
     type="radio"
     aria-hidden="true"
     tabindex="-1"
-    :defaultValue="checked"
+    :default-value="checked"
     :required="required"
     :checked="checked"
     :disabled="disabled"
     :style=" {
-      transform: 'translateX(-100%',
+      transform: 'translateX(-100%)',
       position: 'absolute',
       pointerEvents: 'none',
       opacity: '0',

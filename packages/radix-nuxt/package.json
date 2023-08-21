@@ -32,7 +32,7 @@
   "dependencies": {
     "@nuxt/kit": "npm:@nuxt/kit@latest",
     "@nuxt/schema": "^3.6.5",
-    "radix-vue": "file:../radix-vue",
+    "radix-vue": "link:../radix-vue",
     "unbuild": "^0.8.11"
   }
 }

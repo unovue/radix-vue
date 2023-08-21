@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-import { reactive, ref } from "vue";
+import { Icon } from '@iconify/vue'
+import { reactive, ref } from 'vue'
 import {
-  NavigationMenuLink,
   NavigationMenuContent,
   NavigationMenuItem,
+  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuRoot,
   NavigationMenuTrigger,
-} from "../";
-import LinkGroup from "./_LinkGroup.vue";
-import StoryFrame from "./_StoryFrame.vue";
+} from '../'
+import LinkGroup from './_LinkGroup.vue'
+import StoryFrame from './_StoryFrame.vue'
 
-const currentTrigger = ref("");
+const currentTrigger = ref('')
 const state = reactive({
   delayDuration: 600,
   skipDelayDuration: 1000,
-});
+})
 </script>
 
 <template>
@@ -56,7 +56,7 @@ const state = reactive({
                     'Aliquam porttitor',
                     'Pellentesque',
                   ]"
-                ></LinkGroup>
+                />
               </NavigationMenuContent>
             </NavigationMenuItem>
 
@@ -80,7 +80,7 @@ const state = reactive({
                     'Aliquam porttitor',
                     'Pellentesque',
                   ]"
-                ></LinkGroup>
+                />
               </NavigationMenuContent>
             </NavigationMenuItem>
 
@@ -98,9 +98,7 @@ const state = reactive({
               <NavigationMenuContent
                 class="absolute top-10 left-0 bg-white rounded-xl w-full sm:w-auto"
               >
-                <LinkGroup
-                  :items="['Aliquam porttitor', 'Pellentesque']"
-                ></LinkGroup>
+                <LinkGroup :items="['Aliquam porttitor', 'Pellentesque']" />
               </NavigationMenuContent>
             </NavigationMenuItem>
 
@@ -117,14 +115,11 @@ const state = reactive({
       </StoryFrame>
 
       <template #controls>
-        <HstNumber
-          v-model="state.delayDuration"
-          title="Delay Duration"
-        ></HstNumber>
+        <HstNumber v-model="state.delayDuration" title="Delay Duration" />
         <HstNumber
           v-model="state.skipDelayDuration"
           title="Skip Delay Duration"
-        ></HstNumber>
+        />
       </template>
     </Variant>
   </Story>

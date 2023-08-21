@@ -1,1 +1,1 @@
-export { default as FocusGuards } from "./FocusGuards.vue";
+export { default as FocusGuards } from './FocusGuards.vue'

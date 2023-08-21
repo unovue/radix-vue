@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-import { ref } from "vue";
+import { Icon } from '@iconify/vue'
+import { ref } from 'vue'
 import {
   ContextMenuArrow,
   ContextMenuCheckboxItem,
@@ -17,14 +17,14 @@ import {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
-} from "./";
+} from './'
 
-const checkboxOne = ref(false);
-const checkboxTwo = ref(false);
-const person = ref("pedro");
+const checkboxOne = ref(false)
+const checkboxTwo = ref(false)
+const person = ref('pedro')
 
 function handleClick() {
-  alert("hello!");
+  alert('hello!')
 }
 </script>
 
@@ -280,8 +280,8 @@ function handleClick() {
             <ContextMenuSeparator class="h-[1px] bg-violet6 m-[5px]" />
             <ContextMenuCheckboxItem
               v-model:checked="checkboxOne"
-              @select.prevent
               class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+              @select.prevent
             >
               <ContextMenuItemIndicator
                 class="absolute left-0 w-[25px] inline-flex items-center justify-center"
@@ -297,8 +297,8 @@ function handleClick() {
             </ContextMenuCheckboxItem>
             <ContextMenuCheckboxItem
               v-model:checked="checkboxTwo"
-              @select.prevent
               class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+              @select.prevent
             >
               <ContextMenuItemIndicator
                 class="absolute left-0 w-[25px] inline-flex items-center justify-center"

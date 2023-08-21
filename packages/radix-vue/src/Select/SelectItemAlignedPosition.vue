@@ -1,208 +1,219 @@
 <script setup lang="ts">
+import { inject, onMounted, provide, ref } from 'vue'
+import { clamp } from '@vueuse/shared'
+import { SELECT_INJECTION_KEY } from './SelectRoot.vue'
+import { SELECT_CONTENT_INJECTION_KEY } from './SelectContentImpl.vue'
+import { CONTENT_MARGIN } from './utils'
+import { SELECT_VIEWPORT_INJECTION_KEY } from './SelectViewport.vue'
+import { useNewCollection } from '@/shared'
 import {
   Primitive,
-  usePrimitiveElement,
   type PrimitiveProps,
-} from "@/Primitive";
-import { inject, onMounted, provide, ref } from "vue";
-import { SELECT_INJECTION_KEY } from "./SelectRoot.vue";
-import { SELECT_CONTENT_INJECTION_KEY } from "./SelectContentImpl.vue";
-import { useNewCollection } from "@/shared";
-import { CONTENT_MARGIN } from "./utils";
-import { clamp } from "@vueuse/shared";
-import { SELECT_VIEWPORT_INJECTION_KEY } from "./SelectViewport.vue";
+  usePrimitiveElement,
+} from '@/Primitive'
 
 export interface SelectItemAlignedPositionProps extends PrimitiveProps {}
 
-const props = defineProps<SelectItemAlignedPositionProps>();
+const props = defineProps<SelectItemAlignedPositionProps>()
 const emits = defineEmits<{
-  (e: "placed"): void;
-}>();
+  (e: 'placed'): void
+}>()
 
-const { injectCollection } = useNewCollection();
-const context = inject(SELECT_INJECTION_KEY);
-const contentContext = inject(SELECT_CONTENT_INJECTION_KEY);
-const collectionItems = injectCollection();
+const { injectCollection } = useNewCollection()
+const context = inject(SELECT_INJECTION_KEY)
+const contentContext = inject(SELECT_CONTENT_INJECTION_KEY)
+const collectionItems = injectCollection()
 
-const shouldExpandOnScrollRef = ref(false);
-const shouldRepositionRef = ref(true);
+const shouldExpandOnScrollRef = ref(false)
+const shouldRepositionRef = ref(true)
 
-const contentWrapperElement = ref<HTMLElement>();
-const { primitiveElement, currentElement: contentElement } =
-  usePrimitiveElement();
+const contentWrapperElement = ref<HTMLElement>()
+const { primitiveElement, currentElement: contentElement }
+  = usePrimitiveElement()
 
-const { viewport, selectedItem, selectedItemText, focusSelectedItem } =
-  contentContext!;
+const { viewport, selectedItem, selectedItemText, focusSelectedItem }
+  = contentContext!
 
-const position = () => {
+function position() {
   if (
-    context &&
-    context.triggerElement.value &&
-    context.valueElement.value &&
-    contentWrapperElement.value &&
-    contentElement.value &&
-    viewport?.value &&
-    selectedItem?.value &&
-    selectedItemText?.value
+    context
+    && context.triggerElement.value
+    && context.valueElement.value
+    && contentWrapperElement.value
+    && contentElement.value
+    && viewport?.value
+    && selectedItem?.value
+    && selectedItemText?.value
   ) {
-    const triggerRect = context.triggerElement.value.getBoundingClientRect();
+    const triggerRect = context.triggerElement.value.getBoundingClientRect()
 
     // -----------------------------------------------------------------------------------------
     //  Horizontal positioning
     // -----------------------------------------------------------------------------------------
-    const contentRect = contentElement.value.getBoundingClientRect();
-    const valueNodeRect = context.valueElement.value.getBoundingClientRect();
-    const itemTextRect = selectedItemText.value.getBoundingClientRect();
+    const contentRect = contentElement.value.getBoundingClientRect()
+    const valueNodeRect = context.valueElement.value.getBoundingClientRect()
+    const itemTextRect = selectedItemText.value.getBoundingClientRect()
 
-    if (context.dir.value !== "rtl") {
-      const itemTextOffset = itemTextRect.left - contentRect.left;
-      const left = valueNodeRect.left - itemTextOffset;
-      const leftDelta = triggerRect.left - left;
-      const minContentWidth = triggerRect.width + leftDelta;
-      const contentWidth = Math.max(minContentWidth, contentRect.width);
-      const rightEdge = window.innerWidth - CONTENT_MARGIN;
-      const clampedLeft = clamp(left, CONTENT_MARGIN, rightEdge - contentWidth);
+    if (context.dir.value !== 'rtl') {
+      const itemTextOffset = itemTextRect.left - contentRect.left
+      const left = valueNodeRect.left - itemTextOffset
+      const leftDelta = triggerRect.left - left
+      const minContentWidth = triggerRect.width + leftDelta
+      const contentWidth = Math.max(minContentWidth, contentRect.width)
+      const rightEdge = window.innerWidth - CONTENT_MARGIN
+      const clampedLeft = clamp(left, CONTENT_MARGIN, rightEdge - contentWidth)
 
-      contentWrapperElement.value.style.minWidth = minContentWidth + "px";
-      contentWrapperElement.value.style.left = clampedLeft + "px";
-    } else {
-      const itemTextOffset = contentRect.right - itemTextRect.right;
-      const right = window.innerWidth - valueNodeRect.right - itemTextOffset;
-      const rightDelta = window.innerWidth - triggerRect.right - right;
-      const minContentWidth = triggerRect.width + rightDelta;
-      const contentWidth = Math.max(minContentWidth, contentRect.width);
-      const leftEdge = window.innerWidth - CONTENT_MARGIN;
+      contentWrapperElement.value.style.minWidth = `${minContentWidth}px`
+      contentWrapperElement.value.style.left = `${clampedLeft}px`
+    }
+    else {
+      const itemTextOffset = contentRect.right - itemTextRect.right
+      const right = window.innerWidth - valueNodeRect.right - itemTextOffset
+      const rightDelta = window.innerWidth - triggerRect.right - right
+      const minContentWidth = triggerRect.width + rightDelta
+      const contentWidth = Math.max(minContentWidth, contentRect.width)
+      const leftEdge = window.innerWidth - CONTENT_MARGIN
       const clampedRight = clamp(
         right,
         CONTENT_MARGIN,
-        leftEdge - contentWidth
-      );
+        leftEdge - contentWidth,
+      )
 
-      contentWrapperElement.value.style.minWidth = minContentWidth + "px";
-      contentWrapperElement.value.style.right = clampedRight + "px";
+      contentWrapperElement.value.style.minWidth = `${minContentWidth}px`
+      contentWrapperElement.value.style.right = `${clampedRight}px`
     }
 
     // -----------------------------------------------------------------------------------------
     // Vertical positioning
     // -----------------------------------------------------------------------------------------
-    const items = collectionItems.value;
-    const availableHeight = window.innerHeight - CONTENT_MARGIN * 2;
-    const itemsHeight = viewport.value.scrollHeight;
+    const items = collectionItems.value
+    const availableHeight = window.innerHeight - CONTENT_MARGIN * 2
+    const itemsHeight = viewport.value.scrollHeight
 
-    const contentStyles = window.getComputedStyle(contentElement.value);
-    const contentBorderTopWidth = parseInt(contentStyles.borderTopWidth, 10);
-    const contentPaddingTop = parseInt(contentStyles.paddingTop, 10);
-    const contentBorderBottomWidth = parseInt(
+    const contentStyles = window.getComputedStyle(contentElement.value)
+    const contentBorderTopWidth = Number.parseInt(
+      contentStyles.borderTopWidth,
+      10,
+    )
+    const contentPaddingTop = Number.parseInt(contentStyles.paddingTop, 10)
+    const contentBorderBottomWidth = Number.parseInt(
       contentStyles.borderBottomWidth,
-      10
-    );
-    const contentPaddingBottom = parseInt(contentStyles.paddingBottom, 10);
-    const fullContentHeight = contentBorderTopWidth + contentPaddingTop + itemsHeight + contentPaddingBottom + contentBorderBottomWidth; // prettier-ignore
+      10,
+    )
+    const contentPaddingBottom = Number.parseInt(
+      contentStyles.paddingBottom,
+      10,
+    )
+    const fullContentHeight = contentBorderTopWidth + contentPaddingTop + itemsHeight + contentPaddingBottom + contentBorderBottomWidth // prettier-ignore
     const minContentHeight = Math.min(
       selectedItem.value.offsetHeight * 5,
-      fullContentHeight
-    );
+      fullContentHeight,
+    )
 
-    const viewportStyles = window.getComputedStyle(viewport.value);
-    const viewportPaddingTop = parseInt(viewportStyles.paddingTop, 10);
-    const viewportPaddingBottom = parseInt(viewportStyles.paddingBottom, 10);
+    const viewportStyles = window.getComputedStyle(viewport.value)
+    const viewportPaddingTop = Number.parseInt(viewportStyles.paddingTop, 10)
+    const viewportPaddingBottom = Number.parseInt(
+      viewportStyles.paddingBottom,
+      10,
+    )
 
-    const topEdgeToTriggerMiddle =
-      triggerRect.top + triggerRect.height / 2 - CONTENT_MARGIN;
-    const triggerMiddleToBottomEdge = availableHeight - topEdgeToTriggerMiddle;
+    const topEdgeToTriggerMiddle
+      = triggerRect.top + triggerRect.height / 2 - CONTENT_MARGIN
+    const triggerMiddleToBottomEdge = availableHeight - topEdgeToTriggerMiddle
 
-    const selectedItemHalfHeight = selectedItem.value.offsetHeight / 2;
-    const itemOffsetMiddle =
-      selectedItem.value.offsetTop + selectedItemHalfHeight;
-    const contentTopToItemMiddle =
-      contentBorderTopWidth + contentPaddingTop + itemOffsetMiddle;
-    const itemMiddleToContentBottom =
-      fullContentHeight - contentTopToItemMiddle;
+    const selectedItemHalfHeight = selectedItem.value.offsetHeight / 2
+    const itemOffsetMiddle
+      = selectedItem.value.offsetTop + selectedItemHalfHeight
+    const contentTopToItemMiddle
+      = contentBorderTopWidth + contentPaddingTop + itemOffsetMiddle
+    const itemMiddleToContentBottom
+      = fullContentHeight - contentTopToItemMiddle
 
-    const willAlignWithoutTopOverflow =
-      contentTopToItemMiddle <= topEdgeToTriggerMiddle;
+    const willAlignWithoutTopOverflow
+      = contentTopToItemMiddle <= topEdgeToTriggerMiddle
 
     if (willAlignWithoutTopOverflow) {
-      const isLastItem = selectedItem.value === items[items.length - 1];
-      contentWrapperElement.value.style.bottom = 0 + "px";
-      const viewportOffsetBottom =
-        contentElement.value.clientHeight -
-        viewport.value.offsetTop -
-        viewport.value.offsetHeight;
+      const isLastItem = selectedItem.value === items[items.length - 1]
+      contentWrapperElement.value.style.bottom = `${0}px`
+      const viewportOffsetBottom
+        = contentElement.value.clientHeight
+        - viewport.value.offsetTop
+        - viewport.value.offsetHeight
       const clampedTriggerMiddleToBottomEdge = Math.max(
         triggerMiddleToBottomEdge,
-        selectedItemHalfHeight +
+        selectedItemHalfHeight
           // viewport might have padding bottom, include it to avoid a scrollable viewport
-          (isLastItem ? viewportPaddingBottom : 0) +
-          viewportOffsetBottom +
-          contentBorderBottomWidth
-      );
-      const height = contentTopToItemMiddle + clampedTriggerMiddleToBottomEdge;
-      contentWrapperElement.value.style.height = height + "px";
-    } else {
-      const isFirstItem = selectedItem.value === items[0];
-      contentWrapperElement.value.style.top = 0 + "px";
+          + (isLastItem ? viewportPaddingBottom : 0)
+          + viewportOffsetBottom
+          + contentBorderBottomWidth,
+      )
+      const height = contentTopToItemMiddle + clampedTriggerMiddleToBottomEdge
+      contentWrapperElement.value.style.height = `${height}px`
+    }
+    else {
+      const isFirstItem = selectedItem.value === items[0]
+      contentWrapperElement.value.style.top = `${0}px`
       const clampedTopEdgeToTriggerMiddle = Math.max(
         topEdgeToTriggerMiddle,
-        contentBorderTopWidth +
-          viewport.value.offsetTop +
+        contentBorderTopWidth
+          + viewport.value.offsetTop
           // viewport might have padding top, include it to avoid a scrollable viewport
-          (isFirstItem ? viewportPaddingTop : 0) +
-          selectedItemHalfHeight
-      );
-      const height = clampedTopEdgeToTriggerMiddle + itemMiddleToContentBottom;
-      contentWrapperElement.value.style.height = height + "px";
-      viewport.value.scrollTop =
-        contentTopToItemMiddle -
-        topEdgeToTriggerMiddle +
-        viewport.value.offsetTop;
+          + (isFirstItem ? viewportPaddingTop : 0)
+          + selectedItemHalfHeight,
+      )
+      const height = clampedTopEdgeToTriggerMiddle + itemMiddleToContentBottom
+      contentWrapperElement.value.style.height = `${height}px`
+      viewport.value.scrollTop
+        = contentTopToItemMiddle
+        - topEdgeToTriggerMiddle
+        + viewport.value.offsetTop
     }
 
-    contentWrapperElement.value.style.margin = `${CONTENT_MARGIN}px 0`;
-    contentWrapperElement.value.style.minHeight = minContentHeight + "px";
-    contentWrapperElement.value.style.maxHeight = availableHeight + "px";
+    contentWrapperElement.value.style.margin = `${CONTENT_MARGIN}px 0`
+    contentWrapperElement.value.style.minHeight = `${minContentHeight}px`
+    contentWrapperElement.value.style.maxHeight = `${availableHeight}px`
     // -----------------------------------------------------------------------------------------
 
-    emits("placed");
+    emits('placed')
 
     // we don't want the initial scroll position adjustment to trigger "expand on scroll"
     // so we explicitly turn it on only after they've registered.
-    requestAnimationFrame(() => (shouldExpandOnScrollRef.value = true));
+    requestAnimationFrame(() => (shouldExpandOnScrollRef.value = true))
   }
-};
+}
 
 // copy z-index from content to wrapper
-const contentZIndex = ref("");
+const contentZIndex = ref('')
 
 onMounted(() => {
-  position();
+  position()
   if (contentElement.value)
-    contentZIndex.value = window.getComputedStyle(contentElement.value).zIndex;
-});
+    contentZIndex.value = window.getComputedStyle(contentElement.value).zIndex
+})
 
 // When the viewport becomes scrollable at the top, the scroll up button will mount.
 // Because it is part of the normal flow, it will push down the viewport, thus throwing our
 // trigger => selectedItem alignment off by the amount the viewport was pushed down.
 // We wait for this to happen and then re-run the positining logic one more time to account for it.
-const handleScrollButtonChange = (node: HTMLElement | undefined) => {
+function handleScrollButtonChange(node: HTMLElement | undefined) {
   if (node && shouldRepositionRef.value === true) {
-    position();
-    focusSelectedItem?.();
-    shouldRepositionRef.value = false;
+    position()
+    focusSelectedItem?.()
+    shouldRepositionRef.value = false
   }
-};
+}
 
 provide(SELECT_VIEWPORT_INJECTION_KEY, {
   contentWrapper: contentWrapperElement,
   shouldExpandOnScrollRef,
   onScrollButtonChange: handleScrollButtonChange,
-});
+})
 </script>
 
 <script lang="ts">
 export default {
   inheritAttrs: false,
-};
+}
 </script>
 
 <template>
@@ -226,7 +237,7 @@ export default {
       }"
       v-bind="{ ...$attrs, ...props }"
     >
-      <slot></slot>
+      <slot />
     </Primitive>
   </div>
 </template>

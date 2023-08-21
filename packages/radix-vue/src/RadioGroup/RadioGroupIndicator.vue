@@ -3,15 +3,15 @@ export interface RadioGroupIndicatorProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { Primitive, type PrimitiveProps } from "@/Primitive";
-import { inject } from "vue";
-import { RADIO_GROUP_ITEM_INJECTION_KEY } from "./RadioGroupItem.vue";
+import { inject } from 'vue'
+import { RADIO_GROUP_ITEM_INJECTION_KEY } from './RadioGroupItem.vue'
+import { Primitive, type PrimitiveProps } from '@/Primitive'
 
 withDefaults(defineProps<RadioGroupIndicatorProps>(), {
-  as: "span",
-});
+  as: 'span',
+})
 
-const itemContext = inject(RADIO_GROUP_ITEM_INJECTION_KEY);
+const itemContext = inject(RADIO_GROUP_ITEM_INJECTION_KEY)
 </script>
 
 <template>

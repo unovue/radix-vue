@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from "./";
+import { ref } from 'vue'
+import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from './'
 
-const sliderValue = ref(50);
+const sliderValue = ref(50)
 </script>
 
 <template>
   <Story title="Slider" :layout="{ type: 'single', iframe: true }">
     <Variant title="default">
       <SliderRoot
-        name="slider"
         v-model="sliderValue"
+        name="slider"
         class="relative flex items-center select-none touch-none w-[200px] h-5"
         :max="100"
         :step="1"

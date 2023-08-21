@@ -1,25 +1,27 @@
 <script setup lang="ts">
-import { CollapsibleTrigger } from "@/Collapsible";
-import { type PrimitiveProps } from "@/Primitive";
-import { inject } from "vue";
-import { ACCORDION_ITEM_INJECTION_KEY } from "./AccordionItem.vue";
-import { ACCORDION_INJECTION_KEY } from "./AccordionRoot.vue";
+import { inject } from 'vue'
+import { ACCORDION_ITEM_INJECTION_KEY } from './AccordionItem.vue'
+import { ACCORDION_INJECTION_KEY } from './AccordionRoot.vue'
+import { type PrimitiveProps } from '@/Primitive'
+import { CollapsibleTrigger } from '@/Collapsible'
 
 export interface AccordionTriggerProps extends PrimitiveProps {}
 
-const props = defineProps<AccordionTriggerProps>();
+const props = defineProps<AccordionTriggerProps>()
 
-const injectedRoot = inject(ACCORDION_INJECTION_KEY);
-const injectedItem = inject(ACCORDION_ITEM_INJECTION_KEY);
+const injectedRoot = inject(ACCORDION_INJECTION_KEY)
+const injectedItem = inject(ACCORDION_ITEM_INJECTION_KEY)
 
 function changeItem() {
-  if (injectedItem?.disabled.value) return;
-  injectedItem && injectedRoot?.changeModelValue(injectedItem.value.value);
+  if (injectedItem?.disabled.value)
+    return
+  injectedItem && injectedRoot?.changeModelValue(injectedItem.value.value)
 }
 </script>
 
 <template>
   <CollapsibleTrigger
+    :id="injectedItem?.triggerId"
     :ref="injectedItem?.primitiveElement"
     data-radix-vue-collection-item
     :as="props.as"
@@ -32,7 +34,6 @@ function changeItem() {
     :data-state="injectedItem?.dataState.value"
     :disabled="injectedItem?.disabled?.value"
     @click="changeItem"
-    :id="injectedItem?.triggerId"
   >
     <slot />
   </CollapsibleTrigger>

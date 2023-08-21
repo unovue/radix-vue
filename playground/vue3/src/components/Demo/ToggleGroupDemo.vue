@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ToggleGroupItem, ToggleGroupRoot } from '../../../../../packages/radix-vue/src'
 import { Icon } from '@iconify/vue'
 import { ref } from 'vue'
+import { ToggleGroupItem, ToggleGroupRoot } from '../../../../../packages/radix-vue/src'
 
 const toggleStateSingle = ref()
 const toggleStateMultiple = ref(['italic'])

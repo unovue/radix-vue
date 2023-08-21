@@ -2,12 +2,12 @@ export {
   default as CollapsibleRoot,
   type CollapsibleRootProps,
   type CollapsibleRootEmits,
-} from "./CollapsibleRoot.vue";
+} from './CollapsibleRoot.vue'
 export {
   default as CollapsibleTrigger,
   type CollapsibleTriggerProps,
-} from "./CollapsibleTrigger.vue";
+} from './CollapsibleTrigger.vue'
 export {
   default as CollapsibleContent,
   type CollapsibleContentProps,
-} from "./CollapsibleContent.vue";
+} from './CollapsibleContent.vue'

@@ -1,27 +1,26 @@
 <script setup lang="ts">
-import { useEmitAsProps } from "@/shared";
-import { inject, ref } from "vue";
+import { inject, ref } from 'vue'
 import PopoverContentImpl, {
-  type PopoverContentImplProps,
   type PopoverContentImplEmits,
-} from "./PopoverContentImpl.vue";
-import { POPOVER_INJECTION_KEY } from "./PopoverRoot.vue";
+  type PopoverContentImplProps,
+} from './PopoverContentImpl.vue'
+import { POPOVER_INJECTION_KEY } from './PopoverRoot.vue'
+import { useEmitAsProps } from '@/shared'
 
-const context = inject(POPOVER_INJECTION_KEY);
-const hasInteractedOutsideRef = ref(false);
-const hasPointerDownOutsideRef = ref(false);
+const props = defineProps<PopoverContentImplProps>()
+const emits = defineEmits<PopoverContentImplEmits>()
+const context = inject(POPOVER_INJECTION_KEY)
+const hasInteractedOutsideRef = ref(false)
+const hasPointerDownOutsideRef = ref(false)
 
-const props = defineProps<PopoverContentImplProps>();
-const emits = defineEmits<PopoverContentImplEmits>();
-
-const emitsAsProps = useEmitAsProps(emits);
+const emitsAsProps = useEmitAsProps(emits)
 </script>
 
 <template>
   <PopoverContentImpl
     v-bind="{ ...props, ...emitsAsProps }"
     :trap-focus="false"
-    :disableOutsidePointerEvents="false"
+    :disable-outside-pointer-events="false"
     @close-auto-focus="
       (event) => {
         emits('closeAutoFocus', event);
@@ -59,14 +58,14 @@ const emitsAsProps = useEmitAsProps(emits);
         // focus outside event on the container, we ignore any focus outside event when we've
         // already had a pointer down outside event.
         if (
-          event.detail.originalEvent.type === 'focusin' &&
-          hasPointerDownOutsideRef
+          event.detail.originalEvent.type === 'focusin'
+          && hasPointerDownOutsideRef
         ) {
           event.preventDefault();
         }
       }
     "
   >
-    <slot></slot>
+    <slot />
   </PopoverContentImpl>
 </template>

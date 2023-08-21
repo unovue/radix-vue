@@ -1,21 +1,20 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import Presence from "../Presence.vue";
-import Toggle from "./_Toggle.vue";
-
-const open = ref(false);
-const node = ref<HTMLElement>();
+import { ref } from 'vue'
+import Presence from '../Presence.vue'
+import Toggle from './_Toggle.vue'
 
 defineOptions({
   inheritAttrs: false,
-});
+})
+const open = ref(false)
+const node = ref<HTMLElement>()
 </script>
 
 <template>
   <div class="h-64">
-    <Toggle :node="node" v-model:open="open"></Toggle>
+    <Toggle v-model:open="open" :node="node" />
     <Presence :present="open">
-      <div v-bind="$attrs" :data-state="open ? 'open' : 'closed'" ref="node">
+      <div v-bind="$attrs" ref="node" :data-state="open ? 'open' : 'closed'">
         Content
       </div>
     </Presence>

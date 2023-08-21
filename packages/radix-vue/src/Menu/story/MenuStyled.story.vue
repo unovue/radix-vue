@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { MenuItem, MenuSeparator } from "..";
-import MenuWithAnchor from "./_MenuWithAnchor.vue";
+import { MenuItem, MenuSeparator } from '..'
+import MenuWithAnchor from './_MenuWithAnchor.vue'
 
-const handleSelect = (text: string) => {
-  console.log({ text });
-  window.alert(text);
-};
+function handleSelect(text: string) {
+  console.log({ text })
+  window.alert(text)
+}
 </script>
 
 <template>

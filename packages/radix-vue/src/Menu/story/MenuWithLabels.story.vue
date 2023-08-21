@@ -1,53 +1,53 @@
 <script setup lang="ts">
-import { MenuItem, MenuGroup, MenuLabel, MenuSeparator } from "..";
-import MenuWithAnchor from "./_MenuWithAnchor.vue";
+import { MenuGroup, MenuItem, MenuLabel, MenuSeparator } from '..'
+import MenuWithAnchor from './_MenuWithAnchor.vue'
 
-const handleSelect = (text: string) => {
-  console.log({ text });
+function handleSelect(text: string) {
+  console.log({ text })
   // window.alert(text);
-};
+}
 
 const foodGroups: Array<{
-  label?: string;
-  foods: Array<{ value: string; label: string; disabled?: boolean }>;
+  label?: string
+  foods: Array<{ value: string; label: string; disabled?: boolean }>
 }> = [
   {
-    label: "Fruits",
+    label: 'Fruits',
     foods: [
-      { value: "apple", label: "Apple" },
-      { value: "banana", label: "Banana" },
-      { value: "blueberry", label: "Blueberry" },
-      { value: "grapes", label: "Grapes" },
-      { value: "pineapple", label: "Pineapple" },
+      { value: 'apple', label: 'Apple' },
+      { value: 'banana', label: 'Banana' },
+      { value: 'blueberry', label: 'Blueberry' },
+      { value: 'grapes', label: 'Grapes' },
+      { value: 'pineapple', label: 'Pineapple' },
     ],
   },
   {
-    label: "Vegetables",
+    label: 'Vegetables',
     foods: [
-      { value: "aubergine", label: "Aubergine" },
-      { value: "broccoli", label: "Broccoli" },
-      { value: "carrot", label: "Carrot", disabled: true },
-      { value: "courgette", label: "Courgette" },
-      { value: "leek", label: "Leek" },
+      { value: 'aubergine', label: 'Aubergine' },
+      { value: 'broccoli', label: 'Broccoli' },
+      { value: 'carrot', label: 'Carrot', disabled: true },
+      { value: 'courgette', label: 'Courgette' },
+      { value: 'leek', label: 'Leek' },
     ],
   },
   {
-    label: "Meat",
+    label: 'Meat',
     foods: [
-      { value: "beef", label: "Beef" },
-      { value: "beef-with-sauce", label: "Beef with sauce" },
-      { value: "chicken", label: "Chicken" },
-      { value: "lamb", label: "Lamb" },
-      { value: "pork", label: "Pork" },
+      { value: 'beef', label: 'Beef' },
+      { value: 'beef-with-sauce', label: 'Beef with sauce' },
+      { value: 'chicken', label: 'Chicken' },
+      { value: 'lamb', label: 'Lamb' },
+      { value: 'pork', label: 'Pork' },
     ],
   },
   {
     foods: [
-      { value: "candies", label: "Candies" },
-      { value: "chocolates", label: "Chocolates" },
+      { value: 'candies', label: 'Candies' },
+      { value: 'chocolates', label: 'Chocolates' },
     ],
   },
-];
+]
 </script>
 
 <template>
@@ -60,10 +60,11 @@ const foodGroups: Array<{
       <MenuWithAnchor>
         <MenuGroup v-for="(foodGroup, index) in foodGroups" :key="index">
           <MenuLabel
-            class="flex items-center justify-between leading-[1] cursor-default select-none whitespace-nowrap h-[25px] px-[10px] text-black rounded-[3] text-gray-400 my-2"
             v-if="foodGroup.label"
-            >{{ foodGroup.label }}</MenuLabel
+            class="flex items-center justify-between leading-[1] cursor-default select-none whitespace-nowrap h-[25px] px-[10px] text-black rounded-[3] text-gray-400 my-2"
           >
+            {{ foodGroup.label }}
+          </MenuLabel>
           <MenuItem
             v-for="(food, index) in foodGroup.foods"
             :key="index"
@@ -72,7 +73,7 @@ const foodGroups: Array<{
           >
             {{ food.label }}
           </MenuItem>
-          <MenuSeparator v-if="index < foodGroups.length - 1"></MenuSeparator>
+          <MenuSeparator v-if="index < foodGroups.length - 1" />
         </MenuGroup>
       </MenuWithAnchor>
     </Variant>

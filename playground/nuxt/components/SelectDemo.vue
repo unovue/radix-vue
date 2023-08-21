@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
+import { Icon } from '@iconify/vue'
 
-const fruit = ref("Apple");
+const fruit = ref('Apple')
 
 function handleClick() {
-  alert("hello!");
+  alert('hello!')
 }
 
-const options = ["Apple", "Banana", "Blueberry", "Grapes", "Pineapple"];
-const vegetables = ["Aubergine", "Broccoli", "Carrot", "Courgette", "Leek"];
+const options = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
+const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
 </script>
 
 <template>
@@ -30,14 +30,16 @@ const vegetables = ["Aubergine", "Broccoli", "Carrot", "Courgette", "Leek"];
       <SelectContent
         class="min-w-[160px] bg-white overflow-hidden rounded shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
         :side-offset="5"
-        :position="'popper'"
+        position="popper"
       >
         <SelectScrollUpButton class="flex items-center justify-center h-[25px] bg-white text-violet11 cursor-default">
           <Icon icon="radix-icons:chevron-up" />
         </SelectScrollUpButton>
 
         <SelectViewport class="p-[5px]">
-          <SelectLabel class="px-[25px] text-xs leading-[25px] text-mauve11"> Fruits </SelectLabel>
+          <SelectLabel class="px-[25px] text-xs leading-[25px] text-mauve11">
+            Fruits
+          </SelectLabel>
           <SelectGroup>
             <SelectItem
               v-for="(option, index) in options"
@@ -54,7 +56,9 @@ const vegetables = ["Aubergine", "Broccoli", "Carrot", "Courgette", "Leek"];
             </SelectItem>
           </SelectGroup>
           <SelectSeparator class="h-[1px] bg-violet6 m-[5px]" />
-          <SelectLabel class="px-[25px] text-xs leading-[25px] text-mauve11"> Vegetables </SelectLabel>
+          <SelectLabel class="px-[25px] text-xs leading-[25px] text-mauve11">
+            Vegetables
+          </SelectLabel>
           <SelectGroup>
             <SelectItem
               v-for="(option, index) in vegetables"

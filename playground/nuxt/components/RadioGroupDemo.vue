@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const radioStateSingle = ref("default");
+const radioStateSingle = ref('default')
 </script>
 
 <template>

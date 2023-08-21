@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { PopperAnchor, type PopperAnchorProps } from "@/Popper";
-import { inject, onBeforeMount, onUnmounted } from "vue";
-import { POPOVER_INJECTION_KEY } from "./PopoverRoot.vue";
+import { inject, onBeforeMount, onUnmounted } from 'vue'
+import { POPOVER_INJECTION_KEY } from './PopoverRoot.vue'
+import { PopperAnchor, type PopperAnchorProps } from '@/Popper'
 
 export interface PopoverAnchorProps extends PopperAnchorProps {}
-const props = defineProps<PopoverAnchorProps>();
+const props = defineProps<PopoverAnchorProps>()
 
-const context = inject(POPOVER_INJECTION_KEY);
+const context = inject(POPOVER_INJECTION_KEY)
 
 onBeforeMount(() => {
-  context!.hasCustomAnchor.value = true;
-});
+  context!.hasCustomAnchor.value = true
+})
 onUnmounted(() => {
-  context!.hasCustomAnchor.value = false;
-});
+  context!.hasCustomAnchor.value = false
+})
 </script>
 
 <template>
   <PopperAnchor v-bind="props">
-    <slot></slot>
+    <slot />
   </PopperAnchor>
 </template>

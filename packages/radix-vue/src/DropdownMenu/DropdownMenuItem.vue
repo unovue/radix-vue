@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { MenuItem, type MenuItemProps, type MenuItemEmits } from "@/Menu";
-import { useEmitAsProps } from "@/shared";
+import { MenuItem, type MenuItemEmits, type MenuItemProps } from '@/Menu'
+import { useEmitAsProps } from '@/shared'
 
 export interface DropdownMenuItemProps extends MenuItemProps {}
-export type DropdownMenuItemEmits = MenuItemEmits;
+export type DropdownMenuItemEmits = MenuItemEmits
 
-const props = defineProps<DropdownMenuItemProps>();
-const emits = defineEmits<DropdownMenuItemEmits>();
+const props = defineProps<DropdownMenuItemProps>()
+const emits = defineEmits<DropdownMenuItemEmits>()
 
-const emitsAsProps = useEmitAsProps(emits);
+const emitsAsProps = useEmitAsProps(emits)
 </script>
 
 <template>
   <MenuItem v-bind="{ ...props, ...emitsAsProps }">
-    <slot></slot>
+    <slot />
   </MenuItem>
 </template>

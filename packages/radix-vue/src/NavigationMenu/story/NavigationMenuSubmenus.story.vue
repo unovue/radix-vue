@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-import { ref } from "vue";
+import { Icon } from '@iconify/vue'
+import { ref } from 'vue'
 import {
-  NavigationMenuLink,
-  NavigationMenuIndicator,
   NavigationMenuContent,
+  NavigationMenuIndicator,
   NavigationMenuItem,
+  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuRoot,
+  NavigationMenuSub,
   NavigationMenuTrigger,
   NavigationMenuViewport,
-  NavigationMenuSub,
-} from "../";
-import LinkGroup from "./_LinkGroup.vue";
-import StoryFrame from "./_StoryFrame.vue";
+} from '../'
+import LinkGroup from './_LinkGroup.vue'
+import StoryFrame from './_StoryFrame.vue'
 
-const currentTrigger = ref("");
+const currentTrigger = ref('')
 </script>
 
 <template>
@@ -75,7 +75,7 @@ const currentTrigger = ref("");
                             'Aliquam porttitor',
                             'Pellentesque',
                           ]"
-                        ></LinkGroup>
+                        />
                       </NavigationMenuContent>
                     </NavigationMenuItem>
 
@@ -99,7 +99,7 @@ const currentTrigger = ref("");
                             'Aliquam porttitor',
                             'Pellentesque',
                           ]"
-                        ></LinkGroup>
+                        />
                       </NavigationMenuContent>
                     </NavigationMenuItem>
 
@@ -119,7 +119,7 @@ const currentTrigger = ref("");
                       >
                         <LinkGroup
                           :items="['Aliquam porttitor', 'Pellentesque']"
-                        ></LinkGroup>
+                        />
                       </NavigationMenuContent>
                     </NavigationMenuItem>
 
@@ -153,7 +153,7 @@ const currentTrigger = ref("");
               >
                 <NavigationMenuSub
                   default-value="customers"
-                  :orientation="'vertical'"
+                  orientation="vertical"
                   class="w-full grid max-w-[800px] gap-4"
                   :style="{ 'grid-template-columns': '0.3fr 1fr' }"
                 >
@@ -184,7 +184,7 @@ const currentTrigger = ref("");
                             'Aliquam porttitor',
                             'Pellentesque',
                           ]"
-                        ></LinkGroup>
+                        />
                       </NavigationMenuContent>
                     </NavigationMenuItem>
 
@@ -208,7 +208,7 @@ const currentTrigger = ref("");
                             'Aliquam porttitor',
                             'Pellentesque',
                           ]"
-                        ></LinkGroup>
+                        />
                       </NavigationMenuContent>
                     </NavigationMenuItem>
 
@@ -228,7 +228,7 @@ const currentTrigger = ref("");
                       >
                         <LinkGroup
                           :items="['Aliquam porttitor', 'Pellentesque']"
-                        ></LinkGroup>
+                        />
                       </NavigationMenuContent>
                     </NavigationMenuItem>
 

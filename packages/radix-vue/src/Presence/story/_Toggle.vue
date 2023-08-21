@@ -2,18 +2,16 @@
 const props = defineProps({
   open: Boolean,
   node: HTMLElement,
-});
+})
 
-const emits = defineEmits(["update:open"]);
+const emits = defineEmits(['update:open'])
 
 function handleToggleVisibility() {
-  const node = props.node;
+  const node = props.node
   if (node) {
-    if (node.style.display === "none") {
-      node.style.display = "block";
-    } else {
-      node.style.display = "none";
-    }
+    if (node.style.display === 'none')
+      node.style.display = 'block'
+    else node.style.display = 'none'
   }
 }
 </script>
@@ -24,8 +22,8 @@ function handleToggleVisibility() {
       <legend>Mount</legend>
       <button
         class="px-2 py-0.5 bg-green-700 rounded"
-        @click="emits('update:open', !open)"
         type="button"
+        @click="emits('update:open', !open)"
       >
         toggle
       </button>

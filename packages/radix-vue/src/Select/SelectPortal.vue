@@ -1,15 +1,15 @@
 <script setup lang="ts">
 export interface SelectPortalProps {
-  to?: string | HTMLElement;
-  disabled?: boolean;
+  to?: string | HTMLElement
+  disabled?: boolean
 }
 const props = withDefaults(defineProps<SelectPortalProps>(), {
-  to: "body",
-});
+  to: 'body',
+})
 </script>
 
 <template>
   <Teleport v-bind="props">
-    <slot></slot>
+    <slot />
   </Teleport>
 </template>

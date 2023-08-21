@@ -5,26 +5,26 @@ export interface TooltipArrowProps extends PrimitiveProps {
    *
    * @default 10
    */
-  width?: number;
+  width?: number
 
   /**
    * The height of the arrow in pixels.
    *
    * @default 5
    */
-  height?: number;
+  height?: number
 }
 </script>
 
 <script setup lang="ts">
-import { PopperArrow } from "@/Popper";
-import type { PrimitiveProps } from "@/Primitive";
+import { PopperArrow } from '@/Popper'
+import type { PrimitiveProps } from '@/Primitive'
 
 const props = withDefaults(defineProps<TooltipArrowProps>(), {
   asChild: false,
   width: 10,
   height: 5,
-});
+})
 </script>
 
 <template>
@@ -33,5 +33,5 @@ const props = withDefaults(defineProps<TooltipArrowProps>(), {
     :as="as"
     :height="props.height"
     :width="props.width"
-  ></PopperArrow>
+  />
 </template>

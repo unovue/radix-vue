@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { ToggleGroupItem, ToggleGroupRoot } from "./";
-import { Icon } from "@iconify/vue";
-import { ref } from "vue";
+import { Icon } from '@iconify/vue'
+import { ref } from 'vue'
+import { ToggleGroupItem, ToggleGroupRoot } from './'
 
-const toggleStateSingle = ref("left");
-const toggleStateMultiple = ref(["italic"]);
+const toggleStateSingle = ref('left')
+const toggleStateMultiple = ref(['italic'])
 
-const toggleGroupItemClasses =
-  "hover:bg-violet3 color-mauve11 data-[state=on]:bg-violet6 data-[state=on]:text-violet12 flex h-[35px] w-[35px] items-center justify-center bg-white text-base leading-4 first:rounded-l last:rounded-r focus:z-10 focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none";
+const toggleGroupItemClasses
+  = 'hover:bg-violet3 color-mauve11 data-[state=on]:bg-violet6 data-[state=on]:text-violet12 flex h-[35px] w-[35px] items-center justify-center bg-white text-base leading-4 first:rounded-l last:rounded-r focus:z-10 focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none'
 </script>
 
 <template>
@@ -36,7 +36,7 @@ const toggleGroupItemClasses =
           <Icon icon="radix-icons:text-align-right" class="text-black" />
         </ToggleGroupItem>
       </ToggleGroupRoot>
-      <br />
+      <br>
       <ToggleGroupRoot
         :default-value="['bold', 'italic']"
         type="multiple"

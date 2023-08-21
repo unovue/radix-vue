@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { inject } from "vue";
-import { Primitive, type PrimitiveProps } from "@/Primitive";
-import { DIALOG_INJECTION_KEY } from "./DialogRoot.vue";
+import { inject } from 'vue'
+import { DIALOG_INJECTION_KEY } from './DialogRoot.vue'
+import { Primitive, type PrimitiveProps } from '@/Primitive'
 
 export interface DialogCloseProps extends PrimitiveProps {}
 const props = withDefaults(defineProps<DialogCloseProps>(), {
-  as: "button",
-});
+  as: 'button',
+})
 
-const context = inject(DIALOG_INJECTION_KEY);
+const context = inject(DIALOG_INJECTION_KEY)
 </script>
 
 <template>

@@ -1,30 +1,27 @@
-<script lang="ts">
-export interface TabsTriggerProps extends PrimitiveProps {
-  value: string;
-  disabled?: boolean;
-}
-</script>
-
 <script setup lang="ts">
-import { inject, computed } from "vue";
+import { computed, inject } from 'vue'
+import { useArrowNavigation } from '../shared'
+import { TABS_INJECTION_KEY } from './TabsRoot.vue'
 import {
   Primitive,
-  usePrimitiveElement,
   type PrimitiveProps,
-} from "@/Primitive";
-import { TABS_INJECTION_KEY } from "./TabsRoot.vue";
-import { useArrowNavigation } from "../shared";
+  usePrimitiveElement,
+} from '@/Primitive'
 
-const injectedValue = inject(TABS_INJECTION_KEY);
-const { primitiveElement, currentElement } = usePrimitiveElement();
+export interface TabsTriggerProps extends PrimitiveProps {
+  value: string
+  disabled?: boolean
+}
 
 const props = withDefaults(defineProps<TabsTriggerProps>(), {
   disabled: false,
-  as: "button",
-});
+  as: 'button',
+})
+const injectedValue = inject(TABS_INJECTION_KEY)
+const { primitiveElement, currentElement } = usePrimitiveElement()
 
 function changeTab(value: string) {
-  injectedValue?.changeModelValue(value);
+  injectedValue?.changeModelValue(value)
 }
 
 function handleKeydown(e: KeyboardEvent) {
@@ -36,26 +33,28 @@ function handleKeydown(e: KeyboardEvent) {
       arrowKeyOptions: injectedValue?.orientation,
       loop: injectedValue?.loop.value,
       focus: true,
-    }
-  );
+    },
+  )
 
-  if (!newSelectedElement) return;
+  if (!newSelectedElement)
+    return
 
-  injectedValue!.currentFocusedElement!.value = newSelectedElement;
+  injectedValue!.currentFocusedElement!.value = newSelectedElement
 
-  if (injectedValue?.activationMode === "automatic") {
-    changeTab(newSelectedElement?.getAttribute("data-radix-vue-tab-value")!);
-  }
+  if (injectedValue?.activationMode === 'automatic')
+    changeTab(newSelectedElement?.getAttribute('data-radix-vue-tab-value')!)
 }
 
 const getTabIndex = computed(() => {
   if (!injectedValue?.currentFocusedElement?.value) {
-    return injectedValue?.modelValue?.value === props.value ? "0" : "-1";
-  } else
+    return injectedValue?.modelValue?.value === props.value ? '0' : '-1'
+  }
+  else {
     return injectedValue?.currentFocusedElement?.value === currentElement.value
-      ? "0"
-      : "-1";
-});
+      ? '0'
+      : '-1'
+  }
+})
 </script>
 
 <template>

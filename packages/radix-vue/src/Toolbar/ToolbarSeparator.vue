@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { inject } from "vue";
-import { type PrimitiveProps } from "@/Primitive";
-import { TOOLBAR_INJECTION_KEY } from "./ToolbarRoot.vue";
-import BaseSeparator from "../shared/component/BaseSeparator.vue";
+import { inject } from 'vue'
+import BaseSeparator from '../shared/component/BaseSeparator.vue'
+import { TOOLBAR_INJECTION_KEY } from './ToolbarRoot.vue'
+import { type PrimitiveProps } from '@/Primitive'
 
 export interface ToolbarSeparatorProps extends PrimitiveProps {}
-const props = defineProps<ToolbarSeparatorProps>();
+const props = defineProps<ToolbarSeparatorProps>()
 
-const context = inject(TOOLBAR_INJECTION_KEY);
+const context = inject(TOOLBAR_INJECTION_KEY)
 </script>
 
 <template>
@@ -16,6 +16,6 @@ const context = inject(TOOLBAR_INJECTION_KEY);
     :as-child="props.asChild"
     :as="as"
   >
-    <slot></slot>
+    <slot />
   </BaseSeparator>
 </template>

@@ -1,7 +1,7 @@
 import { addComponent, defineNuxtModule } from '@nuxt/kit'
 
 import type { } from '@nuxt/schema' // workaround for TS bug with "phantom" deps
-import * as components from 'radix-vue'
+import * as components from '../../radix-vue'
 
 export default defineNuxtModule({
   meta: {

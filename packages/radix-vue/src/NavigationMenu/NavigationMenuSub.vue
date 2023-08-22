@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Ref, type VNode, inject, provide, ref } from 'vue'
+import { type Ref, inject, provide, ref } from 'vue'
 import { useVModel } from '@vueuse/core'
 import type { Orientation } from './utils'
 import { NAVIGATION_MENU_INJECTION_KEY } from './NavigationMenuRoot.vue'
@@ -8,11 +8,7 @@ import {
   type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
-import { useNewCollection } from '@/shared'
-
-interface VNodeWithParentProps extends VNode {
-  parentProps: any
-}
+import { useCollection } from '@/shared'
 
 export interface NavigationMenuSubProps extends PrimitiveProps {
   modelValue?: string
@@ -39,9 +35,8 @@ const { primitiveElement, currentElement } = usePrimitiveElement()
 
 const indicatorTrack = ref<HTMLElement>()
 const viewport = ref<HTMLElement>()
-const viewportContent = ref<Map<string, VNodeWithParentProps>>(new Map())
 
-const { createCollection } = useNewCollection('nav')
+const { createCollection } = useCollection('nav')
 createCollection(indicatorTrack)
 
 provide(NAVIGATION_MENU_INJECTION_KEY, {
@@ -59,11 +54,7 @@ provide(NAVIGATION_MENU_INJECTION_KEY, {
   onViewportChange: (val) => {
     viewport.value = val
   },
-  viewportContent,
-  onViewportContentChange: (contentValue, contentData) => {
-    const prev = viewportContent.value
-    viewportContent.value = new Map(prev.set(contentValue, contentData))
-  },
+
   onTriggerEnter: (val) => {
     modelValue.value = val
   },

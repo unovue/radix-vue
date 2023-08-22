@@ -5,7 +5,7 @@ import { SELECT_INJECTION_KEY } from './SelectRoot.vue'
 import { SELECT_CONTENT_INJECTION_KEY } from './SelectContentImpl.vue'
 import { CONTENT_MARGIN } from './utils'
 import { SELECT_VIEWPORT_INJECTION_KEY } from './SelectViewport.vue'
-import { useNewCollection } from '@/shared'
+import { useCollection } from '@/shared'
 import {
   Primitive,
   type PrimitiveProps,
@@ -19,7 +19,7 @@ const emits = defineEmits<{
   (e: 'placed'): void
 }>()
 
-const { injectCollection } = useNewCollection()
+const { injectCollection } = useCollection()
 const context = inject(SELECT_INJECTION_KEY)
 const contentContext = inject(SELECT_CONTENT_INJECTION_KEY)
 const collectionItems = injectCollection()

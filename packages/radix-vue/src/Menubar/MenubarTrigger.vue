@@ -8,7 +8,7 @@ import {
   usePrimitiveElement,
 } from '@/Primitive'
 import { MenuAnchor } from '@/Menu'
-import { useArrowNavigation, useNewCollection } from '@/shared'
+import { useArrowNavigation, useCollection } from '@/shared'
 
 export interface MenubarTriggerProps extends PrimitiveProps {
   disabled?: boolean
@@ -22,7 +22,7 @@ const menuContext = inject(MENUBAR_MENU_INJECTION_KEY)
 
 const { primitiveElement, currentElement: triggerElement }
   = usePrimitiveElement()
-const { injectCollection } = useNewCollection('menubar')
+const { injectCollection } = useCollection('menubar')
 const collections = injectCollection()
 
 const isFocused = ref(false)

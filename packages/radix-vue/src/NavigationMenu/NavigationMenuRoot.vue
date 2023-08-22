@@ -2,14 +2,13 @@
 import {
   type InjectionKey,
   type Ref,
-  type VNode,
   computed,
   provide,
   ref,
   toRefs,
 } from 'vue'
 import type { Direction, Orientation } from './utils'
-import { useId, useNewCollection } from '@/shared'
+import { useCollection, useId } from '@/shared'
 
 export interface NavigationMenuRootProps extends PrimitiveProps {
   modelValue?: string
@@ -31,10 +30,6 @@ export interface NavigationMenuRootEmits {
   (e: 'update:modelValue', value: string): void
 }
 
-interface VNodeWithParentProps extends VNode {
-  parentProps: any
-}
-
 export interface NavigationMenuContextValue {
   isRootMenu: boolean
   modelValue: Ref<string>
@@ -47,12 +42,6 @@ export interface NavigationMenuContextValue {
   onIndicatorTrackChange(indicatorTrack: HTMLElement | undefined): void
   viewport: Ref<HTMLElement | undefined>
   onViewportChange(viewport: HTMLElement | undefined): void
-  viewportContent: Ref<Map<string, VNodeWithParentProps>>
-  onViewportContentChange(
-    contentValue: string,
-    contentData: VNodeWithParentProps
-  ): void
-  onViewportContentRemove(contentValue: string): void
   onTriggerEnter(itemValue: string): void
   onTriggerLeave(): void
   onContentEnter(itemValue: string): void
@@ -94,9 +83,8 @@ const { primitiveElement, currentElement: rootNavigationMenu }
 
 const indicatorTrack = ref<HTMLElement>()
 const viewport = ref<HTMLElement>()
-const viewportContent = ref<Map<string, VNodeWithParentProps>>(new Map())
 
-const { createCollection } = useNewCollection('nav')
+const { createCollection } = useCollection('nav')
 createCollection(indicatorTrack)
 
 const { delayDuration, skipDelayDuration } = toRefs(props)
@@ -129,18 +117,6 @@ provide(NAVIGATION_MENU_INJECTION_KEY, {
   viewport,
   onViewportChange: (val) => {
     viewport.value = val
-  },
-  viewportContent,
-  onViewportContentChange: (contentValue, contentData) => {
-    const prev = viewportContent.value
-    viewportContent.value = new Map(prev.set(contentValue, contentData))
-  },
-  onViewportContentRemove: (contentValue) => {
-    const prev = viewportContent.value
-    if (!prev.has(contentValue))
-      return prev
-    prev.delete(contentValue)
-    viewportContent.value = new Map(prev)
   },
   onTriggerEnter: (val) => {
     debouncedFn(val)

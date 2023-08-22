@@ -1,41 +1,57 @@
 import { unrefElement } from '@vueuse/core'
-import { type InjectionKey, type Ref, inject, provide } from 'vue'
+import {
+  type InjectionKey,
+  type Ref,
+  inject,
+  onBeforeUpdate,
+  onMounted,
+  onUpdated,
+  provide,
+  ref,
+  watch,
+} from 'vue'
 
 const ITEM_DATA_ATTR = 'data-radix-vue-collection-item'
 
-interface ContextValue {
-  collectionRef: Ref<HTMLElement | undefined> | undefined
-}
+type ContextValue = Ref<HTMLElement[]>
 
-export const COLLECTION_SYMBOL = Symbol() as InjectionKey<ContextValue>
+/**
+ * Composables for provide/inject collections
+ * @param key (optional) Name to replace the default `Symbol()` as provide's key
+ */
+export function useCollection(key?: string) {
+  const COLLECTION_SYMBOL = key ?? (Symbol() as InjectionKey<ContextValue>)
 
-export function useCollection() {
-  const createCollection = (elementRef?: Ref<HTMLElement | undefined>) => {
-    provide(COLLECTION_SYMBOL, {
-      collectionRef: elementRef,
+  const createCollection = (sourceRef?: Ref<HTMLElement | undefined>) => {
+    const items = ref<HTMLElement[]>([])
+
+    function setCollection() {
+      const sourceEl = unrefElement(sourceRef)
+      if (!sourceEl)
+        return (items.value = [])
+
+      return (items.value = Array.from(
+        sourceEl.querySelectorAll(`[${ITEM_DATA_ATTR}]:not([data-disabled])`),
+      ) as HTMLElement[])
+    }
+
+    onBeforeUpdate(() => {
+      items.value = []
     })
+
+    onMounted(setCollection)
+    onUpdated(setCollection)
+
+    watch(() => sourceRef?.value, setCollection, { immediate: true })
+
+    provide(COLLECTION_SYMBOL, items)
+
+    return items
   }
 
-  const context = inject(COLLECTION_SYMBOL)
-  const setCollection = (
-    elementRef: Ref<HTMLElement | undefined> | undefined,
-  ) => {
-    if (context)
-      context.collectionRef = elementRef
+  const injectCollection = () => {
+    return inject(COLLECTION_SYMBOL, ref([]))
   }
 
-  const getItems = (contentElement?: HTMLElement) => {
-    const collectionNode
-      = contentElement ?? unrefElement(context?.collectionRef)
-
-    if (!collectionNode)
-      return []
-    return Array.from(
-      collectionNode.querySelectorAll(
-        `[${ITEM_DATA_ATTR}]:not([data-disabled])`,
-      ),
-    ) as HTMLElement[]
-  }
-
-  return { createCollection, setCollection, getItems }
+  return { createCollection, injectCollection }
 }

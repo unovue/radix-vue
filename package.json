@@ -21,8 +21,8 @@
     "@commitlint/config-conventional": "^17.7.0",
     "eslint": "^8.43.0",
     "lint-staged": "^14.0.0",
-    "simple-git-hooks": "^2.9.0",
-    "pnpm": "^8.6.12"
+    "pnpm": "^8.6.12",
+    "simple-git-hooks": "^2.9.0"
   },
   "commitlint": {
     "extends": [

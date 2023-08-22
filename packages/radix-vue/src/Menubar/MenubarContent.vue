@@ -3,7 +3,7 @@ import { inject, ref } from 'vue'
 import { MENUBAR_INJECTION_KEY } from './MenubarRoot.vue'
 import { MENUBAR_MENU_INJECTION_KEY } from './MenubarMenu.vue'
 import { MenuContent, type MenuContentProps } from '@/Menu'
-import { useNewCollection } from '@/shared'
+import { useCollection } from '@/shared'
 import { PopperContentPropsDefaultValue } from '@/Popper'
 import { wrapArray } from '@/shared/useTypeahead'
 
@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<MenubarContentProps>(), {
 const context = inject(MENUBAR_INJECTION_KEY)
 const menuContext = inject(MENUBAR_MENU_INJECTION_KEY)
 
-const { injectCollection } = useNewCollection('menubar')
+const { injectCollection } = useCollection('menubar')
 const collections = injectCollection()
 
 const hasInteractedOutsideRef = ref(false)

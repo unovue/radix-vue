@@ -2,7 +2,7 @@
 import { computed, inject, nextTick, onMounted, onUnmounted } from 'vue'
 import { ROVING_FOCUS_INJECTION_KEY } from './RovingFocusGroup.vue'
 import { focusFirst, getFocusIntent, wrapArray } from './utils'
-import { useId, useNewCollection } from '@/shared'
+import { useCollection, useId } from '@/shared'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 
 export interface RovingFocusItemProps extends PrimitiveProps {
@@ -24,7 +24,7 @@ const isCurrentTabStop = computed(
   () => context?.currentTabStopId.value === id.value,
 )
 
-const { injectCollection } = useNewCollection('rovingFocus')
+const { injectCollection } = useCollection('rovingFocus')
 const collections = injectCollection()
 
 const { onFocusableItemAdd, onFocusableItemRemove } = context!

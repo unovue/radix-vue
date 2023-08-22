@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { InjectionKey, Ref } from 'vue'
 import type { Direction } from '../shared/types'
-import { useNewCollection } from '@/shared'
+import { useCollection } from '@/shared'
 
 export interface MenubarRootProps {
   modelValue?: string
@@ -38,7 +38,7 @@ const props = withDefaults(defineProps<MenubarRootProps>(), {
 const emit = defineEmits<MenubarRootEmits>()
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
-const { createCollection } = useNewCollection('menubar')
+const { createCollection } = useCollection('menubar')
 createCollection(currentElement)
 
 const modelValue = useVModel(props, 'modelValue', emit, {

@@ -62,8 +62,8 @@ import SelectItemAlignedPosition from './SelectItemAlignedPosition.vue'
 import SelectPopperPosition from './SelectPopperPosition.vue'
 import {
   useBodyScrollLock,
+  useCollection,
   useFocusGuards,
-  useNewCollection,
   useTypeahead,
 } from '@/shared'
 import { FocusScope } from '@/FocusScope'
@@ -83,7 +83,7 @@ const context = inject(SELECT_INJECTION_KEY)
 
 useFocusGuards()
 useBodyScrollLock(true)
-const { createCollection } = useNewCollection()
+const { createCollection } = useCollection()
 
 const content = ref<HTMLElement>()
 const collectionItems = createCollection(content)

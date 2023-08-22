@@ -1,9 +1,9 @@
 <script setup lang="ts">
-export interface MenuPortalProps {
+export interface TooltipPortalProps {
   to?: string | HTMLElement
   disabled?: boolean
 }
-const props = withDefaults(defineProps<MenuPortalProps>(), {
+const props = withDefaults(defineProps<TooltipPortalProps>(), {
   to: 'body',
 })
 </script>

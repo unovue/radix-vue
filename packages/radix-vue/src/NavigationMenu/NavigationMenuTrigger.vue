@@ -67,6 +67,10 @@ function handlePointerLeave(ev: PointerEvent) {
 }
 
 function handleClick() {
+  // if open via pointermove, we prevent click event
+  if (hasPointerMoveOpenedRef.value)
+    return
+
   if (open.value)
     context?.onItemSelect('')
   else context?.onItemSelect(itemContext!.value)

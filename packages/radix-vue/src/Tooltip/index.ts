@@ -16,3 +16,7 @@ export {
   default as TooltipArrow,
   type TooltipArrowProps,
 } from './TooltipArrow.vue'
+export {
+  default as TooltipPortal,
+  type TooltipPortalProps,
+} from './TooltipPortal.vue'

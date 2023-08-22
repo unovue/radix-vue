@@ -40,6 +40,7 @@ import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { VisuallyHidden } from '@/VisuallyHidden'
 import { type VNode, computed, inject, ref, useSlots } from 'vue'
 import { TOOLTIP_INJECTION_KEY } from './TooltipRoot.vue'
+import { Presence } from '@/Presence'
 
 const props = withDefaults(defineProps<TooltipContentProps>(), {
   asChild: false,
@@ -87,20 +88,21 @@ const ariaLabel = computed(() => {
 </script>
 
 <template>
-  <PopperContent
-    v-if="injectedValue?.open.value"
-    ref="contentElement"
-    :side="props.side"
-    :side-offset="props.sideOffset"
-    :align="props.align"
-    :align-offset="props.alignOffset"
-    :avoid-collisions="props.avoidCollisions"
-    :collision-boundary="props.collisionBoundary"
-    :collision-padding="props.collisionPadding"
-    :arrow-padding="props.arrowPadding"
-    :sticky="props.sticky"
-    :hide-when-detached="props.hideWhenDetached"
-    style="
+  <Presence :present="injectedValue!.open.value">
+    <PopperContent
+      ref="contentElement"
+      v-bind="$attrs"
+      :side="props.side"
+      :side-offset="props.sideOffset"
+      :align="props.align"
+      :align-offset="props.alignOffset"
+      :avoid-collisions="props.avoidCollisions"
+      :collision-boundary="props.collisionBoundary"
+      :collision-padding="props.collisionPadding"
+      :arrow-padding="props.arrowPadding"
+      :sticky="props.sticky"
+      :hide-when-detached="props.hideWhenDetached"
+      style="
       --radix-tooltip-content-transform-origin: var(
         --radix-popper-transform-origin
       );
@@ -113,21 +115,22 @@ const ariaLabel = computed(() => {
       --radix-tooltip-trigger-width: var(--radix-popper-anchor-width);
       --radix-tooltip-trigger-height: var(--radix-popper-anchor-height);
     "
-    @keydown.esc="onEscapeKeyDown($event)"
-  >
-    <Primitive
-      :data-state="injectedValue?.dataState.value"
-      :data-side="props.side"
-      :data-align="props.align"
-      :as-child="props.asChild"
-      :as="as"
-      role="tooltip"
-      tabindex="-1"
+      @keydown.esc="onEscapeKeyDown($event)"
     >
-      <slot />
-    </Primitive>
-    <VisuallyHidden :id="injectedValue?.contentId" role="tooltip">
-      {{ ariaLabel }}
-    </VisuallyHidden>
-  </PopperContent>
+      <Primitive
+        :data-state="injectedValue?.dataState.value"
+        :data-side="props.side"
+        :data-align="props.align"
+        :as-child="props.asChild"
+        :as="as"
+        role="tooltip"
+        tabindex="-1"
+      >
+        <slot />
+      </Primitive>
+      <VisuallyHidden :id="injectedValue?.contentId" role="tooltip">
+        {{ ariaLabel }}
+      </VisuallyHidden>
+    </PopperContent>
+  </Presence>
 </template>

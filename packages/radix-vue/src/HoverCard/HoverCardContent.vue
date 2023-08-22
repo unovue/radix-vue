@@ -12,6 +12,7 @@ import {
   type HoverCardProvideValue,
 } from './HoverCardRoot.vue'
 import { PopperContent, type PopperContentProps } from '@/Popper'
+import { Presence } from '@/Presence'
 
 const props = withDefaults(defineProps<HoverCardContentProps>(), {
   side: 'bottom',
@@ -30,15 +31,16 @@ async function handleMouseleave(e: MouseEvent) {
 </script>
 
 <template>
-  <PopperContent
-    v-if="injectedValue?.open.value"
-    v-bind="props"
-    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
-    :data-side="props.side"
-    :data-align="props.align"
-    @mouseover="injectedValue.isHover = true"
-    @mouseleave="handleMouseleave"
-  >
-    <slot />
-  </PopperContent>
+  <Presence :present="injectedValue!.open.value">
+    <PopperContent
+      v-bind="{ ...props, ...$attrs }"
+      :data-state="injectedValue?.open.value ? 'open' : 'closed'"
+      :data-side="props.side"
+      :data-align="props.align"
+      @mouseover="injectedValue!.isHover = true"
+      @mouseleave="handleMouseleave"
+    >
+      <slot />
+    </PopperContent>
+  </Presence>
 </template>

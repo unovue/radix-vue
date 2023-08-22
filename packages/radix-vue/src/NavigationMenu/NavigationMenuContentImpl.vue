@@ -183,10 +183,6 @@ function handleDismiss() {
   })
   currentElement.value?.dispatchEvent(rootContentDismissEvent)
 }
-
-defineExpose({
-  ...props,
-})
 </script>
 
 <template>
@@ -197,7 +193,7 @@ defineExpose({
     :data-motion="motionAttribute"
     :data-state="getOpenState(context?.modelValue.value === itemContext!.value)"
     :data-orientation="context?.orientation"
-    :disable-outside-pointer-events="disableOutsidePointerEvents"
+    v-bind="props"
     @keydown="handleKeydown"
     @escape-key-down="handleEscapeKeyDown"
     @pointer-down-outside="handlePointerDownOutside"

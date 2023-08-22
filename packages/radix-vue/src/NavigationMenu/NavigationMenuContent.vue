@@ -7,6 +7,7 @@ import { Presence } from '@/Presence'
 import { type PointerDownOutsideEvent } from '@/DismissableLayer'
 import NavigationMenuContentImpl, { type NavigationMenuContentImplEmits, type NavigationMenuContentImplProps } from './NavigationMenuContentImpl.vue'
 import { useEmitAsProps } from '@/shared'
+import { useMounted } from '@vueuse/core'
 
 export interface NavigationMenuContentProps extends NavigationMenuContentImplProps {}
 export type NavigationMenuContentEmits = NavigationMenuContentImplEmits
@@ -16,6 +17,7 @@ const emits = defineEmits<NavigationMenuContentEmits>()
 
 const emitsAsProps = useEmitAsProps(emits)
 
+const isClientMounted = useMounted()
 const context = inject(NAVIGATION_MENU_INJECTION_KEY)
 const itemContext = inject(NAVIGATION_MENU_ITEM_INJECTION_KEY)
 
@@ -43,7 +45,7 @@ export default {
 </script>
 
 <template>
-  <Teleport :to="context?.viewport.value" :disabled="!context?.viewport.value">
+  <Teleport v-if="isClientMounted" :to="context?.viewport.value" :disabled="!context?.viewport.value">
     <Presence :present="open || isLastActiveValue">
       <NavigationMenuContentImpl
         :data-state="getOpenState(open)"

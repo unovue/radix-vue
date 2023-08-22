@@ -23,5 +23,5 @@ body:
       options:
         - label: I intend to submit a PR for this feature.
         - label: I have already implemented and/or tested this feature.
-      validations:
-        required: false
+    validations:
+      required: false

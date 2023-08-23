@@ -61,6 +61,10 @@ const context = inject(DIALOG_INJECTION_KEY)
       :aria-labelledby="context!.titleId"
       :data-state="getOpenState(context!.open.value)"
       @dismiss="context?.onOpenChange(false)"
+      @escape-key-down="emits('escapeKeyDown', $event)"
+      @focus-outside="emits('focusOutside', $event)"
+      @interact-outside="emits('interactOutside', $event)"
+      @pointer-down-outside="emits('pointerDownOutside', $event)"
     >
       <slot />
     </DismissableLayer>

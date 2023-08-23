@@ -202,12 +202,12 @@ function onPointerDown(e: MouseEvent) {
         ? (thumbRect.top + thumbRect.bottom) / 2
         : (thumbRect.left + thumbRect.right) / 2;
 
-    // TODO: Substract thumb offset.
     thumbHalfSize =
       props.orientation === "vertical"
         ? thumbElement.offsetHeight / 2
         : thumbElement.offsetWidth / 2;
-    pointerPosition -= thumbHalfSize;
+
+    pointerPosition += thumbHalfSize;
 
     const distance = Math.abs(thumbCenter - pointerPosition);
     if (distance < nearestDistance) {
@@ -223,6 +223,8 @@ function onPointerDown(e: MouseEvent) {
   const nearestThumb = thumbElements.value[activeThumbIndex];
 
   nearestThumb.focus();
+
+  pointerPosition -= thumbHalfSize;
 
   const newValue = calculateValueFromPosition(
     pointerPosition,
@@ -248,9 +250,6 @@ function onPointerMove(e: PointerEvent) {
   if (props.orientation === "vertical") {
     pointerPosition = e.clientY;
   }
-
-  // TODO: Add thumb offset.
-  pointerPosition -= thumbHalfSize;
 
   const newValue = calculateValueFromPosition(
     pointerPosition,

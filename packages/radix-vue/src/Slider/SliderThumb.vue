@@ -63,6 +63,12 @@ const percent = computed(() => {
   return convertValueToPercentage(value.value, minValue, maxValue);
 });
 
+const offset = computed(() => {
+  const offsetPercent = (percent.value - 50) / 50;
+  const offsetMultiplier = injectedValue?.flipped?.value ?? false ? 1 : -1;
+  return offsetPercent * 10 * offsetMultiplier;
+});
+
 const thumbStyle = computed(() => {
   if (!injectedValue) {
     return {};
@@ -75,10 +81,14 @@ const thumbStyle = computed(() => {
       orientation === "vertical" ? "translateY(-50%)" : "translateX(-50%)",
   };
 
+  const value = `calc(${
+    flipped?.value ? 100 - percent.value : percent.value
+  }% + ${offset.value}px)`;
+
   if (orientation === "vertical") {
-    style.top = `${flipped?.value ? 100 - percent.value : percent.value}%`;
+    style.top = value;
   } else {
-    style.left = `${flipped?.value ? 100 - percent.value : percent.value}%`;
+    style.left = value;
   }
 
   return style;

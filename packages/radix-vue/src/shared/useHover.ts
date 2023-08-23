@@ -1,5 +1,5 @@
 import { useEventListener } from '@vueuse/core'
-import { type MaybeRef, type MaybeRefOrGetter, toValue } from 'vue'
+import { type MaybeRef, type MaybeRefOrGetter } from 'vue'
 
 interface UseHoverOptions {
   /**
@@ -53,7 +53,7 @@ export function useHover(
       clearTimeout(timeout)
       timeout = undefined
     }
-    if (toValue(disabled))
+    if (disabled)
       return
     const delay = entering ? delayEnter : delayLeave
     const fn = entering ? options.onHoverEnter : options.onHoverLeave

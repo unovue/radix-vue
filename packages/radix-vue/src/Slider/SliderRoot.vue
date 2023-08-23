@@ -47,6 +47,7 @@ export interface SliderRootEmits {
 <script setup lang="ts">
 import { ref, provide, computed } from "vue";
 import { useVModel } from "@vueuse/core";
+import { clamp } from "./utils";
 
 const props = withDefaults(defineProps<SliderRootProps>(), {
   as: "span",
@@ -103,6 +104,166 @@ provide<SliderProvideValue>(SLIDER_INJECTION_KEY, {
   step: props.step,
   disabled: props.disabled,
 });
+
+function calculateThumbRelativePosition(
+  pointerPosition: number,
+  sliderRect: DOMRect
+): number {
+  let sliderRootSize = sliderRect.width;
+  let thumbPosition = pointerPosition - sliderRect.left;
+
+  if (props.orientation === "vertical") {
+    sliderRootSize = sliderRect.height;
+    thumbPosition = pointerPosition - sliderRect.top;
+  }
+
+  const isPointerInsideSlider =
+    thumbPosition >= 0 && thumbPosition <= sliderRootSize;
+
+  if (isPointerInsideSlider) {
+    const sliderRelativePosition = thumbPosition / sliderRootSize;
+    return sliderRelativePosition;
+  } else if (thumbPosition <= 0) {
+    return 0;
+  }
+
+  return 1;
+}
+
+function calculateValueFromPosition(
+  pointerPosition: number,
+  sliderRect: DOMRect
+): number {
+  const position = calculateThumbRelativePosition(pointerPosition, sliderRect);
+
+  // Calculate new value.
+  const range = props.max - props.min;
+  let newValue = position * range;
+
+  if (flipped.value) {
+    newValue = props.max - newValue;
+  }
+
+  // Clamp to ensure that we are not outside the boundries.
+  newValue = clamp(newValue + (flipped.value ? 0 : props.min), [
+    props.min,
+    props.max,
+  ]);
+
+  // Convert to closest step.
+  const step = props.step;
+  const quotient = Math.floor(newValue / step);
+  const remainder = newValue % step;
+  const roundedValue =
+    remainder <= step / 2 ? quotient * step : (quotient + 1) * step;
+
+  return clamp(roundedValue, [props.min, props.max]);
+}
+
+function setNewValue(value: number, index: number): void {
+  const copyExistingValues = modelValue.value ?? [];
+  copyExistingValues[index] = value;
+
+  modelValue.value = copyExistingValues;
+  if (value && props.onValueCommit) {
+    props.onValueCommit(copyExistingValues);
+  }
+}
+
+let rootSliderElementRect: DOMRect | undefined;
+let activeThumbIndex: number | undefined;
+let thumbHalfSize: number = 0;
+
+function onPointerDown(e: MouseEvent) {
+  e.preventDefault();
+
+  if (!thumbElements.value.length) {
+    return;
+  }
+
+  if (!rootSliderElement.value) {
+    return;
+  }
+
+  rootSliderElementRect = rootSliderElement.value.getBoundingClientRect();
+
+  let pointerPosition = e.clientX;
+  if (props.orientation === "vertical") {
+    pointerPosition = e.clientY;
+  }
+
+  let nearestDistance = Number.MAX_VALUE;
+
+  // Calculate distances from pointer position to each thumb's center
+  thumbElements.value.forEach((thumbElement, index) => {
+    const thumbRect = thumbElement.getBoundingClientRect();
+    const thumbCenter =
+      props.orientation === "vertical"
+        ? (thumbRect.top + thumbRect.bottom) / 2
+        : (thumbRect.left + thumbRect.right) / 2;
+
+    // TODO: Substract thumb offset.
+    thumbHalfSize =
+      props.orientation === "vertical"
+        ? thumbElement.offsetHeight / 2
+        : thumbElement.offsetWidth / 2;
+    pointerPosition -= thumbHalfSize;
+
+    const distance = Math.abs(thumbCenter - pointerPosition);
+    if (distance < nearestDistance) {
+      nearestDistance = distance;
+      activeThumbIndex = index;
+    }
+  });
+
+  if (activeThumbIndex === undefined) {
+    return;
+  }
+
+  const nearestThumb = thumbElements.value[activeThumbIndex];
+
+  nearestThumb.focus();
+
+  const newValue = calculateValueFromPosition(
+    pointerPosition,
+    rootSliderElementRect
+  );
+
+  setNewValue(newValue, activeThumbIndex);
+
+  document.addEventListener("pointermove", onPointerMove);
+  document.addEventListener("pointerup", onPointerUp);
+}
+
+function onPointerMove(e: PointerEvent) {
+  if (!rootSliderElementRect) {
+    return;
+  }
+
+  if (activeThumbIndex === undefined) {
+    return;
+  }
+
+  let pointerPosition = e.clientX;
+  if (props.orientation === "vertical") {
+    pointerPosition = e.clientY;
+  }
+
+  // TODO: Add thumb offset.
+  pointerPosition -= thumbHalfSize;
+
+  const newValue = calculateValueFromPosition(
+    pointerPosition,
+    rootSliderElementRect
+  );
+
+  setNewValue(newValue, activeThumbIndex);
+}
+
+function onPointerUp() {
+  document.removeEventListener("pointermove", onPointerMove);
+  document.removeEventListener("pointerup", onPointerUp);
+}
 </script>
 
 <template>
@@ -113,6 +274,7 @@ provide<SliderProvideValue>(SLIDER_INJECTION_KEY, {
     :aria-disabled="props.disabled"
     :data-disabled="props.disabled"
     :data-orientation="props.orientation"
+    @pointerdown="onPointerDown"
   >
     <slot />
     <input

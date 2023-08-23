@@ -25,13 +25,19 @@ Radix is an unstyled, customisable UI Library with built in accessibility for bu
 <a href="https://chat.radix-vue.com"><b>Get involved!</b></a>
 </p>
 <p align="center">
- <a href="https://radix-vue.com">Documentation</a> | <a href="https://www.radix-vue.com/overview/getting-started.html">Getting Started</a> | <a href="https://www.radix-vue.com/">Examples</a> | <a href="https://www.radix-vue.com/overview/introduction.html">Why Vitest?</a>
+ <a href="https://radix-vue.com">Documentation</a> | <a href="https://www.radix-vue.com/overview/getting-started.html">Getting Started</a> | <a href="https://www.radix-vue.com/">Examples</a> | <a href="https://www.radix-vue.com/overview/introduction.html">Why Radix Vue?</a>
 </p>
 
 ## Installation
 
 ```bash
-pnpm install radix-vue
+pnpm add radix-vue
+```
+```bash
+npm install radix-vue
+```
+```bash
+yarn add radix-vue
 ```
 
 ## Documentation

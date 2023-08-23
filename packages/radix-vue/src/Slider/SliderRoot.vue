@@ -89,6 +89,10 @@ const flipped = computed<boolean>(() => {
 provide<SliderProvideValue>(SLIDER_INJECTION_KEY, {
   modelValue,
   changeModelValue: (value: any) => {
+    if (props.disabled) {
+      return;
+    }
+
     modelValue.value = value;
     if (value && props.onValueCommit) {
       props.onValueCommit(value);
@@ -161,6 +165,10 @@ function calculateValueFromPosition(
 }
 
 function setNewValue(value: number, index: number): void {
+  if (props.disabled) {
+    return;
+  }
+
   const copyExistingValues = modelValue.value ?? [];
   copyExistingValues[index] = value;
 

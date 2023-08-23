@@ -16,8 +16,8 @@ export interface ToggleGroupRootProps extends PrimitiveProps {
   dir?: Direction
   loop?: boolean
 }
-export interface ToggleGroupRootEmits {
-  (e: 'update:modelValue', payload: string): void
+export type ToggleGroupRootEmits = {
+  'update:modelValue': [payload: string]
 }
 
 export const TOGGLE_GROUP_INJECTION_KEY

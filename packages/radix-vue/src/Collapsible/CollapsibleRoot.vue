@@ -8,8 +8,8 @@ export interface CollapsibleRootProps extends PrimitiveProps {
   disabled?: boolean
 }
 
-export interface CollapsibleRootEmits {
-  (e: 'update:open', value: boolean): void
+export type CollapsibleRootEmits = {
+  'update:open': [value: boolean]
 }
 
 interface CollapsibleProvideValue {

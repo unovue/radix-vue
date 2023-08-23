@@ -7,8 +7,8 @@ export interface HoverCardRootProps {
   openDelay?: number
   closeDelay?: number
 }
-export interface HoverCardRootEmits {
-  (e: 'update:open', value: boolean): void
+export type HoverCardRootEmits = {
+  'update:open': [value: boolean]
 }
 
 export const HOVER_CARD_INJECTION_KEY

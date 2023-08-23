@@ -18,7 +18,7 @@ function handleClick() {
     <p>Checkbox 2: {{ checkboxTwo ? "checked" : "unchecked" }}</p>
     <p>Person: {{ person }}</p>
   </div>
-  <ContextMenuRoot v-model="toggleState">
+  <ContextMenuRoot>
     <ContextMenuTrigger
       class="block border-2 border-white border-dashed text-white rounded text-[15px] select-none py-[45px] w-[300px] text-center"
     >
@@ -307,7 +307,6 @@ function handleClick() {
             Colm Tuite
           </ContextMenuRadioItem>
         </ContextMenuRadioGroup>
-        <ContextMenuArrow class="fill-white" />
       </ContextMenuContent>
     </ContextMenuPortal>
   </ContextMenuRoot>

@@ -9,9 +9,9 @@ import { Primitive, usePrimitiveElement } from '@/Primitive'
 
 const props = defineProps<ScrollAreaScrollbarImplProps>()
 const emit = defineEmits<{
-  (e: 'onDragScroll', payload: { x: number; y: number }): void
-  (e: 'onWheelScroll', payload: { x: number; y: number }): void
-  (e: 'onThumbPointerDown', payload: { x: number; y: number }): void
+  'onDragScroll': [payload: { x: number; y: number }]
+  'onWheelScroll': [payload: { x: number; y: number }]
+  'onThumbPointerDown': [payload: { x: number; y: number }]
 }>()
 const rootContext = inject(SCROLL_AREA_INJECTION_KEY)
 const scrollbarVisibleContext = inject(

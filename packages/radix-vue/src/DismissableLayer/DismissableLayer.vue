@@ -36,35 +36,32 @@ export interface DismissableLayerProps extends PrimitiveProps {
   disableOutsidePointerEvents?: boolean
 }
 
-export interface DismissableLayerEmits {
+export type DismissableLayerEmits = {
   /**
    * Event handler called when the escape key is down.
    * Can be prevented.
    */
-  (e: 'escapeKeyDown', event: KeyboardEvent): void
+  'escapeKeyDown': [event: KeyboardEvent]
   /**
    * Event handler called when the a `pointerdown` event happens outside of the `DismissableLayer`.
    * Can be prevented.
    */
-  (e: 'pointerDownOutside', event: PointerDownOutsideEvent): void
+  'pointerDownOutside': [event: PointerDownOutsideEvent]
   /**
    * Event handler called when the focus moves outside of the `DismissableLayer`.
    * Can be prevented.
    */
-  (e: 'focusOutside', event: FocusOutsideEvent): void
+  'focusOutside': [ event: FocusOutsideEvent]
   /**
    * Event handler called when an interaction happens outside the `DismissableLayer`.
    * Specifically, when a `pointerdown` event happens outside or focus moves outside of it.
    * Can be prevented.
    */
-  (
-    e: 'interactOutside',
-    event: PointerDownOutsideEvent | FocusOutsideEvent
-  ): void
+  'interactOutside': [ event: PointerDownOutsideEvent | FocusOutsideEvent]
   /**
    * Handler called when the `DismissableLayer` should be dismissed
    */
-  (e: 'dismiss'): void
+  'dismiss': []
 }
 
 const props = withDefaults(defineProps<DismissableLayerProps>(), {

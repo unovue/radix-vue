@@ -16,8 +16,8 @@ import MenuGroup, { type MenuGroupProps } from './MenuGroup.vue'
 export interface MenuRadioGroupProps extends MenuGroupProps {
   modelValue?: string
 }
-export interface MenuRadioGroupEmits {
-  (e: 'update:modelValue', payload: boolean): void
+export type MenuRadioGroupEmits = {
+  'update:modelValue': [payload: boolean]
 }
 
 const props = withDefaults(defineProps<MenuRadioGroupProps>(), {

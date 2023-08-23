@@ -18,8 +18,8 @@ export interface PopoverRootProps {
    */
   modal?: boolean
 }
-export interface PopoverRootEmits {
-  (e: 'update:open', value: boolean): void
+export type PopoverRootEmits = {
+  'update:open': [value: boolean]
 }
 
 export const POPOVER_INJECTION_KEY

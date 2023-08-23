@@ -18,8 +18,8 @@ export interface RovingFocusGroupProps extends PrimitiveProps {
   defaultCurrentTabStopId?: string
 }
 
-export interface RovingFocusGroupEmits {
-  (e: 'entryFocus', event: Event): void
+export type RovingFocusGroupEmits = {
+  'entryFocus': [event: Event]
 }
 
 interface RovingContextValue {

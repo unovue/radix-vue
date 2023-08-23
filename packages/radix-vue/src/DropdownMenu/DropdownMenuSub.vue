@@ -4,8 +4,8 @@ export interface DropdownMenuSubProps {
   defaultOpen?: boolean
 }
 
-export interface DropdownMenuSubEmits {
-  (e: 'update:open', value: boolean): void
+export type DropdownMenuSubEmits = {
+  'update:open': [value: boolean]
 }
 </script>
 

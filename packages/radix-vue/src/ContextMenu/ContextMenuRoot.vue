@@ -16,8 +16,8 @@ export interface ContextMenuRootProps {
   dir?: Direction
   modal?: boolean
 }
-export interface ContextMenuRootEmits {
-  (e: 'update:open', value: boolean): void
+export type ContextMenuRootEmits = {
+  'update:open': [value: boolean]
 }
 </script>
 

@@ -17,8 +17,8 @@ export interface RadioGroupRootProps extends PrimitiveProps {
   dir?: Direction
   loop?: boolean
 }
-export interface RadioGroupRootEmits {
-  (e: 'update:modelValue', payload: string): void
+export type RadioGroupRootEmits = {
+  'update:modelValue': [payload: string]
 }
 
 interface RadioGroupProvideValue {

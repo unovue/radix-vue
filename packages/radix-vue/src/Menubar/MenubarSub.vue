@@ -1,10 +1,10 @@
 <script lang="ts">
+export type MenubarSubEmits = {
+  'update:open': [value: boolean]
+}
 export interface MenubarSubProps {
   open?: boolean
   defaultOpen?: boolean
-}
-export interface MenubarSubEmits {
-  (e: 'update:open', value: boolean): void
 }
 </script>
 

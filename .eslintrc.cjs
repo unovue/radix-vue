@@ -8,6 +8,7 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-non-null-asserted-optional-chain': 'off',
     '@typescript-eslint/ban-ts-comment': 'warn',
+    '@typescript-eslint/consistent-type-definitions': 'off',
     'import/first': 'off',
     'import/order': 'off',
     'symbol-description': 'off',

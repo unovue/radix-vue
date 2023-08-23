@@ -33,18 +33,18 @@ export interface FocusScopeProps extends PrimitiveProps {
   trapped?: boolean
 }
 
-export interface FocusScopeEmits {
+export type FocusScopeEmits = {
   /**
    * Event handler called when auto-focusing on mount.
    * Can be prevented.
    */
-  (e: 'mountAutoFocus', event: Event): void
+  'mountAutoFocus': [event: Event]
 
   /**
    * Event handler called when auto-focusing on unmount.
    * Can be prevented.
    */
-  (e: 'unmountAutoFocus', event: Event): void
+  'unmountAutoFocus': [event: Event]
 }
 
 const props = withDefaults(defineProps<FocusScopeProps>(), {

@@ -26,8 +26,8 @@ export interface NavigationMenuRootProps extends PrimitiveProps {
    */
   skipDelayDuration?: number
 }
-export interface NavigationMenuRootEmits {
-  (e: 'update:modelValue', value: string): void
+export type NavigationMenuRootEmits = {
+  'update:modelValue': [value: string]
 }
 
 export interface NavigationMenuContextValue {

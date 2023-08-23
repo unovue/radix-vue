@@ -8,7 +8,7 @@ export const TABS_INJECTION_KEY = Symbol() as InjectionKey<TabsProvideValue>
 </script>
 
 <script setup lang="ts">
-import { type PrimitiveProps } from '@/Primitive'
+import { Primitive, type PrimitiveProps } from '@/Primitive'
 
 export interface TabsRootProps extends PrimitiveProps {
   defaultValue?: string
@@ -18,8 +18,8 @@ export interface TabsRootProps extends PrimitiveProps {
   modelValue?: string
   onValueChange?: (value: string) => void
 }
-export interface TabsRootEmits {
-  (e: 'update:modelValue', payload: string): void
+export type TabsRootEmits = {
+  'update:modelValue': [payload: string]
 }
 
 export interface TabsProvideValue {
@@ -63,3 +63,14 @@ provide<TabsProvideValue>(TABS_INJECTION_KEY, {
   activationMode: props.activationMode,
 })
 </script>
+
+<template>
+  <Primitive
+    :dir="props.dir"
+    :data-orientation="props.orientation"
+    :as-child="props.asChild"
+    :as="as"
+  >
+    <slot />
+  </Primitive>
+</template>

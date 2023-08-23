@@ -28,9 +28,9 @@ export interface TooltipContentProps
   ariaLabel?: string
 }
 
-export interface TooltipContentEmits {
-  (e: 'escapeKeyDown', event: KeyboardEvent): void
-  (e: 'pointerDownOutside', event: Event): void
+export type TooltipContentEmits = {
+  'escapeKeyDown': [event: KeyboardEvent]
+  'pointerDownOutside': [event: Event]
 }
 </script>
 

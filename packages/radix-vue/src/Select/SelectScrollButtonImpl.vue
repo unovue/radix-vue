@@ -4,8 +4,8 @@ import { SELECT_CONTENT_INJECTION_KEY } from './SelectContentImpl.vue'
 import { Primitive } from '@/Primitive'
 import { useCollection } from '@/shared'
 
-export interface SelectScrollButtonImplEmits {
-  (e: 'autoScroll'): void
+export type SelectScrollButtonImplEmits = {
+  autoScroll: []
 }
 
 const emits = defineEmits<SelectScrollButtonImplEmits>()

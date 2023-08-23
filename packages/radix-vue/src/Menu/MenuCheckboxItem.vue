@@ -12,7 +12,7 @@ export interface MenuCheckboxItemProps extends MenuItemProps {
   checked?: CheckedState
 }
 export type MenuCheckboxItemEmits = MenuItemEmits & {
-  (e: 'update:checked', payload: boolean): void
+  'update:checked': [payload: boolean]
 }
 
 const props = withDefaults(defineProps<MenuCheckboxItemProps>(), {

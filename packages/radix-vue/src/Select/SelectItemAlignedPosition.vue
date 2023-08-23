@@ -16,7 +16,7 @@ export interface SelectItemAlignedPositionProps extends PrimitiveProps {}
 
 const props = defineProps<SelectItemAlignedPositionProps>()
 const emits = defineEmits<{
-  (e: 'placed'): void
+  'placed': []
 }>()
 
 const { injectCollection } = useCollection()

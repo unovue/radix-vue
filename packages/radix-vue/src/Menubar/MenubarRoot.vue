@@ -9,8 +9,8 @@ export interface MenubarRootProps {
   dir?: Direction
   loop?: boolean
 }
-export interface MenubarRootEmits {
-  (e: 'update:modelValue', value: boolean): void
+export type MenubarRootEmits = {
+  'update:modelValue': [value: boolean]
 }
 
 export const MENUBAR_INJECTION_KEY

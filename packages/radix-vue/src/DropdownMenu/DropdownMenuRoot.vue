@@ -8,8 +8,8 @@ export interface DropdownMenuRootProps {
   dir?: Direction
   modal?: boolean
 }
-export interface DropdownMenuRootEmits {
-  (e: 'update:open', value: boolean): void
+export type DropdownMenuRootEmits = {
+  'update:open': [value: boolean]
 }
 
 export const DROPDOWN_MENU_INJECTION_KEY

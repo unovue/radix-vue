@@ -23,17 +23,17 @@ export interface DialogContentImplProps extends DismissableLayerProps {
   trapFocus?: boolean
 }
 
-export interface DialogContentImplEmits extends DismissableLayerEmits {
+export type DialogContentImplEmits = DismissableLayerEmits & {
   /**
    * Event handler called when auto-focusing on open.
    * Can be prevented.
    */
-  (e: 'openAutoFocus', event: Event): void
+  'openAutoFocus': [event: Event]
   /**
    * Event handler called when auto-focusing on close.
    * Can be prevented.
    */
-  (e: 'closeAutoFocus', event: Event): void
+  'closeAutoFocus': [ event: Event]
 }
 
 const props = defineProps<DialogContentImplProps>()

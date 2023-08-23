@@ -49,8 +49,8 @@ export interface AccordionRootProps extends PrimitiveProps {
   orientation?: DataOrientation
 }
 
-export interface AccordionRootEmits {
-  (e: 'update:modelValue', value: string | string[] | undefined): void
+export type AccordionRootEmits = {
+  'update:modelValue': [value: string | string[] | undefined]
 }
 
 export const ACCORDION_INJECTION_KEY

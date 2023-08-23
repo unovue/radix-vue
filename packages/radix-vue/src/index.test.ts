@@ -169,6 +169,7 @@ it('should expose the correct components', () => {
     'SelectScrollUpButton',
     'SelectScrollDownButton',
     'SelectValue',
+    'SelectIcon',
 
     // Menubar
     'MenubarRoot',

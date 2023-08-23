@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 
-interface SelectIconProps extends PrimitiveProps {}
+export interface SelectIconProps extends PrimitiveProps {}
 
 withDefaults(defineProps<SelectIconProps>(), {
   as: 'span',

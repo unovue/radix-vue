@@ -57,3 +57,7 @@ export {
   default as SelectValue,
   type SelectValueProps,
 } from './SelectValue.vue'
+export {
+  default as SelectIcon,
+  type SelectIconProps,
+} from './SelectIcon.vue'

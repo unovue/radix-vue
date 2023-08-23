@@ -29,8 +29,8 @@ export interface TooltipRootProps {
   disableHoverableContent?: boolean
 }
 
-export interface TooltipRootEmits {
-  (e: 'update:open', value: boolean): void
+export type TooltipRootEmits = {
+  'update:open': [value: boolean]
 }
 
 export const TOOLTIP_INJECTION_KEY

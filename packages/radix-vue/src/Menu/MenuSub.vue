@@ -31,7 +31,7 @@ import { useId } from '@/shared'
 
 const props = defineProps<MenuSubProps>()
 const emits = defineEmits<{
-  (e: 'update:open', payload: boolean): void
+  'update:open': [payload: boolean]
 }>()
 
 const open = useVModel(props, 'open', emits, {

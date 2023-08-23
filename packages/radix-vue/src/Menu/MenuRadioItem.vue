@@ -11,7 +11,7 @@ import { MENU_ITEM_INDICATOR_INJECTION_KEY } from './MenuItemIndicator.vue'
 export interface MenuRadioItemProps extends MenuItemProps {
   value: string
 }
-export interface MenuRadioItemEmits extends MenuItemEmits {}
+export type MenuRadioItemEmits = MenuItemEmits
 
 const props = defineProps<MenuRadioItemProps>()
 const emits = defineEmits<MenuRadioItemEmits>()

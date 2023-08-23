@@ -1,10 +1,10 @@
 <script lang="ts">
+export type ContextMenuSubEmits = {
+  'update:open': [value: boolean]
+}
 export interface ContextMenuSubProps {
   open?: boolean
   defaultOpen?: boolean
-}
-export interface ContextMenuSubEmits {
-  (e: 'update:open', value: boolean): void
 }
 </script>
 

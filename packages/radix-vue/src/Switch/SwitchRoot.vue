@@ -11,8 +11,8 @@ export interface SwitchRootProps extends PrimitiveProps {
   id?: string
 }
 
-export interface SwitchRootEmits {
-  (e: 'update:checked', payload: boolean): void
+export type SwitchRootEmits = {
+  'update:checked': [payload: boolean]
 }
 
 export const SWITCH_INJECTION_KEY

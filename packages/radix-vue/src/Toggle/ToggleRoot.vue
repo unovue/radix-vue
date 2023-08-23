@@ -16,8 +16,8 @@ export interface ToggleProps extends PrimitiveProps {
    */
   disabled?: boolean
 }
-export interface ToggleEmits {
-  (e: 'update:pressed', value: boolean): void
+export type ToggleEmits = {
+  'update:pressed': [value: boolean]
 }
 
 export const TOGGLE_INJECTION_KEY

@@ -6,9 +6,9 @@ export interface ProgressRootProps extends PrimitiveProps {
   max?: number
   getValueLabel?: (value: number, max: number) => string
 }
-export interface ProgressRootEmits {
-  (e: 'update:modelValue', value: string[] | undefined): void
-  (e: 'update:max', value: number): void
+export type ProgressRootEmits = {
+  'update:modelValue': [value: string[] | undefined]
+  'update:max': [value: number]
 }
 
 const DEFAULT_MAX = 100

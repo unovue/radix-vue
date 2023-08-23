@@ -24,8 +24,8 @@ export interface SliderRootProps extends PrimitiveProps {
   extraStep: number
   minStepsBetweenThumbs: number
 }
-export interface SliderRootEmits {
-  (e: 'update:modelValue', payload: number): void
+export type SliderRootEmits = {
+  'update:modelValue': [payload: number]
 }
 
 export const SLIDER_INJECTION_KEY

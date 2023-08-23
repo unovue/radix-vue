@@ -7,8 +7,8 @@ export interface DialogRootProps {
   modal?: boolean
 }
 
-export interface DialogRootEmits {
-  (e: 'update:open', value: boolean): void
+export type DialogRootEmits = {
+  'update:open': [value: boolean]
 }
 
 export const DIALOG_INJECTION_KEY

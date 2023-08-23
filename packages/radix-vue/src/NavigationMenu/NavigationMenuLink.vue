@@ -1,9 +1,9 @@
 <script lang="ts">
+export type NavigationMenuLinkEmits = {
+  'select': [payload: MouseEvent]
+}
 export interface NavigationMenuLinkProps extends PrimitiveProps {
   active?: boolean
-}
-export interface NavigationMenuLinkEmits {
-  (e: 'select', payload: MouseEvent): void
 }
 </script>
 

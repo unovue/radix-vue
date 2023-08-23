@@ -13,8 +13,8 @@ export interface CheckboxRootProps extends PrimitiveProps {
   id?: string
 }
 
-export interface CheckboxRootEmits {
-  (e: 'update:modelValue', value: boolean): void
+export type CheckboxRootEmits = {
+  'update:modelValue': [value: boolean]
 }
 
 interface CheckboxProvideValue {

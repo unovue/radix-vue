@@ -27,6 +27,15 @@ export interface MenuContentImplPrivateProps {
   trapFocus?: FocusScopeProps['trapped']
 }
 
+export type MenuContentImplEmits = DismissableLayerEmits & {
+  'openAutoFocus': [event: Event]
+  /**
+   * Event handler called when auto-focusing on close.
+   * Can be prevented.
+   */
+  'closeAutoFocus': [event: Event]
+}
+
 export interface MenuContentImplProps
   extends MenuContentImplPrivateProps,
   Omit<PopperContentProps, 'dir' | 'onPlaced'> {
@@ -44,15 +53,6 @@ export interface MenuRootContentProps
    * @defaultValue false
    */
   loop?: boolean
-}
-
-export type MenuContentImplEmits = DismissableLayerEmits & {
-  (e: 'openAutoFocus', event: Event): void
-  /**
-   * Event handler called when auto-focusing on close.
-   * Can be prevented.
-   */
-  (e: 'closeAutoFocus', event: Event): void
 }
 </script>
 

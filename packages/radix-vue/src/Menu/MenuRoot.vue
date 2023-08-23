@@ -44,7 +44,7 @@ const props = withDefaults(defineProps<MenuProps>(), {
   modal: true,
   dir: 'ltr',
 })
-const emits = defineEmits<{ (e: 'update:open', payload: boolean): void }>()
+const emits = defineEmits<{ 'update:open': [payload: boolean] }>()
 const { modal, dir } = toRefs(props)
 
 const open = useVModel(props, 'open', emits)

@@ -1,8 +1,8 @@
 <script lang="ts">
-export interface MenuItemProps extends MenuItemImplProps {}
-export interface MenuItemEmits {
-  (e: 'select', event: Event): void
+export type MenuItemEmits = {
+  'select': [event: Event]
 }
+export interface MenuItemProps extends MenuItemImplProps {}
 </script>
 
 <script setup lang="ts">

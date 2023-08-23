@@ -16,9 +16,9 @@ export interface SelectRootProps {
   disabled?: boolean
   required?: boolean
 }
-export interface SelectRootEmits {
-  (e: 'update:modelValue', value: string): void
-  (e: 'update:open', value: string): void
+export type SelectRootEmits = {
+  'update:modelValue': [value: string]
+  'update:open': [value: boolean]
 }
 
 export const SELECT_INJECTION_KEY

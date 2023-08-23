@@ -71,7 +71,7 @@ function render() {
   }
 
   if (forceMount.value || present.value || isPresent.value)
-    return withDirectives(children?.[0] as VNode, [[vPresence]])
+    return withDirectives(slots.default?.()[0] as VNode, [[vPresence]])
   else return null
 }
 

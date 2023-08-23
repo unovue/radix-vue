@@ -29,18 +29,18 @@ export interface SelectContentImplProps extends PopperContentProps {
   position?: 'item-aligned' | 'popper'
 }
 
-export interface SelectContentImplEmits {
-  (e: 'closeAutoFocus', event: Event): void
+export type SelectContentImplEmits = {
+  closeAutoFocus: [event: Event]
   /**
    * Event handler called when the escape key is down.
    * Can be prevented.
    */
-  (e: 'escapeKeyDown', event: KeyboardEvent): void
+  escapeKeyDown: [event: KeyboardEvent]
   /**
    * Event handler called when the a `pointerdown` event happens outside of the `DismissableLayer`.
    * Can be prevented.
    */
-  (e: 'pointerDownOutside', event: PointerDownOutsideEvent): void
+  pointerDownOutside: [event: PointerDownOutsideEvent]
 }
 </script>
 

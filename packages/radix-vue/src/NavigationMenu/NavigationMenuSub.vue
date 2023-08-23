@@ -15,8 +15,8 @@ export interface NavigationMenuSubProps extends PrimitiveProps {
   defaultValue?: string
   orientation?: Orientation
 }
-export interface NavigationMenuSubEmits {
-  (e: 'update:modelValue', value: string): void
+export type NavigationMenuSubEmits = {
+  'update:modelValue': [value: string]
 }
 
 const props = withDefaults(defineProps<NavigationMenuSubProps>(), {

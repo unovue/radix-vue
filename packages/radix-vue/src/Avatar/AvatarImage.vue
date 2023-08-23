@@ -1,8 +1,8 @@
 <script lang="ts">
-export interface AvatarImageProps extends PrimitiveProps {}
-export interface AvatarImageEmits {
-  (e: 'loadingStatusChange', value: ImageLoadingStatus): void
+export type AvatarImageEmits = {
+  'loadingStatusChange': [value: ImageLoadingStatus]
 }
+export interface AvatarImageProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">

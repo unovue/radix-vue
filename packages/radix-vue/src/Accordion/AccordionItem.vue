@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-import type { ComputedRef, InjectionKey, Ref } from 'vue'
+import type { ComputedRef, InjectionKey, VNodeRef } from 'vue'
 import type { CollapsibleRootProps } from '../Collapsible'
 import { ACCORDION_INJECTION_KEY } from './AccordionRoot.vue'
 
@@ -29,7 +29,7 @@ interface AccordionItemProvideValue {
   disabled: ComputedRef<boolean>
   dataDisabled: ComputedRef<'' | undefined>
   triggerId: string
-  primitiveElement: Ref<HTMLElement | undefined>
+  primitiveElement: VNodeRef
   currentElement: ComputedRef<HTMLElement | undefined>
   value: ComputedRef<string>
 }

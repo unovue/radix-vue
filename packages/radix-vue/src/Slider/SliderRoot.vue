@@ -1,61 +1,61 @@
 <script lang="ts">
-import type { Ref, InjectionKey } from "vue";
-import type { DataOrientation, Direction } from '../shared/types'
+import type { InjectionKey, Ref } from 'vue'
 import {
   Primitive,
   type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
+import type { DataOrientation, Direction } from '../shared/types'
 
 export interface SliderRootProps extends PrimitiveProps {
-  name?: string;
-  defaultValue?: number[];
-  modelValue?: number[];
-  onValueCommit?: (value: number[]) => void;
-  disabled?: boolean;
-  orientation?: DataOrientation;
-  dir?: Direction;
-  inverted?: boolean;
-  min?: number;
-  max?: number;
-  step?: number;
-  minStepsBetweenThumbs?: number;
+  name?: string
+  defaultValue?: number[]
+  modelValue?: number[]
+  onValueCommit?: (value: number[]) => void
+  disabled?: boolean
+  orientation?: DataOrientation
+  dir?: Direction
+  inverted?: boolean
+  min?: number
+  max?: number
+  step?: number
+  minStepsBetweenThumbs?: number
 }
 
 export interface SliderProvideValue {
-  orientation: DataOrientation;
-  dir?: Direction;
-  flipped?: Ref<boolean>;
-  disabled: boolean;
-  min: number;
-  max: number;
-  step: number;
-  modelValue?: Readonly<Ref<number[] | undefined>>;
-  changeModelValue: (value: number[]) => void;
-  setValueByIndex: (value: number, index: number) => void;
-  rootSliderElement: Ref<HTMLElement | undefined>;
-  thumbElements: Ref<HTMLElement[]>;
+  orientation: DataOrientation
+  dir?: Direction
+  flipped?: Ref<boolean>
+  disabled: boolean
+  min: number
+  max: number
+  step: number
+  modelValue?: Readonly<Ref<number[] | undefined>>
+  changeModelValue: (value: number[]) => void
+  setValueByIndex: (value: number, index: number) => void
+  rootSliderElement: Ref<HTMLElement | undefined>
+  thumbElements: Ref<HTMLElement[]>
 }
 
-export const SLIDER_INJECTION_KEY =
-  Symbol() as InjectionKey<SliderProvideValue>;
+export const SLIDER_INJECTION_KEY
+  = Symbol() as InjectionKey<SliderProvideValue>
 
 export interface SliderRootEmits {
-  (e: "update:modelValue", payload: number): void;
+  (e: 'update:modelValue', payload: number): void
 }
 </script>
 
 <script setup lang="ts">
-import { ref, provide, computed } from "vue";
-import { useVModel } from "@vueuse/core";
-import { clamp } from "./utils";
+import { computed, provide, ref } from 'vue'
+import { useVModel } from '@vueuse/core'
+import { clamp } from './utils'
 
 const props = withDefaults(defineProps<SliderRootProps>(), {
-  as: "span",
+  as: 'span',
   asChild: false,
   disabled: false,
   inverted: false,
-  orientation: "horizontal",
+  orientation: 'horizontal',
   min: 0,
   max: 100,
   step: 1,
@@ -64,236 +64,227 @@ const props = withDefaults(defineProps<SliderRootProps>(), {
 
 const emits = defineEmits<SliderRootEmits>()
 
-const modelValue = useVModel(props, "modelValue", emits, {
+const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
   passive: true,
-});
+})
 
-const { primitiveElement, currentElement: rootSliderElement } =
-  usePrimitiveElement();
+const { primitiveElement, currentElement: rootSliderElement }
+  = usePrimitiveElement()
 
-const thumbElements = ref<HTMLElement[]>([]);
+const thumbElements = ref<HTMLElement[]>([])
 
 const name = computed(() => {
-  const modelValueLength = modelValue.value?.length || 0;
-  return modelValueLength > 1 ? `${props.name}[]` : props.name;
-});
+  const modelValueLength = modelValue.value?.length || 0
+  return modelValueLength > 1 ? `${props.name}[]` : props.name
+})
 
 const flipped = computed<boolean>(() => {
-  if (props.dir === "rtl" && props.inverted) {
-    return false;
-  }
+  if (props.dir === 'rtl' && props.inverted)
+    return false
 
-  return props.dir === "rtl" || props.inverted;
-});
+  return props.dir === 'rtl' || props.inverted
+})
 
 function copyArrayExcludeElement(
   originalArray: number[],
-  excludeIndex: number
+  excludeIndex: number,
 ) {
-  const firstPart = originalArray.slice(0, excludeIndex);
-  const secondPart = originalArray.slice(excludeIndex + 1);
-  return firstPart.concat(secondPart);
+  const firstPart = originalArray.slice(0, excludeIndex)
+  const secondPart = originalArray.slice(excludeIndex + 1)
+  return firstPart.concat(secondPart)
 }
 
 function isWithinRange(value: number, index: number) {
   if (modelValue.value) {
-    const valuesToCheck = copyArrayExcludeElement(modelValue.value, index);
+    const valuesToCheck = copyArrayExcludeElement(modelValue.value, index)
     for (const number of valuesToCheck) {
-      if (Math.abs(value - number) <= props.minStepsBetweenThumbs) {
-        return true;
-      }
+      if (Math.abs(value - number) <= props.minStepsBetweenThumbs)
+        return true
     }
   }
-  return false;
+  return false
 }
 
 function setValueByIndex(value: number, index: number): void {
   if (props.minStepsBetweenThumbs > 0) {
-    if (isWithinRange(value, index)) {
-      return;
-    }
+    if (isWithinRange(value, index))
+      return
   }
 
-  const newValues = [...(modelValue.value || [])];
-  newValues[index] = value;
+  const newValues = [...(modelValue.value || [])]
+  newValues[index] = value
 
-  setValue(newValues);
+  setValue(newValues)
 }
 
 function setValue(value: number[] | undefined) {
-  if (props.disabled || value === undefined) {
-    return;
-  }
+  if (props.disabled || value === undefined)
+    return
 
-  modelValue.value = value;
-  if (value && props.onValueCommit) {
-    props.onValueCommit(value);
-  }
+  modelValue.value = value
+  if (value && props.onValueCommit)
+    props.onValueCommit(value)
 }
 
 provide<SliderProvideValue>(SLIDER_INJECTION_KEY, {
   modelValue,
   changeModelValue: setValue,
-  setValueByIndex: setValueByIndex,
-  rootSliderElement: rootSliderElement,
-  thumbElements: thumbElements,
+  setValueByIndex,
+  rootSliderElement,
+  thumbElements,
   orientation: props.orientation,
   dir: props.dir,
-  flipped: flipped,
+  flipped,
   min: props.min,
   max: props.max,
   step: props.step,
   disabled: props.disabled,
-});
+})
 
 function calculateThumbRelativePosition(
   pointerPosition: number,
-  sliderRect: DOMRect
+  sliderRect: DOMRect,
 ): number {
-  let sliderRootSize = sliderRect.width;
-  let thumbPosition = pointerPosition - sliderRect.left;
+  let sliderRootSize = sliderRect.width
+  let thumbPosition = pointerPosition - sliderRect.left
 
-  if (props.orientation === "vertical") {
-    sliderRootSize = sliderRect.height;
-    thumbPosition = pointerPosition - sliderRect.top;
+  if (props.orientation === 'vertical') {
+    sliderRootSize = sliderRect.height
+    thumbPosition = pointerPosition - sliderRect.top
   }
 
-  const isPointerInsideSlider =
-    thumbPosition >= 0 && thumbPosition <= sliderRootSize;
+  const isPointerInsideSlider
+    = thumbPosition >= 0 && thumbPosition <= sliderRootSize
 
   if (isPointerInsideSlider) {
-    const sliderRelativePosition = thumbPosition / sliderRootSize;
-    return sliderRelativePosition;
-  } else if (thumbPosition <= 0) {
-    return 0;
+    const sliderRelativePosition = thumbPosition / sliderRootSize
+    return sliderRelativePosition
+  }
+  else if (thumbPosition <= 0) {
+    return 0
   }
 
-  return 1;
+  return 1
 }
 
 function calculateValueFromPosition(
   pointerPosition: number,
-  sliderRect: DOMRect
+  sliderRect: DOMRect,
 ): number {
-  const position = calculateThumbRelativePosition(pointerPosition, sliderRect);
+  const position = calculateThumbRelativePosition(pointerPosition, sliderRect)
 
   // Calculate new value.
-  const range = props.max - props.min;
-  let newValue = position * range;
+  const range = props.max - props.min
+  let newValue = position * range
 
-  if (flipped.value) {
-    newValue = props.max - newValue;
-  }
+  if (flipped.value)
+    newValue = props.max - newValue
 
   // Clamp to ensure that we are not outside the boundries.
   newValue = clamp(newValue + (flipped.value ? 0 : props.min), [
     props.min,
     props.max,
-  ]);
+  ])
 
   // Convert to closest step.
-  const step = props.step;
-  const quotient = Math.floor(newValue / step);
-  const remainder = newValue % step;
-  const roundedValue =
-    remainder <= step / 2 ? quotient * step : (quotient + 1) * step;
+  const step = props.step
+  const quotient = Math.floor(newValue / step)
+  const remainder = newValue % step
+  const roundedValue
+    = remainder <= step / 2 ? quotient * step : (quotient + 1) * step
 
-  return clamp(roundedValue, [props.min, props.max]);
+  return clamp(roundedValue, [props.min, props.max])
 }
 
-let rootSliderElementRect: DOMRect | undefined;
-let activeThumbIndex: number | undefined;
-let thumbHalfSize: number = 0;
+let rootSliderElementRect: DOMRect | undefined
+let activeThumbIndex: number | undefined
+let thumbHalfSize = 0
 
 function onPointerDown(e: MouseEvent) {
-  e.preventDefault();
+  e.preventDefault()
 
-  if (!thumbElements.value.length) {
-    return;
-  }
+  if (!thumbElements.value.length)
+    return
 
-  if (!rootSliderElement.value) {
-    return;
-  }
+  if (!rootSliderElement.value)
+    return
 
-  rootSliderElementRect = rootSliderElement.value.getBoundingClientRect();
+  rootSliderElementRect = rootSliderElement.value.getBoundingClientRect()
 
-  let pointerPosition = e.clientX;
-  if (props.orientation === "vertical") {
-    pointerPosition = e.clientY;
-  }
+  if (!rootSliderElementRect)
+    return
 
-  let nearestDistance = Number.MAX_VALUE;
+  let pointerPosition = e.clientX
+  if (props.orientation === 'vertical')
+    pointerPosition = e.clientY
+
+  let nearestDistance = Number.MAX_VALUE
 
   // Calculate distances from pointer position to each thumb's center
   thumbElements.value.forEach((thumbElement, index) => {
-    const thumbRect = thumbElement.getBoundingClientRect();
-    const thumbCenter =
-      props.orientation === "vertical"
+    const thumbRect = thumbElement.getBoundingClientRect()
+    const thumbCenter
+      = props.orientation === 'vertical'
         ? (thumbRect.top + thumbRect.bottom) / 2
-        : (thumbRect.left + thumbRect.right) / 2;
+        : (thumbRect.left + thumbRect.right) / 2
 
-    thumbHalfSize =
-      props.orientation === "vertical"
+    thumbHalfSize
+      = props.orientation === 'vertical'
         ? thumbElement.offsetHeight / 2
-        : thumbElement.offsetWidth / 2;
+        : thumbElement.offsetWidth / 2
 
-    pointerPosition += thumbHalfSize;
+    pointerPosition += thumbHalfSize
 
-    const distance = Math.abs(thumbCenter - pointerPosition);
+    const distance = Math.abs(thumbCenter - pointerPosition)
     if (distance < nearestDistance) {
-      nearestDistance = distance;
-      activeThumbIndex = index;
+      nearestDistance = distance
+      activeThumbIndex = index
     }
-  });
+  })
 
-  if (activeThumbIndex === undefined) {
-    return;
-  }
+  if (activeThumbIndex === undefined)
+    return
 
-  const nearestThumb = thumbElements.value[activeThumbIndex];
+  const nearestThumb = thumbElements.value[activeThumbIndex]
 
-  nearestThumb.focus();
+  nearestThumb.focus()
 
-  pointerPosition -= thumbHalfSize;
+  pointerPosition -= thumbHalfSize
 
   const newValue = calculateValueFromPosition(
     pointerPosition,
-    rootSliderElementRect
-  );
+    rootSliderElementRect,
+  )
 
-  setValueByIndex(newValue, activeThumbIndex);
+  setValueByIndex(newValue, activeThumbIndex)
 
-  document.addEventListener("pointermove", onPointerMove);
-  document.addEventListener("pointerup", onPointerUp);
+  document.addEventListener('pointermove', onPointerMove)
+  document.addEventListener('pointerup', onPointerUp)
 }
 
 function onPointerMove(e: PointerEvent) {
-  if (!rootSliderElementRect) {
-    return;
-  }
+  if (!rootSliderElementRect)
+    return
 
-  if (activeThumbIndex === undefined) {
-    return;
-  }
+  if (activeThumbIndex === undefined)
+    return
 
-  let pointerPosition = e.clientX;
-  if (props.orientation === "vertical") {
-    pointerPosition = e.clientY;
-  }
+  let pointerPosition = e.clientX
+  if (props.orientation === 'vertical')
+    pointerPosition = e.clientY
 
   const newValue = calculateValueFromPosition(
     pointerPosition,
-    rootSliderElementRect
-  );
+    rootSliderElementRect,
+  )
 
-  setValueByIndex(newValue, activeThumbIndex);
+  setValueByIndex(newValue, activeThumbIndex)
 }
 
 function onPointerUp() {
-  document.removeEventListener("pointermove", onPointerMove);
-  document.removeEventListener("pointerup", onPointerUp);
+  document.removeEventListener('pointermove', onPointerMove)
+  document.removeEventListener('pointerup', onPointerUp)
 }
 </script>
 
@@ -317,6 +308,6 @@ function onPointerUp() {
       :name="name"
       :disabled="props.disabled"
       :data-disabled="props.disabled"
-    />
+    >
   </Primitive>
 </template>

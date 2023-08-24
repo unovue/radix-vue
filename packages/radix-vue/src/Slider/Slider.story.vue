@@ -2,20 +2,22 @@
 import { ref } from 'vue'
 import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from './'
 
-const sliderValue = ref([50]);
-const controlledLtr = ref([44]);
-const controlledLtrMulti = ref([10, 30]);
-const controlledRtl = ref([44]);
-const controlledRtlMulti = ref([10, 30]);
-const directionRtl = ref([44]);
-const directionRtlMulti = ref([10, 30]);
+const sliderValue = ref([50])
+const controlledLtr = ref([44])
+const controlledLtrMulti = ref([10, 30])
+const controlledRtl = ref([44])
+const controlledRtlMulti = ref([10, 30])
+const directionRtl = ref([44])
+const directionRtlMulti = ref([10, 30])
 </script>
 
 <template>
   <Story title="Slider" :layout="{ type: 'single', iframe: true }">
     <Variant title="chromatic">
       <div class="flex flex-col items-left dark:text-white">
-        <h1 class="font-bold text-xl dark:text-white">Uncontrolled</h1>
+        <h1 class="font-bold text-xl dark:text-white">
+          Uncontrolled
+        </h1>
         <span class="">LTR</span>
         <SliderRoot
           class="relative flex items-center select-none touch-none w-[200px] h-5"
@@ -72,7 +74,9 @@ const directionRtlMulti = ref([10, 30]);
           />
         </SliderRoot>
 
-        <h1 class="font-bold text-xl dark:text-white">Controlled</h1>
+        <h1 class="font-bold text-xl dark:text-white">
+          Controlled
+        </h1>
         <SliderRoot
           class="relative flex items-center select-none touch-none w-[200px] h-5"
           :default-value="[10, 15, 20, 80]"
@@ -95,11 +99,13 @@ const directionRtlMulti = ref([10, 30]);
           />
         </SliderRoot>
 
-        <h1 class="font-bold text-xl dark:text-white">Controlled</h1>
+        <h1 class="font-bold text-xl dark:text-white">
+          Controlled
+        </h1>
         <span class="">LTR</span>
         <SliderRoot
-          class="relative flex items-center select-none touch-none w-[200px] h-5"
           v-model="controlledLtr"
+          class="relative flex items-center select-none touch-none w-[200px] h-5"
         >
           <SliderTrack class="bg-blackA10 relative grow rounded-full h-[3px]">
             <SliderRange class="absolute bg-white rounded-full h-full" />
@@ -109,8 +115,8 @@ const directionRtlMulti = ref([10, 30]);
           />
         </SliderRoot>
         <SliderRoot
-          class="relative flex items-center select-none touch-none w-[200px] h-5"
           v-model="controlledLtrMulti"
+          class="relative flex items-center select-none touch-none w-[200px] h-5"
         >
           <SliderTrack class="bg-blackA10 relative grow rounded-full h-[3px]">
             <SliderRange class="absolute bg-white rounded-full h-full" />
@@ -125,8 +131,8 @@ const directionRtlMulti = ref([10, 30]);
 
         <span class="">RTL</span>
         <SliderRoot
-          class="relative flex items-center select-none touch-none w-[200px] h-5"
           v-model="controlledRtl"
+          class="relative flex items-center select-none touch-none w-[200px] h-5"
         >
           <SliderTrack class="bg-blackA10 relative grow rounded-full h-[3px]">
             <SliderRange class="absolute bg-white rounded-full h-full" />
@@ -136,8 +142,8 @@ const directionRtlMulti = ref([10, 30]);
           />
         </SliderRoot>
         <SliderRoot
-          class="relative flex items-center select-none touch-none w-[200px] h-5"
           v-model="controlledRtlMulti"
+          class="relative flex items-center select-none touch-none w-[200px] h-5"
         >
           <SliderTrack class="bg-blackA10 relative grow rounded-full h-[3px]">
             <SliderRange class="absolute bg-white rounded-full h-full" />
@@ -150,11 +156,13 @@ const directionRtlMulti = ref([10, 30]);
           />
         </SliderRoot>
 
-        <h1 class="font-bold text-xl dark:text-white">Direction</h1>
+        <h1 class="font-bold text-xl dark:text-white">
+          Direction
+        </h1>
         <SliderRoot
-          class="relative flex items-center select-none touch-none w-[200px] h-5"
-          dir="rtl"
           v-model="directionRtl"
+          class="relative flex items-center select-none touch-none w-[200px] h-5"
+          dir="rtl"
         >
           <SliderTrack class="bg-blackA10 relative grow rounded-full h-[3px]">
             <SliderRange class="absolute bg-white rounded-full h-full" />
@@ -164,9 +172,9 @@ const directionRtlMulti = ref([10, 30]);
           />
         </SliderRoot>
         <SliderRoot
+          v-model="directionRtlMulti"
           class="relative flex items-center select-none touch-none w-[200px] h-5"
           dir="rtl"
-          v-model="directionRtlMulti"
         >
           <SliderTrack class="bg-blackA10 relative grow rounded-full h-[3px]">
             <SliderRange class="absolute bg-white rounded-full h-full" />
@@ -179,7 +187,9 @@ const directionRtlMulti = ref([10, 30]);
           />
         </SliderRoot>
 
-        <h1 class="font-bold text-xl dark:text-white">Scenarios</h1>
+        <h1 class="font-bold text-xl dark:text-white">
+          Scenarios
+        </h1>
         <h2>Extremes</h2>
         <SliderRoot
           class="relative flex items-center select-none touch-none w-[200px] h-5"
@@ -274,7 +284,9 @@ const directionRtlMulti = ref([10, 30]);
           />
         </SliderRoot>
 
-        <h1 class="font-bold text-xl dark:text-white">Disabled</h1>
+        <h1 class="font-bold text-xl dark:text-white">
+          Disabled
+        </h1>
         <SliderRoot
           class="relative flex items-center select-none touch-none w-[200px] h-5"
           :disabled="true"

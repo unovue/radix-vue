@@ -81,13 +81,6 @@ Contains all the tabs component parts.
 <PropsTable
   :data="[
     {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
       name: 'defaultValue',
       required: false,
       type: 'string',
@@ -95,7 +88,7 @@ Contains all the tabs component parts.
         'The value of the tab that should be active when initially rendered. Use when you do not need to control the state of the tabs',
     },
     {
-      name: 'value',
+      name: 'modelValue',
       required: false,
       type: 'string',
       description: '<span> The controlled value of the tab to activate. Should be binded with <Code>v-model</Code>.</span>',
@@ -123,8 +116,26 @@ Contains all the tabs component parts.
       default: '&quot;automatic&quot;',
       description: '<span> When <Code>automatic</Code>, tabs are activated when receiving focus. When <Code>manual</Code>, tabs are activated when clicked.</span>',
     },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    },
   ]"
 />
+
+<EmitsTable 
+  :data="[
+    {
+      name: '@update:modelValue',
+      type: '(value: string) => void',
+      description: 'Event handler called when the value changes'
+    },
+  ]" 
+/>
+
 
 <DataAttributesTable
   :data="[

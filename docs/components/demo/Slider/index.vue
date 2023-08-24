@@ -6,7 +6,8 @@ const sliderValue = ref(50)
 </script>
 
 <template>
-  <SliderRoot v-model="sliderValue" class="relative flex items-center select-none touch-none w-[200px] h-5" max="100" step="1">
+  <SliderRoot v-model="sliderValue" class="relative flex items-center select-none touch-none w-[200px] h-5" :max="100"
+    :step="1">
     <SliderTrack class="bg-blackA10 relative grow rounded-full h-[3px]">
       <SliderRange class="absolute bg-white rounded-full h-full" />
     </SliderTrack>

@@ -16,6 +16,7 @@ import {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
+  ContextMenuArrow
 } from '../../../../../packages/radix-vue/src'
 
 const toggleState = ref(false)

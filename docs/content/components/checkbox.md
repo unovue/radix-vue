@@ -119,6 +119,17 @@ Contains all the parts of a checkbox. An `input` will also render when used with
   ]"
 />
 
+<EmitsTable 
+  :data="[
+    {
+      name: '@update:checked',
+      type: '(value: boolean) => void',
+      description: 'Event handler called when the checked state of the checkbox changes.'
+    }
+  ]" 
+/>
+
+
 <DataAttributesTable
   :data="[
     {

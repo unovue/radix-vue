@@ -79,19 +79,12 @@ Contains all the parts of a radio group.
 <PropsTable
   :data="[
     {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
       name: 'defaultValue',
       type: 'string',
       description: 'The value of the radio item that should be checked when initially rendered. Use when you do not need to control the state of the radio items.',
     },
     {
-      name: 'value',
+      name: 'modelValue',
       type: 'string',
       description: '<span> The controlled value of the radio item to check. Should be binded with <Code>v-model</Code>. </span>',
     },
@@ -132,8 +125,26 @@ Contains all the parts of a radio group.
       default: 'true',
       description: '<span> When <Code>true</Code>, keyboard navigation will loop from last item to first, and vice versa. </span>',
     },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    },
   ]"
 />
+
+<EmitsTable 
+  :data="[
+    {
+      name: '@update:modelValue',
+      type: '(value: string) => void',
+      description: 'Event handler called when the radio group value changes'
+    },
+  ]" 
+/>
+
 
 <DataAttributesTable
   :data="[

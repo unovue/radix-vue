@@ -79,14 +79,7 @@ Contains all of the progress parts.
 <PropsTable
   :data="[
     {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'value',
+      name: 'modelValue',
       type: 'number | null',
       description: 'The progress value.',
     },
@@ -102,8 +95,26 @@ Contains all of the progress parts.
       description:
         'A function to get the accessible label text representing the current value in a human-readable format. If not provided, the value label will be read as the numeric value as a percentage of the max value.',
     },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    },
   ]"
 />
+
+<EmitsTable 
+  :data="[
+    {
+      name: '@update:modelValue',
+      type: '(value: string) => void',
+      description: 'Event handler called when the progres value changes'
+    },
+  ]" 
+/>
+
 
 <DataAttributesTable
   :data="[

@@ -102,6 +102,17 @@ Contains all the parts of a collapsible
   ]"
 />
 
+
+<EmitsTable 
+  :data="[
+    {
+      name: '@update:open',
+      type: '(value: boolean) => void',
+      description: 'Event handler called when the open state of the collapsible changes.'
+    }
+  ]" 
+/>
+
 <DataAttributesTable
   :data="[
     {

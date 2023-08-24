@@ -71,13 +71,6 @@ The toggle.
 <PropsTable
   :data="[
     {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
       name: 'defaultPressed',
       type: 'boolean',
       description: 'The pressed state of the toggle when it is initially rendered. Use when you do not need to control its pressed state.',
@@ -92,8 +85,26 @@ The toggle.
       type: 'boolean',
       description: '<span> When <Code>true</Code>, prevents the user from interacting with the toggle.</span>',
     },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    },
   ]"
 />
+
+<EmitsTable 
+  :data="[
+    {
+      name: '@update:pressed',
+      type: '(value: string) => void',
+      description: 'Event handler called when the pressed state of the toggle changes.'
+    },
+  ]" 
+/>
+
 
 <DataAttributesTable
   :data="[

@@ -73,13 +73,6 @@ Contains all the parts of a switch. An `input` will also render when used within
 <PropsTable
   :data="[
     {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
       name: 'defaultChecked',
       type: 'boolean',
       description: 'The state of the switch when it is initially rendered. Use when you do not need to control its state.',
@@ -111,8 +104,26 @@ Contains all the parts of a switch. An `input` will also render when used within
       default: 'on',
       description: '<span> The value given as data when submitted with a <Code>name</Code>.</span>',
     },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    },
   ]"
 />
+
+<EmitsTable 
+  :data="[
+    {
+      name: '@update:checked',
+      type: '(value: boolean) => void',
+      description: 'Event handler called when the checked state of the switch changes.'
+    }
+  ]" 
+/>
+
 
 <DataAttributesTable
   :data="[

@@ -110,7 +110,16 @@ Contains all the parts of a hover card.
   ]"
 />
 
-````
+<EmitsTable 
+  :data="[
+    {
+      name: '@update:open',
+      type: '(value: boolean) => void',
+      description: 'Event handler called when the open state of the hover card changes.'
+    }
+  ]" 
+/>
+
 
 ### Trigger
 
@@ -141,13 +150,14 @@ The link that opens the hover card when hovered.
 
 When used, portals the content part into the `body`.
 
+
 <PropsTable
   :data="[
     {
-      name: 'container',
-      type: 'HTMLElement',
-      default: 'document.body',
-      description: 'Specify a container element to portal the content into.',
+      name: 'to',
+      type:  'string | HTMLElement',
+      default: 'body',
+      description: 'Vue native teleport component props. (to)',
     },
   ]"
 />

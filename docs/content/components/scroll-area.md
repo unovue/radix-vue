@@ -84,13 +84,6 @@ Contains all the parts of a scroll area.
 <PropsTable
   :data="[
     {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
       name: 'type',
       type: '&quot;auto&quot; | &quot;always&quot; | &quot;scroll&quot; | &quot;hover&quot;',
       typeSimple: 'enum',
@@ -109,6 +102,13 @@ Contains all the parts of a scroll area.
       type: '&quot;ltr&quot; | &quot;rtl&quot;',
       typeSimple: 'enum',
       description: '<span> The reading direction of the scroll area. If omitted, inherits globally from <Code>DirectionProvider</Code> or assumes LTR (left-to-right) reading mode.</span>',
+    },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
   ]"
 />

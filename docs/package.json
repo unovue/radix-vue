@@ -25,6 +25,6 @@
     }
   },
   "dependencies": {
-    "radix-vue": "0.1.21"
+    "radix-vue": "0.1.26"
   }
 }

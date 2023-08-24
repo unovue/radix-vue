@@ -143,6 +143,17 @@ Contains all the parts of an Accordion
   ]"
 />
 
+<EmitsTable 
+  :data="[
+    {
+      name: '@update:modelValue',
+      type: '(value: string) => void',
+      description: 'Event handler called when the expanded state of an item changes'
+    },
+  ]" 
+/>
+
+
 <DataAttributesTable
   :data="[
     {

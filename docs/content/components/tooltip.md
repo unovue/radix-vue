@@ -124,6 +124,19 @@ Contains all the parts of a tooltip.
   }
 ]" />
 
+
+<EmitsTable 
+  :data="[
+    {
+      name: '@update:open',
+      type: '(value: boolean) => void',
+      description: 'Event handler called when the open state of the tooltip changes.'
+    }
+  ]" 
+/>
+
+
+
 ### Trigger
 
 The button that toggles the tooltip. By default, the `TooltipContent` will position itself against the trigger.
@@ -148,14 +161,17 @@ values: ['closed', 'delayed-open', 'instant-open'],
 
 When used, portals the content part into the `body`.
 
-<PropsTable :data="[
-{
-name: 'container',
-type: 'HTMLElement',
-default: 'document.body',
-description: 'Specify a container element to portal the content into.',
-},
-]" />
+<PropsTable
+  :data="[
+    {
+      name: 'to',
+      type:  'string | HTMLElement',
+      default: 'body',
+      description: 'Vue native teleport component props. (to)',
+    },
+  ]"
+/>
+
 
 ### Content
 
@@ -164,32 +180,11 @@ The component that pops out when the tooltip is open.
 <PropsTable
   :data="[
     {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
       name: 'aria-label',
       required: false,
       type: 'string',
       description: 'By default, screenreaders will announce the content inside the component. If this is not descriptive enough, or you have content that cannot be announced, use <code>aria-label</code> as a more descriptive label.',
-    },
-    {
-      name: 'onEscapeKeyDown',
-      required: false,
-      type: 'boolean',
-      default: 'true',
-      description: '<span>Event handler called when the escape key is down. It can be prevented by calling <Code>event.preventDefault</Code>.</span>',
-    },
-    {
-      name: 'onPointerDownOutside',
-      required: false,
-      type: 'boolean',
-      default: 'true',
-      description: '<span>Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.</span>',
-    },
+    }, 
     {
       name: 'side',
       type: '&quot;top&quot; | &quot;right&quot; | &quot;bottom&quot; | &quot;left&quot;',
@@ -255,20 +250,17 @@ The component that pops out when the tooltip is open.
       default: 'false',
       description: '<span> Whether to hide the content when the trigger becomes fully occluded.</span>',
     },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    },
   ]"
 />
 
 <EmitsTable :data="[
-{
-name: '@open',
-type: '(event: Event) => void',
-description: 'Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault`',
-},
-{
-name: '@close',
-type: '(event: Event) => void',
-description: 'Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault`',
-},
 {
 name: '@escape-key-down',
 type: '(event: KeyboardEvent) => void',
@@ -278,12 +270,9 @@ description: 'Event handler called when focus moves to the destructive action af
 name: '@pointer-down-outside',
 type: '(event: KeyboardEvent) => void',
 description: '<span>Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.</span>',
-},
-{
-name: '@interact-outside',
-type: '(event: KeyboardEvent) => void',
-description: '<span>Event handler called when an interaction (pointer or focus event) happens outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.</span>',
-}]" />
+}, 
+]" 
+/>
 
 <DataAttributesTable
   :data="[

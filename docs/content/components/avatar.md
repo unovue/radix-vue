@@ -87,7 +87,7 @@ Contains all the parts of an avatar
 
 ### Image
 
-The image to render. By default it will only render when it has loaded. You can use the `onLoadingStatusChange` handler if you need more control.
+The image to render. By default it will only render when it has loaded. You can use the `@loadingStatusChange` handler if you need more control.
 
 <PropsTable :data="[
     {
@@ -96,15 +96,20 @@ The image to render. By default it will only render when it has loaded. You can 
       type: 'boolean',
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
+    }, 
+  ]"
+/>
+
+
+<EmitsTable 
+  :data="[
     {
-      name: 'onLoadingStatusChange',
+      name: '@loadingStatusChange',
       type: '(status: &quot;idle&quot; | &quot;loading&quot; | &quot;loaded&quot; | &quot;error&quot;) => void',
-      typeSimple: 'function',
       description:
         'A callback providing information about the loading status of the image. This is useful in case you want to control more precisely what to render as the image is loading.',
     },
-  ]"
+  ]" 
 />
 
 ### Fallback

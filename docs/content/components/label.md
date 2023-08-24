@@ -73,16 +73,16 @@ Contains the content for the label.
 <PropsTable
   :data="[
     {
+      name: 'for',
+      type: 'string',
+      description: 'The id of the element the label is associated with.',
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'for',
-      type: 'string',
-      description: 'The id of the element the label is associated with.',
     },
   ]"
 />

@@ -83,20 +83,13 @@ Contains all the parts of a slider. It will render an `input` for each thumb whe
 <PropsTable
   :data="[
     {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
       name: 'defaultValue',
       required: false,
       type: 'number[]',
       description: 'The value of the slider when initially rendered. Use when you do not need to control the state of the slider.',
     },
     {
-      name: 'value',
+      name: 'modelValue',
       required: false,
       type: 'number[]',
       description: '<span> The controlled value of the slider. Must be binded with <Code>v-model</Code>. </span>',
@@ -171,7 +164,25 @@ Contains all the parts of a slider. It will render an `input` for each thumb whe
       default: '0',
       description: '<span> The minimum permitted <Code>step</Code>s between multiple thumbs. </span>',
     },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    },
   ]"
+/>
+
+
+<EmitsTable 
+  :data="[
+    {
+      name: '@update:modelValue',
+      type: '(value: number) => void',
+      description: 'Event handler called when the slider value changes'
+    },
+  ]" 
 />
 
 <DataAttributesTable

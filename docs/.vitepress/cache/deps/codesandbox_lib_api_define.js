@@ -2,9 +2,9 @@ import {
   __commonJS
 } from "./chunk-76J2PTFD.js";
 
-// ../node_modules/.pnpm/lz-string@1.5.0/node_modules/lz-string/libs/lz-string.js
+// node_modules/.pnpm/lz-string@1.5.0/node_modules/lz-string/libs/lz-string.js
 var require_lz_string = __commonJS({
-  "../node_modules/.pnpm/lz-string@1.5.0/node_modules/lz-string/libs/lz-string.js"(exports, module) {
+  "node_modules/.pnpm/lz-string@1.5.0/node_modules/lz-string/libs/lz-string.js"(exports, module) {
     var LZString = function() {
       var f = String.fromCharCode;
       var keyStrBase64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
@@ -469,9 +469,9 @@ var require_lz_string = __commonJS({
   }
 });
 
-// ../node_modules/.pnpm/codesandbox-import-utils@2.2.3/node_modules/codesandbox-import-utils/lib/api/define.js
+// node_modules/.pnpm/codesandbox-import-utils@2.2.3/node_modules/codesandbox-import-utils/lib/api/define.js
 var require_define = __commonJS({
-  "../node_modules/.pnpm/codesandbox-import-utils@2.2.3/node_modules/codesandbox-import-utils/lib/api/define.js"(exports) {
+  "node_modules/.pnpm/codesandbox-import-utils@2.2.3/node_modules/codesandbox-import-utils/lib/api/define.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.getParameters = void 0;
@@ -486,9 +486,9 @@ var require_define = __commonJS({
   }
 });
 
-// ../node_modules/.pnpm/codesandbox@2.2.3/node_modules/codesandbox/lib/api/define.js
+// node_modules/.pnpm/codesandbox@2.2.3/node_modules/codesandbox/lib/api/define.js
 var require_define2 = __commonJS({
-  "../node_modules/.pnpm/codesandbox@2.2.3/node_modules/codesandbox/lib/api/define.js"(exports) {
+  "node_modules/.pnpm/codesandbox@2.2.3/node_modules/codesandbox/lib/api/define.js"(exports) {
     exports.__esModule = true;
     exports.getParameters = void 0;
     var define_1 = require_define();

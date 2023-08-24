@@ -29,6 +29,7 @@ export interface MenubarContextValue {
 <script setup lang="ts">
 import { provide, ref, toRefs } from 'vue'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { RovingFocusGroup } from '@/RovingFocus'
 import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<MenubarRootProps>(), {
@@ -70,7 +71,15 @@ provide(MENUBAR_INJECTION_KEY, {
 </script>
 
 <template>
-  <Primitive ref="primitiveElement" role="menubar">
-    <slot />
-  </Primitive>
+  <RovingFocusGroup
+    v-model:current-tab-stop-id="currentTabStopId"
+    orientation="horizontal"
+    :loop="loop"
+    :dir="dir"
+    as-child
+  >
+    <Primitive ref="primitiveElement" role="menubar">
+      <slot />
+    </Primitive>
+  </RovingFocusGroup>
 </template>

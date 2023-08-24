@@ -94,6 +94,9 @@ function handleArrowNavigation(event: KeyboardEvent) {
           event.preventDefault();
       }
     "
+    @entry-focus="(event) => {
+      if (!menuContext?.wasKeyboardTriggerOpenRef.value) event.preventDefault()
+    }"
     @keydown.arrow-right.arrow-left="handleArrowNavigation"
   >
     <slot />

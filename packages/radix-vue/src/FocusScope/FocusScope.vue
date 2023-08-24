@@ -222,7 +222,7 @@ function handleKeyDown(event: KeyboardEvent) {
 <template>
   <Primitive
     ref="primitiveElement"
-    tab-index="-1"
+    tabindex="-1"
     :as-child="props.asChild"
     :as="props.as"
     @keydown="handleKeyDown"

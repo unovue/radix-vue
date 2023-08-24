@@ -63,7 +63,6 @@ provide(TOOLTIP_PROVIDER_INJECTION_KEY, {
     isPointerInTransitRef.value = inTransit
   },
   disableHoverableContent,
-
 })
 </script>
 

@@ -59,13 +59,14 @@ const props = withDefaults(defineProps<TooltipRootProps>(), {
   defaultOpen: false,
   open: undefined,
   delayDuration: undefined,
+  disableHoverableContent: undefined,
 })
 
 const emit = defineEmits<TooltipRootEmits>()
 
 const providerContext = inject(TOOLTIP_PROVIDER_INJECTION_KEY)
 
-const disableHoverableContent = computed(() => props.disableHoverableContent ?? providerContext?.disableHoverableContent.value)
+const disableHoverableContent = computed(() => props.disableHoverableContent ?? providerContext?.disableHoverableContent.value ?? false)
 const delayDuration = computed(() => props.delayDuration ?? providerContext?.delayDuration.value ?? 700)
 
 const open = useVModel(props, 'open', emit, {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TabsContent, TabsList, TabsRoot, TabsTrigger } from "./";
+import { TabsContent, TabsList, TabsRoot, TabsTrigger } from './'
 </script>
 
 <template>
@@ -44,7 +44,7 @@ import { TabsContent, TabsList, TabsRoot, TabsTrigger } from "./";
               id="name"
               class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-violet11 shadow-[0_0_0_1px] shadow-violet7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-violet8 outline-none"
               value="Pedro Duarte"
-            />
+            >
           </fieldset>
           <fieldset class="mb-[15px] w-full flex flex-col justify-start">
             <label
@@ -57,7 +57,7 @@ import { TabsContent, TabsList, TabsRoot, TabsTrigger } from "./";
               id="username"
               class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-violet11 shadow-[0_0_0_1px] shadow-violet7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-violet8 outline-none"
               value="@peduarte"
-            />
+            >
           </fieldset>
           <div class="flex justify-end mt-5">
             <button
@@ -85,7 +85,7 @@ import { TabsContent, TabsList, TabsRoot, TabsTrigger } from "./";
               id="currentPassword"
               class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-violet11 shadow-[0_0_0_1px] shadow-violet7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-violet8 outline-none"
               type="password"
-            />
+            >
           </fieldset>
           <fieldset class="mb-[15px] w-full flex flex-col justify-start">
             <label
@@ -98,7 +98,7 @@ import { TabsContent, TabsList, TabsRoot, TabsTrigger } from "./";
               id="newPassword"
               class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-violet11 shadow-[0_0_0_1px] shadow-violet7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-violet8 outline-none"
               type="password"
-            />
+            >
           </fieldset>
           <fieldset class="mb-[15px] w-full flex flex-col justify-start">
             <label
@@ -111,7 +111,7 @@ import { TabsContent, TabsList, TabsRoot, TabsTrigger } from "./";
               id="confirmPassword"
               class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-violet11 shadow-[0_0_0_1px] shadow-violet7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-violet8 outline-none"
               type="password"
-            />
+            >
           </fieldset>
           <div class="flex justify-end mt-5">
             <button

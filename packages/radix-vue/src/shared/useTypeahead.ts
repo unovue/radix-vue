@@ -1,45 +1,44 @@
-import { refAutoReset } from "@vueuse/shared";
-import type { Ref } from "vue";
+import { refAutoReset } from '@vueuse/shared'
+import type { Ref } from 'vue'
 
-export const useTypeahead = (collections: Ref<HTMLElement[]>) => {
+export function useTypeahead(collections: Ref<HTMLElement[]>) {
   // Reset `search` 1 second after it was last updated
-  const search = refAutoReset("", 1000);
+  const search = refAutoReset('', 1000)
 
   const handleTypeaheadSearch = (key: string) => {
-    search.value = search.value + key;
-    const items = collections.value;
-    const currentItem = document.activeElement;
-    const currentMatch =
-      items.find((item) => item === currentItem)?.textContent?.trim() ?? "";
-    const values = items.map((item) => item.textContent?.trim() ?? "");
-    const nextMatch = getNextMatch(values, search.value, currentMatch);
+    search.value = search.value + key
+    const items = collections.value
+    const currentItem = document.activeElement
+    const currentMatch
+      = items.find(item => item === currentItem)?.textContent?.trim() ?? ''
+    const values = items.map(item => item.textContent?.trim() ?? '')
+    const nextMatch = getNextMatch(values, search.value, currentMatch)
 
     const newItem = items.find(
-      (item) => item.textContent?.trim() === nextMatch
-    );
+      item => item.textContent?.trim() === nextMatch,
+    )
 
-    if (newItem) {
-      (newItem as HTMLElement).focus();
-    }
-  };
+    if (newItem)
+      (newItem as HTMLElement).focus()
+  }
 
   const resetTypeahead = () => {
-    search.value = "";
-  };
+    search.value = ''
+  }
 
   return {
     search,
     handleTypeaheadSearch,
     resetTypeahead,
-  };
-};
+  }
+}
 
 /**
  * Wraps an array around itself at a given start index
  * Example: `wrapArray(['a', 'b', 'c', 'd'], 2) === ['c', 'd', 'a', 'b']`
  */
 export function wrapArray<T>(array: T[], startIndex: number) {
-  return array.map((_, index) => array[(startIndex + index) % array.length]);
+  return array.map((_, index) => array[(startIndex + index) % array.length])
 }
 
 /**
@@ -62,18 +61,18 @@ export function wrapArray<T>(array: T[], startIndex: number) {
 export function getNextMatch(
   values: string[],
   search: string,
-  currentMatch?: string
+  currentMatch?: string,
 ) {
-  const isRepeated =
-    search.length > 1 && Array.from(search).every((char) => char === search[0]);
-  const normalizedSearch = isRepeated ? search[0] : search;
-  const currentMatchIndex = currentMatch ? values.indexOf(currentMatch) : -1;
-  let wrappedValues = wrapArray(values, Math.max(currentMatchIndex, 0));
-  const excludeCurrentMatch = normalizedSearch.length === 1;
+  const isRepeated
+    = search.length > 1 && Array.from(search).every(char => char === search[0])
+  const normalizedSearch = isRepeated ? search[0] : search
+  const currentMatchIndex = currentMatch ? values.indexOf(currentMatch) : -1
+  let wrappedValues = wrapArray(values, Math.max(currentMatchIndex, 0))
+  const excludeCurrentMatch = normalizedSearch.length === 1
   if (excludeCurrentMatch)
-    wrappedValues = wrappedValues.filter((v) => v !== currentMatch);
-  const nextMatch = wrappedValues.find((value) =>
-    value.toLowerCase().startsWith(normalizedSearch.toLowerCase())
-  );
-  return nextMatch !== currentMatch ? nextMatch : undefined;
+    wrappedValues = wrappedValues.filter(v => v !== currentMatch)
+  const nextMatch = wrappedValues.find(value =>
+    value.toLowerCase().startsWith(normalizedSearch.toLowerCase()),
+  )
+  return nextMatch !== currentMatch ? nextMatch : undefined
 }

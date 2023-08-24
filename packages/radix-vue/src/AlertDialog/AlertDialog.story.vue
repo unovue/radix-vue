@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref } from 'vue'
 import {
   AlertDialogAction,
   AlertDialogCancel,
@@ -10,9 +10,9 @@ import {
   AlertDialogRoot,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "./";
+} from './'
 
-const isOpen = ref(true);
+const isOpen = ref(true)
 </script>
 
 <template>

@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { ProgressIndicator, ProgressRoot } from "./";
+import { ref } from 'vue'
+import { ProgressIndicator, ProgressRoot } from './'
 
-const interactive = ref(0);
+const interactive = ref(0)
 setInterval(() => {
   // For some reason, this interval triggers twice in the same tick
-  interactive.value = (interactive.value + Math.random() * 15) % 100;
-}, 2000);
+  interactive.value = (interactive.value + Math.random() * 15) % 100
+}, 2000)
 
-const errorCaseValue = ref(1);
-const errorCaseMax = ref(100);
+const errorCaseValue = ref(1)
+const errorCaseMax = ref(100)
 </script>
 
 <template>
@@ -57,20 +57,20 @@ const errorCaseMax = ref(100);
             v-model="errorCaseValue"
             class="text-slate-800 bg-slate-300"
             type="number"
-          />
+          >
           Max:
           <input
             v-model="errorCaseMax"
             class="text-slate-800 bg-slate-300"
             type="number"
-          />
+          >
         </div>
       </template>
 
       <div class="px-2 py-3 rounded-sm bg-slate-600 text-slate-200">
         <p class="mb-4 text-sm rounded-md text-amber-300">
           Change the values in the "Controls" tab to test.
-          <br />
+          <br>
           Then, check the console for errors.
         </p>
 
@@ -90,14 +90,16 @@ const errorCaseMax = ref(100);
             <span class="tracking-widest">{{
               errorCaseValue || "undefined"
             }}</span>
-            <br />
+            <br>
             <span class="opacity-60">Max:</span>
             <span class="tracking-widest">{{ errorCaseMax }}</span>
           </div>
         </ProgressRoot>
 
         <div class="flex justify-between mt-10">
-          <h5 class="text-sm">Quick actions</h5>
+          <h5 class="text-sm">
+            Quick actions
+          </h5>
           <button
             class="ml-2 text-sm underline"
             @click="

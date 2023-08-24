@@ -1,39 +1,57 @@
-import { unrefElement } from "@vueuse/core";
-import { inject, provide, type InjectionKey, type Ref } from "vue";
+import { unrefElement } from '@vueuse/core'
+import {
+  type InjectionKey,
+  type Ref,
+  inject,
+  onBeforeUpdate,
+  onMounted,
+  onUpdated,
+  provide,
+  ref,
+  watch,
+} from 'vue'
 
-const ITEM_DATA_ATTR = "data-radix-vue-collection-item";
+const ITEM_DATA_ATTR = 'data-radix-vue-collection-item'
 
-type ContextValue = {
-  collectionRef: Ref<HTMLElement | undefined> | undefined;
-};
+type ContextValue = Ref<HTMLElement[]>
 
-export const COLLECTION_SYMBOL = Symbol() as InjectionKey<ContextValue>;
+/**
+ * Composables for provide/inject collections
+ * @param key (optional) Name to replace the default `Symbol()` as provide's key
+ */
+export function useCollection(key?: string) {
+  const COLLECTION_SYMBOL = key ?? (Symbol() as InjectionKey<ContextValue>)
 
-export const useCollection = () => {
-  const createCollection = (elementRef?: Ref<HTMLElement | undefined>) => {
-    provide(COLLECTION_SYMBOL, {
-      collectionRef: elementRef,
-    });
-  };
+  const createCollection = (sourceRef?: Ref<HTMLElement | undefined>) => {
+    const items = ref<HTMLElement[]>([])
 
-  const context = inject(COLLECTION_SYMBOL);
-  const setCollection = (
-    elementRef: Ref<HTMLElement | undefined> | undefined
-  ) => {
-    if (context) context.collectionRef = elementRef;
-  };
+    function setCollection() {
+      const sourceEl = unrefElement(sourceRef)
+      if (!sourceEl)
+        return (items.value = [])
 
-  const getItems = (contentElement?: HTMLElement) => {
-    const collectionNode =
-      contentElement ?? unrefElement(context?.collectionRef);
+      return (items.value = Array.from(
+        sourceEl.querySelectorAll(`[${ITEM_DATA_ATTR}]:not([data-disabled])`),
+      ) as HTMLElement[])
+    }
 
-    if (!collectionNode) return [];
-    return Array.from(
-      collectionNode.querySelectorAll(
-        `[${ITEM_DATA_ATTR}]:not([data-disabled])`
-      )
-    ) as HTMLElement[];
-  };
+    onBeforeUpdate(() => {
+      items.value = []
+    })
 
-  return { createCollection, setCollection, getItems };
-};
+    onMounted(setCollection)
+    onUpdated(setCollection)
+
+    watch(() => sourceRef?.value, setCollection, { immediate: true })
+
+    provide(COLLECTION_SYMBOL, items)
+
+    return items
+  }
+
+  const injectCollection = () => {
+    return inject(COLLECTION_SYMBOL, ref([]))
+  }
+
+  return { createCollection, injectCollection }
+}

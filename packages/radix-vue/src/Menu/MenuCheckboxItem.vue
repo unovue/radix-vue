@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import { type CheckedState, getCheckedState, isIndeterminate } from "./utils";
+import { provide } from 'vue'
+import { useVModel } from '@vueuse/core'
+import { type CheckedState, getCheckedState, isIndeterminate } from './utils'
 import MenuItem, {
-  type MenuItemProps,
   type MenuItemEmits,
-} from "./MenuItem.vue";
-import { MENU_ITEM_INDICATOR_INJECTION_KEY } from "./MenuItemIndicator.vue";
-import { provide } from "vue";
-import { useVModel } from "@vueuse/core";
+  type MenuItemProps,
+} from './MenuItem.vue'
+import { MENU_ITEM_INDICATOR_INJECTION_KEY } from './MenuItemIndicator.vue'
 
 export interface MenuCheckboxItemProps extends MenuItemProps {
-  checked?: CheckedState;
+  checked?: CheckedState
 }
 export type MenuCheckboxItemEmits = MenuItemEmits & {
-  (e: "update:checked", payload: boolean): void;
-};
+  'update:checked': [payload: boolean]
+}
 
 const props = withDefaults(defineProps<MenuCheckboxItemProps>(), {
   checked: false,
-});
-const emits = defineEmits<MenuCheckboxItemEmits>();
-const checked = useVModel(props, "checked", emits);
+})
+const emits = defineEmits<MenuCheckboxItemEmits>()
+const checked = useVModel(props, 'checked', emits)
 
 provide(MENU_ITEM_INDICATOR_INJECTION_KEY, {
   checked,
-});
+})
 </script>
 
 <template>
@@ -37,12 +37,13 @@ provide(MENU_ITEM_INDICATOR_INJECTION_KEY, {
         emits('select', event);
         if (isIndeterminate(checked)) {
           checked = true;
-        } else {
+        }
+        else {
           checked = !checked;
         }
       }
     "
   >
-    <slot></slot>
+    <slot />
   </MenuItem>
 </template>

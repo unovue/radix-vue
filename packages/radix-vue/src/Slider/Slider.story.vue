@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from "./";
+import { ref } from 'vue'
+import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from './'
 
 const sliderValue = ref([50]);
 const controlledLtr = ref([44]);
@@ -9,7 +9,6 @@ const controlledRtl = ref([44]);
 const controlledRtlMulti = ref([10, 30]);
 const directionRtl = ref([44]);
 const directionRtlMulti = ref([10, 30]);
-
 </script>
 
 <template>
@@ -292,8 +291,8 @@ const directionRtlMulti = ref([10, 30]);
 
     <Variant title="default">
       <SliderRoot
-        name="slider"
         v-model="sliderValue"
+        name="slider"
         class="relative flex items-center select-none touch-none w-[200px] h-5"
       >
         <SliderTrack class="bg-blackA10 relative grow rounded-full h-[3px]">

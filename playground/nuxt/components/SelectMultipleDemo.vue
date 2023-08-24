@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-const fruits = ref(["Apple"]);
+import { Icon } from '@iconify/vue'
+
+const fruits = ref(['Apple'])
 
 function handleClick() {
-  alert("hello!");
+  alert('hello!')
 }
 
-const options = ["Apple", "Banana", "Blueberry", "Grapes", "Pineapple"];
-const vegetables = ["Aubergine", "Broccoli", "Carrot", "Courgette", "Leek"];
+const options = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
+const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
 
 function removeFruit(fruit: string) {
-  fruits.value = fruits.value.filter((i) => i !== fruit);
+  fruits.value = fruits.value.filter(i => i !== fruit)
 }
 </script>
 
@@ -42,7 +43,9 @@ function removeFruit(fruit: string) {
         class="w-[280px] bg-white rounded p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
         :side-offset="5"
       >
-        <SelectLabel class="px-[25px] text-xs leading-[25px] text-mauve11"> Fruits </SelectLabel>
+        <SelectLabel class="px-[25px] text-xs leading-[25px] text-mauve11">
+          Fruits
+        </SelectLabel>
         <SelectGroup>
           <SelectItem
             v-for="(option, index) in options"
@@ -57,7 +60,9 @@ function removeFruit(fruit: string) {
           </SelectItem>
         </SelectGroup>
         <SelectSeparator class="h-[1px] bg-violet6 m-[5px]" />
-        <SelectLabel class="px-[25px] text-xs leading-[25px] text-mauve11"> Vegetables </SelectLabel>
+        <SelectLabel class="px-[25px] text-xs leading-[25px] text-mauve11">
+          Vegetables
+        </SelectLabel>
         <SelectGroup>
           <SelectItem
             v-for="(option, index) in vegetables"

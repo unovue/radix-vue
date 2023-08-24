@@ -1,128 +1,106 @@
 <script lang="ts">
-export interface RadioGroupItemProps extends PrimitiveProps {
-  value?: string;
-  disabled?: boolean;
-  required?: boolean;
-}
+export interface RadioGroupItemProps extends Omit<RadioProps, 'checked'> {}
 
 interface RadioItemProvideValue {
-  disabled: ComputedRef<boolean>;
-  checked: ComputedRef<boolean>;
+  disabled: ComputedRef<boolean>
+  checked: ComputedRef<boolean>
 }
 
-export const RADIO_GROUP_ITEM_INJECTION_KEY =
-  Symbol() as InjectionKey<RadioItemProvideValue>;
+export const RADIO_GROUP_ITEM_INJECTION_KEY
+  = Symbol() as InjectionKey<RadioItemProvideValue>
+
+export default {
+  inheritAttrs: false,
+}
 </script>
 
 <script setup lang="ts">
 import {
-  Primitive,
-  usePrimitiveElement,
-  type PrimitiveProps,
-} from "@/Primitive";
-import {
+  type ComputedRef,
+  type InjectionKey,
   computed,
   inject,
   provide,
-  type ComputedRef,
-  type InjectionKey,
-} from "vue";
-import { useArrowNavigation } from "@/shared";
-import { RADIO_GROUP_INJECTION_KEY } from "./RadioGroupRoot.vue";
-
-const context = inject(RADIO_GROUP_INJECTION_KEY);
+  ref,
+  toRefs,
+} from 'vue'
+import { RADIO_GROUP_INJECTION_KEY } from './RadioGroupRoot.vue'
+import {
+  usePrimitiveElement,
+} from '@/Primitive'
+import { RovingFocusItem } from '@/RovingFocus'
+import Radio, { type RadioProps } from './Radio.vue'
+import { useEventListener } from '@vueuse/core'
 
 const props = withDefaults(defineProps<RadioGroupItemProps>(), {
   disabled: false,
-});
+  as: 'button',
+})
+const { value } = toRefs(props)
+const { primitiveElement, currentElement } = usePrimitiveElement()
 
-const disabled = computed(() => {
-  return context?.disabled.value || props.disabled;
-});
+const context = inject(RADIO_GROUP_INJECTION_KEY)
 
-const required = computed(() => {
-  return context?.required.value || props.required;
-});
+const disabled = computed(() => context?.disabled.value || props.disabled)
+const required = computed(() => context?.required.value || props.required)
+const checked = computed(() => context?.modelValue?.value === props.value)
 
-const checked = computed(() => {
-  return context?.modelValue?.value === props.value;
-});
+provide(RADIO_GROUP_ITEM_INJECTION_KEY, { disabled, checked })
 
-provide(RADIO_GROUP_ITEM_INJECTION_KEY, { disabled, checked });
+const isArrowKeyPressed = ref(false)
+const ARROW_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
 
-function changeOption(value: string) {
-  if (disabled.value) return;
-  context?.changeModelValue(value);
+useEventListener('keydown', (event) => {
+  if (ARROW_KEYS.includes(event.key))
+    isArrowKeyPressed.value = true
+})
+useEventListener('keyup', () => {
+  isArrowKeyPressed.value = false
+})
+
+function handleFocus() {
+  setTimeout(() => {
+    /**
+     * Our `RovingFocusGroup` will focus the radio when navigating with arrow keys
+     * and we need to 'check' it in that case. We click it to 'check' it (instead
+     * of updating `context.value`) so that the radio change event fires.
+     */
+    if (isArrowKeyPressed.value)
+      currentElement.value?.click()
+  }, 0)
 }
-
-const { primitiveElement, currentElement } = usePrimitiveElement();
-
-function handleKeydown(e: KeyboardEvent) {
-  if (disabled.value) return;
-
-  const newSelectedElement = useArrowNavigation(
-    e,
-    currentElement.value!,
-    context?.parentElement.value,
-    {
-      arrowKeyOptions: context?.orientation.value,
-      loop: context?.loop.value,
-    }
-  );
-
-  if (newSelectedElement) {
-    changeOption(newSelectedElement?.getAttribute("value")!);
-    context!.currentFocusedElement!.value = newSelectedElement;
-    newSelectedElement.focus();
-  }
-}
-
-const getTabIndex = computed(() => {
-  if (!context?.currentFocusedElement?.value) {
-    return checked.value ? "0" : "-1";
-  } else
-    return context?.currentFocusedElement?.value === currentElement.value
-      ? "0"
-      : "-1";
-});
 </script>
 
 <template>
-  <Primitive
-    :type="as === 'button' ? 'button' : undefined"
-    :as="as"
-    ref="primitiveElement"
-    role="radio"
-    data-radix-vue-collection-item
-    v-bind="$attrs"
-    :as-child="props.asChild"
-    :disabled="disabled ? true : undefined"
-    :data-state="checked ? 'checked' : 'unchecked'"
-    :data-disabled="disabled ? '' : undefined"
-    :tabindex="getTabIndex"
-    :value="props.value"
-    :name="context?.name"
-    @click="changeOption(props.value!)"
-    @keydown="handleKeydown"
-  >
-    <slot />
-  </Primitive>
+  <RovingFocusItem :checked="checked" :disabled="disabled" as-child :focusable="!disabled" :active="checked">
+    <Radio
+      ref="primitiveElement" v-bind="{ ...$attrs, ...props }"
+      :checked="checked"
+      @keydown.enter.prevent
+      @focus="handleFocus"
+    >
+      <slot />
+    </Radio>
+  </RovingFocusItem>
+
   <input
+    v-model="value"
     type="radio"
     aria-hidden="true"
     tabindex="-1"
-    :value="props.value"
+    :default-value="checked"
     :required="required"
-    :disabled="disabled"
-    style="
-      transform: translateX(-100%);
-      position: absolute;
-      pointer-events: none;
-      opacity: 0;
-      margin: 0px;
-      width: 25px;
-      height: 25px;
-    "
     :checked="checked"
-  />
+    :disabled="disabled"
+    :style=" {
+      transform: 'translateX(-100%)',
+      position: 'absolute',
+      pointerEvents: 'none',
+      opacity: '0',
+      margin: '0px',
+      width: '25px',
+      height: '25px',
+    }
+    "
+  >
 </template>

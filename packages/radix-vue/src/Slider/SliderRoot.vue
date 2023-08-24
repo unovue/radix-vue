@@ -1,11 +1,11 @@
 <script lang="ts">
 import type { Ref, InjectionKey } from "vue";
+import type { DataOrientation, Direction } from '../shared/types'
 import {
   Primitive,
-  usePrimitiveElement,
   type PrimitiveProps,
-} from "@/Primitive";
-import type { DataOrientation, Direction } from "../shared/types";
+  usePrimitiveElement,
+} from '@/Primitive'
 
 export interface SliderRootProps extends PrimitiveProps {
   name?: string;
@@ -60,9 +60,9 @@ const props = withDefaults(defineProps<SliderRootProps>(), {
   max: 100,
   step: 1,
   minStepsBetweenThumbs: 0,
-});
+})
 
-const emits = defineEmits<SliderRootEmits>();
+const emits = defineEmits<SliderRootEmits>()
 
 const modelValue = useVModel(props, "modelValue", emits, {
   defaultValue: props.defaultValue,

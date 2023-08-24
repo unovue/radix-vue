@@ -1,40 +1,47 @@
 <script setup lang="ts">
-import { inject, onMounted, ref } from "vue";
+import { inject, onMounted, ref } from 'vue'
+import { SCROLL_AREA_INJECTION_KEY } from './ScrollAreaRoot.vue'
 import {
   Primitive,
-  usePrimitiveElement,
   type PrimitiveProps,
-} from "@/Primitive";
-import { SCROLL_AREA_INJECTION_KEY } from "./ScrollAreaRoot.vue";
+  usePrimitiveElement,
+} from '@/Primitive'
 
 export interface ScrollAreaViewportProps extends PrimitiveProps {}
-const props = defineProps<ScrollAreaViewportProps>();
+const props = defineProps<ScrollAreaViewportProps>()
 
-const rootContext = inject(SCROLL_AREA_INJECTION_KEY);
+const rootContext = inject(SCROLL_AREA_INJECTION_KEY)
 
-const { primitiveElement, currentElement: contentElement } =
-  usePrimitiveElement();
+const { primitiveElement, currentElement: contentElement }
+  = usePrimitiveElement()
 
-const viewportElement = ref<HTMLElement>();
+const viewportElement = ref<HTMLElement>()
 
 onMounted(() => {
-  rootContext?.onViewportChange(viewportElement.value!);
-  rootContext?.onContentChange(contentElement.value!);
-});
+  rootContext?.onViewportChange(viewportElement.value!)
+  rootContext?.onContentChange(contentElement.value!)
+})
 </script>
 
 <script lang="ts">
 export default {
   inheritAttrs: false,
-};
+}
 </script>
 
 <template>
   <Primitive as="style">
     /* Hide scrollbars cross-browser and enable momentum scroll for touch
-    devices */ [data-radix-scroll-area-viewport] { -ms-overflow-style: none;
-    -webkit-overflow-scrolling: touch; }
-    [data-radix-scroll-area-viewport]::-webkit-scrollbar { display: none; }
+    devices */
+    [data-radix-scroll-area-viewport] {
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+    -webkit-overflow-scrolling:touch;
+    }
+
+    [data-radix-scroll-area-viewport]::-webkit-scrollbar {
+    display:none;
+    }
   </Primitive>
   <div
     ref="viewportElement"
@@ -62,7 +69,7 @@ export default {
       :as-child="props.asChild"
       :as="as"
     >
-      <slot></slot>
+      <slot />
     </Primitive>
   </div>
 </template>

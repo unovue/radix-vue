@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { nextTick, ref, watch } from "vue";
-import DummyDialog from "./_DummyDialog.vue";
-import DummyPopover from "./_DummyPopover.vue";
+import DummyPopover from './_DummyPopover.vue'
 
-const handleAlert = () => {
-  window.alert("Alert");
-};
+function handleAlert() {
+  window.alert('Alert')
+}
 </script>
 
 <template>
@@ -42,24 +40,25 @@ const handleAlert = () => {
         </ul>
 
         <div class="flex flex-col gap-4 mt-12">
-          <DummyPopover disableOutsidePointerEvents>
+          <DummyPopover disable-outside-pointer-events>
             <DummyPopover
               color="tomato"
-              openLabel="Open red"
-              closeLabel="Close red"
+              open-label="Open red"
+              close-label="Close red"
             >
               <DummyPopover
                 color="royalblue"
-                openLabel="Open blue"
-                closeLabel="Close blue"
-                disableOutsidePointerEvents
-              >
-              </DummyPopover>
+                open-label="Open blue"
+                close-label="Close blue"
+                disable-outside-pointer-events
+              />
             </DummyPopover>
           </DummyPopover>
 
-          <input type="text" value="some input" />
-          <button @click="handleAlert">Alert me</button>
+          <input type="text" value="some input">
+          <button @click="handleAlert">
+            Alert me
+          </button>
         </div>
       </div>
     </Variant>

@@ -1,57 +1,57 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from "vue";
-import { useId } from "@/shared";
+import type { InjectionKey, Ref } from 'vue'
+import { useId } from '@/shared'
 
 export interface CollapsibleRootProps extends PrimitiveProps {
-  defaultOpen?: boolean;
-  open?: boolean;
-  disabled?: boolean;
+  defaultOpen?: boolean
+  open?: boolean
+  disabled?: boolean
 }
 
-export interface CollapsibleRootEmits {
-  (e: "update:open", value: boolean): void;
+export type CollapsibleRootEmits = {
+  'update:open': [value: boolean]
 }
 
 interface CollapsibleProvideValue {
-  contentId: string;
-  disabled?: Ref<boolean>;
-  open: Ref<boolean>;
-  onOpenToggle(): void;
+  contentId: string
+  disabled?: Ref<boolean>
+  open: Ref<boolean>
+  onOpenToggle(): void
 }
 
-export const COLLAPSIBLE_INJECTION_KEY =
-  Symbol() as InjectionKey<CollapsibleProvideValue>;
+export const COLLAPSIBLE_INJECTION_KEY
+  = Symbol() as InjectionKey<CollapsibleProvideValue>
 </script>
 
 <script setup lang="ts">
-import { provide } from "vue";
-import { Primitive, type PrimitiveProps } from "@/Primitive";
-import { useVModel } from "@vueuse/core";
+import { provide } from 'vue'
+import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<CollapsibleRootProps>(), {
   open: undefined,
   defaultOpen: false,
-});
+})
 
-const emit = defineEmits<CollapsibleRootEmits>();
+const emit = defineEmits<CollapsibleRootEmits>()
 
-const open = useVModel(props, "open", emit, {
+const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: true,
-});
+})
 
-const disabled = useVModel(props, "disabled");
+const disabled = useVModel(props, 'disabled')
 
 provide(COLLAPSIBLE_INJECTION_KEY, {
   contentId: useId(),
   disabled,
   open,
   onOpenToggle: () => {
-    open.value = !open.value;
+    open.value = !open.value
   },
-});
+})
 
-defineExpose({ open });
+defineExpose({ open })
 </script>
 
 <template>

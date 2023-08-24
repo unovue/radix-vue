@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Card from "./components/Card.vue";
+import Card from './components/Card.vue'
 </script>
 
 <template>
@@ -60,9 +60,9 @@ import Card from "./components/Card.vue";
       <Card>
         <SelectDemo />
       </Card>
-      <Card>
+      <!-- <Card>
         <SelectMultipleDemo />
-      </Card>
+      </Card> -->
       <Card>
         <SeparatorDemo />
       </Card>

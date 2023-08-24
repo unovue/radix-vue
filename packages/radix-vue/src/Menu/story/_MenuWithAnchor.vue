@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { useVModel } from "@vueuse/core";
+import { useVModel } from '@vueuse/core'
 import {
-  MenuRoot,
   MenuAnchor,
-  MenuPortal,
   MenuContent,
+  MenuPortal,
   type MenuProps,
-} from "..";
+  MenuRoot,
+} from '..'
 
 interface Props extends MenuProps {}
 const props = withDefaults(defineProps<Props>(), {
   open: true,
-});
+})
 
-const open = useVModel(props, "open");
+const open = useVModel(props, 'open')
 </script>
 
 <template>
@@ -22,10 +22,10 @@ const open = useVModel(props, "open");
     <MenuPortal>
       <MenuContent
         class="inline-block box-border min-w-[130px] bg-white border border-gray-100 rounded-[6px] p-[5px] shadow-md font-sans text-[13px] focus-within:border-black"
+        align="start"
         @close-auto-focus.prevent
-        :align="'start'"
       >
-        <slot></slot>
+        <slot />
       </MenuContent>
     </MenuPortal>
   </MenuRoot>

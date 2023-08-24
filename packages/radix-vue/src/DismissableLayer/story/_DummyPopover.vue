@@ -1,38 +1,38 @@
 <script setup lang="ts">
-import { PopperRoot, PopperAnchor, PopperContent, PopperArrow } from "@/Popper";
-import { DismissableLayer } from "../";
-import { FocusScope } from "@/FocusScope";
-import { ref } from "vue";
+import { ref } from 'vue'
+import { DismissableLayer } from '../'
+import { PopperAnchor, PopperArrow, PopperContent, PopperRoot } from '@/Popper'
+import { FocusScope } from '@/FocusScope'
 
 withDefaults(
   defineProps<{
-    openLabel?: string;
-    closeLabel?: string;
-    trapped?: boolean;
-    disableOutsidePointerEvents?: boolean;
-    color?: string;
+    openLabel?: string
+    closeLabel?: string
+    trapped?: boolean
+    disableOutsidePointerEvents?: boolean
+    color?: string
   }>(),
   {
-    openLabel: "Open",
-    closeLabel: "Close",
+    openLabel: 'Open',
+    closeLabel: 'Close',
     trapped: false,
     disableOutsidePointerEvents: false,
-    color: "white",
-  }
-);
+    color: 'white',
+  },
+)
 
-const open = ref(false);
-const openButtonRef = ref();
+const open = ref(false)
+const openButtonRef = ref()
 </script>
 
 <template>
   <PopperRoot>
-    <PopperAnchor asChild>
+    <PopperAnchor as-child>
       <button
-        type="button"
         ref="openButtonRef"
-        @click="open = !open"
+        type="button"
         class="py-2 rounded bg-gray-500 focus:outline focus:outline-blue-500"
+        @click="open = !open"
       >
         {{ openLabel }}
       </button>
@@ -40,31 +40,33 @@ const openButtonRef = ref();
 
     <Teleport v-if="open" to="body">
       <DismissableLayer
-        asChild
-        @dismiss="open = false"
+        as-child
         :disable-outside-pointer-events="disableOutsidePointerEvents"
+        @dismiss="open = false"
       >
-        <FocusScope asChild :trapped="trapped">
+        <FocusScope as-child :trapped="trapped">
           <PopperContent
             class="flex items-start gap-4 bg-white min-w-[200px] min-h-[150px] p-6 rounded-md"
             :style="{
               backgroundColor: color,
             }"
-            :side="'bottom'"
+            side="bottom"
             :side-offset="10"
-            :align="'start'"
+            align="start"
           >
-            <slot></slot>
+            <slot />
 
-            <button @click="open = false">{{ closeLabel }}</button>
-            <input type="text" value="hello world" />
+            <button @click="open = false">
+              {{ closeLabel }}
+            </button>
+            <input type="text" value="hello world">
             <PopperArrow
               :width="10"
               :height="4"
               :style="{
                 fill: color,
               }"
-            ></PopperArrow>
+            />
           </PopperContent>
         </FocusScope>
       </DismissableLayer>

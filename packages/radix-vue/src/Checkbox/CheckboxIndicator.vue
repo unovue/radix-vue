@@ -1,19 +1,19 @@
 <script lang="ts">
 export interface CheckboxIndicatorProps extends PrimitiveProps {
-  forceMount?: boolean;
+  forceMount?: boolean
 }
 </script>
 
 <script setup lang="ts">
-import { inject } from "vue";
-import { CHECKBOX_INJECTION_KEY } from "./CheckboxRoot.vue";
-import { Primitive, type PrimitiveProps } from "@/Primitive";
-
-const injectedValue = inject(CHECKBOX_INJECTION_KEY);
+import { inject } from 'vue'
+import { CHECKBOX_INJECTION_KEY } from './CheckboxRoot.vue'
+import { Primitive, type PrimitiveProps } from '@/Primitive'
 
 const props = withDefaults(defineProps<CheckboxIndicatorProps>(), {
-  as: "span",
-});
+  as: 'span',
+})
+
+const injectedValue = inject(CHECKBOX_INJECTION_KEY)
 </script>
 
 <template>

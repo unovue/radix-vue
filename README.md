@@ -25,13 +25,19 @@ Radix is an unstyled, customisable UI Library with built in accessibility for bu
 <a href="https://chat.radix-vue.com"><b>Get involved!</b></a>
 </p>
 <p align="center">
- <a href="https://radix-vue.com">Documentation</a> | <a href="https://www.radix-vue.com/overview/getting-started.html">Getting Started</a> | <a href="https://www.radix-vue.com/">Examples</a> | <a href="https://www.radix-vue.com/overview/introduction.html">Why Vitest?</a>
+ <a href="https://radix-vue.com">Documentation</a> | <a href="https://www.radix-vue.com/overview/getting-started.html">Getting Started</a> | <a href="https://www.radix-vue.com/">Examples</a> | <a href="https://www.radix-vue.com/overview/introduction.html">Why Radix Vue?</a>
 </p>
 
 ## Installation
 
 ```bash
-pnpm install radix-vue
+pnpm add radix-vue
+```
+```bash
+npm install radix-vue
+```
+```bash
+yarn add radix-vue
 ```
 
 ## Documentation
@@ -100,11 +106,11 @@ We would love to have your contributions! All PRs all welcomed! We need help bui
 
 ## Credits
 
-All credits goes to these open-source works and resources
+All credits go to these open-source works and resources
 
 - [Radix UI](https://radix-ui.com) for doing all the hard work to make sure components are accessible
-- [Floating UI](https://floating-ui.com) for creating powerful component that as the base of many Radix Vue componetns
-- [VueUse](https://vueuse.org) for providing many useful utlities.
+- [Floating UI](https://floating-ui.com) for creating powerful components that as the base of many Radix Vue components
+- [VueUse](https://vueuse.org) for providing many useful utilities.
 - [Ark UI](https://ark-ui.com) for the `<Primitive>` component
 - [Radix Svelte](https://radix-svelte.com)
 - [Headless UI](https://headlessui.com)

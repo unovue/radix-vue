@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import BasePortal from "../shared/component/BasePortal.vue";
-import type { BasePortalProps } from "../shared/component/BasePortal.vue";
-
-export interface HoverCardPortalProps extends BasePortalProps {}
-const props = defineProps<HoverCardPortalProps>();
+export interface HoverCardPortalProps {
+  to?: string | HTMLElement
+  disabled?: boolean
+}
+const props = withDefaults(defineProps<HoverCardPortalProps>(), {
+  to: 'body',
+})
 </script>
 
 <template>
-  <BasePortal v-bind="props">
+  <Teleport v-bind="props">
     <slot />
-  </BasePortal>
+  </Teleport>
 </template>

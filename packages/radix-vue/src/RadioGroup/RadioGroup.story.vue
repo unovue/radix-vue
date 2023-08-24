@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from "./";
+import { ref } from 'vue'
+import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from './'
 
-const radioStateSingle = ref("default");
+const radioStateSingle = ref('default')
 </script>
 
 <template>
-  <Story title="Radio Group" :layout="{ type: 'single', iframe: true }">
+  <Story title="Radio Group" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
       <RadioGroupRoot
         v-model="radioStateSingle"
@@ -14,11 +14,12 @@ const radioStateSingle = ref("default");
         class="flex flex-col gap-2.5"
         default-value="default"
         aria-label="View density"
+        orientation="vertical"
       >
         <div class="flex items-center">
           <RadioGroupItem
             id="r1"
-            class="bg-white w-[25px] h-[25px] rounded-full shadow-[0_2px_10px] shadow-blackA7 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black outline-none cursor-default"
+            class="bg-white w-[25px] h-[25px] rounded-full shadow-[0_2px_10px] shadow-blackA7 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black outline-none cursor-default data-[disabled]:bg-red-500"
             value="default"
           >
             <RadioGroupIndicator

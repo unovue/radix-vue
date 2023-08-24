@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-import { ref } from "vue";
+import { Icon } from '@iconify/vue'
+import { ref } from 'vue'
 import {
   DropdownMenuArrow,
   DropdownMenuCheckboxItem,
@@ -17,22 +17,22 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "./";
+} from './'
 
-const toggleState = ref(false);
-const toggleState2 = ref(false);
-const checkboxOne = ref(false);
-const checkboxTwo = ref(false);
-const person = ref("pedro");
+const toggleState = ref(false)
+const toggleState2 = ref(false)
+const checkboxOne = ref(false)
+const checkboxTwo = ref(false)
+const person = ref('pedro')
 
 function handleClick() {
   // alert("hello!");
 }
 
-const handleCheck = (ev: any) => {
+function handleCheck(ev: any) {
   // checkboxOne.value = ev;
-  console.log(ev);
-};
+  console.log(ev)
+}
 </script>
 
 <template>
@@ -285,8 +285,8 @@ const handleCheck = (ev: any) => {
             <DropdownMenuSeparator class="h-[1px] bg-violet6 m-[5px]" />
             <DropdownMenuCheckboxItem
               v-model:checked="checkboxOne"
-              @select="handleCheck"
               class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+              @select="handleCheck"
             >
               <DropdownMenuItemIndicator
                 class="absolute left-0 w-[25px] inline-flex items-center justify-center"

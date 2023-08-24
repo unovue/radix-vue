@@ -1,48 +1,43 @@
 <script setup lang="ts">
+import { type Ref, inject, provide, ref } from 'vue'
+import { useVModel } from '@vueuse/core'
+import type { Orientation } from './utils'
+import { NAVIGATION_MENU_INJECTION_KEY } from './NavigationMenuRoot.vue'
 import {
   Primitive,
-  usePrimitiveElement,
   type PrimitiveProps,
-} from "@/Primitive";
-import type { Orientation } from "./utils";
-import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
-import { inject, provide, ref, type Ref, type VNode } from "vue";
-import { useVModel } from "@vueuse/core";
-import { useNewCollection } from "@/shared";
-
-interface VNodeWithParentProps extends VNode {
-  parentProps: any;
-}
+  usePrimitiveElement,
+} from '@/Primitive'
+import { useCollection } from '@/shared'
 
 export interface NavigationMenuSubProps extends PrimitiveProps {
-  modelValue?: string;
-  defaultValue?: string;
-  orientation?: Orientation;
+  modelValue?: string
+  defaultValue?: string
+  orientation?: Orientation
 }
-export interface NavigationMenuSubEmits {
-  (e: "update:modelValue", value: string): void;
+export type NavigationMenuSubEmits = {
+  'update:modelValue': [value: string]
 }
 
 const props = withDefaults(defineProps<NavigationMenuSubProps>(), {
-  orientation: "horizontal",
-});
-const emits = defineEmits<NavigationMenuSubEmits>();
+  orientation: 'horizontal',
+})
+const emits = defineEmits<NavigationMenuSubEmits>()
 
-const modelValue = useVModel(props, "modelValue", emits, {
+const modelValue = useVModel(props, 'modelValue', emits, {
   passive: true,
-  defaultValue: props.defaultValue ?? "",
-}) as Ref<string>;
-const previousValue = ref("");
+  defaultValue: props.defaultValue ?? '',
+}) as Ref<string>
+const previousValue = ref('')
 
-const context = inject(NAVIGATION_MENU_INJECTION_KEY);
-const { primitiveElement, currentElement } = usePrimitiveElement();
+const context = inject(NAVIGATION_MENU_INJECTION_KEY)
+const { primitiveElement, currentElement } = usePrimitiveElement()
 
-const indicatorTrack = ref<HTMLElement>();
-const viewport = ref<HTMLElement>();
-const viewportContent = ref<Map<string, VNodeWithParentProps>>(new Map());
+const indicatorTrack = ref<HTMLElement>()
+const viewport = ref<HTMLElement>()
 
-const { createCollection } = useNewCollection("nav");
-createCollection(indicatorTrack);
+const { createCollection } = useCollection('nav')
+createCollection(indicatorTrack)
 
 provide(NAVIGATION_MENU_INJECTION_KEY, {
   ...context!,
@@ -53,19 +48,15 @@ provide(NAVIGATION_MENU_INJECTION_KEY, {
   rootNavigationMenu: currentElement,
   indicatorTrack,
   onIndicatorTrackChange: (val) => {
-    indicatorTrack.value = val;
+    indicatorTrack.value = val
   },
   viewport,
   onViewportChange: (val) => {
-    viewport.value = val;
+    viewport.value = val
   },
-  viewportContent,
-  onViewportContentChange: (contentValue, contentData) => {
-    const prev = viewportContent.value;
-    viewportContent.value = new Map(prev.set(contentValue, contentData));
-  },
+
   onTriggerEnter: (val) => {
-    modelValue.value = val;
+    modelValue.value = val
   },
   onTriggerLeave: () => {
     // do nothing for submenu
@@ -77,12 +68,12 @@ provide(NAVIGATION_MENU_INJECTION_KEY, {
     // do nothing for submenu
   },
   onItemSelect: (val) => {
-    modelValue.value = val;
+    modelValue.value = val
   },
   onItemDismiss: () => {
-    modelValue.value = "";
+    modelValue.value = ''
   },
-});
+})
 </script>
 
 <template>
@@ -92,6 +83,6 @@ provide(NAVIGATION_MENU_INJECTION_KEY, {
     :as-child="props.asChild"
     :as="as"
   >
-    <slot></slot>
+    <slot />
   </Primitive>
 </template>

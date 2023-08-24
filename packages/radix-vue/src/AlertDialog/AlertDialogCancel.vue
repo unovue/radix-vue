@@ -1,23 +1,22 @@
 <script setup lang="ts">
-import { DialogClose, type DialogCloseProps } from "@/Dialog";
-import { ALERT_DIALOG_CONTENT_INJECTION_KEY } from "./AlertDialogContent.vue";
-import { inject, onMounted } from "vue";
-import { usePrimitiveElement } from "@/Primitive";
+import { inject, onMounted } from 'vue'
+import { ALERT_DIALOG_CONTENT_INJECTION_KEY } from './AlertDialogContent.vue'
+import { DialogClose, type DialogCloseProps } from '@/Dialog'
+import { usePrimitiveElement } from '@/Primitive'
 
 export interface AlertDialogCancelProps extends DialogCloseProps {}
 
-const contentContext = inject(ALERT_DIALOG_CONTENT_INJECTION_KEY);
-const { primitiveElement, currentElement } = usePrimitiveElement();
-
-const props = defineProps<AlertDialogCancelProps>();
+const props = defineProps<AlertDialogCancelProps>()
+const contentContext = inject(ALERT_DIALOG_CONTENT_INJECTION_KEY)
+const { primitiveElement, currentElement } = usePrimitiveElement()
 
 onMounted(() => {
-  contentContext!.onCancelElementChange(currentElement.value);
-});
+  contentContext!.onCancelElementChange(currentElement.value)
+})
 </script>
 
 <template>
   <DialogClose v-bind="props" ref="primitiveElement">
-    <slot></slot>
+    <slot />
   </DialogClose>
 </template>

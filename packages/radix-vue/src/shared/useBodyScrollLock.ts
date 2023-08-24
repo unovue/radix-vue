@@ -1,58 +1,60 @@
 import {
-  useScrollLock,
-  defaultDocument,
   createGlobalState,
-} from "@vueuse/core";
-import { isClient } from "@vueuse/shared";
-import { computed, nextTick, onBeforeUnmount, ref } from "vue";
+  defaultDocument,
+  useScrollLock,
+} from '@vueuse/core'
+import { isClient } from '@vueuse/shared'
+import { computed, nextTick, onBeforeUnmount, ref } from 'vue'
 
-const useBodyLockStackCount = createGlobalState(() => ref(0));
+const useBodyLockStackCount = createGlobalState(() => ref(0))
 
-export const useBodyScrollLock = (initialState?: boolean | undefined) => {
-  const stack = useBodyLockStackCount();
-  const locked = useScrollLock(defaultDocument?.body, false);
+export function useBodyScrollLock(initialState?: boolean | undefined) {
+  const stack = useBodyLockStackCount()
+  const locked = useScrollLock(defaultDocument?.body, false)
 
   const writableLock = computed<boolean>({
     get() {
-      return locked.value;
+      return locked.value
     },
     set(newLocked) {
-      if (!isClient) return;
+      if (!isClient)
+        return
 
       if (newLocked) {
-        const verticalScrollbarWidth =
-          window.innerWidth - document.documentElement.clientWidth;
+        const verticalScrollbarWidth
+          = window.innerWidth - document.documentElement.clientWidth
 
-        if (verticalScrollbarWidth > 0) {
-          document.body.style.paddingRight = verticalScrollbarWidth + "px";
-        }
+        if (verticalScrollbarWidth > 0)
+          document.body.style.paddingRight = `${verticalScrollbarWidth}px`
 
         // let dismissibleLayer set previous pointerEvent first
         nextTick(() => {
-          document.body.style.pointerEvents = "none";
-          locked.value = true;
-        });
-      } else {
-        document.body.style.paddingRight = "";
-        document.body.style.pointerEvents = "";
-        locked.value = false;
+          document.body.style.pointerEvents = 'none'
+          locked.value = true
+        })
+      }
+      else {
+        document.body.style.paddingRight = ''
+        document.body.style.pointerEvents = ''
+        locked.value = false
       }
     },
-  });
+  })
 
   if (initialState) {
-    stack.value++;
-    writableLock.value = initialState;
+    stack.value++
+    writableLock.value = initialState
   }
 
   onBeforeUnmount(() => {
-    if (!initialState) return;
-    stack.value--;
+    if (!initialState)
+      return
+    stack.value--
     if (stack.value === 0) {
-      document.body.style.paddingRight = "";
-      document.body.style.pointerEvents = "";
+      document.body.style.paddingRight = ''
+      document.body.style.pointerEvents = ''
     }
-  });
+  })
 
-  return writableLock;
-};
+  return writableLock
+}

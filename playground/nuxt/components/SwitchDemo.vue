@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const switchState = ref(true);
+const switchState = ref(true)
 </script>
 
 <template>

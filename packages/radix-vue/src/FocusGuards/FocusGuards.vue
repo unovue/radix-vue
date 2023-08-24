@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useFocusGuards } from "@/shared";
+import { useFocusGuards } from '@/shared'
 
-useFocusGuards();
+useFocusGuards()
 </script>
 
 <template>
-  <slot></slot>
+  <slot />
 </template>

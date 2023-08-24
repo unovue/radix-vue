@@ -1,24 +1,24 @@
 <script lang="ts">
-export interface MenubarSubProps {
-  open?: boolean;
-  defaultOpen?: boolean;
+export type MenubarSubEmits = {
+  'update:open': [value: boolean]
 }
-export interface MenubarSubEmits {
-  (e: "update:open", value: boolean): void;
+export interface MenubarSubProps {
+  open?: boolean
+  defaultOpen?: boolean
 }
 </script>
 
 <script setup lang="ts">
-import { useVModel } from "@vueuse/core";
-import { MenuSub } from "@/Menu";
+import { useVModel } from '@vueuse/core'
+import { MenuSub } from '@/Menu'
 
-const props = defineProps<MenubarSubProps>();
-const emit = defineEmits<MenubarSubEmits>();
+const props = defineProps<MenubarSubProps>()
+const emit = defineEmits<MenubarSubEmits>()
 
-const open = useVModel(props, "open", emit, {
+const open = useVModel(props, 'open', emit, {
   passive: true,
   defaultValue: props.defaultOpen ?? false,
-});
+})
 </script>
 
 <template>

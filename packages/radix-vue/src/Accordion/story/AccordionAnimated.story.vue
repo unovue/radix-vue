@@ -1,31 +1,33 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch } from 'vue'
 import {
   AccordionContent,
   AccordionHeader,
   AccordionItem,
   AccordionRoot,
   AccordionTrigger,
-} from "../";
+} from '../'
 
-const values = ["One", "Two", "Three", "Four"];
-const count = ref(1);
-const hasDynamicContent = ref(false);
-const timer = ref(0);
+const values = ['One', 'Two', 'Three', 'Four']
+const count = ref(1)
+const hasDynamicContent = ref(false)
+const timer = ref(0)
 
 watch(hasDynamicContent, () => {
   if (hasDynamicContent.value) {
     timer.value = window.setInterval(() => {
-      const nextCount = count.value < 5 ? count.value + 1 : count.value;
-      if (nextCount === 5) hasDynamicContent.value = false;
-      count.value = nextCount;
-    }, 3000);
-  } else {
-    clearInterval(timer.value);
+      const nextCount = count.value < 5 ? count.value + 1 : count.value
+      if (nextCount === 5)
+        hasDynamicContent.value = false
+      count.value = nextCount
+    }, 3000)
   }
-});
+  else {
+    clearInterval(timer.value)
+  }
+})
 
-const selectedValue = ref(["One", "Two", "Three", "Four"]);
+const selectedValue = ref(['One', 'Two', 'Three', 'Four'])
 </script>
 
 <template>
@@ -36,7 +38,7 @@ const selectedValue = ref(["One", "Two", "Three", "Four"]);
   >
     <Variant title="Closed by default">
       <template #controls>
-        modelValue: <input type="checkbox" v-model="hasDynamicContent" />
+        modelValue: <input v-model="hasDynamicContent" type="checkbox">
       </template>
 
       <AccordionRoot
@@ -55,9 +57,9 @@ const selectedValue = ref(["One", "Two", "Three", "Four"]);
             </AccordionTrigger>
           </AccordionHeader>
           <AccordionContent
-            class="accordion-animated-content data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
             v-for="i in count"
             :key="i"
+            class="accordion-animated-content data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
           >
             <div class="px-5 py-4">
               Per erat orci nostra luctus sociosqu mus risus penatibus, duis
@@ -71,7 +73,7 @@ const selectedValue = ref(["One", "Two", "Three", "Four"]);
 
     <Variant title="Open by default">
       <template #controls>
-        modelValue: <input type="checkbox" v-model="hasDynamicContent" />
+        modelValue: <input v-model="hasDynamicContent" type="checkbox">
       </template>
 
       <AccordionRoot
@@ -91,9 +93,9 @@ const selectedValue = ref(["One", "Two", "Three", "Four"]);
             </AccordionTrigger>
           </AccordionHeader>
           <AccordionContent
-            class="accordion-animated-content data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
             v-for="i in count"
             :key="i"
+            class="accordion-animated-content data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
           >
             <div class="px-5 py-4">
               Per erat orci nostra luctus sociosqu mus risus penatibus, duis
@@ -138,13 +140,15 @@ const selectedValue = ref(["One", "Two", "Three", "Four"]);
 
     <Variant title="Animated Controlled">
       <AccordionRoot
+        v-model="selectedValue"
         class="w-[300px] rounded-md bg-[--line-color] shadow-lg"
         type="multiple"
-        v-model="selectedValue"
       >
         <AccordionItem class="accordion-item" value="One">
           <AccordionHeader class="flex">
-            <AccordionTrigger class="accordion-trigger"> one </AccordionTrigger>
+            <AccordionTrigger class="accordion-trigger">
+              one
+            </AccordionTrigger>
           </AccordionHeader>
           <AccordionContent
             class="accordion-animated-content data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
@@ -157,7 +161,9 @@ const selectedValue = ref(["One", "Two", "Three", "Four"]);
 
         <AccordionItem class="accordion-item" value="Two">
           <AccordionHeader class="flex">
-            <AccordionTrigger class="accordion-trigger"> Two </AccordionTrigger>
+            <AccordionTrigger class="accordion-trigger">
+              Two
+            </AccordionTrigger>
           </AccordionHeader>
           <AccordionContent
             class="accordion-animated-content data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"

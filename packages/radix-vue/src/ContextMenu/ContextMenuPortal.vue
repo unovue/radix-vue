@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { MenuPortal, type MenuPortalProps } from "@/Menu";
+import { MenuPortal, type MenuPortalProps } from '@/Menu'
 
 export interface ContextMenuPortalProps extends MenuPortalProps {}
-const props = defineProps<ContextMenuPortalProps>();
+const props = defineProps<ContextMenuPortalProps>()
 </script>
 
 <template>
   <MenuPortal v-bind="props">
-    <slot></slot>
+    <slot />
   </MenuPortal>
 </template>

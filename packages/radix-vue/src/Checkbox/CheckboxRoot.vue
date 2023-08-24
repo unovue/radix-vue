@@ -1,54 +1,54 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from "vue";
+import type { InjectionKey, Ref } from 'vue'
 
 export interface CheckboxRootProps extends PrimitiveProps {
-  defaultChecked?: boolean;
-  checked?: boolean;
-  onCheckedChange?: void;
-  modelValue?: boolean;
-  disabled?: boolean;
-  required?: boolean;
-  name?: string;
-  value?: string;
-  id?: string;
+  defaultChecked?: boolean
+  checked?: boolean
+  onCheckedChange?: void
+  modelValue?: boolean
+  disabled?: boolean
+  required?: boolean
+  name?: string
+  value?: string
+  id?: string
 }
 
-export interface CheckboxRootEmits {
-  (e: "update:modelValue", value: boolean): void;
+export type CheckboxRootEmits = {
+  'update:modelValue': [value: boolean]
 }
 
-type CheckboxProvideValue = {
-  disabled: boolean;
-  required: boolean;
-  modelValue: Readonly<Ref<boolean>>;
-};
+interface CheckboxProvideValue {
+  disabled: boolean
+  required: boolean
+  modelValue: Readonly<Ref<boolean>>
+}
 
-export const CHECKBOX_INJECTION_KEY =
-  Symbol() as InjectionKey<CheckboxProvideValue>;
+export const CHECKBOX_INJECTION_KEY
+  = Symbol() as InjectionKey<CheckboxProvideValue>
 </script>
 
 <script setup lang="ts">
-import { Primitive, type PrimitiveProps } from "@/Primitive";
-import { toRef, provide } from "vue";
+import { provide, toRef } from 'vue'
+import { Primitive, type PrimitiveProps } from '@/Primitive'
 
 const props = withDefaults(defineProps<CheckboxRootProps>(), {
   modelValue: false,
-  value: "on",
-});
+  value: 'on',
+})
 
-const emit = defineEmits<CheckboxRootEmits>();
+const emit = defineEmits<CheckboxRootEmits>()
 
 provide(CHECKBOX_INJECTION_KEY, {
   required: props.required,
   disabled: props.disabled,
   modelValue: toRef(() => props.modelValue),
-});
+})
 
 function updateModelValue() {
-  return emit("update:modelValue", !props.modelValue);
+  return emit('update:modelValue', !props.modelValue)
 }
 
-let dataState: "checked" | "unchecked" | "indeterminate";
+let dataState: 'checked' | 'unchecked' | 'indeterminate'
 </script>
 
 <template>
@@ -63,10 +63,9 @@ let dataState: "checked" | "unchecked" | "indeterminate";
     :data-disabled="props.disabled ? '' : undefined"
   >
     <input
-      type="checkbox"
       :id="props.id"
+      type="checkbox"
       v-bind="props.modelValue"
-      @change="updateModelValue"
       :checked="props.modelValue"
       :name="props.name"
       aria-hidden="true"
@@ -74,7 +73,8 @@ let dataState: "checked" | "unchecked" | "indeterminate";
       :required="props.required"
       :data-state="dataState"
       style="opacity: 0; position: absolute; inset: 0"
-    />
+      @change="updateModelValue"
+    >
     <slot />
   </Primitive>
 </template>

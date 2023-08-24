@@ -9,7 +9,7 @@ import { SLIDER_INJECTION_KEY } from "./SliderRoot.vue";
 
 const injectedValue = inject(SLIDER_INJECTION_KEY);
 
-const props = withDefaults(defineProps<SliderTrackProps>(), { as: "span" });
+const props = withDefaults(defineProps<SliderTrackProps>(), { as: 'span' })
 </script>
 
 <template>

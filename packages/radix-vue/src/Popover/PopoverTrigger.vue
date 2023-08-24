@@ -1,38 +1,38 @@
 <script setup lang="ts">
-import { inject, onMounted } from "vue";
+import { inject, onMounted } from 'vue'
+import { POPOVER_INJECTION_KEY } from './PopoverRoot.vue'
 import {
   Primitive,
-  usePrimitiveElement,
   type PrimitiveProps,
-} from "@/Primitive";
-import { PopperAnchor } from "@/Popper";
-import { POPOVER_INJECTION_KEY } from "./PopoverRoot.vue";
+  usePrimitiveElement,
+} from '@/Primitive'
+import { PopperAnchor } from '@/Popper'
 
 export interface PopoverTriggerProps extends PrimitiveProps {}
 const props = withDefaults(defineProps<PopoverTriggerProps>(), {
-  as: "button",
-});
+  as: 'button',
+})
 
-const context = inject(POPOVER_INJECTION_KEY);
+const context = inject(POPOVER_INJECTION_KEY)
 
-const { primitiveElement, currentElement: triggerElement } =
-  usePrimitiveElement();
+const { primitiveElement, currentElement: triggerElement }
+  = usePrimitiveElement()
 
 onMounted(() => {
-  context!.triggerElement.value = triggerElement.value;
-});
+  context!.triggerElement.value = triggerElement.value
+})
 
-defineExpose({ $el: triggerElement });
+defineExpose({ $el: triggerElement })
 </script>
 
 <template>
   <component
     :is="context?.hasCustomAnchor.value ? Primitive : PopperAnchor"
-    asChild
+    as-child
   >
     <Primitive
-      :type="as === 'button' ? 'button' : undefined"
       ref="primitiveElement"
+      :type="as === 'button' ? 'button' : undefined"
       aria-haspopup="dialog"
       :aria-expanded="context?.open.value"
       :aria-controls="context?.contentId"

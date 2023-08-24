@@ -7,5 +7,5 @@
       $slots.default?.()[0].children?.[0]
     "
     v-bind="$attrs"
-  ></component>
+  />
 </template>

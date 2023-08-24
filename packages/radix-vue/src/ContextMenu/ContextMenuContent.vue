@@ -1,61 +1,44 @@
 <script setup lang="ts">
-import { inject, ref } from "vue";
-import { CONTEXT_MENU_INJECTION_KEY } from "./ContextMenuRoot.vue";
+import { inject, ref } from 'vue'
+import { CONTEXT_MENU_INJECTION_KEY } from './ContextMenuRoot.vue'
 import {
   MenuContent,
   type MenuContentEmits,
   type MenuContentProps,
-} from "@/Menu";
+} from '@/Menu'
 
 export interface ContextMenuContentProps
   extends Omit<
     MenuContentProps,
-    | "side"
-    | "sideOffset"
-    | "align"
-    | "arrowPadding"
-    | "updatePositionStrategy"
-    | "prioritizePosition"
+    | 'side'
+    | 'sideOffset'
+    | 'align'
+    | 'arrowPadding'
+    | 'updatePositionStrategy'
+    | 'prioritizePosition'
   > {}
-export type ContextMenuContentEmits = MenuContentEmits;
+export type ContextMenuContentEmits = MenuContentEmits
 
 const props = withDefaults(defineProps<ContextMenuContentProps>(), {
   alignOffset: 0,
   avoidCollisions: true,
   collisionBoundary: () => [],
   collisionPadding: 0,
-  sticky: "partial",
+  sticky: 'partial',
   hideWhenDetached: false,
-});
-const emits = defineEmits<ContextMenuContentEmits>();
+})
+const emits = defineEmits<ContextMenuContentEmits>()
 
-const context = inject(CONTEXT_MENU_INJECTION_KEY);
-const hasInteractedOutside = ref(false);
+const context = inject(CONTEXT_MENU_INJECTION_KEY)
+const hasInteractedOutside = ref(false)
 </script>
 
 <template>
   <MenuContent
     v-bind="props"
-    :side="'right'"
-    :sideOffset="2"
-    :align="'start'"
-    @closeAutoFocus="
-      (event) => {
-        emits('closeAutoFocus', event);
-
-        if (!event.defaultPrevented && hasInteractedOutside) {
-          event.preventDefault();
-        }
-        hasInteractedOutside = false;
-      }
-    "
-    @interactOutside="
-      (event) => {
-        emits('interactOutside', event);
-        if (!event.defaultPrevented && !context?.modal.value)
-          hasInteractedOutside = true;
-      }
-    "
+    side="right"
+    :side-offset="2"
+    align="start"
     :style="{
       '--radix-context-menu-content-transform-origin':
         'var(--radix-popper-transform-origin)',
@@ -67,7 +50,24 @@ const hasInteractedOutside = ref(false);
       '--radix-context-menu-trigger-height':
         'var(--radix-popper-anchor-height)',
     }"
+    @close-auto-focus="
+      (event) => {
+        emits('closeAutoFocus', event);
+
+        if (!event.defaultPrevented && hasInteractedOutside) {
+          event.preventDefault();
+        }
+        hasInteractedOutside = false;
+      }
+    "
+    @interact-outside="
+      (event) => {
+        emits('interactOutside', event);
+        if (!event.defaultPrevented && !context?.modal.value)
+          hasInteractedOutside = true;
+      }
+    "
   >
-    <slot></slot>
+    <slot />
   </MenuContent>
 </template>

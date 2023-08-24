@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { DialogOverlay, type DialogOverlayProps } from "@/Dialog";
+import { DialogOverlay, type DialogOverlayProps } from '@/Dialog'
 
 export interface AlertDialogOverlayProps extends DialogOverlayProps {}
 
-const props = defineProps<AlertDialogOverlayProps>();
+const props = defineProps<AlertDialogOverlayProps>()
 </script>
 
 <template>
   <DialogOverlay v-bind="props">
-    <slot></slot>
+    <slot />
   </DialogOverlay>
 </template>

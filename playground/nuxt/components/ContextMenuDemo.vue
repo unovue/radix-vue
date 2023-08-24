@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
+import { Icon } from '@iconify/vue'
 
-const toggleState = ref(false);
-const checkboxOne = ref(false);
-const checkboxTwo = ref(false);
-const person = ref("pedro");
+const toggleState = ref(false)
+const checkboxOne = ref(false)
+const checkboxTwo = ref(false)
+const person = ref('pedro')
 
 function handleClick() {
-  alert("hello!");
+  alert('hello!')
 }
 </script>
 
@@ -18,7 +18,7 @@ function handleClick() {
     <p>Checkbox 2: {{ checkboxTwo ? "checked" : "unchecked" }}</p>
     <p>Person: {{ person }}</p>
   </div>
-  <ContextMenuRoot v-model="toggleState">
+  <ContextMenuRoot>
     <ContextMenuTrigger
       class="block border-2 border-white border-dashed text-white rounded text-[15px] select-none py-[45px] w-[300px] text-center"
     >
@@ -284,7 +284,9 @@ function handleClick() {
         </ContextMenuCheckboxItem>
         <ContextMenuSeparator class="h-[1px] bg-violet6 m-[5px]" />
 
-        <ContextMenuLabel class="pl-[25px] text-xs leading-[25px] text-mauve11"> People </ContextMenuLabel>
+        <ContextMenuLabel class="pl-[25px] text-xs leading-[25px] text-mauve11">
+          People
+        </ContextMenuLabel>
         <ContextMenuRadioGroup v-model="person">
           <ContextMenuRadioItem
             class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
@@ -305,7 +307,6 @@ function handleClick() {
             Colm Tuite
           </ContextMenuRadioItem>
         </ContextMenuRadioGroup>
-        <ContextMenuArrow class="fill-white" />
       </ContextMenuContent>
     </ContextMenuPortal>
   </ContextMenuRoot>

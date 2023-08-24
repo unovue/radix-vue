@@ -1,67 +1,67 @@
 <script lang="ts">
-import type { Ref, InjectionKey } from "vue";
-import type { Direction } from "../shared/types";
+import type { InjectionKey, Ref } from 'vue'
+import type { Direction } from '../shared/types'
 
 export interface DropdownMenuRootProps {
-  open?: boolean;
-  defaultOpen?: boolean;
-  dir?: Direction;
-  modal?: boolean;
+  open?: boolean
+  defaultOpen?: boolean
+  dir?: Direction
+  modal?: boolean
 }
-export interface DropdownMenuRootEmits {
-  (e: "update:open", value: boolean): void;
+export type DropdownMenuRootEmits = {
+  'update:open': [value: boolean]
 }
 
-export const DROPDOWN_MENU_INJECTION_KEY =
-  Symbol() as InjectionKey<DropdownMenuProvideValue>;
+export const DROPDOWN_MENU_INJECTION_KEY
+  = Symbol() as InjectionKey<DropdownMenuProvideValue>
 
-export type DropdownMenuProvideValue = {
-  open: Readonly<Ref<boolean>>;
-  onOpenChange(open: boolean): void;
-  onOpenToggle(): void;
-  triggerId: string;
-  triggerElement: Ref<HTMLElement | undefined>;
-  contentId: string;
-  modal: Ref<boolean>;
-  dir: Ref<Direction>;
-};
+export interface DropdownMenuProvideValue {
+  open: Readonly<Ref<boolean>>
+  onOpenChange(open: boolean): void
+  onOpenToggle(): void
+  triggerId: string
+  triggerElement: Ref<HTMLElement | undefined>
+  contentId: string
+  modal: Ref<boolean>
+  dir: Ref<Direction>
+}
 </script>
 
 <script setup lang="ts">
-import { provide, ref, toRefs } from "vue";
-import { useVModel } from "@vueuse/core";
-import { MenuRoot } from "@/Menu";
-import { useId } from "@/shared";
+import { provide, ref, toRefs } from 'vue'
+import { useVModel } from '@vueuse/core'
+import { MenuRoot } from '@/Menu'
+import { useId } from '@/shared'
 
 const props = withDefaults(defineProps<DropdownMenuRootProps>(), {
   modal: true,
-  dir: "ltr",
+  dir: 'ltr',
   open: undefined,
-});
-const emit = defineEmits<DropdownMenuRootEmits>();
+})
+const emit = defineEmits<DropdownMenuRootEmits>()
 
-const open = useVModel(props, "open", emit, {
+const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: true,
-});
+})
 
-const triggerElement = ref<HTMLElement>();
+const triggerElement = ref<HTMLElement>()
 
-const { modal, dir } = toRefs(props);
+const { modal, dir } = toRefs(props)
 provide<DropdownMenuProvideValue>(DROPDOWN_MENU_INJECTION_KEY, {
   open,
   onOpenChange: (value) => {
-    open.value = value;
+    open.value = value
   },
   onOpenToggle: () => {
-    open.value = !open.value;
+    open.value = !open.value
   },
   triggerId: useId(),
   triggerElement,
   contentId: useId(),
   modal,
   dir,
-});
+})
 </script>
 
 <template>

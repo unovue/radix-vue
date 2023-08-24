@@ -3,29 +3,29 @@ export interface ToggleGroupItemProps extends ToggleProps {
   /**
    * A string value for the toggle group item. All items within a toggle group should use a unique value.
    */
-  value: string;
+  value: string
 }
 </script>
 
 <script setup lang="ts">
-import { computed, inject } from "vue";
-import { Toggle, type ToggleProps } from "@/Toggle";
-import { TOGGLE_GROUP_INJECTION_KEY } from "./ToggleGroupRoot.vue";
-import { RovingFocusItem } from "@/RovingFocus";
-import { Primitive } from "@/Primitive";
+import { computed, inject } from 'vue'
+import { TOGGLE_GROUP_INJECTION_KEY } from './ToggleGroupRoot.vue'
+import { Toggle, type ToggleProps } from '@/Toggle'
+import { RovingFocusItem } from '@/RovingFocus'
+import { Primitive } from '@/Primitive'
 
 const props = withDefaults(defineProps<ToggleGroupItemProps>(), {
-  as: "button",
-});
+  as: 'button',
+})
 
-const context = inject(TOGGLE_GROUP_INJECTION_KEY);
-const disabled = computed(() => context?.disabled?.value || props.disabled);
+const context = inject(TOGGLE_GROUP_INJECTION_KEY)
+const disabled = computed(() => context?.disabled?.value || props.disabled)
 </script>
 
 <template>
   <component
     :is="context?.rovingFocus.value ? RovingFocusItem : Primitive"
-    asChild
+    as-child
     :focusable="!disabled"
     :active="pressed"
   >
@@ -39,7 +39,7 @@ const disabled = computed(() => context?.disabled?.value || props.disabled);
       "
       @update:pressed="context?.changeModelValue(value)"
     >
-      <slot></slot>
+      <slot />
     </Toggle>
   </component>
 </template>

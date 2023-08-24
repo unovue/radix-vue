@@ -1,54 +1,54 @@
 <script lang="ts">
 export interface SelectTriggerProps extends PrimitiveProps {
-  disabled?: boolean;
+  disabled?: boolean
 }
 </script>
 
 <script setup lang="ts">
-import { computed, inject, onMounted } from "vue";
-import {
-  Primitive,
-  usePrimitiveElement,
-  type PrimitiveProps,
-} from "@/Primitive";
+import { computed, inject, onMounted } from 'vue'
 import {
   SELECT_INJECTION_KEY,
   type SelectProvideValue,
-} from "./SelectRoot.vue";
-import { PopperAnchor } from "@/Popper";
-import { useNewCollection, useTypeahead } from "@/shared";
-import { OPEN_KEYS, shouldShowPlaceholder } from "./utils";
+} from './SelectRoot.vue'
+import { OPEN_KEYS, shouldShowPlaceholder } from './utils'
+import {
+  Primitive,
+  type PrimitiveProps,
+  usePrimitiveElement,
+} from '@/Primitive'
+import { PopperAnchor } from '@/Popper'
+import { useCollection, useTypeahead } from '@/shared'
 
 const props = withDefaults(defineProps<SelectTriggerProps>(), {
-  as: "button",
-});
-const context = inject<SelectProvideValue>(SELECT_INJECTION_KEY);
+  as: 'button',
+})
+const context = inject<SelectProvideValue>(SELECT_INJECTION_KEY)
 
-const isDisabled = computed(() => context?.disabled?.value || props.disabled);
+const isDisabled = computed(() => context?.disabled?.value || props.disabled)
 
-const { primitiveElement, currentElement: triggerElement } =
-  usePrimitiveElement();
+const { primitiveElement, currentElement: triggerElement }
+  = usePrimitiveElement()
 
 onMounted(() => {
-  context!.triggerElement = triggerElement;
-});
+  context!.triggerElement = triggerElement
+})
 
-const { injectCollection } = useNewCollection();
-const collectionItems = injectCollection();
+const { injectCollection } = useCollection()
+const collectionItems = injectCollection()
 
-const { search, handleTypeaheadSearch, resetTypeahead } =
-  useTypeahead(collectionItems);
-const handleOpen = () => {
+const { search, handleTypeaheadSearch, resetTypeahead }
+  = useTypeahead(collectionItems)
+function handleOpen() {
   if (!isDisabled.value) {
-    context!.onOpenChange(true);
+    context!.onOpenChange(true)
     // reset typeahead when we open
-    resetTypeahead();
+    resetTypeahead()
   }
-};
+}
 </script>
 
 <template>
-  <PopperAnchor asChild>
+  <PopperAnchor as-child>
     <Primitive
       ref="primitiveElement"
       role="combobox"
@@ -76,7 +76,7 @@ const handleOpen = () => {
         }
       "
       @pointerdown="
-          (event: PointerEvent) => {
+        (event: PointerEvent) => {
           // prevent implicit pointer capture
           // https://www.w3.org/TR/pointerevents3/#implicit-pointer-capture
           const target = event.target as HTMLElement;

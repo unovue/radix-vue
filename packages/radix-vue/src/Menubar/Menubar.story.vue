@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-import { ref } from "vue";
+import { Icon } from '@iconify/vue'
+import { ref } from 'vue'
 import {
   MenubarCheckboxItem,
   MenubarContent,
@@ -16,14 +16,14 @@ import {
   MenubarSubContent,
   MenubarSubTrigger,
   MenubarTrigger,
-} from "./";
+} from './'
 
-const currentMenu = ref("");
-const checkboxOne = ref(false);
-const checkboxTwo = ref(false);
-const person = ref("pedro");
+const currentMenu = ref('')
+const checkboxOne = ref(false)
+const checkboxTwo = ref(false)
+const person = ref('pedro')
 function handleClick() {
-  alert("hello!");
+  alert('hello!')
 }
 </script>
 
@@ -32,6 +32,7 @@ function handleClick() {
     <Variant title="default">
       <MenubarRoot
         v-model="currentMenu"
+        :loop="true"
         class="flex bg-white p-[3px] rounded-md shadow-[0_2px_10px] shadow-blackA7"
       >
         <MenubarMenu value="file">

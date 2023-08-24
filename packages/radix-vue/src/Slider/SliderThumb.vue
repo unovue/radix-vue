@@ -6,7 +6,6 @@ export interface SliderThumbProps extends PrimitiveProps {}
 import { computed, inject, onMounted } from "vue";
 import {
   Primitive,
-  usePrimitiveElement,
   type PrimitiveProps,
 } from "@/Primitive";
 import { SLIDER_INJECTION_KEY } from "./SliderRoot.vue";
@@ -17,9 +16,12 @@ defineOptions({
   inheritAttrs: false,
 });
 
-const injectedValue = inject<SliderProvideValue>(SLIDER_INJECTION_KEY);
-const { primitiveElement, currentElement: thumbElement } =
-  usePrimitiveElement();
+const props = withDefaults(defineProps<SliderThumbProps>(), {
+  as: 'span',
+})
+const injectedValue = inject<SliderProvideValue>(SLIDER_INJECTION_KEY)
+const { primitiveElement, currentElement: thumbElement }
+  = usePrimitiveElement()
 
 onMounted(() => {
   if (injectedValue?.thumbElements && thumbElement.value) {

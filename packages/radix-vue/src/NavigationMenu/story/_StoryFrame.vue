@@ -6,7 +6,7 @@
       >
         <button>Logo</button>
 
-        <slot></slot>
+        <slot />
 
         <button>Login</button>
       </div>

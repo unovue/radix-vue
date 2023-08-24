@@ -1,52 +1,52 @@
 <script setup lang="ts">
-import { Primitive } from "@/Primitive";
-import { inject, onBeforeUnmount, ref, watchEffect } from "vue";
-import { SELECT_CONTENT_INJECTION_KEY } from "./SelectContentImpl.vue";
-import { useNewCollection } from "@/shared";
+import { inject, onBeforeUnmount, ref, watchEffect } from 'vue'
+import { SELECT_CONTENT_INJECTION_KEY } from './SelectContentImpl.vue'
+import { Primitive } from '@/Primitive'
+import { useCollection } from '@/shared'
 
-export interface SelectScrollButtonImplEmits {
-  (e: "auto-scroll"): void;
+export type SelectScrollButtonImplEmits = {
+  autoScroll: []
 }
 
-const emits = defineEmits<SelectScrollButtonImplEmits>();
-const { injectCollection } = useNewCollection();
+const emits = defineEmits<SelectScrollButtonImplEmits>()
+const { injectCollection } = useCollection()
 
-const collectionItems = injectCollection();
-const contentContext = inject(SELECT_CONTENT_INJECTION_KEY);
-const autoScrollTimerRef = ref<number | null>(null);
+const collectionItems = injectCollection()
+const contentContext = inject(SELECT_CONTENT_INJECTION_KEY)
+const autoScrollTimerRef = ref<number | null>(null)
 
-const clearAutoScrollTimer = () => {
+function clearAutoScrollTimer() {
   if (autoScrollTimerRef.value !== null) {
-    window.clearInterval(autoScrollTimerRef.value);
-    autoScrollTimerRef.value = null;
+    window.clearInterval(autoScrollTimerRef.value)
+    autoScrollTimerRef.value = null
   }
-};
+}
 
 watchEffect(() => {
   const activeItem = collectionItems.value.find(
-    (item) => item === document.activeElement
-  );
-  activeItem?.scrollIntoView({ block: "nearest" });
-});
+    item => item === document.activeElement,
+  )
+  activeItem?.scrollIntoView({ block: 'nearest' })
+})
 
-const handlePointerDown = () => {
+function handlePointerDown() {
   if (autoScrollTimerRef.value === null) {
     autoScrollTimerRef.value = window.setInterval(() => {
-      emits("auto-scroll");
-    }, 50);
+      emits('autoScroll')
+    }, 50)
   }
-};
+}
 
-const handlePointerMove = () => {
-  contentContext!.onItemLeave();
+function handlePointerMove() {
+  contentContext!.onItemLeave()
   if (autoScrollTimerRef.value === null) {
     autoScrollTimerRef.value = window.setInterval(() => {
-      emits("auto-scroll");
-    }, 50);
+      emits('autoScroll')
+    }, 50)
   }
-};
+}
 
-onBeforeUnmount(() => clearAutoScrollTimer());
+onBeforeUnmount(() => clearAutoScrollTimer())
 </script>
 
 <template>
@@ -64,6 +64,6 @@ onBeforeUnmount(() => clearAutoScrollTimer());
       }
     "
   >
-    <slot></slot>
+    <slot />
   </Primitive>
 </template>

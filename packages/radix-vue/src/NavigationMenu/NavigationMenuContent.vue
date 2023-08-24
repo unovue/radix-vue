@@ -1,97 +1,66 @@
 <script setup lang="ts">
-import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
-import { NAVIGATION_MENU_ITEM_INJECTION_KEY } from "./NavigationMenuItem.vue";
-import { computed, inject, getCurrentInstance, watch, nextTick } from "vue";
-import { getOpenState } from "./utils";
-import NavigationMenuContentImpl from "./NavigationMenuContentImpl.vue";
-import { Presence } from "@/Presence";
-import {
-  type DismissableLayerProps,
-  type DismissableLayerEmits,
-  type PointerDownOutsideEvent,
-} from "@/DismissableLayer";
-import { computedWithControl } from "@vueuse/core";
+import { computed, inject } from 'vue'
+import { NAVIGATION_MENU_INJECTION_KEY } from './NavigationMenuRoot.vue'
+import { NAVIGATION_MENU_ITEM_INJECTION_KEY } from './NavigationMenuItem.vue'
+import { getOpenState } from './utils'
+import { Presence } from '@/Presence'
+import { type PointerDownOutsideEvent } from '@/DismissableLayer'
+import NavigationMenuContentImpl, { type NavigationMenuContentImplEmits, type NavigationMenuContentImplProps } from './NavigationMenuContentImpl.vue'
+import { useEmitAsProps } from '@/shared'
+import { useMounted } from '@vueuse/core'
 
-export interface NavigationMenuContentProps extends DismissableLayerProps {}
-export type NavigationMenuContentEmits = DismissableLayerEmits;
+export interface NavigationMenuContentProps extends NavigationMenuContentImplProps {}
+export type NavigationMenuContentEmits = NavigationMenuContentImplEmits
 
-const props = defineProps<NavigationMenuContentProps>();
-const emits = defineEmits<NavigationMenuContentEmits>();
+const props = defineProps<NavigationMenuContentProps>()
+const emits = defineEmits<NavigationMenuContentEmits>()
 
-const context = inject(NAVIGATION_MENU_INJECTION_KEY);
-const itemContext = inject(NAVIGATION_MENU_ITEM_INJECTION_KEY);
+const emitsAsProps = useEmitAsProps(emits)
 
-const open = computed(() => itemContext?.value === context?.modelValue.value);
+const isClientMounted = useMounted()
+const context = inject(NAVIGATION_MENU_INJECTION_KEY)
+const itemContext = inject(NAVIGATION_MENU_ITEM_INJECTION_KEY)
 
-const commonProps = computedWithControl(
-  () => itemContext,
-  () => ({
-    ...props,
-    value: itemContext!.value,
-    triggerRef: itemContext!.triggerRef,
-    focusProxyRef: itemContext!.focusProxyRef,
-    wasEscapeCloseRef: itemContext!.wasEscapeCloseRef,
-    onContentFocusOutside: itemContext!.onContentFocusOutside,
-    onRootContentClose: itemContext!.onRootContentClose,
-  })
-);
+const open = computed(() => itemContext?.value === context?.modelValue.value)
 
-const instance = getCurrentInstance();
+// We persist the last active content value as the viewport may be animating out
+// and we want the content to remain mounted for the lifecycle of the viewport.
+const isLastActiveValue = computed(() => {
+  if (!context?.modelValue.value && context?.previousValue.value)
+    return (context?.previousValue.value === itemContext?.value)
+  return false
+})
 
-watch(
-  open,
-  async () => {
-    if (!context?.isRootMenu) {
-      // Next tick to flush DOM for other dependent elements to mount
-      await nextTick();
-    }
-    // Everytime we remove mounted vnode using `v-if`, we would need to reset the vnode,
-    // thus having this watcher is crucial is important for SSR
-    // @ts-ignore
-    const vnode = instance?.vnode.children?.default()?.[0];
-    if (context?.viewport && vnode && itemContext?.triggerRef.value) {
-      vnode.props = {
-        ...vnode.props,
-        ...commonProps.value,
-        triggerRef: itemContext!.triggerRef,
-        focusProxyRef: itemContext!.focusProxyRef,
-        wasEscapeCloseRef: itemContext!.wasEscapeCloseRef,
-      };
-      vnode.parentProps = instance.vnode.props;
-      context.onViewportContentChange(itemContext!.value, vnode);
-      commonProps.trigger();
-    }
-  },
-  { immediate: true, deep: true }
-);
-
-const handlePointerDown = (ev: PointerDownOutsideEvent) => {
-  emits("pointerDownOutside", ev);
-  if (!ev.preventDefault) context?.onContentLeave();
-};
+function handlePointerDown(ev: PointerDownOutsideEvent) {
+  emits('pointerDownOutside', ev)
+  if (!ev.preventDefault)
+    context?.onContentLeave()
+}
 </script>
 
 <script lang="ts">
 export default {
   inheritAttrs: false,
-};
+}
 </script>
 
 <template>
-  <Presence v-if="!context?.viewport.value" :present="open">
-    <NavigationMenuContentImpl
-      :data-state="getOpenState(open)"
-      :style="{
-        pointerEvents: !open && context?.isRootMenu ? 'none' : undefined,
-      }"
-      v-bind="{ ...$attrs, ...commonProps }"
-      @pointerenter="context?.onContentEnter(itemContext!.value)"
-      @pointerleave="context?.onContentLeave()"
-      @pointerdown="handlePointerDown"
-      @focus-outside="emits('focusOutside', $event)"
-      @interact-outside="emits('interactOutside', $event)"
-    >
-      <slot></slot>
-    </NavigationMenuContentImpl>
-  </Presence>
+  <Teleport v-if="isClientMounted" :to="context?.viewport.value" :disabled="!context?.viewport.value">
+    <Presence :present="open || isLastActiveValue">
+      <NavigationMenuContentImpl
+        :data-state="getOpenState(open)"
+        :style="{
+          pointerEvents: !open && context?.isRootMenu ? 'none' : undefined,
+        }"
+        v-bind="{ ...$attrs, ...props, ...emitsAsProps }"
+        @pointerenter="context?.onContentEnter(itemContext!.value)"
+        @pointerleave="context?.onContentLeave()"
+        @pointerdown="handlePointerDown"
+        @focus-outside="emits('focusOutside', $event)"
+        @interact-outside="emits('interactOutside', $event)"
+      >
+        <slot />
+      </NavigationMenuContentImpl>
+    </Presence>
+  </Teleport>
 </template>

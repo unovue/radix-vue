@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref } from 'vue'
+import { Icon } from '@iconify/vue'
 import {
   DialogClose,
   DialogContent,
@@ -9,10 +10,9 @@ import {
   DialogRoot,
   DialogTitle,
   DialogTrigger,
-} from "./";
-import { Icon } from "@iconify/vue";
+} from './'
 
-const dialogOpen = ref(true);
+const dialogOpen = ref(true)
 
 function handleEvent() {
   // alert("event initiated!");
@@ -37,9 +37,9 @@ function handleEvent() {
             />
           </Transition>
           <DialogContent
-            :isEscapeKeyDownDefault="true"
-            @escapeKeyDown="handleEvent"
+            :is-escape-key-down-default="true"
             class="data-[state=open]:animate-contentShow data-[state=closed]:animate-contentHide fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none"
+            @pointer-down-outside.prevent
           >
             <DialogTitle class="text-mauve12 m-0 text-[17px] font-medium">
               Edit profile
@@ -60,7 +60,7 @@ function handleEvent() {
                 id="name"
                 class="text-violet11 shadow-violet7 focus:shadow-violet8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
                 defaultValue="Pedro Duarte"
-              />
+              >
             </fieldset>
             <fieldset class="mb-[15px] flex items-center gap-5">
               <label
@@ -73,7 +73,7 @@ function handleEvent() {
                 id="username"
                 class="text-violet11 shadow-violet7 focus:shadow-violet8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
                 defaultValue="@peduarte"
-              />
+              >
             </fieldset>
             <div class="mt-[25px] flex justify-end">
               <DialogClose as-child>

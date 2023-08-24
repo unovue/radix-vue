@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import {
   PopoverArrow,
   PopoverClose,
@@ -6,10 +7,9 @@ import {
   PopoverPortal,
   PopoverRoot,
   PopoverTrigger,
-} from "../";
-import { ref } from "vue";
+} from '../'
 
-const buttonRef = ref();
+const buttonRef = ref()
 </script>
 
 <template>
@@ -39,14 +39,14 @@ const buttonRef = ref();
               style="background-color: crimson"
             >
               <PopoverRoot>
-                <PopoverTrigger className="{triggerClass()}"
-                  >Open nested popover</PopoverTrigger
-                >
+                <PopoverTrigger class-name="{triggerClass()}">
+                  Open nested popover
+                </PopoverTrigger>
                 <PopoverPortal>
                   <PopoverContent
-                    :side="'top'"
-                    :align="'center'"
-                    :sideOffset="5"
+                    side="top"
+                    align="center"
+                    :side-offset="5"
                     :style="{ backgroundColor: 'green' }"
                   >
                     <PopoverClose>close</PopoverClose>

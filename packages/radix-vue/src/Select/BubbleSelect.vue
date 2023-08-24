@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { toRefs, ref, watchEffect, watch } from "vue";
-import { VisuallyHidden } from "@/VisuallyHidden";
-import { usePrevious } from "@vueuse/core";
+import { ref, toRefs } from 'vue'
+import { usePrevious } from '@vueuse/core'
+import { VisuallyHidden } from '@/VisuallyHidden'
 
 interface BubbleSelectProps {
-  autocomplete?: string;
-  autofocus?: boolean;
-  disabled?: boolean;
-  form?: string;
-  multiple?: boolean;
-  name?: string;
-  required?: boolean;
-  size?: number;
-  value?: any;
+  autocomplete?: string
+  autofocus?: boolean
+  disabled?: boolean
+  form?: string
+  multiple?: boolean
+  name?: string
+  required?: boolean
+  size?: number
+  value?: any
 }
 
-const props = defineProps<BubbleSelectProps>();
-const { value } = toRefs(props);
-const prevValue = usePrevious(value);
-const selectElement = ref<HTMLElement>();
+const props = defineProps<BubbleSelectProps>()
+const { value } = toRefs(props)
+const prevValue = usePrevious(value)
+const selectElement = ref<HTMLElement>()
 
 // This would bubble "change" event to form, with the target as Select element.
 // We temporary disable this as not sure if it will be needed for Vue
@@ -49,14 +49,14 @@ const selectElement = ref<HTMLElement>();
 </script>
 
 <template>
-  <VisuallyHidden asChild>
+  <VisuallyHidden as-child>
     <select
       ref="selectElement"
-      :default-value="value"
       v-bind="props"
       v-model="value"
+      :default-value="value"
     >
-      <slot></slot>
+      <slot />
     </select>
   </VisuallyHidden>
 </template>

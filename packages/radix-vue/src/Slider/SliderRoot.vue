@@ -87,7 +87,34 @@ const flipped = computed<boolean>(() => {
   return props.dir === "rtl" || props.inverted;
 });
 
+function copyArrayExcludeElement(
+  originalArray: number[],
+  excludeIndex: number
+) {
+  const firstPart = originalArray.slice(0, excludeIndex);
+  const secondPart = originalArray.slice(excludeIndex + 1);
+  return firstPart.concat(secondPart);
+}
+
+function isWithinRange(value: number, index: number) {
+  if (modelValue.value) {
+    const valuesToCheck = copyArrayExcludeElement(modelValue.value, index);
+    for (const number of valuesToCheck) {
+      if (Math.abs(value - number) <= props.minStepsBetweenThumbs) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 function setValueByIndex(value: number, index: number): void {
+  if (props.minStepsBetweenThumbs > 0) {
+    if (isWithinRange(value, index)) {
+      return;
+    }
+  }
+
   const newValues = [...(modelValue.value || [])];
   newValues[index] = value;
 
@@ -95,7 +122,7 @@ function setValueByIndex(value: number, index: number): void {
 }
 
 function setValue(value: number[] | undefined) {
-  if (props.disabled) {
+  if (props.disabled || value === undefined) {
     return;
   }
 

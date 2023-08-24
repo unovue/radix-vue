@@ -8,7 +8,7 @@ export interface TooltipTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { inject } from 'vue'
+import { inject, onMounted, ref } from 'vue'
 import { TOOLTIP_INJECTION_KEY } from './TooltipRoot.vue'
 import { PopperAnchor } from '@/Popper'
 import {
@@ -16,22 +16,31 @@ import {
   type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
-import { useHover } from '@/shared'
+import { TOOLTIP_PROVIDER_INJECTION_KEY } from './TooltipProvider.vue'
 
 const props = withDefaults(defineProps<TooltipTriggerProps>(), {
   as: 'button',
 })
-const injectedValue = inject(TOOLTIP_INJECTION_KEY)
+const context = inject(TOOLTIP_INJECTION_KEY)
+const providerContext = inject(TOOLTIP_PROVIDER_INJECTION_KEY)
 
 const { primitiveElement, currentElement: triggerElement }
   = usePrimitiveElement()
 
-useHover(triggerElement, {
-  delayEnter: injectedValue?.delayMs,
-  onHoverEnter: () => injectedValue?.showTooltip(true),
-  delayLeave: 0,
-  onHoverLeave: () => injectedValue?.hideTooltip(),
-  disabled: injectedValue?.disableHoverableContent,
+const isPointerDown = ref(false)
+const hasPointerMoveOpened = ref(false)
+
+function handlePointerUp() {
+  isPointerDown.value = false
+}
+
+function handlePointerDown() {
+  isPointerDown.value = true
+  document.addEventListener('pointerup', handlePointerUp, { once: true })
+}
+
+onMounted(() => {
+  context?.onTriggerChange(triggerElement.value)
 })
 </script>
 
@@ -39,16 +48,31 @@ useHover(triggerElement, {
   <PopperAnchor as-child>
     <Primitive
       ref="primitiveElement"
-      :type="as === 'button' ? 'button' : undefined"
       :aria-describedby="
-        injectedValue?.open ? injectedValue.contentId : undefined
+        context?.open.value ? context.contentId : undefined
       "
+      :data-state="context?.stateAttribute.value"
       :as="as"
       :as-child="props.asChild"
-      :data-state="injectedValue?.dataState.value"
-      :aria-expanded="injectedValue?.open.value || false"
-      @focus="injectedValue?.showTooltip(false)"
-      @blur="injectedValue?.hideTooltip"
+      @pointermove="(event) => {
+        if (event.pointerType === 'touch') return;
+        if (
+          !hasPointerMoveOpened && !providerContext?.isPointerInTransitRef.value
+        ) {
+          context?.onTriggerEnter();
+          hasPointerMoveOpened = true;
+        }
+      }"
+      @pointerleave="(event) => {
+        context?.onTriggerLeave();
+        hasPointerMoveOpened = false;
+      }"
+      @pointerdown="handlePointerDown"
+      @focus="() => {
+        if (!isPointerDown) context?.onOpen()
+      }"
+      @blur="context?.onClose()"
+      @click="context?.onClose()"
     >
       <slot />
     </Primitive>

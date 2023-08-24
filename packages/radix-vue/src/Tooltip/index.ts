@@ -20,3 +20,7 @@ export {
   default as TooltipPortal,
   type TooltipPortalProps,
 } from './TooltipPortal.vue'
+export {
+  default as TooltipProvider,
+  type TooltipProviderProps,
+} from './TooltipProvider.vue'

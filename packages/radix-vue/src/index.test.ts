@@ -100,6 +100,7 @@ it('should expose the correct components', () => {
     'TooltipContent',
     'TooltipArrow',
     'TooltipPortal',
+    'TooltipProvider',
 
     // Hover Card
     'HoverCardRoot',

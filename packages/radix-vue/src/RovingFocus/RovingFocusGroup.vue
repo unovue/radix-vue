@@ -14,19 +14,20 @@ export interface RovingFocusGroupProps extends PrimitiveProps {
    * @defaultValue false
    */
   loop?: boolean
-  currentTabStopId?: string
+  currentTabStopId?: string | null
   defaultCurrentTabStopId?: string
 }
 
 export type RovingFocusGroupEmits = {
   'entryFocus': [event: Event]
+  'update:currentTabStopId': [value: string | null | undefined]
 }
 
 interface RovingContextValue {
   orientation: Ref<Orientation>
   dir: Ref<Direction>
   loop: Ref<boolean>
-  currentTabStopId: Ref<string | undefined>
+  currentTabStopId: Ref<string | null | undefined>
   onItemFocus(tabStopId: string): void
   onItemShiftTab(): void
   onFocusableItemAdd(): void
@@ -39,7 +40,7 @@ export const ROVING_FOCUS_INJECTION_KEY
 
 <script setup lang="ts">
 import { type InjectionKey, type Ref, provide, ref, toRefs } from 'vue'
-import { useActiveElement } from '@vueuse/core'
+import { useActiveElement, useVModel } from '@vueuse/core'
 import {
   type Direction,
   ENTRY_FOCUS,
@@ -61,7 +62,9 @@ const props = withDefaults(defineProps<RovingFocusGroupProps>(), {
 })
 const emits = defineEmits<RovingFocusGroupEmits>()
 const { loop, orientation, dir } = toRefs(props)
-const currentTabStopId = ref(props.defaultCurrentTabStopId)
+const currentTabStopId = useVModel(props, 'currentTabStopId', emits, {
+  defaultValue: props.defaultCurrentTabStopId,
+})
 const isTabbingBackOut = ref(false)
 const isClickFocus = ref(false)
 const focusableItemsCount = ref(0)
@@ -87,8 +90,7 @@ function handleFocus(event: FocusEvent) {
     const entryFocusEvent = new CustomEvent(ENTRY_FOCUS, EVENT_OPTIONS)
     event.currentTarget.dispatchEvent(entryFocusEvent)
 
-    emits('entryFocus', event)
-
+    emits('entryFocus', entryFocusEvent)
     if (!entryFocusEvent.defaultPrevented) {
       const items = collections.value
       const activeItem = items.find(item => item === activeElement.value)

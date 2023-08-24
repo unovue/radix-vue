@@ -145,7 +145,7 @@ provide(SELECT_NATIVE_OPTIONS_INJECTION_KEY, {
       v-if="isFormControl"
       :key="nativeSelectKey"
       aria-hidden
-      tab-index="-1"
+      tabindex="-1"
       :required="required"
       :name="name"
       :autocomplete="autocomplete"

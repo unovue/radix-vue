@@ -32,6 +32,7 @@ function handleClick() {
     <Variant title="default">
       <MenubarRoot
         v-model="currentMenu"
+        :loop="true"
         class="flex bg-white p-[3px] rounded-md shadow-[0_2px_10px] shadow-blackA7"
       >
         <MenubarMenu value="file">

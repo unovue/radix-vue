@@ -27,7 +27,7 @@ export interface MenuContentImplPrivateProps {
   trapFocus?: FocusScopeProps['trapped']
 }
 
-export type MenuContentImplEmits = DismissableLayerEmits & {
+export type MenuContentImplEmits = DismissableLayerEmits & Omit<RovingFocusGroupEmits, 'update:currentTabStopId'> & {
   'openAutoFocus': [event: Event]
   /**
    * Event handler called when auto-focusing on close.
@@ -90,6 +90,7 @@ import {
   PopperContentPropsDefaultValue,
 } from '@/Popper'
 import { usePrimitiveElement } from '@/Primitive'
+import { RovingFocusGroup, type RovingFocusGroupEmits } from '@/RovingFocus'
 import {
   useArrowNavigation,
   useBodyScrollLock,
@@ -146,15 +147,10 @@ function isPointerMovingToSubmenu(event: PointerEvent) {
 async function handleMountAutoFocus(event: Event) {
   emits('openAutoFocus', event)
 
-  setTimeout(() => {
-    contentElement.value?.focus()
-
-    // only focus first item when using keyboard
-    if (rootContext?.isUsingKeyboardRef.value && !event.defaultPrevented) {
-      collectionItems.value?.[0]?.focus()
-      event.preventDefault()
-    }
-  }, 0)
+  // when opening, explicitly focus the content area only and leave
+  // `onEntryFocus` in  control of focusing first item
+  event.preventDefault()
+  contentElement.value?.focus()
 }
 
 function handleKeyDown(event: KeyboardEvent) {
@@ -205,7 +201,7 @@ function handleKeyDown(event: KeyboardEvent) {
 
 function handleBlur(event: FocusEvent) {
   // clear search buffer when leaving the menu
-  // @ts-expect-error
+  // @ts-expect-error the provided currentTarget and target should be HTMLElement
   if (!event?.currentTarget?.contains?.(event.target)) {
     window.clearTimeout(timerRef.value)
     searchRef.value = ''
@@ -257,43 +253,56 @@ provide(MENU_CONTENT_INJECTION_KEY, {
   <FocusScope
     as-child
     :trapped="trapFocus"
-    @mountAutoFocus="handleMountAutoFocus"
-    @unmountAutoFocus="emits('closeAutoFocus', $event)"
+    @mount-auto-focus="handleMountAutoFocus"
+    @unmount-auto-focus="emits('closeAutoFocus', $event)"
   >
     <DismissableLayer
       as-child
       :disable-outside-pointer-events="disableOutsidePointerEvents"
-      @escapeKeyDown="emits('escapeKeyDown', $event)"
-      @pointerDownOutside="emits('pointerDownOutside', $event)"
-      @focusOutside="emits('focusOutside', $event)"
-      @interactOutside="emits('interactOutside', $event)"
+      @escape-key-down="emits('escapeKeyDown', $event)"
+      @pointer-down-outside="emits('pointerDownOutside', $event)"
+      @focus-outside="emits('focusOutside', $event)"
+      @interact-outside="emits('interactOutside', $event)"
       @dismiss="emits('dismiss')"
     >
-      <PopperContent
-        ref="primitiveElement"
-        role="menu"
-        :as="as"
-        :as-child="asChild"
-        aria-orientation="vertical"
-        data-radix-menu-content
-        :data-state="getOpenState(context!.open.value)"
-        :dir="rootContext!.dir.value"
-        :side="side"
-        :side-offset="sideOffset"
-        :align="align"
-        :align-offset="alignOffset"
-        :avoid-collisions="avoidCollisions"
-        :collision-boundary="collisionBoundary"
-        :collision-padding="collisionPadding"
-        :arrow-padding="arrowPadding"
-        :sticky="sticky"
-        :hide-when-detached="hideWhenDetached"
-        @keydown="handleKeyDown"
-        @blur="handleBlur"
-        @pointermove="handlePointerMove"
+      <RovingFocusGroup
+        v-model:current-tab-stop-id="currentItemId"
+        as-child
+        :dir="rootContext?.dir.value"
+        orientation="vertical"
+        :loop="loop"
+        @entry-focus="(event) => {
+          emits('entryFocus', event)
+          // only focus first item when using keyboard
+          if (!rootContext?.isUsingKeyboardRef.value) event.preventDefault();
+        }"
       >
-        <slot />
-      </PopperContent>
+        <PopperContent
+          ref="primitiveElement"
+          role="menu"
+          :as="as"
+          :as-child="asChild"
+          aria-orientation="vertical"
+          data-radix-menu-content
+          :data-state="getOpenState(context!.open.value)"
+          :dir="rootContext!.dir.value"
+          :side="side"
+          :side-offset="sideOffset"
+          :align="align"
+          :align-offset="alignOffset"
+          :avoid-collisions="avoidCollisions"
+          :collision-boundary="collisionBoundary"
+          :collision-padding="collisionPadding"
+          :arrow-padding="arrowPadding"
+          :sticky="sticky"
+          :hide-when-detached="hideWhenDetached"
+          @keydown="handleKeyDown"
+          @blur="handleBlur"
+          @pointermove="handlePointerMove"
+        >
+          <slot />
+        </PopperContent>
+      </RovingFocusGroup>
     </DismissableLayer>
   </FocusScope>
 </template>

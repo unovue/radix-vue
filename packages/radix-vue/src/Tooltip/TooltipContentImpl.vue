@@ -39,7 +39,7 @@ export interface TooltipContentImplEmits {
 import { PopperContent } from '@/Popper'
 import { type PrimitiveProps } from '@/Primitive'
 import { VisuallyHidden } from '@/VisuallyHidden'
-import { type VNode, computed, inject, ref, useSlots } from 'vue'
+import { type VNode, computed, inject, onMounted, ref, useSlots } from 'vue'
 import { TOOLTIP_INJECTION_KEY } from './TooltipRoot.vue'
 import { DismissableLayer } from '@/DismissableLayer'
 
@@ -92,10 +92,16 @@ const popperContentProps = computed(() => ({
   hideWhenDetached: props.hideWhenDetached,
 }))
 
-// Close the tooltip if the trigger is scrolled
-useEventListener(context!.trigger, 'scroll', context!.onClose)
-// @ts-expect-error Close this tooltip if another one opens
-useEventListener(TOOLTIP_OPEN, context!.onClose)
+onMounted(() => {
+  // Close the tooltip if the trigger is scrolled
+  useEventListener(window, 'scroll', (event) => {
+    const target = event.target as HTMLElement
+    if (target?.contains(context!.trigger.value!))
+      context!.onClose()
+  })
+  // Close this tooltip if another one opens
+  useEventListener(window, TOOLTIP_OPEN, context!.onClose)
+})
 </script>
 
 <template>

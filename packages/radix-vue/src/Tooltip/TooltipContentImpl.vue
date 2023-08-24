@@ -55,11 +55,9 @@ const props = withDefaults(defineProps<TooltipContentImplProps>(), {
   sticky: 'partial',
   hideWhenDetached: false,
 })
-
 const emits = defineEmits<TooltipContentImplEmits>()
 
 const contentElement = ref<HTMLElement>()
-
 const context = inject(TOOLTIP_INJECTION_KEY)
 
 const ariaLabel = computed(() => {
@@ -79,6 +77,21 @@ const ariaLabel = computed(() => {
   return content
 })
 
+const popperContentProps = computed(() => ({
+  as: props.as,
+  asChild: props.asChild,
+  side: props.side,
+  sideOffset: props.sideOffset,
+  align: props.align,
+  alignOffset: props.alignOffset,
+  avoidCollisions: props.avoidCollisions,
+  collisionBoundary: props.collisionBoundary,
+  collisionPadding: props.collisionPadding,
+  arrowPadding: props.arrowPadding,
+  sticky: props.sticky,
+  hideWhenDetached: props.hideWhenDetached,
+}))
+
 // Close the tooltip if the trigger is scrolled
 useEventListener(context!.trigger, 'scroll', context!.onClose)
 // @ts-expect-error Close this tooltip if another one opens
@@ -96,7 +109,8 @@ useEventListener(TOOLTIP_OPEN, context!.onClose)
   >
     <PopperContent
       ref="contentElement"
-      v-bind="{ ...$attrs, ...props }"
+      :data-state="context?.stateAttribute.value"
+      v-bind="{ ...$attrs, ...popperContentProps }"
       :style="{
         '--radix-tooltip-content-transform-origin': 'var(--radix-popper-transform-origin)',
         '--radix-tooltip-content-available-width': 'var(--radix-popper-available-width)',

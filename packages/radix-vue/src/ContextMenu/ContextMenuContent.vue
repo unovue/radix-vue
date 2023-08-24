@@ -50,7 +50,7 @@ const hasInteractedOutside = ref(false)
       '--radix-context-menu-trigger-height':
         'var(--radix-popper-anchor-height)',
     }"
-    @closeAutoFocus="
+    @close-auto-focus="
       (event) => {
         emits('closeAutoFocus', event);
 
@@ -60,7 +60,7 @@ const hasInteractedOutside = ref(false)
         hasInteractedOutside = false;
       }
     "
-    @interactOutside="
+    @interact-outside="
       (event) => {
         emits('interactOutside', event);
         if (!event.defaultPrevented && !context?.modal.value)

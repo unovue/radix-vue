@@ -20,11 +20,6 @@ export interface TooltipRootProps {
    */
   delayDuration?: number
   /**
-   * How much time a user has to enter another trigger without incurring a delay again.
-   * @defaultValue 300
-   */
-  skipDelayDuration?: number
-  /**
    * Prevents Tooltip.Content from remaining open when hovering.
    * Disabling this has accessibility consequences. Inherits
    * from Tooltip.Provider.
@@ -54,8 +49,8 @@ export interface TooltipContextValue {
 </script>
 
 <script setup lang="ts">
-import { useVModel } from '@vueuse/core'
-import { computed, inject, onUnmounted, provide, ref, watch } from 'vue'
+import { useTimeoutFn, useVModel } from '@vueuse/core'
+import { computed, inject, provide, ref, watch } from 'vue'
 import { PopperRoot } from '@/Popper'
 import { useId } from '@/shared'
 import { TOOLTIP_OPEN } from './utils'
@@ -63,7 +58,7 @@ import { TOOLTIP_OPEN } from './utils'
 const props = withDefaults(defineProps<TooltipRootProps>(), {
   defaultOpen: false,
   open: undefined,
-  delayDuration: 700,
+  delayDuration: undefined,
 })
 
 const emit = defineEmits<TooltipRootEmits>()
@@ -71,7 +66,7 @@ const emit = defineEmits<TooltipRootEmits>()
 const providerContext = inject(TOOLTIP_PROVIDER_INJECTION_KEY)
 
 const disableHoverableContent = computed(() => props.disableHoverableContent ?? providerContext?.disableHoverableContent.value)
-const delayDuration = computed(() => props.delayDuration ?? providerContext?.delayDuration.value)
+const delayDuration = computed(() => props.delayDuration ?? providerContext?.delayDuration.value ?? 700)
 
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
@@ -94,7 +89,6 @@ watch(open, (n) => {
 
 const wasOpenDelayedRef = ref(false)
 const trigger = ref<HTMLElement>()
-const openTimerRef = ref(0)
 
 const stateAttribute = computed(() => {
   if (!open.value)
@@ -102,24 +96,23 @@ const stateAttribute = computed(() => {
   return wasOpenDelayedRef.value ? 'delayed-open' : 'instant-open'
 })
 
+const { start: startTimer, stop: clearTimer } = useTimeoutFn(() => {
+  wasOpenDelayedRef.value = true
+  open.value = true
+}, delayDuration, { immediate: false })
+
 function handleOpen() {
-  window.clearTimeout(openTimerRef.value)
+  clearTimer()
   wasOpenDelayedRef.value = false
   open.value = true
 }
 function handleClose() {
-  window.clearTimeout(openTimerRef.value)
+  clearTimer()
   open.value = false
 }
 function handleDelayedOpen() {
-  window.clearTimeout(openTimerRef.value)
-  openTimerRef.value = window.setTimeout(() => {
-    wasOpenDelayedRef.value = true
-    open.value = true
-  }, delayDuration.value)
+  startTimer()
 }
-
-onUnmounted(() => window.clearTimeout(openTimerRef.value))
 
 provide(TOOLTIP_INJECTION_KEY, {
   contentId: useId(),
@@ -138,7 +131,7 @@ provide(TOOLTIP_INJECTION_KEY, {
     if (disableHoverableContent.value) { handleClose() }
     else {
       // Clear the timer in case the pointer leaves the trigger before the tooltip is opened.
-      window.clearTimeout(openTimerRef.value)
+      clearTimer()
     }
   },
   onOpen: handleOpen,

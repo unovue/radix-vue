@@ -31,7 +31,8 @@ export interface TooltipProviderProps {
 </script>
 
 <script setup lang="ts">
-import { type InjectionKey, type Ref, onUnmounted, provide, ref, toRefs } from 'vue'
+import { useTimeoutFn } from '@vueuse/shared'
+import { type InjectionKey, type Ref, provide, ref, toRefs } from 'vue'
 
 const props = withDefaults(defineProps<TooltipProviderProps>(), {
   delayDuration: 700,
@@ -42,25 +43,20 @@ const { delayDuration, skipDelayDuration, disableHoverableContent } = toRefs(pro
 
 const isOpenDelayed = ref(true)
 const isPointerInTransitRef = ref(false)
-const skipDelayTimerRef = ref(0)
 
-onUnmounted(() => {
-  window.clearTimeout(skipDelayTimerRef.value)
-})
+const { start: startTimer, stop: clearTimer } = useTimeoutFn(() => {
+  isOpenDelayed.value = true
+}, skipDelayDuration, { immediate: false })
 
 provide(TOOLTIP_PROVIDER_INJECTION_KEY, {
   isOpenDelayed,
   delayDuration,
   onOpen() {
-    window.clearTimeout(skipDelayTimerRef.value)
+    clearTimer()
     isOpenDelayed.value = false
   },
   onClose() {
-    window.clearTimeout(skipDelayTimerRef.value)
-    skipDelayTimerRef.value = window.setTimeout(
-      () => isOpenDelayed.value = true,
-      skipDelayDuration.value,
-    )
+    startTimer()
   },
   isPointerInTransitRef,
   onPointerInTransitChange(inTransit) {

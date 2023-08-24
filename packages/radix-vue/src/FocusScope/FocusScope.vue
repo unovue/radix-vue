@@ -145,7 +145,7 @@ watchEffect(async (cleanupFn) => {
 
   if (!hasFocusedCandidate) {
     const mountEvent = new CustomEvent(AUTOFOCUS_ON_MOUNT, EVENT_OPTIONS)
-    container.addEventListener(AUTOFOCUS_ON_MOUNT, ev =>
+    container.addEventListener(AUTOFOCUS_ON_MOUNT, (ev: Event) =>
       emits('mountAutoFocus', ev),
     )
     container.dispatchEvent(mountEvent)
@@ -160,7 +160,7 @@ watchEffect(async (cleanupFn) => {
   }
 
   cleanupFn(() => {
-    container.removeEventListener(AUTOFOCUS_ON_MOUNT, ev =>
+    container.removeEventListener(AUTOFOCUS_ON_MOUNT, (ev: Event) =>
       emits('mountAutoFocus', ev),
     )
 

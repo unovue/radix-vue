@@ -32,6 +32,7 @@ export interface SliderProvideValue {
   step: number;
   modelValue?: Readonly<Ref<number[] | undefined>>;
   changeModelValue: (value: number[]) => void;
+  setValueByIndex: (value: number, index: number) => void;
   rootSliderElement: Ref<HTMLElement | undefined>;
   thumbElements: Ref<HTMLElement[]>;
 }
@@ -86,18 +87,28 @@ const flipped = computed<boolean>(() => {
   return props.dir === "rtl" || props.inverted;
 });
 
+function setValueByIndex(value: number, index: number): void {
+  const newValues = [...(modelValue.value || [])];
+  newValues[index] = value;
+
+  setValue(newValues);
+}
+
+function setValue(value: number[] | undefined) {
+  if (props.disabled) {
+    return;
+  }
+
+  modelValue.value = value;
+  if (value && props.onValueCommit) {
+    props.onValueCommit(value);
+  }
+}
+
 provide<SliderProvideValue>(SLIDER_INJECTION_KEY, {
   modelValue,
-  changeModelValue: (value: any) => {
-    if (props.disabled) {
-      return;
-    }
-
-    modelValue.value = value;
-    if (value && props.onValueCommit) {
-      props.onValueCommit(value);
-    }
-  },
+  changeModelValue: setValue,
+  setValueByIndex: setValueByIndex,
   rootSliderElement: rootSliderElement,
   thumbElements: thumbElements,
   orientation: props.orientation,
@@ -164,20 +175,6 @@ function calculateValueFromPosition(
   return clamp(roundedValue, [props.min, props.max]);
 }
 
-function setNewValue(value: number, index: number): void {
-  if (props.disabled) {
-    return;
-  }
-
-  const copyExistingValues = modelValue.value ?? [];
-  copyExistingValues[index] = value;
-
-  modelValue.value = copyExistingValues;
-  if (value && props.onValueCommit) {
-    props.onValueCommit(copyExistingValues);
-  }
-}
-
 let rootSliderElementRect: DOMRect | undefined;
 let activeThumbIndex: number | undefined;
 let thumbHalfSize: number = 0;
@@ -239,7 +236,7 @@ function onPointerDown(e: MouseEvent) {
     rootSliderElementRect
   );
 
-  setNewValue(newValue, activeThumbIndex);
+  setValueByIndex(newValue, activeThumbIndex);
 
   document.addEventListener("pointermove", onPointerMove);
   document.addEventListener("pointerup", onPointerUp);
@@ -264,7 +261,7 @@ function onPointerMove(e: PointerEvent) {
     rootSliderElementRect
   );
 
-  setNewValue(newValue, activeThumbIndex);
+  setValueByIndex(newValue, activeThumbIndex);
 }
 
 function onPointerUp() {

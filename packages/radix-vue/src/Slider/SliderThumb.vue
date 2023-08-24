@@ -11,7 +11,7 @@ import {
 } from "@/Primitive";
 import { SLIDER_INJECTION_KEY } from "./SliderRoot.vue";
 import type { SliderProvideValue } from "./SliderRoot.vue";
-import { convertValueToPercentage } from "./utils";
+import { convertValueToPercentage, clamp } from "./utils";
 
 defineOptions({
   inheritAttrs: false,
@@ -93,6 +93,56 @@ const thumbStyle = computed(() => {
 
   return style;
 });
+
+function onKeyDown(e: KeyboardEvent) {
+  if (!injectedValue) {
+    return;
+  }
+
+  // Prevent default when enter/space
+  if (e.keyCode === 32 || e.key === "Enter") {
+    e.preventDefault();
+  }
+
+  const isShiftPressed = e.shiftKey;
+  const extraStep = 10;
+  const step = Number(injectedValue.step);
+
+  let newValue = value.value ?? 0;
+
+  const isArrowUpOrRight = ["ArrowUp", "ArrowRight"].includes(e.key);
+  const isArrowDownOrLeft = ["ArrowDown", "ArrowLeft"].includes(e.key);
+
+  if (isArrowUpOrRight || isArrowDownOrLeft) {
+    const adjustedExtraStep = isShiftPressed ? extraStep * step : step;
+
+    if (injectedValue.flipped?.value) {
+      newValue += isArrowUpOrRight ? -adjustedExtraStep : adjustedExtraStep;
+    } else {
+      newValue += isArrowUpOrRight ? adjustedExtraStep : -adjustedExtraStep;
+    }
+
+    injectedValue.setValueByIndex(
+      clamp(newValue, [injectedValue.min, injectedValue.max]),
+      index.value
+    );
+
+    if (["PageUp", "PageDown"].includes(e.key)) {
+      const pageMultiplier = e.key === "PageUp" ? extraStep : -extraStep;
+      newValue += step * pageMultiplier;
+
+      injectedValue.setValueByIndex(
+        clamp(newValue, [injectedValue.min, injectedValue.max]),
+        index.value
+      );
+    }
+
+    if (["Home", "End"].includes(e.key)) {
+      newValue = e.key === "Home" ? injectedValue.min : injectedValue.max;
+      injectedValue.setValueByIndex(newValue, index.value);
+    }
+  }
+}
 </script>
 
 <template>
@@ -110,6 +160,7 @@ const thumbStyle = computed(() => {
       :aria-orientation="injectedValue?.orientation"
       :as-child="props.asChild"
       :as="as"
+      @keydown="onKeyDown"
     >
     </Primitive>
   </span>

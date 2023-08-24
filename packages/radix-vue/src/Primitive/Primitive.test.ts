@@ -42,18 +42,35 @@ describe('test Primitive functionalities', () => {
 
   // ref: https://vitest.dev/api/expect.html#tothrowerror
   describe('render as template (asChild)', () => {
-    it('should throw error when multiple child elements exists', () => {
-      const wrapper = () =>
-        mount(Primitive, {
-          props: {
-            as: 'template',
-          },
-          slots: {
-            default: '<div>1</div><div>2</div><div>3</div>',
-          },
-        })
+    it('should not throw error when multiple child elements exists', () => {
+      const wrapper = () => mount(Primitive, {
+        props: {
+          as: 'template',
+        },
+        slots: {
+          default: '<div>1</div><div>2</div><div>3</div>',
+        },
+      })
 
-      expect(() => wrapper()).toThrowError(/invalid children/)
+      expect(wrapper().findAll('div').length).toBe(3)
+      expect(() => wrapper()).not.toThrowError(/invalid children/)
+    })
+
+    it('should pass custom attribute to first element', () => {
+      const wrapper = mount(Primitive, {
+        props: {
+          as: 'template',
+          type: 'button',
+        },
+        slots: {
+          default: '<div>1</div><div>2</div><div>3</div>',
+        },
+      })
+
+      const element = wrapper.findAll('div')
+      expect(element[0].attributes('type')).toBe('button')
+      expect(element[1].attributes('type')).toBeUndefined()
+      expect(element[2].attributes('type')).toBeUndefined()
     })
 
     it('should merge child\'s class together', () => {

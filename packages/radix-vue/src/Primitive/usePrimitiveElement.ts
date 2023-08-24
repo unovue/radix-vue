@@ -1,9 +1,9 @@
 import { unrefElement } from '@vueuse/core'
-import { computed, ref } from 'vue'
+import { type ComponentPublicInstance, computed, ref } from 'vue'
 
 export function usePrimitiveElement() {
-  const primitiveElement = ref<HTMLElement>()
-  const currentElement = computed(() => unrefElement(primitiveElement))
+  const primitiveElement = ref<ComponentPublicInstance>()
+  const currentElement = computed(() => primitiveElement.value?.$el.nodeName === '#text' ? primitiveElement.value.$el.nextElementSibling : unrefElement(primitiveElement))
 
   return {
     primitiveElement,

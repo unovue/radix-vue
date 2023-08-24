@@ -75,10 +75,7 @@ export const Primitive = defineComponent({
         return null
       const childrens = renderSlotFragments(slots.default())
 
-      if (childrens.length !== 1)
-        throwError(asTag)
-
-      const firstChildren = childrens[0]
+      const [firstChildren, ...otherChildren] = childrens
       if (!isValidVNodeElement(firstChildren))
         throwError(asTag)
 
@@ -101,10 +98,10 @@ export const Primitive = defineComponent({
           }
         }
 
-        return cloned
+        return childrens.length === 1 ? cloned : [cloned, ...otherChildren]
       }
 
-      return firstChildren
+      return childrens
     }
   },
 })

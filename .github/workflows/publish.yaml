@@ -39,7 +39,10 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm docs:install
+        run: pnpm install
+
+      - name: Build Radix Vue
+        run: pnpm build
 
       - name: Build
         run: pnpm docs:build

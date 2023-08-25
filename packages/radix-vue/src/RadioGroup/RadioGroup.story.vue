@@ -12,7 +12,6 @@ const radioStateSingle = ref('default')
         v-model="radioStateSingle"
         :loop="false"
         class="flex flex-col gap-2.5"
-        default-value="default"
         aria-label="View density"
         orientation="vertical"
       >

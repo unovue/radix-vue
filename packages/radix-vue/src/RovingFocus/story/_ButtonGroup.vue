@@ -16,7 +16,6 @@ provide('rovingFocusDemo', {
 
 <template>
   <RovingFocusGroup
-    v-model="value"
     v-bind="props"
     class="inline-flex gap-4 p-2"
     :class="orientation === 'vertical' ? 'flex-col' : 'flex-row'"

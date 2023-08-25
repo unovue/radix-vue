@@ -42,7 +42,7 @@ jobs:
         run: pnpm install
 
       - name: Build Radix Vue
-        run: pnpm build
+        run: pnpm --filter radix-vue build
 
       - name: Build
         run: pnpm docs:build

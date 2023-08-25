@@ -40,8 +40,8 @@ export interface SliderProvideValue {
 export const SLIDER_INJECTION_KEY
   = Symbol() as InjectionKey<SliderProvideValue>
 
-export interface SliderRootEmits {
-  (e: 'update:modelValue', payload: number): void
+export type SliderRootEmits = {
+  'update:modelValue': [payload: number[] | undefined]
 }
 </script>
 

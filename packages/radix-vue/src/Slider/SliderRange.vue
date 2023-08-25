@@ -27,8 +27,8 @@ const largestValue = computed<number | undefined>(() => {
 function calculateOffset(value: number) {
   return convertValueToPercentage(
     value,
-    injectedValue?.min ?? 0,
-    injectedValue?.max ?? 100,
+    injectedValue?.min.value ?? 0,
+    injectedValue?.max.value ?? 100,
   )
 }
 

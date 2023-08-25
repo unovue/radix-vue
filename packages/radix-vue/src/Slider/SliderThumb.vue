@@ -52,8 +52,8 @@ const percent = computed(() => {
   if (value.value === undefined)
     return 0
 
-  const minValue = injectedValue?.min ?? 0
-  const maxValue = injectedValue?.max ?? 100
+  const minValue = injectedValue?.min.value ?? 0
+  const maxValue = injectedValue?.max.value ?? 100
 
   return convertValueToPercentage(value.value, minValue, maxValue)
 })
@@ -98,7 +98,7 @@ function onKeyDown(e: KeyboardEvent) {
 
   const isShiftPressed = e.shiftKey
   const extraStep = 10
-  const step = Number(injectedValue.step)
+  const step = Number(injectedValue.step.value)
 
   let newValue = value.value ?? 0
 
@@ -115,7 +115,7 @@ function onKeyDown(e: KeyboardEvent) {
       newValue += isArrowUpOrRight ? adjustedExtraStep : -adjustedExtraStep
 
     injectedValue.setValueByIndex(
-      clamp(newValue, [injectedValue.min, injectedValue.max]),
+      clamp(newValue, [injectedValue.min.value, injectedValue.max.value]),
       index.value,
     )
 
@@ -124,13 +124,13 @@ function onKeyDown(e: KeyboardEvent) {
       newValue += step * pageMultiplier
 
       injectedValue.setValueByIndex(
-        clamp(newValue, [injectedValue.min, injectedValue.max]),
+        clamp(newValue, [injectedValue.min.value, injectedValue.max.value]),
         index.value,
       )
     }
 
     if (['Home', 'End'].includes(e.key)) {
-      newValue = e.key === 'Home' ? injectedValue.min : injectedValue.max
+      newValue = e.key === 'Home' ? injectedValue.min.value : injectedValue.max.value
       injectedValue.setValueByIndex(newValue, index.value)
     }
   }

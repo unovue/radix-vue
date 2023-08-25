@@ -26,10 +26,10 @@ export interface SliderProvideValue {
   orientation: DataOrientation
   dir?: Direction
   flipped?: Ref<boolean>
-  disabled: boolean
-  min: number
-  max: number
-  step: number
+  disabled: Ref<boolean>
+  min: Ref<number>
+  max: Ref<number>
+  step: Ref<number>
   modelValue?: Readonly<Ref<number[] | undefined>>
   changeModelValue: (value: number[]) => void
   setValueByIndex: (value: number, index: number) => void
@@ -46,7 +46,7 @@ export type SliderRootEmits = {
 </script>
 
 <script setup lang="ts">
-import { computed, provide, ref } from 'vue'
+import { computed, provide, ref, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { clamp } from './utils'
 
@@ -63,6 +63,8 @@ const props = withDefaults(defineProps<SliderRootProps>(), {
 })
 
 const emits = defineEmits<SliderRootEmits>()
+
+const { min, max, step, disabled } = toRefs(props)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
@@ -119,7 +121,7 @@ function setValueByIndex(value: number, index: number): void {
 }
 
 function setValue(value: number[] | undefined) {
-  if (props.disabled || value === undefined)
+  if (disabled.value || value === undefined)
     return
 
   modelValue.value = value
@@ -136,10 +138,10 @@ provide<SliderProvideValue>(SLIDER_INJECTION_KEY, {
   orientation: props.orientation,
   dir: props.dir,
   flipped,
-  min: props.min,
-  max: props.max,
-  step: props.step,
-  disabled: props.disabled,
+  min,
+  max,
+  step,
+  disabled,
 })
 
 function calculateThumbRelativePosition(
@@ -175,26 +177,25 @@ function calculateValueFromPosition(
   const position = calculateThumbRelativePosition(pointerPosition, sliderRect)
 
   // Calculate new value.
-  const range = props.max - props.min
+  const range = max.value - min.value
   let newValue = position * range
 
   if (flipped.value)
-    newValue = props.max - newValue
+    newValue = max.value - newValue
 
   // Clamp to ensure that we are not outside the boundries.
-  newValue = clamp(newValue + (flipped.value ? 0 : props.min), [
-    props.min,
-    props.max,
+  newValue = clamp(newValue + (flipped.value ? 0 : min.value), [
+    min.value,
+    max.value,
   ])
 
   // Convert to closest step.
-  const step = props.step
-  const quotient = Math.floor(newValue / step)
-  const remainder = newValue % step
+  const quotient = Math.floor(newValue / step.value)
+  const remainder = newValue % step.value
   const roundedValue
-    = remainder <= step / 2 ? quotient * step : (quotient + 1) * step
+    = remainder <= step.value / 2 ? quotient * step.value : (quotient + 1) * step.value
 
-  return clamp(roundedValue, [props.min, props.max])
+  return clamp(roundedValue, [min.value, max.value])
 }
 
 let rootSliderElementRect: DOMRect | undefined

@@ -39,8 +39,8 @@ export const ROVING_FOCUS_INJECTION_KEY
 </script>
 
 <script setup lang="ts">
-import { type InjectionKey, type Ref, provide, ref, toRefs } from 'vue'
-import { useActiveElement, useVModel } from '@vueuse/core'
+import { type InjectionKey, type Ref, provide, ref, toRefs, watchEffect } from 'vue'
+import { useVModel } from '@vueuse/core'
 import {
   type Direction,
   ENTRY_FOCUS,
@@ -70,7 +70,6 @@ const isTabbingBackOut = ref(false)
 const isClickFocus = ref(false)
 const focusableItemsCount = ref(0)
 
-const activeElement = useActiveElement()
 const { primitiveElement, currentElement } = usePrimitiveElement()
 const { createCollection } = useCollection('rovingFocus')
 const collections = createCollection(currentElement)
@@ -91,10 +90,9 @@ function handleFocus(event: FocusEvent) {
     const entryFocusEvent = new CustomEvent(ENTRY_FOCUS, EVENT_OPTIONS)
     event.currentTarget.dispatchEvent(entryFocusEvent)
 
-    emits('entryFocus', entryFocusEvent)
     if (!entryFocusEvent.defaultPrevented) {
       const items = collections.value
-      const activeItem = items.find(item => item === activeElement.value)
+      const activeItem = items.find(item => item.getAttribute('data-active') === 'true')
       const currentItem = items.find(
         item => item.id === currentTabStopId.value,
       )
@@ -107,6 +105,15 @@ function handleFocus(event: FocusEvent) {
 
   isClickFocus.value = false
 }
+
+watchEffect((cleanupFn) => {
+  if (currentElement.value) {
+    currentElement.value.addEventListener(ENTRY_FOCUS, (ev: Event) => {
+      emits('entryFocus', ev)
+    })
+    cleanupFn(() => currentElement.value.removeEventListener(ENTRY_FOCUS, (ev: Event) => emits('entryFocus', ev)))
+  }
+})
 
 provide(ROVING_FOCUS_INJECTION_KEY, {
   loop,

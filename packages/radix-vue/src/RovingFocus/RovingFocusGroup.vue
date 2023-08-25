@@ -64,6 +64,7 @@ const emits = defineEmits<RovingFocusGroupEmits>()
 const { loop, orientation, dir } = toRefs(props)
 const currentTabStopId = useVModel(props, 'currentTabStopId', emits, {
   defaultValue: props.defaultCurrentTabStopId,
+  passive: true,
 })
 const isTabbingBackOut = ref(false)
 const isClickFocus = ref(false)

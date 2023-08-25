@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { inject, ref, watchEffect } from 'vue'
+import { ref, watchEffect } from 'vue'
 import TooltipContentImpl, { type TooltipContentImplProps } from './TooltipContentImpl.vue'
-import { TOOLTIP_INJECTION_KEY } from './TooltipRoot.vue'
-import { TOOLTIP_PROVIDER_INJECTION_KEY } from './TooltipProvider.vue'
+import { injectTooltipRootContent } from './TooltipRoot.vue'
+import { injectTooltipProviderContext } from './TooltipProvider.vue'
 import { usePrimitiveElement } from '@/Primitive'
 import { type Polygon, getExitSideFromRect, getHull, getPaddedExitPoints, getPointsFromRect, isPointInPolygon } from './utils'
 
 const props = defineProps<TooltipContentImplProps>()
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
-const context = inject(TOOLTIP_INJECTION_KEY)
-const providerContext = inject(TOOLTIP_PROVIDER_INJECTION_KEY)
+const context = injectTooltipRootContent()
+const providerContext = injectTooltipProviderContext(null)
 
-const { trigger, onClose } = context!
+const { trigger, onClose } = context
 const pointerGraceArea = ref<Polygon | null>(null)
 
 function handleRemoveGraceArea() {

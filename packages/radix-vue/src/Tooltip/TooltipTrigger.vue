@@ -8,21 +8,21 @@ export interface TooltipTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { inject, onMounted, ref } from 'vue'
-import { TOOLTIP_INJECTION_KEY } from './TooltipRoot.vue'
+import { onMounted, ref } from 'vue'
+import { injectTooltipRootContent } from './TooltipRoot.vue'
 import { PopperAnchor } from '@/Popper'
 import {
   Primitive,
   type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
-import { TOOLTIP_PROVIDER_INJECTION_KEY } from './TooltipProvider.vue'
+import { injectTooltipProviderContext } from './TooltipProvider.vue'
 
 const props = withDefaults(defineProps<TooltipTriggerProps>(), {
   as: 'button',
 })
-const context = inject(TOOLTIP_INJECTION_KEY)
-const providerContext = inject(TOOLTIP_PROVIDER_INJECTION_KEY)
+const context = injectTooltipRootContent()
+const providerContext = injectTooltipProviderContext(null)
 
 const { primitiveElement, currentElement: triggerElement }
   = usePrimitiveElement()

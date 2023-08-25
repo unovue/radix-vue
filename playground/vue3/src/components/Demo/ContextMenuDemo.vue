@@ -2,6 +2,7 @@
 import { Icon } from '@iconify/vue'
 import { ref } from 'vue'
 import {
+  ContextMenuArrow,
   ContextMenuCheckboxItem,
   ContextMenuContent,
   ContextMenuItem,

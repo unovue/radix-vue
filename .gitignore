@@ -27,7 +27,9 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+./.nuxt
 
 test-results/
 playwright-report/
 vite.config.ts.timestamp*
+*/.vitepress/cache

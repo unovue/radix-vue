@@ -73,7 +73,7 @@ import {
   SelectRoot,
   SelectSeparator,
   SelectTrigger,
-} from "radix-vue";
+} from 'radix-vue'
 </script>
 
 <template>
@@ -640,14 +640,16 @@ import {
   SelectRoot,
   SelectSeparator,
   SelectTrigger,
-} from "radix-vue";
+} from 'radix-vue'
 </script>
 
 <template>
   <SelectRoot>
     <SelectTrigger>…</SelectTrigger>
     <SelectPortal>
-      <SelectContent position="popper" :sideOffset="5"> … </SelectContent>
+      <SelectContent position="popper" :side-offset="5">
+        …
+      </SelectContent>
     </SelectPortal>
   </SelectRoot>
 </template>
@@ -672,15 +674,17 @@ import {
   SelectRoot,
   SelectSeparator,
   SelectTrigger,
-} from "radix-vue";
-import "./styles.css";
+} from 'radix-vue'
+import './styles.css'
 </script>
 
 <template>
   <SelectRoot>
     <SelectTrigger>…</SelectTrigger>
     <SelectPortal>
-      <SelectContent class="SelectContent" position="popper" :sideOffset="5"> … </SelectContent>
+      <SelectContent class="SelectContent" position="popper" :side-offset="5">
+        …
+      </SelectContent>
     </SelectPortal>
   </SelectRoot>
 </template>
@@ -711,8 +715,8 @@ import {
   SelectRoot,
   SelectSeparator,
   SelectTrigger,
-} from "radix-vue";
-import "./styles.css";
+} from 'radix-vue'
+import './styles.css'
 </script>
 
 <template>
@@ -721,7 +725,9 @@ import "./styles.css";
     <SelectPortal>
       <SelectContent>
         <SelectViewport>
-          <SelectItem class="SelectItem" disabled> … </SelectItem>
+          <SelectItem class="SelectItem" disabled>
+            …
+          </SelectItem>
           <SelectItem>…</SelectItem>
           <SelectItem>…</SelectItem>
         </SelectViewport>
@@ -755,8 +761,8 @@ import {
   SelectRoot,
   SelectSeparator,
   SelectTrigger,
-} from "radix-vue";
-import "./styles.css";
+} from 'radix-vue'
+import './styles.css'
 </script>
 
 <template>
@@ -843,7 +849,7 @@ import {
   SelectRoot,
   SelectSeparator,
   SelectTrigger,
-} from "radix-vue";
+} from 'radix-vue'
 </script>
 
 <template>
@@ -854,7 +860,7 @@ import {
         <SelectViewport>
           <SelectItem>
             <SelectItemText>
-              <img src="…" />
+              <img src="…">
               Adolfo Hess
             </SelectItemText>
             <SelectItemIndicator>…</SelectItemIndicator>
@@ -875,9 +881,9 @@ If you need more flexibility, you can control the component using `v-model` prop
 
 ```vue line=2,4,8
 <script setup>
-const countries = { france: "🇫🇷", "united-kingdom": "🇬🇧", spain: "🇪🇸" };
+const countries = { 'france': '🇫🇷', 'united-kingdom': '🇬🇧', 'spain': '🇪🇸' }
 
-const value = ref("france");
+const value = ref('france')
 </script>
 
 <template>
@@ -918,6 +924,10 @@ The native scrollbar is hidden by default as we recommend using the `ScrollUpBut
 // index.vue
 <script setup lang="ts">
 import {
+  ScrollAreaRoot,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
   SelectContent,
   SelectGroup,
   SelectItem,
@@ -927,13 +937,9 @@ import {
   SelectRoot,
   SelectSeparator,
   SelectTrigger,
-  ScrollAreaRoot,
-  ScrollAreaViewport,
-  ScrollAreaScrollbar,
-  ScrollAreaThumb,
-} from "radix-vue";
-import * as ScrollArea from "radix-vue";
-import "./styles.css";
+} from 'radix-vue'
+import * as ScrollArea from 'radix-vue'
+import './styles.css'
 </script>
 
 <template>
@@ -942,7 +948,7 @@ import "./styles.css";
     <SelectPortal>
       <SelectContent>
         <ScrollAreaRoot class="ScrollAreaRoot" type="auto">
-          <SelectViewport asChild>
+          <SelectViewport as-child>
             <ScrollAreaViewport class="ScrollAreaViewport">
               <StyledItem>…</StyledItem> <StyledItem>…</StyledItem>
               <StyledItem>…</StyledItem>

@@ -66,22 +66,22 @@ Import all parts and piece them together.
 ```vue
 <script setup lang="ts">
 import {
-  ContextMenuRoot,
-  ContextMenuTrigger,
-  ContextMenuPortal,
-  ContextMenuContent,
-  ContextMenuLabel,
-  ContextMenuItem,
-  ContextMenuGroup,
   ContextMenuCheckboxItem,
+  ContextMenuContent,
+  ContextMenuGroup,
+  ContextMenuItem,
   ContextMenuItemIndicator,
+  ContextMenuLabel,
+  ContextMenuPortal,
   ContextMenuRadioGroup,
   ContextMenuRadioItem,
-  ContextMenuSub,
-  ContextMenuSubTrigger,
-  ContextMenuSubContent,
+  ContextMenuRoot,
   ContextMenuSeparator,
-} from "radix-vue";
+  ContextMenuSub,
+  ContextMenuSubContent,
+  ContextMenuSubTrigger,
+  ContextMenuTrigger,
+} from 'radix-vue'
 </script>
 
 <template>
@@ -1009,17 +1009,17 @@ You can create submenus by using `ContextMenuSub` in combination with its parts.
 ```vue line=24-33
 <script setup lang="ts">
 import {
-  ContextMenuRoot,
-  ContextMenuTrigger,
-  ContextMenuPortal,
   ContextMenuContent,
-  ContextMenuLabel,
   ContextMenuItem,
-  ContextMenuSub,
-  ContextMenuSubTrigger,
-  ContextMenuSubContent,
+  ContextMenuLabel,
+  ContextMenuPortal,
+  ContextMenuRoot,
   ContextMenuSeparator,
-} from "radix-vue";
+  ContextMenuSub,
+  ContextMenuSubContent,
+  ContextMenuSubTrigger,
+  ContextMenuTrigger,
+} from 'radix-vue'
 </script>
 
 <template>
@@ -1054,7 +1054,7 @@ You can add special styles to disabled items via the `data-disabled` attribute.
 
 ```vue line=16
 <script setup lang="ts">
-import { ContextMenuRoot, ContextMenuTrigger, ContextMenuPortal, ContextMenuContent, ContextMenuItem } from "radix-vue";
+import { ContextMenuContent, ContextMenuItem, ContextMenuPortal, ContextMenuRoot, ContextMenuTrigger } from 'radix-vue'
 </script>
 
 <template>
@@ -1062,8 +1062,12 @@ import { ContextMenuRoot, ContextMenuTrigger, ContextMenuPortal, ContextMenuCont
     <ContextMenuTrigger>…</ContextMenuTrigger>
     <ContextMenuPortal>
       <ContextMenuContent>
-        <ContextMenuItem class="ContextMenuItem" disabled> … </ContextMenuItem>
-        <ContextMenuItem className="ContextMenuItem">…</ContextMenuItem>
+        <ContextMenuItem class="ContextMenuItem" disabled>
+          …
+        </ContextMenuItem>
+        <ContextMenuItem class-name="ContextMenuItem">
+          …
+        </ContextMenuItem>
       </ContextMenuContent>
     </ContextMenuPortal>
   </ContextMenuRoot>
@@ -1084,13 +1088,13 @@ Use the `Separator` part to add a separator between items.
 ```vue line=8,18,20
 <script setup lang="ts">
 import {
-  ContextMenuRoot,
-  ContextMenuTrigger,
-  ContextMenuPortal,
   ContextMenuContent,
   ContextMenuItem,
+  ContextMenuPortal,
+  ContextMenuRoot,
   ContextMenuSeparator,
-} from "radix-vue";
+  ContextMenuTrigger,
+} from 'radix-vue'
 </script>
 
 <template>
@@ -1116,13 +1120,13 @@ Use the `Label` part to help label a section.
 ```vue line=8,17
 <script setup lang="ts">
 import {
-  ContextMenuRoot,
-  ContextMenuTrigger,
-  ContextMenuPortal,
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuLabel,
-} from "radix-vue";
+  ContextMenuPortal,
+  ContextMenuRoot,
+  ContextMenuTrigger,
+} from 'radix-vue'
 </script>
 
 <template>
@@ -1147,18 +1151,18 @@ Use the `CheckboxItem` part to add an item that can be checked.
 ```vue line=9,25-30
 <script setup lang="ts">
 import {
-  ContextMenuRoot,
-  ContextMenuTrigger,
-  ContextMenuPortal,
+  ContextMenuCheckboxItem,
   ContextMenuContent,
   ContextMenuItem,
-  ContextMenuSeparator,
-  ContextMenuCheckboxItem,
   ContextMenuItemIndicator,
-} from "radix-vue";
-import { Icon } from "@iconify/vue";
+  ContextMenuPortal,
+  ContextMenuRoot,
+  ContextMenuSeparator,
+  ContextMenuTrigger,
+} from 'radix-vue'
+import { Icon } from '@iconify/vue'
 
-const checked = ref(true);
+const checked = ref(true)
 </script>
 
 <template>
@@ -1169,7 +1173,7 @@ const checked = ref(true);
         <ContextMenuItem>…</ContextMenuItem>
         <ContextMenuItem>…</ContextMenuItem>
         <ContextMenuSeparator />
-        <ContextMenuCheckboxItem v-model="{ checked }">
+        <ContextMenuCheckboxItem v-model="checked">
           <ContextMenuItemIndicator>
             <Icon icon="radix-icons:check" />
           </ContextMenuItemIndicator>
@@ -1188,20 +1192,20 @@ Use the `RadioGroup` and `RadioItem` parts to add an item that can be checked am
 ```vue line=11,12,24-43
 <script setup lang="ts">
 import {
-  ContextMenuRoot,
-  ContextMenuTrigger,
-  ContextMenuPortal,
+  ContextMenuCheckboxItem,
   ContextMenuContent,
   ContextMenuItem,
-  ContextMenuSeparator,
-  ContextMenuCheckboxItem,
   ContextMenuItemIndicator,
+  ContextMenuPortal,
   ContextMenuRadioGroup,
   ContextMenuRadioItem,
-} from "radix-vue";
-import { Icon } from "@iconify/vue";
+  ContextMenuRoot,
+  ContextMenuSeparator,
+  ContextMenuTrigger,
+} from 'radix-vue'
+import { Icon } from '@iconify/vue'
 
-const color = ref("blue");
+const color = ref('blue')
 </script>
 
 <template>
@@ -1209,7 +1213,7 @@ const color = ref("blue");
     <ContextMenuTrigger>…</ContextMenuTrigger>
     <ContextMenuPortal>
       <ContextMenuContent>
-        <ContextMenuRadioGroup v-model="{ color }">
+        <ContextMenuRadioGroup v-model="color">
           <ContextMenuRadioItem value="red">
             <ContextMenuItemIndicator>
               <Icon icon="radix-icons:check" />
@@ -1241,7 +1245,7 @@ You can add extra decorative elements in the `Item` parts, such as images.
 
 ```vue line=17,21
 <script setup lang="ts">
-import { ContextMenuRoot, ContextMenuTrigger, ContextMenuPortal, ContextMenuContent, ContextMenuItem } from "radix-vue";
+import { ContextMenuContent, ContextMenuItem, ContextMenuPortal, ContextMenuRoot, ContextMenuTrigger } from 'radix-vue'
 </script>
 
 <template>
@@ -1250,11 +1254,11 @@ import { ContextMenuRoot, ContextMenuTrigger, ContextMenuPortal, ContextMenuCont
     <ContextMenuPortal>
       <ContextMenuContent>
         <ContextMenuItem>
-          <img src="…" />
+          <img src="…">
           Adolfo Hess
         </ContextMenuItem>
         <ContextMenuItem>
-          <img src="…" />
+          <img src="…">
           Miyah Myles
         </ContextMenuItem>
       </ContextMenuContent>
@@ -1271,14 +1275,16 @@ We expose several CSS custom properties such as `--radix-context-menu-trigger-wi
 
 ```vue line=15
 <script setup lang="ts">
-import { ContextMenuRoot, ContextMenuTrigger, ContextMenuPortal, ContextMenuContent, ContextMenuItem } from "radix-vue";
+import { ContextMenuContent, ContextMenuItem, ContextMenuPortal, ContextMenuRoot, ContextMenuTrigger } from 'radix-vue'
 </script>
 
 <template>
   <ContextMenuRoot>
     <ContextMenuTrigger>…</ContextMenuTrigger>
     <ContextMenuPortal>
-      <ContextMenuContent class="ContextMenuContent">…</ContextMenuContent>
+      <ContextMenuContent class="ContextMenuContent">
+        …
+      </ContextMenuContent>
     </ContextMenuPortal>
   </ContextMenuRoot>
 </template>
@@ -1298,14 +1304,16 @@ We expose a CSS custom property `--radix-context-menu-content-transform-origin`.
 
 ```vue line=14
 <script setup lang="ts">
-import { ContextMenuRoot, ContextMenuTrigger, ContextMenuPortal, ContextMenuContent } from "radix-vue";
+import { ContextMenuContent, ContextMenuPortal, ContextMenuRoot, ContextMenuTrigger } from 'radix-vue'
 </script>
 
 <template>
   <ContextMenuRoot>
     <ContextMenuTrigger>…</ContextMenuTrigger>
     <ContextMenuPortal>
-      <ContextMenuContent class="ContextMenuContent">…</ContextMenuContent>
+      <ContextMenuContent class="ContextMenuContent">
+        …
+      </ContextMenuContent>
     </ContextMenuPortal>
   </ContextMenuRoot>
 </template>
@@ -1336,14 +1344,16 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 
 ```vue line=14
 <script setup lang="ts">
-import { ContextMenuRoot, ContextMenuTrigger, ContextMenuPortal, ContextMenuContent } from "radix-vue";
+import { ContextMenuContent, ContextMenuPortal, ContextMenuRoot, ContextMenuTrigger } from 'radix-vue'
 </script>
 
 <template>
   <ContextMenuRoot>
     <ContextMenuTrigger>…</ContextMenuTrigger>
     <ContextMenuPortal>
-      <ContextMenuContent class="ContextMenuContent">…</ContextMenuContent>
+      <ContextMenuContent class="ContextMenuContent">
+        …
+      </ContextMenuContent>
     </ContextMenuPortal>
   </ContextMenuRoot>
 </template>

@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { ProseTh, ProseTd, ProseTr, ProseCodeInline, ProseTable } from "../prose";
-import { PopoverRoot, PopoverTrigger, PopoverContent, PopoverArrow } from "radix-vue";
-import { Icon } from "@iconify/vue";
+import { ProseCodeInline, ProseTable, ProseTd, ProseTh, ProseTr } from '../prose'
+import { PopoverArrow, PopoverContent, PopoverRoot, PopoverTrigger } from 'radix-vue'
+import { Icon } from '@iconify/vue'
 
 type PropDef = {
-  name?: string;
-  required?: boolean;
-  default?: string | boolean;
-  type: string;
-  typeSimple: string;
-  description?: string;
-};
+  name?: string
+  required?: boolean
+  default?: string | boolean
+  type: string
+  typeSimple: string
+  description?: string
+}
 
 interface PropsTableProps {
-  data: PropDef[];
+  data: PropDef[]
 }
-const props = defineProps<PropsTableProps>();
+const props = defineProps<PropsTableProps>()
 </script>
 
 <template>
@@ -37,7 +37,9 @@ const props = defineProps<PropsTableProps>();
       <ProseTr v-for="(prop, index) in props.data" :key="`${prop.name}-${index}`">
         <ProseTd>
           <div class="flex items-center gap-1">
-            <ProseCodeInline class="!text-[13px]"> {{ prop.name }}{{ prop.required ? "*" : null }} </ProseCodeInline>
+            <ProseCodeInline class="!text-[13px]">
+              {{ prop.name }}{{ prop.required ? "*" : null }}
+            </ProseCodeInline>
             <template v-if="prop.description">
               <PopoverRoot>
                 <PopoverTrigger class="p-1.5 rounded hover:bg-neutral-900 focus:outline-2 outline-neutral-800">
@@ -79,7 +81,9 @@ const props = defineProps<PropsTableProps>();
         </ProseTd>
         <ProseTd>
           <div v-if="prop.default" class="flex items-center gap-1">
-            <ProseCodeInline variant="secondary">{{ prop.default }}</ProseCodeInline>
+            <ProseCodeInline variant="secondary">
+              {{ prop.default }}
+            </ProseCodeInline>
           </div>
           <template v-else>
             <div as="{AccessibleIcon}" label="No default value">

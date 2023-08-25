@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { useSlots, computed, ref, watch, onMounted } from "vue";
-import { TabsRoot, TabsList, TabsTrigger, TabsContent } from "radix-vue";
-import CodeSandbox from "./CodeSandbox.vue";
+import { computed, ref, useSlots, watch } from 'vue'
+import { TabsContent, TabsList, TabsRoot, TabsTrigger } from 'radix-vue'
 
 defineOptions({
   inheritAttrs: false,
-});
-const slots = useSlots();
+})
+const slots = useSlots()
 
 const tabs = computed(
   () =>
@@ -14,23 +13,23 @@ const tabs = computed(
       return {
         label: slot.props?.filename || slot.props?.label || `${index}`,
         component: slot,
-      };
-    }) || []
-);
+      }
+    }) || [],
+)
 
-const open = ref(false);
+const open = ref(false)
 
-const codeScrollWrapper = ref<HTMLElement | undefined>();
-const buttonRef = ref<HTMLElement | undefined>();
-const currentTab = ref("index.vue");
+const codeScrollWrapper = ref<HTMLElement | undefined>()
+const buttonRef = ref<HTMLElement | undefined>()
+const currentTab = ref('index.vue')
 
 watch(open, () => {
   if (!open.value) {
     codeScrollWrapper.value!.scrollTo({
       top: 0,
-    });
+    })
   }
-});
+})
 </script>
 
 <template>
@@ -54,7 +53,9 @@ watch(open, () => {
         </TabsList>
         <div>
           <select value="TailwindCSS" class="bg-transparent text-white/70">
-            <option value="TailwindCSS">Tailwind CSS</option>
+            <option value="TailwindCSS">
+              Tailwind CSS
+            </option>
           </select>
         </div>
       </div>

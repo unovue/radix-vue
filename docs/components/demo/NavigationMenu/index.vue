@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-import { ref } from "vue";
+import { Icon } from '@iconify/vue'
+import { ref } from 'vue'
 import {
-  NavigationMenuLink,
-  NavigationMenuIndicator,
   NavigationMenuContent,
+  NavigationMenuIndicator,
   NavigationMenuItem,
+  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuRoot,
   NavigationMenuTrigger,
   NavigationMenuViewport,
-} from "radix-vue";
-import NavigationMenuListItem from "./NavigationMenuListItem.vue";
+} from 'radix-vue'
+import NavigationMenuListItem from './NavigationMenuListItem.vue'
 
 function handleClick() {
-  alert("hello!");
+  alert('hello!')
 }
 
-const currentTrigger = ref("");
+const currentTrigger = ref('')
 </script>
 
 <template>
@@ -44,7 +44,7 @@ const currentTrigger = ref("");
                   class="focus:shadow-green7 from-green9 to-teal9 flex h-full w-full select-none flex-col justify-end rounded-[6px] bg-gradient-to-b p-[25px] no-underline outline-none focus:shadow-[0_0_0_2px]"
                   href="/"
                 >
-                  <img class="w-16" src="/logo.svg" />
+                  <img class="w-16" src="/logo.svg">
                   <div class="mt-4 mb-[7px] text-[18px] font-medium leading-[1.2] text-white">Radix Primitives</div>
                   <p class="text-mauve4 text-[14px] leading-[1.3]">Unstyled, accessible components for React.</p>
                 </a>

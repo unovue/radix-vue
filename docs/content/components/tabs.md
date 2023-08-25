@@ -59,7 +59,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { TabsRoot, TabsList, TabsTrigger, TabsContent } from "radix-vue";
+import { TabsContent, TabsList, TabsRoot, TabsTrigger } from 'radix-vue'
 </script>
 
 <template>
@@ -272,19 +272,31 @@ You can create vertical tabs by using the `orientation` prop.
 
 ```vue line=6
 <script setup>
-import { TabsRoot, TabsList, TabsTrigger, TabsContent } from "radix-vue";
+import { TabsContent, TabsList, TabsRoot, TabsTrigger } from 'radix-vue'
 </script>
 
 <template>
-  <TabsRoot defaultValue="tab1" orientation="vertical">
+  <TabsRoot default-value="tab1" orientation="vertical">
     <TabsList aria-label="tabs example">
-      <TabsTrigger value="tab1">One</TabsTrigger>
-      <TabsTrigger value="tab2">Two</TabsTrigger>
-      <TabsTrigger value="tab3">Three</TabsTrigger>
+      <TabsTrigger value="tab1">
+        One
+      </TabsTrigger>
+      <TabsTrigger value="tab2">
+        Two
+      </TabsTrigger>
+      <TabsTrigger value="tab3">
+        Three
+      </TabsTrigger>
     </TabsList>
-    <TabsContent value="tab1">Tab one content</TabsContent>
-    <TabsContent value="tab2">Tab two content</TabsContent>
-    <TabsContent value="tab3">Tab three content</TabsContent>
+    <TabsContent value="tab1">
+      Tab one content
+    </TabsContent>
+    <TabsContent value="tab2">
+      Tab two content
+    </TabsContent>
+    <TabsContent value="tab3">
+      Tab three content
+    </TabsContent>
   </TabsRoot>
 </template>
 ```

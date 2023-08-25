@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { ScrollAreaRoot, ScrollAreaViewport, ScrollAreaScrollbar, ScrollAreaThumb } from "radix-vue";
+import { ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from 'radix-vue'
 
-const tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length - i}`);
+const tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length - i}`)
 </script>
 
 <template>
   <ScrollAreaRoot class="w-[200px] h-[200px] shadow-lg overflow-hidden rounded bg-white" style="--scrollbar-size: 10px">
     <ScrollAreaViewport class="w-full h-full border-[inherit]">
       <div class="p-5">
-        <div class="text-base text-blue-500 font-semibold">Tags</div>
+        <div class="text-base text-blue-500 font-semibold">
+          Tags
+        </div>
         <div v-for="tag in tags" :key="tag" class="text-blue-800 text-sm mt-3 border-t border-t-blue-400 pt-3">
           {{ tag }}
         </div>

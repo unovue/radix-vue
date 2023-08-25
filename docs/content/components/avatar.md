@@ -57,7 +57,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { AvatarRoot, AvatarImage } from "radix-vue";
+import { AvatarImage, AvatarRoot } from 'radix-vue'
 </script>
 
 <template>
@@ -141,7 +141,7 @@ You can compose the Avatar with a [Tooltip](/components/tooltip) to display extr
 
 ```vue line=5,6,7,12,13,15,17-21
 <script setup>
-import { AvatarRoot, AvatarImage, TooltipRoot, TooltipTrigger, TooltipArrow } from "radix-vue";
+import { AvatarImage, AvatarRoot, TooltipArrow, TooltipRoot, TooltipTrigger } from 'radix-vue'
 </script>
 
 <template>

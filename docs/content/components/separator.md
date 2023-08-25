@@ -52,7 +52,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { Separator } from "radix-vue";
+import { Separator } from 'radix-vue'
 </script>
 
 <template>

@@ -67,23 +67,23 @@ Import all parts and piece them together.
 ```vue
 <script setup lang="ts">
 import {
-  DropdownMenuRoot,
-  DropdownMenuTrigger,
-  DropdownMenuPortal,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuItem,
-  DropdownMenuGroup,
+  DropdownMenuArrow,
   DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
   DropdownMenuItemIndicator,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
-  DropdownMenuSub,
-  DropdownMenuSubTrigger,
-  DropdownMenuSubContent,
-  DropdownMenuArrow,
+  DropdownMenuRoot,
   DropdownMenuSeparator,
-} from "radix-vue";
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from 'radix-vue'
 </script>
 
 <template>
@@ -1028,17 +1028,17 @@ You can create submenus by using `DropdownMenuSub` in combination with its parts
 ```vue line=8-10,24-33
 <script setup lang="ts">
 import {
-  DropdownMenuRoot,
-  DropdownMenuTrigger,
-  DropdownMenuPortal,
+  DropdownMenuArrow,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSub,
-  DropdownMenuSubTrigger,
-  DropdownMenuSubContent,
-  DropdownMenuArrow,
+  DropdownMenuPortal,
+  DropdownMenuRoot,
   DropdownMenuSeparator,
-} from "radix-vue";
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from 'radix-vue'
 </script>
 
 <template>
@@ -1074,12 +1074,12 @@ You can add special styles to disabled items via the `data-disabled` attribute.
 ```vue line=16
 <script setup lang="ts">
 import {
-  DropdownMenuRoot,
-  DropdownMenuTrigger,
-  DropdownMenuPortal,
   DropdownMenuContent,
   DropdownMenuItem,
-} from "radix-vue";
+  DropdownMenuPortal,
+  DropdownMenuRoot,
+  DropdownMenuTrigger,
+} from 'radix-vue'
 </script>
 
 <template>
@@ -1087,8 +1087,12 @@ import {
     <DropdownMenuTrigger>…</DropdownMenuTrigger>
     <DropdownMenuPortal>
       <DropdownMenuContent>
-        <DropdownMenuItem className="DropdownMenuItem" disabled> … </DropdownMenuItem>
-        <DropdownMenuItem className="DropdownMenuItem">…</DropdownMenuItem>
+        <DropdownMenuItem class-name="DropdownMenuItem" disabled>
+          …
+        </DropdownMenuItem>
+        <DropdownMenuItem class-name="DropdownMenuItem">
+          …
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenuPortal>
   </DropdownMenuRoot>
@@ -1109,13 +1113,13 @@ Use the `Separator` part to add a separator between items.
 ```vue line=8,18,20
 <script setup lang="ts">
 import {
-  DropdownMenuRoot,
-  DropdownMenuTrigger,
-  DropdownMenuPortal,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuRoot,
   DropdownMenuSeparator,
-} from "radix-vue";
+  DropdownMenuTrigger,
+} from 'radix-vue'
 </script>
 
 <template>
@@ -1141,13 +1145,13 @@ Use the `Label` part to help label a section.
 ```vue line=8,17
 <script setup lang="ts">
 import {
-  DropdownMenuRoot,
-  DropdownMenuTrigger,
-  DropdownMenuPortal,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-} from "radix-vue";
+  DropdownMenuPortal,
+  DropdownMenuRoot,
+  DropdownMenuTrigger,
+} from 'radix-vue'
 </script>
 
 <template>
@@ -1171,20 +1175,20 @@ Use the `CheckboxItem` part to add an item that can be checked.
 
 ```vue line=11,26-31
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-import { ref } from "vue";
+import { Icon } from '@iconify/vue'
+import { ref } from 'vue'
 import {
-  DropdownMenuRoot,
-  DropdownMenuTrigger,
-  DropdownMenuPortal,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuCheckboxItem,
   DropdownMenuItemIndicator,
-} from "radix-vue";
+  DropdownMenuPortal,
+  DropdownMenuRoot,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from 'radix-vue'
 
-const checked = ref(false);
+const checked = ref(false)
 </script>
 
 <template>
@@ -1213,19 +1217,19 @@ Use the `RadioGroup` and `RadioItem` parts to add an item that can be checked am
 
 ```vue line=9-10,22-41
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-import { ref } from "vue";
+import { Icon } from '@iconify/vue'
+import { ref } from 'vue'
 import {
-  DropdownMenuRoot,
-  DropdownMenuTrigger,
-  DropdownMenuPortal,
   DropdownMenuContent,
+  DropdownMenuItemIndicator,
+  DropdownMenuPortal,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
-  DropdownMenuItemIndicator,
-} from "radix-vue";
+  DropdownMenuRoot,
+  DropdownMenuTrigger,
+} from 'radix-vue'
 
-const color = ref(false);
+const color = ref(false)
 </script>
 
 <template>
@@ -1266,12 +1270,12 @@ You can add extra decorative elements in the `Item` parts, such as images.
 ```vue line=17,21
 <script setup lang="ts">
 import {
-  DropdownMenuRoot,
-  DropdownMenuTrigger,
-  DropdownMenuPortal,
   DropdownMenuContent,
   DropdownMenuItem,
-} from "radix-vue";
+  DropdownMenuPortal,
+  DropdownMenuRoot,
+  DropdownMenuTrigger,
+} from 'radix-vue'
 </script>
 
 <template>
@@ -1280,11 +1284,11 @@ import {
     <DropdownMenuPortal>
       <DropdownMenuContent>
         <DropdownMenuItem>
-          <img src="…" />
+          <img src="…">
           Adolfo Hess
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <img src="…" />
+          <img src="…">
           Miyah Myles
         </DropdownMenuItem>
       </DropdownMenuContent>
@@ -1301,14 +1305,16 @@ We expose several CSS custom properties such as `--radix-dropdown-menu-trigger-w
 
 ```vue line=15
 <script setup lang="ts">
-import { DropdownMenuRoot, DropdownMenuTrigger, DropdownMenuPortal, DropdownMenuContent } from "radix-vue";
+import { DropdownMenuContent, DropdownMenuPortal, DropdownMenuRoot, DropdownMenuTrigger } from 'radix-vue'
 </script>
 
 <template>
   <DropdownMenuRoot>
     <DropdownMenuTrigger>…</DropdownMenuTrigger>
     <DropdownMenuPortal>
-      <DropdownMenuContent class="DropdownMenuContent" :sideOffset="5"> … </DropdownMenuContent>
+      <DropdownMenuContent class="DropdownMenuContent" :side-offset="5">
+        …
+      </DropdownMenuContent>
     </DropdownMenuPortal>
   </DropdownMenuRoot>
 </template>
@@ -1328,14 +1334,16 @@ We expose a CSS custom property `--radix-dropdown-menu-content-transform-origin`
 
 ```vue line=14
 <script setup lang="ts">
-import { DropdownMenuRoot, DropdownMenuTrigger, DropdownMenuPortal, DropdownMenuContent } from "radix-vue";
+import { DropdownMenuContent, DropdownMenuPortal, DropdownMenuRoot, DropdownMenuTrigger } from 'radix-vue'
 </script>
 
 <template>
   <DropdownMenuRoot>
     <DropdownMenuTrigger>…</DropdownMenuTrigger>
     <DropdownMenuPortal>
-      <DropdownMenuContent class="DropdownMenuContent">…</DropdownMenuContent>
+      <DropdownMenuContent class="DropdownMenuContent">
+        …
+      </DropdownMenuContent>
     </DropdownMenuPortal>
   </DropdownMenuRoot>
 </template>
@@ -1366,14 +1374,16 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 
 ```vue line=14
 <script setup lang="ts">
-import { DropdownMenuRoot, DropdownMenuTrigger, DropdownMenuPortal, DropdownMenuContent } from "radix-vue";
+import { DropdownMenuContent, DropdownMenuPortal, DropdownMenuRoot, DropdownMenuTrigger } from 'radix-vue'
 </script>
 
 <template>
   <DropdownMenuRoot>
     <DropdownMenuTrigger>…</DropdownMenuTrigger>
     <DropdownMenuPortal>
-      <DropdownMenuContent class="DropdownMenuContent">…</DropdownMenuContent>
+      <DropdownMenuContent class="DropdownMenuContent">
+        …
+      </DropdownMenuContent>
     </DropdownMenuPortal>
   </DropdownMenuRoot>
 </template>

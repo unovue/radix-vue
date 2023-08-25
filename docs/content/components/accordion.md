@@ -61,7 +61,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { AccordionRoot, AccordionItem, AccordionHeader, AccordionTrigger, AccordionContent } from "radix-vue";
+import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from 'radix-vue'
 </script>
 
 <template>
@@ -298,9 +298,13 @@ Use the `defaultValue` prop to define the open item by default.
 
 ```vue line=2
 <template>
-  <AccordionRoot type="single" defaultValue="item-2">
-    <AccordionItem value="item-1">…</AccordionItem>
-    <AccordionItem value="item-2">…</AccordionItem>
+  <AccordionRoot type="single" default-value="item-2">
+    <AccordionItem value="item-1">
+      …
+    </AccordionItem>
+    <AccordionItem value="item-2">
+      …
+    </AccordionItem>
   </AccordionRoot>
 </template>
 ```
@@ -312,8 +316,12 @@ Use the `collapsible` prop to allow all items to close.
 ```vue line=2
 <template>
   <AccordionRoot type="single" collapsible>
-    <AccordionItem value="item-1">…</AccordionItem>
-    <AccordionItem value="item-2">…</AccordionItem>
+    <AccordionItem value="item-1">
+      …
+    </AccordionItem>
+    <AccordionItem value="item-2">
+      …
+    </AccordionItem>
   </AccordionRoot>
 </template>
 ```
@@ -325,8 +333,12 @@ Set the `type` prop to `multiple` to enable opening multiple items at once.
 ```vue line=2
 <template>
   <AccordionRoot type="multiple">
-    <AccordionItem value="item-1">…</AccordionItem>
-    <AccordionItem value="item-2">…</AccordionItem>
+    <AccordionItem value="item-1">
+      …
+    </AccordionItem>
+    <AccordionItem value="item-2">
+      …
+    </AccordionItem>
   </AccordionRoot>
 </template>
 ```
@@ -338,9 +350,9 @@ You can add extra decorative elements, such as chevrons, and rotate it when the 
 ```vue line=14
 // index.vue
 <script setup>
-import { AccordionRoot, AccordionItem, AccordionHeader, AccordionTrigger, AccordionContent } from "radix-vue";
-import { Icon } from "@iconify/vue";
-import "./styles.css";
+import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from 'radix-vue'
+import { Icon } from '@iconify/vue'
+import './styles.css'
 </script>
 
 <template>
@@ -375,8 +387,12 @@ Use the `orientation` prop to create a horizontal Accordion
 ```vue line=2
 <template>
   <AccordionRoot orientation="horizontal">
-    <AccordionItem value="item-1">…</AccordionItem>
-    <AccordionItem value="item-2">…</AccordionItem>
+    <AccordionItem value="item-1">
+      …
+    </AccordionItem>
+    <AccordionItem value="item-2">
+      …
+    </AccordionItem>
   </AccordionRoot>
 </template>
 ```
@@ -388,15 +404,17 @@ Use the `--radix-accordion-content-width` and/or `--radix-accordion-content-heig
 ```vue line=11
 // index.vue
 <script setup>
-import { AccordionRoot, AccordionItem, AccordionHeader, AccordionTrigger, AccordionContent } from "radix-vue";
-import "./styles.css";
+import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from 'radix-vue'
+import './styles.css'
 </script>
 
 <template>
   <AccordionRoot type="single">
     <AccordionItem value="item-1">
       <AccordionHeader>…</AccordionHeader>
-      <AccordionContent class="AccordionContent">…</AccordionContent>
+      <AccordionContent class="AccordionContent">
+        …
+      </AccordionContent>
     </AccordionItem>
   </AccordionRoot>
 </template>

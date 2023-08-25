@@ -1,15 +1,14 @@
 <script setup lang="ts">
-const { config } = useDocus();
-const { navigation } = useContent();
-const { hasDocSearch } = useDocSearch();
-
-const hasDialog = computed(
-  () => navigation.value?.length > 1 || navigation.value?.[0]?.children?.length
-);
-
 defineProps({
   ...variants,
-});
+})
+const { config } = useDocus()
+const { navigation } = useContent()
+const { hasDocSearch } = useDocSearch()
+
+const hasDialog = computed(
+  () => navigation.value?.length > 1 || navigation.value?.[0]?.children?.length,
+)
 </script>
 
 <template>
@@ -32,8 +31,9 @@ defineProps({
         <NuxtLink
           to="/overview/introduction"
           class="text-[15px] text-neutral-400 hover:text-white mr-4"
-          >Documentation</NuxtLink
         >
+          Documentation
+        </NuxtLink>
         <AppSearch v-if="hasDocSearch" />
         <ThemeSelect />
         <div class="social-icons">

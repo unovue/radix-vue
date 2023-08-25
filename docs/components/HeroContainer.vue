@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { useSlots, computed, type Slots } from "vue";
-import CodeSandbox from "./CodeSandbox.vue";
+import { type Slots, computed, useSlots } from 'vue'
+import CodeSandbox from './CodeSandbox.vue'
 
 withDefaults(
   defineProps<{
-    overflow?: boolean;
-    folder?: string;
+    overflow?: boolean
+    folder?: string
   }>(),
-  { folder: "" }
-);
+  { folder: '' },
+)
 
-const slots = useSlots();
+const slots = useSlots()
 const files = computed<string[]>(
-  () => (slots?.codeSlot?.()?.[0].children as Slots)?.default?.().map((i) => i?.props?.filename) ?? []
-);
+  () => (slots?.codeSlot?.()?.[0].children as Slots)?.default?.().map(i => i?.props?.filename) ?? [],
+)
 </script>
 
 <template>
@@ -25,7 +25,7 @@ const files = computed<string[]>(
       <div class="w-full max-w-[700px] flex items-center py-12 sm:py-[100px] custom-justify-center z-10">
         <slot />
 
-        <CodeSandbox class="hidden sm:block absolute bottom-4 right-4" v-if="folder" :name="folder" :files="files" />
+        <CodeSandbox v-if="folder" class="hidden sm:block absolute bottom-4 right-4" :name="folder" :files="files" />
       </div>
     </div>
     <slot name="codeSlot" />

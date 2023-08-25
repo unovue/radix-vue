@@ -57,7 +57,7 @@ Import the components and piece the parts together.
 
 ```vue
 <script setup>
-import { CollapsibleRoot, CollapsibleTrigger, CollapsibleContent } from "radix-vue";
+import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from 'radix-vue'
 </script>
 
 <template>
@@ -212,14 +212,16 @@ Use the `--radix-collapsible-content-width` and/or `--radix-collapsible-content-
 ```vue line=10
 // index.vue
 <script setup>
-import { CollapsibleRoot, CollapsibleTrigger, CollapsibleContent } from "radix-vue";
-import "./styles.css";
+import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from 'radix-vue'
+import './styles.css'
 </script>
 
 <template>
   <CollapsibleRoot>
     <CollapsibleTrigger>…</CollapsibleTrigger>
-    <CollapsibleContent class="CollapsibleContent"> … </CollapsibleContent>
+    <CollapsibleContent class="CollapsibleContent">
+      …
+    </CollapsibleContent>
   </CollapsibleRoot>
 </template>
 ```

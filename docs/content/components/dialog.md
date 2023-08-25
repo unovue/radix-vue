@@ -61,15 +61,15 @@ Import all parts and piece them together.
 ```vue
 <script setup>
 import {
-  DialogRoot,
-  DialogTrigger,
-  DialogContent,
-  DialogOverlay,
   DialogClose,
-  DialogPortal,
-  DialogTitle,
+  DialogContent,
   DialogDescription,
-} from "radix-vue";
+  DialogOverlay,
+  DialogPortal,
+  DialogRoot,
+  DialogTitle,
+  DialogTrigger,
+} from 'radix-vue'
 </script>
 
 <template>
@@ -299,10 +299,10 @@ Use the controlled props to programmatically close the Dialog after an async ope
 
 ```vue line=10,11,15,20-27,29
 <script setup>
-import { DialogRoot, DialogTrigger, DialogContent, DialogOverlay, DialogPortal } from "radix-vue";
+import { DialogContent, DialogOverlay, DialogPortal, DialogRoot, DialogTrigger } from 'radix-vue'
 
-const wait = () => new Promise((resolve) => setTimeout(resolve, 1000));
-const open = ref(false);
+const wait = () => new Promise(resolve => setTimeout(resolve, 1000))
+const open = ref(false)
 </script>
 
 <template>
@@ -320,7 +320,9 @@ const open = ref(false);
           "
         >
           <!-- some inputs -->
-          <button type="submit">Submit</button>
+          <button type="submit">
+            Submit
+          </button>
         </form>
       </DialogContent>
     </DialogPortal>
@@ -335,8 +337,8 @@ Move the content inside the overlay to render a dialog with overflow.
 ```vue
 // index.vue
 <script setup>
-import { DialogRoot, DialogTrigger, DialogContent, DialogOverlay, DialogPortal } from "radix-vue";
-import "./styles.css";
+import { DialogContent, DialogOverlay, DialogPortal, DialogRoot, DialogTrigger } from 'radix-vue'
+import './styles.css'
 </script>
 
 <template>
@@ -344,7 +346,9 @@ import "./styles.css";
     <DialogTrigger />
     <DialogPortal>
       <DialogOverlay class="DialogOverlay">
-        <DialogContent class="DialogContent">...</DialogContent>
+        <DialogContent class="DialogContent">
+          ...
+        </DialogContent>
       </DialogOverlay>
     </DialogPortal>
   </DialogRoot>
@@ -379,10 +383,11 @@ Customise the element that your dialog portals into.
 
 ```vue line=10,16,22
 <script setup>
-import { DialogRoot, DialogTrigger, DialogContent, DialogOverlay, DialogPortal } from "radix-vue";
+import { DialogContent, DialogOverlay, DialogPortal, DialogRoot, DialogTrigger } from 'radix-vue'
 
-const container = ref(null);
+const container = ref(null)
 </script>
+
 <template>
   <div>
     <DialogRoot>

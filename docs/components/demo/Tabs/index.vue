@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TabsRoot, TabsList, TabsTrigger, TabsContent } from "radix-vue";
+import { TabsContent, TabsList, TabsRoot, TabsTrigger } from 'radix-vue'
 </script>
 
 <template>
@@ -28,18 +28,18 @@ import { TabsRoot, TabsList, TabsTrigger, TabsContent } from "radix-vue";
       <fieldset class="mb-[15px] w-full flex flex-col justify-start">
         <label class="text-[13px] leading-none mb-2.5 text-green12 block" for="name"> Name </label>
         <input
-          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-grass11 shadow-[0_0_0_1px] shadow-green7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
           id="name"
+          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-grass11 shadow-[0_0_0_1px] shadow-green7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
           value="Pedro Duarte"
-        />
+        >
       </fieldset>
       <fieldset class="mb-[15px] w-full flex flex-col justify-start">
         <label class="text-[13px] leading-none mb-2.5 text-green12 block" for="username"> Username </label>
         <input
-          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-grass11 shadow-[0_0_0_1px] shadow-green7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
           id="username"
+          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-grass11 shadow-[0_0_0_1px] shadow-green7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
           value="@peduarte"
-        />
+        >
       </fieldset>
       <div class="flex justify-end mt-5">
         <button
@@ -61,28 +61,28 @@ import { TabsRoot, TabsList, TabsTrigger, TabsContent } from "radix-vue";
           Current password
         </label>
         <input
-          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-grass11 shadow-[0_0_0_1px] shadow-green7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
           id="currentPassword"
+          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-grass11 shadow-[0_0_0_1px] shadow-green7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
           type="password"
-        />
+        >
       </fieldset>
       <fieldset class="mb-[15px] w-full flex flex-col justify-start">
         <label class="text-[13px] leading-none mb-2.5 text-green12 block" for="newPassword"> New password </label>
         <input
-          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-grass11 shadow-[0_0_0_1px] shadow-green7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
           id="newPassword"
+          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-grass11 shadow-[0_0_0_1px] shadow-green7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
           type="password"
-        />
+        >
       </fieldset>
       <fieldset class="mb-[15px] w-full flex flex-col justify-start">
         <label class="text-[13px] leading-none mb-2.5 text-green12 block" for="confirmPassword">
           Confirm password
         </label>
         <input
-          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-grass11 shadow-[0_0_0_1px] shadow-green7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
           id="confirmPassword"
+          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-grass11 shadow-[0_0_0_1px] shadow-green7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
           type="password"
-        />
+        >
       </fieldset>
       <div class="flex justify-end mt-5">
         <button

@@ -60,7 +60,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { HoverCardRoot, HoverCardTrigger, HoverCardPortal, HoverCardContent, HoverCardArrow } from "radix-vue";
+import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from 'radix-vue'
 </script>
 
 <template>
@@ -322,19 +322,19 @@ Use the `openDelay` prop to control the time it takes for the hover card to open
 ```vue line=12
 <script setup>
 import {
-	HoverCardRoot,
-	HoverCardTrigger,
-	HoverCardPortal,
-	HoverCardContent,
-	HoverCardArrow,
-} from "radix-vue";
+  HoverCardArrow,
+  HoverCardContent,
+  HoverCardPortal,
+  HoverCardRoot,
+  HoverCardTrigger,
+} from 'radix-vue'
 </script>
 
 <template>
-	<HoverCardRoot :openDelay="0">
-		<HoverCardTrigger>…</HoverCardTrigger>
-		<HoverCardContent>…</HoverCardContent>
-	</HoverCardRoot>
+  <HoverCardRoot :open-delay="0">
+    <HoverCardTrigger>…</HoverCardTrigger>
+    <HoverCardContent>…</HoverCardContent>
+  </HoverCardRoot>
 </template>
 ````
 
@@ -347,15 +347,17 @@ We expose several CSS custom properties such as `--radix-hover-card-trigger-widt
 ```vue line=17
 // index.vue
 <script setup>
-import { HoverCardRoot, HoverCardTrigger, HoverCardPortal, HoverCardContent, HoverCardArrow } from "radix-vue";
-import "./styles.css";
+import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from 'radix-vue'
+import './styles.css'
 </script>
 
 <template>
   <HoverCardRoot>
     <HoverCardTrigger>…</HoverCardTrigger>
     <HoverCardPortal>
-      <HoverCardContent class="HoverCardContent" :sideOffset="5"> … </HoverCardContent>
+      <HoverCardContent class="HoverCardContent" :side-offset="5">
+        …
+      </HoverCardContent>
     </HoverCardPortal>
   </HoverCardRoot>
 </template>
@@ -376,14 +378,16 @@ We expose a CSS custom property `--radix-hover-card-content-transform-origin`. U
 ```vue line=16
 // index.vue
 <script setup>
-import { HoverCardRoot, HoverCardTrigger, HoverCardPortal, HoverCardContent, HoverCardArrow } from "radix-vue";
-import "./styles.css";
+import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from 'radix-vue'
+import './styles.css'
 </script>
 
 <template>
   <HoverCardRoot>
     <HoverCardTrigger>…</HoverCardTrigger>
-    <HoverCardContent class="HoverCardContent">…</HoverCardContent>
+    <HoverCardContent class="HoverCardContent">
+      …
+    </HoverCardContent>
   </HoverCardRoot>
 </template>
 ```
@@ -414,14 +418,16 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 ```vue line=16
 // index.vue
 <script setup>
-import { HoverCardRoot, HoverCardTrigger, HoverCardPortal, HoverCardContent, HoverCardArrow } from "radix-vue";
-import "./styles.css";
+import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from 'radix-vue'
+import './styles.css'
 </script>
 
 <template>
   <HoverCardRoot>
     <HoverCardTrigger>…</HoverCardTrigger>
-    <HoverCardContent class="HoverCardContent">…</HoverCardContent>
+    <HoverCardContent class="HoverCardContent">
+      …
+    </HoverCardContent>
   </HoverCardRoot>
 </template>
 ```

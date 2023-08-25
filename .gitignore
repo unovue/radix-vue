@@ -32,3 +32,4 @@ coverage
 test-results/
 playwright-report/
 vite.config.ts.timestamp*
+*/.vitepress/cache

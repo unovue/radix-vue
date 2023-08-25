@@ -66,23 +66,23 @@ Import all parts and piece them together.
 ```vue
 <script setup lang="ts">
 import {
-  MenubarRoot,
-  MenubarMenu,
-  MenubarTrigger,
-  MenubarPortal,
+  MenubarArrow,
+  MenubarCheckboxItem,
   MenubarContent,
   MenubarItem,
   MenubarItemIndicator,
   MenubarLabel,
-  MenubarCheckboxItem,
+  MenubarMenu,
+  MenubarPortal,
   MenubarRadioGroup,
   MenubarRadioItem,
-  MenubarArrow,
+  MenubarRoot,
   MenubarSeparator,
   MenubarSub,
   MenubarSubContent,
   MenubarSubTrigger,
-} from "./";
+  MenubarTrigger,
+} from './'
 </script>
 
 <template>
@@ -1169,17 +1169,17 @@ You can create submenus by using `MenubarSub` in combination with its parts.
 ```vue line=25-34
 <script setup lang="ts">
 import {
-  MenubarRoot,
-  MenubarMenu,
-  MenubarPortal,
-  MenubarSubTrigger,
-  MenubarTrigger,
   MenubarContent,
   MenubarItem,
+  MenubarMenu,
+  MenubarPortal,
+  MenubarRoot,
   MenubarSeparator,
   MenubarSub,
   MenubarSubContent,
-} from "radix-vue";
+  MenubarSubTrigger,
+  MenubarTrigger,
+} from 'radix-vue'
 </script>
 
 <template>
@@ -1216,7 +1216,7 @@ You can add special styles to disabled items via the `data-disabled` attribute.
 
 ```vue line=18
 <script setup lang="ts">
-import { MenubarRoot, MenubarMenu, MenubarTrigger, MenubarPortal, MenubarContent, MenubarItem } from "radix-vue";
+import { MenubarContent, MenubarItem, MenubarMenu, MenubarPortal, MenubarRoot, MenubarTrigger } from 'radix-vue'
 </script>
 
 <template>
@@ -1225,8 +1225,12 @@ import { MenubarRoot, MenubarMenu, MenubarTrigger, MenubarPortal, MenubarContent
       <MenubarTrigger>…</MenubarTrigger>
       <MenubarPortal>
         <MenubarContent>
-          <MenubarItem class="MenubarItem" disabled> … </MenubarItem>
-          <MenubarItem class="MenubarItem">…</MenubarItem>
+          <MenubarItem class="MenubarItem" disabled>
+            …
+          </MenubarItem>
+          <MenubarItem class="MenubarItem">
+            …
+          </MenubarItem>
         </MenubarContent>
       </MenubarPortal>
     </MenubarMenu>
@@ -1248,14 +1252,14 @@ Use the `Separator` part to add a separator between items.
 ```vue line=9,20,22
 <script setup lang="ts">
 import {
-  MenubarRoot,
-  MenubarMenu,
-  MenubarTrigger,
-  MenubarPortal,
   MenubarContent,
   MenubarItem,
+  MenubarMenu,
+  MenubarPortal,
+  MenubarRoot,
   MenubarSeparator,
-} from "radix-vue";
+  MenubarTrigger,
+} from 'radix-vue'
 </script>
 
 <template>
@@ -1283,14 +1287,14 @@ Use the `Label` part to help label a section.
 ```vue line=9,19
 <script setup lang="ts">
 import {
-  MenubarRoot,
-  MenubarMenu,
-  MenubarTrigger,
-  MenubarPortal,
   MenubarContent,
   MenubarItem,
   MenubarLabel,
-} from "radix-vue";
+  MenubarMenu,
+  MenubarPortal,
+  MenubarRoot,
+  MenubarTrigger,
+} from 'radix-vue'
 </script>
 
 <template>
@@ -1317,19 +1321,19 @@ Use the `CheckboxItem` part to add an item that can be checked.
 ```vue line=11,27-32
 <script setup lang="ts">
 import {
-  MenubarRoot,
-  MenubarMenu,
-  MenubarTrigger,
-  MenubarPortal,
+  MenubarCheckboxItem,
   MenubarContent,
   MenubarItem,
   MenubarItemIndicator,
+  MenubarMenu,
+  MenubarPortal,
+  MenubarRoot,
   MenubarSeparator,
-  MenubarCheckboxItem,
-} from "radix-vue";
-import { Icon } from "@iconify/vue";
+  MenubarTrigger,
+} from 'radix-vue'
+import { Icon } from '@iconify/vue'
 
-const checked = ref(true);
+const checked = ref(true)
 </script>
 
 <template>
@@ -1341,7 +1345,7 @@ const checked = ref(true);
           <MenubarItem>…</MenubarItem>
           <MenubarItem>…</MenubarItem>
           <MenubarSeparator />
-          <MenubarCheckboxItem checked="{checked}" onCheckedChange="{setChecked}">
+          <MenubarCheckboxItem checked="{checked}" on-checked-change="{setChecked}">
             <MenubarItemIndicator>
               <Icon icon="radix-icons:check" />
             </MenubarItemIndicator>
@@ -1361,21 +1365,21 @@ Use the `RadioGroup` and `RadioItem` parts to add an item that can be checked am
 ```vue line=12,13,26-39
 <script setup lang="ts">
 import {
-  MenubarRoot,
-  MenubarMenu,
-  MenubarTrigger,
-  MenubarPortal,
+  MenubarCheckboxItem,
   MenubarContent,
   MenubarItem,
   MenubarItemIndicator,
-  MenubarSeparator,
-  MenubarCheckboxItem,
+  MenubarMenu,
+  MenubarPortal,
   MenubarRadioGroup,
   MenubarRadioItem,
-} from "radix-vue";
-import { Icon } from "@iconify/vue";
+  MenubarRoot,
+  MenubarSeparator,
+  MenubarTrigger,
+} from 'radix-vue'
+import { Icon } from '@iconify/vue'
 
-const color = ref("blue");
+const color = ref('blue')
 </script>
 
 <template>
@@ -1384,7 +1388,7 @@ const color = ref("blue");
       <MenubarTrigger>…</MenubarTrigger>
       <MenubarPortal>
         <MenubarContent>
-          <MenubarRadioGroup v-model="{ color }">
+          <MenubarRadioGroup v-model="color">
             <MenubarRadioItem value="red">
               <MenubarItemIndicator>
                 <Icon icon="radix-icons:check" />
@@ -1411,7 +1415,7 @@ You can add extra decorative elements in the `Item` parts, such as images.
 
 ```vue line=19,24
 <script setup lang="ts">
-import { MenubarRoot, MenubarMenu, MenubarTrigger, MenubarPortal, MenubarContent, MenubarItem } from "radix-vue";
+import { MenubarContent, MenubarItem, MenubarMenu, MenubarPortal, MenubarRoot, MenubarTrigger } from 'radix-vue'
 </script>
 
 <template>
@@ -1421,11 +1425,11 @@ import { MenubarRoot, MenubarMenu, MenubarTrigger, MenubarPortal, MenubarContent
       <MenubarPortal>
         <MenubarContent>
           <MenubarItem>
-            <img src="…" />
+            <img src="…">
             Adolfo Hess
           </MenubarItem>
           <MenubarItem>
-            <img src="…" />
+            <img src="…">
             Miyah Myles
           </MenubarItem>
         </MenubarContent>
@@ -1443,7 +1447,7 @@ We expose several CSS custom properties such as `--radix-menubar-trigger-width` 
 
 ```vue line=20
 <script setup lang="ts">
-import { MenubarRoot, MenubarMenu, MenubarTrigger, MenubarPortal, MenubarContent, MenubarItem } from "radix-vue";
+import { MenubarContent, MenubarItem, MenubarMenu, MenubarPortal, MenubarRoot, MenubarTrigger } from 'radix-vue'
 </script>
 
 <template>
@@ -1474,7 +1478,7 @@ We expose a CSS custom property `--radix-menubar-content-transform-origin`. Use 
 
 ```vue line=16
 <script setup lang="ts">
-import { MenubarRoot, MenubarMenu, MenubarTrigger, MenubarPortal, MenubarContent } from "radix-vue";
+import { MenubarContent, MenubarMenu, MenubarPortal, MenubarRoot, MenubarTrigger } from 'radix-vue'
 </script>
 
 <template>
@@ -1482,7 +1486,9 @@ import { MenubarRoot, MenubarMenu, MenubarTrigger, MenubarPortal, MenubarContent
     <MenubarMenu>
       <MenubarTrigger>…</MenubarTrigger>
       <MenubarPortal>
-        <MenubarContent class="MenubarContent">…</MenubarContent>
+        <MenubarContent class="MenubarContent">
+          …
+        </MenubarContent>
       </MenubarPortal>
     </MenubarMenu>
   </MenubarRoot>
@@ -1514,7 +1520,7 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 
 ```vue line=16
 <script setup lang="ts">
-import { MenubarRoot, MenubarMenu, MenubarTrigger, MenubarPortal, MenubarContent } from "radix-vue";
+import { MenubarContent, MenubarMenu, MenubarPortal, MenubarRoot, MenubarTrigger } from 'radix-vue'
 </script>
 
 <template>
@@ -1522,7 +1528,9 @@ import { MenubarRoot, MenubarMenu, MenubarTrigger, MenubarPortal, MenubarContent
     <MenubarMenu>
       <MenubarTrigger>…</MenubarTrigger>
       <MenubarPortal>
-        <MenubarContent class="MenubarContent">…</MenubarContent>
+        <MenubarContent class="MenubarContent">
+          …
+        </MenubarContent>
       </MenubarPortal>
     </MenubarMenu>
   </MenubarRoot>

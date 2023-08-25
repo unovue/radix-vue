@@ -1,8 +1,8 @@
-const { blackA, green, grass } = require("@radix-ui/colors");
+const { blackA, green, grass } = require('@radix-ui/colors')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./**/*.vue"],
+  content: ['./**/*.vue'],
   theme: {
     extend: {
       colors: {
@@ -13,4 +13,4 @@ module.exports = {
     },
   },
   plugins: [],
-};
+}

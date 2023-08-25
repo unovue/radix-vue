@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { SliderRoot, SliderTrack, SliderRange, SliderThumb } from "radix-vue";
+import { ref } from 'vue'
+import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue'
 
 const sliderValue = ref(50)
 </script>
@@ -12,6 +12,7 @@ const sliderValue = ref(50)
     </SliderTrack>
     <SliderThumb
       class="block w-5 h-5 bg-white shadow-[0_2px_10px] shadow-blackA7 rounded-[10px] hover:bg-violet3 focus:outline-none focus:shadow-[0_0_0_5px] focus:shadow-blackA8"
-      aria-label="Volume" />
+      aria-label="Volume"
+    />
   </SliderRoot>
 </template>

@@ -56,7 +56,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { ProgressRoot, ProgressIndicator } from "radix-vue";
+import { ProgressIndicator, ProgressRoot } from 'radix-vue'
 </script>
 
 <template>

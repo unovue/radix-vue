@@ -3,8 +3,9 @@ const { page } = useContent()
 const { config, tree } = useDocus()
 const route = useRoute()
 
-const fallbackValue = (value: string, fallback = true) => {
-  if (typeof page.value?.[value] !== 'undefined') { return page.value[value] }
+function fallbackValue(value: string, fallback = true) {
+  if (typeof page.value?.[value] !== 'undefined')
+    return page.value[value]
   return fallback
 }
 
@@ -24,15 +25,16 @@ const getParentPath = () => route.path.split('/').slice(0, 2).join('/')
 const asideScroll = useState('asideScroll', () => {
   return {
     parentPath: getParentPath(),
-    scrollTop: asideNav.value?.scrollTop || 0
+    scrollTop: asideNav.value?.scrollTop || 0,
   }
 })
 
-function watchScrollHeight () {
-  if (!asideNav.value) { return }
-  if (asideNav.value.scrollHeight === 0) {
+function watchScrollHeight() {
+  if (!asideNav.value)
+    return
+  if (asideNav.value.scrollHeight === 0)
     setTimeout(watchScrollHeight, 0)
-  }
+
   asideNav.value.scrollTop = asideScroll.value.scrollTop
 }
 
@@ -40,13 +42,15 @@ onMounted(() => {
   if (asideScroll.value.parentPath !== getParentPath()) {
     asideScroll.value.parentPath = getParentPath()
     asideScroll.value.scrollTop = 0
-  } else {
+  }
+  else {
     watchScrollHeight()
   }
 })
 
 onBeforeUnmount(() => {
-  if (!asideNav.value) { return }
+  if (!asideNav.value)
+    return
   asideScroll.value.scrollTop = asideNav.value.scrollTop
 })
 </script>
@@ -57,7 +61,7 @@ onBeforeUnmount(() => {
     :padded="config?.main?.padded"
     class="docs-page-content"
     :class="{
-      fluid: config?.main?.fluid,
+      'fluid': config?.main?.fluid,
       'has-toc': hasToc,
       'has-aside': hasAside,
     }"

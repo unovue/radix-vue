@@ -54,7 +54,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { SwitchRoot, SwitchThumb } from "radix-vue";
+import { SwitchRoot, SwitchThumb } from 'radix-vue'
 </script>
 
 <template>

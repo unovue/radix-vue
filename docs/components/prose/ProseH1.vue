@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue"
+import { Icon } from '@iconify/vue'
 
-defineProps<{ id: string }>();
+defineProps<{ id: string }>()
 </script>
 
 <template>

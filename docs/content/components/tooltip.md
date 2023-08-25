@@ -50,7 +50,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup lang="ts">
-import { TooltipProvider, TooltipRoot, TooltipTrigger, TooltipContent, TooltipArrow } from "radix-vue";
+import { TooltipArrow, TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
 </script>
 
 <template>
@@ -352,11 +352,11 @@ Use the `Provider` to control `delayDuration` and `skipDelayDuration` globally.
 
 ```vue line=11
 <script setup>
-import { TooltipProvider, TooltipRoot, TooltipTrigger, TooltipContent } from "radix-vue";
+import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
 </script>
 
 <template>
-  <TooltipProvider :delayDuration="800" :skipDelayDuration="500">
+  <TooltipProvider :delay-duration="800" :skip-delay-duration="500">
     <TooltipRoot>
       <TooltipTrigger>…</TooltipTrigger>
       <TooltipContent>…</TooltipContent>
@@ -375,11 +375,11 @@ Use the `delayDuration` prop to control the time it takes for the tooltip to ope
 
 ```vue line=11
 <script setup>
-import { TooltipProvider, TooltipRoot, TooltipTrigger, TooltipContent } from "radix-vue";
+import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
 </script>
 
 <template>
-  <TooltipRoot :delayDuration="0">
+  <TooltipRoot :delay-duration="0">
     <TooltipTrigger>…</TooltipTrigger>
     <TooltipContent>…</TooltipContent>
   </TooltipRoot>
@@ -395,19 +395,19 @@ Since disabled buttons don't fire events, you need to:
 
 ```vue line=12-16
 <script setup>
-import { TooltipProvider, TooltipRoot, TooltipTrigger, TooltipContent } from "radix-vue";
+import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
 </script>
 
 <template>
   <TooltipRoot>
-    <TooltipTrigger asChild>
+    <TooltipTrigger as-child>
       <span tabindex="0">
         <button disabled style="{ pointerEvents: 'none' }">…</button>
       </span>
     </TooltipTrigger>
     <TooltipContent>…</TooltipContent>
   </TooltipRoot>
-  <template></template>
+  <template />
 </template>
 ```
 
@@ -420,15 +420,17 @@ We expose several CSS custom properties such as `--radix-tooltip-trigger-width` 
 ```vue line=16
 // index.vue
 <script setup>
-import { TooltipProvider, TooltipRoot, TooltipTrigger, TooltipContent } from "radix-vue";
-import "./styles.css";
+import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
+import './styles.css'
 </script>
 
 <template>
   <TooltipRoot>
     <TooltipTrigger>…</TooltipTrigger>
     <TooltipPortal>
-      <TooltipContent class="TooltipContent" :sideOffset="5"> … </TooltipContent>
+      <TooltipContent class="TooltipContent" :side-offset="5">
+        …
+      </TooltipContent>
     </TooltipPortal>
   </TooltipRoot>
 </template>
@@ -449,14 +451,16 @@ We expose a CSS custom property `--radix-tooltip-content-transform-origin`. Use 
 ```vue line=15
 // index.vue
 <script setup>
-import { TooltipProvider, TooltipRoot, TooltipTrigger, TooltipContent } from "radix-vue";
-import "./styles.css";
+import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
+import './styles.css'
 </script>
 
 <template>
   <TooltipRoot>
     <TooltipTrigger>…</TooltipTrigger>
-    <TooltipContent class="TooltipContent">…</TooltipContent>
+    <TooltipContent class="TooltipContent">
+      …
+    </TooltipContent>
   </TooltipRoot>
 </template>
 ```
@@ -487,14 +491,16 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 ```vue line=15
 // index.vue
 <script setup>
-import { TooltipProvider, TooltipRoot, TooltipTrigger, TooltipContent } from "radix-vue";
-import "./styles.css";
+import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
+import './styles.css'
 </script>
 
 <template>
   <TooltipRoot>
     <TooltipTrigger>…</TooltipTrigger>
-    <TooltipContent class="TooltipContent">…</TooltipContent>
+    <TooltipContent class="TooltipContent">
+      …
+    </TooltipContent>
   </TooltipRoot>
 </template>
 ```

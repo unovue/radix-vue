@@ -1,31 +1,31 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-import { ref } from "vue";
+import { Icon } from '@iconify/vue'
+import { ref } from 'vue'
 import {
   SelectContent,
   SelectGroup,
   SelectItem,
   SelectItemIndicator,
+  SelectItemText,
   SelectLabel,
   SelectPortal,
   SelectRoot,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
   SelectSeparator,
   SelectTrigger,
   SelectValue,
   SelectViewport,
-  SelectItemText,
-  SelectScrollUpButton,
-  SelectScrollDownButton,
-} from "radix-vue";
+} from 'radix-vue'
 
-const fruit = ref();
+const fruit = ref()
 
 function handleClick() {
-  alert("hello!");
+  alert('hello!')
 }
 
-const options = ["Apple", "Banana", "Blueberry", "Grapes", "Pineapple"];
-const vegetables = ["Aubergine", "Broccoli", "Carrot", "Courgette", "Leek"];
+const options = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
+const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
 </script>
 
 <template>
@@ -34,7 +34,7 @@ const vegetables = ["Aubergine", "Broccoli", "Carrot", "Courgette", "Leek"];
       class="inline-flex w-[150px] items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-green9 outline-none"
       aria-label="Customise options"
     >
-      <SelectValue placeholder="Select a fruit..."> </SelectValue>
+      <SelectValue placeholder="Select a fruit..." />
       <Icon icon="radix-icons:chevron-down" class="h-3.5 w-3.5" />
     </SelectTrigger>
 
@@ -42,14 +42,16 @@ const vegetables = ["Aubergine", "Broccoli", "Carrot", "Courgette", "Leek"];
       <SelectContent
         class="w-[150px] bg-white rounded shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
         :side-offset="5"
-        :position="'popper'"
+        position="popper"
       >
         <SelectScrollUpButton class="flex items-center justify-center h-[25px] bg-white text-violet11 cursor-default">
           <Icon icon="radix-icons:chevron-up" />
         </SelectScrollUpButton>
 
         <SelectViewport class="p-[5px]">
-          <SelectLabel class="px-[25px] text-xs leading-[25px] text-mauve11"> Fruits </SelectLabel>
+          <SelectLabel class="px-[25px] text-xs leading-[25px] text-mauve11">
+            Fruits
+          </SelectLabel>
           <SelectGroup>
             <SelectItem
               v-for="(option, index) in options"
@@ -64,7 +66,9 @@ const vegetables = ["Aubergine", "Broccoli", "Carrot", "Courgette", "Leek"];
             </SelectItem>
           </SelectGroup>
           <SelectSeparator class="h-[1px] bg-green6 m-[5px]" />
-          <SelectLabel class="px-[25px] text-xs leading-[25px] text-mauve11"> Vegetables </SelectLabel>
+          <SelectLabel class="px-[25px] text-xs leading-[25px] text-mauve11">
+            Vegetables
+          </SelectLabel>
           <SelectGroup>
             <SelectItem
               v-for="(option, index) in vegetables"

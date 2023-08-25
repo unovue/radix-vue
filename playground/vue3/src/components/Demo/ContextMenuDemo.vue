@@ -2,6 +2,7 @@
 import { Icon } from '@iconify/vue'
 import { ref } from 'vue'
 import {
+  ContextMenuArrow,
   ContextMenuCheckboxItem,
   ContextMenuContent,
   ContextMenuItem,
@@ -16,7 +17,6 @@ import {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
-  ContextMenuArrow
 } from '../../../../../packages/radix-vue/src'
 
 const toggleState = ref(false)

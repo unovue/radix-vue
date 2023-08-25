@@ -56,7 +56,7 @@ Import the component.
 
 ```vue
 <script setup>
-import { Label } from "radix-vue";
+import { Label } from 'radix-vue'
 </script>
 
 <template>

@@ -54,7 +54,7 @@ Import the component.
 
 ```vue
 <script setup>
-import { Toggle } from "radix-vue";
+import { Toggle } from 'radix-vue'
 </script>
 
 <template>

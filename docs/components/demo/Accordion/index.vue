@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { AccordionRoot, AccordionItem, AccordionHeader, AccordionTrigger, AccordionContent } from "radix-vue";
-import { Icon } from "@iconify/vue";
+import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from 'radix-vue'
+import { Icon } from '@iconify/vue'
 
 const accordionItems = [
   {
-    value: "item-1",
-    title: "Is it accessible?",
-    content: "Yes. It adheres to the WAI-ARIA design pattern.",
+    value: 'item-1',
+    title: 'Is it accessible?',
+    content: 'Yes. It adheres to the WAI-ARIA design pattern.',
   },
   {
-    value: "item-2",
-    title: "Is it unstyled?",
-    content: "Yes. It's unstyled by default, giving you freedom over the look and feel.",
+    value: 'item-2',
+    title: 'Is it unstyled?',
+    content: 'Yes. It\'s unstyled by default, giving you freedom over the look and feel.',
   },
   {
-    value: "item-3",
-    title: "Can it be animated?",
-    content: "Yes! You can use the transition prop to configure the animation.",
+    value: 'item-3',
+    title: 'Can it be animated?',
+    content: 'Yes! You can use the transition prop to configure the animation.',
   },
-];
+]
 </script>
 
 <template>
@@ -31,8 +31,8 @@ const accordionItems = [
     <template v-for="item in accordionItems" :key="item.value">
       <AccordionItem class="accordion-item" :value="item.value">
         <AccordionHeader class="flex">
-          <AccordionTrigger class="accordion-trigger group"
-            ><span>{{ item.title }}</span>
+          <AccordionTrigger class="accordion-trigger group">
+            <span>{{ item.title }}</span>
             <Icon
               icon="radix-icons:chevron-down"
               class="text-green10 ease-[cubic-bezier(0.87,_0,_0.13,_1)] transition-transform duration-300 group-data-[state=open]:rotate-180"
@@ -41,7 +41,9 @@ const accordionItems = [
           </AccordionTrigger>
         </AccordionHeader>
         <AccordionContent class="accordion-content">
-          <div class="px-5 py-4">{{ item.content }}</div>
+          <div class="px-5 py-4">
+            {{ item.content }}
+          </div>
         </AccordionContent>
       </AccordionItem>
     </template>

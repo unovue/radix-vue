@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { contributors } from "../contributors";
+import { contributors } from '../contributors'
 </script>
 
 <template>
@@ -19,7 +19,7 @@ import { contributors } from "../contributors";
         height="50"
         class="rounded-full h-12 w-12"
         :alt="`${name}'s avatar`"
-      />
+      >
     </a>
   </div>
 </template>

@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { ProseTh, ProseTd, ProseTr, ProseCodeInline, ProseTable, ProseThead, ProseTbody } from "../prose";
+import { ProseCodeInline, ProseTable, ProseTbody, ProseTd, ProseTh, ProseThead, ProseTr } from '../prose'
 
 type KeyboardDef = {
-  attribute: string;
-  values: string[];
-};
+  attribute: string
+  values: string[]
+}
 
 interface DataAttributesTableProps {
-  data: KeyboardDef[];
+  data: KeyboardDef[]
 }
-const props = defineProps<DataAttributesTableProps>();
+const props = defineProps<DataAttributesTableProps>()
 </script>
 
 <template>
@@ -32,7 +32,7 @@ const props = defineProps<DataAttributesTableProps>();
           </ProseCodeInline>
         </ProseTd>
         <ProseTd class="">
-          <ProseCodeInline variant="secondary" v-if="Array.isArray(prop.values)">
+          <ProseCodeInline v-if="Array.isArray(prop.values)" variant="secondary">
             <span v-for="(value, propIndex) in prop.values" :key="value">
               {{ propIndex + 1 !== prop.values.length ? `"${value}" | ` : `"${value}"` }}
             </span>

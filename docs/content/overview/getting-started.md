@@ -37,7 +37,7 @@ Import and structure the parts.
 ```vue
 <!-- Popover.vue -->
 <script setup lang="ts">
-import { PopoverRoot, PopoverTrigger, PopoverPortal, PopoverContent, PopoverArrow, PopoverClose } from "radix-vue";
+import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
 </script>
 
 <template>
@@ -61,7 +61,9 @@ Add styles where desired.
 ```vue
 <template>
   <PopoverRoot>
-    <PopoverTrigger class="PopoverTrigger">More info</PopoverTrigger>
+    <PopoverTrigger class="PopoverTrigger">
+      More info
+    </PopoverTrigger>
     <PopoverPortal>
       <PopoverContent class="PopoverContent">
         Some more info...
@@ -121,8 +123,8 @@ In `nuxt.config.ts`, simply add `radix-vue/nuxt` into the modules, and it will a
 
 ```ts
 export default defineNuxtConfig({
-  modules: ["radix-vue/nuxt"],
-});
+  modules: ['radix-vue/nuxt'],
+})
 ```
 
 ## Summary

@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { format } from "date-fns";
+import { format } from 'date-fns'
+
 function formatDate(dateString: string) {
-  const date = new Date(dateString);
-  return format(date, "MMMM d, yyyy");
+  const date = new Date(dateString)
+  return format(date, 'MMMM d, yyyy')
 }
 </script>
 
@@ -14,10 +15,14 @@ function formatDate(dateString: string) {
           <h2 class="text-3xl font-semibold">
             {{ formatDate(release.date) }}
           </h2>
-          <div class="rounded-full bg-neutral-800 px-2">{{ release.name }}</div>
+          <div class="rounded-full bg-neutral-800 px-2">
+            {{ release.name }}
+          </div>
         </div>
         <div>
-          <h3 class="sr-only">Description</h3>
+          <h3 class="sr-only">
+            Description
+          </h3>
 
           <ContentRenderer :value="release">
             <template #empty>

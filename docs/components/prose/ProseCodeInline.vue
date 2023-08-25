@@ -1,11 +1,11 @@
 <script setup lang="ts">
 interface ProseCodeInlineProps {
-  variant?: "primary" | "secondary";
+  variant?: 'primary' | 'secondary'
 }
 
 const props = withDefaults(defineProps<ProseCodeInlineProps>(), {
-  variant: "primary",
-});
+  variant: 'primary',
+})
 </script>
 
 <template>

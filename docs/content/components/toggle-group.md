@@ -59,7 +59,7 @@ Import the component.
 
 ```vue
 <script setup>
-import { ToggleGroupRoot, ToggleGroupItem } from "radix-vue";
+import { ToggleGroupItem, ToggleGroupRoot } from 'radix-vue'
 </script>
 
 <template>
@@ -213,13 +213,14 @@ You can control the component to ensure a value.
 
 ```vue line=4,8
 <script setup>
-import { ref } from "vue";
-import { ToggleGroupRoot, ToggleGroupItem } from "radix-vue";
-const value = ref("left");
+import { ref } from 'vue'
+import { ToggleGroupItem, ToggleGroupRoot } from 'radix-vue'
+
+const value = ref('left')
 </script>
 
 <template>
-  <ToggleGroupRoot type="single" v-model="value">
+  <ToggleGroupRoot v-model="value" type="single">
     <ToggleGroupItem value="left">
       <TextAlignLeftIcon />
     </ToggleGroupItem>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-import { ref } from "vue";
+import { Icon } from '@iconify/vue'
+import { ref } from 'vue'
 import {
   MenubarCheckboxItem,
   MenubarContent,
@@ -16,18 +16,18 @@ import {
   MenubarSubContent,
   MenubarSubTrigger,
   MenubarTrigger,
-} from "radix-vue";
+} from 'radix-vue'
 
-const currentMenu = ref("");
-const checkboxOne = ref(false);
-const checkboxTwo = ref(false);
-const person = ref("pedro");
+const currentMenu = ref('')
+const checkboxOne = ref(false)
+const checkboxTwo = ref(false)
+const person = ref('pedro')
 function handleClick() {
-  alert("hello!");
+  alert('hello!')
 }
 
-const RADIO_ITEMS = ["Andy", "Benoît", "Luis"];
-const CHECK_ITEMS = ["Always Show Bookmarks Bar", "Always Show Full URLs"];
+const RADIO_ITEMS = ['Andy', 'Benoît', 'Luis']
+const CHECK_ITEMS = ['Always Show Bookmarks Bar', 'Always Show Full URLs']
 </script>
 
 <template>

@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { ProseTh, ProseTd, ProseTr, ProseCodeInline, ProseTable, ProseThead, ProseTbody } from "../prose";
+import { ProseCodeInline, ProseTable, ProseTbody, ProseTd, ProseTh, ProseThead, ProseTr } from '../prose'
 
 type KeyboardDef = {
-  cssVariable: string;
-  description: string[];
-};
+  cssVariable: string
+  description: string[]
+}
 
 interface DataAttributesTableProps {
-  data: KeyboardDef[];
+  data: KeyboardDef[]
 }
-const props = defineProps<DataAttributesTableProps>();
+const props = defineProps<DataAttributesTableProps>()
 </script>
 
 <template>

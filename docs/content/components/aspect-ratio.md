@@ -55,7 +55,7 @@ Import the component.
 
 ```vue
 <script setup>
-import { AspectRatio } from "radix-vue";
+import { AspectRatio } from 'radix-vue'
 </script>
 
 <template>

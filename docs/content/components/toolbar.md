@@ -54,13 +54,13 @@ Import the component.
 ```vue
 <script setup lang="ts">
 import {
-  ToolbarRoot,
-  ToolbarToggleGroup,
-  ToolbarToggleItem,
-  ToolbarSeparator,
   ToolbarButton,
   ToolbarLink,
-} from "radix-vue";
+  ToolbarRoot,
+  ToolbarSeparator,
+  ToolbarToggleGroup,
+  ToolbarToggleItem,
+} from 'radix-vue'
 </script>
 
 <template>
@@ -306,16 +306,16 @@ Here is an example using our `DropdownMenu` primitive.
 ```vue line=21-23
 <script setup lang="ts">
 import {
-  ToolbarRoot,
-  ToolbarToggleGroup,
-  ToolbarToggleItem,
-  ToolbarSeparator,
-  ToolbarButton,
-  ToolbarLink,
+  DropdownMenuContent,
   DropdownMenuRoot,
   DropdownMenuTrigger,
-  DropdownMenuContent,
-} from "radix-vue";
+  ToolbarButton,
+  ToolbarLink,
+  ToolbarRoot,
+  ToolbarSeparator,
+  ToolbarToggleGroup,
+  ToolbarToggleItem,
+} from 'radix-vue'
 </script>
 
 <template>
@@ -323,7 +323,7 @@ import {
     <ToolbarButton>Action 1</ToolbarButton>
     <ToolbarSeparator />
     <DropdownMenuRoot>
-      <ToolbarButton asChild>
+      <ToolbarButton as-child>
         <DropdownMenuTrigger>Trigger</DropdownMenuTrigger>
       </ToolbarButton>
       <DropdownMenuContent>…</DropdownMenuContent>

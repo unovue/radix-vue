@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ScrollAreaRoot, ScrollAreaViewport, ScrollAreaScrollbar, ScrollAreaThumb } from "radix-vue";
+import { ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from 'radix-vue'
 
-const tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length - i}`);
+const tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length - i}`)
 </script>
 
 <template>
@@ -11,7 +11,9 @@ const tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length
   >
     <ScrollAreaViewport class="w-full h-full rounded">
       <div class="py-[15px] px-5">
-        <div class="text-grass11 text-[15px] leading-[18px] font-semibold">Tags</div>
+        <div class="text-grass11 text-[15px] leading-[18px] font-semibold">
+          Tags
+        </div>
         <div
           v-for="tag in tags"
           :key="tag"

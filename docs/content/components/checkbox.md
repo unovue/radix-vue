@@ -58,7 +58,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { CheckboxRoot, CheckboxIndicator } from "radix-vue";
+import { CheckboxIndicator, CheckboxRoot } from 'radix-vue'
 </script>
 
 <template>
@@ -180,17 +180,17 @@ You can set the checkbox to `indeterminate` by taking control of its state.
 
 ```vue line=5,9-14,16-21
 <script setup>
-import { Icon } from "@iconify/vue";
-import { CheckboxRoot, CheckboxIndicator } from "radix-vue";
+import { Icon } from '@iconify/vue'
+import { CheckboxIndicator, CheckboxRoot } from 'radix-vue'
 
-const checked = ref("indeterminate");
+const checked = ref('indeterminate')
 </script>
 
 <template>
   <StyledCheckbox v-model:checked="checked">
     <Icon icon="radix-icons:checkbox-indicator">
-      <Icon icon="radix-icons:divider-horizontal" v-if="checked === 'indeterminate'" />
-      <Icon icon="radix-icons:check" v-if="checked" />
+      <Icon v-if="checked === 'indeterminate'" icon="radix-icons:divider-horizontal" />
+      <Icon v-if="checked" icon="radix-icons:check" />
     </Icon>
   </StyledCheckbox>
 

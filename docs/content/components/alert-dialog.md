@@ -70,7 +70,7 @@ import {
   AlertDialogRoot,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "radix-vue";
+} from 'radix-vue'
 </script>
 
 <template>
@@ -280,11 +280,12 @@ import {
   AlertDialogRoot,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "radix-vue";
+} from 'radix-vue'
 
-const wait = () => new Promise((resolve) => setTimeout(resolve, 1000));
-const open = ref(false);
+const wait = () => new Promise(resolve => setTimeout(resolve, 1000))
+const open = ref(false)
 </script>
+
 <template>
   <AlertDialogRoot v-model:open="open">
     <AlertDialogTrigger>Open</AlertDialogTrigger>
@@ -300,7 +301,9 @@ const open = ref(false);
           "
         >
           <!-- some inputs -->
-          <button type="submit">Submit</button>
+          <button type="submit">
+            Submit
+          </button>
         </form>
       </AlertDialogContent>
     </AlertDialogPortal>
@@ -316,22 +319,22 @@ Customise the element that your alert dialog portals into.
 
 ```vue line=4,17
 <script setup>
-import { ref } from "vue";
+import { ref } from 'vue'
 
-const container = ref(null);
+const container = ref(null)
 </script>
 
 <template>
   <div>
     <AlertDialogRoot>
       <AlertDialogTrigger />
-      <AlertDialogPortal :container="container">
+      <AlertDialogPortal :to="container">
         <AlertDialogOverlay />
         <AlertDialogContent>...</AlertDialogContent>
       </AlertDialogPortal>
     </AlertDialogRoot>
 
-    <div ref="Container" />
+    <div ref="container" />
   </div>
 </template>
 ```

@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { PopoverRoot, PopoverTrigger, PopoverPortal, PopoverContent, PopoverArrow, PopoverClose } from "radix-vue";
-import { Icon } from "@iconify/vue";
-import { ref } from "vue";
+import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
+import { Icon } from '@iconify/vue'
+import { ref } from 'vue'
 
-const toggleState = ref(false);
+const toggleState = ref(false)
 </script>
 
 <template>
   <div class="absolute left-4 top-3 text-sm">
     <p>Value: {{ toggleState ? "checked" : "unchecked" }}</p>
     <button
-      @click="toggleState = !toggleState"
       class="bg-white/20 px-2 py-1 rounded-md active:scale-90 duration-100 transform hover:bg-white/40 active:bg-white/20"
+      @click="toggleState = !toggleState"
     >
       {{ toggleState ? "Close" : "Open" }}
     </button>
@@ -24,42 +24,45 @@ const toggleState = ref(false);
       <Icon icon="radix-icons:mixer-horizontal" />
     </PopoverTrigger>
     <PopoverPortal>
-      <PopoverContent side="bottom"
+      <PopoverContent
+        side="bottom"
         class="rounded p-5 w-[260px] bg-white shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2)] focus:shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2),0_0_0_2px_theme(colors.violet7)] will-change-[transform,opacity] data-[state=open]:data-[side=top]:animate-slideDownAndFade data-[state=open]:data-[side=right]:animate-slideLeftAndFade data-[state=open]:data-[side=bottom]:animate-slideUpAndFade data-[state=open]:data-[side=left]:animate-slideRightAndFade"
       >
         <div class="flex flex-col gap-2.5">
-          <p class="text-mauve12 text-[15px] leading-[19px] font-medium mb-2.5">Dimensions</p>
+          <p class="text-mauve12 text-[15px] leading-[19px] font-medium mb-2.5">
+            Dimensions
+          </p>
           <fieldset class="flex gap-5 items-center">
             <label class="text-[13px] text-violet11 w-[75px]" for="width"> Width </label>
             <input
-              class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-violet11 shadow-[0_0_0_1px] shadow-violet7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-violet8 outline-none"
               id="width"
+              class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-violet11 shadow-[0_0_0_1px] shadow-violet7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-violet8 outline-none"
               defaultValue="100%"
-            />
+            >
           </fieldset>
           <fieldset class="flex gap-5 items-center">
             <label class="text-[13px] text-violet11 w-[75px]" for="maxWidth"> Max. width </label>
             <input
-              class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-violet11 shadow-[0_0_0_1px] shadow-violet7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-violet8 outline-none"
               id="maxWidth"
+              class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-violet11 shadow-[0_0_0_1px] shadow-violet7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-violet8 outline-none"
               defaultValue="300px"
-            />
+            >
           </fieldset>
           <fieldset class="flex gap-5 items-center">
             <label class="text-[13px] text-violet11 w-[75px]" for="height"> Height </label>
             <input
-              class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-violet11 shadow-[0_0_0_1px] shadow-violet7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-violet8 outline-none"
               id="height"
+              class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-violet11 shadow-[0_0_0_1px] shadow-violet7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-violet8 outline-none"
               defaultValue="25px"
-            />
+            >
           </fieldset>
           <fieldset class="flex gap-5 items-center">
             <label class="text-[13px] text-violet11 w-[75px]" for="maxHeight"> Max. height </label>
             <input
-              class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-violet11 shadow-[0_0_0_1px] shadow-violet7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-violet8 outline-none"
               id="maxHeight"
+              class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-violet11 shadow-[0_0_0_1px] shadow-violet7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-violet8 outline-none"
               defaultValue="none"
-            />
+            >
           </fieldset>
         </div>
         <PopoverClose

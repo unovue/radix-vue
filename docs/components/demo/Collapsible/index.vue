@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { CollapsibleRoot, CollapsibleTrigger, CollapsibleContent } from "radix-vue";
-import { Icon } from "@iconify/vue";
+import { ref } from 'vue'
+import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from 'radix-vue'
+import { Icon } from '@iconify/vue'
 
-const rootOpen = ref(false);
-const rootDisabled = ref(false);
-const open = ref(false);
+const rootOpen = ref(false)
+const rootDisabled = ref(false)
+const open = ref(false)
 </script>
 
 <template>
-  <CollapsibleRoot class="w-[300px]" v-model:open="rootOpen" :disabled="rootDisabled">
+  <CollapsibleRoot v-model:open="rootOpen" class="w-[300px]" :disabled="rootDisabled">
     <div style="display: flex; align-items: center; justify-content: space-between">
       <span class="text-white text-[15px] leading-[25px]"> @peduarte starred 3 repos </span>
       <CollapsibleTrigger

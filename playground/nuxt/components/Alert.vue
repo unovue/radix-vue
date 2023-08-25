@@ -5,12 +5,12 @@ const props = defineProps({
    */
   type: {
     type: String,
-    default: "info",
+    default: 'info',
     validator(value: string) {
-      return ["info", "success", "warning", "danger", "primary"].includes(value);
+      return ['info', 'success', 'warning', 'danger', 'primary'].includes(value)
     },
   },
-});
+})
 </script>
 
 <template>

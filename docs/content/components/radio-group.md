@@ -58,7 +58,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { RadioGroupRoot, RadioGroupItem, RadioGroupIndicator } from "radix-vue";
+import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from 'radix-vue'
 </script>
 
 <template>

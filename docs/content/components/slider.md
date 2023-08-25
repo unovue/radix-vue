@@ -61,7 +61,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { SliderRoot, SliderTrack, SliderRange, SliderThumb } from "radix-vue";
+import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue'
 </script>
 
 <template>
@@ -294,12 +294,12 @@ Use the `orientation` prop to create a vertical slider.
 ```vue line=8-12
 // index.vue
 <script setup>
-import { SliderRoot, SliderTrack, SliderRange, SliderThumb } from "radix-vue";
-import "./styles.css";
+import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue'
+import './styles.css'
 </script>
 
 <template>
-  <SliderRoot class="SliderRoot" :defaultValue="[50]" orientation="vertical">
+  <SliderRoot class="SliderRoot" :default-value="[50]" orientation="vertical">
     <SliderTrack class="SliderTrack">
       <SliderRange class="SliderRange" />
     </SliderTrack>
@@ -353,12 +353,12 @@ Add multiple thumbs and values to create a range slider.
 ```vue line=8,12-13
 // index.vue
 <script setup>
-import { SliderRoot, SliderTrack, SliderRange, SliderThumb } from "radix-vue";
-import "./styles.css";
+import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue'
+import './styles.css'
 </script>
 
 <template>
-  <SliderRoot :defaultValue="[25, 75]">
+  <SliderRoot :default-value="[25, 75]">
     <SliderTrack>
       <SliderRange />
     </SliderTrack>
@@ -375,12 +375,12 @@ Use the `step` prop to increase the stepping interval.
 ```vue line=8
 // index.vue
 <script setup>
-import { SliderRoot, SliderTrack, SliderRange, SliderThumb } from "radix-vue";
-import "./styles.css";
+import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue'
+import './styles.css'
 </script>
 
 <template>
-  <SliderRoot :defaultValue="[50]" :step="10">
+  <SliderRoot :default-value="[50]" :step="10">
     <SliderTrack>
       <SliderRange />
     </SliderTrack>
@@ -396,12 +396,12 @@ Use `minStepsBetweenThumbs` to avoid thumbs with equal values.
 ```vue line=8-12
 // index.vue
 <script setup>
-import { SliderRoot, SliderTrack, SliderRange, SliderThumb } from "radix-vue";
-import "./styles.css";
+import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue'
+import './styles.css'
 </script>
 
 <template>
-  <SliderRoot :defaultValue="[25, 75]" :step="10" :minStepsBetweenThumbs="1">
+  <SliderRoot :default-value="[25, 75]" :step="10" :min-steps-between-thumbs="1">
     <SliderTrack>
       <SliderRange />
     </SliderTrack>

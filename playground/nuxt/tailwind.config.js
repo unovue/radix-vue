@@ -1,12 +1,9 @@
-const { blackA, green, grass, mauve, violet, red, teal, cyan, indigo, purple } = require('@radix-ui/colors')
+const { blackA, green, mauve, violet, red, indigo, purple } = require('@radix-ui/colors')
+const plugin = require('tailwindcss/plugin')
 
-module.exports = {
-  darkMode: 'class',
-  content: ['.vitepress/**/*.{js,ts,vue}', './docs/**/*.md', './components/**/*.vue'],
-  options: {
-    safelist: ['html'],
-  },
-  important: true,
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
@@ -15,9 +12,6 @@ module.exports = {
         ...violet,
         ...green,
         ...red,
-        ...grass,
-        ...teal,
-        ...cyan,
         ...indigo,
         ...purple,
       },
@@ -107,4 +101,13 @@ module.exports = {
       },
     },
   },
+  plugins: [
+    plugin(({ matchUtilities }) => {
+      matchUtilities({
+        perspective: value => ({
+          perspective: value,
+        }),
+      })
+    }),
+  ],
 }

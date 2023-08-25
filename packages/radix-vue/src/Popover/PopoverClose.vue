@@ -1,27 +1,27 @@
-<script lang="ts">
-export interface PopoverCloseProps {
-  asChild?: boolean;
-}
-</script>
-
 <script setup lang="ts">
-import { inject } from "vue";
-import { PrimitiveButton } from "@/Primitive";
+import { inject } from 'vue'
 import {
   POPOVER_INJECTION_KEY,
   type PopoverProvideValue,
-} from "./PopoverRoot.vue";
+} from './PopoverRoot.vue'
+import { Primitive, type PrimitiveProps } from '@/Primitive'
 
-const injectedValue = inject<PopoverProvideValue>(POPOVER_INJECTION_KEY);
+const props = withDefaults(defineProps<PopoverCloseProps>(), {
+  as: 'button',
+})
+
+const context = inject<PopoverProvideValue>(POPOVER_INJECTION_KEY)
+
+export interface PopoverCloseProps extends PrimitiveProps {}
 </script>
 
 <template>
-  <PrimitiveButton
-    type="button"
-    :aria-expanded="injectedValue?.open.value || false"
-    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
-    @click="injectedValue?.hidePopover"
+  <Primitive
+    :type="as === 'button' ? 'button' : undefined"
+    :as="as"
+    :as-child="props.asChild"
+    @click="context?.onOpenChange(false)"
   >
     <slot />
-  </PrimitiveButton>
+  </Primitive>
 </template>

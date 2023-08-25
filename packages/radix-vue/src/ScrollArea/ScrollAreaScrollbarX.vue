@@ -1,50 +1,40 @@
 <script setup lang="ts">
-import { computed, inject, onMounted } from "vue";
-import {
+import { computed, inject, onMounted } from 'vue'
+import { SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY } from './ScrollAreaScrollbarVisible.vue'
+import { SCROLL_AREA_INJECTION_KEY } from './ScrollAreaRoot.vue'
+import ScrollAreaScrollbarImpl from './ScrollAreaScrollbarImpl.vue'
+import { getThumbSize } from './utils'
+import { usePrimitiveElement } from '@/Primitive'
+
+const rootContext = inject(SCROLL_AREA_INJECTION_KEY)
+
+const scrollbarVisibleContext = inject(
   SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY,
-  type ScrollAreaScrollbarVisibleProvideValue,
-} from "./ScrollAreaScrollbarVisible.vue";
-import {
-  SCROLL_AREA_INJECTION_KEY,
-  type ScrollAreaProvideValue,
-} from "./ScrollAreaRoot.vue";
-import ScrollAreaScrollbarImpl from "./ScrollAreaScrollbarImpl.vue";
-import { getThumbSize } from "./utils";
-import { usePrimitiveElement } from "@/Primitive";
+)
 
-const injectedValueFromRoot = inject<ScrollAreaProvideValue>(
-  SCROLL_AREA_INJECTION_KEY
-);
-
-const injectedValueFromScrollbarVisible =
-  inject<ScrollAreaScrollbarVisibleProvideValue>(
-    SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY
-  );
-
-const { primitiveElement, currentElement: scrollbarElement } =
-  usePrimitiveElement();
+const { primitiveElement, currentElement: scrollbarElement }
+  = usePrimitiveElement()
 
 onMounted(() => {
   if (scrollbarElement.value)
-    injectedValueFromRoot?.onScrollbarYChange(scrollbarElement.value);
-});
-
-const sizes = computed(() => injectedValueFromScrollbarVisible?.sizes.value);
+    rootContext?.onScrollbarXChange(scrollbarElement.value)
+})
+const sizes = computed(() => scrollbarVisibleContext?.sizes.value)
 </script>
 
 <template>
   <ScrollAreaScrollbarImpl
+    ref="primitiveElement"
     :is-horizontal="true"
     data-orientation="horizontal"
-    ref="primitiveElement"
-    @on-drag-scroll="injectedValueFromScrollbarVisible?.onDragScroll($event.x)"
     :style="{
-        bottom: 0,
-        left: injectedValueFromRoot?.dir === 'rtl' ? 'var(--radix-scroll-area-corner-width)' : 0,
-        right: injectedValueFromRoot?.dir === 'ltr' ? 'var(--radix-scroll-area-corner-width)' : 0,
-        ['--radix-scroll-area-thumb-width' as any]: sizes ? getThumbSize(sizes) + 'px' : undefined,
-      }"
+      bottom: 0,
+      left: rootContext?.dir?.value === 'rtl' ? 'var(--radix-scroll-area-corner-width)' : 0,
+      right: rootContext?.dir?.value === 'ltr' ? 'var(--radix-scroll-area-corner-width)' : 0,
+      ['--radix-scroll-area-thumb-width' as any]: sizes ? `${getThumbSize(sizes)}px` : undefined,
+    }"
+    @on-drag-scroll="scrollbarVisibleContext?.onDragScroll($event.x)"
   >
-    <slot></slot>
+    <slot />
   </ScrollAreaScrollbarImpl>
 </template>

@@ -1,96 +1,87 @@
 <script lang="ts">
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
-import type { DataOrientation, Direction } from "@/shared/types";
-import { useVModel } from "@vueuse/core";
-import type { ComputedRef, Ref } from "vue";
+import {
+  Primitive,
+  type PrimitiveProps,
+} from '@/Primitive'
+import type { DataOrientation, Direction } from '@/shared/types'
+import { useVModel } from '@vueuse/core'
+import type { InjectionKey, Ref } from 'vue'
 
-export interface RadioGroupRootProps {
-  asChild?: boolean;
-  modelValue?: string | string[];
-  onValueChange?: (value: string) => void;
-  defaultValue?: string;
-  value?: string;
-  disabled?: boolean;
-  name?: string;
-  required?: boolean;
-  orientation?: DataOrientation;
-  dir?: Direction;
-  loop?: boolean;
+export interface RadioGroupRootProps extends PrimitiveProps {
+  modelValue?: string
+  defaultValue?: string
+  disabled?: boolean
+  name?: string
+  required?: boolean
+  orientation?: DataOrientation
+  dir?: Direction
+  loop?: boolean
+}
+export type RadioGroupRootEmits = {
+  'update:modelValue': [payload: string]
 }
 
-export const RADIO_GROUP_INJECTION_KEY = "RadioGroup" as const;
-
-export interface RadioGroupProvideValue {
-  modelValue?: Readonly<Ref<string | string[] | undefined>>;
-  changeModelValue: (value?: string) => void;
-  parentElement: Ref<HTMLElement | undefined>;
-  currentFocusedElement?: Ref<HTMLElement | undefined>;
-  disabled: Ref<boolean>;
-  loop: Ref<boolean>;
-  orientation: Ref<DataOrientation | undefined>;
-  name?: string;
-  required: Ref<boolean>;
+interface RadioGroupProvideValue {
+  modelValue?: Readonly<Ref<string | undefined>>
+  changeModelValue: (value?: string) => void
+  disabled: Ref<boolean>
+  loop: Ref<boolean>
+  orientation: Ref<DataOrientation | undefined>
+  name?: string
+  required: Ref<boolean>
 }
 
-export const RADIO_ITEM_INJECTION_KEY = Symbol();
-
-export interface RadioItemProvideValue {
-  disabled: ComputedRef<boolean>;
-  checked: ComputedRef<boolean>;
-}
+export const RADIO_GROUP_INJECTION_KEY
+  = Symbol() as InjectionKey<RadioGroupProvideValue>
 </script>
 
 <script setup lang="ts">
-import { provide, ref } from "vue";
+import { provide, toRefs } from 'vue'
+import { RovingFocusGroup } from '@/RovingFocus'
 
 const props = withDefaults(defineProps<RadioGroupRootProps>(), {
-  asChild: false,
   disabled: false,
   required: false,
   orientation: undefined,
-  dir: "ltr",
+  dir: 'ltr',
   loop: true,
-});
+})
 
-const emits = defineEmits(["update:modelValue"]);
+const emits = defineEmits<RadioGroupRootEmits>()
 
-const { primitiveElement, currentElement: parentElement } =
-  usePrimitiveElement();
-
-const modelValue = useVModel(props, "modelValue", emits, {
+const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
   passive: true,
-});
+})
 
+const { disabled, loop, orientation, name, required } = toRefs(props)
 provide<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY, {
   modelValue,
   changeModelValue: (value?: string) => {
-    modelValue.value = value;
-    if (value && props.onValueChange) {
-      props.onValueChange(value);
-    }
+    modelValue.value = value
   },
-  parentElement,
-  currentFocusedElement: ref(),
-  disabled: ref(props.disabled),
-  loop: ref(props.loop),
-  orientation: ref(props.orientation),
-  name: props.name,
-  required: ref(props.required),
-});
+  disabled,
+  loop,
+  orientation,
+  name: name?.value,
+  required,
+})
 </script>
 
 <template>
-  <PrimitiveDiv
-    :asChild="props.asChild"
-    ref="primitiveElement"
-    role="radiogroup"
-    :data-disabled="props.disabled ? '' : undefined"
-    :required="props.required"
-    :aria-required="props.required"
-    :dir="props.dir"
-    :name="props.name"
-  >
-    <slot />
-  </PrimitiveDiv>
+  <RovingFocusGroup as-child :orientation="orientation" :dir="dir" :loop="loop">
+    <Primitive
+      role="radiogroup"
+      :data-disabled="disabled ? '' : undefined"
+      :as-child="asChild"
+      :as="as"
+      :required="required"
+      :aria-orientation="orientation"
+      :aria-required="required"
+      :dir="dir"
+      :name="name"
+    >
+      <slot />
+    </Primitive>
+  </RovingFocusGroup>
 </template>

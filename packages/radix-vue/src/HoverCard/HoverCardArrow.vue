@@ -1,7 +1,12 @@
 <script setup lang="ts">
-import { PopperArrow } from "@/Popper";
+import { PopperArrow, type PopperArrowProps } from '@/Popper'
+
+export interface HoverCardArrowProps extends PopperArrowProps {}
+const props = defineProps<HoverCardArrowProps>()
 </script>
 
 <template>
-  <PopperArrow></PopperArrow>
+  <PopperArrow v-bind="props">
+    <slot />
+  </PopperArrow>
 </template>

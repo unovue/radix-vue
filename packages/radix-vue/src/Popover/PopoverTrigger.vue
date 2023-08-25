@@ -1,46 +1,47 @@
-<script lang="ts">
-export interface PopoverTriggerProps {
-  asChild?: boolean;
-}
-</script>
-
 <script setup lang="ts">
-import { inject, onMounted } from "vue";
-import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
-import { PopperAnchor } from "@/Popper";
+import { inject, onMounted } from 'vue'
+import { POPOVER_INJECTION_KEY } from './PopoverRoot.vue'
 import {
-  POPOVER_INJECTION_KEY,
-  type PopoverProvideValue,
-} from "./PopoverRoot.vue";
+  Primitive,
+  type PrimitiveProps,
+  usePrimitiveElement,
+} from '@/Primitive'
+import { PopperAnchor } from '@/Popper'
 
-const injectedValue = inject<PopoverProvideValue>(POPOVER_INJECTION_KEY);
+export interface PopoverTriggerProps extends PrimitiveProps {}
+const props = withDefaults(defineProps<PopoverTriggerProps>(), {
+  as: 'button',
+})
 
-const { primitiveElement, currentElement: triggerElement } =
-  usePrimitiveElement();
+const context = inject(POPOVER_INJECTION_KEY)
+
+const { primitiveElement, currentElement: triggerElement }
+  = usePrimitiveElement()
 
 onMounted(() => {
-  injectedValue!.triggerElement.value = triggerElement.value;
-});
+  context!.triggerElement.value = triggerElement.value
+})
 
-function handleClick() {
-  if (injectedValue?.open.value) {
-    injectedValue?.hidePopover();
-  } else {
-    injectedValue?.showPopover();
-  }
-}
+defineExpose({ $el: triggerElement })
 </script>
 
 <template>
-  <PopperAnchor asChild>
-    <PrimitiveButton
-      type="button"
+  <component
+    :is="context?.hasCustomAnchor.value ? Primitive : PopperAnchor"
+    as-child
+  >
+    <Primitive
       ref="primitiveElement"
-      :aria-expanded="injectedValue?.open.value || false"
-      :data-state="injectedValue?.open.value ? 'open' : 'closed'"
-      @click="handleClick"
+      :type="as === 'button' ? 'button' : undefined"
+      aria-haspopup="dialog"
+      :aria-expanded="context?.open.value"
+      :aria-controls="context?.contentId"
+      :data-state="context?.open.value ? 'open' : 'closed'"
+      :as="as"
+      :as-child="props.asChild"
+      @click="context!.onOpenToggle"
     >
       <slot />
-    </PrimitiveButton>
-  </PopperAnchor>
+    </Primitive>
+  </component>
 </template>

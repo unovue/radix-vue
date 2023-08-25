@@ -1,24 +1,48 @@
 <script setup lang="ts">
-import { inject, onMounted, ref } from "vue";
+import { inject, onMounted, ref } from 'vue'
+import { SCROLL_AREA_INJECTION_KEY } from './ScrollAreaRoot.vue'
 import {
-  type ScrollAreaProvideValue,
-  SCROLL_AREA_INJECTION_KEY,
-} from "./ScrollAreaRoot.vue";
+  Primitive,
+  type PrimitiveProps,
+  usePrimitiveElement,
+} from '@/Primitive'
 
-const injectedValueFromRoot = inject<ScrollAreaProvideValue>(
-  SCROLL_AREA_INJECTION_KEY
-);
+export interface ScrollAreaViewportProps extends PrimitiveProps {}
+const props = defineProps<ScrollAreaViewportProps>()
 
-const viewportElement = ref<HTMLElement>();
-const contentElement = ref<HTMLElement>();
+const rootContext = inject(SCROLL_AREA_INJECTION_KEY)
+
+const { primitiveElement, currentElement: contentElement }
+  = usePrimitiveElement()
+
+const viewportElement = ref<HTMLElement>()
 
 onMounted(() => {
-  injectedValueFromRoot?.onViewportChange(viewportElement.value!);
-  injectedValueFromRoot?.onContentChange(contentElement.value!);
-});
+  rootContext?.onViewportChange(viewportElement.value!)
+  rootContext?.onContentChange(contentElement.value!)
+})
+</script>
+
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+}
 </script>
 
 <template>
+  <Primitive as="style">
+    /* Hide scrollbars cross-browser and enable momentum scroll for touch
+    devices */
+    [data-radix-scroll-area-viewport] {
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+    -webkit-overflow-scrolling:touch;
+    }
+
+    [data-radix-scroll-area-viewport]::-webkit-scrollbar {
+    display:none;
+    }
+  </Primitive>
   <div
     ref="viewportElement"
     data-radix-scroll-area-viewport=""
@@ -34,28 +58,18 @@ onMounted(() => {
        * the browser from having to work out whether to render native scrollbars or not,
        * we tell it to with the intention of hiding them in CSS.
        */
-      overflowX: injectedValueFromRoot?.scrollbarXEnabled.value
-        ? 'scroll'
-        : 'hidden',
-      overflowY: injectedValueFromRoot?.scrollbarYEnabled.value
-        ? 'scroll'
-        : 'hidden',
+      overflowX: rootContext?.scrollbarXEnabled.value ? 'scroll' : 'hidden',
+      overflowY: rootContext?.scrollbarYEnabled.value ? 'scroll' : 'hidden',
     }"
+    v-bind="$attrs"
   >
-    <div ref="contentElement" :style="{ minWidth: '100%', display: 'table' }">
-      <slot></slot>
-    </div>
+    <Primitive
+      ref="primitiveElement"
+      :style="{ minWidth: '100%', display: 'table' }"
+      :as-child="props.asChild"
+      :as="as"
+    >
+      <slot />
+    </Primitive>
   </div>
 </template>
-
-<style>
-[data-radix-scroll-area-viewport] {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  -webkit-overflow-scrolling: touch;
-}
-
-[data-radix-scroll-area-viewport]::-webkit-scrollbar {
-  display: none;
-}
-</style>

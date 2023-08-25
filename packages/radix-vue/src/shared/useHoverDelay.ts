@@ -1,3 +1,4 @@
+// TODO - Migrate to useHover.ts
 /**
  * Tracks mouse hover within an element and resolves a promise when the hover ends or a timeout occurs.
  * @param {MouseEvent} e - The hover event.
@@ -8,33 +9,33 @@
 export async function useHoverDelay(
   e: MouseEvent,
   element: HTMLElement,
-  delayMs = 500
+  delayMs = 500,
 ): Promise<boolean> {
-  let isHovered = true;
-  let timeoutId: ReturnType<typeof setTimeout> | undefined;
-  let resolvePromise: (value: boolean) => void;
+  let isHovered = true
+  let timeoutId: ReturnType<typeof setTimeout> | undefined
+  let resolvePromise: (value: boolean) => void
 
   const timeoutPromise = new Promise<boolean>((resolve) => {
-    resolvePromise = resolve;
+    resolvePromise = resolve
     timeoutId = setTimeout(() => {
-      cleanupEvents();
-      resolve(isHovered);
-    }, delayMs);
-  });
+      cleanupEvents()
+      resolve(isHovered)
+    }, delayMs)
+  })
 
   function handleMouseleave() {
-    isHovered = false;
-    cleanupEvents();
-    clearTimeout(timeoutId);
-    timeoutId = undefined;
-    resolvePromise(false);
+    isHovered = false
+    cleanupEvents()
+    clearTimeout(timeoutId)
+    timeoutId = undefined
+    resolvePromise(false)
   }
 
   function cleanupEvents() {
-    element.removeEventListener("mouseleave", handleMouseleave);
+    element.removeEventListener('mouseleave', handleMouseleave)
   }
 
-  element.addEventListener("mouseleave", handleMouseleave);
+  element.addEventListener('mouseleave', handleMouseleave)
 
-  return timeoutPromise;
+  return timeoutPromise
 }

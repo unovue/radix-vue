@@ -1,56 +1,45 @@
 <script lang="ts">
-import type { Ref, InjectionKey } from "vue";
-import type { DataOrientation, Direction } from "../shared/types";
+import type { InjectionKey, Ref } from 'vue'
+import type { DataOrientation, Direction } from '@/shared/types'
 
-export interface ToolbarRootProps {
-  asChild?: boolean;
-  orientation?: DataOrientation;
-  dir?: Direction;
-  loop?: boolean;
+export interface ToolbarRootProps extends PrimitiveProps {
+  orientation?: DataOrientation
+  dir?: Direction
+  loop?: boolean
 }
 
-export const TOOLBAR_INJECTION_KEY =
-  Symbol() as InjectionKey<ToolbarProvideValue>;
+export const TOOLBAR_INJECTION_KEY
+  = Symbol() as InjectionKey<ToolbarProvideValue>
 
 export interface ToolbarProvideValue {
-  parentElement: Ref<HTMLElement | undefined>;
-  activeElement: Ref<HTMLElement | undefined>;
-  orientation: DataOrientation;
+  orientation: Ref<DataOrientation>
+  dir: Ref<Direction>
 }
 </script>
 
 <script setup lang="ts">
-import { ref, provide } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import { provide, toRefs } from 'vue'
+import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { RovingFocusGroup } from '@/RovingFocus'
 
 const props = withDefaults(defineProps<ToolbarRootProps>(), {
-  asChild: false,
-  orientation: "horizontal",
-  dir: "ltr",
-});
+  orientation: 'horizontal',
+  dir: 'ltr',
+})
+const { orientation, dir } = toRefs(props)
 
-const { primitiveElement, currentElement: parentElement } =
-  usePrimitiveElement();
-
-const activeElementRef = ref<HTMLElement>();
-
-provide<ToolbarProvideValue>(TOOLBAR_INJECTION_KEY, {
-  parentElement,
-  activeElement: activeElementRef,
-  orientation: props.orientation,
-});
+provide(TOOLBAR_INJECTION_KEY, { orientation, dir })
 </script>
 
 <template>
-  <PrimitiveDiv
-    ref="primitiveElement"
-    role="toolbar"
-    tabindex="0"
-    style="outline: none"
-    :aria-orientation="props.orientation"
-    :dir="props.dir"
-    :data-orientation="props.orientation"
-  >
-    <slot />
-  </PrimitiveDiv>
+  <RovingFocusGroup as-child :orientation="orientation" :dir="dir" :loop="loop">
+    <Primitive
+      role="toolbar"
+      :aria-orientation="orientation"
+      :as-child="asChild"
+      :as="as"
+    >
+      <slot />
+    </Primitive>
+  </RovingFocusGroup>
 </template>

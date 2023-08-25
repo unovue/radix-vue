@@ -1,39 +1,36 @@
 <script lang="ts">
-export interface TabsContentProps {
-  asChild?: boolean;
-  value?: string;
-  forceMount?: boolean;
+export interface TabsContentProps extends PrimitiveProps {
+  value?: string
+  forceMount?: boolean
 }
 </script>
 
 <script setup lang="ts">
-import { inject, computed } from "vue";
-import { PrimitiveDiv } from "@/Primitive";
-import { TABS_INJECTION_KEY } from "./TabsRoot.vue";
-import type { TabsProvideValue } from "./TabsRoot.vue";
+import { computed, inject } from 'vue'
+import { TABS_INJECTION_KEY } from './TabsRoot.vue'
+import { Primitive, type PrimitiveProps } from '@/Primitive'
 
-const injectedValue = inject<TabsProvideValue>(TABS_INJECTION_KEY);
+const props = defineProps<TabsContentProps>()
 
-const props = withDefaults(defineProps<TabsContentProps>(), {
-  asChild: false,
-});
+const injectedValue = inject(TABS_INJECTION_KEY)
 
-const dataState = computed<"active" | "inactive">(() => {
+const dataState = computed<'active' | 'inactive'>(() => {
   return injectedValue?.modelValue?.value === props.value
-    ? "active"
-    : "inactive";
-});
+    ? 'active'
+    : 'inactive'
+})
 </script>
 
 <template>
-  <PrimitiveDiv
-    :asChild="asChild"
+  <Primitive
     v-if="injectedValue?.modelValue?.value === props.value"
+    :as-child="props.asChild"
+    :as="as"
     role="tabpanel"
     :data-state="dataState"
     :data-orientation="injectedValue?.orientation"
     tabindex="0"
   >
     <slot />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

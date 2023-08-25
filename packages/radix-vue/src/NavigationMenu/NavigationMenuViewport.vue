@@ -1,90 +1,86 @@
 <script setup lang="ts">
-import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
-import { computed, inject, onMounted, ref, type VNode } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
-import { getOpenState } from "./utils";
-import { unrefElement, useResizeObserver } from "@vueuse/core";
-import { Presence } from "@/Presence";
-import NavigationMenuContentImpl from "./NavigationMenuContentImpl.vue";
+import {
+  computed,
+  inject,
+  nextTick,
+  ref,
+  watch,
+} from 'vue'
+import { useResizeObserver } from '@vueuse/core'
+import { NAVIGATION_MENU_INJECTION_KEY } from './NavigationMenuRoot.vue'
+import { getOpenState } from './utils'
+import {
+  Primitive,
+  type PrimitiveProps,
+  usePrimitiveElement,
+} from '@/Primitive'
+import { Presence } from '@/Presence'
 
-const { primitiveElement, currentElement } = usePrimitiveElement();
+export interface NavigationMenuViewportProps extends PrimitiveProps {}
+defineProps<NavigationMenuViewportProps>()
 
-const context = inject(NAVIGATION_MENU_INJECTION_KEY);
+const { primitiveElement, currentElement } = usePrimitiveElement()
 
-const size = ref<{ width: number; height: number }>();
+const context = inject(NAVIGATION_MENU_INJECTION_KEY)
 
-const open = computed(() => !!context?.modelValue.value);
+const size = ref<{ width: number; height: number }>()
+
+const open = computed(() => !!context?.modelValue.value)
 // We persist the last active content value as the viewport may be animating out
 // and we want the content to remain mounted for the lifecycle of the viewport.
-const activeContentValue = computed(() =>
-  open.value ? context!.modelValue.value : context!.previousValue.value
-);
+const activeContentValue = computed(() => context!.modelValue.value)
 
-onMounted(() => {
-  context!.onViewportChange(currentElement.value);
-});
+watch(currentElement, () => {
+  if (currentElement.value)
+    context!.onViewportChange(currentElement.value)
+})
 
-const viewportContentList = computed(() =>
-  // @ts-ignore
-  Array.from(context?.viewportContent.value.values())
-);
+const content = ref<HTMLElement>()
 
-const items = ref<InstanceType<typeof NavigationMenuContentImpl>[]>();
-const content = computed(() => {
-  const activeNode = items.value?.find(
-    (i) => i?.value === activeContentValue.value
-  );
-  // @ts-ignore
-  return unrefElement(activeNode?.$el);
-});
+watch([activeContentValue, open], async () => {
+  await nextTick()
+  if (!currentElement.value)
+    return
 
-const handleClose = (node: VNode) => {
-  context!.modelValue.value = "";
-  node.props?.triggerRef?.value?.focus();
-  node.props!.wasEscapeCloseRef.value = true;
-};
+  const el = (currentElement.value as HTMLElement).querySelector('[data-state=open]')?.children?.[0] as HTMLElement | undefined
+  content.value = el
+}, { immediate: true })
 
 useResizeObserver(content, () => {
   if (content.value) {
     size.value = {
       width: content.value.offsetWidth,
       height: content.value.offsetHeight,
-    };
+    }
   }
-});
+})
+</script>
 
-defineOptions({
+<script lang="ts">
+export default {
   inheritAttrs: false,
-});
+}
 </script>
 
 <template>
   <Presence :present="open">
-    <PrimitiveDiv
+    <Primitive
       v-bind="$attrs"
       ref="primitiveElement"
+      :as="as"
+      :as-child="asChild"
       :data-state="getOpenState(open)"
       :data-orientation="context?.orientation"
       :style="{
         // Prevent interaction when animating out
         pointerEvents: !open && context?.isRootMenu ? 'none' : undefined,
-        ['--radix-navigation-menu-viewport-width' as any]: size ? size?.width + 'px' : undefined,
-        ['--radix-navigation-menu-viewport-height' as any]: size ? size?.height + 'px' : undefined,
+        ['--radix-navigation-menu-viewport-width' as any]: size ? `${size?.width}px` : undefined,
+        ['--radix-navigation-menu-viewport-height' as any]: size ? `${size?.height}px` : undefined,
       }"
-      @pointerenter="context?.onContentEnter(activeContentValue)"
+      @pointerenter="context?.onContentEnter(context!.modelValue.value)"
       @pointerleave="context?.onContentLeave()"
     >
-      <template v-for="node in viewportContentList" :key="node.props?.value">
-        <Presence :present="activeContentValue === node.props?.value">
-          <NavigationMenuContentImpl
-            ref="items"
-            v-bind="{ ...node.props, ...node.parentProps }"
-            @escape="handleClose(node)"
-          >
-            <component :is="node"></component>
-          </NavigationMenuContentImpl>
-        </Presence>
-      </template>
-    </PrimitiveDiv>
+      <slot />
+    </Primitive>
   </Presence>
 </template>

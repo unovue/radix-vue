@@ -1,54 +1,101 @@
-<script setup lang="ts">
-import { inject, onMounted } from "vue";
-import { PrimitiveButton } from "@/Primitive";
-import {
-  CONTEXT_MENU_INJECTION_KEY,
-  type ContextMenuProvideValue,
-} from "./ContextMenuRoot.vue";
-import { PopperAnchor } from "@/Popper";
+<script lang="ts">
+export interface ContextMenuTriggerProps extends PrimitiveProps {
+  disabled?: boolean
+}
+export default {
+  inheritAttrs: false,
+}
+</script>
 
-const injectedValue = inject<ContextMenuProvideValue>(
-  CONTEXT_MENU_INJECTION_KEY
-);
-const virtualEl = {
-  getBoundingClientRect() {
-    return {
+<script setup lang="ts">
+import { computed, inject, nextTick, ref, toRefs } from 'vue'
+import { CONTEXT_MENU_INJECTION_KEY } from './ContextMenuRoot.vue'
+import { isTouchOrPen } from './utils'
+import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { MenuAnchor } from '@/Menu'
+import type { Point } from '@/Menu/utils'
+
+const props = withDefaults(defineProps<ContextMenuTriggerProps>(), {
+  as: 'span',
+  disabled: false,
+})
+const { disabled } = toRefs(props)
+
+const context = inject(CONTEXT_MENU_INJECTION_KEY)
+const point = ref<Point>({ x: 0, y: 0 })
+const virtualEl = computed(() => ({
+  getBoundingClientRect: () =>
+    ({
       width: 0,
       height: 0,
-      x: injectedValue?.clientX.value,
-      y: injectedValue?.clientY.value,
-      top: injectedValue?.clientY.value,
-      left: injectedValue?.clientX.value,
-      right: injectedValue?.clientX.value,
-      bottom: injectedValue?.clientY.value,
-    };
-  },
-} as HTMLElement;
+      left: point.value.x,
+      right: point.value.x,
+      top: point.value.y,
+      bottom: point.value.y,
+      ...point.value,
+    } as DOMRect),
+}))
 
-function handleContextMenu(e: MouseEvent) {
-  if (injectedValue?.modelValue.value) {
-    injectedValue?.hideTooltip();
-  } else {
-    injectedValue!.clientX.value = e.clientX;
-    injectedValue!.clientY.value = e.clientY;
-    injectedValue?.showTooltip();
+const longPressTimer = ref(0)
+function clearLongPress() {
+  window.clearTimeout(longPressTimer.value)
+}
+
+function handleOpen(event: MouseEvent | PointerEvent) {
+  point.value = { x: event.clientX, y: event.clientY }
+  context?.onOpenChange(true)
+}
+
+async function handleContextMenu(event: PointerEvent) {
+  if (!disabled.value) {
+    await nextTick()
+    if (!event.defaultPrevented) {
+      clearLongPress()
+      handleOpen(event)
+      event.preventDefault()
+    }
   }
 }
 
-onMounted(() => {
-  injectedValue!.triggerElement.value = virtualEl;
-});
+async function handlePointerDown(event: PointerEvent) {
+  if (!disabled.value) {
+    await nextTick()
+
+    if (isTouchOrPen(event) && !event.defaultPrevented) {
+      // clear the long press here in case there's multiple touch points
+      clearLongPress()
+      longPressTimer.value = window.setTimeout(() => handleOpen(event), 700)
+    }
+  }
+}
+
+async function handlePointerEvent(event: PointerEvent) {
+  if (!disabled.value) {
+    await nextTick()
+    if (isTouchOrPen(event) && !event.defaultPrevented)
+      clearLongPress()
+  }
+}
 </script>
 
 <template>
-  <PopperAnchor :element="virtualEl" asChild>
-    <PrimitiveButton
-      type="button"
-      :aria-expanded="injectedValue?.modelValue.value || false"
-      :data-state="injectedValue?.modelValue.value ? 'open' : 'closed'"
-      @contextmenu.prevent="handleContextMenu"
-    >
-      <slot />
-    </PrimitiveButton>
-  </PopperAnchor>
+  <MenuAnchor as="div" :element="virtualEl" />
+
+  <Primitive
+    :as="as"
+    :as-child="asChild"
+    :data-state="context?.open.value ? 'open' : 'closed'"
+    :data-disabled="disabled ? '' : undefined"
+    :style="{
+      WebkitTouchCallout: 'none',
+    }"
+    v-bind="$attrs"
+    @contextmenu="handleContextMenu"
+    @pointerdown="handlePointerDown"
+    @pointermove="handlePointerEvent"
+    @pointercancel="handlePointerEvent"
+    @pointerup="handlePointerEvent"
+  >
+    <slot />
+  </Primitive>
 </template>

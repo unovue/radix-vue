@@ -1,21 +1,12 @@
-<script lang="ts">
-import BaseSeparator from "../shared/component/BaseSeparator.vue";
-import type { DataOrientation } from "../shared/types";
-
-export interface ContextMenuSeparatorProps {
-  orientation?: DataOrientation;
-  decorative?: boolean;
-  asChild?: boolean;
-}
-</script>
-
 <script setup lang="ts">
-const props = defineProps<ContextMenuSeparatorProps>();
+import { MenuSeparator, type MenuSeparatorProps } from '@/Menu'
+
+export interface ContextMenuSeparatorProps extends MenuSeparatorProps {}
+const props = defineProps<ContextMenuSeparatorProps>()
 </script>
 
 <template>
-  <BaseSeparator
-    :orientation="props.orientation"
-    :decorative="props.decorative"
-  />
+  <MenuSeparator v-bind="props">
+    <slot />
+  </MenuSeparator>
 </template>

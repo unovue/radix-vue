@@ -1,0 +1,28 @@
+{
+  "name": "@radix-vue/nuxt",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Nuxt module for Radix Vue",
+  "license": "MIT",
+  "keywords": [
+    "radix",
+    "radix-vue",
+    "nuxt-module",
+    "nuxt",
+    "nuxt3"
+  ],
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "unbuild",
+    "stub": "unbuild --stub"
+  },
+  "dependencies": {
+    "@nuxt/kit": "npm:@nuxt/kit@latest",
+    "@nuxt/schema": "^3.6.5",
+    "radix-vue": "file:../radix-vue",
+    "unbuild": "^0.8.11"
+  }
+}

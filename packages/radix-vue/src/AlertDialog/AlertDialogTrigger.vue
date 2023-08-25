@@ -1,42 +1,13 @@
-<script lang="ts">
-export interface AlertDialogTriggerProps {
-  asChild?: boolean;
-}
-</script>
-
 <script setup lang="ts">
-import { inject, onMounted } from "vue";
-import {
-  DIALOG_INJECTION_KEY,
-  type DialogProvideValue,
-} from "./AlertDialogRoot.vue";
-import { PrimitiveButton, usePrimitiveElement } from "../Primitive";
+import { DialogTrigger, type DialogTriggerProps } from '@/Dialog'
 
-const injectedValue = inject<DialogProvideValue>(DIALOG_INJECTION_KEY);
+export interface AlertDialogTriggerProps extends DialogTriggerProps {}
 
-const props = withDefaults(defineProps<AlertDialogTriggerProps>(), {
-  asChild: false,
-});
-
-const { primitiveElement, currentElement: triggerElement } =
-  usePrimitiveElement();
-
-onMounted(() => {
-  if (injectedValue) {
-    injectedValue.triggerButton = triggerElement;
-  }
-});
+const props = defineProps<AlertDialogTriggerProps>()
 </script>
 
 <template>
-  <PrimitiveButton
-    :asChild="props.asChild"
-    type="button"
-    ref="primitiveElement"
-    :aria-expanded="injectedValue?.open.value || false"
-    :data-state="injectedValue?.open.value ? 'open' : 'closed'"
-    @click="injectedValue?.openModal"
-  >
+  <DialogTrigger v-bind="props">
     <slot />
-  </PrimitiveButton>
+  </DialogTrigger>
 </template>

@@ -1,163 +1,92 @@
-<script lang="ts">
-export interface MenubarMenuTriggerProps {
-  asChild?: boolean;
-  disabled?: boolean;
-  textValue?: string;
+<script setup lang="ts">
+import { computed, inject, onMounted, ref } from 'vue'
+import { MENUBAR_INJECTION_KEY } from './MenubarRoot.vue'
+import { MENUBAR_MENU_INJECTION_KEY } from './MenubarMenu.vue'
+import {
+  Primitive,
+  type PrimitiveProps,
+  usePrimitiveElement,
+} from '@/Primitive'
+import { MenuAnchor } from '@/Menu'
+import { RovingFocusItem } from '@/RovingFocus'
+
+export interface MenubarTriggerProps extends PrimitiveProps {
+  disabled?: boolean
 }
 
-export default {
-  inheritAttrs: false,
-};
-</script>
+withDefaults(defineProps<MenubarTriggerProps>(), {
+  as: 'button',
+})
+const context = inject(MENUBAR_INJECTION_KEY)
+const menuContext = inject(MENUBAR_MENU_INJECTION_KEY)
 
-<script setup lang="ts">
-import { inject, onMounted, computed, nextTick, watchEffect, watch } from "vue";
-import {
-  MENUBAR_INJECTION_KEY,
-  type MenubarProvideValue,
-} from "./MenubarRoot.vue";
-import {
-  MENUBAR_MENU_INJECTION_KEY,
-  type MenubarMenuProvideValue,
-} from "./MenubarMenu.vue";
-import { PopperAnchor } from "@/Popper";
-import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
-import { useArrowNavigation } from "@/shared/useArrowNavigation";
-import { useActiveElement } from "@vueuse/core";
+const { primitiveElement, currentElement: triggerElement }
+  = usePrimitiveElement()
 
-const rootInjectedValue = inject<MenubarProvideValue>(MENUBAR_INJECTION_KEY);
+const isFocused = ref(false)
 
-const injectedValue = inject<MenubarMenuProvideValue>(
-  MENUBAR_MENU_INJECTION_KEY
-);
-
-const props = defineProps<MenubarMenuTriggerProps>();
-
-const { primitiveElement, currentElement } = usePrimitiveElement();
-const activeElement = useActiveElement();
+const open = computed(() => context?.modelValue.value === menuContext?.value)
 
 onMounted(() => {
-  injectedValue!.triggerElement.value = currentElement.value;
-  rootInjectedValue!.triggerItemsArray.push(currentElement.value!);
-});
-
-async function openAndSelectFirstElement() {
-  rootInjectedValue?.changeValue(injectedValue?.value);
-
-  await nextTick();
-  const el = injectedValue?.itemsArray?.[0];
-  rootInjectedValue!.selectedElement.value = el;
-  el?.focus();
-}
-
-function handleKeydown(e: KeyboardEvent) {
-  if (e.key === "Escape") {
-    return handleCloseMenu();
-  }
-  if (e.keyCode === 32 || e.key === "Enter") {
-    (e.target as HTMLElement).click();
-    return;
-  }
-  if (e.key === "ArrowDown") {
-    return openAndSelectFirstElement();
-  }
-
-  const newSelectedElement = useArrowNavigation(
-    e,
-    currentElement.value!,
-    currentElement.value!.parentElement! as HTMLElement,
-    {
-      arrowKeyOptions: "horizontal",
-    }
-  );
-  if (newSelectedElement) {
-    rootInjectedValue?.changeSelected(newSelectedElement);
-    newSelectedElement.focus();
-    if (rootInjectedValue?.modelValue.value) {
-      rootInjectedValue?.changeValue(newSelectedElement.id);
-    }
-  }
-}
-
-function handleHover() {
-  if (!props.disabled && rootInjectedValue?.modelValue.value) {
-    rootInjectedValue?.changeSelected(currentElement.value!);
-    rootInjectedValue?.changeValue(injectedValue?.value);
-    return;
-  }
-}
-
-function handleCloseMenu() {
-  rootInjectedValue?.changeValue(undefined);
-  document.querySelector("body")!.style.pointerEvents = "";
-  setTimeout(() => {
-    rootInjectedValue?.triggerElement.value?.focus();
-  }, 0);
-}
-
-function handleClick() {
-  openAndSelectFirstElement();
-}
-
-const dataState = computed(() => {
-  return injectedValue?.isOpen.value ? "open" : "closed";
-});
-
-const highlightedState = computed(() => {
-  return (
-    activeElement.value === currentElement.value ||
-    (rootInjectedValue?.triggerElement.value === currentElement.value &&
-      rootInjectedValue?.selectedElement.value)
-  );
-});
-
-watchEffect(() => {
-  if (rootInjectedValue?.selectedElement.value === currentElement.value) {
-    rootInjectedValue!.triggerElement.value = currentElement.value;
-  }
-});
-
-watch(
-  activeElement,
-  () => {
-    if (activeElement.value === currentElement.value) {
-      rootInjectedValue!.selectedElement.value = currentElement.value;
-      rootInjectedValue!.triggerElement.value = currentElement.value;
-    } else if (
-      !injectedValue?.isOpen.value &&
-      rootInjectedValue!.selectedElement.value === currentElement.value
-    ) {
-      rootInjectedValue!.selectedElement.value = undefined;
-    }
-  },
-  { immediate: true }
-);
+  menuContext!.triggerElement = triggerElement
+})
 </script>
 
 <template>
-  <PopperAnchor asChild>
-    <PrimitiveButton
-      role="menuitem"
-      ref="primitiveElement"
-      :id="injectedValue?.triggerId"
-      :aria-expanded="injectedValue?.isOpen.value"
-      :aria-controls="injectedValue?.contentId"
-      :data-state="dataState"
-      :data-orientation="rootInjectedValue?.orientation"
-      aria-haspopup="menu"
-      @keydown.prevent="handleKeydown"
-      data-radix-vue-collection-item
-      @mouseenter="handleHover"
-      @click="handleClick"
-      :data-highlighted="highlightedState ? '' : null"
-      :aria-disabled="props.disabled ? true : undefined"
-      :data-disabled="props.disabled ? '' : undefined"
-      :tabindex="
-        rootInjectedValue?.triggerElement.value === currentElement ? '0' : '-1'
-      "
-      v-bind="$attrs"
-    >
-      <slot />
-    </PrimitiveButton>
-  </PopperAnchor>
+  <RovingFocusItem
+    as-child
+    :focusable="!disabled"
+    :tab-stop-id="menuContext?.value"
+  >
+    <MenuAnchor as-child>
+      <Primitive
+        :id="menuContext?.triggerId"
+        ref="primitiveElement"
+        :as="as"
+        :type="as === 'button' ? 'button' : undefined"
+        role="menuitem"
+        aria-haspopup="menu"
+        :aria-expanded="open"
+        :aria-controls="open ? menuContext?.contentId : undefined"
+        :data-highlighted="isFocused ? '' : undefined"
+        :data-state="open ? 'open' : 'closed'"
+        :data-disabled="disabled ? '' : undefined"
+        :disabled="disabled"
+        :data-value="menuContext?.value"
+        data-radix-vue-collection-item
+        @pointerdown="(event) => {
+          // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)
+          // but not when the control key is pressed (avoiding MacOS right click)
+          if (!disabled && event.button === 0 && event.ctrlKey === false) {
+            context!.onMenuOpen(menuContext!.value);
+            // prevent trigger focusing when opening
+            // this allows the content to be given focus without competition
+            if (!open) event.preventDefault();
+          }
+        }"
+        @pointerenter="() => {
+          const menubarOpen = Boolean(context!.modelValue.value);
+          if (menubarOpen && !open) {
+            context!.onMenuOpen(menuContext!.value);
+            triggerElement?.focus()
+          }
+        }"
+        @keydown.enter.space.arrow-down="(event) => {
+          if (disabled) return;
+          if (['Enter', ' '].includes(event.key)) context?.onMenuToggle(menuContext!.value);
+          if (event.key === 'ArrowDown') context?.onMenuOpen(menuContext!.value);
+          // prevent keydown from scrolling window / first focused item to execute
+          // that keydown (inadvertently closing the menu)
+          if (['Enter', ' ', 'ArrowDown'].includes(event.key)) {
+            menuContext!.wasKeyboardTriggerOpenRef.value = true;
+            event.preventDefault();
+          }
+        }"
+        @focus="isFocused = true"
+        @blur="isFocused = false"
+      >
+        <slot />
+      </Primitive>
+    </MenuAnchor>
+  </RovingFocusItem>
 </template>

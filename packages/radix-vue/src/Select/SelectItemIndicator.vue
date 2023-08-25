@@ -1,43 +1,18 @@
-<script lang="ts">
-export interface SelectItemIndicatorProps {
-  asChild?: boolean;
-  forceMount?: boolean;
-}
-</script>
-
 <script setup lang="ts">
-import { inject, computed } from "vue";
-import { PrimitiveSpan } from "@/Primitive";
-import { SELECT_ITEM_SYMBOL } from "./utils";
-import { type SelectItemProvideValue } from "./SelectItem.vue";
-import {
-  SELECT_INJECTION_KEY,
-  type SelectProvideValue,
-} from "./SelectRoot.vue";
+import { inject } from 'vue'
+import { SELECT_ITEM_INJECTION_KEY } from './SelectItem.vue'
+import { Primitive, type PrimitiveProps } from '@/Primitive'
 
-const rootInjectedValue = inject<SelectProvideValue>(SELECT_INJECTION_KEY);
-const selectItemInjectedValue =
-  inject<SelectItemProvideValue>(SELECT_ITEM_SYMBOL);
+export interface SelectItemIndicatorProps extends PrimitiveProps {}
+const props = withDefaults(defineProps<SelectItemIndicatorProps>(), {
+  as: 'span',
+})
 
-const visibleState = computed(() => {
-  if (rootInjectedValue?.multiple) {
-    return rootInjectedValue?.modelValue.value?.includes(
-      selectItemInjectedValue!.value
-    );
-  } else {
-    return (
-      rootInjectedValue?.modelValue.value === selectItemInjectedValue?.value
-    );
-  }
-});
+const itemContext = inject(SELECT_ITEM_INJECTION_KEY)
 </script>
 
 <template>
-  <PrimitiveSpan
-    v-if="visibleState"
-    aria-hidden="true"
-    style="pointer-events: none"
-  >
+  <Primitive v-if="itemContext?.isSelected.value" aria-hidden v-bind="props">
     <slot />
-  </PrimitiveSpan>
+  </Primitive>
 </template>

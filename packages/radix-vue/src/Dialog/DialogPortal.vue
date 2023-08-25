@@ -1,14 +1,15 @@
-<!--
-<script lang="ts">
-export interface AlertDialogPortalrProps {
-  forceMount?: boolean;
-  container?: HTMLElement | string;
+<script setup lang="ts">
+export interface DialogPortalProps {
+  to?: string | HTMLElement
+  disabled?: boolean
 }
+const props = withDefaults(defineProps<DialogPortalProps>(), {
+  to: 'body',
+})
 </script>
--->
 
 <template>
-  <Teleport to="body">
+  <Teleport v-bind="props">
     <slot />
   </Teleport>
 </template>

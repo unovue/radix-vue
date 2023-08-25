@@ -1,84 +1,29 @@
-<script lang="ts">
-import { onClickOutside } from "@vueuse/core";
-import { useCollection } from "@/shared";
-
-export type Boundary = Element | null | Array<Element | null>;
-
-export interface SelectContentProps extends PopperContentProps {
-  asChild?: boolean;
-  loop?: boolean; //false
-  //onOpenAutoFocus?: void;
-  //onCloseAutoFocus?: void;
-  //onEscapeKeyDown?: void;
-  //onPointerDownOutside?: void;
-  //onInteractOutside?: void;
-}
-</script>
-
 <script setup lang="ts">
-import { inject, watchEffect } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
-import { SELECT_INJECTION_KEY } from "./SelectRoot.vue";
-import { PopperContent, type PopperContentProps } from "@/Popper";
+import { inject } from 'vue'
+import SelectContentImpl, {
+  type SelectContentImplEmits,
+  type SelectContentImplProps,
+} from './SelectContentImpl.vue'
+import { SELECT_INJECTION_KEY } from './SelectRoot.vue'
+import { Presence } from '@/Presence'
+import { useEmitAsProps } from '@/shared'
 
-const props = withDefaults(defineProps<SelectContentProps>(), {
-  side: "bottom",
-  align: "center",
-  avoidCollisions: true,
-});
+export interface SelectContentProps extends SelectContentImplProps {}
+export type SelectContentEmits = SelectContentImplEmits
 
-const injectedValue = inject(SELECT_INJECTION_KEY);
+const props = defineProps<SelectContentProps>()
 
-const { primitiveElement, currentElement: tooltipContentElement } =
-  usePrimitiveElement();
+const emits = defineEmits<SelectContentEmits>()
 
-const { createCollection, getItems } = useCollection();
-createCollection(tooltipContentElement);
+const context = inject(SELECT_INJECTION_KEY)
 
-watchEffect(() => {
-  if (tooltipContentElement.value) {
-    if (injectedValue?.isOpen.value) {
-      document.querySelector("body")!.style.pointerEvents = "none";
-      injectedValue.itemsArray = getItems(tooltipContentElement.value);
-    } else {
-      if (injectedValue?.triggerElement.value) {
-        handleCloseMenu();
-      }
-    }
-  }
-});
-
-function handleCloseMenu() {
-  document.querySelector("body")!.style.pointerEvents = "";
-  setTimeout(() => {
-    injectedValue?.triggerElement.value?.focus();
-  }, 0);
-}
-
-onClickOutside(tooltipContentElement, (event) => {
-  const target = event.target as HTMLElement;
-  if (target.closest('[role="menuitem"]')) return;
-  injectedValue?.hideTooltip();
-});
+const emitsAsProps = useEmitAsProps(emits)
 </script>
 
 <template>
-  <PopperContent
-    v-bind="props"
-    v-if="injectedValue?.isOpen.value"
-    prioritize-position
-    role="listbox"
-    :data-state="injectedValue?.isOpen.value ? 'open' : 'closed'"
-    :data-side="props.side"
-    :data-align="props.align"
-  >
-    <PrimitiveDiv
-      ref="primitiveElement"
-      :asChild="props.asChild"
-      role="presentation"
-      style="pointer-events: auto"
-    >
+  <Presence :present="context!.open.value">
+    <SelectContentImpl v-bind="{ ...props, ...emitsAsProps }">
       <slot />
-    </PrimitiveDiv>
-  </PopperContent>
+    </SelectContentImpl>
+  </Presence>
 </template>

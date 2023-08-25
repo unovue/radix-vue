@@ -1,66 +1,54 @@
 <script setup lang="ts">
-import { inject, onMounted, onUnmounted } from "vue";
-import {
-  type ScrollAreaProvideValue,
-  SCROLL_AREA_INJECTION_KEY,
-} from "./ScrollAreaRoot.vue";
-import {
-  type ScrollAreaScollbarProvideValue,
-  SCROLL_AREA_SCROLLBAR_INJECTION_KEY,
-} from "./ScrollAreaScrollbar.vue";
+import { inject, onMounted, onUnmounted, ref } from 'vue'
+import { SCROLL_AREA_INJECTION_KEY } from './ScrollAreaRoot.vue'
+import ScrollAreaScrollbarAuto from './ScrollAreaScrollbarAuto.vue'
 
-import ScrollAreaScrollbarAuto from "./ScrollAreaScrollbarAuto.vue";
+const injectedValue = inject(SCROLL_AREA_INJECTION_KEY)
 
-const injectedValue = inject<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY);
+let timeout: ReturnType<typeof setTimeout> | undefined | number
+const visible = ref(false)
 
-const injectedValueFromScrollbar = inject<ScrollAreaScollbarProvideValue>(
-  SCROLL_AREA_SCROLLBAR_INJECTION_KEY
-);
-
-let timeout: ReturnType<typeof setTimeout> | undefined | number;
-
-const handlePointerEnter = () => {
-  window.clearTimeout(timeout);
-  injectedValueFromScrollbar!.visible.value = true;
-};
-const handlePointerLeave = () => {
+function handlePointerEnter() {
+  window.clearTimeout(timeout)
+  visible.value = true
+}
+function handlePointerLeave() {
   timeout = window.setTimeout(() => {
-    injectedValueFromScrollbar!.visible.value = false;
-  }, injectedValue?.scrollHideDelay);
-};
+    visible.value = false
+  }, injectedValue?.scrollHideDelay.value)
+}
 
 onMounted(() => {
-  const scrollArea = injectedValue?.scrollArea.value;
+  const scrollArea = injectedValue?.scrollArea.value
 
   if (scrollArea) {
-    scrollArea.addEventListener("pointerenter", handlePointerEnter);
-    scrollArea.addEventListener("pointerleave", handlePointerLeave);
+    scrollArea.addEventListener('pointerenter', handlePointerEnter)
+    scrollArea.addEventListener('pointerleave', handlePointerLeave)
   }
-});
+})
 
 onUnmounted(() => {
-  const scrollArea = injectedValue?.scrollArea.value;
+  const scrollArea = injectedValue?.scrollArea.value
   if (scrollArea) {
-    window.clearTimeout(timeout);
-    scrollArea.removeEventListener("pointerenter", handlePointerEnter);
-    scrollArea.removeEventListener("pointerleave", handlePointerLeave);
+    window.clearTimeout(timeout)
+    scrollArea.removeEventListener('pointerenter', handlePointerEnter)
+    scrollArea.removeEventListener('pointerleave', handlePointerLeave)
   }
-});
+})
 </script>
 
 <script lang="ts">
 export default {
   inheritAttrs: false,
-};
+}
 </script>
 
 <template>
   <ScrollAreaScrollbarAuto
+    v-if="visible"
     v-bind="$attrs"
-    :data-state="
-      injectedValueFromScrollbar?.visible.value ? 'visible' : 'hidden'
-    "
+    :data-state="visible ? 'visible' : 'hidden'"
   >
-    <slot></slot>
+    <slot />
   </ScrollAreaScrollbarAuto>
 </template>

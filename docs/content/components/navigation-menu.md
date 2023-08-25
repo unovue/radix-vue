@@ -67,16 +67,16 @@ Import all parts and piece them together.
 ```vue
 <script setup lang="ts">
 import {
-  NavigationMenuRoot,
-  NavigationMenuList,
-  NavigationMenuItem,
-  NavigationMenuTrigger,
   NavigationMenuContent,
-  NavigationMenuLink,
   NavigationMenuIndicator,
-  NavigationMenuViewport,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuRoot,
   NavigationMenuSub,
-} from "radix-vue";
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+} from 'radix-vue'
 </script>
 
 <template>
@@ -126,7 +126,7 @@ Contains all the parts of a navigation menu.
       description: `
         <span>
           The controlled value of the menu item to activate. Should be used in
-          conjunction with <Code>onValueChange</Code>.
+          conjunction with <code>onValueChange</code>.
         </span>
       `,
     },
@@ -158,7 +158,7 @@ Contains all the parts of a navigation menu.
       description: `
         <span>
           The reading direction of the menu when applicable. If omitted,
-          inherits globally from <Code>DirectionProvider</Code> or assumes LTR
+          inherits globally from <code>DirectionProvider</code> or assumes LTR
           (left-to-right) reading mode.
         </span>
       `,
@@ -206,7 +206,7 @@ Signifies a submenu. Use it in place of the root part when nested to create a su
       description: `
         <span>
           The controlled value of the sub menu item to activate. Should be used
-          in conjunction with <Code>onValueChange</Code>.
+          in conjunction with <code>onValueChange</code>.
         </span>
       `,
     },
@@ -367,7 +367,7 @@ Contains the content associated with each trigger.
       default: 'false',
       description: `
         <span>
-          When <Code>true</Code>, hover/focus/click interactions will be
+          When <code>true</code>, hover/focus/click interactions will be
           disabled on elements outside the bounds of the component. Users will
           need to click twice on outside elements to interact with them: Once to
           close the navigation menu, and again to activate the element.
@@ -395,7 +395,7 @@ Contains the content associated with each trigger.
       typeSimple: 'function',
       description: `
         <span>
-          Event handler called when the escape key is down. It can be prevented by calling <Code>event.preventDefault</Code>.
+          Event handler called when the escape key is down. It can be prevented by calling <code>event.preventDefault</code>.
         </span>
       `,
     },
@@ -405,7 +405,7 @@ Contains the content associated with each trigger.
       typeSimple: 'function',
       description: `
         <span>
-          Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.
+          Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling <code>event.preventDefault</code>.
         </span>
       `,
     },
@@ -416,7 +416,7 @@ Contains the content associated with each trigger.
       description: `
         <span>
           Event handler called when focus moves outside the bounds of the
-          component. It can be prevented by calling <Code>event.preventDefault</Code>.
+          component. It can be prevented by calling <code>event.preventDefault</code>.
         </span>
       `,
     },
@@ -428,7 +428,7 @@ Contains the content associated with each trigger.
         <span>
           Event handler called when an interaction (pointer or focus event)
           happens outside the bounds of the component. It can be prevented by
-          calling <Code>event.preventDefault</Code>.
+          calling <code>event.preventDefault</code>.
         </span>
       `,
     },
@@ -484,7 +484,7 @@ A navigational link.
       description: `
         <span>
           Event handler called when the user selects a link (via mouse or
-          keyboard). Calling <Code>event.preventDefault</Code> in this handler
+          keyboard). Calling <code>event.preventDefault</code> in this handler
           will prevent the navigation menu from closing when selecting that
           link.
         </span>
@@ -616,16 +616,16 @@ You can create a vertical menu by using the `orientation` prop.
 ```vue line=16
 <script setup lang="ts">
 import {
-  NavigationMenuRoot,
-  NavigationMenuList,
-  NavigationMenuItem,
-  NavigationMenuTrigger,
   NavigationMenuContent,
-  NavigationMenuLink,
   NavigationMenuIndicator,
-  NavigationMenuViewport,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuRoot,
   NavigationMenuSub,
-} from "radix-vue";
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+} from 'radix-vue'
 </script>
 
 <template>
@@ -653,13 +653,13 @@ Tab focus will be maintained automatically.
 ```vue line=7,17,21
 <script setup lang="ts">
 import {
-  NavigationMenuRoot,
-  NavigationMenuList,
-  NavigationMenuItem,
-  NavigationMenuTrigger,
   NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuRoot,
+  NavigationMenuTrigger,
   NavigationMenuViewport,
-} from "radix-vue";
+} from 'radix-vue'
 </script>
 
 <template>
@@ -689,13 +689,13 @@ an animated visual cue such as an arrow or highlight to accompany the `Viewport`
 ```vue line=24
 <script setup lang="ts">
 import {
-  NavigationMenuRoot,
-  NavigationMenuList,
-  NavigationMenuItem,
-  NavigationMenuTrigger,
   NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuRoot,
+  NavigationMenuTrigger,
   NavigationMenuViewport,
-} from "radix-vue";
+} from 'radix-vue'
 </script>
 
 <template>
@@ -738,14 +738,14 @@ sure to assign and set a `defaultValue`.
 ```vue line=9,23-38
 <script setup lang="ts">
 import {
-  NavigationMenuRoot,
-  NavigationMenuList,
-  NavigationMenuItem,
-  NavigationMenuTrigger,
   NavigationMenuContent,
-  NavigationMenuViewport,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuRoot,
   NavigationMenuSub,
-} from "radix-vue";
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+} from 'radix-vue'
 </script>
 
 <template>
@@ -758,7 +758,7 @@ import {
       <NavigationMenuItem>
         <NavigationMenuTrigger>Item two</NavigationMenuTrigger>
         <NavigationMenuContent>
-          <NavigationMenuSub defaultValue="sub1">
+          <NavigationMenuSub default-value="sub1">
             <NavigationMenuList>
               <NavigationMenuItem value="sub1">
                 <NavigationMenuTrigger>Sub item one</NavigationMenuTrigger>
@@ -784,7 +784,8 @@ This will ensure accessibility and consistent keyboard control is maintained. He
 
 ```vue line=10-12,15-17
 <script setup lang="ts">
-import { NavigationMenuRoot, NavigationMenuList, NavigationMenuItem } from "radix-vue";
+import { NavigationMenuItem, NavigationMenuList, NavigationMenuRoot } from 'radix-vue'
+
 // RouterLink should be injected by default if using `vue-router`
 </script>
 
@@ -792,14 +793,20 @@ import { NavigationMenuRoot, NavigationMenuList, NavigationMenuItem } from "radi
   <NavigationMenuRoot>
     <NavigationMenuList>
       <NavigationMenuItem>
-        <NavigationMenuLink asChild>
-          <RouterLink to="/">Home</RouterLink>
-        <NavigationMenuLink/>
+        <NavigationMenuLink as-child>
+          <RouterLink to="/">
+            Home
+          </RouterLink>
+          <NavigationMenuLink />
+        </navigationmenulink>
       </NavigationMenuItem>
       <NavigationMenuItem>
-        <NavigationMenuLink asChild>
-          <RouterLink to="/about">About</RouterLink>
-        <NavigationMenuLink/>
+        <NavigationMenuLink as-child>
+          <RouterLink to="/about">
+            About
+          </RouterLink>
+          <NavigationMenuLink />
+        </navigationmenulink>
       </NavigationMenuItem>
     </NavigationMenuList>
   </NavigationMenuRoot>
@@ -815,13 +822,13 @@ Combining these with `position: absolute;` allows you to create smooth overlappi
 ```vue line=17,23,29
 <script setup lang="ts">
 import {
-  NavigationMenuRoot,
-  NavigationMenuList,
-  NavigationMenuItem,
-  NavigationMenuTrigger,
   NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuRoot,
+  NavigationMenuTrigger,
   NavigationMenuViewport,
-} from "radix-vue";
+} from 'radix-vue'
 </script>
 
 <template>
@@ -829,11 +836,15 @@ import {
     <NavigationMenuList>
       <NavigationMenuItem>
         <NavigationMenuTrigger>Item one</NavigationMenuTrigger>
-        <NavigationMenuContent class="NavigationMenuContent"> Item one content </NavigationMenuContent>
+        <NavigationMenuContent class="NavigationMenuContent">
+          Item one content
+        </NavigationMenuContent>
       </NavigationMenuItem>
       <NavigationMenuItem>
         <NavigationMenuTrigger>Item two</NavigationMenuTrigger>
-        <NavigationMenuContent class="NavigationMenuContent"> Item two content </NavigationMenuContent>
+        <NavigationMenuContent class="NavigationMenuContent">
+          Item two content
+        </NavigationMenuContent>
       </NavigationMenuItem>
     </NavigationMenuList>
 
@@ -944,7 +955,7 @@ See [this example](/components/navigation-menu#with-client-side-routing) for mor
       keys: ['Space', 'Enter'],
       description: `
         <span>
-          When focus is on <Code>NavigationMenuTrigger</Code>, opens the content.
+          When focus is on <code>NavigationMenuTrigger</code>, opens the content.
         </span>
       `,
     },
@@ -956,12 +967,12 @@ See [this example](/components/navigation-menu#with-client-side-routing) for mor
       keys: ['ArrowDown'],
       description: `
         <span>
-          When <Code>horizontal</Code> and focus is on an open
-          <Code>NavigationMenuTrigger</Code>, moves focus into
-          <Code>NavigationMenuContent</Code>.
+          When <code>horizontal</code> and focus is on an open
+          <code>NavigationMenuTrigger</code>, moves focus into
+          <code>NavigationMenuContent</code>.
           <br />
-          Moves focus to the next <Code>NavigationMenuTrigger</Code> or
-          <Code>NavigationMenuLink</Code>.
+          Moves focus to the next <code>NavigationMenuTrigger</code> or
+          <code>NavigationMenuLink</code>.
         </span>
       `,
     },
@@ -969,8 +980,8 @@ See [this example](/components/navigation-menu#with-client-side-routing) for mor
       keys: ['ArrowUp'],
       description: `
         <span>
-          Moves focus to the previous <Code>NavigationMenuTrigger</Code> or
-          <Code>NavigationMenuLink</Code>.
+          Moves focus to the previous <code>NavigationMenuTrigger</code> or
+          <code>NavigationMenuLink</code>.
         </span>
       `,
     },
@@ -978,11 +989,11 @@ See [this example](/components/navigation-menu#with-client-side-routing) for mor
       keys: ['ArrowRight', 'ArrowLeft'],
       description: `
         <span>
-          When <Code>vertical</Code> and focus is on an open
-          <Code>NavigationMenuTrigger</Code>, moves focus into its
-          <Code>NavigationMenuContent</Code>.
+          When <code>vertical</code> and focus is on an open
+          <code>NavigationMenuTrigger</code>, moves focus into its
+          <code>NavigationMenuContent</code>.
           <br />
-          Moves focus to the next / previous <Code> NavigationMenuTrigger </Code> or <Code>NavigationMenuLink</Code>.
+          Moves focus to the next / previous <code> NavigationMenuTrigger </code> or <code>NavigationMenuLink</code>.
         </span>
       `,
     },
@@ -990,8 +1001,8 @@ See [this example](/components/navigation-menu#with-client-side-routing) for mor
       keys: ['Home', 'End'],
       description: `
         <span>
-          Moves focus to the first/last <Code>NavigationMenu.Trigger</Code> or
-          <Code>NavigationMenu.Link</Code>.
+          Moves focus to the first/last <code>NavigationMenu.Trigger</code> or
+          <code>NavigationMenu.Link</code>.
         </span>
       `,
     },
@@ -999,8 +1010,8 @@ See [this example](/components/navigation-menu#with-client-side-routing) for mor
       keys: ['Esc'],
       description: `
         <span>
-          Closes open <Code>NavigationMenu.Content</Code> and moves focus to its
-          <Code>NavigationMenu.Trigger</Code>.
+          Closes open <code>NavigationMenu.Content</code> and moves focus to its
+          <code>NavigationMenu.Trigger</code>.
         </span>
       `,
     },

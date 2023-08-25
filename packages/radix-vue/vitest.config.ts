@@ -1,23 +1,23 @@
-import { defineConfig } from "vitest/config";
-import Vue from "@vitejs/plugin-vue";
-import { resolve } from "path";
+import { resolve } from 'node:path'
+import { defineConfig } from 'vitest/config'
+import Vue from '@vitejs/plugin-vue'
 
-const r = (p: string) => resolve(__dirname, p);
+const r = (p: string) => resolve(__dirname, p)
 
 export default defineConfig({
   plugins: [Vue()],
   resolve: {
     alias: {
-      "@": r("./src"),
+      '@': r('./src'),
     },
   },
   test: {
-    environment: "jsdom",
+    environment: 'jsdom',
     globals: true,
-    exclude: ["**/node_modules/**"],
-    include: ["./**/*.test.{ts,js}"],
+    exclude: ['**/node_modules/**'],
+    include: ['./**/*.test.{ts,js}'],
     coverage: {
-      provider: "istanbul", // or 'v8'
+      provider: 'istanbul', // or 'v8'
     },
   },
-});
+})

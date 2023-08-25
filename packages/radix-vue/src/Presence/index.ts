@@ -1,1 +1,1 @@
-export { default as Presence } from "./Presence.vue";
+export { default as Presence } from './Presence.vue'

@@ -1,29 +1,42 @@
 <script lang="ts">
-export interface AvatarImageProps {
-  asChild?: boolean;
-  onLoadingStatusChange?: void;
+export type AvatarImageEmits = {
+  'loadingStatusChange': [value: ImageLoadingStatus]
 }
+export interface AvatarImageProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { inject } from "vue";
-import {
-  AVATAR_INJECTION_KEY,
-  type AvatarProvideValue,
-} from "./AvatarRoot.vue";
-import { PrimitiveImg } from "../Primitive";
+import { inject, useAttrs, watch } from 'vue'
+import { Primitive, type PrimitiveProps } from '../Primitive'
+import { AVATAR_INJECTION_KEY } from './AvatarRoot.vue'
+import { type ImageLoadingStatus, useImageLoadingStatus } from './utils'
 
-const injectedValue = inject<AvatarProvideValue>(AVATAR_INJECTION_KEY);
+const props = withDefaults(defineProps<AvatarImageProps>(), { as: 'img' })
 
-withDefaults(defineProps<AvatarImageProps>(), {
-  asChild: false,
-});
+const emits = defineEmits<AvatarImageEmits>()
 
-function setImageLoad() {
-  injectedValue!.imageLoadingStatus.value = "loaded";
-}
+const injectedValue = inject(AVATAR_INJECTION_KEY)
+
+const src = useAttrs().src as string
+const imageLoadingStatus = useImageLoadingStatus(src)
+
+watch(
+  imageLoadingStatus,
+  (newValue) => {
+    emits('loadingStatusChange', newValue)
+    if (newValue !== 'idle')
+      injectedValue!.imageLoadingStatus.value = newValue
+  },
+  { immediate: true },
+)
 </script>
 
 <template>
-  <PrimitiveImg :asChild="asChild" @load="setImageLoad" />
+  <Primitive
+    v-if="imageLoadingStatus === 'loaded'"
+    :as-child="props.asChild"
+    :as="as"
+  >
+    <slot />
+  </Primitive>
 </template>

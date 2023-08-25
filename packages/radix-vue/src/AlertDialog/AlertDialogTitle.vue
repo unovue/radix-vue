@@ -1,19 +1,13 @@
-<script lang="ts">
-export interface AlertDialogTitleProps {
-  asChild?: boolean;
-}
-</script>
-
 <script setup lang="ts">
-import { PrimitiveH2 } from "../Primitive";
+import { DialogTitle, type DialogTitleProps } from '@/Dialog'
 
-const props = withDefaults(defineProps<AlertDialogTitleProps>(), {
-  asChild: false,
-});
+export interface AlertDialogTitleProps extends DialogTitleProps {}
+
+const props = defineProps<AlertDialogTitleProps>()
 </script>
 
 <template>
-  <PrimitiveH2 :asChild="props.asChild">
+  <DialogTitle v-bind="props">
     <slot />
-  </PrimitiveH2>
+  </DialogTitle>
 </template>

@@ -1,53 +1,18 @@
 <script setup lang="ts">
-import { inject } from "vue";
-import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
-import {
-  CONTEXT_MENU_INJECTION_KEY,
-  type ContextMenuProvideValue,
-} from "./ContextMenuRoot.vue";
-import {
-  CONTEXT_MENU_SUB_INJECTION_KEY,
-  type ContextMenuSubProvideValue,
-} from "./ContextMenuSub.vue";
+import { MenuItem, type MenuItemEmits, type MenuItemProps } from '@/Menu'
+import { useEmitAsProps } from '@/shared'
 
-interface ContextMenuItemProps {
-  asChild?: boolean;
-  value?: string;
-  disabled?: boolean;
-  //onSelect?: void;
-  textValue?: string;
-}
+export interface ContextMenuItemProps extends MenuItemProps {}
+export type ContextMenuItemEmits = MenuItemEmits
 
-const rootInjectedValue = inject<ContextMenuProvideValue>(
-  CONTEXT_MENU_INJECTION_KEY
-);
+const props = defineProps<MenuItemProps>()
+const emits = defineEmits<MenuItemEmits>()
 
-const subInjectedValue = inject<ContextMenuSubProvideValue>(
-  CONTEXT_MENU_SUB_INJECTION_KEY
-);
-
-const props = defineProps<ContextMenuItemProps>();
-
-function handleClick() {
-  if (rootInjectedValue?.selectedElement.value) {
-    rootInjectedValue.hideTooltip();
-  }
-}
-
-function handleEscape() {
-  rootInjectedValue?.hideTooltip();
-}
+const emitsAsProps = useEmitAsProps(emits)
 </script>
 
 <template>
-  <BaseMenuItem
-    :disabled="props.disabled"
-    :rootProvider="rootInjectedValue"
-    :subProvider="subInjectedValue"
-    :orientation="rootInjectedValue?.orientation"
-    @handle-click="handleClick"
-    @escape-keydown="handleEscape"
-  >
+  <MenuItem v-bind="{ ...props, ...emitsAsProps }">
     <slot />
-  </BaseMenuItem>
+  </MenuItem>
 </template>

@@ -1,41 +1,20 @@
-<script lang="ts">
-export interface ToolbarLink {
-  asChild?: boolean;
-}
-</script>
-
 <script setup lang="ts">
-import { inject } from "vue";
-import { PrimitiveA, usePrimitiveElement } from "@/Primitive";
-import {
-  TOOLBAR_INJECTION_KEY,
-  type ToolbarProvideValue,
-} from "./ToolbarRoot.vue";
-import { useArrowNavigation } from "../shared";
+import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { RovingFocusItem } from '@/RovingFocus'
 
-const injectedValue = inject<ToolbarProvideValue>(TOOLBAR_INJECTION_KEY);
-
-const { primitiveElement, currentElement } = usePrimitiveElement();
-
-function handleKeydown(e: KeyboardEvent) {
-  const newSelectedElement = useArrowNavigation(
-    e,
-    currentElement.value!,
-    injectedValue?.parentElement.value!
-  );
-  newSelectedElement?.focus();
-}
+export interface ToolbarLinkProps extends PrimitiveProps {}
+const props = withDefaults(defineProps<ToolbarLinkProps>(), { as: 'a' })
 </script>
 
 <template>
-  <PrimitiveA
-    ref="primitiveElement"
-    :tabindex="
-      injectedValue?.activeElement.value === currentElement ? '0' : '-1'
-    "
-    @keydown="handleKeydown"
-    data-radix-vue-collection-item
-  >
-    <slot />
-  </PrimitiveA>
+  <RovingFocusItem as-child focusable>
+    <Primitive
+      v-bind="props"
+      @keydown="(event: KeyboardEvent) => {
+        if (event.key === ' ') (event.currentTarget as HTMLElement)?.click()
+      }"
+    >
+      <slot />
+    </Primitive>
+  </RovingFocusItem>
 </template>

@@ -1,41 +1,44 @@
 <script lang="ts">
-export interface TabsListProps {
-  asChild?: boolean;
-  loop?: boolean;
+export interface TabsListProps extends PrimitiveProps {
+  loop?: boolean
 }
 </script>
 
 <script setup lang="ts">
-import { inject, onMounted } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
-import { TABS_INJECTION_KEY } from "./TabsRoot.vue";
-import type { TabsProvideValue } from "./TabsRoot.vue";
+import { inject, onMounted, toRefs } from 'vue'
+import { TABS_INJECTION_KEY } from './TabsRoot.vue'
+import {
+  Primitive,
+  type PrimitiveProps,
+  usePrimitiveElement,
+} from '@/Primitive'
 
 const props = withDefaults(defineProps<TabsListProps>(), {
-  asChild: false,
   loop: true,
-});
+})
+const { loop } = toRefs(props)
 
-const injectedValue = inject<TabsProvideValue>(TABS_INJECTION_KEY);
-const { primitiveElement, currentElement: parentElement } =
-  usePrimitiveElement();
+const injectedValue = inject(TABS_INJECTION_KEY)
+const { primitiveElement, currentElement: parentElement }
+  = usePrimitiveElement()
 
 onMounted(() => {
-  injectedValue!.parentElement.value = parentElement.value;
-  injectedValue!.loop = props.loop;
-});
+  injectedValue!.parentElement.value = parentElement.value
+  injectedValue!.loop = loop
+})
 </script>
 
 <template>
-  <PrimitiveDiv
-    :asChild="asChild"
-    role="tablist"
+  <Primitive
     ref="primitiveElement"
+    role="tablist"
+    :as-child="props.asChild"
+    :as="as"
     :aria-orientation="injectedValue?.orientation"
     tabindex="0"
     :data-orientation="injectedValue?.orientation"
     style="outline: none"
   >
     <slot />
-  </PrimitiveDiv>
+  </Primitive>
 </template>

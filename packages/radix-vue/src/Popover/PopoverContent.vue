@@ -1,92 +1,45 @@
-<script lang="ts">
-export interface PopoverContentProps extends PopperContentProps {
-  asChild?: boolean;
-  forceMount?: boolean;
-}
-</script>
-
 <script setup lang="ts">
-import { inject, onUnmounted, watchEffect } from "vue";
-
-import { trapFocus } from "../shared/trap-focus";
-import { useClickOutside } from "../shared/useClickOutside";
+import { inject } from 'vue'
+import PopoverContentModal from './PopoverContentModal.vue'
+import PopoverContentNonModal from './PopoverContentNonModal.vue'
 import {
-  POPOVER_INJECTION_KEY,
-  type PopoverProvideValue,
-} from "./PopoverRoot.vue";
-import { PopperContent, type PopperContentProps } from "@/Popper";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+  type PopoverContentImplEmits,
+  type PopoverContentImplProps,
+} from './PopoverContentImpl.vue'
+import { POPOVER_INJECTION_KEY } from './PopoverRoot.vue'
+import { useEmitAsProps } from '@/shared'
+import { Presence } from '@/Presence'
+import { PopperContentPropsDefaultValue } from '@/Popper'
 
-const injectedValue = inject<PopoverProvideValue>(POPOVER_INJECTION_KEY);
+export interface PopoverContentProps extends PopoverContentImplProps {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with React animation libraries.
+   */
+  forceMount?: true
+}
+export type PopoverContentEmits = PopoverContentImplEmits
 
 const props = withDefaults(defineProps<PopoverContentProps>(), {
-  side: "bottom",
-  align: "center",
-  avoidCollisions: true,
-});
+  ...PopperContentPropsDefaultValue,
+})
+const emits = defineEmits<PopoverContentEmits>()
 
-const { primitiveElement, currentElement: tooltipContentElement } =
-  usePrimitiveElement();
+const context = inject(POPOVER_INJECTION_KEY)
 
-watchEffect(() => {
-  if (tooltipContentElement.value) {
-    if (injectedValue?.open.value) {
-      trapFocus(tooltipContentElement.value!);
-      window.addEventListener("mousedown", closeDialogWhenClickOutside);
-      window.addEventListener("keydown", closePopoverOnEscape);
-    } else {
-      if (injectedValue?.triggerElement.value) {
-        injectedValue?.triggerElement.value.focus();
-        clearEvent();
-      }
-    }
-  }
-});
-
-function closeDialogWhenClickOutside(e: MouseEvent) {
-  if (injectedValue?.triggerElement.value?.contains(e.target as Node)) {
-    return;
-  }
-
-  const clickOutside = useClickOutside(e, tooltipContentElement.value!);
-  if (clickOutside) {
-    injectedValue?.hidePopover();
-    e.preventDefault();
-    e.stopPropagation();
-  }
-}
-
-function closePopoverOnEscape(e: KeyboardEvent) {
-  if (e.key === "Escape") {
-    injectedValue?.hidePopover();
-  }
-}
-
-function clearEvent() {
-  window.removeEventListener("mousedown", closeDialogWhenClickOutside);
-  window.removeEventListener("keydown", closePopoverOnEscape);
-}
-
-onUnmounted(() => {
-  clearEvent();
-});
+const emitsAsProps = useEmitAsProps(emits)
 </script>
 
 <template>
-  <PopperContent
-    ref="primitiveElement"
-    v-bind="props"
-    v-if="injectedValue?.open.value"
-  >
-    <PrimitiveDiv
-      v-if="injectedValue?.open.value"
-      :data-state="injectedValue?.open.value ? 'open' : 'closed'"
-      :data-side="props.side"
-      :data-align="props.align"
-      role="tooltip"
-      :asChild="props.asChild"
+  <Presence :present="forceMount || context!.open.value">
+    <PopoverContentModal
+      v-if="context?.modal.value"
+      v-bind="{ ...props, ...emitsAsProps }"
     >
       <slot />
-    </PrimitiveDiv>
-  </PopperContent>
+    </PopoverContentModal>
+    <PopoverContentNonModal v-else v-bind="{ ...props, ...emitsAsProps }">
+      <slot />
+    </PopoverContentNonModal>
+  </Presence>
 </template>

@@ -1,123 +1,104 @@
-<script lang="ts">
-export type Boundary = Element | null | Array<Element | null>;
-
-export interface MenubarContentProps extends PopperContentProps {
-  asChild?: boolean;
-  loop?: boolean; //false
-  //onOpenAutoFocus?: void;
-  //onCloseAutoFocus?: void;
-  //onEscapeKeyDown?: void;
-  //onPointerDownOutside?: void;
-  //onInteractOutside?: void;
-}
-</script>
-
 <script setup lang="ts">
-import { inject, watchEffect, watch, computed } from "vue";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
-import {
-  MENUBAR_INJECTION_KEY,
-  type MenubarProvideValue,
-} from "./MenubarRoot.vue";
-import {
-  MENUBAR_MENU_INJECTION_KEY,
-  type MenubarMenuProvideValue,
-} from "./MenubarMenu.vue";
-import { PopperContent, type PopperContentProps } from "@/Popper";
-import { useCollection } from "@/shared";
-import { onClickOutside } from "@vueuse/core";
+import { inject, ref } from 'vue'
+import { MENUBAR_INJECTION_KEY } from './MenubarRoot.vue'
+import { MENUBAR_MENU_INJECTION_KEY } from './MenubarMenu.vue'
+import { MenuContent, type MenuContentProps } from '@/Menu'
+import { useCollection } from '@/shared'
+import { PopperContentPropsDefaultValue } from '@/Popper'
+import { wrapArray } from '@/shared/useTypeahead'
 
-const rootInjectedValue = inject<MenubarProvideValue>(MENUBAR_INJECTION_KEY);
-
-const injectedValue = inject<MenubarMenuProvideValue>(
-  MENUBAR_MENU_INJECTION_KEY
-);
+export interface MenubarContentProps extends MenuContentProps {}
 
 const props = withDefaults(defineProps<MenubarContentProps>(), {
-  side: "bottom",
-  align: "start",
-  orientation: "horizontal",
-  avoidCollisions: true,
-});
+  ...PopperContentPropsDefaultValue,
+  align: 'start',
+})
 
-const { primitiveElement, currentElement: tooltipContentElement } =
-  usePrimitiveElement();
+const context = inject(MENUBAR_INJECTION_KEY)
+const menuContext = inject(MENUBAR_MENU_INJECTION_KEY)
 
-const { createCollection } = useCollection();
-createCollection(tooltipContentElement);
+const { injectCollection } = useCollection('menubar')
+const collections = injectCollection()
 
-watchEffect(() => {
-  if (tooltipContentElement.value) {
-    if (injectedValue?.isOpen.value) {
-      fillItemsArray();
-    }
-  }
-});
+const hasInteractedOutsideRef = ref(false)
 
-watch(
-  () => rootInjectedValue?.selectedElement.value,
-  (n) => {
-    if (!injectedValue?.isOpen.value) return;
-    const siblingsElement = Array.from(
-      n
-        ?.closest('[role="tooltip"]')
-        ?.querySelectorAll(
-          "[data-radix-vue-collection-item]:not([data-disabled])"
-        ) ?? []
-    ) as HTMLElement[];
+function handleArrowNavigation(event: KeyboardEvent) {
+  const target = event.target as HTMLElement
+  const targetIsSubTrigger = target.hasAttribute(
+    'data-radix-menubar-subtrigger',
+  )
 
-    if (!siblingsElement?.length) return;
-    if (
-      siblingsElement.includes(
-        injectedValue!.triggerElement.value as HTMLElement
-      )
-    ) {
-      if (
-        rootInjectedValue?.selectedElement.value !==
-        injectedValue?.triggerElement.value
-      ) {
-        rootInjectedValue?.changeValue(undefined);
-      }
-    }
-  }
-);
+  const prevMenuKey = context?.dir.value === 'rtl' ? 'ArrowRight' : 'ArrowLeft'
+  const isPrevKey = prevMenuKey === event.key
+  const isNextKey = !isPrevKey
 
-function fillItemsArray() {
-  const allToggleItem = Array.from(
-    tooltipContentElement.value!.querySelectorAll(
-      "[data-radix-vue-collection-item]:not([data-disabled])"
-    )
-  ) as HTMLElement[];
-  injectedValue!.itemsArray = allToggleItem;
-  return allToggleItem;
+  // Prevent navigation when we're opening a submenu
+  if (isNextKey && targetIsSubTrigger)
+    return
+
+  let candidateValues = collections.value.map(i => i.dataset.value)
+  if (isPrevKey)
+    candidateValues.reverse()
+
+  const currentIndex = candidateValues.indexOf(menuContext?.value)
+
+  candidateValues = context?.loop.value
+    ? wrapArray(candidateValues, currentIndex + 1)
+    : candidateValues.slice(currentIndex + 1)
+
+  const [nextValue] = candidateValues
+  if (nextValue)
+    context?.onMenuOpen(nextValue)
 }
-
-onClickOutside(tooltipContentElement, (event) => {
-  const target = event.target as HTMLElement;
-  if (target.closest('[role="menuitem"]')) return;
-  rootInjectedValue?.changeValue(undefined);
-  rootInjectedValue!.selectedElement.value = undefined;
-});
-
-const dataState = computed(() => {
-  return injectedValue?.isOpen ? "open" : "false";
-});
 </script>
 
 <template>
-  <PopperContent v-bind="props" v-if="injectedValue?.isOpen.value">
-    <PrimitiveDiv
-      ref="primitiveElement"
-      :data-state="dataState"
-      :data-side="props.side"
-      :data-align="props.align"
-      :aria-labelledby="injectedValue?.triggerId"
-      :data-orientation="injectedValue?.orientation"
-      role="tooltip"
-      :asChild="props.asChild"
-      style="pointer-events: auto"
-    >
-      <slot />
-    </PrimitiveDiv>
-  </PopperContent>
+  <MenuContent
+    :id="menuContext?.contentId"
+    :aria-labelledby="menuContext?.triggerId"
+    data-radix-menubar-content=""
+    v-bind="props"
+    :style="{
+      '--radix-menubar-content-transform-origin':
+        'var(--radix-popper-transform-origin)',
+      '--radix-menubar-content-available-width':
+        'var(--radix-popper-available-width)',
+      '--radix-menubar-content-available-height':
+        'var(--radix-popper-available-height)',
+      '--radix-menubar-trigger-width': 'var(--radix-popper-anchor-width)',
+      '--radix-menubar-trigger-height': 'var(--radix-popper-anchor-height)',
+    }"
+    @close-auto-focus="(event) => {
+      const menubarOpen = Boolean(context?.modelValue.value);
+      if (!menubarOpen && !hasInteractedOutsideRef) {
+        menuContext!.triggerElement.value?.focus();
+      }
+
+      hasInteractedOutsideRef = false;
+      // Always prevent auto focus because we either focus manually or want user agent focus
+      event.preventDefault();
+    }"
+    @focus-outside="(event) => {
+      const target = event.target as HTMLElement;
+      const isMenubarTrigger = collections.some((item) => item.contains(target));
+      if (isMenubarTrigger) event.preventDefault();
+    }"
+    @interact-outside="
+      (event) => {
+        hasInteractedOutsideRef = true;
+      }
+    "
+    @open-auto-focus="
+      (event) => {
+        if (!menuContext?.wasKeyboardTriggerOpenRef.value)
+          event.preventDefault();
+      }
+    "
+    @entry-focus="(event) => {
+      if (!menuContext?.wasKeyboardTriggerOpenRef.value) event.preventDefault()
+    }"
+    @keydown.arrow-right.arrow-left="handleArrowNavigation"
+  >
+    <slot />
+  </MenuContent>
 </template>

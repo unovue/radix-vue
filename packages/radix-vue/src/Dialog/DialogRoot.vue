@@ -1,55 +1,72 @@
 <script lang="ts">
-import type { Ref, InjectionKey } from "vue";
+import type { InjectionKey, Ref } from 'vue'
 
 export interface DialogRootProps {
-  open?: boolean;
-  defaultOpen?: boolean;
-  //onOpenChange?: void;
-  modal?: boolean; //true;
+  open?: boolean
+  defaultOpen?: boolean
+  modal?: boolean
 }
 
-export const DIALOG_INJECTION_KEY =
-  Symbol() as InjectionKey<DialogProvideValue>;
+export type DialogRootEmits = {
+  'update:open': [value: boolean]
+}
 
-export type DialogProvideValue = {
-  open: Readonly<Ref<boolean>>;
-  openModal(): void;
-  closeModal(): void;
-  triggerButton: Readonly<Ref<HTMLElement | undefined>>;
-};
+export const DIALOG_INJECTION_KEY
+  = Symbol() as InjectionKey<DialogProvideValue>
+
+export interface DialogProvideValue {
+  open: Readonly<Ref<boolean>>
+  modal: Ref<boolean>
+  openModal(): void
+  onOpenChange(value: boolean): void
+  onOpenToggle(): void
+  triggerElement: Ref<HTMLElement | undefined>
+  contentElement: Ref<HTMLElement | undefined>
+  contentId: string
+  titleId: string
+  descriptionId: string
+}
 </script>
 
 <script setup lang="ts">
-import { provide, ref } from "vue";
-import { useVModel } from "@vueuse/core";
+import { provide, ref, toRefs } from 'vue'
+import { useVModel } from '@vueuse/core'
+import { useId } from '@/shared'
 
 const props = withDefaults(defineProps<DialogRootProps>(), {
   open: undefined,
   defaultOpen: false,
   modal: true,
-});
+})
 
-const emit = defineEmits<{
-  (e: "update:modelValue", value: boolean): void;
-}>();
+const emit = defineEmits<DialogRootEmits>()
 
-const triggerButton = ref<HTMLElement>();
-
-const open = useVModel(props, "open", emit, {
+const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: true,
-});
+})
 
+const triggerElement = ref<HTMLElement>()
+const contentElement = ref<HTMLElement>()
+const { modal } = toRefs(props)
 provide<DialogProvideValue>(DIALOG_INJECTION_KEY, {
   open,
+  modal,
   openModal: () => {
-    open.value = true;
+    open.value = true
   },
-  closeModal: () => {
-    open.value = false;
+  onOpenChange: (value) => {
+    open.value = value
   },
-  triggerButton: triggerButton,
-});
+  onOpenToggle: () => {
+    open.value = !open.value
+  },
+  contentId: useId(),
+  titleId: useId(),
+  descriptionId: useId(),
+  triggerElement,
+  contentElement,
+})
 </script>
 
 <template>

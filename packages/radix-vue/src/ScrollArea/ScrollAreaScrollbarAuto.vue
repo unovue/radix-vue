@@ -1,44 +1,32 @@
 <script setup lang="ts">
-import { computed, inject } from "vue";
-import {
-  type ScrollAreaProvideValue,
-  SCROLL_AREA_INJECTION_KEY,
-} from "./ScrollAreaRoot.vue";
-import {
-  type ScrollAreaScollbarProvideValue,
-  SCROLL_AREA_SCROLLBAR_INJECTION_KEY,
-} from "./ScrollAreaScrollbar.vue";
-import ScrollAreaScrollbarVisible from "./ScrollAreaScrollbarVisible.vue";
-import { useDebounceFn, useResizeObserver } from "@vueuse/core";
+import { inject, ref } from 'vue'
+import { useDebounceFn, useResizeObserver } from '@vueuse/core'
+import { SCROLL_AREA_INJECTION_KEY } from './ScrollAreaRoot.vue'
+import { SCROLL_AREA_SCROLLBAR_INJECTION_KEY } from './ScrollAreaScrollbar.vue'
+import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
 
-const injectedValueFromRoot = inject<ScrollAreaProvideValue>(
-  SCROLL_AREA_INJECTION_KEY
-);
-const injectedValueFromScrollbar = inject<ScrollAreaScollbarProvideValue>(
-  SCROLL_AREA_SCROLLBAR_INJECTION_KEY
-);
+const rootContext = inject(SCROLL_AREA_INJECTION_KEY)
+const scrollbarContext = inject(SCROLL_AREA_SCROLLBAR_INJECTION_KEY)
 
-const visible = computed(() => injectedValueFromScrollbar?.visible.value);
+const visible = ref(false)
 
 const handleResize = useDebounceFn(() => {
-  if (injectedValueFromRoot?.viewport.value) {
-    const isOverflowX =
-      injectedValueFromRoot?.viewport.value.offsetWidth <
-      injectedValueFromRoot?.viewport.value.scrollWidth;
-    const isOverflowY =
-      injectedValueFromRoot?.viewport.value.offsetHeight <
-      injectedValueFromRoot?.viewport.value.scrollHeight;
+  if (rootContext?.viewport.value) {
+    const isOverflowX
+      = rootContext?.viewport.value.offsetWidth
+      < rootContext?.viewport.value.scrollWidth
+    const isOverflowY
+      = rootContext?.viewport.value.offsetHeight
+      < rootContext?.viewport.value.scrollHeight
 
-    if (injectedValueFromScrollbar?.isHorizontal.value) {
-      injectedValueFromScrollbar!.visible.value = isOverflowX;
-    } else {
-      injectedValueFromScrollbar!.visible.value = isOverflowY;
-    }
+    visible.value = scrollbarContext?.isHorizontal.value
+      ? isOverflowX
+      : isOverflowY
   }
-}, 10);
+}, 10)
 
-useResizeObserver(injectedValueFromRoot?.viewport, handleResize);
-useResizeObserver(injectedValueFromRoot?.content, handleResize);
+useResizeObserver(rootContext?.viewport, handleResize)
+useResizeObserver(rootContext?.content, handleResize)
 </script>
 
 <template>
@@ -47,6 +35,6 @@ useResizeObserver(injectedValueFromRoot?.content, handleResize);
     v-bind="$attrs"
     :data-state="visible ? 'visible' : 'hidden'"
   >
-    <slot></slot>
+    <slot />
   </ScrollAreaScrollbarVisible>
 </template>

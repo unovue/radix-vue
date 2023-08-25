@@ -1,133 +1,149 @@
 <script setup lang="ts">
-import { NAVIGATION_MENU_INJECTION_KEY } from "./NavigationMenuRoot.vue";
-import { NAVIGATION_MENU_ITEM_INJECTION_KEY } from "./NavigationMenuItem.vue";
-import { computed, inject, onMounted, ref, type VNode } from "vue";
-import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
-import { VisuallyHidden } from "@/VisuallyHidden";
-import { makeTriggerId, makeContentId, getOpenState } from "./utils";
-import { unrefElement } from "@vueuse/core";
+import { type VNode, computed, inject, onMounted, ref } from 'vue'
+import { unrefElement } from '@vueuse/core'
+import { NAVIGATION_MENU_INJECTION_KEY } from './NavigationMenuRoot.vue'
+import { NAVIGATION_MENU_ITEM_INJECTION_KEY } from './NavigationMenuItem.vue'
+import { getOpenState, makeContentId, makeTriggerId } from './utils'
+import {
+  Primitive,
+  type PrimitiveProps,
+  usePrimitiveElement,
+} from '@/Primitive'
+import { VisuallyHidden } from '@/VisuallyHidden'
 
-const props = defineProps<{
-  disabled?: boolean;
-}>();
-defineOptions({
-  inheritAttrs: false,
-});
+export interface NavigationMenuTriggerProps extends PrimitiveProps {
+  disabled?: boolean
+}
 
-const context = inject(NAVIGATION_MENU_INJECTION_KEY);
-const itemContext = inject(NAVIGATION_MENU_ITEM_INJECTION_KEY);
+const props = withDefaults(defineProps<NavigationMenuTriggerProps>(), {
+  as: 'button',
+})
 
-const { primitiveElement, currentElement: triggerElement } =
-  usePrimitiveElement();
-const triggerId = makeTriggerId(context!.baseId, itemContext!.value);
-const contentId = makeContentId(context!.baseId, itemContext!.value);
-const hasPointerMoveOpenedRef = ref(false);
-const wasClickCloseRef = ref(false);
+const context = inject(NAVIGATION_MENU_INJECTION_KEY)
+const itemContext = inject(NAVIGATION_MENU_ITEM_INJECTION_KEY)
 
-const open = computed(() => itemContext?.value === context?.modelValue.value);
+const { primitiveElement, currentElement: triggerElement }
+  = usePrimitiveElement()
+const triggerId = ref('')
+const contentId = ref('')
+
+const hasPointerMoveOpenedRef = ref(false)
+const wasClickCloseRef = ref(false)
+
+const open = computed(() => itemContext?.value === context?.modelValue.value)
 
 onMounted(() => {
-  itemContext!.triggerRef = triggerElement;
-});
+  itemContext!.triggerRef = triggerElement
+  triggerId.value = makeTriggerId(context!.baseId, itemContext!.value)
+  contentId.value = makeContentId(context!.baseId, itemContext!.value)
+})
 
-const handlePointerEnter = (ev: PointerEvent) => {
-  wasClickCloseRef.value = false;
-  itemContext!.wasEscapeCloseRef.value = false;
-};
+function handlePointerEnter() {
+  wasClickCloseRef.value = false
+  itemContext!.wasEscapeCloseRef.value = false
+}
 
-const handlePointerMove = (ev: PointerEvent) => {
-  if (ev.pointerType === "mouse") {
+function handlePointerMove(ev: PointerEvent) {
+  if (ev.pointerType === 'mouse') {
     if (
-      props.disabled ||
-      wasClickCloseRef.value ||
-      itemContext!.wasEscapeCloseRef.value ||
-      hasPointerMoveOpenedRef.value
+      props.disabled
+      || wasClickCloseRef.value
+      || itemContext!.wasEscapeCloseRef.value
+      || hasPointerMoveOpenedRef.value
     )
-      return;
-    context!.onTriggerEnter(itemContext!.value);
-    hasPointerMoveOpenedRef.value = true;
+      return
+    context!.onTriggerEnter(itemContext!.value)
+    hasPointerMoveOpenedRef.value = true
   }
-};
+}
 
-const handlePointerLeave = (ev: PointerEvent) => {
-  if (ev.pointerType === "mouse") {
-    if (props.disabled) return;
-    context!.onTriggerLeave();
-    hasPointerMoveOpenedRef.value = false;
+function handlePointerLeave(ev: PointerEvent) {
+  if (ev.pointerType === 'mouse') {
+    if (props.disabled)
+      return
+    context!.onTriggerLeave()
+    hasPointerMoveOpenedRef.value = false
   }
-};
+}
 
-const handleClick = (ev: MouseEvent) => {
-  if (open.value) {
-    context?.onItemSelect("");
-  } else {
-    context?.onItemSelect(itemContext!.value);
-  }
-  wasClickCloseRef.value = open.value;
-};
+function handleClick() {
+  // if open via pointermove, we prevent click event
+  if (hasPointerMoveOpenedRef.value)
+    return
 
-const handleKeydown = (ev: KeyboardEvent) => {
-  const verticalEntryKey = context!.dir === "rtl" ? "ArrowLeft" : "ArrowRight";
-  const entryKey = { horizontal: "ArrowDown", vertical: verticalEntryKey }[
+  if (open.value)
+    context?.onItemSelect('')
+  else context?.onItemSelect(itemContext!.value)
+
+  wasClickCloseRef.value = open.value
+}
+
+function handleKeydown(ev: KeyboardEvent) {
+  const verticalEntryKey = context!.dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight'
+  const entryKey = { horizontal: 'ArrowDown', vertical: verticalEntryKey }[
     context!.orientation
-  ];
+  ]
   if (open.value && ev.key === entryKey) {
-    itemContext!.onEntryKeyDown();
+    itemContext!.onEntryKeyDown()
     // Prevent FocusGroupItem from handling the event
-    ev.preventDefault();
-    ev.stopPropagation();
+    ev.preventDefault()
+    ev.stopPropagation()
   }
-};
+}
 
-const setFocusProxyRef = (node: VNode) => {
-  // @ts-ignore
-  itemContext!.focusProxyRef.value = unrefElement(node);
-  return undefined;
-};
+function setFocusProxyRef(node: VNode) {
+  // @ts-expect-error unrefElement expect MaybeRef, but also support Vnode
+  itemContext!.focusProxyRef.value = unrefElement(node)
+  return undefined
+}
 
-const handleVisuallyHiddenFocus = (ev: FocusEvent) => {
-  const content = // @ts-ignore
-    (itemContext!.contentRef.value?.children?.[0].el as HTMLElement)
-      .parentElement;
-  const prevFocusedElement = ev.relatedTarget as HTMLElement | null;
+function handleVisuallyHiddenFocus(ev: FocusEvent) {
+  const content = document.getElementById(itemContext!.contentId)
+  const prevFocusedElement = ev.relatedTarget as HTMLElement | null
 
-  const wasTriggerFocused = prevFocusedElement === triggerElement.value;
-  const wasFocusFromContent = content?.contains(prevFocusedElement);
+  const wasTriggerFocused = prevFocusedElement === triggerElement.value
+  const wasFocusFromContent = content?.contains(prevFocusedElement)
 
-  if (wasTriggerFocused || !wasFocusFromContent) {
-    itemContext!.onFocusProxyEnter(wasTriggerFocused ? "start" : "end");
-  }
-};
+  if (wasTriggerFocused || !wasFocusFromContent)
+    itemContext!.onFocusProxyEnter(wasTriggerFocused ? 'start' : 'end')
+}
+</script>
+
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+}
 </script>
 
 <template>
-  <PrimitiveButton
-    ref="primitiveElement"
+  <Primitive
     :id="triggerId"
+    ref="primitiveElement"
     :disabled="disabled"
     :data-disabled="disabled ? '' : undefined"
     :data-state="getOpenState(open)"
     :aria-expanded="open"
     :aria-controls="contentId"
+    :as-child="props.asChild"
+    :as="as"
+    v-bind="$attrs"
+    data-radix-vue-collection-item
     @pointerenter="handlePointerEnter"
     @pointermove="handlePointerMove"
     @pointerleave="handlePointerLeave"
     @click="handleClick"
     @keydown="handleKeydown"
-    v-bind="$attrs"
-    data-radix-vue-collection-item
   >
-    <slot></slot>
-  </PrimitiveButton>
+    <slot />
+  </Primitive>
 
   <template v-if="open">
     <VisuallyHidden
-      aria-hidden
-      :tabIndex="0"
       :ref="setFocusProxyRef"
+      aria-hidden
+      :tabindex="0"
       @focus="handleVisuallyHiddenFocus"
-    >
-    </VisuallyHidden>
-    <span :aria-owns="contentId" v-if="context?.viewport"></span>
+    />
+    <span v-if="context?.viewport" :aria-owns="contentId" />
   </template>
 </template>

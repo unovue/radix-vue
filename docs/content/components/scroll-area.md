@@ -58,7 +58,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { ScrollAreaRoot, ScrollAreaViewport, ScrollAreaScrollbar, ScrollAreaThumb } from "radix-vue";
+import { ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from 'radix-vue'
 </script>
 
 <template>
@@ -88,20 +88,20 @@ Contains all the parts of a scroll area.
       type: '&quot;auto&quot; | &quot;always&quot; | &quot;scroll&quot; | &quot;hover&quot;',
       typeSimple: 'enum',
       default: '&quot;hover&quot;',
-      description: '<span> Describes the nature of scrollbar visibility, similar to how the scrollbar preferences in MacOS control visibility of native scrollbars. <br /> <br /> <Code>&quot;auto&quot;</Code> means that scrollbars are visible when content is overflowing on the corresponding orientation. <br /> <Code>&quot;always&quot;</Code> means that scrollbars are always visible regardless of whether the content is overflowing. <br /> <Code>&quot;scroll&quot;</Code> means that scrollbars are visible when the user is scrolling along its corresponding orientation. <br /> <Code>&quot;hover&quot;</Code> when the user is scrolling along its corresponding orientation and when the user is hovering over the scroll area.</span>',
+      description: '<span> Describes the nature of scrollbar visibility, similar to how the scrollbar preferences in MacOS control visibility of native scrollbars. <br /> <br /> <code>&quot;auto&quot;</code> means that scrollbars are visible when content is overflowing on the corresponding orientation. <br /> <code>&quot;always&quot;</code> means that scrollbars are always visible regardless of whether the content is overflowing. <br /> <code>&quot;scroll&quot;</code> means that scrollbars are visible when the user is scrolling along its corresponding orientation. <br /> <code>&quot;hover&quot;</code> when the user is scrolling along its corresponding orientation and when the user is hovering over the scroll area.</span>',
     },
     {
       name: 'scrollHideDelay',
       type: 'number',
       default: '600',
-      description: '<span> If <Code>type</Code> is set to either <Code>&quot;scroll&quot;</Code> or <Code>&quot;hover&quot;</Code>, this prop determines the length of time, in milliseconds, before the scrollbars are hidden after the user stops interacting with scrollbars.</span>',
+      description: '<span> If <code>type</code> is set to either <code>&quot;scroll&quot;</code> or <code>&quot;hover&quot;</code>, this prop determines the length of time, in milliseconds, before the scrollbars are hidden after the user stops interacting with scrollbars.</span>',
     },
     {
       name: 'dir',
       required: false,
       type: '&quot;ltr&quot; | &quot;rtl&quot;',
       typeSimple: 'enum',
-      description: '<span> The reading direction of the scroll area. If omitted, inherits globally from <Code>DirectionProvider</Code> or assumes LTR (left-to-right) reading mode.</span>',
+      description: '<span> The reading direction of the scroll area. If omitted, inherits globally from <code>DirectionProvider</code> or assumes LTR (left-to-right) reading mode.</span>',
     },
     {
       name: 'asChild',

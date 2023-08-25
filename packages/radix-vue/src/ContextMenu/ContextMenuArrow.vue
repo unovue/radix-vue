@@ -1,7 +1,12 @@
 <script setup lang="ts">
-import { PopperArrow } from "@/Popper";
+import { MenuArrow, type MenuArrowProps } from '@/Menu'
+
+export interface ContextMenuArrowProps extends MenuArrowProps {}
+const props = defineProps<ContextMenuArrowProps>()
 </script>
 
 <template>
-  <PopperArrow></PopperArrow>
+  <MenuArrow v-bind="props">
+    <slot />
+  </MenuArrow>
 </template>

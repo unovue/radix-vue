@@ -1,14 +1,15 @@
-<!--
-<script lang="ts">
-export interface DropdwonMenuPortalProps {
-  forceMount?: boolean;
-  container?: HTMLElement | string;
+<script setup lang="ts">
+export interface SelectPortalProps {
+  to?: string | HTMLElement
+  disabled?: boolean
 }
+const props = withDefaults(defineProps<SelectPortalProps>(), {
+  to: 'body',
+})
 </script>
--->
 
 <template>
-  <Teleport to="body">
+  <Teleport v-bind="props">
     <slot />
   </Teleport>
 </template>

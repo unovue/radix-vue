@@ -61,7 +61,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from "radix-vue";
+import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
 </script>
 
 <template>
@@ -94,14 +94,14 @@ Contains all the parts of a popover.
     {
       name: 'open',
       type: 'boolean',
-      description: '<span> The controlled open state of the popover. Can be binded with <Code>v-model</Code>.</span>',
+      description: '<span> The controlled open state of the popover. Can be binded with <code>v-model</code>.</span>',
     },
     {
       name: 'modal',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: '<span> The modality of the popover. When set to <Code>true</Code>, interaction with outside elements will be disabled and only popover content will be visible to screen readers.</span>',
+      description: '<span> The modality of the popover. When set to <code>true</code>, interaction with outside elements will be disabled and only popover content will be visible to screen readers.</span>',
     },
   ]"
 />
@@ -143,7 +143,7 @@ The button that toggles the popover. By default, the `PopoverContent` will posit
 
 ### Anchor
 
-An optional element to position the `PopoverContent` against. If this part is not used, the content will position alongside the <Code>PopoverTrigger</Code>.
+An optional element to position the `PopoverContent` against. If this part is not used, the content will position alongside the <code>PopoverTrigger</code>.
 
 <PropsTable
   :data="[
@@ -184,7 +184,7 @@ The component that pops out when the popover is open.
       type: '&quot;top&quot; | &quot;right&quot; | &quot;bottom&quot; | &quot;left&quot;',
       typeSimple: 'enum',
       default: '&quot;bottom&quot;',
-      description: '<span> The preferred side of the trigger to render against when open. Will be reversed when collisions occur and <Code>avoidCollisions</Code> is enabled.</span>',
+      description: '<span> The preferred side of the trigger to render against when open. Will be reversed when collisions occur and <code>avoidCollisions</code> is enabled.</span>',
     },
     {
       name: 'sideOffset',
@@ -203,13 +203,13 @@ The component that pops out when the popover is open.
       name: 'alignOffset',
       type: 'number',
       default: '0',
-      description: '<span> An offset in pixels from the <Code>&quot;start&quot;</Code> or <Code>&quot;end&quot;</Code> alignment options.</span>',
+      description: '<span> An offset in pixels from the <code>&quot;start&quot;</code> or <code>&quot;end&quot;</code> alignment options.</span>',
     },
     {
       name: 'avoidCollisions',
       type: 'boolean',
       default: 'true',
-      description: '<span> When <Code>true</Code>, overrides the <Code>side</Code> and <Code>align</Code> preferences to prevent collisions with boundary edges.</span>',
+      description: '<span> When <code>true</code>, overrides the <code>side</code> and <code>align</code> preferences to prevent collisions with boundary edges.</span>',
     },
     {
       name: 'collisionBoundary',
@@ -223,20 +223,20 @@ The component that pops out when the popover is open.
       type: 'number | Partial<Record<Side, number>>',
       typeSimple: 'number | Padding',
       default: '0',
-      description: '<span> The distance in pixels from the boundary edges where collision detection should occur. Accepts a number (same for all sides), or a partial padding object, for example: <Code>{`{ top: 20, left: 20 }`}</Code> .</span>',
+      description: '<span> The distance in pixels from the boundary edges where collision detection should occur. Accepts a number (same for all sides), or a partial padding object, for example: <code>{`{ top: 20, left: 20 }`}</code> .</span>',
     },
     {
       name: 'arrowPadding',
       type: 'number',
       default: '0',
-      description: '<span> The padding between the arrow and the edges of the content. If your content has <Code>border-radius</Code>, this will prevent it from overflowing the corners.</span>',
+      description: '<span> The padding between the arrow and the edges of the content. If your content has <code>border-radius</code>, this will prevent it from overflowing the corners.</span>',
     },
     {
       name: 'sticky',
       type: '&quot;partial&quot; | &quot;always&quot;',
       typeSimple: 'enum',
       default: '&quot;partial&quot;',
-      description: '<span> The sticky behavior on the align axis. <Code>&quot;partial&quot;</Code> will keep the content in the boundary as long as the trigger is at least partially in the boundary whilst <Code>&quot;always&quot;</Code> will keep the content in the boundary regardless.</span>',
+      description: '<span> The sticky behavior on the align axis. <code>&quot;partial&quot;</code> will keep the content in the boundary as long as the trigger is at least partially in the boundary whilst <code>&quot;always&quot;</code> will keep the content in the boundary regardless.</span>',
     },
     {
       name: 'hideWhenDetached',
@@ -259,19 +259,19 @@ The component that pops out when the popover is open.
     {
       name: '@openAutoFocus',
       type: '(event: Event) => void',
-      description: 'Event handler called when focus moves into the component after opening. It can be prevented by  calling<Code>event.preventDefault</Code>.'
+      description: 'Event handler called when focus moves into the component after opening. It can be prevented by  calling<code>event.preventDefault</code>.'
     }, 
     {
       name: '@closeAutoFocus',
       type: '(event: Event) => void',
-      description: 'Event handler called when focus moves to the trigger after closing. It can be prevented by calling <Code>event.preventDefault</Code>.'
+      description: 'Event handler called when focus moves to the trigger after closing. It can be prevented by calling <code>event.preventDefault</code>.'
     }, 
     {
     name: '@escapeKeyDown',
     type: '(event: KeyboardEvent) => void',
       description: `
         <span>
-          Event handler called when the escape key is down. It can be prevented by calling <Code>event.preventDefault</Code>.
+          Event handler called when the escape key is down. It can be prevented by calling <code>event.preventDefault</code>.
         </span>
       `,
     },
@@ -280,7 +280,7 @@ The component that pops out when the popover is open.
       type: '(event: PointerDownOutsideEvent) => void',
       description: `
         <span>
-          Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>.
+          Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling <code>event.preventDefault</code>.
         </span>
       `,
     }, 
@@ -291,7 +291,7 @@ The component that pops out when the popover is open.
         <span>
           Event handler called when an interaction (pointer or focus event)
           happens outside the bounds of the component. It can be prevented by
-          calling <Code>event.preventDefault</Code>.
+          calling <code>event.preventDefault</code>.
         </span>
       `,
     },
@@ -319,7 +319,7 @@ The component that pops out when the popover is open.
   :data="[
     {
       cssVariable: '--radix-popover-content-transform-origin',
-      description: ' The <Code>transform-origin</Code> computed from the content and arrow positions/offsets',
+      description: ' The <code>transform-origin</code> computed from the content and arrow positions/offsets',
     },
     {
       cssVariable: '--radix-popover-content-available-width',
@@ -395,8 +395,8 @@ We expose several CSS custom properties such as `--radix-popover-trigger-width` 
 ```vue line=18
 // index.vue
 <script setup>
-import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from "radix-vue";
-import "./styles.css";
+import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
+import './styles.css'
 </script>
 ;
 
@@ -404,7 +404,9 @@ import "./styles.css";
   <PopoverRoot>
     <PopoverTrigger>…</PopoverTrigger>
     <PopoverPortal>
-      <PopoverContent class="PopoverContent" :sideOffset="5"> … </PopoverContent>
+      <PopoverContent class="PopoverContent" :side-offset="5">
+        …
+      </PopoverContent>
     </PopoverPortal>
   </PopoverRoot>
 </template>
@@ -425,8 +427,8 @@ We expose a CSS custom property `--radix-popover-content-transform-origin`. Use 
 ```vue line=18
 // index.vue
 <script setup>
-import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from "radix-vue";
-import "./styles.css";
+import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
+import './styles.css'
 </script>
 ;
 
@@ -434,7 +436,9 @@ import "./styles.css";
   <PopoverRoot>
     <PopoverTrigger>…</PopoverTrigger>
     <PopoverPortal>
-      <PopoverContent class="PopoverContent">…</PopoverContent>
+      <PopoverContent class="PopoverContent">
+        …
+      </PopoverContent>
     </PopoverPortal>
   </PopoverRoot>
 </template>
@@ -466,8 +470,8 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 ```vue line=18
 // index.vue
 <script setup>
-import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from "radix-vue";
-import "./styles.css";
+import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
+import './styles.css'
 </script>
 ;
 
@@ -475,7 +479,9 @@ import "./styles.css";
   <PopoverRoot>
     <PopoverTrigger>…</PopoverTrigger>
     <PopoverPortal>
-      <PopoverContent class="PopoverContent">…</PopoverContent>
+      <PopoverContent class="PopoverContent">
+        …
+      </PopoverContent>
     </PopoverPortal>
   </PopoverRoot>
 </template>
@@ -524,15 +530,17 @@ You can anchor the content to another element if you do not want to use the trig
 ```vue line=16-20
 // index.vue
 <script setup>
-import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from "radix-vue";
-import "./styles.css";
+import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
+import './styles.css'
 </script>
 ;
 
 <template>
   <PopoverRoot>
-    <PopoverAnchor asChild>
-      <div class="Row">Row as anchor <PopoverTrigger>Trigger</PopoverTrigger></div>
+    <PopoverAnchor as-child>
+      <div class="Row">
+        Row as anchor <PopoverTrigger>Trigger</PopoverTrigger>
+      </div>
     </PopoverAnchor>
 
     <PopoverPortal>
@@ -576,7 +584,7 @@ Adheres to the [Dialog WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/
     },
     {
       keys: ['Esc'],
-      description: '<span> Closes the popover and moves focus to <Code>PopoverTrigger</Code>.</span>',
+      description: '<span> Closes the popover and moves focus to <code>PopoverTrigger</code>.</span>',
     },
   ]"
 />

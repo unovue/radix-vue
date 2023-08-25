@@ -1,19 +1,13 @@
-<script lang="ts">
-export interface DropdownMenuItemIndicatorProps {
-  asChild?: boolean;
-  forceMount?: boolean;
-}
-</script>
-
 <script setup lang="ts">
-import { inject } from "vue";
-import { PrimitiveSpan } from "@/Primitive";
-import { DROPDOWN_MENU_ITEM_SYMBOL } from "./utils";
-const context = inject(DROPDOWN_MENU_ITEM_SYMBOL);
+import { MenuItemIndicator, type MenuItemIndicatorProps } from '@/Menu'
+
+export interface DropdownMenuItemIndicatorProps
+  extends MenuItemIndicatorProps {}
+const props = defineProps<DropdownMenuItemIndicatorProps>()
 </script>
 
 <template>
-  <PrimitiveSpan v-if="context?.modelValue.value" style="pointer-events: none">
+  <MenuItemIndicator v-bind="props">
     <slot />
-  </PrimitiveSpan>
+  </MenuItemIndicator>
 </template>

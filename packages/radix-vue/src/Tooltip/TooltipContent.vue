@@ -1,39 +1,28 @@
-<script lang="ts">
-export interface TooltipContentProps extends PopperContentProps {
-  asChild?: boolean;
-  forceMount?: boolean;
-}
-</script>
-
 <script setup lang="ts">
-import { inject } from "vue";
-import {
-  TOOLTIP_INJECTION_KEY,
-  type TooltipProvideValue,
-} from "./TooltipRoot.vue";
-import { PrimitiveDiv } from "@/Primitive";
-import { PopperContent, type PopperContentProps } from "@/Popper";
+import TooltipContentImpl, { type TooltipContentImplEmits, type TooltipContentImplProps } from './TooltipContentImpl.vue'
+import TooltipContentHoverable from './TooltipContentHoverable.vue'
+import { inject } from 'vue'
+import { TOOLTIP_INJECTION_KEY } from './TooltipRoot.vue'
+import { useEmitAsProps } from '@/shared'
 
-const injectedValue = inject<TooltipProvideValue>(TOOLTIP_INJECTION_KEY);
+export interface TooltipContentProps extends TooltipContentImplProps {}
+export type TooltipContentEmits = TooltipContentImplEmits
 
 const props = withDefaults(defineProps<TooltipContentProps>(), {
-  side: "top",
-  align: "center",
-});
+  side: 'top',
+})
+const emits = defineEmits<TooltipContentEmits>()
+const emitsAsProps = useEmitAsProps(emits)
+
+const context = inject(TOOLTIP_INJECTION_KEY)
 </script>
 
 <template>
-  <PopperContent v-bind="props" v-if="injectedValue?.open.value">
-    <PrimitiveDiv
-      ref="primitiveElement"
-      :data-state="injectedValue?.open.value ? 'delayed-open' : 'closed'"
-      data-side="top"
-      data-align="center"
-      role="tooltip"
-      tabindex="-1"
-      :asChild="props.asChild"
-    >
-      <slot />
-    </PrimitiveDiv>
-  </PopperContent>
+  <component
+    :is="context?.disableHoverableContent.value ? TooltipContentImpl : TooltipContentHoverable "
+    v-if="context?.open.value"
+    v-bind="{ ...props, ...emitsAsProps }"
+  >
+    <slot />
+  </component>
 </template>

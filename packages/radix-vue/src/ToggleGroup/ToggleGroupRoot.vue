@@ -1,133 +1,80 @@
 <script lang="ts">
-import type { Ref, InjectionKey } from "vue";
-import type { DataOrientation, Direction } from "../shared/types";
+import type { InjectionKey, Ref } from 'vue'
+import type { DataOrientation, Direction } from '../shared/types'
+import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
+import { RovingFocusGroup } from '@/RovingFocus'
 
-type TypeEnum = "single" | "multiple";
+type TypeEnum = 'single' | 'multiple'
 
-export interface ToggleGroupRootProps {
-  asChild?: boolean;
-  type?: TypeEnum;
-  value?: string;
-  defaultValue?: string;
-  //onValueChange?: void;
-  disabled?: boolean;
-  rovingFocus?: boolean;
-  orientation?: DataOrientation;
-  dir?: Direction;
-  loop: boolean;
-  modelValue?: string | string[];
+export interface ToggleGroupRootProps extends PrimitiveProps {
+  type?: TypeEnum
+  defaultValue?: string | string[]
+  modelValue?: string | string[]
+  rovingFocus?: boolean
+  disabled?: boolean
+  orientation?: DataOrientation
+  dir?: Direction
+  loop?: boolean
+}
+export type ToggleGroupRootEmits = {
+  'update:modelValue': [payload: string]
 }
 
-export const TOGGLE_GROUP_INJECTION_KEY =
-  Symbol() as InjectionKey<ToggleGroupProvideValue>;
+export const TOGGLE_GROUP_INJECTION_KEY
+  = Symbol() as InjectionKey<ToggleGroupProvideValue>
 
-export interface ToggleGroupProvideValue {
-  type: TypeEnum;
-  modelValue?: Readonly<Ref<string | string[] | undefined>>;
-  changeModelValue: (value: string) => void;
-  parentElement: Ref<HTMLElement | undefined>;
-  currentFocusedElement: Ref<HTMLElement | undefined>;
-  activeValue?: Readonly<Ref<string>>;
-  dir?: Direction;
-  orientation?: DataOrientation;
-  loop: boolean;
-  itemsArray: Ref<HTMLElement[] | undefined>;
-  rovingFocus: boolean;
-  rootDisabled?: boolean;
+interface ToggleGroupProvideValue {
+  type: TypeEnum
+  modelValue: Ref<string | string[] | undefined>
+  changeModelValue: (value: string) => void
+  dir?: Ref<Direction>
+  orientation?: DataOrientation
+  loop: Ref<boolean>
+  rovingFocus: Ref<boolean>
+  disabled?: Ref<boolean>
 }
 </script>
 
 <script setup lang="ts">
-import { ref, provide, watch } from "vue";
-import { useVModel, useActiveElement } from "@vueuse/core";
-import { PrimitiveDiv, usePrimitiveElement } from "@/Primitive";
+import { provide, toRefs } from 'vue'
+import { Primitive, type PrimitiveProps } from '@/Primitive'
 
 const props = withDefaults(defineProps<ToggleGroupRootProps>(), {
-  type: "single",
-  loop: false,
-  dir: "ltr",
-  orientation: "horizontal",
+  type: 'single',
+  loop: true,
+  dir: 'ltr',
+  orientation: 'horizontal',
   rovingFocus: true,
   disabled: false,
-});
+})
+const emits = defineEmits<ToggleGroupRootEmits>()
 
-const emits = defineEmits(["update:modelValue"]);
+const { loop, rovingFocus, disabled, dir } = toRefs(props)
 
-const { primitiveElement, currentElement: parentElement } =
-  usePrimitiveElement();
+const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emits)
 
-const activeValue = ref();
-const currentFocusedElementRef = ref<HTMLElement>();
-const activeElement = useActiveElement();
-const itemsArray = ref<HTMLElement[]>([]);
-
-const modelValue = useVModel(props, "modelValue", emits, {
-  defaultValue: props.defaultValue,
-  passive: true,
-});
-
-provide<ToggleGroupProvideValue>(TOGGLE_GROUP_INJECTION_KEY, {
+provide(TOGGLE_GROUP_INJECTION_KEY, {
   type: props.type,
   modelValue,
-  changeModelValue: changeModelValue,
-  parentElement,
-  activeValue: activeValue,
-  currentFocusedElement: currentFocusedElementRef,
-  dir: props.dir,
+  changeModelValue,
+  dir,
   orientation: props.orientation,
-  loop: props.loop,
-  itemsArray,
-  rovingFocus: props.rovingFocus,
-  rootDisabled: props.disabled,
-});
-
-function changeModelValue(value: string) {
-  if (props.type === "single") {
-    modelValue.value = value;
-  } else {
-    let modelValueArray = props.modelValue as string[];
-    if (modelValueArray.includes(value)) {
-      let index = modelValueArray.findIndex((i) => i === value);
-      modelValueArray.splice(index, 1);
-    } else {
-      modelValueArray.push(value);
-    }
-    modelValue.value = modelValueArray;
-  }
-}
-
-watch(
-  activeElement,
-  () => {
-    if (activeElement.value === parentElement.value && !props.disabled) {
-      if (!itemsArray.value.length) {
-        return;
-      }
-      if (!currentFocusedElementRef.value) {
-        let filteredItemsArray = itemsArray.value.filter(
-          (i) => !i.hasAttribute("disabled") && !i.hasAttribute("data-disabled")
-        );
-        filteredItemsArray[0].focus();
-        currentFocusedElementRef.value = filteredItemsArray[0];
-      } else {
-        currentFocusedElementRef.value.focus();
-      }
-    }
-  },
-  { immediate: true }
-);
+  loop,
+  rovingFocus,
+  disabled,
+})
 </script>
 
 <template>
-  <PrimitiveDiv
-    :as-child="props.asChild"
-    ref="primitiveElement"
-    role="group"
-    :dir="props.dir"
-    tabindex="0"
-    aria-label="Text alignment"
-    :data-orientation="props.orientation"
+  <component
+    :is="rovingFocus ? RovingFocusGroup : Primitive"
+    as-child
+    :orientation="rovingFocus ? orientation : undefined"
+    :dir="dir"
+    :loop="rovingFocus ? loop : undefined"
   >
-    <slot />
-  </PrimitiveDiv>
+    <Primitive role="group" :as-child="asChild" :as="as">
+      <slot :model-value="modelValue" />
+    </Primitive>
+  </component>
 </template>

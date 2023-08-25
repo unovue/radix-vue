@@ -1,4 +1,5 @@
 {
+  // This tsconfig is for development. Allowing *.story.vue, and __test__/*.vue to have types support
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": [
     "env.d.ts",
@@ -7,14 +8,10 @@
     "src/**/*.tsx",
     "src/**/*.vue"
   ],
-  "exclude": [
-    "src/**/__tests__/*",
-    "**/*.test.ts",
-    "**/*.test.js",
-  ],
   "compilerOptions": {
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@iconify/vue": ["../../.histoire/node_modules/@iconify/vue"]
     },
     "target": "esnext",
     "module": "esnext",

@@ -1,14 +1,12 @@
-<!--
-<script lang="ts">
-export interface DropdwonMenuPortalProps {
-  forceMount?: boolean;
-  container?: HTMLElement | string;
-}
+<script setup lang="ts">
+import { MenuPortal, type MenuPortalProps } from '@/Menu'
+
+export interface DropdownMenuPortalProps extends MenuPortalProps {}
+const props = defineProps<DropdownMenuPortalProps>()
 </script>
--->
 
 <template>
-  <Teleport to="body">
+  <MenuPortal v-bind="props">
     <slot />
-  </Teleport>
+  </MenuPortal>
 </template>

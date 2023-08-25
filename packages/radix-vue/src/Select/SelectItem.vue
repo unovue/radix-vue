@@ -1,56 +1,150 @@
+<script lang="ts">
+interface SelectItemContextValue {
+  value: string
+  textId: string
+  disabled: Ref<boolean>
+  isSelected: Ref<boolean>
+  onItemTextChange(node: HTMLElement | undefined): void
+}
+
+export const SELECT_ITEM_INJECTION_KEY
+  = Symbol() as InjectionKey<SelectItemContextValue>
+
+export interface SelectItemProps extends PrimitiveProps {
+  value: string
+  disabled?: boolean
+  textValue?: string
+}
+</script>
+
 <script setup lang="ts">
-import { inject, provide } from "vue";
-import BaseMenuItem from "../shared/component/BaseMenuItem.vue";
 import {
-  SELECT_INJECTION_KEY,
-  type SelectProvideValue,
-} from "./SelectRoot.vue";
-import { SELECT_ITEM_SYMBOL } from "./utils";
-import { type DropdownMenuProvideValue } from "@/DropdownMenu/DropdownMenuRoot.vue";
+  type InjectionKey,
+  type Ref,
+  computed,
+  inject,
+  nextTick,
+  onMounted,
+  provide,
+  ref,
+  toRefs,
+} from 'vue'
+import { SELECT_INJECTION_KEY } from './SelectRoot.vue'
+import { SELECT_CONTENT_INJECTION_KEY } from './SelectContentImpl.vue'
+import { SELECTION_KEYS } from './utils'
+import {
+  Primitive,
+  type PrimitiveProps,
+  usePrimitiveElement,
+} from '@/Primitive'
+import { useId } from '@/shared'
 
-export interface SelectItemProps {
-  asChild?: boolean;
-  value: string;
-  disabled?: boolean;
-  id?: string;
-  name?: string;
-  onSelect?: void;
-  textValue?: string;
+const props = defineProps<SelectItemProps>()
+const { disabled } = toRefs(props)
+
+const context = inject(SELECT_INJECTION_KEY)
+const contentContext = inject(SELECT_CONTENT_INJECTION_KEY)
+const { primitiveElement, currentElement } = usePrimitiveElement()
+
+const isSelected = computed(() => context?.modelValue?.value === props.value)
+const isFocused = ref(false)
+const textValue = ref(props.textValue ?? '')
+const textId = useId()
+
+async function handleSelect(ev?: PointerEvent) {
+  await nextTick()
+  if (ev?.defaultPrevented)
+    return
+
+  if (!disabled.value) {
+    context!.onValueChange(props.value)
+    context!.onOpenChange(false)
+  }
 }
 
-export type SelectItemProvideValue = {
-  value: string;
-};
-
-const rootInjectedValue = inject<SelectProvideValue>(SELECT_INJECTION_KEY);
-
-const props = defineProps<SelectItemProps>();
-
-function handleClick() {
-  rootInjectedValue?.changeModelValue(props.value);
-  return rootInjectedValue?.hideTooltip();
+async function handlePointerMove(event: PointerEvent) {
+  await nextTick()
+  if (event.defaultPrevented)
+    return
+  if (disabled.value) {
+    contentContext!.onItemLeave?.()
+  }
+  else {
+    // even though safari doesn't support this option, it's acceptable
+    // as it only means it might scroll a few pixels when using the pointer.
+    (event.currentTarget as HTMLElement).focus({ preventScroll: true })
+  }
 }
 
-provide<SelectItemProvideValue>(SELECT_ITEM_SYMBOL, {
+async function handlePointerLeave(event: PointerEvent) {
+  await nextTick()
+  if (event.defaultPrevented)
+    return
+  if (event.currentTarget === document.activeElement)
+    contentContext!.onItemLeave?.()
+}
+
+async function handleKeyDown(event: KeyboardEvent) {
+  await nextTick()
+  if (event.defaultPrevented)
+    return
+  const isTypingAhead = contentContext!.searchRef?.value !== ''
+  if (isTypingAhead && event.key === ' ')
+    return
+  if (SELECTION_KEYS.includes(event.key))
+    handleSelect()
+  // prevent page scroll if using the space key to select an item
+  if (event.key === ' ')
+    event.preventDefault()
+}
+
+if (props.value === '') {
+  throw new Error(
+    'A <SelectItem /> must have a value prop that is not an empty string. This is because the Select value can be set to an empty string to clear the selection and show the placeholder.',
+  )
+}
+
+onMounted(() => {
+  if (!currentElement.value)
+    return
+  contentContext!.itemRefCallback(
+    currentElement.value,
+    props.value,
+    props.disabled,
+  )
+})
+
+provide(SELECT_ITEM_INJECTION_KEY, {
   value: props.value,
-});
+  disabled,
+  textId,
+  isSelected,
+  onItemTextChange: (node) => {
+    textValue.value = ((textValue.value || node?.textContent) ?? '').trim()
+  },
+})
 </script>
 
 <template>
-  <BaseMenuItem
-    :disabled="props.disabled"
-    :rootProvider="(rootInjectedValue as unknown as DropdownMenuProvideValue)"
-    :orientation="rootInjectedValue?.orientation"
-    :data-radix-vue-radio-value="props.value"
-    @handle-click="handleClick"
-    @escape-keydown="rootInjectedValue?.hideTooltip()"
-    role="option"
-    :data-state="
-      rootInjectedValue?.modelValue?.value === props.value
-        ? 'checked'
-        : 'unchecked'
-    "
+  <Primitive
+    ref="primitiveElement"
+    data-radix-vue-collection-item
+    :aria-labelledby="textId"
+    :data-highlighted="isFocused ? '' : undefined"
+    :aria-selected="isSelected && isFocused"
+    :data-state="isSelected ? 'checked' : 'unchecked'"
+    :aria-disabled="disabled || undefined"
+    :data-disabled="disabled ? '' : undefined"
+    :tabindex="disabled ? undefined : -1"
+    :as="as"
+    :as-child="asChild"
+    @focus="isFocused = true"
+    @blur="isFocused = false"
+    @pointerup="handleSelect"
+    @pointermove="handlePointerMove"
+    @pointerleave="handlePointerLeave"
+    @keydown="handleKeyDown"
   >
     <slot />
-  </BaseMenuItem>
+  </Primitive>
 </template>

@@ -1,16 +1,26 @@
 <script lang="ts">
-import { PrimitiveLabel } from "@/Primitive";
+import { Primitive, type PrimitiveProps } from '@/Primitive'
 
-interface SelectLabelProps {
-  asChild?: boolean;
-  for?: string;
+export interface SelectLabelProps extends PrimitiveProps {
+  for?: string
 }
 </script>
 
 <script setup lang="ts">
-const props = defineProps<SelectLabelProps>();
+import { inject } from 'vue'
+import { SELECT_GROUP_INJECTION_KEY } from './SelectGroup.vue'
+
+const props = withDefaults(defineProps<SelectLabelProps>(), {
+  as: 'label',
+})
+
+const groupContext = inject(SELECT_GROUP_INJECTION_KEY, {
+  id: '',
+})
 </script>
 
 <template>
-  <PrimitiveLabel :for="props.for"><slot /></PrimitiveLabel>
+  <Primitive v-bind="props" :id="groupContext.id">
+    <slot />
+  </Primitive>
 </template>

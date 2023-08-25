@@ -1,53 +1,80 @@
 <script lang="ts">
 export type TooltipTriggerDataState =
-  | "closed"
-  | "delayed-open"
-  | "instant-open";
+  | 'closed'
+  | 'delayed-open'
+  | 'instant-open'
 
-export interface TooltipRootProps {
-  asChild?: boolean;
-}
+export interface TooltipTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { inject, computed } from "vue";
-import { PrimitiveButton, usePrimitiveElement } from "@/Primitive";
+import { inject, onMounted, ref } from 'vue'
+import { TOOLTIP_INJECTION_KEY } from './TooltipRoot.vue'
+import { PopperAnchor } from '@/Popper'
 import {
-  TOOLTIP_INJECTION_KEY,
-  type TooltipProvideValue,
-} from "./TooltipRoot.vue";
-import { useHoverDelay } from "../shared";
-import { PopperAnchor } from "@/Popper";
+  Primitive,
+  type PrimitiveProps,
+  usePrimitiveElement,
+} from '@/Primitive'
+import { TOOLTIP_PROVIDER_INJECTION_KEY } from './TooltipProvider.vue'
 
-const injectedValue = inject<TooltipProvideValue>(TOOLTIP_INJECTION_KEY);
+const props = withDefaults(defineProps<TooltipTriggerProps>(), {
+  as: 'button',
+})
+const context = inject(TOOLTIP_INJECTION_KEY)
+const providerContext = inject(TOOLTIP_PROVIDER_INJECTION_KEY)
 
-const { primitiveElement, currentElement: triggerElement } =
-  usePrimitiveElement();
+const { primitiveElement, currentElement: triggerElement }
+  = usePrimitiveElement()
 
-async function handleMouseEnter(e: MouseEvent) {
-  const result = await useHoverDelay(e, triggerElement.value!);
-  if (result) {
-    injectedValue?.showTooltip();
-  }
+const isPointerDown = ref(false)
+const hasPointerMoveOpened = ref(false)
+
+function handlePointerUp() {
+  isPointerDown.value = false
 }
 
-const dataState = computed<TooltipTriggerDataState>(() => {
-  return injectedValue?.open.value ? "closed" : "instant-open";
-});
+function handlePointerDown() {
+  isPointerDown.value = true
+  document.addEventListener('pointerup', handlePointerUp, { once: true })
+}
+
+onMounted(() => {
+  context?.onTriggerChange(triggerElement.value)
+})
 </script>
 
 <template>
-  <PopperAnchor asChild>
-    <PrimitiveButton
-      type="button"
+  <PopperAnchor as-child>
+    <Primitive
       ref="primitiveElement"
-      :data-state="dataState"
-      :aria-expanded="injectedValue?.open.value || false"
-      @mouseenter="handleMouseEnter"
-      @mouseleave="injectedValue?.hideTooltip"
-      style="cursor: default"
+      :aria-describedby="
+        context?.open.value ? context.contentId : undefined
+      "
+      :data-state="context?.stateAttribute.value"
+      :as="as"
+      :as-child="props.asChild"
+      @pointermove="(event) => {
+        if (event.pointerType === 'touch') return;
+        if (
+          !hasPointerMoveOpened && !providerContext?.isPointerInTransitRef.value
+        ) {
+          context?.onTriggerEnter();
+          hasPointerMoveOpened = true;
+        }
+      }"
+      @pointerleave="(event) => {
+        context?.onTriggerLeave();
+        hasPointerMoveOpened = false;
+      }"
+      @pointerdown="handlePointerDown"
+      @focus="() => {
+        if (!isPointerDown) context?.onOpen()
+      }"
+      @blur="context?.onClose()"
+      @click="context?.onClose()"
     >
       <slot />
-    </PrimitiveButton>
+    </Primitive>
   </PopperAnchor>
 </template>

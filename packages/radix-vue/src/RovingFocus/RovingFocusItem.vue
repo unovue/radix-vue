@@ -83,6 +83,7 @@ function handleKeydown(event: KeyboardEvent) {
     :tabindex="isCurrentTabStop ? 0 : -1"
     :data-orientation="context?.orientation.value"
     :data-active="active"
+    :data-disabled="!focusable || undefined"
     :as="as"
     :as-child="asChild"
     @mousedown="

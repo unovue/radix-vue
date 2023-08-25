@@ -20,6 +20,7 @@ const props = withDefaults(defineProps<ToggleGroupItemProps>(), {
 
 const context = inject(TOGGLE_GROUP_INJECTION_KEY)
 const disabled = computed(() => context?.disabled?.value || props.disabled)
+const pressed = computed(() => context?.modelValue.value?.includes(props.value))
 </script>
 
 <template>

@@ -40,7 +40,7 @@ function handlePointerDown() {
 }
 
 onMounted(() => {
-  context?.onTriggerChange(triggerElement.value)
+  context.onTriggerChange(triggerElement.value)
 })
 </script>
 
@@ -49,9 +49,9 @@ onMounted(() => {
     <Primitive
       ref="primitiveElement"
       :aria-describedby="
-        context?.open.value ? context.contentId : undefined
+        context.open.value ? context.contentId : undefined
       "
-      :data-state="context?.stateAttribute.value"
+      :data-state="context.stateAttribute.value"
       :as="as"
       :as-child="props.asChild"
       @pointermove="(event) => {
@@ -59,20 +59,20 @@ onMounted(() => {
         if (
           !hasPointerMoveOpened && !providerContext?.isPointerInTransitRef.value
         ) {
-          context?.onTriggerEnter();
+          context.onTriggerEnter();
           hasPointerMoveOpened = true;
         }
       }"
       @pointerleave="(event) => {
-        context?.onTriggerLeave();
+        context.onTriggerLeave();
         hasPointerMoveOpened = false;
       }"
       @pointerdown="handlePointerDown"
       @focus="() => {
-        if (!isPointerDown) context?.onOpen()
+        if (!isPointerDown) context.onOpen()
       }"
-      @blur="context?.onClose()"
-      @click="context?.onClose()"
+      @blur="context.onClose()"
+      @click="context.onClose()"
     >
       <slot />
     </Primitive>

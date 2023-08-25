@@ -3,7 +3,7 @@ import { type ComponentPublicInstance, computed, ref } from 'vue'
 
 export function usePrimitiveElement() {
   const primitiveElement = ref<ComponentPublicInstance>()
-  const currentElement = computed(() => primitiveElement.value?.$el.nodeName === '#text' ? primitiveElement.value.$el.nextElementSibling : unrefElement(primitiveElement))
+  const currentElement = computed<HTMLElement>(() => primitiveElement.value?.$el.nodeName === '#text' ? primitiveElement.value.$el.nextElementSibling : unrefElement(primitiveElement))
 
   return {
     primitiveElement,

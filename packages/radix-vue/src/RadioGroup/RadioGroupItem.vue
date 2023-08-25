@@ -81,26 +81,26 @@ function handleFocus() {
     >
       <slot />
     </Radio>
-  </RovingFocusItem>
 
-  <input
-    v-model="value"
-    type="radio"
-    aria-hidden="true"
-    tabindex="-1"
-    :default-value="checked"
-    :required="required"
-    :checked="checked"
-    :disabled="disabled"
-    :style=" {
-      transform: 'translateX(-100%)',
-      position: 'absolute',
-      pointerEvents: 'none',
-      opacity: '0',
-      margin: '0px',
-      width: '25px',
-      height: '25px',
-    }
-    "
-  >
+    <input
+      v-model="value"
+      type="radio"
+      aria-hidden="true"
+      tabindex="-1"
+      :default-value="checked"
+      :required="required"
+      :checked="checked"
+      :disabled="disabled"
+      :style=" {
+        transform: 'translateX(-100%)',
+        position: 'absolute',
+        pointerEvents: 'none',
+        opacity: '0',
+        margin: '0px',
+        width: '25px',
+        height: '25px',
+      }
+      "
+    >
+  </RovingFocusItem>
 </template>

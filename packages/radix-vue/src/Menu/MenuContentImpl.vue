@@ -268,8 +268,8 @@ provide(MENU_CONTENT_INJECTION_KEY, {
       <RovingFocusGroup
         v-model:current-tab-stop-id="currentItemId"
         as-child
-        :dir="rootContext?.dir.value"
         orientation="vertical"
+        :dir="rootContext?.dir.value"
         :loop="loop"
         @entry-focus="(event) => {
           emits('entryFocus', event)

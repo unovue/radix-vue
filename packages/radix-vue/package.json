@@ -46,6 +46,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-alias": "^5.0.0",
+    "@testing-library/user-event": "^14.4.3",
     "@testing-library/vue": "^7.0.0",
     "@tsconfig/node18": "^2.0.1",
     "@types/node": "^18.16.18",

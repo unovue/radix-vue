@@ -40,7 +40,7 @@ export const ROVING_FOCUS_INJECTION_KEY
 
 <script setup lang="ts">
 import { type InjectionKey, type Ref, provide, ref, toRefs } from 'vue'
-import { useActiveElement, useVModel } from '@vueuse/core'
+import { useVModel } from '@vueuse/core'
 import {
   type Direction,
   ENTRY_FOCUS,
@@ -64,12 +64,12 @@ const emits = defineEmits<RovingFocusGroupEmits>()
 const { loop, orientation, dir } = toRefs(props)
 const currentTabStopId = useVModel(props, 'currentTabStopId', emits, {
   defaultValue: props.defaultCurrentTabStopId,
+  passive: true,
 })
 const isTabbingBackOut = ref(false)
 const isClickFocus = ref(false)
 const focusableItemsCount = ref(0)
 
-const activeElement = useActiveElement()
 const { primitiveElement, currentElement } = usePrimitiveElement()
 const { createCollection } = useCollection('rovingFocus')
 const collections = createCollection(currentElement)
@@ -89,11 +89,11 @@ function handleFocus(event: FocusEvent) {
   ) {
     const entryFocusEvent = new CustomEvent(ENTRY_FOCUS, EVENT_OPTIONS)
     event.currentTarget.dispatchEvent(entryFocusEvent)
-
     emits('entryFocus', entryFocusEvent)
+
     if (!entryFocusEvent.defaultPrevented) {
       const items = collections.value
-      const activeItem = items.find(item => item === activeElement.value)
+      const activeItem = items.find(item => item.getAttribute('data-active') === 'true')
       const currentItem = items.find(
         item => item.id === currentTabStopId.value,
       )

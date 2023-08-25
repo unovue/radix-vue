@@ -82,6 +82,8 @@ function handleKeydown(event: KeyboardEvent) {
     data-radix-vue-collection-item
     :tabindex="isCurrentTabStop ? 0 : -1"
     :data-orientation="context?.orientation.value"
+    :data-active="active"
+    :data-disabled="!focusable || undefined"
     :as="as"
     :as-child="asChild"
     @mousedown="

@@ -93,7 +93,7 @@ importers:
   docs:
     dependencies:
       radix-vue:
-        specifier: ^0.1.26
+        specifier: 0.1.27
         version: link:../packages/radix-vue
     devDependencies:
       '@iconify/vue':
@@ -2350,7 +2350,7 @@ packages:
       '@babel/core': 7.22.11
       '@babel/plugin-transform-typescript': 7.22.11(@babel/core@7.22.11)
       '@vue/babel-plugin-jsx': 1.1.5(@babel/core@7.22.11)
-      vite: 4.3.9(@types/node@18.16.18)
+      vite: 4.3.9(@types/node@20.4.7)
       vue: 3.3.4
     transitivePeerDependencies:
       - supports-color
@@ -2363,7 +2363,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.3.9(@types/node@18.16.18)
+      vite: 4.3.9(@types/node@20.4.7)
       vue: 3.3.4
     dev: true
 
@@ -10401,7 +10401,7 @@ packages:
     resolution: {directory: packages/radix-vue, type: directory}
     id: file:packages/radix-vue
     name: radix-vue
-    version: 0.1.26
+    version: 0.1.27
     dependencies:
       '@floating-ui/dom': 1.4.2
       '@floating-ui/vue': 1.0.1(vue@3.3.4)

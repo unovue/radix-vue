@@ -1,169 +1,291 @@
 <script lang="ts">
-import type { ComputedRef, InjectionKey, Ref } from 'vue'
-import type { DataOrientation, Direction } from '../shared/types'
+import type { InjectionKey, Ref } from 'vue'
 import {
   Primitive,
   type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
+import type { DataOrientation, Direction } from '../shared/types'
 
 export interface SliderRootProps extends PrimitiveProps {
-  defaultValue?: string
-  value?: string
-  // onValueChange?: void;
-  // onValueCommit?: void;
-  name: string
-  disabled: boolean
+  name?: string
+  defaultValue?: number[]
+  modelValue?: number[]
+  onValueCommit?: (value: number[]) => void
+  disabled?: boolean
   orientation?: DataOrientation
   dir?: Direction
-  modelValue?: number
-  inverted: boolean
-  min: number
-  max: number
-  step: number
-  extraStep: number
-  minStepsBetweenThumbs: number
+  inverted?: boolean
+  min?: number
+  max?: number
+  step?: number
+  minStepsBetweenThumbs?: number
 }
-export type SliderRootEmits = {
-  'update:modelValue': [payload: number]
+
+export interface SliderProvideValue {
+  orientation: DataOrientation
+  dir?: Direction
+  flipped?: Ref<boolean>
+  disabled: Ref<boolean>
+  min: Ref<number>
+  max: Ref<number>
+  step: Ref<number>
+  modelValue?: Readonly<Ref<number[] | undefined>>
+  changeModelValue: (value: number[]) => void
+  setValueByIndex: (value: number, index: number) => void
+  rootSliderElement: Ref<HTMLElement | undefined>
+  thumbElements: Ref<HTMLElement[]>
 }
 
 export const SLIDER_INJECTION_KEY
   = Symbol() as InjectionKey<SliderProvideValue>
 
-export interface SliderProvideValue {
-  modelValue?: Readonly<Ref<number | undefined>>
-  changeModelValue: (value: any) => void
-  rootSliderElement: Ref<HTMLElement | undefined>
-  orientation: DataOrientation
-  dir?: Direction
-  thumbOffset: Readonly<ComputedRef<number | undefined>>
-  min: number
-  max: number
-  step: number
-  thumbElement?: Ref<HTMLElement | undefined>
-  disabled: boolean
+export type SliderRootEmits = {
+  'update:modelValue': [payload: number[] | undefined]
 }
 </script>
 
 <script setup lang="ts">
-import { computed, provide, ref, toRef } from 'vue'
+import { computed, provide, ref, toRefs } from 'vue'
+import { useVModel } from '@vueuse/core'
+import { clamp } from './utils'
 
 const props = withDefaults(defineProps<SliderRootProps>(), {
+  as: 'span',
   asChild: false,
   disabled: false,
-  orientation: 'horizontal',
-  activationMode: 'automatic',
   inverted: false,
+  orientation: 'horizontal',
   min: 0,
   max: 100,
   step: 1,
-  as: 'span',
   minStepsBetweenThumbs: 0,
 })
 
 const emits = defineEmits<SliderRootEmits>()
 
+const { min, max, step, disabled } = toRefs(props)
+
+const modelValue = useVModel(props, 'modelValue', emits, {
+  defaultValue: props.defaultValue,
+  passive: true,
+})
+
 const { primitiveElement, currentElement: rootSliderElement }
   = usePrimitiveElement()
-const thumbElement = ref<HTMLElement>()
 
-const thumbOffset = computed(() => {
-  if (!props.modelValue) {
-    return 0
-  }
-  else {
-    if (props.modelValue < 50)
-      return ((props.modelValue - 50) / 50) * 10
-    else return ((props.modelValue - 50) / 50) * -10
-  }
+const thumbElements = ref<HTMLElement[]>([])
+
+const name = computed(() => {
+  const modelValueLength = modelValue.value?.length || 0
+  return modelValueLength > 1 ? `${props.name}[]` : props.name
 })
+
+const flipped = computed<boolean>(() => {
+  if (props.dir === 'rtl' && props.inverted)
+    return false
+
+  return props.dir === 'rtl' || props.inverted
+})
+
+function copyArrayExcludeElement(
+  originalArray: number[],
+  excludeIndex: number,
+) {
+  const firstPart = originalArray.slice(0, excludeIndex)
+  const secondPart = originalArray.slice(excludeIndex + 1)
+  return firstPart.concat(secondPart)
+}
+
+function isWithinRange(value: number, index: number) {
+  if (modelValue.value) {
+    const valuesToCheck = copyArrayExcludeElement(modelValue.value, index)
+    for (const number of valuesToCheck) {
+      if (Math.abs(value - number) <= props.minStepsBetweenThumbs)
+        return true
+    }
+  }
+  return false
+}
+
+function setValueByIndex(value: number, index: number): void {
+  if (props.minStepsBetweenThumbs > 0) {
+    if (isWithinRange(value, index))
+      return
+  }
+
+  const newValues = [...(modelValue.value || [])]
+  newValues[index] = value
+
+  setValue(newValues)
+}
+
+function setValue(value: number[] | undefined) {
+  if (disabled.value || value === undefined)
+    return
+
+  modelValue.value = value
+  if (value && props.onValueCommit)
+    props.onValueCommit(value)
+}
 
 provide<SliderProvideValue>(SLIDER_INJECTION_KEY, {
-  modelValue: toRef(() => props.modelValue),
-  changeModelValue: (value: any) => {
-    emits('update:modelValue', value)
-  },
+  modelValue,
+  changeModelValue: setValue,
+  setValueByIndex,
   rootSliderElement,
+  thumbElements,
   orientation: props.orientation,
   dir: props.dir,
-  thumbOffset,
-  min: props.min,
-  max: props.max,
-  step: props.step,
-  thumbElement,
-  disabled: props.disabled,
+  flipped,
+  min,
+  max,
+  step,
+  disabled,
 })
 
-function updateModelValue(value: number) {
-  emits('update:modelValue', convertToClosestStep(value, props.step))
+function calculateThumbRelativePosition(
+  pointerPosition: number,
+  sliderRect: DOMRect,
+): number {
+  let sliderRootSize = sliderRect.width
+  let thumbPosition = pointerPosition - sliderRect.left
+
+  if (props.orientation === 'vertical') {
+    sliderRootSize = sliderRect.height
+    thumbPosition = pointerPosition - sliderRect.top
+  }
+
+  const isPointerInsideSlider
+    = thumbPosition >= 0 && thumbPosition <= sliderRootSize
+
+  if (isPointerInsideSlider) {
+    const sliderRelativePosition = thumbPosition / sliderRootSize
+    return sliderRelativePosition
+  }
+  else if (thumbPosition <= 0) {
+    return 0
+  }
+
+  return 1
 }
 
-let rootSliderRect: DOMRect
+function calculateValueFromPosition(
+  pointerPosition: number,
+  sliderRect: DOMRect,
+): number {
+  const position = calculateThumbRelativePosition(pointerPosition, sliderRect)
 
-function changeValue(e: MouseEvent) {
-  if (thumbElement.value)
-    thumbElement.value.focus()
+  // Calculate new value.
+  const range = max.value - min.value
+  let newValue = position * range
 
+  if (flipped.value)
+    newValue = max.value - newValue
+
+  // Clamp to ensure that we are not outside the boundries.
+  newValue = clamp(newValue + (flipped.value ? 0 : min.value), [
+    min.value,
+    max.value,
+  ])
+
+  // Convert to closest step.
+  const quotient = Math.floor(newValue / step.value)
+  const remainder = newValue % step.value
+  const roundedValue
+    = remainder <= step.value / 2 ? quotient * step.value : (quotient + 1) * step.value
+
+  return clamp(roundedValue, [min.value, max.value])
+}
+
+let rootSliderElementRect: DOMRect | undefined
+let activeThumbIndex: number | undefined
+let thumbHalfSize = 0
+
+function onPointerDown(e: MouseEvent) {
   e.preventDefault()
-  if (rootSliderElement.value) {
-    rootSliderRect = rootSliderElement.value.getBoundingClientRect()
-    if (
-      e.clientX - 10 - thumbOffset.value > rootSliderRect.left
-      && e.clientX - 10 - thumbOffset.value
-        < rootSliderRect.left + rootSliderRect.width
-    ) {
-      updateModelValue(
-        Math.round(
-          ((e.clientX - 10 - thumbOffset.value - rootSliderRect.left)
-            / rootSliderRect.width)
-            * 100,
-        ),
-      )
+
+  if (!thumbElements.value.length)
+    return
+
+  if (!rootSliderElement.value)
+    return
+
+  rootSliderElementRect = rootSliderElement.value.getBoundingClientRect()
+
+  if (!rootSliderElementRect)
+    return
+
+  let pointerPosition = e.clientX
+  if (props.orientation === 'vertical')
+    pointerPosition = e.clientY
+
+  let nearestDistance = Number.MAX_VALUE
+
+  // Calculate distances from pointer position to each thumb's center
+  thumbElements.value.forEach((thumbElement, index) => {
+    const thumbRect = thumbElement.getBoundingClientRect()
+    const thumbCenter
+      = props.orientation === 'vertical'
+        ? (thumbRect.top + thumbRect.bottom) / 2
+        : (thumbRect.left + thumbRect.right) / 2
+
+    thumbHalfSize
+      = props.orientation === 'vertical'
+        ? thumbElement.offsetHeight / 2
+        : thumbElement.offsetWidth / 2
+
+    pointerPosition += thumbHalfSize
+
+    const distance = Math.abs(thumbCenter - pointerPosition)
+    if (distance < nearestDistance) {
+      nearestDistance = distance
+      activeThumbIndex = index
     }
+  })
 
-    document.addEventListener('pointermove', pointermove)
-    document.addEventListener('pointerup', pointerup)
-  }
-}
+  if (activeThumbIndex === undefined)
+    return
 
-function pointermove(e: PointerEvent) {
-  if (thumbElement.value)
-    thumbElement.value.focus()
+  const nearestThumb = thumbElements.value[activeThumbIndex]
 
-  if (
-    e.clientX - 10 - thumbOffset.value > rootSliderRect!.left
-    && e.clientX - 10 - thumbOffset.value
-      < rootSliderRect!.left + rootSliderRect!.width
-  ) {
-    updateModelValue(
-      ((e.clientX - 10 - thumbOffset.value - rootSliderRect!.left)
-        / rootSliderRect!.width)
-        * 100,
-    )
-  }
-  if (e.clientX - 10 - thumbOffset.value <= rootSliderRect!.left)
-    updateModelValue(props.min)
+  nearestThumb.focus()
 
-  if (
-    e.clientX - 10 - thumbOffset.value
-    >= rootSliderRect!.left + rootSliderRect!.width
+  pointerPosition -= thumbHalfSize
+
+  const newValue = calculateValueFromPosition(
+    pointerPosition,
+    rootSliderElementRect,
   )
-    updateModelValue(props.max)
+
+  setValueByIndex(newValue, activeThumbIndex)
+
+  document.addEventListener('pointermove', onPointerMove)
+  document.addEventListener('pointerup', onPointerUp)
 }
 
-function pointerup(e: PointerEvent) {
-  document.removeEventListener('pointermove', pointermove)
-  document.removeEventListener('pointerup', pointerup)
+function onPointerMove(e: PointerEvent) {
+  if (!rootSliderElementRect)
+    return
+
+  if (activeThumbIndex === undefined)
+    return
+
+  let pointerPosition = e.clientX
+  if (props.orientation === 'vertical')
+    pointerPosition = e.clientY
+
+  const newValue = calculateValueFromPosition(
+    pointerPosition,
+    rootSliderElementRect,
+  )
+
+  setValueByIndex(newValue, activeThumbIndex)
 }
 
-function convertToClosestStep(number: number, step: number) {
-  const quotient = Math.floor(number / step)
-  const remainder = number % step
-
-  if (remainder <= step / 2)
-    return quotient * step
-  else return (quotient + 1) * step
+function onPointerUp() {
+  document.removeEventListener('pointermove', onPointerMove)
+  document.removeEventListener('pointerup', onPointerUp)
 }
 </script>
 
@@ -172,14 +294,21 @@ function convertToClosestStep(number: number, step: number) {
     ref="primitiveElement"
     :as-child="props.asChild"
     :as="as"
-    @pointerdown="changeValue"
+    :aria-disabled="props.disabled"
+    :data-disabled="props.disabled"
+    :data-orientation="props.orientation"
+    @pointerdown="onPointerDown"
   >
     <slot />
     <input
+      v-for="value in modelValue"
+      :key="value"
       style="display: none"
       :value="props.modelValue"
-      :aria-valuenow="props.modelValue"
-      :name="props.name"
+      :aria-valuenow="value"
+      :name="name"
+      :disabled="props.disabled"
+      :data-disabled="props.disabled"
     >
   </Primitive>
 </template>

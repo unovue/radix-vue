@@ -1,17 +1,11 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from 'vue'
-import {
-  Primitive,
-  type PrimitiveProps,
-  usePrimitiveElement,
-} from '@/Primitive'
 import type { DataOrientation, Direction } from '../shared/types'
+import { useCollection } from '@/shared'
 
 export interface SliderRootProps extends PrimitiveProps {
   name?: string
   defaultValue?: number[]
   modelValue?: number[]
-  onValueCommit?: (value: number[]) => void
   disabled?: boolean
   orientation?: DataOrientation
   dir?: Direction
@@ -23,292 +17,156 @@ export interface SliderRootProps extends PrimitiveProps {
 }
 
 export interface SliderProvideValue {
-  orientation: DataOrientation
-  dir?: Direction
-  flipped?: Ref<boolean>
+  orientation: Ref<DataOrientation>
   disabled: Ref<boolean>
   min: Ref<number>
   max: Ref<number>
-  step: Ref<number>
   modelValue?: Readonly<Ref<number[] | undefined>>
-  changeModelValue: (value: number[]) => void
-  setValueByIndex: (value: number, index: number) => void
-  rootSliderElement: Ref<HTMLElement | undefined>
+  valueIndexToChangeRef: Ref<number>
   thumbElements: Ref<HTMLElement[]>
+}
+
+export type SliderRootEmits = {
+  'update:modelValue': [payload: number[] | undefined]
+  'valueCommit': [payload: number[]]
 }
 
 export const SLIDER_INJECTION_KEY
   = Symbol() as InjectionKey<SliderProvideValue>
 
-export type SliderRootEmits = {
-  'update:modelValue': [payload: number[] | undefined]
+export default {
+  inheritAttrs: false,
 }
 </script>
 
 <script setup lang="ts">
-import { computed, provide, ref, toRefs } from 'vue'
+import SliderHorizontal from './SliderHorizontal.vue'
+import SliderVertical from './SliderVertical.vue'
+import { type InjectionKey, type Ref, provide, ref, toRefs } from 'vue'
+import {
+  type PrimitiveProps,
+  usePrimitiveElement,
+} from '@/Primitive'
 import { useVModel } from '@vueuse/core'
-import { clamp } from './utils'
+import { ARROW_KEYS, PAGE_KEYS, clamp, getClosestValueIndex, getDecimalCount, getNextSortedValues, hasMinStepsBetweenValues, roundValue } from './utils'
 
 const props = withDefaults(defineProps<SliderRootProps>(), {
-  as: 'span',
-  asChild: false,
-  disabled: false,
-  inverted: false,
-  orientation: 'horizontal',
   min: 0,
   max: 100,
   step: 1,
+  orientation: 'horizontal',
+  disabled: false,
+  dir: 'ltr',
   minStepsBetweenThumbs: 0,
+  defaultValue: () => [0],
+  inverted: false,
 })
-
 const emits = defineEmits<SliderRootEmits>()
 
-const { min, max, step, disabled } = toRefs(props)
+const { min, max, step, minStepsBetweenThumbs, orientation, disabled, dir } = toRefs(props)
+const { createCollection } = useCollection('sliderThumb')
+const { primitiveElement, currentElement } = usePrimitiveElement()
+createCollection(currentElement)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
   passive: true,
-})
+}) as Ref<number[]>
 
-const { primitiveElement, currentElement: rootSliderElement }
-  = usePrimitiveElement()
+const valueIndexToChangeRef = ref(0)
+const valuesBeforeSlideStartRef = ref(modelValue.value)
+
+function handleSlideStart(value: number) {
+  const closestIndex = getClosestValueIndex(modelValue.value, value)
+  updateValues(value, closestIndex)
+}
+
+function handleSlideMove(value: number) {
+  updateValues(value, valueIndexToChangeRef.value)
+}
+
+function handleSlideEnd() {
+  const prevValue = valuesBeforeSlideStartRef.value[valueIndexToChangeRef.value]
+  const nextValue = modelValue.value[valueIndexToChangeRef.value]
+  const hasChanged = nextValue !== prevValue
+  if (hasChanged)
+    emits('valueCommit', modelValue.value)
+}
+
+function updateValues(value: number, atIndex: number, { commit } = { commit: false }) {
+  const decimalCount = getDecimalCount(step.value)
+  const snapToStep = roundValue(Math.round((value - min.value) / step.value) * step.value + min.value, decimalCount)
+  const nextValue = clamp(snapToStep, [min.value, max.value])
+
+  const nextValues = getNextSortedValues(modelValue.value, nextValue, atIndex)
+
+  if (hasMinStepsBetweenValues(nextValues, minStepsBetweenThumbs.value * step.value)) {
+    valueIndexToChangeRef.value = nextValues.indexOf(nextValue)
+    const hasChanged = String(nextValues) !== String(modelValue.value)
+    if (hasChanged && commit)
+      emits('valueCommit', nextValues)
+
+    if (hasChanged) {
+      thumbElements.value[valueIndexToChangeRef.value]?.focus()
+      modelValue.value = nextValues
+    }
+  }
+}
 
 const thumbElements = ref<HTMLElement[]>([])
-
-const name = computed(() => {
-  const modelValueLength = modelValue.value?.length || 0
-  return modelValueLength > 1 ? `${props.name}[]` : props.name
-})
-
-const flipped = computed<boolean>(() => {
-  if (props.dir === 'rtl' && props.inverted)
-    return false
-
-  return props.dir === 'rtl' || props.inverted
-})
-
-function copyArrayExcludeElement(
-  originalArray: number[],
-  excludeIndex: number,
-) {
-  const firstPart = originalArray.slice(0, excludeIndex)
-  const secondPart = originalArray.slice(excludeIndex + 1)
-  return firstPart.concat(secondPart)
-}
-
-function isWithinRange(value: number, index: number) {
-  if (modelValue.value) {
-    const valuesToCheck = copyArrayExcludeElement(modelValue.value, index)
-    for (const number of valuesToCheck) {
-      if (Math.abs(value - number) <= props.minStepsBetweenThumbs)
-        return true
-    }
-  }
-  return false
-}
-
-function setValueByIndex(value: number, index: number): void {
-  if (props.minStepsBetweenThumbs > 0) {
-    if (isWithinRange(value, index))
-      return
-  }
-
-  const newValues = [...(modelValue.value || [])]
-  newValues[index] = value
-
-  setValue(newValues)
-}
-
-function setValue(value: number[] | undefined) {
-  if (disabled.value || value === undefined)
-    return
-
-  modelValue.value = value
-  if (value && props.onValueCommit)
-    props.onValueCommit(value)
-}
-
-provide<SliderProvideValue>(SLIDER_INJECTION_KEY, {
+provide(SLIDER_INJECTION_KEY, {
   modelValue,
-  changeModelValue: setValue,
-  setValueByIndex,
-  rootSliderElement,
+  valueIndexToChangeRef,
   thumbElements,
-  orientation: props.orientation,
-  dir: props.dir,
-  flipped,
+  orientation,
   min,
   max,
-  step,
   disabled,
 })
-
-function calculateThumbRelativePosition(
-  pointerPosition: number,
-  sliderRect: DOMRect,
-): number {
-  let sliderRootSize = sliderRect.width
-  let thumbPosition = pointerPosition - sliderRect.left
-
-  if (props.orientation === 'vertical') {
-    sliderRootSize = sliderRect.height
-    thumbPosition = pointerPosition - sliderRect.top
-  }
-
-  const isPointerInsideSlider
-    = thumbPosition >= 0 && thumbPosition <= sliderRootSize
-
-  if (isPointerInsideSlider) {
-    const sliderRelativePosition = thumbPosition / sliderRootSize
-    return sliderRelativePosition
-  }
-  else if (thumbPosition <= 0) {
-    return 0
-  }
-
-  return 1
-}
-
-function calculateValueFromPosition(
-  pointerPosition: number,
-  sliderRect: DOMRect,
-): number {
-  const position = calculateThumbRelativePosition(pointerPosition, sliderRect)
-
-  // Calculate new value.
-  const range = max.value - min.value
-  let newValue = position * range
-
-  if (flipped.value)
-    newValue = max.value - newValue
-
-  // Clamp to ensure that we are not outside the boundries.
-  newValue = clamp(newValue + (flipped.value ? 0 : min.value), [
-    min.value,
-    max.value,
-  ])
-
-  // Convert to closest step.
-  const quotient = Math.floor(newValue / step.value)
-  const remainder = newValue % step.value
-  const roundedValue
-    = remainder <= step.value / 2 ? quotient * step.value : (quotient + 1) * step.value
-
-  return clamp(roundedValue, [min.value, max.value])
-}
-
-let rootSliderElementRect: DOMRect | undefined
-let activeThumbIndex: number | undefined
-let thumbHalfSize = 0
-
-function onPointerDown(e: MouseEvent) {
-  e.preventDefault()
-
-  if (!thumbElements.value.length)
-    return
-
-  if (!rootSliderElement.value)
-    return
-
-  rootSliderElementRect = rootSliderElement.value.getBoundingClientRect()
-
-  if (!rootSliderElementRect)
-    return
-
-  let pointerPosition = e.clientX
-  if (props.orientation === 'vertical')
-    pointerPosition = e.clientY
-
-  let nearestDistance = Number.MAX_VALUE
-
-  // Calculate distances from pointer position to each thumb's center
-  thumbElements.value.forEach((thumbElement, index) => {
-    const thumbRect = thumbElement.getBoundingClientRect()
-    const thumbCenter
-      = props.orientation === 'vertical'
-        ? (thumbRect.top + thumbRect.bottom) / 2
-        : (thumbRect.left + thumbRect.right) / 2
-
-    thumbHalfSize
-      = props.orientation === 'vertical'
-        ? thumbElement.offsetHeight / 2
-        : thumbElement.offsetWidth / 2
-
-    pointerPosition += thumbHalfSize
-
-    const distance = Math.abs(thumbCenter - pointerPosition)
-    if (distance < nearestDistance) {
-      nearestDistance = distance
-      activeThumbIndex = index
-    }
-  })
-
-  if (activeThumbIndex === undefined)
-    return
-
-  const nearestThumb = thumbElements.value[activeThumbIndex]
-
-  nearestThumb.focus()
-
-  pointerPosition -= thumbHalfSize
-
-  const newValue = calculateValueFromPosition(
-    pointerPosition,
-    rootSliderElementRect,
-  )
-
-  setValueByIndex(newValue, activeThumbIndex)
-
-  document.addEventListener('pointermove', onPointerMove)
-  document.addEventListener('pointerup', onPointerUp)
-}
-
-function onPointerMove(e: PointerEvent) {
-  if (!rootSliderElementRect)
-    return
-
-  if (activeThumbIndex === undefined)
-    return
-
-  let pointerPosition = e.clientX
-  if (props.orientation === 'vertical')
-    pointerPosition = e.clientY
-
-  const newValue = calculateValueFromPosition(
-    pointerPosition,
-    rootSliderElementRect,
-  )
-
-  setValueByIndex(newValue, activeThumbIndex)
-}
-
-function onPointerUp() {
-  document.removeEventListener('pointermove', onPointerMove)
-  document.removeEventListener('pointerup', onPointerUp)
-}
 </script>
 
 <template>
-  <Primitive
+  <component
+    :is="orientation === 'horizontal' ? SliderHorizontal : SliderVertical"
+    v-bind="$attrs"
     ref="primitiveElement"
-    :as-child="props.asChild"
+    :as-child="asChild"
     :as="as"
-    :aria-disabled="props.disabled"
-    :data-disabled="props.disabled"
-    :data-orientation="props.orientation"
-    @pointerdown="onPointerDown"
+    :min="min"
+    :max="max"
+    :dir="dir"
+    :inverted="inverted"
+    :aria-disabled="disabled"
+    :data-disabled="disabled"
+    @pointerdown="() => {
+      if (!disabled) valuesBeforeSlideStartRef = modelValue
+    }"
+    @slide-start="!disabled && handleSlideStart($event)"
+    @slide-move="!disabled && handleSlideMove($event)"
+    @slide-end="!disabled && handleSlideEnd"
+    @home-key-down="!disabled && updateValues(min, 0, { commit: true })"
+    @end-key-down="!disabled && updateValues(max, modelValue.length - 1, { commit: true })"
+    @step-key-down="(event, direction) => {
+      if (!disabled) {
+        const isPageKey = PAGE_KEYS.includes(event.key);
+        const isSkipKey = isPageKey || (event.shiftKey && ARROW_KEYS.includes(event.key));
+        const multiplier = isSkipKey ? 10 : 1;
+        const atIndex = valueIndexToChangeRef;
+        const value = modelValue[atIndex];
+        const stepInDirection = step * multiplier * direction;
+        updateValues(value + stepInDirection, atIndex, { commit: true });
+      }
+    }"
   >
-    <slot />
-    <input
-      v-for="value in modelValue"
-      :key="value"
-      style="display: none"
-      :value="props.modelValue"
-      :aria-valuenow="value"
-      :name="name"
-      :disabled="props.disabled"
-      :data-disabled="props.disabled"
-    >
-  </Primitive>
+    <slot :model-value="modelValue" />
+  </component>
+  <input
+    v-for="(value, index) in modelValue"
+    :key="index"
+    :value="value"
+    style="display: none"
+    :default-value="value"
+    :name="name ? name + (modelValue.length > 1 ? '[]' : '') : undefined"
+    :disabled="disabled"
+  >
 </template>

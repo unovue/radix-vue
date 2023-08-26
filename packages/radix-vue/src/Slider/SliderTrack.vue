@@ -9,15 +9,15 @@ import { SLIDER_INJECTION_KEY } from './SliderRoot.vue'
 
 const props = withDefaults(defineProps<SliderTrackProps>(), { as: 'span' })
 
-const injectedValue = inject(SLIDER_INJECTION_KEY)
+const context = inject(SLIDER_INJECTION_KEY)
 </script>
 
 <template>
   <Primitive
     :as-child="props.asChild"
     :as="as"
-    :data-disabled="injectedValue?.disabled"
-    :data-orientation="injectedValue?.orientation"
+    :data-disabled="context?.disabled"
+    :data-orientation="context?.orientation"
   >
     <slot />
   </Primitive>

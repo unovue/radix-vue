@@ -22,8 +22,8 @@ const offsetEnd = computed(() => 100 - Math.max(...percentages.value!))
 
 <template>
   <Primitive
-    :data-disabled="context?.disabled"
-    :data-orientation="context?.orientation"
+    :data-disabled="context?.disabled.value"
+    :data-orientation="context?.orientation.value"
     :as-child="asChild"
     :as="as"
     :style="{

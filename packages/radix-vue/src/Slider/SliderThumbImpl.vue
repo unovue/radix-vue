@@ -4,6 +4,7 @@ import { computed, inject, onMounted, onUnmounted } from 'vue'
 import { SLIDER_INJECTION_KEY } from './SliderRoot.vue'
 import { SLIDER_ORIENTATION_INJECTION_KEY, convertValueToPercentage, getLabel, getThumbInBoundsOffset } from './utils'
 import { useSize } from '@/shared'
+import { useMounted } from '@vueuse/core'
 
 export interface SliderThumbImplProps extends PrimitiveProps {
   index: number
@@ -25,6 +26,7 @@ const thumbInBoundsOffset = computed(() => orientationSize.value
   ? getThumbInBoundsOffset(orientationSize.value, percent.value, orientation!.direction)
   : 0)
 
+const isMounted = useMounted()
 onMounted(() => {
   context?.thumbElements.value.push(thumbElement.value)
 })
@@ -74,7 +76,7 @@ export default {
          * snap into the correct position during hydration which would be visually jarring for
          * slower connections.
          */
-        display: value === undefined ? 'none' : undefined,
+        display: !isMounted && value === undefined ? 'none' : undefined,
       }"
       @focus="() => {
         context!.valueIndexToChangeRef.value = index

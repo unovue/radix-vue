@@ -16,8 +16,8 @@ const context = inject(SLIDER_INJECTION_KEY)
   <Primitive
     :as-child="props.asChild"
     :as="as"
-    :data-disabled="context?.disabled"
-    :data-orientation="context?.orientation"
+    :data-disabled="context?.disabled.value"
+    :data-orientation="context?.orientation.value"
   >
     <slot />
   </Primitive>

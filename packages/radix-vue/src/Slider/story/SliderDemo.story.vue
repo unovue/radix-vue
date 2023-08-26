@@ -6,7 +6,7 @@ const sliderValue = ref([50])
 </script>
 
 <template>
-  <Story title="Slider/Demo" :layout="{ type: 'single', iframe: true }">
+  <Story title="Slider/Demo" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
       <SliderRoot
         v-model="sliderValue"

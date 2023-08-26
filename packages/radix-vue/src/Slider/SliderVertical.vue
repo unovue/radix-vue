@@ -57,6 +57,8 @@ provide(SLIDER_ORIENTATION_INJECTION_KEY, {
       const isBackKey = BACK_KEYS[slideDirection].includes(event.key);
       emits('stepKeyDown', event, isBackKey ? -1 : 1)
     }"
+    @end-key-down="emits('endKeyDown', $event)"
+    @home-key-down="emits('homeKeyDown', $event)"
   >
     <slot />
   </SliderImpl>

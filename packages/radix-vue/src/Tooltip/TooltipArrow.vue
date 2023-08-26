@@ -21,17 +21,11 @@ import { PopperArrow } from '@/Popper'
 import type { PrimitiveProps } from '@/Primitive'
 
 const props = withDefaults(defineProps<TooltipArrowProps>(), {
-  asChild: false,
   width: 10,
   height: 5,
 })
 </script>
 
 <template>
-  <PopperArrow
-    :as-child="props.asChild"
-    :as="as"
-    :height="props.height"
-    :width="props.width"
-  />
+  <PopperArrow v-bind="props" />
 </template>

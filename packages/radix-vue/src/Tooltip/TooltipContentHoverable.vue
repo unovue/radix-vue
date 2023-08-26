@@ -1,23 +1,22 @@
 <script setup lang="ts">
-import { inject, ref, watchEffect } from 'vue'
+import { ref, watchEffect } from 'vue'
 import TooltipContentImpl, { type TooltipContentImplProps } from './TooltipContentImpl.vue'
-import { TOOLTIP_INJECTION_KEY } from './TooltipRoot.vue'
-import { TOOLTIP_PROVIDER_INJECTION_KEY } from './TooltipProvider.vue'
+import { injectTooltipRootContent } from './TooltipRoot.vue'
+import { injectTooltipProviderContext } from './TooltipProvider.vue'
 import { usePrimitiveElement } from '@/Primitive'
 import { type Polygon, getExitSideFromRect, getHull, getPaddedExitPoints, getPointsFromRect, isPointInPolygon } from './utils'
 
 const props = defineProps<TooltipContentImplProps>()
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
-const context = inject(TOOLTIP_INJECTION_KEY)
-const providerContext = inject(TOOLTIP_PROVIDER_INJECTION_KEY)
+const { trigger, onClose } = injectTooltipRootContent()
+const providerContext = injectTooltipProviderContext()
 
-const { trigger, onClose } = context!
 const pointerGraceArea = ref<Polygon | null>(null)
 
 function handleRemoveGraceArea() {
   pointerGraceArea.value = null
-  providerContext?.onPointerInTransitChange(false)
+  providerContext.onPointerInTransitChange(false)
 }
 
 function handleCreateGraceArea(event: PointerEvent, hoverTarget: HTMLElement) {
@@ -28,7 +27,7 @@ function handleCreateGraceArea(event: PointerEvent, hoverTarget: HTMLElement) {
   const hoverTargetPoints = getPointsFromRect(hoverTarget.getBoundingClientRect())
   const graceArea = getHull([...paddedExitPoints, ...hoverTargetPoints])
   pointerGraceArea.value = graceArea
-  providerContext?.onPointerInTransitChange(true)
+  providerContext.onPointerInTransitChange(true)
 }
 
 watchEffect((cleanupFn) => {

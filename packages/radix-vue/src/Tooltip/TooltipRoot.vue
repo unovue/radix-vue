@@ -1,6 +1,6 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from 'vue'
-import { TOOLTIP_PROVIDER_INJECTION_KEY } from './TooltipProvider.vue'
+import type { Ref } from 'vue'
+import { createContext, useId } from '@/shared'
 
 export interface TooltipRootProps {
   /**
@@ -31,9 +31,6 @@ export type TooltipRootEmits = {
   'update:open': [value: boolean]
 }
 
-export const TOOLTIP_INJECTION_KEY
-  = Symbol() as InjectionKey<TooltipContextValue>
-
 export interface TooltipContextValue {
   contentId: string
   open: Ref<boolean>
@@ -46,14 +43,17 @@ export interface TooltipContextValue {
   onClose(): void
   disableHoverableContent: Ref<boolean>
 }
+
+export const [injectTooltipRootContent, provideTooltipRootContext]
+  = createContext<TooltipContextValue>('TooltipRoot')
 </script>
 
 <script setup lang="ts">
 import { useTimeoutFn, useVModel } from '@vueuse/core'
-import { computed, inject, provide, ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { PopperRoot } from '@/Popper'
-import { useId } from '@/shared'
 import { TOOLTIP_OPEN } from './utils'
+import { injectTooltipProviderContext } from './TooltipProvider.vue'
 
 const props = withDefaults(defineProps<TooltipRootProps>(), {
   defaultOpen: false,
@@ -64,20 +64,20 @@ const props = withDefaults(defineProps<TooltipRootProps>(), {
 
 const emit = defineEmits<TooltipRootEmits>()
 
-const providerContext = inject(TOOLTIP_PROVIDER_INJECTION_KEY)
+const providerContext = injectTooltipProviderContext()
 
-const disableHoverableContent = computed(() => props.disableHoverableContent ?? providerContext?.disableHoverableContent.value ?? false)
-const delayDuration = computed(() => props.delayDuration ?? providerContext?.delayDuration.value ?? 700)
+const disableHoverableContent = computed(() => props.disableHoverableContent ?? providerContext.disableHoverableContent.value)
+const delayDuration = computed(() => props.delayDuration ?? providerContext.delayDuration.value)
 
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: true,
 })
 
-watch(open, (n) => {
-  if (!providerContext?.onClose)
+watch(open, (isOpen) => {
+  if (!providerContext.onClose)
     return
-  if (n) {
+  if (isOpen) {
     providerContext.onOpen()
     // as `onChange` is called within a lifecycle method we
     // avoid dispatching via `dispatchDiscreteCustomEvent`.
@@ -115,7 +115,7 @@ function handleDelayedOpen() {
   startTimer()
 }
 
-provide(TOOLTIP_INJECTION_KEY, {
+provideTooltipRootContext({
   contentId: useId(),
   open,
   stateAttribute,
@@ -124,7 +124,7 @@ provide(TOOLTIP_INJECTION_KEY, {
     trigger.value = el
   },
   onTriggerEnter() {
-    if (providerContext?.isOpenDelayed.value)
+    if (providerContext.isOpenDelayed.value)
       handleDelayedOpen()
     else handleOpen()
   },

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const sliderValue = ref(50)
+const sliderValue = ref([50])
 </script>
 
 <template>

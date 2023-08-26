@@ -95,13 +95,6 @@ Contains all the parts of a slider. It will render an `input` for each thumb whe
       description: '<span> The controlled value of the slider. Must be binded with <Code>v-model</Code>. </span>',
     },
     {
-      name: 'onValueCommit',
-      required: false,
-      type: 'onValueCommit?(value: number[]): void',
-      typeSimple: 'function',
-      description: 'Event handler called when the value changes at the end of an interaction. Useful when you only need to capture a final value e.g. to update a backend service.',
-    },
-    {
       name: 'name',
       required: false,
       type: 'string',
@@ -181,6 +174,11 @@ Contains all the parts of a slider. It will render an `input` for each thumb whe
       name: '@update:modelValue',
       type: '(value: number) => void',
       description: 'Event handler called when the slider value changes'
+    },
+    {
+      name: '@valueCommit',
+      type: '(value: number[]): void',
+      description: 'Event handler called when the value changes at the end of an interaction. Useful when you only need to capture a final value e.g. to update a backend service.',
     },
   ]" 
 />

@@ -71,7 +71,7 @@ For changelog, visit [releases](https://github.com/radix-vue/radix-vue/releases)
 | [Scroll Area](https://radix-vue.com/components/scroll-area)         |   ✅   | ✅           |                        |
 | [Select](https://radix-vue.com/components/select)                   |   ✅   | ✅           |                        |
 | [Separator](https://radix-vue.com/components/separator)             |   ✅   | ✅           | ✅                     |
-| [Slider](https://radix-vue.com/components/slider)                   |   ✅   |              |                        |
+| [Slider](https://radix-vue.com/components/slider)                   |   ✅   | ✅           | ✅                     |
 | [Switch](https://radix-vue.com/components/switch)                   |   ✅   | ✅           |                        |
 | [Tabs](https://radix-vue.com/components/tabs)                       |   ✅   | ✅           |                        |
 | [Toggle](https://radix-vue.com/components/toggle)                   |   ✅   | ✅           |                        |

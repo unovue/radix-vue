@@ -78,6 +78,9 @@ export default defineConfig({
     search: {
       provider: 'local',
     },
+    editLink: {
+      pattern: 'https://github.com/radix-vue/radix-vue/edit/main/docs/content/:path',
+    },
   },
   srcDir: 'content',
   appearance: 'dark',

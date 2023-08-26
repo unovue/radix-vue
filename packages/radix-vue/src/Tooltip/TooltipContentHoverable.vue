@@ -9,15 +9,14 @@ import { type Polygon, getExitSideFromRect, getHull, getPaddedExitPoints, getPoi
 const props = defineProps<TooltipContentImplProps>()
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
-const context = injectTooltipRootContent()
-const providerContext = injectTooltipProviderContext(null)
+const { trigger, onClose } = injectTooltipRootContent()
+const providerContext = injectTooltipProviderContext()
 
-const { trigger, onClose } = context
 const pointerGraceArea = ref<Polygon | null>(null)
 
 function handleRemoveGraceArea() {
   pointerGraceArea.value = null
-  providerContext?.onPointerInTransitChange(false)
+  providerContext.onPointerInTransitChange(false)
 }
 
 function handleCreateGraceArea(event: PointerEvent, hoverTarget: HTMLElement) {
@@ -28,7 +27,7 @@ function handleCreateGraceArea(event: PointerEvent, hoverTarget: HTMLElement) {
   const hoverTargetPoints = getPointsFromRect(hoverTarget.getBoundingClientRect())
   const graceArea = getHull([...paddedExitPoints, ...hoverTargetPoints])
   pointerGraceArea.value = graceArea
-  providerContext?.onPointerInTransitChange(true)
+  providerContext.onPointerInTransitChange(true)
 }
 
 watchEffect((cleanupFn) => {

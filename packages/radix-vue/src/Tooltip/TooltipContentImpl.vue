@@ -29,9 +29,9 @@ export interface TooltipContentImplProps
   ariaLabel?: string
 }
 
-export interface TooltipContentImplEmits {
-  (e: 'escapeKeyDown', event: KeyboardEvent): void
-  (e: 'pointerDownOutside', event: Event): void
+export type TooltipContentImplEmits = {
+  'escapeKeyDown': [event: KeyboardEvent]
+  'pointerDownOutside': [event: Event]
 }
 </script>
 
@@ -77,20 +77,10 @@ const ariaLabel = computed(() => {
   return content
 })
 
-const popperContentProps = computed(() => ({
-  as: props.as,
-  asChild: props.asChild,
-  side: props.side,
-  sideOffset: props.sideOffset,
-  align: props.align,
-  alignOffset: props.alignOffset,
-  avoidCollisions: props.avoidCollisions,
-  collisionBoundary: props.collisionBoundary,
-  collisionPadding: props.collisionPadding,
-  arrowPadding: props.arrowPadding,
-  sticky: props.sticky,
-  hideWhenDetached: props.hideWhenDetached,
-}))
+const popperContentProps = computed(() => {
+  const { ariaLabel: _, ...restProps } = props
+  return restProps
+})
 
 onMounted(() => {
   // Close the tooltip if the trigger is scrolled

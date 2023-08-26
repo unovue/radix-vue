@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<TooltipTriggerProps>(), {
   as: 'button',
 })
 const context = injectTooltipRootContent()
-const providerContext = injectTooltipProviderContext(null)
+const providerContext = injectTooltipProviderContext()
 
 const { primitiveElement, currentElement: triggerElement }
   = usePrimitiveElement()
@@ -57,7 +57,7 @@ onMounted(() => {
       @pointermove="(event) => {
         if (event.pointerType === 'touch') return;
         if (
-          !hasPointerMoveOpened && !providerContext?.isPointerInTransitRef.value
+          !hasPointerMoveOpened && !providerContext.isPointerInTransitRef.value
         ) {
           context.onTriggerEnter();
           hasPointerMoveOpened = true;

@@ -64,10 +64,10 @@ const props = withDefaults(defineProps<TooltipRootProps>(), {
 
 const emit = defineEmits<TooltipRootEmits>()
 
-const providerContext = injectTooltipProviderContext(null)
+const providerContext = injectTooltipProviderContext()
 
-const disableHoverableContent = computed(() => props.disableHoverableContent ?? providerContext?.disableHoverableContent.value ?? false)
-const delayDuration = computed(() => props.delayDuration ?? providerContext?.delayDuration.value ?? 700)
+const disableHoverableContent = computed(() => props.disableHoverableContent ?? providerContext.disableHoverableContent.value)
+const delayDuration = computed(() => props.delayDuration ?? providerContext.delayDuration.value)
 
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
@@ -75,7 +75,7 @@ const open = useVModel(props, 'open', emit, {
 })
 
 watch(open, (isOpen) => {
-  if (!providerContext?.onClose)
+  if (!providerContext.onClose)
     return
   if (isOpen) {
     providerContext.onOpen()
@@ -124,7 +124,7 @@ provideTooltipRootContext({
     trigger.value = el
   },
   onTriggerEnter() {
-    if (providerContext?.isOpenDelayed.value)
+    if (providerContext.isOpenDelayed.value)
       handleDelayedOpen()
     else handleOpen()
   },

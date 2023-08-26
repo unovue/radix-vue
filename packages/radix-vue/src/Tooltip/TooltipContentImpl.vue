@@ -29,9 +29,9 @@ export interface TooltipContentImplProps
   ariaLabel?: string
 }
 
-export interface TooltipContentImplEmits {
-  (e: 'escapeKeyDown', event: KeyboardEvent): void
-  (e: 'pointerDownOutside', event: Event): void
+export type TooltipContentImplEmits = {
+  'escapeKeyDown': [event: KeyboardEvent]
+  'pointerDownOutside': [event: Event]
 }
 </script>
 
@@ -39,8 +39,8 @@ export interface TooltipContentImplEmits {
 import { PopperContent } from '@/Popper'
 import { type PrimitiveProps } from '@/Primitive'
 import { VisuallyHidden } from '@/VisuallyHidden'
-import { type VNode, computed, inject, onMounted, ref, useSlots } from 'vue'
-import { TOOLTIP_INJECTION_KEY } from './TooltipRoot.vue'
+import { type VNode, computed, onMounted, ref, useSlots } from 'vue'
+import { injectTooltipRootContent } from './TooltipRoot.vue'
 import { DismissableLayer } from '@/DismissableLayer'
 
 const props = withDefaults(defineProps<TooltipContentImplProps>(), {
@@ -58,7 +58,7 @@ const props = withDefaults(defineProps<TooltipContentImplProps>(), {
 const emits = defineEmits<TooltipContentImplEmits>()
 
 const contentElement = ref<HTMLElement>()
-const context = inject(TOOLTIP_INJECTION_KEY)
+const context = injectTooltipRootContent()
 
 const ariaLabel = computed(() => {
   if (props.ariaLabel)
@@ -77,30 +77,20 @@ const ariaLabel = computed(() => {
   return content
 })
 
-const popperContentProps = computed(() => ({
-  as: props.as,
-  asChild: props.asChild,
-  side: props.side,
-  sideOffset: props.sideOffset,
-  align: props.align,
-  alignOffset: props.alignOffset,
-  avoidCollisions: props.avoidCollisions,
-  collisionBoundary: props.collisionBoundary,
-  collisionPadding: props.collisionPadding,
-  arrowPadding: props.arrowPadding,
-  sticky: props.sticky,
-  hideWhenDetached: props.hideWhenDetached,
-}))
+const popperContentProps = computed(() => {
+  const { ariaLabel: _, ...restProps } = props
+  return restProps
+})
 
 onMounted(() => {
   // Close the tooltip if the trigger is scrolled
   useEventListener(window, 'scroll', (event) => {
     const target = event.target as HTMLElement
-    if (target?.contains(context!.trigger.value!))
-      context!.onClose()
+    if (target?.contains(context.trigger.value!))
+      context.onClose()
   })
   // Close this tooltip if another one opens
-  useEventListener(window, TOOLTIP_OPEN, context!.onClose)
+  useEventListener(window, TOOLTIP_OPEN, context.onClose)
 })
 </script>
 
@@ -111,11 +101,11 @@ onMounted(() => {
     @escape-key-down="emits('escapeKeyDown', $event)"
     @pointer-down-outside="emits('pointerDownOutside', $event)"
     @focus-outside.prevent
-    @dismiss="context?.onClose()"
+    @dismiss="context.onClose()"
   >
     <PopperContent
       ref="contentElement"
-      :data-state="context?.stateAttribute.value"
+      :data-state="context.stateAttribute.value"
       v-bind="{ ...$attrs, ...popperContentProps }"
       :style="{
         '--radix-tooltip-content-transform-origin': 'var(--radix-popper-transform-origin)',
@@ -126,7 +116,7 @@ onMounted(() => {
       }"
     >
       <slot />
-      <VisuallyHidden :id="context?.contentId" role="tooltip">
+      <VisuallyHidden :id="context.contentId" role="tooltip">
         {{ ariaLabel }}
       </VisuallyHidden>
     </PopperContent>

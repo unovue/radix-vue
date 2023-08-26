@@ -1,4 +1,6 @@
 <script lang="ts">
+import { createContext } from '@/shared'
+
 interface TooltipProviderContextValue {
   isOpenDelayed: Ref<boolean>
   delayDuration: Ref<number>
@@ -9,7 +11,8 @@ interface TooltipProviderContextValue {
   disableHoverableContent: Ref<boolean>
 }
 
-export const TOOLTIP_PROVIDER_INJECTION_KEY = Symbol() as InjectionKey<TooltipProviderContextValue>
+export const [injectTooltipProviderContext, provideTooltipProviderContext]
+  = createContext<TooltipProviderContextValue>('TooltipProvider')
 
 export interface TooltipProviderProps {
   /**
@@ -32,7 +35,7 @@ export interface TooltipProviderProps {
 
 <script setup lang="ts">
 import { useTimeoutFn } from '@vueuse/shared'
-import { type InjectionKey, type Ref, provide, ref, toRefs } from 'vue'
+import { type Ref, ref, toRefs } from 'vue'
 
 const props = withDefaults(defineProps<TooltipProviderProps>(), {
   delayDuration: 700,
@@ -48,7 +51,7 @@ const { start: startTimer, stop: clearTimer } = useTimeoutFn(() => {
   isOpenDelayed.value = true
 }, skipDelayDuration, { immediate: false })
 
-provide(TOOLTIP_PROVIDER_INJECTION_KEY, {
+provideTooltipProviderContext({
   isOpenDelayed,
   delayDuration,
   onOpen() {

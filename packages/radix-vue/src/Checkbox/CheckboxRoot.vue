@@ -41,6 +41,7 @@ import { toRef, provide } from "vue";
 const props = withDefaults(defineProps<CheckboxRootProps>(), {
   modelValue: false,
   value: "on",
+  as: "button",
 });
 
 const emit = defineEmits<{
@@ -65,25 +66,16 @@ let dataState: "checked" | "unchecked" | "indeterminate";
     :as-child="props.asChild"
     :as="as"
     :value="props.value"
+    :disabled="props.disabled"
+    :required="props.required"
     role="checkbox"
     :aria-checked="props.modelValue"
-    :data-state="dataState"
+    :checked="props.modelValue"
+    :name="props.name"
     style="position: relative"
+    :data-state="dataState"
     :data-disabled="props.disabled ? '' : undefined"
   >
-    <input
-      type="checkbox"
-      :id="props.id"
-      v-bind="props.modelValue"
-      @change="updateModelValue"
-      :checked="props.modelValue"
-      :name="props.name"
-      aria-hidden="true"
-      :disabled="props.disabled"
-      :required="props.required"
-      :data-state="dataState"
-      style="opacity: 0; position: absolute; inset: 0"
-    />
     <slot />
   </Primitive>
 </template>

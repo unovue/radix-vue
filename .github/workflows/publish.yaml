@@ -39,9 +39,12 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm docs:install
+        run: pnpm install
 
-      - name: Build
+      - name: Build Radix Vue
+        run: pnpm --filter radix-vue build
+
+      - name: Build Docs
         run: pnpm docs:build
 
       # Run a action to publish docs

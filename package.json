@@ -10,7 +10,7 @@
   "scripts": {
     "story:dev": "pnpm --filter histoire story:dev",
     "build": "pnpm run -r --filter=!docs build",
-    "docs:install": "pnpm --filter docs install",
+    "docs:install": "pnpm --filter docs docs:install",
     "docs:dev": "pnpm --filter docs docs:dev",
     "docs:build": "pnpm --filter docs docs:build",
     "prepare": "pnpm simple-git-hooks",

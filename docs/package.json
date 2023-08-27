@@ -1,6 +1,7 @@
 {
   "name": "docs",
   "scripts": {
+    "docs:install": "pnpm install --no-lockfile",
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
     "docs:preview": "vitepress preview",

@@ -39,10 +39,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install
-
-      - name: Build Radix Vue
-        run: pnpm --filter radix-vue build
+        run: pnpm docs:install
 
       - name: Build
         run: pnpm docs:build
@@ -53,13 +50,13 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: radix-vue.com
-          directory: docs/.vitepress/dist
+          projectName: radix-vue
+          directory: .vitepress/dist
           # Optional: Enable this if you want to have GitHub Deployments triggered
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           # Optional: Switch what branch you are publishing to.
           # By default this will be the branch which triggered this workflow
           branch: main
           # Optional: Change the working directory
-          # workingDirectory: docs
+          workingDirectory: docs
           wranglerVersion: '3'

@@ -151,6 +151,9 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1(vue@3.3.4)
     devDependencies:
+      '@iconify/vue':
+        specifier: ^4.1.1
+        version: 4.1.1(vue@3.3.4)
       '@rollup/plugin-alias':
         specifier: ^5.0.0
         version: 5.0.0
@@ -211,6 +214,12 @@ importers:
       vitest:
         specifier: ^0.33.0
         version: 0.33.0(jsdom@22.1.0)
+      vitest-axe:
+        specifier: 0.1.0
+        version: 0.1.0(vitest@0.33.0)
+      vitest-canvas-mock:
+        specifier: ^0.3.3
+        version: 0.3.3(vitest@0.33.0)
       vue:
         specifier: ^3.3.4
         version: 3.3.4
@@ -2350,7 +2359,7 @@ packages:
       '@babel/core': 7.22.11
       '@babel/plugin-transform-typescript': 7.22.11(@babel/core@7.22.11)
       '@vue/babel-plugin-jsx': 1.1.5(@babel/core@7.22.11)
-      vite: 4.3.9(@types/node@20.4.7)
+      vite: 4.3.9(@types/node@18.16.18)
       vue: 3.3.4
     transitivePeerDependencies:
       - supports-color
@@ -2363,7 +2372,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.3.9(@types/node@20.4.7)
+      vite: 4.3.9(@types/node@18.16.18)
       vue: 3.3.4
     dev: true
 
@@ -3067,6 +3076,11 @@ packages:
   /available-typed-arrays@1.0.5:
     resolution: {integrity: sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==}
     engines: {node: '>= 0.4'}
+    dev: true
+
+  /axe-core@4.7.2:
+    resolution: {integrity: sha512-zIURGIS1E1Q4pcrMjp+nnEh+16G56eG/MUllJH8yEvw7asDo7Ac9uhC9KIH5jzpITueEZolfYglnCGIuSBz39g==}
+    engines: {node: '>=4'}
     dev: true
 
   /axios@0.18.1:
@@ -3792,6 +3806,10 @@ packages:
     resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
     engines: {node: '>=4'}
     hasBin: true
+    dev: true
+
+  /cssfontparser@1.2.1:
+    resolution: {integrity: sha512-6tun4LoZnj7VN6YeegOVb67KBX/7JJsqvj+pv3ZA7F878/eN33AbGa5b/S/wXxS/tcp8nc40xRUrsPlxIyNUPg==}
     dev: true
 
   /cssom@0.3.8:
@@ -6596,6 +6614,13 @@ packages:
       '@pkgjs/parseargs': 0.11.0
     dev: true
 
+  /jest-canvas-mock@2.5.2:
+    resolution: {integrity: sha512-vgnpPupjOL6+L5oJXzxTxFrlGEIbHdZqFU+LFNdtLxZ3lRDCl17FlTMM7IatoRQkrcyOTMlDinjUguqmQ6bR2A==}
+    dependencies:
+      cssfontparser: 1.2.1
+      moo-color: 1.0.3
+    dev: true
+
   /jiti@1.19.3:
     resolution: {integrity: sha512-5eEbBDQT/jF1xg6l36P+mWGGoH9Spuy0PCdSr2dtWRDGC6ph/w9ZCL4lmESW8f8F7MwT3XKescfP0wnZWAKL9w==}
     hasBin: true
@@ -6903,6 +6928,10 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       p-locate: 5.0.0
+    dev: true
+
+  /lodash-es@4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
     dev: true
 
   /lodash.camelcase@4.3.0:
@@ -7382,6 +7411,12 @@ packages:
   /modern-normalize@1.1.0:
     resolution: {integrity: sha512-2lMlY1Yc1+CUy0gw4H95uNN7vjbpoED7NNRSBHE25nWfLBdmMzFCsPshlzbxHz+gYMcBEUN8V4pU16prcdPSgA==}
     engines: {node: '>=6'}
+    dev: true
+
+  /moo-color@1.0.3:
+    resolution: {integrity: sha512-i/+ZKXMDf6aqYtBhuOcej71YSlbjT3wCO/4H1j8rPvxDJEifdwgg5MaFyu6iYAT8GBZJg2z0dkgK4YMzvURALQ==}
+    dependencies:
+      color-name: 1.1.4
     dev: true
 
   /move-concurrently@1.0.1:
@@ -9991,6 +10026,29 @@ packages:
       - sugarss
       - terser
       - universal-cookie
+    dev: true
+
+  /vitest-axe@0.1.0(vitest@0.33.0):
+    resolution: {integrity: sha512-jvtXxeQPg8R/2ANTY8QicA5pvvdRP4F0FsVUAHANJ46YCDASie/cuhlSzu0DGcLmZvGBSBNsNuK3HqfaeknyvA==}
+    peerDependencies:
+      vitest: '>=0.16.0'
+    dependencies:
+      aria-query: 5.1.3
+      axe-core: 4.7.2
+      chalk: 5.3.0
+      dom-accessibility-api: 0.5.16
+      lodash-es: 4.17.21
+      redent: 3.0.0
+      vitest: 0.33.0(jsdom@22.1.0)
+    dev: true
+
+  /vitest-canvas-mock@0.3.3(vitest@0.33.0):
+    resolution: {integrity: sha512-3P968tYBpqYyzzOaVtqnmYjqbe13576/fkjbDEJSfQAkHtC5/UjuRHOhFEN/ZV5HVZIkaROBUWgazDKJ+Ibw+Q==}
+    peerDependencies:
+      vitest: '*'
+    dependencies:
+      jest-canvas-mock: 2.5.2
+      vitest: 0.33.0(jsdom@22.1.0)
     dev: true
 
   /vitest@0.33.0(jsdom@22.1.0):

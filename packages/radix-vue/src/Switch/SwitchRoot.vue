@@ -84,8 +84,7 @@ provide<SwitchProvideValue>(SWITCH_INJECTION_KEY, {
 
   <input
     v-if="isFormControl"
-    :id="id"
-    v-model="checked"
+    :checked="checked"
     type="checkbox"
     :name="name"
     tabindex="-1"

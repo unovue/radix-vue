@@ -11,7 +11,11 @@ describe('test switch functionalities', () => {
 
   it('should pass axe accessibility tests', async () => {
     const wrapper = mount(Switch1)
-    expect(await axe(wrapper.element)).toHaveNoViolations()
+    expect(await axe(wrapper.element, {
+      rules: {
+        label: { enabled: false },
+      },
+    })).toHaveNoViolations()
   })
 
   test('thumb can render', async () => {

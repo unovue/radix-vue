@@ -2,6 +2,12 @@ import { expect, it } from 'vitest'
 import { defineComponent, h } from 'vue'
 import { render, screen } from '@testing-library/vue'
 import Label from './Label.vue'
+import { axe } from 'vitest-axe'
+
+it('should pass axe accessibility tests', async () => {
+  const wrapper = render(Label)
+  expect(await axe(wrapper.baseElement)).toHaveNoViolations()
+})
 
 it('should render without crashing', async () => {
   const label = render(Label)

@@ -17,7 +17,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from './'
+} from '../'
 
 const toggleState = ref(false)
 const toggleState2 = ref(false)

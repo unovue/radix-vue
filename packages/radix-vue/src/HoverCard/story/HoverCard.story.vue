@@ -6,7 +6,7 @@ import {
   HoverCardPortal,
   HoverCardRoot,
   HoverCardTrigger,
-} from './'
+} from '../'
 
 const hoverState = ref(false)
 </script>

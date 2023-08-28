@@ -8,7 +8,7 @@ const props = withDefaults(defineProps<MenuLabelProps>(), {
 </script>
 
 <template>
-  <Primitive role="group" v-bind="props">
+  <Primitive v-bind="props">
     <slot />
   </Primitive>
 </template>

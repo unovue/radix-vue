@@ -8,7 +8,7 @@ import {
   ToolbarSeparator,
   ToolbarToggleGroup,
   ToolbarToggleItem,
-} from './'
+} from '../'
 
 const toggleStateSingle = ref('center')
 const toggleStateMultiple = ref([])

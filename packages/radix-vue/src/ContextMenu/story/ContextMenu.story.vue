@@ -17,7 +17,7 @@ import {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
-} from './'
+} from '../'
 
 const checkboxOne = ref(false)
 const checkboxTwo = ref(false)

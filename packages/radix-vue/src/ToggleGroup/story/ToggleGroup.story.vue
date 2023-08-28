@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 import { ref } from 'vue'
-import { ToggleGroupItem, ToggleGroupRoot } from './'
+import { ToggleGroupItem, ToggleGroupRoot } from '../'
 
 const toggleStateSingle = ref('center')
 const toggleStateMultiple = ref(['italic'])

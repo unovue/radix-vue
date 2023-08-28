@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from './'
+import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from '../'
 
 const radioStateSingle = ref('default')
 </script>

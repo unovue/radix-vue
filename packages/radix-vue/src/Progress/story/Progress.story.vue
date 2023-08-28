@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ProgressIndicator, ProgressRoot } from './'
+import { ProgressIndicator, ProgressRoot } from '../'
 
 const interactive = ref(0)
 setInterval(() => {

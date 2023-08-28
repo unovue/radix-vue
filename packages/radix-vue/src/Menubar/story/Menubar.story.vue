@@ -16,7 +16,7 @@ import {
   MenubarSubContent,
   MenubarSubTrigger,
   MenubarTrigger,
-} from './'
+} from '../'
 
 const currentMenu = ref('')
 const checkboxOne = ref(false)

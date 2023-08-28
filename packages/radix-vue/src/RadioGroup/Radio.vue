@@ -1,5 +1,6 @@
 <script lang="ts">
 export interface RadioProps extends PrimitiveProps {
+  id?: string
   value?: string
   disabled?: boolean
   required?: boolean
@@ -34,6 +35,8 @@ const context = inject(RADIO_GROUP_INJECTION_KEY)
 const isFormControl = computed(() =>
   triggerElement.value ? Boolean(triggerElement.value.closest('form')) : true,
 )
+const ariaLabel = computed(() => props.id && triggerElement.value ? (document.querySelector(`[for=${props.id}]`) as HTMLLabelElement)?.innerText : undefined)
+
 const hasConsumerStoppedPropagationRef = ref(false)
 
 function handleClick(event: MouseEvent) {
@@ -52,12 +55,14 @@ function handleClick(event: MouseEvent) {
 
 <template>
   <Primitive
-    ref="primitiveElement"
     v-bind="$attrs"
+    :id="id"
+    ref="primitiveElement"
     role="radio"
     :type="as === 'button' ? 'button' : undefined"
     :as="as"
     :aria-checked="checked"
+    :aria-label="ariaLabel"
     :as-child="asChild"
     :disabled="disabled ? true : undefined"
     :data-state="checked ? 'checked' : 'unchecked'"

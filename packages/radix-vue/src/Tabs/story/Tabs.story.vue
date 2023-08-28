@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TabsContent, TabsList, TabsRoot, TabsTrigger } from './'
+import { TabsContent, TabsList, TabsRoot, TabsTrigger } from '../'
 </script>
 
 <template>

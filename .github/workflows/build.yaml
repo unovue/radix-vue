@@ -92,4 +92,4 @@ jobs:
         run: pnpm install
 
       - name: Test
-        run: pnpm --filter radix-vue run test
+        run: pnpm test

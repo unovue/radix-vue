@@ -5,7 +5,8 @@ import PopoverContentImpl, {
   type PopoverContentImplProps,
 } from './PopoverContentImpl.vue'
 import { POPOVER_INJECTION_KEY } from './PopoverRoot.vue'
-import { useBodyScrollLock, useEmitAsProps } from '@/shared'
+import { useBodyScrollLock, useEmitAsProps, useHideOthers } from '@/shared'
+import { usePrimitiveElement } from '@/Primitive'
 
 const props = defineProps<PopoverContentImplProps>()
 const emits = defineEmits<PopoverContentImplEmits>()
@@ -16,15 +17,13 @@ useBodyScrollLock(true)
 
 const emitsAsProps = useEmitAsProps(emits)
 
-// aria-hide everything except the content (better supported equivalent to setting aria-modal)
-// React.useEffect(() => {
-//   const content = contentRef.current;
-//   if (content) return hideOthers(content);
-// }, []);
+const { primitiveElement, currentElement } = usePrimitiveElement()
+useHideOthers(currentElement)
 </script>
 
 <template>
   <PopoverContentImpl
+    ref="primitiveElement"
     v-bind="{ ...props, ...emitsAsProps }"
     :trap-focus="context?.open.value"
     disable-outside-pointer-events

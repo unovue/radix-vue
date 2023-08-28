@@ -5,7 +5,8 @@ import DialogContentImpl, {
   type DialogContentImplEmits,
   type DialogContentImplProps,
 } from './DialogContentImpl.vue'
-import { useEmitAsProps } from '@/shared'
+import { useEmitAsProps, useHideOthers } from '@/shared'
+import { usePrimitiveElement } from '@/Primitive'
 
 const props = defineProps<DialogContentImplProps>()
 const emits = defineEmits<DialogContentImplEmits>()
@@ -13,16 +14,14 @@ const emits = defineEmits<DialogContentImplEmits>()
 const context = inject(DIALOG_INJECTION_KEY)
 
 const emitsAsProps = useEmitAsProps(emits)
-// TODO: Accessbiliy (3/3)
-// aria-hide everything except the content (better supported equivalent to setting aria-modal)
-//  React.useEffect(() => {
-//     const content = contentRef.current;
-//     if (content) return hideOthers(content);
-//   }, []);
+
+const { primitiveElement, currentElement } = usePrimitiveElement()
+useHideOthers(currentElement)
 </script>
 
 <template>
   <DialogContentImpl
+    ref="primitiveElement"
     v-bind="{ ...props, ...emitsAsProps }"
     :trap-focus="context?.open.value"
     :disable-outside-pointer-events="true"

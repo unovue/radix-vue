@@ -64,6 +64,7 @@ import {
   useBodyScrollLock,
   useCollection,
   useFocusGuards,
+  useHideOthers,
   useTypeahead,
 } from '@/shared'
 import { FocusScope } from '@/FocusScope'
@@ -86,6 +87,8 @@ useBodyScrollLock(true)
 const { createCollection } = useCollection()
 
 const content = ref<HTMLElement>()
+useHideOthers(content)
+
 const collectionItems = createCollection(content)
 const { search, handleTypeaheadSearch } = useTypeahead(collectionItems)
 
@@ -94,11 +97,6 @@ const selectedItem = ref<HTMLElement>()
 const selectedItemText = ref<HTMLElement>()
 const isPositioned = ref(false)
 const firstValidItemFoundRef = ref(false)
-
-// aria-hide everything except the content (better supported equivalent to setting aria-modal)
-// React.useEffect(() => {
-//   if (content) return hideOthers(content);
-// }, [content]);
 
 function focusSelectedItem() {
   if (selectedItem.value && content.value)

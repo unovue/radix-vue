@@ -64,6 +64,7 @@ provide<SwitchProvideValue>(SWITCH_INJECTION_KEY, {
 <template>
   <Primitive
     v-bind="$attrs"
+    :id="id"
     ref="primitiveElement"
     role="switch"
     :type="as === 'button' ? 'button' : undefined"

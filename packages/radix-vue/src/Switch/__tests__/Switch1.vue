@@ -8,7 +8,10 @@ const checked = ref(false)
 
 <template>
   <p>{{ checked ? "checked" : "unchecked" }}</p>
-  <SwitchRoot id="airplane-mode" v-model:checked="checked" data-testId="root">
-    <SwitchThumb data-testId="thumb" />
-  </SwitchRoot>
+  <div>
+    <label for="airplane-mode">Airplane mode</label>
+    <SwitchRoot id="airplane-mode" v-model:checked="checked" aria-label="Airplane mode" data-testId="root">
+      <SwitchThumb data-testId="thumb" />
+    </SwitchRoot>
+  </div>
 </template>

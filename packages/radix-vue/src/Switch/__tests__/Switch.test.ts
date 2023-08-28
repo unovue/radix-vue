@@ -1,8 +1,19 @@
 import { fireEvent, render, screen } from '@testing-library/vue'
-import { describe, test } from 'vitest'
+import { beforeEach, describe, expect, it, test } from 'vitest'
+import { axe } from 'vitest-axe'
+import { mount } from '@vue/test-utils'
 import Switch1 from './Switch1.vue'
 
 describe('test switch functionalities', () => {
+  beforeEach(() => {
+    document.body.innerHTML = ''
+  })
+
+  it('should pass axe accessibility tests', async () => {
+    const wrapper = mount(Switch1)
+    expect(await axe(wrapper.element)).toHaveNoViolations()
+  })
+
   test('thumb can render', async () => {
     render(Switch1)
     screen.getByTestId('thumb')
@@ -10,7 +21,7 @@ describe('test switch functionalities', () => {
 
   test('clicking thumb will toggle value', async () => {
     const { container } = render(Switch1)
-    const root = container.querySelector('input')!
+    const root = container.querySelector('button')!
     screen.getByText('unchecked')
 
     await fireEvent.click(root)
@@ -22,14 +33,13 @@ describe('test switch functionalities', () => {
 
   test('keydown enter root will toggle value', async () => {
     const { container } = render(Switch1)
-    container.querySelector('input')!
-    const input = container.querySelector('input')!
+    const button = container.querySelector('button')!
     screen.getByText('unchecked')
 
-    await fireEvent.keyDown(input, { key: 'Enter' })
+    await fireEvent.keyDown(button, { key: 'Enter' })
     screen.getByText('checked')
 
-    await fireEvent.keyDown(input, { key: 'Enter' })
+    await fireEvent.keyDown(button, { key: 'Enter' })
     screen.getByText('unchecked')
   })
   /*

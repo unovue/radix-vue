@@ -14,5 +14,6 @@ module.exports = {
     'symbol-description': 'off',
     'no-console': 'warn',
     'max-statements-per-line': ['error', { max: 2 }],
+    'vue/one-component-per-file': 'off',
   },
 }

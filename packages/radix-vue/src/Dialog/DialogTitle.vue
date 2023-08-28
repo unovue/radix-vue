@@ -10,7 +10,7 @@ const context = inject(DIALOG_INJECTION_KEY)
 </script>
 
 <template>
-  <Primitive v-bind="props" :id="context?.descriptionId">
+  <Primitive v-bind="props" :id="context?.titleId">
     <slot />
   </Primitive>
 </template>

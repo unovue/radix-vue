@@ -4,11 +4,11 @@ import type { InjectionKey, Ref } from 'vue'
 export interface SwitchRootProps extends PrimitiveProps {
   defaultChecked?: boolean
   checked?: boolean
-  // onCheckedChange?: void;
   disabled?: boolean
   required?: boolean
   name?: string
   id?: string
+  value?: string
 }
 
 export type SwitchRootEmits = {
@@ -26,14 +26,16 @@ export interface SwitchProvideValue {
 </script>
 
 <script setup lang="ts">
-import { provide, toRefs } from 'vue'
+import { computed, provide, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
 
 const props = withDefaults(defineProps<SwitchRootProps>(), {
+  as: 'button',
   asChild: false,
   disabled: false,
   defaultOpen: false,
+  value: 'on',
 })
 const emit = defineEmits<SwitchRootEmits>()
 const { disabled } = toRefs(props)
@@ -47,43 +49,56 @@ function toggleCheck() {
   checked.value = !checked.value
 }
 
+const { primitiveElement, currentElement } = usePrimitiveElement()
+// We set this to true by default so that events bubble to forms without JS (SSR)
+const isFormControl = computed(() => currentElement.value ? Boolean(currentElement.value.closest('form')) : true)
+const ariaLabel = computed(() => props.id && currentElement.value ? (document.querySelector(`[for=${props.id}]`) as HTMLLabelElement)?.innerText : undefined)
+
 provide<SwitchProvideValue>(SWITCH_INJECTION_KEY, {
   checked,
   toggleCheck,
   disabled,
 })
-
-function handleKeydown(e: KeyboardEvent) {
-  if (e.key === 'Enter')
-    toggleCheck()
-}
 </script>
 
 <template>
   <Primitive
-    :value="checked"
+    v-bind="$attrs"
+    :id="id"
+    ref="primitiveElement"
     role="switch"
+    :type="as === 'button' ? 'button' : undefined"
+    :value="value"
+    :aria-label="$attrs['aria-label'] || ariaLabel"
     :aria-checked="checked"
+    :aria-required="required"
     :data-state="checked ? 'checked' : 'unchecked'"
     :data-disabled="disabled ? '' : undefined"
     :as-child="asChild"
     :as="as"
-    style="position: relative"
+    @click="toggleCheck"
+    @keydown.enter.prevent="toggleCheck"
   >
     <slot />
-    <input
-      :id="id"
-      type="checkbox"
-      v-bind="checked"
-      :name="name"
-      aria-hidden="true"
-      :disabled="disabled"
-      :required="required"
-      :data-state="checked ? 'checked' : 'unchecked'"
-      :data-disabled="disabled ? '' : undefined"
-      style="opacity: 0; position: absolute; inset: 0"
-      @click="toggleCheck"
-      @keydown="handleKeydown"
-    >
   </Primitive>
+
+  <input
+    v-if="isFormControl"
+    :checked="checked"
+    type="checkbox"
+    :name="name"
+    tabindex="-1"
+    aria-hidden
+    :disabled="disabled"
+    :required="required"
+    :data-state="checked ? 'checked' : 'unchecked'"
+    :data-disabled="disabled ? '' : undefined"
+    :style="{
+      transform: 'translateX(-100%)',
+      position: 'absolute',
+      pointerEvents: 'none',
+      opacity: 0,
+      margin: 0,
+    }"
+  >
 </template>

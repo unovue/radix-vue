@@ -124,6 +124,7 @@ provide(PROGRESS_INJECTION_KEY, {
     :aria-valuemin="0"
     :aria-valuenow="isNumber(modelValue) ? modelValue : undefined"
     :aria-valuetext="getValueLabel(modelValue!, max)"
+    :aria-label="getValueLabel(modelValue!, max)"
     role="progressbar"
     :data-state="progressState"
     :data-value="modelValue ?? undefined"

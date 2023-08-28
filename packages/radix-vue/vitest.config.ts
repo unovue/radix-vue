@@ -19,5 +19,16 @@ export default defineConfig({
     coverage: {
       provider: 'istanbul', // or 'v8'
     },
+    setupFiles: './vitest.setup.ts',
+    server: {
+      deps: {
+        inline: ['vitest-canvas-mock'],
+      },
+    },
+    environmentOptions: {
+      jsdom: {
+        resources: 'usable',
+      },
+    },
   },
 })

@@ -12,7 +12,6 @@ it('should pass axe accessibility tests', async () => {
       alt="Landscape photograph by Tobias Tullius"
     >`,
     },
-    attachTo: document.body,
   })
   expect(await axe(wrapper.element)).toHaveNoViolations()
 })

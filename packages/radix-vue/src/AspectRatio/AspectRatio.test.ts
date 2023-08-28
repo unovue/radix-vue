@@ -14,6 +14,5 @@ it('should pass axe accessibility tests', async () => {
     },
     attachTo: document.body,
   })
-  console.log(wrapper.element)
   expect(await axe(wrapper.element)).toHaveNoViolations()
 })

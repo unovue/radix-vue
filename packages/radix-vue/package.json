@@ -59,6 +59,7 @@
     "@vueuse/components": "^10.2.1",
     "@vueuse/core": "^10.3.0",
     "@vueuse/shared": "^10.3.0",
+    "aria-hidden": "^1.2.3",
     "dts-bundle": "^0.7.3",
     "jsdom": "^22.1.0",
     "rimraf": "^5.0.1",

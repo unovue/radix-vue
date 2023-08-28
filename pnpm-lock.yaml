@@ -193,6 +193,9 @@ importers:
       '@vueuse/shared':
         specifier: ^10.3.0
         version: 10.3.0(vue@3.3.4)
+      aria-hidden:
+        specifier: ^1.2.3
+        version: 1.2.3
       dts-bundle:
         specifier: ^0.7.3
         version: 0.7.3
@@ -2965,6 +2968,13 @@ packages:
 
   /argparse@2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
+    dev: true
+
+  /aria-hidden@1.2.3:
+    resolution: {integrity: sha512-xcLxITLe2HYa1cnYnwCjkOO1PqUHQpozB8x9AR0OgWN2woOBi5kSDVxKfd0b7sb1hw5qFeJhXm9H1nu3xSfLeQ==}
+    engines: {node: '>=10'}
+    dependencies:
+      tslib: 2.6.2
     dev: true
 
   /aria-query@5.1.3:

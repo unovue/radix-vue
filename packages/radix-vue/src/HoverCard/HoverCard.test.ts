@@ -1,6 +1,6 @@
 import { expect, it } from 'vitest'
 import { axe } from 'vitest-axe'
-import Tooltip from './stories/_Tooltip.vue'
+import HoverCard from './story/_HoverCard.vue'
 import { mount } from '@vue/test-utils'
 
 it('should pass axe accessibility tests', async () => {
@@ -9,9 +9,13 @@ it('should pass axe accessibility tests', async () => {
     unobserve() {}
     disconnect() {}
   }
-  const wrapper = mount(Tooltip, { attachTo: document.body })
+  const wrapper = mount(HoverCard, { attachTo: document.body })
   expect(await axe(wrapper.element)).toHaveNoViolations()
 
-  await wrapper.find('button').trigger('focus')
+  function sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms))
+  }
+  await wrapper.find('button').trigger('mouseenter')
+  await sleep(100)
   expect(await axe(document.body)).toHaveNoViolations()
 })

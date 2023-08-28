@@ -4,11 +4,6 @@ import { render, screen } from '@testing-library/vue'
 import Label from './Label.vue'
 import { axe } from 'vitest-axe'
 
-it('should pass axe accessibility tests', async () => {
-  const wrapper = render(Label)
-  expect(await axe(wrapper.baseElement)).toHaveNoViolations()
-})
-
 it('should render without crashing', async () => {
   const label = render(Label)
   expect(label.html()).toBe('<label></label>')
@@ -80,4 +75,9 @@ it('should not focus the input when click on the label with a `for` attribute th
   setTimeout(() => {
     expect(container.querySelector('input')).not.toBe(document.activeElement)
   }, 50)
+})
+
+it('should pass axe accessibility tests', async () => {
+  const wrapper = render(Label)
+  expect(await axe(wrapper.baseElement)).toHaveNoViolations()
 })

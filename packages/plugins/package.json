@@ -1,5 +1,5 @@
 {
-  "name": "@radix-vue/nuxt",
+  "name": "plugins",
   "type": "module",
   "version": "0.1.28",
   "description": "Nuxt module for Radix Vue",
@@ -12,9 +12,6 @@
     "nuxt3"
   ],
   "sideEffects": false,
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "unbuild",
     "stub": "unbuild --stub"
@@ -23,6 +20,7 @@
     "@nuxt/kit": "npm:@nuxt/kit@latest",
     "@nuxt/schema": "^3.7.0",
     "radix-vue": "file:../radix-vue",
-    "unbuild": "^0.8.11"
+    "unbuild": "^2.0.0",
+    "unplugin-vue-components": "^0.25.1"
   }
 }

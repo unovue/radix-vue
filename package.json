@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "story:dev": "pnpm --filter histoire story:dev",
-    "build": "pnpm run -r --filter=!docs build",
+    "build": "rimraf packages/radix-vue/dist  && pnpm run -r build",
     "docs:install": "pnpm --filter docs install",
     "docs:dev": "pnpm --filter docs docs:dev",
     "docs:build": "pnpm --filter docs docs:build",
@@ -28,6 +28,7 @@
     "eslint": "^8.43.0",
     "lint-staged": "^14.0.0",
     "pnpm": "^8.6.12",
+    "rimraf": "^5.0.1",
     "simple-git-hooks": "^2.9.0"
   },
   "commitlint": {

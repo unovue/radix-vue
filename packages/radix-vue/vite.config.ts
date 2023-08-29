@@ -2,7 +2,6 @@ import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import alias from '@rollup/plugin-alias'
 import dts from 'vite-plugin-dts'
 
 const projectRootDir = resolve(__dirname)
@@ -12,16 +11,15 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
-    dts(),
-    alias({
-      entries: [
-        {
-          find: '@',
-          replacement: resolve(projectRootDir, 'src'),
-        },
-      ],
+    dts({
+      cleanVueFileName: true,
     }),
   ],
+  resolve: {
+    alias: {
+      '@': resolve(projectRootDir, 'src'),
+    },
+  },
   build: {
     lib: {
       name: 'radix-vue',

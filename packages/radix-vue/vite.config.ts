@@ -11,7 +11,9 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
-    dts(),
+    dts({
+      cleanVueFileName: true,
+    }),
   ],
   resolve: {
     alias: {
@@ -21,10 +23,8 @@ export default defineConfig({
   build: {
     lib: {
       name: 'radix-vue',
-      entry: [
-        resolve(__dirname, 'src/index.ts'),
-        resolve(__dirname, 'plugins/resolver.ts'),
-      ],
+      fileName: 'index',
+      entry: resolve(__dirname, 'src/index.ts'),
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled

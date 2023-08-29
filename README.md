@@ -89,7 +89,7 @@ We would love to have your contributions! All PRs all welcomed! We need help bui
 
 1. Go to the docs directory : `cd docs`
 2. Run `pnpm i --ignore-workspace`
-3. Run `pnpm run dev`
+3. Run `pnpm run docs:dev`
 
 ### Package
 

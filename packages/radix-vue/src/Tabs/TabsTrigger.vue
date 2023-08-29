@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue'
-import { useArrowNavigation } from '../shared'
 import { TABS_INJECTION_KEY } from './TabsRoot.vue'
 import {
   Primitive,
   type PrimitiveProps,
-  usePrimitiveElement,
 } from '@/Primitive'
+import { RovingFocusItem } from '@/RovingFocus'
+import { makeContentId, makeTriggerId } from './utils'
 
 export interface TabsTriggerProps extends PrimitiveProps {
   value: string
@@ -17,68 +17,50 @@ const props = withDefaults(defineProps<TabsTriggerProps>(), {
   disabled: false,
   as: 'button',
 })
-const injectedValue = inject(TABS_INJECTION_KEY)
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const context = inject(TABS_INJECTION_KEY)
 
-function changeTab(value: string) {
-  injectedValue?.changeModelValue(value)
-}
+const triggerId = computed(() => makeTriggerId(context!.baseId, props.value))
+const contentId = computed(() => makeContentId(context!.baseId, props.value))
 
-function handleKeydown(e: KeyboardEvent) {
-  const newSelectedElement = useArrowNavigation(
-    e,
-    currentElement.value!,
-    injectedValue?.parentElement.value!,
-    {
-      arrowKeyOptions: injectedValue?.orientation,
-      loop: injectedValue?.loop.value,
-      focus: true,
-    },
-  )
-
-  if (!newSelectedElement)
-    return
-
-  injectedValue!.currentFocusedElement!.value = newSelectedElement
-
-  if (injectedValue?.activationMode === 'automatic')
-    changeTab(newSelectedElement?.getAttribute('data-radix-vue-tab-value')!)
-}
-
-const getTabIndex = computed(() => {
-  if (!injectedValue?.currentFocusedElement?.value) {
-    return injectedValue?.modelValue?.value === props.value ? '0' : '-1'
-  }
-  else {
-    return injectedValue?.currentFocusedElement?.value === currentElement.value
-      ? '0'
-      : '-1'
-  }
-})
+const isSelected = computed(() => props.value === context?.modelValue.value)
 </script>
 
 <template>
-  <Primitive
-    ref="primitiveElement"
-    :type="as === 'button' ? 'button' : undefined"
-    :as="as"
-    :as-child="props.asChild"
-    role="tab"
-    :aria-selected="
-      injectedValue?.modelValue?.value === props.value ? 'true' : 'false'
-    "
-    :data-state="
-      injectedValue?.modelValue?.value === props.value ? 'active' : 'inactive'
-    "
-    :disabled="props.disabled"
-    :data-disabled="props.disabled ? '' : undefined"
-    :tabindex="getTabIndex"
-    :data-orientation="injectedValue?.orientation"
-    data-radix-vue-collection-item
-    :data-radix-vue-tab-value="props.value"
-    @click="changeTab(props.value!)"
-    @keydown.up.down.left.right.home.end="handleKeydown"
-  >
-    <slot />
-  </Primitive>
+  <RovingFocusItem as-child :focusable="!disabled" :active="isSelected">
+    <Primitive
+      :id="triggerId"
+      role="tab"
+      :type="as === 'button' ? 'button' : undefined"
+      :as="as"
+      :as-child="asChild"
+      :aria-selected="isSelected ? 'true' : 'false'"
+      :aria-controls="contentId"
+      :data-state="isSelected ? 'active' : 'inactive'"
+      :disabled="disabled"
+      :data-disabled="disabled ? '' : undefined"
+      :data-orientation="context?.orientation"
+      @mousedown="(event) => {
+        // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)
+        // but not when the control key is pressed (avoiding MacOS right click)
+        if (!disabled && event.button === 0 && event.ctrlKey === false) {
+          context?.changeModelValue(value);
+        }
+        else {
+          // prevent focus to avoid accidental activation
+          event.preventDefault();
+        }
+      }"
+      @keydown.enter.space="context?.changeModelValue(value)"
+      @focus="() => {
+        // handle 'automatic' activation if necessary
+        // ie. activate tab following focus
+        const isAutomaticActivation = context?.activationMode !== 'manual';
+        if (!isSelected && !disabled && isAutomaticActivation) {
+          context?.changeModelValue(value);
+        }
+      }"
+    >
+      <slot />
+    </Primitive>
+  </RovingFocusItem>
 </template>

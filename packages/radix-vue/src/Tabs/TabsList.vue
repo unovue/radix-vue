@@ -5,40 +5,31 @@ export interface TabsListProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { inject, onMounted, toRefs } from 'vue'
+import { inject, toRefs } from 'vue'
 import { TABS_INJECTION_KEY } from './TabsRoot.vue'
 import {
   Primitive,
   type PrimitiveProps,
-  usePrimitiveElement,
 } from '@/Primitive'
+import { RovingFocusGroup } from '@/RovingFocus'
 
 const props = withDefaults(defineProps<TabsListProps>(), {
   loop: true,
 })
 const { loop } = toRefs(props)
 
-const injectedValue = inject(TABS_INJECTION_KEY)
-const { primitiveElement, currentElement: parentElement }
-  = usePrimitiveElement()
-
-onMounted(() => {
-  injectedValue!.parentElement.value = parentElement.value
-  injectedValue!.loop = loop
-})
+const context = inject(TABS_INJECTION_KEY)
 </script>
 
 <template>
-  <Primitive
-    ref="primitiveElement"
-    role="tablist"
-    :as-child="props.asChild"
-    :as="as"
-    :aria-orientation="injectedValue?.orientation"
-    tabindex="0"
-    :data-orientation="injectedValue?.orientation"
-    style="outline: none"
-  >
-    <slot />
-  </Primitive>
+  <RovingFocusGroup as-child :orientation="context?.orientation.value" :dir="context?.dir.value" :loop="loop">
+    <Primitive
+      role="tablist"
+      :as-child="asChild"
+      :as="as"
+      :aria-orientation="context?.orientation.value"
+    >
+      <slot />
+    </Primitive>
+  </RovingFocusGroup>
 </template>

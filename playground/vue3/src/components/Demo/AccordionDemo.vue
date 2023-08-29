@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from '../../../../../packages/radix-vue/src/Accordion'
 
 const itemValue = ref(['item-1'])
 const rootDisabled = false

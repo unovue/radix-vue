@@ -15,17 +15,18 @@ export const HOVER_CARD_INJECTION_KEY
   = Symbol() as InjectionKey<HoverCardProvideValue>
 
 export interface HoverCardProvideValue {
-  open: Readonly<Ref<boolean>>
-  showTooltip(): void
-  hideTooltip(): void
-  openDelay: number
-  closeDelay: number
-  isHover: boolean
+  open: Ref<boolean>
+  onOpenChange(open: boolean): void
+  onOpen(): void
+  onClose(): void
+  onDismiss(): void
+  hasSelectionRef: Ref<boolean>
+  isPointerDownOnContentRef: Ref<boolean>
 }
 </script>
 
 <script setup lang="ts">
-import { provide } from 'vue'
+import { provide, ref, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { PopperRoot } from '@/Popper'
 
@@ -35,25 +36,45 @@ const props = withDefaults(defineProps<HoverCardRootProps>(), {
   openDelay: 700,
   closeDelay: 300,
 })
-
 const emit = defineEmits<HoverCardRootEmits>()
+
+const { openDelay, closeDelay } = toRefs(props)
 
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: true,
 })
 
+const openTimerRef = ref(0)
+const closeTimerRef = ref(0)
+const hasSelectionRef = ref(false)
+const isPointerDownOnContentRef = ref(false)
+
+function handleOpen() {
+  clearTimeout(closeTimerRef.value)
+  openTimerRef.value = window.setTimeout(() => open.value = true, openDelay.value)
+}
+
+function handleClose() {
+  clearTimeout(openTimerRef.value)
+  if (!hasSelectionRef.value && !isPointerDownOnContentRef.value)
+    closeTimerRef.value = window.setTimeout(() => open.value = false, closeDelay.value)
+}
+
+function handleDismiss() {
+  open.value = false
+}
+
 provide<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY, {
   open,
-  showTooltip: () => {
-    open.value = true
+  onOpenChange(value) {
+    open.value = value
   },
-  hideTooltip: () => {
-    open.value = false
-  },
-  openDelay: props.openDelay,
-  closeDelay: props.closeDelay,
-  isHover: false,
+  onOpen: handleOpen,
+  onClose: handleClose,
+  onDismiss: handleDismiss,
+  hasSelectionRef,
+  isPointerDownOnContentRef,
 })
 </script>
 

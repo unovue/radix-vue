@@ -4,6 +4,9 @@ on:
   push:
     paths:
       - 'docs/**'
+  pull_request:
+    paths:
+      - 'docs/**'
 
 jobs:
   publish:
@@ -62,7 +65,7 @@ jobs:
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           # Optional: Switch what branch you are publishing to.
           # By default this will be the branch which triggered this workflow
-          branch: main
+          # branch: main
           # Optional: Change the working directory
           workingDirectory: docs
           wranglerVersion: '3'

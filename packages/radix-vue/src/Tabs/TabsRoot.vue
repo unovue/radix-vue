@@ -1,8 +1,9 @@
 <script lang="ts">
 import type { InjectionKey, Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { provide, ref } from 'vue'
+import { provide, toRefs } from 'vue'
 import type { DataOrientation, Direction } from '../shared/types'
+import { useId } from '@/shared'
 
 export const TABS_INJECTION_KEY = Symbol() as InjectionKey<TabsProvideValue>
 </script>
@@ -12,25 +13,34 @@ import { Primitive, type PrimitiveProps } from '@/Primitive'
 
 export interface TabsRootProps extends PrimitiveProps {
   defaultValue?: string
+  /**
+   * The orientation the tabs are layed out.
+   * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
+   * @defaultValue horizontal
+   */
   orientation?: DataOrientation
+  /**
+   * The direction of navigation between toolbar items.
+   */
   dir?: Direction
+  /**
+   * Whether a tab is activated automatically or manually.
+   * @defaultValue automatic
+   * */
   activationMode?: 'automatic' | 'manual'
   modelValue?: string
-  onValueChange?: (value: string) => void
 }
 export type TabsRootEmits = {
   'update:modelValue': [payload: string]
 }
 
 export interface TabsProvideValue {
-  modelValue?: Readonly<Ref<string | undefined>>
-  currentFocusedElement?: Ref<HTMLElement | undefined>
+  modelValue: Ref<string | undefined>
   changeModelValue: (value: string) => void
-  parentElement: Ref<HTMLElement | undefined>
-  orientation: DataOrientation
-  dir: Direction
+  orientation: Ref<DataOrientation>
+  dir: Ref<Direction>
   activationMode: 'automatic' | 'manual'
-  loop: Ref<boolean>
+  baseId: string
 }
 
 const props = withDefaults(defineProps<TabsRootProps>(), {
@@ -39,9 +49,7 @@ const props = withDefaults(defineProps<TabsRootProps>(), {
   activationMode: 'automatic',
 })
 const emits = defineEmits<TabsRootEmits>()
-
-const parentElementRef = ref<HTMLElement>()
-const currentFocusedElementRef = ref<HTMLElement>()
+const { orientation, dir } = toRefs(props)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
@@ -52,23 +60,19 @@ provide<TabsProvideValue>(TABS_INJECTION_KEY, {
   modelValue,
   changeModelValue: (value: string) => {
     modelValue.value = value
-    if (value && props.onValueChange)
-      props.onValueChange(value)
   },
-  currentFocusedElement: currentFocusedElementRef,
-  parentElement: parentElementRef,
-  orientation: props.orientation,
-  dir: props.dir,
-  loop: ref(true),
+  orientation,
+  dir,
   activationMode: props.activationMode,
+  baseId: useId(),
 })
 </script>
 
 <template>
   <Primitive
-    :dir="props.dir"
-    :data-orientation="props.orientation"
-    :as-child="props.asChild"
+    :dir="dir"
+    :data-orientation="orientation"
+    :as-child="asChild"
     :as="as"
   >
     <slot />

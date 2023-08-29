@@ -1,36 +1,50 @@
 <script lang="ts">
 export interface TabsContentProps extends PrimitiveProps {
-  value?: string
+  value: string
   forceMount?: boolean
 }
 </script>
 
 <script setup lang="ts">
-import { computed, inject } from 'vue'
+import { computed, inject, onMounted, ref } from 'vue'
 import { TABS_INJECTION_KEY } from './TabsRoot.vue'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { makeContentId, makeTriggerId } from './utils'
+import { Presence } from '@/Presence'
 
 const props = defineProps<TabsContentProps>()
 
-const injectedValue = inject(TABS_INJECTION_KEY)
+const context = inject(TABS_INJECTION_KEY)
+const triggerId = computed(() => makeTriggerId(context!.baseId, props.value))
+const contentId = computed(() => makeContentId(context!.baseId, props.value))
 
-const dataState = computed<'active' | 'inactive'>(() => {
-  return injectedValue?.modelValue?.value === props.value
-    ? 'active'
-    : 'inactive'
+const isSelected = computed(() => props.value === context?.modelValue.value)
+const isMountAnimationPreventedRef = ref(isSelected.value)
+
+onMounted(() => {
+  requestAnimationFrame(() => isMountAnimationPreventedRef.value = false)
 })
+
+const presenceRef = ref<InstanceType<typeof Presence>>()
 </script>
 
 <template>
-  <Primitive
-    v-if="injectedValue?.modelValue?.value === props.value"
-    :as-child="props.asChild"
-    :as="as"
-    role="tabpanel"
-    :data-state="dataState"
-    :data-orientation="injectedValue?.orientation"
-    tabindex="0"
-  >
-    <slot />
-  </Primitive>
+  <Presence ref="presenceRef" :present="forceMount || isSelected">
+    <Primitive
+      :id="contentId"
+      :as-child="asChild"
+      :as="as"
+      role="tabpanel"
+      :data-state="isSelected ? 'active' : 'inactive'"
+      :data-orientation="context?.orientation.value"
+      :aria-labelledby="triggerId"
+      :hidden="!presenceRef?.present"
+      tabindex="0"
+      :style="{
+        animationDuration: isMountAnimationPreventedRef ? '0s' : undefined,
+      }"
+    >
+      <slot />
+    </Primitive>
+  </Presence>
 </template>

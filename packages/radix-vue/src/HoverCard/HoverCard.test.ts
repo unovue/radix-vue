@@ -15,7 +15,7 @@ it('should pass axe accessibility tests', async () => {
   function sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms))
   }
-  await wrapper.find('button').trigger('mouseenter')
+  await wrapper.find('a').trigger('mouseenter')
   await sleep(100)
   expect(await axe(document.body)).toHaveNoViolations()
 })

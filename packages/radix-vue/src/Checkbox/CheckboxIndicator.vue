@@ -8,23 +8,26 @@ export interface CheckboxIndicatorProps extends PrimitiveProps {
 import { inject } from 'vue'
 import { CHECKBOX_INJECTION_KEY } from './CheckboxRoot.vue'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { Presence } from '@/Presence'
+import { getState, isIndeterminate } from './utils'
 
-const props = withDefaults(defineProps<CheckboxIndicatorProps>(), {
+withDefaults(defineProps<CheckboxIndicatorProps>(), {
   as: 'span',
 })
 
-const injectedValue = inject(CHECKBOX_INJECTION_KEY)
+const context = inject(CHECKBOX_INJECTION_KEY)
 </script>
 
 <template>
-  <Primitive
-    v-if="injectedValue?.modelValue.value"
-    style="pointer-events: none"
-    :as-child="props.asChild"
-    :as="as"
-    :data-disabled="injectedValue.disabled ? '' : undefined"
-    :data-state="injectedValue.modelValue.value ? 'checked' : 'unchecked'"
-  >
-    <slot />
-  </Primitive>
+  <Presence :present="forceMount || isIndeterminate(context!.state.value) || context?.state.value === true">
+    <Primitive
+      :data-state="getState(context!.state.value)"
+      :data-disabled="context?.disabled.value ? '' : undefined"
+      :style="{ pointerEvents: 'none' }"
+      :as-child="asChild"
+      :as="as"
+    >
+      <slot />
+    </Primitive>
+  </Presence>
 </template>

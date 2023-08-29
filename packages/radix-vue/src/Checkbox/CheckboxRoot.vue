@@ -1,11 +1,10 @@
 <script lang="ts">
 import type { InjectionKey, Ref } from 'vue'
+import { useVModel } from '@vueuse/core'
 
 export interface CheckboxRootProps extends PrimitiveProps {
   defaultChecked?: boolean
   checked?: boolean
-  onCheckedChange?: void
-  modelValue?: boolean
   disabled?: boolean
   required?: boolean
   name?: string
@@ -14,67 +13,92 @@ export interface CheckboxRootProps extends PrimitiveProps {
 }
 
 export type CheckboxRootEmits = {
-  'update:modelValue': [value: boolean]
+  'update:checked': [value: boolean]
 }
 
 interface CheckboxProvideValue {
-  disabled: boolean
-  required: boolean
-  modelValue: Readonly<Ref<boolean>>
+  disabled: Ref<boolean>
+  state: Ref<CheckedState>
 }
 
 export const CHECKBOX_INJECTION_KEY
   = Symbol() as InjectionKey<CheckboxProvideValue>
+
+export default {
+  inheritAttrs: false,
+}
 </script>
 
 <script setup lang="ts">
-import { provide, toRef } from 'vue'
-import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { computed, provide, toRefs } from 'vue'
+import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
+import type { CheckedState } from './utils'
+import { getState, isIndeterminate } from './utils'
 
 const props = withDefaults(defineProps<CheckboxRootProps>(), {
-  modelValue: false,
+  checked: undefined,
   value: 'on',
+  as: 'button',
+})
+const emits = defineEmits<CheckboxRootEmits>()
+const { disabled } = toRefs(props)
+
+const checked = useVModel(props, 'checked', emits, {
+  defaultValue: props.defaultChecked,
+  passive: true,
 })
 
-const emit = defineEmits<CheckboxRootEmits>()
+const { primitiveElement, currentElement } = usePrimitiveElement()
+// We set this to true by default so that events bubble to forms without JS (SSR)
+const isFormControl = computed(() => currentElement.value ? Boolean(currentElement.value.closest('form')) : true)
+const ariaLabel = computed(() => props.id && currentElement.value ? (document.querySelector(`[for=${props.id}]`) as HTMLLabelElement)?.innerText : undefined)
 
 provide(CHECKBOX_INJECTION_KEY, {
-  required: props.required,
-  disabled: props.disabled,
-  modelValue: toRef(() => props.modelValue),
+  disabled,
+  state: checked,
 })
-
-function updateModelValue() {
-  return emit('update:modelValue', !props.modelValue)
-}
-
-let dataState: 'checked' | 'unchecked' | 'indeterminate'
 </script>
 
 <template>
   <Primitive
+    v-bind="$attrs"
+    :id="id"
+    ref="primitiveElement"
+    role="checkbox"
     :as-child="props.asChild"
     :as="as"
-    :value="props.value"
-    role="checkbox"
-    :aria-checked="props.modelValue"
-    :data-state="dataState"
-    style="position: relative"
-    :data-disabled="props.disabled ? '' : undefined"
+    :type="as === 'button' ? 'button' : undefined"
+    :value="value"
+    :aria-checked="isIndeterminate(checked) ? 'mixed' : checked"
+    :aria-required="required"
+    :aria-label="$attrs['aria-label'] || ariaLabel"
+    :data-state="getState(checked)"
+    :data-disabled="disabled ? '' : undefined"
+    :disabled="disabled"
+    @keydown.enter.prevent="() => {
+      // According to WAI ARIA, Checkboxes don't activate on enter keypress
+    }"
+    @click="checked = !checked"
   >
-    <input
-      :id="props.id"
-      type="checkbox"
-      v-bind="props.modelValue"
-      :checked="props.modelValue"
-      :name="props.name"
-      aria-hidden="true"
-      :disabled="props.disabled"
-      :required="props.required"
-      :data-state="dataState"
-      style="opacity: 0; position: absolute; inset: 0"
-      @change="updateModelValue"
-    >
     <slot />
   </Primitive>
+
+  <input
+    v-if="isFormControl"
+    type="checkbox"
+    tabindex="-1"
+    aria-hidden
+    :defaultChecked="isIndeterminate(checked) ? false : checked"
+    :checked="checked"
+    :name="props.name"
+    :disabled="props.disabled"
+    :required="props.required"
+    :style="{
+      transform: 'translateX(-100%)',
+      position: 'absolute',
+      pointerEvents: 'none',
+      opacity: 0,
+      margin: 0,
+    }"
+  >
 </template>

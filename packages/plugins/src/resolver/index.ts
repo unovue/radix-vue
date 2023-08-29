@@ -10,7 +10,7 @@ export interface ResolverOptions {
   prefix?: string
 }
 
-export function UnpluginVueComponentsResolver(options: ResolverOptions = {}): ComponentResolver {
+export default function (options: ResolverOptions = {}): ComponentResolver {
   const { prefix = '' } = options
 
   return {

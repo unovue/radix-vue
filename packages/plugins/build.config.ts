@@ -23,8 +23,5 @@ export default defineBuildConfig([
     externals: [
       'unplugin-vue-components',
     ],
-    rollup: {
-      emitCJS: true,
-    },
   },
 ])

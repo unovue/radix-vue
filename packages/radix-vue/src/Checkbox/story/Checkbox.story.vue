@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
 import { CheckboxIndicator, CheckboxRoot } from '../'
 
-const checkboxOne = ref(false)
+const checkboxOne = ref(true)
 const checkboxThree = ref(false)
 </script>
 
@@ -15,13 +15,13 @@ const checkboxThree = ref(false)
           class="flex flex-row gap-4 items-center [&>.checkbox]:hover:bg-neutral-100"
         >
           <CheckboxRoot
-            v-model="checkboxOne"
+            v-model:checked="checkboxOne"
             class="shadow-blackA7 hover:bg-violet3 flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-[4px] bg-white shadow-[0_2px_10px] outline-none focus-within:shadow-[0_0_0_2px_black]"
           >
             <CheckboxIndicator
               class="bg-white h-full w-full rounded flex items-center justify-center"
             >
-              <Icon icon="radix-icons:check" class="h-3 w-3 text-black" />
+              <Icon icon="radix-icons:check" class="h-4 w-4 text-black" />
             </CheckboxIndicator>
           </CheckboxRoot>
           <span class="select-none">Checkbox</span>
@@ -45,7 +45,7 @@ const checkboxThree = ref(false)
           class="flex flex-row gap-4 items-center [&>.checkbox]:hover:bg-neutral-100"
         >
           <CheckboxRoot
-            v-model="checkboxThree"
+            v-model:checked="checkboxThree"
             required
             class="shadow-blackA7 hover:bg-violet3 flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-[4px] bg-white shadow-[0_2px_10px] outline-none focus-within:shadow-[0_0_0_2px_black]"
           >

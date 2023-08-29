@@ -56,7 +56,7 @@ For changelog, visit [releases](https://github.com/radix-vue/radix-vue/releases)
 | [Alert Dialog](https://radix-vue.com/components/alert-dialog)       |   ✅   | ✅           | ✅                     |
 | [Aspect Ratio](https://radix-vue.com/components/aspect-ratio)       |   ✅   | ✅           | ✅                     |
 | [Avatar](https://radix-vue.com/components/avatar)                   |   ✅   | ✅           | ✅                     |
-| [Checkbox](https://radix-vue.com/components/checkbox)               |   ✅   | ✅           |                        |
+| [Checkbox](https://radix-vue.com/components/checkbox)               |   ✅   | ✅           | ✅                     |
 | [Collapsible](https://radix-vue.com/components/collapsible)         |   ✅   | ✅           | ✅                     |
 | [Context Menu](https://radix-vue.com/components/context-menu)       |   ✅   | ✅           | ✅                     |
 | [Dialog](https://radix-vue.com/components/dialog)                   |   ✅   | ✅           | ✅                     |

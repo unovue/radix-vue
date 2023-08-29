@@ -115,17 +115,6 @@ Here's a complete demo.
 </template>
 </HeroContainer>
 
-## Nuxt modules
-
-Since [v0.1.18](https://github.com/radix-vue/radix-vue/releases/tag/v0.1.18), Radix Vue has introduced Nuxt modules.
-
-In `nuxt.config.ts`, simply add `radix-vue/nuxt` into the modules, and it will auto-imports all the components for you.
-
-```ts
-export default defineNuxtConfig({
-  modules: ['radix-vue/nuxt'],
-})
-```
 
 ## Summary
 

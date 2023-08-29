@@ -94,6 +94,7 @@ function sidebar() {
       items: [
         { text: 'Introduction', link: '/overview/introduction' },
         { text: 'Getting Started', link: '/overview/getting-started' },
+        { text: 'Installation', link: '/overview/installation' },
         { text: 'Accessibility', link: '/overview/accessibility' },
         { text: 'Releases', link: '/overview/releases' },
       ],

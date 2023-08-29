@@ -99,7 +99,7 @@ importers:
   docs:
     dependencies:
       radix-vue:
-        specifier: 0.1.28
+        specifier: 0.1.29
         version: link:../packages/radix-vue
     devDependencies:
       '@iconify/vue':
@@ -232,12 +232,6 @@ importers:
       vue-tsc:
         specifier: ^1.8.1
         version: 1.8.1(typescript@5.1.3)
-
-  playground/vue3:
-    dependencies:
-      radix-vue:
-        specifier: link:../../packages/radix-vue
-        version: link:../../packages/radix-vue
 
 packages:
 
@@ -10217,7 +10211,7 @@ packages:
     resolution: {directory: packages/radix-vue, type: directory}
     id: file:packages/radix-vue
     name: radix-vue
-    version: 0.1.28
+    version: 0.1.29
     dependencies:
       '@floating-ui/dom': 1.4.2
       '@floating-ui/vue': 1.0.1(vue@3.3.4)

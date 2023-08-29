@@ -24,7 +24,6 @@
       "import": "./dist/nuxt/index.mjs"
     },
     "./resolver": {
-      "require": "./dist/resolver/index.umd.js",
       "import": "./dist/resolver/index.mjs"
     },
     "./index.css": "./dist/index.css"

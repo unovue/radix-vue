@@ -16,16 +16,20 @@
   "keywords": [],
   "exports": {
     ".": {
-      "require": "./dist/index.umd.cjs",
+      "require": "./dist/index.cjs",
       "import": "./dist/index.js"
     },
     "./nuxt": {
       "require": "./dist/nuxt/index.cjs",
       "import": "./dist/nuxt/index.mjs"
     },
+    "./resolver": {
+      "require": "./dist/resolver.cjs",
+      "import": "./dist/resolver.js"
+    },
     "./index.css": "./dist/index.css"
   },
-  "main": "./dist/index.umd.cjs",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "typings": "./dist/index.d.ts",
@@ -46,7 +50,6 @@
   },
   "devDependencies": {
     "@iconify/vue": "^4.1.1",
-    "@rollup/plugin-alias": "^5.0.0",
     "@testing-library/user-event": "^14.4.3",
     "@testing-library/vue": "^7.0.0",
     "@tsconfig/node18": "^2.0.1",

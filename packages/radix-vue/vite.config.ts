@@ -2,7 +2,6 @@ import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import alias from '@rollup/plugin-alias'
 import dts from 'vite-plugin-dts'
 
 const projectRootDir = resolve(__dirname)
@@ -13,20 +12,19 @@ export default defineConfig({
     vue(),
     vueJsx(),
     dts(),
-    alias({
-      entries: [
-        {
-          find: '@',
-          replacement: resolve(projectRootDir, 'src'),
-        },
-      ],
-    }),
   ],
+  resolve: {
+    alias: {
+      '@': resolve(projectRootDir, 'src'),
+    },
+  },
   build: {
     lib: {
       name: 'radix-vue',
-      fileName: 'index',
-      entry: resolve(__dirname, 'src/index.ts'),
+      entry: [
+        resolve(__dirname, 'src/index.ts'),
+        resolve(__dirname, 'plugins/resolver.ts'),
+      ],
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled

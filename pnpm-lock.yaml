@@ -157,9 +157,6 @@ importers:
       '@iconify/vue':
         specifier: ^4.1.1
         version: 4.1.1(vue@3.3.4)
-      '@rollup/plugin-alias':
-        specifier: ^5.0.0
-        version: 5.0.0
       '@testing-library/user-event':
         specifier: ^14.4.3
         version: 14.4.3(@testing-library/dom@9.3.1)

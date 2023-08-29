@@ -16,7 +16,7 @@
   "keywords": [],
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
+      "require": "./dist/index.umd.cjs",
       "import": "./dist/index.js"
     },
     "./nuxt": {
@@ -24,12 +24,12 @@
       "import": "./dist/nuxt/index.mjs"
     },
     "./resolver": {
-      "require": "./dist/resolver.cjs",
-      "import": "./dist/resolver.js"
+      "require": "./dist/resolver/index.umd.js",
+      "import": "./dist/resolver/index.mjs"
     },
     "./index.css": "./dist/index.css"
   },
-  "main": "./dist/index.cjs",
+  "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "typings": "./dist/index.d.ts",
@@ -39,7 +39,7 @@
   ],
   "scripts": {
     "build": "pnpm type-check && pnpm build-only",
-    "build-only": "rimraf dist && vite build",
+    "build-only": "vite build",
     "type-check": "vue-tsc -p tsconfig.check.json --noEmit",
     "type-gen": "vue-tsc --declaration  --emitDeclarationOnly",
     "test": "vitest"
@@ -65,9 +65,7 @@
     "aria-hidden": "^1.2.3",
     "dts-bundle": "^0.7.3",
     "jsdom": "^22.1.0",
-    "rimraf": "^5.0.1",
     "typescript": "^5.1.3",
-    "unplugin-vue-components": "^0.25.1",
     "vite": "^4.3.9",
     "vite-plugin-dts": "^3.3.1",
     "vitest": "^0.34.3",

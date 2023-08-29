@@ -1,5 +1,5 @@
 import { type ComponentResolver } from 'unplugin-vue-components'
-import { components } from '../constant'
+import { components } from '../radix-vue/constant/components'
 
 export interface ResolverOptions {
   /**

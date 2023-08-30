@@ -162,7 +162,6 @@ const { primitiveElement, currentElement: contentElement }
 
 const floatingRef = ref<HTMLElement>()
 
-const content = ref<HTMLElement>()
 const arrow = ref<HTMLElement>()
 const { width: arrowWidth, height: arrowHeight } = useSize(arrow)
 
@@ -282,10 +281,9 @@ const cannotCenterArrow = computed(
 )
 
 const contentZIndex = ref('')
-
 watchEffect(() => {
-  if (content.value)
-    contentZIndex.value = window.getComputedStyle(content.value).zIndex
+  if (contentElement.value)
+    contentZIndex.value = window.getComputedStyle(contentElement.value).zIndex
 })
 
 const arrowX = computed(() => middlewareData.value.arrow?.x ?? 0)

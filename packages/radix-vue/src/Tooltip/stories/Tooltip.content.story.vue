@@ -17,7 +17,7 @@ const lastEvent = ref('')
             >
               <Icon icon="radix-icons:plus" />
             </TooltipTrigger>
-            <TooltipPortal to="body">
+            <TooltipPortal>
               <TooltipContent
                 as-child
                 align="start"

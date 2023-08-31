@@ -39,8 +39,6 @@ const { primitiveElement } = usePrimitiveElement()
     :height="height"
     viewBox="0 0 30 10"
     preserveAspectRatio="none"
-    :as-child="props.asChild"
-    :as="as"
   >
     <slot><polygon points="0,0 30,0 15,10" /></slot>
   </Primitive>

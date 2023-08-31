@@ -70,7 +70,7 @@ const baseSide = computed(() =>
         display: 'block',
       }"
       :as="as"
-      :as-child="props.asChild"
+      :as-child="asChild"
     />
   </span>
 </template>

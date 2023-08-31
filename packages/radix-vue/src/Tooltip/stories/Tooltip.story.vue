@@ -16,7 +16,7 @@ const toggleState = ref(false)
           >
             <Icon icon="radix-icons:plus" />
           </TooltipTrigger>
-          <TooltipPortal to="body">
+          <TooltipPortal>
             <TooltipContent
               as-child
               :side-offset="5"

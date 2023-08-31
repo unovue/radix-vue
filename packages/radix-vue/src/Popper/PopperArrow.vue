@@ -25,7 +25,9 @@ import {
 import Arrow from '@/shared/component/Arrow.vue'
 import { type ArrowProps } from '@/shared/component/Arrow.vue'
 
-defineProps<PopperArrowProps>()
+const props = withDefaults(defineProps<PopperArrowProps>(), {
+  as: 'svg',
+})
 
 const contentContext = inject<PopperContentContextValue>(POPPER_CONTENT_KEY)
 
@@ -67,6 +69,8 @@ const baseSide = computed(() =>
       :style="{
         display: 'block',
       }"
+      :as="as"
+      :as-child="asChild"
     />
   </span>
 </template>

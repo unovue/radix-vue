@@ -117,8 +117,5 @@ export function useSingleOrMultipleValue<P extends Props, Name extends string>(
     }
   }
 
-  return {
-    modelValue,
-    changeModelValue,
-  }
+  return [modelValue, changeModelValue] as const
 }

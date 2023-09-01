@@ -51,7 +51,7 @@ const emits = defineEmits<ToggleGroupRootEmits>()
 
 const { loop, rovingFocus, disabled, dir } = toRefs(props)
 
-const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emits)
+const [modelValue, changeModelValue] = useSingleOrMultipleValue(props, emits)
 
 provide(TOGGLE_GROUP_INJECTION_KEY, {
   type: props.type,

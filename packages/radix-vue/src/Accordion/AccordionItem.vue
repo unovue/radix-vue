@@ -1,7 +1,8 @@
 <script lang="ts" context="module">
-import type { ComputedRef, InjectionKey, VNodeRef } from 'vue'
+import type { ComputedRef, VNodeRef } from 'vue'
 import type { CollapsibleRootProps } from '../Collapsible'
-import { ACCORDION_INJECTION_KEY } from './AccordionRoot.vue'
+import { injectAccordionContext } from './AccordionRoot.vue'
+import { createContext, useArrowNavigation, useId } from '@/shared'
 
 enum AccordionItemState {
   Open = 'open',
@@ -23,7 +24,7 @@ export interface AccordionItemProps
   value: string
 }
 
-interface AccordionItemProvideValue {
+interface AccordionItemContextValue {
   open: ComputedRef<boolean>
   dataState: ComputedRef<AccordionItemState>
   disabled: ComputedRef<boolean>
@@ -34,32 +35,31 @@ interface AccordionItemProvideValue {
   value: ComputedRef<string>
 }
 
-export const ACCORDION_ITEM_INJECTION_KEY
-  = Symbol() as InjectionKey<AccordionItemProvideValue>
+export const [injectAccordionItemContext, provideAccordionItemContext]
+  = createContext<AccordionItemContextValue>('AccordionItem')
 </script>
 
 <script setup lang="ts">
 import { CollapsibleRoot } from '@/Collapsible'
 import { usePrimitiveElement } from '@/Primitive'
-import { useArrowNavigation, useId } from '@/shared'
-import { computed, inject, provide } from 'vue'
+import { computed } from 'vue'
 
 const props = defineProps<AccordionItemProps>()
 
-const injectedRoot = inject(ACCORDION_INJECTION_KEY)
+const context = injectAccordionContext()
 
 const open = computed(() =>
-  injectedRoot?.isSingle.value
-    ? props.value === injectedRoot.modelValue.value
-    : Array.isArray(injectedRoot?.modelValue.value)
-      && !!injectedRoot?.modelValue.value.includes(props.value),
+  context.isSingle.value
+    ? props.value === context.modelValue.value
+    : Array.isArray(context.modelValue.value)
+      && !!context.modelValue.value.includes(props.value),
 )
 
 const disabled = computed(() => {
   return (
-    injectedRoot?.disabled
+    context.disabled
     || props.disabled
-    || (!!injectedRoot?.isSingle.value && open.value && !injectedRoot?.collapsible)
+    || (!!context.isSingle.value && open.value && !context.collapsible)
   )
 })
 
@@ -71,7 +71,7 @@ const dataState = computed(() =>
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
-provide(ACCORDION_ITEM_INJECTION_KEY, {
+provideAccordionItemContext({
   open,
   dataState,
   disabled,
@@ -86,10 +86,10 @@ function handleArrowKey(e: KeyboardEvent) {
   useArrowNavigation(
     e,
     currentElement.value!,
-    injectedRoot?.parentElement.value!,
+    context.parentElement.value,
     {
-      arrowKeyOptions: injectedRoot?.orientation,
-      dir: injectedRoot?.direction,
+      arrowKeyOptions: context.orientation,
+      dir: context.direction,
       focus: true,
     },
   )
@@ -100,7 +100,7 @@ defineExpose({ open })
 
 <template>
   <CollapsibleRoot
-    :data-orientation="injectedRoot?.orientation"
+    :data-orientation="context.orientation"
     :data-disabled="dataDisabled"
     :data-state="dataState"
     :disabled="disabled"

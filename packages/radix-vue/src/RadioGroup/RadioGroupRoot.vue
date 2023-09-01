@@ -3,7 +3,7 @@ import {
   Primitive,
   type PrimitiveProps,
 } from '@/Primitive'
-import type { DataOrientation, Direction } from '@/shared/types'
+import type { Direction, Orientation } from '@/shared/types'
 import { useVModel } from '@vueuse/core'
 import type { InjectionKey, Ref } from 'vue'
 
@@ -13,7 +13,7 @@ export interface RadioGroupRootProps extends PrimitiveProps {
   disabled?: boolean
   name?: string
   required?: boolean
-  orientation?: DataOrientation
+  orientation?: Orientation
   dir?: Direction
   loop?: boolean
 }
@@ -26,7 +26,7 @@ interface RadioGroupProvideValue {
   changeModelValue: (value?: string) => void
   disabled: Ref<boolean>
   loop: Ref<boolean>
-  orientation: Ref<DataOrientation | undefined>
+  orientation: Ref<Orientation | undefined>
   name?: string
   required: Ref<boolean>
 }

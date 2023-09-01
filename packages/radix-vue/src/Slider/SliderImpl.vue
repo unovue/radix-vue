@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Primitive, type PrimitiveProps } from '@/Primitive'
-import { inject } from 'vue'
-import { SLIDER_INJECTION_KEY } from './SliderRoot.vue'
+import { injectSliderContext } from './SliderRoot.vue'
 import { ARROW_KEYS, PAGE_KEYS } from './utils'
 
 export type SliderImplEmits = {
@@ -19,7 +18,7 @@ const props = withDefaults(defineProps<SliderImplProps>(), {
   as: 'span',
 })
 const emits = defineEmits<SliderImplEmits>()
-const context = inject(SLIDER_INJECTION_KEY)
+const context = injectSliderContext()
 </script>
 
 <template>
@@ -49,7 +48,7 @@ const context = inject(SLIDER_INJECTION_KEY)
       event.preventDefault();
       // Touch devices have a delay before focusing so won't focus if touch immediately moves
       // away from target (sliding). We want thumb to focus regardless.
-      if (context!.thumbElements.value.includes(target)) {
+      if (context.thumbElements.value.includes(target)) {
         target.focus();
       }
       else {

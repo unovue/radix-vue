@@ -1,13 +1,13 @@
 <script lang="ts">
-import type { DataOrientation, Direction } from '../shared/types'
-import { useCollection } from '@/shared'
+import type { Direction, Orientation } from '@/shared/types'
+import { createCollection, createContext } from '@/shared'
 
 export interface SliderRootProps extends PrimitiveProps {
   name?: string
   defaultValue?: number[]
   modelValue?: number[]
   disabled?: boolean
-  orientation?: DataOrientation
+  orientation?: Orientation
   dir?: Direction
   inverted?: boolean
   min?: number
@@ -16,8 +16,8 @@ export interface SliderRootProps extends PrimitiveProps {
   minStepsBetweenThumbs?: number
 }
 
-export interface SliderProvideValue {
-  orientation: Ref<DataOrientation>
+export interface SliderContextValue {
+  orientation: Ref<Orientation>
   disabled: Ref<boolean>
   min: Ref<number>
   max: Ref<number>
@@ -31,8 +31,11 @@ export type SliderRootEmits = {
   'valueCommit': [payload: number[]]
 }
 
-export const SLIDER_INJECTION_KEY
-  = Symbol() as InjectionKey<SliderProvideValue>
+export const [injectSliderCollection, provideSliderCollection]
+  = createCollection('SliderRoot')
+
+export const [injectSliderContext, provideSliderContext]
+  = createContext<SliderContextValue>('SliderRoot')
 
 export default {
   inheritAttrs: false,
@@ -42,7 +45,7 @@ export default {
 <script setup lang="ts">
 import SliderHorizontal from './SliderHorizontal.vue'
 import SliderVertical from './SliderVertical.vue'
-import { type InjectionKey, type Ref, provide, ref, toRefs } from 'vue'
+import { type Ref, ref, toRefs } from 'vue'
 import {
   type PrimitiveProps,
   usePrimitiveElement,
@@ -63,10 +66,17 @@ const props = withDefaults(defineProps<SliderRootProps>(), {
 })
 const emits = defineEmits<SliderRootEmits>()
 
-const { min, max, step, minStepsBetweenThumbs, orientation, disabled, dir } = toRefs(props)
-const { createCollection } = useCollection('sliderThumb')
+const {
+  min,
+  max,
+  step,
+  minStepsBetweenThumbs,
+  orientation,
+  disabled,
+  dir,
+} = toRefs(props)
 const { primitiveElement, currentElement } = usePrimitiveElement()
-createCollection(currentElement)
+provideSliderCollection(currentElement)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
@@ -114,7 +124,7 @@ function updateValues(value: number, atIndex: number, { commit } = { commit: fal
 }
 
 const thumbElements = ref<HTMLElement[]>([])
-provide(SLIDER_INJECTION_KEY, {
+provideSliderContext({
   modelValue,
   valueIndexToChangeRef,
   thumbElements,

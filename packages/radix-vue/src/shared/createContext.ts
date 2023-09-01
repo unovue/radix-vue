@@ -1,12 +1,14 @@
 import { type InjectionKey, inject, provide } from 'vue'
 
-export function createContext<ContextValue>(rootComponentName: string) {
+export function createContext<ContextValue>(providerComponentName: string) {
   const injectionKey: InjectionKey<ContextValue | null> = Symbol(
-    `${rootComponentName}Context`,
+    `${providerComponentName}Context`,
   )
 
   /**
-   * @throws When failed to inject context and fallback not specified.
+   * @param fallback The context value to return if the injection fails.
+   *
+   * @throws When context injection failed and no fallback is specified.
    * This happens when the component injecting the context is not a child of the root component providing the context.
    */
   const injectContext = <T extends ContextValue | null | undefined = ContextValue>(
@@ -17,9 +19,9 @@ export function createContext<ContextValue>(rootComponentName: string) {
       return context
 
     if (context === null)
-      return null as any
+      return context as any
 
-    throw new Error(`Component must be used within ${rootComponentName}`)
+    throw new Error(`injection \`${injectionKey.toString()}\` not found. Component must be used within \`${providerComponentName}\``)
   }
 
   const provideContext = (contextValue: ContextValue) => {

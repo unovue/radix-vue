@@ -1,4 +1,7 @@
 <script lang="ts">
+import { createCollection, createContext } from '@/shared'
+import type { Direction, Orientation } from '@/shared/types'
+
 export interface RovingFocusGroupProps extends PrimitiveProps {
   /**
    * The orientation of the group.
@@ -34,21 +37,21 @@ interface RovingContextValue {
   onFocusableItemRemove(): void
 }
 
-export const ROVING_FOCUS_INJECTION_KEY
-  = Symbol() as InjectionKey<RovingContextValue>
+export const [injectRovingFocusGroupContext, provideRovingFocusGroupContext]
+  = createContext<RovingContextValue>('RovingFocusGroup')
+
+export const [injectRovingFocusGroupCollection, provideRovingFocusGroupCollection]
+  = createCollection('RovingFocusGroup')
 </script>
 
 <script setup lang="ts">
-import { type InjectionKey, type Ref, provide, ref, toRefs } from 'vue'
+import { type Ref, ref, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
 import {
-  type Direction,
   ENTRY_FOCUS,
   EVENT_OPTIONS,
-  type Orientation,
+  focusFirst,
 } from './utils'
-import { focusFirst } from './utils'
-import { useCollection } from '@/shared'
 import {
   Primitive,
   type PrimitiveProps,
@@ -71,8 +74,7 @@ const isClickFocus = ref(false)
 const focusableItemsCount = ref(0)
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
-const { createCollection } = useCollection('rovingFocus')
-const collections = createCollection(currentElement)
+const collections = provideRovingFocusGroupCollection(currentElement)
 
 function handleFocus(event: FocusEvent) {
   // We normally wouldn't need this check, because we already check
@@ -107,7 +109,7 @@ function handleFocus(event: FocusEvent) {
   isClickFocus.value = false
 }
 
-provide(ROVING_FOCUS_INJECTION_KEY, {
+provideRovingFocusGroupContext({
   loop,
   dir,
   orientation,

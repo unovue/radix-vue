@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { usePrimitiveElement } from '@/Primitive'
 import SliderImpl from './SliderImpl.vue'
-import { computed, provide, ref, toRefs } from 'vue'
+import { computed, ref, toRefs } from 'vue'
 import type { SliderOrientationPrivateEmits, SliderOrientationPrivateProps } from './utils'
-import { BACK_KEYS, SLIDER_ORIENTATION_INJECTION_KEY, linearScale } from './utils'
+import { BACK_KEYS, linearScale, provideSliderOrientationContext } from './utils'
 
 interface SliderVerticalProps extends SliderOrientationPrivateProps {}
 const props = defineProps<SliderVerticalProps>()
@@ -12,7 +12,7 @@ const { max, min, inverted } = toRefs(props)
 
 const { primitiveElement, currentElement: sliderElement } = usePrimitiveElement()
 
-const rectRef = ref<ClientRect>()
+const rectRef = ref<DOMRect>()
 const isSlidingFromBottom = computed(() => !inverted.value)
 
 function getValueFromPointer(pointerPosition: number) {
@@ -25,7 +25,7 @@ function getValueFromPointer(pointerPosition: number) {
   return value(pointerPosition - rect.top)
 }
 
-provide(SLIDER_ORIENTATION_INJECTION_KEY, {
+provideSliderOrientationContext({
   startEdge: isSlidingFromBottom.value ? 'bottom' : 'top',
   endEdge: isSlidingFromBottom.value ? 'top' : 'bottom',
   size: 'height',

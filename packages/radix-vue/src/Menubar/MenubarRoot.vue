@@ -1,7 +1,6 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from 'vue'
+import type { Ref } from 'vue'
 import type { Direction } from '../shared/types'
-import { useCollection } from '@/shared'
 
 export interface MenubarRootProps {
   modelValue?: string
@@ -13,8 +12,10 @@ export type MenubarRootEmits = {
   'update:modelValue': [value: boolean]
 }
 
-export const MENUBAR_INJECTION_KEY
-  = Symbol() as InjectionKey<MenubarContextValue>
+import { createCollection, createContext } from '@/shared'
+
+export const [injectMenubarCollection, provideMenubarCollection]
+  = createCollection('MenubarRoot')
 
 export interface MenubarContextValue {
   modelValue: Ref<string>
@@ -24,10 +25,13 @@ export interface MenubarContextValue {
   onMenuClose(): void
   onMenuToggle(value: string): void
 }
+
+export const [injectMenubarRootContext, provideMenubarRootContext]
+  = createContext<MenubarContextValue>('MenubarRoot')
 </script>
 
 <script setup lang="ts">
-import { provide, ref, toRefs } from 'vue'
+import { ref, toRefs } from 'vue'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { RovingFocusGroup } from '@/RovingFocus'
 import { useVModel } from '@vueuse/core'
@@ -39,8 +43,7 @@ const props = withDefaults(defineProps<MenubarRootProps>(), {
 const emit = defineEmits<MenubarRootEmits>()
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
-const { createCollection } = useCollection('menubar')
-createCollection(currentElement)
+provideMenubarCollection(currentElement)
 
 const modelValue = useVModel(props, 'modelValue', emit, {
   passive: true,
@@ -50,7 +53,8 @@ const modelValue = useVModel(props, 'modelValue', emit, {
 const currentTabStopId = ref<string | null>(null)
 
 const { dir, loop } = toRefs(props)
-provide(MENUBAR_INJECTION_KEY, {
+
+provideMenubarRootContext({
   modelValue,
   dir,
   loop,

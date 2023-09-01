@@ -1,21 +1,28 @@
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+}
+</script>
+
 <script setup lang="ts">
-import { computed, inject, ref, watchEffect } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import { useResizeObserver } from '@vueuse/core'
-import { NAVIGATION_MENU_INJECTION_KEY } from './NavigationMenuRoot.vue'
-import { useCollection } from '@/shared'
+import {
+  injectNavigationMenuCollection,
+  injectNavigationMenuContext,
+} from './NavigationMenuRoot.vue'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { Presence } from '@/Presence'
 
 export interface NavigationMenuIndicatorProps extends PrimitiveProps {}
 const props = defineProps<NavigationMenuIndicatorProps>()
 
-const { injectCollection } = useCollection('nav')
-const collectionItems = injectCollection()
-const context = inject(NAVIGATION_MENU_INJECTION_KEY)
+const collectionItems = injectNavigationMenuCollection()
+const context = injectNavigationMenuContext()
 
 const position = ref<{ size: number; offset: number }>()
-const isHorizontal = computed(() => context?.orientation === 'horizontal')
-const isVisible = computed(() => !!context?.modelValue.value)
+const isHorizontal = computed(() => context.orientation === 'horizontal')
+const isVisible = computed(() => !!context.modelValue.value)
 
 const activeTrigger = ref<HTMLElement>()
 
@@ -33,31 +40,25 @@ function handlePositionChange() {
 }
 
 watchEffect(() => {
-  if (!context?.modelValue.value) {
+  if (!context.modelValue.value) {
     position.value = undefined
     return
   }
   const items = collectionItems.value
   activeTrigger.value = items.find(item =>
-    item.id.includes(context?.modelValue.value),
+    item.id.includes(context.modelValue.value),
   )
   handlePositionChange()
 })
 
 useResizeObserver(activeTrigger, handlePositionChange)
-useResizeObserver(context!.indicatorTrack, handlePositionChange)
-</script>
-
-<script lang="ts">
-export default {
-  inheritAttrs: false,
-}
+useResizeObserver(context.indicatorTrack, handlePositionChange)
 </script>
 
 <template>
   <Teleport
-    v-if="context?.indicatorTrack.value"
-    :to="context?.indicatorTrack.value"
+    v-if="context.indicatorTrack.value"
+    :to="context.indicatorTrack.value"
   >
     <Presence :present="isVisible">
       <Primitive

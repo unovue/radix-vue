@@ -1,4 +1,6 @@
 <script lang="ts">
+import { createContext, useArrowNavigation, useId } from '@/shared'
+
 export interface NavigationMenuItemProps extends PrimitiveProps {
   value?: string
 }
@@ -15,13 +17,16 @@ export interface NavigationMenuItemContextValue {
   onRootContentClose(): void
 }
 
-export const NAVIGATION_MENU_ITEM_INJECTION_KEY
-  = Symbol() as InjectionKey<NavigationMenuItemContextValue>
+export const [injectNavigationMenuItemContext, provideNavigationMenuItemContext]
+  = createContext<NavigationMenuItemContextValue>('NavigationMenuItem')
 </script>
 
 <script setup lang="ts">
-import { type InjectionKey, type Ref, inject, provide, ref } from 'vue'
-import { NAVIGATION_MENU_INJECTION_KEY } from './NavigationMenuRoot.vue'
+import { type Ref, ref } from 'vue'
+import {
+  injectNavigationMenuCollection,
+  injectNavigationMenuContext,
+} from './NavigationMenuRoot.vue'
 import {
   focusFirst,
   getTabbableCandidates,
@@ -29,21 +34,19 @@ import {
   removeFromTabOrder,
 } from './utils'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
-import { useArrowNavigation, useCollection, useId } from '@/shared'
 
 const props = withDefaults(defineProps<NavigationMenuItemProps>(), {
   as: 'li',
 })
-const { injectCollection } = useCollection('nav')
-const collectionItems = injectCollection()
 
-const context = inject(NAVIGATION_MENU_INJECTION_KEY)
+const collectionItems = injectNavigationMenuCollection()
+const context = injectNavigationMenuContext()
 
 const value = props.value || useId()
 const triggerRef = ref<HTMLElement>()
 const focusProxyRef = ref<HTMLElement>()
 
-const contentId = makeContentId(context!.baseId, value)
+const contentId = makeContentId(context.baseId, value)
 
 let restoreContentTabOrderRef: () => void = () => ({})
 
@@ -67,7 +70,7 @@ function handleContentExit() {
   }
 }
 
-provide(NAVIGATION_MENU_ITEM_INJECTION_KEY, {
+provideNavigationMenuItemContext({
   value,
   contentId,
   triggerRef,
@@ -80,14 +83,14 @@ provide(NAVIGATION_MENU_ITEM_INJECTION_KEY, {
 })
 
 function handleClose() {
-  context?.onItemDismiss()
+  context.onItemDismiss()
   triggerRef.value?.focus()
 }
 
 function handleKeydown(ev: KeyboardEvent) {
   const currentFocus = document.activeElement as HTMLElement
   if (ev.keyCode === 32 || ev.key === 'Enter') {
-    if (context?.modelValue.value === value) {
+    if (context.modelValue.value === value) {
       handleClose()
       ev.preventDefault()
       return

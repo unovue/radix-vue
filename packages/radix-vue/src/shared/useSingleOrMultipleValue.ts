@@ -1,6 +1,7 @@
 import { useVModel } from '@vueuse/core'
 import { type Ref, watch } from 'vue'
-import type { Type } from './types'
+
+export type Type = 'single' | 'multiple'
 
 function validateModelValue(
   type: Type,
@@ -79,6 +80,7 @@ interface Props {
   type: Type
   defaultValue?: string | string[]
 }
+
 export function useSingleOrMultipleValue<P extends Props, Name extends string>(
   props: P,
   emits: (name: Name, ...args: any[]) => void,

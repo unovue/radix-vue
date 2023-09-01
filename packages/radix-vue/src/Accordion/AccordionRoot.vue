@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { ComputedRef, InjectionKey, Ref } from 'vue'
-import type { DataOrientation, Direction, Type } from '@/shared/types'
+import type { Direction, Orientation } from '@/shared/types'
 
 export interface AccordionRootProps extends PrimitiveProps {
   /**
@@ -46,7 +46,7 @@ export interface AccordionRootProps extends PrimitiveProps {
    *
    * @default "vertical"
    */
-  orientation?: DataOrientation
+  orientation?: Orientation
 }
 
 export type AccordionRootEmits = {
@@ -74,7 +74,7 @@ import {
   type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
-import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
+import { type Type, useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
 import { computed, provide } from 'vue'
 
 const props = withDefaults(defineProps<AccordionRootProps>(), {

@@ -1,4 +1,12 @@
 <script lang="ts">
+import {
+  createCollection,
+  useArrowNavigation,
+  useBodyScrollLock,
+  useFocusGuards,
+  useTypeahead,
+} from '@/shared'
+
 export interface MenuContentContextValue {
   onItemEnter(event: PointerEvent): void
   onItemLeave(event: PointerEvent): void
@@ -54,6 +62,9 @@ export interface MenuRootContentProps
    */
   loop?: boolean
 }
+
+const [_, provideMenuContentImplCollection]
+  = createCollection('MenuContentImpl')
 </script>
 
 <script setup lang="ts">
@@ -91,13 +102,6 @@ import {
 } from '@/Popper'
 import { usePrimitiveElement } from '@/Primitive'
 import { RovingFocusGroup, type RovingFocusGroupEmits } from '@/RovingFocus'
-import {
-  useArrowNavigation,
-  useBodyScrollLock,
-  useCollection,
-  useFocusGuards,
-  useTypeahead,
-} from '@/shared'
 
 const props = withDefaults(defineProps<MenuContentImplProps>(), {
   ...PopperContentPropsDefaultValue,
@@ -119,10 +123,9 @@ const pointerDirRef = ref<Side>('right')
 const lastPointerXRef = ref(0)
 const currentItemId = ref<string | null>(null)
 
-const { createCollection } = useCollection()
 const { primitiveElement, currentElement: contentElement }
   = usePrimitiveElement()
-const collectionItems = createCollection(contentElement)
+const collectionItems = provideMenuContentImplCollection(contentElement)
 
 watch(contentElement, (el) => {
   context!.onContentChange(el)

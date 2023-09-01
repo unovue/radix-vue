@@ -5,11 +5,11 @@ export interface SelectTriggerProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { computed, inject, onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import {
-  SELECT_INJECTION_KEY,
-  type SelectProvideValue,
+  injectSelectContext,
 } from './SelectRoot.vue'
+import { injectSelectContentCollection } from './SelectContentImpl.vue'
 import { OPEN_KEYS, shouldShowPlaceholder } from './utils'
 import {
   Primitive,
@@ -17,30 +17,29 @@ import {
   usePrimitiveElement,
 } from '@/Primitive'
 import { PopperAnchor } from '@/Popper'
-import { useCollection, useTypeahead } from '@/shared'
+import { useTypeahead } from '@/shared'
 
 const props = withDefaults(defineProps<SelectTriggerProps>(), {
   as: 'button',
 })
-const context = inject<SelectProvideValue>(SELECT_INJECTION_KEY)
+const context = injectSelectContext()
 
-const isDisabled = computed(() => context?.disabled?.value || props.disabled)
+const isDisabled = computed(() => context.disabled?.value || props.disabled)
 
 const { primitiveElement, currentElement: triggerElement }
   = usePrimitiveElement()
 
 onMounted(() => {
-  context!.triggerElement = triggerElement
+  context.triggerElement = triggerElement
 })
 
-const { injectCollection } = useCollection()
-const collectionItems = injectCollection()
+const collectionItems = injectSelectContentCollection()
 
 const { search, handleTypeaheadSearch, resetTypeahead }
   = useTypeahead(collectionItems)
 function handleOpen() {
   if (!isDisabled.value) {
-    context!.onOpenChange(true)
+    context.onOpenChange(true)
     // reset typeahead when we open
     resetTypeahead()
   }
@@ -53,15 +52,15 @@ function handleOpen() {
       ref="primitiveElement"
       role="combobox"
       :type="as === 'button' ? 'button' : undefined"
-      :aria-controls="context?.contentId"
-      :aria-expanded="context?.open.value || false"
-      :aria-required="context?.required?.value"
+      :aria-controls="context.contentId"
+      :aria-expanded="context.open.value || false"
+      :aria-required="context.required?.value"
       aria-autocomplete="none"
-      :dir="context?.dir.value"
-      :data-state="context?.open.value ? 'open' : 'closed'"
+      :dir="context.dir.value"
+      :data-state="context.open.value ? 'open' : 'closed'"
       :data-disabled="isDisabled ? '' : undefined"
       :data-placeholder="
-        shouldShowPlaceholder(context?.modelValue?.value) ? '' : undefined
+        shouldShowPlaceholder(context.modelValue?.value) ? '' : undefined
       "
       :as-child="asChild"
       :as="as"
@@ -88,7 +87,7 @@ function handleOpen() {
           // but not when the control key is pressed (avoiding MacOS right click)
           if (event.button === 0 && event.ctrlKey === false) {
             handleOpen();
-            context!.triggerPointerDownPosRef.value = {
+            context.triggerPointerDownPosRef.value = {
               x: Math.round(event.pageX),
               y: Math.round(event.pageY),
             };

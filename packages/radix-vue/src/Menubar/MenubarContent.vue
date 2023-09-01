@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { inject, ref } from 'vue'
-import { MENUBAR_INJECTION_KEY } from './MenubarRoot.vue'
-import { MENUBAR_MENU_INJECTION_KEY } from './MenubarMenu.vue'
+import { ref } from 'vue'
+import { injectMenubarCollection, injectMenubarRootContext } from './MenubarRoot.vue'
+import { injectMenubarMenuContext } from './MenubarMenu.vue'
 import { MenuContent, type MenuContentProps } from '@/Menu'
-import { useCollection } from '@/shared'
 import { PopperContentPropsDefaultValue } from '@/Popper'
 import { wrapArray } from '@/shared/useTypeahead'
 
@@ -14,11 +13,10 @@ const props = withDefaults(defineProps<MenubarContentProps>(), {
   align: 'start',
 })
 
-const context = inject(MENUBAR_INJECTION_KEY)
-const menuContext = inject(MENUBAR_MENU_INJECTION_KEY)
+const context = injectMenubarRootContext()
+const menuContext = injectMenubarMenuContext()
 
-const { injectCollection } = useCollection('menubar')
-const collections = injectCollection()
+const collections = injectMenubarCollection()
 
 const hasInteractedOutsideRef = ref(false)
 
@@ -28,7 +26,7 @@ function handleArrowNavigation(event: KeyboardEvent) {
     'data-radix-menubar-subtrigger',
   )
 
-  const prevMenuKey = context?.dir.value === 'rtl' ? 'ArrowRight' : 'ArrowLeft'
+  const prevMenuKey = context.dir.value === 'rtl' ? 'ArrowRight' : 'ArrowLeft'
   const isPrevKey = prevMenuKey === event.key
   const isNextKey = !isPrevKey
 
@@ -40,22 +38,22 @@ function handleArrowNavigation(event: KeyboardEvent) {
   if (isPrevKey)
     candidateValues.reverse()
 
-  const currentIndex = candidateValues.indexOf(menuContext?.value)
+  const currentIndex = candidateValues.indexOf(menuContext.value)
 
-  candidateValues = context?.loop.value
+  candidateValues = context.loop.value
     ? wrapArray(candidateValues, currentIndex + 1)
     : candidateValues.slice(currentIndex + 1)
 
   const [nextValue] = candidateValues
   if (nextValue)
-    context?.onMenuOpen(nextValue)
+    context.onMenuOpen(nextValue)
 }
 </script>
 
 <template>
   <MenuContent
-    :id="menuContext?.contentId"
-    :aria-labelledby="menuContext?.triggerId"
+    :id="menuContext.contentId"
+    :aria-labelledby="menuContext.triggerId"
     data-radix-menubar-content=""
     v-bind="props"
     :style="{
@@ -69,9 +67,9 @@ function handleArrowNavigation(event: KeyboardEvent) {
       '--radix-menubar-trigger-height': 'var(--radix-popper-anchor-height)',
     }"
     @close-auto-focus="(event) => {
-      const menubarOpen = Boolean(context?.modelValue.value);
+      const menubarOpen = Boolean(context.modelValue.value);
       if (!menubarOpen && !hasInteractedOutsideRef) {
-        menuContext!.triggerElement.value?.focus();
+        menuContext.triggerElement.value?.focus();
       }
 
       hasInteractedOutsideRef = false;
@@ -90,12 +88,12 @@ function handleArrowNavigation(event: KeyboardEvent) {
     "
     @open-auto-focus="
       (event) => {
-        if (!menuContext?.wasKeyboardTriggerOpenRef.value)
+        if (!menuContext.wasKeyboardTriggerOpenRef.value)
           event.preventDefault();
       }
     "
     @entry-focus="(event) => {
-      if (!menuContext?.wasKeyboardTriggerOpenRef.value) event.preventDefault()
+      if (!menuContext.wasKeyboardTriggerOpenRef.value) event.preventDefault()
     }"
     @keydown.arrow-right.arrow-left="handleArrowNavigation"
   >

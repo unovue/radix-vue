@@ -1,6 +1,3 @@
-export type Orientation = 'vertical' | 'horizontal'
-export type Direction = 'ltr' | 'rtl'
-
 export function getOpenState(open: boolean) {
   return open ? 'open' : 'closed'
 }
@@ -40,7 +37,8 @@ export function getTabbableCandidates(container: HTMLElement) {
         : NodeFilter.FILTER_SKIP
     },
   })
-  while (walker.nextNode()) nodes.push(walker.currentNode as HTMLElement)
+  while (walker.nextNode())
+    nodes.push(walker.currentNode as HTMLElement)
   // we do not take into account the order of nodes with positive `tabIndex` as it
   // hinders accessibility to have tab order different from visual order.
   return nodes

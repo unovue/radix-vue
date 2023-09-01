@@ -1,5 +1,4 @@
-export type Orientation = 'horizontal' | 'vertical'
-export type Direction = 'ltr' | 'rtl'
+import type { Direction, Orientation } from '@/shared/types'
 
 export const ENTRY_FOCUS = 'rovingFocusGroup.onEntryFocus'
 export const EVENT_OPTIONS = { bubbles: false, cancelable: true }

@@ -2,7 +2,7 @@
 import type { InjectionKey, Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { provide, toRefs } from 'vue'
-import type { DataOrientation, Direction } from '../shared/types'
+import type { Direction, Orientation } from '@/shared/types'
 import { useId } from '@/shared'
 
 export const TABS_INJECTION_KEY = Symbol() as InjectionKey<TabsProvideValue>
@@ -18,7 +18,7 @@ export interface TabsRootProps extends PrimitiveProps {
    * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
    * @defaultValue horizontal
    */
-  orientation?: DataOrientation
+  orientation?: Orientation
   /**
    * The direction of navigation between toolbar items.
    */
@@ -37,7 +37,7 @@ export type TabsRootEmits = {
 export interface TabsProvideValue {
   modelValue: Ref<string | undefined>
   changeModelValue: (value: string) => void
-  orientation: Ref<DataOrientation>
+  orientation: Ref<Orientation>
   dir: Ref<Direction>
   activationMode: 'automatic' | 'manual'
   baseId: string

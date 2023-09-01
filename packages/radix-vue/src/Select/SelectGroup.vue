@@ -1,24 +1,23 @@
 <script lang="ts">
+import { createContext, useId } from '@/shared'
+
 export interface SelectGroupProps extends PrimitiveProps {}
 
 interface SelectGroupContextValue {
   id: string
 }
-export const SELECT_GROUP_INJECTION_KEY
-  = Symbol() as InjectionKey<SelectGroupContextValue>
+
+export const [injectSelectGroupContext, provideSelectGroupContext]
+  = createContext<SelectGroupContextValue>('SelectGroup')
 </script>
 
 <script setup lang="ts">
-import { type InjectionKey, provide } from 'vue'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
-import { useId } from '@/shared'
 
 const props = defineProps<SelectGroupProps>()
 
 const id = useId()
-provide(SELECT_GROUP_INJECTION_KEY, {
-  id,
-})
+provideSelectGroupContext({ id })
 </script>
 
 <template>

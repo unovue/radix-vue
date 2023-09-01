@@ -1,14 +1,12 @@
 <script lang="ts">
 import {
-  type InjectionKey,
   type Ref,
   computed,
-  provide,
   ref,
   toRefs,
 } from 'vue'
-import type { Direction, Orientation } from './utils'
-import { useCollection, useId } from '@/shared'
+import { createCollection, createContext, useId } from '@/shared'
+import type { Direction, Orientation } from '@/shared/types'
 
 export interface NavigationMenuRootProps extends PrimitiveProps {
   modelValue?: string
@@ -50,8 +48,11 @@ export interface NavigationMenuContextValue {
   onItemDismiss(): void
 }
 
-export const NAVIGATION_MENU_INJECTION_KEY
-  = Symbol() as InjectionKey<NavigationMenuContextValue>
+export const [injectNavigationMenuContext, provideNavigationMenuContext]
+  = createContext<NavigationMenuContextValue>('NavigationMenuRoot')
+
+export const [injectNavigationMenuCollection, provideNavigationMenuCollection]
+  = createCollection('NavigationMenuRoot')
 </script>
 
 <script setup lang="ts">
@@ -84,8 +85,7 @@ const { primitiveElement, currentElement: rootNavigationMenu }
 const indicatorTrack = ref<HTMLElement>()
 const viewport = ref<HTMLElement>()
 
-const { createCollection } = useCollection('nav')
-createCollection(indicatorTrack)
+provideNavigationMenuCollection(indicatorTrack)
 
 const { delayDuration, skipDelayDuration } = toRefs(props)
 
@@ -102,7 +102,7 @@ const debouncedFn = useDebounceFn((val: string) => {
   modelValue.value = val
 }, computedDelay)
 
-provide(NAVIGATION_MENU_INJECTION_KEY, {
+provideNavigationMenuContext({
   isRootMenu: true,
   modelValue,
   previousValue,

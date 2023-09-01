@@ -1,18 +1,16 @@
 <script setup lang="ts">
-import { inject, onBeforeUnmount, ref, watchEffect } from 'vue'
-import { SELECT_CONTENT_INJECTION_KEY } from './SelectContentImpl.vue'
+import { onBeforeUnmount, ref, watchEffect } from 'vue'
+import { injectSelectContentCollection, injectSelectContentContext } from './SelectContentImpl.vue'
 import { Primitive } from '@/Primitive'
-import { useCollection } from '@/shared'
 
 export type SelectScrollButtonImplEmits = {
   autoScroll: []
 }
 
 const emits = defineEmits<SelectScrollButtonImplEmits>()
-const { injectCollection } = useCollection()
 
-const collectionItems = injectCollection()
-const contentContext = inject(SELECT_CONTENT_INJECTION_KEY)
+const collectionItems = injectSelectContentCollection()
+const contentContext = injectSelectContentContext()
 const autoScrollTimerRef = ref<number | null>(null)
 
 function clearAutoScrollTimer() {
@@ -38,7 +36,7 @@ function handlePointerDown() {
 }
 
 function handlePointerMove() {
-  contentContext!.onItemLeave()
+  contentContext.onItemLeave()
   if (autoScrollTimerRef.value === null) {
     autoScrollTimerRef.value = window.setInterval(() => {
       emits('autoScroll')

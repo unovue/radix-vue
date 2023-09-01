@@ -1,11 +1,26 @@
+<script lang="ts">
+import { createContext } from '@/shared'
+
+interface SelectItemAlignedPositionContextValue {
+  contentWrapper?: Ref<HTMLElement | undefined>
+  shouldExpandOnScrollRef?: Ref<boolean>
+  onScrollButtonChange: (node: HTMLElement | undefined) => void
+}
+
+export const [injectSelectItemAlignedPositionContext, provideSelectItemAlignedPositionContext]
+  = createContext<SelectItemAlignedPositionContextValue>('SelectItemAlignedPosition')
+
+export default {
+  inheritAttrs: false,
+}
+</script>
+
 <script setup lang="ts">
-import { inject, onMounted, provide, ref } from 'vue'
+import { type Ref, onMounted, ref } from 'vue'
 import { clamp } from '@vueuse/shared'
-import { SELECT_INJECTION_KEY } from './SelectRoot.vue'
-import { SELECT_CONTENT_INJECTION_KEY } from './SelectContentImpl.vue'
+import { injectSelectContext } from './SelectRoot.vue'
+import { injectSelectContentCollection, injectSelectContentContext } from './SelectContentImpl.vue'
 import { CONTENT_MARGIN } from './utils'
-import { SELECT_VIEWPORT_INJECTION_KEY } from './SelectViewport.vue'
-import { useCollection } from '@/shared'
 import {
   Primitive,
   type PrimitiveProps,
@@ -19,10 +34,9 @@ const emits = defineEmits<{
   'placed': []
 }>()
 
-const { injectCollection } = useCollection()
-const context = inject(SELECT_INJECTION_KEY)
-const contentContext = inject(SELECT_CONTENT_INJECTION_KEY)
-const collectionItems = injectCollection()
+const context = injectSelectContext()
+const contentContext = injectSelectContentContext()
+const collectionItems = injectSelectContentCollection()
 
 const shouldExpandOnScrollRef = ref(false)
 const shouldRepositionRef = ref(true)
@@ -32,12 +46,11 @@ const { primitiveElement, currentElement: contentElement }
   = usePrimitiveElement()
 
 const { viewport, selectedItem, selectedItemText, focusSelectedItem }
-  = contentContext!
+  = contentContext
 
 function position() {
   if (
-    context
-    && context.triggerElement.value
+    context.triggerElement.value
     && context.valueElement.value
     && contentWrapperElement.value
     && contentElement.value
@@ -204,17 +217,11 @@ function handleScrollButtonChange(node: HTMLElement | undefined) {
   }
 }
 
-provide(SELECT_VIEWPORT_INJECTION_KEY, {
+provideSelectItemAlignedPositionContext({
   contentWrapper: contentWrapperElement,
   shouldExpandOnScrollRef,
   onScrollButtonChange: handleScrollButtonChange,
 })
-</script>
-
-<script lang="ts">
-export default {
-  inheritAttrs: false,
-}
 </script>
 
 <template>

@@ -1,44 +1,37 @@
-<script lang="ts">
-interface SelectViewportContextValue {
-  contentWrapper?: Ref<HTMLElement | undefined>
-  shouldExpandOnScrollRef?: Ref<boolean>
-  onScrollButtonChange: (node: HTMLElement | undefined) => void
-}
-
-export const SELECT_VIEWPORT_INJECTION_KEY
-  = Symbol() as InjectionKey<SelectViewportContextValue>
-
-export interface SelectViewportProps extends PrimitiveProps {}
-</script>
-
 <script setup lang="ts">
-import { type InjectionKey, type Ref, inject, onMounted, ref } from 'vue'
-import { SELECT_CONTENT_INJECTION_KEY } from './SelectContentImpl.vue'
+import { onMounted, ref } from 'vue'
+import { injectSelectContentContext } from './SelectContentImpl.vue'
 import { CONTENT_MARGIN } from './utils'
 import {
   Primitive,
   type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
+import { injectSelectItemAlignedPositionContext } from './SelectItemAlignedPosition.vue'
+
+export interface SelectViewportProps extends PrimitiveProps {}
 
 const props = defineProps<SelectViewportProps>()
-const contentContext = inject(SELECT_CONTENT_INJECTION_KEY)
-const viewportContext
-  = contentContext!.position === 'item-aligned'
-    ? inject(SELECT_VIEWPORT_INJECTION_KEY)
-    : undefined
+
+const contentContext = injectSelectContentContext()
+const viewportContext = contentContext.position === 'item-aligned'
+  ? injectSelectItemAlignedPositionContext()
+  : null
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
 onMounted(() => {
-  contentContext!.onViewportChange(currentElement.value)
+  contentContext.onViewportChange(currentElement.value)
 })
 
 const prevScrollTopRef = ref(0)
 
 function handleScroll(event: WheelEvent) {
+  if (!viewportContext)
+    return
+
   const viewport = event.currentTarget as HTMLElement
-  const { shouldExpandOnScrollRef, contentWrapper } = viewportContext ?? {}
+  const { shouldExpandOnScrollRef, contentWrapper } = viewportContext
   if (shouldExpandOnScrollRef?.value && contentWrapper?.value) {
     const scrolledBy = Math.abs(prevScrollTopRef.value - viewport.scrollTop)
     if (scrolledBy > 0) {

@@ -1,36 +1,27 @@
-import { ref } from 'vue'
+import { type Ref, ref } from 'vue'
 
-interface Machine<S> {
-  [k: string]: { [k: string]: S }
+type GetKeys<U> = U extends Record<infer K, any> ? K : never
+
+type UnionToIntersection<U extends object> = {
+  [K in GetKeys<U>]: U extends Record<K, infer T> ? T : never
 }
-type MachineState<T> = keyof T
-type MachineEvent<T> = keyof UnionToIntersection<T[keyof T]>
 
-// 🤯 https://fettblog.eu/typescript-union-to-intersection/
-type UnionToIntersection<T> = (T extends any ? (x: T) => any : never) extends (
-  x: infer R
-) => any
-  ? R
-  : never
-
-export function useStateMachine<M>(
-  initialState: MachineState<M>,
-  machine: M & Machine<MachineState<M>>,
+export function useStateMachine<
+  TMachine extends Record<string, Record<string, string>>,
+  TState extends keyof TMachine,
+  TEvent extends keyof UnionToIntersection<TMachine[keyof TMachine]>,
+  TDefaultState extends TState,
+>(
+  initialState: TDefaultState,
+  machine: TMachine,
 ) {
-  const state = ref(initialState)
+  const state = ref(initialState) as Ref<TState>
 
-  function reducer(event: MachineEvent<M>) {
-    // @ts-expect-error
-    const nextState = machine[state.value][event]
-    return nextState ?? state.value
+  const dispatch = (event: TEvent) => {
+    const nextState = (machine[state.value][event] as unknown as TState) || state.value
+
+    state.value = nextState
   }
 
-  const dispatch = (event: MachineEvent<M>) => {
-    state.value = reducer(event)
-  }
-
-  return {
-    state,
-    dispatch,
-  }
+  return [state, dispatch] as const
 }

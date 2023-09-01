@@ -39,15 +39,12 @@ function throwError(componentName: string) {
   )
 }
 
-export interface PrimitiveProps {
+export type PrimitiveProps = {
   /**
    * Setting "asChild" to true has the same effect as setting "as" to "template".
    * @default false
    */
   asChild?: boolean
-  /**
-   * @default "div"
-   */
   as?: AsTag
 }
 

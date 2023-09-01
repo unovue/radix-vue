@@ -9,7 +9,7 @@ import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
 const rootContext = inject(SCROLL_AREA_INJECTION_KEY)
 const scrollbarContext = inject(SCROLL_AREA_SCROLLBAR_INJECTION_KEY)
 
-const { state, dispatch } = useStateMachine('hidden', {
+const [state, dispatch] = useStateMachine('hidden', {
   hidden: {
     SCROLL: 'scrolling',
   },

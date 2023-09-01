@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { usePrimitiveElement } from '@/Primitive'
 import SliderImpl from './SliderImpl.vue'
-import { computed, provide, ref, toRefs } from 'vue'
-import type { Direction, SliderOrientationPrivateEmits, SliderOrientationPrivateProps } from './utils'
-import { BACK_KEYS, SLIDER_ORIENTATION_INJECTION_KEY, linearScale } from './utils'
+import { computed, ref, toRefs } from 'vue'
+import type { SliderOrientationPrivateEmits, SliderOrientationPrivateProps } from './utils'
+import { BACK_KEYS, linearScale, provideSliderOrientationContext } from './utils'
+import type { Direction } from '@/shared/types'
 
 interface SliderHorizontalProps extends SliderOrientationPrivateProps {
   dir?: Direction
@@ -15,7 +16,7 @@ const { max, min, dir, inverted } = toRefs(props)
 
 const { primitiveElement, currentElement: sliderElement } = usePrimitiveElement()
 
-const rectRef = ref<ClientRect>()
+const rectRef = ref<DOMRect>()
 const isSlidingFromLeft = computed(() => (dir?.value === 'ltr' && !inverted.value) || (dir?.value !== 'ltr' && inverted.value))
 
 function getValueFromPointer(pointerPosition: number) {
@@ -28,7 +29,7 @@ function getValueFromPointer(pointerPosition: number) {
   return value(pointerPosition - rect.left)
 }
 
-provide(SLIDER_ORIENTATION_INJECTION_KEY, {
+provideSliderOrientationContext({
   startEdge: isSlidingFromLeft.value ? 'left' : 'right',
   endEdge: isSlidingFromLeft.value ? 'right' : 'left',
   direction: isSlidingFromLeft.value ? 1 : -1,

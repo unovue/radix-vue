@@ -2,22 +2,34 @@ import { camelize, getCurrentInstance, toHandlerKey } from 'vue'
 
 // Vue doesn't have emits forwarding, in order to bind the emits we have to convert events into `onXXX` handlers
 // issue: https://github.com/vuejs/core/issues/5917
-export function useEmitAsProps<Name extends string>(
-  emit: (name: Name, ...args: any[]) => void,
+export function useEmitAsProps<TEventName extends string>(
+  emit: (name: TEventName, ...args: any[]) => void,
 ) {
-  const vm = getCurrentInstance()
+  const result: Record<string, (...args: any[]) => void> = {}
+  const instance = getCurrentInstance()
+  if (!instance) {
+    console.error('\`useEmitAsProps\` must be used within a component setup')
+    return result
+  }
 
-  const events = vm?.type.emits as Name[]
-  const result: Record<string, any> = {}
+  const emits = instance.type.emits
+  const events: TEventName[] = Array.isArray(emits)
+    ? emits
+    : typeof emits === 'object'
+      ? Object.keys(emits)
+      : []
 
-  if (!events?.length) {
+  if (!events.length) {
     console.warn(
-      `No emitted event found. Please check component: ${vm?.type.__name}`,
+      `No emitted event found. Please check component: ${instance.type.__name}`,
     )
   }
 
-  events?.forEach((ev) => {
-    result[toHandlerKey(camelize(ev))] = (...arg: any) => emit(ev, ...arg)
-  })
+  for (let i = 0; i < events.length; i++) {
+    const event = events[i]
+    result[toHandlerKey(camelize(event))] = (...args: any[]) =>
+      emit(event, ...args)
+  }
+
   return result
 }

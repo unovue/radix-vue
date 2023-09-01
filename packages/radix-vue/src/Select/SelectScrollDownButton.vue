@@ -1,26 +1,26 @@
 <script setup lang="ts">
-import { inject, ref, watch, watchEffect } from 'vue'
-import { SELECT_CONTENT_INJECTION_KEY } from './SelectContentImpl.vue'
-import { SELECT_VIEWPORT_INJECTION_KEY } from './SelectViewport.vue'
+import { ref, watch, watchEffect } from 'vue'
+import { injectSelectContentContext } from './SelectContentImpl.vue'
 import SelectScrollButtonImpl from './SelectScrollButtonImpl.vue'
 import { type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
+import { injectSelectItemAlignedPositionContext } from './SelectItemAlignedPosition.vue'
 
 export interface SelectScrollDownButtonProps extends PrimitiveProps {}
 defineProps<SelectScrollDownButtonProps>()
 
-const contentContext = inject(SELECT_CONTENT_INJECTION_KEY)
+const contentContext = injectSelectContentContext()
 const viewportContext
-  = contentContext!.position === 'item-aligned'
-    ? inject(SELECT_VIEWPORT_INJECTION_KEY)
-    : undefined
+  = contentContext.position === 'item-aligned'
+    ? injectSelectItemAlignedPositionContext()
+    : null
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
 const canScrollDown = ref(false)
 
 watchEffect((cleanupFn) => {
-  if (contentContext!.viewport?.value && contentContext!.isPositioned?.value) {
-    const viewport = contentContext!.viewport.value
+  if (contentContext.viewport?.value && contentContext.isPositioned?.value) {
+    const viewport = contentContext.viewport.value
 
     function handleScroll() {
       const maxScroll = viewport.scrollHeight - viewport.clientHeight
@@ -47,7 +47,7 @@ watch(currentElement, () => {
     ref="primitiveElement"
     @auto-scroll="
       () => {
-        const { viewport, selectedItem } = contentContext!;
+        const { viewport, selectedItem } = contentContext;
         if (viewport?.value && selectedItem?.value) {
           viewport.value.scrollTop = viewport.value.scrollTop + selectedItem.value.offsetHeight;
         }

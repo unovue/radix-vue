@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { inject } from 'vue'
-import { MENUBAR_INJECTION_KEY } from './MenubarRoot.vue'
-import { MENUBAR_MENU_INJECTION_KEY } from './MenubarMenu.vue'
+import {
+  injectMenubarCollection,
+  injectMenubarRootContext,
+} from './MenubarRoot.vue'
+import { injectMenubarMenuContext } from './MenubarMenu.vue'
 import {
   MenuSubContent,
   type MenuSubContentEmits,
   type MenuSubContentProps,
 } from '@/Menu'
 import { PopperContentPropsDefaultValue } from '@/Popper'
-import { useCollection } from '@/shared'
 import { wrapArray } from '@/shared/useTypeahead'
 
 export interface MenubarSubContentProps extends MenuSubContentProps {}
@@ -19,11 +20,9 @@ const props = withDefaults(defineProps<MenubarSubContentProps>(), {
 })
 const emits = defineEmits<MenubarSubContentEmits>()
 
-const { injectCollection } = useCollection('menubar')
-
-const context = inject(MENUBAR_INJECTION_KEY)
-const menuContext = inject(MENUBAR_MENU_INJECTION_KEY)
-const collections = injectCollection()
+const context = injectMenubarRootContext()
+const menuContext = injectMenubarMenuContext()
+const collections = injectMenubarCollection()
 
 function handleArrowNavigation(event: KeyboardEvent) {
   const target = event.target as HTMLElement
@@ -37,15 +36,15 @@ function handleArrowNavigation(event: KeyboardEvent) {
 
   let candidateValues = collections.value.map(i => i.dataset.value)
 
-  const currentIndex = candidateValues.indexOf(menuContext?.value)
+  const currentIndex = candidateValues.indexOf(menuContext.value)
 
-  candidateValues = context?.loop.value
+  candidateValues = context.loop.value
     ? wrapArray(candidateValues, currentIndex + 1)
     : candidateValues.slice(currentIndex + 1)
 
   const [nextValue] = candidateValues
   if (nextValue)
-    context?.onMenuOpen(nextValue)
+    context.onMenuOpen(nextValue)
 }
 </script>
 

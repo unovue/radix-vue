@@ -1,6 +1,12 @@
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+}
+</script>
+
 <script setup lang="ts">
-import { inject, onMounted } from 'vue'
-import { NAVIGATION_MENU_INJECTION_KEY } from './NavigationMenuRoot.vue'
+import { onMounted } from 'vue'
+import { injectNavigationMenuContext } from './NavigationMenuRoot.vue'
 import {
   Primitive,
   type PrimitiveProps,
@@ -12,18 +18,12 @@ const props = withDefaults(defineProps<NavigationMenuListProps>(), {
   as: 'ul',
 })
 
-const context = inject(NAVIGATION_MENU_INJECTION_KEY)
+const context = injectNavigationMenuContext()
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
 onMounted(() => {
-  context?.onIndicatorTrackChange(currentElement.value)
+  context.onIndicatorTrackChange(currentElement.value)
 })
-</script>
-
-<script lang="ts">
-export default {
-  inheritAttrs: false,
-}
 </script>
 
 <template>
@@ -32,7 +32,7 @@ export default {
       v-bind="$attrs"
       :as-child="props.asChild"
       :as="as"
-      :data-orientation="context?.orientation"
+      :data-orientation="context.orientation"
     >
       <slot />
     </Primitive>

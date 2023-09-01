@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { InjectionKey, Ref } from 'vue'
-import type { DataOrientation, Direction } from '../shared/types'
+import type { Direction, Orientation } from '@/shared/types'
 import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
 import { RovingFocusGroup } from '@/RovingFocus'
 
@@ -12,7 +12,7 @@ export interface ToggleGroupRootProps extends PrimitiveProps {
   modelValue?: string | string[]
   rovingFocus?: boolean
   disabled?: boolean
-  orientation?: DataOrientation
+  orientation?: Orientation
   dir?: Direction
   loop?: boolean
 }
@@ -28,7 +28,7 @@ interface ToggleGroupProvideValue {
   modelValue: Ref<string | string[] | undefined>
   changeModelValue: (value: string) => void
   dir?: Ref<Direction>
-  orientation?: DataOrientation
+  orientation?: Orientation
   loop: Ref<boolean>
   rovingFocus: Ref<boolean>
   disabled?: Ref<boolean>

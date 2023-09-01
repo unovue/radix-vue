@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import { type Ref, inject, provide, ref } from 'vue'
+import { type Ref, ref } from 'vue'
 import { useVModel } from '@vueuse/core'
-import type { Orientation } from './utils'
-import { NAVIGATION_MENU_INJECTION_KEY } from './NavigationMenuRoot.vue'
+import {
+  injectNavigationMenuContext,
+  provideNavigationMenuCollection,
+  provideNavigationMenuContext,
+} from './NavigationMenuRoot.vue'
 import {
   Primitive,
   type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
-import { useCollection } from '@/shared'
+import type { Orientation } from '@/shared/types'
 
 export interface NavigationMenuSubProps extends PrimitiveProps {
   modelValue?: string
@@ -30,17 +33,17 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 }) as Ref<string>
 const previousValue = ref('')
 
-const context = inject(NAVIGATION_MENU_INJECTION_KEY)
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
 const indicatorTrack = ref<HTMLElement>()
 const viewport = ref<HTMLElement>()
 
-const { createCollection } = useCollection('nav')
-createCollection(indicatorTrack)
+provideNavigationMenuCollection(indicatorTrack)
 
-provide(NAVIGATION_MENU_INJECTION_KEY, {
-  ...context!,
+const context = injectNavigationMenuContext()
+
+provideNavigationMenuContext({
+  ...context,
   isRootMenu: false,
   modelValue,
   previousValue,
@@ -54,7 +57,6 @@ provide(NAVIGATION_MENU_INJECTION_KEY, {
   onViewportChange: (val) => {
     viewport.value = val
   },
-
   onTriggerEnter: (val) => {
     modelValue.value = val
   },

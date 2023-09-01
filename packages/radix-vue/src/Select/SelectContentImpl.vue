@@ -1,4 +1,13 @@
 <script lang="ts">
+import {
+  createCollection,
+  createContext,
+  useBodyScrollLock,
+  useFocusGuards,
+  useHideOthers,
+  useTypeahead,
+} from '@/shared'
+
 interface SelectContentContextValue {
   content?: Ref<HTMLElement | undefined>
   viewport?: Ref<HTMLElement | undefined>
@@ -22,12 +31,15 @@ interface SelectContentContextValue {
   searchRef?: Ref<string>
 }
 
-export const SELECT_CONTENT_INJECTION_KEY
-  = Symbol() as InjectionKey<SelectContentContextValue>
+export const [injectSelectContentContext, provideSelectContentContext]
+  = createContext<SelectContentContextValue>('SelectContentImpl')
 
 export interface SelectContentImplProps extends PopperContentProps {
   position?: 'item-aligned' | 'popper'
 }
+
+export const [injectSelectContentCollection, provideSelectContentCollection]
+  = createCollection('SelectContentImpl')
 
 export type SelectContentImplEmits = {
   closeAutoFocus: [event: Event]
@@ -47,26 +59,16 @@ export type SelectContentImplEmits = {
 <script setup lang="ts">
 import {
   type ComponentPublicInstance,
-  type InjectionKey,
   type Ref,
   computed,
-  inject,
-  provide,
   ref,
   watch,
   watchEffect,
 } from 'vue'
 import { unrefElement } from '@vueuse/core'
-import { SELECT_INJECTION_KEY } from './SelectRoot.vue'
+import { injectSelectContext } from './SelectRoot.vue'
 import SelectItemAlignedPosition from './SelectItemAlignedPosition.vue'
 import SelectPopperPosition from './SelectPopperPosition.vue'
-import {
-  useBodyScrollLock,
-  useCollection,
-  useFocusGuards,
-  useHideOthers,
-  useTypeahead,
-} from '@/shared'
 import { FocusScope } from '@/FocusScope'
 import {
   DismissableLayer,
@@ -80,16 +82,15 @@ const props = withDefaults(defineProps<SelectContentImplProps>(), {
 })
 const emits = defineEmits<SelectContentImplEmits>()
 
-const context = inject(SELECT_INJECTION_KEY)
+const context = injectSelectContext()
 
 useFocusGuards()
 useBodyScrollLock(true)
-const { createCollection } = useCollection()
 
 const content = ref<HTMLElement>()
 useHideOthers(content)
 
-const collectionItems = createCollection(content)
+const collectionItems = provideSelectContentCollection(content)
 const { search, handleTypeaheadSearch } = useTypeahead(collectionItems)
 
 const viewport = ref<HTMLElement>()
@@ -109,7 +110,6 @@ watch(isPositioned, () => {
 
 // prevent selecting items on `pointerup` in some cases after opening from `pointerdown`
 // and close on `pointerup` outside.
-const { onOpenChange, triggerPointerDownPosRef } = context!
 watchEffect((cleanupFn) => {
   if (!content.value)
     return
@@ -118,10 +118,10 @@ watchEffect((cleanupFn) => {
   const handlePointerMove = (event: PointerEvent) => {
     pointerMoveDelta = {
       x: Math.abs(
-        Math.round(event.pageX) - (triggerPointerDownPosRef.value?.x ?? 0),
+        Math.round(event.pageX) - (context.triggerPointerDownPosRef.value?.x ?? 0),
       ),
       y: Math.abs(
-        Math.round(event.pageY) - (triggerPointerDownPosRef.value?.y ?? 0),
+        Math.round(event.pageY) - (context.triggerPointerDownPosRef.value?.y ?? 0),
       ),
     }
   }
@@ -133,13 +133,13 @@ watchEffect((cleanupFn) => {
     else {
       // otherwise, if the event was outside the content, close.
       if (!content.value?.contains(event.target as HTMLElement))
-        onOpenChange(false)
+        context.onOpenChange(false)
     }
     document.removeEventListener('pointermove', handlePointerMove)
-    triggerPointerDownPosRef.value = null
+    context.triggerPointerDownPosRef.value = null
   }
 
-  if (triggerPointerDownPosRef.value !== null) {
+  if (context.triggerPointerDownPosRef.value !== null) {
     document.addEventListener('pointermove', handlePointerMove)
     document.addEventListener('pointerup', handlePointerUp, {
       capture: true,
@@ -193,7 +193,7 @@ const pickedProps = computed(() => {
   else return {}
 })
 
-provide(SELECT_CONTENT_INJECTION_KEY, {
+provideSelectContentContext({
   content,
   viewport,
   onViewportChange: (node) => {
@@ -202,8 +202,8 @@ provide(SELECT_CONTENT_INJECTION_KEY, {
   itemRefCallback: (node, value, disabled) => {
     const isFirstValidItem = !firstValidItemFoundRef.value && !disabled
     const isSelectedItem
-      = context?.modelValue?.value !== undefined
-      && context?.modelValue?.value === value
+      = context.modelValue?.value !== undefined
+      && context.modelValue?.value === value
     if (isSelectedItem || isFirstValidItem) {
       selectedItem.value = node
       if (isFirstValidItem)
@@ -218,8 +218,8 @@ provide(SELECT_CONTENT_INJECTION_KEY, {
   itemTextRefCallback: (node, value, disabled) => {
     const isFirstValidItem = !firstValidItemFoundRef.value && !disabled
     const isSelectedItem
-      = context?.modelValue?.value !== undefined
-      && context?.modelValue?.value === value
+      = context.modelValue?.value !== undefined
+      && context.modelValue?.value === value
     if (isSelectedItem || isFirstValidItem)
       selectedItemText.value = node
   },
@@ -238,7 +238,7 @@ provide(SELECT_CONTENT_INJECTION_KEY, {
       (event) => {
         emits('closeAutoFocus', event);
         if (event.defaultPrevented) return;
-        context?.triggerElement.value?.focus({ preventScroll: true });
+        context.triggerElement.value?.focus({ preventScroll: true });
         event.preventDefault();
       }
     "
@@ -247,7 +247,7 @@ provide(SELECT_CONTENT_INJECTION_KEY, {
       as-child
       disable-outside-pointer-events
       @focus-outside.prevent
-      @dismiss="context?.onOpenChange(false)"
+      @dismiss="context.onOpenChange(false)"
       @escape-key-down="emits('escapeKeyDown', $event)"
       @pointer-down-outside="emits('pointerDownOutside', $event)"
     >
@@ -258,7 +258,7 @@ provide(SELECT_CONTENT_INJECTION_KEY, {
             : SelectItemAlignedPosition
         "
         v-bind="{ ...$attrs, ...pickedProps }"
-        :id="context?.contentId"
+        :id="context.contentId"
         :ref="
           (vnode: ComponentPublicInstance) => {
             content = unrefElement(vnode) as HTMLElement
@@ -266,8 +266,8 @@ provide(SELECT_CONTENT_INJECTION_KEY, {
           }
         "
         role="listbox"
-        :data-state="context?.open.value ? 'open' : 'closed'"
-        :dir="context?.dir.value"
+        :data-state="context.open.value ? 'open' : 'closed'"
+        :dir="context.dir.value"
         :style="{
           // flex layout so we can place the scroll buttons properly
           display: 'flex',

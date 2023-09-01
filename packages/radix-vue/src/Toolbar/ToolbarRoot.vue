@@ -1,9 +1,9 @@
 <script lang="ts">
 import type { InjectionKey, Ref } from 'vue'
-import type { DataOrientation, Direction } from '@/shared/types'
+import type { Direction, Orientation } from '@/shared/types'
 
 export interface ToolbarRootProps extends PrimitiveProps {
-  orientation?: DataOrientation
+  orientation?: Orientation
   dir?: Direction
   loop?: boolean
 }
@@ -12,7 +12,7 @@ export const TOOLBAR_INJECTION_KEY
   = Symbol() as InjectionKey<ToolbarProvideValue>
 
 export interface ToolbarProvideValue {
-  orientation: Ref<DataOrientation>
+  orientation: Ref<Orientation>
   dir: Ref<Direction>
 }
 </script>

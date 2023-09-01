@@ -1,4 +1,4 @@
-import type { InjectionKey } from 'vue'
+import { createContext } from '@/shared'
 
 export interface SliderOrientationPrivateProps {
   min: number
@@ -131,8 +131,6 @@ export function roundValue(value: number, decimalCount: number) {
   return Math.round(value * rounder) / rounder
 }
 
-export type Direction = 'ltr' | 'rtl'
-
 export const PAGE_KEYS = ['PageUp', 'PageDown']
 export const ARROW_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
 
@@ -153,4 +151,5 @@ interface SliderOrientation {
   direction: number
 }
 
-export const SLIDER_ORIENTATION_INJECTION_KEY = Symbol() as InjectionKey<SliderOrientation>
+export const [injectSliderOrientationContext, provideSliderOrientationContext]
+  = createContext<SliderOrientation>('SliderRoot')

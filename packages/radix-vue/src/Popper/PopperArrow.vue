@@ -22,8 +22,7 @@ import {
   POPPER_CONTENT_KEY,
   type PopperContentContextValue,
 } from './PopperContent.vue'
-import Arrow from '@/shared/component/Arrow.vue'
-import { type ArrowProps } from '@/shared/component/Arrow.vue'
+import { Arrow, type ArrowProps } from '@/Arrow'
 
 const props = withDefaults(defineProps<PopperArrowProps>(), {
   as: 'svg',

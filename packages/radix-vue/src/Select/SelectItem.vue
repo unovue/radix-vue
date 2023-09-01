@@ -1,4 +1,6 @@
 <script lang="ts">
+import { createContext, useId } from '@/shared'
+
 interface SelectItemContextValue {
   value: string
   textId: string
@@ -7,8 +9,8 @@ interface SelectItemContextValue {
   onItemTextChange(node: HTMLElement | undefined): void
 }
 
-export const SELECT_ITEM_INJECTION_KEY
-  = Symbol() as InjectionKey<SelectItemContextValue>
+export const [injectSelectItemContext, provideSelectItemContext]
+  = createContext<SelectItemContextValue>('SelectItem')
 
 export interface SelectItemProps extends PrimitiveProps {
   value: string
@@ -19,34 +21,30 @@ export interface SelectItemProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import {
-  type InjectionKey,
   type Ref,
   computed,
-  inject,
   nextTick,
   onMounted,
-  provide,
   ref,
   toRefs,
 } from 'vue'
-import { SELECT_INJECTION_KEY } from './SelectRoot.vue'
-import { SELECT_CONTENT_INJECTION_KEY } from './SelectContentImpl.vue'
+import { injectSelectContext } from './SelectRoot.vue'
+import { injectSelectContentContext } from './SelectContentImpl.vue'
 import { SELECTION_KEYS } from './utils'
 import {
   Primitive,
   type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
-import { useId } from '@/shared'
 
 const props = defineProps<SelectItemProps>()
 const { disabled } = toRefs(props)
 
-const context = inject(SELECT_INJECTION_KEY)
-const contentContext = inject(SELECT_CONTENT_INJECTION_KEY)
+const context = injectSelectContext()
+const contentContext = injectSelectContentContext()
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
-const isSelected = computed(() => context?.modelValue?.value === props.value)
+const isSelected = computed(() => context.modelValue?.value === props.value)
 const isFocused = ref(false)
 const textValue = ref(props.textValue ?? '')
 const textId = useId()
@@ -57,8 +55,8 @@ async function handleSelect(ev?: PointerEvent) {
     return
 
   if (!disabled.value) {
-    context!.onValueChange(props.value)
-    context!.onOpenChange(false)
+    context.onValueChange(props.value)
+    context.onOpenChange(false)
   }
 }
 
@@ -67,7 +65,7 @@ async function handlePointerMove(event: PointerEvent) {
   if (event.defaultPrevented)
     return
   if (disabled.value) {
-    contentContext!.onItemLeave?.()
+    contentContext.onItemLeave()
   }
   else {
     // even though safari doesn't support this option, it's acceptable
@@ -81,14 +79,14 @@ async function handlePointerLeave(event: PointerEvent) {
   if (event.defaultPrevented)
     return
   if (event.currentTarget === document.activeElement)
-    contentContext!.onItemLeave?.()
+    contentContext.onItemLeave()
 }
 
 async function handleKeyDown(event: KeyboardEvent) {
   await nextTick()
   if (event.defaultPrevented)
     return
-  const isTypingAhead = contentContext!.searchRef?.value !== ''
+  const isTypingAhead = contentContext.searchRef?.value !== ''
   if (isTypingAhead && event.key === ' ')
     return
   if (SELECTION_KEYS.includes(event.key))
@@ -107,14 +105,14 @@ if (props.value === '') {
 onMounted(() => {
   if (!currentElement.value)
     return
-  contentContext!.itemRefCallback(
+  contentContext.itemRefCallback(
     currentElement.value,
     props.value,
     props.disabled,
   )
 })
 
-provide(SELECT_ITEM_INJECTION_KEY, {
+provideSelectItemContext({
   value: props.value,
   disabled,
   textId,

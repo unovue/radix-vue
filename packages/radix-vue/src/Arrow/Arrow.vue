@@ -19,7 +19,6 @@ export interface ArrowProps extends PrimitiveProps {
 import {
   Primitive,
   type PrimitiveProps,
-  usePrimitiveElement,
 } from '@/Primitive'
 
 const props = withDefaults(defineProps<ArrowProps>(), {
@@ -27,16 +26,11 @@ const props = withDefaults(defineProps<ArrowProps>(), {
   height: 5,
   as: 'svg',
 })
-
-const { primitiveElement } = usePrimitiveElement()
 </script>
 
 <template>
   <Primitive
-    ref="primitiveElement"
     v-bind="props"
-    :width="width"
-    :height="height"
     viewBox="0 0 30 10"
     preserveAspectRatio="none"
   >

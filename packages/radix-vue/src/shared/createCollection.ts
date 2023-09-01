@@ -1,37 +1,40 @@
 import { unrefElement } from '@vueuse/core'
 import {
-  type InjectionKey,
   type Ref,
-  inject,
   onBeforeUpdate,
   onMounted,
   onUpdated,
-  provide,
   ref,
   watch,
 } from 'vue'
+import { createContext } from '@/shared'
 
 const ITEM_DATA_ATTR = 'data-radix-vue-collection-item'
 
-type ContextValue = Ref<HTMLElement[]>
+type CollectionContextValue = Ref<HTMLElement[]>
 
 /**
  * Composables for provide/inject collections
- * @param key (optional) Name to replace the default `Symbol()` as provide's key
  */
-export function useCollection(key?: string) {
-  const COLLECTION_SYMBOL = key ?? (Symbol() as InjectionKey<ContextValue>)
+export function createCollection(providerComponentName: string) {
+  const [injectCollectionContext, provideCollectionContext] = createContext<
+    CollectionContextValue
+  >(providerComponentName)
 
-  const createCollection = (sourceRef?: Ref<HTMLElement | undefined>) => {
+  const provideCollection = (sourceRef?: Ref<HTMLElement | undefined>) => {
     const items = ref<HTMLElement[]>([])
 
-    function setCollection() {
+    provideCollectionContext(items)
+
+    const setCollection = () => {
       const sourceEl = unrefElement(sourceRef)
       if (!sourceEl)
         return (items.value = [])
 
       return (items.value = Array.from(
-        sourceEl.querySelectorAll(`[${ITEM_DATA_ATTR}]:not([data-disabled=true])`),
+        sourceEl.querySelectorAll(
+          `[${ITEM_DATA_ATTR}]:not([data-disabled=true])`,
+        ),
       ) as HTMLElement[])
     }
 
@@ -44,14 +47,10 @@ export function useCollection(key?: string) {
 
     watch(() => sourceRef?.value, setCollection, { immediate: true })
 
-    provide(COLLECTION_SYMBOL, items)
-
     return items
   }
 
-  const injectCollection = () => {
-    return inject(COLLECTION_SYMBOL, ref([]))
-  }
+  const injectCollection = () => injectCollectionContext(ref([]))
 
-  return { createCollection, injectCollection }
+  return [injectCollection, provideCollection] as const
 }

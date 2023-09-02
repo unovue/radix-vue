@@ -46,6 +46,9 @@ const checked = useVModel(props, 'checked', emit, {
 })
 
 function toggleCheck() {
+  if (disabled.value)
+    return
+
   checked.value = !checked.value
 }
 
@@ -76,6 +79,7 @@ provide<SwitchProvideValue>(SWITCH_INJECTION_KEY, {
     :data-disabled="disabled ? '' : undefined"
     :as-child="asChild"
     :as="as"
+    :disabled="disabled"
     @click="toggleCheck"
     @keydown.enter.prevent="toggleCheck"
   >

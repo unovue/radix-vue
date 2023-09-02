@@ -38,7 +38,7 @@ const prevScrollTopRef = ref(0)
 
 function handleScroll(event: WheelEvent) {
   const viewport = event.currentTarget as HTMLElement
-  const { shouldExpandOnScrollRef, contentWrapper } = viewportContext!
+  const { shouldExpandOnScrollRef, contentWrapper } = viewportContext ?? {}
   if (shouldExpandOnScrollRef?.value && contentWrapper?.value) {
     const scrolledBy = Math.abs(prevScrollTopRef.value - viewport.scrollTop)
     if (scrolledBy > 0) {

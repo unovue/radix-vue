@@ -1,30 +1,29 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from 'vue'
+import type { Ref } from 'vue'
 import type { ImageLoadingStatus } from './utils'
+import { createContext } from '@/shared'
 
 export interface AvatarRootProps extends PrimitiveProps {}
 
-export const AVATAR_INJECTION_KEY
-  = Symbol() as InjectionKey<AvatarProvideValue>
-
-interface AvatarProvideValue {
+interface AvatarContextValue {
   imageLoadingStatus: Ref<ImageLoadingStatus>
 }
+
+export const [injectAvatarContext, provideAvatarContext]
+  = createContext<AvatarContextValue>('AvatarRoot')
 </script>
 
 <script setup lang="ts">
-import { provide, ref } from 'vue'
+import { ref } from 'vue'
 import { Primitive, type PrimitiveProps } from '../Primitive'
 
 const props = withDefaults(defineProps<AvatarRootProps>(), {
   as: 'span',
 })
 
-const imageLoadingStatusRef = ref<ImageLoadingStatus>('loading')
+const imageLoadingStatus = ref<ImageLoadingStatus>('loading')
 
-provide(AVATAR_INJECTION_KEY, {
-  imageLoadingStatus: imageLoadingStatusRef,
-})
+provideAvatarContext({ imageLoadingStatus })
 </script>
 
 <template>

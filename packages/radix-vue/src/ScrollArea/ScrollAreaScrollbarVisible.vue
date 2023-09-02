@@ -1,5 +1,7 @@
 <script lang="ts">
-export interface ScrollAreaScrollbarVisibleProvideValue {
+import { createContext } from '@/shared'
+
+export interface ScrollAreaScrollbarVisibleContextValue {
   sizes: Ref<Sizes>
   hasThumb: Ref<boolean>
   handleWheelScroll: (event: WheelEvent, payload: number) => void
@@ -14,33 +16,31 @@ export interface ScrollAreaScrollbarVisibleProvideValue {
   onThumbChange: (element: HTMLElement) => void
 }
 
-export const SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY
-  = Symbol() as InjectionKey<ScrollAreaScrollbarVisibleProvideValue>
+export const [injectScrollAreaScrollbarVisibleContext, provideScrollAreaScrollbarVisibleContext]
+  = createContext<ScrollAreaScrollbarVisibleContextValue>('ScrollAreaScrollbarVisible')
 </script>
 
 <script setup lang="ts">
 import {
-  type InjectionKey,
   type Ref,
   computed,
-  inject,
-  provide,
   ref,
 } from 'vue'
-import type { Direction, Sizes } from './types'
-import { SCROLL_AREA_INJECTION_KEY } from './ScrollAreaRoot.vue'
-import { SCROLL_AREA_SCROLLBAR_INJECTION_KEY } from './ScrollAreaScrollbar.vue'
+import type { Direction } from '@/shared/types'
+import { injectScrollAreaContext } from './ScrollAreaRoot.vue'
+import { injectScrollAreaScrollbarContext } from './ScrollAreaScrollbar.vue'
 import ScrollAreaScrollbarX from './ScrollAreaScrollbarX.vue'
 import ScrollAreaScrollbarY from './ScrollAreaScrollbarY.vue'
 import {
+  type Sizes,
   getScrollPositionFromPointer,
   getThumbOffsetFromScroll,
   getThumbRatio,
   isScrollingWithinScrollbarBounds,
 } from './utils'
 
-const rootContext = inject(SCROLL_AREA_INJECTION_KEY)
-const scrollbarContext = inject(SCROLL_AREA_SCROLLBAR_INJECTION_KEY)
+const rootContext = injectScrollAreaContext()
+const scrollbarContext = injectScrollAreaScrollbarContext()
 
 const sizes = ref<Sizes>({
   content: 0,
@@ -58,17 +58,17 @@ const pointerOffset = ref(0)
 
 function handleWheelScroll(event: WheelEvent, payload: number) {
   if (isShowingScrollbarX.value) {
-    const scrollPos = rootContext!.viewport.value!.scrollLeft + event.deltaY
+    const scrollPos = rootContext.viewport.value!.scrollLeft + event.deltaY
 
-    rootContext!.viewport.value!.scrollLeft = scrollPos
+    rootContext.viewport.value!.scrollLeft = scrollPos
     // prevent window scroll when wheeling on scrollbar
     if (isScrollingWithinScrollbarBounds(scrollPos, payload))
       event.preventDefault()
   }
   else {
-    const scrollPos = rootContext!.viewport.value!.scrollTop + event.deltaY
+    const scrollPos = rootContext.viewport.value!.scrollTop + event.deltaY
 
-    rootContext!.viewport.value!.scrollTop = scrollPos
+    rootContext.viewport.value!.scrollTop = scrollPos
     // prevent window scroll when wheeling on scrollbar
     if (isScrollingWithinScrollbarBounds(scrollPos, payload))
       event.preventDefault()
@@ -98,36 +98,36 @@ function getScrollPosition(pointerPos: number, dir?: Direction) {
 }
 
 const isShowingScrollbarX = computed(
-  () => scrollbarContext?.isHorizontal.value,
+  () => scrollbarContext.isHorizontal.value,
 )
 
 function onDragScroll(payload: number) {
   if (isShowingScrollbarX.value) {
-    rootContext!.viewport.value!.scrollLeft = getScrollPosition(
+    rootContext.viewport.value!.scrollLeft = getScrollPosition(
       payload,
-      rootContext!.dir?.value,
+      rootContext.dir?.value,
     )
   }
   else {
-    rootContext!.viewport.value!.scrollTop = getScrollPosition(payload)
+    rootContext.viewport.value!.scrollTop = getScrollPosition(payload)
   }
 }
 
 function onThumbPositionChange() {
   if (isShowingScrollbarX.value) {
-    if (rootContext?.viewport.value && thumbRef.value) {
-      const scrollPos = rootContext?.viewport.value.scrollLeft
+    if (rootContext.viewport.value && thumbRef.value) {
+      const scrollPos = rootContext.viewport.value.scrollLeft
       const offset = getThumbOffsetFromScroll(
         scrollPos,
         sizes.value,
-        rootContext?.dir?.value,
+        rootContext.dir?.value,
       )
       thumbRef.value.style.transform = `translate3d(${offset}px, 0, 0)`
     }
   }
   else {
-    if (rootContext?.viewport.value && thumbRef.value) {
-      const scrollPos = rootContext?.viewport.value.scrollTop
+    if (rootContext.viewport.value && thumbRef.value) {
+      const scrollPos = rootContext.viewport.value.scrollTop
       const offset = getThumbOffsetFromScroll(scrollPos, sizes.value)
       thumbRef.value.style.transform = `translate3d(0, ${offset}px, 0)`
     }
@@ -137,20 +137,17 @@ function onThumbChange(element: HTMLElement) {
   thumbRef.value = element
 }
 
-provide<ScrollAreaScrollbarVisibleProvideValue>(
-  SCROLL_AREA_SCROLLBAR_VISIBLE_INJECTION_KEY,
-  {
-    sizes,
-    hasThumb,
-    handleWheelScroll,
-    handleThumbDown,
-    handleThumbUp,
-    handleSizeChange,
-    onThumbPositionChange,
-    onThumbChange,
-    onDragScroll,
-  },
-)
+provideScrollAreaScrollbarVisibleContext({
+  sizes,
+  hasThumb,
+  handleWheelScroll,
+  handleThumbDown,
+  handleThumbUp,
+  handleSizeChange,
+  onThumbPositionChange,
+  onThumbChange,
+  onDragScroll,
+})
 </script>
 
 <template>

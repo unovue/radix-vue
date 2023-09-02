@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { inject, ref } from 'vue'
-import { DIALOG_INJECTION_KEY } from './DialogRoot.vue'
+import { ref } from 'vue'
+import { injectDialogContext } from './DialogRoot.vue'
 import DialogContentImpl, {
   type DialogContentImplEmits,
   type DialogContentImplProps,
@@ -8,11 +8,11 @@ import DialogContentImpl, {
 import { useEmitAsProps } from '@/shared'
 
 const props = defineProps<DialogContentImplProps>()
-const emits = defineEmits<DialogContentImplEmits>()
+const emit = defineEmits<DialogContentImplEmits>()
 
-const emitsAsProps = useEmitAsProps(emits)
+const emitsAsProps = useEmitAsProps(emit)
 
-const context = inject(DIALOG_INJECTION_KEY)
+const context = injectDialogContext()
 const hasInteractedOutsideRef = ref(false)
 const hasPointerDownOutsideRef = ref(false)
 </script>
@@ -24,10 +24,10 @@ const hasPointerDownOutsideRef = ref(false)
     :disable-outside-pointer-events="false"
     @close-auto-focus="
       (event) => {
-        emits('closeAutoFocus', event);
+        emit('closeAutoFocus', event);
 
         if (!event.defaultPrevented) {
-          if (!hasInteractedOutsideRef) context?.triggerElement.value?.focus();
+          if (!hasInteractedOutsideRef) context.triggerElement.value?.focus();
           // Always prevent auto focus because we either focus manually or want user agent focus
           event.preventDefault();
         }
@@ -48,7 +48,7 @@ const hasPointerDownOutsideRef = ref(false)
       // As the trigger is already setup to close, without doing so would
       // cause it to close and immediately open.
       const target = event.target as HTMLElement;
-      const targetIsTrigger = context?.triggerElement.value?.contains(target);
+      const targetIsTrigger = context.triggerElement.value?.contains(target);
       if (targetIsTrigger) event.preventDefault();
 
       // On Safari if the trigger is inside a container with tabIndex={0}, when clicked

@@ -3,21 +3,20 @@ export interface SwitchThumbProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { inject } from 'vue'
 import {
-  SWITCH_INJECTION_KEY,
-  type SwitchProvideValue,
+  injectSwitchContext,
 } from './SwitchRoot.vue'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 
 withDefaults(defineProps<SwitchThumbProps>(), { as: 'span' })
-const injectedValue = inject<SwitchProvideValue>(SWITCH_INJECTION_KEY)
+
+const context = injectSwitchContext()
 </script>
 
 <template>
   <Primitive
-    :data-state="injectedValue?.checked?.value ? 'checked' : 'unchecked'"
-    :data-disabled="injectedValue?.disabled.value ? '' : undefined"
+    :data-state="context.checked?.value ? 'checked' : 'unchecked'"
+    :data-disabled="context.disabled.value ? '' : undefined"
     :as-child="asChild"
     :as="as"
   >

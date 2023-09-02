@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { inject } from 'vue'
-import { DIALOG_INJECTION_KEY } from './DialogRoot.vue'
+import { injectDialogContext } from './DialogRoot.vue'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 
 export interface DialogCloseProps extends PrimitiveProps {}
@@ -8,7 +7,7 @@ const props = withDefaults(defineProps<DialogCloseProps>(), {
   as: 'button',
 })
 
-const context = inject(DIALOG_INJECTION_KEY)
+const context = injectDialogContext()
 </script>
 
 <template>
@@ -16,7 +15,7 @@ const context = inject(DIALOG_INJECTION_KEY)
     v-bind="props"
     :type="as === 'button' ? 'button' : undefined"
     aria-label="Close"
-    @click="context?.onOpenChange(false)"
+    @click="context.onOpenChange(false)"
   >
     <slot />
   </Primitive>

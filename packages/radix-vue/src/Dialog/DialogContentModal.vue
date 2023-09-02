@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { inject } from 'vue'
-import { DIALOG_INJECTION_KEY } from './DialogRoot.vue'
+import { injectDialogContext } from './DialogRoot.vue'
 import DialogContentImpl, {
   type DialogContentImplEmits,
   type DialogContentImplProps,
@@ -9,11 +8,11 @@ import { useEmitAsProps, useHideOthers } from '@/shared'
 import { usePrimitiveElement } from '@/Primitive'
 
 const props = defineProps<DialogContentImplProps>()
-const emits = defineEmits<DialogContentImplEmits>()
+const emit = defineEmits<DialogContentImplEmits>()
 
-const context = inject(DIALOG_INJECTION_KEY)
+const context = injectDialogContext()
 
-const emitsAsProps = useEmitAsProps(emits)
+const emitsAsProps = useEmitAsProps(emit)
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 useHideOthers(currentElement)
@@ -27,7 +26,7 @@ useHideOthers(currentElement)
     :disable-outside-pointer-events="true"
     @close-auto-focus="
       (event) => {
-        emits('closeAutoFocus', event);
+        emit('closeAutoFocus', event);
 
         if (!event.defaultPrevented) {
           event.preventDefault();
@@ -54,7 +53,7 @@ useHideOthers(currentElement)
         event.preventDefault();
       }
     "
-    @open-auto-focus="emits('openAutoFocus', $event)"
+    @open-auto-focus="emit('openAutoFocus', $event)"
   >
     <slot />
   </DialogContentImpl>

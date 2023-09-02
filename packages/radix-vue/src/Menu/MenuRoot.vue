@@ -36,7 +36,7 @@ import {
 } from 'vue'
 import { isClient } from '@vueuse/shared'
 import { useVModel } from '@vueuse/core'
-import { type Direction } from './utils'
+import type { Direction } from '@/shared/types'
 import { PopperRoot } from '@/Popper'
 
 const props = withDefaults(defineProps<MenuProps>(), {

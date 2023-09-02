@@ -10,9 +10,9 @@ export interface AlertDialogProps extends Omit<DialogRootProps, 'modal'> {}
 export type AlertDialogEmits = DialogRootEmits
 
 const props = defineProps<AlertDialogProps>()
-const emits = defineEmits<AlertDialogEmits>()
+const emit = defineEmits<AlertDialogEmits>()
 
-const emitsAsProps = useEmitAsProps(emits)
+const emitsAsProps = useEmitAsProps(emit)
 </script>
 
 <template>

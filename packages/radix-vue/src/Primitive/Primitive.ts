@@ -1,23 +1,15 @@
-import { type PropType, cloneVNode, defineComponent, h, mergeProps } from 'vue'
+import {
+  type IntrinsicElementAttributes,
+  type PropType,
+  cloneVNode,
+  defineComponent,
+  h,
+  mergeProps,
+} from 'vue'
 import { isValidVNodeElement, renderSlotFragments } from '@/shared'
 
 export type AsTag =
-  | 'a'
-  | 'button'
-  | 'div'
-  | 'form'
-  | 'h2'
-  | 'h3'
-  | 'img'
-  | 'input'
-  | 'label'
-  | 'li'
-  | 'nav'
-  | 'ol'
-  | 'p'
-  | 'span'
-  | 'svg'
-  | 'ul'
+  | keyof IntrinsicElementAttributes
   | 'template'
   // eslint-disable-next-line @typescript-eslint/ban-types
   | ({} & string) // any other string
@@ -70,6 +62,7 @@ export const Primitive = defineComponent({
     return () => {
       if (!slots.default)
         return null
+
       const childrens = renderSlotFragments(slots.default())
 
       const [firstChildren, ...otherChildren] = childrens

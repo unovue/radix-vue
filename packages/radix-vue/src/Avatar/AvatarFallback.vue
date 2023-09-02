@@ -5,16 +5,16 @@ export interface AvatarFallbackProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { ref } from 'vue'
 import { Primitive, type PrimitiveProps } from '../Primitive'
-import { AVATAR_INJECTION_KEY } from './AvatarRoot.vue'
+import { injectAvatarContext } from './AvatarRoot.vue'
 
 const props = withDefaults(defineProps<AvatarFallbackProps>(), {
   delayMs: 0,
   as: 'span',
 })
 
-const injectedValue = inject(AVATAR_INJECTION_KEY)
+const context = injectAvatarContext()
 
 const canRender = ref(false)
 let timeout: ReturnType<typeof setTimeout> | undefined
@@ -32,7 +32,7 @@ else {
 
 <template>
   <Primitive
-    v-if="canRender && injectedValue?.imageLoadingStatus.value !== 'loaded'"
+    v-if="canRender && context.imageLoadingStatus.value !== 'loaded'"
     :as-child="props.asChild"
     :as="as"
   >

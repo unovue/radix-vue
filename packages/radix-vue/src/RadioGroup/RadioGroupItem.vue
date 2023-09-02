@@ -1,13 +1,15 @@
 <script lang="ts">
+import { createContext } from '@/shared'
+
 export interface RadioGroupItemProps extends Omit<RadioProps, 'checked'> {}
 
-interface RadioItemProvideValue {
+interface RadioGroupItemContextValue {
   disabled: ComputedRef<boolean>
   checked: ComputedRef<boolean>
 }
 
-export const RADIO_GROUP_ITEM_INJECTION_KEY
-  = Symbol() as InjectionKey<RadioItemProvideValue>
+export const [injectRadioGroupItemContext, provideRadioGroupItemContext]
+  = createContext<RadioGroupItemContextValue>('RadioGroupItem')
 
 export default {
   inheritAttrs: false,
@@ -17,14 +19,11 @@ export default {
 <script setup lang="ts">
 import {
   type ComputedRef,
-  type InjectionKey,
   computed,
-  inject,
-  provide,
   ref,
   toRefs,
 } from 'vue'
-import { RADIO_GROUP_INJECTION_KEY } from './RadioGroupRoot.vue'
+import { injectRadioGroupContext } from './RadioGroupRoot.vue'
 import {
   usePrimitiveElement,
 } from '@/Primitive'
@@ -39,13 +38,13 @@ const props = withDefaults(defineProps<RadioGroupItemProps>(), {
 const { value } = toRefs(props)
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
-const context = inject(RADIO_GROUP_INJECTION_KEY)
+const context = injectRadioGroupContext()
 
-const disabled = computed(() => context?.disabled.value || props.disabled)
-const required = computed(() => context?.required.value || props.required)
-const checked = computed(() => context?.modelValue?.value === props.value)
+const disabled = computed(() => context.disabled.value || props.disabled)
+const required = computed(() => context.required.value || props.required)
+const checked = computed(() => context.modelValue?.value === props.value)
 
-provide(RADIO_GROUP_ITEM_INJECTION_KEY, { disabled, checked })
+provideRadioGroupItemContext({ disabled, checked })
 
 const isArrowKeyPressed = ref(false)
 const ARROW_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']

@@ -1,32 +1,33 @@
 <script lang="ts">
+import { createContext, useEmitAsProps } from '@/shared'
+
 interface AlertDialogContentContextValue {
   onCancelElementChange(el: HTMLElement | undefined): void
 }
 
-export const ALERT_DIALOG_CONTENT_INJECTION_KEY
-  = Symbol() as InjectionKey<AlertDialogContentContextValue>
+export const [injectAlertDialogContentContext, provideAlertDialogContentContext]
+  = createContext<AlertDialogContentContextValue>('AlertDialogContent')
 
 export interface AlertDialogContentProps extends DialogContentProps {}
 export type AlertDialogContentEmits = DialogContentEmits
 </script>
 
 <script setup lang="ts">
-import { type InjectionKey, nextTick, provide, ref } from 'vue'
+import { nextTick, ref } from 'vue'
 import {
   DialogContent,
   type DialogContentEmits,
   type DialogContentProps,
 } from '@/Dialog'
-import { useEmitAsProps } from '@/shared'
 
 const props = defineProps<AlertDialogContentProps>()
 const emits = defineEmits<AlertDialogContentEmits>()
 
 const emitsAsProps = useEmitAsProps(emits)
 
-const cancelElement = ref<HTMLElement | undefined>()
+const cancelElement = ref<HTMLElement>()
 
-provide(ALERT_DIALOG_CONTENT_INJECTION_KEY, {
+provideAlertDialogContentContext({
   onCancelElementChange: (el) => {
     cancelElement.value = el
   },

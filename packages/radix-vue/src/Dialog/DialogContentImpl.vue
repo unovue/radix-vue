@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { inject } from 'vue'
-import { DIALOG_INJECTION_KEY } from './DialogRoot.vue'
+import { injectDialogContext } from './DialogRoot.vue'
 import {
   DismissableLayer,
   type DismissableLayerEmits,
@@ -39,7 +38,7 @@ export type DialogContentImplEmits = DismissableLayerEmits & {
 const props = defineProps<DialogContentImplProps>()
 const emits = defineEmits<DialogContentImplEmits>()
 
-const context = inject(DIALOG_INJECTION_KEY)
+const context = injectDialogContext()
 </script>
 
 <template>
@@ -52,15 +51,15 @@ const context = inject(DIALOG_INJECTION_KEY)
   >
     <DismissableLayer
       v-bind="$attrs"
-      :id="context!.contentId"
+      :id="context.contentId"
       :as="as"
       :as-child="asChild"
       :disable-outside-pointer-events="disableOutsidePointerEvents"
       role="dialog"
-      :aria-describedby="context!.descriptionId"
-      :aria-labelledby="context!.titleId"
-      :data-state="getOpenState(context!.open.value)"
-      @dismiss="context?.onOpenChange(false)"
+      :aria-describedby="context.descriptionId"
+      :aria-labelledby="context.titleId"
+      :data-state="getOpenState(context.open.value)"
+      @dismiss="context.onOpenChange(false)"
       @escape-key-down="emits('escapeKeyDown', $event)"
       @focus-outside="emits('focusOutside', $event)"
       @interact-outside="emits('interactOutside', $event)"

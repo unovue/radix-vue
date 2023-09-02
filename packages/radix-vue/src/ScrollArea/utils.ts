@@ -1,4 +1,16 @@
-import type { Direction, Sizes } from './types'
+import type { Direction } from '@/shared/types'
+
+export interface Sizes {
+  content: number
+  viewport: number
+  scrollbar: {
+    size: number
+    paddingStart: number
+    paddingEnd: number
+  }
+}
+
+export type ScrollType = 'auto' | 'always' | 'scroll' | 'hover'
 
 function clamp(value: number, [min, max]: [number, number]): number {
   return Math.min(max, Math.max(min, value))

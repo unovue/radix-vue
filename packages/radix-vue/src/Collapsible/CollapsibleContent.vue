@@ -6,8 +6,8 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed, inject, nextTick, onMounted, ref, watch } from 'vue'
-import { COLLAPSIBLE_INJECTION_KEY } from './CollapsibleRoot.vue'
+import { nextTick, onMounted, ref, watch } from 'vue'
+import { injectCollapsibleContext } from './CollapsibleRoot.vue'
 import {
   Primitive,
   type PrimitiveProps,
@@ -17,7 +17,7 @@ import { Presence } from '@/Presence'
 
 const props = defineProps<CollapsibleContentProps>()
 
-const injectedValue = inject(COLLAPSIBLE_INJECTION_KEY)
+const context = injectCollapsibleContext()
 
 const presentRef = ref<InstanceType<typeof Presence>>()
 const { primitiveElement, currentElement } = usePrimitiveElement()
@@ -27,12 +27,11 @@ const height = ref(0)
 
 // when opening we want it to immediately open to retrieve dimensions
 // when closing we delay `present` to retrieve dimensions before closing
-const isOpen = computed(() => injectedValue?.open.value)
-const isMountAnimationPrevented = ref(isOpen.value)
+const isMountAnimationPrevented = ref(context.open.value)
 const currentStyle = ref<Record<string, string>>()
 
 watch(
-  () => [isOpen.value, presentRef.value?.present],
+  () => [context.open.value, presentRef.value?.present],
   async () => {
     await nextTick()
     const node = currentElement.value
@@ -72,21 +71,21 @@ onMounted(() => {
 <template>
   <Presence
     ref="presentRef"
-    :present="injectedValue!.open.value"
+    :present="context.open.value"
     :force-mount="true"
   >
     <Primitive
       v-bind="$attrs"
-      :id="injectedValue?.contentId"
+      :id="context.contentId"
       ref="primitiveElement"
       :as-child="props.asChild"
       :as="as"
-      :data-state="injectedValue?.open.value ? 'open' : 'closed'"
-      :data-disabled="injectedValue?.disabled?.value ? 'true' : undefined"
+      :data-state="context.open.value ? 'open' : 'closed'"
+      :data-disabled="context.disabled?.value ? 'true' : undefined"
       :hidden="!presentRef?.present"
       :style="{
-        [`--radix-collapsible-content-height`]: `${height}px`,
-        [`--radix-collapsible-content-width`]: `${width}px`,
+        '--radix-collapsible-content-height': `${height}px`,
+        '--radix-collapsible-content-width': `${width}px`,
       }"
     >
       <slot />

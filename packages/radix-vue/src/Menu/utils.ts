@@ -1,5 +1,6 @@
+import type { Direction } from '@/shared/types'
+
 export type CheckedState = boolean | 'indeterminate'
-export type Direction = 'ltr' | 'rtl'
 
 export const ITEM_NAME = 'MenuItem'
 export const ITEM_SELECT = 'menu.itemSelect'

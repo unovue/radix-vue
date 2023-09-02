@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { inject, watch } from 'vue'
-import { DIALOG_INJECTION_KEY } from './DialogRoot.vue'
+import { watch } from 'vue'
+import { injectDialogContext } from './DialogRoot.vue'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { Presence } from '@/Presence'
 import { useBodyScrollLock } from '@/shared'
@@ -14,22 +14,22 @@ export interface DialogOverlayProps extends PrimitiveProps {
 }
 
 defineProps<DialogOverlayProps>()
-const context = inject(DIALOG_INJECTION_KEY)
+const context = injectDialogContext()
 
 const isLocked = useBodyScrollLock()
 watch(
-  () => context?.open.value,
-  n => (isLocked.value = n ?? false),
+  () => context.open.value,
+  n => (isLocked.value = n),
 )
 </script>
 
 <template>
-  <Presence :present="forceMount || context!.open.value">
+  <Presence :present="forceMount || context.open.value">
     <Primitive
       v-bind="$attrs"
       :as="as"
       :as-child="asChild"
-      :data-state="context?.open.value ? 'open' : 'closed'"
+      :data-state="context.open.value ? 'open' : 'closed'"
       style="pointer-events: auto"
       data-aria-hidden="true"
       aria-hidden="true"

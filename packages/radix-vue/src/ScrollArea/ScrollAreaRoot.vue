@@ -1,8 +1,16 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from 'vue'
-import type { Direction, ScrollType } from './types'
+import type { Ref } from 'vue'
+import type { ScrollType } from './utils'
+import { createContext } from '@/shared'
+import type { Direction } from '@/shared/types'
 
-export interface ScrollAreaProvideValue {
+export interface ScrollAreaRootProps extends PrimitiveProps {
+  type?: ScrollType
+  dir?: Direction
+  scrollHideDelay?: number
+}
+
+export interface ScrollAreaContextValue {
   type: Ref<ScrollType>
   dir: Ref<Direction>
   scrollHideDelay: Ref<number>
@@ -23,18 +31,12 @@ export interface ScrollAreaProvideValue {
   onCornerHeightChange(height: number): void
 }
 
-export interface ScrollAreaRootProps extends PrimitiveProps {
-  type?: ScrollType
-  dir?: Direction
-  scrollHideDelay?: number
-}
-
-export const SCROLL_AREA_INJECTION_KEY
-  = Symbol() as InjectionKey<ScrollAreaProvideValue>
+export const [injectScrollAreaContext, provideScrollAreaContext]
+  = createContext<ScrollAreaContextValue>('ScrollAreaRoot')
 </script>
 
 <script setup lang="ts">
-import { provide, ref, toRefs } from 'vue'
+import { ref, toRefs } from 'vue'
 import {
   Primitive,
   type PrimitiveProps,
@@ -87,7 +89,7 @@ function onCornerHeightChange(height: number) {
 }
 
 const { type, dir, scrollHideDelay } = toRefs(props)
-provide<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY, {
+provideScrollAreaContext({
   type,
   dir,
   scrollHideDelay,

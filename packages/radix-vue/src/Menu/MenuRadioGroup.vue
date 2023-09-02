@@ -1,15 +1,17 @@
 <script lang="ts">
+import { createContext } from '@/shared'
+
 interface MenuRadioGroupContextValue {
   modelValue: Ref<string>
   onValueChange: (payload: string) => void
 }
 
-export const MENU_RADIO_GROUP_INJECTION_KEY
-  = Symbol() as InjectionKey<MenuRadioGroupContextValue>
+export const [injectMenuRadioGroupContext, provideMenuRadioGroupContext]
+  = createContext<MenuRadioGroupContextValue>('MenuRadioGroup')
 </script>
 
 <script setup lang="ts">
-import { type InjectionKey, type Ref, provide } from 'vue'
+import { type Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
 import MenuGroup, { type MenuGroupProps } from './MenuGroup.vue'
 
@@ -26,7 +28,7 @@ const props = withDefaults(defineProps<MenuRadioGroupProps>(), {
 const emits = defineEmits<MenuRadioGroupEmits>()
 const modelValue = useVModel(props, 'modelValue', emits)
 
-provide(MENU_RADIO_GROUP_INJECTION_KEY, {
+provideMenuRadioGroupContext({
   modelValue,
   onValueChange: (ev) => {
     modelValue.value = ev

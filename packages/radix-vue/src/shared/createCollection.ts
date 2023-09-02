@@ -16,10 +16,13 @@ type CollectionContextValue = Ref<HTMLElement[]>
 /**
  * Composables for provide/inject collections
  */
-export function createCollection(providerComponentName: string) {
-  const [injectCollectionContext, provideCollectionContext] = createContext<
-    CollectionContextValue
-  >(providerComponentName)
+export function createCollection(
+  ...args:
+  | [providerComponentName: string[], collectionName: string]
+  | [providerComponentName: string, collectionName?: string]
+) {
+  const [injectCollectionContext, provideCollectionContext]
+    = createContext<CollectionContextValue>(...args)
 
   const provideCollection = (sourceRef?: Ref<HTMLElement | undefined>) => {
     const items = ref<HTMLElement[]>([])

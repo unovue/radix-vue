@@ -1,4 +1,6 @@
 <script lang="ts">
+import { createContext } from '@/shared'
+
 export interface MenuContextValue {
   open: Ref<boolean>
   onOpenChange(open: boolean): void
@@ -20,16 +22,16 @@ export interface MenuProps {
   modal?: boolean
 }
 
-export const MENU_INJECTION_KEY = Symbol() as InjectionKey<MenuContextValue>
-export const MENU_ROOT_INJECTION_KEY
-  = Symbol() as InjectionKey<MenuRootContextValue>
+export const [injectMenuRootContext, provideMenuRootContext]
+  = createContext<MenuRootContextValue>('MenuRoot')
+
+export const [injectMenuContext, provideMenuContext]
+  = createContext<MenuContextValue>('MenuRoot')
 </script>
 
 <script setup lang="ts">
 import {
-  type InjectionKey,
   type Ref,
-  provide,
   ref,
   toRefs,
   watchEffect,
@@ -82,7 +84,7 @@ watchEffect((cleanupFn) => {
   })
 })
 
-provide(MENU_INJECTION_KEY, {
+provideMenuContext({
   open,
   onOpenChange: (value) => {
     open.value = value
@@ -93,7 +95,7 @@ provide(MENU_INJECTION_KEY, {
   },
 })
 
-provide(MENU_ROOT_INJECTION_KEY, {
+provideMenuRootContext({
   onClose: () => {
     open.value = false
   },

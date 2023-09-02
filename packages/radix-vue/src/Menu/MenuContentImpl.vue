@@ -1,6 +1,7 @@
 <script lang="ts">
 import {
   createCollection,
+  createContext,
   useArrowNavigation,
   useBodyScrollLock,
   useFocusGuards,
@@ -16,8 +17,8 @@ export interface MenuContentContextValue {
   onPointerGraceIntentChange(intent: GraceIntent | null): void
 }
 
-export const MENU_CONTENT_INJECTION_KEY
-  = Symbol() as InjectionKey<MenuContentContextValue>
+export const [injectMenuImplContentContent, provideMenuContentImplContext]
+  = createContext<MenuContentContextValue>('MenuContentImpl')
 
 export interface MenuContentImplPrivateProps {
   disableOutsidePointerEvents?: DismissableLayerProps['disableOutsidePointerEvents']
@@ -69,16 +70,13 @@ const [_, provideMenuContentImplCollection]
 
 <script setup lang="ts">
 import {
-  type InjectionKey,
   type Ref,
-  inject,
   onUnmounted,
-  provide,
   ref,
   toRefs,
   watch,
 } from 'vue'
-import { MENU_INJECTION_KEY, MENU_ROOT_INJECTION_KEY } from './MenuRoot.vue'
+import { injectMenuContext, injectMenuRootContext } from './MenuRoot.vue'
 import {
   FIRST_LAST_KEYS,
   type GraceIntent,
@@ -107,8 +105,8 @@ const props = withDefaults(defineProps<MenuContentImplProps>(), {
   ...PopperContentPropsDefaultValue,
 })
 const emits = defineEmits<MenuContentImplEmits>()
-const context = inject(MENU_INJECTION_KEY)
-const rootContext = inject(MENU_ROOT_INJECTION_KEY)
+const context = injectMenuContext()
+const rootContext = injectMenuRootContext()
 
 const { trapFocus, disableOutsidePointerEvents, loop } = toRefs(props)
 
@@ -128,7 +126,7 @@ const { primitiveElement, currentElement: contentElement }
 const collectionItems = provideMenuContentImplCollection(contentElement)
 
 watch(contentElement, (el) => {
-  context!.onContentChange(el)
+  context.onContentChange(el)
 })
 
 const { handleTypeaheadSearch } = useTypeahead(collectionItems)
@@ -171,7 +169,7 @@ function handleKeyDown(event: KeyboardEvent) {
     {
       loop: loop.value,
       arrowKeyOptions: 'vertical',
-      dir: rootContext?.dir.value,
+      dir: rootContext.dir.value,
       focus: true,
     },
   )
@@ -229,7 +227,7 @@ function handlePointerMove(event: PointerEvent) {
   }
 }
 
-provide(MENU_CONTENT_INJECTION_KEY, {
+provideMenuContentImplContext({
   onItemEnter: (event: PointerEvent) => {
     if (isPointerMovingToSubmenu(event))
       event.preventDefault()
@@ -272,12 +270,12 @@ provide(MENU_CONTENT_INJECTION_KEY, {
         v-model:current-tab-stop-id="currentItemId"
         as-child
         orientation="vertical"
-        :dir="rootContext?.dir.value"
+        :dir="rootContext.dir.value"
         :loop="loop"
         @entry-focus="(event) => {
           emits('entryFocus', event)
           // only focus first item when using keyboard
-          if (!rootContext?.isUsingKeyboardRef.value) event.preventDefault();
+          if (!rootContext.isUsingKeyboardRef.value) event.preventDefault();
         }"
       >
         <PopperContent
@@ -287,8 +285,8 @@ provide(MENU_CONTENT_INJECTION_KEY, {
           :as-child="asChild"
           aria-orientation="vertical"
           data-radix-menu-content
-          :data-state="getOpenState(context!.open.value)"
-          :dir="rootContext!.dir.value"
+          :data-state="getOpenState(context.open.value)"
+          :dir="rootContext.dir.value"
           :side="side"
           :side-offset="sideOffset"
           :align="align"

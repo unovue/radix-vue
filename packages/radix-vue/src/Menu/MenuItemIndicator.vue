@@ -1,14 +1,19 @@
 <script lang="ts">
+import { createContext } from '@/shared'
+
 interface MenuItemIndicatorContextValue {
   checked: Ref<CheckedState>
 }
 
-export const MENU_ITEM_INDICATOR_INJECTION_KEY
-  = Symbol() as InjectionKey<MenuItemIndicatorContextValue>
+export const [injectMenuItemIndicatorContext, provideMenuItemIndicatorContext]
+  = createContext<MenuItemIndicatorContextValue>(
+    ['MenuRadioItem', 'MenuCheckboxItem'],
+    'MenuItemIndicator',
+  )
 </script>
 
 <script setup lang="ts">
-import { type InjectionKey, type Ref, inject, ref } from 'vue'
+import { type Ref, ref } from 'vue'
 import { type CheckedState, getCheckedState, isIndeterminate } from './utils'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { Presence } from '@/Presence'
@@ -19,7 +24,7 @@ withDefaults(defineProps<MenuItemIndicatorProps>(), {
   as: 'span',
 })
 
-const indicatorContext = inject(MENU_ITEM_INDICATOR_INJECTION_KEY, {
+const indicatorContext = injectMenuItemIndicatorContext({
   checked: ref(false),
 })
 </script>

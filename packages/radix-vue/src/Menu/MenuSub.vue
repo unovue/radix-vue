@@ -1,4 +1,6 @@
 <script lang="ts">
+import { createContext, useId } from '@/shared'
+
 export interface MenuSubContextValue {
   contentId: string
   triggerId: string
@@ -7,8 +9,8 @@ export interface MenuSubContextValue {
   parentMenuContext?: MenuContextValue
 }
 
-export const MENU_SUB_INJECTION_KEY
-  = Symbol() as InjectionKey<MenuSubContextValue>
+export const [injectMenuSubContext, provideMenuSubContext]
+  = createContext<MenuSubContextValue>('MenuSub')
 
 export interface MenuSubProps {
   open?: boolean
@@ -17,17 +19,13 @@ export interface MenuSubProps {
 
 <script setup lang="ts">
 import {
-  type InjectionKey,
   type Ref,
-  inject,
-  provide,
   ref,
   watchEffect,
 } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { MENU_INJECTION_KEY, type MenuContextValue } from './MenuRoot.vue'
+import { type MenuContextValue, injectMenuContext, provideMenuContext } from './MenuRoot.vue'
 import { PopperRoot } from '@/Popper'
-import { useId } from '@/shared'
 
 const props = defineProps<MenuSubProps>()
 const emits = defineEmits<{
@@ -39,18 +37,18 @@ const open = useVModel(props, 'open', emits, {
   passive: true,
 })
 
-const parentMenuContext = inject(MENU_INJECTION_KEY)
+const parentMenuContext = injectMenuContext()
 const trigger = ref<HTMLElement>()
 const content = ref<HTMLElement>()
 
 // Prevent the parent menu from reopening with open submenus.
 watchEffect((cleanupFn) => {
-  if (parentMenuContext?.open.value === false)
+  if (parentMenuContext.open.value === false)
     open.value = false
   cleanupFn(() => (open.value = false))
 })
 
-provide(MENU_INJECTION_KEY, {
+provideMenuContext({
   open,
   onOpenChange: (value) => {
     open.value = value
@@ -61,7 +59,7 @@ provide(MENU_INJECTION_KEY, {
   },
 })
 
-provide(MENU_SUB_INJECTION_KEY, {
+provideMenuSubContext({
   triggerId: useId(),
   contentId: useId(),
   trigger,

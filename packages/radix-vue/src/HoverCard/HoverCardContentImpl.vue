@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { inject, nextTick, onMounted, onUnmounted, ref, watchEffect } from 'vue'
+import { nextTick, onMounted, onUnmounted, ref, watchEffect } from 'vue'
 import {
-  HOVER_CARD_INJECTION_KEY,
+  injectHoverCardContext,
 } from './HoverCardRoot.vue'
 import { PopperContent, type PopperContentProps } from '@/Popper'
 import { DismissableLayer, type DismissableLayerEmits } from '@/DismissableLayer'
@@ -15,7 +15,7 @@ const props = defineProps<HoverCardContentImplProps>()
 const emits = defineEmits<HoverCardContentImplEmits>()
 
 const { primitiveElement, currentElement: contentElement } = usePrimitiveElement()
-const context = inject(HOVER_CARD_INJECTION_KEY)
+const context = injectHoverCardContext()
 const containSelection = ref(false)
 
 let originalBodyUserSelect: string
@@ -38,13 +38,13 @@ watchEffect((cleanupFn) => {
 
 function handlePointerUp() {
   containSelection.value = false
-  context!.isPointerDownOnContentRef.value = false
+  context.isPointerDownOnContentRef.value = false
 
   // Delay a frame to ensure we always access the latest selection
   nextTick(() => {
     const hasSelection = document.getSelection()?.toString() !== ''
     if (hasSelection)
-      context!.hasSelectionRef.value = true
+      context.hasSelectionRef.value = true
   })
 }
 onMounted(() => {
@@ -58,8 +58,8 @@ onMounted(() => {
 
 onUnmounted(() => {
   document.removeEventListener('pointerup', handlePointerUp)
-  context!.hasSelectionRef.value = false
-  context!.isPointerDownOnContentRef.value = false
+  context.hasSelectionRef.value = false
+  context.isPointerDownOnContentRef.value = false
 })
 </script>
 
@@ -70,12 +70,12 @@ onUnmounted(() => {
     @escape-key-down="emits('escapeKeyDown', $event)"
     @pointer-down-outside="emits('pointerDownOutside', $event)"
     @focus-outside.prevent="emits('focusOutside', $event)"
-    @dismiss="context?.onDismiss"
+    @dismiss="context.onDismiss"
   >
     <PopperContent
       ref="primitiveElement"
       v-bind="{ ...props, ...$attrs }"
-      :data-state="context?.open.value ? 'open' : 'closed'"
+      :data-state="context.open.value ? 'open' : 'closed'"
       :style="{
         'userSelect': containSelection ? 'text' : undefined,
         // Safari requires prefix
@@ -92,8 +92,8 @@ onUnmounted(() => {
         if (event.currentTarget.contains(event.target as HTMLElement)) {
           containSelection = true
         }
-        context!.hasSelectionRef.value = false;
-        context!.isPointerDownOnContentRef.value = true;
+        context.hasSelectionRef.value = false;
+        context.isPointerDownOnContentRef.value = true;
       }"
     >
       <slot />

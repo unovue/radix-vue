@@ -1,10 +1,20 @@
+<script lang="ts">
+import { createContext } from '@/shared'
+
+interface DismissableLayerContextValue {
+  layers: Ref<Set<HTMLElement>>
+  layersWithOutsidePointerEventsDisabled: Ref<Set<HTMLElement>>
+}
+
+export const [injectDismissableLayerContext, provideDismissableLayerContext]
+  = createContext<DismissableLayerContextValue>('DismissableLayer')
+</script>
+
 <script setup lang="ts">
 import {
   type Ref,
   computed,
-  inject,
   nextTick,
-  provide,
   ref,
   watch,
   watchEffect,
@@ -21,11 +31,6 @@ import {
   type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
-
-interface DismissableLayerProvideValue {
-  layers: Ref<Set<HTMLElement>>
-  layersWithOutsidePointerEventsDisabled: Ref<Set<HTMLElement>>
-}
 
 export interface DismissableLayerProps extends PrimitiveProps {
   /**
@@ -79,11 +84,11 @@ const ownerDocument = computed(
 const layers = ref<Set<HTMLElement>>(new Set())
 const layersWithOutsidePointerEventsDisabled = ref<Set<HTMLElement>>(new Set())
 
-provide<DismissableLayerProvideValue>('dismissable', {
+provideDismissableLayerContext({
   layers,
   layersWithOutsidePointerEventsDisabled,
 })
-const context = inject<DismissableLayerProvideValue>('dismissable', {
+const context = injectDismissableLayerContext({
   layers,
   layersWithOutsidePointerEventsDisabled,
 })
@@ -91,9 +96,9 @@ const context = inject<DismissableLayerProvideValue>('dismissable', {
 watch(
   () => context,
   () => {
-    if (context?.layers.value)
+    if (context.layers.value)
       layers.value = context.layers.value
-    if (context?.layersWithOutsidePointerEventsDisabled.value) {
+    if (context.layersWithOutsidePointerEventsDisabled.value) {
       layersWithOutsidePointerEventsDisabled.value
         = context.layersWithOutsidePointerEventsDisabled.value
     }

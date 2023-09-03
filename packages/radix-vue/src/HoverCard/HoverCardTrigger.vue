@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { inject } from 'vue'
 import {
-  HOVER_CARD_INJECTION_KEY,
+  injectHoverCardContext,
 } from './HoverCardRoot.vue'
 import {
   Primitive,
@@ -16,7 +15,7 @@ withDefaults(defineProps<HoverCardTriggerProps>(), {
   as: 'a',
 })
 
-const context = inject(HOVER_CARD_INJECTION_KEY)
+const context = injectHoverCardContext()
 </script>
 
 <template>
@@ -24,11 +23,11 @@ const context = inject(HOVER_CARD_INJECTION_KEY)
     <Primitive
       :as-child="asChild"
       :as="as"
-      :data-state="context?.open.value ? 'open' : 'closed'"
-      @pointerenter="excludeTouch(context!.onOpen)($event)"
-      @pointerleave="excludeTouch(context!.onClose)($event)"
-      @focus="context!.onOpen()"
-      @blur="context!.onClose"
+      :data-state="context.open.value ? 'open' : 'closed'"
+      @pointerenter="excludeTouch(context.onOpen)($event)"
+      @pointerleave="excludeTouch(context.onClose)($event)"
+      @focus="context.onOpen()"
+      @blur="context.onClose"
       @touchstart.prevent="() => {
         // prevent focus event on touch devices
       }"

@@ -26,7 +26,7 @@ export const [injectMenuRootContext, provideMenuRootContext]
   = createContext<MenuRootContextValue>('MenuRoot')
 
 export const [injectMenuContext, provideMenuContext]
-  = createContext<MenuContextValue>('MenuRoot')
+  = createContext<MenuContextValue>(['MenuRoot', 'MenuSub'], 'MenuContext')
 </script>
 
 <script setup lang="ts">

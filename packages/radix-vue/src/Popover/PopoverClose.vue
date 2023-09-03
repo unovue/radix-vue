@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { inject } from 'vue'
 import {
-  POPOVER_INJECTION_KEY,
-  type PopoverProvideValue,
+  injectPopoverContext,
 } from './PopoverRoot.vue'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 
@@ -10,7 +8,7 @@ const props = withDefaults(defineProps<PopoverCloseProps>(), {
   as: 'button',
 })
 
-const context = inject<PopoverProvideValue>(POPOVER_INJECTION_KEY)
+const context = injectPopoverContext()
 
 export interface PopoverCloseProps extends PrimitiveProps {}
 </script>
@@ -20,7 +18,7 @@ export interface PopoverCloseProps extends PrimitiveProps {}
     :type="as === 'button' ? 'button' : undefined"
     :as="as"
     :as-child="props.asChild"
-    @click="context?.onOpenChange(false)"
+    @click="context.onOpenChange(false)"
   >
     <slot />
   </Primitive>

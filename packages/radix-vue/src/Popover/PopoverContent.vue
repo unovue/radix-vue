@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { inject } from 'vue'
 import PopoverContentModal from './PopoverContentModal.vue'
 import PopoverContentNonModal from './PopoverContentNonModal.vue'
 import {
   type PopoverContentImplEmits,
   type PopoverContentImplProps,
 } from './PopoverContentImpl.vue'
-import { POPOVER_INJECTION_KEY } from './PopoverRoot.vue'
+import { injectPopoverContext } from './PopoverRoot.vue'
 import { useEmitAsProps } from '@/shared'
 import { Presence } from '@/Presence'
 import { PopperContentPropsDefaultValue } from '@/Popper'
@@ -25,15 +24,15 @@ const props = withDefaults(defineProps<PopoverContentProps>(), {
 })
 const emits = defineEmits<PopoverContentEmits>()
 
-const context = inject(POPOVER_INJECTION_KEY)
+const context = injectPopoverContext()
 
 const emitsAsProps = useEmitAsProps(emits)
 </script>
 
 <template>
-  <Presence :present="forceMount || context!.open.value">
+  <Presence :present="forceMount || context.open.value">
     <PopoverContentModal
-      v-if="context?.modal.value"
+      v-if="context.modal.value"
       v-bind="{ ...props, ...emitsAsProps }"
     >
       <slot />

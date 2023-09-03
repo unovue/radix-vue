@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { inject, onMounted } from 'vue'
-import { POPOVER_INJECTION_KEY } from './PopoverRoot.vue'
+import { onMounted } from 'vue'
+import { injectPopoverContext } from './PopoverRoot.vue'
 import {
   Primitive,
   type PrimitiveProps,
@@ -13,13 +13,13 @@ const props = withDefaults(defineProps<PopoverTriggerProps>(), {
   as: 'button',
 })
 
-const context = inject(POPOVER_INJECTION_KEY)
+const context = injectPopoverContext()
 
 const { primitiveElement, currentElement: triggerElement }
   = usePrimitiveElement()
 
 onMounted(() => {
-  context!.triggerElement.value = triggerElement.value
+  context.triggerElement.value = triggerElement.value
 })
 
 defineExpose({ $el: triggerElement })
@@ -27,19 +27,19 @@ defineExpose({ $el: triggerElement })
 
 <template>
   <component
-    :is="context?.hasCustomAnchor.value ? Primitive : PopperAnchor"
+    :is="context.hasCustomAnchor.value ? Primitive : PopperAnchor"
     as-child
   >
     <Primitive
       ref="primitiveElement"
       :type="as === 'button' ? 'button' : undefined"
       aria-haspopup="dialog"
-      :aria-expanded="context?.open.value"
-      :aria-controls="context?.contentId"
-      :data-state="context?.open.value ? 'open' : 'closed'"
+      :aria-expanded="context.open.value"
+      :aria-controls="context.contentId"
+      :data-state="context.open.value ? 'open' : 'closed'"
       :as="as"
       :as-child="props.asChild"
-      @click="context!.onOpenToggle"
+      @click="context.onOpenToggle"
     >
       <slot />
     </Primitive>

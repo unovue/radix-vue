@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { ref } from 'vue'
 import PopoverContentImpl, {
   type PopoverContentImplEmits,
   type PopoverContentImplProps,
 } from './PopoverContentImpl.vue'
-import { POPOVER_INJECTION_KEY } from './PopoverRoot.vue'
+import { injectPopoverContext } from './PopoverRoot.vue'
 import { useBodyScrollLock, useEmitAsProps, useHideOthers } from '@/shared'
 import { usePrimitiveElement } from '@/Primitive'
 
 const props = defineProps<PopoverContentImplProps>()
 const emits = defineEmits<PopoverContentImplEmits>()
-const context = inject(POPOVER_INJECTION_KEY)
+const context = injectPopoverContext()
 const isRightClickOutsideRef = ref(false)
 
 useBodyScrollLock(true)
@@ -25,13 +25,13 @@ useHideOthers(currentElement)
   <PopoverContentImpl
     ref="primitiveElement"
     v-bind="{ ...props, ...emitsAsProps }"
-    :trap-focus="context?.open.value"
+    :trap-focus="context.open.value"
     disable-outside-pointer-events
     @close-auto-focus.prevent="
       (event) => {
         emits('closeAutoFocus', event);
 
-        if (!isRightClickOutsideRef) context?.triggerElement.value?.focus();
+        if (!isRightClickOutsideRef) context.triggerElement.value?.focus();
       }
     "
     @pointer-down-outside="

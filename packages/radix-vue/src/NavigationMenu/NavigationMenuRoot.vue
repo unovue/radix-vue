@@ -52,7 +52,7 @@ export const [injectNavigationMenuContext, provideNavigationMenuContext]
   = createContext<NavigationMenuContextValue>('NavigationMenuRoot')
 
 export const [injectNavigationMenuCollection, provideNavigationMenuCollection]
-  = createCollection('NavigationMenuRoot')
+  = createCollection(['NavigationMenuRoot', 'NavigationMenuSub'], 'NavigationMenuCollection')
 </script>
 
 <script setup lang="ts">

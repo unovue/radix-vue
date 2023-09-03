@@ -1,18 +1,22 @@
 import { type InjectionKey, inject, provide } from 'vue'
 
+/**
+ * @param providerComponentName - The name(s) of the component(s) providing the context.
+ *
+ * There are situations where context can come from multiple components. In such cases, you might need to give an array of component names to provide your context, instead of just a single string.
+ *
+ * @param contextName The description for injection key symbol.
+ */
 export function createContext<ContextValue>(
-  ...args:
-  | [providerComponentName: string[], contextName: string]
-  | [providerComponentName: string, contextName?: string]
+  providerComponentName: string | string[],
+  contextName?: string,
 ) {
-  const [providerComponentName, contextName] = args
+  const symbolDescription
+    = typeof providerComponentName === 'string' && !contextName
+      ? `${providerComponentName}Context`
+      : contextName
 
-  const _contextName
-    = typeof providerComponentName === 'string'
-      ? contextName || `${providerComponentName}Context`
-      : (contextName as string)
-
-  const injectionKey: InjectionKey<ContextValue | null> = Symbol(_contextName)
+  const injectionKey: InjectionKey<ContextValue | null> = Symbol(symbolDescription)
 
   /**
    * @param fallback The context value to return if the injection fails.
@@ -33,11 +37,13 @@ export function createContext<ContextValue>(
       return context as any
 
     throw new Error(
-      `injection \`${injectionKey.toString()}\` not found. Component must be used within \`${
-        typeof providerComponentName === 'string'
-          ? providerComponentName
-          : providerComponentName.join(', ')
-      }\``,
+      `Injection \`${injectionKey.toString()}\` not found. Component must be used within ${
+        Array.isArray(providerComponentName)
+          ? `one of the following components: ${providerComponentName.join(
+              ', ',
+            )}`
+          : `\`${providerComponentName}\``
+      }`,
     )
   }
 

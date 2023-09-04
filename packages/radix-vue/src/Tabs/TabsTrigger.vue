@@ -40,7 +40,7 @@ const isSelected = computed(() => props.value === context?.modelValue.value)
       :data-state="isSelected ? 'active' : 'inactive'"
       :disabled="disabled"
       :data-disabled="disabled ? '' : undefined"
-      :data-orientation="context?.orientation"
+      :data-orientation="context?.orientation.value"
       @mousedown.left="(event) => {
         // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)
         // but not when the control key is pressed (avoiding MacOS right click)

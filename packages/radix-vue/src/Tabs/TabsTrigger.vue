@@ -19,8 +19,10 @@ const props = withDefaults(defineProps<TabsTriggerProps>(), {
 })
 const context = inject(TABS_INJECTION_KEY)
 
-const triggerId = computed(() => makeTriggerId(context!.baseId, props.value))
-const contentId = computed(() => makeContentId(context!.baseId, props.value))
+const ids = computed(() => ({
+  triggerId: makeTriggerId(context!.baseId, props.value),
+  contentId: makeContentId(context!.baseId, props.value),
+}))
 
 const isSelected = computed(() => props.value === context?.modelValue.value)
 </script>
@@ -28,21 +30,21 @@ const isSelected = computed(() => props.value === context?.modelValue.value)
 <template>
   <RovingFocusItem as-child :focusable="!disabled" :active="isSelected">
     <Primitive
-      :id="triggerId"
+      :id="ids.triggerId"
       role="tab"
       :type="as === 'button' ? 'button' : undefined"
       :as="as"
       :as-child="asChild"
       :aria-selected="isSelected ? 'true' : 'false'"
-      :aria-controls="contentId"
+      :aria-controls="ids.contentId"
       :data-state="isSelected ? 'active' : 'inactive'"
       :disabled="disabled"
       :data-disabled="disabled ? '' : undefined"
       :data-orientation="context?.orientation"
-      @mousedown="(event) => {
+      @mousedown.left="(event) => {
         // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)
         // but not when the control key is pressed (avoiding MacOS right click)
-        if (!disabled && event.button === 0 && event.ctrlKey === false) {
+        if (!disabled && event.ctrlKey === false) {
           context?.changeModelValue(value);
         }
         else {

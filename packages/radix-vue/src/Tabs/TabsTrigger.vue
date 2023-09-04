@@ -19,10 +19,8 @@ const props = withDefaults(defineProps<TabsTriggerProps>(), {
 })
 const context = inject(TABS_INJECTION_KEY)
 
-const ids = computed(() => ({
-  triggerId: makeTriggerId(context!.baseId, props.value),
-  contentId: makeContentId(context!.baseId, props.value),
-}))
+const triggerId = computed(() => makeTriggerId(context!.baseId, props.value))
+const contentId = computed(() => makeContentId(context!.baseId, props.value))
 
 const isSelected = computed(() => props.value === context?.modelValue.value)
 </script>
@@ -30,13 +28,13 @@ const isSelected = computed(() => props.value === context?.modelValue.value)
 <template>
   <RovingFocusItem as-child :focusable="!disabled" :active="isSelected">
     <Primitive
-      :id="ids.triggerId"
+      :id="triggerId"
       role="tab"
       :type="as === 'button' ? 'button' : undefined"
       :as="as"
       :as-child="asChild"
       :aria-selected="isSelected ? 'true' : 'false'"
-      :aria-controls="ids.contentId"
+      :aria-controls="contentId"
       :data-state="isSelected ? 'active' : 'inactive'"
       :disabled="disabled"
       :data-disabled="disabled ? '' : undefined"

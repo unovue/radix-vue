@@ -24,7 +24,7 @@ export type RovingFocusGroupEmits = {
 }
 
 interface RovingContextValue {
-  orientation: Ref<Orientation>
+  orientation: Ref<Orientation | undefined>
   dir: Ref<Direction>
   loop: Ref<boolean>
   currentTabStopId: Ref<string | null | undefined>
@@ -58,7 +58,7 @@ import {
 const props = withDefaults(defineProps<RovingFocusGroupProps>(), {
   loop: false,
   dir: 'ltr',
-  orientation: 'horizontal',
+  orientation: undefined,
 })
 const emits = defineEmits<RovingFocusGroupEmits>()
 const { loop, orientation, dir } = toRefs(props)

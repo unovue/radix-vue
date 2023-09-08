@@ -8,7 +8,6 @@ const radioStateSingle = ref('default')
 <template>
   <RadioGroupRoot
     v-model="radioStateSingle" class="flex flex-col gap-2.5" default-value="default"
-    orientation="vertical"
     aria-label="View density"
   >
     <div class="flex items-center">

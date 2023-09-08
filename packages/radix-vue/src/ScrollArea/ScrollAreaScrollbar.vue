@@ -11,7 +11,7 @@ import {
 } from 'vue'
 
 export interface ScrollAreaScrollbarProps extends PrimitiveProps {
-  orientation: 'vertical' | 'horizontal'
+  orientation?: 'vertical' | 'horizontal'
   forceMount?: boolean
 }
 

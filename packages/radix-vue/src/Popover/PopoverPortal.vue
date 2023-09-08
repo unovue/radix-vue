@@ -1,15 +1,12 @@
 <script setup lang="ts">
-export interface PopoverPortalProps {
-  to?: string | HTMLElement
-  disabled?: boolean
-}
-const props = withDefaults(defineProps<PopoverPortalProps>(), {
-  to: 'body',
-})
+import { TeleportPrimitive, type TeleportProps } from '@/Teleport'
+
+export interface PopoverPortalProps extends TeleportProps {}
+const props = defineProps<PopoverPortalProps>()
 </script>
 
 <template>
-  <Teleport v-bind="props">
+  <TeleportPrimitive v-bind="props">
     <slot />
-  </Teleport>
+  </TeleportPrimitive>
 </template>

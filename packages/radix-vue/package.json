@@ -41,7 +41,8 @@
     "build-only": "vite build",
     "type-check": "vue-tsc -p tsconfig.check.json --noEmit",
     "type-gen": "vue-tsc --declaration  --emitDeclarationOnly",
-    "test": "vitest"
+    "test": "vitest",
+    "pub:release": "pnpm build && pnpm publish --access public"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.4.2",

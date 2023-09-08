@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useMounted } from '@vueuse/core'
+
 export interface TeleportProps {
   to?: string | HTMLElement
   disabled?: boolean
@@ -8,8 +10,6 @@ export interface TeleportProps {
 withDefaults(defineProps<TeleportProps>(), {
   to: 'body',
 })
-
-import { useMounted } from '@vueuse/core'
 
 const isMounted = useMounted()
 </script>

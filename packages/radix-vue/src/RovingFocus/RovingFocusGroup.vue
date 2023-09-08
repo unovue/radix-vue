@@ -58,7 +58,6 @@ import {
 const props = withDefaults(defineProps<RovingFocusGroupProps>(), {
   loop: false,
   dir: 'ltr',
-  orientation: 'horizontal',
 })
 const emits = defineEmits<RovingFocusGroupEmits>()
 const { loop, orientation, dir } = toRefs(props)

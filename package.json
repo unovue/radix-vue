@@ -19,7 +19,7 @@
     "lint": "eslint . --ignore-path .gitignore",
     "lint:fix": "eslint . --fix --ignore-path .gitignore",
     "release": "bumpp package.json packages/*/package.json",
-    "pub:release": "cd packages/radix-vue && pnpm pub:release"
+    "pub:release": "pnpm build && cd packages/radix-vue && pnpm pub:release"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.39.7",

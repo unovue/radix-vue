@@ -1,15 +1,12 @@
 <script setup lang="ts">
-export interface SelectPortalProps {
-  to?: string | HTMLElement
-  disabled?: boolean
-}
-const props = withDefaults(defineProps<SelectPortalProps>(), {
-  to: 'body',
-})
+import { TeleportPrimitive, type TeleportProps } from '@/Teleport'
+
+export interface SelectPortalProps extends TeleportProps {}
+const props = defineProps<SelectPortalProps>()
 </script>
 
 <template>
-  <Teleport v-bind="props">
+  <TeleportPrimitive v-bind="props">
     <slot />
-  </Teleport>
+  </TeleportPrimitive>
 </template>

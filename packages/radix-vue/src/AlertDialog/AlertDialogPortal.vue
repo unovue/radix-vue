@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { DialogPortal, type DialogPortalProps } from '@/Dialog'
+import { TeleportPrimitive, type TeleportProps } from '@/Teleport'
 
-export interface AlertDialogPortalProps extends DialogPortalProps {}
-
+export interface AlertDialogPortalProps extends TeleportProps {}
 const props = defineProps<AlertDialogPortalProps>()
 </script>
 
 <template>
-  <DialogPortal v-bind="props">
+  <TeleportPrimitive v-bind="props">
     <slot />
-  </DialogPortal>
+  </TeleportPrimitive>
 </template>

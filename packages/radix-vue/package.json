@@ -1,7 +1,7 @@
 {
   "name": "radix-vue",
   "type": "module",
-  "version": "0.1.29",
+  "version": "0.1.32",
   "description": "Vue port for Radix UI Primitives.",
   "author": "Radix Vue Contributors (https://github.com/radix-vue)",
   "license": "MIT",
@@ -41,7 +41,8 @@
     "build-only": "vite build",
     "type-check": "vue-tsc -p tsconfig.check.json --noEmit",
     "type-gen": "vue-tsc --declaration  --emitDeclarationOnly",
-    "test": "vitest"
+    "test": "vitest",
+    "pub:release": "pnpm publish --access public"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.4.2",

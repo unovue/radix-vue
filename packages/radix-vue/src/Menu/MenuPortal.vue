@@ -1,15 +1,12 @@
 <script setup lang="ts">
-export interface MenuPortalProps {
-  to?: string | HTMLElement
-  disabled?: boolean
-}
-const props = withDefaults(defineProps<MenuPortalProps>(), {
-  to: 'body',
-})
+import { TeleportPrimitive, type TeleportProps } from '@/Teleport'
+
+export interface MenuPortalProps extends TeleportProps {}
+const props = defineProps<MenuPortalProps>()
 </script>
 
 <template>
-  <Teleport v-bind="props">
+  <TeleportPrimitive v-bind="props">
     <slot />
-  </Teleport>
+  </TeleportPrimitive>
 </template>

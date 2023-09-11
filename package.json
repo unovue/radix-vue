@@ -1,6 +1,6 @@
 {
   "name": "radix-vue",
-  "version": "0.1.29",
+  "version": "0.1.32",
   "private": true,
   "packageManager": "pnpm@8.6.3",
   "license": "MIT",
@@ -18,7 +18,8 @@
     "test": "pnpm --filter radix-vue test",
     "lint": "eslint . --ignore-path .gitignore",
     "lint:fix": "eslint . --fix --ignore-path .gitignore",
-    "release": "bumpp package.json packages/*/package.json"
+    "release": "bumpp package.json packages/*/package.json",
+    "pub:release": "pnpm build && cd packages/radix-vue && pnpm pub:release"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.39.7",

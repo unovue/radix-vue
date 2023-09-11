@@ -62,6 +62,7 @@ export default {
       overflowY: rootContext?.scrollbarYEnabled.value ? 'scroll' : 'hidden',
     }"
     v-bind="$attrs"
+    :tabindex="0"
   >
     <Primitive
       ref="primitiveElement"

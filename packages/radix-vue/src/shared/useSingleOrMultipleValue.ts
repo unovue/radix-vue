@@ -112,6 +112,8 @@ export function useSingleOrMultipleValue<P extends Props, Name extends string>(
         modelValueArray.push(value)
       }
       modelValue.value = modelValueArray
+      // manually emits this type: multiple as it it an array and passive: true makes it not triggering emits
+      emits('update:modelValue' as Name, modelValue.value)
     }
   }
 

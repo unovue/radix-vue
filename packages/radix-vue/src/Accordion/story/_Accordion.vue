@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import type {
+  AccordionRootEmits,
+  AccordionRootProps,
+} from '../'
 import {
   AccordionContent,
   AccordionHeader,
@@ -7,7 +11,10 @@ import {
   AccordionRoot,
   AccordionTrigger,
 } from '../'
+import { useEmitAsProps } from '@/shared'
 
+withDefaults(defineProps<{ type?: AccordionRootProps['type'] }>(), { type: 'single' })
+const emits = defineEmits<AccordionRootEmits>()
 const values = ['One', 'Two', 'Three', 'Four']
 const count = ref(1)
 </script>
@@ -15,7 +22,8 @@ const count = ref(1)
 <template>
   <AccordionRoot
     class="w-[300px] rounded-md bg-[--line-color] shadow-lg"
-    type="single"
+    v-bind="useEmitAsProps(emits)"
+    :type="type"
   >
     <AccordionItem
       v-for="value in values"
@@ -34,9 +42,7 @@ const count = ref(1)
         class="accordion-animated-content data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
       >
         <div class="px-5 py-4">
-          Per erat orci nostra luctus sociosqu mus risus penatibus, duis
-          elit vulputate viverra integer ullamcorper congue curabitur
-          sociis, nisi malesuada scelerisque quam suscipit habitant sed.
+          Content {{ value }}
         </div>
       </AccordionContent>
     </AccordionItem>

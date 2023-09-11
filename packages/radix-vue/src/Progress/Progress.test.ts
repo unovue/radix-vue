@@ -16,7 +16,7 @@ describe('given a default Progress', () => {
     expect(wrapper.html()).toContain('data-value="0"')
   })
 
-  describe('after 2 seconds', () => {
+  describe('after 200ms', () => {
     it('shoud contain correct value', async () => {
       await new Promise(resolve => setTimeout(resolve, 200))
       expect(wrapper.html()).toContain('data-value="50"')

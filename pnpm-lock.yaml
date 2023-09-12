@@ -139,8 +139,8 @@ importers:
         specifier: npm:@nuxt/kit@latest
         version: 3.7.1(rollup@3.28.1)
       '@nuxt/schema':
-        specifier: ^3.7.0
-        version: 3.7.0(rollup@3.28.1)
+        specifier: ^3.7.1
+        version: 3.7.1(rollup@3.28.1)
       radix-vue:
         specifier: file:../radix-vue
         version: file:packages/radix-vue(vue@3.3.4)
@@ -1965,25 +1965,6 @@ packages:
       ufo: 1.3.0
       unctx: 2.3.1
       unimport: 3.3.0(rollup@3.28.1)
-      untyped: 1.4.0
-    transitivePeerDependencies:
-      - rollup
-      - supports-color
-    dev: false
-
-  /@nuxt/schema@3.7.0(rollup@3.28.1):
-    resolution: {integrity: sha512-fNRAubny1x6rIibm/HcacnEGeAQri/FkJ5ei24aY4YjQ12+xDfi7bljfFr6C2+CrEGc1beYd4OQcUqXqEpz5+g==}
-    engines: {node: ^14.18.0 || >=16.10.0}
-    dependencies:
-      '@nuxt/ui-templates': 1.3.1
-      defu: 6.1.2
-      hookable: 5.5.3
-      pathe: 1.1.1
-      pkg-types: 1.0.3
-      postcss-import-resolver: 2.0.0
-      std-env: 3.4.3
-      ufo: 1.3.0
-      unimport: 3.2.0(rollup@3.28.1)
       untyped: 1.4.0
     transitivePeerDependencies:
       - rollup
@@ -9389,24 +9370,6 @@ packages:
     dependencies:
       busboy: 1.6.0
     dev: true
-
-  /unimport@3.2.0(rollup@3.28.1):
-    resolution: {integrity: sha512-9buxPxkNwxwxAlH/RfOFHxtQTUrlmBGi9Ai9HezY2yYbkoOhgJTYPI6+WqxI1EZphoM9cw1SHoCFRkXSb8/fjQ==}
-    dependencies:
-      '@rollup/pluginutils': 5.0.3(rollup@3.28.1)
-      escape-string-regexp: 5.0.0
-      fast-glob: 3.3.1
-      local-pkg: 0.4.3
-      magic-string: 0.30.3
-      mlly: 1.4.1
-      pathe: 1.1.1
-      pkg-types: 1.0.3
-      scule: 1.0.0
-      strip-literal: 1.3.0
-      unplugin: 1.4.0
-    transitivePeerDependencies:
-      - rollup
-    dev: false
 
   /unimport@3.3.0(rollup@3.28.1):
     resolution: {integrity: sha512-3jhq3ZG5hFZzrWGDCpx83kjPzefP/EeuKkIO1T0MA4Zwj+dO/Og1mFvZ4aZ5WSDm0FVbbdVIRH1zKBG7c4wOpg==}

@@ -17,6 +17,7 @@ import {
   SelectValue,
   SelectViewport,
 } from '../'
+import SelectItemWrapper from './_SelectItem.vue'
 
 const fruit = ref('Apple')
 
@@ -62,21 +63,7 @@ const POSITION = ['item-aligned', 'popper'] as const
                   Fruits
                 </SelectLabel>
                 <SelectGroup>
-                  <SelectItem
-                    v-for="(option, index) in options"
-                    :key="index"
-                    class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-                    :value="option"
-                  >
-                    <SelectItemIndicator
-                      class="absolute left-0 w-[25px] inline-flex items-center justify-center"
-                    >
-                      <Icon icon="radix-icons:check" />
-                    </SelectItemIndicator>
-                    <SelectItemText>
-                      woohoo  {{ option }}
-                    </SelectItemText>
-                  </SelectItem>
+                  <SelectItemWrapper :options="options" />
                 </SelectGroup>
                 <SelectSeparator class="h-[1px] bg-violet6 m-[5px]" />
                 <SelectLabel
@@ -98,7 +85,7 @@ const POSITION = ['item-aligned', 'popper'] as const
                       <Icon icon="radix-icons:check" />
                     </SelectItemIndicator>
                     <SelectItemText>
-                      {{ option }}
+                      asd   {{ option }}
                     </SelectItemText>
                   </SelectItem>
                 </SelectGroup>

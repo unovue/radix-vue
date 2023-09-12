@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { h, inject, onMounted, useSlots } from 'vue'
+import { inject, onMounted, useSlots } from 'vue'
 import { shouldShowPlaceholder } from './utils'
 import { SELECT_INJECTION_KEY } from './SelectRoot.vue'
 import {
@@ -27,8 +27,6 @@ onMounted(() => {
   const hasChildren = !!slots?.default?.()
   context!.onValueElementHasChildrenChange(hasChildren)
 })
-
-const ValueRenderer = () => h(() => context?.valueRenderer?.value)
 </script>
 
 <template>
@@ -41,11 +39,7 @@ const ValueRenderer = () => h(() => context?.valueRenderer?.value)
     <template v-if="shouldShowPlaceholder(context?.modelValue?.value)">
       {{ placeholder }}
     </template>
-    <template v-else-if="context?.valueRenderer?.value">
-      <slot>
-        <ValueRenderer />
-      </slot>
-    </template>
+
     <template v-else>
       <slot />
     </template>

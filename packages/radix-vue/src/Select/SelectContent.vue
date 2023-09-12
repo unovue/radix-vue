@@ -7,11 +7,16 @@ import SelectContentImpl, {
 import { SELECT_INJECTION_KEY } from './SelectRoot.vue'
 import { Presence } from '@/Presence'
 import { useEmitAsProps } from '@/shared'
+import { PopperContentPropsDefaultValue } from '@/Popper'
 
 export interface SelectContentProps extends SelectContentImplProps {}
 export type SelectContentEmits = SelectContentImplEmits
 
-const props = defineProps<SelectContentProps>()
+const props = withDefaults(defineProps<SelectContentProps>(), {
+  ...PopperContentPropsDefaultValue,
+  align: 'start',
+  position: 'item-aligned',
+})
 
 const emits = defineEmits<SelectContentEmits>()
 

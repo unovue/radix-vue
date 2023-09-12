@@ -9,7 +9,7 @@ interface SelectContentContextValue {
     disabled: boolean
   ) => void
   selectedItem?: Ref<HTMLElement | undefined>
-  onItemLeave: () => void
+  onItemLeave?: () => void
   itemTextRefCallback: (
     node: HTMLElement | undefined,
     value: string,
@@ -20,6 +20,12 @@ interface SelectContentContextValue {
   position?: 'item-aligned' | 'popper'
   isPositioned?: Ref<boolean>
   searchRef?: Ref<string>
+}
+
+export const SelectContentDefaultContextValue: SelectContentContextValue = {
+  onViewportChange: () => {},
+  itemTextRefCallback: () => {},
+  itemRefCallback: () => {},
 }
 
 export const SELECT_CONTENT_INJECTION_KEY

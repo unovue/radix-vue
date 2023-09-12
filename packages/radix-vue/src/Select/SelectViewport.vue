@@ -13,7 +13,7 @@ export interface SelectViewportProps extends PrimitiveProps {}
 
 <script setup lang="ts">
 import { type InjectionKey, type Ref, inject, onMounted, ref } from 'vue'
-import { SELECT_CONTENT_INJECTION_KEY } from './SelectContentImpl.vue'
+import { SELECT_CONTENT_INJECTION_KEY, SelectContentDefaultContextValue } from './SelectContentImpl.vue'
 import { CONTENT_MARGIN } from './utils'
 import {
   Primitive,
@@ -22,16 +22,17 @@ import {
 } from '@/Primitive'
 
 const props = defineProps<SelectViewportProps>()
-const contentContext = inject(SELECT_CONTENT_INJECTION_KEY)
+
+const contentContext = inject(SELECT_CONTENT_INJECTION_KEY, SelectContentDefaultContextValue)
 const viewportContext
-  = contentContext!.position === 'item-aligned'
+  = contentContext?.position === 'item-aligned'
     ? inject(SELECT_VIEWPORT_INJECTION_KEY)
     : undefined
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
 onMounted(() => {
-  contentContext!.onViewportChange(currentElement.value)
+  contentContext?.onViewportChange(currentElement.value)
 })
 
 const prevScrollTopRef = ref(0)

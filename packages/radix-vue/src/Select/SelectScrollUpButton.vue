@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { inject, ref, watch, watchEffect } from 'vue'
-import { SELECT_CONTENT_INJECTION_KEY } from './SelectContentImpl.vue'
+import { SELECT_CONTENT_INJECTION_KEY, SelectContentDefaultContextValue } from './SelectContentImpl.vue'
 import { SELECT_VIEWPORT_INJECTION_KEY } from './SelectViewport.vue'
 import SelectScrollButtonImpl from './SelectScrollButtonImpl.vue'
 import { type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
@@ -8,7 +8,7 @@ import { type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
 export interface SelectScrollUpButtonProps extends PrimitiveProps {}
 defineProps<SelectScrollUpButtonProps>()
 
-const contentContext = inject(SELECT_CONTENT_INJECTION_KEY)
+const contentContext = inject(SELECT_CONTENT_INJECTION_KEY, SelectContentDefaultContextValue)
 const viewportContext
   = contentContext!.position === 'item-aligned'
     ? inject(SELECT_VIEWPORT_INJECTION_KEY)

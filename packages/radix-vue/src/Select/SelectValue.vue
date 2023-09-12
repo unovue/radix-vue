@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { h, inject, onMounted, useSlots } from 'vue'
+import { inject, onBeforeMount, onMounted, useSlots } from 'vue'
 import { shouldShowPlaceholder } from './utils'
 import { SELECT_INJECTION_KEY } from './SelectRoot.vue'
 import {
@@ -7,6 +7,7 @@ import {
   type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
+import { renderSlotFragments } from '@/shared'
 
 export interface SelectValueProps extends PrimitiveProps {
   placeholder?: string
@@ -22,13 +23,14 @@ const { primitiveElement, currentElement } = usePrimitiveElement()
 const context = inject(SELECT_INJECTION_KEY)
 const slots = useSlots()
 
-onMounted(() => {
-  context!.valueElement = currentElement
-  const hasChildren = !!slots?.default?.()
+onBeforeMount(() => {
+  const hasChildren = !!renderSlotFragments(slots?.default?.()).length
   context!.onValueElementHasChildrenChange(hasChildren)
 })
 
-const ValueRenderer = () => h(() => context?.valueRenderer?.value)
+onMounted(() => {
+  context!.valueElement = currentElement
+})
 </script>
 
 <template>
@@ -41,11 +43,7 @@ const ValueRenderer = () => h(() => context?.valueRenderer?.value)
     <template v-if="shouldShowPlaceholder(context?.modelValue?.value)">
       {{ placeholder }}
     </template>
-    <template v-else-if="context?.valueRenderer?.value">
-      <slot>
-        <ValueRenderer />
-      </slot>
-    </template>
+
     <template v-else>
       <slot />
     </template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, h, inject, onMounted } from 'vue'
-import { SELECT_NATIVE_OPTIONS_INJECTION_KEY } from './SelectRoot.vue'
-import { SELECT_CONTENT_INJECTION_KEY } from './SelectContentImpl.vue'
+import { SELECT_INJECTION_KEY, SELECT_NATIVE_OPTIONS_INJECTION_KEY } from './SelectRoot.vue'
+import { SELECT_CONTENT_INJECTION_KEY, SelectContentDefaultContextValue } from './SelectContentImpl.vue'
 import { SELECT_ITEM_INJECTION_KEY } from './SelectItem.vue'
 import {
   Primitive,
@@ -15,7 +15,8 @@ const props = withDefaults(defineProps<SelectItemTextProps>(), {
   as: 'span',
 })
 
-const contentContext = inject(SELECT_CONTENT_INJECTION_KEY)
+const context = inject(SELECT_INJECTION_KEY)
+const contentContext = inject(SELECT_CONTENT_INJECTION_KEY, SelectContentDefaultContextValue)
 const nativeOptionContext = inject(SELECT_NATIVE_OPTIONS_INJECTION_KEY)
 const itemContext = inject(SELECT_ITEM_INJECTION_KEY)
 
@@ -56,7 +57,12 @@ export default {
 </script>
 
 <template>
-  <Primitive :id="itemContext?.textId" ref="primitiveElement" v-bind="props">
+  <Primitive :id="itemContext?.textId" ref="primitiveElement" v-bind="{ ...props, ...$attrs }">
     <slot />
   </Primitive>
+
+  <!-- Portal the select item text into the trigger value node -->
+  <Teleport v-if="itemContext?.isSelected.value && context?.valueElement.value && !context.valueElementHasChildren.value" :to="context?.valueElement.value">
+    <slot />
+  </Teleport>
 </template>

@@ -30,7 +30,7 @@ import {
   toRefs,
 } from 'vue'
 import { SELECT_INJECTION_KEY } from './SelectRoot.vue'
-import { SELECT_CONTENT_INJECTION_KEY } from './SelectContentImpl.vue'
+import { SELECT_CONTENT_INJECTION_KEY, SelectContentDefaultContextValue } from './SelectContentImpl.vue'
 import { SELECTION_KEYS } from './utils'
 import {
   Primitive,
@@ -43,7 +43,7 @@ const props = defineProps<SelectItemProps>()
 const { disabled } = toRefs(props)
 
 const context = inject(SELECT_INJECTION_KEY)
-const contentContext = inject(SELECT_CONTENT_INJECTION_KEY)
+const contentContext = inject(SELECT_CONTENT_INJECTION_KEY, SelectContentDefaultContextValue)
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
 const isSelected = computed(() => context?.modelValue?.value === props.value)
@@ -107,7 +107,7 @@ if (props.value === '') {
 onMounted(() => {
   if (!currentElement.value)
     return
-  contentContext!.itemRefCallback(
+  contentContext?.itemRefCallback(
     currentElement.value,
     props.value,
     props.disabled,

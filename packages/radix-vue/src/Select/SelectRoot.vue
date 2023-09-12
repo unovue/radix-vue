@@ -1,8 +1,8 @@
 <script lang="ts">
-import type { ComputedRef, InjectionKey, Ref, VNode } from 'vue'
+import type { InjectionKey, Ref, VNode } from 'vue'
 import type { DataOrientation, Direction } from '../shared/types'
 import BubbleSelect from './BubbleSelect.vue'
-import { getChildNode, useId } from '@/shared'
+import { useId } from '@/shared'
 
 export interface SelectRootProps {
   open?: boolean
@@ -29,7 +29,7 @@ export interface SelectProvideValue {
   onTriggerChange(node: HTMLElement | undefined): void
   valueElement: Ref<HTMLElement | undefined>
   onValueElementChange(node: HTMLElement): void
-  valueElementHasChildren: boolean
+  valueElementHasChildren: Ref<boolean>
   onValueElementHasChildrenChange(hasChildren: boolean): void
   contentId: string
   modelValue?: Ref<string>
@@ -40,7 +40,6 @@ export interface SelectProvideValue {
   dir: Ref<Direction>
   triggerPointerDownPosRef: Ref<{ x: number; y: number } | null>
   disabled?: Ref<boolean>
-  valueRenderer?: ComputedRef<VNode>
 }
 
 export interface SelectNativeOptionsContextValue {
@@ -53,7 +52,7 @@ export const SELECT_NATIVE_OPTIONS_INJECTION_KEY
 </script>
 
 <script setup lang="ts">
-import { computed, provide, ref, toRefs, useSlots } from 'vue'
+import { computed, provide, ref, toRefs } from 'vue'
 import { PopperRoot } from '@/Popper'
 import { useVModel } from '@vueuse/core'
 
@@ -83,13 +82,7 @@ const triggerPointerDownPosRef = ref({
   x: 0,
   y: 0,
 })
-
-const slots = useSlots()
-const valueRenderer = computed(() => {
-  const nodes = getChildNode(slots.default?.(), 'SelectItem')
-  // @ts-expect-error it has default
-  return nodes.find(i => i.props?.value === modelValue.value)?.children?.default?.().find(i => i.type.__name === 'SelectItemText')?.children?.default?.() as VNode
-})
+const valueElementHasChildren = ref(false)
 
 const { required, disabled, dir } = toRefs(props)
 provide<SelectProvideValue>(SELECT_INJECTION_KEY, {
@@ -101,8 +94,10 @@ provide<SelectProvideValue>(SELECT_INJECTION_KEY, {
   onValueElementChange: (node: HTMLElement | undefined) => {
     valueElement.value = node
   },
-  valueElementHasChildren: false,
-  onValueElementHasChildrenChange: (hasChildren: boolean) => {},
+  valueElementHasChildren,
+  onValueElementHasChildrenChange: (hasChildren: boolean) => {
+    valueElementHasChildren.value = hasChildren
+  },
   contentId: useId(),
   modelValue,
   onValueChange: (value: string) => {
@@ -116,7 +111,6 @@ provide<SelectProvideValue>(SELECT_INJECTION_KEY, {
   dir,
   triggerPointerDownPosRef,
   disabled,
-  valueRenderer,
 })
 
 // We set this to true by default so that events bubble to forms without JS (SSR)

@@ -3,13 +3,13 @@ import TooltipContentImpl, { type TooltipContentImplEmits, type TooltipContentIm
 import TooltipContentHoverable from './TooltipContentHoverable.vue'
 import { injectTooltipRootContent } from './TooltipRoot.vue'
 import { PopperContentPropsDefaultValue } from '@/Popper'
-import { useEmitAsProps } from '@/shared'
+import { omit, useEmitAsProps } from '@/shared'
 
 export interface TooltipContentProps extends TooltipContentImplProps {}
 export type TooltipContentEmits = TooltipContentImplEmits
 
 const props = withDefaults(defineProps<TooltipContentProps>(), {
-  ...PopperContentPropsDefaultValue,
+  ...omit(PopperContentPropsDefaultValue, 'updatePositionStrategy', 'prioritizePosition'),
   side: 'top',
 })
 const emits = defineEmits<TooltipContentEmits>()

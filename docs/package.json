@@ -7,7 +7,7 @@
     "docs:contributors": "esno scripts/update-contributors.ts"
   },
   "dependencies": {
-    "radix-vue": "0.1.33"
+    "radix-vue": "0.1.34"
   },
   "devDependencies": {
     "@iconify/vue": "^4.1.1",

@@ -128,6 +128,7 @@ provide(SELECT_ITEM_INJECTION_KEY, {
 <template>
   <Primitive
     ref="primitiveElement"
+    role="option"
     data-radix-vue-collection-item
     :aria-labelledby="textId"
     :data-highlighted="isFocused ? '' : undefined"

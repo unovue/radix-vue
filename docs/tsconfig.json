@@ -1,5 +1,6 @@
 {
-  "include": ["/**/*.vue", ".vitepress/**/*.vue"],
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": ["**/*.vue", "components/**/*.vue", ".vitepress/**/*.vue"],
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",

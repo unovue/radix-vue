@@ -62,7 +62,9 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
               <SelectItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">
                 <Icon icon="radix-icons:check" />
               </SelectItemIndicator>
-              {{ option }}
+              <SelectItemText>
+                {{ option }}
+              </SelectItemText>
             </SelectItem>
           </SelectGroup>
           <SelectSeparator class="h-[1px] bg-green6 m-[5px]" />

@@ -12,7 +12,7 @@ import SelectContentImpl, {
 } from './SelectContentImpl.vue'
 import { SELECT_INJECTION_KEY } from './SelectRoot.vue'
 import { Presence } from '@/Presence'
-import { useEmitAsProps } from '@/shared'
+import { omit, useEmitAsProps } from '@/shared'
 import { PopperContentPropsDefaultValue } from '@/Popper'
 import SelectProvider from './SelectProvider.vue'
 
@@ -20,11 +20,10 @@ export interface SelectContentProps extends SelectContentImplProps {}
 export type SelectContentEmits = SelectContentImplEmits
 
 const props = withDefaults(defineProps<SelectContentProps>(), {
-  ...PopperContentPropsDefaultValue,
+  ...omit(PopperContentPropsDefaultValue, 'updatePositionStrategy', 'prioritizePosition'),
   align: 'start',
   position: 'item-aligned',
 })
-
 const emits = defineEmits<SelectContentEmits>()
 const emitsAsProps = useEmitAsProps(emits)
 
@@ -34,16 +33,18 @@ const fragment = ref<DocumentFragment>()
 onMounted(() => {
   fragment.value = new DocumentFragment()
 })
+
+const presenceRef = ref<InstanceType<typeof Presence>>()
 </script>
 
 <template>
-  <Presence :present="context!.open.value">
+  <Presence ref="presenceRef" :present="context!.open.value">
     <SelectContentImpl v-bind="{ ...props, ...emitsAsProps, ...$attrs }">
       <slot />
     </SelectContentImpl>
   </Presence>
 
-  <Teleport v-if="!context?.open.value && fragment" :to="fragment">
+  <Teleport v-if="!presenceRef?.present && fragment" :to="fragment">
     <SelectProvider :context="context!">
       <div>
         <slot />

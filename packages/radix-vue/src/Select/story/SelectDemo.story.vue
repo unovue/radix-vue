@@ -18,7 +18,7 @@ import {
   SelectViewport,
 } from '../'
 
-const fruit = ref('')
+const fruit = ref('Apple')
 
 const options = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
 const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
@@ -39,9 +39,7 @@ const POSITION = ['item-aligned', 'popper'] as const
             class="min-w-[160px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-violet11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-violet9 outline-none"
             aria-label="Customise options"
           >
-            <SelectValue placeholder="Please select a fruit">
-              {{ fruit }}
-            </SelectValue>
+            <SelectValue placeholder="Please select a fruit" />
             <Icon icon="radix-icons:chevron-down" class="h-4 w-4" />
           </SelectTrigger>
 
@@ -76,7 +74,7 @@ const POSITION = ['item-aligned', 'popper'] as const
                       <Icon icon="radix-icons:check" />
                     </SelectItemIndicator>
                     <SelectItemText>
-                      {{ option }}
+                      woohoo  {{ option }}
                     </SelectItemText>
                   </SelectItem>
                 </SelectGroup>

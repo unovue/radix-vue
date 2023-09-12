@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/vue'
 import { beforeEach, describe, expect, it, test } from 'vitest'
 import { axe } from 'vitest-axe'
 import { mount } from '@vue/test-utils'
-import Switch1 from './Switch1.vue'
+import Switch from './_Switch.vue'
 
 describe('test switch functionalities', () => {
   beforeEach(() => {
@@ -10,7 +10,7 @@ describe('test switch functionalities', () => {
   })
 
   it('should pass axe accessibility tests', async () => {
-    const wrapper = mount(Switch1)
+    const wrapper = mount(Switch)
     expect(await axe(wrapper.element, {
       rules: {
         label: { enabled: false },
@@ -19,12 +19,12 @@ describe('test switch functionalities', () => {
   })
 
   test('thumb can render', async () => {
-    render(Switch1)
+    render(Switch)
     screen.getByTestId('thumb')
   })
 
   test('clicking thumb will toggle value', async () => {
-    const { container } = render(Switch1)
+    const { container } = render(Switch)
     const root = container.querySelector('button')!
     screen.getByText('unchecked')
 
@@ -36,7 +36,7 @@ describe('test switch functionalities', () => {
   })
 
   test('keydown enter root will toggle value', async () => {
-    const { container } = render(Switch1)
+    const { container } = render(Switch)
     const button = container.querySelector('button')!
     screen.getByText('unchecked')
 
@@ -46,33 +46,4 @@ describe('test switch functionalities', () => {
     await fireEvent.keyDown(button, { key: 'Enter' })
     screen.getByText('unchecked')
   })
-  /*
-  test("keydown space root will toggle value", async () => {
-    const { container } = render(Switch1);
-    const input = container.querySelector("input")!;
-    screen.getByText("unchecked");
-
-    await fireEvent.keyDown(input, { keyCode: 32 });
-    screen.getByText("checked");
-
-    await fireEvent.keyDown(input, { keyCode: 32 });
-    screen.getByText("unchecked");
-  });
-
-  test("root has data state & reactive", async () => {
-    const { container } = render(Switch1);
-    const root = container.querySelector("input")!;
-    const input = container.querySelector("input")!;
-    screen.getByText("unchecked");
-
-    await fireEvent.keyDown(input, { keyCode: 32 });
-    screen.getByText("checked");
-    expect(root.dataset.state).toBe("checked");
-
-    await fireEvent.keyDown(input, { keyCode: 32 });
-    screen.getByText("unchecked");
-    expect(root.dataset.state).toBe("unchecked");
-  });
-
-  */
 })

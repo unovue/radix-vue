@@ -89,7 +89,7 @@ onMounted(() => {
         [`--radix-collapsible-content-width`]: `${width}px`,
       }"
     >
-      <slot />
+      <slot v-if="presentRef?.present" />
     </Primitive>
   </Presence>
 </template>

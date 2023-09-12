@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { inject, onMounted, ref } from 'vue'
 import { useDebounceFn, useResizeObserver } from '@vueuse/core'
 import { SCROLL_AREA_INJECTION_KEY } from './ScrollAreaRoot.vue'
 import { SCROLL_AREA_SCROLLBAR_INJECTION_KEY } from './ScrollAreaScrollbar.vue'
@@ -24,6 +24,8 @@ const handleResize = useDebounceFn(() => {
       : isOverflowY
   }
 }, 10)
+
+onMounted(() => handleResize())
 
 useResizeObserver(rootContext?.viewport, handleResize)
 useResizeObserver(rootContext?.content, handleResize)

@@ -34,6 +34,7 @@ watch(
 <template>
   <Primitive
     v-if="imageLoadingStatus === 'loaded'"
+    role="img"
     :as-child="props.asChild"
     :as="as"
   >

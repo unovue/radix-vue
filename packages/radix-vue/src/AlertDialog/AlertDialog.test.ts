@@ -1,15 +1,41 @@
-import { expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { axe } from 'vitest-axe'
 import AlertDialog from './story/_AlertDialog.vue'
+import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
+import { findAllByText, findByText, fireEvent } from '@testing-library/vue'
 
-it('should pass axe accessibility tests', async () => {
-  const wrapper = mount(AlertDialog, { attachTo: document.body })
-  expect(await axe(document.body)).toHaveNoViolations()
+describe('given a default Dialog', async () => {
+  let wrapper: VueWrapper<InstanceType<typeof AlertDialog>>
+  let trigger: HTMLElement
 
-  // open modal
-  wrapper.find('button').element.click()
-  await nextTick()
-  expect(await axe(document.body)).toHaveNoViolations()
+  beforeEach(async () => {
+    wrapper = mount(AlertDialog, { attachTo: document.body })
+    trigger = await findByText(wrapper.element as HTMLElement, 'Open')
+  })
+
+  it('should pass axe accessibility tests', async () => {
+    expect(await axe(document.body)).toHaveNoViolations()
+
+    // open modal
+    wrapper.find('button').element.click()
+    await nextTick()
+    expect(await axe(document.body)).toHaveNoViolations()
+  })
+
+  describe('after clicking the trigger', () => {
+    beforeEach(async () => {
+      fireEvent.click(trigger)
+    })
+
+    it('should open the content', () => {
+      expect(document.body.innerHTML).toContain('Title')
+    })
+
+    it('should focus the cancel button', async () => {
+      const cancelButton = await findAllByText(document.body, 'Cancel')
+      expect(cancelButton[cancelButton.length - 1]).toBe(document.activeElement)
+    })
+  })
 })

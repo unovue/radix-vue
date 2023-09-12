@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import type { MenuItemEmits } from '..'
 import { MenuGroup, MenuItem, MenuLabel, MenuSeparator } from '..'
 import MenuWithAnchor from './_MenuWithAnchor.vue'
+
+const emits = defineEmits<MenuItemEmits>()
 
 function handleSelect(text: string) {
   console.log({ text })
@@ -63,7 +66,7 @@ const foodGroups: Array<{
         v-for="(food, index) in foodGroup.foods"
         :key="index"
         class="flex items-center justify-between leading-[1] cursor-default select-none whitespace-nowrap h-[25px] px-[10px] text-black rounded-[3px] outline-none data-[highlighted]:bg-black data-[highlighted]:text-white data-[disabled]:text-gray-100"
-        @select="handleSelect(food.value)"
+        @select="handleSelect(food.value); emits('select', $event)"
       >
         {{ food.label }}
       </MenuItem>

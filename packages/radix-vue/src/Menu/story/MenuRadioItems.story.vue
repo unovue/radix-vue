@@ -20,7 +20,7 @@ function handleSelect(text: string) {
 </script>
 
 <template>
-  <Story title="Menu/RadioItems" :layout="{ type: 'single', iframe: true }">
+  <Story title="Menu/RadioItems" group="utilities" :layout="{ type: 'single', iframe: true }">
     <Variant title="default">
       <MenuWithAnchor>
         <MenuItem

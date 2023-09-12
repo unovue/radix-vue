@@ -26,6 +26,7 @@ const context = inject(CHECKBOX_INJECTION_KEY)
       :style="{ pointerEvents: 'none' }"
       :as-child="asChild"
       :as="as"
+      v-bind="$attrs"
     >
       <slot />
     </Primitive>

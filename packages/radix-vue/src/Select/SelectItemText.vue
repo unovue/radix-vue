@@ -62,7 +62,7 @@ export default {
   </Primitive>
 
   <!-- Portal the select item text into the trigger value node -->
-  <Teleport v-if="itemContext?.isSelected.value && context?.valueElement.value && !context.valueElementHasChildren" :to="context?.valueElement.value">
+  <Teleport v-if="itemContext?.isSelected.value && context?.valueElement.value && !context.valueElementHasChildren.value" :to="context?.valueElement.value">
     <slot />
   </Teleport>
 </template>

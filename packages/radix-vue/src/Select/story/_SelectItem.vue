@@ -20,7 +20,7 @@ defineProps<{
       <Icon icon="radix-icons:check" />
     </SelectItemIndicator>
     <SelectItemText>
-      woohoo  {{ option }}
+      {{ option }}
     </SelectItemText>
   </SelectItem>
 </template>

@@ -29,7 +29,7 @@ export interface SelectProvideValue {
   onTriggerChange(node: HTMLElement | undefined): void
   valueElement: Ref<HTMLElement | undefined>
   onValueElementChange(node: HTMLElement): void
-  valueElementHasChildren: boolean
+  valueElementHasChildren: Ref<boolean>
   onValueElementHasChildrenChange(hasChildren: boolean): void
   contentId: string
   modelValue?: Ref<string>
@@ -82,6 +82,7 @@ const triggerPointerDownPosRef = ref({
   x: 0,
   y: 0,
 })
+const valueElementHasChildren = ref(false)
 
 const { required, disabled, dir } = toRefs(props)
 provide<SelectProvideValue>(SELECT_INJECTION_KEY, {
@@ -93,8 +94,10 @@ provide<SelectProvideValue>(SELECT_INJECTION_KEY, {
   onValueElementChange: (node: HTMLElement | undefined) => {
     valueElement.value = node
   },
-  valueElementHasChildren: false,
-  onValueElementHasChildrenChange: (hasChildren: boolean) => {},
+  valueElementHasChildren,
+  onValueElementHasChildrenChange: (hasChildren: boolean) => {
+    valueElementHasChildren.value = hasChildren
+  },
   contentId: useId(),
   modelValue,
   onValueChange: (value: string) => {

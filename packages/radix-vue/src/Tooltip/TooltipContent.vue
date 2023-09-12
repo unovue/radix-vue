@@ -2,12 +2,14 @@
 import TooltipContentImpl, { type TooltipContentImplEmits, type TooltipContentImplProps } from './TooltipContentImpl.vue'
 import TooltipContentHoverable from './TooltipContentHoverable.vue'
 import { injectTooltipRootContent } from './TooltipRoot.vue'
+import { PopperContentPropsDefaultValue } from '@/Popper'
 import { useEmitAsProps } from '@/shared'
 
 export interface TooltipContentProps extends TooltipContentImplProps {}
 export type TooltipContentEmits = TooltipContentImplEmits
 
 const props = withDefaults(defineProps<TooltipContentProps>(), {
+  ...PopperContentPropsDefaultValue,
   side: 'top',
 })
 const emits = defineEmits<TooltipContentEmits>()

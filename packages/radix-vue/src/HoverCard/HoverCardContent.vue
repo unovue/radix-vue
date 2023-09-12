@@ -7,14 +7,13 @@ import { excludeTouch } from './utils'
 import { Presence } from '@/Presence'
 import HoverCardContentImpl, { type HoverCardContentImplEmits, type HoverCardContentImplProps } from './HoverCardContentImpl.vue'
 import { useEmitAsProps } from '@/shared'
+import { PopperContentPropsDefaultValue } from '@/Popper'
 
 export interface HoverCardContentProps extends HoverCardContentImplProps {}
 export type HoverCardContentEmits = HoverCardContentImplEmits
 
 const props = withDefaults(defineProps<HoverCardContentProps>(), {
-  side: 'bottom',
-  align: 'center',
-  avoidCollisions: true,
+  ...PopperContentPropsDefaultValue,
 })
 const emits = defineEmits<HoverCardContentEmits>()
 const emitsAsProps = useEmitAsProps(emits)

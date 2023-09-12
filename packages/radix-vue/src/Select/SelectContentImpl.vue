@@ -75,9 +75,7 @@ import {
 import { focusFirst } from '@/Menu/utils'
 import type { PopperContentProps } from '@/Popper'
 
-const props = withDefaults(defineProps<SelectContentImplProps>(), {
-  position: 'item-aligned',
-})
+const props = defineProps<SelectContentImplProps>()
 const emits = defineEmits<SelectContentImplEmits>()
 
 const context = inject(SELECT_INJECTION_KEY)

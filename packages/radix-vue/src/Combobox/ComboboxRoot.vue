@@ -52,12 +52,12 @@ const searchTerm = useVModel(props, 'searchTerm', emits, {
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
-  passive: true,
+  passive: !props.modelValue as false,
 }) as Ref<string>
 
 const open = useVModel(props, 'open', emits, {
-  defaultValue: props.defaultOpen ?? '',
-  passive: true,
+  defaultValue: props.defaultOpen,
+  passive: !props.open as false,
 })
 
 async function onOpenChange(val: boolean) {
@@ -134,6 +134,7 @@ provide(COMBOBOX_INJECT_KEY, {
 
 <template>
   <PopperRoot>
+    {{ open }}
     <Primitive
       ref="primitiveElement"
       :style="{

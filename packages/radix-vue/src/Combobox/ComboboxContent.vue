@@ -5,11 +5,14 @@ import ComboboxContentImpl, { type ComboboxContentImplEmits, type ComboboxConten
 import { Presence } from '@/Presence'
 import { useEmitAsProps } from '@/shared'
 
-const props = withDefaults(defineProps<ComboboxContentImplProps>(), {
+export interface ComboboxContentProps extends ComboboxContentImplProps {}
+export type ComboboxContentEmits = ComboboxContentImplEmits
+
+const props = withDefaults(defineProps<ComboboxContentProps>(), {
   position: 'inline',
 })
 
-const emits = defineEmits<ComboboxContentImplEmits>()
+const emits = defineEmits<ComboboxContentEmits>()
 
 const context = inject(COMBOBOX_INJECT_KEY)
 </script>

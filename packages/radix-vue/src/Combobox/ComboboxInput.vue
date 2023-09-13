@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { inject, onMounted, ref } from 'vue'
+import { computed, inject, onMounted, ref } from 'vue'
 import { COMBOBOX_INJECT_KEY } from './ComboboxRoot.vue'
 
 export interface ComboboxInputProps {
   type?: string
+  disabled?: boolean
 }
 
-withDefaults(defineProps<ComboboxInputProps>(), {
+const props = withDefaults(defineProps<ComboboxInputProps>(), {
   type: 'text',
 })
 
@@ -17,6 +18,8 @@ onMounted(() => {
   context!.inputElement = elRef
   context?.onInputElementChange(elRef.value)
 })
+
+const disabled = computed(() => props.disabled || context?.disabled.value || false)
 
 function handleKeyDown(ev: KeyboardEvent) {
   if (!context?.open.value)
@@ -46,6 +49,8 @@ function handleInput() {
     :type="type"
     :aria-expanded="context?.open.value"
     :aria-controls="context?.contentId"
+    :disabled="disabled"
+    :aria-disabled="disabled ?? undefined"
     aria-autocomplete="list"
     tabindex="0"
     role="combobox"

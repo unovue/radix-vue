@@ -10,6 +10,10 @@ interface ComboboxItemContextValue {
 export const COMBOBOX_ITEM_INJECTION_KEY
   = Symbol() as InjectionKey<ComboboxItemContextValue>
 
+export type SelectItemEmits = {
+  select: [value: string]
+}
+
 export interface SelectItemProps extends PrimitiveProps {
   value: string
   disabled?: boolean
@@ -39,12 +43,14 @@ import {
 import { useId } from '@/shared'
 
 const props = defineProps<SelectItemProps>()
+const emits = defineEmits<SelectItemEmits>()
+
 const { disabled } = toRefs(props)
 
 const context = inject(COMBOBOX_INJECT_KEY)
 const groupContext = inject(COMBOBOX_GROUP_INJECTION_KEY)
 
-const isSelected = computed(() => context?.modelValue?.value === props.value)
+const isSelected = computed(() => context?.multiple.value ? context.modelValue.value?.includes(props.value) : context?.modelValue?.value === props.value)
 const isFocused = computed(() => context?.selectedValue.value === props.value)
 const textValue = ref(props.textValue ?? '')
 const textId = useId()
@@ -57,8 +63,10 @@ async function handleSelect(ev?: PointerEvent) {
   if (ev?.defaultPrevented)
     return
 
-  if (!disabled.value)
+  if (!disabled.value) {
     context!.onValueChange(props.value)
+    emits('select', props.value)
+  }
 }
 
 async function handlePointerMove(event: PointerEvent) {

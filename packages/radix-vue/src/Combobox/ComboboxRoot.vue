@@ -1,4 +1,4 @@
-<script lang="ts" generic="T">
+<script lang="ts">
 interface ComboboxContextValue {
   modelValue: Ref<string | string[]>
   onValueChange: (val: string) => void
@@ -22,6 +22,12 @@ interface ComboboxContextValue {
 
 export const COMBOBOX_INJECT_KEY = Symbol() as InjectionKey<ComboboxContextValue>
 
+export type ComboboxRootEmits = {
+  'update:modelValue': [value: string]
+  'update:open': [value: boolean]
+  'update:searchTerm': [value: string]
+}
+
 export interface ComboboxRootProps extends PrimitiveProps {
   modelValue?: string | string[]
   defaultValue?: string | string[]
@@ -30,12 +36,7 @@ export interface ComboboxRootProps extends PrimitiveProps {
   searchTerm?: string
   multiple?: boolean
   disabled?: boolean
-}
-
-export type ComboboxRootEmits = {
-  'update:modelValue': [value: string]
-  'update:open': [value: boolean]
-  'update:searchTerm': [value: string]
+  filterFunction?: (val: string) => boolean
 }
 </script>
 
@@ -95,7 +96,7 @@ const isUserInputted = ref(false)
 const options = ref<string[]>([])
 const filteredOptions = computed(() => {
   if (isUserInputted.value)
-    return options.value.filter(i => i.toLowerCase().includes(searchTerm.value?.toLowerCase()))
+    return options.value.filter(props.filterFunction ?? (i => i.toLowerCase().includes(searchTerm.value?.toLowerCase())))
   else
     return options.value
 },

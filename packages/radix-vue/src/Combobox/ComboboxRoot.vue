@@ -8,9 +8,12 @@ interface ComboboxContextValue {
   open: Ref<boolean>
   onOpenChange: (value: boolean) => void
   isUserInputted: Ref<boolean>
-  options: Ref<Array<string | object>>
+  options: ComputedRef<Array<string | object>>
+  optionsInstance: Ref<Set<ComponentInternalInstance>>
   filteredOptions: Ref<Array<string | object>>
   contentId: string
+  contentElement: Ref<HTMLElement | undefined>
+  onContentElementChange: (el: HTMLElement) => void
   inputElement: Ref<HTMLInputElement | undefined>
   onInputElementChange: (el: HTMLInputElement) => void
   onInputNavigation: (dir: 'up' | 'down' | 'home' | 'end') => void
@@ -43,9 +46,9 @@ export interface ComboboxRootProps extends PrimitiveProps {
 <script setup lang="ts">
 import { PopperRoot } from '@/Popper'
 import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
-import { useId } from '@/shared'
+import { useCollection, useId } from '@/shared'
 import { useVModel } from '@vueuse/core'
-import { type InjectionKey, type Ref, computed, nextTick, onMounted, provide, ref, toRefs, watch } from 'vue'
+import { type ComponentInternalInstance, type ComputedRef, type InjectionKey, type Ref, computed, nextTick, onMounted, provide, ref, toRefs, watch } from 'vue'
 
 const props = withDefaults(defineProps<ComboboxRootProps>(), {
   open: undefined,
@@ -55,7 +58,7 @@ const emit = defineEmits<ComboboxRootEmits>()
 const { multiple, disabled } = toRefs(props)
 const searchTerm = useVModel(props, 'searchTerm', emit, {
   defaultValue: '',
-  passive: true,
+  passive: !props.open as false,
 }) as Ref<string>
 
 const modelValue = useVModel(props, 'modelValue', emit, {
@@ -89,12 +92,28 @@ function onValueChange(val: string | object) {
   else {
     modelValue.value = val
   }
-  if (!multiple.value)
-    onOpenChange(false)
+  onOpenChange(false)
 }
 
 const isUserInputted = ref(false)
-const options = ref<Array<string | object>>([])
+const optionsInstance = ref<Set<ComponentInternalInstance>>(new Set())
+
+const inputElement = ref<HTMLInputElement>()
+const contentElement = ref<HTMLElement>()
+const { primitiveElement, currentElement: parentElement } = usePrimitiveElement()
+const { createCollection } = useCollection()
+const collections = createCollection(contentElement)
+
+const selectedValue = ref<string | object>()
+
+const options = computed(() => {
+  const instances = Array.from(optionsInstance.value)
+  // we sort the instances based on the rendered html order
+  return instances
+    .sort((a, b) => collections.value.indexOf(a.vnode.el as HTMLElement) - collections.value.indexOf(b.vnode.el as HTMLElement))
+    .map(i => i.props.value as string | object)
+})
+
 const filteredOptions = computed(() => {
   if (isUserInputted.value) {
     if (props.filterFunction)
@@ -104,13 +123,9 @@ const filteredOptions = computed(() => {
       return options.value.filter(i => (i as string).toLowerCase().includes(searchTerm.value?.toLowerCase()))
   }
   return options.value
-},
-)
+})
 
-const { primitiveElement, currentElement: parentElement } = usePrimitiveElement()
-const inputElement = ref<HTMLInputElement>()
-const selectedValue = ref<string | object>()
-const activeIndex = computed(() => filteredOptions.value.findIndex(i => i === selectedValue.value))
+const activeIndex = computed(() => filteredOptions.value.findIndex(i => JSON.stringify(i) === JSON.stringify(selectedValue.value)))
 
 watch(() => filteredOptions.value.length, async (length) => {
   await nextTick()
@@ -133,6 +148,7 @@ provide(COMBOBOX_INJECT_KEY, {
   open,
   onOpenChange,
   options,
+  optionsInstance,
   filteredOptions,
   contentId: useId(),
   inputElement,
@@ -153,12 +169,18 @@ provide(COMBOBOX_INJECT_KEY, {
       selectedValue.value = filteredOptions.value[val === 'up' ? index - 1 : index + 1]
   },
   onInputEnter: () => {
-    if (selectedValue.value)
-      onValueChange(selectedValue.value)
+    if (selectedValue.value) {
+      const element = Array.from(optionsInstance.value).find(i => JSON.stringify(i.props.value) === JSON.stringify(selectedValue.value))?.vnode?.el as HTMLElement
+      if (element)
+        element.click()
+      else onValueChange(selectedValue.value)
+    }
   },
   selectedValue,
   onSelectedValueChange: val => selectedValue.value = val,
   parentElement,
+  contentElement,
+  onContentElementChange: val => contentElement.value = val,
 })
 </script>
 

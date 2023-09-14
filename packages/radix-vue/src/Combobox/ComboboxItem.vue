@@ -1,8 +1,5 @@
 <script lang="ts">
 interface ComboboxItemContextValue {
-  value: string | object
-  textId: string
-  disabled: Ref<boolean>
   isSelected: Ref<boolean>
 }
 
@@ -25,9 +22,11 @@ import {
   type InjectionKey,
   type Ref,
   computed,
+  getCurrentInstance,
   inject,
   nextTick,
   onMounted,
+  onUnmounted,
   provide,
   ref,
   toRefs,
@@ -91,9 +90,11 @@ if (props.value === '') {
     'A <SelectItem /> must have a value prop that is not an empty string. This is because the Select value can be set to an empty string to clear the selection and show the placeholder.',
   )
 }
+
+const instance = getCurrentInstance()
 onMounted(() => {
-  if (!context?.options.value.includes(props.value))
-    context?.options.value.push(props.value)
+  if (instance)
+    context?.optionsInstance.value.add(instance)
 
   if (!groupContext?.options?.value?.includes(props.value))
     groupContext?.options?.value.push(props.value)
@@ -102,10 +103,12 @@ onMounted(() => {
     textValue.value = currentElement.value.textContent
 })
 
+onUnmounted(() => {
+  if (instance)
+    context?.optionsInstance.value.delete(instance)
+})
+
 provide(COMBOBOX_ITEM_INJECTION_KEY, {
-  value: props.value,
-  disabled,
-  textId,
   isSelected,
 })
 </script>
@@ -126,6 +129,7 @@ provide(COMBOBOX_ITEM_INJECTION_KEY, {
     :as="as"
     :as-child="asChild"
     @pointerup="handleSelect"
+    @click="handleSelect"
     @pointermove="handlePointerMove"
   >
     <slot>{{ value }}</slot>

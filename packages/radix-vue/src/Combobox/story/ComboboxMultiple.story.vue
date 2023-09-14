@@ -11,16 +11,10 @@ const people = [
   { id: 5, name: 'Katelyn Rohan' },
 ]
 
-const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek'].map((v, i) => ({ id: i, name: v }))
-
 const searchTerm = ref('')
-const v = ref(people[0])
+const v = ref([people[0]])
 
 const filteredPeople = computed(() => people.filter(i => i.name.toLowerCase().includes(searchTerm.value.toLowerCase())))
-const filteredVege = computed(() => vegetables.filter(i => i.name.toLowerCase().includes(searchTerm.value.toLowerCase())))
-function filterFunction(list: any[], term: string) {
-  return list.filter(i => i.name.toLowerCase().includes(term.toLowerCase()))
-}
 
 function handleUpdate(ev: any) {
   console.log(ev)
@@ -28,9 +22,9 @@ function handleUpdate(ev: any) {
 </script>
 
 <template>
-  <Story title="Combobox/Object" :layout="{ type: 'grid', width: '50%' }">
-    <Variant title="Default" auto-props-disabled>
-      <ComboboxRoot v-model="v" :filter-function="filterFunction" @update:model-value="handleUpdate">
+  <Story title="Combobox/Multiple" :layout="{ type: 'grid', width: '50%' }">
+    <Variant title="String" auto-props-disabled>
+      <ComboboxRoot multiple>
         <ComboboxHeader class="min-w-[160px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">
           <ComboboxInput class="bg-transparent outline-none text-grass11 placeholder-gray-400" placeholder="Test" />
           <ComboboxTrigger>
@@ -47,7 +41,7 @@ function handleUpdate(ev: any) {
               </ComboboxLabel>
 
               <ComboboxItem
-                v-for="(option, index) in people" :key="index"
+                v-for="option in filteredPeople.map(i => i.name)" :key="option"
                 class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-grass9 data-[highlighted]:text-grass1"
                 :value="option"
               >
@@ -57,7 +51,7 @@ function handleUpdate(ev: any) {
                   <Icon icon="radix-icons:check" />
                 </ComboboxItemIndicator>
                 <span>
-                  {{ option.name }}
+                  {{ option }}
                 </span>
               </ComboboxItem>
             </ComboboxGroup>
@@ -66,8 +60,8 @@ function handleUpdate(ev: any) {
       </ComboboxRoot>
     </Variant>
 
-    <Variant title="Manual filtering" auto-props-disabled>
-      <ComboboxRoot v-model:search-term="searchTerm" v-model="v" @update:model-value="handleUpdate">
+    <Variant title="Object" auto-props-disabled>
+      <ComboboxRoot v-model:search-term="searchTerm" v-model="v" multiple @update:model-value="handleUpdate">
         <ComboboxHeader class="min-w-[160px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">
           <ComboboxInput class="bg-transparent outline-none text-grass11 placeholder-gray-400" placeholder="Test" />
           <ComboboxTrigger>
@@ -85,27 +79,6 @@ function handleUpdate(ev: any) {
 
               <ComboboxItem
                 v-for="option in filteredPeople" :key="option.id"
-                class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-grass9 data-[highlighted]:text-grass1"
-                :value="option"
-              >
-                <ComboboxItemIndicator
-                  class="absolute left-0 w-[25px] inline-flex items-center justify-center"
-                >
-                  <Icon icon="radix-icons:check" />
-                </ComboboxItemIndicator>
-                <span>
-                  {{ option.name }}
-                </span>
-              </ComboboxItem>
-            </ComboboxGroup>
-
-            <ComboboxGroup>
-              <ComboboxLabel class="px-[25px] text-xs leading-[25px] text-mauve11">
-                Vegetables
-              </ComboboxLabel>
-
-              <ComboboxItem
-                v-for="option in filteredVege" :key="option.id"
                 class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-grass9 data-[highlighted]:text-grass1"
                 :value="option"
               >

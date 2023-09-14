@@ -22,6 +22,7 @@ export interface ComboboxContentImplProps extends PopperContentProps {
 import {
   computed,
   inject,
+  onMounted,
 } from 'vue'
 import { COMBOBOX_INJECT_KEY } from './ComboboxRoot.vue'
 import {
@@ -51,9 +52,13 @@ const pickedProps = computed(() => {
   else return {}
 })
 
-function handleLeave() {
+function handleLeave(ev: PointerEvent) {
   context?.onSelectedValueChange('')
 }
+
+onMounted(() => {
+  context?.onContentElementChange(currentElement.value)
+})
 </script>
 
 <template>

@@ -32,7 +32,7 @@ const isAnyChildInFilteredOptions = computed(() =>
 </script>
 
 <template>
-  <Primitive v-if="isAnyChildInFilteredOptions" role="group" v-bind="props" :aria-labelledby="id">
+  <Primitive v-show="isAnyChildInFilteredOptions" role="group" v-bind="props" :aria-labelledby="id">
     <slot />
   </Primitive>
 </template>

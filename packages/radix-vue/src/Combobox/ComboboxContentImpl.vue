@@ -15,6 +15,8 @@ export type ComboboxContentImplEmits = {
 
 export interface ComboboxContentImplProps extends PopperContentProps {
   position?: 'inline' | 'popper'
+  bodyLock?: boolean
+  disableOutsidePointerEvents?: boolean
 }
 </script>
 
@@ -41,7 +43,7 @@ const emits = defineEmits<ComboboxContentImplEmits>()
 
 const context = inject(COMBOBOX_INJECT_KEY)
 
-useBodyScrollLock(true)
+useBodyScrollLock(props.bodyLock)
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 useHideOthers(currentElement)
@@ -77,7 +79,7 @@ const popperStyle = {
 <template>
   <DismissableLayer
     as-child
-    disable-outside-pointer-events
+    :disable-outside-pointer-events="disableOutsidePointerEvents"
     @focus-outside.prevent
     @dismiss="context?.onOpenChange(false)"
     @escape-key-down="emits('escapeKeyDown', $event)"

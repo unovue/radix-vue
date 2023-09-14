@@ -1,36 +1,36 @@
 <script lang="ts">
 interface ComboboxContextValue {
-  modelValue: Ref<string | string[]>
-  onValueChange: (val: string) => void
+  modelValue: Ref<string | Array<string> | object | Array<object>>
+  onValueChange: (val: string | object) => void
   searchTerm: Ref<string>
   multiple: Ref<boolean>
   disabled: Ref<boolean>
   open: Ref<boolean>
   onOpenChange: (value: boolean) => void
   isUserInputted: Ref<boolean>
-  options: Ref<string[]>
-  filteredOptions: Ref<string[]>
+  options: Ref<Array<string | object>>
+  filteredOptions: Ref<Array<string | object>>
   contentId: string
   inputElement: Ref<HTMLInputElement | undefined>
   onInputElementChange: (el: HTMLInputElement) => void
   onInputNavigation: (dir: 'up' | 'down' | 'home' | 'end') => void
   onInputEnter: () => void
-  selectedValue: Ref<string>
-  onSelectedValueChange: (val: string) => void
+  selectedValue: Ref<string | object | undefined>
+  onSelectedValueChange: (val: string | object) => void
   parentElement: Ref<HTMLElement | undefined>
 }
 
 export const COMBOBOX_INJECT_KEY = Symbol() as InjectionKey<ComboboxContextValue>
 
 export type ComboboxRootEmits = {
-  'update:modelValue': [value: string]
+  'update:modelValue': [value: string | Array<string> | object | Array<object>]
   'update:open': [value: boolean]
   'update:searchTerm': [value: string]
 }
 
 export interface ComboboxRootProps extends PrimitiveProps {
-  modelValue?: string | string[]
-  defaultValue?: string | string[]
+  modelValue?: string | string[] | object | object[]
+  defaultValue?: string | string[] | object | object[]
   open?: boolean
   defaultOpen?: boolean
   searchTerm?: string
@@ -62,7 +62,7 @@ const modelValue = useVModel(props, 'modelValue', emit, {
   defaultValue: props.defaultValue ?? multiple.value ? [] : undefined,
   passive: !props.modelValue as false,
   deep: true,
-}) as Ref<string>
+}) as Ref<string | Array<string> | object | Array<object>>
 
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
@@ -78,15 +78,17 @@ async function onOpenChange(val: boolean) {
     searchTerm.value = modelValue.value
 }
 
-function onValueChange(val: string) {
+function onValueChange(val: string | object) {
+  if (typeof val === 'string' && !multiple.value)
+    searchTerm.value = val
+
   if (multiple.value && Array.isArray(modelValue.value)) {
     const index = modelValue.value.findIndex(i => i === val)
+    // @ts-expect-error  assigning to type never?
     index === -1 ? modelValue.value.push(val) : modelValue.value.splice(index, 1)
-    searchTerm.value = ''
   }
   else {
     modelValue.value = val
-    searchTerm.value = val
   }
   if (!multiple.value)
     onOpenChange(false)
@@ -104,7 +106,7 @@ const filteredOptions = computed(() => {
 
 const { primitiveElement, currentElement: parentElement } = usePrimitiveElement()
 const inputElement = ref<HTMLInputElement>()
-const selectedValue = ref<string>('')
+const selectedValue = ref<string | object>()
 const activeIndex = computed(() => filteredOptions.value.findIndex(i => i === selectedValue.value))
 
 watch(() => filteredOptions.value.length, async (length) => {
@@ -148,7 +150,8 @@ provide(COMBOBOX_INJECT_KEY, {
       selectedValue.value = filteredOptions.value[val === 'up' ? index - 1 : index + 1]
   },
   onInputEnter: () => {
-    onValueChange(selectedValue.value)
+    if (selectedValue.value)
+      onValueChange(selectedValue.value)
   },
   selectedValue,
   onSelectedValueChange: val => selectedValue.value = val,
@@ -165,6 +168,7 @@ provide(COMBOBOX_INJECT_KEY, {
       }"
       :as="as" :as-child="asChild" v-bind="$attrs"
     >
+      {{ modelValue }}
       <slot
         :active-index="activeIndex"
         :open="open"

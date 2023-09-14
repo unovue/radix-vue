@@ -3,7 +3,7 @@ export interface ComboboxGroupProps extends PrimitiveProps {}
 
 interface SelectGroupContextValue {
   id: string
-  options?: Ref<string[]>
+  options?: Ref<Array<string | object>>
 }
 export const COMBOBOX_GROUP_INJECTION_KEY
   = Symbol() as InjectionKey<SelectGroupContextValue>
@@ -18,7 +18,7 @@ import { COMBOBOX_INJECT_KEY } from './ComboboxRoot.vue'
 const props = defineProps<ComboboxGroupProps>()
 
 const id = useId()
-const options = ref<string[]>([])
+const options = ref<Array<string | object>>([])
 provide(COMBOBOX_GROUP_INJECTION_KEY, {
   id,
   options,

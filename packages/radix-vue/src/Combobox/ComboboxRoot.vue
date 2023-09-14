@@ -167,6 +167,10 @@ provide(COMBOBOX_INJECT_KEY, {
 
     else
       selectedValue.value = filteredOptions.value[val === 'up' ? index - 1 : index + 1]
+
+    // Find the highlighted element and scroll into view
+    // We can put this in Item, but we aviod having too many watcher
+    Array.from(optionsInstance.value).find(i => i.props.value === selectedValue.value)?.vnode.el?.scrollIntoView({ block: 'nearest' })
   },
   onInputEnter: () => {
     if (selectedValue.value) {

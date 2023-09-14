@@ -11,7 +11,13 @@ const props = withDefaults(defineProps<LabelProps>(), {
 </script>
 
 <template>
-  <Primitive v-bind="props">
+  <Primitive
+    v-bind="props"
+    @mousedown="(event) => {
+      // prevent text selection when double clicking label
+      if (!event.defaultPrevented && event.detail > 1) event.preventDefault();
+    }"
+  >
     <slot />
   </Primitive>
 </template>

@@ -11,16 +11,16 @@ const people = [
   { id: 5, name: 'Katelyn Rohan' },
 ]
 
-const v = ref([people[0], people[1]])
-function handleUpdate(ev) {
+const v = ref(people[0])
+function handleUpdate(ev: any) {
   console.log(ev)
 }
 </script>
 
 <template>
   <Story title="Combobox/Object" :layout="{ type: 'single', iframe: false }">
-    <Variant title="Object">
-      <ComboboxRoot v-model="v" multiple @update:model-value="handleUpdate">
+    <Variant title="Default">
+      <ComboboxRoot v-model="v" @update:model-value="handleUpdate">
         <ComboboxHeader class="min-w-[160px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">
           <ComboboxInput class="bg-transparent outline-none text-grass11 placeholder-gray-400" placeholder="Test" />
           <ComboboxTrigger>
@@ -33,7 +33,7 @@ function handleUpdate(ev) {
 
             <ComboboxGroup>
               <ComboboxLabel class="px-[25px] text-xs leading-[25px] text-mauve11">
-                Fruits
+                People
               </ComboboxLabel>
 
               <ComboboxItem

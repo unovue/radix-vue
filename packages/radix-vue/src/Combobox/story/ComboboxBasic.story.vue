@@ -3,14 +3,13 @@ import { ref } from 'vue'
 import { ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxHeader, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxRoot, ComboboxSeparator, ComboboxTrigger, ComboboxViewport } from '../'
 import { Icon } from '@iconify/vue'
 
-const rootOpen = ref(true)
 const v = ref('Apple')
 const options = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
 const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
 </script>
 
 <template>
-  <Story title="Combobox/default" :layout="{ type: 'single', iframe: false }">
+  <Story title="Combobox/Default" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
       <ComboboxRoot v-model="v">
         <ComboboxHeader class="min-w-[160px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">

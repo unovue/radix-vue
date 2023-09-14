@@ -25,7 +25,10 @@ provide(COMBOBOX_GROUP_INJECTION_KEY, {
 })
 
 const context = inject(COMBOBOX_INJECT_KEY)
-const isAnyChildInFilteredOptions = computed(() => !context?.isUserInputted.value || context?.filteredOptions.value.some(i => options.value.includes(i)))
+const isAnyChildInFilteredOptions = computed(() =>
+  !context?.isUserInputted.value
+   || options.value.length === 0
+   || context?.filteredOptions.value.map(i => JSON.stringify(i)).some(i => options.value.map(i => JSON.stringify(i)).includes(i)))
 </script>
 
 <template>

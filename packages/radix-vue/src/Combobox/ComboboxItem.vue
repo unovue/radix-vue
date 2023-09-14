@@ -53,8 +53,7 @@ const { primitiveElement, currentElement } = usePrimitiveElement()
 
 const isSelected = computed(() =>
   context?.multiple.value && Array.isArray(context.modelValue.value)
-  // @ts-expect-error assigning to type never?
-    ? context.modelValue.value?.includes(props.value)
+    ? context.modelValue.value?.includes(props.value as never)
     : JSON.stringify(context?.modelValue?.value) === JSON.stringify(props.value),
 )
 
@@ -63,7 +62,10 @@ const textValue = ref(props.textValue ?? '')
 const textId = useId()
 
 const isInOption = computed(() =>
-  context?.isUserInputted.value ? context?.searchTerm.value === '' || context?.filteredOptions.value.includes(props.value) : true)
+  context?.isUserInputted.value
+    ? context?.searchTerm.value === ''
+     || context?.filteredOptions.value.map(i => JSON.stringify(i)).includes(JSON.stringify(props.value))
+    : true)
 
 async function handleSelect(ev?: PointerEvent) {
   await nextTick()
@@ -96,7 +98,7 @@ onMounted(() => {
   if (!groupContext?.options?.value?.includes(props.value))
     groupContext?.options?.value.push(props.value)
 
-  if (!textValue.value && currentElement.value.textContent)
+  if (!textValue.value && currentElement.value?.textContent)
     textValue.value = currentElement.value.textContent
 })
 

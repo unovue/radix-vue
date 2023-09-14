@@ -36,7 +36,7 @@ export interface ComboboxRootProps extends PrimitiveProps {
   searchTerm?: string
   multiple?: boolean
   disabled?: boolean
-  filterFunction?: (val: string) => boolean
+  filterFunction?: (val: Array<string | any>, term: string) => Array<any>
 }
 </script>
 
@@ -73,19 +73,18 @@ async function onOpenChange(val: boolean) {
   open.value = val
   await nextTick()
   inputElement.value?.focus()
-  isUserInputted.value = false
+  if (!val)
+    isUserInputted.value = false
   if (!val && !multiple.value && typeof modelValue.value === 'string')
     searchTerm.value = modelValue.value
 }
 
 function onValueChange(val: string | object) {
-  if (typeof val === 'string' && !multiple.value)
-    searchTerm.value = val
+  searchTerm.value = (typeof val === 'string' && !multiple.value) ? val : ''
 
   if (multiple.value && Array.isArray(modelValue.value)) {
     const index = modelValue.value.findIndex(i => i === val)
-    // @ts-expect-error  assigning to type never?
-    index === -1 ? modelValue.value.push(val) : modelValue.value.splice(index, 1)
+    index === -1 ? modelValue.value.push(val as never) : modelValue.value.splice(index, 1)
   }
   else {
     modelValue.value = val
@@ -95,12 +94,16 @@ function onValueChange(val: string | object) {
 }
 
 const isUserInputted = ref(false)
-const options = ref<string[]>([])
+const options = ref<Array<string | object>>([])
 const filteredOptions = computed(() => {
-  if (isUserInputted.value)
-    return options.value.filter(props.filterFunction ?? (i => i.toLowerCase().includes(searchTerm.value?.toLowerCase())))
-  else
-    return options.value
+  if (isUserInputted.value) {
+    if (props.filterFunction)
+      return props.filterFunction(options.value, searchTerm.value)
+
+    else if (typeof options.value[0] === 'string')
+      return options.value.filter(i => (i as string).toLowerCase().includes(searchTerm.value?.toLowerCase()))
+  }
+  return options.value
 },
 )
 
@@ -168,7 +171,6 @@ provide(COMBOBOX_INJECT_KEY, {
       }"
       :as="as" :as-child="asChild" v-bind="$attrs"
     >
-      {{ modelValue }}
       <slot
         :active-index="activeIndex"
         :open="open"

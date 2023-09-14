@@ -1,11 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxHeader, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxRoot, ComboboxTrigger, ComboboxViewport } from '../'
 import { Icon } from '@iconify/vue'
-
-const v = ref('Apple')
-const options = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
-const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
 
 const links = [
   {
@@ -49,7 +44,7 @@ const links = [
               <ComboboxItem
                 v-for="(option, index) in links" :key="index"
                 class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-grass9 data-[highlighted]:text-grass1"
-                :value="option"
+                :value="option.children"
                 as-child
               >
                 <a :href="option.href" target="_blank">

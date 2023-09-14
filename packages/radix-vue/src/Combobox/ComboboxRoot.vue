@@ -58,7 +58,7 @@ const emit = defineEmits<ComboboxRootEmits>()
 const { multiple, disabled } = toRefs(props)
 const searchTerm = useVModel(props, 'searchTerm', emit, {
   defaultValue: '',
-  passive: !props.open as false,
+  passive: !props.searchTerm as false,
 }) as Ref<string>
 
 const modelValue = useVModel(props, 'modelValue', emit, {

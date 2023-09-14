@@ -59,6 +59,19 @@ function handleLeave(ev: PointerEvent) {
 onMounted(() => {
   context?.onContentElementChange(currentElement.value)
 })
+
+const popperStyle = {
+  // Ensure border-box for floating-ui calculations
+  'boxSizing': 'border-box',
+  '--radix-combobox-content-transform-origin':
+        'var(--radix-popper-transform-origin)',
+  '--radix-combobox-content-available-width':
+        'var(--radix-popper-available-width)',
+  '--radix-combobox-content-available-height':
+        'var(--radix-popper-available-height)',
+  '--radix-combobox-trigger-width': 'var(--radix-popper-anchor-width)',
+  '--radix-combobox-trigger-height': 'var(--radix-popper-anchor-height)',
+}
 </script>
 
 <template>
@@ -87,6 +100,7 @@ onMounted(() => {
         flexDirection: 'column',
         // reset the outline by default as the content MAY get focused
         outline: 'none',
+        ...(position === 'popper' ? popperStyle : {}),
       }"
       @pointerleave="handleLeave"
     >

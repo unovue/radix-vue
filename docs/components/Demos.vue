@@ -5,6 +5,7 @@ import AspectRatioDemo from './demo/AspectRatio/index.vue'
 import AvatarDemo from './demo/Avatar/index.vue'
 import CheckboxDemo from './demo/Checkbox/index.vue'
 import CollapsibleDemo from './demo/Collapsible/index.vue'
+import ComboboxDemo from './demo/Combobox/index.vue'
 import ContextMenuDemo from './demo/ContextMenu/index.vue'
 import DialogDemo from './demo/Dialog/index.vue'
 import DropdownMenuDemo from './demo/DropdownMenu/index.vue'
@@ -48,6 +49,9 @@ import DemoContainer from './DemoContainer.vue'
     </DemoContainer>
     <DemoContainer title="collapsible">
       <CollapsibleDemo />
+    </DemoContainer>
+    <DemoContainer title="combobox">
+      <ComboboxDemo />
     </DemoContainer>
     <DemoContainer title="context menu">
       <ContextMenuDemo />

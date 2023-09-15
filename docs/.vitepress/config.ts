@@ -119,6 +119,7 @@ function sidebar() {
         { text: 'Avatar', link: '/components/avatar' },
         { text: 'Checkbox', link: '/components/checkbox' },
         { text: 'Collapsible', link: '/components/collapsible' },
+        { text: 'Combobox', link: '/components/combobox' },
         { text: 'Context Menu', link: '/components/context-menu' },
         { text: 'Dialog', link: '/components/dialog' },
         { text: 'Dropdown Menu', link: '/components/dropdown-menu' },

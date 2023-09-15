@@ -3,6 +3,7 @@ import { h } from 'vue'
 import Theme from 'vitepress/theme'
 import HomePage from '../components/HomePage.vue'
 import HomePageDemo from '../components/HomePageDemo.vue'
+import Badge from '../components/Badge.vue'
 import './style.css'
 import './tailwind.postcss'
 
@@ -26,5 +27,7 @@ export default {
 
     for (const path in tableModules)
       app.component(path.match(regex)?.[1], tableModules[path]?.default)
+
+    app.component('Badge', Badge)
   },
 }

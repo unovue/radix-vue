@@ -39,6 +39,8 @@ export interface ComboboxRootProps extends PrimitiveProps {
   searchTerm?: string
   multiple?: boolean
   disabled?: boolean
+  name?: string
+  dir?: Direction
   filterFunction?: (val: Array<string | any>, term: string) => Array<any>
 }
 </script>
@@ -47,15 +49,18 @@ export interface ComboboxRootProps extends PrimitiveProps {
 import { PopperRoot } from '@/Popper'
 import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
 import { useCollection, useId } from '@/shared'
+import type { Direction } from '@/shared/types'
 import { useVModel } from '@vueuse/core'
 import { type ComponentInternalInstance, type ComputedRef, type InjectionKey, type Ref, computed, nextTick, onMounted, provide, ref, toRefs, watch } from 'vue'
+import { VisuallyHiddenInput } from '@/VisuallyHidden'
 
 const props = withDefaults(defineProps<ComboboxRootProps>(), {
   open: undefined,
+  dir: 'ltr',
 })
 const emit = defineEmits<ComboboxRootEmits>()
 
-const { multiple, disabled } = toRefs(props)
+const { multiple, disabled, name, dir } = toRefs(props)
 const searchTerm = useVModel(props, 'searchTerm', emit, {
   defaultValue: '',
   passive: !props.searchTerm as false,
@@ -127,8 +132,7 @@ const filteredOptions = computed(() => {
 
 const activeIndex = computed(() => filteredOptions.value.findIndex(i => JSON.stringify(i) === JSON.stringify(selectedValue.value)))
 
-watch(() => filteredOptions.value.length, async (length) => {
-  await nextTick()
+watch(() => filteredOptions.value.length, (length) => {
   if (length && activeIndex.value === -1)
     selectedValue.value = filteredOptions.value[0]
 })
@@ -137,6 +141,11 @@ onMounted(() => {
   if (typeof modelValue.value === 'string')
     searchTerm.value = modelValue.value
 })
+
+// We set this to true by default so that events bubble to forms without JS (SSR)
+const isFormControl = computed(() =>
+  parentElement.value ? Boolean(parentElement.value.closest('form')) : true,
+)
 
 provide(COMBOBOX_INJECT_KEY, {
   searchTerm,
@@ -196,6 +205,7 @@ provide(COMBOBOX_INJECT_KEY, {
         pointerEvents: open ? 'auto' : undefined,
       }"
       :as="as" :as-child="asChild" v-bind="$attrs"
+      :dir="dir"
     >
       <slot
         :active-index="activeIndex"
@@ -203,6 +213,8 @@ provide(COMBOBOX_INJECT_KEY, {
         :disabled="disabled"
         :value="modelValue"
       />
+
+      <VisuallyHiddenInput v-if="isFormControl && name" :name="name" :value="modelValue" />
     </Primitive>
   </PopperRoot>
 </template>

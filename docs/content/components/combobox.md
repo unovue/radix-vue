@@ -15,11 +15,11 @@ import DemoCombobox from '../../components/demo/Combobox/index.vue'
 # Combobox
 
 
-<Description class="mb-4">
+<Description class="!mb-4">
 Choose from a list of suggested values with full keyboard support.
 </Description>
 
-<Badge class="mb-4">Alpha</Badge>
+<Badge class="!mb-4">Alpha</Badge>
 
 <HeroContainer folder="Combobox">
 <DemoCombobox />
@@ -68,6 +68,7 @@ Import all parts and piece them together.
 ```vue
 <script setup lang="ts">
 import {
+  ComboboxArrow,
   ComboboxCancel,
   ComboboxContent,
   ComboboxEmpty,
@@ -110,6 +111,8 @@ import {
           </ComboboxGroup>
           <ComboboxSeparator />
         </ComboboxViewport>
+
+        <ComboboxArrow />
       </ComboboxContent>
     </ComboboxPortal>
   </ComboboxRoot>
@@ -151,29 +154,30 @@ Contains all the parts of a Combobox
       type: 'string',
       description: '<span> The controlled search term of the Combobox Should be binded-with with <Code>v-model:searchTerm</Code>. </span>',
     },
-    // {
-    //   name: 'dir',
-    //   required: false,
-    //   type: '&quot;ltr&quot; | &quot;rtl&quot;',
-    //   typeSimple: 'enum',
-    //   description: '<span> The reading direction of the combobox when applicable. If omitted, inherits globally from <Code>DirectionProvider</Code> or assumes LTR (left-to-right) reading mode. </span>',
-    // },
-    // {
-    //   name: 'name',
-    //   type: 'string',
-    //   description:
-    //     'The name of the Combobox Submitted with its owning form as part of a name/value pair.',
-    // },
+    {
+      name: 'multiple',
+      required: false,
+      type: 'boolean',
+      description: 'Whether multiple options can be selected or not.',
+    },
+    {
+      name: 'dir',
+      required: false,
+      type: '&quot;ltr&quot; | &quot;rtl&quot;',
+      typeSimple: 'enum',
+      description: '<span> The reading direction of the combobox when applicable. If omitted, inherits globally from <Code>DirectionProvider</Code> or assumes LTR (left-to-right) reading mode. </span>',
+    },
+    {
+      name: 'name',
+      type: 'string',
+      description:
+        'The name of the Combobox Submitted with its owning form as part of a name/value pair.',
+    },
     {
       name: 'disabled',
       type: 'boolean',
       description: '<span> When <Code>true</Code>, prevents the user from interacting with Combobox </span>',
-    },
-    // {
-    //   name: 'required',
-    //   type: 'boolean',
-    //   description: '<span> When <Code>true</Code>, indicates that the user must combobox a value before the owning form can be submitted. </span>',
-    // },
+    }, 
   ]"
 />
 
@@ -237,7 +241,7 @@ The button that toggles the Combobox Content.
   ]"
 />
 
-<!-- <DataAttributesTable
+<DataAttributesTable
   :data="[
     {
       attribute: '[data-state]',
@@ -247,12 +251,8 @@ The button that toggles the Combobox Content.
       attribute: '[data-disabled]',
       values: 'Present when disabled',
     },
-    {
-      attribute: '[data-placeholder]',
-      values: 'Present when has placeholder',
-    },
   ]"
-/> -->
+/>
   
 ### Cancel
 
@@ -480,12 +480,7 @@ The component that contains the combobox items.
       name: 'disabled',
       type: 'boolean',
       description: '<span> When <Code>true</Code>, prevents the user from interacting with the item. </span>',
-    },
-    // {
-    //   name: 'textValue',
-    //   type: 'string',
-    //   description: '<span> Optional text used for typeahead purposes. By default the typeahead behavior will use the <Code>.textContent</Code> of the <Code>SelectItemText</Code> part. Use this when the content is complex, or you have non-textual content inside. </span>',
-    // },
+    }, 
     {
       name: 'asChild',
       required: false,
@@ -564,7 +559,7 @@ Used to render the label of a group. It won't be focusable using arrow keys.
 
 ### Separator
 
-Used to visually separate items in the Select
+Used to visually separate items in the Combobox
 
 <PropsTable
   :data="[
@@ -578,9 +573,9 @@ Used to visually separate items in the Select
   ]"
 />
 
-<!-- ### Arrow
+### Arrow
 
-An optional arrow element to render alongside the content. This can be used to help visually link the trigger with the `SelectContent`. Must be rendered inside `SelectContent`. Only available when `position` is set to `popper`.
+An optional arrow element to render alongside the content. This can be used to help visually link the trigger with the `ComboboxContent`. Must be rendered inside `ComboboxContent`. Only available when `position` is set to `popper`.
 
 <PropsTable
   :data="[
@@ -604,7 +599,7 @@ An optional arrow element to render alongside the content. This can be used to h
       description: '<span>The height of the arrow in pixels.</span>',
     },
   ]"
-/> -->
+/>
 
 <!-- ## Accessibility
 

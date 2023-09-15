@@ -15,11 +15,12 @@ import DemoCombobox from '../../components/demo/Combobox/index.vue'
 # Combobox
 
 
-<Description class="!mb-4">
+<Badge>Alpha</Badge>
+
+<Description>
 Choose from a list of suggested values with full keyboard support.
 </Description>
 
-<Badge class="!mb-4">Alpha</Badge>
 
 <HeroContainer folder="Combobox">
 <DemoCombobox />

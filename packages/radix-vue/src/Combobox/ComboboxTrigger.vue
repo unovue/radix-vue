@@ -24,7 +24,9 @@ const disabled = computed(() => props.disabled || context?.disabled.value || fal
     aria-haspopup="listbox"
     :aria-expanded="context?.open.value"
     :aria-controls="context?.contentId"
+    :data-state="context?.open.value ? 'open' : 'closed'"
     :disabled="disabled"
+    :data-disabled="disabled"
     :aria-disabled="disabled ?? undefined"
     @click="context?.onOpenChange(!context.open.value)"
   >

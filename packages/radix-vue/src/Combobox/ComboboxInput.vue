@@ -5,6 +5,7 @@ import { COMBOBOX_INJECT_KEY } from './ComboboxRoot.vue'
 export interface ComboboxInputProps {
   type?: string
   disabled?: boolean
+  autoFocus?: boolean
 }
 
 const props = withDefaults(defineProps<ComboboxInputProps>(), {
@@ -54,6 +55,8 @@ function handleInput() {
     aria-autocomplete="list"
     tabindex="0"
     role="combobox"
+    autocomplete="false"
+    :autofocus="autoFocus"
     @input="handleInput"
     @keydown.down.up.prevent="handleKeyDown"
     @keydown.enter="context?.onInputEnter"

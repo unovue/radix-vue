@@ -18,13 +18,21 @@ export interface ComboboxContentImplProps extends PopperContentProps {
   bodyLock?: boolean
   disableOutsidePointerEvents?: boolean
 }
+
+export const COMBOBOX_CONTENT_INJECTION_KEY = Symbol() as InjectionKey<{
+  position: Ref<'inline' | 'popper'>
+}>
 </script>
 
 <script setup lang="ts">
 import {
+  type InjectionKey,
+  type Ref,
   computed,
   inject,
   onMounted,
+  provide,
+  toRefs,
 } from 'vue'
 import { COMBOBOX_INJECT_KEY } from './ComboboxRoot.vue'
 import {
@@ -38,9 +46,12 @@ import {
 import { PopperContent, type PopperContentProps } from '@/Popper'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
 
-const props = defineProps<ComboboxContentImplProps>()
+const props = withDefaults(defineProps<ComboboxContentImplProps>(), {
+  position: 'inline',
+})
 const emits = defineEmits<ComboboxContentImplEmits>()
 
+const { position } = toRefs(props)
 const context = inject(COMBOBOX_INJECT_KEY)
 
 useBodyScrollLock(props.bodyLock)
@@ -74,6 +85,10 @@ const popperStyle = {
   '--radix-combobox-trigger-width': 'var(--radix-popper-anchor-width)',
   '--radix-combobox-trigger-height': 'var(--radix-popper-anchor-height)',
 }
+
+provide(COMBOBOX_CONTENT_INJECTION_KEY, {
+  position,
+})
 </script>
 
 <template>

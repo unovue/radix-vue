@@ -8,10 +8,7 @@ import { useEmitAsProps } from '@/shared'
 export interface ComboboxContentProps extends ComboboxContentImplProps {}
 export type ComboboxContentEmits = ComboboxContentImplEmits
 
-const props = withDefaults(defineProps<ComboboxContentProps>(), {
-  position: 'inline',
-})
-
+const props = defineProps<ComboboxContentProps>()
 const emits = defineEmits<ComboboxContentEmits>()
 const emitsAsProps = useEmitAsProps(emits)
 

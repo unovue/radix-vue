@@ -32,6 +32,7 @@ export const components = {
     'ComboboxItem',
     'ComboboxItemIndicator',
     'ComboboxSeparator',
+    'ComboboxArrow',
     'ComboboxPortal',
   ],
 

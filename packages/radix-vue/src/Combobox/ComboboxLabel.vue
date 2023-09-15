@@ -1,7 +1,7 @@
 <script lang="ts">
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 
-export interface SelectLabelProps extends PrimitiveProps {
+export interface ComboboxLabelProps extends PrimitiveProps {
   for?: string
 }
 </script>
@@ -10,7 +10,7 @@ export interface SelectLabelProps extends PrimitiveProps {
 import { inject } from 'vue'
 import { COMBOBOX_GROUP_INJECTION_KEY } from './ComboboxGroup.vue'
 
-const props = withDefaults(defineProps<SelectLabelProps>(), {
+const props = withDefaults(defineProps<ComboboxLabelProps>(), {
   as: 'label',
 })
 

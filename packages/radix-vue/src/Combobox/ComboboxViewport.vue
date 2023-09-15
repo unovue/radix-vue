@@ -4,8 +4,8 @@ import {
   type PrimitiveProps,
 } from '@/Primitive'
 
-export interface SelectViewportProps extends PrimitiveProps {}
-const props = defineProps<SelectViewportProps>()
+export interface ComboboxViewportProps extends PrimitiveProps {}
+const props = defineProps<ComboboxViewportProps>()
 </script>
 
 <template>

@@ -4,11 +4,11 @@ import { COMBOBOX_INJECT_KEY } from './ComboboxRoot.vue'
 import { COMBOBOX_CONTENT_INJECTION_KEY } from './ComboboxContentImpl.vue'
 import { PopperArrow, type PopperArrowProps } from '@/Popper'
 
-const props = defineProps<SelectArrowProps>()
+const props = defineProps<ComboboxArrowProps>()
 const context = inject(COMBOBOX_INJECT_KEY)
 const contentContext = inject(COMBOBOX_CONTENT_INJECTION_KEY)
 
-export interface SelectArrowProps extends PopperArrowProps {}
+export interface ComboboxArrowProps extends PopperArrowProps {}
 </script>
 
 <template>

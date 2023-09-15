@@ -3,8 +3,8 @@ import { inject } from 'vue'
 import { COMBOBOX_ITEM_INJECTION_KEY } from './ComboboxItem.vue'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 
-export interface SelectItemIndicatorProps extends PrimitiveProps {}
-const props = withDefaults(defineProps<SelectItemIndicatorProps>(), {
+export interface ComboboxItemIndicatorProps extends PrimitiveProps {}
+const props = withDefaults(defineProps<ComboboxItemIndicatorProps>(), {
   as: 'span',
 })
 

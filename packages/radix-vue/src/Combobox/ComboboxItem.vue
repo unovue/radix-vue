@@ -6,11 +6,11 @@ interface ComboboxItemContextValue {
 export const COMBOBOX_ITEM_INJECTION_KEY
   = Symbol() as InjectionKey<ComboboxItemContextValue>
 
-export type SelectItemEmits = {
+export type ComboboxItemEmits = {
   select: [value: string | object]
 }
 
-export interface SelectItemProps extends PrimitiveProps {
+export interface ComboboxItemProps extends PrimitiveProps {
   value: string | object
   disabled?: boolean
   textValue?: string
@@ -41,8 +41,8 @@ import {
 } from '@/Primitive'
 import { useId } from '@/shared'
 
-const props = defineProps<SelectItemProps>()
-const emits = defineEmits<SelectItemEmits>()
+const props = defineProps<ComboboxItemProps>()
+const emits = defineEmits<ComboboxItemEmits>()
 
 const { disabled } = toRefs(props)
 

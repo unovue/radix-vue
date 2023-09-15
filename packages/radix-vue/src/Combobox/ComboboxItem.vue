@@ -128,7 +128,6 @@ provide(COMBOBOX_ITEM_INJECTION_KEY, {
     :data-disabled="disabled ? '' : undefined"
     :as="as"
     :as-child="asChild"
-    @pointerup="handleSelect"
     @click="handleSelect"
     @pointermove="handlePointerMove"
   >

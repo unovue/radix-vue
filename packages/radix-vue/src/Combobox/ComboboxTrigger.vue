@@ -20,6 +20,7 @@ const disabled = computed(() => props.disabled || context?.disabled.value || fal
     :type="as === 'button' ? 'button' : undefined"
     v-bind="props"
     tabindex="-1"
+    aria-label="Show popup"
     aria-haspopup="listbox"
     :aria-expanded="context?.open.value"
     :aria-controls="context?.contentId"

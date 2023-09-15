@@ -13,13 +13,14 @@ const props = withDefaults(defineProps<ComboboxContentProps>(), {
 })
 
 const emits = defineEmits<ComboboxContentEmits>()
+const emitsAsProps = useEmitAsProps(emits)
 
 const context = inject(COMBOBOX_INJECT_KEY)
 </script>
 
 <template>
   <Presence :present="context!.open.value">
-    <ComboboxContentImpl v-bind="{ ...props, ...useEmitAsProps(emits), ...$attrs }">
+    <ComboboxContentImpl v-bind="{ ...props, ...emitsAsProps, ...$attrs }">
       <slot />
     </ComboboxContentImpl>
   </Presence>

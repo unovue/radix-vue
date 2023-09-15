@@ -99,7 +99,7 @@ importers:
   docs:
     dependencies:
       radix-vue:
-        specifier: 0.2.0
+        specifier: 0.2.1
         version: link:../packages/radix-vue
     devDependencies:
       '@iconify/vue':
@@ -10229,7 +10229,7 @@ packages:
     resolution: {directory: packages/radix-vue, type: directory}
     id: file:packages/radix-vue
     name: radix-vue
-    version: 0.2.0
+    version: 0.2.1
     dependencies:
       '@floating-ui/dom': 1.4.2
       '@floating-ui/vue': 1.0.1(vue@3.3.4)

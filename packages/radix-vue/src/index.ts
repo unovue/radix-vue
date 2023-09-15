@@ -1,6 +1,7 @@
 export * from './Accordion'
 export * from './Checkbox'
 export * from './Collapsible'
+export * from './Combobox'
 export * from './Switch'
 export * from './Separator'
 export * from './Label'

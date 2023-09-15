@@ -18,6 +18,23 @@ export const components = {
     'CollapsibleContent',
   ],
 
+  Combobox: [
+    'ComboboxRoot',
+    'ComboboxInput',
+    'ComboboxHeader',
+    'ComboboxTrigger',
+    'ComboboxCancel',
+    'ComboboxGroup',
+    'ComboboxLabel',
+    'ComboboxContent',
+    'ComboboxEmpty',
+    'ComboboxViewport',
+    'ComboboxItem',
+    'ComboboxItemIndicator',
+    'ComboboxSeparator',
+    'ComboboxPortal',
+  ],
+
   Switch: [
     'SwitchRoot',
     'SwitchThumb',

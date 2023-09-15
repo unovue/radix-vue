@@ -27,6 +27,9 @@ import Card from './components/Card.vue'
         <CheckboxDemo />
       </Card>
       <Card>
+        <ComboboxDemo />
+      </Card>
+      <Card>
         <ScrollAreaDemo />
       </Card>
       <Card class="col-span-2">

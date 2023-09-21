@@ -12,12 +12,14 @@ export default {
 
 <script setup lang="ts">
 import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
-import { type InjectionKey, computed, inject, onMounted, onUnmounted, provide, ref, watchEffect } from 'vue'
+import { computed, inject, onMounted, onUnmounted, provide, ref, watchEffect } from 'vue'
+import type { ComponentPublicInstance, InjectionKey } from 'vue'
 import { TOAST_PROVIDER_INJECTION_KEY } from './ToastProvider.vue'
 import { handleAndDispatchCustomEvent } from '@/DismissableLayer/utils'
 import { TOAST_SWIPE_CANCEL, TOAST_SWIPE_END, TOAST_SWIPE_MOVE, TOAST_SWIPE_START, VIEWPORT_PAUSE, VIEWPORT_RESUME, getAnnounceTextContent, isDeltaInDirection } from './utils'
 import ToastAnnounce from './ToastAnnounce.vue'
 import { useTimeoutFn } from '@vueuse/shared'
+import { useForwardRef } from '@/shared'
 
 export interface ToastImplProps extends PrimitiveProps {
   type?: 'foreground' | 'background'
@@ -47,6 +49,7 @@ const props = withDefaults(defineProps<ToastImplProps>(), {
 
 const emits = defineEmits<ToastImplEmits>()
 
+const forwardRef = useForwardRef()
 const { primitiveElement, currentElement } = usePrimitiveElement()
 const context = inject(TOAST_PROVIDER_INJECTION_KEY)
 const pointerStartRef = ref<{ x: number; y: number } | null>(null)
@@ -123,12 +126,17 @@ provide(TOAST_INTERACTIVE_CONTEXT, {
 
   <Teleport :to="context?.viewport.value">
     <Primitive
-      ref="primitiveElement"
+      :ref="v => {
+        forwardRef(v)
+        primitiveElement = v as ComponentPublicInstance
+      }"
       role="status"
       aria-live="off"
       aria-atomic
       tabindex="0"
       v-bind="$attrs"
+      :as="as"
+      :as-child="asChild"
       :data-state="open ? 'open' : 'closed'"
       :data-swipe-direction="context!.swipeDirection.value"
       :style="{ userSelect: 'none', touchAction: 'none' }"

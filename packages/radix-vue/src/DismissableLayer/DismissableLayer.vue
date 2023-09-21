@@ -1,31 +1,10 @@
-<script setup lang="ts">
+<script lang="ts">
 import {
-  type Ref,
   computed,
-  inject,
   nextTick,
-  provide,
-  ref,
-  watch,
+  reactive,
   watchEffect,
 } from 'vue'
-import { onKeyStroke } from '@vueuse/core'
-import {
-  type FocusOutsideEvent,
-  type PointerDownOutsideEvent,
-  useFocusOutside,
-  usePointerDownOutside,
-} from './utils'
-import {
-  Primitive,
-  type PrimitiveProps,
-  usePrimitiveElement,
-} from '@/Primitive'
-
-interface DismissableLayerProvideValue {
-  layers: Ref<Set<HTMLElement>>
-  layersWithOutsidePointerEventsDisabled: Ref<Set<HTMLElement>>
-}
 
 export interface DismissableLayerProps extends PrimitiveProps {
   /**
@@ -64,6 +43,27 @@ export type DismissableLayerEmits = {
   'dismiss': []
 }
 
+export const context = reactive({
+  layersRoot: new Set<HTMLElement>(),
+  layersWithOutsidePointerEventsDisabled: new Set<HTMLElement>(),
+  branches: new Set<HTMLElement>(),
+})
+</script>
+
+<script setup lang="ts">
+import { onKeyStroke } from '@vueuse/core'
+import {
+  type FocusOutsideEvent,
+  type PointerDownOutsideEvent,
+  useFocusOutside,
+  usePointerDownOutside,
+} from './utils'
+import {
+  Primitive,
+  type PrimitiveProps,
+  usePrimitiveElement,
+} from '@/Primitive'
+
 const props = withDefaults(defineProps<DismissableLayerProps>(), {
   disableOutsidePointerEvents: false,
 })
@@ -76,30 +76,7 @@ const ownerDocument = computed(
   () => layerElement.value?.ownerDocument ?? globalThis.document,
 )
 
-const layers = ref<Set<HTMLElement>>(new Set())
-const layersWithOutsidePointerEventsDisabled = ref<Set<HTMLElement>>(new Set())
-
-provide<DismissableLayerProvideValue>('dismissable', {
-  layers,
-  layersWithOutsidePointerEventsDisabled,
-})
-const context = inject<DismissableLayerProvideValue>('dismissable', {
-  layers,
-  layersWithOutsidePointerEventsDisabled,
-})
-
-watch(
-  () => context,
-  () => {
-    if (context?.layers.value)
-      layers.value = context.layers.value
-    if (context?.layersWithOutsidePointerEventsDisabled.value) {
-      layersWithOutsidePointerEventsDisabled.value
-        = context.layersWithOutsidePointerEventsDisabled.value
-    }
-  },
-  { immediate: true, deep: true },
-)
+const layers = computed(() => context.layersRoot)
 
 const index = computed(() => {
   return layerElement.value
@@ -108,19 +85,23 @@ const index = computed(() => {
 })
 
 const isBodyPointerEventsDisabled = computed(() => {
-  return layersWithOutsidePointerEventsDisabled.value.size > 0
+  return context.layersWithOutsidePointerEventsDisabled.size > 0
 })
 
 const isPointerEventsEnabled = computed(() => {
   const localLayers = Array.from(layers.value)
-  const [highestLayerWithOutsidePointerEventsDisabled] = [...layersWithOutsidePointerEventsDisabled.value].slice(-1)
+  const [highestLayerWithOutsidePointerEventsDisabled] = [...context.layersWithOutsidePointerEventsDisabled].slice(-1)
   const highestLayerWithOutsidePointerEventsDisabledIndex = localLayers.indexOf(highestLayerWithOutsidePointerEventsDisabled)
 
   return index.value >= highestLayerWithOutsidePointerEventsDisabledIndex
 })
 
 const pointerDownOutside = usePointerDownOutside(async (event) => {
-  if (!isPointerEventsEnabled.value)
+  const isPointerDownOnBranch = [...context.branches].some(branch =>
+    branch.contains(event.target as HTMLElement),
+  )
+
+  if (!isPointerEventsEnabled.value || isPointerDownOnBranch)
     return
   emits('pointerDownOutside', event)
   emits('interactOutside', event)
@@ -130,6 +111,12 @@ const pointerDownOutside = usePointerDownOutside(async (event) => {
 }, layerElement)
 
 const focusOutside = useFocusOutside((event) => {
+  const isFocusInBranch = [...context.branches].some(branch =>
+    branch.contains(event.target as HTMLElement),
+  )
+
+  if (isFocusInBranch)
+    return
   emits('focusOutside', event)
   emits('interactOutside', event)
   if (!event.defaultPrevented)
@@ -150,18 +137,18 @@ watchEffect((cleanupFn) => {
     return
   let originalBodyPointerEvents: string
   if (props.disableOutsidePointerEvents) {
-    if (layersWithOutsidePointerEventsDisabled.value.size === 0) {
+    if (context.layersWithOutsidePointerEventsDisabled.size === 0) {
       originalBodyPointerEvents = ownerDocument.value.body.style.pointerEvents
       ownerDocument.value.body.style.pointerEvents = 'none'
     }
-    layersWithOutsidePointerEventsDisabled.value.add(layerElement.value)
+    context.layersWithOutsidePointerEventsDisabled.add(layerElement.value)
   }
   layers.value.add(layerElement.value)
 
   cleanupFn(() => {
     if (
       props.disableOutsidePointerEvents
-      || layersWithOutsidePointerEventsDisabled.value.size === 1
+      && context.layersWithOutsidePointerEventsDisabled.size === 1
     )
       ownerDocument.value.body.style.pointerEvents = originalBodyPointerEvents
   })
@@ -172,7 +159,7 @@ watchEffect((cleanupFn) => {
     if (!layerElement.value)
       return
     layers.value.delete(layerElement.value)
-    layersWithOutsidePointerEventsDisabled.value.delete(layerElement.value)
+    context.layersWithOutsidePointerEventsDisabled.delete(layerElement.value)
   })
 })
 </script>

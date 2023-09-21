@@ -3,11 +3,12 @@ import { Primitive, usePrimitiveElement } from '@/Primitive'
 import type { PrimitiveProps } from '@/Primitive'
 import { type ComponentPublicInstance, computed, inject, onMounted, ref, toRefs, watchEffect } from 'vue'
 import { TOAST_PROVIDER_INJECTION_KEY } from './ToastProvider.vue'
-import { onKeyPressed, unrefElement } from '@vueuse/core'
+import { onKeyStroke, unrefElement } from '@vueuse/core'
 import FocusProxy from './FocusProxy.vue'
 import { focusFirst, getTabbableCandidates } from '@/FocusScope/utils'
 import { useCollection } from '@/shared'
 import { VIEWPORT_DEFAULT_HOTKEY, VIEWPORT_PAUSE, VIEWPORT_RESUME } from './utils'
+import { DismissableLayerBranch } from '@/DismissableLayer'
 
 export interface ToastViewportProps extends PrimitiveProps {
   /**
@@ -38,7 +39,7 @@ const hasToasts = computed(() => context!.toastCount.value > 0)
 const headFocusProxyRef = ref<HTMLElement>()
 const tailFocusProxyRef = ref<HTMLElement>()
 
-onKeyPressed(hotkey.value, () => {
+onKeyStroke(hotkey.value, () => {
   currentElement.value.focus()
 })
 
@@ -117,6 +118,7 @@ watchEffect((cleanupFn) => {
     viewport.addEventListener('focusout', handleFocusOutResume)
     viewport.addEventListener('pointermove', handlePause)
     viewport.addEventListener('pointerleave', handlePointerLeaveResume)
+    viewport.addEventListener('keydown', handleKeyDown)
     window.addEventListener('blur', handlePause)
     window.addEventListener('focus', handleResume)
 
@@ -125,6 +127,7 @@ watchEffect((cleanupFn) => {
       viewport.removeEventListener('focusout', handleFocusOutResume)
       viewport.removeEventListener('pointermove', handlePause)
       viewport.removeEventListener('pointerleave', handlePointerLeaveResume)
+      viewport.removeEventListener('keydown', handleKeyDown)
       window.removeEventListener('blur', handlePause)
       window.removeEventListener('focus', handleResume)
     })
@@ -152,7 +155,7 @@ export default {
 </script>
 
 <template>
-  <div
+  <DismissableLayerBranch
     role="region"
     :aria-label="label.replace('{hotkey}', hotkey.join('+').replace(/Key/g, '').replace(/Digit/g, ''))"
     tabindex="01"
@@ -197,5 +200,5 @@ export default {
         focusFirst(tabbableCandidates)
       }"
     />
-  </div>
+  </DismissableLayerBranch>
 </template>

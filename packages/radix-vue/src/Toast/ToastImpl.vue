@@ -152,6 +152,7 @@ provide(TOAST_INTERACTIVE_CONTEXT, {
       aria-live="off"
       aria-atomic
       tabindex="0"
+      data-radix-vue-collection-item
       v-bind="$attrs"
       :as="as"
       :as-child="asChild"

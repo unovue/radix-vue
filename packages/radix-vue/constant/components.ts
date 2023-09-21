@@ -111,6 +111,16 @@ export const components = {
     'AlertDialogAction',
   ],
 
+  Toast: [
+    'ToastProvider',
+    'ToastRoot',
+    'ToastAction',
+    'ToastClose',
+    'ToastViewport',
+    'ToastTitle',
+    'ToastDescription',
+  ],
+
   Toolbar: [
     'ToolbarRoot',
     'ToolbarButton',

@@ -3,13 +3,13 @@ import { Presence } from '@/Presence'
 import ToastImpl, { type ToastImplEmits, type ToastImplProps } from './ToastImpl.vue'
 import { useVModel } from '@vueuse/core'
 
-const props = withDefaults(defineProps<ToastProps>(), {
+const props = withDefaults(defineProps<ToastRootProps>(), {
   type: 'foreground',
   open: true,
 })
-const emits = defineEmits<ToastEmits>()
+const emits = defineEmits<ToastRootEmits>()
 
-export interface ToastProps extends ToastImplProps {
+export interface ToastRootProps extends ToastImplProps {
   defaultOpen?: boolean
   /**
    * Used to force mounting when more control is needed. Useful when
@@ -18,7 +18,7 @@ export interface ToastProps extends ToastImplProps {
   forceMount?: true
 }
 
-export type ToastEmits = ToastImplEmits & {
+export type ToastRootEmits = ToastImplEmits & {
   'update:open': [value: boolean]
 }
 

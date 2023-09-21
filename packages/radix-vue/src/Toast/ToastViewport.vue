@@ -158,7 +158,7 @@ export default {
   <DismissableLayerBranch
     role="region"
     :aria-label="label.replace('{hotkey}', hotkey.join('+').replace(/Key/g, '').replace(/Digit/g, ''))"
-    tabindex="01"
+    tabindex="-1"
     :style="{
       // incase list has size when empty (e.g. padding), we remove pointer events so
       // it doesn't prevent interactions with page elements that it overlays

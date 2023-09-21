@@ -17,7 +17,7 @@ type ToastProviderContextValue = {
 
 export const TOAST_PROVIDER_INJECTION_KEY = Symbol() as InjectionKey<ToastProviderContextValue>
 
-interface ToastProviderProps {
+export interface ToastProviderProps {
   /**
    * An author-localized label for each toast. Used to help screen reader users
    * associate the interruption with a toast.

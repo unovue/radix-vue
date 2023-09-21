@@ -10,6 +10,33 @@ export const VIEWPORT_RESUME = 'toast.viewportResume'
 
 export type SwipeDirection = 'up' | 'down' | 'left' | 'right'
 
+export type SwipeEvent = { currentTarget: EventTarget & HTMLElement } & Omit<
+  CustomEvent<{ originalEvent: PointerEvent; delta: { x: number; y: number } }>,
+  'currentTarget'
+>
+
+export function handleAndDispatchCustomEvent<
+  E extends CustomEvent,
+  OriginalEvent extends Event,
+>(
+  name: string,
+  handler: ((event: E) => void) | undefined,
+  detail: { originalEvent: OriginalEvent } & (E extends CustomEvent<infer D>
+    ? D
+    : never),
+) {
+  const currentTarget = detail.originalEvent.currentTarget as HTMLElement
+  const event = new CustomEvent(name, {
+    bubbles: false,
+    cancelable: true,
+    detail,
+  })
+  if (handler)
+    currentTarget.addEventListener(name, handler as EventListener, { once: true })
+
+  currentTarget.dispatchEvent(event)
+}
+
 export function isDeltaInDirection(delta: { x: number; y: number },
   direction: SwipeDirection,
   threshold = 0) {

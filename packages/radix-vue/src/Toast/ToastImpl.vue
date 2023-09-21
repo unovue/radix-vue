@@ -1,6 +1,4 @@
 <script lang="ts">
-export type SwipeEvent = CustomEvent<{ originalEvent: PointerEvent; delta: { x: number; y: number } }>
-
 export const TOAST_INTERACTIVE_CONTEXT = Symbol() as InjectionKey<{
   onClose(): void
 }>
@@ -15,11 +13,11 @@ import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive
 import { computed, inject, onMounted, onUnmounted, provide, ref, watchEffect } from 'vue'
 import type { ComponentPublicInstance, InjectionKey } from 'vue'
 import { TOAST_PROVIDER_INJECTION_KEY } from './ToastProvider.vue'
-import { handleAndDispatchCustomEvent } from '@/DismissableLayer/utils'
-import { TOAST_SWIPE_CANCEL, TOAST_SWIPE_END, TOAST_SWIPE_MOVE, TOAST_SWIPE_START, VIEWPORT_PAUSE, VIEWPORT_RESUME, getAnnounceTextContent, isDeltaInDirection } from './utils'
+import { getAnnounceTextContent, handleAndDispatchCustomEvent, isDeltaInDirection } from './utils'
+import { type SwipeEvent, TOAST_SWIPE_CANCEL, TOAST_SWIPE_END, TOAST_SWIPE_MOVE, TOAST_SWIPE_START, VIEWPORT_PAUSE, VIEWPORT_RESUME } from './utils'
 import ToastAnnounce from './ToastAnnounce.vue'
-import { useTimeoutFn } from '@vueuse/shared'
 import { useForwardRef } from '@/shared'
+import { onKeyStroke } from '@vueuse/core'
 
 export interface ToastImplProps extends PrimitiveProps {
   type?: 'foreground' | 'background'
@@ -33,7 +31,7 @@ export interface ToastImplProps extends PrimitiveProps {
 
 export type ToastImplEmits = {
   'close': []
-  'escapeKeyDown': []
+  'escapeKeyDown': [event: KeyboardEvent]
   'pause': []
   'resume': []
   'swipeStart': [event: SwipeEvent]
@@ -56,6 +54,18 @@ const pointerStartRef = ref<{ x: number; y: number } | null>(null)
 const swipeDeltaRef = ref<{ x: number; y: number } | null>(null)
 const duration = computed(() => props.duration || context!.duration.value)
 
+const closeTimerStartTimeRef = ref(0)
+const closeTimerRemainingTimeRef = ref(duration.value)
+const closeTimerRef = ref(0)
+
+function startTimer(duration: number) {
+  if (!duration || duration === Number.POSITIVE_INFINITY)
+    return
+  window.clearTimeout(closeTimerRef.value)
+  closeTimerStartTimeRef.value = new Date().getTime()
+  closeTimerRef.value = window.setTimeout(handleClose, duration)
+}
+
 function handleClose() {
   // focus viewport if focus is within toast to read the remaining toast
   // count to SR users and ensure focus isn't lost
@@ -64,8 +74,6 @@ function handleClose() {
     context!.viewport.value?.focus()
   emits('close')
 }
-
-const { start: startTimer, stop: stopTimer } = useTimeoutFn(handleClose, duration)
 
 const announceTextContent = computed(() => currentElement.value ? getAnnounceTextContent(currentElement.value) : null)
 
@@ -78,11 +86,13 @@ watchEffect((cleanupFn) => {
   const viewport = context?.viewport.value
   if (viewport) {
     const handleResume = () => {
-      startTimer()
+      startTimer(closeTimerRemainingTimeRef.value)
       emits('resume')
     }
     const handlePause = () => {
-      stopTimer()
+      const elapsedTime = new Date().getTime() - closeTimerStartTimeRef.value
+      closeTimerRemainingTimeRef.value = closeTimerRemainingTimeRef.value - elapsedTime
+      window.clearTimeout(closeTimerRef.value)
       emits('pause')
     }
     viewport.addEventListener(VIEWPORT_PAUSE, handlePause)
@@ -99,7 +109,15 @@ watchEffect((cleanupFn) => {
 // so it could reopen before being completely unmounted
 watchEffect(() => {
   if (props.open && !context?.isClosePausedRef.value)
-    startTimer()
+    startTimer(duration.value)
+})
+
+onKeyStroke('Escape', (event) => {
+  emits('escapeKeyDown', event)
+  if (!event.defaultPrevented) {
+    context!.isFocusedToastEscapeKeyDownRef.value = true
+    handleClose()
+  }
 })
 
 onMounted(() => {
@@ -140,13 +158,6 @@ provide(TOAST_INTERACTIVE_CONTEXT, {
       :data-state="open ? 'open' : 'closed'"
       :data-swipe-direction="context!.swipeDirection.value"
       :style="{ userSelect: 'none', touchAction: 'none' }"
-      @keydown.escape="(event: KeyboardEvent) => {
-        emits('escapeKeyDown')
-        if (!event.defaultPrevented) {
-          context!.isFocusedToastEscapeKeyDownRef.value = true
-          handleClose()
-        }
-      }"
       @pointerdown.left="(event: PointerEvent) => {
         pointerStartRef = { x: event.clientX, y: event.clientY };
       }"
@@ -166,11 +177,11 @@ provide(TOAST_INTERACTIVE_CONTEXT, {
         const eventDetail = { originalEvent: event, delta };
         if (hasSwipeMoveStarted) {
           swipeDeltaRef = delta;
-          handleAndDispatchCustomEvent(TOAST_SWIPE_MOVE, (ev) => emits('swipeMove', ev), eventDetail);
+          handleAndDispatchCustomEvent(TOAST_SWIPE_MOVE, (ev: SwipeEvent) => emits('swipeMove', ev), eventDetail);
         }
         else if (isDeltaInDirection(delta, context!.swipeDirection.value, moveStartBuffer)) {
           swipeDeltaRef = delta;
-          handleAndDispatchCustomEvent(TOAST_SWIPE_START, (ev) => emits('swipeStart', ev), eventDetail);
+          handleAndDispatchCustomEvent(TOAST_SWIPE_START, (ev: SwipeEvent) => emits('swipeStart', ev), eventDetail);
           (event.target as HTMLElement).setPointerCapture(event.pointerId);
         }
         else if (Math.abs(x) > moveStartBuffer || Math.abs(y) > moveStartBuffer) {
@@ -193,10 +204,10 @@ provide(TOAST_INTERACTIVE_CONTEXT, {
           if (
             isDeltaInDirection(delta, context!.swipeDirection.value, context!.swipeThreshold.value)
           ) {
-            handleAndDispatchCustomEvent(TOAST_SWIPE_END, (ev) => emits('swipeEnd', ev), eventDetail);
+            handleAndDispatchCustomEvent(TOAST_SWIPE_END, (ev: SwipeEvent) => emits('swipeEnd', ev), eventDetail);
           }
           else {
-            handleAndDispatchCustomEvent(TOAST_SWIPE_CANCEL, (ev) => emits('swipeCancel', ev), eventDetail);
+            handleAndDispatchCustomEvent(TOAST_SWIPE_CANCEL, (ev: SwipeEvent) => emits('swipeCancel', ev), eventDetail);
           }
           // Prevent click event from triggering on items within the toast when
           // pointer up is part of a swipe gesture

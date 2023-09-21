@@ -38,6 +38,7 @@ const open = useVModel(props, 'open', emits, {
       @close="open = false"
       @pause="emits('pause')"
       @resume="emits('resume')"
+      @escape-key-down="emits('escapeKeyDown', $event)"
       @swipe-start="(event) => {
         emits('swipeStart', event);
         (event.currentTarget as HTMLElement).setAttribute('data-swipe', 'start');

@@ -21,7 +21,7 @@ import { onKeyStroke } from '@vueuse/core'
 
 export interface ToastImplProps extends PrimitiveProps {
   type?: 'foreground' | 'background'
-  open: boolean
+  open?: boolean
   /**
    * Time in milliseconds that toast should remain visible for. Overrides value
    * given to `ToastProvider`.

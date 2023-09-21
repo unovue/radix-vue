@@ -39,7 +39,7 @@ const open = ref(false)
         </ToastAction>
       </ToastRoot>
 
-      <ToastViewport class="fixed top-0 right-0 border flex flex-col overflow-hidden" />
+      <ToastViewport class="fixed top-1/2 right-1/2 border flex flex-col overflow-hidden" />
     </ToastProvider>
   </Story>
 </template>

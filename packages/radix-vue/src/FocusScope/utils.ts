@@ -13,7 +13,7 @@ export function focusFirst(candidates: HTMLElement[], { select = false } = {}) {
   for (const candidate of candidates) {
     focus(candidate, { select })
     if (document.activeElement !== previouslyFocusedElement)
-      return
+      return true
   }
 }
 

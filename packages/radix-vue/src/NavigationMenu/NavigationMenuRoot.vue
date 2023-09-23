@@ -63,7 +63,7 @@ import {
 } from '@/Primitive'
 
 const props = withDefaults(defineProps<NavigationMenuRootProps>(), {
-  modelValue: '',
+  modelValue: undefined,
   delayDuration: 200,
   skipDelayDuration: 300,
   orientation: 'horizontal',
@@ -75,7 +75,7 @@ const emits = defineEmits<NavigationMenuRootEmits>()
 const modelValue = useVModel(props, 'modelValue', emits, {
   passive: true,
   defaultValue: props.defaultValue ?? '',
-})
+}) as Ref<string>
 const previousValue = ref('')
 
 const { primitiveElement, currentElement: rootNavigationMenu }

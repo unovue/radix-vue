@@ -59,7 +59,7 @@ import { useVModel } from '@vueuse/core'
 const props = withDefaults(defineProps<SelectRootProps>(), {
   orientation: 'vertical',
   defaultValue: '',
-  modelValue: '',
+  modelValue: undefined,
   open: undefined,
   dir: 'ltr',
 })
@@ -68,8 +68,8 @@ const emits = defineEmits<SelectRootEmits>()
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
-  passive: true,
-})
+  passive: !props.modelValue as false,
+}) as Ref<string>
 
 const open = useVModel(props, 'open', emits, {
   defaultValue: props.defaultOpen,

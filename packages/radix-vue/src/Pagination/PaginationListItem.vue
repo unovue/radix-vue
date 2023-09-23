@@ -15,9 +15,9 @@ const isSelected = computed(() => context?.page.value === props.value)
 <template>
   <Primitive
     v-bind="props"
+    data-type="page"
     :aria-label="`Page ${value}`"
     :aria-current="isSelected ? 'page' : undefined"
-    :aria-selected="isSelected"
     :data-selected="isSelected ? 'true' : undefined"
     :disabled="context?.disabled?.value"
     :type="as === 'button' ? 'button' : undefined"

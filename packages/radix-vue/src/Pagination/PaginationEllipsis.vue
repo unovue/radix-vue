@@ -7,6 +7,7 @@ const props = defineProps<PaginationEllipsisProps>()
 
 <template>
   <Primitive
+    data-type="ellipsis"
     v-bind="props"
   >
     <slot>&#8230;</slot>

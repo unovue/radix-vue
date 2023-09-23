@@ -17,7 +17,7 @@ import type { PrimitiveProps } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 import { type InjectionKey, type Ref, computed, provide, toRefs } from 'vue'
 
-export interface PaginationRoot extends PrimitiveProps {
+export interface PaginationRootProps extends PrimitiveProps {
   page?: number
   defaultPage?: number
   itemsPerPage?: number
@@ -27,11 +27,11 @@ export interface PaginationRoot extends PrimitiveProps {
   showEdges?: boolean
 }
 
-export type PaginationEmits = {
+export type PaginationRootEmits = {
   'update:page': [value: number]
 }
 
-const props = withDefaults(defineProps<PaginationRoot>(), {
+const props = withDefaults(defineProps<PaginationRootProps>(), {
   as: 'nav',
   total: 0,
   itemsPerPage: 10,
@@ -39,7 +39,7 @@ const props = withDefaults(defineProps<PaginationRoot>(), {
   defaultPage: 1,
   showEdges: false,
 })
-const emits = defineEmits<PaginationEmits>()
+const emits = defineEmits<PaginationRootEmits>()
 const { siblingCount, disabled, showEdges } = toRefs(props)
 
 const page = useVModel(props, 'page', emits, {

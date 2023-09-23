@@ -4,8 +4,8 @@ import { computed, inject } from 'vue'
 import { PAGINATION_CONTEXT_VALUE } from './PaginationRoot.vue'
 import { getRange, transform } from './utils'
 
-export interface PaginationList extends PrimitiveProps { }
-const props = withDefaults(defineProps<PaginationList>(), {
+export interface PaginationListProps extends PrimitiveProps { }
+const props = withDefaults(defineProps<PaginationListProps>(), {
   as: 'ul',
 })
 

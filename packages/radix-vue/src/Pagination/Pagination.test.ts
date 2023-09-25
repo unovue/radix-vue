@@ -1,0 +1,121 @@
+import { beforeEach, describe, expect, it } from 'vitest'
+import Pagination from './story/_Pagination.vue'
+import type { VueWrapper } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
+import { axe } from 'vitest-axe'
+
+describe('given default Pagination', () => {
+  let wrapper: VueWrapper<InstanceType<typeof Pagination>>
+
+  beforeEach(() => {
+    document.body.innerHTML = ''
+    wrapper = mount(Pagination, { attachTo: document.body })
+  })
+
+  it('should pass axe accessibility tests', async () => {
+    expect(await axe(wrapper.element)).toHaveNoViolations()
+  })
+
+  it('should have first page selected by default', () => {
+    expect(wrapper.find('[aria-label="Page 1"]').attributes('data-selected')).toBe('true')
+    expect(wrapper.find('[aria-label="Page 2"]').attributes('data-selected')).toBe(undefined)
+  })
+
+  describe('after clicking on Next Page trigger', () => {
+    beforeEach(async () => {
+      await wrapper.find('[aria-label="Next Page"]').trigger('click')
+    })
+
+    it('should have set to page 2', () => {
+      expect(wrapper.find('[aria-label="Page 1"]').attributes('data-selected')).toBe(undefined)
+      expect(wrapper.find('[aria-label="Page 2"]').attributes('data-selected')).toBe('true')
+    })
+  })
+
+  describe('after clicking on Page 3 trigger', () => {
+    beforeEach(async () => {
+      await wrapper.find('[aria-label="Page 3"]').trigger('click')
+    })
+
+    it('should have set to page 2', () => {
+      expect(wrapper.find('[aria-label="Page 1"]').attributes('data-selected')).toBe(undefined)
+      expect(wrapper.find('[aria-label="Page 3"]').attributes('data-selected')).toBe('true')
+    })
+  })
+
+  describe('after clicking on Last Page trigger', () => {
+    beforeEach(async () => {
+      await wrapper.find('[aria-label="Last Page"]').trigger('click')
+    })
+
+    it('should have set to page 10', () => {
+      // first page will be hidden
+      expect(wrapper.find('[aria-label="Page 1"]').exists()).toBeFalsy()
+      expect(wrapper.find('[aria-label="Page 10"]').attributes('data-selected')).toBe('true')
+    })
+  })
+})
+
+describe('given show-edges Pagination', () => {
+  let wrapper: VueWrapper<InstanceType<typeof Pagination>>
+
+  beforeEach(() => {
+    document.body.innerHTML = ''
+    wrapper = mount(Pagination, { props: { showEdges: true }, attachTo: document.body })
+  })
+
+  it('should pass axe accessibility tests', async () => {
+    expect(await axe(wrapper.element)).toHaveNoViolations()
+  })
+
+  it('should have first page selected by default', () => {
+    expect(wrapper.find('[aria-label="Page 1"]').attributes('data-selected')).toBe('true')
+    expect(wrapper.find('[aria-label="Page 2"]').attributes('data-selected')).toBe(undefined)
+  })
+
+  it('should always show Page 1 & Page 10', () => {
+    expect(wrapper.find('[aria-label="Page 1"]').exists()).toBe(true)
+    expect(wrapper.find('[aria-label="Page 2"]').exists()).toBe(true)
+  })
+
+  describe('after clicking on Next Page trigger', () => {
+    beforeEach(async () => {
+      await wrapper.find('[aria-label="Next Page"]').trigger('click')
+    })
+
+    it('should have set to page 2', () => {
+      expect(wrapper.find('[aria-label="Page 1"]').attributes('data-selected')).toBe(undefined)
+      expect(wrapper.find('[aria-label="Page 2"]').attributes('data-selected')).toBe('true')
+    })
+  })
+
+  describe('after clicking on Last Page trigger', () => {
+    beforeEach(async () => {
+      await wrapper.find('[aria-label="Last Page"]').trigger('click')
+    })
+
+    it('should have set to page 10', () => {
+      expect(wrapper.find('[aria-label="Page 1"]').exists()).toBe(true)
+      expect(wrapper.find('[aria-label="Page 10"]').attributes('data-selected')).toBe('true')
+    })
+  })
+
+  describe('after clicking on Page 5 trigger', () => {
+    beforeEach(async () => {
+      await wrapper.find('[aria-label="Page 5"]').trigger('click')
+    })
+
+    it('should have default 2 siblings on each side', () => {
+      expect(wrapper.find('[aria-label="Page 2"]').exists()).toBe(false)
+      expect(wrapper.find('[aria-label="Page 3"]').exists()).toBe(true)
+      expect(wrapper.find('[aria-label="Page 4"]').exists()).toBe(true)
+      expect(wrapper.find('[aria-label="Page 6"]').exists()).toBe(true)
+      expect(wrapper.find('[aria-label="Page 7"]').exists()).toBe(true)
+      expect(wrapper.find('[aria-label="Page 8"]').exists()).toBe(false)
+    })
+
+    it('should have left right ellipsis', () => {
+      expect(wrapper.findAll('[data-type="ellipsis"]').length).toBe(2)
+    })
+  })
+})

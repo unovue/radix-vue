@@ -83,6 +83,17 @@ export const components = {
 
   ],
 
+  Pagination: [
+    'PaginationRoot',
+    'PaginationEllipsis',
+    'PaginationFirst',
+    'PaginationLast',
+    'PaginationList',
+    'PaginationListItem',
+    'PaginationNext',
+    'PaginationPrev',
+  ],
+
   Progress: [
     'ProgressRoot',
     'ProgressIndicator',

@@ -99,8 +99,8 @@ importers:
   docs:
     dependencies:
       radix-vue:
-        specifier: 0.2.2
-        version: link:../packages/radix-vue
+        specifier: 0.3.0
+        version: 0.3.0(vue@3.3.4)
     devDependencies:
       '@iconify/vue':
         specifier: ^4.1.1
@@ -110,7 +110,7 @@ importers:
         version: 1.0.0
       '@tailwindcss/postcss7-compat':
         specifier: ^2.2.17
-        version: 2.2.17(ts-node@10.9.1)
+        version: 2.2.17
       autoprefixer:
         specifier: ^10.4.14
         version: 10.4.14(postcss@8.4.26)
@@ -128,10 +128,10 @@ importers:
         version: 8.4.26
       tailwindcss:
         specifier: ^3.3.2
-        version: 3.3.3(ts-node@10.9.1)
+        version: 3.3.3
       vitepress:
         specifier: 1.0.0-beta.5
-        version: 1.0.0-beta.5(@algolia/client-search@4.19.1)(@types/node@20.4.7)(search-insights@2.7.0)
+        version: 1.0.0-beta.5(@algolia/client-search@4.19.1)(search-insights@2.7.0)
 
   packages/plugins:
     dependencies:
@@ -2151,7 +2151,7 @@ packages:
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
     dev: true
 
-  /@tailwindcss/postcss7-compat@2.2.17(ts-node@10.9.1):
+  /@tailwindcss/postcss7-compat@2.2.17:
     resolution: {integrity: sha512-3h2svqQAqYHxRZ1KjsJjZOVTQ04m29LjfrLjXyZZEJuvUuJN+BCIF9GI8vhE1s0plS0mogd6E6YLg6mu4Wv/Vw==}
     engines: {node: '>=12.13.0'}
     hasBin: true
@@ -2181,7 +2181,7 @@ packages:
       postcss: 7.0.39
       postcss-functions: 3.0.0
       postcss-js: 2.0.3
-      postcss-load-config: 3.1.4(postcss@7.0.39)(ts-node@10.9.1)
+      postcss-load-config: 3.1.4(postcss@7.0.39)
       postcss-nested: 4.2.3
       postcss-selector-parser: 6.0.13
       postcss-value-parser: 4.2.0
@@ -2551,7 +2551,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.4.0-beta.3(@types/node@20.4.7)
+      vite: 4.4.0-beta.3
       vue: 3.3.4
     dev: true
 
@@ -7861,7 +7861,7 @@ packages:
       postcss: 8.4.26
     dev: true
 
-  /postcss-load-config@3.1.4(postcss@7.0.39)(ts-node@10.9.1):
+  /postcss-load-config@3.1.4(postcss@7.0.39):
     resolution: {integrity: sha512-6DiM4E7v4coTE4uzA8U//WhtPwyhiim3eyjEMFCnUpzbrkK9wJHgKDT2mR+HbtSrd/NubVaYTOpSpjUl8NQeRg==}
     engines: {node: '>= 10'}
     peerDependencies:
@@ -7875,8 +7875,24 @@ packages:
     dependencies:
       lilconfig: 2.1.0
       postcss: 7.0.39
-      ts-node: 10.9.1(@types/node@20.4.7)(typescript@5.1.3)
       yaml: 1.10.2
+    dev: true
+
+  /postcss-load-config@4.0.1(postcss@8.4.26):
+    resolution: {integrity: sha512-vEJIc8RdiBRu3oRAI0ymerOn+7rPuMvRXslTvZUKZonDHFIczxztIyJ1urxM1x9JXEikvpWWTUUqal5j/8QgvA==}
+    engines: {node: '>= 14'}
+    peerDependencies:
+      postcss: '>=8.0.9'
+      ts-node: '>=9.0.0'
+    peerDependenciesMeta:
+      postcss:
+        optional: true
+      ts-node:
+        optional: true
+    dependencies:
+      lilconfig: 2.1.0
+      postcss: 8.4.26
+      yaml: 2.3.1
     dev: true
 
   /postcss-load-config@4.0.1(postcss@8.4.26)(ts-node@10.9.1):
@@ -8108,6 +8124,16 @@ packages:
     resolution: {integrity: sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==}
     engines: {node: '>=10'}
     dev: true
+
+  /radix-vue@0.3.0(vue@3.3.4):
+    resolution: {integrity: sha512-maywNzZKUfp6Jhis01s2dXXArft3VZrAFylsqEkjEnznCTlt5+yd1g40XPH0EefAkgR1A6XTEA0l+FXFxNKk0w==}
+    dependencies:
+      '@floating-ui/dom': 1.4.2
+      '@floating-ui/vue': 1.0.1(vue@3.3.4)
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+    dev: false
 
   /rc9@2.1.1:
     resolution: {integrity: sha512-lNeOl38Ws0eNxpO3+wD1I9rkHGQyj1NU1jlzv4go2CtEnEQEUfqnIvZG7W+bC/aXdJ27n5x/yUjb6RoT9tko+Q==}
@@ -8936,6 +8962,37 @@ packages:
     resolution: {integrity: sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==}
     dev: true
 
+  /tailwindcss@3.3.3:
+    resolution: {integrity: sha512-A0KgSkef7eE4Mf+nKJ83i75TMyq8HqY3qmFIJSWy8bNt0v1lG7jUcpGpoTFxAwYcWOphcTBLPPJg+bDfhDf52w==}
+    engines: {node: '>=14.0.0'}
+    hasBin: true
+    dependencies:
+      '@alloc/quick-lru': 5.2.0
+      arg: 5.0.2
+      chokidar: 3.5.3
+      didyoumean: 1.2.2
+      dlv: 1.1.3
+      fast-glob: 3.3.1
+      glob-parent: 6.0.2
+      is-glob: 4.0.3
+      jiti: 1.19.3
+      lilconfig: 2.1.0
+      micromatch: 4.0.5
+      normalize-path: 3.0.0
+      object-hash: 3.0.0
+      picocolors: 1.0.0
+      postcss: 8.4.26
+      postcss-import: 15.1.0(postcss@8.4.26)
+      postcss-js: 4.0.1(postcss@8.4.26)
+      postcss-load-config: 4.0.1(postcss@8.4.26)
+      postcss-nested: 6.0.1(postcss@8.4.26)
+      postcss-selector-parser: 6.0.13
+      resolve: 1.22.4
+      sucrase: 3.34.0
+    transitivePeerDependencies:
+      - ts-node
+    dev: true
+
   /tailwindcss@3.3.3(ts-node@10.9.1):
     resolution: {integrity: sha512-A0KgSkef7eE4Mf+nKJ83i75TMyq8HqY3qmFIJSWy8bNt0v1lG7jUcpGpoTFxAwYcWOphcTBLPPJg+bDfhDf52w==}
     engines: {node: '>=14.0.0'}
@@ -9718,7 +9775,7 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vite@4.4.0-beta.3(@types/node@20.4.7):
+  /vite@4.4.0-beta.3:
     resolution: {integrity: sha512-IC/thYTvArOFRJ4qvvudnu4KKZOVc+gduS3I9OfC5SbP/Rf4kkP7z6Of2QpKeOSVqwIK24khW6VOUmVD/0yzSQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -9746,7 +9803,6 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.4.7
       esbuild: 0.18.20
       postcss: 8.4.26
       rollup: 3.28.1
@@ -9754,7 +9810,7 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vitepress@1.0.0-beta.5(@algolia/client-search@4.19.1)(@types/node@20.4.7)(search-insights@2.7.0):
+  /vitepress@1.0.0-beta.5(@algolia/client-search@4.19.1)(search-insights@2.7.0):
     resolution: {integrity: sha512-/RjqqRsSEKkzF6HhK5e5Ij+bZ7ETb9jNCRRgIMm10gJ+ZLC3D1OqkE465lEqCeJUgt2HZ6jmWjDqIBfrJSpv7w==}
     hasBin: true
     dependencies:
@@ -9769,7 +9825,7 @@ packages:
       mark.js: 8.11.1
       minisearch: 6.1.0
       shiki: 0.14.3
-      vite: 4.4.0-beta.3(@types/node@20.4.7)
+      vite: 4.4.0-beta.3
       vue: 3.3.4
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -10229,7 +10285,7 @@ packages:
     resolution: {directory: packages/radix-vue, type: directory}
     id: file:packages/radix-vue
     name: radix-vue
-    version: 0.2.2
+    version: 0.3.0
     dependencies:
       '@floating-ui/dom': 1.4.2
       '@floating-ui/vue': 1.0.1(vue@3.3.4)

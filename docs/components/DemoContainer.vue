@@ -3,11 +3,12 @@ import { Icon } from '@iconify/vue'
 
 defineProps<{
   title: string
+  overflow?: boolean
 }>()
 </script>
 
 <template>
-  <div class="w-full" :class="{ 'overflow-x-auto': title === 'toolbar' }">
+  <div class="w-full" :class="{ 'overflow-x-auto': overflow }">
     <a
       class="capitalize md:text-lg font-semibold mb-2 ml-2 inline-flex items-center group"
       :href="`/components/${title?.replace(' ', '-')}.html`"
@@ -17,7 +18,7 @@ defineProps<{
     </a>
     <div
       class="custom-justify-center p-4 md:p-10 min-h-[256px] lg:h-[400px] bg-gradient-to-br rounded-xl from-teal9 to-green9 w-full relative items-center flex"
-      :class="{ 'overflow-x-auto': title === 'toolbar' }"
+      :class="{ 'overflow-x-auto': overflow }"
     >
       <slot />
     </div>

@@ -13,6 +13,7 @@ import HoverCardDemo from './demo/HoverCard/index.vue'
 import LabelDemo from './demo/Label/index.vue'
 import MenubarDemo from './demo/Menubar/index.vue'
 import NavigationMenuDemo from './demo/NavigationMenu/index.vue'
+import PaginationDemo from './demo/Pagination/index.vue'
 import PopoverDemo from './demo/Popover/index.vue'
 import ProgressDemo from './demo/Progress/index.vue'
 import RadioGroupDemo from './demo/RadioGroup/index.vue'
@@ -22,6 +23,7 @@ import SeparatorDemo from './demo/Separator/index.vue'
 import SliderDemo from './demo/Slider/index.vue'
 import SwitchDemo from './demo/Switch/index.vue'
 import TabsDemo from './demo/Tabs/index.vue'
+import ToastDemo from './demo/Toast/index.vue'
 import ToggleDemo from './demo/Toggle/index.vue'
 import ToggleGroupDemo from './demo/ToggleGroup/index.vue'
 import ToolbarDemo from './demo/Toolbar/index.vue'
@@ -74,6 +76,9 @@ import DemoContainer from './DemoContainer.vue'
     <DemoContainer title="navigation menu">
       <NavigationMenuDemo />
     </DemoContainer>
+    <DemoContainer title="pagination" overflow>
+      <PaginationDemo />
+    </DemoContainer>
     <DemoContainer title="popover">
       <PopoverDemo />
     </DemoContainer>
@@ -101,13 +106,16 @@ import DemoContainer from './DemoContainer.vue'
     <DemoContainer title="tabs">
       <TabsDemo />
     </DemoContainer>
+    <DemoContainer title="toast">
+      <ToastDemo />
+    </DemoContainer>
     <DemoContainer title="toggle">
       <ToggleDemo />
     </DemoContainer>
     <DemoContainer title="toggle group">
       <ToggleGroupDemo />
     </DemoContainer>
-    <DemoContainer title="toolbar">
+    <DemoContainer title="toolbar" overflow>
       <ToolbarDemo />
     </DemoContainer>
     <DemoContainer title="tooltip">

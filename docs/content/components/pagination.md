@@ -8,13 +8,16 @@ name: pagination
 import DemoPagination from '../../components/demo/Pagination/index.vue' 
 </script>
 
+
 # Pagination
+
+<Badge>New</Badge>
 
 <Description>
 Displays data in paged format and provides navigation between pages.
 </Description>
 
-<HeroContainer folder="Pagination">
+<HeroContainer folder="Pagination" overflow>
 <DemoPagination />
 <template v-slot:codeSlot>
 <HeroCodeGroup>
@@ -36,7 +39,8 @@ Displays data in paged format and provides navigation between pages.
 
 <Highlights
   :features="[
-    'Provides context for assistive technology to read the progress of a task.',
+    'Enable quick access to first, or last page',
+    'Enable to show edges constantly, or not',
   ]"
 />
 

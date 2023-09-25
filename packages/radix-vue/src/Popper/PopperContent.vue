@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from 'vue'
+import type { ComponentPublicInstance, InjectionKey, Ref } from 'vue'
 
 export interface PopperContentContextValue {
   placedSide: Ref<Side>
@@ -150,13 +150,14 @@ import {
   type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
-import { useSize } from '@/shared'
+import { useForwardRef, useSize } from '@/shared'
 
 const props = withDefaults(defineProps<PopperContentProps>(), {
   ...PopperContentPropsDefaultValue,
 })
 const context = inject(POPPER_ROOT_KEY)
 
+const forwardRef = useForwardRef()
 const { primitiveElement, currentElement: contentElement }
   = usePrimitiveElement()
 
@@ -320,7 +321,10 @@ defineExpose({
     }"
   >
     <Primitive
-      ref="primitiveElement"
+      :ref="vnode => {
+        forwardRef(vnode)
+        primitiveElement = vnode as ComponentPublicInstance
+      }"
       v-bind="$attrs"
       :as-child="props.asChild"
       :as="as"

@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import {
-  type Directive,
   type VNode,
   getCurrentInstance,
+  h,
   ref,
   toRefs,
   useSlots,
-  withDirectives,
 } from 'vue'
 import { usePresence } from './usePresence'
 import { renderSlotFragments } from '@/shared'
+import { unrefElement } from '@vueuse/core'
 
 interface PresenceProps {
   /**
@@ -34,15 +34,6 @@ const slots = useSlots()
 const node = ref<HTMLElement>()
 // Mount composables once to prevent duplicated eventListener
 const { isPresent } = usePresence(present, node)
-
-const vPresence: Directive = {
-  beforeMount(el: HTMLElement) {
-    // special case to handle animation for PopperContent
-    if (el.hasAttribute('data-radix-popper-content-wrapper'))
-      node.value = el.firstChild as HTMLElement
-    else node.value = el
-  },
-}
 
 let children = slots.default?.()
 children = renderSlotFragments(children || [])
@@ -70,9 +61,12 @@ function render() {
     )
   }
 
-  if (forceMount.value || present.value || isPresent.value)
-    return withDirectives(slots.default?.()[0] as VNode, [[vPresence]])
-  else return null
+  if (forceMount.value || present.value || isPresent.value) {
+    return h(slots.default?.()[0] as VNode, {
+      ref: v => node.value = unrefElement(v as HTMLElement),
+    })
+  }
+  else { return null }
 }
 
 defineExpose({

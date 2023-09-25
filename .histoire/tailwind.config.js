@@ -1,4 +1,4 @@
-const { blackA, green, grass, mauve, violet, red, indigo, purple, teal } = require("@radix-ui/colors");
+const { blackA, green, grass, mauve, slate, violet, red, indigo, purple, teal } = require("@radix-ui/colors");
 const plugin = require("tailwindcss/plugin");
 
 /** @type {import('tailwindcss').Config} */
@@ -16,7 +16,8 @@ export default {
         ...red,
         ...indigo,
         ...purple,
-        ...teal,
+        ...teal,   
+        ...slate, 
       },
       keyframes: {
         overlayShow: {
@@ -115,6 +116,18 @@ export default {
             height: 0,
           },
         },
+        hide: {
+          from: { opacity: 1 },
+          to: { opacity: 0 },
+        },
+        slideIn: {
+          from: { transform: 'translateX(calc(100% + var(--viewport-padding)))' },
+          to: { transform: 'translateX(0)' },
+        },
+        swipeOut: {
+          from: { transform: 'translateX(var(--radix-toast-swipe-end-x))' },
+          to: { transform: 'translateX(calc(100% + var(--viewport-padding)))' },
+        },
       },
       animation: {
         overlayShow: "overlayShow 300ms cubic-bezier(0.16, 1, 0.3, 1)",
@@ -138,6 +151,9 @@ export default {
         enterFromRight: "enterFromRight 250ms ease",
         exitToLeft: "exitToLeft 250ms ease",
         exitToRight: "exitToRight 250ms ease",
+        hide: 'hide 100ms ease-in',
+        slideIn: 'slideIn 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+        swipeOut: 'swipeOut 100ms ease-out',
       },
     },
   },

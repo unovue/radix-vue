@@ -45,17 +45,17 @@ function createLinks(tm: CoreTeam): CoreTeam {
 
 const plainTeamMembers: CoreTeam[] = [
   {
-    avatar: contributorsAvatars.khairulhaaziq,
-    name: 'Khairul Haaziq',
-    github: 'khairulhaaziq',
-    twitter: 'khairulhaaziq',
-    desc: 'Core team member of Radix Vue',
-  },
-  {
     avatar: contributorsAvatars.zernonia,
     name: 'Zernonia',
     github: 'zernonia',
     twitter: 'zernonia',
+    desc: 'Core team member of Radix Vue',
+  },
+  {
+    avatar: contributorsAvatars.khairulhaaziq,
+    name: 'Khairul Haaziq',
+    github: 'khairulhaaziq',
+    twitter: 'khairulhaaziq',
     desc: 'Core team member of Radix Vue',
   },
   {

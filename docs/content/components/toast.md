@@ -168,7 +168,7 @@ The toast that automatically closes. It should not be held open to [acquire a us
       description: `
         <span>
           Control the
-          <a href=&quot;/primitives/docs/components/toast#sensitivity&quot;>
+          <a href=&quot;/components/toast#sensitivity&quot;>
             sensitivity
           </a>
           of the toast for accessibility purposes. For toasts that are the
@@ -346,7 +346,7 @@ The toast message.
 
 An action that is safe to ignore to ensure users are not expected to complete tasks with unexpected side effects as a result of a [time limit](https://www.w3.org/TR/UNDERSTANDING-WCAG20/time-limits-required-behaviors.html).
 
-When obtaining a user response is necessary, portal an ["AlertDialog"](/primitives/docs/components/alert-dialog) styled as a toast into the viewport instead.
+When obtaining a user response is necessary, portal an ["AlertDialog"](/components/alert-dialog) styled as a toast into the viewport instead.
 
 <PropsTable
   :data="[
@@ -414,7 +414,7 @@ Customise the duration of a toast to override the provider value.
 
 ### Duplicate toasts
 
-When a toast must appear every time a user clicks a button, use state to render multiple instances of the same toast (see below). Alternatively, you can abstract the parts to create your own [imperative API](/primitives/docs/components/toast#imperative-api).
+When a toast must appear every time a user clicks a button, use state to render multiple instances of the same toast (see below). Alternatively, you can abstract the parts to create your own [imperative API](/components/toast#imperative-api).
 
 ```html line=2,7
 <div>
@@ -626,7 +626,7 @@ defineProps<{
 
 ### Imperative API
 
-Create your own imperative API to allow [toast duplication](/primitives/docs/components/toast#duplicate-toasts) if preferred.
+Create your own imperative API to allow [toast duplication](/components/toast#duplicate-toasts) if preferred.
 
 #### Usage
 

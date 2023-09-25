@@ -28,6 +28,11 @@ Radix is an unstyled, customisable UI Library with built in accessibility for bu
  <a href="https://radix-vue.com">Documentation</a> | <a href="https://www.radix-vue.com/overview/getting-started.html">Getting Started</a> | <a href="https://www.radix-vue.com/">Examples</a> | <a href="https://www.radix-vue.com/overview/introduction.html">Why Radix Vue?</a>
 </p>
 
+
+
+![hero image](docs/content/public/og.png)
+ <em>design by: https://twitter.com/icarusgkx</em>
+ 
 ## Installation
 
 ```bash
@@ -47,38 +52,7 @@ For full documentation, visit [radix-vue.com](https://radix-vue.com).
 ## Releases
 
 For changelog, visit [releases](https://github.com/radix-vue/radix-vue/releases).
-
-## Todo
-
-| Component                                                           | Usable | Complete API | Complete Accessibility |
-| :------------------------------------------------------------------ | :----: | ------------ | ---------------------- |
-| [Accordion](https://radix-vue.com/components/accordion)             |   ✅   | ✅           | ✅                     |
-| [Alert Dialog](https://radix-vue.com/components/alert-dialog)       |   ✅   | ✅           | ✅                     |
-| [Aspect Ratio](https://radix-vue.com/components/aspect-ratio)       |   ✅   | ✅           | ✅                     |
-| [Avatar](https://radix-vue.com/components/avatar)                   |   ✅   | ✅           | ✅                     |
-| [Checkbox](https://radix-vue.com/components/checkbox)               |   ✅   | ✅           | ✅                     |
-| [Collapsible](https://radix-vue.com/components/collapsible)         |   ✅   | ✅           | ✅                     |
-| [Context Menu](https://radix-vue.com/components/context-menu)       |   ✅   | ✅           | ✅                     |
-| [Dialog](https://radix-vue.com/components/dialog)                   |   ✅   | ✅           | ✅                     |
-| [Dropdown Menu](https://radix-vue.com/components/dropdown-menu)     |   ✅   | ✅           | ✅                     |
-| [Hover Card](https://radix-vue.com/components/hover-card)           |   ✅   | ✅           | ✅                     |
-| [Label](https://radix-vue.com/components/label)                     |   ✅   | ✅           | ✅                     |
-| [Menubar](https://radix-vue.com/components/menubar)                 |   ✅   | ✅           | ✅                     |
-| [Navigation Menu](https://radix-vue.com/components/navigation-menu) |   ✅   | ✅           | ✅                     |
-| [Popover](https://radix-vue.com/components/popover)                 |   ✅   | ✅           | ✅                     |
-| [Progress](https://radix-vue.com/components/progress)               |   ✅   | ✅           | ✅                     |
-| [Radio Group](https://radix-vue.com/components/radio-group)         |   ✅   | ✅           | ✅                     |
-| [Scroll Area](https://radix-vue.com/components/scroll-area)         |   ✅   | ✅           | ✅                     |
-| [Select](https://radix-vue.com/components/select)                   |   ✅   | ✅           | ✅                     |
-| [Separator](https://radix-vue.com/components/separator)             |   ✅   | ✅           | ✅                     |
-| [Slider](https://radix-vue.com/components/slider)                   |   ✅   | ✅           | ✅                     |
-| [Switch](https://radix-vue.com/components/switch)                   |   ✅   | ✅           | ✅                     |
-| [Tabs](https://radix-vue.com/components/tabs)                       |   ✅   | ✅           | ✅                     |
-| [Toggle](https://radix-vue.com/components/toggle)                   |   ✅   | ✅           | ✅                     |
-| [Toggle Group](https://radix-vue.com/components/toggle-group)       |   ✅   | ✅           | ✅                     |
-| [Toolbar](https://radix-vue.com/components/toolbar)                 |   ✅   | ✅           | ✅                     |
-| [Tooltip](https://radix-vue.com/components/tooltip)                 |   ✅   | ✅           | ✅                     |
-
+ 
 ## Contributing
 
 We would love to have your contributions! All PRs all welcomed! We need help building the core components, docs, tests, stories! Join our discord and we will get you up and running!

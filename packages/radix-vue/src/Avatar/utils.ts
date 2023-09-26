@@ -1,29 +1,31 @@
-import { onMounted, onUnmounted, ref } from 'vue'
+import { type Ref, onMounted, onUnmounted, ref, watch } from 'vue'
 
 export type ImageLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error'
 
-export function useImageLoadingStatus(src?: string) {
+export function useImageLoadingStatus(src: Ref<string>) {
   const loadingStatus = ref<ImageLoadingStatus>('idle')
   const isMounted = ref(false)
-  onMounted(() => {
-    if (!src) {
-      loadingStatus.value = 'error'
-      return
-    }
 
-    isMounted.value = true
-    const image = new window.Image()
-
-    const updateStatus = (status: ImageLoadingStatus) => () => {
-      if (!isMounted.value)
-        return
+  const updateStatus = (status: ImageLoadingStatus) => () => {
+    if (isMounted.value)
       loadingStatus.value = status
-    }
+  }
 
-    loadingStatus.value = 'loading'
-    image.onload = updateStatus('loaded')
-    image.onerror = updateStatus('error')
-    image.src = src
+  watch(src, (value) => {
+    if (!value) {
+      loadingStatus.value = 'error'
+    }
+    else {
+      const image = new window.Image()
+      loadingStatus.value = 'loading'
+      image.onload = updateStatus('loaded')
+      image.onerror = updateStatus('error')
+      image.src = value
+    }
+  }, { immediate: true })
+
+  onMounted(() => {
+    isMounted.value = true
   })
 
   onUnmounted(() => {

@@ -68,3 +68,17 @@ describe('given a disabled Checkbox', () => {
     })
   })
 })
+
+describe('given checked value as "indeterminate"', async () => {
+  const wrapper = mount(Checkbox, { props: { checked: 'indeterminate' } })
+
+  it('should have [data-state] of "indeterminate"', () => {
+    expect(wrapper.find('button').attributes('data-state')).toBe('indeterminate')
+    expect(wrapper.find('span').attributes('data-state')).toBe('indeterminate')
+  })
+
+  it('should still be clickable', async () => {
+    await wrapper.find('button').trigger('click')
+    expect(wrapper.find('button').attributes('data-state')).toBe('unchecked')
+  })
+})

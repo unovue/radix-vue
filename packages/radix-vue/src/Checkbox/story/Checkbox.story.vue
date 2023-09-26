@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
 import { CheckboxIndicator, CheckboxRoot } from '../'
 
-const checkboxOne = ref(true)
+const checkboxOne = ref<boolean | 'indeterminate'>('indeterminate')
 const checkboxThree = ref(false)
 </script>
 
@@ -21,7 +21,8 @@ const checkboxThree = ref(false)
             <CheckboxIndicator
               class="bg-white h-full w-full rounded flex items-center justify-center"
             >
-              <Icon icon="radix-icons:check" class="h-4 w-4 text-black" />
+              <Icon v-if="checkboxOne === 'indeterminate'" icon="radix-icons:divider-horizontal" class="h-4 w-4 text-black" />
+              <Icon v-else-if="checkboxOne" icon="radix-icons:check" class="h-4 w-4 text-black" />
             </CheckboxIndicator>
           </CheckboxRoot>
           <span class="select-none">Checkbox</span>

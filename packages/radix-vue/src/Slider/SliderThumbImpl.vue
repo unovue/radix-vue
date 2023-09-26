@@ -47,42 +47,37 @@ export default {
 </script>
 
 <template>
-  <span
+  <Primitive
+    v-bind="$attrs"
+    ref="primitiveElement"
+    role="slider"
+    data-radix-vue-collection-item
+    :tabindex="context?.disabled.value ? undefined : 0"
+    :aria-label="$attrs['aria-label'] || label"
+    :data-disabled="context?.disabled.value"
+    :data-orientation="context?.orientation.value"
+    :aria-valuenow="value"
+    :aria-valuemin="context?.min.value"
+    :aria-valuemax="context?.max.value"
+    :aria-orientation="context?.orientation.value"
+    :as-child="asChild"
+    :as="as"
     :style="{
       transform: 'var(--radix-slider-thumb-transform)',
       position: 'absolute',
       [orientation!.startEdge]: `calc(${percent}% + ${thumbInBoundsOffset}px)`,
+      /**
+       * There will be no value on initial render while we work out the index so we hide thumbs
+       * without a value, otherwise SSR will render them in the wrong position before they
+       * snap into the correct position during hydration which would be visually jarring for
+       * slower connections.
+       */
+      display: !isMounted && value === undefined ? 'none' : undefined,
+    }"
+    @focus="() => {
+      context!.valueIndexToChangeRef.value = index
     }"
   >
-    <Primitive
-      v-bind="$attrs"
-      ref="primitiveElement"
-      role="slider"
-      data-radix-vue-collection-item
-      :tabindex="context?.disabled.value ? undefined : 0"
-      :aria-label="$attrs['aria-label'] || label"
-      :data-disabled="context?.disabled.value"
-      :data-orientation="context?.orientation.value"
-      :aria-valuenow="value"
-      :aria-valuemin="context?.min.value"
-      :aria-valuemax="context?.max.value"
-      :aria-orientation="context?.orientation.value"
-      :as-child="asChild"
-      :as="as"
-      :style="{
-        /**
-         * There will be no value on initial render while we work out the index so we hide thumbs
-         * without a value, otherwise SSR will render them in the wrong position before they
-         * snap into the correct position during hydration which would be visually jarring for
-         * slower connections.
-         */
-        display: !isMounted && value === undefined ? 'none' : undefined,
-      }"
-      @focus="() => {
-        context!.valueIndexToChangeRef.value = index
-      }"
-    >
-      <slot />
-    </Primitive>
-  </span>
+    <slot />
+  </Primitive>
 </template>

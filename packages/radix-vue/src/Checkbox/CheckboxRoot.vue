@@ -88,7 +88,7 @@ provide(CHECKBOX_INJECTION_KEY, {
     tabindex="-1"
     aria-hidden
     :defaultChecked="isIndeterminate(checked) ? false : checked"
-    :checked="isIndeterminate(checked) ? false : checked"
+    :checked="!!checked"
     :name="props.name"
     :disabled="props.disabled"
     :required="props.required"

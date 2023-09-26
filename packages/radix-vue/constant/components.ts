@@ -270,4 +270,9 @@ export const components = {
     'ScrollAreaThumb',
     'ScrollAreaCorner',
   ],
+
+  Primitive: [
+    'Primitive',
+    'Slot',
+  ],
 }

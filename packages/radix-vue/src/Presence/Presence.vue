@@ -63,7 +63,16 @@ function render() {
 
   if (forceMount.value || present.value || isPresent.value) {
     return h(slots.default?.()[0] as VNode, {
-      ref: v => node.value = unrefElement(v as HTMLElement),
+      ref: (v) => {
+        const el = unrefElement(v as HTMLElement)
+        // special case to handle animation for PopperContent
+        if (el?.hasAttribute('data-radix-popper-content-wrapper'))
+          node.value = el.firstChild as HTMLElement
+        else
+          node.value = el
+
+        return el
+      },
     })
   }
   else { return null }

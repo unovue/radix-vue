@@ -4,7 +4,7 @@ import { useVModel } from '@vueuse/core'
 
 export interface CheckboxRootProps extends PrimitiveProps {
   defaultChecked?: boolean
-  checked?: boolean
+  checked?: boolean | 'indeterminate'
   disabled?: boolean
   required?: boolean
   name?: string
@@ -46,7 +46,7 @@ const { disabled } = toRefs(props)
 const checked = useVModel(props, 'checked', emits, {
   defaultValue: props.defaultChecked,
   passive: true,
-})
+}) as Ref<CheckedState>
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 // We set this to true by default so that events bubble to forms without JS (SSR)
@@ -68,7 +68,6 @@ provide(CHECKBOX_INJECTION_KEY, {
     :as-child="props.asChild"
     :as="as"
     :type="as === 'button' ? 'button' : undefined"
-    :value="value"
     :aria-checked="isIndeterminate(checked) ? 'mixed' : checked"
     :aria-required="required"
     :aria-label="$attrs['aria-label'] || ariaLabel"
@@ -89,7 +88,7 @@ provide(CHECKBOX_INJECTION_KEY, {
     tabindex="-1"
     aria-hidden
     :defaultChecked="isIndeterminate(checked) ? false : checked"
-    :checked="checked"
+    :checked="!!checked"
     :name="props.name"
     :disabled="props.disabled"
     :required="props.required"

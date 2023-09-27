@@ -7,7 +7,7 @@ import { nextTick } from 'vue'
 import { findByAltText, findByRole, findByText } from '@testing-library/vue'
 
 const FALLBACK = 'CT'
-const DELAY = 300
+const DELAY = 301
 
 it('should pass axe accessibility tests', async () => {
   const wrapper = mount(Avatar)

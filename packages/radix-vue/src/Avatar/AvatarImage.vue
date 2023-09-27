@@ -2,22 +2,23 @@
 export type AvatarImageEmits = {
   'loadingStatusChange': [value: ImageLoadingStatus]
 }
-export interface AvatarImageProps extends PrimitiveProps {}
+export interface AvatarImageProps extends PrimitiveProps {
+  src: string
+}
 </script>
 
 <script setup lang="ts">
-import { inject, useAttrs, watch } from 'vue'
+import { inject, toRefs, watch } from 'vue'
 import { Primitive, type PrimitiveProps } from '../Primitive'
 import { AVATAR_INJECTION_KEY } from './AvatarRoot.vue'
 import { type ImageLoadingStatus, useImageLoadingStatus } from './utils'
 
 const props = withDefaults(defineProps<AvatarImageProps>(), { as: 'img' })
-
 const emits = defineEmits<AvatarImageEmits>()
 
-const injectedValue = inject(AVATAR_INJECTION_KEY)
+const { src } = toRefs(props)
+const context = inject(AVATAR_INJECTION_KEY)
 
-const src = useAttrs().src as string
 const imageLoadingStatus = useImageLoadingStatus(src)
 
 watch(
@@ -25,7 +26,7 @@ watch(
   (newValue) => {
     emits('loadingStatusChange', newValue)
     if (newValue !== 'idle')
-      injectedValue!.imageLoadingStatus.value = newValue
+      context!.imageLoadingStatus.value = newValue
   },
   { immediate: true },
 )
@@ -35,8 +36,9 @@ watch(
   <Primitive
     v-if="imageLoadingStatus === 'loaded'"
     role="img"
-    :as-child="props.asChild"
+    :as-child="asChild"
     :as="as"
+    :src="src"
   >
     <slot />
   </Primitive>

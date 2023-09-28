@@ -1,7 +1,7 @@
 ---
 outline: deep
 metaTitle: Composition
-metaDescription: Use the `asChild` prop to compose Radix's functionality onto alternative element types or your own React components.
+metaDescription: Use the `asChild` prop to compose Radix's functionality onto alternative element types or your own Vue components.
 ---
 
 <script setup>
@@ -12,7 +12,7 @@ import Description from '../../components/Description.vue'
 
 <Description>
 Use the `asChild` prop to compose Radix's functionality onto alternative
-element types or your own React components.
+element types or your own Vue components.
 </Description>
 
 All Radix primitive parts that render a DOM element accept an `asChild` prop. When `asChild` is set to `true`, Radix Vue will not render a default DOM element, instead passing the props and behavior required to make it functional to the first child of the slots.
@@ -40,7 +40,7 @@ import { TooltipRoot, TooltipTrigger, TooltipPortal } from "radix-vue";
 
 > If you do decide to change the underlying element type, it is your responsibility to ensure it remains accessible and functional. In the case of `TooltipTrigger` for example, it must be a focusable element that can respond to pointer and keyboard events. If you were to switch it to a `div`, it would no longer be accessible.
 
-In reality, you will rarely modify the underlying DOM element like we've seen above. Instead it's more common to use your own React components. This is especially true for most `Trigger` parts, as you usually want to compose the functionality with the custom buttons and links in your design system.
+In reality, you will rarely modify the underlying DOM element like we've seen above. Instead it's more common to use your own Vue components. This is especially true for most `Trigger` parts, as you usually want to compose the functionality with the custom buttons and links in your design system.
 
 ## Composing with your own Vue components
 

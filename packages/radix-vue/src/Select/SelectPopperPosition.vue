@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useForwardProps } from '..'
 import { CONTENT_MARGIN } from './utils'
 import { PopperContent, type PopperContentProps } from '@/Popper'
 
@@ -8,11 +9,12 @@ const props = withDefaults(defineProps<SelectPopperPositionProps>(), {
   align: 'start',
   collisionPadding: CONTENT_MARGIN,
 })
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <PopperContent
-    v-bind="props"
+    v-bind="forwarded"
     :style="{
       // Ensure border-box for floating-ui calculations
       'boxSizing': 'border-box',

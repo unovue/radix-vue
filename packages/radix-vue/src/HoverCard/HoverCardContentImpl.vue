@@ -7,12 +7,14 @@ import { PopperContent, type PopperContentProps } from '@/Popper'
 import { DismissableLayer, type DismissableLayerEmits } from '@/DismissableLayer'
 import { usePrimitiveElement } from '@/Primitive'
 import { getTabbableNodes } from './utils'
+import { useForwardProps } from '..'
 
 export interface HoverCardContentImplProps extends PopperContentProps {}
 export type HoverCardContentImplEmits = DismissableLayerEmits
 
 const props = defineProps<HoverCardContentImplProps>()
 const emits = defineEmits<HoverCardContentImplEmits>()
+const forwarded = useForwardProps(props)
 
 const { primitiveElement, currentElement: contentElement } = usePrimitiveElement()
 const context = inject(HOVER_CARD_INJECTION_KEY)
@@ -74,7 +76,7 @@ onUnmounted(() => {
   >
     <PopperContent
       ref="primitiveElement"
-      v-bind="{ ...props, ...$attrs }"
+      v-bind="{ ...forwarded, ...$attrs }"
       :data-state="context?.open.value ? 'open' : 'closed'"
       :style="{
         'userSelect': containSelection ? 'text' : undefined,

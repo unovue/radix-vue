@@ -8,7 +8,7 @@ import {
   type DismissableLayerProps,
 } from '@/DismissableLayer'
 import { FocusScope, type FocusScopeProps } from '@/FocusScope'
-import { useFocusGuards } from '@/shared'
+import { useFocusGuards, useForwardProps } from '@/shared'
 
 export interface PopoverContentImplProps
   extends PopperContentProps,
@@ -36,6 +36,8 @@ export type PopoverContentImplEmits = DismissableLayerEmits & {
 const props = defineProps<PopoverContentImplProps>()
 const emits = defineEmits<PopoverContentImplEmits>()
 
+const forwarded = useForwardProps(props)
+
 const context = inject(POPOVER_INJECTION_KEY)
 useFocusGuards()
 </script>
@@ -58,7 +60,7 @@ useFocusGuards()
       @dismiss="context?.onOpenChange(false)"
     >
       <PopperContent
-        v-bind="props"
+        v-bind="forwarded"
         :id="context?.contentId"
         :data-state="context?.open.value ? 'open' : 'closed'"
         role="dialog"

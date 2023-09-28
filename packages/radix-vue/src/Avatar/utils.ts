@@ -11,21 +11,21 @@ export function useImageLoadingStatus(src: Ref<string>) {
       loadingStatus.value = status
   }
 
-  watch(src, (value) => {
-    if (!value) {
-      loadingStatus.value = 'error'
-    }
-    else {
-      const image = new window.Image()
-      loadingStatus.value = 'loading'
-      image.onload = updateStatus('loaded')
-      image.onerror = updateStatus('error')
-      image.src = value
-    }
-  }, { immediate: true })
-
   onMounted(() => {
     isMounted.value = true
+
+    watch(src, (value) => {
+      if (!value) {
+        loadingStatus.value = 'error'
+      }
+      else {
+        const image = new window.Image()
+        loadingStatus.value = 'loading'
+        image.onload = updateStatus('loaded')
+        image.onerror = updateStatus('error')
+        image.src = value
+      }
+    }, { immediate: true })
   })
 
   onUnmounted(() => {

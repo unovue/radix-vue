@@ -51,7 +51,7 @@ const checked = useVModel(props, 'checked', emits, {
 const { primitiveElement, currentElement } = usePrimitiveElement()
 // We set this to true by default so that events bubble to forms without JS (SSR)
 const isFormControl = computed(() => currentElement.value ? Boolean(currentElement.value.closest('form')) : true)
-const ariaLabel = computed(() => props.id && currentElement.value ? (document.querySelector(`[for=${props.id}]`) as HTMLLabelElement)?.innerText : undefined)
+const ariaLabel = computed(() => props.id && currentElement.value ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText : undefined)
 
 provide(CHECKBOX_INJECTION_KEY, {
   disabled,

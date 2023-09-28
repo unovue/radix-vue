@@ -35,7 +35,7 @@ const context = inject(RADIO_GROUP_INJECTION_KEY)
 const isFormControl = computed(() =>
   triggerElement.value ? Boolean(triggerElement.value.closest('form')) : true,
 )
-const ariaLabel = computed(() => props.id && triggerElement.value ? (document.querySelector(`[for=${props.id}]`) as HTMLLabelElement)?.innerText : undefined)
+const ariaLabel = computed(() => props.id && triggerElement.value ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText : undefined)
 
 const hasConsumerStoppedPropagationRef = ref(false)
 

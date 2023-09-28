@@ -14,7 +14,8 @@ withDefaults(defineProps<VisuallyHiddenProps>(), { as: 'span' })
       // See: https://github.com/twbs/bootstrap/blob/master/scss/mixins/_screen-reader.scss
       position: 'absolute',
       border: 0,
-      width: 1,
+      width: '0px',
+      display: 'inline-block',
       height: 1,
       padding: 0,
       margin: -1,

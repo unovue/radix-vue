@@ -6,22 +6,18 @@ import {
   type MenuContentEmits,
   type MenuContentProps,
 } from '@/Menu'
-import { useEmitAsProps } from '@/shared'
-import { PopperContentPropsDefaultValue } from '@/Popper'
+import { useForwardPropsEmits } from '@/shared'
 
 export interface DropdownMenuContentProps extends MenuContentProps {}
 export type DropdownMenuContentEmits = MenuContentEmits
 
-const props = withDefaults(defineProps<DropdownMenuContentProps>(), {
-  ...PopperContentPropsDefaultValue,
-})
+const props = defineProps<DropdownMenuContentProps>()
 const emits = defineEmits<DropdownMenuContentEmits>()
+const forwarded = useForwardPropsEmits(props, emits)
 
 const context = inject(DROPDOWN_MENU_INJECTION_KEY)
 
 const hasInteractedOutsideRef = ref(false)
-
-const emitsAsProps = useEmitAsProps(emits)
 
 function handleCloseAutoFocus(event: Event) {
   emits('closeAutoFocus', event)
@@ -41,7 +37,7 @@ function handleCloseAutoFocus(event: Event) {
 
 <template>
   <MenuContent
-    v-bind="{ ...props, ...emitsAsProps }"
+    v-bind="forwarded"
     :id="context?.contentId"
     :aria-labelledby="context?.triggerId"
     :style="{

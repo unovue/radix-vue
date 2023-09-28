@@ -6,17 +6,14 @@ import {
 import { excludeTouch } from './utils'
 import { Presence } from '@/Presence'
 import HoverCardContentImpl, { type HoverCardContentImplEmits, type HoverCardContentImplProps } from './HoverCardContentImpl.vue'
-import { omit, useEmitAsProps } from '@/shared'
-import { PopperContentPropsDefaultValue } from '@/Popper'
+import { useForwardPropsEmits } from '@/shared'
 
 export interface HoverCardContentProps extends HoverCardContentImplProps {}
 export type HoverCardContentEmits = HoverCardContentImplEmits
 
-const props = withDefaults(defineProps<HoverCardContentProps>(), {
-  ...omit(PopperContentPropsDefaultValue, 'updatePositionStrategy', 'prioritizePosition'),
-})
+const props = defineProps<HoverCardContentProps>()
 const emits = defineEmits<HoverCardContentEmits>()
-const emitsAsProps = useEmitAsProps(emits)
+const forwarded = useForwardPropsEmits(props, emits)
 
 const context = inject(HOVER_CARD_INJECTION_KEY)
 </script>
@@ -26,7 +23,7 @@ const context = inject(HOVER_CARD_INJECTION_KEY)
     :present="context!.open.value"
   >
     <HoverCardContentImpl
-      v-bind="{ ...props, ...emitsAsProps }"
+      v-bind="forwarded"
       @pointerenter="excludeTouch(context!.onOpen)($event)"
       @pointerleave="excludeTouch(context!.onClose)($event)"
     >

@@ -2,17 +2,18 @@
 import { inject, ref } from 'vue'
 import { MENUBAR_INJECTION_KEY } from './MenubarRoot.vue'
 import { MENUBAR_MENU_INJECTION_KEY } from './MenubarMenu.vue'
-import { MenuContent, type MenuContentProps } from '@/Menu'
-import { useCollection } from '@/shared'
-import { PopperContentPropsDefaultValue } from '@/Popper'
+import { MenuContent, type MenuContentEmits, type MenuContentProps } from '@/Menu'
+import { useCollection, useForwardPropsEmits } from '@/shared'
 import { wrapArray } from '@/shared/useTypeahead'
 
 export interface MenubarContentProps extends MenuContentProps {}
+export type MenubarContentEmits = MenuContentEmits
 
 const props = withDefaults(defineProps<MenubarContentProps>(), {
-  ...PopperContentPropsDefaultValue,
   align: 'start',
 })
+const emits = defineEmits<MenubarContentEmits>()
+const forwarded = useForwardPropsEmits(props, emits)
 
 const context = inject(MENUBAR_INJECTION_KEY)
 const menuContext = inject(MENUBAR_MENU_INJECTION_KEY)
@@ -57,7 +58,7 @@ function handleArrowNavigation(event: KeyboardEvent) {
     :id="menuContext?.contentId"
     :aria-labelledby="menuContext?.triggerId"
     data-radix-menubar-content=""
-    v-bind="props"
+    v-bind="forwarded"
     :style="{
       '--radix-menubar-content-transform-origin':
         'var(--radix-popper-transform-origin)',

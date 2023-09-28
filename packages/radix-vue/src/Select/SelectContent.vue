@@ -12,20 +12,18 @@ import SelectContentImpl, {
 } from './SelectContentImpl.vue'
 import { SELECT_INJECTION_KEY } from './SelectRoot.vue'
 import { Presence } from '@/Presence'
-import { omit, useEmitAsProps } from '@/shared'
-import { PopperContentPropsDefaultValue } from '@/Popper'
+import { useForwardPropsEmits } from '@/shared'
 import SelectProvider from './SelectProvider.vue'
 
 export interface SelectContentProps extends SelectContentImplProps {}
 export type SelectContentEmits = SelectContentImplEmits
 
 const props = withDefaults(defineProps<SelectContentProps>(), {
-  ...omit(PopperContentPropsDefaultValue, 'updatePositionStrategy', 'prioritizePosition'),
   align: 'start',
   position: 'item-aligned',
 })
 const emits = defineEmits<SelectContentEmits>()
-const emitsAsProps = useEmitAsProps(emits)
+const forwarded = useForwardPropsEmits(props, emits)
 
 const context = inject(SELECT_INJECTION_KEY)
 
@@ -39,7 +37,7 @@ const presenceRef = ref<InstanceType<typeof Presence>>()
 
 <template>
   <Presence ref="presenceRef" :present="context!.open.value">
-    <SelectContentImpl v-bind="{ ...props, ...emitsAsProps, ...$attrs }">
+    <SelectContentImpl v-bind="{ ...forwarded, ...$attrs }">
       <slot />
     </SelectContentImpl>
   </Presence>

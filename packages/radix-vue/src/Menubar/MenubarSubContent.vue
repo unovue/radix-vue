@@ -7,17 +7,15 @@ import {
   type MenuSubContentEmits,
   type MenuSubContentProps,
 } from '@/Menu'
-import { PopperContentPropsDefaultValue } from '@/Popper'
-import { useCollection } from '@/shared'
+import { useCollection, useForwardPropsEmits } from '@/shared'
 import { wrapArray } from '@/shared/useTypeahead'
 
 export interface MenubarSubContentProps extends MenuSubContentProps {}
 export type MenubarSubContentEmits = MenuSubContentEmits
 
-const props = withDefaults(defineProps<MenubarSubContentProps>(), {
-  ...PopperContentPropsDefaultValue,
-})
+const props = defineProps<MenubarSubContentProps>()
 const emits = defineEmits<MenubarSubContentEmits>()
+const forwarded = useForwardPropsEmits(props, emits)
 
 const { injectCollection } = useCollection('menubar')
 
@@ -51,7 +49,7 @@ function handleArrowNavigation(event: KeyboardEvent) {
 
 <template>
   <MenuSubContent
-    v-bind="{ ...props, ...emits }"
+    v-bind="forwarded"
     data-radix-menubar-content=""
     :style="{
       '--radix-menubar-content-transform-origin':

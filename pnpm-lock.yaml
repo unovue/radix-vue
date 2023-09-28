@@ -99,8 +99,8 @@ importers:
   docs:
     dependencies:
       radix-vue:
-        specifier: 0.3.1
-        version: 0.3.1(vue@3.3.4)
+        specifier: 0.4.1
+        version: 0.4.1(vue@3.3.4)
     devDependencies:
       '@iconify/vue':
         specifier: ^4.1.1
@@ -137,10 +137,10 @@ importers:
     dependencies:
       '@nuxt/kit':
         specifier: npm:@nuxt/kit@latest
-        version: 3.7.3(rollup@3.28.1)
+        version: 3.7.4(rollup@3.28.1)
       '@nuxt/schema':
         specifier: latest
-        version: 3.7.3(rollup@3.28.1)
+        version: 3.7.4(rollup@3.28.1)
       radix-vue:
         specifier: file:../radix-vue
         version: file:packages/radix-vue(vue@3.3.4)
@@ -149,7 +149,7 @@ importers:
         version: 2.0.0(typescript@5.1.3)
       unplugin-vue-components:
         specifier: ^0.25.1
-        version: 0.25.1(@nuxt/kit@3.7.3)(rollup@3.28.1)(vue@3.3.4)
+        version: 0.25.1(@nuxt/kit@3.7.4)(rollup@3.28.1)(vue@3.3.4)
 
   packages/radix-vue:
     dependencies:
@@ -1944,11 +1944,11 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
 
-  /@nuxt/kit@3.7.3(rollup@3.28.1):
-    resolution: {integrity: sha512-bhP02i6CNti15Z4ix3LpR3fd1ANtTcpfS3CDSaCja24hDt3UxIasyp52mqD9LRC+OxrUVHJziB18EwUtS6RLDQ==}
+  /@nuxt/kit@3.7.4(rollup@3.28.1):
+    resolution: {integrity: sha512-/S5abZL62BITCvC/TY3KWA6N721U1Osln3cQdBb56XHIeafZCBVqTi92Xb0o7ovl72mMRhrKwRu7elzvz9oT/g==}
     engines: {node: ^14.18.0 || >=16.10.0}
     dependencies:
-      '@nuxt/schema': 3.7.3(rollup@3.28.1)
+      '@nuxt/schema': 3.7.4(rollup@3.28.1)
       c12: 1.4.2
       consola: 3.2.3
       defu: 6.1.2
@@ -1971,11 +1971,12 @@ packages:
       - supports-color
     dev: false
 
-  /@nuxt/schema@3.7.3(rollup@3.28.1):
-    resolution: {integrity: sha512-Uqe3Z9RnAROzv5owQo//PztD9d4csKK6ulwQO1hIAinCh34X7z2zrv9lhm14hlRYU1n7ISEi4S7UeHgL/r8d8A==}
+  /@nuxt/schema@3.7.4(rollup@3.28.1):
+    resolution: {integrity: sha512-q6js+97vDha4Fa2x2kDVEuokJr+CGIh1TY2wZp2PLZ7NhG3XEeib7x9Hq8XE8B6pD0GKBRy3eRPPOY69gekBCw==}
     engines: {node: ^14.18.0 || >=16.10.0}
     dependencies:
       '@nuxt/ui-templates': 1.3.1
+      consola: 3.2.3
       defu: 6.1.2
       hookable: 5.5.3
       pathe: 1.1.1
@@ -8125,8 +8126,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /radix-vue@0.3.1(vue@3.3.4):
-    resolution: {integrity: sha512-izekMIzZq00rUJgJkTc5zGUREI4qzOavFHrJGb9g5eRiCO2njp8wsWXUpPGh6Z7f4UnAFLc5Z4QZTBIl5sx4TA==}
+  /radix-vue@0.4.1(vue@3.3.4):
+    resolution: {integrity: sha512-uJLHSwCzvUzaXYdr3r5HkhQ7bATegpvo3pAscPM1TDVCuGrVtnD3/7DpLPvDRkrwibWcu855agoqHSPsukQL3g==}
     dependencies:
       '@floating-ui/dom': 1.4.2
       '@floating-ui/vue': 1.0.1(vue@3.3.4)
@@ -9494,7 +9495,7 @@ packages:
     engines: {node: '>= 0.8'}
     dev: true
 
-  /unplugin-vue-components@0.25.1(@nuxt/kit@3.7.3)(rollup@3.28.1)(vue@3.3.4):
+  /unplugin-vue-components@0.25.1(@nuxt/kit@3.7.4)(rollup@3.28.1)(vue@3.3.4):
     resolution: {integrity: sha512-kzS2ZHVMaGU2XEO2keYQcMjNZkanDSGDdY96uQT9EPe+wqSZwwgbFfKVJ5ti0+8rGAcKHColwKUvctBhq2LJ3A==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -9508,7 +9509,7 @@ packages:
         optional: true
     dependencies:
       '@antfu/utils': 0.7.6
-      '@nuxt/kit': 3.7.3(rollup@3.28.1)
+      '@nuxt/kit': 3.7.4(rollup@3.28.1)
       '@rollup/pluginutils': 5.0.3(rollup@3.28.1)
       chokidar: 3.5.3
       debug: 4.3.4
@@ -10285,7 +10286,7 @@ packages:
     resolution: {directory: packages/radix-vue, type: directory}
     id: file:packages/radix-vue
     name: radix-vue
-    version: 0.3.1
+    version: 0.4.1
     dependencies:
       '@floating-ui/dom': 1.4.2
       '@floating-ui/vue': 1.0.1(vue@3.3.4)

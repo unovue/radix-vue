@@ -4,20 +4,19 @@ import {
   type MenuSubContentEmits,
   type MenuSubContentProps,
 } from '@/Menu'
-import { PopperContentPropsDefaultValue } from '@/Popper'
+import { useForwardPropsEmits } from '..'
 
 export interface DropdownMenuSubContentProps extends MenuSubContentProps {}
 export type DropdownMenuSubContentEmits = MenuSubContentEmits
 
-const props = withDefaults(defineProps<DropdownMenuSubContentProps>(), {
-  ...PopperContentPropsDefaultValue,
-})
+const props = defineProps<DropdownMenuSubContentProps>()
 const emits = defineEmits<DropdownMenuSubContentEmits>()
+const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
   <MenuSubContent
-    v-bind="{ ...props, ...emits }"
+    v-bind="forwarded"
     :style="{
       '--radix-dropdown-menu-content-transform-origin':
         'var(--radix-popper-transform-origin)',

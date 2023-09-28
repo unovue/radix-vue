@@ -28,4 +28,6 @@ export * from './Menubar'
 export * from './NavigationMenu'
 export * from './ScrollArea'
 
+// utilities
 export { Primitive, Slot } from './Primitive'
+export { useId, useEmitAsProps, useForwardProps, useForwardPropsEmits, useStateMachine } from './shared'

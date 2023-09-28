@@ -9,18 +9,15 @@ import { MENU_SUB_INJECTION_KEY } from './MenuSub.vue'
 import { SUB_CLOSE_KEYS } from './utils'
 import { Presence } from '@/Presence'
 import { usePrimitiveElement } from '@/Primitive'
-import { PopperContentPropsDefaultValue } from '@/Popper'
-import { useEmitAsProps } from '@/shared'
+import { useForwardPropsEmits } from '@/shared'
 
 export interface MenuSubContentProps extends MenuContentImplProps {}
 export type MenuSubContentEmits = MenuContentImplEmits
 
-const props = withDefaults(defineProps<MenuSubContentProps>(), {
-  ...PopperContentPropsDefaultValue,
-})
+const props = defineProps<MenuSubContentProps>()
 const emits = defineEmits<MenuSubContentEmits>()
 
-const emitsAsProps = useEmitAsProps(emits)
+const forwarded = useForwardPropsEmits(props, emits)
 
 const context = inject(MENU_INJECTION_KEY)
 const rootContext = inject(MENU_ROOT_INJECTION_KEY)
@@ -33,7 +30,7 @@ const { primitiveElement, currentElement: subContentElement }
 <template>
   <Presence :present="context!.open.value">
     <MenuContentImpl
-      v-bind="{ ...props, ...emitsAsProps }"
+      v-bind="forwarded"
       :id="subContext!.contentId"
       ref="primitiveElement"
       :aria-labelledby="subContext!.triggerId"

@@ -4,23 +4,20 @@ import {
   type MenuSubContentEmits,
   type MenuSubContentProps,
 } from '@/Menu'
-import { PopperContentPropsDefaultValue } from '@/Popper'
-import { useEmitAsProps } from '@/shared'
+import { useForwardPropsEmits } from '@/shared'
 
 export interface ContextMenuSubContentProps extends MenuSubContentProps {}
 export type ContextMenuSubContentEmits = MenuSubContentEmits
 
-const props = withDefaults(defineProps<ContextMenuSubContentProps>(), {
-  ...PopperContentPropsDefaultValue,
-})
+const props = defineProps<ContextMenuSubContentProps>()
 
 const emits = defineEmits<ContextMenuSubContentEmits>()
-const emitsAsProps = useEmitAsProps(emits)
+const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
   <MenuSubContent
-    v-bind="{ ...props, ...emitsAsProps }"
+    v-bind="forwarded"
     :style="{
       '--radix-context-menu-content-transform-origin':
         'var(--radix-popper-transform-origin)',

@@ -5,7 +5,7 @@ import PopoverContentImpl, {
   type PopoverContentImplProps,
 } from './PopoverContentImpl.vue'
 import { POPOVER_INJECTION_KEY } from './PopoverRoot.vue'
-import { useEmitAsProps } from '@/shared'
+import { useForwardPropsEmits } from '@/shared'
 
 const props = defineProps<PopoverContentImplProps>()
 const emits = defineEmits<PopoverContentImplEmits>()
@@ -13,12 +13,12 @@ const context = inject(POPOVER_INJECTION_KEY)
 const hasInteractedOutsideRef = ref(false)
 const hasPointerDownOutsideRef = ref(false)
 
-const emitsAsProps = useEmitAsProps(emits)
+const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
   <PopoverContentImpl
-    v-bind="{ ...props, ...emitsAsProps }"
+    v-bind="forwarded"
     :trap-focus="false"
     :disable-outside-pointer-events="false"
     @close-auto-focus="

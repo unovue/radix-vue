@@ -276,3 +276,13 @@ export const components = {
     'Slot',
   ],
 }
+
+export const utilities = {
+  Utilities: [
+    'useId',
+    'useEmitAsProps',
+    'useForwardProps',
+    'useForwardPropsEmits',
+    'useStateMachine',
+  ],
+}

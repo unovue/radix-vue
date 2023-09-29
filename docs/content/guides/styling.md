@@ -117,13 +117,13 @@ Extending a primitive is done the same way you extend any Vue component.
 
 ```vue[CustomAccordion.vue]
 <script setup lang="ts">
-import { AccordionItem, type AccordtionItemProps } from "radix-vue";
+import { AccordionItem, type AccordionItemProps } from "radix-vue";
 
-interface Props extends AccordtionItemProps {
+interface Props extends AccordionItemProps {
   foo: string;
 }
 
-defineProps<AccordtionItemProps>();
+defineProps<AccordionItemProps>();
 </script>
 
 <template>

@@ -420,7 +420,7 @@ import './styles.css'
 </template>
 ```
 
-```css line=21,27
+```css line=17,23
 /* styles.css */
 .AccordionContent {
   overflow: hidden;

@@ -145,6 +145,7 @@ function sidebar() {
       collapsed: false,
       items: [
         { text: 'Primitive', link: '/utilities/primitive' },
+        { text: 'Slot', link: '/utilities/slot' },
         { text: 'useId', link: '/utilities/use-id' },
         { text: 'useEmitAsProps', link: '/utilities/use-emit-as-props' },
         { text: 'useForwardProps', link: '/utilities/use-forward-props' },

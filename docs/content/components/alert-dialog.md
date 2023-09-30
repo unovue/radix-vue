@@ -267,7 +267,7 @@ description: 'Change the default rendered element for the one passed as a child,
 
 Use the controlled props to programmatically close the Alert Dialog after an async operation has completed.
 
-```vue line=14,15,18,23-30,32
+```vue line=14,15,19,25-29
 <script setup>
 import {
   AlertDialogAction,
@@ -292,10 +292,9 @@ const open = ref(false)
       <AlertDialogOverlay />
       <AlertDialogContent>
         <form
-          @submit="
+          @submit.prevent="
             (event) => {
-              wait().then(() => setOpen(false));
-              event.preventDefault();
+              wait().then(() => open = false);
             }
           "
         >

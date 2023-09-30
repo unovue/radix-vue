@@ -59,10 +59,6 @@ export default defineConfig({
             text: 'Release Notes ',
             link: releases,
           },
-          // {
-          //   text: "Contributing ",
-          //   link: contributing,
-          // },
         ],
       },
     ],
@@ -144,93 +140,16 @@ function sidebar() {
         { text: 'Tooltip', link: '/components/tooltip' },
       ],
     },
-    // {
-    //   text: 'Migrations',
-    //   collapsed: false,
-    //   items: [
-    //     {
-    //       text: 'Migration from VuePress',
-    //       link: '/guide/migration-from-vuepress'
-    //     },
-    //     {
-    //       text: 'Migration from VitePress 0.x',
-    //       link: '/guide/migration-from-vitepress-0'
-    //     }
-    //   ]
-    // },
-    // {
-    //   text: "Config & API Reference",
-    //   link: "/reference/site-config",
-    // },
-  ]
-}
-
-function sidebarReference() {
-  return [
     {
-      text: 'Reference',
+      text: 'Utilities',
+      collapsed: false,
       items: [
-        { text: 'Site Config', link: '/reference/site-config' },
-        { text: 'Frontmatter Config', link: '/reference/frontmatter-config' },
-        { text: 'Runtime API', link: '/reference/runtime-api' },
-        { text: 'CLI', link: '/reference/cli' },
-        {
-          text: 'Default Theme',
-          items: [
-            {
-              text: 'Overview',
-              link: '/reference/default-theme-config',
-            },
-            {
-              text: 'Nav',
-              link: '/reference/default-theme-nav',
-            },
-            {
-              text: 'Sidebar',
-              link: '/reference/default-theme-sidebar',
-            },
-            {
-              text: 'Home Page',
-              link: '/reference/default-theme-home-page',
-            },
-            {
-              text: 'Footer',
-              link: '/reference/default-theme-footer',
-            },
-            {
-              text: 'Layout',
-              link: '/reference/default-theme-layout',
-            },
-            {
-              text: 'Badge',
-              link: '/reference/default-theme-badge',
-            },
-            {
-              text: 'Team Page',
-              link: '/reference/default-theme-team-page',
-            },
-            {
-              text: 'Prev / Next Links',
-              link: '/reference/default-theme-prev-next-links',
-            },
-            {
-              text: 'Edit Link',
-              link: '/reference/default-theme-edit-link',
-            },
-            {
-              text: 'Last Updated Timestamp',
-              link: '/reference/default-theme-last-updated',
-            },
-            {
-              text: 'Search',
-              link: '/reference/default-theme-search',
-            },
-            {
-              text: 'Carbon Ads',
-              link: '/reference/default-theme-carbon-ads',
-            },
-          ],
-        },
+        { text: 'Primitive', link: '/utilities/primitive' },
+        { text: 'Slot', link: '/utilities/slot' },
+        { text: 'useId', link: '/utilities/use-id' },
+        { text: 'useEmitAsProps', link: '/utilities/use-emit-as-props' },
+        { text: 'useForwardProps', link: '/utilities/use-forward-props' },
+        { text: 'useForwardPropsEmits', link: '/utilities/use-forward-props-emits' },
       ],
     },
   ]

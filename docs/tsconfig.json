@@ -15,7 +15,7 @@
     "baseUrl": ".",
     "skipLibCheck": true,
     "outDir": "dist",
-    "types": ["unplugin-icons/types/vue", "node"],
+    "types": ["unplugin-icons/types/vue", "node", "vitepress/client", "vue"],
     "paths": {
       "@/*": ["./src/*"]
     }

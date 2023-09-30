@@ -1,7 +1,6 @@
 ---
-outline: deep
-metaTitle: Alert Dialog
-metaDescription: A modal dialog that interrupts the user with important content and expects a response.
+title: Alert Dialog
+description: A modal dialog that interrupts the user with important content and expects a response.
 name: alert-dialog
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog
 ---

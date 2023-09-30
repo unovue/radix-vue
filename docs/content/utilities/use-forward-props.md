@@ -1,11 +1,9 @@
 --- 
-metaTitle: useForwardProps
-metaDescription: Forward component's props without boolean casting
+title: useForwardProps
+description: Forward component's props without boolean casting
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-</script>
+
 
 # useForwardProps
 

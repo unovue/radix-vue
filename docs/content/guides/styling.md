@@ -1,12 +1,10 @@
 ---
-outline: deep
-metaTitle: Styling
-metaDescription: Radix Primitives are unstyled—and compatible with any styling solution—giving you complete control over styling.
+
+title: Styling
+description: Radix Primitives are unstyled—and compatible with any styling solution—giving you complete control over styling.
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-</script>
+
 
 # Styling
 

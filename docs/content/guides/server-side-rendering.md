@@ -1,12 +1,10 @@
 ---
-outline: deep
-metaTitle: Server side rendering
-metaDescription: Radix Primitives can be rendered on the server.
+
+title: Server side rendering
+description: Radix Primitives can be rendered on the server.
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-</script>
+
 
 # Server side rendering
 

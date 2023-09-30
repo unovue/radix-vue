@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Tabs
-metaDescription: A set of layered sections of content—known as tab panels—that are displayed one at a time.
+
+title: Tabs
+description: A set of layered sections of content—known as tab panels—that are displayed one at a time.
 name: tabs
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel
 ---

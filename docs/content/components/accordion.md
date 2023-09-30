@@ -1,7 +1,6 @@
 ---
-outline: deep
-metaTitle: Accordion
-metaDescription: A vertically stacked set of interactive headings that each reveal an associated section of content.
+title: Accordion
+description: A vertically stacked set of interactive headings that each reveal an associated section of content.
 name: accordion
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/accordion
 ---

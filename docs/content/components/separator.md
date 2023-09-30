@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Separator
-metaDescription: Visually or semantically separates content.
+
+title: Separator
+description: Visually or semantically separates content.
 name: separator
 aria: https://www.w3.org/TR/wai-aria-1.2/#separator
 ---

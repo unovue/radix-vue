@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Select
-metaDescription: Displays a list of options for the user to pick from—triggered by a button.
+
+title: Select
+description: Displays a list of options for the user to pick from—triggered by a button.
 name: select
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/listbox
 ---

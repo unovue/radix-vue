@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Slider
-metaDescription: An input where the user selects a value from within a given range.
+
+title: Slider
+description: An input where the user selects a value from within a given range.
 name: slider
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/slidertwothumb
 ---

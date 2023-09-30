@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Checkbox
-metaDescription: A control that allows the user to toggle between checked and not checked.
+
+title: Checkbox
+description: A control that allows the user to toggle between checked and not checked.
 name: checkbox
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/checkbox
 ---

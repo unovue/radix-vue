@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Dropdown Menu
-metaDescription: Displays a menu to the user—such as a set of actions or functions—triggered by a button.
+
+title: Dropdown Menu
+description: Displays a menu to the user—such as a set of actions or functions—triggered by a button.
 name: dropdown-menu
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/menubutton
 ---

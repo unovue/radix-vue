@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Popover
-metaDescription: Displays rich content in a portal, triggered by a button.
+
+title: Popover
+description: Displays rich content in a portal, triggered by a button.
 name: popover
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal
 ---

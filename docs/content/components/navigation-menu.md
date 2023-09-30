@@ -1,6 +1,6 @@
 ---
-metaTitle: Navigation Menu
-metaDescription: A collection of links for navigating websites.
+title: Navigation Menu
+description: A collection of links for navigating websites.
 name: navigation-menu
 aria: https://www.w3.org/TR/wai-aria/#navigation
 ---

@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Dialog
-metaDescription: A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.
+
+title: Dialog
+description: A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.
 name: dialog
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal
 ---

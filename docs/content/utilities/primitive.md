@@ -1,11 +1,9 @@
 --- 
-metaTitle: Primitive
-metaDescription: Compose Radix's functionality onto alternative element types or your own Vue components.
+title: Primitive
+description: Compose Radix's functionality onto alternative element types or your own Vue components.
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-</script>
+
 
 # Primitive
 

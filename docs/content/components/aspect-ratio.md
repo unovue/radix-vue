@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Aspect Ratio
-metaDescription: Displays content within a desired ratio.
+
+title: Aspect Ratio
+description: Displays content within a desired ratio.
 name: aspect-ratio
 ---
 

@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Toolbar
-metaDescription: A container for grouping a set of controls, such as buttons, toggle groups or dropdown menus.
+
+title: Toolbar
+description: A container for grouping a set of controls, such as buttons, toggle groups or dropdown menus.
 name: toolbar
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/toolbar
 ---

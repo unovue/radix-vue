@@ -3,14 +3,11 @@ import { h } from 'vue'
 import Theme from 'vitepress/theme'
 import HomePage from '../components/HomePage.vue'
 import HomePageDemo from '../components/HomePageDemo.vue'
-import Badge from '../components/Badge.vue'
 import './style.css'
 import './tailwind.postcss'
 
 const regex = /\/(\w+)\.vue/
-// @ts-expect-error
 const baseModules = import.meta.glob('../../components/*.vue', { eager: true })
-// @ts-expect-error
 const tableModules = import.meta.glob('../../components/tables/*.vue', { eager: true })
 
 export default {
@@ -23,11 +20,9 @@ export default {
   },
   enhanceApp({ app, router, siteData }) {
     for (const path in baseModules)
-      app.component(path.match(regex)?.[1], baseModules[path]?.default)
+      app.component(path.match(regex)?.[1], (baseModules[path] as any)?.default)
 
     for (const path in tableModules)
-      app.component(path.match(regex)?.[1], tableModules[path]?.default)
-
-    app.component('Badge', Badge)
+      app.component(path.match(regex)?.[1], (tableModules[path] as any)?.default)
   },
 }

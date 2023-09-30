@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Menubar
-metaDescription: A visually persistent menu common in desktop applications that provides quick
+
+title: Menubar
+description: A visually persistent menu common in desktop applications that provides quick
   access to a consistent set of commands.
 name: menubar
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/menu/

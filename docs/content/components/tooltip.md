@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Tooltip
-metaDescription: A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
+
+title: Tooltip
+description: A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
 name: tooltip
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/tooltip
 ---

@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Combobox
-metaDescription: Choose from a list of suggested values with full keyboard support.
+
+title: Combobox
+description: Choose from a list of suggested values with full keyboard support.
 name: combobox
 badge: alpha
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/listbox

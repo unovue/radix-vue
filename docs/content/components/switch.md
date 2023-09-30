@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Switch
-metaDescription: A control that allows the user to toggle between checked and not checked.
+
+title: Switch
+description: A control that allows the user to toggle between checked and not checked.
 name: switch
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/switch
 ---

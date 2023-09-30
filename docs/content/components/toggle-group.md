@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Toggle Group
-metaDescription: A set of two-state buttons that can be toggled on or off.
+
+title: Toggle Group
+description: A set of two-state buttons that can be toggled on or off.
 name: toggle-group
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/button
 ---

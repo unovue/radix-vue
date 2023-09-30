@@ -1,11 +1,9 @@
 --- 
-metaTitle: useForwardPropsEmits
-metaDescription: Combinations for useForwardProps & useEmitAsProps
+title: useForwardPropsEmits
+description: Combinations for useForwardProps & useEmitAsProps
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-</script>
+
 
 # useForwardPropsEmits
 

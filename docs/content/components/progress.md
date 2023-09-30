@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Progress
-metaDescription: Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.
+
+title: Progress
+description: Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.
 name: progress
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/meter
 ---

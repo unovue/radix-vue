@@ -1,11 +1,9 @@
 ---
-metaTitle: Releases
-metaDescription: Discover the latest release of Radix Vue.
+title: Releases
+description: Discover the latest release of Radix Vue.
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-</script>
+
 
 # Releases
 

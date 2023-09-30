@@ -1,6 +1,6 @@
 ---
-metaTitle: Toast
-metaDescription: A succinct message that is displayed temporarily.
+title: Toast
+description: A succinct message that is displayed temporarily.
 name: toast
 aria: https://www.w3.org/TR/wai-aria/#aria-live
 ---

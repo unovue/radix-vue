@@ -1,6 +1,6 @@
 --- 
-metaTitle: Pagination
-metaDescription: Displays data in paged format and provides navigation between pages.
+title: Pagination
+description: Displays data in paged format and provides navigation between pages.
 name: pagination 
 ---
 

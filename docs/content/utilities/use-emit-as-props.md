@@ -1,11 +1,9 @@
 --- 
-metaTitle: useEmitAsProps
-metaDescription: Convert emits into object similar to props
+title: useEmitAsProps
+description: Convert emits into object similar to props
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-</script>
+
 
 # useEmitAsProps
 

@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Collapsible
-metaDescription: An interactive component which expands/collapses a panel.
+
+title: Collapsible
+description: An interactive component which expands/collapses a panel.
 name: collapsible
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/disclosure
 ---

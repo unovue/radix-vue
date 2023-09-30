@@ -1,11 +1,9 @@
 --- 
-metaTitle: Slot
-metaDescription: Merges its props onto its immediate child.
+title: Slot
+description: Merges its props onto its immediate child.
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-</script>
+
 
 # Slot
 

@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Toggle
-metaDescription: A two-state button that can be either on or off.
+
+title: Toggle
+description: A two-state button that can be either on or off.
 name: toggle
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/button
 ---

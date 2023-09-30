@@ -80,6 +80,9 @@ export default defineConfig({
   },
   srcDir: 'content',
   appearance: 'dark',
+  markdown: {
+    theme: 'material-theme-palenight',
+  },
 })
 
 function sidebar() {

@@ -1,4 +1,4 @@
-const { blackA, green, grass, mauve, violet, red, teal, cyan, indigo, purple } = require('@radix-ui/colors')
+const { blackA, green, grass, mauve, violet, slate, red, teal, cyan, indigo, purple } = require('@radix-ui/colors')
 
 module.exports = {
   darkMode: 'class',
@@ -20,6 +20,7 @@ module.exports = {
         ...cyan,
         ...indigo,
         ...purple,
+        ...slate,
       },
       keyframes: {
         overlayShow: {

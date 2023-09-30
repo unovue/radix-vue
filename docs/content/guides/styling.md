@@ -137,6 +137,6 @@ Radix Primitives were designed to encapsulate accessibility concerns and other c
 
 For convenience, stateful components include a `data-state` attribute.
 
-::: tip
+::: info
 Source: [Radix UI](https://www.radix-ui.com/)
 :::

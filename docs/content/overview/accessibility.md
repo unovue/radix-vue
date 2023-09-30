@@ -39,6 +39,6 @@ Proper keyboard navigation and good labelling often go hand-in-hand with managin
 
 In many Radix Primitives, we move focus based on the interactions a user normally takes in a given component. For example, in [`AlertDialog`](../components/alert-dialog), when the modal is opened, focus is programatically moved to a `Cancel` button element to anticipate a response to the prompt.
 
-::: tip
+::: info
 Source: [Radix UI](https://www.radix-ui.com/)
 :::

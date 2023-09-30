@@ -53,7 +53,7 @@ You can use CSS animation to animate both mount and unmount phases. The latter i
 }
 ```
 
-::: tip
+::: info
 Source: [Radix UI](https://www.radix-ui.com/)
 :::
 

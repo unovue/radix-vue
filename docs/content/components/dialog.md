@@ -297,7 +297,7 @@ If you want to hide the description, wrap it inside our Visually Hidden utility 
 
 Use the controlled props to programmatically close the Dialog after an async operation has completed.
 
-```vue line=10,11,15,20-27,29
+```vue line=4,5,15-19,22-24
 <script setup>
 import { DialogContent, DialogOverlay, DialogPortal, DialogRoot, DialogTrigger } from 'radix-vue'
 
@@ -312,10 +312,9 @@ const open = ref(false)
       <DialogOverlay />
       <DialogContent>
         <form
-          @submit="
+          @submit.prevent="
             (event) => {
               wait().then(() => (open = false));
-              event.preventDefault();
             }
           "
         >
@@ -381,7 +380,7 @@ import './styles.css'
 
 Customise the element that your dialog portals into.
 
-```vue line=10,16,22
+```vue line=4,11,17
 <script setup>
 import { DialogContent, DialogOverlay, DialogPortal, DialogRoot, DialogTrigger } from 'radix-vue'
 
@@ -392,7 +391,7 @@ const container = ref(null)
   <div>
     <DialogRoot>
       <DialogTrigger />
-      <DialogPortal container="container">
+      <DialogPortal to="container">
         <DialogOverlay />
         <DialogContent>...</DialogContent>
       </DialogPortal>
@@ -433,8 +432,7 @@ Adheres to the [Dialog WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/
     },
   ]"
 />
-
-<!--TODO
+ 
 ## Custom APIs
 
 Create your own API by abstracting the primitive parts into your own component.
@@ -447,7 +445,7 @@ This example abstracts the `DialogOverlay` and `DialogClose` parts.
 
 ```vue
 <script setup>
-import { Dialog, DialogTrigger, DialogContent } from './your-dialog';
+import { Dialog, DialogContent, DialogTrigger } from './your-dialog'
 </script>
 
 <template>
@@ -460,29 +458,36 @@ import { Dialog, DialogTrigger, DialogContent } from './your-dialog';
 
 #### Implementation
 
+```ts
+// your-dialog.ts
+export { default as DialogContent } from 'DialogContent.vue'
+export { DialogRoot as Dialog, DialogTrigger } from 'radix-vue'
+``` 
+
 ```vue
-// your-dialogvue
-import React from 'react';
-import * as DialogPrimitive from 'radix-vue';
-import { Cross1Icon } from '@radix-ui/react-icons';
+<!-- DialogContent.vue -->
+<script setup lang="ts">
+import { DialogClose, DialogContent, type DialogContentEmits, type DialogContentProps, DialogOverlay, DialogPortal, useEmitAsProps, } from 'radix-vue'
+import { Cross2Icon } from '@radix-icons/vue'
 
-export const DialogContent = React.forwardRef(
-  ({ children, ...props }, forwardedRef) => (
-    <DialogPrimitive.Portal>
-      <DialogPrimitive.Overlay />
-      <DialogPrimitive.Content {...props} ref="forwardedRef}>
-        {children}
-        <DialogPrimitive.Close aria-label="Close">
-          <Cross1Icon />
-        </DialogPrimitive.Close>
-      </DialogPrimitive.Content>
-    </DialogPrimitive.Portal>
-  )
-);
+const props = defineProps<DialogContentProps>()
+const emits = defineEmits<DialogContentEmits>()
 
-export const Dialog = DialogPrimitive.Root;
-export const DialogTrigger = DialogPrimitive.Trigger;
+const emitsAsProps = useEmitAsProps(emits)
+</script>
+
+<template>
+  <DialogPortal>
+    <DialogOverlay />
+    <DialogContent v-bind="{ ...props, ...emitsAsProps }">
+      <slot />
+
+      <DialogClose>
+        <Cross2Icon />
+        <span class="sr-only">Close</span>
+      </DialogClose>
+    </DialogContent>
+  </DialogPortal>
+</template>
 ```
--->
-
-<!-- TODO: denniss - fix react stuff -->
+ 

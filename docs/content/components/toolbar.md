@@ -303,7 +303,7 @@ All our primitives which expose a `Trigger` part, such as `Dialog`, `AlertDialog
 
 Here is an example using our `DropdownMenu` primitive.
 
-```vue line=21-23
+```vue line=20-22
 <script setup lang="ts">
 import {
   DropdownMenuContent,

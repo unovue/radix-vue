@@ -1052,7 +1052,7 @@ import {
 
 You can add special styles to disabled items via the `data-disabled` attribute.
 
-```vue line=16
+```vue line=10
 <script setup lang="ts">
 import { ContextMenuContent, ContextMenuItem, ContextMenuPortal, ContextMenuRoot, ContextMenuTrigger } from 'radix-vue'
 </script>
@@ -1065,7 +1065,7 @@ import { ContextMenuContent, ContextMenuItem, ContextMenuPortal, ContextMenuRoot
         <ContextMenuItem class="ContextMenuItem" disabled>
           …
         </ContextMenuItem>
-        <ContextMenuItem class-name="ContextMenuItem">
+        <ContextMenuItem class="ContextMenuItem">
           …
         </ContextMenuItem>
       </ContextMenuContent>
@@ -1117,7 +1117,7 @@ import {
 
 Use the `Label` part to help label a section.
 
-```vue line=8,17
+```vue line=5,17
 <script setup lang="ts">
 import {
   ContextMenuContent,
@@ -1148,7 +1148,7 @@ import {
 
 Use the `CheckboxItem` part to add an item that can be checked.
 
-```vue line=9,25-30
+```vue line=3,25-30
 <script setup lang="ts">
 import {
   ContextMenuCheckboxItem,
@@ -1189,7 +1189,7 @@ const checked = ref(true)
 
 Use the `RadioGroup` and `RadioItem` parts to add an item that can be checked amongst others.
 
-```vue line=11,12,24-43
+```vue line=8,9,24-43
 <script setup lang="ts">
 import {
   ContextMenuCheckboxItem,
@@ -1243,7 +1243,7 @@ const color = ref('blue')
 
 You can add extra decorative elements in the `Item` parts, such as images.
 
-```vue line=17,21
+```vue line=11,15
 <script setup lang="ts">
 import { ContextMenuContent, ContextMenuItem, ContextMenuPortal, ContextMenuRoot, ContextMenuTrigger } from 'radix-vue'
 </script>
@@ -1273,7 +1273,7 @@ You may want to constrain the width of the content (or sub-content) so that it m
 
 We expose several CSS custom properties such as `--radix-context-menu-trigger-width` and `--radix-context-menu-content-available-height` to support this. Use them to constrain the content dimensions.
 
-```vue line=15
+```vue line=9
 <script setup lang="ts">
 import { ContextMenuContent, ContextMenuItem, ContextMenuPortal, ContextMenuRoot, ContextMenuTrigger } from 'radix-vue'
 </script>
@@ -1302,7 +1302,7 @@ import { ContextMenuContent, ContextMenuItem, ContextMenuPortal, ContextMenuRoot
 
 We expose a CSS custom property `--radix-context-menu-content-transform-origin`. Use it to animate the content from its computed origin based on `side`, `sideOffset`, `align`, `alignOffset` and any collisions.
 
-```vue line=14
+```vue line=9
 <script setup lang="ts">
 import { ContextMenuContent, ContextMenuPortal, ContextMenuRoot, ContextMenuTrigger } from 'radix-vue'
 </script>
@@ -1342,7 +1342,7 @@ import { ContextMenuContent, ContextMenuPortal, ContextMenuRoot, ContextMenuTrig
 
 We expose `data-side` and `data-align` attributes. Their values will change at runtime to reflect collisions. Use them to create collision and direction-aware animations.
 
-```vue line=14
+```vue line=9
 <script setup lang="ts">
 import { ContextMenuContent, ContextMenuPortal, ContextMenuRoot, ContextMenuTrigger } from 'radix-vue'
 </script>

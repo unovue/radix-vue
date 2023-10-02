@@ -178,7 +178,7 @@ Renders when the checkbox is in a checked or indeterminate state. You can style 
 
 You can set the checkbox to `indeterminate` by taking control of its state.
 
-```vue line=5,9-14,16-21
+```vue line=5,9-14,16-18
 <script setup>
 import { Icon } from '@iconify/vue'
 import { CheckboxIndicator, CheckboxRoot } from 'radix-vue'

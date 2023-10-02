@@ -289,11 +289,10 @@ A draggable thumb. You can render multiple thumbs.
 
 Use the `orientation` prop to create a vertical slider.
 
-```vue line=8-12
+```vue line=7
 // index.vue
 <script setup>
 import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue'
-import './styles.css'
 </script>
 
 <template>
@@ -348,11 +347,10 @@ import './styles.css'
 
 Add multiple thumbs and values to create a range slider.
 
-```vue line=8,12-13
+```vue line=7,11-12
 // index.vue
 <script setup>
 import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue'
-import './styles.css'
 </script>
 
 <template>
@@ -370,11 +368,10 @@ import './styles.css'
 
 Use the `step` prop to increase the stepping interval.
 
-```vue line=8
+```vue line=7
 // index.vue
 <script setup>
 import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue'
-import './styles.css'
 </script>
 
 <template>
@@ -391,15 +388,18 @@ import './styles.css'
 
 Use `minStepsBetweenThumbs` to avoid thumbs with equal values.
 
-```vue line=8-12
+```vue line=10
 // index.vue
 <script setup>
 import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue'
-import './styles.css'
 </script>
 
 <template>
-  <SliderRoot :default-value="[25, 75]" :step="10" :min-steps-between-thumbs="1">
+  <SliderRoot
+    :default-value="[25, 75]"
+    :step="10"
+    :min-steps-between-thumbs="1"
+  >
     <SliderTrack>
       <SliderRange />
     </SliderTrack>
@@ -459,8 +459,7 @@ Adheres to the [Slider WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/
     },
   ]"
 />
-
-<!--
+ 
 ## Custom APIs
 
 Create your own API by abstracting the primitive parts into your own component.
@@ -472,39 +471,58 @@ This example abstracts all of the `Slider` parts so it can be used as a self clo
 #### Usage
 
 ```vue
-import { Slider } from './your-slider'; export default () =>
-<Slider :defaultValue="[25]}" />
-;
+<script setup lang="ts">
+import { Slider } from './your-slider'
+</script>
+
+<template>
+  <Slider :default-value="[25]" />
+</template>
 ```
 
 #### Implementation
 
+ ```ts
+// your-slider.ts
+export { default as Slider } from 'Slider.vue'
+```
+
 ```vue
-// your-slider.vue import * as SliderPrimitive from 'radix-vue'; export const
-Slider = React.forwardRef((props, forwardedRef) => { const value = props.value
-|| props.defaultValue; return (
-<SliderPrimitive.Slider {...props} ref="{forwardedRef}">
-      <SliderPrimitive.Track> <SliderPrimitive.Range />
-      </SliderPrimitive.Track>
-      {value.map((_, i) => '<SliderThumb key={i} />')}
-    </SliderPrimitive.Slider>
-  </template> });
+ <!-- Slider.vue -->
+<script setup lang="ts">
+import { SlideRoot, SliderRange, type SliderRootEmits, type SliderRootProps, SliderThumb, SliderTrack, useForwardPropsEmits } from 'radix-vue'
+
+const props = defineProps<SliderRootProps>()
+const emits = defineEmits<SliderRootEmits>()
+
+const forward = useForwardPropsEmits(props, emits)
+</script>
+
+<template>
+  <SliderRoot v-bind="forward">
+    <SliderTrack>
+      <SliderRange />
+    </SliderTrack>
+
+    <SliderThumb v-for="(_, i) in value" :key="i" />
+  </SliderRoot>
+</template>
 ```
 
 ## Caveats
 
 ### Mouse events are not fired
 
-Because of [a limitation](https://github.com/radix-ui/primitives/blob/83a8c13bf66f3d9f17d77caeb187a69eb146930b/packages/react/slider/src/Slidertsx#L383-L384) we faced during implementation, the following example won't work as expected and the `onMouseDown` and `onMouseUp` event handlers won't be fired:
+Because of [a limitation](https://github.com/radix-vue/radix-vue/blob/main/packages/radix-vue/src/Slider/SliderImpl.vue#L48-L49) we faced during implementation, the following example won't work as expected and the `@mousedown` and `@mousedown` event handlers won't be fired:
 
 ```vue
 <SliderRoot
-  onMouseDown={() => console.log('onMouseDown')}
-  onMouseUp={() => console.log('onMouseUp')}
+  @mousedown="() => { console.log('onMouseDown')  }"
+  @mouseup="() => { console.log('onMouseUp')  }"
 >
   …
 </SliderRoot>
 ```
 
-We recommend using pointer events instead (eg. `onPointerDown`, `onPointerUp`). Regardless of the above limitation, these events are better suited for cross-platform/device handling as they are fired for all pointer input types (mouse, touch, pen, etc.).
--->
+We recommend using pointer events instead (eg. `@pointerdown`, `@pointerup`). Regardless of the above limitation, these events are better suited for cross-platform/device handling as they are fired for all pointer input types (mouse, touch, pen, etc.).
+ 

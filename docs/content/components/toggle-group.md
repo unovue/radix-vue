@@ -211,7 +211,7 @@ An item in the group.
 
 You can control the component to ensure a value.
 
-```vue line=4,8
+```vue line=5,9
 <script setup>
 import { ref } from 'vue'
 import { ToggleGroupItem, ToggleGroupRoot } from 'radix-vue'

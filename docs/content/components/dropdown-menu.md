@@ -1025,7 +1025,7 @@ The component that pops out when a submenu is open. Must be rendered inside `Dro
 
 You can create submenus by using `DropdownMenuSub` in combination with its parts.
 
-```vue line=8-10,24-33
+```vue line=9-11,24-33
 <script setup lang="ts">
 import {
   DropdownMenuArrow,
@@ -1087,10 +1087,10 @@ import {
     <DropdownMenuTrigger>…</DropdownMenuTrigger>
     <DropdownMenuPortal>
       <DropdownMenuContent>
-        <DropdownMenuItem class-name="DropdownMenuItem" disabled>
+        <DropdownMenuItem class="DropdownMenuItem" disabled>
           …
         </DropdownMenuItem>
-        <DropdownMenuItem class-name="DropdownMenuItem">
+        <DropdownMenuItem class="DropdownMenuItem">
           …
         </DropdownMenuItem>
       </DropdownMenuContent>
@@ -1110,7 +1110,7 @@ import {
 
 Use the `Separator` part to add a separator between items.
 
-```vue line=8,18,20
+```vue line=7 ,18,20
 <script setup lang="ts">
 import {
   DropdownMenuContent,
@@ -1142,7 +1142,7 @@ import {
 
 Use the `Label` part to help label a section.
 
-```vue line=8,17
+```vue line=5,17
 <script setup lang="ts">
 import {
   DropdownMenuContent,
@@ -1173,7 +1173,7 @@ import {
 
 Use the `CheckboxItem` part to add an item that can be checked.
 
-```vue line=11,26-31
+```vue line=5 ,26-31
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 import { ref } from 'vue'
@@ -1215,7 +1215,7 @@ const checked = ref(false)
 
 Use the `RadioGroup` and `RadioItem` parts to add an item that can be checked amongst others.
 
-```vue line=9-10,22-41
+```vue line=8-9,22-41
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 import { ref } from 'vue'
@@ -1303,7 +1303,7 @@ You may want to constrain the width of the content (or sub-content) so that it m
 
 We expose several CSS custom properties such as `--radix-dropdown-menu-trigger-width` and `--radix-dropdown-menu-content-available-height` to support this. Use them to constrain the content dimensions.
 
-```vue line=15
+```vue line=9
 <script setup lang="ts">
 import { DropdownMenuContent, DropdownMenuPortal, DropdownMenuRoot, DropdownMenuTrigger } from 'radix-vue'
 </script>
@@ -1320,7 +1320,7 @@ import { DropdownMenuContent, DropdownMenuPortal, DropdownMenuRoot, DropdownMenu
 </template>
 ```
 
-```css
+```css line=3-4
 /* styles.css */
 .DropdownMenuContent {
   width: var(--radix-dropdown-menu-trigger-width);
@@ -1332,7 +1332,7 @@ import { DropdownMenuContent, DropdownMenuPortal, DropdownMenuRoot, DropdownMenu
 
 We expose a CSS custom property `--radix-dropdown-menu-content-transform-origin`. Use it to animate the content from its computed origin based on `side`, `sideOffset`, `align`, `alignOffset` and any collisions.
 
-```vue line=14
+```vue line=9
 <script setup lang="ts">
 import { DropdownMenuContent, DropdownMenuPortal, DropdownMenuRoot, DropdownMenuTrigger } from 'radix-vue'
 </script>
@@ -1372,7 +1372,7 @@ import { DropdownMenuContent, DropdownMenuPortal, DropdownMenuRoot, DropdownMenu
 
 We expose `data-side` and `data-align` attributes. Their values will change at runtime to reflect collisions. Use them to create collision and direction-aware animations.
 
-```vue line=14
+```vue line=9
 <script setup lang="ts">
 import { DropdownMenuContent, DropdownMenuPortal, DropdownMenuRoot, DropdownMenuTrigger } from 'radix-vue'
 </script>
@@ -1492,8 +1492,7 @@ Adheres to the [Menu Button WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA
     },
   ]"
 />
-
-<!-- TODO: fix react code - maybe implement in demo?
+ 
 
 ## Custom APIs
 
@@ -1505,21 +1504,23 @@ This example abstracts the `DropdownMenuArrow` and `DropdownMenuItemIndicator` p
 
 #### Usage
 
-```jsx
+```vue
+<script setup lang="ts">
 import {
   DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuItem,
-  DropdownMenuGroup,
   DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
-} from "./your-dropdown-menu";
+  DropdownMenuTrigger,
+} from './your-dropdown-menu'
+</script>
 
-export default () => (
+<template>
   <DropdownMenu>
     <DropdownMenuTrigger>DropdownMenu trigger</DropdownMenuTrigger>
     <DropdownMenuContent>
@@ -1534,62 +1535,96 @@ export default () => (
       </DropdownMenuRadioGroup>
     </DropdownMenuContent>
   </DropdownMenu>
-);
+</template>
 ```
 
 #### Implementation
 
 
-```jsx
-// your-dropdown-menu.jsx
-import React from "react";
-import * as DropdownMenuPrimitive from "radix-vue";
-import { CheckIcon, DividerHorizontalIcon } from "@radix-ui/react-icons";
+```ts
+// your-dropdown-menu.ts
+export { default as DropdownMenuContent } from 'DropdownMenuContent.vue'
+export { default as DropdownMenuCheckboxItem } from 'DropdownMenuCheckboxItem.vue'
+export { default as DropdownMenuRadioItem } from 'DropdownMenuRadioItem.vue'
 
-export const DropdownMenu = DropdownMenuPrimitive.Root;
-export const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
-
-export const DropdownMenuContent = React.forwardRef(({ children, ...props }, forwardedRef) => {
-  return (
-    <DropdownMenuPrimitive.Portal>
-      <DropdownMenuPrimitive.Content {...props} ref={forwardedRef}>
-        {children}
-        <DropdownMenuPrimitive.Arrow />
-      </DropdownMenuPrimitive.Content>
-    </DropdownMenuPrimitive.Portal>
-  );
-});
-
-export const DropdownMenuLabel = DropdownMenuPrimitive.Label;
-export const DropdownMenuItem = DropdownMenuPrimitive.Item;
-export const DropdownMenuGroup = DropdownMenuPrimitive.Group;
-
-export const DropdownMenuCheckboxItem = React.forwardRef(({ children, ...props }, forwardedRef) => {
-  return (
-    <DropdownMenuPrimitive.CheckboxItem {...props} ref={forwardedRef}>
-      {children}
-      <DropdownMenuPrimitive.ItemIndicator>
-        {props.checked === "indeterminate" && <DividerHorizontalIcon />}
-        {props.checked === true && <CheckIcon />}
-      </DropdownMenuPrimitive.ItemIndicator>
-    </DropdownMenuPrimitive.CheckboxItem>
-  );
-});
-
-export const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
-
-export const DropdownMenuRadioItem = React.forwardRef(({ children, ...props }, forwardedRef) => {
-  return (
-    <DropdownMenuPrimitive.RadioItem {...props} ref={forwardedRef}>
-      {children}
-      <DropdownMenuPrimitive.ItemIndicator>
-        <CheckIcon />
-      </DropdownMenuPrimitive.ItemIndicator>
-    </DropdownMenuPrimitive.RadioItem>
-  );
-});
-
-export const DropdownMenuSeparator = DropdownMenuPrimitive.Separator;
+export {
+  DropdownMenuRoot as DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuLabel,
+  DropdownMenuItem,
+  DropdownMenuGroup,
+  DropdownMenuRadioGroup,
+  DropdownMenuSeparator
+} from 'radix-vue'
 ```
 
--->
+
+
+```vue
+<!-- DropdownMenuContent.vue -->
+<script setup lang="ts">
+import { DropdownMenuContent, type DropdownMenuContentEmits, type DropdownMenuContentProps, DropdownMenuPortal, useForwardPropsEmits, } from 'radix-vue'
+
+const props = defineProps<DropdownMenuContentProps>()
+const emits = defineEmits<DropdownMenuContentEmits>()
+
+const forwarded = useForwardPropsEmits(props, emits)
+</script>
+
+<template>
+  <DropdownMenuPortal>
+    <DropdownMenuContent v-bind="forwarded">
+      <slot />
+    </DropdownMenuContent>
+  </DropdownMenuPortal>
+</template>
+```
+
+
+```vue
+<!-- DropdownMenuCheckboxItem.vue -->
+<script setup lang="ts">
+import { DropdownMenuCheckboxItem, type DropdownMenuCheckboxItemEmits, type DropdownMenuCheckboxItemProps, DropdownMenuItemIndicator, useForwardPropsEmits } from 'radix-vue'
+import { CheckIcon } from '@radix-icons/vue'
+
+const props = defineProps<DropdownMenuCheckboxItemProps>()
+const emits = defineEmits<DropdownMenuCheckboxItemEmits>()
+
+const forwarded = useForwardPropsEmits(props, emits)
+</script>
+
+<template>
+  <DropdownMenuCheckboxItem v-bind="forwarded">
+    <span>
+      <DropdownMenuItemIndicator>
+        <CheckIcon />
+      </DropdownMenuItemIndicator>
+    </span>
+    <slot />
+  </DropdownMenuCheckboxItem>
+</template>
+```
+ 
+```vue
+<!-- DropdownMenuRadioItem.vue -->
+<script setup lang="ts">
+import { DropdownMenuItemIndicator, DropdownMenuRadioItem, type DropdownMenuRadioItemEmits, type DropdownMenuRadioItemProps, useForwardPropsEmits, } from 'radix-vue'
+import { DotFilledIcon } from '@radix-icons/vue'
+
+const props = defineProps<DropdownMenuRadioItemProps>()
+const emits = defineEmits<DropdownMenuRadioItemEmits>()
+
+const forwarded = useForwardPropsEmits(props, emits)
+</script>
+
+<template>
+  <DropdownMenuRadioItem v-bind="forwarded">
+    <span>
+      <DropdownMenuItemIndicator>
+        <DotFilledIcon />
+      </DropdownMenuItemIndicator>
+    </span>
+    <slot />
+  </DropdownMenuRadioItem>
+</template>
+```

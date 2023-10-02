@@ -243,13 +243,13 @@ import './styles.css'
     height: 0;
   }
   to {
-    height: var(__--radix-collapsible-content-height__);
+    height: var(--radix-collapsible-content-height);
   }
 }
 
 @keyframes slideUp {
   from {
-    height: var(__--radix-collapsible-content-height__);
+    height: var(--radix-collapsible-content-height);
   }
   to {
     height: 0;

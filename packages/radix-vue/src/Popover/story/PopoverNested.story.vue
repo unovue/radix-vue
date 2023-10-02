@@ -39,7 +39,7 @@ const buttonRef = ref()
               style="background-color: crimson"
             >
               <PopoverRoot>
-                <PopoverTrigger class-name="{triggerClass()}">
+                <PopoverTrigger class="{triggerClass()}">
                   Open nested popover
                 </PopoverTrigger>
                 <PopoverPortal>

@@ -392,13 +392,11 @@ You may want to constrain the width of the content so that it matches the trigge
 
 We expose several CSS custom properties such as `--radix-popover-trigger-width` and `--radix-popover-content-available-height` to support this. Use them to constrain the content dimensions.
 
-```vue line=18
+```vue line=10
 // index.vue
 <script setup>
 import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
-import './styles.css'
 </script>
-;
 
 <template>
   <PopoverRoot>
@@ -412,7 +410,7 @@ import './styles.css'
 </template>
 ```
 
-```css
+```css line=3,4
 /* styles.css */
 .PopoverContent {
   width: var(--radix-popover-trigger-width);
@@ -424,13 +422,11 @@ import './styles.css'
 
 We expose a CSS custom property `--radix-popover-content-transform-origin`. Use it to animate the content from its computed origin based on `side`, `sideOffset`, `align`, `alignOffset` and any collisions.
 
-```vue line=18
+```vue line=l10
 // index.vue
 <script setup>
 import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
-import './styles.css'
 </script>
-;
 
 <template>
   <PopoverRoot>
@@ -467,13 +463,11 @@ import './styles.css'
 
 We expose `data-side` and `data-align` attributes. Their values will change at runtime to reflect collisions. Use them to create collision and direction-aware animations.
 
-```vue line=18
+```vue line=10
 // index.vue
 <script setup>
 import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
-import './styles.css'
 </script>
-;
 
 <template>
   <PopoverRoot>
@@ -527,13 +521,11 @@ import './styles.css'
 
 You can anchor the content to another element if you do not want to use the trigger as the anchor.
 
-```vue line=16-20
+```vue line=8-12
 // index.vue
 <script setup>
 import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
-import './styles.css'
 </script>
-;
 
 <template>
   <PopoverRoot>
@@ -588,8 +580,7 @@ Adheres to the [Dialog WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/
     },
   ]"
 />
-
-<!--
+ 
 ## Custom APIs
 
 Create your own API by abstracting the primitive parts into your own component.
@@ -601,30 +592,43 @@ This example abstracts the `PopoverArrow` part and sets a default `sideOffset` c
 #### Usage
 
 ```vue
-import { Popover, PopoverTrigger, PopoverContent } from './your-popover';
+<script setup lang="ts">
+import { Popover, PopoverContent, PopoverTrigger } from './your-popover'
+</script>
 
 <template>
-	<Popover>
-		<PopoverTrigger>Popover trigger</PopoverTrigger>
-		<PopoverContent>Popover content</PopoverContent>
-	</Popover>
-	);
+  <Popover>
+    <PopoverTrigger>Popover trigger</PopoverTrigger>
+    <PopoverContent>Popover content</PopoverContent>
+  </Popover>
 </template>
 ```
 
 #### Implementation
 
-```vue
-// your-popover.vue import React from 'react'; import * as PopoverPrimitive from
-'radix-vue'; export const Popover = PopoverPrimitive.Root; export const
-PopoverTrigger = PopoverPrimitive.Trigger; export const PopoverContent =
-React.forwardRef( ({ children, ...props }, forwardedRef) => (
-<PopoverPrimitive.Portal>
-      <PopoverPrimitive.Content :sideOffset=5 {...props} ref={forwardedRef}>
-        {children}
-        <PopoverPrimitive.Arrow />
-      </PopoverPrimitive.Content>
-    </PopoverPrimitive.Portal>
-) );
+```ts
+// your-popover.ts
+export { default as PopoverContent } from 'PopoverContent.vue'
+
+export { PopoverRoot as Popover, PopoverTrigger } from 'radix-vue'
 ```
--->
+
+```vue
+<!-- PopoverContent.vue -->
+<script setup lang="ts">
+import { PopoverContent, type PopoverContentEmits, type PopoverContentProps, PopoverPortal, useForwardPropsEmits, } from 'radix-vue'
+
+const props = defineProps<PopoverContentProps>()
+const emits = defineEmits<PopoverContentEmits>()
+
+const forwarded = useForwardPropsEmits(props, emits)
+</script>
+
+<template>
+  <PopoverPortal>
+    <PopoverContent v-bind="{ ...forwarded, ...$attrs }">
+      <slot />
+    </PopoverContent>
+  </PopoverPortal>
+</template>
+``` 

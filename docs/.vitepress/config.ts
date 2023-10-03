@@ -51,7 +51,8 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'Home', link: '/' },
+      { text: 'Docs', link: '/overview/getting-started.html' },
+      { text: 'Showcase', link: '/showcase' },
       {
         text: `v${version}`,
         items: [
@@ -85,6 +86,12 @@ export default defineConfig({
   appearance: 'dark',
   markdown: {
     theme: 'material-theme-palenight',
+  },
+  transformPageData(pageData) {
+    if (pageData.frontmatter.sidebar != null)
+      return
+    // hide sidebar on showcase page
+    pageData.frontmatter.sidebar = pageData.frontmatter.layout !== 'showcase'
   },
 })
 

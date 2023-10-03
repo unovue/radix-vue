@@ -1,28 +1,32 @@
 // https://vitepress.dev/guide/custom-theme
 import { h } from 'vue'
-import Theme from 'vitepress/theme'
+import DefaultTheme from 'vitepress/theme'
 import HomePage from '../components/HomePage.vue'
 import HomePageDemo from '../components/HomePageDemo.vue'
+import LayoutShowcase from '../layouts/showcase.vue'
 import './style.css'
 import './tailwind.postcss'
+import { type Theme } from 'vitepress'
 
 const regex = /\/(\w+)\.vue/
 const baseModules = import.meta.glob('../../components/*.vue', { eager: true })
 const tableModules = import.meta.glob('../../components/tables/*.vue', { eager: true })
 
 export default {
-  extends: Theme,
+  extends: DefaultTheme,
   Layout: () => {
-    return h(Theme.Layout, null, {
+    return h(DefaultTheme.Layout, null, {
       // https://vitepress.dev/guide/extending-default-theme#layout-slots
       'home-features-after': () => h('div', [h(HomePageDemo), h(HomePage)]),
     })
   },
   enhanceApp({ app, router, siteData }) {
     for (const path in baseModules)
-      app.component(path.match(regex)?.[1], (baseModules[path] as any)?.default)
+      app.component(path.match(regex)?.[1] ?? '', (baseModules[path] as any)?.default)
 
     for (const path in tableModules)
-      app.component(path.match(regex)?.[1], (tableModules[path] as any)?.default)
+      app.component(path.match(regex)?.[1] ?? '', (tableModules[path] as any)?.default)
+
+    app.component('Showcase', LayoutShowcase)
   },
-}
+} satisfies Theme

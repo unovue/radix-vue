@@ -99,6 +99,16 @@ module.exports = {
           from: { transform: 'translateX(var(--radix-toast-swipe-end-x))' },
           to: { transform: 'translateX(calc(100% + var(--viewport-padding)))' },
         },
+        text: {
+          '0%, 100%': {
+            'background-size': '200% 200%',
+            'background-position': 'left center',
+          },
+          '50%': {
+            'background-size': '200% 200%',
+            'background-position': 'right center',
+          },
+        },
       },
       animation: {
         overlayShow: 'overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
@@ -120,6 +130,7 @@ module.exports = {
         hide: 'hide 100ms ease-in',
         slideIn: 'slideIn 150ms cubic-bezier(0.16, 1, 0.3, 1)',
         swipeOut: 'swipeOut 100ms ease-out',
+        text: 'text 5s ease infinite',
       },
     },
   },

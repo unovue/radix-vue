@@ -1,7 +1,13 @@
 {
+  // This tsconfig is for development. Allowing *.story.vue, and __test__/*.vue to have types support
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": ["/**/*.vue", "components/**/*.vue", ".vitepress/**/*.vue", "/**/*.ts", ".vitepress/**/*.ts", ".vitepress/**/*.vue", "src/lib/**/*"],
   "exclude": ["node_modules"],
   "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "types": ["unplugin-icons/types/vue", "vitepress/client", "vue"],
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
@@ -14,10 +20,7 @@
     "lib": ["esnext", "dom"],
     "baseUrl": ".",
     "skipLibCheck": true,
-    "outDir": "dist",
-    "types": ["unplugin-icons/types/vue", "node", "vitepress/client", "vue"],
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "outDir": "dist"
   }
+
 }

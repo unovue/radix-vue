@@ -21,6 +21,7 @@ import {
   type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
+import { useFormControl } from '@/shared'
 
 const props = withDefaults(defineProps<RadioProps>(), {
   disabled: false,
@@ -28,13 +29,10 @@ const props = withDefaults(defineProps<RadioProps>(), {
 })
 const { value, checked } = toRefs(props)
 const { primitiveElement, currentElement: triggerElement } = usePrimitiveElement()
+const isFormControl = useFormControl(triggerElement)
 
 const context = inject(RADIO_GROUP_INJECTION_KEY)
 
-// We set this to true by default so that events bubble to forms without JS (SSR)
-const isFormControl = computed(() =>
-  triggerElement.value ? Boolean(triggerElement.value.closest('form')) : true,
-)
 const ariaLabel = computed(() => props.id && triggerElement.value ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText : undefined)
 
 const hasConsumerStoppedPropagationRef = ref(false)

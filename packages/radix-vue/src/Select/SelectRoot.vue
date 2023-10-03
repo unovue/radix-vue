@@ -2,7 +2,7 @@
 import type { InjectionKey, Ref, VNode } from 'vue'
 import type { DataOrientation, Direction } from '../shared/types'
 import BubbleSelect from './BubbleSelect.vue'
-import { useId } from '@/shared'
+import { useFormControl, useId } from '@/shared'
 
 export interface SelectRootProps {
   open?: boolean
@@ -113,10 +113,7 @@ provide<SelectProvideValue>(SELECT_INJECTION_KEY, {
   disabled,
 })
 
-// We set this to true by default so that events bubble to forms without JS (SSR)
-const isFormControl = computed(() =>
-  triggerElement.value ? Boolean(triggerElement.value.closest('form')) : true,
-)
+const isFormControl = useFormControl(triggerElement)
 const nativeOptionsSet = ref<Set<VNode>>(new Set())
 
 // The native `select` only associates the correct default value if the corresponding

@@ -48,7 +48,7 @@ export interface ComboboxRootProps extends PrimitiveProps {
 <script setup lang="ts">
 import { PopperRoot } from '@/Popper'
 import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
-import { useCollection, useId } from '@/shared'
+import { useCollection, useFormControl, useId } from '@/shared'
 import type { Direction } from '@/shared/types'
 import { useVModel } from '@vueuse/core'
 import { type ComponentInternalInstance, type ComputedRef, type InjectionKey, type Ref, computed, nextTick, onMounted, provide, ref, toRefs, watch } from 'vue'
@@ -142,10 +142,7 @@ onMounted(() => {
     searchTerm.value = modelValue.value
 })
 
-// We set this to true by default so that events bubble to forms without JS (SSR)
-const isFormControl = computed(() =>
-  parentElement.value ? Boolean(parentElement.value.closest('form')) : true,
-)
+const isFormControl = useFormControl(parentElement)
 
 provide(COMBOBOX_INJECT_KEY, {
   searchTerm,

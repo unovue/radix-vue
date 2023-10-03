@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { InjectionKey, Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
+import { useFormControl } from '@/shared'
 
 export interface CheckboxRootProps extends PrimitiveProps {
   defaultChecked?: boolean
@@ -49,8 +50,7 @@ const checked = useVModel(props, 'checked', emits, {
 }) as Ref<CheckedState>
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
-// We set this to true by default so that events bubble to forms without JS (SSR)
-const isFormControl = computed(() => currentElement.value ? Boolean(currentElement.value.closest('form')) : true)
+const isFormControl = useFormControl(currentElement)
 const ariaLabel = computed(() => props.id && currentElement.value ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText : undefined)
 
 provide(CHECKBOX_INJECTION_KEY, {

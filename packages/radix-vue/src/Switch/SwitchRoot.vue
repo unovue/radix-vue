@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { InjectionKey, Ref } from 'vue'
+import { useFormControl } from '@/shared'
 
 export interface SwitchRootProps extends PrimitiveProps {
   defaultChecked?: boolean
@@ -53,8 +54,7 @@ function toggleCheck() {
 }
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
-// We set this to true by default so that events bubble to forms without JS (SSR)
-const isFormControl = computed(() => currentElement.value ? Boolean(currentElement.value.closest('form')) : true)
+const isFormControl = useFormControl(currentElement)
 const ariaLabel = computed(() => props.id && currentElement.value ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText : undefined)
 
 provide<SwitchProvideValue>(SWITCH_INJECTION_KEY, {

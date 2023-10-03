@@ -20,6 +20,7 @@ export function useHideOthers(target: MaybeElementRef) {
   })
 
   onUnmounted(() => {
-    undo()
+    if (undo)
+      undo()
   })
 }

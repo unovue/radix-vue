@@ -24,8 +24,10 @@ export function useBodyScrollLock(initialState?: boolean | undefined) {
         const verticalScrollbarWidth
           = window.innerWidth - document.documentElement.clientWidth
 
-        if (verticalScrollbarWidth > 0)
+        if (verticalScrollbarWidth > 0) {
           document.body.style.paddingRight = `${verticalScrollbarWidth}px`
+          document.head.style.setProperty('--scrollbar-width', `${verticalScrollbarWidth}px`)
+        }
 
         // let dismissibleLayer set previous pointerEvent first
         nextTick(() => {
@@ -36,6 +38,7 @@ export function useBodyScrollLock(initialState?: boolean | undefined) {
       else {
         document.body.style.paddingRight = ''
         document.body.style.pointerEvents = ''
+        document.head.style.removeProperty('--scrollbar-width')
         locked.value = false
       }
     },
@@ -53,6 +56,7 @@ export function useBodyScrollLock(initialState?: boolean | undefined) {
     if (stack.value === 0) {
       document.body.style.paddingRight = ''
       document.body.style.pointerEvents = ''
+      document.head.style.removeProperty('--scrollbar-width')
     }
   })
 

@@ -4,6 +4,7 @@ import Combobox from './story/_Combobox.vue'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
+import { handleSubmit } from '@/test'
 
 describe('given default Combobox', () => {
   let wrapper: VueWrapper<InstanceType<typeof Combobox>>
@@ -84,6 +85,50 @@ describe('given default Combobox', () => {
           expect(selection.html()).toContain('svg')
         })
       })
+    })
+  })
+})
+
+describe('given combobox in a form', async () => {
+  const wrapper = mount({
+    props: ['handleSubmit'],
+    components: { Combobox },
+    template: '<form @submit="handleSubmit"><Combobox value="true" /></form>',
+  }, {
+    props: { handleSubmit },
+  })
+
+  it('should have hidden input field', async () => {
+    expect(wrapper.find('[type="hidden"]').exists()).toBe(true)
+  })
+
+  describe('after selecting option and clicking submit button', () => {
+    beforeEach(async () => {
+      await wrapper.find('button').trigger('click')
+      await nextTick()
+      const selection = wrapper.findAll('[role=option]')[1]
+      await selection.trigger('click')
+      await wrapper.find('form').trigger('submit')
+    })
+
+    it('should trigger submit once', () => {
+      expect(handleSubmit).toHaveBeenCalledTimes(1)
+      expect(handleSubmit.mock.results[0].value).toStrictEqual({ test: 'Banana' })
+    })
+  })
+
+  describe('after selecting other option and click submit button again', () => {
+    beforeEach(async () => {
+      await wrapper.find('button').trigger('click')
+      await nextTick()
+      const selection = wrapper.findAll('[role=option]')[4]
+      await selection.trigger('click')
+      await wrapper.find('form').trigger('submit')
+    })
+
+    it('should trigger submit once', () => {
+      expect(handleSubmit).toHaveBeenCalledTimes(2)
+      expect(handleSubmit.mock.results[1].value).toStrictEqual({ test: 'Pineapple' })
     })
   })
 })

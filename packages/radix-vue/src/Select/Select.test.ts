@@ -5,6 +5,7 @@ import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
 import { fireEvent } from '@testing-library/vue'
+import { handleSubmit } from '@/test'
 
 describe('given default Select', () => {
   let wrapper: VueWrapper<InstanceType<typeof Select>>
@@ -90,6 +91,63 @@ describe('given default Select', () => {
           expect(selection.html()).toContain('svg')
         })
       })
+    })
+  })
+})
+
+describe('given select in a form', async () => {
+  const wrapper = mount({
+    props: ['handleSubmit'],
+    components: { Select },
+    template: '<form @submit="handleSubmit"><Select value="true" /></form>',
+  }, {
+    props: { handleSubmit },
+    attachTo: document.body,
+  })
+
+  it('should have hidden input field', async () => {
+    expect(wrapper.find('select').exists()).toBe(true)
+  })
+
+  describe('after selecting option and clicking submit button', () => {
+    beforeEach(async () => {
+      await wrapper.find('button').trigger('pointerdown', {
+        button: 0,
+        ctrlKey: false,
+      })
+      await nextTick()
+      const selection = wrapper.findAll('[role=option]')[1];
+      (selection.element as HTMLElement).focus()
+      await selection.trigger('pointerup')
+      // not sure why need 2 pointUp to trigger the selection correctly
+      await fireEvent.pointerUp(selection.element)
+      await wrapper.find('form').trigger('submit')
+    })
+
+    it('should trigger submit once', () => {
+      expect(handleSubmit).toHaveBeenCalledTimes(1)
+      expect(handleSubmit.mock.results[0].value).toStrictEqual({ test: 'Banana' })
+    })
+  })
+
+  describe('after selecting other option and click submit button again', () => {
+    beforeEach(async () => {
+      await wrapper.find('button').trigger('pointerdown', {
+        button: 0,
+        ctrlKey: false,
+      })
+      await nextTick()
+      const selection = wrapper.findAll('[role=option]')[4];
+      (selection.element as HTMLElement).focus()
+      await selection.trigger('pointerup')
+      // not sure why need 2 pointUp to trigger the selection correctly
+      await fireEvent.pointerUp(selection.element)
+      await wrapper.find('form').trigger('submit')
+    })
+
+    it('should trigger submit once', () => {
+      expect(handleSubmit).toHaveBeenCalledTimes(2)
+      expect(handleSubmit.mock.results[1].value).toStrictEqual({ test: 'Pineapple' })
     })
   })
 })

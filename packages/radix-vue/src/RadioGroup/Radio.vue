@@ -5,48 +5,49 @@ export interface RadioProps extends PrimitiveProps {
   disabled?: boolean
   required?: boolean
   checked?: boolean
+  name?: string
+}
+export type RadioEmits = {
+  'update:checked': [value: boolean]
 }
 </script>
 
 <script setup lang="ts">
 import {
   computed,
-  inject,
-  ref,
   toRefs,
 } from 'vue'
-import { RADIO_GROUP_INJECTION_KEY } from './RadioGroupRoot.vue'
 import {
   Primitive,
   type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
 import { useFormControl } from '@/shared'
+import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<RadioProps>(), {
   disabled: false,
   as: 'button',
 })
-const { value, checked } = toRefs(props)
+const emits = defineEmits<RadioEmits>()
+const checked = useVModel(props, 'checked', emits, {
+  passive: !props.checked as false,
+})
+
+const { value } = toRefs(props)
 const { primitiveElement, currentElement: triggerElement } = usePrimitiveElement()
 const isFormControl = useFormControl(triggerElement)
 
-const context = inject(RADIO_GROUP_INJECTION_KEY)
-
-const ariaLabel = computed(() => props.id && triggerElement.value ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText : undefined)
-
-const hasConsumerStoppedPropagationRef = ref(false)
+const ariaLabel = computed(() => props.id && triggerElement.value ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText ?? props.value : undefined)
 
 function handleClick(event: MouseEvent) {
-  context?.changeModelValue(value?.value)
+  checked.value = true
 
-  if (isFormControl.value && 'isPropagationStopped' in event) {
-    // hasConsumerStoppedPropagationRef.value = event.isPropagationStopped() as boolean
+  if (isFormControl.value) {
     // if radio is in a form, stop propagation from the button so that we only propagate
     // one click event (from the input). We propagate changes from an input so that native
     // form validation works and form events reflect radio updates.
-    if (!hasConsumerStoppedPropagationRef.value)
-      event.stopPropagation()
+    event.stopPropagation()
   }
 }
 </script>
@@ -67,9 +68,28 @@ function handleClick(event: MouseEvent) {
     :data-disabled="disabled ? '' : undefined"
     :value="value"
     :required="required"
-    :name="context?.name"
-    @click="handleClick"
+    :name="name"
+    @click.stop="handleClick"
   >
     <slot />
+
+    <input
+      v-if="isFormControl"
+      type="radio"
+      tabindex="-1"
+      aria-hidden
+      :value="value"
+      :checked="!!checked"
+      :name="name"
+      :disabled="disabled"
+      :required="required"
+      :style="{
+        transform: 'translateX(-100%)',
+        position: 'absolute',
+        pointerEvents: 'none',
+        opacity: 0,
+        margin: 0,
+      }"
+    >
   </Primitive>
 </template>

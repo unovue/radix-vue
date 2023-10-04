@@ -25,6 +25,7 @@ const options = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
   <div>
     <SelectRoot
       v-model="fruit"
+      name="test"
       aria-label="Fruits"
     >
       <SelectTrigger

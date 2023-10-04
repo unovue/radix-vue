@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from '../'
 
-const radioStateSingle = ref('default')
+const radioStateSingle = ref('compact')
 </script>
 
 <template>
@@ -13,7 +13,6 @@ const radioStateSingle = ref('default')
         :loop="false"
         class="flex flex-col gap-2.5"
         aria-label="View density"
-        orientation="vertical"
       >
         <div class="flex items-center">
           <RadioGroupItem
@@ -32,7 +31,6 @@ const radioStateSingle = ref('default')
         <div class="flex items-center">
           <RadioGroupItem
             id="r2"
-            disabled
             class="bg-white w-[25px] h-[25px] rounded-full shadow-[0_2px_10px] shadow-blackA7 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black outline-none cursor-default data-[disabled]:bg-red-500"
             value="comfortable"
           >

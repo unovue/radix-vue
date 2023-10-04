@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { DataOrientation, Direction } from '../shared/types'
-import { useCollection } from '@/shared'
+import { useCollection, useFormControl } from '@/shared'
 
 export interface SliderRootProps extends PrimitiveProps {
   name?: string
@@ -67,6 +67,7 @@ const { min, max, step, minStepsBetweenThumbs, orientation, disabled, dir } = to
 const { createCollection } = useCollection('sliderThumb')
 const { primitiveElement, currentElement } = usePrimitiveElement()
 createCollection(currentElement)
+const isFormControl = useFormControl(currentElement)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
@@ -160,13 +161,16 @@ provide(SLIDER_INJECTION_KEY, {
   >
     <slot :model-value="modelValue" />
   </component>
-  <input
-    v-for="(value, index) in modelValue"
-    :key="index"
-    :value="value"
-    style="display: none"
-    :default-value="value"
-    :name="name ? name + (modelValue.length > 1 ? '[]' : '') : undefined"
-    :disabled="disabled"
-  >
+
+  <template v-if="isFormControl">
+    <input
+      v-for="(value, index) in modelValue"
+      :key="index"
+      :value="value"
+      type="number"
+      style="display: none"
+      :name="name ? name + (modelValue.length > 1 ? '[]' : '') : undefined"
+      :disabled="disabled"
+    >
+  </template>
 </template>

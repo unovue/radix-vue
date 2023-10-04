@@ -88,13 +88,14 @@ provide<SwitchProvideValue>(SWITCH_INJECTION_KEY, {
 
   <input
     v-if="isFormControl"
-    :checked="checked"
     type="checkbox"
     :name="name"
     tabindex="-1"
     aria-hidden
     :disabled="disabled"
     :required="required"
+    :value="value"
+    :checked="!!checked"
     :data-state="checked ? 'checked' : 'unchecked'"
     :data-disabled="disabled ? '' : undefined"
     :style="{

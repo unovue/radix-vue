@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxHeader, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxRoot, ComboboxSeparator, ComboboxTrigger, ComboboxViewport } from '../'
+import { ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxHeader, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxRoot, type ComboboxRootProps, ComboboxSeparator, ComboboxTrigger, ComboboxViewport } from '../'
 import { Icon } from '@iconify/vue'
 
+const props = defineProps<ComboboxRootProps>()
 const v = ref('')
 const options = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
 const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
 </script>
 
 <template>
-  <ComboboxRoot v-model="v">
+  <ComboboxRoot v-bind="props" v-model="v" name="test">
     <ComboboxHeader class="min-w-[160px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">
       <ComboboxInput class="bg-transparent outline-none text-grass11 placeholder-gray-400" placeholder="Placeholder..." />
       <ComboboxTrigger>

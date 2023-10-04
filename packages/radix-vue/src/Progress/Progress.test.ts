@@ -3,6 +3,7 @@ import { axe } from 'vitest-axe'
 import Progress from './story/_Progress.vue'
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { sleep } from '@/test'
 
 describe('given a default Progress', () => {
   let wrapper: VueWrapper<InstanceType<typeof Progress>>
@@ -18,7 +19,7 @@ describe('given a default Progress', () => {
 
   describe('after 200ms', () => {
     it('shoud contain correct value', async () => {
-      await new Promise(resolve => setTimeout(resolve, 200))
+      await sleep(200)
       expect(wrapper.html()).toContain('data-value="50"')
     })
   })

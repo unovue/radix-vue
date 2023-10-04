@@ -1,8 +1,9 @@
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import Checkbox from './story/_Checkbox.vue'
 import { mount } from '@vue/test-utils'
 import { axe } from 'vitest-axe'
 import { findByTestId } from '@testing-library/vue'
+import { handleSubmit } from '@/test'
 
 globalThis.ResizeObserver = class ResizeObserver {
   cb: any
@@ -80,5 +81,43 @@ describe('given checked value as "indeterminate"', async () => {
   it('should still be clickable', async () => {
     await wrapper.find('button').trigger('click')
     expect(wrapper.find('button').attributes('data-state')).toBe('unchecked')
+  })
+})
+
+describe('given checkbox in a form', async () => {
+  const wrapper = mount({
+    props: ['handleSubmit'],
+    components: { Checkbox },
+    template: '<form @submit="handleSubmit"><Checkbox value="true" /></form>',
+  }, {
+    props: { handleSubmit },
+  })
+
+  it('should have hidden input field', async () => {
+    expect(wrapper.find('[type="checkbox"]').exists()).toBe(true)
+  })
+
+  describe('after clicking submit button', () => {
+    beforeEach(async () => {
+      await wrapper.find('button').trigger('click')
+      await wrapper.find('form').trigger('submit')
+    })
+
+    it('should trigger submit once', () => {
+      expect(handleSubmit).toHaveBeenCalledTimes(1)
+      expect(handleSubmit.mock.results[0].value).toStrictEqual({ test: 'true' })
+    })
+  })
+
+  describe('after uncheck and click submit button again', () => {
+    beforeEach(async () => {
+      await wrapper.find('button').trigger('click')
+      await wrapper.find('form').trigger('submit')
+    })
+
+    it('should trigger submit once', () => {
+      expect(handleSubmit).toHaveBeenCalledTimes(2)
+      expect(handleSubmit.mock.results[1].value).toStrictEqual({ })
+    })
   })
 })

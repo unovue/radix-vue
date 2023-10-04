@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, h, inject, onMounted } from 'vue'
+import { computed, h, inject, onBeforeUnmount, onMounted } from 'vue'
 import { SELECT_INJECTION_KEY, SELECT_NATIVE_OPTIONS_INJECTION_KEY } from './SelectRoot.vue'
 import { SELECT_CONTENT_INJECTION_KEY, SelectContentDefaultContextValue } from './SelectContentImpl.vue'
 import { SELECT_ITEM_INJECTION_KEY } from './SelectItem.vue'
@@ -45,9 +45,9 @@ onMounted(() => {
   onNativeOptionAdd(nativeOption.value)
 })
 
-// onBeforeUnmount(() => {
-//   onNativeOptionRemove(nativeOption.value);
-// });
+onBeforeUnmount(() => {
+  onNativeOptionRemove(nativeOption.value)
+})
 </script>
 
 <script lang="ts">

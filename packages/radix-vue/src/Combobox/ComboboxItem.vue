@@ -47,7 +47,7 @@ const emits = defineEmits<ComboboxItemEmits>()
 const { disabled } = toRefs(props)
 
 const context = inject(COMBOBOX_INJECT_KEY)
-const groupContext = inject(COMBOBOX_GROUP_INJECTION_KEY)
+const groupContext = inject(COMBOBOX_GROUP_INJECTION_KEY, { id: '', options: ref([]) })
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
 const isSelected = computed(() =>

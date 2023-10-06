@@ -57,6 +57,7 @@ function handleOpen() {
       :aria-expanded="context?.open.value || false"
       :aria-required="context?.required?.value"
       aria-autocomplete="none"
+      :disabled="disabled"
       :dir="context?.dir.value"
       :data-state="context?.open.value ? 'open' : 'closed'"
       :data-disabled="isDisabled ? '' : undefined"

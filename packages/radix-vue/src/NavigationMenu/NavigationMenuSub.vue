@@ -25,8 +25,8 @@ const props = withDefaults(defineProps<NavigationMenuSubProps>(), {
 const emits = defineEmits<NavigationMenuSubEmits>()
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  passive: true,
   defaultValue: props.defaultValue ?? '',
+  passive: (props.modelValue === undefined) as false,
 }) as Ref<string>
 const previousValue = ref('')
 

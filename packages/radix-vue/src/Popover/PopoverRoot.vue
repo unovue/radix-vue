@@ -50,7 +50,7 @@ const emit = defineEmits<PopoverRootEmits>()
 const { modal } = toRefs(props)
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
-  passive: true,
+  passive: (props.open === undefined) as false,
 })
 
 const triggerElement = ref<HTMLElement>()

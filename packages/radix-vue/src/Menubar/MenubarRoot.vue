@@ -43,8 +43,8 @@ const { createCollection } = useCollection('menubar')
 createCollection(currentElement)
 
 const modelValue = useVModel(props, 'modelValue', emit, {
-  passive: true,
   defaultValue: props.defaultValue ?? '',
+  passive: (props.modelValue === undefined) as false,
 }) as Ref<string>
 
 const currentTabStopId = ref<string | null>(null)

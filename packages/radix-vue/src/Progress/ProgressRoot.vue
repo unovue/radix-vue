@@ -70,11 +70,11 @@ const props = withDefaults(defineProps<ProgressRootProps>(), {
 const emit = defineEmits<ProgressRootEmits>()
 
 const modelValue = useVModel(props, 'modelValue', emit, {
-  passive: true,
+  passive: (props.modelValue === undefined) as false,
 })
 
 const max = useVModel(props, 'max', emit, {
-  passive: true,
+  passive: (props.max === undefined) as false,
 })
 
 // ------- Watch for correct values -------

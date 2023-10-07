@@ -51,7 +51,7 @@ const emits = defineEmits<RadioGroupRootEmits>()
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
-  passive: true,
+  passive: (props.modelValue === undefined) as false,
 })
 
 const { disabled, loop, orientation, name, required } = toRefs(props)

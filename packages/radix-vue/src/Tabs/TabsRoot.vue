@@ -53,7 +53,7 @@ const { orientation, dir } = toRefs(props)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
-  passive: true,
+  passive: (props.modelValue === undefined) as false,
 })
 
 provide<TabsProvideValue>(TABS_INJECTION_KEY, {

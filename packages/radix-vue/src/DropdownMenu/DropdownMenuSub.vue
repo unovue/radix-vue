@@ -17,7 +17,7 @@ const props = defineProps<DropdownMenuSubProps>()
 const emit = defineEmits<DropdownMenuSubEmits>()
 
 const open = useVModel(props, 'open', emit, {
-  passive: true,
+  passive: (props.open === undefined) as false,
   defaultValue: props.defaultOpen ?? false,
 })
 </script>

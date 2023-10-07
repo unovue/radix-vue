@@ -43,7 +43,7 @@ const { disabled } = toRefs(props)
 
 const checked = useVModel(props, 'checked', emit, {
   defaultValue: props.defaultChecked,
-  passive: true, // set passive to true so that if no props.modelValue was passed, it will still update
+  passive: (props.checked === undefined) as false,
 })
 
 function toggleCheck() {

@@ -36,7 +36,7 @@ const emits = defineEmits<{
 
 const open = useVModel(props, 'open', emits, {
   defaultValue: false,
-  passive: true,
+  passive: (props.open === undefined) as false,
 })
 
 const parentMenuContext = inject(MENU_INJECTION_KEY)

@@ -44,7 +44,7 @@ const { siblingCount, disabled, showEdges } = toRefs(props)
 
 const page = useVModel(props, 'page', emits, {
   defaultValue: props.defaultPage,
-  passive: !props.page as false,
+  passive: (props.page === undefined) as false,
 }) as Ref<number>
 
 const pageCount = computed(() => Math.ceil(props.total / props.itemsPerPage))

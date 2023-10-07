@@ -16,8 +16,8 @@ const props = defineProps<ContextMenuSubProps>()
 const emit = defineEmits<ContextMenuSubEmits>()
 
 const open = useVModel(props, 'open', emit, {
-  passive: true,
   defaultValue: props.defaultOpen,
+  passive: (props.open === undefined) as false,
 })
 </script>
 

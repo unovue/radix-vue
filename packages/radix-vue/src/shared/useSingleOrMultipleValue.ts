@@ -85,7 +85,7 @@ export function useSingleOrMultipleValue<P extends Props, Name extends string>(
 ) {
   const modelValue = useVModel(props, 'modelValue', emits, {
     defaultValue: getDefaultValue(props),
-    passive: true,
+    passive: (props.modelValue === undefined) as false,
   }) as Ref<string | string[] | undefined>
 
   watch(

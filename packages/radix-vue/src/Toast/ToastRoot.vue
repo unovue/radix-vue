@@ -24,7 +24,7 @@ export type ToastRootEmits = ToastImplEmits & {
 
 const open = useVModel(props, 'open', emits, {
   defaultValue: props.defaultOpen,
-  passive: !props.open as false,
+  passive: (props.open === undefined) as false,
 })
 </script>
 

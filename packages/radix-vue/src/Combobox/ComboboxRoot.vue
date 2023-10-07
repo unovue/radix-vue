@@ -63,18 +63,18 @@ const emit = defineEmits<ComboboxRootEmits>()
 const { multiple, disabled, name, dir } = toRefs(props)
 const searchTerm = useVModel(props, 'searchTerm', emit, {
   defaultValue: '',
-  passive: !props.searchTerm as false,
+  passive: (props.searchTerm === undefined) as false,
 }) as Ref<string>
 
 const modelValue = useVModel(props, 'modelValue', emit, {
   defaultValue: props.defaultValue ?? multiple.value ? [] : undefined,
-  passive: !props.modelValue as false,
+  passive: (props.modelValue === undefined) as false,
   deep: true,
 }) as Ref<string | Array<string> | object | Array<object>>
 
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
-  passive: !props.open as false,
+  passive: (props.open === undefined) as false,
 })
 
 async function onOpenChange(val: boolean) {

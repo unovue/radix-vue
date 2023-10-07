@@ -16,8 +16,8 @@ const props = defineProps<MenubarSubProps>()
 const emit = defineEmits<MenubarSubEmits>()
 
 const open = useVModel(props, 'open', emit, {
-  passive: true,
   defaultValue: props.defaultOpen ?? false,
+  passive: (props.open === undefined) as false,
 })
 </script>
 

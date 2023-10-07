@@ -46,7 +46,7 @@ const { disabled } = toRefs(props)
 
 const checked = useVModel(props, 'checked', emits, {
   defaultValue: props.defaultChecked,
-  passive: true,
+  passive: (props.checked === undefined) as false,
 }) as Ref<CheckedState>
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
@@ -69,7 +69,7 @@ provide(CHECKBOX_INJECTION_KEY, {
     :as="as"
     :type="as === 'button' ? 'button' : undefined"
     :aria-checked="isIndeterminate(checked) ? 'mixed' : checked"
-    :aria-required="required"
+    :aria-required="false"
     :aria-label="$attrs['aria-label'] || ariaLabel"
     :data-state="getState(checked)"
     :data-disabled="disabled ? '' : undefined"

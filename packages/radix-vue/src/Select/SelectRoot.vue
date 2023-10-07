@@ -68,12 +68,12 @@ const emits = defineEmits<SelectRootEmits>()
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
-  passive: !props.modelValue as false,
+  passive: (props.modelValue === undefined) as false,
 }) as Ref<string>
 
 const open = useVModel(props, 'open', emits, {
   defaultValue: props.defaultOpen,
-  passive: true,
+  passive: (props.open === undefined) as false,
 })
 
 const triggerElement = ref<HTMLElement>()

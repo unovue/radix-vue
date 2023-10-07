@@ -27,11 +27,12 @@ import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<RadioProps>(), {
   disabled: false,
+  checked: undefined,
   as: 'button',
 })
 const emits = defineEmits<RadioEmits>()
 const checked = useVModel(props, 'checked', emits, {
-  passive: !props.checked as false,
+  passive: (props.checked === undefined) as false,
 })
 
 const { value } = toRefs(props)

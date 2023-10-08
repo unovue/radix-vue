@@ -1,9 +1,9 @@
-const { blackA, green, mauve, violet, red, indigo, purple } = require('@radix-ui/colors')
+const { blackA, green, mauve, violet, red, indigo, purple, grass, teal } = require('@radix-ui/colors')
 const plugin = require('tailwindcss/plugin')
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}', '../../docs/components/**/*.{vue,ts}'],
   theme: {
     extend: {
       colors: {
@@ -14,6 +14,8 @@ export default {
         ...red,
         ...indigo,
         ...purple,
+        ...grass,
+        ...teal,
       },
       keyframes: {
         overlayShow: {

@@ -6,89 +6,89 @@ import Card from './components/Card.vue'
   <div class="w-full flex flex-col items-center">
     <div class="max-w-6xl w-full grid grid-cols-3 gap-4 pt-40 pb-40">
       <Card>
-        <AccordionDemo />
+        <Accordion />
       </Card>
       <Card>
-        <AlertDialogDemo />
+        <AlertDialog />
       </Card>
       <Card>
-        <AspectRatioDemo />
+        <AspectRatio />
       </Card>
       <Card class="col-span-2">
-        <NavigationMenuDemo />
+        <NavigationMenu />
       </Card>
       <Card>
-        <CollapsibleDemo />
+        <Collapsible />
       </Card>
       <Card>
-        <AvatarDemo />
+        <Avatar />
       </Card>
       <Card>
-        <CheckboxDemo />
+        <Checkbox />
       </Card>
       <Card>
-        <ComboboxDemo />
+        <Combobox />
       </Card>
       <Card>
-        <ScrollAreaDemo />
+        <ScrollArea />
       </Card>
       <Card class="col-span-2">
-        <ContextMenuDemo />
+        <ContextMenu />
       </Card>
       <Card class="col-span-2">
-        <DialogDemo />
+        <Dialog />
       </Card>
       <Card>
-        <DropdownMenuDemo />
+        <DropdownMenu />
       </Card>
       <Card>
-        <MenubarDemo />
+        <Menubar />
       </Card>
 
       <Card>
-        <HoverCardDemo />
+        <HoverCard />
       </Card>
       <Card>
-        <LabelDemo />
+        <Label />
       </Card>
       <Card>
-        <PopoverDemo />
+        <Popover />
       </Card>
       <Card>
-        <ProgressDemo />
+        <Progress />
       </Card>
       <Card>
-        <RadioGroupDemo />
+        <RadioGroup />
       </Card>
       <Card>
-        <SelectDemo />
+        <Select />
       </Card>
       <!-- <Card>
-        <SelectMultipleDemo />
+        <SelectMultiple />
       </Card> -->
       <Card>
-        <SeparatorDemo />
+        <Separator />
       </Card>
       <Card>
-        <SliderDemo />
+        <Slider />
       </Card>
       <Card>
-        <SwitchDemo />
+        <Switch />
       </Card>
       <Card>
-        <TabsDemo />
+        <Tabs />
       </Card>
       <Card>
-        <ToggleDemo />
+        <Toggle />
       </Card>
       <Card>
-        <ToggleGroupDemo />
+        <ToggleGroup />
       </Card>
       <Card class="col-span-2">
-        <ToolbarDemo />
+        <Toolbar />
       </Card>
       <Card>
-        <TooltipDemo />
+        <Tooltip />
       </Card>
     </div>
   </div>
@@ -97,9 +97,5 @@ import Card from './components/Card.vue'
 <style>
 body {
   @apply bg-black text-white;
-}
-
-[data-radix-popper-content-wrapper] {
-  @apply z-[1000];
 }
 </style>

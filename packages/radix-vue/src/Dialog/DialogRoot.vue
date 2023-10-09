@@ -38,7 +38,6 @@ const props = withDefaults(defineProps<DialogRootProps>(), {
   defaultOpen: false,
   modal: true,
 })
-
 const emit = defineEmits<DialogRootEmits>()
 
 const open = useVModel(props, 'open', emit, {

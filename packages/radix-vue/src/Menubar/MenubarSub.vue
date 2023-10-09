@@ -12,7 +12,9 @@ export interface MenubarSubProps {
 import { useVModel } from '@vueuse/core'
 import { MenuSub } from '@/Menu'
 
-const props = defineProps<MenubarSubProps>()
+const props = withDefaults(defineProps<MenubarSubProps>(), {
+  open: undefined,
+})
 const emit = defineEmits<MenubarSubEmits>()
 
 const open = useVModel(props, 'open', emit, {

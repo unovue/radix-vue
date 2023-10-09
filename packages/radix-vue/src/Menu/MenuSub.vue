@@ -29,7 +29,9 @@ import { MENU_INJECTION_KEY, type MenuContextValue } from './MenuRoot.vue'
 import { PopperRoot } from '@/Popper'
 import { useId } from '@/shared'
 
-const props = defineProps<MenuSubProps>()
+const props = withDefaults(defineProps<MenuSubProps>(), {
+  open: undefined,
+})
 const emits = defineEmits<{
   'update:open': [payload: boolean]
 }>()

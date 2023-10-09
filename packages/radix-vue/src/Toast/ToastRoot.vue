@@ -5,7 +5,8 @@ import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<ToastRootProps>(), {
   type: 'foreground',
-  open: true,
+  open: undefined,
+  defaultOpen: true,
 })
 const emits = defineEmits<ToastRootEmits>()
 

@@ -6,5 +6,5 @@ export function useDirection(dir?: Ref<Direction | undefined>) {
   const context = injectConfigProviderContext({
     dir: ref('ltr'),
   })
-  return computed(() => dir?.value || context.dir.value || 'ltr')
+  return computed(() => dir?.value || context.dir?.value || 'ltr')
 }

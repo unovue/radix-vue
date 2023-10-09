@@ -5,10 +5,16 @@ import {
 } from '@vueuse/core'
 import { isClient } from '@vueuse/shared'
 import { computed, nextTick, onBeforeUnmount, ref } from 'vue'
+import { defu } from 'defu'
+import { injectConfigProviderContext } from '@/ConfigProvider/ConfigProvider.vue'
 
 const useBodyLockStackCount = createGlobalState(() => ref(0))
 
 export function useBodyScrollLock(initialState?: boolean | undefined) {
+  const context = injectConfigProviderContext({
+    scrollBody: ref(true),
+  })
+
   const stack = useBodyLockStackCount()
   const locked = useScrollLock(defaultDocument?.body, false)
 
@@ -22,11 +28,23 @@ export function useBodyScrollLock(initialState?: boolean | undefined) {
 
       if (newLocked) {
         const verticalScrollbarWidth
-          = window.innerWidth - document.documentElement.clientWidth
+        = window.innerWidth - document.documentElement.clientWidth
+
+        const defaultConfig = { padding: verticalScrollbarWidth, margin: 0 }
+
+        const config = context.scrollBody?.value
+          ? typeof context.scrollBody.value === 'object'
+            ? defu({
+              padding: context.scrollBody.value.padding === true ? verticalScrollbarWidth : context.scrollBody.value.padding,
+              margin: context.scrollBody.value.margin === true ? verticalScrollbarWidth : context.scrollBody.value.margin,
+            }, defaultConfig)
+            : defaultConfig
+          : ({ padding: 0, margin: 0 })
 
         if (verticalScrollbarWidth > 0) {
-          document.body.style.paddingRight = `${verticalScrollbarWidth}px`
-          document.head.style.setProperty('--scrollbar-width', `${verticalScrollbarWidth}px`)
+          document.body.style.paddingRight = `${config.padding}px`
+          document.body.style.marginRight = `${config.margin}px`
+          document.body.style.setProperty('--scrollbar-width', `${verticalScrollbarWidth}px`)
         }
 
         // let dismissibleLayer set previous pointerEvent first
@@ -37,8 +55,9 @@ export function useBodyScrollLock(initialState?: boolean | undefined) {
       }
       else {
         document.body.style.paddingRight = ''
+        document.body.style.marginRight = ''
         document.body.style.pointerEvents = ''
-        document.head.style.removeProperty('--scrollbar-width')
+        document.body.style.removeProperty('--scrollbar-width')
         locked.value = false
       }
     },
@@ -55,8 +74,9 @@ export function useBodyScrollLock(initialState?: boolean | undefined) {
     stack.value--
     if (stack.value === 0) {
       document.body.style.paddingRight = ''
+      document.body.style.marginRight = ''
       document.body.style.pointerEvents = ''
-      document.head.style.removeProperty('--scrollbar-width')
+      document.body.style.removeProperty('--scrollbar-width')
     }
   })
 

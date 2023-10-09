@@ -3,7 +3,7 @@ import type { InjectionKey, Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { provide, toRefs } from 'vue'
 import type { DataOrientation, Direction } from '../shared/types'
-import { useId } from '@/shared'
+import { useDirection, useId } from '@/shared'
 
 export const TABS_INJECTION_KEY = Symbol() as InjectionKey<TabsProvideValue>
 </script>
@@ -45,11 +45,11 @@ export interface TabsProvideValue {
 
 const props = withDefaults(defineProps<TabsRootProps>(), {
   orientation: 'horizontal',
-  dir: 'ltr',
   activationMode: 'automatic',
 })
 const emits = defineEmits<TabsRootEmits>()
-const { orientation, dir } = toRefs(props)
+const { orientation, dir: propDir } = toRefs(props)
+const dir = useDirection(propDir)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,

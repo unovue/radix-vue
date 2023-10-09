@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { InjectionKey, Ref } from 'vue'
 import type { DataOrientation, Direction } from '@/shared/types'
+import { useDirection } from '@/shared'
 
 export interface ToolbarRootProps extends PrimitiveProps {
   orientation?: DataOrientation
@@ -24,9 +25,9 @@ import { RovingFocusGroup } from '@/RovingFocus'
 
 const props = withDefaults(defineProps<ToolbarRootProps>(), {
   orientation: 'horizontal',
-  dir: 'ltr',
 })
-const { orientation, dir } = toRefs(props)
+const { orientation, dir: propDir } = toRefs(props)
+const dir = useDirection(propDir)
 
 provide(TOOLBAR_INJECTION_KEY, { orientation, dir })
 </script>

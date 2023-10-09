@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { DataOrientation, Direction } from '../shared/types'
-import { useCollection, useFormControl } from '@/shared'
+import { useCollection, useDirection, useFormControl } from '@/shared'
 
 export interface SliderRootProps extends PrimitiveProps {
   name?: string
@@ -56,14 +56,14 @@ const props = withDefaults(defineProps<SliderRootProps>(), {
   step: 1,
   orientation: 'horizontal',
   disabled: false,
-  dir: 'ltr',
   minStepsBetweenThumbs: 0,
   defaultValue: () => [0],
   inverted: false,
 })
 const emits = defineEmits<SliderRootEmits>()
 
-const { min, max, step, minStepsBetweenThumbs, orientation, disabled, dir } = toRefs(props)
+const { min, max, step, minStepsBetweenThumbs, orientation, disabled, dir: propDir } = toRefs(props)
+const dir = useDirection(propDir)
 const { createCollection } = useCollection('sliderThumb')
 const { primitiveElement, currentElement } = usePrimitiveElement()
 createCollection(currentElement)

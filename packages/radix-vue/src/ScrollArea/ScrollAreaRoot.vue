@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { InjectionKey, Ref } from 'vue'
 import type { Direction, ScrollType } from './types'
+import { useDirection } from '@/shared'
 
 export interface ScrollAreaProvideValue {
   type: Ref<ScrollType>
@@ -43,7 +44,6 @@ import {
 
 const props = withDefaults(defineProps<ScrollAreaRootProps>(), {
   type: 'hover',
-  dir: 'ltr',
   scrollHideDelay: 600,
 })
 
@@ -86,7 +86,9 @@ function onCornerHeightChange(height: number) {
   cornerHeight.value = height
 }
 
-const { type, dir, scrollHideDelay } = toRefs(props)
+const { type, dir: propDir, scrollHideDelay } = toRefs(props)
+const dir = useDirection(propDir)
+
 provide<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY, {
   type,
   dir,
@@ -114,7 +116,7 @@ provide<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY, {
     ref="primitiveElement"
     :as-child="props.asChild"
     :as="as"
-    :dir="props.dir"
+    :dir="dir"
     :style="{
       position: 'relative',
       // Pass corner sizes as CSS vars to reduce re-renders of context consumers

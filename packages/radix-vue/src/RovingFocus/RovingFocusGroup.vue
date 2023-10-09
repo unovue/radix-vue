@@ -48,7 +48,7 @@ import {
   type Orientation,
 } from './utils'
 import { focusFirst } from './utils'
-import { useCollection } from '@/shared'
+import { useCollection, useDirection } from '@/shared'
 import {
   Primitive,
   type PrimitiveProps,
@@ -57,11 +57,11 @@ import {
 
 const props = withDefaults(defineProps<RovingFocusGroupProps>(), {
   loop: false,
-  dir: 'ltr',
   orientation: undefined,
 })
 const emits = defineEmits<RovingFocusGroupEmits>()
-const { loop, orientation, dir } = toRefs(props)
+const { loop, orientation, dir: propDir } = toRefs(props)
+const dir = useDirection(propDir)
 const currentTabStopId = useVModel(props, 'currentTabStopId', emits, {
   defaultValue: props.defaultCurrentTabStopId,
   passive: (props.currentTabStopId === undefined) as false,

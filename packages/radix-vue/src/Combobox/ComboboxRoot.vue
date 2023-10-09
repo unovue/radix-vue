@@ -48,7 +48,7 @@ export interface ComboboxRootProps extends PrimitiveProps {
 <script setup lang="ts">
 import { PopperRoot } from '@/Popper'
 import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
-import { useCollection, useFormControl, useId } from '@/shared'
+import { useCollection, useDirection, useFormControl, useId } from '@/shared'
 import type { Direction } from '@/shared/types'
 import { useVModel } from '@vueuse/core'
 import { type ComponentInternalInstance, type ComputedRef, type InjectionKey, type Ref, computed, nextTick, onMounted, provide, ref, toRefs, watch } from 'vue'
@@ -56,11 +56,12 @@ import { VisuallyHiddenInput } from '@/VisuallyHidden'
 
 const props = withDefaults(defineProps<ComboboxRootProps>(), {
   open: undefined,
-  dir: 'ltr',
 })
 const emit = defineEmits<ComboboxRootEmits>()
 
-const { multiple, disabled, name, dir } = toRefs(props)
+const { multiple, disabled, name, dir: propDir } = toRefs(props)
+const dir = useDirection(propDir)
+
 const searchTerm = useVModel(props, 'searchTerm', emit, {
   defaultValue: '',
   passive: (props.searchTerm === undefined) as false,

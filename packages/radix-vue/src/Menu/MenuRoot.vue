@@ -38,14 +38,15 @@ import { isClient } from '@vueuse/shared'
 import { useVModel } from '@vueuse/core'
 import { type Direction } from './utils'
 import { PopperRoot } from '@/Popper'
+import { useDirection } from '@/shared'
 
 const props = withDefaults(defineProps<MenuProps>(), {
   open: false,
   modal: true,
-  dir: 'ltr',
 })
 const emits = defineEmits<{ 'update:open': [payload: boolean] }>()
-const { modal, dir } = toRefs(props)
+const { modal, dir: propDir } = toRefs(props)
+const dir = useDirection(propDir)
 
 const open = useVModel(props, 'open', emits)
 

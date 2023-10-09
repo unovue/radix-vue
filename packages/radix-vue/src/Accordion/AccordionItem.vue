@@ -57,7 +57,7 @@ const open = computed(() =>
 
 const disabled = computed(() => {
   return (
-    injectedRoot?.disabled
+    injectedRoot?.disabled?.value
     || props.disabled
     || (!!injectedRoot?.isSingle.value && open.value && !injectedRoot?.collapsible)
   )
@@ -89,7 +89,7 @@ function handleArrowKey(e: KeyboardEvent) {
     injectedRoot?.parentElement.value!,
     {
       arrowKeyOptions: injectedRoot?.orientation,
-      dir: injectedRoot?.direction,
+      dir: injectedRoot?.direction.value,
       focus: true,
     },
   )

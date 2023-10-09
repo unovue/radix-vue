@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { InjectionKey, Ref } from 'vue'
 import type { Direction } from '../shared/types'
-import { useCollection } from '@/shared'
+import { useCollection, useDirection } from '@/shared'
 
 export interface MenubarRootProps {
   modelValue?: string
@@ -33,7 +33,6 @@ import { RovingFocusGroup } from '@/RovingFocus'
 import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<MenubarRootProps>(), {
-  dir: 'ltr',
   loop: false,
 })
 const emit = defineEmits<MenubarRootEmits>()
@@ -49,7 +48,8 @@ const modelValue = useVModel(props, 'modelValue', emit, {
 
 const currentTabStopId = ref<string | null>(null)
 
-const { dir, loop } = toRefs(props)
+const { dir: propDir, loop } = toRefs(props)
+const dir = useDirection(propDir)
 provide(MENUBAR_INJECTION_KEY, {
   modelValue,
   dir,

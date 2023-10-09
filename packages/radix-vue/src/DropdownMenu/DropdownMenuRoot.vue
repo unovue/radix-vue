@@ -31,11 +31,10 @@ export interface DropdownMenuProvideValue {
 import { provide, ref, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { MenuRoot } from '@/Menu'
-import { useId } from '@/shared'
+import { useDirection, useId } from '@/shared'
 
 const props = withDefaults(defineProps<DropdownMenuRootProps>(), {
   modal: true,
-  dir: 'ltr',
   open: undefined,
 })
 const emit = defineEmits<DropdownMenuRootEmits>()
@@ -47,7 +46,8 @@ const open = useVModel(props, 'open', emit, {
 
 const triggerElement = ref<HTMLElement>()
 
-const { modal, dir } = toRefs(props)
+const { modal, dir: propDir } = toRefs(props)
+const dir = useDirection(propDir)
 provide<DropdownMenuProvideValue>(DROPDOWN_MENU_INJECTION_KEY, {
   open,
   onOpenChange: (value) => {

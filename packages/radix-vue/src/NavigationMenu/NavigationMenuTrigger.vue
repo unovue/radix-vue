@@ -79,7 +79,7 @@ function handleClick() {
 }
 
 function handleKeydown(ev: KeyboardEvent) {
-  const verticalEntryKey = context!.dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight'
+  const verticalEntryKey = context!.dir.value === 'rtl' ? 'ArrowLeft' : 'ArrowRight'
   const entryKey = { horizontal: 'ArrowDown', vertical: verticalEntryKey }[
     context!.orientation
   ]

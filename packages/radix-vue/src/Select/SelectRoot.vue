@@ -2,7 +2,7 @@
 import type { InjectionKey, Ref, VNode } from 'vue'
 import type { DataOrientation, Direction } from '../shared/types'
 import BubbleSelect from './BubbleSelect.vue'
-import { useFormControl, useId } from '@/shared'
+import { useDirection, useFormControl, useId } from '@/shared'
 
 export interface SelectRootProps {
   open?: boolean
@@ -61,7 +61,6 @@ const props = withDefaults(defineProps<SelectRootProps>(), {
   defaultValue: '',
   modelValue: undefined,
   open: undefined,
-  dir: 'ltr',
 })
 
 const emits = defineEmits<SelectRootEmits>()
@@ -84,7 +83,8 @@ const triggerPointerDownPosRef = ref({
 })
 const valueElementHasChildren = ref(false)
 
-const { required, disabled, dir } = toRefs(props)
+const { required, disabled, dir: propDir } = toRefs(props)
+const dir = useDirection(propDir)
 provide<SelectProvideValue>(SELECT_INJECTION_KEY, {
   triggerElement,
   onTriggerChange: (node: HTMLElement | undefined) => {

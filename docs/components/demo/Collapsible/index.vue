@@ -18,11 +18,11 @@ const open = ref(false)
       </CollapsibleTrigger>
     </div>
 
-    <div class="bg-white rounded my-[10px] p-[10px] shadow-[0_2px_10px] shadow-blackA7">
+    <div class="bg-white rounded mt-[10px] p-[10px] shadow-[0_2px_10px] shadow-blackA7">
       <span class="text-grass11 text-[15px] leading-[25px]">@radix-vue/radix-vue</span>
     </div>
 
-    <CollapsibleContent>
+    <CollapsibleContent class="data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden">
       <div class="bg-white rounded my-[10px] p-[10px] shadow-[0_2px_10px] shadow-blackA7">
         <span class="text-grass11 text-[15px] leading-[25px]">@vuejs/core</span>
       </div>

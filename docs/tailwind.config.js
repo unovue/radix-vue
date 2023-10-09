@@ -2,11 +2,7 @@ const { blackA, green, grass, mauve, violet, slate, red, teal, cyan, indigo, pur
 
 module.exports = {
   darkMode: 'class',
-  content: ['.vitepress/**/*.{js,ts,vue}', './docs/**/*.md', './components/**/*.vue'],
-  options: {
-    safelist: ['html'],
-  },
-  important: true,
+  content: ['.vitepress/**/*.{js,ts,vue}', './docs/**/*.md', './components/**/*.{vue,js}'],
   theme: {
     extend: {
       colors: {
@@ -49,10 +45,10 @@ module.exports = {
         },
         slideDown: {
           from: { height: 0 },
-          to: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: 'var(--radix-collapsible-content-height)' },
         },
         slideUp: {
-          from: { height: 'var(--radix-accordion-content-height)' },
+          from: { height: 'var(--radix-collapsible-content-height)' },
           to: { height: 0 },
         },
         enterFromRight: {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, onMounted, provide, ref } from 'vue'
+import { inject, nextTick, onMounted, provide, ref } from 'vue'
 import { clamp } from '@vueuse/shared'
 import { SELECT_INJECTION_KEY } from './SelectRoot.vue'
 import { SELECT_CONTENT_INJECTION_KEY } from './SelectContentImpl.vue'
@@ -186,7 +186,8 @@ function position() {
 // copy z-index from content to wrapper
 const contentZIndex = ref('')
 
-onMounted(() => {
+onMounted(async () => {
+  await nextTick()
   position()
   if (contentElement.value)
     contentZIndex.value = window.getComputedStyle(contentElement.value).zIndex

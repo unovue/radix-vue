@@ -91,6 +91,11 @@ Wraps your app to provide global functionality to your tooltips.
   name: 'disableHoverableContent',
   type: 'boolean',
   description: '<span> Prevents <Code>TooltipContent</Code> from remaining open when hovering. Disabling this has accessibility consequences. </span>'
+  },
+  {
+  name: 'disableClosingTrigger',
+  type: 'boolean',
+  description: '<span> Prevents <Code>TooltipTrigger</Code> from closing content when clicked. Disabling this has accessibility consequences. </span>'
   }
 ]" />
 
@@ -120,6 +125,12 @@ Contains all the parts of a tooltip.
   type: 'boolean',
   default: false,
   description: '<span> Prevents <Code>TooltipContent</Code> from remaining open when hovering. Disabling this has accessibility consequences. Inherits from <Code>TooltipProvider</Code>. </span>'
+  },
+  {
+  name: 'disableClosingTrigger',
+  type: 'boolean',
+  default: false,
+  description: '<span> Prevents <Code>TooltipTrigger</Code> from closing content when clicked. Disabling this has accessibility consequences. Inherits from <Code>TooltipProvider</Code>. </span>'
   }
 ]" />
 

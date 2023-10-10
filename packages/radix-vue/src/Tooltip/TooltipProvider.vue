@@ -9,6 +9,7 @@ interface TooltipProviderContextValue {
   onPointerInTransitChange(inTransit: boolean): void
   isPointerInTransitRef: Ref<boolean>
   disableHoverableContent: Ref<boolean>
+  disableClosingTrigger: Ref<boolean>
 }
 
 export const [injectTooltipProviderContext, provideTooltipProviderContext]
@@ -30,6 +31,11 @@ export interface TooltipProviderProps {
    * @defaultValue false
    */
   disableHoverableContent?: boolean
+  /**
+   * When `true`, clicking on trigger will not close the content.
+   * @defaultValue false
+   */
+  disableClosingTrigger?: boolean
 }
 </script>
 
@@ -42,7 +48,7 @@ const props = withDefaults(defineProps<TooltipProviderProps>(), {
   skipDelayDuration: 300,
   disableHoverableContent: false,
 })
-const { delayDuration, skipDelayDuration, disableHoverableContent } = toRefs(props)
+const { delayDuration, skipDelayDuration, disableHoverableContent, disableClosingTrigger } = toRefs(props)
 
 const isOpenDelayed = ref(true)
 const isPointerInTransitRef = ref(false)
@@ -66,6 +72,7 @@ provideTooltipProviderContext({
     isPointerInTransitRef.value = inTransit
   },
   disableHoverableContent,
+  disableClosingTrigger,
 })
 </script>
 

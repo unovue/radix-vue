@@ -72,7 +72,9 @@ onMounted(() => {
         if (!isPointerDown) context.onOpen()
       }"
       @blur="context.onClose()"
-      @click="context.onClose()"
+      @click="() => {
+        if (!context.disableClosingTrigger.value) context.onClose()
+      }"
     >
       <slot />
     </Primitive>

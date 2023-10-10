@@ -8,7 +8,7 @@
     "docs:contributors": "esno scripts/update-contributors.ts"
   },
   "dependencies": {
-    "radix-vue": "0.4.1",
+    "radix-vue": "link:../packages/radix-vue",
     "vue": "^3.3.4"
   },
   "devDependencies": {

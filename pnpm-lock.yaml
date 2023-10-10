@@ -99,7 +99,7 @@ importers:
   docs:
     dependencies:
       radix-vue:
-        specifier: 0.4.1
+        specifier: link:../packages/radix-vue
         version: link:../packages/radix-vue
       vue:
         specifier: ^3.3.4
@@ -208,6 +208,9 @@ importers:
       aria-hidden:
         specifier: ^1.2.3
         version: 1.2.3
+      defu:
+        specifier: ^6.1.2
+        version: 6.1.2
       dts-bundle:
         specifier: ^0.7.3
         version: 0.7.3
@@ -2545,7 +2548,7 @@ packages:
       '@babel/core': 7.22.11
       '@babel/plugin-transform-typescript': 7.22.11(@babel/core@7.22.11)
       '@vue/babel-plugin-jsx': 1.1.5(@babel/core@7.22.11)
-      vite: 4.3.9(@types/node@20.4.7)
+      vite: 4.3.9(@types/node@18.16.18)
       vue: 3.3.4
     transitivePeerDependencies:
       - supports-color
@@ -2558,7 +2561,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.3.9(@types/node@20.4.7)
+      vite: 4.3.9(@types/node@18.16.18)
       vue: 3.3.4
     dev: true
 

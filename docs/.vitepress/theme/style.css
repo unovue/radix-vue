@@ -2,11 +2,7 @@
  * Customize default theme styling by overriding CSS variables:
  * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
  */
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+ 
 /**
  * Colors
  * -------------------------------------------------------------------------- */
@@ -79,6 +75,10 @@
   }
 }
 
+/* body {
+  --vp-layout-max-width: calc(1440px + var(--scrollbar-width, 0px));
+} */
+
 /**
  * Component: Algolia
  * -------------------------------------------------------------------------- */
@@ -125,4 +125,18 @@ li > span {
 .custom-justify-center:after {
   content: "";
   flex: 1;
+}
+
+button:focus-visible {
+  @apply !outline-none;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.15s ease-in-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }

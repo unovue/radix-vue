@@ -13,7 +13,7 @@ export function useHideOthers(target: MaybeElementRef) {
   let undo: ReturnType<typeof hideOthers>
   watch(() => unrefElement(target), (el) => {
     // disable hideOthers on test mode
-    if (process.env.MODE === 'test')
+    if (import.meta.env.MODE === 'test')
       return
     if (el)
       undo = hideOthers(el)

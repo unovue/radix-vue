@@ -19,7 +19,7 @@ const files = computed<string[]>(
 <template>
   <div class="relative text-[15px] text-black">
     <div
-      class="bg-gradient-to-br p-4 rounded-t-lg from-teal9 to-green9 w-full relative items-center justify-center flex"
+      class="vp-raw bg-gradient-to-br p-4 rounded-t-lg from-teal9 to-green9 w-full relative items-center justify-center flex"
       :class="{ 'overflow-x-auto': overflow }"
     >
       <div class="w-full max-w-[700px] flex items-center py-12 sm:py-[100px] custom-justify-center z-10">

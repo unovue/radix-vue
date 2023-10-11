@@ -20,9 +20,23 @@ A succinct message that is displayed temporarily.
 
 <HeroContainer>
   <DemoToast />
-</HeroContainer>
 
-<HeroCodeBlock folder="Toast" />
+<template v-slot:codeSlot>
+<HeroCodeGroup>
+<div filename="index.vue">
+
+<<< ../../components/demo/Toast/index.vue
+
+</div>
+<div filename="tailwind.config.js">
+
+<<< ../../components/demo/Toast/tailwind.config.js
+
+</div>
+</HeroCodeGroup>
+</template>
+</HeroContainer>
+ 
 
  
 <Highlights

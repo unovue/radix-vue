@@ -1,4 +1,6 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig, postcssIsolateStyles } from 'vitepress'
+import autoprefixer from 'autoprefixer'
+import tailwind from 'tailwindcss'
 import {
   discord,
   font,
@@ -9,10 +11,8 @@ import {
   radixVueName,
   releases,
 } from './meta'
-import { dependencies } from '../package.json'
+import { version } from '../../package.json'
 import { teamMembers } from './contributors'
-
-const version = dependencies['radix-vue']
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -92,6 +92,17 @@ export default defineConfig({
       return
     // hide sidebar on showcase page
     pageData.frontmatter.sidebar = pageData.frontmatter.layout !== 'showcase'
+  },
+  vite: {
+    css: {
+      postcss: {
+        plugins: [
+          tailwind(),
+          autoprefixer(),
+          postcssIsolateStyles({ includeFiles: [/vp-doc\.css/] }),
+        ],
+      },
+    },
   },
 })
 

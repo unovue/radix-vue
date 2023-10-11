@@ -59,11 +59,9 @@ const context = inject(SLIDER_INJECTION_KEY)
     }"
     @pointermove="(event) => {
       const target = event.target as HTMLElement;
-      console.log('slidermoving')
       if (target.hasPointerCapture(event.pointerId)) emits('slideMove', event);
     }"
     @pointerup="(event) => {
-      console.log('pointerup')
       const target = event.target as HTMLElement;
       if (target.hasPointerCapture(event.pointerId)) {
         target.releasePointerCapture(event.pointerId);

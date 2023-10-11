@@ -1,5 +1,6 @@
 const { blackA, green, grass, mauve, violet, slate, red, teal, cyan, indigo, purple } = require('@radix-ui/colors')
 
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
   content: ['.vitepress/**/*.{js,ts,vue}', './docs/**/*.md', './components/**/*.{vue,js}'],

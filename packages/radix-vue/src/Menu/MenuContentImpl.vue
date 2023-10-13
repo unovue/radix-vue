@@ -150,10 +150,14 @@ async function handleMountAutoFocus(event: Event) {
   // when opening, explicitly focus the content area only and leave
   // `onEntryFocus` in  control of focusing first item
   event.preventDefault()
-  contentElement.value?.focus()
+  setTimeout(() => {
+    contentElement.value?.focus()
+  }, 0)
 }
 
 function handleKeyDown(event: KeyboardEvent) {
+  if (event.defaultPrevented)
+    return
   // submenu key events bubble through portals. We only care about keys in this menu.
   const target = event.target as HTMLElement
   const isKeyDownInside

@@ -1,4 +1,5 @@
 export { createContext } from './createContext'
+export { handleAndDispatchCustomEvent } from './handleAndDispatchCustomEvent'
 export { isValidVNodeElement } from './isValidVNodeElement'
 export { omit, pick } from './object'
 export { onFocusOutside } from './onFocusOutside'

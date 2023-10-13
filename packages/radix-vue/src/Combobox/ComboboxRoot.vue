@@ -81,7 +81,8 @@ const open = useVModel(props, 'open', emit, {
 async function onOpenChange(val: boolean) {
   open.value = val
   await nextTick()
-  inputElement.value?.focus()
+  if (val && open.value === val)
+    inputElement.value?.focus()
   if (!val)
     isUserInputted.value = false
   if (!val && !multiple.value && typeof modelValue.value === 'string')

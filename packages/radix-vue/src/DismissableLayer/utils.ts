@@ -1,4 +1,5 @@
 import { isClient } from '@vueuse/shared'
+import { handleAndDispatchCustomEvent } from '@/shared'
 import { type Ref, nextTick, ref, watchEffect } from 'vue'
 
 export type PointerDownOutsideEvent = CustomEvent<{
@@ -179,26 +180,4 @@ export function useFocusOutside(
 export function dispatchUpdate() {
   const event = new CustomEvent(CONTEXT_UPDATE)
   document.dispatchEvent(event)
-}
-
-export function handleAndDispatchCustomEvent<
-  E extends CustomEvent,
-  OriginalEvent extends Event,
->(
-  name: string,
-  handler: ((event: E) => void) | undefined,
-  detail: { originalEvent: OriginalEvent } & (E extends CustomEvent<infer D>
-    ? D
-    : never),
-) {
-  const target = detail.originalEvent.target
-  const event = new CustomEvent(name, {
-    bubbles: false,
-    cancelable: true,
-    detail,
-  })
-  if (handler)
-    target.addEventListener(name, handler as EventListener, { once: true })
-
-  target.dispatchEvent(event)
 }

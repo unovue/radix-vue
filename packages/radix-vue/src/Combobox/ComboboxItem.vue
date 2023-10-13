@@ -1,4 +1,5 @@
 <script lang="ts">
+export type SelectEvent = CustomEvent<{ originalEvent: PointerEvent; value?: string | object }>
 interface ComboboxItemContextValue {
   isSelected: Ref<boolean>
 }
@@ -7,7 +8,7 @@ export const COMBOBOX_ITEM_INJECTION_KEY
   = Symbol() as InjectionKey<ComboboxItemContextValue>
 
 export type ComboboxItemEmits = {
-  select: [value: string | object]
+  select: [event: SelectEvent]
 }
 
 export interface ComboboxItemProps extends PrimitiveProps {
@@ -15,6 +16,8 @@ export interface ComboboxItemProps extends PrimitiveProps {
   disabled?: boolean
   textValue?: string
 }
+
+const COMBOBOX_SELECT = 'combobox.select'
 </script>
 
 <script setup lang="ts">
@@ -31,6 +34,7 @@ import {
   ref,
   toRefs,
 } from 'vue'
+import { handleAndDispatchCustomEvent, useId } from '@/shared'
 import { COMBOBOX_INJECT_KEY } from './ComboboxRoot.vue'
 import { COMBOBOX_GROUP_INJECTION_KEY } from './ComboboxGroup.vue'
 
@@ -39,7 +43,6 @@ import {
   type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
-import { useId } from '@/shared'
 
 const props = defineProps<ComboboxItemProps>()
 const emits = defineEmits<ComboboxItemEmits>()
@@ -66,15 +69,20 @@ const isInOption = computed(() =>
      || context?.filteredOptions.value.map(i => JSON.stringify(i)).includes(JSON.stringify(props.value))
     : true)
 
-async function handleSelect(ev?: PointerEvent) {
-  await nextTick()
+async function handleSelect(ev: SelectEvent) {
+  emits('select', ev)
   if (ev?.defaultPrevented)
     return
 
-  if (!disabled.value) {
+  if (!disabled.value && ev)
     context!.onValueChange(props.value)
-    emits('select', props.value)
-  }
+}
+
+function handleSelectCustomEvent(ev?: PointerEvent) {
+  if (!ev)
+    return
+  const eventDetail = { originalEvent: ev, value: props.value }
+  handleAndDispatchCustomEvent(COMBOBOX_SELECT, handleSelect, eventDetail)
 }
 
 async function handlePointerMove(event: PointerEvent) {
@@ -119,7 +127,6 @@ provide(COMBOBOX_ITEM_INJECTION_KEY, {
     ref="primitiveElement"
     role="option"
     tabindex="-1"
-    data-radix-vue-collection-item
     :aria-labelledby="textId"
     :data-highlighted="isFocused ? '' : undefined"
     :aria-selected="isSelected"
@@ -128,7 +135,7 @@ provide(COMBOBOX_ITEM_INJECTION_KEY, {
     :data-disabled="disabled ? '' : undefined"
     :as="as"
     :as-child="asChild"
-    @click="handleSelect"
+    @click="handleSelectCustomEvent"
     @pointermove="handlePointerMove"
   >
     <slot>{{ value }}</slot>

@@ -494,6 +494,18 @@ The component that contains the combobox items.
   ]"
 />
 
+<EmitsTable 
+  :data="[
+    {
+      name: '@select',
+      required: false,
+      type: '(event: SelectEvent) => void',
+      description: 'Event handler called when the selecting item.  It can be prevented by calling <Code>event.preventDefault</Code>. </span>',
+    }, 
+  ]" 
+/>
+
+
 <DataAttributesTable
   :data="[
     {
@@ -779,7 +791,7 @@ const filteredPeople = computed(() =>
 
 ### Custom label
 
-By default the `Combobox` will use the input contents as the label for screenreaders. If you'd like more control over what is announced to assistive technologies, use the [Label](http://localhost:5173/components/label.html) component.
+By default the `Combobox` will use the input contents as the label for screenreaders. If you'd like more control over what is announced to assistive technologies, use the [Label](/components/label) component.
 
 ```vue line=8,9
 <script setup lang="ts">
@@ -1054,7 +1066,7 @@ const props = defineProps<ComboboxItemProps>()
 </script>
 
 <template>
-  <ComboboxItem v-bind="props">
+  <ComboboxItem v-bind="props" @select.prevent>
     <slot />
   </ComboboxItem>
 </template>

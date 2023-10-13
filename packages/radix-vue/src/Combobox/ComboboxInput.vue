@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, nextTick, onMounted, ref } from 'vue'
+import { computed, inject, onMounted, ref } from 'vue'
 import { COMBOBOX_INJECT_KEY } from './ComboboxRoot.vue'
 
 export interface ComboboxInputProps {
@@ -22,11 +22,11 @@ onMounted(() => {
   context!.inputElement = elRef
   context?.onInputElementChange(elRef.value)
 
-  nextTick(() => {
+  setTimeout(() => {
     // make sure all DOM was flush then only capture the focus
     if (props.autoFocus)
       elRef.value?.focus()
-  })
+  }, 1)
 })
 
 const disabled = computed(() => props.disabled || context?.disabled.value || false)

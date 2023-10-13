@@ -10,9 +10,7 @@ import DemoPagination from '../../components/demo/Pagination/index.vue'
 
 
 # Pagination
-
-<Badge>New</Badge>
-
+ 
 <Description>
 Displays data in paged format and provides navigation between pages.
 </Description>
@@ -283,11 +281,75 @@ Triggers that set the page value to the last page
 />
 
 
+## Examples
+
+### With ellipsis
+
+You can add `PaginationEllipsis` as a visual cue for more previous and after items.
+
+```vue line=10-12
+<script setup lang="ts">
+import { PaginationEllipsis, PaginationList, PaginationListItem, PaginationRoot } from 'radix-vue'
+</script>
+
+<template>
+  <PaginationRoot>
+    <PaginationList v-slot="{ items }">
+      <template v-for="(page, index) in items">
+        <PaginationListItem v-if="page.type === 'page'" :key="index" />
+        <PaginationEllipsis v-else :key="page.type" :index="index">
+          &#8230;
+        </PaginationEllipsis>
+      </template>
+    </PaginationList>
+  </PaginationRoot>
+</template>
+```
+
+### With first/last button
+
+You can add `PaginationFirst` to allow user to navigate to first page, or `PaginationLast` to navigate to last page.
+
+```vue line=8,10
+<script setup lang="ts">
+import { PaginationFirst, PaginationLast, PaginationList, PaginationListItem, PaginationRoot } from 'radix-vue'
+</script>
+
+<template>
+  <PaginationRoot>
+    <PaginationList>
+      <PaginationFirst />
+      ...
+      <PaginationLast />
+    </PaginationList>
+  </PaginationRoot>
+</template>
+```
 
 
+### Control page programmatically
 
+You can control the current page by passing it a reactive value. 
 
-### Keyboard Interactions
+```vue line=6,10,11
+<script setup lang="ts">
+import { PaginationRoot } from 'radix-vue'
+import { Select } from './custom-select'
+import { ref } from 'vue'
+
+const currentPage = ref(1)
+</script>
+
+<template>
+  <Select v-model="currentPage" />
+  <PaginationRoot v-model:page="currentPage">
+    ...
+  </PaginationRoot>
+</template>
+```
+ 
+
+## Keyboard Interactions
 
 <KeyboardTable
   :data="[ 
@@ -311,3 +373,4 @@ Triggers that set the page value to the last page
     }, 
   ]"
 />
+

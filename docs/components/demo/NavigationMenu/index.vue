@@ -13,10 +13,6 @@ import {
 } from 'radix-vue'
 import NavigationMenuListItem from './NavigationMenuListItem.vue'
 
-function handleClick() {
-  alert('hello!')
-}
-
 const currentTrigger = ref('')
 </script>
 
@@ -44,7 +40,7 @@ const currentTrigger = ref('')
                   class="focus:shadow-green7 from-green9 to-teal9 flex h-full w-full select-none flex-col justify-end rounded-[6px] bg-gradient-to-b p-[25px] no-underline outline-none focus:shadow-[0_0_0_2px]"
                   href="/"
                 >
-                  <img class="w-16" src="/logo.svg">
+                  <img class="w-16" src="https://www.radix-vue.com/logo.svg">
                   <div class="mt-4 mb-[7px] text-[18px] font-medium leading-[1.2] text-white">Radix Primitives</div>
                   <p class="text-mauve4 text-[14px] leading-[1.3]">Unstyled, accessible components for React.</p>
                 </a>

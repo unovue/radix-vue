@@ -14,9 +14,6 @@ import DemoCombobox from '../../components/demo/Combobox/index.vue'
 
 # Combobox
 
-
-<Badge>Alpha</Badge>
-
 <Description>
 Choose from a list of suggested values with full keyboard support.
 </Description>
@@ -154,6 +151,11 @@ Contains all the parts of a Combobox
       name: 'searchTerm',
       type: 'string',
       description: '<span> The controlled search term of the Combobox Should be binded-with with <Code>v-model:searchTerm</Code>. </span>',
+    },
+    {
+      name: 'filterFunction',
+      type: '(val: Array<string | any>, term: string) => Array<any>',
+      description: '<span> The custom filter function for filtering <Code> ComboboxItem.</Code> </span>',
     },
     {
       name: 'multiple',
@@ -602,11 +604,354 @@ An optional arrow element to render alongside the content. This can be used to h
   ]"
 />
 
-<!-- ## Accessibility
+## Examples
 
-Adheres to the [Combobox WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox).
+### Binding objects as values
 
-See the W3C [Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/) example for more information.
+Unlike native HTML form controls which only allow you to provide strings as values, `radix-vue` supports binding complex objects as well.
+
+
+```vue line=12,23
+<script setup lang="ts">
+import { ref } from 'vue'
+import { ComboboxContent, ComboboxInput, ComboboxItem, ComboboxPortal, ComboboxRoot } from 'radix-vue'
+
+const people = [
+  { id: 1, name: 'Durward Reynolds' },
+  { id: 2, name: 'Kenton Towne' },
+  { id: 3, name: 'Therese Wunsch' },
+  { id: 4, name: 'Benedict Kessler' },
+  { id: 5, name: 'Katelyn Rohan' },
+]
+const selectedPeople = ref(people[0])
+</script>
+
+<template>
+  <ComboboxRoot v-model="selectedPeople">
+    <ComboboxInput />
+    <ComboboxPortal>
+      <ComboboxContent>
+        <ComboboxItem
+          v-for="person in people"
+          :key="person.id"
+          :value="person"
+          :disabled="person.unavailable"
+        >
+          {{ person.name }}
+        </ComboboxItem>
+      </ComboboxContent>
+    </ComboboxPortal>
+  </ComboboxRoot>
+</template>
+```
+
+
+### Selecting multiple values
+
+
+The `Combobox` component allows you to select multiple values. You can enable this by providing an array of values instead of a single value.
+
+```vue line=12,16
+<script setup lang="ts">
+import { ref } from 'vue'
+import { ComboboxRoot } from 'radix-vue'
+
+const people = [
+  { id: 1, name: 'Durward Reynolds' },
+  { id: 2, name: 'Kenton Towne' },
+  { id: 3, name: 'Therese Wunsch' },
+  { id: 4, name: 'Benedict Kessler' },
+  { id: 5, name: 'Katelyn Rohan' },
+]
+const selectedPeople = ref([people[0], people[1]])
+</script>
+
+<template>
+  <ComboboxRoot v-model="selectedPeople" multiple>
+    ...
+  </ComboboxRoot>
+</template>
+```
+
+
+### Custom filtering
+
+Internally, `ComboboxRoot` would apply default [filter function](https://github.com/radix-vue/radix-vue/blob/main/packages/radix-vue/src/Combobox/ComboboxRoot.vue#L128) to filter relevant `ComboboxItem` (only apply when `modelValue` is type `string`). 
+
+However this behavior can be replaced using 2 different method.
+
+#### 1. Provide `filter-function` props.
+
+```vue line=14-18,24
+<script setup lang="ts">
+import { ref } from 'vue'
+import { ComboboxContent, ComboboxInput, ComboboxItem, ComboboxPortal, ComboboxRoot } from 'radix-vue'
+
+const people = [
+  { id: 1, name: 'Durward Reynolds' },
+  { id: 2, name: 'Kenton Towne' },
+  { id: 3, name: 'Therese Wunsch' },
+  { id: 4, name: 'Benedict Kessler' },
+  { id: 5, name: 'Katelyn Rohan' },
+]
+const selectedPeople = ref(people[0])
+
+function filterFunction(list: typeof people[number], searchTerm: string) {
+  return list.filter((person) => {
+    return person.name.toLowerCase().includes(searchTerm.toLowerCase())
+  })
+}
+</script>
+
+<template>
+  <ComboboxRoot
+    v-model="selectedPeople"
+    :filter-function="filterFunction"
+  >
+    <ComboboxInput />
+    <ComboboxPortal>
+      <ComboboxContent>
+        <ComboboxItem
+          v-for="person in people"
+          :key="person.id"
+          :value="person"
+          :disabled="person.unavailable"
+        >
+          {{ person.name }}
+        </ComboboxItem>
+      </ComboboxContent>
+    </ComboboxPortal>
+  </ComboboxRoot>
+</template>
+```
+
+
+#### 2. Filtered `v-for` options
+
+
+```vue line=13,15-21,27,33
+<script setup lang="ts">
+import { ref } from 'vue'
+import { ComboboxContent, ComboboxInput, ComboboxItem, ComboboxPortal, ComboboxRoot } from 'radix-vue'
+
+const people = [
+  { id: 1, name: 'Durward Reynolds' },
+  { id: 2, name: 'Kenton Towne' },
+  { id: 3, name: 'Therese Wunsch' },
+  { id: 4, name: 'Benedict Kessler' },
+  { id: 5, name: 'Katelyn Rohan' },
+]
+const selectedPeople = ref(people[0])
+const searchTerm = ref('')
+
+const filteredPeople = computed(() =>
+  searchTerm.value === ''
+    ? people
+    : people.filter((person) => {
+      return person.name.toLowerCase().includes(searchTerm.value.toLowerCase())
+    })
+)
+</script>
+
+<template>
+  <ComboboxRoot
+    v-model="selectedPeople"
+    v-model:searchTerm="searchTerm"
+  >
+    <ComboboxInput />
+    <ComboboxPortal>
+      <ComboboxContent>
+        <ComboboxItem
+          v-for="person in filteredPeople"
+          :key="person.id"
+          :value="person"
+          :disabled="person.unavailable"
+        >
+          {{ person.name }}
+        </ComboboxItem>
+      </ComboboxContent>
+    </ComboboxPortal>
+  </ComboboxRoot>
+</template>
+```
+
+
+
+### Custom label
+
+By default the `Combobox` will use the input contents as the label for screenreaders. If you'd like more control over what is announced to assistive technologies, use the [Label](http://localhost:5173/components/label.html) component.
+
+```vue line=8,9
+<script setup lang="ts">
+import { ref } from 'vue'
+import { ComboboxInput, ComboboxRoot, Label } from 'radix-vue'
+</script>
+
+<template>
+  <ComboboxRoot v-model="selectedPeople">
+    <Label for="person">Person: </Label>
+    <ComboboxInput id="person" placeholder="Select a person" />
+    ...
+  </ComboboxRoot>
+</template>
+```
+
+ 
+
+### With disabled items
+
+ You can add special styles to disabled items via the `data-disabled` attribute.
+
+
+```vue line=17
+<script setup lang="ts">
+import { ref } from 'vue'
+import {
+  ComboboxContent,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxPortal,
+  ComboboxRoot,
+} from 'radix-vue'
+</script>
+
+<template>
+  <ComboboxRoot>
+    <ComboboxInput />
+    <ComboboxPortal>
+      <ComboboxContent>
+        <ComboboxItem class="ComboboxItem" disabled>
+          ...
+        </ComboboxItem>
+      </ComboboxContent>
+    </ComboboxPortal>
+  </ComboboxRoot>
+</template>
+```
+
+```css line=2
+/* styles.css */
+.ComboboxItem[data-disabled] {
+  color: "gainsboro";
+}
+```
+
+### With separators 
+
+Use the `Separator` part to add a separator between items.
+
+
+```vue line=21
+<script setup lang="ts">
+import { ref } from 'vue'
+import {
+  ComboboxContent,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxPortal,
+  ComboboxRoot,
+  ComboboxSeparator
+} from 'radix-vue'
+</script>
+
+<template>
+  <ComboboxRoot>
+    <ComboboxInput />
+    <ComboboxPortal>
+      <ComboboxContent>
+        <ComboboxItem>…</ComboboxItem>
+        <ComboboxItem>…</ComboboxItem>
+        <ComboboxItem>…</ComboboxItem>
+        <ComboboxSeparator />
+        <ComboboxItem>…</ComboboxItem>
+        <ComboboxItem>…</ComboboxItem>
+        <ComboboxItem>…</ComboboxItem>
+      </ComboboxContent>
+    </ComboboxPortal>
+  </ComboboxRoot>
+</template>
+```
+
+### With grouped items
+
+Use the `Group` and `Label` parts to group items in a section.
+
+```vue line=19,20,24
+<script setup lang="ts">
+import { ref } from 'vue'
+import {
+  ComboboxContent,
+  ComboboxGroup,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxLabel,
+  ComboboxPortal,
+  ComboboxRoot
+} from 'radix-vue'
+</script>
+
+<template>
+  <ComboboxRoot>
+    <ComboboxInput />
+    <ComboboxPortal>
+      <ComboboxContent>
+        <ComboboxGroup>
+          <ComboboxLabel>Label</ComboboxLabel>
+          <ComboboxItem>…</ComboboxItem>
+          <ComboboxItem>…</ComboboxItem>
+          <ComboboxItem>…</ComboboxItem>
+        </ComboboxGroup>
+      </ComboboxContent>
+    </ComboboxPortal>
+  </ComboboxRoot>
+</template>
+```
+
+### With complex items
+
+You can use custom content in your items.
+
+```vue line=21
+<script setup lang="ts">
+import { ref } from 'vue'
+import {
+  ComboboxContent,
+  ComboboxGroup,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxItemIndicator,
+  ComboboxLabel,
+  ComboboxPortal,
+  ComboboxRoot
+} from 'radix-vue'
+</script>
+
+<template>
+  <ComboboxRoot>
+    <ComboboxInput />
+    <ComboboxPortal>
+      <ComboboxContent>
+        <ComboboxItem>
+          <img src="…">
+          Adolfo Hess
+          <ComboboxItemIndicator />
+        </ComboboxItem>
+        …
+      </ComboboxContent>
+    </ComboboxPortal>
+  </ComboboxRoot>
+</template>
+```
+
+
+
+
+
+## Accessibility
+
+Adheres to the [Combobox WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/).
+
+See the W3C [Combobox Autocomplete List](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/) example for more information.
 
 ### Keyboard Interactions
 
@@ -614,19 +959,103 @@ See the W3C [Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/example
   :data="[
     {
       keys: ['Enter'],
-      description: '<span> When focus is on <Code>SelectTrigger</Code>, opens the select and focuses the first item. <br /> When focus is on an item, selects the focused item. </span>',
+      description: '<span>When focus is on <Code>ComboboxItem</Code>, selects the focused item. </span>',
     },
     {
       keys: ['ArrowDown'],
-      description: '<span> When focus is on <Code>SelectTrigger</Code>, opens the Select <br /> When focus is on an item, moves focus to the next item. </span>',
+      description: '<span> When focus is on <Code>ComboboxInput</Code>, opens the combobox content. <br /> When focus is on an item, moves focus to the next item. </span>',
     },
     {
       keys: ['ArrowUp'],
-      description: '<span> When focus is on <Code>SelectTrigger</Code>, opens the Select <br /> When focus is on an item, moves focus to the previous item. </span>',
+      description: '<span> When focus is on <Code>ComboboxInput</Code>, opens the combobox content. <br /> When focus is on an item, moves focus to the previous item. </span>',
     },
     {
       keys: ['Esc'],
-      description: '<span> Closes the select and moves focus to <Code>SelectTrigger</Code>. </span>',
+      description: '<span> Closes combobox and restores the selected item in the <Code>ComboboxInput</Code> field. </span>',
     },
   ]"
-/> -->
+/>
+
+
+## Custom APIs
+
+Create your own API by abstracting the primitive parts into your own component.
+
+### Command Menu
+
+Combobox can be use to build your own Command Menu.
+
+#### Usage
+
+```vue
+<script setup lang="ts">
+import { Command, CommandItem } from './your-command'
+</script>
+
+<template>
+  <Command>
+    <CommandItem value="1">
+      Item 1
+    </CommandItem>
+    <CommandItem value="2">
+      Item 2
+    </CommandItem>
+    <CommandItem value="3">
+      Item 3
+    </CommandItem>
+  </Command>
+</template>
+```
+
+#### Implementation
+
+```ts
+// your-command.ts
+export { default as Command } from 'Command.vue'
+export { default as CommandItem } from 'CommandItem.vue'
+```
+
+```vue
+<!-- Command.vue -->
+<script setup lang="ts">
+import { CheckIcon, ChevronDownIcon, ChevronUpIcon, } from '@radix-icons/vue'
+import { ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxPortal, ComboboxRoot, useForwardPropsEmits } from 'radix-vue'
+import type { ComboboxRootEmits, ComboboxRootProps } from 'radix-vue'
+
+const props = defineProps<ComboboxRootProps>()
+const emits = defineEmits<ComboboxRootEmits>()
+
+const forward = useForwardPropsEmits(props, emits)
+</script>
+
+<template>
+  <ComboboxRoot v-bind="forward" :open="true" model-value="">
+    <ComboboxInput placeholder="Type a command or search..." />
+
+    <ComboboxPortal>
+      <ComboboxContent>
+        <ComboboxEmpty />
+        <ComboboxViewport>
+          <slot />
+        </ComboboxViewport>
+      </ComboboxContent>
+    </ComboboxPortal>
+  </ComboboxRoot>
+</template>
+```
+
+```vue
+<!-- ComboboxItem.vue -->
+<script setup lang="ts">
+import { CheckIcon } from '@radix-icons/vue'
+import { ComboboxItem, type ComboboxItemProps } from 'radix-vue'
+
+const props = defineProps<ComboboxItemProps>()
+</script>
+
+<template>
+  <ComboboxItem v-bind="props">
+    <slot />
+  </ComboboxItem>
+</template>
+```

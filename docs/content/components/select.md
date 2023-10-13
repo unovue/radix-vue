@@ -1141,9 +1141,9 @@ const forward = useForwardPropsEmits(props, emits)
 <!-- SelectItem.vue -->
 <script setup lang="ts">
 import { CheckIcon } from '@radix-icons/vue'
-import { SelectItem, SelectItemIndicator, SelectItemText } from 'radix-vue'
+import { SelectItem, SelectItemIndicator, type SelectItemProps, SelectItemText } from 'radix-vue'
 
-const props = defineProps<SelectRootProps>()
+const props = defineProps<SelectItemProps>()
 </script>
 
 <template>

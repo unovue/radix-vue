@@ -11,8 +11,6 @@ import DemoToast from '../../components/demo/Toast/index.vue'
 
 # Toast
 
-<Badge>New</Badge>
-
 <Description>
 A succinct message that is displayed temporarily.
 </Description>

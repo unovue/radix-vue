@@ -24,7 +24,7 @@ watch(
 </script>
 
 <template>
-  <Presence :present="forceMount || context!.open.value">
+  <Presence v-if="context?.modal.value" :present="forceMount || context!.open.value">
     <Primitive
       v-bind="$attrs"
       :as="as"

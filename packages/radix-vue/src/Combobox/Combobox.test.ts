@@ -89,6 +89,44 @@ describe('given default Combobox', () => {
   })
 })
 
+describe('given a Combobox with multiple prop', async () => {
+  let wrapper: VueWrapper<InstanceType<typeof Combobox>>
+  let valueBox: DOMWrapper<HTMLElement>
+
+  beforeEach(() => {
+    document.body.innerHTML = ''
+    wrapper = mount(Combobox, { props: { multiple: true }, attachTo: document.body })
+    valueBox = wrapper.find('input')
+  })
+
+  describe('opening the popup', () => {
+    beforeEach(async () => {
+      await wrapper.find('button').trigger('click')
+      await nextTick()
+    })
+
+    it('should show the popup content', () => {
+      expect(wrapper.html()).toContain('Apple')
+    })
+
+    describe('after selecting a value', () => {
+      beforeEach(async () => {
+        const selection = wrapper.findAll('[role=option]')[1]
+        await selection.trigger('click')
+      })
+
+      it('should not show searchTerm value', () => {
+        expect((valueBox.element as HTMLInputElement).value).toBe('')
+      })
+
+      it('should keep popup open', () => {
+        const group = wrapper.find('[role=group]')
+        expect(group.exists()).toBeTruthy()
+      })
+    })
+  })
+})
+
 describe('given combobox in a form', async () => {
   const wrapper = mount({
     props: ['handleSubmit'],

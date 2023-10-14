@@ -4,7 +4,7 @@ import { ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxHeader, Combobox
 import { Icon } from '@iconify/vue'
 
 const props = defineProps<ComboboxRootProps>()
-const v = ref('')
+const v = ref(props.multiple ? [] : '')
 const options = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
 const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
 

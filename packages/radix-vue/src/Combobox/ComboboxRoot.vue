@@ -91,15 +91,14 @@ async function onOpenChange(val: boolean) {
 
 function onValueChange(val: string | object) {
   searchTerm.value = (typeof val === 'string' && !multiple.value) ? val : ''
-
   if (multiple.value && Array.isArray(modelValue.value)) {
     const index = modelValue.value.findIndex(i => i === val)
     index === -1 ? modelValue.value.push(val as never) : modelValue.value.splice(index, 1)
   }
   else {
     modelValue.value = val
+    onOpenChange(false)
   }
-  onOpenChange(false)
 }
 
 const isUserInputted = ref(false)

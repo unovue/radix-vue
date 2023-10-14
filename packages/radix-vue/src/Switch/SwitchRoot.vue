@@ -33,9 +33,7 @@ import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive
 
 const props = withDefaults(defineProps<SwitchRootProps>(), {
   as: 'button',
-  asChild: false,
-  disabled: false,
-  defaultOpen: false,
+  checked: undefined,
   value: 'on',
 })
 const emit = defineEmits<SwitchRootEmits>()

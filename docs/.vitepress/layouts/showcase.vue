@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useData } from 'vitepress'
 import CardLink from '../components/CardLink.vue'
+import { VPButton } from 'vitepress/theme'
 
 const { frontmatter } = useData()
 </script>
@@ -15,6 +16,8 @@ const { frontmatter } = useData()
         <h2 class="mt-2 md:mt-6 md:text-2xl font-medium text-[var(--vp-c-text-2)] max-w-[540px]">
           {{ frontmatter.description }}
         </h2>
+
+        <VPButton text="Add Showcase" class="mt-6" target="_blank" href="https://github.com/radix-vue/radix-vue/blob/main/docs/content/showcase.md" />
       </div>
 
       <div class="flex flex-col gap-8 md:gap-12">

@@ -16,6 +16,10 @@ projects:
     description: Blazing fast file uploader and awesome bunker written in node! 🚀
     url: https://chibisafe.moe/
     image: https://chibisafe.moe/meta.jpg
+  - title: Crypto Map
+    description: Explore the world and find places to spend your crypto.
+    url: https://map.nimiq.com/
+    image: https://mycbdmurjytbdahjljoh.supabase.co/storage/v1/object/public/og-image/og-image.jpg
 
 
 starters:

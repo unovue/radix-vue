@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { inject } from 'vue'
-import { COMBOBOX_INJECT_KEY } from './ComboboxRoot.vue'
+import { injectComboboxRootContext } from './ComboboxRoot.vue'
 import ComboboxContentImpl, { type ComboboxContentImplEmits, type ComboboxContentImplProps } from './ComboboxContentImpl.vue'
 import { Presence } from '@/Presence'
 import { useForwardPropsEmits } from '@/shared'
@@ -12,11 +11,11 @@ const props = defineProps<ComboboxContentProps>()
 const emits = defineEmits<ComboboxContentEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
 
-const context = inject(COMBOBOX_INJECT_KEY)
+const rootContext = injectComboboxRootContext()
 </script>
 
 <template>
-  <Presence :present="context!.open.value">
+  <Presence :present="rootContext.open.value">
     <ComboboxContentImpl v-bind="{ ...forwarded, ...$attrs }">
       <slot />
     </ComboboxContentImpl>

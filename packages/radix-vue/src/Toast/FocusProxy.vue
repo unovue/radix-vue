@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { VisuallyHidden } from '@/VisuallyHidden'
-import { inject } from 'vue'
-import { TOAST_PROVIDER_INJECTION_KEY } from './ToastProvider.vue'
+import { injectToastProviderContext } from './ToastProvider.vue'
 
 const emits = defineEmits<{
   'focusFromOutsideViewport': [void]
 }>()
 
-const context = inject(TOAST_PROVIDER_INJECTION_KEY)
+const providerContext = injectToastProviderContext()
 </script>
 
 <template>
@@ -17,7 +16,7 @@ const context = inject(TOAST_PROVIDER_INJECTION_KEY)
     style="position: 'fixed'"
     @focus="(event) => {
       const prevFocusedElement = event.relatedTarget as HTMLElement | null;
-      const isFocusFromOutsideViewport = !context!.viewport.value?.contains(prevFocusedElement);
+      const isFocusFromOutsideViewport = !providerContext.viewport.value?.contains(prevFocusedElement);
       if (isFocusFromOutsideViewport) emits('focusFromOutsideViewport');
     }"
   >

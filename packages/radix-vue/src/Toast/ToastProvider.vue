@@ -1,7 +1,8 @@
 <script lang="ts">
 import type { SwipeDirection } from './utils'
+import { createContext } from '@/shared'
 
-type ToastProviderContextValue = {
+type ToastProviderContext = {
   label: Ref<string>
   duration: Ref<number>
   swipeDirection: Ref< SwipeDirection>
@@ -15,7 +16,8 @@ type ToastProviderContextValue = {
   isClosePausedRef: Ref<boolean>
 }
 
-export const TOAST_PROVIDER_INJECTION_KEY = Symbol() as InjectionKey<ToastProviderContextValue>
+export const [injectToastProviderContext, provideToastProviderContext]
+  = createContext<ToastProviderContext>('ToastProvider')
 
 export interface ToastProviderProps {
   /**
@@ -43,7 +45,7 @@ export interface ToastProviderProps {
 </script>
 
 <script setup lang="ts">
-import { type InjectionKey, type Ref, provide, ref, toRefs } from 'vue'
+import { type Ref, ref, toRefs } from 'vue'
 
 const props = withDefaults(defineProps<ToastProviderProps>(), {
   label: 'Notification',
@@ -63,7 +65,7 @@ if (props.label && typeof props.label === 'string' && !props.label.trim()) {
   throw new Error(error)
 }
 
-provide(TOAST_PROVIDER_INJECTION_KEY, {
+provideToastProviderContext({
   label,
   duration,
   swipeDirection,

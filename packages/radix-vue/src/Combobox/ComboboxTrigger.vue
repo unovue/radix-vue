@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Primitive, type PrimitiveProps } from '@/Primitive'
-import { computed, inject } from 'vue'
-import { COMBOBOX_INJECT_KEY } from './ComboboxRoot.vue'
+import { computed } from 'vue'
+import { injectComboboxRootContext } from './ComboboxRoot.vue'
 
 export interface ComboboxTriggerProps extends PrimitiveProps {
   disabled?: boolean
@@ -11,8 +11,8 @@ const props = withDefaults(defineProps<ComboboxTriggerProps>(), {
   as: 'button',
 })
 
-const context = inject(COMBOBOX_INJECT_KEY)
-const disabled = computed(() => props.disabled || context?.disabled.value || false)
+const rootContext = injectComboboxRootContext()
+const disabled = computed(() => props.disabled || rootContext.disabled.value || false)
 </script>
 
 <template>
@@ -22,13 +22,13 @@ const disabled = computed(() => props.disabled || context?.disabled.value || fal
     tabindex="-1"
     aria-label="Show popup"
     aria-haspopup="listbox"
-    :aria-expanded="context?.open.value"
-    :aria-controls="context?.contentId"
-    :data-state="context?.open.value ? 'open' : 'closed'"
+    :aria-expanded="rootContext.open.value"
+    :aria-controls="rootContext.contentId"
+    :data-state="rootContext.open.value ? 'open' : 'closed'"
     :disabled="disabled"
     :data-disabled="disabled"
     :aria-disabled="disabled ?? undefined"
-    @click="context?.onOpenChange(!context.open.value)"
+    @click="rootContext.onOpenChange(!rootContext.open.value)"
   >
     <slot />
   </Primitive>

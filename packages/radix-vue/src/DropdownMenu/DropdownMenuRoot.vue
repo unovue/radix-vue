@@ -1,6 +1,7 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from 'vue'
+import type { Ref } from 'vue'
 import type { Direction } from '../shared/types'
+import { createContext, useId } from '@/shared'
 
 export interface DropdownMenuRootProps {
   open?: boolean
@@ -12,10 +13,7 @@ export type DropdownMenuRootEmits = {
   'update:open': [value: boolean]
 }
 
-export const DROPDOWN_MENU_INJECTION_KEY
-  = Symbol() as InjectionKey<DropdownMenuProvideValue>
-
-export interface DropdownMenuProvideValue {
+export interface DropdownMenuRootContext {
   open: Readonly<Ref<boolean>>
   onOpenChange(open: boolean): void
   onOpenToggle(): void
@@ -25,13 +23,15 @@ export interface DropdownMenuProvideValue {
   modal: Ref<boolean>
   dir: Ref<Direction>
 }
+
+export const [injectDropdownMenuRootContext, provideDropdownMenuRootContext]
+  = createContext<DropdownMenuRootContext>('DropdownMenuRoot')
 </script>
 
 <script setup lang="ts">
-import { provide, ref, toRefs } from 'vue'
+import { ref, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { MenuRoot } from '@/Menu'
-import { useId } from '@/shared'
 
 const props = withDefaults(defineProps<DropdownMenuRootProps>(), {
   modal: true,
@@ -48,7 +48,7 @@ const open = useVModel(props, 'open', emit, {
 const triggerElement = ref<HTMLElement>()
 
 const { modal, dir } = toRefs(props)
-provide<DropdownMenuProvideValue>(DROPDOWN_MENU_INJECTION_KEY, {
+provideDropdownMenuRootContext({
   open,
   onOpenChange: (value) => {
     open.value = value

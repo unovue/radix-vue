@@ -5,12 +5,12 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { inject, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import SelectContentImpl, {
   type SelectContentImplEmits,
   type SelectContentImplProps,
 } from './SelectContentImpl.vue'
-import { SELECT_INJECTION_KEY } from './SelectRoot.vue'
+import { injectSelectRootContext } from './SelectRoot.vue'
 import { Presence } from '@/Presence'
 import { useForwardPropsEmits } from '@/shared'
 import SelectProvider from './SelectProvider.vue'
@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<SelectContentProps>(), {
 const emits = defineEmits<SelectContentEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
 
-const context = inject(SELECT_INJECTION_KEY)
+const rootContext = injectSelectRootContext()
 
 const fragment = ref<DocumentFragment>()
 onMounted(() => {
@@ -36,14 +36,14 @@ const presenceRef = ref<InstanceType<typeof Presence>>()
 </script>
 
 <template>
-  <Presence ref="presenceRef" :present="context!.open.value">
+  <Presence ref="presenceRef" :present="rootContext.open.value">
     <SelectContentImpl v-bind="{ ...forwarded, ...$attrs }">
       <slot />
     </SelectContentImpl>
   </Presence>
 
   <Teleport v-if="!presenceRef?.present && fragment" :to="fragment">
-    <SelectProvider :context="context!">
+    <SelectProvider :context="rootContext">
       <div>
         <slot />
       </div>

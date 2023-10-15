@@ -1,5 +1,14 @@
 <script lang="ts">
-export interface MenuContentContextValue {
+import {
+  createContext,
+  useArrowNavigation,
+  useBodyScrollLock,
+  useCollection,
+  useFocusGuards,
+  useTypeahead,
+} from '@/shared'
+
+export interface MenuContentContext {
   onItemEnter(event: PointerEvent): void
   onItemLeave(event: PointerEvent): void
   onTriggerLeave(event: PointerEvent): void
@@ -8,8 +17,8 @@ export interface MenuContentContextValue {
   onPointerGraceIntentChange(intent: GraceIntent | null): void
 }
 
-export const MENU_CONTENT_INJECTION_KEY
-  = Symbol() as InjectionKey<MenuContentContextValue>
+export const [injectMenuContentContext, provideMenuContentContext]
+  = createContext<MenuContentContext>('MenuContent')
 
 export interface MenuContentImplPrivateProps {
   disableOutsidePointerEvents?: DismissableLayerProps['disableOutsidePointerEvents']
@@ -58,16 +67,13 @@ export interface MenuRootContentProps
 
 <script setup lang="ts">
 import {
-  type InjectionKey,
   type Ref,
-  inject,
   onUnmounted,
-  provide,
   ref,
   toRefs,
   watch,
 } from 'vue'
-import { MENU_INJECTION_KEY, MENU_ROOT_INJECTION_KEY } from './MenuRoot.vue'
+import { injectMenuContext, injectMenuRootContext } from './MenuRoot.vue'
 import {
   FIRST_LAST_KEYS,
   type GraceIntent,
@@ -91,20 +97,13 @@ import {
 } from '@/Popper'
 import { usePrimitiveElement } from '@/Primitive'
 import { RovingFocusGroup, type RovingFocusGroupEmits } from '@/RovingFocus'
-import {
-  useArrowNavigation,
-  useBodyScrollLock,
-  useCollection,
-  useFocusGuards,
-  useTypeahead,
-} from '@/shared'
 
 const props = withDefaults(defineProps<MenuContentImplProps>(), {
   ...PopperContentPropsDefaultValue,
 })
 const emits = defineEmits<MenuContentImplEmits>()
-const context = inject(MENU_INJECTION_KEY)
-const rootContext = inject(MENU_ROOT_INJECTION_KEY)
+const menuContext = injectMenuContext()
+const rootContext = injectMenuRootContext()
 
 const { trapFocus, disableOutsidePointerEvents, loop } = toRefs(props)
 
@@ -125,7 +124,7 @@ const { primitiveElement, currentElement: contentElement }
 const collectionItems = createCollection(contentElement)
 
 watch(contentElement, (el) => {
-  context!.onContentChange(el)
+  menuContext!.onContentChange(el)
 })
 
 const { handleTypeaheadSearch } = useTypeahead(collectionItems)
@@ -226,24 +225,24 @@ function handlePointerMove(event: PointerEvent) {
   }
 }
 
-provide(MENU_CONTENT_INJECTION_KEY, {
-  onItemEnter: (event: PointerEvent) => {
+provideMenuContentContext({
+  onItemEnter: (event) => {
     if (isPointerMovingToSubmenu(event))
       event.preventDefault()
   },
-  onItemLeave: (event: PointerEvent) => {
+  onItemLeave: (event) => {
     if (isPointerMovingToSubmenu(event))
       return
     contentElement.value?.focus()
     currentItemId.value = null
   },
-  onTriggerLeave: (event: PointerEvent) => {
+  onTriggerLeave: (event) => {
     if (isPointerMovingToSubmenu(event))
       event.preventDefault()
   },
   searchRef,
   pointerGraceTimerRef,
-  onPointerGraceIntentChange: (intent: GraceIntent | null) => {
+  onPointerGraceIntentChange: (intent) => {
     pointerGraceIntentRef.value = intent
   },
 })
@@ -269,12 +268,12 @@ provide(MENU_CONTENT_INJECTION_KEY, {
         v-model:current-tab-stop-id="currentItemId"
         as-child
         orientation="vertical"
-        :dir="rootContext?.dir.value"
+        :dir="rootContext.dir.value"
         :loop="loop"
         @entry-focus="(event) => {
           emits('entryFocus', event)
           // only focus first item when using keyboard
-          if (!rootContext?.isUsingKeyboardRef.value) event.preventDefault();
+          if (!rootContext.isUsingKeyboardRef.value) event.preventDefault();
         }"
       >
         <PopperContent
@@ -284,8 +283,8 @@ provide(MENU_CONTENT_INJECTION_KEY, {
           :as-child="asChild"
           aria-orientation="vertical"
           data-radix-menu-content
-          :data-state="getOpenState(context!.open.value)"
-          :dir="rootContext!.dir.value"
+          :data-state="getOpenState(menuContext.open.value)"
+          :dir="rootContext.dir.value"
           :side="side"
           :side-offset="sideOffset"
           :align="align"

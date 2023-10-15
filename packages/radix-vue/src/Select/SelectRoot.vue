@@ -1,8 +1,8 @@
 <script lang="ts">
-import type { InjectionKey, Ref, VNode } from 'vue'
+import type { Ref, VNode } from 'vue'
 import type { DataOrientation, Direction } from '../shared/types'
 import BubbleSelect from './BubbleSelect.vue'
-import { useId } from '@/shared'
+import { createContext, useId } from '@/shared'
 
 export interface SelectRootProps {
   open?: boolean
@@ -21,10 +21,7 @@ export type SelectRootEmits = {
   'update:open': [value: boolean]
 }
 
-export const SELECT_INJECTION_KEY
-  = Symbol() as InjectionKey<SelectProvideValue>
-
-export interface SelectProvideValue {
+export interface SelectRootContext {
   triggerElement: Ref<HTMLElement | undefined>
   onTriggerChange(node: HTMLElement | undefined): void
   valueElement: Ref<HTMLElement | undefined>
@@ -42,17 +39,20 @@ export interface SelectProvideValue {
   disabled?: Ref<boolean>
 }
 
-export interface SelectNativeOptionsContextValue {
+export const [injectSelectRootContext, provideSelectRootContext]
+  = createContext<SelectRootContext>('SelectRoot')
+
+export interface SelectNativeOptionsContext {
   onNativeOptionAdd(option: VNode): void
   onNativeOptionRemove(option: VNode): void
 }
 
-export const SELECT_NATIVE_OPTIONS_INJECTION_KEY
-  = Symbol() as InjectionKey<SelectNativeOptionsContextValue>
+export const [injectSelectNativeOptionsContext, provideSelectNativeOptionsContext]
+  = createContext<SelectNativeOptionsContext>('SelectRoot')
 </script>
 
 <script setup lang="ts">
-import { computed, provide, ref, toRefs } from 'vue'
+import { computed, ref, toRefs } from 'vue'
 import { PopperRoot } from '@/Popper'
 import { useVModel } from '@vueuse/core'
 
@@ -85,27 +85,27 @@ const triggerPointerDownPosRef = ref({
 const valueElementHasChildren = ref(false)
 
 const { required, disabled, dir } = toRefs(props)
-provide<SelectProvideValue>(SELECT_INJECTION_KEY, {
+provideSelectRootContext({
   triggerElement,
-  onTriggerChange: (node: HTMLElement | undefined) => {
+  onTriggerChange: (node) => {
     triggerElement.value = node
   },
   valueElement,
-  onValueElementChange: (node: HTMLElement | undefined) => {
+  onValueElementChange: (node) => {
     valueElement.value = node
   },
   valueElementHasChildren,
-  onValueElementHasChildrenChange: (hasChildren: boolean) => {
+  onValueElementHasChildrenChange: (hasChildren) => {
     valueElementHasChildren.value = hasChildren
   },
   contentId: useId(),
   modelValue,
-  onValueChange: (value: string) => {
+  onValueChange: (value) => {
     modelValue.value = value
   },
   open,
   required,
-  onOpenChange: (value: boolean) => {
+  onOpenChange: (value) => {
     open.value = value
   },
   dir,
@@ -130,7 +130,7 @@ const nativeSelectKey = computed(() => {
     .join(';')
 })
 
-provide(SELECT_NATIVE_OPTIONS_INJECTION_KEY, {
+provideSelectNativeOptionsContext({
   onNativeOptionAdd: (option) => {
     nativeOptionsSet.value.add(option)
   },

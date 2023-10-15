@@ -3,21 +3,20 @@ export interface SliderTrackProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { inject } from 'vue'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
-import { SLIDER_INJECTION_KEY } from './SliderRoot.vue'
+import { injectSliderRootContext } from './SliderRoot.vue'
 
 const props = withDefaults(defineProps<SliderTrackProps>(), { as: 'span' })
 
-const context = inject(SLIDER_INJECTION_KEY)
+const rootContext = injectSliderRootContext()
 </script>
 
 <template>
   <Primitive
     :as-child="props.asChild"
     :as="as"
-    :data-disabled="context?.disabled.value"
-    :data-orientation="context?.orientation.value"
+    :data-disabled="rootContext.disabled.value"
+    :data-orientation="rootContext.orientation.value"
   >
     <slot />
   </Primitive>

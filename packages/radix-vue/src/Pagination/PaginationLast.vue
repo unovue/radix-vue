@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { Primitive, type PrimitiveProps } from '@/Primitive'
-import { inject } from 'vue'
-import { PAGINATION_CONTEXT_VALUE } from './PaginationRoot.vue'
+import { injectPaginationRootContext } from './PaginationRoot.vue'
 
 export interface PaginationLastProps extends PrimitiveProps {}
 const props = withDefaults(defineProps<PaginationLastProps>(), { as: 'button' })
 
-const context = inject(PAGINATION_CONTEXT_VALUE)
+const rootContext = injectPaginationRootContext()
 </script>
 
 <template>
@@ -14,8 +13,8 @@ const context = inject(PAGINATION_CONTEXT_VALUE)
     v-bind="props"
     aria-label="Last Page"
     :type="as === 'button' ? 'button' : undefined"
-    :disabled="context?.page.value === context?.pageCount.value || context?.disabled?.value"
-    @click="context?.onPageChange(context.pageCount.value)"
+    :disabled="rootContext.page.value === rootContext.pageCount.value || rootContext.disabled.value"
+    @click="rootContext.onPageChange(rootContext.pageCount.value)"
   >
     <slot>Last page</slot>
   </Primitive>

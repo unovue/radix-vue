@@ -31,7 +31,7 @@ export type TooltipRootEmits = {
   'update:open': [value: boolean]
 }
 
-export interface TooltipContextValue {
+export interface TooltipContext {
   contentId: string
   open: Ref<boolean>
   stateAttribute: Ref<'closed' | 'delayed-open' | 'instant-open'>
@@ -44,8 +44,8 @@ export interface TooltipContextValue {
   disableHoverableContent: Ref<boolean>
 }
 
-export const [injectTooltipRootContent, provideTooltipRootContext]
-  = createContext<TooltipContextValue>('TooltipRoot')
+export const [injectTooltipRootContext, provideTooltipRootContext]
+  = createContext<TooltipContext>('TooltipRoot')
 </script>
 
 <script setup lang="ts">

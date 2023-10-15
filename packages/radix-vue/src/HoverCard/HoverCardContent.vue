@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { inject } from 'vue'
 import {
-  HOVER_CARD_INJECTION_KEY,
+  injectHoverCardRootContext,
 } from './HoverCardRoot.vue'
 import { excludeTouch } from './utils'
 import { Presence } from '@/Presence'
@@ -15,17 +14,17 @@ const props = defineProps<HoverCardContentProps>()
 const emits = defineEmits<HoverCardContentEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
 
-const context = inject(HOVER_CARD_INJECTION_KEY)
+const rootContext = injectHoverCardRootContext()
 </script>
 
 <template>
   <Presence
-    :present="context!.open.value"
+    :present="rootContext.open.value"
   >
     <HoverCardContentImpl
       v-bind="forwarded"
-      @pointerenter="excludeTouch(context!.onOpen)($event)"
-      @pointerleave="excludeTouch(context!.onClose)($event)"
+      @pointerenter="excludeTouch(rootContext.onOpen)($event)"
+      @pointerleave="excludeTouch(rootContext.onClose)($event)"
     >
       <slot />
     </HoverCardContentImpl>

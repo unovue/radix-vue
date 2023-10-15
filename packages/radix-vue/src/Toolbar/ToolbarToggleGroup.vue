@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { inject } from 'vue'
-import { TOOLBAR_INJECTION_KEY } from './ToolbarRoot.vue'
+import { injectToolbarRootContext } from './ToolbarRoot.vue'
 import {
   ToggleGroupRoot,
   type ToggleGroupRootEmits,
@@ -12,7 +11,7 @@ const props = defineProps<ToolbarToggleGroupProps>()
 
 const emits = defineEmits<ToolbarToggleGroupEmits>()
 
-const context = inject(TOOLBAR_INJECTION_KEY)
+const rootContext = injectToolbarRootContext()
 
 export interface ToolbarToggleGroupProps extends ToggleGroupRootProps {}
 export type ToolbarToggleGroupEmits = ToggleGroupRootEmits
@@ -23,8 +22,8 @@ const emitsAsProps = useEmitAsProps(emits)
 <template>
   <ToggleGroupRoot
     v-bind="{ ...props, ...emitsAsProps }"
-    :data-orientation="context?.orientation.value"
-    :dir="context?.dir.value"
+    :data-orientation="rootContext.orientation.value"
+    :dir="rootContext.dir.value"
     :roving-focus="false"
   >
     <slot />

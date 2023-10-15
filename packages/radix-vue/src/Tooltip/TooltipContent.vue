@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import TooltipContentImpl, { type TooltipContentImplEmits, type TooltipContentImplProps } from './TooltipContentImpl.vue'
 import TooltipContentHoverable from './TooltipContentHoverable.vue'
-import { injectTooltipRootContent } from './TooltipRoot.vue'
+import { injectTooltipRootContext } from './TooltipRoot.vue'
 import { useForwardPropsEmits } from '@/shared'
 
 export interface TooltipContentProps extends TooltipContentImplProps {}
@@ -12,14 +12,14 @@ const props = withDefaults(defineProps<TooltipContentProps>(), {
 })
 const emits = defineEmits<TooltipContentEmits>()
 
-const context = injectTooltipRootContent()
+const rootContext = injectTooltipRootContext()
 const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
   <component
-    :is="context.disableHoverableContent.value ? TooltipContentImpl : TooltipContentHoverable"
-    v-if="context.open.value"
+    :is="rootContext.disableHoverableContent.value ? TooltipContentImpl : TooltipContentHoverable"
+    v-if="rootContext.open.value"
     v-bind="forwarded"
   >
     <slot />

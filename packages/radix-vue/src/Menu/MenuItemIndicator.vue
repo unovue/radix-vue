@@ -1,14 +1,18 @@
 <script lang="ts">
-interface MenuItemIndicatorContextValue {
+import { createContext } from '@/shared'
+
+interface MenuItemIndicatorContext {
   checked: Ref<CheckedState>
 }
 
-export const MENU_ITEM_INDICATOR_INJECTION_KEY
-  = Symbol() as InjectionKey<MenuItemIndicatorContextValue>
+export const [injectMenuItemIndicatorContext, provideMenuItemIndicatorContext]
+  = createContext<MenuItemIndicatorContext>(
+    ['MenuCheckboxItem', 'MenuRadioItem'], 'MenuItemIndicatorContext',
+  )
 </script>
 
 <script setup lang="ts">
-import { type InjectionKey, type Ref, inject, ref } from 'vue'
+import { type Ref, ref } from 'vue'
 import { type CheckedState, getCheckedState, isIndeterminate } from './utils'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { Presence } from '@/Presence'
@@ -19,7 +23,7 @@ withDefaults(defineProps<MenuItemIndicatorProps>(), {
   as: 'span',
 })
 
-const indicatorContext = inject(MENU_ITEM_INDICATOR_INJECTION_KEY, {
+const indicatorContext = injectMenuItemIndicatorContext({
   checked: ref(false),
 })
 </script>
@@ -27,14 +31,14 @@ const indicatorContext = inject(MENU_ITEM_INDICATOR_INJECTION_KEY, {
 <template>
   <Presence
     :present="
-      isIndeterminate(indicatorContext?.checked.value)
-        || indicatorContext?.checked.value === true
+      isIndeterminate(indicatorContext.checked.value)
+        || indicatorContext.checked.value === true
     "
   >
     <Primitive
       :as="as"
       :as-child="asChild"
-      :data-state="getCheckedState(indicatorContext!.checked.value)"
+      :data-state="getCheckedState(indicatorContext.checked.value)"
     >
       <slot />
     </Primitive>

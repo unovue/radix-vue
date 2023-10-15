@@ -40,7 +40,7 @@ import { PopperContent } from '@/Popper'
 import { type PrimitiveProps } from '@/Primitive'
 import { VisuallyHidden } from '@/VisuallyHidden'
 import { type VNode, computed, onMounted, ref, useSlots } from 'vue'
-import { injectTooltipRootContent } from './TooltipRoot.vue'
+import { injectTooltipRootContext } from './TooltipRoot.vue'
 import { DismissableLayer } from '@/DismissableLayer'
 
 const props = withDefaults(defineProps<TooltipContentImplProps>(), {
@@ -58,7 +58,7 @@ const props = withDefaults(defineProps<TooltipContentImplProps>(), {
 const emits = defineEmits<TooltipContentImplEmits>()
 
 const contentElement = ref<HTMLElement>()
-const context = injectTooltipRootContent()
+const rootContext = injectTooltipRootContext()
 
 const ariaLabel = computed(() => {
   if (props.ariaLabel)
@@ -86,11 +86,11 @@ onMounted(() => {
   // Close the tooltip if the trigger is scrolled
   useEventListener(window, 'scroll', (event) => {
     const target = event.target as HTMLElement
-    if (target?.contains(context.trigger.value!))
-      context.onClose()
+    if (target?.contains(rootContext.trigger.value!))
+      rootContext.onClose()
   })
   // Close this tooltip if another one opens
-  useEventListener(window, TOOLTIP_OPEN, context.onClose)
+  useEventListener(window, TOOLTIP_OPEN, rootContext.onClose)
 })
 </script>
 
@@ -101,11 +101,11 @@ onMounted(() => {
     @escape-key-down="emits('escapeKeyDown', $event)"
     @pointer-down-outside="emits('pointerDownOutside', $event)"
     @focus-outside.prevent
-    @dismiss="context.onClose()"
+    @dismiss="rootContext.onClose()"
   >
     <PopperContent
       ref="contentElement"
-      :data-state="context.stateAttribute.value"
+      :data-state="rootContext.stateAttribute.value"
       v-bind="{ ...$attrs, ...popperContentProps }"
       :style="{
         '--radix-tooltip-content-transform-origin': 'var(--radix-popper-transform-origin)',
@@ -116,7 +116,7 @@ onMounted(() => {
       }"
     >
       <slot />
-      <VisuallyHidden :id="context.contentId" role="tooltip">
+      <VisuallyHidden :id="rootContext.contentId" role="tooltip">
         {{ ariaLabel }}
       </VisuallyHidden>
     </PopperContent>

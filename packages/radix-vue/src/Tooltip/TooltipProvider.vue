@@ -1,7 +1,7 @@
 <script lang="ts">
 import { createContext } from '@/shared'
 
-interface TooltipProviderContextValue {
+interface TooltipProviderContext {
   isOpenDelayed: Ref<boolean>
   delayDuration: Ref<number>
   onOpen(): void
@@ -12,7 +12,7 @@ interface TooltipProviderContextValue {
 }
 
 export const [injectTooltipProviderContext, provideTooltipProviderContext]
-  = createContext<TooltipProviderContextValue>('TooltipProvider')
+  = createContext<TooltipProviderContext>('TooltipProvider')
 
 export interface TooltipProviderProps {
   /**

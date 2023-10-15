@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { usePrimitiveElement } from '@/Primitive'
 import SliderImpl from './SliderImpl.vue'
-import { computed, provide, ref, toRefs } from 'vue'
+import { computed, ref, toRefs } from 'vue'
 import type { Direction, SliderOrientationPrivateEmits, SliderOrientationPrivateProps } from './utils'
-import { BACK_KEYS, SLIDER_ORIENTATION_INJECTION_KEY, linearScale } from './utils'
+import { BACK_KEYS, linearScale, provideSliderOrientationContext } from './utils'
 
 interface SliderHorizontalProps extends SliderOrientationPrivateProps {
   dir?: Direction
@@ -28,7 +28,7 @@ function getValueFromPointer(pointerPosition: number) {
   return value(pointerPosition - rect.left)
 }
 
-provide(SLIDER_ORIENTATION_INJECTION_KEY, {
+provideSliderOrientationContext({
   startEdge: isSlidingFromLeft.value ? 'left' : 'right',
   endEdge: isSlidingFromLeft.value ? 'right' : 'left',
   direction: isSlidingFromLeft.value ? 1 : -1,

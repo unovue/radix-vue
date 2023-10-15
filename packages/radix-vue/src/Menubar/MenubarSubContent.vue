@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { inject } from 'vue'
-import { MENUBAR_INJECTION_KEY } from './MenubarRoot.vue'
-import { MENUBAR_MENU_INJECTION_KEY } from './MenubarMenu.vue'
+import { injectMenubarRootContext } from './MenubarRoot.vue'
+import { injectMenubarMenuContext } from './MenubarMenu.vue'
 import {
   MenuSubContent,
   type MenuSubContentEmits,
@@ -19,8 +18,8 @@ const forwarded = useForwardPropsEmits(props, emits)
 
 const { injectCollection } = useCollection('menubar')
 
-const context = inject(MENUBAR_INJECTION_KEY)
-const menuContext = inject(MENUBAR_MENU_INJECTION_KEY)
+const rootContext = injectMenubarRootContext()
+const menuContext = injectMenubarMenuContext()
 const collections = injectCollection()
 
 function handleArrowNavigation(event: KeyboardEvent) {
@@ -35,15 +34,15 @@ function handleArrowNavigation(event: KeyboardEvent) {
 
   let candidateValues = collections.value.map(i => i.dataset.value)
 
-  const currentIndex = candidateValues.indexOf(menuContext?.value)
+  const currentIndex = candidateValues.indexOf(menuContext.value)
 
-  candidateValues = context?.loop.value
+  candidateValues = rootContext.loop.value
     ? wrapArray(candidateValues, currentIndex + 1)
     : candidateValues.slice(currentIndex + 1)
 
   const [nextValue] = candidateValues
   if (nextValue)
-    context?.onMenuOpen(nextValue)
+    rootContext.onMenuOpen(nextValue)
 }
 </script>
 

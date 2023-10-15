@@ -3,27 +3,27 @@ export interface SliderRangeProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { computed, inject } from 'vue'
+import { computed } from 'vue'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
-import { SLIDER_INJECTION_KEY } from './SliderRoot.vue'
-import { SLIDER_ORIENTATION_INJECTION_KEY, convertValueToPercentage } from './utils'
+import { injectSliderRootContext } from './SliderRoot.vue'
+import { convertValueToPercentage, injectSliderOrientationContext } from './utils'
 
 withDefaults(defineProps<SliderRangeProps>(), { as: 'span' })
-const context = inject(SLIDER_INJECTION_KEY)
-const orientation = inject(SLIDER_ORIENTATION_INJECTION_KEY)
+const rootContext = injectSliderRootContext()
+const orientation = injectSliderOrientationContext()
 
-const percentages = computed(() => context?.modelValue?.value?.map(value =>
-  convertValueToPercentage(value, context.min.value, context.max.value),
+const percentages = computed(() => rootContext.modelValue?.value?.map(value =>
+  convertValueToPercentage(value, rootContext.min.value, rootContext.max.value),
 ))
 
-const offsetStart = computed(() => context!.modelValue!.value!.length > 1 ? Math.min(...percentages.value!) : 0)
+const offsetStart = computed(() => rootContext.modelValue!.value!.length > 1 ? Math.min(...percentages.value!) : 0)
 const offsetEnd = computed(() => 100 - Math.max(...percentages.value!))
 </script>
 
 <template>
   <Primitive
-    :data-disabled="context?.disabled.value"
-    :data-orientation="context?.orientation.value"
+    :data-disabled="rootContext.disabled.value"
+    :data-orientation="rootContext.orientation.value"
     :as-child="asChild"
     :as="as"
     :style="{

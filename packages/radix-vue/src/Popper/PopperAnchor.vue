@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { inject, watch } from 'vue'
-import { type Measurable, POPPER_ROOT_KEY } from './PopperRoot.vue'
+import { watch } from 'vue'
+import { type Measurable, injectPopperRootContext } from './PopperRoot.vue'
 import {
   Primitive,
   type PrimitiveProps,
@@ -15,10 +15,10 @@ const props = defineProps<PopperAnchorProps>()
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
-const context = inject(POPPER_ROOT_KEY)
+const rootContext = injectPopperRootContext()
 
 watch(currentElement, () => {
-  context?.onAnchorChange(props.element ?? currentElement.value)
+  rootContext.onAnchorChange(props.element ?? currentElement.value)
 })
 </script>
 

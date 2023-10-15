@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, inject, ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useResizeObserver } from '@vueuse/core'
-import { SCROLL_AREA_INJECTION_KEY } from './ScrollAreaRoot.vue'
+import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
 import { Primitive } from '@/Primitive'
 
-const context = inject(SCROLL_AREA_INJECTION_KEY)
+const rootContext = injectScrollAreaRootContext()
 
 const width = ref(0)
 const height = ref(0)
@@ -12,22 +12,22 @@ const height = ref(0)
 const hasSize = computed(() => !!width.value && !!height.value)
 
 function setCornerHeight() {
-  const offsetHeight = context?.scrollbarX.value?.offsetHeight || 0
-  context?.onCornerHeightChange(offsetHeight)
+  const offsetHeight = rootContext.scrollbarX.value?.offsetHeight || 0
+  rootContext.onCornerHeightChange(offsetHeight)
   height.value = offsetHeight
 }
 function setCornerWidth() {
-  const offsetWidth = context?.scrollbarY.value?.offsetWidth || 0
-  context?.onCornerWidthChange(offsetWidth)
+  const offsetWidth = rootContext.scrollbarY.value?.offsetWidth || 0
+  rootContext.onCornerWidthChange(offsetWidth)
   width.value = offsetWidth
 }
 
-useResizeObserver(context?.scrollbarX.value, setCornerHeight)
-useResizeObserver(context?.scrollbarY.value, setCornerWidth)
+useResizeObserver(rootContext.scrollbarX.value, setCornerHeight)
+useResizeObserver(rootContext.scrollbarY.value, setCornerWidth)
 
 // because we are not remounting the component, useResizeObserver doesn't trigger, thus using watcher here
-watch(() => context?.scrollbarX.value, setCornerHeight)
-watch(() => context?.scrollbarY.value, setCornerWidth)
+watch(() => rootContext.scrollbarX.value, setCornerHeight)
+watch(() => rootContext.scrollbarY.value, setCornerWidth)
 </script>
 
 <template>
@@ -37,8 +37,8 @@ watch(() => context?.scrollbarY.value, setCornerWidth)
       width: `${width}px`,
       height: `${height}px`,
       position: 'absolute',
-      right: context!.dir.value === 'ltr' ? 0 : undefined,
-      left: context!.dir.value === 'rtl' ? 0 : undefined,
+      right: rootContext.dir.value === 'ltr' ? 0 : undefined,
+      left: rootContext.dir.value === 'rtl' ? 0 : undefined,
       bottom: 0,
     }"
     v-bind="$parent?.$props"

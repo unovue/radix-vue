@@ -1,5 +1,7 @@
 <script lang="ts">
-interface PaginationRootContextValue {
+import { createContext } from '@/shared'
+
+type PaginationRootContext = {
   page: Ref<number>
   onPageChange: (value: number) => void
   pageCount: Ref<number>
@@ -8,14 +10,15 @@ interface PaginationRootContextValue {
   showEdges: Ref<boolean>
 }
 
-export const PAGINATION_CONTEXT_VALUE = Symbol() as InjectionKey<PaginationRootContextValue>
+export const [injectPaginationRootContext, providePaginationRootContext]
+  = createContext<PaginationRootContext>('PaginationRoot')
 </script>
 
 <script setup lang="ts">
 import { Primitive } from '@/Primitive'
 import type { PrimitiveProps } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
-import { type InjectionKey, type Ref, computed, provide, toRefs } from 'vue'
+import { type Ref, computed, toRefs } from 'vue'
 
 export interface PaginationRootProps extends PrimitiveProps {
   page?: number
@@ -49,7 +52,7 @@ const page = useVModel(props, 'page', emits, {
 
 const pageCount = computed(() => Math.ceil(props.total / props.itemsPerPage))
 
-provide(PAGINATION_CONTEXT_VALUE, {
+providePaginationRootContext({
   page,
   onPageChange(value) {
     page.value = value

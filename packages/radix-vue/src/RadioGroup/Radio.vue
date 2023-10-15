@@ -11,11 +11,10 @@ export interface RadioProps extends PrimitiveProps {
 <script setup lang="ts">
 import {
   computed,
-  inject,
   ref,
   toRefs,
 } from 'vue'
-import { RADIO_GROUP_INJECTION_KEY } from './RadioGroupRoot.vue'
+import { injectRadioGroupRootContext } from './RadioGroupRoot.vue'
 import {
   Primitive,
   type PrimitiveProps,
@@ -29,7 +28,7 @@ const props = withDefaults(defineProps<RadioProps>(), {
 const { value, checked } = toRefs(props)
 const { primitiveElement, currentElement: triggerElement } = usePrimitiveElement()
 
-const context = inject(RADIO_GROUP_INJECTION_KEY)
+const rootContext = injectRadioGroupRootContext()
 
 // We set this to true by default so that events bubble to forms without JS (SSR)
 const isFormControl = computed(() =>
@@ -40,7 +39,7 @@ const ariaLabel = computed(() => props.id && triggerElement.value ? (document.qu
 const hasConsumerStoppedPropagationRef = ref(false)
 
 function handleClick(event: MouseEvent) {
-  context?.changeModelValue(value?.value)
+  rootContext.changeModelValue(value?.value)
 
   if (isFormControl.value && 'isPropagationStopped' in event) {
     // hasConsumerStoppedPropagationRef.value = event.isPropagationStopped() as boolean
@@ -69,7 +68,7 @@ function handleClick(event: MouseEvent) {
     :data-disabled="disabled ? '' : undefined"
     :value="value"
     :required="required"
-    :name="context?.name"
+    :name="rootContext.name"
     @click="handleClick"
   >
     <slot />

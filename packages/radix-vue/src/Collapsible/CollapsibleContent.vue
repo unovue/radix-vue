@@ -6,8 +6,8 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed, inject, nextTick, onMounted, ref, watch } from 'vue'
-import { COLLAPSIBLE_INJECTION_KEY } from './CollapsibleRoot.vue'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { injectCollapsibleRootContext } from './CollapsibleRoot.vue'
 import {
   Primitive,
   type PrimitiveProps,
@@ -17,7 +17,7 @@ import { Presence } from '@/Presence'
 
 const props = defineProps<CollapsibleContentProps>()
 
-const injectedValue = inject(COLLAPSIBLE_INJECTION_KEY)
+const rootContext = injectCollapsibleRootContext()
 
 const presentRef = ref<InstanceType<typeof Presence>>()
 const { primitiveElement, currentElement } = usePrimitiveElement()
@@ -27,7 +27,7 @@ const height = ref(0)
 
 // when opening we want it to immediately open to retrieve dimensions
 // when closing we delay `present` to retrieve dimensions before closing
-const isOpen = computed(() => injectedValue?.open.value)
+const isOpen = computed(() => rootContext.open.value)
 const isMountAnimationPrevented = ref(isOpen.value)
 const currentStyle = ref<Record<string, string>>()
 
@@ -72,17 +72,17 @@ onMounted(() => {
 <template>
   <Presence
     ref="presentRef"
-    :present="injectedValue!.open.value"
+    :present="rootContext.open.value"
     :force-mount="true"
   >
     <Primitive
       v-bind="$attrs"
-      :id="injectedValue?.contentId"
+      :id="rootContext.contentId"
       ref="primitiveElement"
       :as-child="props.asChild"
       :as="as"
-      :data-state="injectedValue?.open.value ? 'open' : 'closed'"
-      :data-disabled="injectedValue?.disabled?.value ? 'true' : undefined"
+      :data-state="rootContext.open.value ? 'open' : 'closed'"
+      :data-disabled="rootContext.disabled?.value ? 'true' : undefined"
       :hidden="!presentRef?.present"
       :style="{
         [`--radix-collapsible-content-height`]: `${height}px`,

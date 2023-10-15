@@ -8,8 +8,8 @@ export interface ToggleGroupItemProps extends ToggleProps {
 </script>
 
 <script setup lang="ts">
-import { computed, inject } from 'vue'
-import { TOGGLE_GROUP_INJECTION_KEY } from './ToggleGroupRoot.vue'
+import { computed } from 'vue'
+import { injectToggleGroupRootContext } from './ToggleGroupRoot.vue'
 import { Toggle, type ToggleProps } from '@/Toggle'
 import { RovingFocusItem } from '@/RovingFocus'
 import { Primitive } from '@/Primitive'
@@ -18,14 +18,14 @@ const props = withDefaults(defineProps<ToggleGroupItemProps>(), {
   as: 'button',
 })
 
-const context = inject(TOGGLE_GROUP_INJECTION_KEY)
-const disabled = computed(() => context?.disabled?.value || props.disabled)
-const pressed = computed(() => context?.modelValue.value?.includes(props.value))
+const rootContext = injectToggleGroupRootContext()
+const disabled = computed(() => rootContext.disabled?.value || props.disabled)
+const pressed = computed(() => rootContext.modelValue.value?.includes(props.value))
 </script>
 
 <template>
   <component
-    :is="context?.rovingFocus.value ? RovingFocusItem : Primitive"
+    :is="rootContext.rovingFocus.value ? RovingFocusItem : Primitive"
     as-child
     :focusable="!disabled"
     :active="pressed"
@@ -34,11 +34,11 @@ const pressed = computed(() => context?.modelValue.value?.includes(props.value))
       v-bind="props"
       :disabled="disabled"
       :pressed="
-        context?.type === 'single'
-          ? context?.modelValue.value === value
-          : context?.modelValue.value?.includes(value)
+        rootContext.type === 'single'
+          ? rootContext.modelValue.value === value
+          : rootContext.modelValue.value?.includes(value)
       "
-      @update:pressed="context?.changeModelValue(value)"
+      @update:pressed="rootContext.changeModelValue(value)"
     >
       <slot />
     </Toggle>

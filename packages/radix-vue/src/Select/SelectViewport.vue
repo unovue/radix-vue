@@ -1,32 +1,24 @@
 <script lang="ts">
-interface SelectViewportContextValue {
-  contentWrapper?: Ref<HTMLElement | undefined>
-  shouldExpandOnScrollRef?: Ref<boolean>
-  onScrollButtonChange: (node: HTMLElement | undefined) => void
-}
-
-export const SELECT_VIEWPORT_INJECTION_KEY
-  = Symbol() as InjectionKey<SelectViewportContextValue>
-
 export interface SelectViewportProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { type InjectionKey, type Ref, inject, onMounted, ref } from 'vue'
-import { SELECT_CONTENT_INJECTION_KEY, SelectContentDefaultContextValue } from './SelectContentImpl.vue'
+import { onMounted, ref } from 'vue'
+import { SelectContentDefaultContextValue, injectSelectContentContext } from './SelectContentImpl.vue'
 import { CONTENT_MARGIN } from './utils'
 import {
   Primitive,
   type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
+import { injectSelectItemAlignedPositionContext } from './SelectItemAlignedPosition.vue'
 
 const props = defineProps<SelectViewportProps>()
 
-const contentContext = inject(SELECT_CONTENT_INJECTION_KEY, SelectContentDefaultContextValue)
-const viewportContext
-  = contentContext?.position === 'item-aligned'
-    ? inject(SELECT_VIEWPORT_INJECTION_KEY)
+const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
+const alignedPositionContext
+  = contentContext.position === 'item-aligned'
+    ? injectSelectItemAlignedPositionContext()
     : undefined
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
@@ -39,7 +31,7 @@ const prevScrollTopRef = ref(0)
 
 function handleScroll(event: WheelEvent) {
   const viewport = event.currentTarget as HTMLElement
-  const { shouldExpandOnScrollRef, contentWrapper } = viewportContext ?? {}
+  const { shouldExpandOnScrollRef, contentWrapper } = alignedPositionContext ?? {}
   if (shouldExpandOnScrollRef?.value && contentWrapper?.value) {
     const scrolledBy = Math.abs(prevScrollTopRef.value - viewport.scrollTop)
     if (scrolledBy > 0) {

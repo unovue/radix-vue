@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { inject } from 'vue'
-import { DIALOG_INJECTION_KEY } from './DialogRoot.vue'
+import { injectDialogRootContext } from './DialogRoot.vue'
 import DialogContentImpl, {
   type DialogContentImplEmits,
   type DialogContentImplProps,
@@ -11,7 +10,7 @@ import { usePrimitiveElement } from '@/Primitive'
 const props = defineProps<DialogContentImplProps>()
 const emits = defineEmits<DialogContentImplEmits>()
 
-const context = inject(DIALOG_INJECTION_KEY)
+const rootContext = injectDialogRootContext()
 
 const emitsAsProps = useEmitAsProps(emits)
 
@@ -23,7 +22,7 @@ useHideOthers(currentElement)
   <DialogContentImpl
     ref="primitiveElement"
     v-bind="{ ...props, ...emitsAsProps }"
-    :trap-focus="context?.open.value"
+    :trap-focus="rootContext.open.value"
     :disable-outside-pointer-events="true"
     @close-auto-focus="
       (event) => {
@@ -31,7 +30,7 @@ useHideOthers(currentElement)
 
         if (!event.defaultPrevented) {
           event.preventDefault();
-          context?.triggerElement.value?.focus();
+          rootContext.triggerElement.value?.focus();
         }
       }
     "

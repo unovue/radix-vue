@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { Primitive, type PrimitiveProps } from '@/Primitive'
-import { computed, inject } from 'vue'
-import { PAGINATION_CONTEXT_VALUE } from './PaginationRoot.vue'
+import { computed } from 'vue'
+import { injectPaginationRootContext } from './PaginationRoot.vue'
 
 export interface PaginationListItemProps extends PrimitiveProps {
   value: number
 }
 const props = withDefaults(defineProps<PaginationListItemProps>(), { as: 'button' })
 
-const context = inject(PAGINATION_CONTEXT_VALUE)
-const isSelected = computed(() => context?.page.value === props.value)
+const rootContext = injectPaginationRootContext()
+const isSelected = computed(() => rootContext.page.value === props.value)
 </script>
 
 <template>
@@ -19,9 +19,9 @@ const isSelected = computed(() => context?.page.value === props.value)
     :aria-label="`Page ${value}`"
     :aria-current="isSelected ? 'page' : undefined"
     :data-selected="isSelected ? 'true' : undefined"
-    :disabled="context?.disabled?.value"
+    :disabled="rootContext.disabled.value"
     :type="as === 'button' ? 'button' : undefined"
-    @click="context?.onPageChange(value)"
+    @click="rootContext.onPageChange(value)"
   >
     <slot>{{ value }}</slot>
   </Primitive>

@@ -1,18 +1,17 @@
 <script setup lang="ts">
 import { Primitive, type PrimitiveProps } from '@/Primitive'
-import { inject } from 'vue'
-import { COMBOBOX_INJECT_KEY } from './ComboboxRoot.vue'
+import { injectComboboxRootContext } from './ComboboxRoot.vue'
 
 export interface ComboboxCancelProps extends PrimitiveProps {}
 const props = withDefaults(defineProps<ComboboxCancelProps>(), {
   as: 'button',
 })
 
-const context = inject(COMBOBOX_INJECT_KEY)
+const rootContext = injectComboboxRootContext()
 
 function handleClick() {
-  context!.searchTerm.value = ''
-  context?.inputElement.value?.focus()
+  rootContext.searchTerm.value = ''
+  rootContext.inputElement.value?.focus()
 }
 </script>
 

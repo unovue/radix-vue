@@ -8,18 +8,18 @@ export interface MenuItemImplProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { MENU_CONTENT_INJECTION_KEY } from './MenuContentImpl.vue'
+import { injectMenuContentContext } from './MenuContentImpl.vue'
 import {
   Primitive,
   type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
-import { inject, nextTick, ref } from 'vue'
+import { nextTick, ref } from 'vue'
 
 const props = defineProps<MenuItemImplProps>()
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
-const contentContext = inject(MENU_CONTENT_INJECTION_KEY)
+const contentContext = injectMenuContentContext()
 
 const isFocused = ref(false)
 
@@ -31,10 +31,10 @@ async function handlePointerMove(event: PointerEvent) {
     return
 
   if (props.disabled) {
-    contentContext!.onItemLeave(event)
+    contentContext.onItemLeave(event)
   }
   else {
-    contentContext!.onItemEnter(event)
+    contentContext.onItemEnter(event)
     if (!event.defaultPrevented) {
       const item = event.currentTarget
       item && (item as HTMLElement).focus()
@@ -49,7 +49,7 @@ async function handlePointerLeave(event: PointerEvent) {
   if (!isMouseEvent(event))
     return
 
-  contentContext!.onItemLeave(event)
+  contentContext.onItemLeave(event)
 }
 
 defineExpose({

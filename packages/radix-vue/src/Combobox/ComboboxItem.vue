@@ -1,10 +1,12 @@
 <script lang="ts">
-interface ComboboxItemContextValue {
+import { createContext, useId } from '@/shared'
+
+type ComboboxItemContext = {
   isSelected: Ref<boolean>
 }
 
-export const COMBOBOX_ITEM_INJECTION_KEY
-  = Symbol() as InjectionKey<ComboboxItemContextValue>
+export const [injectComboboxItemContext, provideComboboxItemContext]
+  = createContext<ComboboxItemContext>('ComboboxItem')
 
 export type ComboboxItemEmits = {
   select: [value: string | object]
@@ -19,51 +21,47 @@ export interface ComboboxItemProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import {
-  type InjectionKey,
   type Ref,
   computed,
   getCurrentInstance,
-  inject,
   nextTick,
   onMounted,
   onUnmounted,
-  provide,
   ref,
   toRefs,
 } from 'vue'
-import { COMBOBOX_INJECT_KEY } from './ComboboxRoot.vue'
-import { COMBOBOX_GROUP_INJECTION_KEY } from './ComboboxGroup.vue'
+import { injectComboboxRootContext } from './ComboboxRoot.vue'
+import { injectComboboxGroupContext } from './ComboboxGroup.vue'
 
 import {
   Primitive,
   type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
-import { useId } from '@/shared'
 
 const props = defineProps<ComboboxItemProps>()
 const emits = defineEmits<ComboboxItemEmits>()
 
 const { disabled } = toRefs(props)
 
-const context = inject(COMBOBOX_INJECT_KEY)
-const groupContext = inject(COMBOBOX_GROUP_INJECTION_KEY)
+const rootContext = injectComboboxRootContext()
+const groupContext = injectComboboxGroupContext()
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
 const isSelected = computed(() =>
-  context?.multiple.value && Array.isArray(context.modelValue.value)
-    ? context.modelValue.value?.includes(props.value as never)
-    : JSON.stringify(context?.modelValue?.value) === JSON.stringify(props.value),
+  rootContext.multiple.value && Array.isArray(rootContext.modelValue.value)
+    ? rootContext.modelValue.value?.includes(props.value as never)
+    : JSON.stringify(rootContext.modelValue?.value) === JSON.stringify(props.value),
 )
 
-const isFocused = computed(() => JSON.stringify(context?.selectedValue.value) === JSON.stringify(props.value))
+const isFocused = computed(() => JSON.stringify(rootContext.selectedValue.value) === JSON.stringify(props.value))
 const textValue = ref(props.textValue ?? '')
 const textId = useId()
 
 const isInOption = computed(() =>
-  context?.isUserInputted.value
-    ? context?.searchTerm.value === ''
-     || context?.filteredOptions.value.map(i => JSON.stringify(i)).includes(JSON.stringify(props.value))
+  rootContext.isUserInputted.value
+    ? rootContext.searchTerm.value === ''
+     || rootContext.filteredOptions.value.map(i => JSON.stringify(i)).includes(JSON.stringify(props.value))
     : true)
 
 async function handleSelect(ev?: PointerEvent) {
@@ -72,7 +70,7 @@ async function handleSelect(ev?: PointerEvent) {
     return
 
   if (!disabled.value) {
-    context!.onValueChange(props.value)
+    rootContext.onValueChange(props.value)
     emits('select', props.value)
   }
 }
@@ -82,7 +80,7 @@ async function handlePointerMove(event: PointerEvent) {
   if (event.defaultPrevented)
     return
 
-  context?.onSelectedValueChange(props.value)
+  rootContext.onSelectedValueChange(props.value)
 }
 
 if (props.value === '') {
@@ -94,10 +92,10 @@ if (props.value === '') {
 const instance = getCurrentInstance()
 onMounted(() => {
   if (instance)
-    context?.optionsInstance.value.add(instance)
+    rootContext.optionsInstance.value.add(instance)
 
-  if (!groupContext?.options?.value?.includes(props.value))
-    groupContext?.options?.value.push(props.value)
+  if (!groupContext.options?.value?.includes(props.value))
+    groupContext.options?.value.push(props.value)
 
   if (!textValue.value && currentElement.value?.textContent)
     textValue.value = currentElement.value.textContent
@@ -105,10 +103,10 @@ onMounted(() => {
 
 onUnmounted(() => {
   if (instance)
-    context?.optionsInstance.value.delete(instance)
+    rootContext.optionsInstance.value.delete(instance)
 })
 
-provide(COMBOBOX_ITEM_INJECTION_KEY, {
+provideComboboxItemContext({
   isSelected,
 })
 </script>

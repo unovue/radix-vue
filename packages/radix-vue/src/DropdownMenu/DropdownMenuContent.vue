@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { inject, ref } from 'vue'
-import { DROPDOWN_MENU_INJECTION_KEY } from './DropdownMenuRoot.vue'
+import { ref } from 'vue'
+import { injectDropdownMenuRootContext } from './DropdownMenuRoot.vue'
 import {
   MenuContent,
   type MenuContentEmits,
@@ -15,7 +15,7 @@ const props = defineProps<DropdownMenuContentProps>()
 const emits = defineEmits<DropdownMenuContentEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
 
-const context = inject(DROPDOWN_MENU_INJECTION_KEY)
+const rootContext = injectDropdownMenuRootContext()
 
 const hasInteractedOutsideRef = ref(false)
 
@@ -25,7 +25,7 @@ function handleCloseAutoFocus(event: Event) {
     return
   if (!hasInteractedOutsideRef.value) {
     setTimeout(() => {
-      context?.triggerElement.value?.focus()
+      rootContext.triggerElement.value?.focus()
     }, 0)
   }
   hasInteractedOutsideRef.value = false
@@ -38,8 +38,8 @@ function handleCloseAutoFocus(event: Event) {
 <template>
   <MenuContent
     v-bind="forwarded"
-    :id="context?.contentId"
-    :aria-labelledby="context?.triggerId"
+    :id="rootContext.contentId"
+    :aria-labelledby="rootContext?.triggerId"
     :style="{
       '--radix-dropdown-menu-content-transform-origin':
         'var(--radix-popper-transform-origin)',
@@ -58,7 +58,7 @@ function handleCloseAutoFocus(event: Event) {
       const originalEvent = event.detail.originalEvent as PointerEvent;
       const ctrlLeftClick = originalEvent.button === 0 && originalEvent.ctrlKey === true;
       const isRightClick = originalEvent.button === 2 || ctrlLeftClick;
-      if (!context?.modal.value || isRightClick) hasInteractedOutsideRef = true;
+      if (!rootContext.modal.value || isRightClick) hasInteractedOutsideRef = true;
     }"
   >
     <slot />

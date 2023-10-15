@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
-import { TABS_INJECTION_KEY } from './TabsRoot.vue'
+import { computed } from 'vue'
+import { injectTabsRootContext } from './TabsRoot.vue'
 import {
   Primitive,
   type PrimitiveProps,
@@ -17,12 +17,12 @@ const props = withDefaults(defineProps<TabsTriggerProps>(), {
   disabled: false,
   as: 'button',
 })
-const context = inject(TABS_INJECTION_KEY)
+const rootContext = injectTabsRootContext()
 
-const triggerId = computed(() => makeTriggerId(context!.baseId, props.value))
-const contentId = computed(() => makeContentId(context!.baseId, props.value))
+const triggerId = computed(() => makeTriggerId(rootContext.baseId, props.value))
+const contentId = computed(() => makeContentId(rootContext.baseId, props.value))
 
-const isSelected = computed(() => props.value === context?.modelValue.value)
+const isSelected = computed(() => props.value === rootContext.modelValue.value)
 </script>
 
 <template>
@@ -38,25 +38,25 @@ const isSelected = computed(() => props.value === context?.modelValue.value)
       :data-state="isSelected ? 'active' : 'inactive'"
       :disabled="disabled"
       :data-disabled="disabled ? '' : undefined"
-      :data-orientation="context?.orientation.value"
+      :data-orientation="rootContext.orientation.value"
       @mousedown.left="(event) => {
         // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)
         // but not when the control key is pressed (avoiding MacOS right click)
         if (!disabled && event.ctrlKey === false) {
-          context?.changeModelValue(value);
+          rootContext.changeModelValue(value);
         }
         else {
           // prevent focus to avoid accidental activation
           event.preventDefault();
         }
       }"
-      @keydown.enter.space="context?.changeModelValue(value)"
+      @keydown.enter.space="rootContext.changeModelValue(value)"
       @focus="() => {
         // handle 'automatic' activation if necessary
         // ie. activate tab following focus
-        const isAutomaticActivation = context?.activationMode !== 'manual';
+        const isAutomaticActivation = rootContext.activationMode !== 'manual';
         if (!isSelected && !disabled && isAutomaticActivation) {
-          context?.changeModelValue(value);
+          rootContext.changeModelValue(value);
         }
       }"
     >

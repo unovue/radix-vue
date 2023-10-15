@@ -1,4 +1,4 @@
-import type { InjectionKey } from 'vue'
+import { createContext } from '@/shared'
 
 export interface SliderOrientationPrivateProps {
   min: number
@@ -153,4 +153,5 @@ interface SliderOrientation {
   direction: number
 }
 
-export const SLIDER_ORIENTATION_INJECTION_KEY = Symbol() as InjectionKey<SliderOrientation>
+export const [injectSliderOrientationContext, provideSliderOrientationContext]
+  = createContext<SliderOrientation>(['SliderVertical', 'SliderHorizontal'])

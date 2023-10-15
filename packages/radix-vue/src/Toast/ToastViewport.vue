@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { Primitive, usePrimitiveElement } from '@/Primitive'
 import type { PrimitiveProps } from '@/Primitive'
-import { type ComponentPublicInstance, computed, inject, onMounted, ref, toRefs, watchEffect } from 'vue'
-import { TOAST_PROVIDER_INJECTION_KEY } from './ToastProvider.vue'
+import { type ComponentPublicInstance, computed, onMounted, ref, toRefs, watchEffect } from 'vue'
+import { injectToastProviderContext } from './ToastProvider.vue'
 import { onKeyStroke, unrefElement } from '@vueuse/core'
 import FocusProxy from './FocusProxy.vue'
 import { focusFirst, getTabbableCandidates } from '@/FocusScope/utils'
@@ -34,8 +34,8 @@ const { hotkey, label } = toRefs(props)
 const { primitiveElement, currentElement } = usePrimitiveElement()
 const { createCollection } = useCollection()
 const collections = createCollection(currentElement)
-const context = inject(TOAST_PROVIDER_INJECTION_KEY)
-const hasToasts = computed(() => context!.toastCount.value > 0)
+const providerContext = injectToastProviderContext()
+const hasToasts = computed(() => providerContext.toastCount.value > 0)
 const headFocusProxyRef = ref<HTMLElement>()
 const tailFocusProxyRef = ref<HTMLElement>()
 
@@ -44,25 +44,25 @@ onKeyStroke(hotkey.value, () => {
 })
 
 onMounted(() => {
-  context?.onViewportChange(currentElement.value)
+  providerContext.onViewportChange(currentElement.value)
 })
 
 watchEffect((cleanupFn) => {
   const viewport = currentElement.value
-  if (hasToasts.value && viewport && context) {
+  if (hasToasts.value && viewport) {
     const handlePause = () => {
-      if (!context.isClosePausedRef.value) {
+      if (!providerContext.isClosePausedRef.value) {
         const pauseEvent = new CustomEvent(VIEWPORT_PAUSE)
         viewport.dispatchEvent(pauseEvent)
-        context.isClosePausedRef.value = true
+        providerContext.isClosePausedRef.value = true
       }
     }
 
     const handleResume = () => {
-      if (context.isClosePausedRef.value) {
+      if (providerContext.isClosePausedRef.value) {
         const resumeEvent = new CustomEvent(VIEWPORT_RESUME)
         viewport.dispatchEvent(resumeEvent)
-        context.isClosePausedRef.value = false
+        providerContext.isClosePausedRef.value = false
       }
     }
 

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { type VNode, computed, inject, onMounted, ref } from 'vue'
+import { type VNode, computed, onMounted, ref } from 'vue'
 import { unrefElement } from '@vueuse/core'
-import { NAVIGATION_MENU_INJECTION_KEY } from './NavigationMenuRoot.vue'
-import { NAVIGATION_MENU_ITEM_INJECTION_KEY } from './NavigationMenuItem.vue'
+import { injectNavigationMenuContext } from './NavigationMenuRoot.vue'
+import { injectNavigationMenuItemContext } from './NavigationMenuItem.vue'
 import { getOpenState, makeContentId, makeTriggerId } from './utils'
 import {
   Primitive,
@@ -19,8 +19,8 @@ const props = withDefaults(defineProps<NavigationMenuTriggerProps>(), {
   as: 'button',
 })
 
-const context = inject(NAVIGATION_MENU_INJECTION_KEY)
-const itemContext = inject(NAVIGATION_MENU_ITEM_INJECTION_KEY)
+const menuContext = injectNavigationMenuContext()
+const itemContext = injectNavigationMenuItemContext()
 
 const { primitiveElement, currentElement: triggerElement }
   = usePrimitiveElement()
@@ -30,17 +30,17 @@ const contentId = ref('')
 const hasPointerMoveOpenedRef = ref(false)
 const wasClickCloseRef = ref(false)
 
-const open = computed(() => itemContext?.value === context?.modelValue.value)
+const open = computed(() => itemContext.value === menuContext.modelValue.value)
 
 onMounted(() => {
-  itemContext!.triggerRef = triggerElement
-  triggerId.value = makeTriggerId(context!.baseId, itemContext!.value)
-  contentId.value = makeContentId(context!.baseId, itemContext!.value)
+  itemContext.triggerRef = triggerElement
+  triggerId.value = makeTriggerId(menuContext.baseId, itemContext.value)
+  contentId.value = makeContentId(menuContext.baseId, itemContext.value)
 })
 
 function handlePointerEnter() {
   wasClickCloseRef.value = false
-  itemContext!.wasEscapeCloseRef.value = false
+  itemContext.wasEscapeCloseRef.value = false
 }
 
 function handlePointerMove(ev: PointerEvent) {
@@ -48,11 +48,11 @@ function handlePointerMove(ev: PointerEvent) {
     if (
       props.disabled
       || wasClickCloseRef.value
-      || itemContext!.wasEscapeCloseRef.value
+      || itemContext.wasEscapeCloseRef.value
       || hasPointerMoveOpenedRef.value
     )
       return
-    context!.onTriggerEnter(itemContext!.value)
+    menuContext.onTriggerEnter(itemContext.value)
     hasPointerMoveOpenedRef.value = true
   }
 }
@@ -61,7 +61,7 @@ function handlePointerLeave(ev: PointerEvent) {
   if (ev.pointerType === 'mouse') {
     if (props.disabled)
       return
-    context!.onTriggerLeave()
+    menuContext.onTriggerLeave()
     hasPointerMoveOpenedRef.value = false
   }
 }
@@ -72,19 +72,19 @@ function handleClick() {
     return
 
   if (open.value)
-    context?.onItemSelect('')
-  else context?.onItemSelect(itemContext!.value)
+    menuContext.onItemSelect('')
+  else menuContext.onItemSelect(itemContext.value)
 
   wasClickCloseRef.value = open.value
 }
 
 function handleKeydown(ev: KeyboardEvent) {
-  const verticalEntryKey = context!.dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight'
+  const verticalEntryKey = menuContext.dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight'
   const entryKey = { horizontal: 'ArrowDown', vertical: verticalEntryKey }[
-    context!.orientation
+    menuContext.orientation
   ]
   if (open.value && ev.key === entryKey) {
-    itemContext!.onEntryKeyDown()
+    itemContext.onEntryKeyDown()
     // Prevent FocusGroupItem from handling the event
     ev.preventDefault()
     ev.stopPropagation()
@@ -93,19 +93,19 @@ function handleKeydown(ev: KeyboardEvent) {
 
 function setFocusProxyRef(node: VNode) {
   // @ts-expect-error unrefElement expect MaybeRef, but also support Vnode
-  itemContext!.focusProxyRef.value = unrefElement(node)
+  itemContext.focusProxyRef.value = unrefElement(node)
   return undefined
 }
 
 function handleVisuallyHiddenFocus(ev: FocusEvent) {
-  const content = document.getElementById(itemContext!.contentId)
+  const content = document.getElementById(itemContext.contentId)
   const prevFocusedElement = ev.relatedTarget as HTMLElement | null
 
   const wasTriggerFocused = prevFocusedElement === triggerElement.value
   const wasFocusFromContent = content?.contains(prevFocusedElement)
 
   if (wasTriggerFocused || !wasFocusFromContent)
-    itemContext!.onFocusProxyEnter(wasTriggerFocused ? 'start' : 'end')
+    itemContext.onFocusProxyEnter(wasTriggerFocused ? 'start' : 'end')
 }
 </script>
 
@@ -144,6 +144,6 @@ export default {
       :tabindex="0"
       @focus="handleVisuallyHiddenFocus"
     />
-    <span v-if="context?.viewport" :aria-owns="contentId" />
+    <span v-if="menuContext.viewport" :aria-owns="contentId" />
   </template>
 </template>

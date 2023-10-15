@@ -1,19 +1,18 @@
 <script setup lang="ts">
-import { inject } from 'vue'
-import { COMBOBOX_INJECT_KEY } from './ComboboxRoot.vue'
-import { COMBOBOX_CONTENT_INJECTION_KEY } from './ComboboxContentImpl.vue'
+import { injectComboboxRootContext } from './ComboboxRoot.vue'
+import { injectComboboxContentContext } from './ComboboxContentImpl.vue'
 import { PopperArrow, type PopperArrowProps } from '@/Popper'
 
 const props = defineProps<ComboboxArrowProps>()
-const context = inject(COMBOBOX_INJECT_KEY)
-const contentContext = inject(COMBOBOX_CONTENT_INJECTION_KEY)
+const rootContext = injectComboboxRootContext()
+const contentContext = injectComboboxContentContext()
 
 export interface ComboboxArrowProps extends PopperArrowProps {}
 </script>
 
 <template>
   <PopperArrow
-    v-if="context?.open.value && contentContext?.position.value === 'popper'"
+    v-if="rootContext.open.value && contentContext.position.value === 'popper'"
     v-bind="props"
   >
     <slot />

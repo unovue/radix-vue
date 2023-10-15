@@ -7,16 +7,13 @@ export interface ComboboxLabelProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { inject } from 'vue'
-import { COMBOBOX_GROUP_INJECTION_KEY } from './ComboboxGroup.vue'
+import { injectComboboxGroupContext } from './ComboboxGroup.vue'
 
 const props = withDefaults(defineProps<ComboboxLabelProps>(), {
   as: 'label',
 })
 
-const groupContext = inject(COMBOBOX_GROUP_INJECTION_KEY, {
-  id: '',
-})
+const groupContext = injectComboboxGroupContext({ id: '' })
 </script>
 
 <template>

@@ -1,4 +1,10 @@
 <script lang="ts">
+import {
+  createContext,
+  useBodyScrollLock,
+  useHideOthers,
+} from '@/shared'
+
 export type ComboboxContentImplEmits = {
   closeAutoFocus: [event: Event]
   /**
@@ -19,26 +25,20 @@ export interface ComboboxContentImplProps extends PopperContentProps {
   disableOutsidePointerEvents?: boolean
 }
 
-export const COMBOBOX_CONTENT_INJECTION_KEY = Symbol() as InjectionKey<{
-  position: Ref<'inline' | 'popper'>
-}>
+export const [injectComboboxContentContext, provideComboboxContentContext]
+  = createContext<{
+    position: Ref<'inline' | 'popper'>
+  }>('ComboboxContent')
 </script>
 
 <script setup lang="ts">
 import {
-  type InjectionKey,
   type Ref,
   computed,
-  inject,
   onMounted,
-  provide,
   toRefs,
 } from 'vue'
-import { COMBOBOX_INJECT_KEY } from './ComboboxRoot.vue'
-import {
-  useBodyScrollLock,
-  useHideOthers,
-} from '@/shared'
+import { injectComboboxRootContext } from './ComboboxRoot.vue'
 import {
   DismissableLayer,
   type PointerDownOutsideEvent,
@@ -52,7 +52,7 @@ const props = withDefaults(defineProps<ComboboxContentImplProps>(), {
 const emits = defineEmits<ComboboxContentImplEmits>()
 
 const { position } = toRefs(props)
-const context = inject(COMBOBOX_INJECT_KEY)
+const rootContext = injectComboboxRootContext()
 
 useBodyScrollLock(props.bodyLock)
 
@@ -66,11 +66,11 @@ const pickedProps = computed(() => {
 })
 
 function handleLeave(ev: PointerEvent) {
-  context?.onSelectedValueChange('')
+  rootContext.onSelectedValueChange('')
 }
 
 onMounted(() => {
-  context?.onContentElementChange(currentElement.value)
+  rootContext.onContentElementChange(currentElement.value)
 })
 
 const popperStyle = {
@@ -86,9 +86,7 @@ const popperStyle = {
   '--radix-combobox-trigger-height': 'var(--radix-popper-anchor-height)',
 }
 
-provide(COMBOBOX_CONTENT_INJECTION_KEY, {
-  position,
-})
+provideComboboxContentContext({ position })
 </script>
 
 <template>
@@ -96,21 +94,21 @@ provide(COMBOBOX_CONTENT_INJECTION_KEY, {
     as-child
     :disable-outside-pointer-events="disableOutsidePointerEvents"
     @focus-outside.prevent
-    @dismiss="context?.onOpenChange(false)"
+    @dismiss="rootContext.onOpenChange(false)"
     @escape-key-down="emits('escapeKeyDown', $event)"
     @pointer-down-outside="(ev) => {
       // if clicking inside the combobox, prevent dismiss
-      if (context?.parentElement.value?.contains(ev.target as Node)) ev.preventDefault()
+      if (rootContext.parentElement.value?.contains(ev.target as Node)) ev.preventDefault()
       emits('pointerDownOutside', ev)
     }"
   >
     <component
       :is="position === 'popper' ? PopperContent : Primitive "
       v-bind="{ ...$attrs, ...pickedProps }"
-      :id="context?.contentId"
+      :id="rootContext.contentId"
       ref="primitiveElement"
       role="listbox"
-      :data-state="context?.open.value ? 'open' : 'closed'"
+      :data-state="rootContext.open.value ? 'open' : 'closed'"
       :style="{
         // flex layout so we can place the scroll buttons properly
         display: 'flex',

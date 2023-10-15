@@ -6,19 +6,19 @@ export interface TabsContentProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { computed, inject, onMounted, ref } from 'vue'
-import { TABS_INJECTION_KEY } from './TabsRoot.vue'
+import { computed, onMounted, ref } from 'vue'
+import { injectTabsRootContext } from './TabsRoot.vue'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { makeContentId, makeTriggerId } from './utils'
 import { Presence } from '@/Presence'
 
 const props = defineProps<TabsContentProps>()
 
-const context = inject(TABS_INJECTION_KEY)
-const triggerId = computed(() => makeTriggerId(context!.baseId, props.value))
-const contentId = computed(() => makeContentId(context!.baseId, props.value))
+const rootContext = injectTabsRootContext()
+const triggerId = computed(() => makeTriggerId(rootContext.baseId, props.value))
+const contentId = computed(() => makeContentId(rootContext.baseId, props.value))
 
-const isSelected = computed(() => props.value === context?.modelValue.value)
+const isSelected = computed(() => props.value === rootContext.modelValue.value)
 const isMountAnimationPreventedRef = ref(isSelected.value)
 
 onMounted(() => {
@@ -36,7 +36,7 @@ const presenceRef = ref<InstanceType<typeof Presence>>()
       :as="as"
       role="tabpanel"
       :data-state="isSelected ? 'active' : 'inactive'"
-      :data-orientation="context?.orientation.value"
+      :data-orientation="rootContext.orientation.value"
       :aria-labelledby="triggerId"
       :hidden="!presenceRef?.present"
       tabindex="0"

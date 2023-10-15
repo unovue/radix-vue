@@ -1,6 +1,7 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from 'vue'
+import type { Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
+import { createContext } from '@/shared'
 
 export interface CheckboxRootProps extends PrimitiveProps {
   defaultChecked?: boolean
@@ -16,13 +17,13 @@ export type CheckboxRootEmits = {
   'update:checked': [value: boolean]
 }
 
-interface CheckboxProvideValue {
+interface CheckboxRootContext {
   disabled: Ref<boolean>
   state: Ref<CheckedState>
 }
 
-export const CHECKBOX_INJECTION_KEY
-  = Symbol() as InjectionKey<CheckboxProvideValue>
+export const [injectCheckboxRootContext, provideCheckboxRootContext]
+  = createContext<CheckboxRootContext>('CheckboxRoot')
 
 export default {
   inheritAttrs: false,
@@ -30,7 +31,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed, provide, toRefs } from 'vue'
+import { computed, toRefs } from 'vue'
 import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
 import type { CheckedState } from './utils'
 import { getState, isIndeterminate } from './utils'
@@ -50,10 +51,18 @@ const checked = useVModel(props, 'checked', emits, {
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 // We set this to true by default so that events bubble to forms without JS (SSR)
-const isFormControl = computed(() => currentElement.value ? Boolean(currentElement.value.closest('form')) : true)
-const ariaLabel = computed(() => props.id && currentElement.value ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText : undefined)
+const isFormControl = computed(() =>
+  currentElement.value
+    ? Boolean(currentElement.value.closest('form'))
+    : true,
+)
+const ariaLabel = computed(() =>
+  props.id && currentElement.value
+    ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText
+    : undefined,
+)
 
-provide(CHECKBOX_INJECTION_KEY, {
+provideCheckboxRootContext({
   disabled,
   state: checked,
 })

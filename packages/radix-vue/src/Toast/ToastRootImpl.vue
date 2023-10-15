@@ -1,7 +1,8 @@
 <script lang="ts">
-export const TOAST_INTERACTIVE_CONTEXT = Symbol() as InjectionKey<{
-  onClose(): void
-}>
+import { createContext, useForwardRef } from '@/shared'
+
+export const [injectToastRootContext, provideToastRootContext]
+  = createContext<{ onClose(): void }>('ToastRoot')
 
 export default {
   inheritAttrs: false,
@@ -10,16 +11,15 @@ export default {
 
 <script setup lang="ts">
 import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
-import { computed, inject, onMounted, onUnmounted, provide, ref, watchEffect } from 'vue'
-import type { ComponentPublicInstance, InjectionKey } from 'vue'
-import { TOAST_PROVIDER_INJECTION_KEY } from './ToastProvider.vue'
+import { computed, onMounted, onUnmounted, ref, watchEffect } from 'vue'
+import type { ComponentPublicInstance } from 'vue'
+import { injectToastProviderContext } from './ToastProvider.vue'
 import { getAnnounceTextContent, handleAndDispatchCustomEvent, isDeltaInDirection } from './utils'
 import { type SwipeEvent, TOAST_SWIPE_CANCEL, TOAST_SWIPE_END, TOAST_SWIPE_MOVE, TOAST_SWIPE_START, VIEWPORT_PAUSE, VIEWPORT_RESUME } from './utils'
 import ToastAnnounce from './ToastAnnounce.vue'
-import { useForwardRef } from '@/shared'
 import { onKeyStroke } from '@vueuse/core'
 
-export interface ToastImplProps extends PrimitiveProps {
+export interface ToastRootImplProps extends PrimitiveProps {
   type?: 'foreground' | 'background'
   open?: boolean
   /**
@@ -29,7 +29,7 @@ export interface ToastImplProps extends PrimitiveProps {
   duration?: number
 }
 
-export type ToastImplEmits = {
+export type ToastRootImplEmits = {
   'close': []
   'escapeKeyDown': [event: KeyboardEvent]
   'pause': []
@@ -40,19 +40,19 @@ export type ToastImplEmits = {
   'swipeEnd': [event: SwipeEvent]
 }
 
-const props = withDefaults(defineProps<ToastImplProps>(), {
+const props = withDefaults(defineProps<ToastRootImplProps>(), {
   open: false,
   as: 'li',
 })
 
-const emits = defineEmits<ToastImplEmits>()
+const emits = defineEmits<ToastRootImplEmits>()
 
 const forwardRef = useForwardRef()
 const { primitiveElement, currentElement } = usePrimitiveElement()
-const context = inject(TOAST_PROVIDER_INJECTION_KEY)
+const providerContext = injectToastProviderContext()
 const pointerStartRef = ref<{ x: number; y: number } | null>(null)
 const swipeDeltaRef = ref<{ x: number; y: number } | null>(null)
-const duration = computed(() => props.duration || context!.duration.value)
+const duration = computed(() => props.duration || providerContext.duration.value)
 
 const closeTimerStartTimeRef = ref(0)
 const closeTimerRemainingTimeRef = ref(duration.value)
@@ -71,7 +71,7 @@ function handleClose() {
   // count to SR users and ensure focus isn't lost
   const isFocusInToast = currentElement.value?.contains(document.activeElement)
   if (isFocusInToast)
-    context!.viewport.value?.focus()
+    providerContext.viewport.value?.focus()
   emits('close')
 }
 
@@ -83,7 +83,7 @@ if (props.type && !['foreground', 'background'].includes(props.type)) {
 }
 
 watchEffect((cleanupFn) => {
-  const viewport = context?.viewport.value
+  const viewport = providerContext.viewport.value
   if (viewport) {
     const handleResume = () => {
       startTimer(closeTimerRemainingTimeRef.value)
@@ -108,28 +108,26 @@ watchEffect((cleanupFn) => {
 // we include `open` in deps because closed !== unmounted when animating
 // so it could reopen before being completely unmounted
 watchEffect(() => {
-  if (props.open && !context?.isClosePausedRef.value)
+  if (props.open && !providerContext.isClosePausedRef.value)
     startTimer(duration.value)
 })
 
 onKeyStroke('Escape', (event) => {
   emits('escapeKeyDown', event)
   if (!event.defaultPrevented) {
-    context!.isFocusedToastEscapeKeyDownRef.value = true
+    providerContext.isFocusedToastEscapeKeyDownRef.value = true
     handleClose()
   }
 })
 
 onMounted(() => {
-  context?.onToastAdd()
+  providerContext.onToastAdd()
 })
 onUnmounted(() => {
-  context?.onToastRemove()
+  providerContext.onToastRemove()
 })
 
-provide(TOAST_INTERACTIVE_CONTEXT, {
-  onClose: handleClose,
-})
+provideToastRootContext({ onClose: handleClose })
 </script>
 
 <template>
@@ -142,7 +140,7 @@ provide(TOAST_INTERACTIVE_CONTEXT, {
     {{ announceTextContent }}
   </ToastAnnounce>
 
-  <Teleport :to="context?.viewport.value">
+  <Teleport :to="providerContext.viewport.value">
     <Primitive
       :ref="v => {
         forwardRef(v)
@@ -157,7 +155,7 @@ provide(TOAST_INTERACTIVE_CONTEXT, {
       :as="as"
       :as-child="asChild"
       :data-state="open ? 'open' : 'closed'"
-      :data-swipe-direction="context!.swipeDirection.value"
+      :data-swipe-direction="providerContext.swipeDirection.value"
       :style="{ userSelect: 'none', touchAction: 'none' }"
       @pointerdown.left="(event: PointerEvent) => {
         pointerStartRef = { x: event.clientX, y: event.clientY };
@@ -167,8 +165,8 @@ provide(TOAST_INTERACTIVE_CONTEXT, {
         const x = event.clientX - pointerStartRef.x;
         const y = event.clientY - pointerStartRef.y;
         const hasSwipeMoveStarted = Boolean(swipeDeltaRef);
-        const isHorizontalSwipe = ['left', 'right'].includes(context!.swipeDirection.value);
-        const clamp = ['left', 'up'].includes(context!.swipeDirection.value)
+        const isHorizontalSwipe = ['left', 'right'].includes(providerContext.swipeDirection.value);
+        const clamp = ['left', 'up'].includes(providerContext.swipeDirection.value)
           ? Math.min
           : Math.max;
         const clampedX = isHorizontalSwipe ? clamp(0, x) : 0;
@@ -180,7 +178,7 @@ provide(TOAST_INTERACTIVE_CONTEXT, {
           swipeDeltaRef = delta;
           handleAndDispatchCustomEvent(TOAST_SWIPE_MOVE, (ev: SwipeEvent) => emits('swipeMove', ev), eventDetail);
         }
-        else if (isDeltaInDirection(delta, context!.swipeDirection.value, moveStartBuffer)) {
+        else if (isDeltaInDirection(delta, providerContext.swipeDirection.value, moveStartBuffer)) {
           swipeDeltaRef = delta;
           handleAndDispatchCustomEvent(TOAST_SWIPE_START, (ev: SwipeEvent) => emits('swipeStart', ev), eventDetail);
           (event.target as HTMLElement).setPointerCapture(event.pointerId);
@@ -203,7 +201,7 @@ provide(TOAST_INTERACTIVE_CONTEXT, {
           const toast = event.currentTarget;
           const eventDetail = { originalEvent: event, delta };
           if (
-            isDeltaInDirection(delta, context!.swipeDirection.value, context!.swipeThreshold.value)
+            isDeltaInDirection(delta, providerContext.swipeDirection.value, providerContext.swipeThreshold.value)
           ) {
             handleAndDispatchCustomEvent(TOAST_SWIPE_END, (ev: SwipeEvent) => emits('swipeEnd', ev), eventDetail);
           }

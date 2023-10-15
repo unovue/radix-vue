@@ -6,10 +6,10 @@ export interface MenuItemProps extends MenuItemImplProps {}
 </script>
 
 <script setup lang="ts">
-import { inject, nextTick, ref } from 'vue'
+import { nextTick, ref } from 'vue'
 import MenuItemImpl, { type MenuItemImplProps } from './MenuItemImpl.vue'
-import { MENU_ROOT_INJECTION_KEY } from './MenuRoot.vue'
-import { MENU_CONTENT_INJECTION_KEY } from './MenuContentImpl.vue'
+import { injectMenuRootContext } from './MenuRoot.vue'
+import { injectMenuContentContext } from './MenuContentImpl.vue'
 import { ITEM_SELECT, SELECTION_KEYS } from './utils'
 import { usePrimitiveElement } from '@/Primitive'
 
@@ -17,8 +17,8 @@ const props = defineProps<MenuItemProps>()
 const emits = defineEmits<MenuItemEmits>()
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
-const rootContext = inject(MENU_ROOT_INJECTION_KEY)
-const contentContext = inject(MENU_CONTENT_INJECTION_KEY)
+const rootContext = injectMenuRootContext()
+const contentContext = injectMenuContentContext()
 
 const isPointerDownRef = ref(false)
 
@@ -34,7 +34,7 @@ async function handleSelect() {
     await nextTick()
     if (itemSelectEvent.defaultPrevented)
       isPointerDownRef.value = false
-    else rootContext!.onClose()
+    else rootContext.onClose()
   }
 }
 </script>
@@ -61,7 +61,7 @@ async function handleSelect() {
     "
     @keydown="
       async (event) => {
-        const isTypingAhead = contentContext!.searchRef.value !== '';
+        const isTypingAhead = contentContext.searchRef.value !== '';
         if (disabled || (isTypingAhead && event.key === ' ')) return;
         if (SELECTION_KEYS.includes(event.key)) {
           event.currentTarget.click();

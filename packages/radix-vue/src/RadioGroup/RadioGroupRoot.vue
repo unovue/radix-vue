@@ -5,8 +5,8 @@ import {
 } from '@/Primitive'
 import type { DataOrientation, Direction } from '@/shared/types'
 import { useVModel } from '@vueuse/core'
-import type { InjectionKey, Ref } from 'vue'
-import { useDirection } from '@/shared'
+import type { Ref } from 'vue'
+import { createContext, useDirection } from '@/shared'
 
 export interface RadioGroupRootProps extends PrimitiveProps {
   modelValue?: string
@@ -22,7 +22,7 @@ export type RadioGroupRootEmits = {
   'update:modelValue': [payload: string]
 }
 
-interface RadioGroupProvideValue {
+interface RadioGroupRootContext {
   modelValue?: Readonly<Ref<string | undefined>>
   changeModelValue: (value?: string) => void
   disabled: Ref<boolean>
@@ -32,12 +32,12 @@ interface RadioGroupProvideValue {
   required: Ref<boolean>
 }
 
-export const RADIO_GROUP_INJECTION_KEY
-  = Symbol() as InjectionKey<RadioGroupProvideValue>
+export const [injectRadioGroupRootContext, provideRadioGroupRootContext]
+  = createContext<RadioGroupRootContext>('RadioGroupRoot')
 </script>
 
 <script setup lang="ts">
-import { provide, toRefs } from 'vue'
+import { toRefs } from 'vue'
 import { RovingFocusGroup } from '@/RovingFocus'
 
 const props = withDefaults(defineProps<RadioGroupRootProps>(), {
@@ -56,10 +56,9 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 
 const { disabled, loop, orientation, name, required, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
-
-provide<RadioGroupProvideValue>(RADIO_GROUP_INJECTION_KEY, {
+provideRadioGroupRootContext({
   modelValue,
-  changeModelValue: (value?: string) => {
+  changeModelValue: (value) => {
     modelValue.value = value
   },
   disabled,

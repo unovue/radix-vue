@@ -1,7 +1,7 @@
 <script lang="ts">
-import type { ComputedRef, InjectionKey, Ref } from 'vue'
+import type { ComputedRef, Ref } from 'vue'
 import type { DataOrientation, Direction, Type } from '@/shared/types'
-import { useDirection } from '@/shared'
+import { createContext, useDirection } from '@/shared'
 
 export interface AccordionRootProps extends PrimitiveProps {
   /**
@@ -54,11 +54,8 @@ export type AccordionRootEmits = {
   'update:modelValue': [value: string | string[] | undefined]
 }
 
-export const ACCORDION_INJECTION_KEY
-  = Symbol() as InjectionKey<AccordionProvideValue>
-
-export interface AccordionProvideValue {
-  disabled?: Ref<AccordionRootProps['disabled']>
+export type AccordionRootContext = {
+  disabled: Ref<AccordionRootProps['disabled']>
   direction: Ref<AccordionRootProps['dir']>
   orientation: AccordionRootProps['orientation']
   parentElement: Ref<HTMLElement | undefined>
@@ -67,6 +64,9 @@ export interface AccordionProvideValue {
   modelValue: Ref<string | undefined | string[]>
   collapsible: boolean
 }
+
+export const [injectAccordionRootContext, provideAccordionRootContext]
+  = createContext<AccordionRootContext>('AccordionRoot')
 </script>
 
 <script setup lang="ts">
@@ -76,7 +76,7 @@ import {
   usePrimitiveElement,
 } from '@/Primitive'
 import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
-import { computed, provide, toRefs } from 'vue'
+import { computed, toRefs } from 'vue'
 
 const props = withDefaults(defineProps<AccordionRootProps>(), {
   asChild: false,
@@ -93,7 +93,7 @@ const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emits)
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
 
-provide<AccordionProvideValue>(ACCORDION_INJECTION_KEY, {
+provideAccordionRootContext({
   disabled,
   direction,
   orientation: props.orientation,

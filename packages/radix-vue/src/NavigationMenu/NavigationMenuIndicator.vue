@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, inject, ref, watchEffect } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import { useResizeObserver } from '@vueuse/core'
-import { NAVIGATION_MENU_INJECTION_KEY } from './NavigationMenuRoot.vue'
+import { injectNavigationMenuContext } from './NavigationMenuRoot.vue'
 import { useCollection } from '@/shared'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { Presence } from '@/Presence'
@@ -11,11 +11,11 @@ const props = defineProps<NavigationMenuIndicatorProps>()
 
 const { injectCollection } = useCollection('nav')
 const collectionItems = injectCollection()
-const context = inject(NAVIGATION_MENU_INJECTION_KEY)
+const menuContext = injectNavigationMenuContext()
 
 const position = ref<{ size: number; offset: number }>()
-const isHorizontal = computed(() => context?.orientation === 'horizontal')
-const isVisible = computed(() => !!context?.modelValue.value)
+const isHorizontal = computed(() => menuContext.orientation === 'horizontal')
+const isVisible = computed(() => !!menuContext.modelValue.value)
 
 const activeTrigger = ref<HTMLElement>()
 
@@ -33,19 +33,19 @@ function handlePositionChange() {
 }
 
 watchEffect(() => {
-  if (!context?.modelValue.value) {
+  if (!menuContext.modelValue.value) {
     position.value = undefined
     return
   }
   const items = collectionItems.value
   activeTrigger.value = items.find(item =>
-    item.id.includes(context?.modelValue.value),
+    item.id.includes(menuContext.modelValue.value),
   )
   handlePositionChange()
 })
 
 useResizeObserver(activeTrigger, handlePositionChange)
-useResizeObserver(context!.indicatorTrack, handlePositionChange)
+useResizeObserver(menuContext.indicatorTrack, handlePositionChange)
 </script>
 
 <script lang="ts">
@@ -56,14 +56,14 @@ export default {
 
 <template>
   <Teleport
-    v-if="context?.indicatorTrack.value"
-    :to="context?.indicatorTrack.value"
+    v-if="menuContext.indicatorTrack.value"
+    :to="menuContext.indicatorTrack.value"
   >
     <Presence :present="isVisible">
       <Primitive
         aria-hidden
         :data-state="isVisible ? 'visible' : 'hidden'"
-        :data-orientation="context.orientation"
+        :data-orientation="menuContext.orientation"
         :as-child="props.asChild"
         :as="as"
         :style="{

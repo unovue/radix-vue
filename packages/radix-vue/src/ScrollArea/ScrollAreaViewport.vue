@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { inject, onMounted, ref } from 'vue'
-import { SCROLL_AREA_INJECTION_KEY } from './ScrollAreaRoot.vue'
+import { onMounted, ref } from 'vue'
+import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
 import {
   Primitive,
   type PrimitiveProps,
@@ -10,7 +10,7 @@ import {
 export interface ScrollAreaViewportProps extends PrimitiveProps {}
 const props = defineProps<ScrollAreaViewportProps>()
 
-const rootContext = inject(SCROLL_AREA_INJECTION_KEY)
+const rootContext = injectScrollAreaRootContext()
 
 const { primitiveElement, currentElement: contentElement }
   = usePrimitiveElement()
@@ -18,8 +18,8 @@ const { primitiveElement, currentElement: contentElement }
 const viewportElement = ref<HTMLElement>()
 
 onMounted(() => {
-  rootContext?.onViewportChange(viewportElement.value!)
-  rootContext?.onContentChange(contentElement.value!)
+  rootContext.onViewportChange(viewportElement.value!)
+  rootContext.onContentChange(contentElement.value!)
 })
 </script>
 
@@ -58,8 +58,8 @@ export default {
        * the browser from having to work out whether to render native scrollbars or not,
        * we tell it to with the intention of hiding them in CSS.
        */
-      overflowX: rootContext?.scrollbarXEnabled.value ? 'scroll' : 'hidden',
-      overflowY: rootContext?.scrollbarYEnabled.value ? 'scroll' : 'hidden',
+      overflowX: rootContext.scrollbarXEnabled.value ? 'scroll' : 'hidden',
+      overflowY: rootContext.scrollbarYEnabled.value ? 'scroll' : 'hidden',
     }"
     v-bind="$attrs"
     :tabindex="0"

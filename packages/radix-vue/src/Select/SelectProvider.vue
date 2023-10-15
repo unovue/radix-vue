@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { provide } from 'vue'
-import { SELECT_INJECTION_KEY, type SelectProvideValue } from './SelectRoot.vue'
+import type { SelectRootContext } from './SelectRoot.vue'
+import { provideSelectRootContext } from './SelectRoot.vue'
 
 const props = defineProps<{
-  context: SelectProvideValue
+  context: SelectRootContext
 }>()
 
-provide(SELECT_INJECTION_KEY, props.context)
+provideSelectRootContext(props.context)
 </script>
 
 <template>

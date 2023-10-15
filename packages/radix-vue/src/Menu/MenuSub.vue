@@ -1,14 +1,16 @@
 <script lang="ts">
-export interface MenuSubContextValue {
+import { createContext, useId } from '@/shared'
+
+export interface MenuSubContext {
   contentId: string
   triggerId: string
   trigger: Ref<HTMLElement | undefined>
   onTriggerChange(trigger: HTMLElement | undefined): void
-  parentMenuContext?: MenuContextValue
+  parentMenuContext?: MenuContext
 }
 
-export const MENU_SUB_INJECTION_KEY
-  = Symbol() as InjectionKey<MenuSubContextValue>
+export const [injectMenuSubContext, provideMenuSubContext]
+  = createContext<MenuSubContext>('MenuSub')
 
 export interface MenuSubProps {
   open?: boolean
@@ -17,17 +19,13 @@ export interface MenuSubProps {
 
 <script setup lang="ts">
 import {
-  type InjectionKey,
   type Ref,
-  inject,
-  provide,
   ref,
   watchEffect,
 } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { MENU_INJECTION_KEY, type MenuContextValue } from './MenuRoot.vue'
+import { type MenuContext, injectMenuContext, provideMenuContext } from './MenuRoot.vue'
 import { PopperRoot } from '@/Popper'
-import { useId } from '@/shared'
 
 const props = withDefaults(defineProps<MenuSubProps>(), {
   open: undefined,
@@ -41,7 +39,7 @@ const open = useVModel(props, 'open', emits, {
   passive: (props.open === undefined) as false,
 })
 
-const parentMenuContext = inject(MENU_INJECTION_KEY)
+const parentMenuContext = injectMenuContext()
 const trigger = ref<HTMLElement>()
 const content = ref<HTMLElement>()
 
@@ -52,7 +50,7 @@ watchEffect((cleanupFn) => {
   cleanupFn(() => (open.value = false))
 })
 
-provide(MENU_INJECTION_KEY, {
+provideMenuContext({
   open,
   onOpenChange: (value) => {
     open.value = value
@@ -63,7 +61,7 @@ provide(MENU_INJECTION_KEY, {
   },
 })
 
-provide(MENU_SUB_INJECTION_KEY, {
+provideMenuSubContext({
   triggerId: useId(),
   contentId: useId(),
   trigger,

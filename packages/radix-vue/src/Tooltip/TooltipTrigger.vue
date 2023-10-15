@@ -9,7 +9,7 @@ export interface TooltipTriggerProps extends PrimitiveProps {}
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { injectTooltipRootContent } from './TooltipRoot.vue'
+import { injectTooltipRootContext } from './TooltipRoot.vue'
 import { PopperAnchor } from '@/Popper'
 import {
   Primitive,
@@ -21,7 +21,7 @@ import { injectTooltipProviderContext } from './TooltipProvider.vue'
 const props = withDefaults(defineProps<TooltipTriggerProps>(), {
   as: 'button',
 })
-const context = injectTooltipRootContent()
+const rootContext = injectTooltipRootContext()
 const providerContext = injectTooltipProviderContext()
 
 const { primitiveElement, currentElement: triggerElement }
@@ -40,7 +40,7 @@ function handlePointerDown() {
 }
 
 onMounted(() => {
-  context.onTriggerChange(triggerElement.value)
+  rootContext.onTriggerChange(triggerElement.value)
 })
 </script>
 
@@ -49,9 +49,9 @@ onMounted(() => {
     <Primitive
       ref="primitiveElement"
       :aria-describedby="
-        context.open.value ? context.contentId : undefined
+        rootContext.open.value ? rootContext.contentId : undefined
       "
-      :data-state="context.stateAttribute.value"
+      :data-state="rootContext.stateAttribute.value"
       :as="as"
       :as-child="props.asChild"
       @pointermove="(event) => {
@@ -59,21 +59,21 @@ onMounted(() => {
         if (
           !hasPointerMoveOpened && !providerContext.isPointerInTransitRef.value
         ) {
-          context.onTriggerEnter();
+          rootContext.onTriggerEnter();
           hasPointerMoveOpened = true;
         }
       }"
       @pointerleave="(event) => {
-        context.onTriggerLeave();
+        rootContext.onTriggerLeave();
         hasPointerMoveOpened = false;
       }"
       @pointerdown="handlePointerDown"
       @focus="() => {
-        if (!isPointerDown) context.onOpen()
+        if (!isPointerDown) rootContext.onOpen()
       }"
-      @blur="context.onClose()"
+      @blur="rootContext.onClose()"
       @click="() => {
-        if (!context.disableClosingTrigger.value) context.onClose()
+        if (!rootContext.disableClosingTrigger.value) rootContext.onClose()
       }"
     >
       <slot />

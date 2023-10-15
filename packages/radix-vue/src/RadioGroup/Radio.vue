@@ -13,10 +13,7 @@ export type RadioEmits = {
 </script>
 
 <script setup lang="ts">
-import {
-  computed,
-  toRefs,
-} from 'vue'
+import { computed, toRefs } from 'vue'
 import {
   Primitive,
   type PrimitiveProps,

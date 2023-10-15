@@ -1,11 +1,21 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from 'vue'
+import type { Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { provide, toRefs } from 'vue'
+import { toRefs } from 'vue'
 import type { DataOrientation, Direction } from '../shared/types'
-import { useDirection, useId } from '@/shared'
+import { createContext, useDirection, useId } from '@/shared'
 
-export const TABS_INJECTION_KEY = Symbol() as InjectionKey<TabsProvideValue>
+export interface TabsRootContext {
+  modelValue: Ref<string | undefined>
+  changeModelValue: (value: string) => void
+  orientation: Ref<DataOrientation>
+  dir: Ref<Direction>
+  activationMode: 'automatic' | 'manual'
+  baseId: string
+}
+
+export const [injectTabsRootContext, provideTabsRootContext]
+  = createContext<TabsRootContext>('TabsRoot')
 </script>
 
 <script setup lang="ts">
@@ -34,15 +44,6 @@ export type TabsRootEmits = {
   'update:modelValue': [payload: string]
 }
 
-export interface TabsProvideValue {
-  modelValue: Ref<string | undefined>
-  changeModelValue: (value: string) => void
-  orientation: Ref<DataOrientation>
-  dir: Ref<Direction>
-  activationMode: 'automatic' | 'manual'
-  baseId: string
-}
-
 const props = withDefaults(defineProps<TabsRootProps>(), {
   orientation: 'horizontal',
   activationMode: 'automatic',
@@ -56,7 +57,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
   passive: (props.modelValue === undefined) as false,
 })
 
-provide<TabsProvideValue>(TABS_INJECTION_KEY, {
+provideTabsRootContext({
   modelValue,
   changeModelValue: (value: string) => {
     modelValue.value = value

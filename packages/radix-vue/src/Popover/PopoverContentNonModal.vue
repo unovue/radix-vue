@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { ref } from 'vue'
 import PopoverContentImpl, {
   type PopoverContentImplEmits,
   type PopoverContentImplProps,
 } from './PopoverContentImpl.vue'
-import { POPOVER_INJECTION_KEY } from './PopoverRoot.vue'
+import { injectPopoverRootContext } from './PopoverRoot.vue'
 import { useForwardPropsEmits } from '@/shared'
 
 const props = defineProps<PopoverContentImplProps>()
 const emits = defineEmits<PopoverContentImplEmits>()
-const context = inject(POPOVER_INJECTION_KEY)
+const rootContext = injectPopoverRootContext()
 const hasInteractedOutsideRef = ref(false)
 const hasPointerDownOutsideRef = ref(false)
 
@@ -26,7 +26,7 @@ const forwarded = useForwardPropsEmits(props, emits)
         emits('closeAutoFocus', event);
 
         if (!event.defaultPrevented) {
-          if (!hasInteractedOutsideRef) context?.triggerElement.value?.focus();
+          if (!hasInteractedOutsideRef) rootContext.triggerElement.value?.focus();
           // Always prevent auto focus because we either focus manually or want user agent focus
           event.preventDefault();
         }
@@ -50,7 +50,7 @@ const forwarded = useForwardPropsEmits(props, emits)
         // As the trigger is already setup to close, without doing so would
         // cause it to close and immediately open.
         const target = event.target as HTMLElement;
-        const targetIsTrigger = context?.triggerElement.value?.contains(target);
+        const targetIsTrigger = rootContext.triggerElement.value?.contains(target);
         if (targetIsTrigger) event.preventDefault();
 
         // On Safari if the trigger is inside a container with tabIndex={0}, when clicked

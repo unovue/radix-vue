@@ -1,9 +1,9 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from 'vue'
+import type { Ref } from 'vue'
 import type { DataOrientation, Direction } from '../shared/types'
 import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
 import { RovingFocusGroup } from '@/RovingFocus'
-import { useDirection } from '@/shared'
+import { createContext, useDirection } from '@/shared'
 
 type TypeEnum = 'single' | 'multiple'
 
@@ -21,10 +21,7 @@ export type ToggleGroupRootEmits = {
   'update:modelValue': [payload: string]
 }
 
-export const TOGGLE_GROUP_INJECTION_KEY
-  = Symbol() as InjectionKey<ToggleGroupProvideValue>
-
-interface ToggleGroupProvideValue {
+interface ToggleGroupRootContext {
   type: TypeEnum
   modelValue: Ref<string | string[] | undefined>
   changeModelValue: (value: string) => void
@@ -34,10 +31,13 @@ interface ToggleGroupProvideValue {
   rovingFocus: Ref<boolean>
   disabled?: Ref<boolean>
 }
+
+export const [injectToggleGroupRootContext, provideToggleGroupRootContext]
+  = createContext<ToggleGroupRootContext>('ToggleGroupRoot')
 </script>
 
 <script setup lang="ts">
-import { provide, toRefs } from 'vue'
+import { toRefs } from 'vue'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 
 const props = withDefaults(defineProps<ToggleGroupRootProps>(), {
@@ -54,7 +54,7 @@ const dir = useDirection(propDir)
 
 const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emits)
 
-provide(TOGGLE_GROUP_INJECTION_KEY, {
+provideToggleGroupRootContext({
   type: props.type,
   modelValue,
   changeModelValue,

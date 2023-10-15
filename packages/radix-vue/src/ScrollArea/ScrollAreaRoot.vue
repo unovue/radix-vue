@@ -1,9 +1,9 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from 'vue'
+import type { Ref } from 'vue'
 import type { Direction, ScrollType } from './types'
-import { useDirection } from '@/shared'
+import { createContext, useDirection } from '@/shared'
 
-export interface ScrollAreaProvideValue {
+export interface ScrollAreaRootContext {
   type: Ref<ScrollType>
   dir: Ref<Direction>
   scrollHideDelay: Ref<number>
@@ -24,18 +24,18 @@ export interface ScrollAreaProvideValue {
   onCornerHeightChange(height: number): void
 }
 
+export const [injectScrollAreaRootContext, provideScrollAreaRootContext]
+  = createContext<ScrollAreaRootContext>('ScrollAreaRoot')
+
 export interface ScrollAreaRootProps extends PrimitiveProps {
   type?: ScrollType
   dir?: Direction
   scrollHideDelay?: number
 }
-
-export const SCROLL_AREA_INJECTION_KEY
-  = Symbol() as InjectionKey<ScrollAreaProvideValue>
 </script>
 
 <script setup lang="ts">
-import { provide, ref, toRefs } from 'vue'
+import { ref, toRefs } from 'vue'
 import {
   Primitive,
   type PrimitiveProps,
@@ -58,56 +58,43 @@ const scrollbarY = ref<HTMLElement>()
 const scrollbarXEnabled = ref(false)
 const scrollbarYEnabled = ref(false)
 
-function onViewportChange(el: HTMLElement) {
-  viewport.value = el
-}
-function onContentChange(el: HTMLElement) {
-  content.value = el
-}
-
-function onScrollbarXChange(scrollbar: HTMLElement) {
-  scrollbarX.value = scrollbar
-}
-function onScrollbarYChange(scrollbar: HTMLElement) {
-  scrollbarY.value = scrollbar
-}
-
-function onScrollbarXEnabledChange(rendered: boolean) {
-  scrollbarXEnabled.value = rendered
-}
-function onScrollbarYEnabledChange(rendered: boolean) {
-  scrollbarYEnabled.value = rendered
-}
-
-function onCornerWidthChange(width: number) {
-  cornerWidth.value = width
-}
-function onCornerHeightChange(height: number) {
-  cornerHeight.value = height
-}
-
 const { type, dir: propDir, scrollHideDelay } = toRefs(props)
 const dir = useDirection(propDir)
-
-provide<ScrollAreaProvideValue>(SCROLL_AREA_INJECTION_KEY, {
+provideScrollAreaRootContext({
   type,
   dir,
   scrollHideDelay,
   scrollArea,
   viewport,
-  onViewportChange,
+  onViewportChange: (el) => {
+    viewport.value = el || undefined
+  },
   content,
-  onContentChange,
+  onContentChange: (el) => {
+    content.value = el
+  },
   scrollbarX,
   scrollbarXEnabled,
   scrollbarY,
   scrollbarYEnabled,
-  onScrollbarXChange,
-  onScrollbarYChange,
-  onScrollbarXEnabledChange,
-  onScrollbarYEnabledChange,
-  onCornerWidthChange,
-  onCornerHeightChange,
+  onScrollbarXChange: (scrollbar) => {
+    scrollbarX.value = scrollbar || undefined
+  },
+  onScrollbarYChange: (scrollbar) => {
+    scrollbarY.value = scrollbar || undefined
+  },
+  onScrollbarXEnabledChange: (rendered) => {
+    scrollbarXEnabled.value = rendered
+  },
+  onScrollbarYEnabledChange: (rendered) => {
+    scrollbarYEnabled.value = rendered
+  },
+  onCornerWidthChange: (width) => {
+    cornerWidth.value = width
+  },
+  onCornerHeightChange: (height) => {
+    cornerHeight.value = height
+  },
 })
 </script>
 

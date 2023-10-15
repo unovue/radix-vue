@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { computed, inject, provide, toRefs } from 'vue'
+import { computed, toRefs } from 'vue'
 import { getCheckedState } from './utils'
 import MenuItem, {
   type MenuItemEmits,
   type MenuItemProps,
 } from './MenuItem.vue'
-import { MENU_RADIO_GROUP_INJECTION_KEY } from './MenuRadioGroup.vue'
-import { MENU_ITEM_INDICATOR_INJECTION_KEY } from './MenuItemIndicator.vue'
+import { injectMenuRadioGroupContext } from './MenuRadioGroup.vue'
+import { provideMenuItemIndicatorContext } from './MenuItemIndicator.vue'
 
 export interface MenuRadioItemProps extends MenuItemProps {
   value: string
@@ -17,14 +17,12 @@ const props = defineProps<MenuRadioItemProps>()
 const emits = defineEmits<MenuRadioItemEmits>()
 
 const { value } = toRefs(props)
-const radioGroupContext = inject(MENU_RADIO_GROUP_INJECTION_KEY)
+const radioGroupContext = injectMenuRadioGroupContext()
 const checked = computed(
-  () => radioGroupContext?.modelValue.value === value?.value,
+  () => radioGroupContext.modelValue.value === value?.value,
 )
 
-provide(MENU_ITEM_INDICATOR_INJECTION_KEY, {
-  checked,
-})
+provideMenuItemIndicatorContext({ checked })
 </script>
 
 <template>
@@ -36,7 +34,7 @@ provide(MENU_ITEM_INDICATOR_INJECTION_KEY, {
     @select="
       async (event) => {
         emits('select', event);
-        radioGroupContext?.onValueChange(value);
+        radioGroupContext.onValueChange(value);
       }
     "
   >

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { inject } from 'vue'
-import { POPOVER_INJECTION_KEY } from './PopoverRoot.vue'
+import { injectPopoverRootContext } from './PopoverRoot.vue'
 import { PopperContent, type PopperContentProps } from '@/Popper'
 import {
   DismissableLayer,
@@ -38,7 +37,7 @@ const emits = defineEmits<PopoverContentImplEmits>()
 
 const forwarded = useForwardProps(props)
 
-const context = inject(POPOVER_INJECTION_KEY)
+const rootContext = injectPopoverRootContext()
 useFocusGuards()
 </script>
 
@@ -57,12 +56,12 @@ useFocusGuards()
       @interact-outside="emits('interactOutside', $event)"
       @escape-key-down="emits('escapeKeyDown', $event)"
       @focus-outside="emits('focusOutside', $event)"
-      @dismiss="context?.onOpenChange(false)"
+      @dismiss="rootContext.onOpenChange(false)"
     >
       <PopperContent
         v-bind="forwarded"
-        :id="context?.contentId"
-        :data-state="context?.open.value ? 'open' : 'closed'"
+        :id="rootContext.contentId"
+        :data-state="rootContext.open.value ? 'open' : 'closed'"
         role="dialog"
         :style="{
           '--radix-popover-content-transform-origin':

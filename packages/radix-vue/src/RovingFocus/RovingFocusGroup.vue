@@ -1,4 +1,6 @@
 <script lang="ts">
+import { createContext, useCollection, useDirection } from '@/shared'
+
 export interface RovingFocusGroupProps extends PrimitiveProps {
   /**
    * The orientation of the group.
@@ -23,7 +25,7 @@ export type RovingFocusGroupEmits = {
   'update:currentTabStopId': [value: string | null | undefined]
 }
 
-interface RovingContextValue {
+interface RovingContext {
   orientation: Ref<Orientation | undefined>
   dir: Ref<Direction>
   loop: Ref<boolean>
@@ -34,12 +36,12 @@ interface RovingContextValue {
   onFocusableItemRemove(): void
 }
 
-export const ROVING_FOCUS_INJECTION_KEY
-  = Symbol() as InjectionKey<RovingContextValue>
+export const [injectRovingFocusGroupContext, provideRovingFocusGroupContext]
+  = createContext<RovingContext>('RovingFocusGroup')
 </script>
 
 <script setup lang="ts">
-import { type InjectionKey, type Ref, provide, ref, toRefs } from 'vue'
+import { type Ref, ref, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
 import {
   type Direction,
@@ -48,7 +50,6 @@ import {
   type Orientation,
 } from './utils'
 import { focusFirst } from './utils'
-import { useCollection, useDirection } from '@/shared'
 import {
   Primitive,
   type PrimitiveProps,
@@ -107,7 +108,7 @@ function handleFocus(event: FocusEvent) {
   isClickFocus.value = false
 }
 
-provide(ROVING_FOCUS_INJECTION_KEY, {
+provideRovingFocusGroupContext({
   loop,
   dir,
   orientation,

@@ -226,7 +226,29 @@ Contains content to be rendered in the open dialog
           Event handler called when the escape key is down. It can be prevented by calling <Code>event.preventDefault</Code>.
         </span>
       `,
-    }
+    },
+    {
+      name: '@pointerDownOutside',
+      type: '(event: PointerDownOutsideEvent) => void',
+      typeSimple: 'function',
+      description: `
+        <span>
+          Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling <code>event.preventDefault</code>.
+        </span>
+      `,
+    },
+    {
+      name: '@interactOutside',
+      type: '(event: FocusEvent | MouseEvent | TouchEvent) => void',
+      typeSimple: 'function',
+      description: `
+        <span>
+          Event handler called when an interaction (pointer or focus event)
+          happens outside the bounds of the component. It can be prevented by
+          calling <code>event.preventDefault</code>.
+        </span>
+      `,
+    },
   ]"
 />
 

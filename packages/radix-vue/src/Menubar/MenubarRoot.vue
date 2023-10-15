@@ -1,7 +1,7 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from 'vue'
+import type { Ref } from 'vue'
 import type { Direction } from '../shared/types'
-import { useCollection, useDirection } from '@/shared'
+import { createContext, useCollection, useDirection } from '@/shared'
 
 export interface MenubarRootProps {
   modelValue?: string
@@ -13,10 +13,7 @@ export type MenubarRootEmits = {
   'update:modelValue': [value: boolean]
 }
 
-export const MENUBAR_INJECTION_KEY
-  = Symbol() as InjectionKey<MenubarContextValue>
-
-export interface MenubarContextValue {
+export interface MenubarRootContext {
   modelValue: Ref<string>
   dir: Ref<Direction>
   loop: Ref<boolean>
@@ -24,10 +21,13 @@ export interface MenubarContextValue {
   onMenuClose(): void
   onMenuToggle(value: string): void
 }
+
+export const [injectMenubarRootContext, provideMenubarRootContext]
+  = createContext<MenubarRootContext>('MenubarRoot')
 </script>
 
 <script setup lang="ts">
-import { provide, ref, toRefs } from 'vue'
+import { ref, toRefs } from 'vue'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { RovingFocusGroup } from '@/RovingFocus'
 import { useVModel } from '@vueuse/core'
@@ -50,7 +50,7 @@ const currentTabStopId = ref<string | null>(null)
 
 const { dir: propDir, loop } = toRefs(props)
 const dir = useDirection(propDir)
-provide(MENUBAR_INJECTION_KEY, {
+provideMenubarRootContext({
   modelValue,
   dir,
   loop,

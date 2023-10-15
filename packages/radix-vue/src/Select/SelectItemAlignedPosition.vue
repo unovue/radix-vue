@@ -1,11 +1,26 @@
+<script lang="ts">
+import { createContext, useCollection } from '@/shared'
+
+interface SelectItemAlignedPositionContext {
+  contentWrapper?: Ref<HTMLElement | undefined>
+  shouldExpandOnScrollRef?: Ref<boolean>
+  onScrollButtonChange: (node: HTMLElement | undefined) => void
+}
+
+export const [injectSelectItemAlignedPositionContext, provideSelectItemAlignedPositionContext]
+  = createContext<SelectItemAlignedPositionContext>('SelectItemAlignedPosition')
+
+export default {
+  inheritAttrs: false,
+}
+</script>
+
 <script setup lang="ts">
-import { inject, nextTick, onMounted, provide, ref } from 'vue'
+import { type Ref, nextTick, onMounted, ref } from 'vue'
 import { clamp } from '@vueuse/shared'
-import { SELECT_INJECTION_KEY } from './SelectRoot.vue'
-import { SELECT_CONTENT_INJECTION_KEY } from './SelectContentImpl.vue'
+import { injectSelectRootContext } from './SelectRoot.vue'
+import { injectSelectContentContext } from './SelectContentImpl.vue'
 import { CONTENT_MARGIN } from './utils'
-import { SELECT_VIEWPORT_INJECTION_KEY } from './SelectViewport.vue'
-import { useCollection } from '@/shared'
 import {
   Primitive,
   type PrimitiveProps,
@@ -20,8 +35,8 @@ const emits = defineEmits<{
 }>()
 
 const { injectCollection } = useCollection()
-const context = inject(SELECT_INJECTION_KEY)
-const contentContext = inject(SELECT_CONTENT_INJECTION_KEY)
+const rootContext = injectSelectRootContext()
+const contentContext = injectSelectContentContext()
 const collectionItems = injectCollection()
 
 const shouldExpandOnScrollRef = ref(false)
@@ -36,25 +51,24 @@ const { viewport, selectedItem, selectedItemText, focusSelectedItem }
 
 function position() {
   if (
-    context
-    && context.triggerElement.value
-    && context.valueElement.value
+    rootContext.triggerElement.value
+    && rootContext.valueElement.value
     && contentWrapperElement.value
     && contentElement.value
     && viewport?.value
     && selectedItem?.value
     && selectedItemText?.value
   ) {
-    const triggerRect = context.triggerElement.value.getBoundingClientRect()
+    const triggerRect = rootContext.triggerElement.value.getBoundingClientRect()
 
     // -----------------------------------------------------------------------------------------
     //  Horizontal positioning
     // -----------------------------------------------------------------------------------------
     const contentRect = contentElement.value.getBoundingClientRect()
-    const valueNodeRect = context.valueElement.value.getBoundingClientRect()
+    const valueNodeRect = rootContext.valueElement.value.getBoundingClientRect()
     const itemTextRect = selectedItemText.value.getBoundingClientRect()
 
-    if (context.dir.value !== 'rtl') {
+    if (rootContext.dir.value !== 'rtl') {
       const itemTextOffset = itemTextRect.left - contentRect.left
       const left = valueNodeRect.left - itemTextOffset
       const leftDelta = triggerRect.left - left
@@ -205,17 +219,11 @@ function handleScrollButtonChange(node: HTMLElement | undefined) {
   }
 }
 
-provide(SELECT_VIEWPORT_INJECTION_KEY, {
+provideSelectItemAlignedPositionContext({
   contentWrapper: contentWrapperElement,
   shouldExpandOnScrollRef,
   onScrollButtonChange: handleScrollButtonChange,
 })
-</script>
-
-<script lang="ts">
-export default {
-  inheritAttrs: false,
-}
 </script>
 
 <template>

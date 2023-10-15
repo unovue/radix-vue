@@ -1,28 +1,28 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from 'vue'
+import type { Ref } from 'vue'
+import { createContext } from '@/shared'
 
 export interface Measurable {
   getBoundingClientRect(): DOMRect
 }
 
-interface PopperContextValue {
+interface PopperRootContext {
   anchor: Ref<Measurable | HTMLElement | undefined>
   onAnchorChange(element: Measurable | HTMLElement | undefined): void
 }
 
-export const POPPER_ROOT_KEY = Symbol() as InjectionKey<PopperContextValue>
+export const [injectPopperRootContext, providePopperRootContext]
+  = createContext<PopperRootContext>('PopperRoot')
 </script>
 
 <script setup lang="ts">
-import { provide, ref } from 'vue'
+import { ref } from 'vue'
 
 const anchor = ref<Measurable | HTMLElement>()
 
-provide(POPPER_ROOT_KEY, {
+providePopperRootContext({
   anchor,
-  onAnchorChange: (element: Measurable | HTMLElement | undefined) => {
-    anchor.value = element
-  },
+  onAnchorChange: element => anchor.value = element,
 })
 </script>
 

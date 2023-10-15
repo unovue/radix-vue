@@ -6,9 +6,8 @@ export type NavigationMenuContentImplEmits = DismissableLayerEmits
 </script>
 
 <script setup lang="ts">
-import { computed, inject, ref, watchEffect } from 'vue'
-import { NAVIGATION_MENU_INJECTION_KEY } from './NavigationMenuRoot.vue'
-
+import { computed, ref, watchEffect } from 'vue'
+import { injectNavigationMenuContext } from './NavigationMenuRoot.vue'
 import {
   EVENT_ROOT_CONTENT_DISMISS,
   focusFirst,
@@ -26,7 +25,7 @@ import {
 import { usePrimitiveElement } from '@/Primitive'
 import { useArrowNavigation, useCollection } from '@/shared'
 import type { PointerDownOutsideEvent } from '@/DismissableLayer/utils'
-import { NAVIGATION_MENU_ITEM_INJECTION_KEY } from './NavigationMenuItem.vue'
+import { injectNavigationMenuItemContext } from './NavigationMenuItem.vue'
 
 const props = defineProps<NavigationMenuContentImplProps>()
 const emits = defineEmits<NavigationMenuContentImplEmits>()
@@ -35,22 +34,22 @@ const { injectCollection } = useCollection('nav')
 const collectionItems = injectCollection()
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
-const context = inject(NAVIGATION_MENU_INJECTION_KEY)
-const itemContext = inject(NAVIGATION_MENU_ITEM_INJECTION_KEY)
+const menuContext = injectNavigationMenuContext()
+const itemContext = injectNavigationMenuItemContext()
 
-const triggerId = makeTriggerId(context!.baseId, itemContext!.value)
-const contentId = makeContentId(context!.baseId, itemContext!.value)
+const triggerId = makeTriggerId(menuContext.baseId, itemContext.value)
+const contentId = makeContentId(menuContext.baseId, itemContext.value)
 
 const prevMotionAttributeRef = ref<MotionAttribute | null>(null)
 const motionAttribute = computed(() => {
   const items = collectionItems.value
   const values = items.map(item => item.id.split('trigger-')[1])
-  if (context?.dir.value === 'rtl')
+  if (menuContext.dir.value === 'rtl')
     values.reverse()
-  const index = values.indexOf(context!.modelValue.value)
-  const prevIndex = values.indexOf(context!.previousValue.value)
-  const isSelected = itemContext!.value === context?.modelValue.value
-  const wasSelected = prevIndex === values.indexOf(itemContext!.value)
+  const index = values.indexOf(menuContext.modelValue.value)
+  const prevIndex = values.indexOf(menuContext.previousValue.value)
+  const isSelected = itemContext.value === menuContext.modelValue.value
+  const wasSelected = prevIndex === values.indexOf(itemContext.value)
 
   // We only want to update selected and the last selected content
   // this avoids animations being interrupted outside of that range
@@ -82,11 +81,11 @@ function handleFocusOutside(ev: FocusOutsideEvent) {
   emits('interactOutside', ev)
 
   if (!ev.defaultPrevented) {
-    itemContext!.onContentFocusOutside()
+    itemContext.onContentFocusOutside()
 
     const target = ev.target as HTMLElement
     // Only dismiss content when focus moves outside of the menu
-    if (context!.rootNavigationMenu?.value?.contains(target))
+    if (menuContext.rootNavigationMenu?.value?.contains(target))
       ev.preventDefault()
   }
 }
@@ -100,21 +99,21 @@ function handlePointerDownOutside(ev: PointerDownOutsideEvent) {
       item.contains(target),
     )
     const isRootViewport
-      = context?.isRootMenu && context.viewport.value?.contains(target)
+      = menuContext.isRootMenu && menuContext.viewport.value?.contains(target)
 
-    if (isTrigger || isRootViewport || !context?.isRootMenu)
+    if (isTrigger || isRootViewport || !menuContext.isRootMenu)
       ev.preventDefault()
   }
 }
 
 watchEffect((cleanupFn) => {
   const content = currentElement.value
-  if (context?.isRootMenu && content) {
+  if (menuContext.isRootMenu && content) {
     // Bubble dismiss to the root content node and focus its trigger
     const handleClose = () => {
-      itemContext!.onRootContentClose()
+      itemContext.onRootContentClose()
       if (content.contains(document.activeElement))
-        itemContext!.triggerRef.value?.focus()
+        itemContext.triggerRef.value?.focus()
     }
     content.addEventListener(EVENT_ROOT_CONTENT_DISMISS, handleClose)
 
@@ -128,9 +127,9 @@ function handleEscapeKeyDown(ev: KeyboardEvent) {
   emits('escapeKeyDown', ev)
 
   if (!ev.defaultPrevented) {
-    context!.onItemDismiss()
-    itemContext!.triggerRef?.value?.focus()
-    itemContext!.wasEscapeCloseRef.value = true
+    menuContext.onItemDismiss()
+    itemContext.triggerRef?.value?.focus()
+    itemContext.wasEscapeCloseRef.value = true
   }
 }
 
@@ -157,7 +156,7 @@ function handleKeydown(ev: KeyboardEvent) {
       // If we can't focus that means we're at the edges
       // so focus the proxy and let browser handle
       // tab/shift+tab keypress on the proxy instead
-      itemContext!.focusProxyRef.value?.focus()
+      itemContext.focusProxyRef.value?.focus()
       return
     }
   }
@@ -191,8 +190,8 @@ function handleDismiss() {
     ref="primitiveElement"
     :aria-labelledby="triggerId"
     :data-motion="motionAttribute"
-    :data-state="getOpenState(context?.modelValue.value === itemContext!.value)"
-    :data-orientation="context?.orientation"
+    :data-state="getOpenState(menuContext.modelValue.value === itemContext.value)"
+    :data-orientation="menuContext.orientation"
     v-bind="props"
     @keydown="handleKeydown"
     @escape-key-down="handleEscapeKeyDown"

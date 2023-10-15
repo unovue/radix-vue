@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { inject, ref } from 'vue'
-import { CONTEXT_MENU_INJECTION_KEY } from './ContextMenuRoot.vue'
+import { ref } from 'vue'
+import { injectContextMenuRootContext } from './ContextMenuRoot.vue'
 import {
   MenuContent,
   type MenuContentEmits,
@@ -29,7 +29,7 @@ const props = withDefaults(defineProps<ContextMenuContentProps>(), {
 })
 const emits = defineEmits<ContextMenuContentEmits>()
 
-const context = inject(CONTEXT_MENU_INJECTION_KEY)
+const rootContext = injectContextMenuRootContext()
 const hasInteractedOutside = ref(false)
 </script>
 
@@ -63,7 +63,7 @@ const hasInteractedOutside = ref(false)
     @interact-outside="
       (event) => {
         emits('interactOutside', event);
-        if (!event.defaultPrevented && !context?.modal.value)
+        if (!event.defaultPrevented && !rootContext.modal.value)
           hasInteractedOutside = true;
       }
     "

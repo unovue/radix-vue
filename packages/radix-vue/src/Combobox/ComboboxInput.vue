@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, ref } from 'vue'
-import { COMBOBOX_INJECT_KEY } from './ComboboxRoot.vue'
+import { computed, onMounted, ref } from 'vue'
+import { injectComboboxRootContext } from './ComboboxRoot.vue'
 
 export interface ComboboxInputProps {
   type?: string
@@ -12,15 +12,15 @@ const props = withDefaults(defineProps<ComboboxInputProps>(), {
   type: 'text',
 })
 
-const context = inject(COMBOBOX_INJECT_KEY)
+const rootContext = injectComboboxRootContext()
 
 const elRef = ref<HTMLInputElement>()
 onMounted(() => {
   if (!elRef.value)
     return
 
-  context!.inputElement = elRef
-  context?.onInputElementChange(elRef.value)
+  rootContext.inputElement = elRef
+  rootContext.onInputElementChange(elRef.value)
 
   setTimeout(() => {
     // make sure all DOM was flush then only capture the focus
@@ -29,36 +29,36 @@ onMounted(() => {
   }, 1)
 })
 
-const disabled = computed(() => props.disabled || context?.disabled.value || false)
+const disabled = computed(() => props.disabled || rootContext.disabled.value || false)
 
 function handleKeyDown(ev: KeyboardEvent) {
-  if (!context?.open.value)
-    context?.onOpenChange(true)
+  if (!rootContext.open.value)
+    rootContext.onOpenChange(true)
   else
-    context.onInputNavigation(ev.key === 'ArrowUp' ? 'up' : 'down')
+    rootContext.onInputNavigation(ev.key === 'ArrowUp' ? 'up' : 'down')
 }
 
 function handleHomeEnd(ev: KeyboardEvent) {
-  if (!context?.open.value)
+  if (!rootContext.open.value)
     return
-  context.onInputNavigation(ev.key === 'Home' ? 'home' : 'end')
+  rootContext.onInputNavigation(ev.key === 'Home' ? 'home' : 'end')
 }
 
 function handleInput() {
-  if (!context?.open.value)
-    context?.onOpenChange(true)
+  if (!rootContext.open.value)
+    rootContext.onOpenChange(true)
 
-  context!.isUserInputted.value = true
+  rootContext.isUserInputted.value = true
 }
 </script>
 
 <template>
   <input
     ref="elRef"
-    v-model="context!.searchTerm.value"
+    v-model="rootContext.searchTerm.value"
     :type="type"
-    :aria-expanded="context?.open.value"
-    :aria-controls="context?.contentId"
+    :aria-expanded="rootContext.open.value"
+    :aria-controls="rootContext.contentId"
     :disabled="disabled"
     :aria-disabled="disabled ?? undefined"
     aria-autocomplete="list"
@@ -67,7 +67,7 @@ function handleInput() {
     autocomplete="false"
     @input="handleInput"
     @keydown.down.up.prevent="handleKeyDown"
-    @keydown.enter="context?.onInputEnter"
+    @keydown.enter="rootContext.onInputEnter"
     @keydown.home.end.prevent="handleHomeEnd"
   >
 </template>

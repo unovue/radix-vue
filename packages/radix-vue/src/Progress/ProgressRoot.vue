@@ -1,5 +1,6 @@
 <script lang="ts">
-import type { ComputedRef, InjectionKey, Ref } from 'vue'
+import type { ComputedRef, Ref } from 'vue'
+import { createContext } from '@/shared'
 
 export interface ProgressRootProps extends PrimitiveProps {
   modelValue?: number | null
@@ -13,14 +14,14 @@ export type ProgressRootEmits = {
 
 const DEFAULT_MAX = 100
 
-export const PROGRESS_INJECTION_KEY
-  = Symbol() as InjectionKey<ProgressProvideValue>
-
-interface ProgressProvideValue {
+interface ProgressRootContext {
   modelValue?: Readonly<Ref<ProgressRootProps['modelValue']>>
   max: Readonly<Ref<number>>
   progressState: ComputedRef<ProgressState>
 }
+
+export const [injectProgressRootContext, provideProgressRootContext]
+  = createContext<ProgressRootContext>('ProgressRoot')
 
 export type ProgressState = 'indeterminate' | 'loading' | 'complete'
 
@@ -58,7 +59,7 @@ function validateMax(max: number): number {
 
 <script setup lang="ts">
 import { useVModel } from '@vueuse/core'
-import { computed, nextTick, provide, watch } from 'vue'
+import { computed, nextTick, watch } from 'vue'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 
 const props = withDefaults(defineProps<ProgressRootProps>(), {
@@ -109,7 +110,7 @@ const progressState = computed<ProgressState>(() => {
   return 'loading'
 })
 
-provide(PROGRESS_INJECTION_KEY, {
+provideProgressRootContext({
   modelValue,
   max,
   progressState,

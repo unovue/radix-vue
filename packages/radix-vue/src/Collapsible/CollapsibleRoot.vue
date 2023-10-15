@@ -1,6 +1,6 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from 'vue'
-import { useId } from '@/shared'
+import type { Ref } from 'vue'
+import { createContext, useId } from '@/shared'
 
 export interface CollapsibleRootProps extends PrimitiveProps {
   defaultOpen?: boolean
@@ -12,19 +12,18 @@ export type CollapsibleRootEmits = {
   'update:open': [value: boolean]
 }
 
-interface CollapsibleProvideValue {
+interface CollapsibleRootContext {
   contentId: string
   disabled?: Ref<boolean>
   open: Ref<boolean>
   onOpenToggle(): void
 }
 
-export const COLLAPSIBLE_INJECTION_KEY
-  = Symbol() as InjectionKey<CollapsibleProvideValue>
+export const [injectCollapsibleRootContext, provideCollapsibleRootContext]
+  = createContext<CollapsibleRootContext>('CollapsibleRoot')
 </script>
 
 <script setup lang="ts">
-import { provide } from 'vue'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 
@@ -42,7 +41,7 @@ const open = useVModel(props, 'open', emit, {
 
 const disabled = useVModel(props, 'disabled')
 
-provide(COLLAPSIBLE_INJECTION_KEY, {
+provideCollapsibleRootContext({
   contentId: useId(),
   disabled,
   open,

@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { provide } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { type CheckedState, getCheckedState, isIndeterminate } from './utils'
 import MenuItem, {
   type MenuItemEmits,
   type MenuItemProps,
 } from './MenuItem.vue'
-import { MENU_ITEM_INDICATOR_INJECTION_KEY } from './MenuItemIndicator.vue'
+import { provideMenuItemIndicatorContext } from './MenuItemIndicator.vue'
 
 export interface MenuCheckboxItemProps extends MenuItemProps {
   checked?: CheckedState
@@ -21,9 +20,7 @@ const props = withDefaults(defineProps<MenuCheckboxItemProps>(), {
 const emits = defineEmits<MenuCheckboxItemEmits>()
 const checked = useVModel(props, 'checked', emits)
 
-provide(MENU_ITEM_INDICATOR_INJECTION_KEY, {
-  checked,
-})
+provideMenuItemIndicatorContext({ checked })
 </script>
 
 <template>

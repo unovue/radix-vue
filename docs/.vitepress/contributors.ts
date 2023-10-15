@@ -50,6 +50,7 @@ const plainTeamMembers: CoreTeam[] = [
     github: 'zernonia',
     twitter: 'zernonia',
     desc: 'Core team member of Radix Vue',
+    sponsor: 'https://github.com/sponsors/zernonia',
   },
   {
     avatar: contributorsAvatars.khairulhaaziq,

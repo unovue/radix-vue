@@ -1,12 +1,14 @@
 <script lang="ts">
-export interface MenuContextValue {
+import { createContext, useDirection } from '@/shared'
+
+export interface MenuContext {
   open: Ref<boolean>
   onOpenChange(open: boolean): void
   content: Ref<HTMLElement | undefined>
   onContentChange(content: HTMLElement | undefined): void
 }
 
-export interface MenuRootContextValue {
+export interface MenuRootContext {
   onClose(): void
   dir: Ref<Direction>
   isUsingKeyboardRef: Ref<boolean>
@@ -20,16 +22,16 @@ export interface MenuProps {
   modal?: boolean
 }
 
-export const MENU_INJECTION_KEY = Symbol() as InjectionKey<MenuContextValue>
-export const MENU_ROOT_INJECTION_KEY
-  = Symbol() as InjectionKey<MenuRootContextValue>
+export const [injectMenuContext, provideMenuContext]
+  = createContext<MenuContext>(['MenuRoot', 'MenuSub'], 'MenuContext')
+
+export const [injectMenuRootContext, provideMenuRootContext]
+  = createContext<MenuRootContext>('MenuRoot')
 </script>
 
 <script setup lang="ts">
 import {
-  type InjectionKey,
   type Ref,
-  provide,
   ref,
   toRefs,
   watchEffect,
@@ -38,7 +40,6 @@ import { isClient } from '@vueuse/shared'
 import { useVModel } from '@vueuse/core'
 import { type Direction } from './utils'
 import { PopperRoot } from '@/Popper'
-import { useDirection } from '@/shared'
 
 const props = withDefaults(defineProps<MenuProps>(), {
   open: false,
@@ -83,7 +84,7 @@ watchEffect((cleanupFn) => {
   })
 })
 
-provide(MENU_INJECTION_KEY, {
+provideMenuContext({
   open,
   onOpenChange: (value) => {
     open.value = value
@@ -94,7 +95,7 @@ provide(MENU_INJECTION_KEY, {
   },
 })
 
-provide(MENU_ROOT_INJECTION_KEY, {
+provideMenuRootContext({
   onClose: () => {
     open.value = false
   },

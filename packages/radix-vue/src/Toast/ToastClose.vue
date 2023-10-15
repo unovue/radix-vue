@@ -2,15 +2,14 @@
 import { Primitive } from '@/Primitive'
 import type { PrimitiveProps } from '@/Primitive'
 import ToastAnnounceExclude from './ToastAnnounceExclude.vue'
-import { TOAST_INTERACTIVE_CONTEXT } from './ToastImpl.vue'
-import { inject } from 'vue'
+import { injectToastRootContext } from './ToastRootImpl.vue'
 
 export interface ToastCloseProps extends PrimitiveProps {}
 const props = withDefaults(defineProps<ToastCloseProps>(), {
   as: 'button',
 })
 
-const interactiveContext = inject(TOAST_INTERACTIVE_CONTEXT)
+const rootContext = injectToastRootContext()
 </script>
 
 <template>
@@ -18,7 +17,7 @@ const interactiveContext = inject(TOAST_INTERACTIVE_CONTEXT)
     <Primitive
       v-bind="props"
       :type="as === 'button' ? 'button' : undefined "
-      @click="interactiveContext?.onClose()"
+      @click="rootContext.onClose()"
     >
       <slot />
     </Primitive>

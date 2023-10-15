@@ -21,7 +21,7 @@ export const components = {
   Combobox: [
     'ComboboxRoot',
     'ComboboxInput',
-    'ComboboxHeader',
+    'ComboboxAnchor',
     'ComboboxTrigger',
     'ComboboxCancel',
     'ComboboxGroup',

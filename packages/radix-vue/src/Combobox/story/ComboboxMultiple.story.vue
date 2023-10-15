@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxHeader, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxRoot, ComboboxTrigger, ComboboxViewport } from '../'
+import { ComboboxAnchor, ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxRoot, ComboboxTrigger, ComboboxViewport } from '../'
 import { Icon } from '@iconify/vue'
 
 const people = [
@@ -25,12 +25,12 @@ function handleUpdate(ev: any) {
   <Story title="Combobox/Multiple" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="String" auto-props-disabled>
       <ComboboxRoot multiple>
-        <ComboboxHeader class="min-w-[160px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">
+        <ComboboxAnchor class="min-w-[160px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">
           <ComboboxInput class="bg-transparent outline-none text-grass11 placeholder-gray-400" placeholder="Test" />
           <ComboboxTrigger>
             <Icon icon="radix-icons:chevron-down" class="h-4 w-4 text-grass11" />
           </ComboboxTrigger>
-        </ComboboxHeader>
+        </ComboboxAnchor>
         <ComboboxContent class="mt-2 min-w-[160px] bg-white overflow-hidden rounded shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade">
           <ComboboxViewport class="p-[5px]">
             <ComboboxEmpty class="text-gray-400  text-xs font-medium text-center py-2" />
@@ -62,12 +62,12 @@ function handleUpdate(ev: any) {
 
     <Variant title="Object" auto-props-disabled>
       <ComboboxRoot v-model:search-term="searchTerm" v-model="v" name="test" multiple @update:model-value="handleUpdate">
-        <ComboboxHeader class="min-w-[160px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">
+        <ComboboxAnchor class="min-w-[160px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">
           <ComboboxInput class="bg-transparent outline-none text-grass11 placeholder-gray-400" placeholder="Test" />
           <ComboboxTrigger>
             <Icon icon="radix-icons:chevron-down" class="h-4 w-4 text-grass11" />
           </ComboboxTrigger>
-        </ComboboxHeader>
+        </ComboboxAnchor>
         <ComboboxContent class="mt-2 min-w-[160px] bg-white overflow-hidden rounded shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade">
           <ComboboxViewport class="p-[5px]">
             <ComboboxEmpty class="text-gray-400  text-xs font-medium text-center py-2" />

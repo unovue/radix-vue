@@ -2,9 +2,9 @@
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { PopperAnchor } from '@/Popper'
 
-export interface ComboboxHeaderProps extends PrimitiveProps {}
+export interface ComboboxAnchorProps extends PrimitiveProps {}
 
-defineProps<ComboboxHeaderProps>()
+defineProps<ComboboxAnchorProps>()
 </script>
 
 <template>

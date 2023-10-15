@@ -66,12 +66,12 @@ Import all parts and piece them together.
 ```vue
 <script setup lang="ts">
 import {
+  ComboboxAnchor,
   ComboboxArrow,
   ComboboxCancel,
   ComboboxContent,
   ComboboxEmpty,
   ComboboxGroup,
-  ComboboxHeader,
   ComboboxInput,
   ComboboxItem,
   ComboboxItemIndicator,
@@ -86,11 +86,11 @@ import {
 
 <template>
   <ComboboxRoot>
-    <ComboboxHeader>
+    <ComboboxAnchor>
       <ComboboxInput />
       <ComboboxTrigger />
       <ComboboxCancel />
-    </ComboboxHeader>
+    </ComboboxAnchor>
 
     <ComboboxPortal>
       <ComboboxContent>

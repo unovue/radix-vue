@@ -318,6 +318,7 @@ defineExpose({
         middlewareData.transformOrigin?.x,
         middlewareData.transformOrigin?.y,
       ].join(' '),
+      overflowY: 'auto',
     }"
   >
     <Primitive

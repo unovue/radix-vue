@@ -275,6 +275,10 @@ export const components = {
     'Primitive',
     'Slot',
   ],
+
+  VisuallyHidden: [
+    'VisuallyHidden',
+  ],
 }
 
 export const utilities = {

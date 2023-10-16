@@ -168,6 +168,8 @@ function sidebar() {
       text: 'Utilities',
       collapsed: false,
       items: [
+        { text: 'Config Provider', link: '/utilities/config-provider' },
+        { text: 'Visually Hidden', link: '/utilities/visually-hidden' },
         { text: 'Primitive', link: '/utilities/primitive' },
         { text: 'Slot', link: '/utilities/slot' },
         { text: 'useId', link: '/utilities/use-id' },

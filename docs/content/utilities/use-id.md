@@ -3,8 +3,6 @@ title: useId
 description: Generate random id
 ---
 
-
-
 # useId
 
 <Description>

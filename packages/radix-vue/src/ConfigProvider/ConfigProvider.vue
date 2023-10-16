@@ -17,6 +17,10 @@ export interface ConfigProviderProps {
    * @defaultValue 'ltr'
    */
   dir?: Direction
+  /**
+   * The global scroll body behavior of your application. This will be inherited by the related primitives.
+   * @type boolean | ScrollBodyOption
+   */
   scrollBody?: boolean | ScrollBodyOption
 }
 </script>

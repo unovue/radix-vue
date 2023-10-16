@@ -75,9 +75,27 @@
   }
 }
 
-/* body {
-  --vp-layout-max-width: calc(1440px + var(--scrollbar-width, 0px));
-} */
+
+/* Fix the layout shift for Vitepress https://github.com/vuejs/vitepress/pull/1844/files */
+@media (min-width: 768px) {
+  .VPContent, .VPLocalNav, .VPNav, .VPHome {
+    width: 100vw !important;
+  }
+  .VPFooter {
+    width: 100vw !important;
+    padding: 32px !important;
+  }
+}
+@media (min-width: 1440px) {
+  .VPSidebar {
+    padding-left: max(32px, calc((100vw - (var(--vp-layout-max-width) - 64px)) / 2)) !important;
+    width: calc((100vw - (var(--vp-layout-max-width) - 64px)) / 2 + var(--vp-sidebar-width) - 32px) !important;
+  }
+}
+
+body {
+  overflow-x: hidden;
+}
 
 /**
  * Component: Algolia

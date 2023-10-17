@@ -4,6 +4,11 @@ layout: showcase
 description: Showcase your packages or projects that made with Radix Vue
 
 packages:
+  - title: '...'
+    description: Component library built on top of Radix Vue 
+    url: https://github.com/radix-vue
+    image: /new-ui.png
+
   - title: Shadcn Vue
     description: An unofficial, community-led Vue port of shadcn/ui.
     url: https://www.shadcn-vue.com/

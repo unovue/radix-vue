@@ -125,6 +125,7 @@ provideComboboxItemContext({
     ref="primitiveElement"
     role="option"
     tabindex="-1"
+    data-radix-vue-combobox-item
     :aria-labelledby="textId"
     :data-highlighted="isFocused ? '' : undefined"
     :aria-selected="isSelected"

@@ -89,6 +89,8 @@ async function onOpenChange(val: boolean) {
     isUserInputted.value = false
   if (!val && !multiple.value && typeof modelValue.value === 'string')
     searchTerm.value = modelValue.value
+
+  scrollSelectedValueIntoView()
 }
 
 function onValueChange(val: string | object) {
@@ -109,7 +111,7 @@ const optionsInstance = ref<Set<ComponentInternalInstance>>(new Set())
 const inputElement = ref<HTMLInputElement>()
 const contentElement = ref<HTMLElement>()
 const { primitiveElement, currentElement: parentElement } = usePrimitiveElement()
-const { createCollection } = useCollection()
+const { createCollection } = useCollection(undefined, 'data-radix-vue-combobox-item')
 const collections = createCollection(contentElement)
 
 const selectedValue = ref<string | object>()
@@ -147,6 +149,12 @@ onMounted(() => {
 
 const isFormControl = useFormControl(parentElement)
 
+function scrollSelectedValueIntoView() {
+  // Find the highlighted element and scroll into view
+  // We can put this in Item, but we avoid having too many watcher
+  Array.from(optionsInstance.value).find(i => i.props.value === selectedValue.value)?.vnode.el?.scrollIntoView({ block: 'nearest' })
+}
+
 provideComboboxRootContext({
   searchTerm,
   modelValue,
@@ -177,9 +185,7 @@ provideComboboxRootContext({
     else
       selectedValue.value = filteredOptions.value[val === 'up' ? index - 1 : index + 1]
 
-    // Find the highlighted element and scroll into view
-    // We can put this in Item, but we aviod having too many watcher
-    Array.from(optionsInstance.value).find(i => i.props.value === selectedValue.value)?.vnode.el?.scrollIntoView({ block: 'nearest' })
+    scrollSelectedValueIntoView()
   },
   onInputEnter: () => {
     if (selectedValue.value) {

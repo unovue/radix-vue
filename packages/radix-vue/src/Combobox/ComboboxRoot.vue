@@ -53,7 +53,7 @@ import { PopperRoot } from '@/Popper'
 import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
 import type { Direction } from '@/shared/types'
 import { useVModel } from '@vueuse/core'
-import { type ComponentInternalInstance, type ComputedRef, type Ref, computed, nextTick, onMounted, ref, toRefs, watch } from 'vue'
+import { type ComponentInternalInstance, type ComputedRef, type Ref, computed, nextTick, onMounted, ref, toRaw, toRefs, watch } from 'vue'
 import { VisuallyHiddenInput } from '@/VisuallyHidden'
 
 const props = withDefaults(defineProps<ComboboxRootProps>(), {
@@ -115,6 +115,9 @@ const { createCollection } = useCollection(undefined, 'data-radix-vue-combobox-i
 const collections = createCollection(contentElement)
 
 const selectedValue = ref<string | object>()
+const selectedElement = computed(() => {
+  return Array.from(optionsInstance.value).find(i => toRaw(i.props.value) === toRaw(selectedValue.value))?.vnode.el as HTMLElement | null
+})
 
 const options = computed(() => {
   const instances = Array.from(optionsInstance.value)
@@ -152,7 +155,7 @@ const isFormControl = useFormControl(parentElement)
 function scrollSelectedValueIntoView() {
   // Find the highlighted element and scroll into view
   // We can put this in Item, but we avoid having too many watcher
-  Array.from(optionsInstance.value).find(i => i.props.value === selectedValue.value)?.vnode.el?.scrollIntoView({ block: 'nearest' })
+  selectedElement.value?.scrollIntoView({ block: 'nearest' })
 }
 
 provideComboboxRootContext({
@@ -189,9 +192,8 @@ provideComboboxRootContext({
   },
   onInputEnter: () => {
     if (selectedValue.value) {
-      const element = Array.from(optionsInstance.value).find(i => JSON.stringify(i.props.value) === JSON.stringify(selectedValue.value))?.vnode?.el as HTMLElement
-      if (element)
-        element.click()
+      if (selectedElement.value)
+        selectedElement.value?.click()
       else onValueChange(selectedValue.value)
     }
   },

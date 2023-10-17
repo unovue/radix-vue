@@ -11,6 +11,7 @@ describe('given default Combobox', () => {
   let valueBox: DOMWrapper<HTMLElement>
   window.HTMLElement.prototype.releasePointerCapture = vi.fn()
   window.HTMLElement.prototype.hasPointerCapture = vi.fn()
+  window.HTMLElement.prototype.scrollIntoView = vi.fn()
   globalThis.ResizeObserver = class ResizeObserver {
     observe() {}
     unobserve() {}

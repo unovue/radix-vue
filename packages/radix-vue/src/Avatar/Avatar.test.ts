@@ -50,6 +50,10 @@ describe('given an Avatar with fallback and a working image', async () => {
     const image = await findByAltText(wrapper.element as HTMLElement, 'Colm Tuite')
     expect(image).toBeTruthy()
   })
+
+  it('should render as snapshot', () => {
+    expect(wrapper.html()).toMatchSnapshot()
+  })
 })
 
 describe('given an Avatar with fallback and delayed render', () => {

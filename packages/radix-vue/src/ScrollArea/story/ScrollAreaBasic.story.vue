@@ -66,7 +66,6 @@ const contentChangeState = reactive({
 
     <Variant auto-props-disabled title="Animated">
       <ScrollAreaStory animated>
-        <!-- TODO: animate is half-broken right now due to Presence component not ready. -->
         <ScrollAreaCopy v-for="i in 30" :key="i" />
       </ScrollAreaStory>
     </Variant>

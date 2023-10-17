@@ -47,26 +47,6 @@ describe('test label functionalities', () => {
     expect(label.html()).toBe('<label for="input">Label</label>')
   })
 
-  // disable this test as the focus event it will all be handle by the browser itself
-  // it('should focus the input when the label is clicked', async () => {
-  //   const wrapper = mount(
-  //     defineComponent({
-  //       setup() {
-  //         return () =>
-  //           h('div', [
-  //             h(Label, { for: 'test' }, 'Label'),
-  //             h('input', { id: 'test' }),
-  //           ])
-  //       },
-  //     }), {
-  //       attachTo: document.body,
-  //     },
-  //   )
-
-  //   // wrapper.find('label').element.click()
-  //   // expect(wrapper.find('input').element).toBe(document.activeElement)
-  // })
-
   it('should not focus the input when click on the label without a `for` attribute', async () => {
     const { container } = render(
       defineComponent({

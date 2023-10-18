@@ -20,6 +20,9 @@ const isLocked = useBodyScrollLock()
 watch(
   () => context?.open.value,
   n => (isLocked.value = n ?? false),
+  {
+    immediate: true,
+  },
 )
 </script>
 

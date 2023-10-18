@@ -1,9 +1,23 @@
 import { getParameters } from 'codesandbox/lib/api/define'
+import sdk from '@stackblitz/sdk'
 
 export function makeCodeSandboxParams(componentName: string, sources: Record<string, string>) {
   let files = {}
-  files = makeTailwindConfig(componentName, sources)
+  files = constructFiles(componentName, sources)
   return getParameters({ files, template: 'node' })
+}
+
+export function makeStackblitzParams(componentName: string, sources: Record<string, string>) {
+  const files: Record<string, string> = {}
+  Object.entries(constructFiles(componentName, sources)).forEach(([k, v]) => (files[`${k}`] = typeof v.content === 'object' ? JSON.stringify(v.content, null, 2) : v.content))
+  return sdk.openProject({
+    title: `${componentName} - Radix Vue`,
+    files,
+    template: 'node',
+  }, {
+    newWindow: true,
+    openFile: ['src/App.vue'],
+  })
 }
 
 const viteConfig = {
@@ -35,7 +49,7 @@ export default defineConfig({
   },
 }
 
-function makeTailwindConfig(componentName: string, sources: Record<string, string>) {
+function constructFiles(componentName: string, sources: Record<string, string>) {
   const dependencies = {
     'vue': 'latest',
     'radix-vue': 'latest',
@@ -50,7 +64,6 @@ function makeTailwindConfig(componentName: string, sources: Record<string, strin
     'tailwindcss': 'latest',
     'postcss': 'latest',
     'autoprefixer': 'latest',
-    '@codesandbox/vue-preview': '^0.1.1-alpha.16',
   }
 
   const componentFiles = Object.keys(sources).filter(key => key.endsWith('.vue') && key !== 'index.vue')
@@ -112,7 +125,7 @@ body {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  margin-top: 120px;
+  padding-top: 120px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }`,

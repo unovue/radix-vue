@@ -98,6 +98,9 @@ importers:
 
   docs:
     dependencies:
+      '@stackblitz/sdk':
+        specifier: ^1.9.0
+        version: 1.9.0
       radix-vue:
         specifier: link:../packages/radix-vue
         version: link:../packages/radix-vue
@@ -2164,6 +2167,10 @@ packages:
   /@sinclair/typebox@0.27.8:
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
     dev: true
+
+  /@stackblitz/sdk@1.9.0:
+    resolution: {integrity: sha512-3m6C7f8pnR5KXys/Hqx2x6ylnpqOak6HtnZI6T5keEO0yT+E4Spkw37VEbdwuC+2oxmjdgq6YZEgiKX7hM1GmQ==}
+    dev: false
 
   /@tailwindcss/postcss7-compat@2.2.17(ts-node@10.9.1):
     resolution: {integrity: sha512-3h2svqQAqYHxRZ1KjsJjZOVTQ04m29LjfrLjXyZZEJuvUuJN+BCIF9GI8vhE1s0plS0mogd6E6YLg6mu4Wv/Vw==}
@@ -10243,7 +10250,7 @@ packages:
     resolution: {directory: packages/radix-vue, type: directory}
     id: file:packages/radix-vue
     name: radix-vue
-    version: 1.0.0-beta.0
+    version: 1.0.0-beta.2
     dependencies:
       '@floating-ui/dom': 1.4.2
       '@floating-ui/vue': 1.0.1(vue@3.3.4)

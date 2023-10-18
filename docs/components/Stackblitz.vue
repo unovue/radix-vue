@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { makeCodeSandboxParams } from '../codeeditor'
+import { makeStackblitzParams } from '../codeeditor'
 import Tooltip from './Tooltip.vue'
 import { Icon } from '@iconify/vue'
 
@@ -25,19 +25,18 @@ onMounted(() => {
     }
   })
 })
+
+function handleClick() {
+  makeStackblitzParams(props.name, sources.value)
+}
 </script>
 
 <template>
-  <form action="https://codesandbox.io/api/v1/sandboxes/define" method="POST" target="_blank">
-    <input type="hidden" name="query" value="file=src/App.vue">
-    <input type="hidden" name="environment" value="server">
-    <input type="hidden" name="hidedevtools" value="1">
-    <input type="hidden" name="parameters" :value="makeCodeSandboxParams(name, sources)">
-
-    <Tooltip :content="`Open ${name} in CodeSandbox`">
-      <button type="submit">
-        <Icon icon="ph-codesandbox-logo" />
+  <div>
+    <Tooltip :content="`Open ${name} in Stackblitz`">
+      <button @click="handleClick">
+        <Icon icon="simple-icons:stackblitz" />
       </button>
     </Tooltip>
-  </form>
+  </div>
 </template>

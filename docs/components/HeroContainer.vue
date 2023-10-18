@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { type Slots, computed, useSlots } from 'vue'
 import CodeSandbox from './CodeSandbox.vue'
+import Stackblitz from './Stackblitz.vue'
 
 withDefaults(
   defineProps<{
@@ -26,6 +27,7 @@ const files = computed<string[]>(
         <slot />
 
         <CodeSandbox v-if="folder" class="hidden sm:block absolute bottom-4 right-4" :name="folder" :files="files" />
+        <Stackblitz v-if="folder" class="hidden sm:block absolute bottom-4 right-12" :name="folder" :files="files" />
       </div>
     </div>
     <slot name="codeSlot" />

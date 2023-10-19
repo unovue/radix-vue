@@ -155,13 +155,22 @@ When used, portals your overlay and content parts into the <code>body</code>.
 
 A layer that covers the inert portion of the view when the dialog is open.
 
-<PropsTable :data="[{
-name: 'asChild',
-required: false,
-type: 'boolean',
-default: 'false',
-description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-}]" />
+<PropsTable :data="[
+  {
+    name: 'asChild',
+    required: false,
+    type: 'boolean',
+    default: 'false',
+    description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+  },
+  {
+    name: 'forceMount',
+    type: 'boolean',
+    description: `
+      Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.
+    `,
+  },
+]" />
 
 <DataAttributesTable :data="[{
 attribute: '[data-state]',
@@ -180,7 +189,14 @@ Contains content to be rendered when the dialog is open.
       type: 'boolean',
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    }
+    },
+    {
+      name: 'forceMount',
+      type: 'boolean',
+      description: `
+        Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.
+      `,
+    },
   ]" 
 />
 

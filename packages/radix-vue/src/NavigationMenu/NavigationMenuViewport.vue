@@ -15,7 +15,13 @@ import {
 } from '@/Primitive'
 import { Presence } from '@/Presence'
 
-export interface NavigationMenuViewportProps extends PrimitiveProps {}
+export interface NavigationMenuViewportProps extends PrimitiveProps {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
+  forceMount?: boolean
+}
 defineProps<NavigationMenuViewportProps>()
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
@@ -62,7 +68,7 @@ export default {
 </script>
 
 <template>
-  <Presence :present="open">
+  <Presence :present="forceMount || open">
     <Primitive
       v-bind="$attrs"
       ref="primitiveElement"

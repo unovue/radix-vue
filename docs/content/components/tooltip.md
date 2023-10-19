@@ -190,11 +190,18 @@ The component that pops out when the tooltip is open.
 <PropsTable
   :data="[
     {
-      name: 'aria-label',
+      name: 'ariaLabel',
       required: false,
       type: 'string',
       description: 'By default, screenreaders will announce the content inside the component. If this is not descriptive enough, or you have content that cannot be announced, use <code>aria-label</code> as a more descriptive label.',
     }, 
+    {
+      name: 'forceMount',
+      type: 'boolean',
+      description: `
+        Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.
+      `,
+    },
     {
       name: 'side',
       type: '&quot;top&quot; | &quot;right&quot; | &quot;bottom&quot; | &quot;left&quot;',

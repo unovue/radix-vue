@@ -15,7 +15,13 @@ import { Presence } from '@/Presence'
 import { useForwardPropsEmits } from '@/shared'
 import SelectProvider from './SelectProvider.vue'
 
-export interface SelectContentProps extends SelectContentImplProps {}
+export interface SelectContentProps extends SelectContentImplProps {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
+  forceMount?: boolean
+}
 export type SelectContentEmits = SelectContentImplEmits
 
 const props = withDefaults(defineProps<SelectContentProps>(), {
@@ -36,7 +42,7 @@ const presenceRef = ref<InstanceType<typeof Presence>>()
 </script>
 
 <template>
-  <Presence ref="presenceRef" :present="rootContext.open.value">
+  <Presence ref="presenceRef" :present="forceMount || rootContext.open.value">
     <SelectContentImpl v-bind="{ ...forwarded, ...$attrs }">
       <slot />
     </SelectContentImpl>

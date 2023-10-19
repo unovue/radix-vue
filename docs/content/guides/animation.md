@@ -1,7 +1,6 @@
 ---
-
-title: Animation
-description: Animate Radix Primitives with CSS keyframes or the JavaScript animation library of your choice.
+title: Animation/Transition
+description: Animate Radix Primitives with CSS keyframes, JavaScript animation library of your choice or Native Vue Transition.
 ---
 
 
@@ -9,8 +8,7 @@ description: Animate Radix Primitives with CSS keyframes or the JavaScript anima
 # Animation
 
 <Description>
-Animate Radix Primitives with CSS keyframes or the JavaScript animation
-library of your choice.
+Animate Radix Primitives with CSS keyframes, JavaScript animation library of your choice or Native Vue Transition.
 </Description>
 
 Adding animation to Radix Primitives should feel similar to any other component, but there are some caveats noted here in regards to exiting animations with JS animation libraries.
@@ -51,34 +49,36 @@ You can use CSS animation to animate both mount and unmount phases. The latter i
 }
 ```
 
-::: info
+<!-- ::: info
 Source: [Radix UI](https://www.radix-ui.com/)
-:::
+::: -->
 
-<!-- hide away for the moment, as we yet to support forceMount props
+<EmbedIframe src="https://stackblitz.com/edit/vitejs-vite-y8mdxg?embed=1&file=index.html&view=preview" />
+ 
 ## Delegating unmounting for JavaScript Animation
 
-When many stateful Primitives are hidden from view, they are actually removed from the React Tree, and their elements removed from the DOM. JavaScript animation libraries need control of the unmounting phase, so we provide the `forceMount` prop on many components to allow consumers to delegate the mounting and unmounting of children based on the animation state determined by those libraries.
+When many stateful Primitives are hidden from view, they are actually removed from the DOM (similar to `v-if`). JavaScript animation libraries need control of the unmounting phase, so we provide the `forceMount` prop on many components to allow consumers to delegate the mounting and unmounting of children based on the animation state determined by those libraries.
 
-For example, if you want to use React Spring to animate a `Dialog`, you would do so by conditionally rendering the dialog `Overlay` and `Content` parts based on the animation state from one of its hooks like `useTransition`:
+For example, if you want to use [@vueuse/motion](https://motion.vueuse.org/) to animate a `Dialog`, you would do so by conditionally rendering the dialog `Overlay` and `Content` parts based on the animation state from one of its hooks like `useTransition`:
 
 ```jsx
-import * as Dialog from '@radix-ui/react-dialog';
-import { useTransition, animated, config } from 'react-spring';
+import * as Dialog from '@radix-ui/react-dialog'
+import { animated, config, useTransition } from 'react-spring'
 
 function Example() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false)
   const transitions = useTransition(open, {
     from: { opacity: 0, y: -10 },
     enter: { opacity: 1, y: 0 },
     leave: { opacity: 0, y: 10 },
     config: config.stiff,
-  });
+  })
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>Open Dialog</Dialog.Trigger>
       {transitions((styles, item) =>
-        item ? (
+        item
+          ? (
           <>
             <Dialog.Overlay forceMount asChild>
               <animated.div
@@ -94,10 +94,10 @@ function Example() {
               </animated.div>
             </Dialog.Content>
           </>
-        ) : null
+            )
+          : null
       )}
     </Dialog.Root>
-  );
+  )
 }
-```
--->
+``` 

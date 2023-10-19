@@ -6,7 +6,13 @@ import { useCollection } from '@/shared'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { Presence } from '@/Presence'
 
-export interface NavigationMenuIndicatorProps extends PrimitiveProps {}
+export interface NavigationMenuIndicatorProps extends PrimitiveProps {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
+  forceMount?: boolean
+}
 const props = defineProps<NavigationMenuIndicatorProps>()
 
 const { injectCollection } = useCollection('nav')
@@ -59,7 +65,7 @@ export default {
     v-if="menuContext.indicatorTrack.value"
     :to="menuContext.indicatorTrack.value"
   >
-    <Presence :present="isVisible">
+    <Presence :present="forceMount || isVisible">
       <Primitive
         aria-hidden
         :data-state="isVisible ? 'visible' : 'hidden'"

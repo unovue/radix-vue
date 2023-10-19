@@ -17,7 +17,13 @@ import { type CheckedState, getCheckedState, isIndeterminate } from './utils'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { Presence } from '@/Presence'
 
-export interface MenuItemIndicatorProps extends PrimitiveProps {}
+export interface MenuItemIndicatorProps extends PrimitiveProps {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
+  forceMount?: boolean
+}
 
 withDefaults(defineProps<MenuItemIndicatorProps>(), {
   as: 'span',
@@ -31,7 +37,8 @@ const indicatorContext = injectMenuItemIndicatorContext({
 <template>
   <Presence
     :present="
-      isIndeterminate(indicatorContext.checked.value)
+      forceMount
+        || isIndeterminate(indicatorContext.checked.value)
         || indicatorContext.checked.value === true
     "
   >

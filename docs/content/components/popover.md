@@ -180,6 +180,13 @@ The component that pops out when the popover is open.
 <PropsTable
   :data="[
     {
+      name: 'forceMount',
+      type: 'boolean',
+      description: `
+        Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.
+      `,
+    },
+    {
       name: 'side',
       type: '&quot;top&quot; | &quot;right&quot; | &quot;bottom&quot; | &quot;left&quot;',
       typeSimple: 'enum',

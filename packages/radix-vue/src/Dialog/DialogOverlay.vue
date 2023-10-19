@@ -8,7 +8,7 @@ import { useBodyScrollLock } from '@/shared'
 export interface DialogOverlayProps extends PrimitiveProps {
   /**
    * Used to force mounting when more control is needed. Useful when
-   * controlling transntion with Vue native transition or other animation libraries.
+   * controlling animation with Vue animation libraries.
    */
   forceMount?: boolean
 }

@@ -1,5 +1,9 @@
 <script lang="ts">
 export interface CheckboxIndicatorProps extends PrimitiveProps {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
   forceMount?: boolean
 }
 </script>

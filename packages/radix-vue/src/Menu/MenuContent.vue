@@ -9,7 +9,13 @@ import {
 import { Presence } from '@/Presence'
 import { useEmitAsProps } from '@/shared'
 
-export interface MenuContentProps extends MenuRootContentProps {}
+export interface MenuContentProps extends MenuRootContentProps {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
+  forceMount?: boolean
+}
 export type MenuContentEmits = MenuContentImplEmits
 
 const props = defineProps<MenuContentProps>()
@@ -22,7 +28,7 @@ const emitsAsProps = useEmitAsProps(emits)
 </script>
 
 <template>
-  <Presence :present="menuContext.open.value">
+  <Presence :present="forceMount || menuContext.open.value">
     <MenuRootContentModal
       v-if="rootContext.modal.value"
       v-bind="{ ...$attrs, ...props, ...emitsAsProps }"

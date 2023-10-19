@@ -9,7 +9,13 @@ import NavigationMenuContentImpl, { type NavigationMenuContentImplEmits, type Na
 import { useEmitAsProps } from '@/shared'
 import { useMounted } from '@vueuse/core'
 
-export interface NavigationMenuContentProps extends NavigationMenuContentImplProps {}
+export interface NavigationMenuContentProps extends NavigationMenuContentImplProps {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
+  forceMount?: boolean
+}
 export type NavigationMenuContentEmits = NavigationMenuContentImplEmits
 
 const props = defineProps<NavigationMenuContentProps>()
@@ -46,7 +52,7 @@ export default {
 
 <template>
   <Teleport v-if="isClientMounted" :to="menuContext.viewport.value" :disabled="!menuContext.viewport.value">
-    <Presence :present="open || isLastActiveValue">
+    <Presence :present="forceMount || open || isLastActiveValue">
       <NavigationMenuContentImpl
         :data-state="getOpenState(open)"
         :style="{

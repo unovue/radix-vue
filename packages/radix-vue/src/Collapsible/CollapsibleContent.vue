@@ -1,5 +1,11 @@
 <script lang="ts">
-export interface CollapsibleContentProps extends PrimitiveProps {}
+export interface CollapsibleContentProps extends PrimitiveProps {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
+  forceMount?: boolean
+}
 export default {
   inheritAttrs: false,
 }
@@ -72,7 +78,7 @@ onMounted(() => {
 <template>
   <Presence
     ref="presentRef"
-    :present="rootContext.open.value"
+    :present="forceMount || rootContext.open.value"
     :force-mount="true"
   >
     <Primitive

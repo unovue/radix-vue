@@ -256,13 +256,22 @@ Toggles the collapsed state of its associated item. It should be nested inside o
 
 Contains the collapsible content for an item.
 
-<PropsTable :data="[{
+<PropsTable :data="[
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    }]" />
+    },
+    {
+      name: 'forceMount',
+      type: 'boolean',
+      description: `
+        Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.
+      `,
+    },
+  ]" />
 
 <DataAttributesTable :data="[
     {

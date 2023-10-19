@@ -15,14 +15,20 @@ const emits = defineEmits<DialogContentEmits>()
 
 const rootContext = injectDialogRootContext()
 
-export interface DialogContentProps extends DialogContentImplProps {}
+export interface DialogContentProps extends DialogContentImplProps {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
+  forceMount?: boolean
+}
 export type DialogContentEmits = DialogContentImplEmits
 
 const emitsAsProps = useEmitAsProps(emits)
 </script>
 
 <template>
-  <Presence :present="rootContext.open.value">
+  <Presence :present="forceMount || rootContext.open.value">
     <DialogContentModal
       v-if="rootContext.modal.value"
       v-bind="{ ...props, ...emitsAsProps, ...$attrs }"

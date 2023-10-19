@@ -178,6 +178,13 @@ A layer that covers the inert portion of the view when the dialog is open.
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
+    {
+      name: 'forceMount',
+      type: 'boolean',
+      description: `
+        Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.
+      `,
+    },
   ]"
 />
 
@@ -202,7 +209,14 @@ Contains content to be rendered in the open dialog
       type: 'boolean',
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    }
+    },
+    {
+      name: 'forceMount',
+      type: 'boolean',
+      description: `
+        Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.
+      `,
+    },
   ]" 
 />
 

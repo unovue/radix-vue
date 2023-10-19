@@ -1,5 +1,6 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from 'vue'
+import type { Ref } from 'vue'
+import { createContext } from '@/shared'
 
 export interface SwitchRootProps extends PrimitiveProps {
   defaultChecked?: boolean
@@ -15,18 +16,18 @@ export type SwitchRootEmits = {
   'update:checked': [payload: boolean]
 }
 
-export const SWITCH_INJECTION_KEY
-  = Symbol() as InjectionKey<SwitchProvideValue>
-
-export interface SwitchProvideValue {
+export interface SwitchRootContext {
   checked?: Ref<boolean>
   toggleCheck: () => void
   disabled: Ref<boolean>
 }
+
+export const [injectSwitchRootContext, provideSwitchRootContext]
+  = createContext<SwitchRootContext>('SwitchRoot')
 </script>
 
 <script setup lang="ts">
-import { computed, provide, toRefs } from 'vue'
+import { computed, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
 
@@ -57,7 +58,7 @@ const { primitiveElement, currentElement } = usePrimitiveElement()
 const isFormControl = computed(() => currentElement.value ? Boolean(currentElement.value.closest('form')) : true)
 const ariaLabel = computed(() => props.id && currentElement.value ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText : undefined)
 
-provide<SwitchProvideValue>(SWITCH_INJECTION_KEY, {
+provideSwitchRootContext({
   checked,
   toggleCheck,
   disabled,

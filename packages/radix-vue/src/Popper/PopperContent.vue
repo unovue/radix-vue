@@ -1,13 +1,6 @@
 <script lang="ts">
-import type { ComponentPublicInstance, InjectionKey, Ref } from 'vue'
-
-export interface PopperContentContextValue {
-  placedSide: Ref<Side>
-  onArrowChange(arrow: HTMLElement | undefined): void
-  arrowX?: Ref<number>
-  arrowY?: Ref<number>
-  shouldHideArrow: Ref<boolean>
-}
+import type { ComponentPublicInstance, Ref } from 'vue'
+import { createContext, useForwardRef, useSize } from '@/shared'
 
 export const PopperContentPropsDefaultValue = {
   side: 'bottom' as Side,
@@ -113,8 +106,16 @@ export interface PopperContentProps extends PrimitiveProps {
   prioritizePosition?: boolean
 }
 
-export const POPPER_CONTENT_KEY
-  = Symbol() as InjectionKey<PopperContentContextValue>
+export interface PopperContentContext {
+  placedSide: Ref<Side>
+  onArrowChange(arrow: HTMLElement | undefined): void
+  arrowX?: Ref<number>
+  arrowY?: Ref<number>
+  shouldHideArrow: Ref<boolean>
+}
+
+export const [injectPopperContentContext, providePopperContentContext]
+  = createContext<PopperContentContext>('PopperContent')
 
 export default {
   inheritAttrs: false,
@@ -122,7 +123,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed, inject, provide, ref, watchEffect } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import { computedEager } from '@vueuse/core'
 import {
   type Middleware,
@@ -137,7 +138,7 @@ import {
   size,
   useFloating,
 } from '@floating-ui/vue'
-import { POPPER_ROOT_KEY } from './PopperRoot.vue'
+import { injectPopperRootContext } from './PopperRoot.vue'
 import {
   type Align,
   type Side,
@@ -150,12 +151,11 @@ import {
   type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
-import { useForwardRef, useSize } from '@/shared'
 
 const props = withDefaults(defineProps<PopperContentProps>(), {
   ...PopperContentPropsDefaultValue,
 })
-const context = inject(POPPER_ROOT_KEY)
+const rootContext = injectPopperRootContext()
 
 const forwardRef = useForwardRef()
 const { primitiveElement, currentElement: contentElement }
@@ -250,7 +250,7 @@ const computedMiddleware = computedEager(() => {
 })
 
 const { floatingStyles, placement, isPositioned, middlewareData } = useFloating(
-  context!.anchor,
+  rootContext.anchor,
   floatingRef,
   {
     strategy: 'fixed',
@@ -290,11 +290,9 @@ watchEffect(() => {
 const arrowX = computed(() => middlewareData.value.arrow?.x ?? 0)
 const arrowY = computed(() => middlewareData.value.arrow?.y ?? 0)
 
-provide(POPPER_CONTENT_KEY, {
+providePopperContentContext({
   placedSide,
-  onArrowChange: (element: HTMLElement | undefined) => {
-    arrow.value = element
-  },
+  onArrowChange: element => arrow.value = element,
   arrowX,
   arrowY,
   shouldHideArrow: cannotCenterArrow,

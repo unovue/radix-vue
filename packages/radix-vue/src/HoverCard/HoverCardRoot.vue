@@ -1,5 +1,6 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from 'vue'
+import type { Ref } from 'vue'
+import { createContext } from '@/shared'
 
 export interface HoverCardRootProps {
   defaultOpen?: false
@@ -11,10 +12,7 @@ export type HoverCardRootEmits = {
   'update:open': [value: boolean]
 }
 
-export const HOVER_CARD_INJECTION_KEY
-  = Symbol() as InjectionKey<HoverCardProvideValue>
-
-export interface HoverCardProvideValue {
+export interface HoverCardRootContext {
   open: Ref<boolean>
   onOpenChange(open: boolean): void
   onOpen(): void
@@ -23,10 +21,13 @@ export interface HoverCardProvideValue {
   hasSelectionRef: Ref<boolean>
   isPointerDownOnContentRef: Ref<boolean>
 }
+
+export const [injectHoverCardRootContext, provideHoverCardRootContext]
+  = createContext<HoverCardRootContext>('HoverCardRoot')
 </script>
 
 <script setup lang="ts">
-import { provide, ref, toRefs } from 'vue'
+import { ref, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { PopperRoot } from '@/Popper'
 
@@ -65,7 +66,7 @@ function handleDismiss() {
   open.value = false
 }
 
-provide<HoverCardProvideValue>(HOVER_CARD_INJECTION_KEY, {
+provideHoverCardRootContext({
   open,
   onOpenChange(value) {
     open.value = value

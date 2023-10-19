@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, inject, nextTick, onMounted, onUnmounted } from 'vue'
-import { ROVING_FOCUS_INJECTION_KEY } from './RovingFocusGroup.vue'
+import { computed, nextTick, onMounted, onUnmounted } from 'vue'
+import { injectRovingFocusGroupContext } from './RovingFocusGroup.vue'
 import { focusFirst, getFocusIntent, wrapArray } from './utils'
 import { useCollection, useId } from '@/shared'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
@@ -17,30 +17,28 @@ const props = withDefaults(defineProps<RovingFocusItemProps>(), {
   as: 'span',
 })
 
-const context = inject(ROVING_FOCUS_INJECTION_KEY)
+const context = injectRovingFocusGroupContext()
 const autoId = useId()
 const id = computed(() => props.tabStopId || autoId)
 const isCurrentTabStop = computed(
-  () => context?.currentTabStopId.value === id.value,
+  () => context.currentTabStopId.value === id.value,
 )
 
 const { injectCollection } = useCollection('rovingFocus')
 const collections = injectCollection()
 
-const { onFocusableItemAdd, onFocusableItemRemove } = context!
-
 onMounted(() => {
   if (props.focusable)
-    onFocusableItemAdd()
+    context.onFocusableItemAdd()
 })
 onUnmounted(() => {
   if (props.focusable)
-    onFocusableItemRemove()
+    context.onFocusableItemRemove()
 })
 
 function handleKeydown(event: KeyboardEvent) {
   if (event.key === 'Tab' && event.shiftKey) {
-    context?.onItemShiftTab()
+    context.onItemShiftTab()
     return
   }
 
@@ -49,8 +47,8 @@ function handleKeydown(event: KeyboardEvent) {
 
   const focusIntent = getFocusIntent(
     event,
-    context?.orientation.value,
-    context?.dir.value,
+    context.orientation.value,
+    context.dir.value,
   )
 
   if (focusIntent !== undefined) {
@@ -67,7 +65,7 @@ function handleKeydown(event: KeyboardEvent) {
         event.currentTarget as HTMLElement,
       )
 
-      candidateNodes = context?.loop.value
+      candidateNodes = context.loop.value
         ? wrapArray(candidateNodes, currentIndex + 1)
         : candidateNodes.slice(currentIndex + 1)
     }
@@ -81,7 +79,7 @@ function handleKeydown(event: KeyboardEvent) {
   <Primitive
     data-radix-vue-collection-item
     :tabindex="isCurrentTabStop ? 0 : -1"
-    :data-orientation="context?.orientation.value"
+    :data-orientation="context.orientation.value"
     :data-active="active"
     :data-disabled="!focusable || undefined"
     :as="as"
@@ -92,10 +90,10 @@ function handleKeydown(event: KeyboardEvent) {
         // Even though the item has tabIndex={-1}, that only means take it out of the tab order.
         if (!focusable) event.preventDefault();
         // Safari doesn't focus a button when clicked so we run our logic on mousedown also
-        else context?.onItemFocus(id);
+        else context.onItemFocus(id);
       }
     "
-    @focus="context?.onItemFocus(id)"
+    @focus="context.onItemFocus(id)"
     @keydown="handleKeydown"
   >
     <slot />

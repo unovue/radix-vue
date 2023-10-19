@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { DataOrientation, Direction } from '../shared/types'
-import { useCollection } from '@/shared'
+import { createContext, useCollection } from '@/shared'
 
 export interface SliderRootProps extends PrimitiveProps {
   name?: string
@@ -16,7 +16,12 @@ export interface SliderRootProps extends PrimitiveProps {
   minStepsBetweenThumbs?: number
 }
 
-export interface SliderProvideValue {
+export type SliderRootEmits = {
+  'update:modelValue': [payload: number[] | undefined]
+  'valueCommit': [payload: number[]]
+}
+
+export interface SliderRootContext {
   orientation: Ref<DataOrientation>
   disabled: Ref<boolean>
   min: Ref<number>
@@ -26,13 +31,8 @@ export interface SliderProvideValue {
   thumbElements: Ref<HTMLElement[]>
 }
 
-export type SliderRootEmits = {
-  'update:modelValue': [payload: number[] | undefined]
-  'valueCommit': [payload: number[]]
-}
-
-export const SLIDER_INJECTION_KEY
-  = Symbol() as InjectionKey<SliderProvideValue>
+export const [injectSliderRootContext, provideSliderRootContext]
+  = createContext<SliderRootContext>('SliderRoot')
 
 export default {
   inheritAttrs: false,
@@ -42,7 +42,7 @@ export default {
 <script setup lang="ts">
 import SliderHorizontal from './SliderHorizontal.vue'
 import SliderVertical from './SliderVertical.vue'
-import { type InjectionKey, type Ref, provide, ref, toRefs } from 'vue'
+import { type Ref, ref, toRefs } from 'vue'
 import {
   type PrimitiveProps,
   usePrimitiveElement,
@@ -114,7 +114,7 @@ function updateValues(value: number, atIndex: number, { commit } = { commit: fal
 }
 
 const thumbElements = ref<HTMLElement[]>([])
-provide(SLIDER_INJECTION_KEY, {
+provideSliderRootContext({
   modelValue,
   valueIndexToChangeRef,
   thumbElements,

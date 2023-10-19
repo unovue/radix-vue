@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
-import { SCROLL_AREA_INJECTION_KEY } from './ScrollAreaRoot.vue'
+import { computed } from 'vue'
+import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
 import ScrollAreaCornerImpl from './ScrollAreaCornerImpl.vue'
 import { type PrimitiveProps } from '@/Primitive'
 
 export interface ScrollAreaCornerProps extends PrimitiveProps {}
 const props = defineProps<ScrollAreaCornerProps>()
 
-const context = inject(SCROLL_AREA_INJECTION_KEY)
+const rootContext = injectScrollAreaRootContext()
 
 const hasBothScrollbarsVisible = computed(
-  () => !!context?.scrollbarX.value && !!context.scrollbarY.value,
+  () => !!rootContext.scrollbarX.value && !!rootContext.scrollbarY.value,
 )
 const hasCorner = computed(
-  () => context?.type.value !== 'scroll' && hasBothScrollbarsVisible.value,
+  () => rootContext.type.value !== 'scroll' && hasBothScrollbarsVisible.value,
 )
 </script>
 

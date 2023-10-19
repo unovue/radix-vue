@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type ComputedRef, type InjectionKey, type Ref, computed } from 'vue'
+import { computed } from 'vue'
 
 export interface ToggleProps extends PrimitiveProps {
   /**
@@ -18,14 +18,6 @@ export interface ToggleProps extends PrimitiveProps {
 }
 export type ToggleEmits = {
   'update:pressed': [value: boolean]
-}
-
-export const TOGGLE_INJECTION_KEY
-  = Symbol() as InjectionKey<ToggleProvideValue>
-
-export interface ToggleProvideValue {
-  modelValue?: Readonly<Ref<ToggleProps['pressed']>>
-  dataState: ComputedRef<DataState>
 }
 
 export type DataState = 'on' | 'off'

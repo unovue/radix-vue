@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { inject, watchEffect } from 'vue'
+import { watchEffect } from 'vue'
 import { useDebounceFn } from '@vueuse/core'
 import { useStateMachine } from '../shared/useStateMachine'
-import { SCROLL_AREA_INJECTION_KEY } from './ScrollAreaRoot.vue'
-import { SCROLL_AREA_SCROLLBAR_INJECTION_KEY } from './ScrollAreaScrollbar.vue'
+import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
+import { injectScrollAreaScrollbarContext } from './ScrollAreaScrollbar.vue'
 import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
 
-const rootContext = inject(SCROLL_AREA_INJECTION_KEY)
-const scrollbarContext = inject(SCROLL_AREA_SCROLLBAR_INJECTION_KEY)
+const rootContext = injectScrollAreaRootContext()
+const scrollbarContext = injectScrollAreaScrollbarContext()
 
 const { state, dispatch } = useStateMachine('hidden', {
   hidden: {
@@ -32,7 +32,7 @@ watchEffect(() => {
   if (state.value === 'idle') {
     window.setTimeout(
       () => dispatch('HIDE'),
-      rootContext?.scrollHideDelay.value,
+      rootContext.scrollHideDelay.value,
     )
   }
 })
@@ -40,8 +40,8 @@ watchEffect(() => {
 const debounceScrollEnd = useDebounceFn(() => dispatch('SCROLL_END'), 100)
 
 watchEffect(() => {
-  const viewport = rootContext?.viewport.value
-  const scrollDirection = scrollbarContext?.isHorizontal.value
+  const viewport = rootContext.viewport.value
+  const scrollDirection = scrollbarContext.isHorizontal.value
     ? 'scrollLeft'
     : 'scrollTop'
 

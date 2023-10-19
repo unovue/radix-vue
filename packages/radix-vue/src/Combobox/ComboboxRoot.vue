@@ -1,5 +1,7 @@
 <script lang="ts">
-interface ComboboxContextValue {
+import { createContext, useCollection, useId } from '@/shared'
+
+type ComboboxRootContext = {
   modelValue: Ref<string | Array<string> | object | Array<object>>
   onValueChange: (val: string | object) => void
   searchTerm: Ref<string>
@@ -23,7 +25,8 @@ interface ComboboxContextValue {
   parentElement: Ref<HTMLElement | undefined>
 }
 
-export const COMBOBOX_INJECT_KEY = Symbol() as InjectionKey<ComboboxContextValue>
+export const [injectComboboxRootContext, provideComboboxRootContext]
+  = createContext<ComboboxRootContext>('ComboboxRoot')
 
 export type ComboboxRootEmits = {
   'update:modelValue': [value: string | Array<string> | object | Array<object>]
@@ -48,10 +51,9 @@ export interface ComboboxRootProps extends PrimitiveProps {
 <script setup lang="ts">
 import { PopperRoot } from '@/Popper'
 import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
-import { useCollection, useId } from '@/shared'
 import type { Direction } from '@/shared/types'
 import { useVModel } from '@vueuse/core'
-import { type ComponentInternalInstance, type ComputedRef, type InjectionKey, type Ref, computed, nextTick, onMounted, provide, ref, toRefs, watch } from 'vue'
+import { type ComponentInternalInstance, type ComputedRef, type Ref, computed, nextTick, onMounted, ref, toRefs, watch } from 'vue'
 import { VisuallyHiddenInput } from '@/VisuallyHidden'
 
 const props = withDefaults(defineProps<ComboboxRootProps>(), {
@@ -147,7 +149,7 @@ const isFormControl = computed(() =>
   parentElement.value ? Boolean(parentElement.value.closest('form')) : true,
 )
 
-provide(COMBOBOX_INJECT_KEY, {
+provideComboboxRootContext({
   searchTerm,
   modelValue,
   onValueChange,

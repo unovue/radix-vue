@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Presence } from '@/Presence'
-import ToastImpl, { type ToastImplEmits, type ToastImplProps } from './ToastImpl.vue'
+import ToastRootImpl, { type ToastRootImplEmits, type ToastRootImplProps } from './ToastRootImpl.vue'
 import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<ToastRootProps>(), {
@@ -9,7 +9,7 @@ const props = withDefaults(defineProps<ToastRootProps>(), {
 })
 const emits = defineEmits<ToastRootEmits>()
 
-export interface ToastRootProps extends ToastImplProps {
+export interface ToastRootProps extends ToastRootImplProps {
   defaultOpen?: boolean
   /**
    * Used to force mounting when more control is needed. Useful when
@@ -18,7 +18,7 @@ export interface ToastRootProps extends ToastImplProps {
   forceMount?: true
 }
 
-export type ToastRootEmits = ToastImplEmits & {
+export type ToastRootEmits = ToastRootImplEmits & {
   'update:open': [value: boolean]
 }
 
@@ -30,7 +30,7 @@ const open = useVModel(props, 'open', emits, {
 
 <template>
   <Presence :present="forceMount || open">
-    <ToastImpl
+    <ToastRootImpl
       :open="open"
       :type="type"
       :duration="duration"
@@ -70,6 +70,6 @@ const open = useVModel(props, 'open', emits, {
       }"
     >
       <slot />
-    </ToastImpl>
+    </ToastRootImpl>
   </Presence>
 </template>

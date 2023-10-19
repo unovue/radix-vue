@@ -8,16 +8,16 @@ export interface AvatarImageProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { inject, toRefs, watch } from 'vue'
+import { toRefs, watch } from 'vue'
 import { Primitive, type PrimitiveProps } from '../Primitive'
-import { AVATAR_INJECTION_KEY } from './AvatarRoot.vue'
+import { injectAvatarRootContext } from './AvatarRoot.vue'
 import { type ImageLoadingStatus, useImageLoadingStatus } from './utils'
 
 const props = withDefaults(defineProps<AvatarImageProps>(), { as: 'img' })
 const emits = defineEmits<AvatarImageEmits>()
 
 const { src } = toRefs(props)
-const context = inject(AVATAR_INJECTION_KEY)
+const rootContext = injectAvatarRootContext()
 
 const imageLoadingStatus = useImageLoadingStatus(src)
 
@@ -26,7 +26,7 @@ watch(
   (newValue) => {
     emits('loadingStatusChange', newValue)
     if (newValue !== 'idle')
-      context!.imageLoadingStatus.value = newValue
+      rootContext.imageLoadingStatus.value = newValue
   },
   { immediate: true },
 )

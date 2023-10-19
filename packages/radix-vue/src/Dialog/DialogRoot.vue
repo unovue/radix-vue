@@ -1,5 +1,6 @@
 <script lang="ts">
-import type { InjectionKey, Ref } from 'vue'
+import type { Ref } from 'vue'
+import { createContext, useId } from '@/shared'
 
 export interface DialogRootProps {
   open?: boolean
@@ -11,10 +12,7 @@ export type DialogRootEmits = {
   'update:open': [value: boolean]
 }
 
-export const DIALOG_INJECTION_KEY
-  = Symbol() as InjectionKey<DialogProvideValue>
-
-export interface DialogProvideValue {
+export interface DialogRootContext {
   open: Readonly<Ref<boolean>>
   modal: Ref<boolean>
   openModal(): void
@@ -26,12 +24,14 @@ export interface DialogProvideValue {
   titleId: string
   descriptionId: string
 }
+
+export const [injectDialogRootContext, provideDialogRootContext]
+  = createContext<DialogRootContext>('DialogRoot')
 </script>
 
 <script setup lang="ts">
-import { provide, ref, toRefs } from 'vue'
+import { ref, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { useId } from '@/shared'
 
 const props = withDefaults(defineProps<DialogRootProps>(), {
   open: undefined,
@@ -49,7 +49,8 @@ const open = useVModel(props, 'open', emit, {
 const triggerElement = ref<HTMLElement>()
 const contentElement = ref<HTMLElement>()
 const { modal } = toRefs(props)
-provide<DialogProvideValue>(DIALOG_INJECTION_KEY, {
+
+provideDialogRootContext({
   open,
   modal,
   openModal: () => {

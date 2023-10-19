@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue'
 import TooltipContentImpl, { type TooltipContentImplProps } from './TooltipContentImpl.vue'
-import { injectTooltipRootContent } from './TooltipRoot.vue'
+import { injectTooltipRootContext } from './TooltipRoot.vue'
 import { injectTooltipProviderContext } from './TooltipProvider.vue'
 import { usePrimitiveElement } from '@/Primitive'
 import { type Polygon, getExitSideFromRect, getHull, getPaddedExitPoints, getPointsFromRect, isPointInPolygon } from './utils'
@@ -9,7 +9,7 @@ import { type Polygon, getExitSideFromRect, getHull, getPaddedExitPoints, getPoi
 const props = defineProps<TooltipContentImplProps>()
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
-const { trigger, onClose } = injectTooltipRootContent()
+const { trigger, onClose } = injectTooltipRootContext()
 const providerContext = injectTooltipProviderContext()
 
 const pointerGraceArea = ref<Polygon | null>(null)

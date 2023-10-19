@@ -1,34 +1,37 @@
 <script lang="ts">
+import { createContext, useId } from '@/shared'
+import { injectComboboxRootContext } from './ComboboxRoot.vue'
+
 export interface ComboboxGroupProps extends PrimitiveProps {}
 
-interface SelectGroupContextValue {
+type ComboboxGroupContext = {
   id: string
   options?: Ref<Array<string | object>>
 }
-export const COMBOBOX_GROUP_INJECTION_KEY
-  = Symbol() as InjectionKey<SelectGroupContextValue>
+
+export const [injectComboboxGroupContext, provideComboboxGroupContext]
+  = createContext<ComboboxGroupContext>('ComboboxGroup')
 </script>
 
 <script setup lang="ts">
-import { type InjectionKey, type Ref, computed, inject, provide, ref } from 'vue'
+import { type Ref, computed, ref } from 'vue'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
-import { useId } from '@/shared'
-import { COMBOBOX_INJECT_KEY } from './ComboboxRoot.vue'
 
 const props = defineProps<ComboboxGroupProps>()
 
 const id = useId()
 const options = ref<Array<string | object>>([])
-provide(COMBOBOX_GROUP_INJECTION_KEY, {
+
+const rootContext = injectComboboxRootContext()
+const isAnyChildInFilteredOptions = computed(() =>
+  !rootContext.isUserInputted.value
+   || options.value.length === 0
+   || rootContext.filteredOptions.value.map(i => JSON.stringify(i)).some(i => options.value.map(i => JSON.stringify(i)).includes(i)))
+
+provideComboboxGroupContext({
   id,
   options,
 })
-
-const context = inject(COMBOBOX_INJECT_KEY)
-const isAnyChildInFilteredOptions = computed(() =>
-  !context?.isUserInputted.value
-   || options.value.length === 0
-   || context?.filteredOptions.value.map(i => JSON.stringify(i)).some(i => options.value.map(i => JSON.stringify(i)).includes(i)))
 </script>
 
 <template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { inject, onBeforeMount, onMounted, useSlots } from 'vue'
+import { onBeforeMount, onMounted, useSlots } from 'vue'
 import { shouldShowPlaceholder } from './utils'
-import { SELECT_INJECTION_KEY } from './SelectRoot.vue'
+import { injectSelectRootContext } from './SelectRoot.vue'
 import {
   Primitive,
   type PrimitiveProps,
@@ -20,16 +20,16 @@ withDefaults(defineProps<SelectValueProps>(), {
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
-const context = inject(SELECT_INJECTION_KEY)
+const rootContext = injectSelectRootContext()
 const slots = useSlots()
 
 onBeforeMount(() => {
   const hasChildren = !!renderSlotFragments(slots?.default?.()).length
-  context!.onValueElementHasChildrenChange(hasChildren)
+  rootContext.onValueElementHasChildrenChange(hasChildren)
 })
 
 onMounted(() => {
-  context!.valueElement = currentElement
+  rootContext.valueElement = currentElement
 })
 </script>
 
@@ -40,7 +40,7 @@ onMounted(() => {
     :as-child="asChild"
     :style="{ pointerEvents: 'none' }"
   >
-    <template v-if="shouldShowPlaceholder(context?.modelValue?.value)">
+    <template v-if="shouldShowPlaceholder(rootContext.modelValue?.value)">
       {{ placeholder }}
     </template>
 

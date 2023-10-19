@@ -8,8 +8,8 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed, inject, nextTick, ref, toRefs } from 'vue'
-import { CONTEXT_MENU_INJECTION_KEY } from './ContextMenuRoot.vue'
+import { computed, nextTick, ref, toRefs } from 'vue'
+import { injectContextMenuRootContext } from './ContextMenuRoot.vue'
 import { isTouchOrPen } from './utils'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { MenuAnchor } from '@/Menu'
@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<ContextMenuTriggerProps>(), {
 })
 const { disabled } = toRefs(props)
 
-const context = inject(CONTEXT_MENU_INJECTION_KEY)
+const rootContext = injectContextMenuRootContext()
 const point = ref<Point>({ x: 0, y: 0 })
 const virtualEl = computed(() => ({
   getBoundingClientRect: () =>
@@ -43,7 +43,7 @@ function clearLongPress() {
 
 function handleOpen(event: MouseEvent | PointerEvent) {
   point.value = { x: event.clientX, y: event.clientY }
-  context?.onOpenChange(true)
+  rootContext.onOpenChange(true)
 }
 
 async function handleContextMenu(event: PointerEvent) {
@@ -84,7 +84,7 @@ async function handlePointerEvent(event: PointerEvent) {
   <Primitive
     :as="as"
     :as-child="asChild"
-    :data-state="context?.open.value ? 'open' : 'closed'"
+    :data-state="rootContext.open.value ? 'open' : 'closed'"
     :data-disabled="disabled ? '' : undefined"
     :style="{
       WebkitTouchCallout: 'none',

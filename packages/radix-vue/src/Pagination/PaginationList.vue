@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { Primitive, type PrimitiveProps } from '@/Primitive'
-import { computed, inject } from 'vue'
-import { PAGINATION_CONTEXT_VALUE } from './PaginationRoot.vue'
+import { computed } from 'vue'
+import { injectPaginationRootContext } from './PaginationRoot.vue'
 import { getRange, transform } from './utils'
 
 export interface PaginationListProps extends PrimitiveProps { }
 const props = defineProps<PaginationListProps>()
 
-const context = inject(PAGINATION_CONTEXT_VALUE)
+const rootContext = injectPaginationRootContext()
 
 const transformedRange = computed(() => {
   return transform(
     getRange(
-      context!.page.value, context!.pageCount.value, context!.siblingCount.value, context!.showEdges.value,
+      rootContext.page.value, rootContext.pageCount.value, rootContext.siblingCount.value, rootContext.showEdges.value,
     ),
   )
 })

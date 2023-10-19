@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { inject } from 'vue'
 import MenuRootContentModal from './MenuRootContentModal.vue'
 import MenuRootContentNonModal from './MenuRootContentNonModal.vue'
-import { MENU_INJECTION_KEY, MENU_ROOT_INJECTION_KEY } from './MenuRoot.vue'
+import { injectMenuContext, injectMenuRootContext } from './MenuRoot.vue'
 import {
   type MenuContentImplEmits,
   type MenuRootContentProps,
@@ -16,16 +15,16 @@ export type MenuContentEmits = MenuContentImplEmits
 const props = defineProps<MenuContentProps>()
 const emits = defineEmits<MenuContentEmits>()
 
-const context = inject(MENU_INJECTION_KEY)
-const rootContext = inject(MENU_ROOT_INJECTION_KEY)
+const menuContext = injectMenuContext()
+const rootContext = injectMenuRootContext()
 
 const emitsAsProps = useEmitAsProps(emits)
 </script>
 
 <template>
-  <Presence :present="context!.open.value">
+  <Presence :present="menuContext.open.value">
     <MenuRootContentModal
-      v-if="rootContext?.modal.value"
+      v-if="rootContext.modal.value"
       v-bind="{ ...$attrs, ...props, ...emitsAsProps }"
     >
       <slot />

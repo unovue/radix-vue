@@ -20,6 +20,7 @@ const isLocked = useBodyScrollLock()
 watch(
   rootContext.open,
   isOpen => (isLocked.value = isOpen),
+  { immediate: true },
 )
 </script>
 

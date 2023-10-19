@@ -1,6 +1,6 @@
 ---
 title: Animation/Transition
-description: Animate Radix Primitives with CSS keyframes, JavaScript animation library of your choice or Native Vue Transition.
+description: Animate Radix Primitives with CSS keyframes, native Vue Transition or JavaScript animation library of your choice.
 ---
 
 
@@ -8,7 +8,7 @@ description: Animate Radix Primitives with CSS keyframes, JavaScript animation l
 # Animation
 
 <Description>
-Animate Radix Primitives with CSS keyframes, JavaScript animation library of your choice or Native Vue Transition.
+Animate Radix Primitives with CSS keyframes, native Vue Transition or JavaScript animation library of your choice.
 </Description>
 
 Adding animation to Radix Primitives should feel similar to any other component, but there are some caveats noted here in regards to exiting animations with JS animation libraries.
@@ -49,55 +49,118 @@ You can use CSS animation to animate both mount and unmount phases. The latter i
 }
 ```
 
-<!-- ::: info
-Source: [Radix UI](https://www.radix-ui.com/)
-::: -->
+## Animating with Vue Transition
 
-<EmbedIframe src="https://stackblitz.com/edit/vitejs-vite-y8mdxg?embed=1&file=index.html&view=preview" />
- 
+Other than using CSS animation, you might prefer to use the native Vue `<Transition>`. Great news! It should be as easy as wrapping component (that has `forceMount` prop), and you are done!
+
+```vue line=11,13,14,19,25-33
+<script setup lang="ts">
+import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger, } from 'radix-vue'
+</script>
+
+<template>
+  <DialogRoot v-model:open="open">
+    <DialogTrigger>
+      Edit profile
+    </DialogTrigger>
+    <DialogPortal>
+      <Transition name="fade">
+        <DialogOverlay />
+      </Transition>
+      <Transition name="fade">
+        <DialogContent>
+          <h1>Hello from inside the Dialog!</h1>
+          <DialogClose>Close</DialogClose>
+        </DialogContent>
+      </Transition>
+    </DialogPortal>
+  </DialogRoot>
+</template>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
+``` 
+
+::: tip
+Futhemore, we discovered that [Motion One](https://motion.dev/vue/quick-start), a Web Animations API based animation library works perfectly with Radix Vue.
+
+
+Check out this [Stackblitz Demo](https://stackblitz.com/edit/hfxgtx-n6jbjp?file=src%2FApp.vue) 🤩
+:::
+
+
 ## Delegating unmounting for JavaScript Animation
 
-When many stateful Primitives are hidden from view, they are actually removed from the DOM (similar to `v-if`). JavaScript animation libraries need control of the unmounting phase, so we provide the `forceMount` prop on many components to allow consumers to delegate the mounting and unmounting of children based on the animation state determined by those libraries.
 
-For example, if you want to use [@vueuse/motion](https://motion.vueuse.org/) to animate a `Dialog`, you would do so by conditionally rendering the dialog `Overlay` and `Content` parts based on the animation state from one of its hooks like `useTransition`:
+When many stateful Primitives are hidden from view, they are actually removed from the DOM. JavaScript animation libraries need control of the unmounting phase, so we provide the `forceMount` prop on many components to allow consumers to delegate the mounting and unmounting of children based on the animation state determined by those libraries.
 
-```jsx
-import * as Dialog from '@radix-ui/react-dialog'
-import { animated, config, useTransition } from 'react-spring'
+For example, if you want to use [@vueuse/motion](https://motion.vueuse.org/) to animate a `Dialog`, you would do so by conditionally rendering the dialog `Overlay` and `Content` parts based on the animation state from one of its composable like `useSpring`:
 
-function Example() {
-  const [open, setOpen] = React.useState(false)
-  const transitions = useTransition(open, {
-    from: { opacity: 0, y: -10 },
-    enter: { opacity: 1, y: 0 },
-    leave: { opacity: 0, y: 10 },
-    config: config.stiff,
-  })
-  return (
-    <Dialog.Root open={open} onOpenChange={setOpen}>
-      <Dialog.Trigger>Open Dialog</Dialog.Trigger>
-      {transitions((styles, item) =>
-        item
-          ? (
-          <>
-            <Dialog.Overlay forceMount asChild>
-              <animated.div
-                style={{
-                  opacity: styles.opacity,
-                }}
-              />
-            </Dialog.Overlay>
-            <Dialog.Content forceMount asChild>
-              <animated.div style={styles}>
-                <h1>Hello from inside the Dialog!</h1>
-                <Dialog.Close>close</Dialog.Close>
-              </animated.div>
-            </Dialog.Content>
-          </>
-            )
-          : null
-      )}
-    </Dialog.Root>
-  )
+
+```vue line=32,34,41
+<script setup lang="ts">
+import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger, } from 'radix-vue'
+import { reactive, ref, watch } from 'vue'
+import { useSpring } from '@vueuse/motion'
+
+const stages = {
+  initial: { opacity: 0, scale: 0, top: 0, },
+  enter: { opacity: 1, scale: 1, top: 50, },
+  leave: { opacity: 0, scale: 0.6, top: 30, },
 }
+
+const styles = reactive(stages.initial)
+const { set } = useSpring(styles, {
+  damping: 8,
+  stiffness: 200,
+})
+
+const open = ref(false)
+watch(open, () => {
+  if (open.value)
+    set(stages.enter)
+  else
+    set(stages.leave)
+})
+</script>
+
+<template>
+  <DialogRoot v-model:open="open">
+    <DialogTrigger>
+      Edit profile
+    </DialogTrigger>
+    <DialogPortal v-if="styles.opacity !== 0">
+      <DialogOverlay
+        force-mount
+        :style="{
+          opacity: styles.opacity,
+          transform: `scale(${styles.scale})`,
+        }"
+      />
+      <DialogContent
+        force-mount
+        :style="{
+          opacity: styles.opacity,
+          top: `${styles.top}%`,
+        }"
+      >
+        <h1>Hello from inside the Dialog!</h1>
+        <DialogClose>Close</DialogClose>
+      </DialogContent>
+    </DialogPortal>
+  </DialogRoot>
+</template>
 ``` 
+
+::: tip
+Check out this [Stackblitz Demo](https://stackblitz.com/edit/macsaz?file=src%2FApp.vue) 
+:::

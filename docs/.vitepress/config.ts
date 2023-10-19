@@ -124,7 +124,7 @@ function sidebar() {
       collapsed: false,
       items: [
         { text: 'Styling', link: '/guides/styling' },
-        { text: 'Animation', link: '/guides/animation' },
+        { text: 'Animation/Transition', link: '/guides/animation' },
         { text: 'Composition', link: '/guides/composition' },
         { text: 'Server side rendering', link: '/guides/server-side-rendering' },
       ],

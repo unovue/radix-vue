@@ -3,6 +3,7 @@ import { h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
 import HomePage from '../components/HomePage.vue'
 import HomePageDemo from '../components/HomePageDemo.vue'
+import EmbedIframe from '../components/EmbedIframe.vue'
 import LayoutShowcase from '../layouts/showcase.vue'
 import 'vitepress/dist/client/theme-default/styles/components/vp-doc.css'
 import './style.css'
@@ -29,5 +30,6 @@ export default {
       app.component(path.match(regex)?.[1] ?? '', (tableModules[path] as any)?.default)
 
     app.component('Showcase', LayoutShowcase)
+    app.component('EmbedIframe', EmbedIframe)
   },
 } satisfies Theme

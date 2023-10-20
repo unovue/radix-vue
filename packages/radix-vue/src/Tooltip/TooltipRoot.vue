@@ -80,7 +80,7 @@ const delayDuration = computed(() => props.delayDuration ?? providerContext.dela
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: (props.open === undefined) as false,
-})
+}) as Ref<boolean>
 
 watch(open, (isOpen) => {
   if (!providerContext.onClose)

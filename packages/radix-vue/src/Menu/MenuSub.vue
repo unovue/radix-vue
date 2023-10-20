@@ -37,7 +37,7 @@ const emits = defineEmits<{
 const open = useVModel(props, 'open', emits, {
   defaultValue: false,
   passive: (props.open === undefined) as false,
-})
+}) as Ref<boolean>
 
 const parentMenuContext = injectMenuContext()
 const trigger = ref<HTMLElement>()

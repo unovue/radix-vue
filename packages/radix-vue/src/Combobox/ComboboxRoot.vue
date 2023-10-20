@@ -78,7 +78,7 @@ const modelValue = useVModel(props, 'modelValue', emit, {
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: (props.open === undefined) as false,
-})
+}) as Ref<boolean>
 
 async function onOpenChange(val: boolean) {
   open.value = val

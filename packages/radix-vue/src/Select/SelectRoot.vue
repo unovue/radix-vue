@@ -73,7 +73,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 const open = useVModel(props, 'open', emits, {
   defaultValue: props.defaultOpen,
   passive: (props.open === undefined) as false,
-})
+}) as Ref<boolean>
 
 const triggerElement = ref<HTMLElement>()
 const valueElement = ref<HTMLElement>()

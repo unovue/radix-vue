@@ -2,6 +2,7 @@
 import { Presence } from '@/Presence'
 import ToastRootImpl, { type ToastRootImplEmits, type ToastRootImplProps } from './ToastRootImpl.vue'
 import { useVModel } from '@vueuse/core'
+import type { Ref } from 'vue'
 
 const props = withDefaults(defineProps<ToastRootProps>(), {
   type: 'foreground',
@@ -26,7 +27,7 @@ export type ToastRootEmits = ToastRootImplEmits & {
 const open = useVModel(props, 'open', emits, {
   defaultValue: props.defaultOpen,
   passive: (props.open === undefined) as false,
-})
+}) as Ref<boolean>
 </script>
 
 <template>

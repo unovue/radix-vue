@@ -37,7 +37,7 @@ const emit = defineEmits<CollapsibleRootEmits>()
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: (props.open === undefined) as false,
-})
+}) as Ref<boolean>
 
 const disabled = useVModel(props, 'disabled')
 

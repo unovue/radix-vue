@@ -44,7 +44,7 @@ const { openDelay, closeDelay } = toRefs(props)
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: (props.open === undefined) as false,
-})
+}) as Ref<boolean>
 
 const openTimerRef = ref(0)
 const closeTimerRef = ref(0)

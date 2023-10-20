@@ -51,7 +51,7 @@ const { modal } = toRefs(props)
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: (props.open === undefined) as false,
-})
+}) as Ref<boolean>
 
 const triggerElement = ref<HTMLElement>()
 const hasCustomAnchor = ref(false)

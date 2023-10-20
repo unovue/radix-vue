@@ -42,7 +42,7 @@ const { disabled } = toRefs(props)
 const checked = useVModel(props, 'checked', emit, {
   defaultValue: props.defaultChecked,
   passive: (props.checked === undefined) as false,
-})
+}) as Ref<boolean>
 
 function toggleCheck() {
   if (disabled.value)

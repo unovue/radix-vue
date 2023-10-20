@@ -10,7 +10,7 @@ const switchState = ref(true)
     <Variant title="default">
       <div class="flex gap-2 items-center">
         <label
-          className="text-white text-[15px] leading-none pr-[15px]"
+          class="text-white text-[15px] leading-none pr-[15px]"
           for="airplane-mode"
         >
           Airplane mode

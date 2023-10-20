@@ -101,7 +101,6 @@ provideScrollAreaScrollbarContext({
     v-else-if="rootContext.type.value === 'always'"
     v-bind="$attrs"
     data-state="visible"
-    :force-mount="forceMount"
   >
     <slot />
   </ScrollAreaScrollbarVisible>

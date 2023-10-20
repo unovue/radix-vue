@@ -4,9 +4,18 @@ import { useDebounceFn, useResizeObserver } from '@vueuse/core'
 import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
 import { injectScrollAreaScrollbarContext } from './ScrollAreaScrollbar.vue'
 import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
+import { Presence } from '@/Presence'
+import { useForwardRef } from '@/shared'
+
+export interface ScrollAreaScrollbarAutoProps {
+  forceMount?: boolean
+}
+defineProps<ScrollAreaScrollbarAutoProps>()
 
 const rootContext = injectScrollAreaRootContext()
 const scrollbarContext = injectScrollAreaScrollbarContext()
+
+const forwardRef = useForwardRef()
 
 const visible = ref(false)
 
@@ -32,11 +41,13 @@ useResizeObserver(rootContext.content, handleResize)
 </script>
 
 <template>
-  <ScrollAreaScrollbarVisible
-    v-if="visible"
-    v-bind="$attrs"
-    :data-state="visible ? 'visible' : 'hidden'"
-  >
-    <slot />
-  </ScrollAreaScrollbarVisible>
+  <Presence :present="forceMount || visible">
+    <ScrollAreaScrollbarVisible
+      v-bind="$attrs"
+      ref="forwardRef"
+      :data-state="visible ? 'visible' : 'hidden'"
+    >
+      <slot />
+    </ScrollAreaScrollbarVisible>
+  </Presence>
 </template>

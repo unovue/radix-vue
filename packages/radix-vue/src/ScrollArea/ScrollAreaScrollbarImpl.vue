@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
+import { type ComponentPublicInstance, onMounted, onUnmounted, ref } from 'vue'
 import { useResizeObserver } from '@vueuse/core'
 import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
 import { injectScrollAreaScrollbarVisibleContext } from './ScrollAreaScrollbarVisible.vue'
 import { injectScrollAreaScrollbarContext } from './ScrollAreaScrollbar.vue'
 import { toInt } from './utils'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { useForwardRef } from '@/shared'
 
 const props = defineProps<ScrollAreaScrollbarImplProps>()
 const emit = defineEmits<{
@@ -22,6 +23,7 @@ export interface ScrollAreaScrollbarImplProps {
 }
 
 const { primitiveElement, currentElement: scrollbar } = usePrimitiveElement()
+const forwardRef = useForwardRef()
 const prevWebkitUserSelectRef = ref('')
 const rectRef = ref<DOMRect>()
 
@@ -117,7 +119,10 @@ useResizeObserver(rootContext.content, handleSizeChange)
 
 <template>
   <Primitive
-    ref="primitiveElement"
+    :ref="vnode => {
+      forwardRef(vnode)
+      primitiveElement = vnode as ComponentPublicInstance
+    }"
     style="position: absolute"
     data-scrollbarimpl
     :as="scrollbarContext.as.value"

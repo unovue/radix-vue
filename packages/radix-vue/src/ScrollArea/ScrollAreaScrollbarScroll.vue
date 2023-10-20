@@ -5,9 +5,18 @@ import { useStateMachine } from '../shared/useStateMachine'
 import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
 import { injectScrollAreaScrollbarContext } from './ScrollAreaScrollbar.vue'
 import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
+import { Presence } from '@/Presence'
+import { useForwardRef } from '@/shared'
+
+export interface ScrollAreaScrollbarScrollProps {
+  forceMount?: boolean
+}
+defineProps<ScrollAreaScrollbarScrollProps>()
 
 const rootContext = injectScrollAreaRootContext()
 const scrollbarContext = injectScrollAreaScrollbarContext()
+
+const forwardRef = useForwardRef()
 
 const { state, dispatch } = useStateMachine('hidden', {
   hidden: {
@@ -62,7 +71,9 @@ watchEffect(() => {
 </script>
 
 <template>
-  <ScrollAreaScrollbarVisible v-if="state !== 'hidden'" v-bind="$attrs">
-    <slot />
-  </ScrollAreaScrollbarVisible>
+  <Presence :present="forceMount || state !== 'hidden'">
+    <ScrollAreaScrollbarVisible v-bind="$attrs" ref="forwardRef">
+      <slot />
+    </ScrollAreaScrollbarVisible>
+  </Presence>
 </template>

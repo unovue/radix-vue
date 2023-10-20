@@ -179,13 +179,7 @@ function handleKeyDown(event: KeyboardEvent) {
       const currentIndex = candidateNodes.indexOf(currentElement)
       candidateNodes = candidateNodes.slice(currentIndex + 1)
     }
-
-    /**
-     * Imperative focus during keydown is risky so we prevent React's batching updates
-     * to avoid potential bugs. See: https://github.com/facebook/react/issues/20332
-     */
     setTimeout(() => focusFirst(candidateNodes))
-
     event.preventDefault()
   }
 }

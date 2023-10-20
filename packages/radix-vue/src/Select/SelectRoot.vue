@@ -119,7 +119,7 @@ const nativeOptionsSet = ref<Set<VNode>>(new Set())
 // The native `select` only associates the correct default value if the corresponding
 // `option` is rendered as a child **at the same time** as itself.
 // Because it might take a few renders for our items to gather the information to build
-// the native `option`(s), we generate a key on the `select` to make sure React re-builds it
+// the native `option`(s), we generate a key on the `select` to make sure Vue re-builds it
 // each time the options change.
 const nativeSelectKey = computed(() => {
   return Array.from(nativeOptionsSet.value)

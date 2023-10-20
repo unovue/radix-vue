@@ -1,5 +1,6 @@
 import { getParameters } from 'codesandbox/lib/api/define'
 import sdk from '@stackblitz/sdk'
+import { version } from '../../package.json'
 
 export function makeCodeSandboxParams(componentName: string, sources: Record<string, string>) {
   let files = {}
@@ -52,7 +53,7 @@ export default defineConfig({
 function constructFiles(componentName: string, sources: Record<string, string>) {
   const dependencies = {
     'vue': 'latest',
-    'radix-vue': 'latest',
+    'radix-vue': version,
     '@radix-ui/colors': 'latest',
     '@iconify/vue': 'latest',
   }

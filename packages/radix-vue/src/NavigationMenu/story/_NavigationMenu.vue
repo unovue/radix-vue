@@ -65,7 +65,7 @@ const currentTrigger = ref('')
                     Radix Primitives
                   </div>
                   <p class="text-mauve4 text-[14px] leading-[1.3]">
-                    Unstyled, accessible components for React.
+                    Unstyled, accessible components for Vue.
                   </p>
                 </NavigationMenuLink>
               </li>

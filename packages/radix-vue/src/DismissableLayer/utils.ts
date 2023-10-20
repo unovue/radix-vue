@@ -108,7 +108,7 @@ export function usePointerDownOutside(
      * if this hook executes in a component that mounts via a `pointerdown` event, the event
      * would bubble up to the document and trigger a `pointerDownOutside` event. We avoid
      * this by delaying the event listener registration on the document.
-     * This is not React specific, but rather how the DOM works, ie:
+     * This is how the DOM works, ie:
      * ```
      * button.addEventListener('pointerdown', () => {
      *   console.log('I will log');
@@ -134,7 +134,7 @@ export function usePointerDownOutside(
 }
 
 /**
- * Listens for when focus happens outside a react subtree.
+ * Listens for when focus happens outside a DOM subtree.
  * Returns props to pass to the root (node) of the subtree we want to check.
  */
 export function useFocusOutside(

@@ -31,7 +31,7 @@ export default defineConfig({
       {
         name: 'keywords',
         content:
-          'vitest, vite, test, coverage, snapshot, react, vue, preact, svelte, solid, lit, ruby, cypress, puppeteer, jsdom, happy-dom, test-runner, jest, typescript, esm, tinypool, tinyspy, node',
+          'vue, nuxt, component-library, radix, radix-vue, typescript',
       },
     ],
     ['meta', { property: 'og:title', content: radixVueName }],

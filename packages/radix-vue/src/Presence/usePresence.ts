@@ -70,13 +70,8 @@ export function usePresence(
     const isCurrentAnimation = currentAnimationName.includes(
       event.animationName,
     )
-    if (event.target === node.value && isCurrentAnimation) {
-      // With React 18 concurrency this update is applied
-      // a frame after the animation ends, creating a flash of visible content.
-      // By manually flushing we ensure they sync within a frame, removing the flash.
-      // ReactDOM.flushSync(() => dispatch("ANIMATION_END"));
+    if (event.target === node.value && isCurrentAnimation)
       dispatch('ANIMATION_END')
-    }
   }
   const handleAnimationStart = (event: AnimationEvent) => {
     if (event.target === node.value) {

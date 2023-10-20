@@ -215,7 +215,7 @@ The toast that automatically closes. It should not be held open to [acquire a us
       name: 'forceMount',
       type: 'boolean',
       description:
-        'Used to force mounting when more control is needed. Useful when controlling animation with React animation libraries.',
+        'Used to force mounting when more control is needed. Useful when controlling animation with Vue animation libraries.',
     },
   ]"
 />

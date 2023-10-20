@@ -222,7 +222,7 @@ The part that reflects the selected value. By default the selected item's text w
     {
       name: 'placeholder',
       required: false,
-      type: 'ReactNode',
+      type: 'string',
       description: 'The content that will be rendered inside the <Code>SelectValue</Code> when no <Code>value</Code> or <Code>defaultValue</Code> is set.',
     },
     {

@@ -42,7 +42,7 @@ const currentTrigger = ref('')
                 >
                   <img class="w-16" src="https://www.radix-vue.com/logo.svg">
                   <div class="mt-4 mb-[7px] text-[18px] font-medium leading-[1.2] text-white">Radix Primitives</div>
-                  <p class="text-mauve4 text-[14px] leading-[1.3]">Unstyled, accessible components for React.</p>
+                  <p class="text-mauve4 text-[14px] leading-[1.3]">Unstyled, accessible components for Vue.</p>
                 </a>
               </NavigationMenuLink>
             </li>

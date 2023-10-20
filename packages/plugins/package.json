@@ -21,6 +21,6 @@
     "@nuxt/schema": "latest",
     "radix-vue": "file:../radix-vue",
     "unbuild": "^2.0.0",
-    "unplugin-vue-components": "^0.25.1"
+    "unplugin-vue-components": "^0.25.2"
   }
 }

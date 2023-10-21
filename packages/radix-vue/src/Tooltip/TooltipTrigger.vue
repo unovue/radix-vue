@@ -54,7 +54,8 @@ onMounted(() => {
       :data-state="rootContext.stateAttribute.value"
       :as="as"
       :as-child="props.asChild"
-      @pointermove="(event) => {
+      @pointermove="(event: PointerEvent) => {
+        if (event.defaultPrevented) return;
         if (event.pointerType === 'touch') return;
         if (
           !hasPointerMoveOpened && !providerContext.isPointerInTransitRef.value
@@ -63,16 +64,28 @@ onMounted(() => {
           hasPointerMoveOpened = true;
         }
       }"
-      @pointerleave="(event) => {
+      @pointerleave="(event: PointerEvent) => {
+        if (event.defaultPrevented) return;
         rootContext.onTriggerLeave();
         hasPointerMoveOpened = false;
       }"
-      @pointerdown="handlePointerDown"
-      @focus="() => {
+      @pointerdown="(event: PointerEvent) => {
+        if (!event.defaultPrevented) {
+          handlePointerDown()
+        }
+      }"
+      @focus="(event: FocusEvent) => {
+        if (event.defaultPrevented) return;
         if (!isPointerDown) rootContext.onOpen()
       }"
-      @blur="rootContext.onClose()"
-      @click="rootContext.onClose()"
+      @blur="(event: FocusEvent) => {
+        if (event.defaultPrevented) return;
+        rootContext.onClose()
+      }"
+      @click="(event: MouseEvent) => {
+        if (event.defaultPrevented) return;
+        rootContext.onClose()
+      }"
     >
       <slot />
     </Primitive>

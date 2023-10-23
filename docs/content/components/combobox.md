@@ -955,9 +955,32 @@ import {
 </template>
 ```
 
+### Prevent select behavior
 
+By default, selecting `ComboboxItem` would close the content, and update the `modelValue` with the provided value. 
+You can prevent this behavior by preventing default `@select.prevent`.
+ 
 
+```vue line=11
+<script setup lang="ts">
+import { ref } from 'vue'
+import { ComboboxContent, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxPortal, ComboboxRoot } from 'radix-vue'
+</script>
 
+<template>
+  <ComboboxRoot>
+    <ComboboxInput />
+    <ComboboxPortal>
+      <ComboboxContent>
+        <ComboboxItem @select.prevent>
+          Item A
+        </ComboboxItem>
+        …
+      </ComboboxContent>
+    </ComboboxPortal>
+  </ComboboxRoot>
+</template>
+```
 
 ## Accessibility
 

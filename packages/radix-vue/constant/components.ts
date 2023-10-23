@@ -271,6 +271,10 @@ export const components = {
     'ScrollAreaCorner',
   ],
 
+  ConfigProvider: [
+    'ConfigProvider',
+  ],
+
   Primitive: [
     'Primitive',
     'Slot',

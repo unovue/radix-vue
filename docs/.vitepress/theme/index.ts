@@ -3,6 +3,7 @@ import { h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
 import HomePage from '../components/HomePage.vue'
 import HomePageDemo from '../components/HomePageDemo.vue'
+import Annoucement from '../components/Annoucement.vue'
 import EmbedIframe from '../components/EmbedIframe.vue'
 import LayoutShowcase from '../layouts/showcase.vue'
 import 'vitepress/dist/client/theme-default/styles/components/vp-doc.css'
@@ -18,6 +19,7 @@ export default {
   extends: DefaultTheme,
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
+      'home-hero-prelink': () => h(Annoucement),
       // https://vitepress.dev/guide/extending-default-theme#layout-slots
       'home-features-after': () => h('div', [h(HomePageDemo), h(HomePage)]),
     })

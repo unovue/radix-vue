@@ -52,8 +52,8 @@ export interface ComboboxRootProps extends PrimitiveProps {
 import { PopperRoot } from '@/Popper'
 import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
 import type { Direction } from '@/shared/types'
-import { useVModel } from '@vueuse/core'
-import { type ComponentInternalInstance, type ComputedRef, type Ref, computed, nextTick, onMounted, ref, toRaw, toRefs, watch } from 'vue'
+import { computedWithControl, useVModel } from '@vueuse/core'
+import { type ComponentInternalInstance, type ComputedRef, type Ref, computed, nextTick, ref, toRaw, toRefs, watch } from 'vue'
 import { VisuallyHiddenInput } from '@/VisuallyHidden'
 
 const props = withDefaults(defineProps<ComboboxRootProps>(), {
@@ -87,16 +87,13 @@ async function onOpenChange(val: boolean) {
     inputElement.value?.focus()
   if (!val)
     isUserInputted.value = false
-  if (!val && !multiple.value && typeof modelValue.value === 'string')
-    searchTerm.value = modelValue.value
 
   scrollSelectedValueIntoView()
 }
 
 function onValueChange(val: string | object) {
-  searchTerm.value = (typeof val === 'string' && !multiple.value) ? val : ''
   if (multiple.value && Array.isArray(modelValue.value)) {
-    const index = modelValue.value.findIndex(i => i === val)
+    const index = modelValue.value.findIndex(i => toRaw(i) === val)
     index === -1 ? modelValue.value.push(val as never) : modelValue.value.splice(index, 1)
   }
   else {
@@ -115,9 +112,6 @@ const { createCollection } = useCollection(undefined, 'data-radix-vue-combobox-i
 const collections = createCollection(contentElement)
 
 const selectedValue = ref<string | object>()
-const selectedElement = computed(() => {
-  return Array.from(optionsInstance.value).find(i => toRaw(i.props.value) === toRaw(selectedValue.value))?.vnode.el as HTMLElement | null
-})
 
 const options = computed(() => {
   const instances = Array.from(optionsInstance.value)
@@ -139,23 +133,31 @@ const filteredOptions = computed(() => {
 })
 
 const activeIndex = computed(() => filteredOptions.value.findIndex(i => JSON.stringify(i) === JSON.stringify(selectedValue.value)))
+const selectedElement = computedWithControl([selectedValue, filteredOptions], () => {
+  return Array.from(optionsInstance.value).find(i => toRaw(i.props.value) === toRaw(selectedValue.value))?.vnode.el as HTMLElement | null
+})
 
 watch(() => filteredOptions.value.length, (length) => {
   if (length && activeIndex.value === -1)
     selectedValue.value = filteredOptions.value[0]
 })
 
-onMounted(() => {
-  if (typeof modelValue.value === 'string')
-    searchTerm.value = modelValue.value
-})
+watch(modelValue, async (val) => {
+  await nextTick()
+  selectedValue.value = val
+  if (typeof val === 'string' && !multiple.value)
+    searchTerm.value = val
+  else
+    searchTerm.value = ''
+}, { immediate: true })
 
 const isFormControl = useFormControl(parentElement)
 
 function scrollSelectedValueIntoView() {
   // Find the highlighted element and scroll into view
   // We can put this in Item, but we avoid having too many watcher
-  selectedElement.value?.scrollIntoView({ block: 'nearest' })
+  if (selectedElement.value instanceof Element)
+    selectedElement.value.scrollIntoView({ block: 'nearest' })
 }
 
 provideComboboxRootContext({
@@ -190,12 +192,9 @@ provideComboboxRootContext({
 
     scrollSelectedValueIntoView()
   },
-  onInputEnter: () => {
-    if (selectedValue.value) {
-      if (selectedElement.value)
-        selectedElement.value?.click()
-      else onValueChange(selectedValue.value)
-    }
+  onInputEnter: async () => {
+    if (selectedValue.value && selectedElement.value instanceof Element)
+      selectedElement.value?.click()
   },
   selectedValue,
   onSelectedValueChange: val => selectedValue.value = val,

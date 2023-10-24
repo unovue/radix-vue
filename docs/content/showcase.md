@@ -7,7 +7,7 @@ packages:
   - title: '...'
     description: Component library built on top of Radix Vue 
     url: https://github.com/radix-vue
-    image: /new-ui.png
+    image: /new-ui.jpg
 
   - title: Shadcn Vue
     description: An unofficial, community-led Vue port of shadcn/ui.

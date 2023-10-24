@@ -128,6 +128,12 @@ The link that opens the hover card when hovered.
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'a',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -168,6 +174,12 @@ The component that pops out when the hover card is open.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -298,6 +310,12 @@ An optional arrow element to render alongside the hover card. This can be used t
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'svg',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,

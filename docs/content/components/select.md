@@ -187,6 +187,12 @@ The button that toggles the Select The `SelectContent` will position itself by a
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'button',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -226,6 +232,12 @@ The part that reflects the selected value. By default the selected item's text w
       description: 'The content that will be rendered inside the <Code>SelectValue</Code> when no <Code>value</Code> or <Code>defaultValue</Code> is set.',
     },
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'span',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -241,6 +253,12 @@ A small icon often displayed next to the value as a visual affordance for the fa
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'span',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -345,6 +363,12 @@ The component that pops out when the select is open.
       description: '<span> Whether to hide the content when the trigger becomes fully occluded. Only available when <Code>position</Code> is set to <Code>popper</Code>. </span>',
     },
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -423,6 +447,12 @@ The scrolling viewport that contains all of the items.
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -453,6 +483,12 @@ The component that contains the select items.
       name: 'textValue',
       type: 'string',
       description: '<span> Optional text used for typeahead purposes. By default the typeahead behavior will use the <Code>.textContent</Code> of the <Code>SelectItemText</Code> part. Use this when the content is complex, or you have non-textual content inside. </span>',
+    },
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
     },
     {
       name: 'asChild',
@@ -488,6 +524,12 @@ The textual part of the item. It should only contain the text you want to see in
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'span',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -503,6 +545,12 @@ Renders when the item is selected. You can style this element directly, or you c
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'span',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -520,6 +568,12 @@ An optional button used as an affordance to show the viewport overflow as well a
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -535,6 +589,12 @@ An optional button used as an affordance to show the viewport overflow as well a
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -552,6 +612,12 @@ Used to group multiple items. use in conjunction with `SelectLabel` to ensure go
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -567,6 +633,12 @@ Used to render the label of a group. It won't be focusable using arrow keys.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'label',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -584,6 +656,12 @@ Used to visually separate items in the Select
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -599,6 +677,12 @@ An optional arrow element to render alongside the content. This can be used to h
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'svg',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,

@@ -77,6 +77,12 @@ Contains all the parts of a checkbox. An `input` will also render when used with
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -149,6 +155,12 @@ Renders when the checkbox is in a checked or indeterminate state. You can style 
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'span',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,

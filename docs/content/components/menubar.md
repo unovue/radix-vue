@@ -180,6 +180,12 @@ Contains all the parts of a menubar
       `,
     },
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -217,14 +223,7 @@ A top level menu item, contains a trigger with content combination.
           uncontrolled.
         </span>
       `,
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
+    }
   ]"
 />
 
@@ -234,6 +233,12 @@ The button that toggles the content. By default, the `MenubarContent` will posit
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'button',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -422,6 +427,12 @@ The component that pops out when a menu is open.
       `,
     },
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -535,6 +546,12 @@ An optional arrow element to render alongside a menubar menu. This can be used t
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'svg',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -584,6 +601,12 @@ The component that contains the menubar items.
       `,
     },
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -623,6 +646,12 @@ Used to group multiple `MenubarItem`s.
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -638,6 +667,12 @@ Used to render a label. It won't be focusable using arrow keys.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'label',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -684,6 +719,12 @@ An item that can be controlled and rendered like a checkbox.
           when the content is complex, or you have non-textual content inside.
         </span>
       `,
+    },
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
     },
     {
       name: 'asChild',
@@ -734,6 +775,12 @@ Used to group multiple `MenubarRadioItem`s.
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -764,6 +811,12 @@ An item that can be controlled and rendered like a radio.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -828,6 +881,12 @@ Renders when the parent `MenubarCheckboxItem` or `MenubarRadioItem` is checked. 
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'span',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -859,6 +918,12 @@ Used to visually separate items in a menubar menu.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -908,6 +973,12 @@ An item that opens a submenu. Must be rendered inside `MenubarSub`.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -1053,6 +1124,12 @@ The component that pops out when a submenu is open. Must be rendered inside `Men
           Whether to hide the content when the trigger becomes fully occluded.
         </span>
       `,
+    },
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
     },
     {
       name: 'asChild',

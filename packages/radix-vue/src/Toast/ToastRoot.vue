@@ -8,6 +8,7 @@ const props = withDefaults(defineProps<ToastRootProps>(), {
   type: 'foreground',
   open: undefined,
   defaultOpen: true,
+  as: 'li',
 })
 const emits = defineEmits<ToastRootEmits>()
 
@@ -35,6 +36,8 @@ const open = useVModel(props, 'open', emits, {
     <ToastRootImpl
       :open="open"
       :type="type"
+      :as="as"
+      :as-child="asChild"
       :duration="duration"
       v-bind="$attrs"
       @close="open = false"

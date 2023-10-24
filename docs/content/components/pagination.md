@@ -140,6 +140,12 @@ Used to show the list of pages. It also makes pagination accessible to assistive
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -160,6 +166,12 @@ Used to render the button that changes the current page.
       name: 'value',
       type: 'number',
       description: 'Value for the page',
+    },
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'button',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
     },
     {
       name: 'asChild',
@@ -193,6 +205,12 @@ Placeholder element when the list is long, and only a small amount of `siblingCo
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -219,6 +237,12 @@ Triggers that set the page value to 1
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'button',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -237,6 +261,12 @@ Triggers that set the page value to the previous page
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'button',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -254,6 +284,12 @@ Triggers that set the page value to the next page
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'button',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -270,6 +306,12 @@ Triggers that set the page value to the last page
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'button',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,

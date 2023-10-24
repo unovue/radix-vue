@@ -176,6 +176,12 @@ The button that toggles the dropdown menu. By default, the `DropdownMenuContent`
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'button',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -295,6 +301,12 @@ The component that pops out when the dropdown menu is open.
       type: 'boolean',
       default: 'false',
       description: 'Whether to hide the content when the trigger becomes fully occluded.'
+    },
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
     },
     {
       name: 'asChild',
@@ -420,6 +432,12 @@ An optional arrow element to render alongside the dropdown menu. This can be use
       description: 'The height of the arrow in pixels.',
     },
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'svg',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -444,6 +462,12 @@ The component that contains the dropdown menu items.
       name: 'textValue',
       type: 'string',
       description: 'Optional text used for typeahead purposes. By default the typeahead behavior will use the <Code>.textContent</Code> of the item. Use this when the content is complex, or you have non-textual content inside.',
+    },
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
     },
     {
       name: 'asChild',
@@ -489,6 +513,12 @@ Used to group multiple `DropdownMenuItem`s.
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -504,6 +534,12 @@ Used to render a label. It won't be focusable using arrow keys.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'label',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -534,6 +570,12 @@ An item that can be controlled and rendered like a checkbox.
       name: 'textValue',
       type: 'string',
       description: 'Optional text used for typeahead purposes. By default the typeahead behavior will use the <Code>.textContent</Code> of the item. Use this when the content is complex, or you have non-textual content inside.',
+    },
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
     },
     {
       name: 'asChild',
@@ -589,6 +631,12 @@ Used to group multiple `DropdownMenuRadioItem`s.
       description: 'The value of the selected item in the group.',
     },
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -629,6 +677,12 @@ An item that can be controlled and rendered like a radio.
       name: 'textValue',
       type: 'string',
       description: 'Optional text used for typeahead purposes. By default the typeahead behavior will use the <Code>.textContent</Code> of the item. Use this when the content is complex, or you have non-textual content inside.',
+    },
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
     },
     {
       name: 'asChild',
@@ -674,6 +728,12 @@ Renders when the parent `DropdownMenuCheckboxItem` or `DropdownMenuRadioItem` is
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'span',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -703,6 +763,12 @@ Used to visually separate items in the dropdown menu.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -748,6 +814,12 @@ An item that opens a submenu. Must be rendered inside `DropdownMenuSub`.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -943,6 +1015,12 @@ The component that pops out when a submenu is open. Must be rendered inside `Dro
           Whether to hide the content when the trigger becomes fully occluded.
         </span>
       `,
+    },
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
     },
     {
       name: 'asChild',

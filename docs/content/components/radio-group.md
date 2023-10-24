@@ -126,6 +126,12 @@ Contains all the parts of a radio group.
       description: '<span> When <Code>true</Code>, keyboard navigation will loop from last item to first, and vice versa. </span>',
     },
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -161,6 +167,12 @@ An item in the group that can be checked. An `input` will also render when used 
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'button',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -205,6 +217,12 @@ Renders when the radio item is in a checked state. You can style this element di
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'span',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,

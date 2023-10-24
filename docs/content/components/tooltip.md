@@ -152,12 +152,19 @@ Contains all the parts of a tooltip.
 The button that toggles the tooltip. By default, the `TooltipContent` will position itself against the trigger.
 
 <PropsTable :data="[
-{
-name: 'asChild',
-required: false,
-type: 'boolean',
-default: 'false',
-description:'Change the default rendered element for the one passed as a child, merging their props and behavior. <br /> <br /> Read our <a href=&quot;../guides/composition&quot;>Composition</a> guide for more details.',},
+  {
+    name: 'as',
+    type: 'string | Component',
+    default: 'button',
+    description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+  },
+  {
+    name: 'asChild',
+    required: false,
+    type: 'boolean',
+    default: 'false',
+    description:'Change the default rendered element for the one passed as a child, merging their props and behavior. <br /> <br /> Read our <a href=&quot;../guides/composition&quot;>Composition</a> guide for more details.'
+  }
 ]" />
 
 <DataAttributesTable :data="[
@@ -268,6 +275,12 @@ The component that pops out when the tooltip is open.
       description: '<span> Whether to hide the content when the trigger becomes fully occluded.</span>',
     },
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -339,6 +352,12 @@ An optional arrow element to render alongside the tooltip. This can be used to h
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'svg',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,

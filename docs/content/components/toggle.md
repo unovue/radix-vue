@@ -86,6 +86,12 @@ The toggle.
       description: '<span> When <Code>true</Code>, prevents the user from interacting with the toggle.</span>',
     },
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'button',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',

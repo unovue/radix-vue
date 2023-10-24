@@ -133,6 +133,12 @@ Contains all the parts of a toggle group.
       description: '<span> When <Code>true</Code> and <Code>rovingFocus</Code> is <Code>true</Code>, keyboard navigation will loop from last item to first, and vice versa. </span>',
     },
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -167,6 +173,12 @@ An item in the group.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'button',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,

@@ -123,13 +123,21 @@ Contains all the parts of an alert dialog.
 
 A button that opens the dialog.
 
-<PropsTable :data="[{
-name: 'asChild',
-required: false,
-type: 'boolean',
-default: 'false',
-description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.'
-}]" />
+<PropsTable :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'trigger',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.'
+    }
+]" />
 
 <DataAttributesTable :data="[{
 attribute: '[data-state]',
@@ -157,6 +165,12 @@ A layer that covers the inert portion of the view when the dialog is open.
 
 <PropsTable :data="[
   {
+    name: 'as',
+    type: 'string | Component',
+    default: 'div',
+    description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+  },
+  {
     name: 'asChild',
     required: false,
     type: 'boolean',
@@ -183,6 +197,12 @@ Contains content to be rendered when the dialog is open.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -233,49 +253,81 @@ values: ['open', 'closed'],
 
 A button that closes the dialog. This button should be distinguished visually from `AlertDialogAction` buttons.
 
-<PropsTable :data="[{
-name: 'asChild',
-required: false,
-type: 'boolean',
-default: 'false',
-description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-}]" />
+<PropsTable :data="[
+  {
+    name: 'as',
+    type: 'string | Component',
+    default: 'button',
+    description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+  },
+  {
+    name: 'asChild',
+    required: false,
+    type: 'boolean',
+    default: 'false',
+    description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+  }
+]" />
 
 ### Action
 
 A button that closes the dialog. These buttons should be distinguished visually from the `AlertDialogCancel` button.
 
-<PropsTable :data="[{
-name: 'asChild',
-required: false,
-type: 'boolean',
-default: 'false',
-description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-}]" />
+<PropsTable :data="[
+  {
+    name: 'as',
+    type: 'string | Component',
+    default: 'button',
+    description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+  },
+  {
+    name: 'asChild',
+    required: false,
+    type: 'boolean',
+    default: 'false',
+    description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+  }
+]" />
 
 ### Title
 
 An accessible name to be announced when the dialog is opened. Alternatively, you can provide `aria-label` or `aria-labelledby` to `AlertDialogContent` and exclude this component.
 
-<PropsTable :data="[{
-name: 'asChild',
-required: false,
-type: 'boolean',
-default: 'false',
-description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-}]" />
+<PropsTable :data="[
+  {
+    name: 'as',
+    type: 'string | Component',
+    default: 'h2',
+    description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+  },
+  {
+    name: 'asChild',
+    required: false,
+    type: 'boolean',
+    default: 'false',
+    description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+  }
+]" />
 
 ### Description
 
 An accessible description to be announced when the dialog is opened. Alternatively, you can provide `aria-describedby` to `AlertDialogContent` and exclude this component.
 
-<PropsTable :data="[{
-name: 'asChild',
-required: false,
-type: 'boolean',
-default: 'false',
-description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-}]" />
+<PropsTable :data="[
+  {
+    name: 'as',
+    type: 'string | Component',
+    default: 'p',
+    description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+  },
+  {
+    name: 'asChild',
+    required: false,
+    type: 'boolean',
+    default: 'false',
+    description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+  }
+]" />
 
 ## Examples
 

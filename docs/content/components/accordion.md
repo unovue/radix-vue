@@ -84,6 +84,12 @@ Contains all the parts of an Accordion
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -165,7 +171,14 @@ Contains all the parts of an Accordion
 
 Contains all the parts of a collapsible section.
 
-<PropsTable :data="[{
+<PropsTable :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -204,7 +217,14 @@ Contains all the parts of a collapsible section.
 
 Wraps an `AccordionTrigger`. Use the `asChild` prop to update it to the appropriate heading level for your page.
 
-<PropsTable :data="[{
+<PropsTable :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'h3',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -230,7 +250,13 @@ Wraps an `AccordionTrigger`. Use the `asChild` prop to update it to the appropri
 
 Toggles the collapsed state of its associated item. It should be nested inside of an `AccordionHeader`.
 
-<PropsTable :data="[{
+<PropsTable :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'button',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },{
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -257,6 +283,12 @@ Toggles the collapsed state of its associated item. It should be nested inside o
 Contains the collapsible content for an item.
 
 <PropsTable :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,

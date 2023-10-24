@@ -81,6 +81,12 @@ The separator.
       description: '<span> When <Code>true</Code>, signifies that it is purely visual, carries no semantic meaning, and ensures it is not present in the accessibility tree.</span>',
     },
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',

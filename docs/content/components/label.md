@@ -73,9 +73,10 @@ Contains the content for the label.
 <PropsTable
   :data="[
     {
-      name: 'for',
-      type: 'string',
-      description: 'The id of the element the label is associated with.',
+      name: 'as',
+      type: 'string | Component',
+      default: 'label',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
     },
     {
       name: 'asChild',
@@ -83,6 +84,11 @@ Contains the content for the label.
       type: 'boolean',
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    },
+    {
+      name: 'for',
+      type: 'string',
+      description: 'The id of the element the label is associated with.',
     },
   ]"
 />

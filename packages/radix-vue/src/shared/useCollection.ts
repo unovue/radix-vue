@@ -19,7 +19,7 @@ type ContextValue = Ref<HTMLElement[]>
  * Composables for provide/inject collections
  * @param key (optional) Name to replace the default `Symbol()` as provide's key
  */
-export function useCollection(key?: string) {
+export function useCollection(key?: string, name = ITEM_DATA_ATTR) {
   const COLLECTION_SYMBOL = key ?? (Symbol() as InjectionKey<ContextValue>)
 
   const createCollection = (sourceRef?: Ref<HTMLElement | undefined>) => {
@@ -31,7 +31,7 @@ export function useCollection(key?: string) {
         return (items.value = [])
 
       return (items.value = Array.from(
-        sourceEl.querySelectorAll(`[${ITEM_DATA_ATTR}]:not([data-disabled=true])`),
+        sourceEl.querySelectorAll(`[${name}]:not([data-disabled=true])`),
       ) as HTMLElement[])
     }
 

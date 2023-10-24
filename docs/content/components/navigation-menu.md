@@ -1,6 +1,6 @@
 ---
-metaTitle: Navigation Menu
-metaDescription: A collection of links for navigating websites.
+title: Navigation Menu
+description: A collection of links for navigating websites.
 name: navigation-menu
 aria: https://www.w3.org/TR/wai-aria/#navigation
 ---
@@ -253,6 +253,12 @@ Contains the top level menu items.
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'ul',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -282,6 +288,12 @@ A top level menu item, contains a link or trigger with content combination.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'li',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -316,6 +328,12 @@ The button that toggles the content.
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'button',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -349,6 +367,12 @@ Contains the content associated with each trigger.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -459,6 +483,12 @@ A navigational link.
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'a',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -509,6 +539,12 @@ An optional indicator element that renders below the list, is used to highlight 
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'span',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -552,6 +588,12 @@ An optional viewport element that is used to render active content outside of th
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -650,7 +692,7 @@ Use the `Viewport` part when you need extra control over where `Content` is rend
 requires an adjusted DOM structure or if you need flexibility to achieve [advanced animation](/components/navigation-menu#advanced-animation).
 Tab focus will be maintained automatically.
 
-```vue line=7,17,21
+```vue line=26
 <script setup lang="ts">
 import {
   NavigationMenuContent,
@@ -675,7 +717,7 @@ import {
       </NavigationMenuItem>
     </NavigationMenuList>
 
-    {/* NavigationMenuContent will be rendered here when active */}
+    <!-- NavigationMenuContent will be rendered here when active  -->
     <NavigationMenuViewport />
   </NavigationMenuRoot>
 </template>
@@ -735,7 +777,7 @@ Create a submenu by nesting your `NavigationMenu` and using the `Sub` part in pl
 Submenus work differently to `Root` navigation menus and are similar to [`Tabs`](/components/tabs) in that one item should always be active, so be
 sure to assign and set a `defaultValue`.
 
-```vue line=9,23-38
+```vue line=7,23-34
 <script setup lang="ts">
 import {
   NavigationMenuContent,
@@ -779,10 +821,10 @@ import {
 
 ### With client side routing
 
-If you need to use the `RouterLink` component provided by your routing package then we recommend adding `asChild="true"` to `NavigationMenuLink`.
-This will ensure accessibility and consistent keyboard control is maintained. Here's an example using Next.js:
+If you need to use the `RouterLink` component provided by your routing package then we recommend adding `asChild="true"` to `NavigationMenuLink`, or setting `as="RouterLink"`.
+This will ensure accessibility and consistent keyboard control is maintained:
 
-```vue line=10-12,15-17
+```vue line=12-14,19-21
 <script setup lang="ts">
 import { NavigationMenuItem, NavigationMenuList, NavigationMenuRoot } from 'radix-vue'
 
@@ -801,12 +843,9 @@ import { NavigationMenuItem, NavigationMenuList, NavigationMenuRoot } from 'radi
         </navigationmenulink>
       </NavigationMenuItem>
       <NavigationMenuItem>
-        <NavigationMenuLink as-child>
-          <RouterLink to="/about">
-            About
-          </RouterLink>
-          <NavigationMenuLink />
-        </navigationmenulink>
+        <NavigationMenuLink :as="RouterLink" to="/about">
+          About
+        </NavigationMenuLink>
       </NavigationMenuItem>
     </NavigationMenuList>
   </NavigationMenuRoot>

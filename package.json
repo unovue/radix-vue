@@ -1,8 +1,8 @@
 {
   "name": "radix-vue",
-  "version": "0.4.1",
+  "version": "1.0.0-beta.3",
   "private": true,
-  "packageManager": "pnpm@8.6.3",
+  "packageManager": "pnpm@8.9.2",
   "license": "MIT",
   "repository": "radix-vue/radix-vue",
   "workspaces": [
@@ -22,20 +22,25 @@
     "pub:release": "cd packages/radix-vue && pnpm pub:release"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.39.7",
-    "@commitlint/cli": "^17.7.1",
-    "@commitlint/config-conventional": "^17.7.0",
+    "@antfu/eslint-config": "^0.39.8",
+    "@commitlint/cli": "^17.8.0",
+    "@commitlint/config-conventional": "^17.8.0",
     "bumpp": "^9.2.0",
-    "eslint": "^8.43.0",
-    "lint-staged": "^14.0.0",
-    "pnpm": "^8.6.12",
-    "rimraf": "^5.0.1",
+    "eslint": "^8.51.0",
+    "lint-staged": "^14.0.1",
+    "pnpm": "^8.9.2",
+    "rimraf": "^5.0.5",
     "simple-git-hooks": "^2.9.0"
   },
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
     ]
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "vitepress@1.0.0-rc.20": "patches/vitepress@1.0.0-rc.20.patch"
+    }
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged",

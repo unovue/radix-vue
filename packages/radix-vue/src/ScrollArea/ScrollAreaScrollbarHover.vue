@@ -1,9 +1,16 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
 import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
-import ScrollAreaScrollbarAuto from './ScrollAreaScrollbarAuto.vue'
+import ScrollAreaScrollbarAuto, { type ScrollAreaScrollbarAutoProps } from './ScrollAreaScrollbarAuto.vue'
+import { Presence } from '@/Presence'
+import { useForwardRef } from '@/shared'
+
+export interface ScrollAreaScrollbarHoverProps extends ScrollAreaScrollbarAutoProps {}
+defineProps<ScrollAreaScrollbarHoverProps>()
 
 const rootContext = injectScrollAreaRootContext()
+
+const forwardRef = useForwardRef()
 
 let timeout: ReturnType<typeof setTimeout> | undefined | number
 const visible = ref(false)
@@ -44,11 +51,13 @@ export default {
 </script>
 
 <template>
-  <ScrollAreaScrollbarAuto
-    v-if="visible"
-    v-bind="$attrs"
-    :data-state="visible ? 'visible' : 'hidden'"
-  >
-    <slot />
-  </ScrollAreaScrollbarAuto>
+  <Presence :present="forceMount || visible">
+    <ScrollAreaScrollbarAuto
+      v-bind="$attrs"
+      ref="forwardRef"
+      :data-state="visible ? 'visible' : 'hidden'"
+    >
+      <slot />
+    </ScrollAreaScrollbarAuto>
+  </Presence>
 </template>

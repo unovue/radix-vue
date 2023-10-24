@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ProseCodeInline, ProseTable, ProseTbody, ProseTd, ProseTh, ProseThead, ProseTr } from '../prose'
+import { Icon } from '@iconify/vue'
 
 type KeyboardDef = {
   attribute: string
@@ -14,6 +15,9 @@ const props = defineProps<DataAttributesTableProps>()
 
 <template>
   <ProseTable>
+    <div class="absolute top-0 right-2 w-8 h-8 rounded-full border flex items-center justify-center text-[var(--vp-c-text-2)] bg-[var(--vp-button-alt-bg)] border-[var(--vp-c-gray-soft)]">
+      <Icon icon="ph:tag-light" />
+    </div>
     <ProseThead>
       <ProseTr>
         <ProseTh class="w-[45%]">

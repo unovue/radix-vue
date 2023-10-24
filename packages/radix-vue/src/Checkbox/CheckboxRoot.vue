@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { createContext } from '@/shared'
+import { createContext, useFormControl } from '@/shared'
 
 export interface CheckboxRootProps extends PrimitiveProps {
   defaultChecked?: boolean
@@ -46,21 +46,14 @@ const { disabled } = toRefs(props)
 
 const checked = useVModel(props, 'checked', emits, {
   defaultValue: props.defaultChecked,
-  passive: true,
+  passive: (props.checked === undefined) as false,
 }) as Ref<CheckedState>
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
-// We set this to true by default so that events bubble to forms without JS (SSR)
-const isFormControl = computed(() =>
-  currentElement.value
-    ? Boolean(currentElement.value.closest('form'))
-    : true,
-)
-const ariaLabel = computed(() =>
-  props.id && currentElement.value
-    ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText
-    : undefined,
-)
+const isFormControl = useFormControl(currentElement)
+const ariaLabel = computed(() => props.id && currentElement.value
+  ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText
+  : undefined)
 
 provideCheckboxRootContext({
   disabled,
@@ -78,7 +71,7 @@ provideCheckboxRootContext({
     :as="as"
     :type="as === 'button' ? 'button' : undefined"
     :aria-checked="isIndeterminate(checked) ? 'mixed' : checked"
-    :aria-required="required"
+    :aria-required="false"
     :aria-label="$attrs['aria-label'] || ariaLabel"
     :data-state="getState(checked)"
     :data-disabled="disabled ? '' : undefined"
@@ -96,7 +89,7 @@ provideCheckboxRootContext({
     type="checkbox"
     tabindex="-1"
     aria-hidden
-    :defaultChecked="isIndeterminate(checked) ? false : checked"
+    :value="value"
     :checked="!!checked"
     :name="props.name"
     :disabled="props.disabled"

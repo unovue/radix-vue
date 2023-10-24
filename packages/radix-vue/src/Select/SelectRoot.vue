@@ -2,7 +2,7 @@
 import type { Ref, VNode } from 'vue'
 import type { DataOrientation, Direction } from '../shared/types'
 import BubbleSelect from './BubbleSelect.vue'
-import { createContext, useId } from '@/shared'
+import { createContext, useDirection, useFormControl, useId } from '@/shared'
 
 export interface SelectRootProps {
   open?: boolean
@@ -61,20 +61,19 @@ const props = withDefaults(defineProps<SelectRootProps>(), {
   defaultValue: '',
   modelValue: undefined,
   open: undefined,
-  dir: 'ltr',
 })
 
 const emits = defineEmits<SelectRootEmits>()
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
-  passive: !props.modelValue as false,
+  passive: (props.modelValue === undefined) as false,
 }) as Ref<string>
 
 const open = useVModel(props, 'open', emits, {
   defaultValue: props.defaultOpen,
-  passive: true,
-})
+  passive: (props.open === undefined) as false,
+}) as Ref<boolean>
 
 const triggerElement = ref<HTMLElement>()
 const valueElement = ref<HTMLElement>()
@@ -84,7 +83,8 @@ const triggerPointerDownPosRef = ref({
 })
 const valueElementHasChildren = ref(false)
 
-const { required, disabled, dir } = toRefs(props)
+const { required, disabled, dir: propDir } = toRefs(props)
+const dir = useDirection(propDir)
 provideSelectRootContext({
   triggerElement,
   onTriggerChange: (node) => {
@@ -113,16 +113,13 @@ provideSelectRootContext({
   disabled,
 })
 
-// We set this to true by default so that events bubble to forms without JS (SSR)
-const isFormControl = computed(() =>
-  triggerElement.value ? Boolean(triggerElement.value.closest('form')) : true,
-)
+const isFormControl = useFormControl(triggerElement)
 const nativeOptionsSet = ref<Set<VNode>>(new Set())
 
 // The native `select` only associates the correct default value if the corresponding
 // `option` is rendered as a child **at the same time** as itself.
 // Because it might take a few renders for our items to gather the information to build
-// the native `option`(s), we generate a key on the `select` to make sure React re-builds it
+// the native `option`(s), we generate a key on the `select` to make sure Vue re-builds it
 // each time the options change.
 const nativeSelectKey = computed(() => {
   return Array.from(nativeOptionsSet.value)

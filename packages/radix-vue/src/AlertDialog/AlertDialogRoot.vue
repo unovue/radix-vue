@@ -4,7 +4,7 @@ import {
   type DialogRootEmits,
   type DialogRootProps,
 } from '@/Dialog'
-import { useEmitAsProps } from '@/shared'
+import { useForwardPropsEmits } from '@/shared'
 
 export interface AlertDialogProps extends Omit<DialogRootProps, 'modal'> {}
 export type AlertDialogEmits = DialogRootEmits
@@ -12,11 +12,11 @@ export type AlertDialogEmits = DialogRootEmits
 const props = defineProps<AlertDialogProps>()
 const emits = defineEmits<AlertDialogEmits>()
 
-const emitsAsProps = useEmitAsProps(emits)
+const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
-  <DialogRoot v-bind="{ ...props, ...emitsAsProps }" :modal="true">
+  <DialogRoot v-bind="forwarded" :modal="true">
     <slot />
   </DialogRoot>
 </template>

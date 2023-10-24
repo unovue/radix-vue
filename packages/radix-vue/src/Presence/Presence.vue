@@ -65,6 +65,9 @@ function render() {
     return h(slots.default?.()[0] as VNode, {
       ref: (v) => {
         const el = unrefElement(v as HTMLElement)
+        if (typeof el?.hasAttribute === 'undefined')
+          return el
+
         // special case to handle animation for PopperContent
         if (el?.hasAttribute('data-radix-popper-content-wrapper'))
           node.value = el.firstChild as HTMLElement

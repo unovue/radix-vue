@@ -3,7 +3,7 @@ import type { Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { toRefs } from 'vue'
 import type { DataOrientation, Direction } from '../shared/types'
-import { createContext, useId } from '@/shared'
+import { createContext, useDirection, useId } from '@/shared'
 
 export interface TabsRootContext {
   modelValue: Ref<string | undefined>
@@ -46,15 +46,15 @@ export type TabsRootEmits = {
 
 const props = withDefaults(defineProps<TabsRootProps>(), {
   orientation: 'horizontal',
-  dir: 'ltr',
   activationMode: 'automatic',
 })
 const emits = defineEmits<TabsRootEmits>()
-const { orientation, dir } = toRefs(props)
+const { orientation, dir: propDir } = toRefs(props)
+const dir = useDirection(propDir)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
-  passive: true,
+  passive: (props.modelValue === undefined) as false,
 })
 
 provideTabsRootContext({

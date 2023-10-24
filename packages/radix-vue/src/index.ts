@@ -27,7 +27,9 @@ export * from './Select'
 export * from './Menubar'
 export * from './NavigationMenu'
 export * from './ScrollArea'
+export * from './ConfigProvider'
 
 // utilities
 export { Primitive, Slot } from './Primitive'
+export { VisuallyHidden } from './VisuallyHidden'
 export { useId, useEmitAsProps, useForwardProps, useForwardPropsEmits, useStateMachine } from './shared'

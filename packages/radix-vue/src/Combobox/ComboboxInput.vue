@@ -14,10 +14,19 @@ const props = withDefaults(defineProps<ComboboxInputProps>(), {
 
 const rootContext = injectComboboxRootContext()
 
-const elRef = ref()
+const elRef = ref<HTMLInputElement>()
 onMounted(() => {
+  if (!elRef.value)
+    return
+
   rootContext.inputElement = elRef
   rootContext.onInputElementChange(elRef.value)
+
+  setTimeout(() => {
+    // make sure all DOM was flush then only capture the focus
+    if (props.autoFocus)
+      elRef.value?.focus()
+  }, 1)
 })
 
 const disabled = computed(() => props.disabled || rootContext.disabled.value || false)
@@ -56,7 +65,6 @@ function handleInput() {
     tabindex="0"
     role="combobox"
     autocomplete="false"
-    :autofocus="autoFocus"
     @input="handleInput"
     @keydown.down.up.prevent="handleKeyDown"
     @keydown.enter="rootContext.onInputEnter"

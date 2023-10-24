@@ -56,8 +56,9 @@ function handleOpen() {
       :aria-expanded="rootContext.open.value || false"
       :aria-required="rootContext.required?.value"
       aria-autocomplete="none"
-      :dir="rootContext.dir.value"
-      :data-state="rootContext.open.value ? 'open' : 'closed'"
+      :disabled="disabled"
+      :dir="rootContext?.dir.value"
+      :data-state="rootContext?.open.value ? 'open' : 'closed'"
       :data-disabled="isDisabled ? '' : undefined"
       :data-placeholder="
         shouldShowPlaceholder(rootContext.modelValue?.value) ? '' : undefined

@@ -6,7 +6,7 @@ import {
 import type { DataOrientation, Direction } from '@/shared/types'
 import { useVModel } from '@vueuse/core'
 import type { Ref } from 'vue'
-import { createContext } from '@/shared'
+import { createContext, useDirection } from '@/shared'
 
 export interface RadioGroupRootProps extends PrimitiveProps {
   modelValue?: string
@@ -44,7 +44,6 @@ const props = withDefaults(defineProps<RadioGroupRootProps>(), {
   disabled: false,
   required: false,
   orientation: undefined,
-  dir: 'ltr',
   loop: true,
 })
 
@@ -52,10 +51,11 @@ const emits = defineEmits<RadioGroupRootEmits>()
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
-  passive: true,
+  passive: (props.modelValue === undefined) as false,
 })
 
-const { disabled, loop, orientation, name, required } = toRefs(props)
+const { disabled, loop, orientation, name, required, dir: propDir } = toRefs(props)
+const dir = useDirection(propDir)
 provideRadioGroupRootContext({
   modelValue,
   changeModelValue: (value) => {

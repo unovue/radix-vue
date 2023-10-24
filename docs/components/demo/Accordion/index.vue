@@ -29,9 +29,9 @@ const accordionItems = [
     :collapsible="true"
   >
     <template v-for="item in accordionItems" :key="item.value">
-      <AccordionItem class="accordion-item" :value="item.value">
+      <AccordionItem class="focus-within:shadow-mauve12 mt-px overflow-hidden first:mt-0 first:rounded-t last:rounded-b focus-within:relative focus-within:z-10 focus-within:shadow-[0_0_0_2px]" :value="item.value">
         <AccordionHeader class="flex">
-          <AccordionTrigger class="accordion-trigger group">
+          <AccordionTrigger class="text-grass11  shadow-mauve6 hover:bg-mauve2 flex h-[45px] flex-1 cursor-default items-center justify-between bg-white px-5 text-[15px] leading-none shadow-[0_1px_0] outline-none group">
             <span>{{ item.title }}</span>
             <Icon
               icon="radix-icons:chevron-down"
@@ -40,7 +40,7 @@ const accordionItems = [
             />
           </AccordionTrigger>
         </AccordionHeader>
-        <AccordionContent class="accordion-content">
+        <AccordionContent class="text-mauve11 bg-mauve2 data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden text-[15px]">
           <div class="px-5 py-4">
             {{ item.content }}
           </div>
@@ -49,17 +49,3 @@ const accordionItems = [
     </template>
   </AccordionRoot>
 </template>
-
-<style scoped>
-.accordion-item {
-  @apply focus-within:shadow-mauve12 mt-px overflow-hidden first:mt-0 first:rounded-t last:rounded-b focus-within:relative focus-within:z-10 focus-within:shadow-[0_0_0_2px];
-}
-
-.accordion-trigger {
-  @apply text-grass11  shadow-mauve6 hover:bg-mauve2 flex h-[45px] flex-1 cursor-default items-center justify-between bg-white px-5 text-[15px] leading-none shadow-[0_1px_0] outline-none;
-}
-
-.accordion-content {
-  @apply text-mauve11 bg-mauve2 data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden text-[15px];
-}
-</style>

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { createContext } from '@/shared'
+import { createContext, useDirection } from '@/shared'
 
 export interface MenuContext {
   open: Ref<boolean>
@@ -44,10 +44,10 @@ import { PopperRoot } from '@/Popper'
 const props = withDefaults(defineProps<MenuProps>(), {
   open: false,
   modal: true,
-  dir: 'ltr',
 })
 const emits = defineEmits<{ 'update:open': [payload: boolean] }>()
-const { modal, dir } = toRefs(props)
+const { modal, dir: propDir } = toRefs(props)
+const dir = useDirection(propDir)
 
 const open = useVModel(props, 'open', emits)
 

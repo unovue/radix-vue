@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Aspect Ratio
-metaDescription: Displays content within a desired ratio.
+
+title: Aspect Ratio
+description: Displays content within a desired ratio.
 name: aspect-ratio
 ---
 
@@ -71,6 +71,12 @@ Contains the content you want to constrain to a given ratio.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,

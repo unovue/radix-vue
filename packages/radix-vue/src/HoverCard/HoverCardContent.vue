@@ -7,7 +7,13 @@ import { Presence } from '@/Presence'
 import HoverCardContentImpl, { type HoverCardContentImplEmits, type HoverCardContentImplProps } from './HoverCardContentImpl.vue'
 import { useForwardPropsEmits } from '@/shared'
 
-export interface HoverCardContentProps extends HoverCardContentImplProps {}
+export interface HoverCardContentProps extends HoverCardContentImplProps {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
+  forceMount?: boolean
+}
 export type HoverCardContentEmits = HoverCardContentImplEmits
 
 const props = defineProps<HoverCardContentProps>()
@@ -19,7 +25,7 @@ const rootContext = injectHoverCardRootContext()
 
 <template>
   <Presence
-    :present="rootContext.open.value"
+    :present="forceMount || rootContext.open.value"
   >
     <HoverCardContentImpl
       v-bind="forwarded"

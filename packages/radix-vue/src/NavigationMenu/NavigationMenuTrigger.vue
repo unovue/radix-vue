@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { type VNode, computed, onMounted, ref } from 'vue'
-import { unrefElement } from '@vueuse/core'
+import { refAutoReset, unrefElement } from '@vueuse/core'
 import { injectNavigationMenuContext } from './NavigationMenuRoot.vue'
 import { injectNavigationMenuItemContext } from './NavigationMenuItem.vue'
 import { getOpenState, makeContentId, makeTriggerId } from './utils'
@@ -27,7 +27,7 @@ const { primitiveElement, currentElement: triggerElement }
 const triggerId = ref('')
 const contentId = ref('')
 
-const hasPointerMoveOpenedRef = ref(false)
+const hasPointerMoveOpenedRef = refAutoReset(false, 300)
 const wasClickCloseRef = ref(false)
 
 const open = computed(() => itemContext.value === menuContext.modelValue.value)
@@ -79,7 +79,7 @@ function handleClick() {
 }
 
 function handleKeydown(ev: KeyboardEvent) {
-  const verticalEntryKey = menuContext.dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight'
+  const verticalEntryKey = menuContext.dir.value === 'rtl' ? 'ArrowLeft' : 'ArrowRight'
   const entryKey = { horizontal: 'ArrowDown', vertical: verticalEntryKey }[
     menuContext.orientation
   ]

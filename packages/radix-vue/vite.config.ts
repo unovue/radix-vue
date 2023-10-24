@@ -14,6 +14,7 @@ export default defineConfig({
     dts({
       tsconfigPath: 'tsconfig.build.json',
       cleanVueFileName: true,
+      exclude: ['src/test/**'],
     }),
   ],
   resolve: {
@@ -30,12 +31,13 @@ export default defineConfig({
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
       // into your library (Vue)
-      external: ['vue'],
+      external: ['vue', '@floating-ui/vue'],
       output: {
         // Provide global variables to use in the UMD build
         // for externalized deps
         globals: {
-          vue: 'Vue',
+          'vue': 'Vue',
+          '@floating-ui/vue': '@floating-ui/vue',
         },
         assetFileNames: (chunkInfo) => {
           if (chunkInfo.name === 'style.css')

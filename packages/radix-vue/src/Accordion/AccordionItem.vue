@@ -57,7 +57,7 @@ const open = computed(() =>
 
 const disabled = computed(() => {
   return (
-    rootContext.disabled
+    rootContext.disabled.value
     || props.disabled
     || (rootContext.isSingle.value && open.value && !rootContext.collapsible)
   )
@@ -89,7 +89,7 @@ function handleArrowKey(e: KeyboardEvent) {
     rootContext.parentElement.value!,
     {
       arrowKeyOptions: rootContext.orientation,
-      dir: rootContext.direction,
+      dir: rootContext.direction.value,
       focus: true,
     },
   )

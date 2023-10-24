@@ -2,8 +2,12 @@
 import { Icon } from '@iconify/vue'
 import type { CheckboxRootProps } from '../'
 import { CheckboxIndicator, CheckboxRoot } from '../'
+import { ref } from 'vue'
 
-const props = defineProps<CheckboxRootProps>()
+const props = withDefaults(defineProps<CheckboxRootProps>(), {
+  checked: undefined,
+})
+const checked = ref(props.checked)
 </script>
 
 <template>
@@ -15,6 +19,7 @@ const props = defineProps<CheckboxRootProps>()
   </label>
   <CheckboxRoot
     v-bind="props"
+    v-model:checked="checked"
     name="test"
     class="shadow-blackA7 hover:bg-violet3 flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-[4px] bg-white shadow-[0_2px_10px] outline-none focus-within:shadow-[0_0_0_2px_black]"
     aria-label="Test"

@@ -1,12 +1,9 @@
 const { blackA, green, grass, mauve, violet, slate, red, teal, cyan, indigo, purple } = require('@radix-ui/colors')
 
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
-  content: ['.vitepress/**/*.{js,ts,vue}', './docs/**/*.md', './components/**/*.vue'],
-  options: {
-    safelist: ['html'],
-  },
-  important: true,
+  content: ['.vitepress/**/*.{js,ts,vue}', './docs/**/*.md', './components/**/*.{vue,js}'],
   theme: {
     extend: {
       colors: {
@@ -49,10 +46,10 @@ module.exports = {
         },
         slideDown: {
           from: { height: 0 },
-          to: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: 'var(--radix-collapsible-content-height)' },
         },
         slideUp: {
-          from: { height: 'var(--radix-accordion-content-height)' },
+          from: { height: 'var(--radix-collapsible-content-height)' },
           to: { height: 0 },
         },
         enterFromRight: {
@@ -99,6 +96,16 @@ module.exports = {
           from: { transform: 'translateX(var(--radix-toast-swipe-end-x))' },
           to: { transform: 'translateX(calc(100% + var(--viewport-padding)))' },
         },
+        text: {
+          '0%, 100%': {
+            'background-size': '200% 200%',
+            'background-position': 'left center',
+          },
+          '50%': {
+            'background-size': '200% 200%',
+            'background-position': 'right center',
+          },
+        },
       },
       animation: {
         overlayShow: 'overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
@@ -120,6 +127,7 @@ module.exports = {
         hide: 'hide 100ms ease-in',
         slideIn: 'slideIn 150ms cubic-bezier(0.16, 1, 0.3, 1)',
         swipeOut: 'swipeOut 100ms ease-out',
+        text: 'text 5s ease infinite',
       },
     },
   },

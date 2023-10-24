@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { computed, h, onMounted } from 'vue'
+import { computed, h, onBeforeUnmount, onMounted } from 'vue'
 import { injectSelectNativeOptionsContext, injectSelectRootContext } from './SelectRoot.vue'
 import { SelectContentDefaultContextValue, injectSelectContentContext } from './SelectContentImpl.vue'
+import { injectSelectItemContext } from './SelectItem.vue'
 import {
   Primitive,
   type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
-import { injectSelectItemContext } from './SelectItem.vue'
 
 export interface SelectItemTextProps extends PrimitiveProps {}
 
@@ -44,9 +44,9 @@ onMounted(() => {
   nativeOptionContext.onNativeOptionAdd(nativeOption.value)
 })
 
-// onBeforeUnmount(() => {
-//   onNativeOptionRemove(nativeOption.value);
-// });
+onBeforeUnmount(() => {
+  nativeOptionContext.onNativeOptionRemove(nativeOption.value)
+})
 </script>
 
 <script lang="ts">
@@ -61,7 +61,9 @@ export default {
   </Primitive>
 
   <!-- Portal the select item text into the trigger value node -->
-  <Teleport v-if="itemContext.isSelected.value && rootContext.valueElement.value && !rootContext.valueElementHasChildren.value" :to="rootContext.valueElement.value">
+  <Teleport
+    v-if="itemContext.isSelected.value && rootContext.valueElement.value && !rootContext.valueElementHasChildren.value" :to="rootContext.valueElement.value"
+  >
     <slot />
   </Teleport>
 </template>

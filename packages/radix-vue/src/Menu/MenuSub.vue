@@ -27,15 +27,17 @@ import { useVModel } from '@vueuse/core'
 import { type MenuContext, injectMenuContext, provideMenuContext } from './MenuRoot.vue'
 import { PopperRoot } from '@/Popper'
 
-const props = defineProps<MenuSubProps>()
+const props = withDefaults(defineProps<MenuSubProps>(), {
+  open: undefined,
+})
 const emits = defineEmits<{
   'update:open': [payload: boolean]
 }>()
 
 const open = useVModel(props, 'open', emits, {
   defaultValue: false,
-  passive: true,
-})
+  passive: (props.open === undefined) as false,
+}) as Ref<boolean>
 
 const parentMenuContext = injectMenuContext()
 const trigger = ref<HTMLElement>()

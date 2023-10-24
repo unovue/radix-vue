@@ -3,10 +3,7 @@ import { axe } from 'vitest-axe'
 import HoverCard from './story/_HoverCard.vue'
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
-
-function sleep(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms))
-}
+import { sleep } from '@/test'
 
 describe('given a default HoverCard', () => {
   let wrapper: VueWrapper<InstanceType<typeof HoverCard>>

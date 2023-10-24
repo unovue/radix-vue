@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { Direction } from '../shared/types'
-import { createContext, useId } from '@/shared'
+import { createContext, useDirection, useId } from '@/shared'
 
 export interface DropdownMenuRootProps {
   open?: boolean
@@ -35,19 +35,19 @@ import { MenuRoot } from '@/Menu'
 
 const props = withDefaults(defineProps<DropdownMenuRootProps>(), {
   modal: true,
-  dir: 'ltr',
   open: undefined,
 })
 const emit = defineEmits<DropdownMenuRootEmits>()
 
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
-  passive: true,
-})
+  passive: (props.open === undefined) as false,
+}) as Ref<boolean>
 
 const triggerElement = ref<HTMLElement>()
 
-const { modal, dir } = toRefs(props)
+const { modal, dir: propDir } = toRefs(props)
+const dir = useDirection(propDir)
 provideDropdownMenuRootContext({
   open,
   onOpenChange: (value) => {

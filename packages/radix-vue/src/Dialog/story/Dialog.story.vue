@@ -3,7 +3,7 @@ import Dialog from './_Dialog.vue'
 </script>
 
 <template>
-  <Story title="Dialog" :layout="{ type: 'single', iframe: false }">
+  <Story title="Dialog/Demo" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
       <Dialog />
     </Variant>

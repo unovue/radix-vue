@@ -16,7 +16,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { type Ref, onMounted, ref } from 'vue'
+import { type Ref, nextTick, onMounted, ref } from 'vue'
 import { clamp } from '@vueuse/shared'
 import { injectSelectRootContext } from './SelectRoot.vue'
 import { injectSelectContentContext } from './SelectContentImpl.vue'
@@ -200,7 +200,8 @@ function position() {
 // copy z-index from content to wrapper
 const contentZIndex = ref('')
 
-onMounted(() => {
+onMounted(async () => {
+  await nextTick()
   position()
   if (contentElement.value)
     contentZIndex.value = window.getComputedStyle(contentElement.value).zIndex

@@ -2,18 +2,14 @@
  * Customize default theme styling by overriding CSS variables:
  * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
  */
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+ 
 /**
  * Colors
  * -------------------------------------------------------------------------- */
 
 :root {
   --vp-c-brand-1: #10b981;
-  --vp-c-brand-light: #10b981;
+  --vp-c-brand-light: #25a677;
   --vp-c-brand-lighter: #34d399;
   --vp-c-brand-lightest: #a7f3d0;
   --vp-c-brand-2: #059669;
@@ -23,6 +19,7 @@
   --vp-code-block-bg: #292b30;
   --vp-code-block-bg-light: #1e1e20;
   --vp-code-block-divider-color: #000000;
+  --vp-custom-block-tip-bg: #40644d29;
 }
 
 .dark {
@@ -79,6 +76,28 @@
   }
 }
 
+
+/* Fix the layout shift for Vitepress https://github.com/vuejs/vitepress/pull/1844/files */
+@media (min-width: 768px) {
+  .VPContent, .VPLocalNav, .VPNav, .VPHome {
+    width: 100vw !important;
+  }
+  .VPFooter {
+    width: 100vw !important;
+    padding: 32px !important;
+  }
+}
+@media (min-width: 1440px) {
+  .VPSidebar {
+    padding-left: max(32px, calc((100vw - (var(--vp-layout-max-width) - 64px)) / 2)) !important;
+    width: calc((100vw - (var(--vp-layout-max-width) - 64px)) / 2 + var(--vp-sidebar-width) - 32px) !important;
+  }
+}
+
+body {
+  overflow-x: hidden;
+}
+
 /**
  * Component: Algolia
  * -------------------------------------------------------------------------- */
@@ -125,4 +144,18 @@ li > span {
 .custom-justify-center:after {
   content: "";
   flex: 1;
+}
+
+button:focus-visible {
+  @apply !outline-none;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.15s ease-in-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }

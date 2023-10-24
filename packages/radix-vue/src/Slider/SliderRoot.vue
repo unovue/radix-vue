@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { DataOrientation, Direction } from '../shared/types'
-import { createContext, useCollection } from '@/shared'
+import { createContext, useCollection, useDirection, useFormControl } from '@/shared'
 
 export interface SliderRootProps extends PrimitiveProps {
   name?: string
@@ -56,21 +56,22 @@ const props = withDefaults(defineProps<SliderRootProps>(), {
   step: 1,
   orientation: 'horizontal',
   disabled: false,
-  dir: 'ltr',
   minStepsBetweenThumbs: 0,
   defaultValue: () => [0],
   inverted: false,
 })
 const emits = defineEmits<SliderRootEmits>()
 
-const { min, max, step, minStepsBetweenThumbs, orientation, disabled, dir } = toRefs(props)
+const { min, max, step, minStepsBetweenThumbs, orientation, disabled, dir: propDir } = toRefs(props)
+const dir = useDirection(propDir)
 const { createCollection } = useCollection('sliderThumb')
 const { primitiveElement, currentElement } = usePrimitiveElement()
 createCollection(currentElement)
+const isFormControl = useFormControl(currentElement)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
-  passive: true,
+  passive: (props.modelValue === undefined) as false,
 }) as Ref<number[]>
 
 const valueIndexToChangeRef = ref(0)
@@ -160,13 +161,16 @@ provideSliderRootContext({
   >
     <slot :model-value="modelValue" />
   </component>
-  <input
-    v-for="(value, index) in modelValue"
-    :key="index"
-    :value="value"
-    style="display: none"
-    :default-value="value"
-    :name="name ? name + (modelValue.length > 1 ? '[]' : '') : undefined"
-    :disabled="disabled"
-  >
+
+  <template v-if="isFormControl">
+    <input
+      v-for="(value, index) in modelValue"
+      :key="index"
+      :value="value"
+      type="number"
+      style="display: none"
+      :name="name ? name + (modelValue.length > 1 ? '[]' : '') : undefined"
+      :disabled="disabled"
+    >
+  </template>
 </template>

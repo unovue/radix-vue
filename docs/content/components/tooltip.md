@@ -1,7 +1,6 @@
 ---
-outline: deep
-metaTitle: Tooltip
-metaDescription: A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
+title: Tooltip
+description: A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
 name: tooltip
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/tooltip
 ---
@@ -92,6 +91,11 @@ Wraps your app to provide global functionality to your tooltips.
   name: 'disableHoverableContent',
   type: 'boolean',
   description: '<span> Prevents <Code>TooltipContent</Code> from remaining open when hovering. Disabling this has accessibility consequences. </span>'
+  },
+  {
+  name: 'disableClosingTrigger',
+  type: 'boolean',
+  description: '<span> Prevents <Code>TooltipTrigger</Code> from closing content when clicked. Disabling this has accessibility consequences. </span>'
   }
 ]" />
 
@@ -121,6 +125,12 @@ Contains all the parts of a tooltip.
   type: 'boolean',
   default: false,
   description: '<span> Prevents <Code>TooltipContent</Code> from remaining open when hovering. Disabling this has accessibility consequences. Inherits from <Code>TooltipProvider</Code>. </span>'
+  },
+  {
+  name: 'disableClosingTrigger',
+  type: 'boolean',
+  default: false,
+  description: '<span> Prevents <Code>TooltipTrigger</Code> from closing content when clicked. Disabling this has accessibility consequences. Inherits from <Code>TooltipProvider</Code>. </span>'
   }
 ]" />
 
@@ -142,12 +152,19 @@ Contains all the parts of a tooltip.
 The button that toggles the tooltip. By default, the `TooltipContent` will position itself against the trigger.
 
 <PropsTable :data="[
-{
-name: 'asChild',
-required: false,
-type: 'boolean',
-default: 'false',
-description:'Change the default rendered element for the one passed as a child, merging their props and behavior. <br /> <br /> Read our <a href=&quot;../guides/composition&quot;>Composition</a> guide for more details.',},
+  {
+    name: 'as',
+    type: 'string | Component',
+    default: 'button',
+    description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+  },
+  {
+    name: 'asChild',
+    required: false,
+    type: 'boolean',
+    default: 'false',
+    description:'Change the default rendered element for the one passed as a child, merging their props and behavior. <br /> <br /> Read our <a href=&quot;../guides/composition&quot;>Composition</a> guide for more details.'
+  }
 ]" />
 
 <DataAttributesTable :data="[
@@ -180,11 +197,18 @@ The component that pops out when the tooltip is open.
 <PropsTable
   :data="[
     {
-      name: 'aria-label',
+      name: 'ariaLabel',
       required: false,
       type: 'string',
       description: 'By default, screenreaders will announce the content inside the component. If this is not descriptive enough, or you have content that cannot be announced, use <code>aria-label</code> as a more descriptive label.',
     }, 
+    {
+      name: 'forceMount',
+      type: 'boolean',
+      description: `
+        Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.
+      `,
+    },
     {
       name: 'side',
       type: '&quot;top&quot; | &quot;right&quot; | &quot;bottom&quot; | &quot;left&quot;',
@@ -249,6 +273,12 @@ The component that pops out when the tooltip is open.
       type: 'boolean',
       default: 'false',
       description: '<span> Whether to hide the content when the trigger becomes fully occluded.</span>',
+    },
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
     },
     {
       name: 'asChild',
@@ -323,6 +353,12 @@ An optional arrow element to render alongside the tooltip. This can be used to h
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'svg',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -350,7 +386,7 @@ An optional arrow element to render alongside the tooltip. This can be used to h
 
 Use the `Provider` to control `delayDuration` and `skipDelayDuration` globally.
 
-```vue line=11
+```vue line=6
 <script setup>
 import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
 </script>
@@ -373,7 +409,7 @@ import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'ra
 
 Use the `delayDuration` prop to control the time it takes for the tooltip to open.
 
-```vue line=11
+```vue line=6
 <script setup>
 import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
 </script>
@@ -393,7 +429,7 @@ Since disabled buttons don't fire events, you need to:
 - Render the `Trigger` as `span`.
 - Ensure the `button` has no `pointerEvents`.
 
-```vue line=12-16
+```vue line=7-11
 <script setup>
 import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
 </script>
@@ -407,7 +443,6 @@ import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'ra
     </TooltipTrigger>
     <TooltipContent>…</TooltipContent>
   </TooltipRoot>
-  <template />
 </template>
 ```
 
@@ -417,11 +452,10 @@ You may want to constrain the width of the content so that it matches the trigge
 
 We expose several CSS custom properties such as `--radix-tooltip-trigger-width` and `--radix-tooltip-content-available-height` to support this. Use them to constrain the content dimensions.
 
-```vue line=16
-// index.vue
+```vue line=10
+ <!-- index.vue -->
 <script setup>
 import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
-import './styles.css'
 </script>
 
 <template>
@@ -436,7 +470,7 @@ import './styles.css'
 </template>
 ```
 
-```css
+```css line=3,4
 /* styles.css */
 .TooltipContent {
   width: var(--radix-tooltip-trigger-width);
@@ -448,11 +482,10 @@ import './styles.css'
 
 We expose a CSS custom property `--radix-tooltip-content-transform-origin`. Use it to animate the content from its computed origin based on `side`, `sideOffset`, `align`, `alignOffset` and any collisions.
 
-```vue line=15
-// index.vue
+```vue line=9
+ <!-- index.vue -->
 <script setup>
 import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
-import './styles.css'
 </script>
 
 <template>
@@ -488,11 +521,10 @@ import './styles.css'
 
 We expose `data-side` and `data-align` attributes. Their values will change at runtime to reflect collisions. Use them to create collision and direction-aware animations.
 
-```vue line=15
-// index.vue
+```vue line=9
+ <!-- index.vue -->
 <script setup>
 import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
-import './styles.css'
 </script>
 
 <template>
@@ -565,8 +597,7 @@ description: 'If open, closes the tooltip without delay.',
 },
 ]"
 />
-
-<!--
+ 
 ## Custom APIs
 
 Create your own API by abstracting the primitive parts into your own component.
@@ -578,10 +609,14 @@ This example abstracts all of the `Tooltip` parts and introduces a new `content`
 #### Usage
 
 ```vue
-import { Tooltip } from "./your-tooltip"; <template>
-<Tooltip content="Tooltip content">
-		<button>Tooltip trigger</button>
-	</Tooltip>
+<script setup lang="ts">
+import { Tooltip } from './your-tooltip'
+</script>
+
+<template>
+  <Tooltip content="Tooltip content">
+    <button>Tooltip trigger</button>
+  </Tooltip>
 </template>
 ```
 
@@ -589,23 +624,27 @@ import { Tooltip } from "./your-tooltip"; <template>
 
 Use the [`asChild` prop](/guides/composition) to convert the trigger part into a slottable area. It will replace the trigger with the child that gets passed to it.
 
-```vue line=8-10
-// your-tooltip.vue import React from "react"; import * as TooltipPrimitive from
-"radix-vue"; export function Tooltip({ children, content, open, defaultOpen,
-onOpenChange, ...props }) { return (
-<TooltipPrimitive.Root
-	open="open"
-	defaultOpen="defaultOpen"
-	onOpenChange="onOpenChange"
->
-			<TooltipPrimitive.Trigger asChild>
-				{children}
-			</TooltipPrimitive.Trigger>
-			<TooltipPrimitive.Content side="top" align="center" {...props}>
-				{content}
-				<TooltipPrimitive.Arrow width={11} height={5} />
-			</TooltipPrimitive.Content>
-		</TooltipPrimitive.Root>
-  </template> }
+```vue line=13-15
+<!-- your-tooltip.vue  -->
+<script setup lang="ts">
+import { TooltipArrow, TooltipContent, TooltipRoot, type TooltipRootEmits, type TooltipRootProps, TooltipTrigger, useForwardPropsEmits } from 'radix-vue'
+
+const props = defineProps<TooltipRootProps & { content?: string }>()
+const emits = defineEmits<TooltipRootEmits>()
+
+const forward = useForwardPropsEmits(props, emits)
+</script>
+
+<template>
+  <TooltipRoot v-bind="forward">
+    <TooltipTrigger as-child>
+      <slot />
+    </TooltipTrigger>
+    <TooltipContent side="top" align="center">
+      {{ content }}
+      <TooltipArrow :width="11" :height="5" />
+    </TooltipContent>
+  </TooltipRoot>
+</template>
 ```
--->
+ 

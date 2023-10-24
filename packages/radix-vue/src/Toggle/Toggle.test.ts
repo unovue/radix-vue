@@ -41,3 +41,37 @@ describe('given default Toggle', () => {
     })
   })
 })
+
+describe('given disabled Toggle', () => {
+  let wrapper: VueWrapper<InstanceType<typeof Toggle>>
+
+  beforeEach(() => {
+    wrapper = mount(Toggle, {
+      props: { disabled: true },
+      attrs: { 'aria-label': 'Toggle italic' },
+    })
+  })
+
+  it('should pass axe accessibility tests', async () => {
+    expect(await axe(wrapper.element)).toHaveNoViolations()
+  })
+
+  it('should not be toggled yet', () => {
+    expect(wrapper.attributes('data-state')).toBe('off')
+  })
+
+  describe('try toggling', () => {
+    beforeEach(() => {
+      wrapper.trigger('click')
+    })
+
+    it('should be toggled off', () => {
+      expect(wrapper.attributes('data-state')).toBe('off')
+    })
+
+    it('should render disable attributes', () => {
+      expect(wrapper.attributes('data-disabled')).toBe('')
+      expect(wrapper.attributes('disabled')).toBe('')
+    })
+  })
+})

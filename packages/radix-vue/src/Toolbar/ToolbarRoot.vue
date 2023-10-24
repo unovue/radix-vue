@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { DataOrientation, Direction } from '@/shared/types'
-import { createContext } from '@/shared'
+import { createContext, useDirection } from '@/shared'
 
 export interface ToolbarRootProps extends PrimitiveProps {
   orientation?: DataOrientation
@@ -25,9 +25,9 @@ import { RovingFocusGroup } from '@/RovingFocus'
 
 const props = withDefaults(defineProps<ToolbarRootProps>(), {
   orientation: 'horizontal',
-  dir: 'ltr',
 })
-const { orientation, dir } = toRefs(props)
+const { orientation, dir: propDir } = toRefs(props)
+const dir = useDirection(propDir)
 
 provideToolbarRootContext({ orientation, dir })
 </script>

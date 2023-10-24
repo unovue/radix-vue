@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Scroll Area
-metaDescription: Augments native scroll functionality for custom, cross-browser styling.
+
+title: Scroll Area
+description: Augments native scroll functionality for custom, cross-browser styling.
 name: scroll-area
 ---
 
@@ -104,6 +104,12 @@ Contains all the parts of a scroll area.
       description: '<span> The reading direction of the scroll area. If omitted, inherits globally from <code>DirectionProvider</code> or assumes LTR (left-to-right) reading mode.</span>',
     },
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -119,6 +125,12 @@ The viewport area of the scroll area.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -136,11 +148,24 @@ The vertical scrollbar. Add a second `Scrollbar` with an `orientation` prop to e
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    },
+    {
+      name: 'forceMount',
+      type: 'boolean',
+      description: `
+        Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.
+      `,
     },
     {
       name: 'orientation',
@@ -173,6 +198,12 @@ The thumb to be used in `ScrollAreaScrollbar`.
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -197,6 +228,12 @@ The corner where both vertical and horizontal scrollbars meet.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,

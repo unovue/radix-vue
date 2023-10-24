@@ -3,6 +3,7 @@ import { axe } from 'vitest-axe'
 import ScrollArea from './story/_ScrollArea.vue'
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { sleep } from '@/test'
 
 describe('given default ScrollArea', () => {
   let wrapper: VueWrapper<InstanceType<typeof ScrollArea>>
@@ -27,7 +28,7 @@ describe('given default ScrollArea', () => {
   describe('on hover', () => {
     beforeEach(async () => {
       await wrapper.trigger('pointerenter')
-      await new Promise(resolve => setTimeout(resolve, 100))
+      await sleep(100)
     })
 
     it('should render scrollbar', () => {
@@ -82,7 +83,7 @@ describe('given prop:type="scroll" ScrollArea', () => {
     beforeEach(async () => {
       Object.defineProperty(HTMLElement.prototype, 'scrollTop', { configurable: true, value: 40 })
       await wrapper.find('[data-radix-scroll-area-viewport]').trigger('scroll')
-      await new Promise(resolve => setTimeout(resolve, 10))
+      await sleep(10)
     })
 
     it('should render scrollbar', () => {

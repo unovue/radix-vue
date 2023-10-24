@@ -23,6 +23,7 @@ const rootContext = injectSliderRootContext()
 
 <template>
   <Primitive
+    data-slider-impl
     v-bind="props"
     @keydown="(event) => {
       if (event.key === 'Home') {

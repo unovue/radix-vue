@@ -10,6 +10,10 @@ import { createContext } from '@/shared'
 
 export interface ScrollAreaScrollbarProps extends PrimitiveProps {
   orientation?: 'vertical' | 'horizontal'
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
   forceMount?: boolean
 }
 
@@ -39,7 +43,6 @@ import { type AsTag, type PrimitiveProps } from '@/Primitive'
 
 const props = withDefaults(defineProps<ScrollAreaScrollbarProps>(), {
   orientation: 'vertical',
-  forceMount: undefined,
   as: 'div',
 })
 
@@ -98,7 +101,6 @@ provideScrollAreaScrollbarContext({
     v-else-if="rootContext.type.value === 'always'"
     v-bind="$attrs"
     data-state="visible"
-    :force-mount="forceMount"
   >
     <slot />
   </ScrollAreaScrollbarVisible>

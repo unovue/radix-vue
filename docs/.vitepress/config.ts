@@ -1,4 +1,6 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig, postcssIsolateStyles } from 'vitepress'
+import autoprefixer from 'autoprefixer'
+import tailwind from 'tailwindcss'
 import {
   discord,
   font,
@@ -9,10 +11,8 @@ import {
   radixVueName,
   releases,
 } from './meta'
-import { dependencies } from '../package.json'
+import { version } from '../../package.json'
 import { teamMembers } from './contributors'
-
-const version = dependencies['radix-vue']
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -31,7 +31,7 @@ export default defineConfig({
       {
         name: 'keywords',
         content:
-          'vitest, vite, test, coverage, snapshot, react, vue, preact, svelte, solid, lit, ruby, cypress, puppeteer, jsdom, happy-dom, test-runner, jest, typescript, esm, tinypool, tinyspy, node',
+          'vue, nuxt, component-library, radix, radix-vue, typescript',
       },
     ],
     ['meta', { property: 'og:title', content: radixVueName }],
@@ -51,7 +51,8 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'Home', link: '/' },
+      { text: 'Docs', link: '/overview/getting-started.html' },
+      { text: 'Showcase', link: '/showcase' },
       {
         text: `v${version}`,
         items: [
@@ -62,6 +63,9 @@ export default defineConfig({
         ],
       },
     ],
+    outline: {
+      level: [2, 3],
+    },
     logo: '/logo.svg',
 
     sidebar: sidebar(),
@@ -83,6 +87,23 @@ export default defineConfig({
   markdown: {
     theme: 'material-theme-palenight',
   },
+  transformPageData(pageData) {
+    if (pageData.frontmatter.sidebar != null)
+      return
+    // hide sidebar on showcase page
+    pageData.frontmatter.sidebar = pageData.frontmatter.layout !== 'showcase'
+  },
+  vite: {
+    css: {
+      postcss: {
+        plugins: [
+          tailwind(),
+          autoprefixer(),
+          postcssIsolateStyles({ includeFiles: [/vp-doc\.css/] }),
+        ],
+      },
+    },
+  },
 })
 
 function sidebar() {
@@ -103,7 +124,7 @@ function sidebar() {
       collapsed: false,
       items: [
         { text: 'Styling', link: '/guides/styling' },
-        { text: 'Animation', link: '/guides/animation' },
+        { text: 'Animation/Transition', link: '/guides/animation' },
         { text: 'Composition', link: '/guides/composition' },
         { text: 'Server side rendering', link: '/guides/server-side-rendering' },
       ],
@@ -147,6 +168,8 @@ function sidebar() {
       text: 'Utilities',
       collapsed: false,
       items: [
+        { text: 'Config Provider', link: '/utilities/config-provider' },
+        { text: 'Visually Hidden', link: '/utilities/visually-hidden' },
         { text: 'Primitive', link: '/utilities/primitive' },
         { text: 'Slot', link: '/utilities/slot' },
         { text: 'useId', link: '/utilities/use-id' },

@@ -1,9 +1,11 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { axe } from 'vitest-axe'
 import RadioGroup from './story/_RadioGroup.vue'
+import Radio from './story/_Radio.vue'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { fireEvent } from '@testing-library/vue'
+import { handleSubmit, sleep } from '@/test'
 
 describe('given a default RadioGroup', () => {
   let wrapper: VueWrapper<InstanceType<typeof RadioGroup>>
@@ -31,7 +33,7 @@ describe('given a default RadioGroup', () => {
     beforeEach(async () => {
       radios[0].element.focus()
       await fireEvent.keyDown(document.activeElement!, { key: 'ArrowDown' })
-      await new Promise(resolve => setTimeout(resolve, 0))
+      await sleep(0)
     })
 
     it('should skip disabled item', () => {
@@ -48,10 +50,48 @@ describe('given a default RadioGroup', () => {
     describe('on arrow up', () => {
       it('should select the first item again', async () => {
         await fireEvent.keyDown(document.activeElement!, { key: 'ArrowUp' })
-        await new Promise(resolve => setTimeout(resolve, 0))
+        await sleep(0)
         expect(radios[0].attributes('data-state')).toBe('checked')
         expect(radios[2].attributes('data-state')).toBe('unchecked')
       })
+    })
+  })
+})
+
+describe('given radio in a form', async () => {
+  const wrapper = mount({
+    props: ['handleSubmit'],
+    components: { Radio },
+    template: '<form @submit="handleSubmit"><Radio  /></form>',
+  }, {
+    props: { handleSubmit },
+  })
+
+  it('should have hidden input field', async () => {
+    expect(wrapper.find('[type="Radio"]').exists()).toBe(true)
+  })
+
+  describe('after clicking submit button', () => {
+    beforeEach(async () => {
+      await wrapper.find('button').trigger('click')
+      await wrapper.find('form').trigger('submit')
+    })
+
+    it('should trigger submit once', () => {
+      expect(handleSubmit).toHaveBeenCalledTimes(1)
+      expect(handleSubmit.mock.results[0].value).toStrictEqual({ test: 'true' })
+    })
+  })
+
+  describe('after uncheck and click submit button again', () => {
+    beforeEach(async () => {
+      await wrapper.find('button').trigger('click')
+      await wrapper.find('form').trigger('submit')
+    })
+
+    it('should trigger submit once', () => {
+      expect(handleSubmit).toHaveBeenCalledTimes(2)
+      expect(handleSubmit.mock.results[1].value).toStrictEqual({ test: 'true' })
     })
   })
 })

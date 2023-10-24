@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Switch
-metaDescription: A control that allows the user to toggle between checked and not checked.
+
+title: Switch
+description: A control that allows the user to toggle between checked and not checked.
 name: switch
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/switch
 ---
@@ -105,6 +105,12 @@ Contains all the parts of a switch. An `input` will also render when used within
       description: '<span> The value given as data when submitted with a <Code>name</Code>.</span>',
     },
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'button',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -144,6 +150,12 @@ The thumb that is used to visually indicate whether the switch is on or off.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'span',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,

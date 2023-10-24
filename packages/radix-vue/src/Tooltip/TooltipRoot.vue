@@ -25,6 +25,11 @@ export interface TooltipRootProps {
    * from Tooltip.Provider.
    */
   disableHoverableContent?: boolean
+  /**
+   * When `true`, clicking on trigger will not close the content.
+   * @defaultValue false
+   */
+  disableClosingTrigger?: boolean
 }
 
 export type TooltipRootEmits = {
@@ -42,6 +47,7 @@ export interface TooltipContext {
   onOpen(): void
   onClose(): void
   disableHoverableContent: Ref<boolean>
+  disableClosingTrigger: Ref<boolean>
 }
 
 export const [injectTooltipRootContext, provideTooltipRootContext]
@@ -60,6 +66,7 @@ const props = withDefaults(defineProps<TooltipRootProps>(), {
   open: undefined,
   delayDuration: undefined,
   disableHoverableContent: undefined,
+  disableClosingTrigger: undefined,
 })
 
 const emit = defineEmits<TooltipRootEmits>()
@@ -67,12 +74,13 @@ const emit = defineEmits<TooltipRootEmits>()
 const providerContext = injectTooltipProviderContext()
 
 const disableHoverableContent = computed(() => props.disableHoverableContent ?? providerContext.disableHoverableContent.value)
+const disableClosingTrigger = computed(() => props.disableClosingTrigger ?? providerContext.disableClosingTrigger.value)
 const delayDuration = computed(() => props.delayDuration ?? providerContext.delayDuration.value)
 
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
-  passive: true,
-})
+  passive: (props.open === undefined) as false,
+}) as Ref<boolean>
 
 watch(open, (isOpen) => {
   if (!providerContext.onClose)
@@ -138,7 +146,7 @@ provideTooltipRootContext({
   onOpen: handleOpen,
   onClose: handleClose,
   disableHoverableContent,
-
+  disableClosingTrigger,
 })
 </script>
 

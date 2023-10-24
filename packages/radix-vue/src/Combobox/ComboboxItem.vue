@@ -1,7 +1,8 @@
 <script lang="ts">
-import { createContext, useId } from '@/shared'
+import { createContext, handleAndDispatchCustomEvent, useId } from '@/shared'
 
-type ComboboxItemContext = {
+export type SelectEvent = CustomEvent<{ originalEvent: PointerEvent; value?: string | object }>
+interface ComboboxItemContext {
   isSelected: Ref<boolean>
 }
 
@@ -9,7 +10,7 @@ export const [injectComboboxItemContext, provideComboboxItemContext]
   = createContext<ComboboxItemContext>('ComboboxItem')
 
 export type ComboboxItemEmits = {
-  select: [value: string | object]
+  select: [event: SelectEvent]
 }
 
 export interface ComboboxItemProps extends PrimitiveProps {
@@ -17,6 +18,8 @@ export interface ComboboxItemProps extends PrimitiveProps {
   disabled?: boolean
   textValue?: string
 }
+
+const COMBOBOX_SELECT = 'combobox.select'
 </script>
 
 <script setup lang="ts">
@@ -45,7 +48,7 @@ const emits = defineEmits<ComboboxItemEmits>()
 const { disabled } = toRefs(props)
 
 const rootContext = injectComboboxRootContext()
-const groupContext = injectComboboxGroupContext()
+const groupContext = injectComboboxGroupContext({ id: '', options: ref([]) })
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
 const isSelected = computed(() =>
@@ -64,15 +67,20 @@ const isInOption = computed(() =>
      || rootContext.filteredOptions.value.map(i => JSON.stringify(i)).includes(JSON.stringify(props.value))
     : true)
 
-async function handleSelect(ev?: PointerEvent) {
-  await nextTick()
+async function handleSelect(ev: SelectEvent) {
+  emits('select', ev)
   if (ev?.defaultPrevented)
     return
 
-  if (!disabled.value) {
-    rootContext.onValueChange(props.value)
-    emits('select', props.value)
-  }
+  if (!disabled.value && ev)
+    rootContext!.onValueChange(props.value)
+}
+
+function handleSelectCustomEvent(ev?: PointerEvent) {
+  if (!ev)
+    return
+  const eventDetail = { originalEvent: ev, value: props.value }
+  handleAndDispatchCustomEvent(COMBOBOX_SELECT, handleSelect, eventDetail)
 }
 
 async function handlePointerMove(event: PointerEvent) {
@@ -117,7 +125,7 @@ provideComboboxItemContext({
     ref="primitiveElement"
     role="option"
     tabindex="-1"
-    data-radix-vue-collection-item
+    data-radix-vue-combobox-item
     :aria-labelledby="textId"
     :data-highlighted="isFocused ? '' : undefined"
     :aria-selected="isSelected"
@@ -126,7 +134,7 @@ provideComboboxItemContext({
     :data-disabled="disabled ? '' : undefined"
     :as="as"
     :as-child="asChild"
-    @click="handleSelect"
+    @click="handleSelectCustomEvent"
     @pointermove="handlePointerMove"
   >
     <slot>{{ value }}</slot>

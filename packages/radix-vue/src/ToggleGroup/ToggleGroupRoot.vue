@@ -3,7 +3,7 @@ import type { Ref } from 'vue'
 import type { DataOrientation, Direction } from '../shared/types'
 import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
 import { RovingFocusGroup } from '@/RovingFocus'
-import { createContext } from '@/shared'
+import { createContext, useDirection } from '@/shared'
 
 type TypeEnum = 'single' | 'multiple'
 
@@ -43,14 +43,14 @@ import { Primitive, type PrimitiveProps } from '@/Primitive'
 const props = withDefaults(defineProps<ToggleGroupRootProps>(), {
   type: 'single',
   loop: true,
-  dir: 'ltr',
   orientation: 'horizontal',
   rovingFocus: true,
   disabled: false,
 })
 const emits = defineEmits<ToggleGroupRootEmits>()
 
-const { loop, rovingFocus, disabled, dir } = toRefs(props)
+const { loop, rovingFocus, disabled, dir: propDir } = toRefs(props)
+const dir = useDirection(propDir)
 
 const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emits)
 

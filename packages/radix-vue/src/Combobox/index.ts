@@ -8,9 +8,9 @@ export {
   type ComboboxInputProps,
 } from './ComboboxInput.vue'
 export {
-  default as ComboboxHeader,
-  type ComboboxHeaderProps,
-} from './ComboboxHeader.vue'
+  default as ComboboxAnchor,
+  type ComboboxAnchorProps,
+} from './ComboboxAnchor.vue'
 export {
   default as ComboboxTrigger,
   type ComboboxTriggerProps,

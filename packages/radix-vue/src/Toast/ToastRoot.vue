@@ -2,10 +2,13 @@
 import { Presence } from '@/Presence'
 import ToastRootImpl, { type ToastRootImplEmits, type ToastRootImplProps } from './ToastRootImpl.vue'
 import { useVModel } from '@vueuse/core'
+import type { Ref } from 'vue'
 
 const props = withDefaults(defineProps<ToastRootProps>(), {
   type: 'foreground',
-  open: true,
+  open: undefined,
+  defaultOpen: true,
+  as: 'li',
 })
 const emits = defineEmits<ToastRootEmits>()
 
@@ -13,9 +16,9 @@ export interface ToastRootProps extends ToastRootImplProps {
   defaultOpen?: boolean
   /**
    * Used to force mounting when more control is needed. Useful when
-   * controlling animation with React animation libraries.
+   * controlling animation with Vue animation libraries.
    */
-  forceMount?: true
+  forceMount?: boolean
 }
 
 export type ToastRootEmits = ToastRootImplEmits & {
@@ -24,8 +27,8 @@ export type ToastRootEmits = ToastRootImplEmits & {
 
 const open = useVModel(props, 'open', emits, {
   defaultValue: props.defaultOpen,
-  passive: !props.open as false,
-})
+  passive: (props.open === undefined) as false,
+}) as Ref<boolean>
 </script>
 
 <template>
@@ -33,6 +36,8 @@ const open = useVModel(props, 'open', emits, {
     <ToastRootImpl
       :open="open"
       :type="type"
+      :as="as"
+      :as-child="asChild"
       :duration="duration"
       v-bind="$attrs"
       @close="open = false"

@@ -4,12 +4,14 @@ import Combobox from './story/_Combobox.vue'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
+import { handleSubmit } from '@/test'
 
 describe('given default Combobox', () => {
   let wrapper: VueWrapper<InstanceType<typeof Combobox>>
   let valueBox: DOMWrapper<HTMLElement>
   window.HTMLElement.prototype.releasePointerCapture = vi.fn()
   window.HTMLElement.prototype.hasPointerCapture = vi.fn()
+  window.HTMLElement.prototype.scrollIntoView = vi.fn()
   globalThis.ResizeObserver = class ResizeObserver {
     observe() {}
     unobserve() {}
@@ -84,6 +86,88 @@ describe('given default Combobox', () => {
           expect(selection.html()).toContain('svg')
         })
       })
+    })
+  })
+})
+
+describe('given a Combobox with multiple prop', async () => {
+  let wrapper: VueWrapper<InstanceType<typeof Combobox>>
+  let valueBox: DOMWrapper<HTMLElement>
+
+  beforeEach(() => {
+    document.body.innerHTML = ''
+    wrapper = mount(Combobox, { props: { multiple: true }, attachTo: document.body })
+    valueBox = wrapper.find('input')
+  })
+
+  describe('opening the popup', () => {
+    beforeEach(async () => {
+      await wrapper.find('button').trigger('click')
+      await nextTick()
+    })
+
+    it('should show the popup content', () => {
+      expect(wrapper.html()).toContain('Apple')
+    })
+
+    describe('after selecting a value', () => {
+      beforeEach(async () => {
+        const selection = wrapper.findAll('[role=option]')[1]
+        await selection.trigger('click')
+      })
+
+      it('should not show searchTerm value', () => {
+        expect((valueBox.element as HTMLInputElement).value).toBe('')
+      })
+
+      it('should keep popup open', () => {
+        const group = wrapper.find('[role=group]')
+        expect(group.exists()).toBeTruthy()
+      })
+    })
+  })
+})
+
+describe('given combobox in a form', async () => {
+  const wrapper = mount({
+    props: ['handleSubmit'],
+    components: { Combobox },
+    template: '<form @submit="handleSubmit"><Combobox value="true" /></form>',
+  }, {
+    props: { handleSubmit },
+  })
+
+  it('should have hidden input field', async () => {
+    expect(wrapper.find('[type="hidden"]').exists()).toBe(true)
+  })
+
+  describe('after selecting option and clicking submit button', () => {
+    beforeEach(async () => {
+      await wrapper.find('button').trigger('click')
+      await nextTick()
+      const selection = wrapper.findAll('[role=option]')[1]
+      await selection.trigger('click')
+      await wrapper.find('form').trigger('submit')
+    })
+
+    it('should trigger submit once', () => {
+      expect(handleSubmit).toHaveBeenCalledTimes(1)
+      expect(handleSubmit.mock.results[0].value).toStrictEqual({ test: 'Banana' })
+    })
+  })
+
+  describe('after selecting other option and click submit button again', () => {
+    beforeEach(async () => {
+      await wrapper.find('button').trigger('click')
+      await nextTick()
+      const selection = wrapper.findAll('[role=option]')[4]
+      await selection.trigger('click')
+      await wrapper.find('form').trigger('submit')
+    })
+
+    it('should trigger submit once', () => {
+      expect(handleSubmit).toHaveBeenCalledTimes(2)
+      expect(handleSubmit.mock.results[1].value).toStrictEqual({ test: 'Pineapple' })
     })
   })
 })

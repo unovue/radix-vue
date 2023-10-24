@@ -5,7 +5,7 @@ export interface DropdownMenuTriggerProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { nextTick, onMounted } from 'vue'
 import { injectDropdownMenuRootContext } from './DropdownMenuRoot.vue'
 import {
   Primitive,
@@ -43,11 +43,12 @@ onMounted(() => {
       :disabled="disabled"
       :data-state="rootContext.open.value ? 'open' : 'closed'"
       @pointerdown="
-        (event) => {
+        async (event) => {
           // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)
           // but not when the control key is pressed (avoiding MacOS right click)
           if (!disabled && event.button === 0 && event.ctrlKey === false) {
-            rootContext.onOpenToggle();
+            rootContext?.onOpenToggle();
+            await nextTick()
             // prevent trigger focusing when opening
             // this allows the content to be given focus without competition
             if (rootContext.open.value) event.preventDefault();

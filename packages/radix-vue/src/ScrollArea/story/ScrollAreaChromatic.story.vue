@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import ScrollAreaStory from './_ScrollAreaStory.vue'
 import ScrollAreaCopy from './_ScrollAreaCopy.vue'
+import { ConfigProvider } from '../../ConfigProvider'
 </script>
 
 <template>
@@ -17,11 +18,12 @@ import ScrollAreaCopy from './_ScrollAreaCopy.vue'
       </ScrollAreaStory>
     </Variant>
 
-    <!-- TODO: we dont have DirectionProvider atm -->
-    <!-- <Variant auto-props-disabled title="RTL (inherited)">
-      <ScrollAreaStory :type="'always'" :dir="'rtl'" vertical horizontal>
-        <ScrollAreaCopy v-for="i in 10" :key="i"></ScrollAreaCopy>
-      </ScrollAreaStory>
-    </Variant> -->
+    <Variant auto-props-disabled title="RTL (inherited)">
+      <ConfigProvider dir="rtl">
+        <ScrollAreaStory type="always" vertical horizontal>
+          <ScrollAreaCopy v-for="i in 10" :key="i" />
+        </ScrollAreaStory>
+      </ConfigProvider>
+    </Variant>
   </Story>
 </template>

@@ -12,21 +12,21 @@
   },
   "dependencies": {
     "radix-vue": "link:../../packages/radix-vue",
-    "vue": "^3.2.47"
+    "vue": "^3.3.5"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.39.7",
+    "@antfu/eslint-config": "^0.39.8",
     "@iconify/vue": "^4.1.1",
-    "@radix-ui/colors": "^1.0.0",
-    "@rollup/plugin-alias": "^5.0.0",
-    "@vitejs/plugin-vue": "^4.1.0",
-    "autoprefixer": "^10.4.14",
-    "eslint": "^8.43.0",
+    "@radix-ui/colors": "^1.0.1",
+    "@rollup/plugin-alias": "^5.0.1",
+    "@vitejs/plugin-vue": "^4.4.0",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.51.0",
     "postcss": "^8.4.31",
-    "tailwindcss": "^3.3.2",
-    "typescript": "^5.0.2",
-    "unplugin-vue-components": "^0.25.1",
-    "vite": "^4.3.9",
-    "vue-tsc": "^1.4.2"
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.2.2",
+    "unplugin-vue-components": "^0.25.2",
+    "vite": "^4.5.0",
+    "vue-tsc": "^1.8.19"
   }
 }

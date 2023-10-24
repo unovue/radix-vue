@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { ComputedRef, Ref } from 'vue'
 import type { DataOrientation, Direction, Type } from '@/shared/types'
-import { createContext } from '@/shared'
+import { createContext, useDirection } from '@/shared'
 
 export interface AccordionRootProps extends PrimitiveProps {
   /**
@@ -55,8 +55,8 @@ export type AccordionRootEmits = {
 }
 
 export type AccordionRootContext = {
-  disabled?: AccordionRootProps['disabled']
-  direction: AccordionRootProps['dir']
+  disabled: Ref<AccordionRootProps['disabled']>
+  direction: Ref<AccordionRootProps['dir']>
   orientation: AccordionRootProps['orientation']
   parentElement: Ref<HTMLElement | undefined>
   changeModelValue(value: string): void
@@ -76,17 +76,17 @@ import {
   usePrimitiveElement,
 } from '@/Primitive'
 import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
-import { computed } from 'vue'
+import { computed, toRefs } from 'vue'
 
 const props = withDefaults(defineProps<AccordionRootProps>(), {
   asChild: false,
-  dir: 'ltr',
   disabled: false,
   orientation: 'vertical',
   collapsible: false,
 })
-
 const emits = defineEmits<AccordionRootEmits>()
+const { dir, disabled } = toRefs(props)
+const direction = useDirection(dir)
 
 const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emits)
 
@@ -94,8 +94,8 @@ const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
 
 provideAccordionRootContext({
-  disabled: props.disabled,
-  direction: props.dir,
+  disabled,
+  direction,
   orientation: props.orientation,
   parentElement,
   isSingle: computed(() => props.type === 'single'),
@@ -110,7 +110,7 @@ defineExpose({
 </script>
 
 <template>
-  <Primitive ref="primitiveElement" :as-child="props.asChild" :as="props.as">
+  <Primitive ref="primitiveElement" :as-child="asChild" :as="as">
     <slot :model-value="modelValue" />
   </Primitive>
 </template>

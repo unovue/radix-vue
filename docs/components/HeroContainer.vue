@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { type Slots, computed, useSlots } from 'vue'
 import CodeSandbox from './CodeSandbox.vue'
+import Stackblitz from './Stackblitz.vue'
 
 withDefaults(
   defineProps<{
@@ -19,13 +20,14 @@ const files = computed<string[]>(
 <template>
   <div class="relative text-[15px] text-black">
     <div
-      class="bg-gradient-to-br p-4 rounded-t-lg from-teal9 to-green9 w-full relative items-center justify-center flex"
+      class="vp-raw bg-gradient-to-br p-4 rounded-t-lg from-teal9 to-green9 w-full relative items-center justify-center flex"
       :class="{ 'overflow-x-auto': overflow }"
     >
       <div class="w-full max-w-[700px] flex items-center py-12 sm:py-[100px] custom-justify-center z-10">
         <slot />
 
         <CodeSandbox v-if="folder" class="hidden sm:block absolute bottom-4 right-4" :name="folder" :files="files" />
+        <Stackblitz v-if="folder" class="hidden sm:block absolute bottom-4 right-12" :name="folder" :files="files" />
       </div>
     </div>
     <slot name="codeSlot" />

@@ -20,8 +20,10 @@ import {
 } from '../'
 import { useEmitAsProps } from '@/shared'
 
+const props = defineProps<{ defaultOpen?: boolean }>()
+
 const emits = defineEmits<DropdownMenuItemEmits>()
-const toggleState = ref(false)
+const toggleState = ref(props.defaultOpen ?? false)
 const checkboxOne = ref(false)
 const checkboxTwo = ref(false)
 const person = ref('pedro')

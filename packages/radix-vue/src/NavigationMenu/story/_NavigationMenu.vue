@@ -32,9 +32,6 @@ const currentTrigger = ref('')
           </NavigationMenuTrigger>
           <NavigationMenuContent
             class="data-[motion=from-start]:animate-enterFromLeft data-[motion=from-end]:animate-enterFromRight data-[motion=to-start]:animate-exitToLeft data-[motion=to-end]:animate-exitToRight absolute top-0 left-0 w-full sm:w-auto"
-            @escape-key-down.prevent
-            @pointer-down-outside.prevent
-            @focus-outside.prevent
           >
             <ul
               class="one m-0 grid list-none gap-x-[10px] p-[22px] sm:w-[500px] sm:grid-cols-[0.75fr_1fr]"
@@ -68,7 +65,7 @@ const currentTrigger = ref('')
                     Radix Primitives
                   </div>
                   <p class="text-mauve4 text-[14px] leading-[1.3]">
-                    Unstyled, accessible components for React.
+                    Unstyled, accessible components for Vue.
                   </p>
                 </NavigationMenuLink>
               </li>

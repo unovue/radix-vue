@@ -12,12 +12,14 @@ export interface ContextMenuSubProps {
 import { useVModel } from '@vueuse/core'
 import { MenuSub } from '@/Menu'
 
-const props = defineProps<ContextMenuSubProps>()
+const props = withDefaults(defineProps<ContextMenuSubProps>(), {
+  open: undefined,
+})
 const emit = defineEmits<ContextMenuSubEmits>()
 
 const open = useVModel(props, 'open', emit, {
-  passive: true,
   defaultValue: props.defaultOpen,
+  passive: (props.open === undefined) as false,
 })
 </script>
 

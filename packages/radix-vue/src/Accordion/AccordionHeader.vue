@@ -5,7 +5,9 @@ import { Primitive, type PrimitiveProps } from '@/Primitive'
 
 export interface AccordionHeaderProps extends PrimitiveProps {}
 
-const props = defineProps<AccordionHeaderProps>()
+const props = withDefaults(defineProps<AccordionHeaderProps>(), {
+  as: 'h3',
+})
 
 const rootContext = injectAccordionRootContext()
 const itemContext = injectAccordionItemContext()
@@ -13,7 +15,7 @@ const itemContext = injectAccordionItemContext()
 
 <template>
   <Primitive
-    :as="props.as || 'h3'"
+    :as="props.as"
     :as-child="props.asChild"
     :data-orientation="rootContext.orientation"
     :data-state="itemContext.dataState.value"

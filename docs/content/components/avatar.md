@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Avatar
-metaDescription: An image element with a fallback for representing the user.
+
+title: Avatar
+description: An image element with a fallback for representing the user.
 name: avatar
 ---
 
@@ -76,6 +76,12 @@ Contains all the parts of an avatar
 
 <PropsTable :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'span',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -90,6 +96,12 @@ Contains all the parts of an avatar
 The image to render. By default it will only render when it has loaded. You can use the `@loadingStatusChange` handler if you need more control.
 
 <PropsTable :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'img',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -114,9 +126,15 @@ The image to render. By default it will only render when it has loaded. You can 
 
 ### Fallback
 
-An element that renders when the image hasn't loaded. This means whilst it's loading, or if there was an error. If you notice a flash during loading, you can provide a `delayMs` prop to delay its rendering so it only renders for those with slower connections. For more control, use the `onLoadingStatusChange` handler on `AvatarImage`.
+An element that renders when the image hasn't loaded. This means whilst it's loading, or if there was an error. If you notice a flash during loading, you can provide a `delayMs` prop to delay its rendering so it only renders for those with slower connections. For more control, use the `@loadingStatusChange` emit on `AvatarImage`.
 
 <PropsTable :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'span',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -139,7 +157,7 @@ An element that renders when the image hasn't loaded. This means whilst it's loa
 
 You can compose the Avatar with a [Tooltip](/components/tooltip) to display extra information.
 
-```vue line=5,6,7,12,13,15,17-21
+```vue line=6-7,9,11-15
 <script setup>
 import { AvatarImage, AvatarRoot, TooltipArrow, TooltipRoot, TooltipTrigger } from 'radix-vue'
 </script>

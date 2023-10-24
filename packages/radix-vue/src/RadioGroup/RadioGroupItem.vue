@@ -21,7 +21,6 @@ import {
   type ComputedRef,
   computed,
   ref,
-  toRefs,
 } from 'vue'
 import { injectRadioGroupRootContext } from './RadioGroupRoot.vue'
 import {
@@ -35,7 +34,6 @@ const props = withDefaults(defineProps<RadioGroupItemProps>(), {
   disabled: false,
   as: 'button',
 })
-const { value } = toRefs(props)
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
 const rootContext = injectRadioGroupRootContext()
@@ -73,33 +71,15 @@ function handleFocus() {
 <template>
   <RovingFocusItem :checked="checked" :disabled="disabled" as-child :focusable="!disabled" :active="checked">
     <Radio
-      ref="primitiveElement" v-bind="{ ...$attrs, ...props }"
+      ref="primitiveElement"
+      v-bind="{ ...$attrs, ...props }"
       :checked="checked"
+      :required="required"
+      @update:checked="rootContext.changeModelValue(value)"
       @keydown.enter.prevent
       @focus="handleFocus"
     >
       <slot />
     </Radio>
-
-    <input
-      v-model="value"
-      type="radio"
-      aria-hidden="true"
-      tabindex="-1"
-      :default-value="checked"
-      :required="required"
-      :checked="checked"
-      :disabled="disabled"
-      :style=" {
-        transform: 'translateX(-100%)',
-        position: 'absolute',
-        pointerEvents: 'none',
-        opacity: '0',
-        margin: '0px',
-        width: '25px',
-        height: '25px',
-      }
-      "
-    >
   </RovingFocusItem>
 </template>

@@ -12,9 +12,9 @@ import { Presence } from '@/Presence'
 export interface PopoverContentProps extends PopoverContentImplProps {
   /**
    * Used to force mounting when more control is needed. Useful when
-   * controlling animation with React animation libraries.
+   * controlling animation with Vue animation libraries.
    */
-  forceMount?: true
+  forceMount?: boolean
 }
 export type PopoverContentEmits = PopoverContentImplEmits
 

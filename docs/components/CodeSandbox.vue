@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { makeCodeSandboxParams } from '../codeeditor/index'
+import { makeCodeSandboxParams } from '../codeeditor'
 import Tooltip from './Tooltip.vue'
 import { Icon } from '@iconify/vue'
 

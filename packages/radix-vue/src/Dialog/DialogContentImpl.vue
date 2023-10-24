@@ -7,6 +7,9 @@ import {
 } from '@/DismissableLayer'
 import { FocusScope } from '@/FocusScope'
 import { getOpenState } from '@/Menu/utils'
+import { useWarning } from './utils'
+import { usePrimitiveElement } from '@/Primitive'
+import { onMounted } from 'vue'
 
 export interface DialogContentImplProps extends DismissableLayerProps {
   /**
@@ -39,6 +42,14 @@ const props = defineProps<DialogContentImplProps>()
 const emits = defineEmits<DialogContentImplEmits>()
 
 const rootContext = injectDialogRootContext()
+const { primitiveElement, currentElement: contentElement } = usePrimitiveElement()
+
+onMounted(() => {
+  rootContext.contentElement = contentElement
+})
+
+if (process.env.NODE_ENV !== 'production')
+  useWarning()
 </script>
 
 <template>
@@ -50,8 +61,8 @@ const rootContext = injectDialogRootContext()
     @unmount-auto-focus="emits('closeAutoFocus', $event)"
   >
     <DismissableLayer
-      v-bind="$attrs"
       :id="rootContext.contentId"
+      ref="primitiveElement"
       :as="as"
       :as-child="asChild"
       :disable-outside-pointer-events="disableOutsidePointerEvents"
@@ -59,6 +70,7 @@ const rootContext = injectDialogRootContext()
       :aria-describedby="rootContext.descriptionId"
       :aria-labelledby="rootContext.titleId"
       :data-state="getOpenState(rootContext.open.value)"
+      v-bind="$attrs"
       @dismiss="rootContext.onOpenChange(false)"
       @escape-key-down="emits('escapeKeyDown', $event)"
       @focus-outside="emits('focusOutside', $event)"

@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Separator
-metaDescription: Visually or semantically separates content.
+
+title: Separator
+description: Visually or semantically separates content.
 name: separator
 aria: https://www.w3.org/TR/wai-aria-1.2/#separator
 ---
@@ -79,6 +79,12 @@ The separator.
       name: 'decorative',
       type: 'boolean',
       description: '<span> When <Code>true</Code>, signifies that it is purely visual, carries no semantic meaning, and ensures it is not present in the accessibility tree.</span>',
+    },
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
     },
     {
       name: 'asChild',

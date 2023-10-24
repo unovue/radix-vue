@@ -1,7 +1,6 @@
 ---
-outline: deep
-metaTitle: Alert Dialog
-metaDescription: A modal dialog that interrupts the user with important content and expects a response.
+title: Alert Dialog
+description: A modal dialog that interrupts the user with important content and expects a response.
 name: alert-dialog
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog
 ---
@@ -124,13 +123,21 @@ Contains all the parts of an alert dialog.
 
 A button that opens the dialog.
 
-<PropsTable :data="[{
-name: 'asChild',
-required: false,
-type: 'boolean',
-default: 'false',
-description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.'
-}]" />
+<PropsTable :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'trigger',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.'
+    }
+]" />
 
 <DataAttributesTable :data="[{
 attribute: '[data-state]',
@@ -156,13 +163,28 @@ When used, portals your overlay and content parts into the <code>body</code>.
 
 A layer that covers the inert portion of the view when the dialog is open.
 
-<PropsTable :data="[{
-name: 'asChild',
-required: false,
-type: 'boolean',
-default: 'false',
-description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-}]" />
+<PropsTable :data="[
+  {
+    name: 'as',
+    type: 'string | Component',
+    default: 'div',
+    description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+  },
+  {
+    name: 'asChild',
+    required: false,
+    type: 'boolean',
+    default: 'false',
+    description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+  },
+  {
+    name: 'forceMount',
+    type: 'boolean',
+    description: `
+      Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.
+    `,
+  },
+]" />
 
 <DataAttributesTable :data="[{
 attribute: '[data-state]',
@@ -176,12 +198,25 @@ Contains content to be rendered when the dialog is open.
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    }
+    },
+    {
+      name: 'forceMount',
+      type: 'boolean',
+      description: `
+        Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.
+      `,
+    },
   ]" 
 />
 
@@ -218,49 +253,81 @@ values: ['open', 'closed'],
 
 A button that closes the dialog. This button should be distinguished visually from `AlertDialogAction` buttons.
 
-<PropsTable :data="[{
-name: 'asChild',
-required: false,
-type: 'boolean',
-default: 'false',
-description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-}]" />
+<PropsTable :data="[
+  {
+    name: 'as',
+    type: 'string | Component',
+    default: 'button',
+    description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+  },
+  {
+    name: 'asChild',
+    required: false,
+    type: 'boolean',
+    default: 'false',
+    description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+  }
+]" />
 
 ### Action
 
 A button that closes the dialog. These buttons should be distinguished visually from the `AlertDialogCancel` button.
 
-<PropsTable :data="[{
-name: 'asChild',
-required: false,
-type: 'boolean',
-default: 'false',
-description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-}]" />
+<PropsTable :data="[
+  {
+    name: 'as',
+    type: 'string | Component',
+    default: 'button',
+    description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+  },
+  {
+    name: 'asChild',
+    required: false,
+    type: 'boolean',
+    default: 'false',
+    description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+  }
+]" />
 
 ### Title
 
 An accessible name to be announced when the dialog is opened. Alternatively, you can provide `aria-label` or `aria-labelledby` to `AlertDialogContent` and exclude this component.
 
-<PropsTable :data="[{
-name: 'asChild',
-required: false,
-type: 'boolean',
-default: 'false',
-description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-}]" />
+<PropsTable :data="[
+  {
+    name: 'as',
+    type: 'string | Component',
+    default: 'h2',
+    description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+  },
+  {
+    name: 'asChild',
+    required: false,
+    type: 'boolean',
+    default: 'false',
+    description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+  }
+]" />
 
 ### Description
 
 An accessible description to be announced when the dialog is opened. Alternatively, you can provide `aria-describedby` to `AlertDialogContent` and exclude this component.
 
-<PropsTable :data="[{
-name: 'asChild',
-required: false,
-type: 'boolean',
-default: 'false',
-description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-}]" />
+<PropsTable :data="[
+  {
+    name: 'as',
+    type: 'string | Component',
+    default: 'p',
+    description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+  },
+  {
+    name: 'asChild',
+    required: false,
+    type: 'boolean',
+    default: 'false',
+    description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+  }
+]" />
 
 ## Examples
 
@@ -268,7 +335,7 @@ description: 'Change the default rendered element for the one passed as a child,
 
 Use the controlled props to programmatically close the Alert Dialog after an async operation has completed.
 
-```vue line=14,15,18,23-30,32
+```vue line=14,15,19,25-29
 <script setup>
 import {
   AlertDialogAction,
@@ -293,10 +360,9 @@ const open = ref(false)
       <AlertDialogOverlay />
       <AlertDialogContent>
         <form
-          @submit="
+          @submit.prevent="
             (event) => {
-              wait().then(() => setOpen(false));
-              event.preventDefault();
+              wait().then(() => open = false);
             }
           "
         >

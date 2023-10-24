@@ -6,7 +6,7 @@ import MenuWithAnchor from './_MenuWithAnchor.vue'
 const emits = defineEmits<MenuItemEmits>()
 
 function handleSelect(text: string) {
-  console.log({ text })
+  // console.log({ text })
   // window.alert(text);
 }
 

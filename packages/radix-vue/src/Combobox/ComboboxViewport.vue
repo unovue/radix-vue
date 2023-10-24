@@ -11,9 +11,9 @@ const props = defineProps<ComboboxViewportProps>()
 <template>
   <Primitive as="style">
     /* Hide scrollbars cross-browser and enable momentum scroll for touch
-    devices */ [data-radix-select-viewport] { scrollbar-width:none; -ms-overflow-style: none;
+    devices */ [data-radix-combobox-viewport] { scrollbar-width:none; -ms-overflow-style: none;
     -webkit-overflow-scrolling: touch; }
-    [data-radix-select-viewport]::-webkit-scrollbar { display: none; }
+    [data-radix-combobox-viewport]::-webkit-scrollbar { display: none; }
   </Primitive>
   <Primitive
     data-radix-combobox-viewport

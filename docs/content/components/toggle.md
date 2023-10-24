@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Toggle
-metaDescription: A two-state button that can be either on or off.
+
+title: Toggle
+description: A two-state button that can be either on or off.
 name: toggle
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/button
 ---
@@ -84,6 +84,12 @@ The toggle.
       name: 'disabled',
       type: 'boolean',
       description: '<span> When <Code>true</Code>, prevents the user from interacting with the toggle.</span>',
+    },
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'button',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
     },
     {
       name: 'asChild',

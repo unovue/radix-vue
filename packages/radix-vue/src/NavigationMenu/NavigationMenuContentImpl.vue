@@ -44,7 +44,7 @@ const prevMotionAttributeRef = ref<MotionAttribute | null>(null)
 const motionAttribute = computed(() => {
   const items = collectionItems.value
   const values = items.map(item => item.id.split('trigger-')[1])
-  if (menuContext.dir === 'rtl')
+  if (menuContext.dir.value === 'rtl')
     values.reverse()
   const index = values.indexOf(menuContext.modelValue.value)
   const prevIndex = values.indexOf(menuContext.previousValue.value)

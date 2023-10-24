@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Select
-metaDescription: Displays a list of options for the user to pick from—triggered by a button.
+
+title: Select
+description: Displays a list of options for the user to pick from—triggered by a button.
 name: select
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/listbox
 ---
@@ -187,6 +187,12 @@ The button that toggles the Select The `SelectContent` will position itself by a
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'button',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -222,8 +228,14 @@ The part that reflects the selected value. By default the selected item's text w
     {
       name: 'placeholder',
       required: false,
-      type: 'ReactNode',
+      type: 'string',
       description: 'The content that will be rendered inside the <Code>SelectValue</Code> when no <Code>value</Code> or <Code>defaultValue</Code> is set.',
+    },
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'span',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
     },
     {
       name: 'asChild',
@@ -241,6 +253,12 @@ A small icon often displayed next to the value as a visual affordance for the fa
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'span',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -345,6 +363,12 @@ The component that pops out when the select is open.
       description: '<span> Whether to hide the content when the trigger becomes fully occluded. Only available when <Code>position</Code> is set to <Code>popper</Code>. </span>',
     },
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -423,6 +447,12 @@ The scrolling viewport that contains all of the items.
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -453,6 +483,12 @@ The component that contains the select items.
       name: 'textValue',
       type: 'string',
       description: '<span> Optional text used for typeahead purposes. By default the typeahead behavior will use the <Code>.textContent</Code> of the <Code>SelectItemText</Code> part. Use this when the content is complex, or you have non-textual content inside. </span>',
+    },
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
     },
     {
       name: 'asChild',
@@ -488,6 +524,12 @@ The textual part of the item. It should only contain the text you want to see in
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'span',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -503,6 +545,12 @@ Renders when the item is selected. You can style this element directly, or you c
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'span',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -520,6 +568,12 @@ An optional button used as an affordance to show the viewport overflow as well a
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -535,6 +589,12 @@ An optional button used as an affordance to show the viewport overflow as well a
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -552,6 +612,12 @@ Used to group multiple items. use in conjunction with `SelectLabel` to ensure go
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -567,6 +633,12 @@ Used to render the label of a group. It won't be focusable using arrow keys.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'label',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -584,6 +656,12 @@ Used to visually separate items in the Select
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -599,6 +677,12 @@ An optional arrow element to render alongside the content. This can be used to h
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'svg',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -661,7 +745,7 @@ When using `position="popper"` on `SelectContent`, you may want to constrain the
 
 We expose several CSS custom properties such as `--radix-select-trigger-width` and `--radix-select-content-available-height` to support this. Use them to constrain the content dimensions.
 
-```vue line=21
+```vue line=20
 // index.vue
 <script setup lang="ts">
 import {
@@ -675,7 +759,6 @@ import {
   SelectSeparator,
   SelectTrigger,
 } from 'radix-vue'
-import './styles.css'
 </script>
 
 <template>
@@ -690,7 +773,7 @@ import './styles.css'
 </template>
 ```
 
-```css
+```css line=3,4
 /* styles.css */
 .SelectContent {
   width: var(--radix-select-trigger-width);
@@ -702,7 +785,7 @@ import './styles.css'
 
 You can add special styles to disabled items via the `data-disabled` attribute.
 
-```vue line=23
+```vue line=22
 // index.vue
 <script setup lang="ts">
 import {
@@ -716,7 +799,6 @@ import {
   SelectSeparator,
   SelectTrigger,
 } from 'radix-vue'
-import './styles.css'
 </script>
 
 <template>
@@ -813,7 +895,7 @@ Use the `Separator` part to add a separator between items.
 
 Use the `Group` and `Label` parts to group items in a section.
 
-```vue line=7,12
+```vue line=7,8,12
 <template>
   <SelectRoot>
     <SelectTrigger>…</SelectTrigger>
@@ -920,7 +1002,7 @@ const value = ref('france')
 
 The native scrollbar is hidden by default as we recommend using the `ScrollUpButton` and `ScrollDownButton` parts for the best UX. If you do not want to use these parts, compose your select with our [Scroll Area](scroll-area) primitive.
 
-```vue line=27,29,34-39
+```vue line=25,27,32-34
 // index.vue
 <script setup lang="ts">
 import {
@@ -938,8 +1020,6 @@ import {
   SelectSeparator,
   SelectTrigger,
 } from 'radix-vue'
-import * as ScrollArea from 'radix-vue'
-import './styles.css'
 </script>
 
 <template>
@@ -1019,17 +1099,17 @@ See the W3C [Select-Only Combobox](https://www.w3.org/TR/wai-aria-practices/exam
     },
   ]"
 />
-
-<!--
+ 
 ### Labelling
 
 Use our [Label](label) component in order to offer a visual and accessible label for the Select
 
-```vue line=19,22,26
+```vue line=19,22,26,28
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-import { ref } from "vue";
+import { Icon } from '@iconify/vue'
+import { ref } from 'vue'
 import {
+  Label,
   SelectContent,
   SelectGroup,
   SelectItem,
@@ -1039,8 +1119,7 @@ import {
   SelectRoot,
   SelectSeparator,
   SelectTrigger,
-  Label,
-} from "radix-vue";
+} from 'radix-vue'
 </script>
 
 <template>
@@ -1049,19 +1128,20 @@ import {
     <SelectRoot>…</SelectRoot>
   </Label>
 
+  <!-- or -->
 
   <Label for="country">Country</Label>
   <SelectRoot>
-    <SelectTrigger id="country">…</SelectTrigger>
+    <SelectTrigger id="country">
+      …
+    </SelectTrigger>
     <SelectPortal>
       <SelectContent>…</SelectContent>
     </SelectPortal>
   </SelectRoot>
 </template>
 ```
--->
-
-<!--
+ 
 ## Custom APIs
 
 Create your own API by abstracting the primitive parts into your own component.
@@ -1073,38 +1153,92 @@ This example abstracts most of the parts.
 #### Usage
 
 ```vue
-import { Select, SelectItem } from './your-select';
-
+<script setup lang="ts">
+import { Select, SelectItem } from './your-select'
 </script>
 
 <template>
-  <Select defaultValue="2">
-    <SelectItem value="1">Item 1</SelectItem>
-    <SelectItem value="2">Item 2</SelectItem>
-    <SelectItem value="3">Item 3</SelectItem>
+  <Select default-value="2">
+    <SelectItem value="1">
+      Item 1
+    </SelectItem>
+    <SelectItem value="2">
+      Item 2
+    </SelectItem>
+    <SelectItem value="3">
+      Item 3
+    </SelectItem>
   </Select>
 </template>
+```
 
 #### Implementation
 
-```vue
-// your-Selectvue import React from 'react'; import * as SelectPrimitive from
-'radix-vue'; import { CheckIcon, ChevronDownIcon, ChevronUpIcon, } from
-'@radix-ui/react-icons'; export const Select = React.forwardRef( ({ children,
-...props }, forwardedRef) => { return (
-<SelectPrimitive.Root {...props}>
-        <SelectPrimitive.Trigger ref={forwardedRef}> <SelectPrimitive.Value /> <SelectPrimitive.Icon>   <ChevronDownIcon /> </SelectPrimitive.Icon>
-        </SelectPrimitive.Trigger>
-        <SelectPrimitive.Portal> <SelectPrimitive.Content>   <SelectPrimitive.ScrollUpButton>     <ChevronUpIcon />   </SelectPrimitive.ScrollUpButton>   <SelectPrimitive.Viewport>{children}</SelectPrimitive.Viewport>   <SelectPrimitive.ScrollDownButton>     <ChevronDownIcon />   </SelectPrimitive.ScrollDownButton> </SelectPrimitive.Content>
-        </SelectPrimitive.Portal>
-      </SelectPrimitive.Root>
-); } ); export const SelectItem = React.forwardRef( ({ children, ...props },
-forwardedRef) => { return (
-<SelectPrimitive.Item {...props} ref="{forwardedRef}">
-        <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
-        <SelectPrimitive.ItemIndicator> <CheckIcon />
-        </SelectPrimitive.ItemIndicator>
-      </SelectPrimitive.Item>
-); } );
+
+```ts
+// your-select.ts
+export { default as Select } from 'Select.vue'
+export { default as SelectItem } from 'SelectItem.vue'
 ```
--->
+
+
+```vue
+<!-- Select.vue -->
+<script setup lang="ts">
+import { CheckIcon, ChevronDownIcon, ChevronUpIcon, } from '@radix-icons/vue'
+import { SelectContent, SelectIcon, SelectPortal, SelectRoot, SelectScrollDownButton, SelectScrollUpButton, SelectTrigger, SelectValue, SelectViewport, useForwardPropsEmits } from 'radix-vue'
+import type { SelectRootEmits, SelectRootProps } from 'radix-vue'
+
+const props = defineProps<SelectRootProps>()
+const emits = defineEmits<SelectRootEmits>()
+
+const forward = useForwardPropsEmits(props, emits)
+</script>
+
+<template>
+  <SelectRoot v-bind="forward">
+    <SelectTrigger>
+      <SelectValue />
+      <SelectIcon>
+        <ChevronDownIcon />
+      </SelectIcon>
+    </SelectTrigger>
+
+    <SelectPortal>
+      <SelectContent>
+        <SelectScrollUpButton>
+          <ChevronUpIcon />
+        </SelectScrollUpButton>
+        <SelectViewport>
+          <slot />
+        </SelectViewport>
+        <SelectScrollDownButton>
+          <ChevronDownIcon />
+        </SelectScrollDownButton>
+      </SelectContent>
+    </SelectPortal>
+  </SelectRoot>
+</template>
+```
+
+```vue
+<!-- SelectItem.vue -->
+<script setup lang="ts">
+import { CheckIcon } from '@radix-icons/vue'
+import { SelectItem, SelectItemIndicator, type SelectItemProps, SelectItemText } from 'radix-vue'
+
+const props = defineProps<SelectItemProps>()
+</script>
+
+<template>
+  <SelectItem v-bind="props">
+    <SelectItemText>
+      <slot />
+    </SelectItemText>
+    <SelectItemIndicator>
+      <CheckIcon />
+    </SelectItemIndicator>
+  </SelectItem>
+</template>
+```
+ 

@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Checkbox
-metaDescription: A control that allows the user to toggle between checked and not checked.
+
+title: Checkbox
+description: A control that allows the user to toggle between checked and not checked.
 name: checkbox
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/checkbox
 ---
@@ -77,6 +77,12 @@ Contains all the parts of a checkbox. An `input` will also render when used with
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -150,11 +156,24 @@ Renders when the checkbox is in a checked or indeterminate state. You can style 
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'span',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    },
+    {
+      name: 'forceMount',
+      type: 'boolean',
+      description: `
+        Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.
+      `,
     },
   ]"
 />
@@ -178,7 +197,7 @@ Renders when the checkbox is in a checked or indeterminate state. You can style 
 
 You can set the checkbox to `indeterminate` by taking control of its state.
 
-```vue line=5,9-14,16-21
+```vue line=5,9-14,16-18
 <script setup>
 import { Icon } from '@iconify/vue'
 import { CheckboxIndicator, CheckboxRoot } from 'radix-vue'

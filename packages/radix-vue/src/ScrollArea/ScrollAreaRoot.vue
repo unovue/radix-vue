@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { Direction, ScrollType } from './types'
-import { createContext } from '@/shared'
+import { createContext, useDirection } from '@/shared'
 
 export interface ScrollAreaRootContext {
   type: Ref<ScrollType>
@@ -44,7 +44,6 @@ import {
 
 const props = withDefaults(defineProps<ScrollAreaRootProps>(), {
   type: 'hover',
-  dir: 'ltr',
   scrollHideDelay: 600,
 })
 
@@ -59,7 +58,8 @@ const scrollbarY = ref<HTMLElement>()
 const scrollbarXEnabled = ref(false)
 const scrollbarYEnabled = ref(false)
 
-const { type, dir, scrollHideDelay } = toRefs(props)
+const { type, dir: propDir, scrollHideDelay } = toRefs(props)
+const dir = useDirection(propDir)
 provideScrollAreaRootContext({
   type,
   dir,
@@ -103,7 +103,7 @@ provideScrollAreaRootContext({
     ref="primitiveElement"
     :as-child="props.asChild"
     :as="as"
-    :dir="props.dir"
+    :dir="dir"
     :style="{
       position: 'relative',
       // Pass corner sizes as CSS vars to reduce re-renders of context consumers

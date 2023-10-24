@@ -1,7 +1,6 @@
 ---
-outline: deep
-metaTitle: Accordion
-metaDescription: A vertically stacked set of interactive headings that each reveal an associated section of content.
+title: Accordion
+description: A vertically stacked set of interactive headings that each reveal an associated section of content.
 name: accordion
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/accordion
 ---
@@ -85,6 +84,12 @@ Contains all the parts of an Accordion
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -166,7 +171,14 @@ Contains all the parts of an Accordion
 
 Contains all the parts of a collapsible section.
 
-<PropsTable :data="[{
+<PropsTable :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -205,7 +217,14 @@ Contains all the parts of a collapsible section.
 
 Wraps an `AccordionTrigger`. Use the `asChild` prop to update it to the appropriate heading level for your page.
 
-<PropsTable :data="[{
+<PropsTable :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'h3',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -231,7 +250,13 @@ Wraps an `AccordionTrigger`. Use the `asChild` prop to update it to the appropri
 
 Toggles the collapsed state of its associated item. It should be nested inside of an `AccordionHeader`.
 
-<PropsTable :data="[{
+<PropsTable :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'button',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },{
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -257,13 +282,28 @@ Toggles the collapsed state of its associated item. It should be nested inside o
 
 Contains the collapsible content for an item.
 
-<PropsTable :data="[{
+<PropsTable :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    }]" />
+    },
+    {
+      name: 'forceMount',
+      type: 'boolean',
+      description: `
+        Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.
+      `,
+    },
+  ]" />
 
 <DataAttributesTable :data="[
     {
@@ -420,7 +460,7 @@ import './styles.css'
 </template>
 ```
 
-```css line=21,27
+```css line=17,23
 /* styles.css */
 .AccordionContent {
   overflow: hidden;

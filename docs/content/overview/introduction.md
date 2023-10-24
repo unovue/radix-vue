@@ -1,12 +1,10 @@
 ---
-outline: deep
-metaTitle: Introduction
-metaDescription: An open-source UI component library for building high-quality, accessible design systems and web apps using Vue.
+
+title: Introduction
+description: An open-source UI component library for building high-quality, accessible design systems and web apps using Vue.
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-</script>
+
 
 # Introduction
 

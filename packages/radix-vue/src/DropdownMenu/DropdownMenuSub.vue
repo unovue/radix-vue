@@ -13,11 +13,13 @@ export type DropdownMenuSubEmits = {
 import { useVModel } from '@vueuse/core'
 import { MenuSub } from '@/Menu'
 
-const props = defineProps<DropdownMenuSubProps>()
+const props = withDefaults(defineProps<DropdownMenuSubProps>(), {
+  open: undefined,
+})
 const emit = defineEmits<DropdownMenuSubEmits>()
 
 const open = useVModel(props, 'open', emit, {
-  passive: true,
+  passive: (props.open === undefined) as false,
   defaultValue: props.defaultOpen ?? false,
 })
 </script>

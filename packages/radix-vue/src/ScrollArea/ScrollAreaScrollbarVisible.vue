@@ -1,5 +1,5 @@
 <script lang="ts">
-import { createContext } from '@/shared'
+import { createContext, useForwardRef } from '@/shared'
 
 export interface ScrollAreaScrollbarVisibleContext {
   sizes: Ref<Sizes>
@@ -40,6 +40,7 @@ import {
 
 const rootContext = injectScrollAreaRootContext()
 const scrollbarContext = injectScrollAreaScrollbarContext()
+const forwardRef = useForwardRef()
 
 const sizes = ref<Sizes>({
   content: 0,
@@ -150,10 +151,10 @@ provideScrollAreaScrollbarVisibleContext({
 </script>
 
 <template>
-  <ScrollAreaScrollbarX v-if="isShowingScrollbarX" v-bind="$attrs">
+  <ScrollAreaScrollbarX v-if="isShowingScrollbarX" v-bind="$attrs" ref="forwardRef">
     <slot />
   </ScrollAreaScrollbarX>
-  <ScrollAreaScrollbarY v-else v-bind="$attrs">
+  <ScrollAreaScrollbarY v-else v-bind="$attrs" ref="forwardRef">
     <slot />
   </ScrollAreaScrollbarY>
 </template>

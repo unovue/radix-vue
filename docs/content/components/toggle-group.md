@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Toggle Group
-metaDescription: A set of two-state buttons that can be toggled on or off.
+
+title: Toggle Group
+description: A set of two-state buttons that can be toggled on or off.
 name: toggle-group
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/button
 ---
@@ -133,6 +133,12 @@ Contains all the parts of a toggle group.
       description: '<span> When <Code>true</Code> and <Code>rovingFocus</Code> is <Code>true</Code>, keyboard navigation will loop from last item to first, and vice versa. </span>',
     },
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -167,6 +173,12 @@ An item in the group.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'button',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -211,7 +223,7 @@ An item in the group.
 
 You can control the component to ensure a value.
 
-```vue line=4,8
+```vue line=5,9
 <script setup>
 import { ref } from 'vue'
 import { ToggleGroupItem, ToggleGroupRoot } from 'radix-vue'

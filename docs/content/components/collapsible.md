@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Collapsible
-metaDescription: An interactive component which expands/collapses a panel.
+
+title: Collapsible
+description: An interactive component which expands/collapses a panel.
 name: collapsible
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/disclosure
 ---
@@ -77,6 +77,12 @@ Contains all the parts of a collapsible
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -133,6 +139,12 @@ The button that toggles the collapsible
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'button',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -161,6 +173,12 @@ The component that contains the collapsible content.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -243,13 +261,13 @@ import './styles.css'
     height: 0;
   }
   to {
-    height: var(__--radix-collapsible-content-height__);
+    height: var(--radix-collapsible-content-height);
   }
 }
 
 @keyframes slideUp {
   from {
-    height: var(__--radix-collapsible-content-height__);
+    height: var(--radix-collapsible-content-height);
   }
   to {
     height: 0;

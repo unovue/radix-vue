@@ -6,7 +6,7 @@ import {
   toRefs,
 } from 'vue'
 import type { Direction, Orientation } from './utils'
-import { createContext, useCollection, useId } from '@/shared'
+import { createContext, useCollection, useDirection, useId } from '@/shared'
 
 export interface NavigationMenuRootProps extends PrimitiveProps {
   modelValue?: string
@@ -33,7 +33,7 @@ export interface NavigationMenuContext {
   modelValue: Ref<string>
   previousValue: Ref<string>
   baseId: string
-  dir: Direction
+  dir: Ref<Direction>
   orientation: Orientation
   rootNavigationMenu: Ref<HTMLElement | undefined>
   indicatorTrack: Ref<HTMLElement | undefined>
@@ -65,14 +65,13 @@ const props = withDefaults(defineProps<NavigationMenuRootProps>(), {
   delayDuration: 200,
   skipDelayDuration: 300,
   orientation: 'horizontal',
-  dir: 'ltr',
   as: 'nav',
 })
 const emits = defineEmits<NavigationMenuRootEmits>()
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  passive: true,
   defaultValue: props.defaultValue ?? '',
+  passive: (props.modelValue === undefined) as false,
 }) as Ref<string>
 const previousValue = ref('')
 
@@ -85,7 +84,8 @@ const viewport = ref<HTMLElement>()
 const { createCollection } = useCollection('nav')
 createCollection(indicatorTrack)
 
-const { delayDuration, skipDelayDuration } = toRefs(props)
+const { delayDuration, skipDelayDuration, dir: propDir } = toRefs(props)
+const dir = useDirection(propDir)
 
 const isDelaySkipped = refAutoReset(false, skipDelayDuration)
 const computedDelay = computed(() => {
@@ -105,7 +105,7 @@ provideNavigationMenuContext({
   modelValue,
   previousValue,
   baseId: useId(),
-  dir: props.dir,
+  dir,
   orientation: props.orientation,
   rootNavigationMenu,
   indicatorTrack,

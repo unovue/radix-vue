@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Progress
-metaDescription: Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.
+
+title: Progress
+description: Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.
 name: progress
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/meter
 ---
@@ -96,6 +96,12 @@ Contains all of the progress parts.
         'A function to get the accessible label text representing the current value in a human-readable format. If not provided, the value label will be read as the numeric value as a percentage of the max value.',
     },
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -139,6 +145,12 @@ Used to show the progress visually. It also makes progress accessible to assisti
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,

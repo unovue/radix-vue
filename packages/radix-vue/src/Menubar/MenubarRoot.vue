@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { Direction } from '../shared/types'
-import { createContext, useCollection } from '@/shared'
+import { createContext, useCollection, useDirection } from '@/shared'
 
 export interface MenubarRootProps {
   modelValue?: string
@@ -33,7 +33,6 @@ import { RovingFocusGroup } from '@/RovingFocus'
 import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<MenubarRootProps>(), {
-  dir: 'ltr',
   loop: false,
 })
 const emit = defineEmits<MenubarRootEmits>()
@@ -43,13 +42,14 @@ const { createCollection } = useCollection('menubar')
 createCollection(currentElement)
 
 const modelValue = useVModel(props, 'modelValue', emit, {
-  passive: true,
   defaultValue: props.defaultValue ?? '',
+  passive: (props.modelValue === undefined) as false,
 }) as Ref<string>
 
 const currentTabStopId = ref<string | null>(null)
 
-const { dir, loop } = toRefs(props)
+const { dir: propDir, loop } = toRefs(props)
+const dir = useDirection(propDir)
 provideMenubarRootContext({
   modelValue,
   dir,

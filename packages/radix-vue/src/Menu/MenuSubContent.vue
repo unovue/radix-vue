@@ -10,7 +10,13 @@ import { Presence } from '@/Presence'
 import { usePrimitiveElement } from '@/Primitive'
 import { useForwardPropsEmits } from '@/shared'
 
-export interface MenuSubContentProps extends MenuContentImplProps {}
+export interface MenuSubContentProps extends MenuContentImplProps {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
+  forceMount?: boolean
+}
 export type MenuSubContentEmits = MenuContentImplEmits
 
 const props = defineProps<MenuSubContentProps>()
@@ -27,7 +33,7 @@ const { primitiveElement, currentElement: subContentElement }
 </script>
 
 <template>
-  <Presence :present="menuContext.open.value">
+  <Presence :present="forceMount || menuContext.open.value">
     <MenuContentImpl
       v-bind="forwarded"
       :id="menuSubContext.contentId"

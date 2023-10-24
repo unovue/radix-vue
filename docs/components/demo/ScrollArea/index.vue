@@ -41,18 +41,3 @@ const tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length
     </ScrollAreaScrollbar>
   </ScrollAreaRoot>
 </template>
-
-<style>
-/* increase target size for touch devices https://www.w3.org/WAI/WCAG21/Understanding/target-size.html */
-.ScrollAreaThumb::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
-  min-width: 44px;
-  min-height: 44px;
-}
-</style>

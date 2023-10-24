@@ -1,12 +1,10 @@
 ---
-outline: deep
-metaTitle: Accessibility
-metaDescription: Radix Primitives follow the WAI-ARIA authoring practices guidelines and are tested in a wide selection of modern browsers and commonly used assistive technologies.
+
+title: Accessibility
+description: Radix Primitives follow the WAI-ARIA authoring practices guidelines and are tested in a wide selection of modern browsers and commonly used assistive technologies.
 ---
 
-<script setup>
-import Description from '../../components/Description.vue'
-</script>
+
 
 # Accessibility
 <Description>

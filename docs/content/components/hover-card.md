@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Hover Card
-metaDescription: For sighted users to preview content available behind a link.
+
+title: Hover Card
+description: For sighted users to preview content available behind a link.
 name: hover-card
 ---
 
@@ -128,6 +128,12 @@ The link that opens the hover card when hovered.
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'a',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -169,11 +175,24 @@ The component that pops out when the hover card is open.
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    },
+    {
+      name: 'forceMount',
+      type: 'boolean',
+      description: `
+        Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.
+      `,
     },
     {
       name: 'side',
@@ -292,6 +311,12 @@ An optional arrow element to render alongside the hover card. This can be used t
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'svg',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -344,11 +369,10 @@ You may want to constrain the width of the content so that it matches the trigge
 
 We expose several CSS custom properties such as `--radix-hover-card-trigger-width` and `--radix-hover-card-content-available-height` to support this. Use them to constrain the content dimensions.
 
-```vue line=17
+```vue line=10
 // index.vue
 <script setup>
 import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from 'radix-vue'
-import './styles.css'
 </script>
 
 <template>
@@ -363,7 +387,7 @@ import './styles.css'
 </template>
 ```
 
-```css
+```css line=3-4
 /* styles.css */
 .HoverCardContent {
   width: var(--radix-hover-card-trigger-width);
@@ -375,11 +399,10 @@ import './styles.css'
 
 We expose a CSS custom property `--radix-hover-card-content-transform-origin`. Use it to animate the content from its computed origin based on `side`, `sideOffset`, `align`, `alignOffset` and any collisions.
 
-```vue line=16
+```vue line=9
 // index.vue
 <script setup>
 import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from 'radix-vue'
-import './styles.css'
 </script>
 
 <template>
@@ -415,11 +438,10 @@ import './styles.css'
 
 We expose `data-side` and `data-align` attributes. Their values will change at runtime to reflect collisions. Use them to create collision and direction-aware animations.
 
-```vue line=16
+```vue line=9
 // index.vue
 <script setup>
 import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from 'radix-vue'
-import './styles.css'
 </script>
 
 <template>

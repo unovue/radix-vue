@@ -21,7 +21,7 @@ export const components = {
   Combobox: [
     'ComboboxRoot',
     'ComboboxInput',
-    'ComboboxHeader',
+    'ComboboxAnchor',
     'ComboboxTrigger',
     'ComboboxCancel',
     'ComboboxGroup',
@@ -271,9 +271,17 @@ export const components = {
     'ScrollAreaCorner',
   ],
 
+  ConfigProvider: [
+    'ConfigProvider',
+  ],
+
   Primitive: [
     'Primitive',
     'Slot',
+  ],
+
+  VisuallyHidden: [
+    'VisuallyHidden',
   ],
 }
 

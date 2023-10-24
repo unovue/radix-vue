@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Menubar
-metaDescription: A visually persistent menu common in desktop applications that provides quick
+
+title: Menubar
+description: A visually persistent menu common in desktop applications that provides quick
   access to a consistent set of commands.
 name: menubar
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/menu/
@@ -128,7 +128,7 @@ import {
 
 ### Root
 
-Contains all the parts of a menubar.
+Contains all the parts of a menubar
 
 <PropsTable
   :data="[
@@ -180,6 +180,12 @@ Contains all the parts of a menubar.
       `,
     },
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -217,23 +223,22 @@ A top level menu item, contains a trigger with content combination.
           uncontrolled.
         </span>
       `,
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
+    }
   ]"
 />
 
 ### Trigger
 
-The button that toggles the content. By default, the `Menubar.Content` will position itself against the trigger.
+The button that toggles the content. By default, the `MenubarContent` will position itself against the trigger.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'button',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -301,7 +306,7 @@ The component that pops out when a menu is open.
         <span>
           Used to force mounting when more control is needed. Useful when
           controlling animation with Vue.js animation libraries. It inherits from{' '}
-          <Code>Menubar.Portal</Code>.
+          <Code>MenubarPortal</Code>.
         </span>
       `,
     },
@@ -422,6 +427,12 @@ The component that pops out when a menu is open.
       `,
     },
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -530,10 +541,16 @@ The component that pops out when a menu is open.
 
 ### Arrow
 
-An optional arrow element to render alongside a menubar menu. This can be used to help visually link the trigger with the `Menubar.Content`. Must be rendered inside `Menubar.Content`.
+An optional arrow element to render alongside a menubar menu. This can be used to help visually link the trigger with the `MenubarContent`. Must be rendered inside `MenubarContent`.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'svg',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -584,6 +601,12 @@ The component that contains the menubar items.
       `,
     },
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -618,10 +641,16 @@ The component that contains the menubar items.
 
 ### Group
 
-Used to group multiple `Menubar.Item`s.
+Used to group multiple `MenubarItem`s.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -638,6 +667,12 @@ Used to render a label. It won't be focusable using arrow keys.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'label',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -686,6 +721,12 @@ An item that can be controlled and rendered like a checkbox.
       `,
     },
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -729,10 +770,16 @@ An item that can be controlled and rendered like a checkbox.
 
 ### RadioGroup
 
-Used to group multiple `Menubar.RadioItem`s.
+Used to group multiple `MenubarRadioItem`s.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -764,6 +811,12 @@ An item that can be controlled and rendered like a radio.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -823,10 +876,16 @@ An item that can be controlled and rendered like a radio.
 
 ### ItemIndicator
 
-Renders when the parent `Menubar.CheckboxItem` or `Menubar.RadioItem` is checked. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
+Renders when the parent `MenubarCheckboxItem` or `MenubarRadioItem` is checked. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'span',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -859,6 +918,12 @@ Used to visually separate items in a menubar menu.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -904,10 +969,16 @@ Contains all the parts of a submenu.
 
 ### SubTrigger
 
-An item that opens a submenu. Must be rendered inside `Menubar.Sub`.
+An item that opens a submenu. Must be rendered inside `MenubarSub`.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -951,7 +1022,7 @@ An item that opens a submenu. Must be rendered inside `Menubar.Sub`.
 
 ### SubContent
 
-The component that pops out when a submenu is open. Must be rendered inside `Menubar.Sub`.
+The component that pops out when a submenu is open. Must be rendered inside `MenubarSub`.
 
 <PropsTable
   :data="[
@@ -974,7 +1045,7 @@ The component that pops out when a submenu is open. Must be rendered inside `Men
         <span>
           Used to force mounting when more control is needed. Useful when
           controlling animation with Vue.js animation libraries. It inherits from{' '}
-          <Code>Menubar.Portal</Code>.
+          <Code>MenubarPortal</Code>.
         </span>
       `,
     },
@@ -1053,6 +1124,12 @@ The component that pops out when a submenu is open. Must be rendered inside `Men
           Whether to hide the content when the trigger becomes fully occluded.
         </span>
       `,
+    },
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
     },
     {
       name: 'asChild',
@@ -1166,7 +1243,7 @@ The component that pops out when a submenu is open. Must be rendered inside `Men
 
 You can create submenus by using `MenubarSub` in combination with its parts.
 
-```vue line=25-34
+```vue line=9-11,25-34
 <script setup lang="ts">
 import {
   MenubarContent,
@@ -1214,7 +1291,7 @@ import {
 
 You can add special styles to disabled items via the `data-disabled` attribute.
 
-```vue line=18
+```vue line=11
 <script setup lang="ts">
 import { MenubarContent, MenubarItem, MenubarMenu, MenubarPortal, MenubarRoot, MenubarTrigger } from 'radix-vue'
 </script>
@@ -1249,7 +1326,7 @@ import { MenubarContent, MenubarItem, MenubarMenu, MenubarPortal, MenubarRoot, M
 
 Use the `Separator` part to add a separator between items.
 
-```vue line=9,20,22
+```vue line=8,20,22
 <script setup lang="ts">
 import {
   MenubarContent,
@@ -1284,7 +1361,7 @@ import {
 
 Use the `Label` part to help label a section.
 
-```vue line=9,19
+```vue line=5,19
 <script setup lang="ts">
 import {
   MenubarContent,
@@ -1318,7 +1395,7 @@ import {
 
 Use the `CheckboxItem` part to add an item that can be checked.
 
-```vue line=11,27-32
+```vue line=3,27-32
 <script setup lang="ts">
 import {
   MenubarCheckboxItem,
@@ -1345,7 +1422,7 @@ const checked = ref(true)
           <MenubarItem>…</MenubarItem>
           <MenubarItem>…</MenubarItem>
           <MenubarSeparator />
-          <MenubarCheckboxItem checked="{checked}" on-checked-change="{setChecked}">
+          <MenubarCheckboxItem v-model:checked="checked">
             <MenubarItemIndicator>
               <Icon icon="radix-icons:check" />
             </MenubarItemIndicator>
@@ -1362,7 +1439,7 @@ const checked = ref(true)
 
 Use the `RadioGroup` and `RadioItem` parts to add an item that can be checked amongst others.
 
-```vue line=12,13,26-39
+```vue line=9-10,26-39
 <script setup lang="ts">
 import {
   MenubarCheckboxItem,
@@ -1413,7 +1490,7 @@ const color = ref('blue')
 
 You can add extra decorative elements in the `Item` parts, such as images.
 
-```vue line=19,24
+```vue line=12,16
 <script setup lang="ts">
 import { MenubarContent, MenubarItem, MenubarMenu, MenubarPortal, MenubarRoot, MenubarTrigger } from 'radix-vue'
 </script>
@@ -1445,7 +1522,7 @@ You may want to constrain the width of the content (or sub-content) so that it m
 
 We expose several CSS custom properties such as `--radix-menubar-trigger-width` and `--radix-menubar-content-available-height` to support this. Use them to constrain the content dimensions.
 
-```vue line=20
+```vue line=10
 <script setup lang="ts">
 import { MenubarContent, MenubarItem, MenubarMenu, MenubarPortal, MenubarRoot, MenubarTrigger } from 'radix-vue'
 </script>
@@ -1464,7 +1541,7 @@ import { MenubarContent, MenubarItem, MenubarMenu, MenubarPortal, MenubarRoot, M
 </template>
 ```
 
-```css
+```css line=3-4
 /* styles.css */
 .MenubarContent {
   width: var(--radix-menubar-trigger-width);
@@ -1476,7 +1553,7 @@ import { MenubarContent, MenubarItem, MenubarMenu, MenubarPortal, MenubarRoot, M
 
 We expose a CSS custom property `--radix-menubar-content-transform-origin`. Use it to animate the content from its computed origin based on `side`, `sideOffset`, `align`, `alignOffset` and any collisions.
 
-```vue line=16
+```vue line=10
 <script setup lang="ts">
 import { MenubarContent, MenubarMenu, MenubarPortal, MenubarRoot, MenubarTrigger } from 'radix-vue'
 </script>
@@ -1518,7 +1595,7 @@ import { MenubarContent, MenubarMenu, MenubarPortal, MenubarRoot, MenubarTrigger
 
 We expose `data-side` and `data-align` attributes. Their values will change at runtime to reflect collisions. Use them to create collision and direction-aware animations.
 
-```vue line=16
+```vue line=10
 <script setup lang="ts">
 import { MenubarContent, MenubarMenu, MenubarPortal, MenubarRoot, MenubarTrigger } from 'radix-vue'
 </script>
@@ -1584,7 +1661,7 @@ Adheres to the [Menu Button WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA
     {
       keys: ['Space'],
       description: `
-        When focus is on <Code>Menubar.Trigger</Code>, opens the menubar and focuses the first item.
+        When focus is on <Code>MenubarTrigger</Code>, opens the menubar and focuses the first item.
         <br />
         When focus is on an item, activates the focused item.
       `,
@@ -1592,7 +1669,7 @@ Adheres to the [Menu Button WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA
     {
       keys: ['Enter'],
       description: `
-        When focus is on <Code>Menubar.Trigger</Code>, opens the associated menu.
+        When focus is on <Code>MenubarTrigger</Code>, opens the associated menu.
         <br />
         When focus is on an item, activates the focused item.
       `,
@@ -1600,7 +1677,7 @@ Adheres to the [Menu Button WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA
     {
       keys: ['ArrowDown'],
       description: `
-        When focus is on <Code>Menubar.Trigger</Code>, opens the associated menu.
+        When focus is on <Code>MenubarTrigger</Code>, opens the associated menu.
         <br />
         When focus is on an item, moves focus to the next item.
       `,
@@ -1612,13 +1689,13 @@ Adheres to the [Menu Button WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA
     {
       keys: ['ArrowRight', 'ArrowLeft'],
       description: `
-        When focus is on a <Code>Menubar.Trigger</Code>, moves focus to the next or previous item. <br /> When focus is on a <Code>Menubar.SubTrigger</Code>, opens or closes the submenu depending on reading direction. <br /> When focus is within a <Code>Menubar.Content</Code>, opens the next menu in the menubar.
+        When focus is on a <Code>MenubarTrigger</Code>, moves focus to the next or previous item. <br /> When focus is on a <Code>MenubarSubTrigger</Code>, opens or closes the submenu depending on reading direction. <br /> When focus is within a <Code>MenubarContent</Code>, opens the next menu in the menubar
       `,
     },
     {
       keys: ['Esc'],
       description: `
-        Closes the currently open menu and moves focus to its <Code>Menubar.Trigger</Code>.
+        Closes the currently open menu and moves focus to its <Code>MenubarTrigger</Code>.
       `,
     },
   ]"

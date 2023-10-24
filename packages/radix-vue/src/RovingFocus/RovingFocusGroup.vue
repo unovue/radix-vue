@@ -1,5 +1,5 @@
 <script lang="ts">
-import { createContext, useCollection } from '@/shared'
+import { createContext, useCollection, useDirection } from '@/shared'
 
 export interface RovingFocusGroupProps extends PrimitiveProps {
   /**
@@ -58,14 +58,14 @@ import {
 
 const props = withDefaults(defineProps<RovingFocusGroupProps>(), {
   loop: false,
-  dir: 'ltr',
   orientation: undefined,
 })
 const emits = defineEmits<RovingFocusGroupEmits>()
-const { loop, orientation, dir } = toRefs(props)
+const { loop, orientation, dir: propDir } = toRefs(props)
+const dir = useDirection(propDir)
 const currentTabStopId = useVModel(props, 'currentTabStopId', emits, {
   defaultValue: props.defaultCurrentTabStopId,
-  passive: true,
+  passive: (props.currentTabStopId === undefined) as false,
 })
 const isTabbingBackOut = ref(false)
 const isClickFocus = ref(false)

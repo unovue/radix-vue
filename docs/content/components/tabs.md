@@ -1,7 +1,7 @@
 ---
-outline: deep
-metaTitle: Tabs
-metaDescription: A set of layered sections of content—known as tab panels—that are displayed one at a time.
+
+title: Tabs
+description: A set of layered sections of content—known as tab panels—that are displayed one at a time.
 name: tabs
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel
 ---
@@ -117,6 +117,12 @@ Contains all the tabs component parts.
       description: '<span> When <Code>automatic</Code>, tabs are activated when receiving focus. When <Code>manual</Code>, tabs are activated when clicked.</span>',
     },
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -153,6 +159,12 @@ Contains the triggers that are aligned along the edge of the active content.
 <PropsTable
   :data="[
     {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
       name: 'asChild',
       required: false,
       type: 'boolean',
@@ -184,6 +196,12 @@ The button that activates its associated content.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'button',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,
@@ -230,6 +248,12 @@ Contains the content associated with each trigger.
 
 <PropsTable
   :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
     {
       name: 'asChild',
       required: false,

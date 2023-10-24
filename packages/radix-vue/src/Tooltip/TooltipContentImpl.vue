@@ -99,7 +99,12 @@ onMounted(() => {
     as-child
     :disable-outside-pointer-events="false"
     @escape-key-down="emits('escapeKeyDown', $event)"
-    @pointer-down-outside="emits('pointerDownOutside', $event)"
+    @pointer-down-outside="(event) => {
+      if (rootContext.disableClosingTrigger.value && rootContext.trigger.value?.contains(event.target as HTMLElement))
+        event.preventDefault()
+
+      emits('pointerDownOutside', event)
+    }"
     @focus-outside.prevent
     @dismiss="rootContext.onClose()"
   >

@@ -20,6 +20,9 @@ const props = defineProps<PropsTableProps>()
 
 <template>
   <ProseTable>
+    <div class="absolute top-0 right-2 w-8 h-8 rounded-full border flex items-center justify-center text-[var(--vp-c-text-2)] bg-[var(--vp-button-alt-bg)] border-[var(--vp-c-gray-soft)]">
+      <Icon icon="ph:sliders-light" />
+    </div>
     <thead class="">
       <ProseTr class="">
         <ProseTh class="w-[45%]">

@@ -17,7 +17,7 @@ pnpm add radix-vue
 
 ## Nuxt modules
 
-Since [v0.1.18](https://github.com/radix-vue/radix-vue/releases/tag/v0.1.18), Radix Vue has introduced Nuxt modules.
+Radix Vue offers Nuxt modules support.
 
 In `nuxt.config.ts`, simply add `radix-vue/nuxt` into the modules, and it will auto-imports all the components for you.
 
@@ -29,7 +29,7 @@ export default defineNuxtConfig({
 
 ## unplugin-vue-components
 
-Also, since [v0.1.29](https://github.com/radix-vue/radix-vue/releases/tag/v0.1.29), Radix Vue has introduced resolver for the popular [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components).
+Radix Vue also has resolver for the popular [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components).
 
 In `vite.config.ts`, import `radix-vue/resolver`, and configure as such and it will auto-imports all the components from Radix Vue.
 

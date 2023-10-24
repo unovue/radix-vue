@@ -17,7 +17,7 @@ interface PropOptions {
  */
 export function useForwardProps<T extends Record<string, any>>(props: T) {
   const vm = getCurrentInstance()
-
+  // Default value for declared props
   const defaultProps = Object.keys(vm?.type.props ?? {}).reduce((prev, curr) => {
     const defaultValue = (vm?.type.props[curr] as PropOptions).default
     if (defaultValue !== undefined)
@@ -32,6 +32,12 @@ export function useForwardProps<T extends Record<string, any>>(props: T) {
     Object.keys(assignedProps).forEach((key) => {
       preservedProps[camelize(key) as keyof T] = assignedProps[key]
     })
-    return { ...defaultProps, ...preservedProps }
+
+    // Only return value from the props parameter
+    return Object.keys({ ...defaultProps, ...preservedProps }).reduce((prev, curr) => {
+      if (props[curr])
+        prev[curr as keyof T] = props[curr]
+      return prev
+    }, {} as T)
   })
 }

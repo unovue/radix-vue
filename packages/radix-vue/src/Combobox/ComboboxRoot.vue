@@ -52,7 +52,7 @@ export interface ComboboxRootProps extends PrimitiveProps {
 import { PopperRoot } from '@/Popper'
 import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
 import type { Direction } from '@/shared/types'
-import { computedWithControl, useVModel } from '@vueuse/core'
+import { useVModel } from '@vueuse/core'
 import { type ComponentInternalInstance, type ComputedRef, type Ref, computed, nextTick, ref, toRaw, toRefs, watch } from 'vue'
 import { VisuallyHiddenInput } from '@/VisuallyHidden'
 
@@ -132,8 +132,8 @@ const filteredOptions = computed(() => {
   return options.value
 })
 
-const activeIndex = computed(() => filteredOptions.value.findIndex(i => JSON.stringify(i) === JSON.stringify(selectedValue.value)))
-const selectedElement = computedWithControl([selectedValue, filteredOptions], () => {
+const activeIndex = computed(() => filteredOptions.value.findIndex(i => toRaw(i) === toRaw(selectedValue.value)))
+const selectedElement = computed(() => {
   return Array.from(optionsInstance.value).find(i => toRaw(i.props.value) === toRaw(selectedValue.value))?.vnode.el as HTMLElement | null
 })
 

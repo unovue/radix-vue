@@ -52,10 +52,10 @@ export interface ComboboxRootProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
+import { computed, nextTick, ref, toRaw, toRefs, watch } from 'vue'
 import { PopperRoot } from '@/Popper'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
-import { computedWithControl, useVModel } from '@vueuse/core'
-import { computed, nextTick, ref, toRaw, toRefs, watch } from 'vue'
+import { useVModel } from '@vueuse/core'
 import { VisuallyHiddenInput } from '@/VisuallyHidden'
 
 const props = withDefaults(defineProps<ComboboxRootProps>(), {
@@ -134,8 +134,8 @@ const filteredOptions = computed(() => {
   return options.value
 })
 
-const activeIndex = computed(() => filteredOptions.value.findIndex(i => JSON.stringify(i) === JSON.stringify(selectedValue.value)))
-const selectedElement = computedWithControl([selectedValue, filteredOptions], () => {
+const activeIndex = computed(() => filteredOptions.value.findIndex(i => toRaw(i) === toRaw(selectedValue.value)))
+const selectedElement = computed(() => {
   return Array.from(optionsInstance.value).find(i => toRaw(i.props.value) === toRaw(selectedValue.value))?.vnode.el as HTMLElement | null
 })
 

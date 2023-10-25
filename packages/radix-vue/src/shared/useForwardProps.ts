@@ -35,7 +35,7 @@ export function useForwardProps<T extends Record<string, any>>(props: T) {
 
     // Only return value from the props parameter
     return Object.keys({ ...defaultProps, ...preservedProps }).reduce((prev, curr) => {
-      if (props[curr])
+      if (props[curr] !== undefined)
         prev[curr as keyof T] = props[curr]
       return prev
     }, {} as T)

@@ -1,4 +1,6 @@
 <script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
 export type TooltipTriggerDataState =
   | 'closed'
   | 'delayed-open'
@@ -13,7 +15,6 @@ import { injectTooltipRootContext } from './TooltipRoot.vue'
 import { PopperAnchor } from '@/Popper'
 import {
   Primitive,
-  type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
 import { injectTooltipProviderContext } from './TooltipProvider.vue'

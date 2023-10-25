@@ -1,7 +1,5 @@
-<script setup lang="ts">
-import { Primitive, type PrimitiveProps } from '@/Primitive'
-import { injectSliderRootContext } from './SliderRoot.vue'
-import { ARROW_KEYS, PAGE_KEYS } from './utils'
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
 
 export type SliderImplEmits = {
   'slideStart': [event: PointerEvent]
@@ -13,6 +11,12 @@ export type SliderImplEmits = {
 }
 
 export interface SliderImplProps extends PrimitiveProps {}
+</script>
+
+<script setup lang="ts">
+import { Primitive } from '@/Primitive'
+import { injectSliderRootContext } from './SliderRoot.vue'
+import { ARROW_KEYS, PAGE_KEYS } from './utils'
 
 const props = withDefaults(defineProps<SliderImplProps>(), {
   as: 'span',

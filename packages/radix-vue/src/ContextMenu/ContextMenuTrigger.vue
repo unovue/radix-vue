@@ -1,9 +1,8 @@
 <script lang="ts">
+import type { Point } from '@/Menu/utils'
+
 export interface ContextMenuTriggerProps extends PrimitiveProps {
   disabled?: boolean
-}
-export default {
-  inheritAttrs: false,
 }
 </script>
 
@@ -13,7 +12,10 @@ import { injectContextMenuRootContext } from './ContextMenuRoot.vue'
 import { isTouchOrPen } from './utils'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { MenuAnchor } from '@/Menu'
-import type { Point } from '@/Menu/utils'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const props = withDefaults(defineProps<ContextMenuTriggerProps>(), {
   as: 'span',

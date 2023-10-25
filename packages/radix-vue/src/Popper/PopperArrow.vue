@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { Side } from './utils'
-import { type PrimitiveProps } from '@/Primitive'
+import type { PrimitiveProps } from '@/Primitive'
+import type { ArrowProps } from '@/shared/component/Arrow.vue'
 
 const OPPOSITE_SIDE: Record<Side, Side> = {
   top: 'bottom',
@@ -10,19 +11,16 @@ const OPPOSITE_SIDE: Record<Side, Side> = {
 }
 
 export interface PopperArrowProps extends ArrowProps, PrimitiveProps {}
-
-export default {
-  inheritAttrs: false,
-}
 </script>
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import {
-  injectPopperContentContext,
-} from './PopperContent.vue'
+import { injectPopperContentContext } from './PopperContent.vue'
 import Arrow from '@/shared/component/Arrow.vue'
-import { type ArrowProps } from '@/shared/component/Arrow.vue'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 withDefaults(
   defineProps<PopperArrowProps>(),

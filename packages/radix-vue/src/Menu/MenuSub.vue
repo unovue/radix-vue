@@ -1,4 +1,6 @@
 <script lang="ts">
+import type { Ref } from 'vue'
+import type { MenuContext } from './MenuRoot.vue'
 import { createContext, useId } from '@/shared'
 
 export interface MenuSubContext {
@@ -19,12 +21,11 @@ export interface MenuSubProps {
 
 <script setup lang="ts">
 import {
-  type Ref,
   ref,
   watchEffect,
 } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { type MenuContext, injectMenuContext, provideMenuContext } from './MenuRoot.vue'
+import { injectMenuContext, provideMenuContext } from './MenuRoot.vue'
 import { PopperRoot } from '@/Popper'
 
 const props = withDefaults(defineProps<MenuSubProps>(), {

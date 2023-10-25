@@ -1,7 +1,7 @@
 <script lang="ts">
-import { createContext } from '@/shared'
 import type { Direction, ScrollBodyOption } from '@/shared/types'
-import { type Ref, toRefs } from 'vue'
+import type { Ref } from 'vue'
+import { createContext } from '@/shared'
 
 interface ConfigProviderContextValue {
   dir?: Ref<Direction>
@@ -26,6 +26,8 @@ export interface ConfigProviderProps {
 </script>
 
 <script setup lang="ts">
+import { toRefs } from 'vue'
+
 const props = withDefaults(defineProps<ConfigProviderProps>(), {
   dir: 'ltr',
   scrollBody: true,

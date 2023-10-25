@@ -1,4 +1,17 @@
 <script lang="ts">
+import type { Ref } from 'vue'
+import type {
+  GraceIntent,
+  Side,
+} from './utils'
+import type { FocusScopeProps } from '@/FocusScope'
+import type { RovingFocusGroupEmits } from '@/RovingFocus'
+import type {
+  DismissableLayerEmits,
+  DismissableLayerProps,
+} from '@/DismissableLayer'
+import type { PopperContentProps } from '@/Popper'
+
 import {
   createContext,
   useArrowNavigation,
@@ -67,7 +80,6 @@ export interface MenuRootContentProps
 
 <script setup lang="ts">
 import {
-  type Ref,
   onUnmounted,
   ref,
   toRefs,
@@ -76,27 +88,20 @@ import {
 import { injectMenuContext, injectMenuRootContext } from './MenuRoot.vue'
 import {
   FIRST_LAST_KEYS,
-  type GraceIntent,
   LAST_KEYS,
-  type Side,
   focusFirst,
   getOpenState,
   isMouseEvent,
   isPointerInGraceArea,
 } from './utils'
-import { FocusScope, type FocusScopeProps } from '@/FocusScope'
-import {
-  DismissableLayer,
-  type DismissableLayerEmits,
-  type DismissableLayerProps,
-} from '@/DismissableLayer'
+import { FocusScope } from '@/FocusScope'
+import { DismissableLayer } from '@/DismissableLayer'
 import {
   PopperContent,
-  type PopperContentProps,
   PopperContentPropsDefaultValue,
 } from '@/Popper'
 import { usePrimitiveElement } from '@/Primitive'
-import { RovingFocusGroup, type RovingFocusGroupEmits } from '@/RovingFocus'
+import { RovingFocusGroup } from '@/RovingFocus'
 
 const props = withDefaults(defineProps<MenuContentImplProps>(), {
   ...PopperContentPropsDefaultValue,

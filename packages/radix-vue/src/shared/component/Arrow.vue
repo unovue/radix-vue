@@ -1,4 +1,6 @@
 <script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
 export interface ArrowProps extends PrimitiveProps {
   /**
    * The width of the arrow in pixels.
@@ -18,7 +20,6 @@ export interface ArrowProps extends PrimitiveProps {
 <script setup lang="ts">
 import {
   Primitive,
-  type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
 

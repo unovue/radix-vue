@@ -1,3 +1,9 @@
+<script lang="ts">
+export interface ScrollAreaScrollbarScrollProps {
+  forceMount?: boolean
+}
+</script>
+
 <script setup lang="ts">
 import { watchEffect } from 'vue'
 import { useDebounceFn } from '@vueuse/core'
@@ -8,9 +14,6 @@ import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
 import { Presence } from '@/Presence'
 import { useForwardRef } from '@/shared'
 
-export interface ScrollAreaScrollbarScrollProps {
-  forceMount?: boolean
-}
 defineProps<ScrollAreaScrollbarScrollProps>()
 
 const rootContext = injectScrollAreaRootContext()

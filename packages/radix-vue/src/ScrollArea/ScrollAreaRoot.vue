@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { Ref } from 'vue'
+import type { PrimitiveProps } from '@/Primitive'
 import type { Direction, ScrollType } from './types'
 import { createContext, useDirection } from '@/shared'
 
@@ -38,7 +39,6 @@ export interface ScrollAreaRootProps extends PrimitiveProps {
 import { ref, toRefs } from 'vue'
 import {
   Primitive,
-  type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
 

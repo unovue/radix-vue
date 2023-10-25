@@ -1,9 +1,7 @@
-<script setup lang="ts">
-import { injectComboboxRootContext } from './ComboboxRoot.vue'
-import ComboboxContentImpl, { type ComboboxContentImplEmits, type ComboboxContentImplProps } from './ComboboxContentImpl.vue'
-import { Presence } from '@/Presence'
-import { useForwardPropsEmits } from '@/shared'
+<script lang="ts">
+import type { ComboboxContentImplEmits, ComboboxContentImplProps } from './ComboboxContentImpl.vue'
 
+export type ComboboxContentEmits = ComboboxContentImplEmits
 export interface ComboboxContentProps extends ComboboxContentImplProps {
   /**
    * Used to force mounting when more control is needed. Useful when
@@ -11,7 +9,13 @@ export interface ComboboxContentProps extends ComboboxContentImplProps {
    */
   forceMount?: boolean
 }
-export type ComboboxContentEmits = ComboboxContentImplEmits
+</script>
+
+<script setup lang="ts">
+import { injectComboboxRootContext } from './ComboboxRoot.vue'
+import ComboboxContentImpl from './ComboboxContentImpl.vue'
+import { Presence } from '@/Presence'
+import { useForwardPropsEmits } from '@/shared'
 
 const props = defineProps<ComboboxContentProps>()
 const emits = defineEmits<ComboboxContentEmits>()

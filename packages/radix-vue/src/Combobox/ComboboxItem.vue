@@ -1,4 +1,6 @@
 <script lang="ts">
+import type { Ref } from 'vue'
+import type { PrimitiveProps } from '@/Primitive'
 import { createContext, handleAndDispatchCustomEvent, useId } from '@/shared'
 
 export type SelectEvent = CustomEvent<{ originalEvent: PointerEvent; value?: string | object }>
@@ -24,7 +26,6 @@ const COMBOBOX_SELECT = 'combobox.select'
 
 <script setup lang="ts">
 import {
-  type Ref,
   computed,
   getCurrentInstance,
   nextTick,
@@ -35,10 +36,8 @@ import {
 } from 'vue'
 import { injectComboboxRootContext } from './ComboboxRoot.vue'
 import { injectComboboxGroupContext } from './ComboboxGroup.vue'
-
 import {
   Primitive,
-  type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
 

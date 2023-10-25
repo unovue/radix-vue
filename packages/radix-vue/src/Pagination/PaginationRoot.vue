@@ -1,4 +1,6 @@
 <script lang="ts">
+import type { Ref } from 'vue'
+import type { PrimitiveProps } from '@/Primitive'
 import { createContext } from '@/shared'
 
 type PaginationRootContext = {
@@ -9,16 +11,6 @@ type PaginationRootContext = {
   disabled: Ref<boolean>
   showEdges: Ref<boolean>
 }
-
-export const [injectPaginationRootContext, providePaginationRootContext]
-  = createContext<PaginationRootContext>('PaginationRoot')
-</script>
-
-<script setup lang="ts">
-import { Primitive } from '@/Primitive'
-import type { PrimitiveProps } from '@/Primitive'
-import { useVModel } from '@vueuse/core'
-import { type Ref, computed, toRefs } from 'vue'
 
 export interface PaginationRootProps extends PrimitiveProps {
   page?: number
@@ -33,6 +25,15 @@ export interface PaginationRootProps extends PrimitiveProps {
 export type PaginationRootEmits = {
   'update:page': [value: number]
 }
+
+export const [injectPaginationRootContext, providePaginationRootContext]
+  = createContext<PaginationRootContext>('PaginationRoot')
+</script>
+
+<script setup lang="ts">
+import { Primitive } from '@/Primitive'
+import { useVModel } from '@vueuse/core'
+import { computed, toRefs } from 'vue'
 
 const props = withDefaults(defineProps<PaginationRootProps>(), {
   as: 'nav',

@@ -1,10 +1,14 @@
+<script lang="ts">
+import { type PrimitiveProps } from '@/Primitive'
+
+export interface AccordionTriggerProps extends PrimitiveProps {}
+</script>
+
 <script setup lang="ts">
 import { injectAccordionItemContext } from './AccordionItem.vue'
 import { injectAccordionRootContext } from './AccordionRoot.vue'
-import { type PrimitiveProps } from '@/Primitive'
-import { CollapsibleTrigger } from '@/Collapsible'
 
-export interface AccordionTriggerProps extends PrimitiveProps {}
+import { CollapsibleTrigger } from '@/Collapsible'
 
 const props = defineProps<AccordionTriggerProps>()
 

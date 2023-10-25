@@ -1,8 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
+import type { PrimitiveProps } from '@/Primitive'
 import type { DataOrientation, Direction } from '../shared/types'
-import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
-import { RovingFocusGroup } from '@/RovingFocus'
 import { createContext, useDirection } from '@/shared'
 
 type TypeEnum = 'single' | 'multiple'
@@ -38,7 +37,9 @@ export const [injectToggleGroupRootContext, provideToggleGroupRootContext]
 
 <script setup lang="ts">
 import { toRefs } from 'vue'
-import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { Primitive } from '@/Primitive'
+import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
+import { RovingFocusGroup } from '@/RovingFocus'
 
 const props = withDefaults(defineProps<ToggleGroupRootProps>(), {
   type: 'single',

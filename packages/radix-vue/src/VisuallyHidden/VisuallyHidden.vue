@@ -1,7 +1,11 @@
-<script setup lang="ts">
-import { Primitive, type PrimitiveProps } from '@/Primitive'
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
 
 export interface VisuallyHiddenProps extends PrimitiveProps {}
+</script>
+
+<script setup lang="ts">
+import { Primitive } from '@/Primitive'
 
 withDefaults(defineProps<VisuallyHiddenProps>(), { as: 'span' })
 </script>

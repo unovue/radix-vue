@@ -1,13 +1,12 @@
 <script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
 export interface CollapsibleContentProps extends PrimitiveProps {
   /**
    * Used to force mounting when more control is needed. Useful when
    * controlling animation with Vue animation libraries.
    */
   forceMount?: boolean
-}
-export default {
-  inheritAttrs: false,
 }
 </script>
 
@@ -16,10 +15,13 @@ import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { injectCollapsibleRootContext } from './CollapsibleRoot.vue'
 import {
   Primitive,
-  type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
 import { Presence } from '@/Presence'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const props = defineProps<CollapsibleContentProps>()
 

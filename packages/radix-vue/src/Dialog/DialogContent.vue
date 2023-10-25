@@ -1,19 +1,10 @@
-<script setup lang="ts">
-import DialogContentModal from './DialogContentModal.vue'
-import DialogContentNonModal from './DialogContentNonModal.vue'
-import {
-  type DialogContentImplEmits,
-  type DialogContentImplProps,
+<script lang="ts">
+import type {
+  DialogContentImplEmits,
+  DialogContentImplProps,
 } from './DialogContentImpl.vue'
-import { injectDialogRootContext } from './DialogRoot.vue'
-import { Presence } from '@/Presence'
-import { useEmitAsProps } from '@/shared'
 
-const props = defineProps<DialogContentProps>()
-
-const emits = defineEmits<DialogContentEmits>()
-
-const rootContext = injectDialogRootContext()
+export type DialogContentEmits = DialogContentImplEmits
 
 export interface DialogContentProps extends DialogContentImplProps {
   /**
@@ -22,7 +13,19 @@ export interface DialogContentProps extends DialogContentImplProps {
    */
   forceMount?: boolean
 }
-export type DialogContentEmits = DialogContentImplEmits
+</script>
+
+<script setup lang="ts">
+import DialogContentModal from './DialogContentModal.vue'
+import DialogContentNonModal from './DialogContentNonModal.vue'
+import { injectDialogRootContext } from './DialogRoot.vue'
+import { Presence } from '@/Presence'
+import { useEmitAsProps } from '@/shared'
+
+const props = defineProps<DialogContentProps>()
+const emits = defineEmits<DialogContentEmits>()
+
+const rootContext = injectDialogRootContext()
 
 const emitsAsProps = useEmitAsProps(emits)
 </script>

@@ -1,4 +1,6 @@
 <script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
 export interface SelectTriggerProps extends PrimitiveProps {
   disabled?: boolean
 }
@@ -12,7 +14,6 @@ import {
 import { OPEN_KEYS, shouldShowPlaceholder } from './utils'
 import {
   Primitive,
-  type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
 import { PopperAnchor } from '@/Popper'

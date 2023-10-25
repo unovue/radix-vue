@@ -1,5 +1,7 @@
 <script lang="ts">
+import type { Ref } from 'vue'
 import { createContext, useForwardRef } from '@/shared'
+import type { Direction, Sizes } from './types'
 
 export interface ScrollAreaScrollbarVisibleContext {
   sizes: Ref<Sizes>
@@ -21,12 +23,7 @@ export const [injectScrollAreaScrollbarVisibleContext, provideScrollAreaScrollba
 </script>
 
 <script setup lang="ts">
-import {
-  type Ref,
-  computed,
-  ref,
-} from 'vue'
-import type { Direction, Sizes } from './types'
+import { computed, ref } from 'vue'
 import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
 import { injectScrollAreaScrollbarContext } from './ScrollAreaScrollbar.vue'
 import ScrollAreaScrollbarX from './ScrollAreaScrollbarX.vue'

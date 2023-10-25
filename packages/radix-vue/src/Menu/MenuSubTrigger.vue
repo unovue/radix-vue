@@ -1,13 +1,18 @@
+<script lang="ts">
+import type { MenuItemImplProps } from './MenuItemImpl.vue'
+import type { Side } from './utils'
+
+export interface MenuSubTriggerProps extends MenuItemImplProps {}
+</script>
+
 <script setup lang="ts">
 import { computed, nextTick, onUnmounted, ref } from 'vue'
-import MenuItemImpl, { type MenuItemImplProps } from './MenuItemImpl.vue'
+import MenuItemImpl from './MenuItemImpl.vue'
 import { injectMenuContext, injectMenuRootContext } from './MenuRoot.vue'
 import { injectMenuSubContext } from './MenuSub.vue'
 import { injectMenuContentContext } from './MenuContentImpl.vue'
 import MenuAnchor from './MenuAnchor.vue'
-import { SUB_OPEN_KEYS, type Side, getOpenState, isMouseEvent } from './utils'
-
-export interface MenuSubTriggerProps extends MenuItemImplProps {}
+import { SUB_OPEN_KEYS, getOpenState, isMouseEvent } from './utils'
 
 const props = defineProps<MenuSubTriggerProps>()
 

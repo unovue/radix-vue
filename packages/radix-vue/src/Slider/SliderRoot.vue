@@ -1,4 +1,6 @@
 <script lang="ts">
+import type { Ref } from 'vue'
+import type { PrimitiveProps } from '@/Primitive'
 import type { DataOrientation, Direction } from '../shared/types'
 import { createContext, useCollection, useDirection, useFormControl } from '@/shared'
 
@@ -33,22 +35,19 @@ export interface SliderRootContext {
 
 export const [injectSliderRootContext, provideSliderRootContext]
   = createContext<SliderRootContext>('SliderRoot')
-
-export default {
-  inheritAttrs: false,
-}
 </script>
 
 <script setup lang="ts">
 import SliderHorizontal from './SliderHorizontal.vue'
 import SliderVertical from './SliderVertical.vue'
-import { type Ref, ref, toRefs } from 'vue'
-import {
-  type PrimitiveProps,
-  usePrimitiveElement,
-} from '@/Primitive'
+import { ref, toRefs } from 'vue'
+import { usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 import { ARROW_KEYS, PAGE_KEYS, clamp, getClosestValueIndex, getDecimalCount, getNextSortedValues, hasMinStepsBetweenValues, roundValue } from './utils'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const props = withDefaults(defineProps<SliderRootProps>(), {
   min: 0,

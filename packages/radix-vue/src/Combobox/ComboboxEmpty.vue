@@ -1,9 +1,14 @@
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
+export interface ComboboxEmptyProps extends PrimitiveProps {}
+</script>
+
 <script setup lang="ts">
-import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { computed } from 'vue'
 import { injectComboboxRootContext } from './ComboboxRoot.vue'
 
-export interface ComboboxEmptyProps extends PrimitiveProps {}
 const props = defineProps<ComboboxEmptyProps>()
 
 const rootContext = injectComboboxRootContext()

@@ -1,16 +1,20 @@
+<script lang="ts">
+import type {
+  MenuSubContentEmits,
+  MenuSubContentProps,
+} from '@/Menu'
+
+export type MenubarSubContentEmits = MenuSubContentEmits
+
+export interface MenubarSubContentProps extends MenuSubContentProps {}
+</script>
+
 <script setup lang="ts">
 import { injectMenubarRootContext } from './MenubarRoot.vue'
 import { injectMenubarMenuContext } from './MenubarMenu.vue'
-import {
-  MenuSubContent,
-  type MenuSubContentEmits,
-  type MenuSubContentProps,
-} from '@/Menu'
+import { MenuSubContent } from '@/Menu'
 import { useCollection, useForwardPropsEmits } from '@/shared'
 import { wrapArray } from '@/shared/useTypeahead'
-
-export interface MenubarSubContentProps extends MenuSubContentProps {}
-export type MenubarSubContentEmits = MenuSubContentEmits
 
 const props = defineProps<MenubarSubContentProps>()
 const emits = defineEmits<MenubarSubContentEmits>()

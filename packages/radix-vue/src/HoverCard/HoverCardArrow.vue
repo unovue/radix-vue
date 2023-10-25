@@ -1,7 +1,12 @@
-<script setup lang="ts">
-import { PopperArrow, type PopperArrowProps } from '@/Popper'
+<script lang="ts">
+import type { PopperArrowProps } from '@/Popper'
 
 export interface HoverCardArrowProps extends PopperArrowProps {}
+</script>
+
+<script setup lang="ts">
+import { PopperArrow } from '@/Popper'
+
 const props = defineProps<HoverCardArrowProps>()
 </script>
 

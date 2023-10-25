@@ -1,4 +1,10 @@
 <script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
+export type RadioEmits = {
+  'update:checked': [value: boolean]
+}
+
 export interface RadioProps extends PrimitiveProps {
   id?: string
   value?: string
@@ -7,20 +13,16 @@ export interface RadioProps extends PrimitiveProps {
   checked?: boolean
   name?: string
 }
-export type RadioEmits = {
-  'update:checked': [value: boolean]
-}
 </script>
 
 <script setup lang="ts">
 import { computed, toRefs } from 'vue'
+import { useVModel } from '@vueuse/core'
 import {
   Primitive,
-  type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
 import { useFormControl } from '@/shared'
-import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<RadioProps>(), {
   disabled: false,

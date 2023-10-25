@@ -1,9 +1,14 @@
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
+export interface DismissableLayerBranchProps extends PrimitiveProps {}
+</script>
+
 <script setup lang="ts">
-import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
+import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { onMounted, onUnmounted } from 'vue'
 import { context } from './DismissableLayer.vue'
 
-export interface DismissableLayerBranchProps extends PrimitiveProps {}
 const props = defineProps<DismissableLayerBranchProps>()
 
 const { primitiveElement, currentElement } = usePrimitiveElement()

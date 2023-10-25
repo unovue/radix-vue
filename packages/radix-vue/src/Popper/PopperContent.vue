@@ -1,6 +1,15 @@
 <script lang="ts">
 import type { ComponentPublicInstance, Ref } from 'vue'
+import type {
+  Middleware,
+  Placement,
+} from '@floating-ui/vue'
+import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useForwardRef, useSize } from '@/shared'
+import type {
+  Align,
+  Side,
+} from './utils'
 
 export const PopperContentPropsDefaultValue = {
   side: 'bottom' as Side,
@@ -116,18 +125,12 @@ export interface PopperContentContext {
 
 export const [injectPopperContentContext, providePopperContentContext]
   = createContext<PopperContentContext>('PopperContent')
-
-export default {
-  inheritAttrs: false,
-}
 </script>
 
 <script setup lang="ts">
 import { computed, ref, watchEffect } from 'vue'
 import { computedEager } from '@vueuse/core'
 import {
-  type Middleware,
-  type Placement,
   autoUpdate,
   flip,
   arrow as floatingUIarrow,
@@ -140,17 +143,18 @@ import {
 } from '@floating-ui/vue'
 import { injectPopperRootContext } from './PopperRoot.vue'
 import {
-  type Align,
-  type Side,
   getSideAndAlignFromPlacement,
   isNotNull,
   transformOrigin,
 } from './utils'
 import {
   Primitive,
-  type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const props = withDefaults(defineProps<PopperContentProps>(), {
   ...PopperContentPropsDefaultValue,

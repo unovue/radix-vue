@@ -1,3 +1,15 @@
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
+export interface NavigationMenuViewportProps extends PrimitiveProps {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
+  forceMount?: boolean
+}
+</script>
+
 <script setup lang="ts">
 import {
   computed,
@@ -10,18 +22,14 @@ import { injectNavigationMenuContext } from './NavigationMenuRoot.vue'
 import { getOpenState } from './utils'
 import {
   Primitive,
-  type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
 import { Presence } from '@/Presence'
 
-export interface NavigationMenuViewportProps extends PrimitiveProps {
-  /**
-   * Used to force mounting when more control is needed. Useful when
-   * controlling animation with Vue animation libraries.
-   */
-  forceMount?: boolean
-}
+defineOptions({
+  inheritAttrs: false,
+})
+
 defineProps<NavigationMenuViewportProps>()
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
@@ -59,12 +67,6 @@ useResizeObserver(content, () => {
     }
   }
 })
-</script>
-
-<script lang="ts">
-export default {
-  inheritAttrs: false,
-}
 </script>
 
 <template>

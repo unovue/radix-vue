@@ -1,9 +1,13 @@
-<script setup lang="ts">
-import { Primitive, type PrimitiveProps } from '@/Primitive'
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
 
 export interface LabelProps extends PrimitiveProps {
   for?: string
 }
+</script>
+
+<script setup lang="ts">
+import { Primitive } from '@/Primitive'
 
 const props = withDefaults(defineProps<LabelProps>(), {
   as: 'label',

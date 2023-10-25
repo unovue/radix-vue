@@ -1,10 +1,5 @@
-<script setup lang="ts">
-import { computed, ref, watchEffect } from 'vue'
-import { useResizeObserver } from '@vueuse/core'
-import { injectNavigationMenuContext } from './NavigationMenuRoot.vue'
-import { useCollection } from '@/shared'
-import { Primitive, type PrimitiveProps } from '@/Primitive'
-import { Presence } from '@/Presence'
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
 
 export interface NavigationMenuIndicatorProps extends PrimitiveProps {
   /**
@@ -13,6 +8,20 @@ export interface NavigationMenuIndicatorProps extends PrimitiveProps {
    */
   forceMount?: boolean
 }
+</script>
+
+<script setup lang="ts">
+import { computed, ref, watchEffect } from 'vue'
+import { useResizeObserver } from '@vueuse/core'
+import { injectNavigationMenuContext } from './NavigationMenuRoot.vue'
+import { useCollection } from '@/shared'
+import { Primitive } from '@/Primitive'
+import { Presence } from '@/Presence'
+
+defineOptions({
+  inheritAttrs: false,
+})
+
 const props = defineProps<NavigationMenuIndicatorProps>()
 
 const { injectCollection } = useCollection('nav')
@@ -52,12 +61,6 @@ watchEffect(() => {
 
 useResizeObserver(activeTrigger, handlePositionChange)
 useResizeObserver(menuContext.indicatorTrack, handlePositionChange)
-</script>
-
-<script lang="ts">
-export default {
-  inheritAttrs: false,
-}
 </script>
 
 <template>

@@ -1,4 +1,6 @@
 <script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
 export interface AvatarFallbackProps extends PrimitiveProps {
   delayMs?: number
 }
@@ -6,7 +8,7 @@ export interface AvatarFallbackProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { Primitive, type PrimitiveProps } from '../Primitive'
+import { Primitive } from '@/Primitive'
 import { injectAvatarRootContext } from './AvatarRoot.vue'
 
 const props = withDefaults(defineProps<AvatarFallbackProps>(), {

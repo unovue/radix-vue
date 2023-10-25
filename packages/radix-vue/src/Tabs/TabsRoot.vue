@@ -1,7 +1,6 @@
 <script lang="ts">
 import type { Ref } from 'vue'
-import { useVModel } from '@vueuse/core'
-import { toRefs } from 'vue'
+import type { PrimitiveProps } from '@/Primitive'
 import type { DataOrientation, Direction } from '../shared/types'
 import { createContext, useDirection, useId } from '@/shared'
 
@@ -13,13 +12,6 @@ export interface TabsRootContext {
   activationMode: 'automatic' | 'manual'
   baseId: string
 }
-
-export const [injectTabsRootContext, provideTabsRootContext]
-  = createContext<TabsRootContext>('TabsRoot')
-</script>
-
-<script setup lang="ts">
-import { Primitive, type PrimitiveProps } from '@/Primitive'
 
 export interface TabsRootProps extends PrimitiveProps {
   defaultValue?: string
@@ -43,6 +35,15 @@ export interface TabsRootProps extends PrimitiveProps {
 export type TabsRootEmits = {
   'update:modelValue': [payload: string]
 }
+
+export const [injectTabsRootContext, provideTabsRootContext]
+  = createContext<TabsRootContext>('TabsRoot')
+</script>
+
+<script setup lang="ts">
+import { toRefs } from 'vue'
+import { useVModel } from '@vueuse/core'
+import { Primitive } from '@/Primitive'
 
 const props = withDefaults(defineProps<TabsRootProps>(), {
   orientation: 'horizontal',

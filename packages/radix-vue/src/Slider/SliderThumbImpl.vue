@@ -1,14 +1,22 @@
-<script setup lang="ts">
-import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
-import { computed, onMounted, onUnmounted } from 'vue'
-import { injectSliderRootContext } from './SliderRoot.vue'
-import { convertValueToPercentage, getLabel, getThumbInBoundsOffset, injectSliderOrientationContext } from './utils'
-import { useSize } from '@/shared'
-import { useMounted } from '@vueuse/core'
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
 
 export interface SliderThumbImplProps extends PrimitiveProps {
   index: number
 }
+</script>
+
+<script setup lang="ts">
+import { computed, onMounted, onUnmounted } from 'vue'
+import { useMounted } from '@vueuse/core'
+import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { injectSliderRootContext } from './SliderRoot.vue'
+import { convertValueToPercentage, getLabel, getThumbInBoundsOffset, injectSliderOrientationContext } from './utils'
+import { useSize } from '@/shared'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const props = defineProps<SliderThumbImplProps>()
 
@@ -38,12 +46,6 @@ onUnmounted(() => {
 defineExpose({
   $el: thumbElement,
 })
-</script>
-
-<script lang="ts">
-export default {
-  inheritAttrs: false,
-}
 </script>
 
 <template>

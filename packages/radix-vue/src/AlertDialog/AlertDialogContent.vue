@@ -1,4 +1,8 @@
 <script lang="ts">
+import type {
+  DialogContentEmits,
+  DialogContentProps,
+} from '@/Dialog'
 import { createContext, useEmitAsProps } from '@/shared'
 
 interface AlertDialogContentContext {
@@ -8,16 +12,14 @@ interface AlertDialogContentContext {
 export const [injectAlertDialogContentContext, provideAlertDialogContentContext]
   = createContext<AlertDialogContentContext>('AlertDialogContent')
 
-export interface AlertDialogContentProps extends DialogContentProps {}
 export type AlertDialogContentEmits = DialogContentEmits
+export interface AlertDialogContentProps extends DialogContentProps {}
 </script>
 
 <script setup lang="ts">
 import { nextTick, ref } from 'vue'
 import {
   DialogContent,
-  type DialogContentEmits,
-  type DialogContentProps,
 } from '@/Dialog'
 
 const props = defineProps<AlertDialogContentProps>()

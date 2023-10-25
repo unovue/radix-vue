@@ -1,4 +1,6 @@
 <script lang="ts">
+import type { ToggleProps } from '@/Toggle'
+
 export interface ToggleGroupItemProps extends ToggleProps {
   /**
    * A string value for the toggle group item. All items within a toggle group should use a unique value.
@@ -10,7 +12,7 @@ export interface ToggleGroupItemProps extends ToggleProps {
 <script setup lang="ts">
 import { computed } from 'vue'
 import { injectToggleGroupRootContext } from './ToggleGroupRoot.vue'
-import { Toggle, type ToggleProps } from '@/Toggle'
+import { Toggle } from '@/Toggle'
 import { RovingFocusItem } from '@/RovingFocus'
 import { Primitive } from '@/Primitive'
 

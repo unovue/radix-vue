@@ -1,4 +1,5 @@
 <script lang="ts">
+import type { Ref } from 'vue'
 import { createContext } from '@/shared'
 
 interface TooltipProviderContext {
@@ -41,7 +42,7 @@ export interface TooltipProviderProps {
 
 <script setup lang="ts">
 import { useTimeoutFn } from '@vueuse/shared'
-import { type Ref, ref, toRefs } from 'vue'
+import { ref, toRefs } from 'vue'
 
 const props = withDefaults(defineProps<TooltipProviderProps>(), {
   delayDuration: 700,

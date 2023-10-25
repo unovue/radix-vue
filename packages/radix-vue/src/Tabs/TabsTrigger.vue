@@ -1,17 +1,18 @@
-<script setup lang="ts">
-import { computed } from 'vue'
-import { injectTabsRootContext } from './TabsRoot.vue'
-import {
-  Primitive,
-  type PrimitiveProps,
-} from '@/Primitive'
-import { RovingFocusItem } from '@/RovingFocus'
-import { makeContentId, makeTriggerId } from './utils'
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
 
 export interface TabsTriggerProps extends PrimitiveProps {
   value: string
   disabled?: boolean
 }
+</script>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+import { injectTabsRootContext } from './TabsRoot.vue'
+import { Primitive } from '@/Primitive'
+import { RovingFocusItem } from '@/RovingFocus'
+import { makeContentId, makeTriggerId } from './utils'
 
 const props = withDefaults(defineProps<TabsTriggerProps>(), {
   disabled: false,

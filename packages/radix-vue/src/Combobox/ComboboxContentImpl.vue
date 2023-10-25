@@ -1,9 +1,12 @@
 <script lang="ts">
+import type { Ref } from 'vue'
 import {
   createContext,
   useBodyScrollLock,
   useHideOthers,
 } from '@/shared'
+import type { PointerDownOutsideEvent } from '@/DismissableLayer'
+import type { PopperContentProps } from '@/Popper'
 
 export type ComboboxContentImplEmits = {
   closeAutoFocus: [event: Event]
@@ -33,17 +36,13 @@ export const [injectComboboxContentContext, provideComboboxContentContext]
 
 <script setup lang="ts">
 import {
-  type Ref,
   computed,
   onMounted,
   toRefs,
 } from 'vue'
 import { injectComboboxRootContext } from './ComboboxRoot.vue'
-import {
-  DismissableLayer,
-  type PointerDownOutsideEvent,
-} from '@/DismissableLayer'
-import { PopperContent, type PopperContentProps } from '@/Popper'
+import { DismissableLayer } from '@/DismissableLayer'
+import { PopperContent } from '@/Popper'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
 
 const props = withDefaults(defineProps<ComboboxContentImplProps>(), {

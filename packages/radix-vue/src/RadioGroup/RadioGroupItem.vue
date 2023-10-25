@@ -1,4 +1,6 @@
 <script lang="ts">
+import type { ComputedRef } from 'vue'
+import type { RadioProps } from './Radio.vue'
 import { createContext } from '@/shared'
 
 export interface RadioGroupItemProps extends Omit<RadioProps, 'checked'> {}
@@ -10,25 +12,22 @@ interface RadioGroupItemContext {
 
 export const [injectRadioGroupItemContext, provideRadiogroupItemContext]
   = createContext<RadioGroupItemContext>('RadioGroupItem')
-
-export default {
-  inheritAttrs: false,
-}
 </script>
 
 <script setup lang="ts">
 import {
-  type ComputedRef,
   computed,
   ref,
 } from 'vue'
+import Radio from './Radio.vue'
 import { injectRadioGroupRootContext } from './RadioGroupRoot.vue'
-import {
-  usePrimitiveElement,
-} from '@/Primitive'
+import { usePrimitiveElement } from '@/Primitive'
 import { RovingFocusItem } from '@/RovingFocus'
-import Radio, { type RadioProps } from './Radio.vue'
 import { useEventListener } from '@vueuse/core'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const props = withDefaults(defineProps<RadioGroupItemProps>(), {
   disabled: false,

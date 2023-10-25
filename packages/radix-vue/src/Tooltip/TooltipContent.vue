@@ -1,11 +1,16 @@
+<script lang="ts">
+import type { TooltipContentImplEmits, TooltipContentImplProps } from './TooltipContentImpl.vue'
+
+export type TooltipContentEmits = TooltipContentImplEmits
+
+export interface TooltipContentProps extends TooltipContentImplProps {}
+</script>
+
 <script setup lang="ts">
-import TooltipContentImpl, { type TooltipContentImplEmits, type TooltipContentImplProps } from './TooltipContentImpl.vue'
+import TooltipContentImpl from './TooltipContentImpl.vue'
 import TooltipContentHoverable from './TooltipContentHoverable.vue'
 import { injectTooltipRootContext } from './TooltipRoot.vue'
 import { useForwardPropsEmits } from '@/shared'
-
-export interface TooltipContentProps extends TooltipContentImplProps {}
-export type TooltipContentEmits = TooltipContentImplEmits
 
 const props = withDefaults(defineProps<TooltipContentProps>(), {
   side: 'top',

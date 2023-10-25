@@ -6,6 +6,12 @@ import {
   watchEffect,
 } from 'vue'
 
+import type { PrimitiveProps } from '@/Primitive'
+import type {
+  FocusOutsideEvent,
+  PointerDownOutsideEvent,
+} from './utils'
+
 export interface DismissableLayerProps extends PrimitiveProps {
   /**
    * When `true`, hover/focus/click interactions will be disabled on elements outside
@@ -53,14 +59,11 @@ export const context = reactive({
 <script setup lang="ts">
 import { onKeyStroke } from '@vueuse/core'
 import {
-  type FocusOutsideEvent,
-  type PointerDownOutsideEvent,
   useFocusOutside,
   usePointerDownOutside,
 } from './utils'
 import {
   Primitive,
-  type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
 

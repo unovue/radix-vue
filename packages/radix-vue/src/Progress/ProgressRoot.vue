@@ -1,15 +1,17 @@
 <script lang="ts">
 import type { ComputedRef, Ref } from 'vue'
+import type { PrimitiveProps } from '@/Primitive'
 import { createContext } from '@/shared'
+
+export type ProgressRootEmits = {
+  'update:modelValue': [value: string[] | undefined]
+  'update:max': [value: number]
+}
 
 export interface ProgressRootProps extends PrimitiveProps {
   modelValue?: number | null
   max?: number
   getValueLabel?: (value: number, max: number) => string
-}
-export type ProgressRootEmits = {
-  'update:modelValue': [value: string[] | undefined]
-  'update:max': [value: number]
 }
 
 const DEFAULT_MAX = 100
@@ -60,7 +62,7 @@ function validateMax(max: number): number {
 <script setup lang="ts">
 import { useVModel } from '@vueuse/core'
 import { computed, nextTick, watch } from 'vue'
-import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 
 const props = withDefaults(defineProps<ProgressRootProps>(), {
   max: DEFAULT_MAX,

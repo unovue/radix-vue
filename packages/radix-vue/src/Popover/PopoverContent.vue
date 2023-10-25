@@ -1,13 +1,10 @@
-<script setup lang="ts">
-import PopoverContentModal from './PopoverContentModal.vue'
-import PopoverContentNonModal from './PopoverContentNonModal.vue'
-import {
-  type PopoverContentImplEmits,
-  type PopoverContentImplProps,
+<script lang="ts">
+import type {
+  PopoverContentImplEmits,
+  PopoverContentImplProps,
 } from './PopoverContentImpl.vue'
-import { injectPopoverRootContext } from './PopoverRoot.vue'
-import { useForwardPropsEmits } from '@/shared'
-import { Presence } from '@/Presence'
+
+export type PopoverContentEmits = PopoverContentImplEmits
 
 export interface PopoverContentProps extends PopoverContentImplProps {
   /**
@@ -16,7 +13,14 @@ export interface PopoverContentProps extends PopoverContentImplProps {
    */
   forceMount?: boolean
 }
-export type PopoverContentEmits = PopoverContentImplEmits
+</script>
+
+<script setup lang="ts">
+import PopoverContentModal from './PopoverContentModal.vue'
+import PopoverContentNonModal from './PopoverContentNonModal.vue'
+import { injectPopoverRootContext } from './PopoverRoot.vue'
+import { useForwardPropsEmits } from '@/shared'
+import { Presence } from '@/Presence'
 
 const props = defineProps<PopoverContentProps>()
 const emits = defineEmits<PopoverContentEmits>()

@@ -1,4 +1,6 @@
 <script lang="ts">
+import type { Ref } from 'vue'
+import type { MenuGroupProps } from './MenuGroup.vue'
 import { createContext } from '@/shared'
 
 interface MenuRadioGroupContext {
@@ -6,21 +8,21 @@ interface MenuRadioGroupContext {
   onValueChange: (payload: string) => void
 }
 
+export interface MenuRadioGroupProps extends MenuGroupProps {
+  modelValue?: string
+}
+
+export type MenuRadioGroupEmits = {
+  'update:modelValue': [payload: boolean]
+}
+
 export const [injectMenuRadioGroupContext, provideMenuRadioGroupContext]
   = createContext<MenuRadioGroupContext>('MenuRadioGroup')
 </script>
 
 <script setup lang="ts">
-import { type Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
-import MenuGroup, { type MenuGroupProps } from './MenuGroup.vue'
-
-export interface MenuRadioGroupProps extends MenuGroupProps {
-  modelValue?: string
-}
-export type MenuRadioGroupEmits = {
-  'update:modelValue': [payload: boolean]
-}
+import MenuGroup from './MenuGroup.vue'
 
 const props = withDefaults(defineProps<MenuRadioGroupProps>(), {
   modelValue: '',

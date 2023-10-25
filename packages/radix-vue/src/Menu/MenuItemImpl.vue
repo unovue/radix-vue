@@ -1,5 +1,5 @@
 <script lang="ts">
-import { isMouseEvent } from './utils'
+import type { PrimitiveProps } from '@/Primitive'
 
 export interface MenuItemImplProps extends PrimitiveProps {
   disabled?: boolean
@@ -8,13 +8,13 @@ export interface MenuItemImplProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
+import { nextTick, ref } from 'vue'
+import { isMouseEvent } from './utils'
 import { injectMenuContentContext } from './MenuContentImpl.vue'
 import {
   Primitive,
-  type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
-import { nextTick, ref } from 'vue'
 
 const props = defineProps<MenuItemImplProps>()
 

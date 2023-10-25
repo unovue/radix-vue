@@ -1,13 +1,17 @@
-<script setup lang="ts">
-import {
-  MenuRadioGroup,
-  type MenuRadioGroupEmits,
-  type MenuRadioGroupProps,
+<script lang="ts">
+import type {
+  MenuRadioGroupEmits,
+  MenuRadioGroupProps,
 } from '@/Menu'
-import { useEmitAsProps } from '@/shared'
+
+export type ContextMenuRadioGroupEmits = MenuRadioGroupEmits
 
 export interface ContextMenuRadioGroupProps extends MenuRadioGroupProps {}
-export type ContextMenuRadioGroupEmits = MenuRadioGroupEmits
+</script>
+
+<script setup lang="ts">
+import { MenuRadioGroup } from '@/Menu'
+import { useEmitAsProps } from '@/shared'
 
 const props = defineProps<ContextMenuRadioGroupProps>()
 const emits = defineEmits<ContextMenuRadioGroupEmits>()

@@ -1,11 +1,15 @@
-<script setup lang="ts">
-import { Primitive, type PrimitiveProps } from '@/Primitive'
-import { computed } from 'vue'
-import { injectComboboxRootContext } from './ComboboxRoot.vue'
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
 
 export interface ComboboxTriggerProps extends PrimitiveProps {
   disabled?: boolean
 }
+</script>
+
+<script setup lang="ts">
+import { Primitive } from '@/Primitive'
+import { computed } from 'vue'
+import { injectComboboxRootContext } from './ComboboxRoot.vue'
 
 const props = withDefaults(defineProps<ComboboxTriggerProps>(), {
   as: 'button',

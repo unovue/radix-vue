@@ -1,8 +1,12 @@
-<script setup lang="ts">
-import { Primitive, type PrimitiveProps } from '@/Primitive'
-import { PopperAnchor } from '@/Popper'
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
 
 export interface ComboboxAnchorProps extends PrimitiveProps {}
+</script>
+
+<script setup lang="ts">
+import { Primitive } from '@/Primitive'
+import { PopperAnchor } from '@/Popper'
 
 defineProps<ComboboxAnchorProps>()
 </script>

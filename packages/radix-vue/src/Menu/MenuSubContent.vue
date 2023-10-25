@@ -1,14 +1,10 @@
-<script setup lang="ts">
-import MenuContentImpl, {
-  type MenuContentImplEmits,
-  type MenuContentImplProps,
+<script lang="ts">
+import type {
+  MenuContentImplEmits,
+  MenuContentImplProps,
 } from './MenuContentImpl.vue'
-import { injectMenuContext, injectMenuRootContext } from './MenuRoot.vue'
-import { injectMenuSubContext } from './MenuSub.vue'
-import { SUB_CLOSE_KEYS } from './utils'
-import { Presence } from '@/Presence'
-import { usePrimitiveElement } from '@/Primitive'
-import { useForwardPropsEmits } from '@/shared'
+
+export type MenuSubContentEmits = MenuContentImplEmits
 
 export interface MenuSubContentProps extends MenuContentImplProps {
   /**
@@ -17,7 +13,16 @@ export interface MenuSubContentProps extends MenuContentImplProps {
    */
   forceMount?: boolean
 }
-export type MenuSubContentEmits = MenuContentImplEmits
+</script>
+
+<script setup lang="ts">
+import MenuContentImpl from './MenuContentImpl.vue'
+import { injectMenuContext, injectMenuRootContext } from './MenuRoot.vue'
+import { injectMenuSubContext } from './MenuSub.vue'
+import { SUB_CLOSE_KEYS } from './utils'
+import { Presence } from '@/Presence'
+import { usePrimitiveElement } from '@/Primitive'
+import { useForwardPropsEmits } from '@/shared'
 
 const props = defineProps<MenuSubContentProps>()
 const emits = defineEmits<MenuSubContentEmits>()

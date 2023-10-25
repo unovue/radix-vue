@@ -1,9 +1,5 @@
-<script setup lang="ts">
-import { watch } from 'vue'
-import { injectDialogRootContext } from './DialogRoot.vue'
-import { Primitive, type PrimitiveProps } from '@/Primitive'
-import { Presence } from '@/Presence'
-import { useBodyScrollLock } from '@/shared'
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
 
 export interface DialogOverlayProps extends PrimitiveProps {
   /**
@@ -12,6 +8,14 @@ export interface DialogOverlayProps extends PrimitiveProps {
    */
   forceMount?: boolean
 }
+</script>
+
+<script setup lang="ts">
+import { watch } from 'vue'
+import { injectDialogRootContext } from './DialogRoot.vue'
+import { Primitive } from '@/Primitive'
+import { Presence } from '@/Presence'
+import { useBodyScrollLock } from '@/shared'
 
 defineProps<DialogOverlayProps>()
 const rootContext = injectDialogRootContext()

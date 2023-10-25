@@ -1,10 +1,14 @@
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
+export interface ScrollAreaCornerProps extends PrimitiveProps {}
+</script>
+
 <script setup lang="ts">
 import { computed } from 'vue'
 import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
 import ScrollAreaCornerImpl from './ScrollAreaCornerImpl.vue'
-import { type PrimitiveProps } from '@/Primitive'
 
-export interface ScrollAreaCornerProps extends PrimitiveProps {}
 const props = defineProps<ScrollAreaCornerProps>()
 
 const rootContext = injectScrollAreaRootContext()

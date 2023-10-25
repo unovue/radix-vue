@@ -1,10 +1,15 @@
-<script setup lang="ts">
-import { Primitive, type PrimitiveProps } from '@/Primitive'
-import { RovingFocusItem } from '@/RovingFocus'
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
 
 export interface ToolbarButtonProps extends PrimitiveProps {
   disabled?: boolean
 }
+</script>
+
+<script setup lang="ts">
+import { Primitive } from '@/Primitive'
+import { RovingFocusItem } from '@/RovingFocus'
+
 const props = withDefaults(defineProps<ToolbarButtonProps>(), { as: 'button' })
 </script>
 

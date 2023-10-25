@@ -1,11 +1,6 @@
 <script lang="ts">
-import {
-  type Ref,
-  computed,
-  onUnmounted,
-  toRefs,
-  watch,
-} from 'vue'
+import type { Ref } from 'vue'
+import type { AsTag, PrimitiveProps } from '@/Primitive'
 import { createContext } from '@/shared'
 
 export interface ScrollAreaScrollbarProps extends PrimitiveProps {
@@ -27,19 +22,24 @@ export interface ScrollAreaScollbarContext {
 
 export const [injectScrollAreaScrollbarContext, provideScrollAreaScrollbarContext]
   = createContext<ScrollAreaScollbarContext>('ScrollAreaScrollbar')
-
-export default {
-  inheritAttrs: false,
-}
 </script>
 
 <script setup lang="ts">
+import {
+  computed,
+  onUnmounted,
+  toRefs,
+  watch,
+} from 'vue'
 import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
 import ScrollAreaScrollbarHover from './ScrollAreaScrollbarHover.vue'
 import ScrollAreaScrollbarScroll from './ScrollAreaScrollbarScroll.vue'
 import ScrollAreaScrollbarAuto from './ScrollAreaScrollbarAuto.vue'
 import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
-import { type AsTag, type PrimitiveProps } from '@/Primitive'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const props = withDefaults(defineProps<ScrollAreaScrollbarProps>(), {
   orientation: 'vertical',

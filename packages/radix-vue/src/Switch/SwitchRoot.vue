@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { Ref } from 'vue'
+import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useFormControl } from '@/shared'
 
 export interface SwitchRootProps extends PrimitiveProps {
@@ -29,7 +30,7 @@ export const [injectSwitchRootContext, provideSwitchRootContext]
 <script setup lang="ts">
 import { computed, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
+import { Primitive, usePrimitiveElement } from '@/Primitive'
 
 const props = withDefaults(defineProps<SwitchRootProps>(), {
   as: 'button',

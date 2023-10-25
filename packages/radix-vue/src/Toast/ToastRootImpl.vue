@@ -1,12 +1,29 @@
 <script lang="ts">
 import { createContext, useForwardRef } from '@/shared'
 
+export type ToastRootImplEmits = {
+  'close': []
+  'escapeKeyDown': [event: KeyboardEvent]
+  'pause': []
+  'resume': []
+  'swipeStart': [event: SwipeEvent]
+  'swipeMove': [event: SwipeEvent]
+  'swipeCancel': [event: SwipeEvent]
+  'swipeEnd': [event: SwipeEvent]
+}
+
+export interface ToastRootImplProps extends PrimitiveProps {
+  type?: 'foreground' | 'background'
+  open?: boolean
+  /**
+   * Time in milliseconds that toast should remain visible for. Overrides value
+   * given to `ToastProvider`.
+   */
+  duration?: number
+}
+
 export const [injectToastRootContext, provideToastRootContext]
   = createContext<{ onClose(): void }>('ToastRoot')
-
-export default {
-  inheritAttrs: false,
-}
 </script>
 
 <script setup lang="ts">
@@ -19,26 +36,9 @@ import { type SwipeEvent, TOAST_SWIPE_CANCEL, TOAST_SWIPE_END, TOAST_SWIPE_MOVE,
 import ToastAnnounce from './ToastAnnounce.vue'
 import { onKeyStroke } from '@vueuse/core'
 
-export interface ToastRootImplProps extends PrimitiveProps {
-  type?: 'foreground' | 'background'
-  open?: boolean
-  /**
-   * Time in milliseconds that toast should remain visible for. Overrides value
-   * given to `ToastProvider`.
-   */
-  duration?: number
-}
-
-export type ToastRootImplEmits = {
-  'close': []
-  'escapeKeyDown': [event: KeyboardEvent]
-  'pause': []
-  'resume': []
-  'swipeStart': [event: SwipeEvent]
-  'swipeMove': [event: SwipeEvent]
-  'swipeCancel': [event: SwipeEvent]
-  'swipeEnd': [event: SwipeEvent]
-}
+defineOptions({
+  inheritAttrs: false,
+})
 
 const props = withDefaults(defineProps<ToastRootImplProps>(), {
   open: false,

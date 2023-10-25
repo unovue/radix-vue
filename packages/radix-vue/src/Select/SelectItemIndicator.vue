@@ -1,8 +1,13 @@
-<script setup lang="ts">
-import { injectSelectItemContext } from './SelectItem.vue'
-import { Primitive, type PrimitiveProps } from '@/Primitive'
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
 
 export interface SelectItemIndicatorProps extends PrimitiveProps {}
+</script>
+
+<script setup lang="ts">
+import { injectSelectItemContext } from './SelectItem.vue'
+import { Primitive } from '@/Primitive'
+
 const props = withDefaults(defineProps<SelectItemIndicatorProps>(), {
   as: 'span',
 })

@@ -1,17 +1,22 @@
-<script setup lang="ts">
-import { computed, toRefs } from 'vue'
-import { getCheckedState } from './utils'
-import MenuItem, {
-  type MenuItemEmits,
-  type MenuItemProps,
+<script lang="ts">
+import type {
+  MenuItemEmits,
+  MenuItemProps,
 } from './MenuItem.vue'
-import { injectMenuRadioGroupContext } from './MenuRadioGroup.vue'
-import { provideMenuItemIndicatorContext } from './MenuItemIndicator.vue'
+
+export type MenuRadioItemEmits = MenuItemEmits
 
 export interface MenuRadioItemProps extends MenuItemProps {
   value: string
 }
-export type MenuRadioItemEmits = MenuItemEmits
+</script>
+
+<script setup lang="ts">
+import { computed, toRefs } from 'vue'
+import { getCheckedState } from './utils'
+import MenuItem from './MenuItem.vue'
+import { injectMenuRadioGroupContext } from './MenuRadioGroup.vue'
+import { provideMenuItemIndicatorContext } from './MenuItemIndicator.vue'
 
 const props = defineProps<MenuRadioItemProps>()
 const emits = defineEmits<MenuRadioItemEmits>()

@@ -1,9 +1,13 @@
+<script lang="ts">
+import type { PopperContentProps } from '@/Popper'
+
+export interface SelectPopperPositionProps extends PopperContentProps {}
+</script>
+
 <script setup lang="ts">
 import { useForwardProps } from '..'
 import { CONTENT_MARGIN } from './utils'
-import { PopperContent, type PopperContentProps } from '@/Popper'
-
-export interface SelectPopperPositionProps extends PopperContentProps {}
+import { PopperContent } from '@/Popper'
 
 const props = withDefaults(defineProps<SelectPopperPositionProps>(), {
   align: 'start',

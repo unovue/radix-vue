@@ -1,19 +1,10 @@
 <script lang="ts">
-export default {
-  inheritAttrs: false,
-}
-</script>
-
-<script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import SelectContentImpl, {
-  type SelectContentImplEmits,
-  type SelectContentImplProps,
+import type {
+  SelectContentImplEmits,
+  SelectContentImplProps,
 } from './SelectContentImpl.vue'
-import { injectSelectRootContext } from './SelectRoot.vue'
-import { Presence } from '@/Presence'
-import { useForwardPropsEmits } from '@/shared'
-import SelectProvider from './SelectProvider.vue'
+
+export type SelectContentEmits = SelectContentImplEmits
 
 export interface SelectContentProps extends SelectContentImplProps {
   /**
@@ -22,7 +13,19 @@ export interface SelectContentProps extends SelectContentImplProps {
    */
   forceMount?: boolean
 }
-export type SelectContentEmits = SelectContentImplEmits
+</script>
+
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
+import SelectContentImpl from './SelectContentImpl.vue'
+import { injectSelectRootContext } from './SelectRoot.vue'
+import { Presence } from '@/Presence'
+import { useForwardPropsEmits } from '@/shared'
+import SelectProvider from './SelectProvider.vue'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const props = withDefaults(defineProps<SelectContentProps>(), {
   align: 'start',

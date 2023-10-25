@@ -1,10 +1,13 @@
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
+export interface AccordionContentProps extends PrimitiveProps {}
+</script>
+
 <script setup lang="ts">
 import { CollapsibleContent } from '../Collapsible'
 import { injectAccordionItemContext } from './AccordionItem.vue'
 import { injectAccordionRootContext } from './AccordionRoot.vue'
-import type { PrimitiveProps } from '@/Primitive'
-
-export interface AccordionContentProps extends PrimitiveProps {}
 
 const props = defineProps<AccordionContentProps>()
 

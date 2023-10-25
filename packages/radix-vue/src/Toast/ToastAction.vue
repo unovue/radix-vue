@@ -1,6 +1,5 @@
-<script setup lang="ts">
-import ToastAnnounceExclude from './ToastAnnounceExclude.vue'
-import ToastClose, { type ToastCloseProps } from './ToastClose.vue'
+<script lang="ts">
+import type { ToastCloseProps } from './ToastClose.vue'
 
 export interface ToastActionProps extends ToastCloseProps {
   /**
@@ -11,6 +10,11 @@ export interface ToastActionProps extends ToastCloseProps {
    */
   altText: string
 }
+</script>
+
+<script setup lang="ts">
+import ToastAnnounceExclude from './ToastAnnounceExclude.vue'
+import ToastClose from './ToastClose.vue'
 
 const props = defineProps<ToastActionProps>()
 

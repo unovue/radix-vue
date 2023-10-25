@@ -1,4 +1,6 @@
 <script lang="ts">
+import type { Ref } from 'vue'
+import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useId } from '@/shared'
 
 interface SelectItemContext {
@@ -21,7 +23,6 @@ export interface SelectItemProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import {
-  type Ref,
   computed,
   nextTick,
   onMounted,
@@ -33,7 +34,6 @@ import { SelectContentDefaultContextValue, injectSelectContentContext } from './
 import { SELECTION_KEYS } from './utils'
 import {
   Primitive,
-  type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
 

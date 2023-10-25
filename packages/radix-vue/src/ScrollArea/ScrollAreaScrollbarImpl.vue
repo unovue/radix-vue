@@ -1,5 +1,19 @@
+<script lang="ts">
+import type { ComponentPublicInstance } from 'vue'
+
+type ScrollbarAreaScrollbarImplEmits = {
+  'onDragScroll': [payload: { x: number; y: number }]
+  'onWheelScroll': [payload: { x: number; y: number }]
+  'onThumbPointerDown': [payload: { x: number; y: number }]
+}
+
+export interface ScrollAreaScrollbarImplProps {
+  isHorizontal: boolean
+}
+</script>
+
 <script setup lang="ts">
-import { type ComponentPublicInstance, onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { useResizeObserver } from '@vueuse/core'
 import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
 import { injectScrollAreaScrollbarVisibleContext } from './ScrollAreaScrollbarVisible.vue'
@@ -9,18 +23,10 @@ import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { useForwardRef } from '@/shared'
 
 const props = defineProps<ScrollAreaScrollbarImplProps>()
-const emit = defineEmits<{
-  'onDragScroll': [payload: { x: number; y: number }]
-  'onWheelScroll': [payload: { x: number; y: number }]
-  'onThumbPointerDown': [payload: { x: number; y: number }]
-}>()
+const emit = defineEmits<ScrollbarAreaScrollbarImplEmits>()
 const rootContext = injectScrollAreaRootContext()
 const scrollbarVisibleContext = injectScrollAreaScrollbarVisibleContext()
 const scrollbarContext = injectScrollAreaScrollbarContext()
-
-export interface ScrollAreaScrollbarImplProps {
-  isHorizontal: boolean
-}
 
 const { primitiveElement, currentElement: scrollbar } = usePrimitiveElement()
 const forwardRef = useForwardRef()

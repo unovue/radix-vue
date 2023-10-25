@@ -1,5 +1,11 @@
 <script lang="ts">
-import { computed } from 'vue'
+import type { PrimitiveProps } from '@/Primitive'
+
+export type ToggleEmits = {
+  'update:pressed': [value: boolean]
+}
+
+export type DataState = 'on' | 'off'
 
 export interface ToggleProps extends PrimitiveProps {
   /**
@@ -16,16 +22,12 @@ export interface ToggleProps extends PrimitiveProps {
    */
   disabled?: boolean
 }
-export type ToggleEmits = {
-  'update:pressed': [value: boolean]
-}
-
-export type DataState = 'on' | 'off'
 </script>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 
 const props = withDefaults(defineProps<ToggleProps>(), {
   pressed: undefined,

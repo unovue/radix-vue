@@ -1,11 +1,20 @@
+<script lang="ts">
+import type { ScrollAreaScrollbarAutoProps } from './ScrollAreaScrollbarAuto.vue'
+
+export interface ScrollAreaScrollbarHoverProps extends ScrollAreaScrollbarAutoProps {}
+</script>
+
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
 import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
-import ScrollAreaScrollbarAuto, { type ScrollAreaScrollbarAutoProps } from './ScrollAreaScrollbarAuto.vue'
+import ScrollAreaScrollbarAuto from './ScrollAreaScrollbarAuto.vue'
 import { Presence } from '@/Presence'
 import { useForwardRef } from '@/shared'
 
-export interface ScrollAreaScrollbarHoverProps extends ScrollAreaScrollbarAutoProps {}
+defineOptions({
+  inheritAttrs: false,
+})
+
 defineProps<ScrollAreaScrollbarHoverProps>()
 
 const rootContext = injectScrollAreaRootContext()
@@ -42,12 +51,6 @@ onUnmounted(() => {
     scrollArea.removeEventListener('pointerleave', handlePointerLeave)
   }
 })
-</script>
-
-<script lang="ts">
-export default {
-  inheritAttrs: false,
-}
 </script>
 
 <template>

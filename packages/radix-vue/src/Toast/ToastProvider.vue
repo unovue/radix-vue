@@ -1,4 +1,5 @@
 <script lang="ts">
+import type { Ref } from 'vue'
 import type { SwipeDirection } from './utils'
 import { createContext } from '@/shared'
 
@@ -15,9 +16,6 @@ type ToastProviderContext = {
   isFocusedToastEscapeKeyDownRef: Ref<boolean>
   isClosePausedRef: Ref<boolean>
 }
-
-export const [injectToastProviderContext, provideToastProviderContext]
-  = createContext<ToastProviderContext>('ToastProvider')
 
 export interface ToastProviderProps {
   /**
@@ -42,10 +40,13 @@ export interface ToastProviderProps {
    */
   swipeThreshold?: number
 }
+
+export const [injectToastProviderContext, provideToastProviderContext]
+  = createContext<ToastProviderContext>('ToastProvider')
 </script>
 
 <script setup lang="ts">
-import { type Ref, ref, toRefs } from 'vue'
+import { ref, toRefs } from 'vue'
 
 const props = withDefaults(defineProps<ToastProviderProps>(), {
   label: 'Notification',

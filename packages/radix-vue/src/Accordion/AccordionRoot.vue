@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { ComputedRef, Ref } from 'vue'
+import type { PrimitiveProps } from '@/Primitive'
 import type { DataOrientation, Direction, Type } from '@/shared/types'
 import { createContext, useDirection } from '@/shared'
 
@@ -72,7 +73,6 @@ export const [injectAccordionRootContext, provideAccordionRootContext]
 <script setup lang="ts">
 import {
   Primitive,
-  type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
 import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'

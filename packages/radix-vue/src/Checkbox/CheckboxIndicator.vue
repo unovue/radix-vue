@@ -1,4 +1,6 @@
 <script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
 export interface CheckboxIndicatorProps extends PrimitiveProps {
   /**
    * Used to force mounting when more control is needed. Useful when
@@ -10,7 +12,7 @@ export interface CheckboxIndicatorProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { injectCheckboxRootContext } from './CheckboxRoot.vue'
-import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { Presence } from '@/Presence'
 import { getState, isIndeterminate } from './utils'
 

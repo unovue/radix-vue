@@ -1,10 +1,7 @@
 <script lang="ts">
-import {
-  type Ref,
-  computed,
-  ref,
-  toRefs,
-} from 'vue'
+import type { Ref } from 'vue'
+
+import type { PrimitiveProps } from '@/Primitive'
 import type { Direction, Orientation } from './utils'
 import { createContext, useCollection, useDirection, useId } from '@/shared'
 
@@ -53,10 +50,14 @@ export const [injectNavigationMenuContext, provideNavigationMenuContext]
 </script>
 
 <script setup lang="ts">
+import {
+  computed,
+  ref,
+  toRefs,
+} from 'vue'
 import { refAutoReset, useDebounceFn, useVModel } from '@vueuse/core'
 import {
   Primitive,
-  type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
 

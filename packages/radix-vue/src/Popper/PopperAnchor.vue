@@ -1,15 +1,19 @@
-<script setup lang="ts">
-import { watch } from 'vue'
-import { type Measurable, injectPopperRootContext } from './PopperRoot.vue'
-import {
-  Primitive,
-  type PrimitiveProps,
-  usePrimitiveElement,
-} from '@/Primitive'
+<script lang="ts">
+import type { Measurable } from './PopperRoot.vue'
+import type { PrimitiveProps } from '@/Primitive'
 
 export interface PopperAnchorProps extends PrimitiveProps {
   element?: Measurable
 }
+</script>
+
+<script setup lang="ts">
+import { watch } from 'vue'
+import { injectPopperRootContext } from './PopperRoot.vue'
+import {
+  Primitive,
+  usePrimitiveElement,
+} from '@/Primitive'
 
 const props = defineProps<PopperAnchorProps>()
 

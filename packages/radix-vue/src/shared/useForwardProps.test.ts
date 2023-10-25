@@ -30,8 +30,12 @@ describe('useForwardProps', () => {
   })
 
   it('should forward provided props instead of default', () => {
-    const wrapper = mount(setupTestComponent({ id: { type: String, default: 'test' } }), { props: { id: 'new-test' } })
-    expect(wrapper.emitted('log')?.[0][0]).toStrictEqual({ id: 'new-test' })
+    const props = { id: 'new-test', number: 0, enabled: false }
+    const wrapper = mount(setupTestComponent(
+      { id: { type: String, default: 'test' }, number: Number, enabled: Boolean }),
+    { props },
+    )
+    expect(wrapper.emitted('log')?.[0][0]).toStrictEqual(props)
   })
 
   it('should be reactive', async () => {

@@ -72,6 +72,9 @@ export function usePresence(
     )
     if (event.target === node.value && isCurrentAnimation)
       dispatch('ANIMATION_END')
+    // if no animation, immediately trigger 'ANIMATION_END'
+    if (event.target === node.value && currentAnimationName === 'none')
+      dispatch('ANIMATION_END')
   }
   const handleAnimationStart = (event: AnimationEvent) => {
     if (event.target === node.value) {

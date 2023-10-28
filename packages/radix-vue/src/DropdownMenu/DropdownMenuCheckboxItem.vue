@@ -1,13 +1,17 @@
-<script setup lang="ts">
-import {
-  MenuCheckboxItem,
-  type MenuCheckboxItemEmits,
-  type MenuCheckboxItemProps,
+<script lang="ts">
+import type {
+  MenuCheckboxItemEmits,
+  MenuCheckboxItemProps,
 } from '@/Menu'
-import { useEmitAsProps } from '@/shared'
+
+export type DropdownMenuCheckboxItemEmits = MenuCheckboxItemEmits
 
 export interface DropdownMenuCheckboxItemProps extends MenuCheckboxItemProps {}
-export type DropdownMenuCheckboxItemEmits = MenuCheckboxItemEmits
+</script>
+
+<script setup lang="ts">
+import { MenuCheckboxItem } from '@/Menu'
+import { useEmitAsProps } from '@/shared'
 
 const props = defineProps<DropdownMenuCheckboxItemProps>()
 const emits = defineEmits<DropdownMenuCheckboxItemEmits>()

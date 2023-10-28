@@ -1,33 +1,8 @@
 <script lang="ts">
-import { createContext, useForwardRef } from '@/shared'
-
-export const [injectToastRootContext, provideToastRootContext]
-  = createContext<{ onClose(): void }>('ToastRoot')
-
-export default {
-  inheritAttrs: false,
-}
-</script>
-
-<script setup lang="ts">
-import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
-import { computed, onMounted, onUnmounted, ref, watchEffect } from 'vue'
 import type { ComponentPublicInstance } from 'vue'
-import { injectToastProviderContext } from './ToastProvider.vue'
-import { getAnnounceTextContent, handleAndDispatchCustomEvent, isDeltaInDirection } from './utils'
-import { type SwipeEvent, TOAST_SWIPE_CANCEL, TOAST_SWIPE_END, TOAST_SWIPE_MOVE, TOAST_SWIPE_START, VIEWPORT_PAUSE, VIEWPORT_RESUME } from './utils'
-import ToastAnnounce from './ToastAnnounce.vue'
-import { onKeyStroke } from '@vueuse/core'
-
-export interface ToastRootImplProps extends PrimitiveProps {
-  type?: 'foreground' | 'background'
-  open?: boolean
-  /**
-   * Time in milliseconds that toast should remain visible for. Overrides value
-   * given to `ToastProvider`.
-   */
-  duration?: number
-}
+import type { PrimitiveProps } from '@/Primitive'
+import type { SwipeEvent } from './utils'
+import { createContext, useForwardRef } from '@/shared'
 
 export type ToastRootImplEmits = {
   'close': []
@@ -39,6 +14,32 @@ export type ToastRootImplEmits = {
   'swipeCancel': [event: SwipeEvent]
   'swipeEnd': [event: SwipeEvent]
 }
+
+export interface ToastRootImplProps extends PrimitiveProps {
+  type?: 'foreground' | 'background'
+  open?: boolean
+  /**
+   * Time in milliseconds that toast should remain visible for. Overrides value
+   * given to `ToastProvider`.
+   */
+  duration?: number
+}
+
+export const [injectToastRootContext, provideToastRootContext]
+  = createContext<{ onClose(): void }>('ToastRoot')
+</script>
+
+<script setup lang="ts">
+import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { computed, onMounted, onUnmounted, ref, watchEffect } from 'vue'
+import { injectToastProviderContext } from './ToastProvider.vue'
+import { TOAST_SWIPE_CANCEL, TOAST_SWIPE_END, TOAST_SWIPE_MOVE, TOAST_SWIPE_START, VIEWPORT_PAUSE, VIEWPORT_RESUME, getAnnounceTextContent, handleAndDispatchCustomEvent, isDeltaInDirection } from './utils'
+import ToastAnnounce from './ToastAnnounce.vue'
+import { onKeyStroke } from '@vueuse/core'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const props = withDefaults(defineProps<ToastRootImplProps>(), {
   open: false,

@@ -1,17 +1,20 @@
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
+export interface SelectValueProps extends PrimitiveProps {
+  placeholder?: string
+}
+</script>
+
 <script setup lang="ts">
 import { onBeforeMount, onMounted, useSlots } from 'vue'
 import { shouldShowPlaceholder } from './utils'
 import { injectSelectRootContext } from './SelectRoot.vue'
 import {
   Primitive,
-  type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
 import { renderSlotFragments } from '@/shared'
-
-export interface SelectValueProps extends PrimitiveProps {
-  placeholder?: string
-}
 
 withDefaults(defineProps<SelectValueProps>(), {
   as: 'span',

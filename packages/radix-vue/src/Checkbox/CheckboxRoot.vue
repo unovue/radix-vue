@@ -1,7 +1,9 @@
 <script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
 import type { Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { createContext, useFormControl } from '@/shared'
+import type { CheckedState } from './utils'
 
 export interface CheckboxRootProps extends PrimitiveProps {
   defaultChecked?: boolean
@@ -24,17 +26,16 @@ interface CheckboxRootContext {
 
 export const [injectCheckboxRootContext, provideCheckboxRootContext]
   = createContext<CheckboxRootContext>('CheckboxRoot')
-
-export default {
-  inheritAttrs: false,
-}
 </script>
 
 <script setup lang="ts">
 import { computed, toRefs } from 'vue'
-import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
-import type { CheckedState } from './utils'
+import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { getState, isIndeterminate } from './utils'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const props = withDefaults(defineProps<CheckboxRootProps>(), {
   checked: undefined,

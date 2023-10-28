@@ -1,4 +1,6 @@
 <script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
 export interface TooltipArrowProps extends PrimitiveProps {
   /**
    * The width of the arrow in pixels.
@@ -18,7 +20,6 @@ export interface TooltipArrowProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { PopperArrow } from '@/Popper'
-import type { PrimitiveProps } from '@/Primitive'
 
 const props = withDefaults(defineProps<TooltipArrowProps>(), {
   width: 10,

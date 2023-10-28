@@ -1,7 +1,11 @@
-<script setup lang="ts">
-import { DialogTrigger, type DialogTriggerProps } from '@/Dialog'
+<script lang="ts">
+import type { DialogTriggerProps } from '@/Dialog'
 
 export interface AlertDialogTriggerProps extends DialogTriggerProps {}
+</script>
+
+<script setup lang="ts">
+import { DialogTrigger } from '@/Dialog'
 
 const props = defineProps<AlertDialogTriggerProps>()
 </script>

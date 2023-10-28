@@ -1,4 +1,7 @@
 <script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+import type { ImageLoadingStatus } from './utils'
+
 export type AvatarImageEmits = {
   'loadingStatusChange': [value: ImageLoadingStatus]
 }
@@ -9,9 +12,9 @@ export interface AvatarImageProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { toRefs, watch } from 'vue'
-import { Primitive, type PrimitiveProps } from '../Primitive'
+import { Primitive } from '../Primitive'
 import { injectAvatarRootContext } from './AvatarRoot.vue'
-import { type ImageLoadingStatus, useImageLoadingStatus } from './utils'
+import { useImageLoadingStatus } from './utils'
 
 const props = withDefaults(defineProps<AvatarImageProps>(), { as: 'img' })
 const emits = defineEmits<AvatarImageEmits>()

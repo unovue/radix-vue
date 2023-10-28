@@ -1,4 +1,6 @@
 <script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
 export interface TabsContentProps extends PrimitiveProps {
   value: string
   /**
@@ -12,7 +14,7 @@ export interface TabsContentProps extends PrimitiveProps {
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { injectTabsRootContext } from './TabsRoot.vue'
-import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { makeContentId, makeTriggerId } from './utils'
 import { Presence } from '@/Presence'
 

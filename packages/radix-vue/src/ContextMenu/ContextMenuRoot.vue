@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { Ref } from 'vue'
-import type { Direction } from '../shared/types'
+import type { Direction } from '@/shared/types'
 import { createContext, useDirection } from '@/shared'
 
 type ContextMenuRootContext = {
@@ -10,9 +10,6 @@ type ContextMenuRootContext = {
   dir: Ref<Direction>
 }
 
-export const [injectContextMenuRootContext, provideContextMenuRootContext]
-  = createContext<ContextMenuRootContext>('ContextMenuRoot')
-
 export interface ContextMenuRootProps {
   dir?: Direction
   modal?: boolean
@@ -20,6 +17,9 @@ export interface ContextMenuRootProps {
 export type ContextMenuRootEmits = {
   'update:open': [value: boolean]
 }
+
+export const [injectContextMenuRootContext, provideContextMenuRootContext]
+  = createContext<ContextMenuRootContext>('ContextMenuRoot')
 </script>
 
 <script setup lang="ts">

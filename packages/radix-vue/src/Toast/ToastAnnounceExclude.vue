@@ -1,10 +1,14 @@
-<script setup lang="ts">
-import { Primitive } from '@/Primitive'
+<script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 
 export interface ToastAnnounceExcludeProps extends PrimitiveProps {
   altText?: string
 }
+</script>
+
+<script setup lang="ts">
+import { Primitive } from '@/Primitive'
+
 defineProps<ToastAnnounceExcludeProps>()
 </script>
 

@@ -1,4 +1,7 @@
 <script lang="ts">
+import type { ComponentInternalInstance, ComputedRef, Ref } from 'vue'
+import type { Direction } from '@/shared/types'
+import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useCollection, useDirection, useFormControl, useId } from '@/shared'
 
 type ComboboxRootContext = {
@@ -49,11 +52,10 @@ export interface ComboboxRootProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
+import { computed, nextTick, ref, toRaw, toRefs, watch } from 'vue'
 import { PopperRoot } from '@/Popper'
-import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
-import type { Direction } from '@/shared/types'
+import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
-import { type ComponentInternalInstance, type ComputedRef, type Ref, computed, nextTick, ref, toRaw, toRefs, watch } from 'vue'
 import { VisuallyHiddenInput } from '@/VisuallyHidden'
 
 const props = withDefaults(defineProps<ComboboxRootProps>(), {

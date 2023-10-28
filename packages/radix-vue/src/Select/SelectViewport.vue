@@ -1,4 +1,6 @@
 <script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
 export interface SelectViewportProps extends PrimitiveProps {}
 </script>
 
@@ -8,7 +10,6 @@ import { SelectContentDefaultContextValue, injectSelectContentContext } from './
 import { CONTENT_MARGIN } from './utils'
 import {
   Primitive,
-  type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
 import { injectSelectItemAlignedPositionContext } from './SelectItemAlignedPosition.vue'

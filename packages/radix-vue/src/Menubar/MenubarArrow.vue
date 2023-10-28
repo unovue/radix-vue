@@ -1,7 +1,12 @@
-<script setup lang="ts">
-import { MenuArrow, type MenuArrowProps } from '@/Menu'
+<script lang="ts">
+import type { MenuArrowProps } from '@/Menu'
 
 export interface MenubarArrowProps extends MenuArrowProps {}
+</script>
+
+<script setup lang="ts">
+import { MenuArrow } from '@/Menu'
+
 const props = withDefaults(defineProps<MenubarArrowProps>(), {
   width: 10,
   height: 5,

@@ -1,11 +1,10 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-import { injectContextMenuRootContext } from './ContextMenuRoot.vue'
-import {
-  MenuContent,
-  type MenuContentEmits,
-  type MenuContentProps,
+<script lang="ts">
+import type {
+  MenuContentEmits,
+  MenuContentProps,
 } from '@/Menu'
+
+export type ContextMenuContentEmits = MenuContentEmits
 
 export interface ContextMenuContentProps
   extends Omit<
@@ -17,7 +16,12 @@ export interface ContextMenuContentProps
     | 'updatePositionStrategy'
     | 'prioritizePosition'
   > {}
-export type ContextMenuContentEmits = MenuContentEmits
+</script>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { injectContextMenuRootContext } from './ContextMenuRoot.vue'
+import { MenuContent } from '@/Menu'
 
 const props = withDefaults(defineProps<ContextMenuContentProps>(), {
   alignOffset: 0,

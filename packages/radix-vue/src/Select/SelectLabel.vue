@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Primitive, type PrimitiveProps } from '@/Primitive'
+import type { PrimitiveProps } from '@/Primitive'
 
 export interface SelectLabelProps extends PrimitiveProps {
   for?: string
@@ -7,6 +7,7 @@ export interface SelectLabelProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
+import { Primitive } from '@/Primitive'
 import { injectSelectGroupContext } from './SelectGroup.vue'
 
 const props = withDefaults(defineProps<SelectLabelProps>(), {

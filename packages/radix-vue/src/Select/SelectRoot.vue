@@ -1,7 +1,6 @@
 <script lang="ts">
 import type { Ref, VNode } from 'vue'
 import type { DataOrientation, Direction } from '../shared/types'
-import BubbleSelect from './BubbleSelect.vue'
 import { createContext, useDirection, useFormControl, useId } from '@/shared'
 
 export interface SelectRootProps {
@@ -53,6 +52,7 @@ export const [injectSelectNativeOptionsContext, provideSelectNativeOptionsContex
 
 <script setup lang="ts">
 import { computed, ref, toRefs } from 'vue'
+import BubbleSelect from './BubbleSelect.vue'
 import { PopperRoot } from '@/Popper'
 import { useVModel } from '@vueuse/core'
 

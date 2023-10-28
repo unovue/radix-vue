@@ -1,4 +1,6 @@
 <script lang="ts">
+import type { Ref } from 'vue'
+import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useId } from '@/shared'
 import { injectComboboxRootContext } from './ComboboxRoot.vue'
 
@@ -14,8 +16,8 @@ export const [injectComboboxGroupContext, provideComboboxGroupContext]
 </script>
 
 <script setup lang="ts">
-import { type Ref, computed, ref } from 'vue'
-import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { computed, ref } from 'vue'
+import { Primitive } from '@/Primitive'
 
 const props = defineProps<ComboboxGroupProps>()
 

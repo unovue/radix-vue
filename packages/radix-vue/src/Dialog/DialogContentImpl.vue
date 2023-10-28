@@ -1,15 +1,21 @@
-<script setup lang="ts">
-import { injectDialogRootContext } from './DialogRoot.vue'
-import {
-  DismissableLayer,
-  type DismissableLayerEmits,
-  type DismissableLayerProps,
+<script lang="ts">
+import type {
+  DismissableLayerEmits,
+  DismissableLayerProps,
 } from '@/DismissableLayer'
-import { FocusScope } from '@/FocusScope'
-import { getOpenState } from '@/Menu/utils'
-import { useWarning } from './utils'
-import { usePrimitiveElement } from '@/Primitive'
-import { onMounted } from 'vue'
+
+export type DialogContentImplEmits = DismissableLayerEmits & {
+  /**
+   * Event handler called when auto-focusing on open.
+   * Can be prevented.
+   */
+  'openAutoFocus': [event: Event]
+  /**
+   * Event handler called when auto-focusing on close.
+   * Can be prevented.
+   */
+  'closeAutoFocus': [ event: Event]
+}
 
 export interface DialogContentImplProps extends DismissableLayerProps {
   /**
@@ -24,19 +30,16 @@ export interface DialogContentImplProps extends DismissableLayerProps {
    */
   trapFocus?: boolean
 }
+</script>
 
-export type DialogContentImplEmits = DismissableLayerEmits & {
-  /**
-   * Event handler called when auto-focusing on open.
-   * Can be prevented.
-   */
-  'openAutoFocus': [event: Event]
-  /**
-   * Event handler called when auto-focusing on close.
-   * Can be prevented.
-   */
-  'closeAutoFocus': [ event: Event]
-}
+<script setup lang="ts">
+import { injectDialogRootContext } from './DialogRoot.vue'
+import { DismissableLayer } from '@/DismissableLayer'
+import { FocusScope } from '@/FocusScope'
+import { getOpenState } from '@/Menu/utils'
+import { useWarning } from './utils'
+import { usePrimitiveElement } from '@/Primitive'
+import { onMounted } from 'vue'
 
 const props = defineProps<DialogContentImplProps>()
 const emits = defineEmits<DialogContentImplEmits>()

@@ -1,13 +1,16 @@
 <script lang="ts">
+import type { MenuItemImplProps } from './MenuItemImpl.vue'
+
 export type MenuItemEmits = {
   'select': [event: Event]
 }
+
 export interface MenuItemProps extends MenuItemImplProps {}
 </script>
 
 <script setup lang="ts">
 import { nextTick, ref } from 'vue'
-import MenuItemImpl, { type MenuItemImplProps } from './MenuItemImpl.vue'
+import MenuItemImpl from './MenuItemImpl.vue'
 import { injectMenuRootContext } from './MenuRoot.vue'
 import { injectMenuContentContext } from './MenuContentImpl.vue'
 import { ITEM_SELECT, SELECTION_KEYS } from './utils'

@@ -1,4 +1,6 @@
 <script lang="ts">
+import type { Ref } from 'vue'
+import type { Direction } from './utils'
 import { createContext, useDirection } from '@/shared'
 
 export interface MenuContext {
@@ -31,14 +33,12 @@ export const [injectMenuRootContext, provideMenuRootContext]
 
 <script setup lang="ts">
 import {
-  type Ref,
   ref,
   toRefs,
   watchEffect,
 } from 'vue'
 import { isClient } from '@vueuse/shared'
 import { useVModel } from '@vueuse/core'
-import { type Direction } from './utils'
 import { PopperRoot } from '@/Popper'
 
 const props = withDefaults(defineProps<MenuProps>(), {

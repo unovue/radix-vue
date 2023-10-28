@@ -1,10 +1,15 @@
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
+export interface PaginationListProps extends PrimitiveProps { }
+</script>
+
 <script setup lang="ts">
-import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { computed } from 'vue'
 import { injectPaginationRootContext } from './PaginationRoot.vue'
 import { getRange, transform } from './utils'
 
-export interface PaginationListProps extends PrimitiveProps { }
 const props = defineProps<PaginationListProps>()
 
 const rootContext = injectPaginationRootContext()

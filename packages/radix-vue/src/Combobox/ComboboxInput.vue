@@ -1,12 +1,14 @@
-<script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
-import { injectComboboxRootContext } from './ComboboxRoot.vue'
-
+<script lang="ts">
 export interface ComboboxInputProps {
   type?: string
   disabled?: boolean
   autoFocus?: boolean
 }
+</script>
+
+<script setup lang="ts">
+import { computed, onMounted, ref } from 'vue'
+import { injectComboboxRootContext } from './ComboboxRoot.vue'
 
 const props = withDefaults(defineProps<ComboboxInputProps>(), {
   type: 'text',

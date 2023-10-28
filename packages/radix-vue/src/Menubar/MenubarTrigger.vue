@@ -1,18 +1,21 @@
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
+export interface MenubarTriggerProps extends PrimitiveProps {
+  disabled?: boolean
+}
+</script>
+
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { injectMenubarRootContext } from './MenubarRoot.vue'
 import { injectMenubarMenuContext } from './MenubarMenu.vue'
 import {
   Primitive,
-  type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
 import { MenuAnchor } from '@/Menu'
 import { RovingFocusItem } from '@/RovingFocus'
-
-export interface MenubarTriggerProps extends PrimitiveProps {
-  disabled?: boolean
-}
 
 withDefaults(defineProps<MenubarTriggerProps>(), {
   as: 'button',

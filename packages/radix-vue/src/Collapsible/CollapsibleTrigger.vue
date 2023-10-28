@@ -1,9 +1,11 @@
 <script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
 export interface CollapsibleTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { Primitive, type PrimitiveProps } from '../Primitive'
+import { Primitive } from '@/Primitive'
 import { injectCollapsibleRootContext } from './CollapsibleRoot.vue'
 
 const props = withDefaults(defineProps<CollapsibleTriggerProps>(), {

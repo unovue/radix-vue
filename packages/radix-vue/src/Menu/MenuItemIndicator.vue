@@ -1,8 +1,19 @@
 <script lang="ts">
+import type { Ref } from 'vue'
+import type { PrimitiveProps } from '@/Primitive'
 import { createContext } from '@/shared'
+import type { CheckedState } from './utils'
 
 interface MenuItemIndicatorContext {
   checked: Ref<CheckedState>
+}
+
+export interface MenuItemIndicatorProps extends PrimitiveProps {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
+  forceMount?: boolean
 }
 
 export const [injectMenuItemIndicatorContext, provideMenuItemIndicatorContext]
@@ -12,18 +23,10 @@ export const [injectMenuItemIndicatorContext, provideMenuItemIndicatorContext]
 </script>
 
 <script setup lang="ts">
-import { type Ref, ref } from 'vue'
-import { type CheckedState, getCheckedState, isIndeterminate } from './utils'
-import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { ref } from 'vue'
+import { getCheckedState, isIndeterminate } from './utils'
+import { Primitive } from '@/Primitive'
 import { Presence } from '@/Presence'
-
-export interface MenuItemIndicatorProps extends PrimitiveProps {
-  /**
-   * Used to force mounting when more control is needed. Useful when
-   * controlling animation with Vue animation libraries.
-   */
-  forceMount?: boolean
-}
 
 withDefaults(defineProps<MenuItemIndicatorProps>(), {
   as: 'span',

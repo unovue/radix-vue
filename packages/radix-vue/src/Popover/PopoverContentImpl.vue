@@ -1,23 +1,10 @@
-<script setup lang="ts">
-import { injectPopoverRootContext } from './PopoverRoot.vue'
-import { PopperContent, type PopperContentProps } from '@/Popper'
-import {
-  DismissableLayer,
-  type DismissableLayerEmits,
-  type DismissableLayerProps,
+<script lang="ts">
+import type { PopperContentProps } from '@/Popper'
+import type {
+  DismissableLayerEmits,
+  DismissableLayerProps,
 } from '@/DismissableLayer'
-import { FocusScope, type FocusScopeProps } from '@/FocusScope'
-import { useFocusGuards, useForwardProps } from '@/shared'
-
-export interface PopoverContentImplProps
-  extends PopperContentProps,
-  DismissableLayerProps {
-  /**
-   * Whether focus should be trapped within the `MenuContent`
-   * (default: false)
-   */
-  trapFocus?: FocusScopeProps['trapped']
-}
+import type { FocusScopeProps } from '@/FocusScope'
 
 export type PopoverContentImplEmits = DismissableLayerEmits & {
   /**
@@ -31,6 +18,24 @@ export type PopoverContentImplEmits = DismissableLayerEmits & {
    */
   'closeAutoFocus': [event: Event]
 }
+
+export interface PopoverContentImplProps
+  extends PopperContentProps,
+  DismissableLayerProps {
+  /**
+   * Whether focus should be trapped within the `MenuContent`
+   * (default: false)
+   */
+  trapFocus?: FocusScopeProps['trapped']
+}
+</script>
+
+<script setup lang="ts">
+import { injectPopoverRootContext } from './PopoverRoot.vue'
+import { PopperContent } from '@/Popper'
+import { DismissableLayer } from '@/DismissableLayer'
+import { FocusScope } from '@/FocusScope'
+import { useFocusGuards, useForwardProps } from '@/shared'
 
 const props = defineProps<PopoverContentImplProps>()
 const emits = defineEmits<PopoverContentImplEmits>()

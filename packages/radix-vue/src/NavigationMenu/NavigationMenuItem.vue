@@ -1,4 +1,6 @@
 <script lang="ts">
+import type { Ref } from 'vue'
+import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useArrowNavigation, useCollection, useId } from '@/shared'
 
 export interface NavigationMenuItemProps extends PrimitiveProps {
@@ -22,15 +24,15 @@ export const [injectNavigationMenuItemContext, provideNavigationMenuItemContext]
 </script>
 
 <script setup lang="ts">
-import { type Ref, ref } from 'vue'
+import { ref } from 'vue'
 import { injectNavigationMenuContext } from './NavigationMenuRoot.vue'
+import { Primitive } from '@/Primitive'
 import {
   focusFirst,
   getTabbableCandidates,
   makeContentId,
   removeFromTabOrder,
 } from './utils'
-import { Primitive, type PrimitiveProps } from '@/Primitive'
 
 const props = withDefaults(defineProps<NavigationMenuItemProps>(), {
   as: 'li',

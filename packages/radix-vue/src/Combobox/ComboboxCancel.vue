@@ -1,8 +1,13 @@
-<script setup lang="ts">
-import { Primitive, type PrimitiveProps } from '@/Primitive'
-import { injectComboboxRootContext } from './ComboboxRoot.vue'
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
 
 export interface ComboboxCancelProps extends PrimitiveProps {}
+</script>
+
+<script setup lang="ts">
+import { Primitive } from '@/Primitive'
+import { injectComboboxRootContext } from './ComboboxRoot.vue'
+
 const props = withDefaults(defineProps<ComboboxCancelProps>(), {
   as: 'button',
 })

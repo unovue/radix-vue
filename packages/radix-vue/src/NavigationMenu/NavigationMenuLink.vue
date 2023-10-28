@@ -1,4 +1,6 @@
 <script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
 export type NavigationMenuLinkEmits = {
   'select': [payload: MouseEvent]
 }
@@ -9,8 +11,8 @@ export interface NavigationMenuLinkProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { nextTick } from 'vue'
+import { Primitive } from '@/Primitive'
 import { EVENT_ROOT_CONTENT_DISMISS } from './utils'
-import { Primitive, type PrimitiveProps } from '@/Primitive'
 
 // const LINK_SELECT = "navigationMenu.linkSelect";
 

@@ -1,14 +1,6 @@
-<script setup lang="ts">
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+<script lang="ts">
+import type { ComponentPublicInstance } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { type ComponentPublicInstance, computed, onMounted, ref, toRefs, watchEffect } from 'vue'
-import { injectToastProviderContext } from './ToastProvider.vue'
-import { onKeyStroke, unrefElement } from '@vueuse/core'
-import FocusProxy from './FocusProxy.vue'
-import { focusFirst, getTabbableCandidates } from '@/FocusScope/utils'
-import { useCollection } from '@/shared'
-import { VIEWPORT_DEFAULT_HOTKEY, VIEWPORT_PAUSE, VIEWPORT_RESUME } from './utils'
-import { DismissableLayerBranch } from '@/DismissableLayer'
 
 export interface ToastViewportProps extends PrimitiveProps {
   /**
@@ -23,6 +15,22 @@ export interface ToastViewportProps extends PrimitiveProps {
    */
   label?: string
 }
+</script>
+
+<script setup lang="ts">
+import { computed, onMounted, ref, toRefs, watchEffect } from 'vue'
+import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { injectToastProviderContext } from './ToastProvider.vue'
+import { onKeyStroke, unrefElement } from '@vueuse/core'
+import FocusProxy from './FocusProxy.vue'
+import { focusFirst, getTabbableCandidates } from '@/FocusScope/utils'
+import { useCollection } from '@/shared'
+import { VIEWPORT_DEFAULT_HOTKEY, VIEWPORT_PAUSE, VIEWPORT_RESUME } from './utils'
+import { DismissableLayerBranch } from '@/DismissableLayer'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const props = withDefaults(defineProps<ToastViewportProps>(), {
   hotkey: () => VIEWPORT_DEFAULT_HOTKEY,
@@ -145,12 +153,6 @@ function getSortedTabbableCandidates({ tabbingDirection }: { tabbingDirection: '
   return (
     tabbingDirection === 'forwards' ? tabbableCandidates.reverse() : tabbableCandidates
   ).flat()
-}
-</script>
-
-<script lang="ts">
-export default {
-  inheritAttrs: false,
 }
 </script>
 

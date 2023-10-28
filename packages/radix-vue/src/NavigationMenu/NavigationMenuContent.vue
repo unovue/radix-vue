@@ -1,13 +1,8 @@
-<script setup lang="ts">
-import { computed } from 'vue'
-import { injectNavigationMenuContext } from './NavigationMenuRoot.vue'
-import { injectNavigationMenuItemContext } from './NavigationMenuItem.vue'
-import { getOpenState } from './utils'
-import { Presence } from '@/Presence'
-import { type PointerDownOutsideEvent } from '@/DismissableLayer'
-import NavigationMenuContentImpl, { type NavigationMenuContentImplEmits, type NavigationMenuContentImplProps } from './NavigationMenuContentImpl.vue'
-import { useEmitAsProps } from '@/shared'
-import { useMounted } from '@vueuse/core'
+<script lang="ts">
+import type { PointerDownOutsideEvent } from '@/DismissableLayer'
+import type { NavigationMenuContentImplEmits, NavigationMenuContentImplProps } from './NavigationMenuContentImpl.vue'
+
+export type NavigationMenuContentEmits = NavigationMenuContentImplEmits
 
 export interface NavigationMenuContentProps extends NavigationMenuContentImplProps {
   /**
@@ -16,7 +11,21 @@ export interface NavigationMenuContentProps extends NavigationMenuContentImplPro
    */
   forceMount?: boolean
 }
-export type NavigationMenuContentEmits = NavigationMenuContentImplEmits
+</script>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+import { injectNavigationMenuContext } from './NavigationMenuRoot.vue'
+import { injectNavigationMenuItemContext } from './NavigationMenuItem.vue'
+import { getOpenState } from './utils'
+import { Presence } from '@/Presence'
+import NavigationMenuContentImpl from './NavigationMenuContentImpl.vue'
+import { useEmitAsProps } from '@/shared'
+import { useMounted } from '@vueuse/core'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const props = defineProps<NavigationMenuContentProps>()
 const emits = defineEmits<NavigationMenuContentEmits>()
@@ -41,12 +50,6 @@ function handlePointerDown(ev: PointerDownOutsideEvent) {
   emits('pointerDownOutside', ev)
   if (!ev.preventDefault)
     menuContext.onContentLeave()
-}
-</script>
-
-<script lang="ts">
-export default {
-  inheritAttrs: false,
 }
 </script>
 

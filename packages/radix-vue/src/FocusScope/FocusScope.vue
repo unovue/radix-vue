@@ -1,21 +1,19 @@
-<script setup lang="ts">
-import { nextTick, reactive, ref, watchEffect } from 'vue'
-import { isClient } from '@vueuse/shared'
-import {
-  AUTOFOCUS_ON_MOUNT,
-  AUTOFOCUS_ON_UNMOUNT,
-  EVENT_OPTIONS,
-  focus,
-  focusFirst,
-  getTabbableCandidates,
-  getTabbableEdges,
-} from './utils'
-import { createFocusScopesStack, removeLinks } from './stack'
-import {
-  Primitive,
-  type PrimitiveProps,
-  usePrimitiveElement,
-} from '@/Primitive'
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
+export type FocusScopeEmits = {
+  /**
+   * Event handler called when auto-focusing on mount.
+   * Can be prevented.
+   */
+  'mountAutoFocus': [event: Event]
+
+  /**
+   * Event handler called when auto-focusing on unmount.
+   * Can be prevented.
+   */
+  'unmountAutoFocus': [event: Event]
+}
 
 export interface FocusScopeProps extends PrimitiveProps {
   /**
@@ -32,20 +30,25 @@ export interface FocusScopeProps extends PrimitiveProps {
    */
   trapped?: boolean
 }
+</script>
 
-export type FocusScopeEmits = {
-  /**
-   * Event handler called when auto-focusing on mount.
-   * Can be prevented.
-   */
-  'mountAutoFocus': [event: Event]
-
-  /**
-   * Event handler called when auto-focusing on unmount.
-   * Can be prevented.
-   */
-  'unmountAutoFocus': [event: Event]
-}
+<script setup lang="ts">
+import { nextTick, reactive, ref, watchEffect } from 'vue'
+import { isClient } from '@vueuse/shared'
+import {
+  AUTOFOCUS_ON_MOUNT,
+  AUTOFOCUS_ON_UNMOUNT,
+  EVENT_OPTIONS,
+  focus,
+  focusFirst,
+  getTabbableCandidates,
+  getTabbableEdges,
+} from './utils'
+import { createFocusScopesStack, removeLinks } from './stack'
+import {
+  Primitive,
+  usePrimitiveElement,
+} from '@/Primitive'
 
 const props = withDefaults(defineProps<FocusScopeProps>(), {
   loop: false,

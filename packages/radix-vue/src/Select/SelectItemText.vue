@@ -1,3 +1,9 @@
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
+export interface SelectItemTextProps extends PrimitiveProps {}
+</script>
+
 <script setup lang="ts">
 import { computed, h, onBeforeUnmount, onMounted } from 'vue'
 import { injectSelectNativeOptionsContext, injectSelectRootContext } from './SelectRoot.vue'
@@ -5,11 +11,12 @@ import { SelectContentDefaultContextValue, injectSelectContentContext } from './
 import { injectSelectItemContext } from './SelectItem.vue'
 import {
   Primitive,
-  type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
 
-export interface SelectItemTextProps extends PrimitiveProps {}
+defineOptions({
+  inheritAttrs: false,
+})
 
 const props = withDefaults(defineProps<SelectItemTextProps>(), {
   as: 'span',
@@ -47,12 +54,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
   nativeOptionContext.onNativeOptionRemove(nativeOption.value)
 })
-</script>
-
-<script lang="ts">
-export default {
-  inheritAttrs: false,
-}
 </script>
 
 <template>

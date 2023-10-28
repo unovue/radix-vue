@@ -1,16 +1,18 @@
 <script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
 export interface AspectRatioProps extends PrimitiveProps {
   ratio?: number
-}
-
-export default {
-  inheritAttrs: false,
 }
 </script>
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { Primitive } from '@/Primitive'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const props = withDefaults(defineProps<AspectRatioProps>(), {
   ratio: 1,

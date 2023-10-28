@@ -1,15 +1,19 @@
-<script setup lang="ts">
-import { computed, nextTick, onMounted, onUnmounted } from 'vue'
-import { injectRovingFocusGroupContext } from './RovingFocusGroup.vue'
-import { focusFirst, getFocusIntent, wrapArray } from './utils'
-import { useCollection, useId } from '@/shared'
-import { Primitive, type PrimitiveProps } from '@/Primitive'
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
 
 export interface RovingFocusItemProps extends PrimitiveProps {
   tabStopId?: string
   focusable?: boolean
   active?: boolean
 }
+</script>
+
+<script setup lang="ts">
+import { computed, nextTick, onMounted, onUnmounted } from 'vue'
+import { injectRovingFocusGroupContext } from './RovingFocusGroup.vue'
+import { Primitive } from '@/Primitive'
+import { focusFirst, getFocusIntent, wrapArray } from './utils'
+import { useCollection, useId } from '@/shared'
 
 const props = withDefaults(defineProps<RovingFocusItemProps>(), {
   focusable: true,

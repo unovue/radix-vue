@@ -1,23 +1,28 @@
-<script setup lang="ts">
-import { type Ref, ref } from 'vue'
-import { useVModel } from '@vueuse/core'
+<script lang="ts">
+import type { Ref } from 'vue'
 import type { Orientation } from './utils'
-import { injectNavigationMenuContext, provideNavigationMenuContext } from './NavigationMenuRoot.vue'
-import {
-  Primitive,
-  type PrimitiveProps,
-  usePrimitiveElement,
-} from '@/Primitive'
-import { useCollection } from '@/shared'
+import type { PrimitiveProps } from '@/Primitive'
+
+export type NavigationMenuSubEmits = {
+  'update:modelValue': [value: string]
+}
 
 export interface NavigationMenuSubProps extends PrimitiveProps {
   modelValue?: string
   defaultValue?: string
   orientation?: Orientation
 }
-export type NavigationMenuSubEmits = {
-  'update:modelValue': [value: string]
-}
+</script>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useVModel } from '@vueuse/core'
+import { injectNavigationMenuContext, provideNavigationMenuContext } from './NavigationMenuRoot.vue'
+import {
+  Primitive,
+  usePrimitiveElement,
+} from '@/Primitive'
+import { useCollection } from '@/shared'
 
 const props = withDefaults(defineProps<NavigationMenuSubProps>(), {
   orientation: 'horizontal',

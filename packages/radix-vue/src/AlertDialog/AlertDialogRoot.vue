@@ -1,13 +1,16 @@
-<script setup lang="ts">
-import {
-  DialogRoot,
-  type DialogRootEmits,
-  type DialogRootProps,
+<script lang="ts">
+import type {
+  DialogRootEmits,
+  DialogRootProps,
 } from '@/Dialog'
-import { useForwardPropsEmits } from '@/shared'
 
-export interface AlertDialogProps extends Omit<DialogRootProps, 'modal'> {}
 export type AlertDialogEmits = DialogRootEmits
+export interface AlertDialogProps extends Omit<DialogRootProps, 'modal'> {}
+</script>
+
+<script setup lang="ts">
+import { DialogRoot } from '@/Dialog'
+import { useForwardPropsEmits } from '@/shared'
 
 const props = defineProps<AlertDialogProps>()
 const emits = defineEmits<AlertDialogEmits>()

@@ -1,18 +1,24 @@
-<script setup lang="ts">
-import { useVModel } from '@vueuse/core'
-import { type CheckedState, getCheckedState, isIndeterminate } from './utils'
-import MenuItem, {
-  type MenuItemEmits,
-  type MenuItemProps,
+<script lang="ts">
+import type { CheckedState } from './utils'
+import type {
+  MenuItemEmits,
+  MenuItemProps,
 } from './MenuItem.vue'
-import { provideMenuItemIndicatorContext } from './MenuItemIndicator.vue'
+
+export type MenuCheckboxItemEmits = MenuItemEmits & {
+  'update:checked': [payload: boolean]
+}
 
 export interface MenuCheckboxItemProps extends MenuItemProps {
   checked?: CheckedState
 }
-export type MenuCheckboxItemEmits = MenuItemEmits & {
-  'update:checked': [payload: boolean]
-}
+</script>
+
+<script setup lang="ts">
+import { useVModel } from '@vueuse/core'
+import { getCheckedState, isIndeterminate } from './utils'
+import MenuItem from './MenuItem.vue'
+import { provideMenuItemIndicatorContext } from './MenuItemIndicator.vue'
 
 const props = withDefaults(defineProps<MenuCheckboxItemProps>(), {
   checked: false,

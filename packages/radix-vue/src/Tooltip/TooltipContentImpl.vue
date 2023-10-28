@@ -1,7 +1,12 @@
 <script lang="ts">
-import { useEventListener } from '@vueuse/core'
+import type { VNode } from 'vue'
+import type { PrimitiveProps } from '@/Primitive'
 import type { PopperContentProps } from '@/Popper'
-import { TOOLTIP_OPEN } from './utils'
+
+export type TooltipContentImplEmits = {
+  'escapeKeyDown': [event: KeyboardEvent]
+  'pointerDownOutside': [event: Event]
+}
 
 export interface TooltipContentImplProps
   extends PrimitiveProps,
@@ -28,18 +33,14 @@ export interface TooltipContentImplProps
    */
   ariaLabel?: string
 }
-
-export type TooltipContentImplEmits = {
-  'escapeKeyDown': [event: KeyboardEvent]
-  'pointerDownOutside': [event: Event]
-}
 </script>
 
 <script setup lang="ts">
+import { computed, onMounted, ref, useSlots } from 'vue'
+import { useEventListener } from '@vueuse/core'
+import { TOOLTIP_OPEN } from './utils'
 import { PopperContent } from '@/Popper'
-import { type PrimitiveProps } from '@/Primitive'
 import { VisuallyHidden } from '@/VisuallyHidden'
-import { type VNode, computed, onMounted, ref, useSlots } from 'vue'
 import { injectTooltipRootContext } from './TooltipRoot.vue'
 import { DismissableLayer } from '@/DismissableLayer'
 

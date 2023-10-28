@@ -1,8 +1,16 @@
 <script lang="ts">
+import type {
+  DismissableLayerEmits,
+  DismissableLayerProps,
+  FocusOutsideEvent,
+} from '@/DismissableLayer'
+import type { PointerDownOutsideEvent } from '@/DismissableLayer/utils'
+
 type MotionAttribute = 'to-start' | 'to-end' | 'from-start' | 'from-end'
 
-export interface NavigationMenuContentImplProps extends DismissableLayerProps {}
 export type NavigationMenuContentImplEmits = DismissableLayerEmits
+
+export interface NavigationMenuContentImplProps extends DismissableLayerProps {}
 </script>
 
 <script setup lang="ts">
@@ -16,15 +24,9 @@ import {
   makeContentId,
   makeTriggerId,
 } from './utils'
-import {
-  DismissableLayer,
-  type DismissableLayerEmits,
-  type DismissableLayerProps,
-  type FocusOutsideEvent,
-} from '@/DismissableLayer'
+import { DismissableLayer } from '@/DismissableLayer'
 import { usePrimitiveElement } from '@/Primitive'
 import { useArrowNavigation, useCollection } from '@/shared'
-import type { PointerDownOutsideEvent } from '@/DismissableLayer/utils'
 import { injectNavigationMenuItemContext } from './NavigationMenuItem.vue'
 
 const props = defineProps<NavigationMenuContentImplProps>()

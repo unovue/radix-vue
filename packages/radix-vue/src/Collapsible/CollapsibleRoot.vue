@@ -1,4 +1,5 @@
 <script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
 import type { Ref } from 'vue'
 import { createContext, useId } from '@/shared'
 
@@ -24,7 +25,7 @@ export const [injectCollapsibleRootContext, provideCollapsibleRootContext]
 </script>
 
 <script setup lang="ts">
-import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<CollapsibleRootProps>(), {

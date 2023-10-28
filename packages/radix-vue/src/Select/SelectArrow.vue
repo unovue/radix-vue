@@ -1,13 +1,17 @@
+<script lang="ts">
+import type { PopperArrowProps } from '@/Popper'
+
+export interface SelectArrowProps extends PopperArrowProps {}
+</script>
+
 <script setup lang="ts">
 import { injectSelectRootContext } from './SelectRoot.vue'
 import { injectSelectContentContext } from './SelectContentImpl.vue'
-import { PopperArrow, type PopperArrowProps } from '@/Popper'
+import { PopperArrow } from '@/Popper'
 
 const props = defineProps<SelectArrowProps>()
 const rootContext = injectSelectRootContext()
 const contentContext = injectSelectContentContext()
-
-export interface SelectArrowProps extends PopperArrowProps {}
 </script>
 
 <template>

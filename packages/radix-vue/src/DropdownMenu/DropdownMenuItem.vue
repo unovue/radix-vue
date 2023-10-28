@@ -1,9 +1,14 @@
-<script setup lang="ts">
-import { MenuItem, type MenuItemEmits, type MenuItemProps } from '@/Menu'
-import { useEmitAsProps } from '@/shared'
+<script lang="ts">
+import type { MenuItemEmits, MenuItemProps } from '@/Menu'
+
+export type DropdownMenuItemEmits = MenuItemEmits
 
 export interface DropdownMenuItemProps extends MenuItemProps {}
-export type DropdownMenuItemEmits = MenuItemEmits
+</script>
+
+<script setup lang="ts">
+import { MenuItem } from '@/Menu'
+import { useEmitAsProps } from '@/shared'
 
 const props = defineProps<DropdownMenuItemProps>()
 const emits = defineEmits<DropdownMenuItemEmits>()

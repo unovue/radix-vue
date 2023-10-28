@@ -1,13 +1,10 @@
-<script setup lang="ts">
-import MenuRootContentModal from './MenuRootContentModal.vue'
-import MenuRootContentNonModal from './MenuRootContentNonModal.vue'
-import { injectMenuContext, injectMenuRootContext } from './MenuRoot.vue'
-import {
-  type MenuContentImplEmits,
-  type MenuRootContentProps,
+<script lang="ts">
+import type {
+  MenuContentImplEmits,
+  MenuRootContentProps,
 } from './MenuContentImpl.vue'
-import { Presence } from '@/Presence'
-import { useEmitAsProps } from '@/shared'
+
+export type MenuContentEmits = MenuContentImplEmits
 
 export interface MenuContentProps extends MenuRootContentProps {
   /**
@@ -16,7 +13,14 @@ export interface MenuContentProps extends MenuRootContentProps {
    */
   forceMount?: boolean
 }
-export type MenuContentEmits = MenuContentImplEmits
+</script>
+
+<script setup lang="ts">
+import MenuRootContentModal from './MenuRootContentModal.vue'
+import MenuRootContentNonModal from './MenuRootContentNonModal.vue'
+import { injectMenuContext, injectMenuRootContext } from './MenuRoot.vue'
+import { Presence } from '@/Presence'
+import { useEmitAsProps } from '@/shared'
 
 const props = defineProps<MenuContentProps>()
 const emits = defineEmits<MenuContentEmits>()

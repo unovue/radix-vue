@@ -1,4 +1,10 @@
 <script lang="ts">
+import type {
+  ComponentPublicInstance,
+  Ref,
+} from 'vue'
+import type { PopperContentProps } from '@/Popper'
+import type { PointerDownOutsideEvent } from '@/DismissableLayer'
 import {
   createContext,
   useBodyScrollLock,
@@ -37,13 +43,6 @@ export const SelectContentDefaultContextValue: SelectContentContext = {
   itemRefCallback: () => {},
 }
 
-export const [injectSelectContentContext, provideSelectContentContext]
-  = createContext<SelectContentContext>('SelectContent')
-
-export interface SelectContentImplProps extends PopperContentProps {
-  position?: 'item-aligned' | 'popper'
-}
-
 export type SelectContentImplEmits = {
   closeAutoFocus: [event: Event]
   /**
@@ -57,12 +56,17 @@ export type SelectContentImplEmits = {
    */
   pointerDownOutside: [event: PointerDownOutsideEvent]
 }
+
+export interface SelectContentImplProps extends PopperContentProps {
+  position?: 'item-aligned' | 'popper'
+}
+
+export const [injectSelectContentContext, provideSelectContentContext]
+  = createContext<SelectContentContext>('SelectContent')
 </script>
 
 <script setup lang="ts">
 import {
-  type ComponentPublicInstance,
-  type Ref,
   computed,
   ref,
   watch,
@@ -73,12 +77,8 @@ import { injectSelectRootContext } from './SelectRoot.vue'
 import SelectItemAlignedPosition from './SelectItemAlignedPosition.vue'
 import SelectPopperPosition from './SelectPopperPosition.vue'
 import { FocusScope } from '@/FocusScope'
-import {
-  DismissableLayer,
-  type PointerDownOutsideEvent,
-} from '@/DismissableLayer'
+import { DismissableLayer } from '@/DismissableLayer'
 import { focusFirst } from '@/Menu/utils'
-import type { PopperContentProps } from '@/Popper'
 
 const props = defineProps<SelectContentImplProps>()
 const emits = defineEmits<SelectContentImplEmits>()

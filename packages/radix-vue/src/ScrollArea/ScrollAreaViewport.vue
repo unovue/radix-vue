@@ -1,13 +1,21 @@
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
+export interface ScrollAreaViewportProps extends PrimitiveProps {}
+</script>
+
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
 import {
   Primitive,
-  type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
 
-export interface ScrollAreaViewportProps extends PrimitiveProps {}
+defineOptions({
+  inheritAttrs: false,
+})
+
 const props = defineProps<ScrollAreaViewportProps>()
 
 const rootContext = injectScrollAreaRootContext()
@@ -21,12 +29,6 @@ onMounted(() => {
   rootContext.onViewportChange(viewportElement.value!)
   rootContext.onContentChange(contentElement.value!)
 })
-</script>
-
-<script lang="ts">
-export default {
-  inheritAttrs: false,
-}
 </script>
 
 <template>

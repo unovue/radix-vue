@@ -1,4 +1,6 @@
 <script lang="ts">
+import type { Ref } from 'vue'
+import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useCollection } from '@/shared'
 
 interface SelectItemAlignedPositionContext {
@@ -7,27 +9,26 @@ interface SelectItemAlignedPositionContext {
   onScrollButtonChange: (node: HTMLElement | undefined) => void
 }
 
+export interface SelectItemAlignedPositionProps extends PrimitiveProps {}
+
 export const [injectSelectItemAlignedPositionContext, provideSelectItemAlignedPositionContext]
   = createContext<SelectItemAlignedPositionContext>('SelectItemAlignedPosition')
-
-export default {
-  inheritAttrs: false,
-}
 </script>
 
 <script setup lang="ts">
-import { type Ref, nextTick, onMounted, ref } from 'vue'
+import { nextTick, onMounted, ref } from 'vue'
 import { clamp } from '@vueuse/shared'
 import { injectSelectRootContext } from './SelectRoot.vue'
 import { injectSelectContentContext } from './SelectContentImpl.vue'
 import { CONTENT_MARGIN } from './utils'
 import {
   Primitive,
-  type PrimitiveProps,
   usePrimitiveElement,
 } from '@/Primitive'
 
-export interface SelectItemAlignedPositionProps extends PrimitiveProps {}
+defineOptions({
+  inheritAttrs: false,
+})
 
 const props = defineProps<SelectItemAlignedPositionProps>()
 const emits = defineEmits<{

@@ -1,11 +1,7 @@
 <script lang="ts">
-import {
-  Primitive,
-  type PrimitiveProps,
-} from '@/Primitive'
-import type { DataOrientation, Direction } from '@/shared/types'
-import { useVModel } from '@vueuse/core'
 import type { Ref } from 'vue'
+import type { PrimitiveProps } from '@/Primitive'
+import type { DataOrientation, Direction } from '@/shared/types'
 import { createContext, useDirection } from '@/shared'
 
 export interface RadioGroupRootProps extends PrimitiveProps {
@@ -38,6 +34,8 @@ export const [injectRadioGroupRootContext, provideRadioGroupRootContext]
 
 <script setup lang="ts">
 import { toRefs } from 'vue'
+import { useVModel } from '@vueuse/core'
+import { Primitive } from '@/Primitive'
 import { RovingFocusGroup } from '@/RovingFocus'
 
 const props = withDefaults(defineProps<RadioGroupRootProps>(), {

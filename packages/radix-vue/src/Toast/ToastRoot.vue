@@ -1,16 +1,10 @@
-<script setup lang="ts">
-import { Presence } from '@/Presence'
-import ToastRootImpl, { type ToastRootImplEmits, type ToastRootImplProps } from './ToastRootImpl.vue'
-import { useVModel } from '@vueuse/core'
+<script lang="ts">
 import type { Ref } from 'vue'
+import type { ToastRootImplEmits, ToastRootImplProps } from './ToastRootImpl.vue'
 
-const props = withDefaults(defineProps<ToastRootProps>(), {
-  type: 'foreground',
-  open: undefined,
-  defaultOpen: true,
-  as: 'li',
-})
-const emits = defineEmits<ToastRootEmits>()
+export type ToastRootEmits = ToastRootImplEmits & {
+  'update:open': [value: boolean]
+}
 
 export interface ToastRootProps extends ToastRootImplProps {
   defaultOpen?: boolean
@@ -20,10 +14,20 @@ export interface ToastRootProps extends ToastRootImplProps {
    */
   forceMount?: boolean
 }
+</script>
 
-export type ToastRootEmits = ToastRootImplEmits & {
-  'update:open': [value: boolean]
-}
+<script setup lang="ts">
+import { useVModel } from '@vueuse/core'
+import { Presence } from '@/Presence'
+import ToastRootImpl from './ToastRootImpl.vue'
+
+const props = withDefaults(defineProps<ToastRootProps>(), {
+  type: 'foreground',
+  open: undefined,
+  defaultOpen: true,
+  as: 'li',
+})
+const emits = defineEmits<ToastRootEmits>()
 
 const open = useVModel(props, 'open', emits, {
   defaultValue: props.defaultOpen,

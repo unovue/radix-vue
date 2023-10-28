@@ -1,13 +1,13 @@
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
+export interface DialogTriggerProps extends PrimitiveProps {}
+</script>
+
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { injectDialogRootContext } from './DialogRoot.vue'
-import {
-  Primitive,
-  type PrimitiveProps,
-  usePrimitiveElement,
-} from '@/Primitive'
-
-export interface DialogTriggerProps extends PrimitiveProps {}
+import { Primitive, usePrimitiveElement } from '@/Primitive'
 
 const props = withDefaults(defineProps<DialogTriggerProps>(), {
   as: 'button',

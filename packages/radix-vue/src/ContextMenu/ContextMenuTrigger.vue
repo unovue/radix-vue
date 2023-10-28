@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { Point } from '@/Menu/utils'
+import type { PrimitiveProps } from '@/Primitive'
 
 export interface ContextMenuTriggerProps extends PrimitiveProps {
   disabled?: boolean
@@ -10,7 +11,7 @@ export interface ContextMenuTriggerProps extends PrimitiveProps {
 import { computed, nextTick, ref, toRefs } from 'vue'
 import { injectContextMenuRootContext } from './ContextMenuRoot.vue'
 import { isTouchOrPen } from './utils'
-import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { MenuAnchor } from '@/Menu'
 
 defineOptions({

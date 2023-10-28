@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type PrimitiveProps } from '@/Primitive'
+import type { PrimitiveProps } from '@/Primitive'
 
 export interface AccordionTriggerProps extends PrimitiveProps {}
 </script>

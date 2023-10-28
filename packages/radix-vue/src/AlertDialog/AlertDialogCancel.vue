@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type DialogCloseProps } from '@/Dialog'
+import type { DialogCloseProps } from '@/Dialog'
 
 export interface AlertDialogCancelProps extends DialogCloseProps {}
 </script>

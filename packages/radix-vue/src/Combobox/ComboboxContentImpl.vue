@@ -5,22 +5,11 @@ import {
   useBodyScrollLock,
   useHideOthers,
 } from '@/shared'
-import type { PointerDownOutsideEvent } from '@/DismissableLayer'
+
+import type { DismissableLayerEmits } from '@/DismissableLayer'
 import type { PopperContentProps } from '@/Popper'
 
-export type ComboboxContentImplEmits = {
-  closeAutoFocus: [event: Event]
-  /**
-   * Event handler called when the escape key is down.
-   * Can be prevented.
-   */
-  escapeKeyDown: [event: KeyboardEvent]
-  /**
-   * Event handler called when the a `pointerdown` event happens outside of the `DismissableLayer`.
-   * Can be prevented.
-   */
-  pointerDownOutside: [event: PointerDownOutsideEvent]
-}
+export type ComboboxContentImplEmits = DismissableLayerEmits
 
 export interface ComboboxContentImplProps extends PopperContentProps {
   position?: 'inline' | 'popper'
@@ -92,8 +81,13 @@ provideComboboxContentContext({ position })
   <DismissableLayer
     as-child
     :disable-outside-pointer-events="disableOutsidePointerEvents"
-    @focus-outside.prevent
     @dismiss="rootContext.onOpenChange(false)"
+    @focus-outside="(ev) => {
+      // if clicking inside the combobox, prevent dismiss
+      if (rootContext.parentElement.value?.contains(ev.target as Node)) ev.preventDefault()
+      emits('focusOutside', ev)
+    }"
+    @interact-outside="emits('interactOutside', $event)"
     @escape-key-down="emits('escapeKeyDown', $event)"
     @pointer-down-outside="(ev) => {
       // if clicking inside the combobox, prevent dismiss

@@ -21,14 +21,12 @@ function isLayerExist(layerElement: HTMLElement, targetElement: HTMLElement) {
     '[data-dismissable-layer]',
   ) as HTMLElement
 
-  if (!mainLayer)
-    return false
-
   const nodeList = Array.from(
     layerElement.ownerDocument.querySelectorAll('[data-dismissable-layer]'),
   )
   if (
-    mainLayer === targetLayer
+    (targetLayer
+    && mainLayer === targetLayer)
     || nodeList.indexOf(mainLayer) < nodeList.indexOf(targetLayer)
   )
     return true
@@ -57,7 +55,6 @@ export function usePointerDownOutside(
       if (!element?.value)
         return
 
-      await nextTick()
       if (isLayerExist(element.value, event.target as HTMLElement)) {
         isPointerInsideDOMTree.value = false
         return

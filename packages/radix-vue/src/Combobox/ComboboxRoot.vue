@@ -153,6 +153,16 @@ watch(modelValue, async (val) => {
     searchTerm.value = ''
 }, { immediate: true })
 
+watch(open, (val) => {
+  if (val && modelValue.value) {
+    if (typeof modelValue.value === 'string' && !multiple.value)
+      selectedValue.value = modelValue.value
+
+    else if (Array.isArray(modelValue.value) && multiple.value)
+      selectedValue.value = modelValue.value[0]
+  }
+})
+
 const isFormControl = useFormControl(parentElement)
 
 function scrollSelectedValueIntoView() {

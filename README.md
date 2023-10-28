@@ -61,9 +61,10 @@ We would love to have your contributions! All PRs all welcomed! We need help bui
 
 ### Docs
 
-1. Go to the docs directory : `cd docs`
-2. Run `pnpm i --ignore-workspace`
-3. Run `pnpm run docs:dev`
+1. Clone the repo
+2. Run `pnpm i`
+3. Run `pnpm docs:dev` to run vitepress
+4. Open `http://localhost:5173`
 
 ### Package
 

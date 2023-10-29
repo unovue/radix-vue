@@ -20,10 +20,13 @@
       "import": "./dist/index.js"
     },
     "./nuxt": {
+      "types": "./dist/nuxt/index.d.ts",
       "require": "./dist/nuxt/index.cjs",
       "import": "./dist/nuxt/index.mjs"
     },
     "./resolver": {
+      "types": "./dist/resolver/index.d.ts",
+      "require": "./dist/resolver/index.cjs",
       "import": "./dist/resolver/index.mjs"
     },
     "./index.css": "./dist/index.css"

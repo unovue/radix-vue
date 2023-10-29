@@ -121,11 +121,11 @@ interface Props extends AccordionItemProps {
   foo: string;
 }
 
-defineProps<AccordionItemProps>();
+defineProps<Props>();
 </script>
 
 <template>
-  <AccordionItem v-bind="props" />
+  <AccordionItem v-bind="$props"><slot /></AccordionItem>
 </template>
 ```
 

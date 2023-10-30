@@ -6,8 +6,14 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/accordion
 ---
 
 <script setup>
+import ComponentPreview from "../../components/ComponentPreview.vue"
 import DemoAccordion from '../../components/demo/Accordion/index.vue'
 </script>
+
+<ComponentPreview name="Accordion" />
+
+ 
+
 
 # Accordion
 

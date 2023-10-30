@@ -10,6 +10,7 @@ const slots = useSlots()
 const tabs = computed(
   () =>
     slots.default?.().map((slot, index) => {
+      console.log(slot)
       return {
         label: slot.props?.filename || slot.props?.label || `${index}`,
         component: slot,

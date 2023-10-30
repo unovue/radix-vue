@@ -13,6 +13,7 @@ import {
 } from './meta'
 import { version } from '../../package.json'
 import { teamMembers } from './contributors'
+import ComponentPreviewPlugin from './plugins/preview'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -86,6 +87,10 @@ export default defineConfig({
   appearance: 'dark',
   markdown: {
     theme: 'material-theme-palenight',
+
+    preConfig(md) {
+      md.use(ComponentPreviewPlugin)
+    },
   },
   transformPageData(pageData) {
     if (pageData.frontmatter.sidebar != null)

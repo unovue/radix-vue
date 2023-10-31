@@ -28,32 +28,54 @@ export default function (md: MarkdownRenderer) {
     // Iterate through the Markdown content and replace the pattern
     state.src = state.src.replace(regex, (match, componentName) => {
       const index = state.tokens.findIndex(i => i.content.match(regex))
-      state.tokens[index].content = `<ComponentPreview name="${componentName}"><div filename="index.vue">`
+      state.tokens[index].content = `<ComponentPreview name="${componentName}">`
 
       const { realPath, path: _path } = state.env as MarkdownEnv
-      const folder = resolve(dirname(realPath ?? _path), `../../components/demo/${componentName}`)
-      const files = readdirSync(folder, { withFileTypes: true, recursive: true }).map(i => join(i.path, i.name))
 
-      files.forEach((file, i) => {
-        const { filepath, extension, lines, lang, title }
-      = rawPathToToken(file)
-        const resolvedPath = resolve(dirname(realPath ?? _path), filepath)
+      const childFiles = readdirSync(resolve(dirname(realPath ?? _path), `../../components/demo/${componentName}`), { withFileTypes: true, recursive: true })
+      const groupedFiles = childFiles.reduce((prev, curr) => {
+        if (curr.isDirectory()) {
+          prev[curr.name] = []
+        }
+        else {
+          const folder = curr.path.split(`/demo/${componentName}/`)[1]
+          prev[folder].push(join(curr.path, curr.name))
+        }
+        return prev
+      }, {} as { [key: string]: string[] })
 
-        // Add code tokens for each line
-        const token = new state.Token('fence', 'code', 0)
-        token.info = `${lang || extension}${lines ? `{${lines}}` : ''}${
-          title ? `[${title}]` : ''
-        }`
+      Object.entries(groupedFiles).forEach(([key, value], groupIndex) => {
+        const gap = groupIndex * (value.length * 2)
+        const templateStart = new state.Token('html_inline', '', 0)
+        templateStart.content = `<template #${key}>`
+        state.tokens.splice(index + gap + 1, 0, templateStart)
 
-        token.content = `<<< ${filepath}`
-        // @ts-expect-error token.src is for snippets plugin to handle importing snippet
-        token.src = [resolvedPath]
-        state.tokens.splice(index + i + 1, 0, token)
+        value.forEach((file, i) => {
+          const { filepath, extension, lines, lang, title } = rawPathToToken(file)
+          const resolvedPath = resolve(dirname(realPath ?? _path), filepath)
+
+          // Add code tokens for each line
+          const token = new state.Token('fence', 'code', 0)
+          token.info = `${lang || extension}${lines ? `{${lines}}` : ''}${
+            title ? `[${title}]` : ''
+          }`
+
+          token.content = `<<< ${filepath}`
+          // @ts-expect-error token.src is for snippets plugin to handle importing snippet
+          token.src = [resolvedPath]
+          state.tokens.splice(index + gap + i + 2, 0, token)
+        })
+
+        const templateEnd = new state.Token('html_inline', '', 0)
+        templateEnd.content = '</template>'
+        state.tokens.splice(index + gap + 4, 0, templateEnd)
       })
 
       const endTag = new state.Token('html_inline', '', 0)
-      endTag.content = '</div></ComponentPreview>'
-      state.tokens.splice(index + files.length + 1, 0, endTag)
+      endTag.content = '</ComponentPreview>'
+
+      const endPos = Object.keys(groupedFiles).length * 4
+      state.tokens.splice(index + endPos + 1, 0, endTag)
 
       // Return an empty string to replace the original pattern
       return ''

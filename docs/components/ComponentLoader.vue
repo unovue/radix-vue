@@ -5,9 +5,7 @@ const props = defineProps<{
   name: string
 }>()
 
-const Component = defineAsyncComponent({
-  loader: () => import(`../components/demo/${props.name}/index.vue`),
-})
+const Component = defineAsyncComponent(() => import(`../components/demo/${props.name}/tailwind/index.vue`))
 </script>
 
 <template>

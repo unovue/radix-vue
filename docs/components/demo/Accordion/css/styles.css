@@ -1,0 +1,161 @@
+/**
+ * Customize default theme styling by overriding CSS variables:
+ * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
+ */
+ 
+/**
+ * Colors
+ * -------------------------------------------------------------------------- */
+
+ :root {
+  --vp-c-brand-1: #10b981;
+  --vp-c-brand-light: #25a677;
+  --vp-c-brand-lighter: #34d399;
+  --vp-c-brand-lightest: #a7f3d0;
+  --vp-c-brand-2: #059669;
+  --vp-c-brand-darker: #047857;
+  --vp-c-brand-dimm: rgba(100, 108, 255, 0.08);
+  --vp-code-color: rgba(60, 60, 67);  
+  --vp-code-block-bg: #292b30;
+  --vp-code-block-bg-light: #1e1e20;
+  --vp-code-block-divider-color: #000000;
+  --vp-custom-block-tip-bg: #40644d29;
+}
+
+.dark {
+  --vp-c-bg: #1e1e20;
+  --vp-c-bg-alt: #161618; 
+  --vp-c-bg-soft: #252529;
+  --vp-code-block-bg: #161618;
+}
+/* --vp-c-bg-elv: #252529;
+--vp-c-bg-elv-up: #313136;
+--vp-c-bg-elv-down: #1e1e20;
+--vp-c-bg-elv-mute: #313136;
+--vp-c-bg-soft-up: #313136;
+--vp-c-bg-soft-down: #1e1e20;
+--vp-c-bg-soft-mute: #313136; */
+
+/**
+ * Component: Button
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-button-brand-border: var(--vp-c-brand-light);
+  --vp-button-brand-text: var(--vp-c-white);
+  --vp-button-brand-bg: var(--vp-c-brand);
+  --vp-button-brand-hover-border: var(--vp-c-brand-light);
+  --vp-button-brand-hover-text: var(--vp-c-white);
+  --vp-button-brand-hover-bg: var(--vp-c-brand-light);
+  --vp-button-brand-active-border: var(--vp-c-brand-light);
+  --vp-button-brand-active-text: var(--vp-c-white);
+  --vp-button-brand-active-bg: var(--vp-button-brand-bg);
+}
+
+/**
+ * Component: Home
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #11b981 30%, #6ff4cc);
+
+  --vp-home-hero-image-background-image: linear-gradient(180deg, #8600c5 0%, #00f0ff 100%);
+  --vp-home-hero-image-filter: blur(50px);
+}
+
+@media (min-width: 640px) {
+  :root {
+    --vp-home-hero-image-filter: blur(56px);
+  }
+}
+
+@media (min-width: 960px) {
+  :root {
+    --vp-home-hero-image-filter: blur(72px);
+  }
+}
+
+
+/* Fix the layout shift for Vitepress https://github.com/vuejs/vitepress/pull/1844/files */
+@media (min-width: 768px) {
+  .VPContent, .VPLocalNav, .VPNav, .VPHome {
+    width: 100vw !important;
+  }
+  .VPFooter {
+    width: 100vw !important;
+    padding: 32px !important;
+  }
+}
+@media (min-width: 1440px) {
+  .VPSidebar {
+    padding-left: max(32px, calc((100vw - (var(--vp-layout-max-width) - 64px)) / 2)) !important;
+    width: calc((100vw - (var(--vp-layout-max-width) - 64px)) / 2 + var(--vp-sidebar-width) - 32px) !important;
+  }
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/**
+ * Component: Algolia
+ * -------------------------------------------------------------------------- */
+
+.DocSearch {
+  --docsearch-primary-color: var(--vp-c-brand) !important;
+}
+
+.blocks {
+  max-height: 80vh;
+  overflow: scroll;
+}
+
+.vp-code-group {
+  margin-top: 0px;
+  color: var(--vp-code-block-color);
+  border-radius: 0px;
+}
+
+.vp-doc h2 {
+  @apply mb-2 md:mb-2.5 text-xl md:text-2xl;
+}
+
+.vp-doc h3 {
+  @apply text-[17px] md:text-xl;
+  font-weight: 600;
+  margin-top: 40px;
+}
+
+.vp-doc :not(pre) > code {
+  font-size: max(12px, 85%);
+  @apply dark:text-[var(--vp-c-brand)]  dark:bg-[#0F291E];
+}
+
+li > span {
+  @apply text-[15px] md:text-base;
+}
+
+.image-bg {
+  @apply scale-75 !transform !-translate-x-1/2 !-translate-y-1/2;
+}
+
+.custom-justify-center:before,
+.custom-justify-center:after {
+  content: "";
+  flex: 1;
+}
+
+button:focus-visible {
+  @apply !outline-none;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.15s ease-in-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}

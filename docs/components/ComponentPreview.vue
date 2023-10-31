@@ -1,26 +1,21 @@
 <script setup lang="ts">
-import { useSlots } from 'vue'
 import HeroContainer from './HeroContainer.vue'
-import HeroCodeGroup from './HeroCodeGroup.vue'
+import HeroCodeGroup from './NewHeroCodeGroup.vue'
 import ComponentLoader from './ComponentLoader.vue'
 
-const props = defineProps<{
+defineProps<{
   name: string
 }>()
-
-const slot = useSlots()
-console.log(slot.test?.())
 </script>
 
 <template>
   <HeroContainer>
-    <Suspense>
-      <ComponentLoader :name="name" />
-    </Suspense>
+    <ComponentLoader :name="name" />
 
     <template #codeSlot>
       <HeroCodeGroup>
-        <slot />
+        <slot name="tailwind" />
+        <slot name="css" />
       </HeroCodeGroup>
     </template>
   </HeroContainer>

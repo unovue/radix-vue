@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   vitepress@1.0.0-rc.20:
-    hash: lpl7tgntinb6gnt4lxchesyw4u
+    hash: yuid5jc3rl3zhbyzaz3556fxu4
     path: patches/vitepress@1.0.0-rc.20.patch
 
 importers:
@@ -142,7 +142,7 @@ importers:
         version: 3.3.3(ts-node@10.9.1)
       vitepress:
         specifier: 1.0.0-rc.20
-        version: 1.0.0-rc.20(patch_hash=lpl7tgntinb6gnt4lxchesyw4u)(@algolia/client-search@4.19.1)(@types/node@20.5.1)(postcss@8.4.31)(search-insights@2.7.0)(typescript@5.2.2)
+        version: 1.0.0-rc.20(patch_hash=yuid5jc3rl3zhbyzaz3556fxu4)(@algolia/client-search@4.19.1)(@types/node@20.5.1)(postcss@8.4.31)(search-insights@2.7.0)(typescript@5.2.2)
 
   packages/plugins:
     dependencies:
@@ -10340,7 +10340,7 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vitepress@1.0.0-rc.20(patch_hash=lpl7tgntinb6gnt4lxchesyw4u)(@algolia/client-search@4.19.1)(@types/node@20.5.1)(postcss@8.4.31)(search-insights@2.7.0)(typescript@5.2.2):
+  /vitepress@1.0.0-rc.20(patch_hash=yuid5jc3rl3zhbyzaz3556fxu4)(@algolia/client-search@4.19.1)(@types/node@20.5.1)(postcss@8.4.31)(search-insights@2.7.0)(typescript@5.2.2):
     resolution: {integrity: sha512-CykMUJ8JLxLcGWek0ew3wln4RYbsOd1+0YzXITTpajggpynm2S331TNkJVOkHrMRc6GYe3y4pS40GfgcW0ZwAw==}
     hasBin: true
     peerDependencies:
@@ -10900,7 +10900,7 @@ packages:
     resolution: {directory: packages/radix-vue, type: directory}
     id: file:packages/radix-vue
     name: radix-vue
-    version: 1.0.0-beta.2
+    version: 1.0.2
     dependencies:
       '@floating-ui/dom': 1.5.3
       '@floating-ui/vue': 1.0.2(vue@3.3.5)

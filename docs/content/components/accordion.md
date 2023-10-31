@@ -6,13 +6,8 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/accordion
 ---
 
 <script setup>
-import ComponentPreview from "../../components/ComponentPreview.vue"
-import DemoAccordion from '../../components/demo/Accordion/index.vue'
+import ComponentPreview from "../../components/ComponentPreview.vue" 
 </script>
-
-<ComponentPreview name="Accordion" />
-
- 
 
 
 # Accordion
@@ -22,23 +17,9 @@ A vertically stacked set of interactive headings that each reveal an
 associated section of content.
 </Description>
 
-<HeroContainer folder="Accordion">
-<DemoAccordion />
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
 
-<<< ../../components/demo/Accordion/index.vue
+<ComponentPreview name="Accordion" />
 
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/Accordion/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
 
 ## Features
 

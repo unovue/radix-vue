@@ -5,11 +5,6 @@ name: accordion
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/accordion
 ---
 
-<script setup>
-import ComponentPreview from "../../components/ComponentPreview.vue" 
-</script>
-
-
 # Accordion
 
 <Description>
@@ -17,9 +12,7 @@ A vertically stacked set of interactive headings that each reveal an
 associated section of content.
 </Description>
 
-
 <ComponentPreview name="Accordion" />
-
 
 ## Features
 

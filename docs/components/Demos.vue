@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AccordionDemo from './demo/Accordion/tailwind/index.vue'
-import AlertDialogDemo from './demo/AlertDialog/index.vue'
+import AlertDialogDemo from './demo/AlertDialog/tailwind/index.vue'
 import AspectRatioDemo from './demo/AspectRatio/index.vue'
 import AvatarDemo from './demo/Avatar/index.vue'
 import CheckboxDemo from './demo/Checkbox/index.vue'

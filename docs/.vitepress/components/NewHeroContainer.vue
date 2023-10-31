@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { type Slots, computed, useSlots } from 'vue'
-import CodeSandbox from './CodeSandbox.vue'
-import Stackblitz from './Stackblitz.vue'
+import CodeSandbox from '../../components/CodeSandbox.vue'
+import Stackblitz from '../../components/Stackblitz.vue'
 
 withDefaults(
   defineProps<{

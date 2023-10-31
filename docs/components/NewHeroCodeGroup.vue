@@ -1,14 +1,20 @@
 <script setup lang="ts">
 import { type VNode, capitalize, computed, ref, useSlots, watch } from 'vue'
+import { useStorage } from '@vueuse/core'
 import { TabsContent, TabsList, TabsRoot, TabsTrigger } from 'radix-vue'
 
 defineOptions({
   inheritAttrs: false,
 })
 const slots = useSlots()
+const slotsFramework = computed(() => slots.default?.().map(slot => slot.props?.key?.toString()?.replace('_', '')) ?? [])
 
-const cssFramework = ref<'css' | 'tailwind' | 'pinceau' >('tailwind')
-const cssFrameworkOptions = computed(() => slots.default?.().map(slot => slot.props?.key?.toString()?.replace('_', '')))
+const cssFramework = useStorage<'css' | 'tailwind' | 'pinceau' >('cssFramework', 'tailwind')
+const cssFrameworkOptions = computed(() => [
+  { label: 'TailwindCSS', value: 'tailwind' },
+  { label: 'CSS', value: 'css' },
+  { label: 'Pinceau', value: 'pinceau' },
+].filter(i => slotsFramework.value.includes(i.value)))
 
 const tabs = computed(
   () => {
@@ -58,9 +64,9 @@ watch(open, () => {
           </TabsTrigger>
         </TabsList>
         <div>
-          <select v-model="cssFramework" class="bg-transparent text-white/70">
-            <option v-for="framework in cssFrameworkOptions" :key="framework" :value="framework">
-              {{ capitalize(framework ?? '') }}
+          <select v-model="cssFramework" class="bg-transparent text-white/70 text-right" @change="currentTab = 'index.vue'">
+            <option v-for="framework in cssFrameworkOptions" :key="framework.label" :value="framework.value">
+              {{ capitalize(framework.label ?? '') }}
             </option>
           </select>
         </div>

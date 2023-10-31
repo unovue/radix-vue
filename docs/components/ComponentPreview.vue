@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import HeroContainer from './HeroContainer.vue'
+import HeroContainer from './NewHeroContainer.vue'
 import HeroCodeGroup from './NewHeroCodeGroup.vue'
 import ComponentLoader from './ComponentLoader.vue'
+import { computed } from 'vue'
 
-defineProps<{
+const props = defineProps<{
   name: string
+  files?: string
 }>()
+
+const parsedFiles = computed(() => JSON.parse(decodeURIComponent(props.files ?? '')))
 </script>
 
 <template>
@@ -13,10 +17,12 @@ defineProps<{
     <ComponentLoader :name="name" />
 
     <template #codeSlot>
-      <HeroCodeGroup>
-        <slot name="tailwind" />
-        <slot name="css" />
-      </HeroCodeGroup>
+      <ClientOnly>
+        <HeroCodeGroup>
+          <slot name="tailwind" />
+          <slot name="css" />
+        </HeroCodeGroup>
+      </ClientOnly>
     </template>
   </HeroContainer>
 </template>

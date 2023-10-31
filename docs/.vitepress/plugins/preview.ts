@@ -28,7 +28,6 @@ export default function (md: MarkdownRenderer) {
     // Iterate through the Markdown content and replace the pattern
     state.src = state.src.replace(regex, (match, componentName) => {
       const index = state.tokens.findIndex(i => i.content.match(regex))
-      state.tokens[index].content = `<ComponentPreview name="${componentName}">`
 
       const { realPath, path: _path } = state.env as MarkdownEnv
 
@@ -43,6 +42,8 @@ export default function (md: MarkdownRenderer) {
         }
         return prev
       }, {} as { [key: string]: string[] })
+
+      state.tokens[index].content = `<ComponentPreview name="${componentName}" files="${encodeURIComponent(JSON.stringify(groupedFiles))}" >`
 
       Object.entries(groupedFiles).forEach(([key, value], groupIndex) => {
         const gap = groupIndex * (value.length * 2)

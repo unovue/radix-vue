@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { type VNode, capitalize, computed, ref, useSlots, watch } from 'vue'
 import { useStorage } from '@vueuse/core'
-import { TabsContent, TabsList, TabsRoot, TabsTrigger } from 'radix-vue'
+import { SelectContent, SelectItem, SelectItemIndicator, SelectItemText, SelectPortal, SelectRoot, SelectTrigger, SelectValue, SelectViewport, TabsContent, TabsList, TabsRoot, TabsTrigger } from 'radix-vue'
+import { Icon } from '@iconify/vue'
 
 defineOptions({
   inheritAttrs: false,
@@ -64,16 +65,39 @@ watch(open, () => {
           </TabsTrigger>
         </TabsList>
         <div>
-          <select v-model="cssFramework" class="bg-transparent text-white/70 text-right" @change="currentTab = 'index.vue'">
-            <option v-for="framework in cssFrameworkOptions" :key="framework.label" :value="framework.value">
-              {{ capitalize(framework.label ?? '') }}
-            </option>
-          </select>
+          <SelectRoot v-model="cssFramework" @update:model-value="currentTab = 'index.vue'">
+            <SelectTrigger class="flex items-center justify-between bg-stone-800 rounded-sm w-[115px] text-xs py-1 pl-2 pr-1">
+              <SelectValue />
+              <Icon icon="radix-icons:chevron-down" class="h-3.5 w-3.5" />
+            </SelectTrigger>
+
+            <SelectPortal>
+              <SelectContent class="border border-stone-700 min-w-[115px] bg-stone-800 rounded shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade z-[100]">
+                <SelectViewport class="p-[5px]">
+                  <SelectItem
+                    v-for="framework in cssFrameworkOptions"
+                    :key="framework.label"
+                    class="text-xs leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                    :value="framework.value"
+                  >
+                    <SelectItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">
+                      <Icon icon="radix-icons:check" />
+                    </SelectItemIndicator>
+
+                    <SelectItemText>
+                      {{ capitalize(framework.label ?? '') }}
+                    </SelectItemText>
+                  </SelectItem>
+                </SelectViewport>
+              </SelectContent>
+            </SelectPortal>
+          </SelectRoot>
         </div>
       </div>
     </div>
     <div
       ref="codeScrollWrapper"
+      :key="cssFramework"
       class="pb-10 block h-full"
       :class="`${open ? 'overflow-scroll max-h-[80vh]' : 'overflow-hidden max-h-[150px]'}`"
     >

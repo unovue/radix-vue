@@ -1,4 +1,4 @@
-import { type Component, defineComponent, h } from 'vue'
+import { type Component, type PropType, defineComponent, h } from 'vue'
 import { Slot } from './Slot'
 
 export type AsTag =
@@ -34,8 +34,20 @@ export interface PrimitiveProps {
   as?: AsTag | Component
 }
 
-export const Primitive = defineComponent(
-  (props: PrimitiveProps, { attrs, slots }) => {
+export const Primitive = defineComponent({
+  name: 'Primitive',
+  inheritAttrs: false,
+  props: {
+    asChild: {
+      type: Boolean,
+      default: false,
+    },
+    as: {
+      type: String as PropType<AsTag | Component>,
+      default: 'div',
+    },
+  },
+  setup(props, { attrs, slots }) {
     const asTag = props.asChild ? 'template' : props.as
 
     if (asTag !== 'template')
@@ -44,15 +56,4 @@ export const Primitive = defineComponent(
 
     return () => h(Slot, attrs, { default: slots.default })
   },
-  {
-    name: 'Primitive',
-    inheritAttrs: false,
-    props: {
-      asChild: {
-        default: false,
-      },
-      as: {
-        default: 'div',
-      },
-    },
-  })
+})

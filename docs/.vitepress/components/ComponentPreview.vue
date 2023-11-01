@@ -14,9 +14,7 @@ const parsedFiles = computed(() => JSON.parse(decodeURIComponent(props.files ?? 
 
 <template>
   <HeroContainer>
-    <Suspense>
-      <ComponentLoader :name="name" />
-    </Suspense>
+    <ComponentLoader :name="name" />
 
     <template #codeSlot>
       <ClientOnly>

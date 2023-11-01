@@ -6,33 +6,14 @@ name: context-menu
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/menu
 ---
 
-<script setup>
-import DemoContextMenu from '../../components/demo/ContextMenu/index.vue'
-</script>
-
 # Context Menu
 
 <Description>
 Displays a menu located at the pointer, triggered by a right-click or a long-press.
 </Description>
 
-<HeroContainer folder="ContextMenu">
-<DemoContextMenu />
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
+<ComponentPreview name="ContextMenu" />
 
-<<< ../../components/demo/ContextMenu/index.vue
-
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/ContextMenu/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
 
 ## Features
 

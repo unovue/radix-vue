@@ -1,0 +1,49 @@
+@import '@radix-ui/colors/black-alpha.css';
+@import '@radix-ui/colors/mauve.css';
+@import '@radix-ui/colors/grass.css';
+
+/* reset */
+button {
+  all: unset;
+}
+
+.Button{
+  text-align: center;
+  font-size: 15px;
+  line-height: 1;
+  align-items: center;
+  justify-content: center;
+  height: 2.25rem;
+  width: 2.25rem;
+  border-radius: 0.25rem; 
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.Button:disabled {
+  opacity: .5
+}
+
+.Button:hover{
+  background-color: rgb(255 255 255 / 0.1)
+}
+
+.Button[data-selected]{ 
+  background-color: rgb(255 255 255);
+  color: var(--black-a11)
+}
+
+.PaginationEllipsis{
+  display: flex;
+  height: 2.25rem;
+  width: 2.25rem;
+  align-items: center;
+  justify-content: center
+}
+
+.PaginationList{
+  display: flex;
+  align-items: center;
+  gap: 0.25rem; 
+  color: rgb(255 255 255)
+}

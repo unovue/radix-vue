@@ -10,7 +10,12 @@ export function makeCodeSandboxParams(componentName: string, sources: Record<str
 
 export function makeStackblitzParams(componentName: string, sources: Record<string, string>) {
   const files: Record<string, string> = {}
-  Object.entries(constructFiles(componentName, sources)).forEach(([k, v]) => (files[`${k}`] = typeof v.content === 'object' ? JSON.stringify(v.content, null, 2) : v.content))
+  Object.entries(constructFiles(componentName, sources))
+    .filter(([_, v]) => Boolean(v))
+    .forEach(([k, v]) => {
+      if (typeof v !== 'string' && 'content' in v)
+        files[`${k}`] = typeof v.content === 'object' ? JSON.stringify(v.content, null, 2) : v.content
+    })
   return sdk.openProject({
     title: `${componentName} - Radix Vue`,
     files,
@@ -87,11 +92,11 @@ function constructFiles(componentName: string, sources: Record<string, string>) 
       isBinary: false,
     },
     ...viteConfig,
-    'tailwind.config.js': {
+    'tailwind.config.js': sources['tailwind.config.js'] && {
       content: sources['tailwind.config.js'],
       isBinary: false,
     },
-    'postcss.config.js': {
+    'postcss.config.js': sources['tailwind.config.js'] && {
       content: `module.exports = {
   plugins: {
     tailwindcss: {},
@@ -111,6 +116,10 @@ createApp(App).mount('#app')`,
     'src/App.vue': {
       isBinary: false,
       content: sources['index.vue'],
+    },
+    'src/styles.css': sources['styles.css'] && {
+      isBinary: false,
+      content: sources['styles.css'],
     },
     ...components,
     'src/global.css': {

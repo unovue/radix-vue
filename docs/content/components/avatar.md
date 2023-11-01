@@ -4,34 +4,14 @@ title: Avatar
 description: An image element with a fallback for representing the user.
 name: avatar
 ---
-
-<script setup>
-import DemoAvatar from '../../components/demo/Avatar/index.vue'
-</script>
-
+ 
 # Avatar
 
 <Description>
 An image element with a fallback for representing the user.
 </Description>
 
-<HeroContainer folder="Avatar">
-<DemoAvatar />
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
-
-<<< ../../components/demo/Avatar/index.vue
-
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/Avatar/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
+<ComponentPreview name="Avatar" />
 
 ## Features
 

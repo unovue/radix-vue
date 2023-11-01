@@ -5,6 +5,7 @@ import HomePage from '../components/HomePage.vue'
 import HomePageDemo from '../components/HomePageDemo.vue'
 import Annoucement from '../components/Annoucement.vue'
 import EmbedIframe from '../components/EmbedIframe.vue'
+import ComponentPreview from '../components/ComponentPreview.vue'
 import LayoutShowcase from '../layouts/showcase.vue'
 import 'vitepress/dist/client/theme-default/styles/components/vp-doc.css'
 import './style.css'
@@ -33,5 +34,6 @@ export default {
 
     app.component('Showcase', LayoutShowcase)
     app.component('EmbedIframe', EmbedIframe)
+    app.component('ComponentPreview', ComponentPreview)
   },
 } satisfies Theme

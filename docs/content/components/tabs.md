@@ -6,9 +6,6 @@ name: tabs
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel
 ---
 
-<script setup> 
-import DemoTabs from '../../components/demo/Tabs/index.vue' 
-</script>
 
 # Tabs
 
@@ -16,23 +13,7 @@ import DemoTabs from '../../components/demo/Tabs/index.vue'
 A set of layered sections of content—known as tab panels—that are displayed one at a time.
 </Description>
 
-<HeroContainer folder="Tabs">
-<DemoTabs />
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
-
-<<< ../../components/demo/Tabs/index.vue
-
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/Tabs/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
+<ComponentPreview name="Tabs" />
 
 ## Features
 

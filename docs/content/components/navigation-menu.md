@@ -5,9 +5,6 @@ name: navigation-menu
 aria: https://www.w3.org/TR/wai-aria/#navigation
 ---
 
-<script setup>
-import DemoNavigationMenu from '../../components/demo/NavigationMenu/index.vue'
-</script>
 
 # Navigation Menu
 
@@ -15,28 +12,7 @@ import DemoNavigationMenu from '../../components/demo/NavigationMenu/index.vue'
 A collection of links for navigating websites.
 </Description>
 
-<HeroContainer folder="NavigationMenu">
-<DemoNavigationMenu />
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
-
-<<< ../../components/demo/NavigationMenu/index.vue
-
-</div>
-<div filename="NavigationMenuListItem.vue">
-
-<<< ../../components/demo/NavigationMenu/NavigationMenuListItem.vue
-
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/NavigationMenu/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
+<ComponentPreview name="NavigationMenu" />
 
 ## Features
 

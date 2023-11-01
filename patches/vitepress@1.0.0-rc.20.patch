@@ -58,3 +58,22 @@ index 5d482944ff62330939c963f43d71c788e88afa4e..a486fe63bfb4f7e41bcbf3e070ef57e8
      <template #home-hero-info><slot name="home-hero-info" /></template>
      <template #home-hero-image><slot name="home-hero-image" /></template>
    </VPHero>
+diff --git a/dist/node/serve-a41caba0.js b/dist/node/serve-a41caba0.js
+index 60b279cb1992b6a6c4031422e28c0e3c72d11be6..16219aca44e66fcb693c94744dbb3f83bcc2e583 100644
+--- a/dist/node/serve-a41caba0.js
++++ b/dist/node/serve-a41caba0.js
+@@ -46497,12 +46497,13 @@ function preWrapperPlugin(md, options) {
+   md.renderer.rules.fence = (...args) => {
+     const [tokens, idx] = args;
+     const token = tokens[idx];
++    const title = extractTitle(token.info);
+     token.info = token.info.replace(/\[.*\]/, "");
+     const active = / active( |$)/.test(token.info) ? " active" : "";
+     token.info = token.info.replace(/ active$/, "").replace(/ active /, " ");
+     const lang = extractLang(token.info);
+     const rawCode = fence(...args);
+-    return `<div class="language-${lang}${getAdaptiveThemeMarker(
++    return `<div title="${title}" class="language-${lang}${getAdaptiveThemeMarker(
+       options
+     )}${active}"><button title="Copy Code" class="copy"></button><span class="lang">${lang}</span>${rawCode}</div>`;
+   };

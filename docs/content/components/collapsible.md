@@ -6,33 +6,15 @@ name: collapsible
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/disclosure
 ---
 
-<script setup> 
-import DemoCollapsible from '../../components/demo/Collapsible/index.vue'
-</script>
-
+ 
 # Collapsible
 
 <Description>
 An interactive component which expands/collapses a panel.
 </Description>
 
-<HeroContainer folder="Collapsible">
-<DemoCollapsible />
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
+<ComponentPreview name="Collapsible" />
 
-<<< ../../components/demo/Collapsible/index.vue
-
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/Collapsible/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
 
 ## Features
 

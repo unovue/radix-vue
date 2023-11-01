@@ -6,33 +6,14 @@ name: toggle-group
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/button
 ---
 
-<script setup> 
-import DemoToggleGroup from '../../components/demo/ToggleGroup/index.vue' 
-</script>
-
 # ToggleGroup
 
 <Description>
 A set of two-state buttons that can be toggled on or off.
 </Description>
 
-<HeroContainer folder="ToggleGroup">
-<DemoToggleGroup />
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
+<ComponentPreview name="ToggleGroup" />
 
-<<< ../../components/demo/ToggleGroup/index.vue
-
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/ToggleGroup/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
 
 ## Features
 

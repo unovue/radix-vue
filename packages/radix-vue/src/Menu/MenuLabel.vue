@@ -8,7 +8,7 @@ export interface MenuLabelProps extends PrimitiveProps {}
 import { Primitive } from '@/Primitive'
 
 const props = withDefaults(defineProps<MenuLabelProps>(), {
-  as: 'label',
+  as: 'div',
 })
 </script>
 

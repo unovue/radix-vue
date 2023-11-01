@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { type Slots, computed, useSlots } from 'vue'
 import CodeSandbox from '../../components/CodeSandbox.vue'
 import Stackblitz from '../../components/Stackblitz.vue'
 
@@ -7,13 +6,10 @@ withDefaults(
   defineProps<{
     overflow?: boolean
     folder?: string
+    files?: string[]
+    cssFramework?: string
   }>(),
-  { folder: '' },
-)
-
-const slots = useSlots()
-const files = computed<string[]>(
-  () => (slots?.codeSlot?.()?.[0].children as Slots)?.default?.().map(i => i?.props?.filename) ?? [],
+  { folder: '', files: () => [] },
 )
 </script>
 
@@ -26,8 +22,8 @@ const files = computed<string[]>(
       <div class="w-full max-w-[700px] flex items-center py-12 sm:py-[100px] custom-justify-center z-10">
         <slot />
 
-        <CodeSandbox v-if="folder" class="hidden sm:block absolute bottom-4 right-4" :name="folder" :files="files" />
-        <Stackblitz v-if="folder" class="hidden sm:block absolute bottom-4 right-12" :name="folder" :files="files" />
+        <CodeSandbox v-if="folder" :key="cssFramework" class="hidden sm:block absolute bottom-4 right-4" :name="folder" :files="files" />
+        <Stackblitz v-if="folder" :key="cssFramework" class="hidden sm:block absolute bottom-4 right-12" :name="folder" :files="files" />
       </div>
     </div>
     <slot name="codeSlot" />

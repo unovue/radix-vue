@@ -1,4 +1,4 @@
-import { dirname, join, resolve } from 'node:path'
+import { dirname, resolve } from 'node:path'
 import { readdirSync } from 'node:fs'
 import type { MarkdownEnv, MarkdownRenderer } from 'vitepress'
 
@@ -27,32 +27,40 @@ export default function (md: MarkdownRenderer) {
 
     // Iterate through the Markdown content and replace the pattern
     state.src = state.src.replace(regex, (match, componentName) => {
+      const importComponent = new state.Token('html_block', '', 0)
+      const pathName = `../../components/demo/${componentName}`
+
+      importComponent.content = `<script setup>\nimport Demo from '${pathName}/tailwind/index.vue'\n</script>\n`
+      state.tokens.splice(0, 0, importComponent)
+
       const index = state.tokens.findIndex(i => i.content.match(regex))
 
       const { realPath, path: _path } = state.env as MarkdownEnv
 
-      const childFiles = readdirSync(resolve(dirname(realPath ?? _path), `../../components/demo/${componentName}`), { withFileTypes: true, recursive: true })
+      const childFiles = readdirSync(resolve(dirname(realPath ?? _path), pathName), { withFileTypes: false, recursive: true })
       const groupedFiles = childFiles.reduce((prev, curr) => {
-        if (curr.isDirectory()) {
-          prev[curr.name] = []
+        if (typeof curr !== 'string')
+          return prev
+        if (!curr.includes('/')) {
+          prev[curr] = []
         }
         else {
-          const folder = curr.path.split(`/demo/${componentName}/`)[1]
-          prev[folder].push(join(curr.path, curr.name))
+          const folder = curr.split('/')[0]
+          prev[folder].push(curr)
         }
         return prev
       }, {} as { [key: string]: string[] })
 
-      state.tokens[index].content = `<ComponentPreview name="${componentName}" files="${encodeURIComponent(JSON.stringify(groupedFiles))}" >`
+      state.tokens[index].content = `<ComponentPreview name="${componentName}" files="${encodeURIComponent(JSON.stringify(groupedFiles))}" ><Demo />`
+      const tokenArray: Array<typeof importComponent> = []
 
-      Object.entries(groupedFiles).forEach(([key, value], groupIndex) => {
-        const gap = groupIndex * (value.length * 2)
+      Object.entries(groupedFiles).forEach(([key, value]) => {
         const templateStart = new state.Token('html_inline', '', 0)
         templateStart.content = `<template #${key}>`
-        state.tokens.splice(index + gap + 1, 0, templateStart)
+        tokenArray.push(templateStart)
 
-        value.forEach((file, i) => {
-          const { filepath, extension, lines, lang, title } = rawPathToToken(file)
+        value.forEach((file) => {
+          const { filepath, extension, lines, lang, title } = rawPathToToken(`${pathName}/${file}`)
           const resolvedPath = resolve(dirname(realPath ?? _path), filepath)
 
           // Add code tokens for each line
@@ -64,19 +72,19 @@ export default function (md: MarkdownRenderer) {
           token.content = `<<< ${filepath}`
           // @ts-expect-error token.src is for snippets plugin to handle importing snippet
           token.src = [resolvedPath]
-          state.tokens.splice(index + gap + i + 2, 0, token)
+          tokenArray.push(token)
         })
 
         const templateEnd = new state.Token('html_inline', '', 0)
         templateEnd.content = '</template>'
-        state.tokens.splice(index + gap + 4, 0, templateEnd)
+        tokenArray.push(templateEnd)
       })
 
       const endTag = new state.Token('html_inline', '', 0)
       endTag.content = '</ComponentPreview>'
+      tokenArray.push(endTag)
 
-      const endPos = Object.keys(groupedFiles).length * 4
-      state.tokens.splice(index + endPos + 1, 0, endTag)
+      state.tokens.splice(index + 1, 0, ...tokenArray)
 
       // Return an empty string to replace the original pattern
       return ''

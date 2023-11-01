@@ -1,16 +1,23 @@
 <script setup lang="ts">
 import { type VNode, capitalize, computed, ref, useSlots, watch } from 'vue'
-import { useStorage } from '@vueuse/core'
 import { SelectContent, SelectItem, SelectItemIndicator, SelectItemText, SelectPortal, SelectRoot, SelectTrigger, SelectValue, SelectViewport, TabsContent, TabsList, TabsRoot, TabsTrigger } from 'radix-vue'
 import { Icon } from '@iconify/vue'
+import { useVModel } from '@vueuse/core'
 
 defineOptions({
   inheritAttrs: false,
 })
+const props = defineProps<{
+  modelValue: 'css' | 'tailwind' | 'pinceau'
+}>()
+const emits = defineEmits<{
+  'update:modelValue': [payload: 'css' | 'tailwind' | 'pinceau']
+}>()
+const cssFramework = useVModel(props, 'modelValue', emits)
+
 const slots = useSlots()
 const slotsFramework = computed(() => slots.default?.().map(slot => slot.props?.key?.toString()?.replace('_', '')) ?? [])
 
-const cssFramework = useStorage<'css' | 'tailwind' | 'pinceau' >('cssFramework', 'tailwind')
 const cssFrameworkOptions = computed(() => [
   { label: 'TailwindCSS', value: 'tailwind' },
   { label: 'CSS', value: 'css' },
@@ -20,7 +27,7 @@ const cssFrameworkOptions = computed(() => [
 const tabs = computed(
   () => {
     const currentFramework = slots.default?.().find(slot => slot.props?.key?.toString().includes(cssFramework.value))
-    const childSlots = currentFramework?.children as VNode[]
+    const childSlots = (currentFramework?.children as VNode[]).sort((a, b) => a?.props?.title.localeCompare(b?.props?.title))
     return childSlots?.map((slot, index) => {
       return {
         label: slot.props?.title || `${index}`,

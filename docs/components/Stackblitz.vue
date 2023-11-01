@@ -13,16 +13,9 @@ const sources = ref<Record<string, string>>({})
 
 onMounted(() => {
   props.files?.forEach((file) => {
-    if (file.endsWith('.vue')) {
-      import(`../components/demo/${props.name}/${file.replace('.vue', '')}.vue?raw`).then(
-        res => (sources.value[file] = res.default),
-      )
-    }
-    else if (file.endsWith('.js')) {
-      import(`../components/demo/${props.name}/${file.replace('.js', '')}.js?raw`).then(
-        res => (sources.value[file] = res.default),
-      )
-    }
+    import(`../components/demo/${props.name}/${file}?raw`).then(
+      res => (sources.value[file.split('/').pop() ?? ''] = res.default),
+    )
   })
 })
 

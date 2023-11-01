@@ -1,28 +1,27 @@
 <script setup lang="ts">
 import HeroContainer from './NewHeroContainer.vue'
 import HeroCodeGroup from './NewHeroCodeGroup.vue'
-import ComponentLoader from './ComponentLoader.vue'
 import { computed } from 'vue'
+import { useStorage } from '@vueuse/core'
 
 const props = defineProps<{
   name: string
   files?: string
 }>()
 
-const parsedFiles = computed(() => JSON.parse(decodeURIComponent(props.files ?? '')))
+const cssFramework = useStorage<'css' | 'tailwind' | 'pinceau' >('cssFramework', 'tailwind')
+const parsedFiles = computed(() => JSON.parse(decodeURIComponent(props.files ?? ''))[cssFramework.value])
 </script>
 
 <template>
-  <HeroContainer>
-    <ComponentLoader :name="name" />
+  <HeroContainer :folder="name" :files="parsedFiles" :css-framework="cssFramework">
+    <slot />
 
     <template #codeSlot>
-      <ClientOnly>
-        <HeroCodeGroup>
-          <slot name="tailwind" />
-          <slot name="css" />
-        </HeroCodeGroup>
-      </ClientOnly>
+      <HeroCodeGroup v-model="cssFramework">
+        <slot name="tailwind" />
+        <slot name="css" />
+      </HeroCodeGroup>
     </template>
   </HeroContainer>
 </template>

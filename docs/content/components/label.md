@@ -5,9 +5,6 @@ description: Renders an accessible label associated with controls.
 name: label
 ---
 
-<script setup> 
-import DemoLabel from '../../components/demo/Label/index.vue' 
-</script>
 
 # Label
 
@@ -15,23 +12,8 @@ import DemoLabel from '../../components/demo/Label/index.vue'
 Renders an accessible label associated with controls.
 </Description>
 
-<HeroContainer folder="Label">
-<DemoLabel />
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
 
-<<< ../../components/demo/Label/index.vue
-
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/Label/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
+<ComponentPreview name="Label" />
 
 ## Features
 

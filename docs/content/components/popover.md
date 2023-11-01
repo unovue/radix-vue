@@ -6,33 +6,14 @@ name: popover
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal
 ---
 
-<script setup> 
-import DemoPopover from '../../components/demo/Popover/index.vue' 
-</script>
-
 # Popover
 
 <Description>
 Displays rich content in a portal, triggered by a button.
 </Description>
 
-<HeroContainer folder="Popover">
-<DemoPopover />
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
+<ComponentPreview name="Popover" />
 
-<<< ../../components/demo/Popover/index.vue
-
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/Popover/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
 
 ## Features
 

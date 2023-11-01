@@ -6,33 +6,14 @@ name: toggle
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/button
 ---
 
-<script setup> 
-import DemoToggle from '../../components/demo/Toggle/index.vue' 
-</script>
-
 # Toggle
 
 <Description>
 A two-state button that can be either on or off.
 </Description>
 
-<HeroContainer folder="Toggle">
-<DemoToggle />
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
+<ComponentPreview name="Toggle" />
 
-<<< ../../components/demo/Toggle/index.vue
-
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/Toggle/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
 
 ## Features
 

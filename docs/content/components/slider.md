@@ -6,9 +6,6 @@ name: slider
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/slidertwothumb
 ---
 
-<script setup> 
-import DemoSlider from '../../components/demo/Slider/index.vue' 
-</script>
 
 # Slider
 
@@ -16,23 +13,8 @@ import DemoSlider from '../../components/demo/Slider/index.vue'
 An input where the user selects a value from within a given range.
 </Description>
 
-<HeroContainer folder="Slider">
-<DemoSlider />
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
+<ComponentPreview name="Slider" />
 
-<<< ../../components/demo/Slider/index.vue
-
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/Slider/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
 
 ## Features
 

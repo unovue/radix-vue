@@ -6,9 +6,6 @@ name: progress
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/meter
 ---
 
-<script setup> 
-import DemoProgress from '../../components/demo/Progress/index.vue' 
-</script>
 
 # Progress
 
@@ -16,23 +13,8 @@ import DemoProgress from '../../components/demo/Progress/index.vue'
 Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.
 </Description>
 
-<HeroContainer folder="Progress">
-<DemoProgress />
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
+<ComponentPreview name="Progress" />
 
-<<< ../../components/demo/Progress/index.vue
-
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/Progress/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
 
 ## Features
 

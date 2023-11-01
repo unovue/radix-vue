@@ -6,33 +6,14 @@ name: separator
 aria: https://www.w3.org/TR/wai-aria-1.2/#separator
 ---
 
-<script setup> 
-import DemoSeparator from '../../components/demo/Separator/index.vue' 
-</script>
-
 # Separator
 
 <Description>
 Visually or semantically separates content.
 </Description>
 
-<HeroContainer folder="Separator">
-<DemoSeparator />
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
+<ComponentPreview name="Separator" />
 
-<<< ../../components/demo/Separator/index.vue
-
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/Separator/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
 
 ## Features
 

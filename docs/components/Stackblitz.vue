@@ -13,26 +13,11 @@ const sources = ref<Record<string, string>>({})
 
 onMounted(() => {
   props.files?.forEach((file) => {
-    switch (file.split('.').pop()) {
-      case 'vue': {
-        import(`../components/demo/${props.name}/${file.replace('.vue', '')}.vue?raw`).then(
-          res => (sources.value[file.split('/').pop() ?? ''] = res.default),
-        )
-        break
-      }
-      case 'js': {
-        import(`../components/demo/${props.name}/${file.replace('.js', '')}.js?raw`).then(
-          res => (sources.value[file.split('/').pop() ?? ''] = res.default),
-        )
-        break
-      }
-      case 'css': {
-        import(`../components/demo/${props.name}/${file.replace('.css', '')}.css?raw`).then(
-          res => (sources.value[file.split('/').pop() ?? ''] = res.default),
-        )
-        break
-      }
-    }
+    const [folder, fileName] = file.split('/')
+    const extension = file.split('.').pop()
+    import(`../components/demo/${props.name}/${folder}/${fileName.replace(`.${extension}`, '')}.${extension}?raw`).then(
+      res => (sources.value[fileName] = res.default),
+    )
   })
 })
 

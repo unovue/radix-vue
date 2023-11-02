@@ -616,7 +616,7 @@ Used to render the label of a group. It won't be focusable using arrow keys.
     {
       name: 'as',
       type: 'string | Component',
-      default: 'label',
+      default: 'div',
       description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
     },
     {

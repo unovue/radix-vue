@@ -11,7 +11,7 @@ import { Primitive } from '@/Primitive'
 import { injectSelectGroupContext } from './SelectGroup.vue'
 
 const props = withDefaults(defineProps<SelectLabelProps>(), {
-  as: 'label',
+  as: 'div',
 })
 
 const groupContext = injectSelectGroupContext({ id: '' })

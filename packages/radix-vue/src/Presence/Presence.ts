@@ -78,7 +78,7 @@ export default defineComponent({
     }
 
     return () => {
-      if (forceMount.value || isPresent.value) {
+      if (forceMount.value || present.value || isPresent.value) {
         return h(slots.default({ present: isPresent })[0] as VNode, {
           ref: (v) => {
             const el = unrefElement(v as HTMLElement)

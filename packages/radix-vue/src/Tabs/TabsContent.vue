@@ -28,14 +28,14 @@ const isSelected = computed(() => props.value === rootContext.modelValue.value)
 const isMountAnimationPreventedRef = ref(isSelected.value)
 
 onMounted(() => {
-  requestAnimationFrame(() => isMountAnimationPreventedRef.value = false)
+  requestAnimationFrame(() => {
+    isMountAnimationPreventedRef.value = false
+  })
 })
-
-const presenceRef = ref<InstanceType<typeof Presence>>()
 </script>
 
 <template>
-  <Presence ref="presenceRef" :present="forceMount || isSelected">
+  <Presence v-slot="{ present }" :present="isSelected" force-mount>
     <Primitive
       :id="contentId"
       :as-child="asChild"
@@ -44,13 +44,13 @@ const presenceRef = ref<InstanceType<typeof Presence>>()
       :data-state="isSelected ? 'active' : 'inactive'"
       :data-orientation="rootContext.orientation.value"
       :aria-labelledby="triggerId"
-      :hidden="!presenceRef?.present"
+      :hidden="!present.value"
       tabindex="0"
       :style="{
         animationDuration: isMountAnimationPreventedRef ? '0s' : undefined,
       }"
     >
-      <slot />
+      <slot v-if="forceMount || isSelected" />
     </Primitive>
   </Presence>
 </template>

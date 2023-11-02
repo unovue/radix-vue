@@ -1,10 +1,14 @@
 import {
-  type VNode,
   defineComponent,
   getCurrentInstance,
   h,
   ref,
   toRefs,
+} from 'vue'
+import type {
+  Ref,
+  SlotsType,
+  VNode,
 } from 'vue'
 import { usePresence } from './usePresence'
 import { renderSlotFragments } from '@/shared'
@@ -37,7 +41,10 @@ export default defineComponent({
       type: Boolean,
     },
   },
-  setup(props, { attrs, slots, expose }) {
+  slots: {} as SlotsType<{
+    default: (opts: { present: Ref<boolean> }) => any
+  }>,
+  setup(props, { slots, expose }) {
     const { present, forceMount } = toRefs(props)
 
     const node = ref<HTMLElement>()
@@ -45,7 +52,7 @@ export default defineComponent({
     const { isPresent } = usePresence(present, node)
     expose({ present: isPresent })
 
-    let children = slots.default?.()
+    let children = slots.default({ present: isPresent })
     children = renderSlotFragments(children || [])
     const instance = getCurrentInstance()
 
@@ -72,7 +79,7 @@ export default defineComponent({
 
     return () => {
       if (forceMount.value || present.value || isPresent.value) {
-        return h(slots.default?.()[0] as VNode, {
+        return h(slots.default({ present: isPresent })[0] as VNode, {
           ref: (v) => {
             const el = unrefElement(v as HTMLElement)
             if (typeof el?.hasAttribute === 'undefined')

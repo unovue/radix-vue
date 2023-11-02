@@ -11,7 +11,7 @@ import { Primitive } from '@/Primitive'
 import { injectComboboxGroupContext } from './ComboboxGroup.vue'
 
 const props = withDefaults(defineProps<ComboboxLabelProps>(), {
-  as: 'label',
+  as: 'div',
 })
 
 const groupContext = injectComboboxGroupContext({ id: '' })

@@ -4,19 +4,17 @@ import MenuContentImpl, {
   type MenuRootContentProps,
 } from './MenuContentImpl.vue'
 import { injectMenuContext } from './MenuRoot.vue'
-import { useEmitAsProps, useHideOthers } from '@/shared'
+import { useForwardPropsEmits, useHideOthers } from '@/shared'
 import { usePrimitiveElement } from '@/Primitive'
 
 const props = defineProps<MenuRootContentModalProps>()
-
 const emits = defineEmits<MenuRootContentModalEmits>()
+const forwarded = useForwardPropsEmits(props, emits)
 
 const menuContext = injectMenuContext()
 
 interface MenuRootContentModalProps extends MenuRootContentProps {}
 type MenuRootContentModalEmits = MenuContentImplEmits
-
-const emitsAsProps = useEmitAsProps(emits)
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 useHideOthers(currentElement)
@@ -25,7 +23,7 @@ useHideOthers(currentElement)
 <template>
   <MenuContentImpl
     ref="primitiveElement"
-    v-bind="{ ...props, ...emitsAsProps }"
+    v-bind="forwarded"
     :trap-focus="menuContext.open.value"
     :disable-outside-pointer-events="menuContext.open.value"
     :disable-outside-scroll="true"

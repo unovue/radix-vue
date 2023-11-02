@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { Ref } from 'vue'
-import type { AsTag, PrimitiveProps } from '@/Primitive'
+import type { PrimitiveProps } from '@/Primitive'
 import { createContext } from '@/shared'
 
 export interface ScrollAreaScrollbarProps extends PrimitiveProps {
@@ -13,7 +13,7 @@ export interface ScrollAreaScrollbarProps extends PrimitiveProps {
 }
 
 export interface ScrollAreaScollbarContext {
-  as: Ref<AsTag>
+  as: Ref<PrimitiveProps['as']>
   orientation: Ref<'vertical' | 'horizontal'>
   forceMount?: Ref<boolean>
   isHorizontal: Ref<boolean>

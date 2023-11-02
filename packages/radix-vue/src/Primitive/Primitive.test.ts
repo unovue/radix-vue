@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 import { Primitive } from './'
+import { defineComponent, h, markRaw } from 'vue'
 
 describe('test Primitive functionalities', () => {
   it('should render div element correctly', () => {
@@ -90,6 +91,27 @@ describe('test Primitive functionalities', () => {
       const element = wrapper.find('div')
       expect(element.attributes('class')).toBe(
         'parent-class child-class more-child-class',
+      )
+    })
+
+    it('should render the Component that passed in as', () => {
+      const Button = markRaw(defineComponent({
+        setup(props, { slots }) {
+          return () => h('button', { id: 'custom-button' }, slots)
+        },
+      }))
+
+      const wrapper = mount(Primitive, {
+        props: {
+          as: Button,
+        },
+        attrs: {
+          class: 'parent-class',
+        },
+      })
+
+      expect(wrapper.html()).toBe(
+        '<button id="custom-button" class="parent-class"></button>',
       )
     })
 

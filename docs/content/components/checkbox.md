@@ -5,34 +5,15 @@ description: A control that allows the user to toggle between checked and not ch
 name: checkbox
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/checkbox
 ---
-
-<script setup> 
-import DemoCheckbox from '../../components/demo/Checkbox/index.vue' 
-</script>
-
+ 
 # Checkbox
 
 <Description>
 A control that allows the user to toggle between checked and not checked.
 </Description>
 
-<HeroContainer folder="Checkbox">
-<DemoCheckbox />
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
+<ComponentPreview name="Checkbox" />
 
-<<< ../../components/demo/Checkbox/index.vue
-
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/Checkbox/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
 
 ## Features
 

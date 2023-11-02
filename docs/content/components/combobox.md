@@ -7,10 +7,6 @@ badge: alpha
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/listbox
 ---
 
-<script setup> 
-import DemoCombobox from '../../components/demo/Combobox/index.vue' 
-</script>
-
 
 # Combobox
 
@@ -19,23 +15,8 @@ Choose from a list of suggested values with full keyboard support.
 </Description>
 
 
-<HeroContainer folder="Combobox">
-<DemoCombobox />
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
+<ComponentPreview name="Combobox" />
 
-<<< ../../components/demo/Combobox/index.vue
-
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/Combobox/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
 
 ## Features
 

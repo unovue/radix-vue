@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TooltipArrow, TooltipContent, TooltipProvider, TooltipPortal, TooltipRoot, TooltipTrigger } from 'radix-vue'
+import { TooltipArrow, TooltipContent, TooltipPortal, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
 import { Icon } from '@iconify/vue'
 </script>
 

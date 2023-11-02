@@ -1,4 +1,4 @@
-import { type PropType, defineComponent, h } from 'vue'
+import { type Component, type PropType, defineComponent, h } from 'vue'
 import { Slot } from './Slot'
 
 export type AsTag =
@@ -31,7 +31,7 @@ export interface PrimitiveProps {
   /**
    * @default "div"
    */
-  as?: AsTag
+  as?: AsTag | Component
 }
 
 export const Primitive = defineComponent({
@@ -43,7 +43,7 @@ export const Primitive = defineComponent({
       default: false,
     },
     as: {
-      type: String as PropType<AsTag>,
+      type: String as PropType<AsTag | Component>,
       default: 'div',
     },
   },
@@ -51,6 +51,7 @@ export const Primitive = defineComponent({
     const asTag = props.asChild ? 'template' : props.as
 
     if (asTag !== 'template')
+      //  @ts-expect-error  ignoring the complain for Component type because it is an artificial type
       return () => h(props.as, attrs, { default: slots.default })
 
     return () => h(Slot, attrs, { default: slots.default })

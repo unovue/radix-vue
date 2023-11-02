@@ -6,9 +6,7 @@ name: dropdown-menu
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/menubutton
 ---
 
-<script setup>
-import DemoDropdownMenu from '../../components/demo/DropdownMenu/index.vue'
-</script>
+
 
 # DropdownMenu
 
@@ -16,23 +14,8 @@ import DemoDropdownMenu from '../../components/demo/DropdownMenu/index.vue'
 Displays a menu to the user—such as a set of actions or functions—triggered by a button.
 </Description>
 
-<HeroContainer folder="DropdownMenu">
-<DemoDropdownMenu />
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
+<ComponentPreview name="DropdownMenu" />
 
-<<< ../../components/demo/DropdownMenu/index.vue
-
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/DropdownMenu/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
 
 ## Features
 

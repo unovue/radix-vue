@@ -5,10 +5,6 @@ name: toast
 aria: https://www.w3.org/TR/wai-aria/#aria-live
 ---
 
-<script setup> 
-import DemoToast from '../../components/demo/Toast/index.vue' 
-</script>
-
 # Toast
 
 <Description>
@@ -16,25 +12,7 @@ A succinct message that is displayed temporarily.
 </Description>
 
 
-<HeroContainer>
-  <DemoToast />
-
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
-
-<<< ../../components/demo/Toast/index.vue
-
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/Toast/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
- 
+<ComponentPreview name="Toast" />
 
  
 <Highlights

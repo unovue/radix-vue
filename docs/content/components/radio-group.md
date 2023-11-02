@@ -6,33 +6,14 @@ name: radio-group
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/radiobutton
 ---
 
-<script setup> 
-import DemoRadioGroup from '../../components/demo/RadioGroup/index.vue' 
-</script>
-
 # RadioGroup
 
 <Description>
 A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.
 </Description>
 
-<HeroContainer folder="RadioGroup"> 
-<DemoRadioGroup />
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
+<ComponentPreview name="RadioGroup" />
 
-<<< ../../components/demo/RadioGroup/index.vue
-
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/RadioGroup/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
 
 ## Features
 

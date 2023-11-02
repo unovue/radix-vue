@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import Presence from '../Presence.vue'
+import Presence from '../Presence'
 import Toggle from './_Toggle.vue'
 
 defineOptions({

@@ -4,10 +4,6 @@ description: Displays data in paged format and provides navigation between pages
 name: pagination 
 ---
 
-<script setup> 
-import DemoPagination from '../../components/demo/Pagination/index.vue' 
-</script>
-
 
 # Pagination
  
@@ -15,23 +11,8 @@ import DemoPagination from '../../components/demo/Pagination/index.vue'
 Displays data in paged format and provides navigation between pages.
 </Description>
 
-<HeroContainer folder="Pagination" overflow>
-<DemoPagination />
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
+<ComponentPreview name="Pagination" />
 
-<<< ../../components/demo/Pagination/index.vue
-
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/Pagination/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
 
 ## Features
 

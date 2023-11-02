@@ -7,33 +7,13 @@ name: menubar
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/menu/
 ---
 
-<script setup>
-import DemoMenubar from '../../components/demo/Menubar/index.vue'
-</script>
-
 # Menubar
 
 <Description>
 A visually persistent menu common in desktop applications that provides quick access to a consistent set of commands.
 </Description>
 
-<HeroContainer folder="Menubar">
-<DemoMenubar />
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
-
-<<< ../../components/demo/Menubar/index.vue
-
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/Menubar/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
+<ComponentPreview name="Menubar" />
 
 ## Features
 

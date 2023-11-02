@@ -5,33 +5,13 @@ description: Displays content within a desired ratio.
 name: aspect-ratio
 ---
 
-<script setup>
-import DemoAspectRatio from '../../components/demo/AspectRatio/index.vue'
-</script>
-
 # Aspect Ratio
 
 <Description>
 Displays content within a desired ratio.
 </Description>
 
-<HeroContainer folder="AspectRatio">
-<DemoAspectRatio />
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
-
-<<< ../../components/demo/AspectRatio/index.vue
-
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/AspectRatio/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
+<ComponentPreview name="AspectRatio" />
 
 ## Features
 

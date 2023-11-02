@@ -6,9 +6,7 @@ name: dialog
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal
 ---
 
-<script setup> 
-import DemoDialog from '../../components/demo/Dialog/index.vue' 
-</script>
+ 
 
 # Dialog
 
@@ -16,23 +14,8 @@ import DemoDialog from '../../components/demo/Dialog/index.vue'
 A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.
 </Description>
 
-<HeroContainer folder="Dialog">
-<DemoDialog />
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
+<ComponentPreview name="Dialog" />
 
-<<< ../../components/demo/Dialog/index.vue
-
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/Dialog/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
 
 ## Features
 

@@ -5,9 +5,6 @@ name: alert-dialog
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog
 ---
 
-<script setup> 
-import DemoAlertDialog from '../../components/demo/AlertDialog/index.vue'
-</script>
 
 # Alert Dialog
 
@@ -16,23 +13,7 @@ A modal dialog that interrupts the user with important content and expects a
 response.
 </Description>
 
-<HeroContainer folder="AlertDialog">
-<DemoAlertDialog />
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
-
-<<< ../../components/demo/AlertDialog/index.vue
-
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/AlertDialog/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
+<ComponentPreview name="AlertDialog" />
 
 ## Features
 

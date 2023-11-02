@@ -6,33 +6,13 @@ name: select
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/listbox
 ---
 
-<script setup> 
-import DemoSelect from '../../components/demo/Select/index.vue' 
-</script>
-
 # Select
 
 <Description>
 Displays a list of options for the user to pick from—triggered by a button.
 </Description>
 
-<HeroContainer folder="Select">
-<DemoSelect />
-<template v-slot:codeSlot>
-<HeroCodeGroup>
-<div filename="index.vue">
-
-<<< ../../components/demo/Select/index.vue
-
-</div>
-<div filename="tailwind.config.js">
-
-<<< ../../components/demo/Select/tailwind.config.js
-
-</div>
-</HeroCodeGroup>
-</template>
-</HeroContainer>
+<ComponentPreview name="Select" />
 
 ## Features
 

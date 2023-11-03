@@ -7,4 +7,7 @@ export default defineNuxtConfig({
       path: '../../docs/components/demo',
     },
   ],
+  radix: {
+    components: true,
+  },
 })

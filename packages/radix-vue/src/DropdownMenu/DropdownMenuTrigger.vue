@@ -43,7 +43,7 @@ onMounted(() => {
       :data-disabled="disabled ? '' : undefined"
       :disabled="disabled"
       :data-state="rootContext.open.value ? 'open' : 'closed'"
-      @pointerdown="
+      @click="
         async (event) => {
           // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)
           // but not when the control key is pressed (avoiding MacOS right click)

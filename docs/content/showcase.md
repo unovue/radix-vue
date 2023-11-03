@@ -1,7 +1,7 @@
 ---
 layout: showcase
 
-description: Showcase your packages or projects that made with Radix Vue
+description: Showcase your packages or projects made with Radix Vue
 
 packages:
   - title: '...'

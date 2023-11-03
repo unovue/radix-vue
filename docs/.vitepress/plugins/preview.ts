@@ -22,16 +22,27 @@ function rawPathToToken(rawPath: string) {
 
 export default function (md: MarkdownRenderer) {
   md.core.ruler.after('inline', 'component-preview', (state) => {
+    const insertComponentImport = (importString: string) => {
+      const index = state.tokens.findIndex(i => i.type === 'html_block' && i.content.match(/<script setup>/g))
+      if (index === -1) {
+        const importComponent = new state.Token('html_block', '', 0)
+
+        importComponent.content = `<script setup>\n${importString}\n</script>\n`
+        state.tokens.splice(0, 0, importComponent)
+      }
+      else {
+        const content = state.tokens[index].content
+        state.tokens[index].content = content.replace('</script>', `${importString}\n</script>`)
+      }
+    }
+
     // Define the regular expression to match the desired pattern
     const regex = /<ComponentPreview name="([^"]+)" \/>/g
 
     // Iterate through the Markdown content and replace the pattern
     state.src = state.src.replace(regex, (match, componentName) => {
-      const importComponent = new state.Token('html_block', '', 0)
       const pathName = `../../components/demo/${componentName}`
-
-      importComponent.content = `<script setup>\nimport Demo from '${pathName}/tailwind/index.vue'\n</script>\n`
-      state.tokens.splice(0, 0, importComponent)
+      insertComponentImport(`import ${componentName} from '${pathName}/tailwind/index.vue'`)
 
       const index = state.tokens.findIndex(i => i.content.match(regex))
 
@@ -51,8 +62,9 @@ export default function (md: MarkdownRenderer) {
         return prev
       }, {} as { [key: string]: string[] })
 
-      state.tokens[index].content = `<ComponentPreview name="${componentName}" files="${encodeURIComponent(JSON.stringify(groupedFiles))}" ><Demo />`
-      const tokenArray: Array<typeof importComponent> = []
+      state.tokens[index].content = `<ComponentPreview name="${componentName}" files="${encodeURIComponent(JSON.stringify(groupedFiles))}" ><${componentName} />`
+      const dummyToken = new state.Token('', '', 0)
+      const tokenArray: Array<typeof dummyToken> = []
 
       Object.entries(groupedFiles).forEach(([key, value]) => {
         const templateStart = new state.Token('html_inline', '', 0)

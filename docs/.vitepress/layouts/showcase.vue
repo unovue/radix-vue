@@ -13,7 +13,7 @@ const { frontmatter } = useData()
         <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold animate-text bg-gradient-to-r from-green-200 via-green-300 to-blue-400 bg-clip-text text-transparent ">
           Showcase
         </h1>
-        <h2 class="mt-2 md:mt-6 md:text-2xl font-medium text-[var(--vp-c-text-2)] max-w-[540px]">
+        <h2 class="mt-2 md:mt-6 md:text-2xl font-medium text-[var(--vp-c-text-2)] max-w-[480px]">
           {{ frontmatter.description }}
         </h2>
 

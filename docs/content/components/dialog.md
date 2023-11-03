@@ -16,7 +16,6 @@ A window overlaid on either the primary window or another dialog window, renderi
 
 <ComponentPreview name="Dialog" />
 
-
 ## Features
 
 <Highlights
@@ -347,6 +346,14 @@ If you want to hide the description, wrap it inside our Visually Hidden utility 
 />
 
 ## Examples
+
+### Nested dialog
+
+You can nest multiple layers of dialogs.
+
+<ComponentPreview name="DialogNested" />
+
+
 
 ### Close after asynchronous form submission
 

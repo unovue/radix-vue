@@ -105,8 +105,8 @@ watch(open, () => {
     <div
       ref="codeScrollWrapper"
       :key="cssFramework"
-      class="pb-10 block h-full"
-      :class="`${open ? 'overflow-scroll max-h-[80vh]' : 'overflow-hidden max-h-[150px]'}`"
+      class="pb-10 block"
+      :class="`${open ? 'overflow-scroll h-full min-h-[150px] max-h-[80vh]' : 'overflow-hidden h-[150px]'}`"
     >
       <TabsContent v-for="tab in tabs" :key="tab.label" :value="tab.label" as-child>
         <div class="relative -mt-5 text-base">

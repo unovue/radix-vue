@@ -23,7 +23,7 @@ if (!props.altText)
 </script>
 
 <template>
-  <ToastAnnounceExclude v-if="altText" :alt-text="altText" as-chld>
+  <ToastAnnounceExclude v-if="altText" :alt-text="altText" as-child>
     <ToastClose :as="as" :as-child="asChild">
       <slot />
     </ToastClose>

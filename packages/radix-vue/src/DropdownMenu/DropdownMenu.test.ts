@@ -28,10 +28,7 @@ describe('given default DropdownMenu', () => {
 
   describe('after opening the dropdown', () => {
     beforeEach(async () => {
-      await wrapper.find('button').trigger('pointerdown', {
-        button: 0,
-        ctrlKey: false,
-      })
+      await wrapper.find('button').trigger('click')
     })
 
     it('should pass axe accessibility tests', async () => {

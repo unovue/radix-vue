@@ -1,5 +1,5 @@
 export const components = {
-  Accordion: [
+  accordion: [
     'AccordionContent',
     'AccordionHeader',
     'AccordionItem',
@@ -7,18 +7,18 @@ export const components = {
     'AccordionTrigger',
   ],
 
-  Checkbox: [
+  checkbox: [
     'CheckboxRoot',
     'CheckboxIndicator',
   ],
 
-  Collapsible: [
+  collapsible: [
     'CollapsibleRoot',
     'CollapsibleTrigger',
     'CollapsibleContent',
   ],
 
-  Combobox: [
+  combobox: [
     'ComboboxRoot',
     'ComboboxInput',
     'ComboboxAnchor',
@@ -36,54 +36,54 @@ export const components = {
     'ComboboxPortal',
   ],
 
-  Switch: [
+  switch: [
     'SwitchRoot',
     'SwitchThumb',
   ],
 
-  Separator: [
+  separator: [
     'Separator',
   ],
 
-  Label: [
+  label: [
     'Label',
   ],
 
-  Toggle: [
+  toggle: [
     'Toggle',
   ],
 
-  ToggleGroup: [
+  toggleGroup: [
     'ToggleGroupRoot',
     'ToggleGroupItem',
   ],
 
-  AspectRatio: [
+  aspectRatio: [
     'AspectRatio',
   ],
 
-  Tabs: [
+  tabs: [
     'TabsRoot',
     'TabsList',
     'TabsContent',
     'TabsTrigger',
   ],
 
-  Slider: [
+  slider: [
     'SliderRoot',
     'SliderThumb',
     'SliderTrack',
     'SliderRange',
   ],
 
-  RadioGroup: [
+  radioGroup: [
     'RadioGroupRoot',
     'RadioGroupItem',
     'RadioGroupIndicator',
 
   ],
 
-  Pagination: [
+  pagination: [
     'PaginationRoot',
     'PaginationEllipsis',
     'PaginationFirst',
@@ -94,12 +94,12 @@ export const components = {
     'PaginationPrev',
   ],
 
-  Progress: [
+  progress: [
     'ProgressRoot',
     'ProgressIndicator',
   ],
 
-  Dialog: [
+  dialog: [
     'DialogRoot',
     'DialogTrigger',
     'DialogPortal',
@@ -110,7 +110,7 @@ export const components = {
     'DialogDescription',
   ],
 
-  AlertDialog: [
+  alertDialog: [
     'AlertDialogRoot',
     'AlertDialogTrigger',
     'AlertDialogPortal',
@@ -122,7 +122,7 @@ export const components = {
     'AlertDialogAction',
   ],
 
-  Toast: [
+  toast: [
     'ToastProvider',
     'ToastRoot',
     'ToastAction',
@@ -132,7 +132,7 @@ export const components = {
     'ToastDescription',
   ],
 
-  Toolbar: [
+  toolbar: [
     'ToolbarRoot',
     'ToolbarButton',
     'ToolbarLink',
@@ -141,13 +141,13 @@ export const components = {
     'ToolbarSeparator',
   ],
 
-  Avatar: [
+  avatar: [
     'AvatarRoot',
     'AvatarImage',
     'AvatarFallback',
   ],
 
-  Tooltip: [
+  tooltip: [
     'TooltipRoot',
     'TooltipTrigger',
     'TooltipContent',
@@ -156,7 +156,7 @@ export const components = {
     'TooltipProvider',
   ],
 
-  HoverCard: [
+  hoverCard: [
     'HoverCardRoot',
     'HoverCardTrigger',
     'HoverCardPortal',
@@ -164,7 +164,7 @@ export const components = {
     'HoverCardArrow',
   ],
 
-  Popover: [
+  popover: [
     'PopoverRoot',
     'PopoverTrigger',
     'PopoverPortal',
@@ -174,7 +174,7 @@ export const components = {
     'PopoverAnchor',
   ],
 
-  DropdownMenu: [
+  dropdownMenu: [
     'DropdownMenuRoot',
     'DropdownMenuTrigger',
     'DropdownMenuPortal',
@@ -193,7 +193,7 @@ export const components = {
     'DropdownMenuSubTrigger',
   ],
 
-  ContextMenu: [
+  contextMenu: [
     'ContextMenuRoot',
     'ContextMenuTrigger',
     'ContextMenuPortal',
@@ -212,7 +212,7 @@ export const components = {
     'ContextMenuSubTrigger',
   ],
 
-  Select: [
+  select: [
     'SelectRoot',
     'SelectTrigger',
     'SelectPortal',
@@ -231,7 +231,7 @@ export const components = {
     'SelectIcon',
   ],
 
-  Menubar: [
+  menubar: [
     'MenubarRoot',
     'MenubarTrigger',
     'MenubarPortal',
@@ -251,7 +251,7 @@ export const components = {
     'MenubarMenu',
   ],
 
-  NavigationMenu: [
+  navigationMenu: [
     'NavigationMenuContent',
     'NavigationMenuIndicator',
     'NavigationMenuItem',
@@ -263,7 +263,7 @@ export const components = {
     'NavigationMenuViewport',
   ],
 
-  ScrollArea: [
+  scrollArea: [
     'ScrollAreaRoot',
     'ScrollAreaViewport',
     'ScrollAreaScrollbar',
@@ -271,22 +271,22 @@ export const components = {
     'ScrollAreaCorner',
   ],
 
-  ConfigProvider: [
+  configProvider: [
     'ConfigProvider',
   ],
 
-  Primitive: [
+  primitive: [
     'Primitive',
     'Slot',
   ],
 
-  VisuallyHidden: [
+  visuallyHidden: [
     'VisuallyHidden',
   ],
 }
 
 export const utilities = {
-  Utilities: [
+  utilities: [
     'useId',
     'useEmitAsProps',
     'useForwardProps',

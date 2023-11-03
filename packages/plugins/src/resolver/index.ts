@@ -16,7 +16,7 @@ export default function (options: ResolverOptions = {}): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (name.startsWith(prefix)) {
+      if (name.toLowerCase().startsWith(prefix.toLowerCase())) {
         const componentName = name.substring(prefix.length)
         if (Object.values(components).flat().includes(componentName)) {
           return {

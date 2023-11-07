@@ -122,9 +122,10 @@ onUnmounted(() => {
   <input
     ref="inputRef"
     autocapitalize="none"
-    :autocomplete="isOtpMode ? 'true' : 'false'"
+    :autocomplete="isOtpMode ? 'one-time-code' : 'false'"
     :type="isPasswordMode ? 'password' : 'text'"
     :inputmode="isNumbericMode ? 'numeric' : 'text'"
+    :pattern="isNumbericMode ? '[0-9]*' : undefined"
     :placeholder="context.placeholder.value"
     :value="context.modelValue.value.at(index)"
     :disabled="disabled"

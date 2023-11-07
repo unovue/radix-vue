@@ -71,10 +71,10 @@ const isCompleted = computed(() => {
   return modelValues.length === inputElements.value.size
 })
 
-watch(isCompleted, (n) => {
-  if (n)
+watch(modelValue, () => {
+  if (isCompleted.value)
     emits('complete', modelValue.value)
-})
+}, { deep: true })
 
 const inputId = useId()
 providePinInputRootContext({

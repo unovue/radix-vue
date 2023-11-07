@@ -6,14 +6,16 @@ const value = ref<string[]>([])
 </script>
 
 <template>
-  <Story title="PinInput/Default" :layout="{ type: 'single', iframe: false }">
+  <Story title="PinInput/Numeric" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
       <PinInputRoot
         v-model="value"
         class="flex gap-2 items-center"
+        type="number"
+        :otp="true"
         @complete="e => console.log(e.join(''))"
       >
-        <PinInputLabel>Text label</PinInputLabel>
+        <PinInputLabel>Numeric label</PinInputLabel>
         <PinInputInput
           v-for="(id, index) in 5"
           :key="id"

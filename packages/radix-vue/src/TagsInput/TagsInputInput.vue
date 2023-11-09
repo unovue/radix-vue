@@ -1,5 +1,4 @@
 <script lang="ts">
-import { injectTagsInputRootContext } from './TagsInputRoot.vue'
 import type { PrimitiveProps } from '@/Primitive'
 
 export interface TagsInputInputProps extends PrimitiveProps {
@@ -8,6 +7,8 @@ export interface TagsInputInputProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
+import { nextTick } from 'vue'
+import { injectTagsInputRootContext } from './TagsInputRoot.vue'
 import { Primitive } from '@/Primitive'
 
 const props = withDefaults(defineProps<TagsInputInputProps>(), {
@@ -16,7 +17,12 @@ const props = withDefaults(defineProps<TagsInputInputProps>(), {
 
 const context = injectTagsInputRootContext()
 
-function handleEnter(event: Event) {
+async function handleEnter(event: Event) {
+  await nextTick()
+  // if keydown 'Enter' was prevented, we let user handle updating the value themselves
+  if (event.defaultPrevented)
+    return
+
   const target = event.target as HTMLInputElement
   if (!target.value)
     return
@@ -36,7 +42,7 @@ function handleEnter(event: Event) {
     autocapitalize="off"
     :data-invalid="context.isInvalidInput.value || undefined"
     @input="context.isInvalidInput.value = false"
-    @keydown.enter.prevent="handleEnter"
+    @keydown.enter="handleEnter"
     @keydown="context.onInputKeydown"
   >
     <slot />

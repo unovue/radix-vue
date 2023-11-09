@@ -50,7 +50,8 @@ function handleHomeEnd(ev: KeyboardEvent) {
   rootContext.onInputNavigation(ev.key === 'Home' ? 'home' : 'end')
 }
 
-function handleInput() {
+function handleInput(event: Event) {
+  rootContext.searchTerm.value = (event.target as HTMLInputElement)?.value
   if (!rootContext.open.value)
     rootContext.onOpenChange(true)
 
@@ -70,7 +71,6 @@ function handleInput() {
     aria-autocomplete="list"
     role="combobox"
     autocomplete="false"
-    @update:model-value="rootContext.searchTerm.value = $event"
     @input="handleInput"
     @keydown.down.up.prevent="handleKeyDown"
     @keydown.enter="rootContext.onInputEnter"

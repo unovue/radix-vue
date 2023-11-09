@@ -1,35 +1,49 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { ComboboxAnchor, ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxRoot, ComboboxTrigger, ComboboxViewport } from '@/Combobox'
 import { TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText, TagsInputRoot } from '..'
 import { Icon } from '@iconify/vue'
 
+const searchTerm = ref('')
 const values = ref(['Apple'])
 const options = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
+
+watch(values, () => {
+  searchTerm.value = ''
+}, { deep: true })
 </script>
 
 <template>
   <Story title="TagsInput/Combobox" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
-      <ComboboxRoot v-model="values" multiple>
+      <ComboboxRoot
+        v-model="values"
+        v-model:search-term="searchTerm"
+        multiple
+      >
         <ComboboxAnchor class="max-w-[400px] min-w-[160px] inline-flex items-center justify-between rounded p-2 text-[13px] leading-none  gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">
-          <ComboboxInput as-child>
-            <TagsInputRoot
-              v-model="values"
-              class="flex gap-2 items-center rounded-lg flex-wrap"
-            >
-              <TagsInputItem v-for="item in values" :key="item" :value="item" class="flex items-center justify-center gap-2 text-white bg-grass10 aria-[selected=true]:bg-grass11 rounded px-2 py-1">
-                <TagsInputItemText class="text-sm">
-                  {{ item }}
-                </TagsInputItemText>
-                <TagsInputItemDelete>
-                  <Icon icon="lucide:x" />
-                </TagsInputItemDelete>
-              </TagsInputItem>
+          <TagsInputRoot
+            v-model="values"
+            class="flex gap-2 items-center rounded-lg flex-wrap"
+          >
+            <TagsInputItem v-for="item in values" :key="item" :value="item" class="flex items-center justify-center gap-2 text-white bg-grass10 aria-[selected=true]:bg-grass11 rounded px-2 py-1">
+              <TagsInputItemText class="text-sm">
+                {{ item }}
+              </TagsInputItemText>
+              <TagsInputItemDelete>
+                <Icon icon="lucide:x" />
+              </TagsInputItemDelete>
+            </TagsInputItem>
 
-              <TagsInputInput placeholder="Anything..." class="focus:outline-none flex-1 rounded bg-transparent  placeholder:text-mauve10 px-1" />
-            </TagsInputRoot>
-          </ComboboxInput>
+            <ComboboxInput as-child>
+              <TagsInputInput
+                :model-value="searchTerm"
+                placeholder="Anything..."
+                class="focus:outline-none flex-1 rounded bg-transparent  placeholder:text-mauve10 px-1"
+                @keydown.enter.prevent
+              />
+            </ComboboxInput>
+          </TagsInputRoot>
 
           <ComboboxTrigger>
             <Icon icon="radix-icons:chevron-down" class="h-4 w-4 text-grass11" />

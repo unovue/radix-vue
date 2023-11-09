@@ -2,7 +2,6 @@
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useArrowNavigation, useCollection, useDirection } from '@/shared'
 import type { Direction } from '@/shared/types'
-import { useVModel } from '@vueuse/core'
 import { type Ref, ref, toRefs } from 'vue'
 
 export interface TagsInputRootProps extends PrimitiveProps {
@@ -33,6 +32,7 @@ export const [injectTagsInputRootContext, provideTagsInputRootContext]
 
 <script setup lang="ts">
 import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { useVModel } from '@vueuse/core'
 
 const props = defineProps<TagsInputRootProps>()
 const emits = defineEmits<TagsInputRootEmits>()
@@ -43,6 +43,7 @@ const dir = useDirection(propDir)
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue ?? [],
   passive: (props.modelValue === undefined) as false,
+  deep: true,
 }) as Ref<Array<string | object>>
 
 const { primitiveElement, currentElement } = usePrimitiveElement()

@@ -61,8 +61,8 @@ function handleInput() {
 <template>
   <Primitive
     ref="primitiveElement"
-    v-model="rootContext.searchTerm.value"
-    :type="type"
+    v-bind="props"
+    :value="rootContext.searchTerm.value"
     :aria-expanded="rootContext.open.value"
     :aria-controls="rootContext.contentId"
     :disabled="disabled"
@@ -70,6 +70,7 @@ function handleInput() {
     aria-autocomplete="list"
     role="combobox"
     autocomplete="false"
+    @update:model-value="rootContext.searchTerm.value = $event"
     @input="handleInput"
     @keydown.down.up.prevent="handleKeyDown"
     @keydown.enter="rootContext.onInputEnter"

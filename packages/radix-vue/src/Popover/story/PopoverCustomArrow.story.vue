@@ -9,6 +9,7 @@ import {
   PopoverRoot,
   PopoverTrigger,
 } from '../'
+import CustomArrowSvg from './CustomArrowSvg.vue'
 
 const toggleState = ref(false)
 </script>
@@ -91,9 +92,7 @@ const toggleState = ref(false)
               <Icon icon="radix-icons:cross-2" />
             </PopoverClose>
             <PopoverArrow :as-child="true" :width="40" :height="20">
-              <svg view-box="0 0 40 20">
-                <polygon points="0,0 40,0 20,20" fill="red" />
-              </svg>
+              <CustomArrowSvg />
             </PopoverArrow>
           </PopoverContent>
         </PopoverPortal>

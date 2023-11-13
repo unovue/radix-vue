@@ -30,6 +30,6 @@ export * from './ScrollArea'
 export * from './ConfigProvider'
 
 // utilities
-export { Primitive, Slot } from './Primitive'
-export { VisuallyHidden } from './VisuallyHidden'
+export { Primitive, Slot, type PrimitiveProps } from './Primitive'
+export { VisuallyHidden, type VisuallyHiddenProps } from './VisuallyHidden'
 export { useId, useEmitAsProps, useForwardProps, useForwardPropsEmits, useStateMachine } from './shared'

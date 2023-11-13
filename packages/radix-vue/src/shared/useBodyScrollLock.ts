@@ -36,7 +36,7 @@ export function useBodyScrollLock(initialState?: boolean | undefined) {
       return
 
     if (val) {
-      if (!initialOverflow.value)
+      if (initialOverflow.value === undefined)
         initialOverflow.value = document.body.style.overflow
 
       const verticalScrollbarWidth
@@ -63,18 +63,15 @@ export function useBodyScrollLock(initialState?: boolean | undefined) {
       // let dismissibleLayer set previous pointerEvent first
       nextTick(() => {
         document.body.style.pointerEvents = 'none'
+        document.body.style.overflow = 'hidden'
       })
-    }
-    else {
-      resetBodyStyle()
     }
   }, { immediate: true })
 
   onBeforeUnmount(() => {
-    if (!initialState)
-      return
+    if (initialState)
+      stack.value--
 
-    stack.value--
     if (stack.value === 0)
       resetBodyStyle()
   })

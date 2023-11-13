@@ -377,6 +377,12 @@ An optional arrow element to render alongside the popover. This can be used to h
       default: 5,
       description: '<span>The height of the arrow in pixels.</span>',
     },
+    {
+      name: 'viewBox',
+      type: 'string',
+      default: '0 0 30 10',
+      description: '<span>The viewBox of the arrow in pixels.</span>',
+    },
   ]"
 />
 

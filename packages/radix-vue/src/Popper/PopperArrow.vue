@@ -67,6 +67,7 @@ const baseSide = computed(() => OPPOSITE_SIDE[contentContext.placedSide.value])
       :as-child="asChild"
       :width="width"
       :height="height"
+      :view-box="viewBox"
     >
       <slot />
     </Arrow>

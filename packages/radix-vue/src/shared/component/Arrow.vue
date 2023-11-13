@@ -14,13 +14,6 @@ export interface ArrowProps extends PrimitiveProps {
    * @default 5
    */
   height?: number
-
-  /**
-   * The viewBox of the arrow in pixels.
-   *
-   * @default '0 0 30 10'
-   */
-  viewBox?: string
 }
 </script>
 
@@ -34,7 +27,6 @@ const props = withDefaults(defineProps<ArrowProps>(), {
   width: 10,
   height: 5,
   as: 'svg',
-  viewBox: '0 0 30 10',
 })
 
 const { primitiveElement } = usePrimitiveElement()
@@ -46,7 +38,7 @@ const { primitiveElement } = usePrimitiveElement()
     v-bind="props"
     :width="width"
     :height="height"
-    :viewBox="viewBox"
+    :viewBox="asChild ? undefined : '0 0 30 10'"
     preserveAspectRatio="none"
   >
     <slot><polygon points="0,0 30,0 15,10" /></slot>

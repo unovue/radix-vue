@@ -90,8 +90,8 @@ const toggleState = ref(false)
             >
               <Icon icon="radix-icons:cross-2" />
             </PopoverClose>
-            <PopoverArrow :as-child="true" :width="40" :height="20" view-box="0 0 40 20">
-              <svg>
+            <PopoverArrow :as-child="true" :width="40" :height="20">
+              <svg view-box="0 0 40 20">
                 <polygon points="0,0 40,0 20,20" fill="red" />
               </svg>
             </PopoverArrow>

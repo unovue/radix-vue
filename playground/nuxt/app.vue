@@ -4,7 +4,7 @@ import Card from './components/Card.vue'
 
 <template>
   <div class="w-full flex flex-col items-center">
-    <div class="max-w-6xl w-full grid grid-cols-3 gap-4 pt-40 pb-40">
+    <div class="max-w-6xl w-full flex flex-col lg:grid lg:grid-cols-3 gap-4 pt-40 pb-40">
       <Card>
         <Accordion />
       </Card>

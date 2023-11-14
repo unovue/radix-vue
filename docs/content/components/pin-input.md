@@ -253,6 +253,14 @@ import { Label, PinInputInput, PinInputRoot } from 'radix-vue'
       description: 'Focus on next input.',
     },
     {
+      keys: ['Home'],
+      description: 'Focus on the first input.',
+    },
+    {
+      keys: ['End'],
+      description: 'Focus on the last input.',
+    },
+    {
       keys: ['Backspace'],
       description: 'Deletes the value of the current input. If the input is empty, moves to the previous input and deletes that value as well.',
     },

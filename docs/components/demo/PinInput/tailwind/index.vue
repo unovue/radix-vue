@@ -12,6 +12,7 @@ const handleComplete = (e: string[]) => alert(e.join(''))
     <PinInputRoot
       id="pin-input"
       v-model="value"
+      placeholder="○"
       class="flex gap-2 items-center mt-1"
       @complete="handleComplete"
     >
@@ -19,8 +20,7 @@ const handleComplete = (e: string[]) => alert(e.join(''))
         v-for="(id, index) in 5"
         :key="id"
         :index="index"
-        placeholder="○"
-        class="w-10 h-10 rounded text-center text-green10 placeholder:text-mauve7 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-white"
+        class="w-10 h-10 bg-white rounded text-center shadow-lg text-green10 placeholder:text-mauve8 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-white"
       />
     </PinInputRoot>
   </div>

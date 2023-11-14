@@ -95,6 +95,7 @@ providePinInputRootContext({
     v-bind="$attrs"
     :dir="dir"
     :data-complete="isCompleted ? '' : undefined"
+    :data-disabled="disabled ? '' : undefined"
   >
     <slot :model-value="modelValue" />
   </Primitive>

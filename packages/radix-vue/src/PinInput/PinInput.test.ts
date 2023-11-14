@@ -6,6 +6,8 @@ import { axe } from 'vitest-axe'
 import userEvent from '@testing-library/user-event'
 
 describe('given default PinInput', () => {
+  // @ts-expect-error aXe throwing error complaining getComputedStyle
+  window.getComputedStyle = () => {}
   let wrapper: VueWrapper<InstanceType<typeof PinInput>>
   let inputs: DOMWrapper<HTMLInputElement>[] = []
 

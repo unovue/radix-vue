@@ -97,7 +97,6 @@ export const components = {
   pinInput: [
     'PinInputRoot',
     'PinInputInput',
-    'PinInputLabel',
   ],
 
   progress: [

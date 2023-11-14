@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { PinInputInput, PinInputLabel, PinInputRoot, type PinInputRootEmits, type PinInputRootProps } from '..'
+import { PinInputInput, PinInputRoot, type PinInputRootEmits, type PinInputRootProps } from '..'
+import { Label } from '@/Label'
 import { useEmitAsProps } from '@/shared'
 
 const props = defineProps<PinInputRootProps>()
@@ -10,12 +11,12 @@ const value = ref<string[]>([])
 </script>
 
 <template>
+  <Label for="otp">Test label</Label>
   <PinInputRoot
     v-model="value"
     class="flex gap-2 items-center"
     v-bind="{ ...props, ...useEmitAsProps(emits) }"
   >
-    <PinInputLabel>Test label</PinInputLabel>
     <PinInputInput
       v-for="(id, index) in 5"
       :key="id"

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { PinInputInput, PinInputLabel, PinInputRoot } from '..'
+import { PinInputInput, PinInputRoot } from '..'
 
 const value = ref<string[]>([])
 </script>
@@ -15,7 +15,6 @@ const value = ref<string[]>([])
         :otp="true"
         @complete="e => console.log(e.join(''))"
       >
-        <PinInputLabel>Numeric label</PinInputLabel>
         <PinInputInput
           v-for="(id, index) in 5"
           :key="id"

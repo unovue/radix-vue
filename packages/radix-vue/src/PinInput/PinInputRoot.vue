@@ -1,7 +1,7 @@
 <script lang="ts">
 import { type ComputedRef, type Ref, computed, ref, toRefs, watch } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useDirection, useId } from '@/shared'
+import { createContext, useDirection } from '@/shared'
 import type { Direction } from '@/shared/types'
 
 export type PinInputRootEmits = {
@@ -20,6 +20,7 @@ export interface PinInputRootProps extends PrimitiveProps {
   name?: string
   disabled?: boolean
   required?: boolean
+  id?: string
 }
 
 export interface PinInputRootContext {
@@ -31,7 +32,6 @@ export interface PinInputRootContext {
   dir: Ref<Direction>
   disabled: Ref<boolean>
   isCompleted: ComputedRef<boolean>
-  inputId: string
   inputElements?: Ref<Set<HTMLInputElement>>
   onInputElementChange: (el: HTMLInputElement) => void
 }
@@ -76,7 +76,6 @@ watch(modelValue, () => {
     emits('complete', modelValue.value)
 }, { deep: true })
 
-const inputId = useId()
 providePinInputRootContext({
   modelValue,
   mask,
@@ -86,7 +85,6 @@ providePinInputRootContext({
   dir,
   disabled,
   isCompleted,
-  inputId,
   inputElements,
   onInputElementChange,
 })
@@ -102,7 +100,7 @@ providePinInputRootContext({
   </Primitive>
 
   <input
-    :id="inputId"
+    :id="id"
     type="text"
     tabindex="-1"
     aria-hidden

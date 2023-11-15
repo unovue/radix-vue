@@ -120,12 +120,8 @@ watchEffect((cleanupFn) => {
   // if not then we focus to the container
   function handleMutations(mutations: MutationRecord[]) {
     const isLastFocusedElementExist = container.contains(lastFocusedElementRef.value)
-    if (!isLastFocusedElementExist) {
-      for (const mutation of mutations) {
-        if (mutation.removedNodes.length > 0)
-          focus(container)
-      }
-    }
+    if (!isLastFocusedElementExist)
+      focus(container)
   }
 
   document.addEventListener('focusin', handleFocusIn)

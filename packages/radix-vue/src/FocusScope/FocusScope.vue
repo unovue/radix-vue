@@ -113,13 +113,18 @@ watchEffect((cleanupFn) => {
   // When the focused element gets removed from the DOM, browsers move focus
   // back to the document.body. In this case, we move focus to the container
   // to keep focus trapped correctly.
+  // -- related: https://github.com/radix-vue/radix-vue/issues/518
+  // Radix Vue tentative solution:
+  // instead of leaning on document.activeElement, we use lastFocusedElementRef.value to check
+  // if the element still exist inside the container,
+  // if not then we focus to the container
   function handleMutations(mutations: MutationRecord[]) {
-    const focusedElement = document.activeElement as HTMLElement | null
-    if (focusedElement !== document.body)
-      return
-    for (const mutation of mutations) {
-      if (mutation.removedNodes.length > 0)
-        focus(container)
+    const isLastFocusedElementExist = container.contains(lastFocusedElementRef.value)
+    if (!isLastFocusedElementExist) {
+      for (const mutation of mutations) {
+        if (mutation.removedNodes.length > 0)
+          focus(container)
+      }
     }
   }
 

@@ -6,17 +6,30 @@ export const Accordion = {
   Item: AccordionItem,
   Root: AccordionRoot,
   Trigger: AccordionTrigger,
+} as {
+  Content: typeof AccordionContent
+  Header: typeof AccordionHeader
+  Item: typeof AccordionItem
+  Root: typeof AccordionRoot
+  Trigger: typeof AccordionTrigger
 }
 
 export const Checkbox = {
   Root: CheckboxRoot,
   Indicator: CheckboxIndicator,
+} as {
+  Root: typeof CheckboxRoot
+  Indicator: typeof CheckboxIndicator
 }
 
 export const Collapsible = {
   Root: CollapsibleRoot,
   Trigger: CollapsibleTrigger,
   Content: CollapsibleContent,
+} as {
+  Root: typeof CollapsibleRoot
+  Trigger: typeof CollapsibleTrigger
+  Content: typeof CollapsibleContent
 }
 
 export const Combobox = {
@@ -35,11 +48,30 @@ export const Combobox = {
   Separator: ComboboxSeparator,
   Arrow: ComboboxArrow,
   Portal: ComboboxPortal,
+} as {
+  Root: typeof ComboboxRoot
+  Input: typeof ComboboxInput
+  Anchor: typeof ComboboxAnchor
+  Trigger: typeof ComboboxTrigger
+  Cancel: typeof ComboboxCancel
+  Group: typeof ComboboxGroup
+  Label: typeof ComboboxLabel
+  Content: typeof ComboboxContent
+  Empty: typeof ComboboxEmpty
+  Viewport: typeof ComboboxViewport
+  Item: typeof ComboboxItem
+  ItemIndicator: typeof ComboboxItemIndicator
+  Separator: typeof ComboboxSeparator
+  Arrow: typeof ComboboxArrow
+  Portal: typeof ComboboxPortal
 }
 
 export const Switch = {
   Root: SwitchRoot,
   Thumb: SwitchThumb,
+} as {
+  Root: typeof SwitchRoot
+  Thumb: typeof SwitchThumb
 }
 
 export { Separator }
@@ -51,6 +83,9 @@ export { Toggle }
 export const ToggleGroup = {
   Root: ToggleGroupRoot,
   Item: ToggleGroupItem,
+} as {
+  Root: typeof ToggleGroupRoot
+  Item: typeof ToggleGroupItem
 }
 
 export { AspectRatio }
@@ -60,6 +95,11 @@ export const Tabs = {
   List: TabsList,
   Content: TabsContent,
   Trigger: TabsTrigger,
+} as {
+  Root: typeof TabsRoot
+  List: typeof TabsList
+  Content: typeof TabsContent
+  Trigger: typeof TabsTrigger
 }
 
 export const Slider = {
@@ -67,12 +107,21 @@ export const Slider = {
   Thumb: SliderThumb,
   Track: SliderTrack,
   Range: SliderRange,
+} as {
+  Root: typeof SliderRoot
+  Thumb: typeof SliderThumb
+  Track: typeof SliderTrack
+  Range: typeof SliderRange
 }
 
 export const RadioGroup = {
   Root: RadioGroupRoot,
   Item: RadioGroupItem,
   Indicator: RadioGroupIndicator,
+} as {
+  Root: typeof RadioGroupRoot
+  Item: typeof RadioGroupItem
+  Indicator: typeof RadioGroupIndicator
 }
 
 export const Pagination = {
@@ -84,11 +133,23 @@ export const Pagination = {
   ListItem: PaginationListItem,
   Next: PaginationNext,
   Prev: PaginationPrev,
+} as {
+  Root: typeof PaginationRoot
+  Ellipsis: typeof PaginationEllipsis
+  First: typeof PaginationFirst
+  Last: typeof PaginationLast
+  List: typeof PaginationList
+  ListItem: typeof PaginationListItem
+  Next: typeof PaginationNext
+  Prev: typeof PaginationPrev
 }
 
 export const Progress = {
   Root: ProgressRoot,
   Indicator: ProgressIndicator,
+} as {
+  Root: typeof ProgressRoot
+  Indicator: typeof ProgressIndicator
 }
 
 export const Dialog = {
@@ -100,6 +161,15 @@ export const Dialog = {
   Close: DialogClose,
   Title: DialogTitle,
   Description: DialogDescription,
+} as {
+  Root: typeof DialogRoot
+  Trigger: typeof DialogTrigger
+  Portal: typeof DialogPortal
+  Content: typeof DialogContent
+  Overlay: typeof DialogOverlay
+  Close: typeof DialogClose
+  Title: typeof DialogTitle
+  Description: typeof DialogDescription
 }
 
 export const AlertDialog = {
@@ -112,6 +182,16 @@ export const AlertDialog = {
   Title: AlertDialogTitle,
   Description: AlertDialogDescription,
   Action: AlertDialogAction,
+} as {
+  Root: typeof AlertDialogRoot
+  Trigger: typeof AlertDialogTrigger
+  Portal: typeof AlertDialogPortal
+  Content: typeof AlertDialogContent
+  Overlay: typeof AlertDialogOverlay
+  Cancel: typeof AlertDialogCancel
+  Title: typeof AlertDialogTitle
+  Description: typeof AlertDialogDescription
+  Action: typeof AlertDialogAction
 }
 
 export const Toast = {
@@ -122,6 +202,14 @@ export const Toast = {
   Viewport: ToastViewport,
   Title: ToastTitle,
   Description: ToastDescription,
+} as {
+  Provider: typeof ToastProvider
+  Root: typeof ToastRoot
+  Action: typeof ToastAction
+  Close: typeof ToastClose
+  Viewport: typeof ToastViewport
+  Title: typeof ToastTitle
+  Description: typeof ToastDescription
 }
 
 export const Toolbar = {
@@ -131,12 +219,23 @@ export const Toolbar = {
   ToggleGroup: ToolbarToggleGroup,
   ToggleItem: ToolbarToggleItem,
   Separator: ToolbarSeparator,
+} as {
+  Root: typeof ToolbarRoot
+  Button: typeof ToolbarButton
+  Link: typeof ToolbarLink
+  ToggleGroup: typeof ToolbarToggleGroup
+  ToggleItem: typeof ToolbarToggleItem
+  Separator: typeof ToolbarSeparator
 }
 
 export const Avatar = {
   Root: AvatarRoot,
   Image: AvatarImage,
   Fallback: AvatarFallback,
+} as {
+  Root: typeof AvatarRoot
+  Image: typeof AvatarImage
+  Fallback: typeof AvatarFallback
 }
 
 export const Tooltip = {
@@ -146,6 +245,13 @@ export const Tooltip = {
   Arrow: TooltipArrow,
   Portal: TooltipPortal,
   Provider: TooltipProvider,
+} as {
+  Root: typeof TooltipRoot
+  Trigger: typeof TooltipTrigger
+  Content: typeof TooltipContent
+  Arrow: typeof TooltipArrow
+  Portal: typeof TooltipPortal
+  Provider: typeof TooltipProvider
 }
 
 export const HoverCard = {
@@ -154,6 +260,12 @@ export const HoverCard = {
   Portal: HoverCardPortal,
   Content: HoverCardContent,
   Arrow: HoverCardArrow,
+} as {
+  Root: typeof HoverCardRoot
+  Trigger: typeof HoverCardTrigger
+  Portal: typeof HoverCardPortal
+  Content: typeof HoverCardContent
+  Arrow: typeof HoverCardArrow
 }
 
 export const Popover = {
@@ -164,6 +276,14 @@ export const Popover = {
   Arrow: PopoverArrow,
   Close: PopoverClose,
   Anchor: PopoverAnchor,
+} as {
+  Root: typeof PopoverRoot
+  Trigger: typeof PopoverTrigger
+  Portal: typeof PopoverPortal
+  Content: typeof PopoverContent
+  Arrow: typeof PopoverArrow
+  Close: typeof PopoverClose
+  Anchor: typeof PopoverAnchor
 }
 
 export const DropdownMenu = {
@@ -183,6 +303,23 @@ export const DropdownMenu = {
   Sub: DropdownMenuSub,
   SubContent: DropdownMenuSubContent,
   SubTrigger: DropdownMenuSubTrigger,
+} as {
+  Root: typeof DropdownMenuRoot
+  Trigger: typeof DropdownMenuTrigger
+  Portal: typeof DropdownMenuPortal
+  Content: typeof DropdownMenuContent
+  Arrow: typeof DropdownMenuArrow
+  Item: typeof DropdownMenuItem
+  Group: typeof DropdownMenuGroup
+  Separator: typeof DropdownMenuSeparator
+  CheckboxItem: typeof DropdownMenuCheckboxItem
+  ItemIndicator: typeof DropdownMenuItemIndicator
+  Label: typeof DropdownMenuLabel
+  RadioGroup: typeof DropdownMenuRadioGroup
+  RadioItem: typeof DropdownMenuRadioItem
+  Sub: typeof DropdownMenuSub
+  SubContent: typeof DropdownMenuSubContent
+  SubTrigger: typeof DropdownMenuSubTrigger
 }
 
 export const ContextMenu = {
@@ -202,6 +339,23 @@ export const ContextMenu = {
   Sub: ContextMenuSub,
   SubContent: ContextMenuSubContent,
   SubTrigger: ContextMenuSubTrigger,
+} as {
+  Root: typeof ContextMenuRoot
+  Trigger: typeof ContextMenuTrigger
+  Portal: typeof ContextMenuPortal
+  Content: typeof ContextMenuContent
+  Arrow: typeof ContextMenuArrow
+  Item: typeof ContextMenuItem
+  Group: typeof ContextMenuGroup
+  Separator: typeof ContextMenuSeparator
+  CheckboxItem: typeof ContextMenuCheckboxItem
+  ItemIndicator: typeof ContextMenuItemIndicator
+  Label: typeof ContextMenuLabel
+  RadioGroup: typeof ContextMenuRadioGroup
+  RadioItem: typeof ContextMenuRadioItem
+  Sub: typeof ContextMenuSub
+  SubContent: typeof ContextMenuSubContent
+  SubTrigger: typeof ContextMenuSubTrigger
 }
 
 export const Select = {
@@ -221,6 +375,23 @@ export const Select = {
   ScrollDownButton: SelectScrollDownButton,
   Value: SelectValue,
   Icon: SelectIcon,
+} as {
+  Root: typeof SelectRoot
+  Trigger: typeof SelectTrigger
+  Portal: typeof SelectPortal
+  Content: typeof SelectContent
+  Arrow: typeof SelectArrow
+  Separator: typeof SelectSeparator
+  ItemIndicator: typeof SelectItemIndicator
+  Label: typeof SelectLabel
+  Group: typeof SelectGroup
+  Item: typeof SelectItem
+  ItemText: typeof SelectItemText
+  Viewport: typeof SelectViewport
+  ScrollUpButton: typeof SelectScrollUpButton
+  ScrollDownButton: typeof SelectScrollDownButton
+  Value: typeof SelectValue
+  Icon: typeof SelectIcon
 }
 
 export const Menubar = {
@@ -241,6 +412,24 @@ export const Menubar = {
   SubContent: MenubarSubContent,
   SubTrigger: MenubarSubTrigger,
   Menu: MenubarMenu,
+} as {
+  Root: typeof MenubarRoot
+  Trigger: typeof MenubarTrigger
+  Portal: typeof MenubarPortal
+  Content: typeof MenubarContent
+  Arrow: typeof MenubarArrow
+  Item: typeof MenubarItem
+  Group: typeof MenubarGroup
+  Separator: typeof MenubarSeparator
+  CheckboxItem: typeof MenubarCheckboxItem
+  ItemIndicator: typeof MenubarItemIndicator
+  Label: typeof MenubarLabel
+  RadioGroup: typeof MenubarRadioGroup
+  RadioItem: typeof MenubarRadioItem
+  Sub: typeof MenubarSub
+  SubContent: typeof MenubarSubContent
+  SubTrigger: typeof MenubarSubTrigger
+  Menu: typeof MenubarMenu
 }
 
 export const NavigationMenu = {
@@ -253,6 +442,16 @@ export const NavigationMenu = {
   Sub: NavigationMenuSub,
   Trigger: NavigationMenuTrigger,
   Viewport: NavigationMenuViewport,
+} as {
+  Content: typeof NavigationMenuContent
+  Indicator: typeof NavigationMenuIndicator
+  Item: typeof NavigationMenuItem
+  Link: typeof NavigationMenuLink
+  List: typeof NavigationMenuList
+  Root: typeof NavigationMenuRoot
+  Sub: typeof NavigationMenuSub
+  Trigger: typeof NavigationMenuTrigger
+  Viewport: typeof NavigationMenuViewport
 }
 
 export const ScrollArea = {
@@ -261,4 +460,10 @@ export const ScrollArea = {
   Scrollbar: ScrollAreaScrollbar,
   Thumb: ScrollAreaThumb,
   Corner: ScrollAreaCorner,
+} as {
+  Root: typeof ScrollAreaRoot
+  Viewport: typeof ScrollAreaViewport
+  Scrollbar: typeof ScrollAreaScrollbar
+  Thumb: typeof ScrollAreaThumb
+  Corner: typeof ScrollAreaCorner
 }

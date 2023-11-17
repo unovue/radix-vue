@@ -32,7 +32,7 @@ export default defineBuildConfig([
     entries: ['./src/namespaced/index'],
     outDir: '../radix-vue/dist',
     clean: false,
-    declaration: false,
+    declaration: true,
     externals: [
       'radix-vue',
     ],

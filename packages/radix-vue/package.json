@@ -29,7 +29,10 @@
       "require": "./dist/resolver/index.cjs",
       "import": "./dist/resolver/index.mjs"
     },
-    "./index.css": "./dist/index.css"
+    "./namespaced": {
+      "require": "./dist/namespaced/index.cjs",
+      "import": "./dist/namespaced/index.mjs"
+    }
   },
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",

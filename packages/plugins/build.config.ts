@@ -27,4 +27,17 @@ export default defineBuildConfig([
       emitCJS: true,
     },
   },
+  {
+    name: 'Namespaced',
+    entries: ['./src/namespaced/index'],
+    outDir: '../radix-vue/dist',
+    clean: false,
+    declaration: false,
+    externals: [
+      'radix-vue',
+    ],
+    rollup: {
+      emitCJS: true,
+    },
+  },
 ])

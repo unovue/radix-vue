@@ -23,8 +23,7 @@ const namespaced = filteredComponent.map((curr: keyof typeof components) => {
     return `export const ${key} = {\n${Object.keys(tmp).map((k) => { return `  ${k}: ${tmp[k]},\n` }).join('')}}  as {\n${Object.keys(tmp).map((k) => { return `  ${k}: typeof ${tmp[k]}\n` }).join('')}}`
 })
 
-const template
-= `
+const template = `
 import { ${flattenComponents.join(', ')} } from 'radix-vue'
 
 ${namespaced.map(component => component).join('\n\n')}

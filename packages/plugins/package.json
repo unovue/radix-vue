@@ -13,7 +13,8 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "build": "tsx ./src/namespaced/generate && unbuild",
+    "build": "unbuild",
+    "generate": "tsx ./src/namespaced/generate",
     "stub": "unbuild --stub"
   },
   "dependencies": {

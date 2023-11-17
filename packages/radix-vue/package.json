@@ -30,6 +30,7 @@
       "import": "./dist/resolver/index.mjs"
     },
     "./namespaced": {
+      "types": "./dist/namespaced/index.d.ts",
       "require": "./dist/namespaced/index.cjs",
       "import": "./dist/namespaced/index.mjs"
     }

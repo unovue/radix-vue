@@ -94,6 +94,11 @@ export const components = {
     'PaginationPrev',
   ],
 
+  pinInput: [
+    'PinInputRoot',
+    'PinInputInput',
+  ],
+
   progress: [
     'ProgressRoot',
     'ProgressIndicator',

@@ -43,7 +43,7 @@ export const Primitive = defineComponent({
       default: false,
     },
     as: {
-      type: String as PropType<AsTag | Component>,
+      type: [String, Object] as PropType<AsTag | Component>,
       default: 'div',
     },
   },

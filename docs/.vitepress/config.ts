@@ -153,6 +153,7 @@ function sidebar() {
         { text: 'Menubar', link: '/components/menubar' },
         { text: 'Navigation Menu', link: '/components/navigation-menu' },
         { text: 'Pagination', link: '/components/pagination' },
+        { text: 'Pin Input', link: '/components/pin-input' },
         { text: 'Popover', link: '/components/popover' },
         { text: 'Progress', link: '/components/progress' },
         { text: 'Radio Group', link: '/components/radio-group' },

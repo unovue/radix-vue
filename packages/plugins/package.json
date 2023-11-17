@@ -14,12 +14,14 @@
   "sideEffects": false,
   "scripts": {
     "build": "unbuild",
+    "generate": "tsx ./src/namespaced/generate",
     "stub": "unbuild --stub"
   },
   "dependencies": {
     "@nuxt/kit": "npm:@nuxt/kit@latest",
     "@nuxt/schema": "latest",
     "radix-vue": "file:../radix-vue",
+    "tsx": "^4.1.2",
     "unbuild": "^2.0.0",
     "unplugin-vue-components": "^0.25.2"
   }

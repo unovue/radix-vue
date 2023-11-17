@@ -80,7 +80,7 @@ import DemoContainer from './DemoContainer.vue'
     <DemoContainer title="pagination" overflow>
       <PaginationDemo />
     </DemoContainer>
-    <DemoContainer title="pin-input">
+    <DemoContainer title="pin input">
       <PinInputDemo />
     </DemoContainer>
     <DemoContainer title="popover">

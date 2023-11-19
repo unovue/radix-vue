@@ -20,13 +20,15 @@ watch(values, () => {
         v-model="values"
         v-model:search-term="searchTerm"
         multiple
+        class="my-4"
       >
-        <ComboboxAnchor class="max-w-[400px] min-w-[160px] inline-flex items-center justify-between rounded p-2 text-[13px] leading-none  gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">
+        <ComboboxAnchor class="w-[400px] inline-flex items-center justify-between rounded-lg p-2 text-[13px] leading-none  gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">
           <TagsInputRoot
+            v-slot="{ values: tags }"
             v-model="values"
             class="flex gap-2 items-center rounded-lg flex-wrap"
           >
-            <TagsInputItem v-for="item in values" :key="item" :value="item" class="flex items-center justify-center gap-2 text-white bg-grass10 aria-[selected=true]:bg-grass11 rounded px-2 py-1">
+            <TagsInputItem v-for="item in tags" :key="item.toString()" :value="item" class="flex items-center justify-center gap-2 text-white bg-grass10 aria-[selected=true]:bg-grass11 rounded px-2 py-1">
               <TagsInputItemText class="text-sm">
                 {{ item }}
               </TagsInputItemText>
@@ -37,9 +39,9 @@ watch(values, () => {
 
             <ComboboxInput as-child>
               <TagsInputInput
-                :model-value="searchTerm"
-                placeholder="Anything..."
-                class="focus:outline-none flex-1 rounded bg-transparent  placeholder:text-mauve10 px-1"
+                v-model="searchTerm"
+                placeholder="Fruits..."
+                class="focus:outline-none flex-1 rounded bg-transparent  placeholder:text-mauve10 px-1  "
                 @keydown.enter.prevent
               />
             </ComboboxInput>

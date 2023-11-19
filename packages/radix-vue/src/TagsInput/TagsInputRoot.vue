@@ -146,6 +146,6 @@ provideTagsInputRootContext({
 
 <template>
   <Primitive ref="primitiveElement">
-    <slot />
+    <slot :values="modelValue" />
   </Primitive>
 </template>

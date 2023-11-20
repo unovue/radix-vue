@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useArrowNavigation, useCollection, useDirection } from '@/shared'
+import { createContext, useArrowNavigation, useDirection } from '@/shared'
 import type { Direction } from '@/shared/types'
 import { type Ref, ref, toRefs } from 'vue'
 
@@ -32,6 +32,7 @@ export const [injectTagsInputRootContext, provideTagsInputRootContext]
 
 <script setup lang="ts">
 import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { CollectionSlot, createCollection } from '@/Collection'
 import { useVModel } from '@vueuse/core'
 
 const props = defineProps<TagsInputRootProps>()
@@ -47,8 +48,8 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 }) as Ref<Array<string | object>>
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
-const { createCollection } = useCollection()
-const collections = createCollection(currentElement)
+
+const { getItems } = createCollection()
 
 const selectedElement = ref<HTMLElement>()
 const isInvalidInput = ref(false)
@@ -78,7 +79,8 @@ provideTagsInputRootContext({
   },
   onInputKeydown: (event) => {
     const target = event.target as HTMLInputElement
-    const lastTag = collections.value.at(-1)
+    const collection = getItems().map(i => i.$el)
+    const lastTag = collection.at(-1)
     switch (event.key) {
       case 'Delete':
       case 'Backspace': {
@@ -86,9 +88,9 @@ provideTagsInputRootContext({
           break
 
         if (selectedElement.value) {
-          const index = collections.value.findIndex(i => i === selectedElement.value)
+          const index = collection.findIndex(i => i === selectedElement.value)
           modelValue.value.splice(index, 1)
-          selectedElement.value = selectedElement.value === lastTag ? collections.value.at(index - 1) : collections.value.at(index + 1)
+          selectedElement.value = selectedElement.value === lastTag ? collection.at(index - 1) : collection.at(index + 1)
           event.preventDefault()
         }
         else if (event.key === 'Backspace') {
@@ -117,7 +119,7 @@ provideTagsInputRootContext({
         }
         else if (selectedElement.value) {
           const el = useArrowNavigation(event, selectedElement.value, currentElement.value, {
-            itemsArray: collections.value,
+            itemsArray: collection,
             loop: false,
             dir: dir.value,
           })
@@ -145,7 +147,9 @@ provideTagsInputRootContext({
 </script>
 
 <template>
-  <Primitive ref="primitiveElement">
-    <slot :values="modelValue" />
-  </Primitive>
+  <CollectionSlot>
+    <Primitive ref="primitiveElement">
+      <slot :values="modelValue" />
+    </Primitive>
+  </CollectionSlot>
 </template>

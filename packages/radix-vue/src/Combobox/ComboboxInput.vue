@@ -22,7 +22,9 @@ const rootContext = injectComboboxRootContext()
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 onMounted(() => {
-  const inputEl = currentElement.value.querySelector('input')
+  const inputEl = currentElement.value.nodeName === 'INPUT'
+    ? currentElement.value as HTMLInputElement
+    : currentElement.value.querySelector('input')
   if (!inputEl)
     return
 

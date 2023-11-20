@@ -13,7 +13,7 @@ const modelValue = ref(['Test'])
         v-model="modelValue"
         class="flex gap-2 items-center border p-2 rounded-lg bg-blackA7 w-[300px] flex-wrap border-blackA7"
       >
-        <TagsInputItem v-for="item in modelValue" :key="item" :value="item" class="flex items-center justify-center gap-2 bg-green8 aria-[selected=true]:bg-green9 rounded px-2 py-1">
+        <TagsInputItem v-for="item in modelValue" :key="item" :value="item" class="flex items-center justify-center gap-2 bg-green8 aria-[current=true]:bg-green9 rounded px-2 py-1">
           <TagsInputItemText class="text-sm">
             {{ item }}
           </TagsInputItemText>

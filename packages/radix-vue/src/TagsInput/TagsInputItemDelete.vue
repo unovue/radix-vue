@@ -26,6 +26,9 @@ function handleDelete() {
   <Primitive
     tabindex="-1"
     v-bind="props"
+    :aria-labelledby="itemContext.textId"
+    :aria-current="itemContext.isSelected.value"
+    :data-state="itemContext.isSelected.value ? 'active' : 'inactive'"
     :type="as === 'button' ? 'button' : undefined"
     @click="handleDelete"
   >

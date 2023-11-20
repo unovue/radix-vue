@@ -28,7 +28,7 @@ watch(values, () => {
             v-model="values"
             class="flex gap-2 items-center rounded-lg flex-wrap"
           >
-            <TagsInputItem v-for="item in tags" :key="item.toString()" :value="item" class="flex items-center justify-center gap-2 text-white bg-grass10 aria-[selected=true]:bg-grass11 rounded px-2 py-1">
+            <TagsInputItem v-for="item in tags" :key="item.toString()" :value="item" class="flex items-center justify-center gap-2 text-white bg-grass10 aria-[current=true]:bg-grass11 rounded px-2 py-1">
               <TagsInputItemText class="text-sm">
                 {{ item }}
               </TagsInputItemText>

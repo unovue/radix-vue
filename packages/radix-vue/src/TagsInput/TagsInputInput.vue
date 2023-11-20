@@ -3,19 +3,21 @@ import type { PrimitiveProps } from '@/Primitive'
 
 export interface TagsInputInputProps extends PrimitiveProps {
   placeholder?: string
+  autoFocus?: boolean
 }
 </script>
 
 <script setup lang="ts">
-import { nextTick } from 'vue'
+import { nextTick, onMounted } from 'vue'
 import { injectTagsInputRootContext } from './TagsInputRoot.vue'
-import { Primitive } from '@/Primitive'
+import { Primitive, usePrimitiveElement } from '@/Primitive'
 
 const props = withDefaults(defineProps<TagsInputInputProps>(), {
   as: 'input',
 })
 
 const context = injectTagsInputRootContext()
+const { primitiveElement, currentElement } = usePrimitiveElement()
 
 async function handleEnter(event: Event) {
   await nextTick()
@@ -31,10 +33,26 @@ async function handleEnter(event: Event) {
   if (isAdded)
     target.value = ''
 }
+
+onMounted(() => {
+  const inputEl = currentElement.value.nodeName === 'INPUT'
+    ? currentElement.value
+    : currentElement.value.querySelector('input')
+
+  if (!inputEl)
+    return
+
+  setTimeout(() => {
+    // make sure all DOM was flush then only capture the focus
+    if (props.autoFocus)
+      inputEl?.focus()
+  }, 1)
+})
 </script>
 
 <template>
   <Primitive
+    ref="primitiveElement"
     v-bind="props"
     type="text"
     autocomplete="off"

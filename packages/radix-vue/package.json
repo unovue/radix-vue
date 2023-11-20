@@ -1,7 +1,7 @@
 {
   "name": "radix-vue",
   "type": "module",
-  "version": "1.1.1",
+  "version": "1.2.0-beta.0",
   "description": "Vue port for Radix UI Primitives.",
   "author": "Radix Vue Contributors (https://github.com/radix-vue)",
   "license": "MIT",
@@ -29,7 +29,11 @@
       "require": "./dist/resolver/index.cjs",
       "import": "./dist/resolver/index.mjs"
     },
-    "./index.css": "./dist/index.css"
+    "./namespaced": {
+      "types": "./dist/namespaced/index.d.ts",
+      "require": "./dist/namespaced/index.cjs",
+      "import": "./dist/namespaced/index.mjs"
+    }
   },
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",

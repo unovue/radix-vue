@@ -38,8 +38,8 @@ const { primitiveElement } = usePrimitiveElement()
     v-bind="props"
     :width="width"
     :height="height"
-    viewBox="0 0 30 10"
-    preserveAspectRatio="none"
+    :viewBox="asChild ? undefined : '0 0 30 10'"
+    :preserveAspectRatio="asChild ? undefined : 'none'"
   >
     <slot><polygon points="0,0 30,0 15,10" /></slot>
   </Primitive>

@@ -65,6 +65,10 @@ const baseSide = computed(() => OPPOSITE_SIDE[contentContext.placedSide.value])
       }"
       :as="as"
       :as-child="asChild"
-    />
+      :width="width"
+      :height="height"
+    >
+      <slot />
+    </Arrow>
   </span>
 </template>

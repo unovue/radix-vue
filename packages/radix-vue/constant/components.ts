@@ -306,5 +306,6 @@ export const utilities = {
     'useForwardPropsEmits',
     'useId',
     'useStateMachine',
+    'withDefault',
   ],
 }

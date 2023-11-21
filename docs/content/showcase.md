@@ -13,14 +13,18 @@ packages:
     description: An unofficial, community-led Vue port of shadcn/ui.
     url: https://www.shadcn-vue.com/
     image: https://www.shadcn-vue.com/og.png
- 
 
+  - title: UI Thing
+    description: Reusable Nuxt 3 components.
+    url: https://ui-thing.behonbaker.com/getting-started/introduction
+    image: https://ui-thing.behonbaker.com/cover.png
 
 projects:
   - title: chibisafe
     description: Blazing fast file uploader and awesome bunker written in node! 🚀
     url: https://chibisafe.moe/
     image: https://chibisafe.moe/meta.jpg
+    
   - title: Crypto Map
     description: Explore the world and find places to spend your crypto.
     url: https://map.nimiq.com/
@@ -28,7 +32,4 @@ projects:
 
 
 starters:
-  - title: nuxt-ui-thing-starter
-    description: An opinionated Nuxt 3 starter template with components built with Radix-Vue.
-    url: https://github.com/BayBreezy/nuxt-ui-thing-starter 
 ---

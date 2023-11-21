@@ -39,7 +39,7 @@ const { frontmatter } = useData()
           </div>
         </div>
 
-        <div>
+        <div v-if="frontmatter.starters && frontmatter.starters.length">
           <h3 class="md:text-lg font-semibold ml-2 inline-flex items-center group">
             Starters
           </h3>

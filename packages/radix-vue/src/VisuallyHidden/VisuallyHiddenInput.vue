@@ -5,17 +5,32 @@ import VisuallyHidden from './VisuallyHidden.vue'
 const props = defineProps<{
   name: string
   value: T
+  required?: boolean
+  disabled?: boolean
 }>()
 
 const parsedValue = computed(() => {
-  if (typeof props.value === 'string' || typeof props.value === 'number')
+  // if primitive value
+  if (typeof props.value === 'string' || typeof props.value === 'number' || typeof props.value === 'boolean') {
     return [{ name: props.name, value: props.value }]
+  }
 
-  else if (typeof props.value === 'object' && Array.isArray(props.value))
-    return props.value.flatMap((obj, index) => Object.entries(obj).map(([key, value]) => ({ name: `[${index}][${props.name}][${key}]`, value })))
+  // if array value
+  else if (typeof props.value === 'object' && Array.isArray(props.value)) {
+    return props.value.flatMap((obj, index) => {
+      // if item in array is object
+      if (typeof obj === 'object')
+        return Object.entries(obj).map(([key, value]) => ({ name: `[${index}][${props.name}][${key}]`, value }))
+      // if item in array is not object, may be primitive
+      else
+        return ({ name: `[${props.name}][${index}]`, value: obj })
+    })
+  }
 
-  else if (typeof props.value === 'object' && !Array.isArray(props.value))
+  // if object value
+  else if (typeof props.value === 'object' && !Array.isArray(props.value)) {
     return Object.entries(props.value as object).map(([key, value]) => ({ name: `[${props.name}][${key}]`, value }))
+  }
 
   return []
 })
@@ -31,5 +46,7 @@ const parsedValue = computed(() => {
     readonly
     :name="parsed.name"
     :value="parsed.value"
+    :required="required"
+    :disabled="disabled"
   />
 </template>

@@ -1,5 +1,7 @@
 <script lang="ts">
-export interface ComboboxInputProps {
+import type { PrimitiveProps } from '@/Primitive'
+
+export interface ComboboxInputProps extends PrimitiveProps {
   type?: string
   disabled?: boolean
   autoFocus?: boolean
@@ -7,27 +9,31 @@ export interface ComboboxInputProps {
 </script>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted } from 'vue'
 import { injectComboboxRootContext } from './ComboboxRoot.vue'
+import { Primitive, usePrimitiveElement } from '@/Primitive'
 
 const props = withDefaults(defineProps<ComboboxInputProps>(), {
   type: 'text',
+  as: 'input',
 })
 
 const rootContext = injectComboboxRootContext()
 
-const elRef = ref<HTMLInputElement>()
+const { primitiveElement, currentElement } = usePrimitiveElement()
 onMounted(() => {
-  if (!elRef.value)
+  const inputEl = currentElement.value.nodeName === 'INPUT'
+    ? currentElement.value as HTMLInputElement
+    : currentElement.value.querySelector('input')
+  if (!inputEl)
     return
 
-  rootContext.inputElement = elRef
-  rootContext.onInputElementChange(elRef.value)
+  rootContext.onInputElementChange(inputEl)
 
   setTimeout(() => {
     // make sure all DOM was flush then only capture the focus
     if (props.autoFocus)
-      elRef.value?.focus()
+      inputEl?.focus()
   }, 1)
 })
 
@@ -46,7 +52,8 @@ function handleHomeEnd(ev: KeyboardEvent) {
   rootContext.onInputNavigation(ev.key === 'Home' ? 'home' : 'end')
 }
 
-function handleInput() {
+function handleInput(event: Event) {
+  rootContext.searchTerm.value = (event.target as HTMLInputElement)?.value
   if (!rootContext.open.value)
     rootContext.onOpenChange(true)
 
@@ -55,16 +62,15 @@ function handleInput() {
 </script>
 
 <template>
-  <input
-    ref="elRef"
-    v-model="rootContext.searchTerm.value"
-    :type="type"
+  <Primitive
+    ref="primitiveElement"
+    v-bind="props"
+    :value="rootContext.searchTerm.value"
     :aria-expanded="rootContext.open.value"
     :aria-controls="rootContext.contentId"
     :disabled="disabled"
     :aria-disabled="disabled ?? undefined"
     aria-autocomplete="list"
-    tabindex="0"
     role="combobox"
     autocomplete="false"
     @input="handleInput"
@@ -72,4 +78,6 @@ function handleInput() {
     @keydown.enter="rootContext.onInputEnter"
     @keydown.home.end.prevent="handleHomeEnd"
   >
+    <slot />
+  </Primitive>
 </template>

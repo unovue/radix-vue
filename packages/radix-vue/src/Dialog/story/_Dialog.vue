@@ -7,12 +7,10 @@ import {
   DialogDescription,
   DialogOverlay,
   DialogPortal,
-  DialogTitle,
-} from '../'
-import {
   DialogRoot,
+  DialogTitle,
   DialogTrigger,
-} from './export'
+} from '../'
 
 const dialogOpen = ref(false)
 </script>

@@ -5,26 +5,33 @@ import type { Direction } from '@/shared/types'
 import { type Ref, ref, toRefs } from 'vue'
 
 export interface TagsInputRootProps extends PrimitiveProps {
-  modelValue?: Array<string | object>
-  defaultValue?: Array<string | object>
+  modelValue?: Array<string>
+  defaultValue?: Array<string>
+  addOnPaste?: boolean
   duplicate?: boolean
   disabled?: boolean
+  delimiter?: string
   dir?: Direction
+  max?: number
 }
 
 export type TagsInputRootEmits = {
-  'update:modelValue': [payload: Array<string | object>]
+  'update:modelValue': [payload: Array<string>]
+  'invalid': [payload: string]
 }
 
 export interface TagsInputRootContext {
-  modelValue: Ref<Array<string | object>>
-  onAddValue: (payload: string | object) => boolean
+  modelValue: Ref<Array<string>>
+  onAddValue: (payload: string) => boolean
   onRemoveValue: (index: number) => void
   onInputKeydown: (event: KeyboardEvent) => void
   selectedElement: Ref<HTMLElement | undefined>
   isInvalidInput: Ref<boolean>
-  dir: Ref<Direction>
+  addOnPaste: Ref<boolean>
   disabled: Ref<boolean>
+  delimiter: Ref<string>
+  dir: Ref<Direction>
+  max: Ref<number>
 }
 
 export const [injectTagsInputRootContext, provideTagsInputRootContext]
@@ -36,17 +43,21 @@ import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { CollectionSlot, createCollection } from '@/Collection'
 import { useFocusWithin, useVModel } from '@vueuse/core'
 
-const props = defineProps<TagsInputRootProps>()
+const props = withDefaults(defineProps<TagsInputRootProps>(), {
+  defaultValue: () => [],
+  delimiter: '',
+  max: 0,
+})
 const emits = defineEmits<TagsInputRootEmits>()
 
-const { disabled, dir: propDir } = toRefs(props)
+const { addOnPaste, disabled, delimiter, max, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: props.defaultValue ?? [],
-  passive: (props.modelValue === undefined) as false,
+  defaultValue: props.defaultValue,
+  passive: true,
   deep: true,
-}) as Ref<Array<string | object>>
+}) as Ref<Array<string>>
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 const { focused } = useFocusWithin(currentElement)
@@ -59,6 +70,11 @@ const isInvalidInput = ref(false)
 provideTagsInputRootContext({
   modelValue,
   onAddValue: (payload) => {
+    if ((modelValue.value.length >= max.value) && !!max.value) {
+      emits('invalid', payload)
+      return false
+    }
+
     if (props.duplicate) {
       modelValue.value.push(payload)
       return true
@@ -73,6 +89,7 @@ provideTagsInputRootContext({
         isInvalidInput.value = true
       }
     }
+    emits('invalid', payload)
     return false
   },
   onRemoveValue: (index) => {
@@ -81,7 +98,9 @@ provideTagsInputRootContext({
   },
   onInputKeydown: (event) => {
     const target = event.target as HTMLInputElement
-    const collection = getItems().map(i => i.$el)
+    const collection = getItems().map(i => i.$el as HTMLElement).filter(i => i.dataset.disabled !== '')
+    if (!collection.length)
+      return
     const lastTag = collection.at(-1)
     switch (event.key) {
       case 'Delete':
@@ -122,7 +141,7 @@ provideTagsInputRootContext({
           event.preventDefault()
         }
         else if (selectedElement.value) {
-          const el = useArrowNavigation(event, selectedElement.value, currentElement.value, {
+          const el = useArrowNavigation(event, selectedElement.value, undefined, {
             itemsArray: collection,
             loop: false,
             dir: dir.value,
@@ -146,8 +165,11 @@ provideTagsInputRootContext({
   },
   selectedElement,
   isInvalidInput,
+  addOnPaste,
   dir,
   disabled,
+  delimiter,
+  max,
 })
 </script>
 
@@ -156,6 +178,9 @@ provideTagsInputRootContext({
     <Primitive
       ref="primitiveElement"
       :dir="dir"
+      :as="as"
+      :as-child="asChild"
+      :data-invalid="isInvalidInput ? '' : undefined"
       :data-disabled="disabled ? '' : undefined"
       :data-focused="focused ? '' : undefined"
     >

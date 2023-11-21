@@ -15,6 +15,8 @@ const props = withDefaults(defineProps<TagsInputCancelProps>(), {
 const context = injectTagsInputRootContext()
 
 function handleCancel() {
+  if (context.disabled.value)
+    return
   context.modelValue.value = []
 }
 </script>
@@ -23,6 +25,7 @@ function handleCancel() {
   <Primitive
     v-bind="props"
     :type="as === 'button' ? 'button' : undefined"
+    :data-disabled="context.disabled.value ? '' : undefined"
     @click="handleCancel"
   >
     <slot />

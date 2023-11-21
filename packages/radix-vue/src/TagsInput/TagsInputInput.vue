@@ -4,6 +4,7 @@ import type { PrimitiveProps } from '@/Primitive'
 export interface TagsInputInputProps extends PrimitiveProps {
   placeholder?: string
   autoFocus?: boolean
+  maxLength?: number
 }
 </script>
 
@@ -34,6 +35,39 @@ async function handleEnter(event: Event) {
     target.value = ''
 }
 
+function handleInput(event: InputEvent) {
+  context.isInvalidInput.value = false
+  const delimiter = context.delimiter.value
+  if (delimiter === event.data) {
+    const target = event.target as HTMLInputElement
+    target.value = target.value.replaceAll(delimiter, '')
+
+    const isAdded = context.onAddValue(target.value)
+    if (isAdded)
+      target.value = ''
+  }
+}
+
+function handlePaste(event: ClipboardEvent) {
+  if (context.addOnPaste.value) {
+    event.preventDefault()
+    const clipboardData = event.clipboardData
+    if (!clipboardData)
+      return
+
+    const value = clipboardData.getData('text')
+    if (context.delimiter.value) {
+      const splittedValue = value.split(context.delimiter.value)
+      splittedValue.forEach((v) => {
+        context.onAddValue(v)
+      })
+    }
+    else {
+      context.onAddValue(value)
+    }
+  }
+}
+
 onMounted(() => {
   const inputEl = currentElement.value.nodeName === 'INPUT'
     ? currentElement.value
@@ -58,10 +92,13 @@ onMounted(() => {
     autocomplete="off"
     autocorrect="off"
     autocapitalize="off"
-    :data-invalid="context.isInvalidInput.value || undefined"
-    @input="context.isInvalidInput.value = false"
+    :maxlength="maxLength"
+    :disabled="context.disabled.value"
+    :data-invalid="context.isInvalidInput.value ? '' : undefined"
+    @input="handleInput"
     @keydown.enter="handleEnter"
     @keydown="context.onInputKeydown"
+    @paste="handlePaste"
   >
     <slot />
   </Primitive>

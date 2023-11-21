@@ -17,12 +17,14 @@ const props = withDefaults(defineProps<TagsInputItemDeleteProps>(), {
 const context = injectTagsInputRootContext()
 const itemContext = injectTagsInputItemContext()
 
+const disabled = computed(() => itemContext.disabled?.value || context.disabled.value)
+
 function handleDelete() {
+  if (disabled.value)
+    return
   const index = context.modelValue.value.findIndex(i => i === itemContext.value.value)
   context.onRemoveValue(index)
 }
-
-const disabled = computed(() => itemContext.disabled?.value || context.disabled.value)
 </script>
 
 <template>

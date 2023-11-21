@@ -5,12 +5,12 @@ import { type Ref, computed, toRefs } from 'vue'
 import { injectTagsInputRootContext } from './TagsInputRoot.vue'
 
 export interface TagsInputItemProps extends PrimitiveProps {
-  value: string | object
+  value: string
   disabled?: boolean
 }
 
 export interface TagsInputItemContext {
-  value: Ref<string | object>
+  value: Ref<string>
   isSelected: Ref<boolean>
   disabled?: Ref<boolean>
   textId: string
@@ -46,6 +46,8 @@ provideTagsInputItemContext({
   <CollectionItem>
     <Primitive
       ref="primitiveElement"
+      :as="as"
+      :as-child="asChild"
       :aria-labelledby="textId"
       :aria-current="isSelected"
       :data-disabled="disabled ? '' : undefined"

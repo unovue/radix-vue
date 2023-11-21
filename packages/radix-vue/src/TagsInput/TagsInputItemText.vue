@@ -17,6 +17,6 @@ const itemContext = injectTagsInputItemContext()
 
 <template>
   <Primitive v-bind="props" :id="itemContext.textId">
-    <slot />
+    <slot>{{ itemContext.value.value }}</slot>
   </Primitive>
 </template>

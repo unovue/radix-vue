@@ -33,6 +33,9 @@ async function handleEnter(event: Event) {
   const isAdded = context.onAddValue(target.value)
   if (isAdded)
     target.value = ''
+
+  // prevent reloading when using inside of form
+  event.preventDefault()
 }
 
 function handleInput(event: InputEvent) {
@@ -86,8 +89,9 @@ onMounted(() => {
 
 <template>
   <Primitive
-    ref="primitiveElement"
     v-bind="props"
+    :id="context.id?.value"
+    ref="primitiveElement"
     type="text"
     autocomplete="off"
     autocorrect="off"

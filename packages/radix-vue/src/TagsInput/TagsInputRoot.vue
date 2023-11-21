@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useArrowNavigation, useDirection } from '@/shared'
+import { createContext, useArrowNavigation, useDirection, useFormControl } from '@/shared'
 import type { Direction } from '@/shared/types'
 import { type Ref, ref, toRefs } from 'vue'
 
@@ -13,6 +13,10 @@ export interface TagsInputRootProps extends PrimitiveProps {
   delimiter?: string
   dir?: Direction
   max?: number
+
+  required?: boolean
+  name?: string
+  id?: string
 }
 
 export type TagsInputRootEmits = {
@@ -32,6 +36,7 @@ export interface TagsInputRootContext {
   delimiter: Ref<string>
   dir: Ref<Direction>
   max: Ref<number>
+  id: Ref<string | undefined> | undefined
 }
 
 export const [injectTagsInputRootContext, provideTagsInputRootContext]
@@ -42,6 +47,7 @@ export const [injectTagsInputRootContext, provideTagsInputRootContext]
 import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { CollectionSlot, createCollection } from '@/Collection'
 import { useFocusWithin, useVModel } from '@vueuse/core'
+import { VisuallyHiddenInput } from '@/VisuallyHidden'
 
 const props = withDefaults(defineProps<TagsInputRootProps>(), {
   defaultValue: () => [],
@@ -50,7 +56,7 @@ const props = withDefaults(defineProps<TagsInputRootProps>(), {
 })
 const emits = defineEmits<TagsInputRootEmits>()
 
-const { addOnPaste, disabled, delimiter, max, dir: propDir } = toRefs(props)
+const { addOnPaste, disabled, delimiter, max, id, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
@@ -61,6 +67,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 const { focused } = useFocusWithin(currentElement)
+const isFormControl = useFormControl(currentElement)
 
 const { getItems } = createCollection()
 
@@ -170,6 +177,7 @@ provideTagsInputRootContext({
   disabled,
   delimiter,
   max,
+  id,
 })
 </script>
 
@@ -185,6 +193,14 @@ provideTagsInputRootContext({
       :data-focused="focused ? '' : undefined"
     >
       <slot :values="modelValue" />
+
+      <VisuallyHiddenInput
+        v-if="isFormControl && name"
+        :name="name"
+        :value="modelValue"
+        :required="required"
+        :disabled="disabled"
+      />
     </Primitive>
   </CollectionSlot>
 </template>

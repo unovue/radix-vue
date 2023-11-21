@@ -24,6 +24,7 @@ import SeparatorDemo from './demo/Separator/tailwind/index.vue'
 import SliderDemo from './demo/Slider/tailwind/index.vue'
 import SwitchDemo from './demo/Switch/tailwind/index.vue'
 import TabsDemo from './demo/Tabs/tailwind/index.vue'
+import TagsInputDemo from './demo/TagsInput/tailwind/index.vue'
 import ToastDemo from './demo/Toast/tailwind/index.vue'
 import ToggleDemo from './demo/Toggle/tailwind/index.vue'
 import ToggleGroupDemo from './demo/ToggleGroup/tailwind/index.vue'
@@ -109,6 +110,9 @@ import DemoContainer from './DemoContainer.vue'
     </DemoContainer>
     <DemoContainer title="tabs">
       <TabsDemo />
+    </DemoContainer>
+    <DemoContainer title="tags input">
+      <TagsInputDemo />
     </DemoContainer>
     <DemoContainer title="toast">
       <ToastDemo />

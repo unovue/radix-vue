@@ -163,6 +163,7 @@ function sidebar() {
         { text: 'Slider', link: '/components/slider' },
         { text: 'Switch', link: '/components/switch' },
         { text: 'Tabs', link: '/components/tabs' },
+        { text: 'Tags Input', link: '/components/tags-input' },
         { text: 'Toast', link: '/components/toast' },
         { text: 'Toggle', link: '/components/toggle' },
         { text: 'Toggle Group', link: '/components/toggle-group' },

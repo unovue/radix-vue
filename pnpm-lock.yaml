@@ -249,6 +249,9 @@ importers:
       vue:
         specifier: ^3.3.5
         version: 3.3.5(typescript@5.2.2)
+      vue-component-type-helpers:
+        specifier: ^1.8.22
+        version: 1.8.22
       vue-tsc:
         specifier: ^1.8.19
         version: 1.8.19(typescript@5.2.2)
@@ -10472,6 +10475,10 @@ packages:
 
   /vscode-textmate@8.0.0:
     resolution: {integrity: sha512-AFbieoL7a5LMqcnOF04ji+rpXadgOXnZsxQr//r83kLPr7biP7am3g9zbaZIaBGwBRWeSvoMD4mgPdX3e4NWBg==}
+    dev: true
+
+  /vue-component-type-helpers@1.8.22:
+    resolution: {integrity: sha512-LK3wJHs3vJxHG292C8cnsRusgyC5SEZDCzDCD01mdE/AoREFMl2tzLRuzwyuEsOIz13tqgBcnvysN3Lxsa14Fw==}
     dev: true
 
   /vue-component-type-helpers@1.8.4:

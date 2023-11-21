@@ -8,6 +8,7 @@ export interface TagsInputRootProps extends PrimitiveProps {
   modelValue?: Array<string | object>
   defaultValue?: Array<string | object>
   duplicate?: boolean
+  disabled?: boolean
   dir?: Direction
 }
 
@@ -23,7 +24,7 @@ export interface TagsInputRootContext {
   selectedElement: Ref<HTMLElement | undefined>
   isInvalidInput: Ref<boolean>
   dir: Ref<Direction>
-
+  disabled: Ref<boolean>
 }
 
 export const [injectTagsInputRootContext, provideTagsInputRootContext]
@@ -33,12 +34,12 @@ export const [injectTagsInputRootContext, provideTagsInputRootContext]
 <script setup lang="ts">
 import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { CollectionSlot, createCollection } from '@/Collection'
-import { useVModel } from '@vueuse/core'
+import { useFocusWithin, useVModel } from '@vueuse/core'
 
 const props = defineProps<TagsInputRootProps>()
 const emits = defineEmits<TagsInputRootEmits>()
 
-const { dir: propDir } = toRefs(props)
+const { disabled, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
@@ -48,6 +49,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 }) as Ref<Array<string | object>>
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
+const { focused } = useFocusWithin(currentElement)
 
 const { getItems } = createCollection()
 
@@ -103,17 +105,19 @@ provideTagsInputRootContext({
       case 'End':
       case 'ArrowRight':
       case 'ArrowLeft': {
+        const isArrowRight = (event.key === 'ArrowRight' && dir.value === 'ltr') || (event.key === 'ArrowLeft' && dir.value === 'rtl')
+        const isArrowLeft = !isArrowRight
         // only focus on tags when cursor is at the first position
         if (target.selectionStart !== 0 || target.selectionEnd !== 0)
           break
 
         // if you press ArrowLeft, then we last tag
-        if (event.key === 'ArrowLeft' && !selectedElement.value) {
+        if (isArrowLeft && !selectedElement.value) {
           selectedElement.value = lastTag
           event.preventDefault()
         }
         // if you press ArrowRight on last tag, you deselect
-        else if (event.key === 'ArrowRight' && lastTag && selectedElement.value === lastTag) {
+        else if (isArrowRight && lastTag && selectedElement.value === lastTag) {
           selectedElement.value = undefined
           event.preventDefault()
         }
@@ -143,12 +147,18 @@ provideTagsInputRootContext({
   selectedElement,
   isInvalidInput,
   dir,
+  disabled,
 })
 </script>
 
 <template>
   <CollectionSlot>
-    <Primitive ref="primitiveElement">
+    <Primitive
+      ref="primitiveElement"
+      :dir="dir"
+      :data-disabled="disabled ? '' : undefined"
+      :data-focused="focused ? '' : undefined"
+    >
       <slot :values="modelValue" />
     </Primitive>
   </CollectionSlot>

@@ -14,6 +14,7 @@ import LabelDemo from './demo/Label/tailwind/index.vue'
 import MenubarDemo from './demo/Menubar/tailwind/index.vue'
 import NavigationMenuDemo from './demo/NavigationMenu/tailwind/index.vue'
 import PaginationDemo from './demo/Pagination/tailwind/index.vue'
+import PinInputDemo from './demo/PinInput/tailwind/index.vue'
 import PopoverDemo from './demo/Popover/tailwind/index.vue'
 import ProgressDemo from './demo/Progress/tailwind/index.vue'
 import RadioGroupDemo from './demo/RadioGroup/tailwind/index.vue'
@@ -23,6 +24,7 @@ import SeparatorDemo from './demo/Separator/tailwind/index.vue'
 import SliderDemo from './demo/Slider/tailwind/index.vue'
 import SwitchDemo from './demo/Switch/tailwind/index.vue'
 import TabsDemo from './demo/Tabs/tailwind/index.vue'
+import TagsInputDemo from './demo/TagsInput/tailwind/index.vue'
 import ToastDemo from './demo/Toast/tailwind/index.vue'
 import ToggleDemo from './demo/Toggle/tailwind/index.vue'
 import ToggleGroupDemo from './demo/ToggleGroup/tailwind/index.vue'
@@ -79,6 +81,9 @@ import DemoContainer from './DemoContainer.vue'
     <DemoContainer title="pagination" overflow>
       <PaginationDemo />
     </DemoContainer>
+    <DemoContainer title="pin input">
+      <PinInputDemo />
+    </DemoContainer>
     <DemoContainer title="popover">
       <PopoverDemo />
     </DemoContainer>
@@ -105,6 +110,9 @@ import DemoContainer from './DemoContainer.vue'
     </DemoContainer>
     <DemoContainer title="tabs">
       <TabsDemo />
+    </DemoContainer>
+    <DemoContainer title="tags input">
+      <TagsInputDemo />
     </DemoContainer>
     <DemoContainer title="toast">
       <ToastDemo />

@@ -1,0 +1,37 @@
+@import '@radix-ui/colors/black-alpha.css';
+@import '@radix-ui/colors/mauve.css';
+@import '@radix-ui/colors/grass.css';
+
+/* reset */
+input {
+  all: unset;
+}
+
+.Text {
+  color: white
+}
+
+.PinInputInput{
+  text-align: center;
+  font-size: 15px;
+  line-height: 1;
+  align-items: center;
+  justify-content: center;
+  height: 2.25rem;
+  width: 2.25rem;
+  border-radius: 0.25rem; 
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.PinInputInput:disabled {
+  opacity: .5
+}
+
+.PinInputRoot{
+  display: flex;
+  align-items: center;
+  gap: 0.25rem; 
+  margin-top: 0.25rem;
+  color: rgb(255 255 255)
+}

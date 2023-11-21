@@ -7,6 +7,28 @@ export const components = {
     'AccordionTrigger',
   ],
 
+  alertDialog: [
+    'AlertDialogRoot',
+    'AlertDialogTrigger',
+    'AlertDialogPortal',
+    'AlertDialogContent',
+    'AlertDialogOverlay',
+    'AlertDialogCancel',
+    'AlertDialogTitle',
+    'AlertDialogDescription',
+    'AlertDialogAction',
+  ],
+
+  aspectRatio: [
+    'AspectRatio',
+  ],
+
+  avatar: [
+    'AvatarRoot',
+    'AvatarImage',
+    'AvatarFallback',
+  ],
+
   checkbox: [
     'CheckboxRoot',
     'CheckboxIndicator',
@@ -36,161 +58,8 @@ export const components = {
     'ComboboxPortal',
   ],
 
-  switch: [
-    'SwitchRoot',
-    'SwitchThumb',
-  ],
-
-  separator: [
-    'Separator',
-  ],
-
-  label: [
-    'Label',
-  ],
-
-  toggle: [
-    'Toggle',
-  ],
-
-  toggleGroup: [
-    'ToggleGroupRoot',
-    'ToggleGroupItem',
-  ],
-
-  aspectRatio: [
-    'AspectRatio',
-  ],
-
-  tabs: [
-    'TabsRoot',
-    'TabsList',
-    'TabsContent',
-    'TabsTrigger',
-  ],
-
-  slider: [
-    'SliderRoot',
-    'SliderThumb',
-    'SliderTrack',
-    'SliderRange',
-  ],
-
-  radioGroup: [
-    'RadioGroupRoot',
-    'RadioGroupItem',
-    'RadioGroupIndicator',
-
-  ],
-
-  pagination: [
-    'PaginationRoot',
-    'PaginationEllipsis',
-    'PaginationFirst',
-    'PaginationLast',
-    'PaginationList',
-    'PaginationListItem',
-    'PaginationNext',
-    'PaginationPrev',
-  ],
-
-  progress: [
-    'ProgressRoot',
-    'ProgressIndicator',
-  ],
-
-  dialog: [
-    'DialogRoot',
-    'DialogTrigger',
-    'DialogPortal',
-    'DialogContent',
-    'DialogOverlay',
-    'DialogClose',
-    'DialogTitle',
-    'DialogDescription',
-  ],
-
-  alertDialog: [
-    'AlertDialogRoot',
-    'AlertDialogTrigger',
-    'AlertDialogPortal',
-    'AlertDialogContent',
-    'AlertDialogOverlay',
-    'AlertDialogCancel',
-    'AlertDialogTitle',
-    'AlertDialogDescription',
-    'AlertDialogAction',
-  ],
-
-  toast: [
-    'ToastProvider',
-    'ToastRoot',
-    'ToastAction',
-    'ToastClose',
-    'ToastViewport',
-    'ToastTitle',
-    'ToastDescription',
-  ],
-
-  toolbar: [
-    'ToolbarRoot',
-    'ToolbarButton',
-    'ToolbarLink',
-    'ToolbarToggleGroup',
-    'ToolbarToggleItem',
-    'ToolbarSeparator',
-  ],
-
-  avatar: [
-    'AvatarRoot',
-    'AvatarImage',
-    'AvatarFallback',
-  ],
-
-  tooltip: [
-    'TooltipRoot',
-    'TooltipTrigger',
-    'TooltipContent',
-    'TooltipArrow',
-    'TooltipPortal',
-    'TooltipProvider',
-  ],
-
-  hoverCard: [
-    'HoverCardRoot',
-    'HoverCardTrigger',
-    'HoverCardPortal',
-    'HoverCardContent',
-    'HoverCardArrow',
-  ],
-
-  popover: [
-    'PopoverRoot',
-    'PopoverTrigger',
-    'PopoverPortal',
-    'PopoverContent',
-    'PopoverArrow',
-    'PopoverClose',
-    'PopoverAnchor',
-  ],
-
-  dropdownMenu: [
-    'DropdownMenuRoot',
-    'DropdownMenuTrigger',
-    'DropdownMenuPortal',
-    'DropdownMenuContent',
-    'DropdownMenuArrow',
-    'DropdownMenuItem',
-    'DropdownMenuGroup',
-    'DropdownMenuSeparator',
-    'DropdownMenuCheckboxItem',
-    'DropdownMenuItemIndicator',
-    'DropdownMenuLabel',
-    'DropdownMenuRadioGroup',
-    'DropdownMenuRadioItem',
-    'DropdownMenuSub',
-    'DropdownMenuSubContent',
-    'DropdownMenuSubTrigger',
+  configProvider: [
+    'ConfigProvider',
   ],
 
   contextMenu: [
@@ -212,23 +81,46 @@ export const components = {
     'ContextMenuSubTrigger',
   ],
 
-  select: [
-    'SelectRoot',
-    'SelectTrigger',
-    'SelectPortal',
-    'SelectContent',
-    'SelectArrow',
-    'SelectSeparator',
-    'SelectItemIndicator',
-    'SelectLabel',
-    'SelectGroup',
-    'SelectItem',
-    'SelectItemText',
-    'SelectViewport',
-    'SelectScrollUpButton',
-    'SelectScrollDownButton',
-    'SelectValue',
-    'SelectIcon',
+  dialog: [
+    'DialogRoot',
+    'DialogTrigger',
+    'DialogPortal',
+    'DialogContent',
+    'DialogOverlay',
+    'DialogClose',
+    'DialogTitle',
+    'DialogDescription',
+  ],
+
+  dropdownMenu: [
+    'DropdownMenuRoot',
+    'DropdownMenuTrigger',
+    'DropdownMenuPortal',
+    'DropdownMenuContent',
+    'DropdownMenuArrow',
+    'DropdownMenuItem',
+    'DropdownMenuGroup',
+    'DropdownMenuSeparator',
+    'DropdownMenuCheckboxItem',
+    'DropdownMenuItemIndicator',
+    'DropdownMenuLabel',
+    'DropdownMenuRadioGroup',
+    'DropdownMenuRadioItem',
+    'DropdownMenuSub',
+    'DropdownMenuSubContent',
+    'DropdownMenuSubTrigger',
+  ],
+
+  hoverCard: [
+    'HoverCardRoot',
+    'HoverCardTrigger',
+    'HoverCardPortal',
+    'HoverCardContent',
+    'HoverCardArrow',
+  ],
+
+  label: [
+    'Label',
   ],
 
   menubar: [
@@ -263,6 +155,44 @@ export const components = {
     'NavigationMenuViewport',
   ],
 
+  pagination: [
+    'PaginationRoot',
+    'PaginationEllipsis',
+    'PaginationFirst',
+    'PaginationLast',
+    'PaginationList',
+    'PaginationListItem',
+    'PaginationNext',
+    'PaginationPrev',
+  ],
+
+  pinInput: [
+    'PinInputRoot',
+    'PinInputInput',
+  ],
+
+  popover: [
+    'PopoverRoot',
+    'PopoverTrigger',
+    'PopoverPortal',
+    'PopoverContent',
+    'PopoverArrow',
+    'PopoverClose',
+    'PopoverAnchor',
+  ],
+
+  progress: [
+    'ProgressRoot',
+    'ProgressIndicator',
+  ],
+
+  radioGroup: [
+    'RadioGroupRoot',
+    'RadioGroupItem',
+    'RadioGroupIndicator',
+
+  ],
+
   scrollArea: [
     'ScrollAreaRoot',
     'ScrollAreaViewport',
@@ -271,8 +201,92 @@ export const components = {
     'ScrollAreaCorner',
   ],
 
-  configProvider: [
-    'ConfigProvider',
+  select: [
+    'SelectRoot',
+    'SelectTrigger',
+    'SelectPortal',
+    'SelectContent',
+    'SelectArrow',
+    'SelectSeparator',
+    'SelectItemIndicator',
+    'SelectLabel',
+    'SelectGroup',
+    'SelectItem',
+    'SelectItemText',
+    'SelectViewport',
+    'SelectScrollUpButton',
+    'SelectScrollDownButton',
+    'SelectValue',
+    'SelectIcon',
+  ],
+
+  separator: [
+    'Separator',
+  ],
+
+  slider: [
+    'SliderRoot',
+    'SliderThumb',
+    'SliderTrack',
+    'SliderRange',
+  ],
+
+  switch: [
+    'SwitchRoot',
+    'SwitchThumb',
+  ],
+
+  tabs: [
+    'TabsRoot',
+    'TabsList',
+    'TabsContent',
+    'TabsTrigger',
+  ],
+
+  tagsInput: [
+    'TagsInputRoot',
+    'TagsInputInput',
+    'TagsInputItem',
+    'TagsInputItemText',
+    'TagsInputItemDelete',
+    'TagsInputClear',
+  ],
+
+  toast: [
+    'ToastProvider',
+    'ToastRoot',
+    'ToastAction',
+    'ToastClose',
+    'ToastViewport',
+    'ToastTitle',
+    'ToastDescription',
+  ],
+
+  toggle: [
+    'Toggle',
+  ],
+
+  toggleGroup: [
+    'ToggleGroupRoot',
+    'ToggleGroupItem',
+  ],
+
+  toolbar: [
+    'ToolbarRoot',
+    'ToolbarButton',
+    'ToolbarLink',
+    'ToolbarToggleGroup',
+    'ToolbarToggleItem',
+    'ToolbarSeparator',
+  ],
+
+  tooltip: [
+    'TooltipRoot',
+    'TooltipTrigger',
+    'TooltipContent',
+    'TooltipArrow',
+    'TooltipPortal',
+    'TooltipProvider',
   ],
 
   primitive: [
@@ -287,10 +301,10 @@ export const components = {
 
 export const utilities = {
   utilities: [
-    'useId',
     'useEmitAsProps',
     'useForwardProps',
     'useForwardPropsEmits',
+    'useId',
     'useStateMachine',
   ],
 }

@@ -1,0 +1,109 @@
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+
+export interface TagsInputInputProps extends PrimitiveProps {
+  placeholder?: string
+  autoFocus?: boolean
+  maxLength?: number
+}
+</script>
+
+<script setup lang="ts">
+import { nextTick, onMounted } from 'vue'
+import { injectTagsInputRootContext } from './TagsInputRoot.vue'
+import { Primitive, usePrimitiveElement } from '@/Primitive'
+
+const props = withDefaults(defineProps<TagsInputInputProps>(), {
+  as: 'input',
+})
+
+const context = injectTagsInputRootContext()
+const { primitiveElement, currentElement } = usePrimitiveElement()
+
+async function handleEnter(event: Event) {
+  await nextTick()
+  // if keydown 'Enter' was prevented, we let user handle updating the value themselves
+  if (event.defaultPrevented)
+    return
+
+  const target = event.target as HTMLInputElement
+  if (!target.value)
+    return
+
+  const isAdded = context.onAddValue(target.value)
+  if (isAdded)
+    target.value = ''
+
+  // prevent reloading when using inside of form
+  event.preventDefault()
+}
+
+function handleInput(event: InputEvent) {
+  context.isInvalidInput.value = false
+  const delimiter = context.delimiter.value
+  if (delimiter === event.data) {
+    const target = event.target as HTMLInputElement
+    target.value = target.value.replaceAll(delimiter, '')
+
+    const isAdded = context.onAddValue(target.value)
+    if (isAdded)
+      target.value = ''
+  }
+}
+
+function handlePaste(event: ClipboardEvent) {
+  if (context.addOnPaste.value) {
+    event.preventDefault()
+    const clipboardData = event.clipboardData
+    if (!clipboardData)
+      return
+
+    const value = clipboardData.getData('text')
+    if (context.delimiter.value) {
+      const splittedValue = value.split(context.delimiter.value)
+      splittedValue.forEach((v) => {
+        context.onAddValue(v)
+      })
+    }
+    else {
+      context.onAddValue(value)
+    }
+  }
+}
+
+onMounted(() => {
+  const inputEl = currentElement.value.nodeName === 'INPUT'
+    ? currentElement.value
+    : currentElement.value.querySelector('input')
+
+  if (!inputEl)
+    return
+
+  setTimeout(() => {
+    // make sure all DOM was flush then only capture the focus
+    if (props.autoFocus)
+      inputEl?.focus()
+  }, 1)
+})
+</script>
+
+<template>
+  <Primitive
+    v-bind="props"
+    :id="context.id?.value"
+    ref="primitiveElement"
+    type="text"
+    autocomplete="off"
+    autocorrect="off"
+    autocapitalize="off"
+    :maxlength="maxLength"
+    :disabled="context.disabled.value"
+    :data-invalid="context.isInvalidInput.value ? '' : undefined"
+    @input="handleInput"
+    @keydown.enter="handleEnter"
+    @keydown="context.onInputKeydown"
+    @paste="handlePaste"
+  >
+    <slot />
+  </Primitive>
+</template>

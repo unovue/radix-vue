@@ -117,6 +117,17 @@ Contains all the tags input component parts.
       description: 'Maximum number of tags.',
     },
     {
+      name: 'required',
+      type: 'boolean',
+      description: '<span> When <Code>true</Code>, indicates that the user must add the tags input before the owning form can be submitted.</span>',
+    },
+    {
+      name: 'name',
+      type: 'string',
+      description:
+        'The name of the tags input submitted with its owning form as part of a name/value pair.',
+    },
+    {
       name: 'as',
       type: 'string | Component',
       default: 'div',

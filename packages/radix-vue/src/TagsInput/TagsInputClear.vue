@@ -2,13 +2,13 @@
 import type { PrimitiveProps } from '@/Primitive'
 import { injectTagsInputRootContext } from './TagsInputRoot.vue'
 
-export interface TagsInputCancelProps extends PrimitiveProps {}
+export interface TagsInputClearProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
 import { Primitive } from '@/Primitive'
 
-const props = withDefaults(defineProps<TagsInputCancelProps>(), {
+const props = withDefaults(defineProps<TagsInputClearProps>(), {
   as: 'button',
 })
 

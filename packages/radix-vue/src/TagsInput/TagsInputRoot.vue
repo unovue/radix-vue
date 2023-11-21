@@ -45,7 +45,7 @@ import { useFocusWithin, useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<TagsInputRootProps>(), {
   defaultValue: () => [],
-  delimiter: '',
+  delimiter: ',',
   max: 0,
 })
 const emits = defineEmits<TagsInputRootEmits>()

@@ -1,15 +1,14 @@
 ---
 title: Tags Input
-description: A set of layered sections of content—known as tab panels—that are displayed one at a time.
-name: tabs
-aria: https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel
+description: Tags input render tags inside an input, followed by an actual text input.
+name: tags-input 
 ---
 
 
 # Tags Input
 
 <Description>
-A set of layered sections of content—known as tab panels—that are displayed one at a time.
+Tag inputs render tags inside an input, followed by an actual text input.
 </Description>
 
 <ComponentPreview name="TagsInput" />
@@ -19,7 +18,10 @@ A set of layered sections of content—known as tab panels—that are displayed 
 <Highlights
   :features="[
     'Can be controlled or uncontrolled.',
-    'Full keyboard navigation.'
+    'Full keyboard navigation.',
+    'Limit the number of tags.',
+    'Accept value from clipboard.',
+    'Clear button to reset all tags values.'
   ]"
 />
 
@@ -37,7 +39,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { TagsInputDelete, TagsInputInput, TagsInputItem, TagsInputRoot, TagsInputText } from 'radix-vue'
+import { TagsInputClear, TagsInputDelete, TagsInputInput, TagsInputItem, TagsInputRoot, TagsInputText } from 'radix-vue'
 </script>
 
 <template>
@@ -48,6 +50,7 @@ import { TagsInputDelete, TagsInputInput, TagsInputItem, TagsInputRoot, TagsInpu
     </TagsInputItem>
 
     <TagsInputInput />
+    <TagsInputClear />
   </TagsInputRoot>
 </template>
 ```
@@ -56,27 +59,41 @@ import { TagsInputDelete, TagsInputInput, TagsInputItem, TagsInputRoot, TagsInpu
 
 ### Root
 
-Contains all the tabs component parts.
+Contains all the tags input component parts.
 
 <PropsTable
   :data="[
     {
       name: 'defaultValue',
       required: false,
-      type: 'string | object',
+      type: 'string',
       description:
         'The value of the tags that should be added. Use when you do not need to control the state of the tags input',
     },
     {
       name: 'modelValue',
       required: false,
-      type: 'string | object',
+      type: 'string',
       description: '<span> The controlled value of the tags input. Can be binded with <Code>v-model</Code>.</span>',
+    }, 
+    {
+      name: 'addOnPaste',
+      required: false,
+      type: 'boolean',
+      description: '<span> When <Code>true</Code>, allow adding tags on paste. Work in conjunction with <Code>delimiter</Code> prop.</span>',
+    }, 
+    {
+      name: 'delimiter',
+      required: false,
+      type: 'string',
+      default: ', (comma)',
+      description: 'The character to trigger the addition of a new tag. Also used to split tags for  <Code>@paste</Code> event',
     }, 
     {
       name: 'duplicate',
       required: false,
       type: 'boolean',
+      default: 'false',
       description: '<span> When <Code>true</Code>, allow duplicated tags.</span>',
     }, 
     {
@@ -92,6 +109,12 @@ Contains all the tabs component parts.
       type: 'boolean',
       default: 'false',
       description: '<span> When <Code>true</Code>, prevents the user from interacting with the tags input.</span>',
+    },
+    {
+      name: 'max',
+      required: false,
+      type: 'number',
+      description: 'Maximum number of tags.',
     },
     {
       name: 'as',
@@ -113,8 +136,13 @@ Contains all the tabs component parts.
   :data="[
     {
       name: '@update:modelValue',
-      type: '(value: string | object) => void',
+      type: '(value: string) => void',
       description: 'Event handler called when the value changes'
+    },
+    {
+      name: '@invalid',
+      type: '(value: string) => void',
+      description: 'Event handler called when the value is invalid'
     },
   ]" 
 />
@@ -130,12 +158,16 @@ Contains all the tabs component parts.
       attribute: '[data-focused]',
       values: 'Present when focus on input',
     },
+    {
+      attribute: '[data-invalid]',
+      values: 'Present when input value is invalid',
+    },
   ]"
 />
 
 ### Item
 
-Contains the triggers that are aligned along the edge of the active content.
+The component that contains the tag.
 
 <PropsTable
   :data="[
@@ -161,7 +193,7 @@ Contains the triggers that are aligned along the edge of the active content.
     },
     {
       name: 'value',
-      type: 'string | object',
+      type: 'string',
       description: 'Value associated with the tags',
     },
   ]"
@@ -173,19 +205,23 @@ Contains the triggers that are aligned along the edge of the active content.
       attribute: '[data-state]',
       values: ['active', 'inactive'],
     },
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    },
   ]"
 />
 
-### Item Text
+### ItemText
 
-The button that activates its associated content.
+The textual part of the tag. Important for accessibility. 
 
 <PropsTable
   :data="[
     {
       name: 'as',
       type: 'string | Component',
-      default: 'button',
+      default: 'span',
       description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
     },
     {
@@ -198,9 +234,9 @@ The button that activates its associated content.
   ]"
 />
 
-### Item Delete
+### ItemDelete
 
-The button that activates its associated content.
+The button that delete the associate tag.
 
 <PropsTable
   :data="[
@@ -235,14 +271,14 @@ The button that activates its associated content.
 
 ### Input
 
-Contains the content associated with each trigger.
+The input element for the tags input.
 
 <PropsTable
   :data="[
     {
       name: 'as',
       type: 'string | Component',
-      default: 'div',
+      default: 'input',
       description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
     },
     {
@@ -262,63 +298,83 @@ Contains the content associated with each trigger.
       type: 'boolean',
       description: '<span> Focus on element when mounted.</span>',
     },
+    {
+      name: 'maxLength',
+      type: 'number',
+      description: 'Maximum number of character allowed.',
+    },
+  ]"
+/>
+
+<DataAttributesTable
+  :data="[ 
+    {
+      attribute: '[data-invalid]',
+      values: 'Present when input value is invalid',
+    },
+  ]"
+/>
+
+
+
+### Clear
+
+The button that remove all tags.
+
+<PropsTable
+  :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'button',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    }, 
   ]"
 />
 
 <DataAttributesTable
   :data="[
     {
-      attribute: '[data-state]',
-      values: ['active', 'inactive'],
-    },
-    {
-      attribute: '[data-orientation]',
-      values: ['vertical', 'horizontal'],
-    },
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    }, 
   ]"
 />
 
 ## Examples
 
-### Vertical
+### With Combobox
 
-You can create vertical tabs by using the `orientation` prop.
+You can compose Tags input together with [Combobox](components/combobox.html).
+
+<ComponentPreview name="TagsInputCombobox" />
+
+
+### Paste behavior
+
+You can automatically add tags on paste by passing the `add-on-paste` prop.
 
 ```vue line=6
-<script setup>
-import { TabsContent, TabsList, TabsRoot, TabsTrigger } from 'radix-vue'
+<script setup lang="ts">
+import { TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText, TagsInputRoot } from 'radix-vue'
 </script>
 
 <template>
-  <TabsRoot default-value="tab1" orientation="vertical">
-    <TabsList aria-label="tabs example">
-      <TabsTrigger value="tab1">
-        One
-      </TabsTrigger>
-      <TabsTrigger value="tab2">
-        Two
-      </TabsTrigger>
-      <TabsTrigger value="tab3">
-        Three
-      </TabsTrigger>
-    </TabsList>
-    <TabsContent value="tab1">
-      Tab one content
-    </TabsContent>
-    <TabsContent value="tab2">
-      Tab two content
-    </TabsContent>
-    <TabsContent value="tab3">
-      Tab three content
-    </TabsContent>
-  </TabsRoot>
+  <TagsInputRoot v-model="modelValue" add-on-paste>
+    …
+  </TagsInputRoot>
 </template>
 ```
 
 ## Accessibility
-
-Adheres to the [Tabs WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel).
-
+ 
 ### Keyboard Interactions
 
 <KeyboardTable
@@ -334,7 +390,7 @@ Adheres to the [Tabs WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/pa
     {
       keys: ['ArrowRight'],
       description: '<span> Set the next tag active.</span>',
-    }, 
+    },
     {
       keys: ['ArrowLeft'],
       description: '<span> Set the previous tag active.</span>',

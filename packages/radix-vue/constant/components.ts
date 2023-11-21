@@ -249,7 +249,7 @@ export const components = {
     'TagsInputItem',
     'TagsInputItemText',
     'TagsInputItemDelete',
-    'TagsInputCancel',
+    'TagsInputClear',
   ],
 
   toast: [

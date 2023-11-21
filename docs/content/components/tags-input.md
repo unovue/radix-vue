@@ -363,7 +363,7 @@ The button that remove all tags.
 
 ### With Combobox
 
-You can compose Tags input together with [Combobox](components/combobox.html).
+You can compose Tags input together with [Combobox](../components/combobox.html).
 
 <ComponentPreview name="TagsInputCombobox" />
 

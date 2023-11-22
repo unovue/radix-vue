@@ -1,8 +1,9 @@
 <script lang="ts">
-import type { ComponentInternalInstance, ComputedRef, Ref } from 'vue'
+import type { Ref } from 'vue'
 import type { Direction } from '@/shared/types'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useCollection, useDirection, useFormControl, useId } from '@/shared'
+import { createContext, useDirection, useFormControl, useId } from '@/shared'
+import { createCollection } from '@/Collection'
 
 type ComboboxRootContext = {
   modelValue: Ref<string | Array<string> | object | Array<object>>
@@ -13,8 +14,6 @@ type ComboboxRootContext = {
   open: Ref<boolean>
   onOpenChange: (value: boolean) => void
   isUserInputted: Ref<boolean>
-  options: ComputedRef<Array<string | object>>
-  optionsInstance: Ref<Set<ComponentInternalInstance>>
   filteredOptions: Ref<Array<string | object>>
   contentId: string
   contentElement: Ref<HTMLElement | undefined>
@@ -52,11 +51,12 @@ export interface ComboboxRootProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { computed, nextTick, ref, toRaw, toRefs, watch } from 'vue'
+import { computed, nextTick, ref, toRefs, watch } from 'vue'
 import { PopperRoot } from '@/Popper'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
-import { useVModel } from '@vueuse/core'
+import { computedWithControl, useVModel } from '@vueuse/core'
 import { VisuallyHiddenInput } from '@/VisuallyHidden'
+import isEqual from 'fast-deep-equal'
 
 const props = withDefaults(defineProps<ComboboxRootProps>(), {
   open: undefined,
@@ -85,17 +85,25 @@ const open = useVModel(props, 'open', emit, {
 async function onOpenChange(val: boolean) {
   open.value = val
   await nextTick()
-  if (val && open.value === val)
+  if (val) {
+    if (modelValue.value) {
+      if (Array.isArray(modelValue.value) && multiple.value)
+        selectedValue.value = (getItems().find(i => (i.ref)?.dataset?.state === 'checked'))?.value
+      else
+        selectedValue.value = modelValue.value
+    }
     inputElement.value?.focus()
-  if (!val)
+    scrollSelectedValueIntoView()
+  }
+  else {
     isUserInputted.value = false
-
-  scrollSelectedValueIntoView()
+    resetSearchTerm()
+  }
 }
 
 function onValueChange(val: string | object) {
-  if (multiple.value && Array.isArray(modelValue.value)) {
-    const index = modelValue.value.findIndex(i => toRaw(i) === val)
+  if (Array.isArray(modelValue.value) && multiple.value) {
+    const index = modelValue.value.findIndex(i => isEqual(i, val))
     index === -1 ? modelValue.value.push(val as never) : modelValue.value.splice(index, 1)
   }
   else {
@@ -105,22 +113,16 @@ function onValueChange(val: string | object) {
 }
 
 const isUserInputted = ref(false)
-const optionsInstance = ref<Set<ComponentInternalInstance>>(new Set())
 
 const inputElement = ref<HTMLInputElement>()
 const contentElement = ref<HTMLElement>()
 const { primitiveElement, currentElement: parentElement } = usePrimitiveElement()
-const { createCollection } = useCollection(undefined, 'data-radix-vue-combobox-item')
-const collections = createCollection(contentElement)
+const { getItems, reactiveItems, itemMapSize } = createCollection<{ value: string | object }>('data-radix-vue-combobox-item')
 
 const selectedValue = ref<string | object>()
 
-const options = computed(() => {
-  const instances = Array.from(optionsInstance.value)
-  // we sort the instances based on the rendered html order
-  return instances
-    .sort((a, b) => collections.value.indexOf(a.vnode.el as HTMLElement) - collections.value.indexOf(b.vnode.el as HTMLElement))
-    .map(i => i.props.value as string | object)
+const options = computedWithControl(() => itemMapSize.value, () => {
+  return getItems().map(i => i.value)
 })
 
 const filteredOptions = computed(() => {
@@ -134,33 +136,29 @@ const filteredOptions = computed(() => {
   return options.value
 })
 
-const activeIndex = computed(() => filteredOptions.value.findIndex(i => toRaw(i) === toRaw(selectedValue.value)))
-const selectedElement = computed(() => {
-  return Array.from(optionsInstance.value).find(i => toRaw(i.props.value) === toRaw(selectedValue.value))?.vnode.el as HTMLElement | null
-})
-
-watch(() => filteredOptions.value.length, (length) => {
-  if (length && activeIndex.value === -1)
-    selectedValue.value = filteredOptions.value[0]
-})
-
-watch(modelValue, async (val) => {
-  await nextTick()
-  selectedValue.value = val
-  if (typeof val === 'string' && !multiple.value)
-    searchTerm.value = val
+function resetSearchTerm() {
+  if (typeof modelValue.value === 'string' && !multiple.value)
+    searchTerm.value = modelValue.value
   else
     searchTerm.value = ''
+}
+
+const activeIndex = computed(() => filteredOptions.value.findIndex(i => isEqual(i, selectedValue.value)))
+const selectedElement = computed(() => {
+  return reactiveItems.value.find(i => i.value === selectedValue.value)?.ref
+})
+
+// nextTick() are required in the following watchers as we are waiting for DOM element to be mounted first the only apply following logic
+watch(modelValue, async () => {
+  await nextTick()
+  resetSearchTerm()
 }, { immediate: true })
 
-watch(open, (val) => {
-  if (val && modelValue.value) {
-    if (typeof modelValue.value === 'string' && !multiple.value)
-      selectedValue.value = modelValue.value
-
-    else if (Array.isArray(modelValue.value) && multiple.value)
-      selectedValue.value = modelValue.value[0]
-  }
+watch(() => filteredOptions.value.length, async (length) => {
+  await nextTick()
+  await nextTick()
+  if (length && activeIndex.value === -1)
+    selectedValue.value = filteredOptions.value[0]
 })
 
 const isFormControl = useFormControl(parentElement)
@@ -181,8 +179,6 @@ provideComboboxRootContext({
   disabled,
   open,
   onOpenChange,
-  options,
-  optionsInstance,
   filteredOptions,
   contentId: useId(),
   inputElement,
@@ -205,7 +201,7 @@ provideComboboxRootContext({
     scrollSelectedValueIntoView()
   },
   onInputEnter: async () => {
-    if (selectedValue.value && selectedElement.value instanceof Element)
+    if (filteredOptions.value.length && selectedValue.value && selectedElement.value instanceof Element)
       selectedElement.value?.click()
   },
   selectedValue,
@@ -223,8 +219,10 @@ provideComboboxRootContext({
       :style="{
         pointerEvents: open ? 'auto' : undefined,
       }"
-      :as="as" :as-child="asChild" v-bind="$attrs"
+      :as="as"
+      :as-child="asChild"
       :dir="dir"
+      v-bind="$attrs"
     >
       <slot
         :active-index="activeIndex"

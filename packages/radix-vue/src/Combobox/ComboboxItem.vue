@@ -2,8 +2,9 @@
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, handleAndDispatchCustomEvent, useId } from '@/shared'
+import type { AcceptableValue } from './ComboboxRoot.vue'
 
-export type SelectEvent = CustomEvent<{ originalEvent: PointerEvent; value?: string | object }>
+export type SelectEvent<T> = CustomEvent<{ originalEvent: PointerEvent; value?: T }>
 interface ComboboxItemContext {
   isSelected: Ref<boolean>
 }
@@ -11,12 +12,12 @@ interface ComboboxItemContext {
 export const [injectComboboxItemContext, provideComboboxItemContext]
   = createContext<ComboboxItemContext>('ComboboxItem')
 
-export type ComboboxItemEmits = {
-  select: [event: SelectEvent]
+export type ComboboxItemEmits<T> = {
+  select: [event: SelectEvent<T>]
 }
 
-export interface ComboboxItemProps extends PrimitiveProps {
-  value: string | object
+export interface ComboboxItemProps<T> extends PrimitiveProps {
+  value: T
   disabled?: boolean
   textValue?: string
 }
@@ -24,7 +25,7 @@ export interface ComboboxItemProps extends PrimitiveProps {
 const COMBOBOX_SELECT = 'combobox.select'
 </script>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends AcceptableValue">
 import {
   computed,
   nextTick,
@@ -41,8 +42,8 @@ import {
 import { CollectionItem } from '@/Collection'
 import isEqual from 'fast-deep-equal'
 
-const props = defineProps<ComboboxItemProps>()
-const emits = defineEmits<ComboboxItemEmits>()
+const props = defineProps<ComboboxItemProps<T>>()
+const emits = defineEmits<ComboboxItemEmits<T>>()
 
 const { disabled } = toRefs(props)
 
@@ -63,10 +64,10 @@ const textId = useId()
 const isInOption = computed(() =>
   rootContext.isUserInputted.value
     ? rootContext.searchTerm.value === ''
-     || rootContext.filteredOptions.value.map(i => JSON.stringify(i)).includes(JSON.stringify(props.value))
+     || !!rootContext.filteredOptions.value.find(i => isEqual(i, props.value))
     : true)
 
-async function handleSelect(ev: SelectEvent) {
+async function handleSelect(ev: SelectEvent<T>) {
   emits('select', ev)
   if (ev?.defaultPrevented)
     return
@@ -116,7 +117,6 @@ provideComboboxItemContext({
       ref="primitiveElement"
       role="option"
       tabindex="-1"
-      :value="value"
       :aria-labelledby="textId"
       :data-highlighted="isFocused ? '' : undefined"
       :aria-selected="isSelected"

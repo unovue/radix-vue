@@ -5,9 +5,11 @@ import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useDirection, useFormControl, useId } from '@/shared'
 import { createCollection } from '@/Collection'
 
-type ComboboxRootContext = {
-  modelValue: Ref<string | Array<string> | object | Array<object>>
-  onValueChange: (val: string | object) => void
+export type AcceptableValue = string | number | boolean | object
+
+type ComboboxRootContext<T> = {
+  modelValue: Ref<T | Array<T>>
+  onValueChange: (val: T) => void
   searchTerm: Ref<string>
   multiple: Ref<boolean>
   disabled: Ref<boolean>
@@ -22,23 +24,23 @@ type ComboboxRootContext = {
   onInputElementChange: (el: HTMLInputElement) => void
   onInputNavigation: (dir: 'up' | 'down' | 'home' | 'end') => void
   onInputEnter: () => void
-  selectedValue: Ref<string | object | undefined>
-  onSelectedValueChange: (val: string | object) => void
+  selectedValue: Ref<T | undefined>
+  onSelectedValueChange: (val: T) => void
   parentElement: Ref<HTMLElement | undefined>
 }
 
 export const [injectComboboxRootContext, provideComboboxRootContext]
-  = createContext<ComboboxRootContext>('ComboboxRoot')
+  = createContext<ComboboxRootContext<AcceptableValue>>('ComboboxRoot')
 
-export type ComboboxRootEmits = {
-  'update:modelValue': [value: string | Array<string> | object | Array<object>]
+export type ComboboxRootEmits<T> = {
+  'update:modelValue': [value: T]
   'update:open': [value: boolean]
   'update:searchTerm': [value: string]
 }
 
-export interface ComboboxRootProps extends PrimitiveProps {
-  modelValue?: string | string[] | object | object[]
-  defaultValue?: string | string[] | object | object[]
+export interface ComboboxRootProps<T> extends PrimitiveProps {
+  modelValue?: T
+  defaultValue?: T
   open?: boolean
   defaultOpen?: boolean
   searchTerm?: string
@@ -46,11 +48,11 @@ export interface ComboboxRootProps extends PrimitiveProps {
   disabled?: boolean
   name?: string
   dir?: Direction
-  filterFunction?: (val: Array<string | any>, term: string) => Array<any>
+  filterFunction?: (val: Array<T>, term: string) => Array<any>
 }
 </script>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends AcceptableValue">
 import { computed, nextTick, ref, toRefs, watch } from 'vue'
 import { PopperRoot } from '@/Popper'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
@@ -58,29 +60,33 @@ import { computedWithControl, useVModel } from '@vueuse/core'
 import { VisuallyHiddenInput } from '@/VisuallyHidden'
 import isEqual from 'fast-deep-equal'
 
-const props = withDefaults(defineProps<ComboboxRootProps>(), {
+const props = withDefaults(defineProps<ComboboxRootProps<T>>(), {
   open: undefined,
 })
-const emit = defineEmits<ComboboxRootEmits>()
+const emit = defineEmits<ComboboxRootEmits<T>>()
 
 const { multiple, disabled, name, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
 
 const searchTerm = useVModel(props, 'searchTerm', emit, {
+  // @ts-expect-error ignore the type error here
   defaultValue: '',
   passive: (props.searchTerm === undefined) as false,
 }) as Ref<string>
 
 const modelValue = useVModel(props, 'modelValue', emit, {
+  // @ts-expect-error ignore the type error here
   defaultValue: props.defaultValue ?? multiple.value ? [] : undefined,
   passive: (props.modelValue === undefined) as false,
   deep: true,
-}) as Ref<string | Array<string> | object | Array<object>>
+}) as Ref<T | T[]>
 
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: (props.open === undefined) as false,
 }) as Ref<boolean>
+
+const selectedValue = ref<T>()
 
 async function onOpenChange(val: boolean) {
   open.value = val
@@ -90,7 +96,7 @@ async function onOpenChange(val: boolean) {
       if (Array.isArray(modelValue.value) && multiple.value)
         selectedValue.value = (getItems().find(i => (i.ref)?.dataset?.state === 'checked'))?.value
       else
-        selectedValue.value = modelValue.value
+        selectedValue.value = modelValue.value as T
     }
     inputElement.value?.focus()
     scrollSelectedValueIntoView()
@@ -101,10 +107,10 @@ async function onOpenChange(val: boolean) {
   }
 }
 
-function onValueChange(val: string | object) {
+function onValueChange(val: T) {
   if (Array.isArray(modelValue.value) && multiple.value) {
     const index = modelValue.value.findIndex(i => isEqual(i, val))
-    index === -1 ? modelValue.value.push(val as never) : modelValue.value.splice(index, 1)
+    index === -1 ? modelValue.value.push(val) : modelValue.value.splice(index, 1)
   }
   else {
     modelValue.value = val
@@ -117,9 +123,7 @@ const isUserInputted = ref(false)
 const inputElement = ref<HTMLInputElement>()
 const contentElement = ref<HTMLElement>()
 const { primitiveElement, currentElement: parentElement } = usePrimitiveElement()
-const { getItems, reactiveItems, itemMapSize } = createCollection<{ value: string | object }>('data-radix-vue-combobox-item')
-
-const selectedValue = ref<string | object>()
+const { getItems, reactiveItems, itemMapSize } = createCollection<{ value: T }>('data-radix-vue-combobox-item')
 
 const options = computedWithControl(() => itemMapSize.value, () => {
   return getItems().map(i => i.value)
@@ -173,6 +177,7 @@ function scrollSelectedValueIntoView() {
 provideComboboxRootContext({
   searchTerm,
   modelValue,
+  // @ts-expect-error igoring
   onValueChange,
   isUserInputted,
   multiple,
@@ -205,7 +210,7 @@ provideComboboxRootContext({
       selectedElement.value?.click()
   },
   selectedValue,
-  onSelectedValueChange: val => selectedValue.value = val,
+  onSelectedValueChange: val => selectedValue.value = val as T,
   parentElement,
   contentElement,
   onContentElementChange: val => contentElement.value = val,

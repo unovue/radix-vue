@@ -1,25 +1,33 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { createContext } from '@/shared'
-import { type ComponentPublicInstance, type Ref, defineComponent, h, ref, shallowRef, watch, watchEffect } from 'vue'
+import { type Ref, computed, defineComponent, getCurrentInstance, h, markRaw, ref, watch, watchEffect } from 'vue'
 import { Slot, usePrimitiveElement } from '@/Primitive'
 
-interface CollectionContext {
+interface CollectionContext<ItemData = {}> {
   collectionRef: Ref<HTMLElement | undefined>
-  itemMap: Ref<Map<HTMLElement, ComponentPublicInstance>>
+  itemMap: Ref<Map<HTMLElement, { ref: HTMLElement } & ItemData>>
+  attrName: string
 }
 
 const ITEM_DATA_ATTR = 'data-radix-vue-collection-item'
+
+// TODO: Not sure how to pass generic types here from provideCollectionContext
 export const [injectCollectionContext, provideCollectionContext]
   = createContext<CollectionContext>('CollectionProvider')
 
-export function createCollection() {
-  const itemMap = shallowRef<Map<HTMLElement, ComponentPublicInstance>>(new Map())
+export function createCollection<ItemData = {}>(attrName = ITEM_DATA_ATTR) {
+  const itemMap = ref<Map<HTMLElement, { ref: HTMLElement } & ItemData>>(new Map())
   const collectionRef = ref<HTMLElement>()
   const context = provideCollectionContext({
     collectionRef,
     itemMap,
-  })
+    attrName,
+  }) as CollectionContext<ItemData>
   const { getItems } = useCollection(context)
-  return { getItems }
+
+  const reactiveItems = computed(() => Array.from(context.itemMap.value.values()))
+  const itemMapSize = computed(() => context.itemMap.value.size)
+  return { getItems, reactiveItems, itemMapSize }
 }
 
 export const CollectionSlot = defineComponent({
@@ -36,32 +44,34 @@ export const CollectionSlot = defineComponent({
 
 export const CollectionItem = defineComponent({
   name: 'CollectionItem',
-  setup(_, { slots }) {
+  setup(_, { slots, attrs }) {
     const context = injectCollectionContext()
     const { primitiveElement, currentElement } = usePrimitiveElement()
+    const vm = getCurrentInstance()
 
     watchEffect((cleanupFn) => {
       if (currentElement.value) {
-        context.itemMap.value.set(currentElement.value, primitiveElement.value!)
-        cleanupFn(() => context.itemMap.value.delete(currentElement.value))
+        const key = markRaw(currentElement.value)
+        context.itemMap.value.set(key, { ref: currentElement.value!, ...(markRaw(vm?.parent?.props ?? {})) })
+        cleanupFn(() => context.itemMap.value.delete(key))
       }
     })
 
-    return () => h(Slot, { [ITEM_DATA_ATTR]: '', ref: primitiveElement }, slots)
+    return () => h(Slot, { ...attrs, [context.attrName]: '', ref: primitiveElement }, slots)
   },
 })
 
-export function useCollection(fallback?: CollectionContext) {
-  const context = fallback ?? injectCollectionContext()
+export function useCollection<ItemData = {}>(fallback?: CollectionContext<ItemData>) {
+  const context = fallback ?? injectCollectionContext() as CollectionContext<ItemData>
 
   const getItems = () => {
     const collectionNode = context.collectionRef.value
     if (!collectionNode)
       return []
-    const orderedNodes = Array.from(collectionNode.querySelectorAll(`[${ITEM_DATA_ATTR}]`))
+    const orderedNodes = Array.from(collectionNode.querySelectorAll(`[${context.attrName}]`))
     const items = Array.from(context.itemMap.value.values())
     const orderedItems = items.sort(
-      (a, b) => orderedNodes.indexOf(a.$el) - orderedNodes.indexOf(b.$el),
+      (a, b) => orderedNodes.indexOf(a.ref) - orderedNodes.indexOf(b.ref),
     )
     return orderedItems
   }

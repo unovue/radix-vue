@@ -105,7 +105,7 @@ provideTagsInputRootContext({
   },
   onInputKeydown: (event) => {
     const target = event.target as HTMLInputElement
-    const collection = getItems().map(i => i.$el as HTMLElement).filter(i => i.dataset.disabled !== '')
+    const collection = getItems().map(i => i.ref).filter(i => i.dataset.disabled !== '')
     if (!collection.length)
       return
     const lastTag = collection.at(-1)

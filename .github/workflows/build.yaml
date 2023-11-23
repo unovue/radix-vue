@@ -8,8 +8,6 @@ on:
       - 'packages/**'
 
   pull_request:
-    branches:
-      - main
     paths:
       - 'packages/**'
 

@@ -14,7 +14,7 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
     <Variant title="default">
       <div class="flex flex-col">
         <button @click="v = 'Banana'">
-          Set search term {{ searchTerm }} from "Banana"
+          Set search term {{ searchTerm }} to "Banana"
         </button>
         <ComboboxRoot v-model="v" v-model:searchTerm="searchTerm">
           <ComboboxAnchor class="w-full min-w-[160px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">

@@ -1,4 +1,4 @@
-import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogOverlay, AlertDialogPortal, AlertDialogRoot, AlertDialogTitle, AlertDialogTrigger, AspectRatio, AvatarFallback, AvatarImage, AvatarRoot, CheckboxIndicator, CheckboxRoot, CollapsibleContent, CollapsibleRoot, CollapsibleTrigger, ComboboxAnchor, ComboboxArrow, ComboboxCancel, ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxPortal, ComboboxRoot, ComboboxSeparator, ComboboxTrigger, ComboboxViewport, ContextMenuArrow, ContextMenuCheckboxItem, ContextMenuContent, ContextMenuGroup, ContextMenuItem, ContextMenuItemIndicator, ContextMenuLabel, ContextMenuPortal, ContextMenuRadioGroup, ContextMenuRadioItem, ContextMenuRoot, ContextMenuSeparator, ContextMenuSub, ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuTrigger, DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger, DropdownMenuArrow, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuItemIndicator, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuRoot, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger, Label, MenubarArrow, MenubarCheckboxItem, MenubarContent, MenubarGroup, MenubarItem, MenubarItemIndicator, MenubarLabel, MenubarMenu, MenubarPortal, MenubarRadioGroup, MenubarRadioItem, MenubarRoot, MenubarSeparator, MenubarSub, MenubarSubContent, MenubarSubTrigger, MenubarTrigger, NavigationMenuContent, NavigationMenuIndicator, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuRoot, NavigationMenuSub, NavigationMenuTrigger, NavigationMenuViewport, PaginationEllipsis, PaginationFirst, PaginationLast, PaginationList, PaginationListItem, PaginationNext, PaginationPrev, PaginationRoot, PinInputInput, PinInputRoot, PopoverAnchor, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger, ProgressIndicator, ProgressRoot, RadioGroupIndicator, RadioGroupItem, RadioGroupRoot, ScrollAreaCorner, ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport, SelectArrow, SelectContent, SelectGroup, SelectIcon, SelectItem, SelectItemIndicator, SelectItemText, SelectLabel, SelectPortal, SelectRoot, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue, SelectViewport, Separator, SliderRange, SliderRoot, SliderThumb, SliderTrack, SwitchRoot, SwitchThumb, TabsContent, TabsList, TabsRoot, TabsTrigger, ToastAction, ToastClose, ToastDescription, ToastProvider, ToastRoot, ToastTitle, ToastViewport, Toggle, ToggleGroupItem, ToggleGroupRoot, ToolbarButton, ToolbarLink, ToolbarRoot, ToolbarSeparator, ToolbarToggleGroup, ToolbarToggleItem, TooltipArrow, TooltipContent, TooltipPortal, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
+import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogOverlay, AlertDialogPortal, AlertDialogRoot, AlertDialogTitle, AlertDialogTrigger, AspectRatio, AvatarFallback, AvatarImage, AvatarRoot, CheckboxIndicator, CheckboxRoot, CollapsibleContent, CollapsibleRoot, CollapsibleTrigger, ComboboxAnchor, ComboboxArrow, ComboboxCancel, ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxPortal, ComboboxRoot, ComboboxSeparator, ComboboxTrigger, ComboboxViewport, ContextMenuArrow, ContextMenuCheckboxItem, ContextMenuContent, ContextMenuGroup, ContextMenuItem, ContextMenuItemIndicator, ContextMenuLabel, ContextMenuPortal, ContextMenuRadioGroup, ContextMenuRadioItem, ContextMenuRoot, ContextMenuSeparator, ContextMenuSub, ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuTrigger, DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger, DropdownMenuArrow, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuItemIndicator, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuRoot, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger, Label, MenubarArrow, MenubarCheckboxItem, MenubarContent, MenubarGroup, MenubarItem, MenubarItemIndicator, MenubarLabel, MenubarMenu, MenubarPortal, MenubarRadioGroup, MenubarRadioItem, MenubarRoot, MenubarSeparator, MenubarSub, MenubarSubContent, MenubarSubTrigger, MenubarTrigger, NavigationMenuContent, NavigationMenuIndicator, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuRoot, NavigationMenuSub, NavigationMenuTrigger, NavigationMenuViewport, PaginationEllipsis, PaginationFirst, PaginationLast, PaginationList, PaginationListItem, PaginationNext, PaginationPrev, PaginationRoot, PinInputInput, PinInputRoot, PopoverAnchor, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger, ProgressIndicator, ProgressRoot, RadioGroupIndicator, RadioGroupItem, RadioGroupRoot, ScrollAreaCorner, ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport, SelectArrow, SelectContent, SelectGroup, SelectIcon, SelectItem, SelectItemIndicator, SelectItemText, SelectLabel, SelectPortal, SelectRoot, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue, SelectViewport, Separator, SliderRange, SliderRoot, SliderThumb, SliderTrack, SwitchRoot, SwitchThumb, TabsContent, TabsList, TabsRoot, TabsTrigger, TagsInputClear, TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText, TagsInputRoot, ToastAction, ToastClose, ToastDescription, ToastProvider, ToastRoot, ToastTitle, ToastViewport, Toggle, ToggleGroupItem, ToggleGroupRoot, ToolbarButton, ToolbarLink, ToolbarRoot, ToolbarSeparator, ToolbarToggleGroup, ToolbarToggleItem, TooltipArrow, TooltipContent, TooltipPortal, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
 
 export const Accordion = {
   Content: AccordionContent,
@@ -12,6 +12,40 @@ export const Accordion = {
   Item: typeof AccordionItem
   Root: typeof AccordionRoot
   Trigger: typeof AccordionTrigger
+}
+
+export const AlertDialog = {
+  Root: AlertDialogRoot,
+  Trigger: AlertDialogTrigger,
+  Portal: AlertDialogPortal,
+  Content: AlertDialogContent,
+  Overlay: AlertDialogOverlay,
+  Cancel: AlertDialogCancel,
+  Title: AlertDialogTitle,
+  Description: AlertDialogDescription,
+  Action: AlertDialogAction,
+} as {
+  Root: typeof AlertDialogRoot
+  Trigger: typeof AlertDialogTrigger
+  Portal: typeof AlertDialogPortal
+  Content: typeof AlertDialogContent
+  Overlay: typeof AlertDialogOverlay
+  Cancel: typeof AlertDialogCancel
+  Title: typeof AlertDialogTitle
+  Description: typeof AlertDialogDescription
+  Action: typeof AlertDialogAction
+}
+
+export { AspectRatio }
+
+export const Avatar = {
+  Root: AvatarRoot,
+  Image: AvatarImage,
+  Fallback: AvatarFallback,
+} as {
+  Root: typeof AvatarRoot
+  Image: typeof AvatarImage
+  Fallback: typeof AvatarFallback
 }
 
 export const Checkbox = {
@@ -66,98 +100,40 @@ export const Combobox = {
   Portal: typeof ComboboxPortal
 }
 
-export const Switch = {
-  Root: SwitchRoot,
-  Thumb: SwitchThumb,
+export const ContextMenu = {
+  Root: ContextMenuRoot,
+  Trigger: ContextMenuTrigger,
+  Portal: ContextMenuPortal,
+  Content: ContextMenuContent,
+  Arrow: ContextMenuArrow,
+  Item: ContextMenuItem,
+  Group: ContextMenuGroup,
+  Separator: ContextMenuSeparator,
+  CheckboxItem: ContextMenuCheckboxItem,
+  ItemIndicator: ContextMenuItemIndicator,
+  Label: ContextMenuLabel,
+  RadioGroup: ContextMenuRadioGroup,
+  RadioItem: ContextMenuRadioItem,
+  Sub: ContextMenuSub,
+  SubContent: ContextMenuSubContent,
+  SubTrigger: ContextMenuSubTrigger,
 } as {
-  Root: typeof SwitchRoot
-  Thumb: typeof SwitchThumb
-}
-
-export { Separator }
-
-export { Label }
-
-export { Toggle }
-
-export const ToggleGroup = {
-  Root: ToggleGroupRoot,
-  Item: ToggleGroupItem,
-} as {
-  Root: typeof ToggleGroupRoot
-  Item: typeof ToggleGroupItem
-}
-
-export { AspectRatio }
-
-export const Tabs = {
-  Root: TabsRoot,
-  List: TabsList,
-  Content: TabsContent,
-  Trigger: TabsTrigger,
-} as {
-  Root: typeof TabsRoot
-  List: typeof TabsList
-  Content: typeof TabsContent
-  Trigger: typeof TabsTrigger
-}
-
-export const Slider = {
-  Root: SliderRoot,
-  Thumb: SliderThumb,
-  Track: SliderTrack,
-  Range: SliderRange,
-} as {
-  Root: typeof SliderRoot
-  Thumb: typeof SliderThumb
-  Track: typeof SliderTrack
-  Range: typeof SliderRange
-}
-
-export const RadioGroup = {
-  Root: RadioGroupRoot,
-  Item: RadioGroupItem,
-  Indicator: RadioGroupIndicator,
-} as {
-  Root: typeof RadioGroupRoot
-  Item: typeof RadioGroupItem
-  Indicator: typeof RadioGroupIndicator
-}
-
-export const Pagination = {
-  Root: PaginationRoot,
-  Ellipsis: PaginationEllipsis,
-  First: PaginationFirst,
-  Last: PaginationLast,
-  List: PaginationList,
-  ListItem: PaginationListItem,
-  Next: PaginationNext,
-  Prev: PaginationPrev,
-} as {
-  Root: typeof PaginationRoot
-  Ellipsis: typeof PaginationEllipsis
-  First: typeof PaginationFirst
-  Last: typeof PaginationLast
-  List: typeof PaginationList
-  ListItem: typeof PaginationListItem
-  Next: typeof PaginationNext
-  Prev: typeof PaginationPrev
-}
-
-export const PinInput = {
-  Root: PinInputRoot,
-  Input: PinInputInput,
-} as {
-  Root: typeof PinInputRoot
-  Input: typeof PinInputInput
-}
-
-export const Progress = {
-  Root: ProgressRoot,
-  Indicator: ProgressIndicator,
-} as {
-  Root: typeof ProgressRoot
-  Indicator: typeof ProgressIndicator
+  Root: typeof ContextMenuRoot
+  Trigger: typeof ContextMenuTrigger
+  Portal: typeof ContextMenuPortal
+  Content: typeof ContextMenuContent
+  Arrow: typeof ContextMenuArrow
+  Item: typeof ContextMenuItem
+  Group: typeof ContextMenuGroup
+  Separator: typeof ContextMenuSeparator
+  CheckboxItem: typeof ContextMenuCheckboxItem
+  ItemIndicator: typeof ContextMenuItemIndicator
+  Label: typeof ContextMenuLabel
+  RadioGroup: typeof ContextMenuRadioGroup
+  RadioItem: typeof ContextMenuRadioItem
+  Sub: typeof ContextMenuSub
+  SubContent: typeof ContextMenuSubContent
+  SubTrigger: typeof ContextMenuSubTrigger
 }
 
 export const Dialog = {
@@ -178,120 +154,6 @@ export const Dialog = {
   Close: typeof DialogClose
   Title: typeof DialogTitle
   Description: typeof DialogDescription
-}
-
-export const AlertDialog = {
-  Root: AlertDialogRoot,
-  Trigger: AlertDialogTrigger,
-  Portal: AlertDialogPortal,
-  Content: AlertDialogContent,
-  Overlay: AlertDialogOverlay,
-  Cancel: AlertDialogCancel,
-  Title: AlertDialogTitle,
-  Description: AlertDialogDescription,
-  Action: AlertDialogAction,
-} as {
-  Root: typeof AlertDialogRoot
-  Trigger: typeof AlertDialogTrigger
-  Portal: typeof AlertDialogPortal
-  Content: typeof AlertDialogContent
-  Overlay: typeof AlertDialogOverlay
-  Cancel: typeof AlertDialogCancel
-  Title: typeof AlertDialogTitle
-  Description: typeof AlertDialogDescription
-  Action: typeof AlertDialogAction
-}
-
-export const Toast = {
-  Provider: ToastProvider,
-  Root: ToastRoot,
-  Action: ToastAction,
-  Close: ToastClose,
-  Viewport: ToastViewport,
-  Title: ToastTitle,
-  Description: ToastDescription,
-} as {
-  Provider: typeof ToastProvider
-  Root: typeof ToastRoot
-  Action: typeof ToastAction
-  Close: typeof ToastClose
-  Viewport: typeof ToastViewport
-  Title: typeof ToastTitle
-  Description: typeof ToastDescription
-}
-
-export const Toolbar = {
-  Root: ToolbarRoot,
-  Button: ToolbarButton,
-  Link: ToolbarLink,
-  ToggleGroup: ToolbarToggleGroup,
-  ToggleItem: ToolbarToggleItem,
-  Separator: ToolbarSeparator,
-} as {
-  Root: typeof ToolbarRoot
-  Button: typeof ToolbarButton
-  Link: typeof ToolbarLink
-  ToggleGroup: typeof ToolbarToggleGroup
-  ToggleItem: typeof ToolbarToggleItem
-  Separator: typeof ToolbarSeparator
-}
-
-export const Avatar = {
-  Root: AvatarRoot,
-  Image: AvatarImage,
-  Fallback: AvatarFallback,
-} as {
-  Root: typeof AvatarRoot
-  Image: typeof AvatarImage
-  Fallback: typeof AvatarFallback
-}
-
-export const Tooltip = {
-  Root: TooltipRoot,
-  Trigger: TooltipTrigger,
-  Content: TooltipContent,
-  Arrow: TooltipArrow,
-  Portal: TooltipPortal,
-  Provider: TooltipProvider,
-} as {
-  Root: typeof TooltipRoot
-  Trigger: typeof TooltipTrigger
-  Content: typeof TooltipContent
-  Arrow: typeof TooltipArrow
-  Portal: typeof TooltipPortal
-  Provider: typeof TooltipProvider
-}
-
-export const HoverCard = {
-  Root: HoverCardRoot,
-  Trigger: HoverCardTrigger,
-  Portal: HoverCardPortal,
-  Content: HoverCardContent,
-  Arrow: HoverCardArrow,
-} as {
-  Root: typeof HoverCardRoot
-  Trigger: typeof HoverCardTrigger
-  Portal: typeof HoverCardPortal
-  Content: typeof HoverCardContent
-  Arrow: typeof HoverCardArrow
-}
-
-export const Popover = {
-  Root: PopoverRoot,
-  Trigger: PopoverTrigger,
-  Portal: PopoverPortal,
-  Content: PopoverContent,
-  Arrow: PopoverArrow,
-  Close: PopoverClose,
-  Anchor: PopoverAnchor,
-} as {
-  Root: typeof PopoverRoot
-  Trigger: typeof PopoverTrigger
-  Portal: typeof PopoverPortal
-  Content: typeof PopoverContent
-  Arrow: typeof PopoverArrow
-  Close: typeof PopoverClose
-  Anchor: typeof PopoverAnchor
 }
 
 export const DropdownMenu = {
@@ -330,77 +192,21 @@ export const DropdownMenu = {
   SubTrigger: typeof DropdownMenuSubTrigger
 }
 
-export const ContextMenu = {
-  Root: ContextMenuRoot,
-  Trigger: ContextMenuTrigger,
-  Portal: ContextMenuPortal,
-  Content: ContextMenuContent,
-  Arrow: ContextMenuArrow,
-  Item: ContextMenuItem,
-  Group: ContextMenuGroup,
-  Separator: ContextMenuSeparator,
-  CheckboxItem: ContextMenuCheckboxItem,
-  ItemIndicator: ContextMenuItemIndicator,
-  Label: ContextMenuLabel,
-  RadioGroup: ContextMenuRadioGroup,
-  RadioItem: ContextMenuRadioItem,
-  Sub: ContextMenuSub,
-  SubContent: ContextMenuSubContent,
-  SubTrigger: ContextMenuSubTrigger,
+export const HoverCard = {
+  Root: HoverCardRoot,
+  Trigger: HoverCardTrigger,
+  Portal: HoverCardPortal,
+  Content: HoverCardContent,
+  Arrow: HoverCardArrow,
 } as {
-  Root: typeof ContextMenuRoot
-  Trigger: typeof ContextMenuTrigger
-  Portal: typeof ContextMenuPortal
-  Content: typeof ContextMenuContent
-  Arrow: typeof ContextMenuArrow
-  Item: typeof ContextMenuItem
-  Group: typeof ContextMenuGroup
-  Separator: typeof ContextMenuSeparator
-  CheckboxItem: typeof ContextMenuCheckboxItem
-  ItemIndicator: typeof ContextMenuItemIndicator
-  Label: typeof ContextMenuLabel
-  RadioGroup: typeof ContextMenuRadioGroup
-  RadioItem: typeof ContextMenuRadioItem
-  Sub: typeof ContextMenuSub
-  SubContent: typeof ContextMenuSubContent
-  SubTrigger: typeof ContextMenuSubTrigger
+  Root: typeof HoverCardRoot
+  Trigger: typeof HoverCardTrigger
+  Portal: typeof HoverCardPortal
+  Content: typeof HoverCardContent
+  Arrow: typeof HoverCardArrow
 }
 
-export const Select = {
-  Root: SelectRoot,
-  Trigger: SelectTrigger,
-  Portal: SelectPortal,
-  Content: SelectContent,
-  Arrow: SelectArrow,
-  Separator: SelectSeparator,
-  ItemIndicator: SelectItemIndicator,
-  Label: SelectLabel,
-  Group: SelectGroup,
-  Item: SelectItem,
-  ItemText: SelectItemText,
-  Viewport: SelectViewport,
-  ScrollUpButton: SelectScrollUpButton,
-  ScrollDownButton: SelectScrollDownButton,
-  Value: SelectValue,
-  Icon: SelectIcon,
-} as {
-  Root: typeof SelectRoot
-  Trigger: typeof SelectTrigger
-  Portal: typeof SelectPortal
-  Content: typeof SelectContent
-  Arrow: typeof SelectArrow
-  Separator: typeof SelectSeparator
-  ItemIndicator: typeof SelectItemIndicator
-  Label: typeof SelectLabel
-  Group: typeof SelectGroup
-  Item: typeof SelectItem
-  ItemText: typeof SelectItemText
-  Viewport: typeof SelectViewport
-  ScrollUpButton: typeof SelectScrollUpButton
-  ScrollDownButton: typeof SelectScrollDownButton
-  Value: typeof SelectValue
-  Icon: typeof SelectIcon
-}
+export { Label }
 
 export const Menubar = {
   Root: MenubarRoot,
@@ -462,6 +268,70 @@ export const NavigationMenu = {
   Viewport: typeof NavigationMenuViewport
 }
 
+export const Pagination = {
+  Root: PaginationRoot,
+  Ellipsis: PaginationEllipsis,
+  First: PaginationFirst,
+  Last: PaginationLast,
+  List: PaginationList,
+  ListItem: PaginationListItem,
+  Next: PaginationNext,
+  Prev: PaginationPrev,
+} as {
+  Root: typeof PaginationRoot
+  Ellipsis: typeof PaginationEllipsis
+  First: typeof PaginationFirst
+  Last: typeof PaginationLast
+  List: typeof PaginationList
+  ListItem: typeof PaginationListItem
+  Next: typeof PaginationNext
+  Prev: typeof PaginationPrev
+}
+
+export const PinInput = {
+  Root: PinInputRoot,
+  Input: PinInputInput,
+} as {
+  Root: typeof PinInputRoot
+  Input: typeof PinInputInput
+}
+
+export const Popover = {
+  Root: PopoverRoot,
+  Trigger: PopoverTrigger,
+  Portal: PopoverPortal,
+  Content: PopoverContent,
+  Arrow: PopoverArrow,
+  Close: PopoverClose,
+  Anchor: PopoverAnchor,
+} as {
+  Root: typeof PopoverRoot
+  Trigger: typeof PopoverTrigger
+  Portal: typeof PopoverPortal
+  Content: typeof PopoverContent
+  Arrow: typeof PopoverArrow
+  Close: typeof PopoverClose
+  Anchor: typeof PopoverAnchor
+}
+
+export const Progress = {
+  Root: ProgressRoot,
+  Indicator: ProgressIndicator,
+} as {
+  Root: typeof ProgressRoot
+  Indicator: typeof ProgressIndicator
+}
+
+export const RadioGroup = {
+  Root: RadioGroupRoot,
+  Item: RadioGroupItem,
+  Indicator: RadioGroupIndicator,
+} as {
+  Root: typeof RadioGroupRoot
+  Item: typeof RadioGroupItem
+  Indicator: typeof RadioGroupIndicator
+}
+
 export const ScrollArea = {
   Root: ScrollAreaRoot,
   Viewport: ScrollAreaViewport,
@@ -474,4 +344,150 @@ export const ScrollArea = {
   Scrollbar: typeof ScrollAreaScrollbar
   Thumb: typeof ScrollAreaThumb
   Corner: typeof ScrollAreaCorner
+}
+
+export const Select = {
+  Root: SelectRoot,
+  Trigger: SelectTrigger,
+  Portal: SelectPortal,
+  Content: SelectContent,
+  Arrow: SelectArrow,
+  Separator: SelectSeparator,
+  ItemIndicator: SelectItemIndicator,
+  Label: SelectLabel,
+  Group: SelectGroup,
+  Item: SelectItem,
+  ItemText: SelectItemText,
+  Viewport: SelectViewport,
+  ScrollUpButton: SelectScrollUpButton,
+  ScrollDownButton: SelectScrollDownButton,
+  Value: SelectValue,
+  Icon: SelectIcon,
+} as {
+  Root: typeof SelectRoot
+  Trigger: typeof SelectTrigger
+  Portal: typeof SelectPortal
+  Content: typeof SelectContent
+  Arrow: typeof SelectArrow
+  Separator: typeof SelectSeparator
+  ItemIndicator: typeof SelectItemIndicator
+  Label: typeof SelectLabel
+  Group: typeof SelectGroup
+  Item: typeof SelectItem
+  ItemText: typeof SelectItemText
+  Viewport: typeof SelectViewport
+  ScrollUpButton: typeof SelectScrollUpButton
+  ScrollDownButton: typeof SelectScrollDownButton
+  Value: typeof SelectValue
+  Icon: typeof SelectIcon
+}
+
+export { Separator }
+
+export const Slider = {
+  Root: SliderRoot,
+  Thumb: SliderThumb,
+  Track: SliderTrack,
+  Range: SliderRange,
+} as {
+  Root: typeof SliderRoot
+  Thumb: typeof SliderThumb
+  Track: typeof SliderTrack
+  Range: typeof SliderRange
+}
+
+export const Switch = {
+  Root: SwitchRoot,
+  Thumb: SwitchThumb,
+} as {
+  Root: typeof SwitchRoot
+  Thumb: typeof SwitchThumb
+}
+
+export const Tabs = {
+  Root: TabsRoot,
+  List: TabsList,
+  Content: TabsContent,
+  Trigger: TabsTrigger,
+} as {
+  Root: typeof TabsRoot
+  List: typeof TabsList
+  Content: typeof TabsContent
+  Trigger: typeof TabsTrigger
+}
+
+export const TagsInput = {
+  Root: TagsInputRoot,
+  Input: TagsInputInput,
+  Item: TagsInputItem,
+  ItemText: TagsInputItemText,
+  ItemDelete: TagsInputItemDelete,
+  Clear: TagsInputClear,
+} as {
+  Root: typeof TagsInputRoot
+  Input: typeof TagsInputInput
+  Item: typeof TagsInputItem
+  ItemText: typeof TagsInputItemText
+  ItemDelete: typeof TagsInputItemDelete
+  Clear: typeof TagsInputClear
+}
+
+export const Toast = {
+  Provider: ToastProvider,
+  Root: ToastRoot,
+  Action: ToastAction,
+  Close: ToastClose,
+  Viewport: ToastViewport,
+  Title: ToastTitle,
+  Description: ToastDescription,
+} as {
+  Provider: typeof ToastProvider
+  Root: typeof ToastRoot
+  Action: typeof ToastAction
+  Close: typeof ToastClose
+  Viewport: typeof ToastViewport
+  Title: typeof ToastTitle
+  Description: typeof ToastDescription
+}
+
+export { Toggle }
+
+export const ToggleGroup = {
+  Root: ToggleGroupRoot,
+  Item: ToggleGroupItem,
+} as {
+  Root: typeof ToggleGroupRoot
+  Item: typeof ToggleGroupItem
+}
+
+export const Toolbar = {
+  Root: ToolbarRoot,
+  Button: ToolbarButton,
+  Link: ToolbarLink,
+  ToggleGroup: ToolbarToggleGroup,
+  ToggleItem: ToolbarToggleItem,
+  Separator: ToolbarSeparator,
+} as {
+  Root: typeof ToolbarRoot
+  Button: typeof ToolbarButton
+  Link: typeof ToolbarLink
+  ToggleGroup: typeof ToolbarToggleGroup
+  ToggleItem: typeof ToolbarToggleItem
+  Separator: typeof ToolbarSeparator
+}
+
+export const Tooltip = {
+  Root: TooltipRoot,
+  Trigger: TooltipTrigger,
+  Content: TooltipContent,
+  Arrow: TooltipArrow,
+  Portal: TooltipPortal,
+  Provider: TooltipProvider,
+} as {
+  Root: typeof TooltipRoot
+  Trigger: typeof TooltipTrigger
+  Content: typeof TooltipContent
+  Arrow: typeof TooltipArrow
+  Portal: typeof TooltipPortal
+  Provider: typeof TooltipProvider
 }

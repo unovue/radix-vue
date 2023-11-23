@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "radix-vue": "link:../../packages/radix-vue",
-    "vue": "^3.3.5"
+    "vue": "^3.3.8"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.39.8",

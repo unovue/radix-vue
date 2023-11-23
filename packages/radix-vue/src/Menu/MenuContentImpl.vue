@@ -22,9 +22,9 @@ import {
 } from '@/shared'
 
 export interface MenuContentContext {
-  onItemEnter(event: PointerEvent): void
+  onItemEnter(event: PointerEvent): boolean
   onItemLeave(event: PointerEvent): void
-  onTriggerLeave(event: PointerEvent): void
+  onTriggerLeave(event: PointerEvent): boolean
   searchRef: Ref<string>
   pointerGraceTimerRef: Ref<number>
   onPointerGraceIntentChange(intent: GraceIntent | null): void
@@ -150,13 +150,12 @@ function isPointerMovingToSubmenu(event: PointerEvent) {
 
 async function handleMountAutoFocus(event: Event) {
   emits('openAutoFocus', event)
-
+  if (event.defaultPrevented)
+    return
   // when opening, explicitly focus the content area only and leave
   // `onEntryFocus` in  control of focusing first item
   event.preventDefault()
-  setTimeout(() => {
-    contentElement.value?.focus()
-  }, 0)
+  contentElement.value?.focus()
 }
 
 function handleKeyDown(event: KeyboardEvent) {
@@ -236,8 +235,11 @@ function handlePointerMove(event: PointerEvent) {
 
 provideMenuContentContext({
   onItemEnter: (event) => {
+    // event.preventDefault() we can't prevent pointerMove event
     if (isPointerMovingToSubmenu(event))
-      event.preventDefault()
+      return true
+    else
+      return false
   },
   onItemLeave: (event) => {
     if (isPointerMovingToSubmenu(event))
@@ -246,8 +248,11 @@ provideMenuContentContext({
     currentItemId.value = null
   },
   onTriggerLeave: (event) => {
+    // event.preventDefault() we can't prevent pointerLeave event
     if (isPointerMovingToSubmenu(event))
-      event.preventDefault()
+      return true
+    else
+      return false
   },
   searchRef,
   pointerGraceTimerRef,

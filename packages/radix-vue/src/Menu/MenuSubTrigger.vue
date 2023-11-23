@@ -6,7 +6,7 @@ export interface MenuSubTriggerProps extends MenuItemImplProps {}
 </script>
 
 <script setup lang="ts">
-import { computed, nextTick, onUnmounted, ref } from 'vue'
+import { nextTick, onUnmounted, ref } from 'vue'
 import MenuItemImpl from './MenuItemImpl.vue'
 import { injectMenuContext, injectMenuRootContext } from './MenuRoot.vue'
 import { injectMenuSubContext } from './MenuSub.vue'
@@ -22,9 +22,6 @@ const subContext = injectMenuSubContext()
 const contentContext = injectMenuContentContext()
 
 const openTimerRef = ref<number | null>(null)
-const pointerGraceTimerRef = computed(
-  () => contentContext.pointerGraceTimerRef.value,
-)
 
 function clearOpenTimer() {
   if (openTimerRef.value)
@@ -37,29 +34,30 @@ onUnmounted(() => {
 })
 
 function handlePointerMove(event: PointerEvent) {
-  if (!isMouseEvent(event) || props.disabled)
+  if (!isMouseEvent(event))
     return
-  contentContext.onItemEnter(event)
-  menuContext.onOpenChange(true)
-  if (event.defaultPrevented)
+  const defaultPrevented = contentContext.onItemEnter(event)
+  if (defaultPrevented)
     return
+
   if (!props.disabled && !menuContext.open.value && !openTimerRef.value) {
     contentContext.onPointerGraceIntentChange(null)
     openTimerRef.value = window.setTimeout(() => {
+      menuContext.onOpenChange(true)
       clearOpenTimer()
     }, 100)
   }
 }
 
-function handlePointerLeave(event: PointerEvent) {
+async function handlePointerLeave(event: PointerEvent) {
   if (!isMouseEvent(event))
     return
   clearOpenTimer()
 
   const contentRect = menuContext.content.value?.getBoundingClientRect()
-
-  if (contentRect) {
+  if (contentRect?.width) {
     // TODO: make sure to update this when we change positioning logic
+    // https://github.com/radix-ui/primitives/blob/main/packages/react/menu/src/Menu.tsx#L1088
     const side = menuContext.content.value?.dataset.side as Side
 
     const rightSide = side === 'right'
@@ -80,15 +78,15 @@ function handlePointerLeave(event: PointerEvent) {
       side,
     })
 
-    window.clearTimeout(pointerGraceTimerRef.value)
+    window.clearTimeout(contentContext.pointerGraceTimerRef.value)
     contentContext.pointerGraceTimerRef.value = window.setTimeout(
       () => contentContext.onPointerGraceIntentChange(null),
       300,
     )
   }
   else {
-    contentContext.onTriggerLeave(event)
-    if (event.defaultPrevented)
+    const defaultPrevented = contentContext.onTriggerLeave(event)
+    if (defaultPrevented)
       return
 
     // There's 100ms where the user may leave an item before the submenu was opened.
@@ -111,14 +109,6 @@ async function handleKeyDown(event: KeyboardEvent) {
     event.preventDefault()
   }
 }
-
-// watchEffect((cleanupFn) => {
-//   const pointerGraceTimer = pointerGraceTimerRef.value;
-//   cleanupFn(() => {
-//     window.clearTimeout(pointerGraceTimer);
-//     contentContext?.onPointerGraceIntentChange(null);
-//   });
-// });
 </script>
 
 <template>

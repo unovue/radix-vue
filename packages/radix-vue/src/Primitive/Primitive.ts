@@ -51,7 +51,6 @@ export const Primitive = defineComponent({
     const asTag = props.asChild ? 'template' : props.as
 
     if (asTag !== 'template')
-      //  @ts-expect-error  ignoring the complain for Component type because it is an artificial type
       return () => h(props.as, attrs, { default: slots.default })
 
     return () => h(Slot, attrs, { default: slots.default })

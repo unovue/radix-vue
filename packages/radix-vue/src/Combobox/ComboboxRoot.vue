@@ -6,6 +6,7 @@ import { createContext, useDirection, useFormControl, useId } from '@/shared'
 import { createCollection } from '@/Collection'
 
 export type AcceptableValue = string | number | boolean | object
+type ArrayOrWrapped<T> = T extends any[] ? T : Array<T>
 
 type ComboboxRootContext<T> = {
   modelValue: Ref<T | Array<T>>
@@ -16,7 +17,7 @@ type ComboboxRootContext<T> = {
   open: Ref<boolean>
   onOpenChange: (value: boolean) => void
   isUserInputted: Ref<boolean>
-  filteredOptions: Ref<Array<string | object>>
+  filteredOptions: Ref<Array<T>>
   contentId: string
   contentElement: Ref<HTMLElement | undefined>
   onContentElementChange: (el: HTMLElement) => void
@@ -48,7 +49,7 @@ export interface ComboboxRootProps<T = string> extends PrimitiveProps {
   disabled?: boolean
   name?: string
   dir?: Direction
-  filterFunction?: (val: Array<T>, term: string) => Array<any>
+  filterFunction?: (val: ArrayOrWrapped<T>, term: string) => ArrayOrWrapped<T>
 }
 </script>
 
@@ -79,7 +80,7 @@ const modelValue = useVModel(props, 'modelValue', emit, {
   defaultValue: props.defaultValue ?? multiple.value ? [] : undefined,
   passive: (props.modelValue === undefined) as false,
   deep: true,
-}) as Ref<T | T[]>
+}) as Ref<T>
 
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
@@ -132,7 +133,7 @@ const options = computedWithControl(() => itemMapSize.value, () => {
 const filteredOptions = computed(() => {
   if (isUserInputted.value) {
     if (props.filterFunction)
-      return props.filterFunction(options.value, searchTerm.value)
+      return props.filterFunction(options.value as ArrayOrWrapped<T>, searchTerm.value) as T[]
 
     else if (typeof options.value[0] === 'string')
       return options.value.filter(i => (i as string).toLowerCase().includes(searchTerm.value?.toLowerCase()))
@@ -232,7 +233,6 @@ provideComboboxRootContext({
       <slot
         :active-index="activeIndex"
         :open="open"
-        :disabled="disabled"
         :value="modelValue"
       />
 

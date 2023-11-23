@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { ComboboxAnchor, ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxRoot, ComboboxTrigger, ComboboxViewport } from '../'
 import { Icon } from '@iconify/vue'
 
-const v = ref('')
+const v = ref<{ id: number }[]>([])
 const data = ref<{ id: number }[]>([])
 
 async function handleOpen(val: boolean) {
@@ -17,7 +17,13 @@ async function handleOpen(val: boolean) {
 <template>
   <Story title="Combobox/Async" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
-      <ComboboxRoot v-model="v" @update:open="handleOpen">
+      <ComboboxRoot
+        v-model="v"
+        @update:open="handleOpen"
+        @update:model-value="v => {
+          console.log(v)
+        }"
+      >
         <ComboboxAnchor class="min-w-[160px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">
           <ComboboxInput class="bg-transparent outline-none text-grass11 placeholder-gray-400" placeholder="Test" />
           <ComboboxTrigger>

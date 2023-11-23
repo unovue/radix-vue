@@ -234,6 +234,11 @@ The button that toggles the Combobox Content.
       default: 'false',
       description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
     },
+    {
+      name: 'autoFocus',
+      type: 'boolean',
+      description: '<span> Focus on element when mounted.</span>',
+    },
   ]"
 />
 

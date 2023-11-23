@@ -24,7 +24,6 @@ const contentContext = injectMenuContentContext()
 const isFocused = ref(false)
 
 async function handlePointerMove(event: PointerEvent) {
-  await nextTick()
   if (event.defaultPrevented)
     return
   if (!isMouseEvent(event))
@@ -34,10 +33,10 @@ async function handlePointerMove(event: PointerEvent) {
     contentContext.onItemLeave(event)
   }
   else {
-    contentContext.onItemEnter(event)
-    if (!event.defaultPrevented) {
-      const item = event.currentTarget
-      item && (item as HTMLElement).focus()
+    const defaultPrevented = contentContext.onItemEnter(event)
+    if (!defaultPrevented) {
+      const item = event.currentTarget;
+      (item as HTMLElement)?.focus()
     }
   }
 }

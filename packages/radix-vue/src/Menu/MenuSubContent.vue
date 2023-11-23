@@ -49,13 +49,13 @@ const { primitiveElement, currentElement: subContentElement }
       :disable-outside-pointer-events="false"
       :disable-outside-scroll="false"
       :trap-focus="false"
-      @open-auto-focus="(event) => {
+      @open-auto-focus.prevent="(event) => {
+        // when opening a submenu, focus content for keyboard users only
         if (rootContext.isUsingKeyboardRef.value) subContentElement?.focus();
-        // event.preventDefault();
       }"
       @close-auto-focus.prevent
       @focus-outside="
-        async (event) => {
+        (event) => {
           if (event.defaultPrevented) return;
           // We prevent closing when the trigger is focused to avoid triggering a re-open animation
           // on pointer interaction.

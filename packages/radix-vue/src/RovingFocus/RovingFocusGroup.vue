@@ -138,6 +138,7 @@ provideRovingFocusGroupContext({
     :data-orientation="orientation"
     :as="as"
     :as-child="asChild"
+    :dir="dir"
     style="outline: none"
     @mousedown="isClickFocus = true"
     @focus="handleFocus"

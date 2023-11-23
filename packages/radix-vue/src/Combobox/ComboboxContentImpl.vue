@@ -33,6 +33,7 @@ import { injectComboboxRootContext } from './ComboboxRoot.vue'
 import { DismissableLayer } from '@/DismissableLayer'
 import { PopperContent } from '@/Popper'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { CollectionSlot } from '@/Collection'
 
 const props = withDefaults(defineProps<ComboboxContentImplProps>(), {
   position: 'inline',
@@ -78,41 +79,43 @@ provideComboboxContentContext({ position })
 </script>
 
 <template>
-  <DismissableLayer
-    as-child
-    :disable-outside-pointer-events="disableOutsidePointerEvents"
-    @dismiss="rootContext.onOpenChange(false)"
-    @focus-outside="(ev) => {
-      // if clicking inside the combobox, prevent dismiss
-      if (rootContext.parentElement.value?.contains(ev.target as Node)) ev.preventDefault()
-      emits('focusOutside', ev)
-    }"
-    @interact-outside="emits('interactOutside', $event)"
-    @escape-key-down="emits('escapeKeyDown', $event)"
-    @pointer-down-outside="(ev) => {
-      // if clicking inside the combobox, prevent dismiss
-      if (rootContext.parentElement.value?.contains(ev.target as Node)) ev.preventDefault()
-      emits('pointerDownOutside', ev)
-    }"
-  >
-    <component
-      :is="position === 'popper' ? PopperContent : Primitive "
-      v-bind="{ ...$attrs, ...pickedProps }"
-      :id="rootContext.contentId"
-      ref="primitiveElement"
-      role="listbox"
-      :data-state="rootContext.open.value ? 'open' : 'closed'"
-      :style="{
-        // flex layout so we can place the scroll buttons properly
-        display: 'flex',
-        flexDirection: 'column',
-        // reset the outline by default as the content MAY get focused
-        outline: 'none',
-        ...(position === 'popper' ? popperStyle : {}),
+  <CollectionSlot>
+    <DismissableLayer
+      as-child
+      :disable-outside-pointer-events="disableOutsidePointerEvents"
+      @dismiss="rootContext.onOpenChange(false)"
+      @focus-outside="(ev) => {
+        // if clicking inside the combobox, prevent dismiss
+        if (rootContext.parentElement.value?.contains(ev.target as Node)) ev.preventDefault()
+        emits('focusOutside', ev)
       }"
-      @pointerleave="handleLeave"
+      @interact-outside="emits('interactOutside', $event)"
+      @escape-key-down="emits('escapeKeyDown', $event)"
+      @pointer-down-outside="(ev) => {
+        // if clicking inside the combobox, prevent dismiss
+        if (rootContext.parentElement.value?.contains(ev.target as Node)) ev.preventDefault()
+        emits('pointerDownOutside', ev)
+      }"
     >
-      <slot />
-    </component>
-  </DismissableLayer>
+      <component
+        :is="position === 'popper' ? PopperContent : Primitive "
+        v-bind="{ ...$attrs, ...pickedProps }"
+        :id="rootContext.contentId"
+        ref="primitiveElement"
+        role="listbox"
+        :data-state="rootContext.open.value ? 'open' : 'closed'"
+        :style="{
+          // flex layout so we can place the scroll buttons properly
+          display: 'flex',
+          flexDirection: 'column',
+          // reset the outline by default as the content MAY get focused
+          outline: 'none',
+          ...(position === 'popper' ? popperStyle : {}),
+        }"
+        @pointerleave="handleLeave"
+      >
+        <slot />
+      </component>
+    </DismissableLayer>
+  </CollectionSlot>
 </template>

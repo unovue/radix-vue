@@ -49,6 +49,7 @@ export function createContext<ContextValue>(
 
   const provideContext = (contextValue: ContextValue) => {
     provide(injectionKey, contextValue)
+    return contextValue
   }
 
   return [injectContext, provideContext] as const

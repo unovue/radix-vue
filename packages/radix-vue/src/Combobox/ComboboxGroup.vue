@@ -3,12 +3,13 @@ import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useId } from '@/shared'
 import { injectComboboxRootContext } from './ComboboxRoot.vue'
+import type { AcceptableValue } from './ComboboxRoot.vue'
 
 export interface ComboboxGroupProps extends PrimitiveProps {}
 
 type ComboboxGroupContext = {
   id: string
-  options?: Ref<Array<string | object>>
+  options?: Ref<Array<AcceptableValue>>
 }
 
 export const [injectComboboxGroupContext, provideComboboxGroupContext]
@@ -22,7 +23,7 @@ import { Primitive } from '@/Primitive'
 const props = defineProps<ComboboxGroupProps>()
 
 const id = useId()
-const options = ref<Array<string | object>>([])
+const options = ref<Array<AcceptableValue>>([])
 
 const rootContext = injectComboboxRootContext()
 const isAnyChildInFilteredOptions = computed(() =>

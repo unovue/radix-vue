@@ -2,8 +2,9 @@
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, handleAndDispatchCustomEvent, useId } from '@/shared'
+import type { AcceptableValue } from './ComboboxRoot.vue'
 
-export type SelectEvent = CustomEvent<{ originalEvent: PointerEvent; value?: string | object }>
+export type SelectEvent<T> = CustomEvent<{ originalEvent: PointerEvent; value?: T }>
 interface ComboboxItemContext {
   isSelected: Ref<boolean>
 }
@@ -11,12 +12,12 @@ interface ComboboxItemContext {
 export const [injectComboboxItemContext, provideComboboxItemContext]
   = createContext<ComboboxItemContext>('ComboboxItem')
 
-export type ComboboxItemEmits = {
-  select: [event: SelectEvent]
+export type ComboboxItemEmits<T = string> = {
+  select: [event: SelectEvent<T>]
 }
 
-export interface ComboboxItemProps extends PrimitiveProps {
-  value: string | object
+export interface ComboboxItemProps<T = string> extends PrimitiveProps {
+  value: T
   disabled?: boolean
   textValue?: string
 }
@@ -24,13 +25,11 @@ export interface ComboboxItemProps extends PrimitiveProps {
 const COMBOBOX_SELECT = 'combobox.select'
 </script>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends AcceptableValue = string">
 import {
   computed,
-  getCurrentInstance,
   nextTick,
   onMounted,
-  onUnmounted,
   ref,
   toRefs,
 } from 'vue'
@@ -40,9 +39,11 @@ import {
   Primitive,
   usePrimitiveElement,
 } from '@/Primitive'
+import { CollectionItem } from '@/Collection'
+import isEqual from 'fast-deep-equal'
 
-const props = defineProps<ComboboxItemProps>()
-const emits = defineEmits<ComboboxItemEmits>()
+const props = defineProps<ComboboxItemProps<T>>()
+const emits = defineEmits<ComboboxItemEmits<T>>()
 
 const { disabled } = toRefs(props)
 
@@ -53,20 +54,20 @@ const { primitiveElement, currentElement } = usePrimitiveElement()
 const isSelected = computed(() =>
   rootContext.multiple.value && Array.isArray(rootContext.modelValue.value)
     ? rootContext.modelValue.value?.includes(props.value as never)
-    : JSON.stringify(rootContext.modelValue?.value) === JSON.stringify(props.value),
+    : isEqual(rootContext.modelValue?.value, props.value),
 )
 
-const isFocused = computed(() => JSON.stringify(rootContext.selectedValue.value) === JSON.stringify(props.value))
+const isFocused = computed(() => isEqual(rootContext.selectedValue.value, props.value))
 const textValue = ref(props.textValue ?? '')
 const textId = useId()
 
 const isInOption = computed(() =>
   rootContext.isUserInputted.value
     ? rootContext.searchTerm.value === ''
-     || rootContext.filteredOptions.value.map(i => JSON.stringify(i)).includes(JSON.stringify(props.value))
+     || !!rootContext.filteredOptions.value.find(i => isEqual(i, props.value))
     : true)
 
-async function handleSelect(ev: SelectEvent) {
+async function handleSelect(ev: SelectEvent<T>) {
   emits('select', ev)
   if (ev?.defaultPrevented)
     return
@@ -96,21 +97,12 @@ if (props.value === '') {
   )
 }
 
-const instance = getCurrentInstance()
 onMounted(() => {
-  if (instance)
-    rootContext.optionsInstance.value.add(instance)
-
   if (!groupContext.options?.value?.includes(props.value))
     groupContext.options?.value.push(props.value)
 
   if (!textValue.value && currentElement.value?.textContent)
     textValue.value = currentElement.value.textContent
-})
-
-onUnmounted(() => {
-  if (instance)
-    rootContext.optionsInstance.value.delete(instance)
 })
 
 provideComboboxItemContext({
@@ -119,23 +111,24 @@ provideComboboxItemContext({
 </script>
 
 <template>
-  <Primitive
-    v-if="isInOption"
-    ref="primitiveElement"
-    role="option"
-    tabindex="-1"
-    data-radix-vue-combobox-item
-    :aria-labelledby="textId"
-    :data-highlighted="isFocused ? '' : undefined"
-    :aria-selected="isSelected"
-    :data-state="isSelected ? 'checked' : 'unchecked'"
-    :aria-disabled="disabled || undefined"
-    :data-disabled="disabled ? '' : undefined"
-    :as="as"
-    :as-child="asChild"
-    @click="handleSelectCustomEvent"
-    @pointermove="handlePointerMove"
-  >
-    <slot>{{ value }}</slot>
-  </Primitive>
+  <CollectionItem>
+    <Primitive
+      v-show="isInOption"
+      ref="primitiveElement"
+      role="option"
+      tabindex="-1"
+      :aria-labelledby="textId"
+      :data-highlighted="isFocused ? '' : undefined"
+      :aria-selected="isSelected"
+      :data-state="isSelected ? 'checked' : 'unchecked'"
+      :aria-disabled="disabled || undefined"
+      :data-disabled="disabled ? '' : undefined"
+      :as="as"
+      :as-child="asChild"
+      @click="handleSelectCustomEvent"
+      @pointermove="handlePointerMove"
+    >
+      <slot>{{ value }}</slot>
+    </Primitive>
+  </CollectionItem>
 </template>

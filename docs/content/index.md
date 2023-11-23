@@ -11,8 +11,8 @@ hero:
     src: /logo.svg
     alt: Radix-Vue
   prelink:
-    title: 🎉 Announcing v1!
-    link: https://github.com/radix-vue/radix-vue/releases/tag/v1.0.0
+    title: 🎉 New components!
+    link: https://github.com/radix-vue/radix-vue/releases/tag/v1.2.0
     target: _blank
   actions:
     - theme: brand

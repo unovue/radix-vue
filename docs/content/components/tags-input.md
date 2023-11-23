@@ -4,8 +4,9 @@ description: Tags input render tags inside an input, followed by an actual text 
 name: tags-input 
 ---
 
-
 # Tags Input
+
+<Badge>Alpha</Badge>
 
 <Description>
 Tag inputs render tags inside an input, followed by an actual text input.

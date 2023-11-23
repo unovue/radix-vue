@@ -37,7 +37,7 @@ onUnmounted(() => {
 })
 
 function handlePointerMove(event: PointerEvent) {
-  if (!isMouseEvent(event))
+  if (!isMouseEvent(event) || props.disabled)
     return
   contentContext.onItemEnter(event)
   menuContext.onOpenChange(true)
@@ -124,6 +124,7 @@ async function handleKeyDown(event: KeyboardEvent) {
 <template>
   <MenuAnchor as-child>
     <MenuItemImpl
+      v-bind="props"
       :id="subContext.triggerId"
       :ref="
         (vnode) => {

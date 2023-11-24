@@ -3,32 +3,35 @@ import { TabsContent, TabsIndicator, TabsList, TabsRoot, TabsTrigger } from '../
 </script>
 
 <template>
-  <Story title="Tabs/Demo" :layout="{ type: 'single', iframe: false }">
+  <Story title="Tabs/Vertical" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
       <TabsRoot
-        class="flex flex-col w-[300px] shadow-[0_2px_10px] shadow-blackA4"
+        class="flex h-[400px] shadow-[0_2px_10px] shadow-blackA4"
         default-value="tab1"
+        orientation="vertical"
       >
         <TabsList
-          class="shrink-0 flex border-b border-mauve6 relative"
+          class="shrink-0 flex flex-col border-b border-mauve6 relative"
           aria-label="Manage your account"
         >
-          <TabsIndicator class="absolute bg-violet11 left-0 h-[2px] bottom-0 w-[--size] translate-x-[--position] rounded-full  transition-[width,transform] duration-300" />
+          <TabsIndicator class="absolute bg-violet11 right-0 w-[2px] top-0 h-[--size] translate-y-[--position] rounded-full  transition-[width,transform] duration-300" />
           <TabsTrigger
-            class="bg-white px-5 h-[45px] flex-1 flex items-center justify-center text-[15px] leading-none text-mauve11 select-none rounded-tl-md   hover:text-violet11 focus-visible:shadow-[0_0_0_2px] data-[state=active]:text-violet11 outline-none cursor-default"
+            style="writing-mode:vertical-rl;"
+            class="bg-white px-5 w-[45px] flex-1 flex items-center justify-center text-[15px] leading-none text-mauve11 select-none rounded-tl-md hover:text-violet11 focus-visible:shadow-[0_0_0_2px] data-[state=active]:text-violet11 outline-none cursor-default"
             value="tab1"
           >
             Account
           </TabsTrigger>
           <TabsTrigger
-            class="bg-white px-5 h-[45px] flex-1 flex items-center justify-center text-[15px] leading-none text-mauve11 select-none rounded-tr-md hover:text-violet11 focus-visible:shadow-[0_0_0_2px] data-[state=active]:text-violet11 outline-none cursor-default"
+            style="writing-mode:vertical-rl;"
+            class="bg-white px-5 w-[45px] flex-1 flex items-center justify-center text-[15px] leading-none text-mauve11 select-none rounded-bl-md hover:text-violet11 focus-visible:shadow-[0_0_0_2px] data-[state=active]:text-violet11 outline-none cursor-default"
             value="tab2"
           >
             Password
           </TabsTrigger>
         </TabsList>
         <TabsContent
-          class="grow p-5 bg-white rounded-b-md outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
+          class="grow p-5 bg-white rounded-r-md outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
           value="tab1"
         >
           <p class="mb-5 text-mauve11 text-[15px] leading-normal">
@@ -69,7 +72,7 @@ import { TabsContent, TabsIndicator, TabsList, TabsRoot, TabsTrigger } from '../
           </div>
         </TabsContent>
         <TabsContent
-          class="grow p-5 bg-white rounded-b-md outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
+          class="grow p-5 bg-white rounded-r-md outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
           value="tab2"
         >
           <p class="mb-5 text-mauve11 text-[15px] leading-normal">

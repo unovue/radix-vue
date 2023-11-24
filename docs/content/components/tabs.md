@@ -40,12 +40,13 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { TabsContent, TabsList, TabsRoot, TabsTrigger } from 'radix-vue'
+import { TabsContent, TabsIndicator, TabsList, TabsRoot, TabsTrigger } from 'radix-vue'
 </script>
 
 <template>
   <TabsRoot>
     <TabsList>
+      <TabsIndicator />
       <TabsTrigger />
     </TabsList>
     <TabsContent />
@@ -219,6 +220,41 @@ The button that activates its associated content.
     {
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
+    },
+  ]"
+/>
+
+### Indicator
+ 
+The indicator that highlights the current active tab.
+
+<PropsTable
+  :data="[
+    {
+      name: 'as',
+      type: 'string | Component',
+      default: 'div',
+      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+    },
+    {
+      name: 'asChild',
+      required: false,
+      type: 'boolean',
+      default: 'false',
+      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+    }, 
+  ]"
+/>
+
+<CssVariablesTable
+  :data="[
+    {
+      cssVariable: '--radix-tabs-indicator-size',
+      description: 'The size of the indicator.',
+    },
+    {
+      cssVariable: '--radix-tabs-indicator-position',
+      description: 'The position of the indicator',
     },
   ]"
 />

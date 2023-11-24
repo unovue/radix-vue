@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { TabsContent, TabsList, TabsRoot, TabsTrigger } from 'radix-vue'
+import { TabsContent, TabsIndicator, TabsList, TabsRoot, TabsTrigger } from 'radix-vue'
 import './styles.css'
 </script>
 
 <template>
   <TabsRoot class="TabsRoot" default-value="tab1">
     <TabsList class="TabsList" aria-label="Manage your account">
+      <TabsIndicator class="TagsIndicator ">
+        <div style="width: 100%; height: 100%" class="bg-grass8 w-full h-full" />
+      </TabsIndicator>
       <TabsTrigger
         class="TabsTrigger"
         value="tab1"

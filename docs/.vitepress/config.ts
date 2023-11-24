@@ -15,6 +15,13 @@ import { version } from '../../package.json'
 import { teamMembers } from './contributors'
 import ComponentPreviewPlugin from './plugins/preview'
 
+function BadgeHTML(text: string) {
+  return `<div class="inline-flex items-center rounded-full border px-2.5 py-0.5 ml-2 mt-1 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-green8 text-white">
+${text}
+</div>
+`
+}
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: radixVueName,
@@ -69,7 +76,81 @@ export default defineConfig({
     },
     logo: '/logo.svg',
 
-    sidebar: sidebar(),
+    sidebar: [
+      {
+        text: 'Overview',
+        collapsed: false,
+        items: [
+          { text: 'Introduction', link: '/overview/introduction' },
+          { text: 'Getting Started', link: '/overview/getting-started' },
+          { text: 'Installation', link: '/overview/installation' },
+          { text: 'Accessibility', link: '/overview/accessibility' },
+          { text: 'Releases', link: '/overview/releases' },
+        ],
+      },
+      {
+        text: 'Guides',
+        collapsed: false,
+        items: [
+          { text: 'Styling', link: '/guides/styling' },
+          { text: 'Animation/Transition', link: '/guides/animation' },
+          { text: 'Composition', link: '/guides/composition' },
+          { text: 'Server side rendering', link: '/guides/server-side-rendering' },
+          { text: `Namespaced ${BadgeHTML('New')}`, link: '/guides/namespaced-components' },
+        ],
+      },
+      {
+        text: 'Components',
+        collapsed: false,
+        items: [
+          { text: 'Accordion', link: '/components/accordion' },
+          { text: 'Alert Dialog', link: '/components/alert-dialog' },
+          { text: 'Aspect Ratio', link: '/components/aspect-ratio' },
+          { text: 'Avatar', link: '/components/avatar' },
+          { text: 'Checkbox', link: '/components/checkbox' },
+          { text: 'Collapsible', link: '/components/collapsible' },
+          { text: 'Combobox', link: '/components/combobox' },
+          { text: 'Context Menu', link: '/components/context-menu' },
+          { text: 'Dialog', link: '/components/dialog' },
+          { text: 'Dropdown Menu', link: '/components/dropdown-menu' },
+          { text: 'Hover Card', link: '/components/hover-card' },
+          { text: 'Label', link: '/components/label' },
+          { text: 'Menubar', link: '/components/menubar' },
+          { text: 'Navigation Menu', link: '/components/navigation-menu' },
+          { text: 'Pagination', link: '/components/pagination' },
+          { text: `Pin Input ${BadgeHTML('Alpha')}`, link: '/components/pin-input' },
+          { text: 'Popover', link: '/components/popover' },
+          { text: 'Progress', link: '/components/progress' },
+          { text: 'Radio Group', link: '/components/radio-group' },
+          { text: 'Scroll Area', link: '/components/scroll-area' },
+          { text: 'Select', link: '/components/select' },
+          { text: 'Separator', link: '/components/separator' },
+          { text: 'Slider', link: '/components/slider' },
+          { text: 'Switch', link: '/components/switch' },
+          { text: 'Tabs', link: '/components/tabs' },
+          { text: `Tags Input ${BadgeHTML('Alpha')}`, link: '/components/tags-input' },
+          { text: 'Toast', link: '/components/toast' },
+          { text: 'Toggle', link: '/components/toggle' },
+          { text: 'Toggle Group', link: '/components/toggle-group' },
+          { text: 'Toolbar', link: '/components/toolbar' },
+          { text: 'Tooltip', link: '/components/tooltip' },
+        ],
+      },
+      {
+        text: 'Utilities',
+        collapsed: false,
+        items: [
+          { text: 'Config Provider', link: '/utilities/config-provider' },
+          { text: 'Visually Hidden', link: '/utilities/visually-hidden' },
+          { text: 'Primitive', link: '/utilities/primitive' },
+          { text: 'Slot', link: '/utilities/slot' },
+          { text: 'useId', link: '/utilities/use-id' },
+          { text: 'useEmitAsProps', link: '/utilities/use-emit-as-props' },
+          { text: 'useForwardProps', link: '/utilities/use-forward-props' },
+          { text: 'useForwardPropsEmits', link: '/utilities/use-forward-props-emits' },
+        ],
+      },
+    ],
 
     socialLinks: [
       { icon: 'discord', link: discord },
@@ -110,80 +191,3 @@ export default defineConfig({
     },
   },
 })
-
-function sidebar() {
-  return [
-    {
-      text: 'Overview',
-      collapsed: false,
-      items: [
-        { text: 'Introduction', link: '/overview/introduction' },
-        { text: 'Getting Started', link: '/overview/getting-started' },
-        { text: 'Installation', link: '/overview/installation' },
-        { text: 'Accessibility', link: '/overview/accessibility' },
-        { text: 'Releases', link: '/overview/releases' },
-      ],
-    },
-    {
-      text: 'Guides',
-      collapsed: false,
-      items: [
-        { text: 'Styling', link: '/guides/styling' },
-        { text: 'Animation/Transition', link: '/guides/animation' },
-        { text: 'Composition', link: '/guides/composition' },
-        { text: 'Server side rendering', link: '/guides/server-side-rendering' },
-      ],
-    },
-    {
-      text: 'Components',
-      collapsed: false,
-      items: [
-        { text: 'Accordion', link: '/components/accordion' },
-        { text: 'Alert Dialog', link: '/components/alert-dialog' },
-        { text: 'Aspect Ratio', link: '/components/aspect-ratio' },
-        { text: 'Avatar', link: '/components/avatar' },
-        { text: 'Checkbox', link: '/components/checkbox' },
-        { text: 'Collapsible', link: '/components/collapsible' },
-        { text: 'Combobox', link: '/components/combobox' },
-        { text: 'Context Menu', link: '/components/context-menu' },
-        { text: 'Dialog', link: '/components/dialog' },
-        { text: 'Dropdown Menu', link: '/components/dropdown-menu' },
-        { text: 'Hover Card', link: '/components/hover-card' },
-        { text: 'Label', link: '/components/label' },
-        { text: 'Menubar', link: '/components/menubar' },
-        { text: 'Navigation Menu', link: '/components/navigation-menu' },
-        { text: 'Pagination', link: '/components/pagination' },
-        { text: 'Pin Input', link: '/components/pin-input' },
-        { text: 'Popover', link: '/components/popover' },
-        { text: 'Progress', link: '/components/progress' },
-        { text: 'Radio Group', link: '/components/radio-group' },
-        { text: 'Scroll Area', link: '/components/scroll-area' },
-        { text: 'Select', link: '/components/select' },
-        { text: 'Separator', link: '/components/separator' },
-        { text: 'Slider', link: '/components/slider' },
-        { text: 'Switch', link: '/components/switch' },
-        { text: 'Tabs', link: '/components/tabs' },
-        { text: 'Tags Input', link: '/components/tags-input' },
-        { text: 'Toast', link: '/components/toast' },
-        { text: 'Toggle', link: '/components/toggle' },
-        { text: 'Toggle Group', link: '/components/toggle-group' },
-        { text: 'Toolbar', link: '/components/toolbar' },
-        { text: 'Tooltip', link: '/components/tooltip' },
-      ],
-    },
-    {
-      text: 'Utilities',
-      collapsed: false,
-      items: [
-        { text: 'Config Provider', link: '/utilities/config-provider' },
-        { text: 'Visually Hidden', link: '/utilities/visually-hidden' },
-        { text: 'Primitive', link: '/utilities/primitive' },
-        { text: 'Slot', link: '/utilities/slot' },
-        { text: 'useId', link: '/utilities/use-id' },
-        { text: 'useEmitAsProps', link: '/utilities/use-emit-as-props' },
-        { text: 'useForwardProps', link: '/utilities/use-forward-props' },
-        { text: 'useForwardPropsEmits', link: '/utilities/use-forward-props-emits' },
-      ],
-    },
-  ]
-}

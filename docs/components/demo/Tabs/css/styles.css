@@ -21,6 +21,20 @@ input {
   flex-shrink: 0;
   display: flex;
   border-bottom: 1px solid var(--mauve-6);
+  position: relative;
+}
+
+.TagsIndicator {
+  position: absolute;
+  padding-left: 2rem;
+  left: 0;
+  height: 2px;
+  bottom: 0;
+  width: var(--size);
+  transform: translateX(var(--position));
+  border-radius: 9999px; /* rounded-full equivalent */
+  transition-property: width, transform;
+  transition-duration: 300ms;
 }
 
 .TabsTrigger {

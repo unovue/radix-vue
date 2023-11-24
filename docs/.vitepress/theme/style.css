@@ -132,6 +132,10 @@ body {
   @apply dark:text-[var(--vp-c-brand)]  dark:bg-[#0F291E];
 }
 
+.VPSidebarItem.is-active .indicator {
+  @apply bg-[var(--vp-c-brand-1)]
+}
+
 li > span {
   @apply text-[15px] md:text-base;
 }

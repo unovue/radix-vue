@@ -42,9 +42,10 @@ watch(() => context.modelValue.value, async (n) => {
 
 <template>
   <Primitive
-    v-bind="props" :style="{
-      '--size': `${indicatorStyle.size}px`,
-      '--position': `${indicatorStyle.position}px`,
+    v-bind="props"
+    :style="{
+      '--radix-tabs-indicator-size': `${indicatorStyle.size}px`,
+      '--radix-tabs-indicator-position': `${indicatorStyle.position}px`,
     }"
   >
     <slot />

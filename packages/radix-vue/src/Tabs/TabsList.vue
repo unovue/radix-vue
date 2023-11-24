@@ -17,16 +17,20 @@ const props = withDefaults(defineProps<TabsListProps>(), {
 })
 const { loop } = toRefs(props)
 
-const rootContext = injectTabsRootContext()
+const context = injectTabsRootContext()
 </script>
 
 <template>
-  <RovingFocusGroup as-child :orientation="rootContext.orientation.value" :dir="rootContext.dir.value" :loop="loop">
+  <RovingFocusGroup as-child :orientation="context.orientation.value" :dir="context.dir.value" :loop="loop">
     <Primitive
+      :ref=" (vnode) => {
+        if (vnode && '$el' in vnode)
+          context.tabsList.value = vnode.$el
+      }"
       role="tablist"
       :as-child="asChild"
       :as="as"
-      :aria-orientation="rootContext.orientation.value"
+      :aria-orientation="context.orientation.value"
     >
       <slot />
     </Primitive>

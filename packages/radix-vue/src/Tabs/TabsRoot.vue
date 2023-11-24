@@ -11,6 +11,7 @@ export interface TabsRootContext {
   dir: Ref<Direction>
   activationMode: 'automatic' | 'manual'
   baseId: string
+  tabsList: Ref<HTMLElement | undefined>
 }
 
 export interface TabsRootProps extends PrimitiveProps {
@@ -41,7 +42,7 @@ export const [injectTabsRootContext, provideTabsRootContext]
 </script>
 
 <script setup lang="ts">
-import { toRefs } from 'vue'
+import { ref, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { Primitive } from '@/Primitive'
 
@@ -58,6 +59,8 @@ const modelValue = useVModel(props, 'modelValue', emits, {
   passive: (props.modelValue === undefined) as false,
 })
 
+const tabsList = ref<HTMLElement>()
+
 provideTabsRootContext({
   modelValue,
   changeModelValue: (value: string) => {
@@ -67,6 +70,7 @@ provideTabsRootContext({
   dir,
   activationMode: props.activationMode,
   baseId: useId(),
+  tabsList,
 })
 </script>
 

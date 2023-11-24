@@ -241,6 +241,7 @@ export const components = {
     'TabsList',
     'TabsContent',
     'TabsTrigger',
+    'TabsIndicator',
   ],
 
   tagsInput: [

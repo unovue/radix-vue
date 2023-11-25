@@ -12,11 +12,11 @@ interface ComboboxItemContext {
 export const [injectComboboxItemContext, provideComboboxItemContext]
   = createContext<ComboboxItemContext>('ComboboxItem')
 
-export type ComboboxItemEmits<T = string> = {
+export type ComboboxItemEmits<T = AcceptableValue> = {
   select: [event: SelectEvent<T>]
 }
 
-export interface ComboboxItemProps<T = string> extends PrimitiveProps {
+export interface ComboboxItemProps<T = AcceptableValue> extends PrimitiveProps {
   value: T
   disabled?: boolean
   textValue?: string
@@ -25,7 +25,7 @@ export interface ComboboxItemProps<T = string> extends PrimitiveProps {
 const COMBOBOX_SELECT = 'combobox.select'
 </script>
 
-<script setup lang="ts" generic="T extends AcceptableValue = string">
+<script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
 import {
   computed,
   nextTick,

@@ -19,6 +19,11 @@ packages:
     url: https://ui-thing.behonbaker.com/getting-started/introduction
     image: https://ui-thing.behonbaker.com/cover.png
 
+  - title: Float UI
+    description: Float UI offers all the vital building blocks you need to transform your idea into a great-looking startup.
+    url: https://floatui.com/
+    image: https://ph-files.imgix.net/56069229-222e-4364-88c6-8c5d4aa0c3e5.png?auto=compress&codec=mozjpeg&cs=strip&auto=format&fit=max&dpr=1
+
 projects:
   - title: chibisafe
     description: Blazing fast file uploader and awesome bunker written in node! 🚀

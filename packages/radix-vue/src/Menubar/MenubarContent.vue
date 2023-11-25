@@ -94,12 +94,6 @@ function handleArrowNavigation(event: KeyboardEvent) {
         hasInteractedOutsideRef = true;
       }
     "
-    @open-auto-focus="
-      (event) => {
-        if (!menuContext.wasKeyboardTriggerOpenRef.value)
-          event.preventDefault();
-      }
-    "
     @entry-focus="(event) => {
       if (!menuContext.wasKeyboardTriggerOpenRef.value) event.preventDefault()
     }"

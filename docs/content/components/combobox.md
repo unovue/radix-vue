@@ -139,6 +139,11 @@ Contains all the parts of a Combobox
       description: '<span> The custom filter function for filtering <Code> ComboboxItem.</Code> </span>',
     },
     {
+      name: 'displayValue',
+      type: '(val: T) => string',
+      description: '<span> The display value of input for selected item. Does not work with <Code>multiple</Code>.</span>',
+    },
+    {
       name: 'multiple',
       required: false,
       type: 'boolean',

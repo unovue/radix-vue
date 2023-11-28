@@ -23,7 +23,7 @@ const files = computed<string[]>(
       class="vp-raw bg-gradient-to-br p-4 rounded-t-lg from-teal9 to-green9 w-full relative items-center justify-center flex"
       :class="{ 'overflow-x-auto': overflow }"
     >
-      <div class="w-full max-w-[700px] flex items-center py-12 sm:py-[100px] custom-justify-center z-10">
+      <div class="w-full max-w-[700px] flex items-center py-12 sm:py-[100px] custom-justify-center">
         <slot />
 
         <CodeSandbox v-if="folder" class="hidden sm:block absolute bottom-4 right-4" :name="folder" :files="files" />

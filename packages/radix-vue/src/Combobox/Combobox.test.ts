@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
 import Combobox from './story/_Combobox.vue'
+import ComboboxObject from './story/_ComboboxObject.vue'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
@@ -8,7 +9,7 @@ import { handleSubmit } from '@/test'
 
 describe('given default Combobox', () => {
   let wrapper: VueWrapper<InstanceType<typeof Combobox>>
-  let valueBox: DOMWrapper<HTMLElement>
+  let valueBox: DOMWrapper<HTMLInputElement>
   window.HTMLElement.prototype.releasePointerCapture = vi.fn()
   window.HTMLElement.prototype.hasPointerCapture = vi.fn()
   window.HTMLElement.prototype.scrollIntoView = vi.fn()
@@ -62,7 +63,7 @@ describe('given default Combobox', () => {
       })
 
       it('should show value correctly', () => {
-        expect((valueBox.element as HTMLInputElement).value).toBe('Banana')
+        expect((valueBox.element).value).toBe('Banana')
       })
 
       it('should close the popup', () => {
@@ -92,7 +93,7 @@ describe('given default Combobox', () => {
 
 describe('given a Combobox with multiple prop', async () => {
   let wrapper: VueWrapper<InstanceType<typeof Combobox>>
-  let valueBox: DOMWrapper<HTMLElement>
+  let valueBox: DOMWrapper<HTMLInputElement>
 
   beforeEach(() => {
     document.body.innerHTML = ''
@@ -117,12 +118,108 @@ describe('given a Combobox with multiple prop', async () => {
       })
 
       it('should not show searchTerm value', () => {
-        expect((valueBox.element as HTMLInputElement).value).toBe('')
+        expect((valueBox.element).value).toBe('')
       })
 
       it('should keep popup open', () => {
         const group = wrapper.find('[role=group]')
         expect(group.exists()).toBeTruthy()
+      })
+    })
+  })
+})
+
+describe('given a Combobox with object', async () => {
+  let wrapper: VueWrapper<InstanceType<typeof ComboboxObject>>
+  let valueBox: DOMWrapper<HTMLInputElement>
+
+  beforeEach(() => {
+    document.body.innerHTML = ''
+    wrapper = mount(ComboboxObject, {
+      props: { },
+      attachTo: document.body,
+    })
+    valueBox = wrapper.find('input')
+  })
+
+  describe('opening the popup', () => {
+    beforeEach(async () => {
+      await wrapper.find('button').trigger('click')
+      await nextTick()
+    })
+
+    it('should show the popup content', () => {
+      expect(wrapper.html()).toContain('Durward Reynolds')
+    })
+
+    describe('after keypress input', () => {
+      beforeEach(async () => {
+        await valueBox.setValue('Du')
+      })
+
+      describe('if no filter-function provided', () => {
+        it('should not filter anything', () => {
+          const selection = wrapper.findAll('[role=option]')
+          expect(selection.length).toBe(5)
+        })
+      })
+
+      describe('if filter-function provided', () => {
+        beforeEach(async () => {
+          await wrapper.setProps({
+            filterFunction: (list: any[], term: string) => {
+              return list.filter(i => i.name.toLowerCase().includes(term.toLowerCase()))
+            },
+          })
+
+          await valueBox.setValue('Dur')
+        })
+        it('should filter with the searchTerm (Dur)', () => {
+          const selection = wrapper.findAll('[role=option]').filter(i => i.attributes('style') !== 'display: none;')
+          expect(selection.length).toBe(1)
+          expect(selection[0].element.innerHTML).contains('Dur')
+        })
+      })
+    })
+
+    describe('if no display-value provided', () => {
+      describe('after selecting a value', () => {
+        beforeEach(async () => {
+          const selection = wrapper.findAll('[role=option]')[1]
+          await selection.trigger('click')
+        })
+
+        it('should not show searchTerm value', () => {
+          expect((valueBox.element).value).toBe('')
+        })
+
+        it('should not keep popup open', () => {
+          const group = wrapper.find('[role=group]')
+          expect(group.exists()).toBeFalsy()
+        })
+      })
+    })
+
+    describe('if display-value provided', () => {
+      describe('after selecting a value', () => {
+        beforeEach(async () => {
+          await wrapper.setProps({
+            displayValue: (item: any) => {
+              return item.name
+            },
+          })
+          const selection = wrapper.findAll('[role=option]')[1]
+          await selection.trigger('click')
+        })
+
+        it('should show searchTerm value', () => {
+          expect((valueBox.element).value).toBe('Kenton Towne')
+        })
+
+        it('should not keep popup open', () => {
+          const group = wrapper.find('[role=group]')
+          expect(group.exists()).toBeFalsy()
+        })
       })
     })
   })

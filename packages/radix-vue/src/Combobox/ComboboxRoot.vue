@@ -50,6 +50,7 @@ export interface ComboboxRootProps<T = string> extends PrimitiveProps {
   name?: string
   dir?: Direction
   filterFunction?: (val: ArrayOrWrapped<T>, term: string) => ArrayOrWrapped<T>
+  displayValue?: (val: T) => string
 }
 </script>
 
@@ -142,10 +143,17 @@ const filteredOptions = computed(() => {
 })
 
 function resetSearchTerm() {
-  if (typeof modelValue.value === 'string' && !multiple.value)
-    searchTerm.value = modelValue.value
-  else
+  if (!multiple.value && modelValue.value) {
+    if (typeof modelValue.value === 'object' && props.displayValue)
+      searchTerm.value = props.displayValue(modelValue.value)
+    else if (typeof modelValue.value !== 'object')
+      searchTerm.value = modelValue.value.toString()
+    else
+      searchTerm.value = ''
+  }
+  else {
     searchTerm.value = ''
+  }
 }
 
 const activeIndex = computed(() => filteredOptions.value.findIndex(i => isEqual(i, selectedValue.value)))

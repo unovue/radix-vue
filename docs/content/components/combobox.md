@@ -109,13 +109,13 @@ Contains all the parts of a Combobox
     {
       name: 'defaultValue',
       required: false,
-      type: 'string | string[] | object | object[]',
+      type: 'T',
       description: 'The value of the combobox when initially rendered. Use when you do not need to control the state of the Combobox',
     },
     {
       name: 'modelValue',
       required: false,
-      type: 'string | string[] | object | object[]',
+      type: 'T',
       description: '<span> The controlled value of the Combobox Should be binded-with with <Code>v-model</Code>. </span>',
     },
     {
@@ -135,7 +135,7 @@ Contains all the parts of a Combobox
     },
     {
       name: 'filterFunction',
-      type: '(val: Array<string | any>, term: string) => Array<any>',
+      type: '(val: Array<T>, term: string) => Array<T>',
       description: '<span> The custom filter function for filtering <Code> ComboboxItem.</Code> </span>',
     },
     {
@@ -175,7 +175,7 @@ Contains all the parts of a Combobox
     {
       name: '@update:modelValue',
       required: false,
-      type: '(value: string) => void',
+      type: '(value: T) => void',
       description: 'Event handler called when the value changes.',
     },
     {

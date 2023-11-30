@@ -33,13 +33,13 @@ type ComboboxRootContext<T> = {
 export const [injectComboboxRootContext, provideComboboxRootContext]
   = createContext<ComboboxRootContext<AcceptableValue>>('ComboboxRoot')
 
-export type ComboboxRootEmits<T = string> = {
+export type ComboboxRootEmits<T = AcceptableValue> = {
   'update:modelValue': [value: T]
   'update:open': [value: boolean]
   'update:searchTerm': [value: string]
 }
 
-export interface ComboboxRootProps<T = string> extends PrimitiveProps {
+export interface ComboboxRootProps<T = AcceptableValue> extends PrimitiveProps {
   modelValue?: T
   defaultValue?: T
   open?: boolean
@@ -54,7 +54,7 @@ export interface ComboboxRootProps<T = string> extends PrimitiveProps {
 }
 </script>
 
-<script setup lang="ts" generic="T extends AcceptableValue = string">
+<script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
 import { computed, nextTick, ref, toRefs, watch } from 'vue'
 import { PopperRoot } from '@/Popper'
 import { Primitive, usePrimitiveElement } from '@/Primitive'

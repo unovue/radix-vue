@@ -21,8 +21,6 @@ useBodyScrollLock(true)
     :as-child="asChild"
     :data-state="rootContext.open.value ? 'open' : 'closed'"
     style="pointer-events: auto"
-    data-aria-hidden="true"
-    aria-hidden="true"
   >
     <slot />
   </Primitive>

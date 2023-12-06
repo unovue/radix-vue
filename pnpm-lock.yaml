@@ -10813,7 +10813,6 @@ packages:
     resolution: {directory: packages/radix-vue, type: directory}
     id: file:packages/radix-vue
     name: radix-vue
-    version: 1.2.0
     dependencies:
       '@floating-ui/dom': 1.5.3
       '@floating-ui/vue': 1.0.2(vue@3.3.8)

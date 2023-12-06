@@ -468,6 +468,26 @@ const container = ref(null)
 
 Adheres to the [Dialog WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal).
 
+### Close icon button
+
+When providing an icon (or font icon), remember to label it correctly for screen reader users.
+
+```html line=8-9
+<DialogRoot>
+  <DialogTrigger />
+  <DialogPortal>
+    <DialogOverlay />
+    <DialogContent>
+      <DialogTitle />
+      <DialogDescription />
+      <DialogClose aria-label="Close">
+        <span aria-hidden>×</span>
+      </DialogClose>
+    </DialogContent>
+  </DialogPortal>
+</DialogRoot>
+```
+
 ### Keyboard Interactions
 
 <KeyboardTable

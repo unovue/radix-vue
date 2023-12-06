@@ -144,7 +144,7 @@ const filteredOptions = computed(() => {
 
 function resetSearchTerm() {
   if (!multiple.value && modelValue.value) {
-    if (typeof modelValue.value === 'object' && props.displayValue)
+    if (props.displayValue)
       searchTerm.value = props.displayValue(modelValue.value)
     else if (typeof modelValue.value !== 'object')
       searchTerm.value = modelValue.value.toString()

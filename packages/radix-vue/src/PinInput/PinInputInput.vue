@@ -111,7 +111,7 @@ function handlePaste(event: ClipboardEvent) {
 }
 
 function updateModelValueAt(index: number, value: string) {
-  const tempModelValue = context.modelValue.value
+  const tempModelValue = [...context.modelValue.value]
   tempModelValue[index] = value
   context.modelValue.value = tempModelValue
 }

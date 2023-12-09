@@ -24,11 +24,12 @@ export type AsTag =
 
 export interface PrimitiveProps {
   /**
-   * Setting "asChild" to true has the same effect as setting "as" to "template".
+   * Setting `asChild` to true has the same effect as setting `as` to `template`.
    * @default false
    */
   asChild?: boolean
   /**
+   * The element or component this component should render as. Can be overwrite by `asChild`
    * @default "div"
    */
   as?: AsTag | Component

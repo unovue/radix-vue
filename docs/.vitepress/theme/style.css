@@ -136,6 +136,10 @@ body {
   @apply bg-[var(--vp-c-brand-1)]
 }
 
+.content-container {
+  @apply !max-w-[720px];
+}
+
 li > span {
   @apply text-[15px] md:text-base;
 }

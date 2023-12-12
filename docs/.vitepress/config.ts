@@ -27,7 +27,7 @@ export default defineConfig({
   title: radixVueName,
   description: radixVueDescription,
   head: [
-    ['meta', { name: 'theme-color', content: '#729b1a' }],
+    ['meta', { name: 'theme-color', content: '#00C38A' }],
     ['link', { rel: 'icon', href: '/logo.png' }],
     ['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
     [

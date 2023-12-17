@@ -24,7 +24,10 @@ const indicatorStyle = ref<IndicatorStyle>({
 
 watch(() => context.modelValue.value, async (n) => {
   await nextTick()
-  const activeTab = context.tabsList.value?.querySelector<HTMLButtonElement>('[role="tab"][data-state="active"]')!
+  const activeTab = context.tabsList.value?.querySelector<HTMLButtonElement>('[role="tab"][data-state="active"]')
+
+  if (!activeTab)
+    return
 
   if (context.orientation.value === 'horizontal') {
     indicatorStyle.value = {
@@ -38,7 +41,7 @@ watch(() => context.modelValue.value, async (n) => {
       position: activeTab.offsetTop,
     }
   }
-}, { immediate: true, flush: 'post' })
+}, { immediate: true })
 </script>
 
 <template>

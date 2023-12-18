@@ -46,6 +46,7 @@ watch(() => context.modelValue.value, async (n) => {
 
 <template>
   <Primitive
+    v-if="typeof indicatorStyle.size === 'number'"
     v-bind="props"
     :style="{
       '--radix-tabs-indicator-size': `${indicatorStyle.size}px`,

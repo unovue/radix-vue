@@ -79,7 +79,7 @@ body:
   - type: textarea
     id: screenshots
     attributes:
-      label: Conext & Screenshots (if applicable)
+      label: Context & Screenshots (if applicable)
       description: |
         If applicable, provide any additional context or screenshots of the bug.
         You can drag and drop images here to add them to the issue.

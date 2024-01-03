@@ -43,6 +43,7 @@ onMounted(() => {
       :data-disabled="disabled ? '' : undefined"
       :disabled="disabled"
       :data-state="rootContext.open.value ? 'open' : 'closed'"
+      @pointerdown.prevent.stop
       @click="
         async (event) => {
           // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)

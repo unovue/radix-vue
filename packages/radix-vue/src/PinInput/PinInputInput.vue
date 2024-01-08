@@ -68,8 +68,10 @@ function handleBackspace(event: KeyboardEvent) {
 }
 
 function handleDelete(event: KeyboardEvent) {
-  event.preventDefault()
-  updateModelValueAt(props.index, '')
+  if (event.key === 'Delete') {
+    event.preventDefault()
+    updateModelValueAt(props.index, '')
+  }
 }
 
 function handleFocus(event: FocusEvent) {
@@ -94,6 +96,7 @@ function handlePaste(event: ClipboardEvent) {
   if (!clipboardData)
     return
 
+  const tempModelValue = [...context.modelValue.value]
   const values = clipboardData.getData('text')
   const initialIndex = values.length >= inputElements.value.length ? 0 : props.index
   const lastIndex = Math.min(initialIndex + values.length, inputElements.value.length)
@@ -103,10 +106,10 @@ function handlePaste(event: ClipboardEvent) {
     if (isNumbericMode.value && !/^[0-9]*$/.test(value))
       continue
 
-    input.value = value
-    updateModelValueAt(i, value)
+    tempModelValue[i] = value
     input.focus()
   }
+  context.modelValue.value = tempModelValue
   inputElements.value[lastIndex]?.focus()
 }
 

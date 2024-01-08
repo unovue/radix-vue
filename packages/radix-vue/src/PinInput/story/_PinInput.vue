@@ -13,9 +13,9 @@ const value = ref<string[]>([])
 <template>
   <Label for="otp">Test label</Label>
   <PinInputRoot
+    v-bind="{ ...props, ...useEmitAsProps(emits) }"
     v-model="value"
     class="flex gap-2 items-center"
-    v-bind="{ ...props, ...useEmitAsProps(emits) }"
   >
     <PinInputInput
       v-for="(id, index) in 5"

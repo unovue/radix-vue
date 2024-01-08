@@ -25,6 +25,11 @@ packages:
     image: https://ph-files.imgix.net/56069229-222e-4364-88c6-8c5d4aa0c3e5.png?auto=compress&codec=mozjpeg&cs=strip&auto=format&fit=max&dpr=1
 
 projects:
+  - title: vue0
+    description: Generate Component with simple text prompts. Vue version open source alternative for v0.
+    url: https://www.vue0.dev/
+    image: https://www.vue0.dev/og.png
+
   - title: chibisafe
     description: Blazing fast file uploader and awesome bunker written in node! 🚀
     url: https://chibisafe.moe/

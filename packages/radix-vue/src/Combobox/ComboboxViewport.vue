@@ -11,12 +11,6 @@ const props = defineProps<ComboboxViewportProps>()
 </script>
 
 <template>
-  <Primitive as="style">
-    /* Hide scrollbars cross-browser and enable momentum scroll for touch
-    devices */ [data-radix-combobox-viewport] { scrollbar-width:none; -ms-overflow-style: none;
-    -webkit-overflow-scrolling: touch; }
-    [data-radix-combobox-viewport]::-webkit-scrollbar { display: none; }
-  </Primitive>
   <Primitive
     data-radix-combobox-viewport
     role="presentation"
@@ -31,5 +25,11 @@ const props = defineProps<ComboboxViewportProps>()
     }"
   >
     <slot />
+  </Primitive>
+  <Primitive as="style">
+    /* Hide scrollbars cross-browser and enable momentum scroll for touch
+    devices */ [data-radix-combobox-viewport] { scrollbar-width:none; -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch; }
+    [data-radix-combobox-viewport]::-webkit-scrollbar { display: none; }
   </Primitive>
 </template>

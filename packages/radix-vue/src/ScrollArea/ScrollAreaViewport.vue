@@ -32,19 +32,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <Primitive as="style">
-    /* Hide scrollbars cross-browser and enable momentum scroll for touch
-    devices */
-    [data-radix-scroll-area-viewport] {
-    scrollbar-width:none;
-    -ms-overflow-style:none;
-    -webkit-overflow-scrolling:touch;
-    }
-
-    [data-radix-scroll-area-viewport]::-webkit-scrollbar {
-    display:none;
-    }
-  </Primitive>
   <div
     ref="viewportElement"
     data-radix-scroll-area-viewport=""
@@ -75,4 +62,17 @@ onMounted(() => {
       <slot />
     </Primitive>
   </div>
+  <Primitive as="style">
+    /* Hide scrollbars cross-browser and enable momentum scroll for touch
+    devices */
+    [data-radix-scroll-area-viewport] {
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+    -webkit-overflow-scrolling:touch;
+    }
+
+    [data-radix-scroll-area-viewport]::-webkit-scrollbar {
+    display:none;
+    }
+  </Primitive>
 </template>

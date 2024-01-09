@@ -62,12 +62,6 @@ function handleScroll(event: WheelEvent) {
 </script>
 
 <template>
-  <Primitive as="style">
-    /* Hide scrollbars cross-browser and enable momentum scroll for touch
-    devices */ [data-radix-select-viewport] { scrollbar-width:none; -ms-overflow-style: none;
-    -webkit-overflow-scrolling: touch; }
-    [data-radix-select-viewport]::-webkit-scrollbar { display: none; }
-  </Primitive>
   <Primitive
     ref="primitiveElement"
     data-radix-select-viewport
@@ -84,5 +78,11 @@ function handleScroll(event: WheelEvent) {
     @scroll="handleScroll"
   >
     <slot />
+  </Primitive>
+  <Primitive as="style">
+    /* Hide scrollbars cross-browser and enable momentum scroll for touch
+    devices */ [data-radix-select-viewport] { scrollbar-width:none; -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch; }
+    [data-radix-select-viewport]::-webkit-scrollbar { display: none; }
   </Primitive>
 </template>

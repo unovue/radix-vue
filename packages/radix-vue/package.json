@@ -76,7 +76,7 @@
     "defu": "^6.1.2",
     "dts-bundle": "^0.7.3",
     "jsdom": "^22.1.0",
-    "typescript": "^5.2.2",
+    "typescript": "^5.3.3",
     "vite": "^4.5.0",
     "vite-plugin-dts": "^3.6.0",
     "vitest": "^0.34.6",

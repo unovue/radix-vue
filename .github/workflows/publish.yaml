@@ -21,11 +21,11 @@ jobs:
 
       # Run a build step here
       - name: Setup Node.js environment
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: 18
 
-      - uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v2
         name: Install pnpm
         with:
           version: 8

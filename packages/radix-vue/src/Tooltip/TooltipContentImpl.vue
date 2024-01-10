@@ -61,10 +61,11 @@ const emits = defineEmits<TooltipContentImplEmits>()
 const contentElement = ref<HTMLElement>()
 const rootContext = injectTooltipRootContext()
 
+const slot = useSlots()
+const defaultSlot = computed(() => slot.default?.())
 const ariaLabel = computed(() => {
   if (props.ariaLabel)
     return props.ariaLabel
-  const defaultSlot = useSlots().default?.()
   let content = ''
 
   function recursiveTextSearch(node: VNode) {
@@ -74,7 +75,7 @@ const ariaLabel = computed(() => {
       node.children.forEach(child => recursiveTextSearch(child as VNode))
   }
 
-  defaultSlot?.forEach(node => recursiveTextSearch(node))
+  defaultSlot.value?.forEach(node => recursiveTextSearch(node))
   return content
 })
 

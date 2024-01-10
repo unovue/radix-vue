@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { PaginationEllipsis, PaginationFirst, PaginationLast, PaginationList, PaginationListItem, PaginationNext, PaginationPrev, PaginationRoot, type PaginationRootProps } from '..'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
+  total?: PaginationRootProps['total']
   showEdges?: PaginationRootProps['showEdges']
-}>()
+}>(), {
+  total: 100,
+})
 </script>
 
 <template>
-  <PaginationRoot :total="100" v-bind="props">
+  <PaginationRoot v-bind="props">
     <PaginationList v-slot="{ items }" class="flex items-center gap-2 ">
       <PaginationFirst />
       <PaginationPrev />

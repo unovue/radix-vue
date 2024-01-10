@@ -5,7 +5,7 @@ import { PaginationEllipsis, PaginationFirst, PaginationLast, PaginationList, Pa
 <template>
   <Story title="Pagination/Default" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
-      <PaginationRoot :total="100">
+      <PaginationRoot :total="34" :sibling-count="1">
         <PaginationList v-slot="{ items }" class="flex items-center gap-2 ">
           <PaginationFirst />
           <PaginationPrev />

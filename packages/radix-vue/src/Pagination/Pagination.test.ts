@@ -119,3 +119,48 @@ describe('given show-edges Pagination', () => {
     })
   })
 })
+
+describe('given small total value', () => {
+  let wrapper: VueWrapper<InstanceType<typeof Pagination>>
+
+  beforeEach(() => {
+    document.body.innerHTML = ''
+    wrapper = mount(Pagination, { attachTo: document.body, props: { total: 13 } })
+  })
+
+  it('should pass axe accessibility tests', async () => {
+    expect(await axe(wrapper.element)).toHaveNoViolations()
+  })
+
+  it('should have first page selected by default', () => {
+    expect(wrapper.find('[aria-label="Page 1"]').attributes('data-selected')).toBe('true')
+    expect(wrapper.find('[aria-label="Page 2"]').attributes('data-selected')).toBe(undefined)
+  })
+
+  it('should have only 2 page button', () => {
+    expect(wrapper.findAll('[data-type="page"').length).toBe(2)
+  })
+
+  describe('after clicking on Next Page trigger', () => {
+    beforeEach(async () => {
+      await wrapper.find('[aria-label="Next Page"]').trigger('click')
+    })
+
+    it('should have set to page 2', () => {
+      expect(wrapper.find('[aria-label="Page 1"]').attributes('data-selected')).toBe(undefined)
+      expect(wrapper.find('[aria-label="Page 2"]').attributes('data-selected')).toBe('true')
+    })
+  })
+
+  describe('after clicking on Last Page trigger', () => {
+    beforeEach(async () => {
+      await wrapper.find('[aria-label="Last Page"]').trigger('click')
+    })
+
+    it('should have set to page 2', () => {
+      // first page will be hidden
+      expect(wrapper.find('[aria-label="Page 1"]').exists()).toBeTruthy()
+      expect(wrapper.find('[aria-label="Page 2"]').attributes('data-selected')).toBe('true')
+    })
+  })
+})

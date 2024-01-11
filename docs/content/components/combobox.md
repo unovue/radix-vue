@@ -285,7 +285,9 @@ The button that clears the search term.
 
 ### Portal
 
-When used, portals the content part into the `body`.
+When used, portals the content part into the `body`.  
+
+You need to set `position="popper"` for `ComboboxContent` to make sure the position was automatically computed similar to `Popover` or `DropdownMenu`.
 
 <PropsTable
   :data="[
@@ -309,7 +311,7 @@ The component that pops out when the combobox is open.
       type: '&quot;inline&quot; | &quot;popper&quot;',
       typeSimple: 'enum',
       default: '&quot;inline&quot;',
-      description: '<span> The positioning mode to use, <Code>inline</Code> is the default and behaves similarly to a native MacOS menu by positioning content relative to the active item. <Code>popper</Code> positions content in the same way as our other primitives, for example <Code>Popover</Code> or <Code>DropdownMenu</Code>. </span>',
+      description: '<span> The positioning mode to use, <Code>inline</Code> is the default and you can control the position using CSS. <Code>popper</Code> positions content in the same way as our other primitives, for example <Code>Popover</Code> or <Code>DropdownMenu</Code>. </span>',
     },
     {
       name: 'bodyLock',

@@ -33,7 +33,7 @@ function handleInput(event: Event) {
   }
 
   target.value = target.value.slice(-1)
-  context.modelValue.value[props.index] = target.value
+  updateModelValueAt(props.index, target.value)
 
   const nextEl = inputElements.value[props.index + 1]
   if (nextEl)
@@ -56,20 +56,22 @@ function handleBackspace(event: KeyboardEvent) {
   const value = target.value
 
   if (value) {
-    context.modelValue.value[props.index] = ''
+    updateModelValueAt(props.index, '')
   }
   else {
     const prevEl = inputElements.value[props.index - 1]
     if (prevEl) {
       prevEl.focus()
-      context.modelValue.value[props.index - 1] = ''
+      updateModelValueAt(props.index - 1, '')
     }
   }
 }
 
 function handleDelete(event: KeyboardEvent) {
-  event.preventDefault()
-  context.modelValue.value[props.index] = ''
+  if (event.key === 'Delete') {
+    event.preventDefault()
+    updateModelValueAt(props.index, '')
+  }
 }
 
 function handleFocus(event: FocusEvent) {
@@ -94,6 +96,7 @@ function handlePaste(event: ClipboardEvent) {
   if (!clipboardData)
     return
 
+  const tempModelValue = [...context.modelValue.value]
   const values = clipboardData.getData('text')
   const initialIndex = values.length >= inputElements.value.length ? 0 : props.index
   const lastIndex = Math.min(initialIndex + values.length, inputElements.value.length)
@@ -103,11 +106,17 @@ function handlePaste(event: ClipboardEvent) {
     if (isNumbericMode.value && !/^[0-9]*$/.test(value))
       continue
 
-    input.value = value
-    context.modelValue.value[i] = value
+    tempModelValue[i] = value
     input.focus()
   }
+  context.modelValue.value = tempModelValue
   inputElements.value[lastIndex]?.focus()
+}
+
+function updateModelValueAt(index: number, value: string) {
+  const tempModelValue = [...context.modelValue.value]
+  tempModelValue[index] = value
+  context.modelValue.value = tempModelValue
 }
 
 onMounted(() => {

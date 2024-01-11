@@ -11,8 +11,8 @@ hero:
     src: /logo.svg
     alt: Radix-Vue
   prelink:
-    title: 🎉 New components!
-    link: https://github.com/radix-vue/radix-vue/releases/tag/v1.2.0
+    title: 🎉 Improved tree-shaking!
+    link: https://github.com/radix-vue/radix-vue/releases/tag/v1.3.0
     target: _blank
   actions:
     - theme: brand

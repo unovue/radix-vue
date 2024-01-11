@@ -140,6 +140,7 @@ provideSelectItemContext({
     @focus="isFocused = true"
     @blur="isFocused = false"
     @pointerup="handleSelect"
+    @touchend.prevent.stop
     @pointermove="handlePointerMove"
     @pointerleave="handlePointerLeave"
     @keydown="handleKeyDown"

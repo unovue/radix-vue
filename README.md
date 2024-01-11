@@ -31,7 +31,7 @@ Radix is an unstyled, customisable UI Library with built in accessibility for bu
 
 
 ![hero image](docs/content/public/og.png)
- <em>design by: https://twitter.com/icarusgkx</em>
+ <em>design by: https://twitter.com/icarusgkx, https://github.com/MellKam</em>
  
 ## Installation
 

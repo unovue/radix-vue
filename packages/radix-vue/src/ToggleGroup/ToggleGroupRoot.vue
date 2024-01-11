@@ -44,7 +44,6 @@ import { RovingFocusGroup } from '@/RovingFocus'
 const props = withDefaults(defineProps<ToggleGroupRootProps>(), {
   type: 'single',
   loop: true,
-  orientation: 'horizontal',
   rovingFocus: true,
   disabled: false,
 })

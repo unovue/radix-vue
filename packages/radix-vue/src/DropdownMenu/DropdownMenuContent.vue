@@ -63,6 +63,7 @@ function handleCloseAutoFocus(event: Event) {
       const ctrlLeftClick = originalEvent.button === 0 && originalEvent.ctrlKey === true;
       const isRightClick = originalEvent.button === 2 || ctrlLeftClick;
       if (!rootContext.modal.value || isRightClick) hasInteractedOutsideRef = true;
+      if (rootContext.triggerElement.value?.contains(event.target as HTMLElement)) event.preventDefault()
     }"
   >
     <slot />

@@ -160,7 +160,7 @@ Contains all the parts of a slider. It will render an `input` for each thumb whe
   :data="[
     {
       name: '@update:modelValue',
-      type: '(value: number) => void',
+      type: '(value: number[]) => void',
       description: 'Event handler called when the slider value changes'
     },
     {

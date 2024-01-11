@@ -28,5 +28,7 @@ const props = withDefaults(defineProps<TooltipArrowProps>(), {
 </script>
 
 <template>
-  <PopperArrow v-bind="props" />
+  <PopperArrow v-bind="props">
+    <slot />
+  </PopperArrow>
 </template>

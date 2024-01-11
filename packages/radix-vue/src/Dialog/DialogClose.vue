@@ -19,7 +19,6 @@ const rootContext = injectDialogRootContext()
   <Primitive
     v-bind="props"
     :type="as === 'button' ? 'button' : undefined"
-    aria-label="Close"
     @click="rootContext.onOpenChange(false)"
   >
     <slot />

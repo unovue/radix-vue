@@ -68,7 +68,7 @@ export default defineComponent({
           'Note: Presence works similarly to `v-if` directly, but it waits for animation/transition to finished before unmounting. So it expect only one direct child of valid VNode type.',
           'You can apply a few solutions:',
           [
-            'Provide a single child element so that `presence` directive attach correctly.rv',
+            'Provide a single child element so that `presence` directive attach correctly.',
             'Ensure the first child is an actual element instead of a raw text node or comment node.',
           ]
             .map(line => `  - ${line}`)
@@ -87,7 +87,7 @@ export default defineComponent({
 
             // special case to handle animation for PopperContent
             if (el?.hasAttribute('data-radix-popper-content-wrapper'))
-              node.value = el.firstChild as HTMLElement
+              node.value = el.firstElementChild as HTMLElement
             else
               node.value = el
 

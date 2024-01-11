@@ -1,7 +1,8 @@
 import {
   createGlobalState,
+  useEventListener,
 } from '@vueuse/core'
-import { isClient } from '@vueuse/shared'
+import { type Fn, isClient, isIOS } from '@vueuse/shared'
 import { nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import { defu } from 'defu'
 import { injectConfigProviderContext } from '@/ConfigProvider/ConfigProvider.vue'
@@ -18,6 +19,7 @@ export function useBodyScrollLock(initialState?: boolean | undefined) {
   const initialOverflow = useInitialOverflowStyle()
 
   const locked = ref(initialState)
+  let stopTouchMoveListener: Fn | null = null
 
   const resetBodyStyle = () => {
     document.body.style.paddingRight = ''
@@ -25,6 +27,8 @@ export function useBodyScrollLock(initialState?: boolean | undefined) {
     document.body.style.pointerEvents = ''
     document.body.style.removeProperty('--scrollbar-width')
     document.body.style.overflow = initialOverflow.value ?? ''
+    isIOS && stopTouchMoveListener?.()
+
     initialOverflow.value = undefined
   }
 
@@ -58,6 +62,19 @@ export function useBodyScrollLock(initialState?: boolean | undefined) {
         document.body.style.marginRight = `${config.margin}px`
         document.body.style.setProperty('--scrollbar-width', `${verticalScrollbarWidth}px`)
         document.body.style.overflow = 'hidden'
+      }
+
+      if (isIOS) {
+        stopTouchMoveListener = useEventListener(
+          document.body,
+          'touchmove',
+          (e: TouchEvent) => {
+            if (e.touches.length > 1)
+              return
+            e.preventDefault?.()
+          },
+          { passive: false },
+        )
       }
 
       // let dismissibleLayer set previous pointerEvent first

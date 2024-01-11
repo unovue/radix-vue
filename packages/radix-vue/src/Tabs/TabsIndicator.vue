@@ -24,7 +24,11 @@ const indicatorStyle = ref<IndicatorStyle>({
 
 watch(() => context.modelValue.value, async (n) => {
   await nextTick()
-  const activeTab = context.tabsList.value?.querySelector('[role="tab"][data-state="active"]') as HTMLButtonElement
+  const activeTab = context.tabsList.value?.querySelector<HTMLButtonElement>('[role="tab"][data-state="active"]')
+
+  if (!activeTab)
+    return
+
   if (context.orientation.value === 'horizontal') {
     indicatorStyle.value = {
       size: activeTab.offsetWidth,
@@ -42,6 +46,7 @@ watch(() => context.modelValue.value, async (n) => {
 
 <template>
   <Primitive
+    v-if="typeof indicatorStyle.size === 'number'"
     v-bind="props"
     :style="{
       '--radix-tabs-indicator-size': `${indicatorStyle.size}px`,

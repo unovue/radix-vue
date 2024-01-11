@@ -31,10 +31,6 @@ withDefaults(
 </template>
 
 <style scoped>
-:deep(input) {
-  background-color: white;
-}
-
 :deep(li) {
   margin-top: 0 !important;
 }

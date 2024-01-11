@@ -62,7 +62,10 @@ export function getRange(currentPage: number, pageCount: number, siblingCount: n
   else {
     const itemCount = siblingCount * 2 + 1
 
-    if (currentPage <= (siblingCount + 1))
+    if (pageCount < itemCount)
+      return range(1, lastPageIndex)
+
+    else if (currentPage <= (siblingCount + 1))
       return range(firstPageIndex, itemCount)
 
     else if ((pageCount - currentPage) <= siblingCount)

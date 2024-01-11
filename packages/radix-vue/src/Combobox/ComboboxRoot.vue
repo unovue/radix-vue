@@ -67,7 +67,7 @@ const props = withDefaults(defineProps<ComboboxRootProps<T>>(), {
 })
 const emit = defineEmits<ComboboxRootEmits<T>>()
 
-const { multiple, disabled, name, dir: propDir } = toRefs(props)
+const { multiple, disabled, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
 
 const searchTerm = useVModel(props, 'searchTerm', emit, {
@@ -244,7 +244,7 @@ provideComboboxRootContext({
         :value="modelValue"
       />
 
-      <VisuallyHiddenInput v-if="isFormControl && name" :name="name" :value="modelValue" />
+      <VisuallyHiddenInput v-if="isFormControl && props.name" :name="props.name" :value="modelValue" />
     </Primitive>
   </PopperRoot>
 </template>

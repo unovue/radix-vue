@@ -7,7 +7,7 @@
     "docs:build": "vitepress build",
     "docs:preview": "vitepress preview",
     "docs:contributors": "esno scripts/update-contributors.ts",
-    "docs:gen": "esno ./scripts/component-meta.ts"
+    "docs:gen": "vue-docgen -c docgen/config.mjs"
   },
   "dependencies": {
     "@stackblitz/sdk": "^1.9.0",
@@ -29,7 +29,9 @@
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.3",
     "vitepress": "1.0.0-rc.20",
-    "vue-component-meta": "^1.8.25"
+    "vue-component-meta": "^1.8.25",
+    "vue-docgen-cli": "^4.67.0",
+    "vue-inbrowser-compiler-independent-utils": "^4.71.1"
   },
   "postcss": {
     "plugins": {

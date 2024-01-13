@@ -78,7 +78,7 @@ Contains all the parts of a checkbox. An `input` will also render when used with
     },
     {
       name: 'checked',
-      type: 'boolean',
+      type: 'boolean | \'intermediate\'',
       description: '<span> The controlled checked state of the checkbox Must be binded with <Code>v-model</Code>.</span>',
     },
     {
@@ -187,12 +187,12 @@ const checked = ref('indeterminate')
 </script>
 
 <template>
-  <StyledCheckbox v-model:checked="checked">
-    <Icon icon="radix-icons:checkbox-indicator">
+  <CheckboxRoot v-model:checked="checked">
+    <CheckboxIndicator>
       <Icon v-if="checked === 'indeterminate'" icon="radix-icons:divider-horizontal" />
       <Icon v-if="checked" icon="radix-icons:check" />
-    </Icon>
-  </StyledCheckbox>
+    </CheckboxIndicator>
+  </CheckboxRoot>
 
   <button type="button" @click="() => (checked === 'indeterminate' ? (checked = false) : (checked = 'indeterminate'))">
     Toggle indeterminate

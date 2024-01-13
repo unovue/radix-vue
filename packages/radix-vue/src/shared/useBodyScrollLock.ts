@@ -66,7 +66,7 @@ export function useBodyScrollLock(initialState?: boolean | undefined) {
 
       if (isIOS) {
         stopTouchMoveListener = useEventListener(
-          document.body,
+          window,
           'touchmove',
           (e: TouchEvent) => {
             if (e.touches.length > 1)

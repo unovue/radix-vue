@@ -78,7 +78,7 @@ Contains all the parts of a checkbox. An `input` will also render when used with
     },
     {
       name: 'checked',
-      type: 'boolean | "intermediate"',
+      type: 'boolean | \'intermediate\'',
       description: '<span> The controlled checked state of the checkbox Must be binded with <Code>v-model</Code>.</span>',
     },
     {

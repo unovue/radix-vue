@@ -14,6 +14,7 @@ export type ComboboxContentImplEmits = DismissableLayerEmits
 export interface ComboboxContentImplProps extends PopperContentProps {
   position?: 'inline' | 'popper'
   bodyLock?: boolean
+  dismissable?: boolean
   disableOutsidePointerEvents?: boolean
 }
 
@@ -37,6 +38,7 @@ import { CollectionSlot } from '@/Collection'
 
 const props = withDefaults(defineProps<ComboboxContentImplProps>(), {
   position: 'inline',
+  dismissable: true,
 })
 const emits = defineEmits<ComboboxContentImplEmits>()
 
@@ -81,6 +83,7 @@ provideComboboxContentContext({ position })
 <template>
   <CollectionSlot>
     <DismissableLayer
+      v-if="dismissable"
       as-child
       :disable-outside-pointer-events="disableOutsidePointerEvents"
       @dismiss="rootContext.onOpenChange(false)"
@@ -117,5 +120,26 @@ provideComboboxContentContext({ position })
         <slot />
       </component>
     </DismissableLayer>
+
+    <component
+      :is="position === 'popper' ? PopperContent : Primitive "
+      v-else
+      v-bind="{ ...$attrs, ...pickedProps }"
+      :id="rootContext.contentId"
+      ref="primitiveElement"
+      role="listbox"
+      :data-state="rootContext.open.value ? 'open' : 'closed'"
+      :style="{
+        // flex layout so we can place the scroll buttons properly
+        display: 'flex',
+        flexDirection: 'column',
+        // reset the outline by default as the content MAY get focused
+        outline: 'none',
+        ...(position === 'popper' ? popperStyle : {}),
+      }"
+      @pointerleave="handleLeave"
+    >
+      <slot />
+    </component>
   </CollectionSlot>
 </template>

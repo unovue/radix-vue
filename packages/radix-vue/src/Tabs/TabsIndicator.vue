@@ -9,6 +9,7 @@ export interface TabsIndicatorProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { Primitive } from '@/Primitive'
+import { useResizeObserver } from '@vueuse/core'
 
 const props = defineProps<TabsIndicatorProps>()
 const context = injectTabsRootContext()
@@ -24,6 +25,12 @@ const indicatorStyle = ref<IndicatorStyle>({
 
 watch(() => context.modelValue.value, async (n) => {
   await nextTick()
+  updateIndicatorStyle()
+}, { immediate: true })
+
+useResizeObserver(context.tabsList, updateIndicatorStyle)
+
+function updateIndicatorStyle() {
   const activeTab = context.tabsList.value?.querySelector<HTMLButtonElement>('[role="tab"][data-state="active"]')
 
   if (!activeTab)
@@ -41,7 +48,7 @@ watch(() => context.modelValue.value, async (n) => {
       position: activeTab.offsetTop,
     }
   }
-}, { immediate: true })
+}
 </script>
 
 <template>

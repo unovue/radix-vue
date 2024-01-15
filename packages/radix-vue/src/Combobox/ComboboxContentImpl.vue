@@ -3,6 +3,7 @@ import type { Ref } from 'vue'
 import {
   createContext,
   useBodyScrollLock,
+  useForwardProps,
   useHideOthers,
 } from '@/shared'
 
@@ -56,6 +57,8 @@ const pickedProps = computed(() => {
   else return {}
 })
 
+const forwardedProps = useForwardProps(pickedProps.value)
+
 function handleLeave(ev: PointerEvent) {
   rootContext.onSelectedValueChange('')
 }
@@ -102,7 +105,7 @@ provideComboboxContentContext({ position })
     >
       <component
         :is="position === 'popper' ? PopperContent : Primitive "
-        v-bind="{ ...$attrs, ...pickedProps }"
+        v-bind="{ ...$attrs, ...forwardedProps }"
         :id="rootContext.contentId"
         ref="primitiveElement"
         role="listbox"

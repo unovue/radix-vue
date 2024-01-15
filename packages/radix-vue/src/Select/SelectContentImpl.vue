@@ -188,11 +188,13 @@ function handleKeyDown(event: KeyboardEvent) {
   }
 }
 
-const popperContentProps = computed(() => {
+const pickedProps = computed(() => {
   if (props.position === 'popper')
-    return useForwardProps(props)
+    return props
   else return {}
 })
+
+const forwardedProps = useForwardProps(pickedProps.value)
 
 provideSelectContentContext({
   content,
@@ -258,7 +260,7 @@ provideSelectContentContext({
             ? SelectPopperPosition
             : SelectItemAlignedPosition
         "
-        v-bind="{ ...$attrs, ...popperContentProps }"
+        v-bind="{ ...$attrs, ...forwardedProps }"
         :id="rootContext.contentId"
         :ref="
           (vnode: ComponentPublicInstance) => {

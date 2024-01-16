@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
 import Slider from './story/_Slider.vue'
+import type SliderImpl from './SliderImpl.vue'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { handleSubmit } from '@/test'
@@ -12,7 +13,7 @@ describe('given default Slider', () => {
     disconnect() {}
   }
   window.HTMLElement.prototype.scrollIntoView = vi.fn()
-  window.HTMLElement.prototype.hasPointerCapture = vi.fn()
+  window.HTMLElement.prototype.hasPointerCapture = vi.fn().mockImplementation(id => id)
   window.HTMLElement.prototype.releasePointerCapture = vi.fn()
   window.HTMLElement.prototype.setPointerCapture = vi.fn()
 
@@ -29,6 +30,42 @@ describe('given default Slider', () => {
 
   it('should have defalt value', () => {
     expect(wrapper.html()).toContain('aria-valuenow="50"')
+  })
+
+  describe('after pointerdown event on slider-impl', () => {
+    let sliderImpl: VueWrapper<InstanceType<typeof SliderImpl>>
+    beforeEach(async () => {
+      sliderImpl = wrapper.findComponent('[data-slider-impl]') as any
+      await sliderImpl.trigger('pointerdown', { clientX: 10, pointerId: 1 })
+    })
+
+    it('should emit slideStart', async () => {
+      expect(sliderImpl.emitted('slideStart')?.[0]?.[0]).toBe(0)
+    })
+
+    describe('after pointermove', () => {
+      beforeEach(async () => {
+        await sliderImpl.trigger('pointermove', { clientX: 50, pointerId: 1 })
+      })
+
+      it('should emit slideMove', async () => {
+        expect(sliderImpl.emitted('slideMove')?.[0]?.[0]).toBe(0)
+      })
+
+      describe('after pointerup', () => {
+        beforeEach(async () => {
+          await sliderImpl.trigger('pointerup', { pointerId: 1 })
+        })
+
+        it('should emit slideEnd', async () => {
+          expect(sliderImpl.emitted('slideEnd')?.[0]).toStrictEqual([])
+        })
+
+        it('should emit valueCommit on wrapper', async () => {
+          expect(wrapper.emitted('valueCommit')?.[0]?.[0]).toStrictEqual([0])
+        })
+      })
+    })
   })
 
   describe('after pressing navigation key', () => {

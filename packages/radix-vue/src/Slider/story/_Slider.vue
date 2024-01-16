@@ -1,12 +1,20 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import type { SliderRootEmits, SliderRootProps } from '../'
 import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from '../'
+import { useForwardPropsEmits } from '@/shared'
+
+const props = defineProps<SliderRootProps>()
+const emits = defineEmits<SliderRootEmits>()
 
 const sliderValue = ref([50])
+
+const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
   <SliderRoot
+    v-bind="forwarded"
     v-model="sliderValue"
     name="slider"
     class="relative flex items-center select-none touch-none w-[200px] h-5"

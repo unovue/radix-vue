@@ -143,7 +143,7 @@ provideSliderRootContext({
     }"
     @slide-start="!disabled && handleSlideStart($event)"
     @slide-move="!disabled && handleSlideMove($event)"
-    @slide-end="!disabled && handleSlideEnd"
+    @slide-end="!disabled && handleSlideEnd()"
     @home-key-down="!disabled && updateValues(min, 0, { commit: true })"
     @end-key-down="!disabled && updateValues(max, modelValue.length - 1, { commit: true })"
     @step-key-down="(event, direction) => {

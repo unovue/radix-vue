@@ -32,6 +32,21 @@ describe('given default Slider', () => {
     expect(wrapper.html()).toContain('aria-valuenow="50"')
   })
 
+  describe('when disabled', () => {
+    beforeEach(async () => {
+      await wrapper.setProps({ disabled: true })
+    })
+
+    it('should disable the thumb', () => {
+      const thumb = wrapper.find('[role="slider"]')
+      expect(thumb.attributes('data-disabled')).toBe('true')
+      expect(thumb.attributes('aria-valuemin')).toBe('0')
+      expect(thumb.attributes('aria-valuemax')).toBe('100')
+      expect(thumb.attributes('aria-valuenow')).toBe('50')
+      expect(wrapper.html()).toContain('aria-valuenow="50"')
+    })
+  })
+
   describe('after pointerdown event on slider-impl', () => {
     let sliderImpl: VueWrapper<InstanceType<typeof SliderImpl>>
     beforeEach(async () => {

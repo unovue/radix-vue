@@ -40,7 +40,7 @@ export const [injectSliderRootContext, provideSliderRootContext]
 <script setup lang="ts">
 import SliderHorizontal from './SliderHorizontal.vue'
 import SliderVertical from './SliderVertical.vue'
-import { ref, toRefs } from 'vue'
+import { ref, toRaw, toRefs } from 'vue'
 import { usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 import { ARROW_KEYS, PAGE_KEYS, clamp, getClosestValueIndex, getDecimalCount, getNextSortedValues, hasMinStepsBetweenValues, roundValue } from './utils'
@@ -90,7 +90,7 @@ function handleSlideEnd() {
   const nextValue = modelValue.value[valueIndexToChangeRef.value]
   const hasChanged = nextValue !== prevValue
   if (hasChanged)
-    emits('valueCommit', modelValue.value)
+    emits('valueCommit', toRaw(modelValue.value))
 }
 
 function updateValues(value: number, atIndex: number, { commit } = { commit: false }) {

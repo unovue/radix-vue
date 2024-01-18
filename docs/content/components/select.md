@@ -167,6 +167,12 @@ The button that toggles the Select The `SelectContent` will position itself by a
 <PropsTable
   :data="[
     {
+      name: 'id',
+      type: 'string',
+      description:
+        'Target the trigger with the `for` attribute of a label.',
+    },
+    {
       name: 'as',
       type: 'string | Component',
       default: 'button',

@@ -2,6 +2,7 @@
 import type { PrimitiveProps } from '@/Primitive'
 
 export interface SelectTriggerProps extends PrimitiveProps {
+  id?: string
   disabled?: boolean
 }
 </script>
@@ -50,6 +51,7 @@ function handleOpen() {
 <template>
   <PopperAnchor as-child>
     <Primitive
+      :id="id"
       ref="primitiveElement"
       role="combobox"
       :type="as === 'button' ? 'button' : undefined"

@@ -143,8 +143,9 @@ provideSelectNativeOptionsContext({
 
     <BubbleSelect
       v-if="isFormControl"
-      :key="nativeSelectKey"
       v-bind="$attrs"
+      :id="id"
+      :key="nativeSelectKey"
       aria-hidden
       tabindex="-1"
       :required="required"

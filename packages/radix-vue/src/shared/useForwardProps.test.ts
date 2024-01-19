@@ -1,15 +1,16 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import { defineComponent, watch } from 'vue'
+import { computed, defineComponent, watch } from 'vue'
 import { useForwardProps } from './useForwardProps'
 import { reactivePick } from '@vueuse/shared'
 
-function setupTestComponent(props: Record<string, any>) {
+function setupTestComponent(props: Record<string, any>, options = { computed: false }) {
   return defineComponent({
     props,
     emits: ['log'],
     setup(props, { emit }) {
-      const forwarded = useForwardProps(props)
+      const payload = options.computed ? computed(() => ({ ...(Object.assign({}, props)) })) : props
+      const forwarded = useForwardProps(payload)
       watch(forwarded, () => emit('log', forwarded.value), { immediate: true, deep: true })
 
       return { forwarded }
@@ -67,5 +68,14 @@ describe('useForwardProps', () => {
     expect(wrapper.emitted('log')?.[0][0]).toStrictEqual({ id: 'test' })
     await wrapper.setProps({ id: 'new-test' })
     expect(wrapper.emitted('log')?.[1][0]).toStrictEqual({ id: 'new-test' })
+  })
+
+  describe('with computedRef', async () => {
+    it('should be reactive', async () => {
+      const wrapper = mount(setupTestComponent({ id: { type: String, default: 'test' } }, { computed: true }))
+      expect(wrapper.emitted('log')?.[0][0]).toStrictEqual({ id: 'test' })
+      await wrapper.setProps({ id: 'new-test' })
+      expect(wrapper.emitted('log')?.[1][0]).toStrictEqual({ id: 'new-test' })
+    })
   })
 })

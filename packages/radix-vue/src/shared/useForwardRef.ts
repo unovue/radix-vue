@@ -1,13 +1,22 @@
 // reference: https://github.com/vuejs/rfcs/issues/258#issuecomment-1068697672
-import { type ComponentPublicInstance, getCurrentInstance } from 'vue'
+import { unrefElement } from '@vueuse/core'
+import { type ComponentPublicInstance, computed, getCurrentInstance, ref } from 'vue'
 
 export function useForwardRef() {
   const instance = getCurrentInstance()!
-  function handleRefChange(ref: Element | ComponentPublicInstance | null) {
-    if (typeof ref === 'object') {
-      instance.exposed = ref
-      instance.exposeProxy = ref
-    }
+
+  const currentRef = ref<Element | ComponentPublicInstance | null>()
+  const currentElement = computed(() => {
+    // @ts-expect-error ignore ts error
+    return ['#text', '#comment'].includes(currentRef.value?.$el.nodeName) ? currentRef.value?.$el.nextElementSibling : unrefElement(currentRef)
+  })
+
+  function forwardRef(ref: Element | ComponentPublicInstance | null) {
+    instance.exposed = ref
+    instance.exposeProxy = ref
+
+    currentRef.value = ref
   }
-  return handleRefChange
+
+  return { forwardRef, currentRef, currentElement }
 }

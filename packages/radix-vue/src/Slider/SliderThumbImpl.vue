@@ -10,6 +10,7 @@ export interface SliderThumbImplProps extends PrimitiveProps {
 import { computed, onMounted, onUnmounted } from 'vue'
 import { useMounted } from '@vueuse/core'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { CollectionItem } from '@/Collection'
 import { injectSliderRootContext } from './SliderRoot.vue'
 import { convertValueToPercentage, getLabel, getThumbInBoundsOffset, injectSliderOrientationContext } from './utils'
 import { useSize } from '@/shared'
@@ -49,37 +50,39 @@ defineExpose({
 </script>
 
 <template>
-  <Primitive
-    v-bind="$attrs"
-    ref="primitiveElement"
-    role="slider"
-    data-radix-vue-collection-item
-    :tabindex="rootContext.disabled.value ? undefined : 0"
-    :aria-label="$attrs['aria-label'] || label"
-    :data-disabled="rootContext.disabled.value"
-    :data-orientation="rootContext.orientation.value"
-    :aria-valuenow="value"
-    :aria-valuemin="rootContext.min.value"
-    :aria-valuemax="rootContext.max.value"
-    :aria-orientation="rootContext.orientation.value"
-    :as-child="asChild"
-    :as="as"
-    :style="{
-      transform: 'var(--radix-slider-thumb-transform)',
-      position: 'absolute',
-      [orientation!.startEdge]: `calc(${percent}% + ${thumbInBoundsOffset}px)`,
-      /**
-       * There will be no value on initial render while we work out the index so we hide thumbs
-       * without a value, otherwise SSR will render them in the wrong position before they
-       * snap into the correct position during hydration which would be visually jarring for
-       * slower connections.
-       */
-      display: !isMounted && value === undefined ? 'none' : undefined,
-    }"
-    @focus="() => {
-      rootContext.valueIndexToChangeRef.value = index
-    }"
-  >
-    <slot />
-  </Primitive>
+  <CollectionItem>
+    <Primitive
+      v-bind="$attrs"
+      ref="primitiveElement"
+      role="slider"
+      data-radix-vue-collection-item
+      :tabindex="rootContext.disabled.value ? undefined : 0"
+      :aria-label="$attrs['aria-label'] || label"
+      :data-disabled="rootContext.disabled.value"
+      :data-orientation="rootContext.orientation.value"
+      :aria-valuenow="value"
+      :aria-valuemin="rootContext.min.value"
+      :aria-valuemax="rootContext.max.value"
+      :aria-orientation="rootContext.orientation.value"
+      :as-child="asChild"
+      :as="as"
+      :style="{
+        transform: 'var(--radix-slider-thumb-transform)',
+        position: 'absolute',
+        [orientation!.startEdge]: `calc(${percent}% + ${thumbInBoundsOffset}px)`,
+        /**
+         * There will be no value on initial render while we work out the index so we hide thumbs
+         * without a value, otherwise SSR will render them in the wrong position before they
+         * snap into the correct position during hydration which would be visually jarring for
+         * slower connections.
+         */
+        display: !isMounted && value === undefined ? 'none' : undefined,
+      }"
+      @focus="() => {
+        rootContext.valueIndexToChangeRef.value = index
+      }"
+    >
+      <slot />
+    </Primitive>
+  </CollectionItem>
 </template>

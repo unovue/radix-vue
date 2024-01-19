@@ -5,18 +5,17 @@ export interface SliderThumbProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { useCollection } from '@/shared'
 import SliderThumbImpl from './SliderThumbImpl.vue'
 import { usePrimitiveElement } from '@/Primitive'
+import { useCollection } from '@/Collection'
 import { computed } from 'vue'
 
 const props = defineProps<SliderThumbProps>()
-const { injectCollection } = useCollection('sliderThumb')
-const collections = injectCollection()
+const { getItems } = useCollection()
 
 const { primitiveElement, currentElement: thumbElement } = usePrimitiveElement()
 
-const index = computed(() => thumbElement.value ? collections.value.findIndex(i => i === thumbElement.value) : -1)
+const index = computed(() => thumbElement.value ? getItems().findIndex(i => i.ref === thumbElement.value) : -1)
 </script>
 
 <template>

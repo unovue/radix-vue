@@ -27,10 +27,8 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<SelectContentProps>(), {
-  align: 'start',
-  position: 'item-aligned',
-})
+const props = defineProps<SelectContentProps>()
+
 const emits = defineEmits<SelectContentEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
 

@@ -76,7 +76,6 @@ const controlledRtlMulti = ref([10, 30])
       <SliderRoot
         class="relative flex items-center select-none touch-none w-[200px] h-5"
         :default-value="[10, 15, 20, 80]"
-        dir="rtl"
       >
         <SliderTrack class="bg-blackA10 relative grow rounded-full h-[3px]">
           <SliderRange class="absolute bg-white rounded-full h-full" />

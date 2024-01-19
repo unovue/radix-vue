@@ -2,7 +2,8 @@
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import type { DataOrientation, Direction } from '../shared/types'
-import { createContext, useCollection, useDirection, useFormControl } from '@/shared'
+import { createContext, useDirection, useFormControl } from '@/shared'
+import { CollectionSlot, createCollection } from '@/Collection'
 
 export interface SliderRootProps extends PrimitiveProps {
   name?: string
@@ -40,7 +41,7 @@ export const [injectSliderRootContext, provideSliderRootContext]
 <script setup lang="ts">
 import SliderHorizontal from './SliderHorizontal.vue'
 import SliderVertical from './SliderVertical.vue'
-import { ref, toRefs } from 'vue'
+import { ref, toRaw, toRefs } from 'vue'
 import { usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 import { ARROW_KEYS, PAGE_KEYS, clamp, getClosestValueIndex, getDecimalCount, getNextSortedValues, hasMinStepsBetweenValues, roundValue } from './utils'
@@ -63,10 +64,10 @@ const emits = defineEmits<SliderRootEmits>()
 
 const { min, max, step, minStepsBetweenThumbs, orientation, disabled, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
-const { createCollection } = useCollection('sliderThumb')
 const { primitiveElement, currentElement } = usePrimitiveElement()
-createCollection(currentElement)
 const isFormControl = useFormControl(currentElement)
+
+createCollection()
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
@@ -90,7 +91,7 @@ function handleSlideEnd() {
   const nextValue = modelValue.value[valueIndexToChangeRef.value]
   const hasChanged = nextValue !== prevValue
   if (hasChanged)
-    emits('valueCommit', modelValue.value)
+    emits('valueCommit', toRaw(modelValue.value))
 }
 
 function updateValues(value: number, atIndex: number, { commit } = { commit: false }) {
@@ -126,40 +127,42 @@ provideSliderRootContext({
 </script>
 
 <template>
-  <component
-    :is="orientation === 'horizontal' ? SliderHorizontal : SliderVertical"
-    v-bind="$attrs"
-    ref="primitiveElement"
-    :as-child="asChild"
-    :as="as"
-    :min="min"
-    :max="max"
-    :dir="dir"
-    :inverted="inverted"
-    :aria-disabled="disabled"
-    :data-disabled="disabled"
-    @pointerdown="() => {
-      if (!disabled) valuesBeforeSlideStartRef = modelValue
-    }"
-    @slide-start="!disabled && handleSlideStart($event)"
-    @slide-move="!disabled && handleSlideMove($event)"
-    @slide-end="!disabled && handleSlideEnd"
-    @home-key-down="!disabled && updateValues(min, 0, { commit: true })"
-    @end-key-down="!disabled && updateValues(max, modelValue.length - 1, { commit: true })"
-    @step-key-down="(event, direction) => {
-      if (!disabled) {
-        const isPageKey = PAGE_KEYS.includes(event.key);
-        const isSkipKey = isPageKey || (event.shiftKey && ARROW_KEYS.includes(event.key));
-        const multiplier = isSkipKey ? 10 : 1;
-        const atIndex = valueIndexToChangeRef;
-        const value = modelValue[atIndex];
-        const stepInDirection = step * multiplier * direction;
-        updateValues(value + stepInDirection, atIndex, { commit: true });
-      }
-    }"
-  >
-    <slot :model-value="modelValue" />
-  </component>
+  <CollectionSlot>
+    <component
+      :is="orientation === 'horizontal' ? SliderHorizontal : SliderVertical"
+      v-bind="$attrs"
+      ref="primitiveElement"
+      :as-child="asChild"
+      :as="as"
+      :min="min"
+      :max="max"
+      :dir="dir"
+      :inverted="inverted"
+      :aria-disabled="disabled"
+      :data-disabled="disabled"
+      @pointerdown="() => {
+        if (!disabled) valuesBeforeSlideStartRef = modelValue
+      }"
+      @slide-start="!disabled && handleSlideStart($event)"
+      @slide-move="!disabled && handleSlideMove($event)"
+      @slide-end="!disabled && handleSlideEnd()"
+      @home-key-down="!disabled && updateValues(min, 0, { commit: true })"
+      @end-key-down="!disabled && updateValues(max, modelValue.length - 1, { commit: true })"
+      @step-key-down="(event, direction) => {
+        if (!disabled) {
+          const isPageKey = PAGE_KEYS.includes(event.key);
+          const isSkipKey = isPageKey || (event.shiftKey && ARROW_KEYS.includes(event.key));
+          const multiplier = isSkipKey ? 10 : 1;
+          const atIndex = valueIndexToChangeRef;
+          const value = modelValue[atIndex];
+          const stepInDirection = step * multiplier * direction;
+          updateValues(value + stepInDirection, atIndex, { commit: true });
+        }
+      }"
+    >
+      <slot :model-value="modelValue" />
+    </component>
+  </CollectionSlot>
 
   <template v-if="isFormControl">
     <input

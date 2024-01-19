@@ -66,7 +66,6 @@ defineExpose({
     data-radix-vue-collection-item
     :aria-disabled="disabled || undefined"
     :data-disabled="disabled ? '' : undefined"
-    :disabled="disabled"
     :data-highlighted="isFocused ? '' : undefined"
     @pointermove="handlePointerMove"
     @pointerleave="handlePointerLeave"

@@ -18,17 +18,40 @@ export function useForwardRef() {
     if (ref instanceof Element || !ref)
       return
 
-    // support exposed values set in component
-    if (instance.exposed && !localExpose) {
-      localExpose = instance.exposed
-      Object.entries(localExpose).forEach(([key, value]) => {
-        // @ts-expect-error populate component public instance
-        ref[key] = value
+    // Do give us credit if you reference our code :D
+    // localExpose should only be assigned once else will create infinite loop
+    if (!localExpose)
+      localExpose = Object.assign({}, instance.exposed)
+
+    const ret: Record<string, any> = {}
+    // retrieve props for current instance
+    for (const key in instance.props) {
+      Object.defineProperty(ret, key, {
+        enumerable: true,
+        configurable: true,
+        get: () => instance.props[key],
       })
     }
 
-    instance.exposed = ref
-    instance.exposeProxy = ref
+    // retrieve default exposed value
+    if (Object.keys(localExpose).length > 0) {
+      for (const key in localExpose) {
+        Object.defineProperty(ret, key, {
+          enumerable: true,
+          configurable: true,
+          get: () => localExpose![key],
+        })
+      }
+    }
+
+    // retrieve the forwarded element
+    Object.defineProperty(ret, '$el', {
+      enumerable: true,
+      configurable: true,
+      get: () => ref.$el,
+    })
+
+    instance.exposed = ret
   }
 
   return { forwardRef, currentRef, currentElement }

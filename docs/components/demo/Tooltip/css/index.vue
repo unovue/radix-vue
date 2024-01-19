@@ -18,10 +18,8 @@ import './styles.css'
           class="TooltipContent"
           :side-offset="5"
         >
-          <ul>
-            Add to library
-            <TooltipArrow class="TooltipArrow" size="8" />
-          </ul>
+          Add to library
+          <TooltipArrow class="TooltipArrow" size="8" />
         </TooltipContent>
       </TooltipPortal>
     </TooltipRoot>

@@ -63,6 +63,7 @@ We would love to have your contributions! All PRs all welcomed! We need help bui
 
 1. Clone the repo
 2. Run `pnpm i`
+3. Run `pnpm build` to run build `radix-vue` locally
 3. Run `pnpm docs:dev` to run vitepress
 4. Open `http://localhost:5173`
 

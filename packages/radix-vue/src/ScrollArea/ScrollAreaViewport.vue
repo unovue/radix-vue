@@ -31,7 +31,7 @@ onMounted(() => {
 })
 
 defineExpose({
-  el: viewportElement,
+  $el: viewportElement,
 })
 </script>
 

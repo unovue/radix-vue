@@ -4,9 +4,7 @@ import type { SliderRootEmits, SliderRootProps } from '../'
 import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from '../'
 import { useForwardPropsEmits } from '@/shared'
 
-const props = withDefaults(defineProps<SliderRootProps>(), {
-  disabled: false,
-})
+const props = defineProps<SliderRootProps>()
 const emits = defineEmits<SliderRootEmits>()
 
 const sliderValue = ref([50])

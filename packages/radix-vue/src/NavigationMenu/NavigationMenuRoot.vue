@@ -3,7 +3,7 @@ import type { Ref } from 'vue'
 
 import type { PrimitiveProps } from '@/Primitive'
 import type { Direction, Orientation } from './utils'
-import { createContext, useCollection, useDirection, useId } from '@/shared'
+import { createContext, useCollection, useDirection, useForwardRef, useId } from '@/shared'
 
 export interface NavigationMenuRootProps extends PrimitiveProps {
   modelValue?: string
@@ -58,7 +58,6 @@ import {
 import { refAutoReset, useDebounceFn, useVModel } from '@vueuse/core'
 import {
   Primitive,
-  usePrimitiveElement,
 } from '@/Primitive'
 
 const props = withDefaults(defineProps<NavigationMenuRootProps>(), {
@@ -76,8 +75,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 }) as Ref<string>
 const previousValue = ref('')
 
-const { primitiveElement, currentElement: rootNavigationMenu }
-  = usePrimitiveElement()
+const { forwardRef, currentElement: rootNavigationMenu } = useForwardRef()
 
 const indicatorTrack = ref<HTMLElement>()
 const viewport = ref<HTMLElement>()
@@ -144,7 +142,7 @@ provideNavigationMenuContext({
 
 <template>
   <Primitive
-    ref="primitiveElement"
+    :ref="forwardRef"
     aria-label="Main"
     :as="as"
     :as-child="asChild"

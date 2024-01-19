@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardRef } from '@/shared'
 
 export interface MenuItemImplProps extends PrimitiveProps {
   disabled?: boolean
@@ -13,12 +14,11 @@ import { isMouseEvent } from './utils'
 import { injectMenuContentContext } from './MenuContentImpl.vue'
 import {
   Primitive,
-  usePrimitiveElement,
 } from '@/Primitive'
 
 const props = defineProps<MenuItemImplProps>()
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardRef()
 const contentContext = injectMenuContentContext()
 
 const isFocused = ref(false)
@@ -58,7 +58,7 @@ defineExpose({
 
 <template>
   <Primitive
-    ref="primitiveElement"
+    :ref="forwardRef"
     role="menuitem"
     tabindex="-1"
     :as="as"

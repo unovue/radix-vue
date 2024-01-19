@@ -9,11 +9,11 @@ export interface SliderThumbImplProps extends PrimitiveProps {
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted } from 'vue'
 import { useMounted } from '@vueuse/core'
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { CollectionItem } from '@/Collection'
 import { injectSliderRootContext } from './SliderRoot.vue'
 import { convertValueToPercentage, getLabel, getThumbInBoundsOffset, injectSliderOrientationContext } from './utils'
-import { useSize } from '@/shared'
+import { useForwardRef, useSize } from '@/shared'
 
 defineOptions({
   inheritAttrs: false,
@@ -24,7 +24,7 @@ const props = defineProps<SliderThumbImplProps>()
 const rootContext = injectSliderRootContext()
 const orientation = injectSliderOrientationContext()
 
-const { primitiveElement, currentElement: thumbElement } = usePrimitiveElement()
+const { forwardRef, currentElement: thumbElement } = useForwardRef()
 
 const value = computed(() => rootContext.modelValue?.value?.[props.index])
 const percent = computed(() => value.value === undefined ? 0 : convertValueToPercentage(value.value, rootContext.min.value ?? 0, rootContext.max.value ?? 100))
@@ -53,7 +53,7 @@ defineExpose({
   <CollectionItem>
     <Primitive
       v-bind="$attrs"
-      ref="primitiveElement"
+      :ref="forwardRef"
       role="slider"
       data-radix-vue-collection-item
       :tabindex="rootContext.disabled.value ? undefined : 0"

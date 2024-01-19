@@ -21,8 +21,7 @@ import { injectMenuContext, injectMenuRootContext } from './MenuRoot.vue'
 import { injectMenuSubContext } from './MenuSub.vue'
 import { SUB_CLOSE_KEYS } from './utils'
 import { Presence } from '@/Presence'
-import { usePrimitiveElement } from '@/Primitive'
-import { useForwardPropsEmits } from '@/shared'
+import { useForwardPropsEmits, useForwardRef } from '@/shared'
 
 const props = defineProps<MenuSubContentProps>()
 const emits = defineEmits<MenuSubContentEmits>()
@@ -33,8 +32,7 @@ const menuContext = injectMenuContext()
 const rootContext = injectMenuRootContext()
 const menuSubContext = injectMenuSubContext()
 
-const { primitiveElement, currentElement: subContentElement }
-  = usePrimitiveElement()
+const { forwardRef, currentElement: subContentElement } = useForwardRef()
 </script>
 
 <template>
@@ -42,7 +40,7 @@ const { primitiveElement, currentElement: subContentElement }
     <MenuContentImpl
       v-bind="forwarded"
       :id="menuSubContext.contentId"
-      ref="primitiveElement"
+      :ref="forwardRef"
       :aria-labelledby="menuSubContext.triggerId"
       align="start"
       :side="rootContext.dir.value === 'rtl' ? 'left' : 'right'"

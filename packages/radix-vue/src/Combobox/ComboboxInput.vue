@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardRef } from '@/shared'
 
 export interface ComboboxInputProps extends PrimitiveProps {
   type?: string
@@ -11,7 +12,7 @@ export interface ComboboxInputProps extends PrimitiveProps {
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
 import { injectComboboxRootContext } from './ComboboxRoot.vue'
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 
 const props = withDefaults(defineProps<ComboboxInputProps>(), {
   type: 'text',
@@ -20,7 +21,7 @@ const props = withDefaults(defineProps<ComboboxInputProps>(), {
 
 const rootContext = injectComboboxRootContext()
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardRef()
 onMounted(() => {
   const inputEl = currentElement.value.nodeName === 'INPUT'
     ? currentElement.value as HTMLInputElement
@@ -63,8 +64,8 @@ function handleInput(event: Event) {
 
 <template>
   <Primitive
-    ref="primitiveElement"
     v-bind="props"
+    :ref="forwardRef"
     :value="rootContext.searchTerm.value"
     :aria-expanded="rootContext.open.value"
     :aria-controls="rootContext.contentId"

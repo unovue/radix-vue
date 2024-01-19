@@ -19,12 +19,12 @@ export interface ToastViewportProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { computed, onMounted, ref, toRefs, watchEffect } from 'vue'
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { injectToastProviderContext } from './ToastProvider.vue'
 import { onKeyStroke, unrefElement } from '@vueuse/core'
 import FocusProxy from './FocusProxy.vue'
 import { focusFirst, getTabbableCandidates } from '@/FocusScope/utils'
-import { useCollection } from '@/shared'
+import { useCollection, useForwardRef } from '@/shared'
 import { VIEWPORT_DEFAULT_HOTKEY, VIEWPORT_PAUSE, VIEWPORT_RESUME } from './utils'
 import { DismissableLayerBranch } from '@/DismissableLayer'
 
@@ -39,7 +39,7 @@ const props = withDefaults(defineProps<ToastViewportProps>(), {
 })
 const { hotkey, label } = toRefs(props)
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardRef()
 const { createCollection } = useCollection()
 const collections = createCollection(currentElement)
 const providerContext = injectToastProviderContext()
@@ -181,7 +181,7 @@ function getSortedTabbableCandidates({ tabbingDirection }: { tabbingDirection: '
       }"
     />
     <Primitive
-      ref="primitiveElement"
+      :ref="forwardRef"
       tabindex="-1"
       :as="as"
       :as-child="asChild"

@@ -18,7 +18,7 @@ defineProps<ScrollAreaScrollbarAutoProps>()
 const rootContext = injectScrollAreaRootContext()
 const scrollbarContext = injectScrollAreaScrollbarContext()
 
-const forwardRef = useForwardRef()
+const { forwardRef } = useForwardRef()
 
 const visible = ref(false)
 
@@ -47,7 +47,7 @@ useResizeObserver(rootContext.content, handleResize)
   <Presence :present="forceMount || visible">
     <ScrollAreaScrollbarVisible
       v-bind="$attrs"
-      ref="forwardRef"
+      :ref="forwardRef"
       :data-state="visible ? 'visible' : 'hidden'"
     >
       <slot />

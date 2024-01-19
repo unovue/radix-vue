@@ -2,7 +2,7 @@
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import type { DataOrientation, Direction } from '../shared/types'
-import { createContext, useDirection, useFormControl } from '@/shared'
+import { createContext, useDirection, useFormControl, useForwardRef } from '@/shared'
 import { CollectionSlot, createCollection } from '@/Collection'
 
 export interface SliderRootProps extends PrimitiveProps {
@@ -42,7 +42,6 @@ export const [injectSliderRootContext, provideSliderRootContext]
 import SliderHorizontal from './SliderHorizontal.vue'
 import SliderVertical from './SliderVertical.vue'
 import { ref, toRaw, toRefs } from 'vue'
-import { usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 import { ARROW_KEYS, PAGE_KEYS, clamp, getClosestValueIndex, getDecimalCount, getNextSortedValues, hasMinStepsBetweenValues, roundValue } from './utils'
 
@@ -64,7 +63,7 @@ const emits = defineEmits<SliderRootEmits>()
 
 const { min, max, step, minStepsBetweenThumbs, orientation, disabled, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardRef()
 const isFormControl = useFormControl(currentElement)
 
 createCollection()
@@ -131,7 +130,7 @@ provideSliderRootContext({
     <component
       :is="orientation === 'horizontal' ? SliderHorizontal : SliderVertical"
       v-bind="$attrs"
-      ref="primitiveElement"
+      :ref="forwardRef"
       :as-child="asChild"
       :as="as"
       :min="min"

@@ -19,7 +19,7 @@ defineProps<ScrollAreaScrollbarScrollProps>()
 const rootContext = injectScrollAreaRootContext()
 const scrollbarContext = injectScrollAreaScrollbarContext()
 
-const forwardRef = useForwardRef()
+const { forwardRef } = useForwardRef()
 
 const { state, dispatch } = useStateMachine('hidden', {
   hidden: {
@@ -75,7 +75,7 @@ watchEffect(() => {
 
 <template>
   <Presence :present="forceMount || state !== 'hidden'">
-    <ScrollAreaScrollbarVisible v-bind="$attrs" ref="forwardRef">
+    <ScrollAreaScrollbarVisible v-bind="$attrs" :ref="forwardRef">
       <slot />
     </ScrollAreaScrollbarVisible>
   </Presence>

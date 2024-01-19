@@ -3,11 +3,11 @@ import { ref, watchEffect } from 'vue'
 import TooltipContentImpl, { type TooltipContentImplProps } from './TooltipContentImpl.vue'
 import { injectTooltipRootContext } from './TooltipRoot.vue'
 import { injectTooltipProviderContext } from './TooltipProvider.vue'
-import { usePrimitiveElement } from '@/Primitive'
 import { type Polygon, getExitSideFromRect, getHull, getPaddedExitPoints, getPointsFromRect, isPointInPolygon } from './utils'
+import { useForwardRef } from '@/shared'
 
 const props = defineProps<TooltipContentImplProps>()
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardRef()
 
 const { trigger, onClose } = injectTooltipRootContext()
 const providerContext = injectTooltipProviderContext()
@@ -71,7 +71,7 @@ watchEffect((cleanupFn) => {
 </script>
 
 <template>
-  <TooltipContentImpl ref="primitiveElement" v-bind="props">
+  <TooltipContentImpl :ref="forwardRef" v-bind="props">
     <slot />
   </TooltipContentImpl>
 </template>

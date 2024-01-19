@@ -2,7 +2,7 @@
 import type { PrimitiveProps } from '@/Primitive'
 import type { Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { createContext, useFormControl } from '@/shared'
+import { createContext, useFormControl, useForwardRef } from '@/shared'
 import type { CheckedState } from './utils'
 
 export interface CheckboxRootProps extends PrimitiveProps {
@@ -30,7 +30,7 @@ export const [injectCheckboxRootContext, provideCheckboxRootContext]
 
 <script setup lang="ts">
 import { computed, toRefs } from 'vue'
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { getState, isIndeterminate } from './utils'
 
 defineOptions({
@@ -50,7 +50,7 @@ const checked = useVModel(props, 'checked', emits, {
   passive: (props.checked === undefined) as false,
 }) as Ref<CheckedState>
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardRef()
 const isFormControl = useFormControl(currentElement)
 const ariaLabel = computed(() => props.id && currentElement.value
   ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText
@@ -66,7 +66,7 @@ provideCheckboxRootContext({
   <Primitive
     v-bind="$attrs"
     :id="id"
-    ref="primitiveElement"
+    :ref="forwardRef"
     role="checkbox"
     :as-child="props.asChild"
     :as="as"

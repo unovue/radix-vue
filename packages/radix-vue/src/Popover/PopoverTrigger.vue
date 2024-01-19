@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardRef } from '@/shared'
 
 export interface PopoverTriggerProps extends PrimitiveProps {}
 </script>
@@ -7,10 +8,7 @@ export interface PopoverTriggerProps extends PrimitiveProps {}
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { injectPopoverRootContext } from './PopoverRoot.vue'
-import {
-  Primitive,
-  usePrimitiveElement,
-} from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { PopperAnchor } from '@/Popper'
 
 const props = withDefaults(defineProps<PopoverTriggerProps>(), {
@@ -19,8 +17,7 @@ const props = withDefaults(defineProps<PopoverTriggerProps>(), {
 
 const rootContext = injectPopoverRootContext()
 
-const { primitiveElement, currentElement: triggerElement }
-  = usePrimitiveElement()
+const { forwardRef, currentElement: triggerElement } = useForwardRef()
 
 onMounted(() => {
   rootContext.triggerElement.value = triggerElement.value
@@ -35,7 +32,7 @@ defineExpose({ $el: triggerElement })
     as-child
   >
     <Primitive
-      ref="primitiveElement"
+      :ref="forwardRef"
       :type="as === 'button' ? 'button' : undefined"
       aria-haspopup="dialog"
       :aria-expanded="rootContext.open.value"

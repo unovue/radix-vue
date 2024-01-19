@@ -52,7 +52,7 @@ export function withDefault<T extends ComponentOptionsBase<{}, {}, {}, any, any,
     setup(_, ctx) {
       return () => {
         const optionProps = typeof options?.props === 'function' ? options?.props(ctx.attrs) : options?.props
-        const forwardRef = useForwardRef()
+        const { forwardRef } = useForwardRef()
 
         const mergedProps = mergeProps(optionProps, ctx.attrs)
         return h(WrappedComponent, { ...mergedProps, ref: forwardRef }, ctx.slots)

@@ -4,6 +4,7 @@ import {
   createContext,
   useBodyScrollLock,
   useForwardProps,
+  useForwardRef,
   useHideOthers,
 } from '@/shared'
 
@@ -34,7 +35,7 @@ import {
 import { injectComboboxRootContext } from './ComboboxRoot.vue'
 import { DismissableLayer } from '@/DismissableLayer'
 import { PopperContent } from '@/Popper'
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { CollectionSlot } from '@/Collection'
 
 const props = withDefaults(defineProps<ComboboxContentImplProps>(), {
@@ -48,7 +49,7 @@ const rootContext = injectComboboxRootContext()
 
 useBodyScrollLock(props.bodyLock)
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardRef()
 useHideOthers(currentElement)
 
 const pickedProps = computed(() => {
@@ -107,7 +108,7 @@ provideComboboxContentContext({ position })
         :is="position === 'popper' ? PopperContent : Primitive "
         v-bind="{ ...$attrs, ...forwardedProps }"
         :id="rootContext.contentId"
-        ref="primitiveElement"
+        :ref="forwardRef"
         role="listbox"
         :data-state="rootContext.open.value ? 'open' : 'closed'"
         :style="{
@@ -129,7 +130,7 @@ provideComboboxContentContext({ position })
       v-else
       v-bind="{ ...$attrs, ...pickedProps }"
       :id="rootContext.contentId"
-      ref="primitiveElement"
+      :ref="forwardRef"
       role="listbox"
       :data-state="rootContext.open.value ? 'open' : 'closed'"
       :style="{

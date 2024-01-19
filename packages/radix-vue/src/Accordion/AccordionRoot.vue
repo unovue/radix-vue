@@ -2,7 +2,7 @@
 import type { ComputedRef, Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import type { DataOrientation, Direction, Type } from '@/shared/types'
-import { createContext, useDirection } from '@/shared'
+import { createContext, useDirection, useForwardRef } from '@/shared'
 
 export interface AccordionRootProps extends PrimitiveProps {
   /**
@@ -73,7 +73,6 @@ export const [injectAccordionRootContext, provideAccordionRootContext]
 <script setup lang="ts">
 import {
   Primitive,
-  usePrimitiveElement,
 } from '@/Primitive'
 import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
 import { computed, toRefs } from 'vue'
@@ -90,8 +89,8 @@ const direction = useDirection(dir)
 
 const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emits)
 
-const { primitiveElement, currentElement: parentElement }
-  = usePrimitiveElement()
+const { forwardRef, currentElement: parentElement }
+  = useForwardRef()
 
 provideAccordionRootContext({
   disabled,
@@ -110,7 +109,7 @@ defineExpose({
 </script>
 
 <template>
-  <Primitive ref="primitiveElement" :as-child="asChild" :as="as">
+  <Primitive :ref="forwardRef" :as-child="asChild" :as="as">
     <slot :model-value="modelValue" />
   </Primitive>
 </template>

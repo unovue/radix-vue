@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardRef } from '@/shared'
 
 export interface CollapsibleContentProps extends PrimitiveProps {
   /**
@@ -15,7 +16,6 @@ import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { injectCollapsibleRootContext } from './CollapsibleRoot.vue'
 import {
   Primitive,
-  usePrimitiveElement,
 } from '@/Primitive'
 import { Presence } from '@/Presence'
 
@@ -28,7 +28,7 @@ const props = defineProps<CollapsibleContentProps>()
 const rootContext = injectCollapsibleRootContext()
 
 const presentRef = ref<InstanceType<typeof Presence>>()
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardRef()
 
 const width = ref(0)
 const height = ref(0)
@@ -86,7 +86,7 @@ onMounted(() => {
     <Primitive
       v-bind="$attrs"
       :id="rootContext.contentId"
-      ref="primitiveElement"
+      :ref="forwardRef"
       :as-child="props.asChild"
       :as="as"
       :data-state="rootContext.open.value ? 'open' : 'closed'"

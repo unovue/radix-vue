@@ -37,7 +37,7 @@ import {
 
 const rootContext = injectScrollAreaRootContext()
 const scrollbarContext = injectScrollAreaScrollbarContext()
-const forwardRef = useForwardRef()
+const { forwardRef } = useForwardRef()
 
 const sizes = ref<Sizes>({
   content: 0,
@@ -148,7 +148,7 @@ provideScrollAreaScrollbarVisibleContext({
 </script>
 
 <template>
-  <ScrollAreaScrollbarX v-if="isShowingScrollbarX" v-bind="$attrs" ref="forwardRef">
+  <ScrollAreaScrollbarX v-if="isShowingScrollbarX" v-bind="$attrs" :ref="forwardRef">
     <slot />
   </ScrollAreaScrollbarX>
   <ScrollAreaScrollbarY v-else v-bind="$attrs" ref="forwardRef">

@@ -1,5 +1,4 @@
 <script lang="ts">
-import type { ComponentPublicInstance } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import type { SwipeEvent } from './utils'
 import { createContext, useForwardRef } from '@/shared'
@@ -30,7 +29,7 @@ export const [injectToastRootContext, provideToastRootContext]
 </script>
 
 <script setup lang="ts">
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { computed, onMounted, onUnmounted, ref, watchEffect } from 'vue'
 import { injectToastProviderContext } from './ToastProvider.vue'
 import { TOAST_SWIPE_CANCEL, TOAST_SWIPE_END, TOAST_SWIPE_MOVE, TOAST_SWIPE_START, VIEWPORT_PAUSE, VIEWPORT_RESUME, getAnnounceTextContent, handleAndDispatchCustomEvent, isDeltaInDirection } from './utils'
@@ -48,8 +47,7 @@ const props = withDefaults(defineProps<ToastRootImplProps>(), {
 
 const emits = defineEmits<ToastRootImplEmits>()
 
-const forwardRef = useForwardRef()
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardRef()
 const providerContext = injectToastProviderContext()
 const pointerStartRef = ref<{ x: number; y: number } | null>(null)
 const swipeDeltaRef = ref<{ x: number; y: number } | null>(null)
@@ -143,10 +141,7 @@ provideToastRootContext({ onClose: handleClose })
 
   <Teleport :to="providerContext.viewport.value">
     <Primitive
-      :ref="v => {
-        forwardRef(v)
-        primitiveElement = v as ComponentPublicInstance
-      }"
+      :ref="forwardRef"
       role="status"
       aria-live="off"
       aria-atomic

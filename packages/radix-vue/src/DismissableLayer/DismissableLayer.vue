@@ -11,6 +11,7 @@ import type {
   FocusOutsideEvent,
   PointerDownOutsideEvent,
 } from './utils'
+import { useForwardRef } from '@/shared'
 
 export interface DismissableLayerProps extends PrimitiveProps {
   /**
@@ -64,7 +65,6 @@ import {
 } from './utils'
 import {
   Primitive,
-  usePrimitiveElement,
 } from '@/Primitive'
 
 const props = withDefaults(defineProps<DismissableLayerProps>(), {
@@ -73,8 +73,8 @@ const props = withDefaults(defineProps<DismissableLayerProps>(), {
 
 const emits = defineEmits<DismissableLayerEmits>()
 
-const { primitiveElement, currentElement: layerElement }
-  = usePrimitiveElement()
+const { forwardRef, currentElement: layerElement }
+  = useForwardRef()
 const ownerDocument = computed(
   () => layerElement.value?.ownerDocument ?? globalThis.document,
 )
@@ -169,7 +169,7 @@ watchEffect((cleanupFn) => {
 
 <template>
   <Primitive
-    ref="primitiveElement"
+    :ref="forwardRef"
     :as-child="asChild"
     :as="as"
     data-dismissable-layer

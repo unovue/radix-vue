@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useId } from '@/shared'
+import { createContext, useForwardRef, useId } from '@/shared'
 
 interface SelectItemContext {
   value: string
@@ -32,17 +32,14 @@ import {
 import { injectSelectRootContext } from './SelectRoot.vue'
 import { SelectContentDefaultContextValue, injectSelectContentContext } from './SelectContentImpl.vue'
 import { SELECTION_KEYS } from './utils'
-import {
-  Primitive,
-  usePrimitiveElement,
-} from '@/Primitive'
+import { Primitive } from '@/Primitive'
 
 const props = defineProps<SelectItemProps>()
 const { disabled } = toRefs(props)
 
 const rootContext = injectSelectRootContext()
 const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardRef()
 
 const isSelected = computed(() => rootContext.modelValue?.value === props.value)
 const isFocused = ref(false)
@@ -125,7 +122,7 @@ provideSelectItemContext({
 
 <template>
   <Primitive
-    ref="primitiveElement"
+    :ref="forwardRef"
     role="option"
     data-radix-vue-collection-item
     :aria-labelledby="textId"

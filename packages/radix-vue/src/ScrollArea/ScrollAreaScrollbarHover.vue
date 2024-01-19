@@ -19,7 +19,7 @@ defineProps<ScrollAreaScrollbarHoverProps>()
 
 const rootContext = injectScrollAreaRootContext()
 
-const forwardRef = useForwardRef()
+const { forwardRef } = useForwardRef()
 
 let timeout: ReturnType<typeof setTimeout> | undefined | number
 const visible = ref(false)
@@ -57,7 +57,7 @@ onUnmounted(() => {
   <Presence :present="forceMount || visible">
     <ScrollAreaScrollbarAuto
       v-bind="$attrs"
-      ref="forwardRef"
+      :ref="forwardRef"
       :data-state="visible ? 'visible' : 'hidden'"
     >
       <slot />

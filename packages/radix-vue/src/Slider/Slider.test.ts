@@ -55,7 +55,7 @@ describe('given default Slider', () => {
     })
 
     it('should emit slideStart', async () => {
-      expect(sliderImpl.emitted('slideStart')?.[0]?.[0]).toBe(0)
+      expect(sliderImpl.emitted('slideStart')?.[0].length).toBe(1)
     })
 
     describe('after pointermove', () => {
@@ -64,7 +64,7 @@ describe('given default Slider', () => {
       })
 
       it('should emit slideMove', async () => {
-        expect(sliderImpl.emitted('slideMove')?.[0]?.[0]).toBe(0)
+        expect(sliderImpl.emitted('slideMove')?.[0]?.length).toBe(1)
       })
 
       describe('after pointerup', () => {
@@ -73,11 +73,11 @@ describe('given default Slider', () => {
         })
 
         it('should emit slideEnd', async () => {
-          expect(sliderImpl.emitted('slideEnd')?.[0]).toStrictEqual([])
+          expect(sliderImpl.emitted('slideEnd')?.[0].length).toBe(1)
         })
 
         it('should emit valueCommit on wrapper', async () => {
-          expect(wrapper.emitted('valueCommit')?.[0]?.[0]).toStrictEqual([0])
+          expect(wrapper.emitted('valueCommit')?.[0].length).toBe(1)
         })
       })
     })

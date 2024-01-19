@@ -11,11 +11,24 @@ export function useForwardRef() {
     return ['#text', '#comment'].includes(currentRef.value?.$el.nodeName) ? currentRef.value?.$el.nextElementSibling : unrefElement(currentRef)
   })
 
+  let localExpose: Record<string, any> | null
   function forwardRef(ref: Element | ComponentPublicInstance | null) {
+    currentRef.value = ref
+
+    if (ref instanceof Element || !ref)
+      return
+
+    // support exposed values set in component
+    if (instance.exposed && !localExpose) {
+      localExpose = instance.exposed
+      Object.entries(localExpose).forEach(([key, value]) => {
+        // @ts-expect-error populate component public instance
+        ref[key] = value
+      })
+    }
+
     instance.exposed = ref
     instance.exposeProxy = ref
-
-    currentRef.value = ref
   }
 
   return { forwardRef, currentRef, currentElement }

@@ -29,6 +29,10 @@ onMounted(() => {
   rootContext.onViewportChange(viewportElement.value!)
   rootContext.onContentChange(contentElement.value!)
 })
+
+defineExpose({
+  $el: viewportElement,
+})
 </script>
 
 <template>

@@ -49,7 +49,7 @@
     "build-only": "vite build",
     "type-check": "vue-tsc -p tsconfig.check.json --noEmit",
     "type-gen": "vue-tsc --declaration  --emitDeclarationOnly",
-    "test": "vitest",
+    "test": "vitest -u",
     "pub:release": "pnpm publish --access public"
   },
   "dependencies": {

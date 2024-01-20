@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { ComputedRef, Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext } from '@/shared'
+import { createContext, useForwardRef } from '@/shared'
 
 export type ProgressRootEmits = {
   'update:modelValue': [value: string[] | undefined]
@@ -72,6 +72,7 @@ const props = withDefaults(defineProps<ProgressRootProps>(), {
 
 const emit = defineEmits<ProgressRootEmits>()
 
+const { forwardRef } = useForwardRef()
 const modelValue = useVModel(props, 'modelValue', emit, {
   passive: (props.modelValue === undefined) as false,
 })
@@ -121,7 +122,8 @@ provideProgressRootContext({
 
 <template>
   <Primitive
-    :as-child="props.asChild"
+    :ref="forwardRef"
+    :as-child="asChild"
     :as="as"
     :aria-valuemax="max"
     :aria-valuemin="0"

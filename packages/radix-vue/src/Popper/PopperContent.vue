@@ -298,10 +298,6 @@ providePopperContentContext({
   arrowY,
   shouldHideArrow: cannotCenterArrow,
 })
-
-defineExpose({
-  $el: contentElement,
-})
 </script>
 
 <template>

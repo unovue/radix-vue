@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { MenuSeparatorProps } from '@/Menu'
+import { useForwardRef } from '@/shared'
 
 export interface MenubarSeparatorProps extends MenuSeparatorProps {}
 </script>
@@ -8,10 +9,11 @@ export interface MenubarSeparatorProps extends MenuSeparatorProps {}
 import { MenuSeparator } from '@/Menu'
 
 const props = defineProps<MenubarSeparatorProps>()
+const { forwardRef } = useForwardRef()
 </script>
 
 <template>
-  <MenuSeparator v-bind="props">
+  <MenuSeparator v-bind="props" :ref="forwardRef">
     <slot />
   </MenuSeparator>
 </template>

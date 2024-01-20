@@ -6,9 +6,9 @@ import { useForwardRef } from '@/shared'
 const sliderValue = ref([50])
 
 const { forwardRef, currentElement } = useForwardRef()
-const el = ref()
+const el = ref<InstanceType<typeof SliderTrack>>()
 onMounted(() => {
-  console.log(el.value, currentElement.value)
+  console.log(el.value)
 })
 </script>
 
@@ -20,7 +20,7 @@ onMounted(() => {
         name="slider"
         class="relative flex items-center select-none touch-none w-[200px] h-5"
       >
-        <SliderTrack :ref="forwardRef" class="bg-blackA10 relative grow rounded-full h-[3px]">
+        <SliderTrack ref="el" class="bg-blackA10 relative grow rounded-full h-[3px]">
           <SliderRange class="absolute bg-white rounded-full h-full" />
         </SliderTrack>
         <SliderThumb

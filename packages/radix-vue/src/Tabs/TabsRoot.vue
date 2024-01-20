@@ -2,7 +2,7 @@
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import type { DataOrientation, Direction } from '../shared/types'
-import { createContext, useDirection, useId } from '@/shared'
+import { createContext, useDirection, useForwardRef, useId } from '@/shared'
 
 export interface TabsRootContext {
   modelValue: Ref<string | undefined>
@@ -53,6 +53,7 @@ const props = withDefaults(defineProps<TabsRootProps>(), {
 const emits = defineEmits<TabsRootEmits>()
 const { orientation, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
+useForwardRef()
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,

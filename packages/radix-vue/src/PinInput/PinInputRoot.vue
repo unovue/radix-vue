@@ -1,7 +1,7 @@
 <script lang="ts">
 import { type ComputedRef, type Ref, computed, ref, toRefs, watch } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useDirection } from '@/shared'
+import { createContext, useDirection, useForwardRef } from '@/shared'
 import type { Direction } from '@/shared/types'
 
 export type PinInputRootEmits = {
@@ -54,6 +54,7 @@ const props = withDefaults(defineProps<PinInputRootProps>(), {
 })
 const emits = defineEmits<PinInputRootEmits>()
 const { mask, otp, placeholder, type, disabled, dir: propDir } = toRefs(props)
+const { forwardRef } = useForwardRef()
 const dir = useDirection(propDir)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
@@ -93,6 +94,7 @@ providePinInputRootContext({
 <template>
   <Primitive
     v-bind="$attrs"
+    :ref="forwardRef"
     :dir="dir"
     :data-complete="isCompleted ? '' : undefined"
     :data-disabled="disabled ? '' : undefined"

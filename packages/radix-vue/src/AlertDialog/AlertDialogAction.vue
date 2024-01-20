@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { DialogCloseProps } from '@/Dialog'
+import { useForwardRef } from '@/shared'
 
 export interface AlertDialogActionProps extends DialogCloseProps {}
 </script>
@@ -8,10 +9,11 @@ export interface AlertDialogActionProps extends DialogCloseProps {}
 import { DialogClose } from '@/Dialog'
 
 const props = defineProps<AlertDialogActionProps>()
+const { forwardRef } = useForwardRef()
 </script>
 
 <template>
-  <DialogClose v-bind="props">
+  <DialogClose v-bind="props" :ref="forwardRef">
     <slot />
   </DialogClose>
 </template>

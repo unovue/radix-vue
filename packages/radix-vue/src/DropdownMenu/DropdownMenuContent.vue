@@ -13,11 +13,12 @@ export interface DropdownMenuContentProps extends MenuContentProps {}
 import { ref } from 'vue'
 import { injectDropdownMenuRootContext } from './DropdownMenuRoot.vue'
 import { MenuContent } from '@/Menu'
-import { useForwardPropsEmits } from '@/shared'
+import { useForwardPropsEmits, useForwardRef } from '@/shared'
 
 const props = defineProps<DropdownMenuContentProps>()
 const emits = defineEmits<DropdownMenuContentEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
+const { forwardRef } = useForwardRef()
 
 const rootContext = injectDropdownMenuRootContext()
 
@@ -43,6 +44,7 @@ function handleCloseAutoFocus(event: Event) {
   <MenuContent
     v-bind="forwarded"
     :id="rootContext.contentId"
+    :ref="forwardRef"
     :aria-labelledby="rootContext?.triggerId"
     :style="{
       '--radix-dropdown-menu-content-transform-origin':

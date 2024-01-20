@@ -6,18 +6,21 @@ export interface DialogCloseProps extends PrimitiveProps {}
 
 <script setup lang="ts">
 import { injectDialogRootContext } from './DialogRoot.vue'
+import { useForwardRef } from '@/shared'
 import { Primitive } from '@/Primitive'
 
 const props = withDefaults(defineProps<DialogCloseProps>(), {
   as: 'button',
 })
 
+const { forwardRef } = useForwardRef()
 const rootContext = injectDialogRootContext()
 </script>
 
 <template>
   <Primitive
     v-bind="props"
+    :ref="forwardRef"
     :type="as === 'button' ? 'button' : undefined"
     @click="rootContext.onOpenChange(false)"
   >

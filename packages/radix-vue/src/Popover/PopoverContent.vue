@@ -19,7 +19,7 @@ export interface PopoverContentProps extends PopoverContentImplProps {
 import PopoverContentModal from './PopoverContentModal.vue'
 import PopoverContentNonModal from './PopoverContentNonModal.vue'
 import { injectPopoverRootContext } from './PopoverRoot.vue'
-import { useForwardPropsEmits } from '@/shared'
+import { useForwardPropsEmits, useForwardRef } from '@/shared'
 import { Presence } from '@/Presence'
 
 const props = defineProps<PopoverContentProps>()
@@ -28,6 +28,7 @@ const emits = defineEmits<PopoverContentEmits>()
 const rootContext = injectPopoverRootContext()
 
 const forwarded = useForwardPropsEmits(props, emits)
+const { forwardRef } = useForwardRef()
 </script>
 
 <template>
@@ -35,10 +36,15 @@ const forwarded = useForwardPropsEmits(props, emits)
     <PopoverContentModal
       v-if="rootContext.modal.value"
       v-bind="forwarded"
+      :ref="forwardRef"
     >
       <slot />
     </PopoverContentModal>
-    <PopoverContentNonModal v-else v-bind="forwarded">
+    <PopoverContentNonModal
+      v-else
+      v-bind="forwarded"
+      :ref="forwardRef"
+    >
       <slot />
     </PopoverContentNonModal>
   </Presence>

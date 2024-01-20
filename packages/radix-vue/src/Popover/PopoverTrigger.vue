@@ -22,8 +22,6 @@ const { forwardRef, currentElement: triggerElement } = useForwardRef()
 onMounted(() => {
   rootContext.triggerElement.value = triggerElement.value
 })
-
-defineExpose({ $el: triggerElement })
 </script>
 
 <template>

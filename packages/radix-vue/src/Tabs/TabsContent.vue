@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardRef } from '@/shared'
 
 export interface TabsContentProps extends PrimitiveProps {
   value: string
@@ -20,6 +21,7 @@ import { Presence } from '@/Presence'
 
 const props = defineProps<TabsContentProps>()
 
+const { forwardRef } = useForwardRef()
 const rootContext = injectTabsRootContext()
 const triggerId = computed(() => makeTriggerId(rootContext.baseId, props.value))
 const contentId = computed(() => makeContentId(rootContext.baseId, props.value))
@@ -38,6 +40,7 @@ onMounted(() => {
   <Presence v-slot="{ present }" :present="isSelected" force-mount>
     <Primitive
       :id="contentId"
+      :ref="forwardRef"
       :as-child="asChild"
       :as="as"
       role="tabpanel"

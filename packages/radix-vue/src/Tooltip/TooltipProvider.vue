@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { Ref } from 'vue'
-import { createContext } from '@/shared'
+import { createContext, useForwardRef } from '@/shared'
 
 interface TooltipProviderContext {
   isOpenDelayed: Ref<boolean>
@@ -50,6 +50,7 @@ const props = withDefaults(defineProps<TooltipProviderProps>(), {
   disableHoverableContent: false,
 })
 const { delayDuration, skipDelayDuration, disableHoverableContent, disableClosingTrigger } = toRefs(props)
+useForwardRef()
 
 const isOpenDelayed = ref(true)
 const isPointerInTransitRef = ref(false)

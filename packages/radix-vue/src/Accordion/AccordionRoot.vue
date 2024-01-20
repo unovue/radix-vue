@@ -71,9 +71,7 @@ export const [injectAccordionRootContext, provideAccordionRootContext]
 </script>
 
 <script setup lang="ts">
-import {
-  Primitive,
-} from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
 import { computed, toRefs } from 'vue'
 
@@ -89,8 +87,7 @@ const direction = useDirection(dir)
 
 const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emits)
 
-const { forwardRef, currentElement: parentElement }
-  = useForwardRef()
+const { forwardRef, currentElement: parentElement } = useForwardRef()
 
 provideAccordionRootContext({
   disabled,
@@ -101,10 +98,6 @@ provideAccordionRootContext({
   collapsible: props.collapsible,
   modelValue,
   changeModelValue,
-})
-
-defineExpose({
-  modelValue,
 })
 </script>
 

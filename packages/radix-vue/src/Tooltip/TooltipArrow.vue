@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardRef } from '@/shared'
 
 export interface TooltipArrowProps extends PrimitiveProps {
   /**
@@ -25,6 +26,7 @@ const props = withDefaults(defineProps<TooltipArrowProps>(), {
   width: 10,
   height: 5,
 })
+useForwardRef()
 </script>
 
 <template>

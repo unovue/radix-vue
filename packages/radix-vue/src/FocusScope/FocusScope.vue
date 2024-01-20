@@ -225,8 +225,8 @@ function handleKeyDown(event: KeyboardEvent) {
   <Primitive
     ref="currentRef"
     tabindex="-1"
-    :as-child="props.asChild"
-    :as="props.as"
+    :as-child="asChild"
+    :as="as"
     @keydown="handleKeyDown"
   >
     <slot />

@@ -13,12 +13,13 @@ export interface MenubarSubContentProps extends MenuSubContentProps {}
 import { injectMenubarRootContext } from './MenubarRoot.vue'
 import { injectMenubarMenuContext } from './MenubarMenu.vue'
 import { MenuSubContent } from '@/Menu'
-import { useCollection, useForwardPropsEmits } from '@/shared'
+import { useCollection, useForwardPropsEmits, useForwardRef } from '@/shared'
 import { wrapArray } from '@/shared/useTypeahead'
 
 const props = defineProps<MenubarSubContentProps>()
 const emits = defineEmits<MenubarSubContentEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
+const { forwardRef } = useForwardRef()
 
 const { injectCollection } = useCollection('menubar')
 
@@ -53,6 +54,7 @@ function handleArrowNavigation(event: KeyboardEvent) {
 <template>
   <MenuSubContent
     v-bind="forwarded"
+    :ref="forwardRef"
     data-radix-menubar-content=""
     :style="{
       '--radix-menubar-content-transform-origin':

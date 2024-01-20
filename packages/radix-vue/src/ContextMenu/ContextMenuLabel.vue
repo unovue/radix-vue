@@ -6,12 +6,14 @@ export interface ContextMenuLabelProps extends MenuLabelProps {}
 
 <script setup lang="ts">
 import { MenuLabel } from '@/Menu'
+import { useForwardRef } from '@/shared'
 
 const props = defineProps<ContextMenuLabelProps>()
+const { forwardRef } = useForwardRef()
 </script>
 
 <template>
-  <MenuLabel v-bind="props">
+  <MenuLabel v-bind="props" :ref="forwardRef">
     <slot />
   </MenuLabel>
 </template>

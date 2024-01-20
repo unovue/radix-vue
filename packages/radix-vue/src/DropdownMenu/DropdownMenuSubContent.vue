@@ -3,6 +3,7 @@ import type {
   MenuSubContentEmits,
   MenuSubContentProps,
 } from '@/Menu'
+import { useForwardRef } from '@/shared'
 
 export type DropdownMenuSubContentEmits = MenuSubContentEmits
 
@@ -16,11 +17,13 @@ import { useForwardPropsEmits } from '..'
 const props = defineProps<DropdownMenuSubContentProps>()
 const emits = defineEmits<DropdownMenuSubContentEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
+const { forwardRef } = useForwardRef()
 </script>
 
 <template>
   <MenuSubContent
     v-bind="forwarded"
+    :ref="forwardRef"
     :style="{
       '--radix-dropdown-menu-content-transform-origin':
         'var(--radix-popper-transform-origin)',

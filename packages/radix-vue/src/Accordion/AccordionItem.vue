@@ -94,7 +94,7 @@ function handleArrowKey(e: KeyboardEvent) {
   )
 }
 
-defineExpose({ open })
+defineExpose({ open, dataDisabled })
 </script>
 
 <template>

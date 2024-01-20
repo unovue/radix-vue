@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import { injectTagsInputItemContext } from './TagsInputItem.vue'
+import { useForwardRef } from '@/shared'
 
 export interface TagsInputItemTextProps extends PrimitiveProps {}
 </script>
@@ -13,6 +14,7 @@ const props = withDefaults(defineProps<TagsInputItemTextProps>(), {
 })
 
 const itemContext = injectTagsInputItemContext()
+useForwardRef()
 </script>
 
 <template>

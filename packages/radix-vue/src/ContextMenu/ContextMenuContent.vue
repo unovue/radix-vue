@@ -3,6 +3,7 @@ import type {
   MenuContentEmits,
   MenuContentProps,
 } from '@/Menu'
+import { useForwardRef } from '@/shared'
 
 export type ContextMenuContentEmits = MenuContentEmits
 
@@ -33,6 +34,7 @@ const props = withDefaults(defineProps<ContextMenuContentProps>(), {
 })
 const emits = defineEmits<ContextMenuContentEmits>()
 
+const { forwardRef } = useForwardRef()
 const rootContext = injectContextMenuRootContext()
 const hasInteractedOutside = ref(false)
 </script>
@@ -40,6 +42,7 @@ const hasInteractedOutside = ref(false)
 <template>
   <MenuContent
     v-bind="props"
+    :ref="forwardRef"
     side="right"
     :side-offset="2"
     align="start"

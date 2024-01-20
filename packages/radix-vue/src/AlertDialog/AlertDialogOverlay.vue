@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { DialogOverlayProps } from '@/Dialog'
+import { useForwardRef } from '@/shared'
 
 export interface AlertDialogOverlayProps extends DialogOverlayProps {}
 </script>
@@ -8,10 +9,11 @@ export interface AlertDialogOverlayProps extends DialogOverlayProps {}
 import { DialogOverlay } from '@/Dialog'
 
 const props = defineProps<AlertDialogOverlayProps>()
+const { forwardRef } = useForwardRef()
 </script>
 
 <template>
-  <DialogOverlay v-bind="props">
+  <DialogOverlay v-bind="props" :ref="forwardRef">
     <slot />
   </DialogOverlay>
 </template>

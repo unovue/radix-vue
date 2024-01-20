@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { Ref } from 'vue'
-import { createContext } from '@/shared'
+import { createContext, useForwardRef } from '@/shared'
 
 export interface HoverCardRootProps {
   defaultOpen?: false
@@ -41,6 +41,7 @@ const emit = defineEmits<HoverCardRootEmits>()
 
 const { openDelay, closeDelay } = toRefs(props)
 
+const { forwardRef } = useForwardRef()
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: (props.open === undefined) as false,
@@ -80,7 +81,7 @@ provideHoverCardRootContext({
 </script>
 
 <template>
-  <PopperRoot>
+  <PopperRoot :ref="forwardRef">
     <slot />
   </PopperRoot>
 </template>

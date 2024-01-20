@@ -11,16 +11,17 @@ export interface ContextMenuRadioItemProps extends MenuRadioItemProps {}
 
 <script setup lang="ts">
 import { MenuRadioItem } from '@/Menu'
-import { useEmitAsProps } from '@/shared'
+import { useEmitAsProps, useForwardRef } from '@/shared'
 
 const props = defineProps<ContextMenuRadioItemProps>()
 const emits = defineEmits<ContextMenuRadioItemEmits>()
 
 const emitsAsProps = useEmitAsProps(emits)
+const { forwardRef } = useForwardRef()
 </script>
 
 <template>
-  <MenuRadioItem v-bind="{ ...props, ...emitsAsProps }">
+  <MenuRadioItem v-bind="{ ...props, ...emitsAsProps }" :ref="forwardRef">
     <slot />
   </MenuRadioItem>
 </template>

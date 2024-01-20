@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardRef } from '@/shared'
 
 export interface PaginationListProps extends PrimitiveProps { }
 </script>
@@ -12,6 +13,7 @@ import { getRange, transform } from './utils'
 
 const props = defineProps<PaginationListProps>()
 
+const { forwardRef } = useForwardRef()
 const rootContext = injectPaginationRootContext()
 
 const transformedRange = computed(() => {
@@ -24,7 +26,7 @@ const transformedRange = computed(() => {
 </script>
 
 <template>
-  <Primitive v-bind="props">
+  <Primitive v-bind="props" :ref="forwardRef">
     <slot :items="transformedRange" />
   </Primitive>
 </template>

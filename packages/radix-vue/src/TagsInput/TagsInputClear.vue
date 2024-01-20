@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import { injectTagsInputRootContext } from './TagsInputRoot.vue'
+import { useForwardRef } from '@/shared'
 
 export interface TagsInputClearProps extends PrimitiveProps {}
 </script>
@@ -12,6 +13,7 @@ const props = withDefaults(defineProps<TagsInputClearProps>(), {
   as: 'button',
 })
 
+useForwardRef()
 const context = injectTagsInputRootContext()
 
 function handleCancel() {

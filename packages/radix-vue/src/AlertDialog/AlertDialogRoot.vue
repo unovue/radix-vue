@@ -10,16 +10,17 @@ export interface AlertDialogProps extends Omit<DialogRootProps, 'modal'> {}
 
 <script setup lang="ts">
 import { DialogRoot } from '@/Dialog'
-import { useForwardPropsEmits } from '@/shared'
+import { useForwardPropsEmits, useForwardRef } from '@/shared'
 
 const props = defineProps<AlertDialogProps>()
 const emits = defineEmits<AlertDialogEmits>()
 
 const forwarded = useForwardPropsEmits(props, emits)
+const { forwardRef } = useForwardRef()
 </script>
 
 <template>
-  <DialogRoot v-bind="forwarded" :modal="true">
+  <DialogRoot v-bind="forwarded" :ref="forwardRef" :modal="true">
     <slot />
   </DialogRoot>
 </template>

@@ -73,7 +73,7 @@ describe('given default Slider', () => {
         })
 
         it('should emit slideEnd', async () => {
-          expect(sliderImpl.emitted('slideEnd')?.[0].length).toBe(1)
+          expect(sliderImpl.emitted('slideEnd')?.[0].length).toBe(0)
         })
 
         it('should emit valueCommit on wrapper', async () => {

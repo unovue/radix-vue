@@ -5,6 +5,7 @@ export interface AccordionContentProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
+import { useForwardRef } from '@/shared'
 import { CollapsibleContent } from '../Collapsible'
 import { injectAccordionItemContext } from './AccordionItem.vue'
 import { injectAccordionRootContext } from './AccordionRoot.vue'
@@ -13,11 +14,14 @@ const props = defineProps<AccordionContentProps>()
 
 const rootContext = injectAccordionRootContext()
 const itemContext = injectAccordionItemContext()
+
+const { forwardRef } = useForwardRef()
 </script>
 
 <template>
   <CollapsibleContent
     :id="itemContext.triggerId"
+    :ref="forwardRef"
     role="region"
     :open="itemContext.open.value"
     :hidden="!itemContext.open.value"

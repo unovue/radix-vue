@@ -3,7 +3,7 @@ import type {
   DialogContentEmits,
   DialogContentProps,
 } from '@/Dialog'
-import { createContext, useEmitAsProps } from '@/shared'
+import { createContext, useEmitAsProps, useForwardRef } from '@/shared'
 
 interface AlertDialogContentContext {
   onCancelElementChange(el: HTMLElement | undefined): void
@@ -18,14 +18,13 @@ export interface AlertDialogContentProps extends DialogContentProps {}
 
 <script setup lang="ts">
 import { nextTick, ref } from 'vue'
-import {
-  DialogContent,
-} from '@/Dialog'
+import { DialogContent } from '@/Dialog'
 
 const props = defineProps<AlertDialogContentProps>()
 const emits = defineEmits<AlertDialogContentEmits>()
 
 const emitsAsProps = useEmitAsProps(emits)
+const { forwardRef } = useForwardRef()
 
 const cancelElement = ref<HTMLElement | undefined>()
 
@@ -39,6 +38,7 @@ provideAlertDialogContentContext({
 <template>
   <DialogContent
     v-bind="{ ...props, ...emitsAsProps }"
+    :ref="forwardRef"
     role="alertdialog"
     @pointer-down-outside.prevent
     @interact-outside.prevent

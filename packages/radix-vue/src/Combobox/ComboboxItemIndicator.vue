@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardRef } from '@/shared'
 
 export interface ComboboxItemIndicatorProps extends PrimitiveProps {}
 </script>
@@ -12,11 +13,17 @@ const props = withDefaults(defineProps<ComboboxItemIndicatorProps>(), {
   as: 'span',
 })
 
+const { forwardRef } = useForwardRef()
 const itemContext = injectComboboxItemContext()
 </script>
 
 <template>
-  <Primitive v-if="itemContext.isSelected.value" aria-hidden v-bind="props">
+  <Primitive
+    v-if="itemContext.isSelected.value"
+    :ref="forwardRef"
+    aria-hidden
+    v-bind="props"
+  >
     <slot />
   </Primitive>
 </template>

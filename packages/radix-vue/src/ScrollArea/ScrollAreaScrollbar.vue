@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext } from '@/shared'
+import { createContext, useForwardRef } from '@/shared'
 
 export interface ScrollAreaScrollbarProps extends PrimitiveProps {
   orientation?: 'vertical' | 'horizontal'
@@ -46,6 +46,7 @@ const props = withDefaults(defineProps<ScrollAreaScrollbarProps>(), {
   as: 'div',
 })
 
+const { forwardRef } = useForwardRef()
 const rootContext = injectScrollAreaRootContext()
 
 const isHorizontal = computed(() => props.orientation === 'horizontal')
@@ -79,6 +80,7 @@ provideScrollAreaScrollbarContext({
   <ScrollAreaScrollbarHover
     v-if="rootContext.type.value === 'hover'"
     v-bind="$attrs"
+    :ref="forwardRef"
     :force-mount="forceMount"
   >
     <slot />
@@ -86,6 +88,7 @@ provideScrollAreaScrollbarContext({
   <ScrollAreaScrollbarScroll
     v-else-if="rootContext.type.value === 'scroll'"
     v-bind="$attrs"
+    :ref="forwardRef"
     :force-mount="forceMount"
   >
     <slot />
@@ -93,6 +96,7 @@ provideScrollAreaScrollbarContext({
   <ScrollAreaScrollbarAuto
     v-else-if="rootContext.type.value === 'auto'"
     v-bind="$attrs"
+    :ref="forwardRef"
     :force-mount="forceMount"
   >
     <slot />
@@ -100,6 +104,7 @@ provideScrollAreaScrollbarContext({
   <ScrollAreaScrollbarVisible
     v-else-if="rootContext.type.value === 'always'"
     v-bind="$attrs"
+    :ref="forwardRef"
     data-state="visible"
   >
     <slot />

@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardRef } from '@/shared'
 
 export type ToggleEmits = {
   'update:pressed': [value: boolean]
@@ -37,6 +38,7 @@ const props = withDefaults(defineProps<ToggleProps>(), {
 
 const emits = defineEmits<ToggleEmits>()
 
+useForwardRef()
 const pressed = useVModel(props, 'pressed', emits, {
   defaultValue: props.defaultValue,
   passive: (props.pressed === undefined) as false,

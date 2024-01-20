@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { ToggleProps } from '@/Toggle'
+import { useForwardRef } from '@/shared'
 
 export interface ToggleGroupItemProps extends ToggleProps {
   /**
@@ -23,6 +24,8 @@ const props = withDefaults(defineProps<ToggleGroupItemProps>(), {
 const rootContext = injectToggleGroupRootContext()
 const disabled = computed(() => rootContext.disabled?.value || props.disabled)
 const pressed = computed(() => rootContext.modelValue.value?.includes(props.value))
+
+const { forwardRef } = useForwardRef()
 </script>
 
 <template>
@@ -34,6 +37,7 @@ const pressed = computed(() => rootContext.modelValue.value?.includes(props.valu
   >
     <Toggle
       v-bind="props"
+      :ref="forwardRef"
       :disabled="disabled"
       :pressed="
         rootContext.type === 'single'

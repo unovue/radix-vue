@@ -1,6 +1,5 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
 
 export interface MenuItemImplProps extends PrimitiveProps {
   disabled?: boolean
@@ -18,7 +17,6 @@ import {
 
 const props = defineProps<MenuItemImplProps>()
 
-const { forwardRef, currentElement } = useForwardRef()
 const contentContext = injectMenuContentContext()
 
 const isFocused = ref(false)
@@ -50,15 +48,10 @@ async function handlePointerLeave(event: PointerEvent) {
 
   contentContext.onItemLeave(event)
 }
-
-defineExpose({
-  el: currentElement,
-})
 </script>
 
 <template>
   <Primitive
-    :ref="forwardRef"
     role="menuitem"
     tabindex="-1"
     :as="as"

@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardRef } from '@/shared'
 
 export interface TabsTriggerProps extends PrimitiveProps {
   value: string
@@ -18,6 +19,8 @@ const props = withDefaults(defineProps<TabsTriggerProps>(), {
   disabled: false,
   as: 'button',
 })
+
+const { forwardRef } = useForwardRef()
 const rootContext = injectTabsRootContext()
 
 const triggerId = computed(() => makeTriggerId(rootContext.baseId, props.value))
@@ -30,6 +33,7 @@ const isSelected = computed(() => props.value === rootContext.modelValue.value)
   <RovingFocusItem as-child :focusable="!disabled" :active="isSelected">
     <Primitive
       :id="triggerId"
+      :ref="forwardRef"
       role="tab"
       :type="as === 'button' ? 'button' : undefined"
       :as="as"

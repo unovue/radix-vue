@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface DialogDescriptionProps extends PrimitiveProps {}
 </script>
@@ -11,12 +11,12 @@ import { Primitive } from '@/Primitive'
 
 const props = withDefaults(defineProps<DialogDescriptionProps>(), { as: 'p' })
 
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 const rootContext = injectDialogRootContext()
 </script>
 
 <template>
-  <Primitive v-bind="props" :id="rootContext.descriptionId" :ref="forwardRef">
+  <Primitive v-bind="props" :id="rootContext.descriptionId">
     <slot />
   </Primitive>
 </template>

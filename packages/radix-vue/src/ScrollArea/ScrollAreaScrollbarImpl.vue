@@ -18,7 +18,7 @@ import { injectScrollAreaScrollbarVisibleContext } from './ScrollAreaScrollbarVi
 import { injectScrollAreaScrollbarContext } from './ScrollAreaScrollbar.vue'
 import { toInt } from './utils'
 import { Primitive } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 const props = defineProps<ScrollAreaScrollbarImplProps>()
 const emit = defineEmits<ScrollbarAreaScrollbarImplEmits>()
@@ -26,7 +26,7 @@ const rootContext = injectScrollAreaRootContext()
 const scrollbarVisibleContext = injectScrollAreaScrollbarVisibleContext()
 const scrollbarContext = injectScrollAreaScrollbarContext()
 
-const { forwardRef, currentElement: scrollbar } = useForwardRef()
+const { forwardRef, currentElement: scrollbar } = useForwardExpose()
 const prevWebkitUserSelectRef = ref('')
 const rectRef = ref<DOMRect>()
 

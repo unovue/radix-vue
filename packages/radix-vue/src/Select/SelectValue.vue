@@ -11,14 +11,14 @@ import { onBeforeMount, onMounted, useSlots } from 'vue'
 import { shouldShowPlaceholder } from './utils'
 import { injectSelectRootContext } from './SelectRoot.vue'
 import { Primitive } from '@/Primitive'
-import { renderSlotFragments, useForwardRef } from '@/shared'
+import { renderSlotFragments, useForwardExpose } from '@/shared'
 
 withDefaults(defineProps<SelectValueProps>(), {
   as: 'span',
   placeholder: '',
 })
 
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 
 const rootContext = injectSelectRootContext()
 const slots = useSlots()

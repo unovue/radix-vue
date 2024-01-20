@@ -11,17 +11,17 @@ export interface MenubarRadioItemProps extends MenuRadioItemProps {}
 
 <script setup lang="ts">
 import { MenuRadioItem } from '@/Menu'
-import { useForwardPropsEmits, useForwardRef } from '@/shared'
+import { useForwardPropsEmits } from '@/shared'
 
 const props = defineProps<MenuRadioItemProps>()
 const emits = defineEmits<MenuRadioItemEmits>()
 
 const forwarded = useForwardPropsEmits(props, emits)
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 </script>
 
 <template>
-  <MenuRadioItem v-bind="forwarded" :ref="forwardRef">
+  <MenuRadioItem v-bind="forwarded">
     <slot />
   </MenuRadioItem>
 </template>

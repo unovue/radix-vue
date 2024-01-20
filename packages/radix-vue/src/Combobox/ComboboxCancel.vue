@@ -6,14 +6,14 @@ export interface ComboboxCancelProps extends PrimitiveProps {}
 
 <script setup lang="ts">
 import { Primitive } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 import { injectComboboxRootContext } from './ComboboxRoot.vue'
 
 const props = withDefaults(defineProps<ComboboxCancelProps>(), {
   as: 'button',
 })
 
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 const rootContext = injectComboboxRootContext()
 
 function handleClick() {
@@ -24,7 +24,6 @@ function handleClick() {
 
 <template>
   <Primitive
-    :ref="forwardRef"
     :type="as === 'button' ? 'button' : undefined"
     v-bind="props"
     tabindex="-1"

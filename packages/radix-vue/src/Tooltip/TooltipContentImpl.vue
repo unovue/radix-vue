@@ -2,7 +2,7 @@
 import type { VNode } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import type { PopperContentProps } from '@/Popper'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export type TooltipContentImplEmits = {
   'escapeKeyDown': [event: KeyboardEvent]
@@ -61,7 +61,7 @@ const emits = defineEmits<TooltipContentImplEmits>()
 
 const rootContext = injectTooltipRootContext()
 
-const { forwardRef } = useForwardRef()
+const { forwardRef } = useForwardExpose()
 const slot = useSlots()
 const defaultSlot = computed(() => slot.default?.())
 const ariaLabel = computed(() => {

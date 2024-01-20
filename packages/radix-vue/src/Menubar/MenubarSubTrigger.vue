@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { MenuSubTriggerProps } from '@/Menu'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface MenubarSubTriggerProps extends MenuSubTriggerProps {}
 </script>
@@ -9,13 +9,12 @@ export interface MenubarSubTriggerProps extends MenuSubTriggerProps {}
 import { MenuSubTrigger } from '@/Menu'
 
 const props = defineProps<MenubarSubTriggerProps>()
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 </script>
 
 <template>
   <MenuSubTrigger
     v-bind="props"
-    :ref="forwardRef"
     data-radix-menubar-subtrigger=""
   >
     <slot />

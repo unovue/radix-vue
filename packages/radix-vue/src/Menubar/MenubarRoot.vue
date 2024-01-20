@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { Direction } from '../shared/types'
-import { createContext, useCollection, useDirection, useForwardRef } from '@/shared'
+import { createContext, useCollection, useDirection, useForwardExpose } from '@/shared'
 
 export interface MenubarRootProps {
   modelValue?: string
@@ -37,7 +37,7 @@ const props = withDefaults(defineProps<MenubarRootProps>(), {
 })
 const emit = defineEmits<MenubarRootEmits>()
 
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 const { createCollection } = useCollection('menubar')
 createCollection(currentElement)
 

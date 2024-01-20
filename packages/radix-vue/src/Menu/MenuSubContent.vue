@@ -21,7 +21,7 @@ import { injectMenuContext, injectMenuRootContext } from './MenuRoot.vue'
 import { injectMenuSubContext } from './MenuSub.vue'
 import { SUB_CLOSE_KEYS } from './utils'
 import { Presence } from '@/Presence'
-import { useForwardPropsEmits, useForwardRef } from '@/shared'
+import { useForwardExpose, useForwardPropsEmits } from '@/shared'
 
 const props = defineProps<MenuSubContentProps>()
 const emits = defineEmits<MenuSubContentEmits>()
@@ -32,7 +32,7 @@ const menuContext = injectMenuContext()
 const rootContext = injectMenuRootContext()
 const menuSubContext = injectMenuSubContext()
 
-const { forwardRef, currentElement: subContentElement } = useForwardRef()
+const { forwardRef, currentElement: subContentElement } = useForwardExpose()
 </script>
 
 <template>

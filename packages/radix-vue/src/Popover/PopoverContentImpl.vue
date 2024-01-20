@@ -35,13 +35,13 @@ import { injectPopoverRootContext } from './PopoverRoot.vue'
 import { PopperContent } from '@/Popper'
 import { DismissableLayer } from '@/DismissableLayer'
 import { FocusScope } from '@/FocusScope'
-import { useFocusGuards, useForwardProps, useForwardRef } from '@/shared'
+import { useFocusGuards, useForwardExpose, useForwardProps } from '@/shared'
 
 const props = defineProps<PopoverContentImplProps>()
 const emits = defineEmits<PopoverContentImplEmits>()
 
 const forwarded = useForwardProps(props)
-const { forwardRef } = useForwardRef()
+const { forwardRef } = useForwardExpose()
 
 const rootContext = injectPopoverRootContext()
 useFocusGuards()

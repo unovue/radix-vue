@@ -5,15 +5,15 @@ export interface MenubarGroupProps extends MenuGroupProps {}
 </script>
 
 <script setup lang="ts">
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 import { MenuGroup } from '@/Menu'
 
 const props = defineProps<MenubarGroupProps>()
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 </script>
 
 <template>
-  <MenuGroup v-bind="props" :ref="forwardRef">
+  <MenuGroup v-bind="props">
     <slot />
   </MenuGroup>
 </template>

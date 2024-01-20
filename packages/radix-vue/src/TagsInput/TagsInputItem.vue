@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useForwardRef, useId } from '@/shared'
+import { createContext, useForwardExpose, useId } from '@/shared'
 import { type Ref, computed, toRefs } from 'vue'
 import { injectTagsInputRootContext } from './TagsInputRoot.vue'
 
@@ -28,7 +28,7 @@ const props = defineProps<TagsInputItemProps>()
 const { value } = toRefs(props)
 
 const context = injectTagsInputRootContext()
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 const isSelected = computed(() => context.selectedElement.value === currentElement.value)
 
 const textId = useId()

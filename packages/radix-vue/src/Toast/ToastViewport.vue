@@ -24,7 +24,7 @@ import { injectToastProviderContext } from './ToastProvider.vue'
 import { onKeyStroke, unrefElement } from '@vueuse/core'
 import FocusProxy from './FocusProxy.vue'
 import { focusFirst, getTabbableCandidates } from '@/FocusScope/utils'
-import { useCollection, useForwardRef } from '@/shared'
+import { useCollection, useForwardExpose } from '@/shared'
 import { VIEWPORT_DEFAULT_HOTKEY, VIEWPORT_PAUSE, VIEWPORT_RESUME } from './utils'
 import { DismissableLayerBranch } from '@/DismissableLayer'
 
@@ -39,7 +39,7 @@ const props = withDefaults(defineProps<ToastViewportProps>(), {
 })
 const { hotkey, label } = toRefs(props)
 
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 const { createCollection } = useCollection()
 const collections = createCollection(currentElement)
 const providerContext = injectToastProviderContext()

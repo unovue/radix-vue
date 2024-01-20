@@ -3,7 +3,7 @@ import type {
   MenuRadioItemEmits,
   MenuRadioItemProps,
 } from '@/Menu'
-import { useForwardPropsEmits, useForwardRef } from '@/shared'
+import { useForwardExpose, useForwardPropsEmits } from '@/shared'
 
 export type DropdownMenuRadioItemEmits = MenuRadioItemEmits
 
@@ -17,11 +17,11 @@ const props = defineProps<DropdownMenuRadioItemProps>()
 const emits = defineEmits<DropdownMenuRadioItemEmits>()
 
 const forwarded = useForwardPropsEmits(props, emits)
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 </script>
 
 <template>
-  <MenuRadioItem v-bind="forwarded" :ref="forwardRef">
+  <MenuRadioItem v-bind="forwarded">
     <slot />
   </MenuRadioItem>
 </template>

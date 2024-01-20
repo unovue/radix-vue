@@ -4,10 +4,10 @@ import TooltipContentImpl, { type TooltipContentImplProps } from './TooltipConte
 import { injectTooltipRootContext } from './TooltipRoot.vue'
 import { injectTooltipProviderContext } from './TooltipProvider.vue'
 import { type Polygon, getExitSideFromRect, getHull, getPaddedExitPoints, getPointsFromRect, isPointInPolygon } from './utils'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 const props = defineProps<TooltipContentImplProps>()
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 
 const { trigger, onClose } = injectTooltipRootContext()
 const providerContext = injectTooltipProviderContext()

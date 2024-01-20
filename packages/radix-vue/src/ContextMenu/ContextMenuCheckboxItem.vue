@@ -11,18 +11,17 @@ export interface ContextMenuCheckboxItemProps extends MenuCheckboxItemProps {}
 
 <script setup lang="ts">
 import { MenuCheckboxItem } from '@/Menu'
-import { useEmitAsProps, useForwardRef } from '@/shared'
+import { useEmitAsProps, useForwardExpose } from '@/shared'
 
 const props = defineProps<ContextMenuCheckboxItemProps>()
 const emits = defineEmits<ContextMenuCheckboxItemEmits>()
 
 const emitsAsProps = useEmitAsProps(emits)
-
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 </script>
 
 <template>
-  <MenuCheckboxItem v-bind="{ ...props, ...emitsAsProps }" :ref="forwardRef">
+  <MenuCheckboxItem v-bind="{ ...props, ...emitsAsProps }">
     <slot />
   </MenuCheckboxItem>
 </template>

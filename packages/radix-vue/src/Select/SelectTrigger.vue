@@ -14,7 +14,7 @@ import {
 import { OPEN_KEYS, shouldShowPlaceholder } from './utils'
 import { Primitive } from '@/Primitive'
 import { PopperAnchor } from '@/Popper'
-import { useCollection, useForwardRef, useTypeahead } from '@/shared'
+import { useCollection, useForwardExpose, useTypeahead } from '@/shared'
 
 const props = withDefaults(defineProps<SelectTriggerProps>(), {
   as: 'button',
@@ -23,7 +23,7 @@ const rootContext = injectSelectRootContext()
 
 const isDisabled = computed(() => rootContext.disabled?.value || props.disabled)
 
-const { forwardRef, currentElement: triggerElement } = useForwardRef()
+const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 
 onMounted(() => {
   rootContext.triggerElement = triggerElement

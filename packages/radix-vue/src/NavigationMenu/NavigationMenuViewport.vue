@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface NavigationMenuViewportProps extends PrimitiveProps {
   /**
@@ -32,7 +32,7 @@ defineOptions({
 
 defineProps<NavigationMenuViewportProps>()
 
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 
 const menuContext = injectNavigationMenuContext()
 

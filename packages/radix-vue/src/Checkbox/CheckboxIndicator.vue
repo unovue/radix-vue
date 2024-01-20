@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface CheckboxIndicatorProps extends PrimitiveProps {
   /**
@@ -20,7 +20,7 @@ import { getState, isIndeterminate } from './utils'
 withDefaults(defineProps<CheckboxIndicatorProps>(), {
   as: 'span',
 })
-const { forwardRef } = useForwardRef()
+const { forwardRef } = useForwardExpose()
 
 const rootContext = injectCheckboxRootContext()
 </script>

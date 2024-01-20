@@ -7,11 +7,11 @@ export interface ComboboxAnchorProps extends PrimitiveProps {}
 <script setup lang="ts">
 import { Primitive } from '@/Primitive'
 import { PopperAnchor } from '@/Popper'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 defineProps<ComboboxAnchorProps>()
 
-const { forwardRef } = useForwardRef()
+const { forwardRef } = useForwardExpose()
 </script>
 
 <template>

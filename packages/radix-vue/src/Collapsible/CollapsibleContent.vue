@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface CollapsibleContentProps extends PrimitiveProps {
   /**
@@ -28,7 +28,7 @@ const props = defineProps<CollapsibleContentProps>()
 const rootContext = injectCollapsibleRootContext()
 
 const presentRef = ref<InstanceType<typeof Presence>>()
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 
 const width = ref(0)
 const height = ref(0)

@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface SelectItemTextProps extends PrimitiveProps {}
 </script>
@@ -25,7 +25,7 @@ const contentContext = injectSelectContentContext(SelectContentDefaultContextVal
 const nativeOptionContext = injectSelectNativeOptionsContext()
 const itemContext = injectSelectItemContext()
 
-const { forwardRef, currentElement: itemTextElement } = useForwardRef()
+const { forwardRef, currentElement: itemTextElement } = useForwardExpose()
 
 const nativeOption = computed(() => {
   return h('option', {

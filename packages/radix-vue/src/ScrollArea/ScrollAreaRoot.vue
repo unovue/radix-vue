@@ -2,7 +2,7 @@
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import type { Direction, ScrollType } from './types'
-import { createContext, useDirection, useForwardRef } from '@/shared'
+import { createContext, useDirection, useForwardExpose } from '@/shared'
 
 export interface ScrollAreaRootContext {
   type: Ref<ScrollType>
@@ -44,7 +44,7 @@ const props = withDefaults(defineProps<ScrollAreaRootProps>(), {
   scrollHideDelay: 600,
 })
 
-const { forwardRef, currentElement: scrollArea } = useForwardRef()
+const { forwardRef, currentElement: scrollArea } = useForwardExpose()
 
 const cornerWidth = ref(0)
 const cornerHeight = ref(0)

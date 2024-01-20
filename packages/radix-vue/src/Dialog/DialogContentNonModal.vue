@@ -5,13 +5,13 @@ import DialogContentImpl, {
   type DialogContentImplEmits,
   type DialogContentImplProps,
 } from './DialogContentImpl.vue'
-import { useEmitAsProps, useForwardRef } from '@/shared'
+import { useEmitAsProps, useForwardExpose } from '@/shared'
 
 const props = defineProps<DialogContentImplProps>()
 const emits = defineEmits<DialogContentImplEmits>()
 
 const emitsAsProps = useEmitAsProps(emits)
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 
 const rootContext = injectDialogRootContext()
 const hasInteractedOutsideRef = ref(false)
@@ -21,7 +21,6 @@ const hasPointerDownOutsideRef = ref(false)
 <template>
   <DialogContentImpl
     v-bind="{ ...props, ...emitsAsProps }"
-    :ref="forwardRef"
     :trap-focus="false"
     :disable-outside-pointer-events="false"
     @close-auto-focus="

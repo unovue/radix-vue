@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from '../'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 const sliderValue = ref([50])
 
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 const el = ref<InstanceType<typeof SliderTrack>>()
 onMounted(() => {
   console.log(el.value)

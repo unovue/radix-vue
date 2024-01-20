@@ -10,19 +10,18 @@ export interface ContextMenuSubContentProps extends MenuSubContentProps {}
 
 <script setup lang="ts">
 import { MenuSubContent } from '@/Menu'
-import { useForwardPropsEmits, useForwardRef } from '@/shared'
+import { useForwardExpose, useForwardPropsEmits } from '@/shared'
 
 const props = defineProps<ContextMenuSubContentProps>()
 
 const emits = defineEmits<ContextMenuSubContentEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 </script>
 
 <template>
   <MenuSubContent
     v-bind="forwarded"
-    :ref="forwardRef"
     :style="{
       '--radix-context-menu-content-transform-origin':
         'var(--radix-popper-transform-origin)',

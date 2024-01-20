@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { MenuSeparatorProps } from '@/Menu'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface DropdownMenuSeparatorProps extends MenuSeparatorProps {}
 </script>
@@ -9,11 +9,11 @@ export interface DropdownMenuSeparatorProps extends MenuSeparatorProps {}
 import { MenuSeparator } from '@/Menu'
 
 const props = defineProps<DropdownMenuSeparatorProps>()
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 </script>
 
 <template>
-  <MenuSeparator v-bind="props" :ref="forwardRef">
+  <MenuSeparator v-bind="props">
     <slot />
   </MenuSeparator>
 </template>

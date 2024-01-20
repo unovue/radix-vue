@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface TabsTriggerProps extends PrimitiveProps {
   value: string
@@ -20,7 +20,7 @@ const props = withDefaults(defineProps<TabsTriggerProps>(), {
   as: 'button',
 })
 
-const { forwardRef } = useForwardRef()
+const { forwardRef } = useForwardExpose()
 const rootContext = injectTabsRootContext()
 
 const triggerId = computed(() => makeTriggerId(rootContext.baseId, props.value))

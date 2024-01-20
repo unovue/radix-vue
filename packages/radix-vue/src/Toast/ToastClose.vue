@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface ToastCloseProps extends PrimitiveProps {}
 </script>
@@ -15,7 +15,7 @@ const props = withDefaults(defineProps<ToastCloseProps>(), {
 })
 
 const rootContext = injectToastRootContext()
-const { forwardRef } = useForwardRef()
+const { forwardRef } = useForwardExpose()
 </script>
 
 <template>

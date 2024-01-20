@@ -3,7 +3,7 @@ import type { Ref } from 'vue'
 
 import type { PrimitiveProps } from '@/Primitive'
 import type { Direction, Orientation } from './utils'
-import { createContext, useCollection, useDirection, useForwardRef, useId } from '@/shared'
+import { createContext, useCollection, useDirection, useForwardExpose, useId } from '@/shared'
 
 export interface NavigationMenuRootProps extends PrimitiveProps {
   modelValue?: string
@@ -75,7 +75,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 }) as Ref<string>
 const previousValue = ref('')
 
-const { forwardRef, currentElement: rootNavigationMenu } = useForwardRef()
+const { forwardRef, currentElement: rootNavigationMenu } = useForwardExpose()
 
 const indicatorTrack = ref<HTMLElement>()
 const viewport = ref<HTMLElement>()

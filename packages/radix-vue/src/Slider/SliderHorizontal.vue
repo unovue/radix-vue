@@ -3,7 +3,7 @@ import SliderImpl from './SliderImpl.vue'
 import { computed, ref, toRefs } from 'vue'
 import type { Direction, SliderOrientationPrivateEmits, SliderOrientationPrivateProps } from './utils'
 import { BACK_KEYS, linearScale, provideSliderOrientationContext } from './utils'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 interface SliderHorizontalProps extends SliderOrientationPrivateProps {
   dir?: Direction
@@ -13,7 +13,7 @@ const props = defineProps<SliderHorizontalProps>()
 const emits = defineEmits<SliderOrientationPrivateEmits>()
 const { max, min, dir, inverted } = toRefs(props)
 
-const { forwardRef, currentElement: sliderElement } = useForwardRef()
+const { forwardRef, currentElement: sliderElement } = useForwardExpose()
 
 const rectRef = ref<ClientRect>()
 const isSlidingFromLeft = computed(() => (dir?.value === 'ltr' && !inverted.value) || (dir?.value !== 'ltr' && inverted.value))

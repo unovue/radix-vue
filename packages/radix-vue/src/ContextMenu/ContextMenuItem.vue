@@ -8,17 +8,17 @@ export interface ContextMenuItemProps extends MenuItemProps {}
 
 <script setup lang="ts">
 import { MenuItem } from '@/Menu'
-import { useEmitAsProps, useForwardRef } from '@/shared'
+import { useEmitAsProps, useForwardExpose } from '@/shared'
 
 const props = defineProps<MenuItemProps>()
 const emits = defineEmits<MenuItemEmits>()
 
 const emitsAsProps = useEmitAsProps(emits)
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 </script>
 
 <template>
-  <MenuItem v-bind="{ ...props, ...emitsAsProps }" :ref="forwardRef">
+  <MenuItem v-bind="{ ...props, ...emitsAsProps }">
     <slot />
   </MenuItem>
 </template>

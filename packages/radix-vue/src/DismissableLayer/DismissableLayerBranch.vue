@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface DismissableLayerBranchProps extends PrimitiveProps {}
 </script>
@@ -12,7 +12,7 @@ import { context } from './DismissableLayer.vue'
 
 const props = defineProps<DismissableLayerBranchProps>()
 
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 onMounted(() => {
   context.branches.add(currentElement.value)
 })

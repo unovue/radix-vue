@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PopperArrowProps } from '@/Popper'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface PopoverArrowProps extends PopperArrowProps {}
 </script>
@@ -9,11 +9,11 @@ export interface PopoverArrowProps extends PopperArrowProps {}
 import { PopperArrow } from '@/Popper'
 
 const props = defineProps<PopoverArrowProps>()
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 </script>
 
 <template>
-  <PopperArrow v-bind="props" :ref="forwardRef">
+  <PopperArrow v-bind="props">
     <slot />
   </PopperArrow>
 </template>

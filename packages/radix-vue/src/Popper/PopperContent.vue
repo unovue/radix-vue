@@ -5,7 +5,7 @@ import type {
   Placement,
 } from '@floating-ui/vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useForwardRef, useSize } from '@/shared'
+import { createContext, useForwardExpose, useSize } from '@/shared'
 import type {
   Align,
   Side,
@@ -160,7 +160,7 @@ const props = withDefaults(defineProps<PopperContentProps>(), {
 })
 const rootContext = injectPopperRootContext()
 
-const { forwardRef, currentElement: contentElement } = useForwardRef()
+const { forwardRef, currentElement: contentElement } = useForwardExpose()
 
 const floatingRef = ref<HTMLElement>()
 

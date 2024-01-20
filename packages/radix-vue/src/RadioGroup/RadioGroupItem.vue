@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { ComputedRef } from 'vue'
 import type { RadioProps } from './Radio.vue'
-import { createContext, useForwardRef } from '@/shared'
+import { createContext, useForwardExpose } from '@/shared'
 
 export interface RadioGroupItemProps extends Omit<RadioProps, 'checked'> {}
 
@@ -29,7 +29,7 @@ const props = withDefaults(defineProps<RadioGroupItemProps>(), {
   disabled: false,
   as: 'button',
 })
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 
 const rootContext = injectRadioGroupRootContext()
 

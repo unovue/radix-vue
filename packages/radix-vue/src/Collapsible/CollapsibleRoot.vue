@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import type { Ref } from 'vue'
-import { createContext, useForwardRef, useId } from '@/shared'
+import { createContext, useForwardExpose, useId } from '@/shared'
 
 export interface CollapsibleRootProps extends PrimitiveProps {
   defaultOpen?: boolean
@@ -35,7 +35,7 @@ const props = withDefaults(defineProps<CollapsibleRootProps>(), {
 
 const emit = defineEmits<CollapsibleRootEmits>()
 
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
@@ -58,7 +58,6 @@ defineExpose({ open })
 
 <template>
   <Primitive
-    :ref="forwardRef"
     :as="as"
     :as-child="props.asChild"
     :data-state="props.open ? 'open' : 'closed'"

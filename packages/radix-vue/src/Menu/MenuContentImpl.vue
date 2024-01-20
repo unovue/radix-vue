@@ -18,7 +18,7 @@ import {
   useBodyScrollLock,
   useCollection,
   useFocusGuards,
-  useForwardRef,
+  useForwardExpose,
   useTypeahead,
 } from '@/shared'
 
@@ -124,7 +124,7 @@ const lastPointerXRef = ref(0)
 const currentItemId = ref<string | null>(null)
 
 const { createCollection } = useCollection()
-const { forwardRef, currentElement: contentElement } = useForwardRef()
+const { forwardRef, currentElement: contentElement } = useForwardExpose()
 const collectionItems = createCollection(contentElement)
 
 watch(contentElement, (el) => {

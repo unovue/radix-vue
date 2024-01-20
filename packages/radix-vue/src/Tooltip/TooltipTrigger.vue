@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export type TooltipTriggerDataState =
   | 'closed'
@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<TooltipTriggerProps>(), {
 const rootContext = injectTooltipRootContext()
 const providerContext = injectTooltipProviderContext()
 
-const { forwardRef, currentElement: triggerElement } = useForwardRef()
+const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 
 const isPointerDown = ref(false)
 const hasPointerMoveOpened = ref(false)

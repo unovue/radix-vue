@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PopperAnchorProps } from '@/Popper'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface PopoverAnchorProps extends PopperAnchorProps {}
 </script>
@@ -12,7 +12,7 @@ import { PopperAnchor } from '@/Popper'
 
 const props = defineProps<PopoverAnchorProps>()
 
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 const rootContext = injectPopoverRootContext()
 
 onBeforeMount(() => {
@@ -24,7 +24,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <PopperAnchor v-bind="props" :ref="forwardRef">
+  <PopperAnchor v-bind="props">
     <slot />
   </PopperAnchor>
 </template>

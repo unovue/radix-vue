@@ -3,14 +3,14 @@ import SliderImpl from './SliderImpl.vue'
 import { computed, ref, toRefs } from 'vue'
 import type { SliderOrientationPrivateEmits, SliderOrientationPrivateProps } from './utils'
 import { BACK_KEYS, linearScale, provideSliderOrientationContext } from './utils'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 interface SliderVerticalProps extends SliderOrientationPrivateProps {}
 const props = defineProps<SliderVerticalProps>()
 const emits = defineEmits<SliderOrientationPrivateEmits>()
 const { max, min, inverted } = toRefs(props)
 
-const { forwardRef, currentElement: sliderElement } = useForwardRef()
+const { forwardRef, currentElement: sliderElement } = useForwardExpose()
 
 const rectRef = ref<ClientRect>()
 const isSlidingFromBottom = computed(() => !inverted.value)

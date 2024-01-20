@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { Ref } from 'vue'
-import { createContext, useForwardRef, useId } from '@/shared'
+import { createContext, useForwardExpose, useId } from '@/shared'
 
 export interface TooltipRootProps {
   /**
@@ -71,7 +71,7 @@ const props = withDefaults(defineProps<TooltipRootProps>(), {
 
 const emit = defineEmits<TooltipRootEmits>()
 
-useForwardRef()
+useForwardExpose()
 const providerContext = injectTooltipProviderContext()
 
 const disableHoverableContent = computed(() => props.disableHoverableContent ?? providerContext.disableHoverableContent.value)

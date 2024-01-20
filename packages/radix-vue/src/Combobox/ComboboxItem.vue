@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, handleAndDispatchCustomEvent, useForwardRef, useId } from '@/shared'
+import { createContext, handleAndDispatchCustomEvent, useForwardExpose, useId } from '@/shared'
 import type { AcceptableValue } from './ComboboxRoot.vue'
 
 export type SelectEvent<T> = CustomEvent<{ originalEvent: PointerEvent; value?: T }>
@@ -48,7 +48,7 @@ const { disabled } = toRefs(props)
 
 const rootContext = injectComboboxRootContext()
 const groupContext = injectComboboxGroupContext({ id: '', options: ref([]) })
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 
 const isSelected = computed(() =>
   rootContext.multiple.value && Array.isArray(rootContext.modelValue.value)

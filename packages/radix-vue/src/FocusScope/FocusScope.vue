@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export type FocusScopeEmits = {
   /**
@@ -54,7 +54,7 @@ const props = withDefaults(defineProps<FocusScopeProps>(), {
 })
 const emits = defineEmits<FocusScopeEmits>()
 
-const { currentRef, currentElement } = useForwardRef()
+const { currentRef, currentElement } = useForwardExpose()
 const lastFocusedElementRef = ref<HTMLElement | null>(null)
 const focusScopesStack = createFocusScopesStack()
 

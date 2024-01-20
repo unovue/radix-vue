@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface ToolbarButtonProps extends PrimitiveProps {
   disabled?: boolean
@@ -12,7 +12,7 @@ import { Primitive } from '@/Primitive'
 import { RovingFocusItem } from '@/RovingFocus'
 
 const props = withDefaults(defineProps<ToolbarButtonProps>(), { as: 'button' })
-const { forwardRef } = useForwardRef()
+const { forwardRef } = useForwardExpose()
 </script>
 
 <template>

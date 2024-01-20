@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { DialogCloseProps } from '@/Dialog'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface AlertDialogCancelProps extends DialogCloseProps {}
 </script>
@@ -12,7 +12,7 @@ import { DialogClose } from '@/Dialog'
 
 const props = defineProps<AlertDialogCancelProps>()
 const contentContext = injectAlertDialogContentContext()
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 
 onMounted(() => {
   contentContext.onCancelElementChange(currentElement.value)

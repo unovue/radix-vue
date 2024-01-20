@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { PopperContentProps } from '@/Popper'
 import type { DismissableLayerEmits } from '@/DismissableLayer'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export type HoverCardContentImplEmits = DismissableLayerEmits
 export interface HoverCardContentImplProps extends PopperContentProps {}
@@ -19,7 +19,7 @@ const props = defineProps<HoverCardContentImplProps>()
 const emits = defineEmits<HoverCardContentImplEmits>()
 const forwarded = useForwardProps(props)
 
-const { forwardRef, currentElement: contentElement } = useForwardRef()
+const { forwardRef, currentElement: contentElement } = useForwardExpose()
 const rootContext = injectHoverCardRootContext()
 const containSelection = ref(false)
 

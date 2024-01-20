@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import type { SwipeEvent } from './utils'
-import { createContext, useForwardRef } from '@/shared'
+import { createContext, useForwardExpose } from '@/shared'
 
 export type ToastRootImplEmits = {
   'close': []
@@ -47,7 +47,7 @@ const props = withDefaults(defineProps<ToastRootImplProps>(), {
 
 const emits = defineEmits<ToastRootImplEmits>()
 
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 const providerContext = injectToastProviderContext()
 const pointerStartRef = ref<{ x: number; y: number } | null>(null)
 const swipeDeltaRef = ref<{ x: number; y: number } | null>(null)

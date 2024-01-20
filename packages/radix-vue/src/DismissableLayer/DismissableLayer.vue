@@ -11,7 +11,7 @@ import type {
   FocusOutsideEvent,
   PointerDownOutsideEvent,
 } from './utils'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface DismissableLayerProps extends PrimitiveProps {
   /**
@@ -73,8 +73,7 @@ const props = withDefaults(defineProps<DismissableLayerProps>(), {
 
 const emits = defineEmits<DismissableLayerEmits>()
 
-const { forwardRef, currentElement: layerElement }
-  = useForwardRef()
+const { forwardRef, currentElement: layerElement } = useForwardExpose()
 const ownerDocument = computed(
   () => layerElement.value?.ownerDocument ?? globalThis.document,
 )

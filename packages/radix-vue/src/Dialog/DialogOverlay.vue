@@ -1,6 +1,6 @@
 <script lang="ts">
 import DialogOverlayImpl, { type DialogOverlayImplProps } from './DialogOverlayImpl.vue'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface DialogOverlayProps extends DialogOverlayImplProps {
   /**
@@ -18,7 +18,7 @@ import { Presence } from '@/Presence'
 defineProps<DialogOverlayProps>()
 const rootContext = injectDialogRootContext()
 
-const { forwardRef } = useForwardRef()
+const { forwardRef } = useForwardExpose()
 </script>
 
 <template>

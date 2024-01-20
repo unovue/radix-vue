@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { ToggleGroupItemProps } from '@/ToggleGroup'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface ToolbarToggleItemProps extends ToggleGroupItemProps {}
 </script>
@@ -10,7 +10,7 @@ import ToolbarButton from './ToolbarButton.vue'
 import { ToggleGroupItem } from '@/ToggleGroup'
 
 const props = defineProps<ToolbarToggleItemProps>()
-const { forwardRef } = useForwardRef()
+const { forwardRef } = useForwardExpose()
 </script>
 
 <template>

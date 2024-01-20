@@ -3,8 +3,8 @@ import type { Ref } from 'vue'
 import {
   createContext,
   useBodyScrollLock,
+  useForwardExpose,
   useForwardProps,
-  useForwardRef,
   useHideOthers,
 } from '@/shared'
 
@@ -49,7 +49,7 @@ const rootContext = injectComboboxRootContext()
 
 useBodyScrollLock(props.bodyLock)
 
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 useHideOthers(currentElement)
 
 const pickedProps = computed(() => {

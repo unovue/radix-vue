@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface PaginationEllipsisProps extends PrimitiveProps {}
 </script>
@@ -9,13 +9,12 @@ export interface PaginationEllipsisProps extends PrimitiveProps {}
 import { Primitive } from '@/Primitive'
 
 const props = defineProps<PaginationEllipsisProps>()
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 </script>
 
 <template>
   <Primitive
     v-bind="props"
-    :ref="forwardRef"
     data-type="ellipsis"
   >
     <slot>&#8230;</slot>

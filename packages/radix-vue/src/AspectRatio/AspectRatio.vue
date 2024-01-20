@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface AspectRatioProps extends PrimitiveProps {
   ratio?: number
@@ -18,7 +18,7 @@ defineOptions({
 const props = withDefaults(defineProps<AspectRatioProps>(), {
   ratio: 1,
 })
-const { forwardRef } = useForwardRef()
+const { forwardRef } = useForwardExpose()
 
 const aspect = computed(() => {
   return (1 / props.ratio) * 100

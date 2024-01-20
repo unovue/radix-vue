@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export type NavigationMenuLinkEmits = {
   'select': [payload: MouseEvent]
@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<NavigationMenuLinkProps>(), {
 })
 const emits = defineEmits<NavigationMenuLinkEmits>()
 
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 async function handleClick(ev: MouseEvent) {
   emits('select', ev)
 
@@ -42,7 +42,6 @@ async function handleClick(ev: MouseEvent) {
 
 <template>
   <Primitive
-    :ref="forwardRef"
     :as="as"
     :data-active="active ? '' : undefined"
     :aria-current="active ? 'page' : undefined"

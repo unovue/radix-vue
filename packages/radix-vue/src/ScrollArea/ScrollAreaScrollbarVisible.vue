@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { Ref } from 'vue'
-import { createContext, useForwardRef } from '@/shared'
+import { createContext, useForwardExpose } from '@/shared'
 import type { Direction, Sizes } from './types'
 
 export interface ScrollAreaScrollbarVisibleContext {
@@ -37,7 +37,7 @@ import {
 
 const rootContext = injectScrollAreaRootContext()
 const scrollbarContext = injectScrollAreaScrollbarContext()
-const { forwardRef } = useForwardRef()
+const { forwardRef } = useForwardExpose()
 
 const sizes = ref<Sizes>({
   content: 0,

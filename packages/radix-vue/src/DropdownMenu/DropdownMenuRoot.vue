@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { Direction } from '../shared/types'
-import { createContext, useDirection, useForwardRef, useId } from '@/shared'
+import { createContext, useDirection, useForwardExpose, useId } from '@/shared'
 
 export interface DropdownMenuRootProps {
   open?: boolean
@@ -39,7 +39,7 @@ const props = withDefaults(defineProps<DropdownMenuRootProps>(), {
 })
 const emit = defineEmits<DropdownMenuRootEmits>()
 
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: (props.open === undefined) as false,
@@ -66,7 +66,7 @@ provideDropdownMenuRootContext({
 </script>
 
 <template>
-  <MenuRoot :ref="forwardRef" v-model:open="open" :dir="dir" :modal="modal">
+  <MenuRoot v-model:open="open" :dir="dir" :modal="modal">
     <slot />
   </MenuRoot>
 </template>

@@ -19,7 +19,7 @@ export interface RadioProps extends PrimitiveProps {
 import { computed, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { Primitive } from '@/Primitive'
-import { useFormControl, useForwardRef } from '@/shared'
+import { useFormControl, useForwardExpose } from '@/shared'
 
 const props = withDefaults(defineProps<RadioProps>(), {
   disabled: false,
@@ -32,7 +32,7 @@ const checked = useVModel(props, 'checked', emits, {
 })
 
 const { value } = toRefs(props)
-const { forwardRef, currentElement: triggerElement } = useForwardRef()
+const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 const isFormControl = useFormControl(triggerElement)
 
 const ariaLabel = computed(() => props.id && triggerElement.value ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText ?? props.value : undefined)

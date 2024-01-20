@@ -3,7 +3,7 @@ import type {
   DismissableLayerEmits,
   DismissableLayerProps,
 } from '@/DismissableLayer'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export type DialogContentImplEmits = DismissableLayerEmits & {
   /**
@@ -45,7 +45,7 @@ const props = defineProps<DialogContentImplProps>()
 const emits = defineEmits<DialogContentImplEmits>()
 
 const rootContext = injectDialogRootContext()
-const { forwardRef, currentElement: contentElement } = useForwardRef()
+const { forwardRef, currentElement: contentElement } = useForwardExpose()
 
 onMounted(() => {
   rootContext.contentElement = contentElement

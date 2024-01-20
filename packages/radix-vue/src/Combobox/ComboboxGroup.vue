@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useForwardRef, useId } from '@/shared'
+import { createContext, useForwardExpose, useId } from '@/shared'
 import { injectComboboxRootContext } from './ComboboxRoot.vue'
 import type { AcceptableValue } from './ComboboxRoot.vue'
 
@@ -22,7 +22,7 @@ import { Primitive } from '@/Primitive'
 
 const props = defineProps<ComboboxGroupProps>()
 
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 const id = useId()
 const options = ref<Array<AcceptableValue>>([])
 
@@ -42,7 +42,6 @@ provideComboboxGroupContext({
   <Primitive
     v-show="isAnyChildInFilteredOptions"
     v-bind="props"
-    :ref="forwardRef"
     role="group"
     :aria-labelledby="id"
   >

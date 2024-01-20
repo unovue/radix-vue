@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { ToastRootImplEmits, ToastRootImplProps } from './ToastRootImpl.vue'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export type ToastRootEmits = ToastRootImplEmits & {
   'update:open': [value: boolean]
@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<ToastRootProps>(), {
 })
 const emits = defineEmits<ToastRootEmits>()
 
-const { forwardRef } = useForwardRef()
+const { forwardRef } = useForwardExpose()
 const open = useVModel(props, 'open', emits, {
   defaultValue: props.defaultOpen,
   passive: (props.open === undefined) as false,

@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useCollection, useForwardRef } from '@/shared'
+import { createContext, useCollection, useForwardExpose } from '@/shared'
 
 interface SelectItemAlignedPositionContext {
   contentWrapper?: Ref<HTMLElement | undefined>
@@ -41,7 +41,7 @@ const shouldExpandOnScrollRef = ref(false)
 const shouldRepositionRef = ref(true)
 
 const contentWrapperElement = ref<HTMLElement>()
-const { forwardRef, currentElement: contentElement } = useForwardRef()
+const { forwardRef, currentElement: contentElement } = useForwardExpose()
 
 const { viewport, selectedItem, selectedItemText, focusSelectedItem }
   = contentContext!

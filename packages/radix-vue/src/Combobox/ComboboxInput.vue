@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface ComboboxInputProps extends PrimitiveProps {
   type?: string
@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<ComboboxInputProps>(), {
 
 const rootContext = injectComboboxRootContext()
 
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 onMounted(() => {
   const inputEl = currentElement.value.nodeName === 'INPUT'
     ? currentElement.value as HTMLInputElement

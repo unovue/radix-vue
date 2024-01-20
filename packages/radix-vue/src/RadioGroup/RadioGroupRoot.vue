@@ -2,7 +2,7 @@
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import type { DataOrientation, Direction } from '@/shared/types'
-import { createContext, useDirection, useForwardRef } from '@/shared'
+import { createContext, useDirection, useForwardExpose } from '@/shared'
 
 export interface RadioGroupRootProps extends PrimitiveProps {
   modelValue?: string
@@ -47,7 +47,7 @@ const props = withDefaults(defineProps<RadioGroupRootProps>(), {
 
 const emits = defineEmits<RadioGroupRootEmits>()
 
-const { forwardRef } = useForwardRef()
+const { forwardRef } = useForwardExpose()
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
   passive: (props.modelValue === undefined) as false,

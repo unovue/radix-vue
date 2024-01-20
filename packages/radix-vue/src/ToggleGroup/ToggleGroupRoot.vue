@@ -2,7 +2,7 @@
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import type { DataOrientation, Direction } from '../shared/types'
-import { createContext, useDirection, useForwardRef } from '@/shared'
+import { createContext, useDirection, useForwardExpose } from '@/shared'
 
 type TypeEnum = 'single' | 'multiple'
 
@@ -51,7 +51,7 @@ const emits = defineEmits<ToggleGroupRootEmits>()
 
 const { loop, rovingFocus, disabled, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
-const { forwardRef } = useForwardRef()
+const { forwardRef } = useForwardExpose()
 
 const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emits)
 

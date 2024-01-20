@@ -15,12 +15,12 @@ export interface ComboboxContentProps extends ComboboxContentImplProps {
 import { injectComboboxRootContext } from './ComboboxRoot.vue'
 import ComboboxContentImpl from './ComboboxContentImpl.vue'
 import { Presence } from '@/Presence'
-import { useForwardPropsEmits, useForwardRef } from '@/shared'
+import { useForwardExpose, useForwardPropsEmits } from '@/shared'
 
 const props = defineProps<ComboboxContentProps>()
 const emits = defineEmits<ComboboxContentEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
-const { forwardRef } = useForwardRef()
+const { forwardRef } = useForwardExpose()
 
 const rootContext = injectComboboxRootContext()
 </script>

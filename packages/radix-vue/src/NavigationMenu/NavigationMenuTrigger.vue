@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { VNode } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface NavigationMenuTriggerProps extends PrimitiveProps {
   disabled?: boolean
@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<NavigationMenuTriggerProps>(), {
 const menuContext = injectNavigationMenuContext()
 const itemContext = injectNavigationMenuItemContext()
 
-const { forwardRef, currentElement: triggerElement } = useForwardRef()
+const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 const triggerId = ref('')
 const contentId = ref('')
 

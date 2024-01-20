@@ -2,7 +2,7 @@
 import type { PrimitiveProps } from '@/Primitive'
 import { injectTabsRootContext } from './TabsRoot.vue'
 import { nextTick, ref, watch } from 'vue'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface TabsIndicatorProps extends PrimitiveProps {
 }
@@ -14,7 +14,7 @@ import { useResizeObserver } from '@vueuse/core'
 
 const props = defineProps<TabsIndicatorProps>()
 const context = injectTabsRootContext()
-useForwardRef()
+useForwardExpose()
 
 interface IndicatorStyle {
   size: number | null

@@ -2,7 +2,7 @@
 import type { Ref } from 'vue'
 import type { Direction } from '@/shared/types'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useDirection, useFormControl, useForwardRef, useId } from '@/shared'
+import { createContext, useDirection, useFormControl, useForwardExpose, useId } from '@/shared'
 import { createCollection } from '@/Collection'
 
 export type AcceptableValue = string | number | boolean | object
@@ -124,7 +124,7 @@ const isUserInputted = ref(false)
 
 const inputElement = ref<HTMLInputElement>()
 const contentElement = ref<HTMLElement>()
-const { forwardRef, currentElement: parentElement } = useForwardRef()
+const { forwardRef, currentElement: parentElement } = useForwardExpose()
 const { getItems, reactiveItems, itemMapSize } = createCollection<{ value: T }>('data-radix-vue-combobox-item')
 
 const options = computedWithControl(() => itemMapSize.value, () => {

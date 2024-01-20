@@ -11,14 +11,14 @@ export interface ContextMenuSubProps {
 <script setup lang="ts">
 import { useVModel } from '@vueuse/core'
 import { MenuSub } from '@/Menu'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 const props = withDefaults(defineProps<ContextMenuSubProps>(), {
   open: undefined,
 })
 const emit = defineEmits<ContextMenuSubEmits>()
 
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
@@ -27,7 +27,7 @@ const open = useVModel(props, 'open', emit, {
 </script>
 
 <template>
-  <MenuSub :ref="forwardRef" v-model:open="open">
+  <MenuSub v-model:open="open">
     <slot />
   </MenuSub>
 </template>

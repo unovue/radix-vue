@@ -11,17 +11,17 @@ export interface DropdownMenuRadioGroupProps extends MenuRadioGroupProps {}
 
 <script setup lang="ts">
 import { MenuRadioGroup } from '@/Menu'
-import { useEmitAsProps, useForwardRef } from '@/shared'
+import { useEmitAsProps, useForwardExpose } from '@/shared'
 
 const props = defineProps<MenuRadioGroupProps>()
 const emits = defineEmits<MenuRadioGroupEmits>()
 
 const emitsAsProps = useEmitAsProps(emits)
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 </script>
 
 <template>
-  <MenuRadioGroup v-bind="{ ...props, ...emitsAsProps }" :ref="forwardRef">
+  <MenuRadioGroup v-bind="{ ...props, ...emitsAsProps }">
     <slot />
   </MenuRadioGroup>
 </template>

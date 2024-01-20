@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface TabsListProps extends PrimitiveProps {
   loop?: boolean
@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<TabsListProps>(), {
 })
 const { loop } = toRefs(props)
 
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 const context = injectTabsRootContext()
 
 context.tabsList = currentElement

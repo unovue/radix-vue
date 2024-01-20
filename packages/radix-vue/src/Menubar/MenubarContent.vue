@@ -11,7 +11,7 @@ import { ref } from 'vue'
 import { injectMenubarRootContext } from './MenubarRoot.vue'
 import { injectMenubarMenuContext } from './MenubarMenu.vue'
 import { MenuContent } from '@/Menu'
-import { useCollection, useForwardPropsEmits, useForwardRef } from '@/shared'
+import { useCollection, useForwardExpose, useForwardPropsEmits } from '@/shared'
 import { wrapArray } from '@/shared/useTypeahead'
 
 const props = withDefaults(defineProps<MenubarContentProps>(), {
@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<MenubarContentProps>(), {
 })
 const emits = defineEmits<MenubarContentEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 
 const rootContext = injectMenubarRootContext()
 const menuContext = injectMenubarMenuContext()
@@ -62,7 +62,6 @@ function handleArrowNavigation(event: KeyboardEvent) {
 <template>
   <MenuContent
     :id="menuContext.contentId"
-    :ref="forwardRef"
     v-bind="forwarded"
     :aria-labelledby="menuContext.triggerId"
     data-radix-menubar-content=""

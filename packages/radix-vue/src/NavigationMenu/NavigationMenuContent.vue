@@ -20,7 +20,7 @@ import { injectNavigationMenuItemContext } from './NavigationMenuItem.vue'
 import { getOpenState } from './utils'
 import { Presence } from '@/Presence'
 import NavigationMenuContentImpl from './NavigationMenuContentImpl.vue'
-import { useEmitAsProps, useForwardRef } from '@/shared'
+import { useEmitAsProps, useForwardExpose } from '@/shared'
 import { useMounted } from '@vueuse/core'
 
 defineOptions({
@@ -31,7 +31,7 @@ const props = defineProps<NavigationMenuContentProps>()
 const emits = defineEmits<NavigationMenuContentEmits>()
 
 const emitsAsProps = useEmitAsProps(emits)
-const { forwardRef } = useForwardRef()
+const { forwardRef } = useForwardExpose()
 
 const isClientMounted = useMounted()
 const menuContext = injectNavigationMenuContext()

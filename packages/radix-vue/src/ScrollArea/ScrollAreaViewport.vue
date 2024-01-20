@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface ScrollAreaViewportProps extends PrimitiveProps {}
 </script>
@@ -18,7 +18,7 @@ const props = defineProps<ScrollAreaViewportProps>()
 
 const rootContext = injectScrollAreaRootContext()
 
-const { forwardRef, currentElement: contentElement } = useForwardRef()
+const { forwardRef, currentElement: contentElement } = useForwardExpose()
 
 const viewportElement = ref<HTMLElement>()
 

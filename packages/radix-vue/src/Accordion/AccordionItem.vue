@@ -2,7 +2,7 @@
 import type { ComputedRef, VNodeRef } from 'vue'
 import type { CollapsibleRootProps } from '../Collapsible'
 import { injectAccordionRootContext } from './AccordionRoot.vue'
-import { createContext, useArrowNavigation, useForwardRef, useId } from '@/shared'
+import { createContext, useArrowNavigation, useForwardExpose, useId } from '@/shared'
 
 enum AccordionItemState {
   Open = 'open',
@@ -68,7 +68,7 @@ const dataState = computed(() =>
   open.value ? AccordionItemState.Open : AccordionItemState.Closed,
 )
 
-const { currentRef, currentElement } = useForwardRef()
+const { currentRef, currentElement } = useForwardExpose()
 
 provideAccordionItemContext({
   open,

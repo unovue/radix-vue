@@ -4,7 +4,7 @@ import DialogContentImpl, {
   type DialogContentImplEmits,
   type DialogContentImplProps,
 } from './DialogContentImpl.vue'
-import { useEmitAsProps, useForwardRef, useHideOthers } from '@/shared'
+import { useEmitAsProps, useForwardExpose, useHideOthers } from '@/shared'
 
 const props = defineProps<DialogContentImplProps>()
 const emits = defineEmits<DialogContentImplEmits>()
@@ -13,7 +13,7 @@ const rootContext = injectDialogRootContext()
 
 const emitsAsProps = useEmitAsProps(emits)
 
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 useHideOthers(currentElement)
 </script>
 

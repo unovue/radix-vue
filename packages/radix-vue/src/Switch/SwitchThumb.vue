@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface SwitchThumbProps extends PrimitiveProps {}
 </script>
@@ -13,7 +13,7 @@ withDefaults(defineProps<SwitchThumbProps>(), { as: 'span' })
 
 const rootContext = injectSwitchRootContext()
 
-useForwardRef()
+useForwardExpose()
 </script>
 
 <template>

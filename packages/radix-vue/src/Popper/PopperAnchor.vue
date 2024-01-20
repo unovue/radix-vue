@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Measurable } from './PopperRoot.vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface PopperAnchorProps extends PrimitiveProps {
   element?: Measurable
@@ -17,7 +17,7 @@ import {
 
 const props = defineProps<PopperAnchorProps>()
 
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 
 const rootContext = injectPopperRootContext()
 

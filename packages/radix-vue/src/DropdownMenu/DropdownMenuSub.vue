@@ -12,7 +12,7 @@ export interface DropdownMenuSubProps {
 <script setup lang="ts">
 import { useVModel } from '@vueuse/core'
 import { MenuSub } from '@/Menu'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 const props = withDefaults(defineProps<DropdownMenuSubProps>(), {
   open: undefined,
@@ -24,11 +24,11 @@ const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen ?? false,
 })
 
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 </script>
 
 <template>
-  <MenuSub :ref="forwardRef" v-model:open="open">
+  <MenuSub v-model:open="open">
     <slot />
   </MenuSub>
 </template>

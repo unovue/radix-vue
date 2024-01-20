@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface PopoverTriggerProps extends PrimitiveProps {}
 </script>
@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<PopoverTriggerProps>(), {
 
 const rootContext = injectPopoverRootContext()
 
-const { forwardRef, currentElement: triggerElement } = useForwardRef()
+const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 
 onMounted(() => {
   rootContext.triggerElement.value = triggerElement.value

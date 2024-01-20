@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface DialogTriggerProps extends PrimitiveProps {}
 </script>
@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<DialogTriggerProps>(), {
   as: 'button',
 })
 const rootContext = injectDialogRootContext()
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 
 onMounted(() => {
   rootContext.triggerElement = currentElement

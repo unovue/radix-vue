@@ -2,7 +2,7 @@
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import type { DataOrientation, Direction } from '../shared/types'
-import { createContext, useDirection, useFormControl, useForwardRef } from '@/shared'
+import { createContext, useDirection, useFormControl, useForwardExpose } from '@/shared'
 import { CollectionSlot, createCollection } from '@/Collection'
 
 export interface SliderRootProps extends PrimitiveProps {
@@ -63,7 +63,7 @@ const emits = defineEmits<SliderRootEmits>()
 
 const { min, max, step, minStepsBetweenThumbs, orientation, disabled, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 const isFormControl = useFormControl(currentElement)
 
 createCollection()

@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface ComboboxViewportProps extends PrimitiveProps {}
 </script>
@@ -9,7 +9,7 @@ export interface ComboboxViewportProps extends PrimitiveProps {}
 import { Primitive } from '@/Primitive'
 
 const props = defineProps<ComboboxViewportProps>()
-const { forwardRef } = useForwardRef()
+const { forwardRef } = useForwardExpose()
 </script>
 
 <template>

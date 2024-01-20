@@ -21,7 +21,7 @@ import { injectNavigationMenuContext, provideNavigationMenuContext } from './Nav
 import {
   Primitive,
 } from '@/Primitive'
-import { useCollection, useForwardRef } from '@/shared'
+import { useCollection, useForwardExpose } from '@/shared'
 
 const props = withDefaults(defineProps<NavigationMenuSubProps>(), {
   orientation: 'horizontal',
@@ -35,7 +35,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 const previousValue = ref('')
 
 const menuContext = injectNavigationMenuContext()
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 
 const indicatorTrack = ref<HTMLElement>()
 const viewport = ref<HTMLElement>()

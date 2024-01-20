@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface SliderThumbProps extends PrimitiveProps {}
 </script>
@@ -13,7 +13,7 @@ import { computed } from 'vue'
 const props = defineProps<SliderThumbProps>()
 const { getItems } = useCollection()
 
-const { forwardRef, currentElement: thumbElement } = useForwardRef()
+const { forwardRef, currentElement: thumbElement } = useForwardExpose()
 
 const index = computed(() => thumbElement.value ? getItems().findIndex(i => i.ref === thumbElement.value) : -1)
 </script>

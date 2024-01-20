@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface ProgressIndicatorProps extends PrimitiveProps {}
 </script>
@@ -12,13 +12,12 @@ import { Primitive } from '@/Primitive'
 const props = defineProps<ProgressIndicatorProps>()
 
 const rootContext = injectProgressRootContext()
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 </script>
 
 <template>
   <Primitive
     v-bind="props"
-    :ref="forwardRef"
     :data-state="rootContext.progressState.value"
     :data-value="rootContext.modelValue?.value ?? undefined"
     :data-max="rootContext.max.value"

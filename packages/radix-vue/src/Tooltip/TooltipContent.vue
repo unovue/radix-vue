@@ -10,7 +10,7 @@ export interface TooltipContentProps extends TooltipContentImplProps {}
 import TooltipContentImpl from './TooltipContentImpl.vue'
 import TooltipContentHoverable from './TooltipContentHoverable.vue'
 import { injectTooltipRootContext } from './TooltipRoot.vue'
-import { useForwardPropsEmits, useForwardRef } from '@/shared'
+import { useForwardExpose, useForwardPropsEmits } from '@/shared'
 
 const props = withDefaults(defineProps<TooltipContentProps>(), {
   side: 'top',
@@ -19,7 +19,7 @@ const emits = defineEmits<TooltipContentEmits>()
 
 const rootContext = injectTooltipRootContext()
 const forwarded = useForwardPropsEmits(props, emits)
-const { forwardRef } = useForwardRef()
+const { forwardRef } = useForwardExpose()
 </script>
 
 <template>

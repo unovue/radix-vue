@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { MenuArrowProps } from '@/Menu'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface ContextMenuArrowProps extends MenuArrowProps {}
 </script>
@@ -10,11 +10,11 @@ import { MenuArrow } from '@/Menu'
 
 const props = defineProps<ContextMenuArrowProps>()
 
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 </script>
 
 <template>
-  <MenuArrow v-bind="props" :ref="forwardRef">
+  <MenuArrow v-bind="props">
     <slot />
   </MenuArrow>
 </template>

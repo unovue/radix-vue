@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useFormControl, useForwardRef } from '@/shared'
+import { createContext, useFormControl, useForwardExpose } from '@/shared'
 
 export interface SwitchRootProps extends PrimitiveProps {
   defaultChecked?: boolean
@@ -52,7 +52,7 @@ function toggleCheck() {
   checked.value = !checked.value
 }
 
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 const isFormControl = useFormControl(currentElement)
 const ariaLabel = computed(() => props.id && currentElement.value ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText : undefined)
 

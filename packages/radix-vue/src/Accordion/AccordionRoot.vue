@@ -2,7 +2,7 @@
 import type { ComputedRef, Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import type { DataOrientation, Direction, Type } from '@/shared/types'
-import { createContext, useDirection, useForwardRef } from '@/shared'
+import { createContext, useDirection, useForwardExpose } from '@/shared'
 
 export interface AccordionRootProps extends PrimitiveProps {
   /**
@@ -87,7 +87,7 @@ const direction = useDirection(dir)
 
 const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emits)
 
-const { forwardRef, currentElement: parentElement } = useForwardRef()
+const { forwardRef, currentElement: parentElement } = useForwardExpose()
 
 provideAccordionRootContext({
   disabled,

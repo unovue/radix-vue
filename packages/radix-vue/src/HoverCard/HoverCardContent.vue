@@ -17,12 +17,12 @@ import { injectHoverCardRootContext } from './HoverCardRoot.vue'
 import { excludeTouch } from './utils'
 import { Presence } from '@/Presence'
 import HoverCardContentImpl from './HoverCardContentImpl.vue'
-import { useForwardPropsEmits, useForwardRef } from '@/shared'
+import { useForwardExpose, useForwardPropsEmits } from '@/shared'
 
 const props = defineProps<HoverCardContentProps>()
 const emits = defineEmits<HoverCardContentEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
-const { forwardRef } = useForwardRef()
+const { forwardRef } = useForwardExpose()
 
 const rootContext = injectHoverCardRootContext()
 </script>

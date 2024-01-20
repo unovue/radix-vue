@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { MenuLabelProps } from '@/Menu'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface MenubarLabelProps extends MenuLabelProps {}
 </script>
@@ -9,11 +9,11 @@ export interface MenubarLabelProps extends MenuLabelProps {}
 import { MenuLabel } from '@/Menu'
 
 const props = defineProps<MenubarLabelProps>()
-const { forwardRef } = useForwardRef()
+useForwardExpose()
 </script>
 
 <template>
-  <MenuLabel v-bind="props" :ref="forwardRef">
+  <MenuLabel v-bind="props">
     <slot />
   </MenuLabel>
 </template>

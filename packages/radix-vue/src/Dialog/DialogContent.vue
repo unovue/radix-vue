@@ -20,7 +20,7 @@ import DialogContentModal from './DialogContentModal.vue'
 import DialogContentNonModal from './DialogContentNonModal.vue'
 import { injectDialogRootContext } from './DialogRoot.vue'
 import { Presence } from '@/Presence'
-import { useEmitAsProps, useForwardRef } from '@/shared'
+import { useEmitAsProps, useForwardExpose } from '@/shared'
 
 const props = defineProps<DialogContentProps>()
 const emits = defineEmits<DialogContentEmits>()
@@ -28,7 +28,7 @@ const emits = defineEmits<DialogContentEmits>()
 const rootContext = injectDialogRootContext()
 
 const emitsAsProps = useEmitAsProps(emits)
-const { forwardRef } = useForwardRef()
+const { forwardRef } = useForwardExpose()
 </script>
 
 <template>

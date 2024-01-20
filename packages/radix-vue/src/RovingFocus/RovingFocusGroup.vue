@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useCollection, useDirection, useForwardRef } from '@/shared'
+import { createContext, useCollection, useDirection, useForwardExpose } from '@/shared'
 import type {
   Direction,
   Orientation,
@@ -67,7 +67,7 @@ const isTabbingBackOut = ref(false)
 const isClickFocus = ref(false)
 const focusableItemsCount = ref(0)
 
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 const { createCollection } = useCollection('rovingFocus')
 const collections = createCollection(currentElement)
 

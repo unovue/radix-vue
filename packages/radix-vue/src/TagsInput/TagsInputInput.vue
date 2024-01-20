@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface TagsInputInputProps extends PrimitiveProps {
   placeholder?: string
@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<TagsInputInputProps>(), {
 })
 
 const context = injectTagsInputRootContext()
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 
 async function handleEnter(event: Event) {
   await nextTick()

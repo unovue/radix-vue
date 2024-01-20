@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 export interface MenubarTriggerProps extends PrimitiveProps {
   disabled?: boolean
@@ -23,7 +23,7 @@ withDefaults(defineProps<MenubarTriggerProps>(), {
 const rootContext = injectMenubarRootContext()
 const menuContext = injectMenubarMenuContext()
 
-const { forwardRef, currentElement: triggerElement } = useForwardRef()
+const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 
 const isFocused = ref(false)
 

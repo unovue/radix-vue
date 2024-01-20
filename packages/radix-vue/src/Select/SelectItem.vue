@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useForwardRef, useId } from '@/shared'
+import { createContext, useForwardExpose, useId } from '@/shared'
 
 interface SelectItemContext {
   value: string
@@ -39,7 +39,7 @@ const { disabled } = toRefs(props)
 
 const rootContext = injectSelectRootContext()
 const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 
 const isSelected = computed(() => rootContext.modelValue?.value === props.value)
 const isFocused = ref(false)

@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useArrowNavigation, useDirection, useFormControl, useForwardRef } from '@/shared'
+import { createContext, useArrowNavigation, useDirection, useFormControl, useForwardExpose } from '@/shared'
 import type { Direction } from '@/shared/types'
 import { type Ref, ref, toRefs } from 'vue'
 
@@ -65,7 +65,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
   deep: true,
 }) as Ref<Array<string>>
 
-const { forwardRef, currentElement } = useForwardRef()
+const { forwardRef, currentElement } = useForwardExpose()
 const { focused } = useFocusWithin(currentElement)
 const isFormControl = useFormControl(currentElement)
 

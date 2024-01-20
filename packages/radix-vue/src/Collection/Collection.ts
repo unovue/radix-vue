@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { createContext, useForwardRef } from '@/shared'
+import { createContext } from '@/shared'
 import { type Ref, computed, defineComponent, getCurrentInstance, h, markRaw, ref, watch, watchEffect } from 'vue'
-import { Slot } from '@/Primitive'
+import { Slot, usePrimitiveElement } from '@/Primitive'
 
 interface CollectionContext<ItemData = {}> {
   collectionRef: Ref<HTMLElement | undefined>
@@ -34,11 +34,11 @@ export const CollectionSlot = defineComponent({
   name: 'CollectionSlot',
   setup(_, { slots }) {
     const context = injectCollectionContext()
-    const { currentRef, currentElement } = useForwardRef()
+    const { primitiveElement, currentElement } = usePrimitiveElement()
     watch(currentElement, () => {
       context.collectionRef.value = currentElement.value
     })
-    return () => h(Slot, { ref: currentRef }, slots)
+    return () => h(Slot, { ref: primitiveElement }, slots)
   },
 })
 
@@ -46,7 +46,7 @@ export const CollectionItem = defineComponent({
   name: 'CollectionItem',
   setup(_, { slots, attrs }) {
     const context = injectCollectionContext()
-    const { currentRef, currentElement } = useForwardRef()
+    const { primitiveElement, currentElement } = usePrimitiveElement()
     const vm = getCurrentInstance()
 
     watchEffect((cleanupFn) => {
@@ -57,7 +57,7 @@ export const CollectionItem = defineComponent({
       }
     })
 
-    return () => h(Slot, { ...attrs, [context.attrName]: '', ref: currentRef }, slots)
+    return () => h(Slot, { ...attrs, [context.attrName]: '', ref: primitiveElement }, slots)
   },
 })
 

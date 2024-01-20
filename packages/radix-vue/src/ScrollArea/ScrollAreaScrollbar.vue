@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useForwardRef } from '@/shared'
+import { createContext, useForwardExpose } from '@/shared'
 
 export interface ScrollAreaScrollbarProps extends PrimitiveProps {
   orientation?: 'vertical' | 'horizontal'
@@ -46,7 +46,7 @@ const props = withDefaults(defineProps<ScrollAreaScrollbarProps>(), {
   as: 'div',
 })
 
-const { forwardRef } = useForwardRef()
+const { forwardRef } = useForwardExpose()
 const rootContext = injectScrollAreaRootContext()
 
 const isHorizontal = computed(() => props.orientation === 'horizontal')

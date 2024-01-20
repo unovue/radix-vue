@@ -11,7 +11,7 @@ export interface MenubarRadioItemProps extends MenuRadioItemProps {}
 
 <script setup lang="ts">
 import { MenuRadioItem } from '@/Menu'
-import { useForwardPropsEmits } from '@/shared'
+import { useForwardExpose, useForwardPropsEmits } from '@/shared'
 
 const props = defineProps<MenuRadioItemProps>()
 const emits = defineEmits<MenuRadioItemEmits>()

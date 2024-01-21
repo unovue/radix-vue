@@ -8,12 +8,13 @@ export interface MenubarItemProps extends MenuItemProps {}
 
 <script setup lang="ts">
 import { MenuItem } from '@/Menu'
-import { useEmitAsProps } from '@/shared'
+import { useEmitAsProps, useForwardExpose } from '@/shared'
 
 const props = defineProps<MenubarItemProps>()
 const emits = defineEmits<MenubarItemEmits>()
 
 const emitsAsProps = useEmitAsProps(emits)
+useForwardExpose()
 </script>
 
 <template>

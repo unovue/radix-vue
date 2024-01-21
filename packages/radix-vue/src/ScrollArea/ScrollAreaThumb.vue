@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface ScrollAreaThumbProps extends PrimitiveProps {}
 </script>
@@ -7,10 +8,7 @@ export interface ScrollAreaThumbProps extends PrimitiveProps {}
 <script setup lang="ts">
 import { computed, onUnmounted, ref } from 'vue'
 import { watchOnce } from '@vueuse/core'
-import {
-  Primitive,
-  usePrimitiveElement,
-} from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { addUnlinkedScrollListener } from './utils'
 import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
 import { injectScrollAreaScrollbarVisibleContext } from './ScrollAreaScrollbarVisible.vue'
@@ -32,8 +30,7 @@ function handlePointerUp(event: MouseEvent) {
   scrollbarContextVisible.handleThumbUp(event)
 }
 
-const { primitiveElement, currentElement: thumbElement }
-  = usePrimitiveElement()
+const { forwardRef, currentElement: thumbElement } = useForwardExpose()
 const removeUnlinkedScrollListenerRef = ref<() => void>()
 const viewport = computed(() => rootContext.viewport.value)
 
@@ -73,7 +70,7 @@ onUnmounted(() => {
 
 <template>
   <Primitive
-    ref="primitiveElement"
+    :ref="forwardRef"
     :data-state="scrollbarContextVisible.hasThumb ? 'visible' : 'hidden'"
     :style="{
       width: 'var(--radix-scroll-area-thumb-width)',

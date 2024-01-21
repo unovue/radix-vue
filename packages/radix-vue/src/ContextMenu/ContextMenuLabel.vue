@@ -6,8 +6,10 @@ export interface ContextMenuLabelProps extends MenuLabelProps {}
 
 <script setup lang="ts">
 import { MenuLabel } from '@/Menu'
+import { useForwardExpose } from '@/shared'
 
 const props = defineProps<ContextMenuLabelProps>()
+useForwardExpose()
 </script>
 
 <template>

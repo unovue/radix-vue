@@ -3,6 +3,7 @@ import type { PrimitiveProps } from '@/Primitive'
 import { injectTagsInputItemContext } from './TagsInputItem.vue'
 import { injectTagsInputRootContext } from './TagsInputRoot.vue'
 import { computed } from 'vue'
+import { useForwardExpose } from '@/shared'
 
 export interface TagsInputItemDeleteProps extends PrimitiveProps {}
 </script>
@@ -14,6 +15,7 @@ const props = withDefaults(defineProps<TagsInputItemDeleteProps>(), {
   as: 'button',
 })
 
+useForwardExpose()
 const context = injectTagsInputRootContext()
 const itemContext = injectTagsInputItemContext()
 

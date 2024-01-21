@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface LabelProps extends PrimitiveProps {
   for?: string
@@ -12,6 +13,8 @@ import { Primitive } from '@/Primitive'
 const props = withDefaults(defineProps<LabelProps>(), {
   as: 'label',
 })
+
+useForwardExpose()
 </script>
 
 <template>

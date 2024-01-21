@@ -11,14 +11,14 @@ import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
 import { injectScrollAreaScrollbarContext } from './ScrollAreaScrollbar.vue'
 import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
 import { Presence } from '@/Presence'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 defineProps<ScrollAreaScrollbarAutoProps>()
 
 const rootContext = injectScrollAreaRootContext()
 const scrollbarContext = injectScrollAreaScrollbarContext()
 
-const forwardRef = useForwardRef()
+const { forwardRef } = useForwardExpose()
 
 const visible = ref(false)
 
@@ -47,7 +47,7 @@ useResizeObserver(rootContext.content, handleResize)
   <Presence :present="forceMount || visible">
     <ScrollAreaScrollbarVisible
       v-bind="$attrs"
-      ref="forwardRef"
+      :ref="forwardRef"
       :data-state="visible ? 'visible' : 'hidden'"
     >
       <slot />

@@ -13,6 +13,7 @@ export interface ToastActionProps extends ToastCloseProps {
 </script>
 
 <script setup lang="ts">
+import { useForwardExpose } from '@/shared'
 import ToastAnnounceExclude from './ToastAnnounceExclude.vue'
 import ToastClose from './ToastClose.vue'
 
@@ -20,11 +21,13 @@ const props = defineProps<ToastActionProps>()
 
 if (!props.altText)
   throw new Error('Missing prop `altText` expected on `ToastAction`')
+
+const { forwardRef } = useForwardExpose()
 </script>
 
 <template>
   <ToastAnnounceExclude v-if="altText" :alt-text="altText" as-child>
-    <ToastClose :as="as" :as-child="asChild">
+    <ToastClose :ref="forwardRef" :as="as" :as-child="asChild">
       <slot />
     </ToastClose>
   </ToastAnnounceExclude>

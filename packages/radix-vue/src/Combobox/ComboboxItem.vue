@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, handleAndDispatchCustomEvent, useId } from '@/shared'
+import { createContext, handleAndDispatchCustomEvent, useForwardExpose, useId } from '@/shared'
 import type { AcceptableValue } from './ComboboxRoot.vue'
 
 export type SelectEvent<T> = CustomEvent<{ originalEvent: PointerEvent; value?: T }>
@@ -37,7 +37,6 @@ import { injectComboboxRootContext } from './ComboboxRoot.vue'
 import { injectComboboxGroupContext } from './ComboboxGroup.vue'
 import {
   Primitive,
-  usePrimitiveElement,
 } from '@/Primitive'
 import { CollectionItem } from '@/Collection'
 import isEqual from 'fast-deep-equal'
@@ -49,7 +48,7 @@ const { disabled } = toRefs(props)
 
 const rootContext = injectComboboxRootContext()
 const groupContext = injectComboboxGroupContext({ id: '', options: ref([]) })
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 
 const isSelected = computed(() =>
   rootContext.multiple.value && Array.isArray(rootContext.modelValue.value)
@@ -114,7 +113,7 @@ provideComboboxItemContext({
   <CollectionItem>
     <Primitive
       v-show="isInOption"
-      ref="primitiveElement"
+      :ref="forwardRef"
       role="option"
       tabindex="-1"
       :aria-labelledby="textId"

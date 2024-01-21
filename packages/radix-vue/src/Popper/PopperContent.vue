@@ -1,11 +1,11 @@
 <script lang="ts">
-import type { ComponentPublicInstance, Ref } from 'vue'
+import type { Ref } from 'vue'
 import type {
   Middleware,
   Placement,
 } from '@floating-ui/vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useForwardRef, useSize } from '@/shared'
+import { createContext, useForwardExpose, useSize } from '@/shared'
 import type {
   Align,
   Side,
@@ -149,7 +149,6 @@ import {
 } from './utils'
 import {
   Primitive,
-  usePrimitiveElement,
 } from '@/Primitive'
 
 defineOptions({
@@ -161,9 +160,7 @@ const props = withDefaults(defineProps<PopperContentProps>(), {
 })
 const rootContext = injectPopperRootContext()
 
-const forwardRef = useForwardRef()
-const { primitiveElement, currentElement: contentElement }
-  = usePrimitiveElement()
+const { forwardRef, currentElement: contentElement } = useForwardExpose()
 
 const floatingRef = ref<HTMLElement>()
 
@@ -301,10 +298,6 @@ providePopperContentContext({
   arrowY,
   shouldHideArrow: cannotCenterArrow,
 })
-
-defineExpose({
-  $el: contentElement,
-})
 </script>
 
 <template>
@@ -323,10 +316,7 @@ defineExpose({
     }"
   >
     <Primitive
-      :ref="vnode => {
-        forwardRef(vnode)
-        primitiveElement = vnode as ComponentPublicInstance
-      }"
+      :ref="forwardRef"
       v-bind="$attrs"
       :as-child="props.asChild"
       :as="as"

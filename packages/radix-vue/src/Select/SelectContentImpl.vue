@@ -10,6 +10,7 @@ import {
   useBodyScrollLock,
   useCollection,
   useFocusGuards,
+  useForwardProps,
   useHideOthers,
   useTypeahead,
 } from '@/shared'
@@ -80,7 +81,10 @@ import { FocusScope } from '@/FocusScope'
 import { DismissableLayer } from '@/DismissableLayer'
 import { focusFirst } from '@/Menu/utils'
 
-const props = defineProps<SelectContentImplProps>()
+const props = withDefaults(defineProps<SelectContentImplProps>(), {
+  align: 'start',
+  position: 'item-aligned',
+})
 const emits = defineEmits<SelectContentImplEmits>()
 
 const rootContext = injectSelectRootContext()
@@ -190,6 +194,8 @@ const pickedProps = computed(() => {
   else return {}
 })
 
+const forwardedProps = useForwardProps(pickedProps.value)
+
 provideSelectContentContext({
   content,
   viewport,
@@ -254,7 +260,7 @@ provideSelectContentContext({
             ? SelectPopperPosition
             : SelectItemAlignedPosition
         "
-        v-bind="{ ...$attrs, ...pickedProps }"
+        v-bind="{ ...$attrs, ...forwardedProps }"
         :id="rootContext.contentId"
         :ref="
           (vnode: ComponentPublicInstance) => {

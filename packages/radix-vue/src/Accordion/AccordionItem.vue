@@ -2,7 +2,7 @@
 import type { ComputedRef, VNodeRef } from 'vue'
 import type { CollapsibleRootProps } from '../Collapsible'
 import { injectAccordionRootContext } from './AccordionRoot.vue'
-import { createContext, useArrowNavigation, useId } from '@/shared'
+import { createContext, useArrowNavigation, useForwardExpose, useId } from '@/shared'
 
 enum AccordionItemState {
   Open = 'open',
@@ -30,7 +30,7 @@ interface AccordionItemContext {
   disabled: ComputedRef<boolean>
   dataDisabled: ComputedRef<'' | undefined>
   triggerId: string
-  primitiveElement: VNodeRef
+  currentRef: VNodeRef
   currentElement: ComputedRef<HTMLElement | undefined>
   value: ComputedRef<string>
 }
@@ -41,7 +41,6 @@ export const [injectAccordionItemContext, provideAccordionItemContext]
 
 <script setup lang="ts">
 import { CollapsibleRoot } from '@/Collapsible'
-import { usePrimitiveElement } from '@/Primitive'
 import { computed } from 'vue'
 
 const props = defineProps<AccordionItemProps>()
@@ -69,7 +68,8 @@ const dataState = computed(() =>
   open.value ? AccordionItemState.Open : AccordionItemState.Closed,
 )
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+defineExpose({ open, dataDisabled })
+const { currentRef, currentElement } = useForwardExpose()
 
 provideAccordionItemContext({
   open,
@@ -77,7 +77,7 @@ provideAccordionItemContext({
   disabled,
   dataDisabled,
   triggerId: useId(),
-  primitiveElement,
+  currentRef,
   currentElement,
   value: computed(() => props.value),
 })
@@ -94,8 +94,6 @@ function handleArrowKey(e: KeyboardEvent) {
     },
   )
 }
-
-defineExpose({ open })
 </script>
 
 <template>

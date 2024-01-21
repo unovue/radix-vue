@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface AvatarFallbackProps extends PrimitiveProps {
   delayMs?: number
@@ -17,6 +18,7 @@ const props = withDefaults(defineProps<AvatarFallbackProps>(), {
 })
 
 const rootContext = injectAvatarRootContext()
+useForwardExpose()
 
 const canRender = ref(false)
 let timeout: ReturnType<typeof setTimeout> | undefined
@@ -40,7 +42,7 @@ watch(rootContext.imageLoadingStatus, (value) => {
 <template>
   <Primitive
     v-if="canRender && rootContext.imageLoadingStatus.value !== 'loaded'"
-    :as-child="props.asChild"
+    :as-child="asChild"
     :as="as"
   >
     <slot />

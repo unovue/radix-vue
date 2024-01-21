@@ -10,12 +10,13 @@ export interface ContextMenuSubContentProps extends MenuSubContentProps {}
 
 <script setup lang="ts">
 import { MenuSubContent } from '@/Menu'
-import { useForwardPropsEmits } from '@/shared'
+import { useForwardExpose, useForwardPropsEmits } from '@/shared'
 
 const props = defineProps<ContextMenuSubContentProps>()
 
 const emits = defineEmits<ContextMenuSubContentEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
+useForwardExpose()
 </script>
 
 <template>

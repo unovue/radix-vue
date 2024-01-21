@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { DialogCloseProps } from '@/Dialog'
+import { useForwardExpose } from '@/shared'
 
 export interface AlertDialogCancelProps extends DialogCloseProps {}
 </script>
@@ -8,11 +9,10 @@ export interface AlertDialogCancelProps extends DialogCloseProps {}
 import { onMounted } from 'vue'
 import { injectAlertDialogContentContext } from './AlertDialogContent.vue'
 import { DialogClose } from '@/Dialog'
-import { usePrimitiveElement } from '@/Primitive'
 
 const props = defineProps<AlertDialogCancelProps>()
 const contentContext = injectAlertDialogContentContext()
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 
 onMounted(() => {
   contentContext.onCancelElementChange(currentElement.value)
@@ -20,7 +20,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <DialogClose v-bind="props" ref="primitiveElement">
+  <DialogClose v-bind="props" :ref="forwardRef">
     <slot />
   </DialogClose>
 </template>

@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
 import Slider from './story/_Slider.vue'
+import type SliderImpl from './SliderImpl.vue'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { handleSubmit } from '@/test'
@@ -12,14 +13,14 @@ describe('given default Slider', () => {
     disconnect() {}
   }
   window.HTMLElement.prototype.scrollIntoView = vi.fn()
-  window.HTMLElement.prototype.hasPointerCapture = vi.fn()
+  window.HTMLElement.prototype.hasPointerCapture = vi.fn().mockImplementation(id => id)
   window.HTMLElement.prototype.releasePointerCapture = vi.fn()
   window.HTMLElement.prototype.setPointerCapture = vi.fn()
 
   let wrapper: VueWrapper<InstanceType<typeof Slider>>
 
   beforeEach(() => {
-    wrapper = mount(Slider)
+    wrapper = mount(Slider, { props: { disabled: false } })
   })
 
   it('should pass axe accessibility tests', async () => {
@@ -29,6 +30,57 @@ describe('given default Slider', () => {
 
   it('should have defalt value', () => {
     expect(wrapper.html()).toContain('aria-valuenow="50"')
+  })
+
+  describe('when disabled', () => {
+    beforeEach(async () => {
+      await wrapper.setProps({ disabled: true })
+    })
+
+    it('should disable the thumb', () => {
+      const thumb = wrapper.find('[role="slider"]')
+      expect(thumb.attributes('data-disabled')).toBe('true')
+      expect(thumb.attributes('aria-valuemin')).toBe('0')
+      expect(thumb.attributes('aria-valuemax')).toBe('100')
+      expect(thumb.attributes('aria-valuenow')).toBe('50')
+      expect(wrapper.html()).toContain('aria-valuenow="50"')
+    })
+  })
+
+  describe('after pointerdown event on slider-impl', () => {
+    let sliderImpl: VueWrapper<InstanceType<typeof SliderImpl>>
+    beforeEach(async () => {
+      sliderImpl = wrapper.findComponent('[data-slider-impl]') as any
+      await sliderImpl.trigger('pointerdown', { clientX: 10, pointerId: 1 })
+    })
+
+    it('should emit slideStart', async () => {
+      expect(sliderImpl.emitted('slideStart')?.[0].length).toBe(1)
+    })
+
+    describe('after pointermove', () => {
+      beforeEach(async () => {
+        await sliderImpl.trigger('pointermove', { clientX: 50, pointerId: 1 })
+      })
+
+      it('should emit slideMove', async () => {
+        expect(sliderImpl.emitted('slideMove')?.[0]?.length).toBe(1)
+      })
+
+      describe('after pointerup', () => {
+        beforeEach(async () => {
+          await sliderImpl.trigger('pointerup', { pointerId: 1 })
+        })
+
+        it('should emit slideEnd', async () => {
+          expect(sliderImpl.emitted('slideEnd')?.[0].length).toBe(0)
+        })
+
+        it('should emit valueCommit on wrapper', async () => {
+          expect(wrapper.emitted('valueCommit')?.[0].length).toBe(1)
+        })
+      })
+    })
   })
 
   describe('after pressing navigation key', () => {

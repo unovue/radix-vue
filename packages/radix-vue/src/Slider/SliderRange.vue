@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface SliderRangeProps extends PrimitiveProps {}
 </script>
@@ -14,6 +15,7 @@ withDefaults(defineProps<SliderRangeProps>(), { as: 'span' })
 const rootContext = injectSliderRootContext()
 const orientation = injectSliderOrientationContext()
 
+useForwardExpose()
 const percentages = computed(() => rootContext.modelValue?.value?.map(value =>
   convertValueToPercentage(value, rootContext.min.value, rootContext.max.value),
 ))

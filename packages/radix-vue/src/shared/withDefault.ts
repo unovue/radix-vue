@@ -2,7 +2,7 @@
 import { h, mergeProps } from 'vue'
 import type { ComponentOptionsBase, DefineComponent, VNodeProps } from 'vue'
 import type { ComponentProps } from 'vue-component-type-helpers'
-import { useForwardRef } from './useForwardRef'
+import { useForwardExpose } from './useForwardExpose'
 
 // TODO: TEST
 
@@ -52,7 +52,7 @@ export function withDefault<T extends ComponentOptionsBase<{}, {}, {}, any, any,
     setup(_, ctx) {
       return () => {
         const optionProps = typeof options?.props === 'function' ? options?.props(ctx.attrs) : options?.props
-        const forwardRef = useForwardRef()
+        const { forwardRef } = useForwardExpose()
 
         const mergedProps = mergeProps(optionProps, ctx.attrs)
         return h(WrappedComponent, { ...mergedProps, ref: forwardRef }, ctx.slots)

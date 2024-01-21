@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useFormControl } from '@/shared'
+import { createContext, useFormControl, useForwardExpose } from '@/shared'
 
 export interface SwitchRootProps extends PrimitiveProps {
   defaultChecked?: boolean
@@ -30,7 +30,7 @@ export const [injectSwitchRootContext, provideSwitchRootContext]
 <script setup lang="ts">
 import { computed, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 
 const props = withDefaults(defineProps<SwitchRootProps>(), {
   as: 'button',
@@ -52,7 +52,7 @@ function toggleCheck() {
   checked.value = !checked.value
 }
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 const isFormControl = useFormControl(currentElement)
 const ariaLabel = computed(() => props.id && currentElement.value ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText : undefined)
 
@@ -67,7 +67,7 @@ provideSwitchRootContext({
   <Primitive
     v-bind="$attrs"
     :id="id"
-    ref="primitiveElement"
+    :ref="forwardRef"
     role="switch"
     :type="as === 'button' ? 'button' : undefined"
     :value="value"

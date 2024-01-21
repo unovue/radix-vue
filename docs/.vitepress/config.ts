@@ -146,6 +146,7 @@ export default defineConfig({
           { text: 'Slot', link: '/utilities/slot' },
           { text: 'useId', link: '/utilities/use-id' },
           { text: 'useEmitAsProps', link: '/utilities/use-emit-as-props' },
+          { text: 'useForwardExpose', link: '/utilities/use-forward-expose' },
           { text: 'useForwardProps', link: '/utilities/use-forward-props' },
           { text: 'useForwardPropsEmits', link: '/utilities/use-forward-props-emits' },
         ],

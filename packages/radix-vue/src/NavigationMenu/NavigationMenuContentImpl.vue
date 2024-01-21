@@ -25,8 +25,7 @@ import {
   makeTriggerId,
 } from './utils'
 import { DismissableLayer } from '@/DismissableLayer'
-import { usePrimitiveElement } from '@/Primitive'
-import { useArrowNavigation, useCollection } from '@/shared'
+import { useArrowNavigation, useCollection, useForwardExpose } from '@/shared'
 import { injectNavigationMenuItemContext } from './NavigationMenuItem.vue'
 
 const props = defineProps<NavigationMenuContentImplProps>()
@@ -34,7 +33,7 @@ const emits = defineEmits<NavigationMenuContentImplEmits>()
 
 const { injectCollection } = useCollection('nav')
 const collectionItems = injectCollection()
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 
 const menuContext = injectNavigationMenuContext()
 const itemContext = injectNavigationMenuItemContext()
@@ -189,7 +188,7 @@ function handleDismiss() {
 <template>
   <DismissableLayer
     :id="contentId"
-    ref="primitiveElement"
+    :ref="forwardRef"
     :aria-labelledby="triggerId"
     :data-motion="motionAttribute"
     :data-state="getOpenState(menuContext.modelValue.value === itemContext.value)"

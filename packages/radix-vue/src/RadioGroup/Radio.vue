@@ -18,11 +18,8 @@ export interface RadioProps extends PrimitiveProps {
 <script setup lang="ts">
 import { computed, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
-import {
-  Primitive,
-  usePrimitiveElement,
-} from '@/Primitive'
-import { useFormControl } from '@/shared'
+import { Primitive } from '@/Primitive'
+import { useFormControl, useForwardExpose } from '@/shared'
 
 const props = withDefaults(defineProps<RadioProps>(), {
   disabled: false,
@@ -35,7 +32,7 @@ const checked = useVModel(props, 'checked', emits, {
 })
 
 const { value } = toRefs(props)
-const { primitiveElement, currentElement: triggerElement } = usePrimitiveElement()
+const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 const isFormControl = useFormControl(triggerElement)
 
 const ariaLabel = computed(() => props.id && triggerElement.value ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText ?? props.value : undefined)
@@ -56,7 +53,7 @@ function handleClick(event: MouseEvent) {
   <Primitive
     v-bind="$attrs"
     :id="id"
-    ref="primitiveElement"
+    :ref="forwardRef"
     role="radio"
     :type="as === 'button' ? 'button' : undefined"
     :as="as"

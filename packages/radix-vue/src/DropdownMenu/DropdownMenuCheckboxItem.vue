@@ -11,12 +11,13 @@ export interface DropdownMenuCheckboxItemProps extends MenuCheckboxItemProps {}
 
 <script setup lang="ts">
 import { MenuCheckboxItem } from '@/Menu'
-import { useEmitAsProps } from '@/shared'
+import { useEmitAsProps, useForwardExpose } from '@/shared'
 
 const props = defineProps<DropdownMenuCheckboxItemProps>()
 const emits = defineEmits<DropdownMenuCheckboxItemEmits>()
 
 const emitsAsProps = useEmitAsProps(emits)
+useForwardExpose()
 </script>
 
 <template>

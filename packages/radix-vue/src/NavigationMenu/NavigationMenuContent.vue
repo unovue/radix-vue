@@ -20,7 +20,7 @@ import { injectNavigationMenuItemContext } from './NavigationMenuItem.vue'
 import { getOpenState } from './utils'
 import { Presence } from '@/Presence'
 import NavigationMenuContentImpl from './NavigationMenuContentImpl.vue'
-import { useEmitAsProps } from '@/shared'
+import { useEmitAsProps, useForwardExpose } from '@/shared'
 import { useMounted } from '@vueuse/core'
 
 defineOptions({
@@ -31,6 +31,7 @@ const props = defineProps<NavigationMenuContentProps>()
 const emits = defineEmits<NavigationMenuContentEmits>()
 
 const emitsAsProps = useEmitAsProps(emits)
+const { forwardRef } = useForwardExpose()
 
 const isClientMounted = useMounted()
 const menuContext = injectNavigationMenuContext()
@@ -57,6 +58,7 @@ function handlePointerDown(ev: PointerDownOutsideEvent) {
   <Teleport v-if="isClientMounted" :to="menuContext.viewport.value" :disabled="!menuContext.viewport.value">
     <Presence :present="forceMount || open || isLastActiveValue">
       <NavigationMenuContentImpl
+        :ref="forwardRef"
         :data-state="getOpenState(open)"
         :style="{
           pointerEvents: !open && menuContext.isRootMenu ? 'none' : undefined,

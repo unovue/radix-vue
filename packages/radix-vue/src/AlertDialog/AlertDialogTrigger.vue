@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { DialogTriggerProps } from '@/Dialog'
+import { useForwardExpose } from '@/shared'
 
 export interface AlertDialogTriggerProps extends DialogTriggerProps {}
 </script>
@@ -8,6 +9,7 @@ export interface AlertDialogTriggerProps extends DialogTriggerProps {}
 import { DialogTrigger } from '@/Dialog'
 
 const props = defineProps<AlertDialogTriggerProps>()
+useForwardExpose()
 </script>
 
 <template>

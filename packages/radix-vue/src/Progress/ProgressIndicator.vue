@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface ProgressIndicatorProps extends PrimitiveProps {}
 </script>
@@ -11,6 +12,7 @@ import { Primitive } from '@/Primitive'
 const props = defineProps<ProgressIndicatorProps>()
 
 const rootContext = injectProgressRootContext()
+useForwardExpose()
 </script>
 
 <template>

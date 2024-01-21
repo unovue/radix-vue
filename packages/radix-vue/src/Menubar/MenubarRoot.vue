@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { Direction } from '../shared/types'
-import { createContext, useCollection, useDirection } from '@/shared'
+import { createContext, useCollection, useDirection, useForwardExpose } from '@/shared'
 
 export interface MenubarRootProps {
   modelValue?: string
@@ -28,7 +28,7 @@ export const [injectMenubarRootContext, provideMenubarRootContext]
 
 <script setup lang="ts">
 import { ref, toRefs } from 'vue'
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { RovingFocusGroup } from '@/RovingFocus'
 import { useVModel } from '@vueuse/core'
 
@@ -37,7 +37,7 @@ const props = withDefaults(defineProps<MenubarRootProps>(), {
 })
 const emit = defineEmits<MenubarRootEmits>()
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 const { createCollection } = useCollection('menubar')
 createCollection(currentElement)
 
@@ -78,7 +78,7 @@ provideMenubarRootContext({
     :dir="dir"
     as-child
   >
-    <Primitive ref="primitiveElement" role="menubar">
+    <Primitive :ref="forwardRef" role="menubar">
       <slot />
     </Primitive>
   </RovingFocusGroup>

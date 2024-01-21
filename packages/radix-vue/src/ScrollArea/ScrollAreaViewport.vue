@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface ScrollAreaViewportProps extends PrimitiveProps {}
 </script>
@@ -7,10 +8,7 @@ export interface ScrollAreaViewportProps extends PrimitiveProps {}
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
-import {
-  Primitive,
-  usePrimitiveElement,
-} from '@/Primitive'
+import { Primitive } from '@/Primitive'
 
 defineOptions({
   inheritAttrs: false,
@@ -20,15 +18,17 @@ const props = defineProps<ScrollAreaViewportProps>()
 
 const rootContext = injectScrollAreaRootContext()
 
-const { primitiveElement, currentElement: contentElement }
-  = usePrimitiveElement()
-
 const viewportElement = ref<HTMLElement>()
 
 onMounted(() => {
   rootContext.onViewportChange(viewportElement.value!)
   rootContext.onContentChange(contentElement.value!)
 })
+
+defineExpose({
+  viewportElement,
+})
+const { forwardRef, currentElement: contentElement } = useForwardExpose()
 </script>
 
 <template>
@@ -54,7 +54,7 @@ onMounted(() => {
     :tabindex="0"
   >
     <Primitive
-      ref="primitiveElement"
+      :ref="forwardRef"
       :style="{ minWidth: '100%', display: 'table' }"
       :as-child="props.asChild"
       :as="as"

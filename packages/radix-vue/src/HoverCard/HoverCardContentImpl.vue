@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { PopperContentProps } from '@/Popper'
 import type { DismissableLayerEmits } from '@/DismissableLayer'
+import { useForwardExpose } from '@/shared'
 
 export type HoverCardContentImplEmits = DismissableLayerEmits
 export interface HoverCardContentImplProps extends PopperContentProps {}
@@ -11,7 +12,6 @@ import { nextTick, onMounted, onUnmounted, ref, watchEffect } from 'vue'
 import { injectHoverCardRootContext } from './HoverCardRoot.vue'
 import { PopperContent } from '@/Popper'
 import { DismissableLayer } from '@/DismissableLayer'
-import { usePrimitiveElement } from '@/Primitive'
 import { getTabbableNodes } from './utils'
 import { useForwardProps } from '..'
 
@@ -19,7 +19,7 @@ const props = defineProps<HoverCardContentImplProps>()
 const emits = defineEmits<HoverCardContentImplEmits>()
 const forwarded = useForwardProps(props)
 
-const { primitiveElement, currentElement: contentElement } = usePrimitiveElement()
+const { forwardRef, currentElement: contentElement } = useForwardExpose()
 const rootContext = injectHoverCardRootContext()
 const containSelection = ref(false)
 
@@ -78,8 +78,8 @@ onUnmounted(() => {
     @dismiss="rootContext.onDismiss"
   >
     <PopperContent
-      ref="primitiveElement"
       v-bind="{ ...forwarded, ...$attrs }"
+      :ref="forwardRef"
       :data-state="rootContext.open.value ? 'open' : 'closed'"
       :style="{
         'userSelect': containSelection ? 'text' : undefined,

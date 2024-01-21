@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface ToastCloseProps extends PrimitiveProps {}
 </script>
@@ -14,12 +15,14 @@ const props = withDefaults(defineProps<ToastCloseProps>(), {
 })
 
 const rootContext = injectToastRootContext()
+const { forwardRef } = useForwardExpose()
 </script>
 
 <template>
   <ToastAnnounceExclude as-child>
     <Primitive
       v-bind="props"
+      :ref="forwardRef"
       :type="as === 'button' ? 'button' : undefined "
       @click="rootContext.onClose()"
     >

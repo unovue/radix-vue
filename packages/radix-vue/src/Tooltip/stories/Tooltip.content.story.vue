@@ -68,10 +68,8 @@ const lastEvent = ref('')
                 @escape-key-down="lastEvent = '@on-escape-key-down'"
                 @pointer-down-outside="lastEvent = '@pointer-down-outside'"
               >
-                <ul>
-                  Add to library
-                  <TooltipArrow class="fill-white" />
-                </ul>
+                Add to library
+                <TooltipArrow class="fill-white" />
               </TooltipContent>
             </Teleport>
           </TooltipRoot>

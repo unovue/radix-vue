@@ -18,8 +18,6 @@ const props = defineProps<ScrollAreaViewportProps>()
 
 const rootContext = injectScrollAreaRootContext()
 
-const { forwardRef, currentElement: contentElement } = useForwardExpose()
-
 const viewportElement = ref<HTMLElement>()
 
 onMounted(() => {
@@ -28,8 +26,9 @@ onMounted(() => {
 })
 
 defineExpose({
-  $el: viewportElement,
+  viewportElement,
 })
+const { forwardRef, currentElement: contentElement } = useForwardExpose()
 </script>
 
 <template>

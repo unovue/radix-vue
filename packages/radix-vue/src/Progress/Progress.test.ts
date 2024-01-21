@@ -20,6 +20,7 @@ describe('given a default Progress', () => {
   describe('after 200ms', () => {
     it('shoud contain correct value', async () => {
       await sleep(200)
+      console.log(wrapper.html())
       expect(wrapper.html()).toContain('data-value="50"')
     })
   })

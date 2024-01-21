@@ -68,6 +68,7 @@ const dataState = computed(() =>
   open.value ? AccordionItemState.Open : AccordionItemState.Closed,
 )
 
+defineExpose({ open, dataDisabled })
 const { currentRef, currentElement } = useForwardExpose()
 
 provideAccordionItemContext({
@@ -93,8 +94,6 @@ function handleArrowKey(e: KeyboardEvent) {
     },
   )
 }
-
-defineExpose({ open, dataDisabled })
 </script>
 
 <template>

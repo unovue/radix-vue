@@ -35,8 +35,6 @@ const props = withDefaults(defineProps<CollapsibleRootProps>(), {
 
 const emit = defineEmits<CollapsibleRootEmits>()
 
-useForwardExpose()
-
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: (props.open === undefined) as false,
@@ -54,6 +52,7 @@ provideCollapsibleRootContext({
 })
 
 defineExpose({ open })
+useForwardExpose()
 </script>
 
 <template>

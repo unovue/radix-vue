@@ -11,12 +11,14 @@ export interface MenubarSubProps {
 <script setup lang="ts">
 import { useVModel } from '@vueuse/core'
 import { MenuSub } from '@/Menu'
+import { useForwardExpose } from '@/shared'
 
 const props = withDefaults(defineProps<MenubarSubProps>(), {
   open: undefined,
 })
 const emit = defineEmits<MenubarSubEmits>()
 
+useForwardExpose()
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen ?? false,
   passive: (props.open === undefined) as false,

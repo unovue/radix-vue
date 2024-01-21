@@ -13,12 +13,13 @@ export interface MenubarSubContentProps extends MenuSubContentProps {}
 import { injectMenubarRootContext } from './MenubarRoot.vue'
 import { injectMenubarMenuContext } from './MenubarMenu.vue'
 import { MenuSubContent } from '@/Menu'
-import { useCollection, useForwardPropsEmits } from '@/shared'
+import { useCollection, useForwardExpose, useForwardPropsEmits } from '@/shared'
 import { wrapArray } from '@/shared/useTypeahead'
 
 const props = defineProps<MenubarSubContentProps>()
 const emits = defineEmits<MenubarSubContentEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
+useForwardExpose()
 
 const { injectCollection } = useCollection('menubar')
 

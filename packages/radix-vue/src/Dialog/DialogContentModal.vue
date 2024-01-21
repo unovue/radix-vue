@@ -4,8 +4,7 @@ import DialogContentImpl, {
   type DialogContentImplEmits,
   type DialogContentImplProps,
 } from './DialogContentImpl.vue'
-import { useEmitAsProps, useHideOthers } from '@/shared'
-import { usePrimitiveElement } from '@/Primitive'
+import { useEmitAsProps, useForwardExpose, useHideOthers } from '@/shared'
 
 const props = defineProps<DialogContentImplProps>()
 const emits = defineEmits<DialogContentImplEmits>()
@@ -14,14 +13,14 @@ const rootContext = injectDialogRootContext()
 
 const emitsAsProps = useEmitAsProps(emits)
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 useHideOthers(currentElement)
 </script>
 
 <template>
   <DialogContentImpl
-    ref="primitiveElement"
     v-bind="{ ...props, ...emitsAsProps }"
+    :ref="forwardRef"
     :trap-focus="rootContext.open.value"
     :disable-outside-pointer-events="true"
     @close-auto-focus="

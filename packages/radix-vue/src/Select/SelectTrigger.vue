@@ -12,12 +12,9 @@ import {
   injectSelectRootContext,
 } from './SelectRoot.vue'
 import { OPEN_KEYS, shouldShowPlaceholder } from './utils'
-import {
-  Primitive,
-  usePrimitiveElement,
-} from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { PopperAnchor } from '@/Popper'
-import { useCollection, useTypeahead } from '@/shared'
+import { useCollection, useForwardExpose, useTypeahead } from '@/shared'
 
 const props = withDefaults(defineProps<SelectTriggerProps>(), {
   as: 'button',
@@ -26,8 +23,7 @@ const rootContext = injectSelectRootContext()
 
 const isDisabled = computed(() => rootContext.disabled?.value || props.disabled)
 
-const { primitiveElement, currentElement: triggerElement }
-  = usePrimitiveElement()
+const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 
 onMounted(() => {
   rootContext.triggerElement = triggerElement
@@ -50,7 +46,7 @@ function handleOpen() {
 <template>
   <PopperAnchor as-child>
     <Primitive
-      ref="primitiveElement"
+      :ref="forwardRef"
       role="combobox"
       :type="as === 'button' ? 'button' : undefined"
       :aria-controls="rootContext.contentId"

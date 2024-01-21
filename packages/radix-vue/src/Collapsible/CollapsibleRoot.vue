@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import type { Ref } from 'vue'
-import { createContext, useId } from '@/shared'
+import { createContext, useForwardExpose, useId } from '@/shared'
 
 export interface CollapsibleRootProps extends PrimitiveProps {
   defaultOpen?: boolean
@@ -52,6 +52,7 @@ provideCollapsibleRootContext({
 })
 
 defineExpose({ open })
+useForwardExpose()
 </script>
 
 <template>

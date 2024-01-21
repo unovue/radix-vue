@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { DialogDescriptionProps } from '@/Dialog'
+import { useForwardExpose } from '@/shared'
 
 export interface AlertDialogDescriptionProps extends DialogDescriptionProps {}
 </script>
@@ -8,6 +9,7 @@ export interface AlertDialogDescriptionProps extends DialogDescriptionProps {}
 import { DialogDescription } from '@/Dialog'
 
 const props = defineProps<AlertDialogDescriptionProps>()
+useForwardExpose()
 </script>
 
 <template>

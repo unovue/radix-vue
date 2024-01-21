@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useArrowNavigation, useDirection, useFormControl } from '@/shared'
+import { createContext, useArrowNavigation, useDirection, useFormControl, useForwardExpose } from '@/shared'
 import type { Direction } from '@/shared/types'
 import { type Ref, ref, toRefs } from 'vue'
 
@@ -44,7 +44,7 @@ export const [injectTagsInputRootContext, provideTagsInputRootContext]
 </script>
 
 <script setup lang="ts">
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { CollectionSlot, createCollection } from '@/Collection'
 import { useFocusWithin, useVModel } from '@vueuse/core'
 import { VisuallyHiddenInput } from '@/VisuallyHidden'
@@ -65,7 +65,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
   deep: true,
 }) as Ref<Array<string>>
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 const { focused } = useFocusWithin(currentElement)
 const isFormControl = useFormControl(currentElement)
 
@@ -184,7 +184,7 @@ provideTagsInputRootContext({
 <template>
   <CollectionSlot>
     <Primitive
-      ref="primitiveElement"
+      :ref="forwardRef"
       :dir="dir"
       :as="as"
       :as-child="asChild"

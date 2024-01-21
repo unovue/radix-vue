@@ -13,12 +13,10 @@ import { isMouseEvent } from './utils'
 import { injectMenuContentContext } from './MenuContentImpl.vue'
 import {
   Primitive,
-  usePrimitiveElement,
 } from '@/Primitive'
 
 const props = defineProps<MenuItemImplProps>()
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
 const contentContext = injectMenuContentContext()
 
 const isFocused = ref(false)
@@ -50,15 +48,10 @@ async function handlePointerLeave(event: PointerEvent) {
 
   contentContext.onItemLeave(event)
 }
-
-defineExpose({
-  el: currentElement,
-})
 </script>
 
 <template>
   <Primitive
-    ref="primitiveElement"
     role="menuitem"
     tabindex="-1"
     :as="as"

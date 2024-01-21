@@ -2,7 +2,7 @@
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import type { DataOrientation, Direction } from '../shared/types'
-import { createContext, useDirection } from '@/shared'
+import { createContext, useDirection, useForwardExpose } from '@/shared'
 
 type TypeEnum = 'single' | 'multiple'
 
@@ -51,6 +51,7 @@ const emits = defineEmits<ToggleGroupRootEmits>()
 
 const { loop, rovingFocus, disabled, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
+const { forwardRef } = useForwardExpose()
 
 const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emits)
 
@@ -74,7 +75,12 @@ provideToggleGroupRootContext({
     :dir="dir"
     :loop="rovingFocus ? loop : undefined"
   >
-    <Primitive role="group" :as-child="asChild" :as="as">
+    <Primitive
+      :ref="forwardRef"
+      role="group"
+      :as-child="asChild"
+      :as="as"
+    >
       <slot :model-value="modelValue" />
     </Primitive>
   </component>

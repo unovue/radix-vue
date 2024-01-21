@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { MenuSeparatorProps } from '@/Menu'
+import { useForwardExpose } from '@/shared'
 
 export interface MenubarSeparatorProps extends MenuSeparatorProps {}
 </script>
@@ -8,6 +9,7 @@ export interface MenubarSeparatorProps extends MenuSeparatorProps {}
 import { MenuSeparator } from '@/Menu'
 
 const props = defineProps<MenubarSeparatorProps>()
+useForwardExpose()
 </script>
 
 <template>

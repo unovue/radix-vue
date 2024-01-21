@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface DropdownMenuTriggerProps extends PrimitiveProps {
   disabled?: boolean
@@ -11,7 +12,6 @@ import { nextTick, onMounted } from 'vue'
 import { injectDropdownMenuRootContext } from './DropdownMenuRoot.vue'
 import {
   Primitive,
-  usePrimitiveElement,
 } from '@/Primitive'
 import { MenuAnchor } from '@/Menu'
 
@@ -21,8 +21,7 @@ const props = withDefaults(defineProps<DropdownMenuTriggerProps>(), {
 
 const rootContext = injectDropdownMenuRootContext()
 
-const { primitiveElement, currentElement: triggerElement }
-  = usePrimitiveElement()
+const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 
 onMounted(() => {
   rootContext.triggerElement = triggerElement
@@ -33,7 +32,7 @@ onMounted(() => {
   <MenuAnchor as-child>
     <Primitive
       :id="rootContext.triggerId"
-      ref="primitiveElement"
+      :ref="forwardRef"
       :type="as === 'button' ? 'button' : undefined"
       :as-child="props.asChild"
       :as="as"

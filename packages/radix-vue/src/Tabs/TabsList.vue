@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface TabsListProps extends PrimitiveProps {
   loop?: boolean
@@ -17,16 +18,16 @@ const props = withDefaults(defineProps<TabsListProps>(), {
 })
 const { loop } = toRefs(props)
 
+const { forwardRef, currentElement } = useForwardExpose()
 const context = injectTabsRootContext()
+
+context.tabsList = currentElement
 </script>
 
 <template>
   <RovingFocusGroup as-child :orientation="context.orientation.value" :dir="context.dir.value" :loop="loop">
     <Primitive
-      :ref=" (vnode) => {
-        if (vnode && '$el' in vnode)
-          context.tabsList.value = vnode.$el
-      }"
+      :ref="forwardRef"
       role="tablist"
       :as-child="asChild"
       :as="as"

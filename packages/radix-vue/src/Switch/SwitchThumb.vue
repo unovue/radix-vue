@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface SwitchThumbProps extends PrimitiveProps {}
 </script>
@@ -9,7 +10,10 @@ import { injectSwitchRootContext } from './SwitchRoot.vue'
 import { Primitive } from '@/Primitive'
 
 withDefaults(defineProps<SwitchThumbProps>(), { as: 'span' })
+
 const rootContext = injectSwitchRootContext()
+
+useForwardExpose()
 </script>
 
 <template>

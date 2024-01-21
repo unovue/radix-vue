@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { ComputedRef } from 'vue'
 import type { RadioProps } from './Radio.vue'
-import { createContext } from '@/shared'
+import { createContext, useForwardExpose } from '@/shared'
 
 export interface RadioGroupItemProps extends Omit<RadioProps, 'checked'> {}
 
@@ -15,13 +15,9 @@ export const [injectRadioGroupItemContext, provideRadiogroupItemContext]
 </script>
 
 <script setup lang="ts">
-import {
-  computed,
-  ref,
-} from 'vue'
+import { computed, ref } from 'vue'
 import Radio from './Radio.vue'
 import { injectRadioGroupRootContext } from './RadioGroupRoot.vue'
-import { usePrimitiveElement } from '@/Primitive'
 import { RovingFocusItem } from '@/RovingFocus'
 import { useEventListener } from '@vueuse/core'
 
@@ -33,7 +29,7 @@ const props = withDefaults(defineProps<RadioGroupItemProps>(), {
   disabled: false,
   as: 'button',
 })
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 
 const rootContext = injectRadioGroupRootContext()
 
@@ -70,8 +66,8 @@ function handleFocus() {
 <template>
   <RovingFocusItem :checked="checked" :disabled="disabled" as-child :focusable="!disabled" :active="checked">
     <Radio
-      ref="primitiveElement"
       v-bind="{ ...$attrs, ...props }"
+      :ref="forwardRef"
       :checked="checked"
       :required="required"
       @update:checked="rootContext.changeModelValue(value)"

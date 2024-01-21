@@ -14,7 +14,7 @@ export interface NavigationMenuIndicatorProps extends PrimitiveProps {
 import { computed, ref, watchEffect } from 'vue'
 import { useResizeObserver } from '@vueuse/core'
 import { injectNavigationMenuContext } from './NavigationMenuRoot.vue'
-import { useCollection } from '@/shared'
+import { useCollection, useForwardExpose } from '@/shared'
 import { Primitive } from '@/Primitive'
 import { Presence } from '@/Presence'
 
@@ -24,6 +24,7 @@ defineOptions({
 
 const props = defineProps<NavigationMenuIndicatorProps>()
 
+const { forwardRef } = useForwardExpose()
 const { injectCollection } = useCollection('nav')
 const collectionItems = injectCollection()
 const menuContext = injectNavigationMenuContext()
@@ -70,6 +71,7 @@ useResizeObserver(menuContext.indicatorTrack, handlePositionChange)
   >
     <Presence :present="forceMount || isVisible">
       <Primitive
+        :ref="forwardRef"
         aria-hidden
         :data-state="isVisible ? 'visible' : 'hidden'"
         :data-orientation="menuContext.orientation"

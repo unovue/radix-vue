@@ -9,7 +9,7 @@ import { onMounted, onUnmounted, ref } from 'vue'
 import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
 import ScrollAreaScrollbarAuto from './ScrollAreaScrollbarAuto.vue'
 import { Presence } from '@/Presence'
-import { useForwardRef } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 defineOptions({
   inheritAttrs: false,
@@ -19,7 +19,7 @@ defineProps<ScrollAreaScrollbarHoverProps>()
 
 const rootContext = injectScrollAreaRootContext()
 
-const forwardRef = useForwardRef()
+const { forwardRef } = useForwardExpose()
 
 let timeout: ReturnType<typeof setTimeout> | undefined | number
 const visible = ref(false)
@@ -57,7 +57,7 @@ onUnmounted(() => {
   <Presence :present="forceMount || visible">
     <ScrollAreaScrollbarAuto
       v-bind="$attrs"
-      ref="forwardRef"
+      :ref="forwardRef"
       :data-state="visible ? 'visible' : 'hidden'"
     >
       <slot />

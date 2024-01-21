@@ -1,5 +1,6 @@
 <script lang="ts">
 import DialogOverlayImpl, { type DialogOverlayImplProps } from './DialogOverlayImpl.vue'
+import { useForwardExpose } from '@/shared'
 
 export interface DialogOverlayProps extends DialogOverlayImplProps {
   /**
@@ -16,11 +17,18 @@ import { Presence } from '@/Presence'
 
 defineProps<DialogOverlayProps>()
 const rootContext = injectDialogRootContext()
+
+const { forwardRef } = useForwardExpose()
 </script>
 
 <template>
   <Presence v-if="rootContext?.modal.value" :present="forceMount || rootContext.open.value">
-    <DialogOverlayImpl :as="as" :as-child="asChild" v-bind="$attrs">
+    <DialogOverlayImpl
+      v-bind="$attrs"
+      :ref="forwardRef"
+      :as="as"
+      :as-child="asChild"
+    >
       <slot />
     </DialogOverlayImpl>
   </Presence>

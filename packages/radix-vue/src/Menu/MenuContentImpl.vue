@@ -18,6 +18,7 @@ import {
   useBodyScrollLock,
   useCollection,
   useFocusGuards,
+  useForwardExpose,
   useTypeahead,
 } from '@/shared'
 
@@ -100,7 +101,6 @@ import {
   PopperContent,
   PopperContentPropsDefaultValue,
 } from '@/Popper'
-import { usePrimitiveElement } from '@/Primitive'
 import { RovingFocusGroup } from '@/RovingFocus'
 
 const props = withDefaults(defineProps<MenuContentImplProps>(), {
@@ -124,8 +124,7 @@ const lastPointerXRef = ref(0)
 const currentItemId = ref<string | null>(null)
 
 const { createCollection } = useCollection()
-const { primitiveElement, currentElement: contentElement }
-  = usePrimitiveElement()
+const { forwardRef, currentElement: contentElement } = useForwardExpose()
 const collectionItems = createCollection(contentElement)
 
 watch(contentElement, (el) => {
@@ -291,7 +290,7 @@ provideMenuContentContext({
         }"
       >
         <PopperContent
-          ref="primitiveElement"
+          :ref="forwardRef"
           role="menu"
           :as="as"
           :as-child="asChild"

@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export type NavigationMenuLinkEmits = {
   'select': [payload: MouseEvent]
@@ -21,6 +22,7 @@ const props = withDefaults(defineProps<NavigationMenuLinkProps>(), {
 })
 const emits = defineEmits<NavigationMenuLinkEmits>()
 
+useForwardExpose()
 async function handleClick(ev: MouseEvent) {
   emits('select', ev)
 

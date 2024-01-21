@@ -5,6 +5,7 @@ export interface AccordionHeaderProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
+import { useForwardExpose } from '@/shared'
 import { injectAccordionItemContext } from './AccordionItem.vue'
 import { injectAccordionRootContext } from './AccordionRoot.vue'
 import { Primitive } from '@/Primitive'
@@ -15,6 +16,8 @@ const props = withDefaults(defineProps<AccordionHeaderProps>(), {
 
 const rootContext = injectAccordionRootContext()
 const itemContext = injectAccordionItemContext()
+
+useForwardExpose()
 </script>
 
 <template>

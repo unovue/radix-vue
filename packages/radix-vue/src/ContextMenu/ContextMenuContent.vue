@@ -3,6 +3,7 @@ import type {
   MenuContentEmits,
   MenuContentProps,
 } from '@/Menu'
+import { useForwardExpose } from '@/shared'
 
 export type ContextMenuContentEmits = MenuContentEmits
 
@@ -33,6 +34,7 @@ const props = withDefaults(defineProps<ContextMenuContentProps>(), {
 })
 const emits = defineEmits<ContextMenuContentEmits>()
 
+useForwardExpose()
 const rootContext = injectContextMenuRootContext()
 const hasInteractedOutside = ref(false)
 </script>

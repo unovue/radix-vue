@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { DialogCloseProps } from '@/Dialog'
+import { useForwardExpose } from '@/shared'
 
 export interface AlertDialogActionProps extends DialogCloseProps {}
 </script>
@@ -8,6 +9,7 @@ export interface AlertDialogActionProps extends DialogCloseProps {}
 import { DialogClose } from '@/Dialog'
 
 const props = defineProps<AlertDialogActionProps>()
+useForwardExpose()
 </script>
 
 <template>

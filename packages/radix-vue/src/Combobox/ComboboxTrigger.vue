@@ -8,6 +8,7 @@ export interface ComboboxTriggerProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { Primitive } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 import { computed } from 'vue'
 import { injectComboboxRootContext } from './ComboboxRoot.vue'
 
@@ -15,14 +16,15 @@ const props = withDefaults(defineProps<ComboboxTriggerProps>(), {
   as: 'button',
 })
 
+useForwardExpose()
 const rootContext = injectComboboxRootContext()
 const disabled = computed(() => props.disabled || rootContext.disabled.value || false)
 </script>
 
 <template>
   <Primitive
-    :type="as === 'button' ? 'button' : undefined"
     v-bind="props"
+    :type="as === 'button' ? 'button' : undefined"
     tabindex="-1"
     aria-label="Show popup"
     aria-haspopup="listbox"

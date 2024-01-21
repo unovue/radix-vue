@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { MenuArrowProps } from '@/Menu'
+import { useForwardExpose } from '@/shared'
 
 export interface ContextMenuArrowProps extends MenuArrowProps {}
 </script>
@@ -8,6 +9,8 @@ export interface ContextMenuArrowProps extends MenuArrowProps {}
 import { MenuArrow } from '@/Menu'
 
 const props = defineProps<ContextMenuArrowProps>()
+
+useForwardExpose()
 </script>
 
 <template>

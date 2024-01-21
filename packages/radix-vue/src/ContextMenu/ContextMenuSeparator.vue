@@ -6,8 +6,10 @@ export interface ContextMenuSeparatorProps extends MenuSeparatorProps {}
 
 <script setup lang="ts">
 import { MenuSeparator } from '@/Menu'
+import { useForwardExpose } from '@/shared'
 
 const props = defineProps<ContextMenuSeparatorProps>()
+useForwardExpose()
 </script>
 
 <template>

@@ -1,6 +1,4 @@
 <script lang="ts">
-import type { ComponentPublicInstance } from 'vue'
-
 type ScrollbarAreaScrollbarImplEmits = {
   'onDragScroll': [payload: { x: number; y: number }]
   'onWheelScroll': [payload: { x: number; y: number }]
@@ -19,8 +17,8 @@ import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
 import { injectScrollAreaScrollbarVisibleContext } from './ScrollAreaScrollbarVisible.vue'
 import { injectScrollAreaScrollbarContext } from './ScrollAreaScrollbar.vue'
 import { toInt } from './utils'
-import { Primitive, usePrimitiveElement } from '@/Primitive'
-import { useForwardRef } from '@/shared'
+import { Primitive } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 const props = defineProps<ScrollAreaScrollbarImplProps>()
 const emit = defineEmits<ScrollbarAreaScrollbarImplEmits>()
@@ -28,8 +26,7 @@ const rootContext = injectScrollAreaRootContext()
 const scrollbarVisibleContext = injectScrollAreaScrollbarVisibleContext()
 const scrollbarContext = injectScrollAreaScrollbarContext()
 
-const { primitiveElement, currentElement: scrollbar } = usePrimitiveElement()
-const forwardRef = useForwardRef()
+const { forwardRef, currentElement: scrollbar } = useForwardExpose()
 const prevWebkitUserSelectRef = ref('')
 const rectRef = ref<DOMRect>()
 
@@ -125,10 +122,7 @@ useResizeObserver(rootContext.content, handleSizeChange)
 
 <template>
   <Primitive
-    :ref="vnode => {
-      forwardRef(vnode)
-      primitiveElement = vnode as ComponentPublicInstance
-    }"
+    :ref="forwardRef"
     style="position: absolute"
     data-scrollbarimpl
     :as="scrollbarContext.as.value"

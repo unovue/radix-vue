@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext } from '@/shared'
+import { createContext, useForwardExpose } from '@/shared'
 
 type PaginationRootContext = {
   page: Ref<number>
@@ -46,6 +46,7 @@ const props = withDefaults(defineProps<PaginationRootProps>(), {
 const emits = defineEmits<PaginationRootEmits>()
 const { siblingCount, disabled, showEdges } = toRefs(props)
 
+useForwardExpose()
 const page = useVModel(props, 'page', emits, {
   defaultValue: props.defaultPage,
   passive: (props.page === undefined) as false,

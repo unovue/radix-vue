@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PopperArrowProps } from '@/Popper'
+import { useForwardExpose } from '@/shared'
 
 export interface HoverCardArrowProps extends PopperArrowProps {}
 </script>
@@ -8,6 +9,7 @@ export interface HoverCardArrowProps extends PopperArrowProps {}
 import { PopperArrow } from '@/Popper'
 
 const props = defineProps<HoverCardArrowProps>()
+useForwardExpose()
 </script>
 
 <template>

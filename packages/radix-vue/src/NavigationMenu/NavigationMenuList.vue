@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface NavigationMenuListProps extends PrimitiveProps {}
 </script>
@@ -9,7 +10,6 @@ import { onMounted } from 'vue'
 import { injectNavigationMenuContext } from './NavigationMenuRoot.vue'
 import {
   Primitive,
-  usePrimitiveElement,
 } from '@/Primitive'
 
 defineOptions({
@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<NavigationMenuListProps>(), {
 })
 
 const menuContext = injectNavigationMenuContext()
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 
 onMounted(() => {
   menuContext.onIndicatorTrackChange(currentElement.value)
@@ -29,7 +29,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <Primitive ref="primitiveElement" style="position: relative">
+  <Primitive :ref="forwardRef" style="position: relative">
     <Primitive
       v-bind="$attrs"
       :as-child="props.asChild"

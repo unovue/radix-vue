@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface SelectItemTextProps extends PrimitiveProps {}
 </script>
@@ -9,10 +10,7 @@ import { computed, h, onBeforeUnmount, onMounted } from 'vue'
 import { injectSelectNativeOptionsContext, injectSelectRootContext } from './SelectRoot.vue'
 import { SelectContentDefaultContextValue, injectSelectContentContext } from './SelectContentImpl.vue'
 import { injectSelectItemContext } from './SelectItem.vue'
-import {
-  Primitive,
-  usePrimitiveElement,
-} from '@/Primitive'
+import { Primitive } from '@/Primitive'
 
 defineOptions({
   inheritAttrs: false,
@@ -27,8 +25,7 @@ const contentContext = injectSelectContentContext(SelectContentDefaultContextVal
 const nativeOptionContext = injectSelectNativeOptionsContext()
 const itemContext = injectSelectItemContext()
 
-const { primitiveElement, currentElement: itemTextElement }
-  = usePrimitiveElement()
+const { forwardRef, currentElement: itemTextElement } = useForwardExpose()
 
 const nativeOption = computed(() => {
   return h('option', {
@@ -57,7 +54,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <Primitive :id="itemContext.textId" ref="primitiveElement" v-bind="{ ...props, ...$attrs }">
+  <Primitive :id="itemContext.textId" :ref="forwardRef" v-bind="{ ...props, ...$attrs }">
     <slot />
   </Primitive>
 

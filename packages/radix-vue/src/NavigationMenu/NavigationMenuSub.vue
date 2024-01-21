@@ -20,9 +20,8 @@ import { useVModel } from '@vueuse/core'
 import { injectNavigationMenuContext, provideNavigationMenuContext } from './NavigationMenuRoot.vue'
 import {
   Primitive,
-  usePrimitiveElement,
 } from '@/Primitive'
-import { useCollection } from '@/shared'
+import { useCollection, useForwardExpose } from '@/shared'
 
 const props = withDefaults(defineProps<NavigationMenuSubProps>(), {
   orientation: 'horizontal',
@@ -36,7 +35,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 const previousValue = ref('')
 
 const menuContext = injectNavigationMenuContext()
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 
 const indicatorTrack = ref<HTMLElement>()
 const viewport = ref<HTMLElement>()
@@ -83,7 +82,7 @@ provideNavigationMenuContext({
 
 <template>
   <Primitive
-    ref="primitiveElement"
+    :ref="forwardRef"
     :data-orientation="orientation"
     :as-child="props.asChild"
     :as="as"

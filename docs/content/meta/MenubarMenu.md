@@ -5,7 +5,6 @@
     'name': 'value',
     'description': '',
     'type': 'string',
-    'required': false,
-    'default': '-'
+    'required': false
   }
 ]" />

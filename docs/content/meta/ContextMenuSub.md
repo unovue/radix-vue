@@ -5,8 +5,7 @@
     'name': 'defaultOpen',
     'description': '',
     'type': 'boolean',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'open',

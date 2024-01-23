@@ -12,35 +12,30 @@
     'name': 'asChild',
     'description': '<p>Setting <code>asChild</code> to true has the same effect as setting <code>as</code> to <code>template</code>.</p>\n',
     'type': 'boolean',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'defaultValue',
     'description': '<p>The pressed state of the toggle when it is initially rendered. Use when you do not need to control its open state.</p>\n',
     'type': 'boolean',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'disabled',
     'description': '<p>Disables the trigger.</p>\n',
     'type': 'boolean',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'pressed',
     'description': '<p>The controlled pressed state of the toggle.</p>\n',
     'type': 'boolean',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'value',
     'description': '<p>A string value for the toggle group item. All items within a toggle group should use a unique value.</p>\n',
     'type': 'string',
-    'required': true,
-    'default': '-'
+    'required': true
   }
 ]" />

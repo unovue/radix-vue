@@ -12,8 +12,7 @@
     'name': 'disableClosingTrigger',
     'description': '<p>When <code>true</code>, clicking on trigger will not close the content.</p>\n',
     'type': 'boolean',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'disableHoverableContent',

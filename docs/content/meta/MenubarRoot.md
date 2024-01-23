@@ -5,15 +5,13 @@
     'name': 'defaultValue',
     'description': '',
     'type': 'string',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'dir',
     'description': '',
     'type': 'Direction',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'loop',
@@ -26,8 +24,7 @@
     'name': 'modelValue',
     'description': '',
     'type': 'string',
-    'required': false,
-    'default': '-'
+    'required': false
   }
 ]" />
 

@@ -5,8 +5,7 @@
     'name': 'dir',
     'description': '',
     'type': 'Direction',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'modal',

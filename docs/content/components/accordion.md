@@ -6,12 +6,6 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/accordion
 ---
 
 
-<!-- @include: @/meta/AccordionRoot.md -->
-
-<!-- @include: @/meta/AccordionContent.md -->
- 
-
-
 # Accordion
 
 <Description>
@@ -68,82 +62,8 @@ import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, Accord
 
 Contains all the parts of an Accordion
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'type',
-      required: true,
-      type: '&quot;single&quot; | &quot;multiple&quot;',
-      typeSimple: 'enum',
-      description: 'Determines whether one or multiple items can be opened at the same time.',
-    },
-    {
-      name: 'defaultValue',
-      required: false,
-      type: 'string | string[]',
-      description: 'The value of the item to expand when initially rendered. Use when you do not need to control the state of the items.',
-    },
-    {
-      name: 'value',
-      required: false,
-      type: 'string | string[]',
-      description: 'The controlled value of the item to expand. Must be binded with v-model.',
-    },
-    {
-      name: 'collapsible',
-      required: false,
-      default: 'false',
-      type: 'boolean',
-      description: 'When <code>type</code> is <code>&quot;single&quot;</code>, allows closing content when clicking trigger for an open item.',
-    },
-    {
-      name: 'disabled',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'When `true`, prevents the user from interacting with the accordion and all its items.',
-    },
-    {
-      name: 'dir',
-      required: false,
-      type: '&quot;ltr&quot; | &quot;rtl&quot;',
-      typeSimple: 'enum',
-      default: '&quot;ltr&quot;',
-      description: 'The reading direction of the accordion when applicable. If omitted, assumes LTR (left-to-right) reading mode.',
-    },
-    {
-      name: 'orientation',
-      required: false,
-      type: '&quot;horizontal&quot; | &quot;vertical&quot;',
-      typeSimple: 'enum',
-      default: '&quot;vertical&quot;',
-      description: 'The orientation of the Accordion',
-    }
-  ]"
-/>
 
-<EmitsTable 
-  :data="[
-    {
-      name: '@update:modelValue',
-      type: '(value: string) => void',
-      description: 'Event handler called when the expanded state of an item changes'
-    },
-  ]" 
-/>
+<!-- @include: @/meta/AccordionRoot.md -->
 
 
 <DataAttributesTable
@@ -269,28 +189,7 @@ Toggles the collapsed state of its associated item. It should be nested inside o
 
 Contains the collapsible content for an item.
 
-<PropsTable :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'forceMount',
-      type: 'boolean',
-      description: `
-        Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.
-      `,
-    },
-  ]" />
+<!-- @include: @/meta/AccordionContent.md -->
 
 <DataAttributesTable :data="[
     {

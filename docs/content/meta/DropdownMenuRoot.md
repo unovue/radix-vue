@@ -5,15 +5,13 @@
     'name': 'defaultOpen',
     'description': '',
     'type': 'boolean',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'dir',
     'description': '',
     'type': 'Direction',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'modal',

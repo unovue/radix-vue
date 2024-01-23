@@ -5,15 +5,13 @@
     'name': 'autocomplete',
     'description': '',
     'type': 'string',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'defaultOpen',
     'description': '',
     'type': 'boolean',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'defaultValue',
@@ -26,15 +24,13 @@
     'name': 'dir',
     'description': '',
     'type': 'Direction',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'disabled',
     'description': '',
     'type': 'boolean',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'modelValue',
@@ -47,8 +43,7 @@
     'name': 'name',
     'description': '',
     'type': 'string',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'open',
@@ -68,8 +63,7 @@
     'name': 'required',
     'description': '',
     'type': 'boolean',
-    'required': false,
-    'default': '-'
+    'required': false
   }
 ]" />
 

@@ -5,21 +5,18 @@
     'name': 'disabled',
     'description': '',
     'type': 'boolean',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'forceMount',
     'description': '',
     'type': 'boolean',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'to',
     'description': '',
     'type': 'string | HTMLElement',
-    'required': false,
-    'default': '-'
+    'required': false
   }
 ]" />

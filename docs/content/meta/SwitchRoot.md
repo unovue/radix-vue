@@ -12,8 +12,7 @@
     'name': 'asChild',
     'description': '<p>Setting <code>asChild</code> to true has the same effect as setting <code>as</code> to <code>template</code>.</p>\n',
     'type': 'boolean',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'checked',
@@ -26,36 +25,31 @@
     'name': 'defaultChecked',
     'description': '',
     'type': 'boolean',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'disabled',
     'description': '',
     'type': 'boolean',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'id',
     'description': '',
     'type': 'string',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'name',
     'description': '',
     'type': 'string',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'required',
     'description': '',
     'type': 'boolean',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'value',

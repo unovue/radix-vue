@@ -36,7 +36,7 @@ function parseMeta(meta: ComponentMeta) {
         description: md.render(description),
         type: type.replace(/\s*\|\s*undefined/g, ''),
         required,
-        default: defaultValue || '-',
+        default: defaultValue ?? undefined,
       })
     })
     .sort((a, b) => a.name.localeCompare(b.name))

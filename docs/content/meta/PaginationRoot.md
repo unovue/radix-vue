@@ -12,8 +12,7 @@
     'name': 'asChild',
     'description': '<p>Setting <code>asChild</code> to true has the same effect as setting <code>as</code> to <code>template</code>.</p>\n',
     'type': 'boolean',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'defaultPage',
@@ -26,8 +25,7 @@
     'name': 'disabled',
     'description': '',
     'type': 'boolean',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'itemsPerPage',
@@ -40,8 +38,7 @@
     'name': 'page',
     'description': '',
     'type': 'number',
-    'required': false,
-    'default': '-'
+    'required': false
   },
   {
     'name': 'showEdges',

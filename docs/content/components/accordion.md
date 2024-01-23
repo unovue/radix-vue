@@ -6,8 +6,9 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/accordion
 ---
 
 
-<!-- @include: @/meta/Accordion/AccordionRoot.md -->
-<!-- @include: @/meta/Accordion/AccordionContent.md -->
+<!-- @include: @/meta/AccordionRoot.md -->
+
+<!-- @include: @/meta/AccordionContent.md -->
  
 
 

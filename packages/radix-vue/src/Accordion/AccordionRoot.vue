@@ -54,7 +54,6 @@ export interface AccordionRootProps extends PrimitiveProps {
 export type AccordionRootEmits = {
   /**
    * Event handler called when the expanded state of an item changes
-   * @arg {value: string | string[] }}
    */
   'update:modelValue': [value: string | string[] | undefined]
 }

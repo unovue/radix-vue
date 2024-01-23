@@ -1,3 +1,5 @@
+<!-- This file was automatic generated. Do not edit it manually -->
+
 <PropsTable :data="[
   {
     'name': 'alignOffset',
@@ -70,6 +72,7 @@
     'default': '\'partial\''
   }
 ]" />
+
 <EmitsTable :data="[
   {
     'name': 'closeAutoFocus',

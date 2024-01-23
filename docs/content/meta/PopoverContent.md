@@ -1,3 +1,5 @@
+<!-- This file was automatic generated. Do not edit it manually -->
+
 <PropsTable :data="[
   {
     'name': 'align',
@@ -119,6 +121,7 @@
     'default': '-'
   }
 ]" />
+
 <EmitsTable :data="[
   {
     'name': 'closeAutoFocus',

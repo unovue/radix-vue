@@ -1,3 +1,5 @@
+<!-- This file was automatic generated. Do not edit it manually -->
+
 <PropsTable :data="[
   {
     'name': 'defaultOpen',
@@ -28,6 +30,7 @@
     'default': 'undefined'
   }
 ]" />
+
 <EmitsTable :data="[
   {
     'name': 'update:open',

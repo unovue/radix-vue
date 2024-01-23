@@ -1,3 +1,5 @@
+<!-- This file was automatic generated. Do not edit it manually -->
+
 <PropsTable :data="[
   {
     'name': 'as',
@@ -63,6 +65,7 @@
     'default': '\'on\''
   }
 ]" />
+
 <EmitsTable :data="[
   {
     'name': 'update:checked',

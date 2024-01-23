@@ -1,3 +1,5 @@
+<!-- This file was automatic generated. Do not edit it manually -->
+
 <PropsTable :data="[
   {
     'name': 'as',
@@ -49,6 +51,7 @@
     'default': '\'foreground\''
   }
 ]" />
+
 <EmitsTable :data="[
   {
     'name': 'close',

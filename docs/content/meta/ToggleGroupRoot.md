@@ -1,3 +1,5 @@
+<!-- This file was automatic generated. Do not edit it manually -->
+
 <PropsTable :data="[
   {
     'name': 'as',
@@ -70,10 +72,11 @@
     'default': '\'single\''
   }
 ]" />
+
 <EmitsTable :data="[
   {
     'name': 'update:modelValue',
-    'description': '<p>Event handler called when the expanded state of an item changes\n@arg {value: string | string[] }}</p>\n',
+    'description': '<p>Event handler called when the expanded state of an item changes</p>\n',
     'type': '[payload: string]'
   }
 ]" />

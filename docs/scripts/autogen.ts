@@ -128,12 +128,12 @@ primitiveComponents.forEach((componentPath) => {
 
   const metaMdFilePath = join(metaDirPath, `${componentName}.md`)
 
-  let parsedString = ''
+  let parsedString = '<!-- This file was automatic generated. Do not edit it manually -->\n\n'
   if (meta.props.length)
     parsedString += `<PropsTable :data="${JSON.stringify(meta.props, null, 2).replace(/"/g, '\'')}" />\n`
 
   if (meta.events.length)
-    parsedString += `<EmitsTable :data="${JSON.stringify(meta.events, null, 2).replace(/"/g, '\'')}" />\n`
+    parsedString += `\n<EmitsTable :data="${JSON.stringify(meta.events, null, 2).replace(/"/g, '\'')}" />\n`
 
   writeFileSync(metaMdFilePath, parsedString)
 })

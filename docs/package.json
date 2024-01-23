@@ -7,7 +7,7 @@
     "docs:build": "vitepress build",
     "docs:preview": "vitepress preview",
     "docs:contributors": "esno scripts/update-contributors.ts",
-    "docs:gen": "vue-docgen -c docgen/config.mjs"
+    "docs:gen": "esno scripts/autogen.ts"
   },
   "dependencies": {
     "@stackblitz/sdk": "^1.9.0",

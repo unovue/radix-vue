@@ -2,28 +2,28 @@
   {
     'name': 'defaultOpen',
     'description': '',
-    'type': 'boolean | undefined',
+    'type': 'boolean',
     'required': false,
     'default': '-'
   },
   {
     'name': 'dir',
     'description': '',
-    'type': 'Direction | undefined',
+    'type': 'Direction',
     'required': false,
     'default': '-'
   },
   {
     'name': 'modal',
     'description': '',
-    'type': 'boolean | undefined',
+    'type': 'boolean',
     'required': false,
     'default': 'true'
   },
   {
     'name': 'open',
     'description': '',
-    'type': 'boolean | undefined',
+    'type': 'boolean',
     'required': false,
     'default': 'undefined'
   }

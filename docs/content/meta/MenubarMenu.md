@@ -2,7 +2,7 @@
   {
     'name': 'value',
     'description': '',
-    'type': 'string | undefined',
+    'type': 'string',
     'required': false,
     'default': '-'
   }

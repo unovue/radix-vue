@@ -31,11 +31,10 @@ function parseMeta(meta: ComponentMeta) {
     .filter(prop => !prop.global)
     .map((prop) => {
       const { name, description, required, type, default: defaultValue } = prop
-
       return ({
-        name: `${name}${required ? '' : '?'}`,
+        name,
         description: md.render(description),
-        type,
+        type: type.replace(/\s*\|\s*undefined/g, ''),
         required,
         default: defaultValue || '-',
       })
@@ -44,10 +43,11 @@ function parseMeta(meta: ComponentMeta) {
 
   const events = meta.events
     .map((event) => {
+      const { name, type } = event
       return ({
-        name: event.name,
-        description: md.render(eventDescriptionMap.get(event.name) ?? ''),
-        type: event.type,
+        name,
+        description: md.render(eventDescriptionMap.get(name) ?? ''),
+        type: type.replace(/\s*\|\s*undefined/g, ''),
       })
     })
     .sort((a, b) => a.name.localeCompare(b.name))
@@ -109,7 +109,7 @@ const allComponents = fg.sync(['src/**/*.vue', '!src/**/story/*.vue', '!src/**/*
   absolute: true,
 })
 
-const listOfComponents = Object.values(components).flatMap(i => i).filter(i => i.includes('Dialog'))
+const listOfComponents = Object.values(components).flatMap(i => i)
 const primitiveComponents = allComponents.filter(i => listOfComponents.includes(parse(i).name))
 
 allComponents.forEach(getEventFromComponentPath)

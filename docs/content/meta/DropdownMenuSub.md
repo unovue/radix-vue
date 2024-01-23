@@ -2,14 +2,14 @@
   {
     'name': 'defaultOpen',
     'description': '',
-    'type': 'boolean | undefined',
+    'type': 'boolean',
     'required': false,
     'default': '-'
   },
   {
     'name': 'open',
     'description': '',
-    'type': 'boolean | undefined',
+    'type': 'boolean',
     'required': false,
     'default': 'undefined'
   }

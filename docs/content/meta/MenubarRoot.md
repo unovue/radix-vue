@@ -2,28 +2,28 @@
   {
     'name': 'defaultValue',
     'description': '',
-    'type': 'string | undefined',
+    'type': 'string',
     'required': false,
     'default': '-'
   },
   {
     'name': 'dir',
     'description': '',
-    'type': 'Direction | undefined',
+    'type': 'Direction',
     'required': false,
     'default': '-'
   },
   {
     'name': 'loop',
     'description': '',
-    'type': 'boolean | undefined',
+    'type': 'boolean',
     'required': false,
     'default': 'false'
   },
   {
     'name': 'modelValue',
     'description': '',
-    'type': 'string | undefined',
+    'type': 'string',
     'required': false,
     'default': '-'
   }

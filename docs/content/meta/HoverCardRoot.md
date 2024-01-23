@@ -2,28 +2,28 @@
   {
     'name': 'closeDelay',
     'description': '',
-    'type': 'number | undefined',
+    'type': 'number',
     'required': false,
     'default': '300'
   },
   {
     'name': 'defaultOpen',
     'description': '',
-    'type': 'false | undefined',
+    'type': 'false',
     'required': false,
     'default': 'false'
   },
   {
     'name': 'open',
     'description': '',
-    'type': 'boolean | undefined',
+    'type': 'boolean',
     'required': false,
     'default': 'undefined'
   },
   {
     'name': 'openDelay',
     'description': '',
-    'type': 'number | undefined',
+    'type': 'number',
     'required': false,
     'default': '700'
   }

@@ -2,28 +2,28 @@
   {
     'name': 'delayDuration',
     'description': '<p>The duration from when the pointer enters the trigger until the tooltip gets opened.</p>\n',
-    'type': 'number | undefined',
+    'type': 'number',
     'required': false,
     'default': '700'
   },
   {
     'name': 'disableClosingTrigger',
     'description': '<p>When <code>true</code>, clicking on trigger will not close the content.</p>\n',
-    'type': 'boolean | undefined',
+    'type': 'boolean',
     'required': false,
     'default': '-'
   },
   {
     'name': 'disableHoverableContent',
     'description': '<p>When <code>true</code>, trying to hover the content will result in the tooltip closing as the pointer leaves the trigger.</p>\n',
-    'type': 'boolean | undefined',
+    'type': 'boolean',
     'required': false,
     'default': 'false'
   },
   {
     'name': 'skipDelayDuration',
     'description': '<p>How much time a user has to enter another trigger without incurring a delay again.</p>\n',
-    'type': 'number | undefined',
+    'type': 'number',
     'required': false,
     'default': '300'
   }

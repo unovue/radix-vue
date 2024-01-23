@@ -2,70 +2,70 @@
   {
     'name': 'autocomplete',
     'description': '',
-    'type': 'string | undefined',
+    'type': 'string',
     'required': false,
     'default': '-'
   },
   {
     'name': 'defaultOpen',
     'description': '',
-    'type': 'boolean | undefined',
+    'type': 'boolean',
     'required': false,
     'default': '-'
   },
   {
     'name': 'defaultValue',
     'description': '',
-    'type': 'string | undefined',
+    'type': 'string',
     'required': false,
     'default': '\'\''
   },
   {
     'name': 'dir',
     'description': '',
-    'type': 'Direction | undefined',
+    'type': 'Direction',
     'required': false,
     'default': '-'
   },
   {
     'name': 'disabled',
     'description': '',
-    'type': 'boolean | undefined',
+    'type': 'boolean',
     'required': false,
     'default': '-'
   },
   {
     'name': 'modelValue',
     'description': '',
-    'type': 'string | undefined',
+    'type': 'string',
     'required': false,
     'default': 'undefined'
   },
   {
     'name': 'name',
     'description': '',
-    'type': 'string | undefined',
+    'type': 'string',
     'required': false,
     'default': '-'
   },
   {
     'name': 'open',
     'description': '',
-    'type': 'boolean | undefined',
+    'type': 'boolean',
     'required': false,
     'default': 'undefined'
   },
   {
     'name': 'orientation',
     'description': '',
-    'type': 'DataOrientation | undefined',
+    'type': 'DataOrientation',
     'required': false,
     'default': '\'vertical\''
   },
   {
     'name': 'required',
     'description': '',
-    'type': 'boolean | undefined',
+    'type': 'boolean',
     'required': false,
     'default': '-'
   }

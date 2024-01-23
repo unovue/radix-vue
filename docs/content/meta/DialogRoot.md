@@ -2,21 +2,21 @@
   {
     'name': 'defaultOpen',
     'description': '',
-    'type': 'boolean | undefined',
+    'type': 'boolean',
     'required': false,
     'default': 'false'
   },
   {
     'name': 'modal',
     'description': '',
-    'type': 'boolean | undefined',
+    'type': 'boolean',
     'required': false,
     'default': 'true'
   },
   {
     'name': 'open',
     'description': '',
-    'type': 'boolean | undefined',
+    'type': 'boolean',
     'required': false,
     'default': 'undefined'
   }

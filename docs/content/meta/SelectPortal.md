@@ -2,21 +2,21 @@
   {
     'name': 'disabled',
     'description': '',
-    'type': 'boolean | undefined',
+    'type': 'boolean',
     'required': false,
     'default': '-'
   },
   {
     'name': 'forceMount',
     'description': '',
-    'type': 'boolean | undefined',
+    'type': 'boolean',
     'required': false,
     'default': '-'
   },
   {
     'name': 'to',
     'description': '',
-    'type': 'string | HTMLElement | undefined',
+    'type': 'string | HTMLElement',
     'required': false,
     'default': '-'
   }

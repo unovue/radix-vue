@@ -2,14 +2,14 @@
   {
     'name': 'dir',
     'description': '',
-    'type': 'Direction | undefined',
+    'type': 'Direction',
     'required': false,
     'default': '-'
   },
   {
     'name': 'modal',
     'description': '',
-    'type': 'boolean | undefined',
+    'type': 'boolean',
     'required': false,
     'default': 'true'
   }

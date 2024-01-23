@@ -78,33 +78,7 @@ Contains all the parts of an Accordion
 
 Contains all the parts of a collapsible section.
 
-<PropsTable :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'disabled',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'When true, prevents the user from interacting with accordion and all items',
-    },
-    {
-      name: 'value',
-      required: true,
-      type: 'string',
-      description: 'A unique value for the item.',
-    }]" />
+<!-- @include: @/meta/AccordionItem.md -->
 
 <DataAttributesTable :data="[
     {
@@ -124,20 +98,7 @@ Contains all the parts of a collapsible section.
 
 Wraps an `AccordionTrigger`. Use the `asChild` prop to update it to the appropriate heading level for your page.
 
-<PropsTable :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'h3',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    }]" />
+<!-- @include: @/meta/AccordionHeader.md -->
 
 <DataAttributesTable :data="[
     {
@@ -157,19 +118,7 @@ Wraps an `AccordionTrigger`. Use the `asChild` prop to update it to the appropri
 
 Toggles the collapsed state of its associated item. It should be nested inside of an `AccordionHeader`.
 
-<PropsTable :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'button',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },{
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    }]" />
+<!-- @include: @/meta/AccordionTrigger.md -->
 
 <DataAttributesTable :data="[
     {

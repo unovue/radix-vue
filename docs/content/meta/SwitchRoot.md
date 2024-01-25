@@ -63,7 +63,7 @@
 <EmitsTable :data="[
   {
     'name': 'update:checked',
-    'description': '',
+    'description': '<p>Event handler called when the checked state of the checkbox changes.</p>\n',
     'type': '[payload: boolean]'
   }
 ]" />

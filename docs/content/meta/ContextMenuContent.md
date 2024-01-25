@@ -56,7 +56,7 @@
   },
   {
     'name': 'loop',
-    'description': '<p>Whether keyboard navigation should loop around</p>\n',
+    'description': '<p>When <code>true</code>, keyboard navigation will loop from last item to first, and vice versa.</p>\n',
     'type': 'boolean',
     'required': false
   },

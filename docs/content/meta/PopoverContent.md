@@ -93,7 +93,7 @@
   },
   {
     'name': 'trapFocus',
-    'description': '<p>Whether focus should be trapped within the <code>MenuContent</code>\n(default: false)</p>\n',
+    'description': '<p>Whether focus should be trapped within the <code>MenuContent</code></p>\n',
     'type': 'boolean',
     'required': false
   },

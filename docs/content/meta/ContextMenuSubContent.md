@@ -57,7 +57,7 @@
   },
   {
     'name': 'disableOutsideScroll',
-    'description': '<p>Whether scrolling outside the <code>MenuContent</code> should be prevented\n(default: <code>false</code>)</p>\n',
+    'description': '<p>Whether scrolling outside the <code>MenuContent</code> should be prevented</p>\n',
     'type': 'boolean',
     'required': false
   },
@@ -75,7 +75,7 @@
   },
   {
     'name': 'loop',
-    'description': '<p>Whether keyboard navigation should loop around</p>\n',
+    'description': '<p>When <code>true</code>, keyboard navigation will loop from last item to first, and vice versa.</p>\n',
     'type': 'boolean',
     'required': false
   },
@@ -105,7 +105,7 @@
   },
   {
     'name': 'trapFocus',
-    'description': '<p>Whether focus should be trapped within the <code>MenuContent</code>\n(default: false)</p>\n',
+    'description': '<p>Whether focus should be trapped within the <code>MenuContent</code></p>\n',
     'type': 'boolean',
     'required': false
   },

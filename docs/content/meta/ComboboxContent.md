@@ -39,7 +39,7 @@
   },
   {
     'name': 'bodyLock',
-    'description': '',
+    'description': '<p>The document.body will be lock, and scrolling will be disabled.</p>\n',
     'type': 'boolean',
     'required': false
   },
@@ -81,7 +81,7 @@
   },
   {
     'name': 'position',
-    'description': '',
+    'description': '<p>The positioning mode to use, &lt;br&gt;\n<code>inline</code> is the default and you can control the position using CSS. &lt;br&gt;\n<code>popper</code> positions content in the same way as our other primitives, for example <code>Popover</code> or <code>DropdownMenu</code>.</p>\n',
     'type': '\'inline\' | \'popper\'',
     'required': false
   },

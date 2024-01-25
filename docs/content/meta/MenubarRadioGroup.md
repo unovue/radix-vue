@@ -15,7 +15,7 @@
   },
   {
     'name': 'modelValue',
-    'description': '',
+    'description': '<p>The value of the selected item in the group.</p>\n',
     'type': 'string',
     'required': false
   }
@@ -24,7 +24,7 @@
 <EmitsTable :data="[
   {
     'name': 'update:modelValue',
-    'description': '<p>Event handler called when the expanded state of an item changes</p>\n',
+    'description': '<p>Event handler called when the value changes.</p>\n',
     'type': '[payload: boolean]'
   }
 ]" />

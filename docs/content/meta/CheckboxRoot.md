@@ -16,44 +16,44 @@
   },
   {
     'name': 'checked',
-    'description': '',
+    'description': '<p>The controlled checked state of the checkbox. Can be binded with v-model.</p>\n',
     'type': 'boolean | \'indeterminate\'',
     'required': false,
     'default': 'undefined'
   },
   {
     'name': 'defaultChecked',
-    'description': '',
+    'description': '<p>The checked state of the checkbox when it is initially rendered. Use when you do not need to control its checked state.</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with the checkbox</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
     'name': 'id',
-    'description': '',
+    'description': '<p>Id of the element</p>\n',
     'type': 'string',
     'required': false
   },
   {
     'name': 'name',
-    'description': '',
+    'description': '<p>The name of the checkbox. Submitted with its owning form as part of a name/value pair.</p>\n',
     'type': 'string',
     'required': false
   },
   {
     'name': 'required',
-    'description': '',
+    'description': '<p>When <code>true</code>, indicates that the user must check the checkbox before the owning form can be submitted.</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
     'name': 'value',
-    'description': '',
+    'description': '<p>The value given as data when submitted with a <code>name</code>.</p>\n',
     'type': 'string',
     'required': false,
     'default': '\'on\''
@@ -63,7 +63,7 @@
 <EmitsTable :data="[
   {
     'name': 'update:checked',
-    'description': '',
+    'description': '<p>Event handler called when the checked state of the checkbox changes.</p>\n',
     'type': '[value: boolean]'
   }
 ]" />

@@ -1,9 +1,9 @@
 <script lang="ts">
-export type ContextMenuSubEmits = {
-  'update:open': [value: boolean]
-}
-export interface ContextMenuSubProps {
-  open?: boolean
+import type { MenuSubEmits, MenuSubProps } from '@/Menu'
+
+export type ContextMenuSubEmits = MenuSubEmits
+export interface ContextMenuSubProps extends MenuSubProps {
+  /** The open state of the submenu when it is initially rendered. Use when you do not need to control its open state. */
   defaultOpen?: boolean
 }
 </script>

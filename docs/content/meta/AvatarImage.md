@@ -25,7 +25,7 @@
 <EmitsTable :data="[
   {
     'name': 'loadingStatusChange',
-    'description': '',
+    'description': '<p>A callback providing information about the loading status of the image. &lt;br&gt;\nThis is useful in case you want to control more precisely what to render as the image is loading.</p>\n',
     'type': '[value: ImageLoadingStatus]'
   }
 ]" />

@@ -15,19 +15,13 @@
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with the item.</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
-    'name': 'textValue',
-    'description': '',
-    'type': 'string',
-    'required': false
-  },
-  {
     'name': 'value',
-    'description': '',
+    'description': '<p>The value given as data when submitted with a <code>name</code>.</p>\n',
     'type': 'AcceptableValue',
     'required': true
   }
@@ -36,7 +30,7 @@
 <EmitsTable :data="[
   {
     'name': 'select',
-    'description': '',
+    'description': '<p>Event handler called when the user selects a link (via mouse or keyboard).</p>\n<pre><code>Calling `event.preventDefault` in this handler will prevent the navigation menu from closing when selecting that link.\n</code></pre>\n',
     'type': '[event: SelectEvent<AcceptableValue>]'
   }
 ]" />

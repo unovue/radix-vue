@@ -15,13 +15,13 @@
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with the item.</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
     'name': 'textValue',
-    'description': '',
+    'description': '<p>Optional text used for typeahead purposes. By default the typeahead behavior will use the <code>.textContent</code> of the item. &lt;br&gt;\nUse this when the content is complex, or you have non-textual content inside.</p>\n',
     'type': 'string',
     'required': false
   }
@@ -30,7 +30,7 @@
 <EmitsTable :data="[
   {
     'name': 'select',
-    'description': '',
+    'description': '<p>Event handler called when the user selects a link (via mouse or keyboard).</p>\n<pre><code>Calling `event.preventDefault` in this handler will prevent the navigation menu from closing when selecting that link.\n</code></pre>\n',
     'type': '[event: Event]'
   }
 ]" />

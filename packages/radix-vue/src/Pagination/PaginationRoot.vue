@@ -13,16 +13,26 @@ type PaginationRootContext = {
 }
 
 export interface PaginationRootProps extends PrimitiveProps {
+  /** The controlled value of the current page. Can be binded as `v-model:page`. */
   page?: number
+  /** The value of the page that should be active when initially rendered.
+   *
+   * Use when you do not need to control the value state. */
   defaultPage?: number
+  /** Number of items per page */
   itemsPerPage?: number
+  /** Number of items in your list */
   total?: number
+  /** Number of sibling should be shown around the current page */
   siblingCount?: number
+  /** When true, prevents the user from interacting with item */
   disabled?: boolean
+  /** When `true`, always show first page, last page, and ellipsis */
   showEdges?: boolean
 }
 
 export type PaginationRootEmits = {
+  /** Event handler called when the page value changes */
   'update:page': [value: number]
 }
 

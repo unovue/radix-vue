@@ -15,7 +15,7 @@
   },
   {
     'name': 'ratio',
-    'description': '',
+    'description': '<p>The desired ratio. Eg: 16/9</p>\n',
     'type': 'number',
     'required': false,
     'default': '1'

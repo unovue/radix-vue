@@ -41,7 +41,7 @@
 <EmitsTable :data="[
   {
     'name': 'update:open',
-    'description': '',
+    'description': '<p>Event handler called when the open state of the popover changes.</p>\n',
     'type': '[value: boolean]'
   }
 ]" />

@@ -30,7 +30,7 @@ export interface TooltipContentImplProps
    * content that cannot be announced, use aria-label as a more
    * descriptive label.
    *
-   * @default String
+   * @defaultValue String
    */
   ariaLabel?: string
 }

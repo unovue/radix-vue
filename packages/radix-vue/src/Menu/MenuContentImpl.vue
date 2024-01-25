@@ -39,13 +39,13 @@ export interface MenuContentImplPrivateProps {
 
   /**
    * Whether scrolling outside the `MenuContent` should be prevented
-   * (default: `false`)
+   * @defaultValue false
    */
   disableOutsideScroll?: boolean
 
   /**
    * Whether focus should be trapped within the `MenuContent`
-   * (default: false)
+   * @defaultValue als
    */
   trapFocus?: FocusScopeProps['trapped']
 }
@@ -63,7 +63,7 @@ export interface MenuContentImplProps
   extends MenuContentImplPrivateProps,
   Omit<PopperContentProps, 'dir' | 'onPlaced'> {
   /**
-   * Whether keyboard navigation should loop around
+   * When `true`, keyboard navigation will loop from last item to first, and vice versa.
    * @defaultValue false
    */
   loop?: boolean
@@ -72,7 +72,7 @@ export interface MenuContentImplProps
 export interface MenuRootContentProps
   extends Omit<PopperContentProps, 'dir' | 'onPlaced'> {
   /**
-   * Whether keyboard navigation should loop around
+   * When `true`, keyboard navigation will loop from last item to first, and vice versa.
    * @defaultValue false
    */
   loop?: boolean

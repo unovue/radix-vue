@@ -3,7 +3,7 @@
 <PropsTable :data="[
   {
     'name': 'active',
-    'description': '',
+    'description': '<p>Used to identify the link as the currently active page.</p>\n',
     'type': 'boolean',
     'required': false
   },
@@ -25,7 +25,7 @@
 <EmitsTable :data="[
   {
     'name': 'select',
-    'description': '',
+    'description': '<p>Event handler called when the user selects a link (via mouse or keyboard).</p>\n<pre><code>Calling `event.preventDefault` in this handler will prevent the navigation menu from closing when selecting that link.\n</code></pre>\n',
     'type': '[payload: MouseEvent]'
   }
 ]" />

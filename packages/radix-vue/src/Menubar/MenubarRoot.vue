@@ -4,12 +4,19 @@ import type { Direction } from '../shared/types'
 import { createContext, useCollection, useDirection, useForwardExpose } from '@/shared'
 
 export interface MenubarRootProps {
+  /** The controlled value of the menu to open. Can be used as `v-model`. */
   modelValue?: string
+  /** The value of the menu that should be open when initially rendered. Use when you do not need to control the value state. */
   defaultValue?: string
+  /** The reading direction of the combobox when applicable.
+   *
+   *  If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
+  /** When `true`, keyboard navigation will loop from last item to first, and vice versa. */
   loop?: boolean
 }
 export type MenubarRootEmits = {
+  /** Event handler called when the value changes. */
   'update:modelValue': [value: boolean]
 }
 

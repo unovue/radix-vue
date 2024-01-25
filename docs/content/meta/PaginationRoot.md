@@ -16,47 +16,47 @@
   },
   {
     'name': 'defaultPage',
-    'description': '',
+    'description': '<p>The value of the page that should be active when initially rendered.</p>\n<p>Use when you do not need to control the value state.</p>\n',
     'type': 'number',
     'required': false,
     'default': '1'
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When true, prevents the user from interacting with item</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
     'name': 'itemsPerPage',
-    'description': '',
+    'description': '<p>Number of items per page</p>\n',
     'type': 'number',
     'required': false,
     'default': '10'
   },
   {
     'name': 'page',
-    'description': '',
+    'description': '<p>The controlled value of the current page. Can be binded as <code>v-model:page</code>.</p>\n',
     'type': 'number',
     'required': false
   },
   {
     'name': 'showEdges',
-    'description': '',
+    'description': '<p>When <code>true</code>, always show first page, last page, and ellipsis</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'false'
   },
   {
     'name': 'siblingCount',
-    'description': '',
+    'description': '<p>Number of sibling should be shown around the current page</p>\n',
     'type': 'number',
     'required': false,
     'default': '2'
   },
   {
     'name': 'total',
-    'description': '',
+    'description': '<p>Number of items in your list</p>\n',
     'type': 'number',
     'required': false,
     'default': '0'
@@ -66,7 +66,7 @@
 <EmitsTable :data="[
   {
     'name': 'update:page',
-    'description': '',
+    'description': '<p>Event handler called when the page value changes</p>\n',
     'type': '[value: number]'
   }
 ]" />

@@ -6,14 +6,14 @@ export interface TooltipArrowProps extends PrimitiveProps {
   /**
    * The width of the arrow in pixels.
    *
-   * @default 10
+   * @defaultValue 10
    */
   width?: number
 
   /**
    * The height of the arrow in pixels.
    *
-   * @default 5
+   * @defaultValue 5
    */
   height?: number
 }

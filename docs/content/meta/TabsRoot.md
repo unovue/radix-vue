@@ -50,7 +50,7 @@
 <EmitsTable :data="[
   {
     'name': 'update:modelValue',
-    'description': '<p>Event handler called when the expanded state of an item changes</p>\n',
+    'description': '<p>Event handler called when the value changes.</p>\n',
     'type': '[payload: string]'
   }
 ]" />

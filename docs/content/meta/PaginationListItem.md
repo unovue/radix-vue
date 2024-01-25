@@ -16,7 +16,7 @@
   },
   {
     'name': 'value',
-    'description': '',
+    'description': '<p>Value for the page</p>\n',
     'type': 'number',
     'required': true
   }

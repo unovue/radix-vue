@@ -16,7 +16,7 @@
   },
   {
     'name': 'defaultValue',
-    'description': '',
+    'description': '<p>The value of the menu item that should be active when initially rendered.</p>\n<p>Use when you do not need to control the value state.</p>\n',
     'type': 'string',
     'required': false
   },
@@ -29,20 +29,20 @@
   },
   {
     'name': 'dir',
-    'description': '',
+    'description': '<p>The reading direction of the combobox when applicable.</p>\n<p>If omitted, inherits globally from <code>DirectionProvider</code> or assumes LTR (left-to-right) reading mode.</p>\n',
     'type': 'Direction',
     'required': false
   },
   {
     'name': 'modelValue',
-    'description': '',
+    'description': '<p>The controlled value of the menu item to activate. Can be used as <code>v-model</code>.</p>\n',
     'type': 'string',
     'required': false,
     'default': 'undefined'
   },
   {
     'name': 'orientation',
-    'description': '',
+    'description': '<p>The orientation of the menu.</p>\n',
     'type': 'Orientation',
     'required': false,
     'default': '\'horizontal\''
@@ -59,7 +59,7 @@
 <EmitsTable :data="[
   {
     'name': 'update:modelValue',
-    'description': '<p>Event handler called when the expanded state of an item changes</p>\n',
+    'description': '<p>Event handler called when the value changes.</p>\n',
     'type': '[value: string]'
   }
 ]" />

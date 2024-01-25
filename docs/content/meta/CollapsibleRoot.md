@@ -15,20 +15,20 @@
   },
   {
     'name': 'defaultOpen',
-    'description': '',
+    'description': '<p>The open state of the collapsible when it is initially rendered. &lt;br&gt; Use when you do not need to control its open state.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'false'
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with the collapsible.</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
     'name': 'open',
-    'description': '',
+    'description': '<p>The controlled open state of the collapsible. Can be binded with <code>v-model</code>.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'undefined'
@@ -38,7 +38,7 @@
 <EmitsTable :data="[
   {
     'name': 'update:open',
-    'description': '',
+    'description': '<p>Event handler called when the open state of the collapsible changes.</p>\n',
     'type': '[value: boolean]'
   }
 ]" />

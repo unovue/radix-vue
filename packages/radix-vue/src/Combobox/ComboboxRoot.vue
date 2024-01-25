@@ -34,22 +34,36 @@ export const [injectComboboxRootContext, provideComboboxRootContext]
   = createContext<ComboboxRootContext<AcceptableValue>>('ComboboxRoot')
 
 export type ComboboxRootEmits<T = AcceptableValue> = {
+  /** Event handler called when the value changes. */
   'update:modelValue': [value: T]
+  /** Event handler called when the open state of the combobox changes. */
   'update:open': [value: boolean]
+  /** Event handler called when the searchTerm of the combobox changes. */
   'update:searchTerm': [value: string]
 }
 
 export interface ComboboxRootProps<T = AcceptableValue> extends PrimitiveProps {
+  /** The controlled value of the Combobox. Can be binded-with with `v-model`. */
   modelValue?: T
+  /** The value of the combobox when initially rendered. Use when you do not need to control the state of the Combobox */
   defaultValue?: T
+  /** The controlled open state of the Combobox. Can be binded-with with `v-model:open`. */
   open?: boolean
+  /** The open state of the combobox when it is initially rendered. <br> Use when you do not need to control its open state. */
   defaultOpen?: boolean
+  /** The controlled search term of the Combobox. Can be binded-with with v-model:searchTerm. */
   searchTerm?: string
+  /** Whether multiple options can be selected or not. */
   multiple?: boolean
+  /** When `true`, prevents the user from interacting with Combobox */
   disabled?: boolean
+  /** The name of the Combobox. Submitted with its owning form as part of a name/value pair. */
   name?: string
+  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
+  /** The custom filter function for filtering `ComboboxItem`. */
   filterFunction?: (val: ArrayOrWrapped<T>, term: string) => ArrayOrWrapped<T>
+  /** The display value of input for selected item. Does not work with `multiple`. */
   displayValue?: (val: T) => string
 }
 </script>

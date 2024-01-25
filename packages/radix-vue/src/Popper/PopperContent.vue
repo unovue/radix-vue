@@ -32,14 +32,14 @@ export interface PopperContentProps extends PrimitiveProps {
    * Will be reversed when collisions occur and avoidCollisions
    * is enabled.
    *
-   * @default "top"
+   * @defaultValue "top"
    */
   side?: Side
 
   /**
    * The distance in pixels from the trigger.
    *
-   * @default 0
+   * @defaultValue 0
    */
   sideOffset?: number
 
@@ -47,14 +47,14 @@ export interface PopperContentProps extends PrimitiveProps {
    * The preferred alignment against the trigger.
    * May change when collisions occur.
    *
-   * @default "center"
+   * @defaultValue "center"
    */
   align?: Align
 
   /**
    * An offset in pixels from the "start" or "end" alignment options.
    *
-   * @default 0
+   * @defaultValue 0
    */
   alignOffset?: number
 
@@ -62,7 +62,7 @@ export interface PopperContentProps extends PrimitiveProps {
    * When true, overrides the side andalign preferences
    * to prevent collisions with boundary edges.
    *
-   * @default true
+   * @defaultValue true
    */
   avoidCollisions?: boolean
 
@@ -71,7 +71,7 @@ export interface PopperContentProps extends PrimitiveProps {
    * this is the viewport, though you can provide additional
    * element(s) to be included in this check.
    *
-   * @default []
+   * @defaultValue []
    */
   collisionBoundary?: Element | null | Array<Element | null>
 
@@ -80,7 +80,7 @@ export interface PopperContentProps extends PrimitiveProps {
    * detection should occur. Accepts a number (same for all sides),
    * or a partial padding object, for example: { top: 20, left: 20 }.
    *
-   * @default 0
+   * @defaultValue 0
    */
   collisionPadding?: number | Partial<Record<Side, number>>
 
@@ -89,7 +89,7 @@ export interface PopperContentProps extends PrimitiveProps {
    * If your content has border-radius, this will prevent it from
    * overflowing the corners.
    *
-   * @default 0
+   * @defaultValue 0
    */
   arrowPadding?: number
 
@@ -99,14 +99,14 @@ export interface PopperContentProps extends PrimitiveProps {
    * in the boundary whilst "always" will keep the content in the boundary
    * regardless.
    *
-   * @default "partial"
+   * @defaultValue "partial"
    */
   sticky?: 'partial' | 'always'
 
   /**
    * Whether to hide the content when the trigger becomes fully occluded.
    *
-   * @default false
+   * @defaultValue false
    */
   hideWhenDetached?: boolean
 

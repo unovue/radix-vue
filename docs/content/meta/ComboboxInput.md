@@ -16,19 +16,19 @@
   },
   {
     'name': 'autoFocus',
-    'description': '',
+    'description': '<p>Focus on element when mounted.</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When true, prevents the user from interacting with item</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
     'name': 'type',
-    'description': '',
+    'description': '<p>Nactive input type</p>\n',
     'type': 'string',
     'required': false,
     'default': '\'text\''

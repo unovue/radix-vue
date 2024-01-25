@@ -70,12 +70,12 @@
 <EmitsTable :data="[
   {
     'name': 'update:modelValue',
-    'description': '<p>Event handler called when the expanded state of an item changes</p>\n',
+    'description': '<p>Event handler called when the value changes.</p>\n',
     'type': '[value: string]'
   },
   {
     'name': 'update:open',
-    'description': '',
+    'description': '<p>Event handler called when the open state of the popover changes.</p>\n',
     'type': '[value: boolean]'
   }
 ]" />

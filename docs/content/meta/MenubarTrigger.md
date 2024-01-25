@@ -16,7 +16,7 @@
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When true, prevents the user from interacting with item</p>\n',
     'type': 'boolean',
     'required': false
   }

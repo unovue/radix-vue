@@ -15,68 +15,68 @@
   },
   {
     'name': 'defaultValue',
-    'description': '',
+    'description': '<p>The default value of the pin inputs when it is initially rendered. Use when you do not need to control its checked state.</p>\n',
     'type': 'string[]',
     'required': false
   },
   {
     'name': 'dir',
-    'description': '',
+    'description': '<p>The reading direction of the combobox when applicable. &lt;br&gt; If omitted, inherits globally from <code>DirectionProvider</code> or assumes LTR (left-to-right) reading mode.</p>\n',
     'type': 'Direction',
     'required': false
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with the pin input</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
     'name': 'id',
-    'description': '',
+    'description': '<p>Id of the element</p>\n',
     'type': 'string',
     'required': false
   },
   {
     'name': 'mask',
-    'description': '',
+    'description': '<p>When true, pin inputs will be treated as password.</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
     'name': 'modelValue',
-    'description': '',
+    'description': '<p>The controlled checked state of the pin input. Can be binded as <code>v-model</code>.</p>\n',
     'type': 'string[]',
     'required': false
   },
   {
     'name': 'name',
-    'description': '',
+    'description': '<p>The name of the pin input. Submitted with its owning form as part of a name/value pair.</p>\n',
     'type': 'string',
     'required': false
   },
   {
     'name': 'otp',
-    'description': '',
+    'description': '<p>When true, mobile devices will autodetect the OTP from messages or clipboard, and enable the autocomplete field.</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
     'name': 'placeholder',
-    'description': '',
+    'description': '<p>The placeholder character to use for empty pin-inputs.</p>\n',
     'type': 'string',
     'required': false,
     'default': '\'\''
   },
   {
     'name': 'required',
-    'description': '',
+    'description': '<p>When <code>true</code>, indicates that the user must check the pin input before the owning form can be submitted.</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
     'name': 'type',
-    'description': '',
+    'description': '<p>Input type for the inputs.</p>\n',
     'type': '\'number\' | \'text\'',
     'required': false,
     'default': '\'text\''
@@ -91,7 +91,7 @@
   },
   {
     'name': 'update:modelValue',
-    'description': '<p>Event handler called when the expanded state of an item changes</p>\n',
+    'description': '<p>Event handler called when the value changes.</p>\n',
     'type': '[value: string[]]'
   }
 ]" />

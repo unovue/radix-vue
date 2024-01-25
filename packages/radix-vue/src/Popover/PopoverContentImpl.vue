@@ -24,7 +24,7 @@ export interface PopoverContentImplProps
   DismissableLayerProps {
   /**
    * Whether focus should be trapped within the `MenuContent`
-   * (default: false)
+   * @defaultValue false
    */
   trapFocus?: FocusScopeProps['trapped']
 }

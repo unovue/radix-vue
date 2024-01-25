@@ -3,6 +3,7 @@ import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
 
 export interface PaginationListItemProps extends PrimitiveProps {
+  /** Value for the page */
   value: number
 }
 </script>

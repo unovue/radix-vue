@@ -56,6 +56,9 @@ export default defineConfig({
     ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' }],
   ],
   lastUpdated: true,
+  sitemap: {
+    hostname: ogUrl,
+  },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [

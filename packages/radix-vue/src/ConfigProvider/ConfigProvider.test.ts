@@ -1,8 +1,19 @@
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import ConfigProviderTest from './_ConfigProvider.vue'
 import { nextTick } from 'vue'
+import type vueuse from '@vueuse/core'
+
+vi.mock('@vueuse/core', async (importOriginal) => {
+  const mod: typeof vueuse = await importOriginal()
+  const createGlobalState: typeof vueuse.createGlobalState = fn => fn
+
+  return {
+    ...mod,
+    createGlobalState,
+  }
+})
 
 describe('given a default ConfigProvider', async () => {
   globalThis.ResizeObserver = class ResizeObserver {

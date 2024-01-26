@@ -5,8 +5,11 @@ import type { DataOrientation, Direction } from '@/shared/types'
 import { createContext, useDirection, useForwardExpose } from '@/shared'
 
 export interface ToolbarRootProps extends PrimitiveProps {
+  /** The orientation of the toolbar */
   orientation?: DataOrientation
+  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
+  /** When `true`, keyboard navigation will loop from last tab to first, and vice versa. */
   loop?: boolean
 }
 

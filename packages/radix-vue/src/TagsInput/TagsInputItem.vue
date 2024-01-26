@@ -5,7 +5,9 @@ import { type Ref, computed, toRefs } from 'vue'
 import { injectTagsInputRootContext } from './TagsInputRoot.vue'
 
 export interface TagsInputItemProps extends PrimitiveProps {
+  /** Value associated with the tags */
   value: string
+  /** When `true`, prevents the user from interacting with the tags input. */
   disabled?: boolean
 }
 

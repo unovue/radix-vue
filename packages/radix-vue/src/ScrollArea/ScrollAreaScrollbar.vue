@@ -4,6 +4,7 @@ import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useForwardExpose } from '@/shared'
 
 export interface ScrollAreaScrollbarProps extends PrimitiveProps {
+  /** The orientation of the scrollbar */
   orientation?: 'vertical' | 'horizontal'
   /**
    * Used to force mounting when more control is needed. Useful when

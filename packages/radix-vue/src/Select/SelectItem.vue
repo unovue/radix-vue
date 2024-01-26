@@ -12,11 +12,18 @@ interface SelectItemContext {
 }
 
 export const [injectSelectItemContext, provideSelectItemContext]
-  = createContext<SelectItemContext>('SelectItem')
+    = createContext<SelectItemContext>('SelectItem')
 
 export interface SelectItemProps extends PrimitiveProps {
+  /** The value given as data when submitted with a `name`. */
   value: string
+  /** When `true`, prevents the user from interacting with the item. */
   disabled?: boolean
+  /** Optional text used for typeahead purposes.
+   *
+   * By default the typeahead behavior will use the `.textContent` of the `SelectItemText` part.
+   *
+   * Use this when the content is complex, or you have non-textual content inside. */
   textValue?: string
 }
 </script>

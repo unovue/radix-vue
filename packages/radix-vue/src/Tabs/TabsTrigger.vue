@@ -3,7 +3,9 @@ import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
 
 export interface TabsTriggerProps extends PrimitiveProps {
+  /** A unique value that associates the trigger with a content. */
   value: string
+  /** When `true`, prevents the user from interacting with the tab. */
   disabled?: boolean
 }
 </script>

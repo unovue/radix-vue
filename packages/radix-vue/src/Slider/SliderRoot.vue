@@ -7,20 +7,34 @@ import { CollectionSlot, createCollection } from '@/Collection'
 
 export interface SliderRootProps extends PrimitiveProps {
   name?: string
+  /** The value of the slider when initially rendered. Use when you do not need to control the state of the slider. */
   defaultValue?: number[]
+  /** The controlled value of the slider. Can be bind as `v-model`. */
   modelValue?: number[]
+  /** When `true`, prevents the user from interacting with the slider. */
   disabled?: boolean
+  /** The orientation of the slider. */
   orientation?: DataOrientation
+  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
+  /** Whether the slider is visually inverted. */
   inverted?: boolean
+  /** The minimum value for the range. */
   min?: number
+  /** The maximum value for the range. */
   max?: number
+  /** The stepping interval. */
   step?: number
+  /** The minimum permitted steps between multiple thumbs. */
   minStepsBetweenThumbs?: number
 }
 
 export type SliderRootEmits = {
+  /** Event handler called when the slider value changes */
   'update:modelValue': [payload: number[] | undefined]
+  /** Event handler called when the value changes at the end of an interaction.
+   *
+   * Useful when you only need to capture a final value e.g. to update a backend service. */
   'valueCommit': [payload: number[]]
 }
 

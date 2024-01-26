@@ -2,6 +2,7 @@
 import type { PrimitiveProps } from '@/Primitive'
 
 export interface SelectValueProps extends PrimitiveProps {
+  /** The content that will be rendered inside the `SelectValue` when no `value` or `defaultValue` is set. */
   placeholder?: string
 }
 </script>

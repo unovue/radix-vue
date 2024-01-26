@@ -33,6 +33,7 @@ export interface TooltipRootProps {
 }
 
 export type TooltipRootEmits = {
+  /** Event handler called when the open state of the tooltip changes. */
   'update:open': [value: boolean]
 }
 

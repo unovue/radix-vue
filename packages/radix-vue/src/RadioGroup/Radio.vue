@@ -7,8 +7,11 @@ export type RadioEmits = {
 
 export interface RadioProps extends PrimitiveProps {
   id?: string
+  /** The value given as data when submitted with a `name`. */
   value?: string
+  /** When `true`, prevents the user from interacting with the radio item. */
   disabled?: boolean
+  /** When `true`, indicates that the user must check the radio item before the owning form can be submitted. */
   required?: boolean
   checked?: boolean
   name?: string

@@ -3,11 +3,13 @@ import type { Ref } from 'vue'
 import type { ToastRootImplEmits, ToastRootImplProps } from './ToastRootImpl.vue'
 import { useForwardExpose } from '@/shared'
 
-export type ToastRootEmits = ToastRootImplEmits & {
+export type ToastRootEmits = Omit<ToastRootImplEmits, 'close'> & {
+  /** Event handler called when the open state changes */
   'update:open': [value: boolean]
 }
 
 export interface ToastRootProps extends ToastRootImplProps {
+  /** The open state of the dialog when it is initially rendered. Use when you do not need to control its open state. */
   defaultOpen?: boolean
   /**
    * Used to force mounting when more control is needed. Useful when

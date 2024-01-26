@@ -4,16 +4,23 @@ import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useFormControl, useForwardExpose } from '@/shared'
 
 export interface SwitchRootProps extends PrimitiveProps {
+  /** The state of the switch when it is initially rendered. Use when you do not need to control its state. */
   defaultChecked?: boolean
+  /** The controlled state of the switch. Can be bind as `v-model:checked`. */
   checked?: boolean
+  /** When `true`, prevents the user from interacting with the switch. */
   disabled?: boolean
+  /** When `true`, indicates that the user must check the switch before the owning form can be submitted. */
   required?: boolean
+  /** The name of the switch. Submitted with its owning form as part of a name/value pair. */
   name?: string
   id?: string
+  /** The value given as data when submitted with a `name`. */
   value?: string
 }
 
 export type SwitchRootEmits = {
+  /** Event handler called when the checked state of the switch changes. */
   'update:checked': [payload: boolean]
 }
 

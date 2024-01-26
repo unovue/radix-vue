@@ -61,7 +61,6 @@ const dataState = computed<DataState>(() => {
     :data-disabled="disabled ? '' : undefined"
     :disabled="disabled"
     @click="togglePressed"
-    @keydown.enter="togglePressed"
   >
     <slot />
   </Primitive>

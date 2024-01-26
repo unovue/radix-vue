@@ -79,7 +79,6 @@ import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
 import { computed, toRefs } from 'vue'
 
 const props = withDefaults(defineProps<AccordionRootProps>(), {
-  asChild: false,
   disabled: false,
   orientation: 'vertical',
   collapsible: false,

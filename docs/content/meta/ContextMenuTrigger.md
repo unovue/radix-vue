@@ -16,7 +16,7 @@
   },
   {
     'name': 'disabled',
-    'description': '<p>When <code>true</code>, the context menu won't open when right-clicking.</p>\n<p>Note that this will also restore the native context menu.</p>\n',
+    'description': '<p>When <code>true</code>, the context menu would not open when right-clicking.</p>\n<p>Note that this will also restore the native context menu.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'false'

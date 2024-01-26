@@ -48,7 +48,6 @@ import { injectTooltipRootContext } from './TooltipRoot.vue'
 import { DismissableLayer } from '@/DismissableLayer'
 
 const props = withDefaults(defineProps<TooltipContentImplProps>(), {
-  asChild: false,
   side: 'top',
   sideOffset: 0,
   align: 'center',

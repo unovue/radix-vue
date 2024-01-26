@@ -25,6 +25,7 @@ import { PopperArrow } from '@/Popper'
 const props = withDefaults(defineProps<TooltipArrowProps>(), {
   width: 10,
   height: 5,
+  as: 'svg',
 })
 useForwardExpose()
 </script>

@@ -8,7 +8,11 @@ export interface HoverCardArrowProps extends PopperArrowProps {}
 <script setup lang="ts">
 import { PopperArrow } from '@/Popper'
 
-const props = defineProps<HoverCardArrowProps>()
+const props = withDefaults(defineProps<HoverCardArrowProps>(), {
+  width: 10,
+  height: 5,
+  as: 'svg',
+})
 useForwardExpose()
 </script>
 

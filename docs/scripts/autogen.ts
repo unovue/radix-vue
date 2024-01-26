@@ -78,7 +78,12 @@ function parseMeta(meta: ComponentMeta) {
   const props = meta.props
     .filter(prop => !prop.global)
     .map((prop) => {
-      const { name, description, required, type, default: defaultValue } = prop
+      let defaultValue = prop.default
+      const { name, description, required, type } = prop
+
+      if (name === 'as')
+        defaultValue = defaultValue ?? '"div"'
+
       return ({
         name,
         description: md.render(description),

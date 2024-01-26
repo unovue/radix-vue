@@ -16,7 +16,7 @@
   },
   {
     'name': 'disabled',
-    'description': '<p>Whether or not an accordion item is disabled from user interaction.\nWhen true, prevents the user from interacting with the item.</p>\n',
+    'description': '<p>Whether or not an accordion item is disabled from user interaction.\nWhen <code>true</code>, prevents the user from interacting with the item.</p>\n',
     'type': 'boolean',
     'required': false
   },

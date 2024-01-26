@@ -4,7 +4,7 @@ import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
 
 export interface NavigationMenuTriggerProps extends PrimitiveProps {
-  /** When true, prevents the user from interacting with item */
+  /** When `true`, prevents the user from interacting with item */
   disabled?: boolean
 }
 </script>

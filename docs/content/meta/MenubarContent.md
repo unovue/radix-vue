@@ -35,7 +35,7 @@
   },
   {
     'name': 'avoidCollisions',
-    'description': '<p>When true, overrides the side andalign preferences\nto prevent collisions with boundary edges.</p>\n',
+    'description': '<p>When <code>true</code>, overrides the side andalign preferences\nto prevent collisions with boundary edges.</p>\n',
     'type': 'boolean',
     'required': false
   },

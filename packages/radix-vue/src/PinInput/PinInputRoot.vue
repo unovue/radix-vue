@@ -16,9 +16,9 @@ export interface PinInputRootProps extends PrimitiveProps {
   defaultValue?: string[]
   /** The placeholder character to use for empty pin-inputs. */
   placeholder?: string
-  /** When true, pin inputs will be treated as password. */
+  /** When `true`, pin inputs will be treated as password. */
   mask?: boolean
-  /** When true, mobile devices will autodetect the OTP from messages or clipboard, and enable the autocomplete field. */
+  /** When `true`, mobile devices will autodetect the OTP from messages or clipboard, and enable the autocomplete field. */
   otp?: boolean
   /** Input type for the inputs. */
   type?: 'text' | 'number'

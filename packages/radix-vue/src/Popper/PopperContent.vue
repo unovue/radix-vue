@@ -59,7 +59,7 @@ export interface PopperContentProps extends PrimitiveProps {
   alignOffset?: number
 
   /**
-   * When true, overrides the side andalign preferences
+   * When `true`, overrides the side andalign preferences
    * to prevent collisions with boundary edges.
    *
    * @defaultValue true

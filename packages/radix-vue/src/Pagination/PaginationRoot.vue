@@ -25,7 +25,7 @@ export interface PaginationRootProps extends PrimitiveProps {
   total?: number
   /** Number of sibling should be shown around the current page */
   siblingCount?: number
-  /** When true, prevents the user from interacting with item */
+  /** When `true`, prevents the user from interacting with item */
   disabled?: boolean
   /** When `true`, always show first page, last page, and ellipsis */
   showEdges?: boolean

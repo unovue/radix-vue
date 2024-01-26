@@ -40,7 +40,7 @@
   },
   {
     'name': 'mask',
-    'description': '<p>When true, pin inputs will be treated as password.</p>\n',
+    'description': '<p>When <code>true</code>, pin inputs will be treated as password.</p>\n',
     'type': 'boolean',
     'required': false
   },
@@ -58,7 +58,7 @@
   },
   {
     'name': 'otp',
-    'description': '<p>When true, mobile devices will autodetect the OTP from messages or clipboard, and enable the autocomplete field.</p>\n',
+    'description': '<p>When <code>true</code>, mobile devices will autodetect the OTP from messages or clipboard, and enable the autocomplete field.</p>\n',
     'type': 'boolean',
     'required': false
   },

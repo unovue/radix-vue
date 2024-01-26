@@ -30,7 +30,7 @@ export interface AccordionRootProps extends PrimitiveProps {
   collapsible?: boolean
 
   /**
-   * When true, prevents the user from interacting with the accordion and all its items
+   * When `true`, prevents the user from interacting with the accordion and all its items
    *
    * @defaultValue false
    */

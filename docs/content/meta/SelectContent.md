@@ -63,7 +63,7 @@
   },
   {
     'name': 'position',
-    'description': '',
+    'description': '<p>The positioning mode to use</p>\n<p><code>item-aligned (default)</code> - behaves similarly to a native MacOS menu by positioning content relative to the active item. &lt;br&gt;\n<code>popper</code> - positions content in the same way as our other primitives, for example <code>Popover</code> or <code>DropdownMenu</code>.</p>\n',
     'type': '\'popper\' | \'item-aligned\'',
     'required': false
   },

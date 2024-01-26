@@ -22,19 +22,19 @@
   },
   {
     'name': 'defaultValue',
-    'description': '',
+    'description': '<p>The value of the tab that should be active when initially rendered. Use when you do not need to control the state of the tabs</p>\n',
     'type': 'string',
     'required': false
   },
   {
     'name': 'dir',
-    'description': '<p>The direction of navigation between toolbar items.</p>\n',
+    'description': '<p>The reading direction of the combobox when applicable. &lt;br&gt; If omitted, inherits globally from <code>DirectionProvider</code> or assumes LTR (left-to-right) reading mode.</p>\n',
     'type': 'Direction',
     'required': false
   },
   {
     'name': 'modelValue',
-    'description': '',
+    'description': '<p>The controlled value of the tab to activate. Can be bind as <code>v-model</code>.</p>\n',
     'type': 'string',
     'required': false
   },
@@ -50,7 +50,7 @@
 <EmitsTable :data="[
   {
     'name': 'update:modelValue',
-    'description': '<p>Event handler called when the value changes.</p>\n',
+    'description': '<p>Event handler called when the value changes</p>\n',
     'type': '[payload: string]'
   }
 ]" />

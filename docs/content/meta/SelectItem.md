@@ -15,19 +15,19 @@
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with the item.</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
     'name': 'textValue',
-    'description': '',
+    'description': '<p>Optional text used for typeahead purposes.</p>\n<p>By default the typeahead behavior will use the <code>.textContent</code> of the <code>SelectItemText</code> part.</p>\n<p>Use this when the content is complex, or you have non-textual content inside.</p>\n',
     'type': 'string',
     'required': false
   },
   {
     'name': 'value',
-    'description': '',
+    'description': '<p>The value given as data when submitted with a <code>name</code>.</p>\n',
     'type': 'string',
     'required': true
   }

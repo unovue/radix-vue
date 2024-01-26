@@ -16,14 +16,14 @@
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with the tab.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'false'
   },
   {
     'name': 'value',
-    'description': '',
+    'description': '<p>A unique value that associates the trigger with a content.</p>\n',
     'type': 'string',
     'required': true
   }

@@ -15,52 +15,52 @@
   },
   {
     'name': 'defaultValue',
-    'description': '',
+    'description': '<p>The value of the radio item that should be checked when initially rendered.</p>\n<p>Use when you do not need to control the state of the radio items.</p>\n',
     'type': 'string',
     'required': false
   },
   {
     'name': 'dir',
-    'description': '',
+    'description': '<p>The reading direction of the combobox when applicable. &lt;br&gt; If omitted, inherits globally from <code>DirectionProvider</code> or assumes LTR (left-to-right) reading mode.</p>\n',
     'type': 'Direction',
     'required': false
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with radio items.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'false'
   },
   {
     'name': 'loop',
-    'description': '',
+    'description': '<p>When <code>true</code>, keyboard navigation will loop from last item to first, and vice versa.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'true'
   },
   {
     'name': 'modelValue',
-    'description': '',
+    'description': '<p>The controlled value of the radio item to check. Can be binded as <code>v-model</code>.</p>\n',
     'type': 'string',
     'required': false
   },
   {
     'name': 'name',
-    'description': '',
+    'description': '<p>The name of the group. Submitted with its owning form as part of a name/value pair.</p>\n',
     'type': 'string',
     'required': false
   },
   {
     'name': 'orientation',
-    'description': '',
+    'description': '<p>The orientation of the component.</p>\n',
     'type': 'DataOrientation',
     'required': false,
     'default': 'undefined'
   },
   {
     'name': 'required',
-    'description': '',
+    'description': '<p>When <code>true</code>, indicates that the user must check a radio item before the owning form can be submitted.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'false'
@@ -70,7 +70,7 @@
 <EmitsTable :data="[
   {
     'name': 'update:modelValue',
-    'description': '<p>Event handler called when the value changes.</p>\n',
+    'description': '<p>Event handler called when the radio group value changes</p>\n',
     'type': '[payload: string]'
   }
 ]" />

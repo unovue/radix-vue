@@ -15,55 +15,55 @@
   },
   {
     'name': 'defaultValue',
-    'description': '',
+    'description': '<p>The value of the slider when initially rendered. Use when you do not need to control the state of the slider.</p>\n',
     'type': 'number[]',
     'required': false,
     'default': '[0]'
   },
   {
     'name': 'dir',
-    'description': '',
+    'description': '<p>The reading direction of the combobox when applicable. &lt;br&gt; If omitted, inherits globally from <code>DirectionProvider</code> or assumes LTR (left-to-right) reading mode.</p>\n',
     'type': 'Direction',
     'required': false
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with the slider.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'false'
   },
   {
     'name': 'inverted',
-    'description': '',
+    'description': '<p>Whether the slider is visually inverted.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'false'
   },
   {
     'name': 'max',
-    'description': '',
+    'description': '<p>The maximum value for the range.</p>\n',
     'type': 'number',
     'required': false,
     'default': '100'
   },
   {
     'name': 'min',
-    'description': '',
+    'description': '<p>The minimum value for the range.</p>\n',
     'type': 'number',
     'required': false,
     'default': '0'
   },
   {
     'name': 'minStepsBetweenThumbs',
-    'description': '',
+    'description': '<p>The minimum permitted steps between multiple thumbs.</p>\n',
     'type': 'number',
     'required': false,
     'default': '0'
   },
   {
     'name': 'modelValue',
-    'description': '',
+    'description': '<p>The controlled value of the slider. Can be bind as <code>v-model</code>.</p>\n',
     'type': 'number[]',
     'required': false
   },
@@ -75,14 +75,14 @@
   },
   {
     'name': 'orientation',
-    'description': '',
+    'description': '<p>The orientation of the slider.</p>\n',
     'type': 'DataOrientation',
     'required': false,
     'default': '\'horizontal\''
   },
   {
     'name': 'step',
-    'description': '',
+    'description': '<p>The stepping interval.</p>\n',
     'type': 'number',
     'required': false,
     'default': '1'
@@ -92,12 +92,12 @@
 <EmitsTable :data="[
   {
     'name': 'update:modelValue',
-    'description': '<p>Event handler called when the value changes.</p>\n',
+    'description': '<p>Event handler called when the slider value changes</p>\n',
     'type': '[payload: number[]]'
   },
   {
     'name': 'valueCommit',
-    'description': '',
+    'description': '<p>Event handler called when the value changes at the end of an interaction.</p>\n<pre><code>Useful when you only need to capture a final value e.g. to update a backend service.\n</code></pre>\n',
     'type': '[payload: number[]]'
   }
 ]" />

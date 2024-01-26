@@ -15,7 +15,7 @@
   },
   {
     'name': 'loop',
-    'description': '',
+    'description': '<p>When <code>true</code>, keyboard navigation will loop from last tab to first, and vice versa.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'true'

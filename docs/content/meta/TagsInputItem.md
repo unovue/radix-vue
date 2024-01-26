@@ -15,13 +15,13 @@
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with the tags input.</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
     'name': 'value',
-    'description': '',
+    'description': '<p>Value associated with the tags</p>\n',
     'type': 'string',
     'required': true
   }

@@ -16,7 +16,7 @@
   },
   {
     'name': 'placeholder',
-    'description': '',
+    'description': '<p>The content that will be rendered inside the <code>SelectValue</code> when no <code>value</code> or <code>defaultValue</code> is set.</p>\n',
     'type': 'string',
     'required': false,
     'default': '\'\''

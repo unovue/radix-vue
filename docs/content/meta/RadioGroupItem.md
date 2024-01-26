@@ -16,7 +16,7 @@
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with the radio item.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'false'
@@ -35,13 +35,13 @@
   },
   {
     'name': 'required',
-    'description': '',
+    'description': '<p>When <code>true</code>, indicates that the user must check the radio item before the owning form can be submitted.</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
     'name': 'value',
-    'description': '',
+    'description': '<p>The value given as data when submitted with a <code>name</code>.</p>\n',
     'type': 'string',
     'required': false
   }

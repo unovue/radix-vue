@@ -15,19 +15,19 @@
   },
   {
     'name': 'dir',
-    'description': '',
+    'description': '<p>The reading direction of the combobox when applicable. &lt;br&gt; If omitted, inherits globally from <code>DirectionProvider</code> or assumes LTR (left-to-right) reading mode.</p>\n',
     'type': 'Direction',
     'required': false
   },
   {
     'name': 'loop',
-    'description': '',
+    'description': '<p>When <code>true</code>, keyboard navigation will loop from last tab to first, and vice versa.</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
     'name': 'orientation',
-    'description': '',
+    'description': '<p>The orientation of the toolbar</p>\n',
     'type': 'DataOrientation',
     'required': false,
     'default': '\'horizontal\''

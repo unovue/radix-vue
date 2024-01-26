@@ -16,20 +16,20 @@
   },
   {
     'name': 'checked',
-    'description': '',
+    'description': '<p>The controlled state of the switch. Can be bind as <code>v-model:checked</code>.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'undefined'
   },
   {
     'name': 'defaultChecked',
-    'description': '',
+    'description': '<p>The state of the switch when it is initially rendered. Use when you do not need to control its state.</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with the switch.</p>\n',
     'type': 'boolean',
     'required': false
   },
@@ -41,19 +41,19 @@
   },
   {
     'name': 'name',
-    'description': '',
+    'description': '<p>The name of the switch. Submitted with its owning form as part of a name/value pair.</p>\n',
     'type': 'string',
     'required': false
   },
   {
     'name': 'required',
-    'description': '',
+    'description': '<p>When <code>true</code>, indicates that the user must check the switch before the owning form can be submitted.</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
     'name': 'value',
-    'description': '',
+    'description': '<p>The value given as data when submitted with a <code>name</code>.</p>\n',
     'type': 'string',
     'required': false,
     'default': '\'on\''
@@ -63,7 +63,7 @@
 <EmitsTable :data="[
   {
     'name': 'update:checked',
-    'description': '<p>Event handler called when the checked state of the checkbox changes.</p>\n',
+    'description': '<p>Event handler called when the checked state of the switch changes.</p>\n',
     'type': '[payload: boolean]'
   }
 ]" />

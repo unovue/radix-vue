@@ -21,13 +21,13 @@
   },
   {
     'name': 'disabled',
-    'description': '<p>Disables the trigger.</p>\n',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with the toggle.</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
     'name': 'pressed',
-    'description': '<p>The controlled pressed state of the toggle.</p>\n',
+    'description': '<p>The controlled pressed state of the toggle. Can be bind as <code>v-model</code>.</p>\n',
     'type': 'boolean',
     'required': false
   },

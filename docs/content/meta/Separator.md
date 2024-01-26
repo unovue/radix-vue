@@ -15,13 +15,13 @@
   },
   {
     'name': 'decorative',
-    'description': '<p>Whether or not the component is purely decorative. When true, accessibility-related attributes\nare updated so that that the rendered element is removed from the accessibility tree.</p>\n',
+    'description': '<p>Whether or not the component is purely decorative. When <code>true</code>, accessibility-related attributes &lt;br&gt;\nare updated so that that the rendered element is removed from the accessibility tree.</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
     'name': 'orientation',
-    'description': '<p>Either <code>vertical</code> or <code>horizontal</code>. Defaults to <code>horizontal</code>.</p>\n',
+    'description': '<p>Orientation of the component.</p>\n<p>Either <code>vertical</code> or <code>horizontal</code>. Defaults to <code>horizontal</code>.</p>\n',
     'type': 'DataOrientation',
     'required': false,
     'default': '\'horizontal\''

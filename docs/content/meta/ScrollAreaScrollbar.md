@@ -22,7 +22,7 @@
   },
   {
     'name': 'orientation',
-    'description': '',
+    'description': '<p>The orientation of the scrollbar</p>\n',
     'type': '\'vertical\' | \'horizontal\'',
     'required': false,
     'default': '\'vertical\''

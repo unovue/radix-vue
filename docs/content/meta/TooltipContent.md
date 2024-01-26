@@ -85,12 +85,12 @@
 <EmitsTable :data="[
   {
     'name': 'escapeKeyDown',
-    'description': '<p>Event handler called when the escape key is down.\nCan be prevented.</p>\n',
+    'description': '<p>Event handler called when focus moves to the destructive action after opening. It can be prevented by calling <code>event.preventDefault</code></p>\n',
     'type': '[event: KeyboardEvent]'
   },
   {
     'name': 'pointerDownOutside',
-    'description': '<p>Event handler called when the a <code>pointerdown</code> event happens outside of the <code>DismissableLayer</code>.\nCan be prevented.</p>\n',
+    'description': '<p>Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling <code>event.preventDefault</code>.</p>\n',
     'type': '[event: Event]'
   }
 ]" />

@@ -36,12 +36,12 @@
 <EmitsTable :data="[
   {
     'name': 'select',
-    'description': '<p>Event handler called when the user selects a link (via mouse or keyboard).</p>\n<pre><code>Calling `event.preventDefault` in this handler will prevent the navigation menu from closing when selecting that link.\n</code></pre>\n',
+    'description': '<p>Event handler called when the user selects an item (via mouse or keyboard). &lt;br&gt;\nCalling <code>event.preventDefault</code> in this handler will prevent the menu from closing when selecting that item.</p>\n',
     'type': '[event: Event]'
   },
   {
     'name': 'update:checked',
-    'description': '<p>Event handler called when the checked state of the checkbox changes.</p>\n',
+    'description': '<p>Event handler called when the checked state changes.</p>\n',
     'type': '[payload: boolean]'
   }
 ]" />

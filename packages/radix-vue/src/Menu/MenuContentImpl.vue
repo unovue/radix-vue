@@ -74,7 +74,7 @@ export interface MenuContentImplProps
 }
 
 export interface MenuRootContentTypeProps
-  extends Omit<MenuContentImplProps, keyof MenuContentImplPrivateProps> {}
+  extends Omit<MenuContentImplProps, 'disableOutsidePointerEvents' | 'disableOutsideScroll' | 'trapFocus'> {}
 </script>
 
 <script setup lang="ts">

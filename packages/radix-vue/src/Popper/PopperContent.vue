@@ -23,7 +23,6 @@ export const PopperContentPropsDefaultValue = {
   sticky: 'partial' as 'partial' | 'always',
   hideWhenDetached: false,
   updatePositionStrategy: 'optimized' as 'optimized' | 'always',
-  prioritizePosition: false,
 }
 
 export interface PopperContentProps extends PrimitiveProps {
@@ -111,8 +110,6 @@ export interface PopperContentProps extends PrimitiveProps {
   hideWhenDetached?: boolean
 
   updatePositionStrategy?: 'optimized' | 'always'
-  onPlaced?: () => void
-  prioritizePosition?: boolean
 }
 
 export interface PopperContentContext {
@@ -203,12 +200,11 @@ const computedMiddleware = computedEager(() => {
     props.avoidCollisions
       && shift({
         mainAxis: true,
-        crossAxis: !!props.prioritizePosition,
+        crossAxis: true,
         limiter: props.sticky === 'partial' ? limitShift() : undefined,
         ...detectOverflowOptions.value,
       }),
-    !props.prioritizePosition
-      && props.avoidCollisions
+    props.avoidCollisions
       && flip({
         ...detectOverflowOptions.value,
       }),
@@ -272,11 +268,6 @@ const placedSide = computed(
 const placedAlign = computed(
   () => getSideAndAlignFromPlacement(placement.value)[1],
 )
-
-watchEffect(() => {
-  if (isPositioned.value)
-    props.onPlaced?.()
-})
 
 const cannotCenterArrow = computed(
   () => middlewareData.value.arrow?.centerOffset !== 0,

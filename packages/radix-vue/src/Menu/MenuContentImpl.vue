@@ -61,7 +61,7 @@ export type MenuContentImplEmits = DismissableLayerEmits & Omit<RovingFocusGroup
 
 export interface MenuContentImplProps
   extends MenuContentImplPrivateProps,
-  Omit<PopperContentProps, 'dir' | 'onPlaced'> {
+  Omit<PopperContentProps, 'dir'> {
   /**
    * When `true`, keyboard navigation will loop from last item to first, and vice versa.
    * @defaultValue false
@@ -70,7 +70,7 @@ export interface MenuContentImplProps
 }
 
 export interface MenuRootContentProps
-  extends Omit<PopperContentProps, 'dir' | 'onPlaced'> {
+  extends Omit<PopperContentProps, 'dir'> {
   /**
    * When `true`, keyboard navigation will loop from last item to first, and vice versa.
    * @defaultValue false

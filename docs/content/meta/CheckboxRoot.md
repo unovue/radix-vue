@@ -18,8 +18,7 @@
     'name': 'checked',
     'description': '<p>The controlled checked state of the checkbox. Can be binded with v-model.</p>\n',
     'type': 'boolean | \'indeterminate\'',
-    'required': false,
-    'default': 'undefined'
+    'required': false
   },
   {
     'name': 'defaultChecked',

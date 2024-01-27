@@ -37,8 +37,7 @@
     'name': 'modelValue',
     'description': '<p>The controlled value of the menu item to activate. Can be used as <code>v-model</code>.</p>\n',
     'type': 'string',
-    'required': false,
-    'default': 'undefined'
+    'required': false
   },
   {
     'name': 'orientation',

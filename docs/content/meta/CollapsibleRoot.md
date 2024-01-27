@@ -31,8 +31,7 @@
     'name': 'open',
     'description': '<p>The controlled open state of the collapsible. Can be binded with <code>v-model</code>.</p>\n',
     'type': 'boolean',
-    'required': false,
-    'default': 'undefined'
+    'required': false
   }
 ]" />
 

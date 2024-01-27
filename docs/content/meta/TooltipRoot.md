@@ -12,29 +12,25 @@
     'name': 'delayDuration',
     'description': '<p>Override the duration given to the <code>Provider</code> to customise\nthe open delay for a specific tooltip.</p>\n',
     'type': 'number',
-    'required': false,
-    'default': 'undefined'
+    'required': false
   },
   {
     'name': 'disableClosingTrigger',
     'description': '<p>When <code>true</code>, clicking on trigger will not close the content.</p>\n',
     'type': 'boolean',
-    'required': false,
-    'default': 'undefined'
+    'required': false
   },
   {
     'name': 'disableHoverableContent',
     'description': '<p>Prevents Tooltip.Content from remaining open when hovering.\nDisabling this has accessibility consequences. Inherits\nfrom Tooltip.Provider.</p>\n',
     'type': 'boolean',
-    'required': false,
-    'default': 'undefined'
+    'required': false
   },
   {
     'name': 'open',
     'description': '<p>The controlled open state of the tooltip.</p>\n',
     'type': 'boolean',
-    'required': false,
-    'default': 'undefined'
+    'required': false
   }
 ]" />
 

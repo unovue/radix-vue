@@ -11,8 +11,7 @@
     'name': 'open',
     'description': '<p>The controlled open state of the menu. Can be used as <code>v-model:open</code>.</p>\n',
     'type': 'boolean',
-    'required': false,
-    'default': 'undefined'
+    'required': false
   }
 ]" />
 

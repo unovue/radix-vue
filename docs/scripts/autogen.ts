@@ -37,11 +37,12 @@ const allComponents = fg.sync(['src/**/*.vue', '!src/**/story/*.vue', '!src/**/*
 const listOfComponents = Object.values(components).flatMap(i => i)
 const primitiveComponents = allComponents.filter(i => listOfComponents.includes(parse(i).name))
 
+// 1. Generate all the dependencies for each components
 allComponents.forEach((i) => {
   generateDependencies(i)
 })
 
-// Generate component meta
+// 2. Generate component meta
 primitiveComponents.forEach((componentPath) => {
   const dir = parse(componentPath).dir.split('/').at(-1) ?? ''
   const flattenDeps = [dir, ...getDependencies(dir)]
@@ -74,8 +75,8 @@ primitiveComponents.forEach((componentPath) => {
 
 // Utilities
 function parseMeta(meta: ComponentMeta) {
-  // Exclude global props
   const props = meta.props
+  // Exclude global props
     .filter(prop => !prop.global)
     .map((prop) => {
       let defaultValue = prop.default
@@ -83,6 +84,9 @@ function parseMeta(meta: ComponentMeta) {
 
       if (name === 'as')
         defaultValue = defaultValue ?? '"div"'
+
+      if (defaultValue === 'undefined')
+        defaultValue = undefined
 
       return ({
         name,

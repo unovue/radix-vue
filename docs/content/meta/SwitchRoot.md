@@ -18,8 +18,7 @@
     'name': 'checked',
     'description': '<p>The controlled state of the switch. Can be bind as <code>v-model:checked</code>.</p>\n',
     'type': 'boolean',
-    'required': false,
-    'default': 'undefined'
+    'required': false
   },
   {
     'name': 'defaultChecked',

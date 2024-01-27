@@ -19,8 +19,7 @@
     'name': 'open',
     'description': '<p>The controlled open state of the dialog. Can be binded as <code>v-model:open</code>.</p>\n',
     'type': 'boolean',
-    'required': false,
-    'default': 'undefined'
+    'required': false
   }
 ]" />
 

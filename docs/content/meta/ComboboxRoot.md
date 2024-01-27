@@ -72,8 +72,7 @@
     'name': 'open',
     'description': '<p>The controlled open state of the Combobox. Can be binded-with with <code>v-model:open</code>.</p>\n',
     'type': 'boolean',
-    'required': false,
-    'default': 'undefined'
+    'required': false
   },
   {
     'name': 'searchTerm',

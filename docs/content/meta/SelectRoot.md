@@ -36,8 +36,7 @@
     'name': 'modelValue',
     'description': '<p>The controlled value of the Select. Can be bind as <code>v-model</code>.</p>\n',
     'type': 'string',
-    'required': false,
-    'default': 'undefined'
+    'required': false
   },
   {
     'name': 'name',
@@ -49,8 +48,7 @@
     'name': 'open',
     'description': '<p>The controlled open state of the Select. Can be bind as <code>v-model:open</code>.</p>\n',
     'type': 'boolean',
-    'required': false,
-    'default': 'undefined'
+    'required': false
   },
   {
     'name': 'required',

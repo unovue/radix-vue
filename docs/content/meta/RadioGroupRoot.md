@@ -56,8 +56,7 @@
     'name': 'orientation',
     'description': '<p>The orientation of the component.</p>\n',
     'type': 'DataOrientation',
-    'required': false,
-    'default': 'undefined'
+    'required': false
   },
   {
     'name': 'required',

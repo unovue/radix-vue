@@ -31,8 +31,7 @@
     'name': 'pressed',
     'description': '<p>The controlled pressed state of the toggle. Can be bind as <code>v-model</code>.</p>\n',
     'type': 'boolean',
-    'required': false,
-    'default': 'undefined'
+    'required': false
   }
 ]" />
 

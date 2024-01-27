@@ -51,65 +51,7 @@ import { SwitchRoot, SwitchThumb } from 'radix-vue'
 
 Contains all the parts of a switch. An `input` will also render when used within a `form` to ensure events propagate correctly.
 
-<PropsTable
-  :data="[
-    {
-      name: 'defaultChecked',
-      type: 'boolean',
-      description: 'The state of the switch when it is initially rendered. Use when you do not need to control its state.',
-    },
-    {
-      name: 'checked',
-      type: 'boolean',
-      description: '<span> The controlled state of the switch. Must be binded with <Code>v-model</Code>.</span>',
-    },
-    {
-      name: 'disabled',
-      type: 'boolean',
-      description: '<span> When <Code>true</Code>, prevents the user from interacting with the switch.</span>',
-    },
-    {
-      name: 'required',
-      type: 'boolean',
-      description: '<span> When <Code>true</Code>, indicates that the user must check the switch before the owning form can be submitted.</span>',
-    },
-    {
-      name: 'name',
-      type: 'string',
-      description:
-        'The name of the switch. Submitted with its owning form as part of a name/value pair.',
-    },
-    {
-      name: 'value',
-      type: 'string',
-      default: 'on',
-      description: '<span> The value given as data when submitted with a <Code>name</Code>.</span>',
-    },
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'button',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
-
-<EmitsTable 
-  :data="[
-    {
-      name: '@update:checked',
-      type: '(value: boolean) => void',
-      description: 'Event handler called when the checked state of the switch changes.'
-    }
-  ]" 
-/>
+<!-- @include: @/meta/SwitchRoot.md -->
 
 
 <DataAttributesTable
@@ -129,23 +71,7 @@ Contains all the parts of a switch. An `input` will also render when used within
 
 The thumb that is used to visually indicate whether the switch is on or off.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'span',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/SwitchThumb.md -->
 
 <DataAttributesTable
   :data="[

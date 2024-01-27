@@ -57,81 +57,7 @@ import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from 'radix-vue'
 
 Contains all the parts of a radio group.
 
-<PropsTable
-  :data="[
-    {
-      name: 'defaultValue',
-      type: 'string',
-      description: 'The value of the radio item that should be checked when initially rendered. Use when you do not need to control the state of the radio items.',
-    },
-    {
-      name: 'modelValue',
-      type: 'string',
-      description: '<span> The controlled value of the radio item to check. Should be binded with <Code>v-model</Code>. </span>',
-    },
-    {
-      name: 'disabled',
-      type: 'boolean',
-      description: '<span> When <Code>true</Code>, prevents the user from interacting with radio items. </span>',
-    },
-    {
-      name: 'name',
-      type: 'string',
-      description: 'The name of the group. Submitted with its owning form as part of a name/value pair.',
-    },
-    {
-      name: 'required',
-      type: 'boolean',
-      description: '<span> When <Code>true</Code>, indicates that the user must check a radio item before the owning form can be submitted. </span>',
-    },
-    {
-      name: 'orientation',
-      required: false,
-      type: '&quot;horizontal&quot; | &quot;vertical&quot; | undefined',
-      typeSimple: 'enum',
-      default: 'undefined',
-      description: 'The orientation of the component.',
-    },
-    {
-      name: 'dir',
-      required: false,
-      type: '&quot;ltr&quot; | &quot;rtl&quot;',
-      typeSimple: 'enum',
-      description: '<span> The reading direction of the radio group. If omitted, inherits globally from <Code>DirectionProvider</Code> or assumes LTR (left-to-right) reading mode. </span>',
-    },
-    {
-      name: 'loop',
-      required: false,
-      type: 'boolean',
-      default: 'true',
-      description: '<span> When <Code>true</Code>, keyboard navigation will loop from last item to first, and vice versa. </span>',
-    },
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
-
-<EmitsTable 
-  :data="[
-    {
-      name: '@update:modelValue',
-      type: '(value: string) => void',
-      description: 'Event handler called when the radio group value changes'
-    },
-  ]" 
-/>
-
+<!-- @include: @/meta/RadioGroupRoot.md -->
 
 <DataAttributesTable
   :data="[
@@ -146,38 +72,7 @@ Contains all the parts of a radio group.
 
 An item in the group that can be checked. An `input` will also render when used within a `form` to ensure events propagate correctly.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'button',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'value',
-      type: 'string',
-      description: '<span> The value given as data when submitted with a <Code>name</Code>. </span>',
-    },
-    {
-      name: 'disabled',
-      type: 'boolean',
-      description: '<span> When <Code>true</Code>, prevents the user from interacting with the radio item. </span>',
-    },
-    {
-      name: 'required',
-      type: 'boolean',
-      description: '<span> When <Code>true</Code>, indicates that the user must check the radio item before the owning form can be submitted. </span>',
-    },
-  ]"
-/>
+<!-- @include: @/meta/RadioGroupItem.md -->
 
 <DataAttributesTable
   :data="[
@@ -196,28 +91,7 @@ An item in the group that can be checked. An `input` will also render when used 
 
 Renders when the radio item is in a checked state. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'span',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'forceMount',
-      type: 'boolean',
-      description: 'Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/RadioGroupIndicator.md -->
 
 <DataAttributesTable
   :data="[

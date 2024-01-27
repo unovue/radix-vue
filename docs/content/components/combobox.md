@@ -104,116 +104,13 @@ import {
 
 Contains all the parts of a Combobox
 
-<PropsTable
-  :data="[
-    {
-      name: 'defaultValue',
-      required: false,
-      type: 'T',
-      description: 'The value of the combobox when initially rendered. Use when you do not need to control the state of the Combobox',
-    },
-    {
-      name: 'modelValue',
-      required: false,
-      type: 'T',
-      description: '<span> The controlled value of the Combobox Should be binded-with with <Code>v-model</Code>. </span>',
-    },
-    {
-      name: 'defaultOpen',
-      type: 'boolean',
-      description: 'The open state of the combobox when it is initially rendered. Use when you do not need to control its open state.',
-    },
-    {
-      name: 'open',
-      type: 'boolean',
-      description: '<span> The controlled open state of the Combobox Must be binded-with with <Code>v-model</Code>. </span>',
-    },
-    {
-      name: 'searchTerm',
-      type: 'string',
-      description: '<span> The controlled search term of the Combobox Should be binded-with with <Code>v-model:searchTerm</Code>. </span>',
-    },
-    {
-      name: 'filterFunction',
-      type: '(val: Array<T>, term: string) => Array<T>',
-      description: '<span> The custom filter function for filtering <Code> ComboboxItem.</Code> </span>',
-    },
-    {
-      name: 'displayValue',
-      type: '(val: T) => string',
-      description: '<span> The display value of input for selected item. Does not work with <Code>multiple</Code>.</span>',
-    },
-    {
-      name: 'multiple',
-      required: false,
-      type: 'boolean',
-      description: 'Whether multiple options can be selected or not.',
-    },
-    {
-      name: 'dir',
-      required: false,
-      type: '&quot;ltr&quot; | &quot;rtl&quot;',
-      typeSimple: 'enum',
-      description: '<span> The reading direction of the combobox when applicable. If omitted, inherits globally from <Code>DirectionProvider</Code> or assumes LTR (left-to-right) reading mode. </span>',
-    },
-    {
-      name: 'name',
-      type: 'string',
-      description:
-        'The name of the Combobox Submitted with its owning form as part of a name/value pair.',
-    },
-    {
-      name: 'disabled',
-      type: 'boolean',
-      description: '<span> When <Code>true</Code>, prevents the user from interacting with Combobox </span>',
-    }, 
-  ]"
-/>
-
-<EmitsTable 
-  :data="[
-    {
-      name: '@update:modelValue',
-      required: false,
-      type: '(value: T) => void',
-      description: 'Event handler called when the value changes.',
-    },
-    {
-      name: '@update:open',
-      type: '(open: boolean) => void',
-      description: 'Event handler called when the open state of the combobox changes.'
-    },
-    {
-      name: '@update:searchTerm',
-      type: '(value: string) => void',
-      description: 'Event handler called when the searchTerm state of the combobox changes.'
-    },
-  ]" 
-/>
-
+<!-- @include: @/meta/ComboboxRoot.md -->
 
 ### Anchor
 
 Used as an anchor if you set `ComboboxContent`'s position to `popper`.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
-
+<!-- @include: @/meta/ComboboxAnchor.md -->
 
 ### Input 
 
@@ -224,28 +121,7 @@ The input component to search through the combobox items.
 
 The button that toggles the Combobox Content.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'button',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'autoFocus',
-      type: 'boolean',
-      description: '<span> Focus on element when mounted.</span>',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ComboboxTrigger.md -->
 
 <DataAttributesTable
   :data="[
@@ -264,23 +140,7 @@ The button that toggles the Combobox Content.
 
 The button that clears the search term.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'button',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ComboboxCancel.md -->
 
 
 ### Portal
@@ -289,142 +149,13 @@ When used, portals the content part into the `body`.
 
 You need to set `position="popper"` for `ComboboxContent` to make sure the position was automatically computed similar to `Popover` or `DropdownMenu`.
 
-<PropsTable
-  :data="[
-    {
-      name: 'to',
-      type:  'string | HTMLElement',
-      default: 'body',
-      description: 'Vue native teleport component props. (to)',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ComboboxPortal.md -->
 
 ### Content
 
 The component that pops out when the combobox is open.
- 
-<PropsTable
-  :data="[
-    {
-      name: 'position',
-      type: '&quot;inline&quot; | &quot;popper&quot;',
-      typeSimple: 'enum',
-      default: '&quot;inline&quot;',
-      description: '<span> The positioning mode to use, <Code>inline</Code> is the default and you can control the position using CSS. <Code>popper</Code> positions content in the same way as our other primitives, for example <Code>Popover</Code> or <Code>DropdownMenu</Code>. </span>',
-    },
-    {
-      name: 'bodyLock',
-      type: 'boolean',
-      default: 'false',
-      description: 'The document.body will be lock, and scrolling will be disabled.',
-    },
-    {
-      name: 'disableOutsidePointerEvents',
-      type: 'boolean',
-      default: 'false',
-      description: 'The hover/focus/click interactions will be disabled on elements outside the Content',
-    },
-    {
-      name: 'side',
-      type: '&quot;top&quot; | &quot;right&quot; | &quot;bottom&quot; | &quot;left&quot;',
-      typeSimple: 'enum',
-      default: '&quot;bottom&quot;',
-      description: '<span> The preferred side of the anchor to render against when open. Will be reversed when collisions occur and <Code>avoidCollisions</Code> is enabled. Only available when <Code>position</Code> is set to <Code>popper</Code>. </span>',
-    },
-    {
-      name: 'sideOffset',
-      type: 'number',
-      default: '0',
-      description: '<span> The distance in pixels from the anchor. Only available when <Code>position</Code> is set to <Code>popper</Code>. </span>',
-    },
-    {
-      name: 'align',
-      type: '&quot;start&quot; | &quot;center&quot; | &quot;end&quot;',
-      typeSimple: 'enum',
-      default: '&quot;start&quot;',
-      description: '<span> The preferred alignment against the anchor. May change when collisions occur. Only available when <Code>position</Code> is set to <Code>popper</Code>. </span>',
-    },
-    {
-      name: 'alignOffset',
-      type: 'number',
-      default: '0',
-      description: '<span> An offset in pixels from the <Code>&quot;start&quot;</Code> or <Code>&quot;end&quot;</Code> alignment options. Only available when <Code>position</Code> is set to <Code>popper</Code>. </span>',
-    },
-    {
-      name: 'avoidCollisions',
-      type: 'boolean',
-      default: 'true',
-      description: '<span> When <Code>true</Code>, overrides the <Code>side</Code> and <Code>align</Code> preferences to prevent collisions with boundary edges. Only available when <Code>position</Code> is set to <Code>   popper </Code>. </span>',
-    },
-    {
-      name: 'collisionBoundary',
-      type: 'Element | null | Array<Element | null>',
-      typeSimple: 'Boundary',
-      default: '[]',
-      description: '<span> The element used as the collision boundary. By default this is the viewport, though you can provide additional element(s) to be included in this check. Only available when <Code>position</Code> is set to <Code>popper</Code>. </span>',
-    },
-    {
-      name: 'collisionPadding',
-      type: 'number | Partial<Record<Side, number>>',
-      typeSimple: 'number | Padding',
-      default: '10',
-      description: '<span> The distance in pixels from the boundary edges where collision detection should occur. Accepts a number (same for all sides), or a partial padding object, for example: <Code>top: 20, left: 20x</Code> . Only available when <Code>position</Code> is set to <Code>   popper </Code>. </span>',
-    },
-    {
-      name: 'arrowPadding',
-      type: 'number',
-      default: '0',
-      description: '<span> The padding between the arrow and the edges of the content. If your content has <Code>border-radius</Code>, this will prevent it from overflowing the corners. Only available when <Code>position</Code> is set to <Code>popper</Code>. </span>',
-    },
-    {
-      name: 'sticky',
-      type: '&quot;partial&quot; | &quot;always&quot;',
-      typeSimple: 'enum',
-      default: '&quot;partial&quot;',
-      description: '<span> The sticky behavior on the align axis. <Code>&quot;partial&quot;</Code> will keep the content in the boundary as long as the trigger is at least partially in the boundary whilst <Code>&quot;always&quot;</Code> will keep the content in the boundary regardless. Only available when <Code>position</Code> is set to <Code>popper</Code>. </span>',
-    },
-    {
-      name: 'hideWhenDetached',
-      type: 'boolean',
-      default: 'false',
-      description: '<span> Whether to hide the content when the trigger becomes fully occluded. Only available when <Code>position</Code> is set to <Code>popper</Code>. </span>',
-    },
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
 
-<EmitsTable
-  :data="[
-    {
-      name: '@closeAutoFocus',
-      type: '(event: Event) => void',
-      description: '<span> Event handler called when focus moves to the trigger after closing. It can be prevented by calling <Code>event.preventDefault</Code>. </span>',
-    },
-    {
-      name: '@escapeKeyDown',
-      type: '(event: KeyboardEvent) => void',
-      description: '<span> Event handler called when the escape key is down. It can be prevented by calling <Code>event.preventDefault</Code>. </span>',
-    },
-    {
-      name: '@pointerDownOutside',
-      type: '(event: PointerDownOutsideEvent) => void',
-      description: '<span> Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling <Code>event.preventDefault</Code>. </span>',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ComboboxContent.md -->
 
 <DataAttributesTable
   :data="[
@@ -472,67 +203,13 @@ The component that pops out when the combobox is open.
 
 The scrolling viewport that contains all of the items.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ComboboxViewport.md -->
 
 ### Item
 
 The component that contains the combobox items.
 
-<PropsTable
-  :data="[
-    {
-      name: 'value',
-      required: true,
-      type: 'string',
-      description: '<span> The value given as data when submitted with a <Code>name</Code>. </span>',
-    },
-    {
-      name: 'disabled',
-      type: 'boolean',
-      description: '<span> When <Code>true</Code>, prevents the user from interacting with the item. </span>',
-    }, 
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
-
-<EmitsTable 
-  :data="[
-    {
-      name: '@select',
-      required: false,
-      type: '(event: SelectEvent) => void',
-      description: 'Event handler called when the selecting item.  It can be prevented by calling <Code>event.preventDefault</Code>. </span>',
-    }, 
-  ]" 
-/>
+<!-- @include: @/meta/ComboboxItem.md -->
 
 
 <DataAttributesTable
@@ -557,123 +234,31 @@ The component that contains the combobox items.
 
 Renders when the item is selected. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'span',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ComboboxItemIndicator.md -->
 
 ### Group
 
 Used to group multiple items. use in conjunction with `ComboboxLabel` to ensure good accessibility via automatic labelling.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ComboboxGroup.md -->
 
 ### Label
 
 Used to render the label of a group. It won't be focusable using arrow keys.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ComboboxLabel.md -->
 
 ### Separator
 
 Used to visually separate items in the Combobox
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ComboboxSeparator.md -->
 
 ### Arrow
 
 An optional arrow element to render alongside the content. This can be used to help visually link the trigger with the `ComboboxContent`. Must be rendered inside `ComboboxContent`. Only available when `position` is set to `popper`.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'svg',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'width',
-      type: 'number',
-      default: 10,
-      description: '<span>The width of the arrow in pixels.</span>',
-    },
-    {
-      name: 'height',
-      type: 'number',
-      default: 5,
-      description: '<span>The height of the arrow in pixels.</span>',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ComboboxArrow.md -->
 
 ## Examples
 

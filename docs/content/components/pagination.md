@@ -64,106 +64,19 @@ import { PaginationEllipsis, PaginationFirst, PaginationLast, PaginationList, Pa
 
 Contains all of the paginations parts.
 
-<PropsTable
-  :data="[
-    {
-      name: 'page',
-      type: 'number',
-      description: 'The controlled value of the current page. Can be binded with <Code>v-model</Code>.',
-    },
-    {
-      name: 'defaultPage',
-      type: 'number',  
-      default: 1,
-      description: 'The default page value',
-    },
-    {
-      name: 'total',
-      type: 'number',
-      default: 10,
-      description: 'Number of items in your list',
-    },
-    {
-      name: 'itemsPerPage',
-      type: 'number',
-      default: 10,
-      description: 'How many items per page',
-    },
-    {
-      name: 'siblingCount',
-      type: 'number',
-      default: 3,
-      description: 'How many sibling should be shown around the current page',
-    },
-    {
-      name: 'showEdges',
-      type: 'boolean',
-      default: false,
-      description: '<Code>true</Code> if it should always show first page, last page, and ellipsis',
-    },
-  ]"
-/>
-
-<EmitsTable 
-  :data="[
-    {
-      name: '@update:page',
-      type: '(value: number) => void',
-      description: 'Event handler called when the page value changes'
-    },
-  ]" 
-/>
+<!-- @include: @/meta/PaginationRoot.md -->
 
 ### List
 
 Used to show the list of pages. It also makes pagination accessible to assistive technologies.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
-
+<!-- @include: @/meta/PaginationList.md -->
 
 ### Item
 
 Used to render the button that changes the current page.
 
-<PropsTable
-  :data="[
-    {
-      name: 'value',
-      type: 'number',
-      description: 'Value for the page',
-    },
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'button',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
-
+<!-- @include: @/meta/PaginationItem.md -->
 
 <DataAttributesTable
   :data="[
@@ -183,23 +96,7 @@ Used to render the button that changes the current page.
 
 Placeholder element when the list is long, and only a small amount of `siblingCount` was set and `showEdges` was set to `true`.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/PaginationEllipsis.md -->
 
 
 <DataAttributesTable
@@ -215,94 +112,28 @@ Placeholder element when the list is long, and only a small amount of `siblingCo
 
 Triggers that set the page value to 1
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'button',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
-
+<!-- @include: @/meta/PaginationFirst.md -->
 
 
 ### Prev
 
 Triggers that set the page value to the previous page
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'button',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/PaginationPrev.md -->
 
 
 ### Next
 
 Triggers that set the page value to the next page
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'button',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/PaginationNext.md -->
 
 
 ### Last
 
 Triggers that set the page value to the last page
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'button',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
-
+<!-- @include: @/meta/PaginationLast.md -->
 
 ## Examples
 

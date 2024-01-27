@@ -75,240 +75,91 @@ import {
 
 Contains all the parts of an alert dialog.
 
-<PropsTable 
-  :data="[
-    {
-      name: 'defaultOpen',
-      type: 'boolean',
-      description: 'The open state of the dialog when it is initially rendered. Use when you do not need to control its open state.',
-    },
-    {
-      name: 'open',
-      type: 'boolean',
-      description: 'The controlled open state of the dialog. Can be binded with `v-model`.',
-    }
-  ]" 
-/>
 
-<EmitsTable 
-  :data="[
-    {
-      name: '@update:open',
-      type: '(open: boolean) => void',
-      description: 'Event handler called when the open state of the alert dialog changes.'
-    },
-  ]" 
-/>
+<!-- @include: @/meta/AlertDialogRoot.md -->
+
 
 ### Trigger
 
 A button that opens the dialog.
 
-<PropsTable :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'trigger',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.'
-    }
-]" />
 
-<DataAttributesTable :data="[{
-attribute: '[data-state]',
-values: ['open', 'closed'],
-}]" />
+<!-- @include: @/meta/AlertDialogTrigger.md -->
+
+<DataAttributesTable 
+  :data="[
+    {
+      attribute: '[data-state]',
+      values: ['open', 'closed'],
+    }
+  ]" 
+/>
 
 ### Portal
 
 When used, portals your overlay and content parts into the <code>body</code>.
 
-<PropsTable
-  :data="[
-    {
-      name: 'to',
-      type:  'string | HTMLElement',
-      default: 'body',
-      description: 'Vue native teleport component props. (to)',
-    },
-  ]"
-/>
+
+<!-- @include: @/meta/AlertDialogPortal.md -->
 
 ### Overlay
 
 A layer that covers the inert portion of the view when the dialog is open.
 
-<PropsTable :data="[
-  {
-    name: 'as',
-    type: 'string | Component',
-    default: 'div',
-    description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-  },
-  {
-    name: 'asChild',
-    required: false,
-    type: 'boolean',
-    default: 'false',
-    description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-  },
-  {
-    name: 'forceMount',
-    type: 'boolean',
-    description: `
-      Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.
-    `,
-  },
-]" />
 
-<DataAttributesTable :data="[{
-attribute: '[data-state]',
-values: ['open', 'closed'],
-}]" />
+<!-- @include: @/meta/AlertDialogOverlay.md -->
+
+<DataAttributesTable 
+  :data="[
+    {
+      attribute: '[data-state]',
+      values: ['open', 'closed'],
+      }
+    ]"
+/>
 
 ### Content
 
 Contains content to be rendered when the dialog is open.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'forceMount',
-      type: 'boolean',
-      description: `
-        Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.
-      `,
-    },
-  ]" 
-/>
 
-<EmitsTable
+<!-- @include: @/meta/AlertDialogContent.md -->
+
+<DataAttributesTable 
   :data="[
     {
-      name: '@openAutoFocus',
-      type: '(event: Event) => void',
-      description: 'Event handler called when focus moves into the component after opening. It can be prevented by  calling<Code>event.preventDefault</Code>.'
-    }, 
-    {
-      name: '@closeAutoFocus',
-      type: '(event: Event) => void',
-      description: 'Event handler called when focus moves to the trigger after closing. It can be prevented by calling <Code>event.preventDefault</Code>.'
-    }, 
-    {
-    name: '@escapeKeyDown',
-    type: '(event: KeyboardEvent) => void',
-      description: `
-        <span>
-          Event handler called when the escape key is down. It can be prevented by calling <Code>event.preventDefault</Code>.
-        </span>
-      `,
+      attribute: '[data-state]',
+      values: ['open', 'closed'],
     }
   ]"
 />
-
-<DataAttributesTable :data="[{
-attribute: '[data-state]',
-values: ['open', 'closed'],
-}]" />
 
 ### Cancel
 
 A button that closes the dialog. This button should be distinguished visually from `AlertDialogAction` buttons.
 
-<PropsTable :data="[
-  {
-    name: 'as',
-    type: 'string | Component',
-    default: 'button',
-    description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-  },
-  {
-    name: 'asChild',
-    required: false,
-    type: 'boolean',
-    default: 'false',
-    description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-  }
-]" />
+
+<!-- @include: @/meta/AlertDialogCancel.md -->
 
 ### Action
 
 A button that closes the dialog. These buttons should be distinguished visually from the `AlertDialogCancel` button.
 
-<PropsTable :data="[
-  {
-    name: 'as',
-    type: 'string | Component',
-    default: 'button',
-    description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-  },
-  {
-    name: 'asChild',
-    required: false,
-    type: 'boolean',
-    default: 'false',
-    description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-  }
-]" />
+
+<!-- @include: @/meta/AlertDialogAction.md -->
 
 ### Title
 
 An accessible name to be announced when the dialog is opened. Alternatively, you can provide `aria-label` or `aria-labelledby` to `AlertDialogContent` and exclude this component.
 
-<PropsTable :data="[
-  {
-    name: 'as',
-    type: 'string | Component',
-    default: 'h2',
-    description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-  },
-  {
-    name: 'asChild',
-    required: false,
-    type: 'boolean',
-    default: 'false',
-    description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-  }
-]" />
+<!-- @include: @/meta/AlertDialogTitle.md -->
 
 ### Description
 
 An accessible description to be announced when the dialog is opened. Alternatively, you can provide `aria-describedby` to `AlertDialogContent` and exclude this component.
 
-<PropsTable :data="[
-  {
-    name: 'as',
-    type: 'string | Component',
-    default: 'p',
-    description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-  },
-  {
-    name: 'asChild',
-    required: false,
-    type: 'boolean',
-    default: 'false',
-    description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-  }
-]" />
+
+<!-- @include: @/meta/AlertDialogDescription.md -->
 
 ## Examples
 

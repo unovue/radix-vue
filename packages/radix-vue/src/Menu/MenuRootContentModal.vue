@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import MenuContentImpl, {
   type MenuContentImplEmits,
-  type MenuRootContentProps,
+  type MenuRootContentTypeProps,
 } from './MenuContentImpl.vue'
 import { injectMenuContext } from './MenuRoot.vue'
 import { useForwardExpose, useForwardPropsEmits, useHideOthers } from '@/shared'
@@ -12,7 +12,7 @@ const forwarded = useForwardPropsEmits(props, emits)
 
 const menuContext = injectMenuContext()
 
-interface MenuRootContentModalProps extends MenuRootContentProps {}
+interface MenuRootContentModalProps extends MenuRootContentTypeProps {}
 type MenuRootContentModalEmits = MenuContentImplEmits
 
 const { forwardRef, currentElement } = useForwardExpose()

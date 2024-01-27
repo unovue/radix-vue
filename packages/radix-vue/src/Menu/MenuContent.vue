@@ -1,12 +1,12 @@
 <script lang="ts">
 import type {
   MenuContentImplEmits,
-  MenuRootContentProps,
+  MenuRootContentTypeProps,
 } from './MenuContentImpl.vue'
 
 export type MenuContentEmits = MenuContentImplEmits
 
-export interface MenuContentProps extends MenuRootContentProps {
+export interface MenuContentProps extends MenuRootContentTypeProps {
   /**
    * Used to force mounting when more control is needed. Useful when
    * controlling animation with Vue animation libraries.

@@ -2,12 +2,6 @@
 
 <PropsTable :data="[
   {
-    'name': 'align',
-    'description': '<p>The preferred alignment against the trigger.\nMay change when collisions occur.</p>\n',
-    'type': '\'start\' | \'center\' | \'end\'',
-    'required': false
-  },
-  {
     'name': 'alignOffset',
     'description': '<p>An offset in pixels from the &quot;start&quot; or &quot;end&quot; alignment options.</p>\n',
     'type': 'number',
@@ -51,18 +45,6 @@
     'required': false
   },
   {
-    'name': 'disableOutsidePointerEvents',
-    'description': '',
-    'type': 'boolean',
-    'required': false
-  },
-  {
-    'name': 'disableOutsideScroll',
-    'description': '<p>Whether scrolling outside the <code>MenuContent</code> should be prevented</p>\n',
-    'type': 'boolean',
-    'required': false
-  },
-  {
     'name': 'forceMount',
     'description': '<p>Used to force mounting when more control is needed. Useful when\ncontrolling animation with Vue animation libraries.</p>\n',
     'type': 'boolean',
@@ -81,18 +63,6 @@
     'required': false
   },
   {
-    'name': 'prioritizePosition',
-    'description': '',
-    'type': 'boolean',
-    'required': false
-  },
-  {
-    'name': 'side',
-    'description': '<p>The preferred side of the trigger to render against when open.\nWill be reversed when collisions occur and avoidCollisions\nis enabled.</p>\n',
-    'type': '\'top\' | \'right\' | \'bottom\' | \'left\'',
-    'required': false
-  },
-  {
     'name': 'sideOffset',
     'description': '<p>The distance in pixels from the trigger.</p>\n',
     'type': 'number',
@@ -102,12 +72,6 @@
     'name': 'sticky',
     'description': '<p>The sticky behavior on the align axis. &quot;partial&quot; will keep the\ncontent in the boundary as long as the trigger is at least partially\nin the boundary whilst &quot;always&quot; will keep the content in the boundary\nregardless.</p>\n',
     'type': '\'partial\' | \'always\'',
-    'required': false
-  },
-  {
-    'name': 'trapFocus',
-    'description': '<p>Whether focus should be trapped within the <code>MenuContent</code></p>\n',
-    'type': 'boolean',
     'required': false
   },
   {

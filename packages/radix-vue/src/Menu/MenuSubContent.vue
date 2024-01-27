@@ -6,7 +6,8 @@ import type {
 
 export type MenuSubContentEmits = MenuContentImplEmits
 
-export interface MenuSubContentProps extends MenuContentImplProps {
+// reference: https://github.com/radix-ui/primitives/blob/main/packages/react/menu/src/Menu.tsx#L1152
+export interface MenuSubContentProps extends Omit<MenuContentImplProps, 'disableOutsidePointerEvents' | 'disableOutsideScroll' | 'trapFocus' | 'side' | 'align'> {
   /**
    * Used to force mounting when more control is needed. Useful when
    * controlling animation with Vue animation libraries.

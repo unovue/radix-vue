@@ -63,12 +63,6 @@
     'required': false
   },
   {
-    'name': 'prioritizePosition',
-    'description': '',
-    'type': 'boolean',
-    'required': false
-  },
-  {
     'name': 'side',
     'description': '<p>The preferred side of the trigger to render against when open.\nWill be reversed when collisions occur and avoidCollisions\nis enabled.</p>\n',
     'type': '\'top\' | \'right\' | \'bottom\' | \'left\'',

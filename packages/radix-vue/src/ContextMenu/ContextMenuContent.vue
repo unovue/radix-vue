@@ -15,7 +15,6 @@ export interface ContextMenuContentProps
     | 'align'
     | 'arrowPadding'
     | 'updatePositionStrategy'
-    | 'prioritizePosition'
   > {}
 </script>
 

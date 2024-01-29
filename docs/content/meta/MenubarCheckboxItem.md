@@ -17,7 +17,7 @@
   {
     'name': 'checked',
     'description': '<p>The controlled checked state of the item. Can be used as <code>v-model:checked</code>.</p>\n',
-    'type': 'CheckedState',
+    'type': 'false | true | \'indeterminate\'',
     'required': false
   },
   {

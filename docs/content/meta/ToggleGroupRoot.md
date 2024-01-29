@@ -23,7 +23,7 @@
   {
     'name': 'dir',
     'description': '<p>The reading direction of the combobox when applicable. &lt;br&gt; If omitted, inherits globally from <code>DirectionProvider</code> or assumes LTR (left-to-right) reading mode.</p>\n',
-    'type': 'Direction',
+    'type': '\'ltr\' | \'rtl\'',
     'required': false
   },
   {
@@ -49,7 +49,7 @@
   {
     'name': 'orientation',
     'description': '<p>The orientation of the component, which determines how focus moves: <code>horizontal</code> for left/right arrows and <code>vertical</code> for up/down arrows.</p>\n',
-    'type': 'DataOrientation',
+    'type': '\'vertical\' | \'horizontal\'',
     'required': false
   },
   {
@@ -62,7 +62,7 @@
   {
     'name': 'type',
     'description': '<p>Determines whether a single or multiple items can be pressed at a time.</p>\n',
-    'type': 'TypeEnum',
+    'type': '\'single\' | \'multiple\'',
     'required': false,
     'default': '\'single\''
   }

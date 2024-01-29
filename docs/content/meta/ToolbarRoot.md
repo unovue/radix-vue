@@ -17,7 +17,7 @@
   {
     'name': 'dir',
     'description': '<p>The reading direction of the combobox when applicable. &lt;br&gt; If omitted, inherits globally from <code>DirectionProvider</code> or assumes LTR (left-to-right) reading mode.</p>\n',
-    'type': 'Direction',
+    'type': '\'ltr\' | \'rtl\'',
     'required': false
   },
   {
@@ -29,7 +29,7 @@
   {
     'name': 'orientation',
     'description': '<p>The orientation of the toolbar</p>\n',
-    'type': 'DataOrientation',
+    'type': '\'vertical\' | \'horizontal\'',
     'required': false,
     'default': '\'horizontal\''
   }

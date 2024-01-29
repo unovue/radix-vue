@@ -30,7 +30,7 @@
   {
     'name': 'dir',
     'description': '<p>The reading direction of the combobox when applicable. &lt;br&gt; If omitted, inherits globally from <code>DirectionProvider</code> or assumes LTR (left-to-right) reading mode.</p>\n',
-    'type': 'Direction',
+    'type': '\'ltr\' | \'rtl\'',
     'required': false
   },
   {
@@ -42,7 +42,7 @@
   {
     'name': 'orientation',
     'description': '<p>The orientation the tabs are layed out.\nMainly so arrow navigation is done accordingly (left &amp; right vs. up &amp; down)</p>\n',
-    'type': 'DataOrientation',
+    'type': '\'vertical\' | \'horizontal\'',
     'required': false,
     'default': '\'horizontal\''
   }

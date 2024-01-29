@@ -30,7 +30,7 @@
   {
     'name': 'dir',
     'description': '<p>The reading direction of the combobox when applicable.</p>\n<p>If omitted, inherits globally from <code>DirectionProvider</code> or assumes LTR (left-to-right) reading mode.</p>\n',
-    'type': 'Direction',
+    'type': '\'ltr\' | \'rtl\'',
     'required': false
   },
   {
@@ -42,7 +42,7 @@
   {
     'name': 'orientation',
     'description': '<p>The orientation of the menu.</p>\n',
-    'type': 'Orientation',
+    'type': '\'vertical\' | \'horizontal\'',
     'required': false,
     'default': '\'horizontal\''
   },

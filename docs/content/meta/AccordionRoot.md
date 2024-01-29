@@ -30,7 +30,7 @@
   {
     'name': 'dir',
     'description': '<p>The reading direction of the accordion when applicable. If omitted, assumes LTR (left-to-right) reading mode.</p>\n',
-    'type': 'Direction',
+    'type': '\'ltr\' | \'rtl\'',
     'required': false
   },
   {
@@ -49,14 +49,14 @@
   {
     'name': 'orientation',
     'description': '<p>The orientation of the accordion.</p>\n',
-    'type': 'DataOrientation',
+    'type': '\'vertical\' | \'horizontal\'',
     'required': false,
     'default': '\'vertical\''
   },
   {
     'name': 'type',
     'description': '<p>Determines whether one or multiple items can be opened at the same time.</p>\n',
-    'type': 'Type',
+    'type': '\'single\' | \'multiple\'',
     'required': true
   }
 ]" />

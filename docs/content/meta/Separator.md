@@ -23,7 +23,7 @@
   {
     'name': 'orientation',
     'description': '<p>Orientation of the component.</p>\n<p>Either <code>vertical</code> or <code>horizontal</code>. Defaults to <code>horizontal</code>.</p>\n',
-    'type': 'DataOrientation',
+    'type': '\'vertical\' | \'horizontal\'',
     'required': false,
     'default': '\'horizontal\''
   }

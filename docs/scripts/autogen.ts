@@ -80,13 +80,23 @@ function parseMeta(meta: ComponentMeta) {
     .filter(prop => !prop.global)
     .map((prop) => {
       let defaultValue = prop.default
-      const { name, description, required, type } = prop
+      let type = prop.type
+      const { name, description, required } = prop
 
       if (name === 'as')
         defaultValue = defaultValue ?? '"div"'
 
       if (defaultValue === 'undefined')
         defaultValue = undefined
+
+      if (typeof prop.schema === 'object' && prop.schema.kind === 'enum') {
+        const isFlatEnum = prop.schema.schema?.every(val => typeof val === 'string')
+        // Only update when prop.type is custom interface, and not `AcceptableValue`
+        if (isFlatEnum && /^[A-Z]/.test(prop.type) && !type.includes('AcceptableValue')) {
+          const enumValue = prop.schema?.schema?.filter(i => i !== 'undefined') ?? []
+          type = enumValue.join(' | ')
+        }
+      }
 
       return ({
         name,

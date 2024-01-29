@@ -29,7 +29,7 @@
   {
     'name': 'orientation',
     'description': '<p>The orientation of the menu.</p>\n',
-    'type': 'Orientation',
+    'type': '\'vertical\' | \'horizontal\'',
     'required': false,
     'default': '\'horizontal\''
   }

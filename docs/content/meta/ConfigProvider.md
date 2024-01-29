@@ -4,7 +4,7 @@
   {
     'name': 'dir',
     'description': '<p>The global reading direction of your application. This will be inherited by all primitives.</p>\n',
-    'type': 'Direction',
+    'type': '\'ltr\' | \'rtl\'',
     'required': false,
     'default': '\'ltr\''
   },

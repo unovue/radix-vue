@@ -132,8 +132,8 @@ body {
   @apply dark:text-[var(--vp-c-brand)]  dark:bg-[#0F291E];
 }
 
-.vp-doc a {
-  @apply dark:text-[var(--vp-c-brand)] hover:underline;
+.vp-html a { 
+  @apply font-medium text-[var(--vp-c-brand-1)] underline underline-offset-[2px]
 }
 
 .VPSidebarItem.is-active .indicator {

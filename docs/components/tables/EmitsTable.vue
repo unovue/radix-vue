@@ -44,7 +44,7 @@ const props = defineProps<EmitsTableProps>()
           <ProseCodeInline variant="secondary">
             {{ prop.type }}
           </ProseCodeInline>
-          <p class="vp-raw mt-2 text-sm dark:text-neutral-300" v-html="prop.description" />
+          <p class="vp-raw vp-html mt-2 text-sm dark:text-neutral-300" v-html="prop.description" />
         </ProseTd>
       </ProseTr>
     </tbody>

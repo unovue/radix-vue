@@ -65,7 +65,7 @@ const props = defineProps<PropsTableProps>()
               <ProseCodeInline variant="secondary">
                 {{ prop.typeSimple ? prop.typeSimple : prop.type }}
               </ProseCodeInline>
-              <p class="vp-raw mt-2 text-sm dark:text-neutral-300" v-html="prop.description" />
+              <p class="vp-raw vp-html mt-2 text-sm dark:text-neutral-300" v-html="prop.description" />
             </div>
           </div>
         </ProseTd>

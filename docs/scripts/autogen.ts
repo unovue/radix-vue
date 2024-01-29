@@ -115,7 +115,7 @@ function parseMeta(meta: ComponentMeta) {
       const { name, type } = event
       return ({
         name,
-        description: md.render(eventDescriptionMap.get(name) ?? ''),
+        description: md.render((eventDescriptionMap.get(name) ?? '').replace(/^[ \t]+/gm, '')),
         type: type.replace(/\s*\|\s*undefined/g, ''),
       })
     })

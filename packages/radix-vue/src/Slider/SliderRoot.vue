@@ -30,11 +30,15 @@ export interface SliderRootProps extends PrimitiveProps {
 }
 
 export type SliderRootEmits = {
-  /** Event handler called when the slider value changes */
+  /**
+   * Event handler called when the slider value changes
+   */
   'update:modelValue': [payload: number[] | undefined]
-  /** Event handler called when the value changes at the end of an interaction.
+  /**
+   * Event handler called when the value changes at the end of an interaction.
    *
-   * Useful when you only need to capture a final value e.g. to update a backend service. */
+   * Useful when you only need to capture a final value e.g. to update a backend service.
+   */
   'valueCommit': [payload: number[]]
 }
 

@@ -98,7 +98,7 @@
   },
   {
     'name': 'valueCommit',
-    'description': '<p>Event handler called when the value changes at the end of an interaction.</p>\n<pre><code>Useful when you only need to capture a final value e.g. to update a backend service.\n</code></pre>\n',
+    'description': '<p>Event handler called when the value changes at the end of an interaction.</p>\n<p>Useful when you only need to capture a final value e.g. to update a backend service.</p>\n',
     'type': '[payload: number[]]'
   }
 ]" />

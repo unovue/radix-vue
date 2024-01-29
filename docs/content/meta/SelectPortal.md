@@ -3,7 +3,7 @@
 <PropsTable :data="[
   {
     'name': 'disabled',
-    'description': '<p>Disable teleport and render the component inline</p>\n<p>{@link https://vuejs.org/guide/built-ins/teleport.html#disabling-teleport}</p>\n',
+    'description': '<p>Disable teleport and render the component inline</p>\n<p><a href=\'https://vuejs.org/guide/built-ins/teleport.html#disabling-teleport\' target=\'_blank\'>reference</a></p>\n',
     'type': 'boolean',
     'required': false
   },
@@ -15,7 +15,7 @@
   },
   {
     'name': 'to',
-    'description': '<p>Vue native teleport component props. (to)</p>\n<p>{@link https://vuejs.org/guide/built-ins/teleport.html#basic-usage}</p>\n',
+    'description': '<p>Vue native teleport component prop <code>:to</code></p>\n<p><a href=\'https://vuejs.org/guide/built-ins/teleport.html#basic-usage\' target=\'_blank\'>reference</a></p>\n',
     'type': 'string | HTMLElement',
     'required': false
   }

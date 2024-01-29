@@ -1,6 +1,6 @@
 <script lang="ts">
 export interface TeleportProps {
-  /** Vue native teleport component props. (to)
+  /** Vue native teleport component prop `:to`
    *
    * {@link https://vuejs.org/guide/built-ins/teleport.html#basic-usage}
    */

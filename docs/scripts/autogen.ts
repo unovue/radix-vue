@@ -8,12 +8,14 @@ import { babelParse, parse as sfcParse } from 'vue/compiler-sfc'
 import _traverse from '@babel/traverse'
 import { components } from '../../packages/radix-vue/constant/components'
 import { fileURLToPath } from 'node:url'
+import { transformJSDocLinks } from './utils'
 
 // @ts-expect-error ignore
 const traverse = _traverse.default as typeof _traverse
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
 const md = new MarkdownIt()
+md.use(transformJSDocLinks)
 
 const checkerOptions: MetaCheckerOptions = {
   forceUseTs: true,

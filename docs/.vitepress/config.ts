@@ -99,7 +99,8 @@ export default defineConfig({
           { text: 'Animation/Transition', link: '/guides/animation' },
           { text: 'Composition', link: '/guides/composition' },
           { text: 'Server side rendering', link: '/guides/server-side-rendering' },
-          { text: `Namespaced ${BadgeHTML('New')}`, link: '/guides/namespaced-components' },
+          { text: 'Namespaced', link: '/guides/namespaced-components' },
+          // { text: `Namespaced ${BadgeHTML('New')}`, link: '/guides/namespaced-components' },
         ],
       },
       {

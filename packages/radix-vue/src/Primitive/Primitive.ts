@@ -24,8 +24,9 @@ export type AsTag =
 
 export interface PrimitiveProps {
   /**
-   * Setting `asChild` to true has the same effect as setting `as` to `template`.
-   * @defaultValue false
+   * Change the default rendered element for the one passed as a child, merging their props and behavior. <br>
+   *
+   * <br> Read our [Composition](https://www.radix-vue.com/guides/composition.html) guide for more details.
    */
   asChild?: boolean
   /**

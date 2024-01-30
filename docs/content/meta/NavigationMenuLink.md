@@ -16,7 +16,7 @@
   },
   {
     'name': 'asChild',
-    'description': '<p>Setting <code>asChild</code> to true has the same effect as setting <code>as</code> to <code>template</code>.</p>\n',
+    'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior. &lt;br&gt;</p>\n<p>&lt;br&gt; Read our <a href=\'https://www.radix-vue.com/guides/composition.html\'>Composition</a> guide for more details.</p>\n',
     'type': 'boolean',
     'required': false
   }

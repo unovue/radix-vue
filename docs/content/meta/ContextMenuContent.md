@@ -3,7 +3,7 @@
 <PropsTable :data="[
   {
     'name': 'alignOffset',
-    'description': '<p>An offset in pixels from the &quot;start&quot; or &quot;end&quot; alignment options.</p>\n',
+    'description': '<p>An offset in pixels from the <code>start</code> or <code>end</code> alignment options.</p>\n',
     'type': 'number',
     'required': false,
     'default': '0'
@@ -63,7 +63,7 @@
   },
   {
     'name': 'sticky',
-    'description': '<p>The sticky behavior on the align axis. &quot;partial&quot; will keep the\ncontent in the boundary as long as the trigger is at least partially\nin the boundary whilst &quot;always&quot; will keep the content in the boundary\nregardless.</p>\n',
+    'description': '<p>The sticky behavior on the align axis. <code>partial</code> will keep the\ncontent in the boundary as long as the trigger is at least partially\nin the boundary whilst &quot;always&quot; will keep the content in the boundary\nregardless.</p>\n',
     'type': '\'partial\' | \'always\'',
     'required': false,
     'default': '\'partial\''

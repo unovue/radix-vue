@@ -116,6 +116,7 @@ Used as an anchor if you set `ComboboxContent`'s position to `popper`.
 
 The input component to search through the combobox items.
 
+<!-- @include: @/meta/ComboboxInput.md -->
 
 ### Trigger
 

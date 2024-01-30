@@ -51,7 +51,7 @@ export interface PopperContentProps extends PrimitiveProps {
   align?: Align
 
   /**
-   * An offset in pixels from the "start" or "end" alignment options.
+   * An offset in pixels from the `start` or `end` alignment options.
    *
    * @defaultValue 0
    */
@@ -93,7 +93,7 @@ export interface PopperContentProps extends PrimitiveProps {
   arrowPadding?: number
 
   /**
-   * The sticky behavior on the align axis. "partial" will keep the
+   * The sticky behavior on the align axis. `partial` will keep the
    * content in the boundary as long as the trigger is at least partially
    * in the boundary whilst "always" will keep the content in the boundary
    * regardless.
@@ -109,6 +109,11 @@ export interface PopperContentProps extends PrimitiveProps {
    */
   hideWhenDetached?: boolean
 
+  /**
+   * Strategy to update the position of the floating element on every animation frame.
+   *
+   * @defaultValue 'optimized'
+   */
   updatePositionStrategy?: 'optimized' | 'always'
 }
 

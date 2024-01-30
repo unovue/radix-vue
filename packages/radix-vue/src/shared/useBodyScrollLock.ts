@@ -7,6 +7,8 @@ import { nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import { defu } from 'defu'
 import { injectConfigProviderContext } from '@/ConfigProvider/ConfigProvider.vue'
 
+const useInitialOverflowStyle = createGlobalState(() => ref<string | undefined>())
+
 const useBodyLockStackCount = createGlobalState(() => {
   const count = ref(0)
 
@@ -16,13 +18,17 @@ const useBodyLockStackCount = createGlobalState(() => {
 
   let stopTouchMoveListener: Fn | null = null
 
+  const initialOverflow = useInitialOverflowStyle()
+
   const resetBodyStyle = () => {
     document.body.style.paddingRight = ''
     document.body.style.marginRight = ''
     document.body.style.pointerEvents = ''
     document.body.style.removeProperty('--scrollbar-width')
-    document.body.style.overflow = ''
+    document.body.style.overflow = initialOverflow.value ?? ''
     isIOS && stopTouchMoveListener?.()
+
+    initialOverflow.value = undefined
   }
 
   watch(count, (val) => {
@@ -33,6 +39,9 @@ const useBodyLockStackCount = createGlobalState(() => {
       resetBodyStyle()
       return
     }
+
+    if (initialOverflow.value === undefined)
+      initialOverflow.value = document.body.style.overflow
 
     const verticalScrollbarWidth = window.innerWidth - document.documentElement.clientWidth
     const defaultConfig = { padding: verticalScrollbarWidth, margin: 0 }

@@ -62,102 +62,7 @@ import { TagsInputClear, TagsInputDelete, TagsInputInput, TagsInputItem, TagsInp
 
 Contains all the tags input component parts.
 
-<PropsTable
-  :data="[
-    {
-      name: 'defaultValue',
-      required: false,
-      type: 'string',
-      description:
-        'The value of the tags that should be added. Use when you do not need to control the state of the tags input',
-    },
-    {
-      name: 'modelValue',
-      required: false,
-      type: 'string',
-      description: '<span> The controlled value of the tags input. Can be binded with <Code>v-model</Code>.</span>',
-    }, 
-    {
-      name: 'addOnPaste',
-      required: false,
-      type: 'boolean',
-      description: '<span> When <Code>true</Code>, allow adding tags on paste. Work in conjunction with <Code>delimiter</Code> prop.</span>',
-    }, 
-    {
-      name: 'delimiter',
-      required: false,
-      type: 'string',
-      default: ', (comma)',
-      description: 'The character to trigger the addition of a new tag. Also used to split tags for  <Code>@paste</Code> event',
-    }, 
-    {
-      name: 'duplicate',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: '<span> When <Code>true</Code>, allow duplicated tags.</span>',
-    }, 
-    {
-      name: 'dir',
-      required: false,
-      type: '&quot;ltr&quot; | &quot;rtl&quot;',
-      typeSimple: 'enum',
-      description: '<span> The reading direction of the tabs If omitted, inherits globally from <Code>DirectionProvider</Code> or assumes LTR (left-to-right) reading mode.</span>',
-    }, 
-    {
-      name: 'disabled',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: '<span> When <Code>true</Code>, prevents the user from interacting with the tags input.</span>',
-    },
-    {
-      name: 'max',
-      required: false,
-      type: 'number',
-      description: 'Maximum number of tags.',
-    },
-    {
-      name: 'required',
-      type: 'boolean',
-      description: '<span> When <Code>true</Code>, indicates that the user must add the tags input before the owning form can be submitted.</span>',
-    },
-    {
-      name: 'name',
-      type: 'string',
-      description:
-        'The name of the tags input submitted with its owning form as part of a name/value pair.',
-    },
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
-
-<EmitsTable 
-  :data="[
-    {
-      name: '@update:modelValue',
-      type: '(value: string) => void',
-      description: 'Event handler called when the value changes'
-    },
-    {
-      name: '@invalid',
-      type: '(value: string) => void',
-      description: 'Event handler called when the value is invalid'
-    },
-  ]" 
-/>
+<!-- @include: @/meta/TagsInputRoot.md -->
 
 
 <DataAttributesTable
@@ -181,35 +86,7 @@ Contains all the tags input component parts.
 
 The component that contains the tag.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'disabled',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: '<span> When <Code>true</Code>, prevents the user from interacting with the tags input.</span>',
-    },
-    {
-      name: 'value',
-      type: 'string',
-      description: 'Value associated with the tags',
-    },
-  ]"
-/>
+<!-- @include: @/meta/TagsInputItem.md -->
 
 <DataAttributesTable
   :data="[ 
@@ -228,45 +105,13 @@ The component that contains the tag.
 
 The textual part of the tag. Important for accessibility. 
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'span',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    }, 
-  ]"
-/>
+<!-- @include: @/meta/TagsInputItemText.md -->
 
 ### ItemDelete
 
 The button that delete the associate tag.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'button',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    }, 
-  ]"
-/>
+<!-- @include: @/meta/TagsInputItemDelete.md -->
 
 <DataAttributesTable
   :data="[
@@ -285,38 +130,7 @@ The button that delete the associate tag.
 
 The input element for the tags input.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'input',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'placeholder', 
-      type: 'string',
-      description: 'The placeholder character to use for empty tags input.',
-    },
-    {
-      name: 'autoFocus',
-      type: 'boolean',
-      description: '<span> Focus on element when mounted.</span>',
-    },
-    {
-      name: 'maxLength',
-      type: 'number',
-      description: 'Maximum number of character allowed.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/TagsInputInput.md -->
 
 <DataAttributesTable
   :data="[ 
@@ -328,28 +142,11 @@ The input element for the tags input.
 />
 
 
-
 ### Clear
 
 The button that remove all tags.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'button',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    }, 
-  ]"
-/>
+<!-- @include: @/meta/TagsInputClear.md -->
 
 <DataAttributesTable
   :data="[

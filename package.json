@@ -15,6 +15,7 @@
     "docs:install": "pnpm --filter docs install",
     "docs:dev": "pnpm --filter docs docs:dev",
     "docs:build": "pnpm --filter docs docs:build",
+    "docs:gen": "pnpm --filter docs docs:gen",
     "prepare": "pnpm simple-git-hooks",
     "test": "pnpm --filter radix-vue test",
     "lint": "eslint . --ignore-path .gitignore",
@@ -40,7 +41,7 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "vitepress@1.0.0-rc.20": "patches/vitepress@1.0.0-rc.20.patch"
+      "vitepress@1.0.0-rc.40": "patches/vitepress@1.0.0-rc.40.patch"
     }
   },
   "simple-git-hooks": {

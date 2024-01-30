@@ -3,8 +3,11 @@ import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
 
 export interface ComboboxInputProps extends PrimitiveProps {
+  /** Nactive input type */
   type?: string
+  /** When `true`, prevents the user from interacting with item */
   disabled?: boolean
+  /** Focus on element when mounted. */
   autoFocus?: boolean
 }
 </script>

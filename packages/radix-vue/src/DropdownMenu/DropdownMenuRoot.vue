@@ -1,17 +1,14 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { Direction } from '../shared/types'
+import type { MenuEmits, MenuProps } from '@/Menu'
 import { createContext, useDirection, useForwardExpose, useId } from '@/shared'
 
-export interface DropdownMenuRootProps {
-  open?: boolean
+export interface DropdownMenuRootProps extends MenuProps {
+  /** The open state of the dropdown menu when it is initially rendered. Use when you do not need to control its open state. */
   defaultOpen?: boolean
-  dir?: Direction
-  modal?: boolean
 }
-export type DropdownMenuRootEmits = {
-  'update:open': [value: boolean]
-}
+export type DropdownMenuRootEmits = MenuEmits
 
 export interface DropdownMenuRootContext {
   open: Readonly<Ref<boolean>>

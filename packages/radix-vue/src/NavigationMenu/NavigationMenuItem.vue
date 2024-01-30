@@ -4,6 +4,9 @@ import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useArrowNavigation, useCollection, useForwardExpose, useId } from '@/shared'
 
 export interface NavigationMenuItemProps extends PrimitiveProps {
+  /** A unique value that associates the item with an active value when the navigation menu is controlled.
+   *
+   *  This prop is managed automatically when uncontrolled. */
   value?: string
 }
 

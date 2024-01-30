@@ -62,114 +62,7 @@ import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue'
 
 Contains all the parts of a slider. It will render an `input` for each thumb when used within a `form` to ensure events propagate correctly.
 
-<PropsTable
-  :data="[
-    {
-      name: 'defaultValue',
-      required: false,
-      type: 'number[]',
-      description: 'The value of the slider when initially rendered. Use when you do not need to control the state of the slider.',
-    },
-    {
-      name: 'modelValue',
-      required: false,
-      type: 'number[]',
-      description: '<span> The controlled value of the slider. Must be binded with <Code>v-model</Code>. </span>',
-    },
-    {
-      name: 'name',
-      required: false,
-      type: 'string',
-      description: 'The name of the slider. Submitted with its owning form as part of a name/value pair.',
-    },
-    {
-      name: 'disabled',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: '<span> When <Code>true</Code>, prevents the user from interacting with the slider. </span>',
-    },
-    {
-      name: 'orientation',
-      required: false,
-      type: '&quot;horizontal&quot; | &quot;vertical&quot;',
-      typeSimple: 'enum',
-      default: '&quot;horizontal&quot;',
-      description: 'The orientation of the slider.',
-    },
-    {
-      name: 'dir',
-      required: false,
-      type: '&quot;ltr&quot; | &quot;rtl&quot;',
-      typeSimple: 'enum',
-      description: '<span> The reading direction of the slider. If omitted, inherits globally from <Code>DirectionProvider</Code> or assumes LTR (left-to-right) reading mode. </span>',
-    },
-    {
-      name: 'inverted',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Whether the slider is visually inverted.',
-    },
-    {
-      name: 'min',
-      required: false,
-      type: 'number',
-      default: '0',
-      description: 'The minimum value for the range.',
-    },
-    {
-      name: 'max',
-      required: false,
-      type: 'number',
-      default: '100',
-      description: 'The maximum value for the range.',
-    },
-    {
-      name: 'step',
-      required: false,
-      type: 'number',
-      default: '1',
-      description: 'The stepping interval.',
-    },
-    {
-      name: 'minStepsBetweenThumbs',
-      required: false,
-      type: 'number',
-      default: '0',
-      description: '<span> The minimum permitted <Code>step</Code>s between multiple thumbs. </span>',
-    },
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
-
-
-<EmitsTable 
-  :data="[
-    {
-      name: '@update:modelValue',
-      type: '(value: number[]) => void',
-      description: 'Event handler called when the slider value changes'
-    },
-    {
-      name: '@valueCommit',
-      type: '(value: number[]): void',
-      description: 'Event handler called when the value changes at the end of an interaction. Useful when you only need to capture a final value e.g. to update a backend service.',
-    },
-  ]" 
-/>
+<!-- @include: @/meta/SliderRoot.md -->
 
 <DataAttributesTable
   :data="[
@@ -188,23 +81,7 @@ Contains all the parts of a slider. It will render an `input` for each thumb whe
 
 The track that contains the `SliderRange`.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'span',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/SliderTrack.md -->
 
 <DataAttributesTable
   :data="[
@@ -223,23 +100,7 @@ The track that contains the `SliderRange`.
 
 The range part. Must live inside `SliderTrack`.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'span',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/SliderRange.md -->
 
 <DataAttributesTable
   :data="[
@@ -258,23 +119,7 @@ The range part. Must live inside `SliderTrack`.
 
 A draggable thumb. You can render multiple thumbs.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/SliderThumb.md -->
 
 <DataAttributesTable
   :data="[

@@ -3,6 +3,9 @@ import type { Point } from '@/Menu/utils'
 import type { PrimitiveProps } from '@/Primitive'
 
 export interface ContextMenuTriggerProps extends PrimitiveProps {
+  /** When `true`, the context menu would not open when right-clicking.
+   *
+   * Note that this will also restore the native context menu. */
   disabled?: boolean
 }
 </script>

@@ -16,7 +16,7 @@ export interface TooltipRootProps {
    * Override the duration given to the `Provider` to customise
    * the open delay for a specific tooltip.
    *
-   * @default 700
+   * @defaultValue 700
    */
   delayDuration?: number
   /**
@@ -33,6 +33,7 @@ export interface TooltipRootProps {
 }
 
 export type TooltipRootEmits = {
+  /** Event handler called when the open state of the tooltip changes. */
   'update:open': [value: boolean]
 }
 

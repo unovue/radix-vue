@@ -3,6 +3,9 @@ import type { Ref } from 'vue'
 import { createContext, useForwardExpose, useId } from '@/shared'
 
 export interface MenubarMenuProps {
+  /** A unique value that associates the item with an active value when the navigation menu is controlled.
+   *
+   * This prop is managed automatically when uncontrolled. */
   value?: string
 }
 

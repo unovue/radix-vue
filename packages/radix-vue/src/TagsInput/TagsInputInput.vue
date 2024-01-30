@@ -3,8 +3,11 @@ import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
 
 export interface TagsInputInputProps extends PrimitiveProps {
+  /** The placeholder character to use for empty tags input. */
   placeholder?: string
+  /** Focus on element when mounted. */
   autoFocus?: boolean
+  /** Maximum number of character allowed. */
   maxLength?: number
 }
 </script>

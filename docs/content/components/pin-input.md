@@ -58,88 +58,7 @@ import { PinInputInput, PinInputRoot } from 'radix-vue'
 
 Contains all the parts of a checkbox. An `input` will also render when used within a `form` to ensure events propagate correctly.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'defaultValue',
-      type: 'string[]',
-      description:
-        'The default value of the pin inputs when it is initially rendered. Use when you do not need to control its checked state.',
-    },
-    {
-      name: 'modelValue',
-      type: 'string[]',
-      description: '<span> The controlled checked state of the pin input. Can be binded with <Code>v-model</Code>.</span>',
-    },
-    {
-      name: 'placeholder',
-      type: 'string',
-      description: 'The placeholder character to use for empty pin-inputs.',
-    },
-    {
-      name: 'mask',
-      type: 'boolean',
-      default: 'false',
-      description: '<span> When <Code>true</Code>, pin inputs will be treated as password.</span>',
-    },
-    {
-      name: 'otp',
-      type: 'boolean',
-      default: 'false',
-      description: '<span> When <Code>true</Code>, mobile devices will autodetect the OTP from messages or clipboard, and enable the autocomplete field.</span>',
-    },
-    {
-      name: 'type',
-      type: 'text | number',
-      default: 'text',
-      description: 'Input type for the inputs.',
-    },
-    {
-      name: 'disabled',
-      type: 'boolean',
-      description: '<span> When <Code>true</Code>, prevents the user from interacting with the pin input </span>',
-    },
-    {
-      name: 'required',
-      type: 'boolean',
-      description: '<span> When <Code>true</Code>, indicates that the user must check the pin input before the owning form can be submitted.</span>',
-    },
-    {
-      name: 'name',
-      type: 'string',
-      description:
-        'The name of the pin input Submitted with its owning form as part of a name/value pair.',
-    }, 
-  ]"
-/>
-
-<EmitsTable 
-  :data="[
-    {
-      name: '@update:modelValue',
-      type: '(value: string[]) => void',
-      description: 'Event handler called when the value state of the pin input changes.'
-    },
-    {
-      name: '@complete',
-      type: '(value: string[]) => void',
-      description: 'Event handler called the inputs were filled.'
-    }
-  ]" 
-/>
+<!-- @include: @/meta/PinInputRoot.md -->
 
 
 <DataAttributesTable
@@ -159,33 +78,7 @@ Contains all the parts of a checkbox. An `input` will also render when used with
 
 Input field for Pin Input. You can add as many input as you like.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'span',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'index',
-      type: 'number',
-      description: 'Position of the value this input bind to.',
-    },
-    {
-      name: 'disabled',
-      type: 'boolean',
-      description: '<span> When <Code>true</Code>, prevents the user from interacting with the pin input </span>'
-    },
-  ]"
-/>
+<!-- @include: @/meta/PinInputInput.md -->
 
 <DataAttributesTable
   :data="[

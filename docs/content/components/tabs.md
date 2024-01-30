@@ -60,70 +60,7 @@ import { TabsContent, TabsIndicator, TabsList, TabsRoot, TabsTrigger } from 'rad
 
 Contains all the tabs component parts.
 
-<PropsTable
-  :data="[
-    {
-      name: 'defaultValue',
-      required: false,
-      type: 'string',
-      description:
-        'The value of the tab that should be active when initially rendered. Use when you do not need to control the state of the tabs',
-    },
-    {
-      name: 'modelValue',
-      required: false,
-      type: 'string',
-      description: '<span> The controlled value of the tab to activate. Should be binded with <Code>v-model</Code>.</span>',
-    },
-    {
-      name: 'orientation',
-      required: false,
-      type: '&quot;horizontal&quot; | &quot;vertical&quot; | undefined',
-      typeSimple: 'enum',
-      default: '&quot;horizontal&quot;',
-      description: 'The orientation of the component.',
-    },
-    {
-      name: 'dir',
-      required: false,
-      type: '&quot;ltr&quot; | &quot;rtl&quot;',
-      typeSimple: 'enum',
-      description: '<span> The reading direction of the tabs If omitted, inherits globally from <Code>DirectionProvider</Code> or assumes LTR (left-to-right) reading mode.</span>',
-    },
-    {
-      name: 'activationMode',
-      required: false,
-      type: '&quot;automatic&quot; | &quot;manual&quot;',
-      typeSimple: 'enum',
-      default: '&quot;automatic&quot;',
-      description: '<span> When <Code>automatic</Code>, tabs are activated when receiving focus. When <Code>manual</Code>, tabs are activated when clicked.</span>',
-    },
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
-
-<EmitsTable 
-  :data="[
-    {
-      name: '@update:modelValue',
-      type: '(value: string) => void',
-      description: 'Event handler called when the value changes'
-    },
-  ]" 
-/>
-
+<!-- @include: @/meta/TabsRoot.md -->
 
 <DataAttributesTable
   :data="[
@@ -138,30 +75,7 @@ Contains all the tabs component parts.
 
 Contains the triggers that are aligned along the edge of the active content.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'loop',
-      required: false,
-      type: 'boolean',
-      default: 'true',
-      description: '<span> When <Code>true</Code>, keyboard navigation will loop from last tab to first, and vice versa.</span>',
-    },
-  ]"
-/>
+<!-- @include: @/meta/TabsList.md -->
 
 <DataAttributesTable
   :data="[
@@ -176,36 +90,7 @@ Contains the triggers that are aligned along the edge of the active content.
 
 The button that activates its associated content.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'button',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'value',
-      required: true,
-      type: 'string',
-      description: 'A unique value that associates the trigger with a content.',
-    },
-    {
-      name: 'disabled',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: '<span> When <Code>true</Code>, prevents the user from interacting with the tab.</span>',
-    },
-  ]"
-/>
+<!-- @include: @/meta/TabsTrigger.md -->
 
 <DataAttributesTable
   :data="[
@@ -228,23 +113,7 @@ The button that activates its associated content.
  
 The indicator that highlights the current active tab.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    }, 
-  ]"
-/>
+<!-- @include: @/meta/TabsIndicator.md -->
 
 <CssVariablesTable
   :data="[
@@ -263,34 +132,7 @@ The indicator that highlights the current active tab.
 
 Contains the content associated with each trigger.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'value',
-      required: true,
-      type: 'string',
-      description: 'A unique value that associates the content with a trigger.',
-    },
-    {
-      name: 'forceMount',
-      type: 'boolean',
-      description: '<span> Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.</span>',
-    },
-  ]"
-/>
+<!-- @include: @/meta/TabsContent.md -->
 
 <DataAttributesTable
   :data="[

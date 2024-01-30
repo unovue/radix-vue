@@ -9,10 +9,12 @@ interface MenuRadioGroupContext {
 }
 
 export interface MenuRadioGroupProps extends MenuGroupProps {
+  /** The value of the selected item in the group. */
   modelValue?: string
 }
 
 export type MenuRadioGroupEmits = {
+  /** Event handler called when the value changes. */
   'update:modelValue': [payload: boolean]
 }
 

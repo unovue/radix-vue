@@ -56,6 +56,9 @@ export default defineConfig({
     ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' }],
   ],
   lastUpdated: true,
+  sitemap: {
+    hostname: ogUrl,
+  },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
@@ -96,7 +99,8 @@ export default defineConfig({
           { text: 'Animation/Transition', link: '/guides/animation' },
           { text: 'Composition', link: '/guides/composition' },
           { text: 'Server side rendering', link: '/guides/server-side-rendering' },
-          { text: `Namespaced ${BadgeHTML('New')}`, link: '/guides/namespaced-components' },
+          { text: 'Namespaced', link: '/guides/namespaced-components' },
+          // { text: `Namespaced ${BadgeHTML('New')}`, link: '/guides/namespaced-components' },
         ],
       },
       {
@@ -118,7 +122,7 @@ export default defineConfig({
           { text: 'Menubar', link: '/components/menubar' },
           { text: 'Navigation Menu', link: '/components/navigation-menu' },
           { text: 'Pagination', link: '/components/pagination' },
-          { text: `Pin Input ${BadgeHTML('Alpha')}`, link: '/components/pin-input' },
+          { text: 'Pin Input', link: '/components/pin-input' },
           { text: 'Popover', link: '/components/popover' },
           { text: 'Progress', link: '/components/progress' },
           { text: 'Radio Group', link: '/components/radio-group' },
@@ -128,7 +132,7 @@ export default defineConfig({
           { text: 'Slider', link: '/components/slider' },
           { text: 'Switch', link: '/components/switch' },
           { text: 'Tabs', link: '/components/tabs' },
-          { text: `Tags Input ${BadgeHTML('Alpha')}`, link: '/components/tags-input' },
+          { text: 'Tags Input', link: '/components/tags-input' },
           { text: 'Toast', link: '/components/toast' },
           { text: 'Toggle', link: '/components/toggle' },
           { text: 'Toggle Group', link: '/components/toggle-group' },

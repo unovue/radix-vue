@@ -4,13 +4,20 @@ import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useForwardExpose } from '@/shared'
 
 export type ProgressRootEmits = {
+  /** Event handler called when the progres value changes */
   'update:modelValue': [value: string[] | undefined]
+  /** Event handler called when the max value changes */
   'update:max': [value: number]
 }
 
 export interface ProgressRootProps extends PrimitiveProps {
+  /** The progress value. Can be bind as `v-model`. */
   modelValue?: number | null
+  /** The maximum progress value. */
   max?: number
+  /** A function to get the accessible label text representing the current value in a human-readable format.
+   *
+   *  If not provided, the value label will be read as the numeric value as a percentage of the max value. */
   getValueLabel?: (value: number, max: number) => string
 }
 

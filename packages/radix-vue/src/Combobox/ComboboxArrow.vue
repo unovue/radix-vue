@@ -10,7 +10,11 @@ import { injectComboboxContentContext } from './ComboboxContentImpl.vue'
 import { useForwardExpose } from '@/shared'
 import { PopperArrow } from '@/Popper'
 
-const props = defineProps<ComboboxArrowProps>()
+const props = withDefaults(defineProps<ComboboxArrowProps>(), {
+  width: 10,
+  height: 5,
+  as: 'svg',
+})
 const rootContext = injectComboboxRootContext()
 const contentContext = injectComboboxContentContext()
 

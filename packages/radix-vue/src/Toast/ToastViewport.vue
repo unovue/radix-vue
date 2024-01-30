@@ -25,7 +25,7 @@ import { onKeyStroke, unrefElement } from '@vueuse/core'
 import FocusProxy from './FocusProxy.vue'
 import { focusFirst, getTabbableCandidates } from '@/FocusScope/utils'
 import { useCollection, useForwardExpose } from '@/shared'
-import { VIEWPORT_DEFAULT_HOTKEY, VIEWPORT_PAUSE, VIEWPORT_RESUME } from './utils'
+import { VIEWPORT_PAUSE, VIEWPORT_RESUME } from './utils'
 import { DismissableLayerBranch } from '@/DismissableLayer'
 
 defineOptions({
@@ -33,7 +33,7 @@ defineOptions({
 })
 
 const props = withDefaults(defineProps<ToastViewportProps>(), {
-  hotkey: () => VIEWPORT_DEFAULT_HOTKEY,
+  hotkey: () => ['F8'], // from VIEWPORT_DEFAULT_HOTKEY
   label: 'Notifications ({hotkey})',
   as: 'ol',
 })

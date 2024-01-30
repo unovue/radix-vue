@@ -8,7 +8,11 @@ export interface ContextMenuArrowProps extends MenuArrowProps {}
 <script setup lang="ts">
 import { MenuArrow } from '@/Menu'
 
-const props = defineProps<ContextMenuArrowProps>()
+const props = withDefaults(defineProps<ContextMenuArrowProps>(), {
+  width: 10,
+  height: 5,
+  as: 'svg',
+})
 
 useForwardExpose()
 </script>

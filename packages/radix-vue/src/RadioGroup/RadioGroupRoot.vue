@@ -5,16 +5,27 @@ import type { DataOrientation, Direction } from '@/shared/types'
 import { createContext, useDirection, useForwardExpose } from '@/shared'
 
 export interface RadioGroupRootProps extends PrimitiveProps {
+  /** The controlled value of the radio item to check. Can be binded as `v-model`. */
   modelValue?: string
+  /** The value of the radio item that should be checked when initially rendered.
+   *
+   * Use when you do not need to control the state of the radio items. */
   defaultValue?: string
+  /** When `true`, prevents the user from interacting with radio items. */
   disabled?: boolean
+  /** The name of the group. Submitted with its owning form as part of a name/value pair. */
   name?: string
+  /** When `true`, indicates that the user must check a radio item before the owning form can be submitted. */
   required?: boolean
+  /** The orientation of the component. */
   orientation?: DataOrientation
+  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
+  /** When `true`, keyboard navigation will loop from last item to first, and vice versa. */
   loop?: boolean
 }
 export type RadioGroupRootEmits = {
+  /** Event handler called when the radio group value changes */
   'update:modelValue': [payload: string]
 }
 

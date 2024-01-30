@@ -13,7 +13,7 @@ export interface AccordionItemProps
   extends Omit<CollapsibleRootProps, 'open' | 'defaultOpen' | 'onOpenChange'> {
   /**
    * Whether or not an accordion item is disabled from user interaction.
-   * When true, prevents the user from interacting with the item.
+   * When `true`, prevents the user from interacting with the item.
    *
    * @defaultValue false
    */

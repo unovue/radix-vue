@@ -3,6 +3,7 @@ import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
 
 export interface TabsContentProps extends PrimitiveProps {
+  /** A unique value that associates the content with a trigger. */
   value: string
   /**
    * Used to force mounting when more control is needed. Useful when

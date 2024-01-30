@@ -5,22 +5,33 @@ import type { Direction } from '@/shared/types'
 import { type Ref, ref, toRefs } from 'vue'
 
 export interface TagsInputRootProps extends PrimitiveProps {
+  /** The controlled value of the tags input. Can be bind as `v-model`. */
   modelValue?: Array<string>
+  /** The value of the tags that should be added. Use when you do not need to control the state of the tags input */
   defaultValue?: Array<string>
+  /** When `true`, allow adding tags on paste. Work in conjunction with delimiter prop. */
   addOnPaste?: boolean
+  /** When `true`, allow duplicated tags. */
   duplicate?: boolean
+  /** When `true`, prevents the user from interacting with the tags input. */
   disabled?: boolean
+  /** The character to trigger the addition of a new tag. Also used to split tags for `@paste` event */
   delimiter?: string
+  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
+  /** Maximum number of tags. */
   max?: number
-
+  /** When `true`, indicates that the user must add the tags input before the owning form can be submitted. */
   required?: boolean
+  /** The name of the tags input submitted with its owning form as part of a name/value pair. */
   name?: string
   id?: string
 }
 
 export type TagsInputRootEmits = {
+  /** Event handler called when the value changes */
   'update:modelValue': [payload: Array<string>]
+  /** Event handler called when the value is invalid */
   'invalid': [payload: string]
 }
 

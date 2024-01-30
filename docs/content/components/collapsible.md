@@ -56,50 +56,7 @@ import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from 'radix-v
 
 Contains all the parts of a collapsible
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'defaultOpen',
-      type: 'boolean',
-      description:
-        'The open state of the collapsible when it is initially rendered. Use when you do not need to control its open state.',
-    },
-    {
-      name: 'open',
-      type: 'boolean',
-      description: '<span>The controlled open state of the collapsible. Must be binded with <Code>v-model</Code>.</span>',
-    },
-    {
-      name: 'disabled',
-      type: 'boolean',
-      description: '<span>When <Code>true</Code>, prevents the user from interacting with the collapsible.</span>',
-    },
-  ]"
-/>
-
-
-<EmitsTable 
-  :data="[
-    {
-      name: '@update:open',
-      type: '(value: boolean) => void',
-      description: 'Event handler called when the open state of the collapsible changes.'
-    }
-  ]" 
-/>
+<!-- @include: @/meta/CollapsibleRoot.md -->
 
 <DataAttributesTable
   :data="[
@@ -118,23 +75,8 @@ Contains all the parts of a collapsible
 
 The button that toggles the collapsible
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'button',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+
+<!-- @include: @/meta/CollapsibleTrigger.md -->
 
 <DataAttributesTable
   :data="[
@@ -153,29 +95,8 @@ The button that toggles the collapsible
 
 The component that contains the collapsible content.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'forceMount',
-      type: 'boolean',
-      description:
-        'Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.',
-    },
-  ]"
-/>
+
+<!-- @include: @/meta/CollapsibleContent.md -->
 
 <DataAttributesTable
   :data="[

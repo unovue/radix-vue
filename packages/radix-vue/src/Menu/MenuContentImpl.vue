@@ -35,17 +35,21 @@ export const [injectMenuContentContext, provideMenuContentContext]
   = createContext<MenuContentContext>('MenuContent')
 
 export interface MenuContentImplPrivateProps {
+  /**
+   * When `true`, hover/focus/click interactions will be disabled on elements outside
+   * the `DismissableLayer`. Users will need to click twice on outside elements to
+   * interact with them: once to close the `DismissableLayer`, and again to trigger the element.
+   */
   disableOutsidePointerEvents?: DismissableLayerProps['disableOutsidePointerEvents']
-
   /**
    * Whether scrolling outside the `MenuContent` should be prevented
-   * (default: `false`)
+   * @defaultValue false
    */
   disableOutsideScroll?: boolean
 
   /**
    * Whether focus should be trapped within the `MenuContent`
-   * (default: false)
+   * @defaultValue als
    */
   trapFocus?: FocusScopeProps['trapped']
 }
@@ -63,20 +67,14 @@ export interface MenuContentImplProps
   extends MenuContentImplPrivateProps,
   Omit<PopperContentProps, 'dir'> {
   /**
-   * Whether keyboard navigation should loop around
+   * When `true`, keyboard navigation will loop from last item to first, and vice versa.
    * @defaultValue false
    */
   loop?: boolean
 }
 
-export interface MenuRootContentProps
-  extends Omit<PopperContentProps, 'dir'> {
-  /**
-   * Whether keyboard navigation should loop around
-   * @defaultValue false
-   */
-  loop?: boolean
-}
+export interface MenuRootContentTypeProps
+  extends Omit<MenuContentImplProps, 'disableOutsidePointerEvents' | 'disableOutsideScroll' | 'trapFocus'> {}
 </script>
 
 <script setup lang="ts">

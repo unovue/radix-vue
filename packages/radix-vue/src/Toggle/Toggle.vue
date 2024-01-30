@@ -3,6 +3,7 @@ import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
 
 export type ToggleEmits = {
+  /** Event handler called when the pressed state of the toggle changes. */
   'update:pressed': [value: boolean]
 }
 
@@ -13,13 +14,12 @@ export interface ToggleProps extends PrimitiveProps {
    * The pressed state of the toggle when it is initially rendered. Use when you do not need to control its open state.
    */
   defaultValue?: boolean
-
   /**
-   * The controlled pressed state of the toggle.
+   * The controlled pressed state of the toggle. Can be bind as `v-model`.
    */
   pressed?: boolean
   /**
-   * Disables the trigger.
+   * When `true`, prevents the user from interacting with the toggle.
    */
   disabled?: boolean
 }

@@ -7,6 +7,7 @@ import type {
 export type MenuRadioItemEmits = MenuItemEmits
 
 export interface MenuRadioItemProps extends MenuItemProps {
+  /** The unique value of the item. */
   value: string
 }
 </script>

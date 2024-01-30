@@ -64,213 +64,19 @@ import { ToastAction, ToastClose, ToastDescription, ToastProvider, ToastRoot, To
 
 The provider that wraps your toasts and toast viewport. It usually wraps the application.
 
-<PropsTable
-  :data="[
-    {
-      name: 'duration',
-      type: 'number',
-      default: 5000,
-      description:
-        'The time in milliseconds that should elapse before automatically closing each toast',
-    },
-    {
-      name: 'label',
-      required: true,
-      type: 'string',
-      default: '&quot;Notification&quot;',
-      description:
-        'An author-localized label for each toast Used to help screen reader users associate the interruption with a toast',
-    },
-    {
-      name: 'swipeDirection',
-      type: '&quot;right&quot; | &quot;left&quot; | &quot;up&quot; | &quot;down&quot;',
-      default: '&quot;right&quot;',
-      description:
-        'The direction of the pointer swipe that should close the toast',
-    },
-    {
-      name: 'swipeThreshold',
-      type: 'number',
-      default: 50,
-      description:
-        'The distance in pixels that the swipe gesture must travel before a close is triggered.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ToastProvider.md -->
 
 ### Viewport
 
 The fixed area where toasts appear. Users can jump to the viewport by pressing a hotkey. It is up to you to ensure the discoverability of the hotkey for keyboard users.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'ol',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'hotkey',
-      type: 'string[]',
-      default: '[&quot;F8&quot;]',
-      description: `
-        <span>
-          The keys to use as the keyboard shortcut that will move focus to the
-          toast viewport. Use <Code>event.code</Code> value for each key from
-          <a href=&quot;https://keycode.info/&quot; variant=&quot;blue&quot; target=&quot;_blank&quot;>
-            keycode.info
-          </a>
-          . For meta keys, use <Code>ctrlKey</Code>, <Code>shiftKey</Code>, <Code>
-            altKey
-          </Code> and/or <Code>metaKey</Code>.
-        </span>
-      `,
-    },
-    {
-      name: 'label',
-      type: 'string',
-      default: `&quot;Notifications ({hotkey})&quot;`,
-      description:
-        'An author-localized label for the toast region to provide context for screen reader users when navigating page landmarks. The available `{hotkey}` placeholder will be replaced for you.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ToastViewport.md -->
  
 ### Root
 
 The toast that automatically closes. It should not be held open to [acquire a user response](/components/toast#action).
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'li',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'type',
-      type: '&quot;foreground&quot; | &quot;background&quot;',
-      default: '&quot;foreground&quot;',
-      description: `
-        <span>
-          Control the
-          <a href=&quot;/components/toast#sensitivity&quot;>
-            sensitivity
-          </a>
-          of the toast for accessibility purposes. For toasts that are the
-          result of a user action, choose <Code>foreground</Code>. Toasts
-          generated from background tasks should use <Code>background</Code>.
-        </span>`
-    },
-    {
-      name: 'duration',
-      type: 'number',
-      description:
-        'The time in milliseconds that should elapse before automatically closing the toast This will override the value supplied to the provider.',
-    },
-    {
-      name: 'defaultOpen',
-      type: 'boolean',
-      default: 'true',
-      description:
-        'The open state of the dialog when it is initially rendered. Use when you do not need to control its open state.',
-    },
-    {
-      name: 'open',
-      type: 'boolean',
-      description: `
-        <span>
-          The controlled open state of the dialog. Must be used in conjunction
-          with <Code>onOpenChange</Code>.
-        </span>
-      `
-    },
-    {
-      name: 'forceMount',
-      type: 'boolean',
-      description:
-        'Used to force mounting when more control is needed. Useful when controlling animation with Vue animation libraries.',
-    },
-  ]"
-/>
-
-<EmitsTable 
-  :data="[
-    {
-      name: '@update:open',
-      type: '(value: boolean) => void',
-      description: 'Event handler called when the open state changes'
-    },
-    {
-      name: '@escapeKeyDown',
-      type: '(event: KeyboardEvent) => void',
-      description: `
-        <span>
-          Event handler called when the escape key is down. It can be prevented
-          by calling <Code>event.preventDefault</Code>.
-        </span>
-      `
-    },
-    {
-      name: '@pause',
-      type: '() => void',
-      description:
-        'Event handler called when the dismiss timer is paused. This occurs when the pointer is moved over the viewport, the viewport is focused or when the window is blurred.',
-    },
-    {
-      name: '@resume',
-      type: '() => void',
-      description:
-        'Event handler called when the dismiss timer is resumed. This occurs when the pointer is moved away from the viewport, the viewport is blurred or when the window is focused.',
-    },
-    {
-      name: '@swipeStart',
-      type: '(event: SwipeEvent) => void',
-      description:  `
-        <span>
-          Event handler called when starting a swipe interaction. It can be
-          prevented by calling <Code>event.preventDefault</Code>.
-        </span>
-     `
-    },
-    {
-      name: '@swipeMove',
-      type: '(event: SwipeEvent) => void',
-      description:  `
-        <span>
-          Event handler called during a swipe interaction. It can be prevented
-          by calling <Code>event.preventDefault</Code>.
-        </span>
-      ` 
-    },
-    {
-      name: '@swipeEnd',
-      type: '(event: SwipeEvent) => void',
-      description: ` 
-        <span>
-          Event handler called at the end of a swipe interaction. It can be
-          prevented by calling <Code>event.preventDefault</Code>.
-        </span>
-       `
-    },
-  ]" 
-/>
+<!-- @include: @/meta/ToastRoot.md -->
  
 <DataAttributesTable
   :data="[
@@ -316,45 +122,13 @@ The toast that automatically closes. It should not be held open to [acquire a us
 
 An optional title for the toast
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ToastTitle.md -->
 
 ### Description
 
 The toast message.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ToastDescription.md -->
 
 ### Action
 
@@ -362,57 +136,13 @@ An action that is safe to ignore to ensure users are not expected to complete ta
 
 When obtaining a user response is necessary, portal an ["AlertDialog"](/components/alert-dialog) styled as a toast into the viewport instead.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'button',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'altText',
-      required: true,
-      type: 'string',
-      description:  `
-          Describe an
-          <a href=&quot;/toast#alternative-action&quot;>
-            alternative way to achieve the action
-          </a>
-          for screen reader users who cannot access the toast easily.
-         `
-    },
-  ]"
-/>
+<!-- @include: @/meta/ToastAction.md -->
 
 ### Close
 
 A button that allows users to dismiss the toast before its duration has elapsed.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'button',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ToastClose.md -->
 
 
 ## Examples

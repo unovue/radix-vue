@@ -59,6 +59,12 @@ export type SelectContentImplEmits = {
 }
 
 export interface SelectContentImplProps extends PopperContentProps {
+  /**
+   *  The positioning mode to use
+   *
+   *  `item-aligned (default)` - behaves similarly to a native MacOS menu by positioning content relative to the active item. <br>
+   *  `popper` - positions content in the same way as our other primitives, for example `Popover` or `DropdownMenu`.
+   */
   position?: 'item-aligned' | 'popper'
 }
 

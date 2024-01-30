@@ -4,8 +4,7 @@ import { injectTabsRootContext } from './TabsRoot.vue'
 import { nextTick, ref, watch } from 'vue'
 import { useForwardExpose } from '@/shared'
 
-export interface TabsIndicatorProps extends PrimitiveProps {
-}
+export interface TabsIndicatorProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">

@@ -25,33 +25,36 @@ export interface AccordionRootProps extends PrimitiveProps {
    * When type is "single", allows closing content when clicking trigger for an open item.
    * When type is "multiple", this prop has no effect.
    *
-   * @default false
+   * @defaultValue false
    */
   collapsible?: boolean
 
   /**
-   * When true, prevents the user from interacting with the accordion and all its items
+   * When `true`, prevents the user from interacting with the accordion and all its items
    *
-   * @default false
+   * @defaultValue false
    */
   disabled?: boolean
 
   /**
    * The reading direction of the accordion when applicable. If omitted, assumes LTR (left-to-right) reading mode.
    *
-   * @default "ltr"
+   * @defaultValue "ltr"
    */
   dir?: Direction
 
   /**
    * The orientation of the accordion.
    *
-   * @default "vertical"
+   * @defaultValue "vertical"
    */
   orientation?: DataOrientation
 }
 
 export type AccordionRootEmits = {
+  /**
+   * Event handler called when the expanded state of an item changes
+   */
   'update:modelValue': [value: string | string[] | undefined]
 }
 
@@ -76,7 +79,6 @@ import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
 import { computed, toRefs } from 'vue'
 
 const props = withDefaults(defineProps<AccordionRootProps>(), {
-  asChild: false,
   disabled: false,
   orientation: 'vertical',
   collapsible: false,

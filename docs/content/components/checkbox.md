@@ -55,67 +55,8 @@ import { CheckboxIndicator, CheckboxRoot } from 'radix-vue'
 
 Contains all the parts of a checkbox. An `input` will also render when used within a `form` to ensure events propagate correctly.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'defaultChecked',
-      type: 'boolean',
-      description:
-        'The checked state of the checkbox when it is initially rendered. Use when you do not need to control its checked state.',
-    },
-    {
-      name: 'checked',
-      type: 'boolean | \'intermediate\'',
-      description: '<span> The controlled checked state of the checkbox Must be binded with <Code>v-model</Code>.</span>',
-    },
-    {
-      name: 'disabled',
-      type: 'boolean',
-      description: '<span> When <Code>true</Code>, prevents the user from interacting with the checkbox </span>',
-    },
-    {
-      name: 'required',
-      type: 'boolean',
-      description: '<span> When <Code>true</Code>, indicates that the user must check the checkbox before the owning form can be submitted.</span>',
-    },
-    {
-      name: 'name',
-      type: 'string',
-      description:
-        'The name of the checkbox Submitted with its owning form as part of a name/value pair.',
-    },
-    {
-      name: 'value',
-      type: 'string',
-      default: 'on',
-      description: '<span> The value given as data when submitted with a <Code>name</Code>.</span>',
-    },
-  ]"
-/>
 
-<EmitsTable 
-  :data="[
-    {
-      name: '@update:checked',
-      type: '(value: boolean) => void',
-      description: 'Event handler called when the checked state of the checkbox changes.'
-    }
-  ]" 
-/>
-
+<!-- @include: @/meta/CheckboxRoot.md -->
 
 <DataAttributesTable
   :data="[
@@ -134,30 +75,8 @@ Contains all the parts of a checkbox. An `input` will also render when used with
 
 Renders when the checkbox is in a checked or indeterminate state. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'span',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'forceMount',
-      type: 'boolean',
-      description: `
-        Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.
-      `,
-    },
-  ]"
-/>
+
+<!-- @include: @/meta/CheckboxIndicator.md -->
 
 <DataAttributesTable
   :data="[

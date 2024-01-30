@@ -25,7 +25,7 @@ export interface PresenceProps {
    * Force the first child element to render all the time.
    * Useful for programmatically render grandchild component together with the exposed `present`
    *
-   * @default false
+   * @defaultValue false
    */
   forceMount?: boolean
 }

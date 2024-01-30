@@ -11,6 +11,7 @@ import { MenuArrow } from '@/Menu'
 const props = withDefaults(defineProps<MenubarArrowProps>(), {
   width: 10,
   height: 5,
+  as: 'svg',
 })
 useForwardExpose()
 </script>

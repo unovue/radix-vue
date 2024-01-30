@@ -93,72 +93,7 @@ import {
 
 Contains all the parts of a navigation menu.
 
-<PropsTable
-  :data="[
-    {
-      name: 'modelValue',
-      required: false,
-      type: 'string',
-      description: `
-        <span>
-          The controlled value of the menu item to activate. Should be used in
-          conjunction with <code>onValueChange</code>.
-        </span>
-      `,
-    },
-    {
-      name: 'defaultValue',
-      required: false,
-      type: 'string',
-      description: 'The value of the menu item that should be active when initially rendered. Use when you do not need to control the value state.',
-    },
-    {
-      name: 'delayDuration',
-      type: 'number',
-      default: 200,
-      description:
-        'The duration from when the mouse enters a trigger until the content opens.',
-    },
-    {
-      name: 'skipDelayDuration',
-      type: 'number',
-      default: 300,
-      description:
-        'How much time a user has to enter another trigger without incurring a delay again.',
-    },
-    {
-      name: 'dir',
-      required: false,
-      type: '&quot;ltr&quot; | &quot;rtl&quot;',
-      typeSimple: 'enum',
-      description: `
-        <span>
-          The reading direction of the menu when applicable. If omitted,
-          inherits globally from <code>DirectionProvider</code> or assumes LTR
-          (left-to-right) reading mode.
-        </span>
-      `,
-    },
-    {
-      name: 'orientation',
-      required: false,
-      type: '&quot;horizontal&quot; | &quot;vertical&quot;',
-      typeSimple: 'enum',
-      default: '&quot;horizontal&quot;',
-      description: 'The orientation of the menu.',
-    },
-  ]"
-/>
-
-<EmitsTable
-  :data="[
-    {
-    name: '@update:modelValue',
-    type: '(payload: string) => void',
-    description: 'Event handler called when the value changes.',
-    }
-  ]"
-/>
+<!-- @include: @/meta/NavigationMenuRoot.md -->
 
 <DataAttributesTable
   :data="[
@@ -173,45 +108,7 @@ Contains all the parts of a navigation menu.
 
 Signifies a submenu. Use it in place of the root part when nested to create a submenu.
 
-<PropsTable
-  :data="[
-    {
-      name: 'modelValue',
-      required: false,
-      type: 'string',
-      description: `
-        <span>
-          The controlled value of the sub menu item to activate. Should be used
-          in conjunction with <code>onValueChange</code>.
-        </span>
-      `,
-    },
-    {
-      name: 'defaultValue',
-      required: false,
-      type: 'string',
-      description: 'The value of the menu item that should be active when initially rendered. Use when you do not need to control the value state.',
-    }, 
-    {
-      name: 'orientation',
-      required: false,
-      type: '&quot;horizontal&quot; | &quot;vertical&quot;',
-      typeSimple: 'enum',
-      default: '&quot;horizontal&quot;',
-      description: 'The orientation of the menu.',
-    },
-  ]"
-/>
-
-<EmitsTable
-  :data="[
-    {
-    name: '@update:modelValue',
-    type: '(payload: string) => void',
-    description: 'Event handler called when the value changes.',
-    }
-  ]"
-/>
+<!-- @include: @/meta/NavigationMenuSub.md -->
 
 <DataAttributesTable
   :data="[
@@ -226,28 +123,7 @@ Signifies a submenu. Use it in place of the root part when nested to create a su
 
 Contains the top level menu items.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'ul',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: `
-        Change the default rendered element for the one passed as a child, merging their props and behavior.
-        <br />
-        <br />
-        Read our <a href=&quot;../guides/composition&quot;>Composition</a> guide for more details.
-      `,
-    },
-  ]"
-/>
+<!-- @include: @/meta/NavigationMenuList.md -->
 
 <DataAttributesTable
   :data="[
@@ -262,67 +138,13 @@ Contains the top level menu items.
 
 A top level menu item, contains a link or trigger with content combination.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'li',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: `
-        Change the default rendered element for the one passed as a child, merging their props and behavior.
-        <br />
-        <br />
-        Read our <a href=&quot;../guides/composition&quot;>Composition</a> guide for more details.
-      `,
-    },
-    {
-      name: 'value',
-      required: false,
-      type: 'string',
-      description: `
-        <span>
-          A unique value that associates the item with an active value when the
-          navigation menu is controlled. This prop is managed automatically when
-          uncontrolled.
-        </span>
-      `,
-    },
-  ]"
-/>
+<!-- @include: @/meta/NavigationMenuItem.md -->
 
 ### Trigger
 
 The button that toggles the content.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'button',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: `
-        Change the default rendered element for the one passed as a child, merging their props and behavior.
-        <br />
-        <br />
-        Read our <a href=&quot;../guides/composition&quot;>Composition</a> guide for more details.
-      `,
-    },
-  ]"
-/>
+<!-- @include: @/meta/NavigationMenuTrigger.md -->
 
 <DataAttributesTable
   :data="[
@@ -341,99 +163,7 @@ The button that toggles the content.
 
 Contains the content associated with each trigger.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: `
-        Change the default rendered element for the one passed as a child, merging their props and behavior.
-        <br />
-        <br />
-        Read our <a href=&quot;../guides/composition&quot;>Composition</a> guide for more details.
-      `,
-    },
-    {
-      name: 'disableOutsidePointerEvents',
-      type: 'boolean',
-      default: 'false',
-      description: `
-        <span>
-          When <code>true</code>, hover/focus/click interactions will be
-          disabled on elements outside the bounds of the component. Users will
-          need to click twice on outside elements to interact with them: Once to
-          close the navigation menu, and again to activate the element.
-        </span>
-      `,
-    },
-    {
-      name: 'forceMount',
-      type: 'boolean',
-      description: `
-        <span>
-          Used to force mounting when more control is needed. Useful when
-          controlling animation with Vue.js animation libraries.
-        </span>
-      `,
-    },
-  ]"
-/>
-
-<EmitsTable
-  :data="[
-    {
-    name: '@escapeKeyDown',
-    type: '(event: KeyboardEvent) => void',
-      typeSimple: 'function',
-      description: `
-        <span>
-          Event handler called when the escape key is down. It can be prevented by calling <code>event.preventDefault</code>.
-        </span>
-      `,
-    },
-    {
-      name: '@pointerDownOutside',
-      type: '(event: PointerDownOutsideEvent) => void',
-      typeSimple: 'function',
-      description: `
-        <span>
-          Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling <code>event.preventDefault</code>.
-        </span>
-      `,
-    },
-    {
-      name: '@focusOutside',
-      type: '(event: FocusOutsideEvent) => void',
-      typeSimple: 'function',
-      description: `
-        <span>
-          Event handler called when focus moves outside the bounds of the
-          component. It can be prevented by calling <code>event.preventDefault</code>.
-        </span>
-      `,
-    },
-    {
-      name: '@interactOutside',
-      type: '(event: FocusEvent | MouseEvent | TouchEvent) => void',
-      typeSimple: 'function',
-      description: `
-        <span>
-          Event handler called when an interaction (pointer or focus event)
-          happens outside the bounds of the component. It can be prevented by
-          calling <code>event.preventDefault</code>.
-        </span>
-      `,
-    },
-  ]"
-/>
+<!-- @include: @/meta/NavigationMenuContent.md -->
 
 <DataAttributesTable
   :data="[
@@ -456,48 +186,7 @@ Contains the content associated with each trigger.
 
 A navigational link.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'a',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: `
-        Change the default rendered element for the one passed as a child, merging their props and behavior.
-        <br />
-        <br />
-        Read our <a href=&quot;../guides/composition&quot;>Composition</a> guide for more details.
-      `,
-    },
-    {
-      name: 'active',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Used to identify the link as the currently active page.',
-    },
-    {
-      name: 'onSelect',
-      type: '(event: Event) => void',
-      typeSimple: 'function',
-      description: `
-        <span>
-          Event handler called when the user selects a link (via mouse or
-          keyboard). Calling <code>event.preventDefault</code> in this handler
-          will prevent the navigation menu from closing when selecting that
-          link.
-        </span>
-      `,
-    },
-  ]"
-/>
+<!-- @include: @/meta/NavigationMenuLink.md -->
 
 <DataAttributesTable
   :data="[
@@ -512,38 +201,7 @@ A navigational link.
 
 An optional indicator element that renders below the list, is used to highlight the currently active trigger.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'span',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: `
-        <>
-        Change the default rendered element for the one passed as a child, merging their props and behavior.
-        <br />
-        <br />
-        Read our <a href=&quot;../guides/composition&quot;>Composition</a> guide for more details.
-        </>
-      `,
-    },
-    {
-      name: 'forceMount',
-      type: 'boolean',
-      description: `
-          Used to force mounting when more control is needed. Useful when
-          controlling animation with Vue.js animation libraries.
-      `,
-    },
-  ]"
-/>
+<!-- @include: @/meta/NavigationMenuIndicator.md -->
 
 <DataAttributesTable
   :data="[
@@ -562,42 +220,7 @@ An optional indicator element that renders below the list, is used to highlight 
 
 An optional viewport element that is used to render active content outside of the list.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: `
-        <>
-          Change the default rendered element for the one passed as a child,
-          merging their props and behavior.
-          <br />
-          <br />
-          Read our <a href=&quot;../guides/composition&quot;>Composition</a> guide for more
-          details.
-        </>
-      `,
-    },
-    {
-      name: 'forceMount',
-      type: 'boolean',
-      description: `
-        <span>
-          Used to force mounting when more control is needed. Useful when
-          controlling animation with Vue.js animation libraries.
-        </span>
-      `,
-    },
-  ]"
-/>
+<!-- @include: @/meta/NavigationMenuViewport.md -->
 
 <DataAttributesTable
   :data="[

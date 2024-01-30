@@ -10,7 +10,7 @@ export interface BaseSeparatorProps extends PrimitiveProps {
    */
   orientation?: DataOrientation
   /**
-   * Whether or not the component is purely decorative. When `true`, accessibility-related attributes <br>
+   * Whether or not the component is purely decorative. <br>When `true`, accessibility-related attributes
    * are updated so that that the rendered element is removed from the accessibility tree.
    */
   decorative?: boolean

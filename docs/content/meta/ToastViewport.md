@@ -10,7 +10,7 @@
   },
   {
     'name': 'asChild',
-    'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior. &lt;br&gt;</p>\n<p>&lt;br&gt; Read our <a href=\'https://www.radix-vue.com/guides/composition.html\'>Composition</a> guide for more details.</p>\n',
+    'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our <a href=\'https://www.radix-vue.com/guides/composition.html\'>Composition</a> guide for more details.</p>\n',
     'type': 'boolean',
     'required': false
   },
@@ -19,7 +19,7 @@
     'description': '<p>The keys to use as the keyboard shortcut that will move focus to the toast viewport.</p>\n',
     'type': 'string[]',
     'required': false,
-    'default': 'VIEWPORT_DEFAULT_HOTKEY'
+    'default': '[\'F8\']'
   },
   {
     'name': 'label',

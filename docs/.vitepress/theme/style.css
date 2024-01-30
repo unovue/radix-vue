@@ -132,10 +132,6 @@ body {
   @apply dark:text-[var(--vp-c-brand)]  dark:bg-[#0F291E];
 }
 
-.vp-html a { 
-  @apply font-medium text-[var(--vp-c-brand-1)] underline underline-offset-[2px]
-}
-
 .VPSidebarItem.is-active .indicator {
   @apply bg-[var(--vp-c-brand-1)]
 }

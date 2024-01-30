@@ -10,13 +10,13 @@
   },
   {
     'name': 'asChild',
-    'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior. &lt;br&gt;</p>\n<p>&lt;br&gt; Read our <a href=\'https://www.radix-vue.com/guides/composition.html\'>Composition</a> guide for more details.</p>\n',
+    'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our <a href=\'https://www.radix-vue.com/guides/composition.html\'>Composition</a> guide for more details.</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
     'name': 'decorative',
-    'description': '<p>Whether or not the component is purely decorative. When <code>true</code>, accessibility-related attributes &lt;br&gt;\nare updated so that that the rendered element is removed from the accessibility tree.</p>\n',
+    'description': '<p>Whether or not the component is purely decorative. &lt;br&gt;When <code>true</code>, accessibility-related attributes\nare updated so that that the rendered element is removed from the accessibility tree.</p>\n',
     'type': 'boolean',
     'required': false
   },

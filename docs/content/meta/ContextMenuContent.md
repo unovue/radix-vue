@@ -62,6 +62,12 @@
     'required': false
   },
   {
+    'name': 'prioritizePosition',
+    'description': '<p>Force content to be position within the viewport.</p>\n<p>Might overlap the reference element, which may not be desired.</p>\n',
+    'type': 'boolean',
+    'required': false
+  },
+  {
     'name': 'sticky',
     'description': '<p>The sticky behavior on the align axis. <code>partial</code> will keep the\ncontent in the boundary as long as the trigger is at least partially\nin the boundary whilst &quot;always&quot; will keep the content in the boundary\nregardless.</p>\n',
     'type': '\'partial\' | \'always\'',

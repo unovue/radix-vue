@@ -63,6 +63,12 @@
     'required': false
   },
   {
+    'name': 'prioritizePosition',
+    'description': '<p>Force content to be position within the viewport.</p>\n<p>Might overlap the reference element, which may not be desired.</p>\n',
+    'type': 'boolean',
+    'required': false
+  },
+  {
     'name': 'sideOffset',
     'description': '<p>The distance in pixels from the trigger.</p>\n',
     'type': 'number',

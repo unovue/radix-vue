@@ -87,6 +87,12 @@
     'required': false
   },
   {
+    'name': 'prioritizePosition',
+    'description': '<p>Force content to be position within the viewport.</p>\n<p>Might overlap the reference element, which may not be desired.</p>\n',
+    'type': 'boolean',
+    'required': false
+  },
+  {
     'name': 'side',
     'description': '<p>The preferred side of the trigger to render against when open.\nWill be reversed when collisions occur and avoidCollisions\nis enabled.</p>\n',
     'type': '\'top\' | \'right\' | \'bottom\' | \'left\'',

@@ -23,6 +23,7 @@ export const PopperContentPropsDefaultValue = {
   sticky: 'partial' as 'partial' | 'always',
   hideWhenDetached: false,
   updatePositionStrategy: 'optimized' as 'optimized' | 'always',
+  prioritizePosition: false,
 }
 
 export interface PopperContentProps extends PrimitiveProps {
@@ -115,6 +116,15 @@ export interface PopperContentProps extends PrimitiveProps {
    * @defaultValue 'optimized'
    */
   updatePositionStrategy?: 'optimized' | 'always'
+
+  /**
+   * Force content to be position within the viewport.
+   *
+   * Might overlap the reference element, which may not be desired.
+   *
+   * @defaultValue false
+   */
+  prioritizePosition?: boolean
 }
 
 export interface PopperContentContext {
@@ -205,11 +215,12 @@ const computedMiddleware = computedEager(() => {
     props.avoidCollisions
       && shift({
         mainAxis: true,
-        crossAxis: true,
+        crossAxis: !!props.prioritizePosition,
         limiter: props.sticky === 'partial' ? limitShift() : undefined,
         ...detectOverflowOptions.value,
       }),
-    props.avoidCollisions
+    !props.prioritizePosition
+      && props.avoidCollisions
       && flip({
         ...detectOverflowOptions.value,
       }),

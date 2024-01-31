@@ -1,5 +1,5 @@
 import {
-  createGlobalState,
+  createSharedComposable,
   useEventListener,
 } from '@vueuse/core'
 import { type Fn, isClient, isIOS } from '@vueuse/shared'
@@ -7,18 +7,15 @@ import { nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import { defu } from 'defu'
 import { injectConfigProviderContext } from '@/ConfigProvider/ConfigProvider.vue'
 
-const useInitialOverflowStyle = createGlobalState(() => ref<string | undefined>())
-
-const useBodyLockStackCount = createGlobalState(() => {
+const useBodyLockStackCount = createSharedComposable(() => {
   const count = ref(0)
+  const initialOverflow = ref<string | undefined>()
 
   const context = injectConfigProviderContext({
     scrollBody: ref(true),
   })
 
   let stopTouchMoveListener: Fn | null = null
-
-  const initialOverflow = useInitialOverflowStyle()
 
   const resetBodyStyle = () => {
     document.body.style.paddingRight = ''

@@ -7,11 +7,11 @@ import type vueuse from '@vueuse/core'
 
 vi.mock('@vueuse/core', async (importOriginal) => {
   const mod: typeof vueuse = await importOriginal()
-  const createGlobalState: typeof vueuse.createGlobalState = fn => fn
+  const createSharedComposable: typeof vueuse.createSharedComposable = fn => fn
 
   return {
     ...mod,
-    createGlobalState,
+    createSharedComposable,
   }
 })
 

@@ -225,10 +225,10 @@ const computedMiddleware = computedEager(() => {
         ...detectOverflowOptions.value,
       }),
     !props.prioritizePosition
-        && props.avoidCollisions
-        && flip({
-          ...detectOverflowOptions.value,
-        }),
+      && props.avoidCollisions
+      && flip({
+        ...detectOverflowOptions.value,
+      }),
     size({
       ...detectOverflowOptions.value,
       apply: ({ elements, rects, availableWidth, availableHeight }) => {

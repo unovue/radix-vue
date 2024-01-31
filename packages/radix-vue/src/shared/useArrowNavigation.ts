@@ -48,12 +48,21 @@ interface ArrowNavigationOptions {
   preventScroll?: boolean
 
   /**
+   * By default all currentElement would trigger navigation. If `true`, currentElement nodeName in the ignore list will return null
+   *
+   * @defaultValue false
+   */
+  enableIgnoredElement?: boolean
+
+  /**
    * Focus the element after navigation
    *
    * @defaultValue false
    */
   focus?: boolean
 }
+
+const ignoredElement = ['INPUT', 'TEXTAREA']
 
 /**
  * Allow arrow navigation for every html element with data-radix-vue-collection-item tag
@@ -70,7 +79,7 @@ export function useArrowNavigation(
   parentElement: HTMLElement | undefined,
   options: ArrowNavigationOptions = {},
 ): HTMLElement | null {
-  if (!currentElement)
+  if (!currentElement || (options.enableIgnoredElement && ignoredElement.includes(currentElement.nodeName)))
     return null
 
   const {

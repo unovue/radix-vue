@@ -166,14 +166,9 @@ function handleKeydown(ev: KeyboardEvent) {
     ev,
     document.activeElement as HTMLElement,
     undefined,
-    { itemsArray: candidates, loop: false },
+    { itemsArray: candidates, loop: false, enableIgnoredElement: true },
   )
   newSelectedElement?.focus()
-
-  if (ev.key === 'Enter' || ev.key === 'Escape')
-    return
-  ev.preventDefault()
-  ev.stopPropagation()
 }
 
 function handleDismiss() {

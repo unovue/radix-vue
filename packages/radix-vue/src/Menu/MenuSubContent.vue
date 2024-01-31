@@ -24,7 +24,9 @@ import { SUB_CLOSE_KEYS } from './utils'
 import { Presence } from '@/Presence'
 import { useForwardExpose, useForwardPropsEmits } from '@/shared'
 
-const props = defineProps<MenuSubContentProps>()
+const props = withDefaults(defineProps<MenuSubContentProps>(), {
+  prioritizePosition: true,
+})
 const emits = defineEmits<MenuSubContentEmits>()
 
 const forwarded = useForwardPropsEmits(props, emits)

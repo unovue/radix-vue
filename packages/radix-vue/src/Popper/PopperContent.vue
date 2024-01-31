@@ -212,6 +212,11 @@ const computedMiddleware = computedEager(() => {
       mainAxis: props.sideOffset + arrowHeight.value,
       alignmentAxis: props.alignOffset,
     }),
+    props.prioritizePosition
+      && props.avoidCollisions
+      && flip({
+        ...detectOverflowOptions.value,
+      }),
     props.avoidCollisions
       && shift({
         mainAxis: true,

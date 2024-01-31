@@ -212,6 +212,11 @@ const computedMiddleware = computedEager(() => {
       mainAxis: props.sideOffset + arrowHeight.value,
       alignmentAxis: props.alignOffset,
     }),
+    props.prioritizePosition
+      && props.avoidCollisions
+      && flip({
+        ...detectOverflowOptions.value,
+      }),
     props.avoidCollisions
       && shift({
         mainAxis: true,
@@ -220,10 +225,10 @@ const computedMiddleware = computedEager(() => {
         ...detectOverflowOptions.value,
       }),
     !props.prioritizePosition
-      && props.avoidCollisions
-      && flip({
-        ...detectOverflowOptions.value,
-      }),
+        && props.avoidCollisions
+        && flip({
+          ...detectOverflowOptions.value,
+        }),
     size({
       ...detectOverflowOptions.value,
       apply: ({ elements, rects, availableWidth, availableHeight }) => {

@@ -41,7 +41,7 @@ export interface TooltipProviderProps {
 </script>
 
 <script setup lang="ts">
-import { useTimeoutFn } from '@vueuse/shared'
+import { refAutoReset, useTimeoutFn } from '@vueuse/shared'
 import { ref, toRefs } from 'vue'
 
 const props = withDefaults(defineProps<TooltipProviderProps>(), {
@@ -53,7 +53,8 @@ const { delayDuration, skipDelayDuration, disableHoverableContent, disableClosin
 useForwardExpose()
 
 const isOpenDelayed = ref(true)
-const isPointerInTransitRef = ref(false)
+// Reset the inTransit state if idle/scrolled.
+const isPointerInTransitRef = refAutoReset(false, 300)
 
 const { start: startTimer, stop: clearTimer } = useTimeoutFn(() => {
   isOpenDelayed.value = true

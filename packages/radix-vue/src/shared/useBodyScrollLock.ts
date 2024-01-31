@@ -2,14 +2,27 @@ import {
   createSharedComposable,
   useEventListener,
 } from '@vueuse/core'
-import { type Fn, isClient, isIOS } from '@vueuse/shared'
-import { nextTick, onBeforeUnmount, ref, watch } from 'vue'
+import { type Fn, isClient, isIOS, tryOnBeforeUnmount } from '@vueuse/shared'
+import { computed, nextTick, ref, watch } from 'vue'
 import { defu } from 'defu'
 import { injectConfigProviderContext } from '@/ConfigProvider/ConfigProvider.vue'
+import { useId } from '@/shared/useId'
 
 const useBodyLockStackCount = createSharedComposable(() => {
-  const count = ref(0)
+  const map = ref<Map<string, boolean>>(new Map())
   const initialOverflow = ref<string | undefined>()
+
+  console.log('created')
+
+  const locked = computed(() => {
+    const entries = map.value.entries()
+    console.log(map.value.size, ...entries)
+    for (const value of map.value.values()) {
+      if (value)
+        return true
+    }
+    return false
+  })
 
   const context = injectConfigProviderContext({
     scrollBody: ref(true),
@@ -28,12 +41,13 @@ const useBodyLockStackCount = createSharedComposable(() => {
     initialOverflow.value = undefined
   }
 
-  watch(count, (val) => {
+  watch(locked, (val, oldVal) => {
     if (!isClient)
       return
 
-    if (val === 0) {
-      resetBodyStyle()
+    if (!val) {
+      if (oldVal)
+        resetBodyStyle()
       return
     }
 
@@ -80,31 +94,24 @@ const useBodyLockStackCount = createSharedComposable(() => {
       document.body.style.pointerEvents = 'none'
       document.body.style.overflow = 'hidden'
     })
-  }, { immediate: true })
+  }, { immediate: true, flush: 'sync' })
 
-  return count
+  return map
 })
 
 export function useBodyScrollLock(initialState?: boolean | undefined) {
-  const locked = ref(initialState)
-  const stack = useBodyLockStackCount()
+  const id = useId()
+  const map = useBodyLockStackCount()
 
-  if (initialState)
-    stack.value++
+  map.value.set(id, initialState ?? false)
 
-  watch(locked, (value, oldValue) => {
-    if (value === oldValue)
-      return
-
-    if (value === true)
-      stack.value++
-    else
-      stack.value--
+  const locked = computed({
+    get: () => map.value.get(id) ?? false,
+    set: value => map.value.set(id, value),
   })
 
-  onBeforeUnmount(() => {
-    if (locked.value)
-      stack.value--
+  tryOnBeforeUnmount(() => {
+    map.value.delete(id)
   })
 
   return locked

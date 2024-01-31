@@ -12,11 +12,7 @@ const useBodyLockStackCount = createSharedComposable(() => {
   const map = ref<Map<string, boolean>>(new Map())
   const initialOverflow = ref<string | undefined>()
 
-  console.log('created')
-
   const locked = computed(() => {
-    const entries = map.value.entries()
-    console.log(map.value.size, ...entries)
     for (const value of map.value.values()) {
       if (value)
         return true

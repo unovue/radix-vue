@@ -174,6 +174,7 @@ function handleKeyDown(event: KeyboardEvent) {
       arrowKeyOptions: 'vertical',
       dir: rootContext?.dir.value,
       focus: true,
+      attributeName: '[data-radix-vue-collection-item]:not([data-disabled])',
     },
   )
   if (el)

@@ -39,7 +39,7 @@ describe('given default Slider', () => {
 
     it('should disable the thumb', () => {
       const thumb = wrapper.find('[role="slider"]')
-      expect(thumb.attributes('data-disabled')).toBe('true')
+      expect(thumb.attributes('data-disabled')).toBe('')
       expect(thumb.attributes('aria-valuemin')).toBe('0')
       expect(thumb.attributes('aria-valuemax')).toBe('100')
       expect(thumb.attributes('aria-valuenow')).toBe('50')

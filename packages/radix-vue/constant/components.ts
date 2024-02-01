@@ -308,7 +308,7 @@ export const utilities = {
     'useForwardExpose',
     'useId',
     'useStateMachine',
-    'withDefault',
     'useBodyScrollLock',
+    'withDefault',
   ],
 }

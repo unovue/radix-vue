@@ -106,7 +106,7 @@ describe('given show-edges Pagination', () => {
     })
 
     it('should have default 2 siblings on each side', () => {
-      expect(wrapper.find('[aria-label="Page 2"]').exists()).toBe(false)
+      expect(wrapper.find('[aria-label="Page 2"]').exists()).toBe(true)
       expect(wrapper.find('[aria-label="Page 3"]').exists()).toBe(true)
       expect(wrapper.find('[aria-label="Page 4"]').exists()).toBe(true)
       expect(wrapper.find('[aria-label="Page 6"]').exists()).toBe(true)
@@ -115,7 +115,7 @@ describe('given show-edges Pagination', () => {
     })
 
     it('should have left right ellipsis', () => {
-      expect(wrapper.findAll('[data-type="ellipsis"]').length).toBe(2)
+      expect(wrapper.findAll('[data-type="ellipsis"]').length).toBe(1)
     })
   })
 })

@@ -34,4 +34,4 @@ export * from './Tooltip'
 // utilities
 export { Primitive, Slot, type PrimitiveProps } from './Primitive'
 export { VisuallyHidden, type VisuallyHiddenProps } from './VisuallyHidden'
-export { useEmitAsProps, useForwardProps, useForwardPropsEmits, useId, useStateMachine, withDefault } from './shared'
+export { useEmitAsProps, useForwardProps, useForwardPropsEmits, useId, useStateMachine, withDefault, useBodyScrollLock } from './shared'

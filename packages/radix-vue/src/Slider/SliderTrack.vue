@@ -20,7 +20,7 @@ useForwardExpose()
   <Primitive
     :as-child="asChild"
     :as="as"
-    :data-disabled="rootContext.disabled.value"
+    :data-disabled="rootContext.disabled.value ? '' : undefined"
     :data-orientation="rootContext.orientation.value"
   >
     <slot />

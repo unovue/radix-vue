@@ -33,7 +33,7 @@ const disabled = computed(() => props.disabled || rootContext.disabled.value || 
     :aria-controls="rootContext.contentId"
     :data-state="rootContext.open.value ? 'open' : 'closed'"
     :disabled="disabled"
-    :data-disabled="disabled"
+    :data-disabled="disabled ? '' : undefined"
     :aria-disabled="disabled ?? undefined"
     @click="rootContext.onOpenChange(!rootContext.open.value)"
   >

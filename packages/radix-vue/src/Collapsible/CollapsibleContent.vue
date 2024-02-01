@@ -90,7 +90,7 @@ onMounted(() => {
       :as-child="props.asChild"
       :as="as"
       :data-state="rootContext.open.value ? 'open' : 'closed'"
-      :data-disabled="rootContext.disabled?.value ? 'true' : undefined"
+      :data-disabled="rootContext.disabled?.value ? '' : undefined"
       :hidden="!presentRef?.present"
       :style="{
         [`--radix-collapsible-content-height`]: `${height}px`,

@@ -156,7 +156,7 @@ provideSliderRootContext({
       :dir="dir"
       :inverted="inverted"
       :aria-disabled="disabled"
-      :data-disabled="disabled"
+      :data-disabled="disabled ? '' : undefined"
       @pointerdown="() => {
         if (!disabled) valuesBeforeSlideStartRef = modelValue
       }"

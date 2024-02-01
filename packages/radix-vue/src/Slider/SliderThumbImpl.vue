@@ -54,7 +54,7 @@ onUnmounted(() => {
       data-radix-vue-collection-item
       :tabindex="rootContext.disabled.value ? undefined : 0"
       :aria-label="$attrs['aria-label'] || label"
-      :data-disabled="rootContext.disabled.value"
+      :data-disabled="rootContext.disabled.value ? '' : undefined"
       :data-orientation="rootContext.orientation.value"
       :aria-valuenow="value"
       :aria-valuemin="rootContext.min.value"

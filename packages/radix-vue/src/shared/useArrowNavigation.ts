@@ -84,7 +84,7 @@ export function useArrowNavigation(
 
   const {
     arrowKeyOptions = 'both',
-    attributeName = 'data-radix-vue-collection-item',
+    attributeName = '[data-radix-vue-collection-item]',
     itemsArray = [],
     loop = true,
     dir = 'ltr',
@@ -112,7 +112,7 @@ export function useArrowNavigation(
     return null
 
   const allCollectionItems: HTMLElement[] = parentElement
-    ? Array.from(parentElement.querySelectorAll(`[${attributeName}]`))
+    ? Array.from(parentElement.querySelectorAll(attributeName))
     : itemsArray
 
   if (!allCollectionItems.length)

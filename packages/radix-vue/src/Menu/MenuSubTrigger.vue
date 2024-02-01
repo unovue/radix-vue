@@ -6,7 +6,7 @@ export interface MenuSubTriggerProps extends MenuItemImplProps {}
 </script>
 
 <script setup lang="ts">
-import { nextTick, onUnmounted, ref } from 'vue'
+import { type ComponentPublicInstance, nextTick, onUnmounted, ref } from 'vue'
 import MenuItemImpl from './MenuItemImpl.vue'
 import { injectMenuContext, injectMenuRootContext } from './MenuRoot.vue'
 import { injectMenuSubContext } from './MenuSub.vue'
@@ -117,9 +117,10 @@ async function handleKeyDown(event: KeyboardEvent) {
       v-bind="props"
       :id="subContext.triggerId"
       :ref="
-        (vnode) => {
+        (vnode: ComponentPublicInstance) => {
           // @ts-ignore
-          subContext?.onTriggerChange(vnode?.el);
+          subContext?.onTriggerChange(vnode?.$el);
+          return undefined
         }
       "
       aria-haspopup="menu"

@@ -309,5 +309,6 @@ export const utilities = {
     'useId',
     'useStateMachine',
     'withDefault',
+    'useBodyScrollLock',
   ],
 }

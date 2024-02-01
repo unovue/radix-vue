@@ -24,8 +24,8 @@ export function getRange(currentPage: number, pageCount: number, siblingCount: n
   const leftSiblingIndex = Math.max(currentPage - siblingCount, firstPageIndex)
   const rightSiblingIndex = Math.min(currentPage + siblingCount, lastPageIndex)
 
-  const showLeftEllipsis = leftSiblingIndex > firstPageIndex + 1
-  const showRightEllipsis = rightSiblingIndex < lastPageIndex - 1
+  const showLeftEllipsis = leftSiblingIndex > firstPageIndex + 2
+  const showRightEllipsis = rightSiblingIndex < lastPageIndex - 2
 
   if (showEdges) {
     /**

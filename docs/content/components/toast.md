@@ -389,7 +389,6 @@ Create your own imperative API to allow [toast duplication](/components/toast#du
 ```vue
 <script setup lang="ts">
 import Toast from './your-toast.vue'
-import type { InstanceType } from 'vue'
 
 const savedRef = ref<InstanceType<typeof Toast>>()
 </script>

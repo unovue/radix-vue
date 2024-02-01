@@ -1,6 +1,16 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick, ref } from 'vue'
 import { mount } from '@vue/test-utils'
+import { useBodyScrollLock } from './useBodyScrollLock'
+
+function createWrapper(initialState: boolean) {
+  return mount({
+    template: '<p>Hello, world</p>',
+    setup() {
+      useBodyScrollLock(initialState)
+    },
+  }, { attachTo: document.body })
+}
 
 describe('useBodyScrollLock', () => {
   vi.mock('@/ConfigProvider/ConfigProvider.vue', async () => {
@@ -23,9 +33,7 @@ describe('useBodyScrollLock', () => {
     vi.resetModules()
   })
 
-  it('should lock the body propery', async () => {
-    const { useBodyScrollLock } = await import('@/shared/useBodyScrollLock')
-
+  it('should lock the body properly', async () => {
     const locked = useBodyScrollLock()
     await nextTick()
     expect(document.body.style.overflow).toBe('')
@@ -40,18 +48,7 @@ describe('useBodyScrollLock', () => {
   })
 
   it('should lock and unlock the body when mounted and unmounted', async () => {
-    const { useBodyScrollLock } = await import('@/shared/useBodyScrollLock')
-
-    const wrapper = mount({
-      template: '<p>Hello, world</p>',
-      setup() {
-        useBodyScrollLock(true)
-      },
-    },
-    {
-      attachTo: document.body,
-    },
-    )
+    const wrapper = createWrapper(true)
 
     await nextTick()
     expect(document.body.style.overflow).toBe('hidden')
@@ -60,27 +57,25 @@ describe('useBodyScrollLock', () => {
   })
 
   it('should only unlock once all are unmounted', async () => {
-    const { useBodyScrollLock } = await import('@/shared/useBodyScrollLock')
+    const l1 = createWrapper(true)
+    const l2 = createWrapper(true)
 
-    const l1 = useBodyScrollLock(true)
-    const l2 = useBodyScrollLock(true)
     await nextTick()
     expect(document.body.style.overflow).toBe('hidden')
 
-    l1.value = false
+    l1.unmount()
     await nextTick()
     expect(document.body.style.overflow).toBe('hidden')
 
-    l2.value = false
+    l2.unmount()
     await nextTick()
     expect(document.body.style.overflow).toBe('')
   })
 
   it('should only unlock once all are unlocked', async () => {
-    const { useBodyScrollLock } = await import('@/shared/useBodyScrollLock')
-
     const l1 = useBodyScrollLock(true)
     const l2 = useBodyScrollLock(true)
+
     await nextTick()
     expect(document.body.style.overflow).toBe('hidden')
 
@@ -94,16 +89,13 @@ describe('useBodyScrollLock', () => {
   })
 
   it('should not automatically lock', async () => {
-    const { useBodyScrollLock } = await import('@/shared/useBodyScrollLock')
-
     useBodyScrollLock()
+
     await nextTick()
     expect(document.body.style.overflow).toBe('')
   })
 
   it('should preserve user overflow', async () => {
-    const { useBodyScrollLock } = await import('@/shared/useBodyScrollLock')
-
     document.body.style.overflow = 'scroll'
 
     const locked = useBodyScrollLock()

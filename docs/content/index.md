@@ -11,7 +11,7 @@ hero:
     src: /logo.svg
     alt: Radix-Vue
   prelink:
-    title: 🎉 JSDoc hint, bug fixes!
+    title: 🎉 JSDoc hint, Auto-generated docs!
     link: https://github.com/radix-vue/radix-vue/releases/tag/v1.4.0
     target: _blank
   actions:

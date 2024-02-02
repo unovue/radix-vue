@@ -29,6 +29,21 @@ export const components = {
     'AvatarFallback',
   ],
 
+  calendar: [
+    'CalendarRoot',
+    'CalendarHeader',
+    'CalendarHeading',
+    'CalendarGrid',
+    'CalendarCell',
+    'CalendarHeadCell',
+    'CalendarNext',
+    'CalendarPrev',
+    'CalendarGridHead',
+    'CalendarGridBody',
+    'CalendarGridRow',
+    'CalendarDay',
+  ],
+
   checkbox: [
     'CheckboxRoot',
     'CheckboxIndicator',
@@ -79,6 +94,11 @@ export const components = {
     'ContextMenuSub',
     'ContextMenuSubContent',
     'ContextMenuSubTrigger',
+  ],
+
+  dateField: [
+    'DateFieldRoot',
+    'DateFieldInput',
   ],
 
   dialog: [
@@ -190,7 +210,21 @@ export const components = {
     'RadioGroupRoot',
     'RadioGroupItem',
     'RadioGroupIndicator',
+  ],
 
+  rangeCalendar: [
+    'RangeCalendarRoot',
+    'RangeCalendarHeader',
+    'RangeCalendarHeading',
+    'RangeCalendarGrid',
+    'RangeCalendarCell',
+    'RangeCalendarHeadCell',
+    'RangeCalendarNext',
+    'RangeCalendarPrev',
+    'RangeCalendarGridHead',
+    'RangeCalendarGridBody',
+    'RangeCalendarGridRow',
+    'RangeCalendarDay',
   ],
 
   scrollArea: [
@@ -310,5 +344,6 @@ export const utilities = {
     'useStateMachine',
     'useBodyScrollLock',
     'withDefault',
+    'useDateFormatter',
   ],
 }

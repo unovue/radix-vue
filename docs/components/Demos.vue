@@ -3,6 +3,7 @@ import AccordionDemo from './demo/Accordion/tailwind/index.vue'
 import AlertDialogDemo from './demo/AlertDialog/tailwind/index.vue'
 import AspectRatioDemo from './demo/AspectRatio/tailwind/index.vue'
 import AvatarDemo from './demo/Avatar/tailwind/index.vue'
+import CalendarDemo from './demo/Calendar/tailwind/index.vue'
 import CheckboxDemo from './demo/Checkbox/tailwind/index.vue'
 import CollapsibleDemo from './demo/Collapsible/tailwind/index.vue'
 import ComboboxDemo from './demo/Combobox/tailwind/index.vue'
@@ -47,6 +48,9 @@ import DemoContainer from './DemoContainer.vue'
     </DemoContainer>
     <DemoContainer title="avatar">
       <AvatarDemo />
+    </DemoContainer>
+    <DemoContainer title="calendar">
+      <CalendarDemo />
     </DemoContainer>
     <DemoContainer title="checkbox">
       <CheckboxDemo />

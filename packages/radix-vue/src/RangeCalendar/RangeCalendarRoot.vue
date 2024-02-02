@@ -1,0 +1,236 @@
+<script lang="ts">
+import { type DateValue, getLocalTimeZone, today } from '@internationalized/date'
+
+import type { Ref } from 'vue'
+import type { PrimitiveProps } from '@/Primitive'
+import { type Formatter, type Matcher, type WeekDayFormat, createContext, isBefore } from '@/shared'
+import { useRangeCalendar } from './useRangeCalendar'
+
+type RangeCalendarRootContext = {
+  modelValue: Ref<{ start: DateValue | undefined; end: DateValue | undefined }>
+  startValue: Ref<DateValue | undefined>
+  endValue: Ref<DateValue | undefined>
+  placeholder: Ref<DateValue>
+  pagedNavigation: Ref<boolean>
+  preventDeselect: Ref<boolean>
+  weekStartsOn: Ref<0 | 1 | 2 | 3 | 4 | 5 | 6>
+  weekdayFormat: Ref<WeekDayFormat>
+  fixedWeeks: Ref<boolean>
+  multiple: Ref<boolean>
+  numberOfMonths: Ref<number>
+  disabled: Ref<boolean>
+  readonly: Ref<boolean>
+  initialFocus: Ref<boolean>
+  onPlaceholderChange: (date: DateValue) => void
+  fullCalendarLabel: Ref<string>
+  parentElement: Ref<HTMLElement | undefined>
+  headingValue: Ref<string>
+  isInvalid: Ref<boolean>
+  nextPage: () => void
+  prevPage: () => void
+  isDateDisabled: Matcher
+  isDateUnavailable?: Matcher
+  isOutsideVisibleMonths: (date: DateValue) => boolean
+  highlightedRange: Ref<{ start: DateValue; end: DateValue } | null>
+  focusedValue: Ref<DateValue | undefined>
+  lastPressedDateValue: Ref<DateValue | undefined>
+  isSelected: (date: DateValue) => boolean
+  isSelectionEnd: (date: DateValue) => boolean
+  isSelectionStart: (date: DateValue) => boolean
+  isNextButtonDisabled: Ref<boolean>
+  isPrevButtonDisabled: Ref<boolean>
+  formatter: Formatter
+}
+
+export interface RangeCalendarRootProps extends PrimitiveProps {
+  modelValue?: { start: DateValue | undefined; end: DateValue | undefined }
+  placeholder?: DateValue
+  pagedNavigation?: boolean
+  preventDeselect?: boolean
+  weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6
+  weekdayFormat?: WeekDayFormat
+  calendarLabel?: string
+  fixedWeeks?: boolean
+  maxValue?: DateValue
+  minValue?: DateValue
+  locale?: string
+  multiple?: boolean
+  numberOfMonths?: number
+  disabled?: boolean
+  readonly?: boolean
+  initialFocus?: boolean
+  isDateDisabled?: Matcher
+  isDateUnavailable?: Matcher
+}
+
+export type RangeCalendarRootEmits = {
+  'update:modelValue': [{ start: DateValue | undefined; end: DateValue | undefined }]
+  'update:placeholder': [date: DateValue]
+}
+
+export const [injectRangeCalendarRootContext, provideRangeCalendarRootContext]
+  = createContext<RangeCalendarRootContext>('RangeCalendarRoot')
+</script>
+
+<script setup lang="ts">
+import { ref, toRefs, watch } from 'vue'
+import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { useVModel } from '@vueuse/core'
+
+const props = withDefaults(defineProps<RangeCalendarRootProps>(), {
+  modelValue: undefined,
+  as: 'div',
+  pagedNavigation: false,
+  preventDeselect: false,
+  weekStartsOn: 0,
+  weekdayFormat: 'narrow',
+  fixedWeeks: false,
+  multiple: false,
+  numberOfMonths: 1,
+  disabled: false,
+  readonly: false,
+  initialFocus: false,
+  placeholder: () => today(getLocalTimeZone()),
+  locale: 'en',
+  isDateDisabled: undefined,
+  isDateUnavailable: undefined,
+})
+const emits = defineEmits<RangeCalendarRootEmits>()
+const { disabled, readonly, initialFocus, pagedNavigation, weekStartsOn, weekdayFormat, fixedWeeks, multiple, numberOfMonths, preventDeselect, isDateUnavailable } = toRefs(props)
+
+const { primitiveElement, currentElement: parentElement }
+  = usePrimitiveElement()
+
+const focusedValue = ref(undefined) as Ref<DateValue | undefined>
+
+const modelValue = useVModel(props, 'modelValue', emits, {
+  defaultValue: { start: undefined, end: undefined },
+  passive: (props.modelValue === undefined) as false,
+
+}) as Ref<{ start: DateValue | undefined; end: DateValue | undefined }>
+
+const startValue = ref(undefined) as Ref<DateValue | undefined>
+const endValue = ref(undefined) as Ref<DateValue | undefined>
+
+const placeholder = useVModel(props, 'placeholder', emits, {
+  defaultValue: props.placeholder,
+  passive: true,
+}) as Ref<DateValue>
+
+const {
+  fullCalendarLabel,
+  headingValue,
+  isInvalid,
+  isDateDisabled,
+  highlightedRange,
+  lastPressedDateValue,
+  isSelected,
+  isSelectionEnd,
+  isSelectionStart,
+  isNextButtonDisabled,
+  isPrevButtonDisabled,
+  months,
+  weekdays,
+  isOutsideVisibleMonths,
+  nextPage,
+  prevPage,
+  formatter,
+} = useRangeCalendar({
+  locale: props.locale,
+  placeholder,
+  weekStartsOn: props.weekStartsOn,
+  start: startValue,
+  end: endValue,
+  fixedWeeks: props.fixedWeeks,
+  numberOfMonths: props.numberOfMonths,
+  minValue: props.minValue,
+  maxValue: props.maxValue,
+  disabled: props.disabled,
+  calendarLabel: props.calendarLabel,
+  weekdayFormat: props.weekdayFormat,
+  pagedNavigation: props.pagedNavigation,
+  focusedValue,
+})
+
+watch(modelValue, () => {
+  if (modelValue.value.start && modelValue.value.end) {
+    if (modelValue.value.start !== startValue.value)
+      startValue.value = modelValue.value.start
+
+    if (modelValue.value.end)
+      endValue.value = modelValue.value.end
+  }
+})
+
+watch([startValue, endValue], () => {
+  if (modelValue.value && modelValue.value.start === startValue.value && modelValue.value.end === endValue.value)
+    return
+
+  if (startValue.value && endValue.value) {
+    if (isBefore(endValue.value, startValue.value))
+      modelValue.value = { start: endValue.value, end: startValue.value }
+
+    else
+      modelValue.value = { start: startValue.value, end: endValue.value }
+  }
+})
+
+provideRangeCalendarRootContext({
+  isDateUnavailable: isDateUnavailable.value,
+  startValue,
+  endValue,
+  formatter,
+  modelValue,
+  placeholder,
+  disabled,
+  initialFocus,
+  pagedNavigation,
+  weekStartsOn,
+  weekdayFormat,
+  fixedWeeks,
+  multiple,
+  numberOfMonths,
+  readonly,
+  preventDeselect,
+  fullCalendarLabel,
+  headingValue,
+  isInvalid,
+  isDateDisabled,
+  highlightedRange,
+  focusedValue,
+  lastPressedDateValue,
+  isSelected,
+  isSelectionEnd,
+  isSelectionStart,
+  isNextButtonDisabled,
+  isPrevButtonDisabled,
+  isOutsideVisibleMonths,
+  nextPage,
+  prevPage,
+  parentElement,
+  onPlaceholderChange(value) {
+    placeholder.value = value
+  },
+})
+</script>
+
+<template>
+  <Primitive
+    ref="primitiveElement"
+    :as="as"
+    :as-child="asChild"
+    role="application"
+    :aria-label="fullCalendarLabel"
+    :data-readonly="readonly ? '' : undefined"
+    :data-disabled="disabled ? '' : undefined"
+    :data-invalid="isInvalid ? '' : undefined"
+  >
+    <div style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 1px;">
+      <div role="heading" aria-level="2">
+        {{ fullCalendarLabel }}
+      </div>
+    </div>
+
+    <slot :date="modelValue" :months="months" :week-days="weekdays" />
+  </Primitive>
+</template>

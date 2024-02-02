@@ -2,7 +2,7 @@ import { join, parse, resolve } from 'node:path'
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import fg from 'fast-glob'
 import MarkdownIt from 'markdown-it'
-import type { ComponentMeta, MetaCheckerOptions } from 'vue-component-meta'
+import type { ComponentMeta, MetaCheckerOptions, PropertyMeta, PropertyMetaSchema } from 'vue-component-meta'
 import { createComponentMetaChecker } from 'vue-component-meta'
 import { babelParse, parse as sfcParse } from 'vue/compiler-sfc'
 import _traverse from '@babel/traverse'
@@ -72,8 +72,31 @@ primitiveComponents.forEach((componentPath) => {
   if (meta.events.length)
     parsedString += `\n<EmitsTable :data="${JSON.stringify(meta.events, null, 2).replace(/"/g, '\'')}" />\n`
 
+  if (meta.slots.length)
+    parsedString += `\n<SlotsTable :data="${JSON.stringify(meta.slots, null, 2).replace(/"/g, '\'')}" />\n`
+
   writeFileSync(metaMdFilePath, parsedString)
 })
+
+function parseTypeFromSchema(schema: PropertyMetaSchema): string {
+  if (typeof schema === 'object' && (schema.kind === 'enum' || schema.kind === 'array')) {
+    const isFlatEnum = schema.schema?.every(val => typeof val === 'string')
+    const enumValue = schema?.schema?.filter(i => i !== 'undefined') ?? []
+
+    if (isFlatEnum && /^[A-Z]/.test(schema.type))
+      return enumValue.join(' | ')
+    else if (typeof schema.schema?.[0] === 'object' && schema.schema?.[0].kind === 'enum')
+      return schema.schema.map((s: PropertyMetaSchema) => parseTypeFromSchema(s)).join(' | ')
+    else
+      return schema.type
+  }
+  else if (typeof schema === 'string') {
+    return schema
+  }
+  else {
+    return ''
+  }
+}
 
 // Utilities
 function parseMeta(meta: ComponentMeta) {
@@ -91,14 +114,8 @@ function parseMeta(meta: ComponentMeta) {
       if (defaultValue === 'undefined')
         defaultValue = undefined
 
-      if (typeof prop.schema === 'object' && prop.schema.kind === 'enum') {
-        const isFlatEnum = prop.schema.schema?.every(val => typeof val === 'string')
-        // Only update when prop.type is custom interface, and not `AcceptableValue`
-        if (isFlatEnum && /^[A-Z]/.test(prop.type) && !type.includes('AcceptableValue')) {
-          const enumValue = prop.schema?.schema?.filter(i => i !== 'undefined') ?? []
-          type = enumValue.join(' | ')
-        }
-      }
+      if (!type.includes('AcceptableValue'))
+        type = parseTypeFromSchema(prop.schema) || type
 
       return ({
         name,
@@ -121,10 +138,26 @@ function parseMeta(meta: ComponentMeta) {
     })
     .sort((a, b) => a.name.localeCompare(b.name))
 
+  const defaultSlot = meta.slots?.[0]
+  const slots: { name: string; description: string; type: string }[] = []
+
+  if (defaultSlot && defaultSlot.type !== '{}') {
+    const schema = defaultSlot.schema
+    if (typeof schema === 'object' && schema.schema) {
+      Object.values(schema.schema).forEach((childMeta: PropertyMeta) => {
+        slots.push({
+          name: childMeta.name,
+          description: childMeta.description,
+          type: parseTypeFromSchema(childMeta.schema),
+        })
+      })
+    }
+  }
+
   return {
     props,
     events,
-    slots: meta.slots,
+    slots,
   }
 }
 

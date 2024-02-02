@@ -67,6 +67,13 @@ const props = withDefaults(defineProps<TagsInputRootProps>(), {
 })
 const emits = defineEmits<TagsInputRootEmits>()
 
+defineSlots<{
+  default(props: {
+    /** Current input values */
+    modelValue: typeof modelValue.value
+  }): any
+}>()
+
 const { addOnPaste, disabled, delimiter, max, id, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
 
@@ -203,7 +210,7 @@ provideTagsInputRootContext({
       :data-disabled="disabled ? '' : undefined"
       :data-focused="focused ? '' : undefined"
     >
-      <slot :values="modelValue" />
+      <slot :model-value="modelValue" />
 
       <VisuallyHiddenInput
         v-if="isFormControl && name"

@@ -22,3 +22,11 @@
     'default': '1'
   }
 ]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'aspect',
+    'description': 'Current aspect ratio (in %)',
+    'type': 'number'
+  }
+]" />

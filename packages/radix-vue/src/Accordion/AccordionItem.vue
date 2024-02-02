@@ -45,6 +45,13 @@ import { computed } from 'vue'
 
 const props = defineProps<AccordionItemProps>()
 
+defineSlots<{
+  default(props: {
+    /** Current open state */
+    open: typeof open.value
+  }): any
+}>()
+
 const rootContext = injectAccordionRootContext()
 
 const open = computed(() =>

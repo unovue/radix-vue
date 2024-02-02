@@ -58,6 +58,13 @@ const props = withDefaults(defineProps<ToggleGroupRootProps>(), {
 })
 const emits = defineEmits<ToggleGroupRootEmits>()
 
+defineSlots<{
+  default(props: {
+    /** Current toggle values */
+    modelValue: typeof modelValue.value
+  }): any
+}>()
+
 const { loop, rovingFocus, disabled, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
 const { forwardRef } = useForwardExpose()

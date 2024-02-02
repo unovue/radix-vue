@@ -81,6 +81,15 @@ const props = withDefaults(defineProps<ComboboxRootProps<T>>(), {
 })
 const emit = defineEmits<ComboboxRootEmits<T>>()
 
+defineSlots<{
+  default(props: {
+    /** Current open state */
+    open: typeof open.value
+    /** Current active value */
+    modelValue: typeof modelValue.value
+  }): any
+}>()
+
 const { multiple, disabled, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
 
@@ -253,9 +262,8 @@ provideComboboxRootContext({
       v-bind="$attrs"
     >
       <slot
-        :active-index="activeIndex"
         :open="open"
-        :value="modelValue"
+        :model-value="modelValue"
       />
 
       <VisuallyHiddenInput v-if="isFormControl && props.name" :name="props.name" :value="modelValue" />

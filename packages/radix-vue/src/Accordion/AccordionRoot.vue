@@ -84,6 +84,14 @@ const props = withDefaults(defineProps<AccordionRootProps>(), {
   collapsible: false,
 })
 const emits = defineEmits<AccordionRootEmits>()
+
+defineSlots<{
+  default(props: {
+    /** Current active value */
+    modelValue: typeof modelValue.value
+  }): any
+}>()
+
 const { dir, disabled } = toRefs(props)
 const direction = useDirection(dir)
 

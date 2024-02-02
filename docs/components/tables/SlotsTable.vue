@@ -1,0 +1,52 @@
+<script setup lang="ts">
+import { ProseCodeInline, ProseTable, ProseTd, ProseTh, ProseTr } from '../prose'
+import { Icon } from '@iconify/vue'
+
+type PropDef = {
+  name?: string
+  required?: boolean
+  type: string
+  typeSimple: string
+  description?: string
+}
+
+interface SlotsTableProps {
+  data: PropDef[]
+}
+const props = defineProps<SlotsTableProps>()
+</script>
+
+<template>
+  <ProseTable>
+    <div class="absolute top-0 right-2 w-8 h-8 rounded-full border flex items-center justify-center text-[var(--vp-c-text-2)] bg-[var(--vp-button-alt-bg)] border-[var(--vp-c-gray-soft)]">
+      <Icon icon="ph:square-logo-light" />
+    </div>
+    <thead class="">
+      <ProseTr class="">
+        <ProseTh class="w-1/3">
+          <span>Slots (default)</span>
+        </ProseTh>
+        <ProseTh>
+          <span>Payload</span>
+        </ProseTh>
+      </ProseTr>
+    </thead>
+    <tbody>
+      <ProseTr v-for="(prop, index) in props.data" :key="`${prop.name}-${index}`">
+        <ProseTd>
+          <div class="flex h-full items-start gap-1">
+            <ProseCodeInline class=" !text-[13px]">
+              {{ prop.name }}
+            </ProseCodeInline>
+          </div>
+        </ProseTd>
+        <ProseTd>
+          <ProseCodeInline variant="secondary">
+            {{ prop.type }}
+          </ProseCodeInline>
+          <div class="vp-raw [&_a]:underline flex flex-col gap-2  mt-2 text-sm dark:text-neutral-300" v-html="prop.description" />
+        </ProseTd>
+      </ProseTr>
+    </tbody>
+  </ProseTable>
+</template>

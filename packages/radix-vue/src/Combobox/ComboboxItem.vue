@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, handleAndDispatchCustomEvent, useId } from '@/shared'
+import { createContext, handleAndDispatchCustomEvent, useForwardExpose, useId } from '@/shared'
 import type { AcceptableValue } from './ComboboxRoot.vue'
 
 export type SelectEvent<T> = CustomEvent<{ originalEvent: PointerEvent; value?: T }>
@@ -13,13 +13,15 @@ export const [injectComboboxItemContext, provideComboboxItemContext]
   = createContext<ComboboxItemContext>('ComboboxItem')
 
 export type ComboboxItemEmits<T = AcceptableValue> = {
+  /** Event handler called when the selecting item. <br> It can be prevented by calling `event.preventDefault`. */
   select: [event: SelectEvent<T>]
 }
 
 export interface ComboboxItemProps<T = AcceptableValue> extends PrimitiveProps {
+  /** The value given as data when submitted with a `name`. */
   value: T
+  /** When `true`, prevents the user from interacting with the item. */
   disabled?: boolean
-  textValue?: string
 }
 
 const COMBOBOX_SELECT = 'combobox.select'
@@ -37,7 +39,6 @@ import { injectComboboxRootContext } from './ComboboxRoot.vue'
 import { injectComboboxGroupContext } from './ComboboxGroup.vue'
 import {
   Primitive,
-  usePrimitiveElement,
 } from '@/Primitive'
 import { CollectionItem } from '@/Collection'
 import isEqual from 'fast-deep-equal'
@@ -49,7 +50,7 @@ const { disabled } = toRefs(props)
 
 const rootContext = injectComboboxRootContext()
 const groupContext = injectComboboxGroupContext({ id: '', options: ref([]) })
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef } = useForwardExpose()
 
 const isSelected = computed(() =>
   rootContext.multiple.value && Array.isArray(rootContext.modelValue.value)
@@ -58,7 +59,6 @@ const isSelected = computed(() =>
 )
 
 const isFocused = computed(() => isEqual(rootContext.selectedValue.value, props.value))
-const textValue = ref(props.textValue ?? '')
 const textId = useId()
 
 const isInOption = computed(() =>
@@ -100,9 +100,6 @@ if (props.value === '') {
 onMounted(() => {
   if (!groupContext.options?.value?.includes(props.value))
     groupContext.options?.value.push(props.value)
-
-  if (!textValue.value && currentElement.value?.textContent)
-    textValue.value = currentElement.value.textContent
 })
 
 provideComboboxItemContext({
@@ -114,7 +111,7 @@ provideComboboxItemContext({
   <CollectionItem>
     <Primitive
       v-show="isInOption"
-      ref="primitiveElement"
+      :ref="forwardRef"
       role="option"
       tabindex="-1"
       :aria-labelledby="textId"

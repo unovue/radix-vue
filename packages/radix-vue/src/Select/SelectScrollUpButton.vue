@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface SelectScrollUpButtonProps extends PrimitiveProps {}
 </script>
@@ -7,9 +8,8 @@ export interface SelectScrollUpButtonProps extends PrimitiveProps {}
 <script setup lang="ts">
 import { ref, watch, watchEffect } from 'vue'
 import { SelectContentDefaultContextValue, injectSelectContentContext } from './SelectContentImpl.vue'
-import SelectScrollButtonImpl from './SelectScrollButtonImpl.vue'
-import { usePrimitiveElement } from '@/Primitive'
 import { injectSelectItemAlignedPositionContext } from './SelectItemAlignedPosition.vue'
+import SelectScrollButtonImpl from './SelectScrollButtonImpl.vue'
 
 defineProps<SelectScrollUpButtonProps>()
 
@@ -19,7 +19,7 @@ const alignedPositionContext
     ? injectSelectItemAlignedPositionContext()
     : undefined
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 
 const canScrollUp = ref(false)
 
@@ -46,7 +46,7 @@ watch(currentElement, () => {
 <template>
   <SelectScrollButtonImpl
     v-if="canScrollUp"
-    ref="primitiveElement"
+    :ref="forwardRef"
     @auto-scroll="() => {
       const { viewport, selectedItem } = contentContext;
       if (viewport?.value && selectedItem?.value) {

@@ -2,7 +2,10 @@
 import type { PrimitiveProps } from '@/Primitive'
 
 export interface MenuItemImplProps extends PrimitiveProps {
+  /** When `true`, prevents the user from interacting with the item. */
   disabled?: boolean
+  /** Optional text used for typeahead purposes. By default the typeahead behavior will use the `.textContent` of the item. <br>
+   *  Use this when the content is complex, or you have non-textual content inside. */
   textValue?: string
 }
 </script>
@@ -13,12 +16,10 @@ import { isMouseEvent } from './utils'
 import { injectMenuContentContext } from './MenuContentImpl.vue'
 import {
   Primitive,
-  usePrimitiveElement,
 } from '@/Primitive'
 
 const props = defineProps<MenuItemImplProps>()
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
 const contentContext = injectMenuContentContext()
 
 const isFocused = ref(false)
@@ -50,15 +51,10 @@ async function handlePointerLeave(event: PointerEvent) {
 
   contentContext.onItemLeave(event)
 }
-
-defineExpose({
-  el: currentElement,
-})
 </script>
 
 <template>
   <Primitive
-    ref="primitiveElement"
     role="menuitem"
     tabindex="-1"
     :as="as"

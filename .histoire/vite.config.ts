@@ -35,6 +35,14 @@ export default defineConfig({
         { id: "utilities", title: "Utilities" },
       ],
     },
+    theme: {
+      title: "Radix Vue",
+      logo: {
+        square: '../docs/content/public/logo.svg',
+        light: '../docs/content/public/logo.svg',
+        dark: '../docs/content/public/logo.svg',
+      }, 
+    }
   },
 
   server: {

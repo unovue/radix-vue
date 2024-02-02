@@ -24,7 +24,7 @@ export interface PopoverContentImplProps
   DismissableLayerProps {
   /**
    * Whether focus should be trapped within the `MenuContent`
-   * (default: false)
+   * @defaultValue false
    */
   trapFocus?: FocusScopeProps['trapped']
 }
@@ -35,12 +35,13 @@ import { injectPopoverRootContext } from './PopoverRoot.vue'
 import { PopperContent } from '@/Popper'
 import { DismissableLayer } from '@/DismissableLayer'
 import { FocusScope } from '@/FocusScope'
-import { useFocusGuards, useForwardProps } from '@/shared'
+import { useFocusGuards, useForwardExpose, useForwardProps } from '@/shared'
 
 const props = defineProps<PopoverContentImplProps>()
 const emits = defineEmits<PopoverContentImplEmits>()
 
 const forwarded = useForwardProps(props)
+const { forwardRef } = useForwardExpose()
 
 const rootContext = injectPopoverRootContext()
 useFocusGuards()
@@ -66,6 +67,7 @@ useFocusGuards()
       <PopperContent
         v-bind="forwarded"
         :id="rootContext.contentId"
+        :ref="forwardRef"
         :data-state="rootContext.open.value ? 'open' : 'closed'"
         role="dialog"
         :style="{

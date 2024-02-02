@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface PaginationListProps extends PrimitiveProps { }
 </script>
@@ -12,6 +13,14 @@ import { getRange, transform } from './utils'
 
 const props = defineProps<PaginationListProps>()
 
+defineSlots<{
+  default(props: {
+    /** Pages item */
+    items: typeof transformedRange.value
+  }): any
+}>()
+
+useForwardExpose()
 const rootContext = injectPaginationRootContext()
 
 const transformedRange = computed(() => {

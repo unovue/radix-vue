@@ -8,12 +8,13 @@ export interface ContextMenuItemProps extends MenuItemProps {}
 
 <script setup lang="ts">
 import { MenuItem } from '@/Menu'
-import { useEmitAsProps } from '@/shared'
+import { useEmitAsProps, useForwardExpose } from '@/shared'
 
 const props = defineProps<MenuItemProps>()
 const emits = defineEmits<MenuItemEmits>()
 
 const emitsAsProps = useEmitAsProps(emits)
+useForwardExpose()
 </script>
 
 <template>

@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface DialogTitleProps extends PrimitiveProps {}
 </script>
@@ -10,6 +11,7 @@ import { Primitive } from '@/Primitive'
 
 const props = withDefaults(defineProps<DialogTitleProps>(), { as: 'h2' })
 const rootContext = injectDialogRootContext()
+useForwardExpose()
 </script>
 
 <template>

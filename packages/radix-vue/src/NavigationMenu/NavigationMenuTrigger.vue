@@ -1,8 +1,10 @@
 <script lang="ts">
 import type { VNode } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface NavigationMenuTriggerProps extends PrimitiveProps {
+  /** When `true`, prevents the user from interacting with item */
   disabled?: boolean
 }
 </script>
@@ -15,7 +17,6 @@ import { injectNavigationMenuItemContext } from './NavigationMenuItem.vue'
 import { getOpenState, makeContentId, makeTriggerId } from './utils'
 import {
   Primitive,
-  usePrimitiveElement,
 } from '@/Primitive'
 import { VisuallyHidden } from '@/VisuallyHidden'
 
@@ -30,8 +31,7 @@ const props = withDefaults(defineProps<NavigationMenuTriggerProps>(), {
 const menuContext = injectNavigationMenuContext()
 const itemContext = injectNavigationMenuItemContext()
 
-const { primitiveElement, currentElement: triggerElement }
-  = usePrimitiveElement()
+const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 const triggerId = ref('')
 const contentId = ref('')
 
@@ -120,7 +120,7 @@ function handleVisuallyHiddenFocus(ev: FocusEvent) {
 <template>
   <Primitive
     :id="triggerId"
-    ref="primitiveElement"
+    :ref="forwardRef"
     :disabled="disabled"
     :data-disabled="disabled ? '' : undefined"
     :data-state="getOpenState(open)"

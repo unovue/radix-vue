@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { Measurable } from './PopperRoot.vue'
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface PopperAnchorProps extends PrimitiveProps {
   element?: Measurable
@@ -12,12 +13,11 @@ import { watch } from 'vue'
 import { injectPopperRootContext } from './PopperRoot.vue'
 import {
   Primitive,
-  usePrimitiveElement,
 } from '@/Primitive'
 
 const props = defineProps<PopperAnchorProps>()
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 
 const rootContext = injectPopperRootContext()
 
@@ -27,7 +27,7 @@ watch(currentElement, () => {
 </script>
 
 <template>
-  <Primitive ref="primitiveElement" :as="as" :as-child="asChild">
+  <Primitive :ref="forwardRef" :as="as" :as-child="asChild">
     <slot />
   </Primitive>
 </template>

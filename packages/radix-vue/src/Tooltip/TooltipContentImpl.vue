@@ -2,9 +2,12 @@
 import type { VNode } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import type { PopperContentProps } from '@/Popper'
+import { useForwardExpose } from '@/shared'
 
 export type TooltipContentImplEmits = {
+  /** Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault` */
   'escapeKeyDown': [event: KeyboardEvent]
+  /** Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling `event.preventDefault`. */
   'pointerDownOutside': [event: Event]
 }
 
@@ -29,14 +32,14 @@ export interface TooltipContentImplProps
    * content that cannot be announced, use aria-label as a more
    * descriptive label.
    *
-   * @default String
+   * @defaultValue String
    */
   ariaLabel?: string
 }
 </script>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, useSlots } from 'vue'
+import { computed, onMounted, useSlots } from 'vue'
 import { useEventListener } from '@vueuse/core'
 import { TOOLTIP_OPEN } from './utils'
 import { PopperContent } from '@/Popper'
@@ -45,7 +48,6 @@ import { injectTooltipRootContext } from './TooltipRoot.vue'
 import { DismissableLayer } from '@/DismissableLayer'
 
 const props = withDefaults(defineProps<TooltipContentImplProps>(), {
-  asChild: false,
   side: 'top',
   sideOffset: 0,
   align: 'center',
@@ -58,9 +60,9 @@ const props = withDefaults(defineProps<TooltipContentImplProps>(), {
 })
 const emits = defineEmits<TooltipContentImplEmits>()
 
-const contentElement = ref<HTMLElement>()
 const rootContext = injectTooltipRootContext()
 
+const { forwardRef } = useForwardExpose()
 const slot = useSlots()
 const defaultSlot = computed(() => slot.default?.())
 const ariaLabel = computed(() => {
@@ -111,7 +113,7 @@ onMounted(() => {
     @dismiss="rootContext.onClose()"
   >
     <PopperContent
-      ref="contentElement"
+      :ref="forwardRef"
       :data-state="rootContext.stateAttribute.value"
       v-bind="{ ...$attrs, ...popperContentProps }"
       :style="{

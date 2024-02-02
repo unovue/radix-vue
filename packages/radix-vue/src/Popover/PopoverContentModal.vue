@@ -5,8 +5,7 @@ import PopoverContentImpl, {
   type PopoverContentImplProps,
 } from './PopoverContentImpl.vue'
 import { injectPopoverRootContext } from './PopoverRoot.vue'
-import { useBodyScrollLock, useForwardPropsEmits, useHideOthers } from '@/shared'
-import { usePrimitiveElement } from '@/Primitive'
+import { useBodyScrollLock, useForwardExpose, useForwardPropsEmits, useHideOthers } from '@/shared'
 
 const props = defineProps<PopoverContentImplProps>()
 const emits = defineEmits<PopoverContentImplEmits>()
@@ -17,14 +16,14 @@ useBodyScrollLock(true)
 
 const forwarded = useForwardPropsEmits(props, emits)
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 useHideOthers(currentElement)
 </script>
 
 <template>
   <PopoverContentImpl
-    ref="primitiveElement"
     v-bind="forwarded"
+    :ref="forwardRef"
     :trap-focus="rootContext.open.value"
     disable-outside-pointer-events
     @close-auto-focus.prevent="

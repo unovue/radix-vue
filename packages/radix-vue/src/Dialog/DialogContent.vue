@@ -20,7 +20,7 @@ import DialogContentModal from './DialogContentModal.vue'
 import DialogContentNonModal from './DialogContentNonModal.vue'
 import { injectDialogRootContext } from './DialogRoot.vue'
 import { Presence } from '@/Presence'
-import { useEmitAsProps } from '@/shared'
+import { useEmitAsProps, useForwardExpose } from '@/shared'
 
 const props = defineProps<DialogContentProps>()
 const emits = defineEmits<DialogContentEmits>()
@@ -28,12 +28,14 @@ const emits = defineEmits<DialogContentEmits>()
 const rootContext = injectDialogRootContext()
 
 const emitsAsProps = useEmitAsProps(emits)
+const { forwardRef } = useForwardExpose()
 </script>
 
 <template>
   <Presence :present="forceMount || rootContext.open.value">
     <DialogContentModal
       v-if="rootContext.modal.value"
+      :ref="forwardRef"
       v-bind="{ ...props, ...emitsAsProps, ...$attrs }"
       @open-auto-focus="emits('openAutoFocus', $event)"
     >
@@ -41,6 +43,7 @@ const emitsAsProps = useEmitAsProps(emits)
     </DialogContentModal>
     <DialogContentNonModal
       v-else
+      :ref="forwardRef"
       v-bind="{ ...props, ...emitsAsProps, ...$attrs }"
     >
       <slot />

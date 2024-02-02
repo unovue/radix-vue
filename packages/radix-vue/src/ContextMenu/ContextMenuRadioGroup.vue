@@ -11,12 +11,13 @@ export interface ContextMenuRadioGroupProps extends MenuRadioGroupProps {}
 
 <script setup lang="ts">
 import { MenuRadioGroup } from '@/Menu'
-import { useEmitAsProps } from '@/shared'
+import { useEmitAsProps, useForwardExpose } from '@/shared'
 
 const props = defineProps<ContextMenuRadioGroupProps>()
 const emits = defineEmits<ContextMenuRadioGroupEmits>()
 
 const emitsAsProps = useEmitAsProps(emits)
+useForwardExpose()
 </script>
 
 <template>

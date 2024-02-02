@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { Ref } from 'vue'
-import { createContext, useId } from '@/shared'
+import { createContext, useForwardExpose, useId } from '@/shared'
 
 export interface TooltipRootProps {
   /**
@@ -16,7 +16,7 @@ export interface TooltipRootProps {
    * Override the duration given to the `Provider` to customise
    * the open delay for a specific tooltip.
    *
-   * @default 700
+   * @defaultValue 700
    */
   delayDuration?: number
   /**
@@ -33,6 +33,7 @@ export interface TooltipRootProps {
 }
 
 export type TooltipRootEmits = {
+  /** Event handler called when the open state of the tooltip changes. */
   'update:open': [value: boolean]
 }
 
@@ -71,6 +72,7 @@ const props = withDefaults(defineProps<TooltipRootProps>(), {
 
 const emit = defineEmits<TooltipRootEmits>()
 
+useForwardExpose()
 const providerContext = injectTooltipProviderContext()
 
 const disableHoverableContent = computed(() => props.disableHoverableContent ?? providerContext.disableHoverableContent.value)

@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface ToastDescriptionProps extends PrimitiveProps {}
 </script>
@@ -8,6 +9,7 @@ export interface ToastDescriptionProps extends PrimitiveProps {}
 import { Primitive } from '@/Primitive'
 
 const props = defineProps<ToastDescriptionProps>()
+useForwardExpose()
 </script>
 
 <template>

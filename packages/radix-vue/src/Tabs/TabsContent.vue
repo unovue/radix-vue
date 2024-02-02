@@ -1,7 +1,9 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface TabsContentProps extends PrimitiveProps {
+  /** A unique value that associates the content with a trigger. */
   value: string
   /**
    * Used to force mounting when more control is needed. Useful when
@@ -20,6 +22,7 @@ import { Presence } from '@/Presence'
 
 const props = defineProps<TabsContentProps>()
 
+const { forwardRef } = useForwardExpose()
 const rootContext = injectTabsRootContext()
 const triggerId = computed(() => makeTriggerId(rootContext.baseId, props.value))
 const contentId = computed(() => makeContentId(rootContext.baseId, props.value))
@@ -38,6 +41,7 @@ onMounted(() => {
   <Presence v-slot="{ present }" :present="isSelected" force-mount>
     <Primitive
       :id="contentId"
+      :ref="forwardRef"
       :as-child="asChild"
       :as="as"
       role="tabpanel"

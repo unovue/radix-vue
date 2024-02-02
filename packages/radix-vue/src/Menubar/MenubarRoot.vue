@@ -1,15 +1,22 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { Direction } from '../shared/types'
-import { createContext, useCollection, useDirection } from '@/shared'
+import { createContext, useCollection, useDirection, useForwardExpose } from '@/shared'
 
 export interface MenubarRootProps {
+  /** The controlled value of the menu to open. Can be used as `v-model`. */
   modelValue?: string
+  /** The value of the menu that should be open when initially rendered. Use when you do not need to control the value state. */
   defaultValue?: string
+  /** The reading direction of the combobox when applicable.
+   *
+   *  If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
+  /** When `true`, keyboard navigation will loop from last item to first, and vice versa. */
   loop?: boolean
 }
 export type MenubarRootEmits = {
+  /** Event handler called when the value changes. */
   'update:modelValue': [value: boolean]
 }
 
@@ -28,7 +35,7 @@ export const [injectMenubarRootContext, provideMenubarRootContext]
 
 <script setup lang="ts">
 import { ref, toRefs } from 'vue'
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { RovingFocusGroup } from '@/RovingFocus'
 import { useVModel } from '@vueuse/core'
 
@@ -37,7 +44,7 @@ const props = withDefaults(defineProps<MenubarRootProps>(), {
 })
 const emit = defineEmits<MenubarRootEmits>()
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 const { createCollection } = useCollection('menubar')
 createCollection(currentElement)
 
@@ -78,7 +85,7 @@ provideMenubarRootContext({
     :dir="dir"
     as-child
   >
-    <Primitive ref="primitiveElement" role="menubar">
+    <Primitive :ref="forwardRef" role="menubar">
       <slot />
     </Primitive>
   </RovingFocusGroup>

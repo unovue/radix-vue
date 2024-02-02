@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { DialogOverlayProps } from '@/Dialog'
+import { useForwardExpose } from '@/shared'
 
 export interface AlertDialogOverlayProps extends DialogOverlayProps {}
 </script>
@@ -8,6 +9,7 @@ export interface AlertDialogOverlayProps extends DialogOverlayProps {}
 import { DialogOverlay } from '@/Dialog'
 
 const props = defineProps<AlertDialogOverlayProps>()
+useForwardExpose()
 </script>
 
 <template>

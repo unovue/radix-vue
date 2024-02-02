@@ -32,12 +32,20 @@ export {
   type MenuRadioItemProps,
   type MenuRadioItemEmits,
 } from './MenuRadioItem.vue'
-export { default as MenuRoot, type MenuProps } from './MenuRoot.vue'
+export {
+  default as MenuRoot,
+  type MenuProps,
+  type MenuEmits,
+} from './MenuRoot.vue'
 export {
   default as MenuSeparator,
   type MenuSeparatorProps,
 } from './MenuSeparator.vue'
-export { default as MenuSub } from './MenuSub.vue'
+export {
+  default as MenuSub,
+  type MenuSubProps,
+  type MenuSubEmits,
+} from './MenuSub.vue'
 export {
   default as MenuSubContent,
   type MenuSubContentProps,

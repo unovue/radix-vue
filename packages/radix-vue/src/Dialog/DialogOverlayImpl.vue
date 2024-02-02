@@ -7,12 +7,13 @@ export interface DialogOverlayImplProps extends PrimitiveProps {}
 <script setup lang="ts">
 import { injectDialogRootContext } from './DialogRoot.vue'
 import { Primitive } from '@/Primitive'
-import { useBodyScrollLock } from '@/shared'
+import { useBodyScrollLock, useForwardExpose } from '@/shared'
 
 defineProps<DialogOverlayImplProps>()
 const rootContext = injectDialogRootContext()
 
 useBodyScrollLock(true)
+useForwardExpose()
 </script>
 
 <template>

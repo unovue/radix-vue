@@ -1,7 +1,9 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface LabelProps extends PrimitiveProps {
+  /** The id of the element the label is associated with. */
   for?: string
 }
 </script>
@@ -12,6 +14,8 @@ import { Primitive } from '@/Primitive'
 const props = withDefaults(defineProps<LabelProps>(), {
   as: 'label',
 })
+
+useForwardExpose()
 </script>
 
 <template>

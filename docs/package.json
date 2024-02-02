@@ -6,7 +6,8 @@
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
     "docs:preview": "vitepress preview",
-    "docs:contributors": "esno scripts/update-contributors.ts"
+    "docs:contributors": "esno scripts/update-contributors.ts",
+    "docs:gen": "esno scripts/autogen.ts"
   },
   "dependencies": {
     "@stackblitz/sdk": "^1.9.0",
@@ -15,16 +16,22 @@
     "vue": "^3.3.8"
   },
   "devDependencies": {
+    "@babel/traverse": "^7.23.9",
     "@iconify/vue": "^4.1.1",
     "@radix-ui/colors": "^2.1.0",
+    "@types/babel__traverse": "^7.20.5",
+    "@types/markdown-it": "^13.0.7",
     "@vue/tsconfig": "^0.4.0",
     "autoprefixer": "^10.4.16",
     "codesandbox": "^2.2.3",
     "esno": "^0.17.0",
+    "fast-glob": "^3.3.2",
+    "markdown-it": "^14.0.0",
     "ohmyfetch": "^0.4.21",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.3",
-    "vitepress": "1.0.0-rc.20"
+    "vitepress": "1.0.0-rc.40",
+    "vue-component-meta": "^1.8.25"
   },
   "postcss": {
     "plugins": {

@@ -1,7 +1,7 @@
 <script lang="ts">
 import { type ComputedRef, type Ref, computed, ref, toRefs, watch } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useDirection } from '@/shared'
+import { createContext, useDirection, useForwardExpose } from '@/shared'
 import type { Direction } from '@/shared/types'
 
 export type PinInputRootEmits = {
@@ -10,16 +10,27 @@ export type PinInputRootEmits = {
 }
 
 export interface PinInputRootProps extends PrimitiveProps {
+  /** The controlled checked state of the pin input. Can be binded as `v-model`. */
   modelValue?: string[]
+  /** The default value of the pin inputs when it is initially rendered. Use when you do not need to control its checked state. */
   defaultValue?: string[]
+  /** The placeholder character to use for empty pin-inputs. */
   placeholder?: string
+  /** When `true`, pin inputs will be treated as password. */
   mask?: boolean
+  /** When `true`, mobile devices will autodetect the OTP from messages or clipboard, and enable the autocomplete field. */
   otp?: boolean
+  /** Input type for the inputs. */
   type?: 'text' | 'number'
+  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
+  /** The name of the pin input. Submitted with its owning form as part of a name/value pair. */
   name?: string
+  /** When `true`, prevents the user from interacting with the pin input */
   disabled?: boolean
+  /** When `true`, indicates that the user must check the pin input before the owning form can be submitted. */
   required?: boolean
+  /** Id of the element */
   id?: string
 }
 
@@ -53,7 +64,16 @@ const props = withDefaults(defineProps<PinInputRootProps>(), {
   type: 'text',
 })
 const emits = defineEmits<PinInputRootEmits>()
+
+defineSlots<{
+  default(props: {
+    /** Current input values */
+    modelValue: typeof modelValue.value
+  }): any
+}>()
+
 const { mask, otp, placeholder, type, disabled, dir: propDir } = toRefs(props)
+const { forwardRef } = useForwardExpose()
 const dir = useDirection(propDir)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
@@ -93,6 +113,7 @@ providePinInputRootContext({
 <template>
   <Primitive
     v-bind="$attrs"
+    :ref="forwardRef"
     :dir="dir"
     :data-complete="isCompleted ? '' : undefined"
     :data-disabled="disabled ? '' : undefined"

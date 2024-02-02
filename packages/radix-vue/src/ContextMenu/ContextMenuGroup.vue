@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { MenuGroupProps } from '@/Menu'
+import { useForwardExpose } from '@/shared'
 
 export interface ContextMenuGroupProps extends MenuGroupProps {}
 </script>
@@ -8,6 +9,7 @@ export interface ContextMenuGroupProps extends MenuGroupProps {}
 import { MenuGroup } from '@/Menu'
 
 const props = defineProps<ContextMenuGroupProps>()
+useForwardExpose()
 </script>
 
 <template>

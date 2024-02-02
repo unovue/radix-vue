@@ -1,15 +1,19 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import type { Ref } from 'vue'
-import { createContext, useId } from '@/shared'
+import { createContext, useForwardExpose, useId } from '@/shared'
 
 export interface CollapsibleRootProps extends PrimitiveProps {
+  /** The open state of the collapsible when it is initially rendered. <br> Use when you do not need to control its open state. */
   defaultOpen?: boolean
+  /** The controlled open state of the collapsible. Can be binded with `v-model`. */
   open?: boolean
+  /** When `true`, prevents the user from interacting with the collapsible. */
   disabled?: boolean
 }
 
 export type CollapsibleRootEmits = {
+  /** Event handler called when the open state of the collapsible changes. */
   'update:open': [value: boolean]
 }
 
@@ -35,6 +39,13 @@ const props = withDefaults(defineProps<CollapsibleRootProps>(), {
 
 const emit = defineEmits<CollapsibleRootEmits>()
 
+defineSlots<{
+  default(props: {
+    /** Current open state */
+    open: typeof open.value
+  }): any
+}>()
+
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: (props.open === undefined) as false,
@@ -52,6 +63,7 @@ provideCollapsibleRootContext({
 })
 
 defineExpose({ open })
+useForwardExpose()
 </script>
 
 <template>

@@ -3,6 +3,7 @@ import type {
   DismissableLayerEmits,
   DismissableLayerProps,
 } from '@/DismissableLayer'
+import { useForwardExpose } from '@/shared'
 
 export type DialogContentImplEmits = DismissableLayerEmits & {
   /**
@@ -38,19 +39,19 @@ import { DismissableLayer } from '@/DismissableLayer'
 import { FocusScope } from '@/FocusScope'
 import { getOpenState } from '@/Menu/utils'
 import { useWarning } from './utils'
-import { usePrimitiveElement } from '@/Primitive'
 import { onMounted } from 'vue'
 
 const props = defineProps<DialogContentImplProps>()
 const emits = defineEmits<DialogContentImplEmits>()
 
 const rootContext = injectDialogRootContext()
-const { primitiveElement, currentElement: contentElement } = usePrimitiveElement()
+const { forwardRef, currentElement: contentElement } = useForwardExpose()
 
 onMounted(() => {
   rootContext.contentElement = contentElement
 })
 
+// eslint-disable-next-line n/prefer-global/process
 if (process.env.NODE_ENV !== 'production')
   useWarning()
 </script>
@@ -65,7 +66,7 @@ if (process.env.NODE_ENV !== 'production')
   >
     <DismissableLayer
       :id="rootContext.contentId"
-      ref="primitiveElement"
+      :ref="forwardRef"
       :as="as"
       :as-child="asChild"
       :disable-outside-pointer-events="disableOutsidePointerEvents"

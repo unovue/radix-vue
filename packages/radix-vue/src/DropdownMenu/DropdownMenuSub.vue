@@ -1,10 +1,9 @@
 <script lang="ts">
-export type DropdownMenuSubEmits = {
-  'update:open': [value: boolean]
-}
+import type { MenuSubEmits, MenuSubProps } from '@/Menu'
 
-export interface DropdownMenuSubProps {
-  open?: boolean
+export type DropdownMenuSubEmits = MenuSubEmits
+export interface DropdownMenuSubProps extends MenuSubProps {
+  /** The open state of the dropdown menu when it is initially rendered. Use when you do not need to control its open state. */
   defaultOpen?: boolean
 }
 </script>
@@ -12,6 +11,7 @@ export interface DropdownMenuSubProps {
 <script setup lang="ts">
 import { useVModel } from '@vueuse/core'
 import { MenuSub } from '@/Menu'
+import { useForwardExpose } from '@/shared'
 
 const props = withDefaults(defineProps<DropdownMenuSubProps>(), {
   open: undefined,
@@ -22,6 +22,8 @@ const open = useVModel(props, 'open', emit, {
   passive: (props.open === undefined) as false,
   defaultValue: props.defaultOpen ?? false,
 })
+
+useForwardExpose()
 </script>
 
 <template>

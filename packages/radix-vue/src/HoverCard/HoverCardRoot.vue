@@ -1,14 +1,19 @@
 <script lang="ts">
 import type { Ref } from 'vue'
-import { createContext } from '@/shared'
+import { createContext, useForwardExpose } from '@/shared'
 
 export interface HoverCardRootProps {
+  /** The open state of the hover card when it is initially rendered. Use when you do not need to control its open state. */
   defaultOpen?: false
+  /** The controlled open state of the hover card. Can be binded as `v-model:open`. */
   open?: boolean
+  /** The duration from when the mouse enters the trigger until the hover card opens. */
   openDelay?: number
+  /** The duration from when the mouse leaves the trigger or content until the hover card closes. */
   closeDelay?: number
 }
 export type HoverCardRootEmits = {
+  /** Event handler called when the open state of the hover card changes. */
   'update:open': [value: boolean]
 }
 
@@ -41,6 +46,7 @@ const emit = defineEmits<HoverCardRootEmits>()
 
 const { openDelay, closeDelay } = toRefs(props)
 
+useForwardExpose()
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: (props.open === undefined) as false,

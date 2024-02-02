@@ -3,20 +3,25 @@ import type { Ref } from 'vue'
 import {
   createContext,
   useBodyScrollLock,
+  useForwardExpose,
   useForwardProps,
   useHideOthers,
 } from '@/shared'
 
-import type { DismissableLayerEmits } from '@/DismissableLayer'
+import type { DismissableLayerEmits, DismissableLayerProps } from '@/DismissableLayer'
 import type { PopperContentProps } from '@/Popper'
 
 export type ComboboxContentImplEmits = DismissableLayerEmits
 
-export interface ComboboxContentImplProps extends PopperContentProps {
+export interface ComboboxContentImplProps extends PopperContentProps, DismissableLayerProps {
+  /** The positioning mode to use, <br>
+   * `inline` is the default and you can control the position using CSS. <br>
+   * `popper` positions content in the same way as our other primitives, for example `Popover` or `DropdownMenu`. */
   position?: 'inline' | 'popper'
+  /** The document.body will be lock, and scrolling will be disabled. */
   bodyLock?: boolean
+  /** (alpha) Allow component to be dismissableLayer. */
   dismissable?: boolean
-  disableOutsidePointerEvents?: boolean
 }
 
 export const [injectComboboxContentContext, provideComboboxContentContext]
@@ -34,7 +39,7 @@ import {
 import { injectComboboxRootContext } from './ComboboxRoot.vue'
 import { DismissableLayer } from '@/DismissableLayer'
 import { PopperContent } from '@/Popper'
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { CollectionSlot } from '@/Collection'
 
 const props = withDefaults(defineProps<ComboboxContentImplProps>(), {
@@ -48,7 +53,7 @@ const rootContext = injectComboboxRootContext()
 
 useBodyScrollLock(props.bodyLock)
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 useHideOthers(currentElement)
 
 const pickedProps = computed(() => {
@@ -107,7 +112,7 @@ provideComboboxContentContext({ position })
         :is="position === 'popper' ? PopperContent : Primitive "
         v-bind="{ ...$attrs, ...forwardedProps }"
         :id="rootContext.contentId"
-        ref="primitiveElement"
+        :ref="forwardRef"
         role="listbox"
         :data-state="rootContext.open.value ? 'open' : 'closed'"
         :style="{
@@ -129,7 +134,7 @@ provideComboboxContentContext({ position })
       v-else
       v-bind="{ ...$attrs, ...pickedProps }"
       :id="rootContext.contentId"
-      ref="primitiveElement"
+      :ref="forwardRef"
       role="listbox"
       :data-state="rootContext.open.value ? 'open' : 'closed'"
       :style="{

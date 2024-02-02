@@ -1,7 +1,10 @@
 <script lang="ts">
 import type { MenuItemImplProps } from './MenuItemImpl.vue'
+import { useForwardExpose } from '@/shared'
 
 export type MenuItemEmits = {
+  /** Event handler called when the user selects an item (via mouse or keyboard). <br>
+   *  Calling `event.preventDefault` in this handler will prevent the menu from closing when selecting that item. */
   'select': [event: Event]
 }
 
@@ -14,12 +17,11 @@ import MenuItemImpl from './MenuItemImpl.vue'
 import { injectMenuRootContext } from './MenuRoot.vue'
 import { injectMenuContentContext } from './MenuContentImpl.vue'
 import { ITEM_SELECT, SELECTION_KEYS } from './utils'
-import { usePrimitiveElement } from '@/Primitive'
 
 const props = defineProps<MenuItemProps>()
 const emits = defineEmits<MenuItemEmits>()
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 const rootContext = injectMenuRootContext()
 const contentContext = injectMenuContentContext()
 
@@ -45,7 +47,7 @@ async function handleSelect() {
 <template>
   <MenuItemImpl
     v-bind="props"
-    ref="primitiveElement"
+    :ref="forwardRef"
     @click="handleSelect"
     @pointerdown="
       () => {

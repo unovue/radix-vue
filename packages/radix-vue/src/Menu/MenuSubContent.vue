@@ -6,7 +6,8 @@ import type {
 
 export type MenuSubContentEmits = MenuContentImplEmits
 
-export interface MenuSubContentProps extends MenuContentImplProps {
+// reference: https://github.com/radix-ui/primitives/blob/main/packages/react/menu/src/Menu.tsx#L1152
+export interface MenuSubContentProps extends Omit<MenuContentImplProps, 'disableOutsidePointerEvents' | 'disableOutsideScroll' | 'trapFocus' | 'side' | 'align'> {
   /**
    * Used to force mounting when more control is needed. Useful when
    * controlling animation with Vue animation libraries.
@@ -21,10 +22,11 @@ import { injectMenuContext, injectMenuRootContext } from './MenuRoot.vue'
 import { injectMenuSubContext } from './MenuSub.vue'
 import { SUB_CLOSE_KEYS } from './utils'
 import { Presence } from '@/Presence'
-import { usePrimitiveElement } from '@/Primitive'
-import { useForwardPropsEmits } from '@/shared'
+import { useForwardExpose, useForwardPropsEmits } from '@/shared'
 
-const props = defineProps<MenuSubContentProps>()
+const props = withDefaults(defineProps<MenuSubContentProps>(), {
+  prioritizePosition: true,
+})
 const emits = defineEmits<MenuSubContentEmits>()
 
 const forwarded = useForwardPropsEmits(props, emits)
@@ -33,8 +35,7 @@ const menuContext = injectMenuContext()
 const rootContext = injectMenuRootContext()
 const menuSubContext = injectMenuSubContext()
 
-const { primitiveElement, currentElement: subContentElement }
-  = usePrimitiveElement()
+const { forwardRef, currentElement: subContentElement } = useForwardExpose()
 </script>
 
 <template>
@@ -42,7 +43,7 @@ const { primitiveElement, currentElement: subContentElement }
     <MenuContentImpl
       v-bind="forwarded"
       :id="menuSubContext.contentId"
-      ref="primitiveElement"
+      :ref="forwardRef"
       :aria-labelledby="menuSubContext.triggerId"
       align="start"
       :side="rootContext.dir.value === 'rtl' ? 'left' : 'right'"

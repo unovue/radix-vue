@@ -9,7 +9,11 @@ import { injectSelectRootContext } from './SelectRoot.vue'
 import { injectSelectContentContext } from './SelectContentImpl.vue'
 import { PopperArrow } from '@/Popper'
 
-const props = defineProps<SelectArrowProps>()
+const props = withDefaults(defineProps<SelectArrowProps>(), {
+  width: 10,
+  height: 5,
+  as: 'svg',
+})
 const rootContext = injectSelectRootContext()
 const contentContext = injectSelectContentContext()
 </script>

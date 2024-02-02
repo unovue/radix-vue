@@ -1,9 +1,13 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface TagsInputInputProps extends PrimitiveProps {
+  /** The placeholder character to use for empty tags input. */
   placeholder?: string
+  /** Focus on element when mounted. */
   autoFocus?: boolean
+  /** Maximum number of character allowed. */
   maxLength?: number
 }
 </script>
@@ -11,14 +15,14 @@ export interface TagsInputInputProps extends PrimitiveProps {
 <script setup lang="ts">
 import { nextTick, onMounted } from 'vue'
 import { injectTagsInputRootContext } from './TagsInputRoot.vue'
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 
 const props = withDefaults(defineProps<TagsInputInputProps>(), {
   as: 'input',
 })
 
 const context = injectTagsInputRootContext()
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 
 async function handleEnter(event: Event) {
   await nextTick()
@@ -91,7 +95,7 @@ onMounted(() => {
   <Primitive
     v-bind="props"
     :id="context.id?.value"
-    ref="primitiveElement"
+    :ref="forwardRef"
     type="text"
     autocomplete="off"
     autocorrect="off"

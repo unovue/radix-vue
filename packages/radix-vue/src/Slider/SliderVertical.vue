@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { usePrimitiveElement } from '@/Primitive'
 import SliderImpl from './SliderImpl.vue'
 import { computed, ref, toRefs } from 'vue'
 import type { SliderOrientationPrivateEmits, SliderOrientationPrivateProps } from './utils'
 import { BACK_KEYS, linearScale, provideSliderOrientationContext } from './utils'
+import { useForwardExpose } from '@/shared'
 
 interface SliderVerticalProps extends SliderOrientationPrivateProps {}
 const props = defineProps<SliderVerticalProps>()
 const emits = defineEmits<SliderOrientationPrivateEmits>()
 const { max, min, inverted } = toRefs(props)
 
-const { primitiveElement, currentElement: sliderElement } = usePrimitiveElement()
+const { forwardRef, currentElement: sliderElement } = useForwardExpose()
 
 const rectRef = ref<ClientRect>()
 const isSlidingFromBottom = computed(() => !inverted.value)
@@ -35,7 +35,7 @@ provideSliderOrientationContext({
 
 <template>
   <SliderImpl
-    ref="primitiveElement"
+    :ref="forwardRef"
     data-orientation="vertical"
     :style="{
       ['--radix-slider-thumb-transform' as any]: 'translateY(50%)',

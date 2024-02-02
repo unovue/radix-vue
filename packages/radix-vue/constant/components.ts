@@ -305,9 +305,10 @@ export const utilities = {
     'useEmitAsProps',
     'useForwardProps',
     'useForwardPropsEmits',
+    'useForwardExpose',
     'useId',
     'useStateMachine',
-    'withDefault',
     'useBodyScrollLock',
+    'withDefault',
   ],
 }

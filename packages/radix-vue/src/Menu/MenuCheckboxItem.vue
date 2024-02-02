@@ -6,10 +6,12 @@ import type {
 } from './MenuItem.vue'
 
 export type MenuCheckboxItemEmits = MenuItemEmits & {
+  /** Event handler called when the checked state changes. */
   'update:checked': [payload: boolean]
 }
 
 export interface MenuCheckboxItemProps extends MenuItemProps {
+  /** The controlled checked state of the item. Can be used as `v-model:checked`. */
   checked?: CheckedState
 }
 </script>

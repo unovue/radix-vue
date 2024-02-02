@@ -31,7 +31,7 @@ export function useCollection(key?: string, name = ITEM_DATA_ATTR) {
         return (items.value = [])
 
       return (items.value = Array.from(
-        sourceEl.querySelectorAll(`[${name}]:not([data-disabled=true])`),
+        sourceEl.querySelectorAll(`[${name}]:not([data-disabled])`),
       ) as HTMLElement[])
     }
 

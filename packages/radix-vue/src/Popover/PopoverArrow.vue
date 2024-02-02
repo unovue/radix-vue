@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PopperArrowProps } from '@/Popper'
+import { useForwardExpose } from '@/shared'
 
 export interface PopoverArrowProps extends PopperArrowProps {}
 </script>
@@ -7,7 +8,12 @@ export interface PopoverArrowProps extends PopperArrowProps {}
 <script setup lang="ts">
 import { PopperArrow } from '@/Popper'
 
-const props = defineProps<PopoverArrowProps>()
+const props = withDefaults(defineProps<PopoverArrowProps>(), {
+  width: 10,
+  height: 5,
+  as: 'svg',
+})
+useForwardExpose()
 </script>
 
 <template>

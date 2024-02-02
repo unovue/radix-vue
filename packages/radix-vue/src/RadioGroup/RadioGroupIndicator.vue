@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface RadioGroupIndicatorProps extends PrimitiveProps {}
 </script>
@@ -12,6 +13,7 @@ withDefaults(defineProps<RadioGroupIndicatorProps>(), {
   as: 'span',
 })
 
+useForwardExpose()
 const itemContext = injectRadioGroupItemContext()
 </script>
 

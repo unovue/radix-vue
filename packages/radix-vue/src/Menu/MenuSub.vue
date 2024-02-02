@@ -15,7 +15,13 @@ export const [injectMenuSubContext, provideMenuSubContext]
   = createContext<MenuSubContext>('MenuSub')
 
 export interface MenuSubProps {
+  /** The controlled open state of the menu. Can be used as `v-model:open`. */
   open?: boolean
+}
+
+export type MenuSubEmits = {
+  /** Event handler called when the open state of the submenu changes. */
+  'update:open': [payload: boolean]
 }
 </script>
 
@@ -31,9 +37,7 @@ import { PopperRoot } from '@/Popper'
 const props = withDefaults(defineProps<MenuSubProps>(), {
   open: undefined,
 })
-const emits = defineEmits<{
-  'update:open': [payload: boolean]
-}>()
+const emits = defineEmits<MenuSubEmits>()
 
 const open = useVModel(props, 'open', emits, {
   defaultValue: false,

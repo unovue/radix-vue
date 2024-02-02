@@ -20,6 +20,6 @@
   {
     'name': 'items',
     'description': 'Pages item',
-    'type': ''
+    'type': '{ type: \'ellipsis\'; } | { type: \'page\'; value: number; }'
   }
 ]" />

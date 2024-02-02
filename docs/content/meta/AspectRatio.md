@@ -27,6 +27,6 @@
   {
     'name': 'aspect',
     'description': 'Current aspect ratio (in %)',
-    'type': ''
+    'type': 'number'
   }
 ]" />

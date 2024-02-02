@@ -78,12 +78,20 @@ primitiveComponents.forEach((componentPath) => {
   writeFileSync(metaMdFilePath, parsedString)
 })
 
-function parseTypeFromSchema(schema: PropertyMetaSchema) {
-  if (typeof schema === 'object' && schema.kind === 'enum') {
+function parseTypeFromSchema(schema: PropertyMetaSchema): string {
+  if (typeof schema === 'object' && (schema.kind === 'enum' || schema.kind === 'array')) {
     const isFlatEnum = schema.schema?.every(val => typeof val === 'string')
-
     const enumValue = schema?.schema?.filter(i => i !== 'undefined') ?? []
-    return isFlatEnum && /^[A-Z]/.test(schema.type) ? enumValue.join(' | ') : schema.type
+
+    if (isFlatEnum && /^[A-Z]/.test(schema.type))
+      return enumValue.join(' | ')
+    else if (typeof schema.schema?.[0] === 'object' && schema.schema?.[0].kind === 'enum')
+      return schema.schema.map((s: PropertyMetaSchema) => parseTypeFromSchema(s)).join(' | ')
+    else
+      return schema.type
+  }
+  else if (typeof schema === 'string') {
+    return schema
   }
   else {
     return ''
@@ -136,11 +144,11 @@ function parseMeta(meta: ComponentMeta) {
   if (defaultSlot && defaultSlot.type !== '{}') {
     const schema = defaultSlot.schema
     if (typeof schema === 'object' && schema.schema) {
-      Object.values(schema.schema).forEach((childSchema: PropertyMeta) => {
+      Object.values(schema.schema).forEach((childMeta: PropertyMeta) => {
         slots.push({
-          name: childSchema.name,
-          description: childSchema.description,
-          type: parseTypeFromSchema(childSchema.schema),
+          name: childMeta.name,
+          description: childMeta.description,
+          type: parseTypeFromSchema(childMeta.schema),
         })
       })
     }

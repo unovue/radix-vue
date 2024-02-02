@@ -75,6 +75,6 @@
   {
     'name': 'page',
     'description': 'Current page state',
-    'type': ''
+    'type': 'number'
   }
 ]" />

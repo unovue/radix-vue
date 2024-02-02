@@ -28,7 +28,7 @@ export type UseRangeCalendarProps = {
 export function useRangeCalendar(props: UseRangeCalendarProps) {
   const lastPressedDateValue = ref(undefined) as Ref<DateValue | undefined>
   const formatter = useDateFormatter(props.locale)
-  console.log(props.placeholder.value)
+
   const months = ref<Month<DateValue>[]>(createMonths({
     dateObj: props.placeholder.value,
     weekStartsOn: props.weekStartsOn,

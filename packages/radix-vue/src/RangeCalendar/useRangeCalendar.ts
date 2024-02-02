@@ -28,16 +28,14 @@ export type UseRangeCalendarProps = {
 export function useRangeCalendar(props: UseRangeCalendarProps) {
   const lastPressedDateValue = ref(undefined) as Ref<DateValue | undefined>
   const formatter = useDateFormatter(props.locale)
-
-  const months = computed<Month<DateValue>[]>(() =>
-    createMonths({
-      dateObj: props.placeholder.value,
-      weekStartsOn: props.weekStartsOn,
-      locale: props.locale,
-      fixedWeeks: props.fixedWeeks,
-      numberOfMonths: props.numberOfMonths,
-    }),
-  ) as Ref<Month<DateValue>[]>
+  console.log(props.placeholder.value)
+  const months = ref<Month<DateValue>[]>(createMonths({
+    dateObj: props.placeholder.value,
+    weekStartsOn: props.weekStartsOn,
+    locale: props.locale,
+    fixedWeeks: props.fixedWeeks,
+    numberOfMonths: props.numberOfMonths,
+  })) as Ref<Month<DateValue>[]>
 
   const visibleMonths = computed(() => months.value.map(month => month.value))
 
@@ -202,6 +200,7 @@ export function useRangeCalendar(props: UseRangeCalendarProps) {
       numberOfMonths: props.numberOfMonths,
     })
 
+    months.value = newMonths
     props.placeholder.value = newMonths[0].value.set({ day: 1 })
   }
 
@@ -215,6 +214,7 @@ export function useRangeCalendar(props: UseRangeCalendarProps) {
       numberOfMonths: props.numberOfMonths,
     })
 
+    months.value = newMonths
     props.placeholder.value = newMonths[0].value.set({ day: 1 })
   }
 

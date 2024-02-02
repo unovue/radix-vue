@@ -1,72 +1,59 @@
 <script lang="ts" setup>
-import { Icon } from '@iconify/vue'
-import { RangeCalendarCell, RangeCalendarDay, RangeCalendarGrid, RangeCalendarGridBody, RangeCalendarGridHead, RangeCalendarGridRow, RangeCalendarHeadCell, RangeCalendarHeader, RangeCalendarHeading, RangeCalendarNext, RangeCalendarPrev, RangeCalendarRoot } from '../'
-import type { Ref } from 'vue'
-import { ref } from 'vue'
 import type { DateValue } from '@internationalized/date'
+import type { RangeCalendarRootProps } from '../'
+import { RangeCalendarCell, RangeCalendarDay, RangeCalendarGrid, RangeCalendarGridBody, RangeCalendarGridHead, RangeCalendarGridRow, RangeCalendarHeadCell, RangeCalendarHeader, RangeCalendarHeading, RangeCalendarNext, RangeCalendarPrev, RangeCalendarRoot } from '../'
 
-// const isDateUnavailable: RangeCalendar.Props["isDateUnavailable"] = (date) => {
-//   return date.day === 17 || date.day === 18;
-// };
-
-const value = ref() as Ref<{ start: DateValue; end: DateValue }>
+const props = defineProps<{
+  calendarProps?: RangeCalendarRootProps
+  emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } }>()
 </script>
 
 <template>
   <RangeCalendarRoot
     v-slot="{ weekDays, months }"
-    v-model="value"
-    class="mt-6 rounded-[15px] border border-black bg-white p-[22px] shadow-md"
+    v-bind="props.calendarProps"
+    data-testid="calendar"
+    v-on="{ 'update:modelValue': props.emits?.['onUpdate:modelValue'] }"
   >
-    <RangeCalendarHeader class="flex items-center justify-between">
+    <RangeCalendarHeader data-testid="header">
       <RangeCalendarPrev
-        class="inline-flex items-center cursor-pointer text-black justify-center rounded-[9px] bg-transparent w-10 h-10 hover:bg-black hover:text-white active:scale-98 active:transition-all"
-      >
-        <Icon icon="radix-icons:chevron-left" class="w-6 h-6" />
-      </RangeCalendarPrev>
-      <RangeCalendarHeading class="text-[15px] text-black font-medium" />
+        data-testid="prev-button"
+      />
+      <RangeCalendarHeading data-testid="heading" />
       <RangeCalendarNext
-        class="inline-flex items-center cursor-pointer justify-center text-black rounded-[9px] bg-transparent w-10 h-10 hover:bg-black hover:text-white active:scale-98 active:transition-all"
-      >
-        <Icon icon="radix-icons:chevron-right" class="w-6 h-6" />
-      </RangeCalendarNext>
+        data-testid="next-button"
+      />
     </RangeCalendarHeader>
-    <div
-      class="flex flex-col space-y-4 pt-4 sm:flex-row sm:space-x-4 sm:space-y-0"
-    >
-      <RangeCalendarGrid v-for="month in months" :key="month.value.toString()" class="w-full border-collapse select-none space-y-1">
-        <RangeCalendarGridHead>
-          <RangeCalendarGridRow class="mb-1 flex w-full justify-between">
-            <RangeCalendarHeadCell
-              v-for="day in weekDays" :key="day"
-              class="w-10 rounded-md text-xs !font-normal text-black"
+
+    <RangeCalendarGrid v-for="month in months" :key="month.value.toString()" :data-testid="`grid-${month.value.month}`">
+      <RangeCalendarGridHead :data-testid="`grid-head-${month.value.month}`">
+        <RangeCalendarGridRow>
+          <RangeCalendarHeadCell
+            v-for="(day, i) in weekDays" :key="day"
+            :data-testid="`weekday-${month.value.month}-${i}`"
+          >
+            {{ day }}
+          </RangeCalendarHeadCell>
+        </RangeCalendarGridRow>
+      </RangeCalendarGridHead>
+      <RangeCalendarGridBody :data-testid="`grid-body-${month.value.month}`">
+        <RangeCalendarGridRow v-for="(weekDates, index) in month.weeks" :key="`weekDate-${index}`" data-week :data-testid="`grid-row-${month.value.month}-${index}`">
+          <RangeCalendarCell
+            v-for="(weekDate, d) in weekDates"
+            :key="weekDate.toString()"
+            :data-testid="`cell-${weekDate.month}-${d}`"
+            :date="weekDate"
+          >
+            <RangeCalendarDay
+              :day="weekDate"
+              :month="month.value"
+              :data-testid="`date-${weekDate.month}-${weekDate.day}`"
             >
-              <div>{{ day.slice(0, 2) }}</div>
-            </RangeCalendarHeadCell>
-          </RangeCalendarGridRow>
-        </RangeCalendarGridHead>
-        <RangeCalendarGridBody>
-          <RangeCalendarGridRow v-for="(weekDates, index) in month.weeks" :key="`weekDate-${index}`" class="flex w-full">
-            <RangeCalendarCell
-              v-for="weekDate in weekDates"
-              :key="weekDate.toString()"
-              :date="weekDate"
-              class="relative !p-0 text-center text-sm w-10 h-10"
-            >
-              <RangeCalendarDay
-                :day="weekDate"
-                :month="month.value"
-                class="group relative inline-flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent p-0 text-sm font-normal text-black w-10 h-10 hover:border-black data-[disabled]:pointer-events-none data-[outside-month]:pointer-events-none data-[selected]:bg-black data-[selected]:font-medium data-[disabled]:text-black/30 data-[selected]:text-white data-[unavailable]:text-black/30 data-[unavailable]:line-through"
-              >
-                <div
-                  class="absolute top-[5px] hidden rounded-full w-1 h-1 group-data-[today]:block group-data-[today]:bg-grass9 group-data-[selected]:bg-white"
-                />
-                {{ weekDate.day }}
-              </RangeCalendarDay>
-            </RangeCalendarCell>
-          </RangeCalendarGridRow>
-        </RangeCalendarGridBody>
-      </RangeCalendarGrid>
-    </div>
+              {{ weekDate.day }}
+            </RangeCalendarDay>
+          </RangeCalendarCell>
+        </RangeCalendarGridRow>
+      </RangeCalendarGridBody>
+    </RangeCalendarGrid>
   </RangeCalendarRoot>
 </template>

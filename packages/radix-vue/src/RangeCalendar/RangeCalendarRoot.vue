@@ -1,9 +1,9 @@
 <script lang="ts">
-import { type DateValue, getLocalTimeZone, today } from '@internationalized/date'
+import { type DateValue, isSameDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { type Formatter, type Matcher, type WeekDayFormat, createContext, isBefore } from '@/shared'
+import { type Formatter, type Matcher, type WeekDayFormat, createContext, getDefaultDate, handleCalendarInitialFocus, isBefore } from '@/shared'
 import { useRangeCalendar } from './useRangeCalendar'
 
 type RangeCalendarRootContext = {
@@ -16,7 +16,6 @@ type RangeCalendarRootContext = {
   weekStartsOn: Ref<0 | 1 | 2 | 3 | 4 | 5 | 6>
   weekdayFormat: Ref<WeekDayFormat>
   fixedWeeks: Ref<boolean>
-  multiple: Ref<boolean>
   numberOfMonths: Ref<number>
   disabled: Ref<boolean>
   readonly: Ref<boolean>
@@ -54,7 +53,6 @@ export interface RangeCalendarRootProps extends PrimitiveProps {
   maxValue?: DateValue
   minValue?: DateValue
   locale?: string
-  multiple?: boolean
   numberOfMonths?: number
   disabled?: boolean
   readonly?: boolean
@@ -73,30 +71,28 @@ export const [injectRangeCalendarRootContext, provideRangeCalendarRootContext]
 </script>
 
 <script setup lang="ts">
-import { ref, toRefs, watch } from 'vue'
+import { onMounted, ref, toRefs, watch } from 'vue'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<RangeCalendarRootProps>(), {
-  modelValue: undefined,
   as: 'div',
   pagedNavigation: false,
   preventDeselect: false,
   weekStartsOn: 0,
   weekdayFormat: 'narrow',
   fixedWeeks: false,
-  multiple: false,
   numberOfMonths: 1,
   disabled: false,
   readonly: false,
   initialFocus: false,
-  placeholder: () => today(getLocalTimeZone()),
+  placeholder: undefined,
   locale: 'en',
   isDateDisabled: undefined,
   isDateUnavailable: undefined,
 })
 const emits = defineEmits<RangeCalendarRootEmits>()
-const { disabled, readonly, initialFocus, pagedNavigation, weekStartsOn, weekdayFormat, fixedWeeks, multiple, numberOfMonths, preventDeselect, isDateUnavailable } = toRefs(props)
+const { disabled, readonly, initialFocus, pagedNavigation, weekStartsOn, weekdayFormat, fixedWeeks, numberOfMonths, preventDeselect, isDateUnavailable } = toRefs(props)
 
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
@@ -109,12 +105,17 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 
 }) as Ref<{ start: DateValue | undefined; end: DateValue | undefined }>
 
-const startValue = ref(undefined) as Ref<DateValue | undefined>
-const endValue = ref(undefined) as Ref<DateValue | undefined>
+const startValue = ref(modelValue.value.start) as Ref<DateValue | undefined>
+const endValue = ref(modelValue.value.end) as Ref<DateValue | undefined>
+
+const defaultDate = getDefaultDate({
+  defaultPlaceholder: props.placeholder,
+  defaultValue: props.modelValue?.start,
+})
 
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: props.placeholder,
-  passive: true,
+  defaultValue: defaultDate,
+  passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
 
 const {
@@ -162,6 +163,11 @@ watch(modelValue, () => {
   }
 })
 
+watch(startValue, (value) => {
+  if (value && !isSameDay(value, placeholder.value))
+    placeholder.value = value
+})
+
 watch([startValue, endValue], () => {
   if (modelValue.value && modelValue.value.start === startValue.value && modelValue.value.end === endValue.value)
     return
@@ -188,7 +194,6 @@ provideRangeCalendarRootContext({
   weekStartsOn,
   weekdayFormat,
   fixedWeeks,
-  multiple,
   numberOfMonths,
   readonly,
   preventDeselect,
@@ -211,6 +216,11 @@ provideRangeCalendarRootContext({
   onPlaceholderChange(value) {
     placeholder.value = value
   },
+})
+
+onMounted(() => {
+  if (initialFocus.value)
+    handleCalendarInitialFocus(parentElement.value)
 })
 </script>
 

@@ -9,7 +9,7 @@ import {
 
 } from '@internationalized/date'
 import { computed, nextTick } from 'vue'
-import { isBetweenInclusive, parseStringToDateValue, toDate } from '@/shared'
+import { isBetweenInclusive, parseStringToDateValue, toDate, useKbd } from '@/shared'
 
 export interface RangeCalendarDayProps extends PrimitiveProps {
   day: DateValue
@@ -23,6 +23,8 @@ import { injectRangeCalendarRootContext } from './RangeCalendarRoot.vue'
 
 const props = withDefaults(defineProps<RangeCalendarDayProps>(), { as: 'div' })
 const rootContext = injectRangeCalendarRootContext()
+
+const kbd = useKbd()
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
@@ -47,7 +49,7 @@ const isHighlighted = computed(() => rootContext.highlightedRange.value
 
 const SELECTOR = '[data-radix-vue-calendar-day]:not([data-disabled]):not([data-outside-month])'
 
-function handleClick(date: DateValue) {
+function changeDate(date: DateValue) {
   if (rootContext.readonly.value)
     return
   if (rootContext.isDateDisabled(date) || rootContext.isDateUnavailable?.(date))
@@ -78,6 +80,9 @@ function handleClick(date: DateValue) {
     rootContext.endValue.value = undefined
   }
 }
+function handleClick(e: Event) {
+  changeDate(parseStringToDateValue((e.target as HTMLDivElement).getAttribute('data-value')!, rootContext.placeholder.value))
+}
 
 function handleFocus(date: DateValue) {
   rootContext.focusedValue.value = date
@@ -86,6 +91,7 @@ function handleFocus(date: DateValue) {
 function handleArrowKey(e: KeyboardEvent) {
   const currentCell = e.target as HTMLDivElement
   e.preventDefault()
+  e.stopPropagation()
   const parentElement = rootContext.parentElement.value!
   const allCollectionItems: HTMLElement[] = parentElement
     ? Array.from(parentElement.querySelectorAll(SELECTOR))
@@ -93,21 +99,21 @@ function handleArrowKey(e: KeyboardEvent) {
   const index = allCollectionItems.indexOf(currentElement.value)
   let newIndex = index
   switch (e.code) {
-    case 'ArrowRight':
+    case kbd.ARROW_RIGHT:
       newIndex++
       break
-    case 'ArrowLeft':
+    case kbd.ARROW_LEFT:
       newIndex--
       break
-    case 'ArrowUp':
+    case kbd.ARROW_UP:
       newIndex -= 7
       break
-    case 'ArrowDown':
+    case kbd.ARROW_DOWN:
       newIndex += 7
       break
-    case 'Enter':
-    case 'Space':
-      handleClick(parseStringToDateValue(currentCell!.getAttribute('data-value')!, rootContext.placeholder.value))
+    case kbd.ENTER:
+    case kbd.SPACE_CODE:
+      changeDate(parseStringToDateValue(currentCell!.getAttribute('data-value')!, rootContext.placeholder.value))
       return
     default:
       return
@@ -119,6 +125,8 @@ function handleArrowKey(e: KeyboardEvent) {
   }
 
   if (newIndex < 0) {
+    if (rootContext.isPrevButtonDisabled.value)
+      return
     rootContext.prevPage()
     nextTick(() => {
       const newCollectionItems: HTMLElement[] = parentElement
@@ -130,6 +138,8 @@ function handleArrowKey(e: KeyboardEvent) {
   }
 
   if (newIndex >= allCollectionItems.length) {
+    if (rootContext.isNextButtonDisabled.value)
+      return
     rootContext.nextPage()
     nextTick(() => {
       const newCollectionItems: HTMLElement[] = parentElement
@@ -161,7 +171,7 @@ function handleArrowKey(e: KeyboardEvent) {
     :data-outside-month="isOutsideMonth ? '' : undefined"
     :data-focused="isFocusedDate ? '' : undefined"
     :tabindex="isFocusedDate ? 0 : isOutsideMonth || isDisabled ? undefined : -1"
-    @click="handleClick(day)"
+    @click="handleClick"
     @focus="handleFocus(day)"
     @mouseenter="handleFocus(day)"
     @keydown.up.down.left.right.enter.space="handleArrowKey"

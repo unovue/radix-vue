@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 import { RangeCalendarCell, RangeCalendarDay, RangeCalendarGrid, RangeCalendarGridBody, RangeCalendarGridHead, RangeCalendarGridRow, RangeCalendarHeadCell, RangeCalendarHeader, RangeCalendarHeading, RangeCalendarNext, RangeCalendarPrev, RangeCalendarRoot } from '../'
-import { type Ref, ref } from 'vue'
-import type { DateValue } from '@internationalized/date'
-
-const value = ref() as Ref<{ start: DateValue; end: DateValue }>
 </script>
 
 <template>
@@ -12,7 +8,6 @@ const value = ref() as Ref<{ start: DateValue; end: DateValue }>
     <Variant title="default">
       <RangeCalendarRoot
         v-slot="{ weekDays, months }"
-        v-model="value"
         class="mt-6 rounded-[15px] border border-black bg-white p-[22px] shadow-md"
         fixed-weeks
       >

@@ -22,6 +22,10 @@ You are in control of all aspects of styling, including functional styles. For e
 
 All components accept `class` attributes, just like normal component. This class will be passed through to the DOM element. You can use it in CSS as expected.
 
+#### Teleported elements
+
+Some elements, such as modals or popovers, are teleported to the `body`. When using scoped style to apply CSS, you will need to use [deep selectors](https://vuejs.org/api/sfc-css-features.html#deep-selectors) to target them.
+
 ### Data attributes
 
 When components are stateful, their state will be exposed in a `data-state` attribute. For example, when an [Accordion Item](../components/accordion) is opened, it includes a `data-state="open"` attribute.
@@ -63,6 +67,37 @@ You can style a component state by targeting its `data-state` attribute.
 .AccordionItem[data-state="open"] {
   border-bottom-width: 2px;
 }
+```
+
+### Scoped style
+
+You can style a component using scoped style. Be wary of teleported elements, as they require the use of [deep selectors](https://vuejs.org/api/sfc-css-features.html#deep-selectors) to be targeted.
+
+```vue{7}
+<script setup lang="ts">
+import { DropdownMenuRoot, DropdownMenuItem, ... } from "radix-vue";
+</script>
+
+<template>
+  <DropdownMenuRoot>
+    <!-- ... -->
+    <DropdownMenuPortal>
+      <DropdownMenuContent class="DropdownMenuContent">
+        <DropdownMenuItem class="DropdownMenuItem">An item</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenuPortal>
+  </DropdownMenuRoot>
+</template>
+
+<style scoped>
+:deep(.DropdownMenuContent) {
+  /* ... */
+}
+
+.DropdownMenuItem {
+  /* ... */
+}
+</style>
 ```
 
 ## Styling with Tailwind CSS

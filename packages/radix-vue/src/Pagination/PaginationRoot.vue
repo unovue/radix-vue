@@ -78,6 +78,6 @@ providePaginationRootContext({
 
 <template>
   <Primitive :as="as" :as-child="asChild">
-    <slot :page="page" />
+    <slot :page="page" :page-count="pageCount" />
   </Primitive>
 </template>

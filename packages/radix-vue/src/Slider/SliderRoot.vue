@@ -79,6 +79,13 @@ const props = withDefaults(defineProps<SliderRootProps>(), {
 })
 const emits = defineEmits<SliderRootEmits>()
 
+defineSlots<{
+  default(props: {
+    /** Current slider values */
+    modelValue: typeof modelValue.value
+  }): any
+}>()
+
 const { min, max, step, minStepsBetweenThumbs, orientation, disabled, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
 const { forwardRef, currentElement } = useForwardExpose()

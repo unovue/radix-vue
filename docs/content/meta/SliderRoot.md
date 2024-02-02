@@ -102,3 +102,11 @@
     'type': '[payload: number[]]'
   }
 ]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'modelValue',
+    'description': 'Current slider values',
+    'type': ''
+  }
+]" />

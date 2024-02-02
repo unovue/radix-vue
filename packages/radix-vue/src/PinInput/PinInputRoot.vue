@@ -64,6 +64,14 @@ const props = withDefaults(defineProps<PinInputRootProps>(), {
   type: 'text',
 })
 const emits = defineEmits<PinInputRootEmits>()
+
+defineSlots<{
+  default(props: {
+    /** Current input values */
+    modelValue: typeof modelValue.value
+  }): any
+}>()
+
 const { mask, otp, placeholder, type, disabled, dir: propDir } = toRefs(props)
 const { forwardRef } = useForwardExpose()
 const dir = useDirection(propDir)

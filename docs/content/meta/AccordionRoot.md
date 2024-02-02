@@ -68,3 +68,11 @@
     'type': '[value: string | string[]]'
   }
 ]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'modelValue',
+    'description': 'Current active value',
+    'type': 'string | string[] | undefined'
+  }
+]" />

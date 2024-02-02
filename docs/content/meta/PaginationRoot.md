@@ -70,3 +70,11 @@
     'type': '[value: number]'
   }
 ]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'page',
+    'description': 'Current page state',
+    'type': ''
+  }
+]" />

@@ -99,3 +99,16 @@
     'type': '[value: string]'
   }
 ]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'open',
+    'description': 'Current open state',
+    'type': 'boolean'
+  },
+  {
+    'name': 'modelValue',
+    'description': 'Current active value',
+    'type': 'string | number | false | true | object'
+  }
+]" />

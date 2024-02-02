@@ -97,3 +97,11 @@
     'type': '[payload: string[]]'
   }
 ]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'modelValue',
+    'description': 'Current input values',
+    'type': ''
+  }
+]" />

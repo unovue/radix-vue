@@ -54,6 +54,14 @@ const props = withDefaults(defineProps<PaginationRootProps>(), {
   showEdges: false,
 })
 const emits = defineEmits<PaginationRootEmits>()
+
+defineSlots<{
+  default(props: {
+    /** Current page state */
+    page: typeof page.value
+  }): any
+}>()
+
 const { siblingCount, disabled, showEdges } = toRefs(props)
 
 useForwardExpose()

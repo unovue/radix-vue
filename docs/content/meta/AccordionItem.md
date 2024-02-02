@@ -27,3 +27,11 @@
     'required': true
   }
 ]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'open',
+    'description': 'Current open state',
+    'type': 'boolean'
+  }
+]" />

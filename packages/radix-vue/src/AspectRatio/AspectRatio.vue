@@ -21,6 +21,13 @@ defineOptions({
 const props = withDefaults(defineProps<AspectRatioProps>(), {
   ratio: 1,
 })
+defineSlots<{
+  default(props: {
+    /** Current aspect ratio (in %) */
+    aspect: typeof aspect.value
+  }): any
+}>()
+
 const { forwardRef } = useForwardExpose()
 
 const aspect = computed(() => {

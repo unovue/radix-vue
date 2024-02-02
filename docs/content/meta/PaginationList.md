@@ -15,3 +15,11 @@
     'required': false
   }
 ]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'items',
+    'description': 'Pages item',
+    'type': ''
+  }
+]" />

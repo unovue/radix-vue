@@ -75,3 +75,11 @@
     'type': '[payload: string]'
   }
 ]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'modelValue',
+    'description': 'Current toggle values',
+    'type': 'string | string[] | undefined'
+  }
+]" />

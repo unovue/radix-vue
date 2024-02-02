@@ -13,6 +13,13 @@ import { getRange, transform } from './utils'
 
 const props = defineProps<PaginationListProps>()
 
+defineSlots<{
+  default(props: {
+    /** Pages item */
+    items: typeof transformedRange.value
+  }): any
+}>()
+
 useForwardExpose()
 const rootContext = injectPaginationRootContext()
 

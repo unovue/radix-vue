@@ -59,6 +59,8 @@ defineSlots<{
   default(props: {
     /** Current page state */
     page: typeof page.value
+    /** Number of pages */
+    pageCount: typeof pageCount.value
   }): any
 }>()
 

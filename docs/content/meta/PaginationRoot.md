@@ -76,5 +76,10 @@
     'name': 'page',
     'description': 'Current page state',
     'type': 'number'
+  },
+  {
+    'name': 'pageCount',
+    'description': 'Number of pages',
+    'type': 'number'
   }
 ]" />

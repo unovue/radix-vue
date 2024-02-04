@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type DateValue, isSameDay } from '@internationalized/date'
+import { type DateValue } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
@@ -190,7 +190,7 @@ function initializeSegmentValues(granularity: Granularity) {
 
 const initialSegments = initializeSegmentValues(inferredGranularity.value)
 
-const segmentValues = ref<SegmentValueObj>(modelValue.value ? syncSegmentValues({ value: modelValue.value, formatter }) : initialSegments)
+const segmentValues = ref<SegmentValueObj>(modelValue.value ? { ...syncSegmentValues({ value: modelValue.value, formatter }) } : { ...initialSegments })
 
 type SharedContentProps = {
   granularity: Granularity
@@ -335,7 +335,7 @@ watch(segmentValues, (value) => {
       const value = updateObject[part as AnyExceptLiteral]
       dateRef = dateRef.set({ [part]: value })
     })
-    if (modelValue.value && isSameDay(modelValue.value, dateRef))
+    if (modelValue.value && modelValue.value === dateRef)
       return
     modelValue.value = dateRef
   }
@@ -348,9 +348,9 @@ watch(modelValue, (value) => {
 
 watch([modelValue, locale], ([modelValue]) => {
   if (modelValue !== undefined)
-    segmentValues.value = syncSegmentValues({ value: modelValue, formatter })
+    segmentValues.value = { ...syncSegmentValues({ value: modelValue, formatter }) }
   else
-    segmentValues.value = initialSegments
+    segmentValues.value = { ...initialSegments }
 })
 
 const currentFocusedElement = ref<HTMLElement | null>(null)

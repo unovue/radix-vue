@@ -4,7 +4,7 @@ import './styles.css'
 </script>
 
 <template>
-  <div :style="{ display: 'flex', gap: 20 }">
+  <div :style="{ display: 'flex', gap: '20px' }">
     <AvatarRoot class="AvatarRoot">
       <AvatarImage
         class="AvatarImage"

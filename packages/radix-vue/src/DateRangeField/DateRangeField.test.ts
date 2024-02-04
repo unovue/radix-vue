@@ -24,30 +24,6 @@ const zonedDateTime = {
 
 const kbd = useTestKbd()
 
-function getTimeSegments(getByTestId: (...args: any[]) => HTMLElement) {
-  return {
-    hour: getByTestId('hour'),
-    minute: getByTestId('minute'),
-    second: getByTestId('second'),
-    dayPeriod: getByTestId('dayPeriod'),
-    timeZoneName: getByTestId('timeZoneName'),
-  }
-}
-
-function isDaylightSavingsTime(): boolean {
-  const now = new Date()
-  const january = new Date(now.getFullYear(), 0, 1)
-  const july = new Date(now.getFullYear(), 6, 1)
-  const timezoneOffset = now.getTimezoneOffset()
-  const isDaylightSavingsTime = timezoneOffset < Math.max(january.getTimezoneOffset(), july.getTimezoneOffset())
-  return isDaylightSavingsTime
-}
-
-function thisTimeZone(date: string): string {
-  const timezone = Intl.DateTimeFormat(undefined, { timeZoneName: 'short' }).formatToParts(new Date(date)).find(p => p.type === 'timeZoneName')?.value ?? ''
-  return timezone
-}
-
 function setup(props: { dateFieldProps?: DateRangeFieldRootProps; emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } } = {}) {
   const user = userEvent.setup()
   const returned = render(DateRangeField, { props })

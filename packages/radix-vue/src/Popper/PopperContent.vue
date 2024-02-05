@@ -170,6 +170,9 @@ defineOptions({
 const props = withDefaults(defineProps<PopperContentProps>(), {
   ...PopperContentPropsDefaultValue,
 })
+const emits = defineEmits<{
+  placed: [void]
+}>()
 const rootContext = injectPopperRootContext()
 
 const { forwardRef, currentElement: contentElement } = useForwardExpose()
@@ -289,6 +292,11 @@ const placedSide = computed(
 const placedAlign = computed(
   () => getSideAndAlignFromPlacement(placement.value)[1],
 )
+
+watchEffect(() => {
+  if (isPositioned.value)
+    emits('placed')
+})
 
 const cannotCenterArrow = computed(
   () => middlewareData.value.arrow?.centerOffset !== 0,

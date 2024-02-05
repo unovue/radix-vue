@@ -30,7 +30,6 @@ interface AccordionItemContext {
   disabled: ComputedRef<boolean>
   dataDisabled: ComputedRef<'' | undefined>
   triggerId: string
-  contentId: string
   currentRef: VNodeRef
   currentElement: ComputedRef<HTMLElement | undefined>
   value: ComputedRef<string>
@@ -85,7 +84,6 @@ provideAccordionItemContext({
   disabled,
   dataDisabled,
   triggerId: useId(),
-  contentId: useId(),
   currentRef,
   currentElement,
   value: computed(() => props.value),

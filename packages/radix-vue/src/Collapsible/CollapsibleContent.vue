@@ -84,6 +84,7 @@ onMounted(() => {
     :force-mount="true"
   >
     <Primitive
+      v-bind="$attrs"
       :id="rootContext.contentId"
       :ref="forwardRef"
       :as-child="props.asChild"
@@ -95,7 +96,6 @@ onMounted(() => {
         [`--radix-collapsible-content-height`]: `${height}px`,
         [`--radix-collapsible-content-width`]: `${width}px`,
       }"
-      v-bind="$attrs"
     >
       <slot v-if="presentRef?.present" />
     </Primitive>

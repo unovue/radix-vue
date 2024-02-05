@@ -20,7 +20,7 @@ useForwardExpose()
 
 <template>
   <CollapsibleContent
-    :id="itemContext.contentId"
+    :id="itemContext.triggerId"
     role="region"
     :open="itemContext.open.value"
     :hidden="!itemContext.open.value"

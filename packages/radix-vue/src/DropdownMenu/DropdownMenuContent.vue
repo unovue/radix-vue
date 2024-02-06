@@ -25,7 +25,6 @@ const rootContext = injectDropdownMenuRootContext()
 const hasInteractedOutsideRef = ref(false)
 
 function handleCloseAutoFocus(event: Event) {
-  emits('closeAutoFocus', event)
   if (event.defaultPrevented)
     return
   if (!hasInteractedOutsideRef.value) {
@@ -58,8 +57,8 @@ function handleCloseAutoFocus(event: Event) {
     }"
     @close-auto-focus="handleCloseAutoFocus"
     @interact-outside="(event) => {
-      emits('interactOutside', event)
       if (event.defaultPrevented) return
+
       const originalEvent = event.detail.originalEvent as PointerEvent;
       const ctrlLeftClick = originalEvent.button === 0 && originalEvent.ctrlKey === true;
       const isRightClick = originalEvent.button === 2 || ctrlLeftClick;

@@ -4,9 +4,10 @@ import TooltipContentImpl, { type TooltipContentImplProps } from './TooltipConte
 import { injectTooltipRootContext } from './TooltipRoot.vue'
 import { injectTooltipProviderContext } from './TooltipProvider.vue'
 import { type Polygon, getExitSideFromRect, getHull, getPaddedExitPoints, getPointsFromRect, isPointInPolygon } from './utils'
-import { useForwardExpose } from '@/shared'
+import { useForwardExpose, useForwardProps } from '@/shared'
 
 const props = defineProps<TooltipContentImplProps>()
+const forwardedProps = useForwardProps(props)
 const { forwardRef, currentElement } = useForwardExpose()
 
 const { trigger, onClose } = injectTooltipRootContext()
@@ -71,7 +72,7 @@ watchEffect((cleanupFn) => {
 </script>
 
 <template>
-  <TooltipContentImpl :ref="forwardRef" v-bind="props">
+  <TooltipContentImpl :ref="forwardRef" v-bind="forwardedProps">
     <slot />
   </TooltipContentImpl>
 </template>

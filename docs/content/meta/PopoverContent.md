@@ -113,11 +113,6 @@
     'type': '[event: Event]'
   },
   {
-    'name': 'dismiss',
-    'description': '<p>Handler called when the <code>DismissableLayer</code> should be dismissed</p>\n',
-    'type': '[]'
-  },
-  {
     'name': 'escapeKeyDown',
     'description': '<p>Event handler called when the escape key is down.\nCan be prevented.</p>\n',
     'type': '[event: KeyboardEvent]'

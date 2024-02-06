@@ -381,8 +381,8 @@ const editableSegmentContents = computed(() => ({ start: segmentContents.value.s
 const startValue = ref(modelValue.value.start) as Ref<DateValue | undefined>
 const endValue = ref(modelValue.value.end) as Ref<DateValue | undefined>
 
-watch([startValue, endValue], ([startValue, endValue]) => {
-  if (modelValue.value.start && modelValue.value.end && startValue && endValue && modelValue.value.start === startValue && modelValue.value.end === endValue)
+watch([startValue, endValue], ([startValue, endValue]): void => {
+  if (modelValue.value.start && modelValue.value.end && startValue && endValue && modelValue.value.start.toString() === startValue.toString() && modelValue.value.end.toString() === endValue.toString())
     return
 
   if (startValue && endValue) {
@@ -391,6 +391,15 @@ watch([startValue, endValue], ([startValue, endValue]) => {
   }
 
   modelValue.value = { start: undefined, end: undefined }
+})
+
+watch([startValue, endValue], ([startValue, endValue]) => {
+  if (startValue && endValue) {
+    segmentValues.value = {
+      start: { ...syncSegmentValues({ value: startValue, formatter }) },
+      end: { ...syncSegmentValues({ value: endValue, formatter }) },
+    }
+  }
 })
 
 const startSegmentValues = computed(() => segmentValues.value.start)
@@ -411,7 +420,7 @@ watch(startSegmentValues, (value) => {
       const value = updateObject[part as AnyExceptLiteral]
       dateRef = dateRef.set({ [part]: value })
     })
-    if (startValue.value && startValue.value === dateRef)
+    if (startValue.value && startValue.value.toString() === dateRef.toString())
       return
     startValue.value = dateRef
   }
@@ -432,15 +441,18 @@ watch(endSegmentValues, (value) => {
       const value = updateObject[part as AnyExceptLiteral]
       dateRef = dateRef.set({ [part]: value })
     })
-    if (endValue.value && endValue.value === dateRef)
+    if (endValue.value && endValue.value.toString() === dateRef.toString())
       return
     endValue.value = dateRef
   }
 }, { deep: true })
 
 watch(modelValue, (value) => {
-  if (value.start !== undefined && placeholder.value !== value.start)
-    placeholder.value = value.start
+  if (value.start && value.start.toString() !== startValue.value?.toString())
+    startValue.value = value.start
+
+  if (value.end && value.end.toString() !== endValue.value?.toString())
+    endValue.value = value.end
 })
 
 const currentFocusedElement = ref<HTMLElement | null>(null)

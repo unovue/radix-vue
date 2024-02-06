@@ -3,7 +3,7 @@ import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { type SegmentPart, getDaysInMonth, useKbd } from '@/shared'
 import { injectDateRangeFieldRootContext } from './DateRangeFieldRoot.vue'
 import { isAcceptableSegmentKey, isNumberString, isSegmentNavigationKey, segmentBuilders, useDateField } from '@/DateField'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 export interface DateRangeFieldInputProps extends PrimitiveProps {
   part: SegmentPart
@@ -24,13 +24,18 @@ const { updateDayOrMonth, updateYear, updateHour, updateMinuteOrSecond } = useDa
   lastKeyZero,
 })
 
-const dateRangeSegment = rootContext.segmentValues.value[props.type]
+const dateRangeSegment = ref(rootContext.segmentValues.value[props.type])
+
+watch(dateRangeSegment, (value) => {
+  if (Object.values(value).join('') !== Object.values(rootContext.segmentValues.value[props.type]).join(''))
+    rootContext.segmentValues.value[props.type] = { ...value }
+}, { deep: true })
 
 const attributes = computed(() => ({
   ...segmentBuilders[props.part].attrs({
     placeholder: rootContext.placeholder.value,
     hourCycle: rootContext.hourCycle,
-    segmentValues: dateRangeSegment,
+    segmentValues: dateRangeSegment.value,
     formatter: rootContext.formatter,
   }),
 }))
@@ -42,35 +47,36 @@ function handleDaySegmentKeydown(e: KeyboardEvent) {
     return
 
   if (e.key === kbd.ARROW_UP) {
-    if (!dateRangeSegment.day) {
-      dateRangeSegment.day = rootContext.placeholder.value.day
+    if (!dateRangeSegment.value.day) {
+      dateRangeSegment.value.day = rootContext.placeholder.value.day
       return
     }
-    dateRangeSegment.day = rootContext.placeholder.value.set({ day: dateRangeSegment.day! }).cycle('day', 1).day
+
+    dateRangeSegment.value.day = rootContext.placeholder.value.set({ day: dateRangeSegment.value.day }).cycle('day', 1).day
     return
   }
 
   if (e.key === kbd.ARROW_DOWN) {
-    if (!dateRangeSegment.day) {
-      dateRangeSegment.day = rootContext.placeholder.value.day
+    if (!dateRangeSegment.value.day) {
+      dateRangeSegment.value.day = rootContext.placeholder.value.day
       return
     }
-    dateRangeSegment.day = rootContext.placeholder.value.set({ day: dateRangeSegment.day! }).cycle('day', -1).day
+    dateRangeSegment.value.day = rootContext.placeholder.value.set({ day: dateRangeSegment.value.day! }).cycle('day', -1).day
     return
   }
 
   if (isNumberString(e.key)) {
     const num = Number.parseInt(e.key)
-    const $segmentMonthValue = dateRangeSegment.month
+    const $segmentMonthValue = dateRangeSegment.value.month
     const $placeholder = rootContext.placeholder.value
 
     const daysInMonth = $segmentMonthValue
       ? getDaysInMonth($placeholder.set({ month: $segmentMonthValue }))
       : getDaysInMonth($placeholder)
 
-    const { value, moveToNext } = updateDayOrMonth(daysInMonth, num, dateRangeSegment.day)
+    const { value, moveToNext } = updateDayOrMonth(daysInMonth, num, dateRangeSegment.value.day)
 
-    dateRangeSegment.day = value
+    dateRangeSegment.value.day = value
 
     if (moveToNext)
       rootContext.focusNext()
@@ -78,15 +84,15 @@ function handleDaySegmentKeydown(e: KeyboardEvent) {
 
   if (e.key === kbd.BACKSPACE) {
     hasLeftFocus.value = false
-    if (!dateRangeSegment.day)
+    if (!dateRangeSegment.value.day)
       return
 
-    const str = dateRangeSegment.day!.toString()
+    const str = dateRangeSegment.value.day!.toString()
     if (str.length === 1) {
-      dateRangeSegment.day = null
+      dateRangeSegment.value.day = null
       return
     }
-    dateRangeSegment.day = Number.parseInt(str.slice(0, -1))
+    dateRangeSegment.value.day = Number.parseInt(str.slice(0, -1))
   }
 }
 
@@ -95,28 +101,28 @@ function handleMonthSegmentKeydown(e: KeyboardEvent) {
     return
 
   if (e.key === kbd.ARROW_UP) {
-    if (!dateRangeSegment.month) {
-      dateRangeSegment.month = rootContext.placeholder.value.month
+    if (!dateRangeSegment.value.month) {
+      dateRangeSegment.value.month = rootContext.placeholder.value.month
       return
     }
-    dateRangeSegment.month = rootContext.placeholder.value.set({ month: dateRangeSegment.month! }).cycle('month', 1).month
+    dateRangeSegment.value.month = rootContext.placeholder.value.set({ month: dateRangeSegment.value.month! }).cycle('month', 1).month
     return
   }
 
   if (e.key === kbd.ARROW_DOWN) {
-    if (!dateRangeSegment.month) {
-      dateRangeSegment.month = rootContext.placeholder.value.month
+    if (!dateRangeSegment.value.month) {
+      dateRangeSegment.value.month = rootContext.placeholder.value.month
       return
     }
-    dateRangeSegment.month = rootContext.placeholder.value.set({ month: dateRangeSegment.month! }).cycle('month', -1).month
+    dateRangeSegment.value.month = rootContext.placeholder.value.set({ month: dateRangeSegment.value.month! }).cycle('month', -1).month
     return
   }
 
   if (isNumberString(e.key)) {
     const num = Number.parseInt(e.key)
-    const { value, moveToNext } = updateDayOrMonth(12, num, dateRangeSegment.month)
+    const { value, moveToNext } = updateDayOrMonth(12, num, dateRangeSegment.value.month)
 
-    dateRangeSegment.month = value
+    dateRangeSegment.value.month = value
 
     if (moveToNext)
       rootContext.focusNext()
@@ -124,15 +130,15 @@ function handleMonthSegmentKeydown(e: KeyboardEvent) {
 
   if (e.key === kbd.BACKSPACE) {
     hasLeftFocus.value = false
-    if (!dateRangeSegment.month)
+    if (!dateRangeSegment.value.month)
       return
 
-    const str = dateRangeSegment.month!.toString()
+    const str = dateRangeSegment.value.month!.toString()
     if (str.length === 1) {
-      dateRangeSegment.month = null
+      dateRangeSegment.value.month = null
       return
     }
-    dateRangeSegment.month = Number.parseInt(str.slice(0, -1))
+    dateRangeSegment.value.month = Number.parseInt(str.slice(0, -1))
   }
 }
 
@@ -141,28 +147,28 @@ function handleYearSegmentKeydown(e: KeyboardEvent) {
     return
 
   if (e.key === kbd.ARROW_UP) {
-    if (!dateRangeSegment.year) {
-      dateRangeSegment.year = rootContext.placeholder.value.year
+    if (!dateRangeSegment.value.year) {
+      dateRangeSegment.value.year = rootContext.placeholder.value.year
       return
     }
-    dateRangeSegment.year = rootContext.placeholder.value.set({ year: dateRangeSegment.year! }).cycle('year', 1).year
+    dateRangeSegment.value.year = rootContext.placeholder.value.set({ year: dateRangeSegment.value.year! }).cycle('year', 1).year
     return
   }
 
   if (e.key === kbd.ARROW_DOWN) {
-    if (!dateRangeSegment.year) {
-      dateRangeSegment.year = rootContext.placeholder.value.year
+    if (!dateRangeSegment.value.year) {
+      dateRangeSegment.value.year = rootContext.placeholder.value.year
       return
     }
-    dateRangeSegment.year = rootContext.placeholder.value.set({ year: dateRangeSegment.year! }).cycle('year', -1).year
+    dateRangeSegment.value.year = rootContext.placeholder.value.set({ year: dateRangeSegment.value.year! }).cycle('year', -1).year
     return
   }
 
   if (isNumberString(e.key)) {
     const num = Number.parseInt(e.key)
-    const { value, moveToNext } = updateYear(num, dateRangeSegment.year)
+    const { value, moveToNext } = updateYear(num, dateRangeSegment.value.year)
 
-    dateRangeSegment.year = value
+    dateRangeSegment.value.year = value
 
     if (moveToNext)
       rootContext.focusNext()
@@ -170,71 +176,71 @@ function handleYearSegmentKeydown(e: KeyboardEvent) {
 
   if (e.key === kbd.BACKSPACE) {
     hasLeftFocus.value = false
-    if (!dateRangeSegment.year)
+    if (!dateRangeSegment.value.year)
       return
 
-    const str = dateRangeSegment.year!.toString()
+    const str = dateRangeSegment.value.year!.toString()
     if (str.length === 1) {
-      dateRangeSegment.year = null
+      dateRangeSegment.value.year = null
       return
     }
-    dateRangeSegment.year = Number.parseInt(str.slice(0, -1))
+    dateRangeSegment.value.year = Number.parseInt(str.slice(0, -1))
   }
 }
 
 function handleHourSegmentKeydown(e: KeyboardEvent) {
   const dateRef = rootContext.placeholder.value
-  if (!isAcceptableSegmentKey(e.key) || isSegmentNavigationKey(e.key) || !('hour' in dateRef) || !('hour' in dateRangeSegment))
+  if (!isAcceptableSegmentKey(e.key) || isSegmentNavigationKey(e.key) || !('hour' in dateRef) || !('hour' in dateRangeSegment.value))
     return
 
   const $hourCycle = rootContext.hourCycle
 
   if (e.key === kbd.ARROW_UP) {
-    if (!dateRangeSegment.hour) {
-      dateRangeSegment.hour = dateRef.cycle('hour', 1, { hourCycle: $hourCycle }).hour
+    if (!dateRangeSegment.value.hour) {
+      dateRangeSegment.value.hour = dateRef.cycle('hour', 1, { hourCycle: $hourCycle }).hour
 
-      if ('dayPeriod' in dateRangeSegment) {
-        if (dateRangeSegment.hour < 12)
-          dateRangeSegment.dayPeriod = 'AM'
-        else if (dateRangeSegment.hour)
-          dateRangeSegment.dayPeriod = 'PM'
+      if ('dayPeriod' in dateRangeSegment.value) {
+        if (dateRangeSegment.value.hour < 12)
+          dateRangeSegment.value.dayPeriod = 'AM'
+        else if (dateRangeSegment.value.hour)
+          dateRangeSegment.value.dayPeriod = 'PM'
       }
 
       return
     }
 
-    dateRangeSegment.hour = dateRef.set({ hour: dateRangeSegment.hour }).cycle('hour', 1, { hourCycle: $hourCycle }).hour
+    dateRangeSegment.value.hour = dateRef.set({ hour: dateRangeSegment.value.hour }).cycle('hour', 1, { hourCycle: $hourCycle }).hour
 
-    if ('dayPeriod' in dateRangeSegment) {
-      if (dateRangeSegment.hour < 12)
-        dateRangeSegment.dayPeriod = 'AM'
-      else if (dateRangeSegment.hour)
-        dateRangeSegment.dayPeriod = 'PM'
+    if ('dayPeriod' in dateRangeSegment.value) {
+      if (dateRangeSegment.value.hour < 12)
+        dateRangeSegment.value.dayPeriod = 'AM'
+      else if (dateRangeSegment.value.hour)
+        dateRangeSegment.value.dayPeriod = 'PM'
     }
     return
   }
 
   if (e.key === kbd.ARROW_DOWN) {
-    if (!dateRangeSegment.hour) {
-      dateRangeSegment.hour = dateRef.cycle('hour', -1, { hourCycle: $hourCycle }).hour
+    if (!dateRangeSegment.value.hour) {
+      dateRangeSegment.value.hour = dateRef.cycle('hour', -1, { hourCycle: $hourCycle }).hour
 
-      if ('dayPeriod' in dateRangeSegment) {
-        if (dateRangeSegment.hour < 12)
-          dateRangeSegment.dayPeriod = 'AM'
-        else if (dateRangeSegment.hour)
-          dateRangeSegment.dayPeriod = 'PM'
+      if ('dayPeriod' in dateRangeSegment.value) {
+        if (dateRangeSegment.value.hour < 12)
+          dateRangeSegment.value.dayPeriod = 'AM'
+        else if (dateRangeSegment.value.hour)
+          dateRangeSegment.value.dayPeriod = 'PM'
       }
 
       return
     }
 
-    dateRangeSegment.hour = dateRef.set({ hour: dateRangeSegment.hour }).cycle('hour', -1, { hourCycle: $hourCycle }).hour
+    dateRangeSegment.value.hour = dateRef.set({ hour: dateRangeSegment.value.hour }).cycle('hour', -1, { hourCycle: $hourCycle }).hour
 
-    if ('dayPeriod' in dateRangeSegment) {
-      if (dateRangeSegment.hour < 12)
-        dateRangeSegment.dayPeriod = 'AM'
-      else if (dateRangeSegment.hour)
-        dateRangeSegment.dayPeriod = 'PM'
+    if ('dayPeriod' in dateRangeSegment.value) {
+      if (dateRangeSegment.value.hour < 12)
+        dateRangeSegment.value.dayPeriod = 'AM'
+      else if (dateRangeSegment.value.hour)
+        dateRangeSegment.value.dayPeriod = 'PM'
     }
 
     return
@@ -242,14 +248,14 @@ function handleHourSegmentKeydown(e: KeyboardEvent) {
 
   if (isNumberString(e.key)) {
     const num = Number.parseInt(e.key)
-    const { value, moveToNext } = updateHour(num, dateRangeSegment.hour)
+    const { value, moveToNext } = updateHour(num, dateRangeSegment.value.hour)
 
-    if ('dayPeriod' in dateRangeSegment && value && value > 12)
-      dateRangeSegment.dayPeriod = 'PM'
-    else if ('dayPeriod' in dateRangeSegment && value)
-      dateRangeSegment.dayPeriod = 'AM'
+    if ('dayPeriod' in dateRangeSegment.value && value && value > 12)
+      dateRangeSegment.value.dayPeriod = 'PM'
+    else if ('dayPeriod' in dateRangeSegment.value && value)
+      dateRangeSegment.value.dayPeriod = 'AM'
 
-    dateRangeSegment.hour = value
+    dateRangeSegment.value.hour = value
 
     if (moveToNext)
       rootContext.focusNext()
@@ -257,15 +263,15 @@ function handleHourSegmentKeydown(e: KeyboardEvent) {
 
   if (e.key === kbd.BACKSPACE) {
     hasLeftFocus.value = false
-    if (!dateRangeSegment.hour)
+    if (!dateRangeSegment.value.hour)
       return
 
-    const str = dateRangeSegment.hour.toString()
+    const str = dateRangeSegment.value.hour.toString()
     if (str.length === 1) {
-      dateRangeSegment.hour = null
+      dateRangeSegment.value.hour = null
       return
     }
-    dateRangeSegment.hour = Number.parseInt(str.slice(0, -1))
+    dateRangeSegment.value.hour = Number.parseInt(str.slice(0, -1))
   }
 }
 
@@ -273,32 +279,32 @@ function handleMinuteSegmentKeydown(e: KeyboardEvent) {
   const dateRef = rootContext.placeholder.value
   const min = 0
   const max = 59
-  if (!isAcceptableSegmentKey(e.key) || isSegmentNavigationKey(e.key) || !('minute' in dateRef) || !('minute' in dateRangeSegment))
+  if (!isAcceptableSegmentKey(e.key) || isSegmentNavigationKey(e.key) || !('minute' in dateRef) || !('minute' in dateRangeSegment.value))
     return
 
   if (e.key === kbd.ARROW_UP) {
-    if (dateRangeSegment.minute === null) {
-      dateRangeSegment.minute = min
+    if (dateRangeSegment.value.minute === null) {
+      dateRangeSegment.value.minute = min
       return
     }
-    dateRangeSegment.minute = dateRef.set({ minute: dateRangeSegment.minute }).cycle('minute', 1).minute
+    dateRangeSegment.value.minute = dateRef.set({ minute: dateRangeSegment.value.minute }).cycle('minute', 1).minute
     return
   }
 
   if (e.key === kbd.ARROW_DOWN) {
-    if (dateRangeSegment.minute === null) {
-      dateRangeSegment.minute = max
+    if (dateRangeSegment.value.minute === null) {
+      dateRangeSegment.value.minute = max
       return
     }
-    dateRangeSegment.minute = dateRef.set({ minute: dateRangeSegment.minute }).cycle('minute', -1).minute
+    dateRangeSegment.value.minute = dateRef.set({ minute: dateRangeSegment.value.minute }).cycle('minute', -1).minute
     return
   }
 
   if (isNumberString(e.key)) {
     const num = Number.parseInt(e.key)
-    const { value, moveToNext } = updateMinuteOrSecond(num, dateRangeSegment.minute)
+    const { value, moveToNext } = updateMinuteOrSecond(num, dateRangeSegment.value.minute)
 
-    dateRangeSegment.minute = value
+    dateRangeSegment.value.minute = value
 
     if (moveToNext)
       rootContext.focusNext()
@@ -306,15 +312,15 @@ function handleMinuteSegmentKeydown(e: KeyboardEvent) {
 
   if (e.key === kbd.BACKSPACE) {
     hasLeftFocus.value = false
-    if (!dateRangeSegment.minute)
+    if (!dateRangeSegment.value.minute)
       return
 
-    const str = dateRangeSegment.minute.toString()
+    const str = dateRangeSegment.value.minute.toString()
     if (str.length === 1) {
-      dateRangeSegment.minute = null
+      dateRangeSegment.value.minute = null
       return
     }
-    dateRangeSegment.minute = Number.parseInt(str.slice(0, -1))
+    dateRangeSegment.value.minute = Number.parseInt(str.slice(0, -1))
   }
 }
 
@@ -322,32 +328,32 @@ function handleSecondSegmentKeydown(e: KeyboardEvent) {
   const dateRef = rootContext.placeholder.value
   const min = 0
   const max = 59
-  if (!isAcceptableSegmentKey(e.key) || isSegmentNavigationKey(e.key) || !('second' in dateRef) || !('second' in dateRangeSegment))
+  if (!isAcceptableSegmentKey(e.key) || isSegmentNavigationKey(e.key) || !('second' in dateRef) || !('second' in dateRangeSegment.value))
     return
 
   if (e.key === kbd.ARROW_UP) {
-    if (dateRangeSegment.second === null) {
-      dateRangeSegment.second = min
+    if (dateRangeSegment.value.second === null) {
+      dateRangeSegment.value.second = min
       return
     }
-    dateRangeSegment.second = dateRef.set({ second: dateRangeSegment.second }).cycle('second', 1).second
+    dateRangeSegment.value.second = dateRef.set({ second: dateRangeSegment.value.second }).cycle('second', 1).second
     return
   }
 
   if (e.key === kbd.ARROW_DOWN) {
-    if (dateRangeSegment.second === null) {
-      dateRangeSegment.second = max
+    if (dateRangeSegment.value.second === null) {
+      dateRangeSegment.value.second = max
       return
     }
-    dateRangeSegment.second = dateRef.set({ second: dateRangeSegment.second }).cycle('second', -1).second
+    dateRangeSegment.value.second = dateRef.set({ second: dateRangeSegment.value.second }).cycle('second', -1).second
     return
   }
 
   if (isNumberString(e.key)) {
     const num = Number.parseInt(e.key)
-    const { value, moveToNext } = updateMinuteOrSecond(num, dateRangeSegment.second)
+    const { value, moveToNext } = updateMinuteOrSecond(num, dateRangeSegment.value.second)
 
-    dateRangeSegment.second = value
+    dateRangeSegment.value.second = value
 
     if (moveToNext)
       rootContext.focusNext()
@@ -355,38 +361,38 @@ function handleSecondSegmentKeydown(e: KeyboardEvent) {
 
   if (e.key === kbd.BACKSPACE) {
     hasLeftFocus.value = false
-    if (!dateRangeSegment.second)
+    if (!dateRangeSegment.value.second)
       return
 
-    const str = dateRangeSegment.second.toString()
+    const str = dateRangeSegment.value.second.toString()
     if (str.length === 1) {
-      dateRangeSegment.second = null
+      dateRangeSegment.value.second = null
       return
     }
-    dateRangeSegment.second = Number.parseInt(str.slice(0, -1))
+    dateRangeSegment.value.second = Number.parseInt(str.slice(0, -1))
   }
 }
 
 function handleDayPeriodSegmentKeydown(e: KeyboardEvent) {
-  if (((!isAcceptableSegmentKey(e.key) || isSegmentNavigationKey(e.key)) && e.key !== 'a' && e.key !== 'p') || !('hour' in rootContext.placeholder.value) || !('dayPeriod' in dateRangeSegment))
+  if (((!isAcceptableSegmentKey(e.key) || isSegmentNavigationKey(e.key)) && e.key !== 'a' && e.key !== 'p') || !('hour' in rootContext.placeholder.value) || !('dayPeriod' in dateRangeSegment.value))
     return
 
   if (e.key === kbd.ARROW_UP || e.key === kbd.ARROW_DOWN) {
-    if (dateRangeSegment.dayPeriod === 'AM') {
-      dateRangeSegment.dayPeriod = 'PM'
+    if (dateRangeSegment.value.dayPeriod === 'AM') {
+      dateRangeSegment.value.dayPeriod = 'PM'
       return
     }
-    dateRangeSegment.dayPeriod = 'AM'
+    dateRangeSegment.value.dayPeriod = 'AM'
     return
   }
 
   if (e.key === 'a') {
-    dateRangeSegment.dayPeriod = 'AM'
+    dateRangeSegment.value.dayPeriod = 'AM'
     return
   }
 
   if (e.key === 'p')
-    dateRangeSegment.dayPeriod = 'PM'
+    dateRangeSegment.value.dayPeriod = 'PM'
 }
 
 function handleTimeZoneSegmentKeydown() {

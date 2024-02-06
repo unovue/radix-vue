@@ -34,6 +34,7 @@ const itemContext = injectRadioGroupItemContext()
       :data-disabled="itemContext.disabled.value ? '' : undefined"
       :as-child="asChild"
       :as="as"
+      v-bind="$attrs"
     >
       <slot />
     </Primitive>

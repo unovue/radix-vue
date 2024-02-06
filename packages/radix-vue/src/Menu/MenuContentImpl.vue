@@ -63,6 +63,13 @@ export type MenuContentImplEmits = DismissableLayerEmits & Omit<RovingFocusGroup
   'closeAutoFocus': [event: Event]
 }
 
+type MenuContentImplPrivateEmits = MenuContentImplEmits & {
+  /**
+   * Handler called when the `DismissableLayer` should be dismissed
+   */
+  dismiss: []
+}
+
 export interface MenuContentImplProps
   extends MenuContentImplPrivateProps,
   Omit<PopperContentProps, 'dir'> {
@@ -104,7 +111,7 @@ import { RovingFocusGroup } from '@/RovingFocus'
 const props = withDefaults(defineProps<MenuContentImplProps>(), {
   ...PopperContentPropsDefaultValue,
 })
-const emits = defineEmits<MenuContentImplEmits>()
+const emits = defineEmits<MenuContentImplPrivateEmits>()
 const menuContext = injectMenuContext()
 const rootContext = injectMenuRootContext()
 

@@ -335,18 +335,20 @@ watch(segmentValues, (value) => {
       const value = updateObject[part as AnyExceptLiteral]
       dateRef = dateRef.set({ [part]: value })
     })
-    if (modelValue.value && modelValue.value === dateRef)
+
+    if (modelValue.value && modelValue.value.toString() === dateRef.toString())
       return
+
     modelValue.value = dateRef
   }
 }, { deep: true })
 
 watch(modelValue, (value) => {
-  if (value !== undefined && placeholder.value !== value)
+  if (value !== undefined && placeholder.value.toString() !== value.toString())
     placeholder.value = value
 })
 
-watch([modelValue, locale], ([modelValue]) => {
+watch(modelValue, (modelValue) => {
   if (modelValue !== undefined)
     segmentValues.value = { ...syncSegmentValues({ value: modelValue, formatter }) }
   else

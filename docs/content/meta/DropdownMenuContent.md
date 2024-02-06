@@ -107,11 +107,6 @@
     'type': '[event: Event]'
   },
   {
-    'name': 'entryFocus',
-    'description': '',
-    'type': '[event: Event]'
-  },
-  {
     'name': 'escapeKeyDown',
     'description': '<p>Event handler called when the escape key is down.\nCan be prevented.</p>\n',
     'type': '[event: KeyboardEvent]'
@@ -125,11 +120,6 @@
     'name': 'interactOutside',
     'description': '<p>Event handler called when an interaction happens outside the <code>DismissableLayer</code>.\nSpecifically, when a <code>pointerdown</code> event happens outside or focus moves outside of it.\nCan be prevented.</p>\n',
     'type': '[event: PointerDownOutsideEvent | FocusOutsideEvent]'
-  },
-  {
-    'name': 'openAutoFocus',
-    'description': '<p>Event handler called when auto-focusing on open.\nCan be prevented.</p>\n',
-    'type': '[event: Event]'
   },
   {
     'name': 'pointerDownOutside',

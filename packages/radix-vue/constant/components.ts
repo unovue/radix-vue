@@ -106,6 +106,11 @@ export const components = {
     'isNumberString',
   ],
 
+  dateRangeField: [
+    'DateRangeFieldRoot',
+    'DateRangeFieldInput',
+  ],
+
   dialog: [
     'DialogRoot',
     'DialogTrigger',

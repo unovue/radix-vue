@@ -44,6 +44,9 @@ export type DismissableLayerEmits = {
    * Can be prevented.
    */
   'interactOutside': [ event: PointerDownOutsideEvent | FocusOutsideEvent]
+}
+
+export type DismissableLayerPrivateEmits = DismissableLayerEmits & {
   /**
    * Handler called when the `DismissableLayer` should be dismissed
    */
@@ -71,7 +74,7 @@ const props = withDefaults(defineProps<DismissableLayerProps>(), {
   disableOutsidePointerEvents: false,
 })
 
-const emits = defineEmits<DismissableLayerEmits>()
+const emits = defineEmits<DismissableLayerPrivateEmits>()
 
 const { forwardRef, currentElement: layerElement } = useForwardExpose()
 const ownerDocument = computed(

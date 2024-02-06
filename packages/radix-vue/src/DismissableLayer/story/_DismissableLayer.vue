@@ -27,6 +27,7 @@ function handleDismiss() {
 
     <DismissableLayer
       v-if="open"
+      id="layer"
       v-bind="useEmitAsProps(emits)"
       @dismiss="handleDismiss"
     >

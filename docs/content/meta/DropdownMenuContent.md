@@ -107,11 +107,6 @@
     'type': '[event: Event]'
   },
   {
-    'name': 'dismiss',
-    'description': '<p>Handler called when the <code>DismissableLayer</code> should be dismissed</p>\n',
-    'type': '[]'
-  },
-  {
     'name': 'entryFocus',
     'description': '',
     'type': '[event: Event]'

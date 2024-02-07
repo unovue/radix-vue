@@ -126,10 +126,10 @@ function alert(message: string) {
         />
       </SliderRoot>
     </Variant>
-    <Variant title="inside form">
+    <Variant title="Inside Form">
       <form @submit.prevent="alert('form submitted!')">
         <SliderRoot
-          :model-value="[0.12]"
+          :default-value="[0.12]"
           name="slider"
           class="relative flex items-center select-none touch-none w-[200px] h-5"
           :min="0"

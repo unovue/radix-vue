@@ -197,6 +197,7 @@ provideSliderRootContext({
       style="display: none"
       :name="name ? name + (modelValue.length > 1 ? '[]' : '') : undefined"
       :disabled="disabled"
+      :step="step"
     >
   </template>
 </template>

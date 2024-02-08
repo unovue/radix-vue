@@ -12,7 +12,8 @@
     "@stackblitz/sdk": "^1.9.0",
     "@vueuse/core": "^10.5.0",
     "radix-vue": "link:../packages/radix-vue",
-    "vue": "^3.3.8"
+    "vue": "^3.3.8",
+    "vue-sonner": "^1.0.2"
   },
   "devDependencies": {
     "@iconify/vue": "^4.1.1",

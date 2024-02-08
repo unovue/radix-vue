@@ -115,6 +115,9 @@ importers:
       vue:
         specifier: ^3.3.8
         version: 3.4.7(typescript@5.3.3)
+      vue-sonner:
+        specifier: ^1.0.2
+        version: 1.0.2
     devDependencies:
       '@iconify/vue':
         specifier: ^4.1.1
@@ -9688,6 +9691,10 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /vue-sonner@1.0.2:
+    resolution: {integrity: sha512-BXIyb9lGSMUjTpOukISp7oV9nrczgbfYz+TnDeoap3io3ayGXiWv+/3eQ9UKnmofwUlC4nh/H5jzBOO89lRItQ==}
+    dev: false
 
   /vue-template-compiler@2.7.16:
     resolution: {integrity: sha512-AYbUWAJHLGGQM7+cNTELw+KsOG9nl2CnSv467WobS5Cv9uk3wFcnr1Etsz2sEIHEZvw1U+o9mRlEO6QbZvUPGQ==}

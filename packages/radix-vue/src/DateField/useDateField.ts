@@ -1,3 +1,5 @@
+import { type HourCycle, useKbd } from '@/shared'
+import type { CycleTimeOptions, DateFields, DateValue, TimeFields } from '@internationalized/date'
 import type { Ref } from 'vue'
 
 export type UseDateFieldProps = {
@@ -6,6 +8,33 @@ export type UseDateFieldProps = {
 }
 
 export function useDateField(props: UseDateFieldProps) {
+  const kbd = useKbd()
+
+  function deleteValue(prevValue: number | null) {
+    props.hasLeftFocus.value = false
+    if (!prevValue)
+      return prevValue
+
+    const str = prevValue.toString()
+    if (str.length === 1)
+      return null
+
+    return Number.parseInt(str.slice(0, -1))
+  }
+  function dateTimeValueIncrementation(e: KeyboardEvent, part: keyof Omit<DateFields, 'era'> | keyof TimeFields, dateRef: DateValue, prevValue: number | null, hourCycle?: HourCycle): number {
+    const sign = e.key === kbd.ARROW_UP ? 1 : -1
+
+    if (prevValue === null)
+      return dateRef[part as keyof Omit<DateFields, 'era'>]
+
+    if (part === 'hour' && 'hour' in dateRef) {
+      const cycleArgs: [keyof DateFields | keyof TimeFields, number, CycleTimeOptions?] = [part, sign, { hourCycle }]
+      return dateRef.set({ [part as keyof DateValue]: prevValue }).cycle(...cycleArgs)[part]
+    }
+
+    const cycleArgs: [keyof DateFields, number] = [part as keyof DateFields, sign]
+    return dateRef.set({ [part as keyof DateValue]: prevValue }).cycle(...cycleArgs)[part as keyof Omit<DateFields, 'era'>]
+  }
   function updateDayOrMonth(max: number, num: number, prev: number | null) {
     let moveToNext = false
     const maxStart = Math.floor(max / 10)
@@ -278,5 +307,7 @@ export function useDateField(props: UseDateFieldProps) {
     updateYear,
     updateHour,
     updateMinuteOrSecond,
+    dateTimeValueIncrementation,
+    deleteValue,
   }
 }

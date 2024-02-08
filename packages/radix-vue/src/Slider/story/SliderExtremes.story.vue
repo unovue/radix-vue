@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from '../'
+
+function alert(message: string) {
+  window.alert(message)
+}
 </script>
 
 <template>
@@ -121,6 +125,26 @@ import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from '../'
           class="block w-5 h-5 bg-white shadow-[0_2px_10px] shadow-blackA7 rounded-[10px] hover:bg-violet3 focus:outline-none focus:shadow-[0_0_0_5px] focus:shadow-blackA8"
         />
       </SliderRoot>
+    </Variant>
+    <Variant title="Inside Form">
+      <form @submit.prevent="alert('form submitted!')">
+        <SliderRoot
+          :default-value="[0.12]"
+          name="slider"
+          class="relative flex items-center select-none touch-none w-[200px] h-5"
+          :min="0"
+          :max="1"
+          :step="0.01"
+        >
+          <SliderTrack class="bg-blackA10 relative grow rounded-full h-[3px]">
+            <SliderRange class="absolute bg-white rounded-full h-full" />
+          </SliderTrack>
+          <SliderThumb
+            class="block w-5 h-5 bg-white shadow-[0_2px_10px] shadow-blackA7 rounded-[10px] hover:bg-violet3 focus:outline-none focus:shadow-[0_0_0_5px] focus:shadow-blackA8"
+          />
+        </SliderRoot>
+        <button>Submit</button>
+      </form>
     </Variant>
   </Story>
 </template>

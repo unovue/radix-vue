@@ -1,7 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
-import { reactiveOmit } from '@vueuse/shared'
 
 export interface ComboboxInputProps extends PrimitiveProps {
   /** Nactive input type */
@@ -64,14 +63,15 @@ function handleInput(event: Event) {
 
   rootContext.isUserInputted.value = true
 }
-
-const pickedProps = reactiveOmit(props, 'autoFocus')
 </script>
 
 <template>
   <Primitive
-    v-bind="pickedProps"
     :ref="forwardRef"
+    :as="as"
+    :as-child="asChild"
+    :type="type"
+    :disabled="disabled"
     :value="rootContext.searchTerm.value"
     :aria-expanded="rootContext.open.value"
     :aria-controls="rootContext.contentId"

@@ -4,4 +4,12 @@ export { type DateFieldInputProps, default as DateFieldInput } from './DateField
 
 export { useDateField } from './useDateField'
 
-export { segmentBuilders, isSegmentNavigationKey, isAcceptableSegmentKey, isNumberString } from './utils'
+export {
+  segmentBuilders,
+  isSegmentNavigationKey,
+  isAcceptableSegmentKey,
+  isNumberString,
+  syncSegmentValues,
+  initializeSegmentValues,
+  createContent,
+} from './utils'

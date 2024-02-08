@@ -99,11 +99,6 @@ export const components = {
   dateField: [
     'DateFieldRoot',
     'DateFieldInput',
-    'useDateField',
-    'segmentBuilders',
-    'isSegmentNavigationKey',
-    'isAcceptableSegmentKey',
-    'isNumberString',
   ],
 
   dateRangeField: [

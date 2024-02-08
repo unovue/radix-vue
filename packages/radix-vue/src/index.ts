@@ -8,7 +8,13 @@ export * from './Collapsible'
 export * from './Combobox'
 export * from './ConfigProvider'
 export * from './ContextMenu'
-export * from './DateField'
+export {
+  DateFieldRoot,
+  DateFieldInput,
+  type DateFieldInputProps,
+  type DateFieldRootEmits,
+  type DateFieldRootProps,
+} from './DateField'
 export * from './DateRangeField'
 export * from './Dialog'
 export * from './DropdownMenu'

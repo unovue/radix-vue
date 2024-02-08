@@ -3,6 +3,9 @@ import type { Point } from '@/Menu/utils'
 import type { PrimitiveProps } from '@/Primitive'
 
 export interface ContextMenuTriggerProps extends PrimitiveProps {
+  /** When `true`, the context menu would not open when right-clicking.
+   *
+   * Note that this will also restore the native context menu. */
   disabled?: boolean
 }
 </script>
@@ -11,6 +14,7 @@ export interface ContextMenuTriggerProps extends PrimitiveProps {
 import { computed, nextTick, ref, toRefs } from 'vue'
 import { injectContextMenuRootContext } from './ContextMenuRoot.vue'
 import { isTouchOrPen } from './utils'
+import { useForwardExpose } from '@/shared'
 import { Primitive } from '@/Primitive'
 import { MenuAnchor } from '@/Menu'
 
@@ -24,6 +28,7 @@ const props = withDefaults(defineProps<ContextMenuTriggerProps>(), {
 })
 const { disabled } = toRefs(props)
 
+const { forwardRef } = useForwardExpose()
 const rootContext = injectContextMenuRootContext()
 const point = ref<Point>({ x: 0, y: 0 })
 const virtualEl = computed(() => ({
@@ -85,6 +90,7 @@ async function handlePointerEvent(event: PointerEvent) {
   <MenuAnchor as="template" :element="virtualEl" />
 
   <Primitive
+    :ref="forwardRef"
     :as="as"
     :as-child="asChild"
     :data-state="rootContext.open.value ? 'open' : 'closed'"

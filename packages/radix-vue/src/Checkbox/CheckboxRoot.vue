@@ -2,20 +2,30 @@
 import type { PrimitiveProps } from '@/Primitive'
 import type { Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { createContext, useFormControl } from '@/shared'
+import { createContext, useFormControl, useForwardExpose } from '@/shared'
 import type { CheckedState } from './utils'
 
 export interface CheckboxRootProps extends PrimitiveProps {
+  /** The checked state of the checkbox when it is initially rendered. Use when you do not need to control its checked state. */
   defaultChecked?: boolean
+  /** The controlled checked state of the checkbox. Can be binded with v-model. */
   checked?: boolean | 'indeterminate'
+  /** When `true`, prevents the user from interacting with the checkbox */
   disabled?: boolean
+  /** When `true`, indicates that the user must check the checkbox before the owning form can be submitted. */
   required?: boolean
+  /** The name of the checkbox. Submitted with its owning form as part of a name/value pair. */
   name?: string
+  /** The value given as data when submitted with a `name`.
+   *  @defaultValue "on"
+   */
   value?: string
+  /** Id of the element */
   id?: string
 }
 
 export type CheckboxRootEmits = {
+  /** Event handler called when the checked state of the checkbox changes. */
   'update:checked': [value: boolean]
 }
 
@@ -30,7 +40,7 @@ export const [injectCheckboxRootContext, provideCheckboxRootContext]
 
 <script setup lang="ts">
 import { computed, toRefs } from 'vue'
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { getState, isIndeterminate } from './utils'
 
 defineOptions({
@@ -50,7 +60,7 @@ const checked = useVModel(props, 'checked', emits, {
   passive: (props.checked === undefined) as false,
 }) as Ref<CheckedState>
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 const isFormControl = useFormControl(currentElement)
 const ariaLabel = computed(() => props.id && currentElement.value
   ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText
@@ -66,7 +76,7 @@ provideCheckboxRootContext({
   <Primitive
     v-bind="$attrs"
     :id="id"
-    ref="primitiveElement"
+    :ref="forwardRef"
     role="checkbox"
     :as-child="props.asChild"
     :as="as"

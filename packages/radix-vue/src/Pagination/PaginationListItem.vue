@@ -1,7 +1,9 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface PaginationListItemProps extends PrimitiveProps {
+  /** Value for the page */
   value: number
 }
 </script>
@@ -12,6 +14,7 @@ import { computed } from 'vue'
 import { injectPaginationRootContext } from './PaginationRoot.vue'
 
 const props = withDefaults(defineProps<PaginationListItemProps>(), { as: 'button' })
+useForwardExpose()
 
 const rootContext = injectPaginationRootContext()
 const isSelected = computed(() => rootContext.page.value === props.value)

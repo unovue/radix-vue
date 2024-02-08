@@ -18,6 +18,7 @@ import {
   useBodyScrollLock,
   useCollection,
   useFocusGuards,
+  useForwardExpose,
   useTypeahead,
 } from '@/shared'
 
@@ -34,17 +35,21 @@ export const [injectMenuContentContext, provideMenuContentContext]
   = createContext<MenuContentContext>('MenuContent')
 
 export interface MenuContentImplPrivateProps {
+  /**
+   * When `true`, hover/focus/click interactions will be disabled on elements outside
+   * the `DismissableLayer`. Users will need to click twice on outside elements to
+   * interact with them: once to close the `DismissableLayer`, and again to trigger the element.
+   */
   disableOutsidePointerEvents?: DismissableLayerProps['disableOutsidePointerEvents']
-
   /**
    * Whether scrolling outside the `MenuContent` should be prevented
-   * (default: `false`)
+   * @defaultValue false
    */
   disableOutsideScroll?: boolean
 
   /**
    * Whether focus should be trapped within the `MenuContent`
-   * (default: false)
+   * @defaultValue als
    */
   trapFocus?: FocusScopeProps['trapped']
 }
@@ -58,24 +63,25 @@ export type MenuContentImplEmits = DismissableLayerEmits & Omit<RovingFocusGroup
   'closeAutoFocus': [event: Event]
 }
 
+type MenuContentImplPrivateEmits = MenuContentImplEmits & {
+  /**
+   * Handler called when the `DismissableLayer` should be dismissed
+   */
+  dismiss: []
+}
+
 export interface MenuContentImplProps
   extends MenuContentImplPrivateProps,
-  Omit<PopperContentProps, 'dir' | 'onPlaced'> {
+  Omit<PopperContentProps, 'dir'> {
   /**
-   * Whether keyboard navigation should loop around
+   * When `true`, keyboard navigation will loop from last item to first, and vice versa.
    * @defaultValue false
    */
   loop?: boolean
 }
 
-export interface MenuRootContentProps
-  extends Omit<PopperContentProps, 'dir' | 'onPlaced'> {
-  /**
-   * Whether keyboard navigation should loop around
-   * @defaultValue false
-   */
-  loop?: boolean
-}
+export interface MenuRootContentTypeProps
+  extends Omit<MenuContentImplProps, 'disableOutsidePointerEvents' | 'disableOutsideScroll' | 'trapFocus'> {}
 </script>
 
 <script setup lang="ts">
@@ -100,13 +106,12 @@ import {
   PopperContent,
   PopperContentPropsDefaultValue,
 } from '@/Popper'
-import { usePrimitiveElement } from '@/Primitive'
 import { RovingFocusGroup } from '@/RovingFocus'
 
 const props = withDefaults(defineProps<MenuContentImplProps>(), {
   ...PopperContentPropsDefaultValue,
 })
-const emits = defineEmits<MenuContentImplEmits>()
+const emits = defineEmits<MenuContentImplPrivateEmits>()
 const menuContext = injectMenuContext()
 const rootContext = injectMenuRootContext()
 
@@ -124,8 +129,7 @@ const lastPointerXRef = ref(0)
 const currentItemId = ref<string | null>(null)
 
 const { createCollection } = useCollection()
-const { primitiveElement, currentElement: contentElement }
-  = usePrimitiveElement()
+const { forwardRef, currentElement: contentElement } = useForwardExpose()
 const collectionItems = createCollection(contentElement)
 
 watch(contentElement, (el) => {
@@ -177,6 +181,7 @@ function handleKeyDown(event: KeyboardEvent) {
       arrowKeyOptions: 'vertical',
       dir: rootContext?.dir.value,
       focus: true,
+      attributeName: '[data-radix-vue-collection-item]:not([data-disabled])',
     },
   )
   if (el)
@@ -291,7 +296,7 @@ provideMenuContentContext({
         }"
       >
         <PopperContent
-          ref="primitiveElement"
+          :ref="forwardRef"
           role="menu"
           :as="as"
           :as-child="asChild"
@@ -307,6 +312,7 @@ provideMenuContentContext({
           :collision-boundary="collisionBoundary"
           :collision-padding="collisionPadding"
           :arrow-padding="arrowPadding"
+          :prioritize-position="prioritizePosition"
           :sticky="sticky"
           :hide-when-detached="hideWhenDetached"
           @keydown="handleKeyDown"

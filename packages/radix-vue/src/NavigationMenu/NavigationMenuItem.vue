@@ -1,9 +1,12 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useArrowNavigation, useCollection, useId } from '@/shared'
+import { createContext, useArrowNavigation, useCollection, useForwardExpose, useId } from '@/shared'
 
 export interface NavigationMenuItemProps extends PrimitiveProps {
+  /** A unique value that associates the item with an active value when the navigation menu is controlled.
+   *
+   *  This prop is managed automatically when uncontrolled. */
   value?: string
 }
 
@@ -37,6 +40,8 @@ import {
 const props = withDefaults(defineProps<NavigationMenuItemProps>(), {
   as: 'li',
 })
+
+useForwardExpose()
 const { injectCollection } = useCollection('nav')
 const collectionItems = injectCollection()
 
@@ -121,7 +126,7 @@ function handleKeydown(ev: KeyboardEvent) {
 
 <template>
   <Primitive
-    :as-child="props.asChild"
+    :as-child="asChild"
     :as="as"
     data-menu-item
     @keydown.up.down.left.right.home.end.space="handleKeydown"

@@ -1,22 +1,35 @@
 <script lang="ts">
-import type { ComponentPublicInstance } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import type { SwipeEvent } from './utils'
-import { createContext, useForwardRef } from '@/shared'
+import { createContext, useForwardExpose } from '@/shared'
 
 export type ToastRootImplEmits = {
   'close': []
+  /** Event handler called when the escape key is down. It can be prevented by calling `event.preventDefault`. */
   'escapeKeyDown': [event: KeyboardEvent]
+  /** Event handler called when the dismiss timer is paused. This occurs when the pointer is moved over the viewport, the viewport is focused or when the window is blurred. */
   'pause': []
+  /** Event handler called when the dismiss timer is resumed. This occurs when the pointer is moved away from the viewport, the viewport is blurred or when the window is focused. */
   'resume': []
+  /** Event handler called when starting a swipe interaction. It can be prevented by calling `event.preventDefault`. */
   'swipeStart': [event: SwipeEvent]
+  /** Event handler called during a swipe interaction. It can be prevented by calling `event.preventDefault`. */
   'swipeMove': [event: SwipeEvent]
   'swipeCancel': [event: SwipeEvent]
+  /** Event handler called at the end of a swipe interaction. It can be prevented by calling `event.preventDefault`. */
   'swipeEnd': [event: SwipeEvent]
 }
 
 export interface ToastRootImplProps extends PrimitiveProps {
+  /**
+   * Control the sensitivity of the toast for accessibility purposes.
+   *
+   * For toasts that are the result of a user action, choose `foreground`. Toasts generated from background tasks should use `background`.
+   */
   type?: 'foreground' | 'background'
+  /**
+   * The controlled open state of the dialog. Can be bind as `v-model:open`.
+   */
   open?: boolean
   /**
    * Time in milliseconds that toast should remain visible for. Overrides value
@@ -30,7 +43,7 @@ export const [injectToastRootContext, provideToastRootContext]
 </script>
 
 <script setup lang="ts">
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { computed, onMounted, onUnmounted, ref, watchEffect } from 'vue'
 import { injectToastProviderContext } from './ToastProvider.vue'
 import { TOAST_SWIPE_CANCEL, TOAST_SWIPE_END, TOAST_SWIPE_MOVE, TOAST_SWIPE_START, VIEWPORT_PAUSE, VIEWPORT_RESUME, getAnnounceTextContent, handleAndDispatchCustomEvent, isDeltaInDirection } from './utils'
@@ -48,8 +61,7 @@ const props = withDefaults(defineProps<ToastRootImplProps>(), {
 
 const emits = defineEmits<ToastRootImplEmits>()
 
-const forwardRef = useForwardRef()
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 const providerContext = injectToastProviderContext()
 const pointerStartRef = ref<{ x: number; y: number } | null>(null)
 const swipeDeltaRef = ref<{ x: number; y: number } | null>(null)
@@ -143,10 +155,7 @@ provideToastRootContext({ onClose: handleClose })
 
   <Teleport :to="providerContext.viewport.value">
     <Primitive
-      :ref="v => {
-        forwardRef(v)
-        primitiveElement = v as ComponentPublicInstance
-      }"
+      :ref="forwardRef"
       role="status"
       aria-live="off"
       aria-atomic

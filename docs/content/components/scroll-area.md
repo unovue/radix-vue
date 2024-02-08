@@ -61,102 +61,19 @@ import { ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewpor
 
 Contains all the parts of a scroll area.
 
-<PropsTable
-  :data="[
-    {
-      name: 'type',
-      type: '&quot;auto&quot; | &quot;always&quot; | &quot;scroll&quot; | &quot;hover&quot;',
-      typeSimple: 'enum',
-      default: '&quot;hover&quot;',
-      description: '<span> Describes the nature of scrollbar visibility, similar to how the scrollbar preferences in MacOS control visibility of native scrollbars. <br /> <br /> <code>&quot;auto&quot;</code> means that scrollbars are visible when content is overflowing on the corresponding orientation. <br /> <code>&quot;always&quot;</code> means that scrollbars are always visible regardless of whether the content is overflowing. <br /> <code>&quot;scroll&quot;</code> means that scrollbars are visible when the user is scrolling along its corresponding orientation. <br /> <code>&quot;hover&quot;</code> when the user is scrolling along its corresponding orientation and when the user is hovering over the scroll area.</span>',
-    },
-    {
-      name: 'scrollHideDelay',
-      type: 'number',
-      default: '600',
-      description: '<span> If <code>type</code> is set to either <code>&quot;scroll&quot;</code> or <code>&quot;hover&quot;</code>, this prop determines the length of time, in milliseconds, before the scrollbars are hidden after the user stops interacting with scrollbars.</span>',
-    },
-    {
-      name: 'dir',
-      required: false,
-      type: '&quot;ltr&quot; | &quot;rtl&quot;',
-      typeSimple: 'enum',
-      description: '<span> The reading direction of the scroll area. If omitted, inherits globally from <code>DirectionProvider</code> or assumes LTR (left-to-right) reading mode.</span>',
-    },
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ScrollAreaRoot.md -->
 
 ### Viewport
 
 The viewport area of the scroll area.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ScrollAreaViewport.md -->
 
 ### Scrollbar
 
 The vertical scrollbar. Add a second `Scrollbar` with an `orientation` prop to enable horizontal scrolling.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'forceMount',
-      type: 'boolean',
-      description: `
-        Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.
-      `,
-    },
-    {
-      name: 'orientation',
-      required: false,
-      type: '&quot;horizontal&quot; | &quot;vertical&quot;',
-      typeSimple: 'enum',
-      default: 'vertical',
-      description: 'The orientation of the scrollbar',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ScrollAreaScrollbar.md -->
 
 <DataAttributesTable
   :data="[
@@ -175,23 +92,7 @@ The vertical scrollbar. Add a second `Scrollbar` with an `orientation` prop to e
 
 The thumb to be used in `ScrollAreaScrollbar`.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ScrollAreaThumb.md -->
 
 <DataAttributesTable
   :data="[
@@ -206,23 +107,7 @@ The thumb to be used in `ScrollAreaScrollbar`.
 
 The corner where both vertical and horizontal scrollbars meet.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ScrollAreaCorner.md -->
 
 ## Accessibility
 

@@ -12,7 +12,7 @@ export interface ToolbarToggleGroupProps extends ToggleGroupRootProps {}
 <script setup lang="ts">
 import { injectToolbarRootContext } from './ToolbarRoot.vue'
 import { ToggleGroupRoot } from '@/ToggleGroup'
-import { useEmitAsProps } from '@/shared'
+import { useEmitAsProps, useForwardExpose } from '@/shared'
 
 const props = defineProps<ToolbarToggleGroupProps>()
 const emits = defineEmits<ToolbarToggleGroupEmits>()
@@ -20,6 +20,7 @@ const emits = defineEmits<ToolbarToggleGroupEmits>()
 const rootContext = injectToolbarRootContext()
 
 const emitsAsProps = useEmitAsProps(emits)
+useForwardExpose()
 </script>
 
 <template>

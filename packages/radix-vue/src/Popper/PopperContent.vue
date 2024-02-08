@@ -1,11 +1,11 @@
 <script lang="ts">
-import type { ComponentPublicInstance, Ref } from 'vue'
+import type { Ref } from 'vue'
 import type {
   Middleware,
   Placement,
 } from '@floating-ui/vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useForwardRef, useSize } from '@/shared'
+import { createContext, useForwardExpose, useSize } from '@/shared'
 import type {
   Align,
   Side,
@@ -32,14 +32,14 @@ export interface PopperContentProps extends PrimitiveProps {
    * Will be reversed when collisions occur and avoidCollisions
    * is enabled.
    *
-   * @default "top"
+   * @defaultValue "top"
    */
   side?: Side
 
   /**
    * The distance in pixels from the trigger.
    *
-   * @default 0
+   * @defaultValue 0
    */
   sideOffset?: number
 
@@ -47,22 +47,22 @@ export interface PopperContentProps extends PrimitiveProps {
    * The preferred alignment against the trigger.
    * May change when collisions occur.
    *
-   * @default "center"
+   * @defaultValue "center"
    */
   align?: Align
 
   /**
-   * An offset in pixels from the "start" or "end" alignment options.
+   * An offset in pixels from the `start` or `end` alignment options.
    *
-   * @default 0
+   * @defaultValue 0
    */
   alignOffset?: number
 
   /**
-   * When true, overrides the side andalign preferences
+   * When `true`, overrides the side andalign preferences
    * to prevent collisions with boundary edges.
    *
-   * @default true
+   * @defaultValue true
    */
   avoidCollisions?: boolean
 
@@ -71,7 +71,7 @@ export interface PopperContentProps extends PrimitiveProps {
    * this is the viewport, though you can provide additional
    * element(s) to be included in this check.
    *
-   * @default []
+   * @defaultValue []
    */
   collisionBoundary?: Element | null | Array<Element | null>
 
@@ -80,7 +80,7 @@ export interface PopperContentProps extends PrimitiveProps {
    * detection should occur. Accepts a number (same for all sides),
    * or a partial padding object, for example: { top: 20, left: 20 }.
    *
-   * @default 0
+   * @defaultValue 0
    */
   collisionPadding?: number | Partial<Record<Side, number>>
 
@@ -89,29 +89,41 @@ export interface PopperContentProps extends PrimitiveProps {
    * If your content has border-radius, this will prevent it from
    * overflowing the corners.
    *
-   * @default 0
+   * @defaultValue 0
    */
   arrowPadding?: number
 
   /**
-   * The sticky behavior on the align axis. "partial" will keep the
+   * The sticky behavior on the align axis. `partial` will keep the
    * content in the boundary as long as the trigger is at least partially
    * in the boundary whilst "always" will keep the content in the boundary
    * regardless.
    *
-   * @default "partial"
+   * @defaultValue "partial"
    */
   sticky?: 'partial' | 'always'
 
   /**
    * Whether to hide the content when the trigger becomes fully occluded.
    *
-   * @default false
+   * @defaultValue false
    */
   hideWhenDetached?: boolean
 
+  /**
+   * Strategy to update the position of the floating element on every animation frame.
+   *
+   * @defaultValue 'optimized'
+   */
   updatePositionStrategy?: 'optimized' | 'always'
-  onPlaced?: () => void
+
+  /**
+   * Force content to be position within the viewport.
+   *
+   * Might overlap the reference element, which may not be desired.
+   *
+   * @defaultValue false
+   */
   prioritizePosition?: boolean
 }
 
@@ -149,7 +161,6 @@ import {
 } from './utils'
 import {
   Primitive,
-  usePrimitiveElement,
 } from '@/Primitive'
 
 defineOptions({
@@ -159,11 +170,12 @@ defineOptions({
 const props = withDefaults(defineProps<PopperContentProps>(), {
   ...PopperContentPropsDefaultValue,
 })
+const emits = defineEmits<{
+  placed: [void]
+}>()
 const rootContext = injectPopperRootContext()
 
-const forwardRef = useForwardRef()
-const { primitiveElement, currentElement: contentElement }
-  = usePrimitiveElement()
+const { forwardRef, currentElement: contentElement } = useForwardExpose()
 
 const floatingRef = ref<HTMLElement>()
 
@@ -203,6 +215,11 @@ const computedMiddleware = computedEager(() => {
       mainAxis: props.sideOffset + arrowHeight.value,
       alignmentAxis: props.alignOffset,
     }),
+    props.prioritizePosition
+      && props.avoidCollisions
+      && flip({
+        ...detectOverflowOptions.value,
+      }),
     props.avoidCollisions
       && shift({
         mainAxis: true,
@@ -278,7 +295,7 @@ const placedAlign = computed(
 
 watchEffect(() => {
   if (isPositioned.value)
-    props.onPlaced?.()
+    emits('placed')
 })
 
 const cannotCenterArrow = computed(
@@ -301,10 +318,6 @@ providePopperContentContext({
   arrowY,
   shouldHideArrow: cannotCenterArrow,
 })
-
-defineExpose({
-  $el: contentElement,
-})
 </script>
 
 <template>
@@ -323,10 +336,7 @@ defineExpose({
     }"
   >
     <Primitive
-      :ref="vnode => {
-        forwardRef(vnode)
-        primitiveElement = vnode as ComponentPublicInstance
-      }"
+      :ref="forwardRef"
       v-bind="$attrs"
       :as-child="props.asChild"
       :as="as"

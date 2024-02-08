@@ -11,6 +11,7 @@ import type {
   FocusOutsideEvent,
   PointerDownOutsideEvent,
 } from './utils'
+import { useForwardExpose } from '@/shared'
 
 export interface DismissableLayerProps extends PrimitiveProps {
   /**
@@ -43,6 +44,9 @@ export type DismissableLayerEmits = {
    * Can be prevented.
    */
   'interactOutside': [ event: PointerDownOutsideEvent | FocusOutsideEvent]
+}
+
+export type DismissableLayerPrivateEmits = DismissableLayerEmits & {
   /**
    * Handler called when the `DismissableLayer` should be dismissed
    */
@@ -64,17 +68,15 @@ import {
 } from './utils'
 import {
   Primitive,
-  usePrimitiveElement,
 } from '@/Primitive'
 
 const props = withDefaults(defineProps<DismissableLayerProps>(), {
   disableOutsidePointerEvents: false,
 })
 
-const emits = defineEmits<DismissableLayerEmits>()
+const emits = defineEmits<DismissableLayerPrivateEmits>()
 
-const { primitiveElement, currentElement: layerElement }
-  = usePrimitiveElement()
+const { forwardRef, currentElement: layerElement } = useForwardExpose()
 const ownerDocument = computed(
   () => layerElement.value?.ownerDocument ?? globalThis.document,
 )
@@ -169,7 +171,7 @@ watchEffect((cleanupFn) => {
 
 <template>
   <Primitive
-    ref="primitiveElement"
+    :ref="forwardRef"
     :as-child="asChild"
     :as="as"
     data-dismissable-layer

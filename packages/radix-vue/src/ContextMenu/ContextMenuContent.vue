@@ -3,6 +3,7 @@ import type {
   MenuContentEmits,
   MenuContentProps,
 } from '@/Menu'
+import { useForwardExpose, useForwardPropsEmits } from '@/shared'
 
 export type ContextMenuContentEmits = MenuContentEmits
 
@@ -14,7 +15,6 @@ export interface ContextMenuContentProps
     | 'align'
     | 'arrowPadding'
     | 'updatePositionStrategy'
-    | 'prioritizePosition'
   > {}
 </script>
 
@@ -32,14 +32,16 @@ const props = withDefaults(defineProps<ContextMenuContentProps>(), {
   hideWhenDetached: false,
 })
 const emits = defineEmits<ContextMenuContentEmits>()
+const forwarded = useForwardPropsEmits(props, emits)
 
+useForwardExpose()
 const rootContext = injectContextMenuRootContext()
 const hasInteractedOutside = ref(false)
 </script>
 
 <template>
   <MenuContent
-    v-bind="props"
+    v-bind="forwarded"
     side="right"
     :side-offset="2"
     align="start"
@@ -56,8 +58,6 @@ const hasInteractedOutside = ref(false)
     }"
     @close-auto-focus="
       (event) => {
-        emits('closeAutoFocus', event);
-
         if (!event.defaultPrevented && hasInteractedOutside) {
           event.preventDefault();
         }
@@ -66,7 +66,6 @@ const hasInteractedOutside = ref(false)
     "
     @interact-outside="
       (event) => {
-        emits('interactOutside', event);
         if (!event.defaultPrevented && !rootContext.modal.value)
           hasInteractedOutside = true;
       }

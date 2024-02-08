@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface PaginationFirstProps extends PrimitiveProps {}
 </script>
@@ -11,6 +12,7 @@ import { injectPaginationRootContext } from './PaginationRoot.vue'
 const props = withDefaults(defineProps<PaginationFirstProps>(), { as: 'button' })
 
 const rootContext = injectPaginationRootContext()
+useForwardExpose()
 </script>
 
 <template>

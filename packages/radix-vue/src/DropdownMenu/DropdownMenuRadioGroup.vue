@@ -11,12 +11,13 @@ export interface DropdownMenuRadioGroupProps extends MenuRadioGroupProps {}
 
 <script setup lang="ts">
 import { MenuRadioGroup } from '@/Menu'
-import { useEmitAsProps } from '@/shared'
+import { useEmitAsProps, useForwardExpose } from '@/shared'
 
 const props = defineProps<MenuRadioGroupProps>()
 const emits = defineEmits<MenuRadioGroupEmits>()
 
 const emitsAsProps = useEmitAsProps(emits)
+useForwardExpose()
 </script>
 
 <template>

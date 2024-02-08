@@ -1,10 +1,15 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export type NavigationMenuLinkEmits = {
+  /** Event handler called when the user selects a link (via mouse or keyboard).
+   *
+   * Calling `event.preventDefault` in this handler will prevent the navigation menu from closing when selecting that link. */
   'select': [payload: MouseEvent]
 }
 export interface NavigationMenuLinkProps extends PrimitiveProps {
+  /** Used to identify the link as the currently active page. */
   active?: boolean
 }
 </script>
@@ -21,6 +26,7 @@ const props = withDefaults(defineProps<NavigationMenuLinkProps>(), {
 })
 const emits = defineEmits<NavigationMenuLinkEmits>()
 
+useForwardExpose()
 async function handleClick(ev: MouseEvent) {
   emits('select', ev)
 

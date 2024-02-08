@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { MenuItemIndicatorProps } from '@/Menu'
+import { useForwardExpose } from '@/shared'
 
 export interface MenubarItemIndicatorProps extends MenuItemIndicatorProps {}
 </script>
@@ -8,6 +9,7 @@ export interface MenubarItemIndicatorProps extends MenuItemIndicatorProps {}
 import { MenuItemIndicator } from '@/Menu'
 
 const props = defineProps<MenubarItemIndicatorProps>()
+useForwardExpose()
 </script>
 
 <template>

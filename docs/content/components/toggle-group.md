@@ -56,88 +56,7 @@ import { ToggleGroupItem, ToggleGroupRoot } from 'radix-vue'
 
 Contains all the parts of a toggle group.
 
-<PropsTable
-  :data="[
-    {
-      name: 'type',
-      required: true,
-      type: '&quot;single&quot; | &quot;multiple&quot;',
-      typeSimple: 'enum',
-      description: '<span> Determines whether a single or multiple items can be pressed at a time. </span>',
-    },
-    {
-      name: 'modelValue',
-      required: false,
-      type: 'string | string[]',
-      description: '<span> The controlled value of the pressed item. Can be binded with <Code>v-model</Code>. </span>',
-    },
-    {
-      name: 'defaultValue',
-      required: false,
-      type: 'string | string[]',
-      description: '<span> The value of the item to show as pressed when initially rendered. Use when you do not need to control the state of the items. </span>',
-    },
-    {
-      name: 'disabled',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: '<span> When <Code>true</Code>, prevents the user from interacting with the toggle group and all its items. </span>',
-    },
-    {
-      name: 'rovingFocus',
-      required: false,
-      type: 'boolean',
-      default: 'true',
-      description: '<span> When <Code>false</Code>, navigating through the items using arrow keys will be disabled. </span>',
-    },
-    {
-      name: 'orientation',
-      required: false,
-      type: '&quot;horizontal&quot; | &quot;vertical&quot; | undefined',
-      typeSimple: 'enum',
-      default: 'undefined',
-      description: '<span> The orientation of the component, which determines how focus moves: <Code>horizontal</Code> for left/right arrows and <Code>vertical</Code> for up/down arrows. </span>',
-    },
-    {
-      name: 'dir',
-      required: false,
-      type: '&quot;ltr&quot; | &quot;rtl&quot;',
-      typeSimple: 'enum',
-      description: '<span> The reading direction of the toggle group. If omitted, inherits globally from <Code>DirectionProvider</Code> or assumes LTR (left-to-right) reading mode. </span>',
-    },
-    {
-      name: 'loop',
-      required: false,
-      type: 'boolean',
-      default: 'true',
-      description: '<span> When <Code>true</Code> and <Code>rovingFocus</Code> is <Code>true</Code>, keyboard navigation will loop from last item to first, and vice versa. </span>',
-    },
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
-
-<EmitsTable
-  :data="[
-    {
-    name: '@update:modelValue',
-    type: '(payload: string | string[]) => void',
-    description: 'Event handler called when the value changes.',
-    }
-  ]"
-/>
+<!-- @include: @/meta/ToggleGroupRoot.md -->
 
 <DataAttributesTable
   :data="[
@@ -152,34 +71,7 @@ Contains all the parts of a toggle group.
 
 An item in the group.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'button',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'value',
-      required: true,
-      type: 'string',
-      description: 'A unique value for the item.',
-    },
-    {
-      name: 'disabled',
-      type: 'boolean',
-      description: '<span> When <Code>true</Code>, prevents the user from interacting with the item. </span>',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ToggleGroupItem.md -->
 
 <DataAttributesTable
   :data="[

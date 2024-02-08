@@ -36,10 +36,11 @@ describe('given a default DismissableLayer', () => {
 
     describe('pressing Escape close off the layer', () => {
       it('should close layer when point click outside', async () => {
+        const layer = wrapper.findComponent('#layer') as VueWrapper
         await fireEvent.keyDown(document.body, { key: 'Escape' })
         expect(document.body.innerHTML).not.toContain(CLOSE_LABEL)
-        expect(wrapper.emitted('escapeKeyDown')?.length).toBe(1)
-        expect(wrapper.emitted('dismiss')?.length).toBe(1)
+        expect(layer.emitted('escapeKeyDown')?.length).toBe(1)
+        expect(layer.emitted('dismiss')?.length).toBe(1)
       })
     })
 

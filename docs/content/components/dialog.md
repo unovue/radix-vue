@@ -75,59 +75,13 @@ import {
 
 Contains all the parts of a dialog
 
-<PropsTable
-  :data="[
-    {
-      name: 'defaultOpen',
-      type: 'boolean',
-      description: '<span>The open state of the dialog when it is initially rendered. Use when you do not need to control its open state.</span>',
-    },
-    {
-      name: 'open',
-      type: 'boolean',
-      description: '<span>The controlled open state of the dialog Can be binded with <Code>v-model</Code>.</span>',
-    },
-    {
-      name: 'modal',
-      required: false,
-      type: 'boolean',
-      default: 'true',
-      description: '<span>The modality of the dialog When set to <Code>true</Code>, interaction with outside elements will be disabled and only dialog content will be visible to screen readers.</span>',
-    },
-  ]"
-/>
-
-<EmitsTable 
-  :data="[
-    {
-      name: '@update:open',
-      type: '(open: boolean) => void',
-      description: 'Event handler called when the open state of the dialog changes.'
-    },
-  ]" 
-/>
+<!-- @include: @/meta/DialogRoot.md -->
 
 ### Trigger
 
 The button that opens the dialog
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'button',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/DialogTrigger.md -->
 
 <DataAttributesTable
   :data="[
@@ -142,45 +96,13 @@ The button that opens the dialog
 
 When used, portals your overlay and content parts into the `body`.
 
-<PropsTable
-  :data="[
-    {
-      name: 'to',
-      type:  'string | HTMLElement',
-      default: 'body',
-      description: 'Vue native teleport component props. (to)',
-    },
-  ]"
-/>
+<!-- @include: @/meta/DialogPortal.md -->
 
 ### Overlay
 
 A layer that covers the inert portion of the view when the dialog is open.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'forceMount',
-      type: 'boolean',
-      description: `
-        Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.
-      `,
-    },
-  ]"
-/>
+<!-- @include: @/meta/DialogOverlay.md -->
 
 <DataAttributesTable
   :data="[
@@ -195,76 +117,7 @@ A layer that covers the inert portion of the view when the dialog is open.
 
 Contains content to be rendered in the open dialog
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'forceMount',
-      type: 'boolean',
-      description: `
-        Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.
-      `,
-    },
-  ]" 
-/>
-
-<EmitsTable
-  :data="[
-    {
-      name: '@openAutoFocus',
-      type: '(event: Event) => void',
-      description: 'Event handler called when focus moves into the component after opening. It can be prevented by  calling<Code>event.preventDefault</Code>.'
-    }, 
-    {
-      name: '@closeAutoFocus',
-      type: '(event: Event) => void',
-      description: 'Event handler called when focus moves to the trigger after closing. It can be prevented by calling <Code>event.preventDefault</Code>.'
-    }, 
-    {
-    name: '@escapeKeyDown',
-    type: '(event: KeyboardEvent) => void',
-      description: `
-        <span>
-          Event handler called when the escape key is down. It can be prevented by calling <Code>event.preventDefault</Code>.
-        </span>
-      `,
-    },
-    {
-      name: '@pointerDownOutside',
-      type: '(event: PointerDownOutsideEvent) => void',
-      typeSimple: 'function',
-      description: `
-        <span>
-          Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling <code>event.preventDefault</code>.
-        </span>
-      `,
-    },
-    {
-      name: '@interactOutside',
-      type: '(event: FocusEvent | MouseEvent | TouchEvent) => void',
-      typeSimple: 'function',
-      description: `
-        <span>
-          Event handler called when an interaction (pointer or focus event)
-          happens outside the bounds of the component. It can be prevented by
-          calling <code>event.preventDefault</code>.
-        </span>
-      `,
-    },
-  ]"
-/>
+<!-- @include: @/meta/DialogContent.md -->
 
 <DataAttributesTable
   :data="[
@@ -279,23 +132,7 @@ Contains content to be rendered in the open dialog
 
 The button that closes the dialog
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'button',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/DialogClose.md -->
 
 ### Title
 
@@ -303,23 +140,7 @@ An accessible title to be announced when the dialog is opened.
 
 If you want to hide the title, wrap it inside our Visually Hidden utility like this `<VisuallyHidden asChild>`.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'h2',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/DialogTitle.md -->
 
 ### Description
 
@@ -327,23 +148,7 @@ An optional accessible description to be announced when the dialog is opened.
 
 If you want to hide the description, wrap it inside our Visually Hidden utility like this `<VisuallyHidden asChild>`. If you want to remove the description entirely, remove this part and pass `aria-describedby="undefined}` to `DialogContent`.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'p',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/DialogDescription.md -->
 
 ## Examples
 
@@ -352,7 +157,6 @@ If you want to hide the description, wrap it inside our Visually Hidden utility 
 You can nest multiple layers of dialogs.
 
 <ComponentPreview name="DialogNested" />
-
 
 
 ### Close after asynchronous form submission

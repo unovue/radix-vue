@@ -4,12 +4,18 @@ import type { Orientation } from './utils'
 import type { PrimitiveProps } from '@/Primitive'
 
 export type NavigationMenuSubEmits = {
+  /** Event handler called when the value changes. */
   'update:modelValue': [value: string]
 }
 
 export interface NavigationMenuSubProps extends PrimitiveProps {
+  /** The controlled value of the sub menu item to activate. Can be used as `v-model`. */
   modelValue?: string
+  /** The value of the menu item that should be active when initially rendered.
+   *
+   * Use when you do not need to control the value state. */
   defaultValue?: string
+  /** The orientation of the menu. */
   orientation?: Orientation
 }
 </script>
@@ -20,9 +26,8 @@ import { useVModel } from '@vueuse/core'
 import { injectNavigationMenuContext, provideNavigationMenuContext } from './NavigationMenuRoot.vue'
 import {
   Primitive,
-  usePrimitiveElement,
 } from '@/Primitive'
-import { useCollection } from '@/shared'
+import { useCollection, useForwardExpose } from '@/shared'
 
 const props = withDefaults(defineProps<NavigationMenuSubProps>(), {
   orientation: 'horizontal',
@@ -36,7 +41,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 const previousValue = ref('')
 
 const menuContext = injectNavigationMenuContext()
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 
 const indicatorTrack = ref<HTMLElement>()
 const viewport = ref<HTMLElement>()
@@ -83,7 +88,7 @@ provideNavigationMenuContext({
 
 <template>
   <Primitive
-    ref="primitiveElement"
+    :ref="forwardRef"
     :data-orientation="orientation"
     :as-child="props.asChild"
     :as="as"

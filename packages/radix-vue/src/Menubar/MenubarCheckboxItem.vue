@@ -11,12 +11,13 @@ export interface MenubarCheckboxItemProps extends MenuCheckboxItemProps {}
 
 <script setup lang="ts">
 import { MenuCheckboxItem } from '@/Menu'
-import { useEmitAsProps } from '@/shared'
+import { useEmitAsProps, useForwardExpose } from '@/shared'
 
 const props = defineProps<MenubarCheckboxItemProps>()
 const emits = defineEmits<MenubarCheckboxItemEmits>()
 
 const emitsAsProps = useEmitAsProps(emits)
+useForwardExpose()
 </script>
 
 <template>

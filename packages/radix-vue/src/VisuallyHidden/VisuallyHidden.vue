@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface VisuallyHiddenProps extends PrimitiveProps {}
 </script>
@@ -8,6 +9,7 @@ export interface VisuallyHiddenProps extends PrimitiveProps {}
 import { Primitive } from '@/Primitive'
 
 withDefaults(defineProps<VisuallyHiddenProps>(), { as: 'span' })
+useForwardExpose()
 </script>
 
 <template>

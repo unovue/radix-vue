@@ -1,12 +1,12 @@
 <script lang="ts">
 import type {
   MenuContentImplEmits,
-  MenuRootContentProps,
+  MenuRootContentTypeProps,
 } from './MenuContentImpl.vue'
 
-export type MenuContentEmits = MenuContentImplEmits
+export type MenuContentEmits = Omit<MenuContentImplEmits, 'entryFocus' | 'openAutoFocus'>
 
-export interface MenuContentProps extends MenuRootContentProps {
+export interface MenuContentProps extends MenuRootContentTypeProps {
   /**
    * Used to force mounting when more control is needed. Useful when
    * controlling animation with Vue animation libraries.
@@ -23,7 +23,7 @@ import { Presence } from '@/Presence'
 import { useForwardPropsEmits } from '@/shared'
 
 const props = defineProps<MenuContentProps>()
-const emits = defineEmits<MenuContentEmits>()
+const emits = defineEmits<MenuContentImplEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
 
 const menuContext = injectMenuContext()

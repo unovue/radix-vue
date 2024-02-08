@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { MenuLabelProps } from '@/Menu'
+import { useForwardExpose } from '@/shared'
 
 export interface MenubarLabelProps extends MenuLabelProps {}
 </script>
@@ -8,6 +9,7 @@ export interface MenubarLabelProps extends MenuLabelProps {}
 import { MenuLabel } from '@/Menu'
 
 const props = defineProps<MenubarLabelProps>()
+useForwardExpose()
 </script>
 
 <template>

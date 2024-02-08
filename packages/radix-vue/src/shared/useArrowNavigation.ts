@@ -6,14 +6,14 @@ interface ArrowNavigationOptions {
   /**
    * The arrow key options to allow navigation
    *
-   * @default "both"
+   * @defaultValue "both"
    */
   arrowKeyOptions?: ArrowKeyOptions
 
   /**
    * The attribute name to find the collection items in the parent element.
    *
-   * @default "data-radix-vue-collection-item"
+   * @defaultValue "data-radix-vue-collection-item"
    */
   attributeName?: string
 
@@ -21,21 +21,21 @@ interface ArrowNavigationOptions {
    * The parent element where contains all the collection items, this will collect every item to be used when nav
    * It will be ignored if attributeName is provided
    *
-   * @default []
+   * @defaultValue []
    */
   itemsArray?: HTMLElement[]
 
   /**
    * Allow loop navigation. If false, it will stop at the first and last element
    *
-   * @default true
+   * @defaultValue true
    */
   loop?: boolean
 
   /**
    * The orientation of the collection
    *
-   * @default "ltr"
+   * @defaultValue "ltr"
    */
   dir?: Direction
 
@@ -43,17 +43,26 @@ interface ArrowNavigationOptions {
    * Prevent the scroll when navigating. This happens when the direction of the
    * key matches the scroll direction of any ancestor scrollable elements.
    *
-   * @default true
+   * @defaultValue true
    */
   preventScroll?: boolean
 
   /**
+   * By default all currentElement would trigger navigation. If `true`, currentElement nodeName in the ignore list will return null
+   *
+   * @defaultValue false
+   */
+  enableIgnoredElement?: boolean
+
+  /**
    * Focus the element after navigation
    *
-   * @default false
+   * @defaultValue false
    */
   focus?: boolean
 }
+
+const ignoredElement = ['INPUT', 'TEXTAREA']
 
 /**
  * Allow arrow navigation for every html element with data-radix-vue-collection-item tag
@@ -70,12 +79,12 @@ export function useArrowNavigation(
   parentElement: HTMLElement | undefined,
   options: ArrowNavigationOptions = {},
 ): HTMLElement | null {
-  if (!currentElement)
+  if (!currentElement || (options.enableIgnoredElement && ignoredElement.includes(currentElement.nodeName)))
     return null
 
   const {
     arrowKeyOptions = 'both',
-    attributeName = 'data-radix-vue-collection-item',
+    attributeName = '[data-radix-vue-collection-item]',
     itemsArray = [],
     loop = true,
     dir = 'ltr',
@@ -103,7 +112,7 @@ export function useArrowNavigation(
     return null
 
   const allCollectionItems: HTMLElement[] = parentElement
-    ? Array.from(parentElement.querySelectorAll(`[${attributeName}]`))
+    ? Array.from(parentElement.querySelectorAll(attributeName))
     : itemsArray
 
   if (!allCollectionItems.length)

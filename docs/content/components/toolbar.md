@@ -63,45 +63,7 @@ import {
 
 Contains all the toolbar component parts.
 
-<PropsTable
-  :data="[
-    {
-      name: 'orientation',
-      required: false,
-      type: '&quot;horizontal&quot; | &quot;vertical&quot; | undefined',
-      typeSimple: 'enum',
-      default: '&quot;horizontal&quot;',
-      description: 'The orientation of the toolbar',
-    },
-    {
-      name: 'dir',
-      required: false,
-      type: '&quot;ltr&quot; | &quot;rtl&quot;',
-      typeSimple: 'enum',
-      description: '<span> The reading direction of the toolbar If omitted, inherits globally from <Code>DirectionProvider</Code> or assumes LTR (left-to-right) reading mode.</span>',
-    },
-    {
-      name: 'loop',
-      required: false,
-      type: 'boolean',
-      default: 'true',
-      description: '<span> When <Code>true</Code>, keyboard navigation will loop from last tab to first, and vice versa.</span>',
-    },
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ToolbarRoot.md -->
 
 <DataAttributesTable
   :data="[
@@ -116,23 +78,7 @@ Contains all the toolbar component parts.
 
 A button item.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'button',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ToolbarButton.md -->
 
 <DataAttributesTable
   :data="[
@@ -147,81 +93,13 @@ A button item.
 
 A link item.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'a',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ToolbarLink.md -->
 
 ### ToggleGroup
 
 A set of two-state buttons that can be toggled on or off.
 
-<PropsTable
-  :data="[
-    {
-      name: 'type',
-      required: true,
-      type: '&quot;single&quot; | &quot;multiple&quot;',
-      typeSimple: 'enum',
-      description: '<span> Determines whether a single or multiple items can be pressed at a time.</span>',
-    },
-    {
-      name: 'modelValue',
-      required: false,
-      type: 'string | string[]',
-      description: '<span> The controlled value of the pressed items. Can be binded with <Code>v-model</Code>.</span>',
-    },
-    {
-      name: 'defaultValue',
-      required: false,
-      type: 'string | string[]',
-      description: '<span> The value of the item to show as pressed when initially rendered and <Code>type</Code> is <Code>&quot;single&quot;</Code>. Use when you do not need to control the state of the items.</span>',
-    },
-    {
-      name: 'disabled',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: '<span> When <Code>true</Code>, prevents the user from interacting with the toggle group and all its items.</span>',
-    },
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
-
-<EmitsTable
-  :data="[
-    {
-    name: '@update:modelValue',
-    type: '(payload: string | string[]) => void',
-    description: 'Event handler called when the value changes.',
-    }
-  ]"
-/>
+<!-- @include: @/meta/ToolbarToggleGroup.md -->
 
 <DataAttributesTable
   :data="[
@@ -236,34 +114,7 @@ A set of two-state buttons that can be toggled on or off.
 
 An item in the group.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'button',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'value',
-      required: true,
-      type: 'string',
-      description: 'A unique value for the item.',
-    },
-    {
-      name: 'disabled',
-      type: 'boolean',
-      description: '<span> When <Code>true</Code>, prevents the user from interacting with the item.</span>',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ToolbarToggleItem.md -->
 
 <DataAttributesTable
   :data="[
@@ -286,23 +137,7 @@ An item in the group.
 
 Used to visually separate items in the toolbar
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/ToolbarSeparator.md -->
 
 <DataAttributesTable
   :data="[

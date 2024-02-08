@@ -2,7 +2,7 @@
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import type { Direction, ScrollType } from './types'
-import { createContext, useDirection } from '@/shared'
+import { createContext, useDirection, useForwardExpose } from '@/shared'
 
 export interface ScrollAreaRootContext {
   type: Ref<ScrollType>
@@ -29,25 +29,32 @@ export const [injectScrollAreaRootContext, provideScrollAreaRootContext]
   = createContext<ScrollAreaRootContext>('ScrollAreaRoot')
 
 export interface ScrollAreaRootProps extends PrimitiveProps {
+  /**
+   * Describes the nature of scrollbar visibility, similar to how the scrollbar preferences in MacOS control visibility of native scrollbars.
+   *
+   * `auto` - means that scrollbars are visible when content is overflowing on the corresponding orientation. <br>
+   * `always` - means that scrollbars are always visible regardless of whether the content is overflowing.<br>
+   * `scroll` - means that scrollbars are visible when the user is scrolling along its corresponding orientation.<br>
+   * `hover` - when the user is scrolling along its corresponding orientation and when the user is hovering over the scroll area.
+   */
   type?: ScrollType
+  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
+  /** If type is set to either `scroll` or `hover`, this prop determines the length of time, in milliseconds, <br> before the scrollbars are hidden after the user stops interacting with scrollbars. */
   scrollHideDelay?: number
 }
 </script>
 
 <script setup lang="ts">
 import { ref, toRefs } from 'vue'
-import {
-  Primitive,
-  usePrimitiveElement,
-} from '@/Primitive'
+import { Primitive } from '@/Primitive'
 
 const props = withDefaults(defineProps<ScrollAreaRootProps>(), {
   type: 'hover',
   scrollHideDelay: 600,
 })
 
-const { primitiveElement, currentElement: scrollArea } = usePrimitiveElement()
+const { forwardRef, currentElement: scrollArea } = useForwardExpose()
 
 const cornerWidth = ref(0)
 const cornerHeight = ref(0)
@@ -100,7 +107,7 @@ provideScrollAreaRootContext({
 
 <template>
   <Primitive
-    ref="primitiveElement"
+    :ref="forwardRef"
     :as-child="props.asChild"
     :as="as"
     :dir="dir"

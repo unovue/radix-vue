@@ -6,8 +6,10 @@ export interface ContextMenuSubTriggerProps extends MenuSubTriggerProps {}
 
 <script setup lang="ts">
 import { MenuSubTrigger } from '@/Menu'
+import { useForwardExpose } from '@/shared'
 
 const props = defineProps<ContextMenuSubTriggerProps>()
+useForwardExpose()
 </script>
 
 <template>

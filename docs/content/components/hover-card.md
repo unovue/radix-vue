@@ -62,67 +62,14 @@ import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, Hover
 
 Contains all the parts of a hover card.
 
-<PropsTable
-  :data="[
-    {
-      name: 'defaultOpen',
-      type: 'boolean',
-      description: '<span> The open state of the hover card when it is initially rendered. Use when you do not need to control its open state.</span>',
-    },
-    {
-      name: 'open',
-      type: 'boolean',
-      description: '<span> The controlled open state of the hover card. Must be binded with <Code>v-model</Code>.</span>',
-    },
-    {
-      name: 'openDelay',
-      type: 'number',
-      default: 700,
-      description:
-        'The duration from when the mouse enters the trigger until the hover card opens.',
-    },
-    {
-      name: 'closeDelay',
-      type: 'number',
-      default: 300,
-      description:
-        'The duration from when the mouse leaves the trigger or content until the hover card closes.',
-    },
-  ]"
-/>
-
-<EmitsTable 
-  :data="[
-    {
-      name: '@update:open',
-      type: '(value: boolean) => void',
-      description: 'Event handler called when the open state of the hover card changes.'
-    }
-  ]" 
-/>
+<!-- @include: @/meta/HoverCardRoot.md -->
 
 
 ### Trigger
 
 The link that opens the hover card when hovered.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'a',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-  ]"
-/>
+<!-- @include: @/meta/HoverCardTrigger.md -->
 
 <DataAttributesTable
   :data="[
@@ -137,111 +84,13 @@ The link that opens the hover card when hovered.
 
 When used, portals the content part into the `body`.
 
-
-<PropsTable
-  :data="[
-    {
-      name: 'to',
-      type:  'string | HTMLElement',
-      default: 'body',
-      description: 'Vue native teleport component props. (to)',
-    },
-  ]"
-/>
+<!-- @include: @/meta/HoverCardPortal.md -->
 
 ### Content
 
 The component that pops out when the hover card is open.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'forceMount',
-      type: 'boolean',
-      description: `
-        Used to force mounting when more control is needed. Useful when controlling animation with Vue.js animation libraries.
-      `,
-    },
-    {
-      name: 'side',
-      type: '&quot;top&quot; | &quot;right&quot; | &quot;bottom&quot; | &quot;left&quot;',
-      typeSimple: 'enum',
-      default: '&quot;bottom&quot;',
-      description: '<span> The preferred side of the trigger to render against when open. Will be reversed when collisions occur and <Code>avoidCollisions</Code> is enabled.</span>',
-    },
-    {
-      name: 'sideOffset',
-      type: 'number',
-      default: '0',
-      description: '<span> <span>The distance in pixels from the trigger.</span></span>',
-    },
-    {
-      name: 'align',
-      type: '&quot;start&quot; | &quot;center&quot; | &quot;end&quot;',
-      typeSimple: 'enum',
-      default: '&quot;center&quot;',
-      description: '<span> The preferred alignment against the trigger. May change when collisions occur.</span>',
-    },
-    {
-      name: 'alignOffset',
-      type: 'number',
-      default: '0',
-      description: '<span> An offset in pixels from the <Code>&quot;start&quot;</Code> or <Code>&quot;end&quot;</Code> alignment options.</span>',
-    },
-    {
-      name: 'avoidCollisions',
-      type: 'boolean',
-      default: 'true',
-      description: '<span> When <Code>true</Code>, overrides the <Code>side</Code> and <Code>align</Code> preferences to prevent collisions with boundary edges.</span>',
-    },
-    {
-      name: 'collisionBoundary',
-      type: 'Element | null | Array<Element | null>',
-      typeSimple: 'Boundary',
-      default: '[]',
-      description: '<span> The element used as the collision boundary. By default this is the viewport, though you can provide additional element(s) to be included in this check.</span>',
-    },
-    {
-      name: 'collisionPadding',
-      type: 'number | Partial<Record<Side, number>>',
-      typeSimple: 'number | Padding',
-      default: '0',
-      description: '<span> The distance in pixels from the boundary edges where collision detection should occur. Accepts a number (same for all sides), or a partial padding object, for example: <Code>{`{ top: 20, left: 20 }`}</Code> .</span>',
-    },
-    {
-      name: 'arrowPadding',
-      type: 'number',
-      default: '0',
-      description: '<span> The padding between the arrow and the edges of the content. If your content has <Code>border-radius</Code>, this will prevent it from overflowing the corners.</span>',
-    },
-    {
-      name: 'sticky',
-      type: '&quot;partial&quot; | &quot;always&quot;',
-      typeSimple: 'enum',
-      default: '&quot;partial&quot;',
-      description: '<span> The sticky behavior on the align axis. <Code>&quot;partial&quot;</Code> will keep the content in the boundary as long as the trigger is at least partially in the boundary whilst <Code>&quot;always&quot;</Code> will keep the content in the boundary regardless.</span>',
-    },
-    {
-      name: 'hideWhenDetached',
-      type: 'boolean',
-      default: 'false',
-      description: '<span> Whether to hide the content when the trigger becomes fully occluded.</span>',
-    },
-  ]"
-/>
+<!-- @include: @/meta/HoverCardContent.md -->
 
 <DataAttributesTable
   :data="[
@@ -289,35 +138,7 @@ The component that pops out when the hover card is open.
 
 An optional arrow element to render alongside the hover card. This can be used to help visually link the trigger with the `HoverCardContent`. Must be rendered inside `HoverCardContent`.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'svg',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'width',
-      type: 'number',
-      default: 10,
-      description: '<span>The width of the arrow in pixels.</span>',
-    },
-    {
-      name: 'height',
-      type: 'number',
-      default: 5,
-      description: '<span>The height of the arrow in pixels.</span>',
-    },
-  ]"
-/>
+<!-- @include: @/meta/HoverCardArrow.md -->
 
 ## Examples
 

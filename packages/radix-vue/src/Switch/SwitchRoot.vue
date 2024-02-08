@@ -1,19 +1,26 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useFormControl } from '@/shared'
+import { createContext, useFormControl, useForwardExpose } from '@/shared'
 
 export interface SwitchRootProps extends PrimitiveProps {
+  /** The state of the switch when it is initially rendered. Use when you do not need to control its state. */
   defaultChecked?: boolean
+  /** The controlled state of the switch. Can be bind as `v-model:checked`. */
   checked?: boolean
+  /** When `true`, prevents the user from interacting with the switch. */
   disabled?: boolean
+  /** When `true`, indicates that the user must check the switch before the owning form can be submitted. */
   required?: boolean
+  /** The name of the switch. Submitted with its owning form as part of a name/value pair. */
   name?: string
   id?: string
+  /** The value given as data when submitted with a `name`. */
   value?: string
 }
 
 export type SwitchRootEmits = {
+  /** Event handler called when the checked state of the switch changes. */
   'update:checked': [payload: boolean]
 }
 
@@ -30,7 +37,7 @@ export const [injectSwitchRootContext, provideSwitchRootContext]
 <script setup lang="ts">
 import { computed, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 
 const props = withDefaults(defineProps<SwitchRootProps>(), {
   as: 'button',
@@ -52,7 +59,7 @@ function toggleCheck() {
   checked.value = !checked.value
 }
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 const isFormControl = useFormControl(currentElement)
 const ariaLabel = computed(() => props.id && currentElement.value ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText : undefined)
 
@@ -67,7 +74,7 @@ provideSwitchRootContext({
   <Primitive
     v-bind="$attrs"
     :id="id"
-    ref="primitiveElement"
+    :ref="forwardRef"
     role="switch"
     :type="as === 'button' ? 'button' : undefined"
     :value="value"

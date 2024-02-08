@@ -10,12 +10,13 @@ export interface AlertDialogProps extends Omit<DialogRootProps, 'modal'> {}
 
 <script setup lang="ts">
 import { DialogRoot } from '@/Dialog'
-import { useForwardPropsEmits } from '@/shared'
+import { useForwardExpose, useForwardPropsEmits } from '@/shared'
 
 const props = defineProps<AlertDialogProps>()
 const emits = defineEmits<AlertDialogEmits>()
 
 const forwarded = useForwardPropsEmits(props, emits)
+useForwardExpose()
 </script>
 
 <template>

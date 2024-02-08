@@ -2,6 +2,7 @@
 import type { PrimitiveProps } from '@/Primitive'
 
 export interface SelectValueProps extends PrimitiveProps {
+  /** The content that will be rendered inside the `SelectValue` when no `value` or `defaultValue` is set. */
   placeholder?: string
 }
 </script>
@@ -10,18 +11,15 @@ export interface SelectValueProps extends PrimitiveProps {
 import { onBeforeMount, onMounted, useSlots } from 'vue'
 import { shouldShowPlaceholder } from './utils'
 import { injectSelectRootContext } from './SelectRoot.vue'
-import {
-  Primitive,
-  usePrimitiveElement,
-} from '@/Primitive'
-import { renderSlotFragments } from '@/shared'
+import { Primitive } from '@/Primitive'
+import { renderSlotFragments, useForwardExpose } from '@/shared'
 
 withDefaults(defineProps<SelectValueProps>(), {
   as: 'span',
   placeholder: '',
 })
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 
 const rootContext = injectSelectRootContext()
 const slots = useSlots()
@@ -38,7 +36,7 @@ onMounted(() => {
 
 <template>
   <Primitive
-    ref="primitiveElement"
+    :ref="forwardRef"
     :as="as"
     :as-child="asChild"
     :style="{ pointerEvents: 'none' }"

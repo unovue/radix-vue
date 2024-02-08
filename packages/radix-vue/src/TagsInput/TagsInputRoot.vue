@@ -1,26 +1,37 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useArrowNavigation, useDirection, useFormControl } from '@/shared'
+import { createContext, useArrowNavigation, useDirection, useFormControl, useForwardExpose } from '@/shared'
 import type { Direction } from '@/shared/types'
 import { type Ref, ref, toRefs } from 'vue'
 
 export interface TagsInputRootProps extends PrimitiveProps {
+  /** The controlled value of the tags input. Can be bind as `v-model`. */
   modelValue?: Array<string>
+  /** The value of the tags that should be added. Use when you do not need to control the state of the tags input */
   defaultValue?: Array<string>
+  /** When `true`, allow adding tags on paste. Work in conjunction with delimiter prop. */
   addOnPaste?: boolean
+  /** When `true`, allow duplicated tags. */
   duplicate?: boolean
+  /** When `true`, prevents the user from interacting with the tags input. */
   disabled?: boolean
+  /** The character to trigger the addition of a new tag. Also used to split tags for `@paste` event */
   delimiter?: string
+  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
+  /** Maximum number of tags. */
   max?: number
-
+  /** When `true`, indicates that the user must add the tags input before the owning form can be submitted. */
   required?: boolean
+  /** The name of the tags input submitted with its owning form as part of a name/value pair. */
   name?: string
   id?: string
 }
 
 export type TagsInputRootEmits = {
+  /** Event handler called when the value changes */
   'update:modelValue': [payload: Array<string>]
+  /** Event handler called when the value is invalid */
   'invalid': [payload: string]
 }
 
@@ -44,7 +55,7 @@ export const [injectTagsInputRootContext, provideTagsInputRootContext]
 </script>
 
 <script setup lang="ts">
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { CollectionSlot, createCollection } from '@/Collection'
 import { useFocusWithin, useVModel } from '@vueuse/core'
 import { VisuallyHiddenInput } from '@/VisuallyHidden'
@@ -56,6 +67,13 @@ const props = withDefaults(defineProps<TagsInputRootProps>(), {
 })
 const emits = defineEmits<TagsInputRootEmits>()
 
+defineSlots<{
+  default(props: {
+    /** Current input values */
+    modelValue: typeof modelValue.value
+  }): any
+}>()
+
 const { addOnPaste, disabled, delimiter, max, id, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
 
@@ -65,7 +83,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
   deep: true,
 }) as Ref<Array<string>>
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 const { focused } = useFocusWithin(currentElement)
 const isFormControl = useFormControl(currentElement)
 
@@ -184,7 +202,7 @@ provideTagsInputRootContext({
 <template>
   <CollectionSlot>
     <Primitive
-      ref="primitiveElement"
+      :ref="forwardRef"
       :dir="dir"
       :as="as"
       :as-child="asChild"
@@ -192,7 +210,7 @@ provideTagsInputRootContext({
       :data-disabled="disabled ? '' : undefined"
       :data-focused="focused ? '' : undefined"
     >
-      <slot :values="modelValue" />
+      <slot :model-value="modelValue" />
 
       <VisuallyHiddenInput
         v-if="isFormControl && name"

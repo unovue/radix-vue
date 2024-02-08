@@ -1,9 +1,13 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface ComboboxInputProps extends PrimitiveProps {
+  /** Nactive input type */
   type?: string
+  /** When `true`, prevents the user from interacting with item */
   disabled?: boolean
+  /** Focus on element when mounted. */
   autoFocus?: boolean
 }
 </script>
@@ -11,7 +15,7 @@ export interface ComboboxInputProps extends PrimitiveProps {
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
 import { injectComboboxRootContext } from './ComboboxRoot.vue'
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 
 const props = withDefaults(defineProps<ComboboxInputProps>(), {
   type: 'text',
@@ -20,7 +24,7 @@ const props = withDefaults(defineProps<ComboboxInputProps>(), {
 
 const rootContext = injectComboboxRootContext()
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 onMounted(() => {
   const inputEl = currentElement.value.nodeName === 'INPUT'
     ? currentElement.value as HTMLInputElement
@@ -63,12 +67,14 @@ function handleInput(event: Event) {
 
 <template>
   <Primitive
-    ref="primitiveElement"
-    v-bind="props"
+    :ref="forwardRef"
+    :as="as"
+    :as-child="asChild"
+    :type="type"
+    :disabled="disabled"
     :value="rootContext.searchTerm.value"
     :aria-expanded="rootContext.open.value"
     :aria-controls="rootContext.contentId"
-    :disabled="disabled"
     :aria-disabled="disabled ?? undefined"
     aria-autocomplete="list"
     role="combobox"

@@ -1,8 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from '../'
+import { useForwardExpose } from '@/shared'
 
 const sliderValue = ref([50])
+
+const { forwardRef, currentElement } = useForwardExpose()
+const el = ref<InstanceType<typeof SliderTrack>>()
+onMounted(() => {
+  console.log(el.value)
+})
 </script>
 
 <template>
@@ -13,7 +20,7 @@ const sliderValue = ref([50])
         name="slider"
         class="relative flex items-center select-none touch-none w-[200px] h-5"
       >
-        <SliderTrack class="bg-blackA10 relative grow rounded-full h-[3px]">
+        <SliderTrack ref="el" class="bg-blackA10 relative grow rounded-full h-[3px]">
           <SliderRange class="absolute bg-white rounded-full h-full" />
         </SliderTrack>
         <SliderThumb

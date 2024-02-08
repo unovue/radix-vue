@@ -2,7 +2,7 @@
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import type { DataOrientation, Direction } from '../shared/types'
-import { createContext, useDirection, useId } from '@/shared'
+import { createContext, useDirection, useForwardExpose, useId } from '@/shared'
 
 export interface TabsRootContext {
   modelValue: Ref<string | undefined>
@@ -15,6 +15,9 @@ export interface TabsRootContext {
 }
 
 export interface TabsRootProps extends PrimitiveProps {
+  /**
+   * The value of the tab that should be active when initially rendered. Use when you do not need to control the state of the tabs
+   */
   defaultValue?: string
   /**
    * The orientation the tabs are layed out.
@@ -23,17 +26,19 @@ export interface TabsRootProps extends PrimitiveProps {
    */
   orientation?: DataOrientation
   /**
-   * The direction of navigation between toolbar items.
+   * The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode.
    */
   dir?: Direction
   /**
    * Whether a tab is activated automatically or manually.
    * @defaultValue automatic
-   * */
+   */
   activationMode?: 'automatic' | 'manual'
+  /** The controlled value of the tab to activate. Can be bind as `v-model`. */
   modelValue?: string
 }
 export type TabsRootEmits = {
+  /** Event handler called when the value changes */
   'update:modelValue': [payload: string]
 }
 
@@ -53,6 +58,7 @@ const props = withDefaults(defineProps<TabsRootProps>(), {
 const emits = defineEmits<TabsRootEmits>()
 const { orientation, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
+useForwardExpose()
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,

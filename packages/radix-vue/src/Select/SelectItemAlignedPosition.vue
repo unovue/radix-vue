@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useCollection } from '@/shared'
+import { createContext, useCollection, useForwardExpose } from '@/shared'
 
 interface SelectItemAlignedPositionContext {
   contentWrapper?: Ref<HTMLElement | undefined>
@@ -21,10 +21,7 @@ import { clamp } from '@vueuse/shared'
 import { injectSelectRootContext } from './SelectRoot.vue'
 import { injectSelectContentContext } from './SelectContentImpl.vue'
 import { CONTENT_MARGIN } from './utils'
-import {
-  Primitive,
-  usePrimitiveElement,
-} from '@/Primitive'
+import { Primitive } from '@/Primitive'
 
 defineOptions({
   inheritAttrs: false,
@@ -44,8 +41,7 @@ const shouldExpandOnScrollRef = ref(false)
 const shouldRepositionRef = ref(true)
 
 const contentWrapperElement = ref<HTMLElement>()
-const { primitiveElement, currentElement: contentElement }
-  = usePrimitiveElement()
+const { forwardRef, currentElement: contentElement } = useForwardExpose()
 
 const { viewport, selectedItem, selectedItemText, focusSelectedItem }
   = contentContext!
@@ -238,7 +234,7 @@ provideSelectItemAlignedPositionContext({
     }"
   >
     <Primitive
-      ref="primitiveElement"
+      :ref="forwardRef"
       :style="{
         // When we get the height of the content, it includes borders. If we were to set
         // the height without having `boxSizing: 'border-box'` it would be too big.

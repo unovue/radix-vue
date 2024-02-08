@@ -25,11 +25,10 @@ function changeItem() {
 <template>
   <CollapsibleTrigger
     :id="itemContext.triggerId"
-    :ref="itemContext.primitiveElement"
+    :ref="itemContext.currentRef"
     data-radix-vue-collection-item
     :as="props.as"
     :as-child="props.asChild"
-    :aria-controls="itemContext.triggerId"
     :aria-disabled="itemContext.disabled.value || undefined"
     :aria-expanded="itemContext.open.value || false"
     :data-disabled="itemContext.dataDisabled.value"

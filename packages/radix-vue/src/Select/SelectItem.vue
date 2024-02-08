@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useId } from '@/shared'
+import { createContext, useForwardExpose, useId } from '@/shared'
 
 interface SelectItemContext {
   value: string
@@ -12,11 +12,18 @@ interface SelectItemContext {
 }
 
 export const [injectSelectItemContext, provideSelectItemContext]
-  = createContext<SelectItemContext>('SelectItem')
+    = createContext<SelectItemContext>('SelectItem')
 
 export interface SelectItemProps extends PrimitiveProps {
+  /** The value given as data when submitted with a `name`. */
   value: string
+  /** When `true`, prevents the user from interacting with the item. */
   disabled?: boolean
+  /** Optional text used for typeahead purposes.
+   *
+   * By default the typeahead behavior will use the `.textContent` of the `SelectItemText` part.
+   *
+   * Use this when the content is complex, or you have non-textual content inside. */
   textValue?: string
 }
 </script>
@@ -32,17 +39,14 @@ import {
 import { injectSelectRootContext } from './SelectRoot.vue'
 import { SelectContentDefaultContextValue, injectSelectContentContext } from './SelectContentImpl.vue'
 import { SELECTION_KEYS } from './utils'
-import {
-  Primitive,
-  usePrimitiveElement,
-} from '@/Primitive'
+import { Primitive } from '@/Primitive'
 
 const props = defineProps<SelectItemProps>()
 const { disabled } = toRefs(props)
 
 const rootContext = injectSelectRootContext()
 const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 
 const isSelected = computed(() => rootContext.modelValue?.value === props.value)
 const isFocused = ref(false)
@@ -125,7 +129,7 @@ provideSelectItemContext({
 
 <template>
   <Primitive
-    ref="primitiveElement"
+    :ref="forwardRef"
     role="option"
     data-radix-vue-collection-item
     :aria-labelledby="textId"

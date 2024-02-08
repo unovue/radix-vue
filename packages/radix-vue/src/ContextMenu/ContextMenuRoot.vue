@@ -1,7 +1,8 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { Direction } from '@/shared/types'
-import { createContext, useDirection } from '@/shared'
+import { createContext, useDirection, useForwardExpose } from '@/shared'
+import type { MenuEmits, MenuProps } from '@/Menu'
 
 type ContextMenuRootContext = {
   open: Ref<boolean>
@@ -10,13 +11,8 @@ type ContextMenuRootContext = {
   dir: Ref<Direction>
 }
 
-export interface ContextMenuRootProps {
-  dir?: Direction
-  modal?: boolean
-}
-export type ContextMenuRootEmits = {
-  'update:open': [value: boolean]
-}
+export interface ContextMenuRootProps extends Omit<MenuProps, 'open'> {}
+export type ContextMenuRootEmits = MenuEmits
 
 export const [injectContextMenuRootContext, provideContextMenuRootContext]
   = createContext<ContextMenuRootContext>('ContextMenuRoot')
@@ -31,6 +27,7 @@ const props = withDefaults(defineProps<ContextMenuRootProps>(), {
 })
 const emits = defineEmits<ContextMenuRootEmits>()
 const { dir: propDir, modal } = toRefs(props)
+useForwardExpose()
 const dir = useDirection(propDir)
 
 const open = ref(false)

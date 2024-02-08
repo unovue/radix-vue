@@ -2,7 +2,7 @@
 import type { ComputedRef, VNodeRef } from 'vue'
 import type { CollapsibleRootProps } from '../Collapsible'
 import { injectAccordionRootContext } from './AccordionRoot.vue'
-import { createContext, useArrowNavigation, useId } from '@/shared'
+import { createContext, useArrowNavigation, useForwardExpose, useId } from '@/shared'
 
 enum AccordionItemState {
   Open = 'open',
@@ -13,7 +13,7 @@ export interface AccordionItemProps
   extends Omit<CollapsibleRootProps, 'open' | 'defaultOpen' | 'onOpenChange'> {
   /**
    * Whether or not an accordion item is disabled from user interaction.
-   * When true, prevents the user from interacting with the item.
+   * When `true`, prevents the user from interacting with the item.
    *
    * @defaultValue false
    */
@@ -30,7 +30,7 @@ interface AccordionItemContext {
   disabled: ComputedRef<boolean>
   dataDisabled: ComputedRef<'' | undefined>
   triggerId: string
-  primitiveElement: VNodeRef
+  currentRef: VNodeRef
   currentElement: ComputedRef<HTMLElement | undefined>
   value: ComputedRef<string>
 }
@@ -41,10 +41,16 @@ export const [injectAccordionItemContext, provideAccordionItemContext]
 
 <script setup lang="ts">
 import { CollapsibleRoot } from '@/Collapsible'
-import { usePrimitiveElement } from '@/Primitive'
 import { computed } from 'vue'
 
 const props = defineProps<AccordionItemProps>()
+
+defineSlots<{
+  default(props: {
+    /** Current open state */
+    open: typeof open.value
+  }): any
+}>()
 
 const rootContext = injectAccordionRootContext()
 
@@ -69,7 +75,8 @@ const dataState = computed(() =>
   open.value ? AccordionItemState.Open : AccordionItemState.Closed,
 )
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+defineExpose({ open, dataDisabled })
+const { currentRef, currentElement } = useForwardExpose()
 
 provideAccordionItemContext({
   open,
@@ -77,7 +84,7 @@ provideAccordionItemContext({
   disabled,
   dataDisabled,
   triggerId: useId(),
-  primitiveElement,
+  currentRef,
   currentElement,
   value: computed(() => props.value),
 })
@@ -94,8 +101,6 @@ function handleArrowKey(e: KeyboardEvent) {
     },
   )
 }
-
-defineExpose({ open })
 </script>
 
 <template>

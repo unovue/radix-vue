@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export type FocusScopeEmits = {
   /**
@@ -45,10 +46,7 @@ import {
   getTabbableEdges,
 } from './utils'
 import { createFocusScopesStack, removeLinks } from './stack'
-import {
-  Primitive,
-  usePrimitiveElement,
-} from '@/Primitive'
+import { Primitive } from '@/Primitive'
 
 const props = withDefaults(defineProps<FocusScopeProps>(), {
   loop: false,
@@ -56,7 +54,7 @@ const props = withDefaults(defineProps<FocusScopeProps>(), {
 })
 const emits = defineEmits<FocusScopeEmits>()
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { currentRef, currentElement } = useForwardExpose()
 const lastFocusedElementRef = ref<HTMLElement | null>(null)
 const focusScopesStack = createFocusScopesStack()
 
@@ -225,10 +223,10 @@ function handleKeyDown(event: KeyboardEvent) {
 
 <template>
   <Primitive
-    ref="primitiveElement"
+    ref="currentRef"
     tabindex="-1"
-    :as-child="props.asChild"
-    :as="props.as"
+    :as-child="asChild"
+    :as="as"
     @keydown="handleKeyDown"
   >
     <slot />

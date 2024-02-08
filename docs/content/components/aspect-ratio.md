@@ -49,26 +49,5 @@ import { AspectRatio } from 'radix-vue'
 
 Contains the content you want to constrain to a given ratio.
 
-<PropsTable
-  :data="[
-    {
-      name: 'as',
-      type: 'string | Component',
-      default: 'div',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
-    },
-    {
-      name: 'asChild',
-      required: false,
-      type: 'boolean',
-      default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
-    },
-    {
-      name: 'ratio',
-      type: 'number',
-      default: '1',
-      description: 'The desired ratio',
-    },
-  ]"
-/>
+
+<!-- @include: @/meta/AspectRatio.md -->

@@ -5,7 +5,7 @@ export interface ResolverOptions {
   /**
    * prefix for components used in templates
    *
-   * @default ""
+   * @defaultValue ""
    */
   prefix?: string
 }

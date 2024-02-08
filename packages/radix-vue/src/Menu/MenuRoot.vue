@@ -18,10 +18,20 @@ export interface MenuRootContext {
 }
 
 export interface MenuProps {
+  /** The controlled open state of the menu. Can be used as `v-model:open`. */
   open?: boolean
-  onOpenChange?(open: boolean): void
+  /** The reading direction of the combobox when applicable.
+   *
+   * If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
+  /** The modality of the dropdown menu.
+   *
+   * When set to `true`, interaction with outside elements will be disabled and only menu content will be visible to screen readers. */
   modal?: boolean
+}
+
+export type MenuEmits = {
+  'update:open': [payload: boolean]
 }
 
 export const [injectMenuContext, provideMenuContext]
@@ -45,7 +55,7 @@ const props = withDefaults(defineProps<MenuProps>(), {
   open: false,
   modal: true,
 })
-const emits = defineEmits<{ 'update:open': [payload: boolean] }>()
+const emits = defineEmits<MenuEmits>()
 const { modal, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
 

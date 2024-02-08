@@ -1,18 +1,19 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface TooltipArrowProps extends PrimitiveProps {
   /**
    * The width of the arrow in pixels.
    *
-   * @default 10
+   * @defaultValue 10
    */
   width?: number
 
   /**
    * The height of the arrow in pixels.
    *
-   * @default 5
+   * @defaultValue 5
    */
   height?: number
 }
@@ -24,7 +25,9 @@ import { PopperArrow } from '@/Popper'
 const props = withDefaults(defineProps<TooltipArrowProps>(), {
   width: 10,
   height: 5,
+  as: 'svg',
 })
+useForwardExpose()
 </script>
 
 <template>

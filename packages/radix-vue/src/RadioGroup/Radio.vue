@@ -7,8 +7,11 @@ export type RadioEmits = {
 
 export interface RadioProps extends PrimitiveProps {
   id?: string
+  /** The value given as data when submitted with a `name`. */
   value?: string
+  /** When `true`, prevents the user from interacting with the radio item. */
   disabled?: boolean
+  /** When `true`, indicates that the user must check the radio item before the owning form can be submitted. */
   required?: boolean
   checked?: boolean
   name?: string
@@ -18,11 +21,8 @@ export interface RadioProps extends PrimitiveProps {
 <script setup lang="ts">
 import { computed, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
-import {
-  Primitive,
-  usePrimitiveElement,
-} from '@/Primitive'
-import { useFormControl } from '@/shared'
+import { Primitive } from '@/Primitive'
+import { useFormControl, useForwardExpose } from '@/shared'
 
 const props = withDefaults(defineProps<RadioProps>(), {
   disabled: false,
@@ -35,7 +35,7 @@ const checked = useVModel(props, 'checked', emits, {
 })
 
 const { value } = toRefs(props)
-const { primitiveElement, currentElement: triggerElement } = usePrimitiveElement()
+const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 const isFormControl = useFormControl(triggerElement)
 
 const ariaLabel = computed(() => props.id && triggerElement.value ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText ?? props.value : undefined)
@@ -56,7 +56,7 @@ function handleClick(event: MouseEvent) {
   <Primitive
     v-bind="$attrs"
     :id="id"
-    ref="primitiveElement"
+    :ref="forwardRef"
     role="radio"
     :type="as === 'button' ? 'button' : undefined"
     :as="as"

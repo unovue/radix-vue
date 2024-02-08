@@ -2,25 +2,43 @@
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import type { DataOrientation, Direction } from '../shared/types'
-import { createContext, useDirection, useFormControl } from '@/shared'
+import { createContext, useDirection, useFormControl, useForwardExpose } from '@/shared'
 import { CollectionSlot, createCollection } from '@/Collection'
 
 export interface SliderRootProps extends PrimitiveProps {
   name?: string
+  /** The value of the slider when initially rendered. Use when you do not need to control the state of the slider. */
   defaultValue?: number[]
+  /** The controlled value of the slider. Can be bind as `v-model`. */
   modelValue?: number[]
+  /** When `true`, prevents the user from interacting with the slider. */
   disabled?: boolean
+  /** The orientation of the slider. */
   orientation?: DataOrientation
+  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
+  /** Whether the slider is visually inverted. */
   inverted?: boolean
+  /** The minimum value for the range. */
   min?: number
+  /** The maximum value for the range. */
   max?: number
+  /** The stepping interval. */
   step?: number
+  /** The minimum permitted steps between multiple thumbs. */
   minStepsBetweenThumbs?: number
 }
 
 export type SliderRootEmits = {
+  /**
+   * Event handler called when the slider value changes
+   */
   'update:modelValue': [payload: number[] | undefined]
+  /**
+   * Event handler called when the value changes at the end of an interaction.
+   *
+   * Useful when you only need to capture a final value e.g. to update a backend service.
+   */
   'valueCommit': [payload: number[]]
 }
 
@@ -42,7 +60,6 @@ export const [injectSliderRootContext, provideSliderRootContext]
 import SliderHorizontal from './SliderHorizontal.vue'
 import SliderVertical from './SliderVertical.vue'
 import { ref, toRaw, toRefs } from 'vue'
-import { usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 import { ARROW_KEYS, PAGE_KEYS, clamp, getClosestValueIndex, getDecimalCount, getNextSortedValues, hasMinStepsBetweenValues, roundValue } from './utils'
 
@@ -62,9 +79,16 @@ const props = withDefaults(defineProps<SliderRootProps>(), {
 })
 const emits = defineEmits<SliderRootEmits>()
 
+defineSlots<{
+  default(props: {
+    /** Current slider values */
+    modelValue: typeof modelValue.value
+  }): any
+}>()
+
 const { min, max, step, minStepsBetweenThumbs, orientation, disabled, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 const isFormControl = useFormControl(currentElement)
 
 createCollection()
@@ -131,7 +155,7 @@ provideSliderRootContext({
     <component
       :is="orientation === 'horizontal' ? SliderHorizontal : SliderVertical"
       v-bind="$attrs"
-      ref="primitiveElement"
+      :ref="forwardRef"
       :as-child="asChild"
       :as="as"
       :min="min"
@@ -139,7 +163,7 @@ provideSliderRootContext({
       :dir="dir"
       :inverted="inverted"
       :aria-disabled="disabled"
-      :data-disabled="disabled"
+      :data-disabled="disabled ? '' : undefined"
       @pointerdown="() => {
         if (!disabled) valuesBeforeSlideStartRef = modelValue
       }"
@@ -173,6 +197,7 @@ provideSliderRootContext({
       style="display: none"
       :name="name ? name + (modelValue.length > 1 ? '[]' : '') : undefined"
       :disabled="disabled"
+      :step="step"
     >
   </template>
 </template>

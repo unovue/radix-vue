@@ -1,11 +1,13 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useId } from '@/shared'
+import { createContext, useForwardExpose, useId } from '@/shared'
 import { type Ref, computed, toRefs } from 'vue'
 import { injectTagsInputRootContext } from './TagsInputRoot.vue'
 
 export interface TagsInputItemProps extends PrimitiveProps {
+  /** Value associated with the tags */
   value: string
+  /** When `true`, prevents the user from interacting with the tags input. */
   disabled?: boolean
 }
 
@@ -21,14 +23,14 @@ export const [injectTagsInputItemContext, provideTagsInputItemContext]
 </script>
 
 <script setup lang="ts">
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { CollectionItem } from '@/Collection'
 
 const props = defineProps<TagsInputItemProps>()
 const { value } = toRefs(props)
 
 const context = injectTagsInputRootContext()
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 const isSelected = computed(() => context.selectedElement.value === currentElement.value)
 
 const textId = useId()
@@ -45,7 +47,7 @@ provideTagsInputItemContext({
 <template>
   <CollectionItem>
     <Primitive
-      ref="primitiveElement"
+      :ref="forwardRef"
       :as="as"
       :as-child="asChild"
       :aria-labelledby="textId"

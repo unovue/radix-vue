@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface SliderTrackProps extends PrimitiveProps {}
 </script>
@@ -8,16 +9,18 @@ export interface SliderTrackProps extends PrimitiveProps {}
 import { Primitive } from '@/Primitive'
 import { injectSliderRootContext } from './SliderRoot.vue'
 
-const props = withDefaults(defineProps<SliderTrackProps>(), { as: 'span' })
+withDefaults(defineProps<SliderTrackProps>(), { as: 'span' })
 
 const rootContext = injectSliderRootContext()
+
+useForwardExpose()
 </script>
 
 <template>
   <Primitive
-    :as-child="props.asChild"
+    :as-child="asChild"
     :as="as"
-    :data-disabled="rootContext.disabled.value"
+    :data-disabled="rootContext.disabled.value ? '' : undefined"
     :data-orientation="rootContext.orientation.value"
   >
     <slot />

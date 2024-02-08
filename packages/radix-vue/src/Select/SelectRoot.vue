@@ -1,22 +1,32 @@
 <script lang="ts">
 import type { Ref, VNode } from 'vue'
-import type { DataOrientation, Direction } from '../shared/types'
+import type { Direction } from '../shared/types'
 import { createContext, useDirection, useFormControl, useId } from '@/shared'
 
 export interface SelectRootProps {
+  /** The controlled open state of the Select. Can be bind as `v-model:open`. */
   open?: boolean
+  /** The open state of the select when it is initially rendered. Use when you do not need to control its open state. */
   defaultOpen?: boolean
+  /** The value of the select when initially rendered. Use when you do not need to control the state of the Select */
   defaultValue?: string
+  /** The controlled value of the Select. Can be bind as `v-model`. */
   modelValue?: string
-  orientation?: DataOrientation
+  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
+  /** The name of the Select. Submitted with its owning form as part of a name/value pair. */
   name?: string
+  /** Native html input `autocomplete` attribute. */
   autocomplete?: string
+  /** When `true`, prevents the user from interacting with Select */
   disabled?: boolean
+  /** When `true`, indicates that the user must select a value before the owning form can be submitted. */
   required?: boolean
 }
 export type SelectRootEmits = {
+  /** Event handler called when the value changes. */
   'update:modelValue': [value: string]
+  /** Event handler called when the open state of the context menu changes. */
   'update:open': [value: boolean]
 }
 
@@ -57,7 +67,6 @@ import { PopperRoot } from '@/Popper'
 import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<SelectRootProps>(), {
-  orientation: 'vertical',
   defaultValue: '',
   modelValue: undefined,
   open: undefined,

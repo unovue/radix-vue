@@ -84,6 +84,6 @@ describe('given an Avatar with fallback and delayed render', () => {
   it('should render a fallback after the delay', async () => {
     expect(wrapper.text()).not.toContain(FALLBACK)
     const fallback = await findByText(wrapper.element as HTMLElement, FALLBACK)
-    expect(wrapper.element).not.toContain(fallback)
+    expect(wrapper.element).toContain(fallback)
   })
 })

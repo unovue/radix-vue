@@ -1,7 +1,9 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useForwardExpose } from '@/shared'
 
 export interface MenubarTriggerProps extends PrimitiveProps {
+  /** When `true`, prevents the user from interacting with item */
   disabled?: boolean
 }
 </script>
@@ -12,7 +14,6 @@ import { injectMenubarRootContext } from './MenubarRoot.vue'
 import { injectMenubarMenuContext } from './MenubarMenu.vue'
 import {
   Primitive,
-  usePrimitiveElement,
 } from '@/Primitive'
 import { MenuAnchor } from '@/Menu'
 import { RovingFocusItem } from '@/RovingFocus'
@@ -23,8 +24,7 @@ withDefaults(defineProps<MenubarTriggerProps>(), {
 const rootContext = injectMenubarRootContext()
 const menuContext = injectMenubarMenuContext()
 
-const { primitiveElement, currentElement: triggerElement }
-  = usePrimitiveElement()
+const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 
 const isFocused = ref(false)
 
@@ -44,7 +44,7 @@ onMounted(() => {
     <MenuAnchor as-child>
       <Primitive
         :id="menuContext.triggerId"
-        ref="primitiveElement"
+        :ref="forwardRef"
         :as="as"
         :type="as === 'button' ? 'button' : undefined"
         role="menuitem"

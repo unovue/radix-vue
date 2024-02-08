@@ -2,7 +2,7 @@
 import type { ComputedRef, Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import type { DataOrientation, Direction, Type } from '@/shared/types'
-import { createContext, useDirection } from '@/shared'
+import { createContext, useDirection, useForwardExpose } from '@/shared'
 
 export interface AccordionRootProps extends PrimitiveProps {
   /**
@@ -25,33 +25,36 @@ export interface AccordionRootProps extends PrimitiveProps {
    * When type is "single", allows closing content when clicking trigger for an open item.
    * When type is "multiple", this prop has no effect.
    *
-   * @default false
+   * @defaultValue false
    */
   collapsible?: boolean
 
   /**
-   * When true, prevents the user from interacting with the accordion and all its items
+   * When `true`, prevents the user from interacting with the accordion and all its items
    *
-   * @default false
+   * @defaultValue false
    */
   disabled?: boolean
 
   /**
    * The reading direction of the accordion when applicable. If omitted, assumes LTR (left-to-right) reading mode.
    *
-   * @default "ltr"
+   * @defaultValue "ltr"
    */
   dir?: Direction
 
   /**
    * The orientation of the accordion.
    *
-   * @default "vertical"
+   * @defaultValue "vertical"
    */
   orientation?: DataOrientation
 }
 
 export type AccordionRootEmits = {
+  /**
+   * Event handler called when the expanded state of an item changes
+   */
   'update:modelValue': [value: string | string[] | undefined]
 }
 
@@ -71,27 +74,30 @@ export const [injectAccordionRootContext, provideAccordionRootContext]
 </script>
 
 <script setup lang="ts">
-import {
-  Primitive,
-  usePrimitiveElement,
-} from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
 import { computed, toRefs } from 'vue'
 
 const props = withDefaults(defineProps<AccordionRootProps>(), {
-  asChild: false,
   disabled: false,
   orientation: 'vertical',
   collapsible: false,
 })
 const emits = defineEmits<AccordionRootEmits>()
+
+defineSlots<{
+  default(props: {
+    /** Current active value */
+    modelValue: typeof modelValue.value
+  }): any
+}>()
+
 const { dir, disabled } = toRefs(props)
 const direction = useDirection(dir)
 
 const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emits)
 
-const { primitiveElement, currentElement: parentElement }
-  = usePrimitiveElement()
+const { forwardRef, currentElement: parentElement } = useForwardExpose()
 
 provideAccordionRootContext({
   disabled,
@@ -103,14 +109,10 @@ provideAccordionRootContext({
   modelValue,
   changeModelValue,
 })
-
-defineExpose({
-  modelValue,
-})
 </script>
 
 <template>
-  <Primitive ref="primitiveElement" :as-child="asChild" :as="as">
+  <Primitive :ref="forwardRef" :as-child="asChild" :as="as">
     <slot :model-value="modelValue" />
   </Primitive>
 </template>

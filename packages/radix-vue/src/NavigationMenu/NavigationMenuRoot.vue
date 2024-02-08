@@ -3,12 +3,20 @@ import type { Ref } from 'vue'
 
 import type { PrimitiveProps } from '@/Primitive'
 import type { Direction, Orientation } from './utils'
-import { createContext, useCollection, useDirection, useId } from '@/shared'
+import { createContext, useCollection, useDirection, useForwardExpose, useId } from '@/shared'
 
 export interface NavigationMenuRootProps extends PrimitiveProps {
+  /** The controlled value of the menu item to activate. Can be used as `v-model`. */
   modelValue?: string
+  /** The value of the menu item that should be active when initially rendered.
+   *
+   * Use when you do not need to control the value state. */
   defaultValue?: string
+  /** The reading direction of the combobox when applicable.
+   *
+   *  If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
+  /** The orientation of the menu. */
   orientation?: Orientation
   /**
    * The duration from when the pointer enters the trigger until the tooltip gets opened.
@@ -22,6 +30,7 @@ export interface NavigationMenuRootProps extends PrimitiveProps {
   skipDelayDuration?: number
 }
 export type NavigationMenuRootEmits = {
+  /** Event handler called when the value changes. */
   'update:modelValue': [value: string]
 }
 
@@ -58,7 +67,6 @@ import {
 import { refAutoReset, useDebounceFn, useVModel } from '@vueuse/core'
 import {
   Primitive,
-  usePrimitiveElement,
 } from '@/Primitive'
 
 const props = withDefaults(defineProps<NavigationMenuRootProps>(), {
@@ -76,8 +84,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 }) as Ref<string>
 const previousValue = ref('')
 
-const { primitiveElement, currentElement: rootNavigationMenu }
-  = usePrimitiveElement()
+const { forwardRef, currentElement: rootNavigationMenu } = useForwardExpose()
 
 const indicatorTrack = ref<HTMLElement>()
 const viewport = ref<HTMLElement>()
@@ -144,7 +151,7 @@ provideNavigationMenuContext({
 
 <template>
   <Primitive
-    ref="primitiveElement"
+    :ref="forwardRef"
     aria-label="Main"
     :as="as"
     :as-child="asChild"

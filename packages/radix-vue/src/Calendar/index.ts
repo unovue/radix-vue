@@ -16,3 +16,5 @@ export { default as CalendarGridBody, type CalendarGridBodyProps } from './Calen
 export { default as CalendarGridRow, type CalendarGridRowProps } from './CalendarGridRow.vue'
 
 export { default as CalendarDay, type CalendarDayProps } from './CalendarDay.vue'
+
+export { useCalendar } from './useCalendar'

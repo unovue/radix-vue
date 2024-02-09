@@ -4,7 +4,7 @@ import { type DateValue, isSameDay } from '@internationalized/date'
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { type Formatter, type Matcher, type WeekDayFormat, createContext, getDefaultDate, handleCalendarInitialFocus } from '@/shared'
-import { useCalendar } from './useCalendar'
+import { useCalendar, useCalendarState } from './useCalendar'
 
 type CalendarRootContext = {
   locale: Ref<string>
@@ -121,11 +121,8 @@ const placeholder = useVModel(props, 'placeholder', emits, {
 }) as Ref<DateValue>
 
 const {
-  fullCalendarLabel,
-  headingValue,
-  isInvalid,
   isDateDisabled,
-  isDateSelected,
+  isDateUnavailable,
   isNextButtonDisabled,
   isPrevButtonDisabled,
   months,
@@ -138,17 +135,30 @@ const {
   locale: props.locale,
   placeholder,
   weekStartsOn: props.weekStartsOn,
-  date: modelValue,
   fixedWeeks: props.fixedWeeks,
   numberOfMonths: props.numberOfMonths,
   minValue: props.minValue,
   maxValue: props.maxValue,
   disabled: props.disabled,
-  calendarLabel: props.calendarLabel,
   weekdayFormat: props.weekdayFormat,
   pagedNavigation: props.pagedNavigation,
   isDateDisabled: propsIsDateDisabled.value,
   isDateUnavailable: propsIsDateUnavailable.value,
+})
+
+const {
+  fullCalendarLabel,
+  headingValue,
+  isInvalid,
+  isDateSelected,
+} = useCalendarState({
+  date: modelValue,
+  formatter,
+  months,
+  isDateDisabled,
+  isDateUnavailable,
+  locale: props.locale,
+  calendarLabel: props.calendarLabel,
 })
 
 function onDateChange(value: DateValue) {
@@ -194,7 +204,7 @@ onMounted(() => {
 })
 
 provideCalendarRootContext({
-  isDateUnavailable: propsIsDateUnavailable.value,
+  isDateUnavailable,
   isDateDisabled,
   locale,
   formatter,

@@ -10,17 +10,95 @@ export type UseCalendarProps = {
   locale: string
   placeholder: Ref<DateValue>
   weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6
-  date: Ref<DateValue | DateValue[] | undefined>
   fixedWeeks: boolean
   numberOfMonths: number
   minValue?: DateValue
   maxValue?: DateValue
   disabled: boolean
-  calendarLabel?: string
   weekdayFormat: WeekDayFormat
   pagedNavigation: boolean
   isDateDisabled?: Matcher
   isDateUnavailable?: Matcher
+}
+
+export type UseCalendarStateProps = {
+  formatter: ReturnType<typeof useDateFormatter>
+  months: Ref<Month<DateValue>[]>
+  isDateDisabled: Matcher
+  isDateUnavailable: Matcher
+  date: Ref<DateValue | DateValue[] | undefined>
+  locale: string
+  calendarLabel: string | undefined
+}
+
+export function useCalendarState(props: UseCalendarStateProps) {
+  function isDateSelected(dateObj: DateValue) {
+    if (Array.isArray(props.date.value))
+      return props.date.value.some(d => isSameDay(d, dateObj))
+
+    else if (!props.date.value)
+      return false
+
+    else
+      return isSameDay(props.date.value, dateObj)
+  }
+
+  const isInvalid = computed(
+    () => {
+      if (Array.isArray(props.date.value)) {
+        if (!props.date.value.length)
+          return false
+        for (const dateObj of props.date.value) {
+          if (props.isDateDisabled?.(dateObj))
+            return true
+          if (props.isDateUnavailable?.(dateObj))
+            return true
+        }
+      }
+      else {
+        if (!props.date.value)
+          return false
+        if (props.isDateDisabled?.(props.date.value))
+          return true
+        if (props.isDateUnavailable?.(props.date.value))
+          return true
+      }
+      return false
+    },
+  )
+
+  const headingValue = computed(() => {
+    if (!props.months.value.length)
+      return ''
+
+    if (props.locale !== props.formatter.getLocale())
+      props.formatter.setLocale(props.locale)
+
+    if (props.months.value.length === 1) {
+      const month = props.months.value[0].value
+      return `${props.formatter.fullMonthAndYear(toDate(month))}`
+    }
+
+    const startMonth = toDate(props.months.value[0].value as DateValue)
+    const endMonth = toDate(props.months.value[props.months.value.length - 1].value as DateValue)
+
+    const startMonthName = props.formatter.fullMonth(startMonth)
+    const endMonthName = props.formatter.fullMonth(endMonth)
+    const startMonthYear = props.formatter.fullYear(startMonth)
+    const endMonthYear = props.formatter.fullYear(endMonth)
+
+    const content = startMonthYear === endMonthYear ? `${startMonthName} - ${endMonthName} ${endMonthYear}` : `${startMonthName} ${startMonthYear} - ${endMonthName} ${endMonthYear}`
+
+    return content
+  })
+
+  const fullCalendarLabel = computed(() => `${props.calendarLabel ?? 'Event Date'}, ${headingValue.value}`)
+  return {
+    fullCalendarLabel,
+    isDateSelected,
+    isInvalid,
+    headingValue,
+  }
 }
 
 export function useCalendar(props: UseCalendarProps) {
@@ -70,67 +148,11 @@ export function useCalendar(props: UseCalendarProps) {
     return false
   }
 
-  function isDateSelected(dateObj: DateValue) {
-    if (Array.isArray(props.date.value))
-      return props.date.value.some(d => isSameDay(d, dateObj))
-
-    else if (!props.date.value)
-      return false
-
-    else
-      return isSameDay(props.date.value, dateObj)
+  const isDateUnavailable = (date: DateValue) => {
+    if (props.isDateUnavailable?.(date))
+      return true
+    return false
   }
-
-  const isInvalid = computed(
-    () => {
-      if (Array.isArray(props.date.value)) {
-        if (!props.date.value.length)
-          return false
-        for (const dateObj of props.date.value) {
-          if (props.isDateDisabled?.(dateObj))
-            return true
-          if (props.isDateUnavailable?.(dateObj))
-            return true
-        }
-      }
-      else {
-        if (!props.date.value)
-          return false
-        if (props.isDateDisabled?.(props.date.value))
-          return true
-        if (props.isDateUnavailable?.(props.date.value))
-          return true
-      }
-      return false
-    },
-  )
-
-  const headingValue = computed(() => {
-    if (!months.value.length)
-      return ''
-
-    if (props.locale !== formatter.getLocale())
-      formatter.setLocale(props.locale)
-
-    if (months.value.length === 1) {
-      const month = months.value[0].value
-      return `${formatter.fullMonthAndYear(toDate(month))}`
-    }
-
-    const startMonth = toDate(months.value[0].value as DateValue)
-    const endMonth = toDate(months.value[months.value.length - 1].value as DateValue)
-
-    const startMonthName = formatter.fullMonth(startMonth)
-    const endMonthName = formatter.fullMonth(endMonth)
-    const startMonthYear = formatter.fullYear(startMonth)
-    const endMonthYear = formatter.fullYear(endMonth)
-
-    const content = startMonthYear === endMonthYear ? `${startMonthName} - ${endMonthName} ${endMonthYear}` : `${startMonthName} ${startMonthYear} - ${endMonthName} ${endMonthYear}`
-
-    return content
-  })
-
-  const fullCalendarLabel = computed(() => `${props.calendarLabel ?? 'Event Date'}, ${headingValue.value}`)
 
   const weekdays = computed(() => {
     if (!months.value.length)
@@ -169,11 +191,8 @@ export function useCalendar(props: UseCalendarProps) {
   }
 
   return {
-    fullCalendarLabel,
-    headingValue,
-    isInvalid,
     isDateDisabled,
-    isDateSelected,
+    isDateUnavailable,
     isNextButtonDisabled,
     isPrevButtonDisabled,
     months,

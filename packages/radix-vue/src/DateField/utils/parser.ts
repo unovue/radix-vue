@@ -1,5 +1,5 @@
 import { DATE_SEGMENT_PARTS, type DateSegmentPart, EDITABLE_SEGMENT_PARTS, type Formatter, type Granularity, type HourCycle, type SegmentContentObj, type SegmentPart, type SegmentValueObj, TIME_SEGMENT_PARTS, type TimeSegmentPart, getOptsByGranularity, getPlaceholder, isDateSegmentPart, isSegmentPart, isZonedDateTime, toDate } from '@/shared'
-import type { DateValue } from '@internationalized/date'
+import type { DateFields, DateValue } from '@internationalized/date'
 import type { Ref } from 'vue'
 
 const calendarDateTimeGranularities = ['hour', 'minute', 'second']
@@ -69,6 +69,14 @@ function createContentObj(props: CreateContentObjProps) {
     if ('hour' in segmentValues) {
       const value = segmentValues[part]
       if (value !== null) {
+        /**
+         * Edge case for when the month field is filled and the day field snaps to the maximum value of the value of the placeholder month
+         */
+        if (part === 'day' && segmentValues.month !== null) {
+          return formatter.part(props.dateRef.value.set({ [part as keyof DateFields]: value, month: segmentValues.month }), part, {
+            hourCycle: props.hourCycle === 24 ? 'h24' : undefined,
+          })
+        }
         return formatter.part(props.dateRef.value.set({ [part]: value }), part, {
           hourCycle: props.hourCycle === 24 ? 'h24' : undefined,
         })
@@ -80,11 +88,19 @@ function createContentObj(props: CreateContentObjProps) {
     else {
       if (isDateSegmentPart(part)) {
         const value = segmentValues[part]
-        if (value !== null)
-          return formatter.part(props.dateRef.value.set({ [part]: value }), part)
+        if (value !== null) {
+          if (part === 'day' && segmentValues.month !== null)
+          /**
+             * As described above, same function
+           */
+            return formatter.part(props.dateRef.value.set({ [part]: value, month: segmentValues.month }), part)
 
-        else
+          return formatter.part(props.dateRef.value.set({ [part]: value }), part)
+        }
+
+        else {
           return getPlaceholder(part, '', locale)
+        }
       }
       return ''
     }

@@ -1,5 +1,5 @@
 import { type HourCycle, useKbd } from '@/shared'
-import type { CycleTimeOptions, DateFields, DateValue, TimeFields } from '@internationalized/date'
+import type { CalendarDateTime, CycleTimeOptions, DateFields, DateValue, TimeFields } from '@internationalized/date'
 import type { Ref } from 'vue'
 
 export type UseDateFieldProps = {
@@ -7,12 +7,39 @@ export type UseDateFieldProps = {
   lastKeyZero: Ref<boolean>
 }
 
+type MinuteSecondIncrementProps = {
+  e: KeyboardEvent
+  part: keyof TimeFields
+  dateRef: DateValue
+  prevValue: number | null
+}
+
+type DateTimeValueIncrementation = {
+  e: KeyboardEvent
+  part: keyof Omit<DateFields, 'era'> | keyof TimeFields
+  dateRef: DateValue
+  prevValue: number | null
+  hourCycle?: HourCycle
+}
+
 export function useDateField(props: UseDateFieldProps) {
   const kbd = useKbd()
 
+  function minuteSecondIncrementation({ e, part, dateRef, prevValue }: MinuteSecondIncrementProps): number {
+    const sign = e.key === kbd.ARROW_UP ? 1 : -1
+    const min = 0
+    const max = 59
+
+    if (prevValue === null)
+      return sign > 0 ? min : max
+
+    const cycleArgs: [keyof TimeFields, number] = [part, sign]
+    return (dateRef as CalendarDateTime).set({ [part]: prevValue }).cycle(...cycleArgs)[part]
+  }
+
   function deleteValue(prevValue: number | null) {
     props.hasLeftFocus.value = false
-    if (!prevValue)
+    if (prevValue === null)
       return prevValue
 
     const str = prevValue.toString()
@@ -21,7 +48,7 @@ export function useDateField(props: UseDateFieldProps) {
 
     return Number.parseInt(str.slice(0, -1))
   }
-  function dateTimeValueIncrementation(e: KeyboardEvent, part: keyof Omit<DateFields, 'era'> | keyof TimeFields, dateRef: DateValue, prevValue: number | null, hourCycle?: HourCycle): number {
+  function dateTimeValueIncrementation({ e, part, dateRef, prevValue, hourCycle }: DateTimeValueIncrementation): number {
     const sign = e.key === kbd.ARROW_UP ? 1 : -1
 
     if (prevValue === null)
@@ -123,7 +150,6 @@ export function useDateField(props: UseDateFieldProps) {
      * `prev` value so that we can start the segment over again
      * when the user types a number.
    */
-    // probably not implement, kind of weird
     if (props.hasLeftFocus.value) {
       props.hasLeftFocus.value = false
       prev = null
@@ -309,5 +335,6 @@ export function useDateField(props: UseDateFieldProps) {
     updateMinuteOrSecond,
     dateTimeValueIncrementation,
     deleteValue,
+    minuteSecondIncrementation,
   }
 }

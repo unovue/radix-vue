@@ -14,6 +14,8 @@ export interface DateFieldInputProps extends PrimitiveProps {
 <script setup lang="ts">
 const props = defineProps<DateFieldInputProps>()
 
+const kbd = useKbd()
+
 const rootContext = injectDateFieldRootContext()
 
 const hasLeftFocus = ref(true)
@@ -26,6 +28,7 @@ const {
   updateMinuteOrSecond,
   dateTimeValueIncrementation,
   deleteValue,
+  minuteSecondIncrementation,
 } = useDateField({
   hasLeftFocus,
   lastKeyZero,
@@ -40,27 +43,27 @@ const attributes = computed(() => ({
   }),
 }))
 
-const kbd = useKbd()
-
 function handleDaySegmentKeydown(e: KeyboardEvent) {
   if (!isAcceptableSegmentKey(e.key) || isSegmentNavigationKey(e.key))
     return
 
+  const prevValue = rootContext.segmentValues.value.day
+
   if (e.key === kbd.ARROW_DOWN || e.key === kbd.ARROW_UP) {
-    rootContext.segmentValues.value.day = dateTimeValueIncrementation(e, 'day', rootContext.placeholder.value, rootContext.segmentValues.value.day)
+    rootContext.segmentValues.value.day = dateTimeValueIncrementation({ e, part: 'day', dateRef: rootContext.placeholder.value, prevValue })
     return
   }
 
   if (isNumberString(e.key)) {
     const num = Number.parseInt(e.key)
-    const $segmentMonthValue = rootContext.segmentValues.value.month
-    const $placeholder = rootContext.placeholder.value
+    const segmentMonthValue = rootContext.segmentValues.value.month
+    const placeholder = rootContext.placeholder.value
 
-    const daysInMonth = $segmentMonthValue
-      ? getDaysInMonth($placeholder.set({ month: $segmentMonthValue }))
-      : getDaysInMonth($placeholder)
+    const daysInMonth = segmentMonthValue
+      ? getDaysInMonth(placeholder.set({ month: segmentMonthValue }))
+      : getDaysInMonth(placeholder)
 
-    const { value, moveToNext } = updateDayOrMonth(daysInMonth, num, rootContext.segmentValues.value.day)
+    const { value, moveToNext } = updateDayOrMonth(daysInMonth, num, prevValue)
 
     rootContext.segmentValues.value.day = value
 
@@ -70,7 +73,7 @@ function handleDaySegmentKeydown(e: KeyboardEvent) {
 
   if (e.key === kbd.BACKSPACE) {
     hasLeftFocus.value = false
-    rootContext.segmentValues.value.day = deleteValue(rootContext.segmentValues.value.day)
+    rootContext.segmentValues.value.day = deleteValue(prevValue)
   }
 }
 
@@ -78,14 +81,16 @@ function handleMonthSegmentKeydown(e: KeyboardEvent) {
   if (!isAcceptableSegmentKey(e.key) || isSegmentNavigationKey(e.key))
     return
 
+  const prevValue = rootContext.segmentValues.value.month
+
   if (e.key === kbd.ARROW_DOWN || e.key === kbd.ARROW_UP) {
-    rootContext.segmentValues.value.month = dateTimeValueIncrementation(e, 'month', rootContext.placeholder.value, rootContext.segmentValues.value.month)
+    rootContext.segmentValues.value.month = dateTimeValueIncrementation({ e, part: 'month', dateRef: rootContext.placeholder.value, prevValue })
     return
   }
 
   if (isNumberString(e.key)) {
     const num = Number.parseInt(e.key)
-    const { value, moveToNext } = updateDayOrMonth(12, num, rootContext.segmentValues.value.month)
+    const { value, moveToNext } = updateDayOrMonth(12, num, prevValue)
 
     rootContext.segmentValues.value.month = value
 
@@ -95,7 +100,7 @@ function handleMonthSegmentKeydown(e: KeyboardEvent) {
 
   if (e.key === kbd.BACKSPACE) {
     hasLeftFocus.value = false
-    rootContext.segmentValues.value.month = deleteValue(rootContext.segmentValues.value.month)
+    rootContext.segmentValues.value.month = deleteValue(prevValue)
   }
 }
 
@@ -103,14 +108,16 @@ function handleYearSegmentKeydown(e: KeyboardEvent) {
   if (!isAcceptableSegmentKey(e.key) || isSegmentNavigationKey(e.key))
     return
 
+  const prevValue = rootContext.segmentValues.value.year
+
   if (e.key === kbd.ARROW_DOWN || e.key === kbd.ARROW_UP) {
-    rootContext.segmentValues.value.year = dateTimeValueIncrementation(e, 'year', rootContext.placeholder.value, rootContext.segmentValues.value.year)
+    rootContext.segmentValues.value.year = dateTimeValueIncrementation({ e, part: 'year', dateRef: rootContext.placeholder.value, prevValue })
     return
   }
 
   if (isNumberString(e.key)) {
     const num = Number.parseInt(e.key)
-    const { value, moveToNext } = updateYear(num, rootContext.segmentValues.value.year)
+    const { value, moveToNext } = updateYear(num, prevValue)
 
     rootContext.segmentValues.value.year = value
 
@@ -120,7 +127,7 @@ function handleYearSegmentKeydown(e: KeyboardEvent) {
 
   if (e.key === kbd.BACKSPACE) {
     hasLeftFocus.value = false
-    rootContext.segmentValues.value.year = deleteValue(rootContext.segmentValues.value.year)
+    rootContext.segmentValues.value.year = deleteValue(prevValue)
   }
 }
 
@@ -129,10 +136,12 @@ function handleHourSegmentKeydown(e: KeyboardEvent) {
   if (!isAcceptableSegmentKey(e.key) || isSegmentNavigationKey(e.key) || !('hour' in dateRef) || !('hour' in rootContext.segmentValues.value))
     return
 
-  const $hourCycle = rootContext.hourCycle
+  const prevValue = rootContext.segmentValues.value.hour
+
+  const hourCycle = rootContext.hourCycle
 
   if (e.key === kbd.ARROW_UP || e.key === kbd.ARROW_DOWN) {
-    rootContext.segmentValues.value.hour = dateTimeValueIncrementation(e, 'hour', rootContext.placeholder.value, rootContext.segmentValues.value.hour, $hourCycle)
+    rootContext.segmentValues.value.hour = dateTimeValueIncrementation({ e, part: 'hour', dateRef: rootContext.placeholder.value, prevValue, hourCycle })
 
     if ('dayPeriod' in rootContext.segmentValues.value) {
       if (rootContext.segmentValues.value.hour < 12)
@@ -146,7 +155,7 @@ function handleHourSegmentKeydown(e: KeyboardEvent) {
 
   if (isNumberString(e.key)) {
     const num = Number.parseInt(e.key)
-    const { value, moveToNext } = updateHour(num, rootContext.segmentValues.value.hour)
+    const { value, moveToNext } = updateHour(num, prevValue)
 
     if ('dayPeriod' in rootContext.segmentValues.value && value && value > 12)
       rootContext.segmentValues.value.dayPeriod = 'PM'
@@ -161,39 +170,24 @@ function handleHourSegmentKeydown(e: KeyboardEvent) {
 
   if (e.key === kbd.BACKSPACE) {
     hasLeftFocus.value = false
-    rootContext.segmentValues.value.hour = deleteValue(rootContext.segmentValues.value.hour)
+    rootContext.segmentValues.value.hour = deleteValue(prevValue)
   }
 }
 
 function handleMinuteSegmentKeydown(e: KeyboardEvent) {
   const dateRef = rootContext.placeholder.value
-  const min = 0
-  const max = 59
 
   if (!isAcceptableSegmentKey(e.key) || isSegmentNavigationKey(e.key) || !('minute' in dateRef) || !('minute' in rootContext.segmentValues.value))
     return
 
-  if (e.key === kbd.ARROW_UP) {
-    if (rootContext.segmentValues.value.minute === null) {
-      rootContext.segmentValues.value.minute = min
-      return
-    }
-    rootContext.segmentValues.value.minute = dateRef.set({ minute: rootContext.segmentValues.value.minute }).cycle('minute', 1).minute
-    return
-  }
+  const prevValue = rootContext.segmentValues.value.minute
 
-  if (e.key === kbd.ARROW_DOWN) {
-    if (rootContext.segmentValues.value.minute === null) {
-      rootContext.segmentValues.value.minute = max
-      return
-    }
-    rootContext.segmentValues.value.minute = dateRef.set({ minute: rootContext.segmentValues.value.minute }).cycle('minute', -1).minute
-    return
-  }
+  rootContext.segmentValues.value.minute = minuteSecondIncrementation({ e, part: 'minute', dateRef: rootContext.placeholder.value, prevValue })
 
   if (isNumberString(e.key)) {
     const num = Number.parseInt(e.key)
-    const { value, moveToNext } = updateMinuteOrSecond(num, rootContext.segmentValues.value.minute)
+
+    const { value, moveToNext } = updateMinuteOrSecond(num, prevValue)
 
     rootContext.segmentValues.value.minute = value
 
@@ -203,47 +197,23 @@ function handleMinuteSegmentKeydown(e: KeyboardEvent) {
 
   if (e.key === kbd.BACKSPACE) {
     hasLeftFocus.value = false
-    if (!rootContext.segmentValues.value.minute)
-      return
-
-    const str = rootContext.segmentValues.value.minute.toString()
-    if (str.length === 1) {
-      rootContext.segmentValues.value.minute = null
-      return
-    }
-    rootContext.segmentValues.value.minute = Number.parseInt(str.slice(0, -1))
+    rootContext.segmentValues.value.minute = deleteValue(prevValue)
   }
 }
 
 function handleSecondSegmentKeydown(e: KeyboardEvent) {
   const dateRef = rootContext.placeholder.value
-  const min = 0
-  const max = 59
 
   if (!isAcceptableSegmentKey(e.key) || isSegmentNavigationKey(e.key) || !('second' in dateRef) || !('second' in rootContext.segmentValues.value))
     return
 
-  if (e.key === kbd.ARROW_UP) {
-    if (rootContext.segmentValues.value.second === null) {
-      rootContext.segmentValues.value.second = min
-      return
-    }
-    rootContext.segmentValues.value.second = dateRef.set({ second: rootContext.segmentValues.value.second }).cycle('second', 1).second
-    return
-  }
+  const prevValue = rootContext.segmentValues.value.second
 
-  if (e.key === kbd.ARROW_DOWN) {
-    if (rootContext.segmentValues.value.second === null) {
-      rootContext.segmentValues.value.second = max
-      return
-    }
-    rootContext.segmentValues.value.second = dateRef.set({ second: rootContext.segmentValues.value.second }).cycle('second', -1).second
-    return
-  }
+  rootContext.segmentValues.value.second = minuteSecondIncrementation({ e, part: 'second', dateRef: rootContext.placeholder.value, prevValue })
 
   if (isNumberString(e.key)) {
     const num = Number.parseInt(e.key)
-    const { value, moveToNext } = updateMinuteOrSecond(num, rootContext.segmentValues.value.second)
+    const { value, moveToNext } = updateMinuteOrSecond(num, prevValue)
 
     rootContext.segmentValues.value.second = value
 
@@ -253,15 +223,7 @@ function handleSecondSegmentKeydown(e: KeyboardEvent) {
 
   if (e.key === kbd.BACKSPACE) {
     hasLeftFocus.value = false
-    if (!rootContext.segmentValues.value.second)
-      return
-
-    const str = rootContext.segmentValues.value.second.toString()
-    if (str.length === 1) {
-      rootContext.segmentValues.value.second = null
-      return
-    }
-    rootContext.segmentValues.value.second = Number.parseInt(str.slice(0, -1))
+    rootContext.segmentValues.value.second = deleteValue(prevValue)
   }
 }
 
@@ -288,18 +250,18 @@ function handleDayPeriodSegmentKeydown(e: KeyboardEvent) {
 }
 
 function handleSegmentClick(e: MouseEvent) {
-  const $disabled = rootContext.disabled.value
-  if ($disabled)
+  const disabled = rootContext.disabled.value
+  if (disabled)
     e.preventDefault()
 }
 
 function handleSegmentKeydown(e: KeyboardEvent) {
-  const $disabled = rootContext.disabled.value
-  const $readonly = rootContext.readonly.value
+  const disabled = rootContext.disabled.value
+  const readonly = rootContext.readonly.value
   if (e.key !== kbd.TAB)
     e.preventDefault()
 
-  if ($disabled || $readonly)
+  if (disabled || readonly)
     return
   const segmentKeydownHandlers = {
     day: handleDaySegmentKeydown,

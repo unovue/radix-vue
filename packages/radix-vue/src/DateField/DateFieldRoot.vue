@@ -187,7 +187,10 @@ watch(modelValue, (modelValue) => {
 
 const currentFocusedElement = ref<HTMLElement | null>(null)
 
-const currentSegmentIndex = computed(() => Array.from(segmentElements.value).findIndex(el => el.getAttribute('data-radix-vue-date-field-segment') === currentFocusedElement.value?.getAttribute('data-radix-vue-date-field-segment')))
+const currentSegmentIndex = computed(() =>
+  Array.from(segmentElements.value).findIndex(el =>
+    el.getAttribute('data-radix-vue-date-field-segment')
+    === currentFocusedElement.value?.getAttribute('data-radix-vue-date-field-segment')))
 
 const nextFocusableSegment = computed(() => {
   if (currentSegmentIndex.value > segmentElements.value.size - 1)

@@ -3,86 +3,27 @@
 */
 
 import { type DateValue, isSameDay } from '@internationalized/date'
-import { type Ref, computed, ref } from 'vue'
-import { type Matcher, type Month, type WeekDayFormat, areAllDaysBetweenValid, createMonths, isAfter, isBefore, isBetween, toDate, useDateFormatter } from '@/shared'
+import { type Ref, computed } from 'vue'
+import { areAllDaysBetweenValid, isBefore, isBetween, toDate } from '@/shared'
+import { type Matcher, type Month, type useDateFormatter } from '@/shared'
 
 export type UseRangeCalendarProps = {
-  locale: string
-  placeholder: Ref<DateValue>
-  weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6
   start: Ref<DateValue | undefined>
   end: Ref<DateValue | undefined>
-  fixedWeeks: boolean
-  numberOfMonths: number
-  minValue?: DateValue
-  maxValue?: DateValue
-  disabled: boolean
-  calendarLabel?: string
-  weekdayFormat: WeekDayFormat
-  pagedNavigation: boolean
-  isDateDisabled?: Matcher
-  isDateUnavailable?: Matcher
+  formatter: ReturnType<typeof useDateFormatter>
+  months: Ref<Month<DateValue>[]>
+  isDateDisabled: Matcher
+  isDateUnavailable: Matcher
+  locale: string
+  calendarLabel: string | undefined
   focusedValue: Ref<DateValue | undefined>
 }
 
-export function useRangeCalendar(props: UseRangeCalendarProps) {
-  const lastPressedDateValue = ref(undefined) as Ref<DateValue | undefined>
-  const formatter = useDateFormatter(props.locale)
-
-  const months = ref<Month<DateValue>[]>(createMonths({
-    dateObj: props.placeholder.value,
-    weekStartsOn: props.weekStartsOn,
-    locale: props.locale,
-    fixedWeeks: props.fixedWeeks,
-    numberOfMonths: props.numberOfMonths,
-  })) as Ref<Month<DateValue>[]>
-
-  const visibleMonths = computed(() => months.value.map(month => month.value))
-
-  function isOutsideVisibleMonths(date: DateValue) {
-    return !visibleMonths.value.includes(date)
-  }
-
-  const isNextButtonDisabled = computed(() => {
-    if (!props.maxValue || !months.value.length)
-      return false
-    if (props.disabled)
-      return true
-    const lastMonthInView = months.value[months.value.length - 1].value
-    const firstMonthOfNextPage = lastMonthInView.add({ months: 1 }).set({ day: 1 })
-    return isAfter(firstMonthOfNextPage, props.maxValue)
-  })
-
-  const isPrevButtonDisabled = computed(() => {
-    if (!props.minValue || !months.value.length)
-      return false
-    if (props.disabled)
-      return true
-    const firstMonthInView = months.value[0].value
-    const lastMonthOfPrevPage = firstMonthInView.subtract({ months: 1 }).set({ day: 35 })
-    return isBefore(lastMonthOfPrevPage, props.minValue)
-  })
-
-  function isDateDisabled(dateObj: DateValue) {
-    if (props.isDateDisabled?.(dateObj))
-      return true
-    if (props.maxValue && isAfter(dateObj, props.maxValue))
-      return true
-    if (props.minValue && isBefore(dateObj, props.minValue))
-      return true
-    return false
-  }
-
-  const isDateUnavailable = (date: DateValue) => {
-    if (props.isDateUnavailable?.(date))
-      return true
-    return false
-  }
-
+export function useRangeCalendarState(props: UseRangeCalendarProps) {
   const isStartInvalid = computed(() => {
     if (!props.start.value)
       return false
-    if (isDateDisabled(props.start.value))
+    if (props.isDateDisabled(props.start.value))
       return true
     return false
   })
@@ -90,7 +31,7 @@ export function useRangeCalendar(props: UseRangeCalendarProps) {
   const isEndInvalid = computed(() => {
     if (!props.end.value)
       return false
-    if (isDateDisabled(props.end.value))
+    if (props.isDateDisabled(props.end.value))
       return true
     return false
   })
@@ -156,24 +97,24 @@ export function useRangeCalendar(props: UseRangeCalendarProps) {
   })
 
   const headingValue = computed(() => {
-    if (!months.value.length)
+    if (!props.months.value.length)
       return ''
 
-    if (props.locale !== formatter.getLocale())
-      formatter.setLocale(props.locale)
+    if (props.locale !== props.formatter.getLocale())
+      props.formatter.setLocale(props.locale)
 
-    if (months.value.length === 1) {
-      const month = months.value[0].value as DateValue
-      return `${formatter.fullMonthAndYear(toDate(month))}`
+    if (props.months.value.length === 1) {
+      const month = props.months.value[0].value as DateValue
+      return `${props.formatter.fullMonthAndYear(toDate(month))}`
     }
 
-    const startMonth = toDate(months.value[0].value as DateValue)
-    const endMonth = toDate(months.value[months.value.length - 1].value as DateValue)
+    const startMonth = toDate(props.months.value[0].value as DateValue)
+    const endMonth = toDate(props.months.value[props.months.value.length - 1].value as DateValue)
 
-    const startMonthName = formatter.fullMonth(startMonth)
-    const endMonthName = formatter.fullMonth(endMonth)
-    const startMonthYear = formatter.fullYear(startMonth)
-    const endMonthYear = formatter.fullYear(endMonth)
+    const startMonthName = props.formatter.fullMonth(startMonth)
+    const endMonthName = props.formatter.fullMonth(endMonth)
+    const startMonthYear = props.formatter.fullYear(startMonth)
+    const endMonthYear = props.formatter.fullYear(endMonth)
 
     const content = startMonthYear === endMonthYear ? `${startMonthName} - ${endMonthName} ${endMonthYear}` : `${startMonthName} ${startMonthYear} - ${endMonthName} ${endMonthYear}`
 
@@ -182,61 +123,13 @@ export function useRangeCalendar(props: UseRangeCalendarProps) {
 
   const fullCalendarLabel = computed(() => `${props.calendarLabel ?? 'Event Date'}, ${headingValue.value}`)
 
-  const weekdays = computed(() => {
-    if (!months.value.length)
-      return []
-    return months.value[0].weeks[0].map((date) => {
-      return formatter.dayOfWeek(toDate(date as DateValue), props.weekdayFormat)
-    })
-  })
-
-  const nextPage = () => {
-    const firstMonth = months.value[0].value
-    const newMonths = createMonths({
-      dateObj: firstMonth.add({ months: props.pagedNavigation ? props.numberOfMonths : 1 }),
-      weekStartsOn: props.weekStartsOn,
-      locale: props.locale,
-      fixedWeeks: props.fixedWeeks,
-      numberOfMonths: props.numberOfMonths,
-    })
-
-    months.value = newMonths
-    props.placeholder.value = newMonths[0].value.set({ day: 1 })
-  }
-
-  const prevPage = () => {
-    const firstMonth = months.value[0].value
-    const newMonths = createMonths({
-      dateObj: firstMonth.subtract({ months: props.pagedNavigation ? props.numberOfMonths : 1 }),
-      weekStartsOn: props.weekStartsOn,
-      locale: props.locale,
-      fixedWeeks: props.fixedWeeks,
-      numberOfMonths: props.numberOfMonths,
-    })
-
-    months.value = newMonths
-    props.placeholder.value = newMonths[0].value.set({ day: 1 })
-  }
-
   return {
     fullCalendarLabel,
     headingValue,
     isInvalid,
-    isDateDisabled,
-    isDateUnavailable,
     isSelected,
-    lastPressedDateValue,
     highlightedRange,
     isSelectionStart,
     isSelectionEnd,
-    isNextButtonDisabled,
-    isPrevButtonDisabled,
-    months,
-    weekdays,
-    visibleMonths,
-    isOutsideVisibleMonths,
-    formatter,
-    nextPage,
-    prevPage,
   }
 }

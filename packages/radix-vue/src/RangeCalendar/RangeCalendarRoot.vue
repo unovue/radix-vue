@@ -4,7 +4,8 @@ import { type DateValue, isSameDay } from '@internationalized/date'
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { type Formatter, type Matcher, type WeekDayFormat, createContext, getDefaultDate, handleCalendarInitialFocus, isBefore } from '@/shared'
-import { useRangeCalendar } from './useRangeCalendar'
+import { useRangeCalendarState } from './useRangeCalendar'
+import { useCalendar } from '@/Calendar'
 
 type RangeCalendarRootContext = {
   modelValue: Ref<{ start: DateValue | undefined; end: DateValue | undefined }>
@@ -92,11 +93,12 @@ const props = withDefaults(defineProps<RangeCalendarRootProps>(), {
   isDateUnavailable: undefined,
 })
 const emits = defineEmits<RangeCalendarRootEmits>()
-const { disabled, readonly, initialFocus, pagedNavigation, weekStartsOn, weekdayFormat, fixedWeeks, numberOfMonths, preventDeselect, isDateUnavailable } = toRefs(props)
+const { disabled, readonly, initialFocus, pagedNavigation, weekStartsOn, weekdayFormat, fixedWeeks, numberOfMonths, preventDeselect, isDateUnavailable: propsIsDateUnavailable, isDateDisabled: propsIsDateDisabled } = toRefs(props)
 
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
 
+const lastPressedDateValue = ref(undefined) as Ref<DateValue | undefined>
 const focusedValue = ref(undefined) as Ref<DateValue | undefined>
 
 const modelValue = useVModel(props, 'modelValue', emits, {
@@ -119,15 +121,8 @@ const placeholder = useVModel(props, 'placeholder', emits, {
 }) as Ref<DateValue>
 
 const {
-  fullCalendarLabel,
-  headingValue,
-  isInvalid,
   isDateDisabled,
-  highlightedRange,
-  lastPressedDateValue,
-  isSelected,
-  isSelectionEnd,
-  isSelectionStart,
+  isDateUnavailable,
   isNextButtonDisabled,
   isPrevButtonDisabled,
   months,
@@ -136,20 +131,38 @@ const {
   nextPage,
   prevPage,
   formatter,
-} = useRangeCalendar({
+} = useCalendar({
   locale: props.locale,
   placeholder,
   weekStartsOn: props.weekStartsOn,
-  start: startValue,
-  end: endValue,
   fixedWeeks: props.fixedWeeks,
   numberOfMonths: props.numberOfMonths,
   minValue: props.minValue,
   maxValue: props.maxValue,
   disabled: props.disabled,
-  calendarLabel: props.calendarLabel,
   weekdayFormat: props.weekdayFormat,
   pagedNavigation: props.pagedNavigation,
+  isDateDisabled: propsIsDateDisabled.value,
+  isDateUnavailable: propsIsDateUnavailable.value,
+})
+
+const {
+  fullCalendarLabel,
+  headingValue,
+  isInvalid,
+  isSelected,
+  highlightedRange,
+  isSelectionStart,
+  isSelectionEnd,
+} = useRangeCalendarState({
+  formatter,
+  locale: props.locale,
+  calendarLabel: props.calendarLabel,
+  start: startValue,
+  end: endValue,
+  months,
+  isDateDisabled,
+  isDateUnavailable,
   focusedValue,
 })
 
@@ -182,7 +195,7 @@ watch([startValue, endValue], () => {
 })
 
 provideRangeCalendarRootContext({
-  isDateUnavailable: isDateUnavailable.value,
+  isDateUnavailable,
   startValue,
   endValue,
   formatter,

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import { CalendarDateTime, type DateValue, toZoned } from '@internationalized/date'
+import { type DateValue } from '@internationalized/date'
 import {
   DatePickerArrow,
   DatePickerCalendar,
@@ -22,11 +22,6 @@ import {
   DatePickerTrigger,
 } from '../'
 import { Label } from '@/Label'
-import { type Ref, ref } from 'vue'
-
-const calendarDateTime = new CalendarDateTime(1980, 1, 20, 12, 30, 0, 0)
-const zonedDateTime = toZoned(calendarDateTime, 'America/New_York')
-const value = ref(zonedDateTime) as Ref<DateValue>
 </script>
 
 <template>
@@ -35,7 +30,6 @@ const value = ref(zonedDateTime) as Ref<DateValue>
       <Label for="date-field">Input label</Label>
       <DatePickerRoot
         id="date-field"
-        v-model="value"
         :is-date-unavailable="(date:DateValue) => date.day === 19"
         granularity="second"
       >

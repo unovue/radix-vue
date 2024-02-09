@@ -67,12 +67,12 @@ function handleDaySegmentKeydown(e: KeyboardEvent) {
 
   if (isNumberString(e.key)) {
     const num = Number.parseInt(e.key)
-    const $segmentMonthValue = dateRangeSegment.value.month
-    const $placeholder = rootContext.placeholder.value
+    const segmentMonthValue = dateRangeSegment.value.month
+    const placeholder = rootContext.placeholder.value
 
-    const daysInMonth = $segmentMonthValue
-      ? getDaysInMonth($placeholder.set({ month: $segmentMonthValue }))
-      : getDaysInMonth($placeholder)
+    const daysInMonth = segmentMonthValue
+      ? getDaysInMonth(placeholder.set({ month: segmentMonthValue }))
+      : getDaysInMonth(placeholder)
 
     const { value, moveToNext } = updateDayOrMonth(daysInMonth, num, dateRangeSegment.value.day)
 
@@ -193,11 +193,11 @@ function handleHourSegmentKeydown(e: KeyboardEvent) {
   if (!isAcceptableSegmentKey(e.key) || isSegmentNavigationKey(e.key) || !('hour' in dateRef) || !('hour' in dateRangeSegment.value))
     return
 
-  const $hourCycle = rootContext.hourCycle
+  const hourCycle = rootContext.hourCycle
 
   if (e.key === kbd.ARROW_UP) {
     if (!dateRangeSegment.value.hour) {
-      dateRangeSegment.value.hour = dateRef.cycle('hour', 1, { hourCycle: $hourCycle }).hour
+      dateRangeSegment.value.hour = dateRef.cycle('hour', 1, { hourCycle }).hour
 
       if ('dayPeriod' in dateRangeSegment.value) {
         if (dateRangeSegment.value.hour < 12)
@@ -209,7 +209,7 @@ function handleHourSegmentKeydown(e: KeyboardEvent) {
       return
     }
 
-    dateRangeSegment.value.hour = dateRef.set({ hour: dateRangeSegment.value.hour }).cycle('hour', 1, { hourCycle: $hourCycle }).hour
+    dateRangeSegment.value.hour = dateRef.set({ hour: dateRangeSegment.value.hour }).cycle('hour', 1, { hourCycle }).hour
 
     if ('dayPeriod' in dateRangeSegment.value) {
       if (dateRangeSegment.value.hour < 12)
@@ -222,7 +222,7 @@ function handleHourSegmentKeydown(e: KeyboardEvent) {
 
   if (e.key === kbd.ARROW_DOWN) {
     if (!dateRangeSegment.value.hour) {
-      dateRangeSegment.value.hour = dateRef.cycle('hour', -1, { hourCycle: $hourCycle }).hour
+      dateRangeSegment.value.hour = dateRef.cycle('hour', -1, { hourCycle }).hour
 
       if ('dayPeriod' in dateRangeSegment.value) {
         if (dateRangeSegment.value.hour < 12)
@@ -234,7 +234,7 @@ function handleHourSegmentKeydown(e: KeyboardEvent) {
       return
     }
 
-    dateRangeSegment.value.hour = dateRef.set({ hour: dateRangeSegment.value.hour }).cycle('hour', -1, { hourCycle: $hourCycle }).hour
+    dateRangeSegment.value.hour = dateRef.set({ hour: dateRangeSegment.value.hour }).cycle('hour', -1, { hourCycle }).hour
 
     if ('dayPeriod' in dateRangeSegment.value) {
       if (dateRangeSegment.value.hour < 12)
@@ -400,18 +400,18 @@ function handleTimeZoneSegmentKeydown() {
 }
 
 function handleSegmentClick(e: MouseEvent) {
-  const $disabled = rootContext.disabled.value
-  if ($disabled)
+  const disabled = rootContext.disabled.value
+  if (disabled)
     e.preventDefault()
 }
 
 function handleSegmentKeydown(e: KeyboardEvent) {
-  const $disabled = rootContext.disabled.value
-  const $readonly = rootContext.readonly.value
+  const disabled = rootContext.disabled.value
+  const readonly = rootContext.readonly.value
   if (e.key !== kbd.TAB)
     e.preventDefault()
 
-  if ($disabled || $readonly)
+  if (disabled || readonly)
     return
   const segmentKeydownHandlers = {
     day: handleDaySegmentKeydown,

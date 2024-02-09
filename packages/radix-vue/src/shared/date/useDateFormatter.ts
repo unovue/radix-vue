@@ -5,6 +5,7 @@
 import { DateFormatter, getLocalTimeZone, today } from '@internationalized/date'
 import type { DateValue, ZonedDateTime } from '@internationalized/date'
 import { hasTime, isZonedDateTime, toDate } from './comparators'
+import { ref } from 'vue'
 
 export type Formatter = ReturnType<typeof useDateFormatter>
 
@@ -17,18 +18,18 @@ export type Formatter = ReturnType<typeof useDateFormatter>
  * @see [DateFormatter](https://react-spectrum.adobe.com/internationalized/date/DateFormatter.html)
  */
 export function useDateFormatter(initialLocale: string) {
-  let locale = initialLocale
-
-  function setLocale(newLocale: string) {
-    locale = newLocale
-  }
+  const locale = ref(initialLocale)
 
   function getLocale() {
-    return locale
+    return locale.value
+  }
+
+  function setLocale(newLocale: string) {
+    locale.value = newLocale
   }
 
   function custom(date: Date, options: Intl.DateTimeFormatOptions) {
-    return new DateFormatter(locale, options).format(date)
+    return new DateFormatter(locale.value, options).format(date)
   }
 
   function selectedDate(date: DateValue, includeTime = true) {
@@ -46,11 +47,11 @@ export function useDateFormatter(initialLocale: string) {
   }
 
   function fullMonthAndYear(date: Date) {
-    return new DateFormatter(locale, { month: 'long', year: 'numeric' }).format(date)
+    return new DateFormatter(locale.value, { month: 'long', year: 'numeric' }).format(date)
   }
 
   function fullMonth(date: Date) {
-    return new DateFormatter(locale, { month: 'long' }).format(date)
+    return new DateFormatter(locale.value, { month: 'long' }).format(date)
   }
 
   function getMonths() {
@@ -60,27 +61,27 @@ export function useDateFormatter(initialLocale: string) {
   }
 
   function fullYear(date: Date) {
-    return new DateFormatter(locale, { year: 'numeric' }).format(date)
+    return new DateFormatter(locale.value, { year: 'numeric' }).format(date)
   }
 
   function toParts(date: DateValue, options?: Intl.DateTimeFormatOptions) {
     if (isZonedDateTime(date)) {
-      return new DateFormatter(locale, {
+      return new DateFormatter(locale.value, {
         ...options,
         timeZone: (date as ZonedDateTime).timeZone,
       }).formatToParts(toDate(date))
     }
     else {
-      return new DateFormatter(locale, options).formatToParts(toDate(date))
+      return new DateFormatter(locale.value, options).formatToParts(toDate(date))
     }
   }
 
   function dayOfWeek(date: Date, length: Intl.DateTimeFormatOptions['weekday'] = 'narrow') {
-    return new DateFormatter(locale, { weekday: length }).format(date)
+    return new DateFormatter(locale.value, { weekday: length }).format(date)
   }
 
   function dayPeriod(date: Date) {
-    const parts = new DateFormatter(locale, {
+    const parts = new DateFormatter(locale.value, {
       hour: 'numeric',
       minute: 'numeric',
     }).formatToParts(date)

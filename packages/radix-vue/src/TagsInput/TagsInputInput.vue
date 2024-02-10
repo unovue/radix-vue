@@ -93,14 +93,16 @@ onMounted(() => {
 
 <template>
   <Primitive
-    v-bind="props"
     :id="context.id?.value"
     :ref="forwardRef"
     type="text"
     autocomplete="off"
     autocorrect="off"
     autocapitalize="off"
+    :as="as"
+    :as-child="asChild"
     :maxlength="maxLength"
+    :placeholder="placeholder"
     :disabled="context.disabled.value"
     :data-invalid="context.isInvalidInput.value ? '' : undefined"
     @input="handleInput"

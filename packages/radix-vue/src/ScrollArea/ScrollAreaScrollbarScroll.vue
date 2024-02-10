@@ -40,18 +40,22 @@ const { state, dispatch } = useStateMachine('hidden', {
   },
 })
 
-watchEffect(() => {
+watchEffect((onCleanup) => {
   if (state.value === 'idle') {
-    window.setTimeout(
+    const timeId = window.setTimeout(
       () => dispatch('HIDE'),
       rootContext.scrollHideDelay.value,
     )
+
+    onCleanup(() => {
+      window.clearTimeout(timeId)
+    })
   }
 })
 
 const debounceScrollEnd = useDebounceFn(() => dispatch('SCROLL_END'), 100)
 
-watchEffect(() => {
+watchEffect((onCleanup) => {
   const viewport = rootContext.viewport.value
   const scrollDirection = scrollbarContext.isHorizontal.value
     ? 'scrollLeft'
@@ -69,6 +73,10 @@ watchEffect(() => {
       prevScrollPos = scrollPos
     }
     viewport.addEventListener('scroll', handleScroll)
+
+    onCleanup(() => {
+      viewport.removeEventListener('scroll', handleScroll)
+    })
   }
 })
 </script>

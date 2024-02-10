@@ -1,7 +1,7 @@
 {
   "name": "docs",
   "type": "module",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "scripts": {
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
@@ -14,7 +14,8 @@
     "@stackblitz/sdk": "^1.9.0",
     "@vueuse/core": "^10.5.0",
     "radix-vue": "link:../packages/radix-vue",
-    "vue": "^3.3.8"
+    "vue": "^3.3.8",
+    "vue-sonner": "^1.0.3"
   },
   "devDependencies": {
     "@babel/traverse": "^7.23.9",

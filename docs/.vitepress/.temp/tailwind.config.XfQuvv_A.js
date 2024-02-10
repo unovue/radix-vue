@@ -1,0 +1,4 @@
+const tailwind_config = "const { green, grass, mauve } = require('@radix-ui/colors')\n\n/** @type {import('tailwindcss').Config} */\nmodule.exports = {\n  content: ['./**/*.vue'],\n  theme: {\n    extend: {\n      colors: {\n        ...mauve,\n        ...green,\n        ...grass,\n      },\n      keyframes: {\n        slideDown: {\n          from: { height: 0 },\n          to: { height: 'var(--radix-accordion-content-height)' },\n        },\n        slideUp: {\n          from: { height: 'var(--radix-accordion-content-height)' },\n          to: { height: 0 },\n        },\n      },\n      animation: {\n        slideDown: 'slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1)',\n        slideUp: 'slideUp 300ms cubic-bezier(0.87, 0, 0.13, 1)',\n      },\n    },\n  },\n  plugins: [],\n}\n";
+export {
+  tailwind_config as default
+};

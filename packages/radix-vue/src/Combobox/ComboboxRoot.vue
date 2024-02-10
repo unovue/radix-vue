@@ -5,7 +5,7 @@ import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useDirection, useFormControl, useForwardExpose, useId } from '@/shared'
 import { createCollection } from '@/Collection'
 
-export type AcceptableValue = string | number | boolean | object
+export type AcceptableValue = string | number | boolean | Record<string, any>
 type ArrayOrWrapped<T> = T extends any[] ? T : Array<T>
 
 type ComboboxRootContext<T> = {

@@ -21,8 +21,6 @@ export {
   getLastFirstDayOfWeek,
   getNextLastDayOfWeek,
   areAllDaysBetweenValid,
-  useDateFormatter,
-  type Formatter,
   type DateRange,
   type DayOfWeek,
   type Month,
@@ -61,6 +59,7 @@ export { trapFocus } from './trap-focus'
 export { useArrowNavigation } from './useArrowNavigation'
 export { useBodyScrollLock } from './useBodyScrollLock'
 export { useCollection } from './useCollection'
+export { useDateFormatter, type Formatter } from './useDateFormatter'
 export { useDirection } from './useDirection'
 export { useEmitAsProps } from './useEmitAsProps'
 export { useFocusGuards } from './useFocusGuards'

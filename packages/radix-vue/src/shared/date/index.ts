@@ -1,4 +1,3 @@
-export { useDateFormatter, type Formatter } from './useDateFormatter'
 export {
   type Granularity,
   type Matcher,

@@ -1,0 +1,4 @@
+const styles = "@import '@radix-ui/colors/black-alpha.css';\n\n/* reset */\nbutton {\n  all: unset;\n}\n\n.SwitchRoot {\n  width: 42px;\n  height: 25px;\n  background-color: var(--black-a9);\n  border-radius: 9999px;\n  position: relative;\n  box-shadow: 0 2px 10px var(--black-a7);\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n}\n.SwitchRoot:focus {\n  box-shadow: 0 0 0 2px black;\n}\n.SwitchRoot[data-state='checked'] {\n  background-color: black;\n}\n\n.SwitchThumb {\n  display: block;\n  width: 21px;\n  height: 21px;\n  background-color: white;\n  border-radius: 9999px;\n  box-shadow: 0 2px 2px var(--black-a7);\n  transition: transform 100ms;\n  transform: translateX(2px);\n  will-change: transform;\n}\n.SwitchThumb[data-state='checked'] {\n  transform: translateX(19px);\n}\n\n.Label {\n  color: white;\n  font-size: 15px;\n  line-height: 1;\n}";
+export {
+  styles as default
+};

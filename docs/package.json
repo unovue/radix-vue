@@ -14,7 +14,7 @@
     "@vueuse/core": "^10.5.0",
     "radix-vue": "link:../packages/radix-vue",
     "vue": "^3.3.8",
-    "vue-sonner": "^1.0.2"
+    "vue-sonner": "^1.0.3"
   },
   "devDependencies": {
     "@babel/traverse": "^7.23.9",

@@ -21,6 +21,8 @@ import {
 } from '@/shared'
 import { createContent, initializeSegmentValues, isSegmentNavigationKey, syncSegmentValues } from '@/DateField'
 
+export type DateRangeType = 'start' | 'end'
+
 type DateRangeFieldRootContext = {
   locale: Ref<string>
   modelValue: Ref<{ start: DateValue | undefined;end: DateValue | undefined }>
@@ -31,7 +33,7 @@ type DateRangeFieldRootContext = {
   readonly: Ref<boolean>
   formatter: Formatter
   hourCycle: HourCycle
-  segmentValues: Ref<Record<'start' | 'end', SegmentValueObj>>
+  segmentValues: Record<DateRangeType, Ref<SegmentValueObj>>
   segmentContents: Ref<{ start: { part: SegmentPart; value: string }[]; end: { part: SegmentPart; value: string }[] }>
   elements: Ref<Set<HTMLElement>>
   focusNext: () => void
@@ -174,10 +176,8 @@ const isInvalid = computed(() => {
 
 const initialSegments = initializeSegmentValues(inferredGranularity.value)
 
-const segmentValues = ref<Record<'start' | 'end', SegmentValueObj>>({
-  start: modelValue.value.start ? { ...syncSegmentValues({ value: modelValue.value.start, formatter }) } : { ...initialSegments },
-  end: modelValue.value.end ? { ...syncSegmentValues({ value: modelValue.value.end, formatter }) } : { ...initialSegments },
-})
+const startSegmentValues = ref<SegmentValueObj>(modelValue.value.start ? { ...syncSegmentValues({ value: modelValue.value.start, formatter }) } : { ...initialSegments })
+const endSegmentValues = ref<SegmentValueObj>(modelValue.value.end ? { ...syncSegmentValues({ value: modelValue.value.end, formatter }) } : { ...initialSegments })
 
 const startSegmentContent = computed(() => createContent({
   granularity: inferredGranularity.value,
@@ -185,7 +185,7 @@ const startSegmentContent = computed(() => createContent({
   formatter,
   hideTimeZone: props.hideTimeZone,
   hourCycle: props.hourCycle,
-  segmentValues: segmentValues.value.start,
+  segmentValues: startSegmentValues.value,
   locale: props.locale,
 }))
 
@@ -195,7 +195,7 @@ const endSegmentContent = computed(() => createContent({
   formatter,
   hideTimeZone: props.hideTimeZone,
   hourCycle: props.hourCycle,
-  segmentValues: segmentValues.value.end,
+  segmentValues: endSegmentValues.value,
   locale: props.locale,
 }))
 
@@ -220,18 +220,6 @@ watch([startValue, endValue], ([startValue, endValue]): void => {
 
   modelValue.value = { start: undefined, end: undefined }
 })
-
-watch([startValue, endValue], ([startValue, endValue]) => {
-  if (startValue && endValue) {
-    segmentValues.value = {
-      start: { ...syncSegmentValues({ value: startValue, formatter }) },
-      end: { ...syncSegmentValues({ value: endValue, formatter }) },
-    }
-  }
-})
-
-const startSegmentValues = computed(() => segmentValues.value.start)
-const endSegmentValues = computed(() => segmentValues.value.end)
 
 watch(startSegmentValues, (value) => {
   if (Object.values(value).every(item => item !== null)) {
@@ -327,7 +315,7 @@ provideDateRangeFieldRootContext({
   formatter,
   hourCycle: props.hourCycle,
   readonly,
-  segmentValues,
+  segmentValues: { start: startSegmentValues, end: endSegmentValues },
   isInvalid,
   segmentContents: editableSegmentContents,
   elements: segmentElements,

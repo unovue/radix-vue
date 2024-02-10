@@ -110,6 +110,9 @@ importers:
       vue:
         specifier: ^3.3.8
         version: 3.4.7(typescript@5.3.3)
+      vue-sonner:
+        specifier: ^1.0.3
+        version: 1.0.3
     devDependencies:
       '@babel/traverse':
         specifier: ^7.23.9
@@ -10466,6 +10469,10 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /vue-sonner@1.0.3:
+    resolution: {integrity: sha512-uJPvtcftMjmiXfpsMtB77+TkzWn8gEPI0l5sN+X+UqYuAOVacf0dk7ONqRsc5DWy1ilJtLexz/wSggwjimkYKA==}
+    dev: false
 
   /vue-template-compiler@2.7.16:
     resolution: {integrity: sha512-AYbUWAJHLGGQM7+cNTELw+KsOG9nl2CnSv467WobS5Cv9uk3wFcnr1Etsz2sEIHEZvw1U+o9mRlEO6QbZvUPGQ==}

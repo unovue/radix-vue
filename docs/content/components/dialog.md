@@ -268,6 +268,13 @@ const container = ref(null)
 </template>
 ```
 
+### Disable close on Interaction outside
+
+For example, if you have some global Toaster component that should not close the Dialog when clicking on it.
+
+<ComponentPreview name="DialogToaster" />
+
+
 ## Accessibility
 
 Adheres to the [Dialog WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal).
@@ -376,4 +383,3 @@ const emitsAsProps = useEmitAsProps(emits)
   </DialogPortal>
 </template>
 ```
- 

@@ -1,0 +1,4 @@
+const tailwind_config = "const { blackA, green, grass, mauve } = require('@radix-ui/colors')\n\n/** @type {import('tailwindcss').Config} */\nmodule.exports = {\n  content: ['./**/*.vue'],\n  theme: {\n    extend: {\n      colors: {\n        ...blackA,\n        ...green,\n        ...grass,\n        ...mauve,\n      },\n      keyframes: {\n        overlayShow: {\n          from: { opacity: 0 },\n          to: { opacity: 1 },\n        },\n        contentShow: {\n          from: { opacity: 0, transform: 'translate(-50%, -48%) scale(0.96)' },\n          to: { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },\n        },\n      },\n      animation: {\n        overlayShow: 'overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',\n        contentShow: 'contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',\n      },\n    },\n  },\n  plugins: [],\n}\n";
+export {
+  tailwind_config as default
+};

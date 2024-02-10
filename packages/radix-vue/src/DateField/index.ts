@@ -5,7 +5,6 @@ export { type DateFieldInputProps, default as DateFieldInput } from './DateField
 export { useDateField } from './useDateField'
 
 export {
-  segmentBuilders,
   isSegmentNavigationKey,
   isAcceptableSegmentKey,
   isNumberString,

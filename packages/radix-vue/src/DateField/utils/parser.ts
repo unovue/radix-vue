@@ -29,7 +29,7 @@ export function syncSegmentValues(props: SyncSegmentValuesProps) {
   return Object.fromEntries(dateValues) as SegmentValueObj
 }
 
-export function initializeSegmentValues(granularity: Granularity) {
+export function initializeSegmentValues(granularity: Granularity): SegmentValueObj {
   const initialParts = EDITABLE_SEGMENT_PARTS.map((part) => {
     if (part === 'dayPeriod')
       return [part, 'AM']

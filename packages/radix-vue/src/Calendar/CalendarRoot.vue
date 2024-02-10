@@ -1,9 +1,9 @@
 <script lang="ts">
-import { type DateValue, isSameDay } from '@internationalized/date'
+import { type DateValue, isSameDay, startOfYear } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { type Formatter, type Matcher, type WeekDayFormat, createContext, getDefaultDate, handleCalendarInitialFocus } from '@/shared'
+import { type Formatter, type Matcher, type WeekDayFormat, chunk, createContext, getDefaultDate, handleCalendarInitialFocus } from '@/shared'
 import { useCalendar, useCalendarState } from './useCalendar'
 
 type CalendarRootContext = {
@@ -38,6 +38,7 @@ type CalendarRootContext = {
 }
 
 interface BaseCalendarRootProps extends PrimitiveProps {
+  columns?: number
   placeholder?: DateValue
   pagedNavigation?: boolean
   preventDeselect?: boolean
@@ -78,7 +79,7 @@ export const [injectCalendarRootContext, provideCalendarRootContext]
 </script>
 
 <script setup lang="ts">
-import { onMounted, toRefs } from 'vue'
+import { computed, onMounted, toRefs } from 'vue'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 
@@ -98,9 +99,25 @@ const props = withDefaults(defineProps<CalendarRootProps>(), {
   locale: 'en',
   isDateDisabled: undefined,
   isDateUnavailable: undefined,
+  columns: 4,
 })
 const emits = defineEmits<CalendarRootEmits>()
-const { locale, disabled, readonly, initialFocus, pagedNavigation, weekStartsOn, weekdayFormat, fixedWeeks, multiple, numberOfMonths, preventDeselect, isDateDisabled: propsIsDateDisabled, isDateUnavailable: propsIsDateUnavailable } = toRefs(props)
+const {
+  locale,
+  disabled,
+  readonly,
+  initialFocus,
+  pagedNavigation,
+  weekStartsOn,
+  weekdayFormat,
+  fixedWeeks,
+  multiple,
+  numberOfMonths,
+  preventDeselect,
+  isDateDisabled: propsIsDateDisabled,
+  isDateUnavailable: propsIsDateUnavailable,
+  columns,
+} = toRefs(props)
 
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
@@ -119,6 +136,16 @@ const placeholder = useVModel(props, 'placeholder', emits, {
   defaultValue: defaultDate,
   passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
+
+const year = computed(() => chunk(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], columns.value))
+const decade = computed<number[][]>(() => {
+  const decadeArray = []
+  const decadeStart = startOfYear(placeholder.value.subtract({ years: placeholder.value.year - Math.floor(placeholder.value.year / 10) * 10 }))
+  for (let i = decadeStart.year; i < decadeStart.year + 10; i++)
+    decadeArray.push(i)
+
+  return chunk(decadeArray, columns.value)
+})
 
 const {
   isDateDisabled,
@@ -253,6 +280,6 @@ provideCalendarRootContext({
         {{ fullCalendarLabel }}
       </div>
     </div>
-    <slot :date="modelValue" :months="months" :week-days="weekdays" />
+    <slot :date="modelValue" :months="months" :week-days="weekdays" :year="year" :decade="decade" />
   </Primitive>
 </template>

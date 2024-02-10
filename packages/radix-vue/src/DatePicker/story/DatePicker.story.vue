@@ -5,8 +5,8 @@ import {
   DatePickerArrow,
   DatePickerCalendar,
   DatePickerCell,
+  DatePickerCellTrigger,
   DatePickerContent,
-  DatePickerDay,
   DatePickerField,
   DatePickerGrid,
   DatePickerGridBody,
@@ -87,7 +87,7 @@ import { Label } from '@/Label'
                       :date="weekDate"
                       class="relative !p-0 text-center text-sm w-10 h-10"
                     >
-                      <DatePickerDay
+                      <DatePickerCellTrigger
                         :day="weekDate"
                         :month="month.value"
                         class="group relative inline-flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent p-0 text-sm font-normal text-black w-10 h-10 hover:border-black data-[disabled]:pointer-events-none data-[outside-month]:pointer-events-none data-[selected]:bg-black data-[selected]:font-medium data-[disabled]:text-black/30 data-[selected]:text-white data-[unavailable]:text-black/30 data-[unavailable]:line-through"
@@ -96,7 +96,7 @@ import { Label } from '@/Label'
                           class="absolute top-[5px] hidden rounded-full w-1 h-1 group-data-[today]:block group-data-[today]:bg-grass9 group-data-[selected]:bg-white"
                         />
                         {{ weekDate.day }}
-                      </DatePickerDay>
+                      </DatePickerCellTrigger>
                     </DatePickerCell>
                   </DatePickerGridRow>
                 </DatePickerGridBody>

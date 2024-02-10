@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { DateValue } from '@internationalized/date'
-import { CalendarCell, CalendarDay, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot, type CalendarRootProps } from '../'
+import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot, type CalendarRootProps } from '../'
 
 const props = defineProps<{ calendarProps: CalendarRootProps; emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } }>()
 </script>
@@ -41,13 +41,13 @@ const props = defineProps<{ calendarProps: CalendarRootProps; emits?: { 'onUpdat
             :data-testid="`cell-${weekDate.month}-${d}`"
             :date="weekDate"
           >
-            <CalendarDay
+            <CalendarCellTrigger
               :day="weekDate"
               :month="month.value"
               :data-testid="`date-${weekDate.month}-${weekDate.day}`"
             >
               {{ weekDate.day }}
-            </CalendarDay>
+            </CalendarCellTrigger>
           </CalendarCell>
         </CalendarGridRow>
       </CalendarGridBody>

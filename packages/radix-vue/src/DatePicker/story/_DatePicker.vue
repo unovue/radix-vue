@@ -4,8 +4,8 @@ import type { DatePickerRootProps } from '../'
 import {
   DatePickerCalendar,
   DatePickerCell,
+  DatePickerCellTrigger,
   DatePickerContent,
-  DatePickerDay,
   DatePickerField,
   DatePickerGrid,
   DatePickerGridBody,
@@ -84,13 +84,13 @@ const props = defineProps<{ datePickerProps?: DatePickerRootProps; emits?: { 'on
                 :date="weekDate"
                 :data-testid="`cell-${weekDate.month}-${d}`"
               >
-                <DatePickerDay
+                <DatePickerCellTrigger
                   :day="weekDate"
                   :month="month.value"
                   :data-testid="`date-${weekDate.month}-${weekDate.day}`"
                 >
                   {{ weekDate.day }}
-                </DatePickerDay>
+                </DatePickerCellTrigger>
               </DatePickerCell>
             </DatePickerGridRow>
           </DatePickerGridBody>

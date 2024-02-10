@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import { CalendarCell, CalendarDay, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarNext, CalendarPrev, CalendarRoot } from '../'
+import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarNext, CalendarPrev, CalendarRoot } from '../'
 import { type Ref, ref } from 'vue'
 import { type DateValue, getLocalTimeZone, today } from '@internationalized/date'
 
@@ -91,7 +91,7 @@ function setMonth(month: string) {
                   :date="weekDate"
                   class="relative !p-0 text-center text-sm w-10 h-10"
                 >
-                  <CalendarDay
+                  <CalendarCellTrigger
                     :day="weekDate"
                     :month="month.value"
                     class="group relative inline-flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent p-0 text-sm font-normal text-black w-10 h-10 hover:border-black data-[disabled]:pointer-events-none data-[outside-month]:pointer-events-none data-[selected]:bg-black data-[selected]:font-medium data-[disabled]:text-black/30 data-[selected]:text-white data-[unavailable]:text-black/30 data-[unavailable]:line-through"
@@ -100,7 +100,7 @@ function setMonth(month: string) {
                       class="absolute top-[5px] hidden rounded-full w-1 h-1 group-data-[today]:block group-data-[today]:bg-grass9 group-data-[selected]:bg-white"
                     />
                     {{ weekDate.day }}
-                  </CalendarDay>
+                  </CalendarCellTrigger>
                 </CalendarCell>
               </CalendarGridRow>
             </CalendarGridBody>

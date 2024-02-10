@@ -18,7 +18,7 @@ export { default as DatePickerGridHead, type DatePickerGridHeadProps } from './D
 export { default as DatePickerGridBody, type DatePickerGridBodyProps } from './DatePickerGridBody.vue'
 export { default as DatePickerGridRow, type DatePickerGridRowProps } from './DatePickerGridRow.vue'
 
-export { default as DatePickerDay, type DatePickerDayProps } from './DatePickerDay.vue'
+export { default as DatePickerCellTrigger, type DatePickerCellTriggerProps } from './DatePickerCellTrigger.vue'
 
 export { default as DatePickerInput, type DatePickerInputProps } from './DatePickerInput.vue'
 

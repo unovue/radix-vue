@@ -26,8 +26,8 @@ export {
   type CalendarGridBodyProps,
   CalendarGridRow,
   type CalendarGridRowProps,
-  CalendarDay,
-  type CalendarDayProps,
+  CalendarCellTrigger,
+  type CalendarCellTriggerProps,
 } from './Calendar'
 export * from './Checkbox'
 export * from './Collapsible'

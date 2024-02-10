@@ -1,7 +1,7 @@
 <script lang="ts">
-import { RangeCalendarDay, type RangeCalendarDayProps } from '..'
+import { RangeCalendarCellTrigger, type RangeCalendarCellTriggerProps } from '..'
 
-export interface DateRangePickerDayProps extends RangeCalendarDayProps {}
+export interface DateRangePickerDayProps extends RangeCalendarCellTriggerProps {}
 </script>
 
 <script setup lang="ts">
@@ -9,7 +9,7 @@ const props = defineProps<DateRangePickerDayProps>()
 </script>
 
 <template>
-  <RangeCalendarDay v-bind="props">
+  <RangeCalendarCellTrigger v-bind="props">
     <slot />
-  </RangeCalendarDay>
+  </RangeCalendarCellTrigger>
 </template>

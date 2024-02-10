@@ -15,4 +15,4 @@ export { default as RangeCalendarGridHead, type RangeCalendarGridHeadProps } fro
 export { default as RangeCalendarGridBody, type RangeCalendarGridBodyProps } from './RangeCalendarGridBody.vue'
 export { default as RangeCalendarGridRow, type RangeCalendarGridRowProps } from './RangeCalendarGridRow.vue'
 
-export { default as RangeCalendarDay, type RangeCalendarDayProps } from './RangeCalendarDay.vue'
+export { default as RangeCalendarCellTrigger, type RangeCalendarCellTriggerProps } from './RangeCalendarCellTrigger.vue'

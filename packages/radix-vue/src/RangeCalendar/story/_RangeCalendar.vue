@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { DateValue } from '@internationalized/date'
 import type { RangeCalendarRootProps } from '../'
-import { RangeCalendarCell, RangeCalendarDay, RangeCalendarGrid, RangeCalendarGridBody, RangeCalendarGridHead, RangeCalendarGridRow, RangeCalendarHeadCell, RangeCalendarHeader, RangeCalendarHeading, RangeCalendarNext, RangeCalendarPrev, RangeCalendarRoot } from '../'
+import { RangeCalendarCell, RangeCalendarCellTrigger, RangeCalendarGrid, RangeCalendarGridBody, RangeCalendarGridHead, RangeCalendarGridRow, RangeCalendarHeadCell, RangeCalendarHeader, RangeCalendarHeading, RangeCalendarNext, RangeCalendarPrev, RangeCalendarRoot } from '../'
 
 const props = defineProps<{
   calendarProps?: RangeCalendarRootProps
@@ -44,13 +44,13 @@ const props = defineProps<{
             :data-testid="`cell-${weekDate.month}-${d}`"
             :date="weekDate"
           >
-            <RangeCalendarDay
+            <RangeCalendarCellTrigger
               :day="weekDate"
               :month="month.value"
               :data-testid="`date-${weekDate.month}-${weekDate.day}`"
             >
               {{ weekDate.day }}
-            </RangeCalendarDay>
+            </RangeCalendarCellTrigger>
           </RangeCalendarCell>
         </RangeCalendarGridRow>
       </RangeCalendarGridBody>

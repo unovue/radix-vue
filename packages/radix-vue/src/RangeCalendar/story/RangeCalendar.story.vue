@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import { RangeCalendarCell, RangeCalendarDay, RangeCalendarGrid, RangeCalendarGridBody, RangeCalendarGridHead, RangeCalendarGridRow, RangeCalendarHeadCell, RangeCalendarHeader, RangeCalendarHeading, RangeCalendarNext, RangeCalendarPrev, RangeCalendarRoot } from '../'
+import { RangeCalendarCell, RangeCalendarCellTrigger, RangeCalendarGrid, RangeCalendarGridBody, RangeCalendarGridHead, RangeCalendarGridRow, RangeCalendarHeadCell, RangeCalendarHeader, RangeCalendarHeading, RangeCalendarNext, RangeCalendarPrev, RangeCalendarRoot } from '../'
 </script>
 
 <template>
@@ -46,7 +46,7 @@ import { RangeCalendarCell, RangeCalendarDay, RangeCalendarGrid, RangeCalendarGr
                   :date="weekDate"
                   class="relative !p-0 text-center text-sm w-10 h-10"
                 >
-                  <RangeCalendarDay
+                  <RangeCalendarCellTrigger
                     :day="weekDate"
                     :month="month.value"
                     class="group relative inline-flex items-center justify-center whitespace-nowrap border border-transparent bg-transparent p-0 text-sm font-normal text-black w-10 h-10 hover:border-black data-[disabled]:pointer-events-none data-[outside-month]:pointer-events-none data-[selected]:bg-black/30 data-[selected]:font-medium data-[disabled]:text-black/30 data-[selected]:text-white data-[unavailable]:text-black/30 data-[unavailable]:line-through data-[highlighted]:bg-grass9/30 data-[highlighted]:rounded-none data-[selection-start]:bg-black data-[selection-start]:rounded-l-[9px] data-[selection-end]:bg-black data-[selection-end]:rounded-r-[9px] data-[selected]:[&:not([data-selection-start])]:[&:not([data-selection-end])]:rounded-none"
@@ -55,7 +55,7 @@ import { RangeCalendarCell, RangeCalendarDay, RangeCalendarGrid, RangeCalendarGr
                       class="absolute top-[5px] hidden rounded-full w-1 h-1 group-data-[today]:block group-data-[today]:bg-grass9 group-data-[selected]:bg-white"
                     />
                     {{ weekDate.day }}
-                  </RangeCalendarDay>
+                  </RangeCalendarCellTrigger>
                 </RangeCalendarCell>
               </RangeCalendarGridRow>
             </RangeCalendarGridBody>

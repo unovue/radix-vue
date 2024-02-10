@@ -9,9 +9,9 @@ import {
 
 } from '@internationalized/date'
 import { computed, nextTick } from 'vue'
-import { parseStringToDateValue, toDate, useKbd } from '@/shared'
+import { isBetweenInclusive, parseStringToDateValue, toDate, useKbd } from '@/shared'
 
-export interface CalendarDayProps extends PrimitiveProps {
+export interface RangeCalendarCellTriggerProps extends PrimitiveProps {
   day: DateValue
   month: DateValue
 }
@@ -19,30 +19,33 @@ export interface CalendarDayProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { Primitive, usePrimitiveElement } from '@/Primitive'
-import { injectCalendarRootContext } from './CalendarRoot.vue'
+import { injectRangeCalendarRootContext } from './RangeCalendarRoot.vue'
 
-const props = withDefaults(defineProps<CalendarDayProps>(), { as: 'div' })
+const props = withDefaults(defineProps<RangeCalendarCellTriggerProps>(), { as: 'div' })
+const rootContext = injectRangeCalendarRootContext()
+
 const kbd = useKbd()
-const rootContext = injectCalendarRootContext()
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
-const labelText = computed(() => {
-  return rootContext.formatter.custom(toDate(props.day), {
-    weekday: 'long',
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  })
-})
+const labelText = computed(() => rootContext.formatter.custom(toDate(props.day), {
+  weekday: 'long',
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+}))
 
 const isDisabled = computed(() => rootContext.isDateDisabled(props.day))
 const isUnavailable = computed(() => rootContext.isDateUnavailable?.(props.day))
 const isDateToday = computed(() => isToday(props.day, getLocalTimeZone()))
 const isOutsideMonth = computed(() => !isSameMonth(props.day, props.month))
-const isOutsideVisibleMonths = computed(() => rootContext.isOutsideVisibleMonths(props.day))
 const isFocusedDate = computed(() => isSameDay(props.day, rootContext.placeholder.value))
-const isSelectedDate = computed(() => rootContext.isDateSelected(props.day))
+const isSelectedDate = computed(() => rootContext.isSelected(props.day))
+const isSelectionStart = computed(() => rootContext.isSelectionStart(props.day))
+const isSelectionEnd = computed(() => rootContext.isSelectionEnd(props.day))
+const isHighlighted = computed(() => rootContext.highlightedRange.value
+  ? isBetweenInclusive(props.day, rootContext.highlightedRange.value.start, rootContext.highlightedRange.value.end)
+  : false)
 
 const SELECTOR = '[data-radix-vue-calendar-day]:not([data-disabled]):not([data-outside-month])'
 
@@ -51,11 +54,38 @@ function changeDate(date: DateValue) {
     return
   if (rootContext.isDateDisabled(date) || rootContext.isDateUnavailable?.(date))
     return
-  rootContext.onDateChange(date)
-}
+  rootContext.lastPressedDateValue.value = date
 
+  if (rootContext.startValue.value && rootContext.highlightedRange.value === null) {
+    if (isSameDay(date, rootContext.startValue.value) && !rootContext.preventDeselect.value && !rootContext.endValue.value) {
+      rootContext.startValue.value = undefined
+
+      return
+    }
+    else if (!rootContext.endValue.value) {
+      if (rootContext.lastPressedDateValue.value && isSameDay(rootContext.lastPressedDateValue.value, date))
+        rootContext.startValue.value = date
+
+      return
+    }
+  }
+  if (rootContext.startValue.value && isSameDay(rootContext.startValue.value, date) && !rootContext.preventDeselect.value && !rootContext.endValue.value)
+    rootContext.startValue.value = undefined
+
+  if (!rootContext.startValue.value) { rootContext.startValue.value = date }
+
+  else if (!rootContext.endValue.value) { rootContext.endValue.value = date }
+  else if (rootContext.endValue.value && rootContext.startValue.value) {
+    rootContext.startValue.value = date
+    rootContext.endValue.value = undefined
+  }
+}
 function handleClick(e: Event) {
   changeDate(parseStringToDateValue((e.target as HTMLDivElement).getAttribute('data-value')!, rootContext.placeholder.value))
+}
+
+function handleFocus(date: DateValue) {
+  rootContext.focusedValue.value = date
 }
 
 function handleArrowKey(e: KeyboardEvent) {
@@ -128,19 +158,23 @@ function handleArrowKey(e: KeyboardEvent) {
     role="button"
     :aria-label="labelText"
     data-radix-vue-calendar-day
+    :aria-selected="isSelectedDate ? true : undefined"
     :aria-disabled="isOutsideMonth || isDisabled || isUnavailable ? true : undefined"
+    :data-highlighted="isHighlighted ? '' : undefined"
     :data-selected="isSelectedDate ? true : undefined"
+    :data-selection-start="isSelectionStart ? true : undefined"
+    :data-selection-end="isSelectionEnd ? true : undefined"
     :data-value="day.toString()"
     :data-disabled="isDisabled || isOutsideMonth ? '' : undefined"
     :data-unavailable="isUnavailable ? '' : undefined"
     :data-today="isDateToday ? '' : undefined"
     :data-outside-month="isOutsideMonth ? '' : undefined"
-    :data-outside-visible-months="isOutsideVisibleMonths ? '' : undefined"
     :data-focused="isFocusedDate ? '' : undefined"
     :tabindex="isFocusedDate ? 0 : isOutsideMonth || isDisabled ? undefined : -1"
     @click="handleClick"
-    @keydown.up.down.left.right.space.enter="handleArrowKey"
-    @keydown.enter.prevent
+    @focus="handleFocus(day)"
+    @mouseenter="handleFocus(day)"
+    @keydown.up.down.left.right.enter.space="handleArrowKey"
   >
     <slot />
   </Primitive>

@@ -4,7 +4,7 @@ import type { DateFieldRootProps } from '../'
 import { DateFieldInput, DateFieldRoot } from '../'
 import { Label } from '@/Label'
 
-const props = defineProps<{ dateFieldProps: DateFieldRootProps; emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } }>()
+const props = defineProps<{ dateFieldProps?: DateFieldRootProps; emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } }>()
 </script>
 
 <template>

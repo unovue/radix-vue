@@ -563,6 +563,7 @@ export function useDateField(props: UseDateFieldProps) {
     formatter: props.formatter,
   }))
 
+  // TODO: look into abstracting segment keydown functions since they have the same structure (checks -> arrow_up, arrow_down update -> number string update -> move to next -> backspace update)
   function handleDaySegmentKeydown(e: KeyboardEvent) {
     if (!isAcceptableSegmentKey(e.key) || isSegmentNavigationKey(e.key))
       return

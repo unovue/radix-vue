@@ -5,6 +5,7 @@ export { chunk } from './array'
 export {
   type Granularity,
   type Matcher,
+  type CalendarView,
   getDefaultDate,
   parseStringToDateValue,
   toDate,
@@ -23,7 +24,7 @@ export {
   areAllDaysBetweenValid,
   type DateRange,
   type DayOfWeek,
-  type Month,
+  type Grid,
   type CreateMonthProps,
   createMonths,
   createMonth,

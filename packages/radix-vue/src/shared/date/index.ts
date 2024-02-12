@@ -21,7 +21,7 @@ export {
 export type {
   DateRange,
   DayOfWeek,
-  Month,
+  Grid,
   HourCycle,
   DayPeriod,
   DateSegmentObj,
@@ -33,15 +33,20 @@ export type {
   AnyExceptLiteral,
   DateSegmentPart,
   TimeSegmentPart,
+  CalendarView,
 } from './types'
+
 export {
   type CreateMonthProps,
   createMonths,
   createMonth,
   type WeekDayFormat,
   getDaysBetween,
-}
-  from './calendar'
+  createYear,
+  createDecade,
+  startOfDecade,
+  endOfDecade,
+} from './calendar'
 export { getPlaceholder } from './placeholders'
 export {
   DATE_SEGMENT_PARTS,

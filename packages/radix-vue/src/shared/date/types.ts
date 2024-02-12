@@ -11,12 +11,14 @@ export type DayOfWeek = {
   daysOfWeek: (typeof daysOfWeek)[number][]
 }
 
+export type CalendarView = 'month' | 'year' | 'decade'
+
 export type DateRange = {
   start: DateValue | undefined
   end: DateValue | undefined
 }
 
-export type Month<T> = {
+export type Grid<T> = {
   /**
    * A `DateValue` used to represent the month. Since days
    * from the previous and next months may be included in the
@@ -32,7 +34,7 @@ export type Month<T> = {
    * grid using a table, where each row represents a week and each cell
    * represents a day.
    */
-  weeks: T[][]
+  rows: T[][]
 
   /**
    * An array of all the dates in the current month, including dates from
@@ -41,7 +43,7 @@ export type Month<T> = {
    * as it provides all the dates that should be displayed in the grid in a flat
    * array.
    */
-  dates: T[]
+  cells: T[]
 }
 
 export type HourCycle = 12 | 24 | undefined

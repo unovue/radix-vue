@@ -349,7 +349,7 @@ export const utilities = {
     'useStateMachine',
     'useBodyScrollLock',
     'withDefault',
-    'useDateFormatter',
     'createContext',
+    'useDateFormatter',
   ],
 }

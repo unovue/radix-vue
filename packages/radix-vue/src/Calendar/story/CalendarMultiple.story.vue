@@ -11,7 +11,7 @@ const value = ref() as Ref<DateValue[]>
   <Story title="Calendar/Multiple" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
       <CalendarRoot
-        v-slot="{ weekDays, months }"
+        v-slot="{ weekDays, grid }"
         v-model="value"
         class="mt-6 rounded-[15px] border border-black bg-white p-[22px] shadow-md"
         fixed-weeks
@@ -33,7 +33,7 @@ const value = ref() as Ref<DateValue[]>
         <div
           class="flex flex-col space-y-4 pt-4 sm:flex-row sm:space-x-4 sm:space-y-0"
         >
-          <CalendarGrid v-for="month in months" :key="month.value.toString()" class="w-full border-collapse select-none space-y-1">
+          <CalendarGrid v-for="month in grid" :key="month.value.toString()" class="w-full border-collapse select-none space-y-1">
             <CalendarGridHead>
               <CalendarGridRow class="mb-1 flex w-full justify-between">
                 <CalendarHeadCell
@@ -45,7 +45,7 @@ const value = ref() as Ref<DateValue[]>
               </CalendarGridRow>
             </CalendarGridHead>
             <CalendarGridBody>
-              <CalendarGridRow v-for="(weekDates, index) in month.weeks" :key="`weekDate-${index}`" class="flex w-full">
+              <CalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="flex w-full">
                 <CalendarCell
                   v-for="weekDate in weekDates"
                   :key="weekDate.toString()"

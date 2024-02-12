@@ -17,4 +17,6 @@ export { default as CalendarGridRow, type CalendarGridRowProps } from './Calenda
 
 export { default as CalendarCellTrigger, type CalendarCellTriggerProps } from './CalendarCellTrigger.vue'
 
+export { type CalendarView } from '@/shared'
+
 export { useCalendar } from './useCalendar'

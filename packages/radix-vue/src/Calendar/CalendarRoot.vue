@@ -1,12 +1,14 @@
 <script lang="ts">
-import { type DateValue, isSameDay, startOfYear } from '@internationalized/date'
+import { type DateValue, isSameDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { type Formatter, type Matcher, type WeekDayFormat, chunk, createContext, getDefaultDate, handleCalendarInitialFocus } from '@/shared'
+import { createContext, getDefaultDate, handleCalendarInitialFocus } from '@/shared'
+import type { CalendarView, Formatter, Matcher, WeekDayFormat } from '@/shared'
 import { useCalendar, useCalendarState } from './useCalendar'
 
 type CalendarRootContext = {
+  calendarView: Ref<CalendarView>
   locale: Ref<string>
   modelValue: Ref<DateValue | DateValue[] | undefined>
   placeholder: Ref<DateValue>
@@ -31,13 +33,15 @@ type CalendarRootContext = {
   isDateDisabled: Matcher
   isDateSelected: Matcher
   isDateUnavailable?: Matcher
-  isOutsideVisibleMonths: (date: DateValue) => boolean
+  isOutsideVisibleView: (date: DateValue) => boolean
   isNextButtonDisabled: Ref<boolean>
   isPrevButtonDisabled: Ref<boolean>
   formatter: Formatter
+  columns: Ref<number>
 }
 
 interface BaseCalendarRootProps extends PrimitiveProps {
+  calendarView?: CalendarView
   columns?: number
   placeholder?: DateValue
   pagedNavigation?: boolean
@@ -79,7 +83,7 @@ export const [injectCalendarRootContext, provideCalendarRootContext]
 </script>
 
 <script setup lang="ts">
-import { computed, onMounted, toRefs } from 'vue'
+import { onMounted, ref, toRefs } from 'vue'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 
@@ -100,6 +104,7 @@ const props = withDefaults(defineProps<CalendarRootProps>(), {
   isDateDisabled: undefined,
   isDateUnavailable: undefined,
   columns: 4,
+  calendarView: 'month',
 })
 const emits = defineEmits<CalendarRootEmits>()
 const {
@@ -117,7 +122,10 @@ const {
   isDateDisabled: propsIsDateDisabled,
   isDateUnavailable: propsIsDateUnavailable,
   columns,
+  calendarLabel,
 } = toRefs(props)
+
+const calendarView = ref(props.calendarView)
 
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
@@ -137,28 +145,21 @@ const placeholder = useVModel(props, 'placeholder', emits, {
   passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
 
-const year = computed(() => chunk(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], columns.value))
-const decade = computed<number[][]>(() => {
-  const decadeArray = []
-  const decadeStart = startOfYear(placeholder.value.subtract({ years: placeholder.value.year - Math.floor(placeholder.value.year / 10) * 10 }))
-  for (let i = decadeStart.year; i < decadeStart.year + 10; i++)
-    decadeArray.push(i)
-
-  return chunk(decadeArray, columns.value)
-})
+// TODO: after creating utils, use to generate the year months and the decade years, create YearSelect and MonthSelect and add ref to manage view (probably prop to set initial view)
 
 const {
   isDateDisabled,
   isDateUnavailable,
   isNextButtonDisabled,
   isPrevButtonDisabled,
-  months,
   weekdays,
-  isOutsideVisibleMonths,
+  isOutsideVisibleView,
   nextPage,
   prevPage,
   formatter,
+  grid,
 } = useCalendar({
+  columns,
   locale: props.locale,
   placeholder,
   weekStartsOn: props.weekStartsOn,
@@ -171,6 +172,7 @@ const {
   pagedNavigation: props.pagedNavigation,
   isDateDisabled: propsIsDateDisabled.value,
   isDateUnavailable: propsIsDateUnavailable.value,
+  calendarView,
 })
 
 const {
@@ -181,11 +183,12 @@ const {
 } = useCalendarState({
   date: modelValue,
   formatter,
-  months,
+  grid,
+  calendarView,
   isDateDisabled,
   isDateUnavailable,
-  locale: props.locale,
-  calendarLabel: props.calendarLabel,
+  locale: locale.value,
+  calendarLabel: calendarLabel.value,
 })
 
 function onDateChange(value: DateValue) {
@@ -231,6 +234,7 @@ onMounted(() => {
 })
 
 provideCalendarRootContext({
+  calendarView,
   isDateUnavailable,
   isDateDisabled,
   locale,
@@ -253,12 +257,13 @@ provideCalendarRootContext({
   isDateSelected,
   isNextButtonDisabled,
   isPrevButtonDisabled,
-  isOutsideVisibleMonths,
+  isOutsideVisibleView,
   nextPage,
   prevPage,
   parentElement,
+  columns,
   onPlaceholderChange(value) {
-    placeholder.value = placeholder.value.set({ ...value })
+    placeholder.value = value
   },
   onDateChange,
 })
@@ -274,12 +279,18 @@ provideCalendarRootContext({
     :data-readonly="readonly ? '' : undefined"
     :data-disabled="disabled ? '' : undefined"
     :data-invalid="isInvalid ? '' : undefined"
+    :data-radix-vue-calendar-view="calendarView"
   >
     <div style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 1px;">
       <div role="heading" aria-level="2">
         {{ fullCalendarLabel }}
       </div>
     </div>
-    <slot :date="modelValue" :months="months" :week-days="weekdays" :year="year" :decade="decade" />
+    <slot
+      :date="modelValue"
+      :grid="grid"
+      :calendar-view="calendarView"
+      :week-days="weekdays"
+    />
   </Primitive>
 </template>

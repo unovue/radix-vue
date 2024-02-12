@@ -2,13 +2,15 @@
   * Adapted from https://github.com/melt-ui/melt-ui/blob/develop/src/lib/builders/calendar/create.ts
 */
 
-import { type DateValue, isSameDay } from '@internationalized/date'
-import { type Ref, computed, ref } from 'vue'
-import { type Matcher, type Month, type WeekDayFormat, createMonths, isAfter, isBefore, toDate, useDateFormatter } from '@/shared'
+import { type DateTimeDuration, type DateValue, isSameDay } from '@internationalized/date'
+import { type Ref, computed, ref, watch } from 'vue'
+import { type CalendarView, type Grid, type Matcher, type WeekDayFormat, createMonths, isAfter, isBefore, toDate, useDateFormatter } from '@/shared'
+import { createDecade, createYear } from '@/shared/date'
 
 export type UseCalendarProps = {
   locale: string
   placeholder: Ref<DateValue>
+  columns: Ref<number>
   weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6
   fixedWeeks: boolean
   numberOfMonths: number
@@ -19,16 +21,18 @@ export type UseCalendarProps = {
   pagedNavigation: boolean
   isDateDisabled?: Matcher
   isDateUnavailable?: Matcher
+  calendarView: Ref<CalendarView>
 }
 
 export type UseCalendarStateProps = {
   formatter: ReturnType<typeof useDateFormatter>
-  months: Ref<Month<DateValue>[]>
+  grid: Ref<Grid<DateValue>[]>
   isDateDisabled: Matcher
   isDateUnavailable: Matcher
   date: Ref<DateValue | DateValue[] | undefined>
   locale: string
   calendarLabel: string | undefined
+  calendarView: Ref<CalendarView>
 }
 
 export function useCalendarState(props: UseCalendarStateProps) {
@@ -68,19 +72,19 @@ export function useCalendarState(props: UseCalendarStateProps) {
   )
 
   const headingValue = computed(() => {
-    if (!props.months.value.length)
+    if (!props.grid.value.length)
       return ''
 
     if (props.locale !== props.formatter.getLocale())
       props.formatter.setLocale(props.locale)
 
-    if (props.months.value.length === 1) {
-      const month = props.months.value[0].value
+    if (props.grid.value.length === 1) {
+      const month = props.grid.value[0].value
       return `${props.formatter.fullMonthAndYear(toDate(month))}`
     }
 
-    const startMonth = toDate(props.months.value[0].value as DateValue)
-    const endMonth = toDate(props.months.value[props.months.value.length - 1].value as DateValue)
+    const startMonth = toDate(props.grid.value[0].value as DateValue)
+    const endMonth = toDate(props.grid.value[props.grid.value.length - 1].value as DateValue)
 
     const startMonthName = props.formatter.fullMonth(startMonth)
     const endMonthName = props.formatter.fullMonth(endMonth)
@@ -104,38 +108,57 @@ export function useCalendarState(props: UseCalendarStateProps) {
 export function useCalendar(props: UseCalendarProps) {
   const formatter = useDateFormatter(props.locale)
 
-  const months = ref<Month<DateValue>[]>(createMonths({
-    dateObj: props.placeholder.value,
-    weekStartsOn: props.weekStartsOn,
-    locale: props.locale,
-    fixedWeeks: props.fixedWeeks,
-    numberOfMonths: props.numberOfMonths,
-  })) as Ref<Month<DateValue>[]>
+  const gridGenerator: Record<CalendarView, (value?: DateValue) => Grid<DateValue>[]> = {
+    month: (value?: DateValue) => createMonths({
+      dateObj: value ?? props.placeholder.value,
+      weekStartsOn: props.weekStartsOn,
+      locale: props.locale,
+      fixedWeeks: props.fixedWeeks,
+      numberOfMonths: props.numberOfMonths,
+    }),
+    year: (value?: DateValue) => createYear({
+      dateObj: value ?? props.placeholder.value,
+      columns: props.columns.value,
+      numberOfMonths: props.numberOfMonths,
+      pagedNavigation: props.pagedNavigation,
+    }),
+    decade: (value?: DateValue) => createDecade({
+      dateObj: value ?? props.placeholder.value,
+      columns: props.columns.value,
+    }),
+  }
 
-  const visibleMonths = computed(() => months.value.map(month => month.value))
+  const grid = ref<Grid<DateValue>[]>(gridGenerator[props.calendarView.value]()) as Ref<Grid<DateValue>[]>
 
-  function isOutsideVisibleMonths(date: DateValue) {
-    return !visibleMonths.value.includes(date)
+  const visibleView = computed(() => {
+    return grid.value.map(month => month.value)
+  })
+
+  function isOutsideVisibleView(date: DateValue) {
+    if (props.calendarView.value !== 'month')
+      return false
+    return !visibleView.value.includes(date)
   }
 
   const isNextButtonDisabled = computed(() => {
-    if (!props.maxValue || !months.value.length)
+    if (!props.maxValue || !grid.value.length)
       return false
     if (props.disabled)
       return true
-    const lastMonthInView = months.value[months.value.length - 1].value
-    const firstMonthOfNextPage = lastMonthInView.add({ months: 1 }).set({ day: 1 })
-    return isAfter(firstMonthOfNextPage, props.maxValue)
+    const lastPeriodInView = grid.value[grid.value.length - 1].value
+
+    const firstPeriodOfNextPage = lastPeriodInView.add({ months: 1 }).set({ day: 1 })
+    return isAfter(firstPeriodOfNextPage, props.maxValue)
   })
 
   const isPrevButtonDisabled = computed(() => {
-    if (!props.minValue || !months.value.length)
+    if (!props.minValue || !grid.value.length)
       return false
     if (props.disabled)
       return true
-    const firstMonthInView = months.value[0].value
-    const lastMonthOfPrevPage = firstMonthInView.subtract({ months: 1 }).set({ day: 35 })
-    return isBefore(lastMonthOfPrevPage, props.minValue)
+    const firstPeriodInView = grid.value[0].value
+    const lastPeriodOfPrevPage = firstPeriodInView.subtract({ months: 1 }).set({ day: 35 })
+    return isBefore(lastPeriodOfPrevPage, props.minValue)
   })
 
   function isDateDisabled(dateObj: DateValue) {
@@ -155,50 +178,54 @@ export function useCalendar(props: UseCalendarProps) {
   }
 
   const weekdays = computed(() => {
-    if (!months.value.length)
+    if (props.calendarView.value !== 'month')
       return []
-    return months.value[0].weeks[0].map((date) => {
+    if (!grid.value.length)
+      return []
+    return grid.value[0].rows[0].map((date) => {
       return formatter.dayOfWeek(toDate(date), props.weekdayFormat)
     })
   })
 
-  const nextPage = () => {
-    const firstMonth = months.value[0].value
-    const newMonths = createMonths({
-      dateObj: firstMonth.add({ months: props.pagedNavigation ? props.numberOfMonths : 1 }),
-      weekStartsOn: props.weekStartsOn,
-      locale: props.locale,
-      fixedWeeks: props.fixedWeeks,
-      numberOfMonths: props.numberOfMonths,
-    })
+  const viewToDateField: Record<CalendarView, Record<'key' | 'value', keyof DateTimeDuration | number>> = {
+    month: { key: 'months', value: props.pagedNavigation ? props.numberOfMonths : 1 },
+    year: { key: 'years', value: 1 },
+    decade: { key: 'years', value: 10 },
+  }
 
-    months.value = newMonths
-    props.placeholder.value = newMonths[0].value.set({ day: 1 })
+  const nextPage = () => {
+    const firstDate = grid.value[0].value
+
+    const newGrid = gridGenerator[props.calendarView.value](firstDate.add({ [viewToDateField[props.calendarView.value].key]: viewToDateField[props.calendarView.value].value }))
+
+    grid.value = newGrid
+
+    props.placeholder.value = newGrid[0].value.set({ day: 1 })
   }
 
   const prevPage = () => {
-    const firstMonth = months.value[0].value
-    const newMonths = createMonths({
-      dateObj: firstMonth.subtract({ months: props.pagedNavigation ? props.numberOfMonths : 1 }),
-      weekStartsOn: props.weekStartsOn,
-      locale: props.locale,
-      fixedWeeks: props.fixedWeeks,
-      numberOfMonths: props.numberOfMonths,
-    })
+    const firstDate = grid.value[0].value
 
-    months.value = newMonths
-    props.placeholder.value = newMonths[0].value.set({ day: 1 })
+    const newGrid = gridGenerator[props.calendarView.value](firstDate.subtract({ [viewToDateField[props.calendarView.value].key]: viewToDateField[props.calendarView.value].value }))
+
+    grid.value = newGrid
+
+    props.placeholder.value = newGrid[0].value.set({ day: 1 })
   }
+
+  watch(props.calendarView, (value) => {
+    grid.value = gridGenerator[value]()
+  })
 
   return {
     isDateDisabled,
     isDateUnavailable,
     isNextButtonDisabled,
     isPrevButtonDisabled,
-    months,
+    grid,
     weekdays,
-    visibleMonths,
-    isOutsideVisibleMonths,
+    visibleView,
+    isOutsideVisibleView,
     formatter,
     nextPage,
     prevPage,

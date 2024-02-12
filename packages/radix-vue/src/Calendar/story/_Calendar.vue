@@ -3,12 +3,12 @@ import type { DateValue } from '@internationalized/date'
 import type { CalendarRootProps } from '../'
 import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot } from '../'
 
-const props = defineProps<{ calendarProps: CalendarRootProps; emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } }>()
+const props = defineProps<{ calendarProps?: CalendarRootProps; emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } }>()
 </script>
 
 <template>
   <CalendarRoot
-    v-slot="{ weekDays, months }"
+    v-slot="{ weekDays, grid }"
     v-bind="props.calendarProps"
     data-testid="calendar"
     v-on="{ 'update:modelValue': props.emits?.['onUpdate:modelValue'] }"
@@ -23,7 +23,7 @@ const props = defineProps<{ calendarProps: CalendarRootProps; emits?: { 'onUpdat
       />
     </CalendarHeader>
 
-    <CalendarGrid v-for="month in months" :key="month.value.toString()" :data-testid="`grid-${month.value.month}`">
+    <CalendarGrid v-for="month in grid" :key="month.value.toString()" :data-testid="`grid-${month.value.month}`">
       <CalendarGridHead :data-testid="`grid-head-${month.value.month}`">
         <CalendarGridRow>
           <CalendarHeadCell
@@ -35,7 +35,7 @@ const props = defineProps<{ calendarProps: CalendarRootProps; emits?: { 'onUpdat
         </CalendarGridRow>
       </CalendarGridHead>
       <CalendarGridBody :data-testid="`grid-body-${month.value.month}`">
-        <CalendarGridRow v-for="(weekDates, index) in month.weeks" :key="`weekDate-${index}`" data-week :data-testid="`grid-row-${month.value.month}-${index}`">
+        <CalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" data-week :data-testid="`grid-row-${month.value.month}-${index}`">
           <CalendarCell
             v-for="(weekDate, d) in weekDates"
             :key="weekDate.toString()"

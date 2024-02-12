@@ -1,22 +1,42 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot, type CalendarRootProps } from '../'
+import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot, type CalendarRootProps, type CalendarView } from '../'
+import { CalendarDateTime, type DateValue, getLocalTimeZone } from '@internationalized/date'
+
+import { useDateFormatter } from '../..'
+import { type Ref, ref } from 'vue'
 
 const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
   return date.day === 17 || date.day === 18
 }
+
+const { custom } = useDateFormatter('en')
+
+function formatDateByView(view: CalendarView, date: DateValue) {
+  if (view === 'month')
+    return date.day
+
+  if (view === 'year')
+    return custom(date.toDate(getLocalTimeZone()), { month: 'short' })
+
+  return date.year
+}
+const calendarDateTime = new CalendarDateTime(1980, 1, 20, 12, 30, 0, 0)
+const value = ref(calendarDateTime) as Ref<DateValue>
 </script>
 
 <template>
   <Story title="Calendar/Default" :layout="{ type: 'single' }">
     <Variant title="default">
       <CalendarRoot
-        v-slot="{ weekDays, months, year, decade }"
+        v-slot="{ weekDays, grid, calendarView }"
+        v-model="value"
         :is-date-unavailable="isDateUnavailable"
         class="mt-6 rounded-[15px] border border-black bg-white p-[22px] shadow-md"
         fixed-weeks
+        :number-of-months="2"
+        paged-navigation
       >
-        {{ year }} {{ decade }}
         <CalendarHeader class="flex items-center justify-between">
           <CalendarPrev
             class="inline-flex items-center cursor-pointer text-black justify-center rounded-[9px] bg-transparent w-10 h-10 hover:bg-black hover:text-white active:scale-98 active:transition-all"
@@ -33,34 +53,34 @@ const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
         <div
           class="flex flex-col space-y-4 pt-4 sm:flex-row sm:space-x-4 sm:space-y-0"
         >
-          <CalendarGrid v-for="month in months" :key="month.value.toString()" class="w-full border-collapse select-none space-y-1">
+          <CalendarGrid v-for="month in grid" :key="month.value.toString()" class="w-full border-collapse select-none space-y-1">
             <CalendarGridHead>
-              <CalendarGridRow class="mb-1 flex w-full justify-between">
+              <CalendarGridRow class="mb-1 grid grid-cols-4 w-full data-[radix-vue-calendar-month-view]:grid-cols-7">
                 <CalendarHeadCell
                   v-for="day in weekDays" :key="day"
-                  class="w-10 rounded-md text-xs !font-normal text-black"
+                  class="rounded-md text-xs !font-normal text-black"
                 >
                   {{ day }}
                 </CalendarHeadCell>
               </CalendarGridRow>
             </CalendarGridHead>
-            <CalendarGridBody>
-              <CalendarGridRow v-for="(weekDates, index) in month.weeks" :key="`weekDate-${index}`" class="flex w-full">
+            <CalendarGridBody class="grid">
+              <CalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="grid grid-cols-4 data-[radix-vue-calendar-month-view]:grid-cols-7">
                 <CalendarCell
                   v-for="weekDate in weekDates"
                   :key="weekDate.toString()"
                   :date="weekDate"
-                  class="relative !p-0 text-center text-sm w-10 h-10"
+                  class="relative text-center text-sm"
                 >
                   <CalendarCellTrigger
                     :day="weekDate"
                     :month="month.value"
-                    class="group relative inline-flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent p-0 text-sm font-normal text-black w-10 h-10 hover:border-black data-[disabled]:pointer-events-none data-[outside-month]:pointer-events-none data-[selected]:bg-black data-[selected]:font-medium data-[disabled]:text-black/30 data-[selected]:text-white data-[unavailable]:text-black/30 data-[unavailable]:line-through"
+                    class="group relative inline-flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent p-0 text-sm font-normal text-black p-4 hover:border-black data-[disabled]:pointer-events-none data-[outside-view]:pointer-events-none data-[selected]:bg-black data-[selected]:font-medium data-[disabled]:text-black/30 data-[selected]:text-white data-[unavailable]:text-black/30 data-[unavailable]:line-through"
                   >
                     <div
                       class="absolute top-[5px] hidden rounded-full w-1 h-1 group-data-[today]:block group-data-[today]:bg-grass9 group-data-[selected]:bg-white"
                     />
-                    {{ weekDate.day }}
+                    {{ formatDateByView(calendarView, weekDate) }}
                   </CalendarCellTrigger>
                 </CalendarCell>
               </CalendarGridRow>

@@ -350,5 +350,6 @@ export const utilities = {
     'useBodyScrollLock',
     'withDefault',
     'useDateFormatter',
+    'createContext',
   ],
 }

@@ -11,7 +11,7 @@ const value = ref() as Ref<{ start: DateValue; end: DateValue }>
   <Story title="RangeCalendar/Paged" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
       <RangeCalendarRoot
-        v-slot="{ weekDays, months }"
+        v-slot="{ weekDays, grid }"
         v-model="value"
         class="mt-6 rounded-[15px] border border-black bg-white p-[22px] shadow-md"
         :number-of-months="2"
@@ -33,7 +33,7 @@ const value = ref() as Ref<{ start: DateValue; end: DateValue }>
         <div
           class="flex flex-col space-y-4 pt-4 sm:flex-row sm:space-x-4 sm:space-y-0"
         >
-          <RangeCalendarGrid v-for="month in months" :key="month.value.toString()" class="w-full border-collapse select-none space-y-1">
+          <RangeCalendarGrid v-for="month in grid" :key="month.value.toString()" class="w-full border-collapse select-none space-y-1">
             <RangeCalendarGridHead>
               <RangeCalendarGridRow class="mb-1 flex w-full justify-between">
                 <RangeCalendarHeadCell
@@ -45,7 +45,7 @@ const value = ref() as Ref<{ start: DateValue; end: DateValue }>
               </RangeCalendarGridRow>
             </RangeCalendarGridHead>
             <RangeCalendarGridBody>
-              <RangeCalendarGridRow v-for="(weekDates, index) in month.weeks" :key="`weekDate-${index}`" class="flex w-full">
+              <RangeCalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="flex w-full">
                 <RangeCalendarCell
                   v-for="weekDate in weekDates"
                   :key="weekDate.toString()"

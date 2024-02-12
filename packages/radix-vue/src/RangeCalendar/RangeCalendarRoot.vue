@@ -3,7 +3,8 @@ import { type DateValue, isSameDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { type Formatter, type Matcher, type WeekDayFormat, createContext, getDefaultDate, handleCalendarInitialFocus, isBefore } from '@/shared'
+import { createContext, getDefaultDate, handleCalendarInitialFocus, isBefore } from '@/shared'
+import type { CalendarView, Formatter, Matcher, WeekDayFormat } from '@/shared'
 import { useRangeCalendarState } from './useRangeCalendar'
 import { useCalendar } from '@/Calendar'
 
@@ -40,9 +41,11 @@ type RangeCalendarRootContext = {
   isNextButtonDisabled: Ref<boolean>
   isPrevButtonDisabled: Ref<boolean>
   formatter: Formatter
+  calendarView: Ref<CalendarView>
 }
 
 export interface RangeCalendarRootProps extends PrimitiveProps {
+  calendarView?: CalendarView
   modelValue?: { start: DateValue | undefined; end: DateValue | undefined }
   placeholder?: DateValue
   pagedNavigation?: boolean
@@ -60,6 +63,7 @@ export interface RangeCalendarRootProps extends PrimitiveProps {
   initialFocus?: boolean
   isDateDisabled?: Matcher
   isDateUnavailable?: Matcher
+  columns?: number
 }
 
 export type RangeCalendarRootEmits = {
@@ -91,9 +95,26 @@ const props = withDefaults(defineProps<RangeCalendarRootProps>(), {
   locale: 'en',
   isDateDisabled: undefined,
   isDateUnavailable: undefined,
+  calendarView: 'month',
+  columns: 4,
 })
 const emits = defineEmits<RangeCalendarRootEmits>()
-const { disabled, readonly, initialFocus, pagedNavigation, weekStartsOn, weekdayFormat, fixedWeeks, numberOfMonths, preventDeselect, isDateUnavailable: propsIsDateUnavailable, isDateDisabled: propsIsDateDisabled } = toRefs(props)
+const {
+  disabled,
+  readonly,
+  initialFocus,
+  pagedNavigation,
+  weekStartsOn,
+  weekdayFormat,
+  fixedWeeks,
+  numberOfMonths,
+  preventDeselect,
+  isDateUnavailable: propsIsDateUnavailable,
+  isDateDisabled: propsIsDateDisabled,
+  columns,
+} = toRefs(props)
+
+const calendarView = ref(props.calendarView)
 
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
@@ -125,7 +146,7 @@ const {
   isDateUnavailable,
   isNextButtonDisabled,
   isPrevButtonDisabled,
-  months,
+  grid,
   weekdays,
   isOutsideVisibleMonths,
   nextPage,
@@ -144,6 +165,8 @@ const {
   pagedNavigation: props.pagedNavigation,
   isDateDisabled: propsIsDateDisabled.value,
   isDateUnavailable: propsIsDateUnavailable.value,
+  calendarView,
+  columns,
 })
 
 const {
@@ -160,7 +183,8 @@ const {
   calendarLabel: props.calendarLabel,
   start: startValue,
   end: endValue,
-  months,
+  grid,
+  calendarView,
   isDateDisabled,
   isDateUnavailable,
   focusedValue,
@@ -226,6 +250,7 @@ provideRangeCalendarRootContext({
   nextPage,
   prevPage,
   parentElement,
+  calendarView,
   onPlaceholderChange(value) {
     placeholder.value = value
   },
@@ -247,6 +272,7 @@ onMounted(() => {
     :data-readonly="readonly ? '' : undefined"
     :data-disabled="disabled ? '' : undefined"
     :data-invalid="isInvalid ? '' : undefined"
+    :data-radix-vue-calendar-view="calendarView"
   >
     <div style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 1px;">
       <div role="heading" aria-level="2">
@@ -254,6 +280,11 @@ onMounted(() => {
       </div>
     </div>
 
-    <slot :date="modelValue" :months="months" :week-days="weekdays" />
+    <slot
+      :date="modelValue"
+      :grid="grid"
+      :calendar-view="calendarView"
+      :week-days="weekdays"
+    />
   </Primitive>
 </template>

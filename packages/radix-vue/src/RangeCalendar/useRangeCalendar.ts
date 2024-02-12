@@ -5,18 +5,19 @@
 import { type DateValue, isSameDay } from '@internationalized/date'
 import { type Ref, computed } from 'vue'
 import { areAllDaysBetweenValid, isBefore, isBetween, toDate } from '@/shared'
-import { type Matcher, type Month, type useDateFormatter } from '@/shared'
+import type { CalendarView, Grid, Matcher, useDateFormatter } from '@/shared'
 
 export type UseRangeCalendarProps = {
   start: Ref<DateValue | undefined>
   end: Ref<DateValue | undefined>
   formatter: ReturnType<typeof useDateFormatter>
-  months: Ref<Month<DateValue>[]>
+  grid: Ref<Grid<DateValue>[]>
   isDateDisabled: Matcher
   isDateUnavailable: Matcher
   locale: string
   calendarLabel: string | undefined
   focusedValue: Ref<DateValue | undefined>
+  calendarView: Ref<CalendarView>
 }
 
 export function useRangeCalendarState(props: UseRangeCalendarProps) {
@@ -97,19 +98,19 @@ export function useRangeCalendarState(props: UseRangeCalendarProps) {
   })
 
   const headingValue = computed(() => {
-    if (!props.months.value.length)
+    if (!props.grid.value.length)
       return ''
 
     if (props.locale !== props.formatter.getLocale())
       props.formatter.setLocale(props.locale)
 
-    if (props.months.value.length === 1) {
-      const month = props.months.value[0].value as DateValue
+    if (props.grid.value.length === 1) {
+      const month = props.grid.value[0].value as DateValue
       return `${props.formatter.fullMonthAndYear(toDate(month))}`
     }
 
-    const startMonth = toDate(props.months.value[0].value as DateValue)
-    const endMonth = toDate(props.months.value[props.months.value.length - 1].value as DateValue)
+    const startMonth = toDate(props.grid.value[0].value as DateValue)
+    const endMonth = toDate(props.grid.value[props.grid.value.length - 1].value as DateValue)
 
     const startMonthName = props.formatter.fullMonth(startMonth)
     const endMonthName = props.formatter.fullMonth(endMonth)

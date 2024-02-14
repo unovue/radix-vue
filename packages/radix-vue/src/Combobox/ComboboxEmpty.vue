@@ -15,7 +15,7 @@ const props = defineProps<ComboboxEmptyProps>()
 useForwardExpose()
 const rootContext = injectComboboxRootContext()
 // if no options, then show this
-const isEmpty = computed(() => rootContext.searchTerm.value && rootContext.filteredOptions.value.length === 0)
+const isEmpty = computed(() => rootContext.filteredOptions.value.length === 0)
 </script>
 
 <template>

@@ -31,7 +31,6 @@ const COMBOBOX_SELECT = 'combobox.select'
 import {
   computed,
   nextTick,
-  onMounted,
   ref,
   toRefs,
 } from 'vue'
@@ -97,11 +96,6 @@ if (props.value === '') {
   )
 }
 
-onMounted(() => {
-  if (!groupContext.options?.value?.includes(props.value))
-    groupContext.options?.value.push(props.value)
-})
-
 provideComboboxItemContext({
   isSelected,
 })
@@ -122,6 +116,7 @@ provideComboboxItemContext({
       :data-disabled="disabled ? '' : undefined"
       :as="as"
       :as-child="asChild"
+      :data-hidden="!isInOption ? true : undefined"
       @click="handleSelectCustomEvent"
       @pointermove="handlePointerMove"
     >

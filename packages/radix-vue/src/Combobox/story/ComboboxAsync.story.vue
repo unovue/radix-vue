@@ -2,15 +2,18 @@
 import { ref } from 'vue'
 import { ComboboxAnchor, ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxRoot, ComboboxTrigger, ComboboxViewport } from '../'
 import { Icon } from '@iconify/vue'
+import { useFetch } from '@vueuse/core'
 
 const v = ref<{ id: number }[]>([])
-const data = ref<{ id: number }[]>([])
+
+const { data, execute, isFinished } = useFetch('https://jsonplaceholder.typicode.com/comments', {
+  immediate: false,
+  initialData: [],
+}).get().json<{ id: number }[]>()
 
 async function handleOpen(val: boolean) {
-  if (val && data.value.length === 0) {
-    const result = (await fetch('https://jsonplaceholder.typicode.com/comments').then(res => res.json())) as Array<{ id: number }>
-    data.value = result
-  }
+  if (val && data.value?.length === 0)
+    execute()
 }
 </script>
 
@@ -33,9 +36,9 @@ async function handleOpen(val: boolean) {
 
         <ComboboxContent class="mt-2 min-w-[160px] bg-white overflow-hidden rounded shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade">
           <ComboboxViewport class="p-[5px] max-h-64 overflow-auto">
-            <ComboboxEmpty class="text-gray-400  text-xs font-medium text-center py-2" />
+            <ComboboxEmpty v-if="isFinished" class="text-gray-400  text-xs font-medium text-center py-2" />
 
-            <div v-if="!data.length" class="text-gray-400 text-center py-2">
+            <div v-if="!data?.length " class="text-gray-400 text-center py-2">
               Loading
             </div>
 

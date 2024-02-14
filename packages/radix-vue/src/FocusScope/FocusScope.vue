@@ -34,7 +34,7 @@ export interface FocusScopeProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { reactive, ref, watchEffect } from 'vue'
+import { nextTick, reactive, ref, watchEffect } from 'vue'
 import { isClient } from '@vueuse/shared'
 import {
   AUTOFOCUS_ON_MOUNT,
@@ -137,10 +137,11 @@ watchEffect((cleanupFn) => {
 
 watchEffect(async (cleanupFn) => {
   const container = currentElement.value
+  const previouslyFocusedElement = document.activeElement as HTMLElement | null
+  await nextTick()
   if (!container)
     return
   focusScopesStack.add(focusScope)
-  const previouslyFocusedElement = document.activeElement as HTMLElement | null
   const hasFocusedCandidate = container.contains(previouslyFocusedElement)
 
   if (!hasFocusedCandidate) {

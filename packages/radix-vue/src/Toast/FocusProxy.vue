@@ -13,7 +13,7 @@ const providerContext = injectToastProviderContext()
   <VisuallyHidden
     aria-hidden
     tabindex="0"
-    style="position: 'fixed'"
+    style="position: fixed"
     @focus="(event) => {
       const prevFocusedElement = event.relatedTarget as HTMLElement | null;
       const isFocusFromOutsideViewport = !providerContext.viewport.value?.contains(prevFocusedElement);

@@ -27,6 +27,9 @@ const rootContext = injectComboboxRootContext()
 const hasOptions = ref(false)
 
 function checkCollectionItem() {
+  if (!currentElement.value)
+    return
+
   const collectionItem = currentElement.value.querySelectorAll('[data-radix-vue-combobox-item]:not([data-hidden])')
   hasOptions.value = !!collectionItem.length
 }

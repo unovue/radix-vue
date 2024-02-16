@@ -5,7 +5,7 @@
 import { type DateTimeDuration, type DateValue, isSameDay } from '@internationalized/date'
 import { type Ref, computed, ref, watch } from 'vue'
 import { type CalendarView, type Grid, type Matcher, type WeekDayFormat, createMonths, isAfter, isBefore, toDate, useDateFormatter } from '@/shared'
-import { createDecade, createYear } from '@/shared/date'
+import { type CalendarHeadingSegmentValue, createDecade, createYear } from '@/shared/date'
 
 export type UseCalendarProps = {
   locale: string
@@ -71,16 +71,16 @@ export function useCalendarState(props: UseCalendarStateProps) {
     },
   )
 
-  const headingValue = computed(() => {
+  const headingValue = computed((): CalendarHeadingSegmentValue[] => {
     if (!props.grid.value.length)
-      return ''
+      return []
 
     if (props.locale !== props.formatter.getLocale())
       props.formatter.setLocale(props.locale)
 
     if (props.grid.value.length === 1) {
       const month = props.grid.value[0].value
-      return `${props.formatter.fullMonthAndYear(toDate(month))}`
+      return [{ type: 'month', value: props.formatter.fullMonth(toDate(month)) }, { type: 'literal', value: ' ' }, { type: 'year', value: props.formatter.fullYear(toDate(month)) }]
     }
 
     const startMonth = toDate(props.grid.value[0].value as DateValue)
@@ -91,12 +91,12 @@ export function useCalendarState(props: UseCalendarStateProps) {
     const startMonthYear = props.formatter.fullYear(startMonth)
     const endMonthYear = props.formatter.fullYear(endMonth)
 
-    const content = startMonthYear === endMonthYear ? `${startMonthName} - ${endMonthName} ${endMonthYear}` : `${startMonthName} ${startMonthYear} - ${endMonthName} ${endMonthYear}`
+    const content: CalendarHeadingSegmentValue[] = startMonthYear === endMonthYear ? [{ type: 'month', value: startMonthName }, { type: 'literal', value: ' - ' }, { type: 'month', value: endMonthName }, { type: 'literal', value: ' ' }, { type: 'year', value: startMonthYear }] : [{ type: 'month', value: startMonthName }, { type: 'literal', value: ' ' }, { type: 'year', value: startMonthYear }, { type: 'literal', value: ' - ' }, { type: 'month', value: endMonthName }, { type: 'literal', value: ' ' }, { type: 'year', value: endMonthYear }]
 
     return content
   })
 
-  const fullCalendarLabel = computed(() => `${props.calendarLabel ?? 'Event Date'}, ${headingValue.value}`)
+  const fullCalendarLabel = computed(() => `${props.calendarLabel ?? 'Event Date'}, ${headingValue.value.map(item => item.value).join('')}`)
   return {
     fullCalendarLabel,
     isDateSelected,
@@ -135,8 +135,6 @@ export function useCalendar(props: UseCalendarProps) {
   })
 
   function isOutsideVisibleView(date: DateValue) {
-    if (props.calendarView.value !== 'month')
-      return false
     return !visibleView.value.includes(date)
   }
 

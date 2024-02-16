@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot } from '../'
-import { ref } from 'vue'
-import type { DateValue } from '@internationalized/date'
-
-const value = ref<DateValue>()
 </script>
 
 <template>
@@ -12,7 +8,6 @@ const value = ref<DateValue>()
     <Variant title="default">
       <CalendarRoot
         v-slot="{ weekDays, grid }"
-        v-model="value"
         class="mt-6 rounded-[15px] border border-black bg-white p-[22px] shadow-md"
         :number-of-months="2"
         paged-navigation
@@ -55,13 +50,8 @@ const value = ref<DateValue>()
                   <CalendarCellTrigger
                     :day="weekDate"
                     :month="month.value"
-                    class="group relative inline-flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent p-0 text-sm font-normal text-black w-10 h-10 hover:border-black data-[disabled]:pointer-events-none data-[outside-month]:pointer-events-none data-[selected]:bg-black data-[selected]:font-medium data-[disabled]:text-black/30 data-[selected]:text-white data-[unavailable]:text-black/30 data-[unavailable]:line-through"
-                  >
-                    <div
-                      class="absolute top-[5px] hidden rounded-full w-1 h-1 group-data-[today]:block group-data-[today]:bg-grass9 group-data-[selected]:bg-white"
-                    />
-                    {{ weekDate.day }}
-                  </CalendarCellTrigger>
+                    class="relative flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent p-0 text-sm font-normal text-black p-4 hover:border-black data-[disabled]:pointer-events-none data-[outside-view]:pointer-events-none data-[selected]:bg-black data-[selected]:font-medium data-[disabled]:text-black/30 data-[selected]:text-white data-[unavailable]:text-black/30 data-[unavailable]:line-through before:absolute before:top-[5px] before:hidden before:rounded-full before:w-1 before:h-1 before:bg-white data-[today]:before:block data-[today]:before:bg-grass9 data-[selected]:before:bg-white"
+                  />
                 </CalendarCell>
               </CalendarGridRow>
             </CalendarGridBody>

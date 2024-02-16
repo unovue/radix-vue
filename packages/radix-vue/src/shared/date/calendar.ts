@@ -120,7 +120,7 @@ export function startOfDecade(dateObj: DateValue) {
 
 export function endOfDecade(dateObj: DateValue) {
   // round to the lowest nearest 10 when building the decade
-  return endOfYear(dateObj.add({ years: dateObj.year - Math.floor(dateObj.year / 10) * 10 + 1 }).set({ day: 35, month: 12 }))
+  return endOfYear(dateObj.add({ years: Math.ceil((dateObj.year + 1) / 10) * 10 - dateObj.year - 1 }).set({ day: 35, month: 12 }))
 }
 
 export function createDecade(props: SetDecadeProps): Grid<DateValue>[] {

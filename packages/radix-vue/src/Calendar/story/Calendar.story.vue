@@ -1,41 +1,20 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot, type CalendarRootProps, type CalendarView } from '../'
-import { CalendarDateTime, type DateValue, getLocalTimeZone } from '@internationalized/date'
-
-import { useDateFormatter } from '../..'
-import { type Ref, ref } from 'vue'
+import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarHeadingSegment, CalendarNext, CalendarPrev, CalendarRoot, type CalendarRootProps } from '../'
 
 const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
   return date.day === 17 || date.day === 18
 }
-
-const { custom } = useDateFormatter('en')
-
-function formatDateByView(view: CalendarView, date: DateValue) {
-  if (view === 'month')
-    return date.day
-
-  if (view === 'year')
-    return custom(date.toDate(getLocalTimeZone()), { month: 'short' })
-
-  return date.year
-}
-const calendarDateTime = new CalendarDateTime(1980, 1, 20, 12, 30, 0, 0)
-const value = ref(calendarDateTime) as Ref<DateValue>
 </script>
 
 <template>
   <Story title="Calendar/Default" :layout="{ type: 'single' }">
     <Variant title="default">
       <CalendarRoot
-        v-slot="{ weekDays, grid, calendarView }"
-        v-model="value"
+        v-slot="{ weekDays, grid }"
         :is-date-unavailable="isDateUnavailable"
         class="mt-6 rounded-[15px] border border-black bg-white p-[22px] shadow-md"
         fixed-weeks
-        :number-of-months="2"
-        paged-navigation
       >
         <CalendarHeader class="flex items-center justify-between">
           <CalendarPrev
@@ -43,7 +22,9 @@ const value = ref(calendarDateTime) as Ref<DateValue>
           >
             <Icon icon="radix-icons:chevron-left" class="w-6 h-6" />
           </CalendarPrev>
-          <CalendarHeading class="text-[15px] text-black font-medium" />
+          <CalendarHeading v-slot="{ headingValue }" class="text-[15px] text-black font-medium">
+            <CalendarHeadingSegment v-for="item in headingValue" :key="item.value" :type="item.type" :value="item.value" />
+          </CalendarHeading>
           <CalendarNext
             class="inline-flex items-center cursor-pointer justify-center text-black rounded-[9px] bg-transparent w-10 h-10 hover:bg-black hover:text-white active:scale-98 active:transition-all"
           >
@@ -75,13 +56,8 @@ const value = ref(calendarDateTime) as Ref<DateValue>
                   <CalendarCellTrigger
                     :day="weekDate"
                     :month="month.value"
-                    class="group relative inline-flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent p-0 text-sm font-normal text-black p-4 hover:border-black data-[disabled]:pointer-events-none data-[outside-view]:pointer-events-none data-[selected]:bg-black data-[selected]:font-medium data-[disabled]:text-black/30 data-[selected]:text-white data-[unavailable]:text-black/30 data-[unavailable]:line-through"
-                  >
-                    <div
-                      class="absolute top-[5px] hidden rounded-full w-1 h-1 group-data-[today]:block group-data-[today]:bg-grass9 group-data-[selected]:bg-white"
-                    />
-                    {{ formatDateByView(calendarView, weekDate) }}
-                  </CalendarCellTrigger>
+                    class="relative flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent p-0 text-sm font-normal text-black p-4 hover:border-black data-[disabled]:pointer-events-none data-[outside-view]:pointer-events-none data-[selected]:bg-black data-[selected]:font-medium data-[disabled]:text-black/30 data-[selected]:text-white data-[unavailable]:text-black/30 data-[unavailable]:line-through before:absolute before:top-[5px] before:hidden before:rounded-full before:w-1 before:h-1 before:bg-white data-[today]:before:block data-[today]:before:bg-grass9 data-[selected]:before:bg-white"
+                  />
                 </CalendarCell>
               </CalendarGridRow>
             </CalendarGridBody>

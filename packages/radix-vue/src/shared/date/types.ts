@@ -11,6 +11,11 @@ export type DayOfWeek = {
   daysOfWeek: (typeof daysOfWeek)[number][]
 }
 
+export type CalendarHeadingSegmentValue = {
+  type: 'month' | 'year' | 'literal'
+  value: string
+}
+
 export type CalendarView = 'month' | 'year' | 'decade'
 
 export type DateRange = {

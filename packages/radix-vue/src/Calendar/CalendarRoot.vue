@@ -6,6 +6,7 @@ import type { PrimitiveProps } from '@/Primitive'
 import { createContext, getDefaultDate, handleCalendarInitialFocus } from '@/shared'
 import type { CalendarView, Formatter, Matcher, WeekDayFormat } from '@/shared'
 import { useCalendar, useCalendarState } from './useCalendar'
+import type { CalendarHeadingSegmentValue } from '@/shared/date'
 
 type CalendarRootContext = {
   calendarView: Ref<CalendarView>
@@ -26,7 +27,7 @@ type CalendarRootContext = {
   onPlaceholderChange: (date: DateValue) => void
   fullCalendarLabel: Ref<string>
   parentElement: Ref<HTMLElement | undefined>
-  headingValue: Ref<string>
+  headingValue: Ref<CalendarHeadingSegmentValue[]>
   isInvalid: Ref<boolean>
   nextPage: () => void
   prevPage: () => void
@@ -38,10 +39,11 @@ type CalendarRootContext = {
   isPrevButtonDisabled: Ref<boolean>
   formatter: Formatter
   columns: Ref<number>
+  setView: (view: CalendarView) => void
 }
 
 interface BaseCalendarRootProps extends PrimitiveProps {
-  calendarView?: CalendarView
+  initialView?: CalendarView
   columns?: number
   placeholder?: DateValue
   pagedNavigation?: boolean
@@ -104,7 +106,7 @@ const props = withDefaults(defineProps<CalendarRootProps>(), {
   isDateDisabled: undefined,
   isDateUnavailable: undefined,
   columns: 4,
-  calendarView: 'month',
+  initialView: 'month',
 })
 const emits = defineEmits<CalendarRootEmits>()
 const {
@@ -125,7 +127,7 @@ const {
   calendarLabel,
 } = toRefs(props)
 
-const calendarView = ref(props.calendarView)
+const calendarView = ref(props.initialView)
 
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
@@ -265,6 +267,9 @@ provideCalendarRootContext({
   onPlaceholderChange(value) {
     placeholder.value = value
   },
+  setView(view) {
+    calendarView.value = view
+  },
   onDateChange,
 })
 </script>
@@ -287,10 +292,11 @@ provideCalendarRootContext({
       </div>
     </div>
     <slot
-      :date="modelValue"
+      :date="placeholder"
       :grid="grid"
       :calendar-view="calendarView"
       :week-days="weekdays"
+      :formatter="formatter"
     />
   </Primitive>
 </template>

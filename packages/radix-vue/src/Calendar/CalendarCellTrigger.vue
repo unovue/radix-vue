@@ -8,10 +8,14 @@ import {
   isSameYear,
   isToday,
   today,
-
 } from '@internationalized/date'
 import { computed, nextTick } from 'vue'
-import { isBetweenInclusive, parseStringToDateValue, toDate, useKbd } from '@/shared'
+import {
+  isBetweenInclusive,
+  parseStringToDateValue,
+  toDate,
+  useKbd,
+} from '@/shared'
 import { endOfDecade, startOfDecade } from '@/shared/date'
 
 export interface CalendarCellTriggerProps extends PrimitiveProps {
@@ -24,7 +28,9 @@ export interface CalendarCellTriggerProps extends PrimitiveProps {
 import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { injectCalendarRootContext } from './CalendarRoot.vue'
 
-const props = withDefaults(defineProps<CalendarCellTriggerProps>(), { as: 'div' })
+const props = withDefaults(defineProps<CalendarCellTriggerProps>(), {
+  as: 'div',
+})
 const kbd = useKbd()
 const rootContext = injectCalendarRootContext()
 
@@ -40,7 +46,9 @@ const labelText = computed(() => {
 })
 
 const isDisabled = computed(() => rootContext.isDateDisabled(props.day))
-const isUnavailable = computed(() => rootContext.isDateUnavailable?.(props.day))
+const isUnavailable = computed(() =>
+  rootContext.isDateUnavailable?.(props.day),
+)
 // TODO: adjust computed booleans to take into account the calendar view and the grid values
 const isDateToday = computed(() => {
   if (rootContext.calendarView.value === 'decade')
@@ -50,13 +58,21 @@ const isDateToday = computed(() => {
   return isToday(props.day, getLocalTimeZone())
 })
 const isOutsideView = computed(() => {
-  if (rootContext.calendarView.value === 'decade')
-    return !isBetweenInclusive(props.day, startOfDecade(props.month), endOfDecade(props.month))
+  if (rootContext.calendarView.value === 'decade') {
+    return !isBetweenInclusive(
+      props.day,
+      startOfDecade(props.month),
+      endOfDecade(props.month),
+    )
+  }
+
   if (rootContext.calendarView.value === 'year')
     return !isSameYear(props.day, props.month)
   return !isSameMonth(props.day, props.month)
 })
-const isOutsideVisibleView = computed(() => rootContext.isOutsideVisibleView(props.day))
+const isOutsideVisibleView = computed(() =>
+  rootContext.isOutsideVisibleView(props.day),
+)
 
 const isFocusedDate = computed(() => {
   if (rootContext.calendarView.value === 'decade')
@@ -67,7 +83,8 @@ const isFocusedDate = computed(() => {
 })
 const isSelectedDate = computed(() => rootContext.isDateSelected(props.day))
 
-const SELECTOR = '[data-radix-vue-calendar-cell-trigger]:not([data-disabled]):not([data-outside-month]):not([data-outside-visible-months])'
+const SELECTOR
+  = '[data-radix-vue-calendar-cell-trigger]:not([data-disabled]):not([data-outside-month]):not([data-outside-visible-months])'
 
 function changeDate(date: DateValue) {
   if (rootContext.readonly.value)
@@ -76,14 +93,20 @@ function changeDate(date: DateValue) {
     return
   if (rootContext.calendarView.value !== 'month') {
     rootContext.onPlaceholderChange(date)
-    rootContext.calendarView.value = rootContext.calendarView.value === 'decade' ? 'year' : 'month'
+    rootContext.calendarView.value
+      = rootContext.calendarView.value === 'decade' ? 'year' : 'month'
     return
   }
   rootContext.onDateChange(date)
 }
 
 function handleClick(e: Event) {
-  changeDate(parseStringToDateValue((e.target as HTMLDivElement).getAttribute('data-value')!, rootContext.placeholder.value))
+  changeDate(
+    parseStringToDateValue(
+      (e.target as HTMLDivElement).getAttribute('data-value')!,
+      rootContext.placeholder.value,
+    ),
+  )
 }
 
 function handleArrowKey(e: KeyboardEvent) {
@@ -96,7 +119,8 @@ function handleArrowKey(e: KeyboardEvent) {
     : []
   const index = allCollectionItems.indexOf(currentElement.value)
   let newIndex = index
-  const indexIncrementation = rootContext.calendarView.value === 'month' ? 7 : rootContext.columns.value
+  const indexIncrementation
+    = rootContext.calendarView.value === 'month' ? 7 : rootContext.columns.value
   switch (e.code) {
     case kbd.ARROW_RIGHT:
       newIndex++
@@ -112,7 +136,12 @@ function handleArrowKey(e: KeyboardEvent) {
       break
     case kbd.ENTER:
     case kbd.SPACE_CODE:
-      changeDate(parseStringToDateValue(currentCell!.getAttribute('data-value')!, rootContext.placeholder.value))
+      changeDate(
+        parseStringToDateValue(
+          currentCell!.getAttribute('data-value')!,
+          rootContext.placeholder.value,
+        ),
+      )
       return
     default:
       return
@@ -131,7 +160,9 @@ function handleArrowKey(e: KeyboardEvent) {
       const newCollectionItems: HTMLElement[] = parentElement
         ? Array.from(parentElement.querySelectorAll(SELECTOR))
         : []
-      newCollectionItems[newCollectionItems.length - Math.abs(newIndex)].focus()
+      newCollectionItems[
+        newCollectionItems.length - Math.abs(newIndex)
+      ].focus()
     })
     return
   }
@@ -148,6 +179,18 @@ function handleArrowKey(e: KeyboardEvent) {
     })
   }
 }
+const formattedTriggerText = computed(() => {
+  if (rootContext.calendarView.value === 'month')
+    return props.day.day
+
+  if (rootContext.calendarView.value === 'year') {
+    return rootContext.formatter.custom(props.day.toDate(getLocalTimeZone()), {
+      month: 'short',
+    })
+  }
+
+  return props.day.year
+})
 </script>
 
 <template>
@@ -157,7 +200,9 @@ function handleArrowKey(e: KeyboardEvent) {
     role="button"
     :aria-label="labelText"
     data-radix-vue-calendar-cell-trigger
-    :aria-disabled="isOutsideView || isDisabled || isUnavailable ? true : undefined"
+    :aria-disabled="
+      isOutsideView || isDisabled || isUnavailable ? true : undefined
+    "
     :data-selected="isSelectedDate ? true : undefined"
     :data-value="day.toString()"
     :data-disabled="isDisabled || isOutsideView ? '' : undefined"
@@ -171,6 +216,8 @@ function handleArrowKey(e: KeyboardEvent) {
     @keydown.up.down.left.right.space.enter="handleArrowKey"
     @keydown.enter.prevent
   >
-    <slot />
+    <slot>
+      {{ formattedTriggerText }}
+    </slot>
   </Primitive>
 </template>

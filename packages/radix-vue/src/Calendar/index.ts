@@ -2,6 +2,7 @@ export { default as CalendarRoot, type CalendarRootProps, type CalendarRootEmits
 
 export { default as CalendarHeader, type CalendarHeaderProps } from './CalendarHeader.vue'
 export { default as CalendarHeading, type CalendarHeadingProps } from './CalendarHeading.vue'
+export { default as CalendarHeadingSegment, type CalendarHeadingSegmentProps } from './CalendarHeadingSegment.vue'
 
 export { default as CalendarGrid, type CalendarGridProps } from './CalendarGrid.vue'
 

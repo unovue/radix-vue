@@ -34,6 +34,7 @@ export type {
   DateSegmentPart,
   TimeSegmentPart,
   CalendarView,
+  CalendarHeadingSegmentValue,
 } from './types'
 
 export {

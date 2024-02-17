@@ -29,6 +29,8 @@ export {
   CalendarCellTrigger,
   type CalendarCellTriggerProps,
   type CalendarView,
+  CalendarHeadingSegment,
+  type CalendarHeadingSegmentProps,
 } from './Calendar'
 export * from './Checkbox'
 export * from './Collapsible'

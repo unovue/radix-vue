@@ -49,7 +49,6 @@ const isDisabled = computed(() => rootContext.isDateDisabled(props.day))
 const isUnavailable = computed(() =>
   rootContext.isDateUnavailable?.(props.day),
 )
-// TODO: adjust computed booleans to take into account the calendar view and the grid values
 const isDateToday = computed(() => {
   if (rootContext.calendarView.value === 'decade')
     return isSameYear(props.day, today(getLocalTimeZone()))

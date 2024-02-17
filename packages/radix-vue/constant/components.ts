@@ -42,6 +42,7 @@ export const components = {
     'CalendarGridBody',
     'CalendarGridRow',
     'CalendarCellTrigger',
+    'CalendarHeadingSegment',
   ],
 
   checkbox: [
@@ -221,6 +222,7 @@ export const components = {
     'RangeCalendarRoot',
     'RangeCalendarHeader',
     'RangeCalendarHeading',
+    'RangeCalendarHeadingSegment',
     'RangeCalendarGrid',
     'RangeCalendarCell',
     'RangeCalendarHeadCell',

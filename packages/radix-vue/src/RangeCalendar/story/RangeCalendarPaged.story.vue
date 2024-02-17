@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import { RangeCalendarCell, RangeCalendarCellTrigger, RangeCalendarGrid, RangeCalendarGridBody, RangeCalendarGridHead, RangeCalendarGridRow, RangeCalendarHeadCell, RangeCalendarHeader, RangeCalendarHeading, RangeCalendarNext, RangeCalendarPrev, RangeCalendarRoot } from '../'
-import { type Ref, ref } from 'vue'
-import type { DateValue } from '@internationalized/date'
-
-const value = ref() as Ref<{ start: DateValue; end: DateValue }>
+import { RangeCalendarCell, RangeCalendarCellTrigger, RangeCalendarGrid, RangeCalendarGridBody, RangeCalendarGridHead, RangeCalendarGridRow, RangeCalendarHeadCell, RangeCalendarHeader, RangeCalendarHeading, RangeCalendarHeadingSegment, RangeCalendarNext, RangeCalendarPrev, RangeCalendarRoot } from '../'
 </script>
 
 <template>
@@ -12,10 +8,10 @@ const value = ref() as Ref<{ start: DateValue; end: DateValue }>
     <Variant title="default">
       <RangeCalendarRoot
         v-slot="{ weekDays, grid }"
-        v-model="value"
         class="mt-6 rounded-[15px] border border-black bg-white p-[22px] shadow-md"
-        :number-of-months="2"
+        fixed-weeks
         paged-navigation
+        :number-of-months="2"
       >
         <RangeCalendarHeader class="flex items-center justify-between">
           <RangeCalendarPrev
@@ -23,7 +19,9 @@ const value = ref() as Ref<{ start: DateValue; end: DateValue }>
           >
             <Icon icon="radix-icons:chevron-left" class="w-6 h-6" />
           </RangeCalendarPrev>
-          <RangeCalendarHeading class="text-[15px] text-black font-medium" />
+          <RangeCalendarHeading v-slot="{ headingValue }" class="text-[15px] text-black font-medium">
+            <RangeCalendarHeadingSegment v-for="item in headingValue" :key="item.value" :type="item.type" :value="item.value" />
+          </RangeCalendarHeading>
           <RangeCalendarNext
             class="inline-flex items-center cursor-pointer justify-center text-black rounded-[9px] bg-transparent w-10 h-10 hover:bg-black hover:text-white active:scale-98 active:transition-all"
           >
@@ -35,7 +33,7 @@ const value = ref() as Ref<{ start: DateValue; end: DateValue }>
         >
           <RangeCalendarGrid v-for="month in grid" :key="month.value.toString()" class="w-full border-collapse select-none space-y-1">
             <RangeCalendarGridHead>
-              <RangeCalendarGridRow class="mb-1 flex w-full justify-between">
+              <RangeCalendarGridRow class="grid grid-cols-4 data-[radix-vue-calendar-month-view]:grid-cols-7">
                 <RangeCalendarHeadCell
                   v-for="day in weekDays" :key="day"
                   class="w-10 rounded-md text-xs !font-normal text-black"
@@ -45,7 +43,7 @@ const value = ref() as Ref<{ start: DateValue; end: DateValue }>
               </RangeCalendarGridRow>
             </RangeCalendarGridHead>
             <RangeCalendarGridBody>
-              <RangeCalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="flex w-full">
+              <RangeCalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="grid grid-cols-4 data-[radix-vue-calendar-month-view]:grid-cols-7">
                 <RangeCalendarCell
                   v-for="weekDate in weekDates"
                   :key="weekDate.toString()"
@@ -55,13 +53,8 @@ const value = ref() as Ref<{ start: DateValue; end: DateValue }>
                   <RangeCalendarCellTrigger
                     :day="weekDate"
                     :month="month.value"
-                    class="group relative inline-flex items-center justify-center whitespace-nowrap border border-transparent bg-transparent p-0 text-sm font-normal text-black w-10 h-10 hover:border-black data-[disabled]:pointer-events-none data-[outside-month]:pointer-events-none data-[selected]:bg-black/30 data-[selected]:font-medium data-[disabled]:text-black/30 data-[selected]:text-white data-[unavailable]:text-black/30 data-[unavailable]:line-through data-[highlighted]:bg-grass9/30 data-[highlighted]:rounded-none data-[selection-start]:bg-black data-[selection-start]:rounded-l-[9px] data-[selection-end]:bg-black data-[selection-end]:rounded-r-[9px] data-[selected]:[&:not([data-selection-start])]:[&:not([data-selection-end])]:rounded-none"
-                  >
-                    <div
-                      class="absolute top-[5px] hidden rounded-full w-1 h-1 group-data-[today]:block group-data-[today]:bg-grass9 group-data-[selected]:bg-white"
-                    />
-                    {{ weekDate.day }}
-                  </RangeCalendarCellTrigger>
+                    class="relative inline-flex items-center justify-center whitespace-nowrap border border-transparent bg-transparent p-2 text-sm font-normal text-black hover:border-black data-[disabled]:pointer-events-none data-[outside-month]:pointer-events-none data-[selected]:bg-black/30 data-[selected]:font-medium data-[disabled]:text-black/30 data-[selected]:text-white data-[unavailable]:text-black/30 data-[unavailable]:line-through data-[highlighted]:bg-grass9/30 data-[highlighted]:rounded-none data-[selection-start]:bg-black data-[selection-start]:rounded-l-[9px] data-[selection-end]:bg-black data-[selection-end]:rounded-r-[9px] data-[selected]:[&:not([data-selection-start])]:[&:not([data-selection-end])]:rounded-none before:absolute before:top-[5px] before:hidden before:rounded-full before:w-1 before:h-1 before:bg-white data-[today]:before:block data-[today]:before:bg-grass9 data-[selected]:before:bg-white"
+                  />
                 </RangeCalendarCell>
               </RangeCalendarGridRow>
             </RangeCalendarGridBody>

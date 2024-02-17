@@ -14,8 +14,6 @@ const rootContext = injectRangeCalendarRootContext()
 
 <template>
   <Primitive v-bind="props" :data-disabled="rootContext.disabled.value ? '' : undefined">
-    <slot :heading-value="rootContext.headingValue">
-      {{ rootContext.headingValue.value }}
-    </slot>
+    <slot :heading-value="rootContext.headingValue.value" />
   </Primitive>
 </template>

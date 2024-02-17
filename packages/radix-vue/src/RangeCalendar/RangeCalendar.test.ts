@@ -61,7 +61,7 @@ describe('RangeCalendar', () => {
     expect(selectedDays).toHaveLength(6)
 
     const heading = getByTestId('heading')
-    expect(heading).toHaveTextContent('January 1980')
+    expect(Array.from(heading.children).map(item => item.textContent).join('')).toBe('January 1980')
   })
 
   it('respects a default value if provided - `CalendarDateTime`', async () => {
@@ -71,7 +71,7 @@ describe('RangeCalendar', () => {
     expect(selectedDays).toHaveLength(6)
 
     const heading = getByTestId('heading')
-    expect(heading).toHaveTextContent('January 1980')
+    expect(Array.from(heading.children).map(item => item.textContent).join('')).toBe('January 1980')
   })
 
   it('respects a default value if provided - `ZonedDateTime`', async () => {
@@ -81,7 +81,7 @@ describe('RangeCalendar', () => {
     expect(selectedDays).toHaveLength(6)
 
     const heading = getByTestId('heading')
-    expect(heading).toHaveTextContent('January 1980')
+    expect(Array.from(heading.children).map(item => item.textContent).join('')).toBe('January 1980')
   })
 
   it('resets range on select when a range is already selected', async () => {
@@ -121,10 +121,10 @@ describe('RangeCalendar', () => {
     const nextBtn = getByTestId('next-button')
 
     for (const month of months) {
-      expect(heading).toHaveTextContent(`${month} 1980`)
+      expect(Array.from(heading.children).map(item => item.textContent).join('')).toBe(`${month} 1980`)
       await user.click(nextBtn)
     }
-    expect(heading).toHaveTextContent('January 1981')
+    expect(Array.from(heading.children).map(item => item.textContent).join('')).toBe('January 1981')
   })
 
   it('navigates the months backwards using the prev button', async () => {
@@ -135,14 +135,14 @@ describe('RangeCalendar', () => {
     const newMonths = [...months].reverse()
     newMonths.pop()
 
-    expect(heading).toHaveTextContent('January 1980')
+    expect(Array.from(heading.children).map(item => item.textContent).join('')).toBe('January 1980')
     await user.click(prevBtn)
 
     for (const month of newMonths) {
-      expect(heading).toHaveTextContent(`${month} 1979`)
+      expect(Array.from(heading.children).map(item => item.textContent).join('')).toBe(`${month} 1979`)
       await user.click(prevBtn)
     }
-    expect(heading).toHaveTextContent('January 1979')
+    expect(Array.from(heading.children).map(item => item.textContent).join('')).toBe('January 1979')
   })
 
   it('always renders six weeks when `fixedWeeks` is `true`', async () => {
@@ -181,17 +181,17 @@ describe('RangeCalendar', () => {
     const prevBtn = getByTestId('prev-button')
     await user.click(prevBtn)
     const heading = getByTestId('heading')
-    expect(heading).toHaveTextContent('December 1979')
+    expect(Array.from(heading.children).map(item => item.textContent).join('')).toBe('December 1979')
     expect(prevBtn).not.toHaveAttribute('aria-disabled', 'true')
     expect(prevBtn).not.toHaveAttribute('data-disabled')
 
     await user.click(prevBtn)
-    expect(heading).toHaveTextContent('November 1979')
+    expect(Array.from(heading.children).map(item => item.textContent).join('')).toBe('November 1979')
     expect(prevBtn).toHaveAttribute('aria-disabled', 'true')
     expect(prevBtn).toHaveAttribute('data-disabled')
 
     await user.click(prevBtn)
-    expect(heading).toHaveTextContent('November 1979')
+    expect(Array.from(heading.children).map(item => item.textContent).join('')).toBe('November 1979')
   })
 
   it('should not allow navigation after the `maxValue` (next button)', async () => {
@@ -205,17 +205,17 @@ describe('RangeCalendar', () => {
     const nextBtn = getByTestId('next-button')
     await user.click(nextBtn)
     const heading = getByTestId('heading')
-    expect(heading).toHaveTextContent('February 1980')
+    expect(Array.from(heading.children).map(item => item.textContent).join('')).toBe('February 1980')
     expect(nextBtn).not.toHaveAttribute('aria-disabled', 'true')
     expect(nextBtn).not.toHaveAttribute('data-disabled')
 
     await user.click(nextBtn)
-    expect(heading).toHaveTextContent('March 1980')
+    expect(Array.from(heading.children).map(item => item.textContent).join('')).toBe('March 1980')
     expect(nextBtn).toHaveAttribute('aria-disabled', 'true')
     expect(nextBtn).toHaveAttribute('data-disabled')
 
     await user.click(nextBtn)
-    expect(heading).toHaveTextContent('March 1980')
+    expect(Array.from(heading.children).map(item => item.textContent).join('')).toBe('March 1980')
   })
 
   it('does not navigate after `maxValue` (with keyboard)', async () => {
@@ -231,7 +231,7 @@ describe('RangeCalendar', () => {
     expect(firstDayInMonth).toHaveFocus()
 
     const heading = getByTestId('heading')
-    expect(heading).toHaveTextContent('January 1980')
+    expect(Array.from(heading.children).map(item => item.textContent).join('')).toBe('January 1980')
 
     // five keypresses to February 1980
     await user.keyboard(kbd.ARROW_DOWN)
@@ -244,7 +244,7 @@ describe('RangeCalendar', () => {
     expect(getByTestId('date-1-29')).toHaveFocus()
     await user.keyboard(kbd.ARROW_DOWN)
     expect(getByTestId('date-2-5')).toHaveFocus()
-    expect(heading).toHaveTextContent('February 1980')
+    expect(Array.from(heading.children).map(item => item.textContent).join('')).toBe('February 1980')
 
     // four keypresses to March 1980
     await user.keyboard(kbd.ARROW_DOWN)
@@ -255,7 +255,7 @@ describe('RangeCalendar', () => {
     expect(getByTestId('date-2-26')).toHaveFocus()
     await user.keyboard(kbd.ARROW_DOWN)
     expect(getByTestId('date-3-4')).toHaveFocus()
-    expect(heading).toHaveTextContent('March 1980')
+    expect(Array.from(heading.children).map(item => item.textContent).join('')).toBe('March 1980')
 
     // four keypresses to April 1980
     await user.keyboard(kbd.ARROW_DOWN)
@@ -266,7 +266,7 @@ describe('RangeCalendar', () => {
     expect(getByTestId('date-3-25')).toHaveFocus()
     await user.keyboard(kbd.ARROW_DOWN)
     expect(getByTestId('date-3-25')).toHaveFocus()
-    expect(heading).toHaveTextContent('March 1980')
+    expect(Array.from(heading.children).map(item => item.textContent).join('')).toBe('March 1980')
   })
 
   it('does not navigate before `minValue` (with keyboard)', async () => {
@@ -282,12 +282,12 @@ describe('RangeCalendar', () => {
     expect(firstDayInMonth).toHaveFocus()
 
     const heading = getByTestId('heading')
-    expect(heading).toHaveTextContent('January 1980')
+    expect(Array.from(heading.children).map(item => item.textContent).join('')).toBe('January 1980')
 
     // one keypress to get to December 1979
     await user.keyboard(kbd.ARROW_UP)
     expect(getByTestId('date-12-25')).toHaveFocus()
-    expect(heading).toHaveTextContent('December 1979')
+    expect(Array.from(heading.children).map(item => item.textContent).join('')).toBe('December 1979')
 
     // four keypresses to November 1979
     await user.keyboard(kbd.ARROW_UP)
@@ -298,7 +298,7 @@ describe('RangeCalendar', () => {
     expect(getByTestId('date-12-4')).toHaveFocus()
     await user.keyboard(kbd.ARROW_UP)
     expect(getByTestId('date-12-4')).toHaveFocus()
-    expect(heading).toHaveTextContent('December 1979')
+    expect(Array.from(heading.children).map(item => item.textContent).join('')).toBe('December 1979')
   })
 
   it('handles unavailable dates appropriately', async () => {

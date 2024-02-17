@@ -14,7 +14,7 @@ const rootContext = injectRangeCalendarRootContext()
 </script>
 
 <template>
-  <Primitive v-bind="props" :data-radix-vue-calendar-view="rootContext.calendarView.value">
+  <Primitive v-bind="props" :data-radix-vue-calendar-month-view="rootContext.calendarView.value === 'month' ? '' : undefined">
     <slot />
   </Primitive>
 </template>

@@ -6,6 +6,7 @@ import { type DateValue, isSameDay } from '@internationalized/date'
 import { type Ref, computed } from 'vue'
 import { areAllDaysBetweenValid, isBefore, isBetween, toDate } from '@/shared'
 import type { CalendarView, Grid, Matcher, useDateFormatter } from '@/shared'
+import type { CalendarHeadingSegmentValue } from '@/shared/date'
 
 export type UseRangeCalendarProps = {
   start: Ref<DateValue | undefined>
@@ -97,16 +98,16 @@ export function useRangeCalendarState(props: UseRangeCalendarProps) {
     return null
   })
 
-  const headingValue = computed(() => {
+  const headingValue = computed((): CalendarHeadingSegmentValue[] => {
     if (!props.grid.value.length)
-      return ''
+      return []
 
     if (props.locale !== props.formatter.getLocale())
       props.formatter.setLocale(props.locale)
 
     if (props.grid.value.length === 1) {
-      const month = props.grid.value[0].value as DateValue
-      return `${props.formatter.fullMonthAndYear(toDate(month))}`
+      const month = props.grid.value[0].value
+      return [{ type: 'month', value: props.formatter.fullMonth(toDate(month)) }, { type: 'literal', value: ' ' }, { type: 'year', value: props.formatter.fullYear(toDate(month)) }]
     }
 
     const startMonth = toDate(props.grid.value[0].value as DateValue)
@@ -117,7 +118,7 @@ export function useRangeCalendarState(props: UseRangeCalendarProps) {
     const startMonthYear = props.formatter.fullYear(startMonth)
     const endMonthYear = props.formatter.fullYear(endMonth)
 
-    const content = startMonthYear === endMonthYear ? `${startMonthName} - ${endMonthName} ${endMonthYear}` : `${startMonthName} ${startMonthYear} - ${endMonthName} ${endMonthYear}`
+    const content: CalendarHeadingSegmentValue[] = startMonthYear === endMonthYear ? [{ type: 'month', value: startMonthName }, { type: 'literal', value: ' - ' }, { type: 'month', value: endMonthName }, { type: 'literal', value: ' ' }, { type: 'year', value: startMonthYear }] : [{ type: 'month', value: startMonthName }, { type: 'literal', value: ' ' }, { type: 'year', value: startMonthYear }, { type: 'literal', value: ' - ' }, { type: 'month', value: endMonthName }, { type: 'literal', value: ' ' }, { type: 'year', value: endMonthYear }]
 
     return content
   })

@@ -2,6 +2,7 @@ export { default as RangeCalendarRoot, type RangeCalendarRootProps, type RangeCa
 
 export { default as RangeCalendarHeader, type RangeCalendarHeaderProps } from './RangeCalendarHeader.vue'
 export { default as RangeCalendarHeading, type RangeCalendarHeadingProps } from './RangeCalendarHeading.vue'
+export { default as RangeCalendarHeadingSegment, type RangeCalendarHeadingSegmentProps } from './RangeCalendarHeadingSegment.vue'
 
 export { default as RangeCalendarGrid, type RangeCalendarGridProps } from './RangeCalendarGrid.vue'
 

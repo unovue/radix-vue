@@ -5,11 +5,14 @@ import {
   getLocalTimeZone,
   isSameDay,
   isSameMonth,
+  isSameYear,
   isToday,
+  today,
 
 } from '@internationalized/date'
 import { computed, nextTick } from 'vue'
 import { isBetweenInclusive, parseStringToDateValue, toDate, useKbd } from '@/shared'
+import { endOfDecade, startOfDecade } from '@/shared/date'
 
 export interface RangeCalendarCellTriggerProps extends PrimitiveProps {
   day: DateValue
@@ -37,9 +40,6 @@ const labelText = computed(() => rootContext.formatter.custom(toDate(props.day),
 
 const isDisabled = computed(() => rootContext.isDateDisabled(props.day))
 const isUnavailable = computed(() => rootContext.isDateUnavailable?.(props.day))
-const isDateToday = computed(() => isToday(props.day, getLocalTimeZone()))
-const isOutsideMonth = computed(() => !isSameMonth(props.day, props.month))
-const isFocusedDate = computed(() => isSameDay(props.day, rootContext.placeholder.value))
 const isSelectedDate = computed(() => rootContext.isSelected(props.day))
 const isSelectionStart = computed(() => rootContext.isSelectionStart(props.day))
 const isSelectionEnd = computed(() => rootContext.isSelectionEnd(props.day))
@@ -47,13 +47,54 @@ const isHighlighted = computed(() => rootContext.highlightedRange.value
   ? isBetweenInclusive(props.day, rootContext.highlightedRange.value.start, rootContext.highlightedRange.value.end)
   : false)
 
-const SELECTOR = '[data-radix-vue-calendar-day]:not([data-disabled]):not([data-outside-month])'
+const SELECTOR
+  = '[data-radix-vue-calendar-cell-trigger]:not([data-disabled]):not([data-outside-month]):not([data-outside-visible-months])'
+
+const isDateToday = computed(() => {
+  if (rootContext.calendarView.value === 'decade')
+    return isSameYear(props.day, today(getLocalTimeZone()))
+  if (rootContext.calendarView.value === 'year')
+    return isSameMonth(props.day, today(getLocalTimeZone()))
+  return isToday(props.day, getLocalTimeZone())
+})
+const isOutsideView = computed(() => {
+  if (rootContext.calendarView.value === 'decade') {
+    return !isBetweenInclusive(
+      props.day,
+      startOfDecade(props.month),
+      endOfDecade(props.month),
+    )
+  }
+
+  if (rootContext.calendarView.value === 'year')
+    return !isSameYear(props.day, props.month)
+  return !isSameMonth(props.day, props.month)
+})
+const isOutsideVisibleView = computed(() =>
+  rootContext.isOutsideVisibleView(props.day),
+)
+
+const isFocusedDate = computed(() => {
+  if (rootContext.calendarView.value === 'decade')
+    return isSameYear(props.day, rootContext.placeholder.value)
+  if (rootContext.calendarView.value === 'year')
+    return isSameMonth(props.day, rootContext.placeholder.value)
+  return isSameDay(props.day, rootContext.placeholder.value)
+})
 
 function changeDate(date: DateValue) {
   if (rootContext.readonly.value)
     return
   if (rootContext.isDateDisabled(date) || rootContext.isDateUnavailable?.(date))
     return
+
+  if (rootContext.calendarView.value !== 'month') {
+    rootContext.onPlaceholderChange(date)
+    rootContext.calendarView.value
+      = rootContext.calendarView.value === 'decade' ? 'year' : 'month'
+    return
+  }
+
   rootContext.lastPressedDateValue.value = date
 
   if (rootContext.startValue.value && rootContext.highlightedRange.value === null) {
@@ -98,6 +139,9 @@ function handleArrowKey(e: KeyboardEvent) {
     : []
   const index = allCollectionItems.indexOf(currentElement.value)
   let newIndex = index
+  const indexIncrementation
+    = rootContext.calendarView.value === 'month' ? 7 : rootContext.columns.value
+
   switch (e.code) {
     case kbd.ARROW_RIGHT:
       newIndex++
@@ -106,10 +150,10 @@ function handleArrowKey(e: KeyboardEvent) {
       newIndex--
       break
     case kbd.ARROW_UP:
-      newIndex -= 7
+      newIndex -= indexIncrementation
       break
     case kbd.ARROW_DOWN:
-      newIndex += 7
+      newIndex += indexIncrementation
       break
     case kbd.ENTER:
     case kbd.SPACE_CODE:
@@ -149,6 +193,19 @@ function handleArrowKey(e: KeyboardEvent) {
     })
   }
 }
+
+const formattedTriggerText = computed(() => {
+  if (rootContext.calendarView.value === 'month')
+    return props.day.day
+
+  if (rootContext.calendarView.value === 'year') {
+    return rootContext.formatter.custom(props.day.toDate(getLocalTimeZone()), {
+      month: 'short',
+    })
+  }
+
+  return props.day.year
+})
 </script>
 
 <template>
@@ -157,25 +214,28 @@ function handleArrowKey(e: KeyboardEvent) {
     v-bind="props"
     role="button"
     :aria-label="labelText"
-    data-radix-vue-calendar-day
+    data-radix-vue-calendar-cell-trigger
     :aria-selected="isSelectedDate ? true : undefined"
-    :aria-disabled="isOutsideMonth || isDisabled || isUnavailable ? true : undefined"
+    :aria-disabled="isOutsideView || isDisabled || isUnavailable ? true : undefined"
     :data-highlighted="isHighlighted ? '' : undefined"
     :data-selected="isSelectedDate ? true : undefined"
     :data-selection-start="isSelectionStart ? true : undefined"
     :data-selection-end="isSelectionEnd ? true : undefined"
+    :data-outside-visible-view="isOutsideVisibleView ? '' : undefined"
     :data-value="day.toString()"
-    :data-disabled="isDisabled || isOutsideMonth ? '' : undefined"
+    :data-disabled="isDisabled || isOutsideView ? '' : undefined"
     :data-unavailable="isUnavailable ? '' : undefined"
     :data-today="isDateToday ? '' : undefined"
-    :data-outside-month="isOutsideMonth ? '' : undefined"
+    :data-outside-month="isOutsideView ? '' : undefined"
     :data-focused="isFocusedDate ? '' : undefined"
-    :tabindex="isFocusedDate ? 0 : isOutsideMonth || isDisabled ? undefined : -1"
+    :tabindex="isFocusedDate ? 0 : isOutsideView || isDisabled ? undefined : -1"
     @click="handleClick"
     @focus="handleFocus(day)"
     @mouseenter="handleFocus(day)"
     @keydown.up.down.left.right.enter.space="handleArrowKey"
   >
-    <slot />
+    <slot>
+      {{ formattedTriggerText }}
+    </slot>
   </Primitive>
 </template>

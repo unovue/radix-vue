@@ -29,6 +29,7 @@ coverage
 *.sln
 *.sw?
 ./.nuxt
+.volar
 
 test-results/
 playwright-report/

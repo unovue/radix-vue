@@ -200,9 +200,7 @@ const formattedTriggerText = computed(() => {
     role="button"
     :aria-label="labelText"
     data-radix-vue-calendar-cell-trigger
-    :aria-disabled="
-      isOutsideView || isDisabled || isUnavailable ? true : undefined
-    "
+    :aria-disabled="isOutsideView || isDisabled || isUnavailable ? true : undefined"
     :data-selected="isSelectedDate ? true : undefined"
     :data-value="day.toString()"
     :data-disabled="isDisabled || isOutsideView ? '' : undefined"

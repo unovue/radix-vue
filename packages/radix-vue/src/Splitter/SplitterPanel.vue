@@ -29,7 +29,6 @@ const groupContext = injectSplitterGroupContext()
 const panelId = useId()
 
 const panelDataRef = ref<PanelData>({
-  callbacks: {},
   constraints: {
     collapsedSize: props.collapsedSize,
     collapsible: props.collapsible,
@@ -57,6 +56,9 @@ onUnmounted(() => {
     data-panel
     :data-panel-id="panelId"
     :data-panel-group-id="groupContext.groupId"
+    :style="{
+      pointerEvents: groupContext.isDragging.value ? 'none' : undefined,
+    }"
   >
     {{ panelIndex }}
     <slot />

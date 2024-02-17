@@ -10,7 +10,7 @@ import { SplitterGroup, SplitterPanel, SplitterResizeHandle } from '../'
           <SplitterPanel class="flex items-center justify-center bg-blackA8 p-8 rounded-lg">
             Panel A
           </SplitterPanel>
-          <SplitterResizeHandle class="w-1" />
+          <SplitterResizeHandle class="w-2 data-[state=active]:bg-white transition" />
           <SplitterPanel class="flex items-center justify-center bg-blackA8 p-8 rounded-lg">
             Panel B
           </SplitterPanel>

@@ -1,3 +1,6 @@
+export type ResizeEvent = KeyboardEvent | MouseEvent | TouchEvent
+export type ResizeHandler = (event: ResizeEvent) => void
+
 export type PanelCallbacks = {
   // onCollapse?: PanelOnCollapse
   // onExpand?: PanelOnExpand
@@ -13,7 +16,7 @@ export type PanelConstraints = {
 }
 
 export type PanelData = {
-  callbacks: PanelCallbacks
+  callbacks?: PanelCallbacks
   constraints: PanelConstraints
   id: string
   idIsFromProps: boolean

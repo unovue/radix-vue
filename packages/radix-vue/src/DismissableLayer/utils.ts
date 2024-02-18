@@ -62,7 +62,7 @@ export function usePointerDownOutside(
         return
       }
 
-      if (event.offsetX > target.clientWidth || event.offsetY > target.clientHeight)
+      if (event.clientX > target.clientWidth || event.clientY > target.clientHeight)
         return
 
       if (event.target && !isPointerInsideDOMTree.value) {

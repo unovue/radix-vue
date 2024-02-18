@@ -1,10 +1,10 @@
 <script lang="ts">
 import type { ComputedRef, Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import type { DataOrientation, Direction, Type } from '@/shared/types'
+import type { AccordionType, DataOrientation, Direction } from '@/shared/types'
 import { createContext, useDirection, useForwardExpose } from '@/shared'
 
-export interface AccordionRootProps<T extends Type> extends PrimitiveProps {
+export interface AccordionRootProps<T extends AccordionType> extends PrimitiveProps {
   /**
    * Determines whether one or multiple items can be opened at the same time.
    */
@@ -51,14 +51,14 @@ export interface AccordionRootProps<T extends Type> extends PrimitiveProps {
   orientation?: DataOrientation
 }
 
-export type AccordionRootEmits<T extends Type> = {
+export type AccordionRootEmits<T extends AccordionType> = {
   /**
    * Event handler called when the expanded state of an item changes
    */
   'update:modelValue': [value: (T extends 'single' ? string : string[]) | undefined]
 }
 
-export type AccordionRootContext<T extends Type> = {
+export type AccordionRootContext<T extends AccordionType> = {
   disabled: Ref<AccordionRootProps<T>['disabled']>
   direction: Ref<AccordionRootProps<T>['dir']>
   orientation: AccordionRootProps<T>['orientation']
@@ -70,10 +70,10 @@ export type AccordionRootContext<T extends Type> = {
 }
 
 export const [injectAccordionRootContext, provideAccordionRootContext]
-  = createContext<AccordionRootContext<Type>>('AccordionRoot')
+  = createContext<AccordionRootContext<AccordionType>>('AccordionRoot')
 </script>
 
-<script setup lang="ts" generic="T extends Type">
+<script setup lang="ts" generic="T extends AccordionType">
 import { Primitive } from '@/Primitive'
 import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
 import { computed, toRefs } from 'vue'

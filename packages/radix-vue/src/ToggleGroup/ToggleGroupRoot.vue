@@ -1,18 +1,11 @@
 <script lang="ts">
-import type { Ref } from 'vue'
+import type { ComputedRef, Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import type { DataOrientation, Direction } from '../shared/types'
+import type { DataOrientation, Direction, SingleOrMultipleProps, SingleOrMultipleType } from '../shared/types'
 import { createContext, useDirection, useForwardExpose } from '@/shared'
 
-type TypeEnum = 'single' | 'multiple'
-
-export interface ToggleGroupRootProps extends PrimitiveProps {
-  /** Determines whether a single or multiple items can be pressed at a time. */
-  type?: TypeEnum
-  /** The value of the item to show as pressed when initially rendered. Use when you do not need to control the state of the items. */
-  defaultValue?: string | string[]
-  /** The controlled value of the pressed item. Can be bind as `v-model`. */
-  modelValue?: string | string[]
+export interface ToggleGroupRootProps<ValidValue = string | string[], ExplicitType = SingleOrMultipleType>
+  extends PrimitiveProps, SingleOrMultipleProps<ValidValue, ExplicitType> {
   /** When `false`, navigating through the items using arrow keys will be disabled. */
   rovingFocus?: boolean
   /** When `true`, prevents the user from interacting with the toggle group and all its items. */
@@ -30,7 +23,7 @@ export type ToggleGroupRootEmits = {
 }
 
 interface ToggleGroupRootContext {
-  type: TypeEnum
+  isSingle: ComputedRef<boolean>
   modelValue: Ref<string | string[] | undefined>
   changeModelValue: (value: string) => void
   dir?: Ref<Direction>
@@ -45,7 +38,7 @@ export const [injectToggleGroupRootContext, provideToggleGroupRootContext]
 </script>
 
 <script setup lang="ts">
-import { toRefs } from 'vue'
+import { computed, toRefs } from 'vue'
 import { Primitive } from '@/Primitive'
 import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
 import { RovingFocusGroup } from '@/RovingFocus'
@@ -69,10 +62,10 @@ const { loop, rovingFocus, disabled, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
 const { forwardRef } = useForwardExpose()
 
-const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emits)
+const { modelValue, changeModelValue, type } = useSingleOrMultipleValue(props, emits)
 
 provideToggleGroupRootContext({
-  type: props.type,
+  isSingle: computed(() => type.value === 'single'),
   modelValue,
   changeModelValue,
   dir,

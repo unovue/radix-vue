@@ -19,8 +19,8 @@ const selectedValue = ref('item-2')
   >
     <Variant title="Uncontrolled">
       <AccordionRoot
+        v-model="selectedValue"
         class="w-[300px] rounded-md bg-[--line-color] shadow-lg"
-        type="single"
       >
         <AccordionItem class="accordion-item" value="item-1">
           <AccordionHeader class="flex">
@@ -66,7 +66,6 @@ const selectedValue = ref('item-2')
       <AccordionRoot
         v-model="selectedValue"
         class="w-[300px] rounded-md bg-[--line-color] shadow-lg"
-        type="single"
       >
         <AccordionItem class="accordion-item" value="item-1">
           <AccordionHeader class="flex">

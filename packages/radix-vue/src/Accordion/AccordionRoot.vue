@@ -1,26 +1,11 @@
 <script lang="ts">
 import type { ComputedRef, Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import type { AccordionType, DataOrientation, Direction } from '@/shared/types'
+import type { DataOrientation, Direction, SingleOrMultipleProps, SingleOrMultipleType } from '@/shared/types'
 import { createContext, useDirection, useForwardExpose } from '@/shared'
 
-export interface AccordionRootProps<T extends AccordionType> extends PrimitiveProps {
-  /**
-   * Determines whether one or multiple items can be opened at the same time.
-   */
-  type: T
-
-  /**
-   * The controlled value of the item to expand when type is "single" or the controlled values of the items to expand when type is "multiple".
-   */
-  modelValue?: T extends 'single' ? string : string[]
-
-  /**
-   * The default value of the item to expand when type is "single" or the default values of the items to expand when type is "multiple".
-   * Use when you do not need to control the state of the item(s).
-   */
-  defaultValue?: T extends 'single' ? string : string[]
-
+export interface AccordionRootProps<ValidValue = string | string[], ExplicitType = SingleOrMultipleType>
+  extends PrimitiveProps, SingleOrMultipleProps<ValidValue, ExplicitType> {
   /**
    * When type is "single", allows closing content when clicking trigger for an open item.
    * When type is "multiple", this prop has no effect.
@@ -51,39 +36,40 @@ export interface AccordionRootProps<T extends AccordionType> extends PrimitivePr
   orientation?: DataOrientation
 }
 
-export type AccordionRootEmits<T extends AccordionType> = {
+export type AccordionRootEmits<T extends SingleOrMultipleType> = {
   /**
    * Event handler called when the expanded state of an item changes
    */
   'update:modelValue': [value: (T extends 'single' ? string : string[]) | undefined]
 }
 
-export type AccordionRootContext<T extends AccordionType> = {
-  disabled: Ref<AccordionRootProps<T>['disabled']>
-  direction: Ref<AccordionRootProps<T>['dir']>
-  orientation: AccordionRootProps<T>['orientation']
+export type AccordionRootContext<P extends AccordionRootProps> = {
+  disabled: Ref<P['disabled']>
+  direction: Ref<P['dir']>
+  orientation: P['orientation']
   parentElement: Ref<HTMLElement | undefined>
-  changeModelValue(value: string): void
+  changeModelValue(value: P['modelValue']): void
   isSingle: ComputedRef<boolean>
   modelValue: Ref<string | undefined | string[]>
   collapsible: boolean
 }
 
 export const [injectAccordionRootContext, provideAccordionRootContext]
-  = createContext<AccordionRootContext<AccordionType>>('AccordionRoot')
+  = createContext<AccordionRootContext<AccordionRootProps>>('AccordionRoot')
 </script>
 
-<script setup lang="ts" generic="T extends AccordionType">
+<script setup lang="ts" generic="ValidValue extends (string | string[]), ExplicitType extends SingleOrMultipleType">
 import { Primitive } from '@/Primitive'
 import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
 import { computed, toRefs } from 'vue'
 
-const props = withDefaults(defineProps<AccordionRootProps<T>>(), {
+const props = withDefaults(defineProps<AccordionRootProps<ValidValue, ExplicitType>>(), {
   disabled: false,
   orientation: 'vertical',
   collapsible: false,
 })
-const emits = defineEmits<AccordionRootEmits<T>>()
+
+const emits = defineEmits<AccordionRootEmits<ExplicitType>>()
 
 defineSlots<{
   default(props: {
@@ -95,7 +81,7 @@ defineSlots<{
 const { dir, disabled } = toRefs(props)
 const direction = useDirection(dir)
 
-const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emits)
+const { modelValue, changeModelValue, type } = useSingleOrMultipleValue(props, emits)
 
 const { forwardRef, currentElement: parentElement } = useForwardExpose()
 
@@ -104,7 +90,7 @@ provideAccordionRootContext({
   direction,
   orientation: props.orientation,
   parentElement,
-  isSingle: computed(() => props.type === 'single'),
+  isSingle: computed(() => type.value === 'single'),
   collapsible: props.collapsible,
   modelValue,
   changeModelValue,

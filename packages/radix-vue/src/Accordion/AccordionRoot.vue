@@ -4,22 +4,22 @@ import type { PrimitiveProps } from '@/Primitive'
 import type { DataOrientation, Direction, Type } from '@/shared/types'
 import { createContext, useDirection, useForwardExpose } from '@/shared'
 
-export interface AccordionRootProps extends PrimitiveProps {
+export interface AccordionRootProps<T extends Type> extends PrimitiveProps {
   /**
    * Determines whether one or multiple items can be opened at the same time.
    */
-  type: Type
+  type: T
 
   /**
    * The controlled value of the item to expand when type is "single" or the controlled values of the items to expand when type is "multiple".
    */
-  modelValue?: string | string[]
+  modelValue?: T extends 'single' ? string : string[]
 
   /**
    * The default value of the item to expand when type is "single" or the default values of the items to expand when type is "multiple".
    * Use when you do not need to control the state of the item(s).
    */
-  defaultValue?: string | string[]
+  defaultValue?: T extends 'single' ? string : string[]
 
   /**
    * When type is "single", allows closing content when clicking trigger for an open item.
@@ -51,17 +51,17 @@ export interface AccordionRootProps extends PrimitiveProps {
   orientation?: DataOrientation
 }
 
-export type AccordionRootEmits = {
+export type AccordionRootEmits<T extends Type> = {
   /**
    * Event handler called when the expanded state of an item changes
    */
-  'update:modelValue': [value: string | string[] | undefined]
+  'update:modelValue': [value: (T extends 'single' ? string : string[]) | undefined]
 }
 
-export type AccordionRootContext = {
-  disabled: Ref<AccordionRootProps['disabled']>
-  direction: Ref<AccordionRootProps['dir']>
-  orientation: AccordionRootProps['orientation']
+export type AccordionRootContext<T extends Type> = {
+  disabled: Ref<AccordionRootProps<T>['disabled']>
+  direction: Ref<AccordionRootProps<T>['dir']>
+  orientation: AccordionRootProps<T>['orientation']
   parentElement: Ref<HTMLElement | undefined>
   changeModelValue(value: string): void
   isSingle: ComputedRef<boolean>
@@ -70,20 +70,20 @@ export type AccordionRootContext = {
 }
 
 export const [injectAccordionRootContext, provideAccordionRootContext]
-  = createContext<AccordionRootContext>('AccordionRoot')
+  = createContext<AccordionRootContext<Type>>('AccordionRoot')
 </script>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends Type">
 import { Primitive } from '@/Primitive'
 import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
 import { computed, toRefs } from 'vue'
 
-const props = withDefaults(defineProps<AccordionRootProps>(), {
+const props = withDefaults(defineProps<AccordionRootProps<T>>(), {
   disabled: false,
   orientation: 'vertical',
   collapsible: false,
 })
-const emits = defineEmits<AccordionRootEmits>()
+const emits = defineEmits<AccordionRootEmits<T>>()
 
 defineSlots<{
   default(props: {

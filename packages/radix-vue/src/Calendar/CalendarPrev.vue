@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 
-export interface CalendarPrevProps extends PrimitiveProps {}
+export interface CalendarPrevProps extends PrimitiveProps { }
 </script>
 
 <script setup lang="ts">
@@ -15,13 +15,10 @@ const rootContext = injectCalendarRootContext()
 
 <template>
   <Primitive
-    v-bind="props"
-    aria-label="Previous page"
-    :type="as === 'button' ? 'button' : undefined"
+    v-bind="props" aria-label="Previous page" :type="as === 'button' ? 'button' : undefined"
     :aria-disabled="rootContext.isPrevButtonDisabled.value || undefined"
     :data-disabled="rootContext.isPrevButtonDisabled.value || undefined"
-    :disabled="rootContext.isPrevButtonDisabled.value"
-    @click="rootContext.prevPage"
+    :disabled="rootContext.isPrevButtonDisabled.value" @click="rootContext.prevPage"
   >
     <slot>Prev page</slot>
   </Primitive>

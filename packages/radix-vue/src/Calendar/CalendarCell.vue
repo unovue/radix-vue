@@ -20,9 +20,7 @@ const rootContext = injectCalendarRootContext()
     v-bind="props"
     role="gridcell"
     :aria-selected="rootContext.isDateSelected(date) ? true : undefined"
-    :aria-disabled="
-      rootContext.isDateDisabled(date) || rootContext.isDateUnavailable?.(date)
-    "
+    :aria-disabled="rootContext.isDateDisabled(date) || rootContext.isDateUnavailable?.(date)"
     :data-disabled="rootContext.isDateDisabled(date) ? '' : undefined"
   >
     <slot />

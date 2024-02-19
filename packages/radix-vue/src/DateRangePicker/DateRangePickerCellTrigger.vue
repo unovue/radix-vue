@@ -1,11 +1,11 @@
 <script lang="ts">
 import { RangeCalendarCellTrigger, type RangeCalendarCellTriggerProps } from '..'
 
-export interface DateRangePickerDayProps extends RangeCalendarCellTriggerProps {}
+export interface DateRangePickerCellTriggerProps extends RangeCalendarCellTriggerProps {}
 </script>
 
 <script setup lang="ts">
-const props = defineProps<DateRangePickerDayProps>()
+const props = defineProps<DateRangePickerCellTriggerProps>()
 </script>
 
 <template>

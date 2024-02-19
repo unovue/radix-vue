@@ -44,6 +44,8 @@ export {
   type DateFieldRootEmits,
   type DateFieldRootProps,
 } from './DateField'
+export * from './DatePicker'
+export * from './DateRangePicker'
 export * from './DateRangeField'
 export * from './Dialog'
 export * from './DropdownMenu'

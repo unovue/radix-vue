@@ -21,7 +21,7 @@ const open = ref(false)
     {{ openLabel }}
   </button>
 
-  <div v-if="open">
+  <template v-if="open">
     <FocusGuards>
       <Teleport to="body">
         <div
@@ -48,5 +48,5 @@ const open = ref(false)
         </DismissableLayer>
       </Teleport>
     </FocusGuards>
-  </div>
+  </template>
 </template>

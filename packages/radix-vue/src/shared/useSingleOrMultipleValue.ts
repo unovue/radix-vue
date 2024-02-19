@@ -82,7 +82,7 @@ export function useSingleOrMultipleValue<P extends SingleOrMultipleProps, Name e
   )
 
   function changeModelValue(value: string) {
-    if (props.type === 'single') {
+    if (type.value === 'single') {
       modelValue.value = value === modelValue.value ? undefined : value
     }
     else {

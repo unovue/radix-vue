@@ -24,8 +24,9 @@ function validateProps({ type, defaultValue, modelValue }: SingleOrMultipleProps
   - \`undefined\``)
   }
 
+  const canTypeBeInferred = modelValue !== undefined || defaultValue !== undefined
   // Ensure the type matches the provided values
-  if (type && (modelValue !== undefined || defaultValue !== undefined)) {
+  if (type && canTypeBeInferred) {
     const isArray = Array.isArray(modelValue) || Array.isArray(defaultValue)
     const propUsed = modelValue !== undefined ? 'modelValue' : 'defaultValue'
     const typeUsed = propUsed === 'modelValue' ? typeof modelValue : typeof defaultValue
@@ -41,7 +42,10 @@ You can remove the \`type\` prop to let the component infer the type from the ${
     }
   }
 
-  return Array.isArray(modelValue) ? 'multiple' : 'single'
+  if (canTypeBeInferred)
+    return Array.isArray(modelValue) ? 'multiple' : 'single'
+  else
+    return type
 }
 
 function getDefaultType({ type, defaultValue, modelValue }: SingleOrMultipleProps) {

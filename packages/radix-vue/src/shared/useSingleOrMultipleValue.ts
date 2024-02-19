@@ -2,26 +2,35 @@ import { useVModel } from '@vueuse/core'
 import { type Ref, ref, watch } from 'vue'
 import type { SingleOrMultipleProps } from './types'
 
+/**
+ * Validates the props and it makes sure that the types are coherent with each other
+ *
+ * 1. If type, defaultValue, and modelValue are all undefined, throw an error.
+ * 2. If modelValue and defaultValue are defined and not of the same type, throw an error.
+ * 3. If type is defined:
+ *    a. If type is 'single' and either modelValue or defaultValue is an array, log an error and return 'multiple'.
+ *    b. If type is 'multiple' and neither modelValue nor defaultValue is an array, log an error and return 'single'.
+ * 4. Return 'multiple' if modelValue is an array, else return 'single'.
+ */
 function validateProps({ type, defaultValue, modelValue }: SingleOrMultipleProps) {
   // One of the three must be defined
   if (!type && !modelValue && !defaultValue)
     throw new Error('Either the `type` or the `value` or `default-value` prop must be defined.')
 
-  // Model value and default value must be the same type
   if (modelValue !== undefined && defaultValue !== undefined && typeof modelValue !== typeof defaultValue) {
     throw new Error(
-      `Invalid prop \`value\` of value \`${modelValue}\` supplied to \`AccordionRoot\`, should be the same type as the \`defaultValue\` prop, which is \`${defaultValue}\`. The \`value\` prop must be:
+        `Invalid prop \`value\` of value \`${modelValue}\` supplied to \`AccordionRoot\`, should be the same type as the \`defaultValue\` prop, which is \`${defaultValue}\`. The \`value\` prop must be:
   ${type === 'single' ? '- a string' : type === 'multiple' ? '- an array of strings' : '- a string\n- an array of strings'}
   - \`undefined\``)
   }
 
   // Ensure the type matches the provided values
-  if (type) {
+  if (type && (modelValue !== undefined || defaultValue !== undefined)) {
     const isArray = Array.isArray(modelValue) || Array.isArray(defaultValue)
     const propUsed = modelValue !== undefined ? 'modelValue' : 'defaultValue'
     const typeUsed = propUsed === 'modelValue' ? typeof modelValue : typeof defaultValue
     if (type === 'single' && isArray) {
-      console.error(`Invalid prop \`${propUsed}\` of type Array supplied to \`AccordionRoot\` with type \`single\`. The \`modelValue\` prop must be a string or \`undefined\`.
+      console.error(`Invalid prop \`${propUsed}\` of type ${typeUsed} supplied to \`AccordionRoot\` with type \`single\`. The \`modelValue\` prop must be a string or \`undefined\`.
 You can remove the \`type\` prop to let the component infer the type from the ${propUsed} prop.`)
       return 'multiple'
     }

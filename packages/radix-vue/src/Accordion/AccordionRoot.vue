@@ -36,7 +36,7 @@ export interface AccordionRootProps<ValidValue = string | string[], ExplicitType
   orientation?: DataOrientation
 }
 
-export type AccordionRootEmits<T extends SingleOrMultipleType> = {
+export type AccordionRootEmits<T extends SingleOrMultipleType = SingleOrMultipleType> = {
   /**
    * Event handler called when the expanded state of an item changes
    */

@@ -48,7 +48,7 @@ export type AccordionRootContext<P extends AccordionRootProps> = {
   direction: Ref<P['dir']>
   orientation: P['orientation']
   parentElement: Ref<HTMLElement | undefined>
-  changeModelValue(value: P['modelValue']): void
+  changeModelValue(value: string): void
   isSingle: ComputedRef<boolean>
   modelValue: Ref<string | undefined | string[]>
   collapsible: boolean

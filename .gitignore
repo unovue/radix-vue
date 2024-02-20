@@ -29,7 +29,7 @@ coverage
 *.sln
 *.sw?
 ./.nuxt
-.volar
+.neoconf.json
 
 test-results/
 playwright-report/

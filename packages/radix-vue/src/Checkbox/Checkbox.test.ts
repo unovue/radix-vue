@@ -90,7 +90,7 @@ describe('given checked value as "indeterminate"', async () => {
 
   it('should still be clickable', async () => {
     await wrapper.find('button').trigger('click')
-    expect(wrapper.find('button').attributes('data-state')).toBe('unchecked')
+    expect(wrapper.find('button').attributes('data-state')).toBe('checked')
   })
 })
 

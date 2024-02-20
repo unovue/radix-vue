@@ -3,7 +3,7 @@ import { Label } from './'
 </script>
 
 <template>
-  <Story title="Label" :layout="{ type: 'single', iframe: true }">
+  <Story title="Label/Demo" :layout="{ type: 'single', iframe: true }">
     <Variant title="default">
       <div class="flex flex-wrap items-center gap-[15px] px-5">
         <Label

@@ -7,3 +7,6 @@ export {
   default as CheckboxIndicator,
   type CheckboxIndicatorProps,
 } from './CheckboxIndicator.vue'
+export type {
+  CheckedState as CheckboxCheckedState,
+} from './utils'

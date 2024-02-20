@@ -36,7 +36,7 @@ function handleCheck(ev: any) {
 </script>
 
 <template>
-  <Story title="DropdownMenu" :layout="{ type: 'single', iframe: false }">
+  <Story title="DropdownMenu/Demo" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
       <DropdownMenuRoot v-model:open="toggleState">
         <DropdownMenuTrigger

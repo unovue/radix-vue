@@ -90,7 +90,7 @@ provideCheckboxRootContext({
     @keydown.enter.prevent="() => {
       // According to WAI ARIA, Checkboxes don't activate on enter keypress
     }"
-    @click="checked = !checked"
+    @click="checked = isIndeterminate(checked) ? true : !checked"
   >
     <slot />
   </Primitive>

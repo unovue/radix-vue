@@ -310,5 +310,6 @@ export const utilities = {
     'useStateMachine',
     'useBodyScrollLock',
     'withDefault',
+    'createContext',
   ],
 }

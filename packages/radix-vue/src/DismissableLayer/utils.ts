@@ -52,13 +52,18 @@ export function usePointerDownOutside(
     if (!isClient)
       return
     const handlePointerDown = async (event: PointerEvent) => {
+      const target = event.target as HTMLElement
+
       if (!element?.value)
         return
 
-      if (isLayerExist(element.value, event.target as HTMLElement)) {
+      if (isLayerExist(element.value, target)) {
         isPointerInsideDOMTree.value = false
         return
       }
+
+      if (event.clientX > target.clientWidth || event.clientY > target.clientHeight)
+        return
 
       if (event.target && !isPointerInsideDOMTree.value) {
         const eventDetail = { originalEvent: event }

@@ -19,7 +19,7 @@ export const [injectContextMenuRootContext, provideContextMenuRootContext]
 </script>
 
 <script setup lang="ts">
-import { ref, toRefs } from 'vue'
+import { ref, toRefs, watch } from 'vue'
 import { MenuRoot } from '@/Menu'
 
 const props = withDefaults(defineProps<ContextMenuRootProps>(), {
@@ -36,10 +36,13 @@ provideContextMenuRootContext({
   open,
   onOpenChange: (value: boolean) => {
     open.value = value
-    emits('update:open', value)
   },
   dir,
   modal,
+})
+
+watch(open, (value) => {
+  emits('update:open', value)
 })
 </script>
 

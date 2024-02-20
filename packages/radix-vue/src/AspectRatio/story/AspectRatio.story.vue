@@ -3,7 +3,7 @@ import { AspectRatio } from '../'
 </script>
 
 <template>
-  <Story title="Aspect Ratio" :layout="{ type: 'single', iframe: true }">
+  <Story title="Aspect Ratio/Demo" :layout="{ type: 'single', iframe: true }">
     <Variant title="default">
       <AspectRatio :ratio="16 / 9">
         <img

@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import DummyDialog from './_DummyDialog.vue'
 import DummyPopover from './_DummyPopover.vue'
+import { DismissableLayer } from '../'
+import { ref } from 'vue'
 
 function handleAlert() {
   window.alert('Alert')
 }
+
+const open = ref(false)
 </script>
 
 <template>
@@ -82,6 +86,31 @@ function handleAlert() {
             Alert me
           </button>
         </div>
+      </div>
+    </Variant>
+    <Variant title="Dialog (with scrollbar)">
+      <div class="flex flex-col gap-4">
+        <button
+          class="py-2 rounded bg-gray-500 focus:outline focus:outline-blue-500"
+          type="button"
+          @click="open = !open"
+        >
+          Open layer
+        </button>
+
+        <template v-if="open">
+          <Teleport to="body">
+            <div
+              class="fixed top-0 left-0 bottom-0 right-0 pointer-event-none bg-black/30 flex items-center justify-center overflow-y-auto"
+            >
+              <DismissableLayer @dismiss="open = false">
+                <div class="h-[200vh] text-white flex items-center justify-center p-16 bg-gray-700">
+                  Long content. Clicking on scrollbar shouldn't dismiss the layer
+                </div>
+              </DismissableLayer>
+            </div>
+          </Teleport>
+        </template>
       </div>
     </Variant>
   </Story>

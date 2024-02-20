@@ -35,7 +35,7 @@ function isDaylightSavingsTime(): boolean {
 }
 
 function thisTimeZone(date: string): string {
-  const timezone = Intl.DateTimeFormat(undefined, { timeZoneName: 'short' }).formatToParts(new Date(date)).find(p => p.type === 'timeZoneName')?.value ?? ''
+  const timezone = Intl.DateTimeFormat('en-US', { timeZoneName: 'short' }).formatToParts(new Date(date)).find(p => p.type === 'timeZoneName')?.value ?? ''
   return timezone
 }
 
@@ -115,13 +115,13 @@ describe('DateField', async () => {
         modelValue: calendarDateTime,
       },
     })
-    expect(queryByTestId('dayPeriod')).toBeNull()
+    expect(queryByTestId('dayPeriod')).not.toBeInTheDocument()
   })
   it('does show the day period for locales that do use them', async () => {
     const { queryByTestId } = setup({
       dateFieldProps: { modelValue: calendarDateTime },
     })
-    expect(queryByTestId('dayPeriod')).not.toBeNull()
+    expect(queryByTestId('dayPeriod')).toBeInTheDocument()
   })
 
   it('focuses first segment on label click', async () => {
@@ -368,7 +368,7 @@ describe('DateField', async () => {
     expect(hour).toHaveTextContent('13')
   })
 
-  it('overrides the default displayed segments with the `granularity` prop - `\'day\'`', async () => {
+  it('overrides the default displayed segments with the `granularity` prop - `day`', async () => {
     const { queryByTestId, month, day, year } = setup({
       dateFieldProps: {
         modelValue: calendarDateTime,
@@ -385,7 +385,7 @@ describe('DateField', async () => {
       expect(seg).toBeVisible()
   })
 
-  it('overrides the default displayed segments with the `granularity` prop - `\'minute\'`', async () => {
+  it('overrides the default displayed segments with the `granularity` prop - `minute`', async () => {
     const { queryByTestId, getByTestId, month, day, year } = setup({
       dateFieldProps: {
         modelValue: calendarDateTime,

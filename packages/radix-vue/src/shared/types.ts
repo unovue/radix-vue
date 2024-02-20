@@ -18,10 +18,16 @@ interface SingleOrMultipleProps<ValidValue = string | string[], ExplicitType = S
           ? 'multiple'
           : never
 
-  /** The controlled value of the item to select when type is "single" or the controlled values of the items to select when type is "multiple". Use this when you need to control the state of the items. Use it with `v-model` */
+  /**
+   * The controlled value of the item to select when type is "single" or the controlled values of the items to select when type is "multiple".
+   * Use this when you need to control the state of the items. Use it with `v-model`
+   */
   modelValue?: ValidValue
 
-  /** The controlled value of the active item  */
+  /**
+   * The default value of the item to expand when type is "single" or the default values of the items to expand when type is "multiple".
+   * Use when you do not need to control the state of the item(s).
+   */
   defaultValue?: ValidValue
 
 }

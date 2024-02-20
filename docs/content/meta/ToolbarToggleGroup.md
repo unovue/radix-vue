@@ -16,7 +16,7 @@
   },
   {
     'name': 'defaultValue',
-    'description': '<p>The value of the item to show as pressed when initially rendered. Use when you do not need to control the state of the items.</p>\n',
+    'description': '<p>The default value of the item to expand when type is &quot;single&quot; or the default values of the items to expand when type is &quot;multiple&quot;.\nUse when you do not need to control the state of the item(s).</p>\n',
     'type': 'string | string[]',
     'required': false
   },
@@ -40,7 +40,7 @@
   },
   {
     'name': 'modelValue',
-    'description': '<p>The controlled value of the pressed item. Can be bind as <code>v-model</code>.</p>\n',
+    'description': '<p>The controlled value of the item to select when type is &quot;single&quot; or the controlled values of the items to select when type is &quot;multiple&quot;.\nUse this when you need to control the state of the items. Use it with <code>v-model</code></p>\n',
     'type': 'string | string[]',
     'required': false
   },

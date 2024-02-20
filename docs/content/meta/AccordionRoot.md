@@ -42,7 +42,7 @@
   },
   {
     'name': 'modelValue',
-    'description': '<p>The controlled value of the item to expand when type is &quot;single&quot; or the controlled values of the items to expand when type is &quot;multiple&quot;.</p>\n',
+    'description': '<p>The controlled value of the item to select when type is &quot;single&quot; or the controlled values of the items to select when type is &quot;multiple&quot;.\nUse this when you need to control the state of the items. Use it with <code>v-model</code></p>\n',
     'type': 'string | string[]',
     'required': false
   },
@@ -55,9 +55,9 @@
   },
   {
     'name': 'type',
-    'description': '<p>Determines whether one or multiple items can be opened at the same time.</p>\n',
+    'description': '<p>Determines whether a single or multiple items can be pressed at a time.</p>\n',
     'type': '\'single\' | \'multiple\'',
-    'required': true
+    'required': false
   }
 ]" />
 

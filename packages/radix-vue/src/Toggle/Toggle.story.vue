@@ -14,7 +14,7 @@ function onChange() {
 </script>
 
 <template>
-  <Story title="Toggle" :layout="{ type: 'single', iframe: true }">
+  <Story title="Toggle/Demo" :layout="{ type: 'single', iframe: true }">
     <Variant title="chromatic">
       <div class="flex flex-col items-left dark:text-white">
         <h1 class="font-bold text-xl dark:text-white">

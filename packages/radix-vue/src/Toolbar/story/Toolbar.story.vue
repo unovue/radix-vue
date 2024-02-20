@@ -15,7 +15,7 @@ const toggleStateMultiple = ref([])
 </script>
 
 <template>
-  <Story title="Toolbar" :layout="{ type: 'single', iframe: false }">
+  <Story title="Toolbar/Demo" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
       <ToolbarRoot
         class="flex p-[10px] w-full min-w-max rounded-md bg-white shadow-[0_2px_10px] shadow-blackA7"

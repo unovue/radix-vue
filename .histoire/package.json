@@ -15,7 +15,7 @@
     "@rollup/plugin-alias": "^5.1.0",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.56.0",
-    "histoire": "^0.17.7",
+    "histoire": "^0.17.9",
     "postcss": "^8.4.33",
     "tailwindcss": "^3.4.1"
   },

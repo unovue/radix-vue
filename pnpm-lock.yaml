@@ -70,7 +70,7 @@ importers:
     devDependencies:
       '@histoire/plugin-vue':
         specifier: ^0.17.7
-        version: 0.17.8(histoire@0.17.8)(vite@4.5.2)(vue@3.4.15)
+        version: 0.17.8(histoire@0.17.9)(vite@4.5.2)(vue@3.4.15)
       '@iconify/vue':
         specifier: ^4.1.1
         version: 4.1.1(vue@3.4.15)
@@ -87,8 +87,8 @@ importers:
         specifier: ^8.56.0
         version: 8.56.0
       histoire:
-        specifier: ^0.17.7
-        version: 0.17.8(@types/node@20.5.1)(vite@4.5.2)
+        specifier: ^0.17.9
+        version: 0.17.9(@types/node@20.5.1)(vite@4.5.2)
       postcss:
         specifier: ^8.4.33
         version: 8.4.33
@@ -1767,11 +1767,11 @@ packages:
       - vue
     dev: false
 
-  /@histoire/app@0.17.8(vite@4.5.2):
-    resolution: {integrity: sha512-aQA+qzYP4kVvZwwjPWZDO+5+2FsON9uBcY5IvAlgpIkfxNfnBtWSFNr2DmS22Hy5DQx74Ugt6aCil+g+xOTbTA==}
+  /@histoire/app@0.17.10(vite@4.5.2):
+    resolution: {integrity: sha512-WN28m1N8x3WkVzzePYekrwgUQNixyUrLdyITpLk3/scFqsDSByG0nsHKi1MAMMHaVxyC9dcdQF4j50QdVWCZgQ==}
     dependencies:
-      '@histoire/controls': 0.17.8(vite@4.5.2)
-      '@histoire/shared': 0.17.8(vite@4.5.2)
+      '@histoire/controls': 0.17.9(vite@4.5.2)
+      '@histoire/shared': 0.17.10(vite@4.5.2)
       '@histoire/vendors': 0.17.8
       '@types/flexsearch': 0.7.6
       flexsearch: 0.7.21
@@ -1796,7 +1796,23 @@ packages:
       - vite
     dev: true
 
-  /@histoire/plugin-vue@0.17.8(histoire@0.17.8)(vite@4.5.2)(vue@3.4.15):
+  /@histoire/controls@0.17.9(vite@4.5.2):
+    resolution: {integrity: sha512-1f1cE1NZ2emzGMRnGfAb/gCKDtBT3bUZzj3aAcDmhm3MA2Vy5tGYSb9j+KuTTj7+exhOrKefmedr9a0q1/5g2w==}
+    dependencies:
+      '@codemirror/commands': 6.3.3
+      '@codemirror/lang-json': 6.0.1
+      '@codemirror/language': 6.10.0
+      '@codemirror/lint': 6.4.2
+      '@codemirror/state': 6.4.0
+      '@codemirror/theme-one-dark': 6.1.2
+      '@codemirror/view': 6.23.0
+      '@histoire/shared': 0.17.10(vite@4.5.2)
+      '@histoire/vendors': 0.17.8
+    transitivePeerDependencies:
+      - vite
+    dev: true
+
+  /@histoire/plugin-vue@0.17.8(histoire@0.17.9)(vite@4.5.2)(vue@3.4.15):
     resolution: {integrity: sha512-h9lFruxt/zV8pcta+u63HJpEi3syRKbaPJt5fSghuRbjHoxIvHQ9gdRJzNl/ToXGndletQF++oKlFleYZhDBug==}
     peerDependencies:
       histoire: ^0.17.8
@@ -1807,12 +1823,26 @@ packages:
       '@histoire/vendors': 0.17.8
       change-case: 4.1.2
       globby: 13.2.2
-      histoire: 0.17.8(@types/node@20.5.1)(vite@4.5.2)
+      histoire: 0.17.9(@types/node@20.5.1)(vite@4.5.2)
       launch-editor: 2.6.1
       pathe: 1.1.1
       vue: 3.4.15(typescript@5.3.3)
     transitivePeerDependencies:
       - vite
+    dev: true
+
+  /@histoire/shared@0.17.10(vite@4.5.2):
+    resolution: {integrity: sha512-8hzk/WKASrYfaJ+UtR6Mv7aZlP8IZvQ5POoHAi+JvHMJTtzCXZeuL0qdQAXg0zdk3vWIH20oSl6N8hZE1AP7yA==}
+    peerDependencies:
+      vite: ^2.9.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
+    dependencies:
+      '@histoire/vendors': 0.17.8
+      '@types/fs-extra': 9.0.13
+      '@types/markdown-it': 12.2.3
+      chokidar: 3.5.3
+      pathe: 1.1.1
+      picocolors: 1.0.0
+      vite: 4.5.2(@types/node@20.5.1)
     dev: true
 
   /@histoire/shared@0.17.8(vite@4.5.2):
@@ -6023,16 +6053,16 @@ packages:
       tslib: 2.6.2
     dev: true
 
-  /histoire@0.17.8(@types/node@20.5.1)(vite@4.5.2):
-    resolution: {integrity: sha512-8OeLoi7rjtLVR7LixAnVEXQVoGETYmLigm+yt+1KshQ63hBmiPt4e3/qDsS12hxEWGhY5a9Z5Wi2UFSPB5Ifkg==}
+  /histoire@0.17.9(@types/node@20.5.1)(vite@4.5.2):
+    resolution: {integrity: sha512-z5Jb9QwbOw0TKvpkU0v7+CxJG6hIljIKMhWXzOfteteRZGDFElpTEwbr5/8EdPI6VTdF/k76fqZ07nmS9YdUvA==}
     hasBin: true
     peerDependencies:
       vite: ^2.9.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
     dependencies:
       '@akryum/tinypool': 0.3.1
-      '@histoire/app': 0.17.8(vite@4.5.2)
-      '@histoire/controls': 0.17.8(vite@4.5.2)
-      '@histoire/shared': 0.17.8(vite@4.5.2)
+      '@histoire/app': 0.17.10(vite@4.5.2)
+      '@histoire/controls': 0.17.9(vite@4.5.2)
+      '@histoire/shared': 0.17.10(vite@4.5.2)
       '@histoire/vendors': 0.17.8
       '@types/flexsearch': 0.7.6
       '@types/markdown-it': 12.2.3

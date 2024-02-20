@@ -8,7 +8,7 @@ const rootDisabled = ref(false)
 </script>
 
 <template>
-  <Story title="Collapsible" :layout="{ type: 'single', iframe: true }">
+  <Story title="Collapsible/Demo" :layout="{ type: 'single', iframe: true }">
     <Variant title="default">
       <CollapsibleRoot
         v-model:open="rootOpen"

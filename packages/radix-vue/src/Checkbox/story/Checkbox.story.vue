@@ -8,7 +8,7 @@ const checkboxThree = ref(false)
 </script>
 
 <template>
-  <Story title="Checkbox" :layout="{ type: 'single', iframe: true }">
+  <Story title="Checkbox/Demo" :layout="{ type: 'single', iframe: true }">
     <Variant title="default">
       <div class="flex flex-col gap-2.5">
         <label

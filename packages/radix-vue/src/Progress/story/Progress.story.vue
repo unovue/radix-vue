@@ -13,7 +13,7 @@ const errorCaseMax = ref(100)
 </script>
 
 <template>
-  <Story title="Progress" :layout="{ type: 'single', iframe: true }">
+  <Story title="Progress/Demo" :layout="{ type: 'single', iframe: true }">
     <Variant title="Loop">
       <ProgressRoot
         v-model="interactive"

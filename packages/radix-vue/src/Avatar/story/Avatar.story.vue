@@ -27,7 +27,7 @@ function rotateIndex() {
 </script>
 
 <template>
-  <Story title="Avatar">
+  <Story title="Avatar/Demo">
     <Variant title="default">
       <AvatarRoot
         class="bg-blackA3 inline-flex h-[45px] w-[45px] select-none items-center justify-center overflow-hidden rounded-full align-middle"

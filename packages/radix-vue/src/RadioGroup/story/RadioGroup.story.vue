@@ -6,7 +6,7 @@ const radioStateSingle = ref('compact')
 </script>
 
 <template>
-  <Story title="Radio Group" :layout="{ type: 'single', iframe: false }">
+  <Story title="Radio Group/Demo" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
       <RadioGroupRoot
         v-model="radioStateSingle"

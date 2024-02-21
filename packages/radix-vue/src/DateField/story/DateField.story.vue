@@ -6,17 +6,33 @@ import { Label } from '@/Label'
 <template>
   <Story title="Date Field">
     <Variant title="default">
-      <Label for="date-field">Input label</Label>
-      <DateFieldRoot
-        id="date-field"
-        v-slot="{ segments }"
-        :is-date-unavailable="date => date.day === 19"
-        granularity="second"
-      >
-        <DateFieldInput v-for="item in segments" :key="item.part" :part="item.part">
-          {{ item.value }}
-        </DateFieldInput>
-      </DateFieldRoot>
+      <div class="flex flex-col gap-2">
+        <Label class="text-sm text-gray9" for="date-field">Birthday</Label>
+        <DateFieldRoot
+          id="date-field"
+          v-slot="{ segments }"
+          :is-date-unavailable="date => date.day === 19"
+          granularity="second"
+          class="flex select-none items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500"
+        >
+          <template v-for="item in segments" :key="item.part">
+            <DateFieldInput
+              v-if="item.part === 'literal'"
+              :part="item.part"
+              class="p-1"
+            >
+              {{ item.value }}
+            </DateFieldInput>
+            <DateFieldInput
+              v-else
+              :part="item.part"
+              class="rounded-5px px-1 py-1 hover:bg-muted focus:bg-muted focus:text-foreground focus-visible:!ring-0 focus-visible:!ring-offset-0 aria-[valuetext=Empty]:text-muted-foreground"
+            >
+              {{ item.value }}
+            </DateFieldInput>
+          </template>
+        </DateFieldRoot>
+      </div>
     </Variant>
   </Story>
 </template>

@@ -152,6 +152,8 @@ const isEndInvalid = computed(() => {
 })
 
 const isInvalid = computed(() => {
+  if (!isStartInvalid.value && !isEndInvalid.value)
+    return false
   if (isStartInvalid.value || isEndInvalid.value)
     return true
 
@@ -269,6 +271,23 @@ watch(modelValue, (value) => {
 
   if (value.end && value.end.toString() !== endValue.value?.toString())
     endValue.value = value.end
+
+  if (value.start !== undefined && placeholder.value.toString() !== value.start.toString())
+    placeholder.value = value.start
+})
+
+watch(startValue, (modelValue) => {
+  if (modelValue !== undefined)
+    startSegmentValues.value = { ...syncSegmentValues({ value: modelValue, formatter }) }
+  else
+    startSegmentValues.value = { ...initialSegments }
+})
+
+watch(endValue, (modelValue) => {
+  if (modelValue !== undefined)
+    endSegmentValues.value = { ...syncSegmentValues({ value: modelValue, formatter }) }
+  else
+    endSegmentValues.value = { ...initialSegments }
 })
 
 const currentFocusedElement = ref<HTMLElement | null>(null)

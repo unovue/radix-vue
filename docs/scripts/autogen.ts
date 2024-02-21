@@ -90,6 +90,9 @@ function parseTypeFromSchema(schema: PropertyMetaSchema): string {
     else
       return schema.type
   }
+  else if (typeof schema === 'object' && schema.kind === 'object') {
+    return schema.type
+  }
   else if (typeof schema === 'string') {
     return schema
   }

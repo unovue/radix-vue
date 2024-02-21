@@ -9,7 +9,10 @@ const props = defineProps<DatePickerHeadingProps>()
 </script>
 
 <template>
-  <CalendarHeading v-bind="props">
-    <slot />
+  <CalendarHeading
+    v-slot="{ headingValue }"
+    v-bind="props"
+  >
+    <slot :heading-value="headingValue" />
   </CalendarHeading>
 </template>

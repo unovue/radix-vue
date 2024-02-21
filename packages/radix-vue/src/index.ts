@@ -86,4 +86,5 @@ export {
   withDefault,
   createContext,
   useDateFormatter,
+  type Formatter,
 } from './shared'

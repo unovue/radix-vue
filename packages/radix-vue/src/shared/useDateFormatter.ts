@@ -7,7 +7,20 @@ import type { DateValue, ZonedDateTime } from '@internationalized/date'
 import { hasTime, isZonedDateTime, toDate } from './date'
 import { ref } from 'vue'
 
-export type Formatter = ReturnType<typeof useDateFormatter>
+export type Formatter = {
+  getLocale: () => string
+  setLocale: (newLocale: string) => void
+  custom: (date: Date, options: Intl.DateTimeFormatOptions) => string
+  selectedDate: (date: DateValue, includeTime?: boolean) => string
+  dayOfWeek: (date: Date, length?: Intl.DateTimeFormatOptions['weekday']) => string
+  fullMonthAndYear: (date: Date) => string
+  fullMonth: (date: Date) => string
+  fullYear: (date: Date) => string
+  dayPeriod: (date: Date) => string
+  part: (dateObj: DateValue, type: Intl.DateTimeFormatPartTypes, options?: Intl.DateTimeFormatOptions) => string
+  toParts: (date: DateValue, options?: Intl.DateTimeFormatOptions) => Intl.DateTimeFormatPart[]
+  getMonths: () => { label: string; value: number }[]
+}
 
 /**
  * Creates a wrapper around the `DateFormatter`, which is
@@ -17,7 +30,7 @@ export type Formatter = ReturnType<typeof useDateFormatter>
  *
  * @see [DateFormatter](https://react-spectrum.adobe.com/internationalized/date/DateFormatter.html)
  */
-export function useDateFormatter(initialLocale: string) {
+export function useDateFormatter(initialLocale: string): Formatter {
   const locale = ref(initialLocale)
 
   function getLocale() {

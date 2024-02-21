@@ -242,6 +242,20 @@ import './styles.css'
 }
 ```
 
+However, there's a caveat to this approach, where user might click on the scrollbar and close the dialog unintentionally. There's no universal solution that would fix this issue for now, however you can add the following snippet to `DialogContent` to prevent closing of modal when clicking on scrollbar.
+
+```vue
+<DialogContent
+  @pointer-down-outside="(event) => {
+    const originalEvent = event.detail.originalEvent;
+    const target = originalEvent.target as HTMLElement;
+    if (originalEvent.offsetX > target.clientWidth || originalEvent.offsetY > target.clientHeight) {
+      event.preventDefault();
+    }
+  }"
+>
+```
+
 ### Custom portal container
 
 Customise the element that your dialog portals into.

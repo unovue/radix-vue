@@ -48,24 +48,45 @@ type RangeCalendarRootContext = {
 }
 
 export interface RangeCalendarRootProps extends PrimitiveProps {
+  /** The default value for the calendar */
+  defaultValue?: { start: DateValue; end: DateValue }
+  /** The initial view of the calendar when it is rendered */
   initialView?: CalendarView
+  /** The controlled checked state of the calendar. Can be bound as `v-model`. */
   modelValue?: { start: DateValue | undefined; end: DateValue | undefined }
+  /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programatically control the calendar view */
   placeholder?: DateValue
+  /** This property causes the previous and next buttons to navigate by the number of months displayed at once, rather than one month */
   pagedNavigation?: boolean
+  /** Whether or not to prevent the user from deselecting a date without selecting another date first */
   preventDeselect?: boolean
+  /** The day of the week to start the calendar on */
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6
+  /** The format to use for the weekday strings provided via the weekdays slot prop */
   weekdayFormat?: WeekDayFormat
+  /** The accessible label for the calendar */
   calendarLabel?: string
+  /** Whether or not to always display 6 weeks in the calendar */
   fixedWeeks?: boolean
+  /** The maximum date that can be selected */
   maxValue?: DateValue
+  /** The minimum date that can be selected */
   minValue?: DateValue
+  /** The locale to use for formatting dates */
   locale?: string
+  /** The number of months to display at once */
   numberOfMonths?: number
+  /** Whether or not the calendar is disabled */
   disabled?: boolean
+  /** Whether or not the calendar is readonly */
   readonly?: boolean
+  /** If true, the calendar will focus the selected day, today, or the first day of the month depending on what is visible when the calendar is mounted */
   initialFocus?: boolean
+  /** A function that returns whether or not a date is disabled */
   isDateDisabled?: Matcher
+  /** A function that returns whether or not a date is unavailable */
   isDateUnavailable?: Matcher
+  /** The number of columns the grid should be divided for year and decade views */
   columns?: number
 }
 
@@ -84,6 +105,7 @@ import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<RangeCalendarRootProps>(), {
+  defaultValue: undefined,
   as: 'div',
   pagedNavigation: false,
   preventDeselect: false,
@@ -126,7 +148,7 @@ const lastPressedDateValue = ref(undefined) as Ref<DateValue | undefined>
 const focusedValue = ref(undefined) as Ref<DateValue | undefined>
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: { start: undefined, end: undefined },
+  defaultValue: props.defaultValue ?? { start: undefined, end: undefined },
   passive: (props.modelValue === undefined) as false,
 
 }) as Ref<{ start: DateValue | undefined; end: DateValue | undefined }>

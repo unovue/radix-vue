@@ -3,10 +3,10 @@ import { type DateValue, isSameDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, getDefaultDate, handleCalendarInitialFocus } from '@/shared'
-import type { CalendarView, Formatter, Matcher, WeekDayFormat } from '@/shared'
+import { type CalendarView, type Formatter, type Matcher, type WeekDayFormat, createContext, getDefaultDate, handleCalendarInitialFocus } from '@/shared'
+
 import { useCalendar, useCalendarState } from './useCalendar'
-import type { CalendarHeadingSegmentValue } from '@/shared/date'
+import type { CalendarHeadingSegmentValue, Grid } from '@/shared/date'
 
 type CalendarRootContext = {
   calendarView: Ref<CalendarView>
@@ -43,40 +43,66 @@ type CalendarRootContext = {
 }
 
 interface BaseCalendarRootProps extends PrimitiveProps {
+  /** The default value for the calendar */
+  defaultValue?: DateValue
+  /** The initial view of the calendar when it is rendered */
   initialView?: CalendarView
+  /** The number of columns the grid should be divided for year and decade views */
   columns?: number
+  /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programatically control the calendar view */
   placeholder?: DateValue
+  /** This property causes the previous and next buttons to navigate by the number of months displayed at once, rather than one month */
   pagedNavigation?: boolean
+  /** Whether or not to prevent the user from deselecting a date without selecting another date first */
   preventDeselect?: boolean
+  /** The day of the week to start the calendar on */
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6
+  /** The format to use for the weekday strings provided via the weekdays slot prop */
   weekdayFormat?: WeekDayFormat
+  /** The accessible label for the calendar */
   calendarLabel?: string
+  /** Whether or not to always display 6 weeks in the calendar */
   fixedWeeks?: boolean
+  /** The maximum date that can be selected */
   maxValue?: DateValue
+  /** The minimum date that can be selected */
   minValue?: DateValue
+  /** The locale to use for formatting dates */
   locale?: string
+  /** The number of months to display at once */
   numberOfMonths?: number
+  /** Whether or not the calendar is disabled */
   disabled?: boolean
+  /** Whether or not the calendar is readonly */
   readonly?: boolean
+  /** If true, the calendar will focus the selected day, today, or the first day of the month depending on what is visible when the calendar is mounted */
   initialFocus?: boolean
+  /** A function that returns whether or not a date is disabled */
   isDateDisabled?: Matcher
+  /** A function that returns whether or not a date is unavailable */
   isDateUnavailable?: Matcher
 }
 
 interface MultipleCalendarRootProps extends BaseCalendarRootProps {
+  /** The controlled checked state of the calendar. Can be bound as `v-model`. */
   modelValue?: DateValue[] | undefined
+  /** Whether or not multiple dates can be selected */
   multiple: true
 }
 
 interface SingleCalendarRootProps extends BaseCalendarRootProps {
+  /** The controlled checked state of the calendar. Can be bound as `v-model`. */
   modelValue?: DateValue | undefined
+  /** Whether or not multiple dates can be selected */
   multiple?: false
 }
 
 export type CalendarRootProps = MultipleCalendarRootProps | SingleCalendarRootProps
 
 export type CalendarRootEmits = {
+  /** Event handler called whenever the model value changes */
   'update:modelValue': [date: DateValue | undefined]
+  /** Event handler called whenever the placeholder value changes */
   'update:placeholder': [date: DateValue]
 }
 
@@ -85,11 +111,12 @@ export const [injectCalendarRootContext, provideCalendarRootContext]
 </script>
 
 <script setup lang="ts">
-import { onMounted, ref, toRefs } from 'vue'
+import { computed, onMounted, ref, toRefs } from 'vue'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<CalendarRootProps>(), {
+  defaultValue: undefined,
   as: 'div',
   pagedNavigation: false,
   preventDeselect: false,
@@ -109,6 +136,21 @@ const props = withDefaults(defineProps<CalendarRootProps>(), {
   initialView: 'month',
 })
 const emits = defineEmits<CalendarRootEmits>()
+defineSlots<{
+  default(props: {
+    /** The current date of the placeholder */
+    date: DateValue
+    /** The grid of dates */
+    grid: Grid<DateValue>[]
+    /** The current calendar view */
+    calendarView: CalendarView
+    /** The days of the week */
+    weekDays: string[]
+    /** The formatter used inside the calendar for displaying dates */
+    formatter: Formatter
+  }): any
+}>()
+
 const {
   locale,
   disabled,
@@ -132,8 +174,14 @@ const calendarView = ref(props.initialView)
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
 
+const computedModelDefault = computed(() => {
+  if (multiple.value)
+    return props.defaultValue ? [props.defaultValue] : []
+  return props.defaultValue ?? undefined
+})
+
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: multiple.value ? [] : undefined,
+  defaultValue: computedModelDefault.value,
   passive: (props.modelValue === undefined) as false,
 }) as Ref<DateValue | DateValue[] | undefined>
 
@@ -146,8 +194,6 @@ const placeholder = useVModel(props, 'placeholder', emits, {
   defaultValue: defaultDate,
   passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
-
-// TODO: after creating utils, use to generate the year months and the decade years, create YearSelect and MonthSelect and add ref to manage view (probably prop to set initial view)
 
 const {
   isDateDisabled,
@@ -276,27 +322,17 @@ provideCalendarRootContext({
 
 <template>
   <Primitive
-    ref="primitiveElement"
-    :as="as"
-    :as-child="asChild"
-    role="application"
-    :aria-label="fullCalendarLabel"
-    :data-readonly="readonly ? '' : undefined"
-    :data-disabled="disabled ? '' : undefined"
-    :data-invalid="isInvalid ? '' : undefined"
-    :data-radix-vue-calendar-view="calendarView"
+    ref="primitiveElement" :as="as" :as-child="asChild" role="application" :aria-label="fullCalendarLabel"
+    :data-readonly="readonly ? '' : undefined" :data-disabled="disabled ? '' : undefined"
+    :data-invalid="isInvalid ? '' : undefined" :data-radix-vue-calendar-view="calendarView"
   >
-    <div style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 1px;">
+    <div
+      style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 1px;"
+    >
       <div role="heading" aria-level="2">
         {{ fullCalendarLabel }}
       </div>
     </div>
-    <slot
-      :date="placeholder"
-      :grid="grid"
-      :calendar-view="calendarView"
-      :week-days="weekdays"
-      :formatter="formatter"
-    />
+    <slot :date="placeholder" :grid="grid" :calendar-view="calendarView" :week-days="weekdays" :formatter="formatter" />
   </Primitive>
 </template>

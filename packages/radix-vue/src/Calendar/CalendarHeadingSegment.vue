@@ -5,7 +5,9 @@ import { injectCalendarRootContext } from './CalendarRoot.vue'
 import { computed } from 'vue'
 
 export interface CalendarHeadingSegmentProps extends PrimitiveProps {
+  /** The heading segment value type */
   type: CalendarHeadingSegmentValue['type']
+  /** The value of the heading segment */
   value: CalendarHeadingSegmentValue['value']
 }
 </script>

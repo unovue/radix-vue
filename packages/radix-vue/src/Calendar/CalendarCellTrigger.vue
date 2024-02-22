@@ -19,7 +19,9 @@ import {
 import { endOfDecade, startOfDecade } from '@/shared/date'
 
 export interface CalendarCellTriggerProps extends PrimitiveProps {
+  /** The date value provided to the cell trigger */
   day: DateValue
+  /** The month in which the cell is rendered */
   month: DateValue
 }
 </script>

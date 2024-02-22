@@ -6,6 +6,7 @@ import { computed, ref } from 'vue'
 import { useDateField } from './useDateField'
 
 export interface DateFieldInputProps extends PrimitiveProps {
+  /** The part of the date to render */
   part: SegmentPart
 }
 </script>

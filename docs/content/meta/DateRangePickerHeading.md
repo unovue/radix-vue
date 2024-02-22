@@ -19,7 +19,7 @@
 <SlotsTable :data="[
   {
     'name': 'headingValue',
-    'description': '',
+    'description': 'The segments for displaying the heading value which have click handlers attached',
     'type': 'CalendarHeadingSegmentValue[]'
   }
 ]" />

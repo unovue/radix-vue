@@ -112,7 +112,7 @@
 <EmitsTable :data="[
   {
     'name': 'update:modelValue',
-    'description': '<p>Event handler called when the value changes.</p>\n',
+    'description': '<p>Event handler called whenever the model value changes</p>\n',
     'type': '[{ start: DateValue; end: DateValue; }]'
   },
   {

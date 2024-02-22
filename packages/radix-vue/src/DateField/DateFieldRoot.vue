@@ -38,20 +38,35 @@ type DateFieldRootContext = {
 }
 
 export interface DateFieldRootProps extends PrimitiveProps {
+/** The default value for the calendar */
   defaultValue?: DateValue
+  /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programatically control the calendar view */
   placeholder?: DateValue
+  /** The controlled checked state of the calendar. Can be bound as `v-model`. */
   modelValue?: DateValue | undefined
+  /** The hour cycle used for formatting times. Defaults to the local preference */
   hourCycle?: HourCycle
+  /** The granularity to use for formatting times. Defaults to day if a CalendarDate is provided, otherwise defaults to minute. The field will render segments for each part of the date up to and including the specified granularity */
   granularity?: Granularity
+  /** Whether or not to hide the time zone segment of the field */
   hideTimeZone?: boolean
+  /** The maximum date that can be selected */
   maxValue?: DateValue
+  /** The minimum date that can be selected */
   minValue?: DateValue
+  /** The locale to use for formatting dates */
   locale?: string
+  /** Whether or not the date field is disabled */
   disabled?: boolean
+  /** Whether or not the date field is readonly */
   readonly?: boolean
+  /** A function that returns whether or not a date is unavailable */
   isDateUnavailable?: Matcher
+  /** The name of the date field. Submitted with its owning form as part of a name/value pair. */
   name?: string
+  /** When `true`, indicates that the user must check the date field before the owning form can be submitted. */
   required?: boolean
+  /** Id of the element */
   id?: string
 }
 
@@ -82,6 +97,15 @@ const props = withDefaults(defineProps<DateFieldRootProps>(), {
   isDateUnavailable: undefined,
 })
 const emits = defineEmits<DateFieldRootEmits>()
+defineSlots<{
+  default(props: {
+    /** The current date of the field */
+    modelValue: DateValue | undefined
+    /** The date field segment contents */
+    segments: { part: SegmentPart; value: string }[]
+  }): any
+}>()
+
 const { locale, disabled, readonly, isDateUnavailable: propsIsDateUnavailable } = toRefs(props)
 
 const formatter = useDateFormatter(props.locale)
@@ -241,6 +265,7 @@ provideDateFieldRootContext({
 })
 
 defineExpose({
+  /** Helper to set the focused element inside the DateField */
   setFocusedElement,
 })
 </script>

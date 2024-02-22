@@ -39,7 +39,9 @@ type DateRangePickerRootContext = {
 export type DateRangePickerRootProps = DateRangeFieldRootProps & PopoverRootProps & Pick<CalendarRootProps, 'isDateDisabled' | 'pagedNavigation' | 'weekStartsOn' | 'weekdayFormat' | 'fixedWeeks' | 'numberOfMonths' | 'preventDeselect'>
 
 export type DateRangePickerRootEmits = {
+  /** Event handler called whenever the model value changes */
   'update:modelValue': [date: DateValue | undefined]
+  /** Event handler called whenever the placeholder value changes */
   'update:placeholder': [date: DateValue]
 }
 
@@ -147,7 +149,6 @@ provideDateRangePickerRootContext({
   hourCycle,
   dateFieldRef,
   onDateChange(date: { start: DateValue | undefined; end: DateValue | undefined }) {
-    console.log(date)
     modelValue.value = { ...date }
   },
   onPlaceholderChange(date: DateValue) {

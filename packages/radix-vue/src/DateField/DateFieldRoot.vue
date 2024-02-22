@@ -71,7 +71,9 @@ export interface DateFieldRootProps extends PrimitiveProps {
 }
 
 export type DateFieldRootEmits = {
+  /** Event handler called whenever the model value changes */
   'update:modelValue': [date: DateValue | undefined]
+  /** Event handler called whenever the placeholder value changes */
   'update:placeholder': [date: DateValue]
 }
 

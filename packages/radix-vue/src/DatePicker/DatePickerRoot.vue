@@ -39,7 +39,9 @@ type DatePickerRootContext = {
 export type DatePickerRootProps = DateFieldRootProps & PopoverRootProps & Pick<CalendarRootProps, 'isDateDisabled' | 'pagedNavigation' | 'weekStartsOn' | 'weekdayFormat' | 'fixedWeeks' | 'numberOfMonths' | 'preventDeselect'>
 
 export type DatePickerRootEmits = {
+  /** Event handler called whenever the model value changes */
   'update:modelValue': [date: DateValue | undefined]
+  /** Event handler called whenever the placeholder value changes */
   'update:placeholder': [date: DateValue]
 }
 

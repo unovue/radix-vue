@@ -7,7 +7,11 @@ type Type = 'single' | 'multiple'
 type SingleOrMultipleType = 'single' | 'multiple'
 
 interface SingleOrMultipleProps<ValidValue = string | string[], ExplicitType = SingleOrMultipleType> {
-  /** Determines whether a single or multiple items can be pressed at a time. */
+  /**
+   * Determines whether a "single" or "multiple" items can be pressed at a time.
+   *
+   * This prop will be ignored if any of `v-model` or `defaultValue` is an defined, as the type will be inferred from the value.
+   */
   type?: ValidValue extends string
     ? 'single'
     : ValidValue extends string[]
@@ -20,12 +24,16 @@ interface SingleOrMultipleProps<ValidValue = string | string[], ExplicitType = S
 
   /**
    * The controlled value of the item to select when type is "single" or the controlled values of the items to select when type is "multiple".
-   * Use this when you need to control the state of the items. Use it with `v-model`
+   *
+   * Use this when you need to control the state of the items.
+   *
+   * Use it with `v-model`.
    */
   modelValue?: ValidValue
 
   /**
-   * The default value of the item to expand when type is "single" or the default values of the items to expand when type is "multiple".
+   * The default value of the item(s) to expand.
+   *
    * Use when you do not need to control the state of the item(s).
    */
   defaultValue?: ValidValue

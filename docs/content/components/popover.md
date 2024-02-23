@@ -42,7 +42,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
+import { PopoverArrow, PopoverAnchor, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
 </script>
 
 <template>
@@ -294,7 +294,7 @@ You can anchor the content to another element if you do not want to use the trig
 ```vue line=8-12
 // index.vue
 <script setup>
-import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
+import { PopoverArrow, PopoverAnchor, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
 </script>
 
 <template>

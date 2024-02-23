@@ -161,8 +161,8 @@ const filteredOptions = computed(() => {
     if (props.filterFunction)
       return props.filterFunction(options.value as ArrayOrWrapped<T>, searchTerm.value) as T[]
 
-    else if (typeof options.value[0] === 'string')
-      return options.value.filter(i => (i as string).toLowerCase().includes(searchTerm.value?.toLowerCase()))
+    // The default filter only compares strings
+    return options.value.filter(i => typeof i === 'string' && i.toLowerCase().includes(searchTerm.value?.toLowerCase()))
   }
   return options.value
 })

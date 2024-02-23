@@ -104,7 +104,7 @@ const modelValue = useVModel(props, 'modelValue', emit, {
   defaultValue: props.defaultValue ?? multiple.value ? [] : undefined,
   passive: (props.modelValue === undefined) as false,
   deep: true,
-}) as Ref<T>
+}) as Ref<T | T[]>
 
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
@@ -166,7 +166,7 @@ const filteredOptions = computed(() => {
 })
 
 function resetSearchTerm() {
-  if (!multiple.value && modelValue.value) {
+  if (!multiple.value && modelValue.value && !Array.isArray(modelValue.value)) {
     if (props.displayValue)
       searchTerm.value = props.displayValue(modelValue.value)
     else if (typeof modelValue.value !== 'object')

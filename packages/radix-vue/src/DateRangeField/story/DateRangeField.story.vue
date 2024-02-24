@@ -7,7 +7,7 @@ import { Label } from '@/Label'
   <Story title="Date Range Field">
     <Variant title="default">
       <div class="flex flex-col gap-2">
-        <Label for="date-field">Input label</Label>
+        <Label for="date-field" class="text-sm text-gray9">Input label</Label>
 
         <DateRangeFieldRoot
           id="date-field"

@@ -5,30 +5,29 @@ import {
   loadPanelGroupState,
   savePanelGroupState,
 } from './utils/storage'
-import { areEqual, createContext, useForwardExpose } from '@/shared'
+import { areEqual, createContext, useDirection, useForwardExpose } from '@/shared'
 import { type CSSProperties, type Ref, computed, ref, watch, watchEffect } from 'vue'
 import { useWindowSplitterPanelGroupBehavior } from './utils/composables/useWindowSplitterPanelGroupBehavior'
 
 export interface SplitterGroupProps extends PrimitiveProps {
-  autoSaveId?: string | null
-  className?: string
-  direction: Direction
+  /** Group id; falls back to `useId` when not provided. */
   id?: string | null
+  /** Unique id used to auto-save group arrangement via `localStorage`. */
+  autoSaveId?: string | null
+  /** The group orientation of splitter. */
+  direction: Direction
+  /** Step size when arrow key was pressed. */
   keyboardResizeBy?: number | null
+  /** Custom storage API; defaults to localStorage */
   storage?: PanelGroupStorage
 }
 
 export type SplitterGroupEmits = {
+  /** Event handler called when group layout changes */
   layout: [val: number[]]
 }
 
 const LOCAL_STORAGE_DEBOUNCE_INTERVAL = 100
-
-export type ImperativePanelGroupHandle = {
-  getId: () => string
-  getLayout: () => number[]
-  setLayout: (layout: number[]) => void
-}
 
 export type PanelGroupStorage = {
   getItem(name: string): string | null
@@ -90,7 +89,7 @@ import { validatePanelGroupLayout } from './utils/validation'
 
 const props = withDefaults(defineProps<SplitterGroupProps>(), {
   autoSaveId: null,
-  keyboardResizeBy: null,
+  keyboardResizeBy: 10,
   storage: () => defaultStorage,
 })
 const emits = defineEmits<SplitterGroupEmits>()
@@ -100,6 +99,7 @@ const debounceMap: {
 } = {}
 
 const groupId = useUniqueId(props.id)
+const dir = useDirection()
 const { forwardRef, currentElement: panelGroupElementRef } = useForwardExpose()
 
 const dragState = ref<DragState | null>(null)
@@ -299,7 +299,7 @@ function registerResizeHandle(dragHandleId: string) {
 
     // Support RTL layouts
     const isHorizontal = direction === 'horizontal'
-    if (document.dir === 'rtl' && isHorizontal)
+    if (dir.value === 'rtl' && isHorizontal)
       delta = -delta
 
     const panelConstraints = panelDataArray.map(panelData => panelData.constraints)
@@ -543,7 +543,7 @@ function panelDataHelper(
       width: '100%',
     }"
     data-panel-group=""
-    :data-panel-group-direction="direction"
+    :data-orientation="direction"
     :data-panel-group-id="groupId"
   >
     <slot />

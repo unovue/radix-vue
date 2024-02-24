@@ -47,7 +47,7 @@
   {
     'name': 'filterFunction',
     'description': '<p>The custom filter function for filtering <code>ComboboxItem</code>.</p>\n',
-    'type': '((val: string[] | number[] | false[] | true[] | object[], term: string) => string[] | number[] | false[] | true[] | object[])',
+    'type': '((val: string[] | number[] | false[] | true[] | Record<string, any>[], term: string) => string[] | number[] | false[] | true[] | Record<string, any>[])',
     'required': false
   },
   {
@@ -109,6 +109,6 @@
   {
     'name': 'modelValue',
     'description': 'Current active value',
-    'type': 'string | number | false | true | object'
+    'type': 'string | number | false | true | Record<string, any>'
   }
 ]" />

@@ -3,18 +3,28 @@ import type { PrimitiveProps } from '@/Primitive'
 import { computed, onMounted, onUnmounted, watch } from 'vue'
 
 export interface SplitterPanelProps extends PrimitiveProps {
+  /** The size of panel when it is collapsed. */
   collapsedSize?: number
+  /** Should panel collapse when resized beyond its `minSize`. When `true`, it will be collapsed to `collapsedSize`. */
   collapsible?: boolean
+  /** Initial size of panel (numeric value between 1-100) */
   defaultSize?: number
+  /** Panel id (unique within group); falls back to `useId` when not provided */
   id?: string
+  /** The maximum allowable size of panel (numeric value between 1-100); defaults to `100` */
   maxSize?: number
+  /** The minimum allowable size of panel (numeric value between 1-100); defaults to `10` */
   minSize?: number
+  /** The order of panel within group; required for groups with conditionally rendered panels */
   order?: number
 }
 
 export type SplitterPanelEmits = {
+  /** Event handler called when panel is collapsed. */
   'collapse': []
+  /** Event handler called when panel is expanded. */
   'expand': []
+  /** Event handler called when panel is resized; size parameter is a numeric value between 1-100.  */
   'resize': [size: number, prevSize: number | undefined]
 }
 
@@ -35,6 +45,7 @@ export type PanelConstraints = {
   collapsedSize?: number | undefined
   collapsible?: boolean | undefined
   defaultSize?: number | undefined
+  /** Panel id (unique within group); falls back to useId when not provided */
   maxSize?: number | undefined
   minSize?: number | undefined
 }
@@ -76,6 +87,8 @@ const panelDataRef = computed(() => ({
     collapsedSize: props.collapsedSize,
     collapsible: props.collapsible,
     defaultSize: props.defaultSize,
+    /** Panel id (unique within group); falls back to useId when not provided */
+    /** Panel id (unique within group); falls back to useId when not provided */
     maxSize: props.maxSize,
     minSize: props.minSize,
   },
@@ -105,6 +118,7 @@ onMounted(() => {
 })
 
 const style = computed(() => getPanelStyle(panelDataRef.value, props.defaultSize))
+/** Panel id (unique within group); falls back to useId when not provided */
 </script>
 
 <template>

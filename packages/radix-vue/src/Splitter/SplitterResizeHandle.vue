@@ -4,9 +4,13 @@ import { ref, toRefs, watch, watchEffect } from 'vue'
 import { useWindowSplitterResizeHandlerBehavior } from './utils/composables/useWindowSplitterBehavior'
 
 export interface SplitterResizeHandleProps extends PrimitiveProps {
+  /** Resize handle id (unique within group); falls back to `useId` when not provided */
   id?: string
+  /** Allow this much margin when determining resizable handle hit detection */
   hitAreaMargins?: PointerHitAreaMargins
-  tabIndex?: number
+  /** Tabindex for the handle */
+  tabindex?: number
+  /** Disable drag handle */
   disabled?: boolean
 }
 
@@ -14,6 +18,7 @@ export type PanelResizeHandleOnDragging = (isDragging: boolean) => void
 export type ResizeHandlerState = 'drag' | 'hover' | 'inactive'
 
 export type SplitterResizeHandleEmits = {
+  /** Event handler called when dragging the handler. */
   'dragging': [isDragging: boolean]
 }
 </script>
@@ -28,7 +33,7 @@ import { assert } from './utils/assert'
 import { useForwardExpose, useId } from '@/shared'
 
 const props = withDefaults(defineProps<SplitterResizeHandleProps>(), {
-  tabIndex: 0,
+  tabindex: 0,
 })
 const emits = defineEmits<SplitterResizeHandleEmits>()
 
@@ -140,8 +145,10 @@ useWindowSplitterResizeHandlerBehavior({
     }"
     role="separator"
     data-resize-handle=""
-    :tabindex="tabIndex"
-    :data-panel-group-direction="direction"
+    :tabindex="tabindex"
+    :data-state="state"
+    :data-disabled="disabled ? '' : undefined"
+    :data-orientation="direction"
     :data-panel-group-id="groupId"
     :data-resize-handle-active="state === 'drag' ? 'pointer' : isFocused ? 'keyboard' : 'undefined&quot;'"
     :data-resize-handle-state="state"

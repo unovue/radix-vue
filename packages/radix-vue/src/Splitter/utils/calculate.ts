@@ -50,10 +50,8 @@ export function calculateDeltaPercentage(
     let delta = 0
     if (event.shiftKey)
       delta = 100
-    else if (keyboardResizeBy != null)
-      delta = keyboardResizeBy
     else
-      delta = 10
+      delta = keyboardResizeBy ?? 10
 
     let movement = 0
     switch (event.key) {

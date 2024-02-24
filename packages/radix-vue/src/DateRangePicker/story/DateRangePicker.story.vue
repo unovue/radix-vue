@@ -51,7 +51,7 @@ import { Label } from '@/Label'
                 v-else
                 type="start"
                 :part="item.part"
-                class="rounded-5px px-1 py-1 hover:bg-muted focus:bg-muted focus:text-foreground focus-visible:!ring-0 focus-visible:!ring-offset-0 aria-[valuetext=Empty]:text-muted-foreground"
+                class="rounded-5px px-1 py-1 hover:bg-muted focus:bg-muted focus:text-foreground aria-[valuetext=Empty]:text-muted-foreground"
               >
                 {{ item.value }}
               </DateRangePickerInput>
@@ -71,7 +71,7 @@ import { Label } from '@/Label'
                 v-else
                 type="end"
                 :part="item.part"
-                class="rounded-5px px-1 py-1 hover:bg-muted focus:bg-muted focus:text-foreground focus-visible:!ring-0 focus-visible:!ring-offset-0 aria-[valuetext=Empty]:text-muted-foreground"
+                class="rounded-5px px-1 py-1 hover:bg-muted focus:bg-muted focus:text-foreground aria-[valuetext=Empty]:text-muted-foreground"
               >
                 {{ item.value }}
               </DateRangePickerInput>

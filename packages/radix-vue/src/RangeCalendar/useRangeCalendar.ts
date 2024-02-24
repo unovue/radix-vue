@@ -123,7 +123,7 @@ export function useRangeCalendarState(props: UseRangeCalendarProps) {
     return content
   })
 
-  const fullCalendarLabel = computed(() => `${props.calendarLabel ?? 'Event Date'}, ${headingValue.value}`)
+  const fullCalendarLabel = computed(() => `${props.calendarLabel ?? 'Event Date'}, ${headingValue.value.map(v => v.value).join('')}`)
 
   return {
     fullCalendarLabel,

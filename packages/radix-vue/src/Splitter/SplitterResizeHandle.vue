@@ -150,7 +150,7 @@ useWindowSplitterResizeHandlerBehavior({
     :data-disabled="disabled ? '' : undefined"
     :data-orientation="direction"
     :data-panel-group-id="groupId"
-    :data-resize-handle-active="state === 'drag' ? 'pointer' : isFocused ? 'keyboard' : 'undefined&quot;'"
+    :data-resize-handle-active="state === 'drag' ? 'pointer' : isFocused ? 'keyboard' : 'undefined'"
     :data-resize-handle-state="state"
     :data-panel-resize-handle-enabled="!disabled"
     :data-panel-resize-handle-id=" resizeHandleId"

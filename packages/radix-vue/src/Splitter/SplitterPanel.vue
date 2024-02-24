@@ -123,6 +123,7 @@ const style = computed(() => getPanelStyle(panelDataRef.value, props.defaultSize
 
 <template>
   <Primitive
+    :id="panelId"
     :style="style"
     data-panel=""
     :data-panel-collapsible="collapsible || undefined"

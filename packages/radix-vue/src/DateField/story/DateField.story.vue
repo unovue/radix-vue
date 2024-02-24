@@ -13,7 +13,7 @@ import { Label } from '@/Label'
           v-slot="{ segments }"
           :is-date-unavailable="date => date.day === 19"
           granularity="second"
-          class="flex select-none items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500"
+          class="flex select-none bg-white items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500"
         >
           <template v-for="item in segments" :key="item.part">
             <DateFieldInput

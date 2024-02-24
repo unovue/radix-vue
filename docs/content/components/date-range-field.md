@@ -1,18 +1,18 @@
 ---
-title: Date Field
-description: Enables users to input specific dates within a designated field.
-name: date-field
+title: Date Range Field
+description: Allows users to input a range of dates within a designated field.
+name: date-range-field
 ---
 
-# Date Field
+# Date Range Field
 
 <Badge>Alpha</Badge>
 
 <Description>
-Enables users to input specific dates within a designated field.
+Allows users to input a range of dates within a designated field.
 </Description>
 
-<ComponentPreview name="DateField" />
+<ComponentPreview name="DateRangeField" />
 
 ## Features
 
@@ -55,15 +55,15 @@ Import all parts and piece them together.
 ```vue
 <script setup>
 import {
-  DateFieldInput,
-  DateFieldRoot,
+  DateRangeFieldInput,
+  DateRangeFieldRoot,
 } from 'radix-vue'
 </script>
 
 <template>
-  <DateFieldRoot>
-    <DateFieldInput />
-  </DateFieldRoot>
+  <DateRangeFieldRoot>
+    <DateRangeFieldInput />
+  </DateRangeFieldRoot>
 </template>
 ```
 
@@ -73,13 +73,13 @@ import {
 
 Contains all the parts of a date field
 
-<!-- @include: @/meta/DateFieldRoot.md -->
+<!-- @include: @/meta/DateRangeFieldRoot.md -->
 
 ### Input
 
 Contains the date field segments
 
-<!-- @include: @/meta/DateFieldInput.md -->
+<!-- @include: @/meta/DateRangeFieldInput.md -->
 
 ## Accessibility
 
@@ -95,7 +95,7 @@ Contains the date field segments
       keys: ['ArrowLeft', 'ArrowRight'],
       description:
       `
-         Navigates between the date field segments.
+       Navigates between the date field segments.
       `
     },
     {
@@ -110,7 +110,7 @@ Contains the date field segments
     },
     {
       keys: ['Backspace'],
-      description: 'Deletes a digit from the focused numeric segments.'
+      description:  'Deletes a digit from the focused numeric segments.'
     },
     {
       keys: ['A', 'P'],

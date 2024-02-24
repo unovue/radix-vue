@@ -116,6 +116,8 @@ export default defineConfig({
           { text: 'Collapsible', link: '/components/collapsible' },
           { text: 'Combobox', link: '/components/combobox' },
           { text: 'Context Menu', link: '/components/context-menu' },
+          { text: `Date Field ${BadgeHTML('Alpha')}`, link: '/components/date-field' },
+          { text: `Date Range Field ${BadgeHTML('Alpha')}`, link: '/components/date-range-field' },
           { text: 'Dialog', link: '/components/dialog' },
           { text: 'Dropdown Menu', link: '/components/dropdown-menu' },
           { text: 'Hover Card', link: '/components/hover-card' },

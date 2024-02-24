@@ -1,34 +1,99 @@
 <script lang="ts">
-import { type PrimitiveProps } from '@/Primitive'
+import type { PrimitiveProps } from '@/Primitive'
+import { computed, watch } from 'vue'
 
 export interface SplitterPanelProps extends PrimitiveProps {
   collapsedSize?: number
   collapsible?: boolean
   defaultSize?: number
+  id?: string
   maxSize?: number
   minSize?: number
+  order?: number
+}
 
+export type SplitterPanelEmits = {
+  'collapse': []
+  'expand': []
+  'resize': [size: number, prevSize: number | undefined]
+}
+
+export type PanelOnCollapse = () => void
+export type PanelOnExpand = () => void
+export type PanelOnResize = (
+  size: number,
+  prevSize: number | undefined
+) => void
+
+export type PanelCallbacks = {
+  onCollapse?: PanelOnCollapse
+  onExpand?: PanelOnExpand
+  onResize?: PanelOnResize
+}
+
+export type PanelConstraints = {
+  collapsedSize?: number | undefined
+  collapsible?: boolean | undefined
+  defaultSize?: number | undefined
+  maxSize?: number | undefined
+  minSize?: number | undefined
+}
+
+export type PanelData = {
+  callbacks: PanelCallbacks
+  constraints: PanelConstraints
+  id: string
+  idIsFromProps: boolean
+  order: number | undefined
+}
+
+export type ImperativePanelHandle = {
+  collapse: () => void
+  expand: () => void
+  getId(): string
+  getSize(): number
+  isCollapsed: () => boolean
+  isExpanded: () => boolean
+  resize: (size: number) => void
 }
 </script>
 
 <script setup lang="ts">
 import { Primitive } from '@/Primitive'
-import { injectSplitterGroupContext } from './SplitterGroup.vue'
-import { useId } from '@/shared'
-import { type PanelData, findPanelDataIndex } from './utils'
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { injectPanelGroupContext } from './SplitterGroup.vue'
+import useUniqueId from './utils/composables/useUniqueId'
 
-const props = withDefaults(defineProps<SplitterPanelProps>(), {
-  collapsedSize: 0,
-  collapsible: false,
-  maxSize: 100,
-  minSize: 10,
-})
+const props = defineProps<SplitterPanelProps>()
+const emits = defineEmits<SplitterPanelEmits>()
 
-const groupContext = injectSplitterGroupContext()
-const panelId = useId()
+const context = injectPanelGroupContext()
+if (context === null) {
+  throw new Error(
+    'Panel components must be rendered within a PanelGroup container',
+  )
+}
 
-const panelDataRef = ref<PanelData>({
+const {
+  collapsePanel,
+  expandPanel,
+  getPanelSize,
+  getPanelStyle,
+  groupId,
+  isPanelCollapsed,
+  reevaluatePanelConstraints,
+  registerPanel,
+  resizePanel,
+  unregisterPanel,
+} = context
+
+const panelId = useUniqueId(props.id)
+
+const panelDataRef = computed(() => ({
+  callbacks: {
+    onCollapse: () => emits('collapse'),
+    onExpand: () => emits('expand'),
+    onResize: (...args) => emits('resize', ...args),
+  },
   constraints: {
     collapsedSize: props.collapsedSize,
     collapsible: props.collapsible,
@@ -37,30 +102,66 @@ const panelDataRef = ref<PanelData>({
     minSize: props.minSize,
   },
   id: panelId,
-  idIsFromProps: false,
-  order: undefined,
+  idIsFromProps: props.id !== undefined,
+  order: props.order,
+}) satisfies PanelData)
+
+watch(() => panelDataRef.value.constraints, (prevConstraints, constraints) => {
+  // If constraints have changed, we should revisit panel sizes.
+  // This is uncommon but may happen if people are trying to implement pixel based constraints.
+  if (
+    prevConstraints.collapsedSize !== constraints.collapsedSize
+      || prevConstraints.collapsible !== constraints.collapsible
+      || prevConstraints.maxSize !== constraints.maxSize
+      || prevConstraints.minSize !== constraints.minSize
+  )
+    reevaluatePanelConstraints(panelDataRef.value, prevConstraints)
+}, { deep: true })
+
+watch(panelDataRef, (newVal, oldVal) => {
+  registerPanel(newVal)
+  if (oldVal)
+    unregisterPanel(oldVal)
+}, { immediate: true })
+
+defineExpose({
+  collapse: () => {
+    collapsePanel(panelDataRef.value)
+  },
+  expand: () => {
+    expandPanel(panelDataRef.value)
+  },
+  getId() {
+    return panelId
+  },
+  getSize() {
+    return getPanelSize(panelDataRef.value)
+  },
+  isCollapsed() {
+    return isPanelCollapsed(panelDataRef.value)
+  },
+  isExpanded() {
+    return !isPanelCollapsed(panelDataRef.value)
+  },
+  resize: (size: number) => {
+    resizePanel(panelDataRef.value, size)
+  },
 })
 
-const panelIndex = computed(() => findPanelDataIndex(Array.from(groupContext.panelDataArray.value), panelDataRef.value))
-
-onMounted(() => {
-  groupContext.panelDataArray.value.add(panelDataRef.value)
-})
-onUnmounted(() => {
-  groupContext.panelDataArray.value.delete(panelDataRef.value)
-})
+const style = computed(() => getPanelStyle(panelDataRef.value, props.defaultSize))
 </script>
 
 <template>
   <Primitive
-    data-panel
-    :data-panel-id="panelId"
-    :data-panel-group-id="groupContext.groupId"
     :style="{
-      pointerEvents: groupContext.isDragging.value ? 'none' : undefined,
+      ...style,
     }"
+    data-panel=""
+    :data-panel-collapsible="collapsible || undefined"
+    :data-panel-group-id="groupId"
+    :data-panel-id="panelId"
+    :data-panel-size=" Number.parseFloat(`${style.flexGrow}`).toFixed(1)"
   >
-    {{ panelIndex }}
     <slot />
   </Primitive>
 </template>

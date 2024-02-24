@@ -1,6 +1,8 @@
 // Forked from NPM stacking-order@2.0.0
 // Background at https://github.com/Rich-Harris/stacking-order/issues/3
 
+import { assert } from './assert'
+
 /**
  * Determine which of two nodes appears in front of the other —
  * if `a` is in front, returns 1, otherwise returns -1
@@ -26,7 +28,7 @@ export function compare(a: HTMLElement, b: HTMLElement): number {
     common_ancestor = a
   }
 
-  // assert(common_ancestor)
+  assert(common_ancestor)
 
   const z_indexes = {
     a: get_z_index(find_stacking_context(ancestors.a)),
@@ -58,8 +60,8 @@ const props
   = /\b(?:position|zIndex|opacity|transform|webkitTransform|mixBlendMode|filter|webkitFilter|isolation)\b/
 
 /** @param {HTMLElement} node */
-function is_flex_item(node: HTMLElement) {
-  const display = getComputedStyle(get_parent(node)).display
+function isFlexItem(node: HTMLElement) {
+  const display = getComputedStyle(getParent(node)).display
   return display === 'flex' || display === 'inline-flex'
 }
 
@@ -73,11 +75,11 @@ function creates_stacking_context(node: HTMLElement) {
   // Forked to fix upstream bug https://github.com/Rich-Harris/stacking-order/issues/3
   // if (
   //   (style.zIndex !== "auto" && style.position !== "static") ||
-  //   is_flex_item(node)
+  //   isFlexItem(node)
   // )
   if (
     style.zIndex !== 'auto'
-    && (style.position !== 'static' || is_flex_item(node))
+    && (style.position !== 'static' || isFlexItem(node))
   )
     return true
   if (+style.opacity < 1)
@@ -96,7 +98,7 @@ function creates_stacking_context(node: HTMLElement) {
     return true
   if (props.test(style.willChange))
     return true
-  // @ts-expect-error
+  // @ts-expect-error non-standard styling https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-overflow-scrolling
   if (style.webkitOverflowScrolling === 'touch')
     return true
 
@@ -109,7 +111,7 @@ function find_stacking_context(nodes: HTMLElement[]) {
 
   while (i--) {
     const node = nodes[i]
-    // assert(node)
+    assert(node)
     if (creates_stacking_context(node))
       return node
   }
@@ -128,14 +130,14 @@ function get_ancestors(node: HTMLElement) {
 
   while (node) {
     ancestors.push(node)
-    node = get_parent(node)
+    node = getParent(node)
   }
 
   return ancestors // [ node, ... <body>, <html>, document ]
 }
 
 /** @param {HTMLElement} node */
-function get_parent(node: HTMLElement) {
-  // @ts-expect-error
+function getParent(node: HTMLElement) {
+  // @ts-expect-error host should exist
   return node.parentNode?.host || node.parentNode
 }

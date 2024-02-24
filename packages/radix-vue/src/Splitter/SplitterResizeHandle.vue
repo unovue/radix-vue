@@ -1,66 +1,77 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import type { PointerHitAreaMargins, ResizeHandlerAction, ResizeHandlerState } from './resize'
-import type { ResizeEvent } from './utils'
+import { ref, toRefs, watchEffect } from 'vue'
+import { useWindowSplitterResizeHandlerBehavior } from './utils/composables/useWindowSplitterBehavior'
 
 export interface SplitterResizeHandleProps extends PrimitiveProps {
-  disabled?: boolean
+  id?: string
   hitAreaMargins?: PointerHitAreaMargins
+  tabIndex?: number
+  disabled?: boolean
+}
+
+export type PanelResizeHandleOnDragging = (isDragging: boolean) => void
+export type ResizeHandlerState = 'drag' | 'hover' | 'inactive'
+
+export type SplitterResizeHandleEmits = {
+  'dragging': [isDragging: boolean]
 }
 </script>
 
 <script setup lang="ts">
 import { Primitive } from '@/Primitive'
-import { useForwardExpose, useId, useStateMachine } from '@/shared'
-import { injectSplitterGroupContext } from './SplitterGroup.vue'
-import { registerResizeHandle } from './resize'
-import { ref, watchEffect } from 'vue'
+import { injectPanelGroupContext } from './SplitterGroup.vue'
+import type { ResizeEvent, ResizeHandler } from './utils/types'
+import type { PointerHitAreaMargins, ResizeHandlerAction } from './utils/registry'
+import { registerResizeHandle } from './utils/registry'
+import { assert } from './utils/assert'
+import { useForwardExpose, useId } from '@/shared'
 
-const props = defineProps<SplitterResizeHandleProps>()
-const resizeHandleId = useId()
-const groupContext = injectSplitterGroupContext()
+const props = withDefaults(defineProps<SplitterResizeHandleProps>(), {
+  tabIndex: 0,
+})
+const emits = defineEmits<SplitterResizeHandleEmits>()
+
 const { forwardRef, currentElement } = useForwardExpose()
+const { disabled } = toRefs(props)
 
+const panelGroupContext = injectPanelGroupContext()
+if (panelGroupContext === null) {
+  throw new Error(
+    'PanelResizeHandle components must be rendered within a PanelGroup container',
+  )
+}
+
+const {
+  direction,
+  groupId,
+  registerResizeHandle: registerResizeHandleWithParentGroup,
+  startDragging,
+  stopDragging,
+  panelGroupElement,
+} = panelGroupContext
+
+const resizeHandleId = useId(props.id)
 const state = ref<ResizeHandlerState>('inactive')
 const isFocused = ref(false)
-
-const { dispatch } = useStateMachine('idle', {
-  hidden: {
-    SCROLL: 'scrolling',
-  },
-  scrolling: {
-    SCROLL_END: 'idle',
-    POINTER_ENTER: 'interacting',
-  },
-  interacting: {
-    SCROLL: 'interacting',
-    POINTER_LEAVE: 'idle',
-  },
-  idle: {
-    HIDE: 'hidden',
-    SCROLL: 'scrolling',
-    POINTER_ENTER: 'interacting',
-  },
-})
+const resizeHandler = ref<ResizeHandler | null>(null)
 
 watchEffect(() => {
-  // if (state.value === 'idle') {
-  //   window.setTimeout(
-  //     () => dispatch('HIDE'),
-  //     rootContext.scrollHideDelay.value,
-  //   )
-  // }
+  if (disabled.value)
+    resizeHandler.value = null
+  else
+    resizeHandler.value = registerResizeHandleWithParentGroup(resizeHandleId)
 })
 
-const resizeHandler = '123'
 watchEffect((onCleanup) => {
-  if (props.disabled || resizeHandler == null)
+  if (disabled.value || resizeHandler.value === null)
     return
 
   const element = currentElement.value
-  console.log(element)
   if (!element)
     return
+
+  assert(element)
 
   const setResizeHandlerState = (
     action: ResizeHandlerAction,
@@ -72,33 +83,22 @@ watchEffect((onCleanup) => {
         case 'down': {
           state.value = 'drag'
 
-          groupContext.startDragging(resizeHandleId, event)
-          groupContext.isDragging.value = true
-
-          // const { onDragging } = callbacksRef.current
-          // if (onDragging)
-          //   onDragging(true)
-
+          startDragging(resizeHandleId, event)
+          emits('dragging', true)
           break
         }
         case 'move': {
-          // const { state } = committedValuesRef.current
+          if (state.value !== 'drag')
+            state.value = 'hover'
 
-          // if (state !== 'drag')
-          //   state.value = 'hover'
-
-          // resizeHandler(event)
+          resizeHandler.value?.(event)
           break
         }
         case 'up': {
           state.value = 'hover'
 
-          groupContext.stopDragging()
-
-          // const { onDragging } = callbacksRef.current
-          // if (onDragging)
-          //   onDragging(false)
-
+          stopDragging()
+          emits('dragging', false)
           break
         }
       }
@@ -108,10 +108,10 @@ watchEffect((onCleanup) => {
     }
   }
 
-  registerResizeHandle(
+  onCleanup(registerResizeHandle(
     resizeHandleId,
     element,
-    groupContext.direction.value,
+    direction,
     {
       // Coarse inputs (e.g. finger/touch)
       coarse: props.hitAreaMargins?.coarse ?? 15,
@@ -119,26 +119,38 @@ watchEffect((onCleanup) => {
       fine: props.hitAreaMargins?.fine ?? 5,
     },
     setResizeHandlerState,
-  )
+  ))
+})
+
+useWindowSplitterResizeHandlerBehavior({
+  disabled,
+  resizeHandler,
+  handleId: resizeHandleId,
+  panelGroupElement,
 })
 </script>
 
 <template>
   <Primitive
-    v-bind="props"
+    :id=" id"
     :ref="forwardRef"
-    role="separator"
-    tabindex="0"
     :style="{
       touchAction: 'none',
       userSelect: 'none',
     }"
-    :data-state="groupContext.isDragging.value ? 'active' : 'inactive'"
-    :disabled="disabled"
-    @focus="isFocused = true"
+    role="separator"
+    data-resize-handle=""
+    :tabindex="tabIndex"
+    :data-panel-group-direction="direction"
+    :data-panel-group-id="groupId"
+    :data-resize-handle-active="state === 'drag' ? 'pointer' : isFocused ? 'keyboard' : 'undefined&quot;'"
+    :data-resize-handle-state="state"
+    :data-panel-resize-handle-enabled="!disabled"
+    :data-panel-resize-handle-id=" resizeHandleId"
     @blur="isFocused = false"
-    @pointerdown="groupContext.startDragging"
+    @focus="isFocused = false"
   >
     <slot />
   </Primitive>
 </template>
+./utils/registry./utils/registry

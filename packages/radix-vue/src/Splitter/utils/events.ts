@@ -1,4 +1,4 @@
-import type { ResizeEvent } from './utils'
+import type { Direction, ResizeEvent } from './types'
 
 export function isKeyDown(event: ResizeEvent): event is KeyboardEvent {
   return event.type === 'keydown'
@@ -33,4 +33,15 @@ export function getResizeEventCoordinates(event: ResizeEvent) {
     x: Number.POSITIVE_INFINITY,
     y: Number.POSITIVE_INFINITY,
   }
+}
+
+export function getResizeEventCursorPosition(
+  direction: Direction,
+  event: ResizeEvent,
+): number {
+  const isHorizontal = direction === 'horizontal'
+
+  const { x, y } = getResizeEventCoordinates(event)
+
+  return isHorizontal ? x : y
 }

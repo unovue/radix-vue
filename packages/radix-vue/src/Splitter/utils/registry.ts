@@ -1,11 +1,8 @@
-import type { ResizeEvent } from './utils'
-import { resetGlobalCursorStyle, setGlobalCursorStyle } from './cursor'
+import type { Direction, ResizeEvent } from './types'
+import { resetGlobalCursorStyle, setGlobalCursorStyle } from './style'
 import { getResizeEventCoordinates } from './events'
-import { intersects } from './rect'
-import { compare } from './stacking'
-import type { DataOrientation } from '@/shared/types'
-
-export type ResizeHandlerState = 'drag' | 'hover' | 'inactive'
+import { intersects } from './rects'
+import { compare } from './stackingOrder'
 
 export type ResizeHandlerAction = 'down' | 'move' | 'up'
 export type SetResizeHandlerState = (
@@ -20,7 +17,7 @@ export type PointerHitAreaMargins = {
 }
 
 export type ResizeHandlerData = {
-  direction: DataOrientation
+  direction: Direction
   element: HTMLElement
   hitAreaMargins: PointerHitAreaMargins
   setResizeHandlerState: SetResizeHandlerState
@@ -35,6 +32,7 @@ function getInputType(): 'coarse' | 'fine' | undefined {
   if (typeof matchMedia === 'function')
     return matchMedia('(pointer:coarse)').matches ? 'coarse' : 'fine'
 }
+
 const isCoarsePointer = getInputType() === 'coarse'
 
 const intersectingHandles: ResizeHandlerData[] = []
@@ -47,7 +45,7 @@ const registeredResizeHandlers = new Set<ResizeHandlerData>()
 export function registerResizeHandle(
   resizeHandleId: string,
   element: HTMLElement,
-  direction: DataOrientation,
+  direction: Direction,
   hitAreaMargins: PointerHitAreaMargins,
   setResizeHandlerState: SetResizeHandlerState,
 ) {

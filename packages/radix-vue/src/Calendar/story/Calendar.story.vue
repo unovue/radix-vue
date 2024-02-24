@@ -18,7 +18,7 @@ const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
       >
         <CalendarHeader class="flex items-center justify-between">
           <CalendarPrev
-            class="inline-flex items-center cursor-pointer text-black justify-center rounded-[9px] bg-transparent w-10 h-10 hover:bg-black hover:text-white active:scale-98 active:transition-all"
+            class="inline-flex items-center cursor-pointer text-black justify-center rounded-[9px] bg-transparent w-10 h-10 hover:bg-black hover:text-white active:scale-98 active:transition-all focus:shadow-[0_0_0_2px] focus:shadow-black"
           >
             <Icon icon="radix-icons:chevron-left" class="w-6 h-6" />
           </CalendarPrev>
@@ -26,7 +26,7 @@ const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
             <CalendarHeadingSegment v-for="item in headingValue" :key="item.value" :type="item.type" :value="item.value" />
           </CalendarHeading>
           <CalendarNext
-            class="inline-flex items-center cursor-pointer justify-center text-black rounded-[9px] bg-transparent w-10 h-10 hover:bg-black hover:text-white active:scale-98 active:transition-all"
+            class="inline-flex items-center cursor-pointer text-black justify-center rounded-[9px] bg-transparent w-10 h-10 hover:bg-black hover:text-white active:scale-98 active:transition-all focus:shadow-[0_0_0_2px] focus:shadow-black"
           >
             <Icon icon="radix-icons:chevron-right" class="w-6 h-6" />
           </CalendarNext>
@@ -56,7 +56,7 @@ const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
                   <CalendarCellTrigger
                     :day="weekDate"
                     :month="month.value"
-                    class="relative flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent text-sm font-normal text-black p-2 hover:border-black data-[disabled]:pointer-events-none data-[outside-view]:pointer-events-none data-[selected]:bg-black data-[selected]:font-medium data-[disabled]:text-black/30 data-[selected]:text-white data-[unavailable]:text-black/30 data-[unavailable]:line-through before:absolute before:top-[5px] before:hidden before:rounded-full before:w-1 before:h-1 before:bg-white data-[today]:before:block data-[today]:before:bg-grass9 data-[selected]:before:bg-white"
+                    class="relative flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent text-sm font-normal text-black p-2 outline-none focus:shadow-[0_0_0_2px] focus:shadow-black hover:border-black data-[disabled]:pointer-events-none data-[outside-view]:pointer-events-none data-[selected]:bg-black data-[selected]:font-medium data-[disabled]:text-black/30 data-[selected]:text-white data-[unavailable]:text-black/30 data-[unavailable]:line-through before:absolute before:top-[5px] before:hidden before:rounded-full before:w-1 before:h-1 before:bg-white data-[today]:before:block data-[today]:before:bg-grass9 data-[selected]:before:bg-white"
                   />
                 </CalendarCell>
               </CalendarGridRow>

@@ -1,6 +1,5 @@
 import { type Ref, watchEffect } from 'vue'
 import type { PanelData } from '../../SplitterPanel.vue'
-import type { Direction } from '../types'
 import { adjustLayoutByDelta } from '../layout'
 import { assert } from '../assert'
 import { calculateAriaValues } from '../calculate'
@@ -11,7 +10,6 @@ import { fuzzyNumbersEqual } from '../compare'
 // https://www.w3.org/WAI/ARIA/apg/patterns/windowsplitter/
 
 export function useWindowSplitterPanelGroupBehavior({
-  committedValuesRef,
   eagerValuesRef,
   groupId,
   layout,
@@ -19,14 +17,11 @@ export function useWindowSplitterPanelGroupBehavior({
   panelGroupElement,
   setLayout,
 }: {
-  committedValuesRef: Ref<{
-    direction: Direction
-  }>
   eagerValuesRef: Ref<{
     panelDataArray: PanelData[]
   }>
   groupId: string
-  layout: number[]
+  layout: Ref<number[]>
   panelDataArray: PanelData[]
   panelGroupElement: Ref<ParentNode | null>
   setLayout: (sizes: number[]) => void
@@ -43,7 +38,7 @@ export function useWindowSplitterPanelGroupBehavior({
 
     for (let index = 0; index < panelDataArray.length - 1; index++) {
       const { valueMax, valueMin, valueNow } = calculateAriaValues({
-        layout,
+        layout: layout.value,
         panelsArray: panelDataArray,
         pivotIndices: [index, index + 1],
       })
@@ -126,7 +121,7 @@ export function useWindowSplitterPanelGroupBehavior({
               const panelData = panelDataArray[index]
               assert(panelData)
 
-              const size = layout[index]
+              const size = layout.value[index]
 
               const {
                 collapsedSize = 0,
@@ -139,7 +134,7 @@ export function useWindowSplitterPanelGroupBehavior({
                   delta: fuzzyNumbersEqual(size, collapsedSize)
                     ? minSize - collapsedSize
                     : collapsedSize - size,
-                  layout,
+                  layout: layout.value,
                   panelConstraints: panelDataArray.map(
                     panelData => panelData.constraints,
                   ),
@@ -150,7 +145,7 @@ export function useWindowSplitterPanelGroupBehavior({
                   ),
                   trigger: 'keyboard',
                 })
-                if (layout !== nextLayout)
+                if (layout.value !== nextLayout)
                   setLayout(nextLayout)
               }
             }

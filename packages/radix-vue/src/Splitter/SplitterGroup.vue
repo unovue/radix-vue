@@ -137,10 +137,9 @@ const eagerValuesRef = ref<{
 const setLayout = (val: number[]) => layout.value = val
 
 useWindowSplitterPanelGroupBehavior({
-  committedValuesRef,
   eagerValuesRef,
   groupId,
-  layout: layout.value,
+  layout,
   panelDataArray: eagerValuesRef.value.panelDataArray,
   setLayout,
   panelGroupElement: panelGroupElementRef,

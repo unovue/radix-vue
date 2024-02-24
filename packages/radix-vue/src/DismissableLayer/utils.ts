@@ -62,9 +62,6 @@ export function usePointerDownOutside(
         return
       }
 
-      if (event.clientX > target.clientWidth || event.clientY > target.clientHeight)
-        return
-
       if (event.target && !isPointerInsideDOMTree.value) {
         const eventDetail = { originalEvent: event }
 

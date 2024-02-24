@@ -44,9 +44,9 @@ export type ComboboxRootEmits<T = AcceptableValue> = {
 
 export interface ComboboxRootProps<T = AcceptableValue> extends PrimitiveProps {
   /** The controlled value of the Combobox. Can be binded-with with `v-model`. */
-  modelValue?: T
+  modelValue?: T | Array<T>
   /** The value of the combobox when initially rendered. Use when you do not need to control the state of the Combobox */
-  defaultValue?: T
+  defaultValue?: T | Array<T>
   /** The controlled open state of the Combobox. Can be binded-with with `v-model:open`. */
   open?: boolean
   /** The open state of the combobox when it is initially rendered. <br> Use when you do not need to control its open state. */
@@ -104,7 +104,7 @@ const modelValue = useVModel(props, 'modelValue', emit, {
   defaultValue: props.defaultValue ?? multiple.value ? [] : undefined,
   passive: (props.modelValue === undefined) as false,
   deep: true,
-}) as Ref<T>
+}) as Ref<T | T[]>
 
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
@@ -166,7 +166,7 @@ const filteredOptions = computed(() => {
 })
 
 function resetSearchTerm() {
-  if (!multiple.value && modelValue.value) {
+  if (!multiple.value && modelValue.value && !Array.isArray(modelValue.value)) {
     if (props.displayValue)
       searchTerm.value = props.displayValue(modelValue.value)
     else if (typeof modelValue.value !== 'object')

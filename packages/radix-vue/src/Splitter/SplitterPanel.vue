@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { computed, watch } from 'vue'
+import { computed, onMounted, onUnmounted, watch } from 'vue'
 
 export interface SplitterPanelProps extends PrimitiveProps {
   collapsedSize?: number
@@ -96,11 +96,13 @@ watch(() => panelDataRef.value.constraints, (prevConstraints, constraints) => {
     reevaluatePanelConstraints(panelDataRef.value, prevConstraints)
 }, { deep: true })
 
-watch(panelDataRef, (newVal, oldVal) => {
-  registerPanel(newVal)
-  if (oldVal)
-    unregisterPanel(oldVal)
-}, { immediate: true })
+onMounted(() => {
+  const panelData = panelDataRef.value
+  registerPanel(panelData)
+  onUnmounted(() => {
+    unregisterPanel(panelData)
+  })
+})
 
 const style = computed(() => getPanelStyle(panelDataRef.value, props.defaultSize))
 </script>

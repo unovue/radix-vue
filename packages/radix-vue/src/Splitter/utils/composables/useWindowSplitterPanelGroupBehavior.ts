@@ -50,17 +50,8 @@ export function useWindowSplitterPanelGroupBehavior({
 
       const resizeHandleElement = resizeHandleElements[index]
       if (resizeHandleElement == null) {
-        // if (isDevelopment) {
-        //   const { didWarnAboutMissingResizeHandle } = devWarningsRef.current
-
-        //   if (!didWarnAboutMissingResizeHandle) {
-        //     devWarningsRef.current.didWarnAboutMissingResizeHandle = true
-
-        //     console.warn(
-        //       `WARNING: Missing resize handle for PanelGroup "${groupId}"`,
-        //     )
-        //   }
-        // }
+        if (import.meta.env.DEV)
+          console.warn(`WARNING: Missing resize handle for PanelGroup "${groupId}"`)
       }
       else {
         const panelData = panelDataArray[index]
@@ -169,7 +160,6 @@ export function useWindowSplitterPanelGroupBehavior({
       }
 
       handle.addEventListener('keydown', onKeyDown)
-
       return () => {
         handle.removeEventListener('keydown', onKeyDown)
       }

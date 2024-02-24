@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { ref, toRefs, watchEffect } from 'vue'
+import { ref, toRefs, watch, watchEffect } from 'vue'
 import { useWindowSplitterResizeHandlerBehavior } from './utils/composables/useWindowSplitterBehavior'
 
 export interface SplitterResizeHandleProps extends PrimitiveProps {
@@ -56,12 +56,12 @@ const state = ref<ResizeHandlerState>('inactive')
 const isFocused = ref(false)
 const resizeHandler = ref<ResizeHandler | null>(null)
 
-watchEffect(() => {
+watch(disabled, () => {
   if (disabled.value)
     resizeHandler.value = null
   else
     resizeHandler.value = registerResizeHandleWithParentGroup(resizeHandleId)
-})
+}, { immediate: true })
 
 watchEffect((onCleanup) => {
   if (disabled.value || resizeHandler.value === null)

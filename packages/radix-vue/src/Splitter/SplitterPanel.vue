@@ -46,16 +46,6 @@ export type PanelData = {
   idIsFromProps: boolean
   order: number | undefined
 }
-
-export type ImperativePanelHandle = {
-  collapse: () => void
-  expand: () => void
-  getId(): string
-  getSize(): number
-  isCollapsed: () => boolean
-  isExpanded: () => boolean
-  resize: (size: number) => void
-}
 </script>
 
 <script setup lang="ts">
@@ -66,26 +56,14 @@ import useUniqueId from './utils/composables/useUniqueId'
 const props = defineProps<SplitterPanelProps>()
 const emits = defineEmits<SplitterPanelEmits>()
 
-const context = injectPanelGroupContext()
-if (context === null) {
+const panelGroupContext = injectPanelGroupContext()
+if (panelGroupContext === null) {
   throw new Error(
-    'Panel components must be rendered within a PanelGroup container',
+    'SplitterPanel components must be rendered within a SplitterGroup container',
   )
 }
 
-const {
-  collapsePanel,
-  expandPanel,
-  getPanelSize,
-  getPanelStyle,
-  groupId,
-  isPanelCollapsed,
-  reevaluatePanelConstraints,
-  registerPanel,
-  resizePanel,
-  unregisterPanel,
-} = context
-
+const { getPanelStyle, groupId, reevaluatePanelConstraints, registerPanel, unregisterPanel } = panelGroupContext
 const panelId = useUniqueId(props.id)
 
 const panelDataRef = computed(() => ({
@@ -124,38 +102,12 @@ watch(panelDataRef, (newVal, oldVal) => {
     unregisterPanel(oldVal)
 }, { immediate: true })
 
-defineExpose({
-  collapse: () => {
-    collapsePanel(panelDataRef.value)
-  },
-  expand: () => {
-    expandPanel(panelDataRef.value)
-  },
-  getId() {
-    return panelId
-  },
-  getSize() {
-    return getPanelSize(panelDataRef.value)
-  },
-  isCollapsed() {
-    return isPanelCollapsed(panelDataRef.value)
-  },
-  isExpanded() {
-    return !isPanelCollapsed(panelDataRef.value)
-  },
-  resize: (size: number) => {
-    resizePanel(panelDataRef.value, size)
-  },
-})
-
 const style = computed(() => getPanelStyle(panelDataRef.value, props.defaultSize))
 </script>
 
 <template>
   <Primitive
-    :style="{
-      ...style,
-    }"
+    :style="style"
     data-panel=""
     :data-panel-collapsible="collapsible || undefined"
     :data-panel-group-id="groupId"

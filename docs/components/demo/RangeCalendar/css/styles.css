@@ -1,11 +1,6 @@
 @import '@radix-ui/colors/black-alpha.css';
 @import '@radix-ui/colors/grass.css';
 
-.Icon {
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
 .Calendar {
   margin-top: 1.5rem;
   border-width: 1px;
@@ -150,4 +145,28 @@
 .CalendarCellTrigger[data-today]::before {
   display: block;
   background-color: var(--grass-9);
+}
+
+.CalendarCellTrigger[data-selected:not(data-selection-start):not(data-selection-end)] {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.CalendarCellTrigger[data-highlighted] {
+  background-color: var(--grass-9);
+  color: var(--grass-1);
+  border-radius:0;
+}
+
+.CalendarCellTrigger[data-selection-start] {
+  background-color: #000000;
+  border-radius: 0;
+  border-top-left-radius: 9px;
+  border-bottom-left-radius: 9px;
+}
+
+.CalendarCellTrigger[data-selection-end] {
+  background-color: #000000;
+  border-radius: 0;
+  border-top-right-radius: 9px;
+  border-bottom-right-radius: 9px;
 }

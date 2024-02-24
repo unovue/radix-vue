@@ -9,6 +9,9 @@
     "docs:contributors": "esno scripts/update-contributors.ts",
     "docs:gen": "esno scripts/autogen.ts"
   },
+  "peerDependencies": {
+    "typescript": "*"
+  },
   "dependencies": {
     "@internationalized/date": "^3.5.1",
     "@stackblitz/sdk": "^1.9.0",

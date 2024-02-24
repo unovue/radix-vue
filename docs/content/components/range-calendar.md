@@ -1,19 +1,19 @@
 ---
 
-title: Calendar
-description: Displays dates and days of the week, facilitating date-related interactions.
-name: calendar
+title: RangeCalendar
+description: Presents a calendar view tailored for selecting date ranges.
+name: range-calendar
 ---
 
-# Calendar
+# Range Calendar
 
 <Badge>Alpha</Badge>
 
 <Description>
-Displays dates and days of the week, facilitating date-related interactions.
+Presents a calendar view tailored for selecting date ranges.
 </Description>
 
-<ComponentPreview name="Calendar" />
+<ComponentPreview name="RangeCalendar" />
 
 ## Features
 
@@ -54,46 +54,46 @@ Import all parts and piece them together.
 ```vue
 <script setup>
 import {
-  CalendarCell,
-  CalendarCellTrigger,
-  CalendarGrid,
-  CalendarGridBody,
-  CalendarGridHead,
-  CalendarGridRow,
-  CalendarHeadCell,
-  CalendarHeader,
-  CalendarHeading,
-  CalendarHeadingSegment,
-  CalendarNext,
-  CalendarPrev,
-  CalendarRoot
+  RangeCalendarCell,
+  RangeCalendarCellTrigger,
+  RangeCalendarGrid,
+  RangeCalendarGridBody,
+  RangeCalendarGridHead,
+  RangeCalendarGridRow,
+  RangeCalendarHeadCell,
+  RangeCalendarHeader,
+  RangeCalendarHeading,
+  RangeCalendarHeadingSegment,
+  RangeCalendarNext,
+  RangeCalendarPrev,
+  RangeCalendarRoot
 } from 'radix-vue'
 </script>
 
 <template>
-  <CalendarRoot>
-    <CalendarHeader>
-      <CalendarPrev />
-      <CalendarHeading>
-        <CalendarHeadingSegment />
-      </CalendarHeading>
-      <CalendarNext />
-    </CalendarHeader>
-    <CalendarGrid>
-      <CalendarGridHead>
-        <CalendarGridRow>
-          <CalendarHeadCell />
-        </CalendarGridRow>
-      </CalendarGridHead>
-      <CalendarGridBody>
-        <CalendarGridRow>
-          <CalendarCell>
-            <CalendarCellTrigger />
-          </CalendarCell>
-        </CalendarGridRow>
-      </CalendarGridBody>
-    </CalendarGrid>
-  </CalendarRoot>
+  <RangeCalendarRoot>
+    <RangeCalendarHeader>
+      <RangeCalendarPrev />
+      <RangeCalendarHeading>
+        <RangeCalendarHeadingSegment />
+      </RangeCalendarHeading>
+      <RangeCalendarNext />
+    </RangeCalendarHeader>
+    <RangeCalendarGrid>
+      <RangeCalendarGridHead>
+        <RangeCalendarGridRow>
+          <RangeCalendarHeadCell />
+        </RangeCalendarGridRow>
+      </RangeCalendarGridHead>
+      <RangeCalendarGridBody>
+        <RangeCalendarGridRow>
+          <RangeCalendarCell>
+            <RangeCalendarCellTrigger />
+          </RangeCalendarCell>
+        </RangeCalendarGridRow>
+      </RangeCalendarGridBody>
+    </RangeCalendarGrid>
+  </RangeCalendarRoot>
 </template>
 ```
 
@@ -103,79 +103,79 @@ import {
 
 Contains all the parts of a calendar
 
-<!-- @include: @/meta/CalendarRoot.md -->
+<!-- @include: @/meta/RangeCalendarRoot.md -->
 
 ### Header
 
 Contains the navigation buttons and the heading segments.
 
-<!-- @include: @/meta/CalendarHeader.md -->
+<!-- @include: @/meta/RangeCalendarHeader.md -->
 
 ### Prev Button
 
 Calendar navigation button. It navigates the calendar one month/year/decade in the past based on the current calendar view.
 
-<!-- @include: @/meta/CalendarPrev.md -->
+<!-- @include: @/meta/RangeCalendarPrev.md -->
 
 ### NextButton
 
 Calendar navigation button. It navigates the calendar one month/year/decade in the future based on the current calendar view.
 
-<!-- @include: @/meta/CalendarNext.md -->
+<!-- @include: @/meta/RangeCalendarNext.md -->
 
 ### Heading
 
 Container for the interactable heading segments.
 
-<!-- @include: @/meta/CalendarHeading.md -->
+<!-- @include: @/meta/RangeCalendarHeading.md -->
 
 ### Heading Segment
 
 Interactable heading segments displaying the month/year, used for changing the calendar view.
 
-<!-- @include: @/meta/CalendarHeadingSegment.md -->
+<!-- @include: @/meta/RangeCalendarHeadingSegment.md -->
 
 ### Grid
 
 Container for wrapping the calendar grid.
 
-<!-- @include: @/meta/CalendarGrid.md -->
+<!-- @include: @/meta/RangeCalendarGrid.md -->
 
 ### Grid Head
 
 Container for wrapping the grid head.
 
-<!-- @include: @/meta/CalendarGridHead.md -->
+<!-- @include: @/meta/RangeCalendarGridHead.md -->
 
 ### Grid Body
 
 Container for wrapping the grid body.
 
-<!-- @include: @/meta/CalendarGridBody.md -->
+<!-- @include: @/meta/RangeCalendarGridBody.md -->
 
 ### Grid Row
 
 Container for wrapping the grid row.
 
-<!-- @include: @/meta/CalendarGridRow.md -->
+<!-- @include: @/meta/RangeCalendarGridRow.md -->
 
 ### Head Cell
 
 Container for wrapping the head cell. Used for displaying the week days.
 
-<!-- @include: @/meta/CalendarHeadCell.md -->
+<!-- @include: @/meta/RangeCalendarHeadCell.md -->
 
 ### Cell
 
 Container for wrapping the calendar cells.
 
-<!-- @include: @/meta/CalendarCell.md -->
+<!-- @include: @/meta/RangeCalendarCell.md -->
 
 ### Cell Trigger
 
 Interactable container for displaying the cell dates. Clicking it selects the date.
 
-<!-- @include: @/meta/CalendarCellTrigger.md -->
+<!-- @include: @/meta/RangeCalendarCellTrigger.md -->
 
 ## Accessibility
 

@@ -153,4 +153,3 @@ useWindowSplitterResizeHandlerBehavior({
     <slot />
   </Primitive>
 </template>
-./utils/registry./utils/registry

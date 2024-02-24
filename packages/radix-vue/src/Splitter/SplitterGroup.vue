@@ -550,4 +550,3 @@ function panelDataHelper(
     <slot />
   </Primitive>
 </template>
-./utils/registry

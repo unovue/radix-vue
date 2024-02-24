@@ -113,6 +113,9 @@ importers:
       radix-vue:
         specifier: link:../packages/radix-vue
         version: link:../packages/radix-vue
+      typescript:
+        specifier: '*'
+        version: 5.3.3
       vue:
         specifier: ^3.4.19
         version: 3.4.19(typescript@5.3.3)

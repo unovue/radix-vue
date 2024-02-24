@@ -1,6 +1,10 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { initializeDefaultStorage } from './utils/storage'
+import {
+  initializeDefaultStorage,
+  loadPanelGroupState,
+  savePanelGroupState,
+} from './utils/storage'
 import { areEqual, createContext, useForwardExpose } from '@/shared'
 import { type CSSProperties, type Ref, computed, ref, watch, watchEffect } from 'vue'
 import { useWindowSplitterPanelGroupBehavior } from './utils/composables/useWindowSplitterPanelGroupBehavior'
@@ -82,10 +86,6 @@ import debounce from './utils/debounce'
 import { determinePivotIndices } from './utils/pivot'
 import { getResizeHandleElement } from './utils/dom'
 import { getResizeEventCursorPosition, isKeyDown, isMouseEvent, isTouchEvent } from './utils/events'
-import {
-  loadPanelGroupState,
-  savePanelGroupState,
-} from './utils/serialization'
 import { validatePanelGroupLayout } from './utils/validation'
 
 const props = withDefaults(defineProps<SplitterGroupProps>(), {
@@ -157,7 +157,7 @@ watchEffect(() => {
     let debouncedSave = debounceMap[autoSaveId]
 
     // Limit the frequency of localStorage updates.
-    if (debouncedSave === null) {
+    if (!debouncedSave) {
       debouncedSave = debounce(
         savePanelGroupState,
         LOCAL_STORAGE_DEBOUNCE_INTERVAL,

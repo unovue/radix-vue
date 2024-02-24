@@ -14,8 +14,8 @@ export function compare(a: HTMLElement, b: HTMLElement): number {
     throw new Error('Cannot compare node with itself')
 
   const ancestors = {
-    a: get_ancestors(a),
-    b: get_ancestors(b),
+    a: getAncestors(a),
+    b: getAncestors(b),
   }
 
   let common_ancestor
@@ -31,8 +31,8 @@ export function compare(a: HTMLElement, b: HTMLElement): number {
   assert(common_ancestor)
 
   const z_indexes = {
-    a: get_z_index(find_stacking_context(ancestors.a)),
-    b: get_z_index(find_stacking_context(ancestors.b)),
+    a: getZIndex(findStackingContext(ancestors.a)),
+    b: getZIndex(findStackingContext(ancestors.b)),
   }
 
   if (z_indexes.a === z_indexes.b) {
@@ -66,7 +66,7 @@ function isFlexItem(node: HTMLElement) {
 }
 
 /** @param {HTMLElement} node */
-function creates_stacking_context(node: HTMLElement) {
+function createsStackingContext(node: HTMLElement) {
   const style = getComputedStyle(node)
 
   // https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
@@ -106,13 +106,13 @@ function creates_stacking_context(node: HTMLElement) {
 }
 
 /** @param {HTMLElement[]} nodes */
-function find_stacking_context(nodes: HTMLElement[]) {
+function findStackingContext(nodes: HTMLElement[]) {
   let i = nodes.length
 
   while (i--) {
     const node = nodes[i]
     assert(node)
-    if (creates_stacking_context(node))
+    if (createsStackingContext(node))
       return node
   }
 
@@ -120,12 +120,12 @@ function find_stacking_context(nodes: HTMLElement[]) {
 }
 
 /** @param {HTMLElement} node */
-function get_z_index(node: HTMLElement | null) {
+function getZIndex(node: HTMLElement | null) {
   return (node && Number(getComputedStyle(node).zIndex)) || 0
 }
 
 /** @param {HTMLElement} node */
-function get_ancestors(node: HTMLElement) {
+function getAncestors(node: HTMLElement) {
   const ancestors = []
 
   while (node) {

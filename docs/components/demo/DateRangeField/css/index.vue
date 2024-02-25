@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { DateRangeFieldInput, DateRangeFieldRoot, Label } from 'radix-vue'
+import './styles.css'
 </script>
 
 <template>

@@ -82,7 +82,7 @@ const isFocusedDate = computed(() => {
     return isSameMonth(props.day, rootContext.placeholder.value)
   return isSameDay(props.day, rootContext.placeholder.value)
 })
-const isSelectedDate = computed(() => rootContext.isDateSelected(props.day))
+const isSelectedDate = computed(() => rootContext.calendarView.value === 'month' && rootContext.isDateSelected(props.day))
 
 const SELECTOR
   = '[data-radix-vue-calendar-cell-trigger]:not([data-disabled]):not([data-outside-month]):not([data-outside-visible-months])'
@@ -185,6 +185,19 @@ const formattedTriggerText = computed(() => {
     return props.day.day
 
   if (rootContext.calendarView.value === 'year') {
+    if (rootContext.numberOfMonths.value > 1) {
+      const firstMonth = rootContext.formatter.custom(props.day.toDate(getLocalTimeZone()), {
+        month: 'short',
+      })
+      const result = [firstMonth]
+
+      for (let i = 0; i < rootContext.numberOfMonths.value - 1; i++) {
+        result.push(rootContext.formatter.custom(props.day.add({ months: i + 1 }).toDate(getLocalTimeZone()), {
+          month: 'short',
+        }))
+      }
+      return result.join('-')
+    }
     return rootContext.formatter.custom(props.day.toDate(getLocalTimeZone()), {
       month: 'short',
     })

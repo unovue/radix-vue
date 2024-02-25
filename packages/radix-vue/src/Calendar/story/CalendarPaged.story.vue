@@ -47,7 +47,7 @@ import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, Cale
                   v-for="weekDate in weekDates"
                   :key="weekDate.toString()"
                   :date="weekDate"
-                  class="relative !p-0 text-center text-sm w-10 h-10"
+                  class="relative !p-0 text-center text-sm"
                 >
                   <CalendarCellTrigger
                     :day="weekDate"

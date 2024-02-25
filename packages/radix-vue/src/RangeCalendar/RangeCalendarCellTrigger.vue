@@ -40,9 +40,9 @@ const labelText = computed(() => rootContext.formatter.custom(toDate(props.day),
 
 const isDisabled = computed(() => rootContext.isDateDisabled(props.day))
 const isUnavailable = computed(() => rootContext.isDateUnavailable?.(props.day))
-const isSelectedDate = computed(() => rootContext.isSelected(props.day))
-const isSelectionStart = computed(() => rootContext.isSelectionStart(props.day))
-const isSelectionEnd = computed(() => rootContext.isSelectionEnd(props.day))
+const isSelectedDate = computed(() => rootContext.calendarView.value === 'month' && rootContext.isSelected(props.day))
+const isSelectionStart = computed(() => rootContext.calendarView.value === 'month' && rootContext.isSelectionStart(props.day))
+const isSelectionEnd = computed(() => rootContext.calendarView.value === 'month' && rootContext.isSelectionEnd(props.day))
 const isHighlighted = computed(() => rootContext.highlightedRange.value
   ? isBetweenInclusive(props.day, rootContext.highlightedRange.value.start, rootContext.highlightedRange.value.end)
   : false)
@@ -199,6 +199,19 @@ const formattedTriggerText = computed(() => {
     return props.day.day
 
   if (rootContext.calendarView.value === 'year') {
+    if (rootContext.numberOfMonths.value > 1) {
+      const firstMonth = rootContext.formatter.custom(props.day.toDate(getLocalTimeZone()), {
+        month: 'short',
+      })
+      const result = [firstMonth]
+
+      for (let i = 0; i < rootContext.numberOfMonths.value - 1; i++) {
+        result.push(rootContext.formatter.custom(props.day.add({ months: i + 1 }).toDate(getLocalTimeZone()), {
+          month: 'short',
+        }))
+      }
+      return result.join('-')
+    }
     return rootContext.formatter.custom(props.day.toDate(getLocalTimeZone()), {
       month: 'short',
     })

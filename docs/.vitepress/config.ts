@@ -155,6 +155,7 @@ export default defineConfig({
           { text: 'Primitive', link: '/utilities/primitive' },
           { text: 'Slot', link: '/utilities/slot' },
           { text: 'useId', link: '/utilities/use-id' },
+          { text: 'useDateFormatter', link: '/utilities/use-date-formatter' },
           { text: 'useEmitAsProps', link: '/utilities/use-emit-as-props' },
           { text: 'useForwardExpose', link: '/utilities/use-forward-expose' },
           { text: 'useForwardProps', link: '/utilities/use-forward-props' },

@@ -1,9 +1,12 @@
+import { isBrowser } from '@/shared'
 import type { PanelData } from '../SplitterPanel.vue'
 
 export function getPanelElement(
   id: string,
   scope: ParentNode | HTMLElement = document,
 ): HTMLElement | null {
+  if (!isBrowser)
+    return null
   const element = scope.querySelector(`[data-panel-id="${id}"]`)
   if (element)
     return element as HTMLElement
@@ -15,6 +18,8 @@ export function getPanelElementsForGroup(
   groupId: string,
   scope: ParentNode | HTMLElement = document,
 ): HTMLElement[] {
+  if (!isBrowser)
+    return []
   return Array.from(
     scope.querySelectorAll(`[data-panel][data-panel-group-id="${groupId}"]`),
   )
@@ -24,6 +29,8 @@ export function getPanelGroupElement(
   id: string,
   rootElement: ParentNode | HTMLElement = document,
 ): HTMLElement | null {
+  if (!isBrowser)
+    return null
   // If the root element is the PanelGroup
   if (
     rootElement instanceof HTMLElement
@@ -45,6 +52,8 @@ export function getResizeHandleElement(
   id: string,
   scope: ParentNode | HTMLElement = document,
 ): HTMLElement | null {
+  if (!isBrowser)
+    return null
   const element = scope.querySelector(`[data-panel-resize-handle-id="${id}"]`)
   if (element)
     return element as HTMLElement
@@ -57,6 +66,8 @@ export function getResizeHandleElementIndex(
   id: string,
   scope: ParentNode | HTMLElement = document,
 ): number | null {
+  if (!isBrowser)
+    return null
   const handles = getResizeHandleElementsForGroup(groupId, scope)
   const index = handles.findIndex(
     handle => handle.getAttribute('data-panel-resize-handle-id') === id,
@@ -68,6 +79,8 @@ export function getResizeHandleElementsForGroup(
   groupId: string,
   scope: ParentNode | HTMLElement = document,
 ): HTMLElement[] {
+  if (!isBrowser)
+    return []
   return Array.from(
     scope.querySelectorAll(
       `[data-panel-resize-handle-id][data-panel-group-id="${groupId}"]`,

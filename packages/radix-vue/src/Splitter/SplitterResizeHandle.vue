@@ -31,7 +31,7 @@ import type { ResizeEvent, ResizeHandler } from './utils/types'
 import type { PointerHitAreaMargins, ResizeHandlerAction } from './utils/registry'
 import { registerResizeHandle } from './utils/registry'
 import { assert } from './utils/assert'
-import { useForwardExpose } from '@/shared'
+import { isBrowser, useForwardExpose } from '@/shared'
 
 const props = withDefaults(defineProps<SplitterResizeHandleProps>(), {
   tabindex: 0,
@@ -63,6 +63,8 @@ const isFocused = ref(false)
 const resizeHandler = ref<ResizeHandler | null>(null)
 
 watch(disabled, () => {
+  if (!isBrowser)
+    return
   if (disabled.value)
     resizeHandler.value = null
   else
@@ -151,7 +153,7 @@ useWindowSplitterResizeHandlerBehavior({
     :data-disabled="disabled ? '' : undefined"
     :data-orientation="direction"
     :data-panel-group-id="groupId"
-    :data-resize-handle-active="state === 'drag' ? 'pointer' : isFocused ? 'keyboard' : 'undefined'"
+    :data-resize-handle-active="state === 'drag' ? 'pointer' : isFocused ? 'keyboard' : undefined"
     :data-resize-handle-state="state"
     :data-panel-resize-handle-enabled="!disabled"
     :data-panel-resize-handle-id=" resizeHandleId"

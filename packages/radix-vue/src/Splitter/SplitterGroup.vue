@@ -421,7 +421,10 @@ function reevaluatePanelConstraints(panelData: PanelData, prevConstraints: Panel
     panelData,
     layout,
   )
-  assert(prevPanelSize != null)
+  if (prevPanelSize === null) {
+    // It's possible that the panels in this group have changed since the last render
+    return
+  }
 
   if (
     prevCollapsible

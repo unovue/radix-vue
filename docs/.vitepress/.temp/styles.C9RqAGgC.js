@@ -1,4 +1,0 @@
-const styles = "@import '@radix-ui/colors/black-alpha.css';\n@import '@radix-ui/colors/mauve.css';\n@import '@radix-ui/colors/grass.css';\n\n/* reset */\nbutton {\n  all: unset;\n}\n\n.Button{\n  text-align: center;\n  font-size: 15px;\n  line-height: 1;\n  align-items: center;\n  justify-content: center;\n  height: 2.25rem;\n  width: 2.25rem;\n  border-radius: 0.25rem; \n  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);\n  cursor: pointer;\n}\n\n.Button:disabled {\n  opacity: .5\n}\n\n.Button:hover{\n  background-color: rgb(255 255 255 / 0.1)\n}\n\n.Button[data-selected]{ \n  background-color: rgb(255 255 255);\n  color: var(--black-a11)\n}\n\n.PaginationEllipsis{\n  display: flex;\n  height: 2.25rem;\n  width: 2.25rem;\n  align-items: center;\n  justify-content: center\n}\n\n.PaginationList{\n  display: flex;\n  align-items: center;\n  gap: 0.25rem; \n  color: rgb(255 255 255)\n}\n";
-export {
-  styles as default
-};

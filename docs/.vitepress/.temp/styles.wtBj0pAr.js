@@ -1,4 +1,0 @@
-const styles = "@import '@radix-ui/colors/black-alpha.css';\n@import '@radix-ui/colors/grass.css';\n\n/* reset */\nbutton {\n  all: unset;\n}\n\n.CollapsibleRoot {\n  width: 300px;\n}\n\n.IconButton {\n  font-family: inherit;\n  border-radius: 100%;\n  height: 25px;\n  width: 25px;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  color: var(--grass-11);\n  box-shadow: 0 2px 10px var(--black-a7);\n}\n.IconButton[data-state='closed'] {\n  background-color: white;\n}\n.IconButton[data-state='open'] {\n  background-color: var(--grass-3);\n}\n.IconButton:hover {\n  background-color: var(--grass-3);\n}\n.IconButton:focus {\n  box-shadow: 0 0 0 2px black;\n}\n\n.Text {\n  color: var(--grass-11);\n  font-size: 15px;\n  line-height: 25px;\n}\n\n.Repository {\n  background-color: white;\n  border-radius: 4px;\n  margin: 10px 0;\n  padding: 10px;\n  box-shadow: 0 2px 10px var(--black-a7);\n}";
-export {
-  styles as default
-};

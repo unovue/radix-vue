@@ -53,7 +53,7 @@ const { forwardRef } = useForwardExpose()
 
 const isSelected = computed(() =>
   rootContext.multiple.value && Array.isArray(rootContext.modelValue.value)
-    ? rootContext.modelValue.value?.includes(props.value as never)
+    ? rootContext.modelValue.value?.some(val => isEqual(val, props.value))
     : isEqual(rootContext.modelValue?.value, props.value),
 )
 

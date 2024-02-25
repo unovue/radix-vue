@@ -20,7 +20,7 @@ export function useWindowSplitterPanelGroupBehavior({
   eagerValuesRef: Ref<{
     panelDataArray: PanelData[]
   }>
-  groupId: string
+  groupId: Ref<string>
   layout: Ref<number[]>
   panelDataArray: PanelData[]
   panelGroupElement: Ref<ParentNode | null>
@@ -32,7 +32,7 @@ export function useWindowSplitterPanelGroupBehavior({
       return
 
     const resizeHandleElements = getResizeHandleElementsForGroup(
-      groupId,
+      groupId.value,
       _panelGroupElement,
     )
 
@@ -80,6 +80,7 @@ export function useWindowSplitterPanelGroupBehavior({
 
   watchEffect((onCleanup) => {
     const _panelGroupElement = panelGroupElement.value
+    const _groupId = groupId.value
     if (!_panelGroupElement)
       return
 
@@ -87,10 +88,10 @@ export function useWindowSplitterPanelGroupBehavior({
     assert(eagerValues)
 
     const { panelDataArray } = eagerValues
-    const groupElement = getPanelGroupElement(groupId, _panelGroupElement)
-    assert(groupElement != null, `No group found for id "${groupId}"`)
+    const groupElement = getPanelGroupElement(_groupId, _panelGroupElement)
+    assert(groupElement != null, `No group found for id "${_groupId}"`)
 
-    const handles = getResizeHandleElementsForGroup(groupId, _panelGroupElement)
+    const handles = getResizeHandleElementsForGroup(_groupId, _panelGroupElement)
     assert(handles)
 
     const cleanupFunctions = handles.map((handle) => {
@@ -98,7 +99,7 @@ export function useWindowSplitterPanelGroupBehavior({
       assert(handleId)
 
       const [idBefore, idAfter] = getResizeHandlePanelIds(
-        groupId,
+        _groupId,
         handleId,
         panelDataArray,
         _panelGroupElement,
@@ -139,7 +140,7 @@ export function useWindowSplitterPanelGroupBehavior({
                     panelData => panelData.constraints,
                   ),
                   pivotIndices: determinePivotIndices(
-                    groupId,
+                    _groupId,
                     handleId,
                     _panelGroupElement,
                   ),

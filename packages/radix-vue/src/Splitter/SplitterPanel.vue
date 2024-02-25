@@ -92,7 +92,7 @@ const panelDataRef = computed(() => ({
     maxSize: props.maxSize,
     minSize: props.minSize,
   },
-  id: panelId,
+  id: panelId.value,
   idIsFromProps: props.id !== undefined,
   order: props.order,
 }) satisfies PanelData)

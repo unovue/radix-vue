@@ -14,6 +14,7 @@ import {
   DatePickerHeadCell,
   DatePickerHeader,
   DatePickerHeading,
+  DatePickerHeadingSegment,
   DatePickerInput,
   DatePickerNext,
   DatePickerPrev,
@@ -51,16 +52,18 @@ const props = defineProps<{ datePickerProps?: DatePickerRootProps; emits?: { 'on
 
     <DatePickerContent data-testid="popover-content">
       <DatePickerCalendar
-        v-slot="{ weekDays, months }"
+        v-slot="{ weekDays, grid }"
         data-testid="calendar"
       >
         <DatePickerHeader data-testid="header">
           <DatePickerPrev data-testid="prev-button" />
-          <DatePickerHeading data-testid="heading" />
+          <DatePickerHeading v-slot="{ headingValue }" data-testid="heading">
+            <DatePickerHeadingSegment v-for="item in headingValue" :key="item.value" :type="item.type" :value="item.value" :data-testid="item.type === 'literal' ? '' : `heading-${item.type}`" />
+          </DatePickerHeading>
           <DatePickerNext data-testid="next-button" />
         </DatePickerHeader>
 
-        <DatePickerGrid v-for="month in months" :key="month.value.toString()" :data-testid="`grid-${month.value.month}`">
+        <DatePickerGrid v-for="month in grid" :key="month.value.toString()" :data-testid="`grid-${month.value.month}`">
           <DatePickerGridHead :data-testid="`grid-head-${month.value.month}`">
             <DatePickerGridRow>
               <DatePickerHeadCell
@@ -74,7 +77,7 @@ const props = defineProps<{ datePickerProps?: DatePickerRootProps; emits?: { 'on
           </DatePickerGridHead>
           <DatePickerGridBody>
             <DatePickerGridRow
-              v-for="(weekDates, index) in month.weeks"
+              v-for="(weekDates, index) in month.rows"
               :key="`weekDate-${index}`"
               :data-testid="`grid-body-${month.value.month}`"
             >
@@ -88,9 +91,7 @@ const props = defineProps<{ datePickerProps?: DatePickerRootProps; emits?: { 'on
                   :day="weekDate"
                   :month="month.value"
                   :data-testid="`date-${weekDate.month}-${weekDate.day}`"
-                >
-                  {{ weekDate.day }}
-                </DatePickerCellTrigger>
+                />
               </DatePickerCell>
             </DatePickerGridRow>
           </DatePickerGridBody>

@@ -28,7 +28,7 @@ import { Label } from '@/Label'
             <DateRangeFieldInput
               v-else
               :part="item.part"
-              class="rounded-5px px-1 py-1 hover:bg-grass4 focus:bg-grass2 aria-[valuetext=Empty]:text-grass6"
+              class="rounded-5px px-1 py-1 hover:bg-grass4 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black aria-[valuetext=Empty]:text-grass6"
               type="start"
             >
               {{ item.value }}
@@ -47,7 +47,7 @@ import { Label } from '@/Label'
             <DateRangeFieldInput
               v-else
               :part="item.part"
-              class="rounded-5px px-1 py-1 hover:bg-grass4 focus:bg-grass2 aria-[valuetext=Empty]:text-grass6"
+              class="rounded-5px px-1 py-1 hover:bg-grass4 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black aria-[valuetext=Empty]:text-grass6"
               type="end"
             >
               {{ item.value }}

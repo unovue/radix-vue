@@ -75,7 +75,7 @@ import './styles.css'
           </DateRangePickerInput>
         </template>
 
-        <DateRangePickerTrigger>
+        <DateRangePickerTrigger class="PopoverTrigger">
           <Icon icon="radix-icons:calendar" class="Icon" />
         </DateRangePickerTrigger>
       </DateRangePickerField>

@@ -201,6 +201,10 @@
   background-color: var(--grass-9);
 }
 
+.PopoverTrigger:focus {
+  box-shadow: 0 0 0 2px #000000;
+}
+
 .PopoverContent {
   border-radius: 4px;
   padding: 20px;

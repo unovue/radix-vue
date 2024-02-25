@@ -47,13 +47,13 @@ import {
           <DatePickerInput
             v-else
             :part="item.part"
-            class="rounded-5px px-1 py-1 hover:bg-muted focus:bg-muted focus:text-foreground aria-[valuetext=Empty]:text-muted-foreground"
+            class="rounded-5px px-1 py-1 hover:bg-grass4 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black aria-[valuetext=Empty]:text-grass6"
           >
             {{ item.value }}
           </DatePickerInput>
         </template>
 
-        <DatePickerTrigger>
+        <DatePickerTrigger class="focus:shadow-[0_0_0_2px] focus:shadow-black">
           <Icon icon="radix-icons:calendar" class="w-6 h-6" />
         </DatePickerTrigger>
       </DatePickerField>

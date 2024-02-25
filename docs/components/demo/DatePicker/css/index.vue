@@ -54,7 +54,7 @@ import './styles.css'
           </DatePickerInput>
         </template>
 
-        <DatePickerTrigger>
+        <DatePickerTrigger class="PopoverTrigger">
           <Icon icon="radix-icons:calendar" class="Icon" />
         </DatePickerTrigger>
       </DatePickerField>

@@ -162,7 +162,9 @@ const filteredOptions = computed(() => {
       return props.filterFunction(options.value as ArrayOrWrapped<T>, searchTerm.value) as T[]
 
     // The default filter only compares strings
-    return options.value.filter(i => typeof i === 'string' && i.toLowerCase().includes(searchTerm.value?.toLowerCase()))
+    const optionsWithTypeString = options.value.filter(i => typeof i === 'string') as string[]
+    if (optionsWithTypeString.length)
+      return optionsWithTypeString.filter(i => i.toLowerCase().includes(searchTerm.value?.toLowerCase())) as T[]
   }
   return options.value
 })
@@ -186,8 +188,11 @@ const selectedElement = computed(() => {
   return reactiveItems.value.find(i => i.value === selectedValue.value)?.ref
 })
 
+const stringifiedModelValue = computed(() => JSON.stringify(modelValue.value))
+
 // nextTick() are required in the following watchers as we are waiting for DOM element to be mounted first the only apply following logic
-watch(modelValue, async () => {
+watch(stringifiedModelValue, async () => {
+  await nextTick()
   await nextTick()
   resetSearchTerm()
 }, { immediate: true })

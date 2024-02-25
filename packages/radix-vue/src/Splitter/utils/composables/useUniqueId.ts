@@ -1,4 +1,4 @@
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid/non-secure'
 
 export default function useUniqueId(
   idFromParams: string | null = null,

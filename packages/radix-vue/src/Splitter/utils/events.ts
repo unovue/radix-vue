@@ -15,16 +15,16 @@ export function isTouchEvent(event: ResizeEvent): event is TouchEvent {
 export function getResizeEventCoordinates(event: ResizeEvent) {
   if (isMouseEvent(event)) {
     return {
-      x: event.pageX,
-      y: event.pageY,
+      x: event.clientX,
+      y: event.clientY,
     }
   }
   else if (isTouchEvent(event)) {
     const touch = event.touches[0]
-    if (touch && touch.pageX && touch.pageY) {
+    if (touch && touch.clientX && touch.clientY) {
       return {
-        x: touch.pageX,
-        y: touch.pageY,
+        x: touch.clientX,
+        y: touch.clientY,
       }
     }
   }

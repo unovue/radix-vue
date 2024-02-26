@@ -11,10 +11,10 @@ const isShowingB = ref(false)
     <Variant title="default">
       <div class="w-full">
         <div>
-          <button @click="isShowingA = !isShowingA">
+          <button class="px-3 py-1.5 text-sm rounded bg-white hover:bg-slate-100 text-slate-800" @click="isShowingA = !isShowingA">
             {{ isShowingA ? 'Hide' : 'Show' }} A
           </button>
-          <button class="ml-4" @click="isShowingB = !isShowingB">
+          <button class="ml-2 px-3 py-1.5 text-sm rounded bg-white hover:bg-slate-100 text-slate-800" @click="isShowingB = !isShowingB">
             {{ isShowingB ? 'Hide' : 'Show' }} B
           </button>
         </div>

@@ -1,6 +1,5 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { computed, onMounted, onUnmounted, watch } from 'vue'
 
 export interface SplitterPanelProps extends PrimitiveProps {
   /** The size of panel when it is collapsed. */
@@ -62,10 +61,20 @@ export type PanelData = {
 <script setup lang="ts">
 import { Primitive } from '@/Primitive'
 import { injectPanelGroupContext } from './SplitterGroup.vue'
+import { computed, onMounted, onUnmounted, watch } from 'vue'
 import useUniqueId from './utils/composables/useUniqueId'
 
 const props = defineProps<SplitterPanelProps>()
 const emits = defineEmits<SplitterPanelEmits>()
+
+defineSlots<{
+  default(props: {
+    /** Is the panel collapsed */
+    isCollapsed: typeof isCollapsed.value
+    /** Is the panel expanded */
+    isExpanded: typeof isExpanded.value
+  }): any
+}>()
 
 const panelGroupContext = injectPanelGroupContext()
 if (panelGroupContext === null) {
@@ -74,7 +83,7 @@ if (panelGroupContext === null) {
   )
 }
 
-const { getPanelStyle, groupId, reevaluatePanelConstraints, registerPanel, unregisterPanel } = panelGroupContext
+const { collapsePanel, expandPanel, getPanelSize, getPanelStyle, isPanelCollapsed, resizePanel, groupId, reevaluatePanelConstraints, registerPanel, unregisterPanel } = panelGroupContext
 const panelId = useUniqueId(props.id)
 
 const panelDataRef = computed(() => ({
@@ -119,6 +128,26 @@ onMounted(() => {
 
 const style = computed(() => getPanelStyle(panelDataRef.value, props.defaultSize))
 /** Panel id (unique within group); falls back to useId when not provided */
+
+const isCollapsed = computed(() => isPanelCollapsed(panelDataRef.value))
+const isExpanded = computed(() => !isCollapsed.value)
+
+defineExpose({
+  collapse: () => {
+    collapsePanel(panelDataRef.value)
+  },
+  expand: () => {
+    expandPanel(panelDataRef.value)
+  },
+  getSize() {
+    return getPanelSize(panelDataRef.value)
+  },
+  resize: (size: number) => {
+    resizePanel(panelDataRef.value, size)
+  },
+  isCollapsed,
+  isExpanded,
+})
 </script>
 
 <template>
@@ -130,7 +159,8 @@ const style = computed(() => getPanelStyle(panelDataRef.value, props.defaultSize
     :data-panel-group-id="groupId"
     :data-panel-id="panelId"
     :data-panel-size=" Number.parseFloat(`${style.flexGrow}`).toFixed(1)"
+    :data-state="collapsible ? isCollapsed ? 'collapsed' : 'expanded' : undefined"
   >
-    <slot />
+    <slot :is-collapsed="isCollapsed" :is-expanded="isExpanded" />
   </Primitive>
 </template>

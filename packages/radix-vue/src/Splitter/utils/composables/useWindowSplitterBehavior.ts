@@ -12,17 +12,16 @@ export function useWindowSplitterResizeHandlerBehavior({
   panelGroupElement,
 }: {
   disabled: Ref<boolean>
-  handleId: Ref<string>
+  handleId: string
   resizeHandler: Ref<ResizeHandler | null>
   panelGroupElement: Ref<ParentNode | null>
 }): void {
   watchEffect((onCleanup) => {
     const _panelGroupElement = panelGroupElement.value
-    const _handleId = handleId.value
     if (disabled.value || resizeHandler.value === null || _panelGroupElement === null)
       return
 
-    const handleElement = getResizeHandleElement(_handleId, _panelGroupElement)
+    const handleElement = getResizeHandleElement(handleId, _panelGroupElement)
     if (handleElement == null)
       return
 
@@ -54,7 +53,7 @@ export function useWindowSplitterResizeHandlerBehavior({
           )
           const index = getResizeHandleElementIndex(
             groupId,
-            _handleId,
+            handleId,
             _panelGroupElement,
           )
 

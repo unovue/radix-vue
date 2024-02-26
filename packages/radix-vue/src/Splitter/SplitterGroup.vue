@@ -49,7 +49,7 @@ export type PanelGroupContext = {
   direction: 'horizontal' | 'vertical'
   dragState: DragState | null
   getPanelStyle: (panelData: PanelData, defaultSize: number | undefined) => CSSProperties
-  groupId: Ref<string>
+  groupId: string
   reevaluatePanelConstraints: (panelData: PanelData, prevConstraints: PanelConstraints) => void
   registerPanel: (panelData: PanelData) => void
   registerResizeHandle: (dragHandleId: string) => ResizeHandler
@@ -112,7 +112,7 @@ const committedValuesRef = computed(() => ({
   autoSaveId: props.autoSaveId,
   direction: props.direction,
   dragState: dragState.value,
-  id: groupId.value,
+  id: groupId,
   keyboardResizeBy: props.keyboardResizeBy,
   storage: props.storage,
 }) satisfies {

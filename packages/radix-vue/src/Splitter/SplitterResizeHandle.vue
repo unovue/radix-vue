@@ -68,7 +68,7 @@ watch(disabled, () => {
   if (disabled.value)
     resizeHandler.value = null
   else
-    resizeHandler.value = registerResizeHandleWithParentGroup(resizeHandleId.value)
+    resizeHandler.value = registerResizeHandleWithParentGroup(resizeHandleId)
 }, { immediate: true })
 
 watchEffect((onCleanup) => {
@@ -91,7 +91,7 @@ watchEffect((onCleanup) => {
         case 'down': {
           state.value = 'drag'
 
-          startDragging(resizeHandleId.value, event)
+          startDragging(resizeHandleId, event)
           emits('dragging', true)
           break
         }
@@ -117,7 +117,7 @@ watchEffect((onCleanup) => {
   }
 
   onCleanup(registerResizeHandle(
-    resizeHandleId.value,
+    resizeHandleId,
     element,
     direction,
     {

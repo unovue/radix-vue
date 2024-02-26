@@ -160,6 +160,29 @@ Customize the handle by passing any element as the slot.
 ```
  
 
+### SSR
+
+Splitter component heavily rely on unique `id`, however for Vue<3.4 we don't have a reliable way of generating [ssr-friendly id](https://github.com/vuejs/rfcs/discussions/557).
+
+Thus, if you are using Nuxt or other SSR framework, you are required to manually add the `id` for all Splitter component. Alternatively, you can wrap the component with `<ClientOnly>`.
+
+```vue
+<template>
+  <SplitterGroup id="group-1">
+    <SplitterPanel id="group-1-panel-1">
+      …
+    </SplitterPanel>
+    <SplitterResizeHandle id="group-1-resize-1">
+      <Icon icon="radix-icons-drag-handle-dots-2" />
+    </SplitterResizeHandle>
+    <SplitterPanel id="group-1-panel-2">
+      …
+    </SplitterPanel>
+  </SplitterGroup>
+</template>
+```
+
+
 ## Accessibility
 
 Adheres to the [Window Splitter WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/windowsplitter/).

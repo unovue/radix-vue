@@ -14,6 +14,10 @@ Enables users to input specific dates within a designated field.
 
 <ComponentPreview name="DateField" />
 
+::: info Credit
+This component was built taking inspiration from the implementation in [melt-ui](https://github.com/melt-ui/melt-ui).
+:::
+
 ## Features
 
 <Highlights

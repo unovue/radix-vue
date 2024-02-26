@@ -14,6 +14,10 @@ Facilitates the selection of dates through an input and calendar-based interface
 
 <ComponentPreview name="DatePicker" />
 
+::: info Credit
+This component was built taking inspiration from the implementation in [melt-ui](https://github.com/melt-ui/melt-ui).
+:::
+
 ## Features
 
 <Highlights

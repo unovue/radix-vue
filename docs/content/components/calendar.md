@@ -15,6 +15,10 @@ Displays dates and days of the week, facilitating date-related interactions.
 
 <ComponentPreview name="Calendar" />
 
+::: info Credit
+This component was built taking inspiration from the implementation in [melt-ui](https://github.com/melt-ui/melt-ui).
+:::
+
 ## Features
 
 <Highlights

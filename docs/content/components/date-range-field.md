@@ -14,6 +14,10 @@ Allows users to input a range of dates within a designated field.
 
 <ComponentPreview name="DateRangeField" />
 
+::: info Credit
+This component was built taking inspiration from the implementation in [melt-ui](https://github.com/melt-ui/melt-ui).
+:::
+
 ## Features
 
 <Highlights

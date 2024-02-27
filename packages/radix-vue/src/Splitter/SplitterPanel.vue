@@ -133,19 +133,25 @@ const isCollapsed = computed(() => isPanelCollapsed(panelDataRef.value))
 const isExpanded = computed(() => !isCollapsed.value)
 
 defineExpose({
+  /** If panel is `collapsible`, collapse it fully. */
   collapse: () => {
     collapsePanel(panelDataRef.value)
   },
+  /** If panel is currently collapsed, expand it to its most recent size. */
   expand: () => {
     expandPanel(panelDataRef.value)
   },
+  /** Gets the current size of the panel as a percentage (1 - 100). */
   getSize() {
     return getPanelSize(panelDataRef.value)
   },
+  /** Resize panel to the specified percentage (1 - 100). */
   resize: (size: number) => {
     resizePanel(panelDataRef.value, size)
   },
+  /** Returns `true` if the panel is currently collapsed */
   isCollapsed,
+  /** Returns `true` if the panel is currently not collapsed */
   isExpanded,
 })
 </script>

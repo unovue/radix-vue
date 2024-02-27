@@ -46,7 +46,7 @@
 <SlotsTable :data="[
   {
     'name': 'open',
-    'description': 'Current open state',
+    'description': '<p>Current open state</p>\n',
     'type': 'boolean'
   }
 ]" />

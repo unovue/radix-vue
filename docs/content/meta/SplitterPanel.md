@@ -75,3 +75,39 @@
     'type': '[size: number, prevSize: number]'
   }
 ]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'isCollapsed',
+    'description': '<p>Is the panel collapsed</p>\n',
+    'type': 'boolean'
+  },
+  {
+    'name': 'isExpanded',
+    'description': '<p>Is the panel expanded</p>\n',
+    'type': 'boolean'
+  }
+]" />
+
+<MethodsTable :data="[
+  {
+    'name': 'collapse',
+    'description': '<p>If panel is <code>collapsible</code>, collapse it fully.</p>\n',
+    'type': '() => void'
+  },
+  {
+    'name': 'expand',
+    'description': '<p>If panel is currently collapsed, expand it to its most recent size.</p>\n',
+    'type': '() => void'
+  },
+  {
+    'name': 'getSize',
+    'description': '<p>Gets the current size of the panel as a percentage (1 - 100).</p>\n',
+    'type': '() => number'
+  },
+  {
+    'name': 'resize',
+    'description': '<p>Resize panel to the specified percentage (1 - 100).</p>\n',
+    'type': '(size: number) => void'
+  }
+]" />

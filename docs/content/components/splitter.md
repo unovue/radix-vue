@@ -73,7 +73,11 @@ Contains all the parts of a Splitter.
     {
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
-    }
+    },
+    {
+      attribute: '[data-state]',
+      values: ['collapsed', 'expanded', 'Present when collapsbile'],
+    },
   ]"
 />
 

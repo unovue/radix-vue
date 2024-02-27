@@ -56,3 +56,11 @@
     'type': '[val: number[]]'
   }
 ]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'layout',
+    'description': '<p>Current size of layout</p>\n',
+    'type': 'number[]'
+  }
+]" />

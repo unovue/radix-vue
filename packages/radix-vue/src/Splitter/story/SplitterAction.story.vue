@@ -14,11 +14,17 @@ onMounted(() => {
   <Story title="Splitter/Action" :layout="{ type: 'single', width: '100%', iframe: false }">
     <Variant title="default">
       <div>
-        <button class="px-3 py-1.5 text-sm rounded bg-white hover:bg-slate-100 text-slate-800" @click="panelRef?.isCollapsed ? panelRef?.expand() : panelRef?.collapse() ">
+        <button
+          class="px-3 py-1.5 text-sm rounded bg-white hover:bg-slate-100 text-slate-800"
+          @click="panelRef?.isCollapsed ? panelRef?.expand() : panelRef?.collapse() "
+        >
           {{ panelRef?.isCollapsed ? 'Expand' : 'Collapse' }}
         </button>
 
-        <button class="ml-2 px-3 py-1.5 text-sm rounded bg-white hover:bg-slate-100 text-slate-800" @click="panelRef?.resize(20)">
+        <button
+          class="ml-2 px-3 py-1.5 text-sm rounded bg-white hover:bg-slate-100 text-slate-800"
+          @click="panelRef?.resize(20)"
+        >
           Resize to 20
         </button>
 

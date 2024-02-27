@@ -63,6 +63,7 @@ import {
   DateRangePickerCalendar,
   DateRangePickerCell,
   DateRangePickerCellTrigger,
+  DateRangePickerClose,
   DateRangePickerContent,
   DateRangePickerField,
   DateRangePickerGrid,
@@ -89,6 +90,7 @@ import {
     </DateRangePickerField>
     <DateRangePickerAnchor />
     <DateRangePickerContent>
+      <DateRangePickerClose />
       <DateRangePickerArrow />
       <DateRangePickerCalendar>
         <DateRangePickerHeader>
@@ -158,6 +160,18 @@ The component that pops out when the popover is open.
 An optional arrow element to render alongside the popover. This can be used to help visually link the anchor with the PopoverContent. Must be rendered inside PopoverContent.
 
 <!-- @include: @/meta/DateRangePickerArrow.md -->
+
+### Arrow
+
+An optional arrow element to render alongside the popover. This can be used to help visually link the anchor with the <Code>DateRangePickerContent</Code>. Must be rendered inside <Code>DateRangePickerContent</Code>.
+
+<!-- @include: @/meta/DatePickerArrow.md -->
+
+### Close
+
+The button that closes an open date picker.
+
+<!-- @include: @/meta/DateRangePickerClose.md -->
 
 ### Anchor
 

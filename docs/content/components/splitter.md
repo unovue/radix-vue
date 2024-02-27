@@ -122,8 +122,8 @@ Use the `collapsible` prop to allow the panel to collapse into `collapsedSize` w
 
 ```vue line=2
 <template>
-  <SplitterGroup collapsible :collapsed-size="10" :min-size="35">
-    <SplitterPanel>
+  <SplitterGroup>
+    <SplitterPanel collapsible :collapsed-size="10" :min-size="35">
       Panel A
     </SplitterPanel>
     <SplitterResizeHandle />
@@ -146,6 +146,62 @@ Use the `autoSaveId` prop to save the layout data into `localStorage`.
 </template>
 ```
  
+### Persist layout with SSR
+
+By default, Splitter uses `localStorage` to persist layouts. With server rendering, this can cause a flicker when the default layout (rendered on the server) is replaced with the persisted layout (in localStorage). The way to avoid this flicker is to also persist the layout with a cookie like so:
+
+```vue line=3,7,8,12
+<!-- with Nuxt -->
+<script setup lang="ts">
+const layout = useCookie<number[]>('splitter:layout')
+</script>
+
+<template>
+  <SplitterGroup direction="horizontal" @layout="layout = $event">
+    <SplitterPanel :default-size="layout[0]">
+      …
+    </SplitterPanel>
+    <SplitterResizeHandle />
+    <SplitterPanel :default-size="layout[1]">
+      …
+    </SplitterPanel>
+  </SplitterGroup>
+</template>
+```
+ 
+
+### Collapse/Expand programatically
+
+Sometimes panels need to resize or collapse/expand in response to user actions. `SplitterPanel` expose a `collapse` and `expand` methods to achieve this.
+
+```vue line=2,7,14
+<script setup lang="ts">
+const panelRef = ref<InstanceType<typeof SplitterPanel>>()
+</script>
+
+<template>
+  <button
+    @click="panelRef?.isCollapsed ? panelRef?.expand() : panelRef?.collapse() "
+  >
+    {{ panelRef?.isCollapsed ? 'Expand' : 'Collapse' }}
+  </button>
+
+  <SplitterGroup>
+    <SplitterPanel
+      ref="panelRef"
+      collapsible :collapsed-size="10" :min-size="35"
+    >
+      …
+    </SplitterPanel>
+    <SplitterResizeHandle />
+    <SplitterPanel>
+      …
+    </SplitterPanel>
+  </SplitterGroup>
+</template>
+```
+
+
 
 ### Custom handle
 

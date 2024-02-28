@@ -163,8 +163,6 @@ export function useCalendar(props: UseCalendarProps) {
       numberOfMonths: props.numberOfMonths,
     })
 
-    grid.value = newGrid
-
     props.placeholder.value = newGrid[0].value.set({ day: 1 })
   }
 

@@ -23,3 +23,8 @@
 .histoire-generic-render-story:not(.__histoire-render-custom-controls) [data-v-app] {
   @apply flex justify-center;
 }
+
+/* span the width to full if child has w-full class */
+.histoire-generic-render-story:not(.__histoire-render-custom-controls) [data-v-app] > div:has(div.w-full) {
+  width: 100%;
+}

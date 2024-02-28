@@ -246,28 +246,27 @@ watch(modelValue, (value) => {
       placeholder.value = lastValue
   }
   else if (!Array.isArray(value) && value && placeholder.toString() !== value.toString()) {
-    placeholder.value = value
+    placeholder.value = placeholder.value.set({ ...value })
   }
 })
 
 function onDateChange(value: DateValue) {
+  const dateRef = placeholder.value
   if (!multiple.value) {
     if (!modelValue.value) {
-      modelValue.value = placeholder.value.set({ ...value })
+      modelValue.value = dateRef.set({ ...value })
       return
     }
 
-    if (isSameDay(modelValue.value as DateValue, value)) {
-      placeholder.value = placeholder.value.set({ ...value })
+    if (isSameDay(modelValue.value as DateValue, value))
       modelValue.value = undefined
-    }
-    else {
-      modelValue.value = placeholder.value.set({ ...value })
-    }
+
+    else
+      modelValue.value = dateRef.set({ ...value })
   }
   else if (Array.isArray(modelValue.value)) {
     if (!modelValue.value) {
-      modelValue.value = [placeholder.value.set({ ...value })]
+      modelValue.value = [dateRef.set({ ...value })]
       return
     }
 
@@ -278,11 +277,10 @@ function onDateChange(value: DateValue) {
     else {
       const next = modelValue.value.filter(date => !isSameDay(date, value))
       if (!next.length) {
-        placeholder.value = placeholder.value.set({ ...value })
         modelValue.value = []
         return
       }
-      modelValue.value = next.map(date => placeholder.value.set({ ...date }))
+      modelValue.value = next.map(date => dateRef.set({ ...date }))
     }
   }
 }

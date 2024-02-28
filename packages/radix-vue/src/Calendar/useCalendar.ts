@@ -2,8 +2,8 @@
   * Adapted from https://github.com/melt-ui/melt-ui/blob/develop/src/lib/builders/calendar/create.ts
 */
 
-import { type DateValue, isSameDay } from '@internationalized/date'
-import { type Ref, computed } from 'vue'
+import { type DateValue, isSameDay, isSameMonth } from '@internationalized/date'
+import { type Ref, computed, ref, watch } from 'vue'
 import { type CalendarHeadingSegmentValue, type CalendarView, type Grid, type Matcher, type WeekDayFormat, createMonths, isAfter, isBefore, toDate } from '@/shared/date'
 import { useDateFormatter } from '@/shared'
 
@@ -107,7 +107,7 @@ export function useCalendarState(props: UseCalendarStateProps) {
 export function useCalendar(props: UseCalendarProps) {
   const formatter = useDateFormatter(props.locale)
 
-  const grid = computed<Grid<DateValue>[]>(() => createMonths({
+  const grid = ref<Grid<DateValue>[]>(createMonths({
     dateObj: props.placeholder.value,
     weekStartsOn: props.weekStartsOn,
     locale: props.locale,
@@ -183,6 +183,18 @@ export function useCalendar(props: UseCalendarProps) {
 
     props.placeholder.value = firstDateOfNewMonth
   }
+
+  watch(props.placeholder, (value, oldValue) => {
+    if (props.calendarView.value === 'month' && !isSameMonth(value, oldValue)) {
+      grid.value = createMonths({
+        dateObj: value,
+        weekStartsOn: props.weekStartsOn,
+        locale: props.locale,
+        fixedWeeks: props.fixedWeeks,
+        numberOfMonths: props.numberOfMonths,
+      })
+    }
+  })
 
   return {
     isDateDisabled,

@@ -111,7 +111,7 @@ export const [injectCalendarRootContext, provideCalendarRootContext]
 </script>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, toRefs } from 'vue'
+import { computed, onMounted, ref, toRefs, watch } from 'vue'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 
@@ -237,6 +237,17 @@ const {
   isDateUnavailable,
   locale: locale.value,
   calendarLabel: calendarLabel.value,
+})
+
+watch(modelValue, (value) => {
+  if (Array.isArray(value) && value.length) {
+    const lastValue = value[value.length - 1]
+    if (lastValue && placeholder.value.toString() !== lastValue.toString())
+      placeholder.value = lastValue
+  }
+  else if (!Array.isArray(value) && value && placeholder.toString() !== value.toString()) {
+    placeholder.value = value
+  }
 })
 
 function onDateChange(value: DateValue) {

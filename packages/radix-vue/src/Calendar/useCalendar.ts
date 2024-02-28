@@ -171,17 +171,33 @@ export function useCalendar(props: UseCalendarProps) {
   const nextPage = () => {
     const firstDate = grid.value[0].value
 
-    const firstDateOfNewMonth = firstDate.add({ months: props.pagedNavigation ? props.numberOfMonths : 1 })
+    const newGrid = createMonths({
+      dateObj: firstDate.add({ months: 1 }),
+      weekStartsOn: props.weekStartsOn,
+      locale: props.locale,
+      fixedWeeks: props.fixedWeeks,
+      numberOfMonths: props.numberOfMonths,
+    })
 
-    props.placeholder.value = firstDateOfNewMonth.set({ day: 1 })
+    grid.value = newGrid
+
+    props.placeholder.value = newGrid[0].value.set({ day: 1 })
   }
 
   const prevPage = () => {
     const firstDate = grid.value[0].value
 
-    const firstDateOfNewMonth = firstDate.subtract({ months: props.pagedNavigation ? props.numberOfMonths : 1 })
+    const newGrid = createMonths({
+      dateObj: firstDate.subtract({ months: 1 }),
+      weekStartsOn: props.weekStartsOn,
+      locale: props.locale,
+      fixedWeeks: props.fixedWeeks,
+      numberOfMonths: props.numberOfMonths,
+    })
 
-    props.placeholder.value = firstDateOfNewMonth
+    grid.value = newGrid
+
+    props.placeholder.value = newGrid[0].value.set({ day: 1 })
   }
 
   watch(props.placeholder, (value, oldValue) => {

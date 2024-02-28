@@ -6,7 +6,7 @@ import type { PrimitiveProps } from '@/Primitive'
 import { createContext, getDefaultDate, handleCalendarInitialFocus, isBefore } from '@/shared'
 import type { CalendarView, Formatter, Matcher, WeekDayFormat } from '@/shared'
 import { useRangeCalendarState } from './useRangeCalendar'
-import { useCalendar } from '@/Calendar'
+import { useCalendar } from '@/Calendar/useCalendar'
 import type { CalendarHeadingSegmentValue } from '@/shared/date'
 
 type RangeCalendarRootContext = {

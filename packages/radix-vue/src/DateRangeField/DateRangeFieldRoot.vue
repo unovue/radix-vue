@@ -19,7 +19,7 @@ import {
   useDateFormatter,
   useKbd,
 } from '@/shared'
-import { createContent, initializeSegmentValues, isSegmentNavigationKey, syncSegmentValues } from '@/DateField'
+import { createContent, initializeSegmentValues, isSegmentNavigationKey, syncSegmentValues } from '@/DateField/utils'
 
 export type DateRangeType = 'start' | 'end'
 

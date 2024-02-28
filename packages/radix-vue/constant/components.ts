@@ -398,8 +398,8 @@ export const utilities = {
     'useId',
     'useStateMachine',
     'useBodyScrollLock',
+    'useDateFormatter',
     'withDefault',
     'createContext',
-    'useDateFormatter',
   ],
 }

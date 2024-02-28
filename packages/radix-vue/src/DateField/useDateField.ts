@@ -300,7 +300,6 @@ export function useDateField(props: UseDateFieldProps) {
      * `prev` value so that we can start the segment over again
      * when the user types a number.
    */
-    // probably not implement, kind of weird
     if (props.hasLeftFocus.value) {
       props.hasLeftFocus.value = false
       prev = null
@@ -756,19 +755,24 @@ export function useDateField(props: UseDateFieldProps) {
     if (e.key === kbd.ARROW_UP || e.key === kbd.ARROW_DOWN) {
       if (props.segmentValues.value.dayPeriod === 'AM') {
         props.segmentValues.value.dayPeriod = 'PM'
+        props.segmentValues.value.hour = props.segmentValues.value.hour! + 12
         return
       }
       props.segmentValues.value.dayPeriod = 'AM'
+      props.segmentValues.value.hour = props.segmentValues.value.hour! - 12
       return
     }
 
     if (e.key === 'a') {
       props.segmentValues.value.dayPeriod = 'AM'
+      props.segmentValues.value.hour = props.segmentValues.value.hour! - 12
       return
     }
 
-    if (e.key === 'p')
+    if (e.key === 'p') {
       props.segmentValues.value.dayPeriod = 'PM'
+      props.segmentValues.value.hour = props.segmentValues.value.hour! + 12
+    }
   }
 
   function handleSegmentClick(e: MouseEvent) {

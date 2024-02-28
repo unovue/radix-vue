@@ -198,7 +198,7 @@ watch(segmentValues, (value) => {
 
 watch(modelValue, (value) => {
   if (value !== undefined && placeholder.value.toString() !== value.toString())
-    placeholder.value = value
+    placeholder.value = placeholder.value.set({ ...value })
 })
 
 watch(modelValue, (modelValue) => {

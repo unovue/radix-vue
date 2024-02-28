@@ -52,4 +52,4 @@ export {
   default as CalendarCellTrigger,
   type CalendarCellTriggerProps,
 } from './CalendarCellTrigger.vue'
-export { type CalendarView } from '@/shared'
+export { type CalendarView } from '@/shared/date'

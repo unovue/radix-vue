@@ -4,7 +4,8 @@
 
 import { type DateValue, endOfMonth, endOfYear, startOfMonth, startOfYear } from '@internationalized/date'
 import type { Grid } from './types'
-import { chunk, getDaysInMonth, getLastFirstDayOfWeek, getNextLastDayOfWeek } from '@/shared'
+import { chunk } from '@/shared'
+import { getDaysInMonth, getLastFirstDayOfWeek, getNextLastDayOfWeek } from '@/shared/date'
 
 export type WeekDayFormat = 'narrow' | 'short' | 'long'
 

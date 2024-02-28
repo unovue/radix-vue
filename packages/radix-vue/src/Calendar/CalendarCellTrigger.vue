@@ -10,13 +10,13 @@ import {
   today,
 } from '@internationalized/date'
 import { computed, nextTick } from 'vue'
+import { useKbd } from '@/shared'
 import {
+  endOfDecade,
   isBetweenInclusive,
   parseStringToDateValue,
-  toDate,
-  useKbd,
-} from '@/shared'
-import { endOfDecade, startOfDecade } from '@/shared/date'
+  startOfDecade, toDate,
+} from '@/shared/date'
 
 export interface CalendarCellTriggerProps extends PrimitiveProps {
   /** The date value provided to the cell trigger */

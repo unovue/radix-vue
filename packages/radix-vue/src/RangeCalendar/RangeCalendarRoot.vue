@@ -3,11 +3,11 @@ import { type DateValue, isSameDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, getDefaultDate, handleCalendarInitialFocus, isBefore } from '@/shared'
-import type { CalendarView, Formatter, Matcher, WeekDayFormat } from '@/shared'
+import { type Formatter, createContext } from '@/shared'
+import type { CalendarHeadingSegmentValue, CalendarView, Matcher, WeekDayFormat } from '@/shared/date'
+import { getDefaultDate, handleCalendarInitialFocus, isBefore } from '@/shared/date'
 import { useRangeCalendarState } from './useRangeCalendar'
 import { useCalendar } from '@/Calendar/useCalendar'
-import type { CalendarHeadingSegmentValue } from '@/shared/date'
 
 type RangeCalendarRootContext = {
   modelValue: Ref<{ start: DateValue | undefined; end: DateValue | undefined }>

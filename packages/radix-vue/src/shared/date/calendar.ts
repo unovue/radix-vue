@@ -108,11 +108,13 @@ type SetMonthProps = CreateMonthProps & {
 }
 
 type SetYearProps = CreateSelectProps & {
-  numberOfMonths: number | undefined
+  numberOfMonths?: number
   pagedNavigation: boolean
 }
 
-type SetDecadeProps = CreateSelectProps
+type SetDecadeProps = CreateSelectProps & {
+  numberOfYears?: number
+}
 
 export function startOfDecade(dateObj: DateValue) {
   // round to the lowest nearest 10 when building the decade
@@ -125,22 +127,15 @@ export function endOfDecade(dateObj: DateValue) {
 }
 
 export function createDecade(props: SetDecadeProps): Grid<DateValue>[] {
-  const { dateObj, columns } = props
+  const { dateObj, columns, numberOfYears } = props
 
   const decadeArray = []
 
   const decadeStart = startOfDecade(dateObj)
-  for (let i = decadeStart.year; i < decadeStart.year + 10; i++)
+  for (let i = decadeStart.year; i < decadeStart.year + (numberOfYears ?? 10); i++)
     decadeArray.push(dateObj.set({ year: i }))
 
   const rows = chunk(decadeArray, columns)
-
-  if (!rows.every(row => row.length === columns)) {
-    const lastRow = rows[rows.length - 1]
-    const lastRowLength = lastRow.length
-    for (let i = 0; i < columns - lastRowLength; i++)
-      rows[rows.length - 1].push(lastRow[lastRowLength - 1].add({ years: i + 1 }))
-  }
 
   return [{ value: dateObj, cells: decadeArray, rows }]
 }

@@ -4,12 +4,13 @@ import { type DateValue, isSameDay } from '@internationalized/date'
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { type Formatter, createContext } from '@/shared'
+
 import { useCalendar, useCalendarState } from './useCalendar'
-import type { CalendarHeadingSegmentValue, CalendarView, Grid, Matcher, WeekDayFormat } from '@/shared/date'
+import type { CalendarHeadingSegmentValue, Grid, Matcher, WeekDayFormat } from '@/shared/date'
 import { getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
 
 type CalendarRootContext = {
-  calendarView: Ref<CalendarView>
+
   locale: Ref<string>
   modelValue: Ref<DateValue | DateValue[] | undefined>
   placeholder: Ref<DateValue>
@@ -38,15 +39,11 @@ type CalendarRootContext = {
   isNextButtonDisabled: Ref<boolean>
   isPrevButtonDisabled: Ref<boolean>
   formatter: Formatter
-  columns: Ref<number>
-  setView: (view: CalendarView) => void
 }
 
 interface BaseCalendarRootProps extends PrimitiveProps {
   /** The default value for the calendar */
   defaultValue?: DateValue
-  /** The initial view of the calendar when it is rendered */
-  initialView?: CalendarView
   /** The number of columns the grid should be divided for year and decade views */
   columns?: number
   /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programatically control the calendar view */
@@ -111,7 +108,7 @@ export const [injectCalendarRootContext, provideCalendarRootContext]
 </script>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, toRefs } from 'vue'
+import { computed, onMounted, ref, toRefs, watch } from 'vue'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 
@@ -142,8 +139,6 @@ defineSlots<{
     date: DateValue
     /** The grid of dates */
     grid: Grid<DateValue>[]
-    /** The current calendar view */
-    calendarView: CalendarView
     /** The days of the week */
     weekDays: string[]
     /** The formatter used inside the calendar for displaying dates */
@@ -165,7 +160,6 @@ const {
   preventDeselect,
   isDateDisabled: propsIsDateDisabled,
   isDateUnavailable: propsIsDateUnavailable,
-  columns,
   calendarLabel,
 } = toRefs(props)
 
@@ -207,7 +201,6 @@ const {
   formatter,
   grid,
 } = useCalendar({
-  columns,
   locale: props.locale,
   placeholder,
   weekStartsOn: props.weekStartsOn,
@@ -237,6 +230,17 @@ const {
   isDateUnavailable,
   locale: locale.value,
   calendarLabel: calendarLabel.value,
+})
+
+watch(modelValue, (value) => {
+  if (Array.isArray(value) && value.length) {
+    const lastValue = value[value.length - 1]
+    if (lastValue && placeholder.value.toString() !== lastValue.toString())
+      placeholder.value = lastValue
+  }
+  else if (!Array.isArray(value) && value && placeholder.toString() !== value.toString()) {
+    placeholder.value = value
+  }
 })
 
 function onDateChange(value: DateValue) {
@@ -282,7 +286,6 @@ onMounted(() => {
 })
 
 provideCalendarRootContext({
-  calendarView,
   isDateUnavailable,
   isDateDisabled,
   locale,
@@ -309,12 +312,8 @@ provideCalendarRootContext({
   nextPage,
   prevPage,
   parentElement,
-  columns,
   onPlaceholderChange(value) {
     placeholder.value = value
-  },
-  setView(view) {
-    calendarView.value = view
   },
   onDateChange,
 })
@@ -333,6 +332,6 @@ provideCalendarRootContext({
         {{ fullCalendarLabel }}
       </div>
     </div>
-    <slot :date="placeholder" :grid="grid" :calendar-view="calendarView" :week-days="weekdays" :formatter="formatter" />
+    <slot :date="placeholder" :grid="grid" :week-days="weekdays" :formatter="formatter" />
   </Primitive>
 </template>

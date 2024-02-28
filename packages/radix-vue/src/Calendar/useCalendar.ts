@@ -2,15 +2,14 @@
   * Adapted from https://github.com/melt-ui/melt-ui/blob/develop/src/lib/builders/calendar/create.ts
 */
 
-import { type DateTimeDuration, type DateValue, isSameDay } from '@internationalized/date'
-import { type Ref, computed, ref, watch } from 'vue'
-import { type CalendarHeadingSegmentValue, type CalendarView, type Grid, type Matcher, type WeekDayFormat, createDecade, createMonths, createYear, isAfter, isBefore, toDate } from '@/shared/date'
+import { type DateValue, isSameDay } from '@internationalized/date'
+import { type Ref, computed } from 'vue'
+import { type CalendarHeadingSegmentValue, type CalendarView, type Grid, type Matcher, type WeekDayFormat, createMonths, isAfter, isBefore, toDate } from '@/shared/date'
 import { useDateFormatter } from '@/shared'
 
 export type UseCalendarProps = {
   locale: string
   placeholder: Ref<DateValue>
-  columns: Ref<number>
   weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6
   fixedWeeks: boolean
   numberOfMonths: number
@@ -108,27 +107,13 @@ export function useCalendarState(props: UseCalendarStateProps) {
 export function useCalendar(props: UseCalendarProps) {
   const formatter = useDateFormatter(props.locale)
 
-  const gridGenerator: Record<CalendarView, (value?: DateValue) => Grid<DateValue>[]> = {
-    month: (value?: DateValue) => createMonths({
-      dateObj: value ?? props.placeholder.value,
-      weekStartsOn: props.weekStartsOn,
-      locale: props.locale,
-      fixedWeeks: props.fixedWeeks,
-      numberOfMonths: props.numberOfMonths,
-    }),
-    year: (value?: DateValue) => createYear({
-      dateObj: value ?? props.placeholder.value,
-      columns: props.columns.value,
-      numberOfMonths: props.numberOfMonths,
-      pagedNavigation: props.pagedNavigation,
-    }),
-    decade: (value?: DateValue) => createDecade({
-      dateObj: value ?? props.placeholder.value,
-      columns: props.columns.value,
-    }),
-  }
-
-  const grid = ref<Grid<DateValue>[]>(gridGenerator[props.calendarView.value]()) as Ref<Grid<DateValue>[]>
+  const grid = computed<Grid<DateValue>[]>(() => createMonths({
+    dateObj: props.placeholder.value,
+    weekStartsOn: props.weekStartsOn,
+    locale: props.locale,
+    fixedWeeks: props.fixedWeeks,
+    numberOfMonths: props.numberOfMonths,
+  })) as Ref<Grid<DateValue>[]>
 
   const visibleView = computed(() => {
     return grid.value.map(month => month.value)
@@ -176,8 +161,6 @@ export function useCalendar(props: UseCalendarProps) {
   }
 
   const weekdays = computed(() => {
-    if (props.calendarView.value !== 'month')
-      return []
     if (!grid.value.length)
       return []
     return grid.value[0].rows[0].map((date) => {
@@ -185,35 +168,21 @@ export function useCalendar(props: UseCalendarProps) {
     })
   })
 
-  const viewToDateField: Record<CalendarView, Record<'key' | 'value', keyof DateTimeDuration | number>> = {
-    month: { key: 'months', value: props.pagedNavigation ? props.numberOfMonths : 1 },
-    year: { key: 'years', value: 1 },
-    decade: { key: 'years', value: 10 },
-  }
-
   const nextPage = () => {
     const firstDate = grid.value[0].value
 
-    const newGrid = gridGenerator[props.calendarView.value](firstDate.add({ [viewToDateField[props.calendarView.value].key]: viewToDateField[props.calendarView.value].value }))
+    const firstDateOfNewMonth = firstDate.add({ months: props.pagedNavigation ? props.numberOfMonths : 1 })
 
-    grid.value = newGrid
-
-    props.placeholder.value = newGrid[0].value.set({ day: 1 })
+    props.placeholder.value = firstDateOfNewMonth.set({ day: 1 })
   }
 
   const prevPage = () => {
     const firstDate = grid.value[0].value
 
-    const newGrid = gridGenerator[props.calendarView.value](firstDate.subtract({ [viewToDateField[props.calendarView.value].key]: viewToDateField[props.calendarView.value].value }))
+    const firstDateOfNewMonth = firstDate.subtract({ months: props.pagedNavigation ? props.numberOfMonths : 1 })
 
-    grid.value = newGrid
-
-    props.placeholder.value = newGrid[0].value.set({ day: 1 })
+    props.placeholder.value = firstDateOfNewMonth
   }
-
-  watch(props.calendarView, (value) => {
-    grid.value = gridGenerator[value]()
-  })
 
   return {
     isDateDisabled,

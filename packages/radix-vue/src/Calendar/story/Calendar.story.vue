@@ -2,6 +2,8 @@
 import { Icon } from '@iconify/vue'
 import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarHeadingSegment, CalendarNext, CalendarPrev, CalendarRoot, type CalendarRootProps } from '../'
 
+import { PopoverArrow, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from '@/Popover'
+
 const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
   return date.day === 17 || date.day === 18
 }
@@ -22,9 +24,24 @@ const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
           >
             <Icon icon="radix-icons:chevron-left" class="w-6 h-6" />
           </CalendarPrev>
-          <CalendarHeading v-slot="{ headingValue }" class="text-[15px] text-black font-medium">
-            <CalendarHeadingSegment v-for="item in headingValue" :key="item.value" :type="item.type" :value="item.value" />
-          </CalendarHeading>
+          <PopoverRoot :modal="false">
+            <CalendarHeading v-slot="{ headingValue }" as-child class="text-[15px] text-black font-medium cursor-pointer">
+              <PopoverTrigger>
+                <CalendarHeadingSegment v-for="item in headingValue" :key="item.value" :type="item.type" :value="item.value" />
+              </PopoverTrigger>
+            </CalendarHeading>
+            <PopoverPortal>
+              <PopoverContent
+                side="bottom"
+                :side-offset="5"
+                class="rounded p-5 w-[260px] bg-white shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2)] focus:shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2),0_0_0_2px_theme(colors.violet7)] will-change-[transform,opacity] data-[state=open]:data-[side=top]:animate-slideDownAndFade data-[state=open]:data-[side=right]:animate-slideLeftAndFade data-[state=open]:data-[side=bottom]:animate-slideUpAndFade data-[state=open]:data-[side=left]:animate-slideRightAndFade"
+              >
+                Trigger Content
+                <PopoverArrow class="fill-white" />
+              </PopoverContent>
+            </PopoverPortal>
+          </PopoverRoot>
+
           <CalendarNext
             class="inline-flex items-center cursor-pointer text-black justify-center rounded-[9px] bg-transparent w-10 h-10 hover:bg-black hover:text-white active:scale-98 active:transition-all focus:shadow-[0_0_0_2px] focus:shadow-black"
           >
@@ -36,7 +53,7 @@ const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
         >
           <CalendarGrid v-for="month in grid" :key="month.value.toString()" class="w-full border-collapse select-none space-y-1">
             <CalendarGridHead>
-              <CalendarGridRow class="mb-1 grid grid-cols-4 w-full data-[radix-vue-calendar-month-view]:grid-cols-7">
+              <CalendarGridRow class="mb-1 grid w-full grid-cols-7">
                 <CalendarHeadCell
                   v-for="day in weekDays" :key="day"
                   class="rounded-md text-xs !font-normal text-black"
@@ -46,7 +63,7 @@ const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
               </CalendarGridRow>
             </CalendarGridHead>
             <CalendarGridBody class="grid">
-              <CalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="grid grid-cols-4 data-[radix-vue-calendar-month-view]:grid-cols-7">
+              <CalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="grid grid-cols-7">
                 <CalendarCell
                   v-for="weekDate in weekDates"
                   :key="weekDate.toString()"
@@ -56,7 +73,7 @@ const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
                   <CalendarCellTrigger
                     :day="weekDate"
                     :month="month.value"
-                    class="relative flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent text-sm font-normal text-black p-2 outline-none focus:shadow-[0_0_0_2px] focus:shadow-black hover:border-black data-[disabled]:pointer-events-none data-[outside-view]:pointer-events-none data-[selected]:bg-black data-[selected]:font-medium data-[disabled]:text-black/30 data-[selected]:text-white data-[unavailable]:text-black/30 data-[unavailable]:line-through before:absolute before:top-[5px] before:hidden before:rounded-full before:w-1 before:h-1 before:bg-white data-[today]:before:block data-[today]:before:bg-grass9 data-[selected]:before:bg-white"
+                    class="relative flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent text-sm font-normal text-black p-2 outline-none focus:shadow-[0_0_0_2px] focus:shadow-black hover:border-black data-[selected]:bg-black data-[selected]:font-medium data-[disabled]:text-black/30 data-[selected]:text-white data-[unavailable]:text-black/30 data-[unavailable]:line-through before:absolute before:top-[5px] before:hidden before:rounded-full before:w-1 before:h-1 before:bg-white data-[today]:before:block data-[today]:before:bg-grass9 data-[selected]:before:bg-white"
                   />
                 </CalendarCell>
               </CalendarGridRow>

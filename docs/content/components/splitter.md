@@ -148,7 +148,7 @@ Use the `autoSaveId` prop to save the layout data into `localStorage`.
  
 ### Persist layout with SSR
 
-By default, Splitter uses `localStorage` to persist layouts. With server rendering, this can cause a flicker when the default layout (rendered on the server) is replaced with the persisted layout (in localStorage). The way to avoid this flicker is to also persist the layout with a cookie like so:
+By default, Splitter uses `localStorage` to persist layouts. With server rendering, this can cause a flicker when the default layout (rendered on the server) is replaced with the persisted layout (in `localStorage`). The way to avoid this flicker is to also persist the layout with a cookie like so:
 
 ```vue line=3,7,8,12
 <!-- with Nuxt -->
@@ -170,9 +170,9 @@ const layout = useCookie<number[]>('splitter:layout')
 ```
  
 
-### Collapse/Expand programatically
+### Collapse/Expand programmatically
 
-Sometimes panels need to resize or collapse/expand in response to user actions. `SplitterPanel` expose a `collapse` and `expand` methods to achieve this.
+Sometimes panels need to resize or collapse/expand in response to user actions. `SplitterPanel` exposes the `collapse` and `expand` methods to achieve this.
 
 ```vue line=2,7,14
 <script setup lang="ts">
@@ -226,9 +226,9 @@ Customize the handle by passing any element as the slot.
 
 ### SSR
 
-Splitter component heavily rely on unique `id`, however for Vue<3.4 we don't have a reliable way of generating [ssr-friendly id](https://github.com/vuejs/rfcs/discussions/557).
+Splitter component heavily relies on unique `id`, however for Vue<3.4 we don't have a reliable way of generating [SSR-friendly `id`](https://github.com/vuejs/rfcs/discussions/557).
 
-Thus, if you are using Nuxt or other SSR framework, you are required to manually add the `id` for all Splitter component. Alternatively, you can wrap the component with `<ClientOnly>`.
+Thus, if you are using Nuxt or other SSR framework, you are required to manually add the `id` for all Splitter components. Alternatively, you can wrap the component with `<ClientOnly>`.
 
 ```vue
 <template>
@@ -249,7 +249,7 @@ Thus, if you are using Nuxt or other SSR framework, you are required to manually
 
 ## Accessibility
 
-Adheres to the [Window Splitter WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/windowsplitter/).
+Adheres to the [Window Splitter WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/windowsplitter).
 
 ### Keyboard Interactions
 

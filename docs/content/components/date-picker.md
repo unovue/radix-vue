@@ -87,14 +87,15 @@ import {
       <DatePickerInput />
       <DatePickerTrigger />
     </DatePickerField>
+
     <DatePickerAnchor />
     <DatePickerContent>
       <DatePickerClose />
       <DatePickerArrow />
+
       <DatePickerCalendar>
         <DatePickerHeader>
           <DatePickerPrev />
-
           <DatePickerHeading />
           <DatePickerNext />
         </DatePickerHeader>
@@ -105,6 +106,7 @@ import {
               <DatePickerHeadCell />
             </DatePickerGridRow>
           </DatePickerGridHead>
+
           <DatePickerGridBody>
             <DatePickerGridRow>
               <DatePickerCell>

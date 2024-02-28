@@ -1,23 +1,14 @@
 <script lang="ts" setup>
 import type { DateValue } from '@internationalized/date'
-import type { CalendarRootProps, CalendarView } from '../'
-import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarHeadingSegment, CalendarNext, CalendarPrev, CalendarRoot } from '../'
+import type { CalendarRootProps } from '../'
+import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot } from '../'
 
 const props = defineProps<{ calendarProps?: CalendarRootProps; emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } }>()
-
-function computeTestIdByView(view: CalendarView) {
-  if (view === 'month')
-    return 'day'
-  if (view === 'year')
-    return 'month'
-
-  return 'year'
-}
 </script>
 
 <template>
   <CalendarRoot
-    v-slot="{ weekDays, grid, calendarView }"
+    v-slot="{ weekDays, grid }"
     v-bind="props.calendarProps"
     data-testid="calendar"
     v-on="{ 'update:modelValue': props.emits?.['onUpdate:modelValue'] }"
@@ -26,9 +17,7 @@ function computeTestIdByView(view: CalendarView) {
       <CalendarPrev
         data-testid="prev-button"
       />
-      <CalendarHeading v-slot="{ headingValue }" data-testid="heading">
-        <CalendarHeadingSegment v-for="item in headingValue" :key="item.value" :type="item.type" :value="item.value" :data-testid="item.type === 'literal' ? '' : `heading-${item.type}`" />
-      </CalendarHeading>
+      <CalendarHeading data-testid="heading" />
       <CalendarNext
         data-testid="next-button"
       />
@@ -56,7 +45,7 @@ function computeTestIdByView(view: CalendarView) {
             <CalendarCellTrigger
               :day="weekDate"
               :month="month.value"
-              :data-testid="`date-${weekDate.month}-${weekDate[computeTestIdByView(calendarView)]}`"
+              :data-testid="`date-${weekDate.month}-${weekDate.day}`"
             />
           </CalendarCell>
         </CalendarGridRow>

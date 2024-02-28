@@ -9,7 +9,7 @@ const rootContext = injectDatePickerRootContext()
 
 <template>
   <CalendarRoot
-    v-slot="{ weekDays, grid, calendarView, date, formatter }"
+    v-slot="{ weekDays, grid, date, formatter }"
     v-bind="{
       isDateDisabled: rootContext.isDateDisabled,
       isDateUnavailable: rootContext.isDateUnavailable,
@@ -34,7 +34,6 @@ const rootContext = injectDatePickerRootContext()
     <slot
       :date="date"
       :grid="grid"
-      :calendar-view="calendarView"
       :week-days="weekDays"
       :formatter="formatter"
     />

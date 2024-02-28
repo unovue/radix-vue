@@ -4,7 +4,7 @@
 
 import { type DateValue, isSameDay, isSameMonth } from '@internationalized/date'
 import { type Ref, computed, ref, watch } from 'vue'
-import { type CalendarHeadingSegmentValue, type CalendarView, type Grid, type Matcher, type WeekDayFormat, createMonths, isAfter, isBefore, toDate } from '@/shared/date'
+import { type Grid, type Matcher, type WeekDayFormat, createMonths, isAfter, isBefore, toDate } from '@/shared/date'
 import { useDateFormatter } from '@/shared'
 
 export type UseCalendarProps = {
@@ -20,18 +20,14 @@ export type UseCalendarProps = {
   pagedNavigation: boolean
   isDateDisabled?: Matcher
   isDateUnavailable?: Matcher
-  calendarView: Ref<CalendarView>
+  calendarLabel?: string
 }
 
 export type UseCalendarStateProps = {
-  formatter: ReturnType<typeof useDateFormatter>
   grid: Ref<Grid<DateValue>[]>
   isDateDisabled: Matcher
   isDateUnavailable: Matcher
   date: Ref<DateValue | DateValue[] | undefined>
-  locale: string
-  calendarLabel: string | undefined
-  calendarView: Ref<CalendarView>
 }
 
 export function useCalendarState(props: UseCalendarStateProps) {
@@ -70,37 +66,9 @@ export function useCalendarState(props: UseCalendarStateProps) {
     },
   )
 
-  const headingValue = computed((): CalendarHeadingSegmentValue[] => {
-    if (!props.grid.value.length)
-      return []
-
-    if (props.locale !== props.formatter.getLocale())
-      props.formatter.setLocale(props.locale)
-
-    if (props.grid.value.length === 1) {
-      const month = props.grid.value[0].value
-      return [{ type: 'month', value: props.formatter.fullMonth(toDate(month)) }, { type: 'literal', value: ' ' }, { type: 'year', value: props.formatter.fullYear(toDate(month)) }]
-    }
-
-    const startMonth = toDate(props.grid.value[0].value as DateValue)
-    const endMonth = toDate(props.grid.value[props.grid.value.length - 1].value as DateValue)
-
-    const startMonthName = props.formatter.fullMonth(startMonth)
-    const endMonthName = props.formatter.fullMonth(endMonth)
-    const startMonthYear = props.formatter.fullYear(startMonth)
-    const endMonthYear = props.formatter.fullYear(endMonth)
-
-    const content: CalendarHeadingSegmentValue[] = startMonthYear === endMonthYear ? [{ type: 'month', value: startMonthName }, { type: 'literal', value: ' - ' }, { type: 'month', value: endMonthName }, { type: 'literal', value: ' ' }, { type: 'year', value: startMonthYear }] : [{ type: 'month', value: startMonthName }, { type: 'literal', value: ' ' }, { type: 'year', value: startMonthYear }, { type: 'literal', value: ' - ' }, { type: 'month', value: endMonthName }, { type: 'literal', value: ' ' }, { type: 'year', value: endMonthYear }]
-
-    return content
-  })
-
-  const fullCalendarLabel = computed(() => `${props.calendarLabel ?? 'Event Date'}, ${headingValue.value.map(item => item.value).join('')}`)
   return {
-    fullCalendarLabel,
     isDateSelected,
     isInvalid,
-    headingValue,
   }
 }
 
@@ -172,7 +140,7 @@ export function useCalendar(props: UseCalendarProps) {
     const firstDate = grid.value[0].value
 
     const newGrid = createMonths({
-      dateObj: firstDate.add({ months: 1 }),
+      dateObj: firstDate.add({ months: props.pagedNavigation ? props.numberOfMonths : 1 }),
       weekStartsOn: props.weekStartsOn,
       locale: props.locale,
       fixedWeeks: props.fixedWeeks,
@@ -188,7 +156,7 @@ export function useCalendar(props: UseCalendarProps) {
     const firstDate = grid.value[0].value
 
     const newGrid = createMonths({
-      dateObj: firstDate.subtract({ months: 1 }),
+      dateObj: firstDate.subtract({ months: props.pagedNavigation ? props.numberOfMonths : 1 }),
       weekStartsOn: props.weekStartsOn,
       locale: props.locale,
       fixedWeeks: props.fixedWeeks,
@@ -201,7 +169,7 @@ export function useCalendar(props: UseCalendarProps) {
   }
 
   watch(props.placeholder, (value, oldValue) => {
-    if (props.calendarView.value === 'month' && !isSameMonth(value, oldValue)) {
+    if (!isSameMonth(value, oldValue)) {
       grid.value = createMonths({
         dateObj: value,
         weekStartsOn: props.weekStartsOn,
@@ -211,6 +179,36 @@ export function useCalendar(props: UseCalendarProps) {
       })
     }
   })
+
+  const headingValue = computed(() => {
+    if (!grid.value.length)
+      return ''
+
+    if (props.locale !== formatter.getLocale())
+      formatter.setLocale(props.locale)
+
+    if (grid.value.length === 1) {
+      const month = toDate(grid.value[0].value)
+      return `${formatter.fullMonthAndYear(month)}`
+    }
+
+    const startMonth = toDate(grid.value[0].value as DateValue)
+    const endMonth = toDate(grid.value[grid.value.length - 1].value as DateValue)
+
+    const startMonthName = formatter.fullMonth(startMonth)
+    const endMonthName = formatter.fullMonth(endMonth)
+    const startMonthYear = formatter.fullYear(startMonth)
+    const endMonthYear = formatter.fullYear(endMonth)
+
+    const content
+    = startMonthYear === endMonthYear
+      ? `${startMonthName} - ${endMonthName} ${endMonthYear}`
+      : `${startMonthName} ${startMonthYear} - ${endMonthName} ${endMonthYear}`
+
+    return content
+  })
+
+  const fullCalendarLabel = computed(() => `${props.calendarLabel ?? 'Event Date'}, ${headingValue.value}`)
 
   return {
     isDateDisabled,
@@ -224,5 +222,7 @@ export function useCalendar(props: UseCalendarProps) {
     formatter,
     nextPage,
     prevPage,
+    headingValue,
+    fullCalendarLabel,
   }
 }

@@ -1,17 +1,15 @@
 <script lang="ts">
 import { CalendarHeading, type CalendarHeadingProps } from '..'
-import type { CalendarHeadingSegmentValue } from '@/shared/date'
 
 export interface DatePickerHeadingProps extends CalendarHeadingProps {}
 </script>
 
 <script setup lang="ts">
 const props = defineProps<DatePickerHeadingProps>()
-
 defineSlots<{
   default(props: {
-    /** The segments for displaying the heading value which have click handlers attached */
-    headingValue: CalendarHeadingSegmentValue[]
+    /** Current month and year */
+    headingValue: string
   }): any
 }>()
 </script>
@@ -21,6 +19,8 @@ defineSlots<{
     v-slot="{ headingValue }"
     v-bind="props"
   >
-    <slot :heading-value="headingValue" />
+    <slot :heading-value="headingValue">
+      {{ headingValue }}
+    </slot>
   </CalendarHeading>
 </template>

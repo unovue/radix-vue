@@ -12,10 +12,6 @@ export {
   type CalendarHeadingProps,
 } from './CalendarHeading.vue'
 export {
-  default as CalendarHeadingSegment,
-  type CalendarHeadingSegmentProps,
-} from './CalendarHeadingSegment.vue'
-export {
   default as CalendarGrid,
   type CalendarGridProps,
 } from './CalendarGrid.vue'
@@ -52,4 +48,3 @@ export {
   default as CalendarCellTrigger,
   type CalendarCellTriggerProps,
 } from './CalendarCellTrigger.vue'
-export { type CalendarView } from '@/shared/date'

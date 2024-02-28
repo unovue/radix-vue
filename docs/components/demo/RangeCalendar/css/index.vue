@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import { RangeCalendarCell, RangeCalendarCellTrigger, RangeCalendarGrid, RangeCalendarGridBody, RangeCalendarGridHead, RangeCalendarGridRow, RangeCalendarHeadCell, RangeCalendarHeader, RangeCalendarHeading, RangeCalendarHeadingSegment, RangeCalendarNext, RangeCalendarPrev, RangeCalendarRoot, type RangeCalendarRootProps } from 'radix-vue'
+import { RangeCalendarCell, RangeCalendarCellTrigger, RangeCalendarGrid, RangeCalendarGridBody, RangeCalendarGridHead, RangeCalendarGridRow, RangeCalendarHeadCell, RangeCalendarHeader, RangeCalendarHeading, RangeCalendarNext, RangeCalendarPrev, RangeCalendarRoot, type RangeCalendarRootProps } from 'radix-vue'
 import './styles.css'
 
 const isDateUnavailable: RangeCalendarRootProps['isDateUnavailable'] = (date) => {
@@ -21,9 +21,7 @@ const isDateUnavailable: RangeCalendarRootProps['isDateUnavailable'] = (date) =>
       >
         <Icon icon="radix-icons:chevron-left" class="Icon" />
       </RangeCalendarPrev>
-      <RangeCalendarHeading v-slot="{ headingValue }" class="CalendarHeading">
-        <RangeCalendarHeadingSegment v-for="item in headingValue" :key="item.value" :type="item.type" :value="item.value" />
-      </RangeCalendarHeading>
+      <RangeCalendarHeading class="CalendarHeading" />
       <RangeCalendarNext
         class="CalendarNavButton"
       >

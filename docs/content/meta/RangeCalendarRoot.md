@@ -55,13 +55,6 @@
     'default': 'false'
   },
   {
-    'name': 'initialView',
-    'description': '<p>The initial view of the calendar when it is rendered</p>\n',
-    'type': '\'month\' | \'year\' | \'decade\'',
-    'required': false,
-    'default': '\'month\''
-  },
-  {
     'name': 'isDateDisabled',
     'description': '<p>A function that returns whether or not a date is disabled</p>\n',
     'type': 'Matcher',
@@ -171,11 +164,6 @@
     'name': 'grid',
     'description': '',
     'type': 'Grid<DateValue>[]'
-  },
-  {
-    'name': 'calendarView',
-    'description': '',
-    'type': '\'month\' | \'year\' | \'decade\''
   },
   {
     'name': 'weekDays',

@@ -73,7 +73,6 @@ import {
   DateRangePickerHeadCell,
   DateRangePickerHeader,
   DateRangePickerHeading,
-  DateRangePickerHeadingSegment,
   DateRangePickerInput,
   DateRangePickerNext,
   DateRangePickerPrev,
@@ -96,9 +95,7 @@ import {
         <DateRangePickerHeader>
           <DateRangePickerPrev />
 
-          <DateRangePickerHeading>
-            <DateRangePickerHeadingSegment />
-          </DateRangePickerHeading>
+          <DateRangePickerHeading />
           <DateRangePickerNext />
         </DateRangePickerHeader>
 
@@ -205,15 +202,9 @@ Calendar navigation button. It navigates the calendar one month/year/decade in t
 
 ### Heading
 
-Container for the interactable heading segments.
+Heading for displaying the current month and year
 
 <!-- @include: @/meta/DateRangePickerHeading.md -->
-
-### Heading Segment
-
-Interactable heading segments displaying the month/year, used for changing the calendar view.
-
-<!-- @include: @/meta/DateRangePickerHeadingSegment.md -->
 
 ### Grid
 

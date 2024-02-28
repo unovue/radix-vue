@@ -13,11 +13,6 @@
     'type': 'Grid<DateValue>[]'
   },
   {
-    'name': 'calendarView',
-    'description': '',
-    'type': '\'month\' | \'year\' | \'decade\''
-  },
-  {
     'name': 'weekDays',
     'description': '',
     'type': 'string[]'

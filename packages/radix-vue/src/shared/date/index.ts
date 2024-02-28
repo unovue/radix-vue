@@ -33,8 +33,6 @@ export type {
   AnyExceptLiteral,
   DateSegmentPart,
   TimeSegmentPart,
-  CalendarView,
-  CalendarHeadingSegmentValue,
 } from './types'
 
 export {

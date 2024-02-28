@@ -1,25 +1,16 @@
 <script lang="ts" setup>
 import type { DateValue } from '@internationalized/date'
 import type { RangeCalendarRootProps } from '../'
-import { RangeCalendarCell, RangeCalendarCellTrigger, RangeCalendarGrid, RangeCalendarGridBody, RangeCalendarGridHead, RangeCalendarGridRow, RangeCalendarHeadCell, RangeCalendarHeader, RangeCalendarHeading, RangeCalendarHeadingSegment, RangeCalendarNext, RangeCalendarPrev, RangeCalendarRoot } from '../'
-import type { CalendarView } from '@/Calendar'
+import { RangeCalendarCell, RangeCalendarCellTrigger, RangeCalendarGrid, RangeCalendarGridBody, RangeCalendarGridHead, RangeCalendarGridRow, RangeCalendarHeadCell, RangeCalendarHeader, RangeCalendarHeading, RangeCalendarNext, RangeCalendarPrev, RangeCalendarRoot } from '../'
 
 const props = defineProps<{
   calendarProps?: RangeCalendarRootProps
   emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } }>()
-function computeTestIdByView(view: CalendarView) {
-  if (view === 'month')
-    return 'day'
-  if (view === 'year')
-    return 'month'
-
-  return 'year'
-}
 </script>
 
 <template>
   <RangeCalendarRoot
-    v-slot="{ weekDays, grid, calendarView }"
+    v-slot="{ weekDays, grid }"
     v-bind="props.calendarProps"
     data-testid="calendar"
     v-on="{ 'update:modelValue': props.emits?.['onUpdate:modelValue'] }"
@@ -28,15 +19,7 @@ function computeTestIdByView(view: CalendarView) {
       <RangeCalendarPrev
         data-testid="prev-button"
       />
-      <RangeCalendarHeading v-slot="{ headingValue }" data-testid="heading">
-        <RangeCalendarHeadingSegment
-          v-for="item in headingValue"
-          :key="item.value"
-          :type="item.type"
-          :value="item.value"
-          :data-testid="item.type === 'literal' ? '' : `heading-${item.type}`"
-        />
-      </RangeCalendarHeading>
+      <RangeCalendarHeading data-testid="heading" />
       <RangeCalendarNext
         data-testid="next-button"
       />
@@ -68,7 +51,7 @@ function computeTestIdByView(view: CalendarView) {
             <RangeCalendarCellTrigger
               :day="weekDate"
               :month="month.value"
-              :data-testid="`date-${weekDate.month}-${weekDate[computeTestIdByView(calendarView)]}`"
+              :data-testid="`date-${weekDate.month}-${weekDate.day}`"
             />
           </RangeCalendarCell>
         </RangeCalendarGridRow>

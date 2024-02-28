@@ -14,7 +14,6 @@ import {
   DateRangePickerHeadCell,
   DateRangePickerHeader,
   DateRangePickerHeading,
-  DateRangePickerHeadingSegment,
   DateRangePickerInput,
   DateRangePickerNext,
   DateRangePickerPrev,
@@ -97,9 +96,7 @@ import './styles.css'
               <Icon icon="radix-icons:chevron-left" class="Icon" />
             </DateRangePickerPrev>
 
-            <DateRangePickerHeading v-slot="{ headingValue }" class="CalendarHeading">
-              <DateRangePickerHeadingSegment v-for="item in headingValue" :key="item.value" :type="item.type" :value="item.value" />
-            </DateRangePickerHeading>
+            <DateRangePickerHeading class="CalendarHeading" />
             <DateRangePickerNext
               class="CalendarNavButton"
             >

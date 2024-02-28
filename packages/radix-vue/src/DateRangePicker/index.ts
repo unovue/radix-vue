@@ -1,6 +1,5 @@
 export { default as DateRangePickerHeader, type DateRangePickerHeaderProps } from './DateRangePickerHeader.vue'
 export { default as DateRangePickerHeading, type DateRangePickerHeadingProps } from './DateRangePickerHeading.vue'
-export { default as DateRangePickerHeadingSegment, type DateRangePickerHeadingSegmentProps } from './DateRangePickerHeadingSegment.vue'
 
 export { default as DateRangePickerGrid, type DateRangePickerGridProps } from './DateRangePickerGrid.vue'
 

@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarHeadingSegment, CalendarNext, CalendarPrev, CalendarRoot, type CalendarRootProps } from '../'
-
-import { PopoverArrow, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from '@/Popover'
+import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot, type CalendarRootProps } from '../'
 
 const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
   return date.day === 17 || date.day === 18
@@ -24,23 +22,8 @@ const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
           >
             <Icon icon="radix-icons:chevron-left" class="w-6 h-6" />
           </CalendarPrev>
-          <PopoverRoot :modal="false">
-            <CalendarHeading v-slot="{ headingValue }" as-child class="text-[15px] text-black font-medium cursor-pointer">
-              <PopoverTrigger>
-                <CalendarHeadingSegment v-for="item in headingValue" :key="item.value" :type="item.type" :value="item.value" />
-              </PopoverTrigger>
-            </CalendarHeading>
-            <PopoverPortal>
-              <PopoverContent
-                side="bottom"
-                :side-offset="5"
-                class="rounded p-5 w-[260px] bg-white shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2)] focus:shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2),0_0_0_2px_theme(colors.violet7)] will-change-[transform,opacity] data-[state=open]:data-[side=top]:animate-slideDownAndFade data-[state=open]:data-[side=right]:animate-slideLeftAndFade data-[state=open]:data-[side=bottom]:animate-slideUpAndFade data-[state=open]:data-[side=left]:animate-slideRightAndFade"
-              >
-                Trigger Content
-                <PopoverArrow class="fill-white" />
-              </PopoverContent>
-            </PopoverPortal>
-          </PopoverRoot>
+
+          <CalendarHeading as-child class="text-[15px] text-black font-medium" />
 
           <CalendarNext
             class="inline-flex items-center cursor-pointer text-black justify-center rounded-[9px] bg-transparent w-10 h-10 hover:bg-black hover:text-white active:scale-98 active:transition-all focus:shadow-[0_0_0_2px] focus:shadow-black"

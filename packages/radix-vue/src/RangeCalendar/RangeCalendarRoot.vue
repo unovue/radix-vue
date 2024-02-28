@@ -4,7 +4,7 @@ import { type DateValue, isSameDay } from '@internationalized/date'
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { type Formatter, createContext } from '@/shared'
-import type { CalendarHeadingSegmentValue, CalendarView, Matcher, WeekDayFormat } from '@/shared/date'
+import type { Matcher, WeekDayFormat } from '@/shared/date'
 import { getDefaultDate, handleCalendarInitialFocus, isBefore } from '@/shared/date'
 import { useRangeCalendarState } from './useRangeCalendar'
 import { useCalendar } from '@/Calendar/useCalendar'
@@ -26,7 +26,7 @@ type RangeCalendarRootContext = {
   onPlaceholderChange: (date: DateValue) => void
   fullCalendarLabel: Ref<string>
   parentElement: Ref<HTMLElement | undefined>
-  headingValue: Ref<CalendarHeadingSegmentValue[]>
+  headingValue: Ref<string>
   isInvalid: Ref<boolean>
   nextPage: () => void
   prevPage: () => void
@@ -42,16 +42,11 @@ type RangeCalendarRootContext = {
   isNextButtonDisabled: Ref<boolean>
   isPrevButtonDisabled: Ref<boolean>
   formatter: Formatter
-  setView: (view: CalendarView) => void
-  calendarView: Ref<CalendarView>
-  columns: Ref<number>
 }
 
 export interface RangeCalendarRootProps extends PrimitiveProps {
   /** The default value for the calendar */
   defaultValue?: { start: DateValue; end: DateValue }
-  /** The initial view of the calendar when it is rendered */
-  initialView?: CalendarView
   /** The controlled checked state of the calendar. Can be bound as `v-model`. */
   modelValue?: { start: DateValue | undefined; end: DateValue | undefined }
   /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programatically control the calendar view */
@@ -138,10 +133,8 @@ const {
   preventDeselect,
   isDateUnavailable: propsIsDateUnavailable,
   isDateDisabled: propsIsDateDisabled,
-  columns,
+  calendarLabel,
 } = toRefs(props)
-
-const calendarView = ref(props.initialView)
 
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
@@ -169,6 +162,8 @@ const placeholder = useVModel(props, 'placeholder', emits, {
 }) as Ref<DateValue>
 
 const {
+  fullCalendarLabel,
+  headingValue,
   isDateDisabled,
   isDateUnavailable,
   isNextButtonDisabled,
@@ -192,26 +187,20 @@ const {
   pagedNavigation: props.pagedNavigation,
   isDateDisabled: propsIsDateDisabled.value,
   isDateUnavailable: propsIsDateUnavailable.value,
-  calendarView,
-  columns,
+  calendarLabel: calendarLabel.value,
 })
 
 const {
-  fullCalendarLabel,
-  headingValue,
+
   isInvalid,
   isSelected,
   highlightedRange,
   isSelectionStart,
   isSelectionEnd,
 } = useRangeCalendarState({
-  formatter,
-  locale: props.locale,
-  calendarLabel: props.calendarLabel,
   start: startValue,
   end: endValue,
   grid,
-  calendarView,
   isDateDisabled,
   isDateUnavailable,
   focusedValue,
@@ -270,18 +259,13 @@ provideRangeCalendarRootContext({
   lastPressedDateValue,
   isSelected,
   isSelectionEnd,
-  columns,
   isSelectionStart,
   isNextButtonDisabled,
   isPrevButtonDisabled,
-  setView(view) {
-    calendarView.value = view
-  },
   isOutsideVisibleView,
   nextPage,
   prevPage,
   parentElement,
-  calendarView,
   onPlaceholderChange(value) {
     placeholder.value = value
   },
@@ -303,7 +287,6 @@ onMounted(() => {
     :data-readonly="readonly ? '' : undefined"
     :data-disabled="disabled ? '' : undefined"
     :data-invalid="isInvalid ? '' : undefined"
-    :data-radix-vue-calendar-view="calendarView"
   >
     <div style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 1px;">
       <div role="heading" aria-level="2">
@@ -314,7 +297,6 @@ onMounted(() => {
     <slot
       :date="placeholder"
       :grid="grid"
-      :calendar-view="calendarView"
       :week-days="weekdays"
       :formatter="formatter"
     />

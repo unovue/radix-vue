@@ -55,13 +55,6 @@
     'default': 'false'
   },
   {
-    'name': 'initialView',
-    'description': '<p>The initial view of the calendar when it is rendered</p>\n',
-    'type': '\'month\' | \'year\' | \'decade\'',
-    'required': false,
-    'default': '\'month\''
-  },
-  {
     'name': 'isDateDisabled',
     'description': '<p>A function that returns whether or not a date is disabled</p>\n',
     'type': 'Matcher',
@@ -171,27 +164,22 @@
 <SlotsTable :data="[
   {
     'name': 'date',
-    'description': 'The current date of the placeholder',
+    'description': '<p>The current date of the placeholder</p>\n',
     'type': 'DateValue'
   },
   {
     'name': 'grid',
-    'description': 'The grid of dates',
+    'description': '<p>The grid of dates</p>\n',
     'type': 'Grid<DateValue>[]'
   },
   {
-    'name': 'calendarView',
-    'description': 'The current calendar view',
-    'type': '\'month\' | \'year\' | \'decade\''
-  },
-  {
     'name': 'weekDays',
-    'description': 'The days of the week',
+    'description': '<p>The days of the week</p>\n',
     'type': 'string[]'
   },
   {
     'name': 'formatter',
-    'description': 'The formatter used inside the calendar for displaying dates',
+    'description': '<p>The formatter used inside the calendar for displaying dates</p>\n',
     'type': 'Formatter'
   }
 ]" />

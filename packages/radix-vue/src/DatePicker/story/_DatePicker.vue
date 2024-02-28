@@ -14,7 +14,6 @@ import {
   DatePickerHeadCell,
   DatePickerHeader,
   DatePickerHeading,
-  DatePickerHeadingSegment,
   DatePickerInput,
   DatePickerNext,
   DatePickerPrev,
@@ -57,9 +56,7 @@ const props = defineProps<{ datePickerProps?: DatePickerRootProps; emits?: { 'on
       >
         <DatePickerHeader data-testid="header">
           <DatePickerPrev data-testid="prev-button" />
-          <DatePickerHeading v-slot="{ headingValue }" data-testid="heading">
-            <DatePickerHeadingSegment v-for="item in headingValue" :key="item.value" :type="item.type" :value="item.value" :data-testid="item.type === 'literal' ? '' : `heading-${item.type}`" />
-          </DatePickerHeading>
+          <DatePickerHeading data-testid="heading" />
           <DatePickerNext data-testid="next-button" />
         </DatePickerHeader>
 

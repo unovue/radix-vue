@@ -17,7 +17,7 @@
   {
     'name': 'part',
     'description': '<p>The part of the date to render</p>\n',
-    'type': '\'day\' | \'month\' | \'year\' | \'literal\' | \'hour\' | \'minute\' | \'second\' | \'dayPeriod\' | \'timeZoneName\'',
+    'type': '\'day\' | \'month\' | \'year\' | \'hour\' | \'minute\' | \'second\' | \'dayPeriod\' | \'literal\' | \'timeZoneName\'',
     'required': true
   }
 ]" />

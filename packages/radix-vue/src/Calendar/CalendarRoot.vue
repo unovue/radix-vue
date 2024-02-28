@@ -6,7 +6,7 @@ import type { PrimitiveProps } from '@/Primitive'
 import { type Formatter, createContext } from '@/shared'
 
 import { useCalendar, useCalendarState } from './useCalendar'
-import type { CalendarHeadingSegmentValue, Grid, Matcher, WeekDayFormat } from '@/shared/date'
+import type { Grid, Matcher, WeekDayFormat } from '@/shared/date'
 import { getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
 
 type CalendarRootContext = {
@@ -28,7 +28,7 @@ type CalendarRootContext = {
   onPlaceholderChange: (date: DateValue) => void
   fullCalendarLabel: Ref<string>
   parentElement: Ref<HTMLElement | undefined>
-  headingValue: Ref<CalendarHeadingSegmentValue[]>
+  headingValue: Ref<string>
   isInvalid: Ref<boolean>
   nextPage: () => void
   prevPage: () => void
@@ -108,7 +108,7 @@ export const [injectCalendarRootContext, provideCalendarRootContext]
 </script>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, toRefs, watch } from 'vue'
+import { computed, onMounted, toRefs, watch } from 'vue'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 
@@ -130,7 +130,6 @@ const props = withDefaults(defineProps<CalendarRootProps>(), {
   isDateDisabled: undefined,
   isDateUnavailable: undefined,
   columns: 4,
-  initialView: 'month',
 })
 const emits = defineEmits<CalendarRootEmits>()
 defineSlots<{
@@ -163,8 +162,6 @@ const {
   calendarLabel,
 } = toRefs(props)
 
-const calendarView = ref(props.initialView)
-
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
 
@@ -190,6 +187,8 @@ const placeholder = useVModel(props, 'placeholder', emits, {
 }) as Ref<DateValue>
 
 const {
+  fullCalendarLabel,
+  headingValue,
   isDateDisabled,
   isDateUnavailable,
   isNextButtonDisabled,
@@ -213,23 +212,18 @@ const {
   pagedNavigation: props.pagedNavigation,
   isDateDisabled: propsIsDateDisabled.value,
   isDateUnavailable: propsIsDateUnavailable.value,
-  calendarView,
+  calendarLabel: calendarLabel.value,
 })
 
 const {
-  fullCalendarLabel,
-  headingValue,
+
   isInvalid,
   isDateSelected,
 } = useCalendarState({
   date: modelValue,
-  formatter,
   grid,
-  calendarView,
   isDateDisabled,
   isDateUnavailable,
-  locale: locale.value,
-  calendarLabel: calendarLabel.value,
 })
 
 watch(modelValue, (value) => {
@@ -321,9 +315,13 @@ provideCalendarRootContext({
 
 <template>
   <Primitive
-    ref="primitiveElement" :as="as" :as-child="asChild" role="application" :aria-label="fullCalendarLabel"
-    :data-readonly="readonly ? '' : undefined" :data-disabled="disabled ? '' : undefined"
-    :data-invalid="isInvalid ? '' : undefined" :data-radix-vue-calendar-view="calendarView"
+    ref="primitiveElement" :as="as"
+    :as-child="asChild"
+    role="application"
+    :aria-label="fullCalendarLabel"
+    :data-readonly="readonly ? '' : undefined"
+    :data-disabled="disabled ? '' : undefined"
+    :data-invalid="isInvalid ? '' : undefined"
   >
     <div
       style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 1px;"

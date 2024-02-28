@@ -134,3 +134,11 @@
     'type': '{ start: { part: SegmentPart; value: string; }[]; end: { part: SegmentPart; value: string; }[]; }'
   }
 ]" />
+
+<MethodsTable :data="[
+  {
+    'name': 'setFocusedElement',
+    'description': '',
+    'type': '(el: HTMLElement) => void'
+  }
+]" />

@@ -125,12 +125,20 @@
 <SlotsTable :data="[
   {
     'name': 'modelValue',
-    'description': 'The current date of the field',
+    'description': '<p>The current date of the field</p>\n',
     'type': 'DateValue | undefined'
   },
   {
     'name': 'segments',
-    'description': 'The date field segment contents',
+    'description': '<p>The date field segment contents</p>\n',
     'type': '{ part: SegmentPart; value: string; }[]'
+  }
+]" />
+
+<MethodsTable :data="[
+  {
+    'name': 'setFocusedElement',
+    'description': '<p>Helper to set the focused element inside the DateField</p>\n',
+    'type': '(el: HTMLElement) => void'
   }
 ]" />

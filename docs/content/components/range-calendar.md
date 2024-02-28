@@ -67,7 +67,6 @@ import {
   RangeCalendarHeadCell,
   RangeCalendarHeader,
   RangeCalendarHeading,
-  RangeCalendarHeadingSegment,
   RangeCalendarNext,
   RangeCalendarPrev,
   RangeCalendarRoot
@@ -78,9 +77,7 @@ import {
   <RangeCalendarRoot>
     <RangeCalendarHeader>
       <RangeCalendarPrev />
-      <RangeCalendarHeading>
-        <RangeCalendarHeadingSegment />
-      </RangeCalendarHeading>
+      <RangeCalendarHeading />
       <RangeCalendarNext />
     </RangeCalendarHeader>
     <RangeCalendarGrid>
@@ -129,15 +126,9 @@ Calendar navigation button. It navigates the calendar one month/year/decade in t
 
 ### Heading
 
-Container for the interactable heading segments.
+Heading for displaying the current month and year.
 
 <!-- @include: @/meta/RangeCalendarHeading.md -->
-
-### Heading Segment
-
-Interactable heading segments displaying the month/year, used for changing the calendar view.
-
-<!-- @include: @/meta/RangeCalendarHeadingSegment.md -->
 
 ### Grid
 

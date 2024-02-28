@@ -33,7 +33,6 @@ export const components = {
     'CalendarRoot',
     'CalendarHeader',
     'CalendarHeading',
-    'CalendarHeadingSegment',
     'CalendarGrid',
     'CalendarCell',
     'CalendarHeadCell',
@@ -105,7 +104,6 @@ export const components = {
   datePicker: [
     'DatePickerHeader',
     'DatePickerHeading',
-    'DatePickerHeadingSegment',
     'DatePickerGrid',
     'DatePickerCell',
     'DatePickerHeadCell',
@@ -129,7 +127,6 @@ export const components = {
   dateRangePicker: [
     'DateRangePickerHeader',
     'DateRangePickerHeading',
-    'DateRangePickerHeadingSegment',
     'DateRangePickerGrid',
     'DateRangePickerCell',
     'DateRangePickerHeadCell',
@@ -270,7 +267,6 @@ export const components = {
     'RangeCalendarRoot',
     'RangeCalendarHeader',
     'RangeCalendarHeading',
-    'RangeCalendarHeadingSegment',
     'RangeCalendarGrid',
     'RangeCalendarCell',
     'RangeCalendarHeadCell',

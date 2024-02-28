@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarHeadingSegment, CalendarNext, CalendarPrev, CalendarRoot, type CalendarRootProps } from 'radix-vue'
+import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot, type CalendarRootProps } from 'radix-vue'
 import './styles.css'
 
 const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
@@ -21,9 +21,7 @@ const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
       >
         <Icon icon="radix-icons:chevron-left" class="Icon" />
       </CalendarPrev>
-      <CalendarHeading v-slot="{ headingValue }" class="CalendarHeading">
-        <CalendarHeadingSegment v-for="item in headingValue" :key="item.value" :type="item.type" :value="item.value" />
-      </CalendarHeading>
+      <CalendarHeading class="CalendarHeading" />
       <CalendarNext
         class="CalendarNavButton"
       >

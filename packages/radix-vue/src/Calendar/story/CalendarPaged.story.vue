@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarHeadingSegment, CalendarNext, CalendarPrev, CalendarRoot } from '../'
+import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot } from '../'
 </script>
 
 <template>
@@ -18,9 +18,8 @@ import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, Cale
           >
             <Icon icon="radix-icons:chevron-left" class="w-6 h-6" />
           </CalendarPrev>
-          <CalendarHeading v-slot="{ headingValue }" class="text-[15px] text-black font-medium">
-            <CalendarHeadingSegment v-for="item in headingValue" :key="item.value" :type="item.type" :value="item.value" />
-          </CalendarHeading>
+          <CalendarHeading class="text-[15px] text-black font-medium" />
+
           <CalendarNext
             class="inline-flex items-center cursor-pointer text-black justify-center rounded-[9px] bg-transparent w-10 h-10 hover:bg-black hover:text-white active:scale-98 active:transition-all focus:shadow-[0_0_0_2px] focus:shadow-black"
           >
@@ -42,7 +41,7 @@ import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, Cale
               </CalendarGridRow>
             </CalendarGridHead>
             <CalendarGridBody>
-              <CalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="grid grid-cols-4 data-[radix-vue-calendar-month-view]:grid-cols-7">
+              <CalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="grid grid-cols-7">
                 <CalendarCell
                   v-for="weekDate in weekDates"
                   :key="weekDate.toString()"

@@ -33,6 +33,7 @@ export const components = {
     'CalendarRoot',
     'CalendarHeader',
     'CalendarHeading',
+    'CalendarHeadingSegment',
     'CalendarGrid',
     'CalendarCell',
     'CalendarHeadCell',
@@ -42,7 +43,6 @@ export const components = {
     'CalendarGridBody',
     'CalendarGridRow',
     'CalendarCellTrigger',
-    'CalendarHeadingSegment',
   ],
 
   checkbox: [

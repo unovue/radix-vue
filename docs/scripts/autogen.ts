@@ -75,6 +75,9 @@ primitiveComponents.forEach((componentPath) => {
   if (meta.slots.length)
     parsedString += `\n<SlotsTable :data="${JSON.stringify(meta.slots, null, 2).replace(/"/g, '\'')}" />\n`
 
+  if (meta.methods.length)
+    parsedString += `\n<MethodsTable :data="${JSON.stringify(meta.methods, null, 2).replace(/"/g, '\'')}" />\n`
+
   writeFileSync(metaMdFilePath, parsedString)
 })
 
@@ -150,17 +153,27 @@ function parseMeta(meta: ComponentMeta) {
       Object.values(schema.schema).forEach((childMeta: PropertyMeta) => {
         slots.push({
           name: childMeta.name,
-          description: childMeta.description,
+          description: md.render(childMeta.description),
           type: parseTypeFromSchema(childMeta.schema),
         })
       })
     }
   }
 
+  // exposed method
+  const methods = meta.exposed
+    .filter(expose => typeof expose.schema === 'object' && expose.schema.kind === 'event')
+    .map(expose => ({
+      name: expose.name,
+      description: md.render(expose.description),
+      type: expose.type,
+    }))
+
   return {
     props,
     events,
     slots,
+    methods,
   }
 }
 

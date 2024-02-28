@@ -320,6 +320,12 @@ export const components = {
     'SliderRange',
   ],
 
+  splitter: [
+    'SplitterGroup',
+    'SplitterPanel',
+    'SplitterResizeHandle',
+  ],
+
   switch: [
     'SwitchRoot',
     'SwitchThumb',

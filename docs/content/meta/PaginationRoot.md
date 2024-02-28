@@ -74,12 +74,12 @@
 <SlotsTable :data="[
   {
     'name': 'page',
-    'description': 'Current page state',
+    'description': '<p>Current page state</p>\n',
     'type': 'number'
   },
   {
     'name': 'pageCount',
-    'description': 'Number of pages',
+    'description': '<p>Number of pages</p>\n',
     'type': 'number'
   }
 ]" />

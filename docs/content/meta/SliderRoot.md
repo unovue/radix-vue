@@ -106,7 +106,7 @@
 <SlotsTable :data="[
   {
     'name': 'modelValue',
-    'description': 'Current slider values',
+    'description': '<p>Current slider values</p>\n',
     'type': 'number[]'
   }
 ]" />

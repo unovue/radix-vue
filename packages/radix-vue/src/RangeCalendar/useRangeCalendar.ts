@@ -4,21 +4,15 @@
 
 import { type DateValue, isSameDay } from '@internationalized/date'
 import { type Ref, computed } from 'vue'
-import { areAllDaysBetweenValid, isBefore, isBetween, toDate } from '@/shared/date'
-import type { CalendarHeadingSegmentValue, CalendarView, Grid, Matcher } from '@/shared/date'
-import type { useDateFormatter } from '@/shared'
+import { areAllDaysBetweenValid, isBefore, isBetween } from '@/shared/date'
+import type { Matcher } from '@/shared/date'
 
 export type UseRangeCalendarProps = {
   start: Ref<DateValue | undefined>
   end: Ref<DateValue | undefined>
-  formatter: ReturnType<typeof useDateFormatter>
-  grid: Ref<Grid<DateValue>[]>
   isDateDisabled: Matcher
   isDateUnavailable: Matcher
-  locale: string
-  calendarLabel: string | undefined
   focusedValue: Ref<DateValue | undefined>
-  calendarView: Ref<CalendarView>
 }
 
 export function useRangeCalendarState(props: UseRangeCalendarProps) {
@@ -98,36 +92,7 @@ export function useRangeCalendarState(props: UseRangeCalendarProps) {
     return null
   })
 
-  const headingValue = computed((): CalendarHeadingSegmentValue[] => {
-    if (!props.grid.value.length)
-      return []
-
-    if (props.locale !== props.formatter.getLocale())
-      props.formatter.setLocale(props.locale)
-
-    if (props.grid.value.length === 1) {
-      const month = props.grid.value[0].value
-      return [{ type: 'month', value: props.formatter.fullMonth(toDate(month)) }, { type: 'literal', value: ' ' }, { type: 'year', value: props.formatter.fullYear(toDate(month)) }]
-    }
-
-    const startMonth = toDate(props.grid.value[0].value as DateValue)
-    const endMonth = toDate(props.grid.value[props.grid.value.length - 1].value as DateValue)
-
-    const startMonthName = props.formatter.fullMonth(startMonth)
-    const endMonthName = props.formatter.fullMonth(endMonth)
-    const startMonthYear = props.formatter.fullYear(startMonth)
-    const endMonthYear = props.formatter.fullYear(endMonth)
-
-    const content: CalendarHeadingSegmentValue[] = startMonthYear === endMonthYear ? [{ type: 'month', value: startMonthName }, { type: 'literal', value: ' - ' }, { type: 'month', value: endMonthName }, { type: 'literal', value: ' ' }, { type: 'year', value: startMonthYear }] : [{ type: 'month', value: startMonthName }, { type: 'literal', value: ' ' }, { type: 'year', value: startMonthYear }, { type: 'literal', value: ' - ' }, { type: 'month', value: endMonthName }, { type: 'literal', value: ' ' }, { type: 'year', value: endMonthYear }]
-
-    return content
-  })
-
-  const fullCalendarLabel = computed(() => `${props.calendarLabel ?? 'Event Date'}, ${headingValue.value.map(v => v.value).join('')}`)
-
   return {
-    fullCalendarLabel,
-    headingValue,
     isInvalid,
     isSelected,
     highlightedRange,

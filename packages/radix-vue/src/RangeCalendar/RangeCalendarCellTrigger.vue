@@ -26,25 +26,28 @@ import { injectRangeCalendarRootContext } from './RangeCalendarRoot.vue'
 
 const props = withDefaults(defineProps<RangeCalendarCellTriggerProps>(), { as: 'div' })
 const rootContext = injectRangeCalendarRootContext()
+const placeholder = rootContext.defaultDate.set({ ...rootContext.placeholder.value })
+const day = computed(() => placeholder.set({ ...props.day }))
+const month = computed(() => placeholder.set({ ...props.month }))
 
 const kbd = useKbd()
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
-const labelText = computed(() => rootContext.formatter.custom(toDate(props.day), {
+const labelText = computed(() => rootContext.formatter.custom(toDate(day.value), {
   weekday: 'long',
   month: 'long',
   day: 'numeric',
   year: 'numeric',
 }))
 
-const isDisabled = computed(() => rootContext.isDateDisabled(props.day))
-const isUnavailable = computed(() => rootContext.isDateUnavailable?.(props.day))
-const isSelectedDate = computed(() => rootContext.calendarView.value === 'month' && rootContext.isSelected(props.day))
-const isSelectionStart = computed(() => rootContext.calendarView.value === 'month' && rootContext.isSelectionStart(props.day))
-const isSelectionEnd = computed(() => rootContext.calendarView.value === 'month' && rootContext.isSelectionEnd(props.day))
+const isDisabled = computed(() => rootContext.isDateDisabled(day.value))
+const isUnavailable = computed(() => rootContext.isDateUnavailable?.(day.value))
+const isSelectedDate = computed(() => rootContext.calendarView.value === 'month' && rootContext.isSelected(day.value))
+const isSelectionStart = computed(() => rootContext.calendarView.value === 'month' && rootContext.isSelectionStart(day.value))
+const isSelectionEnd = computed(() => rootContext.calendarView.value === 'month' && rootContext.isSelectionEnd(day.value))
 const isHighlighted = computed(() => rootContext.highlightedRange.value
-  ? isBetweenInclusive(props.day, rootContext.highlightedRange.value.start, rootContext.highlightedRange.value.end)
+  ? isBetweenInclusive(day.value, rootContext.highlightedRange.value.start, rootContext.highlightedRange.value.end)
   : false)
 
 const SELECTOR
@@ -52,34 +55,34 @@ const SELECTOR
 
 const isDateToday = computed(() => {
   if (rootContext.calendarView.value === 'decade')
-    return isSameYear(props.day, today(getLocalTimeZone()))
+    return isSameYear(day.value, today(getLocalTimeZone()))
   if (rootContext.calendarView.value === 'year')
-    return isSameMonth(props.day, today(getLocalTimeZone()))
-  return isToday(props.day, getLocalTimeZone())
+    return isSameMonth(day.value, today(getLocalTimeZone()))
+  return isToday(day.value, getLocalTimeZone())
 })
 const isOutsideView = computed(() => {
   if (rootContext.calendarView.value === 'decade') {
     return !isBetweenInclusive(
-      props.day,
-      startOfDecade(props.month),
-      endOfDecade(props.month),
+      day.value,
+      startOfDecade(month.value),
+      endOfDecade(month.value),
     )
   }
 
   if (rootContext.calendarView.value === 'year')
-    return !isSameYear(props.day, props.month)
-  return !isSameMonth(props.day, props.month)
+    return !isSameYear(day.value, month.value)
+  return !isSameMonth(day.value, month.value)
 })
 const isOutsideVisibleView = computed(() =>
-  rootContext.isOutsideVisibleView(props.day),
+  rootContext.isOutsideVisibleView(day.value),
 )
 
 const isFocusedDate = computed(() => {
   if (rootContext.calendarView.value === 'decade')
-    return isSameYear(props.day, rootContext.placeholder.value)
+    return isSameYear(day.value, placeholder)
   if (rootContext.calendarView.value === 'year')
-    return isSameMonth(props.day, rootContext.placeholder.value)
-  return isSameDay(props.day, rootContext.placeholder.value)
+    return isSameMonth(day.value, placeholder)
+  return isSameDay(day.value, placeholder)
 })
 
 function changeDate(date: DateValue) {
@@ -95,7 +98,7 @@ function changeDate(date: DateValue) {
     return
   }
 
-  rootContext.lastPressedDateValue.value = date
+  rootContext.lastPressedDateValue.value = placeholder.set({ ...date })
 
   if (rootContext.startValue.value && rootContext.highlightedRange.value === null) {
     if (isSameDay(date, rootContext.startValue.value) && !rootContext.preventDeselect.value && !rootContext.endValue.value) {
@@ -105,7 +108,7 @@ function changeDate(date: DateValue) {
     }
     else if (!rootContext.endValue.value) {
       if (rootContext.lastPressedDateValue.value && isSameDay(rootContext.lastPressedDateValue.value, date))
-        rootContext.startValue.value = date
+        rootContext.startValue.value = placeholder.set({ ...date })
 
       return
     }
@@ -113,20 +116,23 @@ function changeDate(date: DateValue) {
   if (rootContext.startValue.value && isSameDay(rootContext.startValue.value, date) && !rootContext.preventDeselect.value && !rootContext.endValue.value)
     rootContext.startValue.value = undefined
 
-  if (!rootContext.startValue.value) { rootContext.startValue.value = date }
-
-  else if (!rootContext.endValue.value) { rootContext.endValue.value = date }
+  if (!rootContext.startValue.value) {
+    rootContext.startValue.value = placeholder.set({ ...date })
+  }
+  else if (!rootContext.endValue.value) {
+    rootContext.endValue.value = placeholder.set({ ...date })
+  }
   else if (rootContext.endValue.value && rootContext.startValue.value) {
-    rootContext.startValue.value = date
+    rootContext.startValue.value = placeholder.set({ ...date })
     rootContext.endValue.value = undefined
   }
 }
 function handleClick(e: Event) {
-  changeDate(parseStringToDateValue((e.target as HTMLDivElement).getAttribute('data-value')!, rootContext.placeholder.value))
+  changeDate(parseStringToDateValue((e.target as HTMLDivElement).getAttribute('data-value')!, placeholder))
 }
 
 function handleFocus(date: DateValue) {
-  rootContext.focusedValue.value = date
+  rootContext.focusedValue.value = placeholder.set({ ...date })
 }
 
 function handleArrowKey(e: KeyboardEvent) {
@@ -157,7 +163,7 @@ function handleArrowKey(e: KeyboardEvent) {
       break
     case kbd.ENTER:
     case kbd.SPACE_CODE:
-      changeDate(parseStringToDateValue(currentCell!.getAttribute('data-value')!, rootContext.placeholder.value))
+      changeDate(parseStringToDateValue(currentCell!.getAttribute('data-value')!, placeholder))
       return
     default:
       return
@@ -196,28 +202,28 @@ function handleArrowKey(e: KeyboardEvent) {
 
 const formattedTriggerText = computed(() => {
   if (rootContext.calendarView.value === 'month')
-    return props.day.day
+    return day.value.day
 
   if (rootContext.calendarView.value === 'year') {
     if (rootContext.numberOfMonths.value > 1) {
-      const firstMonth = rootContext.formatter.custom(props.day.toDate(getLocalTimeZone()), {
+      const firstMonth = rootContext.formatter.custom(day.value.toDate(getLocalTimeZone()), {
         month: 'short',
       })
       const result = [firstMonth]
 
       for (let i = 0; i < rootContext.numberOfMonths.value - 1; i++) {
-        result.push(rootContext.formatter.custom(props.day.add({ months: i + 1 }).toDate(getLocalTimeZone()), {
+        result.push(rootContext.formatter.custom(day.value.add({ months: i + 1 }).toDate(getLocalTimeZone()), {
           month: 'short',
         }))
       }
       return result.join('-')
     }
-    return rootContext.formatter.custom(props.day.toDate(getLocalTimeZone()), {
+    return rootContext.formatter.custom(day.value.toDate(getLocalTimeZone()), {
       month: 'short',
     })
   }
 
-  return props.day.year
+  return day.value.year
 })
 </script>
 

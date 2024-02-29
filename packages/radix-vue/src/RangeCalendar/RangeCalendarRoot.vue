@@ -45,6 +45,7 @@ type RangeCalendarRootContext = {
   setView: (view: CalendarView) => void
   calendarView: Ref<CalendarView>
   columns: Ref<number>
+  defaultDate: DateValue
 }
 
 export interface RangeCalendarRootProps extends PrimitiveProps {
@@ -139,6 +140,9 @@ const {
   isDateUnavailable: propsIsDateUnavailable,
   isDateDisabled: propsIsDateDisabled,
   columns,
+  calendarLabel,
+  minValue,
+  maxValue,
 } = toRefs(props)
 
 const calendarView = ref(props.initialView)
@@ -146,13 +150,12 @@ const calendarView = ref(props.initialView)
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
 
-const lastPressedDateValue = ref(undefined) as Ref<DateValue | undefined>
-const focusedValue = ref(undefined) as Ref<DateValue | undefined>
+const lastPressedDateValue = ref() as Ref<DateValue | undefined>
+const focusedValue = ref() as Ref<DateValue | undefined>
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue ?? { start: undefined, end: undefined },
   passive: (props.modelValue === undefined) as false,
-
 }) as Ref<{ start: DateValue | undefined; end: DateValue | undefined }>
 
 const startValue = ref(modelValue.value.start) as Ref<DateValue | undefined>
@@ -160,15 +163,21 @@ const endValue = ref(modelValue.value.end) as Ref<DateValue | undefined>
 
 const defaultDate = getDefaultDate({
   defaultPlaceholder: props.placeholder,
-  defaultValue: props.modelValue?.start,
+  defaultValue: modelValue.value.start,
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: defaultDate,
-  passive: (props.placeholder === undefined) as false,
+  defaultValue: defaultDate.set({ ...defaultDate }),
 }) as Ref<DateValue>
 
+function onPlaceholderChange(value: DateValue) {
+  const dateRef = defaultDate.set({ ...placeholder.value })
+  placeholder.value = dateRef.set({ ...value })
+}
+
 const {
+  fullCalendarLabel,
+  headingValue,
   isDateDisabled,
   isDateUnavailable,
   isNextButtonDisabled,
@@ -185,33 +194,29 @@ const {
   weekStartsOn: props.weekStartsOn,
   fixedWeeks: props.fixedWeeks,
   numberOfMonths: props.numberOfMonths,
-  minValue: props.minValue,
-  maxValue: props.maxValue,
-  disabled: props.disabled,
+  minValue,
+  maxValue,
+  disabled,
   weekdayFormat: props.weekdayFormat,
   pagedNavigation: props.pagedNavigation,
   isDateDisabled: propsIsDateDisabled.value,
   isDateUnavailable: propsIsDateUnavailable.value,
   calendarView,
   columns,
+  defaultDate,
+  calendarLabel: calendarLabel.value,
 })
 
 const {
-  fullCalendarLabel,
-  headingValue,
+
   isInvalid,
   isSelected,
   highlightedRange,
   isSelectionStart,
   isSelectionEnd,
 } = useRangeCalendarState({
-  formatter,
-  locale: props.locale,
-  calendarLabel: props.calendarLabel,
   start: startValue,
   end: endValue,
-  grid,
-  calendarView,
   isDateDisabled,
   isDateUnavailable,
   focusedValue,
@@ -220,28 +225,28 @@ const {
 watch(modelValue, () => {
   if (modelValue.value.start && modelValue.value.end) {
     if (modelValue.value.start !== startValue.value)
-      startValue.value = modelValue.value.start
+      startValue.value = defaultDate.set({ ...modelValue.value.start })
 
     if (modelValue.value.end)
-      endValue.value = modelValue.value.end
+      endValue.value = defaultDate.set({ ...modelValue.value.end })
   }
 })
 
 watch(startValue, (value) => {
   if (value && !isSameDay(value, placeholder.value))
-    placeholder.value = value
+    placeholder.value = defaultDate.set({ ...value })
 })
 
 watch([startValue, endValue], () => {
-  if (modelValue.value && modelValue.value.start === startValue.value && modelValue.value.end === endValue.value)
+  if (modelValue.value && modelValue.value.start?.toString() === startValue.value?.toString() && modelValue.value.end?.toString() === endValue.value?.toString())
     return
 
   if (startValue.value && endValue.value) {
     if (isBefore(endValue.value, startValue.value))
-      modelValue.value = { start: endValue.value, end: startValue.value }
+      modelValue.value = { start: defaultDate.set({ ...endValue.value }), end: defaultDate.set({ ...startValue.value }) }
 
     else
-      modelValue.value = { start: startValue.value, end: endValue.value }
+      modelValue.value = { start: defaultDate.set({ ...startValue.value }), end: defaultDate.set({ ...endValue.value }) }
   }
 })
 
@@ -282,9 +287,9 @@ provideRangeCalendarRootContext({
   prevPage,
   parentElement,
   calendarView,
-  onPlaceholderChange(value) {
-    placeholder.value = value
-  },
+  onPlaceholderChange,
+  defaultDate,
+
 })
 
 onMounted(() => {
@@ -312,7 +317,7 @@ onMounted(() => {
     </div>
 
     <slot
-      :date="placeholder"
+      :date="defaultDate.set({ ...placeholder })"
       :grid="grid"
       :calendar-view="calendarView"
       :week-days="weekdays"

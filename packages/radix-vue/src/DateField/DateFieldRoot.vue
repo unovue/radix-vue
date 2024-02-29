@@ -133,6 +133,7 @@ const defaultDate = getDefaultDate({
 
 const placeholder = useVModel(props, 'placeholder', emits, {
   defaultValue: defaultDate.set({ ...defaultDate }),
+  passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
 
 const inferredGranularity = computed(() => {

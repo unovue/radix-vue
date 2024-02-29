@@ -200,10 +200,8 @@ const placeholder = useVModel(props, 'placeholder', emits, {
 }) as Ref<DateValue>
 
 function onPlaceholderChange(value: DateValue) {
-  console.log(value)
   const dateRef = defaultDate.set({ ...placeholder.value })
   placeholder.value = dateRef.set({ ...value })
-  console.log('after update:', placeholder.value)
 }
 
 const {

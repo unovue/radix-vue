@@ -108,12 +108,11 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 const defaultDate = getDefaultDate({
   defaultPlaceholder: props.placeholder,
   granularity: props.granularity,
-  defaultValue: props.modelValue?.start,
+  defaultValue: modelValue.value.start,
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: defaultDate,
-  passive: (props.placeholder === undefined) as false,
+  defaultValue: defaultDate.set({ ...defaultDate }),
 }) as Ref<DateValue>
 
 const open = useVModel(props, 'open', emits, {
@@ -149,11 +148,12 @@ provideDateRangePickerRootContext({
   hideTimeZone,
   hourCycle,
   dateFieldRef,
+
   onDateChange(date: { start: DateValue | undefined; end: DateValue | undefined }) {
-    modelValue.value = { ...date }
+    modelValue.value = { start: date.start ? defaultDate.set({ ...date.start }) : undefined, end: date.end ? defaultDate.set({ ...date.end }) : undefined }
   },
   onPlaceholderChange(date: DateValue) {
-    placeholder.value = date
+    placeholder.value = defaultDate.set({ ...date })
   },
 })
 </script>

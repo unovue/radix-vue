@@ -5,7 +5,7 @@
 import { type DateValue, endOfMonth, endOfYear, startOfMonth, startOfYear } from '@internationalized/date'
 import type { Grid } from './types'
 import { chunk } from '@/shared'
-import { getDaysInMonth, getLastFirstDayOfWeek, getNextLastDayOfWeek } from '@/shared/date'
+import { getDaysInMonth, getLastFirstDayOfWeek, getNextLastDayOfWeek, isAfter, isBefore } from '@/shared/date'
 
 export type WeekDayFormat = 'narrow' | 'short' | 'long'
 
@@ -15,10 +15,9 @@ export type CreateSelectProps = {
    */
   dateObj: DateValue
 
-  /**
-   * The number of columns to build the grid
-   */
-  columns: number
+  minValue?: DateValue
+
+  maxValue?: DateValue
 }
 
 export type CreateMonthProps = {
@@ -113,7 +112,8 @@ type SetYearProps = CreateSelectProps & {
 }
 
 type SetDecadeProps = CreateSelectProps & {
-  numberOfYears?: number
+  startIndex?: number
+  endIndex: number
 }
 
 export function startOfDecade(dateObj: DateValue) {
@@ -126,49 +126,44 @@ export function endOfDecade(dateObj: DateValue) {
   return endOfYear(dateObj.add({ years: Math.ceil((dateObj.year + 1) / 10) * 10 - dateObj.year - 1 }).set({ day: 35, month: 12 }))
 }
 
-export function createDecade(props: SetDecadeProps): Grid<DateValue>[] {
-  const { dateObj, columns, numberOfYears } = props
+export function createDecade(props: SetDecadeProps): DateValue[] {
+  const { dateObj, startIndex, endIndex, minValue, maxValue } = props
 
-  const decadeArray = []
+  const decadeArray = Array.from({ length: Math.abs((startIndex ?? 0) - endIndex) }, (_, i) => i < Math.abs(startIndex ?? 0) ? dateObj.subtract({ years: i }).set({ day: 1, month: 1 }) : dateObj.add({ years: i }).set({ day: 1, month: 1 })).toSorted((a, b) => a.year - b.year)
 
-  const decadeStart = startOfDecade(dateObj)
-  for (let i = decadeStart.year; i < decadeStart.year + (numberOfYears ?? 10); i++)
-    decadeArray.push(dateObj.set({ year: i }))
-
-  const rows = chunk(decadeArray, columns)
-
-  return [{ value: dateObj, cells: decadeArray, rows }]
+  return decadeArray.filter((year) => {
+    if (minValue && isBefore(year, minValue))
+      return false
+    if (maxValue && isAfter(year, maxValue))
+      return false
+    return true
+  })
 }
 
-export function createYear(props: SetYearProps): Grid<DateValue>[] {
-  const { dateObj, columns, numberOfMonths, pagedNavigation } = props
+export function createYear(props: SetYearProps): DateValue[] {
+  const { dateObj, numberOfMonths, pagedNavigation, minValue, maxValue } = props
 
   if (numberOfMonths && pagedNavigation) {
     const monthsArray = Array.from({ length: Math.floor(12 / numberOfMonths) }, (_, i) => startOfMonth(dateObj.set({ month: i * numberOfMonths + 1 })))
-    const rows = chunk(monthsArray, columns)
 
-    if (!rows.every(row => row.length === columns)) {
-      const lastRow = rows[rows.length - 1]
-      const lastRowLength = lastRow.length
-      for (let i = 0; i < columns - lastRowLength; i++)
-        rows[rows.length - 1].push(lastRow[lastRowLength - 1].add({ months: i * numberOfMonths + 1 }))
-    }
-
-    return [{ value: dateObj, cells: monthsArray, rows }]
+    return monthsArray.filter((month) => {
+      if (minValue && isBefore(month, minValue))
+        return false
+      if (maxValue && isAfter(month, maxValue))
+        return false
+      return true
+    })
   }
 
   const monthsArray = Array.from({ length: 12 }, (_, i) => startOfMonth(dateObj.set({ month: i + 1 })))
 
-  const rows = chunk(monthsArray, columns)
-
-  if (!rows.every(row => row.length === columns)) {
-    const lastRow = rows[rows.length - 1]
-    const lastRowLength = lastRow.length
-    for (let i = 0; i < columns - lastRowLength; i++)
-      rows[rows.length - 1].push(lastRow[lastRowLength - 1].add({ months: i + 1 }))
-  }
-
-  return [{ value: dateObj, cells: monthsArray, rows }]
+  return monthsArray.filter((month) => {
+    if (minValue && isBefore(month, minValue))
+      return false
+    if (maxValue && isAfter(month, maxValue))
+      return false
+    return true
+  })
 }
 
 export function createMonths(props: SetMonthProps) {

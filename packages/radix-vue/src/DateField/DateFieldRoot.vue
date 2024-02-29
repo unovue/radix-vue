@@ -32,6 +32,7 @@ type DateFieldRootContext = {
   elements: Ref<Set<HTMLElement>>
   focusNext: () => void
   setFocusedElement: (el: HTMLElement) => void
+  defaultDate: DateValue
 }
 
 export interface DateFieldRootProps extends PrimitiveProps {
@@ -105,7 +106,7 @@ defineSlots<{
   }): any
 }>()
 
-const { locale, disabled, readonly, isDateUnavailable: propsIsDateUnavailable } = toRefs(props)
+const { locale, disabled, readonly, isDateUnavailable: propsIsDateUnavailable, granularity } = toRefs(props)
 
 const formatter = useDateFormatter(props.locale)
 const { primitiveElement, currentElement: parentElement }
@@ -116,20 +117,19 @@ onMounted(() => {
   Array.from(parentElement.value.querySelectorAll('[data-radix-vue-date-field-segment]')).filter(item => item.getAttribute('data-radix-vue-date-field-segment') !== 'literal').forEach(el => segmentElements.value.add(el as HTMLElement))
 })
 
-const defaultDate = getDefaultDate({
-  defaultPlaceholder: props.placeholder,
-  granularity: props.granularity,
-  defaultValue: props.modelValue,
-})
-
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue ?? undefined,
   passive: (props.modelValue === undefined) as false,
 }) as Ref<DateValue | undefined>
 
+const defaultDate = getDefaultDate({
+  defaultPlaceholder: props.placeholder,
+  granularity: granularity.value,
+  defaultValue: modelValue.value,
+})
+
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: defaultDate,
-  passive: (props.placeholder === undefined) as false,
+  defaultValue: defaultDate.set({ ...defaultDate }),
 }) as Ref<DateValue>
 
 const inferredGranularity = computed(() => {
@@ -161,7 +161,7 @@ const segmentValues = ref<SegmentValueObj>(modelValue.value ? { ...syncSegmentVa
 
 const allSegmentContent = computed(() => createContent({
   granularity: inferredGranularity.value,
-  dateRef: placeholder,
+  dateRef: defaultDate.set({ ...placeholder.value }),
   formatter,
   hideTimeZone: props.hideTimeZone,
   hourCycle: props.hourCycle,
@@ -183,7 +183,7 @@ watch(segmentValues, (value) => {
       }
     }
 
-    let dateRef = placeholder.value
+    let dateRef = defaultDate.set({ ...placeholder.value })
     Object.keys(updateObject).forEach((part) => {
       const value = updateObject[part as AnyExceptLiteral]
       dateRef = dateRef.set({ [part]: value })
@@ -192,13 +192,13 @@ watch(segmentValues, (value) => {
     if (modelValue.value && modelValue.value.toString() === dateRef.toString())
       return
 
-    modelValue.value = dateRef
+    modelValue.value = defaultDate.set({ ...dateRef })
   }
 }, { deep: true })
 
 watch(modelValue, (value) => {
   if (value !== undefined && placeholder.value.toString() !== value.toString())
-    placeholder.value = placeholder.value.set({ ...value })
+    placeholder.value = defaultDate.set({ ...value })
 })
 
 watch(modelValue, (modelValue) => {
@@ -258,6 +258,7 @@ provideDateFieldRootContext({
   segmentContents: editableSegmentContents,
   elements: segmentElements,
   setFocusedElement,
+  defaultDate,
   focusNext() {
     nextFocusableSegment.value?.focus()
   },
@@ -280,7 +281,7 @@ defineExpose({
     :data-invalid="isInvalid ? '' : undefined"
     @keydown.left.right="handleKeydown"
   >
-    <slot :model-value="modelValue" :segments="segmentContents" />
+    <slot :model-value="defaultDate.set({ ...modelValue })" :segments="segmentContents" />
   </Primitive>
 
   <input

@@ -21,6 +21,7 @@ export type UseCalendarProps = {
   isDateDisabled?: Matcher
   isDateUnavailable?: Matcher
   calendarLabel?: string
+  defaultDate: DateValue
 }
 
 export type UseCalendarStateProps = {
@@ -75,8 +76,10 @@ export function useCalendarState(props: UseCalendarStateProps) {
 export function useCalendar(props: UseCalendarProps) {
   const formatter = useDateFormatter(props.locale)
 
+  const placeholder = props.defaultDate
+
   const grid = ref<Grid<DateValue>[]>(createMonths({
-    dateObj: props.placeholder.value,
+    dateObj: placeholder.set({ ...props.placeholder.value }),
     weekStartsOn: props.weekStartsOn,
     locale: props.locale,
     fixedWeeks: props.fixedWeeks,
@@ -167,9 +170,9 @@ export function useCalendar(props: UseCalendarProps) {
   }
 
   watch(props.placeholder, (value, oldValue) => {
-    if (!isSameMonth(value, oldValue)) {
+    if (!isSameMonth(placeholder.set({ ...value }), placeholder.set({ ...oldValue }))) {
       grid.value = createMonths({
-        dateObj: value,
+        dateObj: placeholder.set({ ...value }),
         weekStartsOn: props.weekStartsOn,
         locale: props.locale,
         fixedWeeks: props.fixedWeeks,

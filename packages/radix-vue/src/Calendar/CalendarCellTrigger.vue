@@ -74,10 +74,11 @@ function changeDate(date: DateValue) {
 }
 
 function handleClick(e: Event) {
+  const dateRef = rootContext.placeholder.value
   changeDate(
     parseStringToDateValue(
       (e.target as HTMLDivElement).getAttribute('data-value')!,
-      rootContext.placeholder.value,
+      dateRef,
     ),
   )
 }

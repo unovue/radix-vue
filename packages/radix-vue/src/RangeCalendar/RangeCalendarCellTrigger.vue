@@ -68,29 +68,31 @@ function changeDate(date: DateValue) {
   if (rootContext.isDateDisabled(date) || rootContext.isDateUnavailable?.(date))
     return
 
-  rootContext.lastPressedDateValue.value = date
+  rootContext.lastPressedDateValue.value = rootContext.defaultDate.set({ ...date })
 
   if (rootContext.startValue.value && rootContext.highlightedRange.value === null) {
     if (isSameDay(date, rootContext.startValue.value) && !rootContext.preventDeselect.value && !rootContext.endValue.value) {
       rootContext.startValue.value = undefined
-
       return
     }
     else if (!rootContext.endValue.value) {
       if (rootContext.lastPressedDateValue.value && isSameDay(rootContext.lastPressedDateValue.value, date))
-        rootContext.startValue.value = date
-
+        rootContext.startValue.value = rootContext.defaultDate.set({ ...date })
       return
     }
   }
   if (rootContext.startValue.value && isSameDay(rootContext.startValue.value, date) && !rootContext.preventDeselect.value && !rootContext.endValue.value)
     rootContext.startValue.value = undefined
 
-  if (!rootContext.startValue.value) { rootContext.startValue.value = date }
+  if (!rootContext.startValue.value) {
+    rootContext.startValue.value = rootContext.defaultDate.set({ ...date })
+  }
 
-  else if (!rootContext.endValue.value) { rootContext.endValue.value = date }
+  else if (!rootContext.endValue.value) {
+    rootContext.endValue.value = rootContext.defaultDate.set({ ...date })
+  }
   else if (rootContext.endValue.value && rootContext.startValue.value) {
-    rootContext.startValue.value = date
+    rootContext.startValue.value = rootContext.defaultDate.set({ ...date })
     rootContext.endValue.value = undefined
   }
 }
@@ -99,7 +101,7 @@ function handleClick(e: Event) {
 }
 
 function handleFocus(date: DateValue) {
-  rootContext.focusedValue.value = date
+  rootContext.focusedValue.value = rootContext.defaultDate.set({ ...date })
 }
 
 function handleArrowKey(e: KeyboardEvent) {
@@ -112,8 +114,7 @@ function handleArrowKey(e: KeyboardEvent) {
     : []
   const index = allCollectionItems.indexOf(currentElement.value)
   let newIndex = index
-  const indexIncrementation
-    = 7
+  const indexIncrementation = 7
 
   switch (e.code) {
     case kbd.ARROW_RIGHT:

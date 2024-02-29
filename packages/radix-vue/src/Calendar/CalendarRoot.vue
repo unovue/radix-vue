@@ -7,7 +7,7 @@ import { type Formatter, createContext } from '@/shared'
 
 import { useCalendar, useCalendarState } from './useCalendar'
 import type { Grid, Matcher, WeekDayFormat } from '@/shared/date'
-import { getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
+import { createDecade, createYear, getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
 
 type CalendarRootContext = {
 
@@ -142,6 +142,10 @@ defineSlots<{
     weekDays: string[]
     /** The formatter used inside the calendar for displaying dates */
     formatter: Formatter
+    /** The months that can be selected */
+    getMonths: DateValue[]
+    /** The years that can be selected */
+    getYears: ({ startIndex, endIndex }: { startIndex?: number; endIndex: number }) => DateValue[]
   }): any
 }>()
 
@@ -178,12 +182,11 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 
 const defaultDate = getDefaultDate({
   defaultPlaceholder: props.placeholder,
-  defaultValue: props.modelValue,
+  defaultValue: modelValue.value,
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: defaultDate,
-  passive: (props.placeholder === undefined) as false,
+  defaultValue: defaultDate.set({ ...defaultDate }),
 }) as Ref<DateValue>
 
 const {
@@ -213,10 +216,10 @@ const {
   isDateDisabled: propsIsDateDisabled.value,
   isDateUnavailable: propsIsDateUnavailable.value,
   calendarLabel: calendarLabel.value,
+  defaultDate,
 })
 
 const {
-
   isInvalid,
   isDateSelected,
 } = useCalendarState({
@@ -226,30 +229,23 @@ const {
   isDateUnavailable,
 })
 
-watch(modelValue, (value) => {
-  if (Array.isArray(value) && value.length) {
-    const lastValue = value[value.length - 1]
-    if (lastValue && placeholder.value.toString() !== lastValue.toString())
-      placeholder.value = lastValue
-  }
-  else if (!Array.isArray(value) && value && placeholder.toString() !== value.toString()) {
-    placeholder.value = placeholder.value.set({ ...value })
-  }
-})
+function onPlaceholderChange(value: DateValue) {
+  placeholder.value = defaultDate.set({ ...value })
+}
 
 watch(modelValue, (value) => {
   if (Array.isArray(value) && value.length) {
     const lastValue = value[value.length - 1]
     if (lastValue && placeholder.value.toString() !== lastValue.toString())
-      placeholder.value = lastValue
+      onPlaceholderChange(lastValue)
   }
   else if (!Array.isArray(value) && value && placeholder.toString() !== value.toString()) {
-    placeholder.value = placeholder.value.set({ ...value })
+    onPlaceholderChange(value)
   }
 })
 
 function onDateChange(value: DateValue) {
-  const dateRef = placeholder.value
+  const dateRef = defaultDate
   if (!multiple.value) {
     if (!modelValue.value) {
       modelValue.value = dateRef.set({ ...value })
@@ -258,13 +254,13 @@ function onDateChange(value: DateValue) {
 
     if (isSameDay(modelValue.value as DateValue, value))
       modelValue.value = undefined
-
     else
-      modelValue.value = placeholder.value.set({ ...value })
+      modelValue.value = dateRef.set({ ...value })
   }
   else if (Array.isArray(modelValue.value)) {
     if (!modelValue.value) {
       modelValue.value = [dateRef.set({ ...value })]
+
       return
     }
 
@@ -281,6 +277,28 @@ function onDateChange(value: DateValue) {
       modelValue.value = next.map(date => dateRef.set({ ...date }))
     }
   }
+}
+
+const getMonths = computed(() => {
+  const dateObj = defaultDate.set({ ...placeholder.value })
+  return createYear({
+    dateObj,
+    minValue: props.minValue,
+    maxValue: props.maxValue,
+    numberOfMonths: numberOfMonths.value,
+    pagedNavigation: pagedNavigation.value,
+  })
+})
+
+function getYears({ startIndex, endIndex }: { startIndex?: number; endIndex: number }) {
+  const dateObj = defaultDate
+  return createDecade({
+    dateObj,
+    startIndex,
+    endIndex,
+    maxValue: props.maxValue,
+    minValue: props.minValue,
+  })
 }
 
 onMounted(() => {
@@ -315,9 +333,7 @@ provideCalendarRootContext({
   nextPage,
   prevPage,
   parentElement,
-  onPlaceholderChange(value) {
-    placeholder.value = value
-  },
+  onPlaceholderChange,
   onDateChange,
 })
 </script>
@@ -339,6 +355,13 @@ provideCalendarRootContext({
         {{ fullCalendarLabel }}
       </div>
     </div>
-    <slot :date="placeholder" :grid="grid" :week-days="weekdays" :formatter="formatter" />
+    <slot
+      :date="defaultDate.set({ ...placeholder })"
+      :grid="grid"
+      :week-days="weekdays"
+      :formatter="formatter"
+      :get-months="getMonths"
+      :get-years="getYears"
+    />
   </Primitive>
 </template>

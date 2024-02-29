@@ -35,6 +35,7 @@ type DateRangeFieldRootContext = {
   elements: Ref<Set<HTMLElement>>
   focusNext: () => void
   setFocusedElement: (el: HTMLElement) => void
+  defaultDate: DateValue
 }
 
 export interface DateRangeFieldRootProps extends PrimitiveProps {
@@ -111,20 +112,19 @@ onMounted(() => {
   Array.from(parentElement.value.querySelectorAll('[data-radix-vue-date-field-segment]')).filter(item => item.getAttribute('data-radix-vue-date-field-segment') !== 'literal').forEach(el => segmentElements.value.add(el as HTMLElement))
 })
 
-const defaultDate = getDefaultDate({
-  defaultPlaceholder: props.placeholder,
-  granularity: props.granularity,
-  defaultValue: props.modelValue?.start,
-})
-
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue ?? { start: undefined, end: undefined },
   passive: (props.modelValue === undefined) as false,
 }) as Ref<{ start: DateValue | undefined; end: DateValue | undefined }>
 
+const defaultDate = getDefaultDate({
+  defaultPlaceholder: props.placeholder,
+  granularity: props.granularity,
+  defaultValue: modelValue.value.start,
+})
+
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: defaultDate,
-  passive: (props.placeholder === undefined) as false,
+  defaultValue: defaultDate.set({ ...defaultDate }),
 }) as Ref<DateValue>
 
 const inferredGranularity = computed(() => {
@@ -198,7 +198,7 @@ const endSegmentValues = ref<SegmentValueObj>(modelValue.value.end ? { ...syncSe
 
 const startSegmentContent = computed(() => createContent({
   granularity: inferredGranularity.value,
-  dateRef: placeholder,
+  dateRef: defaultDate.set({ ...placeholder.value }),
   formatter,
   hideTimeZone: props.hideTimeZone,
   hourCycle: props.hourCycle,
@@ -208,7 +208,7 @@ const startSegmentContent = computed(() => createContent({
 
 const endSegmentContent = computed(() => createContent({
   granularity: inferredGranularity.value,
-  dateRef: placeholder,
+  dateRef: defaultDate.set({ ...placeholder.value }),
   formatter,
   hideTimeZone: props.hideTimeZone,
   hourCycle: props.hourCycle,
@@ -231,7 +231,7 @@ watch([startValue, endValue], ([startValue, endValue]): void => {
     return
 
   if (startValue && endValue) {
-    modelValue.value = { start: startValue, end: endValue }
+    modelValue.value = { start: defaultDate.set({ ...startValue }), end: defaultDate.set({ ...endValue }) }
     return
   }
 
@@ -248,14 +248,14 @@ watch(startSegmentValues, (value) => {
       }
     }
 
-    let dateRef = placeholder.value
+    let dateRef = defaultDate.set({ ...placeholder.value })
     Object.keys(updateObject).forEach((part) => {
       const value = updateObject[part as AnyExceptLiteral]
       dateRef = dateRef.set({ [part]: value })
     })
     if (startValue.value && startValue.value.toString() === dateRef.toString())
       return
-    startValue.value = dateRef
+    startValue.value = defaultDate.set({ ...dateRef })
   }
 }, { deep: true })
 
@@ -269,26 +269,26 @@ watch(endSegmentValues, (value) => {
       }
     }
 
-    let dateRef = placeholder.value
+    let dateRef = defaultDate.set({ ...placeholder.value })
     Object.keys(updateObject).forEach((part) => {
       const value = updateObject[part as AnyExceptLiteral]
       dateRef = dateRef.set({ [part]: value })
     })
     if (endValue.value && endValue.value.toString() === dateRef.toString())
       return
-    endValue.value = dateRef
+    endValue.value = defaultDate.set({ ...dateRef })
   }
 }, { deep: true })
 
 watch(modelValue, (value) => {
   if (value.start && value.start.toString() !== startValue.value?.toString())
-    startValue.value = value.start
+    startValue.value = defaultDate.set({ ...value.start })
 
   if (value.end && value.end.toString() !== endValue.value?.toString())
-    endValue.value = value.end
+    endValue.value = defaultDate.set({ ...value.end })
 
   if (value.start !== undefined && placeholder.value.toString() !== value.start.toString())
-    placeholder.value = value.start
+    placeholder.value = defaultDate.set({ ...value.start })
 })
 
 watch(startValue, (modelValue) => {
@@ -354,6 +354,7 @@ provideDateRangeFieldRootContext({
   segmentContents: editableSegmentContents,
   elements: segmentElements,
   setFocusedElement,
+  defaultDate,
   focusNext() {
     nextFocusableSegment.value?.focus()
   },
@@ -375,7 +376,7 @@ defineExpose({
     :data-invalid="isInvalid ? '' : undefined"
     @keydown.left.right="handleKeydown"
   >
-    <slot :model-value="modelValue" :segments="segmentContents" />
+    <slot :model-value="{ start: defaultDate.set({ ...modelValue.start }), end: defaultDate.set({ ...modelValue.end }) }" :segments="segmentContents" />
   </Primitive>
 
   <input

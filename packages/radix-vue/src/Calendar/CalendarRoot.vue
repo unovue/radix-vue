@@ -196,7 +196,8 @@ const defaultDate = getDefaultDate({
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: defaultDate,
+  defaultValue: defaultDate.set({ ...defaultDate }),
+  passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
 
 function onPlaceholderChange(value: DateValue) {

@@ -35,11 +35,14 @@ const props = withDefaults(defineProps<CalendarCellTriggerProps>(), {
 })
 const kbd = useKbd()
 const rootContext = injectCalendarRootContext()
+const placeholder = rootContext.defaultDate.set({ ...rootContext.placeholder.value })
+const day = computed(() => placeholder.set({ ...props.day }))
+const month = computed(() => placeholder.set({ ...props.month }))
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
 const labelText = computed(() => {
-  return rootContext.formatter.custom(toDate(props.day), {
+  return rootContext.formatter.custom(toDate(day.value), {
     weekday: 'long',
     month: 'long',
     day: 'numeric',
@@ -47,42 +50,42 @@ const labelText = computed(() => {
   })
 })
 
-const isDisabled = computed(() => rootContext.isDateDisabled(props.day))
+const isDisabled = computed(() => rootContext.isDateDisabled(day.value))
 const isUnavailable = computed(() =>
-  rootContext.isDateUnavailable?.(props.day),
+  rootContext.isDateUnavailable?.(day.value),
 )
 const isDateToday = computed(() => {
   if (rootContext.calendarView.value === 'decade')
-    return isSameYear(props.day, today(getLocalTimeZone()))
+    return isSameYear(day.value, today(getLocalTimeZone()))
   if (rootContext.calendarView.value === 'year')
-    return isSameMonth(props.day, today(getLocalTimeZone()))
-  return isToday(props.day, getLocalTimeZone())
+    return isSameMonth(day.value, today(getLocalTimeZone()))
+  return isToday(day.value, getLocalTimeZone())
 })
 const isOutsideView = computed(() => {
   if (rootContext.calendarView.value === 'decade') {
     return !isBetweenInclusive(
-      props.day,
-      startOfDecade(props.month),
-      endOfDecade(props.month),
+      day.value,
+      startOfDecade(month.value),
+      endOfDecade(month.value),
     )
   }
 
   if (rootContext.calendarView.value === 'year')
-    return !isSameYear(props.day, props.month)
-  return !isSameMonth(props.day, props.month)
+    return !isSameYear(day.value, month.value)
+  return !isSameMonth(day.value, month.value)
 })
 const isOutsideVisibleView = computed(() =>
-  rootContext.isOutsideVisibleView(props.day),
+  rootContext.isOutsideVisibleView(day.value),
 )
 
 const isFocusedDate = computed(() => {
   if (rootContext.calendarView.value === 'decade')
-    return isSameYear(props.day, rootContext.placeholder.value)
+    return isSameYear(day.value, placeholder)
   if (rootContext.calendarView.value === 'year')
-    return isSameMonth(props.day, rootContext.placeholder.value)
-  return isSameDay(props.day, rootContext.placeholder.value)
+    return isSameMonth(day.value, placeholder)
+  return isSameDay(day.value, placeholder)
 })
-const isSelectedDate = computed(() => rootContext.calendarView.value === 'month' && rootContext.isDateSelected(props.day))
+const isSelectedDate = computed(() => rootContext.calendarView.value === 'month' && rootContext.isDateSelected(day.value))
 
 const SELECTOR
   = '[data-radix-vue-calendar-cell-trigger]:not([data-disabled]):not([data-outside-month]):not([data-outside-visible-months])'
@@ -105,7 +108,7 @@ function handleClick(e: Event) {
   changeDate(
     parseStringToDateValue(
       (e.target as HTMLDivElement).getAttribute('data-value')!,
-      rootContext.placeholder.value,
+      placeholder,
     ),
   )
 }
@@ -140,7 +143,7 @@ function handleArrowKey(e: KeyboardEvent) {
       changeDate(
         parseStringToDateValue(
           currentCell!.getAttribute('data-value')!,
-          rootContext.placeholder.value,
+          placeholder,
         ),
       )
       return
@@ -182,28 +185,28 @@ function handleArrowKey(e: KeyboardEvent) {
 }
 const formattedTriggerText = computed(() => {
   if (rootContext.calendarView.value === 'month')
-    return props.day.day
+    return day.value.day
 
   if (rootContext.calendarView.value === 'year') {
     if (rootContext.numberOfMonths.value > 1) {
-      const firstMonth = rootContext.formatter.custom(props.day.toDate(getLocalTimeZone()), {
+      const firstMonth = rootContext.formatter.custom(day.value.toDate(getLocalTimeZone()), {
         month: 'short',
       })
       const result = [firstMonth]
 
       for (let i = 0; i < rootContext.numberOfMonths.value - 1; i++) {
-        result.push(rootContext.formatter.custom(props.day.add({ months: i + 1 }).toDate(getLocalTimeZone()), {
+        result.push(rootContext.formatter.custom(day.value.add({ months: i + 1 }).toDate(getLocalTimeZone()), {
           month: 'short',
         }))
       }
       return result.join('-')
     }
-    return rootContext.formatter.custom(props.day.toDate(getLocalTimeZone()), {
+    return rootContext.formatter.custom(day.value.toDate(getLocalTimeZone()), {
       month: 'short',
     })
   }
 
-  return props.day.year
+  return day.value.year
 })
 </script>
 

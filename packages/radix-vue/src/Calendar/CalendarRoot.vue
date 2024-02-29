@@ -40,6 +40,7 @@ type CalendarRootContext = {
   formatter: Formatter
   columns: Ref<number>
   setView: (view: CalendarView) => void
+  defaultDate: DateValue
 }
 
 interface BaseCalendarRootProps extends PrimitiveProps {
@@ -195,11 +196,19 @@ const defaultDate = getDefaultDate({
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: props.defaultPlaceholder ?? defaultDate,
-  passive: (props.placeholder === undefined) as false,
+  defaultValue: defaultDate,
 }) as Ref<DateValue>
 
+function onPlaceholderChange(value: DateValue) {
+  console.log(value)
+  const dateRef = defaultDate.set({ ...placeholder.value })
+  placeholder.value = dateRef.set({ ...value })
+  console.log('after update:', placeholder.value)
+}
+
 const {
+  fullCalendarLabel,
+  headingValue,
   isDateDisabled,
   isDateUnavailable,
   isNextButtonDisabled,
@@ -225,44 +234,39 @@ const {
   isDateDisabled: propsIsDateDisabled.value,
   isDateUnavailable: propsIsDateUnavailable.value,
   calendarView,
+  defaultDate,
+  calendarLabel: calendarLabel.value,
 })
 
 const {
-  fullCalendarLabel,
-  headingValue,
   isInvalid,
   isDateSelected,
 } = useCalendarState({
   date: modelValue,
-  formatter,
-  grid,
-  calendarView,
   isDateDisabled,
   isDateUnavailable,
-  locale: locale.value,
-  calendarLabel: calendarLabel.value,
 })
 
 watch(modelValue, (value) => {
   if (Array.isArray(value) && value.length) {
     const lastValue = value[value.length - 1]
     if (lastValue && placeholder.value.toString() !== lastValue.toString())
-      placeholder.value = lastValue
+      onPlaceholderChange(lastValue)
   }
   else if (!Array.isArray(value) && value && placeholder.toString() !== value.toString()) {
-    placeholder.value = placeholder.value.set({ ...value })
+    onPlaceholderChange(value)
   }
 })
 
 function onDateChange(value: DateValue) {
-  const dateRef = placeholder.value
+  const dateRef = defaultDate
   if (!multiple.value) {
     if (!modelValue.value) {
       modelValue.value = dateRef.set({ ...value })
       return
     }
 
-    if (isSameDay(modelValue.value as DateValue, value))
+    if (!preventDeselect.value && isSameDay(modelValue.value as DateValue, value))
       modelValue.value = undefined
 
     else
@@ -278,7 +282,7 @@ function onDateChange(value: DateValue) {
     if (index === -1) {
       modelValue.value = [...modelValue.value, value]
     }
-    else {
+    else if (!preventDeselect.value) {
       const next = modelValue.value.filter(date => !isSameDay(date, value))
       if (!next.length) {
         modelValue.value = []
@@ -323,13 +327,12 @@ provideCalendarRootContext({
   prevPage,
   parentElement,
   columns,
-  onPlaceholderChange(value) {
-    placeholder.value = value
-  },
+  onPlaceholderChange,
   setView(view) {
     calendarView.value = view
   },
   onDateChange,
+  defaultDate,
 })
 </script>
 
@@ -346,6 +349,13 @@ provideCalendarRootContext({
         {{ fullCalendarLabel }}
       </div>
     </div>
-    <slot :date="placeholder" :grid="grid" :calendar-view="calendarView" :week-days="weekdays" :formatter="formatter" />
+
+    <slot
+      :date="defaultDate.set({ ...placeholder })"
+      :grid="grid"
+      :calendar-view="calendarView"
+      :week-days="weekdays"
+      :formatter="formatter"
+    />
   </Primitive>
 </template>

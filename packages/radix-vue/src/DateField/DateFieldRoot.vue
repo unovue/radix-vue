@@ -164,7 +164,7 @@ const segmentValues = ref<SegmentValueObj>(modelValue.value ? { ...syncSegmentVa
 
 const allSegmentContent = computed(() => createContent({
   granularity: inferredGranularity.value,
-  dateRef: placeholder,
+  dateRef: defaultDate.set({ ...placeholder.value }),
   formatter,
   hideTimeZone: props.hideTimeZone,
   hourCycle: props.hourCycle,
@@ -198,11 +198,6 @@ watch(segmentValues, (value) => {
     modelValue.value = defaultDate.set({ ...dateRef })
   }
 }, { deep: true })
-
-watch(modelValue, (value) => {
-  if (value !== undefined && placeholder.value.toString() !== value.toString())
-    placeholder.value = defaultDate.set({ ...value })
-})
 
 watch(modelValue, (modelValue) => {
   if (modelValue !== undefined)

@@ -1,7 +1,6 @@
 import { DATE_SEGMENT_PARTS, type DateSegmentPart, EDITABLE_SEGMENT_PARTS, type Granularity, type HourCycle, type SegmentContentObj, type SegmentPart, type SegmentValueObj, TIME_SEGMENT_PARTS, type TimeSegmentPart, getOptsByGranularity, getPlaceholder, isDateSegmentPart, isSegmentPart, isZonedDateTime, toDate } from '@/shared/date'
 import { type Formatter } from '@/shared'
 import type { DateFields, DateValue } from '@internationalized/date'
-import type { Ref } from 'vue'
 
 const calendarDateTimeGranularities = ['hour', 'minute', 'second']
 
@@ -49,7 +48,7 @@ export function initializeSegmentValues(granularity: Granularity): SegmentValueO
 
 type SharedContentProps = {
   granularity: Granularity
-  dateRef: Ref<DateValue>
+  dateRef: DateValue
   formatter: Formatter
   hideTimeZone: boolean
   hourCycle: HourCycle
@@ -74,11 +73,11 @@ function createContentObj(props: CreateContentObjProps) {
          * Edge case for when the month field is filled and the day field snaps to the maximum value of the value of the placeholder month
          */
         if (part === 'day' && segmentValues.month !== null) {
-          return formatter.part(props.dateRef.value.set({ [part as keyof DateFields]: value, month: segmentValues.month }), part, {
+          return formatter.part(props.dateRef.set({ [part as keyof DateFields]: value, month: segmentValues.month }), part, {
             hourCycle: props.hourCycle === 24 ? 'h24' : undefined,
           })
         }
-        return formatter.part(props.dateRef.value.set({ [part]: value }), part, {
+        return formatter.part(props.dateRef.set({ [part]: value }), part, {
           hourCycle: props.hourCycle === 24 ? 'h24' : undefined,
         })
       }
@@ -94,9 +93,9 @@ function createContentObj(props: CreateContentObjProps) {
           /**
              * As described above, same function
            */
-            return formatter.part(props.dateRef.value.set({ [part]: value, month: segmentValues.month }), part)
+            return formatter.part(props.dateRef.set({ [part]: value, month: segmentValues.month }), part)
 
-          return formatter.part(props.dateRef.value.set({ [part]: value }), part)
+          return formatter.part(props.dateRef.set({ [part]: value }), part)
         }
 
         else {
@@ -131,7 +130,7 @@ function createContentObj(props: CreateContentObjProps) {
 
 function createContentArr(props: CreateContentArrProps) {
   const { granularity, formatter, contentObj, hideTimeZone, hourCycle } = props
-  const parts = formatter.toParts(props.dateRef.value, getOptsByGranularity(granularity, hourCycle))
+  const parts = formatter.toParts(props.dateRef, getOptsByGranularity(granularity, hourCycle))
 
   const segmentContentArr = parts
     .map((part) => {
@@ -152,7 +151,7 @@ function createContentArr(props: CreateContentArrProps) {
     .filter((segment): segment is { part: SegmentPart; value: string } => {
       if (segment.part === null || segment.value === null)
         return false
-      if (segment.part === 'timeZoneName' && (!isZonedDateTime(props.dateRef.value) || hideTimeZone))
+      if (segment.part === 'timeZoneName' && (!isZonedDateTime(props.dateRef) || hideTimeZone))
         return false
 
       return true

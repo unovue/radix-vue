@@ -560,7 +560,7 @@ export function useDateField(props: UseDateFieldProps) {
   }
 
   const attributes = computed(() => segmentBuilders[props.part].attrs({
-    placeholder: props.placeholder.value,
+    placeholder,
     hourCycle: props.hourCycle,
     segmentValues: props.segmentValues.value,
     formatter: props.formatter,

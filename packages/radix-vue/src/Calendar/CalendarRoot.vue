@@ -39,6 +39,7 @@ type CalendarRootContext = {
   isNextButtonDisabled: Ref<boolean>
   isPrevButtonDisabled: Ref<boolean>
   formatter: Formatter
+  defaultDate: DateValue
 }
 
 interface BaseCalendarRootProps extends PrimitiveProps {
@@ -48,6 +49,8 @@ interface BaseCalendarRootProps extends PrimitiveProps {
   columns?: number
   /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programatically control the calendar view */
   placeholder?: DateValue
+  /** The default placeholder date */
+  defaultPlaceholder?: DateValue
   /** This property causes the previous and next buttons to navigate by the number of months displayed at once, rather than one month */
   pagedNavigation?: boolean
   /** Whether or not to prevent the user from deselecting a date without selecting another date first */
@@ -65,7 +68,7 @@ interface BaseCalendarRootProps extends PrimitiveProps {
   /** The minimum date that can be selected */
   minValue?: DateValue
   /** The locale to use for formatting dates */
-  locale?: string
+  locale?: SupportedLocale
   /** The number of months to display at once */
   numberOfMonths?: number
   /** Whether or not the calendar is disabled */
@@ -129,7 +132,6 @@ const props = withDefaults(defineProps<CalendarRootProps>(), {
   locale: 'en',
   isDateDisabled: undefined,
   isDateUnavailable: undefined,
-  columns: 4,
 })
 const emits = defineEmits<CalendarRootEmits>()
 defineSlots<{
@@ -159,6 +161,8 @@ const {
   weekdayFormat,
   fixedWeeks,
   multiple,
+  minValue,
+  maxValue,
   numberOfMonths,
   preventDeselect,
   isDateDisabled: propsIsDateDisabled,
@@ -189,6 +193,11 @@ const placeholder = useVModel(props, 'placeholder', emits, {
   defaultValue: defaultDate.set({ ...defaultDate }),
 }) as Ref<DateValue>
 
+function onPlaceholderChange(value: DateValue) {
+  const dateRef = defaultDate.set({ ...placeholder.value })
+  placeholder.value = dateRef.set({ ...value })
+}
+
 const {
   fullCalendarLabel,
   headingValue,
@@ -208,9 +217,9 @@ const {
   weekStartsOn: props.weekStartsOn,
   fixedWeeks: props.fixedWeeks,
   numberOfMonths: props.numberOfMonths,
-  minValue: props.minValue,
-  maxValue: props.maxValue,
-  disabled: props.disabled,
+  minValue,
+  maxValue,
+  disabled,
   weekdayFormat: props.weekdayFormat,
   pagedNavigation: props.pagedNavigation,
   isDateDisabled: propsIsDateDisabled.value,
@@ -228,10 +237,6 @@ const {
   isDateDisabled,
   isDateUnavailable,
 })
-
-function onPlaceholderChange(value: DateValue) {
-  placeholder.value = defaultDate.set({ ...value })
-}
 
 watch(modelValue, (value) => {
   if (Array.isArray(value) && value.length) {
@@ -252,7 +257,7 @@ function onDateChange(value: DateValue) {
       return
     }
 
-    if (isSameDay(modelValue.value as DateValue, value))
+    if (!preventDeselect.value && isSameDay(modelValue.value as DateValue, value))
       modelValue.value = undefined
     else
       modelValue.value = dateRef.set({ ...value })
@@ -268,7 +273,7 @@ function onDateChange(value: DateValue) {
     if (index === -1) {
       modelValue.value = [...modelValue.value, value]
     }
-    else {
+    else if (!preventDeselect.value) {
       const next = modelValue.value.filter(date => !isSameDay(date, value))
       if (!next.length) {
         modelValue.value = []
@@ -335,6 +340,7 @@ provideCalendarRootContext({
   parentElement,
   onPlaceholderChange,
   onDateChange,
+  defaultDate,
 })
 </script>
 

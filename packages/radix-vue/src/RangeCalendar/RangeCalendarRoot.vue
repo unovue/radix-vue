@@ -153,18 +153,19 @@ const {
   isDateUnavailable: propsIsDateUnavailable,
   isDateDisabled: propsIsDateDisabled,
   calendarLabel,
+  maxValue,
+  minValue,
 } = toRefs(props)
 
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
 
-const lastPressedDateValue = ref(undefined) as Ref<DateValue | undefined>
-const focusedValue = ref(undefined) as Ref<DateValue | undefined>
+const lastPressedDateValue = ref() as Ref<DateValue | undefined>
+const focusedValue = ref() as Ref<DateValue | undefined>
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue ?? { start: undefined, end: undefined },
   passive: (props.modelValue === undefined) as false,
-
 }) as Ref<{ start: DateValue | undefined; end: DateValue | undefined }>
 
 const startValue = ref(modelValue.value.start) as Ref<DateValue | undefined>
@@ -178,6 +179,11 @@ const defaultDate = getDefaultDate({
 const placeholder = useVModel(props, 'placeholder', emits, {
   defaultValue: defaultDate.set({ ...defaultDate }),
 }) as Ref<DateValue>
+
+function onPlaceholderChange(value: DateValue) {
+  const dateRef = defaultDate.set({ ...placeholder.value })
+  placeholder.value = dateRef.set({ ...value })
+}
 
 const {
   fullCalendarLabel,
@@ -198,9 +204,9 @@ const {
   weekStartsOn: props.weekStartsOn,
   fixedWeeks: props.fixedWeeks,
   numberOfMonths: props.numberOfMonths,
-  minValue: props.minValue,
-  maxValue: props.maxValue,
-  disabled: props.disabled,
+  minValue,
+  maxValue,
+  disabled,
   weekdayFormat: props.weekdayFormat,
   pagedNavigation: props.pagedNavigation,
   isDateDisabled: propsIsDateDisabled.value,
@@ -223,10 +229,6 @@ const {
   isDateUnavailable,
   focusedValue,
 })
-
-function onPlaceholderChange(value: DateValue) {
-  placeholder.value = defaultDate.set({ ...value })
-}
 
 watch(modelValue, () => {
   if (modelValue.value.start && modelValue.value.end) {

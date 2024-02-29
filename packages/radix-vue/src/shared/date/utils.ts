@@ -20,8 +20,10 @@ export function getOptsByGranularity(granularity: Granularity, hourCycle: HourCy
     delete opts.minute
     delete opts.timeZoneName
   }
-  if (granularity === 'hour')
+  if (granularity === 'hour') {
     delete opts.minute
+    delete opts.second
+  }
 
   if (granularity === 'minute')
     delete opts.second

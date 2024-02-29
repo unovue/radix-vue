@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot, type CalendarRootProps } from '../'
-
-const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
-  return date.day === 17 || date.day === 18
-}
+import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot } from '../'
 </script>
 
 <template>
@@ -12,9 +8,7 @@ const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
     <Variant title="default">
       <CalendarRoot
         v-slot="{ weekDays, grid }"
-        :is-date-unavailable="isDateUnavailable"
-        class="mt-6 rounded-[15px] border border-black bg-white p-[22px] shadow-md"
-        fixed-weeks
+        class="mt-6 rounded-xl border border-black bg-white p-4 shadow-md"
       >
         <CalendarHeader class="flex items-center justify-between">
           <CalendarPrev
@@ -31,6 +25,7 @@ const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
             <Icon icon="radix-icons:chevron-right" class="w-6 h-6" />
           </CalendarNext>
         </CalendarHeader>
+
         <div
           class="flex flex-col space-y-4 pt-4 sm:flex-row sm:space-x-4 sm:space-y-0"
         >
@@ -56,7 +51,7 @@ const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
                   <CalendarCellTrigger
                     :day="weekDate"
                     :month="month.value"
-                    class="relative flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent text-sm font-normal text-black p-2 outline-none focus:shadow-[0_0_0_2px] focus:shadow-black hover:border-black data-[selected]:bg-black data-[selected]:font-medium data-[disabled]:text-black/30 data-[selected]:text-white data-[unavailable]:text-black/30 data-[unavailable]:line-through before:absolute before:top-[5px] before:hidden before:rounded-full before:w-1 before:h-1 before:bg-white data-[today]:before:block data-[today]:before:bg-grass9 data-[selected]:before:bg-white"
+                    class="relative flex items-center justify-center whitespace-nowrap rounded-lg border border-transparent bg-transparent text-sm font-normal text-black w-8 h-8 outline-none focus:shadow-[0_0_0_2px] focus:shadow-black hover:border-black data-[selected]:bg-black data-[selected]:font-medium data-[disabled]:text-black/30 data-[selected]:text-white data-[unavailable]:text-black/30 data-[unavailable]:line-through before:absolute before:top-[5px] before:hidden before:rounded-full before:w-1 before:h-1 before:bg-white data-[today]:before:block data-[today]:before:bg-grass9 data-[selected]:before:bg-white"
                   />
                 </CalendarCell>
               </CalendarGridRow>

@@ -4,7 +4,7 @@ import { Label } from '@/Label'
 </script>
 
 <template>
-  <Story title="Date Range Field">
+  <Story title="Date Range Field/Basic">
     <Variant title="default">
       <div class="flex flex-col gap-2">
         <Label for="date-field" class="text-sm text-gray9">Input label</Label>
@@ -20,7 +20,6 @@ import { Label } from '@/Label'
             <DateRangeFieldInput
               v-if="item.part === 'literal'"
               :part="item.part"
-              class="p-1"
               type="start"
             >
               {{ item.value }}
@@ -28,7 +27,7 @@ import { Label } from '@/Label'
             <DateRangeFieldInput
               v-else
               :part="item.part"
-              class="rounded-5px px-1 py-1 hover:bg-grass4 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black aria-[valuetext=Empty]:text-grass6"
+              class="rounded-5px px-1 py-1 hover:bg-grass4 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black aria-[valuetext=Empty]:text-green9"
               type="start"
             >
               {{ item.value }}
@@ -39,7 +38,6 @@ import { Label } from '@/Label'
             <DateRangeFieldInput
               v-if="item.part === 'literal'"
               :part="item.part"
-              class="p-1"
               type="end"
             >
               {{ item.value }}
@@ -47,7 +45,7 @@ import { Label } from '@/Label'
             <DateRangeFieldInput
               v-else
               :part="item.part"
-              class="rounded-5px px-1 py-1 hover:bg-grass4 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black aria-[valuetext=Empty]:text-grass6"
+              class="rounded-5px px-1 py-1 hover:bg-grass4 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black aria-[valuetext=Empty]:text-green9"
               type="end"
             >
               {{ item.value }}

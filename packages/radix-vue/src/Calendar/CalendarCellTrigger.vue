@@ -30,11 +30,14 @@ const props = withDefaults(defineProps<CalendarCellTriggerProps>(), {
 })
 const kbd = useKbd()
 const rootContext = injectCalendarRootContext()
+const placeholder = rootContext.defaultDate.set({ ...rootContext.placeholder.value })
+const day = computed(() => placeholder.set({ ...props.day }))
+const month = computed(() => placeholder.set({ ...props.month }))
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
 const labelText = computed(() => {
-  return rootContext.formatter.custom(toDate(props.day), {
+  return rootContext.formatter.custom(toDate(day.value), {
     weekday: 'long',
     month: 'long',
     day: 'numeric',
@@ -42,24 +45,24 @@ const labelText = computed(() => {
   })
 })
 
-const isDisabled = computed(() => rootContext.isDateDisabled(props.day))
+const isDisabled = computed(() => rootContext.isDateDisabled(day.value))
 const isUnavailable = computed(() =>
-  rootContext.isDateUnavailable?.(props.day),
+  rootContext.isDateUnavailable?.(day.value),
 )
 const isDateToday = computed(() => {
-  return isToday(props.day, getLocalTimeZone())
+  return isToday(day.value, getLocalTimeZone())
 })
 const isOutsideView = computed(() => {
-  return !isSameMonth(props.day, props.month)
+  return !isSameMonth(day.value, month.value)
 })
 const isOutsideVisibleView = computed(() =>
-  rootContext.isOutsideVisibleView(props.day),
+  rootContext.isOutsideVisibleView(day.value),
 )
 
 const isFocusedDate = computed(() => {
-  return isSameDay(props.day, rootContext.placeholder.value)
+  return isSameDay(day.value, rootContext.placeholder.value)
 })
-const isSelectedDate = computed(() => rootContext.isDateSelected(props.day))
+const isSelectedDate = computed(() => rootContext.isDateSelected(day.value))
 
 const SELECTOR
   = '[data-radix-vue-calendar-cell-trigger]:not([data-disabled]):not([data-outside-month]):not([data-outside-visible-months])'
@@ -74,11 +77,10 @@ function changeDate(date: DateValue) {
 }
 
 function handleClick(e: Event) {
-  const dateRef = rootContext.placeholder.value
   changeDate(
     parseStringToDateValue(
       (e.target as HTMLDivElement).getAttribute('data-value')!,
-      dateRef,
+      placeholder,
     ),
   )
 }
@@ -112,7 +114,7 @@ function handleArrowKey(e: KeyboardEvent) {
       changeDate(
         parseStringToDateValue(
           currentCell!.getAttribute('data-value')!,
-          rootContext.placeholder.value,
+          placeholder,
         ),
       )
       return
@@ -153,7 +155,7 @@ function handleArrowKey(e: KeyboardEvent) {
   }
 }
 const formattedTriggerText = computed(() => {
-  return rootContext.formatter.custom(props.day.toDate(getLocalTimeZone()), {
+  return rootContext.formatter.custom(day.value.toDate(getLocalTimeZone()), {
     day: 'numeric',
   })
 })

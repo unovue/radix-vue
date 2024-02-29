@@ -14,8 +14,8 @@ const supportedLocales = [
 
 const placeholderFields = ['year', 'month', 'day'] as const
 
-type SupportedLocale = (typeof supportedLocales)[number]
 type PlaceholderField = (typeof placeholderFields)[number]
+export type SupportedLocale = (typeof supportedLocales)[number]
 export type PlaceholderMap = Record<SupportedLocale, Record<PlaceholderField, string>>
 
 const placeholders: PlaceholderMap = {

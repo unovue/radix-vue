@@ -11,6 +11,7 @@ import {
   type Matcher,
   type SegmentPart,
   type SegmentValueObj,
+  type SupportedLocale,
   getDefaultDate,
   hasTime,
   isBefore,
@@ -18,7 +19,7 @@ import {
 import { createContent, initializeSegmentValues, isSegmentNavigationKey, syncSegmentValues } from './utils'
 
 type DateFieldRootContext = {
-  locale: Ref<string>
+  locale: Ref<SupportedLocale>
   modelValue: Ref<DateValue | undefined>
   placeholder: Ref<DateValue>
   isDateUnavailable?: Matcher
@@ -53,7 +54,7 @@ export interface DateFieldRootProps extends PrimitiveProps {
   /** The minimum date that can be selected */
   minValue?: DateValue
   /** The locale to use for formatting dates */
-  locale?: string
+  locale?: SupportedLocale
   /** Whether or not the date field is disabled */
   disabled?: boolean
   /** Whether or not the date field is readonly */
@@ -103,6 +104,8 @@ defineSlots<{
     modelValue: DateValue | undefined
     /** The date field segment contents */
     segments: { part: SegmentPart; value: string }[]
+    /** Value if the input is invalid */
+    isInvalid: boolean
   }): any
 }>()
 
@@ -281,7 +284,7 @@ defineExpose({
     :data-invalid="isInvalid ? '' : undefined"
     @keydown.left.right="handleKeydown"
   >
-    <slot :model-value="defaultDate.set({ ...modelValue })" :segments="segmentContents" />
+    <slot :model-value="defaultDate.set({ ...modelValue })" :segments="segmentContents" :is-invalid="isInvalid" />
   </Primitive>
 
   <input

@@ -223,8 +223,8 @@ const segmentContents = computed(() => ({
 
 const editableSegmentContents = computed(() => ({ start: segmentContents.value.start.filter(({ part }) => part !== 'literal'), end: segmentContents.value.end.filter(({ part }) => part !== 'literal') }))
 
-const startValue = ref(modelValue.value.start) as Ref<DateValue | undefined>
-const endValue = ref(modelValue.value.end) as Ref<DateValue | undefined>
+const startValue = ref(defaultDate.set({ ...modelValue.value.start })) as Ref<DateValue | undefined>
+const endValue = ref(defaultDate.set({ ...modelValue.value.end })) as Ref<DateValue | undefined>
 
 watch([startValue, endValue], ([startValue, endValue]): void => {
   if (modelValue.value.start && modelValue.value.end && startValue && endValue && modelValue.value.start.toString() === startValue.toString() && modelValue.value.end.toString() === endValue.toString())
@@ -296,6 +296,11 @@ watch(startValue, (modelValue) => {
     startSegmentValues.value = { ...syncSegmentValues({ value: modelValue, formatter }) }
   else
     startSegmentValues.value = { ...initialSegments }
+})
+
+watch(modelValue, (value) => {
+  if (value.start !== undefined && placeholder.value.toString() !== value.start.toString())
+    placeholder.value = defaultDate.set({ ...value.start })
 })
 
 watch(endValue, (modelValue) => {

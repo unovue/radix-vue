@@ -25,7 +25,7 @@ import { Label } from '@/Label'
 </script>
 
 <template>
-  <Story title="Date Picker">
+  <Story title="Date Picker/Basic">
     <Variant title="default">
       <div class="flex flex-col gap-2">
         <Label class="text-sm text-gray9" for="date-field">Birthday</Label>

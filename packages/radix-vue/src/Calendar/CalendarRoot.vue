@@ -5,12 +5,12 @@ import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { type Formatter, createContext } from '@/shared'
 import { useCalendar, useCalendarState } from './useCalendar'
-import type { CalendarHeadingSegmentValue, CalendarView, Grid, Matcher, WeekDayFormat } from '@/shared/date'
+import type { CalendarHeadingSegmentValue, CalendarView, Grid, Matcher, SupportedLocale, WeekDayFormat } from '@/shared/date'
 import { getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
 
 type CalendarRootContext = {
   calendarView: Ref<CalendarView>
-  locale: Ref<string>
+  locale: Ref<SupportedLocale>
   modelValue: Ref<DateValue | DateValue[] | undefined>
   placeholder: Ref<DateValue>
   pagedNavigation: Ref<boolean>
@@ -51,6 +51,8 @@ interface BaseCalendarRootProps extends PrimitiveProps {
   columns?: number
   /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programatically control the calendar view */
   placeholder?: DateValue
+  /** The default placeholder date */
+  defaultPlaceholder?: DateValue
   /** This property causes the previous and next buttons to navigate by the number of months displayed at once, rather than one month */
   pagedNavigation?: boolean
   /** Whether or not to prevent the user from deselecting a date without selecting another date first */
@@ -68,7 +70,7 @@ interface BaseCalendarRootProps extends PrimitiveProps {
   /** The minimum date that can be selected */
   minValue?: DateValue
   /** The locale to use for formatting dates */
-  locale?: string
+  locale?: SupportedLocale
   /** The number of months to display at once */
   numberOfMonths?: number
   /** Whether or not the calendar is disabled */
@@ -161,6 +163,8 @@ const {
   weekdayFormat,
   fixedWeeks,
   multiple,
+  minValue,
+  maxValue,
   numberOfMonths,
   preventDeselect,
   isDateDisabled: propsIsDateDisabled,
@@ -187,11 +191,11 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 
 const defaultDate = getDefaultDate({
   defaultPlaceholder: props.placeholder,
-  defaultValue: props.modelValue,
+  defaultValue: modelValue.value,
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: defaultDate,
+  defaultValue: props.defaultPlaceholder ?? defaultDate,
   passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
 
@@ -213,9 +217,9 @@ const {
   weekStartsOn: props.weekStartsOn,
   fixedWeeks: props.fixedWeeks,
   numberOfMonths: props.numberOfMonths,
-  minValue: props.minValue,
-  maxValue: props.maxValue,
-  disabled: props.disabled,
+  minValue,
+  maxValue,
+  disabled,
   weekdayFormat: props.weekdayFormat,
   pagedNavigation: props.pagedNavigation,
   isDateDisabled: propsIsDateDisabled.value,

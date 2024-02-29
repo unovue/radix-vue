@@ -12,7 +12,6 @@ const placeholder = ref(today(getLocalTimeZone())) as Ref<DateValue>
 <template>
   <Story title="Calendar/Popover" :layout="{ type: 'single' }">
     <Variant title="default">
-      {{ placeholder.toString() }}
       <CalendarRoot
         v-slot="{ weekDays, grid, getMonths, getYears, formatter, date }"
         v-model:placeholder="placeholder"

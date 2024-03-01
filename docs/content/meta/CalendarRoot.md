@@ -21,6 +21,18 @@
     'required': false
   },
   {
+    'name': 'defaultPlaceholder',
+    'description': '<p>The default placeholder date</p>\n',
+    'type': 'DateValue',
+    'required': false
+  },
+  {
+    'name': 'defaultValue',
+    'description': '<p>The default value for the calendar</p>\n',
+    'type': 'DateValue',
+    'required': false
+  },
+  {
     'name': 'disabled',
     'description': '<p>Whether or not the calendar is disabled</p>\n',
     'type': 'boolean',

@@ -58,6 +58,7 @@ defineOptions({
   inheritAttrs: false,
 })
 const props = withDefaults(defineProps<DatePickerRootProps>(), {
+  defaultValue: undefined,
   defaultOpen: false,
   open: undefined,
   modal: false,
@@ -101,7 +102,7 @@ const {
 } = toRefs(props)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: undefined,
+  defaultValue: props.defaultValue ?? undefined,
   passive: (props.modelValue === undefined) as false,
 }) as Ref<DateValue | undefined>
 
@@ -112,7 +113,7 @@ const defaultDate = getDefaultDate({
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: defaultDate.set({ ...defaultDate }),
+  defaultValue: props.defaultPlaceholder ?? defaultDate.copy(),
 }) as Ref<DateValue>
 
 const open = useVModel(props, 'open', emits, {

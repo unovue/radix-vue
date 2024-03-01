@@ -101,7 +101,7 @@ const {
 } = toRefs(props)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: { start: undefined, end: undefined },
+  defaultValue: props.defaultValue ?? undefined,
   passive: (props.modelValue === undefined) as false,
 }) as Ref<{ start: DateValue | undefined; end: DateValue | undefined }>
 
@@ -112,7 +112,7 @@ const defaultDate = getDefaultDate({
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: defaultDate.set({ ...defaultDate }),
+  defaultValue: props.defaultPlaceholder ?? defaultDate.copy(),
 }) as Ref<DateValue>
 
 const open = useVModel(props, 'open', emits, {

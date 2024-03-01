@@ -46,6 +46,8 @@ type RangeCalendarRootContext = {
 }
 
 export interface RangeCalendarRootProps extends PrimitiveProps {
+  /** The default placeholder date */
+  defaultPlaceholder?: DateValue
   /** The default value for the calendar */
   defaultValue?: { start: DateValue; end: DateValue }
   /** The controlled checked state of the calendar. Can be bound as `v-model`. */
@@ -161,7 +163,7 @@ const lastPressedDateValue = ref() as Ref<DateValue | undefined>
 const focusedValue = ref() as Ref<DateValue | undefined>
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: props.defaultValue ?? { start: undefined, end: undefined },
+  defaultValue: props.defaultValue ?? undefined,
   passive: (props.modelValue === undefined) as false,
 }) as Ref<{ start: DateValue | undefined; end: DateValue | undefined }>
 
@@ -174,7 +176,7 @@ const startValue = ref(modelValue.value.start) as Ref<DateValue | undefined>
 const endValue = ref(modelValue.value.end) as Ref<DateValue | undefined>
 
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: defaultDate.set({ ...defaultDate }),
+  defaultValue: props.defaultPlaceholder ?? defaultDate.copy(),
   passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
 

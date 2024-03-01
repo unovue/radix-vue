@@ -42,6 +42,10 @@ type CalendarRootContext = {
 }
 
 interface BaseCalendarRootProps extends PrimitiveProps {
+  /** The default value for the calendar */
+  defaultValue?: DateValue
+  /** The default placeholder date */
+  defaultPlaceholder?: DateValue
   /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programatically control the calendar view */
   placeholder?: DateValue
   /** This property causes the previous and next buttons to navigate by the number of months displayed at once, rather than one month */
@@ -109,6 +113,7 @@ import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<CalendarRootProps>(), {
+  defaultValue: undefined,
   as: 'div',
   pagedNavigation: false,
   preventDeselect: false,
@@ -166,7 +171,7 @@ const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: props.modelValue ?? undefined,
+  defaultValue: props.defaultValue ?? undefined,
   passive: (props.modelValue === undefined) as false,
 }) as Ref<DateValue | DateValue[] | undefined>
 
@@ -176,7 +181,7 @@ const defaultDate = getDefaultDate({
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: props.placeholder ?? defaultDate.copy(),
+  defaultValue: props.defaultPlaceholder ?? defaultDate.copy(),
   passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
 

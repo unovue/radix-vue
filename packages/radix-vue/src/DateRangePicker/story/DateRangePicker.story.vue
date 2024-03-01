@@ -31,7 +31,6 @@ import { Label } from '@/Label'
         <DateRangePickerRoot
           id="date-field"
           :is-date-unavailable="date => date.day === 19"
-          granularity="second"
         >
           <DateRangePickerField
             v-slot="{ segments }"
@@ -42,7 +41,6 @@ import { Label } from '@/Label'
                 v-if="item.part === 'literal'"
                 :part="item.part"
                 type="start"
-                class="p-1"
               >
                 {{ item.value }}
               </DateRangePickerInput>
@@ -62,7 +60,6 @@ import { Label } from '@/Label'
                 v-if="item.part === 'literal'"
                 :part="item.part"
                 type="end"
-                class="p-1"
               >
                 {{ item.value }}
               </DateRangePickerInput>

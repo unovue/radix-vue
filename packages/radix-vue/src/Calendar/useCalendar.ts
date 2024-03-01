@@ -91,7 +91,7 @@ export function useCalendar(props: UseCalendarProps) {
   })
 
   function isOutsideVisibleView(date: DateValue) {
-    return !visibleView.value.includes(date)
+    return !visibleView.value.some(month => isSameMonth(date, month))
   }
 
   const isNextButtonDisabled = computed(() => {

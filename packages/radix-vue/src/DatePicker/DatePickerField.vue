@@ -11,7 +11,6 @@ const rootContext = injectDatePickerRootContext()
   <DateFieldRoot
     v-slot="{ segments }"
     :ref="rootContext.dateFieldRef"
-    :class="$attrs.class"
     :multiple="false"
     :model-value="rootContext.modelValue.value"
     :placeholder="rootContext.placeholder.value"

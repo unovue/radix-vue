@@ -24,7 +24,6 @@ const rootContext = injectDateRangePickerRootContext()
       readonly: rootContext.readonly.value,
       preventDeselect: rootContext.preventDeselect.value,
     }"
-    :class="$attrs.class"
     initial-focus
     :model-value="rootContext.modelValue.value"
     :placeholder="rootContext.placeholder.value"

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarHeadingSegment, CalendarNext, CalendarPrev, CalendarRoot, type CalendarRootEmits, type CalendarRootProps } from '../'
+import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot, type CalendarRootEmits, type CalendarRootProps } from '../'
 import { useForwardPropsEmits } from '@/shared'
 
 const props = defineProps<CalendarRootProps>()
@@ -21,9 +21,7 @@ const forwarded = useForwardPropsEmits(props, emits)
       >
         <Icon icon="radix-icons:chevron-left" class="w-6 h-6" />
       </CalendarPrev>
-      <CalendarHeading v-slot="{ headingValue }" class="text-[15px] text-black font-medium">
-        <CalendarHeadingSegment v-for="item in headingValue" :key="item.value" :type="item.type" :value="item.value" />
-      </CalendarHeading>
+      <CalendarHeading class="text-[15px] text-black font-medium" />
       <CalendarNext
         class="inline-flex items-center cursor-pointer text-black justify-center rounded-lg bg-transparent w-8 h-8 hover:bg-black hover:text-white active:scale-98 active:transition-all focus:shadow-[0_0_0_2px] focus:shadow-black data-[disabled]:text-black/40 data-[disabled]:pointer-events-none"
       >
@@ -36,7 +34,7 @@ const forwarded = useForwardPropsEmits(props, emits)
     >
       <CalendarGrid v-for="month in grid" :key="month.value.toString()" class="w-full border-collapse select-none space-y-1">
         <CalendarGridHead>
-          <CalendarGridRow class="mb-1 grid grid-cols-4 w-full data-[radix-vue-calendar-month-view]:grid-cols-7">
+          <CalendarGridRow class="mb-1 grid w-full grid-cols-7">
             <CalendarHeadCell
               v-for="day in weekDays" :key="day"
               class="rounded-md text-xs !font-normal text-black"
@@ -46,7 +44,7 @@ const forwarded = useForwardPropsEmits(props, emits)
           </CalendarGridRow>
         </CalendarGridHead>
         <CalendarGridBody class="grid">
-          <CalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="grid grid-cols-4 data-[radix-vue-calendar-month-view]:grid-cols-7">
+          <CalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="grid grid-cols-7">
             <CalendarCell
               v-for="weekDate in weekDates"
               :key="weekDate.toString()"

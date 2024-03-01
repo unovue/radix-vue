@@ -11,6 +11,7 @@ import {
   type Matcher,
   type SegmentPart,
   type SegmentValueObj,
+  type SupportedLocale,
   areAllDaysBetweenValid,
   getDefaultDate,
   hasTime,
@@ -21,7 +22,7 @@ import { createContent, initializeSegmentValues, isSegmentNavigationKey, syncSeg
 export type DateRangeType = 'start' | 'end'
 
 type DateRangeFieldRootContext = {
-  locale: Ref<string>
+  locale: Ref<SupportedLocale>
   modelValue: Ref<{ start: DateValue | undefined;end: DateValue | undefined }>
   placeholder: Ref<DateValue>
   isDateUnavailable?: Matcher
@@ -58,7 +59,7 @@ export interface DateRangeFieldRootProps extends PrimitiveProps {
   /** The locale to use for formatting dates */
   minValue?: DateValue
   /** Whether or not the calendar is readonly */
-  locale?: string
+  locale?: SupportedLocale
 
   /** Whether or not the date field is disabled */
   disabled?: boolean
@@ -170,13 +171,11 @@ const isEndInvalid = computed(() => {
 })
 
 const isInvalid = computed(() => {
-  if (!isStartInvalid.value && !isEndInvalid.value)
-    return false
   if (isStartInvalid.value || isEndInvalid.value)
     return true
 
   if (!modelValue.value.start || !modelValue.value.end)
-    return true
+    return false
 
   if (!isBefore(modelValue.value.start, modelValue.value.end))
     return true

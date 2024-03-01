@@ -10,7 +10,7 @@ import { createDecade, createYear, getDefaultDate, handleCalendarInitialFocus } 
 import type { Grid, Matcher, SupportedLocale, WeekDayFormat } from '@/shared/date'
 
 type CalendarRootContext = {
-  locale: Ref<string>
+  locale: Ref<SupportedLocale>
   modelValue: Ref<DateValue | DateValue[] | undefined>
   placeholder: Ref<DateValue>
   pagedNavigation: Ref<boolean>

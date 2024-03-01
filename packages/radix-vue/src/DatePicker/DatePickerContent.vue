@@ -15,8 +15,7 @@ const forwarded = useForwardPropsEmits(props, emits)
 <template>
   <PopoverPortal>
     <PopoverContent
-      :class="$attrs.class"
-      v-bind="forwarded"
+      v-bind="{ ...forwarded, ...$attrs }"
     >
       <slot />
     </PopoverContent>

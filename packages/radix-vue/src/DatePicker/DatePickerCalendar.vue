@@ -13,6 +13,8 @@ const rootContext = injectDatePickerRootContext()
     v-bind="{
       isDateDisabled: rootContext.isDateDisabled,
       isDateUnavailable: rootContext.isDateUnavailable,
+      minValue: rootContext.minValue.value,
+      maxValue: rootContext.maxValue.value,
       locale: rootContext.locale.value,
       disabled: rootContext.disabled.value,
       pagedNavigation: rootContext.pagedNavigation.value,
@@ -23,7 +25,6 @@ const rootContext = injectDatePickerRootContext()
       readonly: rootContext.readonly.value,
       preventDeselect: rootContext.preventDeselect.value,
     }"
-    :class="$attrs.class"
     initial-focus
     :multiple="false"
     :model-value="rootContext.modelValue.value"

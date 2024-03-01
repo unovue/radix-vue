@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type DateValue } from '@internationalized/date'
+import { type DateValue, isSameDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import { createContext } from '@/shared'
@@ -102,7 +102,7 @@ const {
 } = toRefs(props)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: props.defaultValue ?? undefined,
+  defaultValue: props.defaultValue,
   passive: (props.modelValue === undefined) as false,
 }) as Ref<DateValue | undefined>
 
@@ -150,8 +150,10 @@ provideDatePickerRootContext({
   hourCycle,
   dateFieldRef,
   onDateChange(date: DateValue) {
-    if (modelValue.value)
-      modelValue.value = defaultDate.set({ ...date })
+    if (!date || !modelValue.value)
+      modelValue.value = date
+    else if (!preventDeselect.value && isSameDay(modelValue.value as DateValue, date))
+      modelValue.value = undefined
     else
       modelValue.value = defaultDate.set({ ...date })
   },

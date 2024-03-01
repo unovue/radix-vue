@@ -1,10 +1,6 @@
-import { ref } from 'vue'
-import { createGlobalState } from '@vueuse/core'
+import { injectConfigProviderContext } from '@/ConfigProvider/ConfigProvider.vue'
 
-const useGlobalState = createGlobalState(() => {
-  const count = ref(0)
-  return { count }
-})
+let count = 0
 
 /**
  * The `useId` function generates a unique identifier based on a global count, with an optional
@@ -16,9 +12,9 @@ const useGlobalState = createGlobalState(() => {
  * followed by the value of the count variable from the global state.
  */
 export function useId(deterministicId?: string) {
-  const { count } = useGlobalState()
-  if (!deterministicId)
-    count.value++
+  const { useId } = injectConfigProviderContext({
+    useId: () => `radix-${++count}`,
+  })
 
-  return deterministicId || `radix-${count.value}`
+  return useId!()
 }

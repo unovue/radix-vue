@@ -6,6 +6,7 @@ import { createContext } from '@/shared'
 interface ConfigProviderContextValue {
   dir?: Ref<Direction>
   scrollBody?: Ref<boolean | ScrollBodyOption>
+  useId?: () => string
 }
 
 export const [injectConfigProviderContext, provideConfigProviderContext]
@@ -22,6 +23,7 @@ export interface ConfigProviderProps {
    * @type boolean | ScrollBodyOption
    */
   scrollBody?: boolean | ScrollBodyOption
+  useId?: () => string
 }
 </script>
 
@@ -31,6 +33,7 @@ import { toRefs } from 'vue'
 const props = withDefaults(defineProps<ConfigProviderProps>(), {
   dir: 'ltr',
   scrollBody: true,
+  useId: undefined,
 })
 
 const { dir, scrollBody } = toRefs(props)
@@ -38,6 +41,7 @@ const { dir, scrollBody } = toRefs(props)
 provideConfigProviderContext({
   dir,
   scrollBody,
+  useId: props.useId,
 })
 </script>
 

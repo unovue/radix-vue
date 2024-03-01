@@ -53,8 +53,9 @@ const open = useVModel(props, 'open', emit, {
 
 const disabled = useVModel(props, 'disabled')
 
+const contentId = useId()
 provideCollapsibleRootContext({
-  contentId: useId(),
+  contentId,
   disabled,
   open,
   onOpenToggle: () => {

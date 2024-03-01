@@ -15,12 +15,6 @@
     'required': false
   },
   {
-    'name': 'defaultValue',
-    'description': '<p>The default value for the calendar</p>\n',
-    'type': '{ start: DateValue; end: DateValue; }',
-    'required': false
-  },
-  {
     'name': 'disabled',
     'description': '<p>Whether or not the date field is disabled</p>\n',
     'type': 'boolean',
@@ -126,7 +120,7 @@
   {
     'name': 'modelValue',
     'description': '',
-    'type': '{ start: DateValue | undefined; end: DateValue | undefined; }'
+    'type': '{ start: CalendarDate | CalendarDateTime | ZonedDateTime; end: CalendarDate | CalendarDateTime | ZonedDateTime; }'
   },
   {
     'name': 'segments',

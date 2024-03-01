@@ -21,19 +21,6 @@
     'required': false
   },
   {
-    'name': 'columns',
-    'description': '<p>The number of columns the grid should be divided for year and decade views</p>\n',
-    'type': 'number',
-    'required': false,
-    'default': '4'
-  },
-  {
-    'name': 'defaultValue',
-    'description': '<p>The default value for the calendar</p>\n',
-    'type': 'DateValue',
-    'required': false
-  },
-  {
     'name': 'disabled',
     'description': '<p>Whether or not the calendar is disabled</p>\n',
     'type': 'boolean',
@@ -69,7 +56,7 @@
   {
     'name': 'locale',
     'description': '<p>The locale to use for formatting dates</p>\n',
-    'type': 'string',
+    'type': '\'tr\' | \'th\' | \'en\' | \'ach\' | \'af\' | \'am\' | \'an\' | \'ar\' | \'ast\' | \'az\' | \'be\' | \'bg\' | \'bn\' | \'br\' | \'bs\' | \'ca\' | \'cak\' | \'ckb\' | \'cs\' | \'cy\' | \'da\' | \'de\' | \'dsb\' | \'el\' | \'eo\' | \'es\' | ... 49 more ...',
     'required': false,
     'default': '\'en\''
   },
@@ -181,5 +168,15 @@
     'name': 'formatter',
     'description': '<p>The formatter used inside the calendar for displaying dates</p>\n',
     'type': 'Formatter'
+  },
+  {
+    'name': 'getMonths',
+    'description': '<p>The months that can be selected</p>\n',
+    'type': 'DateValue'
+  },
+  {
+    'name': 'getYears',
+    'description': '<p>The years that can be selected</p>\n',
+    'type': ''
   }
 ]" />

@@ -21,13 +21,6 @@
     'required': false
   },
   {
-    'name': 'columns',
-    'description': '<p>The number of columns the grid should be divided for year and decade views</p>\n',
-    'type': 'number',
-    'required': false,
-    'default': '4'
-  },
-  {
     'name': 'defaultValue',
     'description': '<p>The default value for the calendar</p>\n',
     'type': '{ start: DateValue; end: DateValue; }',
@@ -69,7 +62,7 @@
   {
     'name': 'locale',
     'description': '<p>The locale to use for formatting dates</p>\n',
-    'type': 'string',
+    'type': '\'tr\' | \'th\' | \'en\' | \'ach\' | \'af\' | \'am\' | \'an\' | \'ar\' | \'ast\' | \'az\' | \'be\' | \'bg\' | \'bn\' | \'br\' | \'bs\' | \'ca\' | \'cak\' | \'ckb\' | \'cs\' | \'cy\' | \'da\' | \'de\' | \'dsb\' | \'el\' | \'eo\' | \'es\' | ... 49 more ...',
     'required': false,
     'default': '\'en\''
   },
@@ -157,22 +150,32 @@
 <SlotsTable :data="[
   {
     'name': 'date',
-    'description': '',
+    'description': '<p>The current date of the placeholder</p>\n',
     'type': 'DateValue'
   },
   {
     'name': 'grid',
-    'description': '',
+    'description': '<p>The grid of dates</p>\n',
     'type': 'Grid<DateValue>[]'
   },
   {
     'name': 'weekDays',
-    'description': '',
+    'description': '<p>The days of the week</p>\n',
     'type': 'string[]'
   },
   {
     'name': 'formatter',
-    'description': '',
+    'description': '<p>The formatter used inside the calendar for displaying dates</p>\n',
     'type': 'Formatter'
+  },
+  {
+    'name': 'getMonths',
+    'description': '<p>The months that can be selected</p>\n',
+    'type': 'DateValue'
+  },
+  {
+    'name': 'getYears',
+    'description': '<p>The years that can be selected</p>\n',
+    'type': ''
   }
 ]" />

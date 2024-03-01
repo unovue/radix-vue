@@ -15,12 +15,6 @@
     'required': false
   },
   {
-    'name': 'defaultValue',
-    'description': '<p>The default value for the calendar</p>\n',
-    'type': 'DateValue',
-    'required': false
-  },
-  {
     'name': 'disabled',
     'description': '<p>Whether or not the date field is disabled</p>\n',
     'type': 'boolean',
@@ -60,7 +54,7 @@
   {
     'name': 'locale',
     'description': '<p>The locale to use for formatting dates</p>\n',
-    'type': 'string',
+    'type': '\'tr\' | \'th\' | \'en\' | \'ach\' | \'af\' | \'am\' | \'an\' | \'ar\' | \'ast\' | \'az\' | \'be\' | \'bg\' | \'bn\' | \'br\' | \'bs\' | \'ca\' | \'cak\' | \'ckb\' | \'cs\' | \'cy\' | \'da\' | \'de\' | \'dsb\' | \'el\' | \'eo\' | \'es\' | ... 49 more ...',
     'required': false,
     'default': '\'en\''
   },
@@ -132,6 +126,11 @@
     'name': 'segments',
     'description': '<p>The date field segment contents</p>\n',
     'type': '{ part: SegmentPart; value: string; }[]'
+  },
+  {
+    'name': 'isInvalid',
+    'description': '<p>Value if the input is invalid</p>\n',
+    'type': 'boolean'
   }
 ]" />
 

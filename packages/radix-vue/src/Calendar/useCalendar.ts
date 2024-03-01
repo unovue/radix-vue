@@ -21,7 +21,6 @@ export type UseCalendarProps = {
   isDateDisabled?: Matcher
   isDateUnavailable?: Matcher
   calendarLabel?: string
-  defaultDate: DateValue
 }
 
 export type UseCalendarStateProps = {
@@ -75,7 +74,7 @@ export function useCalendarState(props: UseCalendarStateProps) {
 
 export function useCalendar(props: UseCalendarProps) {
   const formatter = useDateFormatter(props.locale)
-  const placeholder = props.defaultDate.set({ ...props.placeholder.value })
+  const placeholder = props.placeholder.value.copy()
   const minValue = props.minValue?.value ? placeholder.set({ ...props.minValue.value }) : undefined
   const maxValue = props.maxValue?.value ? placeholder.set({ ...props.maxValue.value }) : undefined
 

@@ -3,7 +3,7 @@ import { type DateValue } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import { createContext } from '@/shared'
-import { type Granularity, type HourCycle, type Matcher, type WeekDayFormat, getDefaultDate } from '@/shared/date'
+import { type Granularity, type HourCycle, type Matcher, type SupportedLocale, type WeekDayFormat, getDefaultDate } from '@/shared/date'
 
 import { type CalendarRootProps, type DateFieldRoot, type DateFieldRootProps, PopoverRoot, type PopoverRootEmits, type PopoverRootProps } from '..'
 
@@ -16,7 +16,7 @@ type DatePickerRootContext = {
   granularity: Ref<Granularity | undefined>
   hideTimeZone: Ref<boolean>
   required: Ref<boolean>
-  locale: Ref<string>
+  locale: Ref<SupportedLocale>
   dateFieldRef: Ref<InstanceType<typeof DateFieldRoot> | undefined>
   modelValue: Ref<DateValue | undefined>
   placeholder: Ref<DateValue>

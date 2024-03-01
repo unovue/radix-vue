@@ -37,8 +37,6 @@ type DateFieldRootContext = {
 }
 
 export interface DateFieldRootProps extends PrimitiveProps {
-/** The default value for the calendar */
-  defaultValue?: DateValue
   /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programatically control the calendar view */
   placeholder?: DateValue
   /** The controlled checked state of the calendar. Can be bound as `v-model`. */
@@ -121,7 +119,7 @@ onMounted(() => {
 })
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: props.defaultValue ?? undefined,
+  defaultValue: props.modelValue ?? undefined,
   passive: (props.modelValue === undefined) as false,
 }) as Ref<DateValue | undefined>
 
@@ -132,7 +130,7 @@ const defaultDate = getDefaultDate({
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: defaultDate.set({ ...defaultDate }),
+  defaultValue: props.placeholder ?? defaultDate.copy(),
   passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
 

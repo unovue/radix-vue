@@ -5,7 +5,7 @@ import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { type Formatter, createContext } from '@/shared'
 import { createDecade, createYear, getDefaultDate, handleCalendarInitialFocus, isBefore } from '@/shared/date'
-import type { Grid, Matcher, WeekDayFormat } from '@/shared/date'
+import type { Grid, Matcher, SupportedLocale, WeekDayFormat } from '@/shared/date'
 import { useRangeCalendarState } from './useRangeCalendar'
 import { useCalendar } from '@/Calendar/useCalendar'
 
@@ -69,7 +69,7 @@ export interface RangeCalendarRootProps extends PrimitiveProps {
   /** The minimum date that can be selected */
   minValue?: DateValue
   /** The locale to use for formatting dates */
-  locale?: string
+  locale?: SupportedLocale
   /** The number of months to display at once */
   numberOfMonths?: number
   /** Whether or not the calendar is disabled */
@@ -209,7 +209,6 @@ const {
   isDateDisabled: propsIsDateDisabled.value,
   isDateUnavailable: propsIsDateUnavailable.value,
   calendarLabel: calendarLabel.value,
-  defaultDate,
 })
 
 const {

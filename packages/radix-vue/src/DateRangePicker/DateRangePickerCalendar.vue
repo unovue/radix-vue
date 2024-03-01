@@ -1,4 +1,5 @@
 <script lang="ts">
+import type { SupportedLocale } from '@/shared/date'
 import { RangeCalendarRoot } from '..'
 import { injectDateRangePickerRootContext } from './DateRangePickerRoot.vue'
 </script>
@@ -13,7 +14,7 @@ const rootContext = injectDateRangePickerRootContext()
     v-bind="{
       isDateDisabled: rootContext.isDateDisabled,
       isDateUnavailable: rootContext.isDateUnavailable,
-      locale: rootContext.locale.value,
+      locale: rootContext.locale.value as SupportedLocale,
       disabled: rootContext.disabled.value,
       pagedNavigation: rootContext.pagedNavigation.value,
       weekStartsOn: rootContext.weekStartsOn.value,

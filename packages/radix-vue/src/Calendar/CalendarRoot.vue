@@ -10,7 +10,6 @@ import { createDecade, createYear, getDefaultDate, handleCalendarInitialFocus } 
 import type { Grid, Matcher, SupportedLocale, WeekDayFormat } from '@/shared/date'
 
 type CalendarRootContext = {
-
   locale: Ref<string>
   modelValue: Ref<DateValue | DateValue[] | undefined>
   placeholder: Ref<DateValue>
@@ -43,14 +42,8 @@ type CalendarRootContext = {
 }
 
 interface BaseCalendarRootProps extends PrimitiveProps {
-  /** The default value for the calendar */
-  defaultValue?: DateValue
-  /** The number of columns the grid should be divided for year and decade views */
-  columns?: number
   /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programatically control the calendar view */
   placeholder?: DateValue
-  /** The default placeholder date */
-  defaultPlaceholder?: DateValue
   /** This property causes the previous and next buttons to navigate by the number of months displayed at once, rather than one month */
   pagedNavigation?: boolean
   /** Whether or not to prevent the user from deselecting a date without selecting another date first */
@@ -116,7 +109,6 @@ import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<CalendarRootProps>(), {
-  defaultValue: undefined,
   as: 'div',
   pagedNavigation: false,
   preventDeselect: false,
@@ -173,14 +165,8 @@ const {
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
 
-const computedModelDefault = computed(() => {
-  if (multiple.value)
-    return props.defaultValue ? [props.defaultValue] : []
-  return props.defaultValue ?? undefined
-})
-
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: computedModelDefault.value,
+  defaultValue: props.modelValue ?? undefined,
   passive: (props.modelValue === undefined) as false,
 }) as Ref<DateValue | DateValue[] | undefined>
 
@@ -190,7 +176,7 @@ const defaultDate = getDefaultDate({
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: defaultDate.set({ ...defaultDate }),
+  defaultValue: props.placeholder ?? defaultDate.copy(),
   passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
 
@@ -226,7 +212,6 @@ const {
   isDateDisabled: propsIsDateDisabled.value,
   isDateUnavailable: propsIsDateUnavailable.value,
   calendarLabel: calendarLabel.value,
-  defaultDate,
 })
 
 const {

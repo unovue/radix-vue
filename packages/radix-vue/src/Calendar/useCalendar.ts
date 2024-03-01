@@ -76,9 +76,11 @@ export function useCalendarState(props: UseCalendarStateProps) {
 export function useCalendar(props: UseCalendarProps) {
   const formatter = useDateFormatter(props.locale)
   const placeholder = props.defaultDate.set({ ...props.placeholder.value })
+  const minValue = props.minValue?.value ? placeholder.set({ ...props.minValue.value }) : undefined
+  const maxValue = props.maxValue?.value ? placeholder.set({ ...props.maxValue.value }) : undefined
 
   const grid = ref<Grid<DateValue>[]>(createMonths({
-    dateObj: placeholder.set({ ...props.placeholder.value }),
+    dateObj: placeholder,
     weekStartsOn: props.weekStartsOn,
     locale: props.locale,
     fixedWeeks: props.fixedWeeks,
@@ -94,32 +96,32 @@ export function useCalendar(props: UseCalendarProps) {
   }
 
   const isNextButtonDisabled = computed(() => {
-    if (!props.maxValue?.value || !grid.value.length)
+    if (!maxValue || !grid.value.length)
       return false
     if (props.disabled.value)
       return true
     const lastPeriodInView = grid.value[grid.value.length - 1].value
 
     const firstPeriodOfNextPage = lastPeriodInView.add({ months: 1 }).set({ day: 1 })
-    return isAfter(firstPeriodOfNextPage, props.maxValue?.value)
+    return isAfter(firstPeriodOfNextPage, maxValue)
   })
 
   const isPrevButtonDisabled = computed(() => {
-    if (!props.minValue?.value || !grid.value.length)
+    if (!minValue || !grid.value.length)
       return false
     if (props.disabled.value)
       return true
     const firstPeriodInView = grid.value[0].value
     const lastPeriodOfPrevPage = firstPeriodInView.subtract({ months: 1 }).set({ day: 35 })
-    return isBefore(lastPeriodOfPrevPage, props.minValue?.value)
+    return isBefore(lastPeriodOfPrevPage, minValue)
   })
 
   function isDateDisabled(dateObj: DateValue) {
     if (props.isDateDisabled?.(dateObj) || props.disabled.value)
       return true
-    if (props.maxValue?.value && isAfter(dateObj, props.maxValue?.value))
+    if (maxValue && isAfter(dateObj, maxValue))
       return true
-    if (props.minValue?.value && isBefore(dateObj, props.minValue?.value))
+    if (minValue && isBefore(dateObj, minValue))
       return true
     return false
   }

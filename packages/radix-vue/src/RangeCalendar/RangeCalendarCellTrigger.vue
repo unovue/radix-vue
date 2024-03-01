@@ -24,45 +24,42 @@ import { injectRangeCalendarRootContext } from './RangeCalendarRoot.vue'
 
 const props = withDefaults(defineProps<RangeCalendarCellTriggerProps>(), { as: 'div' })
 const rootContext = injectRangeCalendarRootContext()
-const placeholder = rootContext.defaultDate.set({ ...rootContext.placeholder.value })
-const day = computed(() => placeholder.set({ ...props.day }))
-const month = computed(() => placeholder.set({ ...props.month }))
 
 const kbd = useKbd()
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
-const labelText = computed(() => rootContext.formatter.custom(toDate(day.value), {
+const labelText = computed(() => rootContext.formatter.custom(toDate(props.day), {
   weekday: 'long',
   month: 'long',
   day: 'numeric',
   year: 'numeric',
 }))
 
-const isDisabled = computed(() => rootContext.isDateDisabled(day.value))
-const isUnavailable = computed(() => rootContext.isDateUnavailable?.(day.value))
-const isSelectedDate = computed(() => rootContext.isSelected(day.value))
-const isSelectionStart = computed(() => rootContext.isSelectionStart(day.value))
-const isSelectionEnd = computed(() => rootContext.isSelectionEnd(day.value))
+const isDisabled = computed(() => rootContext.isDateDisabled(props.day))
+const isUnavailable = computed(() => rootContext.isDateUnavailable?.(props.day))
+const isSelectedDate = computed(() => rootContext.isSelected(props.day))
+const isSelectionStart = computed(() => rootContext.isSelectionStart(props.day))
+const isSelectionEnd = computed(() => rootContext.isSelectionEnd(props.day))
 const isHighlighted = computed(() => rootContext.highlightedRange.value
-  ? isBetweenInclusive(day.value, rootContext.highlightedRange.value.start, rootContext.highlightedRange.value.end)
+  ? isBetweenInclusive(props.day, rootContext.highlightedRange.value.start, rootContext.highlightedRange.value.end)
   : false)
 
 const SELECTOR
   = '[data-radix-vue-calendar-cell-trigger]:not([data-disabled]):not([data-outside-month]):not([data-outside-visible-months])'
 
 const isDateToday = computed(() => {
-  return isToday(day.value, getLocalTimeZone())
+  return isToday(props.day, getLocalTimeZone())
 })
 const isOutsideView = computed(() => {
-  return !isSameMonth(day.value, month.value)
+  return !isSameMonth(props.day, props.month)
 })
 const isOutsideVisibleView = computed(() =>
-  rootContext.isOutsideVisibleView(day.value),
+  rootContext.isOutsideVisibleView(props.day),
 )
 
 const isFocusedDate = computed(() => {
-  return isSameDay(day.value, rootContext.placeholder.value)
+  return isSameDay(props.day, rootContext.defaultDate)
 })
 
 function changeDate(date: DateValue) {
@@ -76,6 +73,7 @@ function changeDate(date: DateValue) {
   if (rootContext.startValue.value && rootContext.highlightedRange.value === null) {
     if (isSameDay(date, rootContext.startValue.value) && !rootContext.preventDeselect.value && !rootContext.endValue.value) {
       rootContext.startValue.value = undefined
+      rootContext.onPlaceholderChange(date)
       return
     }
     else if (!rootContext.endValue.value) {
@@ -84,22 +82,32 @@ function changeDate(date: DateValue) {
       return
     }
   }
-  if (rootContext.startValue.value && isSameDay(rootContext.startValue.value, date) && !rootContext.preventDeselect.value && !rootContext.endValue.value)
+
+  if (rootContext.startValue.value && isSameDay(rootContext.startValue.value, date) && !rootContext.preventDeselect.value && !rootContext.endValue.value) {
     rootContext.startValue.value = undefined
+    rootContext.onPlaceholderChange(date)
+    return
+  }
 
-  if (!rootContext.startValue.value)
-    rootContext.startValue.value = placeholder.set({ ...date })
-
-  else if (!rootContext.endValue.value)
-    rootContext.endValue.value = placeholder.set({ ...date })
+  if (!rootContext.startValue.value) {
+    rootContext.startValue.value = rootContext.defaultDate.set({ ...date })
+  }
+  else if (!rootContext.endValue.value) {
+    rootContext.endValue.value = rootContext.defaultDate.set({ ...date })
+  }
+  else if (rootContext.endValue.value && rootContext.startValue.value) {
+    rootContext.endValue.value = undefined
+    rootContext.startValue.value = rootContext.defaultDate.set({ ...date })
+  }
 }
 
 function handleClick(e: Event) {
-  changeDate(parseStringToDateValue((e.target as HTMLDivElement).getAttribute('data-value')!, placeholder))
+  e.preventDefault()
+  changeDate(parseStringToDateValue((e.target as HTMLDivElement).getAttribute('data-value')!, rootContext.defaultDate))
 }
 
 function handleFocus(date: DateValue) {
-  rootContext.focusedValue.value = placeholder.set({ ...date })
+  rootContext.focusedValue.value = rootContext.defaultDate.set({ ...date })
 }
 
 function handleArrowKey(e: KeyboardEvent) {
@@ -129,7 +137,7 @@ function handleArrowKey(e: KeyboardEvent) {
       break
     case kbd.ENTER:
     case kbd.SPACE_CODE:
-      changeDate(parseStringToDateValue(currentCell!.getAttribute('data-value')!, placeholder))
+      changeDate(parseStringToDateValue(currentCell!.getAttribute('data-value')!, rootContext.defaultDate))
       return
     default:
       return
@@ -167,7 +175,7 @@ function handleArrowKey(e: KeyboardEvent) {
 }
 
 const formattedTriggerText = computed(() => {
-  return rootContext.formatter.custom(day.value.toDate(getLocalTimeZone()), {
+  return rootContext.formatter.custom(props.day.toDate(getLocalTimeZone()), {
     day: 'numeric',
   })
 })

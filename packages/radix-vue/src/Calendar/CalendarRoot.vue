@@ -289,8 +289,8 @@ const getMonths = computed(() => {
   const dateObj = defaultDate.set({ ...placeholder.value })
   return createYear({
     dateObj,
-    minValue: props.minValue,
-    maxValue: props.maxValue,
+    maxValue: defaultDate.set({ ...minValue.value }),
+    minValue: defaultDate.set({ ...maxValue.value }),
     numberOfMonths: numberOfMonths.value,
     pagedNavigation: pagedNavigation.value,
   })
@@ -302,8 +302,8 @@ function getYears({ startIndex, endIndex }: { startIndex?: number; endIndex: num
     dateObj,
     startIndex,
     endIndex,
-    maxValue: props.maxValue,
-    minValue: props.minValue,
+    maxValue: defaultDate.set({ ...minValue.value }),
+    minValue: defaultDate.set({ ...maxValue.value }),
   })
 }
 

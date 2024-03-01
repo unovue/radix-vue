@@ -82,8 +82,6 @@ export interface RangeCalendarRootProps extends PrimitiveProps {
   isDateDisabled?: Matcher
   /** A function that returns whether or not a date is unavailable */
   isDateUnavailable?: Matcher
-  /** The number of columns the grid should be divided for year and decade views */
-  columns?: number
 }
 
 export type RangeCalendarRootEmits = {
@@ -119,7 +117,6 @@ const props = withDefaults(defineProps<RangeCalendarRootProps>(), {
   isDateDisabled: undefined,
   isDateUnavailable: undefined,
   initialView: 'month',
-  columns: 4,
 })
 const emits = defineEmits<RangeCalendarRootEmits>()
 
@@ -168,21 +165,21 @@ const modelValue = useVModel(props, 'modelValue', emits, {
   passive: (props.modelValue === undefined) as false,
 }) as Ref<{ start: DateValue | undefined; end: DateValue | undefined }>
 
-const startValue = ref(modelValue.value.start) as Ref<DateValue | undefined>
-const endValue = ref(modelValue.value.end) as Ref<DateValue | undefined>
-
 const defaultDate = getDefaultDate({
   defaultPlaceholder: props.placeholder,
   defaultValue: modelValue.value.start,
 })
 
+const startValue = ref(modelValue.value.start) as Ref<DateValue | undefined>
+const endValue = ref(modelValue.value.end) as Ref<DateValue | undefined>
+
 const placeholder = useVModel(props, 'placeholder', emits, {
   defaultValue: defaultDate.set({ ...defaultDate }),
+  passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
 
 function onPlaceholderChange(value: DateValue) {
-  const dateRef = defaultDate.set({ ...placeholder.value })
-  placeholder.value = dateRef.set({ ...value })
+  placeholder.value = defaultDate.set({ ...value })
 }
 
 const {
@@ -232,10 +229,10 @@ const {
 
 watch(modelValue, () => {
   if (modelValue.value.start && modelValue.value.end) {
-    if (modelValue.value.start !== startValue.value)
+    if (modelValue.value.start.toString() !== startValue.value?.toString())
       startValue.value = defaultDate.set({ ...modelValue.value.start })
 
-    if (modelValue.value.end)
+    if (modelValue.value.end.toString() !== endValue.value?.toString())
       endValue.value = defaultDate.set({ ...modelValue.value.end })
   }
 })
@@ -270,8 +267,8 @@ const getMonths = computed(() => {
   const dateObj = defaultDate.set({ ...placeholder.value })
   return createYear({
     dateObj,
-    minValue: props.minValue,
-    maxValue: props.maxValue,
+    minValue: defaultDate.set({ ...minValue.value }),
+    maxValue: defaultDate.set({ ...maxValue.value }),
     numberOfMonths: numberOfMonths.value,
     pagedNavigation: pagedNavigation.value,
   })
@@ -283,8 +280,8 @@ function getYears({ startIndex, endIndex }: { startIndex?: number; endIndex: num
     dateObj,
     startIndex,
     endIndex,
-    maxValue: props.maxValue,
-    minValue: props.minValue,
+    minValue: defaultDate.set({ ...minValue.value }),
+    maxValue: defaultDate.set({ ...maxValue.value }),
   })
 }
 

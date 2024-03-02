@@ -5,7 +5,7 @@ import {
   loadPanelGroupState,
   savePanelGroupState,
 } from './utils/storage'
-import { areEqual, createContext, useDirection, useForwardExpose } from '@/shared'
+import { areEqual, createContext, useDirection, useForwardExpose, useId } from '@/shared'
 import { type CSSProperties, type Ref, computed, ref, watch, watchEffect } from 'vue'
 import { useWindowSplitterPanelGroupBehavior } from './utils/composables/useWindowSplitterPanelGroupBehavior'
 
@@ -82,7 +82,6 @@ import {
   EXCEEDED_VERTICAL_MIN,
   reportConstraintsViolation,
 } from './utils/registry'
-import useUniqueId from './utils/composables/useUniqueId'
 import { adjustLayoutByDelta, compareLayouts } from './utils/layout'
 import { assert } from './utils/assert'
 import { calculateDeltaPercentage, calculateUnsafeDefaultLayout } from './utils/calculate'
@@ -112,7 +111,7 @@ const debounceMap: {
   [key: string]: typeof savePanelGroupState
 } = {}
 
-const groupId = useUniqueId(props.id)
+const groupId = useId(props.id)
 const dir = useDirection()
 const { forwardRef, currentElement: panelGroupElementRef } = useForwardExpose()
 

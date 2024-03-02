@@ -2,7 +2,6 @@
 import type { PrimitiveProps } from '@/Primitive'
 import { ref, toRefs, watch, watchEffect } from 'vue'
 import { useWindowSplitterResizeHandlerBehavior } from './utils/composables/useWindowSplitterBehavior'
-import useUniqueId from './utils/composables/useUniqueId'
 
 export interface SplitterResizeHandleProps extends PrimitiveProps {
   /** Resize handle id (unique within group); falls back to `useId` when not provided */
@@ -31,7 +30,7 @@ import type { ResizeEvent, ResizeHandler } from './utils/types'
 import type { PointerHitAreaMargins, ResizeHandlerAction } from './utils/registry'
 import { registerResizeHandle } from './utils/registry'
 import { assert } from './utils/assert'
-import { isBrowser, useForwardExpose } from '@/shared'
+import { isBrowser, useForwardExpose, useId } from '@/shared'
 
 const props = withDefaults(defineProps<SplitterResizeHandleProps>(), {
   tabindex: 0,
@@ -57,7 +56,7 @@ const {
   panelGroupElement,
 } = panelGroupContext
 
-const resizeHandleId = useUniqueId(props.id)
+const resizeHandleId = useId(props.id)
 const state = ref<ResizeHandlerState>('inactive')
 const isFocused = ref(false)
 const resizeHandler = ref<ResizeHandler | null>(null)

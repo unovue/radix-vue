@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useId } from '@/shared'
 
 export interface SplitterPanelProps extends PrimitiveProps {
   /** The size of panel when it is collapsed. */
@@ -62,7 +63,6 @@ export type PanelData = {
 import { Primitive } from '@/Primitive'
 import { injectPanelGroupContext } from './SplitterGroup.vue'
 import { computed, onMounted, onUnmounted, watch } from 'vue'
-import useUniqueId from './utils/composables/useUniqueId'
 
 const props = defineProps<SplitterPanelProps>()
 const emits = defineEmits<SplitterPanelEmits>()
@@ -84,7 +84,7 @@ if (panelGroupContext === null) {
 }
 
 const { collapsePanel, expandPanel, getPanelSize, getPanelStyle, isPanelCollapsed, resizePanel, groupId, reevaluatePanelConstraints, registerPanel, unregisterPanel } = panelGroupContext
-const panelId = useUniqueId(props.id)
+const panelId = useId(props.id)
 
 const panelDataRef = computed(() => ({
   callbacks: {

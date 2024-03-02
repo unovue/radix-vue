@@ -11,10 +11,10 @@ let count = 0
  * @returns either the provided deterministicId if it exists, or a string in the format "radix-"
  * followed by the value of the count variable from the global state.
  */
-export function useId(deterministicId?: string) {
+export function useId(deterministicId?: string | null | undefined) {
   const { useId } = injectConfigProviderContext({
     useId: () => `radix-${++count}`,
   })
 
-  return useId!()
+  return deterministicId ?? useId!()
 }

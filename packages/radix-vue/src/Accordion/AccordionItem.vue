@@ -78,14 +78,12 @@ const dataState = computed(() =>
 defineExpose({ open, dataDisabled })
 const { currentRef, currentElement } = useForwardExpose()
 
-const triggerId = useId()
-console.log({ triggerId })
 provideAccordionItemContext({
   open,
   dataState,
   disabled,
   dataDisabled,
-  triggerId,
+  triggerId: useId(),
   currentRef,
   currentElement,
   value: computed(() => props.value),

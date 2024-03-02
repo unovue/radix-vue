@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
+import { useForwardExpose, useId } from '@/shared'
 
 export interface CollapsibleContentProps extends PrimitiveProps {
   /**
@@ -75,6 +75,10 @@ onMounted(() => {
     isMountAnimationPrevented.value = false
   })
 })
+
+// temporary fix as Nuxt's `useId` is having difficulty compute the  string correctly
+const id = useId()
+rootContext.contentId = id
 </script>
 
 <template>

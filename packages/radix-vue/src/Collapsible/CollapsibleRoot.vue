@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import type { Ref } from 'vue'
-import { createContext, useForwardExpose, useId } from '@/shared'
+import { createContext, useForwardExpose } from '@/shared'
 
 export interface CollapsibleRootProps extends PrimitiveProps {
   /** The open state of the collapsible when it is initially rendered. <br> Use when you do not need to control its open state. */
@@ -53,7 +53,9 @@ const open = useVModel(props, 'open', emit, {
 
 const disabled = useVModel(props, 'disabled')
 
-const contentId = useId()
+// // temporary fix as Nuxt's `useId` is having difficulty compute the  string correctly
+// eslint-disable-next-line prefer-const
+let contentId = ''
 provideCollapsibleRootContext({
   contentId,
   disabled,

@@ -14,7 +14,7 @@ export default defineConfig({
     dts({
       tsconfigPath: 'tsconfig.build.json',
       cleanVueFileName: true,
-      exclude: ['src/test/**'],
+      exclude: ['src/test/**', 'src/**/story/**', 'src/**/*.story.vue'],
     }),
   ],
   resolve: {

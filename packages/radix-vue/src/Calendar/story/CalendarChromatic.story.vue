@@ -6,7 +6,7 @@ import { type Ref, ref } from 'vue'
 const defaultValue = new CalendarDate(2024, 2, 20)
 const modelValue = ref(defaultValue) as Ref<DateValue>
 
-const placeholder = new CalendarDate(2024, 4, 1)
+const placeholder = ref(new CalendarDate(2024, 4, 1)) as Ref<CalendarDate>
 </script>
 
 <template>

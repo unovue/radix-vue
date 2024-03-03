@@ -163,7 +163,7 @@ const lastPressedDateValue = ref() as Ref<DateValue | undefined>
 const focusedValue = ref() as Ref<DateValue | undefined>
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: props.defaultValue ?? undefined,
+  defaultValue: props.defaultValue ?? { start: undefined, end: undefined },
   passive: (props.modelValue === undefined) as false,
 }) as Ref<{ start: DateValue | undefined; end: DateValue | undefined }>
 
@@ -268,8 +268,8 @@ const getMonths = computed(() => {
   const dateObj = defaultDate.set({ ...placeholder.value })
   return createYear({
     dateObj,
-    minValue: defaultDate.set({ ...minValue.value }),
-    maxValue: defaultDate.set({ ...maxValue.value }),
+    minValue: minValue.value,
+    maxValue: maxValue.value,
     numberOfMonths: numberOfMonths.value,
     pagedNavigation: pagedNavigation.value,
   })
@@ -281,8 +281,8 @@ function getYears({ startIndex, endIndex }: { startIndex?: number; endIndex: num
     dateObj,
     startIndex,
     endIndex,
-    minValue: defaultDate.set({ ...minValue.value }),
-    maxValue: defaultDate.set({ ...maxValue.value }),
+    minValue: minValue.value,
+    maxValue: maxValue.value,
   })
 }
 

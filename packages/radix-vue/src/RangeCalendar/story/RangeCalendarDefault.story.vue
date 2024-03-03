@@ -4,14 +4,12 @@ import { RangeCalendarCell, RangeCalendarCellTrigger, RangeCalendarGrid, RangeCa
 </script>
 
 <template>
-  <Story title="RangeCalendar/Paged" :layout="{ type: 'single', iframe: false }">
+  <Story title="Range Calendar/Default" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
       <RangeCalendarRoot
         v-slot="{ weekDays, grid }"
         class="mt-6 rounded-[15px] border border-black bg-white p-[22px] shadow-md"
         fixed-weeks
-        paged-navigation
-        :number-of-months="2"
       >
         <RangeCalendarHeader class="flex items-center justify-between">
           <RangeCalendarPrev
@@ -62,3 +60,4 @@ import { RangeCalendarCell, RangeCalendarCellTrigger, RangeCalendarGrid, RangeCa
     </Variant>
   </Story>
 </template>
+..

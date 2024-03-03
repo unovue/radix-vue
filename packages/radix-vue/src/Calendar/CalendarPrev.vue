@@ -15,10 +15,13 @@ const rootContext = injectCalendarRootContext()
 
 <template>
   <Primitive
-    v-bind="props" aria-label="Previous page" :type="as === 'button' ? 'button' : undefined"
+    aria-label="Previous page"
+    v-bind="props"
+    :type="as === 'button' ? 'button' : undefined"
     :aria-disabled="rootContext.isPrevButtonDisabled.value || undefined"
     :data-disabled="rootContext.isPrevButtonDisabled.value || undefined"
-    :disabled="rootContext.isPrevButtonDisabled.value" @click="rootContext.prevPage"
+    :disabled="rootContext.isPrevButtonDisabled.value"
+    @click="rootContext.prevPage"
   >
     <slot>Prev page</slot>
   </Primitive>

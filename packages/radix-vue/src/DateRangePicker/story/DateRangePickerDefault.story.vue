@@ -24,7 +24,7 @@ import { Label } from '@/Label'
 </script>
 
 <template>
-  <Story title="Date Range Picker/Basic">
+  <Story title="Date Range Picker/Default">
     <Variant title="default">
       <div class="flex flex-col gap-2">
         <Label class="text-sm text-gray9" for="date-field">Hotel Booking Dates</Label>

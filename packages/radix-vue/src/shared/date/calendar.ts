@@ -156,7 +156,6 @@ export function createYear(props: SetYearProps): DateValue[] {
   }
 
   const monthsArray = Array.from({ length: 12 }, (_, i) => startOfMonth(dateObj.set({ month: i + 1 })))
-
   return monthsArray.filter((month) => {
     if (minValue && isBefore(month, minValue))
       return false

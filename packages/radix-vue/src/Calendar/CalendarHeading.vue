@@ -5,7 +5,6 @@ export interface CalendarHeadingProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { defineSlots } from 'vue'
 import { Primitive } from '@/Primitive'
 import { injectCalendarRootContext } from './CalendarRoot.vue'
 

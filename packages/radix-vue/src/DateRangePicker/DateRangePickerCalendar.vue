@@ -23,6 +23,8 @@ const rootContext = injectDateRangePickerRootContext()
       numberOfMonths: rootContext.numberOfMonths.value,
       readonly: rootContext.readonly.value,
       preventDeselect: rootContext.preventDeselect.value,
+      minValue: rootContext.minValue.value,
+      maxValue: rootContext.maxValue.value,
     }"
     initial-focus
     :model-value="rootContext.modelValue.value"

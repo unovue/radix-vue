@@ -10,7 +10,7 @@ const placeholder = ref(today(getLocalTimeZone())) as Ref<DateValue>
 </script>
 
 <template>
-  <Story title="RangeCalendar/Popover" :layout="{ type: 'single' }">
+  <Story title="Range Calendar/Popover" :layout="{ type: 'single' }">
     <Variant title="default">
       {{ placeholder.toString() }}
       <RangeCalendarRoot

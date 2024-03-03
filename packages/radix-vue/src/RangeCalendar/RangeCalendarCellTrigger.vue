@@ -207,7 +207,7 @@ const formattedTriggerText = computed(() => {
     @mouseenter="handleFocus(day)"
     @keydown.up.down.left.right.enter.space="handleArrowKey"
   >
-    <slot>
+    <slot :text="formattedTriggerText">
       {{ formattedTriggerText }}
     </slot>
   </Primitive>

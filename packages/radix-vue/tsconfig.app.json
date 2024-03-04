@@ -25,6 +25,7 @@
     "lib": ["esnext", "dom"],
     "baseUrl": ".",
     "skipLibCheck": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "types": ["node", "jsdom", "@testing-library/jest-dom"]
   }
 }

@@ -1,0 +1,281 @@
+@import '@radix-ui/colors/black-alpha.css';
+@import '@radix-ui/colors/mauve.css';
+@import '@radix-ui/colors/grass.css';
+
+.DateFieldWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.DateFieldLabel {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--gray-9);
+}
+
+.DateField {
+  display: flex;
+  padding: 0.5rem;
+  align-items: center;
+  border-radius: 0.25rem;
+  border-width: 1px;
+  text-align: center;
+  background-color: #ffffff;
+  user-select: none;
+  color: var(--green-10);
+  border: 1px solid var(--gray-9);
+}
+
+.DateField::placeholder {
+  color: var(--mauve-5);
+}
+
+.DateField[data-invalid] {
+  border: 1px solid var(--red-500);
+}
+
+.DateFieldLiteral {
+  padding: 0.25rem;
+}
+
+.DateFieldSegment {
+  padding: 0.25rem;
+}
+
+.DateFieldSegment:hover{
+  background-color: var(--grass-4);
+}
+
+.DateFieldSegment:focus {
+  background-color: var(--grass-2);
+}
+
+.DateFieldSegment:[aria-valuetext='Empty'] {
+  color: var(--grass-6);
+}
+
+.Icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.Calendar {
+  padding: 22px;
+}
+
+.CalendarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.CalendarNavButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: #000000;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.CalendarNavButton:hover {
+  color: #ffffff;
+  background-color: #000000;
+}
+
+.CalendarHeading {
+  font-weight: 500;
+  color: #000000;
+  color: 15px;
+}
+
+.CalendarWrapper {
+  display: flex;
+  padding-top: 1rem;
+  margin-top: 1rem;
+  flex-direction: column;
+}
+
+@media (min-width: 640px) {
+  .CalendarWrapper {
+    margin-left: 1rem;
+    margin-top: 0;
+    flex-direction: row;
+  }
+}
+
+.CalendarGrid {
+  margin-top: 0.25rem;
+  width: 100%;
+  user-select: none;
+  border-collapse: collapse;
+}
+
+.CalendarGridRow {
+  display: grid
+  margin-bottom: 0.25rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: 100%;
+}
+
+.CalendarGridRow[data-radix-vue-calendar-month-view] {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.CalendarHeadCell {
+  border-radius: 0.375rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: #000000;
+  font-weight: 400;
+}
+
+.CalendarCell {
+  position: relative;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-align: center;
+}
+
+.CalendarCellTrigger {
+  display: flex;
+  position: relative;
+  padding: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  border-width: 1px;
+  border-color: transparent;
+  outline-style: none;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  color: #000000;
+  white-space: nowrap;
+  background-color: transparent;
+}
+
+.CalendarCellTrigger:hover {
+  border-color: #000000;
+}
+
+.CalendarCellTrigger:focus {
+  box-shadow: 0 0 0 2px #000000;
+}
+
+.CalendarCellTrigger[data-disabled] {
+  cursor: none;
+  color: rgba(0,0,0,0.3);
+}
+
+.CalendarCellTrigger[data-selected] {
+  background-color: #000000;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.CalendarCellTrigger[data-selected]::before {
+  background-color: #FFFFFF;
+}
+
+.CalendarCellTrigger[data-unavailable] {
+  color: rgba(0,0,0,0.3);
+  text-decoration: line-through;
+}
+
+.CalendarCellTrigger::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 0;
+  width: 0.25rem;
+  height: 0.25rem;
+  border-radius: 9999px;
+  background-color: #FFFFFF;
+}
+
+.CalendarCellTrigger[data-today]::before {
+  display: block;
+  background-color: var(--grass-9);
+}
+
+.PopoverTrigger:focus {
+  box-shadow: 0 0 0 2px #000000;
+}
+
+.PopoverContent {
+  border-radius: 4px;
+  padding: 20px;
+  width: 260px;
+  background-color: white;
+  box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+.PopoverContent:focus {
+  box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px,
+    0 0 0 2px var(--grass-7);
+}
+.PopoverContent[data-state='open'][data-side='top'] {
+  animation-name: slideDownAndFade;
+}
+.PopoverContent[data-state='open'][data-side='right'] {
+  animation-name: slideLeftAndFade;
+}
+.PopoverContent[data-state='open'][data-side='bottom'] {
+  animation-name: slideUpAndFade;
+}
+.PopoverContent[data-state='open'][data-side='left'] {
+  animation-name: slideRightAndFade;
+}
+
+.PopoverArrow {
+  fill: white;
+}
+
+@keyframes slideUpAndFade {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideRightAndFade {
+  from {
+    opacity: 0;
+    transform: translateX(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideDownAndFade {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideLeftAndFade {
+  from {
+    opacity: 0;
+    transform: translateX(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

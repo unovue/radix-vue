@@ -3,10 +3,15 @@ import AccordionDemo from './demo/Accordion/tailwind/index.vue'
 import AlertDialogDemo from './demo/AlertDialog/tailwind/index.vue'
 import AspectRatioDemo from './demo/AspectRatio/tailwind/index.vue'
 import AvatarDemo from './demo/Avatar/tailwind/index.vue'
+import CalendarDemo from './demo/Calendar/tailwind/index.vue'
 import CheckboxDemo from './demo/Checkbox/tailwind/index.vue'
 import CollapsibleDemo from './demo/Collapsible/tailwind/index.vue'
 import ComboboxDemo from './demo/Combobox/tailwind/index.vue'
 import ContextMenuDemo from './demo/ContextMenu/tailwind/index.vue'
+import DateFieldDemo from './demo/DateField/tailwind/index.vue'
+import DatePickerDemo from './demo/DatePicker/tailwind/index.vue'
+import DateRangeFieldDemo from './demo/DateRangeField/tailwind/index.vue'
+import DateRangePickerDemo from './demo/DateRangePicker/tailwind/index.vue'
 import DialogDemo from './demo/Dialog/tailwind/index.vue'
 import DropdownMenuDemo from './demo/DropdownMenu/tailwind/index.vue'
 import HoverCardDemo from './demo/HoverCard/tailwind/index.vue'
@@ -18,10 +23,12 @@ import PinInputDemo from './demo/PinInput/tailwind/index.vue'
 import PopoverDemo from './demo/Popover/tailwind/index.vue'
 import ProgressDemo from './demo/Progress/tailwind/index.vue'
 import RadioGroupDemo from './demo/RadioGroup/tailwind/index.vue'
+import RangeCalendarDemo from './demo/RangeCalendar/tailwind/index.vue'
 import ScrollAreaDemo from './demo/ScrollArea/tailwind/index.vue'
 import SelectDemo from './demo/Select/tailwind/index.vue'
 import SeparatorDemo from './demo/Separator/tailwind/index.vue'
 import SliderDemo from './demo/Slider/tailwind/index.vue'
+import SplitterDemo from './demo/Splitter/tailwind/index.vue'
 import SwitchDemo from './demo/Switch/tailwind/index.vue'
 import TabsDemo from './demo/Tabs/tailwind/index.vue'
 import TagsInputDemo from './demo/TagsInput/tailwind/index.vue'
@@ -48,6 +55,9 @@ import DemoContainer from './DemoContainer.vue'
     <DemoContainer title="avatar">
       <AvatarDemo />
     </DemoContainer>
+    <DemoContainer title="calendar">
+      <CalendarDemo />
+    </DemoContainer>
     <DemoContainer title="checkbox">
       <CheckboxDemo />
     </DemoContainer>
@@ -59,6 +69,18 @@ import DemoContainer from './DemoContainer.vue'
     </DemoContainer>
     <DemoContainer title="context menu">
       <ContextMenuDemo />
+    </DemoContainer>
+    <DemoContainer title="date field">
+      <DateFieldDemo />
+    </DemoContainer>
+    <DemoContainer title="date picker">
+      <DatePickerDemo />
+    </DemoContainer>
+    <DemoContainer title="date range field">
+      <DateRangeFieldDemo />
+    </DemoContainer>
+    <DemoContainer title="date range picker">
+      <DateRangePickerDemo />
     </DemoContainer>
     <DemoContainer title="dialog">
       <DialogDemo />
@@ -93,6 +115,9 @@ import DemoContainer from './DemoContainer.vue'
     <DemoContainer title="radio group">
       <RadioGroupDemo />
     </DemoContainer>
+    <DemoContainer title="range calendar">
+      <RangeCalendarDemo />
+    </DemoContainer>
     <DemoContainer title="scroll area">
       <ScrollAreaDemo />
     </DemoContainer>
@@ -104,6 +129,9 @@ import DemoContainer from './DemoContainer.vue'
     </DemoContainer>
     <DemoContainer title="slider">
       <SliderDemo />
+    </DemoContainer>
+    <DemoContainer title="splitter">
+      <SplitterDemo />
     </DemoContainer>
     <DemoContainer title="switch">
       <SwitchDemo />

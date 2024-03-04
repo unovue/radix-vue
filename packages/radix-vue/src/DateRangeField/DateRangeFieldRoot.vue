@@ -200,7 +200,7 @@ const endSegmentValues = ref<SegmentValueObj>(modelValue.value.end ? { ...syncSe
 
 const startSegmentContent = computed(() => createContent({
   granularity: inferredGranularity.value,
-  dateRef: defaultDate.set({ ...placeholder.value }),
+  dateRef: placeholder.value,
   formatter,
   hideTimeZone: props.hideTimeZone,
   hourCycle: props.hourCycle,
@@ -210,7 +210,7 @@ const startSegmentContent = computed(() => createContent({
 
 const endSegmentContent = computed(() => createContent({
   granularity: inferredGranularity.value,
-  dateRef: defaultDate.set({ ...placeholder.value }),
+  dateRef: placeholder.value,
   formatter,
   hideTimeZone: props.hideTimeZone,
   hourCycle: props.hourCycle,

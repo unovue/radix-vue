@@ -167,7 +167,7 @@ const segmentValues = ref<SegmentValueObj>(modelValue.value ? { ...syncSegmentVa
 
 const allSegmentContent = computed(() => createContent({
   granularity: inferredGranularity.value,
-  dateRef: defaultDate.set({ ...placeholder.value }),
+  dateRef: placeholder.value,
   formatter,
   hideTimeZone: props.hideTimeZone,
   hourCycle: props.hourCycle,

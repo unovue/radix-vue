@@ -3,7 +3,7 @@ import { Separator } from './'
 </script>
 
 <template>
-  <Story title="Separator" :layout="{ type: 'single', iframe: true }">
+  <Story title="Separator/Demo" :layout="{ type: 'single', iframe: true }">
     <Variant title="default">
       <div class="w-full max-w-[300px] mx-[15px]">
         <div class="text-white text-[15px] leading-5 font-medium">

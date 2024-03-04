@@ -6,7 +6,7 @@ const switchState = ref(true)
 </script>
 
 <template>
-  <Story title="Switch" :layout="{ type: 'single', iframe: true }">
+  <Story title="Switch/Demo" :layout="{ type: 'single', iframe: true }">
     <Variant title="default">
       <div class="flex gap-2 items-center">
         <label

@@ -22,6 +22,10 @@ export const [injectContextMenuRootContext, provideContextMenuRootContext]
 import { ref, toRefs, watch } from 'vue'
 import { MenuRoot } from '@/Menu'
 
+defineOptions({
+  inheritAttrs: false,
+})
+
 const props = withDefaults(defineProps<ContextMenuRootProps>(), {
   modal: true,
 })

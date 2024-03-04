@@ -44,9 +44,9 @@ export type ComboboxRootEmits<T = AcceptableValue> = {
 
 export interface ComboboxRootProps<T = AcceptableValue> extends PrimitiveProps {
   /** The controlled value of the Combobox. Can be binded-with with `v-model`. */
-  modelValue?: T
+  modelValue?: T | Array<T>
   /** The value of the combobox when initially rendered. Use when you do not need to control the state of the Combobox */
-  defaultValue?: T
+  defaultValue?: T | Array<T>
   /** The controlled open state of the Combobox. Can be binded-with with `v-model:open`. */
   open?: boolean
   /** The open state of the combobox when it is initially rendered. <br> Use when you do not need to control its open state. */
@@ -72,7 +72,7 @@ export interface ComboboxRootProps<T = AcceptableValue> extends PrimitiveProps {
 import { computed, nextTick, ref, toRefs, watch } from 'vue'
 import { PopperRoot } from '@/Popper'
 import { Primitive } from '@/Primitive'
-import { computedWithControl, useVModel } from '@vueuse/core'
+import { useVModel } from '@vueuse/core'
 import { VisuallyHiddenInput } from '@/VisuallyHidden'
 import isEqual from 'fast-deep-equal'
 
@@ -104,7 +104,7 @@ const modelValue = useVModel(props, 'modelValue', emit, {
   defaultValue: props.defaultValue ?? multiple.value ? [] : undefined,
   passive: (props.modelValue === undefined) as false,
   deep: true,
-}) as Ref<T>
+}) as Ref<T | T[]>
 
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
@@ -150,23 +150,27 @@ const contentElement = ref<HTMLElement>()
 const { forwardRef, currentElement: parentElement } = useForwardExpose()
 const { getItems, reactiveItems, itemMapSize } = createCollection<{ value: T }>('data-radix-vue-combobox-item')
 
-const options = computedWithControl(() => itemMapSize.value, () => {
-  return getItems().map(i => i.value)
-})
+const options = ref<T[]>([]) as Ref<T[]>
+
+watch(() => itemMapSize.value, () => {
+  options.value = getItems().map(i => i.value)
+}, { immediate: true })
 
 const filteredOptions = computed(() => {
   if (isUserInputted.value) {
     if (props.filterFunction)
       return props.filterFunction(options.value as ArrayOrWrapped<T>, searchTerm.value) as T[]
 
-    else if (typeof options.value[0] === 'string')
-      return options.value.filter(i => (i as string).toLowerCase().includes(searchTerm.value?.toLowerCase()))
+    // The default filter only compares strings
+    const optionsWithTypeString = options.value.filter(i => typeof i === 'string') as string[]
+    if (optionsWithTypeString.length)
+      return optionsWithTypeString.filter(i => i.toLowerCase().includes(searchTerm.value?.toLowerCase())) as T[]
   }
   return options.value
 })
 
 function resetSearchTerm() {
-  if (!multiple.value && modelValue.value) {
+  if (!multiple.value && modelValue.value && !Array.isArray(modelValue.value)) {
     if (props.displayValue)
       searchTerm.value = props.displayValue(modelValue.value)
     else if (typeof modelValue.value !== 'object')
@@ -184,8 +188,11 @@ const selectedElement = computed(() => {
   return reactiveItems.value.find(i => i.value === selectedValue.value)?.ref
 })
 
+const stringifiedModelValue = computed(() => JSON.stringify(modelValue.value))
+
 // nextTick() are required in the following watchers as we are waiting for DOM element to be mounted first the only apply following logic
-watch(modelValue, async () => {
+watch(stringifiedModelValue, async () => {
+  await nextTick()
   await nextTick()
   resetSearchTerm()
 }, { immediate: true })

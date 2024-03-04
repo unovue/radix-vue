@@ -1,4 +1,0 @@
-const styles = "@import '@radix-ui/colors/black-alpha.css';\n@import '@radix-ui/colors/grass.css';\n\n.SliderRoot {\n  position: relative;\n  display: flex;\n  align-items: center;\n  user-select: none;\n  touch-action: none;\n  width: 200px;\n  height: 20px;\n}\n\n.SliderTrack {\n  background-color: var(--black-a10);\n  position: relative;\n  flex-grow: 1;\n  border-radius: 9999px;\n  height: 3px;\n}\n\n.SliderRange {\n  position: absolute;\n  background-color: white;\n  border-radius: 9999px;\n  height: 100%;\n}\n\n.SliderThumb {\n  display: block;\n  width: 20px;\n  height: 20px;\n  background-color: white;\n  box-shadow: 0 2px 10px var(--black-a7);\n  border-radius: 10px;\n}\n.SliderThumb:hover {\n  background-color: var(--grass-3);\n}\n.SliderThumb:focus {\n  outline: none;\n  box-shadow: 0 0 0 5px var(--black-a8);\n}";
-export {
-  styles as default
-};

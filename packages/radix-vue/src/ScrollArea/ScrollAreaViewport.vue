@@ -2,7 +2,9 @@
 import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
 
-export interface ScrollAreaViewportProps extends PrimitiveProps {}
+export interface ScrollAreaViewportProps extends PrimitiveProps {
+  nonce?: string
+}
 </script>
 
 <script setup lang="ts">
@@ -62,7 +64,7 @@ const { forwardRef, currentElement: contentElement } = useForwardExpose()
       <slot />
     </Primitive>
   </div>
-  <Primitive as="style">
+  <Primitive as="style" :nonce="nonce">
     /* Hide scrollbars cross-browser and enable momentum scroll for touch
     devices */
     [data-radix-scroll-area-viewport] {

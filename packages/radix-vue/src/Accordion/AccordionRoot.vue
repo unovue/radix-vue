@@ -61,7 +61,7 @@ export const [injectAccordionRootContext, provideAccordionRootContext]
 <script setup lang="ts" generic="ValidValue extends (string | string[]), ExplicitType extends SingleOrMultipleType">
 import { Primitive } from '@/Primitive'
 import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
-import { computed, toRefs } from 'vue'
+import { toRefs } from 'vue'
 
 const props = withDefaults(defineProps<AccordionRootProps<ValidValue, ExplicitType>>(), {
   disabled: false,
@@ -81,7 +81,7 @@ defineSlots<{
 const { dir, disabled } = toRefs(props)
 const direction = useDirection(dir)
 
-const { modelValue, changeModelValue, type } = useSingleOrMultipleValue(props, emits)
+const { modelValue, changeModelValue, isSingle } = useSingleOrMultipleValue(props, emits)
 
 const { forwardRef, currentElement: parentElement } = useForwardExpose()
 
@@ -90,7 +90,7 @@ provideAccordionRootContext({
   direction,
   orientation: props.orientation,
   parentElement,
-  isSingle: computed(() => type.value === 'single'),
+  isSingle,
   collapsible: props.collapsible,
   modelValue,
   changeModelValue,

@@ -1,5 +1,5 @@
 import { useVModel } from '@vueuse/core'
-import { type Ref, ref, watch } from 'vue'
+import { type Ref, computed, ref, watch } from 'vue'
 import type { SingleOrMultipleProps } from './types'
 
 /**
@@ -104,9 +104,12 @@ export function useSingleOrMultipleValue<P extends SingleOrMultipleProps, Name e
     }
   }
 
+  const isSingle = computed(() => type.value === 'single')
+
   return {
     modelValue,
     type,
     changeModelValue,
+    isSingle,
   }
 }

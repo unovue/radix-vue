@@ -16,7 +16,7 @@
   },
   {
     'name': 'defaultValue',
-    'description': '<p>The default value of the item to expand when type is &quot;single&quot; or the default values of the items to expand when type is &quot;multiple&quot;.\nUse when you do not need to control the state of the item(s).</p>\n',
+    'description': '<p>The default active value of the item(s).</p>\n<p>Use when you do not need to control the state of the item(s).</p>\n',
     'type': 'string | string[]',
     'required': false
   },
@@ -42,7 +42,7 @@
   },
   {
     'name': 'modelValue',
-    'description': '<p>The controlled value of the item to select when type is &quot;single&quot; or the controlled values of the items to select when type is &quot;multiple&quot;.\nUse this when you need to control the state of the items. Use it with <code>v-model</code></p>\n',
+    'description': '<p>The controlled value of the active item(s).</p>\n<p>Use this when you need to control the state of the items. Can be binded with <code>v-model</code></p>\n',
     'type': 'string | string[]',
     'required': false
   },
@@ -61,7 +61,7 @@
   },
   {
     'name': 'type',
-    'description': '<p>Determines whether a single or multiple items can be pressed at a time.</p>\n',
+    'description': '<p>Determines whether a &quot;single&quot; or &quot;multiple&quot; items can be pressed at a time.</p>\n<p>This prop will be ignored if any of <code>v-model</code> or <code>defaultValue</code> is an defined, as the type will be inferred from the value.</p>\n',
     'type': '\'single\' | \'multiple\'',
     'required': false,
     'default': '\'single\''

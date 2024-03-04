@@ -38,7 +38,7 @@ export const [injectToggleGroupRootContext, provideToggleGroupRootContext]
 </script>
 
 <script setup lang="ts">
-import { computed, toRefs } from 'vue'
+import { toRefs } from 'vue'
 import { Primitive } from '@/Primitive'
 import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
 import { RovingFocusGroup } from '@/RovingFocus'
@@ -62,10 +62,10 @@ const { loop, rovingFocus, disabled, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
 const { forwardRef } = useForwardExpose()
 
-const { modelValue, changeModelValue, type } = useSingleOrMultipleValue(props, emits)
+const { modelValue, changeModelValue, isSingle } = useSingleOrMultipleValue(props, emits)
 
 provideToggleGroupRootContext({
-  isSingle: computed(() => type.value === 'single'),
+  isSingle,
   modelValue,
   changeModelValue,
   dir,

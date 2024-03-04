@@ -2,7 +2,9 @@
 import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
 
-export interface ComboboxViewportProps extends PrimitiveProps {}
+export interface ComboboxViewportProps extends PrimitiveProps {
+  nonce?: string
+}
 </script>
 
 <script setup lang="ts">
@@ -29,7 +31,7 @@ const { forwardRef } = useForwardExpose()
   >
     <slot />
   </Primitive>
-  <Primitive as="style">
+  <Primitive as="style" :nonce="nonce">
     /* Hide scrollbars cross-browser and enable momentum scroll for touch
     devices */ [data-radix-combobox-viewport] { scrollbar-width:none; -ms-overflow-style: none;
     -webkit-overflow-scrolling: touch; }

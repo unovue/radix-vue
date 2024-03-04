@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import { RangeCalendarCell, RangeCalendarCellTrigger, RangeCalendarGrid, RangeCalendarGridBody, RangeCalendarGridHead, RangeCalendarGridRow, RangeCalendarHeadCell, RangeCalendarHeader, RangeCalendarHeading, RangeCalendarNext, RangeCalendarPrev, RangeCalendarRoot, type RangeCalendarRootProps } from 'radix-vue'
+import type { DateValue } from '@internationalized/date'
+import { RangeCalendarCell, RangeCalendarCellTrigger, RangeCalendarGrid, RangeCalendarGridBody, RangeCalendarGridHead, RangeCalendarGridRow, RangeCalendarHeadCell, RangeCalendarHeader, RangeCalendarHeading, RangeCalendarNext, RangeCalendarPrev, RangeCalendarRoot } from 'radix-vue'
 
-const isDateUnavailable: RangeCalendarRootProps['isDateUnavailable'] = (date) => {
+function isDateUnavailable(date: DateValue) {
   return date.day === 17 || date.day === 18
 }
 </script>
@@ -11,18 +12,18 @@ const isDateUnavailable: RangeCalendarRootProps['isDateUnavailable'] = (date) =>
   <RangeCalendarRoot
     v-slot="{ weekDays, grid }"
     :is-date-unavailable="isDateUnavailable"
-    class="mt-6 rounded-[15px] border border-black bg-white p-[22px] shadow-md"
+    class="rounded-xl bg-white p-4 shadow-xl"
     fixed-weeks
   >
     <RangeCalendarHeader class="flex items-center justify-between">
       <RangeCalendarPrev
-        class="inline-flex items-center cursor-pointer text-black justify-center rounded-[9px] bg-transparent w-10 h-10 hover:bg-black hover:text-white active:scale-98 active:transition-all focus:shadow-[0_0_0_2px] focus:shadow-black"
+        class="inline-flex items-center cursor-pointer text-black justify-center rounded-[9px] bg-transparent w-8 h-8 hover:bg-black hover:text-white active:scale-98 active:transition-all focus:shadow-[0_0_0_2px] focus:shadow-black"
       >
         <Icon icon="radix-icons:chevron-left" class="w-6 h-6" />
       </RangeCalendarPrev>
       <RangeCalendarHeading class="text-[15px] text-black font-medium" />
       <RangeCalendarNext
-        class="inline-flex items-center cursor-pointer justify-center text-black rounded-[9px] bg-transparent w-10 h-10 hover:bg-black hover:text-white active:scale-98 active:transition-all focus:shadow-[0_0_0_2px] focus:shadow-black"
+        class="inline-flex items-center cursor-pointer justify-center text-black rounded-[9px] bg-transparent w-8 h-8 hover:bg-black hover:text-white active:scale-98 active:transition-all focus:shadow-[0_0_0_2px] focus:shadow-black"
       >
         <Icon icon="radix-icons:chevron-right" class="w-6 h-6" />
       </RangeCalendarNext>
@@ -35,7 +36,7 @@ const isDateUnavailable: RangeCalendarRootProps['isDateUnavailable'] = (date) =>
           <RangeCalendarGridRow class="mb-1 grid w-full grid-cols-7">
             <RangeCalendarHeadCell
               v-for="day in weekDays" :key="day"
-              class="rounded-md text-xs !font-normal text-black"
+              class="rounded-md text-xs text-green8"
             >
               {{ day }}
             </RangeCalendarHeadCell>
@@ -47,12 +48,11 @@ const isDateUnavailable: RangeCalendarRootProps['isDateUnavailable'] = (date) =>
               v-for="weekDate in weekDates"
               :key="weekDate.toString()"
               :date="weekDate"
-              class="relative text-center text-sm !p-0"
             >
               <RangeCalendarCellTrigger
                 :day="weekDate"
                 :month="month.value"
-                class="relative flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent text-sm font-normal text-black p-2 outline-none focus:shadow-[0_0_0_2px] focus:shadow-black hover:border-black data-[selected]:bg-black data-[selected]:font-medium data-[disabled]:text-black/30 data-[selected]:text-white data-[highlighted]:bg-grass9/30 data-[highlighted]:rounded-none data-[selection-start]:bg-black data-[selection-start]:rounded-none data-[selection-start]:rounded-l-[9px] data-[selection-end]:rounded-none data-[selection-end]:bg-black data-[selection-end]:rounded-r-[9px] data-[selected]:[&:not([data-selection-start])]:[&:not([data-selection-end])]:rounded-none data-[unavailable]:text-black/30 data-[unavailable]:line-through before:absolute before:top-[5px] before:hidden before:rounded-full before:w-1 before:h-1 before:bg-white data-[today]:before:block data-[today]:before:bg-grass9 data-[selected]:before:bg-white"
+                class="relative flex items-center justify-center rounded-full whitespace-nowrap text-sm font-normal text-black w-8 h-8 outline-none focus:shadow-[0_0_0_2px] focus:shadow-black data-[disabled]:text-black/30 data-[selected]:!bg-green10 data-[selected]:text-white hover:bg-green5 data-[highlighted]:bg-green5 data-[unavailable]:pointer-events-none data-[unavailable]:text-black/30 data-[unavailable]:line-through"
               />
             </RangeCalendarCell>
           </RangeCalendarGridRow>

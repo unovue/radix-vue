@@ -32,7 +32,7 @@ importers:
         specifier: ^14.0.1
         version: 14.0.1
       pnpm:
-        specifier: ^8.9.2
+        specifier: ^8.15.4
         version: 8.15.4
       rimraf:
         specifier: ^5.0.5

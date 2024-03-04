@@ -333,6 +333,14 @@ providePopperContentContext({
         middlewareData.transformOrigin?.x,
         middlewareData.transformOrigin?.y,
       ].join(' '),
+
+      // hide the content if using the hide middleware and should be hidden
+      // set visibility to hidden and disable pointer events so the UI behaves
+      // as if the PopperContent isn't there at all
+      ...(middlewareData.hide?.referenceHidden && {
+        visibility: 'hidden',
+        pointerEvents: 'none',
+      }),
     }"
   >
     <Primitive
@@ -346,8 +354,6 @@ providePopperContentContext({
         // if the PopperContent hasn't been placed yet (not all measurements done)
         // we prevent animations so that users's animation don't kick in too early referring wrong sides
         animation: !isPositioned ? 'none' : undefined,
-        // hide the content if using the hide middleware and should be hidden
-        opacity: middlewareData.hide?.referenceHidden ? 0 : undefined,
       }"
     >
       <slot />

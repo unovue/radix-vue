@@ -40,7 +40,7 @@ const { forwardRef } = useForwardExpose()
       :ref="forwardRef"
       :disabled="disabled"
       :pressed="
-        rootContext.type === 'single'
+        rootContext.isSingle
           ? rootContext.modelValue.value === value
           : rootContext.modelValue.value?.includes(value)
       "

@@ -2,7 +2,9 @@
 import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
 
-export interface SelectViewportProps extends PrimitiveProps {}
+export interface SelectViewportProps extends PrimitiveProps {
+  nonce?: string
+}
 </script>
 
 <script setup lang="ts">
@@ -79,7 +81,7 @@ function handleScroll(event: WheelEvent) {
   >
     <slot />
   </Primitive>
-  <Primitive as="style">
+  <Primitive as="style" :nonce="nonce">
     /* Hide scrollbars cross-browser and enable momentum scroll for touch
     devices */ [data-radix-select-viewport] { scrollbar-width:none; -ms-overflow-style: none;
     -webkit-overflow-scrolling: touch; }

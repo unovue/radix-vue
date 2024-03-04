@@ -283,10 +283,10 @@ watch(endSegmentValues, (value) => {
 }, { deep: true })
 
 watch(modelValue, (value) => {
-  if (value.start && value.start.toString() !== startValue.value?.toString())
+  if (value.start)
     startValue.value = defaultDate.set({ ...value.start })
 
-  if (value.end && value.end.toString() !== endValue.value?.toString())
+  if (value.end)
     endValue.value = defaultDate.set({ ...value.end })
 
   if (value.start !== undefined && placeholder.value.toString() !== value.start.toString())
@@ -383,7 +383,7 @@ defineExpose({
     :data-invalid="isInvalid ? '' : undefined"
     @keydown.left.right="handleKeydown"
   >
-    <slot :model-value="{ start: defaultDate.set({ ...modelValue.start }), end: defaultDate.set({ ...modelValue.end }) }" :segments="segmentContents" />
+    <slot :model-value="modelValue" :segments="segmentContents" />
   </Primitive>
 
   <input

@@ -9,7 +9,7 @@ const rootContext = injectDateRangePickerRootContext()
 
 <template>
   <DateRangeFieldRoot
-    v-slot="{ segments }"
+    v-slot="{ segments, modelValue }"
     :ref="rootContext.dateFieldRef"
     :model-value="rootContext.modelValue.value"
     :placeholder="rootContext.placeholder.value"
@@ -30,6 +30,6 @@ const rootContext = injectDateRangePickerRootContext()
     @update:model-value="rootContext.onDateChange"
     @update:placeholder="rootContext.onPlaceholderChange"
   >
-    <slot :segments="segments" />
+    <slot :segments="segments" :model-value="modelValue" />
   </DateRangeFieldRoot>
 </template>

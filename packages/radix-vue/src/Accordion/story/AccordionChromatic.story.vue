@@ -125,7 +125,7 @@ const items = ['One', 'Two', 'Three', 'Four']
     <Variant title="Controlled (Single open)">
       <AccordionRoot
         class="w-[300px] rounded-md bg-[--line-color] shadow-lg"
-        type="multiple"
+        type="single"
         model-value="Three"
       >
         <AccordionItem

@@ -56,6 +56,8 @@ function handleKeydown(event: KeyboardEvent) {
   )
 
   if (focusIntent !== undefined) {
+    if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey)
+      return
     event.preventDefault()
     let candidateNodes = [...collections.value]
 

@@ -20,5 +20,5 @@ export function useId(deterministicId?: string | null | undefined) {
     useId: () => `radix-${++count}`,
   })
 
-  return deterministicId ?? useId!()
+  return deterministicId ?? useId?.() ?? `radix-${++count}`
 }

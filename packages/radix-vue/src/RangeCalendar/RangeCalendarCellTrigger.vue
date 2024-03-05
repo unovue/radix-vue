@@ -59,7 +59,7 @@ const isOutsideVisibleView = computed(() =>
 )
 
 const isFocusedDate = computed(() => {
-  return isSameDay(props.day, rootContext.defaultDate)
+  return isSameDay(props.day, rootContext.placeholder.value)
 })
 
 function changeDate(date: DateValue) {

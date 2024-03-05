@@ -79,11 +79,42 @@ Contains all the parts of a date field
 
 <!-- @include: @/meta/DateFieldRoot.md -->
 
+<DataAttributesTable 
+  :data="[
+    {
+      attribute: '[data-readonly]',
+      values: 'Present when readonly',
+    },
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    },
+    {
+      attribute: '[data-invalid]',
+      values: 'Present when invalid',
+    }
+  ]"
+/>
+
 ### Input
 
 Contains the date field segments
 
 <!-- @include: @/meta/DateFieldInput.md -->
+
+<DataAttributesTable 
+  :data="[ 
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    },
+    {
+      attribute: '[data-invalid]',
+      values: 'Present when invalid',
+    }
+  ]"
+/>
+
 
 ## Accessibility
 

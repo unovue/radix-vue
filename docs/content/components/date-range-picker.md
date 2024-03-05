@@ -136,15 +136,45 @@ Contains the date picker date field segments and trigger
 
 <!-- @include: @/meta/DateRangePickerField.md -->
 
+<DataAttributesTable 
+  :data="[
+    {
+      attribute: '[data-readonly]',
+      values: 'Present when readonly',
+    },
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    },
+    {
+      attribute: '[data-invalid]',
+      values: 'Present when invalid',
+    }
+  ]"
+/>
+
 ### Input
 
 Contains the date picker date field segments
 
 <!-- @include: @/meta/DateRangePickerInput.md -->
 
+<DataAttributesTable 
+  :data="[ 
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    },
+    {
+      attribute: '[data-invalid]',
+      values: 'Present when invalid',
+    }
+  ]"
+/>
+
 ### Trigger
 
-The button that toggles the popover. By default, the <Code>DateRangePickerContent</Code> will position itself against the trigger.
+The button that toggles the popover. By default, the `DateRangePickerContent` will position itself against the trigger.
 
 <!-- @include: @/meta/DateRangePickerTrigger.md -->
 
@@ -163,7 +193,7 @@ An optional arrow element to render alongside the popover. This can be used to h
 
 ### Arrow
 
-An optional arrow element to render alongside the popover. This can be used to help visually link the anchor with the <Code>DateRangePickerContent</Code>. Must be rendered inside <Code>DateRangePickerContent</Code>.
+An optional arrow element to render alongside the popover. This can be used to help visually link the anchor with the `DateRangePickerContent`. Must be rendered inside `DateRangePickerContent`.
 
 <!-- @include: @/meta/DatePickerArrow.md -->
 
@@ -175,7 +205,7 @@ The button that closes an open date picker.
 
 ### Anchor
 
-An optional element to position the <Code>DateRangePickerContent</Code> against. If this part is not used, the content will position alongside the <Code>DateRangePickerTrigger</Code>.
+An optional element to position the `DateRangePickerContent` against. If this part is not used, the content will position alongside the `DateRangePickerTrigger`.
 
 <!-- @include: @/meta/DateRangePickerAnchor.md -->
 
@@ -184,6 +214,23 @@ An optional element to position the <Code>DateRangePickerContent</Code> against.
 Contains all the parts of a calendar
 
 <!-- @include: @/meta/DateRangePickerCalendar.md -->
+
+<DataAttributesTable 
+  :data="[
+    {
+      attribute: '[data-readonly]',
+      values: 'Present when readonly',
+    },
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    },
+    {
+      attribute: '[data-invalid]',
+      values: 'Present when invalid',
+    }
+  ]"
+/>
 
 ### Header
 
@@ -197,11 +244,29 @@ Calendar navigation button. It navigates the calendar one month/year/decade in t
 
 <!-- @include: @/meta/DateRangePickerPrev.md -->
 
+<DataAttributesTable 
+  :data="[ 
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    }, 
+  ]"
+/>
+
 ### NextButton
 
 Calendar navigation button. It navigates the calendar one month/year/decade in the future based on the current calendar view.
 
 <!-- @include: @/meta/DateRangePickerNext.md -->
+
+<DataAttributesTable 
+  :data="[ 
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    }, 
+  ]"
+/>
 
 ### Heading
 
@@ -209,11 +274,33 @@ Heading for displaying the current month and year
 
 <!-- @include: @/meta/DateRangePickerHeading.md -->
 
+<DataAttributesTable 
+  :data="[ 
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    }, 
+  ]"
+/>
+
 ### Grid
 
 Container for wrapping the calendar grid.
 
 <!-- @include: @/meta/DateRangePickerGrid.md -->
+
+<DataAttributesTable 
+  :data="[
+    {
+      attribute: '[data-readonly]',
+      values: 'Present when readonly',
+    },
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    }, 
+  ]"
+/>
 
 ### Grid Head
 
@@ -245,11 +332,70 @@ Container for wrapping the calendar cells.
 
 <!-- @include: @/meta/DateRangePickerCell.md -->
 
+<DataAttributesTable 
+  :data="[ 
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    }, 
+  ]"
+/>
+
 ### Cell Trigger
 
 Interactable container for displaying the cell dates. Clicking it selects the date.
 
 <!-- @include: @/meta/DateRangePickerCellTrigger.md -->
+
+
+<DataAttributesTable 
+  :data="[
+    {
+      attribute: '[data-selected]',
+      values: 'Present when selected',
+    },
+    {
+      attribute: '[data-value]',
+      values: 'The ISO string value of the date.',
+    },
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    },
+    {
+      attribute: '[data-unavailable]',
+      values: 'Present when unavailable',
+    },
+    {
+      attribute: '[data-today]',
+      values: 'Present when today',
+    },
+    {
+      attribute: '[data-outside-view]',
+      values: 'Present when the date is outside the current month it is displayed in.',
+    },
+    {
+      attribute: '[data-outside-visible-view]',
+      values: 'Present when the date is outside the months that are visible on the calendar.',
+    },
+    {
+      attribute: '[data-selection-start]',
+      values: 'Present when the date is the start of the selection.',
+    },
+    {
+      attribute: '[data-selection-end]',
+      values: 'Present when the date is the end of the selection.',
+    },
+    {
+      attribute: '[data-highlighted]',
+      values: 'Present when the date is highlighted by the user as they select a range.',
+    },
+    {
+      attribute: '[data-focused]',
+      values: 'Present when focused',
+    }
+  ]"
+/>
 
 ## Accessibility
 

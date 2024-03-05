@@ -135,15 +135,45 @@ Contains the date picker date field segments and trigger
 
 <!-- @include: @/meta/DatePickerField.md -->
 
+<DataAttributesTable 
+  :data="[
+    {
+      attribute: '[data-readonly]',
+      values: 'Present when readonly',
+    },
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    },
+    {
+      attribute: '[data-invalid]',
+      values: 'Present when invalid',
+    }
+  ]"
+/>
+
 ### Input
 
 Contains the date picker date field segments
 
 <!-- @include: @/meta/DatePickerInput.md -->
 
+<DataAttributesTable 
+  :data="[ 
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    },
+    {
+      attribute: '[data-invalid]',
+      values: 'Present when invalid',
+    }
+  ]"
+/>
+
 ### Trigger
 
-The button that toggles the popover. By default, the <Code>DatePickerContent</Code> will position itself against the trigger.
+The button that toggles the popover. By default, the `DatePickerContent` will position itself against the trigger.
 
 <!-- @include: @/meta/DatePickerTrigger.md -->
 
@@ -156,7 +186,7 @@ The component that pops out when the popover is open.
 
 ### Arrow
 
-An optional arrow element to render alongside the popover. This can be used to help visually link the anchor with the <Code>DatePickerContent</Code>. Must be rendered inside <Code>DatePickerContent</Code>.
+An optional arrow element to render alongside the popover. This can be used to help visually link the anchor with the `DatePickerContent`. Must be rendered inside `DatePickerContent`.
 
 <!-- @include: @/meta/DatePickerArrow.md -->
 
@@ -168,7 +198,7 @@ The button that closes an open date picker.
 
 ### Anchor
 
-An optional element to position the <Code>DatePickerContent</Code> against. If this part is not used, the content will position alongside the <Code>DatePickerTrigger</Code>.
+An optional element to position the `DatePickerContent` against. If this part is not used, the content will position alongside the `DatePickerTrigger`.
 
 <!-- @include: @/meta/DatePickerAnchor.md -->
 
@@ -177,6 +207,23 @@ An optional element to position the <Code>DatePickerContent</Code> against. If t
 Contains all the parts of a calendar
 
 <!-- @include: @/meta/DatePickerCalendar.md -->
+
+<DataAttributesTable 
+  :data="[ 
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    },
+    {
+      attribute: '[data-invalid]',
+      values: 'Present when invalid',
+    },
+    {
+      attribute: '[data-readonly]',
+      values: 'Present when readonly',
+    }
+  ]"
+/>
 
 ### Header
 
@@ -190,11 +237,31 @@ Calendar navigation button. It navigates the calendar one month/year/decade in t
 
 <!-- @include: @/meta/DatePickerPrev.md -->
 
+<DataAttributesTable 
+  :data="[ 
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    }, 
+  ]"
+/>
+
+
 ### NextButton
 
 Calendar navigation button. It navigates the calendar one month/year/decade in the future based on the current calendar view.
 
 <!-- @include: @/meta/DatePickerNext.md -->
+
+<DataAttributesTable 
+  :data="[ 
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    }
+  ]"
+/>
+
 
 ### Heading
 
@@ -207,6 +274,20 @@ Heading for displaying the current month and year/
 Container for wrapping the calendar grid.
 
 <!-- @include: @/meta/DatePickerGrid.md -->
+
+<DataAttributesTable 
+  :data="[ 
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    },
+    {
+      attribute: '[data-readonly]',
+      values: 'Present when readonly',
+    }
+  ]"
+/>
+
 
 ### Grid Head
 
@@ -238,11 +319,57 @@ Container for wrapping the calendar cells.
 
 <!-- @include: @/meta/DatePickerCell.md -->
 
+<DataAttributesTable 
+  :data="[ 
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    }, 
+  ]"
+/>
+
 ### Cell Trigger
 
 Interactable container for displaying the cell dates. Clicking it selects the date.
 
 <!-- @include: @/meta/DatePickerCellTrigger.md -->
+
+<DataAttributesTable 
+  :data="[
+    {
+      attribute: '[data-selected]',
+      values: 'Present when selected',
+    },
+    {
+      attribute: '[data-value]',
+      values: 'The ISO string value of the date.',
+    },
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    },
+    {
+      attribute: '[data-unavailable]',
+      values: 'Present when unavailable',
+    },
+    {
+      attribute: '[data-today]',
+      values: 'Present when today',
+    },
+    {
+      attribute: '[data-outside-view]',
+      values: 'Present when the date is outside the current month it is displayed in.',
+    },
+    {
+      attribute: '[data-outside-visible-view]',
+      values: 'Present when the date is outside the months that are visible on the calendar.',
+    },
+    {
+      attribute: '[data-focused]',
+      values: 'Present when focused',
+    }
+  ]"
+/>
 
 ## Accessibility
 

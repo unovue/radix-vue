@@ -337,7 +337,8 @@ provideCalendarRootContext({
 
 <template>
   <Primitive
-    ref="primitiveElement" :as="as"
+    ref="primitiveElement"
+    :as="as"
     :as-child="asChild"
     role="application"
     :aria-label="fullCalendarLabel"
@@ -345,13 +346,6 @@ provideCalendarRootContext({
     :data-disabled="disabled ? '' : undefined"
     :data-invalid="isInvalid ? '' : undefined"
   >
-    <div
-      style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 1px;"
-    >
-      <div role="heading" aria-level="2">
-        {{ fullCalendarLabel }}
-      </div>
-    </div>
     <slot
       :date="defaultDate.set({ ...placeholder })"
       :grid="grid"
@@ -360,5 +354,12 @@ provideCalendarRootContext({
       :get-months="getMonths"
       :get-years="getYears"
     />
+    <div
+      style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 1px;"
+    >
+      <div role="heading" aria-level="2">
+        {{ fullCalendarLabel }}
+      </div>
+    </div>
   </Primitive>
 </template>

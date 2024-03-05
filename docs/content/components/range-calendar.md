@@ -106,6 +106,23 @@ Contains all the parts of a calendar
 
 <!-- @include: @/meta/RangeCalendarRoot.md -->
 
+<DataAttributesTable 
+  :data="[
+    {
+      attribute: '[data-readonly]',
+      values: 'Present when readonly',
+    },
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    },
+    {
+      attribute: '[data-invalid]',
+      values: 'Present when invalid',
+    }
+  ]"
+/>
+
 ### Header
 
 Contains the navigation buttons and the heading segments.
@@ -116,6 +133,15 @@ Contains the navigation buttons and the heading segments.
 
 Calendar navigation button. It navigates the calendar one month/year/decade in the past based on the current calendar view.
 
+<DataAttributesTable 
+  :data="[ 
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    }, 
+  ]"
+/>
+
 <!-- @include: @/meta/RangeCalendarPrev.md -->
 
 ### NextButton
@@ -124,17 +150,48 @@ Calendar navigation button. It navigates the calendar one month/year/decade in t
 
 <!-- @include: @/meta/RangeCalendarNext.md -->
 
+<DataAttributesTable 
+  :data="[ 
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    }, 
+  ]"
+/>
+
 ### Heading
 
 Heading for displaying the current month and year.
 
 <!-- @include: @/meta/RangeCalendarHeading.md -->
 
+<DataAttributesTable 
+  :data="[ 
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    }, 
+  ]"
+/>
+
 ### Grid
 
 Container for wrapping the calendar grid.
 
 <!-- @include: @/meta/RangeCalendarGrid.md -->
+
+<DataAttributesTable 
+  :data="[
+    {
+      attribute: '[data-readonly]',
+      values: 'Present when readonly',
+    },
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    }, 
+  ]"
+/>
 
 ### Grid Head
 
@@ -166,11 +223,69 @@ Container for wrapping the calendar cells.
 
 <!-- @include: @/meta/RangeCalendarCell.md -->
 
+<DataAttributesTable 
+  :data="[ 
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    }, 
+  ]"
+/>
+
 ### Cell Trigger
 
 Interactable container for displaying the cell dates. Clicking it selects the date.
 
 <!-- @include: @/meta/RangeCalendarCellTrigger.md -->
+
+<DataAttributesTable 
+  :data="[
+    {
+      attribute: '[data-selected]',
+      values: 'Present when selected',
+    },
+    {
+      attribute: '[data-value]',
+      values: 'The ISO string value of the date.',
+    },
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    },
+    {
+      attribute: '[data-unavailable]',
+      values: 'Present when unavailable',
+    },
+    {
+      attribute: '[data-today]',
+      values: 'Present when today',
+    },
+    {
+      attribute: '[data-outside-view]',
+      values: 'Present when the date is outside the current month it is displayed in.',
+    },
+    {
+      attribute: '[data-outside-visible-view]',
+      values: 'Present when the date is outside the months that are visible on the calendar.',
+    },
+    {
+      attribute: '[data-selection-start]',
+      values: 'Present when the date is the start of the selection.',
+    },
+    {
+      attribute: '[data-selection-end]',
+      values: 'Present when the date is the end of the selection.',
+    },
+    {
+      attribute: '[data-highlighted]',
+      values: 'Present when the date is highlighted by the user as they select a range.',
+    },
+    {
+      attribute: '[data-focused]',
+      values: 'Present when focused',
+    }
+  ]"
+/>
 
 ## Accessibility
 

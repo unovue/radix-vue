@@ -2,8 +2,7 @@
 
 title: Combobox
 description: Choose from a list of suggested values with full keyboard support.
-name: combobox
-badge: alpha
+name: combobox 
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/listbox
 ---
 

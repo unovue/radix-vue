@@ -132,7 +132,7 @@
   {
     'name': 'modelValue',
     'description': '',
-    'type': '{ start: CalendarDate | CalendarDateTime | ZonedDateTime; end: CalendarDate | CalendarDateTime | ZonedDateTime; }'
+    'type': '{ start: DateValue | undefined; end: DateValue | undefined; }'
   },
   {
     'name': 'segments',

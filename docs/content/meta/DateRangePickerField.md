@@ -6,5 +6,10 @@
     'name': 'segments',
     'description': '',
     'type': '{ start: { part: SegmentPart; value: string; }[]; end: { part: SegmentPart; value: string; }[]; }'
+  },
+  {
+    'name': 'modelValue',
+    'description': '',
+    'type': '{ start: DateValue | undefined; end: DateValue | undefined; }'
   }
 ]" />

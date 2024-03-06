@@ -14,5 +14,11 @@
     'type': 'boolean | ScrollBodyOption',
     'required': false,
     'default': 'true'
+  },
+  {
+    'name': 'useId',
+    'description': '<p>The global <code>useId</code> injection as a workaround for preventing hydration issue.</p>\n',
+    'type': '(() => string)',
+    'required': false
   }
 ]" />

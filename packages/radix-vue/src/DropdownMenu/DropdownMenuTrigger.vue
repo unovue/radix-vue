@@ -3,7 +3,6 @@ import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose, useId } from '@/shared'
 
 export interface DropdownMenuTriggerProps extends PrimitiveProps {
-  id?: string
   /** When `true`, prevents the user from interacting with item */
   disabled?: boolean
 }
@@ -29,7 +28,7 @@ onMounted(() => {
   rootContext.triggerElement = triggerElement
 })
 
-rootContext.triggerId ||= useId(props.id, 'radix-vue-dropdown-menu-trigger')
+rootContext.triggerId ||= useId(undefined, 'radix-vue-dropdown-menu-trigger')
 </script>
 
 <template>

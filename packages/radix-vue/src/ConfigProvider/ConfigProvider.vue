@@ -23,6 +23,9 @@ export interface ConfigProviderProps {
    * @type boolean | ScrollBodyOption
    */
   scrollBody?: boolean | ScrollBodyOption
+  /**
+   * The global `useId` injection as a workaround for preventing hydration issue.
+   */
   useId?: () => string
 }
 </script>

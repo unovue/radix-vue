@@ -7,7 +7,6 @@ import type {
 export type PopoverContentEmits = PopoverContentImplEmits
 
 export interface PopoverContentProps extends PopoverContentImplProps {
-  id?: string
   /**
    * Used to force mounting when more control is needed. Useful when
    * controlling animation with Vue animation libraries.

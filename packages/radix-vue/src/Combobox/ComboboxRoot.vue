@@ -2,7 +2,7 @@
 import type { Ref } from 'vue'
 import type { Direction } from '@/shared/types'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useDirection, useFormControl, useForwardExpose, useId } from '@/shared'
+import { createContext, useDirection, useFormControl, useForwardExpose } from '@/shared'
 import { createCollection } from '@/Collection'
 
 export type AcceptableValue = string | number | boolean | Record<string, any>
@@ -224,7 +224,7 @@ provideComboboxRootContext({
   open,
   onOpenChange,
   filteredOptions,
-  contentId: useId(),
+  contentId: '',
   inputElement,
   onInputElementChange: val => inputElement.value = val,
   onInputNavigation: async (val) => {

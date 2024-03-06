@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref, VNode } from 'vue'
 import type { Direction } from '../shared/types'
-import { createContext, useDirection, useFormControl, useId } from '@/shared'
+import { createContext, useDirection, useFormControl } from '@/shared'
 
 export interface SelectRootProps {
   /** The controlled open state of the Select. Can be bind as `v-model:open`. */
@@ -107,7 +107,7 @@ provideSelectRootContext({
   onValueElementHasChildrenChange: (hasChildren) => {
     valueElementHasChildren.value = hasChildren
   },
-  contentId: useId(),
+  contentId: '',
   modelValue,
   onValueChange: (value) => {
     modelValue.value = value

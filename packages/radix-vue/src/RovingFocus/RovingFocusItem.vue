@@ -22,8 +22,7 @@ const props = withDefaults(defineProps<RovingFocusItemProps>(), {
 })
 
 const context = injectRovingFocusGroupContext()
-const autoId = useId()
-const id = computed(() => props.tabStopId || autoId)
+const id = computed(() => props.tabStopId || useId())
 const isCurrentTabStop = computed(
   () => context.currentTabStopId.value === id.value,
 )

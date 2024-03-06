@@ -15,10 +15,13 @@ let count = 0
  * returned. Otherwise, the `useId` function from the `injectConfigProviderContext` is called to
  * generate an id in the format `radix-` and returned.
  */
-export function useId(deterministicId?: string | null | undefined) {
-  const { useId } = injectConfigProviderContext({
-    useId: () => `radix-${++count}`,
-  })
+export function useId(deterministicId?: string | null | undefined, prefix = 'radix') {
+  if (deterministicId)
+    return deterministicId
 
-  return deterministicId ?? useId?.() ?? `radix-${++count}`
+  const { useId } = injectConfigProviderContext({ useId: undefined })
+  if (useId && typeof useId === 'function')
+    return `${prefix}-${useId()}`
+
+  return `${prefix}-${++count}`
 }

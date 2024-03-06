@@ -21,7 +21,7 @@ import { Primitive } from '@/Primitive'
 const props = defineProps<ComboboxGroupProps>()
 
 const { currentRef, currentElement } = useForwardExpose()
-const id = useId()
+const id = useId(undefined, 'radix-vue-combobox-group')
 
 const rootContext = injectComboboxRootContext()
 const hasOptions = ref(false)

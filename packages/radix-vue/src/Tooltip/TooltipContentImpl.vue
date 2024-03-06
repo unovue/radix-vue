@@ -2,7 +2,7 @@
 import type { VNode } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import type { PopperContentProps } from '@/Popper'
-import { useForwardExpose } from '@/shared'
+import { useForwardExpose, useId } from '@/shared'
 
 export type TooltipContentImplEmits = {
   /** Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault` */
@@ -61,6 +61,7 @@ const props = withDefaults(defineProps<TooltipContentImplProps>(), {
 const emits = defineEmits<TooltipContentImplEmits>()
 
 const rootContext = injectTooltipRootContext()
+rootContext.contentId ||= useId(undefined, 'radix-vue-tooltip-content')
 
 const { forwardRef } = useForwardExpose()
 const slot = useSlots()

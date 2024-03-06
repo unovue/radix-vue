@@ -2,7 +2,7 @@
 import type { Ref } from 'vue'
 import type { Direction } from '../shared/types'
 import type { MenuEmits, MenuProps } from '@/Menu'
-import { createContext, useDirection, useForwardExpose, useId } from '@/shared'
+import { createContext, useDirection, useForwardExpose } from '@/shared'
 
 export interface DropdownMenuRootProps extends MenuProps {
   /** The open state of the dropdown menu when it is initially rendered. Use when you do not need to control its open state. */
@@ -54,9 +54,9 @@ provideDropdownMenuRootContext({
   onOpenToggle: () => {
     open.value = !open.value
   },
-  triggerId: useId(),
+  triggerId: '',
   triggerElement,
-  contentId: useId(),
+  contentId: '',
   modal,
   dir,
 })

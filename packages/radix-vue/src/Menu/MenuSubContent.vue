@@ -22,7 +22,7 @@ import { injectMenuContext, injectMenuRootContext } from './MenuRoot.vue'
 import { injectMenuSubContext } from './MenuSub.vue'
 import { SUB_CLOSE_KEYS } from './utils'
 import { Presence } from '@/Presence'
-import { useForwardExpose, useForwardPropsEmits } from '@/shared'
+import { useForwardExpose, useForwardPropsEmits, useId } from '@/shared'
 
 const props = withDefaults(defineProps<MenuSubContentProps>(), {
   prioritizePosition: true,
@@ -36,6 +36,8 @@ const rootContext = injectMenuRootContext()
 const menuSubContext = injectMenuSubContext()
 
 const { forwardRef, currentElement: subContentElement } = useForwardExpose()
+
+menuSubContext.contentId ||= useId(undefined, 'radix-vue-menu-sub-content')
 </script>
 
 <template>

@@ -11,8 +11,9 @@ import MenuItemImpl from './MenuItemImpl.vue'
 import { injectMenuContext, injectMenuRootContext } from './MenuRoot.vue'
 import { injectMenuSubContext } from './MenuSub.vue'
 import { injectMenuContentContext } from './MenuContentImpl.vue'
-import MenuAnchor from './MenuAnchor.vue'
+import { useId } from '@/shared'
 import { SUB_OPEN_KEYS, getOpenState, isMouseEvent } from './utils'
+import MenuAnchor from './MenuAnchor.vue'
 
 const props = defineProps<MenuSubTriggerProps>()
 
@@ -22,6 +23,8 @@ const subContext = injectMenuSubContext()
 const contentContext = injectMenuContentContext()
 
 const openTimerRef = ref<number | null>(null)
+
+subContext.triggerId ||= useId(undefined, 'radix-vue-menu-sub-trigger')
 
 function clearOpenTimer() {
   if (openTimerRef.value)

@@ -115,7 +115,7 @@ const CHECK_ITEMS = ['Always Show Bookmarks Bar', 'Always Show Full URLs']
       </MenubarPortal>
     </MenubarMenu>
 
-    <MenubarMenu>
+    <MenubarMenu value="Edit">
       <MenubarTrigger
         class="py-2 px-3 outline-none select-none font-semibold leading-none rounded text-grass11 text-[13px] flex items-center justify-between gap-[2px] data-[highlighted]:bg-green4 data-[state=open]:bg-green4"
       >
@@ -206,7 +206,7 @@ const CHECK_ITEMS = ['Always Show Bookmarks Bar', 'Always Show Full URLs']
       </MenubarPortal>
     </MenubarMenu>
 
-    <MenubarMenu>
+    <MenubarMenu value="View">
       <MenubarTrigger
         class="py-2 px-3 outline-none select-none font-semibold leading-none rounded text-grass11 text-[13px] flex items-center justify-between gap-[2px] data-[highlighted]:bg-green4 data-[state=open]:bg-green4"
       >
@@ -276,7 +276,7 @@ const CHECK_ITEMS = ['Always Show Bookmarks Bar', 'Always Show Full URLs']
       </MenubarPortal>
     </MenubarMenu>
 
-    <MenubarMenu>
+    <MenubarMenu value="Profiles">
       <MenubarTrigger
         class="py-2 px-3 outline-none select-none font-semibold leading-none rounded text-grass11 text-[13px] flex items-center justify-between gap-[2px] data-[highlighted]:bg-green4 data-[state=open]:bg-green4"
       >

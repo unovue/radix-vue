@@ -13,7 +13,7 @@ export interface DropdownMenuContentProps extends MenuContentProps {}
 import { ref } from 'vue'
 import { injectDropdownMenuRootContext } from './DropdownMenuRoot.vue'
 import { MenuContent } from '@/Menu'
-import { useForwardExpose, useForwardPropsEmits } from '@/shared'
+import { useForwardExpose, useForwardPropsEmits, useId } from '@/shared'
 
 const props = defineProps<DropdownMenuContentProps>()
 const emits = defineEmits<DropdownMenuContentEmits>()
@@ -37,6 +37,8 @@ function handleCloseAutoFocus(event: Event) {
   // Always prevent auto focus because we either focus manually or want user agent focus
   event.preventDefault()
 }
+
+rootContext.contentId ||= useId(undefined, 'radix-vue-dropdown-menu-content')
 </script>
 
 <template>

@@ -112,7 +112,7 @@ provideNavigationMenuContext({
   isRootMenu: true,
   modelValue,
   previousValue,
-  baseId: useId(),
+  baseId: useId(undefined, 'radix-navigation-menu'),
   dir,
   orientation: props.orientation,
   rootNavigationMenu,

@@ -58,7 +58,7 @@ const isSelected = computed(() =>
 )
 
 const isFocused = computed(() => isEqual(rootContext.selectedValue.value, props.value))
-const textId = useId()
+const textId = useId(undefined, 'radix-vue-combobox-item')
 
 const isInOption = computed(() =>
   rootContext.isUserInputted.value

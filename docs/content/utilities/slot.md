@@ -1,4 +1,4 @@
---- 
+---
 title: Slot
 description: Merges its props onto its immediate child.
 ---
@@ -12,12 +12,12 @@ Merges its props onto its immediate child.
 </Description>
 
 ::: info Question
-How is this component different from [Vue native slot](https://vuejs.org/guide/components/slots.html)? 
+How is this component different from [Vue native slot](https://vuejs.org/guide/components/slots.html)?
 
 A: The biggest different is how it handles the `attributes` assigned to it.
 :::
 
- 
+
 
 Native slot treat any binded value as [Scoped Slots](https://vuejs.org/guide/components/slots.html#scoped-slots), where the values will be exposed to the parent template and be consumed.
 
@@ -44,10 +44,10 @@ Say we want to assign an `id` attribute to whatever component/element that was r
   <Comp>
 <template>
 ```
-(You can check out 
+(You can check out
 [Vue SFC Playground](https://play.vuejs.org/#eNp9UrFOwzAQ/ZWTly4oUelWhUgFdYABKmD0EpJr45LYln1JK1X5d84OTQEB2/m9d+fnez6JlbVJ36FYisyXTlkCj9TZXGrVWuMITuBwCwNsnWlhxtLZRN2Z1o64FEkaTmGUFFKD1Fk6zuNJfCBsbVMQ8gkgq+f5xhnr0xWRU28doQelwTeG4FB4PSMoC+cUVmB6dFnKDbEx3BErrrmNjM4VO65N11RQFz2Cqm6kmF8vpMjST0XsjPa4zNLJirgS5Eujt2qX7L3RvINT0EpRslY16J4sKaO9FEuITOCKpjGHh4iR6/DqjJc1lu+/4Ht/DJgUG4ceXc/7mTgq3A5ppNcvj3jkeiJbU3UNq/8hn9GbpgseR9ltpyu2/UUX3d7HuJTevfr1kVD786OC0aAcol4KTi+s6a+nX+wukkXsk3rgLZ6TD5/oW9C895jpJZScvwUjP4IYPgAfN9Yc) and see that the `id` wasn't being inheritted.)
 
- 
+
 
 This would be troublesome if you want to ensure some attributes are being passed onto certain element, maybe for accessibility reason.
 
@@ -77,5 +77,4 @@ import { Slot } from 'radix-vue'
   <Comp>
 <template>
 ```
- 
- 
+

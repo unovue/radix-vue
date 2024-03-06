@@ -19,6 +19,7 @@ export default defineConfig({
     coverage: {
       provider: 'istanbul', // or 'v8'
     },
+    globalSetup: './vitest.global.ts',
     setupFiles: './vitest.setup.ts',
     server: {
       deps: {

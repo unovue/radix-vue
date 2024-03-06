@@ -6,7 +6,8 @@ import { type Fn, isClient, isIOS, tryOnBeforeUnmount } from '@vueuse/shared'
 import { computed, nextTick, ref, watch } from 'vue'
 import { defu } from 'defu'
 import { injectConfigProviderContext } from '@/ConfigProvider/ConfigProvider.vue'
-import { useId } from '@/shared/useId'
+
+import { nanoid } from 'nanoid/non-secure'
 
 const useBodyLockStackCount = createSharedComposable(() => {
   const map = ref<Map<string, boolean>>(new Map())
@@ -96,7 +97,7 @@ const useBodyLockStackCount = createSharedComposable(() => {
 })
 
 export function useBodyScrollLock(initialState?: boolean | undefined) {
-  const id = useId()
+  const id = nanoid(6)
   const map = useBodyLockStackCount()
 
   map.value.set(id, initialState ?? false)

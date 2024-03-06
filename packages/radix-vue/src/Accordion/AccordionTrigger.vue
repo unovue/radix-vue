@@ -5,6 +5,7 @@ export interface AccordionTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
+import { useId } from '@/shared'
 import { injectAccordionItemContext } from './AccordionItem.vue'
 import { injectAccordionRootContext } from './AccordionRoot.vue'
 
@@ -15,6 +16,7 @@ const props = defineProps<AccordionTriggerProps>()
 const rootContext = injectAccordionRootContext()
 const itemContext = injectAccordionItemContext()
 
+itemContext.triggerId ||= useId(undefined, 'radix-vue-accordion-trigger')
 function changeItem() {
   if (itemContext.disabled.value)
     return

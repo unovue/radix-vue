@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { Ref } from 'vue'
-import { createContext, useForwardExpose, useId } from '@/shared'
+import { createContext, useForwardExpose } from '@/shared'
 
 export interface TooltipRootProps {
   /**
@@ -126,7 +126,7 @@ function handleDelayedOpen() {
 }
 
 provideTooltipRootContext({
-  contentId: useId(),
+  contentId: '',
   open,
   stateAttribute,
   trigger,

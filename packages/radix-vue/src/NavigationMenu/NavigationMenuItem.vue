@@ -47,7 +47,7 @@ const collectionItems = injectCollection()
 
 const context = injectNavigationMenuContext()
 
-const value = props.value || useId()
+const value = useId(props.value)
 const triggerRef = ref<HTMLElement>()
 const focusProxyRef = ref<HTMLElement>()
 

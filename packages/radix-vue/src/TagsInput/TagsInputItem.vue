@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useForwardExpose, useId } from '@/shared'
+import { createContext, useForwardExpose } from '@/shared'
 import { type Ref, computed, toRefs } from 'vue'
 import { injectTagsInputRootContext } from './TagsInputRoot.vue'
 
@@ -33,14 +33,13 @@ const context = injectTagsInputRootContext()
 const { forwardRef, currentElement } = useForwardExpose()
 const isSelected = computed(() => context.selectedElement.value === currentElement.value)
 
-const textId = useId()
 const disabled = computed(() => props.disabled || context.disabled.value)
 
-provideTagsInputItemContext({
+const itemContext = provideTagsInputItemContext({
   value,
   isSelected,
   disabled,
-  textId,
+  textId: '',
 })
 </script>
 
@@ -50,7 +49,7 @@ provideTagsInputItemContext({
       :ref="forwardRef"
       :as="as"
       :as-child="asChild"
-      :aria-labelledby="textId"
+      :aria-labelledby="itemContext.textId"
       :aria-current="isSelected"
       :data-disabled="disabled ? '' : undefined"
       :data-state="isSelected ? 'active' : 'inactive'"

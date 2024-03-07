@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
+import { useForwardExpose, useId } from '@/shared'
 
 export type TooltipTriggerDataState =
   | 'closed'
@@ -24,6 +24,8 @@ const props = withDefaults(defineProps<TooltipTriggerProps>(), {
 })
 const rootContext = injectTooltipRootContext()
 const providerContext = injectTooltipProviderContext()
+
+rootContext.contentId ||= useId(undefined, 'radix-vue-tooltip-content')
 
 const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 

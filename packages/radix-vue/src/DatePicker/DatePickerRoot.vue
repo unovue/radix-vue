@@ -114,6 +114,7 @@ const defaultDate = getDefaultDate({
 
 const placeholder = useVModel(props, 'placeholder', emits, {
   defaultValue: props.defaultPlaceholder ?? defaultDate.copy(),
+  passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
 
 const open = useVModel(props, 'open', emits, {

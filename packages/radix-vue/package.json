@@ -1,7 +1,7 @@
 {
   "name": "radix-vue",
   "type": "module",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Vue port for Radix UI Primitives.",
   "author": "Radix Vue Contributors (https://github.com/radix-vue)",
   "license": "MIT",

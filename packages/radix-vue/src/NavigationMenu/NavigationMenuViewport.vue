@@ -20,7 +20,7 @@ import {
 } from 'vue'
 import { useResizeObserver } from '@vueuse/core'
 import { injectNavigationMenuContext } from './NavigationMenuRoot.vue'
-import { getOpenState } from './utils'
+import { getOpenState, whenMouse } from './utils'
 import {
   Primitive,
 } from '@/Primitive'
@@ -85,7 +85,7 @@ useResizeObserver(content, () => {
         ['--radix-navigation-menu-viewport-height' as any]: size ? `${size?.height}px` : undefined,
       }"
       @pointerenter="menuContext.onContentEnter(menuContext.modelValue.value)"
-      @pointerleave="menuContext.onContentLeave()"
+      @pointerleave="whenMouse(() => menuContext.onContentLeave())"
     >
       <slot />
     </Primitive>

@@ -69,3 +69,7 @@ export function removeFromTabOrder(candidates: HTMLElement[]) {
     })
   }
 }
+
+export function whenMouse<E extends PointerEvent>(handler: (event?: E) => void) {
+  return (event: E) => (event.pointerType === 'mouse' ? handler(event) : undefined)
+}

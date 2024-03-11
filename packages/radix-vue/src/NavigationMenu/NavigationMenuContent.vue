@@ -42,8 +42,10 @@ const open = computed(() => itemContext.value === menuContext.modelValue.value)
 // We persist the last active content value as the viewport may be animating out
 // and we want the content to remain mounted for the lifecycle of the viewport.
 const isLastActiveValue = computed(() => {
-  if (!menuContext.modelValue.value && menuContext.previousValue.value)
-    return (menuContext.previousValue.value === itemContext.value)
+  if (menuContext.viewport.value) {
+    if (!menuContext.modelValue.value && menuContext.previousValue.value)
+      return (menuContext.previousValue.value === itemContext.value)
+  }
   return false
 })
 

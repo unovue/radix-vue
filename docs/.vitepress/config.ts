@@ -100,6 +100,7 @@ export default defineConfig({
           { text: 'Composition', link: '/guides/composition' },
           { text: 'Server side rendering', link: '/guides/server-side-rendering' },
           { text: 'Namespaced', link: '/guides/namespaced-components' },
+          { text: 'Internationalization (RTL)', link: '/guides/i18n' },
           { text: `Dates ${BadgeHTML('New')}`, link: '/guides/dates' },
           // { text: `Namespaced ${BadgeHTML('New')}`, link: '/guides/namespaced-components' },
         ],

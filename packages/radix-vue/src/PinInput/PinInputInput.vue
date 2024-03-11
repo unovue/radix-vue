@@ -27,8 +27,14 @@ const isNumbericMode = computed(() => context.type.value === 'number')
 const isPasswordMode = computed(() => context.mask.value)
 
 const inputRef = ref()
-function handleInput(event: Event) {
+function handleInput(event: InputEvent) {
   const target = event.target as HTMLInputElement
+
+  if ((event.data?.length ?? 0) > 1) {
+    handleMultipleCharacter(target.value)
+    return
+  }
+
   if (isNumbericMode.value && !/^[0-9]*$/.test(target.value)) {
     target.value = target.value.replace(/\D/g, '')
     return
@@ -98,8 +104,12 @@ function handlePaste(event: ClipboardEvent) {
   if (!clipboardData)
     return
 
-  const tempModelValue = [...context.modelValue.value]
   const values = clipboardData.getData('text')
+  handleMultipleCharacter(values)
+}
+
+function handleMultipleCharacter(values: string) {
+  const tempModelValue = [...context.modelValue.value]
   const initialIndex = values.length >= inputElements.value.length ? 0 : props.index
   const lastIndex = Math.min(initialIndex + values.length, inputElements.value.length)
   for (let i = initialIndex; i < lastIndex; i++) {

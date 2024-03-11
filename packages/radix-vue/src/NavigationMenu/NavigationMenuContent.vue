@@ -1,5 +1,4 @@
 <script lang="ts">
-import type { PointerDownOutsideEvent } from '@/DismissableLayer'
 import type { NavigationMenuContentImplEmits, NavigationMenuContentImplProps } from './NavigationMenuContentImpl.vue'
 
 export type NavigationMenuContentEmits = NavigationMenuContentImplEmits
@@ -17,7 +16,7 @@ export interface NavigationMenuContentProps extends NavigationMenuContentImplPro
 import { computed } from 'vue'
 import { injectNavigationMenuContext } from './NavigationMenuRoot.vue'
 import { injectNavigationMenuItemContext } from './NavigationMenuItem.vue'
-import { getOpenState } from './utils'
+import { getOpenState, whenMouse } from './utils'
 import { Presence } from '@/Presence'
 import NavigationMenuContentImpl from './NavigationMenuContentImpl.vue'
 import { useEmitAsProps, useForwardExpose } from '@/shared'
@@ -46,12 +45,6 @@ const isLastActiveValue = computed(() => {
     return (menuContext.previousValue.value === itemContext.value)
   return false
 })
-
-function handlePointerDown(ev: PointerDownOutsideEvent) {
-  emits('pointerDownOutside', ev)
-  if (!ev.preventDefault)
-    menuContext.onContentLeave()
-}
 </script>
 
 <template>
@@ -65,8 +58,8 @@ function handlePointerDown(ev: PointerDownOutsideEvent) {
         }"
         v-bind="{ ...$attrs, ...props, ...emitsAsProps }"
         @pointerenter="menuContext.onContentEnter(itemContext.value)"
-        @pointerleave="menuContext.onContentLeave()"
-        @pointerdown="handlePointerDown"
+        @pointerleave="whenMouse(() => menuContext.onContentLeave())"
+        @pointer-down-outside="emits('pointerDownOutside', $event)"
         @focus-outside="emits('focusOutside', $event)"
         @interact-outside="emits('interactOutside', $event)"
       >

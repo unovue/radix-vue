@@ -100,7 +100,7 @@ function handlePointerDownOutside(ev: PointerDownOutsideEvent) {
       item.contains(target),
     )
     const isRootViewport
-      = menuContext.isRootMenu && menuContext.viewport.value?.contains(target)
+    = menuContext.isRootMenu && menuContext.viewport.value?.contains(target)
 
     if (isTrigger || isRootViewport || !menuContext.isRootMenu)
       ev.preventDefault()
@@ -112,6 +112,7 @@ watchEffect((cleanupFn) => {
   if (menuContext.isRootMenu && content) {
     // Bubble dismiss to the root content node and focus its trigger
     const handleClose = () => {
+      menuContext.onItemDismiss()
       itemContext.onRootContentClose()
       if (content.contains(document.activeElement))
         itemContext.triggerRef.value?.focus()

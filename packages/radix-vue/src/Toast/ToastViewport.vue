@@ -11,6 +11,7 @@ export interface ToastViewportProps extends PrimitiveProps {
   /**
    * An author-localized label for the toast viewport to provide context for screen reader users
    * when navigating page landmarks. The available `{hotkey}` placeholder will be replaced for you.
+   * Alternatively, you can pass in a custom function to generate the label.
    * @defaultValue 'Notifications ({hotkey})'
    */
   label?: string | ((hotkey: string) => string)

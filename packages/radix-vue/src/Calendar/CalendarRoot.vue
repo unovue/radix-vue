@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type DateValue, isSameDay } from '@internationalized/date'
+import { type DateValue, isSameDay, temporalToString } from 'flat-internationalized-date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
@@ -181,13 +181,12 @@ const defaultDate = getDefaultDate({
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: props.defaultPlaceholder ?? defaultDate.copy(),
+  defaultValue: props.defaultPlaceholder ?? { ...defaultDate },
   passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
 
 function onPlaceholderChange(value: DateValue) {
-  const dateRef = defaultDate.set({ ...placeholder.value })
-  placeholder.value = dateRef.set({ ...value })
+  placeholder.value = { ...value }
 }
 
 const {
@@ -232,30 +231,29 @@ const {
 watch(modelValue, (value) => {
   if (Array.isArray(value) && value.length) {
     const lastValue = value[value.length - 1]
-    if (lastValue && placeholder.value.toString() !== lastValue.toString())
+    if (lastValue && temporalToString(placeholder.value) !== temporalToString(lastValue))
       onPlaceholderChange(lastValue)
   }
-  else if (!Array.isArray(value) && value && placeholder.toString() !== value.toString()) {
+  else if (!Array.isArray(value) && value && temporalToString(placeholder.value) !== temporalToString(value)) {
     onPlaceholderChange(value)
   }
 })
 
 function onDateChange(value: DateValue) {
-  const dateRef = defaultDate
   if (!multiple.value) {
     if (!modelValue.value) {
-      modelValue.value = dateRef.set({ ...value })
+      modelValue.value = { ...value }
       return
     }
 
     if (!preventDeselect.value && isSameDay(modelValue.value as DateValue, value))
       modelValue.value = undefined
     else
-      modelValue.value = dateRef.set({ ...value })
+      modelValue.value = { ...value }
   }
   else if (Array.isArray(modelValue.value)) {
     if (!modelValue.value) {
-      modelValue.value = [dateRef.set({ ...value })]
+      modelValue.value = [{ ...value }]
 
       return
     }
@@ -270,30 +268,30 @@ function onDateChange(value: DateValue) {
         modelValue.value = []
         return
       }
-      modelValue.value = next.map(date => dateRef.set({ ...date }))
+      modelValue.value = next.map(date => ({ ...date }))
     }
   }
 }
 
 const getMonths = computed(() => {
-  const dateObj = defaultDate.set({ ...placeholder.value })
+  const dateObj = { ...placeholder.value }
   return createYear({
     dateObj,
-    maxValue: defaultDate.set({ ...minValue.value }),
-    minValue: defaultDate.set({ ...maxValue.value }),
+    maxValue: minValue.value,
+    minValue: maxValue.value,
     numberOfMonths: numberOfMonths.value,
     pagedNavigation: pagedNavigation.value,
   })
 })
 
 function getYears({ startIndex, endIndex }: { startIndex?: number; endIndex: number }) {
-  const dateObj = defaultDate
+  const dateObj = { ...placeholder.value }
   return createDecade({
     dateObj,
     startIndex,
     endIndex,
-    maxValue: defaultDate.set({ ...minValue.value }),
-    minValue: defaultDate.set({ ...maxValue.value }),
+    maxValue: minValue.value,
+    minValue: maxValue.value,
   })
 }
 
@@ -347,7 +345,7 @@ provideCalendarRootContext({
     :data-invalid="isInvalid ? '' : undefined"
   >
     <slot
-      :date="defaultDate.set({ ...placeholder })"
+      :date="placeholder"
       :grid="grid"
       :week-days="weekdays"
       :formatter="formatter"

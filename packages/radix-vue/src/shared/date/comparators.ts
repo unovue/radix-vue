@@ -2,7 +2,7 @@
   * Implementation ported from https://github.com/melt-ui/melt-ui/blob/develop/src/lib/internal/helpers/date/utils.ts
 */
 
-import { CalendarDate, CalendarDateTime, type DateValue, ZonedDateTime, getDayOfWeek, getLocalTimeZone, parseDate, parseDateTime, parseZonedDateTime } from '@internationalized/date'
+import { type DateValue, add, compare, createCalendarDate, createCalendarDateTime, getDayOfWeek, getLocalTimeZone, isCalendarDateTime, isZonedDateTime, toDate as libToDate, parseDate, parseDateTime, parseZonedDateTime, set, subtract } from 'flat-internationalized-date'
 
 export type Granularity = 'day' | 'hour' | 'minute' | 'second'
 
@@ -51,9 +51,9 @@ export function getDefaultDate(props?: GetDefaultDateProps): DateValue {
     const calendarDateTimeGranularities = ['hour', 'minute', 'second']
 
     if (calendarDateTimeGranularities.includes(granularity ?? 'day'))
-      return new CalendarDateTime(year, month, day, 0, 0, 0)
+      return createCalendarDateTime({ year, month, day, hour: 0, minute: 0, millisecond: 0 })
 
-    return new CalendarDate(year, month, day)
+    return createCalendarDate({ year, month, day })
   }
 }
 
@@ -65,14 +65,18 @@ export function getDefaultDate(props?: GetDefaultDateProps): DateValue {
  * strings, to the same type being used by the date component.
  */
 export function parseStringToDateValue(dateStr: string, referenceVal: DateValue): DateValue {
-  if (referenceVal instanceof ZonedDateTime)
+  if (isZonedDateTime(referenceVal))
     return parseZonedDateTime(dateStr)
 
-  else if (referenceVal instanceof CalendarDateTime)
+  else if (isCalendarDateTime(referenceVal))
     return parseDateTime(dateStr)
 
   else
     return parseDate(dateStr)
+}
+
+export function hasTime(dateValue: DateValue) {
+  return isCalendarDateTime(dateValue) || isZonedDateTime(dateValue)
 }
 
 /**
@@ -81,22 +85,10 @@ export function parseStringToDateValue(dateStr: string, referenceVal: DateValue)
  * If no timezone is provided, the date will be converted to the local timezone.
  */
 export function toDate(dateValue: DateValue, tz: string = getLocalTimeZone()) {
-  if (dateValue instanceof ZonedDateTime)
-    return dateValue.toDate()
+  if (isZonedDateTime(dateValue))
+    return libToDate(dateValue, dateValue.timezone)
   else
-    return dateValue.toDate(tz)
-}
-
-export function isCalendarDateTime(dateValue: DateValue): dateValue is CalendarDateTime {
-  return dateValue instanceof CalendarDateTime
-}
-
-export function isZonedDateTime(dateValue: DateValue): dateValue is ZonedDateTime {
-  return dateValue instanceof ZonedDateTime
-}
-
-export function hasTime(dateValue: DateValue) {
-  return isCalendarDateTime(dateValue) || isZonedDateTime(dateValue)
+    return libToDate(dateValue, tz)
 }
 
 /**
@@ -114,7 +106,7 @@ export function getDaysInMonth(date: Date | DateValue) {
     return new Date(year, month, 0).getDate()
   }
   else {
-    return date.set({ day: 100 }).day
+    return set(date, { day: 100 }).day
   }
 }
 
@@ -126,7 +118,7 @@ export function getDaysInMonth(date: Date | DateValue) {
  * @see {@link isBeforeOrSame} for inclusive
  */
 export function isBefore(dateToCompare: DateValue, referenceDate: DateValue) {
-  return dateToCompare.compare(referenceDate) < 0
+  return compare(dateToCompare, referenceDate) < 0
 }
 
 /**
@@ -137,7 +129,7 @@ export function isBefore(dateToCompare: DateValue, referenceDate: DateValue) {
  * @see {@link isAfterOrSame} for inclusive
  */
 export function isAfter(dateToCompare: DateValue, referenceDate: DateValue) {
-  return dateToCompare.compare(referenceDate) > 0
+  return compare(dateToCompare, referenceDate) > 0
 }
 
 /**
@@ -149,7 +141,7 @@ export function isAfter(dateToCompare: DateValue, referenceDate: DateValue) {
  * @see {@link isBefore} for non-inclusive
  */
 export function isBeforeOrSame(dateToCompare: DateValue, referenceDate: DateValue) {
-  return dateToCompare.compare(referenceDate) <= 0
+  return compare(dateToCompare, referenceDate) <= 0
 }
 
 /**
@@ -161,7 +153,7 @@ export function isBeforeOrSame(dateToCompare: DateValue, referenceDate: DateValu
  * @see {@link isAfter} for non-inclusive
  */
 export function isAfterOrSame(dateToCompare: DateValue, referenceDate: DateValue) {
-  return dateToCompare.compare(referenceDate) >= 0
+  return compare(dateToCompare, referenceDate) >= 0
 }
 
 /**
@@ -198,12 +190,12 @@ export function getLastFirstDayOfWeek<T extends DateValue = DateValue>(
   const day = getDayOfWeek(date, locale)
 
   if (firstDayOfWeek > day)
-    return date.subtract({ days: day + 7 - firstDayOfWeek }) as T
+    return subtract(date, { days: day + 7 - firstDayOfWeek }) as T
 
   if (firstDayOfWeek === day)
     return date as T
 
-  return date.subtract({ days: day - firstDayOfWeek }) as T
+  return subtract(date, { days: day - firstDayOfWeek }) as T
 }
 
 export function getNextLastDayOfWeek<T extends DateValue = DateValue>(
@@ -218,9 +210,9 @@ export function getNextLastDayOfWeek<T extends DateValue = DateValue>(
     return date as T
 
   if (day > lastDayOfWeek)
-    return date.add({ days: 7 - day + lastDayOfWeek }) as T
+    return add(date, { days: 7 - day + lastDayOfWeek }) as T
 
-  return date.add({ days: lastDayOfWeek - day }) as T
+  return add(date, { days: lastDayOfWeek - day }) as T
 }
 
 export function areAllDaysBetweenValid(
@@ -232,13 +224,13 @@ export function areAllDaysBetweenValid(
   if (isUnavailable === undefined && isDisabled === undefined)
     return true
 
-  let dCurrent = start.add({ days: 1 })
+  let dCurrent = add(start, { days: 1 })
   if (isDisabled?.(dCurrent) || isUnavailable?.(dCurrent))
     return false
 
   const dEnd = end
-  while (dCurrent.compare(dEnd) < 0) {
-    dCurrent = dCurrent.add({ days: 1 })
+  while (compare(dCurrent, dEnd) < 0) {
+    dCurrent = add(dCurrent, { days: 1 })
     if (isDisabled?.(dCurrent) || isUnavailable?.(dCurrent))
       return false
   }

@@ -3,9 +3,6 @@ export {
   type Matcher,
   getDefaultDate,
   parseStringToDateValue,
-  toDate,
-  isCalendarDateTime,
-  isZonedDateTime,
   hasTime,
   getDaysInMonth,
   isBefore,
@@ -17,6 +14,7 @@ export {
   getLastFirstDayOfWeek,
   getNextLastDayOfWeek,
   areAllDaysBetweenValid,
+  toDate,
 } from './comparators'
 export type {
   DateRange,

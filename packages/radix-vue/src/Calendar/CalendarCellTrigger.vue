@@ -6,11 +6,12 @@ import {
   isSameDay,
   isSameMonth,
   isToday,
-} from '@internationalized/date'
+  temporalToString,
+} from 'flat-internationalized-date'
 import { computed, nextTick } from 'vue'
 import { useKbd } from '@/shared'
 import {
-  parseStringToDateValue, toDate,
+  parseStringToDateValue,
 } from '@/shared/date'
 
 export interface CalendarCellTriggerProps extends PrimitiveProps {
@@ -34,7 +35,7 @@ const rootContext = injectCalendarRootContext()
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
 const labelText = computed(() => {
-  return rootContext.formatter.custom(toDate(props.day), {
+  return rootContext.formatter.custom(props.day, {
     weekday: 'long',
     month: 'long',
     day: 'numeric',
@@ -152,7 +153,7 @@ function handleArrowKey(e: KeyboardEvent) {
   }
 }
 const formattedTriggerText = computed(() => {
-  return rootContext.formatter.custom(props.day.toDate(getLocalTimeZone()), {
+  return rootContext.formatter.custom(props.day, {
     day: 'numeric',
   })
 })
@@ -167,7 +168,7 @@ const formattedTriggerText = computed(() => {
     data-radix-vue-calendar-cell-trigger
     :aria-disabled="isOutsideView || isDisabled || isUnavailable ? true : undefined"
     :data-selected="isSelectedDate ? true : undefined"
-    :data-value="day.toString()"
+    :data-value="temporalToString(day)"
     :data-disabled="isDisabled || isOutsideView ? '' : undefined"
     :data-unavailable="isUnavailable ? '' : undefined"
     :data-today="isDateToday ? '' : undefined"

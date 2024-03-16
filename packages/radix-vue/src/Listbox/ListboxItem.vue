@@ -15,12 +15,13 @@ import { computed } from 'vue'
 import type { PrimitiveProps } from '..'
 import type { AcceptableValue } from './utils'
 import isEqual from 'fast-deep-equal'
-import { handleAndDispatchCustomEvent } from '@/shared'
+import { handleAndDispatchCustomEvent, useId } from '@/shared'
 
 const props = withDefaults(defineProps<ListboxItemProps>(), {
   as: 'div',
 })
 
+const id = useId(undefined, 'radix-vue-listbox-item')
 const rootContext = injectListboxRootContext()
 
 const isSelected = computed(() => Array.isArray(rootContext.modelValue.value)
@@ -42,10 +43,16 @@ function handleSelectCustomEvent(ev: PointerEvent) {
   const eventDetail = { originalEvent: ev, value: props.value as T }
   handleAndDispatchCustomEvent(LISTBOX_SELECT, handleSelect, eventDetail)
 }
+
+function handleVirtualizedKeydown(event: KeyboardEvent) {
+  rootContext.virtualKeydownHook.trigger(event)
+}
 </script>
 
 <template>
   <RovingFocusItem
+    :id="id"
+    :tab-stop-id="id"
     role="option"
     :aria-selected="isSelected"
     :as="as"
@@ -54,6 +61,9 @@ function handleSelectCustomEvent(ev: PointerEvent) {
     :data-state="isSelected ? 'checked' : 'unchecked'"
     @pointerdown="handleSelectCustomEvent"
     @keyup.enter="handleSelectCustomEvent"
+    @keydown="event => {
+      if (rootContext.isVirtual.value) handleVirtualizedKeydown(event)
+    }"
   >
     <slot />
   </RovingFocusItem>

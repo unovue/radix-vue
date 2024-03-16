@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { DateValue } from 'flat-internationalized-date'
+import { type DateValue, temporalToString } from 'flat-internationalized-date'
 import type { DatePickerRootProps } from '../'
 import {
   DatePickerCalendar,
@@ -60,7 +60,7 @@ const props = defineProps<{ datePickerProps?: DatePickerRootProps; emits?: { 'on
           <DatePickerNext data-testid="next-button" />
         </DatePickerHeader>
 
-        <DatePickerGrid v-for="month in grid" :key="month.value.toString()" :data-testid="`grid-${month.value.month}`">
+        <DatePickerGrid v-for="month in grid" :key="temporalToString(month.value)" :data-testid="`grid-${month.value.month}`">
           <DatePickerGridHead :data-testid="`grid-head-${month.value.month}`">
             <DatePickerGridRow>
               <DatePickerHeadCell
@@ -80,7 +80,7 @@ const props = defineProps<{ datePickerProps?: DatePickerRootProps; emits?: { 'on
             >
               <DatePickerCell
                 v-for="(weekDate, d) in weekDates"
-                :key="weekDate.toString()"
+                :key="temporalToString(weekDate)"
                 :date="weekDate"
                 :data-testid="`cell-${weekDate.month}-${d}`"
               >

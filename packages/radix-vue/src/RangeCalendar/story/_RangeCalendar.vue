@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { DateValue } from 'flat-internationalized-date'
+import { type DateValue, temporalToString } from 'flat-internationalized-date'
 import type { RangeCalendarRootProps } from '../'
 import { RangeCalendarCell, RangeCalendarCellTrigger, RangeCalendarGrid, RangeCalendarGridBody, RangeCalendarGridHead, RangeCalendarGridRow, RangeCalendarHeadCell, RangeCalendarHeader, RangeCalendarHeading, RangeCalendarNext, RangeCalendarPrev, RangeCalendarRoot } from '../'
 
@@ -27,7 +27,7 @@ const props = defineProps<{
 
     <RangeCalendarGrid
       v-for="month in grid"
-      :key="month.value.toString()"
+      :key="temporalToString(month.value)"
       :data-testid="`grid-${month.value.month}`"
     >
       <RangeCalendarGridHead :data-testid="`grid-head-${month.value.month}`">
@@ -44,7 +44,7 @@ const props = defineProps<{
         <RangeCalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" data-week :data-testid="`grid-row-${month.value.month}-${index}`">
           <RangeCalendarCell
             v-for="(weekDate, d) in weekDates"
-            :key="weekDate.toString()"
+            :key="temporalToString(weekDate)"
             :data-testid="`cell-${weekDate.month}-${d}`"
             :date="weekDate"
           >

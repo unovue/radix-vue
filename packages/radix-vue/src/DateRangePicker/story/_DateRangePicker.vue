@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { DateValue } from 'flat-internationalized-date'
+import { type DateValue, temporalToString } from 'flat-internationalized-date'
 import type { DateRangePickerRootProps } from '../'
 import {
   DateRangePickerCalendar,
@@ -70,7 +70,7 @@ const props = defineProps<{ dateFieldProps?: DateRangePickerRootProps; emits?: {
           <DateRangePickerNext data-testid="next-button" />
         </DateRangePickerHeader>
 
-        <DateRangePickerGrid v-for="month in grid" :key="month.value.toString()" :data-testid="`grid-${month.value.month}`">
+        <DateRangePickerGrid v-for="month in grid" :key="temporalToString(month.value)" :data-testid="`grid-${month.value.month}`">
           <DateRangePickerGridHead :data-testid="`grid-head-${month.value.month}`">
             <DateRangePickerGridRow>
               <DateRangePickerHeadCell
@@ -90,7 +90,7 @@ const props = defineProps<{ dateFieldProps?: DateRangePickerRootProps; emits?: {
             >
               <DateRangePickerCell
                 v-for="(weekDate, d) in weekDates"
-                :key="weekDate.toString()"
+                :key="temporalToString(weekDate)"
                 :date="weekDate"
                 :data-testid="`cell-${weekDate.month}-${d}`"
               >

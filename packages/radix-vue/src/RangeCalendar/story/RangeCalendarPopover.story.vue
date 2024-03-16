@@ -67,7 +67,7 @@ const placeholder = ref(today(getLocalTimeZone())) as Ref<DateValue>
         <div
           class="flex flex-col space-y-4 pt-4 sm:flex-row sm:space-x-4 sm:space-y-0"
         >
-          <RangeCalendarGrid v-for="month in grid" :key="month.value.toString()" class="w-full border-collapse select-none space-y-1">
+          <RangeCalendarGrid v-for="month in grid" :key="temporalToString(month.value)" class="w-full border-collapse select-none space-y-1">
             <RangeCalendarGridHead>
               <RangeCalendarGridRow class="mb-1 grid w-full grid-cols-7">
                 <RangeCalendarHeadCell
@@ -82,7 +82,7 @@ const placeholder = ref(today(getLocalTimeZone())) as Ref<DateValue>
               <RangeCalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="grid grid-cols-7">
                 <RangeCalendarCell
                   v-for="weekDate in weekDates"
-                  :key="weekDate.toString()"
+                  :key="temporalToString(weekDate)"
                   :date="weekDate"
                   class="relative text-center text-sm !p-0"
                 >

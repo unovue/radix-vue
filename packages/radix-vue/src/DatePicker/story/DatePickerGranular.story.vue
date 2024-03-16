@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import DatePicker from './_DummyDatePicker.vue'
 
-import { CalendarDate, type DateValue } from '@internationalized/date'
+import { type DateValue, createCalendarDate } from 'flat-internationalized-date'
 import { type Ref, ref } from 'vue'
 
-const defaultValue = new CalendarDate(2024, 2, 20)
+const defaultValue = createCalendarDate({ year: 2024, month: 2, day: 20 })
 const modelValue = ref(defaultValue) as Ref<DateValue>
 
-const placeholder = new CalendarDate(2024, 4, 1)
+const placeholder = createCalendarDate({ year: 2024, month: 4, day: 1 })
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type DateValue } from '@internationalized/date'
+import { type DateValue, compare, set, temporalToString } from 'flat-internationalized-date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
@@ -11,7 +11,6 @@ import {
   type Matcher,
   type SegmentPart,
   type SegmentValueObj,
-  type SupportedLocale,
   areAllDaysBetweenValid,
   getDefaultDate,
   hasTime,
@@ -22,7 +21,7 @@ import { createContent, initializeSegmentValues, isSegmentNavigationKey, syncSeg
 export type DateRangeType = 'start' | 'end'
 
 type DateRangeFieldRootContext = {
-  locale: Ref<SupportedLocale>
+  locale: Ref<string>
   modelValue: Ref<{ start: DateValue | undefined;end: DateValue | undefined }>
   placeholder: Ref<DateValue>
   isDateUnavailable?: Matcher
@@ -59,7 +58,7 @@ export interface DateRangeFieldRootProps extends PrimitiveProps {
   /** The locale to use for formatting dates */
   minValue?: DateValue
   /** Whether or not the calendar is readonly */
-  locale?: SupportedLocale
+  locale?: string
 
   /** Whether or not the date field is disabled */
   disabled?: boolean
@@ -127,7 +126,7 @@ const defaultDate = getDefaultDate({
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: props.defaultPlaceholder ?? defaultDate.copy(),
+  defaultValue: props.defaultPlaceholder ?? { ...defaultDate },
   passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
 
@@ -225,15 +224,15 @@ const segmentContents = computed(() => ({
 
 const editableSegmentContents = computed(() => ({ start: segmentContents.value.start.filter(({ part }) => part !== 'literal'), end: segmentContents.value.end.filter(({ part }) => part !== 'literal') }))
 
-const startValue = ref(defaultDate.set({ ...modelValue.value.start })) as Ref<DateValue | undefined>
-const endValue = ref(defaultDate.set({ ...modelValue.value.end })) as Ref<DateValue | undefined>
+const startValue = ref(modelValue.value.start ? { ...modelValue.value.start } : undefined) as Ref<DateValue | undefined>
+const endValue = ref(modelValue.value.end ? { ...modelValue.value.end } : undefined) as Ref<DateValue | undefined>
 
 watch([startValue, endValue], ([startValue, endValue]): void => {
-  if (modelValue.value.start && modelValue.value.end && startValue && endValue && modelValue.value.start.toString() === startValue.toString() && modelValue.value.end.toString() === endValue.toString())
+  if (modelValue.value.start && modelValue.value.end && startValue && endValue && compare(modelValue.value.start, startValue) === 0 && compare(modelValue.value.end, endValue) === 0)
     return
 
   if (startValue && endValue) {
-    modelValue.value = { start: defaultDate.set({ ...startValue }), end: defaultDate.set({ ...endValue }) }
+    modelValue.value = { start: { ...startValue }, end: { ...endValue } }
     return
   }
 
@@ -250,14 +249,14 @@ watch(startSegmentValues, (value) => {
       }
     }
 
-    let dateRef = defaultDate.set({ ...placeholder.value })
+    let dateRef = { ...placeholder.value }
     Object.keys(updateObject).forEach((part) => {
       const value = updateObject[part as AnyExceptLiteral]
-      dateRef = dateRef.set({ [part]: value })
+      dateRef = set(dateRef, { [part]: value })
     })
-    if (startValue.value && startValue.value.toString() === dateRef.toString())
+    if (startValue.value && compare(startValue.value, dateRef) === 0)
       return
-    startValue.value = defaultDate.set({ ...dateRef })
+    startValue.value = { ...dateRef }
   }
 }, { deep: true })
 
@@ -271,26 +270,23 @@ watch(endSegmentValues, (value) => {
       }
     }
 
-    let dateRef = defaultDate.set({ ...placeholder.value })
+    let dateRef = { ...placeholder.value }
     Object.keys(updateObject).forEach((part) => {
       const value = updateObject[part as AnyExceptLiteral]
-      dateRef = dateRef.set({ [part]: value })
+      dateRef = set(dateRef, { [part]: value })
     })
-    if (endValue.value && endValue.value.toString() === dateRef.toString())
+    if (endValue.value && compare(endValue.value, dateRef) === 0)
       return
-    endValue.value = defaultDate.set({ ...dateRef })
+    endValue.value = { ...dateRef }
   }
 }, { deep: true })
 
 watch(modelValue, (value) => {
   if (value.start)
-    startValue.value = defaultDate.set({ ...value.start })
+    startValue.value = { ...value.start }
 
   if (value.end)
-    endValue.value = defaultDate.set({ ...value.end })
-
-  if (value.start !== undefined && placeholder.value.toString() !== value.start.toString())
-    placeholder.value = defaultDate.set({ ...value.start })
+    endValue.value = { ...value.end }
 })
 
 watch(startValue, (modelValue) => {
@@ -301,8 +297,8 @@ watch(startValue, (modelValue) => {
 })
 
 watch(modelValue, (value) => {
-  if (value.start !== undefined && placeholder.value.toString() !== value.start.toString())
-    placeholder.value = defaultDate.set({ ...value.start })
+  if (value.start !== undefined && compare(placeholder.value, value.start) !== 0)
+    placeholder.value = { ...value.start }
 })
 
 watch(endValue, (modelValue) => {
@@ -391,7 +387,7 @@ defineExpose({
     type="text"
     tabindex="-1"
     aria-hidden
-    :value="`${modelValue.start?.toString()} - ${modelValue.end?.toString()}`"
+    :value="`${modelValue.start ? temporalToString(modelValue.start) : ''} - ${modelValue.end ? temporalToString(modelValue.end) : ''}`"
     :name="name"
     :disabled="disabled"
     :required="required"

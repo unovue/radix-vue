@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import RangeCalendar from './_DummyRangeCalendar.vue'
-import { CalendarDate, type DateValue } from '@internationalized/date'
+import { type CalendarDate, type DateValue, createCalendarDate } from 'flat-internationalized-date'
 import { type Ref, ref } from 'vue'
 
-const defaultValue = { start: new CalendarDate(2024, 2, 20), end: new CalendarDate(2024, 2, 27) }
+const defaultValue = { start: createCalendarDate({ year: 2024, month: 2, day: 20 }), end: createCalendarDate({ year: 2024, month: 2, day: 27 }) }
 const modelValue = ref(defaultValue) as Ref<{ start: DateValue; end: DateValue }>
 
-const placeholder = ref(new CalendarDate(2024, 4, 1)) as Ref<CalendarDate>
+const placeholder = ref(createCalendarDate({ year: 2024, month: 4, day: 1 })) as Ref<CalendarDate>
 </script>
 
 <template>

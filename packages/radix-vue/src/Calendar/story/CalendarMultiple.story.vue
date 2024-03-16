@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import Calendar from './_DummyCalendar.vue'
-import { CalendarDate } from '@internationalized/date'
+import { createCalendarDate } from 'flat-internationalized-date'
 
-const defaultValue = new CalendarDate(2024, 2, 20)
+const defaultValue = createCalendarDate({ year: 2024, month: 2, day: 20 })
 </script>
 
 <template>
@@ -11,7 +11,7 @@ const defaultValue = new CalendarDate(2024, 2, 20)
       <Calendar :default-value="defaultValue" :number-of-months="2" />
     </Variant>
 
-    <Variant title="2 months (Paged nagivation)">
+    <Variant title="2 months (Paged navigation)">
       <Calendar :default-value="defaultValue" :number-of-months="2" paged-navigation />
     </Variant>
 

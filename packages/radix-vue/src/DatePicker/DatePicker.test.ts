@@ -3,13 +3,13 @@ import { describe, expect, it } from 'vitest'
 import { axe } from 'vitest-axe'
 import DatePicker from './story/_DatePicker.vue'
 import userEvent from '@testing-library/user-event'
-import { CalendarDate, CalendarDateTime, type DateFields, type DateValue, type TimeFields, toZoned } from '@internationalized/date'
+import { type DateFields, type DateValue, type TimeFields, createCalendarDate, createCalendarDateTime, cycle, toZoned } from 'flat-internationalized-date'
 import type { DatePickerRootProps } from './DatePickerRoot.vue'
 import { render } from '@testing-library/vue'
 import { useTestKbd } from '@/shared'
 
-const calendarDate = new CalendarDate(1980, 1, 20)
-const calendarDateTime = new CalendarDateTime(1980, 1, 20, 12, 30, 0, 0)
+const calendarDate = createCalendarDate({ year: 1980, month: 1, day: 20 })
+const calendarDateTime = createCalendarDateTime({ year: 1980, month: 1, day: 20, hour: 12, minute: 30, second: 0, millisecond: 0 })
 const zonedDateTime = toZoned(calendarDateTime, 'America/New_York')
 
 const kbd = useTestKbd()
@@ -114,28 +114,28 @@ describe('DatePicker', async () => {
     const minute = getByTestId('minute')
     const second = getByTestId('second')
 
-    function cycle(segment: keyof TimeFields | keyof DateFields) {
-      return String(zonedDateTime.cycle(segment, 1)[segment])
+    function cycleDate(segment: keyof TimeFields | keyof DateFields) {
+      return String(cycle(zonedDateTime, segment, 1)[segment])
     }
 
     await user.click(day)
     await user.keyboard(kbd.ARROW_UP)
-    expect(day).toHaveTextContent(cycle('day'))
+    expect(day).toHaveTextContent(cycleDate('day'))
     await user.click(month)
     await user.keyboard(kbd.ARROW_UP)
-    expect(month).toHaveTextContent(cycle('month'))
+    expect(month).toHaveTextContent(cycleDate('month'))
     await user.click(year)
     await user.keyboard(kbd.ARROW_UP)
-    expect(year).toHaveTextContent(cycle('year'))
+    expect(year).toHaveTextContent(cycleDate('year'))
     await user.click(hour)
     await user.keyboard(kbd.ARROW_UP)
     expect(hour).toHaveTextContent('1')
     await user.click(minute)
     await user.keyboard(kbd.ARROW_UP)
-    expect(minute).toHaveTextContent(cycle('minute'))
+    expect(minute).toHaveTextContent(cycleDate('minute'))
     await user.click(second)
     await user.keyboard(kbd.ARROW_UP)
-    expect(second).toHaveTextContent(cycle('second'))
+    expect(second).toHaveTextContent(cycleDate('second'))
   })
 
   it('decrements segment on arrow down', async () => {
@@ -150,28 +150,28 @@ describe('DatePicker', async () => {
     const minute = getByTestId('minute')
     const second = getByTestId('second')
 
-    function cycle(segment: keyof TimeFields | keyof DateFields) {
-      return String(zonedDateTime.cycle(segment, -1)[segment])
+    function cycleDate(segment: keyof TimeFields | keyof DateFields) {
+      return String(cycle(zonedDateTime, segment, -1)[segment])
     }
 
     await user.click(day)
     await user.keyboard(kbd.ARROW_DOWN)
-    expect(day).toHaveTextContent(cycle('day'))
+    expect(day).toHaveTextContent(cycleDate('day'))
     await user.click(month)
     await user.keyboard(kbd.ARROW_DOWN)
-    expect(month).toHaveTextContent(cycle('month'))
+    expect(month).toHaveTextContent(cycleDate('month'))
     await user.click(year)
     await user.keyboard(kbd.ARROW_DOWN)
-    expect(year).toHaveTextContent(cycle('year'))
+    expect(year).toHaveTextContent(cycleDate('year'))
     await user.click(hour)
     await user.keyboard(kbd.ARROW_DOWN)
-    expect(hour).toHaveTextContent(cycle('hour'))
+    expect(hour).toHaveTextContent(cycleDate('hour'))
     await user.click(minute)
     await user.keyboard(kbd.ARROW_DOWN)
-    expect(minute).toHaveTextContent(cycle('minute'))
+    expect(minute).toHaveTextContent(cycleDate('minute'))
     await user.click(second)
     await user.keyboard(kbd.ARROW_DOWN)
-    expect(second).toHaveTextContent(cycle('second'))
+    expect(second).toHaveTextContent(cycleDate('second'))
   })
 
   it('navigates segments using the arrow keys', async () => {

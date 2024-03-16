@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type DateValue, isSameDay, temporalToString } from 'flat-internationalized-date'
+import { type DateValue, isSameDay } from 'flat-internationalized-date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
@@ -7,10 +7,10 @@ import { type Formatter, createContext } from '@/shared'
 
 import { useCalendar, useCalendarState } from './useCalendar'
 import { createDecade, createYear, getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
-import type { Grid, Matcher, SupportedLocale, WeekDayFormat } from '@/shared/date'
+import type { Grid, Matcher, WeekDayFormat } from '@/shared/date'
 
 type CalendarRootContext = {
-  locale: Ref<SupportedLocale>
+  locale: Ref<string>
   modelValue: Ref<DateValue | DateValue[] | undefined>
   placeholder: Ref<DateValue>
   pagedNavigation: Ref<boolean>
@@ -65,7 +65,7 @@ interface BaseCalendarRootProps extends PrimitiveProps {
   /** The minimum date that can be selected */
   minValue?: DateValue
   /** The locale to use for formatting dates */
-  locale?: SupportedLocale
+  locale?: string
   /** The number of months to display at once */
   numberOfMonths?: number
   /** Whether or not the calendar is disabled */
@@ -231,10 +231,10 @@ const {
 watch(modelValue, (value) => {
   if (Array.isArray(value) && value.length) {
     const lastValue = value[value.length - 1]
-    if (lastValue && temporalToString(placeholder.value) !== temporalToString(lastValue))
+    if (lastValue && !isSameDay(placeholder.value, lastValue))
       onPlaceholderChange(lastValue)
   }
-  else if (!Array.isArray(value) && value && temporalToString(placeholder.value) !== temporalToString(value)) {
+  else if (!Array.isArray(value) && value && !isSameDay(placeholder.value, value)) {
     onPlaceholderChange(value)
   }
 })

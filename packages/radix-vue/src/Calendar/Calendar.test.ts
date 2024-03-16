@@ -3,13 +3,13 @@ import { axe } from 'vitest-axe'
 import Calendar from './story/_Calendar.vue'
 import CalendarMultiple from './story/_CalendarMultiple.vue'
 import userEvent from '@testing-library/user-event'
-import { CalendarDate, CalendarDateTime, type DateValue, toZoned } from '@internationalized/date'
+import { type DateValue, createCalendarDate, createCalendarDateTime, set, temporalToString, toZoned } from 'flat-internationalized-date'
 import type { CalendarRootProps } from './CalendarRoot.vue'
 import { render } from '@testing-library/vue'
 import { useTestKbd } from '@/shared'
 
-const calendarDate = new CalendarDate(1980, 1, 20)
-const calendarDateTime = new CalendarDateTime(1980, 1, 20, 12, 30, 0, 0)
+const calendarDate = createCalendarDate({ year: 1980, month: 1, day: 20 })
+const calendarDateTime = createCalendarDateTime({ year: 1980, month: 1, day: 20, hour: 12, minute: 30, second: 0, millisecond: 0 })
 const zonedDateTime = toZoned(calendarDateTime, 'America/New_York')
 
 const narrowWeekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
@@ -142,7 +142,7 @@ describe('Calendar', async () => {
     expect(secondDayInMonth).toHaveTextContent('2')
     await user.click(secondDayInMonth)
 
-    const newDate = zonedDateTime.set({ day: 2 })
+    const newDate = set(zonedDateTime, { day: 2 })
     const selectedDay = getSelectedDay(calendar)
     expect(selectedDay).toHaveTextContent(String(newDate.day))
   })
@@ -157,7 +157,7 @@ describe('Calendar', async () => {
     secondDayInMonth.focus()
     await user.keyboard(key)
 
-    const newDate = zonedDateTime.set({ day: 2 })
+    const newDate = set(zonedDateTime, { day: 2 })
     const selectedDay = getSelectedDay(calendar)
     expect(selectedDay).toHaveTextContent(String(newDate.day))
   })
@@ -171,13 +171,13 @@ describe('Calendar', async () => {
     const heading = getByTestId('heading')
     expect(heading).toHaveTextContent('January - February 1980')
 
-    const firstMonthDayDateStr = calendarDateTime.set({ day: 12 }).toString()
+    const firstMonthDayDateStr = temporalToString(set(calendarDateTime, { day: 12 }))
     const firstMonthDay = getByTestId('date-1-12')
     expect(firstMonthDay).toHaveTextContent('12')
     expect(firstMonthDay).toHaveAttribute('data-value', firstMonthDayDateStr)
 
     const secondMonthDay = getByTestId('date-2-15')
-    const secondMonthDayDateStr = calendarDateTime.set({ day: 15, month: 2 }).toString()
+    const secondMonthDayDateStr = temporalToString(set(calendarDateTime, { day: 15, month: 2 }))
     expect(secondMonthDay).toHaveTextContent('15')
     expect(secondMonthDay).toHaveAttribute('data-value', secondMonthDayDateStr)
 
@@ -212,13 +212,13 @@ describe('Calendar', async () => {
     const heading = getByTestId('heading')
     expect(heading).toHaveTextContent('January - February 1980')
 
-    const firstMonthDayDateStr = calendarDateTime.set({ day: 12 }).toString()
+    const firstMonthDayDateStr = temporalToString(set(calendarDateTime, { day: 12 }))
     const firstMonthDay = getByTestId('date-1-12')
     expect(firstMonthDay).toHaveTextContent('12')
     expect(firstMonthDay).toHaveAttribute('data-value', firstMonthDayDateStr)
 
     const secondMonthDay = getByTestId('date-2-15')
-    const secondMonthDayDateStr = calendarDateTime.set({ day: 15, month: 2 }).toString()
+    const secondMonthDayDateStr = temporalToString(set(calendarDateTime, { day: 15, month: 2 }))
     expect(secondMonthDay).toHaveTextContent('15')
     expect(secondMonthDay).toHaveAttribute('data-value', secondMonthDayDateStr)
 
@@ -267,7 +267,7 @@ describe('Calendar', async () => {
     const { getByTestId, user } = setup({
       calendarProps: {
         modelValue: calendarDate,
-        minValue: new CalendarDate(1979, 11, 25),
+        minValue: createCalendarDate({ year: 1979, month: 11, day: 25 }),
       },
     })
 
@@ -291,7 +291,7 @@ describe('Calendar', async () => {
     const { getByTestId, user } = setup({
       calendarProps: {
         modelValue: calendarDate,
-        maxValue: new CalendarDate(1980, 3, 25),
+        maxValue: createCalendarDate({ year: 1980, month: 3, day: 25 }),
       },
     })
 
@@ -315,7 +315,7 @@ describe('Calendar', async () => {
     const { getByTestId, user } = setup({
       calendarProps: {
         modelValue: calendarDate,
-        maxValue: new CalendarDate(1980, 3, 31),
+        maxValue: createCalendarDate({ year: 1980, month: 3, day: 31 }),
       },
     })
 
@@ -366,7 +366,7 @@ describe('Calendar', async () => {
     const { getByTestId, user } = setup({
       calendarProps: {
         modelValue: calendarDate,
-        minValue: new CalendarDate(1979, 12, 1),
+        minValue: createCalendarDate({ year: 1979, month: 12, day: 1 }),
       },
     })
 
@@ -507,8 +507,8 @@ describe('Calendar', async () => {
 
 describe('Calendar - `multiple`', () => {
   it('handles default value when `value` prop is provided - `CalendarDate[]`', async () => {
-    const d1 = new CalendarDate(1980, 1, 2)
-    const d2 = new CalendarDate(1980, 1, 5)
+    const d1 = createCalendarDate({ year: 1980, month: 1, day: 2 })
+    const d2 = createCalendarDate({ year: 1980, month: 1, day: 5 })
 
     const { calendar } = setupMulti({
       calendarProps: { modelValue: [d1, d2] },
@@ -521,8 +521,8 @@ describe('Calendar - `multiple`', () => {
   })
 
   it('handles default value when `value` prop is provided - `CalendarDateTime[]`', async () => {
-    const d1 = new CalendarDateTime(1980, 1, 2)
-    const d2 = new CalendarDateTime(1980, 1, 5)
+    const d1 = createCalendarDateTime({ year: 1980, month: 1, day: 2 })
+    const d2 = createCalendarDateTime({ year: 1980, month: 1, day: 5 })
 
     const { calendar } = setupMulti({
       calendarProps: { modelValue: [d1, d2] },
@@ -535,8 +535,8 @@ describe('Calendar - `multiple`', () => {
   })
 
   it('handles default value when `value` prop is provided - `ZonedDateTime[]`', async () => {
-    const d1 = toZoned(new CalendarDateTime(1980, 1, 2), 'America/New_York')
-    const d2 = toZoned(new CalendarDateTime(1980, 1, 5), 'America/New_York')
+    const d1 = toZoned(createCalendarDateTime({ year: 1980, month: 1, day: 2 }), 'America/New_York')
+    const d2 = toZoned(createCalendarDateTime({ year: 1980, month: 1, day: 5 }), 'America/New_York')
 
     const { calendar } = setupMulti({
       calendarProps: { modelValue: [d1, d2] },
@@ -549,8 +549,8 @@ describe('Calendar - `multiple`', () => {
   })
 
   it('sets placeholder to last value in `value` prop', async () => {
-    const d1 = new CalendarDate(1980, 1, 2)
-    const d2 = new CalendarDate(1980, 5, 5)
+    const d1 = createCalendarDate({ year: 1980, month: 1, day: 2 })
+    const d2 = createCalendarDate({ year: 1980, month: 5, day: 5 })
 
     const { calendar, rerender, getByTestId } = setupMulti({
       calendarProps: { modelValue: [d1, d2] } as CalendarRootProps & { multiple: true },
@@ -564,8 +564,8 @@ describe('Calendar - `multiple`', () => {
   })
 
   it('allows deselection', async () => {
-    const d1 = new CalendarDate(1980, 1, 2)
-    const d2 = new CalendarDate(1980, 1, 5)
+    const d1 = createCalendarDate({ year: 1980, month: 1, day: 2 })
+    const d2 = createCalendarDate({ year: 1980, month: 1, day: 5 })
     const { calendar, user, rerender } = setupMulti({
       calendarProps: { modelValue: [d1, d2] } as CalendarRootProps & { multiple: true },
       emits: { 'onUpdate:modelValue': (data: DateValue[]) => rerender({ modelValue: data }) },
@@ -579,7 +579,7 @@ describe('Calendar - `multiple`', () => {
   })
 
   it('prevents deselection when only one date is selected and `preventDeselect` is `true`', async () => {
-    const d1 = new CalendarDate(1980, 1, 2)
+    const d1 = createCalendarDate({ year: 1980, month: 1, day: 2 })
 
     const { calendar, user } = setupMulti({
       calendarProps: {

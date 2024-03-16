@@ -1,6 +1,7 @@
-import { DATE_SEGMENT_PARTS, type DateSegmentPart, EDITABLE_SEGMENT_PARTS, type Granularity, type HourCycle, type SegmentContentObj, type SegmentPart, type SegmentValueObj, TIME_SEGMENT_PARTS, type TimeSegmentPart, getOptsByGranularity, getPlaceholder, isDateSegmentPart, isSegmentPart, isZonedDateTime, toDate } from '@/shared/date'
+import { DATE_SEGMENT_PARTS, type DateSegmentPart, EDITABLE_SEGMENT_PARTS, type Granularity, type HourCycle, type SegmentContentObj, type SegmentPart, type SegmentValueObj, TIME_SEGMENT_PARTS, type TimeSegmentPart, getOptsByGranularity, getPlaceholder, isDateSegmentPart, isSegmentPart } from '@/shared/date'
 import { type Formatter } from '@/shared'
-import type { DateFields, DateValue } from '@internationalized/date'
+import { isZonedDateTime, set } from 'flat-internationalized-date'
+import type { DateFields, DateValue } from 'flat-internationalized-date'
 
 const calendarDateTimeGranularities = ['hour', 'minute', 'second']
 
@@ -18,7 +19,7 @@ export function syncSegmentValues(props: SyncSegmentValuesProps) {
   if ('hour' in props.value) {
     const timeValues = TIME_SEGMENT_PARTS.map((part) => {
       if (part === 'dayPeriod')
-        return [part, formatter.dayPeriod(toDate(props.value))]
+        return [part, formatter.dayPeriod(props.value)]
       return [part, props.value[part as keyof DateValue]]
     })
 
@@ -73,11 +74,11 @@ function createContentObj(props: CreateContentObjProps) {
          * Edge case for when the month field is filled and the day field snaps to the maximum value of the value of the placeholder month
          */
         if (part === 'day' && segmentValues.month !== null) {
-          return formatter.part(props.dateRef.set({ [part as keyof DateFields]: value, month: segmentValues.month }), part, {
+          return formatter.part(set(props.dateRef, { [part as keyof DateFields]: value, month: segmentValues.month }), part, {
             hourCycle: props.hourCycle === 24 ? 'h24' : undefined,
           })
         }
-        return formatter.part(props.dateRef.set({ [part]: value }), part, {
+        return formatter.part(set(props.dateRef, { [part]: value }), part, {
           hourCycle: props.hourCycle === 24 ? 'h24' : undefined,
         })
       }
@@ -93,9 +94,9 @@ function createContentObj(props: CreateContentObjProps) {
           /**
              * As described above, same function
            */
-            return formatter.part(props.dateRef.set({ [part]: value, month: segmentValues.month }), part)
+            return formatter.part(set(props.dateRef, { [part]: value, month: segmentValues.month }), part)
 
-          return formatter.part(props.dateRef.set({ [part]: value }), part)
+          return formatter.part(set(props.dateRef, { [part]: value }), part)
         }
 
         else {

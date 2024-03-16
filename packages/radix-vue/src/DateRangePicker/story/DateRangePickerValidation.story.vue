@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import DateRangePicker from './_DummyDateRangePicker.vue'
 
-import { CalendarDateTime, type DateValue, isWeekend } from '@internationalized/date'
+import { type DateValue, createCalendarDateTime, isWeekend } from 'flat-internationalized-date'
 
-const defaultValue = { start: new CalendarDateTime(2024, 2, 20), end: new CalendarDateTime(2024, 2, 27) }
+const defaultValue = { start: createCalendarDateTime({ year: 2024, month: 2, day: 20 }), end: createCalendarDateTime({ year: 2024, month: 2, day: 27 }) }
 
-const minValue = new CalendarDateTime(2024, 2, 14)
-const maxValue = new CalendarDateTime(2024, 2, 28)
+const minValue = createCalendarDateTime({ year: 2024, month: 2, day: 14 })
+const maxValue = createCalendarDateTime({ year: 2024, month: 2, day: 28 })
 
 function isDateUnavailable(date: DateValue) {
   return isWeekend(date, 'en')

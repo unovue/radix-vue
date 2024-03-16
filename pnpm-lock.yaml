@@ -101,15 +101,15 @@ importers:
 
   docs:
     dependencies:
-      '@internationalized/date':
-        specifier: ^3.5.1
-        version: 3.5.2
       '@stackblitz/sdk':
         specifier: ^1.9.0
         version: 1.9.0
       '@vueuse/core':
         specifier: ^10.5.0
         version: 10.9.0(vue@3.4.21)
+      flat-internationalized-date:
+        specifier: ^1.0.4
+        version: 1.0.4
       radix-vue:
         specifier: link:../packages/radix-vue
         version: link:../packages/radix-vue
@@ -205,8 +205,8 @@ importers:
         specifier: ^3.1.3
         version: 3.1.3
       flat-internationalized-date:
-        specifier: ^1.0.3
-        version: 1.0.3
+        specifier: ^1.0.4
+        version: 1.0.4
       nanoid:
         specifier: ^5.0.6
         version: 5.0.6
@@ -1643,7 +1643,7 @@ packages:
       vue: '>=3'
     dependencies:
       '@iconify/types': 2.0.0
-      vue: 3.4.21(typescript@5.3.3)
+      vue: 3.4.21(typescript@5.4.2)
     dev: true
 
   /@internationalized/date@3.5.2:
@@ -2316,6 +2316,7 @@ packages:
     resolution: {integrity: sha512-2Q2NeB6BmiTFQi4DHBzncSoq/cJMLDdhPaAoJFnFCyD9a8VPZRf7a1GAwp1Edb7ROaZc5Jz/tnZyL6EsWMRaqw==}
     dependencies:
       undici-types: 5.26.5
+    dev: true
 
   /@types/node@20.5.1:
     resolution: {integrity: sha512-4tT2UrL5LBqDwoed9wZ6N3umC4Yhz3W3FloMmiiG4JwmUJWpie0c7lcnUNd4gtMKuDEO4wRVS8B6Xa0uMRsMKg==}
@@ -2570,8 +2571,8 @@ packages:
       vite: ^4.0.0 || ^5.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.5.2(@types/node@18.19.21)
-      vue: 3.4.21(typescript@5.3.3)
+      vite: 4.5.2(@types/node@20.5.1)
+      vue: 3.4.21(typescript@5.4.2)
 
   /@vitejs/plugin-vue@5.0.4(vite@5.1.4)(vue@3.4.21):
     resolution: {integrity: sha512-WS3hevEszI6CEVEx28F8RjTX97k3KsrcY6kvTg7+Whm5y3oYvcqzVeGCU3hxSAn4uY2CLCkeokkGKpoctccilQ==}
@@ -2782,7 +2783,7 @@ packages:
     dependencies:
       '@vue/compiler-ssr': 3.4.21
       '@vue/shared': 3.4.21
-      vue: 3.4.21(typescript@5.3.3)
+      vue: 3.4.21(typescript@5.4.2)
 
   /@vue/shared@3.4.21:
     resolution: {integrity: sha512-PuJe7vDIi6VYSinuEbUIQgMIRZGgM8e4R+G+/dQTk0X1NEdvgvvgv7m+rfmDH1gZzyA1OjjoWskvHlfRNfQf3g==}
@@ -3736,7 +3737,7 @@ packages:
     dev: true
 
   /concat-map@0.0.1:
-    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
+    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
     dev: true
 
   /concat-stream@1.6.2:
@@ -4424,6 +4425,7 @@ packages:
 
   /encoding@0.1.13:
     resolution: {integrity: sha512-ETBauow1T35Y/WZMkio9jiM0Z5xjHHmJ4XmjZOq1l/dXz3lr2sRn87nJy20RupqSh1F2m3HHPSp8ShIPQJrJ3A==}
+    requiresBuild: true
     dependencies:
       iconv-lite: 0.6.3
     dev: true
@@ -5189,8 +5191,8 @@ packages:
       rimraf: 3.0.2
     dev: true
 
-  /flat-internationalized-date@1.0.3:
-    resolution: {integrity: sha512-q9bDROgKKRhagV7zoFVmACUIPvca3Fku0+1cjdSgG4PeDRK4P3FytnTKE6L285ottyPqnNBC2fzKEbayuJjGXg==}
+  /flat-internationalized-date@1.0.4:
+    resolution: {integrity: sha512-PAeSFeVKbf9rOU5zm0EVPkllNRaYGww/Vjig0GlweP7lVgxL6FvQpjYZJXaWiod8YmgdI66p9uavhhsYVgAcYQ==}
     dependencies:
       typescript: 5.4.2
     dev: false
@@ -5882,6 +5884,7 @@ packages:
   /iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
+    requiresBuild: true
     dependencies:
       safer-buffer: 2.1.2
     dev: true
@@ -8586,6 +8589,7 @@ packages:
 
   /safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
+    requiresBuild: true
     dev: true
 
   /saxes@6.0.0:
@@ -9502,6 +9506,7 @@ packages:
 
   /undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+    dev: true
 
   /undici@5.28.3:
     resolution: {integrity: sha512-3ItfzbrhDlINjaP0duwnNsKpDQk3acHI3gVJ1z4fmwMK31k5G9OVIAMLSIaP6w4FaGkaAkN6zaQO9LUvZ1t7VA==}
@@ -9827,6 +9832,7 @@ packages:
       rollup: 3.29.4
     optionalDependencies:
       fsevents: 2.3.3
+    dev: true
 
   /vite@4.5.2(@types/node@20.5.1):
     resolution: {integrity: sha512-tBCZBNSBbHQkaGyhGCDUGqeo2ph8Fstyp6FMSvTtsXeZSPpSMGlviAOav2hxVTqFcx8Hj/twtWKsMJXNY0xI8w==}
@@ -10103,7 +10109,7 @@ packages:
       '@vue/composition-api':
         optional: true
     dependencies:
-      vue: 3.4.21(typescript@5.3.3)
+      vue: 3.4.21(typescript@5.4.2)
 
   /vue-eslint-parser@9.4.2(eslint@8.57.0):
     resolution: {integrity: sha512-Ry9oiGmCAK91HrKMtCrKFWmSFWvYkpGglCeFAIqDdr9zdXmMMpJOmUJS7WWsW7fX81h6mwHmUZCQQ1E0PkSwYQ==}
@@ -10476,7 +10482,7 @@ packages:
       '@floating-ui/vue': 1.0.6(vue@3.4.21)
       '@internationalized/date': 3.5.2
       fast-deep-equal: 3.1.3
-      flat-internationalized-date: 1.0.3
+      flat-internationalized-date: 1.0.4
       nanoid: 5.0.6
     transitivePeerDependencies:
       - '@vue/composition-api'

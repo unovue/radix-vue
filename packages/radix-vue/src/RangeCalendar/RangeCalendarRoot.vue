@@ -1,11 +1,11 @@
 <script lang="ts">
-import { type DateValue, isSameDay } from '@internationalized/date'
+import { type DateValue, compare, isSameDay } from 'flat-internationalized-date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { type Formatter, createContext } from '@/shared'
 import { createDecade, createYear, getDefaultDate, handleCalendarInitialFocus, isBefore } from '@/shared/date'
-import type { Grid, Matcher, SupportedLocale, WeekDayFormat } from '@/shared/date'
+import type { Grid, Matcher, WeekDayFormat } from '@/shared/date'
 import { useRangeCalendarState } from './useRangeCalendar'
 import { useCalendar } from '@/Calendar/useCalendar'
 
@@ -71,7 +71,7 @@ export interface RangeCalendarRootProps extends PrimitiveProps {
   /** The minimum date that can be selected */
   minValue?: DateValue
   /** The locale to use for formatting dates */
-  locale?: SupportedLocale
+  locale?: string
   /** The number of months to display at once */
   numberOfMonths?: number
   /** Whether or not the calendar is disabled */
@@ -176,12 +176,12 @@ const startValue = ref(modelValue.value.start) as Ref<DateValue | undefined>
 const endValue = ref(modelValue.value.end) as Ref<DateValue | undefined>
 
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: props.defaultPlaceholder ?? defaultDate.copy(),
+  defaultValue: props.defaultPlaceholder ?? { ...defaultDate },
   passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
 
 function onPlaceholderChange(value: DateValue) {
-  placeholder.value = defaultDate.set({ ...value })
+  placeholder.value = { ...value }
 }
 
 const {
@@ -230,11 +230,11 @@ const {
 
 watch(modelValue, () => {
   if (modelValue.value.start && modelValue.value.end) {
-    if (modelValue.value.start.toString() !== startValue.value?.toString())
-      startValue.value = defaultDate.set({ ...modelValue.value.start })
+    if (startValue.value && compare(modelValue.value.start, startValue.value) !== 0)
+      startValue.value = { ...modelValue.value.start }
 
-    if (modelValue.value.end.toString() !== endValue.value?.toString())
-      endValue.value = defaultDate.set({ ...modelValue.value.end })
+    if (endValue.value && compare(modelValue.value.end, endValue.value) !== 0)
+      endValue.value = { ...modelValue.value.end }
   }
 })
 
@@ -244,28 +244,28 @@ watch(startValue, (value) => {
 })
 
 watch([startValue, endValue], () => {
-  if (modelValue.value && modelValue.value.start?.toString() === startValue.value?.toString() && modelValue.value.end?.toString() === endValue.value?.toString())
+  if (modelValue.value && modelValue.value.start && modelValue.value.end && startValue.value && endValue.value && isSameDay(modelValue.value.start, startValue.value) && isSameDay(modelValue.value.end, endValue.value))
     return
 
   if (startValue.value && endValue.value) {
     if (isBefore(endValue.value, startValue.value)) {
       modelValue.value = {
-        start: defaultDate.set({ ...endValue.value }),
-        end: defaultDate.set({ ...startValue.value }),
+        start: { ...endValue.value },
+        end: { ...startValue.value },
       }
     }
 
     else {
       modelValue.value = {
-        start: defaultDate.set({ ...startValue.value }),
-        end: defaultDate.set({ ...endValue.value }),
+        start: { ...startValue.value },
+        end: { ...endValue.value },
       }
     }
   }
 })
 
 const getMonths = computed(() => {
-  const dateObj = defaultDate.set({ ...placeholder.value })
+  const dateObj = { ...placeholder.value }
   return createYear({
     dateObj,
     minValue: minValue.value,
@@ -276,7 +276,7 @@ const getMonths = computed(() => {
 })
 
 function getYears({ startIndex, endIndex }: { startIndex?: number; endIndex: number }) {
-  const dateObj = defaultDate
+  const dateObj = { ...placeholder.value }
   return createDecade({
     dateObj,
     startIndex,
@@ -346,7 +346,7 @@ onMounted(() => {
     </div>
 
     <slot
-      :date="defaultDate.set({ ...placeholder })"
+      :date="{ ...placeholder }"
       :grid="grid"
       :week-days="weekdays"
       :formatter="formatter"

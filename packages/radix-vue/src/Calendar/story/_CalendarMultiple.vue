@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { DateValue } from '@internationalized/date'
+import { type DateValue, temporalToString } from 'flat-internationalized-date'
 import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot, type CalendarRootProps } from '../'
 
 const props = defineProps<{ calendarProps?: CalendarRootProps; emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } }>()
@@ -22,7 +22,7 @@ const props = defineProps<{ calendarProps?: CalendarRootProps; emits?: { 'onUpda
       />
     </CalendarHeader>
 
-    <CalendarGrid v-for="month in grid" :key="month.value.toString()" :data-testid="`grid-${month.value.month}`">
+    <CalendarGrid v-for="month in grid" :key="temporalToString(month.value)" :data-testid="`grid-${month.value.month}`">
       <CalendarGridHead :data-testid="`grid-head-${month.value.month}`">
         <CalendarGridRow>
           <CalendarHeadCell
@@ -37,7 +37,7 @@ const props = defineProps<{ calendarProps?: CalendarRootProps; emits?: { 'onUpda
         <CalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" data-week :data-testid="`grid-row-${month.value.month}-${index}`">
           <CalendarCell
             v-for="(weekDate, d) in weekDates"
-            :key="weekDate.toString()"
+            :key="temporalToString(weekDate)"
             :data-testid="`cell-${weekDate.month}-${d}`"
             :date="weekDate"
           >

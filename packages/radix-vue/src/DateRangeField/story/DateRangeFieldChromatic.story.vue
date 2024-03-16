@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import DateRangeField from './_DummyDateRangeField.vue'
-import { CalendarDateTime, type DateValue, getLocalTimeZone, now } from '@internationalized/date'
+import { type DateValue, createCalendarDateTime, getLocalTimeZone, now } from 'flat-internationalized-date'
 import { type Ref, ref } from 'vue'
 
-const defaultValue = { start: new CalendarDateTime(2024, 2, 20), end: new CalendarDateTime(2024, 2, 27) }
+const defaultValue = { start: createCalendarDateTime({ year: 2024, month: 2, day: 20 }), end: createCalendarDateTime({ year: 2024, month: 2, day: 27 }) }
 const modelValue = ref(defaultValue) as Ref<{ start: DateValue; end: DateValue }>
 
-const defaultPlaceholder = new CalendarDateTime(2023, 10, 11, 12, 30)
+const defaultPlaceholder = createCalendarDateTime({ year: 2023, month: 10, day: 11, hour: 12, minute: 30 })
 const localTimezonePlaceholder = now(getLocalTimeZone())
 </script>
 

@@ -2,7 +2,7 @@
   * Adapted from https://github.com/melt-ui/melt-ui/blob/develop/src/lib/builders/range-calendar/create.ts
 */
 
-import { type DateValue, isSameDay } from '@internationalized/date'
+import { type DateValue, add, isSameDay } from 'flat-internationalized-date'
 import { type Ref, computed } from 'vue'
 import { areAllDaysBetweenValid, isBefore, isBetween } from '@/shared/date'
 import type { Grid, Matcher } from '@/shared/date'
@@ -76,7 +76,7 @@ export function useRangeCalendarState(props: UseRangeCalendarProps) {
     const start = isStartBeforeFocused ? props.start.value : props.focusedValue.value
     const end = isStartBeforeFocused ? props.focusedValue.value : props.start.value
 
-    if (isSameDay(start.add({ days: 1 }), end)) {
+    if (isSameDay(add(start, { days: 1 }), end)) {
       return {
         start,
         end,

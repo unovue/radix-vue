@@ -21,6 +21,8 @@ import {
   DatePickerTrigger,
 } from '../'
 import { Label } from '@/Label'
+
+import { temporalToString } from 'flat-internationalized-date'
 </script>
 
 <template>
@@ -84,7 +86,7 @@ import { Label } from '@/Label'
               <div
                 class="flex flex-col space-y-4 pt-4 sm:flex-row sm:space-x-4 sm:space-y-0"
               >
-                <DatePickerGrid v-for="month in grid" :key="month.value.toString()" class="w-full border-collapse select-none space-y-1">
+                <DatePickerGrid v-for="month in grid" :key="temporalToString(month.value)" class="w-full border-collapse select-none space-y-1">
                   <DatePickerGridHead>
                     <DatePickerGridRow class="mb-1 grid w-full grid-cols-7">
                       <DatePickerHeadCell
@@ -103,7 +105,7 @@ import { Label } from '@/Label'
                     >
                       <DatePickerCell
                         v-for="weekDate in weekDates"
-                        :key="weekDate.toString()"
+                        :key="temporalToString(weekDate)"
                         :date="weekDate"
                       >
                         <DatePickerCellTrigger

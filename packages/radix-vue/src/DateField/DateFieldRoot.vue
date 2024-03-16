@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type DateValue } from '@internationalized/date'
+import { type DateValue, compare, set, temporalToString } from 'flat-internationalized-date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
@@ -11,7 +11,6 @@ import {
   type Matcher,
   type SegmentPart,
   type SegmentValueObj,
-  type SupportedLocale,
   getDefaultDate,
   hasTime,
   isBefore,
@@ -19,7 +18,7 @@ import {
 import { createContent, initializeSegmentValues, isSegmentNavigationKey, syncSegmentValues } from './utils'
 
 type DateFieldRootContext = {
-  locale: Ref<SupportedLocale>
+  locale: Ref<string>
   modelValue: Ref<DateValue | undefined>
   placeholder: Ref<DateValue>
   isDateUnavailable?: Matcher
@@ -56,7 +55,7 @@ export interface DateFieldRootProps extends PrimitiveProps {
   /** The minimum date that can be selected */
   minValue?: DateValue
   /** The locale to use for formatting dates */
-  locale?: SupportedLocale
+  locale?: string
   /** Whether or not the date field is disabled */
   disabled?: boolean
   /** Whether or not the date field is readonly */
@@ -124,8 +123,8 @@ onMounted(() => {
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue ?? undefined,
-  passive: (props.modelValue === undefined) as false,
-}) as Ref<DateValue | undefined>
+  passive: (props.placeholder === undefined) as false,
+}) as Ref<DateValue>
 
 const defaultDate = getDefaultDate({
   defaultPlaceholder: props.placeholder,
@@ -134,7 +133,7 @@ const defaultDate = getDefaultDate({
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: props.defaultPlaceholder ?? defaultDate.copy(),
+  defaultValue: props.defaultPlaceholder ?? { ...defaultDate },
   passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
 
@@ -165,6 +164,12 @@ const initialSegments = initializeSegmentValues(inferredGranularity.value)
 
 const segmentValues = ref<SegmentValueObj>(modelValue.value ? { ...syncSegmentValues({ value: modelValue.value, formatter }) } : { ...initialSegments })
 
+// watchEffect(() => {
+//   console.log(props.modelValue)
+//   modelValue.value = props.modelValue
+//   segmentValues.value = modelValue.value ? { ...syncSegmentValues({ value: modelValue.value, formatter }) } : { ...initialSegments }
+// })
+
 const allSegmentContent = computed(() => createContent({
   granularity: inferredGranularity.value,
   dateRef: placeholder.value,
@@ -189,22 +194,22 @@ watch(segmentValues, (value) => {
       }
     }
 
-    let dateRef = defaultDate.set({ ...placeholder.value })
+    let dateRef = { ...placeholder.value }
     Object.keys(updateObject).forEach((part) => {
       const value = updateObject[part as AnyExceptLiteral]
-      dateRef = dateRef.set({ [part]: value })
+      dateRef = set(dateRef, { [part]: value })
     })
 
-    if (modelValue.value && modelValue.value.toString() === dateRef.toString())
+    if (modelValue.value && compare(modelValue.value, dateRef) === 0)
       return
 
-    modelValue.value = defaultDate.set({ ...dateRef })
+    modelValue.value = { ...dateRef }
   }
 }, { deep: true })
 
 watch(modelValue, (value) => {
-  if (value !== undefined && placeholder.value.toString() !== value.toString())
-    placeholder.value = defaultDate.set({ ...value })
+  if (value !== undefined && compare(placeholder.value, value) !== 0)
+    placeholder.value = { ...value }
 })
 
 watch(modelValue, (modelValue) => {
@@ -287,7 +292,7 @@ defineExpose({
     :data-invalid="isInvalid ? '' : undefined"
     @keydown.left.right="handleKeydown"
   >
-    <slot :model-value="defaultDate.set({ ...modelValue })" :segments="segmentContents" :is-invalid="isInvalid" />
+    <slot :model-value="modelValue" :segments="segmentContents" :is-invalid="isInvalid" />
   </Primitive>
 
   <input
@@ -295,7 +300,7 @@ defineExpose({
     type="text"
     tabindex="-1"
     aria-hidden
-    :value="modelValue?.toString()"
+    :value="modelValue ? temporalToString(modelValue) : ''"
     :name="name"
     :disabled="disabled"
     :required="required"

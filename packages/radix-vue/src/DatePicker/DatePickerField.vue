@@ -1,4 +1,5 @@
 <script lang="ts">
+import { type DateValue, compare } from 'flat-internationalized-date'
 import { DateFieldRoot } from '..'
 import { injectDatePickerRootContext } from './DatePickerRoot.vue'
 </script>
@@ -11,9 +12,9 @@ const rootContext = injectDatePickerRootContext()
   <DateFieldRoot
     v-slot="{ segments }"
     :ref="rootContext.dateFieldRef"
-    :multiple="false"
     :model-value="rootContext.modelValue.value"
     :placeholder="rootContext.placeholder.value"
+    :multiple="false"
     v-bind="{
       id: rootContext.id.value,
       name: rootContext.name.value,
@@ -28,8 +29,14 @@ const rootContext = injectDatePickerRootContext()
       isDateUnavailable: rootContext.isDateUnavailable,
       required: rootContext.required.value,
     }"
-    @update:model-value="rootContext.onDateChange"
-    @update:placeholder="rootContext.onPlaceholderChange"
+    @update:model-value="(date: DateValue | undefined) => {
+      if (date && rootContext.modelValue.value && compare(date, rootContext.modelValue.value) === 0) return
+      rootContext.onDateChange(date)
+    }"
+    @update:placeholder="(date: DateValue) => {
+      if (compare(date, rootContext.placeholder.value) === 0) return
+      rootContext.onPlaceholderChange(date)
+    }"
   >
     <slot :segments="segments" />
   </DateFieldRoot>

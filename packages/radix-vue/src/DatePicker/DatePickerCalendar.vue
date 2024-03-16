@@ -1,4 +1,5 @@
 <script lang="ts">
+import { type DateValue, compare } from 'flat-internationalized-date'
 import { CalendarRoot } from '..'
 import { injectDatePickerRootContext } from './DatePickerRoot.vue'
 </script>
@@ -25,12 +26,18 @@ const rootContext = injectDatePickerRootContext()
       readonly: rootContext.readonly.value,
       preventDeselect: rootContext.preventDeselect.value,
     }"
-    initial-focus
-    :multiple="false"
     :model-value="rootContext.modelValue.value"
     :placeholder="rootContext.placeholder.value"
-    @update:model-value="rootContext.onDateChange"
-    @update:placeholder="rootContext.onPlaceholderChange"
+    initial-focus
+    :multiple="false"
+    @update:model-value="(date: DateValue | undefined) => {
+      if (date && rootContext.modelValue.value && compare(date, rootContext.modelValue.value) === 0) return
+      rootContext.onDateChange(date)
+    }"
+    @update:placeholder="(date: DateValue) => {
+      if (compare(date, rootContext.placeholder.value) === 0) return
+      rootContext.onPlaceholderChange(date)
+    }"
   >
     <slot
       :date="date"

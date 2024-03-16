@@ -3,19 +3,19 @@ import { describe, expect, it } from 'vitest'
 import { axe } from 'vitest-axe'
 import DateRangePicker from './story/_DateRangePicker.vue'
 import userEvent from '@testing-library/user-event'
-import { CalendarDate, CalendarDateTime, type DateValue, toZoned } from '@internationalized/date'
+import { type DateValue, createCalendarDate, createCalendarDateTime, toZoned } from 'flat-internationalized-date'
 import type { DateRangePickerRootProps } from './DateRangePickerRoot.vue'
 import { render } from '@testing-library/vue'
 import { useTestKbd } from '@/shared'
 
 const calendarDate = {
-  start: new CalendarDate(2022, 1, 1),
-  end: new CalendarDate(2022, 3, 1),
+  start: createCalendarDate({ year: 2022, month: 1, day: 1 }),
+  end: createCalendarDate({ year: 2022, month: 3, day: 1 }),
 }
 
 const calendarDateTime = {
-  start: new CalendarDateTime(2022, 1, 1, 12, 30),
-  end: new CalendarDateTime(2022, 3, 1, 12, 30),
+  start: createCalendarDateTime({ year: 2022, month: 1, day: 1, hour: 12, minute: 30 }),
+  end: createCalendarDateTime({ year: 2022, month: 3, day: 1, hour: 12, minute: 30 }),
 }
 const zonedDateTime = {
   start: toZoned(calendarDateTime.start, 'America/New_York'),

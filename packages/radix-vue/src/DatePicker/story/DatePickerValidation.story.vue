@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import DatePicker from './_DummyDatePicker.vue'
 
-import { CalendarDate, type DateValue, isWeekend } from '@internationalized/date'
+import { type DateValue, createCalendarDate, isWeekend } from 'flat-internationalized-date'
 import { type Ref, ref } from 'vue'
 
-const defaultValue = new CalendarDate(2024, 2, 20)
+const defaultValue = createCalendarDate({ year: 2024, month: 2, day: 20 })
 const modelValue = ref(defaultValue) as Ref<DateValue>
 
-const minValue = new CalendarDate(2024, 2, 14)
-const maxValue = new CalendarDate(2024, 2, 28)
+const minValue = createCalendarDate({ year: 2024, month: 2, day: 14 })
+const maxValue = createCalendarDate({ year: 2024, month: 2, day: 28 })
 
 function isDateUnavailable(date: DateValue) {
   return isWeekend(date, 'en')

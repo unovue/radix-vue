@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { axe } from 'vitest-axe'
 import RangeCalendar from './story/_RangeCalendar.vue'
 import { mount } from '@vue/test-utils'
-import { CalendarDate, CalendarDateTime, type DateValue, toZoned } from '@internationalized/date'
+import { type DateValue, createCalendarDate, createCalendarDateTime, toZoned } from 'flat-internationalized-date'
 import userEvent from '@testing-library/user-event'
 import { render } from '@testing-library/vue'
 import type { RangeCalendarRootProps } from './RangeCalendarRoot.vue'
@@ -16,13 +16,13 @@ it('should pass axe accessibility tests', async () => {
 const kbd = useTestKbd()
 
 const calendarDateRange = {
-  start: new CalendarDate(1980, 1, 20),
-  end: new CalendarDate(1980, 1, 25),
+  start: createCalendarDate({ year: 1980, month: 1, day: 20 }),
+  end: createCalendarDate({ year: 1980, month: 1, day: 25 }),
 }
 
 const calendarDateTimeRange = {
-  start: new CalendarDateTime(1980, 1, 20, 12, 30, 0, 0),
-  end: new CalendarDateTime(1980, 1, 25, 12, 30, 0, 0),
+  start: createCalendarDateTime({ year: 1980, month: 1, day: 20, hour: 12, minute: 30, second: 0, millisecond: 0 }),
+  end: createCalendarDateTime({ year: 1980, month: 1, day: 25, hour: 12, minute: 30, second: 0, millisecond: 0 }),
 }
 
 const zonedDateTimeRange = {
@@ -174,7 +174,7 @@ describe('RangeCalendar', () => {
     const { getByTestId, user } = setup({
       calendarProps: {
         modelValue: calendarDateRange,
-        minValue: new CalendarDate(1979, 11, 25),
+        minValue: createCalendarDate({ year: 1979, month: 11, day: 25 }),
       },
     })
 
@@ -198,7 +198,7 @@ describe('RangeCalendar', () => {
     const { getByTestId, user } = setup({
       calendarProps: {
         modelValue: calendarDateRange,
-        maxValue: new CalendarDate(1980, 3, 25),
+        maxValue: createCalendarDate({ year: 1980, month: 3, day: 25 }),
       },
     })
 
@@ -222,7 +222,7 @@ describe('RangeCalendar', () => {
     const { getByTestId, user } = setup({
       calendarProps: {
         modelValue: calendarDateRange,
-        maxValue: new CalendarDate(1980, 3, 31),
+        maxValue: createCalendarDate({ year: 1980, month: 3, day: 31 }),
       },
     })
 
@@ -273,7 +273,7 @@ describe('RangeCalendar', () => {
     const { getByTestId, user } = setup({
       calendarProps: {
         modelValue: calendarDateRange,
-        minValue: new CalendarDate(1979, 12, 1),
+        minValue: createCalendarDate({ year: 1979, month: 12, day: 1 }),
       },
     })
 

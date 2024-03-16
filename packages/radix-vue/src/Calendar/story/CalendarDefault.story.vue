@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot } from '../'
+import { temporalToString } from 'flat-internationalized-date'
 </script>
 
 <template>
@@ -8,6 +9,7 @@ import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, Cale
     <Variant title="default">
       <CalendarRoot
         v-slot="{ weekDays, grid }"
+
         class="mt-6 rounded-xl border border-black bg-white p-4 shadow-md"
       >
         <CalendarHeader class="flex items-center justify-between">
@@ -29,7 +31,7 @@ import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, Cale
         <div
           class="flex flex-col space-y-4 pt-4 sm:flex-row sm:space-x-4 sm:space-y-0"
         >
-          <CalendarGrid v-for="month in grid" :key="month.value.toString()" class="w-full border-collapse select-none space-y-1">
+          <CalendarGrid v-for="month in grid" :key="temporalToString(month.value)" class="w-full border-collapse select-none space-y-1">
             <CalendarGridHead>
               <CalendarGridRow class="mb-1 grid w-full grid-cols-7">
                 <CalendarHeadCell
@@ -44,7 +46,7 @@ import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, Cale
               <CalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="grid grid-cols-7">
                 <CalendarCell
                   v-for="weekDate in weekDates"
-                  :key="weekDate.toString()"
+                  :key="temporalToString(weekDate)"
                   :date="weekDate"
                   class="relative text-center text-sm"
                 >

@@ -6,11 +6,11 @@ import {
   isSameDay,
   isSameMonth,
   isToday,
-
-} from '@internationalized/date'
+  temporalToString,
+} from 'flat-internationalized-date'
 import { computed, nextTick } from 'vue'
 import { useKbd } from '@/shared'
-import { isBetweenInclusive, parseStringToDateValue, toDate } from '@/shared/date'
+import { isBetweenInclusive, parseStringToDateValue } from '@/shared/date'
 
 export interface RangeCalendarCellTriggerProps extends PrimitiveProps {
   day: DateValue
@@ -29,7 +29,7 @@ const kbd = useKbd()
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
-const labelText = computed(() => rootContext.formatter.custom(toDate(props.day), {
+const labelText = computed(() => rootContext.formatter.custom(props.day, {
   weekday: 'long',
   month: 'long',
   day: 'numeric',
@@ -68,7 +68,7 @@ function changeDate(date: DateValue) {
   if (rootContext.isDateDisabled(date) || rootContext.isDateUnavailable?.(date))
     return
 
-  rootContext.lastPressedDateValue.value = rootContext.defaultDate.set({ ...date })
+  rootContext.lastPressedDateValue.value = { ...date }
 
   if (rootContext.startValue.value && rootContext.highlightedRange.value === null) {
     if (isSameDay(date, rootContext.startValue.value) && !rootContext.preventDeselect.value && !rootContext.endValue.value) {
@@ -78,7 +78,7 @@ function changeDate(date: DateValue) {
     }
     else if (!rootContext.endValue.value) {
       if (rootContext.lastPressedDateValue.value && isSameDay(rootContext.lastPressedDateValue.value, date))
-        rootContext.startValue.value = rootContext.defaultDate.set({ ...date })
+        rootContext.startValue.value = { ...date }
       return
     }
   }
@@ -90,14 +90,14 @@ function changeDate(date: DateValue) {
   }
 
   if (!rootContext.startValue.value) {
-    rootContext.startValue.value = rootContext.defaultDate.set({ ...date })
+    rootContext.startValue.value = { ...date }
   }
   else if (!rootContext.endValue.value) {
-    rootContext.endValue.value = rootContext.defaultDate.set({ ...date })
+    rootContext.endValue.value = { ...date }
   }
   else if (rootContext.endValue.value && rootContext.startValue.value) {
     rootContext.endValue.value = undefined
-    rootContext.startValue.value = rootContext.defaultDate.set({ ...date })
+    rootContext.startValue.value = { ...date }
   }
 }
 
@@ -107,7 +107,7 @@ function handleClick(e: Event) {
 }
 
 function handleFocus(date: DateValue) {
-  rootContext.focusedValue.value = rootContext.defaultDate.set({ ...date })
+  rootContext.focusedValue.value = { ...date }
 }
 
 function handleArrowKey(e: KeyboardEvent) {
@@ -175,7 +175,7 @@ function handleArrowKey(e: KeyboardEvent) {
 }
 
 const formattedTriggerText = computed(() => {
-  return rootContext.formatter.custom(props.day.toDate(getLocalTimeZone()), {
+  return rootContext.formatter.custom(props.day, {
     day: 'numeric',
   })
 })
@@ -195,7 +195,7 @@ const formattedTriggerText = computed(() => {
     :data-selection-end="isSelectionEnd ? true : undefined"
     :data-selected="isSelectedDate ? true : undefined"
     :data-outside-visible-view="isOutsideVisibleView ? '' : undefined"
-    :data-value="day.toString()"
+    :data-value="temporalToString(day)"
     :data-disabled="isDisabled || isOutsideView ? '' : undefined"
     :data-unavailable="isUnavailable ? '' : undefined"
     :data-today="isDateToday ? '' : undefined"

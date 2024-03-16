@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { SupportedLocale } from '@/shared/date'
+import { compare } from 'flat-internationalized-date'
 import { RangeCalendarRoot } from '..'
 import { injectDateRangePickerRootContext } from './DateRangePickerRoot.vue'
 </script>
@@ -14,7 +14,7 @@ const rootContext = injectDateRangePickerRootContext()
     v-bind="{
       isDateDisabled: rootContext.isDateDisabled,
       isDateUnavailable: rootContext.isDateUnavailable,
-      locale: rootContext.locale.value as SupportedLocale,
+      locale: rootContext.locale.value,
       disabled: rootContext.disabled.value,
       pagedNavigation: rootContext.pagedNavigation.value,
       weekStartsOn: rootContext.weekStartsOn.value,
@@ -29,8 +29,14 @@ const rootContext = injectDateRangePickerRootContext()
     initial-focus
     :model-value="rootContext.modelValue.value"
     :placeholder="rootContext.placeholder.value"
-    @update:model-value="rootContext.onDateChange"
-    @update:placeholder="rootContext.onPlaceholderChange"
+    @update:model-value="(date) => {
+      if (date.start && rootContext.modelValue.value.start && date.end && rootContext.modelValue.value.end && compare(date.start, rootContext.modelValue.value.start) === 0 && compare(date.end, rootContext.modelValue.value.end) === 0) return
+      rootContext.onDateChange(date)
+    }"
+    @update:placeholder="(date) => {
+      if (compare(date, rootContext.placeholder.value) === 0) return
+      rootContext.onPlaceholderChange(date)
+    }"
   >
     <slot
       :date="date"

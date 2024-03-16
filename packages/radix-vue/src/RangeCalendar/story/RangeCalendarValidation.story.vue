@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import RangeCalendar from './_DummyRangeCalendar.vue'
-import { CalendarDate, type DateValue, isWeekend } from '@internationalized/date'
+import { type DateValue, createCalendarDate, isWeekend } from 'flat-internationalized-date'
 import { ref } from 'vue'
 
 function isDateUnavailable(date: DateValue) {
@@ -11,9 +11,9 @@ function isDateDisabled(date: DateValue) {
 }
 
 const modelValue = ref<DateValue>()
-const defaultValue = { start: new CalendarDate(2024, 2, 20), end: new CalendarDate(2024, 2, 24) }
-const minValue = new CalendarDate(2024, 2, 12)
-const maxValue = new CalendarDate(2024, 2, 20)
+const defaultValue = { start: createCalendarDate({ year: 2024, month: 2, day: 20 }), end: createCalendarDate({ year: 2024, month: 2, day: 24 }) }
+const minValue = createCalendarDate({ year: 2024, month: 2, day: 12 })
+const maxValue = createCalendarDate({ year: 2024, month: 2, day: 20 })
 </script>
 
 <template>

@@ -1,9 +1,9 @@
 <script lang="ts">
-import { type DateValue } from '@internationalized/date'
+import { type DateValue } from 'flat-internationalized-date'
 
 import type { Ref } from 'vue'
 import { createContext } from '@/shared'
-import { type Granularity, type HourCycle, type Matcher, type SupportedLocale, type WeekDayFormat, getDefaultDate } from '@/shared/date'
+import { type Granularity, type HourCycle, type Matcher, type WeekDayFormat, getDefaultDate } from '@/shared/date'
 
 import { type CalendarRootProps, type DateRangeFieldRoot, type DateRangeFieldRootProps, PopoverRoot, type PopoverRootEmits, type PopoverRootProps } from '..'
 
@@ -16,7 +16,7 @@ type DateRangePickerRootContext = {
   granularity: Ref<Granularity | undefined>
   hideTimeZone: Ref<boolean>
   required: Ref<boolean>
-  locale: Ref<SupportedLocale>
+  locale: Ref<string>
   dateFieldRef: Ref<InstanceType<typeof DateRangeFieldRoot> | undefined>
   modelValue: Ref<{ start: DateValue | undefined; end: DateValue | undefined }>
   placeholder: Ref<DateValue>
@@ -112,7 +112,7 @@ const defaultDate = getDefaultDate({
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: props.defaultPlaceholder ?? defaultDate.copy(),
+  defaultValue: props.defaultPlaceholder ?? { ...defaultDate },
   passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
 
@@ -151,10 +151,10 @@ provideDateRangePickerRootContext({
   dateFieldRef,
 
   onDateChange(date: { start: DateValue | undefined; end: DateValue | undefined }) {
-    modelValue.value = { start: date.start ? defaultDate.set({ ...date.start }) : undefined, end: date.end ? defaultDate.set({ ...date.end }) : undefined }
+    modelValue.value = { start: date.start ? { ...date.start } : undefined, end: date.end ? { ...date.end } : undefined }
   },
   onPlaceholderChange(date: DateValue) {
-    placeholder.value = defaultDate.set({ ...date })
+    placeholder.value = { ...date }
   },
 })
 </script>

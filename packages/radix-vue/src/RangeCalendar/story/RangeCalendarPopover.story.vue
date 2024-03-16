@@ -2,7 +2,7 @@
 import { Icon } from '@iconify/vue'
 import { RangeCalendarCell, RangeCalendarCellTrigger, RangeCalendarGrid, RangeCalendarGridBody, RangeCalendarGridHead, RangeCalendarGridRow, RangeCalendarHeadCell, RangeCalendarHeader, RangeCalendarHeading, RangeCalendarNext, RangeCalendarPrev, RangeCalendarRoot } from '../'
 import { type Ref, ref } from 'vue'
-import { type DateValue, getLocalTimeZone, today } from '@internationalized/date'
+import { type DateValue, getLocalTimeZone, temporalToString, today } from 'flat-internationalized-date'
 
 import CalendarPopover from '@/Calendar/story/_CalendarPopover.vue'
 
@@ -12,7 +12,7 @@ const placeholder = ref(today(getLocalTimeZone())) as Ref<DateValue>
 <template>
   <Story title="Range Calendar/Popover" :layout="{ type: 'single' }">
     <Variant title="default">
-      {{ placeholder.toString() }}
+      {{ placeholder }}
       <RangeCalendarRoot
         v-slot="{ weekDays, grid, getMonths, getYears, formatter, date }"
         v-model:placeholder="placeholder"
@@ -28,27 +28,27 @@ const placeholder = ref(today(getLocalTimeZone())) as Ref<DateValue>
           <RangeCalendarHeading class="text-[15px] text-black font-medium flex justify-center gap-2">
             <CalendarPopover>
               <template #trigger>
-                <span class="cursor-pointer">{{ formatter.fullMonth(date.toDate(getLocalTimeZone())) }}</span>
+                <span class="cursor-pointer">{{ formatter.fullMonth(date) }}</span>
               </template>
               <div class="grid grid-cols-4 bg-white rounded-[9px]">
                 <div
                   v-for="month in getMonths"
-                  :key="month.toString()"
+                  :key="temporalToString(month)"
                   class=" cursor-pointer flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent text-sm font-normal text-black p-2 outline-none focus:shadow-[0_0_0_2px] focus:shadow-black hover:border-black"
                   @click="placeholder = month"
                 >
-                  <span class="cursor-pointer">{{ formatter.custom(month.toDate(getLocalTimeZone()), { month: 'short' }) }}</span>
+                  <span class="cursor-pointer">{{ formatter.custom(month, { month: 'short' }) }}</span>
                 </div>
               </div>
             </CalendarPopover>
             <CalendarPopover>
               <template #trigger>
-                <span class="cursor-pointer">{{ formatter.fullYear(date.toDate(getLocalTimeZone())) }}</span>
+                <span class="cursor-pointer">{{ formatter.fullYear(date) }}</span>
               </template>
               <div class="grid grid-cols-4 bg-white rounded-[9px] gap-4">
                 <div
                   v-for="yearValue in getYears({ startIndex: -10, endIndex: 10 })"
-                  :key="yearValue.toString()"
+                  :key="temporalToString(yearValue)"
                   class="cursor-pointer flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent text-sm font-normal text-black p-2 outline-none focus:shadow-[0_0_0_2px] focus:shadow-black hover:border-black"
                   @click="placeholder = yearValue"
                 >

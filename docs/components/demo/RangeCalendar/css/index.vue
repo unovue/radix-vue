@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 import { RangeCalendarCell, RangeCalendarCellTrigger, RangeCalendarGrid, RangeCalendarGridBody, RangeCalendarGridHead, RangeCalendarGridRow, RangeCalendarHeadCell, RangeCalendarHeader, RangeCalendarHeading, RangeCalendarNext, RangeCalendarPrev, RangeCalendarRoot, type RangeCalendarRootProps } from 'radix-vue'
+
+import { temporalToString } from 'flat-internationalized-date'
+
 import './styles.css'
 
 const isDateUnavailable: RangeCalendarRootProps['isDateUnavailable'] = (date) => {
@@ -31,7 +34,7 @@ const isDateUnavailable: RangeCalendarRootProps['isDateUnavailable'] = (date) =>
     <div
       class="CalendarWrapper"
     >
-      <RangeCalendarGrid v-for="month in grid" :key="month.value.toString()" class="CalendarGrid">
+      <RangeCalendarGrid v-for="month in grid" :key="temporalToString(month.value)" class="CalendarGrid">
         <RangeCalendarGridHead>
           <RangeCalendarGridRow class="CalendarGridRow">
             <RangeCalendarHeadCell
@@ -46,7 +49,7 @@ const isDateUnavailable: RangeCalendarRootProps['isDateUnavailable'] = (date) =>
           <RangeCalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="CalendarGridRow">
             <RangeCalendarCell
               v-for="weekDate in weekDates"
-              :key="weekDate.toString()"
+              :key="temporalToString(weekDate)"
               :date="weekDate"
               class="CalendarCell"
             >

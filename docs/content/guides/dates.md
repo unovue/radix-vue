@@ -19,23 +19,23 @@ robust date components that excel in terms of accessibility, user experience, an
 :::
 
 The components we offer depend on the
-[@internationalized/date](https://react-spectrum.adobe.com/internationalized/date/index.html)
+[flat-internationalized-date](https://www.npmjs.com/package/flat-internationalized-date)
 package, which solves a lot of the problems that come with working with dates and times in
 JavaScript.
 
 We highly recommend reading through the documentation for the package to get a solid feel for how it
 works, and you'll need to install it in your project to use the date-related components.
-  
+
 
 ```bash
-npm install -D @internationalized/date
+npm install -D flat-internationalized-date
 ```
- 
- 
+
+
 
 ## Date Objects
 
-We use the `DateValue` objects provided by `@internationlized/date` to
+We use the `DateValue` objects provided by `flat-internationalized` to
 represent dates in the various components. These objects are immutable, and provide information about
 the type of date they represent:
 

@@ -33,7 +33,7 @@ This component was built taking inspiration from the implementation in [melt-ui]
 
 ## Preface
 
-The component depends on the [@internationalized/date](https://react-spectrum.adobe.com/internationalized/date/index.html) package, which solves a lot of the problems that come with working with dates and times in JavaScript.
+The component depends on the [flat-internationalized-date](https://www.npmjs.com/package/flat-internationalized-date) package based on [@internationalized/date](https://react-spectrum.adobe.com/internationalized/date/index.html) package, which solves a lot of the problems that come with working with dates and times in JavaScript.
 
 We highly recommend reading through the documentation for the package to get a solid feel for how it works, and you'll need to install it in your project to use the date-related components.
 
@@ -42,7 +42,7 @@ We highly recommend reading through the documentation for the package to get a s
 Install the date package.
 
 ```bash
-npm install -D @internationalized/date
+npm install -D flat-internationalized-date
 ```
 
 Install the component from your command line.

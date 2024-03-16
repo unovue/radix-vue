@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import type { DateValue } from '@internationalized/date'
+import { type DateValue, temporalToString } from 'flat-internationalized-date'
 import { RangeCalendarCell, RangeCalendarCellTrigger, RangeCalendarGrid, RangeCalendarGridBody, RangeCalendarGridHead, RangeCalendarGridRow, RangeCalendarHeadCell, RangeCalendarHeader, RangeCalendarHeading, RangeCalendarNext, RangeCalendarPrev, RangeCalendarRoot } from 'radix-vue'
 
 function isDateUnavailable(date: DateValue) {
@@ -31,7 +31,7 @@ function isDateUnavailable(date: DateValue) {
     <div
       class="flex flex-col space-y-4 pt-4 sm:flex-row sm:space-x-4 sm:space-y-0"
     >
-      <RangeCalendarGrid v-for="month in grid" :key="month.value.toString()" class="w-full border-collapse select-none space-y-1">
+      <RangeCalendarGrid v-for="month in grid" :key="temporalToString(month.value)" class="w-full border-collapse select-none space-y-1">
         <RangeCalendarGridHead>
           <RangeCalendarGridRow class="mb-1 grid w-full grid-cols-7">
             <RangeCalendarHeadCell
@@ -46,7 +46,7 @@ function isDateUnavailable(date: DateValue) {
           <RangeCalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="grid grid-cols-7">
             <RangeCalendarCell
               v-for="weekDate in weekDates"
-              :key="weekDate.toString()"
+              :key="temporalToString(weekDate)"
               :date="weekDate"
             >
               <RangeCalendarCellTrigger

@@ -86,7 +86,7 @@
   {
     'name': 'locale',
     'description': '<p>Whether or not the calendar is readonly</p>\n',
-    'type': '\'tr\' | \'th\' | \'en\' | \'ach\' | \'af\' | \'am\' | \'an\' | \'ar\' | \'ast\' | \'az\' | \'be\' | \'bg\' | \'bn\' | \'br\' | \'bs\' | \'ca\' | \'cak\' | \'ckb\' | \'cs\' | \'cy\' | \'da\' | \'de\' | \'dsb\' | \'el\' | \'eo\' | \'es\' | ... 49 more ...',
+    'type': 'string',
     'required': false,
     'default': '\'en\''
   },

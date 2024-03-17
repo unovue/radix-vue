@@ -78,7 +78,7 @@ function handleClick(e: Event) {
   changeDate(
     parseStringToDateValue(
       (e.target as HTMLDivElement).getAttribute('data-value')!,
-      rootContext.defaultDate,
+      rootContext.placeholder.value,
     ),
   )
 }
@@ -112,7 +112,7 @@ function handleArrowKey(e: KeyboardEvent) {
       changeDate(
         parseStringToDateValue(
           currentCell!.getAttribute('data-value')!,
-          rootContext.defaultDate,
+          rootContext.placeholder.value,
         ),
       )
       return

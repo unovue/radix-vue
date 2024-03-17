@@ -103,7 +103,7 @@ function changeDate(date: DateValue) {
 
 function handleClick(e: Event) {
   e.preventDefault()
-  changeDate(parseStringToDateValue((e.target as HTMLDivElement).getAttribute('data-value')!, rootContext.defaultDate))
+  changeDate(parseStringToDateValue((e.target as HTMLDivElement).getAttribute('data-value')!, rootContext.placeholder.value))
 }
 
 function handleFocus(date: DateValue) {
@@ -137,7 +137,7 @@ function handleArrowKey(e: KeyboardEvent) {
       break
     case kbd.ENTER:
     case kbd.SPACE_CODE:
-      changeDate(parseStringToDateValue(currentCell!.getAttribute('data-value')!, rootContext.defaultDate))
+      changeDate(parseStringToDateValue(currentCell!.getAttribute('data-value')!, rootContext.placeholder.value))
       return
     default:
       return

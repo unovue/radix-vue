@@ -319,7 +319,6 @@ provideRangeCalendarRootContext({
   nextPage,
   prevPage,
   parentElement,
-  defaultDate,
   onPlaceholderChange,
   locale,
 

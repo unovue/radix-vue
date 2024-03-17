@@ -38,7 +38,6 @@ type CalendarRootContext = {
   isNextButtonDisabled: Ref<boolean>
   isPrevButtonDisabled: Ref<boolean>
   formatter: Formatter
-  defaultDate: DateValue
 }
 
 interface BaseCalendarRootProps extends PrimitiveProps {
@@ -329,7 +328,6 @@ provideCalendarRootContext({
   parentElement,
   onPlaceholderChange,
   onDateChange,
-  defaultDate,
 })
 </script>
 

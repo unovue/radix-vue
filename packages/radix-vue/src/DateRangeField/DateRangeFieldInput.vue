@@ -36,7 +36,6 @@ const {
   disabled: rootContext.disabled,
   readonly: rootContext.readonly,
   focusNext: rootContext.focusNext,
-  defaultDate: rootContext.defaultDate,
 })
 
 const disabled = computed(() => rootContext.disabled.value)

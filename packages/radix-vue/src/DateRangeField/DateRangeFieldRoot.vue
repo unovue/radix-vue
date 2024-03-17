@@ -35,7 +35,6 @@ type DateRangeFieldRootContext = {
   elements: Ref<Set<HTMLElement>>
   focusNext: () => void
   setFocusedElement: (el: HTMLElement) => void
-  defaultDate: DateValue
 }
 
 export interface DateRangeFieldRootProps extends PrimitiveProps {
@@ -357,7 +356,6 @@ provideDateRangeFieldRootContext({
   segmentContents: editableSegmentContents,
   elements: segmentElements,
   setFocusedElement,
-  defaultDate,
   focusNext() {
     nextFocusableSegment.value?.focus()
   },

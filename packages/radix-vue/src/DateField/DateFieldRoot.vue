@@ -32,7 +32,6 @@ type DateFieldRootContext = {
   elements: Ref<Set<HTMLElement>>
   focusNext: () => void
   setFocusedElement: (el: HTMLElement) => void
-  defaultDate: DateValue
 }
 
 export interface DateFieldRootProps extends PrimitiveProps {
@@ -164,12 +163,6 @@ const initialSegments = initializeSegmentValues(inferredGranularity.value)
 
 const segmentValues = ref<SegmentValueObj>(modelValue.value ? { ...syncSegmentValues({ value: modelValue.value, formatter }) } : { ...initialSegments })
 
-// watchEffect(() => {
-//   console.log(props.modelValue)
-//   modelValue.value = props.modelValue
-//   segmentValues.value = modelValue.value ? { ...syncSegmentValues({ value: modelValue.value, formatter }) } : { ...initialSegments }
-// })
-
 const allSegmentContent = computed(() => createContent({
   granularity: inferredGranularity.value,
   dateRef: placeholder.value,
@@ -269,7 +262,6 @@ provideDateFieldRootContext({
   segmentContents: editableSegmentContents,
   elements: segmentElements,
   setFocusedElement,
-  defaultDate,
   focusNext() {
     nextFocusableSegment.value?.focus()
   },

@@ -10,9 +10,9 @@ const gregorian = createCalendarDate({
 
 const persian = createCalendarDate({
   calendar: CALENDAR.PERSIAN,
-  year: 1399,
-  month: 6,
-  day: 12,
+  year: 1403,
+  month: 12,
+  day: 1,
 })
 const japanese = createCalendarDate({
   calendar: CALENDAR.JAPANESE,

@@ -19,6 +19,7 @@ interface IndicatorStyle {
   size: number | null
   position: number | null
 }
+const activeTab = ref<HTMLElement | null>()
 const indicatorStyle = ref<IndicatorStyle>({
   size: null,
   position: null,
@@ -29,24 +30,24 @@ watch(() => context.modelValue.value, async (n) => {
   updateIndicatorStyle()
 }, { immediate: true })
 
-useResizeObserver(context.tabsList, updateIndicatorStyle)
+useResizeObserver([context.tabsList, activeTab], updateIndicatorStyle)
 
 function updateIndicatorStyle() {
-  const activeTab = context.tabsList.value?.querySelector<HTMLButtonElement>('[role="tab"][data-state="active"]')
+  activeTab.value = context.tabsList.value?.querySelector<HTMLButtonElement>('[role="tab"][data-state="active"]')
 
-  if (!activeTab)
+  if (!activeTab.value)
     return
 
   if (context.orientation.value === 'horizontal') {
     indicatorStyle.value = {
-      size: activeTab.offsetWidth,
-      position: activeTab.offsetLeft,
+      size: activeTab.value.offsetWidth,
+      position: activeTab.value.offsetLeft,
     }
   }
   else {
     indicatorStyle.value = {
-      size: activeTab.offsetHeight,
-      position: activeTab.offsetTop,
+      size: activeTab.value.offsetHeight,
+      position: activeTab.value.offsetTop,
     }
   }
 }

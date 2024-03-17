@@ -16,7 +16,10 @@ export {
   type PopoverContentProps,
   type PopoverContentEmits,
 } from './PopoverContent.vue'
-export { default as PopoverArrow } from './PopoverArrow.vue'
+export {
+  default as PopoverArrow,
+  type PopoverArrowProps,
+} from './PopoverArrow.vue'
 export {
   default as PopoverClose,
   type PopoverCloseProps,

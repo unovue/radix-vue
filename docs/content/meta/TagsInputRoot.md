@@ -113,7 +113,7 @@
 <SlotsTable :data="[
   {
     'name': 'modelValue',
-    'description': 'Current input values',
+    'description': '<p>Current input values</p>\n',
     'type': 'string[]'
   }
 ]" />

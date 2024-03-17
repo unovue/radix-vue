@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { Ref } from 'vue'
-import { createContext, useId } from '@/shared'
+import { createContext } from '@/shared'
 
 export interface DialogRootProps {
   /** The controlled open state of the dialog. Can be binded as `v-model:open`. */
@@ -66,9 +66,9 @@ provideDialogRootContext({
   onOpenToggle: () => {
     open.value = !open.value
   },
-  contentId: useId(),
-  titleId: useId(),
-  descriptionId: useId(),
+  contentId: '',
+  titleId: '',
+  descriptionId: '',
   triggerElement,
   contentElement,
 })

@@ -65,5 +65,17 @@ describe('given default NavigationMenu', () => {
         expect(links[links.length - 1].element).toBe(document.activeElement)
       })
     })
+
+    // TODO: Better dismissable test
+    // describe('after interacting outside', () => {
+    //   beforeEach(async () => {
+    //     await fireEvent.pointerDown(document.body)
+    //     await sleep(0)
+    //   })
+
+    //   it('should close the content', () => {
+    //     expect(wrapper.find('[data-dismissable-layer]').exists()).toBe(false)
+    //   })
+    // })
   })
 })

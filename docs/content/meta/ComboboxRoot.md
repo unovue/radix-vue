@@ -103,12 +103,12 @@
 <SlotsTable :data="[
   {
     'name': 'open',
-    'description': 'Current open state',
+    'description': '<p>Current open state</p>\n',
     'type': 'boolean'
   },
   {
     'name': 'modelValue',
-    'description': 'Current active value',
+    'description': '<p>Current active value</p>\n',
     'type': 'AcceptableValue | AcceptableValue[]'
   }
 ]" />

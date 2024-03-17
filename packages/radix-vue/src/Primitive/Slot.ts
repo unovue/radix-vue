@@ -12,7 +12,7 @@ export const Slot = defineComponent({
 
       const [firstChildren, ...otherChildren] = childrens
 
-      if (Object.keys(attrs).length > 0) {
+      if (firstChildren) {
         // remove props ref from being inferred
         delete firstChildren.props?.ref
         const mergedProps = mergeProps(attrs, firstChildren.props ?? {})

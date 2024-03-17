@@ -1,5 +1,4 @@
 <script lang="ts">
-import type { PointerDownOutsideEvent } from '@/DismissableLayer'
 import type { NavigationMenuContentImplEmits, NavigationMenuContentImplProps } from './NavigationMenuContentImpl.vue'
 
 export type NavigationMenuContentEmits = NavigationMenuContentImplEmits
@@ -17,7 +16,7 @@ export interface NavigationMenuContentProps extends NavigationMenuContentImplPro
 import { computed } from 'vue'
 import { injectNavigationMenuContext } from './NavigationMenuRoot.vue'
 import { injectNavigationMenuItemContext } from './NavigationMenuItem.vue'
-import { getOpenState } from './utils'
+import { getOpenState, whenMouse } from './utils'
 import { Presence } from '@/Presence'
 import NavigationMenuContentImpl from './NavigationMenuContentImpl.vue'
 import { useEmitAsProps, useForwardExpose } from '@/shared'
@@ -42,16 +41,12 @@ const open = computed(() => itemContext.value === menuContext.modelValue.value)
 // We persist the last active content value as the viewport may be animating out
 // and we want the content to remain mounted for the lifecycle of the viewport.
 const isLastActiveValue = computed(() => {
-  if (!menuContext.modelValue.value && menuContext.previousValue.value)
-    return (menuContext.previousValue.value === itemContext.value)
+  if (menuContext.viewport.value) {
+    if (!menuContext.modelValue.value && menuContext.previousValue.value)
+      return (menuContext.previousValue.value === itemContext.value)
+  }
   return false
 })
-
-function handlePointerDown(ev: PointerDownOutsideEvent) {
-  emits('pointerDownOutside', ev)
-  if (!ev.preventDefault)
-    menuContext.onContentLeave()
-}
 </script>
 
 <template>
@@ -65,8 +60,8 @@ function handlePointerDown(ev: PointerDownOutsideEvent) {
         }"
         v-bind="{ ...$attrs, ...props, ...emitsAsProps }"
         @pointerenter="menuContext.onContentEnter(itemContext.value)"
-        @pointerleave="menuContext.onContentLeave()"
-        @pointerdown="handlePointerDown"
+        @pointerleave="whenMouse(() => menuContext.onContentLeave())"
+        @pointer-down-outside="emits('pointerDownOutside', $event)"
         @focus-outside="emits('focusOutside', $event)"
         @interact-outside="emits('interactOutside', $event)"
       >

@@ -19,7 +19,7 @@
 <SlotsTable :data="[
   {
     'name': 'items',
-    'description': 'Pages item',
+    'description': '<p>Pages item</p>\n',
     'type': '{ type: \'ellipsis\'; } | { type: \'page\'; value: number; }'
   }
 ]" />

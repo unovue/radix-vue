@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { MenuContext } from './MenuRoot.vue'
-import { createContext, useId } from '@/shared'
+import { createContext } from '@/shared'
 
 export interface MenuSubContext {
   contentId: string
@@ -67,8 +67,8 @@ provideMenuContext({
 })
 
 provideMenuSubContext({
-  triggerId: useId(),
-  contentId: useId(),
+  triggerId: '',
+  contentId: '',
   trigger,
   onTriggerChange: (element) => {
     trigger.value = element

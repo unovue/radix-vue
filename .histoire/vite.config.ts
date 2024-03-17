@@ -50,5 +50,6 @@ export default defineConfig({
       // Allow serving files from two level up to the project root
       allow: [".."],
     },
+    host: true
   },
 });

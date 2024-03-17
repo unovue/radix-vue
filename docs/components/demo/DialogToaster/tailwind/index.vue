@@ -60,8 +60,10 @@ import { Toaster, toast } from 'vue-sonner'
       </DialogPortal>
     </DialogRoot>
 
-    <Teleport to="html">
-      <Toaster />
-    </Teleport>
+    <ClientOnly>
+      <Teleport to="html">
+        <Toaster />
+      </Teleport>
+    </ClientOnly>
   </div>
 </template>

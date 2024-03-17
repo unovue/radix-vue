@@ -28,7 +28,7 @@ import { MenuRoot } from '@/Menu'
 
 const props = defineProps<MenubarMenuProps>()
 
-const value = props.value ?? useId()
+const value = useId(props.value)
 const rootContext = injectMenubarRootContext()
 useForwardExpose()
 
@@ -46,7 +46,7 @@ provideMenubarMenuContext({
   value,
   triggerElement,
   triggerId: value,
-  contentId: useId(),
+  contentId: '',
   wasKeyboardTriggerOpenRef,
 })
 </script>

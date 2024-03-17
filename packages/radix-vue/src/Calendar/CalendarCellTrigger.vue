@@ -152,11 +152,6 @@ function handleArrowKey(e: KeyboardEvent) {
     })
   }
 }
-const formattedTriggerText = computed(() => {
-  return rootContext.formatter.custom(props.day, {
-    day: 'numeric',
-  })
-})
 </script>
 
 <template>
@@ -181,7 +176,7 @@ const formattedTriggerText = computed(() => {
     @keydown.enter.prevent
   >
     <slot>
-      {{ formattedTriggerText }}
+      {{ day.day }}
     </slot>
   </Primitive>
 </template>

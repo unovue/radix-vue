@@ -13,6 +13,7 @@ type RangeCalendarRootContext = {
   modelValue: Ref<{ start: DateValue | undefined; end: DateValue | undefined }>
   startValue: Ref<DateValue | undefined>
   endValue: Ref<DateValue | undefined>
+  locale: Ref<string>
   placeholder: Ref<DateValue>
   pagedNavigation: Ref<boolean>
   preventDeselect: Ref<boolean>
@@ -42,7 +43,6 @@ type RangeCalendarRootContext = {
   isNextButtonDisabled: Ref<boolean>
   isPrevButtonDisabled: Ref<boolean>
   formatter: Formatter
-  defaultDate: DateValue
 }
 
 export interface RangeCalendarRootProps extends PrimitiveProps {
@@ -154,6 +154,7 @@ const {
   calendarLabel,
   maxValue,
   minValue,
+  locale,
 } = toRefs(props)
 
 const { primitiveElement, currentElement: parentElement }
@@ -320,6 +321,8 @@ provideRangeCalendarRootContext({
   parentElement,
   defaultDate,
   onPlaceholderChange,
+  locale,
+
 })
 
 onMounted(() => {

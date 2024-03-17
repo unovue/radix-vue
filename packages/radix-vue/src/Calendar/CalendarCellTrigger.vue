@@ -176,7 +176,7 @@ function handleArrowKey(e: KeyboardEvent) {
     @keydown.enter.prevent
   >
     <slot>
-      {{ day.day }}
+      {{ day.day.toLocaleString(rootContext.locale.value) }}
     </slot>
   </Primitive>
 </template>

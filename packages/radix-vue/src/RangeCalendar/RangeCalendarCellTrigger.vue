@@ -202,7 +202,7 @@ function handleArrowKey(e: KeyboardEvent) {
     @keydown.up.down.left.right.enter.space="handleArrowKey"
   >
     <slot>
-      {{ day.day }}
+      {{ day.day.toLocaleString(rootContext.locale.value) }}
     </slot>
   </Primitive>
 </template>

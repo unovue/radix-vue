@@ -2,7 +2,7 @@
   * Implementation ported from https://github.com/melt-ui/melt-ui/blob/develop/src/lib/internal/helpers/date/formatter.ts
 */
 
-import { DateFormatter, getLocalTimeZone, isZonedDateTime, set, today } from 'flat-internationalized-date'
+import { DateFormatter, add, getLocalTimeZone, isZonedDateTime, set, today } from 'flat-internationalized-date'
 import type { DateValue, ZonedDateTime } from 'flat-internationalized-date'
 import { hasTime, toDate } from './date'
 import { ref } from 'vue'
@@ -44,6 +44,9 @@ export function useDateFormatter(initialLocale: string): Formatter {
   const formatter = (options: Intl.DateTimeFormatOptions) => DateFormatter(locale.value, options)
 
   function custom(date: DateValue, options: Intl.DateTimeFormatOptions) {
+    if (date.day === 1 && options.month)
+      return formatter(options).format(toDate(add(date, { days: 1 })))
+
     return formatter(options).format(toDate(date))
   }
 
@@ -62,10 +65,17 @@ export function useDateFormatter(initialLocale: string): Formatter {
   }
 
   function fullMonthAndYear(date: DateValue) {
+    // Add a day to the date to fix edge case with Persian Calendar, probably useful for other calendars too
+    if (date.day === 1)
+      return formatter({ month: 'long', year: 'numeric' }).format(toDate(add(date, { days: 1 })))
+
     return formatter({ month: 'long', year: 'numeric' }).format(toDate(date))
   }
 
   function fullMonth(date: DateValue) {
+    // Add a day to the date to fix edge case with Persian Calendar, probably useful for other calendars too
+    if (date.day === 1)
+      return formatter({ month: 'long' }).format(toDate(add(date, { days: 1 })))
     return formatter({ month: 'long' }).format(toDate(date))
   }
 

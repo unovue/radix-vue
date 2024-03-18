@@ -1,4 +1,12 @@
-<script setup lang="ts" generic="T extends AcceptableValue">
+<script lang="ts">
+export interface ListboxVirtualizerProps<T extends AcceptableValue = AcceptableValue> {
+  options: T[]
+  estimateSize?: number
+  textContent?: (option: T) => string
+}
+</script>
+
+<script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
 import { useVirtualizer } from '@tanstack/vue-virtual'
 import { cloneVNode, computed, useSlots } from 'vue'
 import { injectListboxRootContext } from './ListboxRoot.vue'
@@ -7,11 +15,7 @@ import { MAP_KEY_TO_FOCUS_INTENT } from '@/RovingFocus/utils'
 import { refAutoReset } from '@vueuse/shared'
 import { getNextMatch } from '@/shared/useTypeahead'
 
-const props = defineProps<{
-  options: T[]
-  estimateSize?: number
-  textContent?: (option: T) => string
-}>()
+const props = defineProps<ListboxVirtualizerProps<T>>()
 
 defineSlots<{
   default(props: {

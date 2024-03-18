@@ -5,6 +5,11 @@ export interface ListboxItemProps<T = AcceptableValue> extends PrimitiveProps {
 }
 export type SelectEvent<T> = CustomEvent<{ originalEvent: PointerEvent; value?: T }>
 
+export type ListboxItemEmits<T = AcceptableValue> = {
+  /** Event handler called when the selecting item. <br> It can be prevented by calling `event.preventDefault`. */
+  select: [event: SelectEvent<T>]
+}
+
 const LISTBOX_SELECT = 'listbox.select'
 </script>
 
@@ -19,6 +24,7 @@ import { handleAndDispatchCustomEvent, useId } from '@/shared'
 const props = withDefaults(defineProps<ListboxItemProps>(), {
   as: 'div',
 })
+const emits = defineEmits<ListboxItemEmits>()
 
 const id = useId(undefined, 'radix-vue-listbox-item')
 const rootContext = injectListboxRootContext()
@@ -28,7 +34,7 @@ const isSelected = computed(() => valueComparator(rootContext.modelValue.value, 
 const disabled = computed(() => rootContext.disabled.value || props.disabled)
 
 async function handleSelect(ev: SelectEvent<T>) {
-  // emits('select', ev)
+  emits('select', ev)
   if (ev?.defaultPrevented)
     return
 

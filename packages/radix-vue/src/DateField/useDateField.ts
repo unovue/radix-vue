@@ -1,6 +1,6 @@
 import { type Formatter, useKbd } from '@/shared'
-import { type HourCycle, type SegmentPart, type SegmentValueObj, getDaysInMonth, toDate } from '@/shared/date'
-import { type CalendarDateTime, type CycleTimeOptions, type DateFields, type DateValue, type TimeFields, cycle, set } from 'flat-internationalized-date'
+import { type HourCycle, type SegmentPart, type SegmentValueObj } from '@/shared/date'
+import { type CalendarDateTime, type CycleTimeOptions, type DateFields, type DateValue, type TimeFields, cycle, getDaysInMonth, set } from 'flat-internationalized-date'
 import { type Ref, computed } from 'vue'
 import { isAcceptableSegmentKey, isNumberString, isSegmentNavigationKey } from './utils'
 
@@ -44,7 +44,7 @@ function daySegmentAttrs(props: SegmentAttrProps) {
 
   const valueNow = date.day
   const valueMin = 1
-  const valueMax = getDaysInMonth(toDate(date))
+  const valueMax = getDaysInMonth(date)
   const valueText = isEmpty ? 'Empty' : `${valueNow}`
 
   return {

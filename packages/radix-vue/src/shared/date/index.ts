@@ -4,7 +4,6 @@ export {
   getDefaultDate,
   parseStringToDateValue,
   hasTime,
-  getDaysInMonth,
   isBefore,
   isAfter,
   isBeforeOrSame,

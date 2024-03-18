@@ -2,10 +2,10 @@
  * Implementation ported from from from https://github.com/melt-ui/melt-ui/blob/develop/src/lib/builders/calendar/create.ts
 */
 
-import { type DateValue, add, compare, endOfMonth, endOfYear, set, startOfMonth, startOfYear, subtract } from 'flat-internationalized-date'
+import { type DateValue, add, compare, endOfMonth, endOfYear, getDaysInMonth, set, startOfMonth, startOfYear, subtract } from 'flat-internationalized-date'
 import type { Grid } from './types'
 import { chunk } from '@/shared'
-import { getDaysInMonth, getLastFirstDayOfWeek, getNextLastDayOfWeek, isAfter, isBefore } from '@/shared/date'
+import { getLastFirstDayOfWeek, getNextLastDayOfWeek, isAfter, isBefore } from '@/shared/date'
 
 export type WeekDayFormat = 'narrow' | 'short' | 'long'
 
@@ -60,7 +60,7 @@ export function getDaysBetween(start: DateValue, end: DateValue) {
 
 export function createMonth(props: CreateMonthProps): Grid<DateValue> {
   const { dateObj, weekStartsOn, fixedWeeks, locale } = props
-  const daysInMonth = getDaysInMonth(dateObj as DateValue)
+  const daysInMonth = getDaysInMonth(dateObj)
 
   const datesArray = Array.from({ length: daysInMonth }, (_, i) => set(dateObj, { day: i + 1 }))
 

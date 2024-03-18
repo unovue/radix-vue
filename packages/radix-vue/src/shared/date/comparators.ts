@@ -2,7 +2,7 @@
   * Implementation ported from https://github.com/melt-ui/melt-ui/blob/develop/src/lib/internal/helpers/date/utils.ts
 */
 
-import { type DateValue, add, compare, createCalendarDate, createCalendarDateTime, getDayOfWeek, getLocalTimeZone, isCalendarDateTime, isZonedDateTime, toDate as libToDate, parseDate, parseDateTime, parseZonedDateTime, set, subtract } from 'flat-internationalized-date'
+import { type DateValue, add, compare, createCalendarDate, createCalendarDateTime, getDayOfWeek, getLocalTimeZone, isCalendarDateTime, isZonedDateTime, toDate as libToDate, parseDate, parseDateTime, parseZonedDateTime, subtract } from 'flat-internationalized-date'
 
 export type Granularity = 'day' | 'hour' | 'minute' | 'second'
 
@@ -89,25 +89,6 @@ export function toDate(dateValue: DateValue, tz: string = getLocalTimeZone()) {
     return libToDate(dateValue, dateValue.timezone)
   else
     return libToDate(dateValue, tz)
-}
-
-/**
- * Given a date, return the number of days in the month.
- */
-export function getDaysInMonth(date: Date | DateValue) {
-  if (date instanceof Date) {
-    const year = date.getFullYear()
-    const month = date.getMonth() + 1
-    /**
-     * By using zero as the day, we get the
-     * last day of the previous month, which
-     * is the month we originally passed in.
-     */
-    return new Date(year, month, 0).getDate()
-  }
-  else {
-    return set(date, { day: 100 }).day
-  }
 }
 
 /**

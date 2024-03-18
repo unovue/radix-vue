@@ -108,8 +108,8 @@ importers:
         specifier: ^10.5.0
         version: 10.9.0(vue@3.4.21)
       flat-internationalized-date:
-        specifier: ^1.1.0
-        version: 1.1.0
+        specifier: ^1.2.2
+        version: 1.2.2
       radix-vue:
         specifier: link:../packages/radix-vue
         version: link:../packages/radix-vue
@@ -205,8 +205,8 @@ importers:
         specifier: ^3.1.3
         version: 3.1.3
       flat-internationalized-date:
-        specifier: ^1.1.0
-        version: 1.1.0
+        specifier: ^1.2.2
+        version: 1.2.2
       nanoid:
         specifier: ^5.0.6
         version: 5.0.6
@@ -5191,8 +5191,8 @@ packages:
       rimraf: 3.0.2
     dev: true
 
-  /flat-internationalized-date@1.1.0:
-    resolution: {integrity: sha512-bgJVaZApSfg3lR6gUN0m89ElY8doXr5CZvVpUSJAP6ogBpdhq0E79dX6IcNR0Gqyw5kopCATRmQLvUmF67CYlQ==}
+  /flat-internationalized-date@1.2.2:
+    resolution: {integrity: sha512-1URjBczW5AKMoRbO18EaPjeTiZ92Iax594SFQznqzDV7i1FSAio8nhjYWS3qj6XeKh6WszUAoUcFleNh/OC/Jg==}
     dependencies:
       typescript: 5.4.2
     dev: false
@@ -10482,7 +10482,7 @@ packages:
       '@floating-ui/vue': 1.0.6(vue@3.4.21)
       '@internationalized/date': 3.5.2
       fast-deep-equal: 3.1.3
-      flat-internationalized-date: 1.1.0
+      flat-internationalized-date: 1.2.2
       nanoid: 5.0.6
     transitivePeerDependencies:
       - '@vue/composition-api'

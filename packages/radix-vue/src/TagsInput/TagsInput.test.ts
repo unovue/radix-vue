@@ -10,6 +10,7 @@ describe('given default TagsInput', () => {
   let wrapper: VueWrapper<InstanceType<typeof TagsInput>>
   let input: DOMWrapper<HTMLInputElement>
   let tags: DOMWrapper<HTMLElement>[]
+
   beforeEach(() => {
     wrapper = mount(TagsInput, { attachTo: document.body })
     tags = wrapper.findAll('[data-radix-vue-collection-item]')
@@ -114,6 +115,53 @@ describe('given default TagsInput', () => {
           expect(tags[tags.length - 1].attributes('data-state')).toBe('active')
         })
       })
+    })
+  })
+
+  describe('adding values on user actions', () => {
+    const setValueInInput = (value: string) => {
+      input = wrapper.find('input')
+      input.element.focus()
+      return input.setValue(value)
+    }
+
+    it('should add value on keydown:enter', async () => {
+      const tag = 'tag:enter'
+
+      await setValueInInput(tag)
+
+      await input.trigger('keydown.enter')
+
+      tags = wrapper.findAll('[data-radix-vue-collection-item]')
+
+      expect(wrapper.html()).toContain(tag)
+      expect(tags[1].text()).toBe(tag)
+    })
+
+    it('should add value on keydown:tab', async () => {
+      const tag = 'tag:tab'
+      await wrapper.setProps({ addOnTab: true })
+      await setValueInInput(tag)
+
+      await input.trigger('keydown.tab')
+
+      tags = wrapper.findAll('[data-radix-vue-collection-item]')
+
+      expect(wrapper.html()).toContain(tag)
+      expect(tags[1].text()).toBe(tag)
+    })
+
+    it('should add value on blur', async () => {
+      const tag = 'tag:blur'
+      await wrapper.setProps({ addOnBlur: true })
+      await setValueInInput(tag)
+
+      await input.trigger('blur')
+
+      tags = wrapper.findAll('[data-radix-vue-collection-item]')
+
+      expect(wrapper.html()).toContain(tag)
+      expect(tags[1].text()).toBe(tag)
     })
   })
 })

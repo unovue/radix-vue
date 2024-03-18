@@ -24,9 +24,29 @@ const props = withDefaults(defineProps<TagsInputInputProps>(), {
 const context = injectTagsInputRootContext()
 const { forwardRef, currentElement } = useForwardExpose()
 
-async function handleEnter(event: Event) {
+function handleBlur(event: Event) {
+  if (!context.addOnBlur.value)
+    return
+
+  const target = event.target as HTMLInputElement
+  if (!target.value)
+    return
+
+  const isAdded = context.onAddValue(target.value)
+  if (isAdded)
+    target.value = ''
+}
+
+function handleTab(event: Event) {
+  if (!context.addOnTab.value)
+    return
+
+  handleCustomKeydown(event)
+}
+
+async function handleCustomKeydown(event: Event) {
   await nextTick()
-  // if keydown 'Enter' was prevented, we let user handle updating the value themselves
+  // if keydown 'Enter' or `Tab` was prevented, we let user handle updating the value themselves
   if (event.defaultPrevented)
     return
 
@@ -106,7 +126,9 @@ onMounted(() => {
     :disabled="context.disabled.value"
     :data-invalid="context.isInvalidInput.value ? '' : undefined"
     @input="handleInput"
-    @keydown.enter="handleEnter"
+    @keydown.enter="handleCustomKeydown"
+    @keydown.tab="handleTab"
+    @blur="handleBlur"
     @keydown="context.onInputKeydown"
     @paste="handlePaste"
   >

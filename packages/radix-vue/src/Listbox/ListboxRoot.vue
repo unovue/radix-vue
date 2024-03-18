@@ -11,6 +11,7 @@ type ListboxRootContext<T> = {
   isVirtual: Ref<boolean>
   virtualFocusHook: EventHook<Event | null>
   virtualKeydownHook: EventHook<KeyboardEvent>
+  by?: keyof T | ((a: T, b: T) => boolean)
 }
 
 export const [injectListboxRootContext, provideListboxRootContext]
@@ -26,6 +27,8 @@ export interface ListboxRootProps<T = AcceptableValue> extends PrimitiveProps {
   /** When `true`, prevents the user from interacting with listbox */
   disabled?: boolean
   selectionBehavior?: 'toggle' | 'replace'
+  /** Use this to compare objects by a particular field, or pass your own comparison function for complete control over how objects are compared. */
+  by?: keyof T | ((a: T, b: T) => boolean)
 }
 
 export type ListboxRootEmits<T = AcceptableValue> = {
@@ -37,9 +40,8 @@ export type ListboxRootEmits<T = AcceptableValue> = {
 <script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
 import { RovingFocusGroup } from '@/RovingFocus'
 import { type EventHook, createEventHook, useVModel } from '@vueuse/core'
-import { type AcceptableValue, queryCheckedElement } from './utils'
+import { type AcceptableValue, compare, queryCheckedElement } from './utils'
 import { type Ref, nextTick, ref, toRefs, watch } from 'vue'
-import isEqual from 'fast-deep-equal'
 
 const props = withDefaults(defineProps<ListboxRootProps>(), {
   selectionBehavior: 'toggle',
@@ -47,7 +49,7 @@ const props = withDefaults(defineProps<ListboxRootProps>(), {
 const emits = defineEmits<ListboxRootEmits>()
 
 const { multiple, disabled } = toRefs(props)
-const { forwardRef, currentElement: containerElement } = useForwardExpose()
+const { forwardRef, currentRef, currentElement: containerElement } = useForwardExpose()
 
 const isUserAction = ref(false)
 const modelValue = useVModel(props, 'modelValue', emits, {
@@ -59,13 +61,13 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 function onValueChange(val: T) {
   isUserAction.value = true
   if (Array.isArray(modelValue.value)) {
-    const index = modelValue.value.findIndex(i => isEqual(i, val))
+    const index = modelValue.value.findIndex(i => compare(i, val, props.by))
     index === -1 ? modelValue.value.push(val) : modelValue.value.splice(index, 1)
     // TODO: add replace behavior for multiple
   }
   else {
     if (props.selectionBehavior === 'toggle') {
-      if (isEqual(modelValue.value, val))
+      if (compare(modelValue.value, val, props.by))
         modelValue.value = undefined
       else
         modelValue.value = val
@@ -115,6 +117,7 @@ provideListboxRootContext({
   isVirtual,
   virtualFocusHook,
   virtualKeydownHook,
+  by: props.by,
 })
 </script>
 
@@ -125,7 +128,10 @@ provideListboxRootContext({
     :as="as"
     :as-child="asChild"
     @entry-focus="handleFocus"
+    @keydown="(ev) => {
+      console.log('this is root')
+    }"
   >
-    <slot />
+    <slot :model-value="modelValue" />
   </RovingFocusGroup>
 </template>

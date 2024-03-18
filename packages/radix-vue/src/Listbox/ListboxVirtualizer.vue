@@ -1,9 +1,8 @@
-<script setup lang="ts" generic="T">
+<script setup lang="ts" generic="T extends AcceptableValue">
 import { useVirtualizer } from '@tanstack/vue-virtual'
 import { cloneVNode, computed, useSlots } from 'vue'
 import { injectListboxRootContext } from './ListboxRoot.vue'
-import isEqual from 'fast-deep-equal'
-import { queryCheckedElement } from './utils'
+import { type AcceptableValue, compare, queryCheckedElement } from './utils'
 import { MAP_KEY_TO_FOCUS_INTENT } from '@/RovingFocus/utils'
 
 const props = defineProps<{
@@ -72,9 +71,9 @@ const virtualizedItems = computed(() => virtualizer.value.getVirtualItems().map(
 rootContext.virtualFocusHook.on((event) => {
   const index = props.options.findIndex((option) => {
     if (Array.isArray(rootContext.modelValue.value))
-      return isEqual(option, rootContext.modelValue.value[0])
+      return compare(option, rootContext.modelValue.value[0], rootContext.by)
     else
-      return isEqual(option, rootContext.modelValue.value)
+      return compare(option, rootContext.modelValue.value!, rootContext.by)
   })
   if (index !== -1) {
     event?.preventDefault()
@@ -113,6 +112,10 @@ rootContext.virtualKeydownHook.on((event) => {
       height: `${virtualizer.getTotalSize()}px`,
     }"
   >
-    <component :is="is" v-for="{ is, item } in virtualizedItems" :key="item.index" />
+    <component
+      :is="is"
+      v-for="{ is, item } in virtualizedItems"
+      :key="item.index"
+    />
   </div>
 </template>

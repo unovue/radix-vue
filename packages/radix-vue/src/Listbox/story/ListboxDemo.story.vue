@@ -1,5 +1,12 @@
 <script setup lang="ts">
+import { computed, ref } from 'vue'
 import { ListboxItem, ListboxRoot, ListboxVirtualizer } from '../'
+
+const filterText = ref('')
+const filteredOptions = computed(() => {
+  const options = [...Array(1000).keys()].map(String)
+  return filterText.value ? options.filter(item => item.includes(filterText.value)) : options
+})
 </script>
 
 <template>
@@ -9,7 +16,7 @@ import { ListboxItem, ListboxRoot, ListboxVirtualizer } from '../'
   >
     <Variant title="default">
       <ListboxRoot class="w-48 h-72 flex flex-col p-1 rounded-lg border bg-white text-green9 mx-auto">
-        <ListboxItem v-for="i in 10" :key="i" :value="i" class="w-full py-1 px-2 text-green9 select-none text-sm focus:ring-0 focus:outline-green9 data-[state=checked]:bg-green9 data-[state=checked]:text-white rounded">
+        <ListboxItem v-for="i in 10" :key="i" :disabled="i === 5" :value="i" class="w-full py-1 px-2 text-green9 select-none text-sm focus:ring-0 focus:outline-green9 data-[state=checked]:bg-green9 data-[state=checked]:text-white data-[disabled]:opacity-50 rounded">
           Item {{ i }}
         </ListboxItem>
       </ListboxRoot>
@@ -17,7 +24,7 @@ import { ListboxItem, ListboxRoot, ListboxVirtualizer } from '../'
 
     <Variant title="multiple">
       <ListboxRoot :multiple="true" class="w-48 h-72 flex flex-col p-1 rounded-lg border bg-white text-green9 mx-auto">
-        <ListboxItem v-for="i in 10" :key="i" :value="i" class="w-full py-1 px-2 text-green9 select-none text-sm focus:ring-0 focus:outline-green9 data-[state=checked]:bg-green9 data-[state=checked]:text-white rounded">
+        <ListboxItem v-for="i in 10" :key="i" :value="i" class="w-full py-1 px-2 text-green9 select-none text-sm focus:ring-0 focus:outline-green9 data-[state=checked]:bg-green9 data-[state=checked]:text-white data-[disabled]:opacity-50 rounded">
           Item {{ i }}
         </ListboxItem>
       </ListboxRoot>
@@ -25,7 +32,7 @@ import { ListboxItem, ListboxRoot, ListboxVirtualizer } from '../'
 
     <Variant title="replace behavior">
       <ListboxRoot :default-value="2" selection-behavior="replace" class="w-48 h-72 flex flex-col p-1 rounded-lg border bg-white text-green9 mx-auto">
-        <ListboxItem v-for="i in 10" :key="i" :value="i" class="w-full py-1 px-2 text-green9 select-none text-sm focus:ring-0 focus:outline-green9 data-[state=checked]:bg-green9 data-[state=checked]:text-white rounded">
+        <ListboxItem v-for="i in 10" :key="i" :value="i" class="w-full py-1 px-2 text-green9 select-none text-sm focus:ring-0 focus:outline-green9 data-[state=checked]:bg-green9 data-[state=checked]:text-white data-[disabled]:opacity-50 rounded">
           Item {{ i }}
         </ListboxItem>
       </ListboxRoot>
@@ -39,6 +46,19 @@ import { ListboxItem, ListboxRoot, ListboxVirtualizer } from '../'
           </ListboxItem>
         </ListboxVirtualizer>
       </ListboxRoot>
+    </Variant>
+
+    <Variant title="filtering">
+      <div class="w-48 h-72 p-1 rounded-lg border bg-white text-green9 mx-auto">
+        <input v-model="filterText" type="text" class="border rounded w-full bg-white">
+        <ListboxRoot :default-value="600" class="w-full h-64 overflow-auto">
+          <ListboxVirtualizer v-slot="{ option }" :options="filteredOptions">
+            <ListboxItem :value="option" class="w-full py-1 px-2 text-green9 select-none text-sm focus:ring-0 focus:outline-green9 data-[state=checked]:bg-green9 data-[state=checked]:text-white rounded">
+              Item {{ option }}
+            </ListboxItem>
+          </ListboxVirtualizer>
+        </ListboxRoot>
+      </div>
     </Variant>
   </Story>
 </template>

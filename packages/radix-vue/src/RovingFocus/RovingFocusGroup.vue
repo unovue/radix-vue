@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useCollection, useDirection, useForwardExpose } from '@/shared'
+import { createContext, useCollection, useDirection } from '@/shared'
 import type {
   Direction,
   Orientation,
@@ -49,7 +49,7 @@ export const [injectRovingFocusGroupContext, provideRovingFocusGroupContext]
 <script setup lang="ts">
 import { ref, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { Primitive } from '@/Primitive'
+import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { ENTRY_FOCUS, EVENT_OPTIONS, focusFirst } from './utils'
 
 const props = withDefaults(defineProps<RovingFocusGroupProps>(), {
@@ -67,7 +67,7 @@ const isTabbingBackOut = ref(false)
 const isClickFocus = ref(false)
 const focusableItemsCount = ref(0)
 
-const { forwardRef, currentElement } = useForwardExpose()
+const { primitiveElement, currentElement } = usePrimitiveElement()
 const { createCollection } = useCollection('rovingFocus')
 const collections = createCollection(currentElement)
 
@@ -122,11 +122,15 @@ provideRovingFocusGroupContext({
     focusableItemsCount.value--
   },
 })
+
+defineExpose({
+  collections,
+})
 </script>
 
 <template>
   <Primitive
-    :ref="forwardRef"
+    ref="primitiveElement"
     :tabindex="isTabbingBackOut || focusableItemsCount === 0 ? -1 : 0"
     :data-orientation="orientation"
     :as="as"

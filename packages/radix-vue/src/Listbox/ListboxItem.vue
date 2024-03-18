@@ -13,8 +13,7 @@ import { RovingFocusItem } from '@/RovingFocus'
 import { injectListboxRootContext } from './ListboxRoot.vue'
 import { computed } from 'vue'
 import type { PrimitiveProps } from '..'
-import type { AcceptableValue } from './utils'
-import isEqual from 'fast-deep-equal'
+import { type AcceptableValue, valueComparator } from './utils'
 import { handleAndDispatchCustomEvent, useId } from '@/shared'
 
 const props = withDefaults(defineProps<ListboxItemProps>(), {
@@ -24,11 +23,9 @@ const props = withDefaults(defineProps<ListboxItemProps>(), {
 const id = useId(undefined, 'radix-vue-listbox-item')
 const rootContext = injectListboxRootContext()
 
-const isSelected = computed(() => Array.isArray(rootContext.modelValue.value)
-  ? rootContext.modelValue.value?.some(val => isEqual(val, props.value))
-  : rootContext.modelValue.value === props.value)
+const isSelected = computed(() => valueComparator(rootContext.modelValue.value, props.value, rootContext.by))
 
-const disabled = computed(() => rootContext.disabled.value && props.disabled)
+const disabled = computed(() => rootContext.disabled.value || props.disabled)
 
 async function handleSelect(ev: SelectEvent<T>) {
   // emits('select', ev)
@@ -58,6 +55,7 @@ function handleVirtualizedKeydown(event: KeyboardEvent) {
     :as="as"
     :as-child="asChild"
     :disabled="disabled"
+    :data-disabled="disabled ? '' : undefined"
     :data-state="isSelected ? 'checked' : 'unchecked'"
     @pointerdown="handleSelectCustomEvent"
     @keyup.enter="handleSelectCustomEvent"

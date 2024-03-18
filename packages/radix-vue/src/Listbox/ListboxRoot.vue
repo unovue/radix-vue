@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useForwardExpose } from '@/shared'
+import { createContext, useForwardExpose, useTypeahead } from '@/shared'
 
 type ListboxRootContext<T> = {
   modelValue: Ref<T | Array<T> | undefined>
@@ -29,6 +29,7 @@ export interface ListboxRootProps<T = AcceptableValue> extends PrimitiveProps {
   selectionBehavior?: 'toggle' | 'replace'
   /** Use this to compare objects by a particular field, or pass your own comparison function for complete control over how objects are compared. */
   by?: keyof T | ((a: T, b: T) => boolean)
+  loop?: boolean
 }
 
 export type ListboxRootEmits<T = AcceptableValue> = {
@@ -41,7 +42,7 @@ export type ListboxRootEmits<T = AcceptableValue> = {
 import { RovingFocusGroup } from '@/RovingFocus'
 import { type EventHook, createEventHook, useVModel } from '@vueuse/core'
 import { type AcceptableValue, compare, queryCheckedElement } from './utils'
-import { type Ref, nextTick, ref, toRefs, watch } from 'vue'
+import { type Ref, computed, nextTick, ref, toRefs, watch } from 'vue'
 
 const props = withDefaults(defineProps<ListboxRootProps>(), {
   selectionBehavior: 'toggle',
@@ -80,6 +81,9 @@ function onValueChange(val: T) {
     isUserAction.value = false
   }, 1)
 }
+
+const collectionItems = computed(() => (currentRef.value as InstanceType<typeof RovingFocusGroup>)?.collections ?? [])
+const { handleTypeaheadSearch } = useTypeahead(collectionItems)
 
 const isVirtual = ref(false)
 const virtualFocusHook = createEventHook<Event | null>()
@@ -127,9 +131,16 @@ provideListboxRootContext({
     role="listbox"
     :as="as"
     :as-child="asChild"
+    :loop="loop"
+    enable-mutation-observer
     @entry-focus="handleFocus"
-    @keydown="(ev) => {
-      console.log('this is root')
+    @keydown="(ev: KeyboardEvent) => {
+      if (isVirtual) {
+        virtualKeydownHook.trigger(ev)
+      }
+      else {
+        handleTypeaheadSearch(ev.key)
+      }
     }"
   >
     <slot :model-value="modelValue" />

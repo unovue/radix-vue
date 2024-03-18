@@ -4,10 +4,13 @@ import { cloneVNode, computed, useSlots } from 'vue'
 import { injectListboxRootContext } from './ListboxRoot.vue'
 import { type AcceptableValue, compare, queryCheckedElement } from './utils'
 import { MAP_KEY_TO_FOCUS_INTENT } from '@/RovingFocus/utils'
+import { refAutoReset } from '@vueuse/shared'
+import { getNextMatch } from '@/shared/useTypeahead'
 
 const props = defineProps<{
   options: T[]
   estimateSize?: number
+  textContent?: (option: T) => string
 }>()
 
 defineSlots<{
@@ -87,8 +90,30 @@ rootContext.virtualFocusHook.on((event) => {
   }
 })
 
+// Reset `search` 1 second after it was last updated
+const search = refAutoReset('', 1000)
+const optionsWithMetadata = computed(() => {
+  const parseTextContent = (option: T) => {
+    if (props.textContent)
+      return props.textContent(option)
+    else
+      return option.toString().toLowerCase()
+  }
+
+  return props.options.map((option, index) => ({
+    index,
+    textContent: parseTextContent(option),
+  }))
+})
+
 rootContext.virtualKeydownHook.on((event) => {
+  const isMetaKey = event.altKey || event.ctrlKey || event.metaKey
+  const isTabKey = event.key === 'Tab' && !isMetaKey
+  if (isMetaKey || isTabKey)
+    return
+
   const intent = MAP_KEY_TO_FOCUS_INTENT[event.key]
+
   if (['first', 'last'].includes(intent)) {
     event.preventDefault()
 
@@ -101,11 +126,29 @@ rootContext.virtualKeydownHook.on((event) => {
         item.focus()
     })
   }
+  else if (!intent) {
+    search.value += event.key
+    const currentIndex = Number(document.activeElement?.getAttribute('data-index'))
+    const currentMatch = props.options[currentIndex].toString().toLowerCase()
+    const filteredOptions = optionsWithMetadata.value.map(i => i.textContent)
+    const next = getNextMatch(filteredOptions, search.value, currentMatch)
+
+    const nextMatch = optionsWithMetadata.value.find(option => option.textContent === next)
+    if (nextMatch) {
+      virtualizer.value.scrollToIndex(nextMatch.index, { align: 'start' })
+      requestAnimationFrame(() => {
+        const item = rootContext.containerElement.value.querySelector(`[data-active="true"][data-index="${nextMatch.index}"]`)
+        if (item instanceof HTMLElement)
+          item.focus()
+      })
+    }
+  }
 })
 </script>
 
 <template>
   <div
+    data-radix-vue-virtualizer
     :style="{
       position: 'relative',
       width: '100%',

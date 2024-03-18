@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { ListboxItem, ListboxRoot, ListboxVirtualizer } from '../'
+import { countryList } from './constants'
 
 const filterText = ref('')
 const filteredOptions = computed(() => {
-  const options = [...Array(1000).keys()].map(String)
-  return filterText.value ? options.filter(item => item.includes(filterText.value)) : options
+  const options = countryList.map(a => ({ label: a, value: a }))
+  return filterText.value ? options.filter(item => item.label.toLowerCase().includes(filterText.value.toLowerCase())) : options
 })
 </script>
 
@@ -52,9 +53,9 @@ const filteredOptions = computed(() => {
       <div class="w-48 h-72 p-1 rounded-lg border bg-white text-green9 mx-auto">
         <input v-model="filterText" type="text" class="border rounded w-full bg-white">
         <ListboxRoot :default-value="600" class="w-full h-64 overflow-auto">
-          <ListboxVirtualizer v-slot="{ option }" :options="filteredOptions">
+          <ListboxVirtualizer v-slot="{ option }" :text-content="(option) => option.value" :options="filteredOptions">
             <ListboxItem :value="option" class="w-full py-1 px-2 text-green9 select-none text-sm focus:ring-0 focus:outline-green9 data-[state=checked]:bg-green9 data-[state=checked]:text-white rounded">
-              Item {{ option }}
+              {{ option.label }}
             </ListboxItem>
           </ListboxVirtualizer>
         </ListboxRoot>

@@ -40,10 +40,6 @@ onUnmounted(() => {
 })
 
 async function handleKeydown(event: KeyboardEvent) {
-  await nextTick()
-  if (event.defaultPrevented)
-    return
-
   if (event.key === 'Tab' && event.shiftKey) {
     context.onItemShiftTab()
     return

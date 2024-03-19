@@ -39,9 +39,10 @@ export interface TooltipProviderProps {
    */
   disableClosingTrigger?: boolean
   /**
-   * Uses the `:focus-visible` selector to prevent the tooltip from opening
-   * if the focus did not come from the keyboard. This is useful if you want
-   * to avoid opening it when switching browser tabs or closing a dialog.
+   * Prevent the tooltip from opening if the focus did not come from
+   * the keyboard by using the `:focus-visible` selector.
+   * This is useful if you want to avoid opening it when switching
+   * browser tabs or closing a dialog.
    * @defaultValue false
    */
   keyboardFocusOnly?: boolean

@@ -65,17 +65,10 @@ export function useDateFormatter(initialLocale: string): Formatter {
   }
 
   function fullMonthAndYear(date: DateValue) {
-    // Add a day to the date to fix edge case with Persian Calendar, probably useful for other calendars too
-    if (date.day === 1)
-      return formatter({ month: 'long', year: 'numeric' }).format(toDate(add(date, { days: 1 })))
-
     return formatter({ month: 'long', year: 'numeric' }).format(toDate(date))
   }
 
   function fullMonth(date: DateValue) {
-    // Add a day to the date to fix edge case with Persian Calendar, probably useful for other calendars too
-    if (date.day === 1)
-      return formatter({ month: 'long' }).format(toDate(add(date, { days: 1 })))
     return formatter({ month: 'long' }).format(toDate(date))
   }
 

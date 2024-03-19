@@ -31,6 +31,12 @@
     'description': '<p>The controlled open state of the tooltip.</p>\n',
     'type': 'boolean',
     'required': false
+  },
+  {
+    'name': 'disabled',
+    'description': '<p> Disable tooltip completely. Ignores manual open.</p>\n',
+    'type': 'boolean',
+    'required': false
   }
 ]" />
 

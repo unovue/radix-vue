@@ -30,6 +30,13 @@ export interface TooltipRootProps {
    * @defaultValue false
    */
   disableClosingTrigger?: boolean
+  /**
+   * Uses the `:focus-visible` selector to prevent the tooltip from opening
+   * if the focus did not come from the keyboard. This is useful if you want
+   * to avoid opening it when switching browser tabs or closing a dialog.
+   * @defaultValue false
+   */
+  keyboardFocusOnly?: boolean
 }
 
 export type TooltipRootEmits = {
@@ -49,6 +56,7 @@ export interface TooltipContext {
   onClose(): void
   disableHoverableContent: Ref<boolean>
   disableClosingTrigger: Ref<boolean>
+  keyboardFocusOnly: Ref<boolean>
 }
 
 export const [injectTooltipRootContext, provideTooltipRootContext]
@@ -68,6 +76,7 @@ const props = withDefaults(defineProps<TooltipRootProps>(), {
   delayDuration: undefined,
   disableHoverableContent: undefined,
   disableClosingTrigger: undefined,
+  keyboardFocusOnly: undefined,
 })
 
 const emit = defineEmits<TooltipRootEmits>()
@@ -78,6 +87,7 @@ const providerContext = injectTooltipProviderContext()
 const disableHoverableContent = computed(() => props.disableHoverableContent ?? providerContext.disableHoverableContent.value)
 const disableClosingTrigger = computed(() => props.disableClosingTrigger ?? providerContext.disableClosingTrigger.value)
 const delayDuration = computed(() => props.delayDuration ?? providerContext.delayDuration.value)
+const keyboardFocusOnly = computed(() => props.keyboardFocusOnly ?? providerContext.keyboardFocusOnly.value)
 
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
@@ -149,6 +159,7 @@ provideTooltipRootContext({
   onClose: handleClose,
   disableHoverableContent,
   disableClosingTrigger,
+  keyboardFocusOnly,
 })
 </script>
 

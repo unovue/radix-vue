@@ -60,7 +60,7 @@ const isLastActiveValue = computed(() => {
         }"
         v-bind="{ ...$attrs, ...props, ...emitsAsProps }"
         @pointerenter="menuContext.onContentEnter(itemContext.value)"
-        @pointerleave="whenMouse(() => menuContext.onContentLeave())"
+        @pointerleave="whenMouse(() => menuContext.onContentLeave())($event)"
         @pointer-down-outside="emits('pointerDownOutside', $event)"
         @focus-outside="emits('focusOutside', $event)"
         @interact-outside="emits('interactOutside', $event)"

@@ -85,7 +85,7 @@ useResizeObserver(content, () => {
         ['--radix-navigation-menu-viewport-height' as any]: size ? `${size?.height}px` : undefined,
       }"
       @pointerenter="menuContext.onContentEnter(menuContext.modelValue.value)"
-      @pointerleave="whenMouse(() => menuContext.onContentLeave())"
+      @pointerleave="whenMouse(() => menuContext.onContentLeave())($event)"
     >
       <slot />
     </Primitive>

@@ -4,6 +4,7 @@ import { ref } from 'vue'
 import { TooltipArrow, TooltipContent, TooltipPortal, TooltipProvider, TooltipRoot, TooltipTrigger } from '..'
 
 const toggleState = ref(false)
+const disableTooltip = ref(false)
 </script>
 
 <template>
@@ -11,7 +12,7 @@ const toggleState = ref(false)
     <Variant title="default">
       <div class="py-20">
         <TooltipProvider>
-          <TooltipRoot v-model:open="toggleState">
+          <TooltipRoot v-model:open="toggleState" :disabled="disableTooltip">
             <TooltipTrigger
               class="text-violet11 shadow-blackA7 hover:bg-violet3 inline-flex h-[35px] w-[35px] items-center justify-center rounded-full bg-white shadow-[0_2px_10px] outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
             >

@@ -23,6 +23,7 @@ const currentTrigger = ref('')
         <NavigationMenuRoot
           v-model="currentTrigger"
           class="relative z-[1] flex w-full justify-center"
+          :menu-trigger="['hover']"
         >
           <NavigationMenuList
             class="center shadow-blackA7 m-0 flex list-none rounded-[6px] bg-white p-1 shadow-[0_2px_10px]"

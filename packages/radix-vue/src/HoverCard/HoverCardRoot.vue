@@ -25,6 +25,8 @@ export interface HoverCardRootContext {
   onDismiss(): void
   hasSelectionRef: Ref<boolean>
   isPointerDownOnContentRef: Ref<boolean>
+  isPointerInTransit: Ref<boolean>
+  triggerElement: Ref<HTMLElement | undefined>
 }
 
 export const [injectHoverCardRootContext, provideHoverCardRootContext]
@@ -56,6 +58,8 @@ const openTimerRef = ref(0)
 const closeTimerRef = ref(0)
 const hasSelectionRef = ref(false)
 const isPointerDownOnContentRef = ref(false)
+const isPointerInTransit = ref(false)
+const triggerElement = ref<HTMLElement>()
 
 function handleOpen() {
   clearTimeout(closeTimerRef.value)
@@ -82,6 +86,8 @@ provideHoverCardRootContext({
   onDismiss: handleDismiss,
   hasSelectionRef,
   isPointerDownOnContentRef,
+  isPointerInTransit,
+  triggerElement,
 })
 </script>
 

@@ -19,16 +19,18 @@ import { injectListboxRootContext } from './ListboxRoot.vue'
 import { computed } from 'vue'
 import type { PrimitiveProps } from '..'
 import { type AcceptableValue, valueComparator } from './utils'
-import { handleAndDispatchCustomEvent, useId } from '@/shared'
+import { handleAndDispatchCustomEvent, useForwardExpose, useId } from '@/shared'
 
 const props = withDefaults(defineProps<ListboxItemProps>(), {
   as: 'div',
 })
 const emits = defineEmits<ListboxItemEmits>()
 
+const { forwardRef, currentElement } = useForwardExpose()
 const id = useId(undefined, 'radix-vue-listbox-item')
 const rootContext = injectListboxRootContext()
 
+const isHighlighted = computed(() => currentElement.value === rootContext.highlightedElement.value)
 const isSelected = computed(() => valueComparator(rootContext.modelValue.value, props.value, rootContext.by))
 
 const disabled = computed(() => rootContext.disabled.value || props.disabled)
@@ -51,13 +53,15 @@ function handleSelectCustomEvent(ev: PointerEvent) {
 <template>
   <RovingFocusItem
     :id="id"
+    :ref="forwardRef"
     :tab-stop-id="id"
     role="option"
     :aria-selected="isSelected"
     :as="as"
     :as-child="asChild"
-    :disabled="disabled"
+    :disabled="disabled ? '' : undefined"
     :data-disabled="disabled ? '' : undefined"
+    :data-highlighted="isHighlighted ? '' : undefined"
     :data-state="isSelected ? 'checked' : 'unchecked'"
     @pointerdown="handleSelectCustomEvent"
     @keyup.enter="handleSelectCustomEvent"

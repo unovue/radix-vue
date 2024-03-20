@@ -16,7 +16,7 @@ const filteredOptions = computed(() => {
     :layout="{ type: 'grid', iframe: false, width: '50%' }"
   >
     <Variant title="default">
-      <ListboxRoot class="w-48 h-72 flex flex-col p-1 rounded-lg border bg-white text-green9 mx-auto">
+      <ListboxRoot loop class="w-48 h-72 flex flex-col p-1 rounded-lg border bg-white text-green9 mx-auto">
         <ListboxItem v-for="i in 10" :key="i" :disabled="i === 5" :value="i" class="w-full py-1 px-2 text-green9 select-none text-sm focus:ring-0 focus:outline-green9 data-[state=checked]:bg-green9 data-[state=checked]:text-white data-[disabled]:opacity-50 rounded">
           Item {{ i }}
         </ListboxItem>

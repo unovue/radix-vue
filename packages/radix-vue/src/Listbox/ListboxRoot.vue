@@ -1,5 +1,4 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useForwardExpose, useTypeahead } from '@/shared'
 
 type ListboxRootContext<T> = {
@@ -8,6 +7,7 @@ type ListboxRootContext<T> = {
   multiple: Ref<boolean>
   disabled: Ref<boolean>
   containerElement: Ref<HTMLElement>
+  highlightedElement: Ref<HTMLElement | null>
   isVirtual: Ref<boolean>
   virtualFocusHook: EventHook<Event | null>
   virtualKeydownHook: EventHook<KeyboardEvent>
@@ -17,7 +17,7 @@ type ListboxRootContext<T> = {
 export const [injectListboxRootContext, provideListboxRootContext]
   = createContext<ListboxRootContext<AcceptableValue>>('ListboxRoot')
 
-export interface ListboxRootProps<T = AcceptableValue> extends PrimitiveProps {
+export interface ListboxRootProps<T = AcceptableValue> extends Pick<RovingFocusGroupProps, 'as' | 'asChild' | 'orientation' | 'dir' | 'loop'> {
   /** The controlled value of the listbox. Can be binded-with with `v-model`. */
   modelValue?: T | Array<T>
   /** The value of the listbox when initially rendered. Use when you do not need to control the state of the Listbox */
@@ -29,7 +29,6 @@ export interface ListboxRootProps<T = AcceptableValue> extends PrimitiveProps {
   selectionBehavior?: 'toggle' | 'replace'
   /** Use this to compare objects by a particular field, or pass your own comparison function for complete control over how objects are compared. */
   by?: keyof T | ((a: T, b: T) => boolean)
-  loop?: boolean
 }
 
 export type ListboxRootEmits<T = AcceptableValue> = {
@@ -39,7 +38,7 @@ export type ListboxRootEmits<T = AcceptableValue> = {
 </script>
 
 <script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
-import { RovingFocusGroup } from '@/RovingFocus'
+import { RovingFocusGroup, type RovingFocusGroupProps } from '@/RovingFocus'
 import { type EventHook, createEventHook, useVModel } from '@vueuse/core'
 import { type AcceptableValue, compare, queryCheckedElement } from './utils'
 import { type Ref, computed, nextTick, ref, toRefs, watch } from 'vue'
@@ -82,6 +81,7 @@ function onValueChange(val: T) {
   }, 1)
 }
 
+const highlightedElement = ref<HTMLElement | null>(null)
 const collectionItems = computed(() => (currentRef.value as InstanceType<typeof RovingFocusGroup>)?.collections ?? [])
 const { handleTypeaheadSearch } = useTypeahead(collectionItems)
 
@@ -118,6 +118,7 @@ provideListboxRootContext({
   multiple,
   disabled,
   containerElement,
+  highlightedElement,
   isVirtual,
   virtualFocusHook,
   virtualKeydownHook,
@@ -132,6 +133,8 @@ provideListboxRootContext({
     :as="as"
     :as-child="asChild"
     :loop="loop"
+    :dir="dir"
+    :orientation="orientation"
     enable-mutation-observer
     @entry-focus="handleFocus"
     @keydown="(ev: KeyboardEvent) => {

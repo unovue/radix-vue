@@ -2,7 +2,7 @@
 import type { Ref } from 'vue'
 
 import type { PrimitiveProps } from '@/Primitive'
-import type { Direction, MenuTrigger, Orientation } from './utils'
+import type { Direction, Orientation } from './utils'
 import { createContext, useCollection, useDirection, useForwardExpose, useId } from '@/shared'
 
 export interface NavigationMenuRootProps extends PrimitiveProps {
@@ -28,11 +28,18 @@ export interface NavigationMenuRootProps extends PrimitiveProps {
    * @defaultValue 300
    */
   skipDelayDuration?: number
+
   /**
-   * Defines which user action (click, hover or both) triggers content panel
-   * @defaultValue ['click', 'hover']
+   * Defines whether menu should open on trigger click.
+   * @defaultValue true
    */
-  menuTrigger?: MenuTrigger[]
+  openOnClick?: boolean
+
+  /**
+   * Defines whether menu should open on trigger hover.
+   * @defaultValue true
+   */
+  openOnHover?: boolean
 }
 export type NavigationMenuRootEmits = {
   /** Event handler called when the value changes. */
@@ -46,7 +53,8 @@ export interface NavigationMenuContext {
   baseId: string
   dir: Ref<Direction>
   orientation: Orientation
-  menuTrigger: MenuTrigger[]
+  openOnClick: Ref<boolean>
+  openOnHover: Ref<boolean>
   rootNavigationMenu: Ref<HTMLElement | undefined>
   indicatorTrack: Ref<HTMLElement | undefined>
   onIndicatorTrackChange(indicatorTrack: HTMLElement | undefined): void
@@ -80,7 +88,8 @@ const props = withDefaults(defineProps<NavigationMenuRootProps>(), {
   delayDuration: 200,
   skipDelayDuration: 300,
   orientation: 'horizontal',
-  menuTrigger: () => ['click', 'hover'],
+  openOnClick: true,
+  openOnHover: true,
   as: 'nav',
 })
 const emits = defineEmits<NavigationMenuRootEmits>()
@@ -99,7 +108,7 @@ const viewport = ref<HTMLElement>()
 const { createCollection } = useCollection('nav')
 createCollection(indicatorTrack)
 
-const { delayDuration, skipDelayDuration, dir: propDir } = toRefs(props)
+const { delayDuration, skipDelayDuration, dir: propDir, openOnClick, openOnHover } = toRefs(props)
 const dir = useDirection(propDir)
 
 const isDelaySkipped = refAutoReset(false, skipDelayDuration)
@@ -120,9 +129,10 @@ provideNavigationMenuContext({
   modelValue,
   previousValue,
   baseId: useId(undefined, 'radix-navigation-menu'),
+  openOnClick,
+  openOnHover,
   dir,
   orientation: props.orientation,
-  menuTrigger: props.menuTrigger,
   rootNavigationMenu,
   indicatorTrack,
   onIndicatorTrackChange: (val) => {

@@ -11,7 +11,7 @@ export interface NavigationMenuTriggerProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
-import { onClickOutside, refAutoReset, unrefElement } from '@vueuse/core'
+import { refAutoReset, unrefElement } from '@vueuse/core'
 import { injectNavigationMenuContext } from './NavigationMenuRoot.vue'
 import { injectNavigationMenuItemContext } from './NavigationMenuItem.vue'
 import { getOpenState, makeContentId, makeTriggerId } from './utils'
@@ -39,15 +39,6 @@ const hasPointerMoveOpenedRef = refAutoReset(false, 300)
 const wasClickCloseRef = ref(false)
 
 const open = computed(() => itemContext.value === menuContext.modelValue.value)
-
-onClickOutside(triggerElement, () => {
-  // if open via pointermove, we prevent click event
-  if (hasPointerMoveOpenedRef.value)
-    return
-
-  if (open.value)
-    menuContext.onItemSelect('')
-})
 
 onMounted(() => {
   itemContext.triggerRef = triggerElement

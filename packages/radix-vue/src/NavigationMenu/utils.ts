@@ -1,8 +1,6 @@
 export type Orientation = 'vertical' | 'horizontal'
 export type Direction = 'ltr' | 'rtl'
 
-export type MenuTrigger = 'click' | 'hover'
-
 export function getOpenState(open: boolean) {
   return open ? 'open' : 'closed'
 }

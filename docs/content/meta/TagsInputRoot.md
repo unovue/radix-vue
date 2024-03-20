@@ -8,6 +8,18 @@
     'required': false
   },
   {
+    'name': 'addOnTab',
+    'description': '<p>When <code>true</code>, allow adding tags on keydown <code> tab </code>. Work in conjunction with delimiter prop.</p>\n',
+    'type': 'boolean',
+    'required': false
+  },
+  {
+    'name': 'addOnBlur',
+    'description': '<p>When <code>true</code>, allow adding tags on input <code> blur </code> event.\n',
+    'type': 'boolean',
+    'required': false
+  },
+  {
     'name': 'as',
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',

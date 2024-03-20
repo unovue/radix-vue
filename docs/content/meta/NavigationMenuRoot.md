@@ -52,6 +52,20 @@
     'type': 'number',
     'required': false,
     'default': '300'
+  },
+  {
+    'name': 'openOnClick',
+    'description': '<p> Should open content by click on trigger </p>\n',
+    'type': 'boolean',
+    'required': false,
+    'default': true
+  },
+  {
+    'name': 'openOnHover',
+    'description': '<p> Should open content by hover on trigger </p>\n',
+    'type': 'boolean',
+    'required': false,
+    'default': true
   }
 ]" />
 

@@ -40,8 +40,6 @@ const wasClickCloseRef = ref(false)
 
 const open = computed(() => itemContext.value === menuContext.modelValue.value)
 
-const hasHoverTrigger = computed(() => menuContext.menuTrigger.includes('hover'))
-
 onClickOutside(triggerElement, () => {
   // if open via pointermove, we prevent click event
   if (hasPointerMoveOpenedRef.value)
@@ -58,7 +56,7 @@ onMounted(() => {
 })
 
 function handlePointerEnter() {
-  if (!hasHoverTrigger.value)
+  if (!menuContext.openOnHover.value)
     return
 
   wasClickCloseRef.value = false
@@ -66,7 +64,7 @@ function handlePointerEnter() {
 }
 
 function handlePointerMove(ev: PointerEvent) {
-  if (!hasHoverTrigger.value)
+  if (!menuContext.openOnHover.value)
     return
 
   if (ev.pointerType === 'mouse') {
@@ -83,7 +81,7 @@ function handlePointerMove(ev: PointerEvent) {
 }
 
 function handlePointerLeave(ev: PointerEvent) {
-  if (!hasHoverTrigger.value)
+  if (!menuContext.openOnHover.value)
     return
 
   if (ev.pointerType === 'mouse') {
@@ -95,6 +93,10 @@ function handlePointerLeave(ev: PointerEvent) {
 }
 
 function handleClick() {
+  if (!menuContext.openOnClick.value)
+    return
+  console.log('handle click')
+
   // if open via pointermove, we prevent click event
   if (hasPointerMoveOpenedRef.value)
     return

@@ -75,6 +75,7 @@ function handlePointerMove(ev: PointerEvent) {
       || hasPointerMoveOpenedRef.value
     )
       return
+
     menuContext.onTriggerEnter(itemContext.value)
     hasPointerMoveOpenedRef.value = true
   }
@@ -95,7 +96,6 @@ function handlePointerLeave(ev: PointerEvent) {
 function handleClick() {
   if (!menuContext.openOnClick.value)
     return
-  console.log('handle click')
 
   // if open via pointermove, we prevent click event
   if (hasPointerMoveOpenedRef.value)

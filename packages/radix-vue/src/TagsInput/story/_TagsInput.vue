@@ -5,7 +5,7 @@ import { Icon } from '@iconify/vue'
 
 export interface TestProps {
   addOnTab?: boolean
-  addOnBlur: boolean
+  addOnBlur?: boolean
 }
 
 withDefaults(defineProps<TestProps>(), {

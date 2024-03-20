@@ -11,6 +11,7 @@ interface TooltipProviderContext {
   isPointerInTransitRef: Ref<boolean>
   disableHoverableContent: Ref<boolean>
   disableClosingTrigger: Ref<boolean>
+  disabled: Ref<boolean>
 }
 
 export const [injectTooltipProviderContext, provideTooltipProviderContext]
@@ -37,6 +38,11 @@ export interface TooltipProviderProps {
    * @defaultValue false
    */
   disableClosingTrigger?: boolean
+  /**
+   * When `true`, disables tooltip
+   * @defaultValue false
+   */
+  disabled?: boolean
 }
 </script>
 
@@ -49,7 +55,7 @@ const props = withDefaults(defineProps<TooltipProviderProps>(), {
   skipDelayDuration: 300,
   disableHoverableContent: false,
 })
-const { delayDuration, skipDelayDuration, disableHoverableContent, disableClosingTrigger } = toRefs(props)
+const { delayDuration, skipDelayDuration, disableHoverableContent, disableClosingTrigger, disabled } = toRefs(props)
 useForwardExpose()
 
 const isOpenDelayed = ref(true)
@@ -76,6 +82,7 @@ provideTooltipProviderContext({
   },
   disableHoverableContent,
   disableClosingTrigger,
+  disabled,
 })
 </script>
 

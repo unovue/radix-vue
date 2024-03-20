@@ -31,7 +31,7 @@ export interface TooltipRootProps {
    */
   disableClosingTrigger?: boolean
   /**
-   * Disable tooltip
+   * When `true`, disables tooltip
    * @defaultValue false
    */
   disabled?: boolean
@@ -63,7 +63,7 @@ export const [injectTooltipRootContext, provideTooltipRootContext]
 
 <script setup lang="ts">
 import { useTimeoutFn, useVModel } from '@vueuse/core'
-import { computed, ref, toRefs, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { PopperRoot } from '@/Popper'
 import { TOOLTIP_OPEN } from './utils'
 import { injectTooltipProviderContext } from './TooltipProvider.vue'
@@ -74,7 +74,7 @@ const props = withDefaults(defineProps<TooltipRootProps>(), {
   delayDuration: undefined,
   disableHoverableContent: undefined,
   disableClosingTrigger: undefined,
-  disabled: false,
+  disabled: undefined,
 })
 
 const emit = defineEmits<TooltipRootEmits>()
@@ -84,10 +84,9 @@ const providerContext = injectTooltipProviderContext()
 
 const disableHoverableContent = computed(() => props.disableHoverableContent ?? providerContext.disableHoverableContent.value)
 const disableClosingTrigger = computed(() => props.disableClosingTrigger ?? providerContext.disableClosingTrigger.value)
+const disableTooltip = computed(() => props.disabled ?? providerContext.disabled.value)
 
 const delayDuration = computed(() => props.delayDuration ?? providerContext.delayDuration.value)
-
-const { disabled } = toRefs(props)
 
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
@@ -159,7 +158,7 @@ provideTooltipRootContext({
   onClose: handleClose,
   disableHoverableContent,
   disableClosingTrigger,
-  disabled,
+  disabled: disableTooltip,
 })
 </script>
 

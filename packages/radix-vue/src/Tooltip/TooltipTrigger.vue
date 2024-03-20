@@ -74,7 +74,7 @@ onMounted(() => {
         if (isPointerDown)
           return
 
-        if (rootContext.keyboardFocusOnly.value && !(event.target as HTMLElement).matches?.(':focus-visible'))
+        if (rootContext.ignoreNonKeyboardFocus.value && !(event.target as HTMLElement).matches?.(':focus-visible'))
           return
 
         rootContext.onOpen()

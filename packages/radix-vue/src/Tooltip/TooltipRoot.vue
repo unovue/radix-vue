@@ -32,12 +32,12 @@ export interface TooltipRootProps {
   disableClosingTrigger?: boolean
   /**
    * Prevent the tooltip from opening if the focus did not come from
-   * the keyboard by using the `:focus-visible` selector.
+   * the keyboard by matching against the `:focus-visible` selector.
    * This is useful if you want to avoid opening it when switching
    * browser tabs or closing a dialog.
    * @defaultValue false
    */
-  keyboardFocusOnly?: boolean
+  ignoreNonKeyboardFocus?: boolean
 }
 
 export type TooltipRootEmits = {
@@ -57,7 +57,7 @@ export interface TooltipContext {
   onClose(): void
   disableHoverableContent: Ref<boolean>
   disableClosingTrigger: Ref<boolean>
-  keyboardFocusOnly: Ref<boolean>
+  ignoreNonKeyboardFocus: Ref<boolean>
 }
 
 export const [injectTooltipRootContext, provideTooltipRootContext]
@@ -77,7 +77,7 @@ const props = withDefaults(defineProps<TooltipRootProps>(), {
   delayDuration: undefined,
   disableHoverableContent: undefined,
   disableClosingTrigger: undefined,
-  keyboardFocusOnly: undefined,
+  ignoreNonKeyboardFocus: undefined,
 })
 
 const emit = defineEmits<TooltipRootEmits>()
@@ -88,7 +88,7 @@ const providerContext = injectTooltipProviderContext()
 const disableHoverableContent = computed(() => props.disableHoverableContent ?? providerContext.disableHoverableContent.value)
 const disableClosingTrigger = computed(() => props.disableClosingTrigger ?? providerContext.disableClosingTrigger.value)
 const delayDuration = computed(() => props.delayDuration ?? providerContext.delayDuration.value)
-const keyboardFocusOnly = computed(() => props.keyboardFocusOnly ?? providerContext.keyboardFocusOnly.value)
+const ignoreNonKeyboardFocus = computed(() => props.ignoreNonKeyboardFocus ?? providerContext.ignoreNonKeyboardFocus.value)
 
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
@@ -160,7 +160,7 @@ provideTooltipRootContext({
   onClose: handleClose,
   disableHoverableContent,
   disableClosingTrigger,
-  keyboardFocusOnly,
+  ignoreNonKeyboardFocus,
 })
 </script>
 

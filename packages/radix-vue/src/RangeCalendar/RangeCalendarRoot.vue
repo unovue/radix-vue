@@ -100,7 +100,7 @@ export const [injectRangeCalendarRootContext, provideRangeCalendarRootContext]
 <script setup lang="ts">
 import { computed, onMounted, ref, toRefs, watch } from 'vue'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
-import { useVModel } from '@vueuse/core'
+import { useMemoize, useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<RangeCalendarRootProps>(), {
   defaultValue: undefined,
@@ -276,7 +276,7 @@ const getMonths = computed(() => {
   })
 })
 
-function getYears({ startIndex, endIndex }: { startIndex?: number; endIndex: number }) {
+const getYears = useMemoize(({ startIndex, endIndex }: { startIndex?: number; endIndex: number }) => {
   const dateObj = { ...placeholder.value }
   return createDecade({
     dateObj,
@@ -285,7 +285,7 @@ function getYears({ startIndex, endIndex }: { startIndex?: number; endIndex: num
     minValue: minValue.value,
     maxValue: maxValue.value,
   })
-}
+})
 
 provideRangeCalendarRootContext({
   isDateUnavailable,

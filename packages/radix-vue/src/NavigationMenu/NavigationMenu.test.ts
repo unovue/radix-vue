@@ -134,7 +134,7 @@ describe('given default NavigationMenu', () => {
     })
 
     it('should not trigger content on click', async () => {
-      await wrapper.setProps({ openOnClick: false })
+      await wrapper.setProps({ disableClickTrigger: true })
 
       const button = findTriggerButton()
 
@@ -148,7 +148,7 @@ describe('given default NavigationMenu', () => {
     })
 
     it('should not trigger content on hover', async () => {
-      await wrapper.setProps({ openOnHover: false })
+      await wrapper.setProps({ disableHoverTrigger: true })
       const button = findTriggerButton()
 
       button.trigger('pointermove', { pointerType: 'mouse' })

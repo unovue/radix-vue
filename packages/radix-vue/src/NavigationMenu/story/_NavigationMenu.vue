@@ -13,13 +13,13 @@ import {
 import NavigationMenuListItem from './_NavigationMenuListItem.vue'
 
 export interface TestProps {
-  openOnClick?: boolean
-  openOnHover?: boolean
+  disableClickTrigger?: boolean
+  disableHoverTrigger?: boolean
 }
 
 const props = withDefaults(defineProps<TestProps>(), {
-  openOnClick: true,
-  openOnHover: true,
+  disableClickTrigger: false,
+  disableHoverTrigger: false,
 })
 
 const currentTrigger = ref('')

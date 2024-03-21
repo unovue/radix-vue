@@ -30,16 +30,15 @@ export interface NavigationMenuRootProps extends PrimitiveProps {
   skipDelayDuration?: number
 
   /**
-   * Defines whether menu should open on trigger click.
-   * @defaultValue true
+   * If true, menu can't be open by click on trigger
+   * @defaultValue false
    */
-  openOnClick?: boolean
-
+  disableClickTrigger?: boolean
   /**
-   * Defines whether menu should open on trigger hover.
-   * @defaultValue true
+   * If true, menu can't be open by hover on trigger
+   * @defaultValue false
    */
-  openOnHover?: boolean
+  disableHoverTrigger?: boolean
 }
 export type NavigationMenuRootEmits = {
   /** Event handler called when the value changes. */
@@ -53,8 +52,8 @@ export interface NavigationMenuContext {
   baseId: string
   dir: Ref<Direction>
   orientation: Orientation
-  openOnClick: Ref<boolean>
-  openOnHover: Ref<boolean>
+  disableClickTrigger: Ref<boolean>
+  disableHoverTrigger: Ref<boolean>
   rootNavigationMenu: Ref<HTMLElement | undefined>
   indicatorTrack: Ref<HTMLElement | undefined>
   onIndicatorTrackChange(indicatorTrack: HTMLElement | undefined): void
@@ -88,8 +87,8 @@ const props = withDefaults(defineProps<NavigationMenuRootProps>(), {
   delayDuration: 200,
   skipDelayDuration: 300,
   orientation: 'horizontal',
-  openOnClick: true,
-  openOnHover: true,
+  disableClickTrigger: false,
+  disableHoverTrigger: false,
   as: 'nav',
 })
 const emits = defineEmits<NavigationMenuRootEmits>()
@@ -108,7 +107,7 @@ const viewport = ref<HTMLElement>()
 const { createCollection } = useCollection('nav')
 createCollection(indicatorTrack)
 
-const { delayDuration, skipDelayDuration, dir: propDir, openOnClick, openOnHover } = toRefs(props)
+const { delayDuration, skipDelayDuration, dir: propDir, disableClickTrigger, disableHoverTrigger } = toRefs(props)
 const dir = useDirection(propDir)
 
 const isDelaySkipped = refAutoReset(false, skipDelayDuration)
@@ -129,8 +128,8 @@ provideNavigationMenuContext({
   modelValue,
   previousValue,
   baseId: useId(undefined, 'radix-navigation-menu'),
-  openOnClick,
-  openOnHover,
+  disableClickTrigger,
+  disableHoverTrigger,
   dir,
   orientation: props.orientation,
   rootNavigationMenu,

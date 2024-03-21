@@ -47,7 +47,7 @@ onMounted(() => {
 })
 
 function handlePointerEnter() {
-  if (!menuContext.openOnHover.value)
+  if (menuContext.disableHoverTrigger.value)
     return
 
   wasClickCloseRef.value = false
@@ -55,7 +55,7 @@ function handlePointerEnter() {
 }
 
 function handlePointerMove(ev: PointerEvent) {
-  if (!menuContext.openOnHover.value)
+  if (menuContext.disableHoverTrigger.value)
     return
 
   if (ev.pointerType === 'mouse') {
@@ -73,7 +73,7 @@ function handlePointerMove(ev: PointerEvent) {
 }
 
 function handlePointerLeave(ev: PointerEvent) {
-  if (!menuContext.openOnHover.value)
+  if (menuContext.disableHoverTrigger.value)
     return
 
   if (ev.pointerType === 'mouse') {
@@ -85,7 +85,7 @@ function handlePointerLeave(ev: PointerEvent) {
 }
 
 function handleClick() {
-  if (!menuContext.openOnClick.value)
+  if (menuContext.disableClickTrigger.value)
     return
 
   // if open via pointermove, we prevent click event

@@ -109,7 +109,7 @@ export const [injectCalendarRootContext, provideCalendarRootContext]
 <script setup lang="ts">
 import { computed, onMounted, toRefs, watch } from 'vue'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
-import { useVModel } from '@vueuse/core'
+import { useMemoize, useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<CalendarRootProps>(), {
   defaultValue: undefined,
@@ -283,7 +283,7 @@ const getMonths = computed(() => {
   })
 })
 
-function getYears({ startIndex, endIndex }: { startIndex?: number; endIndex: number }) {
+const getYears = useMemoize(({ startIndex, endIndex }: { startIndex?: number; endIndex: number }) => {
   const dateObj = { ...placeholder.value }
   return createDecade({
     dateObj,
@@ -292,7 +292,7 @@ function getYears({ startIndex, endIndex }: { startIndex?: number; endIndex: num
     maxValue: minValue.value,
     minValue: maxValue.value,
   })
-}
+})
 
 onMounted(() => {
   if (initialFocus.value)

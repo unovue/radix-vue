@@ -17,10 +17,10 @@ More information on the DateFormatter [here](https://react-spectrum.adobe.com/in
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue'
-import { CalendarDate } from '@internationalized/date'
+import { createCalendarDate } from 'flat-internationalized-date'
 import { useDateFormatter } from 'radix-vue'
 
-const value = ref(new CalendarDate(1995, 8, 18))
+const value = ref(createCalendarDate({ year: 1995, month: 8, day: 18 }))
 // provide the locale
 const formatter = useDateFormatter('en')
 </script>

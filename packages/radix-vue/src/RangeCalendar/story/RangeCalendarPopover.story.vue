@@ -12,7 +12,6 @@ const placeholder = ref(today(getLocalTimeZone())) as Ref<DateValue>
 <template>
   <Story title="Range Calendar/Popover" :layout="{ type: 'single' }">
     <Variant title="default">
-      {{ placeholder }}
       <RangeCalendarRoot
         v-slot="{ weekDays, grid, getMonths, getYears, formatter, date }"
         v-model:placeholder="placeholder"
@@ -34,7 +33,8 @@ const placeholder = ref(today(getLocalTimeZone())) as Ref<DateValue>
                 <div
                   v-for="month in getMonths"
                   :key="temporalToString(month)"
-                  class=" cursor-pointer flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent text-sm font-normal text-black p-2 outline-none focus:shadow-[0_0_0_2px] focus:shadow-black hover:border-black"
+                  class="relative cursor-pointer flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent text-sm font-normal text-black p-2 outline-none focus:shadow-[0_0_0_2px] focus:shadow-black hover:border-black"
+                  :class="{ 'before:absolute before:top-[5px] before:rounded-full before:w-1 before:h-1 before:block before:bg-grass9': date.month === month.month }"
                   @click="placeholder = month"
                 >
                   <span class="cursor-pointer">{{ formatter.custom(month, { month: 'short' }) }}</span>
@@ -49,7 +49,8 @@ const placeholder = ref(today(getLocalTimeZone())) as Ref<DateValue>
                 <div
                   v-for="yearValue in getYears({ startIndex: -10, endIndex: 10 })"
                   :key="temporalToString(yearValue)"
-                  class="cursor-pointer flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent text-sm font-normal text-black p-2 outline-none focus:shadow-[0_0_0_2px] focus:shadow-black hover:border-black"
+                  class="relative cursor-pointer flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent text-sm font-normal text-black p-2 outline-none focus:shadow-[0_0_0_2px] focus:shadow-black hover:border-black"
+                  :class="{ 'before:absolute before:top-[5px] before:rounded-full before:w-1 before:h-1 before:block before:bg-grass9': date.year === yearValue.year }"
                   @click="placeholder = yearValue"
                 >
                   {{ yearValue.year }}

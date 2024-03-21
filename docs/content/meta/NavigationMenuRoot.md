@@ -54,18 +54,18 @@
     'default': '300'
   },
   {
-    'name': 'openOnClick',
-    'description': '<p> Should open content by click on trigger </p>\n',
+    'name': 'disableClickTrigger',
+    'description': '<p> If true, the menu can\'t be opened by clicking on the trigger </p>\n',
     'type': 'boolean',
     'required': false,
-    'default': true
+    'default': false
   },
   {
-    'name': 'openOnHover',
-    'description': '<p> Should open content by hover on trigger </p>\n',
+    'name': 'disableHoverTrigger',
+    'description': '<p> If true, the menu can\'t be opened by hovering on the trigger </p>\n',
     'type': 'boolean',
     'required': false,
-    'default': true
+    'default': false
   }
 ]" />
 

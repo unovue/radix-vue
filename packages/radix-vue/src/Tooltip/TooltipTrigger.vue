@@ -70,8 +70,14 @@ onMounted(() => {
         hasPointerMoveOpened = false;
       }"
       @pointerdown="handlePointerDown"
-      @focus="() => {
-        if (!isPointerDown) rootContext.onOpen()
+      @focus="(event) => {
+        if (isPointerDown)
+          return
+
+        if (rootContext.ignoreNonKeyboardFocus.value && !(event.target as HTMLElement).matches?.(':focus-visible'))
+          return
+
+        rootContext.onOpen()
       }"
       @blur="rootContext.onClose()"
       @click="() => {

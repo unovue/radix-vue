@@ -10,6 +10,7 @@ interface TooltipProviderContext {
   isPointerInTransitRef: Ref<boolean>
   disableHoverableContent: Ref<boolean>
   disableClosingTrigger: Ref<boolean>
+  ignoreNonKeyboardFocus: Ref<boolean>
 }
 
 export const [injectTooltipProviderContext, provideTooltipProviderContext]
@@ -36,6 +37,14 @@ export interface TooltipProviderProps {
    * @defaultValue false
    */
   disableClosingTrigger?: boolean
+  /**
+   * Prevent the tooltip from opening if the focus did not come from
+   * the keyboard by matching against the `:focus-visible` selector.
+   * This is useful if you want to avoid opening it when switching
+   * browser tabs or closing a dialog.
+   * @defaultValue false
+   */
+  ignoreNonKeyboardFocus?: boolean
 }
 </script>
 
@@ -47,8 +56,9 @@ const props = withDefaults(defineProps<TooltipProviderProps>(), {
   delayDuration: 700,
   skipDelayDuration: 300,
   disableHoverableContent: false,
+  ignoreNonKeyboardFocus: false,
 })
-const { delayDuration, skipDelayDuration, disableHoverableContent, disableClosingTrigger } = toRefs(props)
+const { delayDuration, skipDelayDuration, disableHoverableContent, disableClosingTrigger, ignoreNonKeyboardFocus } = toRefs(props)
 useForwardExpose()
 
 const isOpenDelayed = ref(true)
@@ -72,6 +82,7 @@ provideTooltipProviderContext({
   isPointerInTransitRef,
   disableHoverableContent,
   disableClosingTrigger,
+  ignoreNonKeyboardFocus,
 })
 </script>
 

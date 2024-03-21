@@ -7,10 +7,10 @@ interface TooltipProviderContext {
   delayDuration: Ref<number>
   onOpen(): void
   onClose(): void
-  onPointerInTransitChange(inTransit: boolean): void
   isPointerInTransitRef: Ref<boolean>
   disableHoverableContent: Ref<boolean>
   disableClosingTrigger: Ref<boolean>
+  ignoreNonKeyboardFocus: Ref<boolean>
 }
 
 export const [injectTooltipProviderContext, provideTooltipProviderContext]
@@ -37,24 +37,33 @@ export interface TooltipProviderProps {
    * @defaultValue false
    */
   disableClosingTrigger?: boolean
+  /**
+   * Prevent the tooltip from opening if the focus did not come from
+   * the keyboard by matching against the `:focus-visible` selector.
+   * This is useful if you want to avoid opening it when switching
+   * browser tabs or closing a dialog.
+   * @defaultValue false
+   */
+  ignoreNonKeyboardFocus?: boolean
 }
 </script>
 
 <script setup lang="ts">
-import { refAutoReset, useTimeoutFn } from '@vueuse/shared'
+import { useTimeoutFn } from '@vueuse/shared'
 import { ref, toRefs } from 'vue'
 
 const props = withDefaults(defineProps<TooltipProviderProps>(), {
   delayDuration: 700,
   skipDelayDuration: 300,
   disableHoverableContent: false,
+  ignoreNonKeyboardFocus: false,
 })
-const { delayDuration, skipDelayDuration, disableHoverableContent, disableClosingTrigger } = toRefs(props)
+const { delayDuration, skipDelayDuration, disableHoverableContent, disableClosingTrigger, ignoreNonKeyboardFocus } = toRefs(props)
 useForwardExpose()
 
 const isOpenDelayed = ref(true)
 // Reset the inTransit state if idle/scrolled.
-const isPointerInTransitRef = refAutoReset(false, 300)
+const isPointerInTransitRef = ref(false)
 
 const { start: startTimer, stop: clearTimer } = useTimeoutFn(() => {
   isOpenDelayed.value = true
@@ -71,11 +80,9 @@ provideTooltipProviderContext({
     startTimer()
   },
   isPointerInTransitRef,
-  onPointerInTransitChange(inTransit) {
-    isPointerInTransitRef.value = inTransit
-  },
   disableHoverableContent,
   disableClosingTrigger,
+  ignoreNonKeyboardFocus,
 })
 </script>
 

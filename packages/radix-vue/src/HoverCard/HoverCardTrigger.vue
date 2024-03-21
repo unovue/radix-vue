@@ -15,8 +15,9 @@ withDefaults(defineProps<HoverCardTriggerProps>(), {
   as: 'a',
 })
 
-const { forwardRef } = useForwardExpose()
+const { forwardRef, currentElement } = useForwardExpose()
 const rootContext = injectHoverCardRootContext()
+rootContext.triggerElement = currentElement
 </script>
 
 <template>
@@ -27,7 +28,6 @@ const rootContext = injectHoverCardRootContext()
       :as="as"
       :data-state="rootContext.open.value ? 'open' : 'closed'"
       @pointerenter="excludeTouch(rootContext.onOpen)($event)"
-      @pointerleave="excludeTouch(rootContext.onClose)($event)"
       @focus="rootContext.onOpen()"
       @blur="rootContext.onClose"
       @touchstart.prevent="() => {

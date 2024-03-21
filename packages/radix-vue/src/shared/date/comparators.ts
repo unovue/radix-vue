@@ -2,7 +2,7 @@
   * Implementation ported from https://github.com/melt-ui/melt-ui/blob/develop/src/lib/internal/helpers/date/utils.ts
 */
 
-import { type DateValue, add, compare, createCalendarDate, createCalendarDateTime, getDayOfWeek, getLocalTimeZone, isCalendarDateTime, isZonedDateTime, toDate as libToDate, parseDate, parseDateTime, parseZonedDateTime, subtract } from 'flat-internationalized-date'
+import { type DateValue, add, compare, createCalendarDate, createCalendarDateTime, getDayOfWeek, getLocalTimeZone, isCalendarDateTime, isZonedDateTime, toDate as libToDate, parseDate, parseDateTime, parseZonedDateTime, subtract, toCalendar } from 'flat-internationalized-date'
 
 export type Granularity = 'day' | 'hour' | 'minute' | 'second'
 
@@ -65,14 +65,17 @@ export function getDefaultDate(props?: GetDefaultDateProps): DateValue {
  * strings, to the same type being used by the date component.
  */
 export function parseStringToDateValue(dateStr: string, referenceVal: DateValue): DateValue {
+  let dateValue: DateValue
   if (isZonedDateTime(referenceVal))
-    return parseZonedDateTime(dateStr)
+    dateValue = parseZonedDateTime(dateStr)
 
   else if (isCalendarDateTime(referenceVal))
-    return parseDateTime(dateStr)
+    dateValue = parseDateTime(dateStr)
 
   else
-    return parseDate(dateStr)
+    dateValue = parseDate(dateStr)
+
+  return dateValue.calendar !== referenceVal.calendar ? toCalendar(dateValue, referenceVal.calendar) : dateValue
 }
 
 export function hasTime(dateValue: DateValue) {

@@ -430,7 +430,7 @@ describe('Calendar', async () => {
     await user.click(firstDayOfMonth)
     expect(firstDayOfMonth).not.toHaveAttribute('data-selected')
     firstDayOfMonth.focus()
-    expect(firstDayOfMonth).not.toHaveFocus()
+    expect(getByTestId('date-1-1')).not.toHaveFocus()
 
     const tenthDayOfMonth = getByTestId('date-1-10')
     expect(tenthDayOfMonth).toHaveAttribute('aria-disabled', 'true')
@@ -438,7 +438,7 @@ describe('Calendar', async () => {
     await user.click(tenthDayOfMonth)
     expect(tenthDayOfMonth).not.toHaveAttribute('data-selected')
     tenthDayOfMonth.focus()
-    expect(tenthDayOfMonth).not.toHaveFocus()
+    expect(getByTestId('date-1-10')).not.toHaveFocus()
   })
 
   it('prevents selection but allows focus when `readonly` is `true`', async () => {
@@ -455,15 +455,15 @@ describe('Calendar', async () => {
 
     const firstDayOfMonth = getByTestId('date-1-1')
     await user.click(firstDayOfMonth)
-    expect(firstDayOfMonth).not.toHaveAttribute('data-selected')
-    firstDayOfMonth.focus()
-    expect(firstDayOfMonth).toHaveFocus()
+    expect(getByTestId('date-1-1')).not.toHaveAttribute('data-selected')
+    getByTestId('date-1-1').focus()
+    expect(getByTestId('date-1-1')).toHaveFocus()
 
     const tenthDayOfMonth = getByTestId('date-1-10')
     await user.click(tenthDayOfMonth)
-    expect(tenthDayOfMonth).not.toHaveAttribute('data-selected')
-    tenthDayOfMonth.focus()
-    expect(tenthDayOfMonth).toHaveFocus()
+    expect(getByTestId('date-1-10')).not.toHaveAttribute('data-selected')
+    getByTestId('date-1-10').focus()
+    expect(getByTestId('date-1-10')).toHaveFocus()
   })
   it('formats the weekday labels correctly - `\'narrow\'`', async () => {
     const { getByTestId } = setup({

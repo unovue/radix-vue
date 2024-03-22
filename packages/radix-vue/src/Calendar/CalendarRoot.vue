@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type DateValue, isSameDay } from 'flat-internationalized-date'
+import { type DateValue, isEqualDay, isSameDay } from 'flat-internationalized-date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
@@ -202,7 +202,7 @@ const {
   formatter,
   grid,
 } = useCalendar({
-  locale: props.locale,
+  locale,
   placeholder,
   weekStartsOn: props.weekStartsOn,
   fixedWeeks: props.fixedWeeks,
@@ -230,10 +230,10 @@ const {
 watch(modelValue, (value) => {
   if (Array.isArray(value) && value.length) {
     const lastValue = value[value.length - 1]
-    if (lastValue && !isSameDay(placeholder.value, lastValue))
+    if (lastValue && !isEqualDay(placeholder.value, lastValue))
       onPlaceholderChange(lastValue)
   }
-  else if (!Array.isArray(value) && value && !isSameDay(placeholder.value, value)) {
+  else if (!Array.isArray(value) && value && !isEqualDay(placeholder.value, value)) {
     onPlaceholderChange(value)
   }
 })
@@ -245,7 +245,7 @@ function onDateChange(value: DateValue) {
       return
     }
 
-    if (!preventDeselect.value && isSameDay(modelValue.value as DateValue, value))
+    if (!preventDeselect.value && isEqualDay(modelValue.value as DateValue, value))
       modelValue.value = undefined
     else
       modelValue.value = { ...value }

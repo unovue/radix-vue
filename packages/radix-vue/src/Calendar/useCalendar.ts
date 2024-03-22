@@ -2,13 +2,13 @@
   * Adapted from https://github.com/melt-ui/melt-ui/blob/develop/src/lib/builders/calendar/create.ts
 */
 
-import { type DateValue, add, isSameDay, isSameMonth, set, subtract } from 'flat-internationalized-date'
+import { type DateValue, add, isEqualDay, isSameDay, isSameMonth, set, subtract } from 'flat-internationalized-date'
 import { type Ref, computed, ref, watch } from 'vue'
 import { type Grid, type Matcher, type WeekDayFormat, createMonths, isAfter, isBefore } from '@/shared/date'
 import { useDateFormatter } from '@/shared'
 
 export type UseCalendarProps = {
-  locale: string
+  locale: Ref<string>
   placeholder: Ref<DateValue>
   weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6
   fixedWeeks: boolean
@@ -73,7 +73,7 @@ export function useCalendarState(props: UseCalendarStateProps) {
 }
 
 export function useCalendar(props: UseCalendarProps) {
-  const formatter = useDateFormatter(props.locale)
+  const formatter = useDateFormatter(props.locale.value)
   const placeholder = { ...props.placeholder.value }
   const minValue = props.minValue?.value ? { ...props.minValue.value } : undefined
   const maxValue = props.maxValue?.value ? { ...props.maxValue.value } : undefined
@@ -81,7 +81,7 @@ export function useCalendar(props: UseCalendarProps) {
   const grid = ref<Grid<DateValue>[]>(createMonths({
     dateObj: placeholder,
     weekStartsOn: props.weekStartsOn,
-    locale: props.locale,
+    locale: props.locale.value,
     fixedWeeks: props.fixedWeeks,
     numberOfMonths: props.numberOfMonths,
   })) as Ref<Grid<DateValue>[]>
@@ -145,7 +145,7 @@ export function useCalendar(props: UseCalendarProps) {
     const newGrid = createMonths({
       dateObj: add(firstDate, { months: props.pagedNavigation ? props.numberOfMonths : 1 }),
       weekStartsOn: props.weekStartsOn,
-      locale: props.locale,
+      locale: props.locale.value,
       fixedWeeks: props.fixedWeeks,
       numberOfMonths: props.numberOfMonths,
     })
@@ -161,7 +161,7 @@ export function useCalendar(props: UseCalendarProps) {
     const newGrid = createMonths({
       dateObj: subtract(firstDate, { months: props.pagedNavigation ? props.numberOfMonths : 1 }),
       weekStartsOn: props.weekStartsOn,
-      locale: props.locale,
+      locale: props.locale.value,
       fixedWeeks: props.fixedWeeks,
       numberOfMonths: props.numberOfMonths,
     })
@@ -170,11 +170,11 @@ export function useCalendar(props: UseCalendarProps) {
   }
 
   watch(props.placeholder, (value, oldValue) => {
-    if (!isSameMonth(value, oldValue)) {
+    if (!isEqualDay(value, oldValue)) {
       grid.value = createMonths({
         dateObj: value,
         weekStartsOn: props.weekStartsOn,
-        locale: props.locale,
+        locale: props.locale.value,
         fixedWeeks: props.fixedWeeks,
         numberOfMonths: props.numberOfMonths,
       })
@@ -185,8 +185,8 @@ export function useCalendar(props: UseCalendarProps) {
     if (!grid.value.length)
       return ''
 
-    if (props.locale !== formatter.getLocale())
-      formatter.setLocale(props.locale)
+    if (props.locale.value !== formatter.getLocale())
+      formatter.setLocale(props.locale.value)
 
     if (grid.value.length === 1) {
       const month = grid.value[0].value

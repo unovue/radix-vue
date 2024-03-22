@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type DateValue, compare, isSameDay } from 'flat-internationalized-date'
+import { type DateValue, compare, isEqualDay, isSameDay } from 'flat-internationalized-date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
@@ -199,7 +199,7 @@ const {
   prevPage,
   formatter,
 } = useCalendar({
-  locale: props.locale,
+  locale,
   placeholder,
   weekStartsOn: props.weekStartsOn,
   fixedWeeks: props.fixedWeeks,
@@ -240,7 +240,7 @@ watch(modelValue, () => {
 })
 
 watch(startValue, (value) => {
-  if (value && !isSameDay(value, placeholder.value))
+  if (value && !isEqualDay(value, placeholder.value))
     onPlaceholderChange(value)
 })
 

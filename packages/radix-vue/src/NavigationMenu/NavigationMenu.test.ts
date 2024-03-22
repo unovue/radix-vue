@@ -138,7 +138,7 @@ describe('given default NavigationMenu', () => {
 
       const button = findTriggerButton()
 
-      button.trigger('click')
+      button.trigger('click', { pointerType: 'mouse' })
 
       await wrapper.vm.$nextTick()
 

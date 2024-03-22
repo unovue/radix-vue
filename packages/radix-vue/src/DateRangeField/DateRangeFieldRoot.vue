@@ -1,11 +1,10 @@
 <script lang="ts">
-import { type DateValue, compare, set, temporalToString } from 'flat-internationalized-date'
+import { type DateValue, compare, isEqualDay, temporalToString } from 'flat-internationalized-date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { type Formatter, createContext, useDateFormatter, useKbd } from '@/shared'
 import {
-  type AnyExceptLiteral,
   type Granularity,
   type HourCycle,
   type Matcher,
@@ -22,7 +21,8 @@ export type DateRangeType = 'start' | 'end'
 
 type DateRangeFieldRootContext = {
   locale: Ref<string>
-  modelValue: Ref<{ start: DateValue | undefined;end: DateValue | undefined }>
+  startValue: Ref<DateValue | undefined>
+  endValue: Ref<DateValue | undefined>
   placeholder: Ref<DateValue>
   isDateUnavailable?: Matcher
   isInvalid: Ref<boolean>
@@ -39,13 +39,13 @@ type DateRangeFieldRootContext = {
 
 export interface DateRangeFieldRootProps extends PrimitiveProps {
   /** The default value for the calendar */
-  defaultValue?: { start: DateValue | undefined; end: DateValue | undefined }
+  defaultValue?: Record<DateRangeType, DateValue | undefined>
   /** The default placeholder date */
   defaultPlaceholder?: DateValue
   /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programatically control the calendar view */
   placeholder?: DateValue
   /** The controlled checked state of the calendar. Can be bound as `v-model`. */
-  modelValue?: { start: DateValue | undefined;end: DateValue | undefined }
+  modelValue?: Record<DateRangeType, DateValue | undefined>
   /** The hour cycle used for formatting times. Defaults to the local preference */
   hourCycle?: HourCycle
   /** The granularity to use for formatting times. Defaults to day if a CalendarDate is provided, otherwise defaults to minute. The field will render segments for each part of the date up to and including the specified granularity */
@@ -116,7 +116,7 @@ onMounted(() => {
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue ?? { start: undefined, end: undefined },
   passive: (props.modelValue === undefined) as false,
-}) as Ref<{ start: DateValue | undefined; end: DateValue | undefined }>
+}) as Ref<Record<DateRangeType, DateValue | undefined>>
 
 const defaultDate = getDefaultDate({
   defaultPlaceholder: props.placeholder,
@@ -203,7 +203,7 @@ const startSegmentContent = computed(() => createContent({
   hideTimeZone: props.hideTimeZone,
   hourCycle: props.hourCycle,
   segmentValues: startSegmentValues.value,
-  locale: props.locale,
+  locale,
 }))
 
 const endSegmentContent = computed(() => createContent({
@@ -213,7 +213,7 @@ const endSegmentContent = computed(() => createContent({
   hideTimeZone: props.hideTimeZone,
   hourCycle: props.hourCycle,
   segmentValues: endSegmentValues.value,
-  locale: props.locale,
+  locale,
 }))
 
 const segmentContents = computed(() => ({
@@ -238,48 +238,6 @@ watch([startValue, endValue], ([startValue, endValue]): void => {
   modelValue.value = { start: undefined, end: undefined }
 })
 
-watch(startSegmentValues, (value) => {
-  if (Object.values(value).every(item => item !== null)) {
-    let updateObject = { ...value as Record<AnyExceptLiteral, number> }
-    if ('dayPeriod' in value) {
-      updateObject = {
-        ...updateObject,
-        hour: value.dayPeriod === 'PM' && !startValue.value ? value.hour! + 12 : value.hour!,
-      }
-    }
-
-    let dateRef = { ...placeholder.value }
-    Object.keys(updateObject).forEach((part) => {
-      const value = updateObject[part as AnyExceptLiteral]
-      dateRef = set(dateRef, { [part]: value })
-    })
-    if (startValue.value && compare(startValue.value, dateRef) === 0)
-      return
-    startValue.value = { ...dateRef }
-  }
-}, { deep: true })
-
-watch(endSegmentValues, (value) => {
-  if (Object.values(value).every(item => item !== null)) {
-    let updateObject = { ...value as Record<AnyExceptLiteral, number> }
-    if ('dayPeriod' in value) {
-      updateObject = {
-        ...updateObject,
-        hour: value.dayPeriod === 'PM' && !endValue.value ? value.hour! + 12 : value.hour!,
-      }
-    }
-
-    let dateRef = { ...placeholder.value }
-    Object.keys(updateObject).forEach((part) => {
-      const value = updateObject[part as AnyExceptLiteral]
-      dateRef = set(dateRef, { [part]: value })
-    })
-    if (endValue.value && compare(endValue.value, dateRef) === 0)
-      return
-    endValue.value = { ...dateRef }
-  }
-}, { deep: true })
-
 watch(modelValue, (value) => {
   if (value.start)
     startValue.value = { ...value.start }
@@ -288,19 +246,24 @@ watch(modelValue, (value) => {
     endValue.value = { ...value.end }
 })
 
-watch(startValue, (modelValue) => {
+watch([startValue, locale], ([modelValue]) => {
   if (modelValue !== undefined)
     startSegmentValues.value = { ...syncSegmentValues({ value: modelValue, formatter }) }
   else
     startSegmentValues.value = { ...initialSegments }
 })
 
+watch(locale, (value) => {
+  if (formatter.getLocale() !== value)
+    formatter.setLocale(value)
+})
+
 watch(modelValue, (value) => {
-  if (value.start !== undefined && compare(placeholder.value, value.start) !== 0)
+  if (value.start !== undefined && (!isEqualDay(placeholder.value, value.start) || compare(placeholder.value, value.start) !== 0))
     placeholder.value = { ...value.start }
 })
 
-watch(endValue, (modelValue) => {
+watch([endValue, locale], ([modelValue]) => {
   if (modelValue !== undefined)
     endSegmentValues.value = { ...syncSegmentValues({ value: modelValue, formatter }) }
   else
@@ -345,7 +308,8 @@ function setFocusedElement(el: HTMLElement) {
 provideDateRangeFieldRootContext({
   isDateUnavailable: propsIsDateUnavailable.value,
   locale,
-  modelValue,
+  startValue,
+  endValue,
   placeholder,
   disabled,
   formatter,

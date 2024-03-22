@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type DateValue, compare } from 'flat-internationalized-date'
+import { type DateValue, compare, isEqualDay } from 'flat-internationalized-date'
 import { DateFieldRoot } from '..'
 import { injectDatePickerRootContext } from './DatePickerRoot.vue'
 </script>
@@ -14,7 +14,6 @@ const rootContext = injectDatePickerRootContext()
     :ref="rootContext.dateFieldRef"
     :model-value="rootContext.modelValue.value"
     :placeholder="rootContext.placeholder.value"
-    :multiple="false"
     v-bind="{
       id: rootContext.id.value,
       name: rootContext.name.value,
@@ -30,11 +29,11 @@ const rootContext = injectDatePickerRootContext()
       required: rootContext.required.value,
     }"
     @update:model-value="(date: DateValue | undefined) => {
-      if (date && rootContext.modelValue.value && compare(date, rootContext.modelValue.value) === 0) return
+      if (date && rootContext.modelValue.value && isEqualDay(rootContext.modelValue.value, date) && compare(date, rootContext.modelValue.value) === 0) return
       rootContext.onDateChange(date)
     }"
     @update:placeholder="(date: DateValue) => {
-      if (compare(date, rootContext.placeholder.value) === 0) return
+      if (isEqualDay(rootContext.placeholder.value, date) && compare(date, rootContext.placeholder.value) === 0) return
       rootContext.onPlaceholderChange(date)
     }"
   >

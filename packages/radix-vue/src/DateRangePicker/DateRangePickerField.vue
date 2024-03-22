@@ -1,5 +1,5 @@
 <script lang="ts">
-import { compare } from 'flat-internationalized-date'
+import { compare, isEqualDay } from 'flat-internationalized-date'
 import { DateRangeFieldRoot } from '..'
 import { injectDateRangePickerRootContext } from './DateRangePickerRoot.vue'
 </script>
@@ -33,7 +33,7 @@ const rootContext = injectDateRangePickerRootContext()
       rootContext.onDateChange(date)
     }"
     @update:placeholder="(date) => {
-      if (compare(date, rootContext.placeholder.value) === 0) return
+      if (isEqualDay(date, rootContext.placeholder.value) && compare(date, rootContext.placeholder.value) === 0) return
       rootContext.onPlaceholderChange(date)
     }"
   >

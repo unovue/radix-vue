@@ -1,5 +1,5 @@
 <script lang="ts">
-import { compare } from 'flat-internationalized-date'
+import { isEqualDay } from 'flat-internationalized-date'
 import { RangeCalendarRoot } from '..'
 import { injectDateRangePickerRootContext } from './DateRangePickerRoot.vue'
 </script>
@@ -30,11 +30,11 @@ const rootContext = injectDateRangePickerRootContext()
     :model-value="rootContext.modelValue.value"
     :placeholder="rootContext.placeholder.value"
     @update:model-value="(date) => {
-      if (date.start && rootContext.modelValue.value.start && date.end && rootContext.modelValue.value.end && compare(date.start, rootContext.modelValue.value.start) === 0 && compare(date.end, rootContext.modelValue.value.end) === 0) return
+      if (date.start && rootContext.modelValue.value.start && date.end && rootContext.modelValue.value.end && isEqualDay(date.start, rootContext.modelValue.value.start) && isEqualDay(date.end, rootContext.modelValue.value.end)) return
       rootContext.onDateChange(date)
     }"
     @update:placeholder="(date) => {
-      if (compare(date, rootContext.placeholder.value) === 0) return
+      if (isEqualDay(date, rootContext.placeholder.value)) return
       rootContext.onPlaceholderChange(date)
     }"
   >

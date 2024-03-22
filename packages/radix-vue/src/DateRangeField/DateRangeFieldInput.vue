@@ -36,6 +36,7 @@ const {
   disabled: rootContext.disabled,
   readonly: rootContext.readonly,
   focusNext: rootContext.focusNext,
+  modelValue: props.type === 'start' ? rootContext.startValue : rootContext.endValue,
 })
 
 const disabled = computed(() => rootContext.disabled.value)

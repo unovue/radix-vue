@@ -28,6 +28,17 @@ export interface NavigationMenuRootProps extends PrimitiveProps {
    * @defaultValue 300
    */
   skipDelayDuration?: number
+
+  /**
+   * If true, menu can't be open by click on trigger
+   * @defaultValue false
+   */
+  disableClickTrigger?: boolean
+  /**
+   * If true, menu can't be open by hover on trigger
+   * @defaultValue false
+   */
+  disableHoverTrigger?: boolean
 }
 export type NavigationMenuRootEmits = {
   /** Event handler called when the value changes. */
@@ -41,6 +52,8 @@ export interface NavigationMenuContext {
   baseId: string
   dir: Ref<Direction>
   orientation: Orientation
+  disableClickTrigger: Ref<boolean>
+  disableHoverTrigger: Ref<boolean>
   rootNavigationMenu: Ref<HTMLElement | undefined>
   indicatorTrack: Ref<HTMLElement | undefined>
   onIndicatorTrackChange(indicatorTrack: HTMLElement | undefined): void
@@ -74,6 +87,8 @@ const props = withDefaults(defineProps<NavigationMenuRootProps>(), {
   delayDuration: 200,
   skipDelayDuration: 300,
   orientation: 'horizontal',
+  disableClickTrigger: false,
+  disableHoverTrigger: false,
   as: 'nav',
 })
 const emits = defineEmits<NavigationMenuRootEmits>()
@@ -92,7 +107,7 @@ const viewport = ref<HTMLElement>()
 const { createCollection } = useCollection('nav')
 createCollection(indicatorTrack)
 
-const { delayDuration, skipDelayDuration, dir: propDir } = toRefs(props)
+const { delayDuration, skipDelayDuration, dir: propDir, disableClickTrigger, disableHoverTrigger } = toRefs(props)
 const dir = useDirection(propDir)
 
 const isDelaySkipped = refAutoReset(false, skipDelayDuration)
@@ -113,6 +128,8 @@ provideNavigationMenuContext({
   modelValue,
   previousValue,
   baseId: useId(undefined, 'radix-navigation-menu'),
+  disableClickTrigger,
+  disableHoverTrigger,
   dir,
   orientation: props.orientation,
   rootNavigationMenu,

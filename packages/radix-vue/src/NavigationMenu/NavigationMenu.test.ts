@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
 import NavigationMenu from './story/_NavigationMenu.vue'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
@@ -7,6 +7,18 @@ import userEvent from '@testing-library/user-event'
 import { nextTick } from 'vue'
 import { fireEvent } from '@testing-library/vue'
 import { sleep } from '@/test'
+import NavigationMenuItem from './NavigationMenuItem.vue'
+import { afterEach } from 'node:test'
+import { useDebounceFn } from '@vueuse/core'
+
+vi.mock('@vueuse/core', async () => {
+  const actual = await vi.importActual('@vueuse/core')
+  return {
+    ...actual,
+    useDebounceFn: vi.fn(),
+
+  }
+})
 
 describe('given default NavigationMenu', () => {
   let wrapper: VueWrapper<InstanceType<typeof NavigationMenu>>
@@ -15,6 +27,17 @@ describe('given default NavigationMenu', () => {
   beforeEach(() => {
     document.body.innerHTML = ''
     wrapper = mount(NavigationMenu, { attachTo: document.body })
+
+    // @ts-expect-error simple mock
+    vi.mocked(useDebounceFn).mockImplementation((cb: (val: string) => void, delay: string) => {
+      return function (arg: string) {
+        cb(arg)
+      }
+    })
+  })
+
+  afterEach(() => {
+    wrapper.unmount()
   })
 
   it('should pass axe accessibility tests', async () => {
@@ -77,5 +100,64 @@ describe('given default NavigationMenu', () => {
     //     expect(wrapper.find('[data-dismissable-layer]').exists()).toBe(false)
     //   })
     // })
+  })
+
+  describe('menu triggers', () => {
+    const findMenuItem = () => wrapper.findComponent(NavigationMenuItem)
+
+    const findTriggerButton = () => findMenuItem().find('button')
+
+    const findLinkContent = () => wrapper.find('[data-dismissable-layer]')
+
+    it('should open menu on click by default', async () => {
+      const button = findTriggerButton()
+
+      button.trigger('click')
+
+      await wrapper.vm.$nextTick()
+
+      const content = findLinkContent()
+
+      expect(content.exists()).toBeTruthy()
+    })
+
+    it('should open menu on hover by default', async () => {
+      const button = findTriggerButton()
+
+      button.trigger('pointermove', { pointerType: 'mouse' })
+
+      await wrapper.vm.$nextTick()
+
+      const content = findLinkContent()
+
+      expect(content.exists()).toBeTruthy()
+    })
+
+    it('should not trigger content on click', async () => {
+      await wrapper.setProps({ disableClickTrigger: true })
+
+      const button = findTriggerButton()
+
+      button.trigger('click', { pointerType: 'mouse' })
+
+      await wrapper.vm.$nextTick()
+
+      const content = findLinkContent()
+
+      expect(content.exists()).toBeFalsy()
+    })
+
+    it('should not trigger content on hover', async () => {
+      await wrapper.setProps({ disableHoverTrigger: true })
+      const button = findTriggerButton()
+
+      button.trigger('pointermove', { pointerType: 'mouse' })
+
+      await wrapper.vm.$nextTick()
+
+      const content = findLinkContent()
+
+      expect(content.exists()).toBeFalsy()
+    })
   })
 })

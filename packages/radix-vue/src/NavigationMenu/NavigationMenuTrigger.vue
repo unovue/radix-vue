@@ -47,11 +47,17 @@ onMounted(() => {
 })
 
 function handlePointerEnter() {
+  if (menuContext.disableHoverTrigger.value)
+    return
+
   wasClickCloseRef.value = false
   itemContext.wasEscapeCloseRef.value = false
 }
 
 function handlePointerMove(ev: PointerEvent) {
+  if (menuContext.disableHoverTrigger.value)
+    return
+
   if (ev.pointerType === 'mouse') {
     if (
       props.disabled
@@ -60,12 +66,16 @@ function handlePointerMove(ev: PointerEvent) {
       || hasPointerMoveOpenedRef.value
     )
       return
+
     menuContext.onTriggerEnter(itemContext.value)
     hasPointerMoveOpenedRef.value = true
   }
 }
 
 function handlePointerLeave(ev: PointerEvent) {
+  if (menuContext.disableHoverTrigger.value)
+    return
+
   if (ev.pointerType === 'mouse') {
     if (props.disabled)
       return
@@ -74,7 +84,10 @@ function handlePointerLeave(ev: PointerEvent) {
   }
 }
 
-function handleClick() {
+function handleClick(event: PointerEvent) {
+  if (event.pointerType === 'mouse' && menuContext.disableClickTrigger.value)
+    return
+
   // if open via pointermove, we prevent click event
   if (hasPointerMoveOpenedRef.value)
     return

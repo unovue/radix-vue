@@ -1,11 +1,10 @@
 <script lang="ts">
-import { type DateValue, compare, set, temporalToString } from 'flat-internationalized-date'
+import { type DateValue, compare, isEqualDay, temporalToString } from 'flat-internationalized-date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { type Formatter, createContext, useDateFormatter, useKbd } from '@/shared'
 import {
-  type AnyExceptLiteral,
   type Granularity,
   type HourCycle,
   type Matcher,
@@ -170,42 +169,24 @@ const allSegmentContent = computed(() => createContent({
   hideTimeZone: props.hideTimeZone,
   hourCycle: props.hourCycle,
   segmentValues: segmentValues.value,
-  locale: props.locale,
+  locale,
 }))
 
 const segmentContents = computed(() => allSegmentContent.value.arr)
 
 const editableSegmentContents = computed(() => segmentContents.value.filter(({ part }) => part !== 'literal'))
 
-watch(segmentValues, (value) => {
-  if (Object.values(value).every(item => item !== null)) {
-    let updateObject = { ...value as Record<AnyExceptLiteral, number> }
-    if ('dayPeriod' in value) {
-      updateObject = {
-        ...updateObject,
-        hour: value.dayPeriod === 'PM' && !modelValue.value ? value.hour! + 12 : value.hour!,
-      }
-    }
-
-    let dateRef = { ...placeholder.value }
-    Object.keys(updateObject).forEach((part) => {
-      const value = updateObject[part as AnyExceptLiteral]
-      dateRef = set(dateRef, { [part]: value })
-    })
-
-    if (modelValue.value && compare(modelValue.value, dateRef) === 0)
-      return
-
-    modelValue.value = { ...dateRef }
-  }
-}, { deep: true })
+watch(locale, (value) => {
+  if (formatter.getLocale() !== value)
+    formatter.setLocale(value)
+})
 
 watch(modelValue, (value) => {
-  if (value !== undefined && compare(placeholder.value, value) !== 0)
+  if (value !== undefined && (!isEqualDay(placeholder.value, value) || compare(placeholder.value, value) !== 0))
     placeholder.value = { ...value }
 })
 
-watch(modelValue, (modelValue) => {
+watch([modelValue, locale], ([modelValue]) => {
   if (modelValue !== undefined)
     segmentValues.value = { ...syncSegmentValues({ value: modelValue, formatter }) }
   else
@@ -275,34 +256,21 @@ defineExpose({
 
 <template>
   <Primitive
-    v-bind="$attrs"
-    ref="primitiveElement"
-    role="group"
-    :aria-disabled="disabled ? true : undefined"
-    :data-disabled="disabled ? '' : undefined"
-    :data-readonly="readonly ? '' : undefined"
-    :data-invalid="isInvalid ? '' : undefined"
-    @keydown.left.right="handleKeydown"
+    v-bind="$attrs" ref="primitiveElement" role="group" :aria-disabled="disabled ? true : undefined"
+    :data-disabled="disabled ? '' : undefined" :data-readonly="readonly ? '' : undefined"
+    :data-invalid="isInvalid ? '' : undefined" @keydown.left.right="handleKeydown"
   >
     <slot :model-value="modelValue" :segments="segmentContents" :is-invalid="isInvalid" />
   </Primitive>
 
   <input
-    :id="id"
-    type="text"
-    tabindex="-1"
-    aria-hidden
-    :value="modelValue ? temporalToString(modelValue) : ''"
-    :name="name"
-    :disabled="disabled"
-    :required="required"
-    :style="{
+    :id="id" type="text" tabindex="-1" aria-hidden :value="modelValue ? temporalToString(modelValue) : ''"
+    :name="name" :disabled="disabled" :required="required" :style="{
       transform: 'translateX(-100%)',
       position: 'absolute',
       pointerEvents: 'none',
       opacity: 0,
       margin: 0,
-    }"
-    @focus="Array.from(segmentElements)?.[0]?.focus()"
+    }" @focus="Array.from(segmentElements)?.[0]?.focus()"
   >
 </template>

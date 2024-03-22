@@ -1,29 +1,16 @@
 <script setup lang="ts">
-import { add, createCalendarDateTime } from 'flat-internationalized-date'
 import { DateFieldInput, DateFieldRoot } from '../'
 import { Label } from '@/Label'
-import { ref } from 'vue'
-
-const value = ref(createCalendarDateTime({ year: 2024, month: 11, day: 25 }))
-
-function increment() {
-  value.value = add(value.value, { days: 1 })
-}
 </script>
 
 <template>
   <Story title="Date Field/Default">
     <Variant title="default">
       <div class="flex flex-col gap-2 text-black">
-        {{ value }}
-        <button @click="increment">
-          Increment
-        </button>
         <Label class="text-sm text-gray9" for="date-field">Appointment (unavailable on 19th)</Label>
         <DateFieldRoot
           id="date-field"
           v-slot="{ segments, isInvalid }"
-          v-model="value"
           :is-date-unavailable="date => date.day === 19"
           granularity="second"
           class="flex select-none bg-white items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500 data-[invalid]:outline data-[invalid]:outline-red-500"

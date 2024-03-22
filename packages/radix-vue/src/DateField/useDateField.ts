@@ -1,5 +1,5 @@
 import { type Formatter, useKbd } from '@/shared'
-import { type HourCycle, type SegmentPart, type SegmentValueObj } from '@/shared/date'
+import { type AnyExceptLiteral, type HourCycle, type SegmentPart, type SegmentValueObj } from '@/shared/date'
 import { type CalendarDateTime, type CycleTimeOptions, type DateFields, type DateValue, type TimeFields, cycle, getDaysInMonth, set } from 'flat-internationalized-date'
 import { type Ref, computed } from 'vue'
 import { isAcceptableSegmentKey, isNumberString, isSegmentNavigationKey } from './utils'
@@ -245,12 +245,12 @@ export type UseDateFieldProps = {
   disabled: Ref<boolean>
   readonly: Ref<boolean>
   part: SegmentPart
+  modelValue: Ref<DateValue | undefined>
   focusNext: () => void
 }
 
 export function useDateField(props: UseDateFieldProps) {
   const kbd = useKbd()
-  const placeholder = { ...props.placeholder.value }
 
   function minuteSecondIncrementation({ e, part, dateRef, prevValue }: MinuteSecondIncrementProps): number {
     const sign = e.key === kbd.ARROW_UP ? 1 : -1
@@ -558,7 +558,7 @@ export function useDateField(props: UseDateFieldProps) {
   }
 
   const attributes = computed(() => segmentBuilders[props.part].attrs({
-    placeholder,
+    placeholder: props.placeholder.value,
     hourCycle: props.hourCycle,
     segmentValues: props.segmentValues.value,
     formatter: props.formatter,
@@ -572,7 +572,7 @@ export function useDateField(props: UseDateFieldProps) {
     const prevValue = props.segmentValues.value.day
 
     if (e.key === kbd.ARROW_DOWN || e.key === kbd.ARROW_UP) {
-      props.segmentValues.value.day = dateTimeValueIncrementation({ e, part: 'day', dateRef: placeholder, prevValue })
+      props.segmentValues.value.day = dateTimeValueIncrementation({ e, part: 'day', dateRef: props.placeholder.value, prevValue })
       return
     }
 
@@ -581,8 +581,8 @@ export function useDateField(props: UseDateFieldProps) {
       const segmentMonthValue = props.segmentValues.value.month
 
       const daysInMonth = segmentMonthValue
-        ? getDaysInMonth(set(placeholder, { month: segmentMonthValue }))
-        : getDaysInMonth(placeholder)
+        ? getDaysInMonth(set(props.placeholder.value, { month: segmentMonthValue }))
+        : getDaysInMonth(props.placeholder.value)
 
       const { value, moveToNext } = updateDayOrMonth(daysInMonth, num, prevValue)
 
@@ -605,7 +605,7 @@ export function useDateField(props: UseDateFieldProps) {
     const prevValue = props.segmentValues.value.month
 
     if (e.key === kbd.ARROW_DOWN || e.key === kbd.ARROW_UP) {
-      props.segmentValues.value.month = dateTimeValueIncrementation({ e, part: 'month', dateRef: placeholder, prevValue })
+      props.segmentValues.value.month = dateTimeValueIncrementation({ e, part: 'month', dateRef: props.placeholder.value, prevValue })
       return
     }
 
@@ -632,7 +632,7 @@ export function useDateField(props: UseDateFieldProps) {
     const prevValue = props.segmentValues.value.year
 
     if (e.key === kbd.ARROW_DOWN || e.key === kbd.ARROW_UP) {
-      props.segmentValues.value.year = dateTimeValueIncrementation({ e, part: 'year', dateRef: placeholder, prevValue })
+      props.segmentValues.value.year = dateTimeValueIncrementation({ e, part: 'year', dateRef: props.placeholder.value, prevValue })
       return
     }
 
@@ -653,7 +653,7 @@ export function useDateField(props: UseDateFieldProps) {
   }
 
   function handleHourSegmentKeydown(e: KeyboardEvent) {
-    const dateRef = placeholder
+    const dateRef = props.placeholder.value
     if (!isAcceptableSegmentKey(e.key) || isSegmentNavigationKey(e.key) || !('hour' in dateRef) || !('hour' in props.segmentValues.value))
       return
 
@@ -662,7 +662,7 @@ export function useDateField(props: UseDateFieldProps) {
     const hourCycle = props.hourCycle
 
     if (e.key === kbd.ARROW_UP || e.key === kbd.ARROW_DOWN) {
-      props.segmentValues.value.hour = dateTimeValueIncrementation({ e, part: 'hour', dateRef: placeholder, prevValue, hourCycle })
+      props.segmentValues.value.hour = dateTimeValueIncrementation({ e, part: 'hour', dateRef: props.placeholder.value, prevValue, hourCycle })
 
       if ('dayPeriod' in props.segmentValues.value) {
         if (props.segmentValues.value.hour < 12)
@@ -696,14 +696,14 @@ export function useDateField(props: UseDateFieldProps) {
   }
 
   function handleMinuteSegmentKeydown(e: KeyboardEvent) {
-    const dateRef = placeholder
+    const dateRef = props.placeholder.value
 
     if (!isAcceptableSegmentKey(e.key) || isSegmentNavigationKey(e.key) || !('minute' in dateRef) || !('minute' in props.segmentValues.value))
       return
 
     const prevValue = props.segmentValues.value.minute
 
-    props.segmentValues.value.minute = minuteSecondIncrementation({ e, part: 'minute', dateRef: placeholder, prevValue })
+    props.segmentValues.value.minute = minuteSecondIncrementation({ e, part: 'minute', dateRef: props.placeholder.value, prevValue })
 
     if (isNumberString(e.key)) {
       const num = Number.parseInt(e.key)
@@ -723,14 +723,14 @@ export function useDateField(props: UseDateFieldProps) {
   }
 
   function handleSecondSegmentKeydown(e: KeyboardEvent) {
-    const dateRef = placeholder
+    const dateRef = props.placeholder.value
 
     if (!isAcceptableSegmentKey(e.key) || isSegmentNavigationKey(e.key) || !('second' in dateRef) || !('second' in props.segmentValues.value))
       return
 
     const prevValue = props.segmentValues.value.second
 
-    props.segmentValues.value.second = minuteSecondIncrementation({ e, part: 'second', dateRef: placeholder, prevValue })
+    props.segmentValues.value.second = minuteSecondIncrementation({ e, part: 'second', dateRef: props.placeholder.value, prevValue })
 
     if (isNumberString(e.key)) {
       const num = Number.parseInt(e.key)
@@ -749,7 +749,7 @@ export function useDateField(props: UseDateFieldProps) {
   }
 
   function handleDayPeriodSegmentKeydown(e: KeyboardEvent) {
-    if (((!isAcceptableSegmentKey(e.key) || isSegmentNavigationKey(e.key)) && e.key !== 'a' && e.key !== 'p') || !('hour' in placeholder) || !('dayPeriod' in props.segmentValues.value))
+    if (((!isAcceptableSegmentKey(e.key) || isSegmentNavigationKey(e.key)) && e.key !== 'a' && e.key !== 'p') || !('hour' in props.placeholder.value) || !('dayPeriod' in props.segmentValues.value))
       return
 
     if (e.key === kbd.ARROW_UP || e.key === kbd.ARROW_DOWN) {
@@ -801,6 +801,25 @@ export function useDateField(props: UseDateFieldProps) {
     } as const
 
     segmentKeydownHandlers[props.part as keyof typeof segmentKeydownHandlers](e)
+
+    if (Object.values(props.segmentValues.value).every(item => item !== null)) {
+      let updateObject = { ...props.segmentValues.value as Record<AnyExceptLiteral, number> }
+      if ('dayPeriod' in props.segmentValues.value) {
+        updateObject = {
+          ...updateObject,
+          hour: props.segmentValues.value.dayPeriod === 'PM' && !props.modelValue.value ? props.segmentValues.value.hour! + 12 : props.segmentValues.value.hour!,
+        }
+      }
+
+      let dateRef = { ...props.placeholder.value }
+
+      Object.keys(updateObject).forEach((part) => {
+        const value = updateObject[part as AnyExceptLiteral]
+        dateRef = set(dateRef, { [part]: value })
+      })
+
+      props.modelValue.value = { ...dateRef }
+    }
   }
 
   return {

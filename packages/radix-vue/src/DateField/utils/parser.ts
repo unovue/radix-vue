@@ -2,6 +2,7 @@ import { DATE_SEGMENT_PARTS, type DateSegmentPart, EDITABLE_SEGMENT_PARTS, type 
 import { type Formatter } from '@/shared'
 import { isZonedDateTime, set } from 'flat-internationalized-date'
 import type { DateFields, DateValue } from 'flat-internationalized-date'
+import type { Ref } from 'vue'
 
 const calendarDateTimeGranularities = ['hour', 'minute', 'second']
 
@@ -57,7 +58,7 @@ type SharedContentProps = {
 
 type CreateContentObjProps = SharedContentProps & {
   segmentValues: SegmentValueObj
-  locale: string
+  locale: Ref<string>
 }
 
 type CreateContentArrProps = SharedContentProps & {
@@ -83,7 +84,7 @@ function createContentObj(props: CreateContentObjProps) {
         })
       }
       else {
-        return getPlaceholder(part, '', locale)
+        return getPlaceholder(part, '', locale.value)
       }
     }
     else {
@@ -100,7 +101,7 @@ function createContentObj(props: CreateContentObjProps) {
         }
 
         else {
-          return getPlaceholder(part, '', locale)
+          return getPlaceholder(part, '', locale.value)
         }
       }
       return ''
@@ -117,7 +118,7 @@ function createContentObj(props: CreateContentObjProps) {
         obj[part] = value
 
       else
-        obj[part] = getPlaceholder(part, 'AM', locale)
+        obj[part] = getPlaceholder(part, 'AM', locale.value)
     }
     else {
       obj[part] = getPartContent(part)

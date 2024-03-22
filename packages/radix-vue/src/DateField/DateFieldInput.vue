@@ -34,6 +34,7 @@ const {
   disabled: rootContext.disabled,
   readonly: rootContext.readonly,
   focusNext: rootContext.focusNext,
+  modelValue: rootContext.modelValue,
 })
 
 const disabled = computed(() => rootContext.disabled.value)

@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { PopperContentProps } from '@/Popper'
 import type { DismissableLayerEmits } from '@/DismissableLayer'
-import { useForwardExpose } from '@/shared'
+import { useForwardExpose, useGraceArea } from '@/shared'
 
 export type HoverCardContentImplEmits = DismissableLayerEmits
 export interface HoverCardContentImplProps extends PopperContentProps {}
@@ -21,6 +21,12 @@ const forwarded = useForwardProps(props)
 
 const { forwardRef, currentElement: contentElement } = useForwardExpose()
 const rootContext = injectHoverCardRootContext()
+const { isPointerInTransit, onPointerExit } = useGraceArea(rootContext.triggerElement, contentElement)
+rootContext.isPointerInTransit = isPointerInTransit
+onPointerExit(() => {
+  rootContext.onClose()
+})
+
 const containSelection = ref(false)
 
 let originalBodyUserSelect: string

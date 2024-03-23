@@ -41,7 +41,7 @@ watch(
 
 <template>
   <Primitive
-    v-if="imageLoadingStatus === 'loaded'"
+    v-show="imageLoadingStatus === 'loaded'"
     role="img"
     :as-child="asChild"
     :as="as"

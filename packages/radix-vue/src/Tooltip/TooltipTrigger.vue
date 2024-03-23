@@ -61,7 +61,6 @@ function handlePointerDown() {
 function handlePointerMove(event: PointerEvent) {
   if (event.pointerType === 'touch')
     return
-
   if (
     !hasPointerMoveOpened.value && !providerContext.isPointerInTransitRef.value
   ) {
@@ -75,9 +74,14 @@ function handlePointerLeave() {
   hasPointerMoveOpened.value = false
 }
 
-function handleFocus() {
-  if (!isPointerDown.value)
-    rootContext.onOpen()
+function handleFocus(event: FocusEvent) {
+  if (isPointerDown.value)
+    return
+
+  if (rootContext.ignoreNonKeyboardFocus.value && !(event.target as HTMLElement).matches?.(':focus-visible'))
+    return
+
+  rootContext.onOpen()
 }
 
 function handleClick() {

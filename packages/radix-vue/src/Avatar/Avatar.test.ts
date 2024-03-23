@@ -4,7 +4,7 @@ import Avatar from './story/_Avatar.vue'
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
-import { findByAltText, findByRole, findByText } from '@testing-library/vue'
+import { findByAltText, findByText, queryByText, waitForElementToBeRemoved } from '@testing-library/vue'
 
 const FALLBACK = 'CT'
 const DELAY = 350
@@ -35,15 +35,10 @@ describe('given an Avatar with fallback and a working image', async () => {
     expect(wrapper.html()).includes(FALLBACK)
   })
 
-  it('should not render the image initially', () => {
+  it('should render the image, but show `display:none` initially', () => {
     const image = wrapper.find('img')
-    expect(image.exists()).toBeFalsy()
-  })
-
-  it('should render the image after it has loaded', async () => {
-    const image = await findByRole(wrapper.element as HTMLElement, 'img')
-
-    expect(image).toBeTruthy()
+    expect(image.exists()).toBeTruthy()
+    expect(image.element).toHaveStyle({ display: 'none' })
   })
 
   it('should have alt text on the image', async () => {
@@ -51,7 +46,12 @@ describe('given an Avatar with fallback and a working image', async () => {
     expect(image).toBeTruthy()
   })
 
-  it('should render as snapshot', () => {
+  it('should match before image loaded snapshot', () => {
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
+  it('should match after image loaded snapshot', async () => {
+    await waitForElementToBeRemoved(() => queryByText(wrapper.element as HTMLElement, 'CT'))
     expect(wrapper.html()).toMatchSnapshot()
   })
 })

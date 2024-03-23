@@ -42,6 +42,7 @@ const tooltipListeners = computed(() => {
     onpointermove: handlePointerMove,
     onpointerleave: handlePointerLeave,
     onpointerdown: handlePointerDown,
+    onblur: handleBlur,
   }
 })
 
@@ -84,6 +85,10 @@ function handleFocus(event: FocusEvent) {
   rootContext.onOpen()
 }
 
+function handleBlur() {
+  rootContext.onClose()
+}
+
 function handleClick() {
   if (!rootContext.disableClosingTrigger.value)
     rootContext.onClose()
@@ -101,7 +106,6 @@ function handleClick() {
       :as="as"
       :as-child="props.asChild"
       v-bind="tooltipListeners"
-      @blur="rootContext.onClose()"
     >
       <slot />
     </Primitive>

@@ -39,4 +39,14 @@ describe('given default Tooltip', () => {
       expect(document.body.innerHTML).not.toContain('Add to library')
     })
   })
+
+  describe('disabled tooltip', () => {
+    it('should not be open when focus', async () => {
+      await wrapper.setProps({ disabled: true })
+
+      await wrapper.find('button').trigger('focus')
+
+      expect(document.body.innerHTML).not.toContain('Add to library')
+    })
+  })
 })

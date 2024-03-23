@@ -802,23 +802,25 @@ export function useDateField(props: UseDateFieldProps) {
 
     segmentKeydownHandlers[props.part as keyof typeof segmentKeydownHandlers](e)
 
-    if (Object.values(props.segmentValues.value).every(item => item !== null)) {
-      let updateObject = { ...props.segmentValues.value as Record<AnyExceptLiteral, number> }
-      if ('dayPeriod' in props.segmentValues.value) {
-        updateObject = {
-          ...updateObject,
-          hour: props.segmentValues.value.dayPeriod === 'PM' && !props.modelValue.value ? props.segmentValues.value.hour! + 12 : props.segmentValues.value.hour!,
+    if (!isSegmentNavigationKey(e.key) && e.key !== kbd.TAB && e.key !== kbd.SHIFT && isAcceptableSegmentKey(e.key)) {
+      if (Object.values(props.segmentValues.value).every(item => item !== null)) {
+        let updateObject = { ...props.segmentValues.value as Record<AnyExceptLiteral, number> }
+        if ('dayPeriod' in props.segmentValues.value) {
+          updateObject = {
+            ...updateObject,
+            hour: props.segmentValues.value.dayPeriod === 'PM' && !props.modelValue.value ? props.segmentValues.value.hour! + 12 : props.segmentValues.value.hour!,
+          }
         }
+
+        let dateRef = { ...props.placeholder.value }
+
+        Object.keys(updateObject).forEach((part) => {
+          const value = updateObject[part as AnyExceptLiteral]
+          dateRef = set(dateRef, { [part]: value })
+        })
+
+        props.modelValue.value = { ...dateRef }
       }
-
-      let dateRef = { ...props.placeholder.value }
-
-      Object.keys(updateObject).forEach((part) => {
-        const value = updateObject[part as AnyExceptLiteral]
-        dateRef = set(dateRef, { [part]: value })
-      })
-
-      props.modelValue.value = { ...dateRef }
     }
   }
 

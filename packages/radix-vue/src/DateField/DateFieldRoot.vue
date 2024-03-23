@@ -137,7 +137,7 @@ const placeholder = useVModel(props, 'placeholder', emits, {
 
 const inferredGranularity = computed(() => {
   if (props.granularity)
-    return props.granularity
+    return !hasTime(placeholder.value) ? 'day' : props.granularity
 
   return hasTime(placeholder.value) ? 'minute' : 'day'
 })

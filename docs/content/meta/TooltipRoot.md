@@ -21,20 +21,26 @@
     'required': false
   },
   {
+    'name': 'disabled',
+    'description': '<p>When <code>true</code>, disables tooltip</p>\n',
+    'type': 'boolean',
+    'required': false
+  },
+  {
     'name': 'disableHoverableContent',
     'description': '<p>Prevents Tooltip.Content from remaining open when hovering.\nDisabling this has accessibility consequences. Inherits\nfrom Tooltip.Provider.</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
-    'name': 'open',
-    'description': '<p>The controlled open state of the tooltip.</p>\n',
+    'name': 'ignoreNonKeyboardFocus',
+    'description': '<p>Prevent the tooltip from opening if the focus did not come from\nthe keyboard by matching against the <code>:focus-visible</code> selector.\nThis is useful if you want to avoid opening it when switching\nbrowser tabs or closing a dialog.</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
-    'name': 'disabled',
-    'description': '<p> Disable tooltip completely. Ignores manual open.</p>\n',
+    'name': 'open',
+    'description': '<p>The controlled open state of the tooltip.</p>\n',
     'type': 'boolean',
     'required': false
   }

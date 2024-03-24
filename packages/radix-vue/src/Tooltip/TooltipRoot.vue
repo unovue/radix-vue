@@ -31,7 +31,7 @@ export interface TooltipRootProps {
    */
   disableClosingTrigger?: boolean
   /**
-   * When `true`, disables tooltip
+   * When `true`, disable tooltip
    * @defaultValue false
    */
   disabled?: boolean

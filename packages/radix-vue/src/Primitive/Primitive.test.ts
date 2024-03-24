@@ -18,6 +18,27 @@ describe('test Primitive functionalities', () => {
     expect(wrapper.find('button').exists()).toBe(true)
   })
 
+  it('should by pass the comment tag', () => {
+    const wrapper = mount(Primitive, {
+      props: {
+        as: 'template',
+      },
+      attrs: {
+        'data-parent-attr': '',
+      },
+      slots: {
+        default: `
+        <!-- this is a comment -->
+        <div data-child-attr>Child class</div>
+        `,
+      },
+    })
+
+    const element = wrapper.find('div')
+    expect(element.attributes('data-parent-attr')).toBe('')
+    expect(element.attributes('data-child-attr')).toBe('')
+  })
+
   it('should renders div element with custom attribute', () => {
     const wrapper = mount(Primitive, {
       attrs: {

@@ -28,7 +28,7 @@ works, and you'll need to install it in your project to use the date-related com
 
 
 ```bash
-npm install -D flat-internationalized-date
+npm install flat-internationalized-date
 ```
 
 

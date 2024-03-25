@@ -43,7 +43,7 @@ We highly recommend reading through the documentation for the package to get a s
 Install the date package.
 
 ```bash
-npm install -D flat-internationalized-date
+npm install flat-internationalized-date
 ```
 
 Install the component from your command line.
@@ -79,7 +79,7 @@ Contains all the parts of a date field
 
 <!-- @include: @/meta/DateRangeFieldRoot.md -->
 
-<DataAttributesTable 
+<DataAttributesTable
   :data="[
     {
       attribute: '[data-readonly]',
@@ -102,8 +102,8 @@ Contains the date field segments
 
 <!-- @include: @/meta/DateRangeFieldInput.md -->
 
-<DataAttributesTable 
-  :data="[ 
+<DataAttributesTable
+  :data="[
     {
       attribute: '[data-disabled]',
       values: 'Present when disabled',

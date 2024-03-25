@@ -42,7 +42,7 @@ We highly recommend reading through the documentation for the package to get a s
 Install the date package.
 
 ```bash
-npm install -D flat-internationalized-date
+npm install flat-internationalized-date
 ```
 
 Install the component from your command line.
@@ -135,7 +135,7 @@ Contains the date picker date field segments and trigger
 
 <!-- @include: @/meta/DatePickerField.md -->
 
-<DataAttributesTable 
+<DataAttributesTable
   :data="[
     {
       attribute: '[data-readonly]',
@@ -158,8 +158,8 @@ Contains the date picker date field segments
 
 <!-- @include: @/meta/DatePickerInput.md -->
 
-<DataAttributesTable 
-  :data="[ 
+<DataAttributesTable
+  :data="[
     {
       attribute: '[data-disabled]',
       values: 'Present when disabled',
@@ -208,8 +208,8 @@ Contains all the parts of a calendar
 
 <!-- @include: @/meta/DatePickerCalendar.md -->
 
-<DataAttributesTable 
-  :data="[ 
+<DataAttributesTable
+  :data="[
     {
       attribute: '[data-disabled]',
       values: 'Present when disabled',
@@ -237,12 +237,12 @@ Calendar navigation button. It navigates the calendar one month/year/decade in t
 
 <!-- @include: @/meta/DatePickerPrev.md -->
 
-<DataAttributesTable 
-  :data="[ 
+<DataAttributesTable
+  :data="[
     {
       attribute: '[data-disabled]',
       values: 'Present when disabled',
-    }, 
+    },
   ]"
 />
 
@@ -253,8 +253,8 @@ Calendar navigation button. It navigates the calendar one month/year/decade in t
 
 <!-- @include: @/meta/DatePickerNext.md -->
 
-<DataAttributesTable 
-  :data="[ 
+<DataAttributesTable
+  :data="[
     {
       attribute: '[data-disabled]',
       values: 'Present when disabled',
@@ -275,8 +275,8 @@ Container for wrapping the calendar grid.
 
 <!-- @include: @/meta/DatePickerGrid.md -->
 
-<DataAttributesTable 
-  :data="[ 
+<DataAttributesTable
+  :data="[
     {
       attribute: '[data-disabled]',
       values: 'Present when disabled',
@@ -319,12 +319,12 @@ Container for wrapping the calendar cells.
 
 <!-- @include: @/meta/DatePickerCell.md -->
 
-<DataAttributesTable 
-  :data="[ 
+<DataAttributesTable
+  :data="[
     {
       attribute: '[data-disabled]',
       values: 'Present when disabled',
-    }, 
+    },
   ]"
 />
 
@@ -334,7 +334,7 @@ Interactable container for displaying the cell dates. Clicking it selects the da
 
 <!-- @include: @/meta/DatePickerCellTrigger.md -->
 
-<DataAttributesTable 
+<DataAttributesTable
   :data="[
     {
       attribute: '[data-selected]',

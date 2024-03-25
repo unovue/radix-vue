@@ -1,5 +1,26 @@
-import { cloneVNode, defineComponent, mergeProps } from 'vue'
+import { type VNode, cloneVNode, defineComponent, mergeProps } from 'vue'
 import { renderSlotFragments } from '@/shared'
+
+function groupChildren(children: VNode[]) {
+  let firstChildren: VNode | undefined
+  const commentChildrenBeforeFirst: VNode[] = []
+  const otherChildren: VNode[] = []
+
+  for (let i = 0; i < children.length; i++) {
+    const child = children[i]
+    if (!firstChildren) {
+      if (child.type === Symbol.for('v-cmt')) { // check if the vnode is comment type (https://github.com/vuejs/core/blob/caeb8a68811a1b0f799632582289fcf169fb673c/packages/runtime-core/src/vnode.ts#L66)
+        commentChildrenBeforeFirst.push(child)
+        continue
+      }
+      firstChildren = child
+    }
+    else {
+      otherChildren.push(child)
+    }
+  }
+  return { firstChildren, otherChildren, commentChildrenBeforeFirst }
+}
 
 export const Slot = defineComponent({
   name: 'PrimitiveSlot',
@@ -8,9 +29,8 @@ export const Slot = defineComponent({
     return () => {
       if (!slots.default)
         return null
-      const childrens = renderSlotFragments(slots.default())
-
-      const [firstChildren, ...otherChildren] = childrens
+      const children = renderSlotFragments(slots.default())
+      const { firstChildren, otherChildren, commentChildrenBeforeFirst } = groupChildren(children)
 
       if (firstChildren) {
         // remove props ref from being inferred
@@ -31,10 +51,13 @@ export const Slot = defineComponent({
           }
         }
 
-        return childrens.length === 1 ? cloned : [cloned, ...otherChildren]
+        if (commentChildrenBeforeFirst.length)
+          return [...commentChildrenBeforeFirst, cloned, ...otherChildren]
+
+        return [cloned, ...otherChildren]
       }
 
-      return childrens
+      return children
     }
   },
 })

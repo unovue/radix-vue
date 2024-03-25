@@ -201,9 +201,6 @@ importers:
       '@floating-ui/vue':
         specifier: ^1.0.4
         version: 1.0.6(vue@3.4.21)
-      '@internationalized/date':
-        specifier: ^3.5.2
-        version: 3.5.2
       '@vueuse/core':
         specifier: ^10.5.0
         version: 10.9.0(vue@3.4.21)
@@ -226,6 +223,9 @@ importers:
       '@iconify/vue':
         specifier: ^4.1.1
         version: 4.1.1(vue@3.4.21)
+      '@internationalized/date':
+        specifier: ^3.5.2
+        version: 3.5.2
       '@testing-library/dom':
         specifier: ^9.3.3
         version: 9.3.4
@@ -1644,7 +1644,6 @@ packages:
     resolution: {integrity: sha512-vo1yOMUt2hzp63IutEaTUxROdvQg1qlMRsbCvbay2AK2Gai7wIgCyK5weEX3nHkiLgo4qCXHijFNC/ILhlRpOQ==}
     dependencies:
       '@swc/helpers': 0.5.6
-    dev: false
 
   /@isaacs/cliui@8.0.2:
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -2115,7 +2114,6 @@ packages:
     resolution: {integrity: sha512-aYX01Ke9hunpoCexYAgQucEpARGQ5w/cqHFrIR+e9gdKb1QWTsVJuTJ2ozQzIAxLyRQe/m+2RqzkyOOGiMKRQA==}
     dependencies:
       tslib: 2.6.2
-    dev: false
 
   /@testing-library/dom@9.3.4:
     resolution: {integrity: sha512-FlS4ZWlp97iiNWig0Muq8p+3rVDjRiYE+YKGbAqXOu9nwJFFOdL00kFpz42M+4huzYi86vAK1sOOfyOG45muIQ==}
@@ -10378,7 +10376,11 @@ packages:
     id: file:packages/radix-vue
     name: radix-vue
     peerDependencies:
-      vue: ^3.2.0
+      '@internationalized/date': ^3.5.2
+      vue: '>= 3.2.0'
+    peerDependenciesMeta:
+      '@internationalized/date':
+        optional: true
     dependencies:
       '@floating-ui/dom': 1.6.3
       '@floating-ui/vue': 1.0.6(vue@3.4.21)

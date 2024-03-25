@@ -43,7 +43,7 @@ We highly recommend reading through the documentation for the package to get a s
 Install the date package.
 
 ```bash
-npm install -D @internationalized/date
+npm install @internationalized/date
 ```
 
 Install the component from your command line.

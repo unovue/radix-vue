@@ -199,7 +199,7 @@ importers:
         specifier: ^1.5.4
         version: 1.6.3
       '@floating-ui/vue':
-        specifier: ^1.0.5
+        specifier: ^1.0.4
         version: 1.0.6(vue@3.4.21)
       '@vueuse/core':
         specifier: ^10.5.0
@@ -1640,7 +1640,7 @@ packages:
       vue: '>=3'
     dependencies:
       '@iconify/types': 2.0.0
-      vue: 3.4.21(typescript@5.4.2)
+      vue: 3.4.21(typescript@5.3.3)
     dev: true
 
   /@internationalized/date@3.5.2:
@@ -10039,7 +10039,7 @@ packages:
       '@vue/composition-api':
         optional: true
     dependencies:
-      vue: 3.4.21(typescript@5.4.2)
+      vue: 3.4.21(typescript@5.3.3)
 
   /vue-eslint-parser@9.4.2(eslint@8.57.0):
     resolution: {integrity: sha512-Ry9oiGmCAK91HrKMtCrKFWmSFWvYkpGglCeFAIqDdr9zdXmMMpJOmUJS7WWsW7fX81h6mwHmUZCQQ1E0PkSwYQ==}
@@ -10425,7 +10425,7 @@ packages:
       fast-deep-equal: 3.1.3
       flat-internationalized-date: 1.2.3
       nanoid: 5.0.6
-      vue: 3.4.21(typescript@5.3.3)
+      vue: 3.4.21(typescript@5.4.2)
     transitivePeerDependencies:
       - '@vue/composition-api'
     dev: false

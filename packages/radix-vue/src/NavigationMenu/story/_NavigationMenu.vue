@@ -12,6 +12,16 @@ import {
 } from '../'
 import NavigationMenuListItem from './_NavigationMenuListItem.vue'
 
+export interface TestProps {
+  disableClickTrigger?: boolean
+  disableHoverTrigger?: boolean
+}
+
+const props = withDefaults(defineProps<TestProps>(), {
+  disableClickTrigger: false,
+  disableHoverTrigger: false,
+})
+
 const currentTrigger = ref('')
 </script>
 
@@ -19,6 +29,7 @@ const currentTrigger = ref('')
   <div class="w-full h-[600px]">
     <NavigationMenuRoot
       v-model="currentTrigger"
+      v-bind="props"
       class="relative z-[1] flex w-full justify-center"
     >
       <NavigationMenuList

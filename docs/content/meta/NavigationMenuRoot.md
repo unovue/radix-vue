@@ -52,6 +52,20 @@
     'type': 'number',
     'required': false,
     'default': '300'
+  },
+  {
+    'name': 'disableClickTrigger',
+    'description': '<p> If true, the menu can\'t be opened by clicking on the trigger </p>\n',
+    'type': 'boolean',
+    'required': false,
+    'default': false
+  },
+  {
+    'name': 'disableHoverTrigger',
+    'description': '<p> If true, the menu can\'t be opened by hovering on the trigger </p>\n',
+    'type': 'boolean',
+    'required': false,
+    'default': false
   }
 ]" />
 

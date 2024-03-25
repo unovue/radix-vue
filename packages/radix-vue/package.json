@@ -63,9 +63,6 @@
   "peerDependenciesMeta": {
     "@internationalized/date": {
       "optional": true
-    },
-    "vue": {
-      "optional": false
     }
   },
   "dependencies": {

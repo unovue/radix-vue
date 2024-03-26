@@ -29,7 +29,7 @@
   {
     'name': 'defaultValue',
     'description': '<p>The default value for the calendar</p>\n',
-    'type': '{ start: DateValue; end: DateValue; }',
+    'type': 'DateRange',
     'required': false
   },
   {
@@ -87,7 +87,7 @@
   {
     'name': 'modelValue',
     'description': '<p>The controlled checked state of the calendar. Can be bound as <code>v-model</code>.</p>\n',
-    'type': '{ start: DateValue; end: DateValue; }',
+    'type': 'DateRange',
     'required': false
   },
   {
@@ -144,7 +144,7 @@
   {
     'name': 'update:modelValue',
     'description': '<p>Event handler called whenever the model value changes</p>\n',
-    'type': '[{ start: DateValue; end: DateValue; }]'
+    'type': '[DateRange]'
   },
   {
     'name': 'update:placeholder',

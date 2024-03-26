@@ -223,7 +223,6 @@ const {
 } = useRangeCalendarState({
   start: startValue,
   end: endValue,
-  grid,
   isDateDisabled,
   isDateUnavailable,
   focusedValue,

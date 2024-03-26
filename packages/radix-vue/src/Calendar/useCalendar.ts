@@ -24,7 +24,6 @@ export type UseCalendarProps = {
 }
 
 export type UseCalendarStateProps = {
-  grid: Ref<Grid<DateValue>[]>
   isDateDisabled: Matcher
   isDateUnavailable: Matcher
   date: Ref<DateValue | DateValue[] | undefined>

@@ -222,7 +222,6 @@ const {
   isDateSelected,
 } = useCalendarState({
   date: modelValue,
-  grid,
   isDateDisabled,
   isDateUnavailable,
 })
@@ -245,10 +244,11 @@ function onDateChange(value: DateValue) {
       return
     }
 
-    if (!preventDeselect.value && isEqualDay(modelValue.value as DateValue, value))
+    if (!preventDeselect.value && isEqualDay(modelValue.value as DateValue, value)) {
+      placeholder.value = { ...value }
       modelValue.value = undefined
-    else
-      modelValue.value = { ...value }
+    }
+    else { modelValue.value = { ...value } }
   }
   else if (Array.isArray(modelValue.value)) {
     if (!modelValue.value) {
@@ -264,7 +264,8 @@ function onDateChange(value: DateValue) {
     else if (!preventDeselect.value) {
       const next = modelValue.value.filter(date => !isSameDay(date, value))
       if (!next.length) {
-        modelValue.value = []
+        placeholder.value = { ...value }
+        modelValue.value = undefined
         return
       }
       modelValue.value = next.map(date => ({ ...date }))

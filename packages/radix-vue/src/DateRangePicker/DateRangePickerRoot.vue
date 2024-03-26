@@ -3,7 +3,7 @@ import { type DateValue } from 'flat-internationalized-date'
 
 import type { Ref } from 'vue'
 import { createContext } from '@/shared'
-import { type Granularity, type HourCycle, type Matcher, type WeekDayFormat, getDefaultDate } from '@/shared/date'
+import { type DateRange, type Granularity, type HourCycle, type Matcher, type WeekDayFormat, getDefaultDate } from '@/shared/date'
 
 import { type CalendarRootProps, type DateRangeFieldRoot, type DateRangeFieldRootProps, PopoverRoot, type PopoverRootEmits, type PopoverRootProps } from '..'
 
@@ -103,7 +103,7 @@ const {
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue ?? { start: undefined, end: undefined },
   passive: (props.modelValue === undefined) as false,
-}) as Ref<{ start: DateValue | undefined; end: DateValue | undefined }>
+}) as Ref<DateRange>
 
 const defaultDate = getDefaultDate({
   defaultPlaceholder: props.placeholder,

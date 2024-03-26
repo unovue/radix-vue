@@ -5,6 +5,7 @@ import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { type Formatter, createContext, useDateFormatter, useKbd } from '@/shared'
 import {
+  type DateRange,
   type Granularity,
   type HourCycle,
   type Matcher,
@@ -39,13 +40,13 @@ type DateRangeFieldRootContext = {
 
 export interface DateRangeFieldRootProps extends PrimitiveProps {
   /** The default value for the calendar */
-  defaultValue?: Record<DateRangeType, DateValue | undefined>
+  defaultValue?: DateRange
   /** The default placeholder date */
   defaultPlaceholder?: DateValue
   /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programatically control the calendar view */
   placeholder?: DateValue
   /** The controlled checked state of the calendar. Can be bound as `v-model`. */
-  modelValue?: Record<DateRangeType, DateValue | undefined>
+  modelValue?: DateRange
   /** The hour cycle used for formatting times. Defaults to the local preference */
   hourCycle?: HourCycle
   /** The granularity to use for formatting times. Defaults to day if a CalendarDate is provided, otherwise defaults to minute. The field will render segments for each part of the date up to and including the specified granularity */
@@ -75,7 +76,7 @@ export interface DateRangeFieldRootProps extends PrimitiveProps {
 
 export type DateRangeFieldRootEmits = {
   /** Event handler called whenever the model value changes */
-  'update:modelValue': [{ start: DateValue | undefined; end: DateValue | undefined }]
+  'update:modelValue': [DateRange]
   /** Event handler called whenever the placeholder value changes */
   'update:placeholder': [date: DateValue]
 }
@@ -116,7 +117,7 @@ onMounted(() => {
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue ?? { start: undefined, end: undefined },
   passive: (props.modelValue === undefined) as false,
-}) as Ref<Record<DateRangeType, DateValue | undefined>>
+}) as Ref<DateRange>
 
 const defaultDate = getDefaultDate({
   defaultPlaceholder: props.placeholder,

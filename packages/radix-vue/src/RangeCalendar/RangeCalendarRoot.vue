@@ -5,12 +5,12 @@ import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { type Formatter, createContext } from '@/shared'
 import { createDecade, createYear, getDefaultDate, handleCalendarInitialFocus, isBefore } from '@/shared/date'
-import type { Grid, Matcher, WeekDayFormat } from '@/shared/date'
+import type { DateRange, Grid, Matcher, WeekDayFormat } from '@/shared/date'
 import { useRangeCalendarState } from './useRangeCalendar'
 import { useCalendar } from '@/Calendar/useCalendar'
 
 type RangeCalendarRootContext = {
-  modelValue: Ref<{ start: DateValue | undefined; end: DateValue | undefined }>
+  modelValue: Ref<DateRange>
   startValue: Ref<DateValue | undefined>
   endValue: Ref<DateValue | undefined>
   locale: Ref<string>
@@ -49,9 +49,9 @@ export interface RangeCalendarRootProps extends PrimitiveProps {
   /** The default placeholder date */
   defaultPlaceholder?: DateValue
   /** The default value for the calendar */
-  defaultValue?: { start: DateValue; end: DateValue }
+  defaultValue?: DateRange
   /** The controlled checked state of the calendar. Can be bound as `v-model`. */
-  modelValue?: { start: DateValue | undefined; end: DateValue | undefined }
+  modelValue?: DateRange
   /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programatically control the calendar view */
   placeholder?: DateValue
   /** This property causes the previous and next buttons to navigate by the number of months displayed at once, rather than one month */
@@ -88,7 +88,7 @@ export interface RangeCalendarRootProps extends PrimitiveProps {
 
 export type RangeCalendarRootEmits = {
   /** Event handler called whenever the model value changes */
-  'update:modelValue': [{ start: DateValue | undefined; end: DateValue | undefined }]
+  'update:modelValue': [DateRange]
   /** Event handler called whenever the placeholder value changes */
   'update:placeholder': [date: DateValue]
 }
@@ -166,7 +166,7 @@ const focusedValue = ref() as Ref<DateValue | undefined>
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue ?? { start: undefined, end: undefined },
   passive: (props.modelValue === undefined) as false,
-}) as Ref<{ start: DateValue | undefined; end: DateValue | undefined }>
+}) as Ref<DateRange>
 
 const defaultDate = getDefaultDate({
   defaultPlaceholder: props.placeholder,

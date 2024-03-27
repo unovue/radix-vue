@@ -33,9 +33,7 @@ An input where the user selects a value from within a given range.
 
 Install the component from your command line.
 
-```bash
-npm install radix-vue
-```
+<InstallationTabs value="radix-vue" />
 
 ## Anatomy
 

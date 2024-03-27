@@ -25,9 +25,7 @@ We highly recommend reading through the documentation for the package to get a s
 works, and you'll need to install it in your project to use the date-related components.
 
 
-```bash
-npm install @internationalized/date
-```
+<InstallationTabs value="@internationalized/date" />
 
 
 

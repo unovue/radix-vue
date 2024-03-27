@@ -39,9 +39,7 @@ Displays a menu to the user—such as a set of actions or functions—triggered 
 
 Install the component from your command line.
 
-```bash
-npm install radix-vue
-```
+<InstallationTabs value="radix-vue" />
 
 ## Anatomy
 

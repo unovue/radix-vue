@@ -6,8 +6,8 @@
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
     "docs:preview": "vitepress preview",
-    "docs:contributors": "esno scripts/update-contributors.ts",
-    "docs:gen": "esno scripts/autogen.ts"
+    "docs:contributors": "tsx scripts/update-contributors.ts",
+    "docs:gen": "tsx scripts/autogen.ts"
   },
   "peerDependencies": {
     "typescript": "*"
@@ -29,13 +29,12 @@
     "@vue/tsconfig": "^0.4.0",
     "autoprefixer": "^10.4.16",
     "codesandbox": "^2.2.3",
-    "esno": "^0.17.0",
     "fast-glob": "^3.3.2",
     "markdown-it": "^14.0.0",
-    "ohmyfetch": "^0.4.21",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.3",
-    "vitepress": "1.0.0-rc.40",
+    "tsx": "^4.7.1",
+    "vitepress": "^1.0.1",
     "vue-component-meta": "^1.8.25"
   },
   "postcss": {

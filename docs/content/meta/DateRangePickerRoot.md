@@ -187,7 +187,7 @@
   {
     'name': 'update:modelValue',
     'description': '<p>Event handler called whenever the model value changes</p>\n',
-    'type': '[date: DateValue]'
+    'type': '[date: DateRange]'
   },
   {
     'name': 'update:open',

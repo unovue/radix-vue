@@ -33,7 +33,7 @@ npm install radix-vue
 
 Import and structure the parts.
 
-```vue
+```vue twoslash
 <!-- Popover.vue -->
 <script setup lang="ts">
 import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'

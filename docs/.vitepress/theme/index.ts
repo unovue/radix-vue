@@ -7,6 +7,8 @@ import Annoucement from '../components/Annoucement.vue'
 import EmbedIframe from '../components/EmbedIframe.vue'
 import ComponentPreview from '../components/ComponentPreview.vue'
 import LayoutShowcase from '../layouts/showcase.vue'
+import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
+import '@shikijs/vitepress-twoslash/style.css'
 import 'vitepress/dist/client/theme-default/styles/components/vp-doc.css'
 import './style.css'
 import './tailwind.postcss'
@@ -35,5 +37,6 @@ export default {
     app.component('Showcase', LayoutShowcase)
     app.component('EmbedIframe', EmbedIframe)
     app.component('ComponentPreview', ComponentPreview)
+    app.use(TwoslashFloatingVue)
   },
 } satisfies Theme

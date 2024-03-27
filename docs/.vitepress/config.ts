@@ -1,6 +1,7 @@
 import { defineConfig, postcssIsolateStyles } from 'vitepress'
 import autoprefixer from 'autoprefixer'
 import tailwind from 'tailwindcss'
+import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import {
   discord,
   font,
@@ -187,6 +188,9 @@ export default defineConfig({
     preConfig(md) {
       md.use(ComponentPreviewPlugin)
     },
+    codeTransformers: [
+      transformerTwoslash(),
+    ],
   },
   transformPageData(pageData) {
     if (pageData.frontmatter.sidebar != null)

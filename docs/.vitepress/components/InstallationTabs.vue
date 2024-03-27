@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { TabsContent, TabsList, TabsRoot, TabsTrigger } from 'radix-vue'
 import { PACKAGE_MANAGERS } from '../plugins/InstallationTabs'
-import { useLocalStorage } from '@vueuse/core'
+import { useStorage } from '@vueuse/core'
 
-const currentTab = useLocalStorage<typeof PACKAGE_MANAGERS[number]>('selected-package-manager', 'npm')
+const currentTab = useStorage<typeof PACKAGE_MANAGERS[number]>('selected-package-manager', 'npm')
 </script>
 
 <template>

@@ -42,15 +42,11 @@ We highly recommend reading through the documentation for the package to get a s
 
 Install the date package.
 
-```bash
-npm install @internationalized/date
-```
+<InstallationTabs value="@internationalized/date" />
 
 Install the component from your command line.
 
-```bash
-npm install radix-vue
-```
+<InstallationTabs value="radix-vue" />
 
 ## Anatomy
 

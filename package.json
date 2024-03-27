@@ -42,7 +42,7 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "vitepress@1.0.0-rc.40": "patches/vitepress@1.0.0-rc.40.patch"
+      "vitepress@1.0.1": "patches/vitepress@1.0.1.patch"
     }
   },
   "simple-git-hooks": {

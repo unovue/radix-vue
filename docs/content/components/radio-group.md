@@ -29,9 +29,7 @@ A set of checkable buttons—known as radio buttons—where no more than one of 
 
 Install the component from your command line.
 
-```bash
-npm install radix-vue
-```
+<InstallationTabs value="radix-vue" />
 
 ## Anatomy
 

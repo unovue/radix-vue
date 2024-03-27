@@ -24,12 +24,14 @@ export default function (options: ResolverOptions = {}): ComponentResolver {
     type: 'component',
     resolve: (name: string) => {
       if (name.toLowerCase().startsWith(prefix.toLowerCase())) {
-        const componentName = name.substring(prefix.length).split('.')[0]
-        const isNamespacedComponent = Object.keys(NamespacedComponents).includes(componentName)
-        const isComponent = Object.values(components).flat().includes(componentName)
+        const componentName = name.split('.')[0]
+        const importName = componentName.substring(prefix.length)
+        const isNamespacedComponent = Object.keys(NamespacedComponents).includes(importName)
+        const isComponent = Object.values(components).flat().includes(importName)
         if (isNamespacedComponent || isComponent) {
           return {
-            name: componentName,
+            name: importName,
+            as: componentName,
             from: isNamespacedComponent && namespaced ? 'radix-vue/namespaced' : 'radix-vue',
           }
         }

@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { TabsContent, TabsList, TabsRoot, TabsTrigger } from 'radix-vue'
 import { PACKAGE_MANAGERS } from '../plugins/InstallationTabs'
-import { useStorage } from '@vueuse/core'
-
-const currentTab = useStorage<typeof PACKAGE_MANAGERS[number]>('selected-package-manager', 'npm')
+import { store } from '../store'
 </script>
 
 <template>
   <TabsRoot
-    v-model="currentTab"
+    v-model="store.packageManager"
     class="bg-[var(--vp-code-block-bg)] border border-neutral-700/40 rounded-lg overflow-hidden"
   >
     <div class="bg-[var(--vp-code-block-bg)] border-b-2 border-[#272727] flex pr-2">

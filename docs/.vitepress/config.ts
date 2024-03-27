@@ -17,7 +17,7 @@ import ComponentPreviewPlugin from './plugins/ComponentPreview'
 import InstallationTabsPlugin from './plugins/InstallationTabs'
 
 function BadgeHTML(text: string) {
-  return `<div class="inline-flex items-center rounded-full border px-2.5 py-0.5 ml-2 mt-1 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-green8 text-white">
+  return `<div class="inline-flex items-center rounded-full border px-2.5 py-0.5 ml-2 mt-1 text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-green8 text-white">
 ${text}
 </div>
 `

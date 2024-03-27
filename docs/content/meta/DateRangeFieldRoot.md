@@ -65,7 +65,7 @@
   },
   {
     'name': 'locale',
-    'description': '<p>Whether or not the calendar is readonly</p>\n',
+    'description': '<p>The locale to use for formatting dates</p>\n',
     'type': 'string',
     'required': false,
     'default': '\'en\''
@@ -78,7 +78,7 @@
   },
   {
     'name': 'minValue',
-    'description': '<p>The locale to use for formatting dates</p>\n',
+    'description': '<p>The minimum date that can be selected</p>\n',
     'type': 'DateValue',
     'required': false
   },

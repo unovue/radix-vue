@@ -55,11 +55,10 @@ export interface DateRangeFieldRootProps extends PrimitiveProps {
   hideTimeZone?: boolean
   /** The maximum date that can be selected */
   maxValue?: DateValue
-  /** The locale to use for formatting dates */
+  /** The minimum date that can be selected */
   minValue?: DateValue
-  /** Whether or not the calendar is readonly */
+  /** The locale to use for formatting dates */
   locale?: string
-
   /** Whether or not the date field is disabled */
   disabled?: boolean
   /** Whether or not the date field is readonly */

@@ -21,8 +21,6 @@ import {
   DateRangePickerTrigger,
   Label,
 } from 'radix-vue'
-
-import { temporalToString } from 'flat-internationalized-date'
 </script>
 
 <template>
@@ -106,7 +104,7 @@ import { temporalToString } from 'flat-internationalized-date'
           <div
             class="flex flex-col space-y-4 pt-4 sm:flex-row sm:space-x-4 sm:space-y-0"
           >
-            <DateRangePickerGrid v-for="month in grid" :key="temporalToString(month.value)" class="w-full border-collapse select-none space-y-1">
+            <DateRangePickerGrid v-for="month in grid" :key="month.value.toString()" class="w-full border-collapse select-none space-y-1">
               <DateRangePickerGridHead>
                 <DateRangePickerGridRow class="mb-1 flex w-full justify-between">
                   <DateRangePickerHeadCell
@@ -125,7 +123,7 @@ import { temporalToString } from 'flat-internationalized-date'
                 >
                   <DateRangePickerCell
                     v-for="weekDate in weekDates"
-                    :key="temporalToString(weekDate)"
+                    :key="weekDate.toString()"
                     :date="weekDate"
                   >
                     <DateRangePickerCellTrigger

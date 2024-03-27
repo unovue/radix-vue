@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import DateRangePicker from './_DummyDateRangePicker.vue'
 
-import { type DateValue, createCalendarDateTime, isWeekend } from 'flat-internationalized-date'
+import { type DateValue, createCalendarDateTime, isWeekend } from '@internationalized/date'
 
 const defaultValue = { start: createCalendarDateTime({ year: 2024, month: 2, day: 20 }), end: createCalendarDateTime({ year: 2024, month: 2, day: 27 }) }
 

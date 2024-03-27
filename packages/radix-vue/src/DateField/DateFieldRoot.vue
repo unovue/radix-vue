@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type DateValue, compare, isEqualDay, temporalToString } from 'flat-internationalized-date'
+import { type DateValue, isEqualDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
@@ -131,7 +131,7 @@ const defaultDate = getDefaultDate({
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: props.defaultPlaceholder ?? { ...defaultDate },
+  defaultValue: props.defaultPlaceholder ?? defaultDate.copy(),
   passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
 
@@ -182,8 +182,8 @@ watch(locale, (value) => {
 })
 
 watch(modelValue, (value) => {
-  if (value !== undefined && (!isEqualDay(placeholder.value, value) || compare(placeholder.value, value) !== 0))
-    placeholder.value = { ...value }
+  if (value !== undefined && (!isEqualDay(placeholder.value, value) || placeholder.value.compare(value) !== 0))
+    placeholder.value = value.copy()
 })
 
 watch([modelValue, locale], ([modelValue]) => {
@@ -264,7 +264,7 @@ defineExpose({
   </Primitive>
 
   <input
-    :id="id" type="text" tabindex="-1" aria-hidden :value="modelValue ? temporalToString(modelValue) : ''"
+    :id="id" type="text" tabindex="-1" aria-hidden :value="modelValue ? modelValue.toString() : ''"
     :name="name" :disabled="disabled" :required="required" :style="{
       transform: 'translateX(-100%)',
       position: 'absolute',

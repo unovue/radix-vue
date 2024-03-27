@@ -31,7 +31,7 @@ const forwarded = useForwardPropsEmits(props, emits)
     <div
       class="flex flex-col space-y-4 pt-4 sm:flex-row sm:space-x-4 sm:space-y-0"
     >
-      <RangeCalendarGrid v-for="month in grid" :key="temporalToString(month.value)" class="w-full border-collapse select-none space-y-1">
+      <RangeCalendarGrid v-for="month in grid" :key="month.value.toString()" class="w-full border-collapse select-none space-y-1">
         <RangeCalendarGridHead>
           <RangeCalendarGridRow class="grid grid-cols-7">
             <RangeCalendarHeadCell
@@ -46,7 +46,7 @@ const forwarded = useForwardPropsEmits(props, emits)
           <RangeCalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="grid grid-cols-7">
             <RangeCalendarCell
               v-for="weekDate in weekDates"
-              :key="temporalToString(weekDate)"
+              :key="weekDate.toString()"
               :date="weekDate"
               class="relative p-0 text-center text-sm  "
             >

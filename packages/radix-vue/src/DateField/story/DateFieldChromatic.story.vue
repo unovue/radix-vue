@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type DateValue, createCalendarDate } from 'flat-internationalized-date'
+import { type DateValue, createCalendarDate } from '@internationalized/date'
 import { DateFieldInput, DateFieldRoot } from '../'
 import { ref } from 'vue'
 

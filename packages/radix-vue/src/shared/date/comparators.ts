@@ -2,7 +2,7 @@
   * Implementation ported from https://github.com/melt-ui/melt-ui/blob/develop/src/lib/internal/helpers/date/utils.ts
 */
 
-import { type DateValue, add, compare, createCalendarDate, createCalendarDateTime, getDayOfWeek, getLocalTimeZone, isCalendarDateTime, isZonedDateTime, toDate as libToDate, parseDate, parseDateTime, parseZonedDateTime, subtract, toCalendar } from 'flat-internationalized-date'
+import { CalendarDate, CalendarDateTime, type DateValue, ZonedDateTime, getDayOfWeek, getLocalTimeZone, parseDate, parseDateTime, parseZonedDateTime, toCalendar } from '@internationalized/date'
 
 export type Granularity = 'day' | 'hour' | 'minute' | 'second'
 
@@ -12,12 +12,6 @@ type GetDefaultDateProps = {
   defaultValue?: DateValue | DateValue[] | undefined
   defaultPlaceholder?: DateValue | undefined
   granularity?: Granularity
-}
-
-const defaultDateDefaults = {
-  defaultValue: undefined,
-  defaultPlaceholder: undefined,
-  granularity: 'day',
 }
 
 /**
@@ -30,31 +24,28 @@ const defaultDateDefaults = {
  * behavior the user expects based on the props they've provided.
  *
  */
-export function getDefaultDate(props?: GetDefaultDateProps): DateValue {
-  const withDefaults = { ...defaultDateDefaults, ...props }
-  const { defaultValue, defaultPlaceholder, granularity } = withDefaults
+export function getDefaultDate(props: GetDefaultDateProps): DateValue {
+  const { defaultValue, defaultPlaceholder, granularity = 'day' } = props
 
   if (Array.isArray(defaultValue) && defaultValue.length)
-    return defaultValue[defaultValue.length - 1]
+    return defaultValue.at(-1)!.copy()
 
-  if (defaultValue && !Array.isArray(defaultValue)) {
-    return defaultValue
-  }
-  else if (defaultPlaceholder) {
-    return defaultPlaceholder
-  }
-  else {
-    const date = new Date()
-    const year = date.getFullYear()
-    const month = date.getMonth() + 1
-    const day = date.getDate()
-    const calendarDateTimeGranularities = ['hour', 'minute', 'second']
+  if (defaultValue && !Array.isArray(defaultValue))
+    return defaultValue.copy()
 
-    if (calendarDateTimeGranularities.includes(granularity ?? 'day'))
-      return createCalendarDateTime({ year, month, day, hour: 0, minute: 0, millisecond: 0 })
+  if (defaultPlaceholder)
+    return defaultPlaceholder.copy()
 
-    return createCalendarDate({ year, month, day })
-  }
+  const date = new Date()
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+  const calendarDateTimeGranularities = ['hour', 'minute', 'second']
+
+  if (calendarDateTimeGranularities.includes(granularity ?? 'day'))
+    return new CalendarDateTime(year, month, day, 0, 0, 0)
+
+  return new CalendarDate(year, month, day)
 }
 
 /**
@@ -78,10 +69,6 @@ export function parseStringToDateValue(dateStr: string, referenceVal: DateValue)
   return dateValue.calendar !== referenceVal.calendar ? toCalendar(dateValue, referenceVal.calendar) : dateValue
 }
 
-export function hasTime(dateValue: DateValue) {
-  return isCalendarDateTime(dateValue) || isZonedDateTime(dateValue)
-}
-
 /**
  * Given a `DateValue` object, convert it to a native `Date` object.
  * If a timezone is provided, the date will be converted to that timezone.
@@ -89,9 +76,40 @@ export function hasTime(dateValue: DateValue) {
  */
 export function toDate(dateValue: DateValue, tz: string = getLocalTimeZone()) {
   if (isZonedDateTime(dateValue))
-    return libToDate(dateValue, dateValue.timezone)
+    return dateValue.toDate()
   else
-    return libToDate(dateValue, tz)
+    return dateValue.toDate(tz)
+}
+
+export function isCalendarDateTime(dateValue: DateValue): dateValue is CalendarDateTime {
+  return dateValue instanceof CalendarDateTime
+}
+
+export function isZonedDateTime(dateValue: DateValue): dateValue is ZonedDateTime {
+  return dateValue instanceof ZonedDateTime
+}
+
+export function hasTime(dateValue: DateValue) {
+  return isCalendarDateTime(dateValue) || isZonedDateTime(dateValue)
+}
+
+/**
+ * Given a date, return the number of days in the month.
+ */
+export function getDaysInMonth(date: Date | DateValue) {
+  if (date instanceof Date) {
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    /**
+     * By using zero as the day, we get the
+     * last day of the previous month, which
+     * is the month we originally passed in.
+     */
+    return new Date(year, month, 0).getDate()
+  }
+  else {
+    return date.set({ day: 100 }).day
+  }
 }
 
 /**
@@ -102,7 +120,7 @@ export function toDate(dateValue: DateValue, tz: string = getLocalTimeZone()) {
  * @see {@link isBeforeOrSame} for inclusive
  */
 export function isBefore(dateToCompare: DateValue, referenceDate: DateValue) {
-  return compare(dateToCompare, referenceDate) < 0
+  return dateToCompare.compare(referenceDate) < 0
 }
 
 /**
@@ -113,7 +131,7 @@ export function isBefore(dateToCompare: DateValue, referenceDate: DateValue) {
  * @see {@link isAfterOrSame} for inclusive
  */
 export function isAfter(dateToCompare: DateValue, referenceDate: DateValue) {
-  return compare(dateToCompare, referenceDate) > 0
+  return dateToCompare.compare(referenceDate) > 0
 }
 
 /**
@@ -125,7 +143,7 @@ export function isAfter(dateToCompare: DateValue, referenceDate: DateValue) {
  * @see {@link isBefore} for non-inclusive
  */
 export function isBeforeOrSame(dateToCompare: DateValue, referenceDate: DateValue) {
-  return compare(dateToCompare, referenceDate) <= 0
+  return dateToCompare.compare(referenceDate) <= 0
 }
 
 /**
@@ -137,7 +155,7 @@ export function isBeforeOrSame(dateToCompare: DateValue, referenceDate: DateValu
  * @see {@link isAfter} for non-inclusive
  */
 export function isAfterOrSame(dateToCompare: DateValue, referenceDate: DateValue) {
-  return compare(dateToCompare, referenceDate) >= 0
+  return dateToCompare.compare(referenceDate) >= 0
 }
 
 /**
@@ -174,12 +192,12 @@ export function getLastFirstDayOfWeek<T extends DateValue = DateValue>(
   const day = getDayOfWeek(date, locale)
 
   if (firstDayOfWeek > day)
-    return subtract(date, { days: day + 7 - firstDayOfWeek }) as T
+    return date.subtract({ days: day + 7 - firstDayOfWeek }) as T
 
   if (firstDayOfWeek === day)
     return date as T
 
-  return subtract(date, { days: day - firstDayOfWeek }) as T
+  return date.subtract({ days: day - firstDayOfWeek }) as T
 }
 
 export function getNextLastDayOfWeek<T extends DateValue = DateValue>(
@@ -194,9 +212,9 @@ export function getNextLastDayOfWeek<T extends DateValue = DateValue>(
     return date as T
 
   if (day > lastDayOfWeek)
-    return add(date, { days: 7 - day + lastDayOfWeek }) as T
+    return date.add({ days: 7 - day + lastDayOfWeek }) as T
 
-  return add(date, { days: lastDayOfWeek - day }) as T
+  return date.add({ days: lastDayOfWeek - day }) as T
 }
 
 export function areAllDaysBetweenValid(
@@ -208,13 +226,13 @@ export function areAllDaysBetweenValid(
   if (isUnavailable === undefined && isDisabled === undefined)
     return true
 
-  let dCurrent = add(start, { days: 1 })
+  let dCurrent = start.add({ days: 1 })
   if (isDisabled?.(dCurrent) || isUnavailable?.(dCurrent))
     return false
 
   const dEnd = end
-  while (compare(dCurrent, dEnd) < 0) {
-    dCurrent = add(dCurrent, { days: 1 })
+  while (dCurrent.compare(dEnd) < 0) {
+    dCurrent = dCurrent.add({ days: 1 })
     if (isDisabled?.(dCurrent) || isUnavailable?.(dCurrent))
       return false
   }

@@ -4,13 +4,13 @@ import { screen } from '@testing-library/dom'
 import { axe } from 'vitest-axe'
 import DateField from './story/_DateField.vue'
 import userEvent from '@testing-library/user-event'
-import { type DateFields, type DateValue, type TimeFields, createCalendarDate, createCalendarDateTime, cycle, now, parseAbsoluteToLocal, toZoned } from 'flat-internationalized-date'
+import { CalendarDate, CalendarDateTime, type DateFields, type DateValue, type TimeFields, now, parseAbsoluteToLocal, toZoned } from '@internationalized/date'
 import type { DateFieldRootProps } from './DateFieldRoot.vue'
 import { render } from '@testing-library/vue'
 import { useTestKbd } from '@/shared'
 
-const calendarDate = createCalendarDate({ year: 1980, month: 1, day: 20 })
-const calendarDateTime = createCalendarDateTime({ year: 1980, month: 1, day: 20, hour: 12, minute: 30, second: 0, millisecond: 0 })
+const calendarDate = new CalendarDate(1980, 1, 20)
+const calendarDateTime = new CalendarDateTime(1980, 1, 20, 12, 30, 0, 0)
 const zonedDateTime = toZoned(calendarDateTime, 'America/New_York')
 
 const kbd = useTestKbd()
@@ -159,28 +159,28 @@ describe('DateField', async () => {
     const minute = getByTestId('minute')
     const second = getByTestId('second')
 
-    function cycleDate(segment: keyof TimeFields | keyof DateFields) {
-      return String(cycle(zonedDateTime, segment, 1)[segment])
+    function cycle(segment: keyof TimeFields | keyof DateFields) {
+      return String(zonedDateTime.cycle(segment, 1)[segment])
     }
 
     await user.click(day)
     await user.keyboard(kbd.ARROW_UP)
-    expect(day).toHaveTextContent(cycleDate('day'))
+    expect(day).toHaveTextContent(cycle('day'))
     await user.click(month)
     await user.keyboard(kbd.ARROW_UP)
-    expect(month).toHaveTextContent(cycleDate('month'))
+    expect(month).toHaveTextContent(cycle('month'))
     await user.click(year)
     await user.keyboard(kbd.ARROW_UP)
-    expect(year).toHaveTextContent(cycleDate('year'))
+    expect(year).toHaveTextContent(cycle('year'))
     await user.click(hour)
     await user.keyboard(kbd.ARROW_UP)
     expect(hour).toHaveTextContent('1')
     await user.click(minute)
     await user.keyboard(kbd.ARROW_UP)
-    expect(minute).toHaveTextContent(cycleDate('minute'))
+    expect(minute).toHaveTextContent(cycle('minute'))
     await user.click(second)
     await user.keyboard(kbd.ARROW_UP)
-    expect(second).toHaveTextContent(cycleDate('second'))
+    expect(second).toHaveTextContent(cycle('second'))
   })
 
   it('decrements segment on arrow down', async () => {
@@ -195,28 +195,28 @@ describe('DateField', async () => {
     const minute = getByTestId('minute')
     const second = getByTestId('second')
 
-    function cycleDate(segment: keyof TimeFields | keyof DateFields) {
-      return String(cycle(zonedDateTime, segment, -1)[segment])
+    function cycle(segment: keyof TimeFields | keyof DateFields) {
+      return String(zonedDateTime.cycle(segment, -1)[segment])
     }
 
     await user.click(day)
     await user.keyboard(kbd.ARROW_DOWN)
-    expect(day).toHaveTextContent(cycleDate('day'))
+    expect(day).toHaveTextContent(cycle('day'))
     await user.click(month)
     await user.keyboard(kbd.ARROW_DOWN)
-    expect(month).toHaveTextContent(cycleDate('month'))
+    expect(month).toHaveTextContent(cycle('month'))
     await user.click(year)
     await user.keyboard(kbd.ARROW_DOWN)
-    expect(year).toHaveTextContent(cycleDate('year'))
+    expect(year).toHaveTextContent(cycle('year'))
     await user.click(hour)
     await user.keyboard(kbd.ARROW_DOWN)
-    expect(hour).toHaveTextContent(cycleDate('hour'))
+    expect(hour).toHaveTextContent(cycle('hour'))
     await user.click(minute)
     await user.keyboard(kbd.ARROW_DOWN)
-    expect(minute).toHaveTextContent(cycleDate('minute'))
+    expect(minute).toHaveTextContent(cycle('minute'))
     await user.click(second)
     await user.keyboard(kbd.ARROW_DOWN)
-    expect(second).toHaveTextContent(cycleDate('second'))
+    expect(second).toHaveTextContent(cycle('second'))
   })
 
   it('navigates segments using the arrow keys', async () => {

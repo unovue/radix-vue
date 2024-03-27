@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import RangeCalendar from './_DummyRangeCalendar.vue'
-import { type DateValue, createCalendarDate, isWeekend } from 'flat-internationalized-date'
+import { type DateValue, createCalendarDate, isWeekend } from '@internationalized/date'
 import { ref } from 'vue'
 
 function isDateUnavailable(date: DateValue) {

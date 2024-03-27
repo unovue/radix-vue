@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Calendar from './_DummyCalendar.vue'
-import { CALENDAR, createCalendarDate } from 'flat-internationalized-date'
+import { CALENDAR, createCalendarDate } from '@internationalized/date'
 
 const gregorian = createCalendarDate({
   year: 2024,

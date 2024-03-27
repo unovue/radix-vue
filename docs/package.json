@@ -13,9 +13,9 @@
     "typescript": "*"
   },
   "dependencies": {
+    "@internationalized/date": "^3.5.1",
     "@stackblitz/sdk": "^1.9.0",
     "@vueuse/core": "^10.5.0",
-    "flat-internationalized-date": "^1.2.3",
     "radix-vue": "link:../packages/radix-vue",
     "vue": "^3.4.19",
     "vue-sonner": "^1.0.3"

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Matcher } from '@/shared/date'
 import DateRangeField from './_DummyDateRangeField.vue'
-import { createCalendarDate } from 'flat-internationalized-date'
+import { createCalendarDate } from '@internationalized/date'
 
 const defaultValue = { start: createCalendarDate({ year: 2024, month: 2, day: 20 }), end: createCalendarDate({ year: 2024, month: 2, day: 27 }) }
 const minValue = createCalendarDate({ year: 2024, month: 2, day: 15 })

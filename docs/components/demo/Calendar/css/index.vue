@@ -3,8 +3,6 @@ import { Icon } from '@iconify/vue'
 import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot, type CalendarRootProps } from 'radix-vue'
 import './styles.css'
 
-import { temporalToString } from 'flat-internationalized-date'
-
 const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
   return date.day === 17 || date.day === 18
 }
@@ -33,7 +31,7 @@ const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
     <div
       class="CalendarWrapper"
     >
-      <CalendarGrid v-for="month in grid" :key="temporalToString(month.value)" class="CalendarGrid">
+      <CalendarGrid v-for="month in grid" :key="month.value.toString()" class="CalendarGrid">
         <CalendarGridHead>
           <CalendarGridRow class="CalendarGridRow">
             <CalendarHeadCell
@@ -48,7 +46,7 @@ const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
           <CalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="CalendarGridRow">
             <CalendarCell
               v-for="weekDate in weekDates"
-              :key="temporalToString(weekDate)"
+              :key="weekDate.toString()"
               :date="weekDate"
               class="CalendarCell"
             >

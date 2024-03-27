@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import DateRangeField from './_DummyDateRangeField.vue'
-import { type DateValue, createCalendarDateTime, getLocalTimeZone, now } from 'flat-internationalized-date'
+import { type DateValue, createCalendarDateTime, getLocalTimeZone, now } from '@internationalized/date'
 import { type Ref, ref } from 'vue'
 
 const defaultValue = { start: createCalendarDateTime({ year: 2024, month: 2, day: 20 }), end: createCalendarDateTime({ year: 2024, month: 2, day: 27 }) }

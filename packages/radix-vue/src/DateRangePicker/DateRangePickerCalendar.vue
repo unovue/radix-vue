@@ -1,5 +1,5 @@
 <script lang="ts">
-import { isEqualDay } from 'flat-internationalized-date'
+import { isEqualDay } from '@internationalized/date'
 import { RangeCalendarRoot } from '..'
 import { injectDateRangePickerRootContext } from './DateRangePickerRoot.vue'
 </script>

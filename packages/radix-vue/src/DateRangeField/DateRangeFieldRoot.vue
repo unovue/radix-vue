@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type DateValue, compare, isEqualDay, temporalToString } from 'flat-internationalized-date'
+import { type DateValue, isEqualDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
@@ -126,7 +126,7 @@ const defaultDate = getDefaultDate({
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: props.defaultPlaceholder ?? { ...defaultDate },
+  defaultValue: props.defaultPlaceholder ?? defaultDate.copy(),
   passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
 
@@ -224,15 +224,15 @@ const segmentContents = computed(() => ({
 
 const editableSegmentContents = computed(() => ({ start: segmentContents.value.start.filter(({ part }) => part !== 'literal'), end: segmentContents.value.end.filter(({ part }) => part !== 'literal') }))
 
-const startValue = ref(modelValue.value.start ? { ...modelValue.value.start } : undefined) as Ref<DateValue | undefined>
-const endValue = ref(modelValue.value.end ? { ...modelValue.value.end } : undefined) as Ref<DateValue | undefined>
+const startValue = ref(modelValue.value.start?.copy()) as Ref<DateValue | undefined>
+const endValue = ref(modelValue.value.end?.copy()) as Ref<DateValue | undefined>
 
 watch([startValue, endValue], ([startValue, endValue]): void => {
-  if (modelValue.value.start && modelValue.value.end && startValue && endValue && compare(modelValue.value.start, startValue) === 0 && compare(modelValue.value.end, endValue) === 0)
+  if (modelValue.value.start && modelValue.value.end && startValue && endValue && modelValue.value.start.compare(startValue) === 0 && modelValue.value.end.compare(endValue) === 0)
     return
 
   if (startValue && endValue) {
-    modelValue.value = { start: { ...startValue }, end: { ...endValue } }
+    modelValue.value = { start: startValue.copy(), end: endValue.copy() }
     return
   }
 
@@ -241,10 +241,10 @@ watch([startValue, endValue], ([startValue, endValue]): void => {
 
 watch(modelValue, (value) => {
   if (value.start)
-    startValue.value = { ...value.start }
+    startValue.value = value.start.copy()
 
   if (value.end)
-    endValue.value = { ...value.end }
+    endValue.value = value.end.copy()
 })
 
 watch([startValue, locale], ([modelValue]) => {
@@ -260,8 +260,8 @@ watch(locale, (value) => {
 })
 
 watch(modelValue, (value) => {
-  if (value.start !== undefined && (!isEqualDay(placeholder.value, value.start) || compare(placeholder.value, value.start) !== 0))
-    placeholder.value = { ...value.start }
+  if (value.start !== undefined && (!isEqualDay(placeholder.value, value.start) || placeholder.value.compare(value.start) !== 0))
+    placeholder.value = value.start.copy()
 })
 
 watch([endValue, locale], ([modelValue]) => {
@@ -350,7 +350,7 @@ defineExpose({
     type="text"
     tabindex="-1"
     aria-hidden
-    :value="`${modelValue.start ? temporalToString(modelValue.start) : ''} - ${modelValue.end ? temporalToString(modelValue.end) : ''}`"
+    :value="`${modelValue.start?.toString()} - ${modelValue.end?.toString()}`"
     :name="name"
     :disabled="disabled"
     :required="required"

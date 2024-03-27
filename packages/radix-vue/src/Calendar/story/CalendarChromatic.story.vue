@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Calendar from './_DummyCalendar.vue'
-import { type CalendarDate, type DateValue, createCalendarDate } from 'flat-internationalized-date'
+import { type CalendarDate, type DateValue, createCalendarDate } from '@internationalized/date'
 import { type Ref, ref } from 'vue'
 
 const defaultValue = createCalendarDate({ year: 2024, month: 2, day: 20 })

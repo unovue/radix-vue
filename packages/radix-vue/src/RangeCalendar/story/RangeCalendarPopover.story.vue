@@ -2,9 +2,10 @@
 import { Icon } from '@iconify/vue'
 import { RangeCalendarCell, RangeCalendarCellTrigger, RangeCalendarGrid, RangeCalendarGridBody, RangeCalendarGridHead, RangeCalendarGridRow, RangeCalendarHeadCell, RangeCalendarHeader, RangeCalendarHeading, RangeCalendarNext, RangeCalendarPrev, RangeCalendarRoot } from '../'
 import { type Ref, ref } from 'vue'
-import { type DateValue, getLocalTimeZone, temporalToString, today } from 'flat-internationalized-date'
+import { type DateValue, getLocalTimeZone, today } from '@internationalized/date'
 
 import CalendarPopover from '@/Calendar/story/_CalendarPopover.vue'
+import { toDate } from '@/shared'
 
 const placeholder = ref(today(getLocalTimeZone())) as Ref<DateValue>
 </script>
@@ -27,31 +28,31 @@ const placeholder = ref(today(getLocalTimeZone())) as Ref<DateValue>
           <RangeCalendarHeading class="text-[15px] text-black font-medium flex justify-center gap-2">
             <CalendarPopover>
               <template #trigger>
-                <span class="cursor-pointer">{{ formatter.fullMonth(date) }}</span>
+                <span class="cursor-pointer">{{ formatter.fullMonth(toDate(date)) }}</span>
               </template>
               <div class="grid grid-cols-4 bg-white rounded-[9px]">
                 <div
                   v-for="month in getMonths"
-                  :key="temporalToString(month)"
+                  :key="month.toString()"
                   class="relative cursor-pointer flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent text-sm font-normal text-black p-2 outline-none focus:shadow-[0_0_0_2px] focus:shadow-black hover:border-black"
                   :class="{ 'before:absolute before:top-[5px] before:rounded-full before:w-1 before:h-1 before:block before:bg-grass9': date.month === month.month }"
-                  @click="placeholder = month"
+                  @click="placeholder = month.copy()"
                 >
-                  <span class="cursor-pointer">{{ formatter.custom(month, { month: 'short' }) }}</span>
+                  <span class="cursor-pointer">{{ formatter.custom(toDate(month), { month: 'short' }) }}</span>
                 </div>
               </div>
             </CalendarPopover>
             <CalendarPopover>
               <template #trigger>
-                <span class="cursor-pointer">{{ formatter.fullYear(date) }}</span>
+                <span class="cursor-pointer">{{ formatter.fullYear(toDate(date)) }}</span>
               </template>
               <div class="grid grid-cols-4 bg-white rounded-[9px] gap-4">
                 <div
                   v-for="yearValue in getYears({ startIndex: -10, endIndex: 10 })"
-                  :key="temporalToString(yearValue)"
+                  :key="yearValue.toString()"
                   class="relative cursor-pointer flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent text-sm font-normal text-black p-2 outline-none focus:shadow-[0_0_0_2px] focus:shadow-black hover:border-black"
                   :class="{ 'before:absolute before:top-[5px] before:rounded-full before:w-1 before:h-1 before:block before:bg-grass9': date.year === yearValue.year }"
-                  @click="placeholder = yearValue"
+                  @click="placeholder = yearValue.copy()"
                 >
                   {{ yearValue.year }}
                 </div>
@@ -68,7 +69,7 @@ const placeholder = ref(today(getLocalTimeZone())) as Ref<DateValue>
         <div
           class="flex flex-col space-y-4 pt-4 sm:flex-row sm:space-x-4 sm:space-y-0"
         >
-          <RangeCalendarGrid v-for="month in grid" :key="temporalToString(month.value)" class="w-full border-collapse select-none space-y-1">
+          <RangeCalendarGrid v-for="month in grid" :key="month.value.toString()" class="w-full border-collapse select-none space-y-1">
             <RangeCalendarGridHead>
               <RangeCalendarGridRow class="mb-1 grid w-full grid-cols-7">
                 <RangeCalendarHeadCell
@@ -83,7 +84,7 @@ const placeholder = ref(today(getLocalTimeZone())) as Ref<DateValue>
               <RangeCalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="grid grid-cols-7">
                 <RangeCalendarCell
                   v-for="weekDate in weekDates"
-                  :key="temporalToString(weekDate)"
+                  :key="weekDate.toString()"
                   :date="weekDate"
                   class="relative text-center text-sm !p-0"
                 >

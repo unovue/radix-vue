@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Calendar from './_DummyCalendar.vue'
 import type { CalendarRootProps } from '../'
-import { type DateValue, createCalendarDate, isWeekend } from 'flat-internationalized-date'
+import { type DateValue, createCalendarDate, isWeekend } from '@internationalized/date'
 import { ref } from 'vue'
 
 const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {

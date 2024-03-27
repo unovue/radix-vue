@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type DateValue, createCalendarDateTime, getLocalTimeZone, now } from 'flat-internationalized-date'
+import { type DateValue, createCalendarDateTime, getLocalTimeZone, now } from '@internationalized/date'
 import DateRangePicker from './_DummyDateRangePicker.vue'
 import { type Ref, ref } from 'vue'
 

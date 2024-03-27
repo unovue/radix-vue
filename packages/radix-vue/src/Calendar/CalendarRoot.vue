@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type DateValue, isEqualDay, isSameDay } from 'flat-internationalized-date'
+import { type DateValue, isEqualDay, isSameDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
@@ -180,12 +180,12 @@ const defaultDate = getDefaultDate({
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: props.defaultPlaceholder ?? { ...defaultDate },
+  defaultValue: props.defaultPlaceholder ?? defaultDate.copy(),
   passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
 
 function onPlaceholderChange(value: DateValue) {
-  placeholder.value = { ...value }
+  placeholder.value = value.copy()
 }
 
 const {
@@ -240,19 +240,19 @@ watch(modelValue, (value) => {
 function onDateChange(value: DateValue) {
   if (!multiple.value) {
     if (!modelValue.value) {
-      modelValue.value = { ...value }
+      modelValue.value = value.copy()
       return
     }
 
     if (!preventDeselect.value && isEqualDay(modelValue.value as DateValue, value)) {
-      placeholder.value = { ...value }
+      placeholder.value = value.copy()
       modelValue.value = undefined
     }
-    else { modelValue.value = { ...value } }
+    else { modelValue.value = value.copy() }
   }
   else if (Array.isArray(modelValue.value)) {
     if (!modelValue.value) {
-      modelValue.value = [{ ...value }]
+      modelValue.value = [value.copy()]
 
       return
     }
@@ -264,17 +264,17 @@ function onDateChange(value: DateValue) {
     else if (!preventDeselect.value) {
       const next = modelValue.value.filter(date => !isSameDay(date, value))
       if (!next.length) {
-        placeholder.value = { ...value }
+        placeholder.value = value.copy()
         modelValue.value = undefined
         return
       }
-      modelValue.value = next.map(date => ({ ...date }))
+      modelValue.value = next.map(date => date.copy())
     }
   }
 }
 
 const getMonths = computed(() => {
-  const dateObj = { ...placeholder.value }
+  const dateObj = placeholder.value.copy()
   return createYear({
     dateObj,
     maxValue: minValue.value,
@@ -285,7 +285,7 @@ const getMonths = computed(() => {
 })
 
 const getYears = useMemoize(({ startIndex, endIndex }: { startIndex?: number; endIndex: number }) => {
-  const dateObj = { ...placeholder.value }
+  const dateObj = placeholder.value.copy()
   return createDecade({
     dateObj,
     startIndex,

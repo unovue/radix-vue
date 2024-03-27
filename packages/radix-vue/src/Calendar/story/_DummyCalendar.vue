@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import { temporalToString } from 'flat-internationalized-date'
 import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot, type CalendarRootEmits, type CalendarRootProps } from '../'
 import { useForwardPropsEmits } from '@/shared'
 
@@ -33,7 +32,7 @@ const forwarded = useForwardPropsEmits(props, emits)
     <div
       class="flex flex-col space-y-4 pt-4 sm:flex-row sm:space-x-4 sm:space-y-0"
     >
-      <CalendarGrid v-for="month in grid" :key="temporalToString(month.value)" class="w-full border-collapse select-none space-y-1">
+      <CalendarGrid v-for="month in grid" :key="month.value.toString()" class="w-full border-collapse select-none space-y-1">
         <CalendarGridHead>
           <CalendarGridRow class="mb-1 grid w-full grid-cols-7">
             <CalendarHeadCell
@@ -48,7 +47,7 @@ const forwarded = useForwardPropsEmits(props, emits)
           <CalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="grid grid-cols-7">
             <CalendarCell
               v-for="weekDate in weekDates"
-              :key="temporalToString(weekDate)"
+              :key="weekDate.toString()"
               :date="weekDate"
               class="relative text-center text-sm"
             >

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type DateValue, isEqualDay, isSameDay } from 'flat-internationalized-date'
+import { type DateValue, isEqualDay, isSameDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import { createContext } from '@/shared'
@@ -113,7 +113,7 @@ const defaultDate = computed(() => getDefaultDate({
 }))
 
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: props.defaultPlaceholder ?? { ...defaultDate.value },
+  defaultValue: props.defaultPlaceholder ?? defaultDate.value.copy(),
   passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
 
@@ -156,11 +156,11 @@ provideDatePickerRootContext({
     else if (!preventDeselect.value && isSameDay(modelValue.value as DateValue, date))
       modelValue.value = undefined
     else
-      modelValue.value = { ...date }
+      modelValue.value = date.copy()
   },
   onPlaceholderChange(date: DateValue) {
     if (!isEqualDay(date, placeholder.value))
-      placeholder.value = { ...date }
+      placeholder.value = date.copy()
   },
 })
 </script>

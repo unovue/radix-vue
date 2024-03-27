@@ -14,6 +14,9 @@ export {
   getNextLastDayOfWeek,
   areAllDaysBetweenValid,
   toDate,
+  isCalendarDateTime,
+  isZonedDateTime,
+  getDaysInMonth,
 } from './comparators'
 export type {
   DateRange,

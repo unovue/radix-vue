@@ -9,7 +9,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "flat-internationalized-date": "^1.2.3",
+    "@internationalized/date": "^3.5.2",
     "radix-vue": "link:../../packages/radix-vue"
   },
   "devDependencies": {

@@ -57,11 +57,11 @@
     "pub:release": "pnpm publish --access public"
   },
   "peerDependencies": {
-    "flat-internationalized-date": "^1.2.3",
+    "@internationalized/date": "^3.5.2",
     "vue": ">= 3.2.0"
   },
   "peerDependenciesMeta": {
-    "flat-internationalized-date": {
+    "@internationalized/date": {
       "optional": true
     }
   },
@@ -77,6 +77,7 @@
   },
   "devDependencies": {
     "@iconify/vue": "^4.1.1",
+    "@internationalized/date": "^3.5.1",
     "@testing-library/dom": "^9.3.3",
     "@testing-library/jest-dom": "^6.2.0",
     "@testing-library/user-event": "^14.5.1",
@@ -89,7 +90,6 @@
     "@vue/shared": "^3.4.6",
     "@vue/test-utils": "^2.4.1",
     "@vue/tsconfig": "^0.4.0",
-    "flat-internationalized-date": "^1.2.3",
     "jsdom": "^23.2.0",
     "typescript": "^5.3.3",
     "vite": "^4.5.2",

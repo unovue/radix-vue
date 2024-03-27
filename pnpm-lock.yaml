@@ -101,15 +101,15 @@ importers:
 
   docs:
     dependencies:
+      '@internationalized/date':
+        specifier: ^3.5.1
+        version: 3.5.2
       '@stackblitz/sdk':
         specifier: ^1.9.0
         version: 1.9.0
       '@vueuse/core':
         specifier: ^10.5.0
         version: 10.9.0(vue@3.4.21)
-      flat-internationalized-date:
-        specifier: ^1.2.3
-        version: 1.2.3
       radix-vue:
         specifier: link:../packages/radix-vue
         version: link:../packages/radix-vue
@@ -223,6 +223,9 @@ importers:
       '@iconify/vue':
         specifier: ^4.1.1
         version: 4.1.1(vue@3.4.21)
+      '@internationalized/date':
+        specifier: ^3.5.1
+        version: 3.5.2
       '@testing-library/dom':
         specifier: ^9.3.3
         version: 9.3.4
@@ -259,9 +262,6 @@ importers:
       '@vue/tsconfig':
         specifier: ^0.4.0
         version: 0.4.0
-      flat-internationalized-date:
-        specifier: ^1.2.3
-        version: 1.2.3
       jsdom:
         specifier: ^23.2.0
         version: 23.2.0
@@ -1637,14 +1637,13 @@ packages:
       vue: '>=3'
     dependencies:
       '@iconify/types': 2.0.0
-      vue: 3.4.21(typescript@5.3.3)
+      vue: 3.4.21(typescript@5.4.2)
     dev: true
 
   /@internationalized/date@3.5.2:
     resolution: {integrity: sha512-vo1yOMUt2hzp63IutEaTUxROdvQg1qlMRsbCvbay2AK2Gai7wIgCyK5weEX3nHkiLgo4qCXHijFNC/ILhlRpOQ==}
     dependencies:
       '@swc/helpers': 0.5.6
-    dev: false
 
   /@isaacs/cliui@8.0.2:
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -2115,7 +2114,6 @@ packages:
     resolution: {integrity: sha512-aYX01Ke9hunpoCexYAgQucEpARGQ5w/cqHFrIR+e9gdKb1QWTsVJuTJ2ozQzIAxLyRQe/m+2RqzkyOOGiMKRQA==}
     dependencies:
       tslib: 2.6.2
-    dev: false
 
   /@testing-library/dom@9.3.4:
     resolution: {integrity: sha512-FlS4ZWlp97iiNWig0Muq8p+3rVDjRiYE+YKGbAqXOu9nwJFFOdL00kFpz42M+4huzYi86vAK1sOOfyOG45muIQ==}
@@ -2291,6 +2289,7 @@ packages:
     resolution: {integrity: sha512-2Q2NeB6BmiTFQi4DHBzncSoq/cJMLDdhPaAoJFnFCyD9a8VPZRf7a1GAwp1Edb7ROaZc5Jz/tnZyL6EsWMRaqw==}
     dependencies:
       undici-types: 5.26.5
+    dev: true
 
   /@types/node@20.5.1:
     resolution: {integrity: sha512-4tT2UrL5LBqDwoed9wZ6N3umC4Yhz3W3FloMmiiG4JwmUJWpie0c7lcnUNd4gtMKuDEO4wRVS8B6Xa0uMRsMKg==}
@@ -2541,8 +2540,8 @@ packages:
       vite: ^4.0.0 || ^5.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.5.2(@types/node@18.19.21)
-      vue: 3.4.21(typescript@5.3.3)
+      vite: 4.5.2(@types/node@20.5.1)
+      vue: 3.4.21(typescript@5.4.2)
 
   /@vitejs/plugin-vue@5.0.4(vite@5.1.4)(vue@3.4.21):
     resolution: {integrity: sha512-WS3hevEszI6CEVEx28F8RjTX97k3KsrcY6kvTg7+Whm5y3oYvcqzVeGCU3hxSAn4uY2CLCkeokkGKpoctccilQ==}
@@ -5142,6 +5141,7 @@ packages:
     resolution: {integrity: sha512-qhNeqjiPSzfbaDXa+2HPVb+U2xNQKHpT9gAn8TJi1Hc2CvmgudR78oltH1YQLe91ffgk2paNcHZtX8YLEh7KMA==}
     dependencies:
       typescript: 5.4.2
+    dev: false
 
   /flat@5.0.2:
     resolution: {integrity: sha512-b6suED+5/3rTpUBdG1gupIl8MPFCAMA0QXwmljLhvCUKcUvdE4gWky9zpuGCcXHOsz4J9wPGNWq6OKpmIzz3hQ==}
@@ -9433,6 +9433,7 @@ packages:
 
   /undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+    dev: true
 
   /undici@5.28.3:
     resolution: {integrity: sha512-3ItfzbrhDlINjaP0duwnNsKpDQk3acHI3gVJ1z4fmwMK31k5G9OVIAMLSIaP6w4FaGkaAkN6zaQO9LUvZ1t7VA==}
@@ -9758,6 +9759,7 @@ packages:
       rollup: 3.29.4
     optionalDependencies:
       fsevents: 2.3.3
+    dev: true
 
   /vite@4.5.2(@types/node@20.5.1):
     resolution: {integrity: sha512-tBCZBNSBbHQkaGyhGCDUGqeo2ph8Fstyp6FMSvTtsXeZSPpSMGlviAOav2hxVTqFcx8Hj/twtWKsMJXNY0xI8w==}
@@ -10034,7 +10036,7 @@ packages:
       '@vue/composition-api':
         optional: true
     dependencies:
-      vue: 3.4.21(typescript@5.3.3)
+      vue: 3.4.21(typescript@5.4.2)
 
   /vue-eslint-parser@9.4.2(eslint@8.57.0):
     resolution: {integrity: sha512-Ry9oiGmCAK91HrKMtCrKFWmSFWvYkpGglCeFAIqDdr9zdXmMMpJOmUJS7WWsW7fX81h6mwHmUZCQQ1E0PkSwYQ==}
@@ -10403,10 +10405,10 @@ packages:
     id: file:packages/radix-vue
     name: radix-vue
     peerDependencies:
-      flat-internationalized-date: ^1.2.3
+      '@internationalized/date': ^3.5.2
       vue: '>= 3.2.0'
     peerDependenciesMeta:
-      flat-internationalized-date:
+      '@internationalized/date':
         optional: true
     dependencies:
       '@floating-ui/dom': 1.6.3

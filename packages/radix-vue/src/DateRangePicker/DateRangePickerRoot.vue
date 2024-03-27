@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type DateValue } from 'flat-internationalized-date'
+import { type DateValue } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import { createContext } from '@/shared'
@@ -33,7 +33,7 @@ type DateRangePickerRootContext = {
   defaultOpen: Ref<boolean>
   open: Ref<boolean>
   modal: Ref<boolean>
-  onDateChange: (date: { start: DateValue | undefined; end: DateValue | undefined }) => void
+  onDateChange: (date: DateRange) => void
   onPlaceholderChange: (date: DateValue) => void
 }
 
@@ -41,7 +41,7 @@ export type DateRangePickerRootProps = DateRangeFieldRootProps & PopoverRootProp
 
 export type DateRangePickerRootEmits = {
   /** Event handler called whenever the model value changes */
-  'update:modelValue': [date: DateValue | undefined]
+  'update:modelValue': [date: DateRange]
   /** Event handler called whenever the placeholder value changes */
   'update:placeholder': [date: DateValue]
 }
@@ -112,7 +112,7 @@ const defaultDate = getDefaultDate({
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {
-  defaultValue: props.defaultPlaceholder ?? { ...defaultDate },
+  defaultValue: props.defaultPlaceholder ?? defaultDate.copy(),
   passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
 
@@ -150,11 +150,11 @@ provideDateRangePickerRootContext({
   hourCycle,
   dateFieldRef,
 
-  onDateChange(date: { start: DateValue | undefined; end: DateValue | undefined }) {
-    modelValue.value = { start: date.start ? { ...date.start } : undefined, end: date.end ? { ...date.end } : undefined }
+  onDateChange(date: DateRange) {
+    modelValue.value = { start: date.start?.copy(), end: date.end?.copy() }
   },
   onPlaceholderChange(date: DateValue) {
-    placeholder.value = { ...date }
+    placeholder.value = date.copy()
   },
 })
 </script>

@@ -22,8 +22,6 @@ import {
   Label,
 } from 'radix-vue'
 
-import { temporalToString } from 'flat-internationalized-date'
-
 import './styles.css'
 </script>
 
@@ -109,7 +107,7 @@ import './styles.css'
           <div
             class="CalendarWrapper"
           >
-            <DateRangePickerGrid v-for="month in grid" :key="temporalToString(month.value)" class="CalendarGrid">
+            <DateRangePickerGrid v-for="month in grid" :key="month.value.toString()" class="CalendarGrid">
               <DateRangePickerGridHead>
                 <DateRangePickerGridRow class="CalendarGridRow">
                   <DateRangePickerHeadCell
@@ -128,7 +126,7 @@ import './styles.css'
                 >
                   <DateRangePickerCell
                     v-for="weekDate in weekDates"
-                    :key="temporalToString(weekDate)"
+                    :key="weekDate.toString()"
                     :date="weekDate"
                     class="CalendarCell"
                   >

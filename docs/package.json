@@ -24,7 +24,6 @@
     "@babel/traverse": "^7.23.9",
     "@iconify/vue": "^4.1.1",
     "@radix-ui/colors": "^2.1.0",
-    "@shikijs/vitepress-twoslash": "^1.2.1",
     "@types/babel__traverse": "^7.20.5",
     "@types/markdown-it": "^13.0.7",
     "@vue/tsconfig": "^0.4.0",

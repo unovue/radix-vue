@@ -25,9 +25,7 @@ dropdown menus.
 
 Install the component from your command line.
 
-```bash
-npm install radix-vue
-```
+<InstallationTabs value="radix-vue" />
 
 ## Anatomy
 

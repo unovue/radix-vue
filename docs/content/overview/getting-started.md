@@ -25,9 +25,7 @@ In this quick tutorial, we will install and style the [Popover](../components/po
 
 Install the component from your command line.
 
-```bash
-npm install radix-vue
-```
+<InstallationTabs value="radix-vue" />
 
 ### 2. Import the parts
 

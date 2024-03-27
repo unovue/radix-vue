@@ -35,9 +35,7 @@ Choose from a list of suggested values with full keyboard support.
 
 Install the component from your command line.
 
-```bash
-npm install radix-vue
-```
+<InstallationTabs value="radix-vue" />
 
 ## Anatomy
 

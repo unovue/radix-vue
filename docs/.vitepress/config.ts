@@ -1,7 +1,6 @@
 import { defineConfig, postcssIsolateStyles } from 'vitepress'
 import autoprefixer from 'autoprefixer'
 import tailwind from 'tailwindcss'
-import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import {
   discord,
   font,
@@ -14,7 +13,8 @@ import {
 } from './meta'
 import { version } from '../../package.json'
 import { teamMembers } from './contributors'
-import ComponentPreviewPlugin from './plugins/preview'
+import ComponentPreviewPlugin from './plugins/ComponentPreview'
+import InstallationTabsPlugin from './plugins/InstallationTabs'
 
 function BadgeHTML(text: string) {
   return `<div class="inline-flex items-center rounded-full border px-2.5 py-0.5 ml-2 mt-1 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-green8 text-white">
@@ -187,10 +187,8 @@ export default defineConfig({
 
     preConfig(md) {
       md.use(ComponentPreviewPlugin)
+      md.use(InstallationTabsPlugin)
     },
-    codeTransformers: [
-      transformerTwoslash(),
-    ],
   },
   transformPageData(pageData) {
     if (pageData.frontmatter.sidebar != null)
@@ -202,8 +200,11 @@ export default defineConfig({
     css: {
       postcss: {
         plugins: [
+          // @ts-expect-error nocheck
           tailwind(),
+          // @ts-expect-error nocheck
           autoprefixer(),
+          // @ts-expect-error nocheck
           postcssIsolateStyles({ includeFiles: [/vp-doc\.css/] }),
         ],
       },

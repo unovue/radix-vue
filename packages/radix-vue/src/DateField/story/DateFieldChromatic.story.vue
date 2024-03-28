@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { type DateValue, createCalendarDate } from '@internationalized/date'
+import { CalendarDate, type DateValue } from '@internationalized/date'
 import { DateFieldInput, DateFieldRoot } from '../'
 import { ref } from 'vue'
 
 const modelValue = ref<DateValue>()
-const defaultValue = createCalendarDate({ year: 2024, month: 2, day: 28 })
-const minValue = createCalendarDate({ year: 2024, month: 2, day: 24 })
-const maxValue = createCalendarDate({ year: 2024, month: 2, day: 29 })
+const defaultValue = new CalendarDate(2024, 2, 28)
+const minValue = new CalendarDate(2024, 2, 24)
+const maxValue = new CalendarDate(2024, 2, 29)
 </script>
 
 <template>

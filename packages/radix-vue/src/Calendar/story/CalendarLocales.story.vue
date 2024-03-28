@@ -1,46 +1,45 @@
 <script setup lang="ts">
 import Calendar from './_DummyCalendar.vue'
-import { CALENDAR, createCalendarDate } from '@internationalized/date'
+import { BuddhistCalendar, CalendarDate, HebrewCalendar, JapaneseCalendar, PersianCalendar, TaiwanCalendar } from '@internationalized/date'
 
-const gregorian = createCalendarDate({
-  year: 2024,
-  month: 2,
-  day: 20,
-})
+const gregorian = new CalendarDate(2024,
+  2,
+  20,
+)
 
-const persian = createCalendarDate({
-  calendar: CALENDAR.PERSIAN,
-  year: 1403,
-  month: 12,
-  day: 1,
-})
-const japanese = createCalendarDate({
-  calendar: CALENDAR.JAPANESE,
-  era: 'heisei',
-  year: 31,
-  month: 4,
-  day: 30,
+const persian = new CalendarDate(
+  new PersianCalendar(),
+  1403,
+  12,
+  1,
+)
+const japanese = new CalendarDate(
+  new JapaneseCalendar(),
+  'heisei',
+  31,
+  4,
+  30,
 
-})
-const buddhist = createCalendarDate({
-  calendar: CALENDAR.BUDDHIST,
-  year: 2563,
-  month: 4,
-  day: 30,
-})
-const taiwan = createCalendarDate({
-  calendar: CALENDAR.TAIWAN,
-  year: 109,
-  month: 4,
-  day: 30,
-})
+)
+const buddhist = new CalendarDate(
+  new BuddhistCalendar(),
+  2563,
+  4,
+  30,
+)
+const taiwan = new CalendarDate(
+  new TaiwanCalendar(),
+  109,
+  4,
+  30,
+)
 
-const hebrew = createCalendarDate({
-  calendar: CALENDAR.HEBREW,
-  year: 5781,
-  month: 5,
-  day: 1,
-})
+const hebrew = new CalendarDate(
+  new HebrewCalendar(),
+  5781,
+  5,
+  1,
+)
 </script>
 
 <template>

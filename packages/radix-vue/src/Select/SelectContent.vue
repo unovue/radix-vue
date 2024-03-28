@@ -16,7 +16,7 @@ export interface SelectContentProps extends SelectContentImplProps {
 </script>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import SelectContentImpl from './SelectContentImpl.vue'
 import { injectSelectRootContext } from './SelectRoot.vue'
 import { Presence } from '@/Presence'
@@ -41,22 +41,23 @@ onMounted(() => {
 })
 
 const presenceRef = ref<InstanceType<typeof Presence>>()
+
+const renderPresence = computed(() => props.forceMount || rootContext.open.value)
 </script>
 
 <template>
-  <Presence ref="presenceRef" :present="forceMount || rootContext.open.value">
+  <Presence v-if="renderPresence" ref="presenceRef" :present="true">
     <SelectContentImpl v-bind="{ ...forwarded, ...$attrs }">
       <slot />
     </SelectContentImpl>
   </Presence>
-
-  <Teleport v-if="!presenceRef?.present && fragment" :to="fragment">
-    <SelectProvider :context="rootContext">
-      <ListboxRoot>
-        <div>
+  <div v-else-if="!presenceRef?.present && fragment">
+    <Teleport :to="fragment">
+      <SelectProvider :context="rootContext">
+        <ListboxRoot>
           <slot />
-        </div>
-      </ListboxRoot>
-    </SelectProvider>
-  </Teleport>
+        </ListboxRoot>
+      </SelectProvider>
+    </Teleport>
+  </div>
 </template>

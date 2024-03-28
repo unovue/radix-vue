@@ -32,9 +32,7 @@ A collection of links for navigating websites.
 
 Install the component from your command line.
 
-```bash
-npm install radix-vue
-```
+<InstallationTabs value="radix-vue" />
 
 ## Anatomy
 
@@ -439,7 +437,7 @@ import { NavigationMenuItem, NavigationMenuList, NavigationMenuRoot } from 'radi
             Home
           </RouterLink>
           <NavigationMenuLink />
-        </navigationmenulink>
+        </NavigationMenuLink>
       </NavigationMenuItem>
       <NavigationMenuItem>
         <NavigationMenuLink :as="RouterLink" to="/about">

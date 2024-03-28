@@ -30,9 +30,7 @@ Tag inputs render tags inside an input, followed by an actual text input.
 
 Install the component from your command line.
 
-```bash
-npm install radix-vue
-```
+<InstallationTabs value="radix-vue" />
 
 ## Anatomy
 

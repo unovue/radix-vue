@@ -2,6 +2,12 @@
 
 <PropsTable :data="[
   {
+    'name': 'addOnBlur',
+    'description': '<p>When <code>true</code> allow adding tags blur input</p>\n',
+    'type': 'boolean',
+    'required': false
+  },
+  {
     'name': 'addOnPaste',
     'description': '<p>When <code>true</code>, allow adding tags on paste. Work in conjunction with delimiter prop.</p>\n',
     'type': 'boolean',
@@ -9,13 +15,7 @@
   },
   {
     'name': 'addOnTab',
-    'description': '<p>When <code>true</code>, allow adding tags on keydown <code> tab </code>. Work in conjunction with delimiter prop.</p>\n',
-    'type': 'boolean',
-    'required': false
-  },
-  {
-    'name': 'addOnBlur',
-    'description': '<p>When <code>true</code>, allow adding tags on input <code> blur </code> event.\n',
+    'description': '<p>When <code>true</code> allow adding tags on tab keydown</p>\n',
     'type': 'boolean',
     'required': false
   },

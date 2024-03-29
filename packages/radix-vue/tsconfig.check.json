@@ -12,7 +12,8 @@
     "src/**/__tests__/*",
     "**/*.test.ts",
     "**/*.test.js",
-    "src/**/*.story.vue"
+    "src/**/*.story.vue",
+    "src/**/story/*"
   ],
   "compilerOptions": {
     "paths": {

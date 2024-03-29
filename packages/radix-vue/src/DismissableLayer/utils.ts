@@ -62,9 +62,6 @@ export function usePointerDownOutside(
         return
       }
 
-      if (event.offsetX > target.clientWidth || event.offsetY > target.clientHeight)
-        return
-
       if (event.target && !isPointerInsideDOMTree.value) {
         const eventDetail = { originalEvent: event }
 
@@ -155,7 +152,7 @@ export function useFocusOutside(
         return
 
       await nextTick()
-      if (isLayerExist(element.value, event.target as HTMLElement))
+      if (!element.value || isLayerExist(element.value, event.target as HTMLElement))
         return
 
       if (event.target && !isFocusInsideDOMTree.value) {

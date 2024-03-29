@@ -26,7 +26,7 @@
 <SlotsTable :data="[
   {
     'name': 'aspect',
-    'description': 'Current aspect ratio (in %)',
+    'description': '<p>Current aspect ratio (in %)</p>\n',
     'type': 'number'
   }
 ]" />

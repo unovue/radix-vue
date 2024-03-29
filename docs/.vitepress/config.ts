@@ -13,10 +13,11 @@ import {
 } from './meta'
 import { version } from '../../package.json'
 import { teamMembers } from './contributors'
-import ComponentPreviewPlugin from './plugins/preview'
+import ComponentPreviewPlugin from './plugins/ComponentPreview'
+import InstallationTabsPlugin from './plugins/InstallationTabs'
 
 function BadgeHTML(text: string) {
-  return `<div class="inline-flex items-center rounded-full border px-2.5 py-0.5 ml-2 mt-1 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-green8 text-white">
+  return `<div class="inline-flex items-center rounded-full border px-2.5 py-0.5 ml-2 mt-1 text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-green8 text-white">
 ${text}
 </div>
 `
@@ -100,6 +101,8 @@ export default defineConfig({
           { text: 'Composition', link: '/guides/composition' },
           { text: 'Server side rendering', link: '/guides/server-side-rendering' },
           { text: 'Namespaced', link: '/guides/namespaced-components' },
+          { text: 'Internationalization (RTL)', link: '/guides/i18n' },
+          { text: `Dates ${BadgeHTML('New')}`, link: '/guides/dates' },
           // { text: `Namespaced ${BadgeHTML('New')}`, link: '/guides/namespaced-components' },
         ],
       },
@@ -111,10 +114,15 @@ export default defineConfig({
           { text: 'Alert Dialog', link: '/components/alert-dialog' },
           { text: 'Aspect Ratio', link: '/components/aspect-ratio' },
           { text: 'Avatar', link: '/components/avatar' },
+          { text: `Calendar ${BadgeHTML('Alpha')}`, link: '/components/calendar' },
           { text: 'Checkbox', link: '/components/checkbox' },
           { text: 'Collapsible', link: '/components/collapsible' },
           { text: 'Combobox', link: '/components/combobox' },
           { text: 'Context Menu', link: '/components/context-menu' },
+          { text: `Date Field ${BadgeHTML('Alpha')}`, link: '/components/date-field' },
+          { text: `Date Picker ${BadgeHTML('Alpha')}`, link: '/components/date-picker' },
+          { text: `Date Range Field ${BadgeHTML('Alpha')}`, link: '/components/date-range-field' },
+          { text: `Date Range Picker ${BadgeHTML('Alpha')}`, link: '/components/date-range-picker' },
           { text: 'Dialog', link: '/components/dialog' },
           { text: 'Dropdown Menu', link: '/components/dropdown-menu' },
           { text: 'Hover Card', link: '/components/hover-card' },
@@ -126,10 +134,12 @@ export default defineConfig({
           { text: 'Popover', link: '/components/popover' },
           { text: 'Progress', link: '/components/progress' },
           { text: 'Radio Group', link: '/components/radio-group' },
+          { text: `Range Calendar ${BadgeHTML('Alpha')}`, link: '/components/range-calendar' },
           { text: 'Scroll Area', link: '/components/scroll-area' },
           { text: 'Select', link: '/components/select' },
           { text: 'Separator', link: '/components/separator' },
           { text: 'Slider', link: '/components/slider' },
+          { text: `Splitter ${BadgeHTML('Alpha')}`, link: '/components/splitter' },
           { text: 'Switch', link: '/components/switch' },
           { text: 'Tabs', link: '/components/tabs' },
           { text: 'Tags Input', link: '/components/tags-input' },
@@ -149,6 +159,7 @@ export default defineConfig({
           { text: 'Primitive', link: '/utilities/primitive' },
           { text: 'Slot', link: '/utilities/slot' },
           { text: 'useId', link: '/utilities/use-id' },
+          { text: 'useDateFormatter', link: '/utilities/use-date-formatter' },
           { text: 'useEmitAsProps', link: '/utilities/use-emit-as-props' },
           { text: 'useForwardExpose', link: '/utilities/use-forward-expose' },
           { text: 'useForwardProps', link: '/utilities/use-forward-props' },
@@ -176,6 +187,7 @@ export default defineConfig({
 
     preConfig(md) {
       md.use(ComponentPreviewPlugin)
+      md.use(InstallationTabsPlugin)
     },
   },
   transformPageData(pageData) {
@@ -188,8 +200,11 @@ export default defineConfig({
     css: {
       postcss: {
         plugins: [
+          // @ts-expect-error nocheck
           tailwind(),
+          // @ts-expect-error nocheck
           autoprefixer(),
+          // @ts-expect-error nocheck
           postcssIsolateStyles({ includeFiles: [/vp-doc\.css/] }),
         ],
       },

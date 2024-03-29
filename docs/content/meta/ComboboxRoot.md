@@ -23,7 +23,7 @@
   {
     'name': 'defaultValue',
     'description': '<p>The value of the combobox when initially rendered. Use when you do not need to control the state of the Combobox</p>\n',
-    'type': 'AcceptableValue',
+    'type': 'AcceptableValue | AcceptableValue[]',
     'required': false
   },
   {
@@ -47,13 +47,13 @@
   {
     'name': 'filterFunction',
     'description': '<p>The custom filter function for filtering <code>ComboboxItem</code>.</p>\n',
-    'type': '((val: string[] | number[] | false[] | true[] | object[], term: string) => string[] | number[] | false[] | true[] | object[])',
+    'type': '((val: string[] | number[] | false[] | true[] | Record<string, any>[], term: string) => string[] | number[] | false[] | true[] | Record<string, any>[])',
     'required': false
   },
   {
     'name': 'modelValue',
     'description': '<p>The controlled value of the Combobox. Can be binded-with with <code>v-model</code>.</p>\n',
-    'type': 'AcceptableValue',
+    'type': 'AcceptableValue | AcceptableValue[]',
     'required': false
   },
   {
@@ -103,12 +103,12 @@
 <SlotsTable :data="[
   {
     'name': 'open',
-    'description': 'Current open state',
+    'description': '<p>Current open state</p>\n',
     'type': 'boolean'
   },
   {
     'name': 'modelValue',
-    'description': 'Current active value',
-    'type': 'string | number | false | true | object'
+    'description': '<p>Current active value</p>\n',
+    'type': 'AcceptableValue | AcceptableValue[]'
   }
 ]" />

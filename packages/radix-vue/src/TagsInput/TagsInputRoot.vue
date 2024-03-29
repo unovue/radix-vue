@@ -11,6 +11,10 @@ export interface TagsInputRootProps extends PrimitiveProps {
   defaultValue?: Array<string>
   /** When `true`, allow adding tags on paste. Work in conjunction with delimiter prop. */
   addOnPaste?: boolean
+  /** When `true` allow adding tags on tab keydown */
+  addOnTab?: boolean
+  /** When `true` allow adding tags blur input */
+  addOnBlur?: boolean
   /** When `true`, allow duplicated tags. */
   duplicate?: boolean
   /** When `true`, prevents the user from interacting with the tags input. */
@@ -43,6 +47,8 @@ export interface TagsInputRootContext {
   selectedElement: Ref<HTMLElement | undefined>
   isInvalidInput: Ref<boolean>
   addOnPaste: Ref<boolean>
+  addOnTab: Ref<boolean>
+  addOnBlur: Ref<boolean>
   disabled: Ref<boolean>
   delimiter: Ref<string>
   dir: Ref<Direction>
@@ -74,7 +80,7 @@ defineSlots<{
   }): any
 }>()
 
-const { addOnPaste, disabled, delimiter, max, id, dir: propDir } = toRefs(props)
+const { addOnPaste, disabled, delimiter, max, id, dir: propDir, addOnBlur, addOnTab } = toRefs(props)
 const dir = useDirection(propDir)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
@@ -191,6 +197,8 @@ provideTagsInputRootContext({
   selectedElement,
   isInvalidInput,
   addOnPaste,
+  addOnBlur,
+  addOnTab,
   dir,
   disabled,
   delimiter,

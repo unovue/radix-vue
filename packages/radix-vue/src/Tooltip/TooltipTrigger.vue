@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
+import { useForwardExpose, useId } from '@/shared'
 
 export type TooltipTriggerDataState =
   | 'closed'
@@ -24,6 +24,8 @@ const props = withDefaults(defineProps<TooltipTriggerProps>(), {
 })
 const rootContext = injectTooltipRootContext()
 const providerContext = injectTooltipProviderContext()
+
+rootContext.contentId ||= useId(undefined, 'radix-vue-tooltip-content')
 
 const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 
@@ -68,8 +70,14 @@ onMounted(() => {
         hasPointerMoveOpened = false;
       }"
       @pointerdown="handlePointerDown"
-      @focus="() => {
-        if (!isPointerDown) rootContext.onOpen()
+      @focus="(event) => {
+        if (isPointerDown)
+          return
+
+        if (rootContext.ignoreNonKeyboardFocus.value && !(event.target as HTMLElement).matches?.(':focus-visible'))
+          return
+
+        rootContext.onOpen()
       }"
       @blur="rootContext.onClose()"
       @click="() => {

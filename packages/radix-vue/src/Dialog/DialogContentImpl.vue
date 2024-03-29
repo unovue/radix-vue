@@ -3,7 +3,7 @@ import type {
   DismissableLayerEmits,
   DismissableLayerProps,
 } from '@/DismissableLayer'
-import { useForwardExpose } from '@/shared'
+import { useForwardExpose, useId } from '@/shared'
 
 export type DialogContentImplEmits = DismissableLayerEmits & {
   /**
@@ -46,6 +46,9 @@ const emits = defineEmits<DialogContentImplEmits>()
 
 const rootContext = injectDialogRootContext()
 const { forwardRef, currentElement: contentElement } = useForwardExpose()
+
+rootContext.titleId ||= useId(undefined, 'radix-vue-dialog-title')
+rootContext.descriptionId ||= useId(undefined, 'radix-vue-dialog-description')
 
 onMounted(() => {
   rootContext.contentElement = contentElement

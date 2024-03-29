@@ -44,24 +44,7 @@ When creating localized apps that require right-to-left (RTL) reading direction,
 You can also change the global behavior of `bodylock` for components such as `Alert`, `DropdownMenu` and etc to fit your layout to prevent any [content shifts](https://github.com/radix-vue/radix-vue/issues/385).
 
 
-<PropsTable
-  :data="[
-    {
-      name: 'dir',
-      required: false,
-      type: '&quot;ltr&quot; | &quot;rtl&quot;',
-      default: '&quot;ltr&quot;',
-      description:  `The global reading direction of your application. This will be inherited by all primitives.`
-    },
-    {
-      name: 'scrollBody',
-      required: false,
-      type: 'boolean | ScrollBodyOption',
-      default: true,
-      description:  `The global scroll body behavior of your application. This will be inherited by the related primitives.`
-    },
-  ]"
-/>
+<!-- @include: @/meta/ConfigProvider.md -->
 
 ## Example 
 
@@ -78,6 +61,30 @@ import { ConfigProvider } from 'radix-vue'
   <ConfigProvider dir="rtl" :scroll-body="false">
     <slot />
   </ConfigProvider>
+</template>
+```
+ 
+
+## Hydration issue (Vue < 3.5)
+
+We expose a temporary workaround to allow current Nuxt (with version >3.10) project fix the current hydration issue by using [`useId`](https://nuxt.com/docs/api/composables/use-id) provided by Nuxt.
+
+> Inspired by [Headless UI](https://github.com/tailwindlabs/headlessui/pull/2959)
+
+
+
+ ```vue
+ <!-- in Nuxt's app.vue -->
+<script setup lang="ts">
+import { ConfigProvider } from 'radix-vue'
+
+const useIdFunction = () => useId()
+</script>
+
+<template>
+   <ConfigProvider :use-id="useIdFunction">
+     …
+   </ConfigProvider>
 </template>
 ```
  

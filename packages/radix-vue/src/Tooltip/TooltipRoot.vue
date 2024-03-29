@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { Ref } from 'vue'
-import { createContext, useForwardExpose, useId } from '@/shared'
+import { createContext, useForwardExpose } from '@/shared'
 
 export interface TooltipRootProps {
   /**
@@ -30,6 +30,14 @@ export interface TooltipRootProps {
    * @defaultValue false
    */
   disableClosingTrigger?: boolean
+  /**
+   * Prevent the tooltip from opening if the focus did not come from
+   * the keyboard by matching against the `:focus-visible` selector.
+   * This is useful if you want to avoid opening it when switching
+   * browser tabs or closing a dialog.
+   * @defaultValue false
+   */
+  ignoreNonKeyboardFocus?: boolean
 }
 
 export type TooltipRootEmits = {
@@ -49,6 +57,7 @@ export interface TooltipContext {
   onClose(): void
   disableHoverableContent: Ref<boolean>
   disableClosingTrigger: Ref<boolean>
+  ignoreNonKeyboardFocus: Ref<boolean>
 }
 
 export const [injectTooltipRootContext, provideTooltipRootContext]
@@ -68,6 +77,7 @@ const props = withDefaults(defineProps<TooltipRootProps>(), {
   delayDuration: undefined,
   disableHoverableContent: undefined,
   disableClosingTrigger: undefined,
+  ignoreNonKeyboardFocus: undefined,
 })
 
 const emit = defineEmits<TooltipRootEmits>()
@@ -78,6 +88,7 @@ const providerContext = injectTooltipProviderContext()
 const disableHoverableContent = computed(() => props.disableHoverableContent ?? providerContext.disableHoverableContent.value)
 const disableClosingTrigger = computed(() => props.disableClosingTrigger ?? providerContext.disableClosingTrigger.value)
 const delayDuration = computed(() => props.delayDuration ?? providerContext.delayDuration.value)
+const ignoreNonKeyboardFocus = computed(() => props.ignoreNonKeyboardFocus ?? providerContext.ignoreNonKeyboardFocus.value)
 
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
@@ -126,7 +137,7 @@ function handleDelayedOpen() {
 }
 
 provideTooltipRootContext({
-  contentId: useId(),
+  contentId: '',
   open,
   stateAttribute,
   trigger,
@@ -149,6 +160,7 @@ provideTooltipRootContext({
   onClose: handleClose,
   disableHoverableContent,
   disableClosingTrigger,
+  ignoreNonKeyboardFocus,
 })
 </script>
 

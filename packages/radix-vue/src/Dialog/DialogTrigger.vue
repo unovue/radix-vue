@@ -1,6 +1,5 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
 
 export interface DialogTriggerProps extends PrimitiveProps {}
 </script>
@@ -8,6 +7,7 @@ export interface DialogTriggerProps extends PrimitiveProps {}
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { injectDialogRootContext } from './DialogRoot.vue'
+import { useForwardExpose, useId } from '@/shared'
 import { Primitive } from '@/Primitive'
 
 const props = withDefaults(defineProps<DialogTriggerProps>(), {
@@ -16,6 +16,7 @@ const props = withDefaults(defineProps<DialogTriggerProps>(), {
 const rootContext = injectDialogRootContext()
 const { forwardRef, currentElement } = useForwardExpose()
 
+rootContext.contentId ||= useId(undefined, 'radix-vue-dialog-content')
 onMounted(() => {
   rootContext.triggerElement = currentElement
 })
@@ -28,7 +29,7 @@ onMounted(() => {
     :type="as === 'button' ? 'button' : undefined"
     aria-haspopup="dialog"
     :aria-expanded="rootContext.open.value || false"
-    :aria-controls="rootContext.contentId"
+    :aria-controls="rootContext.open.value ? rootContext.contentId : undefined"
     :data-state="rootContext.open.value ? 'open' : 'closed'"
     @click="rootContext.onOpenToggle"
   >

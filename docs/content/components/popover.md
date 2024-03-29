@@ -32,9 +32,7 @@ Displays rich content in a portal, triggered by a button.
 
 Install the component from your command line.
 
-```bash
-npm install radix-vue
-```
+<InstallationTabs value="radix-vue" />
 
 ## Anatomy
 
@@ -42,7 +40,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
+import { PopoverAnchor, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
 </script>
 
 <template>
@@ -294,7 +292,7 @@ You can anchor the content to another element if you do not want to use the trig
 ```vue line=8-12
 // index.vue
 <script setup>
-import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
+import { PopoverAnchor, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
 </script>
 
 <template>

@@ -32,9 +32,7 @@ A window overlaid on either the primary window or another dialog window, renderi
 
 Install the component from your command line.
 
-```bash
-npm install radix-vue
-```
+<InstallationTabs value="radix-vue" />
 
 ## Anatomy
 
@@ -240,6 +238,20 @@ import './styles.css'
   padding: 30px;
   border-radius: 4px;
 }
+```
+
+However, there's a caveat to this approach, where user might click on the scrollbar and close the dialog unintentionally. There's no universal solution that would fix this issue for now, however you can add the following snippet to `DialogContent` to prevent closing of modal when clicking on scrollbar.
+
+```vue
+<DialogContent
+  @pointer-down-outside="(event) => {
+    const originalEvent = event.detail.originalEvent;
+    const target = originalEvent.target as HTMLElement;
+    if (originalEvent.offsetX > target.clientWidth || originalEvent.offsetY > target.clientHeight) {
+      event.preventDefault();
+    }
+  }"
+>
 ```
 
 ### Custom portal container

@@ -11,9 +11,10 @@ export interface ToastViewportProps extends PrimitiveProps {
   /**
    * An author-localized label for the toast viewport to provide context for screen reader users
    * when navigating page landmarks. The available `{hotkey}` placeholder will be replaced for you.
+   * Alternatively, you can pass in a custom function to generate the label.
    * @defaultValue 'Notifications ({hotkey})'
    */
-  label?: string
+  label?: string | ((hotkey: string) => string)
 }
 </script>
 
@@ -46,6 +47,8 @@ const providerContext = injectToastProviderContext()
 const hasToasts = computed(() => providerContext.toastCount.value > 0)
 const headFocusProxyRef = ref<HTMLElement>()
 const tailFocusProxyRef = ref<HTMLElement>()
+
+const hotkeyMessage = computed(() => hotkey.value.join('+').replace(/Key/g, '').replace(/Digit/g, ''))
 
 onKeyStroke(hotkey.value, () => {
   currentElement.value.focus()
@@ -159,7 +162,7 @@ function getSortedTabbableCandidates({ tabbingDirection }: { tabbingDirection: '
 <template>
   <DismissableLayerBranch
     role="region"
-    :aria-label="label.replace('{hotkey}', hotkey.join('+').replace(/Key/g, '').replace(/Digit/g, ''))"
+    :aria-label="typeof label === 'string' ? label.replace('{hotkey}', hotkeyMessage) : label(hotkeyMessage)"
     tabindex="-1"
     :style="{
       // incase list has size when empty (e.g. padding), we remove pointer events so

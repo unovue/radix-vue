@@ -19,7 +19,7 @@ export interface PopoverContentProps extends PopoverContentImplProps {
 import PopoverContentModal from './PopoverContentModal.vue'
 import PopoverContentNonModal from './PopoverContentNonModal.vue'
 import { injectPopoverRootContext } from './PopoverRoot.vue'
-import { useForwardExpose, useForwardPropsEmits } from '@/shared'
+import { useForwardExpose, useForwardPropsEmits, useId } from '@/shared'
 import { Presence } from '@/Presence'
 
 const props = defineProps<PopoverContentProps>()
@@ -29,6 +29,8 @@ const rootContext = injectPopoverRootContext()
 
 const forwarded = useForwardPropsEmits(props, emits)
 const { forwardRef } = useForwardExpose()
+
+rootContext.contentId ||= useId(undefined, 'radix-vue-popover-content')
 </script>
 
 <template>

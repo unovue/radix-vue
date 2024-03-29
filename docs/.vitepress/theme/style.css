@@ -2,7 +2,7 @@
  * Customize default theme styling by overriding CSS variables:
  * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
  */
- 
+
 /**
  * Colors
  * -------------------------------------------------------------------------- */
@@ -15,7 +15,9 @@
   --vp-c-brand-2: #059669;
   --vp-c-brand-darker: #047857;
   --vp-c-brand-dimm: rgba(100, 108, 255, 0.08);
-  --vp-code-color: rgba(60, 60, 67);  
+  --vp-c-tip-soft: #5bb98c;
+  --vp-c-tip-1: white;
+  --vp-code-color: rgba(60, 60, 67);
   --vp-code-block-bg: #292b30;
   --vp-code-block-bg-light: #1e1e20;
   --vp-code-block-divider-color: #000000;
@@ -24,7 +26,7 @@
 
 .dark {
   --vp-c-bg: #1e1e20;
-  --vp-c-bg-alt: #161618; 
+  --vp-c-bg-alt: #161618;
   --vp-c-bg-soft: #252529;
   --vp-code-block-bg: #161618;
 }
@@ -130,6 +132,10 @@ body {
 .vp-doc :not(pre) > code {
   font-size: max(12px, 85%);
   @apply dark:text-[var(--vp-c-brand)]  dark:bg-[#0F291E];
+}
+
+.vp-doc div[class*='language-']:not(:where(.custom, .custom *)) {
+  @apply  border border-neutral-700/40;
 }
 
 .VPSidebarItem.is-active .indicator {

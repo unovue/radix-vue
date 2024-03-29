@@ -60,9 +60,7 @@ One of our main goals is to provide the best possible developer experience. Radi
 
 We compile all primitives into one package, so you just have to install once, and have access to all the primitives. Worry not, it is tree-shaking friendly so any unused primitives will not be included in the bundle.
 
-```bash
-npm install radix-vue
-```
+<InstallationTabs value="radix-vue" />
 
 ## Community
 

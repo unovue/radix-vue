@@ -25,9 +25,7 @@ A two-state button that can be either on or off.
 
 Install the component from your command line.
 
-```bash
-npm install radix-vue
-```
+<InstallationTabs value="radix-vue" />
 
 ## Anatomy
 

@@ -19,8 +19,8 @@ This composable is just a wrapper for [useForwardProps](/utilities/use-forward-p
 <script setup lang="ts">
 import { useForwardPropsEmits } from 'radix-vue'
 
-const emits = defineProps<CompEmitEmits>()
-const props = defineEmits<CompEmitProps>()
+const props = defineProps<CompEmitProps>()
+const emits = defineEmits<CompEmitEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
 </script>
 

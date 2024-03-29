@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { Ref } from 'vue'
-import { createContext, useId } from '@/shared'
+import { createContext } from '@/shared'
 
 export interface PopoverRootProps {
   /**
@@ -60,7 +60,7 @@ const triggerElement = ref<HTMLElement>()
 const hasCustomAnchor = ref(false)
 
 providePopoverRootContext({
-  contentId: useId(),
+  contentId: '',
   modal,
   open,
   onOpenChange: (value) => {

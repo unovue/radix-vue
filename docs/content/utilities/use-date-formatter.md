@@ -1,0 +1,36 @@
+---
+title: useDateFormatter
+description: Creates a wrapper around the `DateFormatter`, which is an improved version of the Intl.DateTimeFormat API, that is used internally by the various date builders to easily format dates in a consistent way.
+---
+
+# useDateFormatter
+
+<Description>
+Creates a wrapper around the `DateFormatter`, which is an improved version of the Intl.DateTimeFormat API, that is used internally by the various date builders to easily format dates in a consistent way.
+</Description>
+
+More information on the DateFormatter [here](https://react-spectrum.adobe.com/internationalized/date/DateFormatter.html).
+
+
+## Usage
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { CalendarDate } from '@internationalized/date'
+import { useDateFormatter } from 'radix-vue'
+
+const value = ref(new CalendarDate(1995, 8, 18))
+// provide the locale
+const formatter = useDateFormatter('en')
+</script>
+
+<template>
+  <span>
+    <!-- output the month in short format. e.g.: Jan, Feb, etc. -->
+    {{ formatter.custom(value.toDate(getLocalTimeZone()), {
+      month: 'short',
+    }) }}
+  </span>
+</template>
+```

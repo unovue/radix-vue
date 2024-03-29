@@ -2,8 +2,20 @@
 
 <PropsTable :data="[
   {
+    'name': 'addOnBlur',
+    'description': '<p>When <code>true</code> allow adding tags blur input</p>\n',
+    'type': 'boolean',
+    'required': false
+  },
+  {
     'name': 'addOnPaste',
     'description': '<p>When <code>true</code>, allow adding tags on paste. Work in conjunction with delimiter prop.</p>\n',
+    'type': 'boolean',
+    'required': false
+  },
+  {
+    'name': 'addOnTab',
+    'description': '<p>When <code>true</code> allow adding tags on tab keydown</p>\n',
     'type': 'boolean',
     'required': false
   },
@@ -101,7 +113,7 @@
 <SlotsTable :data="[
   {
     'name': 'modelValue',
-    'description': 'Current input values',
+    'description': '<p>Current input values</p>\n',
     'type': 'string[]'
   }
 ]" />

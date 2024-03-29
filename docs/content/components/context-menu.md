@@ -36,9 +36,7 @@ Displays a menu located at the pointer, triggered by a right-click or a long-pre
 
 Install the component from your command line.
 
-```bash
-npm install radix-vue
-```
+<InstallationTabs value="radix-vue" />
 
 ## Anatomy
 

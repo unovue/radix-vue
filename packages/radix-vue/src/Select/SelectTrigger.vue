@@ -14,7 +14,7 @@ import {
 import { OPEN_KEYS, shouldShowPlaceholder } from './utils'
 import { Primitive } from '@/Primitive'
 import { PopperAnchor } from '@/Popper'
-import { useCollection, useForwardExpose, useTypeahead } from '@/shared'
+import { useCollection, useForwardExpose, useId, useTypeahead } from '@/shared'
 
 const props = withDefaults(defineProps<SelectTriggerProps>(), {
   as: 'button',
@@ -25,6 +25,7 @@ const isDisabled = computed(() => rootContext.disabled?.value || props.disabled)
 
 const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 
+rootContext.contentId ||= useId(undefined, 'radix-vue-select-content')
 onMounted(() => {
   rootContext.triggerElement = triggerElement
 })
@@ -53,7 +54,7 @@ function handleOpen() {
       :aria-expanded="rootContext.open.value || false"
       :aria-required="rootContext.required?.value"
       aria-autocomplete="none"
-      :disabled="disabled"
+      :disabled="isDisabled"
       :dir="rootContext?.dir.value"
       :data-state="rootContext?.open.value ? 'open' : 'closed'"
       :data-disabled="isDisabled ? '' : undefined"

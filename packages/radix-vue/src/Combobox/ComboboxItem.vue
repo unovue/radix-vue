@@ -31,7 +31,6 @@ const COMBOBOX_SELECT = 'combobox.select'
 import {
   computed,
   nextTick,
-  onMounted,
   ref,
   toRefs,
 } from 'vue'
@@ -54,12 +53,12 @@ const { forwardRef } = useForwardExpose()
 
 const isSelected = computed(() =>
   rootContext.multiple.value && Array.isArray(rootContext.modelValue.value)
-    ? rootContext.modelValue.value?.includes(props.value as never)
+    ? rootContext.modelValue.value?.some(val => isEqual(val, props.value))
     : isEqual(rootContext.modelValue?.value, props.value),
 )
 
 const isFocused = computed(() => isEqual(rootContext.selectedValue.value, props.value))
-const textId = useId()
+const textId = useId(undefined, 'radix-vue-combobox-item')
 
 const isInOption = computed(() =>
   rootContext.isUserInputted.value
@@ -97,11 +96,6 @@ if (props.value === '') {
   )
 }
 
-onMounted(() => {
-  if (!groupContext.options?.value?.includes(props.value))
-    groupContext.options?.value.push(props.value)
-})
-
 provideComboboxItemContext({
   isSelected,
 })
@@ -122,6 +116,7 @@ provideComboboxItemContext({
       :data-disabled="disabled ? '' : undefined"
       :as="as"
       :as-child="asChild"
+      :data-hidden="!isInOption ? true : undefined"
       @click="handleSelectCustomEvent"
       @pointermove="handlePointerMove"
     >

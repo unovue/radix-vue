@@ -1,24 +1,27 @@
-import { ref } from 'vue'
-import { createGlobalState } from '@vueuse/core'
+// Inspired from https://github.com/tailwindlabs/headlessui/issues/2913
+// as the alternative, and a fallback for Vue version < 3.5
+import { injectConfigProviderContext } from '@/ConfigProvider/ConfigProvider.vue'
 
-const useGlobalState = createGlobalState(() => {
-  const count = ref(0)
-  return { count }
-})
+let count = 0
 
 /**
- * The `useId` function generates a unique identifier based on a global count, with an optional
- * deterministic ID.
- * @param {string} [deterministicId] - The `deterministicId` parameter is an optional string that can
- * be passed to the `useId` function. If a `deterministicId` is provided, it will be returned as the
- * id. If no `deterministicId` is provided, a new id will be generated
- * @returns either the provided deterministicId if it exists, or a string in the format "radix-"
- * followed by the value of the count variable from the global state.
+ * The `useId` function generates a unique identifier using a provided deterministic ID or a default
+ * one prefixed with "radix-", or the provided one via `useId` props from `<ConfigProvider>`.
+ * @param {string | null | undefined} [deterministicId] - The `useId` function you provided takes an
+ * optional parameter `deterministicId`, which can be a string, null, or undefined. If
+ * `deterministicId` is provided, the function will return it. Otherwise, it will generate an id using
+ * the `useId` function obtained
+ * @returns The `useId` function is being returned. If a `deterministicId` is provided, it will be
+ * returned. Otherwise, the `useId` function from the `injectConfigProviderContext` is called to
+ * generate an id in the format `radix-` and returned.
  */
-export function useId(deterministicId?: string) {
-  const { count } = useGlobalState()
-  if (!deterministicId)
-    count.value++
+export function useId(deterministicId?: string | null | undefined, prefix = 'radix') {
+  if (deterministicId)
+    return deterministicId
 
-  return deterministicId || `radix-${count.value}`
+  const { useId } = injectConfigProviderContext({ useId: undefined })
+  if (useId && typeof useId === 'function')
+    return `${prefix}-${useId()}`
+
+  return `${prefix}-${++count}`
 }

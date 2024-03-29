@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
+import { useForwardExpose, useId } from '@/shared'
 
 export interface CollapsibleContentProps extends PrimitiveProps {
   /**
@@ -26,6 +26,7 @@ defineOptions({
 const props = defineProps<CollapsibleContentProps>()
 
 const rootContext = injectCollapsibleRootContext()
+rootContext.contentId ||= useId(undefined, 'radix-vue-collapsible-content')
 
 const presentRef = ref<InstanceType<typeof Presence>>()
 const { forwardRef, currentElement } = useForwardExpose()

@@ -17,7 +17,7 @@ import { Primitive } from '@/Primitive'
 
 const props = defineProps<SelectGroupProps>()
 
-const id = useId()
+const id = useId(undefined, 'radix-vue-select-group')
 provideSelectGroupContext({ id })
 </script>
 

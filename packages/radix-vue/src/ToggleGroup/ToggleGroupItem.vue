@@ -25,6 +25,12 @@ const rootContext = injectToggleGroupRootContext()
 const disabled = computed(() => rootContext.disabled?.value || props.disabled)
 const pressed = computed(() => rootContext.modelValue.value?.includes(props.value))
 
+const isPressed = computed(() => {
+  return rootContext.isSingle.value
+    ? rootContext.modelValue.value === props.value
+    : rootContext.modelValue.value?.includes(props.value)
+})
+
 const { forwardRef } = useForwardExpose()
 </script>
 
@@ -39,11 +45,7 @@ const { forwardRef } = useForwardExpose()
       v-bind="props"
       :ref="forwardRef"
       :disabled="disabled"
-      :pressed="
-        rootContext.type === 'single'
-          ? rootContext.modelValue.value === value
-          : rootContext.modelValue.value?.includes(value)
-      "
+      :pressed="isPressed"
       @update:pressed="rootContext.changeModelValue(value)"
     >
       <slot />

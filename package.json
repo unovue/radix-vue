@@ -1,8 +1,8 @@
 {
   "name": "radix-vue",
-  "version": "1.4.3",
+  "version": "1.5.3",
   "private": true,
-  "packageManager": "pnpm@8.9.2",
+  "packageManager": "pnpm@8.15.4",
   "license": "MIT",
   "repository": "radix-vue/radix-vue",
   "workspaces": [
@@ -31,7 +31,7 @@
     "bumpp": "^9.2.0",
     "eslint": "^8.51.0",
     "lint-staged": "^14.0.1",
-    "pnpm": "^8.9.2",
+    "pnpm": "^8.15.4",
     "rimraf": "^5.0.5",
     "simple-git-hooks": "^2.9.0"
   },
@@ -42,7 +42,7 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "vitepress@1.0.0-rc.40": "patches/vitepress@1.0.0-rc.40.patch"
+      "vitepress@1.0.1": "patches/vitepress@1.0.1.patch"
     }
   },
   "simple-git-hooks": {

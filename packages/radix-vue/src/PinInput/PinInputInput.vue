@@ -115,10 +115,21 @@ function handlePaste(event: ClipboardEvent) {
   inputElements.value[lastIndex]?.focus()
 }
 
+function removeTrailingEmptyStrings(input: string[]) {
+  let i = input.length - 1
+
+  while (i >= 0 && input[i] === '') {
+    input.pop()
+    i--
+  }
+
+  return input
+}
+
 function updateModelValueAt(index: number, value: string) {
   const tempModelValue = [...context.modelValue.value]
   tempModelValue[index] = value
-  context.modelValue.value = tempModelValue
+  context.modelValue.value = removeTrailingEmptyStrings(tempModelValue)
 }
 
 onMounted(() => {

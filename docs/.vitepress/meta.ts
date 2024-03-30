@@ -13,7 +13,7 @@ export const font = `${googleapis}/css2?family=Readex+Pro:wght@200;400;600&displ
 
 /* vitepress head */
 export const ogUrl = 'https://radix-vue.com/'
-export const ogImage = `${ogUrl}og.png`
+export const ogImage = `${ogUrl}og.jpg`
 
 /* GitHub and social links */
 export const github = 'https://github.com/radix-vue/radix-vue'

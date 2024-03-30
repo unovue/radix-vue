@@ -13,7 +13,7 @@
   "bugs": {
     "url": "https://github.com/radix-vue/radix-vue/issues"
   },
-  "keywords": [],
+  "keywords": ["ui", "vue", "accessibility", "headless", "nuxt", "primitives", "components", "radix", "unstyled"],
   "sideEffects": false,
   "exports": {
     ".": {

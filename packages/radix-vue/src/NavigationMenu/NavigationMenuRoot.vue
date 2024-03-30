@@ -30,12 +30,12 @@ export interface NavigationMenuRootProps extends PrimitiveProps {
   skipDelayDuration?: number
 
   /**
-   * If true, menu can't be open by click on trigger
+   * If `true`, menu cannot be open by click on trigger
    * @defaultValue false
    */
   disableClickTrigger?: boolean
   /**
-   * If true, menu can't be open by hover on trigger
+   * If `true`, menu cannot be open by hover on trigger
    * @defaultValue false
    */
   disableHoverTrigger?: boolean

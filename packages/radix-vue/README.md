@@ -30,7 +30,7 @@ Radix is an unstyled, customisable UI Library with built in accessibility for bu
 
 
 
-![hero image](docs/content/public/og.jpg)
+![hero image](https://www.radix-vue.com/og.jpg)
  <em>design by: [icarusgkx](https://twitter.com/icarusgkx), [melkam](https://github.com/MellKam)</em>
  
 ## Installation

@@ -16,7 +16,7 @@
   },
   {
     'name': 'disabled',
-    'description': '<p>When <code>true</code>, disables tooltip</p>\n',
+    'description': '<p>When <code>true</code>, disable tooltip</p>\n',
     'type': 'boolean',
     'required': false
   },

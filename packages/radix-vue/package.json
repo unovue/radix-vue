@@ -1,7 +1,7 @@
 {
   "name": "radix-vue",
   "type": "module",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Vue port for Radix UI Primitives.",
   "author": "Radix Vue Contributors (https://github.com/radix-vue)",
   "license": "MIT",
@@ -13,7 +13,17 @@
   "bugs": {
     "url": "https://github.com/radix-vue/radix-vue/issues"
   },
-  "keywords": ["ui", "vue", "accessibility", "headless", "nuxt", "primitives", "components", "radix", "unstyled"],
+  "keywords": [
+    "ui",
+    "vue",
+    "accessibility",
+    "headless",
+    "nuxt",
+    "primitives",
+    "components",
+    "radix",
+    "unstyled"
+  ],
   "sideEffects": false,
   "exports": {
     ".": {

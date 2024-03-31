@@ -1,6 +1,6 @@
 {
   "name": "radix-vue",
-  "version": "1.5.3",
+  "version": "1.6.1",
   "private": true,
   "packageManager": "pnpm@8.15.4",
   "license": "MIT",
@@ -42,7 +42,7 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "vitepress@1.0.0-rc.40": "patches/vitepress@1.0.0-rc.40.patch"
+      "vitepress@1.0.1": "patches/vitepress@1.0.1.patch"
     }
   },
   "simple-git-hooks": {

@@ -30,9 +30,7 @@ A set of layered sections of content—known as tab panels—that are displayed 
 
 Install the component from your command line.
 
-```bash
-npm install radix-vue
-```
+<InstallationTabs value="radix-vue" />
 
 ## Anatomy
 

@@ -35,21 +35,18 @@ This component was built taking inspiration from the implementation in [melt-ui]
 
 The component depends on the [@internationalized/date](https://react-spectrum.adobe.com/internationalized/date/index.html) package, which solves a lot of the problems that come with working with dates and times in JavaScript.
 
+
 We highly recommend reading through the documentation for the package to get a solid feel for how it works, and you'll need to install it in your project to use the date-related components.
 
 ## Installation
 
 Install the date package.
 
-```bash
-npm install -D @internationalized/date
-```
+<InstallationTabs value="@internationalized/date" />
 
 Install the component from your command line.
 
-```bash
-npm install radix-vue
-```
+<InstallationTabs value="radix-vue" />
 
 ## Anatomy
 
@@ -106,7 +103,7 @@ Contains all the parts of a calendar
 
 <!-- @include: @/meta/RangeCalendarRoot.md -->
 
-<DataAttributesTable 
+<DataAttributesTable
   :data="[
     {
       attribute: '[data-readonly]',
@@ -133,12 +130,12 @@ Contains the navigation buttons and the heading segments.
 
 Calendar navigation button. It navigates the calendar one month/year/decade in the past based on the current calendar view.
 
-<DataAttributesTable 
-  :data="[ 
+<DataAttributesTable
+  :data="[
     {
       attribute: '[data-disabled]',
       values: 'Present when disabled',
-    }, 
+    },
   ]"
 />
 
@@ -150,12 +147,12 @@ Calendar navigation button. It navigates the calendar one month/year/decade in t
 
 <!-- @include: @/meta/RangeCalendarNext.md -->
 
-<DataAttributesTable 
-  :data="[ 
+<DataAttributesTable
+  :data="[
     {
       attribute: '[data-disabled]',
       values: 'Present when disabled',
-    }, 
+    },
   ]"
 />
 
@@ -165,12 +162,12 @@ Heading for displaying the current month and year.
 
 <!-- @include: @/meta/RangeCalendarHeading.md -->
 
-<DataAttributesTable 
-  :data="[ 
+<DataAttributesTable
+  :data="[
     {
       attribute: '[data-disabled]',
       values: 'Present when disabled',
-    }, 
+    },
   ]"
 />
 
@@ -180,7 +177,7 @@ Container for wrapping the calendar grid.
 
 <!-- @include: @/meta/RangeCalendarGrid.md -->
 
-<DataAttributesTable 
+<DataAttributesTable
   :data="[
     {
       attribute: '[data-readonly]',
@@ -189,7 +186,7 @@ Container for wrapping the calendar grid.
     {
       attribute: '[data-disabled]',
       values: 'Present when disabled',
-    }, 
+    },
   ]"
 />
 
@@ -223,12 +220,12 @@ Container for wrapping the calendar cells.
 
 <!-- @include: @/meta/RangeCalendarCell.md -->
 
-<DataAttributesTable 
-  :data="[ 
+<DataAttributesTable
+  :data="[
     {
       attribute: '[data-disabled]',
       values: 'Present when disabled',
-    }, 
+    },
   ]"
 />
 
@@ -238,7 +235,7 @@ Interactable container for displaying the cell dates. Clicking it selects the da
 
 <!-- @include: @/meta/RangeCalendarCellTrigger.md -->
 
-<DataAttributesTable 
+<DataAttributesTable
   :data="[
     {
       attribute: '[data-selected]',

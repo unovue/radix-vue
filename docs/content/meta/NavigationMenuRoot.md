@@ -35,14 +35,14 @@
   },
   {
     'name': 'disableClickTrigger',
-    'description': '<p>If true, menu can't be open by click on trigger</p>\n',
+    'description': '<p>If <code>true</code>, menu cannot be open by click on trigger</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'false'
   },
   {
     'name': 'disableHoverTrigger',
-    'description': '<p>If true, menu can't be open by hover on trigger</p>\n',
+    'description': '<p>If <code>true</code>, menu cannot be open by hover on trigger</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'false'

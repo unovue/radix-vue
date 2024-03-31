@@ -31,9 +31,7 @@ For sighted users to preview content available behind a link.
 
 Install the component from your command line.
 
-```bash
-npm install radix-vue
-```
+<InstallationTabs value="radix-vue" />
 
 ## Anatomy
 

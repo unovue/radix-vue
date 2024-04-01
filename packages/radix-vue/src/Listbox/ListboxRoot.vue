@@ -1,17 +1,24 @@
 <script lang="ts">
-import { createContext, useForwardExpose, useTypeahead } from '@/shared'
+import { createContext, useKbd, useTypeahead } from '@/shared'
+import { Primitive } from '..'
 
 type ListboxRootContext<T> = {
   modelValue: Ref<T | Array<T> | undefined>
   onValueChange: (val: T) => void
   multiple: Ref<boolean>
   disabled: Ref<boolean>
-  containerElement: Ref<HTMLElement>
   highlightedElement: Ref<HTMLElement | null>
   isVirtual: Ref<boolean>
   virtualFocusHook: EventHook<Event | null>
   virtualKeydownHook: EventHook<KeyboardEvent>
   by?: keyof T | ((a: T, b: T) => boolean)
+
+  focusable: Ref<boolean>
+
+  onChangeHighlight: (el: HTMLElement) => void
+  onKeydownNavigation: (event: KeyboardEvent) => void
+  onKeydownEnter: (event: KeyboardEvent) => void
+  onKeydownTypeAhead: (event: KeyboardEvent) => void
 }
 
 export const [injectListboxRootContext, provideListboxRootContext]
@@ -38,10 +45,11 @@ export type ListboxRootEmits<T = AcceptableValue> = {
 </script>
 
 <script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
-import { RovingFocusGroup, type RovingFocusGroupProps } from '@/RovingFocus'
+import type { RovingFocusGroupProps } from '@/RovingFocus'
 import { type EventHook, createEventHook, useVModel } from '@vueuse/core'
-import { type AcceptableValue, compare, queryCheckedElement } from './utils'
-import { type Ref, computed, nextTick, ref, toRefs, watch } from 'vue'
+import { type AcceptableValue, compare } from './utils'
+import { type Ref, nextTick, ref, toRefs, watch } from 'vue'
+import { createCollection } from '@/Collection'
 
 const props = withDefaults(defineProps<ListboxRootProps>(), {
   selectionBehavior: 'toggle',
@@ -49,9 +57,12 @@ const props = withDefaults(defineProps<ListboxRootProps>(), {
 const emits = defineEmits<ListboxRootEmits>()
 
 const { multiple, disabled } = toRefs(props)
-const { forwardRef, currentRef, currentElement: containerElement } = useForwardExpose()
+const { getItems } = createCollection()
+const { handleTypeaheadSearch } = useTypeahead()
+const kbd = useKbd()
 
 const isUserAction = ref(false)
+const focusable = ref(true)
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue ?? (multiple.value ? [] : undefined),
   passive: (props.modelValue === undefined) as false,
@@ -82,23 +93,41 @@ function onValueChange(val: T) {
 }
 
 const highlightedElement = ref<HTMLElement | null>(null)
-const collectionItems = computed(() => (currentRef.value as InstanceType<typeof RovingFocusGroup>)?.collections ?? [])
-const { handleTypeaheadSearch } = useTypeahead(collectionItems)
-
 const isVirtual = ref(false)
 const virtualFocusHook = createEventHook<Event | null>()
 const virtualKeydownHook = createEventHook<KeyboardEvent>()
 
-function handleFocus(event?: Event) {
+function getCollectionItem() {
+  return getItems().map(i => i.ref).filter(i => i.dataset.disabled !== '')
+}
+function onChangeHighlight(el: HTMLElement) {
+  highlightedElement.value = el
+  highlightedElement.value.focus()
+  highlightedElement.value.scrollIntoView({ block: 'nearest' })
+}
+
+function onKeydownEnter(event: KeyboardEvent) {
+  if (highlightedElement.value)
+    highlightedElement.value.click()
+}
+
+function onKeydownTypeAhead(event: KeyboardEvent) {
+  if (isVirtual.value)
+    virtualKeydownHook.trigger(event)
+  else
+    handleTypeaheadSearch(event.key, getCollectionItem())
+}
+
+async function handleFocus(event?: Event) {
   if (isVirtual.value) {
     virtualFocusHook.trigger(event)
   }
   else {
-    const item = queryCheckedElement(containerElement.value)
-    if (item && event) {
-      item.focus()
-      event.preventDefault()
-    }
+    await nextTick()
+    const collection = getCollectionItem()
+    const item = collection.find(i => i.dataset.state === 'checked')
+    if (item)
+      onChangeHighlight(item)
   }
 }
 
@@ -117,35 +146,44 @@ provideListboxRootContext({
   onValueChange,
   multiple,
   disabled,
-  containerElement,
   highlightedElement,
   isVirtual,
   virtualFocusHook,
   virtualKeydownHook,
   by: props.by,
+
+  onChangeHighlight,
+  onKeydownEnter,
+  onKeydownNavigation: (event) => {
+    let collection = getCollectionItem()
+    if (highlightedElement.value) {
+      if (event.key === kbd.END) {
+        collection.reverse()
+      }
+      else if (event.key === kbd.ARROW_UP || event.key === kbd.ARROW_DOWN) {
+        if (event.key === kbd.ARROW_UP)
+          collection.reverse()
+
+        const currentIndex = collection.indexOf(highlightedElement.value)
+        collection = collection.slice(currentIndex + 1)
+      }
+    }
+
+    if (collection.length)
+      onChangeHighlight(collection[0])
+
+    if (isVirtual.value)
+      virtualKeydownHook.trigger(event)
+  },
+  onKeydownTypeAhead,
 })
 </script>
 
 <template>
-  <RovingFocusGroup
-    :ref="forwardRef"
-    role="listbox"
+  <Primitive
     :as="as"
     :as-child="asChild"
-    :loop="loop"
-    :dir="dir"
-    :orientation="orientation"
-    enable-mutation-observer
-    @entry-focus="handleFocus"
-    @keydown="(ev: KeyboardEvent) => {
-      if (isVirtual) {
-        virtualKeydownHook.trigger(ev)
-      }
-      else {
-        handleTypeaheadSearch(ev.key)
-      }
-    }"
   >
-    <slot :model-value="modelValue" />
-  </RovingFocusGroup>
+    <slot />
+  </Primitive>
 </template>

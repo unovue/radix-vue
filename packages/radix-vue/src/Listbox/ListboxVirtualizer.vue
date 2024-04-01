@@ -8,12 +8,14 @@ export interface ListboxVirtualizerProps<T extends AcceptableValue = AcceptableV
 
 <script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
 import { useVirtualizer } from '@tanstack/vue-virtual'
-import { cloneVNode, computed, useSlots } from 'vue'
+import { type Ref, cloneVNode, computed, useSlots } from 'vue'
 import { injectListboxRootContext } from './ListboxRoot.vue'
 import { type AcceptableValue, compare, queryCheckedElement } from './utils'
 import { MAP_KEY_TO_FOCUS_INTENT } from '@/RovingFocus/utils'
 import { refAutoReset } from '@vueuse/shared'
 import { getNextMatch } from '@/shared/useTypeahead'
+import { useParentElement } from '@vueuse/core'
+import { useCollection } from '@/Collection'
 
 const props = defineProps<ListboxVirtualizerProps<T>>()
 
@@ -25,12 +27,14 @@ defineSlots<{
 
 const slots = useSlots()
 const rootContext = injectListboxRootContext()
+const parentEl = useParentElement() as Ref<HTMLElement>
+const { getItems } = useCollection()
 
 // set virtual true when this component mounted
 rootContext.isVirtual.value = true
 
 const padding = computed(() => {
-  const el = rootContext.containerElement.value
+  const el = parentEl.value
   if (!el) { return { start: 0, end: 0 } }
   else {
     const styles = window.getComputedStyle(el)
@@ -49,7 +53,7 @@ const virtualizer = useVirtualizer(
     estimateSize() {
       return 28
     },
-    getScrollElement() { return rootContext.containerElement.value },
+    getScrollElement() { return parentEl.value },
     overscan: 12,
   },
 )
@@ -87,7 +91,7 @@ rootContext.virtualFocusHook.on((event) => {
 
     virtualizer.value.scrollToIndex(index, { align: 'start' })
     requestAnimationFrame(() => {
-      const item = queryCheckedElement(rootContext.containerElement.value)
+      const item = queryCheckedElement(parentEl.value)
       if (item && event)
         item?.focus()
     })
@@ -124,10 +128,9 @@ rootContext.virtualKeydownHook.on((event) => {
     const index = intent === 'first' ? 0 : props.options.length - 1
     virtualizer.value.scrollToIndex(index)
     requestAnimationFrame(() => {
-      const items = rootContext.containerElement.value.querySelectorAll('[data-radix-vue-collection-item][data-active=true]')
+      const items = getItems()
       const item = intent === 'first' ? items[0] : items[items.length - 1]
-      if (item instanceof HTMLElement)
-        item.focus()
+      rootContext.onChangeHighlight(item.ref)
     })
   }
   else if (!intent) {
@@ -141,9 +144,9 @@ rootContext.virtualKeydownHook.on((event) => {
     if (nextMatch) {
       virtualizer.value.scrollToIndex(nextMatch.index, { align: 'start' })
       requestAnimationFrame(() => {
-        const item = rootContext.containerElement.value.querySelector(`[data-active="true"][data-index="${nextMatch.index}"]`)
+        const item = parentEl.value.querySelector(`[data-active="true"][data-index="${nextMatch.index}"]`)
         if (item instanceof HTMLElement)
-          item.focus()
+          rootContext.onChangeHighlight(item)
       })
     }
   }

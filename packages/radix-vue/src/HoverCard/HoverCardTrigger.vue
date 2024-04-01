@@ -27,7 +27,8 @@ rootContext.triggerElement = currentElement
       :as-child="asChild"
       :as="as"
       :data-state="rootContext.open.value ? 'open' : 'closed'"
-      @pointerenter="excludeTouch(rootContext.onOpen)($event)"
+      @pointerenter="excludeTouch($event, rootContext.onOpen)"
+      @pointerleave="excludeTouch($event, rootContext.onClose)"
       @focus="rootContext.onOpen()"
       @blur="rootContext.onClose()"
     >

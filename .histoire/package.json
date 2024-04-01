@@ -20,7 +20,8 @@
     "eslint": "^8.56.0",
     "histoire": "^0.17.14",
     "postcss": "^8.4.33",
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.1",
+    "tailwindcss-animate": "1.0.7"
   },
   "peerDependencies": {
     "@vitejs/plugin-vue": "*",

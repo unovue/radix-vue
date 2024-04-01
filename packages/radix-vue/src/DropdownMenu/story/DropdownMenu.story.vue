@@ -20,19 +20,23 @@ import {
 } from '../'
 
 const toggleState = ref(false)
-const toggleState2 = ref(false)
 const checkboxOne = ref(false)
 const checkboxTwo = ref(false)
 const person = ref('pedro')
 
-function handleClick() {
-  // alert("hello!");
-}
+const content = 'relative min-w-32 bg-white will-change-[opacity,transform] z-50 rounded-md border p-1 shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2'
 
-function handleCheck(ev: any) {
-  // checkboxOne.value = ev;
-  console.log(ev)
-}
+const item = 'group w-full text-sm leading-none text-violet11 flex items-center h-7 relative pl-7 pr-2 select-none outline-none data-[state=open]:bg-violet4 data-[state=open]:text-violet11 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 data-[highlighted]:data-[state=open]:bg-violet9 data-[highlighted]:data-[state=open]:text-violet1 cursor-default rounded'
+
+const subContent = 'bg-white rounded-md shadow-md will-change-[opacity,transform] min-w-32 z-50 overflow-hidden p-1 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-left-right-1 data-[side=right]:slide-in-from-right-1 data-[side=top]:slide-in-from-bottom-2'
+
+const separator = '-mx-1 my-1 h-px bg-mauve5'
+
+const shortcut = 'ml-auto pl-5 text-[13px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8'
+
+const checkboxItem = 'group w-full text-sm leading-none text-violet11 flex items-center h-7 relative pl-7 pr-2 select-none outline-none data-[state=open]:bg-violet4 data-[state=open]:text-violet11 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 data-[highlighted]:data-[state=open]:bg-violet9 data-[highlighted]:data-[state=open]:text-violet1 cursor-default rounded'
+
+const radioItem = 'group w-full text-sm leading-none text-violet11 flex items-center h-7 relative pl-7 pr-2 select-none outline-none data-[state=open]:bg-violet4 data-[state=open]:text-violet11 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 data-[highlighted]:data-[state=open]:bg-violet9 data-[highlighted]:data-[state=open]:text-violet1 cursor-default rounded'
 </script>
 
 <template>
@@ -40,234 +44,141 @@ function handleCheck(ev: any) {
     <Variant title="default">
       <DropdownMenuRoot v-model:open="toggleState">
         <DropdownMenuTrigger
-
-          class="rounded-full w-[35px] h-[35px] inline-flex items-center justify-center text-violet11 bg-white shadow-[0_2px_10px] shadow-blackA7 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black"
+          class="rounded-full size-10 inline-flex items-center justify-center text-violet11 bg-white shadow-[0_2px_10px] shadow-blackA7 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black"
           aria-label="Customise options"
         >
-          <Icon icon="radix-icons:hamburger-menu" />
+          <Icon icon="radix-icons:hamburger-menu" class="size-4" />
         </DropdownMenuTrigger>
 
         <DropdownMenuPortal>
-          <DropdownMenuContent
-            class="min-w-[220px] bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
-          >
-            <DropdownMenuItem
-              value="New Tab"
-              class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-              @click="handleClick"
-            >
+          <DropdownMenuContent :class="content" :side-offset="4">
+            <DropdownMenuItem value="New Tab" :class="item">
               New Tab
-              <div
-                class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
-              >
+              <div :class="shortcut">
                 ⌘+T
               </div>
             </DropdownMenuItem>
             <DropdownMenuSub>
-              <DropdownMenuSubTrigger
-                disabled
-                value="more toolsz"
-                class="group w-full text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[state=open]:bg-violet4 data-[state=open]:text-violet11 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 data-[highlighted]:data-[state=open]:bg-violet9 data-[highlighted]:data-[state=open]:text-violet1"
-              >
+              <DropdownMenuSubTrigger value="more tools" :class="item">
                 More Tools
                 <div
-                  class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
+                  class="ml-auto pl-5 text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
                 >
-                  <Icon icon="radix-icons:chevron-right" />
+                  <Icon icon="tabler:chevron-right" class="size-3.5" />
                 </div>
               </DropdownMenuSubTrigger>
               <DropdownMenuPortal>
-                <DropdownMenuSubContent
-                  class="min-w-[220px] bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
-                  :side-offset="2"
-                  :align-offset="-5"
-                >
-                  <DropdownMenuItem
-                    class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-                  >
+                <DropdownMenuSubContent :class="subContent" :side-offset="2" :align-offset="-4">
+                  <DropdownMenuItem :class="item">
                     Save Page As…
-                    <div
-                      class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
-                    >
+                    <div :class="shortcut">
                       ⌘+S
                     </div>
                   </DropdownMenuItem>
-                  <DropdownMenuItem
-                    class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-                  >
+                  <DropdownMenuItem :class="item">
                     Create Shortcut…
                   </DropdownMenuItem>
-                  <DropdownMenuItem
-                    class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-                  >
+                  <DropdownMenuItem :class="item">
                     Name Window…
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator class="h-[1px] bg-violet6 m-[5px]" />
-                  <DropdownMenuItem
-                    class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-                  >
+                  <DropdownMenuSeparator :class="separator" />
+                  <DropdownMenuItem :class="item">
                     Developer Tools
                   </DropdownMenuItem>
                 </DropdownMenuSubContent>
               </DropdownMenuPortal>
             </DropdownMenuSub>
-            <DropdownMenuItem
-              value="New Window"
-              class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-            >
+            <DropdownMenuItem value="New Window" :class="item">
               New Window
-              <div
-                class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
-              >
+              <div :class="shortcut">
                 ⌘+N
               </div>
             </DropdownMenuItem>
-            <DropdownMenuItem
-              value="New Private Window"
-              class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-              disabled
-            >
+            <DropdownMenuItem value="New Private Window" :class="item" disabled>
               New Private Window
-              <div
-                class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
-              >
+              <div :class="shortcut">
                 ⇧+⌘+N
               </div>
             </DropdownMenuItem>
             <DropdownMenuSub>
-              <DropdownMenuSubTrigger
-                value="more tools"
-                class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none w-full outline-none data-[state=open]:bg-violet4 data-[state=open]:text-violet11 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 data-[highlighted]:data-[state=open]:bg-violet9 data-[highlighted]:data-[state=open]:text-violet1"
-              >
+              <DropdownMenuSubTrigger value="more tools" :class="item">
                 More Tools
                 <div
-                  class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
+                  class="ml-auto pl-5 text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
                 >
-                  <Icon icon="radix-icons:chevron-right" />
+                  <Icon icon="tabler:chevron-right" class="size-3.5" />
                 </div>
               </DropdownMenuSubTrigger>
               <DropdownMenuPortal>
-                <DropdownMenuSubContent
-                  class="min-w-[220px] bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
-                  :side-offset="2"
-                  :align-offset="-5"
-                >
-                  <DropdownMenuItem
-                    class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-                  >
+                <DropdownMenuSubContent :class="subContent" :side-offset="2" :align-offset="-4">
+                  <DropdownMenuItem :class="item">
                     Save Page As…
-                    <div
-                      class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
-                    >
+                    <div :class="shortcut">
                       ⌘+S
                     </div>
                   </DropdownMenuItem>
-                  <DropdownMenuItem
-                    class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-                  >
+                  <DropdownMenuItem :class="item">
                     Create Shortcut…
                   </DropdownMenuItem>
-                  <DropdownMenuItem
-                    class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-                  >
+                  <DropdownMenuItem :class="item">
                     Name Window…
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator class="h-[1px] bg-violet6 m-[5px]" />
-                  <DropdownMenuItem
-                    class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-                  >
+                  <DropdownMenuSeparator :class="separator" />
+                  <DropdownMenuItem :class="item">
                     Developer Tools
                   </DropdownMenuItem>
                   <DropdownMenuSub>
-                    <DropdownMenuSubTrigger
-                      value="more toolsz"
-                      class="group w-full text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[state=open]:bg-violet4 data-[state=open]:text-violet11 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 data-[highlighted]:data-[state=open]:bg-violet9 data-[highlighted]:data-[state=open]:text-violet1"
-                    >
+                    <DropdownMenuSubTrigger value="more tools" :class="item">
                       More Tools
                       <div
-                        class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
+                        class="ml-auto pl-5 text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
                       >
-                        <Icon icon="radix-icons:chevron-right" />
+                        <Icon icon="tabler:chevron-right" class="size-3.5" />
                       </div>
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
-                      <DropdownMenuSubContent
-                        class="min-w-[220px] bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
-                        :side-offset="2"
-                        :align-offset="-5"
-                      >
-                        <DropdownMenuItem
-                          class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-                        >
+                      <DropdownMenuSubContent :class="subContent" :side-offset="2" :align-offset="-4">
+                        <DropdownMenuItem :class="item">
                           Save Page As…
-                          <div
-                            class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
-                          >
+                          <div :class="shortcut">
                             ⌘+S
                           </div>
                         </DropdownMenuItem>
-                        <DropdownMenuItem
-                          class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-                        >
+                        <DropdownMenuItem :class="item">
                           Create Shortcut…
                         </DropdownMenuItem>
-                        <DropdownMenuItem
-                          class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-                        >
+                        <DropdownMenuItem :class="item">
                           Name Window…
                         </DropdownMenuItem>
-                        <DropdownMenuSeparator
-                          class="h-[1px] bg-violet6 m-[5px]"
-                        />
-                        <DropdownMenuItem
-                          class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-                        >
+                        <DropdownMenuSeparator :class="separator" />
+                        <DropdownMenuItem :class="item">
                           Developer Tools
                         </DropdownMenuItem>
                         <DropdownMenuSub>
-                          <DropdownMenuSubTrigger
-                            value="more toolsz"
-                            class="group w-full text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[state=open]:bg-violet4 data-[state=open]:text-violet11 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 data-[highlighted]:data-[state=open]:bg-violet9 data-[highlighted]:data-[state=open]:text-violet1"
-                          >
+                          <DropdownMenuSubTrigger value="more tools" :class="item">
                             More Tools
                             <div
-                              class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
+                              class="ml-auto pl-5 text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
                             >
-                              <Icon icon="radix-icons:chevron-right" />
+                              <Icon icon="tabler:chevron-right" class="size-3.5" />
                             </div>
                           </DropdownMenuSubTrigger>
                           <DropdownMenuPortal>
-                            <DropdownMenuSubContent
-                              class="min-w-[220px] bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
-                              :side-offset="2"
-                              :align-offset="-5"
-                            >
-                              <DropdownMenuItem
-                                class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-                              >
+                            <DropdownMenuSubContent :class="subContent" :side-offset="2" :align-offset="-4">
+                              <DropdownMenuItem :class="item">
                                 Save Page As…
-                                <div
-                                  class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
-                                >
+                                <div :class="shortcut">
                                   ⌘+S
                                 </div>
                               </DropdownMenuItem>
-                              <DropdownMenuItem
-                                class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-                              >
+                              <DropdownMenuItem :class="item">
                                 Create Shortcut…
                               </DropdownMenuItem>
-                              <DropdownMenuItem
-                                class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-                              >
+                              <DropdownMenuItem :class="item">
                                 Name Window…
                               </DropdownMenuItem>
-                              <DropdownMenuSeparator
-                                class="h-[1px] bg-violet6 m-[5px]"
-                              />
-                              <DropdownMenuItem
-                                class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-                              >
+                              <DropdownMenuSeparator :class="separator" />
+                              <DropdownMenuItem :class="item">
                                 Developer Tools
                               </DropdownMenuItem>
                             </DropdownMenuSubContent>
@@ -276,75 +187,48 @@ function handleCheck(ev: any) {
                       </DropdownMenuSubContent>
                     </DropdownMenuPortal>
                   </DropdownMenuSub>
-                  <DropdownMenuItem
-                    class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-                  >
+                  <DropdownMenuItem :class="item">
                     Developer Tools
                   </DropdownMenuItem>
                 </DropdownMenuSubContent>
               </DropdownMenuPortal>
             </DropdownMenuSub>
-            <DropdownMenuSeparator class="h-[1px] bg-violet6 m-[5px]" />
-            <DropdownMenuCheckboxItem
-              v-model:checked="checkboxOne"
-              class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-              @select="handleCheck"
-            >
-              <DropdownMenuItemIndicator
-                class="absolute left-0 w-[25px] inline-flex items-center justify-center"
-              >
-                <Icon icon="radix-icons:check" />
+            <DropdownMenuSeparator :class="separator" />
+            <DropdownMenuCheckboxItem v-model:checked="checkboxOne" :class="checkboxItem" @select.prevent>
+              <DropdownMenuItemIndicator class="absolute left-0 w-7 inline-flex items-center justify-center">
+                <Icon icon="tabler:check" />
               </DropdownMenuItemIndicator>
               Show Bookmarks
-              <div
-                class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
-              >
+              <div :class="shortcut">
                 ⌘+B
               </div>
             </DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem
-              v-model:checked="checkboxTwo"
-              class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-            >
-              <DropdownMenuItemIndicator
-                class="absolute left-0 w-[25px] inline-flex items-center justify-center"
-              >
-                <Icon icon="radix-icons:check" />
+            <DropdownMenuCheckboxItem v-model:checked="checkboxTwo" :class="checkboxItem" @select.prevent>
+              <DropdownMenuItemIndicator class="absolute left-0 w-7 inline-flex items-center justify-center">
+                <Icon icon="tabler:check" />
               </DropdownMenuItemIndicator>
               Show Full URLs
             </DropdownMenuCheckboxItem>
-            <DropdownMenuSeparator class="h-[1px] bg-violet6 m-[5px]" />
+            <DropdownMenuSeparator :class="separator" />
 
-            <DropdownMenuLabel
-              class="pl-[25px] text-xs leading-[25px] text-mauve11"
-            >
+            <DropdownMenuLabel class="pl-6 text-xs leading-6 text-mauve11">
               People
             </DropdownMenuLabel>
             <DropdownMenuRadioGroup v-model="person">
-              <DropdownMenuRadioItem
-                class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-                value="pedro"
-              >
-                <DropdownMenuItemIndicator
-                  class="absolute left-0 w-[25px] inline-flex items-center justify-center"
-                >
+              <DropdownMenuRadioItem :class="radioItem" value="pedro" @select.prevent>
+                <DropdownMenuItemIndicator class="absolute left-0 w-7 inline-flex items-center justify-center">
                   <Icon icon="radix-icons:dot-filled" />
                 </DropdownMenuItemIndicator>
                 Pedro Duarte
               </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem
-                class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
-                value="colm"
-              >
-                <DropdownMenuItemIndicator
-                  class="absolute left-0 w-[25px] inline-flex items-center justify-center"
-                >
+              <DropdownMenuRadioItem :class="radioItem" value="colm" @select.prevent>
+                <DropdownMenuItemIndicator class="absolute left-0 w-7 inline-flex items-center justify-center">
                   <Icon icon="radix-icons:dot-filled" />
                 </DropdownMenuItemIndicator>
                 Colm Tuite
               </DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>
-            <DropdownMenuArrow class="fill-white" />
+            <DropdownMenuArrow class="fill-mauve5" :width="12" />
           </DropdownMenuContent>
         </DropdownMenuPortal>
       </DropdownMenuRoot>

@@ -1,6 +1,5 @@
 export function excludeTouch(eventHandler: () => void) {
-  return (event: PointerEvent) =>
-    event.pointerType === 'touch' ? undefined : eventHandler()
+  return (event: PointerEvent) => event.pointerType === 'touch' ? undefined : eventHandler()
 }
 
 /**

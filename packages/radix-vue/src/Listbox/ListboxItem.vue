@@ -67,6 +67,7 @@ function handleSelectCustomEvent(ev: PointerEvent) {
       :data-highlighted="isHighlighted ? '' : undefined"
       :data-state="isSelected ? 'checked' : 'unchecked'"
       @click="handleSelectCustomEvent"
+      @keydown.space.prevent="handleSelectCustomEvent"
       @pointermove="rootContext.focusable.value ? undefined : rootContext.onChangeHighlight(currentElement)"
     >
       <slot />

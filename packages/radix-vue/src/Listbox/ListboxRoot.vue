@@ -16,7 +16,7 @@ type ListboxRootContext<T> = {
   isVirtual: Ref<boolean>
   virtualFocusHook: EventHook<Event | null>
   virtualKeydownHook: EventHook<KeyboardEvent>
-  by?: keyof T | ((a: T, b: T) => boolean)
+  by?: string | ((a: T, b: T) => boolean)
 
   focusable: Ref<boolean>
 
@@ -51,7 +51,7 @@ export interface ListboxRootProps<T = AcceptableValue> extends Pick<RovingFocusG
   disabled?: boolean
   selectionBehavior?: 'toggle' | 'replace'
   /** Use this to compare objects by a particular field, or pass your own comparison function for complete control over how objects are compared. */
-  by?: keyof T | ((a: T, b: T) => boolean)
+  by?: string | ((a: T, b: T) => boolean)
 }
 
 export type ListboxRootEmits<T = AcceptableValue> = {
@@ -74,7 +74,7 @@ const props = withDefaults(defineProps<ListboxRootProps>(), {
 const emits = defineEmits<ListboxRootEmits>()
 
 const { multiple, orientation, disabled, dir: propDir } = toRefs(props)
-const { getItems } = createCollection()
+const { getItems } = createCollection<{ value: T }>()
 const { handleTypeaheadSearch } = useTypeahead()
 const dir = useDirection(propDir)
 
@@ -90,7 +90,11 @@ function onValueChange(val: T) {
   isUserAction.value = true
   if (Array.isArray(modelValue.value)) {
     const index = modelValue.value.findIndex(i => compare(i, val, props.by))
-    index === -1 ? modelValue.value.push(val) : modelValue.value.splice(index, 1)
+    if (props.selectionBehavior === 'toggle')
+      index === -1 ? modelValue.value.push(val) : modelValue.value.splice(index, 1)
+    else
+      modelValue.value = [val]
+
     // TODO: add replace behavior for multiple
   }
   else {
@@ -130,10 +134,14 @@ function onKeydownEnter(event: KeyboardEvent) {
 }
 
 function onKeydownTypeAhead(event: KeyboardEvent) {
-  if (isVirtual.value)
+  if (isVirtual.value) {
     virtualKeydownHook.trigger(event)
-  else
-    handleTypeaheadSearch(event.key, getCollectionItem())
+  }
+  else {
+    const el = handleTypeaheadSearch(event.key, getCollectionItem())
+    if (el)
+      onChangeHighlight(el)
+  }
 }
 
 function onLeave(event: Event) {
@@ -167,6 +175,8 @@ function onKeydownNavigation(event: KeyboardEvent) {
 
       const currentIndex = collection.indexOf(highlightedElement.value)
       collection = collection.slice(currentIndex + 1)
+
+      handleMultipleReplace(event, collection[0])
     }
   }
 
@@ -174,7 +184,28 @@ function onKeydownNavigation(event: KeyboardEvent) {
     onChangeHighlight(collection[0])
 
   if (isVirtual.value)
-    virtualKeydownHook.trigger(event)
+    return virtualKeydownHook.trigger(event)
+}
+
+// TODO
+function handleMultipleReplace(event: KeyboardEvent, targetEl: HTMLElement) {
+  isUserAction.value = true
+  const isShiftOrMetaKey = event.shiftKey || event.metaKey
+  const isShiftAndMetaKey = event.shiftKey && event.metaKey
+  if (Array.isArray(modelValue.value) && multiple.value && props.selectionBehavior === 'replace' && isShiftOrMetaKey) {
+    const targetValue = getItems().find(i => i.ref === targetEl)?.value
+    if (!targetValue)
+      return
+
+    const targetIndex = modelValue.value.findIndex(val => val === targetValue)
+    if (targetIndex === -1)
+      modelValue.value.push(targetValue)
+    else
+      modelValue.value.splice(targetIndex, 1)
+  }
+  setTimeout(() => {
+    isUserAction.value = false
+  }, 1)
 }
 
 async function handleFocus(event?: Event) {

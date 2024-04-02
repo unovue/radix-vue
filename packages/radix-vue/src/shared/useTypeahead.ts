@@ -6,11 +6,11 @@ export function useTypeahead(collections?: Ref<HTMLElement[]>) {
   const search = refAutoReset('', 1000)
 
   const handleTypeaheadSearch = (key: string, fallback?: HTMLElement[]) => {
-    if (!collections?.value || !fallback)
+    if (!collections?.value && !fallback)
       return
 
     search.value = search.value + key
-    const items = collections?.value ?? fallback
+    const items = collections?.value ?? fallback!
     const currentItem = document.activeElement
     const currentMatch
       = items.find(item => item === currentItem)?.textContent?.trim() ?? ''
@@ -23,6 +23,7 @@ export function useTypeahead(collections?: Ref<HTMLElement[]>) {
 
     if (newItem)
       (newItem as HTMLElement).focus()
+    return newItem
   }
 
   const resetTypeahead = () => {

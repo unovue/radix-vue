@@ -50,6 +50,7 @@ const virtualizer = useVirtualizer(
     get scrollPaddingStart() { return padding.value.start },
     get scrollPaddingEnd() { return padding.value.end },
     get count() { return props.options.length },
+    get horizontal() { return rootContext.orientation.value === 'horizontal' },
     estimateSize() {
       return 28
     },
@@ -136,7 +137,7 @@ rootContext.virtualKeydownHook.on((event) => {
   else if (!intent) {
     search.value += event.key
     const currentIndex = Number(document.activeElement?.getAttribute('data-index'))
-    const currentMatch = props.options[currentIndex].toString().toLowerCase()
+    const currentMatch = optionsWithMetadata.value[currentIndex].textContent
     const filteredOptions = optionsWithMetadata.value.map(i => i.textContent)
     const next = getNextMatch(filteredOptions, search.value, currentMatch)
 
@@ -144,7 +145,7 @@ rootContext.virtualKeydownHook.on((event) => {
     if (nextMatch) {
       virtualizer.value.scrollToIndex(nextMatch.index, { align: 'start' })
       requestAnimationFrame(() => {
-        const item = parentEl.value.querySelector(`[data-active="true"][data-index="${nextMatch.index}"]`)
+        const item = parentEl.value.querySelector(`[data-index="${nextMatch.index}"]`)
         if (item instanceof HTMLElement)
           rootContext.onChangeHighlight(item)
       })

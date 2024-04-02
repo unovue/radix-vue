@@ -1,0 +1,46 @@
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+import { ListboxContent, ListboxFilter, ListboxItem, ListboxRoot, ListboxVirtualizer } from '../'
+import { countryList } from './constants'
+
+const filterText = ref('')
+const filteredOptions = computed(() => {
+  const options = countryList.map(a => ({ label: a, value: a }))
+  return filterText.value ? options.filter(item => item.label.toLowerCase().includes(filterText.value.toLowerCase())) : options
+})
+</script>
+
+<template>
+  <Story
+    title="Listbox/Virtual"
+    :layout="{ type: 'grid', iframe: false, width: '50%' }"
+  >
+    <Variant title="long list">
+      <ListboxRoot :default-value="600" class="w-48 h-72 overflow-auto p-1 rounded-lg border bg-white text-green9 mx-auto">
+        <ListboxContent>
+          <ListboxVirtualizer v-slot="{ option }" :options="filteredOptions" :text-content="(opt) => opt.label">
+            <ListboxItem :value="option" class="w-full py-1 px-2 text-green9 select-none text-sm focus:ring-0 data-[highlighted]:outline-green9 data-[highlighted]:outline-1 data-[highlighted]:outline focus:outline-green9 data-[state=checked]:bg-green9 data-[state=checked]:text-white rounded">
+              {{ option.label }}
+            </ListboxItem>
+          </ListboxVirtualizer>
+        </ListboxContent>
+      </ListboxRoot>
+    </Variant>
+
+    <Variant title="filtering">
+      <div class="w-48 p-1 rounded-lg border bg-white text-green9 mx-auto">
+        <ListboxRoot :default-value="600">
+          <ListboxFilter v-model="filterText" type="text" class="border rounded w-full bg-white" />
+          <ListboxContent class="w-full h-64 overflow-auto">
+            <ListboxVirtualizer v-slot="{ option }" :text-content="(option) => option.value" :options="filteredOptions">
+              <ListboxItem :value="option" class="w-full py-1 px-2 text-green9 select-none text-sm focus:ring-0 data-[highlighted]:outline-green9 data-[highlighted]:outline-1 data-[highlighted]:outline focus:outline-green9 data-[state=checked]:bg-green9 data-[state=checked]:text-white rounded">
+                {{ option.label }}
+              </ListboxItem>
+            </ListboxVirtualizer>
+          </ListboxContent>
+        </ListboxRoot>
+      </div>
+    </Variant>
+  </Story>
+</template>
+..

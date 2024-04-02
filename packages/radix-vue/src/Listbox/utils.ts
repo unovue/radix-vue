@@ -7,7 +7,7 @@ export function queryCheckedElement(parentEl: HTMLElement | null) {
   return parentEl?.querySelector('[data-state=checked]') as HTMLElement | null
 }
 
-export function valueComparator<T>(value: T | T[] | undefined, currentValue: T, comparator?: keyof T | ((a: T, b: T) => boolean)) {
+export function valueComparator<T>(value: T | T[] | undefined, currentValue: T, comparator?: string | ((a: T, b: T) => boolean)) {
   if (value === undefined)
     return false
   else if (Array.isArray(value))
@@ -16,7 +16,7 @@ export function valueComparator<T>(value: T | T[] | undefined, currentValue: T, 
     return compare(value, currentValue, comparator)
 }
 
-export function compare<T>(value?: T, currentValue?: T, comparator?: keyof T | ((a: T, b: T) => boolean)) {
+export function compare<T>(value?: T, currentValue?: T, comparator?: string | ((a: T, b: T) => boolean)) {
   if (value === undefined || currentValue === undefined)
     return false
 
@@ -27,7 +27,7 @@ export function compare<T>(value?: T, currentValue?: T, comparator?: keyof T | (
     return comparator(value, currentValue)
 
   if (typeof comparator === 'string')
-    return value?.[comparator] === currentValue?.[comparator]
+    return value?.[comparator as keyof T] === currentValue?.[comparator as keyof T]
 
   return isEqual(value, currentValue)
 }

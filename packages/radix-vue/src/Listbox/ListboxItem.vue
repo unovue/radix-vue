@@ -58,6 +58,7 @@ function handleSelectCustomEvent(ev: PointerEvent) {
       :id="id"
       :ref="forwardRef"
       role="option"
+      :tabindex="rootContext.focusable.value ? isHighlighted ? '0' : '-1' : undefined"
       :aria-selected="isSelected"
       :as="as"
       :as-child="asChild"
@@ -66,7 +67,7 @@ function handleSelectCustomEvent(ev: PointerEvent) {
       :data-highlighted="isHighlighted ? '' : undefined"
       :data-state="isSelected ? 'checked' : 'unchecked'"
       @click="handleSelectCustomEvent"
-      @keyup.enter="handleSelectCustomEvent"
+      @pointermove="rootContext.focusable.value ? undefined : rootContext.onChangeHighlight(currentElement)"
     >
       <slot />
     </Primitive>

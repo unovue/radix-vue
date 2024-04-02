@@ -6,23 +6,11 @@ export interface ListboxContentProps extends PrimitiveProps { }
 </script>
 
 <script setup lang="ts">
-import { CollectionSlot, useCollection } from '@/Collection'
+import { CollectionSlot } from '@/Collection'
 
 defineProps<ListboxContentProps>()
 
 const rootContext = injectListboxRootContext()
-const { getItems } = useCollection()
-
-function handleFocus(event: FocusEvent) {
-  if (rootContext.highlightedElement.value) {
-    rootContext.highlightedElement.value.focus()
-  }
-  else {
-    const el = getItems()?.[0].ref
-    rootContext.highlightedElement.value = el
-    el.focus()
-  }
-}
 </script>
 
 <template>
@@ -31,8 +19,9 @@ function handleFocus(event: FocusEvent) {
       role="listbox"
       :as="as"
       :as-child="asChild"
-      tabindex="0"
-      @focus="handleFocus"
+      :tabindex="rootContext.focusable.value ? rootContext.highlightedElement.value ? '-1' : '0' : undefined"
+      :data-orientation="rootContext.orientation.value"
+      @focus="rootContext.onEnter"
       @keydown.down.up.home.end.prevent="rootContext.onKeydownNavigation"
       @keydown.enter="rootContext.onKeydownEnter"
       @keydown="rootContext.onKeydownTypeAhead"

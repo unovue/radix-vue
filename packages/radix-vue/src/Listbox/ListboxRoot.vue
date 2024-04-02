@@ -1,11 +1,16 @@
 <script lang="ts">
-import { createContext, useKbd, useTypeahead } from '@/shared'
+import { createContext, useDirection, useTypeahead } from '@/shared'
 import { Primitive } from '..'
+import { usePrimitiveElement } from '@/Primitive'
+import type { DataOrientation, Direction } from '@/shared/types'
+import { getFocusIntent } from '@/RovingFocus/utils'
 
 type ListboxRootContext<T> = {
   modelValue: Ref<T | Array<T> | undefined>
   onValueChange: (val: T) => void
   multiple: Ref<boolean>
+  orientation: Ref<DataOrientation>
+  dir: Ref<Direction>
   disabled: Ref<boolean>
   highlightedElement: Ref<HTMLElement | null>
   isVirtual: Ref<boolean>
@@ -15,6 +20,8 @@ type ListboxRootContext<T> = {
 
   focusable: Ref<boolean>
 
+  onLeave: (event: Event) => void
+  onEnter: (event: Event) => void
   onChangeHighlight: (el: HTMLElement) => void
   onKeydownNavigation: (event: KeyboardEvent) => void
   onKeydownEnter: (event: KeyboardEvent) => void
@@ -31,6 +38,15 @@ export interface ListboxRootProps<T = AcceptableValue> extends Pick<RovingFocusG
   defaultValue?: T | Array<T>
   /** Whether multiple options can be selected or not. */
   multiple?: boolean
+  /**
+   * The orientation of the listbox.
+   * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
+   */
+  orientation?: DataOrientation
+  /**
+   * The direction of navigation between items.
+   */
+  dir?: Direction
   /** When `true`, prevents the user from interacting with listbox */
   disabled?: boolean
   selectionBehavior?: 'toggle' | 'replace'
@@ -53,13 +69,14 @@ import { createCollection } from '@/Collection'
 
 const props = withDefaults(defineProps<ListboxRootProps>(), {
   selectionBehavior: 'toggle',
+  orientation: 'vertical',
 })
 const emits = defineEmits<ListboxRootEmits>()
 
-const { multiple, disabled } = toRefs(props)
+const { multiple, orientation, disabled, dir: propDir } = toRefs(props)
 const { getItems } = createCollection()
 const { handleTypeaheadSearch } = useTypeahead()
-const kbd = useKbd()
+const dir = useDirection(propDir)
 
 const isUserAction = ref(false)
 const focusable = ref(true)
@@ -93,6 +110,7 @@ function onValueChange(val: T) {
 }
 
 const highlightedElement = ref<HTMLElement | null>(null)
+const previousElement = ref<HTMLElement | null>(null)
 const isVirtual = ref(false)
 const virtualFocusHook = createEventHook<Event | null>()
 const virtualKeydownHook = createEventHook<KeyboardEvent>()
@@ -118,6 +136,47 @@ function onKeydownTypeAhead(event: KeyboardEvent) {
     handleTypeaheadSearch(event.key, getCollectionItem())
 }
 
+function onLeave(event: Event) {
+  previousElement.value = highlightedElement.value
+  highlightedElement.value = null
+}
+
+function onEnter(event: Event) {
+  if (previousElement.value) {
+    onChangeHighlight(previousElement.value)
+  }
+  else {
+    const el = getCollectionItem()?.[0]
+    onChangeHighlight(el)
+  }
+}
+
+function onKeydownNavigation(event: KeyboardEvent) {
+  const intent = getFocusIntent(event, orientation.value, dir.value)
+  if (!intent)
+    return
+
+  let collection = getCollectionItem()
+  if (highlightedElement.value) {
+    if (intent === 'last') {
+      collection.reverse()
+    }
+    else if (intent === 'prev' || intent === 'next') {
+      if (intent === 'prev')
+        collection.reverse()
+
+      const currentIndex = collection.indexOf(highlightedElement.value)
+      collection = collection.slice(currentIndex + 1)
+    }
+  }
+
+  if (collection.length)
+    onChangeHighlight(collection[0])
+
+  if (isVirtual.value)
+    virtualKeydownHook.trigger(event)
+}
+
 async function handleFocus(event?: Event) {
   if (isVirtual.value) {
     virtualFocusHook.trigger(event)
@@ -140,11 +199,15 @@ watch(modelValue, () => {
   }
 }, { immediate: true, deep: true })
 
+const { primitiveElement, currentElement } = usePrimitiveElement()
+
 provideListboxRootContext({
   modelValue,
   // @ts-expect-error igoring
   onValueChange,
   multiple,
+  orientation,
+  dir,
   disabled,
   highlightedElement,
   isVirtual,
@@ -152,37 +215,29 @@ provideListboxRootContext({
   virtualKeydownHook,
   by: props.by,
 
+  focusable,
+  onLeave,
+  onEnter,
   onChangeHighlight,
   onKeydownEnter,
-  onKeydownNavigation: (event) => {
-    let collection = getCollectionItem()
-    if (highlightedElement.value) {
-      if (event.key === kbd.END) {
-        collection.reverse()
-      }
-      else if (event.key === kbd.ARROW_UP || event.key === kbd.ARROW_DOWN) {
-        if (event.key === kbd.ARROW_UP)
-          collection.reverse()
-
-        const currentIndex = collection.indexOf(highlightedElement.value)
-        collection = collection.slice(currentIndex + 1)
-      }
-    }
-
-    if (collection.length)
-      onChangeHighlight(collection[0])
-
-    if (isVirtual.value)
-      virtualKeydownHook.trigger(event)
-  },
+  onKeydownNavigation,
   onKeydownTypeAhead,
 })
 </script>
 
 <template>
   <Primitive
+    ref="primitiveElement"
     :as="as"
     :as-child="asChild"
+    :dir="dir"
+    @pointerleave="onLeave"
+    @focusout="(event: FocusEvent) => {
+      const target = event.relatedTarget as HTMLElement | null
+      if (highlightedElement && !currentElement.contains(target)) {
+        onLeave(event)
+      }
+    }"
   >
     <slot />
   </Primitive>

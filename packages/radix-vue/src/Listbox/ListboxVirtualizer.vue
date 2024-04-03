@@ -10,12 +10,13 @@ export interface ListboxVirtualizerProps<T extends AcceptableValue = AcceptableV
 import { useVirtualizer } from '@tanstack/vue-virtual'
 import { type Ref, cloneVNode, computed, useSlots } from 'vue'
 import { injectListboxRootContext } from './ListboxRoot.vue'
-import { type AcceptableValue, compare, queryCheckedElement } from './utils'
+import { compare, queryCheckedElement } from './utils'
 import { MAP_KEY_TO_FOCUS_INTENT } from '@/RovingFocus/utils'
 import { refAutoReset } from '@vueuse/shared'
 import { getNextMatch } from '@/shared/useTypeahead'
 import { useParentElement } from '@vueuse/core'
 import { useCollection } from '@/Collection'
+import type { AcceptableValue } from '@/shared/types'
 
 const props = defineProps<ListboxVirtualizerProps<T>>()
 

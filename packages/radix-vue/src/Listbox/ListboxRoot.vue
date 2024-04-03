@@ -2,7 +2,7 @@
 import { createContext, useDirection, useTypeahead } from '@/shared'
 import { Primitive } from '..'
 import { usePrimitiveElement } from '@/Primitive'
-import type { DataOrientation, Direction } from '@/shared/types'
+import type { AcceptableValue, DataOrientation, Direction } from '@/shared/types'
 import { getFocusIntent } from '@/RovingFocus/utils'
 
 type ListboxRootContext<T> = {
@@ -67,8 +67,8 @@ export type ListboxRootEmits<T = AcceptableValue> = {
 <script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
 import type { RovingFocusGroupProps } from '@/RovingFocus'
 import { type EventHook, createEventHook, useVModel } from '@vueuse/core'
-import { type AcceptableValue, compare } from './utils'
 import { type Ref, nextTick, ref, toRefs, watch } from 'vue'
+import { compare } from './utils'
 import { createCollection } from '@/Collection'
 
 const props = withDefaults(defineProps<ListboxRootProps>(), {

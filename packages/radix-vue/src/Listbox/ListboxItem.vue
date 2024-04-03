@@ -17,9 +17,10 @@ const LISTBOX_SELECT = 'listbox.select'
 import { injectListboxRootContext } from './ListboxRoot.vue'
 import { computed } from 'vue'
 import { Primitive, type PrimitiveProps } from '..'
-import { type AcceptableValue, valueComparator } from './utils'
+import { valueComparator } from './utils'
 import { handleAndDispatchCustomEvent, useForwardExpose, useId } from '@/shared'
 import { CollectionItem } from '@/Collection'
+import type { AcceptableValue } from '@/shared/types'
 
 const props = withDefaults(defineProps<ListboxItemProps>(), {
   as: 'div',

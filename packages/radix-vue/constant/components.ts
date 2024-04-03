@@ -196,6 +196,8 @@ export const components = {
 
   listbox: [
     'ListboxRoot',
+    'ListboxContent',
+    'ListboxFilter',
     'ListboxItem',
     'ListboxVirtualizer',
   ],
@@ -309,6 +311,7 @@ export const components = {
     'SelectScrollDownButton',
     'SelectValue',
     'SelectIcon',
+    'SelectFilter',
   ],
 
   separator: [

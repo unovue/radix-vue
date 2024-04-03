@@ -4,7 +4,6 @@ import Select from './story/_SelectTest.vue'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
-import { fireEvent } from '@testing-library/vue'
 import { handleSubmit } from '@/test'
 
 describe('given default Select', () => {
@@ -58,9 +57,7 @@ describe('given default Select', () => {
       beforeEach(async () => {
         const selection = wrapper.findAll('[role=option]')[1];
         (selection.element as HTMLElement).focus()
-        await selection.trigger('pointerup')
-        // not sure why need 2 pointUp to trigger the selection correctly
-        await fireEvent.pointerUp(selection.element)
+        await selection.trigger('click')
       })
 
       it('should show value correctly', () => {
@@ -118,9 +115,7 @@ describe('given select in a form', async () => {
       await nextTick()
       const selection = wrapper.findAll('[role=option]')[1];
       (selection.element as HTMLElement).focus()
-      await selection.trigger('pointerup')
-      // not sure why need 2 pointUp to trigger the selection correctly
-      await fireEvent.pointerUp(selection.element)
+      await selection.trigger('click')
       await wrapper.find('form').trigger('submit')
     })
 
@@ -139,9 +134,7 @@ describe('given select in a form', async () => {
       await nextTick()
       const selection = wrapper.findAll('[role=option]')[4];
       (selection.element as HTMLElement).focus()
-      await selection.trigger('pointerup')
-      // not sure why need 2 pointUp to trigger the selection correctly
-      await fireEvent.pointerUp(selection.element)
+      await selection.trigger('click')
       await wrapper.find('form').trigger('submit')
     })
 

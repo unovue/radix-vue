@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useCollection, useDirection } from '@/shared'
+import { createContext, useCollection, useDirection, useForwardExpose } from '@/shared'
 import type {
   Direction,
   Orientation,
@@ -24,7 +24,6 @@ export interface RovingFocusGroupProps extends PrimitiveProps {
   loop?: boolean
   currentTabStopId?: string | null
   defaultCurrentTabStopId?: string
-  enableMutationObserver?: boolean
 }
 
 export type RovingFocusGroupEmits = {
@@ -48,9 +47,9 @@ export const [injectRovingFocusGroupContext, provideRovingFocusGroupContext]
 </script>
 
 <script setup lang="ts">
-import { ref, toRefs, watch } from 'vue'
-import { useMutationObserver, useVModel } from '@vueuse/core'
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { ref, toRefs } from 'vue'
+import { useVModel } from '@vueuse/core'
+import { Primitive } from '@/Primitive'
 import { ENTRY_FOCUS, EVENT_OPTIONS, focusFirst } from './utils'
 
 const props = withDefaults(defineProps<RovingFocusGroupProps>(), {
@@ -68,7 +67,7 @@ const isTabbingBackOut = ref(false)
 const isClickFocus = ref(false)
 const focusableItemsCount = ref(0)
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 const { createCollection } = useCollection('rovingFocus')
 const collections = createCollection(currentElement)
 
@@ -105,14 +104,6 @@ function handleFocus(event: FocusEvent) {
   isClickFocus.value = false
 }
 
-watch(() => props.enableMutationObserver, (n) => {
-  if (n) {
-    useMutationObserver(currentElement, () => {
-      isTabbingBackOut.value = false
-    }, { childList: true, subtree: true })
-  }
-}, { immediate: true })
-
 provideRovingFocusGroupContext({
   loop,
   dir,
@@ -131,15 +122,11 @@ provideRovingFocusGroupContext({
     focusableItemsCount.value--
   },
 })
-
-defineExpose({
-  collections,
-})
 </script>
 
 <template>
   <Primitive
-    ref="primitiveElement"
+    :ref="forwardRef"
     :tabindex="isTabbingBackOut || focusableItemsCount === 0 ? -1 : 0"
     :data-orientation="orientation"
     :as="as"

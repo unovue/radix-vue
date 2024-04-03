@@ -36,13 +36,13 @@ Radix is an unstyled, customisable UI Library with built in accessibility for bu
 ## Installation
 
 ```bash
-pnpm add radix-vue
+npx nuxi@latest module add radix-vue
 ```
 ```bash
-npm install radix-vue
+npx nuxi@latest module add radix-vue
 ```
 ```bash
-yarn add radix-vue
+npx nuxi@latest module add radix-vue
 ```
 
 ## Documentation

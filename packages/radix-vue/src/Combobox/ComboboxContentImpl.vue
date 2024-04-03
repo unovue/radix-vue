@@ -10,7 +10,6 @@ import {
 
 import type { DismissableLayerEmits, DismissableLayerProps } from '@/DismissableLayer'
 import type { PopperContentProps } from '@/Popper'
-import { ListboxRoot } from '@/Listbox'
 
 export type ComboboxContentImplEmits = DismissableLayerEmits
 
@@ -44,6 +43,7 @@ import { injectComboboxRootContext } from './ComboboxRoot.vue'
 import { DismissableLayer } from '@/DismissableLayer'
 import { PopperContent } from '@/Popper'
 import { Primitive } from '@/Primitive'
+import { CollectionSlot } from '@/Collection'
 
 const props = withDefaults(defineProps<ComboboxContentImplProps>(), {
   position: 'inline',
@@ -92,11 +92,7 @@ provideComboboxContentContext({ position })
 </script>
 
 <template>
-  <ListboxRoot
-    as-child
-    :model-value="rootContext.modelValue.value"
-    @update:model-value="rootContext.onValueChange"
-  >
+  <CollectionSlot>
     <DismissableLayer
       v-if="dismissable"
       as-child
@@ -156,5 +152,5 @@ provideComboboxContentContext({ position })
     >
       <slot />
     </component>
-  </ListboxRoot>
+  </CollectionSlot>
 </template>

@@ -1,10 +1,8 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useForwardExpose, useId } from '@/shared'
+import { createContext, handleAndDispatchCustomEvent, useForwardExpose, useId } from '@/shared'
 import type { AcceptableValue } from './ComboboxRoot.vue'
-import type { ListboxItemEmits } from '@/Listbox'
-import { ListboxItem } from '@/Listbox'
 
 export type SelectEvent<T> = CustomEvent<{ originalEvent: PointerEvent; value?: T }>
 interface ComboboxItemContext {
@@ -14,14 +12,19 @@ interface ComboboxItemContext {
 export const [injectComboboxItemContext, provideComboboxItemContext]
   = createContext<ComboboxItemContext>('ComboboxItem')
 
-export type ComboboxItemEmits<T extends AcceptableValue = AcceptableValue> = ListboxItemEmits<T>
+export type ComboboxItemEmits<T = AcceptableValue> = {
+  /** Event handler called when the selecting item. <br> It can be prevented by calling `event.preventDefault`. */
+  select: [event: SelectEvent<T>]
+}
 
-export interface ComboboxItemProps<T extends AcceptableValue = AcceptableValue> extends PrimitiveProps {
+export interface ComboboxItemProps<T = AcceptableValue> extends PrimitiveProps {
   /** The value given as data when submitted with a `name`. */
   value: T
   /** When `true`, prevents the user from interacting with the item. */
   disabled?: boolean
 }
+
+const COMBOBOX_SELECT = 'combobox.select'
 </script>
 
 <script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
@@ -33,7 +36,10 @@ import {
 } from 'vue'
 import { injectComboboxRootContext } from './ComboboxRoot.vue'
 import { injectComboboxGroupContext } from './ComboboxGroup.vue'
-
+import {
+  Primitive,
+} from '@/Primitive'
+import { CollectionItem } from '@/Collection'
 import isEqual from 'fast-deep-equal'
 
 const props = defineProps<ComboboxItemProps<T>>()
@@ -60,6 +66,22 @@ const isInOption = computed(() =>
      || !!rootContext.filteredOptions.value.find(i => isEqual(i, props.value))
     : true)
 
+async function handleSelect(ev: SelectEvent<T>) {
+  emits('select', ev)
+  if (ev?.defaultPrevented)
+    return
+
+  if (!disabled.value && ev)
+    rootContext!.onValueChange(props.value)
+}
+
+function handleSelectCustomEvent(ev?: PointerEvent) {
+  if (!ev)
+    return
+  const eventDetail = { originalEvent: ev, value: props.value }
+  handleAndDispatchCustomEvent(COMBOBOX_SELECT, handleSelect, eventDetail)
+}
+
 async function handlePointerMove(event: PointerEvent) {
   await nextTick()
   if (event.defaultPrevented)
@@ -80,15 +102,25 @@ provideComboboxItemContext({
 </script>
 
 <template>
-  <ListboxItem
-    :ref="forwardRef"
-    :value="props.value"
-    :as="as"
-    :as-child="asChild"
-    tabindex="-1"
-    @pointermove="handlePointerMove"
-    @select="emits('select', $event as any)"
-  >
-    <slot>{{ value }}</slot>
-  </ListboxItem>
+  <CollectionItem>
+    <Primitive
+      v-show="isInOption"
+      :ref="forwardRef"
+      role="option"
+      tabindex="-1"
+      :aria-labelledby="textId"
+      :data-highlighted="isFocused ? '' : undefined"
+      :aria-selected="isSelected"
+      :data-state="isSelected ? 'checked' : 'unchecked'"
+      :aria-disabled="disabled || undefined"
+      :data-disabled="disabled ? '' : undefined"
+      :as="as"
+      :as-child="asChild"
+      :data-hidden="!isInOption ? true : undefined"
+      @click="handleSelectCustomEvent"
+      @pointermove="handlePointerMove"
+    >
+      <slot>{{ value }}</slot>
+    </Primitive>
+  </CollectionItem>
 </template>

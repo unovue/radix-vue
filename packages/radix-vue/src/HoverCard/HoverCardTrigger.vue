@@ -29,10 +29,7 @@ rootContext.triggerElement = currentElement
       :data-state="rootContext.open.value ? 'open' : 'closed'"
       @pointerenter="excludeTouch(rootContext.onOpen)($event)"
       @focus="rootContext.onOpen()"
-      @blur="rootContext.onClose"
-      @touchstart.prevent="() => {
-        // prevent focus event on touch devices
-      }"
+      @blur="rootContext.onClose()"
     >
       <slot />
     </Primitive>

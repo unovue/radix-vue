@@ -129,7 +129,7 @@ export function endOfDecade(dateObj: DateValue) {
 export function createDecade(props: SetDecadeProps): DateValue[] {
   const { dateObj, startIndex, endIndex, minValue, maxValue } = props
 
-  const decadeArray = Array.from({ length: Math.abs((startIndex ?? 0) - endIndex) }, (_, i) => i < Math.abs(startIndex ?? 0) ? dateObj.subtract({ years: i }).set({ day: 1, month: 1 }) : dateObj.add({ years: i }).set({ day: 1, month: 1 })).toSorted((a, b) => a.year - b.year)
+  const decadeArray = Array.from({ length: Math.abs(startIndex ?? 0) + endIndex }, (_, i) => i <= Math.abs((startIndex ?? 0)) ? dateObj.subtract({ years: i }).set({ day: 1, month: 1 }) : dateObj.add({ years: i - endIndex }).set({ day: 1, month: 1 })).toSorted((a, b) => a.year - b.year)
 
   return decadeArray.filter((year) => {
     if (minValue && isBefore(year, minValue))

@@ -54,4 +54,6 @@ export {
   withDefault,
   createContext,
   type Formatter,
+  type DateRange,
+  toDate,
 } from './shared'

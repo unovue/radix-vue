@@ -11,6 +11,7 @@ export {
 export {
   default as ListboxFilter,
   type ListboxFilterProps,
+  type ListboxFilterEmits,
 } from './ListboxFilter.vue'
 export {
   default as ListboxItem,

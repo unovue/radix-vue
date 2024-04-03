@@ -12,6 +12,7 @@ type ListboxRootContext<T> = {
   orientation: Ref<DataOrientation>
   dir: Ref<Direction>
   disabled: Ref<boolean>
+  highlightOnHover: Ref<boolean>
   highlightedElement: Ref<HTMLElement | null>
   isVirtual: Ref<boolean>
   virtualFocusHook: EventHook<Event | null>
@@ -50,6 +51,7 @@ export interface ListboxRootProps<T = AcceptableValue> extends Pick<RovingFocusG
   /** When `true`, prevents the user from interacting with listbox */
   disabled?: boolean
   selectionBehavior?: 'toggle' | 'replace'
+  highlightOnHover?: boolean
   /** Use this to compare objects by a particular field, or pass your own comparison function for complete control over how objects are compared. */
   by?: string | ((a: T, b: T) => boolean)
 }
@@ -57,6 +59,8 @@ export interface ListboxRootProps<T = AcceptableValue> extends Pick<RovingFocusG
 export type ListboxRootEmits<T = AcceptableValue> = {
   /** Event handler called when the value changes. */
   'update:modelValue': [value: T]
+  'leave': [event: Event]
+  'entryFocus': [event: CustomEvent]
 }
 </script>
 
@@ -73,7 +77,7 @@ const props = withDefaults(defineProps<ListboxRootProps>(), {
 })
 const emits = defineEmits<ListboxRootEmits>()
 
-const { multiple, orientation, disabled, dir: propDir } = toRefs(props)
+const { multiple, highlightOnHover, orientation, disabled, dir: propDir } = toRefs(props)
 const { getItems } = createCollection<{ value: T }>()
 const { handleTypeaheadSearch } = useTypeahead()
 const dir = useDirection(propDir)
@@ -147,9 +151,18 @@ function onKeydownTypeAhead(event: KeyboardEvent) {
 function onLeave(event: Event) {
   previousElement.value = highlightedElement.value
   highlightedElement.value = null
+  emits('leave', event)
 }
 
 function onEnter(event: Event) {
+  const entryFocusEvent = new CustomEvent('listbox.entryFocus', { bubbles: false, cancelable: true })
+  event.currentTarget?.dispatchEvent(entryFocusEvent)
+  emits('entryFocus', entryFocusEvent)
+
+  if (entryFocusEvent.defaultPrevented)
+    return
+
+  // console.log(event)
   if (previousElement.value) {
     onChangeHighlight(previousElement.value)
   }
@@ -180,8 +193,10 @@ function onKeydownNavigation(event: KeyboardEvent) {
     }
   }
 
-  if (collection.length)
-    onChangeHighlight(collection[0])
+  if (collection.length) {
+    const index = !highlightedElement.value && intent === 'prev' ? collection.length - 1 : 0
+    onChangeHighlight(collection[index])
+  }
 
   if (isVirtual.value)
     return virtualKeydownHook.trigger(event)
@@ -240,6 +255,7 @@ provideListboxRootContext({
   orientation,
   dir,
   disabled,
+  highlightOnHover,
   highlightedElement,
   isVirtual,
   virtualFocusHook,
@@ -264,7 +280,7 @@ provideListboxRootContext({
     :dir="dir"
     @pointerleave="onLeave"
     @focusout="(event: FocusEvent) => {
-      const target = event.relatedTarget as HTMLElement | null
+      const target = (event.relatedTarget || event.target) as HTMLElement | null
       if (highlightedElement && !currentElement.contains(target)) {
         onLeave(event)
       }

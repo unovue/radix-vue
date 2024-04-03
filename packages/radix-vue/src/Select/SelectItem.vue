@@ -63,28 +63,6 @@ async function handleSelect(ev?: PointerEvent) {
   }
 }
 
-async function handlePointerMove(event: PointerEvent) {
-  await nextTick()
-  if (event.defaultPrevented)
-    return
-  if (disabled.value) {
-    contentContext.onItemLeave?.()
-  }
-  else {
-    // even though safari doesn't support this option, it's acceptable
-    // as it only means it might scroll a few pixels when using the pointer.
-    (event.currentTarget as HTMLElement).focus({ preventScroll: true })
-  }
-}
-
-async function handlePointerLeave(event: PointerEvent) {
-  await nextTick()
-  if (event.defaultPrevented)
-    return
-  if (event.currentTarget === document.activeElement)
-    contentContext.onItemLeave?.()
-}
-
 if (props.value === '') {
   throw new Error(
     'A <SelectItem /> must have a value prop that is not an empty string. This is because the Select value can be set to an empty string to clear the selection and show the placeholder.',
@@ -132,8 +110,6 @@ provideSelectItemContext({
       }
     }"
     @touchend.prevent.stop
-    @pointermove="handlePointerMove"
-    @pointerleave="handlePointerLeave"
   >
     <slot />
   </ListboxItem>

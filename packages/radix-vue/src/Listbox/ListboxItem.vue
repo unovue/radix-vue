@@ -68,7 +68,12 @@ function handleSelectCustomEvent(ev: PointerEvent) {
       :data-state="isSelected ? 'checked' : 'unchecked'"
       @click="handleSelectCustomEvent"
       @keydown.space.prevent="handleSelectCustomEvent"
-      @pointermove="rootContext.focusable.value ? undefined : rootContext.onChangeHighlight(currentElement)"
+      @pointermove="(event) => {
+        if (rootContext.highlightOnHover.value)
+          rootContext.onChangeHighlight(currentElement)
+        else
+          rootContext.focusable.value ? undefined : rootContext.onChangeHighlight(currentElement)
+      }"
     >
       <slot />
     </Primitive>

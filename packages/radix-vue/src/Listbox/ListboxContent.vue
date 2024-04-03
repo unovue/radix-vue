@@ -22,7 +22,9 @@ const rootContext = injectListboxRootContext()
       :tabindex="rootContext.focusable.value ? rootContext.highlightedElement.value ? '-1' : '0' : undefined"
       :data-orientation="rootContext.orientation.value"
       @focus="rootContext.onEnter"
-      @keydown.down.up.home.end.prevent="rootContext.onKeydownNavigation"
+      @keydown.down.up.home.end.prevent="(event) => {
+        rootContext.focusable.value ? rootContext.onKeydownNavigation(event) : undefined
+      }"
       @keydown.enter="rootContext.onKeydownEnter"
       @keydown="rootContext.onKeydownTypeAhead"
     >

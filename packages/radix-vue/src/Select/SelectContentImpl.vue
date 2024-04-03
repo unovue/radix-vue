@@ -8,11 +8,9 @@ import type { PointerDownOutsideEvent } from '@/DismissableLayer'
 import {
   createContext,
   useBodyScrollLock,
-  useCollection,
   useFocusGuards,
   useForwardProps,
   useHideOthers,
-  useTypeahead,
 } from '@/shared'
 
 interface SelectContentContext {
@@ -35,7 +33,6 @@ interface SelectContentContext {
   selectedItemText?: Ref<HTMLElement | undefined>
   position?: 'item-aligned' | 'popper'
   isPositioned?: Ref<boolean>
-  searchRef?: Ref<string>
 }
 
 export const SelectContentDefaultContextValue: SelectContentContext = {
@@ -77,7 +74,6 @@ import {
   computed,
   ref,
   watch,
-  watchEffect,
 } from 'vue'
 import { unrefElement } from '@vueuse/core'
 import { injectSelectRootContext } from './SelectRoot.vue'
@@ -86,7 +82,7 @@ import SelectPopperPosition from './SelectPopperPosition.vue'
 import { FocusScope } from '@/FocusScope'
 import { DismissableLayer } from '@/DismissableLayer'
 import { focusFirst } from '@/Menu/utils'
-import { ListboxRoot } from '@/Listbox'
+import { ListboxContent, ListboxRoot } from '@/Listbox'
 
 const props = withDefaults(defineProps<SelectContentImplProps>(), {
   align: 'start',
@@ -98,13 +94,9 @@ const rootContext = injectSelectRootContext()
 
 useFocusGuards()
 useBodyScrollLock(true)
-const { createCollection } = useCollection()
 
 const content = ref<HTMLElement>()
 useHideOthers(content)
-
-const collectionItems = createCollection(content)
-const { search, handleTypeaheadSearch } = useTypeahead(collectionItems)
 
 const viewport = ref<HTMLElement>()
 const selectedItem = ref<HTMLElement>()
@@ -117,83 +109,13 @@ function focusSelectedItem() {
     focusFirst([selectedItem.value, content.value])
 }
 
+function onItemLeave() {
+  content.value?.focus()
+}
+
 watch(isPositioned, () => {
   focusSelectedItem()
 })
-
-// prevent selecting items on `pointerup` in some cases after opening from `pointerdown`
-// and close on `pointerup` outside.
-const { onOpenChange, triggerPointerDownPosRef } = rootContext
-watchEffect((cleanupFn) => {
-  if (!content.value)
-    return
-  let pointerMoveDelta = { x: 0, y: 0 }
-
-  const handlePointerMove = (event: PointerEvent) => {
-    pointerMoveDelta = {
-      x: Math.abs(
-        Math.round(event.pageX) - (triggerPointerDownPosRef.value?.x ?? 0),
-      ),
-      y: Math.abs(
-        Math.round(event.pageY) - (triggerPointerDownPosRef.value?.y ?? 0),
-      ),
-    }
-  }
-  const handlePointerUp = (event: PointerEvent) => {
-    // If the pointer hasn't moved by a certain threshold then we prevent selecting item on `pointerup`.
-    if (pointerMoveDelta.x <= 10 && pointerMoveDelta.y <= 10) {
-      event.preventDefault()
-    }
-    else {
-      // otherwise, if the event was outside the content, close.
-      if (!content.value?.contains(event.target as HTMLElement))
-        onOpenChange(false)
-    }
-    document.removeEventListener('pointermove', handlePointerMove)
-    triggerPointerDownPosRef.value = null
-  }
-
-  if (triggerPointerDownPosRef.value !== null) {
-    document.addEventListener('pointermove', handlePointerMove)
-    document.addEventListener('pointerup', handlePointerUp, {
-      capture: true,
-      once: true,
-    })
-  }
-
-  cleanupFn(() => {
-    document.removeEventListener('pointermove', handlePointerMove)
-    document.removeEventListener('pointerup', handlePointerUp, {
-      capture: true,
-    })
-  })
-})
-
-function handleKeyDown(event: KeyboardEvent) {
-  const isModifierKey = event.ctrlKey || event.altKey || event.metaKey
-
-  // select should not be navigated using tab key so we prevent it
-  if (event.key === 'Tab')
-    event.preventDefault()
-
-  if (!isModifierKey && event.key.length === 1)
-    handleTypeaheadSearch(event.key)
-
-  if (['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) {
-    let candidateNodes = collectionItems.value
-
-    if (['ArrowUp', 'End'].includes(event.key))
-      candidateNodes = candidateNodes.slice().reverse()
-
-    if (['ArrowUp', 'ArrowDown'].includes(event.key)) {
-      const currentElement = event.target as HTMLElement
-      const currentIndex = candidateNodes.indexOf(currentElement)
-      candidateNodes = candidateNodes.slice(currentIndex + 1)
-    }
-    setTimeout(() => focusFirst(candidateNodes))
-    event.preventDefault()
-  }
-}
 
 const pickedProps = computed(() => {
   if (props.position === 'popper')
@@ -222,9 +144,7 @@ provideSelectContentContext({
   },
   selectedItem,
   selectedItemText,
-  onItemLeave: () => {
-    content.value?.focus()
-  },
+  onItemLeave,
   itemTextRefCallback: (node, value, disabled) => {
     const isFirstValidItem = !firstValidItemFoundRef.value && !disabled
     const isSelectedItem
@@ -236,7 +156,6 @@ provideSelectContentContext({
   focusSelectedItem,
   position: props.position,
   isPositioned,
-  searchRef: search,
 })
 </script>
 
@@ -263,37 +182,48 @@ provideSelectContentContext({
     >
       <ListboxRoot
         as-child
+        highlight-on-hover
         :dir="rootContext.dir.value"
         :model-value="rootContext.modelValue?.value"
         @update:model-value="rootContext.onValueChange"
+        @keydown.tab.prevent
+        @leave="event => {
+          const target = (event as FocusEvent).relatedTarget || event.target
+          if (target !== rootContext.triggerElement.value) {
+            onItemLeave()
+          }
+        }"
+        @entry-focus.prevent
       >
-        <component
-          :is="
-            position === 'popper'
-              ? SelectPopperPosition
-              : SelectItemAlignedPosition
-          "
-          v-bind="{ ...$attrs, ...forwardedProps }"
-          :id="rootContext.contentId"
-          :ref="
-            (vnode: ComponentPublicInstance) => {
-              content = unrefElement(vnode) as HTMLElement
-              return undefined
-            }
-          "
-          :data-state="rootContext.open.value ? 'open' : 'closed'"
-          :style="{
-            // flex layout so we can place the scroll buttons properly
-            display: 'flex',
-            flexDirection: 'column',
-            // reset the outline by default as the content MAY get focused
-            outline: 'none',
-          }"
-          @contextmenu.prevent
-          @placed="isPositioned = true"
-        >
-          <slot />
-        </component>
+        <ListboxContent as-child>
+          <component
+            :is="
+              position === 'popper'
+                ? SelectPopperPosition
+                : SelectItemAlignedPosition
+            "
+            v-bind="{ ...$attrs, ...forwardedProps }"
+            :id="rootContext.contentId"
+            :ref="
+              (vnode: ComponentPublicInstance) => {
+                content = unrefElement(vnode) as HTMLElement
+                return undefined
+              }
+            "
+            :data-state="rootContext.open.value ? 'open' : 'closed'"
+            :style="{
+              // flex layout so we can place the scroll buttons properly
+              display: 'flex',
+              flexDirection: 'column',
+              // reset the outline by default as the content MAY get focused
+              outline: 'none',
+            }"
+            @contextmenu.prevent
+            @placed="isPositioned = true"
+          >
+            <slot />
+          </component>
+        </ListboxContent>
       </ListboxRoot>
     </DismissableLayer>
   </FocusScope>

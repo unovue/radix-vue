@@ -61,3 +61,8 @@ export {
   default as SelectIcon,
   type SelectIconProps,
 } from './SelectIcon.vue'
+export {
+  default as SelectFilter,
+  type SelectFilterProps,
+  type SelectFilterEmits,
+} from './SelectFilter.vue'

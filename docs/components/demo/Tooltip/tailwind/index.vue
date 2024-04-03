@@ -17,7 +17,7 @@ import { Icon } from '@iconify/vue'
           :side-offset="5"
         >
           Add to library
-          <TooltipArrow class="fill-white" size="8" />
+          <TooltipArrow class="fill-white" :width="8" />
         </TooltipContent>
       </TooltipPortal>
     </TooltipRoot>

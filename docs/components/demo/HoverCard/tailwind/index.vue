@@ -63,7 +63,7 @@ const hoverState = ref(false)
           </div>
         </div>
 
-        <HoverCardArrow class="fill-white" size="8" />
+        <HoverCardArrow class="fill-white" :width="8" />
       </HoverCardContent>
     </HoverCardPortal>
   </HoverCardRoot>

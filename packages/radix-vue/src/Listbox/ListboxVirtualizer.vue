@@ -10,7 +10,7 @@ export interface ListboxVirtualizerProps<T extends AcceptableValue = AcceptableV
 import { useVirtualizer } from '@tanstack/vue-virtual'
 import { type Ref, cloneVNode, computed, useSlots } from 'vue'
 import { injectListboxRootContext } from './ListboxRoot.vue'
-import { compare, queryCheckedElement } from './utils'
+import { compare, findValuesBetween, queryCheckedElement } from './utils'
 import { MAP_KEY_TO_FOCUS_INTENT } from '@/RovingFocus/utils'
 import { refAutoReset } from '@vueuse/shared'
 import { getNextMatch } from '@/shared/useTypeahead'
@@ -29,7 +29,7 @@ defineSlots<{
 const slots = useSlots()
 const rootContext = injectListboxRootContext()
 const parentEl = useParentElement() as Ref<HTMLElement>
-const { getItems } = useCollection()
+const { getItems } = useCollection<{ value: T }>()
 
 // set virtual true when this component mounted
 rootContext.isVirtual.value = true
@@ -116,13 +116,43 @@ const optionsWithMetadata = computed(() => {
   }))
 })
 
+function handleMultipleReplace(event: Event, intent: 'first' | 'last' | 'prev' | 'next') {
+  if (!rootContext.firstValue?.value || !rootContext.multiple.value || !Array.isArray(rootContext.modelValue.value))
+    return
+
+  const collection = getItems().filter(i => i.ref.dataset.disabled !== '')
+  const lastValue = collection.find(i => i.ref === rootContext.highlightedElement.value)?.value
+  if (!lastValue)
+    return
+
+  let value: T[] | null = null
+  switch (intent) {
+    case 'prev':
+    case 'next': {
+      value = findValuesBetween(props.options, rootContext.firstValue.value as T, lastValue)
+      break
+    }
+    case 'first': {
+      value = findValuesBetween(props.options, rootContext.firstValue.value as T, props.options?.[0])
+      break
+    }
+    case 'last': {
+      value = findValuesBetween(props.options, rootContext.firstValue.value as T, props.options?.[props.options.length - 1])
+      break
+    }
+  }
+  rootContext.modelValue.value = value
+}
+
 rootContext.virtualKeydownHook.on((event) => {
   const isMetaKey = event.altKey || event.ctrlKey || event.metaKey
   const isTabKey = event.key === 'Tab' && !isMetaKey
-  if (isMetaKey || isTabKey)
+  if (isTabKey)
     return
 
   const intent = MAP_KEY_TO_FOCUS_INTENT[event.key]
+  if (event.shiftKey && intent)
+    handleMultipleReplace(event, intent)
 
   if (['first', 'last'].includes(intent)) {
     event.preventDefault()

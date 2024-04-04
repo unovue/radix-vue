@@ -77,6 +77,7 @@ import {
   computed,
   ref,
   watch,
+  watchEffect,
 } from 'vue'
 import { unrefElement } from '@vueuse/core'
 import { injectSelectRootContext } from './SelectRoot.vue'
@@ -117,6 +118,59 @@ function focusSelectedItem() {
 
 watch(isPositioned, () => {
   focusSelectedItem()
+})
+
+// prevent selecting items on `pointerup` in some cases after opening from `pointerdown`
+// and close on `pointerup` outside.
+const { onOpenChange, triggerPointerDownPosRef } = rootContext
+watchEffect((cleanupFn) => {
+  if (!content.value)
+    return
+  let pointerMoveDelta = { x: 0, y: 0 }
+
+  const handlePointerMove = (event: PointerEvent) => {
+    pointerMoveDelta = {
+      x: Math.abs(
+        Math.round(event.pageX) - (triggerPointerDownPosRef.value?.x ?? 0),
+      ),
+      y: Math.abs(
+        Math.round(event.pageY) - (triggerPointerDownPosRef.value?.y ?? 0),
+      ),
+    }
+  }
+  const handlePointerUp = (event: PointerEvent) => {
+    // Prevent options from being untappable on touch devices
+    // https://github.com/radix-vue/radix-vue/issues/804
+    if (event.pointerType === 'touch')
+      return
+
+    // If the pointer hasn't moved by a certain threshold then we prevent selecting item on `pointerup`.
+    if (pointerMoveDelta.x <= 10 && pointerMoveDelta.y <= 10) {
+      event.preventDefault()
+    }
+    else {
+      // otherwise, if the event was outside the content, close.
+      if (!content.value?.contains(event.target as HTMLElement))
+        onOpenChange(false)
+    }
+    document.removeEventListener('pointermove', handlePointerMove)
+    triggerPointerDownPosRef.value = null
+  }
+
+  if (triggerPointerDownPosRef.value !== null) {
+    document.addEventListener('pointermove', handlePointerMove)
+    document.addEventListener('pointerup', handlePointerUp, {
+      capture: true,
+      once: true,
+    })
+  }
+
+  cleanupFn(() => {
+    document.removeEventListener('pointermove', handlePointerMove)
+    document.removeEventListener('pointerup', handlePointerUp, {
+      capture: true,
+    })
+  })
 })
 
 function handleKeyDown(event: KeyboardEvent) {

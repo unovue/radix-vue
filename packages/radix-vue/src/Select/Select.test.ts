@@ -4,6 +4,7 @@ import Select from './story/_SelectTest.vue'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
+import { fireEvent } from '@testing-library/vue'
 import { handleSubmit } from '@/test'
 
 describe('given default Select', () => {
@@ -33,7 +34,7 @@ describe('given default Select', () => {
 
   describe('opening the modal', () => {
     beforeEach(async () => {
-      await wrapper.find('button').trigger('pointerup', {
+      await wrapper.find('button').trigger('pointerdown', {
         button: 0,
         ctrlKey: false,
       })
@@ -58,6 +59,8 @@ describe('given default Select', () => {
         const selection = wrapper.findAll('[role=option]')[1];
         (selection.element as HTMLElement).focus()
         await selection.trigger('pointerup')
+        // Needs 2 pointerup because SelectContentImpl prevents accidental pointerup's
+        await fireEvent.pointerUp(selection.element)
       })
 
       it('should show value correctly', () => {
@@ -71,7 +74,7 @@ describe('given default Select', () => {
 
       describe('after opening the modal again', () => {
         beforeEach(async () => {
-          await wrapper.find('button').trigger('pointerup', {
+          await wrapper.find('button').trigger('pointerdown', {
             button: 0,
             ctrlKey: false,
           })
@@ -108,7 +111,7 @@ describe('given select in a form', async () => {
 
   describe('after selecting option and clicking submit button', () => {
     beforeEach(async () => {
-      await wrapper.find('button').trigger('pointerup', {
+      await wrapper.find('button').trigger('pointerdown', {
         button: 0,
         ctrlKey: false,
       })
@@ -116,6 +119,8 @@ describe('given select in a form', async () => {
       const selection = wrapper.findAll('[role=option]')[1];
       (selection.element as HTMLElement).focus()
       await selection.trigger('pointerup')
+      // Needs 2 pointerup because SelectContentImpl prevents accidental pointerup's
+      await fireEvent.pointerUp(selection.element)
       await wrapper.find('form').trigger('submit')
     })
 
@@ -127,7 +132,7 @@ describe('given select in a form', async () => {
 
   describe('after selecting other option and click submit button again', () => {
     beforeEach(async () => {
-      await wrapper.find('button').trigger('pointerup', {
+      await wrapper.find('button').trigger('pointerdown', {
         button: 0,
         ctrlKey: false,
       })
@@ -135,6 +140,8 @@ describe('given select in a form', async () => {
       const selection = wrapper.findAll('[role=option]')[4];
       (selection.element as HTMLElement).focus()
       await selection.trigger('pointerup')
+      // Needs 2 pointerup because SelectContentImpl prevents accidental pointerup's
+      await fireEvent.pointerUp(selection.element)
       await wrapper.find('form').trigger('submit')
     })
 

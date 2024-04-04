@@ -2,7 +2,7 @@
 import { type DateValue } from '@internationalized/date'
 
 import type { Ref } from 'vue'
-import { createContext } from '@/shared'
+import { createContext, useDirection } from '@/shared'
 import { type DateRange, type Granularity, type HourCycle, type Matcher, type WeekDayFormat, getDefaultDate } from '@/shared/date'
 
 import { type CalendarRootProps, type DateRangeFieldRoot, type DateRangeFieldRootProps, PopoverRoot, type PopoverRootEmits, type PopoverRootProps } from '..'

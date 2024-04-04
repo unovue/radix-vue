@@ -3,7 +3,7 @@ import { type DateValue, isEqualDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { type Formatter, createContext, useDateFormatter, useKbd } from '@/shared'
+import { type Formatter, createContext, useDateFormatter, useDirection, useKbd } from '@/shared'
 import {
   type DateRange,
   type Granularity,
@@ -17,6 +17,7 @@ import {
   isBefore,
 } from '@/shared/date'
 import { createContent, initializeSegmentValues, isSegmentNavigationKey, syncSegmentValues } from '@/DateField/utils'
+import type { Direction } from '@/shared/types'
 
 export type DateRangeType = 'start' | 'end'
 
@@ -71,6 +72,8 @@ export interface DateRangeFieldRootProps extends PrimitiveProps {
   required?: boolean
   /** Id of the element */
   id?: string
+  /** The reading direction of the date field when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
+  dir?: Direction
 }
 
 export type DateRangeFieldRootEmits = {
@@ -102,12 +105,13 @@ const props = withDefaults(defineProps<DateRangeFieldRootProps>(), {
   isDateUnavailable: undefined,
 })
 const emits = defineEmits<DateRangeFieldRootEmits>()
-const { locale, disabled, readonly, isDateUnavailable: propsIsDateUnavailable } = toRefs(props)
+const { locale, disabled, readonly, isDateUnavailable: propsIsDateUnavailable, dir: propsDir } = toRefs(props)
 
 const formatter = useDateFormatter(props.locale)
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
 const segmentElements = ref<Set<HTMLElement>>(new Set())
+const dir = useDirection(propsDir)
 
 onMounted(() => {
   Array.from(parentElement.value.querySelectorAll('[data-radix-vue-date-field-segment]')).filter(item => item.getAttribute('data-radix-vue-date-field-segment') !== 'literal').forEach(el => segmentElements.value.add(el as HTMLElement))
@@ -277,16 +281,21 @@ const currentSegmentIndex = computed(() => Array.from(segmentElements.value).fin
 && el.getAttribute('data-radix-vue-date-range-field-segment-type') === currentFocusedElement.value?.getAttribute('data-radix-vue-date-range-field-segment-type')))
 
 const nextFocusableSegment = computed(() => {
-  if (currentSegmentIndex.value > segmentElements.value.size - 1)
+  const sign = dir.value === 'rtl' ? -1 : 1
+  const nextCondition = sign < 0 ? currentSegmentIndex.value < 0 : currentSegmentIndex.value > segmentElements.value.size - 1
+  if (nextCondition)
     return null
-  const segmentToFocus = Array.from(segmentElements.value)[currentSegmentIndex.value + 1]
+  const segmentToFocus = Array.from(segmentElements.value)[currentSegmentIndex.value + sign]
   return segmentToFocus
 })
+
 const prevFocusableSegment = computed(() => {
-  if (currentSegmentIndex.value < 0)
+  const sign = dir.value === 'rtl' ? -1 : 1
+  const prevCondition = sign > 0 ? currentSegmentIndex.value < 0 : currentSegmentIndex.value > segmentElements.value.size - 1
+  if (prevCondition)
     return null
 
-  const segmentToFocus = Array.from(segmentElements.value)[currentSegmentIndex.value - 1]
+  const segmentToFocus = Array.from(segmentElements.value)[currentSegmentIndex.value - sign]
   return segmentToFocus
 })
 
@@ -339,6 +348,7 @@ defineExpose({
     :data-disabled="disabled ? '' : undefined"
     :data-readonly="readonly ? '' : undefined"
     :data-invalid="isInvalid ? '' : undefined"
+    :dir="dir"
     @keydown.left.right="handleKeydown"
   >
     <slot :model-value="modelValue" :segments="segmentContents" />

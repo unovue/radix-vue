@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type DateValue, isEqualDay, isSameDay } from '@internationalized/date'
+import { type DateValue, isEqualDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
@@ -228,13 +228,13 @@ const {
   focusedValue,
 })
 
-watch(modelValue, () => {
-  if (modelValue.value.start && modelValue.value.end) {
-    if (startValue.value && modelValue.value.start.compare(startValue.value) !== 0)
-      startValue.value = modelValue.value.start.copy()
+watch(modelValue, (modelValue) => {
+  if (modelValue.start && modelValue.end) {
+    if (startValue.value && !isEqualDay(startValue.value, modelValue.start))
+      startValue.value = modelValue.start.copy()
 
-    if (endValue.value && modelValue.value.end.compare(endValue.value) !== 0)
-      endValue.value = modelValue.value.end.copy()
+    if (endValue.value && !isEqualDay(endValue.value, modelValue.end))
+      endValue.value = modelValue.end.copy()
   }
 })
 
@@ -243,23 +243,30 @@ watch(startValue, (value) => {
     onPlaceholderChange(value)
 })
 
-watch([startValue, endValue], () => {
-  if (modelValue.value && modelValue.value.start && modelValue.value.end && startValue.value && endValue.value && isSameDay(modelValue.value.start, startValue.value) && isSameDay(modelValue.value.end, endValue.value))
+watch([startValue, endValue], ([startValue, endValue]) => {
+  const value = modelValue.value
+
+  if (value && value.start && value.end && startValue && endValue && isEqualDay(value.start, startValue) && isEqualDay(value.end, endValue))
     return
 
-  if (startValue.value && endValue.value) {
-    if (isBefore(endValue.value, startValue.value)) {
+  if (startValue) {
+    if (endValue && isBefore(endValue, startValue)) {
       modelValue.value = {
-        start: endValue.value.copy(),
-        end: startValue.value.copy(),
+        start: endValue.copy(),
+        end: startValue.copy(),
       }
     }
-
     else {
       modelValue.value = {
-        start: startValue.value.copy(),
-        end: endValue.value.copy(),
+        start: startValue.copy(),
+        end: endValue?.copy(),
       }
+    }
+  }
+  else if (value && value.start && value.end) {
+    modelValue.value = {
+      start: undefined,
+      end: undefined,
     }
   }
 })

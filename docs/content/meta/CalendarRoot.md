@@ -33,6 +33,12 @@
     'required': false
   },
   {
+    'name': 'dir',
+    'description': '<p>The reading direction of the calendar when applicable. &lt;br&gt; If omitted, inherits globally from <code>ConfigProvider</code> or assumes LTR (left-to-right) reading mode.</p>\n',
+    'type': '\'ltr\' | \'rtl\'',
+    'required': false
+  },
+  {
     'name': 'disabled',
     'description': '<p>Whether or not the calendar is disabled</p>\n',
     'type': 'boolean',

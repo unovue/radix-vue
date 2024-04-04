@@ -72,7 +72,7 @@ const filteredOptions = computed(() => {
 
     <Variant title="Replace behavior (Single)">
       <div class="w-48 p-1 rounded-lg border bg-white text-green9 mx-auto">
-        <ListboxRoot multiple selection-behavior="replace">
+        <ListboxRoot selection-behavior="replace">
           <ListboxContent class="w-full h-64 overflow-auto">
             <ListboxVirtualizer v-slot="{ option }" :text-content="(option) => option.value" :options="filteredOptions">
               <ListboxItem :value="option" class="w-full py-1 px-2 text-green9 select-none text-sm focus:ring-0 data-[highlighted]:outline-green9 data-[highlighted]:outline-1 data-[highlighted]:outline focus:outline-green9 data-[state=checked]:bg-green9 data-[state=checked]:text-white rounded">

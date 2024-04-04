@@ -150,9 +150,18 @@ rootContext.virtualKeydownHook.on((event) => {
   if (isTabKey)
     return
 
-  const intent = MAP_KEY_TO_FOCUS_INTENT[event.key]
-  if (event.shiftKey && intent)
+  let intent = MAP_KEY_TO_FOCUS_INTENT[event.key]
+
+  // Meta + A, select all feature
+  if (isMetaKey && event.key === 'a' && rootContext.multiple.value) {
+    event.preventDefault()
+    rootContext.modelValue.value = [...props.options]
+    // purposely make the focus to last
+    intent = 'last'
+  }
+  else if (event.shiftKey && intent) {
     handleMultipleReplace(event, intent)
+  }
 
   if (['first', 'last'].includes(intent)) {
     event.preventDefault()
@@ -165,7 +174,7 @@ rootContext.virtualKeydownHook.on((event) => {
       rootContext.onChangeHighlight(item.ref)
     })
   }
-  else if (!intent) {
+  else if (!intent && !isMetaKey) {
     search.value += event.key
     const currentIndex = Number(document.activeElement?.getAttribute('data-index'))
     const currentMatch = optionsWithMetadata.value[currentIndex].textContent

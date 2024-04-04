@@ -144,14 +144,29 @@ function onKeydownEnter(event: KeyboardEvent) {
 }
 
 function onKeydownTypeAhead(event: KeyboardEvent) {
+  isUserAction.value = true
   if (isVirtual.value) {
     virtualKeydownHook.trigger(event)
   }
   else {
-    const el = handleTypeaheadSearch(event.key, getCollectionItem())
-    if (el)
-      onChangeHighlight(el)
+    const isMetaKey = event.altKey || event.ctrlKey || event.metaKey
+
+    if (isMetaKey && event.key === 'a' && multiple.value) {
+      const collection = getItems()
+      const values = collection.map(i => i.value)
+      modelValue.value = [...values]
+      event.preventDefault()
+      onChangeHighlight(collection[collection.length - 1].ref)
+    }
+    else if (!isMetaKey) {
+      const el = handleTypeaheadSearch(event.key, getCollectionItem())
+      if (el)
+        onChangeHighlight(el)
+    }
   }
+  setTimeout(() => {
+    isUserAction.value = false
+  }, 1)
 }
 
 function onLeave(event: Event) {
@@ -168,7 +183,6 @@ function onEnter(event: Event) {
   if (entryFocusEvent.defaultPrevented)
     return
 
-  // console.log(event)
   if (previousElement.value) {
     onChangeHighlight(previousElement.value)
   }
@@ -179,7 +193,6 @@ function onEnter(event: Event) {
 }
 
 function onKeydownNavigation(event: KeyboardEvent) {
-  isUserAction.value = true
   const intent = getFocusIntent(event, orientation.value, dir.value)
   if (!intent)
     return
@@ -206,10 +219,6 @@ function onKeydownNavigation(event: KeyboardEvent) {
 
   if (isVirtual.value)
     return virtualKeydownHook.trigger(event)
-
-  setTimeout(() => {
-    isUserAction.value = false
-  }, 1)
 }
 
 function handleMultipleReplace(event: KeyboardEvent, targetEl: HTMLElement) {

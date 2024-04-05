@@ -30,7 +30,8 @@
     'name': 'defaultValue',
     'description': '<p>The default value for the calendar</p>\n',
     'type': 'DateRange',
-    'required': false
+    'required': false,
+    'default': '{ start: undefined, end: undefined }'
   },
   {
     'name': 'disabled',
@@ -125,6 +126,12 @@
     'default': 'false'
   },
   {
+    'name': 'startValue',
+    'description': '<p>The <code>start</code> value of the date range, which can exist prior to the true <code>value</code> being set, which is only set once a <code>start</code> and <code>end</code> value are selected. You can <code>@update:startValue</code> to a value to receive updates, but modifying this value outside the component will have no effect. To programmatically control the <code>start</code> value, use <code>v-model=&quot;value&quot;</code> and update the start property of the DateRange object. This is provided as a convenience for use cases where you want to display the selected start value outside the component before the value is set.</p>\n',
+    'type': 'DateValue',
+    'required': false
+  },
+  {
     'name': 'weekdayFormat',
     'description': '<p>The format to use for the weekday strings provided via the weekdays slot prop</p>\n',
     'type': '\'narrow\' | \'short\' | \'long\'',
@@ -144,11 +151,16 @@
   {
     'name': 'update:modelValue',
     'description': '<p>Event handler called whenever the model value changes</p>\n',
-    'type': '[DateRange]'
+    'type': '[date: DateRange]'
   },
   {
     'name': 'update:placeholder',
     'description': '<p>Event handler called whenever the placeholder value changes</p>\n',
+    'type': '[date: DateValue]'
+  },
+  {
+    'name': 'update:startValue',
+    'description': '<p>Event handler called whenever the start value changes</p>\n',
     'type': '[date: DateValue]'
   }
 ]" />

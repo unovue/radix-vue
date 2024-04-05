@@ -34,16 +34,8 @@ const rootContext = injectDateRangePickerRootContext()
       rootContext.startValue.value = date?.copy()
     }"
     @update:model-value="(date) => {
-      if (!rootContext.modelValue.value.start) {
-        rootContext.onDateChange(date)
-        return
-      }
-      if (date.end) {
-        rootContext.onDateChange(date)
-        return
-      }
-      if (date.start && !isEqualDay(date.start, rootContext.modelValue.value.start))
-        rootContext.onDateChange(date)
+      if (date.start && rootContext.modelValue.value.start && date.end && rootContext.modelValue.value.end && isEqualDay(date.start, rootContext.modelValue.value.start) && isEqualDay(date.end, rootContext.modelValue.value.end)) return
+      rootContext.onDateChange(date)
     }"
     @update:placeholder="(date) => {
       if (isEqualDay(date, rootContext.placeholder.value)) return

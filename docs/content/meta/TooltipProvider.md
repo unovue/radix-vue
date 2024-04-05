@@ -15,6 +15,12 @@
     'required': false
   },
   {
+    'name': 'disabled',
+    'description': '<p>When <code>true</code>, disable tooltip</p>\n',
+    'type': 'boolean',
+    'required': false
+  },
+  {
     'name': 'disableHoverableContent',
     'description': '<p>When <code>true</code>, trying to hover the content will result in the tooltip closing as the pointer leaves the trigger.</p>\n',
     'type': 'boolean',

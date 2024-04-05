@@ -31,6 +31,11 @@ export interface TooltipRootProps {
    */
   disableClosingTrigger?: boolean
   /**
+   * When `true`, disable tooltip
+   * @defaultValue false
+   */
+  disabled?: boolean
+  /**
    * Prevent the tooltip from opening if the focus did not come from
    * the keyboard by matching against the `:focus-visible` selector.
    * This is useful if you want to avoid opening it when switching
@@ -57,6 +62,7 @@ export interface TooltipContext {
   onClose(): void
   disableHoverableContent: Ref<boolean>
   disableClosingTrigger: Ref<boolean>
+  disabled: Ref<boolean>
   ignoreNonKeyboardFocus: Ref<boolean>
 }
 
@@ -77,6 +83,7 @@ const props = withDefaults(defineProps<TooltipRootProps>(), {
   delayDuration: undefined,
   disableHoverableContent: undefined,
   disableClosingTrigger: undefined,
+  disabled: undefined,
   ignoreNonKeyboardFocus: undefined,
 })
 
@@ -87,6 +94,8 @@ const providerContext = injectTooltipProviderContext()
 
 const disableHoverableContent = computed(() => props.disableHoverableContent ?? providerContext.disableHoverableContent.value)
 const disableClosingTrigger = computed(() => props.disableClosingTrigger ?? providerContext.disableClosingTrigger.value)
+const disableTooltip = computed(() => props.disabled ?? providerContext.disabled.value)
+
 const delayDuration = computed(() => props.delayDuration ?? providerContext.delayDuration.value)
 const ignoreNonKeyboardFocus = computed(() => props.ignoreNonKeyboardFocus ?? providerContext.ignoreNonKeyboardFocus.value)
 
@@ -160,6 +169,7 @@ provideTooltipRootContext({
   onClose: handleClose,
   disableHoverableContent,
   disableClosingTrigger,
+  disabled: disableTooltip,
   ignoreNonKeyboardFocus,
 })
 </script>

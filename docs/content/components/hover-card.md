@@ -22,7 +22,6 @@ For sighted users to preview content available behind a link.
     'Customize side, alignment, offsets, collision handling.',
     'Optionally render a pointing arrow.',
     'Supports custom open and close delays.',
-    'Opens on hover only.',
     'Ignored by screen readers.',
   ]"
 />
@@ -292,6 +291,16 @@ import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, Hover
 
 ## Accessibility
 
+The hover card is intended for sighted users only, the content will be inaccessible to keyboard users.
+
 ### Keyboard Interactions
 
-The hover card is intended for mouse users only so will not respond to keyboard navigation.
+<KeyboardTable :data="[
+    {
+      keys: ['Tab'],
+      description: 'Opens/closes the hover card.',
+    },
+    {
+      keys: ['Enter'],
+      description: 'Opens the hover card link',
+    }]" />

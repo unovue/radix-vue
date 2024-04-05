@@ -1,5 +1,6 @@
-const { blackA, green, grass, mauve, slate, violet, red, indigo, purple, teal } = require("@radix-ui/colors");
-const plugin = require("tailwindcss/plugin");
+import { blackA, green, grass, mauve, slate, violet, red, indigo, purple, teal } from "@radix-ui/colors";
+import plugin from "tailwindcss/plugin";
+import animate from "tailwindcss-animate";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -158,6 +159,7 @@ export default {
     },
   },
   plugins: [
+    animate,
     plugin(({ matchUtilities }) => {
       matchUtilities({
         perspective: (value) => ({

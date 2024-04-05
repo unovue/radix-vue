@@ -28,7 +28,7 @@
   },
   {
     'name': 'type',
-    'description': '<p>Nactive input type</p>\n',
+    'description': '<p>Native input type</p>\n',
     'type': 'string',
     'required': false,
     'default': '\'text\''

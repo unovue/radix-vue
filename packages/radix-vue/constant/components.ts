@@ -200,6 +200,8 @@ export const components = {
     'ListboxFilter',
     'ListboxItem',
     'ListboxVirtualizer',
+    'ListboxGroup',
+    'ListboxGroupLabel',
   ],
 
   menubar: [

@@ -22,3 +22,11 @@ export {
   default as ListboxVirtualizer,
   type ListboxVirtualizerProps,
 } from './ListboxVirtualizer.vue'
+export {
+  default as ListboxGroup,
+  type ListboxGroupProps,
+} from './ListboxGroup.vue'
+export {
+  default as ListboxGroupLabel,
+  type ListboxGroupLabelProps,
+} from './ListboxGroupLabel.vue'

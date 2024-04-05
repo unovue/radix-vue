@@ -231,17 +231,23 @@ watch([startValue, endValue], ([startValue, endValue]) => {
   if (value.start && value.end && startValue && endValue && value.start.compare(startValue) === 0 && value.end.compare(endValue) === 0)
     return
 
-  if (startValue) {
-    modelValue.value = { start: startValue.copy(), end: endValue?.copy() }
-    return
+  if (startValue && endValue) {
+    if (modelValue.value.start?.compare(startValue) === 0 && modelValue.value.end?.compare(endValue) === 0)
+      return
+    modelValue.value = { start: startValue.copy(), end: endValue.copy() }
   }
-
-  modelValue.value = { start: undefined, end: undefined }
+  else if (modelValue.value.start && modelValue.value.end) {
+    modelValue.value = { start: undefined, end: undefined }
+  }
 })
 
 watch(modelValue, (value) => {
-  startValue.value = value.start?.copy()
-  endValue.value = value.end?.copy()
+  if (value.start && value.end) {
+    if (!startValue.value || value.start.compare(startValue.value) !== 0)
+      startValue.value = value.start.copy()
+    if (!endValue.value || value.end.compare(endValue.value) !== 0)
+      endValue.value = value.end.copy()
+  }
 })
 
 watch([startValue, locale], ([modelValue]) => {

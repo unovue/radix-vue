@@ -42,6 +42,14 @@ function handleOpen() {
     resetTypeahead()
   }
 }
+
+function handlePointerOpen(event: PointerEvent) {
+  handleOpen()
+  rootContext.triggerPointerDownPosRef.value = {
+    x: Math.round(event.pageX),
+    y: Math.round(event.pageY),
+  }
+}
 </script>
 
 <template>
@@ -78,7 +86,7 @@ function handleOpen() {
           // Prevent opening on touch down.
           // https://github.com/radix-vue/radix-vue/issues/804
           if (event.pointerType === 'touch')
-            return;
+            return event.preventDefault();
 
           // prevent implicit pointer capture
           // https://www.w3.org/TR/pointerevents3/#implicit-pointer-capture
@@ -90,11 +98,7 @@ function handleOpen() {
           // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)
           // but not when the control key is pressed (avoiding MacOS right click)
           if (event.button === 0 && event.ctrlKey === false) {
-            handleOpen();
-            rootContext.triggerPointerDownPosRef.value = {
-              x: Math.round(event.pageX),
-              y: Math.round(event.pageY),
-            };
+            handlePointerOpen(event)
             // prevent trigger from stealing focus from the active item after opening.
             event.preventDefault();
           }
@@ -105,7 +109,7 @@ function handleOpen() {
           // Only open on pointer up when using touch devices
           // https://github.com/radix-vue/radix-vue/issues/804
           if (event.pointerType === 'touch')
-            handleOpen();
+            handlePointerOpen(event)
         }
       "
       @keydown="

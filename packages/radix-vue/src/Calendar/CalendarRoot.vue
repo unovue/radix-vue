@@ -164,13 +164,14 @@ const {
   isDateDisabled: propsIsDateDisabled,
   isDateUnavailable: propsIsDateUnavailable,
   calendarLabel,
+  defaultValue,
 } = toRefs(props)
 
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: props.defaultValue ?? undefined,
+  defaultValue: defaultValue.value,
   passive: (props.modelValue === undefined) as false,
 }) as Ref<DateValue | DateValue[] | undefined>
 

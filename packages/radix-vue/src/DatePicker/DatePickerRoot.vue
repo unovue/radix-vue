@@ -99,10 +99,11 @@ const {
   granularity,
   hideTimeZone,
   hourCycle,
+  defaultValue,
 } = toRefs(props)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: props.defaultValue ?? undefined,
+  defaultValue: defaultValue.value,
   passive: (props.modelValue === undefined) as false,
 }) as Ref<DateValue | undefined>
 

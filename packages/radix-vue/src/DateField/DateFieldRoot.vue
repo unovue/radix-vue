@@ -108,7 +108,7 @@ defineSlots<{
   }): any
 }>()
 
-const { locale, disabled, readonly, isDateUnavailable: propsIsDateUnavailable, granularity } = toRefs(props)
+const { locale, disabled, readonly, isDateUnavailable: propsIsDateUnavailable, granularity, defaultValue } = toRefs(props)
 
 const formatter = useDateFormatter(props.locale)
 const { primitiveElement, currentElement: parentElement }
@@ -120,7 +120,7 @@ onMounted(() => {
 })
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: props.defaultValue ?? undefined,
+  defaultValue: defaultValue.value,
   passive: (props.modelValue === undefined) as false,
 }) as Ref<DateValue>
 

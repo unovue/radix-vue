@@ -84,13 +84,17 @@ export interface RangeCalendarRootProps extends PrimitiveProps {
   isDateDisabled?: Matcher
   /** A function that returns whether or not a date is unavailable */
   isDateUnavailable?: Matcher
+  /** The `start` value of the date range, which can exist prior to the true `value` being set, which is only set once a `start` and `end` value are selected. You can `@update:startValue` to a value to receive updates, but modifying this value outside the component will have no effect. To programmatically control the `start` value, use `v-model="value"` and update the start property of the DateRange object. This is provided as a convenience for use cases where you want to display the selected start value outside the component before the value is set. */
+  startValue?: DateValue
 }
 
 export type RangeCalendarRootEmits = {
   /** Event handler called whenever the model value changes */
-  'update:modelValue': [DateRange]
+  'update:modelValue': [date: DateRange]
   /** Event handler called whenever the placeholder value changes */
   'update:placeholder': [date: DateValue]
+  /** Event handler called whenever the start value changes */
+  'update:startValue': [date: DateValue | undefined]
 }
 
 export const [injectRangeCalendarRootContext, provideRangeCalendarRootContext]
@@ -103,7 +107,7 @@ import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { useMemoize, useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<RangeCalendarRootProps>(), {
-  defaultValue: undefined,
+  defaultValue: () => ({ start: undefined, end: undefined }),
   as: 'div',
   pagedNavigation: false,
   preventDeselect: false,
@@ -155,6 +159,7 @@ const {
   maxValue,
   minValue,
   locale,
+  startValue: propsStartValue,
 } = toRefs(props)
 
 const { primitiveElement, currentElement: parentElement }
@@ -164,7 +169,7 @@ const lastPressedDateValue = ref() as Ref<DateValue | undefined>
 const focusedValue = ref() as Ref<DateValue | undefined>
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: props.defaultValue ?? { start: undefined, end: undefined },
+  defaultValue: props.defaultValue,
   passive: (props.modelValue === undefined) as false,
 }) as Ref<DateRange>
 
@@ -173,7 +178,7 @@ const defaultDate = getDefaultDate({
   defaultValue: modelValue.value.start,
 })
 
-const startValue = ref(modelValue.value.start) as Ref<DateValue | undefined>
+const startValue = ref(modelValue.value.start ?? propsStartValue.value) as Ref<DateValue | undefined>
 const endValue = ref(modelValue.value.end) as Ref<DateValue | undefined>
 
 const placeholder = useVModel(props, 'placeholder', emits, {
@@ -241,6 +246,8 @@ watch(modelValue, (modelValue) => {
 watch(startValue, (value) => {
   if (value && !isEqualDay(value, placeholder.value))
     onPlaceholderChange(value)
+
+  emits('update:startValue', value)
 })
 
 watch([startValue, endValue], ([startValue, endValue]) => {
@@ -249,8 +256,10 @@ watch([startValue, endValue], ([startValue, endValue]) => {
   if (value && value.start && value.end && startValue && endValue && isEqualDay(value.start, startValue) && isEqualDay(value.end, endValue))
     return
 
-  if (startValue) {
-    if (endValue && isBefore(endValue, startValue)) {
+  if (startValue && endValue) {
+    if (value.start && value.end && isEqualDay(value.start, startValue) && isEqualDay(value.end, endValue))
+      return
+    if (isBefore(endValue, startValue)) {
       modelValue.value = {
         start: endValue.copy(),
         end: startValue.copy(),
@@ -259,11 +268,11 @@ watch([startValue, endValue], ([startValue, endValue]) => {
     else {
       modelValue.value = {
         start: startValue.copy(),
-        end: endValue?.copy(),
+        end: endValue.copy(),
       }
     }
   }
-  else if (value && value.start && value.end) {
+  else if (value.start && value.end) {
     modelValue.value = {
       start: undefined,
       end: undefined,

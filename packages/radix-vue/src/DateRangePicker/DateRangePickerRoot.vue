@@ -5,7 +5,7 @@ import type { Ref } from 'vue'
 import { createContext } from '@/shared'
 import { type DateRange, type Granularity, type HourCycle, type Matcher, type WeekDayFormat, getDefaultDate } from '@/shared/date'
 
-import { type CalendarRootProps, type DateRangeFieldRoot, type DateRangeFieldRootProps, PopoverRoot, type PopoverRootEmits, type PopoverRootProps } from '..'
+import { type DateRangeFieldRoot, type DateRangeFieldRootProps, PopoverRoot, type PopoverRootEmits, type PopoverRootProps, type RangeCalendarRootProps } from '..'
 
 type DateRangePickerRootContext = {
   id: Ref<string | undefined>
@@ -35,15 +35,18 @@ type DateRangePickerRootContext = {
   modal: Ref<boolean>
   onDateChange: (date: DateRange) => void
   onPlaceholderChange: (date: DateValue) => void
+  startValue: Ref<DateValue | undefined>
 }
 
-export type DateRangePickerRootProps = DateRangeFieldRootProps & PopoverRootProps & Pick<CalendarRootProps, 'isDateDisabled' | 'pagedNavigation' | 'weekStartsOn' | 'weekdayFormat' | 'fixedWeeks' | 'numberOfMonths' | 'preventDeselect'>
+export type DateRangePickerRootProps = DateRangeFieldRootProps & PopoverRootProps & Pick<RangeCalendarRootProps, 'startValue' | 'isDateDisabled' | 'pagedNavigation' | 'weekStartsOn' | 'weekdayFormat' | 'fixedWeeks' | 'numberOfMonths' | 'preventDeselect'>
 
 export type DateRangePickerRootEmits = {
   /** Event handler called whenever the model value changes */
   'update:modelValue': [date: DateRange]
   /** Event handler called whenever the placeholder value changes */
   'update:placeholder': [date: DateValue]
+  /** Event handler called whenever the start value changes */
+  'update:startValue': [date: DateValue | undefined]
 }
 
 export const [injectDateRangePickerRootContext, provideDateRangePickerRootContext]
@@ -51,13 +54,14 @@ export const [injectDateRangePickerRootContext, provideDateRangePickerRootContex
 </script>
 
 <script setup lang="ts">
-import { ref, toRefs } from 'vue'
+import { ref, toRefs, watch } from 'vue'
 import { useVModel } from '@vueuse/core'
 
 defineOptions({
   inheritAttrs: false,
 })
 const props = withDefaults(defineProps<DateRangePickerRootProps>(), {
+  defaultValue: () => ({ start: undefined, end: undefined }),
   defaultOpen: false,
   open: undefined,
   modal: false,
@@ -98,10 +102,13 @@ const {
   granularity,
   hideTimeZone,
   hourCycle,
+  startValue: propsStartValue,
 } = toRefs(props)
 
+const startValue = ref(propsStartValue.value) as Ref<DateValue | undefined>
+
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: props.defaultValue ?? { start: undefined, end: undefined },
+  defaultValue: props.defaultValue,
   passive: (props.modelValue === undefined) as false,
 }) as Ref<DateRange>
 
@@ -123,9 +130,14 @@ const open = useVModel(props, 'open', emits, {
 
 const dateFieldRef = ref<InstanceType<typeof DateRangeFieldRoot> | undefined>()
 
+watch(startValue, (value) => {
+  emits('update:startValue', value)
+})
+
 provideDateRangePickerRootContext({
   isDateUnavailable: propsIsDateUnavailable.value,
   isDateDisabled: propsIsDateDisabled.value,
+  startValue,
   locale,
   disabled,
   pagedNavigation,

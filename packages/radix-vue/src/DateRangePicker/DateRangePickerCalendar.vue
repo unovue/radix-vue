@@ -25,10 +25,14 @@ const rootContext = injectDateRangePickerRootContext()
       preventDeselect: rootContext.preventDeselect.value,
       minValue: rootContext.minValue.value,
       maxValue: rootContext.maxValue.value,
+      startValue: rootContext.startValue.value,
     }"
     initial-focus
     :model-value="rootContext.modelValue.value"
     :placeholder="rootContext.placeholder.value"
+    @update:start-value="(date) => {
+      rootContext.startValue.value = date?.copy()
+    }"
     @update:model-value="(date) => {
       if (!rootContext.modelValue.value.start) {
         rootContext.onDateChange(date)

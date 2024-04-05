@@ -1,5 +1,5 @@
 <script lang="ts">
-import { createContext, useDirection, useKbd, useTypeahead } from '@/shared'
+import { createContext, useDirection, useFormControl, useKbd, useTypeahead } from '@/shared'
 import { Primitive } from '..'
 import { usePrimitiveElement } from '@/Primitive'
 import type { AcceptableValue, DataOrientation, Direction } from '@/shared/types'
@@ -41,21 +41,23 @@ export interface ListboxRootProps<T = AcceptableValue> extends Pick<RovingFocusG
   defaultValue?: T | Array<T>
   /** Whether multiple options can be selected or not. */
   multiple?: boolean
-  /**
-   * The orientation of the listbox.
-   * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
-   */
+  /** The orientation of the listbox. <br>Mainly so arrow navigation is done accordingly (left & right vs. up & down) */
   orientation?: DataOrientation
-  /**
-   * The direction of navigation between items.
-   */
+  /** The reading direction of the listbox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
   /** When `true`, prevents the user from interacting with listbox */
   disabled?: boolean
+  /**
+   * How multiple selection should behave in the collection.
+   * @defaultValue 'toggle'
+   */
   selectionBehavior?: 'toggle' | 'replace'
+  /** When `true`, hover over item will trigger highlight */
   highlightOnHover?: boolean
   /** Use this to compare objects by a particular field, or pass your own comparison function for complete control over how objects are compared. */
   by?: string | ((a: T, b: T) => boolean)
+  /** The name of the listbox. Submitted with its owning form as part of a name/value pair. */
+  name?: string
 }
 
 export type ListboxRootEmits<T = AcceptableValue> = {
@@ -63,6 +65,7 @@ export type ListboxRootEmits<T = AcceptableValue> = {
   'update:modelValue': [value: T]
   'leave': [event: Event]
   'entryFocus': [event: CustomEvent]
+  'highlight': [element: HTMLElement]
 }
 </script>
 
@@ -72,6 +75,7 @@ import { type EventHook, createEventHook, useVModel } from '@vueuse/core'
 import { type Ref, nextTick, ref, toRefs, watch } from 'vue'
 import { compare, findValuesBetween } from './utils'
 import { createCollection } from '@/Collection'
+import { VisuallyHiddenInput } from '@/VisuallyHidden'
 
 const props = withDefaults(defineProps<ListboxRootProps>(), {
   selectionBehavior: 'toggle',
@@ -82,8 +86,11 @@ const emits = defineEmits<ListboxRootEmits>()
 const { multiple, highlightOnHover, orientation, disabled, selectionBehavior, dir: propDir } = toRefs(props)
 const { getItems } = createCollection<{ value: T }>()
 const { handleTypeaheadSearch } = useTypeahead()
+const { primitiveElement, currentElement } = usePrimitiveElement()
 const kbd = useKbd()
 const dir = useDirection(propDir)
+
+const isFormControl = useFormControl(currentElement)
 
 const firstValue = ref<T>()
 const isUserAction = ref(false)
@@ -136,6 +143,7 @@ function onChangeHighlight(el: HTMLElement) {
   highlightedElement.value = el
   highlightedElement.value.focus()
   highlightedElement.value.scrollIntoView({ block: 'nearest' })
+  emits('highlight', el)
 }
 
 function onKeydownEnter(event: KeyboardEvent) {
@@ -267,8 +275,6 @@ watch(modelValue, () => {
   }
 }, { immediate: true, deep: true })
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
-
 provideListboxRootContext({
   modelValue,
   // @ts-expect-error igoring
@@ -311,5 +317,7 @@ provideListboxRootContext({
     }"
   >
     <slot />
+
+    <VisuallyHiddenInput v-if="isFormControl && props.name" :name="props.name" :value="modelValue" />
   </Primitive>
 </template>

@@ -38,7 +38,8 @@ import {
 } from 'vue'
 import { injectSelectRootContext } from './SelectRoot.vue'
 import { SelectContentDefaultContextValue, injectSelectContentContext } from './SelectContentImpl.vue'
-import { ListboxItem } from '@/Listbox'
+import { SELECTION_KEYS } from './utils'
+import { Primitive } from '@/Primitive'
 
 const props = defineProps<SelectItemProps>()
 const { disabled } = toRefs(props)
@@ -61,6 +62,42 @@ async function handleSelect(ev?: PointerEvent) {
     rootContext.onValueChange(props.value)
     rootContext.onOpenChange(false)
   }
+}
+
+async function handlePointerMove(event: PointerEvent) {
+  await nextTick()
+  if (event.defaultPrevented)
+    return
+  if (disabled.value) {
+    contentContext.onItemLeave?.()
+  }
+  else {
+    // even though safari doesn't support this option, it's acceptable
+    // as it only means it might scroll a few pixels when using the pointer.
+    (event.currentTarget as HTMLElement).focus({ preventScroll: true })
+  }
+}
+
+async function handlePointerLeave(event: PointerEvent) {
+  await nextTick()
+  if (event.defaultPrevented)
+    return
+  if (event.currentTarget === document.activeElement)
+    contentContext.onItemLeave?.()
+}
+
+async function handleKeyDown(event: KeyboardEvent) {
+  await nextTick()
+  if (event.defaultPrevented)
+    return
+  const isTypingAhead = contentContext.searchRef?.value !== ''
+  if (isTypingAhead && event.key === ' ')
+    return
+  if (SELECTION_KEYS.includes(event.key))
+    handleSelect()
+  // prevent page scroll if using the space key to select an item
+  if (event.key === ' ')
+    event.preventDefault()
 }
 
 if (props.value === '') {
@@ -91,26 +128,30 @@ provideSelectItemContext({
 </script>
 
 <template>
-  <ListboxItem
+  <Primitive
     :ref="forwardRef"
-    :value="value"
-    :disabled="disabled"
+    role="option"
+    data-radix-vue-collection-item
     :aria-labelledby="textId"
     :data-highlighted="isFocused ? '' : undefined"
+    :aria-selected="isSelected && isFocused"
+    :data-state="isSelected ? 'checked' : 'unchecked'"
+    :aria-disabled="disabled || undefined"
+    :data-disabled="disabled ? '' : undefined"
     :tabindex="disabled ? undefined : -1"
     :as="as"
     :as-child="asChild"
     @focus="isFocused = true"
     @blur="isFocused = false"
-    @select.prevent="(ev) => {
-      if (rootContext.open.value) {
-
-        console.log('selected?', ev)
-        handleSelect(ev.detail.originalEvent)
-      }
+    @pointerup="handleSelect"
+    @pointerdown="(event) => {
+      (event.currentTarget as HTMLElement).focus({ preventScroll: true })
     }"
     @touchend.prevent.stop
+    @pointermove="handlePointerMove"
+    @pointerleave="handlePointerLeave"
+    @keydown="handleKeyDown"
   >
     <slot />
-  </ListboxItem>
+  </Primitive>
 </template>

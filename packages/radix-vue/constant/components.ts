@@ -313,7 +313,6 @@ export const components = {
     'SelectScrollDownButton',
     'SelectValue',
     'SelectIcon',
-    'SelectFilter',
   ],
 
   separator: [

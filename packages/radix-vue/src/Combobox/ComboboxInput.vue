@@ -3,7 +3,7 @@ import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
 
 export interface ComboboxInputProps extends PrimitiveProps {
-  /** Nactive input type */
+  /** Native input type */
   type?: string
   /** When `true`, prevents the user from interacting with item */
   disabled?: boolean

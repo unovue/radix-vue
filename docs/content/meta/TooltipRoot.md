@@ -21,6 +21,12 @@
     'required': false
   },
   {
+    'name': 'disabled',
+    'description': '<p>When <code>true</code>, disable tooltip</p>\n',
+    'type': 'boolean',
+    'required': false
+  },
+  {
     'name': 'disableHoverableContent',
     'description': '<p>Prevents Tooltip.Content from remaining open when hovering.\nDisabling this has accessibility consequences. Inherits\nfrom Tooltip.Provider.</p>\n',
     'type': 'boolean',

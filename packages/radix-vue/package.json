@@ -1,7 +1,7 @@
 {
   "name": "radix-vue",
   "type": "module",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "Vue port for Radix UI Primitives.",
   "author": "Radix Vue Contributors (https://github.com/radix-vue)",
   "license": "MIT",
@@ -97,7 +97,7 @@
     "@vue/tsconfig": "^0.4.0",
     "jsdom": "^23.2.0",
     "typescript": "^5.3.3",
-    "vite": "^4.5.2",
+    "vite": "^4.5.3",
     "vite-plugin-dts": "^3.6.0",
     "vitest": "^1.2.1",
     "vitest-axe": "0.1.0",

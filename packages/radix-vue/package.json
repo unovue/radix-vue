@@ -28,13 +28,13 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.umd.cjs",
+      "require": "./dist/index.cjs",
       "import": "./dist/index.js"
     },
     "./date": {
       "types": "./date.d.ts",
-      "require": "./dist/date/index.cjs",
-      "import": "./dist/date/index.mjs"
+      "require": "./dist/date.cjs",
+      "import": "./dist/date.js"
     },
     "./namespaced": {
       "types": "./namespaced.d.ts",
@@ -52,7 +52,7 @@
       "import": "./dist/resolver/index.mjs"
     }
   },
-  "main": "./dist/index.umd.cjs",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "typings": "./dist/index.d.ts",
@@ -60,8 +60,7 @@
     "./dist",
     "./LICENSE",
     "./resolver.d.ts",
-    "./namespaced.d.ts",
-    "./date.d.ts"
+    "./namespaced.d.ts"
   ],
   "scripts": {
     "build": "pnpm type-check && pnpm build-only",

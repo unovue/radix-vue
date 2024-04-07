@@ -20,7 +20,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(projectRootDir, 'src'),
-      'date': resolve(projectRootDir, 'dist/date'),
     },
   },
   build: {

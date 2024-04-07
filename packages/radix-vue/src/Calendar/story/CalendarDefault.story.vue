@@ -1,14 +1,18 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot } from '../'
+import { useMediaQuery } from '@vueuse/core'
+
+const isLargeScreen = useMediaQuery('(min-width: 768px)')
 </script>
 
 <template>
   <Story title="Calendar/Default" :layout="{ type: 'single' }">
     <Variant title="default">
+      {{ isLargeScreen.toString() }}
       <CalendarRoot
         v-slot="{ weekDays, grid }"
-
+        :number-of-months="isLargeScreen ? 2 : 1"
         class="mt-6 rounded-xl border border-black bg-white p-4 shadow-md"
       >
         <CalendarHeader class="flex items-center justify-between">

@@ -204,17 +204,17 @@ const {
 } = useCalendar({
   locale,
   placeholder,
-  weekStartsOn: props.weekStartsOn,
-  fixedWeeks: props.fixedWeeks,
-  numberOfMonths: props.numberOfMonths,
+  weekStartsOn,
+  fixedWeeks,
+  numberOfMonths,
   minValue,
   maxValue,
   disabled,
-  weekdayFormat: props.weekdayFormat,
-  pagedNavigation: props.pagedNavigation,
+  weekdayFormat,
+  pagedNavigation,
   isDateDisabled: propsIsDateDisabled.value,
   isDateUnavailable: propsIsDateUnavailable.value,
-  calendarLabel: calendarLabel.value,
+  calendarLabel,
 })
 
 const {

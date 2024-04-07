@@ -3,11 +3,12 @@ import { type DateValue, isEqualDay, isSameDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { type Formatter, createContext } from '@/shared'
+import { type Formatter, createContext, useDirection } from '@/shared'
 
 import { useCalendar, useCalendarState } from './useCalendar'
 import { createDecade, createYear, getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
 import type { Grid, Matcher, WeekDayFormat } from '@/shared/date'
+import type { Direction } from '@/shared/types'
 
 type CalendarRootContext = {
   locale: Ref<string>
@@ -38,6 +39,7 @@ type CalendarRootContext = {
   isNextButtonDisabled: Ref<boolean>
   isPrevButtonDisabled: Ref<boolean>
   formatter: Formatter
+  dir: Ref<Direction>
 }
 
 interface BaseCalendarRootProps extends PrimitiveProps {
@@ -77,6 +79,8 @@ interface BaseCalendarRootProps extends PrimitiveProps {
   isDateDisabled?: Matcher
   /** A function that returns whether or not a date is unavailable */
   isDateUnavailable?: Matcher
+  /** The reading direction of the calendar when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
+  dir?: Direction
 }
 
 interface MultipleCalendarRootProps extends BaseCalendarRootProps {
@@ -164,10 +168,12 @@ const {
   isDateDisabled: propsIsDateDisabled,
   isDateUnavailable: propsIsDateUnavailable,
   calendarLabel,
+  dir: propDir,
 } = toRefs(props)
 
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
+const dir = useDirection(propDir)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue ?? undefined,
@@ -302,6 +308,7 @@ onMounted(() => {
 
 provideCalendarRootContext({
   isDateUnavailable,
+  dir,
   isDateDisabled,
   locale,
   formatter,
@@ -342,6 +349,7 @@ provideCalendarRootContext({
     :data-readonly="readonly ? '' : undefined"
     :data-disabled="disabled ? '' : undefined"
     :data-invalid="isInvalid ? '' : undefined"
+    :dir="dir"
   >
     <slot
       :date="placeholder"

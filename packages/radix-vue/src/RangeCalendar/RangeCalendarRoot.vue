@@ -3,11 +3,12 @@ import { type DateValue, isEqualDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { type Formatter, createContext } from '@/shared'
+import { type Formatter, createContext, useDirection } from '@/shared'
 import { createDecade, createYear, getDefaultDate, handleCalendarInitialFocus, isBefore } from '@/shared/date'
 import type { DateRange, Grid, Matcher, WeekDayFormat } from '@/shared/date'
 import { useRangeCalendarState } from './useRangeCalendar'
 import { useCalendar } from '@/Calendar/useCalendar'
+import type { Direction } from '@/shared/types'
 
 type RangeCalendarRootContext = {
   modelValue: Ref<DateRange>
@@ -43,6 +44,7 @@ type RangeCalendarRootContext = {
   isNextButtonDisabled: Ref<boolean>
   isPrevButtonDisabled: Ref<boolean>
   formatter: Formatter
+  dir: Ref<Direction>
 }
 
 export interface RangeCalendarRootProps extends PrimitiveProps {
@@ -86,6 +88,8 @@ export interface RangeCalendarRootProps extends PrimitiveProps {
   isDateUnavailable?: Matcher
   /** The `start` value of the date range, which can exist prior to the true `value` being set, which is only set once a `start` and `end` value are selected. You can `@update:startValue` to a value to receive updates, but modifying this value outside the component will have no effect. To programmatically control the `start` value, use `v-model="value"` and update the start property of the DateRange object. This is provided as a convenience for use cases where you want to display the selected start value outside the component before the value is set. */
   startValue?: DateValue
+  /** The reading direction of the calendar when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
+  dir?: Direction
 }
 
 export type RangeCalendarRootEmits = {
@@ -160,10 +164,12 @@ const {
   minValue,
   locale,
   startValue: propsStartValue,
+  dir: propsDir,
 } = toRefs(props)
 
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
+const dir = useDirection(propsDir)
 
 const lastPressedDateValue = ref() as Ref<DateValue | undefined>
 const focusedValue = ref() as Ref<DateValue | undefined>
@@ -206,17 +212,17 @@ const {
 } = useCalendar({
   locale,
   placeholder,
-  weekStartsOn: props.weekStartsOn,
-  fixedWeeks: props.fixedWeeks,
-  numberOfMonths: props.numberOfMonths,
+  weekStartsOn,
+  fixedWeeks,
+  numberOfMonths,
   minValue,
   maxValue,
   disabled,
-  weekdayFormat: props.weekdayFormat,
-  pagedNavigation: props.pagedNavigation,
+  weekdayFormat,
+  pagedNavigation,
   isDateDisabled: propsIsDateDisabled.value,
   isDateUnavailable: propsIsDateUnavailable.value,
-  calendarLabel: calendarLabel.value,
+  calendarLabel,
 })
 
 const {
@@ -336,7 +342,7 @@ provideRangeCalendarRootContext({
   parentElement,
   onPlaceholderChange,
   locale,
-
+  dir,
 })
 
 onMounted(() => {
@@ -355,6 +361,7 @@ onMounted(() => {
     :data-readonly="readonly ? '' : undefined"
     :data-disabled="disabled ? '' : undefined"
     :data-invalid="isInvalid ? '' : undefined"
+    :dir="dir"
   >
     <div style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 1px;">
       <div role="heading" aria-level="2">

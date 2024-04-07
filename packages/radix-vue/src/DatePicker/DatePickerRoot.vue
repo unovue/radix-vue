@@ -2,10 +2,11 @@
 import { type DateValue, isEqualDay, isSameDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
-import { createContext } from '@/shared'
+import { createContext, useDirection } from '@/shared'
 import { type Granularity, type HourCycle, type Matcher, type WeekDayFormat, getDefaultDate } from '@/shared/date'
 
 import { type CalendarRootProps, type DateFieldRoot, type DateFieldRootProps, PopoverRoot, type PopoverRootEmits, type PopoverRootProps } from '..'
+import type { Direction } from '@/shared/types'
 
 type DatePickerRootContext = {
   id: Ref<string | undefined>
@@ -35,6 +36,7 @@ type DatePickerRootContext = {
   modal: Ref<boolean>
   onDateChange: (date: DateValue | undefined) => void
   onPlaceholderChange: (date: DateValue) => void
+  dir: Ref<Direction>
 }
 
 export type DatePickerRootProps = DateFieldRootProps & PopoverRootProps & Pick<CalendarRootProps, 'isDateDisabled' | 'pagedNavigation' | 'weekStartsOn' | 'weekdayFormat' | 'fixedWeeks' | 'numberOfMonths' | 'preventDeselect'>
@@ -100,7 +102,10 @@ const {
   hideTimeZone,
   hourCycle,
   defaultValue,
+  dir: propDir,
 } = toRefs(props)
+
+const dir = useDirection(propDir)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: defaultValue.value,
@@ -151,6 +156,7 @@ provideDatePickerRootContext({
   hideTimeZone,
   hourCycle,
   dateFieldRef,
+  dir,
   onDateChange(date: DateValue | undefined) {
     if (!date || !modelValue.value)
       modelValue.value = date

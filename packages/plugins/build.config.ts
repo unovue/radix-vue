@@ -40,17 +40,4 @@ export default defineBuildConfig([
       emitCJS: true,
     },
   },
-  {
-    name: 'Date',
-    entries: ['./src/date/index'],
-    outDir: '../radix-vue/dist',
-    clean: false,
-    declaration: true,
-    externals: [
-      'radix-vue',
-    ],
-    rollup: {
-      emitCJS: true,
-    },
-  },
 ])

@@ -29,6 +29,7 @@ const triggerId = computed(() => makeTriggerId(rootContext.baseId, props.value))
 const contentId = computed(() => makeContentId(rootContext.baseId, props.value))
 
 const isSelected = computed(() => props.value === rootContext.modelValue.value)
+
 const isMountAnimationPreventedRef = ref(isSelected.value)
 
 onMounted(() => {

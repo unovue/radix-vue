@@ -43,4 +43,6 @@ type ScrollBodyOption = {
   margin?: boolean | number
 }
 
-export type { DataOrientation, Direction, Type, SingleOrMultipleProps, SingleOrMultipleType, ScrollBodyOption }
+type StringOrNumber = string | number
+
+export type { DataOrientation, Direction, Type, SingleOrMultipleProps, SingleOrMultipleType, ScrollBodyOption, StringOrNumber }

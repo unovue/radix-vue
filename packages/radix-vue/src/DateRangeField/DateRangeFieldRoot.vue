@@ -17,7 +17,7 @@ import {
   areAllDaysBetweenValid,
   hasTime,
   isBefore,
-} from 'date'
+} from '@/date'
 import { createContent, initializeSegmentValues, isSegmentNavigationKey, syncSegmentValues } from '@/DateField/utils'
 import type { Direction } from '@/shared/types'
 

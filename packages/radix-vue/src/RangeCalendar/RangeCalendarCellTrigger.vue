@@ -9,7 +9,7 @@ import {
 } from '@internationalized/date'
 import { computed, nextTick } from 'vue'
 import { useKbd } from '@/shared'
-import { isBetweenInclusive, parseStringToDateValue, toDate } from 'date'
+import { isBetweenInclusive, parseStringToDateValue, toDate } from '@/date'
 
 export interface RangeCalendarCellTriggerProps extends PrimitiveProps {
   day: DateValue

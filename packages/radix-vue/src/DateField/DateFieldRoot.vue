@@ -11,7 +11,7 @@ import {
   type SegmentValueObj,
   getDefaultDate,
 } from '@/shared/date'
-import { type Matcher, hasTime, isBefore } from 'date'
+import { type Matcher, hasTime, isBefore } from '@/date'
 import { createContent, initializeSegmentValues, isSegmentNavigationKey, syncSegmentValues } from './utils'
 import type { Direction } from '@/shared/types'
 

@@ -4,7 +4,7 @@ import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, Cale
 import { type Ref, ref } from 'vue'
 import { CalendarDate, type DateValue, getLocalTimeZone, today } from '@internationalized/date'
 
-import { toDate } from 'date'
+import { toDate } from '@/date'
 
 import CalendarPopover from './_CalendarPopover.vue'
 

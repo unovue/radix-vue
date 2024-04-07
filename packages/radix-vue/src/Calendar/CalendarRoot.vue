@@ -7,7 +7,7 @@ import { type Formatter, createContext, useDirection } from '@/shared'
 
 import { useCalendar, useCalendarState } from './useCalendar'
 import { getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
-import { type Grid, type Matcher, type WeekDayFormat, createDecade, createYear } from 'date'
+import { type Grid, type Matcher, type WeekDayFormat, createDecade, createYear } from '@/date'
 import type { Direction } from '@/shared/types'
 
 type CalendarRootContext = {

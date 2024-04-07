@@ -256,25 +256,25 @@ watch(startValue, (value) => {
   emits('update:startValue', value)
 })
 
-watch([startValue, endValue], ([startValue, endValue]) => {
+watch([startValue, endValue], ([_startValue, _endValue]) => {
   const value = modelValue.value
 
-  if (value && value.start && value.end && startValue && endValue && isEqualDay(value.start, startValue) && isEqualDay(value.end, endValue))
+  if (value && value.start && value.end && _startValue && _endValue && isEqualDay(value.start, _startValue) && isEqualDay(value.end, _endValue))
     return
 
-  if (startValue && endValue) {
-    if (value.start && value.end && isEqualDay(value.start, startValue) && isEqualDay(value.end, endValue))
+  if (_startValue && _endValue) {
+    if (value.start && value.end && isEqualDay(value.start, _startValue) && isEqualDay(value.end, _endValue))
       return
-    if (isBefore(endValue, startValue)) {
+    if (isBefore(_endValue, _startValue)) {
       modelValue.value = {
-        start: endValue.copy(),
-        end: startValue.copy(),
+        start: _endValue.copy(),
+        end: _startValue.copy(),
       }
     }
     else {
       modelValue.value = {
-        start: startValue.copy(),
-        end: endValue.copy(),
+        start: _startValue.copy(),
+        end: _endValue.copy(),
       }
     }
   }

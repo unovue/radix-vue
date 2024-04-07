@@ -230,15 +230,15 @@ const editableSegmentContents = computed(() => ({ start: segmentContents.value.s
 const startValue = ref(modelValue.value.start?.copy()) as Ref<DateValue | undefined>
 const endValue = ref(modelValue.value.end?.copy()) as Ref<DateValue | undefined>
 
-watch([startValue, endValue], ([startValue, endValue]) => {
+watch([startValue, endValue], ([_startValue, _endValue]) => {
   const value = modelValue.value
-  if (value.start && value.end && startValue && endValue && value.start.compare(startValue) === 0 && value.end.compare(endValue) === 0)
+  if (value.start && value.end && _startValue && _endValue && value.start.compare(_startValue) === 0 && value.end.compare(_endValue) === 0)
     return
 
-  if (startValue && endValue) {
-    if (modelValue.value.start?.compare(startValue) === 0 && modelValue.value.end?.compare(endValue) === 0)
+  if (_startValue && _endValue) {
+    if (modelValue.value.start?.compare(_startValue) === 0 && modelValue.value.end?.compare(_endValue) === 0)
       return
-    modelValue.value = { start: startValue.copy(), end: endValue.copy() }
+    modelValue.value = { start: _startValue.copy(), end: _endValue.copy() }
   }
   else if (modelValue.value.start && modelValue.value.end) {
     modelValue.value = { start: undefined, end: undefined }

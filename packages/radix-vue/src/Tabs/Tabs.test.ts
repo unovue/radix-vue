@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { axe } from 'vitest-axe'
 import Tabs from './story/_Tabs.vue'
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { axe } from 'vitest-axe'
 
 describe('given default Tabs', () => {
   let wrapper: VueWrapper<InstanceType<typeof Tabs>>
@@ -18,6 +18,7 @@ describe('given default Tabs', () => {
 
   it('should render tab\'s content', () => {
     expect(wrapper.find('[role=tabpanel]').exists()).toBeTruthy()
+
     expect(wrapper.html()).toContain('Make changes')
   })
 

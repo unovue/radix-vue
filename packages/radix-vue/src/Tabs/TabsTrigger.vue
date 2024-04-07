@@ -1,10 +1,11 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
+import type { StringOrNumber } from '@/shared/types'
 
 export interface TabsTriggerProps extends PrimitiveProps {
   /** A unique value that associates the trigger with a content. */
-  value: string
+  value: StringOrNumber
   /** When `true`, prevents the user from interacting with the tab. */
   disabled?: boolean
 }

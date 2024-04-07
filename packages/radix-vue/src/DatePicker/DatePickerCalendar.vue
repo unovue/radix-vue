@@ -25,6 +25,7 @@ const rootContext = injectDatePickerRootContext()
       numberOfMonths: rootContext.numberOfMonths.value,
       readonly: rootContext.readonly.value,
       preventDeselect: rootContext.preventDeselect.value,
+      dir: rootContext.dir.value,
     }"
     :model-value="rootContext.modelValue.value"
     :placeholder="rootContext.placeholder.value"

@@ -23,7 +23,7 @@
   {
     'name': 'value',
     'description': '<p>A unique value that associates the content with a trigger.</p>\n',
-    'type': 'string',
+    'type': 'string | number',
     'required': true
   }
 ]" />

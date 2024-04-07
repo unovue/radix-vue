@@ -93,12 +93,13 @@ function handleArrowKey(e: KeyboardEvent) {
   const index = allCollectionItems.indexOf(currentElement.value)
   let newIndex = index
   const indexIncrementation = 7
+  const sign = rootContext.dir.value === 'rtl' ? -1 : 1
   switch (e.code) {
     case kbd.ARROW_RIGHT:
-      newIndex++
+      newIndex += sign
       break
     case kbd.ARROW_LEFT:
-      newIndex--
+      newIndex -= sign
       break
     case kbd.ARROW_UP:
       newIndex -= indexIncrementation

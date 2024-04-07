@@ -27,6 +27,7 @@ const rootContext = injectDateRangePickerRootContext()
       locale: rootContext.locale.value,
       isDateUnavailable: rootContext.isDateUnavailable,
       required: rootContext.required.value,
+      dir: rootContext.dir.value,
     }"
     @update:model-value="(date) => {
       if (date.start && rootContext.modelValue.value.start && date.end && rootContext.modelValue.value.end && date.start.compare(rootContext.modelValue.value.start) === 0 && date.end.compare(rootContext.modelValue.value.end) === 0) return

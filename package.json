@@ -10,8 +10,8 @@
   ],
   "scripts": {
     "story:dev": "pnpm --filter histoire story:dev",
-    "build": "rimraf packages/radix-vue/dist  && pnpm run -r build",
-    "build-only": "rimraf packages/radix-vue/dist  && pnpm run -r build-only",
+    "build": "rimraf packages/radix-vue/dist && pnpm --filter plugins build && pnpm --filter !plugins run -r build",
+    "build-only": "rimraf packages/radix-vue/dist && pnpm --filter plugins build && pnpm --filter !plugins run -r build-only",
     "docs:install": "pnpm --filter docs install",
     "docs:dev": "pnpm --filter docs docs:dev",
     "docs:build": "pnpm --filter docs docs:build",

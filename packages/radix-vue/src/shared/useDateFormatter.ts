@@ -4,7 +4,7 @@
 
 import { DateFormatter, getLocalTimeZone, today } from '@internationalized/date'
 import type { DateValue, ZonedDateTime } from '@internationalized/date'
-import { hasTime, isZonedDateTime, toDate } from './date'
+import { hasTime, isZonedDateTime, toDate } from 'date'
 import { ref } from 'vue'
 
 export type Formatter = {

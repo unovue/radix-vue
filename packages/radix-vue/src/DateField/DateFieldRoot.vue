@@ -7,13 +7,11 @@ import { type Formatter, createContext, useDateFormatter, useDirection, useKbd }
 import {
   type Granularity,
   type HourCycle,
-  type Matcher,
   type SegmentPart,
   type SegmentValueObj,
   getDefaultDate,
-  hasTime,
-  isBefore,
 } from '@/shared/date'
+import { type Matcher, hasTime, isBefore } from 'date'
 import { createContent, initializeSegmentValues, isSegmentNavigationKey, syncSegmentValues } from './utils'
 import type { Direction } from '@/shared/types'
 

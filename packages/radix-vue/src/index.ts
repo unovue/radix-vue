@@ -50,10 +50,8 @@ export {
   useStateMachine,
   useBodyScrollLock,
   useDateFormatter,
-  useDateUtils,
   withDefault,
   createContext,
   type Formatter,
   type DateRange,
-  toDate,
 } from './shared'

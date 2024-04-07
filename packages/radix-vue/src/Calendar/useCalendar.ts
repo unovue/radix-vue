@@ -4,7 +4,7 @@
 
 import { type DateValue, isSameDay, isSameMonth } from '@internationalized/date'
 import { type Ref, computed, ref, watch } from 'vue'
-import { type Grid, type Matcher, type WeekDayFormat, createMonths, isAfter, isBefore, toDate } from '@/shared/date'
+import { type Grid, type Matcher, type WeekDayFormat, createMonths, isAfter, isBefore, toDate } from 'date'
 import { useDateFormatter } from '@/shared'
 
 export type UseCalendarProps = {

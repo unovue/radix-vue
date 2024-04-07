@@ -1,27 +1,10 @@
 export {
   type Granularity,
-  type Matcher,
   getDefaultDate,
-  parseStringToDateValue,
-  hasTime,
-  isBefore,
-  isAfter,
-  isBeforeOrSame,
-  isAfterOrSame,
-  isBetweenInclusive,
-  isBetween,
-  getLastFirstDayOfWeek,
-  getNextLastDayOfWeek,
-  areAllDaysBetweenValid,
-  toDate,
-  isCalendarDateTime,
-  isZonedDateTime,
-  getDaysInMonth,
 } from './comparators'
 export type {
   DateRange,
   DayOfWeek,
-  Grid,
   HourCycle,
   DayPeriod,
   DateSegmentObj,
@@ -35,17 +18,6 @@ export type {
   TimeSegmentPart,
 } from './types'
 
-export {
-  type CreateMonthProps,
-  createMonths,
-  createMonth,
-  type WeekDayFormat,
-  getDaysBetween,
-  createYear,
-  createDecade,
-  startOfDecade,
-  endOfDecade,
-} from './calendar'
 export { getPlaceholder, type SupportedLocale } from './placeholders'
 export {
   DATE_SEGMENT_PARTS,

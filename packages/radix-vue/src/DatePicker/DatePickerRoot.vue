@@ -3,8 +3,8 @@ import { type DateValue, isEqualDay, isSameDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import { createContext, useDirection } from '@/shared'
-import { type Granularity, type HourCycle, type Matcher, type WeekDayFormat, getDefaultDate } from '@/shared/date'
-
+import { type Granularity, type HourCycle, getDefaultDate } from '@/shared/date'
+import { type Matcher, type WeekDayFormat } from 'date'
 import { type CalendarRootProps, type DateFieldRoot, type DateFieldRootProps, PopoverRoot, type PopoverRootEmits, type PopoverRootProps } from '..'
 import type { Direction } from '@/shared/types'
 

@@ -9,6 +9,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': r('./src'),
+      'date': r('./dist/date'),
     },
   },
   test: {

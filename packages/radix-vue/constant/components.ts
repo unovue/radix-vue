@@ -401,6 +401,7 @@ export const utilities = {
     'useStateMachine',
     'useBodyScrollLock',
     'useDateFormatter',
+    'useDateUtils',
     'withDefault',
     'createContext',
     'toDate',

@@ -50,6 +50,7 @@ export {
   useStateMachine,
   useBodyScrollLock,
   useDateFormatter,
+  useDateUtils,
   withDefault,
   createContext,
   type Formatter,

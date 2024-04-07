@@ -103,6 +103,7 @@ export default defineConfig({
           { text: 'Namespaced', link: '/guides/namespaced-components' },
           { text: 'Internationalization (RTL)', link: '/guides/i18n' },
           { text: `Dates ${BadgeHTML('New')}`, link: '/guides/dates' },
+          { text: `Date Utils ${BadgeHTML('New')}`, link: '/guides/date-utils' },
           // { text: `Namespaced ${BadgeHTML('New')}`, link: '/guides/namespaced-components' },
         ],
       },

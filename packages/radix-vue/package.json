@@ -32,9 +32,14 @@
       "import": "./dist/index.js"
     },
     "./date": {
-      "types": "./date.d.ts",
-      "require": "./dist/date.cjs",
-      "import": "./dist/date.mjs"
+      "require": {
+        "default": "./dist/date.umd.cjs",
+        "types": "./dist/date/index.d.ts"
+      },
+      "import": {
+        "default": "./dist/date.js",
+        "types": "./dist/date/index.d.ts"
+      }
     },
     "./namespaced": {
       "require": {
@@ -67,7 +72,7 @@
       }
     }
   },
-  "main": "./dist/index.cjs",
+  "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "typings": "./dist/index.d.ts",

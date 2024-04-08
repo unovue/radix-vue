@@ -26,9 +26,7 @@ export default defineConfig({
     lib: {
       name: 'radix-vue',
       fileName: (format, name) => {
-        if (name === 'index')
-          return `index.${format === 'es' ? 'js' : 'umd.cjs'}`
-        return `${name}.${format === 'es' ? 'mjs' : 'cjs'}`
+        return `${name}.${format === 'es' ? 'js' : 'umd.cjs'}`
       },
       entry: {
         index: resolve(__dirname, 'src/index.ts'),

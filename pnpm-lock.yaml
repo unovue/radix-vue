@@ -174,9 +174,6 @@ importers:
 
   packages/plugins:
     dependencies:
-      '@internationalized/date':
-        specifier: ^3.5.2
-        version: 3.5.2
       '@nuxt/kit':
         specifier: npm:@nuxt/kit@latest
         version: 3.10.3(rollup@3.29.4)

@@ -47,20 +47,53 @@ and the behavior of the builder will adapt to that type.
 Additionally, you don't have to worry about wrangling timezones, daylight savings time, or any other
 date-related nuance.
 
-## Parser Functions
 
-This package also provides a number of parser functions that can be used to:
+## Utility Functions
 
-- convert an ISO 8601 formatted string into a `DateValue` object
-- convert one type of `DateValue` object into another type
-- convert a `DateValue` object into an ISO 8601 formatted string
-- convert a `DateValue` object into a JavaScript `Date` object
-- and many more...
+This package also provides a number of utility functions which solves a lot of the problems that come with working with dates and times in JavaScript.
 
-These functions are useful when you're getting dates from a database or API, and need to convert it
-prior to using it in a builder, or vice versa.
+Specially designed to work well with [@internationalized/date](https://react-spectrum.adobe.com/internationalized/date/index.html).
 
 
-:::info
-Source: [Melt UI](https://melt-ui.com/docs/dates)
-:::
+### How to use?
+
+```ts
+import {
+  createDecade,
+  createMonth,
+  createMonths,
+  createYear,
+  getDaysInMonth,
+  hasTime,
+  isAfter,
+  isAfterOrSame,
+  isBefore,
+  isBeforeOrSame,
+  isBetween,
+  isBetweenInclusive,
+  isCalendarDateTime,
+  isZonedDateTime,
+  parseStringToDateValue,
+  toDate,
+} from 'radix-vue/date'
+
+import { CalendarDate, type DateValue } from '@internationalized/date'
+
+const date = new CalendarDate(1995, 8, 18)
+const minDate = new CalendarDate(1995, 8, 1)
+const maxDate = new CalendarDate(1995, 8, 31)
+
+parseStringToDateValue('1995-08-18') // returns a DateValue object
+toDate(date) // returns a Date object
+isCalendarDateTime(date) // returns false
+isZonedDateTime(date) // returns false
+hasTime(date) // returns false
+getDaysInMonth(date) // returns 31
+isAfter(date, minDate) // returns true
+isBeforeOrSame(date, maxDate) // returns true
+isAfterOrSame(date, minDate) // returns true
+isBefore(date, maxDate) // returns true
+isBetweenInclusive(date, minDate, maxDate) // returns true
+isBetween(date, minDate, maxDate) // returns true
+```
+

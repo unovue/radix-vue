@@ -37,19 +37,34 @@
       "import": "./dist/date.mjs"
     },
     "./namespaced": {
-      "types": "./namespaced.d.ts",
-      "require": "./dist/namespaced/index.cjs",
-      "import": "./dist/namespaced/index.mjs"
+      "require": {
+        "default": "./dist/namespaced/index.cjs",
+        "types": "./dist/namespaced/index.d.cts"
+      },
+      "import": {
+        "default": "./dist/namespaced/index.mjs",
+        "types": "./dist/namespaced/index.d.mts"
+      }
     },
     "./nuxt": {
-      "types": "./dist/nuxt/index.d.ts",
-      "require": "./dist/nuxt/index.cjs",
-      "import": "./dist/nuxt/index.mjs"
+      "require": {
+        "default": "./dist/nuxt/index.cjs",
+        "types": "./dist/nuxt/index.d.cts"
+      },
+      "import": {
+        "default": "./dist/nuxt/index.mjs",
+        "types": "./dist/nuxt/index.d.mts"
+      }
     },
     "./resolver": {
-      "types": "./resolver.d.ts",
-      "require": "./dist/resolver/index.cjs",
-      "import": "./dist/resolver/index.mjs"
+      "require": {
+        "default": "./dist/resolver/index.cjs",
+        "types": "./dist/resolver/index.d.cts"
+      },
+      "import": {
+        "default": "./dist/resolver/index.mjs",
+        "types": "./dist/resolver/index.d.mts"
+      }
     }
   },
   "main": "./dist/index.cjs",
@@ -58,9 +73,7 @@
   "typings": "./dist/index.d.ts",
   "files": [
     "./dist",
-    "./LICENSE",
-    "./resolver.d.ts",
-    "./namespaced.d.ts"
+    "./LICENSE"
   ],
   "scripts": {
     "build": "pnpm type-check && pnpm build-only",

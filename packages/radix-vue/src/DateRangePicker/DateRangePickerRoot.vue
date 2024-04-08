@@ -2,10 +2,12 @@
 import { type DateValue } from '@internationalized/date'
 
 import type { Ref } from 'vue'
-import { createContext } from '@/shared'
-import { type DateRange, type Granularity, type HourCycle, type Matcher, type WeekDayFormat, getDefaultDate } from '@/shared/date'
+import { createContext, useDirection } from '@/shared'
+import { type DateRange, type Granularity, type HourCycle, getDefaultDate } from '@/shared/date'
+import { type Matcher, type WeekDayFormat } from '@/date'
 
 import { type CalendarRootProps, type DateRangeFieldRoot, type DateRangeFieldRootProps, PopoverRoot, type PopoverRootEmits, type PopoverRootProps } from '..'
+import type { Direction } from '@/shared/types'
 
 type DateRangePickerRootContext = {
   id: Ref<string | undefined>
@@ -35,6 +37,7 @@ type DateRangePickerRootContext = {
   modal: Ref<boolean>
   onDateChange: (date: DateRange) => void
   onPlaceholderChange: (date: DateValue) => void
+  dir: Ref<Direction>
 }
 
 export type DateRangePickerRootProps = DateRangeFieldRootProps & PopoverRootProps & Pick<CalendarRootProps, 'isDateDisabled' | 'pagedNavigation' | 'weekStartsOn' | 'weekdayFormat' | 'fixedWeeks' | 'numberOfMonths' | 'preventDeselect'>
@@ -98,7 +101,10 @@ const {
   granularity,
   hideTimeZone,
   hourCycle,
+  dir: propsDir,
 } = toRefs(props)
+
+const dir = useDirection(propsDir)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue ?? { start: undefined, end: undefined },
@@ -149,7 +155,7 @@ provideDateRangePickerRootContext({
   hideTimeZone,
   hourCycle,
   dateFieldRef,
-
+  dir,
   onDateChange(date: DateRange) {
     modelValue.value = { start: date.start?.copy(), end: date.end?.copy() }
   },

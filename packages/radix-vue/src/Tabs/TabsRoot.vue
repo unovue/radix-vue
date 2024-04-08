@@ -1,12 +1,12 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import type { DataOrientation, Direction } from '../shared/types'
+import type { DataOrientation, Direction, StringOrNumber } from '../shared/types'
 import { createContext, useDirection, useForwardExpose, useId } from '@/shared'
 
 export interface TabsRootContext {
-  modelValue: Ref<string | undefined>
-  changeModelValue: (value: string) => void
+  modelValue: Ref<StringOrNumber | undefined>
+  changeModelValue: (value: StringOrNumber) => void
   orientation: Ref<DataOrientation>
   dir: Ref<Direction>
   activationMode: 'automatic' | 'manual'
@@ -18,7 +18,7 @@ export interface TabsRootProps extends PrimitiveProps {
   /**
    * The value of the tab that should be active when initially rendered. Use when you do not need to control the state of the tabs
    */
-  defaultValue?: string
+  defaultValue?: StringOrNumber
   /**
    * The orientation the tabs are layed out.
    * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
@@ -35,11 +35,11 @@ export interface TabsRootProps extends PrimitiveProps {
    */
   activationMode?: 'automatic' | 'manual'
   /** The controlled value of the tab to activate. Can be bind as `v-model`. */
-  modelValue?: string
+  modelValue?: StringOrNumber
 }
 export type TabsRootEmits = {
   /** Event handler called when the value changes */
-  'update:modelValue': [payload: string]
+  'update:modelValue': [payload: StringOrNumber]
 }
 
 export const [injectTabsRootContext, provideTabsRootContext]
@@ -69,7 +69,7 @@ const tabsList = ref<HTMLElement>()
 
 provideTabsRootContext({
   modelValue,
-  changeModelValue: (value: string) => {
+  changeModelValue: (value: StringOrNumber) => {
     modelValue.value = value
   },
   orientation,

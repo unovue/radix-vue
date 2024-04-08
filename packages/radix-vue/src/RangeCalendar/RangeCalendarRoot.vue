@@ -3,11 +3,13 @@ import { type DateValue, isEqualDay, isSameDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { type Formatter, createContext } from '@/shared'
-import { createDecade, createYear, getDefaultDate, handleCalendarInitialFocus, isBefore } from '@/shared/date'
-import type { DateRange, Grid, Matcher, WeekDayFormat } from '@/shared/date'
+import { type Formatter, createContext, useDirection } from '@/shared'
+import { getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
+import { type Grid, type Matcher, type WeekDayFormat, createDecade, createYear, isBefore } from '@/date'
+import type { DateRange } from '@/shared/date'
 import { useRangeCalendarState } from './useRangeCalendar'
 import { useCalendar } from '@/Calendar/useCalendar'
+import type { Direction } from '@/shared/types'
 
 type RangeCalendarRootContext = {
   modelValue: Ref<DateRange>
@@ -43,6 +45,7 @@ type RangeCalendarRootContext = {
   isNextButtonDisabled: Ref<boolean>
   isPrevButtonDisabled: Ref<boolean>
   formatter: Formatter
+  dir: Ref<Direction>
 }
 
 export interface RangeCalendarRootProps extends PrimitiveProps {
@@ -84,6 +87,8 @@ export interface RangeCalendarRootProps extends PrimitiveProps {
   isDateDisabled?: Matcher
   /** A function that returns whether or not a date is unavailable */
   isDateUnavailable?: Matcher
+  /** The reading direction of the calendar when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
+  dir?: Direction
 }
 
 export type RangeCalendarRootEmits = {
@@ -155,10 +160,12 @@ const {
   maxValue,
   minValue,
   locale,
+  dir: propsDir,
 } = toRefs(props)
 
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
+const dir = useDirection(propsDir)
 
 const lastPressedDateValue = ref() as Ref<DateValue | undefined>
 const focusedValue = ref() as Ref<DateValue | undefined>
@@ -201,17 +208,17 @@ const {
 } = useCalendar({
   locale,
   placeholder,
-  weekStartsOn: props.weekStartsOn,
-  fixedWeeks: props.fixedWeeks,
-  numberOfMonths: props.numberOfMonths,
+  weekStartsOn,
+  fixedWeeks,
+  numberOfMonths,
   minValue,
   maxValue,
   disabled,
-  weekdayFormat: props.weekdayFormat,
-  pagedNavigation: props.pagedNavigation,
+  weekdayFormat,
+  pagedNavigation,
   isDateDisabled: propsIsDateDisabled.value,
   isDateUnavailable: propsIsDateUnavailable.value,
-  calendarLabel: calendarLabel.value,
+  calendarLabel,
 })
 
 const {
@@ -320,7 +327,7 @@ provideRangeCalendarRootContext({
   parentElement,
   onPlaceholderChange,
   locale,
-
+  dir,
 })
 
 onMounted(() => {
@@ -339,6 +346,7 @@ onMounted(() => {
     :data-readonly="readonly ? '' : undefined"
     :data-disabled="disabled ? '' : undefined"
     :data-invalid="isInvalid ? '' : undefined"
+    :dir="dir"
   >
     <div style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 1px;">
       <div role="heading" aria-level="2">

@@ -9,7 +9,7 @@ import {
 } from '@internationalized/date'
 import { computed, nextTick } from 'vue'
 import { useKbd } from '@/shared'
-import { isBetweenInclusive, parseStringToDateValue, toDate } from '@/shared/date'
+import { isBetweenInclusive, parseStringToDateValue, toDate } from '@/date'
 
 export interface RangeCalendarCellTriggerProps extends PrimitiveProps {
   day: DateValue
@@ -125,16 +125,17 @@ function handleArrowKey(e: KeyboardEvent) {
   const allCollectionItems: HTMLElement[] = parentElement
     ? Array.from(parentElement.querySelectorAll(SELECTOR))
     : []
+
   const index = allCollectionItems.indexOf(currentElement.value)
   let newIndex = index
   const indexIncrementation = 7
-
+  const sign = rootContext.dir.value === 'rtl' ? -1 : 1
   switch (e.code) {
     case kbd.ARROW_RIGHT:
-      newIndex++
+      newIndex += sign
       break
     case kbd.ARROW_LEFT:
-      newIndex--
+      newIndex -= sign
       break
     case kbd.ARROW_UP:
       newIndex -= indexIncrementation

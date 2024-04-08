@@ -6,8 +6,8 @@ import type { PrimitiveProps } from '@/Primitive'
 import { type Formatter, createContext, useDirection } from '@/shared'
 
 import { useCalendar, useCalendarState } from './useCalendar'
-import { createDecade, createYear, getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
-import type { Grid, Matcher, WeekDayFormat } from '@/shared/date'
+import { getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
+import { type Grid, type Matcher, type WeekDayFormat, createDecade, createYear } from '@/date'
 import type { Direction } from '@/shared/types'
 
 type CalendarRootContext = {

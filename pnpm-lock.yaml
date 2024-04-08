@@ -5431,12 +5431,6 @@ packages:
       rimraf: 3.0.2
     dev: true
 
-  /flat-internationalized-date@1.2.3:
-    resolution: {integrity: sha512-qhNeqjiPSzfbaDXa+2HPVb+U2xNQKHpT9gAn8TJi1Hc2CvmgudR78oltH1YQLe91ffgk2paNcHZtX8YLEh7KMA==}
-    dependencies:
-      typescript: 5.4.2
-    dev: false
-
   /flat@5.0.2:
     resolution: {integrity: sha512-b6suED+5/3rTpUBdG1gupIl8MPFCAMA0QXwmljLhvCUKcUvdE4gWky9zpuGCcXHOsz4J9wPGNWq6OKpmIzz3hQ==}
     hasBin: true
@@ -10726,13 +10720,11 @@ packages:
       '@floating-ui/dom': 1.6.3
       '@floating-ui/vue': 1.0.6(vue@3.4.21)
       '@internationalized/date': 3.5.2
-      '@vueuse/components': 10.9.0(vue@3.4.21)
       '@vueuse/core': 10.9.0(vue@3.4.21)
       '@vueuse/shared': 10.9.0(vue@3.4.21)
       aria-hidden: 1.2.3
       defu: 6.1.4
       fast-deep-equal: 3.1.3
-      flat-internationalized-date: 1.2.3
       nanoid: 5.0.6
       vue: 3.4.21(typescript@5.4.2)
     transitivePeerDependencies:

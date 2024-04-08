@@ -4,8 +4,8 @@
 
 import { type DateValue, endOfMonth, endOfYear, startOfMonth, startOfYear } from '@internationalized/date'
 import type { Grid } from './types'
-import { chunk } from '@/shared'
-import { getDaysInMonth, getLastFirstDayOfWeek, getNextLastDayOfWeek, isAfter, isBefore } from '@/shared/date'
+import { chunk } from './utils'
+import { getDaysInMonth, getLastFirstDayOfWeek, getNextLastDayOfWeek, isAfter, isBefore } from './comparators'
 
 export type WeekDayFormat = 'narrow' | 'short' | 'long'
 
@@ -129,9 +129,14 @@ export function endOfDecade(dateObj: DateValue) {
 export function createDecade(props: SetDecadeProps): DateValue[] {
   const { dateObj, startIndex, endIndex, minValue, maxValue } = props
 
-  const decadeArray = Array.from({ length: Math.abs(startIndex ?? 0) + endIndex }, (_, i) => i <= Math.abs((startIndex ?? 0)) ? dateObj.subtract({ years: i }).set({ day: 1, month: 1 }) : dateObj.add({ years: i - endIndex }).set({ day: 1, month: 1 })).toSorted((a, b) => a.year - b.year)
+  const decadeArray = Array.from({ length: Math.abs(startIndex ?? 0) + endIndex }, (_, i) =>
+    i <= Math.abs((startIndex ?? 0))
+      ? dateObj.subtract({ years: i }).set({ day: 1, month: 1 })
+      : dateObj.add({ years: i - endIndex }).set({ day: 1, month: 1 }))
 
-  return decadeArray.filter((year) => {
+  decadeArray.sort((a: DateValue, b: DateValue) => a.year - b.year)
+
+  return decadeArray.filter((year: DateValue) => {
     if (minValue && isBefore(year, minValue))
       return false
     if (maxValue && isAfter(year, maxValue))

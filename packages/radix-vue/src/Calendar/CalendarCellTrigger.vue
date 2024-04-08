@@ -9,9 +9,7 @@ import {
 } from '@internationalized/date'
 import { computed, nextTick } from 'vue'
 import { useKbd } from '@/shared'
-import {
-  parseStringToDateValue, toDate,
-} from '@/shared/date'
+import { parseStringToDateValue, toDate } from '@/date'
 
 export interface CalendarCellTriggerProps extends PrimitiveProps {
   /** The date value provided to the cell trigger */

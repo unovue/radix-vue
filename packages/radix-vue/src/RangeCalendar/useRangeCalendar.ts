@@ -4,8 +4,7 @@
 
 import { type DateValue, isSameDay } from '@internationalized/date'
 import { type Ref, computed } from 'vue'
-import { areAllDaysBetweenValid, isBefore, isBetween } from '@/shared/date'
-import type { Matcher } from '@/shared/date'
+import { type Matcher, areAllDaysBetweenValid, isBefore, isBetween } from '@/date'
 
 export type UseRangeCalendarProps = {
   start: Ref<DateValue | undefined>

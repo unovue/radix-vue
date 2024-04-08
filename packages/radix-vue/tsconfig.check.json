@@ -17,7 +17,12 @@
   ],
   "compilerOptions": {
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": [
+        "src/*"
+      ],
+      "date": [
+        "dist/date"
+      ]
     },
     "target": "esnext",
     "module": "esnext",
@@ -28,7 +33,10 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "declaration": false,
-    "lib": ["esnext", "dom"],
+    "lib": [
+      "esnext",
+      "dom"
+    ],
     "baseUrl": ".",
     "skipLibCheck": true,
     "outDir": "dist"

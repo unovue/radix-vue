@@ -160,7 +160,6 @@ export default defineConfig({
           { text: 'Slot', link: '/utilities/slot' },
           { text: 'useId', link: '/utilities/use-id' },
           { text: 'useDateFormatter', link: '/utilities/use-date-formatter' },
-          { text: 'useDateUtils', link: '/utilities/use-date-utils' },
           { text: 'useEmitAsProps', link: '/utilities/use-emit-as-props' },
           { text: 'useForwardExpose', link: '/utilities/use-forward-expose' },
           { text: 'useForwardProps', link: '/utilities/use-forward-props' },

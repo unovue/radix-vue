@@ -49,10 +49,6 @@ const placeholder = ref(new CalendarDate(2024, 4, 1)) as Ref<CalendarDate>
       <RangeCalendar :default-value="defaultValue" prevent-deselect />
     </Variant>
 
-    <Variant title="Start value">
-      <RangeCalendar :default-value="defaultValue" :start-value="startValue" />
-    </Variant>
-
     <Variant title="Multiple selection">
       <RangeCalendar :default-value="defaultValue" multiple />
     </Variant>

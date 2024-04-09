@@ -247,18 +247,18 @@ watch([startValue, endValue], ([_startValue, _endValue]) => {
   }
 })
 
-watch(modelValue, (value) => {
-  if (value.start && value.end) {
-    if (!startValue.value || value.start.compare(startValue.value) !== 0)
-      startValue.value = value.start.copy()
-    if (!endValue.value || value.end.compare(endValue.value) !== 0)
-      endValue.value = value.end.copy()
+watch(modelValue, (_modelValue) => {
+  if (_modelValue.start && _modelValue.end) {
+    if (!startValue.value || _modelValue.start.compare(startValue.value) !== 0)
+      startValue.value = _modelValue.start.copy()
+    if (!endValue.value || _modelValue.end.compare(endValue.value) !== 0)
+      endValue.value = _modelValue.end.copy()
   }
 })
 
-watch([startValue, locale], ([modelValue]) => {
-  if (modelValue !== undefined)
-    startSegmentValues.value = { ...syncSegmentValues({ value: modelValue, formatter }) }
+watch([startValue, locale], ([_startValue]) => {
+  if (_startValue !== undefined)
+    startSegmentValues.value = { ...syncSegmentValues({ value: _startValue, formatter }) }
   else
     startSegmentValues.value = { ...initialSegments }
 })
@@ -268,14 +268,14 @@ watch(locale, (value) => {
     formatter.setLocale(value)
 })
 
-watch(modelValue, (value) => {
-  if (value.start !== undefined && (!isEqualDay(placeholder.value, value.start) || placeholder.value.compare(value.start) !== 0))
-    placeholder.value = value.start.copy()
+watch(modelValue, (_modelValue) => {
+  if (_modelValue.start !== undefined && (!isEqualDay(placeholder.value, _modelValue.start) || placeholder.value.compare(_modelValue.start) !== 0))
+    placeholder.value = _modelValue.start.copy()
 })
 
-watch([endValue, locale], ([modelValue]) => {
-  if (modelValue !== undefined)
-    endSegmentValues.value = { ...syncSegmentValues({ value: modelValue, formatter }) }
+watch([endValue, locale], ([_endValue]) => {
+  if (_endValue !== undefined)
+    endSegmentValues.value = { ...syncSegmentValues({ value: _endValue, formatter }) }
   else
     endSegmentValues.value = { ...initialSegments }
 })

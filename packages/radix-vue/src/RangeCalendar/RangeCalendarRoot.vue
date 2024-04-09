@@ -87,8 +87,6 @@ export interface RangeCalendarRootProps extends PrimitiveProps {
   isDateDisabled?: Matcher
   /** A function that returns whether or not a date is unavailable */
   isDateUnavailable?: Matcher
-  /** The `start` value of the date range, which can exist prior to the true `value` being set, which is only set once a `start` and `end` value are selected. You can `@update:startValue` to a value to receive updates, but modifying this value outside the component will have no effect. To programmatically control the `start` value, use `v-model="value"` and update the start property of the DateRange object. This is provided as a convenience for use cases where you want to display the selected start value outside the component before the value is set. */
-  startValue?: DateValue
   /** The reading direction of the calendar when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
 }
@@ -164,7 +162,6 @@ const {
   maxValue,
   minValue,
   locale,
-  startValue: propsStartValue,
   dir: propsDir,
 } = toRefs(props)
 
@@ -185,7 +182,7 @@ const defaultDate = getDefaultDate({
   defaultValue: modelValue.value.start,
 })
 
-const startValue = ref(modelValue.value.start ?? propsStartValue.value) as Ref<DateValue | undefined>
+const startValue = ref(modelValue.value.start) as Ref<DateValue | undefined>
 const endValue = ref(modelValue.value.end) as Ref<DateValue | undefined>
 
 const placeholder = useVModel(props, 'placeholder', emits, {
@@ -240,21 +237,21 @@ const {
   focusedValue,
 })
 
-watch(modelValue, (modelValue) => {
-  if (modelValue.start && modelValue.end) {
-    if (startValue.value && !isEqualDay(startValue.value, modelValue.start))
-      startValue.value = modelValue.start.copy()
+watch(modelValue, (_modelValue) => {
+  if (_modelValue.start && _modelValue.end) {
+    if (startValue.value && !isEqualDay(startValue.value, _modelValue.start))
+      startValue.value = _modelValue.start.copy()
 
-    if (endValue.value && !isEqualDay(endValue.value, modelValue.end))
-      endValue.value = modelValue.end.copy()
+    if (endValue.value && !isEqualDay(endValue.value, _modelValue.end))
+      endValue.value = _modelValue.end.copy()
   }
 })
 
-watch(startValue, (value) => {
-  if (value && !isEqualDay(value, placeholder.value))
-    onPlaceholderChange(value)
+watch(startValue, (_startValue) => {
+  if (_startValue && !isEqualDay(_startValue, placeholder.value))
+    onPlaceholderChange(_startValue)
 
-  emits('update:startValue', value)
+  emits('update:startValue', _startValue)
 })
 
 watch([startValue, endValue], ([_startValue, _endValue]) => {

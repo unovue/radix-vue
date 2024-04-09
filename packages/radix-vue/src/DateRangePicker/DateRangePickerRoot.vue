@@ -161,7 +161,7 @@ provideDateRangePickerRootContext({
   dateFieldRef,
   dir,
   onStartValueChange(date: DateValue | undefined) {
-    emits('update:startValue', value)
+    emits('update:startValue', date)
   },
   onDateChange(date: DateRange) {
     modelValue.value = { start: date.start?.copy(), end: date.end?.copy() }

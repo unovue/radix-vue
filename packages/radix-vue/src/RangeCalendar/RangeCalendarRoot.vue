@@ -275,8 +275,6 @@ const getMonths = computed(() => {
   const dateObj = placeholder.value.copy()
   return createYear({
     dateObj,
-    minValue: minValue.value,
-    maxValue: maxValue.value,
     numberOfMonths: numberOfMonths.value,
     pagedNavigation: pagedNavigation.value,
   })
@@ -288,8 +286,6 @@ const getYears = useMemoize(({ startIndex, endIndex }: { startIndex?: number; en
     dateObj,
     startIndex,
     endIndex,
-    minValue: minValue.value,
-    maxValue: maxValue.value,
   })
 })
 

@@ -5,7 +5,7 @@
 import { type DateValue, endOfMonth, endOfYear, startOfMonth, startOfYear } from '@internationalized/date'
 import type { Grid } from './types'
 import { chunk } from './utils'
-import { getDaysInMonth, getLastFirstDayOfWeek, getNextLastDayOfWeek, isAfter, isBefore } from './comparators'
+import { getDaysInMonth, getLastFirstDayOfWeek, getNextLastDayOfWeek } from './comparators'
 
 export type WeekDayFormat = 'narrow' | 'short' | 'long'
 
@@ -14,10 +14,6 @@ export type CreateSelectProps = {
    * The date object representing the month's date (usually the first day of the month).
    */
   dateObj: DateValue
-
-  minValue?: DateValue
-
-  maxValue?: DateValue
 }
 
 export type CreateMonthProps = {
@@ -127,7 +123,7 @@ export function endOfDecade(dateObj: DateValue) {
 }
 
 export function createDecade(props: SetDecadeProps): DateValue[] {
-  const { dateObj, startIndex, endIndex, minValue, maxValue } = props
+  const { dateObj, startIndex, endIndex } = props
 
   const decadeArray = Array.from({ length: Math.abs(startIndex ?? 0) + endIndex }, (_, i) =>
     i <= Math.abs((startIndex ?? 0))
@@ -136,38 +132,20 @@ export function createDecade(props: SetDecadeProps): DateValue[] {
 
   decadeArray.sort((a: DateValue, b: DateValue) => a.year - b.year)
 
-  return decadeArray.filter((year: DateValue) => {
-    if (minValue && isBefore(year, minValue))
-      return false
-    if (maxValue && isAfter(year, maxValue))
-      return false
-    return true
-  })
+  return decadeArray
 }
 
 export function createYear(props: SetYearProps): DateValue[] {
-  const { dateObj, numberOfMonths, pagedNavigation, minValue, maxValue } = props
+  const { dateObj, numberOfMonths, pagedNavigation } = props
 
   if (numberOfMonths && pagedNavigation) {
     const monthsArray = Array.from({ length: Math.floor(12 / numberOfMonths) }, (_, i) => startOfMonth(dateObj.set({ month: i * numberOfMonths + 1 })))
 
-    return monthsArray.filter((month) => {
-      if (minValue && isBefore(month, minValue))
-        return false
-      if (maxValue && isAfter(month, maxValue))
-        return false
-      return true
-    })
+    return monthsArray
   }
 
   const monthsArray = Array.from({ length: 12 }, (_, i) => startOfMonth(dateObj.set({ month: i + 1 })))
-  return monthsArray.filter((month) => {
-    if (minValue && isBefore(month, minValue))
-      return false
-    if (maxValue && isAfter(month, maxValue))
-      return false
-    return true
-  })
+  return monthsArray
 }
 
 export function createMonths(props: SetMonthProps) {

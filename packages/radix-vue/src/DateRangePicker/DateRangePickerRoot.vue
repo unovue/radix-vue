@@ -37,7 +37,7 @@ type DateRangePickerRootContext = {
   modal: Ref<boolean>
   onDateChange: (date: DateRange) => void
   onPlaceholderChange: (date: DateValue) => void
-  startValue: Ref<DateValue | undefined>
+  onStartValueChange: (date: DateValue | undefined) => void
   dir: Ref<Direction>
 }
 
@@ -57,7 +57,7 @@ export const [injectDateRangePickerRootContext, provideDateRangePickerRootContex
 </script>
 
 <script setup lang="ts">
-import { ref, toRefs, watch } from 'vue'
+import { ref, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
 
 defineOptions({
@@ -105,11 +105,8 @@ const {
   granularity,
   hideTimeZone,
   hourCycle,
-  startValue: propsStartValue,
   dir: propsDir,
 } = toRefs(props)
-
-const startValue = ref(propsStartValue.value) as Ref<DateValue | undefined>
 
 const dir = useDirection(propsDir)
 
@@ -136,14 +133,9 @@ const open = useVModel(props, 'open', emits, {
 
 const dateFieldRef = ref<InstanceType<typeof DateRangeFieldRoot> | undefined>()
 
-watch(startValue, (value) => {
-  emits('update:startValue', value)
-})
-
 provideDateRangePickerRootContext({
   isDateUnavailable: propsIsDateUnavailable.value,
   isDateDisabled: propsIsDateDisabled.value,
-  startValue,
   locale,
   disabled,
   pagedNavigation,
@@ -168,6 +160,9 @@ provideDateRangePickerRootContext({
   hourCycle,
   dateFieldRef,
   dir,
+  onStartValueChange(date: DateValue | undefined) {
+    emits('update:startValue', value)
+  },
   onDateChange(date: DateRange) {
     modelValue.value = { start: date.start?.copy(), end: date.end?.copy() }
   },

@@ -7,7 +7,7 @@ import { type Formatter, createContext, useDirection } from '@/shared'
 
 import { useCalendar, useCalendarState } from './useCalendar'
 import { getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
-import { type Grid, type Matcher, type WeekDayFormat, createDecade, createYear } from '@/date'
+import { type Grid, type Matcher, type WeekDayFormat } from '@/date'
 import type { Direction } from '@/shared/types'
 
 type CalendarRootContext = {
@@ -111,9 +111,9 @@ export const [injectCalendarRootContext, provideCalendarRootContext]
 </script>
 
 <script setup lang="ts">
-import { computed, onMounted, toRefs, watch } from 'vue'
+import { onMounted, toRefs, watch } from 'vue'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
-import { useMemoize, useVModel } from '@vueuse/core'
+import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<CalendarRootProps>(), {
   defaultValue: undefined,
@@ -142,12 +142,6 @@ defineSlots<{
     grid: Grid<DateValue>[]
     /** The days of the week */
     weekDays: string[]
-    /** The formatter used inside the calendar for displaying dates */
-    formatter: Formatter
-    /** The months that can be selected */
-    getMonths: DateValue[]
-    /** The years that can be selected */
-    getYears: ({ startIndex, endIndex }: { startIndex?: number; endIndex: number }) => DateValue[]
   }): any
 }>()
 
@@ -279,24 +273,6 @@ function onDateChange(value: DateValue) {
   }
 }
 
-const getMonths = computed(() => {
-  const dateObj = placeholder.value.copy()
-  return createYear({
-    dateObj,
-    numberOfMonths: numberOfMonths.value,
-    pagedNavigation: pagedNavigation.value,
-  })
-})
-
-const getYears = useMemoize(({ startIndex, endIndex }: { startIndex?: number; endIndex: number }) => {
-  const dateObj = placeholder.value.copy()
-  return createDecade({
-    dateObj,
-    startIndex,
-    endIndex,
-  })
-})
-
 onMounted(() => {
   if (initialFocus.value)
     handleCalendarInitialFocus(parentElement.value)
@@ -351,9 +327,6 @@ provideCalendarRootContext({
       :date="placeholder"
       :grid="grid"
       :week-days="weekdays"
-      :formatter="formatter"
-      :get-months="getMonths"
-      :get-years="getYears"
     />
     <div
       style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 1px;"

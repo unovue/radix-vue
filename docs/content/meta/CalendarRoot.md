@@ -181,20 +181,5 @@
     'name': 'weekDays',
     'description': '<p>The days of the week</p>\n',
     'type': 'string[]'
-  },
-  {
-    'name': 'formatter',
-    'description': '<p>The formatter used inside the calendar for displaying dates</p>\n',
-    'type': 'Formatter'
-  },
-  {
-    'name': 'getMonths',
-    'description': '<p>The months that can be selected</p>\n',
-    'type': 'DateValue'
-  },
-  {
-    'name': 'getYears',
-    'description': '<p>The years that can be selected</p>\n',
-    'type': ''
   }
 ]" />

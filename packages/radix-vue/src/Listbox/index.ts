@@ -19,6 +19,10 @@ export {
   type ListboxItemEmits,
 } from './ListboxItem.vue'
 export {
+  default as ListboxItemIndicator,
+  type ListboxItemIndicatorProps,
+} from './ListboxItemIndicator.vue'
+export {
   default as ListboxVirtualizer,
   type ListboxVirtualizerProps,
 } from './ListboxVirtualizer.vue'

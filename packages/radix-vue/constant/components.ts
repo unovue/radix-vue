@@ -199,6 +199,7 @@ export const components = {
     'ListboxContent',
     'ListboxFilter',
     'ListboxItem',
+    'ListboxItemIndicator',
     'ListboxVirtualizer',
     'ListboxGroup',
     'ListboxGroupLabel',
@@ -389,6 +390,10 @@ export const components = {
     'TooltipArrow',
     'TooltipPortal',
     'TooltipProvider',
+  ],
+
+  viewport: [
+    'Viewport',
   ],
 
   primitive: [

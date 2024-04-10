@@ -1,4 +1,6 @@
 <script lang="ts">
+import { createContext, handleAndDispatchCustomEvent, useForwardExpose, useId } from '@/shared'
+
 export interface ListboxItemProps<T = AcceptableValue> extends PrimitiveProps {
   value: T
   disabled?: boolean
@@ -11,14 +13,20 @@ export type ListboxItemEmits<T = AcceptableValue> = {
 }
 
 const LISTBOX_SELECT = 'listbox.select'
+
+interface ListboxItemContext {
+  isSelected: Ref<boolean>
+}
+
+export const [injectListboxItemContext, provideListboxItemContext]
+  = createContext<ListboxItemContext>('ListboxItem')
 </script>
 
 <script setup lang="ts"  generic="T extends AcceptableValue = AcceptableValue">
 import { injectListboxRootContext } from './ListboxRoot.vue'
-import { computed } from 'vue'
+import { type Ref, computed } from 'vue'
 import { Primitive, type PrimitiveProps } from '..'
 import { valueComparator } from './utils'
-import { handleAndDispatchCustomEvent, useForwardExpose, useId } from '@/shared'
 import { CollectionItem } from '@/Collection'
 import type { AcceptableValue } from '@/shared/types'
 
@@ -51,6 +59,10 @@ function handleSelectCustomEvent(ev: PointerEvent) {
   const eventDetail = { originalEvent: ev, value: props.value as T }
   handleAndDispatchCustomEvent(LISTBOX_SELECT, handleSelect, eventDetail)
 }
+
+provideListboxItemContext({
+  isSelected,
+})
 </script>
 
 <template>

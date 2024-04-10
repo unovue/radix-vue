@@ -104,7 +104,7 @@ type SetMonthProps = CreateMonthProps & {
 
 type SetYearProps = CreateSelectProps & {
   numberOfMonths?: number
-  pagedNavigation: boolean
+  pagedNavigation?: boolean
 }
 
 type SetDecadeProps = CreateSelectProps & {
@@ -136,7 +136,7 @@ export function createDecade(props: SetDecadeProps): DateValue[] {
 }
 
 export function createYear(props: SetYearProps): DateValue[] {
-  const { dateObj, numberOfMonths, pagedNavigation } = props
+  const { dateObj, numberOfMonths = 1, pagedNavigation = false } = props
 
   if (numberOfMonths && pagedNavigation) {
     const monthsArray = Array.from({ length: Math.floor(12 / numberOfMonths) }, (_, i) => startOfMonth(dateObj.set({ month: i * numberOfMonths + 1 })))

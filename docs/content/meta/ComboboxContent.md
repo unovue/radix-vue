@@ -64,7 +64,7 @@
   },
   {
     'name': 'dismissable',
-    'description': '<p>(alpha) Allow component to be dismissableLayer.</p>\n',
+    'description': '<p>Allow component to be dismissableLayer.</p>\n',
     'type': 'boolean',
     'required': false
   },

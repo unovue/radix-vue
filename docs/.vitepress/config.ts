@@ -127,6 +127,7 @@ export default defineConfig({
           { text: 'Dropdown Menu', link: '/components/dropdown-menu' },
           { text: 'Hover Card', link: '/components/hover-card' },
           { text: 'Label', link: '/components/label' },
+          { text: `Listbox ${BadgeHTML('Alpha')}`, link: '/components/listbox' },
           { text: 'Menubar', link: '/components/menubar' },
           { text: 'Navigation Menu', link: '/components/navigation-menu' },
           { text: 'Pagination', link: '/components/pagination' },

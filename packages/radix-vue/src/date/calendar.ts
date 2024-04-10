@@ -183,3 +183,20 @@ export function createMonths(props: SetMonthProps) {
 
   return months
 }
+
+export function createYearRange(start?: DateValue, end?: DateValue): DateValue[] {
+  const years: DateValue[] = []
+
+  if (!start || !end)
+    return years
+
+  let current = startOfYear(start)
+
+  while (current.compare(end) <= 0) {
+    years.push(current)
+    // Move to the first day of the next year
+    current = startOfYear(current.add({ years: 1 }))
+  }
+
+  return years
+}

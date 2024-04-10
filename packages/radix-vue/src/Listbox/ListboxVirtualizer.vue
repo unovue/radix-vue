@@ -1,7 +1,10 @@
 <script lang="ts">
 export interface ListboxVirtualizerProps<T extends AcceptableValue = AcceptableValue> {
+  /** List of items */
   options: T[]
+  /** Estimated size (in px) of each item */
   estimateSize?: number
+  /** text content for each item to achieve type-ahead feature */
   textContent?: (option: T) => string
 }
 </script>

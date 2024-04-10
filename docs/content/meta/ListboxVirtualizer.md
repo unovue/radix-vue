@@ -3,19 +3,19 @@
 <PropsTable :data="[
   {
     'name': 'estimateSize',
-    'description': '',
+    'description': '<p>Estimated size (in px) of each item</p>\n',
     'type': 'number',
     'required': false
   },
   {
     'name': 'options',
-    'description': '',
+    'description': '<p>List of items</p>\n',
     'type': 'AcceptableValue[]',
     'required': true
   },
   {
     'name': 'textContent',
-    'description': '',
+    'description': '<p>text content for each item to achieve type-ahead feature</p>\n',
     'type': '((option: AcceptableValue) => string)',
     'required': false
   }

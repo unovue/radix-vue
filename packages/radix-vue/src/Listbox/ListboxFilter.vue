@@ -6,6 +6,7 @@ import { onMounted } from 'vue'
 import { usePrimitiveElement } from '@/Primitive'
 
 export interface ListboxFilterProps extends PrimitiveProps {
+  /** The controlled value of the filter. Can be binded-with with v-model. */
   modelValue?: string
   /** Focus on element when mounted. */
   autoFocus?: boolean
@@ -47,6 +48,7 @@ onMounted(() => {
     :value="modelValue"
     :disabled="rootContext.disabled.value ? '' : undefined"
     :data-disabled="rootContext.disabled.value ? '' : undefined"
+    type="text"
     @keydown.down.up.home.end.prevent="rootContext.onKeydownNavigation"
     @keydown.enter="rootContext.onKeydownEnter"
     @input="(event: InputEvent) => {

@@ -16,13 +16,13 @@
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with the item.</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
     'name': 'value',
-    'description': '',
+    'description': '<p>The value given as data when submitted with a <code>name</code>.</p>\n',
     'type': 'AcceptableValue',
     'required': true
   }

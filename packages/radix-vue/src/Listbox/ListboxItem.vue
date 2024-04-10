@@ -2,7 +2,9 @@
 import { createContext, handleAndDispatchCustomEvent, useForwardExpose, useId } from '@/shared'
 
 export interface ListboxItemProps<T = AcceptableValue> extends PrimitiveProps {
+  /** The value given as data when submitted with a `name`. */
   value: T
+  /** When `true`, prevents the user from interacting with the item. */
   disabled?: boolean
 }
 export type SelectEvent<T> = CustomEvent<{ originalEvent: PointerEvent; value?: T }>

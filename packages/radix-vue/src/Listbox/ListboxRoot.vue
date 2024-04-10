@@ -63,9 +63,12 @@ export interface ListboxRootProps<T = AcceptableValue> extends PrimitiveProps {
 export type ListboxRootEmits<T = AcceptableValue> = {
   /** Event handler called when the value changes. */
   'update:modelValue': [value: T]
-  'leave': [event: Event]
+  /** Event handler when highlighted element changes. */
+  'highlight': [payload: { ref: HTMLElement; value: T } | undefined]
+  /** Event handler called when container is being focused. Can be prevented. */
   'entryFocus': [event: CustomEvent]
-  'highlight': [element: HTMLElement]
+  /** Event handler called when the mouse leave the container */
+  'leave': [event: Event]
 }
 </script>
 
@@ -142,7 +145,9 @@ function onChangeHighlight(el: HTMLElement) {
   highlightedElement.value = el
   highlightedElement.value.focus()
   highlightedElement.value.scrollIntoView({ block: 'nearest' })
-  emits('highlight', el)
+
+  const highlightedItem = getItems().find(i => i.ref === el)
+  emits('highlight', highlightedItem)
 }
 
 function onKeydownEnter(event: KeyboardEvent) {

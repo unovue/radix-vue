@@ -81,17 +81,17 @@
 <EmitsTable :data="[
   {
     'name': 'entryFocus',
-    'description': '',
+    'description': '<p>Event handler called when container is being focused. Can be prevented.</p>\n',
     'type': '[event: CustomEvent<any>]'
   },
   {
     'name': 'highlight',
-    'description': '',
-    'type': '[element: HTMLElement]'
+    'description': '<p>Event handler when highlighted element changes.</p>\n',
+    'type': '[payload: { ref: HTMLElement; value: AcceptableValue; }]'
   },
   {
     'name': 'leave',
-    'description': '',
+    'description': '<p>Event handler called when the mouse leave the container</p>\n',
     'type': '[event: Event]'
   },
   {

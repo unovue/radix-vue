@@ -113,7 +113,7 @@ Contains all the listbox group and items.
 
 ### Item
 
-The component that contains the item.
+The item component.
 
 <!-- @include: @/meta/ListboxItem.md -->
 
@@ -142,33 +142,13 @@ Renders when the item is selected. You can style this element directly, or you c
 
 <!-- @include: @/meta/ListboxItemIndicator.md -->
 
-### Indicator
-
-Renders when the checkbox is in a checked or indeterminate state. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
-
-
-<!-- @include: @/meta/CheckboxIndicator.md -->
-
-<DataAttributesTable
-  :data="[
-    {
-      attribute: '[data-state]',
-      values: ['checked', 'unchecked', 'indeterminate'],
-    },
-    {
-      attribute: '[data-disabled]',
-      values: 'Present when disabled',
-    },
-  ]"
-/>
-
 ### Group
 
 Used to group multiple items. use in conjunction with `ListboxGroupLabel` to ensure good accessibility via automatic labelling.
 
 <!-- @include: @/meta/ListboxGroup.md -->
  
-### Group Label
+### GroupLabel
 
 Used to render the label of a group. It won't be focusable using arrow keys.
 
@@ -317,7 +297,7 @@ const people = [
 <template>
   <ListboxRoot>
     <ListboxContent>
-      <!-- checkout http://localhost:5173/components/listbox.html#virtualizer -->
+      <!-- checkout https://radix-vue.com/components/listbox.html#virtualizer -->
       <ListboxVirtualizer
         v-slot="{ option }"
         :options="people"

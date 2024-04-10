@@ -22,7 +22,7 @@
   },
   {
     'name': 'modelValue',
-    'description': '',
+    'description': '<p>The controlled value of the filter. Can be binded-with with v-model.</p>\n',
     'type': 'string',
     'required': false
   }

@@ -5,7 +5,7 @@ import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { type Formatter, createContext, useDirection } from '@/shared'
 import { getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
-import { type Grid, type Matcher, type WeekDayFormat, createDecade, createYear, isBefore } from '@/date'
+import { type Grid, type Matcher, type WeekDayFormat, isBefore } from '@/date'
 import type { DateRange } from '@/shared/date'
 import { useRangeCalendarState } from './useRangeCalendar'
 import { useCalendar } from '@/Calendar/useCalendar'
@@ -103,9 +103,9 @@ export const [injectRangeCalendarRootContext, provideRangeCalendarRootContext]
 </script>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, toRefs, watch } from 'vue'
+import { onMounted, ref, toRefs, watch } from 'vue'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
-import { useMemoize, useVModel } from '@vueuse/core'
+import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<RangeCalendarRootProps>(), {
   defaultValue: undefined,
@@ -135,12 +135,6 @@ defineSlots<{
     grid: Grid<DateValue>[]
     /** The days of the week */
     weekDays: string[]
-    /** The formatter used inside the calendar for displaying dates */
-    formatter: Formatter
-    /** The months that can be selected */
-    getMonths: DateValue[]
-    /** The years that can be selected */
-    getYears: ({ startIndex, endIndex }: { startIndex?: number; endIndex: number }) => DateValue[]
   }): any
 }>()
 
@@ -271,24 +265,6 @@ watch([startValue, endValue], () => {
   }
 })
 
-const getMonths = computed(() => {
-  const dateObj = placeholder.value.copy()
-  return createYear({
-    dateObj,
-    numberOfMonths: numberOfMonths.value,
-    pagedNavigation: pagedNavigation.value,
-  })
-})
-
-const getYears = useMemoize(({ startIndex, endIndex }: { startIndex?: number; endIndex: number }) => {
-  const dateObj = placeholder.value.copy()
-  return createDecade({
-    dateObj,
-    startIndex,
-    endIndex,
-  })
-})
-
 provideRangeCalendarRootContext({
   isDateUnavailable,
   startValue,
@@ -354,9 +330,6 @@ onMounted(() => {
       :date="placeholder"
       :grid="grid"
       :week-days="weekdays"
-      :formatter="formatter"
-      :get-months="getMonths"
-      :get-years="getYears"
     />
   </Primitive>
 </template>

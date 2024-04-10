@@ -45,6 +45,8 @@ onMounted(() => {
     :as="as"
     :as-child="asChild"
     :value="modelValue"
+    :disabled="rootContext.disabled.value ? '' : undefined"
+    :data-disabled="rootContext.disabled.value ? '' : undefined"
     @keydown.down.up.home.end.prevent="rootContext.onKeydownNavigation"
     @keydown.enter="rootContext.onKeydownEnter"
     @input="(event: InputEvent) => {

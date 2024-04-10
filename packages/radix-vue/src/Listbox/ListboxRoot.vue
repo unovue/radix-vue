@@ -1,7 +1,7 @@
 <script lang="ts">
 import { createContext, useDirection, useFormControl, useKbd, useTypeahead } from '@/shared'
 import { Primitive } from '..'
-import { usePrimitiveElement } from '@/Primitive'
+import { type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
 import type { AcceptableValue, DataOrientation, Direction } from '@/shared/types'
 import { getFocusIntent } from '@/RovingFocus/utils'
 
@@ -34,7 +34,7 @@ type ListboxRootContext<T> = {
 export const [injectListboxRootContext, provideListboxRootContext]
   = createContext<ListboxRootContext<AcceptableValue>>('ListboxRoot')
 
-export interface ListboxRootProps<T = AcceptableValue> extends Pick<RovingFocusGroupProps, 'as' | 'asChild' | 'orientation' | 'dir' | 'loop'> {
+export interface ListboxRootProps<T = AcceptableValue> extends PrimitiveProps {
   /** The controlled value of the listbox. Can be binded-with with `v-model`. */
   modelValue?: T | Array<T>
   /** The value of the listbox when initially rendered. Use when you do not need to control the state of the Listbox */
@@ -70,7 +70,6 @@ export type ListboxRootEmits<T = AcceptableValue> = {
 </script>
 
 <script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
-import type { RovingFocusGroupProps } from '@/RovingFocus'
 import { type EventHook, createEventHook, useVModel } from '@vueuse/core'
 import { type Ref, nextTick, ref, toRefs, watch } from 'vue'
 import { compare, findValuesBetween } from './utils'
@@ -308,6 +307,7 @@ provideListboxRootContext({
     :as="as"
     :as-child="asChild"
     :dir="dir"
+    :data-disabled="disabled ? '' : undefined"
     @pointerleave="onLeave"
     @focusout="(event: FocusEvent) => {
       const target = (event.relatedTarget || event.target) as HTMLElement | null

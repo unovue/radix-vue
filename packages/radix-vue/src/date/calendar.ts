@@ -11,7 +11,7 @@ export type WeekDayFormat = 'narrow' | 'short' | 'long'
 
 export type CreateSelectProps = {
   /**
-   * The date object representing the month's date (usually the first day of the month).
+   * The date object representing the date (usually the first day of the month/year).
    */
   dateObj: DateValue
 }

@@ -61,8 +61,8 @@ Specially designed to work well with [@internationalized/date](https://react-spe
 import {
   createDecade,
   createMonth,
-  createMonths,
   createYear,
+  createYearRange,
   getDaysInMonth,
   hasTime,
   isAfter,
@@ -95,5 +95,8 @@ isAfterOrSame(date, minDate) // returns true
 isBefore(date, maxDate) // returns true
 isBetweenInclusive(date, minDate, maxDate) // returns true
 isBetween(date, minDate, maxDate) // returns true
+createYear({ dateObj: new CalendarDate(1995, 8, 18), numberOfMonths: 2, pagedNavigation: true }) // returns an array of months as DateValue, centered around the dateObj taking into account the numberOfMonths and pagedNavigation when returning the months
+createDecade({ dateObj: new CalendarDate(1995, 8, 18), startIndex: -10, endIndex: 10 }) // returns a decade centered around the dateObj
+createYearRange({ start: new CalendarDate(1995, 8, 18), end: new CalendarDate(2005, 8, 18) }) // returns an array of years as DateValue between the start and end date
 ```
 

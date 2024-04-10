@@ -85,6 +85,13 @@ const props = withDefaults(defineProps<ListboxRootProps>(), {
 })
 const emits = defineEmits<ListboxRootEmits>()
 
+defineSlots<{
+  default(props: {
+    /** Current active value */
+    modelValue: typeof modelValue.value
+  }): any
+}>()
+
 const { multiple, highlightOnHover, orientation, disabled, selectionBehavior, dir: propDir } = toRefs(props)
 const { getItems } = createCollection<{ value: T }>()
 const { handleTypeaheadSearch } = useTypeahead()
@@ -321,7 +328,7 @@ provideListboxRootContext({
       }
     }"
   >
-    <slot />
+    <slot :model-value="modelValue" />
 
     <VisuallyHiddenInput v-if="isFormControl && props.name" :name="props.name" :value="modelValue" />
   </Primitive>

@@ -100,3 +100,11 @@
     'type': '[value: AcceptableValue]'
   }
 ]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'modelValue',
+    'description': '<p>Current active value</p>\n',
+    'type': 'AcceptableValue | AcceptableValue[] | undefined'
+  }
+]" />

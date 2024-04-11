@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type DateValue, isEqualDay, isSameDay } from '@internationalized/date'
+import { type DateValue, isEqualDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
@@ -93,9 +93,11 @@ export interface RangeCalendarRootProps extends PrimitiveProps {
 
 export type RangeCalendarRootEmits = {
   /** Event handler called whenever the model value changes */
-  'update:modelValue': [DateRange]
+  'update:modelValue': [date: DateRange]
   /** Event handler called whenever the placeholder value changes */
   'update:placeholder': [date: DateValue]
+  /** Event handler called whenever the start value changes */
+  'update:startValue': [date: DateValue | undefined]
 }
 
 export const [injectRangeCalendarRootContext, provideRangeCalendarRootContext]
@@ -108,7 +110,7 @@ import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<RangeCalendarRootProps>(), {
-  defaultValue: undefined,
+  defaultValue: () => ({ start: undefined, end: undefined }),
   as: 'div',
   pagedNavigation: false,
   preventDeselect: false,
@@ -165,7 +167,7 @@ const lastPressedDateValue = ref() as Ref<DateValue | undefined>
 const focusedValue = ref() as Ref<DateValue | undefined>
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: props.defaultValue ?? { start: undefined, end: undefined },
+  defaultValue: props.defaultValue,
   passive: (props.modelValue === undefined) as false,
 }) as Ref<DateRange>
 
@@ -229,38 +231,49 @@ const {
   focusedValue,
 })
 
-watch(modelValue, () => {
-  if (modelValue.value.start && modelValue.value.end) {
-    if (startValue.value && modelValue.value.start.compare(startValue.value) !== 0)
-      startValue.value = modelValue.value.start.copy()
+watch(modelValue, (_modelValue) => {
+  if (_modelValue.start && _modelValue.end) {
+    if (startValue.value && !isEqualDay(startValue.value, _modelValue.start))
+      startValue.value = _modelValue.start.copy()
 
-    if (endValue.value && modelValue.value.end.compare(endValue.value) !== 0)
-      endValue.value = modelValue.value.end.copy()
+    if (endValue.value && !isEqualDay(endValue.value, _modelValue.end))
+      endValue.value = _modelValue.end.copy()
   }
 })
 
-watch(startValue, (value) => {
-  if (value && !isEqualDay(value, placeholder.value))
-    onPlaceholderChange(value)
+watch(startValue, (_startValue) => {
+  if (_startValue && !isEqualDay(_startValue, placeholder.value))
+    onPlaceholderChange(_startValue)
+
+  emits('update:startValue', _startValue)
 })
 
-watch([startValue, endValue], () => {
-  if (modelValue.value && modelValue.value.start && modelValue.value.end && startValue.value && endValue.value && isSameDay(modelValue.value.start, startValue.value) && isSameDay(modelValue.value.end, endValue.value))
+watch([startValue, endValue], ([_startValue, _endValue]) => {
+  const value = modelValue.value
+
+  if (value && value.start && value.end && _startValue && _endValue && isEqualDay(value.start, _startValue) && isEqualDay(value.end, _endValue))
     return
 
-  if (startValue.value && endValue.value) {
-    if (isBefore(endValue.value, startValue.value)) {
+  if (_startValue && _endValue) {
+    if (value.start && value.end && isEqualDay(value.start, _startValue) && isEqualDay(value.end, _endValue))
+      return
+    if (isBefore(_endValue, _startValue)) {
       modelValue.value = {
-        start: endValue.value.copy(),
-        end: startValue.value.copy(),
+        start: _endValue.copy(),
+        end: _startValue.copy(),
       }
     }
-
     else {
       modelValue.value = {
-        start: startValue.value.copy(),
-        end: endValue.value.copy(),
+        start: _startValue.copy(),
+        end: _endValue.copy(),
       }
+    }
+  }
+  else if (value.start && value.end) {
+    modelValue.value = {
+      start: undefined,
+      end: undefined,
     }
   }
 })

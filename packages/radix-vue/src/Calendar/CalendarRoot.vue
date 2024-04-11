@@ -162,6 +162,7 @@ const {
   isDateDisabled: propsIsDateDisabled,
   isDateUnavailable: propsIsDateUnavailable,
   calendarLabel,
+  defaultValue,
   dir: propDir,
 } = toRefs(props)
 
@@ -170,7 +171,7 @@ const { primitiveElement, currentElement: parentElement }
 const dir = useDirection(propDir)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: props.defaultValue ?? undefined,
+  defaultValue: defaultValue.value,
   passive: (props.modelValue === undefined) as false,
 }) as Ref<DateValue | DateValue[] | undefined>
 
@@ -226,14 +227,14 @@ const {
   isDateUnavailable,
 })
 
-watch(modelValue, (value) => {
-  if (Array.isArray(value) && value.length) {
-    const lastValue = value[value.length - 1]
+watch(modelValue, (_modelValue) => {
+  if (Array.isArray(_modelValue) && _modelValue.length) {
+    const lastValue = _modelValue[_modelValue.length - 1]
     if (lastValue && !isEqualDay(placeholder.value, lastValue))
       onPlaceholderChange(lastValue)
   }
-  else if (!Array.isArray(value) && value && !isEqualDay(placeholder.value, value)) {
-    onPlaceholderChange(value)
+  else if (!Array.isArray(_modelValue) && _modelValue && !isEqualDay(placeholder.value, _modelValue)) {
+    onPlaceholderChange(_modelValue)
   }
 })
 

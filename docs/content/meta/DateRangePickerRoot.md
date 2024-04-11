@@ -31,7 +31,8 @@
     'name': 'defaultValue',
     'description': '<p>The default value for the calendar</p>\n',
     'type': 'DateRange',
-    'required': false
+    'required': false,
+    'default': '{ start: undefined, end: undefined }'
   },
   {
     'name': 'dir',
@@ -203,6 +204,11 @@
   {
     'name': 'update:placeholder',
     'description': '<p>Event handler called whenever the placeholder value changes</p>\n',
+    'type': '[date: DateValue]'
+  },
+  {
+    'name': 'update:startValue',
+    'description': '<p>Event handler called whenever the start value changes</p>\n',
     'type': '[date: DateValue]'
   }
 ]" />

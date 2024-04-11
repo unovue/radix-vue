@@ -90,3 +90,11 @@
     'type': '[value: boolean]'
   }
 ]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'remaining',
+    'description': '<p>Remaining time (in ms)</p>\n',
+    'type': 'number'
+  }
+]" />

@@ -241,8 +241,6 @@ provideToastRootContext({ onClose: handleClose })
       }"
     >
       <slot :remaining="remainingTime" />
-
-      <span class="text-black">{{ remainingTime }}</span>
     </Primitive>
   </Teleport>
 </template>

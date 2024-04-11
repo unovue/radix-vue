@@ -11,8 +11,8 @@ hero:
     src: /logo.svg
     alt: Radix-Vue
   prelink:
-    title: 🎉 Splitter, Calendar components!
-    link: https://github.com/radix-vue/radix-vue/releases/tag/v1.5.0
+    title: 🎉 Listbox component!
+    link: https://github.com/radix-vue/radix-vue/releases/tag/v1.7.0
     target: _blank
   actions:
     - theme: brand

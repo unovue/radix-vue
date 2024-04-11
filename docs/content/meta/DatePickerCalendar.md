@@ -16,10 +16,5 @@
     'name': 'weekDays',
     'description': '',
     'type': 'string[]'
-  },
-  {
-    'name': 'formatter',
-    'description': '',
-    'type': 'Formatter'
   }
 ]" />

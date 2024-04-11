@@ -4,20 +4,22 @@ import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, Cale
 import { type Ref, ref } from 'vue'
 import { CalendarDate, type DateValue, getLocalTimeZone, today } from '@internationalized/date'
 
-import { toDate } from '@/date'
+import { createDecade, createYear, toDate } from '@/date'
 
 import CalendarPopover from './_CalendarPopover.vue'
+import { useDateFormatter } from '@/shared'
 
 const value = ref(new CalendarDate(2024, 3, 20)) as Ref<DateValue>
 
 const placeholder = ref(today(getLocalTimeZone())) as Ref<DateValue>
+const formatter = useDateFormatter('en')
 </script>
 
 <template>
   <Story title="Calendar/Popover" :layout="{ type: 'single' }">
     <Variant title="default">
       <CalendarRoot
-        v-slot="{ weekDays, grid, getMonths, getYears, formatter, date }"
+        v-slot="{ weekDays, grid, date }"
         v-model="value"
         v-model:placeholder="placeholder"
         class="mt-6 rounded-[15px] border border-black bg-white p-[22px] shadow-md"
@@ -36,7 +38,7 @@ const placeholder = ref(today(getLocalTimeZone())) as Ref<DateValue>
               </template>
               <div class="grid grid-cols-4 bg-white rounded-[9px]">
                 <div
-                  v-for="month in getMonths"
+                  v-for="month in createYear({ dateObj: date })"
                   :key="month.toString()"
                   class="relative cursor-pointer flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent text-sm font-normal text-black p-2 outline-none focus:shadow-[0_0_0_2px] focus:shadow-black hover:border-black"
                   :class="{ 'before:absolute before:top-[5px] before:rounded-full before:w-1 before:h-1 before:block before:bg-grass9': placeholder.month === month.month }"
@@ -52,7 +54,7 @@ const placeholder = ref(today(getLocalTimeZone())) as Ref<DateValue>
               </template>
               <div class="grid grid-cols-4 bg-white rounded-[9px] gap-4">
                 <div
-                  v-for="yearValue in getYears({ startIndex: -10, endIndex: 10 })"
+                  v-for="yearValue in createDecade({ dateObj: date, startIndex: -10, endIndex: 10 })"
                   :key="yearValue.toString()"
                   class="relative cursor-pointer flex items-center justify-center whitespace-nowrap rounded-[9px] border border-transparent bg-transparent text-sm font-normal text-black p-2 outline-none focus:shadow-[0_0_0_2px] focus:shadow-black hover:border-black"
                   :class="{ 'before:absolute before:top-[5px] before:rounded-full before:w-1 before:h-1 before:block before:bg-grass9': placeholder.year === yearValue.year }"

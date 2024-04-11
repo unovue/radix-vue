@@ -101,13 +101,14 @@ const {
   granularity,
   hideTimeZone,
   hourCycle,
+  defaultValue,
   dir: propDir,
 } = toRefs(props)
 
 const dir = useDirection(propDir)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: props.defaultValue ?? undefined,
+  defaultValue: defaultValue.value,
   passive: (props.modelValue === undefined) as false,
 }) as Ref<DateValue | undefined>
 

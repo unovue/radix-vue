@@ -109,7 +109,7 @@ defineSlots<{
   }): any
 }>()
 
-const { locale, disabled, readonly, isDateUnavailable: propsIsDateUnavailable, granularity, dir: propDir } = toRefs(props)
+const { locale, disabled, readonly, isDateUnavailable: propsIsDateUnavailable, granularity, defaultValue, dir: propDir } = toRefs(props)
 
 const formatter = useDateFormatter(props.locale)
 const dir = useDirection(propDir)
@@ -122,7 +122,7 @@ onMounted(() => {
 })
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: props.defaultValue ?? undefined,
+  defaultValue: defaultValue.value,
   passive: (props.modelValue === undefined) as false,
 }) as Ref<DateValue>
 
@@ -183,14 +183,14 @@ watch(locale, (value) => {
     formatter.setLocale(value)
 })
 
-watch(modelValue, (value) => {
-  if (value !== undefined && (!isEqualDay(placeholder.value, value) || placeholder.value.compare(value) !== 0))
-    placeholder.value = value.copy()
+watch(modelValue, (_modelValue) => {
+  if (_modelValue !== undefined && (!isEqualDay(placeholder.value, _modelValue) || placeholder.value.compare(_modelValue) !== 0))
+    placeholder.value = _modelValue.copy()
 })
 
-watch([modelValue, locale], ([modelValue]) => {
-  if (modelValue !== undefined)
-    segmentValues.value = { ...syncSegmentValues({ value: modelValue, formatter }) }
+watch([modelValue, locale], ([_modelValue]) => {
+  if (_modelValue !== undefined)
+    segmentValues.value = { ...syncSegmentValues({ value: _modelValue, formatter }) }
   else
     segmentValues.value = { ...initialSegments }
 })

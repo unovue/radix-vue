@@ -30,7 +30,8 @@
     'name': 'defaultValue',
     'description': '<p>The default value for the calendar</p>\n',
     'type': 'DateRange',
-    'required': false
+    'required': false,
+    'default': '{ start: undefined, end: undefined }'
   },
   {
     'name': 'dir',
@@ -150,11 +151,16 @@
   {
     'name': 'update:modelValue',
     'description': '<p>Event handler called whenever the model value changes</p>\n',
-    'type': '[DateRange]'
+    'type': '[date: DateRange]'
   },
   {
     'name': 'update:placeholder',
     'description': '<p>Event handler called whenever the placeholder value changes</p>\n',
+    'type': '[date: DateValue]'
+  },
+  {
+    'name': 'update:startValue',
+    'description': '<p>Event handler called whenever the start value changes</p>\n',
     'type': '[date: DateValue]'
   }
 ]" />
@@ -174,20 +180,5 @@
     'name': 'weekDays',
     'description': '<p>The days of the week</p>\n',
     'type': 'string[]'
-  },
-  {
-    'name': 'formatter',
-    'description': '<p>The formatter used inside the calendar for displaying dates</p>\n',
-    'type': 'Formatter'
-  },
-  {
-    'name': 'getMonths',
-    'description': '<p>The months that can be selected</p>\n',
-    'type': 'DateValue'
-  },
-  {
-    'name': 'getYears',
-    'description': '<p>The years that can be selected</p>\n',
-    'type': ''
   }
 ]" />

@@ -20,7 +20,10 @@ export interface ComboboxContentImplProps extends PopperContentProps, Dismissabl
   position?: 'inline' | 'popper'
   /** The document.body will be lock, and scrolling will be disabled. */
   bodyLock?: boolean
-  /** (alpha) Allow component to be dismissableLayer. */
+  /**
+  * Allow component to be dismissableLayer.
+  * @deprecated (Will be removed in version 2.0, use `Listbox` instead)
+  */
   dismissable?: boolean
 }
 

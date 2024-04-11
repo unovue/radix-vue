@@ -1,6 +1,6 @@
 {
   "name": "radix-vue",
-  "version": "1.6.2",
+  "version": "1.7.0",
   "private": true,
   "packageManager": "pnpm@8.15.4",
   "license": "MIT",

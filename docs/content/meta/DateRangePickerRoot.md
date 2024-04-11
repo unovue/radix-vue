@@ -175,12 +175,6 @@
     'required': false
   },
   {
-    'name': 'startValue',
-    'description': '',
-    'type': 'unknown',
-    'required': true
-  },
-  {
     'name': 'weekdayFormat',
     'description': '<p>The format to use for the weekday strings provided via the weekdays slot prop</p>\n',
     'type': '\'narrow\' | \'short\' | \'long\'',

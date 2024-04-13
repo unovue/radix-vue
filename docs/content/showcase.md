@@ -25,6 +25,21 @@ packages:
     image: https://ph-files.imgix.net/56069229-222e-4364-88c6-8c5d4aa0c3e5.png?auto=compress&codec=mozjpeg&cs=strip&auto=format&fit=max&dpr=1
 
 projects:
+  - title: UnInbox
+    description: Modern email for teams and professionals.
+    url: https://uninbox.com/
+    image: https://uninbox.com/__og-image__/image/og.png
+
+  - title: Twir
+    description: Powerful and useful Twitch bot that helps manage chat on big channels.
+    url: https://twir.app/
+    image: /showcase/twir.png
+
+  - title: Chalk.ist
+    description: Create beautiful images of your source code.
+    url: https://chalk.ist/
+    image: https://chalk.ist/og-image.jpg
+
   - title: vue0
     description: Generate Component with simple text prompts. Vue version open source alternative for v0.
     url: https://www.vue0.dev/

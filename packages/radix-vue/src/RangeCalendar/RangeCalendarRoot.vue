@@ -137,6 +137,12 @@ defineSlots<{
     grid: Grid<DateValue>[]
     /** The days of the week */
     weekDays: string[]
+    /** The start of the week */
+    weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6
+    /** The calendar locale */
+    locale: string
+    /** Whether or not to always display 6 weeks in the calendar */
+    fixedWeeks: boolean
   }): any
 }>()
 
@@ -343,6 +349,9 @@ onMounted(() => {
       :date="placeholder"
       :grid="grid"
       :week-days="weekdays"
+      :week-starts-on="weekStartsOn"
+      :locale="locale"
+      :fixed-weeks="fixedWeeks"
     />
   </Primitive>
 </template>

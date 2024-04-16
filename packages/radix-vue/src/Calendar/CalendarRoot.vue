@@ -142,6 +142,12 @@ defineSlots<{
     grid: Grid<DateValue>[]
     /** The days of the week */
     weekDays: string[]
+    /** The start of the week */
+    weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6
+    /** The calendar locale */
+    locale: string
+    /** Whether or not to always display 6 weeks in the calendar */
+    fixedWeeks: boolean
   }): any
 }>()
 
@@ -328,6 +334,9 @@ provideCalendarRootContext({
       :date="placeholder"
       :grid="grid"
       :week-days="weekdays"
+      :week-starts-on="weekStartsOn"
+      :locale="locale"
+      :fixed-weeks="fixedWeeks"
     />
     <div
       style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 1px;"

@@ -10,7 +10,7 @@ const rootContext = injectDateRangePickerRootContext()
 
 <template>
   <RangeCalendarRoot
-    v-slot="{ weekDays, grid, date }"
+    v-slot="{ weekDays, grid, date, weekStartsOn, locale, fixedWeeks }"
     v-bind="{
       isDateDisabled: rootContext.isDateDisabled,
       isDateUnavailable: rootContext.isDateUnavailable,
@@ -46,6 +46,9 @@ const rootContext = injectDateRangePickerRootContext()
       :date="date"
       :grid="grid"
       :week-days="weekDays"
+      :week-starts-on="weekStartsOn"
+      :locale="locale"
+      :fixed-weeks="fixedWeeks"
     />
   </RangeCalendarRoot>
 </template>

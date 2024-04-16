@@ -75,7 +75,7 @@ const remainingTime = ref(duration.value)
 const remainingRaf = useRafFn(() => {
   const elapsedTime = new Date().getTime() - closeTimerStartTimeRef.value
   remainingTime.value = Math.max(closeTimerRemainingTimeRef.value - elapsedTime, 0)
-}, { fpsLimit: 30 })
+}, { fpsLimit: 60 })
 
 function startTimer(duration: number) {
   if (!duration || duration === Number.POSITIVE_INFINITY)

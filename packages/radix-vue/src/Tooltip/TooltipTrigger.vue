@@ -37,12 +37,12 @@ const tooltipListeners = computed(() => {
     return {}
 
   return {
-    onclick: handleClick,
-    onfocus: handleFocus,
-    onpointermove: handlePointerMove,
-    onpointerleave: handlePointerLeave,
-    onpointerdown: handlePointerDown,
-    onblur: handleBlur,
+    click: handleClick,
+    focus: handleFocus,
+    pointermove: handlePointerMove,
+    pointerleave: handlePointerLeave,
+    pointerdown: handlePointerDown,
+    blur: handleBlur,
   }
 })
 
@@ -105,7 +105,7 @@ function handleClick() {
       :data-state="rootContext.stateAttribute.value"
       :as="as"
       :as-child="props.asChild"
-      v-bind="tooltipListeners"
+      v-on="tooltipListeners"
     >
       <slot />
     </Primitive>

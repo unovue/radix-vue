@@ -48,7 +48,7 @@ import { Label } from '@/Label'
                 v-else
                 type="start"
                 :part="item.part"
-                class="rounded-5px px-1 py-1 hover:bg-grass4 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black aria-[valuetext=Empty]:text-grass6"
+                class="rounded-5px px-1 py-1 hover:bg-grass4 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black ]:text-grass6"
               >
                 {{ item.value }}
               </DateRangePickerInput>
@@ -67,7 +67,7 @@ import { Label } from '@/Label'
                 v-else
                 type="end"
                 :part="item.part"
-                class="rounded-5px px-1 py-1 hover:bg-grass4 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black aria-[valuetext=Empty]:text-grass6"
+                class="rounded-5px px-1 py-1 hover:bg-grass4 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black ]:text-grass6"
               >
                 {{ item.value }}
               </DateRangePickerInput>

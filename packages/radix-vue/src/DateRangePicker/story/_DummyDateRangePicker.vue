@@ -48,7 +48,7 @@ const forwarded = useForwardPropsEmits(props, emits)
           v-else
           type="start"
           :part="item.part"
-          class="rounded-md p-1 hover:bg-grass4 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black aria-[valuetext=Empty]:text-green9"
+          class="rounded-md p-1 hover:bg-grass4 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-green9"
         >
           {{ item.value }}
         </DateRangePickerInput>
@@ -67,7 +67,7 @@ const forwarded = useForwardPropsEmits(props, emits)
           v-else
           type="end"
           :part="item.part"
-          class="rounded-md p-1 hover:bg-grass4 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black aria-[valuetext=Empty]:text-green9"
+          class="rounded-md p-1 hover:bg-grass4 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-green9"
         >
           {{ item.value }}
         </DateRangePickerInput>

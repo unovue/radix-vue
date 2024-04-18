@@ -3,7 +3,7 @@
 <PropsTable :data="[
   {
     'name': 'activationMode',
-    'description': '<p>Whether a tab is activated automatically or manually.</p>\n',
+    'description': '<p>Whether a tab is activated automatically (on focus) or manually (on click).</p>\n',
     'type': '\'automatic\' | \'manual\'',
     'required': false,
     'default': '\'automatic\''

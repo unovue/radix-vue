@@ -167,3 +167,27 @@ describe('given small total value', () => {
     })
   })
 })
+
+describe('given 0 total value', () => {
+  let wrapper: VueWrapper<InstanceType<typeof Pagination>>
+
+  beforeEach(() => {
+    document.body.innerHTML = ''
+    wrapper = mount(Pagination, { attachTo: document.body, props: { total: 0 } })
+  })
+
+  it('should pass axe accessibility tests', async () => {
+    expect(await axe(wrapper.element)).toHaveNoViolations()
+  })
+
+  it('should have first page selected by default', () => {
+    expect(wrapper.find('[aria-label="Page 1"]').attributes('data-selected')).toBe('true')
+  })
+
+  it('all button should disabled', () => {
+    expect(wrapper.find('[aria-label="First Page"]').attributes('disabled')).toBeDefined()
+    expect(wrapper.find('[aria-label="Previous Page"]').attributes('disabled')).toBeDefined()
+    expect(wrapper.find('[aria-label="Next Page"]').attributes('disabled')).toBeDefined()
+    expect(wrapper.find('[aria-label="Last Page"]').attributes('disabled')).toBeDefined()
+  })
+})

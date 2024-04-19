@@ -45,7 +45,7 @@ import {
             <DatePickerInput
               v-else
               :part="item.part"
-              class="rounded-md p-0.5 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black aria-[valuetext=Empty]:text-green9 "
+              class="rounded-md p-0.5 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-green9 "
             >
               {{ item.value }}
             </DatePickerInput>

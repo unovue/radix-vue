@@ -2,10 +2,11 @@
   * Adapted from https://github.com/melt-ui/melt-ui/blob/develop/src/lib/builders/calendar/create.ts
 */
 
-import { type DateValue, isSameDay, isSameMonth } from '@internationalized/date'
+import { type DateValue, isEqualMonth, isSameDay } from '@internationalized/date'
 import { type Ref, computed, ref, watch } from 'vue'
 import { type Grid, type Matcher, type WeekDayFormat, createMonths, isAfter, isBefore, toDate } from '@/date'
 import { useDateFormatter } from '@/shared'
+import type { DateFormatterOptions } from '@/shared/useDateFormatter'
 
 export type UseCalendarProps = {
   locale: Ref<string>
@@ -74,6 +75,19 @@ export function useCalendarState(props: UseCalendarStateProps) {
 export function useCalendar(props: UseCalendarProps) {
   const formatter = useDateFormatter(props.locale.value)
 
+  const headingFormatOptions = computed(() => {
+    const options: DateFormatterOptions = {
+      month: 'long',
+      year: 'numeric',
+      calendar: props.placeholder.value.calendar.identifier,
+    }
+
+    if (props.placeholder.value.calendar.identifier === 'gregory' && props.placeholder.value.era === 'BC')
+      options.era = 'short'
+
+    return options
+  })
+
   const grid = ref<Grid<DateValue>[]>(createMonths({
     dateObj: props.placeholder.value,
     weekStartsOn: props.weekStartsOn.value,
@@ -87,7 +101,7 @@ export function useCalendar(props: UseCalendarProps) {
   })
 
   function isOutsideVisibleView(date: DateValue) {
-    return !visibleView.value.some(month => isSameMonth(date, month))
+    return !visibleView.value.some(month => isEqualMonth(date, month))
   }
 
   const isNextButtonDisabled = computed(() => {
@@ -168,7 +182,7 @@ export function useCalendar(props: UseCalendarProps) {
   }
 
   watch(props.placeholder, (value) => {
-    if (visibleView.value.some(month => isSameMonth(month, value)))
+    if (visibleView.value.some(month => isEqualMonth(month, value)))
       return
     grid.value = createMonths({
       dateObj: value,
@@ -198,16 +212,16 @@ export function useCalendar(props: UseCalendarProps) {
 
     if (grid.value.length === 1) {
       const month = grid.value[0].value
-      return `${formatter.fullMonthAndYear(toDate(month))}`
+      return `${formatter.custom(toDate(month), headingFormatOptions.value)}`
     }
 
     const startMonth = toDate(grid.value[0].value)
     const endMonth = toDate(grid.value[grid.value.length - 1].value)
 
-    const startMonthName = formatter.fullMonth(startMonth)
-    const endMonthName = formatter.fullMonth(endMonth)
-    const startMonthYear = formatter.fullYear(startMonth)
-    const endMonthYear = formatter.fullYear(endMonth)
+    const startMonthName = formatter.custom(startMonth, headingFormatOptions.value)
+    const endMonthName = formatter.custom(endMonth, headingFormatOptions.value)
+    const startMonthYear = formatter.custom(startMonth, headingFormatOptions.value)
+    const endMonthYear = formatter.custom(endMonth, headingFormatOptions.value)
 
     const content
     = startMonthYear === endMonthYear

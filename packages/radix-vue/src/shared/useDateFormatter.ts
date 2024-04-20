@@ -17,9 +17,9 @@ export type Formatter = {
   custom: (date: Date, options: DateFormatterOptions) => string
   selectedDate: (date: DateValue, includeTime?: boolean) => string
   dayOfWeek: (date: Date, length?: DateFormatterOptions['weekday']) => string
-  fullMonthAndYear: (date: Date) => string
-  fullMonth: (date: Date) => string
-  fullYear: (date: Date) => string
+  fullMonthAndYear: (date: Date, options?: DateFormatterOptions) => string
+  fullMonth: (date: Date, options?: DateFormatterOptions) => string
+  fullYear: (date: Date, options?: DateFormatterOptions) => string
   dayPeriod: (date: Date) => string
   part: (dateObj: DateValue, type: Intl.DateTimeFormatPartTypes, options?: DateFormatterOptions) => string
   toParts: (date: DateValue, options?: DateFormatterOptions) => Intl.DateTimeFormatPart[]
@@ -63,12 +63,12 @@ export function useDateFormatter(initialLocale: string): Formatter {
     }
   }
 
-  function fullMonthAndYear(date: Date) {
-    return new DateFormatter(locale.value, { month: 'long', year: 'numeric' }).format(date)
+  function fullMonthAndYear(date: Date, options: DateFormatterOptions = {}) {
+    return new DateFormatter(locale.value, { month: 'long', year: 'numeric', ...options }).format(date)
   }
 
-  function fullMonth(date: Date) {
-    return new DateFormatter(locale.value, { month: 'long' }).format(date)
+  function fullMonth(date: Date, options: DateFormatterOptions = {}) {
+    return new DateFormatter(locale.value, { month: 'long', ...options }).format(date)
   }
 
   function getMonths() {
@@ -77,8 +77,8 @@ export function useDateFormatter(initialLocale: string): Formatter {
     return months.map(item => ({ label: fullMonth(toDate(defaultDate.set({ month: item }))), value: item }))
   }
 
-  function fullYear(date: Date) {
-    return new DateFormatter(locale.value, { year: 'numeric' }).format(date)
+  function fullYear(date: Date, options: DateFormatterOptions = {}) {
+    return new DateFormatter(locale.value, { year: 'numeric', ...options }).format(date)
   }
 
   function toParts(date: DateValue, options?: DateFormatterOptions) {

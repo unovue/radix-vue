@@ -77,8 +77,6 @@ export function useCalendar(props: UseCalendarProps) {
 
   const headingFormatOptions = computed(() => {
     const options: DateFormatterOptions = {
-      month: 'long',
-      year: 'numeric',
       calendar: props.placeholder.value.calendar.identifier,
     }
 
@@ -212,16 +210,16 @@ export function useCalendar(props: UseCalendarProps) {
 
     if (grid.value.length === 1) {
       const month = grid.value[0].value
-      return `${formatter.custom(toDate(month), headingFormatOptions.value)}`
+      return `${formatter.fullMonthAndYear(toDate(month), headingFormatOptions.value)}`
     }
 
     const startMonth = toDate(grid.value[0].value)
     const endMonth = toDate(grid.value[grid.value.length - 1].value)
 
-    const startMonthName = formatter.custom(startMonth, headingFormatOptions.value)
-    const endMonthName = formatter.custom(endMonth, headingFormatOptions.value)
-    const startMonthYear = formatter.custom(startMonth, headingFormatOptions.value)
-    const endMonthYear = formatter.custom(endMonth, headingFormatOptions.value)
+    const startMonthName = formatter.fullMonth(startMonth, headingFormatOptions.value)
+    const endMonthName = formatter.fullMonth(endMonth, headingFormatOptions.value)
+    const startMonthYear = formatter.fullYear(startMonth, headingFormatOptions.value)
+    const endMonthYear = formatter.fullYear(endMonth, headingFormatOptions.value)
 
     const content
     = startMonthYear === endMonthYear

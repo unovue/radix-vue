@@ -90,26 +90,38 @@ export function useCalendar(props: UseCalendarProps) {
     return !visibleView.value.some(month => isSameMonth(date, month))
   }
 
-  const isNextButtonDisabled = computed(() => {
+  const isNextButtonDisabled = (step: 'month' | 'year' = 'month') => {
     if (!props.maxValue.value || !grid.value.length)
       return false
     if (props.disabled.value)
       return true
-    const lastPeriodInView = grid.value[grid.value.length - 1].value
 
+    if (step === 'year') {
+      const lastPeriodInView = grid.value[grid.value.length - 1].value
+      const firstPeriodOfNextPage = lastPeriodInView.add({ years: 1 }).set({ day: 1, month: 1 })
+      return isAfter(firstPeriodOfNextPage, props.maxValue.value)
+    }
+
+    const lastPeriodInView = grid.value[grid.value.length - 1].value
     const firstPeriodOfNextPage = lastPeriodInView.add({ months: 1 }).set({ day: 1 })
     return isAfter(firstPeriodOfNextPage, props.maxValue.value)
-  })
+  }
 
-  const isPrevButtonDisabled = computed(() => {
+  const isPrevButtonDisabled = (step: 'month' | 'year' = 'month') => {
     if (!props.minValue.value || !grid.value.length)
       return false
     if (props.disabled.value)
       return true
     const firstPeriodInView = grid.value[0].value
+    if (step === 'year') {
+      const lastPeriodOfPrevPage = firstPeriodInView.subtract({ years: 1 }).set({ day: 35, month: 13 })
+      return isBefore(lastPeriodOfPrevPage, props.minValue.value)
+    }
+
     const lastPeriodOfPrevPage = firstPeriodInView.subtract({ months: 1 }).set({ day: 35 })
+
     return isBefore(lastPeriodOfPrevPage, props.minValue.value)
-  })
+  }
 
   function isDateDisabled(dateObj: DateValue) {
     if (props.isDateDisabled?.(dateObj) || props.disabled.value)
@@ -135,11 +147,12 @@ export function useCalendar(props: UseCalendarProps) {
     })
   })
 
-  const nextPage = () => {
+  const nextPage = (step: 'month' | 'year' = 'month') => {
     const firstDate = grid.value[0].value
+    const newDate = step === 'month' ? firstDate.add({ months: props.pagedNavigation.value ? props.numberOfMonths.value : 1 }) : firstDate.add({ years: 1 })
 
     const newGrid = createMonths({
-      dateObj: firstDate.add({ months: props.pagedNavigation.value ? props.numberOfMonths.value : 1 }),
+      dateObj: newDate,
       weekStartsOn: props.weekStartsOn.value,
       locale: props.locale.value,
       fixedWeeks: props.fixedWeeks.value,
@@ -151,11 +164,12 @@ export function useCalendar(props: UseCalendarProps) {
     props.placeholder.value = newGrid[0].value.set({ day: 1 })
   }
 
-  const prevPage = () => {
+  const prevPage = (step: 'month' | 'year' = 'month') => {
     const firstDate = grid.value[0].value
+    const newDate = step === 'month' ? firstDate.subtract({ months: props.pagedNavigation.value ? props.numberOfMonths.value : 1 }) : firstDate.subtract({ years: 1 })
 
     const newGrid = createMonths({
-      dateObj: firstDate.subtract({ months: props.pagedNavigation.value ? props.numberOfMonths.value : 1 }),
+      dateObj: newDate,
       weekStartsOn: props.weekStartsOn.value,
       locale: props.locale.value,
       fixedWeeks: props.fixedWeeks.value,

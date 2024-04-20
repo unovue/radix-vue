@@ -31,8 +31,6 @@ type RangeCalendarRootContext = {
   parentElement: Ref<HTMLElement | undefined>
   headingValue: Ref<string>
   isInvalid: Ref<boolean>
-  nextPage: () => void
-  prevPage: () => void
   isDateDisabled: Matcher
   isDateUnavailable?: Matcher
   isOutsideVisibleView: (date: DateValue) => boolean
@@ -42,6 +40,8 @@ type RangeCalendarRootContext = {
   isSelected: (date: DateValue) => boolean
   isSelectionEnd: (date: DateValue) => boolean
   isSelectionStart: (date: DateValue) => boolean
+  prevPage: () => void
+  nextPage: () => void
   isNextButtonDisabled: Ref<boolean>
   isPrevButtonDisabled: Ref<boolean>
   formatter: Formatter

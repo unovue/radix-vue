@@ -30,14 +30,14 @@ type CalendarRootContext = {
   parentElement: Ref<HTMLElement | undefined>
   headingValue: Ref<string>
   isInvalid: Ref<boolean>
-  nextPage: () => void
-  prevPage: () => void
   isDateDisabled: Matcher
   isDateSelected: Matcher
   isDateUnavailable?: Matcher
   isOutsideVisibleView: (date: DateValue) => boolean
-  isNextButtonDisabled: Ref<boolean>
-  isPrevButtonDisabled: Ref<boolean>
+  prevPage: (step?: 'month' | 'year') => void
+  nextPage: (step?: 'month' | 'year') => void
+  isNextButtonDisabled: (step?: 'month' | 'year') => boolean
+  isPrevButtonDisabled: (step?: 'month' | 'year') => boolean
   formatter: Formatter
   dir: Ref<Direction>
 }

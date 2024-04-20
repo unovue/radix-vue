@@ -94,6 +94,18 @@
     'description': '<p>When <code>true</code>, indicates that the user must add the tags input before the owning form can be submitted.</p>\n',
     'type': 'boolean',
     'required': false
+  },
+  {
+    'name': 'convertValue',
+    'description': '<p>Convert the input value to the desired type. Mandatory when using objects as values and using <code>TagsInputInput</code></p>\n',
+    'type': '(value: string) => AcceptableInputValue',
+    'required': false
+  },
+  {
+    'name': 'displayValue',
+    'description': '<p>Display the value of the tag. Useful when you want to apply modifications to the value like adding a suffix or when using object as values</p>\n',
+    'type': '(value: AcceptableInputValue) => value',
+    'required': false
   }
 ]" />
 

@@ -56,7 +56,7 @@ const virtualizer = useVirtualizer(
     get count() { return props.options.length },
     get horizontal() { return rootContext.orientation.value === 'horizontal' },
     estimateSize() {
-      return 28
+      return props.estimateSize ?? 28
     },
     getScrollElement() { return parentEl.value },
     overscan: 12,

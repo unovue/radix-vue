@@ -3,6 +3,7 @@ import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import type { DataOrientation, Direction, StringOrNumber } from '../shared/types'
 import { createContext, useDirection, useForwardExpose, useId } from '@/shared'
+import { useVModel } from '@vueuse/core'
 
 export interface TabsRootContext {
   modelValue: Ref<StringOrNumber | undefined>
@@ -14,11 +15,11 @@ export interface TabsRootContext {
   tabsList: Ref<HTMLElement | undefined>
 }
 
-export interface TabsRootProps extends PrimitiveProps {
+export interface TabsRootProps<T extends StringOrNumber = StringOrNumber> extends PrimitiveProps {
   /**
    * The value of the tab that should be active when initially rendered. Use when you do not need to control the state of the tabs
    */
-  defaultValue?: StringOrNumber
+  defaultValue?: T
   /**
    * The orientation the tabs are layed out.
    * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
@@ -35,32 +36,31 @@ export interface TabsRootProps extends PrimitiveProps {
    */
   activationMode?: 'automatic' | 'manual'
   /** The controlled value of the tab to activate. Can be bind as `v-model`. */
-  modelValue?: StringOrNumber
+  modelValue?: T
 }
-export type TabsRootEmits = {
+export type TabsRootEmits<T extends StringOrNumber = StringOrNumber> = {
   /** Event handler called when the value changes */
-  'update:modelValue': [payload: StringOrNumber]
+  'update:modelValue': [payload: T]
 }
 
 export const [injectTabsRootContext, provideTabsRootContext]
   = createContext<TabsRootContext>('TabsRoot')
 </script>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends StringOrNumber = StringOrNumber">
 import { ref, toRefs } from 'vue'
-import { useVModel } from '@vueuse/core'
 import { Primitive } from '@/Primitive'
 
-const props = withDefaults(defineProps<TabsRootProps>(), {
+const props = withDefaults(defineProps<TabsRootProps<T>>(), {
   orientation: 'horizontal',
   activationMode: 'automatic',
 })
-const emits = defineEmits<TabsRootEmits>()
+const emits = defineEmits<TabsRootEmits<T>>()
 const { orientation, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
 useForwardExpose()
 
-const modelValue = useVModel(props, 'modelValue', emits, {
+const modelValue = useVModel<TabsRootProps<T>, 'modelValue', 'update:modelValue'>(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
   passive: (props.modelValue === undefined) as false,
 })
@@ -70,7 +70,7 @@ const tabsList = ref<HTMLElement>()
 provideTabsRootContext({
   modelValue,
   changeModelValue: (value: StringOrNumber) => {
-    modelValue.value = value
+    modelValue.value = value as T
   },
   orientation,
   dir,

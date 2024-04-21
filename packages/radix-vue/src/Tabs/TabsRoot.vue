@@ -31,7 +31,7 @@ export interface TabsRootProps<T extends StringOrNumber = StringOrNumber> extend
    */
   dir?: Direction
   /**
-   * Whether a tab is activated automatically or manually.
+   * Whether a tab is activated automatically (on focus) or manually (on click).
    * @defaultValue automatic
    */
   activationMode?: 'automatic' | 'manual'

@@ -63,7 +63,7 @@ function handleClick(event: MouseEvent) {
     :aria-checked="checked"
     :aria-label="ariaLabel"
     :as-child="asChild"
-    :disabled="disabled ? true : undefined"
+    :disabled="disabled ? '' : undefined"
     :data-state="checked ? 'checked' : 'unchecked'"
     :data-disabled="disabled ? '' : undefined"
     :value="value"

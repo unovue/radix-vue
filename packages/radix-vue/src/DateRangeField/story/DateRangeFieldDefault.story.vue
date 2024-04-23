@@ -21,7 +21,7 @@ import { DateRangeFieldInput, DateRangeFieldRoot } from '../'
           <DateRangeFieldInput
             v-else
             :part="item.part"
-            class="rounded-5px px-1 py-1 hover:bg-grass4 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black aria-[valuetext=Empty]:text-green9"
+            class="rounded-5px px-1 py-1 hover:bg-grass4 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-green9"
             type="start"
           >
             {{ item.value }}
@@ -39,7 +39,7 @@ import { DateRangeFieldInput, DateRangeFieldRoot } from '../'
           <DateRangeFieldInput
             v-else
             :part="item.part"
-            class="rounded-5px px-1 py-1 hover:bg-grass4 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black aria-[valuetext=Empty]:text-green9"
+            class="rounded-5px px-1 py-1 hover:bg-grass4 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-green9"
             type="end"
           >
             {{ item.value }}

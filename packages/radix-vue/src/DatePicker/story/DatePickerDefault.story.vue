@@ -47,7 +47,7 @@ import { Label } from '@/Label'
               <DatePickerInput
                 v-else
                 :part="item.part"
-                class="rounded-5px px-1 py-1 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black aria-[valuetext=Empty]:text-green9"
+                class="rounded-5px px-1 py-1 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-green9"
               >
                 {{ item.value }}
               </DatePickerInput>

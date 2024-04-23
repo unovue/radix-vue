@@ -108,7 +108,11 @@ Contains the date field segments
     {
       attribute: '[data-invalid]',
       values: 'Present when invalid',
-    }
+    },
+    {
+      attribute: '[data-placeholder]',
+      values: 'Present when no value is set',
+    },
   ]"
 />
 

@@ -55,6 +55,7 @@ function daySegmentAttrs(props: SegmentAttrProps) {
     'aria-valuemax': valueMax,
     'aria-valuenow': valueNow,
     'aria-valuetext': valueText,
+    'data-placeholder': isEmpty ? '' : undefined,
   }
 }
 
@@ -77,6 +78,7 @@ function monthSegmentAttrs(props: SegmentAttrProps) {
     'aria-valuemax': valueMax,
     'aria-valuenow': valueNow,
     'aria-valuetext': valueText,
+    'data-placeholder': isEmpty ? '' : undefined,
   }
 }
 
@@ -96,6 +98,7 @@ function yearSegmentAttrs(props: SegmentAttrProps) {
     'aria-valuemax': valueMax,
     'aria-valuenow': valueNow,
     'aria-valuetext': valueText,
+    'data-placeholder': isEmpty ? '' : undefined,
   }
 }
 
@@ -118,6 +121,7 @@ function hourSegmentAttrs(props: SegmentAttrProps) {
     'aria-valuemax': valueMax,
     'aria-valuenow': valueNow,
     'aria-valuetext': valueText,
+    'data-placeholder': isEmpty ? '' : undefined,
   }
 }
 
@@ -141,6 +145,7 @@ function minuteSegmentAttrs(props: SegmentAttrProps) {
     'aria-valuemax': valueMax,
     'aria-valuenow': valueNow,
     'aria-valuetext': valueText,
+    'data-placeholder': isEmpty ? '' : undefined,
   }
 }
 
@@ -164,6 +169,7 @@ function secondSegmentAttrs(props: SegmentAttrProps) {
     'aria-valuemax': valueMax,
     'aria-valuenow': valueNow,
     'aria-valuetext': valueText,
+    'data-placeholder': isEmpty ? '' : undefined,
   }
 }
 

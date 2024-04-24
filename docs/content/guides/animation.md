@@ -94,7 +94,7 @@ import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPor
 Futhemore, we discovered that [Oku Motion](https://motion.oku-ui.com/), a motion library powered by Motion One and based on the Web Animations API, works perfectly with Radix Vue.
 
 
-Check out this [Stackblitz Demo](https://stackblitz.com/edit/hfxgtx-n6jbjp?file=src%2FApp.vue) 🤩
+Check out this [Stackblitz Demo](https://stackblitz.com/edit/hfxgtx-plux4s?file=src%2FApp.vue) 🤩
 :::
 
 

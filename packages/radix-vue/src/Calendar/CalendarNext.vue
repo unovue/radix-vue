@@ -1,9 +1,10 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import type { CalendarIncrement } from '@/shared/date'
 
 export interface CalendarNextProps extends PrimitiveProps {
 /* The calendar unit to go forward */
-  step?: 'month' | 'year'
+  step?: CalendarIncrement
 }
 </script>
 

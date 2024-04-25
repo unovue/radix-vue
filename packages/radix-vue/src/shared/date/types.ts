@@ -11,6 +11,8 @@ export type DayOfWeek = {
   daysOfWeek: (typeof daysOfWeek)[number][]
 }
 
+export type CalendarIncrement = 'month' | 'year'
+
 export type DateRange = {
   start: DateValue | undefined
   end: DateValue | undefined

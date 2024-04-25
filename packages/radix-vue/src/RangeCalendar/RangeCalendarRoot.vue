@@ -6,7 +6,7 @@ import type { PrimitiveProps } from '@/Primitive'
 import { type Formatter, createContext, useDirection } from '@/shared'
 import { getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
 import { type Grid, type Matcher, type WeekDayFormat, isBefore } from '@/date'
-import type { DateRange } from '@/shared/date'
+import type { CalendarIncrement, DateRange } from '@/shared/date'
 import { useRangeCalendarState } from './useRangeCalendar'
 import { useCalendar } from '@/Calendar/useCalendar'
 import type { Direction } from '@/shared/types'
@@ -40,10 +40,10 @@ type RangeCalendarRootContext = {
   isSelected: (date: DateValue) => boolean
   isSelectionEnd: (date: DateValue) => boolean
   isSelectionStart: (date: DateValue) => boolean
-  prevPage: () => void
-  nextPage: () => void
-  isNextButtonDisabled: Ref<boolean>
-  isPrevButtonDisabled: Ref<boolean>
+  prevPage: (step?: CalendarIncrement) => void
+  nextPage: (step?: CalendarIncrement) => void
+  isNextButtonDisabled: (step?: CalendarIncrement) => boolean
+  isPrevButtonDisabled: (step?: CalendarIncrement) => boolean
   formatter: Formatter
   dir: Ref<Direction>
 }

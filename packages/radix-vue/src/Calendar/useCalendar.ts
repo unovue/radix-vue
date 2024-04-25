@@ -7,6 +7,7 @@ import { type Ref, computed, ref, watch } from 'vue'
 import { type Grid, type Matcher, type WeekDayFormat, createMonths, isAfter, isBefore, toDate } from '@/date'
 import { useDateFormatter } from '@/shared'
 import type { DateFormatterOptions } from '@/shared/useDateFormatter'
+import type { CalendarIncrement } from '@/shared/date'
 
 export type UseCalendarProps = {
   locale: Ref<string>
@@ -102,7 +103,7 @@ export function useCalendar(props: UseCalendarProps) {
     return !visibleView.value.some(month => isEqualMonth(date, month))
   }
 
-  const isNextButtonDisabled = (step: 'month' | 'year' = 'month') => {
+  const isNextButtonDisabled = (step: CalendarIncrement = 'month') => {
     if (!props.maxValue.value || !grid.value.length)
       return false
     if (props.disabled.value)
@@ -119,7 +120,7 @@ export function useCalendar(props: UseCalendarProps) {
     return isAfter(firstPeriodOfNextPage, props.maxValue.value)
   }
 
-  const isPrevButtonDisabled = (step: 'month' | 'year' = 'month') => {
+  const isPrevButtonDisabled = (step: CalendarIncrement = 'month') => {
     if (!props.minValue.value || !grid.value.length)
       return false
     if (props.disabled.value)
@@ -159,7 +160,7 @@ export function useCalendar(props: UseCalendarProps) {
     })
   })
 
-  const nextPage = (step: 'month' | 'year' = 'month') => {
+  const nextPage = (step: CalendarIncrement = 'month') => {
     const firstDate = grid.value[0].value
     const newDate = step === 'month' ? firstDate.add({ months: props.pagedNavigation.value ? props.numberOfMonths.value : 1 }) : firstDate.add({ years: 1 })
 
@@ -176,7 +177,7 @@ export function useCalendar(props: UseCalendarProps) {
     props.placeholder.value = newGrid[0].value.set({ day: 1 })
   }
 
-  const prevPage = (step: 'month' | 'year' = 'month') => {
+  const prevPage = (step: CalendarIncrement = 'month') => {
     const firstDate = grid.value[0].value
     const newDate = step === 'month' ? firstDate.subtract({ months: props.pagedNavigation.value ? props.numberOfMonths.value : 1 }) : firstDate.subtract({ years: 1 })
 

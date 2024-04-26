@@ -109,9 +109,12 @@ const isInvalidInput = ref(false)
 provideTagsInputRootContext({
   modelValue,
   onAddValue: (_payload) => {
+    const modelValueIsObject = modelValue.value.length > 0 && typeof modelValue.value[0] === 'object'
+    const defaultValueIsObject = modelValue.value.length > 0 && typeof props.defaultValue[0] === 'object'
+
     // Check if the value is an object and if the convertValue function is provided. We don't check this a type level because the use
     // of `TagsInputInput` is optional.
-    if ((typeof modelValue.value === 'object' || typeof props.defaultValue === 'object') && typeof props.convertValue === 'function')
+    if ((modelValueIsObject || defaultValueIsObject) && typeof props.convertValue !== 'function')
       throw new Error('You must provide a `convertValue` function when using objects as values.')
     const payload = props.convertValue ? props.convertValue(_payload) : _payload as T
 
@@ -225,21 +228,13 @@ provideTagsInputRootContext({
 <template>
   <CollectionSlot>
     <Primitive
-      :ref="forwardRef"
-      :dir="dir"
-      :as="as"
-      :as-child="asChild"
-      :data-invalid="isInvalidInput ? '' : undefined"
-      :data-disabled="disabled ? '' : undefined"
-      :data-focused="focused ? '' : undefined"
+      :ref="forwardRef" :dir="dir" :as="as" :as-child="asChild" :data-invalid="isInvalidInput ? '' : undefined"
+      :data-disabled="disabled ? '' : undefined" :data-focused="focused ? '' : undefined"
     >
       <slot :model-value="modelValue" />
 
       <VisuallyHiddenInput
-        v-if="isFormControl && name"
-        :name="name"
-        :value="modelValue"
-        :required="required"
+        v-if="isFormControl && name" :name="name" :value="modelValue" :required="required"
         :disabled="disabled"
       />
     </Primitive>

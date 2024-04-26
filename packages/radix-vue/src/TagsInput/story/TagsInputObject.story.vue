@@ -3,30 +3,32 @@ import { ref } from 'vue'
 import { TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText, TagsInputRoot } from '..'
 import { Icon } from '@iconify/vue'
 
-let id = 1
-type Item = { id: number; label: string }
-const modelValue = ref<Item[]>([{ id, label: 'Test' }])
-function convertValue(label: string) {
-  id++
-  return { id, label } satisfies Item
+const people = ref([
+  { id: 1, name: 'Durward Reynolds' },
+  { id: 2, name: 'Kenton Towne' },
+])
+
+function displayValue(value: { id: number; name: string }) {
+  return `123${value.name}`
 }
-function displayValue(item: Item) {
-  return item.label
+
+function convertValue(value: string) {
+  return { id: people.value.length + 1, name: value }
 }
 </script>
 
 <template>
   <Story title="TagsInput/Object" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
-      {{ JSON.stringify(modelValue) }}
+      {{ JSON.stringify(people) }}
       <TagsInputRoot
-        v-model="modelValue"
+        v-model="people"
         :convert-value="convertValue"
         :display-value="displayValue"
         class="flex gap-2 items-center border p-2 rounded-lg bg-blackA7 w-[300px] flex-wrap border-blackA7 mt-6"
       >
         <TagsInputItem
-          v-for="item in modelValue" :key="item.id" :value="item"
+          v-for="(item, i) in people" :key="i" :value="item"
           class=" data-[disabled]:opacity-50 flex items-center justify-center gap-2 bg-green8 aria-[current=true]:bg-green9 rounded px-2 py-1"
         >
           <TagsInputItemText class="text-sm" />

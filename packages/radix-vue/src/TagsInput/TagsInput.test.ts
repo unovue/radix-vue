@@ -1,8 +1,10 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { axe } from 'vitest-axe'
 import TagsInput from './story/_TagsInput.vue'
+import TagsInputObject from './story/_TagsInputObject.vue'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
+import { nextTick } from 'vue'
 
 describe('given default TagsInput', () => {
   // @ts-expect-error we return empty object
@@ -163,5 +165,42 @@ describe('given default TagsInput', () => {
       expect(wrapper.html()).toContain(tag)
       expect(tags[1].text()).toBe(tag)
     })
+  })
+})
+
+describe('given a incorrect TagsInput with object', async () => {
+  let wrapper: VueWrapper<InstanceType<typeof TagsInputObject>>
+  let input: DOMWrapper<HTMLInputElement>
+  let tags: DOMWrapper<HTMLElement>[]
+
+  beforeEach(() => {
+    document.body.innerHTML = ''
+    wrapper = mount(TagsInputObject, {
+      props: {
+        displayValue: (item: any) => `Person: ${item.name}`,
+        convertValue: (item: string) => ({ name: item, id: Math.random() }),
+      },
+      attachTo: document.body,
+    })
+    input = wrapper.find('input')
+    tags = wrapper.findAll('[data-radix-vue-collection-item]')
+  })
+
+  it('should display the initial tags', () => {
+    expect(tags[0].text()).toBe('Person: Durward Reynolds')
+    expect(tags[1].text()).toBe('Person: Kenton Towne')
+  })
+
+  const addTag = async (text: string) => {
+    await input.setValue(text)
+    await input.trigger('keydown.enter')
+    await nextTick()
+    tags = wrapper.findAll('[data-radix-vue-collection-item]')
+  }
+
+  it('should update the tags', async () => {
+    await addTag('Moriah Stanton')
+    expect(tags.at(-1)?.text()).toBe('Person: Moriah Stanton')
+    expect(wrapper.vm.people).toEqual(expect.arrayContaining([expect.objectContaining({ id: expect.any(Number), name: expect.any(String) })]))
   })
 })

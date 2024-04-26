@@ -16,7 +16,7 @@
   },
   {
     'name': 'step',
-    'description': '',
+    'description': '<p>The calendar unit to go forward</p>\n',
     'type': '\'month\' | \'year\'',
     'required': false,
     'default': '\'month\''

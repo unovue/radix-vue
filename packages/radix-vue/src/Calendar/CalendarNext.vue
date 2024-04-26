@@ -3,7 +3,7 @@ import type { PrimitiveProps } from '@/Primitive'
 import type { CalendarIncrement } from '@/shared/date'
 
 export interface CalendarNextProps extends PrimitiveProps {
-/* The calendar unit to go forward */
+/** The calendar unit to go forward */
   step?: CalendarIncrement
 }
 </script>

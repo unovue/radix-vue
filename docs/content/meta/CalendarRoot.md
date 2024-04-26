@@ -33,6 +33,12 @@
     'required': false
   },
   {
+    'name': 'dir',
+    'description': '<p>The reading direction of the calendar when applicable. &lt;br&gt; If omitted, inherits globally from <code>ConfigProvider</code> or assumes LTR (left-to-right) reading mode.</p>\n',
+    'type': '\'ltr\' | \'rtl\'',
+    'required': false
+  },
+  {
     'name': 'disabled',
     'description': '<p>Whether or not the calendar is disabled</p>\n',
     'type': 'boolean',
@@ -177,18 +183,18 @@
     'type': 'string[]'
   },
   {
-    'name': 'formatter',
-    'description': '<p>The formatter used inside the calendar for displaying dates</p>\n',
-    'type': 'Formatter'
+    'name': 'weekStartsOn',
+    'description': '<p>The start of the week</p>\n',
+    'type': '0 | 1 | 2 | 3 | 4 | 5 | 6'
   },
   {
-    'name': 'getMonths',
-    'description': '<p>The months that can be selected</p>\n',
-    'type': 'DateValue'
+    'name': 'locale',
+    'description': '<p>The calendar locale</p>\n',
+    'type': 'string'
   },
   {
-    'name': 'getYears',
-    'description': '<p>The years that can be selected</p>\n',
-    'type': ''
+    'name': 'fixedWeeks',
+    'description': '<p>Whether or not to always display 6 weeks in the calendar</p>\n',
+    'type': 'boolean'
   }
 ]" />

@@ -72,7 +72,7 @@ const page = useVModel(props, 'page', emits, {
   passive: (props.page === undefined) as false,
 }) as Ref<number>
 
-const pageCount = computed(() => Math.ceil(props.total / props.itemsPerPage))
+const pageCount = computed(() => Math.max(1, Math.ceil(props.total / props.itemsPerPage)))
 
 providePaginationRootContext({
   page,

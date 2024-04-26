@@ -1,7 +1,7 @@
 {
   "name": "plugins",
   "type": "module",
-  "version": "1.6.1",
+  "version": "1.7.2",
   "description": "Nuxt module for Radix Vue",
   "license": "MIT",
   "keywords": [
@@ -20,7 +20,7 @@
   "dependencies": {
     "@nuxt/kit": "npm:@nuxt/kit@latest",
     "@nuxt/schema": "latest",
-    "radix-vue": "file:../radix-vue",
+    "radix-vue": "link:../radix-vue",
     "tsx": "^4.1.2",
     "unbuild": "^2.0.0",
     "unplugin-vue-components": "^0.25.2"

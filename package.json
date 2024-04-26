@@ -1,6 +1,6 @@
 {
   "name": "radix-vue",
-  "version": "1.6.1",
+  "version": "1.7.2",
   "private": true,
   "packageManager": "pnpm@8.15.4",
   "license": "MIT",
@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "story:dev": "pnpm --filter histoire story:dev",
-    "build": "rimraf packages/radix-vue/dist  && pnpm run -r build",
+    "build": "rimraf packages/radix-vue/dist  && pnpm run --filter radix-vue build && pnpm run --filter plugins build",
     "build-only": "rimraf packages/radix-vue/dist  && pnpm run -r build-only",
     "docs:install": "pnpm --filter docs install",
     "docs:dev": "pnpm --filter docs docs:dev",

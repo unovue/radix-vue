@@ -96,7 +96,7 @@
   },
   {
     'name': 'entryFocus',
-    'description': '',
+    'description': '<p>Event handler called when container is being focused. Can be prevented.</p>\n',
     'type': '[event: Event]'
   },
   {

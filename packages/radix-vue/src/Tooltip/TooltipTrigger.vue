@@ -11,7 +11,7 @@ export interface TooltipTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { injectTooltipRootContext } from './TooltipRoot.vue'
 import { PopperAnchor } from '@/Popper'
 import {
@@ -32,6 +32,24 @@ const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 const isPointerDown = ref(false)
 const hasPointerMoveOpened = ref(false)
 
+const tooltipListeners = computed(() => {
+  if (rootContext.disabled.value)
+    return {}
+
+  return {
+    click: handleClick,
+    focus: handleFocus,
+    pointermove: handlePointerMove,
+    pointerleave: handlePointerLeave,
+    pointerdown: handlePointerDown,
+    blur: handleBlur,
+  }
+})
+
+onMounted(() => {
+  rootContext.onTriggerChange(triggerElement.value)
+})
+
 function handlePointerUp() {
   isPointerDown.value = false
 }
@@ -41,9 +59,40 @@ function handlePointerDown() {
   document.addEventListener('pointerup', handlePointerUp, { once: true })
 }
 
-onMounted(() => {
-  rootContext.onTriggerChange(triggerElement.value)
-})
+function handlePointerMove(event: PointerEvent) {
+  if (event.pointerType === 'touch')
+    return
+  if (
+    !hasPointerMoveOpened.value && !providerContext.isPointerInTransitRef.value
+  ) {
+    rootContext.onTriggerEnter()
+    hasPointerMoveOpened.value = true
+  }
+}
+
+function handlePointerLeave() {
+  rootContext.onTriggerLeave()
+  hasPointerMoveOpened.value = false
+}
+
+function handleFocus(event: FocusEvent) {
+  if (isPointerDown.value)
+    return
+
+  if (rootContext.ignoreNonKeyboardFocus.value && !(event.target as HTMLElement).matches?.(':focus-visible'))
+    return
+
+  rootContext.onOpen()
+}
+
+function handleBlur() {
+  rootContext.onClose()
+}
+
+function handleClick() {
+  if (!rootContext.disableClosingTrigger.value)
+    rootContext.onClose()
+}
 </script>
 
 <template>
@@ -56,33 +105,7 @@ onMounted(() => {
       :data-state="rootContext.stateAttribute.value"
       :as="as"
       :as-child="props.asChild"
-      @pointermove="(event) => {
-        if (event.pointerType === 'touch') return;
-        if (
-          !hasPointerMoveOpened && !providerContext.isPointerInTransitRef.value
-        ) {
-          rootContext.onTriggerEnter();
-          hasPointerMoveOpened = true;
-        }
-      }"
-      @pointerleave="(event) => {
-        rootContext.onTriggerLeave();
-        hasPointerMoveOpened = false;
-      }"
-      @pointerdown="handlePointerDown"
-      @focus="(event) => {
-        if (isPointerDown)
-          return
-
-        if (rootContext.ignoreNonKeyboardFocus.value && !(event.target as HTMLElement).matches?.(':focus-visible'))
-          return
-
-        rootContext.onOpen()
-      }"
-      @blur="rootContext.onClose()"
-      @click="() => {
-        if (!rootContext.disableClosingTrigger.value) rootContext.onClose()
-      }"
+      v-on="tooltipListeners"
     >
       <slot />
     </Primitive>

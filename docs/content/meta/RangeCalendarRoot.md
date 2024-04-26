@@ -30,6 +30,13 @@
     'name': 'defaultValue',
     'description': '<p>The default value for the calendar</p>\n',
     'type': 'DateRange',
+    'required': false,
+    'default': '{ start: undefined, end: undefined }'
+  },
+  {
+    'name': 'dir',
+    'description': '<p>The reading direction of the calendar when applicable. &lt;br&gt; If omitted, inherits globally from <code>ConfigProvider</code> or assumes LTR (left-to-right) reading mode.</p>\n',
+    'type': '\'ltr\' | \'rtl\'',
     'required': false
   },
   {
@@ -144,11 +151,16 @@
   {
     'name': 'update:modelValue',
     'description': '<p>Event handler called whenever the model value changes</p>\n',
-    'type': '[DateRange]'
+    'type': '[date: DateRange]'
   },
   {
     'name': 'update:placeholder',
     'description': '<p>Event handler called whenever the placeholder value changes</p>\n',
+    'type': '[date: DateValue]'
+  },
+  {
+    'name': 'update:startValue',
+    'description': '<p>Event handler called whenever the start value changes</p>\n',
     'type': '[date: DateValue]'
   }
 ]" />
@@ -170,18 +182,18 @@
     'type': 'string[]'
   },
   {
-    'name': 'formatter',
-    'description': '<p>The formatter used inside the calendar for displaying dates</p>\n',
-    'type': 'Formatter'
+    'name': 'weekStartsOn',
+    'description': '<p>The start of the week</p>\n',
+    'type': '0 | 1 | 2 | 3 | 4 | 5 | 6'
   },
   {
-    'name': 'getMonths',
-    'description': '<p>The months that can be selected</p>\n',
-    'type': 'DateValue'
+    'name': 'locale',
+    'description': '<p>The calendar locale</p>\n',
+    'type': 'string'
   },
   {
-    'name': 'getYears',
-    'description': '<p>The years that can be selected</p>\n',
-    'type': ''
+    'name': 'fixedWeeks',
+    'description': '<p>Whether or not to always display 6 weeks in the calendar</p>\n',
+    'type': 'boolean'
   }
 ]" />

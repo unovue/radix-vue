@@ -35,7 +35,6 @@ const rootContext = injectHoverCardRootContext()
       v-bind="forwarded"
       :ref="forwardRef"
       @pointerenter="excludeTouch(rootContext.onOpen)($event)"
-      @pointerleave="excludeTouch(rootContext.onClose)($event)"
     >
       <slot />
     </HoverCardContentImpl>

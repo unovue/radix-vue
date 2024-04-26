@@ -3,18 +3,17 @@ import { type DateValue, isEqualDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { type Formatter, createContext, useDateFormatter, useKbd } from '@/shared'
+import { type Formatter, createContext, useDateFormatter, useDirection, useKbd } from '@/shared'
 import {
   type Granularity,
   type HourCycle,
-  type Matcher,
   type SegmentPart,
   type SegmentValueObj,
   getDefaultDate,
-  hasTime,
-  isBefore,
 } from '@/shared/date'
+import { type Matcher, hasTime, isBefore } from '@/date'
 import { createContent, initializeSegmentValues, isSegmentNavigationKey, syncSegmentValues } from './utils'
+import type { Direction } from '@/shared/types'
 
 type DateFieldRootContext = {
   locale: Ref<string>
@@ -66,6 +65,8 @@ export interface DateFieldRootProps extends PrimitiveProps {
   required?: boolean
   /** Id of the element */
   id?: string
+  /** The reading direction of the date field when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
+  dir?: Direction
 }
 
 export type DateFieldRootEmits = {
@@ -108,9 +109,10 @@ defineSlots<{
   }): any
 }>()
 
-const { locale, disabled, readonly, isDateUnavailable: propsIsDateUnavailable, granularity } = toRefs(props)
+const { locale, disabled, readonly, isDateUnavailable: propsIsDateUnavailable, granularity, defaultValue, dir: propDir } = toRefs(props)
 
 const formatter = useDateFormatter(props.locale)
+const dir = useDirection(propDir)
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
 const segmentElements = ref<Set<HTMLElement>>(new Set())
@@ -120,7 +122,7 @@ onMounted(() => {
 })
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: props.defaultValue ?? undefined,
+  defaultValue: defaultValue.value,
   passive: (props.modelValue === undefined) as false,
 }) as Ref<DateValue>
 
@@ -181,14 +183,14 @@ watch(locale, (value) => {
     formatter.setLocale(value)
 })
 
-watch(modelValue, (value) => {
-  if (value !== undefined && (!isEqualDay(placeholder.value, value) || placeholder.value.compare(value) !== 0))
-    placeholder.value = value.copy()
+watch(modelValue, (_modelValue) => {
+  if (_modelValue !== undefined && (!isEqualDay(placeholder.value, _modelValue) || placeholder.value.compare(_modelValue) !== 0))
+    placeholder.value = _modelValue.copy()
 })
 
-watch([modelValue, locale], ([modelValue]) => {
-  if (modelValue !== undefined)
-    segmentValues.value = { ...syncSegmentValues({ value: modelValue, formatter }) }
+watch([modelValue, locale], ([_modelValue]) => {
+  if (_modelValue !== undefined)
+    segmentValues.value = { ...syncSegmentValues({ value: _modelValue, formatter }) }
   else
     segmentValues.value = { ...initialSegments }
 })
@@ -201,16 +203,21 @@ const currentSegmentIndex = computed(() =>
     === currentFocusedElement.value?.getAttribute('data-radix-vue-date-field-segment')))
 
 const nextFocusableSegment = computed(() => {
-  if (currentSegmentIndex.value > segmentElements.value.size - 1)
+  const sign = dir.value === 'rtl' ? -1 : 1
+  const nextCondition = sign < 0 ? currentSegmentIndex.value < 0 : currentSegmentIndex.value > segmentElements.value.size - 1
+  if (nextCondition)
     return null
-  const segmentToFocus = Array.from(segmentElements.value)[currentSegmentIndex.value + 1]
+  const segmentToFocus = Array.from(segmentElements.value)[currentSegmentIndex.value + sign]
   return segmentToFocus
 })
+
 const prevFocusableSegment = computed(() => {
-  if (currentSegmentIndex.value < 0)
+  const sign = dir.value === 'rtl' ? -1 : 1
+  const prevCondition = sign > 0 ? currentSegmentIndex.value < 0 : currentSegmentIndex.value > segmentElements.value.size - 1
+  if (prevCondition)
     return null
 
-  const segmentToFocus = Array.from(segmentElements.value)[currentSegmentIndex.value - 1]
+  const segmentToFocus = Array.from(segmentElements.value)[currentSegmentIndex.value - sign]
   return segmentToFocus
 })
 
@@ -256,9 +263,15 @@ defineExpose({
 
 <template>
   <Primitive
-    v-bind="$attrs" ref="primitiveElement" role="group" :aria-disabled="disabled ? true : undefined"
-    :data-disabled="disabled ? '' : undefined" :data-readonly="readonly ? '' : undefined"
-    :data-invalid="isInvalid ? '' : undefined" @keydown.left.right="handleKeydown"
+    v-bind="$attrs"
+    ref="primitiveElement"
+    role="group"
+    :aria-disabled="disabled ? true : undefined"
+    :data-disabled="disabled ? '' : undefined"
+    :data-readonly="readonly ? '' : undefined"
+    :data-invalid="isInvalid ? '' : undefined"
+    :dir="dir"
+    @keydown.left.right="handleKeydown"
   >
     <slot :model-value="modelValue" :segments="segmentContents" :is-invalid="isInvalid" />
   </Primitive>

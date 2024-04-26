@@ -3,7 +3,7 @@
 <PropsTable :data="[
   {
     'name': 'activationMode',
-    'description': '<p>Whether a tab is activated automatically or manually.</p>\n',
+    'description': '<p>Whether a tab is activated automatically (on focus) or manually (on click).</p>\n',
     'type': '\'automatic\' | \'manual\'',
     'required': false,
     'default': '\'automatic\''
@@ -24,7 +24,7 @@
   {
     'name': 'defaultValue',
     'description': '<p>The value of the tab that should be active when initially rendered. Use when you do not need to control the state of the tabs</p>\n',
-    'type': 'string',
+    'type': 'string | number',
     'required': false
   },
   {
@@ -36,7 +36,7 @@
   {
     'name': 'modelValue',
     'description': '<p>The controlled value of the tab to activate. Can be bind as <code>v-model</code>.</p>\n',
-    'type': 'string',
+    'type': 'string | number',
     'required': false
   },
   {
@@ -52,6 +52,6 @@
   {
     'name': 'update:modelValue',
     'description': '<p>Event handler called when the value changes</p>\n',
-    'type': '[payload: string]'
+    'type': '[payload: StringOrNumber]'
   }
 ]" />

@@ -59,7 +59,7 @@ describe('given default Select', () => {
         const selection = wrapper.findAll('[role=option]')[1];
         (selection.element as HTMLElement).focus()
         await selection.trigger('pointerup')
-        // not sure why need 2 pointUp to trigger the selection correctly
+        // Needs 2 pointerup because SelectContentImpl prevents accidental pointerup's
         await fireEvent.pointerUp(selection.element)
       })
 
@@ -119,7 +119,7 @@ describe('given select in a form', async () => {
       const selection = wrapper.findAll('[role=option]')[1];
       (selection.element as HTMLElement).focus()
       await selection.trigger('pointerup')
-      // not sure why need 2 pointUp to trigger the selection correctly
+      // Needs 2 pointerup because SelectContentImpl prevents accidental pointerup's
       await fireEvent.pointerUp(selection.element)
       await wrapper.find('form').trigger('submit')
     })
@@ -140,7 +140,7 @@ describe('given select in a form', async () => {
       const selection = wrapper.findAll('[role=option]')[4];
       (selection.element as HTMLElement).focus()
       await selection.trigger('pointerup')
-      // not sure why need 2 pointUp to trigger the selection correctly
+      // Needs 2 pointerup because SelectContentImpl prevents accidental pointerup's
       await fireEvent.pointerUp(selection.element)
       await wrapper.find('form').trigger('submit')
     })

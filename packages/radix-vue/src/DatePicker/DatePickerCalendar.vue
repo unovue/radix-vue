@@ -10,7 +10,7 @@ const rootContext = injectDatePickerRootContext()
 
 <template>
   <CalendarRoot
-    v-slot="{ weekDays, grid, date, formatter }"
+    v-slot="{ weekDays, grid, date, weekStartsOn, locale, fixedWeeks }"
     v-bind="{
       isDateDisabled: rootContext.isDateDisabled,
       isDateUnavailable: rootContext.isDateUnavailable,
@@ -25,6 +25,7 @@ const rootContext = injectDatePickerRootContext()
       numberOfMonths: rootContext.numberOfMonths.value,
       readonly: rootContext.readonly.value,
       preventDeselect: rootContext.preventDeselect.value,
+      dir: rootContext.dir.value,
     }"
     :model-value="rootContext.modelValue.value"
     :placeholder="rootContext.placeholder.value"
@@ -43,7 +44,9 @@ const rootContext = injectDatePickerRootContext()
       :date="date"
       :grid="grid"
       :week-days="weekDays"
-      :formatter="formatter"
+      :week-starts-on="weekStartsOn"
+      :locale="locale"
+      :fixed-weeks="fixedWeeks"
     />
   </CalendarRoot>
 </template>

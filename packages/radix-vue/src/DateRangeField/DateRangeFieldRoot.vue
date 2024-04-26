@@ -3,20 +3,23 @@ import { type DateValue, isEqualDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { type Formatter, createContext, useDateFormatter, useKbd } from '@/shared'
+import { type Formatter, createContext, useDateFormatter, useDirection, useKbd } from '@/shared'
 import {
   type DateRange,
   type Granularity,
   type HourCycle,
-  type Matcher,
   type SegmentPart,
   type SegmentValueObj,
-  areAllDaysBetweenValid,
   getDefaultDate,
+} from '@/shared/date'
+import {
+  type Matcher,
+  areAllDaysBetweenValid,
   hasTime,
   isBefore,
-} from '@/shared/date'
+} from '@/date'
 import { createContent, initializeSegmentValues, isSegmentNavigationKey, syncSegmentValues } from '@/DateField/utils'
+import type { Direction } from '@/shared/types'
 
 export type DateRangeType = 'start' | 'end'
 
@@ -71,6 +74,8 @@ export interface DateRangeFieldRootProps extends PrimitiveProps {
   required?: boolean
   /** Id of the element */
   id?: string
+  /** The reading direction of the date field when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
+  dir?: Direction
 }
 
 export type DateRangeFieldRootEmits = {
@@ -102,12 +107,13 @@ const props = withDefaults(defineProps<DateRangeFieldRootProps>(), {
   isDateUnavailable: undefined,
 })
 const emits = defineEmits<DateRangeFieldRootEmits>()
-const { locale, disabled, readonly, isDateUnavailable: propsIsDateUnavailable } = toRefs(props)
+const { locale, disabled, readonly, isDateUnavailable: propsIsDateUnavailable, dir: propsDir } = toRefs(props)
 
 const formatter = useDateFormatter(props.locale)
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
 const segmentElements = ref<Set<HTMLElement>>(new Set())
+const dir = useDirection(propsDir)
 
 onMounted(() => {
   Array.from(parentElement.value.querySelectorAll('[data-radix-vue-date-field-segment]')).filter(item => item.getAttribute('data-radix-vue-date-field-segment') !== 'literal').forEach(el => segmentElements.value.add(el as HTMLElement))
@@ -226,29 +232,33 @@ const editableSegmentContents = computed(() => ({ start: segmentContents.value.s
 const startValue = ref(modelValue.value.start?.copy()) as Ref<DateValue | undefined>
 const endValue = ref(modelValue.value.end?.copy()) as Ref<DateValue | undefined>
 
-watch([startValue, endValue], ([startValue, endValue]): void => {
-  if (modelValue.value.start && modelValue.value.end && startValue && endValue && modelValue.value.start.compare(startValue) === 0 && modelValue.value.end.compare(endValue) === 0)
+watch([startValue, endValue], ([_startValue, _endValue]) => {
+  const value = modelValue.value
+  if (value.start && value.end && _startValue && _endValue && value.start.compare(_startValue) === 0 && value.end.compare(_endValue) === 0)
     return
 
-  if (startValue && endValue) {
-    modelValue.value = { start: startValue.copy(), end: endValue.copy() }
-    return
+  if (_startValue && _endValue) {
+    if (modelValue.value.start?.compare(_startValue) === 0 && modelValue.value.end?.compare(_endValue) === 0)
+      return
+    modelValue.value = { start: _startValue.copy(), end: _endValue.copy() }
   }
-
-  modelValue.value = { start: undefined, end: undefined }
+  else if (modelValue.value.start && modelValue.value.end) {
+    modelValue.value = { start: undefined, end: undefined }
+  }
 })
 
-watch(modelValue, (value) => {
-  if (value.start)
-    startValue.value = value.start.copy()
-
-  if (value.end)
-    endValue.value = value.end.copy()
+watch(modelValue, (_modelValue) => {
+  if (_modelValue.start && _modelValue.end) {
+    if (!startValue.value || _modelValue.start.compare(startValue.value) !== 0)
+      startValue.value = _modelValue.start.copy()
+    if (!endValue.value || _modelValue.end.compare(endValue.value) !== 0)
+      endValue.value = _modelValue.end.copy()
+  }
 })
 
-watch([startValue, locale], ([modelValue]) => {
-  if (modelValue !== undefined)
-    startSegmentValues.value = { ...syncSegmentValues({ value: modelValue, formatter }) }
+watch([startValue, locale], ([_startValue]) => {
+  if (_startValue !== undefined)
+    startSegmentValues.value = { ...syncSegmentValues({ value: _startValue, formatter }) }
   else
     startSegmentValues.value = { ...initialSegments }
 })
@@ -258,14 +268,14 @@ watch(locale, (value) => {
     formatter.setLocale(value)
 })
 
-watch(modelValue, (value) => {
-  if (value.start !== undefined && (!isEqualDay(placeholder.value, value.start) || placeholder.value.compare(value.start) !== 0))
-    placeholder.value = value.start.copy()
+watch(modelValue, (_modelValue) => {
+  if (_modelValue.start !== undefined && (!isEqualDay(placeholder.value, _modelValue.start) || placeholder.value.compare(_modelValue.start) !== 0))
+    placeholder.value = _modelValue.start.copy()
 })
 
-watch([endValue, locale], ([modelValue]) => {
-  if (modelValue !== undefined)
-    endSegmentValues.value = { ...syncSegmentValues({ value: modelValue, formatter }) }
+watch([endValue, locale], ([_endValue]) => {
+  if (_endValue !== undefined)
+    endSegmentValues.value = { ...syncSegmentValues({ value: _endValue, formatter }) }
   else
     endSegmentValues.value = { ...initialSegments }
 })
@@ -277,16 +287,21 @@ const currentSegmentIndex = computed(() => Array.from(segmentElements.value).fin
 && el.getAttribute('data-radix-vue-date-range-field-segment-type') === currentFocusedElement.value?.getAttribute('data-radix-vue-date-range-field-segment-type')))
 
 const nextFocusableSegment = computed(() => {
-  if (currentSegmentIndex.value > segmentElements.value.size - 1)
+  const sign = dir.value === 'rtl' ? -1 : 1
+  const nextCondition = sign < 0 ? currentSegmentIndex.value < 0 : currentSegmentIndex.value > segmentElements.value.size - 1
+  if (nextCondition)
     return null
-  const segmentToFocus = Array.from(segmentElements.value)[currentSegmentIndex.value + 1]
+  const segmentToFocus = Array.from(segmentElements.value)[currentSegmentIndex.value + sign]
   return segmentToFocus
 })
+
 const prevFocusableSegment = computed(() => {
-  if (currentSegmentIndex.value < 0)
+  const sign = dir.value === 'rtl' ? -1 : 1
+  const prevCondition = sign > 0 ? currentSegmentIndex.value < 0 : currentSegmentIndex.value > segmentElements.value.size - 1
+  if (prevCondition)
     return null
 
-  const segmentToFocus = Array.from(segmentElements.value)[currentSegmentIndex.value - 1]
+  const segmentToFocus = Array.from(segmentElements.value)[currentSegmentIndex.value - sign]
   return segmentToFocus
 })
 
@@ -339,6 +354,7 @@ defineExpose({
     :data-disabled="disabled ? '' : undefined"
     :data-readonly="readonly ? '' : undefined"
     :data-invalid="isInvalid ? '' : undefined"
+    :dir="dir"
     @keydown.left.right="handleKeydown"
   >
     <slot :model-value="modelValue" :segments="segmentContents" />

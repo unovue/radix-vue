@@ -31,6 +31,13 @@
     'name': 'defaultValue',
     'description': '<p>The default value for the calendar</p>\n',
     'type': 'DateRange',
+    'required': false,
+    'default': '{ start: undefined, end: undefined }'
+  },
+  {
+    'name': 'dir',
+    'description': '<p>The reading direction of the date field when applicable. &lt;br&gt; If omitted, inherits globally from <code>ConfigProvider</code> or assumes LTR (left-to-right) reading mode.</p>\n',
+    'type': '\'ltr\' | \'rtl\'',
     'required': false
   },
   {
@@ -197,6 +204,11 @@
   {
     'name': 'update:placeholder',
     'description': '<p>Event handler called whenever the placeholder value changes</p>\n',
+    'type': '[date: DateValue]'
+  },
+  {
+    'name': 'update:startValue',
+    'description': '<p>Event handler called whenever the start value changes</p>\n',
     'type': '[date: DateValue]'
   }
 ]" />

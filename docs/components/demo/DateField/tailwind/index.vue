@@ -21,7 +21,7 @@ import { DateFieldInput, DateFieldRoot, Label } from 'radix-vue'
         <DateFieldInput
           v-else
           :part="item.part"
-          class="rounded p-0.5   focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black aria-[valuetext=Empty]:text-green9"
+          class="rounded p-0.5   focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-green9"
         >
           {{ item.value }}
         </DateFieldInput>

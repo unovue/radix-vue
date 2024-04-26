@@ -18,8 +18,18 @@
     'type': 'string[]'
   },
   {
-    'name': 'formatter',
+    'name': 'weekStartsOn',
     'description': '',
-    'type': 'Formatter'
+    'type': '0 | 1 | 2 | 3 | 4 | 5 | 6'
+  },
+  {
+    'name': 'locale',
+    'description': '',
+    'type': 'string'
+  },
+  {
+    'name': 'fixedWeeks',
+    'description': '',
+    'type': 'boolean'
   }
 ]" />

@@ -106,7 +106,7 @@ describe('RangeCalendar', () => {
     startValue = calendar.querySelector('[data-selection-start]')
     endValue = calendar.querySelector('[data-selection-end]')
 
-    expect(startValue).not.toBeInTheDocument()
+    expect(startValue).toBeInTheDocument()
     expect(endValue).not.toBeInTheDocument()
 
     const seventhDayInMonth = getByTestId('date-1-7')

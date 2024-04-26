@@ -92,7 +92,7 @@ The component that pops out when the tooltip is open.
   :data="[
     {
       attribute: '[data-state]',
-      values: ['open', 'closed'],
+      values: ['closed', 'delayed-open', 'instant-open'],
     },
     {
       attribute: '[data-side]',

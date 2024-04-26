@@ -1,5 +1,6 @@
 import { type Formatter, useKbd } from '@/shared'
-import { type AnyExceptLiteral, type HourCycle, type SegmentPart, type SegmentValueObj, getDaysInMonth, toDate } from '@/shared/date'
+import { type AnyExceptLiteral, type HourCycle, type SegmentPart, type SegmentValueObj } from '@/shared/date'
+import { getDaysInMonth, toDate } from '@/date'
 import { type CalendarDateTime, type CycleTimeOptions, type DateFields, type DateValue, type TimeFields } from '@internationalized/date'
 import { type Ref, computed } from 'vue'
 import { isAcceptableSegmentKey, isNumberString, isSegmentNavigationKey } from './utils'
@@ -54,6 +55,7 @@ function daySegmentAttrs(props: SegmentAttrProps) {
     'aria-valuemax': valueMax,
     'aria-valuenow': valueNow,
     'aria-valuetext': valueText,
+    'data-placeholder': isEmpty ? '' : undefined,
   }
 }
 
@@ -76,6 +78,7 @@ function monthSegmentAttrs(props: SegmentAttrProps) {
     'aria-valuemax': valueMax,
     'aria-valuenow': valueNow,
     'aria-valuetext': valueText,
+    'data-placeholder': isEmpty ? '' : undefined,
   }
 }
 
@@ -95,6 +98,7 @@ function yearSegmentAttrs(props: SegmentAttrProps) {
     'aria-valuemax': valueMax,
     'aria-valuenow': valueNow,
     'aria-valuetext': valueText,
+    'data-placeholder': isEmpty ? '' : undefined,
   }
 }
 
@@ -117,6 +121,7 @@ function hourSegmentAttrs(props: SegmentAttrProps) {
     'aria-valuemax': valueMax,
     'aria-valuenow': valueNow,
     'aria-valuetext': valueText,
+    'data-placeholder': isEmpty ? '' : undefined,
   }
 }
 
@@ -140,6 +145,7 @@ function minuteSegmentAttrs(props: SegmentAttrProps) {
     'aria-valuemax': valueMax,
     'aria-valuenow': valueNow,
     'aria-valuetext': valueText,
+    'data-placeholder': isEmpty ? '' : undefined,
   }
 }
 
@@ -163,6 +169,7 @@ function secondSegmentAttrs(props: SegmentAttrProps) {
     'aria-valuemax': valueMax,
     'aria-valuenow': valueNow,
     'aria-valuetext': valueText,
+    'data-placeholder': isEmpty ? '' : undefined,
   }
 }
 

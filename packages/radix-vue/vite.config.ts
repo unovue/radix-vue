@@ -25,8 +25,13 @@ export default defineConfig({
   build: {
     lib: {
       name: 'radix-vue',
-      fileName: 'index',
-      entry: resolve(__dirname, 'src/index.ts'),
+      fileName: (format, name) => {
+        return `${name}.${format === 'es' ? 'js' : 'umd.cjs'}`
+      },
+      entry: {
+        index: resolve(__dirname, 'src/index.ts'),
+        date: resolve(__dirname, 'src/date/index.ts'),
+      },
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled

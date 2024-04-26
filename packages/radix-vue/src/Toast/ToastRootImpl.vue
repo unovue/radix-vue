@@ -44,11 +44,11 @@ export const [injectToastRootContext, provideToastRootContext]
 
 <script setup lang="ts">
 import { Primitive } from '@/Primitive'
-import { computed, onMounted, onUnmounted, ref, watchEffect } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch, watchEffect } from 'vue'
 import { injectToastProviderContext } from './ToastProvider.vue'
 import { TOAST_SWIPE_CANCEL, TOAST_SWIPE_END, TOAST_SWIPE_MOVE, TOAST_SWIPE_START, VIEWPORT_PAUSE, VIEWPORT_RESUME, getAnnounceTextContent, handleAndDispatchCustomEvent, isDeltaInDirection } from './utils'
+import { onKeyStroke, useRafFn } from '@vueuse/core'
 import ToastAnnounce from './ToastAnnounce.vue'
-import { onKeyStroke } from '@vueuse/core'
 
 defineOptions({
   inheritAttrs: false,
@@ -70,6 +70,12 @@ const duration = computed(() => props.duration || providerContext.duration.value
 const closeTimerStartTimeRef = ref(0)
 const closeTimerRemainingTimeRef = ref(duration.value)
 const closeTimerRef = ref(0)
+const remainingTime = ref(duration.value)
+
+const remainingRaf = useRafFn(() => {
+  const elapsedTime = new Date().getTime() - closeTimerStartTimeRef.value
+  remainingTime.value = Math.max(closeTimerRemainingTimeRef.value - elapsedTime, 0)
+}, { fpsLimit: 60 })
 
 function startTimer(duration: number) {
   if (!duration || duration === Number.POSITIVE_INFINITY)
@@ -85,6 +91,9 @@ function handleClose() {
   const isFocusInToast = currentElement.value?.contains(document.activeElement)
   if (isFocusInToast)
     providerContext.viewport.value?.focus()
+
+  // when manually close the toast, we reset isClosePausedRef
+  providerContext.isClosePausedRef.value = false
   emits('close')
 }
 
@@ -100,12 +109,14 @@ watchEffect((cleanupFn) => {
   if (viewport) {
     const handleResume = () => {
       startTimer(closeTimerRemainingTimeRef.value)
+      remainingRaf.resume()
       emits('resume')
     }
     const handlePause = () => {
       const elapsedTime = new Date().getTime() - closeTimerStartTimeRef.value
       closeTimerRemainingTimeRef.value = closeTimerRemainingTimeRef.value - elapsedTime
       window.clearTimeout(closeTimerRef.value)
+      remainingRaf.pause()
       emits('pause')
     }
     viewport.addEventListener(VIEWPORT_PAUSE, handlePause)
@@ -120,10 +131,13 @@ watchEffect((cleanupFn) => {
 // start timer when toast opens or duration changes.
 // we include `open` in deps because closed !== unmounted when animating
 // so it could reopen before being completely unmounted
-watchEffect(() => {
+watch(() => [props.open, duration.value], () => {
+  // Reset the timer when the toast is rerendered with the new duration
+  closeTimerRemainingTimeRef.value = duration.value
+
   if (props.open && !providerContext.isClosePausedRef.value)
     startTimer(duration.value)
-})
+}, { immediate: true })
 
 onKeyStroke('Escape', (event) => {
   emits('escapeKeyDown', event)
@@ -226,7 +240,7 @@ provideToastRootContext({ onClose: handleClose })
         }
       }"
     >
-      <slot />
+      <slot :remaining="remainingTime" />
     </Primitive>
   </Teleport>
 </template>

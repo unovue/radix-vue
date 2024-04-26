@@ -194,6 +194,17 @@ export const components = {
     'Label',
   ],
 
+  listbox: [
+    'ListboxRoot',
+    'ListboxContent',
+    'ListboxFilter',
+    'ListboxItem',
+    'ListboxItemIndicator',
+    'ListboxVirtualizer',
+    'ListboxGroup',
+    'ListboxGroupLabel',
+  ],
+
   menubar: [
     'MenubarRoot',
     'MenubarTrigger',
@@ -381,6 +392,10 @@ export const components = {
     'TooltipProvider',
   ],
 
+  viewport: [
+    'Viewport',
+  ],
+
   primitive: [
     'Primitive',
     'Slot',
@@ -403,6 +418,5 @@ export const utilities = {
     'useDateFormatter',
     'withDefault',
     'createContext',
-    'toDate',
   ],
 }

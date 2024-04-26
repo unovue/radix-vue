@@ -43,4 +43,8 @@ type ScrollBodyOption = {
   margin?: boolean | number
 }
 
-export type { DataOrientation, Direction, Type, SingleOrMultipleProps, SingleOrMultipleType, ScrollBodyOption }
+type AcceptableValue = string | number | boolean | Record<string, any>
+type ArrayOrWrapped<T> = T extends any[] ? T : Array<T>
+ type StringOrNumber = string | number
+
+export type { AcceptableValue, ArrayOrWrapped, DataOrientation, Direction, Type, SingleOrMultipleProps, SingleOrMultipleType, ScrollBodyOption, StringOrNumber }

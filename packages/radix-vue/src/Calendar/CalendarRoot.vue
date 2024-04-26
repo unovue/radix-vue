@@ -3,11 +3,12 @@ import { type DateValue, isEqualDay, isSameDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { type Formatter, createContext } from '@/shared'
+import { type Formatter, createContext, useDirection } from '@/shared'
 
 import { useCalendar, useCalendarState } from './useCalendar'
-import { createDecade, createYear, getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
-import type { Grid, Matcher, WeekDayFormat } from '@/shared/date'
+import { getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
+import { type Grid, type Matcher, type WeekDayFormat } from '@/date'
+import type { Direction } from '@/shared/types'
 
 type CalendarRootContext = {
   locale: Ref<string>
@@ -38,6 +39,7 @@ type CalendarRootContext = {
   isNextButtonDisabled: Ref<boolean>
   isPrevButtonDisabled: Ref<boolean>
   formatter: Formatter
+  dir: Ref<Direction>
 }
 
 interface BaseCalendarRootProps extends PrimitiveProps {
@@ -77,6 +79,8 @@ interface BaseCalendarRootProps extends PrimitiveProps {
   isDateDisabled?: Matcher
   /** A function that returns whether or not a date is unavailable */
   isDateUnavailable?: Matcher
+  /** The reading direction of the calendar when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
+  dir?: Direction
 }
 
 interface MultipleCalendarRootProps extends BaseCalendarRootProps {
@@ -107,9 +111,9 @@ export const [injectCalendarRootContext, provideCalendarRootContext]
 </script>
 
 <script setup lang="ts">
-import { computed, onMounted, toRefs, watch } from 'vue'
+import { onMounted, toRefs, watch } from 'vue'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
-import { useMemoize, useVModel } from '@vueuse/core'
+import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<CalendarRootProps>(), {
   defaultValue: undefined,
@@ -138,12 +142,12 @@ defineSlots<{
     grid: Grid<DateValue>[]
     /** The days of the week */
     weekDays: string[]
-    /** The formatter used inside the calendar for displaying dates */
-    formatter: Formatter
-    /** The months that can be selected */
-    getMonths: DateValue[]
-    /** The years that can be selected */
-    getYears: ({ startIndex, endIndex }: { startIndex?: number; endIndex: number }) => DateValue[]
+    /** The start of the week */
+    weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6
+    /** The calendar locale */
+    locale: string
+    /** Whether or not to always display 6 weeks in the calendar */
+    fixedWeeks: boolean
   }): any
 }>()
 
@@ -164,13 +168,16 @@ const {
   isDateDisabled: propsIsDateDisabled,
   isDateUnavailable: propsIsDateUnavailable,
   calendarLabel,
+  defaultValue,
+  dir: propDir,
 } = toRefs(props)
 
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
+const dir = useDirection(propDir)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: props.defaultValue ?? undefined,
+  defaultValue: defaultValue.value,
   passive: (props.modelValue === undefined) as false,
 }) as Ref<DateValue | DateValue[] | undefined>
 
@@ -204,17 +211,17 @@ const {
 } = useCalendar({
   locale,
   placeholder,
-  weekStartsOn: props.weekStartsOn,
-  fixedWeeks: props.fixedWeeks,
-  numberOfMonths: props.numberOfMonths,
+  weekStartsOn,
+  fixedWeeks,
+  numberOfMonths,
   minValue,
   maxValue,
   disabled,
-  weekdayFormat: props.weekdayFormat,
-  pagedNavigation: props.pagedNavigation,
+  weekdayFormat,
+  pagedNavigation,
   isDateDisabled: propsIsDateDisabled.value,
   isDateUnavailable: propsIsDateUnavailable.value,
-  calendarLabel: calendarLabel.value,
+  calendarLabel,
 })
 
 const {
@@ -226,14 +233,14 @@ const {
   isDateUnavailable,
 })
 
-watch(modelValue, (value) => {
-  if (Array.isArray(value) && value.length) {
-    const lastValue = value[value.length - 1]
+watch(modelValue, (_modelValue) => {
+  if (Array.isArray(_modelValue) && _modelValue.length) {
+    const lastValue = _modelValue[_modelValue.length - 1]
     if (lastValue && !isEqualDay(placeholder.value, lastValue))
       onPlaceholderChange(lastValue)
   }
-  else if (!Array.isArray(value) && value && !isEqualDay(placeholder.value, value)) {
-    onPlaceholderChange(value)
+  else if (!Array.isArray(_modelValue) && _modelValue && !isEqualDay(placeholder.value, _modelValue)) {
+    onPlaceholderChange(_modelValue)
   }
 })
 
@@ -273,28 +280,6 @@ function onDateChange(value: DateValue) {
   }
 }
 
-const getMonths = computed(() => {
-  const dateObj = placeholder.value.copy()
-  return createYear({
-    dateObj,
-    maxValue: minValue.value,
-    minValue: maxValue.value,
-    numberOfMonths: numberOfMonths.value,
-    pagedNavigation: pagedNavigation.value,
-  })
-})
-
-const getYears = useMemoize(({ startIndex, endIndex }: { startIndex?: number; endIndex: number }) => {
-  const dateObj = placeholder.value.copy()
-  return createDecade({
-    dateObj,
-    startIndex,
-    endIndex,
-    maxValue: minValue.value,
-    minValue: maxValue.value,
-  })
-})
-
 onMounted(() => {
   if (initialFocus.value)
     handleCalendarInitialFocus(parentElement.value)
@@ -302,6 +287,7 @@ onMounted(() => {
 
 provideCalendarRootContext({
   isDateUnavailable,
+  dir,
   isDateDisabled,
   locale,
   formatter,
@@ -342,14 +328,15 @@ provideCalendarRootContext({
     :data-readonly="readonly ? '' : undefined"
     :data-disabled="disabled ? '' : undefined"
     :data-invalid="isInvalid ? '' : undefined"
+    :dir="dir"
   >
     <slot
       :date="placeholder"
       :grid="grid"
       :week-days="weekdays"
-      :formatter="formatter"
-      :get-months="getMonths"
-      :get-years="getYears"
+      :week-starts-on="weekStartsOn"
+      :locale="locale"
+      :fixed-weeks="fixedWeeks"
     />
     <div
       style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 1px;"

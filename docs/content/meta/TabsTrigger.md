@@ -24,7 +24,7 @@
   {
     'name': 'value',
     'description': '<p>A unique value that associates the trigger with a content.</p>\n',
-    'type': 'string',
+    'type': 'string | number',
     'required': true
   }
 ]" />

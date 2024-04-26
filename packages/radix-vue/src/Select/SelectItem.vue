@@ -144,6 +144,9 @@ provideSelectItemContext({
     @focus="isFocused = true"
     @blur="isFocused = false"
     @pointerup="handleSelect"
+    @pointerdown="(event) => {
+      (event.currentTarget as HTMLElement).focus({ preventScroll: true })
+    }"
     @touchend.prevent.stop
     @pointermove="handlePointerMove"
     @pointerleave="handlePointerLeave"

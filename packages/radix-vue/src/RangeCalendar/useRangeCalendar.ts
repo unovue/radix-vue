@@ -4,8 +4,7 @@
 
 import { type DateValue, isSameDay } from '@internationalized/date'
 import { type Ref, computed } from 'vue'
-import { areAllDaysBetweenValid, isBefore, isBetween } from '@/shared/date'
-import type { Matcher } from '@/shared/date'
+import { type Matcher, areAllDaysBetweenValid, isBefore, isBetween } from '@/date'
 
 export type UseRangeCalendarProps = {
   start: Ref<DateValue | undefined>
@@ -43,13 +42,13 @@ export function useRangeCalendarState(props: UseRangeCalendarProps) {
   )
 
   const isSelectionStart = (date: DateValue) => {
-    if (!props.start.value || !props.end.value)
+    if (!props.start.value)
       return false
     return isSameDay(props.start.value, date)
   }
 
   const isSelectionEnd = (date: DateValue) => {
-    if (!props.end.value || !props.start.value)
+    if (!props.end.value)
       return false
     return isSameDay(props.end.value, date)
   }

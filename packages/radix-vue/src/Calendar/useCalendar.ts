@@ -2,25 +2,26 @@
   * Adapted from https://github.com/melt-ui/melt-ui/blob/develop/src/lib/builders/calendar/create.ts
 */
 
-import { type DateValue, isEqualDay, isSameDay, isSameMonth } from '@internationalized/date'
+import { type DateValue, isEqualMonth, isSameDay } from '@internationalized/date'
 import { type Ref, computed, ref, watch } from 'vue'
-import { type Grid, type Matcher, type WeekDayFormat, createMonths, isAfter, isBefore, toDate } from '@/shared/date'
+import { type Grid, type Matcher, type WeekDayFormat, createMonths, isAfter, isBefore, toDate } from '@/date'
 import { useDateFormatter } from '@/shared'
+import type { DateFormatterOptions } from '@/shared/useDateFormatter'
 
 export type UseCalendarProps = {
   locale: Ref<string>
   placeholder: Ref<DateValue>
-  weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6
-  fixedWeeks: boolean
-  numberOfMonths: number
+  weekStartsOn: Ref<0 | 1 | 2 | 3 | 4 | 5 | 6>
+  fixedWeeks: Ref<boolean>
+  numberOfMonths: Ref<number>
   minValue: Ref<DateValue | undefined>
   maxValue: Ref<DateValue | undefined>
   disabled: Ref<boolean>
-  weekdayFormat: WeekDayFormat
-  pagedNavigation: boolean
+  weekdayFormat: Ref<WeekDayFormat>
+  pagedNavigation: Ref<boolean>
   isDateDisabled?: Matcher
   isDateUnavailable?: Matcher
-  calendarLabel?: string
+  calendarLabel: Ref<string | undefined>
 }
 
 export type UseCalendarStateProps = {
@@ -74,12 +75,23 @@ export function useCalendarState(props: UseCalendarStateProps) {
 export function useCalendar(props: UseCalendarProps) {
   const formatter = useDateFormatter(props.locale.value)
 
+  const headingFormatOptions = computed(() => {
+    const options: DateFormatterOptions = {
+      calendar: props.placeholder.value.calendar.identifier,
+    }
+
+    if (props.placeholder.value.calendar.identifier === 'gregory' && props.placeholder.value.era === 'BC')
+      options.era = 'short'
+
+    return options
+  })
+
   const grid = ref<Grid<DateValue>[]>(createMonths({
     dateObj: props.placeholder.value,
-    weekStartsOn: props.weekStartsOn,
+    weekStartsOn: props.weekStartsOn.value,
     locale: props.locale.value,
-    fixedWeeks: props.fixedWeeks,
-    numberOfMonths: props.numberOfMonths,
+    fixedWeeks: props.fixedWeeks.value,
+    numberOfMonths: props.numberOfMonths.value,
   })) as Ref<Grid<DateValue>[]>
 
   const visibleView = computed(() => {
@@ -87,7 +99,7 @@ export function useCalendar(props: UseCalendarProps) {
   })
 
   function isOutsideVisibleView(date: DateValue) {
-    return !visibleView.value.some(month => isSameMonth(date, month))
+    return !visibleView.value.some(month => isEqualMonth(date, month))
   }
 
   const isNextButtonDisabled = computed(() => {
@@ -131,7 +143,7 @@ export function useCalendar(props: UseCalendarProps) {
     if (!grid.value.length)
       return []
     return grid.value[0].rows[0].map((date) => {
-      return formatter.dayOfWeek(toDate(date), props.weekdayFormat)
+      return formatter.dayOfWeek(toDate(date), props.weekdayFormat.value)
     })
   })
 
@@ -139,11 +151,11 @@ export function useCalendar(props: UseCalendarProps) {
     const firstDate = grid.value[0].value
 
     const newGrid = createMonths({
-      dateObj: firstDate.add({ months: props.pagedNavigation ? props.numberOfMonths : 1 }),
-      weekStartsOn: props.weekStartsOn,
+      dateObj: firstDate.add({ months: props.pagedNavigation.value ? props.numberOfMonths.value : 1 }),
+      weekStartsOn: props.weekStartsOn.value,
       locale: props.locale.value,
-      fixedWeeks: props.fixedWeeks,
-      numberOfMonths: props.numberOfMonths,
+      fixedWeeks: props.fixedWeeks.value,
+      numberOfMonths: props.numberOfMonths.value,
     })
 
     grid.value = newGrid
@@ -155,26 +167,38 @@ export function useCalendar(props: UseCalendarProps) {
     const firstDate = grid.value[0].value
 
     const newGrid = createMonths({
-      dateObj: firstDate.subtract({ months: props.pagedNavigation ? props.numberOfMonths : 1 }),
-      weekStartsOn: props.weekStartsOn,
+      dateObj: firstDate.subtract({ months: props.pagedNavigation.value ? props.numberOfMonths.value : 1 }),
+      weekStartsOn: props.weekStartsOn.value,
       locale: props.locale.value,
-      fixedWeeks: props.fixedWeeks,
-      numberOfMonths: props.numberOfMonths,
+      fixedWeeks: props.fixedWeeks.value,
+      numberOfMonths: props.numberOfMonths.value,
     })
+
+    grid.value = newGrid
 
     props.placeholder.value = newGrid[0].value.set({ day: 1 })
   }
 
-  watch(props.placeholder, (value, oldValue) => {
-    if (!isEqualDay(value, oldValue)) {
-      grid.value = createMonths({
-        dateObj: value,
-        weekStartsOn: props.weekStartsOn,
-        locale: props.locale.value,
-        fixedWeeks: props.fixedWeeks,
-        numberOfMonths: props.numberOfMonths,
-      })
-    }
+  watch(props.placeholder, (value) => {
+    if (visibleView.value.some(month => isEqualMonth(month, value)))
+      return
+    grid.value = createMonths({
+      dateObj: value,
+      weekStartsOn: props.weekStartsOn.value,
+      locale: props.locale.value,
+      fixedWeeks: props.fixedWeeks.value,
+      numberOfMonths: props.numberOfMonths.value,
+    })
+  })
+
+  watch([props.locale, props.weekStartsOn, props.fixedWeeks, props.numberOfMonths], () => {
+    grid.value = createMonths({
+      dateObj: props.placeholder.value,
+      weekStartsOn: props.weekStartsOn.value,
+      locale: props.locale.value,
+      fixedWeeks: props.fixedWeeks.value,
+      numberOfMonths: props.numberOfMonths.value,
+    })
   })
 
   const headingValue = computed(() => {
@@ -186,16 +210,16 @@ export function useCalendar(props: UseCalendarProps) {
 
     if (grid.value.length === 1) {
       const month = grid.value[0].value
-      return `${formatter.fullMonthAndYear(toDate(month))}`
+      return `${formatter.fullMonthAndYear(toDate(month), headingFormatOptions.value)}`
     }
 
     const startMonth = toDate(grid.value[0].value)
     const endMonth = toDate(grid.value[grid.value.length - 1].value)
 
-    const startMonthName = formatter.fullMonth(startMonth)
-    const endMonthName = formatter.fullMonth(endMonth)
-    const startMonthYear = formatter.fullYear(startMonth)
-    const endMonthYear = formatter.fullYear(endMonth)
+    const startMonthName = formatter.fullMonth(startMonth, headingFormatOptions.value)
+    const endMonthName = formatter.fullMonth(endMonth, headingFormatOptions.value)
+    const startMonthYear = formatter.fullYear(startMonth, headingFormatOptions.value)
+    const endMonthYear = formatter.fullYear(endMonth, headingFormatOptions.value)
 
     const content
     = startMonthYear === endMonthYear
@@ -205,7 +229,7 @@ export function useCalendar(props: UseCalendarProps) {
     return content
   })
 
-  const fullCalendarLabel = computed(() => `${props.calendarLabel ?? 'Event Date'}, ${headingValue.value}`)
+  const fullCalendarLabel = computed(() => `${props.calendarLabel.value ?? 'Event Date'}, ${headingValue.value}`)
 
   return {
     isDateDisabled,

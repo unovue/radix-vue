@@ -66,6 +66,8 @@ export interface SelectContentImplProps extends PopperContentProps {
    *  `popper` - positions content in the same way as our other primitives, for example `Popover` or `DropdownMenu`.
    */
   position?: 'item-aligned' | 'popper'
+  /** The document.body will be lock, and scrolling will be disabled. */
+  bodyLock?: boolean
 }
 
 export const [injectSelectContentContext, provideSelectContentContext]
@@ -96,7 +98,7 @@ const emits = defineEmits<SelectContentImplEmits>()
 const rootContext = injectSelectRootContext()
 
 useFocusGuards()
-useBodyScrollLock(true)
+useBodyScrollLock(props.bodyLock)
 const { createCollection } = useCollection()
 
 const content = ref<HTMLElement>()

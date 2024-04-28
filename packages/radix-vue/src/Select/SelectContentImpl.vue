@@ -66,7 +66,11 @@ export interface SelectContentImplProps extends PopperContentProps {
    *  `popper` - positions content in the same way as our other primitives, for example `Popover` or `DropdownMenu`.
    */
   position?: 'item-aligned' | 'popper'
-  /** The document.body will be lock, and scrolling will be disabled. */
+  /**
+   * The document.body will be lock, and scrolling will be disabled.
+   *
+   * @defaultValue true
+  */
   bodyLock?: boolean
 }
 
@@ -92,6 +96,7 @@ import { focusFirst } from '@/Menu/utils'
 const props = withDefaults(defineProps<SelectContentImplProps>(), {
   align: 'start',
   position: 'item-aligned',
+  bodyLock: true,
 })
 const emits = defineEmits<SelectContentImplEmits>()
 

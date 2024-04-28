@@ -6,7 +6,7 @@ import type { PrimitiveProps } from '@/Primitive'
 import { type Formatter, createContext, useDirection } from '@/shared'
 
 import { useCalendar, useCalendarState } from './useCalendar'
-import { getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
+import { type CalendarIncrement, getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
 import { type Grid, type Matcher, type WeekDayFormat } from '@/date'
 import type { Direction } from '@/shared/types'
 
@@ -30,14 +30,14 @@ type CalendarRootContext = {
   parentElement: Ref<HTMLElement | undefined>
   headingValue: Ref<string>
   isInvalid: Ref<boolean>
-  nextPage: () => void
-  prevPage: () => void
   isDateDisabled: Matcher
   isDateSelected: Matcher
   isDateUnavailable?: Matcher
   isOutsideVisibleView: (date: DateValue) => boolean
-  isNextButtonDisabled: Ref<boolean>
-  isPrevButtonDisabled: Ref<boolean>
+  prevPage: (step?: CalendarIncrement) => void
+  nextPage: (step?: CalendarIncrement) => void
+  isNextButtonDisabled: (step?: CalendarIncrement) => boolean
+  isPrevButtonDisabled: (step?: CalendarIncrement) => boolean
   formatter: Formatter
   dir: Ref<Direction>
 }

@@ -283,6 +283,12 @@ Interactable container for displaying the cell dates. Clicking it selects the da
 
 ## Examples
 
+### Calendar with Year Incrementation
+
+This example showcases a calendar which allows incrementing the year.
+
+<ComponentPreview name="CalendarYearIncrement" />
+
 ### Calendar with Locale and Calendar System Selection
 
 This example showcases some of the available locales and how the calendar systems are displayed.

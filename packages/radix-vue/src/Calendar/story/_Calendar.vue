@@ -15,11 +15,19 @@ const props = defineProps<{ calendarProps?: CalendarRootProps; emits?: { 'onUpda
   >
     <CalendarHeader data-testid="header">
       <CalendarPrev
+        step="year"
+        data-testid="prev-year-button"
+      />
+      <CalendarPrev
         data-testid="prev-button"
       />
       <CalendarHeading data-testid="heading" />
       <CalendarNext
         data-testid="next-button"
+      />
+      <CalendarNext
+        step="year"
+        data-testid="next-year-button"
       />
     </CalendarHeader>
 

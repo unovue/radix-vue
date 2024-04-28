@@ -49,7 +49,7 @@ export interface MenuContentImplPrivateProps {
 
   /**
    * Whether focus should be trapped within the `MenuContent`
-   * @defaultValue als
+   * @defaultValue also
    */
   trapFocus?: FocusScopeProps['trapped']
 }

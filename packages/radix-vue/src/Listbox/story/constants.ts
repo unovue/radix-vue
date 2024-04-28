@@ -239,7 +239,7 @@ export const countryList = [
   'Uzbekistan',
   'Vanuatu',
   'Venezuela (Bolivarian Republic of)',
-  'Viet Nam',
+  'Viet Name',
   'Virgin Islands (British)',
   'Virgin Islands (U.S.)',
   'Wallis and Futuna',

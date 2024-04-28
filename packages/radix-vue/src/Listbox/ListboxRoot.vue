@@ -288,7 +288,7 @@ watch(modelValue, () => {
 
 provideListboxRootContext({
   modelValue,
-  // @ts-expect-error igoring
+  // @ts-expect-error ignoring
   onValueChange,
   multiple,
   orientation,

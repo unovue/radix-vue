@@ -511,7 +511,7 @@ import {
 
 ### Controlling the value displayed in the trigger
 
-By default the trigger will automatically display the selected item `ItemText`'s content. You can control what appears by chosing to put things inside/outside the `ItemText` part.
+By default the trigger will automatically display the selected item `ItemText`'s content. You can control what appears by choosing to put things inside/outside the `ItemText` part.
 
 If you need more flexibility, you can control the component using `v-model` props and passing `slot` to `SelectValue`. Remember to make sure what you put in there is accessible.
 

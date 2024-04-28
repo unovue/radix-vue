@@ -23,7 +23,7 @@ In addition to semantics, there are behaviors that are expected from different t
 
 ## Accessible Labels
 
-With many built-in form controls, the native HTML `label` element is designed to provide semantic meaning and context for corresponding `input` elements. For non-form control elements, or for custom controls like those provided by Radix Primitives, [WAI-ARIA provides a specification](https://www.w3.org/TR/wai-aria-1.2/#namecalculation) for how to provide accessible names and descriptions to those contols.
+With many built-in form controls, the native HTML `label` element is designed to provide semantic meaning and context for corresponding `input` elements. For non-form control elements, or for custom controls like those provided by Radix Primitives, [WAI-ARIA provides a specification](https://www.w3.org/TR/wai-aria-1.2/#namecalculation) for how to provide accessible names and descriptions to those controls.
 
 Where possible, Radix Primitives include abstractions to make labelling our controls simple. The [`Label`](../components/label) primitive is designed to work with many of our controls. Ultimately it's up to you to provide those labels so that users have the proper context when navigating your application.
 
@@ -35,7 +35,7 @@ Many complex components, like [`Tabs`](../components/tabs) and [`Dialog`](../com
 
 Proper keyboard navigation and good labelling often go hand-in-hand with managing focus. When a user interacts with an element and something changes as a result, it's often helpful to move focus with the interaction so that the next tab stop is logical depending on the new context of the app. And for screen reader users, moving focus often results in an announcement to convey this new context, which relies on proper labelling.
 
-In many Radix Primitives, we move focus based on the interactions a user normally takes in a given component. For example, in [`AlertDialog`](../components/alert-dialog), when the modal is opened, focus is programatically moved to a `Cancel` button element to anticipate a response to the prompt.
+In many Radix Primitives, we move focus based on the interactions a user normally takes in a given component. For example, in [`AlertDialog`](../components/alert-dialog), when the modal is opened, focus is programmatically moved to a `Cancel` button element to anticipate a response to the prompt.
 
 ::: info
 Source: [Radix UI](https://www.radix-ui.com/)

@@ -28,7 +28,7 @@ describe('given default Slider', () => {
     expect(await axe(wrapper.element)).toHaveNoViolations()
   })
 
-  it('should have defalt value', () => {
+  it('should have default value', () => {
     expect(wrapper.html()).toContain('aria-valuenow="50"')
   })
 

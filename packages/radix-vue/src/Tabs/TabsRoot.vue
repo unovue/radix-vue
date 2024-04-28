@@ -21,7 +21,7 @@ export interface TabsRootProps<T extends StringOrNumber = StringOrNumber> extend
    */
   defaultValue?: T
   /**
-   * The orientation the tabs are layed out.
+   * The orientation the tabs are laid out.
    * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
    * @defaultValue horizontal
    */

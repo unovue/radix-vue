@@ -226,13 +226,13 @@ Renders when the item is selected. You can style this element directly, or you c
 
 ### ScrollUpButton
 
-An optional button used as an affordance to show the viewport overflow as well as functionaly enable scrolling upwards.
+An optional button used as an affordance to show the viewport overflow as well as functionally enable scrolling upwards.
 
 <!-- @include: @/meta/SelectScrollUpButton.md -->
 
 ### ScrollDownButton
 
-An optional button used as an affordance to show the viewport overflow as well as functionaly enable scrolling downwards.
+An optional button used as an affordance to show the viewport overflow as well as functionally enable scrolling downwards.
 
 <!-- @include: @/meta/SelectScrollDownButton.md -->
 

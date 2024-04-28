@@ -3,7 +3,7 @@ import { h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
 import HomePage from '../components/HomePage.vue'
 import HomePageDemo from '../components/HomePageDemo.vue'
-import Annoucement from '../components/Annoucement.vue'
+import Announcement from '../components/Announcement.vue'
 import EmbedIframe from '../components/EmbedIframe.vue'
 import ComponentPreview from '../components/ComponentPreview.vue'
 import InstallationTabs from '../components/InstallationTabs.vue'
@@ -21,7 +21,7 @@ export default {
   extends: DefaultTheme,
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
-      'home-hero-info-before': () => h(Annoucement),
+      'home-hero-info-before': () => h(Announcement),
       // https://vitepress.dev/guide/extending-default-theme#layout-slots
       'home-features-after': () => h('div', [h(HomePageDemo), h(HomePage)]),
     })

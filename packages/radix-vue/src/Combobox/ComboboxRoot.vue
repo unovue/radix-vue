@@ -154,7 +154,10 @@ const options = ref<T[]>([]) as Ref<T[]>
 
 watch(() => itemMapSize.value, () => {
   options.value = getItems().map(i => i.value)
-}, { immediate: true })
+}, {
+  immediate: true,
+  flush: 'post',
+})
 
 const filteredOptions = computed(() => {
   if (isUserInputted.value) {

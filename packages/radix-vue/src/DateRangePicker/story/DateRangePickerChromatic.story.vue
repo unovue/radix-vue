@@ -48,7 +48,7 @@ const localTimezonePlaceholder = now(getLocalTimeZone())
       <DateRangePicker :default-value="defaultValue" :number-of-months="2" />
     </Variant>
 
-    <Variant title="Multiple months (Paged nagivation)">
+    <Variant title="Multiple months (Paged navigation)">
       <DateRangePicker :default-value="defaultValue" :number-of-months="2" paged-navigation />
     </Variant>
   </Story>

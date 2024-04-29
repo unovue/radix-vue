@@ -37,7 +37,7 @@ export interface DateFieldRootProps extends PrimitiveProps {
   defaultValue?: DateValue
   /** The default placeholder date */
   defaultPlaceholder?: DateValue
-  /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programatically control the calendar view */
+  /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programmatically control the calendar view */
   placeholder?: DateValue
   /** The controlled checked state of the calendar. Can be bound as `v-model`. */
   modelValue?: DateValue | undefined

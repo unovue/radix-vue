@@ -216,7 +216,7 @@ function scrollSelectedValueIntoView() {
 provideComboboxRootContext({
   searchTerm,
   modelValue,
-  // @ts-expect-error igoring
+  // @ts-expect-error ignoring
   onValueChange,
   isUserInputted,
   multiple,

@@ -11,7 +11,7 @@ const defaultValue = { start: new CalendarDate(2024, 2, 20), end: new CalendarDa
       <RangeCalendar :default-value="defaultValue" :number-of-months="2" />
     </Variant>
 
-    <Variant title="2 months (Paged nagivation)">
+    <Variant title="2 months (Paged navigation)">
       <RangeCalendar :default-value="defaultValue" :number-of-months="2" paged-navigation />
     </Variant>
 
@@ -19,7 +19,7 @@ const defaultValue = { start: new CalendarDate(2024, 2, 20), end: new CalendarDa
       <RangeCalendar :default-value="defaultValue" :number-of-months="3" />
     </Variant>
 
-    <Variant title="3 months (Paged nagivation)">
+    <Variant title="3 months (Paged navigation)">
       <RangeCalendar :default-value="defaultValue" :number-of-months="3" paged-navigation />
     </Variant>
 

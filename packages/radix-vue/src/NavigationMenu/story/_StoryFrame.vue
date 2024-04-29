@@ -17,7 +17,7 @@
           odio, vestibulum in dictum et,
           <a href="#example">sagittis vel nibh</a>. Fusce placerat arcu lorem, a
           scelerisque odio fringilla sit amet. Suspendisse volutpat sed diam ut
-          cursus. Nulla facilisi. Ut at volutpat nibh. Nullam justo mi,
+          cursus. Nulla facilities. Ut at volutpat nibh. Nullam justo mi,
           elementum vitae ex eu,{' '}
           <a href="#example">gravida dictum metus</a>. Morbi vulputate
           consectetur cursus. Fusce vitae nisi nunc. Suspendisse pellentesque

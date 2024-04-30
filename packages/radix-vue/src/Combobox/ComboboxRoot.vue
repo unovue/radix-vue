@@ -188,7 +188,7 @@ function resetSearchTerm() {
 
 const activeIndex = computed(() => filteredOptions.value.findIndex(i => isEqual(i, selectedValue.value)))
 const selectedElement = computed(() => {
-  return reactiveItems.value.find(i => i.value === selectedValue.value)?.ref
+  return reactiveItems.value.find(i => isEqual(i.value, selectedValue.value))?.ref
 })
 
 const stringifiedModelValue = computed(() => JSON.stringify(modelValue.value))

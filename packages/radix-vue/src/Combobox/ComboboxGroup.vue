@@ -35,7 +35,9 @@ function checkCollectionItem() {
 }
 
 useMutationObserver(currentElement, () => {
-  checkCollectionItem()
+  nextTick(() => {
+    checkCollectionItem()
+  })
 }, { childList: true })
 
 watch(() => rootContext.searchTerm.value, () => {

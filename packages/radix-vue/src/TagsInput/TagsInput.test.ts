@@ -168,39 +168,58 @@ describe('given default TagsInput', () => {
   })
 })
 
-describe('given a incorrect TagsInput with object', async () => {
+describe('given a TagsInput with objects', async () => {
   let wrapper: VueWrapper<InstanceType<typeof TagsInputObject>>
   let input: DOMWrapper<HTMLInputElement>
   let tags: DOMWrapper<HTMLElement>[]
 
-  beforeEach(() => {
+  describe('should be able to convert the value', () => {
+    beforeEach(() => {
+      document.body.innerHTML = ''
+      wrapper = mount(TagsInputObject, {
+        props: {
+          displayValue: (item: any) => `Person: ${item.name}`,
+          convertValue: (item: string) => ({ name: item, id: Math.random() }),
+        },
+        attachTo: document.body,
+      })
+      input = wrapper.find('input')
+      tags = wrapper.findAll('[data-radix-vue-collection-item]')
+    })
+
+    it('should display the initial tags', () => {
+      expect(tags[0].text()).toBe('Person: Durward Reynolds')
+      expect(tags[1].text()).toBe('Person: Kenton Towne')
+    })
+
+    const addTag = async (text: string) => {
+      await input.setValue(text)
+      await input.trigger('keydown.enter')
+      await nextTick()
+      tags = wrapper.findAll('[data-radix-vue-collection-item]')
+    }
+
+    it('should update the tags', async () => {
+      await addTag('Moriah Stanton')
+      expect(tags.at(-1)?.text()).toBe('Person: Moriah Stanton')
+      expect(wrapper.vm.people).toEqual(expect.arrayContaining([expect.objectContaining({ id: expect.any(Number), name: expect.any(String) })]))
+    })
+  })
+
+  it('should throw an error if props are not ok', async () => {
     document.body.innerHTML = ''
     wrapper = mount(TagsInputObject, {
       props: {
         displayValue: (item: any) => `Person: ${item.name}`,
-        convertValue: (item: string) => ({ name: item, id: Math.random() }),
+        convertValue: undefined,
       },
       attachTo: document.body,
     })
+
     input = wrapper.find('input')
-    tags = wrapper.findAll('[data-radix-vue-collection-item]')
-  })
-
-  it('should display the initial tags', () => {
-    expect(tags[0].text()).toBe('Person: Durward Reynolds')
-    expect(tags[1].text()).toBe('Person: Kenton Towne')
-  })
-
-  const addTag = async (text: string) => {
-    await input.setValue(text)
-    await input.trigger('keydown.enter')
-    await nextTick()
-    tags = wrapper.findAll('[data-radix-vue-collection-item]')
-  }
-
-  it('should update the tags', async () => {
-    await addTag('Moriah Stanton')
-    expect(tags.at(-1)?.text()).toBe('Person: Moriah Stanton')
-    expect(wrapper.vm.people).toEqual(expect.arrayContaining([expect.objectContaining({ id: expect.any(Number), name: expect.any(String) })]))
+    expect(() => {
+      input.setValue('Moriah Stanton')
+      input.trigger('keydown.enter')
+    }).toThrow('You must provide a `convertValue` function when using objects as values.')
   })
 })

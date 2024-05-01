@@ -13,6 +13,7 @@ import {
 import './styles.css'
 
 function handleAction() {
+  // eslint-disable-next-line no-alert
   alert('clicked action button!')
 }
 </script>

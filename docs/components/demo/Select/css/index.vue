@@ -21,10 +21,6 @@ import './styles.css'
 
 const fruit = ref()
 
-function handleClick() {
-  alert('hello!')
-}
-
 const options = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
 const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
 </script>

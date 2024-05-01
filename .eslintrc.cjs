@@ -16,4 +16,15 @@ module.exports = {
     'max-statements-per-line': ['error', { max: 2 }],
     'vue/one-component-per-file': 'off',
   },
+
+  overrides: [
+    {
+      files: ['*.story.vue'],
+      rules: {
+        'no-console': 'off',
+        'no-alert': 'off',
+        'unused-imports/no-unused-vars': 'off',
+      },
+    },
+  ],
 }

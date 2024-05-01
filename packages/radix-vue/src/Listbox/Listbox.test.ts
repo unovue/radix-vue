@@ -206,7 +206,6 @@ describe('given multiple `true` Listbox', () => {
 })
 
 describe('given Listbox in a form', async () => {
-  let content: DOMWrapper<Element>
   let items: DOMWrapper<Element>[]
 
   const wrapper = mount({
@@ -218,7 +217,6 @@ describe('given Listbox in a form', async () => {
   })
 
   beforeEach(() => {
-    content = wrapper.find('[role=listbox]')
     items = wrapper.findAll('[role=option]')
   })
 
@@ -249,7 +247,6 @@ describe('given Listbox in a form', async () => {
 
     it('should trigger submit once', () => {
       expect(handleSubmit).toHaveBeenCalledTimes(2)
-      console.log(handleSubmit.mock.results)
       expect(handleSubmit.mock.results[1].value).toStrictEqual({ test: items[4].text() })
     })
   })

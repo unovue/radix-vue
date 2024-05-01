@@ -8,7 +8,7 @@ module.exports = {
       colors: {
         ...blackA,
         ...grass,
-        ...green
+        ...green,
       },
     },
   },

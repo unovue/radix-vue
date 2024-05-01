@@ -12,6 +12,7 @@ import {
 } from 'radix-vue'
 
 function handleAction() {
+  // eslint-disable-next-line no-alert
   alert('clicked action button!')
 }
 </script>

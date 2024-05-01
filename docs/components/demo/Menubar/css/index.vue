@@ -24,11 +24,9 @@ const checkboxOne = ref(false)
 const checkboxTwo = ref(false)
 const person = ref('pedro')
 function handleClick() {
+  // eslint-disable-next-line no-alert
   alert('hello!')
 }
-
-const RADIO_ITEMS = ['Andy', 'Benoît', 'Luis']
-const CHECK_ITEMS = ['Always Show Bookmarks Bar', 'Always Show Full URLs']
 </script>
 
 <template>

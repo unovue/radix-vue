@@ -5,7 +5,6 @@ import { mount } from '@vue/test-utils'
 import { findByText } from '@testing-library/vue'
 import Collapsible from './story/_Collapsible.vue'
 
-const TRIGGER_TEXT = 'Trigger'
 const CONTENT_TEXT = 'Content'
 
 describe('given a default Collapsible', async () => {

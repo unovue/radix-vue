@@ -23,6 +23,7 @@ const checkboxTwo = ref(false)
 const person = ref('pedro')
 
 function handleClick() {
+  // eslint-disable-next-line no-alert
   alert('hello!')
 }
 </script>

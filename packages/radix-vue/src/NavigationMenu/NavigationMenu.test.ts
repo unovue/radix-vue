@@ -29,7 +29,7 @@ describe('given default NavigationMenu', () => {
     wrapper = mount(NavigationMenu, { attachTo: document.body })
 
     // @ts-expect-error simple mock
-    vi.mocked(useDebounceFn).mockImplementation((cb: (val: string) => void, delay: string) => {
+    vi.mocked(useDebounceFn).mockImplementation((cb: (val: string) => void, _delay: string) => {
       return function (arg: string) {
         cb(arg)
       }

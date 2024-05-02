@@ -27,7 +27,6 @@ const currentTrigger = ref('')
           <Icon
             icon="radix-icons:caret-down"
             class="text-green10 relative top-[1px] transition-transform duration-[250ms] ease-in group-data-[state=open]:-rotate-180"
-            aria-hidden
           />
         </NavigationMenuTrigger>
         <NavigationMenuContent
@@ -68,7 +67,6 @@ const currentTrigger = ref('')
           <Icon
             icon="radix-icons:caret-down"
             class="text-green10 relative top-[1px] transition-transform duration-[250ms] ease-in group-data-[state=open]:-rotate-180"
-            aria-hidden
           />
         </NavigationMenuTrigger>
         <NavigationMenuContent class="data-[motion=from-start]:animate-enterFromLeft data-[motion=from-end]:animate-enterFromRight data-[motion=to-start]:animate-exitToLeft data-[motion=to-end]:animate-exitToRight absolute top-0 left-0 w-full sm:w-auto">

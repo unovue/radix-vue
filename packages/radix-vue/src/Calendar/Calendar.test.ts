@@ -287,6 +287,44 @@ describe('Calendar', async () => {
     expect(heading).toHaveTextContent('November 1979')
   })
 
+  it('should navigate one year in the past (prev year button)', async () => {
+    const { getByTestId, user } = setup({
+      calendarProps: {
+        modelValue: calendarDate,
+      },
+    })
+
+    const prevBtn = getByTestId('prev-year-button')
+    await user.click(prevBtn)
+    const heading = getByTestId('heading')
+    expect(heading).toHaveTextContent('January 1979')
+
+    await user.click(prevBtn)
+    expect(heading).toHaveTextContent('January 1978')
+
+    await user.click(prevBtn)
+    expect(heading).toHaveTextContent('January 1977')
+  })
+
+  it('should navigate one year in the future (next year button)', async () => {
+    const { getByTestId, user } = setup({
+      calendarProps: {
+        modelValue: calendarDate,
+      },
+    })
+
+    const nextBtn = getByTestId('next-year-button')
+    await user.click(nextBtn)
+    const heading = getByTestId('heading')
+    expect(heading).toHaveTextContent('January 1981')
+
+    await user.click(nextBtn)
+    expect(heading).toHaveTextContent('January 1982')
+
+    await user.click(nextBtn)
+    expect(heading).toHaveTextContent('January 1983')
+  })
+
   it('should not allow navigation after the `maxValue` (next button)', async () => {
     const { getByTestId, user } = setup({
       calendarProps: {

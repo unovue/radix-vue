@@ -15,7 +15,7 @@ const isOpen = ref(false)
     <Variant title="With Vue Transition">
       <div>
         <button @click="isOpen = !isOpen">
-          Toogle content
+          Toggle content
         </button>
 
         <Transition>

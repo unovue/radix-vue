@@ -44,7 +44,7 @@
   },
   {
     'name': 'update:modelValue',
-    'description': '<p>Event handler called when the progres value changes</p>\n',
+    'description': '<p>Event handler called when the progress value changes</p>\n',
     'type': '[value: string[]]'
   }
 ]" />

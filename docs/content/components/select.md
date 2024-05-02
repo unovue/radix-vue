@@ -226,13 +226,13 @@ Renders when the item is selected. You can style this element directly, or you c
 
 ### ScrollUpButton
 
-An optional button used as an affordance to show the viewport overflow as well as functionaly enable scrolling upwards.
+An optional button used as an affordance to show the viewport overflow as well as functionally enable scrolling upwards.
 
 <!-- @include: @/meta/SelectScrollUpButton.md -->
 
 ### ScrollDownButton
 
-An optional button used as an affordance to show the viewport overflow as well as functionaly enable scrolling downwards.
+An optional button used as an affordance to show the viewport overflow as well as functionally enable scrolling downwards.
 
 <!-- @include: @/meta/SelectScrollDownButton.md -->
 
@@ -511,7 +511,7 @@ import {
 
 ### Controlling the value displayed in the trigger
 
-By default the trigger will automatically display the selected item `ItemText`'s content. You can control what appears by chosing to put things inside/outside the `ItemText` part.
+By default the trigger will automatically display the selected item `ItemText`'s content. You can control what appears by choosing to put things inside/outside the `ItemText` part.
 
 If you need more flexibility, you can control the component using `v-model` props and passing `slot` to `SelectValue`. Remember to make sure what you put in there is accessible.
 

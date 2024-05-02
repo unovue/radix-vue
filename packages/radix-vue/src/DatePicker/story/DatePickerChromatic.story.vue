@@ -46,7 +46,7 @@ const modelValue = ref(defaultValue) as Ref<DateValue>
       <DatePicker :default-value="defaultValue" :number-of-months="2" />
     </Variant>
 
-    <Variant title="Multiple months (Paged nagivation)">
+    <Variant title="Multiple months (Paged navigation)">
       <DatePicker :default-value="defaultValue" :number-of-months="2" paged-navigation />
     </Variant>
   </Story>

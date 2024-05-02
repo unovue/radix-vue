@@ -235,7 +235,7 @@ import './styles.css'
       <AccordionHeader>
         <AccordionTrigger class="AccordionTrigger">
           <span>Trigger text</span>
-          <Icon icon="radix-icons:chevron-down" class="AccordionChevron" aria-hidden />
+          <Icon icon="radix-icons:chevron-down" class="AccordionChevron" />
         </AccordionTrigger>
       </AccordionHeader>
       <AccordionContent>…</AccordionContent>

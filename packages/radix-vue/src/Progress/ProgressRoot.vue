@@ -4,7 +4,7 @@ import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useForwardExpose } from '@/shared'
 
 export type ProgressRootEmits = {
-  /** Event handler called when the progres value changes */
+  /** Event handler called when the progress value changes */
   'update:modelValue': [value: string[] | undefined]
   /** Event handler called when the max value changes */
   'update:max': [value: number]

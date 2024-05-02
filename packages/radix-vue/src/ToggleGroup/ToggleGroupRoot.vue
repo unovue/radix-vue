@@ -44,7 +44,6 @@ import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
 import { RovingFocusGroup } from '@/RovingFocus'
 
 const props = withDefaults(defineProps<ToggleGroupRootProps>(), {
-  type: 'single',
   loop: true,
   rovingFocus: true,
   disabled: false,

@@ -5,11 +5,6 @@ import MenuWithAnchor from './_MenuWithAnchor.vue'
 
 const emits = defineEmits<MenuItemEmits>()
 
-function handleSelect(text: string) {
-  // console.log({ text })
-  // window.alert(text);
-}
-
 const foodGroups: Array<{
   label?: string
   foods: Array<{ value: string; label: string; disabled?: boolean }>
@@ -63,10 +58,10 @@ const foodGroups: Array<{
         {{ foodGroup.label }}
       </MenuLabel>
       <MenuItem
-        v-for="(food, index) in foodGroup.foods"
-        :key="index"
+        v-for="(food, i) in foodGroup.foods"
+        :key="i"
         class="flex items-center justify-between leading-[1] cursor-default select-none whitespace-nowrap h-[25px] px-[10px] text-black rounded-[3px] outline-none data-[highlighted]:bg-black data-[highlighted]:text-white data-[disabled]:text-gray-100"
-        @select="handleSelect(food.value); emits('select', $event)"
+        @select="emits('select', $event)"
       >
         {{ food.label }}
       </MenuItem>

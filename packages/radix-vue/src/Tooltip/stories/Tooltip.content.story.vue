@@ -30,7 +30,7 @@ const lastEvent = ref('')
                 <ul>
                   <h4>Add to library</h4>
                   <p>
-                    We will make sure that the files syncronise <b>immediately</b>
+                    We will make sure that the files synchronise <b>immediately</b>
                   </p>
                   <TooltipArrow class="fill-white" />
                 </ul>

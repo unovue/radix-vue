@@ -22,12 +22,10 @@ describe('given a default DismissableLayer', () => {
   })
 
   describe('after clicking a trigger', () => {
-    let outsideButton: DOMWrapper<HTMLButtonElement>
     beforeEach(async () => {
       await fireEvent.click(trigger.element)
       const buttons = wrapper.findAll('button')
       buttons.find(i => i.text() === CLOSE_LABEL)?.element.focus()
-      outsideButton = buttons.find(i => i.text() === OUTSIDE_LABEL)!
     })
 
     it('should render the content', () => {

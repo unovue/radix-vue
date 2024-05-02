@@ -53,8 +53,8 @@ export const Primitive = defineComponent({
     const asTag = props.asChild ? 'template' : props.as
 
     // For self closing tags, don't provide default slots because of hydration issue
-    const SELT_CLOSING_TAGS = ['area', 'img', 'input']
-    if (typeof asTag === 'string' && SELT_CLOSING_TAGS.includes(asTag))
+    const SELF_CLOSING_TAGS = ['area', 'img', 'input']
+    if (typeof asTag === 'string' && SELF_CLOSING_TAGS.includes(asTag))
       return () => h(asTag, attrs)
 
     if (asTag !== 'template')

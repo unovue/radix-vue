@@ -48,7 +48,7 @@ const emits = defineEmits<ComboboxItemEmits<T>>()
 const { disabled } = toRefs(props)
 
 const rootContext = injectComboboxRootContext()
-const groupContext = injectComboboxGroupContext({ id: '', options: ref([]) })
+injectComboboxGroupContext({ id: '', options: ref([]) })
 const { forwardRef } = useForwardExpose()
 
 const isSelected = computed(() =>

@@ -39,6 +39,12 @@
     'required': false
   },
   {
+    'name': 'bodyLock',
+    'description': '<p>The document.body will be lock, and scrolling will be disabled.</p>\n',
+    'type': 'boolean',
+    'required': false
+  },
+  {
     'name': 'collisionBoundary',
     'description': '<p>The element used as the collision boundary. By default\nthis is the viewport, though you can provide additional\nelement(s) to be included in this check.</p>\n',
     'type': 'Element | (Element | null)[] | null',

@@ -45,7 +45,7 @@ watchEffect(() => {
       />
     </Variant>
 
-    <Variant title="With Mutliple Open & Close Animation">
+    <Variant title="With Multiple Open & Close Animation">
       <Animation class="multipleOpenAndCloseAnimationsClass" />
     </Variant>
 

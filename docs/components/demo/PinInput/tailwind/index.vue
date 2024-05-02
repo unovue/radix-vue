@@ -3,7 +3,10 @@ import { ref } from 'vue'
 import { Label, PinInputInput, PinInputRoot } from 'radix-vue'
 
 const value = ref<string[]>([])
-const handleComplete = (e: string[]) => alert(e.join(''))
+function handleComplete(e: string[]) {
+  // eslint-disable-next-line no-alert
+  alert(e.join(''))
+}
 </script>
 
 <template>

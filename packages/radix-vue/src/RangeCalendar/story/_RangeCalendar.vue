@@ -17,11 +17,19 @@ const props = defineProps<{
   >
     <RangeCalendarHeader data-testid="header">
       <RangeCalendarPrev
+        data-testid="prev-year-button"
+        step="year"
+      />
+      <RangeCalendarPrev
         data-testid="prev-button"
       />
       <RangeCalendarHeading data-testid="heading" />
       <RangeCalendarNext
         data-testid="next-button"
+      />
+      <RangeCalendarNext
+        data-testid="next-year-button"
+        step="year"
       />
     </RangeCalendarHeader>
 

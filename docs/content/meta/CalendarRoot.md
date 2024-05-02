@@ -119,7 +119,7 @@
   },
   {
     'name': 'placeholder',
-    'description': '<p>The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programatically control the calendar view</p>\n',
+    'description': '<p>The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programmatically control the calendar view</p>\n',
     'type': 'DateValue',
     'required': false
   },

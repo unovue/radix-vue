@@ -29,7 +29,6 @@ const currentTrigger = ref('')
           <Icon
             icon="radix-icons:caret-down"
             class="CaretDown"
-            aria-hidden
           />
         </NavigationMenuTrigger>
         <NavigationMenuContent
@@ -70,7 +69,6 @@ const currentTrigger = ref('')
           <Icon
             icon="radix-icons:caret-down"
             class="CaretDown"
-            aria-hidden
           />
         </NavigationMenuTrigger>
         <NavigationMenuContent class="NavigationMenuContent">

@@ -6,7 +6,7 @@ import type { PrimitiveProps } from '@/Primitive'
 import { type Formatter, createContext, useDirection } from '@/shared'
 
 import { useCalendar, useCalendarState } from './useCalendar'
-import { getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
+import { type CalendarIncrement, getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
 import { type Grid, type Matcher, type WeekDayFormat } from '@/date'
 import type { Direction } from '@/shared/types'
 
@@ -30,14 +30,14 @@ type CalendarRootContext = {
   parentElement: Ref<HTMLElement | undefined>
   headingValue: Ref<string>
   isInvalid: Ref<boolean>
-  nextPage: () => void
-  prevPage: () => void
   isDateDisabled: Matcher
   isDateSelected: Matcher
   isDateUnavailable?: Matcher
   isOutsideVisibleView: (date: DateValue) => boolean
-  isNextButtonDisabled: Ref<boolean>
-  isPrevButtonDisabled: Ref<boolean>
+  prevPage: (step?: CalendarIncrement) => void
+  nextPage: (step?: CalendarIncrement) => void
+  isNextButtonDisabled: (step?: CalendarIncrement) => boolean
+  isPrevButtonDisabled: (step?: CalendarIncrement) => boolean
   formatter: Formatter
   dir: Ref<Direction>
 }
@@ -47,7 +47,7 @@ interface BaseCalendarRootProps extends PrimitiveProps {
   defaultValue?: DateValue
   /** The default placeholder date */
   defaultPlaceholder?: DateValue
-  /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programatically control the calendar view */
+  /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programmatically control the calendar view */
   placeholder?: DateValue
   /** This property causes the previous and next buttons to navigate by the number of months displayed at once, rather than one month */
   pagedNavigation?: boolean

@@ -13,7 +13,7 @@ Forward component's exposed value, props and $el.
 
 When building a component, if we have a non-single root node component, the template refs will not return the DOM element via `$el` ([read more](https://vuejs.org/api/component-instance.html#el)) , thus, we need to forward the `$el` in template ref for this component manually. Or in some case you want to target certain element as the expose element..
 
-Futhermore, this composable extend the missing exposed `props` from the template refs.
+Furthermore, this composable extend the missing exposed `props` from the template refs.
 
 ## Usage
 

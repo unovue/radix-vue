@@ -154,7 +154,10 @@ const options = ref<T[]>([]) as Ref<T[]>
 
 watch(() => itemMapSize.value, () => {
   options.value = getItems().map(i => i.value)
-}, { immediate: true })
+}, {
+  immediate: true,
+  flush: 'post',
+})
 
 const filteredOptions = computed(() => {
   if (isUserInputted.value) {
@@ -185,7 +188,7 @@ function resetSearchTerm() {
 
 const activeIndex = computed(() => filteredOptions.value.findIndex(i => isEqual(i, selectedValue.value)))
 const selectedElement = computed(() => {
-  return reactiveItems.value.find(i => i.value === selectedValue.value)?.ref
+  return reactiveItems.value.find(i => isEqual(i.value, selectedValue.value))?.ref
 })
 
 const stringifiedModelValue = computed(() => JSON.stringify(modelValue.value))
@@ -216,7 +219,7 @@ function scrollSelectedValueIntoView() {
 provideComboboxRootContext({
   searchTerm,
   modelValue,
-  // @ts-expect-error igoring
+  // @ts-expect-error ignoring
   onValueChange,
   isUserInputted,
   multiple,

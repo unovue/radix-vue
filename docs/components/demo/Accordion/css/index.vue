@@ -34,7 +34,7 @@ const accordionItems = [
         <AccordionHeader class="AccordionHeader">
           <AccordionTrigger class="AccordionTrigger">
             <span>{{ item.title }}</span>
-            <Icon icon="radix-icons:chevron-down" class="AccordionChevron" aria-hidden />
+            <Icon icon="radix-icons:chevron-down" class="AccordionChevron" />
           </AccordionTrigger>
         </AccordionHeader>
         <AccordionContent class="AccordionContent">

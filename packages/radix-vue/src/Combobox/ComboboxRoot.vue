@@ -204,7 +204,10 @@ watch(stringifiedModelValue, async () => {
   await nextTick()
   await nextTick()
   resetSearchTerm()
-}, { immediate: true })
+}, {
+  // If searchTerm is provided with value during initialization, we don't reset it immediately
+  immediate: !props.searchTerm,
+})
 
 watch(() => filteredOptions.value.length, async (length) => {
   await nextTick()

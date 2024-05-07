@@ -65,10 +65,10 @@ export interface ComboboxRootProps<T = AcceptableValue> extends PrimitiveProps {
   filterFunction?: (val: ArrayOrWrapped<T>, term: string) => ArrayOrWrapped<T>
   /** The display value of input for selected item. Does not work with `multiple`. */
   displayValue?: (val: T) => string
-  /** Whether to reset the searchTerm when the Combobox closes
+  /** Whether to reset the searchTerm when the Combobox input blurred
    * @defaultValue `true`
   */
-  resetSearchTermOnHide?: boolean
+  resetSearchTermOnBlur?: boolean
 }
 </script>
 
@@ -82,7 +82,7 @@ import isEqual from 'fast-deep-equal'
 
 const props = withDefaults(defineProps<ComboboxRootProps<T>>(), {
   open: undefined,
-  resetSearchTermOnHide: true,
+  resetSearchTermOnBlur: true,
 })
 const emit = defineEmits<ComboboxRootEmits<T>>()
 
@@ -133,7 +133,7 @@ async function onOpenChange(val: boolean) {
   }
   else {
     isUserInputted.value = false
-    if (props.resetSearchTermOnHide)
+    if (props.resetSearchTermOnBlur)
       resetSearchTerm()
   }
 }

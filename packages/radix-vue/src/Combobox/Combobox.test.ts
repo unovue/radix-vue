@@ -64,7 +64,7 @@ describe('given default Combobox', () => {
     })
 
     it('should not reset searchTerm when close', async () => {
-      await wrapper.setProps({ resetSearchTermOnHide: false, key: 'key' })
+      await wrapper.setProps({ resetSearchTermOnBlur: false, key: 'key' })
       const input = wrapper.find('input')
       input.element.value = 'Testing'
       await input.trigger('keydown', { key: 'Escape' })

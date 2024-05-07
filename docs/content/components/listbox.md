@@ -40,7 +40,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { ListboxContent, ListboxFilter, ListboxGroup, ListboxGroupLabel, ListboxItem, ListboxItemIndicator, ListboxRoot, ListboxVirtual } from 'radix-vue'
+import { ListboxContent, ListboxFilter, ListboxGroup, ListboxGroupLabel, ListboxItem, ListboxItemIndicator, ListboxRoot, ListboxVirtualizer } from 'radix-vue'
 </script>
 
 <template>

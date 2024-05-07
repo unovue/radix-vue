@@ -2,7 +2,7 @@
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useDirection } from '@/shared'
 import type { Direction } from '@/shared/types'
-import type { DismissableLayerEmits } from '@/DismissableLayer'
+import { DismissableLayer, type DismissableLayerEmits } from '@/DismissableLayer'
 
 type EditableRootContext = {
   id: Ref<string | undefined>
@@ -32,6 +32,8 @@ export interface EditableRootProps extends PrimitiveProps {
   readonly?: boolean
   /** The activation event of the editable field */
   activationMode?: 'focus' | 'dblclick' | 'none'
+  /** Whether to select the text in the input when it is focused. */
+  selectOnFocus?: boolean
   /** The submit event of the editable field */
   submitMode?: 'blur' | 'enter' | 'none' | 'both'
   /** Whether to start with the edit mode active */
@@ -126,6 +128,7 @@ function edit() {
 function submit() {
   previousValue.value = modelValue.value
   isEditing.value = false
+
   emits('update:state', 'submit')
   emits('submit', modelValue.value)
 }
@@ -145,25 +148,24 @@ provideEditableRootContext({
 </script>
 
 <template>
-  <Primitive
-    ref="primitiveElement"
-    :as="as"
-    :as-child="asChild"
-    :dir="dir"
+  <DismissableLayer
+    as-child
+    @focus-outside="emits('focusOutside', $event)"
+    @interact-outside="emits('interactOutside', $event)"
+    @pointer-down-outside="emits('pointerDownOutside', $event)"
+    @dismiss="cancel"
   >
-    <DismissableLayer
-      as-child
-      disable-outside-pointer-events
-      @focus-outside="emits('focusOutside', $event)"
-      @interact-outside="emits('interactOutside', $event)"
-      @dismiss="cancel"
-      @pointer-down-outside="emits('pointerDownOutside', $event)"
+    <Primitive
+      ref="primitiveElement"
+      :as="as"
+      :as-child="asChild"
+      :dir="dir"
     >
       <slot
         :value="modelValue"
         :is-editing="isEditing"
         :is-empty="isEmpty"
       />
-    </DismissableLayer>
-  </Primitive>
+    </Primitive>
+  </DismissableLayer>
 </template>

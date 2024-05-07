@@ -20,8 +20,8 @@ const context = injectEditableRootContext()
     v-bind="props"
     aria-label="cancel"
     :type="as === 'button' ? 'button' : undefined"
-    :hidden="context.isEditing ? '' : undefined"
-    @click="context.cancel"
+    :hidden="context.isEditing.value ? undefined : ''"
+    @pointerdown="context.cancel"
   >
     <slot>Cancel</slot>
   </Primitive>

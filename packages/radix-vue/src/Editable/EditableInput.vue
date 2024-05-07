@@ -19,10 +19,6 @@ const disabled = computed(() => context.disabled.value)
 
 const placeholder = computed(() => context.placeholder.value?.edit)
 
-function handleInput(event: InputEvent) {
-  context.modelValue.value = (event.target as HTMLInputElement).value
-}
-
 function handleBlur() {
   context.cancel()
 }
@@ -30,14 +26,13 @@ function handleBlur() {
 
 <template>
   <input
+    v-model="context.modelValue.value"
     :type="type"
     :placeholder="placeholder"
-    :value="context.modelValue.value"
     :disabled="disabled"
     :data-disabled="disabled ? '' : undefined"
     aria-label="editable input"
-    :hidden="context.isEditing ? undefined : ''"
-    @input="handleInput($event as InputEvent)"
+    :hidden="context.isEditing.value ? undefined : ''"
     @blur="handleBlur"
   >
 </template>

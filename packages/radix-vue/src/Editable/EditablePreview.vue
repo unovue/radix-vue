@@ -21,10 +21,10 @@ const placeholder = computed(() => context.placeholder.value?.preview)
     v-bind="props"
     tabindex="0"
     :data-placeholder-shown="context.isEditing ? undefined : ''"
-    :hidden="context.isEditing ? '' : undefined"
+    :hidden="context.isEditing.value ? '' : undefined"
   >
     <slot>
-      {{ context.modelValue ?? placeholder }}
+      {{ context.modelValue.value || placeholder }}
     </slot>
   </Primitive>
 </template>

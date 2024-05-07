@@ -20,8 +20,8 @@ const context = injectEditableRootContext()
     v-bind="props"
     aria-label="submit"
     :type="as === 'button' ? 'button' : undefined"
-    :hidden="context.isEditing ? '' : undefined"
-    @click="context.submit"
+    :hidden="context.isEditing.value ? undefined : ''"
+    @pointerdown="context.submit"
   >
     <slot>Submit</slot>
   </Primitive>

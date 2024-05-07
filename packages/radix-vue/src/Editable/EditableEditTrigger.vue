@@ -20,8 +20,8 @@ const context = injectEditableRootContext()
     v-bind="props"
     aria-label="edit"
     :type="as === 'button' ? 'button' : undefined"
-    :hidden="context.isEditing ? undefined : ''"
-    @click="context.edit"
+    :hidden="context.isEditing.value ? '' : undefined"
+    @pointerdown="context.edit"
   >
     <slot>Edit</slot>
   </Primitive>

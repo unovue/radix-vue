@@ -32,7 +32,10 @@ const { forwardRef } = useForwardExpose()
 </script>
 
 <template>
-  <Presence :present="forceMount || rootContext.open.value">
+  <Presence
+    :present="forceMount || rootContext.open.value"
+    @animation-end="emits('animationEnd')"
+  >
     <DialogContentModal
       v-if="rootContext.modal.value"
       :ref="forwardRef"

@@ -121,6 +121,7 @@ export function usePresence(
   )
 
   return {
+    state,
     isPresent,
   }
 }

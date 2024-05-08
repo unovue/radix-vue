@@ -4,6 +4,10 @@ export {
   type EditableRootEmits,
 } from './EditableRoot.vue'
 export {
+  default as EditableArea,
+  type EditableAreaProps,
+} from './EditableArea.vue'
+export {
   default as EditableInput,
   type EditableInputProps,
 } from './EditableInput.vue'

@@ -14,6 +14,15 @@ const props = withDefaults(defineProps<EditablePreviewProps>(), { as: 'span' })
 const context = injectEditableRootContext()
 
 const placeholder = computed(() => context.placeholder.value?.preview)
+
+function handleFocus() {
+  if (context.activationMode.value === 'focus')
+    context.isEditing.value = true
+}
+function handleDoubleClick() {
+  if (context.activationMode.value === 'dblclick')
+    context.isEditing.value = true
+}
 </script>
 
 <template>
@@ -22,6 +31,8 @@ const placeholder = computed(() => context.placeholder.value?.preview)
     tabindex="0"
     :data-placeholder-shown="context.isEditing ? undefined : ''"
     :hidden="context.isEditing.value ? '' : undefined"
+    @focusin="handleFocus"
+    @dblclick="handleDoubleClick"
   >
     <slot>
       {{ context.modelValue.value || placeholder }}

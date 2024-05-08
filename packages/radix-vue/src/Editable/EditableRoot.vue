@@ -4,6 +4,9 @@ import { createContext, useDirection } from '@/shared'
 import type { Direction } from '@/shared/types'
 import { DismissableLayer, type DismissableLayerEmits } from '@/DismissableLayer'
 
+type ActivationMode = 'focus' | 'dblclick' | 'none'
+type SubmitMode = 'blur' | 'enter' | 'none' | 'both'
+
 type EditableRootContext = {
   id: Ref<string | undefined>
   name: Ref<string | undefined>
@@ -12,9 +15,15 @@ type EditableRootContext = {
   modelValue: Ref<string | undefined>
   placeholder: Ref<{ edit: string; preview: string }>
   isEditing: Ref<boolean>
+  submitMode: Ref<SubmitMode>
+  activationMode: Ref<ActivationMode>
+  selectOnFocus: Ref<boolean>
   edit: () => void
   cancel: () => void
   submit: () => void
+  inputRef: Ref<HTMLInputElement | undefined>
+  startWithEditMode: Ref<boolean>
+  isEmpty: Ref<boolean>
 }
 
 export interface EditableRootProps extends PrimitiveProps {
@@ -31,11 +40,11 @@ export interface EditableRootProps extends PrimitiveProps {
   /** Whether the editable field is read-only */
   readonly?: boolean
   /** The activation event of the editable field */
-  activationMode?: 'focus' | 'dblclick' | 'none'
+  activationMode?: ActivationMode
   /** Whether to select the text in the input when it is focused. */
   selectOnFocus?: boolean
   /** The submit event of the editable field */
-  submitMode?: 'blur' | 'enter' | 'none' | 'both'
+  submitMode?: SubmitMode
   /** Whether to start with the edit mode active */
   startWithEditMode?: boolean
   /** The maximum number of characters allowed */
@@ -61,16 +70,19 @@ export const [injectEditableRootContext, provideEditableRootContext]
 
 <script setup lang="ts">
 import { type Ref, computed, ref, toRefs } from 'vue'
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<EditableRootProps>(), {
   defaultValue: '',
-  placeholder: '',
   as: 'div',
   disabled: false,
-
+  submitMode: 'blur',
+  activationMode: 'focus',
+  selectOnFocus: false,
+  placeholder: 'Enter text...',
 })
+
 const emits = defineEmits<EditableRootEmits>()
 defineSlots<{
   default(props: {
@@ -93,11 +105,12 @@ const {
   maxLength,
   disabled,
   dir: propDir,
+  submitMode,
+  activationMode,
+  selectOnFocus,
 } = toRefs(props)
 
-const { primitiveElement, currentElement: parentElement }
-  = usePrimitiveElement()
-
+const inputRef = ref<HTMLInputElement | undefined>()
 const dir = useDirection(propDir)
 const isEditing = ref(startWithEditMode.value ?? false)
 
@@ -133,6 +146,13 @@ function submit() {
   emits('submit', modelValue.value)
 }
 
+function handleDismiss() {
+  if (submitMode.value === 'blur')
+    submit()
+  else
+    cancel()
+}
+
 provideEditableRootContext({
   id,
   name,
@@ -144,6 +164,12 @@ provideEditableRootContext({
   edit,
   cancel,
   submit,
+  activationMode,
+  submitMode,
+  selectOnFocus,
+  inputRef,
+  startWithEditMode,
+  isEmpty,
 })
 </script>
 
@@ -153,10 +179,9 @@ provideEditableRootContext({
     @focus-outside="emits('focusOutside', $event)"
     @interact-outside="emits('interactOutside', $event)"
     @pointer-down-outside="emits('pointerDownOutside', $event)"
-    @dismiss="cancel"
+    @dismiss="handleDismiss"
   >
     <Primitive
-      ref="primitiveElement"
       :as="as"
       :as-child="asChild"
       :dir="dir"

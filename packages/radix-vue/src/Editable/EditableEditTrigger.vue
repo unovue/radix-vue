@@ -1,6 +1,5 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
 
 export interface EditableEditTriggerProps extends PrimitiveProps {}
 </script>
@@ -11,7 +10,6 @@ import { injectEditableRootContext } from './EditableRoot.vue'
 
 const props = withDefaults(defineProps<EditableEditTriggerProps>(), { as: 'button' })
 
-useForwardExpose()
 const context = injectEditableRootContext()
 </script>
 
@@ -19,9 +17,12 @@ const context = injectEditableRootContext()
   <Primitive
     v-bind="props"
     aria-label="edit"
+    :aria-disabled="context.disabled.value ? '' : undefined"
+    :data-disabled="context.disabled.value ? '' : undefined"
+    :disabled="context.disabled.value"
     :type="as === 'button' ? 'button' : undefined"
     :hidden="context.isEditing.value ? '' : undefined"
-    @pointerdown="context.edit"
+    @click="context.edit"
   >
     <slot>Edit</slot>
   </Primitive>

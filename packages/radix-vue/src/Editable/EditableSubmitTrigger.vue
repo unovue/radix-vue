@@ -1,6 +1,5 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
 
 export interface EditableSubmitTriggerProps extends PrimitiveProps {}
 </script>
@@ -11,7 +10,6 @@ import { injectEditableRootContext } from './EditableRoot.vue'
 
 const props = withDefaults(defineProps<EditableSubmitTriggerProps>(), { as: 'button' })
 
-useForwardExpose()
 const context = injectEditableRootContext()
 </script>
 
@@ -19,9 +17,12 @@ const context = injectEditableRootContext()
   <Primitive
     v-bind="props"
     aria-label="submit"
+    :aria-disabled="context.disabled.value ? '' : undefined"
+    :data-disabled="context.disabled.value ? '' : undefined"
+    :disabled="context.disabled.value"
     :type="as === 'button' ? 'button' : undefined"
     :hidden="context.isEditing.value ? undefined : ''"
-    @pointerdown="context.submit"
+    @click="context.submit"
   >
     <slot>Submit</slot>
   </Primitive>

@@ -4,7 +4,6 @@ import {
   h,
   ref,
   toRefs,
-  watch,
 } from 'vue'
 import type {
   Ref,
@@ -45,18 +44,12 @@ export default defineComponent({
   slots: {} as SlotsType<{
     default: (opts: { present: Ref<boolean> }) => any
   }>,
-  emits: ['animation-end'],
-  setup(props, { slots, expose, emit }) {
+  setup(props, { slots, expose }) {
     const { present, forceMount } = toRefs(props)
 
     const node = ref<HTMLElement>()
     // Mount composables once to prevent duplicated eventListener
-    const { isPresent, state } = usePresence(present, node)
-
-    watch(state, (newState) => {
-      if (newState === 'unmounted')
-        emit('animation-end')
-    })
+    const { isPresent } = usePresence(present, node)
 
     expose({ present: isPresent })
 

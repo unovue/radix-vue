@@ -183,6 +183,7 @@ export const components = {
   ],
   editable: [
     'EditableRoot',
+    'EditableArea',
     'EditableInput',
     'EditablePreview',
     'EditableSubmitTrigger',

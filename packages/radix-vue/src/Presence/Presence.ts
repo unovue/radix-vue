@@ -50,7 +50,6 @@ export default defineComponent({
     const node = ref<HTMLElement>()
     // Mount composables once to prevent duplicated eventListener
     const { isPresent } = usePresence(present, node)
-
     expose({ present: isPresent })
 
     let children = slots.default({ present: isPresent })

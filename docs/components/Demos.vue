@@ -14,6 +14,7 @@ import DateRangeFieldDemo from './demo/DateRangeField/tailwind/index.vue'
 import DateRangePickerDemo from './demo/DateRangePicker/tailwind/index.vue'
 import DialogDemo from './demo/Dialog/tailwind/index.vue'
 import DropdownMenuDemo from './demo/DropdownMenu/tailwind/index.vue'
+import EditableDemo from './demo/Editable/tailwind/index.vue'
 import HoverCardDemo from './demo/HoverCard/tailwind/index.vue'
 import LabelDemo from './demo/Label/tailwind/index.vue'
 import MenubarDemo from './demo/Menubar/tailwind/index.vue'
@@ -87,6 +88,9 @@ import DemoContainer from './DemoContainer.vue'
     </DemoContainer>
     <DemoContainer title="dropdown menu">
       <DropdownMenuDemo />
+    </DemoContainer>
+    <DemoContainer title="editable">
+      <EditableDemo />
     </DemoContainer>
     <DemoContainer title="hover card">
       <HoverCardDemo />

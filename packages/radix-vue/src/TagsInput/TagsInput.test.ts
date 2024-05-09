@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
 import TagsInput from './story/_TagsInput.vue'
 import TagsInputObject from './story/_TagsInputObject.vue'
@@ -208,7 +208,16 @@ describe('given a TagsInput with objects', async () => {
 
   it('should throw an error if props are not ok', async () => {
     document.body.innerHTML = ''
-    wrapper = mount(TagsInputObject, {
+    const consoleWarnMockFunction = vi.fn()
+
+    const wrapper = mount(TagsInputObject, {
+      global: {
+        config: {
+          errorHandler(err: any) {
+            consoleWarnMockFunction(err.message)
+          },
+        },
+      },
       props: {
         displayValue: (item: any) => `Person: ${item.name}`,
         convertValue: undefined,
@@ -217,9 +226,10 @@ describe('given a TagsInput with objects', async () => {
     })
 
     input = wrapper.find('input')
-    expect(() => {
-      input.setValue('Moriah Stanton')
-      input.trigger('keydown.enter')
-    }).toThrow('You must provide a `convertValue` function when using objects as values.')
+    await input.setValue('Moriah Stanton')
+    await input.trigger('keydown.enter')
+
+    expect(consoleWarnMockFunction).toHaveBeenCalledOnce()
+    expect(consoleWarnMockFunction).toHaveBeenLastCalledWith('You must provide a `convertValue` function when using objects as values.')
   })
 })

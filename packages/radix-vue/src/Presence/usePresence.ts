@@ -40,6 +40,8 @@ export function usePresence(
         if (currentPresent) {
           dispatch('MOUNT')
           dispatchCustomEvent('enter')
+          if (currentAnimationName === 'none')
+            dispatchCustomEvent('after-enter')
         }
         else if (
           currentAnimationName === 'none'
@@ -48,6 +50,7 @@ export function usePresence(
           // If there is no exit animation or the element is hidden, animations won't run
           // so we unmount instantly rv
           dispatch('UNMOUNT')
+          dispatchCustomEvent('leave')
           dispatchCustomEvent('after-leave')
         }
         else {
@@ -82,8 +85,11 @@ export function usePresence(
     const isCurrentAnimation = currentAnimationName.includes(
       event.animationName,
     )
-    if (event.target === node.value && isCurrentAnimation)
+    const directionName = state.value === 'mounted' ? 'enter' : 'leave'
+    if (event.target === node.value && isCurrentAnimation) {
+      dispatchCustomEvent(`after-${directionName}`)
       dispatch('ANIMATION_END')
+    }
     // if no animation, immediately trigger 'ANIMATION_END'
     if (event.target === node.value && currentAnimationName === 'none')
       dispatch('ANIMATION_END')

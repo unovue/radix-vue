@@ -1,8 +1,8 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
-import { clamp, createContext, snapValueToStep } from '@/shared'
-import { type Ref, computed, ref, toRefs } from 'vue'
+import { clamp, createContext, snapValueToStep, useFormControl, useId } from '@/shared'
+import { type HTMLAttributes, type Ref, computed, ref, toRefs } from 'vue'
 
 export interface NumberFieldRootProps extends PrimitiveProps {
   defaultValue?: number
@@ -13,9 +13,18 @@ export interface NumberFieldRootProps extends PrimitiveProps {
   max?: number
   /** The amount that the input value changes with each increment or decrement "tick". */
   step?: number
-  disabled?: boolean
   /** Formatting options for the value displayed in the number field. This also affects what characters are allowed to be typed by the user. */
   formatOptions?: Intl.NumberFormatOptions
+  /** The locale to use for formatting dates */
+  locale?: string
+  /** When `true`, prevents the user from interacting with the Number Field. */
+  disabled?: boolean
+  /** When `true`, indicates that the user must check the checkbox before the owning form can be submitted. */
+  required?: boolean
+  /** The name of the checkbox. Submitted with its owning form as part of a name/value pair. */
+  name?: string
+  /** Id of the element */
+  id?: string
 }
 
 export type NumberFieldRootEmits = {
@@ -24,14 +33,19 @@ export type NumberFieldRootEmits = {
 
 interface NumberFieldRootContext {
   modelValue: Ref<number>
-  handleIncrease: () => void
-  handleDecrease: () => void
+  handleIncrease: (multiplier?: number) => void
+  handleDecrease: (multiplier?: number) => void
+  handleMinMaxValue: (type: 'min' | 'max') => void
   inputEl: Ref<HTMLInputElement | undefined>
   onInputElement: (el: HTMLInputElement) => void
+  inputMode: Ref<HTMLAttributes['inputmode']>
   textValue: Ref<string>
   validate: (val: string) => boolean
   applyInputValue: (val: string) => void
   disabled: Ref<boolean>
+  labelId: string
+  max: Ref<number | undefined>
+  min: Ref<number | undefined>
   isMin: Ref<boolean>
   isMax: Ref<boolean>
 }
@@ -40,8 +54,12 @@ export const [injectNumberFieldRootContext, provideNumberFieldRootContext] = cre
 </script>
 
 <script setup lang="ts">
-import { Primitive } from '@/Primitive'
+import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { useNumberFormatter, useNumberParser } from './utils'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const props = withDefaults(defineProps<NumberFieldRootProps>(), {
   as: 'div',
@@ -55,25 +73,44 @@ const modelValue = useVModel(props, 'modelValue', emits, {
   passive: (props.modelValue === undefined) as false,
 }) as Ref<number>
 
+const { primitiveElement, currentElement } = usePrimitiveElement()
+const labelId = useId('number-field-label')
+const isFormControl = useFormControl(currentElement)
 const inputEl = ref<HTMLInputElement>()
 
 const isMin = computed(() => clampInputValue(modelValue.value) === min.value)
 const isMax = computed(() => clampInputValue(modelValue.value) === max.value)
-function handleIncrease() {
-  modelValue.value = clampInputValue(modelValue.value + 1)
+
+function handleIncrease(multiplier = 1) {
+  modelValue.value = clampInputValue(modelValue.value + ((props.step ?? 1) * multiplier))
 }
-function handleDecrease() {
-  modelValue.value = clampInputValue(modelValue.value - 1)
+function handleDecrease(multiplier = 1) {
+  modelValue.value = clampInputValue(modelValue.value - ((props.step ?? 1) * multiplier))
+}
+
+function handleMinMaxValue(type: 'min' | 'max') {
+  if (type === 'min' && min.value !== undefined)
+    modelValue.value = clampInputValue(min.value)
+  else if (type === 'max' && max.value !== undefined)
+    modelValue.value = clampInputValue(max.value)
 }
 
 // Formatter
-const numberFormatter = useNumberFormatter(props.formatOptions)
-const numberParser = useNumberParser(props.formatOptions)
-const intlOptions = computed(() => numberFormatter.resolvedOptions())
+const numberFormatter = useNumberFormatter(props.locale, props.formatOptions)
+const numberParser = useNumberParser(props.locale, props.formatOptions)
 
+const inputMode = computed<HTMLAttributes['inputmode']>(() => {
+  // The inputMode attribute influences the software keyboard that is shown on touch devices.
+  // Browsers and operating systems are quite inconsistent about what keys are available, however.
+  // We choose between numeric and decimal based on whether we allow negative and fractional numbers,
+  // and based on testing on various devices to determine what keys are available in each inputMode.
+  const hasDecimals = numberFormatter.resolvedOptions().maximumFractionDigits > 0
+
+  return hasDecimals ? 'decimal' : 'numeric'
+})
 // Replace negative textValue formatted using currencySign: 'accounting'
 // with a textValue that can be announced using a minus sign.
-const textValueFormatter = useNumberFormatter({ ...props.formatOptions, currencySign: undefined })
+const textValueFormatter = useNumberFormatter(props.locale, { ...props.formatOptions, currencySign: undefined })
 const textValue = computed(() => Number.isNaN(modelValue.value) ? '' : textValueFormatter.format(modelValue.value))
 
 function validate(val: string) {
@@ -98,6 +135,9 @@ function clampInputValue(val: number) {
 }
 
 function applyInputValue(val: string) {
+  if (!val)
+    return
+
   const parsedValue = numberParser.parse(val)
   // modelValue.value = Number.isNaN(newValue) ? Number.NaN : newValue
 
@@ -117,12 +157,17 @@ provideNumberFieldRootContext({
   modelValue,
   handleDecrease,
   handleIncrease,
+  handleMinMaxValue,
+  labelId,
+  inputMode,
   inputEl,
   onInputElement: el => inputEl.value = el,
   textValue,
   validate,
   applyInputValue,
   disabled,
+  max,
+  min,
   isMin,
   isMax,
 })
@@ -130,9 +175,30 @@ provideNumberFieldRootContext({
 
 <template>
   <Primitive
+    v-bind="$attrs"
+    ref="primitiveElement"
     role="group"
-    v-bind="props"
+    :as="as"
+    :as-child="asChild"
   >
-    <slot />
+    <slot :model-value="modelValue" :text-value="textValue" />
   </Primitive>
+
+  <input
+    v-if="isFormControl"
+    type="checkbox"
+    tabindex="-1"
+    aria-hidden
+    :value="modelValue"
+    :name="props.name"
+    :disabled="props.disabled"
+    :required="props.required"
+    :style="{
+      transform: 'translateX(-100%)',
+      position: 'absolute',
+      pointerEvents: 'none',
+      opacity: 0,
+      margin: 0,
+    }"
+  >
 </template>

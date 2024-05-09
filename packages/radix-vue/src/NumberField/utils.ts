@@ -33,14 +33,10 @@ export function usePressedHold() {
   }
 }
 
-export function useNumberFormatter(options: MaybeRef<Intl.NumberFormatOptions> = {}) {
-  const locale = 'en-US'
-
+export function useNumberFormatter(locale: string = 'en-US', options: MaybeRef<Intl.NumberFormatOptions> = {}) {
   return new NumberFormatter(locale, unref(options))
 }
 
-export function useNumberParser(options: MaybeRef<Intl.NumberFormatOptions> = {}) {
-  const locale = 'en-US'
-
+export function useNumberParser(locale: string = 'en-US', options: MaybeRef<Intl.NumberFormatOptions> = {}) {
   return new NumberParser(locale, unref(options))
 }

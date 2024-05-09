@@ -9,12 +9,12 @@ import { Icon } from '@iconify/vue'
       <NumberFieldRoot
         class="text-sm flex items-center border bg-blackA7 border-blackA9 rounded-md text-white" :format-options="{
           style: 'currency',
-          currency: 'USD',
+          currency: 'EUR',
           currencyDisplay: 'code',
           currencySign: 'accounting',
         }"
         :min="0"
-        :max="10"
+        :max="100"
       >
         <NumberFieldDecrement class="p-2">
           <Icon icon="radix-icons:minus" />

@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import { injectNumberFieldRootContext } from './NumberFieldRoot.vue'
+import { onMounted } from 'vue'
 
 export interface NumberFieldInputProps extends PrimitiveProps {
 }
@@ -34,7 +35,9 @@ function handleWheelEvent(event: WheelEvent) {
     rootContext.handleDecrease()
 }
 
-rootContext.inputEl = currentElement
+onMounted(() => {
+  rootContext.onInputElement(currentElement.value as HTMLInputElement)
+})
 </script>
 
 <template>
@@ -47,10 +50,22 @@ rootContext.inputEl = currentElement
     spellcheck="false"
     inputmode="numeric"
     aria-roledescription="Number field"
-    :value="rootContext.modelValue.value"
+    :value="rootContext.textValue.value"
     @keydown.up.prevent="rootContext.handleIncrease"
     @keydown.down.prevent="rootContext.handleDecrease"
     @wheel="handleWheelEvent"
+    @beforeinput="(event: InputEvent) => {
+      const target = event.target as HTMLInputElement
+      let nextValue
+        = target.value.slice(0, target.selectionStart ?? undefined)
+          + (event.data ?? '')
+          + target.value.slice(target.selectionEnd ?? undefined);
+
+      // validate
+      if (!rootContext.validate(nextValue))
+        event.preventDefault()
+    }"
+    @blur="rootContext.applyInputValue($event.target?.value)"
   >
     <slot />
   </Primitive>

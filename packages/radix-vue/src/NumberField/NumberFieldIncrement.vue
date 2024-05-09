@@ -3,8 +3,10 @@ import type { PrimitiveProps } from '@/Primitive'
 import { injectNumberFieldRootContext } from './NumberFieldRoot.vue'
 import { useMousePressed } from '@vueuse/core'
 import { usePressedHold } from './utils'
+import { computed } from 'vue'
 
 export interface NumberFieldIncrementProps extends PrimitiveProps {
+  disabled?: boolean
 }
 </script>
 
@@ -24,6 +26,8 @@ const { pressed: isPressed } = useMousePressed({ target: currentElement })
 onTrigger(() => {
   rootContext.handleIncrease()
 })
+
+const isDisabled = computed(() => rootContext.disabled?.value || props.disabled || rootContext.isMax.value)
 </script>
 
 <template>
@@ -36,6 +40,8 @@ onTrigger(() => {
     :style="{
       userSelect: isPressed ? 'none' : undefined,
     }"
+    :disabled="isDisabled ? '' : undefined"
+    :data-disabled="isDisabled ? '' : undefined"
     :data-pressed="isPressed ? 'true' : undefined"
     @pointerdown.left="() => {
       rootContext.inputEl.value?.focus()

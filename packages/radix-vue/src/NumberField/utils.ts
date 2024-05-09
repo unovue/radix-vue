@@ -1,5 +1,6 @@
+import { NumberFormatter, NumberParser } from '@internationalized/number'
 import { createEventHook } from '@vueuse/shared'
-import { ref } from 'vue'
+import { type MaybeRef, ref, unref } from 'vue'
 
 export function usePressedHold() {
   const timeout = ref<number>()
@@ -30,4 +31,16 @@ export function usePressedHold() {
     handlePressEnd,
     onTrigger: triggerHook.on,
   }
+}
+
+export function useNumberFormatter(options: MaybeRef<Intl.NumberFormatOptions> = {}) {
+  const locale = 'en-US'
+
+  return new NumberFormatter(locale, unref(options))
+}
+
+export function useNumberParser(options: MaybeRef<Intl.NumberFormatOptions> = {}) {
+  const locale = 'en-US'
+
+  return new NumberParser(locale, unref(options))
 }

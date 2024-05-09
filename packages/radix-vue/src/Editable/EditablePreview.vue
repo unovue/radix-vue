@@ -29,7 +29,7 @@ function handleDoubleClick() {
   <Primitive
     v-bind="props"
     tabindex="0"
-    :data-placeholder-shown="context.isEditing ? undefined : ''"
+    :data-placeholder-shown="context.isEditing.value ? undefined : ''"
     :hidden="context.isEditing.value ? '' : undefined"
     @focusin="handleFocus"
     @dblclick="handleDoubleClick"

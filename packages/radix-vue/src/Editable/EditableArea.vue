@@ -16,10 +16,11 @@ const context = injectEditableRootContext()
 <template>
   <Primitive
     v-bind="props"
-    :data-placeholder-shown="context.isEditing ? undefined : ''"
-    :data-focus="context.isEditing ? '' : undefined"
-    :data-empty="context.isEmpty ? '' : undefined"
-    :data-disabled="context.disabled ? '' : undefined"
+    :data-placeholder-shown="context.isEditing.value ? undefined : ''"
+    :data-focus="context.isEditing.value ? '' : undefined"
+    :data-empty="context.isEmpty.value ? '' : undefined"
+    :data-readonly="context.readonly.value ? '' : undefined"
+    :data-disabled="context.disabled.value ? '' : undefined"
   >
     <slot />
   </Primitive>

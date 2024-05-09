@@ -57,6 +57,7 @@ function handleSubmitKeyDown(event: KeyboardEvent) {
     :placeholder="placeholder"
     :disabled="disabled"
     :data-disabled="disabled ? '' : undefined"
+    :readonly="context.readonly.value"
     aria-label="editable input"
     :hidden="context.isEditing.value ? undefined : ''"
     @keydown.enter.space="handleSubmitKeyDown"

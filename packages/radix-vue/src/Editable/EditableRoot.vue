@@ -24,6 +24,7 @@ type EditableRootContext = {
   inputRef: Ref<HTMLInputElement | undefined>
   startWithEditMode: Ref<boolean>
   isEmpty: Ref<boolean>
+  readonly: Ref<boolean>
 }
 
 export interface EditableRootProps extends PrimitiveProps {
@@ -108,6 +109,7 @@ const {
   submitMode,
   activationMode,
   selectOnFocus,
+  readonly,
 } = toRefs(props)
 
 const inputRef = ref<HTMLInputElement | undefined>()
@@ -170,6 +172,7 @@ provideEditableRootContext({
   inputRef,
   startWithEditMode,
   isEmpty,
+  readonly,
 })
 </script>
 

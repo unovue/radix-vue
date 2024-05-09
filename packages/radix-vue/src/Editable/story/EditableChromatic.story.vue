@@ -43,8 +43,17 @@ const modelValue = ref(defaultValue)
     <Variant title="Select on focus">
       <Editable :default-value="defaultValue" activation-mode="focus" select-on-focus />
     </Variant>
+
     <Variant title="Disabled">
       <Editable :default-value="defaultValue" disabled />
+    </Variant>
+
+    <Variant title="Start in edit mode">
+      <Editable :default-value="defaultValue" start-with-edit-mode />
+    </Variant>
+
+    <Variant title="Read only">
+      <Editable :default-value="defaultValue" readonly />
     </Variant>
   </Story>
 </template>

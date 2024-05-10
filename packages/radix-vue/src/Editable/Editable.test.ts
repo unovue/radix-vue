@@ -119,4 +119,14 @@ describe('Editable', () => {
 
     expect(input).toHaveValue('Default Value')
   })
+
+  it('uses the proper styles when autoResize is true', async () => {
+    const { input, preview, edit } = setup({ editableProps: { defaultValue: 'Default Value', autoResize: true } })
+
+    expect(input).toHaveStyle({ visibility: 'hidden' })
+
+    await userEvent.click(edit)
+
+    expect(preview).toHaveStyle({ visibility: 'hidden' })
+  })
 })

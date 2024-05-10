@@ -33,9 +33,15 @@
     'required': false
   },
   {
+    'name': 'convertValue',
+    'description': '<p>Convert the input value to the desired type. Mandatory when using objects as values and using <code>TagsInputInput</code></p>\n',
+    'type': '((value: string) => AcceptableInputValue)',
+    'required': false
+  },
+  {
     'name': 'defaultValue',
     'description': '<p>The value of the tags that should be added. Use when you do not need to control the state of the tags input</p>\n',
-    'type': 'string[]',
+    'type': 'AcceptableInputValue[]',
     'required': false,
     'default': '[]'
   },
@@ -59,6 +65,13 @@
     'required': false
   },
   {
+    'name': 'displayValue',
+    'description': '<p>Display the value of the tag. Useful when you want to apply modifications to the value like adding a suffix or when using object as values</p>\n',
+    'type': '((value: AcceptableInputValue) => string)',
+    'required': false,
+    'default': 'value.toString()'
+  },
+  {
     'name': 'duplicate',
     'description': '<p>When <code>true</code>, allow duplicated tags.</p>\n',
     'type': 'boolean',
@@ -80,7 +93,7 @@
   {
     'name': 'modelValue',
     'description': '<p>The controlled value of the tags input. Can be bind as <code>v-model</code>.</p>\n',
-    'type': 'string[]',
+    'type': 'AcceptableInputValue[]',
     'required': false
   },
   {
@@ -94,18 +107,6 @@
     'description': '<p>When <code>true</code>, indicates that the user must add the tags input before the owning form can be submitted.</p>\n',
     'type': 'boolean',
     'required': false
-  },
-  {
-    'name': 'convertValue',
-    'description': '<p>Convert the input value to the desired type. Mandatory when using objects as values and using <code>TagsInputInput</code></p>\n',
-    'type': '(value: string) => AcceptableInputValue',
-    'required': false
-  },
-  {
-    'name': 'displayValue',
-    'description': '<p>Display the value of the tag. Useful when you want to apply modifications to the value like adding a suffix or when using object as values</p>\n',
-    'type': '(value: AcceptableInputValue) => value',
-    'required': false
   }
 ]" />
 
@@ -113,12 +114,12 @@
   {
     'name': 'invalid',
     'description': '<p>Event handler called when the value is invalid</p>\n',
-    'type': '[payload: string]'
+    'type': '[payload: AcceptableInputValue]'
   },
   {
     'name': 'update:modelValue',
     'description': '<p>Event handler called when the value changes</p>\n',
-    'type': '[payload: string[]]'
+    'type': '[payload: AcceptableInputValue[]]'
   }
 ]" />
 
@@ -126,6 +127,6 @@
   {
     'name': 'modelValue',
     'description': '<p>Current input values</p>\n',
-    'type': 'string[]'
+    'type': 'string | Record<string, any>'
   }
 ]" />

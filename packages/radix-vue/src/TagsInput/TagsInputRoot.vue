@@ -228,13 +228,21 @@ provideTagsInputRootContext({
 <template>
   <CollectionSlot>
     <Primitive
-      :ref="forwardRef" :dir="dir" :as="as" :as-child="asChild" :data-invalid="isInvalidInput ? '' : undefined"
-      :data-disabled="disabled ? '' : undefined" :data-focused="focused ? '' : undefined"
+      :ref="forwardRef"
+      :dir="dir"
+      :as="as"
+      :as-child="asChild"
+      :data-invalid="isInvalidInput ? '' : undefined"
+      :data-disabled="disabled ? '' : undefined"
+      :data-focused="focused ? '' : undefined"
     >
       <slot :model-value="modelValue" />
 
       <VisuallyHiddenInput
-        v-if="isFormControl && name" :name="name" :value="modelValue" :required="required"
+        v-if="isFormControl && name"
+        :name="name"
+        :value="modelValue"
+        :required="required"
         :disabled="disabled"
       />
     </Primitive>

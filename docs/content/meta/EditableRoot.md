@@ -22,6 +22,13 @@
     'required': false
   },
   {
+    'name': 'autoResize',
+    'description': '<p>Whether the editable field should auto resize</p>\n',
+    'type': 'boolean',
+    'required': false,
+    'default': 'false'
+  },
+  {
     'name': 'defaultValue',
     'description': '<p>The default value of the editable field</p>\n',
     'type': 'string',

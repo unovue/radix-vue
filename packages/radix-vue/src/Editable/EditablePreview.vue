@@ -30,7 +30,15 @@ function handleDoubleClick() {
     v-bind="props"
     tabindex="0"
     :data-placeholder-shown="context.isEditing.value ? undefined : ''"
-    :hidden="context.isEditing.value ? '' : undefined"
+    :hidden="context.autoResize.value ? undefined : context.isEditing.value"
+    :style="context.autoResize.value ? {
+      whiteSpace: 'pre',
+      userSelect: 'none',
+      gridArea: '1 / 1 / auto / auto',
+      visibility: context.isEditing.value ? 'hidden' : undefined,
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    } : undefined"
     @focusin="handleFocus"
     @dblclick="handleDoubleClick"
   >

@@ -21,6 +21,7 @@ const context = injectEditableRootContext()
     :data-empty="context.isEmpty.value ? '' : undefined"
     :data-readonly="context.readonly.value ? '' : undefined"
     :data-disabled="context.disabled.value ? '' : undefined"
+    :style="context.autoResize.value ? { display: 'inline-grid' } : undefined"
   >
     <slot />
   </Primitive>

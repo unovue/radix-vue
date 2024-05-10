@@ -25,6 +25,7 @@ type EditableRootContext = {
   startWithEditMode: Ref<boolean>
   isEmpty: Ref<boolean>
   readonly: Ref<boolean>
+  autoResize: Ref<boolean>
 }
 
 export interface EditableRootProps extends PrimitiveProps {
@@ -50,6 +51,8 @@ export interface EditableRootProps extends PrimitiveProps {
   startWithEditMode?: boolean
   /** The maximum number of characters allowed */
   maxLength?: number
+  /** Whether the editable field should auto resize */
+  autoResize?: boolean
   /** The id of the field */
   id?: string
   /** The name of the field */
@@ -82,6 +85,7 @@ const props = withDefaults(defineProps<EditableRootProps>(), {
   activationMode: 'focus',
   selectOnFocus: false,
   placeholder: 'Enter text...',
+  autoResize: false,
 })
 
 const emits = defineEmits<EditableRootEmits>()
@@ -110,6 +114,7 @@ const {
   activationMode,
   selectOnFocus,
   readonly,
+  autoResize,
 } = toRefs(props)
 
 const inputRef = ref<HTMLInputElement | undefined>()
@@ -173,6 +178,7 @@ provideEditableRootContext({
   startWithEditMode,
   isEmpty,
   readonly,
+  autoResize,
 })
 </script>
 

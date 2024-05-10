@@ -60,7 +60,8 @@ function handleSubmitKeyDown(event: KeyboardEvent) {
     :data-readonly="context.readonly.value ? '' : undefined"
     :readonly="context.readonly.value"
     aria-label="editable input"
-    :hidden="context.isEditing.value ? undefined : ''"
+    :hidden="context.autoResize.value ? undefined : !context.isEditing.value"
+    :style="context.autoResize.value ? { all: 'unset', gridArea: '1 / 1 / auto / auto', visibility: !context.isEditing.value ? 'hidden' : undefined } : undefined"
     @keydown.enter.space="handleSubmitKeyDown"
     @keydown.esc="context.cancel"
   >

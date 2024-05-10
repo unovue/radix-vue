@@ -55,5 +55,9 @@ const modelValue = ref(defaultValue)
     <Variant title="Read only">
       <Editable :default-value="defaultValue" readonly />
     </Variant>
+
+    <Variant title="Auto resize">
+      <Editable :default-value="defaultValue" auto-resize />
+    </Variant>
   </Story>
 </template>

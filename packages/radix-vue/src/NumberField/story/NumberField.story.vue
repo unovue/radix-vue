@@ -7,14 +7,9 @@ import { Icon } from '@iconify/vue'
   <Story title="NumberField/Basic" :layout="{ type: 'single', iframe: true }">
     <Variant title="default">
       <NumberFieldRoot
-        class="text-sm flex items-center border bg-blackA7 border-blackA9 rounded-md text-white" :format-options="{
-          style: 'currency',
-          currency: 'EUR',
-          currencyDisplay: 'code',
-          currencySign: 'accounting',
-        }"
+        class="text-sm flex items-center border bg-blackA7 border-blackA9 rounded-md text-white"
         :min="0"
-        :max="100"
+        :default-value="5"
       >
         <NumberFieldDecrement class="p-2">
           <Icon icon="radix-icons:minus" />

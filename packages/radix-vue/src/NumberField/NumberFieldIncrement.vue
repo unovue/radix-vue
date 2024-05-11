@@ -27,7 +27,7 @@ onTrigger(() => {
   rootContext.handleIncrease()
 })
 
-const isDisabled = computed(() => rootContext.disabled?.value || props.disabled || rootContext.isMax.value)
+const isDisabled = computed(() => rootContext.disabled?.value || props.disabled || rootContext.isIncreaseDisabled.value)
 </script>
 
 <template>
@@ -43,8 +43,7 @@ const isDisabled = computed(() => rootContext.disabled?.value || props.disabled 
     :disabled="isDisabled ? '' : undefined"
     :data-disabled="isDisabled ? '' : undefined"
     :data-pressed="isPressed ? 'true' : undefined"
-    @pointerdown.left="() => {
-      rootContext.inputEl.value?.focus()
+    @pointerdown.left.prevent="() => {
       handlePressStart()
     }"
     @pointerup.left="() => {

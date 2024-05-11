@@ -46,8 +46,8 @@ interface NumberFieldRootContext {
   labelId: string
   max: Ref<number | undefined>
   min: Ref<number | undefined>
-  isMin: Ref<boolean>
-  isMax: Ref<boolean>
+  isDecreaseDisabled: Ref<boolean>
+  isIncreaseDisabled: Ref<boolean>
 }
 
 export const [injectNumberFieldRootContext, provideNumberFieldRootContext] = createContext<NumberFieldRootContext>('NumberFieldRoot')
@@ -55,7 +55,7 @@ export const [injectNumberFieldRootContext, provideNumberFieldRootContext] = cre
 
 <script setup lang="ts">
 import { Primitive, usePrimitiveElement } from '@/Primitive'
-import { useNumberFormatter, useNumberParser } from './utils'
+import { handleDecimalOperation, useNumberFormatter, useNumberParser } from './utils'
 
 defineOptions({
   inheritAttrs: false,
@@ -63,10 +63,11 @@ defineOptions({
 
 const props = withDefaults(defineProps<NumberFieldRootProps>(), {
   as: 'div',
-  defaultValue: 0,
+  defaultValue: undefined,
+  step: 1,
 })
 const emits = defineEmits<NumberFieldRootEmits>()
-const { disabled, min, max } = toRefs(props)
+const { disabled, min, max, step } = toRefs(props)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
@@ -78,14 +79,32 @@ const labelId = useId('number-field-label')
 const isFormControl = useFormControl(currentElement)
 const inputEl = ref<HTMLInputElement>()
 
-const isMin = computed(() => clampInputValue(modelValue.value) === min.value)
-const isMax = computed(() => clampInputValue(modelValue.value) === max.value)
+const isDecreaseDisabled = computed(() => (
+  clampInputValue(modelValue.value) === min.value
+  || (min.value && !isNaN(modelValue.value) ? (handleDecimalOperation('-', modelValue.value, step.value) < min.value) : false)),
+)
+const isIncreaseDisabled = computed(() => (
+  clampInputValue(modelValue.value) === max.value
+  || (max.value && !isNaN(modelValue.value) ? (handleDecimalOperation('+', modelValue.value, step.value) > max.value) : false)),
+)
+
+function handleChangingValue(type: 'increase' | 'decrease', multiplier = 1) {
+  if (isNaN(modelValue.value)) {
+    modelValue.value = min.value ?? 0
+  }
+  else {
+    if (type === 'increase')
+      modelValue.value = clampInputValue(modelValue.value + ((step.value ?? 1) * multiplier))
+    else
+      modelValue.value = clampInputValue(modelValue.value - ((step.value ?? 1) * multiplier))
+  }
+}
 
 function handleIncrease(multiplier = 1) {
-  modelValue.value = clampInputValue(modelValue.value + ((props.step ?? 1) * multiplier))
+  handleChangingValue('increase', multiplier)
 }
 function handleDecrease(multiplier = 1) {
-  modelValue.value = clampInputValue(modelValue.value - ((props.step ?? 1) * multiplier))
+  handleChangingValue('decrease', multiplier)
 }
 
 function handleMinMaxValue(type: 'min' | 'max') {
@@ -111,7 +130,7 @@ const inputMode = computed<HTMLAttributes['inputmode']>(() => {
 // Replace negative textValue formatted using currencySign: 'accounting'
 // with a textValue that can be announced using a minus sign.
 const textValueFormatter = useNumberFormatter(props.locale, props.formatOptions)
-const textValue = computed(() => Number.isNaN(modelValue.value) ? '' : textValueFormatter.format(modelValue.value))
+const textValue = computed(() => isNaN(modelValue.value) ? '' : textValueFormatter.format(modelValue.value))
 
 function validate(val: string) {
   return numberParser.isValidPartialNumber(val, min.value, max.value)
@@ -125,10 +144,10 @@ function setInputValue(val: string) {
 function clampInputValue(val: number) {
   // Clamp to min and max, round to the nearest step, and round to specified number of digits
   let clampedValue: number
-  if (props.step === undefined || Number.isNaN(props.step))
+  if (step.value === undefined || isNaN(step.value))
     clampedValue = clamp(val, min.value, max.value)
   else
-    clampedValue = snapValueToStep(val, min.value, max.value, props.step)
+    clampedValue = snapValueToStep(val, min.value, max.value, step.value)
 
   clampedValue = numberParser.parse(numberFormatter.format(clampedValue))
   return clampedValue
@@ -139,14 +158,12 @@ function applyInputValue(val: string) {
     return
 
   const parsedValue = numberParser.parse(val)
-  // modelValue.value = Number.isNaN(newValue) ? Number.NaN : newValue
-
   // Set to empty state if input value is empty
   if (!val.length)
     return setInputValue(modelValue.value === undefined ? '' : textValue.value)
 
   // if it failed to parse, then reset input to formatted version of current number
-  if (Number.isNaN(parsedValue))
+  if (isNaN(parsedValue))
     return setInputValue(textValue.value)
 
   modelValue.value = clampInputValue(parsedValue)
@@ -168,8 +185,8 @@ provideNumberFieldRootContext({
   disabled,
   max,
   min,
-  isMin,
-  isMax,
+  isDecreaseDisabled,
+  isIncreaseDisabled,
 })
 </script>
 

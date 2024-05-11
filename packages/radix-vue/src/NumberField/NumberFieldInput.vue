@@ -29,6 +29,7 @@ function handleWheelEvent(event: WheelEvent) {
   if (Math.abs(event.deltaY) <= Math.abs(event.deltaX))
     return
 
+  event.preventDefault()
   if (event.deltaY > 0)
     rootContext.handleIncrease()
   else if (event.deltaY < 0)

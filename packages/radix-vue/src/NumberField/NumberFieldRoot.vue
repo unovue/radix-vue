@@ -110,7 +110,7 @@ const inputMode = computed<HTMLAttributes['inputmode']>(() => {
 })
 // Replace negative textValue formatted using currencySign: 'accounting'
 // with a textValue that can be announced using a minus sign.
-const textValueFormatter = useNumberFormatter(props.locale, { ...props.formatOptions, currencySign: undefined })
+const textValueFormatter = useNumberFormatter(props.locale, props.formatOptions)
 const textValue = computed(() => Number.isNaN(modelValue.value) ? '' : textValueFormatter.format(modelValue.value))
 
 function validate(val: string) {

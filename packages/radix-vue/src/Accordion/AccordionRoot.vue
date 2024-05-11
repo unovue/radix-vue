@@ -48,7 +48,7 @@ export type AccordionRootContext<P extends AccordionRootProps> = {
   direction: Ref<P['dir']>
   orientation: P['orientation']
   parentElement: Ref<HTMLElement | undefined>
-  changeModelValue(value: string): void
+  changeModelValue: (value: string) => void
   isSingle: ComputedRef<boolean>
   modelValue: Ref<string | undefined | string[]>
   collapsible: boolean
@@ -72,10 +72,10 @@ const props = withDefaults(defineProps<AccordionRootProps<ValidValue, ExplicitTy
 const emits = defineEmits<AccordionRootEmits<ExplicitType>>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current active value */
     modelValue: typeof modelValue.value
-  }): any
+  }) => any
 }>()
 
 const { dir, disabled } = toRefs(props)

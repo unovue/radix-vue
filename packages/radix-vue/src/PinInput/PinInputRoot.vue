@@ -66,10 +66,10 @@ const props = withDefaults(defineProps<PinInputRootProps>(), {
 const emits = defineEmits<PinInputRootEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current input values */
     modelValue: typeof modelValue.value
-  }): any
+  }) => any
 }>()
 
 const { mask, otp, placeholder, type, disabled, dir: propDir } = toRefs(props)

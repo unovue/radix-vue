@@ -30,8 +30,8 @@ export type SplitterGroupEmits = {
 const LOCAL_STORAGE_DEBOUNCE_INTERVAL = 100
 
 export type PanelGroupStorage = {
-  getItem(name: string): string | null
-  setItem(name: string, value: string): void
+  getItem: (name: string) => string | null
+  setItem: (name: string, value: string) => void
 }
 
 const defaultStorage: PanelGroupStorage = {
@@ -101,10 +101,10 @@ const props = withDefaults(defineProps<SplitterGroupProps>(), {
 const emits = defineEmits<SplitterGroupEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current size of layout */
     layout: typeof layout.value
-  }): any
+  }) => any
 }>()
 
 const debounceMap: {
@@ -440,8 +440,8 @@ function reevaluatePanelConstraints(panelData: PanelData, prevConstraints: Panel
 
   if (
     prevCollapsible
-        && nextCollapsible
-        && prevPanelSize === prevCollapsedSize
+    && nextCollapsible
+    && prevPanelSize === prevCollapsedSize
   ) {
     if (prevCollapsedSize !== nextCollapsedSize) {
       resizePanel(panelData, nextCollapsedSize)

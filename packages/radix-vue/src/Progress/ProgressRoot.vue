@@ -15,9 +15,11 @@ export interface ProgressRootProps extends PrimitiveProps {
   modelValue?: number | null
   /** The maximum progress value. */
   max?: number
-  /** A function to get the accessible label text representing the current value in a human-readable format.
+  /**
+   * A function to get the accessible label text representing the current value in a human-readable format.
    *
-   *  If not provided, the value label will be read as the numeric value as a percentage of the max value. */
+   *  If not provided, the value label will be read as the numeric value as a percentage of the max value.
+   */
   getValueLabel?: (value: number, max: number) => string
 }
 

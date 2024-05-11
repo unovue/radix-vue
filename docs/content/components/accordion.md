@@ -5,7 +5,6 @@ name: accordion
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/accordion
 ---
 
-
 # Accordion
 
 <Description>
@@ -30,7 +29,6 @@ associated section of content.
 ## Installation
 
 Install the component from your command line.
-
 
 <InstallationTabs value="radix-vue" />
 
@@ -61,9 +59,7 @@ import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, Accord
 
 Contains all the parts of an Accordion
 
-
 <!-- @include: @/meta/AccordionRoot.md -->
-
 
 <DataAttributesTable
   :data="[

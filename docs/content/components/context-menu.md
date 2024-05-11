@@ -14,7 +14,6 @@ Displays a menu located at the pointer, triggered by a right-click or a long-pre
 
 <ComponentPreview name="ContextMenu" />
 
-
 ## Features
 
 <Highlights
@@ -108,7 +107,6 @@ Adheres to the [Menu WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/pa
 
 Contains all the parts of a context menu.
 
-
 <!-- @include: @/meta/ContextMenuRoot.md -->
 
 ### Trigger
@@ -196,9 +194,8 @@ An optional arrow element to render alongside a submenu. This can be used to hel
 
 The component that contains the context menu items.
 
-
 <!-- @include: @/meta/ContextMenuItem.md -->
- 
+
 <DataAttributesTable
   :data="[
     {
@@ -228,7 +225,6 @@ Used to render a label. It won't be focusable using arrow keys.
 
 An item that can be controlled and rendered like a checkbox.
 
- 
 <!-- @include: @/meta/ContextMenuCheckboxItem.md -->
 
 <DataAttributesTable
@@ -252,13 +248,11 @@ An item that can be controlled and rendered like a checkbox.
 
 Used to group multiple `ContextMenu.RadioItem`s.
 
-
 <!-- @include: @/meta/ContextMenuRadioGroup.md -->
 
 ### RadioItem
 
 An item that can be controlled and rendered like a radio.
-
 
 <!-- @include: @/meta/ContextMenuRadioItem.md -->
 
@@ -282,7 +276,6 @@ An item that can be controlled and rendered like a radio.
 ### ItemIndicator
 
 Renders when the parent `ContextMenu.CheckboxItem` or `ContextMenu.RadioItem` is checked. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
-
 
 <!-- @include: @/meta/ContextMenuItemIndicator.md -->
 

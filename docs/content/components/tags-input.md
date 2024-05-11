@@ -1,7 +1,7 @@
 ---
 title: Tags Input
 description: Tags input render tags inside an input, followed by an actual text input.
-name: tags-input 
+name: tags-input
 ---
 
 # Tags Input
@@ -62,7 +62,6 @@ Contains all the tags input component parts.
 
 <!-- @include: @/meta/TagsInputRoot.md -->
 
-
 <DataAttributesTable
   :data="[
     {
@@ -87,7 +86,7 @@ The component that contains the tag.
 <!-- @include: @/meta/TagsInputItem.md -->
 
 <DataAttributesTable
-  :data="[ 
+  :data="[
     {
       attribute: '[data-state]',
       values: ['active', 'inactive'],
@@ -101,7 +100,7 @@ The component that contains the tag.
 
 ### ItemText
 
-The textual part of the tag. Important for accessibility. 
+The textual part of the tag. Important for accessibility.
 
 <!-- @include: @/meta/TagsInputItemText.md -->
 
@@ -120,7 +119,7 @@ The button that delete the associate tag.
     {
       attribute: '[data-disabled]',
       values: 'Present when disabled',
-    }, 
+    },
   ]"
 />
 
@@ -131,14 +130,13 @@ The input element for the tags input.
 <!-- @include: @/meta/TagsInputInput.md -->
 
 <DataAttributesTable
-  :data="[ 
+  :data="[
     {
       attribute: '[data-invalid]',
       values: 'Present when input value is invalid',
     },
   ]"
 />
-
 
 ### Clear
 
@@ -151,7 +149,7 @@ The button that remove all tags.
     {
       attribute: '[data-disabled]',
       values: 'Present when disabled',
-    }, 
+    },
   ]"
 />
 
@@ -162,7 +160,6 @@ The button that remove all tags.
 You can compose Tags input together with [Combobox](../components/combobox.html).
 
 <ComponentPreview name="TagsInputCombobox" />
-
 
 ### Paste behavior
 
@@ -181,7 +178,7 @@ import { TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText, 
 ```
 
 ## Accessibility
- 
+
 ### Keyboard Interactions
 
 <KeyboardTable

@@ -4,15 +4,14 @@ import { CalendarDate, type DateValue, PersianCalendar, toCalendar } from '@inte
 import { type Ref, ref } from 'vue'
 
 const defaultValue = { start: new CalendarDate(2024, 2, 20), end: new CalendarDate(2024, 2, 27) }
-const persianCalendar = ref({ start: toCalendar(defaultValue.start, new PersianCalendar()), end: toCalendar(defaultValue.end, new PersianCalendar()) }) as Ref<{ start: DateValue; end: DateValue }>
-const modelValue = ref(defaultValue) as Ref<{ start: DateValue; end: DateValue }>
-const startValue = ref(new CalendarDate(2024, 2, 20)) as Ref<CalendarDate>
+const persianCalendar = ref({ start: toCalendar(defaultValue.start, new PersianCalendar()), end: toCalendar(defaultValue.end, new PersianCalendar()) }) as Ref<{ start: DateValue, end: DateValue }>
+const modelValue = ref(defaultValue) as Ref<{ start: DateValue, end: DateValue }>
 
 const placeholder = ref(new CalendarDate(2024, 4, 1)) as Ref<CalendarDate>
 </script>
 
 <template>
-  <Story title="Range Calendar/Chromatic" :layout="{ type: 'grid', width: '50%', iframe: false }">
+  <Story title="Range Calendar/Chromatic" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="Uncontrolled (modelValue)">
       <RangeCalendar :default-value="defaultValue" />
     </Variant>

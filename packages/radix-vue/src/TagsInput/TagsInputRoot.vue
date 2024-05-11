@@ -74,10 +74,10 @@ const props = withDefaults(defineProps<TagsInputRootProps>(), {
 const emits = defineEmits<TagsInputRootEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current input values */
     modelValue: typeof modelValue.value
-  }): any
+  }) => any
 }>()
 
 const { addOnPaste, disabled, delimiter, max, id, dir: propDir, addOnBlur, addOnTab } = toRefs(props)

@@ -10,7 +10,7 @@ const maxValue = new CalendarDate(2024, 2, 29)
 </script>
 
 <template>
-  <Story title="Date Field/Chromatic" :layout="{ type: 'grid', width: '50%', iframe: false }">
+  <Story title="Date Field/Chromatic" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="Empty default">
       <DateFieldRoot
         v-slot="{ segments }"

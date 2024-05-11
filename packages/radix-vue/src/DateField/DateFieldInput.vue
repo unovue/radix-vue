@@ -1,6 +1,6 @@
 <script lang="ts">
 import { Primitive, type PrimitiveProps } from '@/Primitive'
-import { type SegmentPart } from '@/shared/date'
+import type { SegmentPart } from '@/shared/date'
 import { injectDateFieldRootContext } from './DateFieldRoot.vue'
 import { computed, ref } from 'vue'
 import { useDateField } from './useDateField'

@@ -1,9 +1,7 @@
---- 
+---
 title: Primitive
 description: Compose Radix's functionality onto alternative element types or your own Vue components.
 ---
-
-
 
 # Primitive
 
@@ -11,11 +9,9 @@ description: Compose Radix's functionality onto alternative element types or you
 Compose Radix's functionality onto alternative element types or your own Vue components.
 </Description>
 
-
 When you are building a component, in some cases you might want to allow user to compose some functionalities onto the underlying element, or alternative element. This is where `Primitive` comes in handy as it expose this capability to the user.
- 
-## API Reference
 
+## API Reference
 
 <PropsTable
   :data="[
@@ -36,9 +32,7 @@ When you are building a component, in some cases you might want to allow user to
   ]"
 />
 
-
-
-## Usage 
+## Usage
 
 ### Changing `as` value
 

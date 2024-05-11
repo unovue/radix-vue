@@ -6,7 +6,7 @@ import type { MenuEmits, MenuProps } from '@/Menu'
 
 type ContextMenuRootContext = {
   open: Ref<boolean>
-  onOpenChange(open: boolean): void
+  onOpenChange: (open: boolean) => void
   modal: Ref<boolean>
   dir: Ref<Direction>
 }

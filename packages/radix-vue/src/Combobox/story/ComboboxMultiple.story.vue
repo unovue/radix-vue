@@ -17,6 +17,7 @@ const v = ref([people[0]])
 const filteredPeople = computed(() => people.filter(i => i.name.toLowerCase().includes(searchTerm.value.toLowerCase())))
 
 function handleUpdate(ev: any) {
+  // eslint-disable-next-line no-console
   console.log(ev)
 }
 </script>

@@ -24,9 +24,9 @@ import type { AcceptableValue } from '@/shared/types'
 const props = defineProps<ListboxVirtualizerProps<T>>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     option: T
-  }): any
+  }) => any
 }>()
 
 const slots = useSlots()
@@ -39,7 +39,9 @@ rootContext.isVirtual.value = true
 
 const padding = computed(() => {
   const el = parentEl.value
-  if (!el) { return { start: 0, end: 0 } }
+  if (!el) {
+    return { start: 0, end: 0 }
+  }
   else {
     const styles = window.getComputedStyle(el)
     return {

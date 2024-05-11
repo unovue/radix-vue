@@ -6,7 +6,6 @@ name: slider
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/slidertwothumb
 ---
 
-
 # Slider
 
 <Description>
@@ -14,7 +13,6 @@ An input where the user selects a value from within a given range.
 </Description>
 
 <ComponentPreview name="Slider" />
-
 
 ## Features
 
@@ -308,7 +306,7 @@ Adheres to the [Slider WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/
     },
   ]"
 />
- 
+
 ## Custom APIs
 
 Create your own API by abstracting the primitive parts into your own component.
@@ -374,4 +372,3 @@ Because of [a limitation](https://github.com/radix-vue/radix-vue/blob/main/packa
 ```
 
 We recommend using pointer events instead (eg. `@pointerdown`, `@pointerup`). Regardless of the above limitation, these events are better suited for cross-platform/device handling as they are fired for all pointer input types (mouse, touch, pen, etc.).
- 

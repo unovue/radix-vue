@@ -11,10 +11,8 @@ aria: https://www.w3.org/TR/wai-aria/#aria-live
 A succinct message that is displayed temporarily.
 </Description>
 
-
 <ComponentPreview name="Toast" />
 
- 
 <Highlights
   :features="[
     'Automatically closes.',
@@ -25,7 +23,6 @@ A succinct message that is displayed temporarily.
     'Can be controlled or uncontrolled.',
   ]"
 />
-
 
 ## Installation
 
@@ -69,13 +66,13 @@ The provider that wraps your toasts and toast viewport. It usually wraps the app
 The fixed area where toasts appear. Users can jump to the viewport by pressing a hotkey. It is up to you to ensure the discoverability of the hotkey for keyboard users.
 
 <!-- @include: @/meta/ToastViewport.md -->
- 
+
 ### Root
 
 The toast that automatically closes. It should not be held open to [acquire a user response](/components/toast#action).
 
 <!-- @include: @/meta/ToastRoot.md -->
- 
+
 <DataAttributesTable
   :data="[
     {
@@ -141,7 +138,6 @@ When obtaining a user response is necessary, portal an ["AlertDialog"](/componen
 A button that allows users to dismiss the toast before its duration has elapsed.
 
 <!-- @include: @/meta/ToastClose.md -->
-
 
 ## Examples
 
@@ -315,7 +311,7 @@ When providing an icon (or font icon), remember to label it correctly for screen
         <span>
           When focus is on a <Code>ToastAction</Code> or
           <Code>ToastClose</Code>, closes the toast
-        </span>` 
+        </span>`
     },
     {
       keys: ['Esc'],
@@ -403,9 +399,7 @@ const savedRef = ref<InstanceType<typeof Toast>>()
 </template>
 ```
 
-
 #### Implementation
-
 
 ```vue
 // your-toast.vue
@@ -433,4 +427,3 @@ defineExpose({
   </ToastRoot>
 </template>
 ```
- 

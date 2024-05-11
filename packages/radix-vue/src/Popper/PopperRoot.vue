@@ -3,12 +3,12 @@ import type { Ref } from 'vue'
 import { createContext } from '@/shared'
 
 export interface Measurable {
-  getBoundingClientRect(): DOMRect
+  getBoundingClientRect: () => DOMRect
 }
 
 interface PopperRootContext {
   anchor: Ref<Measurable | HTMLElement | undefined>
-  onAnchorChange(element: Measurable | HTMLElement | undefined): void
+  onAnchorChange: (element: Measurable | HTMLElement | undefined) => void
 }
 
 export const [injectPopperRootContext, providePopperRootContext]

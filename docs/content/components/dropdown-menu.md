@@ -6,8 +6,6 @@ name: dropdown-menu
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/menubutton
 ---
 
-
-
 # DropdownMenu
 
 <Description>
@@ -15,7 +13,6 @@ Displays a menu to the user—such as a set of actions or functions—triggered 
 </Description>
 
 <ComponentPreview name="DropdownMenu" />
-
 
 ## Features
 
@@ -860,7 +857,6 @@ Adheres to the [Menu Button WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA
     },
   ]"
 />
- 
 
 ## Custom APIs
 
@@ -908,7 +904,6 @@ import {
 
 #### Implementation
 
-
 ```ts
 // your-dropdown-menu.ts
 export { default as DropdownMenuContent } from 'DropdownMenuContent.vue'
@@ -925,8 +920,6 @@ export {
   DropdownMenuSeparator
 } from 'radix-vue'
 ```
-
-
 
 ```vue
 <!-- DropdownMenuContent.vue -->
@@ -947,7 +940,6 @@ const forwarded = useForwardPropsEmits(props, emits)
   </DropdownMenuPortal>
 </template>
 ```
-
 
 ```vue
 <!-- DropdownMenuCheckboxItem.vue -->
@@ -972,7 +964,7 @@ const forwarded = useForwardPropsEmits(props, emits)
   </DropdownMenuCheckboxItem>
 </template>
 ```
- 
+
 ```vue
 <!-- DropdownMenuRadioItem.vue -->
 <script setup lang="ts">

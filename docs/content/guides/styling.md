@@ -4,8 +4,6 @@ title: Styling
 description: Radix Primitives are unstyled—and compatible with any styling solution—giving you complete control over styling.
 ---
 
-
-
 # Styling
 
 <Description>

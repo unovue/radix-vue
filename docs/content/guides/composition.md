@@ -4,8 +4,6 @@ title: Composition
 description: Use the `asChild` prop to compose Radix's functionality onto alternative element types or your own Vue components.
 ---
 
-
-
 # Composition
 
 <Description>

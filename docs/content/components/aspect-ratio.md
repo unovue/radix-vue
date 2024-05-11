@@ -47,5 +47,4 @@ import { AspectRatio } from 'radix-vue'
 
 Contains the content you want to constrain to a given ratio.
 
-
 <!-- @include: @/meta/AspectRatio.md -->

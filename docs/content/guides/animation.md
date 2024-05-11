@@ -3,8 +3,6 @@ title: Animation/Transition
 description: Animate Radix Primitives with CSS keyframes, native Vue Transition or JavaScript animation library of your choice.
 ---
 
-
-
 # Animation
 
 <Description>
@@ -88,23 +86,19 @@ import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPor
   opacity: 0;
 }
 </style>
-``` 
+```
 
 ::: tip
 Futhemore, we discovered that [Motion One](https://motion.dev/vue/quick-start), a Web Animations API based animation library works perfectly with Radix Vue.
 
-
 Check out this [Stackblitz Demo](https://stackblitz.com/edit/hfxgtx-n6jbjp?file=src%2FApp.vue) 🤩
 :::
 
-
 ## Delegating unmounting for JavaScript Animation
-
 
 When many stateful Primitives are hidden from view, they are actually removed from the DOM. JavaScript animation libraries need control of the unmounting phase, so we provide the `forceMount` prop on many components to allow consumers to delegate the mounting and unmounting of children based on the animation state determined by those libraries.
 
 For example, if you want to use [@vueuse/motion](https://motion.vueuse.org/) to animate a `Dialog`, you would do so by conditionally rendering the dialog `Overlay` and `Content` parts based on the animation state from one of its composable like `useSpring`:
-
 
 ```vue line=32,34,41
 <script setup lang="ts">
@@ -159,8 +153,8 @@ watch(open, () => {
     </DialogPortal>
   </DialogRoot>
 </template>
-``` 
+```
 
 ::: tip
-Check out this [Stackblitz Demo](https://stackblitz.com/edit/macsaz?file=src%2FApp.vue) 
+Check out this [Stackblitz Demo](https://stackblitz.com/edit/macsaz?file=src%2FApp.vue)
 :::

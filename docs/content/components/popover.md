@@ -14,7 +14,6 @@ Displays rich content in a portal, triggered by a button.
 
 <ComponentPreview name="Popover" />
 
-
 ## Features
 
 <Highlights
@@ -348,7 +347,7 @@ Adheres to the [Dialog WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/
     },
   ]"
 />
- 
+
 ## Custom APIs
 
 Create your own API by abstracting the primitive parts into your own component.
@@ -399,4 +398,4 @@ const forwarded = useForwardPropsEmits(props, emits)
     </PopoverContent>
   </PopoverPortal>
 </template>
-``` 
+```

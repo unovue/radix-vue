@@ -10,12 +10,12 @@ export type DialogContentImplEmits = DismissableLayerEmits & {
    * Event handler called when auto-focusing on open.
    * Can be prevented.
    */
-  'openAutoFocus': [event: Event]
+  openAutoFocus: [event: Event]
   /**
    * Event handler called when auto-focusing on close.
    * Can be prevented.
    */
-  'closeAutoFocus': [event: Event]
+  closeAutoFocus: [event: Event]
 }
 
 export interface DialogContentImplProps extends DismissableLayerProps {
@@ -54,7 +54,6 @@ onMounted(() => {
   rootContext.contentElement = contentElement
 })
 
-// eslint-disable-next-line n/prefer-global/process
 if (process.env.NODE_ENV !== 'production')
   useWarning()
 </script>

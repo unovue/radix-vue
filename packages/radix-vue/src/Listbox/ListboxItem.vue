@@ -7,7 +7,7 @@ export interface ListboxItemProps<T = AcceptableValue> extends PrimitiveProps {
   /** When `true`, prevents the user from interacting with the item. */
   disabled?: boolean
 }
-export type SelectEvent<T> = CustomEvent<{ originalEvent: PointerEvent; value?: T }>
+export type SelectEvent<T> = CustomEvent<{ originalEvent: PointerEvent, value?: T }>
 
 export type ListboxItemEmits<T = AcceptableValue> = {
   /** Event handler called when the selecting item. <br> It can be prevented by calling `event.preventDefault`. */

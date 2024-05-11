@@ -2,12 +2,12 @@
 import type { PrimitiveProps } from '@/Primitive'
 
 export type SliderImplEmits = {
-  'slideStart': [event: PointerEvent]
-  'slideMove': [event: PointerEvent]
-  'slideEnd': [event: PointerEvent]
-  'homeKeyDown': [event: KeyboardEvent]
-  'endKeyDown': [event: KeyboardEvent]
-  'stepKeyDown': [event: KeyboardEvent]
+  slideStart: [event: PointerEvent]
+  slideMove: [event: PointerEvent]
+  slideEnd: [event: PointerEvent]
+  homeKeyDown: [event: KeyboardEvent]
+  endKeyDown: [event: KeyboardEvent]
+  stepKeyDown: [event: KeyboardEvent]
 }
 
 export interface SliderImplProps extends PrimitiveProps {}

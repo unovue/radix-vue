@@ -6,9 +6,9 @@ import { useForwardExpose } from '@/shared'
 
 export type TooltipContentImplEmits = {
   /** Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault` */
-  'escapeKeyDown': [event: KeyboardEvent]
+  escapeKeyDown: [event: KeyboardEvent]
   /** Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling `event.preventDefault`. */
-  'pointerDownOutside': [event: Event]
+  pointerDownOutside: [event: Event]
 }
 
 export interface TooltipContentImplProps

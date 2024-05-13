@@ -94,7 +94,7 @@ defineSlots<{
     /** Whether the editable field is in edit mode */
     isEditing: boolean
     /** The value of the editable field */
-    value: string | undefined
+    modelValue: typeof modelValue.value
     /** Whether the editable field is empty */
     isEmpty: boolean
     /** Function to set the value of the editable */
@@ -196,7 +196,7 @@ provideEditableRootContext({
       :dir="dir"
     >
       <slot
-        :value="modelValue"
+        :model-value="modelValue"
         :is-editing="isEditing"
         :is-empty="isEmpty"
       />

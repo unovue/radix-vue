@@ -147,7 +147,7 @@
     'type': 'boolean'
   },
   {
-    'name': 'value',
+    'name': 'modelValue',
     'description': '<p>The value of the editable field</p>\n',
     'type': 'string | undefined'
   },

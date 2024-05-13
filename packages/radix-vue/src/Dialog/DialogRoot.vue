@@ -45,6 +45,13 @@ const props = withDefaults(defineProps<DialogRootProps>(), {
 })
 const emit = defineEmits<DialogRootEmits>()
 
+defineSlots<{
+  default(props: {
+    /** Current open state */
+    open: typeof open.value
+  }): any
+}>()
+
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: (props.open === undefined) as false,
@@ -75,5 +82,5 @@ provideDialogRootContext({
 </script>
 
 <template>
-  <slot />
+  <slot :open="open" />
 </template>

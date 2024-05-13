@@ -89,6 +89,13 @@ const props = withDefaults(defineProps<TooltipRootProps>(), {
 
 const emit = defineEmits<TooltipRootEmits>()
 
+defineSlots<{
+  default(props: {
+    /** Current open state */
+    open: typeof open.value
+  }): any
+}>()
+
 useForwardExpose()
 const providerContext = injectTooltipProviderContext()
 
@@ -176,6 +183,6 @@ provideTooltipRootContext({
 
 <template>
   <PopperRoot>
-    <slot />
+    <slot :open="open" />
   </PopperRoot>
 </template>

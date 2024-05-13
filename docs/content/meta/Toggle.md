@@ -42,3 +42,11 @@
     'type': '[value: boolean]'
   }
 ]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'pressed',
+    'description': '<p>Current pressed state</p>\n',
+    'type': 'boolean'
+  }
+]" />

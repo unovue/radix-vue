@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { ComputedRef, Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useForwardExpose } from '@/shared'
+import { createContext, isNullish, useForwardExpose } from '@/shared'
 
 export type ProgressRootEmits = {
   /** Event handler called when the progress value changes */
@@ -79,6 +79,13 @@ const props = withDefaults(defineProps<ProgressRootProps>(), {
 
 const emit = defineEmits<ProgressRootEmits>()
 
+defineSlots<{
+  default(props: {
+    /** Current input values */
+    modelValue: typeof modelValue.value
+  }): any
+}>()
+
 useForwardExpose()
 const modelValue = useVModel(props, 'modelValue', emit, {
   passive: (props.modelValue === undefined) as false,
@@ -113,7 +120,7 @@ watch(
 // ------- End of watch for correct values -------
 
 const progressState = computed<ProgressState>(() => {
-  if (!modelValue.value)
+  if (isNullish(modelValue.value))
     return 'indeterminate'
   if (modelValue.value === max.value)
     return 'complete'
@@ -141,6 +148,6 @@ provideProgressRootContext({
     :data-value="modelValue ?? undefined"
     :data-max="max"
   >
-    <slot />
+    <slot :model-value="modelValue" />
   </Primitive>
 </template>

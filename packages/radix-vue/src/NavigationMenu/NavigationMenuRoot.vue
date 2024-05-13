@@ -93,6 +93,13 @@ const props = withDefaults(defineProps<NavigationMenuRootProps>(), {
 })
 const emits = defineEmits<NavigationMenuRootEmits>()
 
+defineSlots<{
+  default(props: {
+    /** Current input values */
+    modelValue: typeof modelValue.value
+  }): any
+}>()
+
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue ?? '',
   passive: (props.modelValue === undefined) as false,
@@ -175,6 +182,6 @@ provideNavigationMenuContext({
     :data-orientation="orientation"
     :dir="dir"
   >
-    <slot />
+    <slot :model-value="modelValue" />
   </Primitive>
 </template>

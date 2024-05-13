@@ -125,6 +125,7 @@ export default defineConfig({
           { text: `Date Range Picker ${BadgeHTML('Alpha')}`, link: '/components/date-range-picker' },
           { text: 'Dialog', link: '/components/dialog' },
           { text: 'Dropdown Menu', link: '/components/dropdown-menu' },
+          { text: `Editable ${BadgeHTML('Alpha')}`, link: '/components/editable' },
           { text: 'Hover Card', link: '/components/hover-card' },
           { text: 'Label', link: '/components/label' },
           { text: `Listbox ${BadgeHTML('Alpha')}`, link: '/components/listbox' },

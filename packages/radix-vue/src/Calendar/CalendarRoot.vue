@@ -83,14 +83,14 @@ interface BaseCalendarRootProps extends PrimitiveProps {
   dir?: Direction
 }
 
-interface MultipleCalendarRootProps extends BaseCalendarRootProps {
+export interface MultipleCalendarRootProps extends BaseCalendarRootProps {
   /** The controlled checked state of the calendar. Can be bound as `v-model`. */
   modelValue?: DateValue[] | undefined
   /** Whether or not multiple dates can be selected */
   multiple: true
 }
 
-interface SingleCalendarRootProps extends BaseCalendarRootProps {
+export interface SingleCalendarRootProps extends BaseCalendarRootProps {
   /** The controlled checked state of the calendar. Can be bound as `v-model`. */
   modelValue?: DateValue | undefined
   /** Whether or not multiple dates can be selected */

@@ -4,22 +4,24 @@ import './styles.css'
 </script>
 
 <template>
-  <EditableRoot v-slot="{ isEditing }" placeholder="Enter text..." class="EditableRoot">
-    <EditableArea class="EditableArea">
-      <EditablePreview />
-      <EditableInput />
-    </EditableArea>
-    <EditableEditTrigger
-      v-if="!isEditing"
-      class="EditableTrigger"
-    />
-    <div v-else class="EditableWrapper">
-      <EditableSubmitTrigger
-        class="EditableSubmitTrigger"
-      />
-      <EditableCancelTrigger
+  <div style="width: 250px;">
+    <EditableRoot v-slot="{ isEditing }" placeholder="Enter text..." class="EditableRoot" default-value="Click to edit 'Radix Vue'" auto-resize>
+      <EditableArea class="EditableArea">
+        <EditablePreview />
+        <EditableInput />
+      </EditableArea>
+      <EditableEditTrigger
+        v-if="!isEditing"
         class="EditableTrigger"
       />
-    </div>
-  </EditableRoot>
+      <div v-else class="EditableWrapper">
+        <EditableSubmitTrigger
+          class="EditableSubmitTrigger"
+        />
+        <EditableCancelTrigger
+          class="EditableTrigger"
+        />
+      </div>
+    </EditableRoot>
+  </div>
 </template>

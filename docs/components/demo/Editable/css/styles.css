@@ -6,6 +6,7 @@
 
 .EditableArea {
   color: var(--white);
+  width: 250px;
 }
 
 .EditableWrapper {

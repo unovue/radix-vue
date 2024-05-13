@@ -49,6 +49,14 @@
   }
 ]" />
 
+<SlotsTable :data="[
+  {
+    'name': 'modelValue',
+    'description': '<p>Current input values</p>\n',
+    'type': 'number | null | undefined'
+  }
+]" />
+
 <MethodsTable :data="[
   {
     'name': 'getValueLabel',

@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { MenuSubEmits, MenuSubProps } from '@/Menu'
+import type { Ref } from 'vue'
 
 export type DropdownMenuSubEmits = MenuSubEmits
 export interface DropdownMenuSubProps extends MenuSubProps {
@@ -28,7 +29,7 @@ defineSlots<{
 const open = useVModel(props, 'open', emit, {
   passive: (props.open === undefined) as false,
   defaultValue: props.defaultOpen ?? false,
-})
+}) as Ref<boolean>
 
 useForwardExpose()
 </script>

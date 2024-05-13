@@ -26,7 +26,7 @@ export interface ToggleProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { type Ref, computed } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { Primitive } from '@/Primitive'
 
@@ -49,7 +49,7 @@ useForwardExpose()
 const pressed = useVModel(props, 'pressed', emits, {
   defaultValue: props.defaultValue,
   passive: (props.pressed === undefined) as false,
-})
+}) as Ref<boolean>
 
 function togglePressed() {
   pressed.value = !pressed.value

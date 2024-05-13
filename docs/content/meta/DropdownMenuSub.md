@@ -27,6 +27,6 @@
   {
     'name': 'open',
     'description': '<p>Current open state</p>\n',
-    'type': 'boolean | undefined'
+    'type': 'boolean'
   }
 ]" />

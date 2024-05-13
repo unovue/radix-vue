@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { MenuSubEmits, MenuSubProps } from '@/Menu'
+import type { Ref } from 'vue'
 
 export type ContextMenuSubEmits = MenuSubEmits
 export interface ContextMenuSubProps extends MenuSubProps {
@@ -30,7 +31,7 @@ useForwardExpose()
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: (props.open === undefined) as false,
-})
+}) as Ref<boolean>
 </script>
 
 <template>

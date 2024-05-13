@@ -47,6 +47,6 @@
   {
     'name': 'pressed',
     'description': '<p>Current pressed state</p>\n',
-    'type': 'boolean | undefined'
+    'type': 'boolean'
   }
 ]" />

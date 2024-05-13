@@ -18,6 +18,13 @@ const props = withDefaults(defineProps<ContextMenuSubProps>(), {
 })
 const emit = defineEmits<ContextMenuSubEmits>()
 
+defineSlots<{
+  default(props: {
+    /** Current open state */
+    open: typeof open.value
+  }): any
+}>()
+
 useForwardExpose()
 
 const open = useVModel(props, 'open', emit, {
@@ -28,6 +35,6 @@ const open = useVModel(props, 'open', emit, {
 
 <template>
   <MenuSub v-model:open="open">
-    <slot />
+    <slot :open="open" />
   </MenuSub>
 </template>

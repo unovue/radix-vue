@@ -38,6 +38,13 @@ const props = withDefaults(defineProps<ToggleProps>(), {
 
 const emits = defineEmits<ToggleEmits>()
 
+defineSlots<{
+  default(props: {
+    /** Current pressed state */
+    pressed: typeof pressed.value
+  }): any
+}>()
+
 useForwardExpose()
 const pressed = useVModel(props, 'pressed', emits, {
   defaultValue: props.defaultValue,
@@ -64,6 +71,6 @@ const dataState = computed<DataState>(() => {
     :disabled="disabled"
     @click="togglePressed"
   >
-    <slot />
+    <slot :pressed="pressed" />
   </Primitive>
 </template>

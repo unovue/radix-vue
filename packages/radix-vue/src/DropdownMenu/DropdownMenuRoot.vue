@@ -36,6 +36,13 @@ const props = withDefaults(defineProps<DropdownMenuRootProps>(), {
 })
 const emit = defineEmits<DropdownMenuRootEmits>()
 
+defineSlots<{
+  default(props: {
+    /** Current open state */
+    open: typeof open.value
+  }): any
+}>()
+
 useForwardExpose()
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
@@ -64,6 +71,6 @@ provideDropdownMenuRootContext({
 
 <template>
   <MenuRoot v-model:open="open" :dir="dir" :modal="modal">
-    <slot />
+    <slot :open="open" />
   </MenuRoot>
 </template>

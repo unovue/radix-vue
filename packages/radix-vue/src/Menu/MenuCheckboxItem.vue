@@ -26,6 +26,14 @@ const props = withDefaults(defineProps<MenuCheckboxItemProps>(), {
   checked: false,
 })
 const emits = defineEmits<MenuCheckboxItemEmits>()
+
+defineSlots<{
+  default(props: {
+    /** Current checked state */
+    checked: typeof checked.value
+  }): any
+}>()
+
 const checked = useVModel(props, 'checked', emits)
 
 provideMenuItemIndicatorContext({ checked })
@@ -49,6 +57,6 @@ provideMenuItemIndicatorContext({ checked })
       }
     "
   >
-    <slot />
+    <slot :checked="checked" />
   </MenuItem>
 </template>

@@ -18,6 +18,13 @@ const props = withDefaults(defineProps<MenubarSubProps>(), {
 })
 const emit = defineEmits<MenubarSubEmits>()
 
+defineSlots<{
+  default(props: {
+    /** Current open state */
+    open: typeof open.value
+  }): any
+}>()
+
 useForwardExpose()
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen ?? false,
@@ -27,6 +34,6 @@ const open = useVModel(props, 'open', emit, {
 
 <template>
   <MenuSub v-model:open="open">
-    <slot />
+    <slot :open="open" />
   </MenuSub>
 </template>

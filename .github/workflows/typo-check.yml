@@ -1,15 +1,12 @@
 name: Typo check
 
-on: push
-# push:
-#   branches:
-#     - main
-#   paths:
-#     - 'packages/**'
-#
-# pull_request:
-#   paths:
-#     - 'packages/**'
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    types: [opened]
 
 jobs:
   run:

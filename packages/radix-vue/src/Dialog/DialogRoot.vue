@@ -10,6 +10,8 @@ export interface DialogRootProps {
   /** The modality of the dialog When set to `true`, <br>
    * interaction with outside elements will be disabled and only dialog content will be visible to screen readers. */
   modal?: boolean
+  /** The element that triggers the dialog. */
+  triggerElement?: string | HTMLElement
 }
 
 export type DialogRootEmits = {
@@ -35,7 +37,7 @@ export const [injectDialogRootContext, provideDialogRootContext]
 </script>
 
 <script setup lang="ts">
-import { ref, toRefs } from 'vue'
+import { onMounted, ref, toRefs, watch } from 'vue'
 import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<DialogRootProps>(), {
@@ -53,6 +55,16 @@ const open = useVModel(props, 'open', emit, {
 const triggerElement = ref<HTMLElement>()
 const contentElement = ref<HTMLElement>()
 const { modal } = toRefs(props)
+
+onMounted(() => {
+  watch(() => props.triggerElement, (el) => {
+    if (!el)
+      return
+    triggerElement.value = typeof el === 'string' ? document.querySelector(el) : el
+  }, {
+    immediate: true,
+  })
+})
 
 provideDialogRootContext({
   open,

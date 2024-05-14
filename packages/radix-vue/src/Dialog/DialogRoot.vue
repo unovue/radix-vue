@@ -57,10 +57,11 @@ const contentElement = ref<HTMLElement>()
 const { modal } = toRefs(props)
 
 onMounted(() => {
-  watch(() => props.triggerElement, (el) => {
-    if (!el)
-      return
-    triggerElement.value = typeof el === 'string' ? document.querySelector(el) : el
+  watch(() => props.triggerElement, (value) => {
+    const el = typeof value === 'string' ? document.querySelector<HTMLElement>(value) : value
+
+    if (el)
+      triggerElement.value = el
   }, {
     immediate: true,
   })

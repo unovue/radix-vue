@@ -1,7 +1,7 @@
 ---
 layout: home
 
-titleTemplate: Unstyled, accessible components for building high‑quality design systems and web apps in Vue
+titleTemplate: Unstyledd, accessible components for building high‑quality design systems and web apps in Vue
 
 hero:
   name: Radix Vue

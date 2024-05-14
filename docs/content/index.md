@@ -31,7 +31,7 @@ features:
     details: Building on top Radix components will save you time and money, so you can ship a better product faster.
   - icon: ⌨️
     title: Accessibility out of the box.
-    details: WAI-ARIA compliant. Suport Keyboard navigation & Focus management.
+    details: WAI-ARIA compliant. Support Keyboard navigation & Focus management.
   - icon: 🧑🏻‍💻
     title: Developer Experience First.
     details: Unstyled, easily customizable and great for building design system and web apps.

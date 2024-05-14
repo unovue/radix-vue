@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { ComputedRef, Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useForwardExpose } from '@/shared'
+import { createContext, isNullish, useForwardExpose } from '@/shared'
 
 export type ProgressRootEmits = {
   /** Event handler called when the progress value changes */
@@ -115,7 +115,7 @@ watch(
 // ------- End of watch for correct values -------
 
 const progressState = computed<ProgressState>(() => {
-  if (!modelValue.value)
+  if (isNullish(modelValue.value))
     return 'indeterminate'
   if (modelValue.value === max.value)
     return 'complete'

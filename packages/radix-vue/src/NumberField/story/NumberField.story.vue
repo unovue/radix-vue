@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NumberFieldDecrement, NumberFieldIncrement, NumberFieldInput, NumberFieldRoot } from '../'
+import { NumberFieldDecrement, NumberFieldIncrement, NumberFieldInput, NumberFieldLabel, NumberFieldRoot } from '../'
 import { Icon } from '@iconify/vue'
 </script>
 
@@ -7,10 +7,12 @@ import { Icon } from '@iconify/vue'
   <Story title="NumberField/Basic" :layout="{ type: 'single', iframe: true }">
     <Variant title="default">
       <NumberFieldRoot
+        disabled
         class="text-sm flex items-center border bg-blackA7 border-blackA9 rounded-md text-white"
         :min="0"
         :default-value="5"
       >
+        <NumberFieldLabel>Number</NumberFieldLabel>
         <NumberFieldDecrement class="p-2">
           <Icon icon="radix-icons:minus" />
         </NumberFieldDecrement>

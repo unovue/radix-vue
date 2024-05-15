@@ -89,6 +89,8 @@ const isIncreaseDisabled = computed(() => (
 )
 
 function handleChangingValue(type: 'increase' | 'decrease', multiplier = 1) {
+  if (props.disabled)
+    return
   if (isNaN(modelValue.value)) {
     modelValue.value = min.value ?? 0
   }
@@ -203,7 +205,7 @@ provideNumberFieldRootContext({
 
   <input
     v-if="isFormControl"
-    type="checkbox"
+    type="text"
     tabindex="-1"
     aria-hidden
     :value="modelValue"

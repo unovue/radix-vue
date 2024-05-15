@@ -19,13 +19,13 @@
     "docs:contributors": "pnpm --filter docs docs:contributors",
     "prepare": "pnpm simple-git-hooks",
     "test": "pnpm --filter radix-vue test",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --cache --fix",
     "bumpp": "bumpp package.json packages/*/package.json docs/package.json",
     "pub:release": "cd packages/radix-vue && pnpm pub:release"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.17.0",
+    "@antfu/eslint-config": "^2.18.0",
     "@commitlint/cli": "^17.8.0",
     "@commitlint/config-conventional": "^17.8.0",
     "bumpp": "^9.2.0",
@@ -33,7 +33,8 @@
     "lint-staged": "^14.0.1",
     "pnpm": "^8.15.4",
     "rimraf": "^5.0.5",
-    "simple-git-hooks": "^2.9.0"
+    "simple-git-hooks": "^2.9.0",
+    "typescript": "^5.3.3"
   },
   "commitlint": {
     "extends": [

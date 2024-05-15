@@ -7,19 +7,21 @@ import { Icon } from '@iconify/vue'
   <Story title="NumberField/Basic" :layout="{ type: 'single', iframe: true }">
     <Variant title="default">
       <NumberFieldRoot
-        disabled
-        class="text-sm flex items-center border bg-blackA7 border-blackA9 rounded-md text-white"
+        class="text-sm  text-white"
         :min="0"
-        :default-value="5"
+        :default-value="18"
       >
-        <NumberFieldLabel>Number</NumberFieldLabel>
-        <NumberFieldDecrement class="p-2">
-          <Icon icon="radix-icons:minus" />
-        </NumberFieldDecrement>
-        <NumberFieldInput class="bg-transparent w-32 tabular-nums focus:outline-0 p-1" />
-        <NumberFieldIncrement class="p-2">
-          <Icon icon="radix-icons:plus" />
-        </NumberFieldIncrement>
+        <NumberFieldLabel>Age</NumberFieldLabel>
+
+        <div class="mt-1 flex items-center border bg-blackA7 border-blackA9 rounded-md">
+          <NumberFieldDecrement class="p-2 disabled:opacity-20">
+            <Icon icon="radix-icons:minus" />
+          </NumberFieldDecrement>
+          <NumberFieldInput class="bg-transparent w-20 tabular-nums focus:outline-0 p-1" />
+          <NumberFieldIncrement class="p-2 disabled:opacity-20">
+            <Icon icon="radix-icons:plus" />
+          </NumberFieldIncrement>
+        </div>
       </NumberFieldRoot>
     </Variant>
   </Story>

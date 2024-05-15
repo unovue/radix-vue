@@ -19,9 +19,9 @@ export interface NumberFieldRootProps extends PrimitiveProps {
   locale?: string
   /** When `true`, prevents the user from interacting with the Number Field. */
   disabled?: boolean
-  /** When `true`, indicates that the user must check the checkbox before the owning form can be submitted. */
+  /** When `true`, indicates that the user must set the value before the owning form can be submitted. */
   required?: boolean
-  /** The name of the checkbox. Submitted with its owning form as part of a name/value pair. */
+  /** The name of the number field. Submitted with its owning form as part of a name/value pair. */
   name?: string
   /** Id of the element */
   id?: string
@@ -44,6 +44,7 @@ interface NumberFieldRootContext {
   applyInputValue: (val: string) => void
   disabled: Ref<boolean>
   labelId: string
+  inputId: string
   max: Ref<number | undefined>
   min: Ref<number | undefined>
   isDecreaseDisabled: Ref<boolean>
@@ -75,7 +76,9 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 }) as Ref<number>
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
-const labelId = useId('number-field-label')
+
+const labelId = useId(undefined, 'number-field-label')
+const inputId = useId(undefined, 'number-field-input')
 const isFormControl = useFormControl(currentElement)
 const inputEl = ref<HTMLInputElement>()
 
@@ -178,6 +181,7 @@ provideNumberFieldRootContext({
   handleIncrease,
   handleMinMaxValue,
   labelId,
+  inputId,
   inputMode,
   inputEl,
   onInputElement: el => inputEl.value = el,

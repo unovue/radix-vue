@@ -44,6 +44,7 @@ onMounted(() => {
 <template>
   <Primitive
     v-bind="props"
+    :id="rootContext.inputId"
     ref="primitiveElement"
     role="spinbutton"
     type="text"

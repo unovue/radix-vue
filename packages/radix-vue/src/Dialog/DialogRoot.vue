@@ -10,8 +10,6 @@ export interface DialogRootProps {
   /** The modality of the dialog When set to `true`, <br>
    * interaction with outside elements will be disabled and only dialog content will be visible to screen readers. */
   modal?: boolean
-  /** The element that triggers the dialog. */
-  triggerElement?: string | HTMLElement
 }
 
 export type DialogRootEmits = {

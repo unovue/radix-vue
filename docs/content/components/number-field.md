@@ -21,6 +21,9 @@ A number field allows a user to enter a number, and increment or decrement the v
   :features="[
     'Full keyboard navigation.',
     'Can be controlled or uncontrolled.',
+    'Support button hold and wheel event.',
+    'Support numbering systems in different locale.',
+    'Customizable formatting.'
   ]"
 />
 
@@ -134,6 +137,70 @@ The button that decrease the value.
   ]"
 />
  
+
+## Example
+
+
+### Decimal
+
+All options supported by [Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) are supported, including configuration of minimum and maximum fraction digits, sign display, grouping separators, etc.
+ 
+
+```vue line=3-7
+<template>
+  <NumberFieldRoot
+    :default-value="5"
+    :format-options="{
+      signDisplay: 'exceptZero',
+      minimumFractionDigits: 1,
+    }"
+  >
+    …
+  </NumberFieldRoot>
+</template>
+```
+
+### Percentage
+
+You can set `formatOptions.style` to `percent` to treat the value as percentage. You need to set the `step` to `0.01` manually to allow appriopriate step size in this mode.
+ 
+
+```vue line=3-7
+<template>
+  <NumberFieldRoot
+    :default-value="0.05"
+    :step="0.01"
+    :format-options="{
+      style: 'percent',
+    }"
+  >
+    …
+  </NumberFieldRoot>
+</template>
+```
+
+### Currency
+
+You can set `formatOptions.style` to `currency` to treat the value as currency value.  The `currency` option must also be passed to set the currency code (e.g. USD).
+ 
+If you need to allow the user to change the currency, you should include a separate dropdown next to the number field. The number field itself will not determine the currency from the user input.
+
+```vue line=4-9
+<template>
+  <NumberFieldRoot
+    :default-value="5"
+    :format-options="{
+      style: 'currency',
+      currency: 'EUR',
+      currencyDisplay: 'code',
+      currencySign: 'accounting',
+    }"
+  >
+    …
+  </NumberFieldRoot>
+</template>
+```
+
 
 
 ## Accessibility

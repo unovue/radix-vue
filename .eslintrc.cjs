@@ -15,6 +15,7 @@ module.exports = {
     'no-console': 'warn',
     'max-statements-per-line': ['error', { max: 2 }],
     'vue/one-component-per-file': 'off',
+    'unicorn/prefer-number-properties': 'off',
   },
 
   overrides: [

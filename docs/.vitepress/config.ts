@@ -131,6 +131,7 @@ export default defineConfig({
           { text: `Listbox ${BadgeHTML('Alpha')}`, link: '/components/listbox' },
           { text: 'Menubar', link: '/components/menubar' },
           { text: 'Navigation Menu', link: '/components/navigation-menu' },
+          { text: `Number Field ${BadgeHTML('Alpha')}`, link: '/components/number-field' },
           { text: 'Pagination', link: '/components/pagination' },
           { text: 'Pin Input', link: '/components/pin-input' },
           { text: 'Popover', link: '/components/popover' },

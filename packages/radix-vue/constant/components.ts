@@ -246,6 +246,14 @@ export const components = {
     'NavigationMenuViewport',
   ],
 
+  numberField: [
+    'NumberFieldRoot',
+    'NumberFieldLabel',
+    'NumberFieldInput',
+    'NumberFieldIncrement',
+    'NumberFieldDecrement',
+  ],
+
   pagination: [
     'PaginationRoot',
     'PaginationEllipsis',

@@ -145,6 +145,29 @@ describe('NumberField', () => {
       })
       expect(input.value).toBe('5 inches')
     })
+
+    it('should change format based on reactive options', async () => {
+      const { input, rerender } = setup({
+        defaultValue: 5,
+        formatOptions: {
+          style: 'currency',
+          currency: 'EUR',
+          currencyDisplay: 'code',
+          currencySign: 'accounting',
+        },
+      })
+      expect(input.value).toBe('EUR 5.00')
+      await rerender({
+        defaultValue: 5,
+        formatOptions: {
+          style: 'currency',
+          currency: 'USD',
+          currencyDisplay: 'code',
+          currencySign: 'accounting',
+        },
+      })
+      expect(input.value).toBe('USD 5.00')
+    })
   })
 
   describe('given min/max with step condition', () => {

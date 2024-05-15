@@ -65,10 +65,11 @@ defineOptions({
 const props = withDefaults(defineProps<NumberFieldRootProps>(), {
   as: 'div',
   defaultValue: undefined,
+  locale: 'en-US',
   step: 1,
 })
 const emits = defineEmits<NumberFieldRootEmits>()
-const { disabled, min, max, step } = toRefs(props)
+const { disabled, min, max, step, locale, formatOptions } = toRefs(props)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
@@ -120,8 +121,8 @@ function handleMinMaxValue(type: 'min' | 'max') {
 }
 
 // Formatter
-const numberFormatter = useNumberFormatter(props.locale, props.formatOptions)
-const numberParser = useNumberParser(props.locale, props.formatOptions)
+const numberFormatter = useNumberFormatter(locale, formatOptions)
+const numberParser = useNumberParser(locale, formatOptions)
 
 const inputMode = computed<HTMLAttributes['inputmode']>(() => {
   // The inputMode attribute influences the software keyboard that is shown on touch devices.
@@ -134,7 +135,7 @@ const inputMode = computed<HTMLAttributes['inputmode']>(() => {
 })
 // Replace negative textValue formatted using currencySign: 'accounting'
 // with a textValue that can be announced using a minus sign.
-const textValueFormatter = useNumberFormatter(props.locale, props.formatOptions)
+const textValueFormatter = useNumberFormatter(locale, formatOptions)
 const textValue = computed(() => isNaN(modelValue.value) ? '' : textValueFormatter.format(modelValue.value))
 
 function validate(val: string) {

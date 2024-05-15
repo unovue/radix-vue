@@ -1,6 +1,6 @@
 import { NumberFormatter, NumberParser } from '@internationalized/number'
-import { createEventHook } from '@vueuse/shared'
-import { type MaybeRef, ref, unref } from 'vue'
+import { createEventHook, reactiveComputed } from '@vueuse/shared'
+import { type Ref, ref } from 'vue'
 
 export function usePressedHold() {
   const timeout = ref<number>()
@@ -33,12 +33,12 @@ export function usePressedHold() {
   }
 }
 
-export function useNumberFormatter(locale: string = 'en-US', options: MaybeRef<Intl.NumberFormatOptions> = {}) {
-  return new NumberFormatter(locale, unref(options))
+export function useNumberFormatter(locale: Ref<string>, options: Ref<Intl.NumberFormatOptions | undefined> = ref({})) {
+  return reactiveComputed(() => new NumberFormatter(locale.value, options.value))
 }
 
-export function useNumberParser(locale: string = 'en-US', options: MaybeRef<Intl.NumberFormatOptions> = {}) {
-  return new NumberParser(locale, unref(options))
+export function useNumberParser(locale: Ref<string>, options: Ref<Intl.NumberFormatOptions | undefined> = ref({})) {
+  return reactiveComputed(() => new NumberParser(locale.value, options.value))
 }
 
 export function handleDecimalOperation(operator: '-' | '+', value1: number, value2: number): number {

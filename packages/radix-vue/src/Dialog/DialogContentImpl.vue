@@ -15,7 +15,7 @@ export type DialogContentImplEmits = DismissableLayerEmits & {
    * Event handler called when auto-focusing on close.
    * Can be prevented.
    */
-  'closeAutoFocus': [ event: Event]
+  'closeAutoFocus': [event: Event]
 }
 
 export interface DialogContentImplProps extends DismissableLayerProps {

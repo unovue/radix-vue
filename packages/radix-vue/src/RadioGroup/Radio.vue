@@ -30,6 +30,14 @@ const props = withDefaults(defineProps<RadioProps>(), {
   as: 'button',
 })
 const emits = defineEmits<RadioEmits>()
+
+defineSlots<{
+  default(props: {
+    /** Current checked state */
+    checked: typeof checked.value
+  }): any
+}>()
+
 const checked = useVModel(props, 'checked', emits, {
   passive: (props.checked === undefined) as false,
 })
@@ -71,7 +79,7 @@ function handleClick(event: MouseEvent) {
     :name="name"
     @click.stop="handleClick"
   >
-    <slot />
+    <slot :checked="checked" />
 
     <input
       v-if="isFormControl"

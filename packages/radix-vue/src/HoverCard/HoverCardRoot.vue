@@ -46,6 +46,13 @@ const props = withDefaults(defineProps<HoverCardRootProps>(), {
 })
 const emit = defineEmits<HoverCardRootEmits>()
 
+defineSlots<{
+  default(props: {
+    /** Current open state */
+    open: typeof open.value
+  }): any
+}>()
+
 const { openDelay, closeDelay } = toRefs(props)
 
 useForwardExpose()
@@ -93,6 +100,6 @@ provideHoverCardRootContext({
 
 <template>
   <PopperRoot>
-    <slot />
+    <slot :open="open" />
   </PopperRoot>
 </template>

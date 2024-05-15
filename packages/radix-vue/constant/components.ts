@@ -181,6 +181,15 @@ export const components = {
     'DropdownMenuSubContent',
     'DropdownMenuSubTrigger',
   ],
+  editable: [
+    'EditableRoot',
+    'EditableArea',
+    'EditableInput',
+    'EditablePreview',
+    'EditableSubmitTrigger',
+    'EditableCancelTrigger',
+    'EditableEditTrigger',
+  ],
 
   hoverCard: [
     'HoverCardRoot',

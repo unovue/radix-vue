@@ -93,6 +93,11 @@
 
 <SlotsTable :data="[
   {
+    'name': 'open',
+    'description': '<p>Current open state</p>\n',
+    'type': 'boolean'
+  },
+  {
     'name': 'remaining',
     'description': '<p>Remaining time (in ms)</p>\n',
     'type': 'number'

@@ -271,9 +271,6 @@ importers:
       jsdom:
         specifier: ^23.2.0
         version: 23.2.0
-      typescript:
-        specifier: ^5.3.3
-        version: 5.3.3
       vite:
         specifier: ^4.5.3
         version: 4.5.3(@types/node@18.19.21)

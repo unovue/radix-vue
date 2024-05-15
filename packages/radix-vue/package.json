@@ -33,42 +33,42 @@
     },
     "./date": {
       "require": {
-        "default": "./dist/date.umd.cjs",
-        "types": "./dist/date/index.d.ts"
+        "types": "./dist/date/index.d.ts",
+        "default": "./dist/date.umd.cjs"
       },
       "import": {
-        "default": "./dist/date.js",
-        "types": "./dist/date/index.d.ts"
+        "types": "./dist/date/index.d.ts",
+        "default": "./dist/date.js"
       }
     },
     "./namespaced": {
       "require": {
-        "default": "./dist/namespaced/index.cjs",
-        "types": "./dist/namespaced/index.d.cts"
+        "types": "./dist/namespaced/index.d.cts",
+        "default": "./dist/namespaced/index.cjs"
       },
       "import": {
-        "default": "./dist/namespaced/index.mjs",
-        "types": "./dist/namespaced/index.d.mts"
+        "types": "./dist/namespaced/index.d.mts",
+        "default": "./dist/namespaced/index.mjs"
       }
     },
     "./nuxt": {
       "require": {
-        "default": "./dist/nuxt/index.cjs",
-        "types": "./dist/nuxt/index.d.cts"
+        "types": "./dist/nuxt/index.d.cts",
+        "default": "./dist/nuxt/index.cjs"
       },
       "import": {
-        "default": "./dist/nuxt/index.mjs",
-        "types": "./dist/nuxt/index.d.mts"
+        "types": "./dist/nuxt/index.d.mts",
+        "default": "./dist/nuxt/index.mjs"
       }
     },
     "./resolver": {
       "require": {
-        "default": "./dist/resolver/index.cjs",
-        "types": "./dist/resolver/index.d.cts"
+        "types": "./dist/resolver/index.d.cts",
+        "default": "./dist/resolver/index.cjs"
       },
       "import": {
-        "default": "./dist/resolver/index.mjs",
-        "types": "./dist/resolver/index.d.mts"
+        "types": "./dist/resolver/index.d.mts",
+        "default": "./dist/resolver/index.mjs"
       }
     }
   },

@@ -29,6 +29,11 @@ A number field allows a user to enter a number, and increment or decrement the v
 
 ## Installation
 
+
+Install the number package.
+ 
+<InstallationTabs value="@internationalized/number" />
+
 Install the component from your command line.
 
 <InstallationTabs value="radix-vue" />

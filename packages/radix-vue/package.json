@@ -32,43 +32,43 @@
       "require": "./dist/index.umd.cjs"
     },
     "./date": {
-      "import": {
-        "types": "./dist/date/index.d.ts",
-        "default": "./dist/date.js"
-      },
       "require": {
         "types": "./dist/date/index.d.ts",
         "default": "./dist/date.umd.cjs"
+      },
+      "import": {
+        "types": "./dist/date/index.d.ts",
+        "default": "./dist/date.js"
       }
     },
     "./namespaced": {
-      "import": {
-        "types": "./dist/namespaced/index.d.mts",
-        "default": "./dist/namespaced/index.mjs"
-      },
       "require": {
         "types": "./dist/namespaced/index.d.cts",
         "default": "./dist/namespaced/index.cjs"
+      },
+      "import": {
+        "types": "./dist/namespaced/index.d.mts",
+        "default": "./dist/namespaced/index.mjs"
       }
     },
     "./nuxt": {
-      "import": {
-        "types": "./dist/nuxt/index.d.mts",
-        "default": "./dist/nuxt/index.mjs"
-      },
       "require": {
         "types": "./dist/nuxt/index.d.cts",
         "default": "./dist/nuxt/index.cjs"
+      },
+      "import": {
+        "types": "./dist/nuxt/index.d.mts",
+        "default": "./dist/nuxt/index.mjs"
       }
     },
     "./resolver": {
-      "import": {
-        "types": "./dist/resolver/index.d.mts",
-        "default": "./dist/resolver/index.mjs"
-      },
       "require": {
         "types": "./dist/resolver/index.d.cts",
         "default": "./dist/resolver/index.cjs"
+      },
+      "import": {
+        "types": "./dist/resolver/index.d.mts",
+        "default": "./dist/resolver/index.mjs"
       }
     }
   },

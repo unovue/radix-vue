@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<DialogTriggerProps>(), {
   as: 'button',
 })
 const rootContext = injectDialogRootContext()
-const { forwardRef, currentElement } = useForwardExpose()
+const { forwardRef } = useForwardExpose()
 
 rootContext.contentId ||= useId(undefined, 'radix-vue-dialog-content')
 </script>

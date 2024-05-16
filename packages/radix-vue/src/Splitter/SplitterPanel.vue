@@ -21,11 +21,11 @@ export interface SplitterPanelProps extends PrimitiveProps {
 
 export type SplitterPanelEmits = {
   /** Event handler called when panel is collapsed. */
-  'collapse': []
+  collapse: []
   /** Event handler called when panel is expanded. */
-  'expand': []
+  expand: []
   /** Event handler called when panel is resized; size parameter is a numeric value between 1-100.  */
-  'resize': [size: number, prevSize: number | undefined]
+  resize: [size: number, prevSize: number | undefined]
 }
 
 export type PanelOnCollapse = () => void
@@ -68,12 +68,12 @@ const props = defineProps<SplitterPanelProps>()
 const emits = defineEmits<SplitterPanelEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Is the panel collapsed */
     isCollapsed: typeof isCollapsed.value
     /** Is the panel expanded */
     isExpanded: typeof isExpanded.value
-  }): any
+  }) => any
 }>()
 
 const panelGroupContext = injectPanelGroupContext()
@@ -111,9 +111,9 @@ watch(() => panelDataRef.value.constraints, (prevConstraints, constraints) => {
   // This is uncommon but may happen if people are trying to implement pixel based constraints.
   if (
     prevConstraints.collapsedSize !== constraints.collapsedSize
-      || prevConstraints.collapsible !== constraints.collapsible
-      || prevConstraints.maxSize !== constraints.maxSize
-      || prevConstraints.minSize !== constraints.minSize
+    || prevConstraints.collapsible !== constraints.collapsible
+    || prevConstraints.maxSize !== constraints.maxSize
+    || prevConstraints.minSize !== constraints.minSize
   )
     reevaluatePanelConstraints(panelDataRef.value, prevConstraints)
 }, { deep: true })

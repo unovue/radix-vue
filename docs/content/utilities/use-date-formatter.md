@@ -11,7 +11,6 @@ Creates a wrapper around the `DateFormatter`, which is an improved version of th
 
 More information on the DateFormatter [here](https://react-spectrum.adobe.com/internationalized/date/DateFormatter.html).
 
-
 ## Usage
 
 ```vue

@@ -7,7 +7,7 @@ import { type Formatter, createContext, useDirection } from '@/shared'
 
 import { useCalendar, useCalendarState } from './useCalendar'
 import { type CalendarIncrement, getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
-import { type Grid, type Matcher, type WeekDayFormat } from '@/date'
+import type { Grid, Matcher, WeekDayFormat } from '@/date'
 import type { Direction } from '@/shared/types'
 
 type CalendarRootContext = {
@@ -135,7 +135,7 @@ const props = withDefaults(defineProps<CalendarRootProps>(), {
 })
 const emits = defineEmits<CalendarRootEmits>()
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** The current date of the placeholder */
     date: DateValue
     /** The grid of dates */
@@ -148,7 +148,7 @@ defineSlots<{
     locale: string
     /** Whether or not to always display 6 weeks in the calendar */
     fixedWeeks: boolean
-  }): any
+  }) => any
 }>()
 
 const {

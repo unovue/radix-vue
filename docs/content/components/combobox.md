@@ -2,10 +2,9 @@
 
 title: Combobox
 description: Choose from a list of suggested values with full keyboard support.
-name: combobox 
+name: combobox
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/listbox
 ---
-
 
 # Combobox
 
@@ -13,9 +12,7 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/listbox
 Choose from a list of suggested values with full keyboard support.
 </Description>
 
-
 <ComponentPreview name="Combobox" />
-
 
 ## Features
 
@@ -109,7 +106,7 @@ Used as an anchor if you set `ComboboxContent`'s position to `popper`.
 
 <!-- @include: @/meta/ComboboxAnchor.md -->
 
-### Input 
+### Input
 
 The input component to search through the combobox items.
 
@@ -133,17 +130,16 @@ The button that toggles the Combobox Content.
     },
   ]"
 />
-  
+
 ### Cancel
 
 The button that clears the search term.
 
 <!-- @include: @/meta/ComboboxCancel.md -->
 
-
 ### Portal
 
-When used, portals the content part into the `body`.  
+When used, portals the content part into the `body`.
 
 You need to set `position="popper"` for `ComboboxContent` to make sure the position was automatically computed similar to `Popover` or `DropdownMenu`.
 
@@ -209,7 +205,6 @@ The component that contains the combobox items.
 
 <!-- @include: @/meta/ComboboxItem.md -->
 
-
 <DataAttributesTable
   :data="[
     {
@@ -226,7 +221,6 @@ The component that contains the combobox items.
     },
   ]"
 />
-
 
 ### ItemIndicator
 
@@ -264,7 +258,6 @@ An optional arrow element to render alongside the content. This can be used to h
 
 Unlike native HTML form controls which only allow you to provide strings as values, `radix-vue` supports binding complex objects as well.
 
-
 ```vue line=12,23
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -299,9 +292,7 @@ const selectedPeople = ref(people[0])
 </template>
 ```
 
-
 ### Selecting multiple values
-
 
 The `Combobox` component allows you to select multiple values. You can enable this by providing an array of values instead of a single value.
 
@@ -327,10 +318,9 @@ const selectedPeople = ref([people[0], people[1]])
 </template>
 ```
 
-
 ### Custom filtering
 
-Internally, `ComboboxRoot` would apply default [filter function](https://github.com/radix-vue/radix-vue/blob/main/packages/radix-vue/src/Combobox/ComboboxRoot.vue#L128) to filter relevant `ComboboxItem` (only apply when `modelValue` is type `string`). 
+Internally, `ComboboxRoot` would apply default [filter function](https://github.com/radix-vue/radix-vue/blob/main/packages/radix-vue/src/Combobox/ComboboxRoot.vue#L128) to filter relevant `ComboboxItem` (only apply when `modelValue` is type `string`).
 
 However this behavior can be replaced using 2 different method.
 
@@ -379,9 +369,7 @@ function filterFunction(list: typeof people[number], searchTerm: string) {
 </template>
 ```
 
-
 #### 2. Filtered `v-for` options
-
 
 ```vue line=13,15-21,27,33
 <script setup lang="ts">
@@ -429,8 +417,6 @@ const filteredPeople = computed(() =>
 </template>
 ```
 
-
-
 ### Custom label
 
 By default the `Combobox` will use the input contents as the label for screenreaders. If you'd like more control over what is announced to assistive technologies, use the [Label](/components/label) component.
@@ -450,12 +436,9 @@ import { ComboboxInput, ComboboxRoot, Label } from 'radix-vue'
 </template>
 ```
 
- 
-
 ### With disabled items
 
  You can add special styles to disabled items via the `data-disabled` attribute.
-
 
 ```vue line=17
 <script setup lang="ts">
@@ -490,10 +473,9 @@ import {
 }
 ```
 
-### With separators 
+### With separators
 
 Use the `Separator` part to add a separator between items.
-
 
 ```vue line=21
 <script setup lang="ts">
@@ -599,9 +581,8 @@ import {
 
 ### Prevent select behavior
 
-By default, selecting `ComboboxItem` would close the content, and update the `modelValue` with the provided value. 
+By default, selecting `ComboboxItem` would close the content, and update the `modelValue` with the provided value.
 You can prevent this behavior by preventing default `@select.prevent`.
- 
 
 ```vue line=11
 <script setup lang="ts">
@@ -652,7 +633,6 @@ See the W3C [Combobox Autocomplete List](https://www.w3.org/WAI/ARIA/apg/pattern
     },
   ]"
 />
-
 
 ## Custom APIs
 

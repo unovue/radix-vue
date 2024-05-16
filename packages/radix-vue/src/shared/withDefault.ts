@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable ts/ban-types */
 import { h, mergeProps } from 'vue'
 import type { ComponentOptionsBase, DefineComponent, VNodeProps } from 'vue'
 import type { ComponentProps } from 'vue-component-type-helpers'

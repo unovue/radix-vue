@@ -1,18 +1,16 @@
---- 
+---
 title: Pagination
 description: Displays data in paged format and provides navigation between pages.
-name: pagination 
+name: pagination
 ---
 
-
 # Pagination
- 
+
 <Description>
 Displays data in paged format and provides navigation between pages.
 </Description>
 
 <ComponentPreview name="Pagination" />
-
 
 ## Features
 
@@ -89,16 +87,14 @@ Used to render the button that changes the current page.
   ]"
 />
 
-
 ### Ellipsis
 
 Placeholder element when the list is long, and only a small amount of `siblingCount` was set and `showEdges` was set to `true`.
 
 <!-- @include: @/meta/PaginationEllipsis.md -->
 
-
 <DataAttributesTable
-  :data="[ 
+  :data="[
     {
       attribute: '[data-type]',
       values: ['ellipsis'],
@@ -112,20 +108,17 @@ Triggers that set the page value to 1
 
 <!-- @include: @/meta/PaginationFirst.md -->
 
-
 ### Prev
 
 Triggers that set the page value to the previous page
 
 <!-- @include: @/meta/PaginationPrev.md -->
 
-
 ### Next
 
 Triggers that set the page value to the next page
 
 <!-- @include: @/meta/PaginationNext.md -->
-
 
 ### Last
 
@@ -178,10 +171,9 @@ import { PaginationFirst, PaginationLast, PaginationList, PaginationListItem, Pa
 </template>
 ```
 
-
 ### Control page programmatically
 
-You can control the current page by passing it a reactive value. 
+You can control the current page by passing it a reactive value.
 
 ```vue line=6,10,11
 <script setup lang="ts">
@@ -199,16 +191,15 @@ const currentPage = ref(1)
   </PaginationRoot>
 </template>
 ```
- 
 
 ## Keyboard Interactions
 
 <KeyboardTable
-  :data="[ 
+  :data="[
     {
       keys: ['Tab'],
       description: 'Moves focus to the next focusable element.',
-    }, 
+    },
     {
       keys: ['Space'],
       description: `
@@ -221,8 +212,7 @@ const currentPage = ref(1)
       description:  `
         <span>
           When focus is on a any trigger, trigger selected page or arrow navigation
-        </span>` 
-    }, 
+        </span>`
+    },
   ]"
 />
-

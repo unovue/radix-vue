@@ -34,7 +34,7 @@ type RangeCalendarRootContext = {
   isDateDisabled: Matcher
   isDateUnavailable?: Matcher
   isOutsideVisibleView: (date: DateValue) => boolean
-  highlightedRange: Ref<{ start: DateValue; end: DateValue } | null>
+  highlightedRange: Ref<{ start: DateValue, end: DateValue } | null>
   focusedValue: Ref<DateValue | undefined>
   lastPressedDateValue: Ref<DateValue | undefined>
   isSelected: (date: DateValue) => boolean
@@ -130,7 +130,7 @@ const props = withDefaults(defineProps<RangeCalendarRootProps>(), {
 const emits = defineEmits<RangeCalendarRootEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** The current date of the placeholder */
     date: DateValue
     /** The grid of dates */
@@ -143,7 +143,7 @@ defineSlots<{
     locale: string
     /** Whether or not to always display 6 weeks in the calendar */
     fixedWeeks: boolean
-  }): any
+  }) => any
 }>()
 
 const {

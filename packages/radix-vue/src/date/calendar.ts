@@ -184,7 +184,7 @@ export function createMonths(props: SetMonthProps) {
   return months
 }
 
-export function createYearRange({ start, end }: { start?: DateValue; end?: DateValue }): DateValue[] {
+export function createYearRange({ start, end }: { start?: DateValue, end?: DateValue }): DateValue[] {
   const years: DateValue[] = []
 
   if (!start || !end)

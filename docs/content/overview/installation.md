@@ -2,9 +2,7 @@
 
 A quick tutorial to walk through installing the packages, as well as the supported plugins.
 
-
 ## Installing the package
-
 
 <a href="https://www.npmjs.com/package/radix-vue" target="__blank"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/radix-vue?flat&colorA=002438&colorB=41c399"></a>
 
@@ -48,4 +46,3 @@ export default defineConfig({
   ],
 })
 ```
-

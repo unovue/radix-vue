@@ -3,7 +3,7 @@ import { DateFieldInput, DateFieldRoot } from '../'
 </script>
 
 <template>
-  <Story title="Date Field/Locales" :layout="{ type: 'grid', width: '50%', iframe: false }">
+  <Story title="Date Field/Locales" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="Gregorian">
       <DateFieldRoot
         v-slot="{ segments }"

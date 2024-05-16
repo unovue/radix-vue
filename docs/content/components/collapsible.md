@@ -6,7 +6,6 @@ name: collapsible
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/disclosure
 ---
 
- 
 # Collapsible
 
 <Description>
@@ -14,7 +13,6 @@ An interactive component which expands/collapses a panel.
 </Description>
 
 <ComponentPreview name="Collapsible" />
-
 
 ## Features
 
@@ -73,7 +71,6 @@ Contains all the parts of a collapsible
 
 The button that toggles the collapsible
 
-
 <!-- @include: @/meta/CollapsibleTrigger.md -->
 
 <DataAttributesTable
@@ -92,7 +89,6 @@ The button that toggles the collapsible
 ### Content
 
 The component that contains the collapsible content.
-
 
 <!-- @include: @/meta/CollapsibleContent.md -->
 

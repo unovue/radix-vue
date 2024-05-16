@@ -5,7 +5,6 @@ description: For sighted users to preview content available behind a link.
 name: hover-card
 ---
 
-
 # HoverCard
 
 <Description>
@@ -60,7 +59,6 @@ import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, Hover
 Contains all the parts of a hover card.
 
 <!-- @include: @/meta/HoverCardRoot.md -->
-
 
 ### Trigger
 

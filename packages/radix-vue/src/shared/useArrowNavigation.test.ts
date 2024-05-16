@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { useArrowNavigation } from './useArrowNavigation'
 
 describe('useArrowNavigation', () => {
@@ -22,7 +22,7 @@ describe('useArrowNavigation', () => {
     parentElement.appendChild(child3)
   })
 
-  test('should navigate horizontally', () => {
+  it('should navigate horizontally', () => {
     const e = new KeyboardEvent('keydown', { key: 'ArrowRight' })
     const nextElement = useArrowNavigation(e, child1, parentElement, {
       arrowKeyOptions: 'horizontal',
@@ -30,7 +30,7 @@ describe('useArrowNavigation', () => {
     expect(nextElement).toStrictEqual(child2)
   })
 
-  test('should navigate vertically', () => {
+  it('should navigate vertically', () => {
     const e = new KeyboardEvent('keydown', { key: 'ArrowDown' })
     const nextElement = useArrowNavigation(e, child1, parentElement, {
       arrowKeyOptions: 'vertical',
@@ -38,7 +38,7 @@ describe('useArrowNavigation', () => {
     expect(nextElement).toStrictEqual(child2)
   })
 
-  test('should not navigate with arrow keys when arrowKeyOptions is not set to both', () => {
+  it('should not navigate with arrow keys when arrowKeyOptions is not set to both', () => {
     const nextElementHorizontal = useArrowNavigation(
       new KeyboardEvent('keydown', { key: 'ArrowDown' }),
       child1,
@@ -59,7 +59,7 @@ describe('useArrowNavigation', () => {
     expect(nextElementVertical).toBeNull()
   })
 
-  test('should return null if there are no items in the collection', () => {
+  it('should return null if there are no items in the collection', () => {
     const e = new KeyboardEvent('keydown', { key: 'ArrowRight' })
     const nextElement = useArrowNavigation(
       e,
@@ -69,7 +69,7 @@ describe('useArrowNavigation', () => {
     expect(nextElement).toBeNull()
   })
 
-  test('should loop through items if loop is set to true', () => {
+  it('should loop through items if loop is set to true', () => {
     const e = new KeyboardEvent('keydown', { key: 'ArrowLeft' })
     const nextElement = useArrowNavigation(e, child3, parentElement, {
       loop: true,
@@ -77,7 +77,7 @@ describe('useArrowNavigation', () => {
     expect(nextElement).toStrictEqual(child1)
   })
 
-  test('should not loop through items if loop is set to false', () => {
+  it('should not loop through items if loop is set to false', () => {
     const e = new KeyboardEvent('keydown', { key: 'ArrowLeft' })
     const nextElement = useArrowNavigation(e, child1, parentElement, {
       loop: false,
@@ -85,7 +85,7 @@ describe('useArrowNavigation', () => {
     expect(nextElement).toBeNull()
   })
 
-  test('should skip disabled items', () => {
+  it('should skip disabled items', () => {
     child2.setAttribute('disabled', 'true')
     child3.setAttribute('disabled', 'true')
     const e = new KeyboardEvent('keydown', { key: 'ArrowRight' })
@@ -93,7 +93,7 @@ describe('useArrowNavigation', () => {
     expect(nextElement).toBeNull()
   })
 
-  test('should navigate correctly in rtl', () => {
+  it('should navigate correctly in rtl', () => {
     const e = new KeyboardEvent('keydown', { key: 'ArrowRight' })
     const nextElement = useArrowNavigation(e, child1, parentElement, {
       dir: 'rtl',
@@ -101,13 +101,13 @@ describe('useArrowNavigation', () => {
     expect(nextElement).toStrictEqual(child3)
   })
 
-  test('should navigate to the first item', () => {
+  it('should navigate to the first item', () => {
     const e = new KeyboardEvent('keydown', { key: 'Home' })
     const nextElement = useArrowNavigation(e, child1, parentElement)
     expect(nextElement).toStrictEqual(child3)
   })
 
-  test('should navigate to the last item', () => {
+  it('should navigate to the last item', () => {
     const e = new KeyboardEvent('keydown', { key: 'End' })
     const nextElement = useArrowNavigation(e, child2, parentElement)
     expect(nextElement).toStrictEqual(child1)

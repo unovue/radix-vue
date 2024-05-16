@@ -6,7 +6,6 @@ name: progress
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/meter
 ---
 
-
 # Progress
 
 <Description>
@@ -14,7 +13,6 @@ Displays an indicator showing the completion progress of a task, typically displ
 </Description>
 
 <ComponentPreview name="Progress" />
-
 
 ## Features
 
@@ -57,7 +55,6 @@ Adheres to the [`progressbar` role requirements](https://www.w3.org/WAI/ARIA/apg
 Contains all of the progress parts.
 
 <!-- @include: @/meta/ProgressRoot.md -->
-
 
 <DataAttributesTable
   :data="[

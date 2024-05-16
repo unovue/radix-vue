@@ -20,7 +20,7 @@ const TestField = ({
   `,
 })
 
-describe('FocusScope', () => {
+describe('focusScope', () => {
   describe('given a default FocusScope', () => {
     let rendered: RenderResult
     let tabbableFirst: HTMLInputElement

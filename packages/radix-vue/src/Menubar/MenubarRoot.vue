@@ -8,9 +8,11 @@ export interface MenubarRootProps {
   modelValue?: string
   /** The value of the menu that should be open when initially rendered. Use when you do not need to control the value state. */
   defaultValue?: string
-  /** The reading direction of the combobox when applicable.
+  /**
+   * The reading direction of the combobox when applicable.
    *
-   *  If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
+   *  If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode.
+   */
   dir?: Direction
   /** When `true`, keyboard navigation will loop from last item to first, and vice versa. */
   loop?: boolean
@@ -24,9 +26,9 @@ export interface MenubarRootContext {
   modelValue: Ref<string>
   dir: Ref<Direction>
   loop: Ref<boolean>
-  onMenuOpen(value: string): void
-  onMenuClose(): void
-  onMenuToggle(value: string): void
+  onMenuOpen: (value: string) => void
+  onMenuClose: () => void
+  onMenuToggle: (value: string) => void
 }
 
 export const [injectMenubarRootContext, provideMenubarRootContext]

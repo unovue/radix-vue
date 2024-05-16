@@ -10,7 +10,7 @@ const placeholder = ref(new CalendarDate(2024, 4, 1)) as Ref<CalendarDate>
 </script>
 
 <template>
-  <Story title="Calendar/Chromatic" :layout="{ type: 'grid', width: '50%', iframe: false }">
+  <Story title="Calendar/Chromatic" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="Uncontrolled (modelValue)">
       <Calendar :default-value="defaultValue" />
     </Variant>

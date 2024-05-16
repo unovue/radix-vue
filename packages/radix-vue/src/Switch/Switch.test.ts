@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/vue'
-import { beforeEach, describe, expect, it, test } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { axe } from 'vitest-axe'
 import { mount } from '@vue/test-utils'
 import Switch from './_Switch.vue'
@@ -19,12 +19,12 @@ describe('test switch functionalities', () => {
     })).toHaveNoViolations()
   })
 
-  test('thumb can render', async () => {
+  it('thumb can render', async () => {
     render(Switch)
     screen.getByTestId('thumb')
   })
 
-  test('clicking thumb will toggle value', async () => {
+  it('clicking thumb will toggle value', async () => {
     const { container } = render(Switch)
     const root = container.querySelector('button')!
     screen.getByText('unchecked')
@@ -36,7 +36,7 @@ describe('test switch functionalities', () => {
     screen.getByText('unchecked')
   })
 
-  test('keydown enter root will toggle value', async () => {
+  it('keydown enter root will toggle value', async () => {
     const { container } = render(Switch)
     const button = container.querySelector('button')!
     screen.getByText('unchecked')

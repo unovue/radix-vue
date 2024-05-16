@@ -1,8 +1,8 @@
 <script lang="ts">
 type ScrollbarAreaScrollbarImplEmits = {
-  'onDragScroll': [payload: { x: number; y: number }]
-  'onWheelScroll': [payload: { x: number; y: number }]
-  'onThumbPointerDown': [payload: { x: number; y: number }]
+  onDragScroll: [payload: { x: number, y: number }]
+  onWheelScroll: [payload: { x: number, y: number }]
+  onThumbPointerDown: [payload: { x: number, y: number }]
 }
 
 export interface ScrollAreaScrollbarImplProps {

@@ -14,10 +14,10 @@ import { getRange, transform } from './utils'
 const props = defineProps<PaginationListProps>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Pages item */
     items: typeof transformedRange.value
-  }): any
+  }) => any
 }>()
 
 useForwardExpose()
@@ -26,7 +26,10 @@ const rootContext = injectPaginationRootContext()
 const transformedRange = computed(() => {
   return transform(
     getRange(
-      rootContext.page.value, rootContext.pageCount.value, rootContext.siblingCount.value, rootContext.showEdges.value,
+      rootContext.page.value,
+      rootContext.pageCount.value,
+      rootContext.siblingCount.value,
+      rootContext.showEdges.value,
     ),
   )
 })

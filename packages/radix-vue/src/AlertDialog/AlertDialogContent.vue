@@ -6,7 +6,7 @@ import type {
 import { createContext, useEmitAsProps, useForwardExpose } from '@/shared'
 
 interface AlertDialogContentContext {
-  onCancelElementChange(el: HTMLElement | undefined): void
+  onCancelElementChange: (el: HTMLElement | undefined) => void
 }
 
 export const [injectAlertDialogContentContext, provideAlertDialogContentContext]

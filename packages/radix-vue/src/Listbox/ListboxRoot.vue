@@ -64,7 +64,7 @@ export type ListboxRootEmits<T = AcceptableValue> = {
   /** Event handler called when the value changes. */
   'update:modelValue': [value: T]
   /** Event handler when highlighted element changes. */
-  'highlight': [payload: { ref: HTMLElement; value: T } | undefined]
+  'highlight': [payload: { ref: HTMLElement, value: T } | undefined]
   /** Event handler called when container is being focused. Can be prevented. */
   'entryFocus': [event: CustomEvent]
   /** Event handler called when the mouse leave the container */
@@ -86,10 +86,10 @@ const props = withDefaults(defineProps<ListboxRootProps>(), {
 const emits = defineEmits<ListboxRootEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current active value */
     modelValue: typeof modelValue.value
-  }): any
+  }) => any
 }>()
 
 const { multiple, highlightOnHover, orientation, disabled, selectionBehavior, dir: propDir } = toRefs(props)

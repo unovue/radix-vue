@@ -15,6 +15,7 @@ const files = ['README.md', 'index.js', 'page.css']
 const selectedFiles = ref(files[1])
 
 function handleSelect(text: string) {
+  // eslint-disable-next-line no-console
   console.log({ text })
 }
 </script>

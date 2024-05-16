@@ -28,47 +28,47 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.umd.cjs",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
     },
     "./date": {
-      "require": {
-        "types": "./dist/date/index.d.ts",
-        "default": "./dist/date.umd.cjs"
-      },
       "import": {
         "types": "./dist/date/index.d.ts",
         "default": "./dist/date.js"
+      },
+      "require": {
+        "types": "./dist/date/index.d.ts",
+        "default": "./dist/date.umd.cjs"
       }
     },
     "./namespaced": {
-      "require": {
-        "types": "./dist/namespaced/index.d.cts",
-        "default": "./dist/namespaced/index.cjs"
-      },
       "import": {
         "types": "./dist/namespaced/index.d.mts",
         "default": "./dist/namespaced/index.mjs"
+      },
+      "require": {
+        "types": "./dist/namespaced/index.d.cts",
+        "default": "./dist/namespaced/index.cjs"
       }
     },
     "./nuxt": {
-      "require": {
-        "types": "./dist/nuxt/index.d.cts",
-        "default": "./dist/nuxt/index.cjs"
-      },
       "import": {
         "types": "./dist/nuxt/index.d.mts",
         "default": "./dist/nuxt/index.mjs"
+      },
+      "require": {
+        "types": "./dist/nuxt/index.d.cts",
+        "default": "./dist/nuxt/index.cjs"
       }
     },
     "./resolver": {
-      "require": {
-        "types": "./dist/resolver/index.d.cts",
-        "default": "./dist/resolver/index.cjs"
-      },
       "import": {
         "types": "./dist/resolver/index.d.mts",
         "default": "./dist/resolver/index.mjs"
+      },
+      "require": {
+        "types": "./dist/resolver/index.d.cts",
+        "default": "./dist/resolver/index.cjs"
       }
     }
   },
@@ -77,8 +77,8 @@
   "types": "./dist/index.d.ts",
   "typings": "./dist/index.d.ts",
   "files": [
-    "./dist",
-    "./LICENSE"
+    "./LICENSE",
+    "./dist"
   ],
   "scripts": {
     "build": "pnpm type-check && pnpm build-only",
@@ -119,7 +119,6 @@
     "@vue/test-utils": "^2.4.1",
     "@vue/tsconfig": "^0.4.0",
     "jsdom": "^23.2.0",
-    "typescript": "^5.3.3",
     "vite": "^4.5.3",
     "vite-plugin-dts": "^3.6.0",
     "vitest": "^1.2.1",

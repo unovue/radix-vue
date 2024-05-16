@@ -15,9 +15,11 @@ type PaginationRootContext = {
 export interface PaginationRootProps extends PrimitiveProps {
   /** The controlled value of the current page. Can be binded as `v-model:page`. */
   page?: number
-  /** The value of the page that should be active when initially rendered.
+  /**
+   * The value of the page that should be active when initially rendered.
    *
-   * Use when you do not need to control the value state. */
+   * Use when you do not need to control the value state.
+   */
   defaultPage?: number
   /** Number of items per page */
   itemsPerPage?: number
@@ -56,12 +58,12 @@ const props = withDefaults(defineProps<PaginationRootProps>(), {
 const emits = defineEmits<PaginationRootEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current page state */
     page: typeof page.value
     /** Number of pages */
     pageCount: typeof pageCount.value
-  }): any
+  }) => any
 }>()
 
 const { siblingCount, disabled, showEdges } = toRefs(props)

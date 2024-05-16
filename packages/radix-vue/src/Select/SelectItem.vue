@@ -8,7 +8,7 @@ interface SelectItemContext {
   textId: string
   disabled: Ref<boolean>
   isSelected: Ref<boolean>
-  onItemTextChange(node: HTMLElement | undefined): void
+  onItemTextChange: (node: HTMLElement | undefined) => void
 }
 
 export const [injectSelectItemContext, provideSelectItemContext]
@@ -19,11 +19,13 @@ export interface SelectItemProps extends PrimitiveProps {
   value: string
   /** When `true`, prevents the user from interacting with the item. */
   disabled?: boolean
-  /** Optional text used for typeahead purposes.
+  /**
+   * Optional text used for typeahead purposes.
    *
    * By default the typeahead behavior will use the `.textContent` of the `SelectItemText` part.
    *
-   * Use this when the content is complex, or you have non-textual content inside. */
+   * Use this when the content is complex, or you have non-textual content inside.
+   */
   textValue?: string
 }
 </script>

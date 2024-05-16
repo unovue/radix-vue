@@ -33,10 +33,10 @@ const props = withDefaults(defineProps<ToastRootProps>(), {
 const emits = defineEmits<ToastRootEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Remaining time (in ms) */
     remaining: number
-  }): any
+  }) => any
 }>()
 
 const { forwardRef } = useForwardExpose()

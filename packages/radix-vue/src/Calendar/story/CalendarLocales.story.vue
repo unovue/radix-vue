@@ -2,10 +2,7 @@
 import Calendar from './_DummyCalendar.vue'
 import { BuddhistCalendar, CalendarDate, HebrewCalendar, JapaneseCalendar, PersianCalendar, TaiwanCalendar } from '@internationalized/date'
 
-const gregorian = new CalendarDate(2024,
-  2,
-  20,
-)
+const gregorian = new CalendarDate(2024, 2, 20)
 
 const persian = new CalendarDate(
   new PersianCalendar(),
@@ -43,7 +40,7 @@ const hebrew = new CalendarDate(
 </script>
 
 <template>
-  <Story title="Calendar/Locales" :layout="{ type: 'grid', width: '50%', iframe: false }">
+  <Story title="Calendar/Locales" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="Gregorian">
       <Calendar :default-value="gregorian" locale="en" />
     </Variant>

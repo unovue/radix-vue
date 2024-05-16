@@ -2,7 +2,7 @@
 import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from '../'
 
 function alert(message: string) {
-  window.alert(message)
+  alert(message)
 }
 </script>
 

@@ -16,7 +16,8 @@ export interface CheckboxRootProps extends PrimitiveProps {
   required?: boolean
   /** The name of the checkbox. Submitted with its owning form as part of a name/value pair. */
   name?: string
-  /** The value given as data when submitted with a `name`.
+  /**
+   * The value given as data when submitted with a `name`.
    *  @defaultValue "on"
    */
   value?: string

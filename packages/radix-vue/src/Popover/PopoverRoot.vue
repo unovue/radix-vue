@@ -30,8 +30,8 @@ export interface PopoverRootContext {
   contentId: string
   open: Ref<boolean>
   modal: Ref<boolean>
-  onOpenChange(value: boolean): void
-  onOpenToggle(): void
+  onOpenChange: (value: boolean) => void
+  onOpenToggle: () => void
   hasCustomAnchor: Ref<boolean>
 }
 

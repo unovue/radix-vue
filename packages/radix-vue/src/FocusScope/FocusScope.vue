@@ -7,13 +7,13 @@ export type FocusScopeEmits = {
    * Event handler called when auto-focusing on mount.
    * Can be prevented.
    */
-  'mountAutoFocus': [event: Event]
+  mountAutoFocus: [event: Event]
 
   /**
    * Event handler called when auto-focusing on unmount.
    * Can be prevented.
    */
-  'unmountAutoFocus': [event: Event]
+  unmountAutoFocus: [event: Event]
 }
 
 export interface FocusScopeProps extends PrimitiveProps {
@@ -148,8 +148,7 @@ watchEffect(async (cleanupFn) => {
   if (!hasFocusedCandidate) {
     const mountEvent = new CustomEvent(AUTOFOCUS_ON_MOUNT, EVENT_OPTIONS)
     container.addEventListener(AUTOFOCUS_ON_MOUNT, (ev: Event) =>
-      emits('mountAutoFocus', ev),
-    )
+      emits('mountAutoFocus', ev))
     container.dispatchEvent(mountEvent)
 
     if (!mountEvent.defaultPrevented) {
@@ -163,8 +162,7 @@ watchEffect(async (cleanupFn) => {
 
   cleanupFn(() => {
     container.removeEventListener(AUTOFOCUS_ON_MOUNT, (ev: Event) =>
-      emits('mountAutoFocus', ev),
-    )
+      emits('mountAutoFocus', ev))
 
     const unmountEvent = new CustomEvent(AUTOFOCUS_ON_UNMOUNT, EVENT_OPTIONS)
     const unmountEventHandler = (ev: Event) => {

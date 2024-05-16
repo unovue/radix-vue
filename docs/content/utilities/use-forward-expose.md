@@ -1,9 +1,7 @@
---- 
+---
 title: useForwardExpose
 description: Forward component's exposed value, props and $el.
 ---
-
-
 
 # useForwardExpose
 
@@ -34,4 +32,3 @@ const { forwardRef } = useForwardExpose()
   </span>
 </template>
 ```
- 

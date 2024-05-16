@@ -10,19 +10,19 @@ export interface ScrollAreaRootContext {
   scrollHideDelay: Ref<number>
   scrollArea: Ref<HTMLElement | undefined>
   viewport: Ref<HTMLElement | undefined>
-  onViewportChange(viewport: HTMLElement | null): void
+  onViewportChange: (viewport: HTMLElement | null) => void
   content: Ref<HTMLElement | undefined>
-  onContentChange(content: HTMLElement): void
+  onContentChange: (content: HTMLElement) => void
   scrollbarX: Ref<HTMLElement | undefined>
-  onScrollbarXChange(scrollbar: HTMLElement | null): void
+  onScrollbarXChange: (scrollbar: HTMLElement | null) => void
   scrollbarXEnabled: Ref<boolean>
-  onScrollbarXEnabledChange(rendered: boolean): void
+  onScrollbarXEnabledChange: (rendered: boolean) => void
   scrollbarY: Ref<HTMLElement | undefined>
-  onScrollbarYChange(scrollbar: HTMLElement | null): void
+  onScrollbarYChange: (scrollbar: HTMLElement | null) => void
   scrollbarYEnabled: Ref<boolean>
-  onScrollbarYEnabledChange(rendered: boolean): void
-  onCornerWidthChange(width: number): void
-  onCornerHeightChange(height: number): void
+  onScrollbarYEnabledChange: (rendered: boolean) => void
+  onCornerWidthChange: (width: number) => void
+  onCornerHeightChange: (height: number) => void
 }
 
 export const [injectScrollAreaRootContext, provideScrollAreaRootContext]

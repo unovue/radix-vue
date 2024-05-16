@@ -7,7 +7,7 @@ export interface MenuSubContext {
   contentId: string
   triggerId: string
   trigger: Ref<HTMLElement | undefined>
-  onTriggerChange(trigger: HTMLElement | undefined): void
+  onTriggerChange: (trigger: HTMLElement | undefined) => void
   parentMenuContext?: MenuContext
 }
 

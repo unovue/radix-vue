@@ -14,7 +14,6 @@ A two-state button that can be either on or off.
 
 <ComponentPreview name="Toggle" />
 
-
 ## Features
 
 <Highlights
@@ -46,7 +45,6 @@ import { Toggle } from 'radix-vue'
 ### Root
 
 The toggle.
-
 
 <!-- @include: @/meta/Toggle.md -->
 

@@ -35,7 +35,6 @@ This component was built taking inspiration from the implementation in [melt-ui]
 
 The component depends on the [@internationalized/date](https://react-spectrum.adobe.com/internationalized/date/index.html) package, which solves a lot of the problems that come with working with dates and times in JavaScript.
 
-
 We highly recommend reading through the documentation for the package to get a solid feel for how it works, and you'll need to install it in your project to use the date-related components.
 
 ## Installation
@@ -184,7 +183,6 @@ The component that pops out when the popover is open.
 
 <!-- @include: @/meta/DatePickerContent.md -->
 
-
 ### Arrow
 
 An optional arrow element to render alongside the popover. This can be used to help visually link the anchor with the `DatePickerContent`. Must be rendered inside `DatePickerContent`.
@@ -247,7 +245,6 @@ Calendar navigation button. It navigates the calendar one month/year/decade in t
   ]"
 />
 
-
 ### NextButton
 
 Calendar navigation button. It navigates the calendar one month/year/decade in the future based on the current calendar view.
@@ -262,7 +259,6 @@ Calendar navigation button. It navigates the calendar one month/year/decade in t
     }
   ]"
 />
-
 
 ### Heading
 
@@ -288,7 +284,6 @@ Container for wrapping the calendar grid.
     }
   ]"
 />
-
 
 ### Grid Head
 

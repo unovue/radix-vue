@@ -23,7 +23,7 @@ export type Formatter = {
   dayPeriod: (date: Date) => string
   part: (dateObj: DateValue, type: Intl.DateTimeFormatPartTypes, options?: DateFormatterOptions) => string
   toParts: (date: DateValue, options?: DateFormatterOptions) => Intl.DateTimeFormatPart[]
-  getMonths: () => { label: string; value: number }[]
+  getMonths: () => { label: string, value: number }[]
 }
 
 /**

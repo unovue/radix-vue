@@ -3,9 +3,11 @@ import type { MenuItemImplProps } from './MenuItemImpl.vue'
 import { useForwardExpose } from '@/shared'
 
 export type MenuItemEmits = {
-  /** Event handler called when the user selects an item (via mouse or keyboard). <br>
-   *  Calling `event.preventDefault` in this handler will prevent the menu from closing when selecting that item. */
-  'select': [event: Event]
+  /**
+   * Event handler called when the user selects an item (via mouse or keyboard). <br>
+   *  Calling `event.preventDefault` in this handler will prevent the menu from closing when selecting that item.
+   */
+  select: [event: Event]
 }
 
 export interface MenuItemProps extends MenuItemImplProps {}

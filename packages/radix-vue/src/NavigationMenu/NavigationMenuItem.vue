@@ -4,9 +4,11 @@ import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useArrowNavigation, useCollection, useForwardExpose, useId } from '@/shared'
 
 export interface NavigationMenuItemProps extends PrimitiveProps {
-  /** A unique value that associates the item with an active value when the navigation menu is controlled.
+  /**
+   * A unique value that associates the item with an active value when the navigation menu is controlled.
    *
-   *  This prop is managed automatically when uncontrolled. */
+   *  This prop is managed automatically when uncontrolled.
+   */
   value?: string
 }
 
@@ -16,10 +18,10 @@ export type NavigationMenuItemContext = {
   triggerRef: Ref<HTMLElement | undefined>
   focusProxyRef: Ref<HTMLElement | undefined>
   wasEscapeCloseRef: Ref<boolean>
-  onEntryKeyDown(): void
-  onFocusProxyEnter(side: 'start' | 'end'): void
-  onContentFocusOutside(): void
-  onRootContentClose(): void
+  onEntryKeyDown: () => void
+  onFocusProxyEnter: (side: 'start' | 'end') => void
+  onContentFocusOutside: () => void
+  onRootContentClose: () => void
 }
 
 export const [injectNavigationMenuItemContext, provideNavigationMenuItemContext]

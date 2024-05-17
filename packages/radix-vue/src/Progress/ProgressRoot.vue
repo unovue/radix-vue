@@ -81,6 +81,13 @@ const props = withDefaults(defineProps<ProgressRootProps>(), {
 
 const emit = defineEmits<ProgressRootEmits>()
 
+defineSlots<{
+  default(props: {
+    /** Current input values */
+    modelValue: typeof modelValue.value
+  }): any
+}>()
+
 useForwardExpose()
 const modelValue = useVModel(props, 'modelValue', emit, {
   passive: (props.modelValue === undefined) as false,
@@ -143,6 +150,6 @@ provideProgressRootContext({
     :data-value="modelValue ?? undefined"
     :data-max="max"
   >
-    <slot />
+    <slot :model-value="modelValue" />
   </Primitive>
 </template>

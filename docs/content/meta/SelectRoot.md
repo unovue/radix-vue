@@ -70,3 +70,16 @@
     'type': '[value: boolean]'
   }
 ]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'modelValue',
+    'description': '<p>Current input values</p>\n',
+    'type': 'string'
+  },
+  {
+    'name': 'open',
+    'description': '<p>Current open state</p>\n',
+    'type': 'boolean'
+  }
+]" />

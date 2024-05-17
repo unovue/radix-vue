@@ -74,6 +74,15 @@ const props = withDefaults(defineProps<SelectRootProps>(), {
 
 const emits = defineEmits<SelectRootEmits>()
 
+defineSlots<{
+  default(props: {
+    /** Current input values */
+    modelValue: typeof modelValue.value
+    /** Current open state */
+    open: typeof open.value
+  }): any
+}>()
+
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
   passive: (props.modelValue === undefined) as false,
@@ -148,7 +157,10 @@ provideSelectNativeOptionsContext({
 
 <template>
   <PopperRoot>
-    <slot />
+    <slot
+      :model-value="modelValue"
+      :open="open"
+    />
 
     <BubbleSelect
       v-if="isFormControl"

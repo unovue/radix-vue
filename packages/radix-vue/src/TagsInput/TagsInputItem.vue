@@ -1,18 +1,19 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useForwardExpose } from '@/shared'
-import { type Ref, computed, toRefs } from 'vue'
-import { injectTagsInputRootContext } from './TagsInputRoot.vue'
+import { type ComputedRef, type Ref, computed, toRefs } from 'vue'
+import { type AcceptableInputValue, injectTagsInputRootContext } from './TagsInputRoot.vue'
 
 export interface TagsInputItemProps extends PrimitiveProps {
   /** Value associated with the tags */
-  value: string
+  value: AcceptableInputValue
   /** When `true`, prevents the user from interacting with the tags input. */
   disabled?: boolean
 }
 
 export interface TagsInputItemContext {
-  value: Ref<string>
+  value: Ref<AcceptableInputValue>
+  displayValue: ComputedRef<string>
   isSelected: Ref<boolean>
   disabled?: Ref<boolean>
   textId: string
@@ -40,6 +41,7 @@ const itemContext = provideTagsInputItemContext({
   isSelected,
   disabled,
   textId: '',
+  displayValue: computed(() => context.displayValue(value.value)),
 })
 </script>
 

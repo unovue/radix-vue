@@ -21,6 +21,6 @@ itemContext.textId ||= useId(undefined, 'radix-vue-tags-input-item-text')
 
 <template>
   <Primitive v-bind="props" :id="itemContext.textId">
-    <slot>{{ itemContext.value.value }}</slot>
+    <slot>{{ itemContext.displayValue.value }}</slot>
   </Primitive>
 </template>

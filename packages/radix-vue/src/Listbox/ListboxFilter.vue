@@ -22,6 +22,14 @@ const props = withDefaults(defineProps<ListboxFilterProps>(), {
   as: 'input',
 })
 const emits = defineEmits<ListboxFilterEmits>()
+
+defineSlots<{
+  default(props: {
+    /** Current input values */
+    modelValue: typeof modelValue.value
+  }): any
+}>()
+
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: '',
   passive: (props.modelValue === undefined) as false,
@@ -55,6 +63,6 @@ onMounted(() => {
       modelValue = (event.target as HTMLInputElement).value
     }"
   >
-    <slot />
+    <slot :model-value="modelValue" />
   </Primitive>
 </template>

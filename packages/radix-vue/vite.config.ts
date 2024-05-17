@@ -36,7 +36,7 @@ export default defineConfig({
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
       // into your library (Vue)
-      external: ['vue', '@floating-ui/vue', '@internationalized/date'],
+      external: ['vue', '@floating-ui/vue', '@internationalized/date', '@internationalized/number'],
       output: {
         // Provide global variables to use in the UMD build
         // for externalized deps
@@ -44,6 +44,7 @@ export default defineConfig({
           'vue': 'Vue',
           '@floating-ui/vue': '@floating-ui/vue',
           '@internationalized/date': '@internationalized/date',
+          '@internationalized/number': '@internationalized/number',
         },
         assetFileNames: (chunkInfo) => {
           if (chunkInfo.name === 'style.css')

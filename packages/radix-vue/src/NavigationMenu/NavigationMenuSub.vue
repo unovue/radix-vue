@@ -36,6 +36,13 @@ const props = withDefaults(defineProps<NavigationMenuSubProps>(), {
 })
 const emits = defineEmits<NavigationMenuSubEmits>()
 
+defineSlots<{
+  default(props: {
+    /** Current input values */
+    modelValue: typeof modelValue.value
+  }): any
+}>()
+
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue ?? '',
   passive: (props.modelValue === undefined) as false,
@@ -95,6 +102,6 @@ provideNavigationMenuContext({
     :as-child="props.asChild"
     :as="as"
   >
-    <slot />
+    <slot :model-value="modelValue" />
   </Primitive>
 </template>

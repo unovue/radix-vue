@@ -50,7 +50,16 @@ const props = withDefaults(defineProps<PopoverRootProps>(), {
   modal: false,
 })
 const emit = defineEmits<PopoverRootEmits>()
+
+defineSlots<{
+  default(props: {
+    /** Current open state */
+    open: typeof open.value
+  }): any
+}>()
+
 const { modal } = toRefs(props)
+
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: (props.open === undefined) as false,
@@ -76,6 +85,6 @@ providePopoverRootContext({
 
 <template>
   <PopperRoot>
-    <slot />
+    <slot :open="open" />
   </PopperRoot>
 </template>

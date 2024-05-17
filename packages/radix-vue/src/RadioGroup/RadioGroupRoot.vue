@@ -60,6 +60,13 @@ const props = withDefaults(defineProps<RadioGroupRootProps>(), {
 
 const emits = defineEmits<RadioGroupRootEmits>()
 
+defineSlots<{
+  default(props: {
+    /** Current input values */
+    modelValue: typeof modelValue.value
+  }): any
+}>()
+
 const { forwardRef } = useForwardExpose()
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
@@ -95,7 +102,7 @@ provideRadioGroupRootContext({
       :dir="dir"
       :name="name"
     >
-      <slot />
+      <slot :model-value="modelValue" />
     </Primitive>
   </RovingFocusGroup>
 </template>

@@ -53,3 +53,11 @@
     'type': '[value: boolean]'
   }
 ]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'open',
+    'description': '<p>Current open state</p>\n',
+    'type': 'boolean'
+  }
+]" />

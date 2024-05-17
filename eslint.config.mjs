@@ -16,6 +16,7 @@ export default antfu(
       'max-statements-per-line': ['error', { max: 2 }],
       'vue/one-component-per-file': 'off',
       'unicorn/prefer-dom-node-text-content': 'off',
+      'unicorn/prefer-number-properties': 'off',
       'regexp/no-super-linear-backtracking': 'off',
     },
   },

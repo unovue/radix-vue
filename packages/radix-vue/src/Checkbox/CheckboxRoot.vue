@@ -54,6 +54,14 @@ const props = withDefaults(defineProps<CheckboxRootProps>(), {
   as: 'button',
 })
 const emits = defineEmits<CheckboxRootEmits>()
+
+defineSlots<{
+  default(props: {
+    /** Current checked state */
+    checked: typeof checked.value
+  }): any
+}>()
+
 const { disabled } = toRefs(props)
 
 const checked = useVModel(props, 'checked', emits, {
@@ -93,7 +101,7 @@ provideCheckboxRootContext({
     }"
     @click="checked = isIndeterminate(checked) ? true : !checked"
   >
-    <slot />
+    <slot :checked="checked" />
   </Primitive>
 
   <input

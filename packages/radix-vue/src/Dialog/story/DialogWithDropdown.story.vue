@@ -12,7 +12,7 @@ import DropdownMenu from '../../DropdownMenu/story/_DropdownMenu.vue'
 </script>
 
 <template>
-  <Story title="Dialog/WithDropdown" :layout="{ type: 'single', iframe: false }">
+  <Story title="Dialog/With Dropdown" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
       <DialogRoot>
         <DialogTrigger

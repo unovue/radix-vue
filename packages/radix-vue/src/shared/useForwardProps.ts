@@ -1,4 +1,4 @@
-import { type MaybeRefOrGetter, type UnwrapRef, camelize, computed, getCurrentInstance, toRef } from 'vue'
+import { type MaybeRefOrGetter, camelize, computed, getCurrentInstance, toRef } from 'vue'
 
 interface PropOptions {
   type?: any

@@ -128,12 +128,10 @@ describe('given a default Dialog', () => {
       it('should close the content', () => {
         expect(document.body.innerHTML).not.toContain(closeButton.innerHTML)
       })
-    })
 
-    it('should focus trigger after closing', async () => {
-      await fireEvent.click(closeButton)
-      await nextTick()
-      expect(document.activeElement?.textContent).toBe(trigger.element.textContent)
+      it('should focus trigger', async () => {
+        expect(document.activeElement).toBe(trigger.element)
+      })
     })
   })
 })

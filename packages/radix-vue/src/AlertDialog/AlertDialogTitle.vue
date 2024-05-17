@@ -8,7 +8,7 @@ export interface AlertDialogTitleProps extends DialogTitleProps {}
 <script setup lang="ts">
 import { DialogTitle } from '@/Dialog'
 
-const props = defineProps<AlertDialogTitleProps>()
+const props = withDefaults(defineProps<AlertDialogTitleProps>(), { as: 'h2' })
 useForwardExpose()
 </script>
 

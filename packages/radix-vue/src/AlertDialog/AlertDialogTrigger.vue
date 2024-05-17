@@ -8,7 +8,7 @@ export interface AlertDialogTriggerProps extends DialogTriggerProps {}
 <script setup lang="ts">
 import { DialogTrigger } from '@/Dialog'
 
-const props = defineProps<AlertDialogTriggerProps>()
+const props = withDefaults(defineProps<AlertDialogTriggerProps>(), { as: 'button' })
 useForwardExpose()
 </script>
 

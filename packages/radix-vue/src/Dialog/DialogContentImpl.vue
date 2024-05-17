@@ -53,7 +53,7 @@ rootContext.descriptionId ||= useId(undefined, 'radix-vue-dialog-description')
 onMounted(() => {
   rootContext.contentElement = contentElement
 
-  // Preserve the `DialogTrigger` element in case it was triggerred programatically
+  // Preserve the `DialogTrigger` element in case it was triggered programmatically
   if (document.activeElement !== document.body)
     rootContext.triggerElement.value = document.activeElement as HTMLElement
 })

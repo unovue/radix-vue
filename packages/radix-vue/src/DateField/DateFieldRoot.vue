@@ -26,7 +26,7 @@ type DateFieldRootContext = {
   formatter: Formatter
   hourCycle: HourCycle
   segmentValues: Ref<SegmentValueObj>
-  segmentContents: Ref<{ part: SegmentPart; value: string }[]>
+  segmentContents: Ref<{ part: SegmentPart, value: string }[]>
   elements: Ref<Set<HTMLElement>>
   focusNext: () => void
   setFocusedElement: (el: HTMLElement) => void
@@ -37,7 +37,7 @@ export interface DateFieldRootProps extends PrimitiveProps {
   defaultValue?: DateValue
   /** The default placeholder date */
   defaultPlaceholder?: DateValue
-  /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programatically control the calendar view */
+  /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programmatically control the calendar view */
   placeholder?: DateValue
   /** The controlled checked state of the calendar. Can be bound as `v-model`. */
   modelValue?: DateValue | undefined
@@ -99,14 +99,14 @@ const props = withDefaults(defineProps<DateFieldRootProps>(), {
 })
 const emits = defineEmits<DateFieldRootEmits>()
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** The current date of the field */
     modelValue: DateValue | undefined
     /** The date field segment contents */
-    segments: { part: SegmentPart; value: string }[]
+    segments: { part: SegmentPart, value: string }[]
     /** Value if the input is invalid */
     isInvalid: boolean
-  }): any
+  }) => any
 }>()
 
 const { locale, disabled, readonly, isDateUnavailable: propsIsDateUnavailable, granularity, defaultValue, dir: propDir } = toRefs(props)

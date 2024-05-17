@@ -5,13 +5,13 @@ import { createContext, useDirection } from '@/shared'
 
 export interface MenuContext {
   open: Ref<boolean>
-  onOpenChange(open: boolean): void
+  onOpenChange: (open: boolean) => void
   content: Ref<HTMLElement | undefined>
-  onContentChange(content: HTMLElement | undefined): void
+  onContentChange: (content: HTMLElement | undefined) => void
 }
 
 export interface MenuRootContext {
-  onClose(): void
+  onClose: () => void
   dir: Ref<Direction>
   isUsingKeyboardRef: Ref<boolean>
   modal: Ref<boolean>
@@ -20,13 +20,17 @@ export interface MenuRootContext {
 export interface MenuProps {
   /** The controlled open state of the menu. Can be used as `v-model:open`. */
   open?: boolean
-  /** The reading direction of the combobox when applicable.
+  /**
+   * The reading direction of the combobox when applicable.
    *
-   * If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
+   * If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode.
+   */
   dir?: Direction
-  /** The modality of the dropdown menu.
+  /**
+   * The modality of the dropdown menu.
    *
-   * When set to `true`, interaction with outside elements will be disabled and only menu content will be visible to screen readers. */
+   * When set to `true`, interaction with outside elements will be disabled and only menu content will be visible to screen readers.
+   */
   modal?: boolean
 }
 

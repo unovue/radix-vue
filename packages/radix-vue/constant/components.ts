@@ -181,6 +181,15 @@ export const components = {
     'DropdownMenuSubContent',
     'DropdownMenuSubTrigger',
   ],
+  editable: [
+    'EditableRoot',
+    'EditableArea',
+    'EditableInput',
+    'EditablePreview',
+    'EditableSubmitTrigger',
+    'EditableCancelTrigger',
+    'EditableEditTrigger',
+  ],
 
   hoverCard: [
     'HoverCardRoot',
@@ -235,6 +244,14 @@ export const components = {
     'NavigationMenuSub',
     'NavigationMenuTrigger',
     'NavigationMenuViewport',
+  ],
+
+  numberField: [
+    'NumberFieldRoot',
+    'NumberFieldLabel',
+    'NumberFieldInput',
+    'NumberFieldIncrement',
+    'NumberFieldDecrement',
   ],
 
   pagination: [

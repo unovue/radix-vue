@@ -36,7 +36,7 @@ const { forwardRef, currentElement } = useForwardExpose()
 
 const menuContext = injectNavigationMenuContext()
 
-const size = ref<{ width: number; height: number }>()
+const size = ref<{ width: number, height: number }>()
 
 const open = computed(() => !!menuContext.modelValue.value)
 // We persist the last active content value as the viewport may be animating out

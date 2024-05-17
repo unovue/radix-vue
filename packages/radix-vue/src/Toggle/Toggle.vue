@@ -26,7 +26,7 @@ export interface ToggleProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { type Ref, computed } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { Primitive } from '@/Primitive'
 
@@ -38,11 +38,18 @@ const props = withDefaults(defineProps<ToggleProps>(), {
 
 const emits = defineEmits<ToggleEmits>()
 
+defineSlots<{
+  default(props: {
+    /** Current pressed state */
+    pressed: typeof pressed.value
+  }): any
+}>()
+
 useForwardExpose()
 const pressed = useVModel(props, 'pressed', emits, {
   defaultValue: props.defaultValue,
   passive: (props.pressed === undefined) as false,
-})
+}) as Ref<boolean>
 
 function togglePressed() {
   pressed.value = !pressed.value
@@ -64,6 +71,6 @@ const dataState = computed<DataState>(() => {
     :disabled="disabled"
     @click="togglePressed"
   >
-    <slot />
+    <slot :pressed="pressed" />
   </Primitive>
 </template>

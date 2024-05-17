@@ -44,7 +44,6 @@ import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
 import { RovingFocusGroup } from '@/RovingFocus'
 
 const props = withDefaults(defineProps<ToggleGroupRootProps>(), {
-  type: 'single',
   loop: true,
   rovingFocus: true,
   disabled: false,
@@ -52,10 +51,10 @@ const props = withDefaults(defineProps<ToggleGroupRootProps>(), {
 const emits = defineEmits<ToggleGroupRootEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current toggle values */
     modelValue: typeof modelValue.value
-  }): any
+  }) => any
 }>()
 
 const { loop, rovingFocus, disabled, dir: propDir } = toRefs(props)

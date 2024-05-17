@@ -1,4 +1,4 @@
---- 
+---
 title: useId
 description: Generate random id
 ---
@@ -9,7 +9,6 @@ description: Generate random id
 Generate random id
 </Description>
 
-
 ## Usage
 
 ```ts
@@ -17,7 +16,6 @@ import { useId } from 'radix-vue'
 
 const buttonId = useId() // radix-1
 ```
-
 
 ```ts
 import { useId } from 'radix-vue'

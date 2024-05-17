@@ -17,12 +17,12 @@ export function onFocusOutside(
 
   onMounted(() => {
     const el = unrefElement(element)
-    // @ts-expect-error focusout should recevied FocusEvent
+    // @ts-expect-error focusout should received FocusEvent
     el?.addEventListener('focusout', handleFocusOut)
   })
   onUnmounted(() => {
     const el = unrefElement(element)
-    // @ts-expect-error focusout should recevied FocusEvent
+    // @ts-expect-error focusout should received FocusEvent
     el?.removeEventListener('focusout', handleFocusOut)
   })
 }

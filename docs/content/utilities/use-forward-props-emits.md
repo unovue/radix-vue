@@ -1,9 +1,7 @@
---- 
+---
 title: useForwardPropsEmits
 description: Combinations for useForwardProps & useEmitAsProps
 ---
-
-
 
 # useForwardPropsEmits
 
@@ -30,4 +28,3 @@ const forwarded = useForwardPropsEmits(props, emits)
   </Comp>
 </template>
 ```
- 

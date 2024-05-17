@@ -2,10 +2,12 @@
   * Adapted from https://github.com/melt-ui/melt-ui/blob/develop/src/lib/builders/calendar/create.ts
 */
 
-import { type DateValue, isSameDay, isSameMonth } from '@internationalized/date'
+import { type DateValue, isEqualMonth, isSameDay } from '@internationalized/date'
 import { type Ref, computed, ref, watch } from 'vue'
 import { type Grid, type Matcher, type WeekDayFormat, createMonths, isAfter, isBefore, toDate } from '@/date'
 import { useDateFormatter } from '@/shared'
+import type { DateFormatterOptions } from '@/shared/useDateFormatter'
+import type { CalendarIncrement } from '@/shared/date'
 
 export type UseCalendarProps = {
   locale: Ref<string>
@@ -74,6 +76,17 @@ export function useCalendarState(props: UseCalendarStateProps) {
 export function useCalendar(props: UseCalendarProps) {
   const formatter = useDateFormatter(props.locale.value)
 
+  const headingFormatOptions = computed(() => {
+    const options: DateFormatterOptions = {
+      calendar: props.placeholder.value.calendar.identifier,
+    }
+
+    if (props.placeholder.value.calendar.identifier === 'gregory' && props.placeholder.value.era === 'BC')
+      options.era = 'short'
+
+    return options
+  })
+
   const grid = ref<Grid<DateValue>[]>(createMonths({
     dateObj: props.placeholder.value,
     weekStartsOn: props.weekStartsOn.value,
@@ -87,29 +100,41 @@ export function useCalendar(props: UseCalendarProps) {
   })
 
   function isOutsideVisibleView(date: DateValue) {
-    return !visibleView.value.some(month => isSameMonth(date, month))
+    return !visibleView.value.some(month => isEqualMonth(date, month))
   }
 
-  const isNextButtonDisabled = computed(() => {
+  const isNextButtonDisabled = (step: CalendarIncrement = 'month') => {
     if (!props.maxValue.value || !grid.value.length)
       return false
     if (props.disabled.value)
       return true
-    const lastPeriodInView = grid.value[grid.value.length - 1].value
 
+    if (step === 'year') {
+      const lastPeriodInView = grid.value[grid.value.length - 1].value
+      const firstPeriodOfNextPage = lastPeriodInView.add({ years: 1 }).set({ day: 1, month: 1 })
+      return isAfter(firstPeriodOfNextPage, props.maxValue.value)
+    }
+
+    const lastPeriodInView = grid.value[grid.value.length - 1].value
     const firstPeriodOfNextPage = lastPeriodInView.add({ months: 1 }).set({ day: 1 })
     return isAfter(firstPeriodOfNextPage, props.maxValue.value)
-  })
+  }
 
-  const isPrevButtonDisabled = computed(() => {
+  const isPrevButtonDisabled = (step: CalendarIncrement = 'month') => {
     if (!props.minValue.value || !grid.value.length)
       return false
     if (props.disabled.value)
       return true
     const firstPeriodInView = grid.value[0].value
+    if (step === 'year') {
+      const lastPeriodOfPrevPage = firstPeriodInView.subtract({ years: 1 }).set({ day: 35, month: 13 })
+      return isBefore(lastPeriodOfPrevPage, props.minValue.value)
+    }
+
     const lastPeriodOfPrevPage = firstPeriodInView.subtract({ months: 1 }).set({ day: 35 })
+
     return isBefore(lastPeriodOfPrevPage, props.minValue.value)
-  })
+  }
 
   function isDateDisabled(dateObj: DateValue) {
     if (props.isDateDisabled?.(dateObj) || props.disabled.value)
@@ -135,11 +160,12 @@ export function useCalendar(props: UseCalendarProps) {
     })
   })
 
-  const nextPage = () => {
+  const nextPage = (step: CalendarIncrement = 'month') => {
     const firstDate = grid.value[0].value
+    const newDate = step === 'month' ? firstDate.add({ months: props.pagedNavigation.value ? props.numberOfMonths.value : 1 }) : firstDate.add({ years: 1 })
 
     const newGrid = createMonths({
-      dateObj: firstDate.add({ months: props.pagedNavigation.value ? props.numberOfMonths.value : 1 }),
+      dateObj: newDate,
       weekStartsOn: props.weekStartsOn.value,
       locale: props.locale.value,
       fixedWeeks: props.fixedWeeks.value,
@@ -151,11 +177,12 @@ export function useCalendar(props: UseCalendarProps) {
     props.placeholder.value = newGrid[0].value.set({ day: 1 })
   }
 
-  const prevPage = () => {
+  const prevPage = (step: CalendarIncrement = 'month') => {
     const firstDate = grid.value[0].value
+    const newDate = step === 'month' ? firstDate.subtract({ months: props.pagedNavigation.value ? props.numberOfMonths.value : 1 }) : firstDate.subtract({ years: 1 })
 
     const newGrid = createMonths({
-      dateObj: firstDate.subtract({ months: props.pagedNavigation.value ? props.numberOfMonths.value : 1 }),
+      dateObj: newDate,
       weekStartsOn: props.weekStartsOn.value,
       locale: props.locale.value,
       fixedWeeks: props.fixedWeeks.value,
@@ -168,7 +195,7 @@ export function useCalendar(props: UseCalendarProps) {
   }
 
   watch(props.placeholder, (value) => {
-    if (visibleView.value.some(month => isSameMonth(month, value)))
+    if (visibleView.value.some(month => isEqualMonth(month, value)))
       return
     grid.value = createMonths({
       dateObj: value,
@@ -198,16 +225,16 @@ export function useCalendar(props: UseCalendarProps) {
 
     if (grid.value.length === 1) {
       const month = grid.value[0].value
-      return `${formatter.fullMonthAndYear(toDate(month))}`
+      return `${formatter.fullMonthAndYear(toDate(month), headingFormatOptions.value)}`
     }
 
     const startMonth = toDate(grid.value[0].value)
     const endMonth = toDate(grid.value[grid.value.length - 1].value)
 
-    const startMonthName = formatter.fullMonth(startMonth)
-    const endMonthName = formatter.fullMonth(endMonth)
-    const startMonthYear = formatter.fullYear(startMonth)
-    const endMonthYear = formatter.fullYear(endMonth)
+    const startMonthName = formatter.fullMonth(startMonth, headingFormatOptions.value)
+    const endMonthName = formatter.fullMonth(endMonth, headingFormatOptions.value)
+    const startMonthYear = formatter.fullYear(startMonth, headingFormatOptions.value)
+    const endMonthYear = formatter.fullYear(endMonth, headingFormatOptions.value)
 
     const content
     = startMonthYear === endMonthYear

@@ -62,7 +62,7 @@ const styles = `
 describe('given a Presence with animated content', () => {
   const wrapper = mount(defineComponent({
     components: { Presence },
-    setup: (props) => {
+    setup: (_props) => {
       const el = ref()
 
       onMounted(() => {

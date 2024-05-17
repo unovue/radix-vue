@@ -16,7 +16,7 @@ describe('given a default Progress', () => {
     expect(await axe(wrapper.element)).toHaveNoViolations()
   })
 
-  it('shoud contain correct value', () => {
+  it('should contain correct value', () => {
     expect(wrapper.html()).toContain('data-value="0"')
   })
 
@@ -25,7 +25,7 @@ describe('given a default Progress', () => {
       await sleep(200)
     })
 
-    it('shoud contain correct value', async () => {
+    it('should contain correct value', async () => {
       expect(wrapper.html()).toContain('data-value="50"')
     })
   })

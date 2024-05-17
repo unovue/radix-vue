@@ -65,6 +65,11 @@ export interface ComboboxRootProps<T = AcceptableValue> extends PrimitiveProps {
   filterFunction?: (val: ArrayOrWrapped<T>, term: string) => ArrayOrWrapped<T>
   /** The display value of input for selected item. Does not work with `multiple`. */
   displayValue?: (val: T) => string
+  /**
+   * Whether to reset the searchTerm when the Combobox input blurred
+   * @defaultValue `true`
+   */
+  resetSearchTermOnBlur?: boolean
 }
 </script>
 
@@ -78,16 +83,17 @@ import isEqual from 'fast-deep-equal'
 
 const props = withDefaults(defineProps<ComboboxRootProps<T>>(), {
   open: undefined,
+  resetSearchTermOnBlur: true,
 })
 const emit = defineEmits<ComboboxRootEmits<T>>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current open state */
     open: typeof open.value
     /** Current active value */
     modelValue: typeof modelValue.value
-  }): any
+  }) => any
 }>()
 
 const { multiple, disabled, dir: propDir } = toRefs(props)
@@ -128,7 +134,8 @@ async function onOpenChange(val: boolean) {
   }
   else {
     isUserInputted.value = false
-    resetSearchTerm()
+    if (props.resetSearchTermOnBlur)
+      resetSearchTerm()
   }
 }
 
@@ -154,7 +161,10 @@ const options = ref<T[]>([]) as Ref<T[]>
 
 watch(() => itemMapSize.value, () => {
   options.value = getItems().map(i => i.value)
-}, { immediate: true })
+}, {
+  immediate: true,
+  flush: 'post',
+})
 
 const filteredOptions = computed(() => {
   if (isUserInputted.value) {
@@ -185,7 +195,7 @@ function resetSearchTerm() {
 
 const activeIndex = computed(() => filteredOptions.value.findIndex(i => isEqual(i, selectedValue.value)))
 const selectedElement = computed(() => {
-  return reactiveItems.value.find(i => i.value === selectedValue.value)?.ref
+  return reactiveItems.value.find(i => isEqual(i.value, selectedValue.value))?.ref
 })
 
 const stringifiedModelValue = computed(() => JSON.stringify(modelValue.value))
@@ -195,7 +205,10 @@ watch(stringifiedModelValue, async () => {
   await nextTick()
   await nextTick()
   resetSearchTerm()
-}, { immediate: true })
+}, {
+  // If searchTerm is provided with value during initialization, we don't reset it immediately
+  immediate: !props.searchTerm,
+})
 
 watch(() => filteredOptions.value.length, async (length) => {
   await nextTick()
@@ -216,7 +229,7 @@ function scrollSelectedValueIntoView() {
 provideComboboxRootContext({
   searchTerm,
   modelValue,
-  // @ts-expect-error igoring
+  // @ts-expect-error ignoring
   onValueChange,
   isUserInputted,
   multiple,

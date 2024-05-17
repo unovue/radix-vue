@@ -12,8 +12,8 @@ export type DropdownMenuRootEmits = MenuEmits
 
 export interface DropdownMenuRootContext {
   open: Readonly<Ref<boolean>>
-  onOpenChange(open: boolean): void
-  onOpenToggle(): void
+  onOpenChange: (open: boolean) => void
+  onOpenToggle: () => void
   triggerId: string
   triggerElement: Ref<HTMLElement | undefined>
   contentId: string
@@ -35,6 +35,13 @@ const props = withDefaults(defineProps<DropdownMenuRootProps>(), {
   open: undefined,
 })
 const emit = defineEmits<DropdownMenuRootEmits>()
+
+defineSlots<{
+  default(props: {
+    /** Current open state */
+    open: typeof open.value
+  }): any
+}>()
 
 useForwardExpose()
 const open = useVModel(props, 'open', emit, {
@@ -64,6 +71,6 @@ provideDropdownMenuRootContext({
 
 <template>
   <MenuRoot v-model:open="open" :dir="dir" :modal="modal">
-    <slot />
+    <slot :open="open" />
   </MenuRoot>
 </template>

@@ -58,6 +58,35 @@ describe('given a default RadioGroup', () => {
   })
 })
 
+describe('given disabled RadioGroup', () => {
+  let wrapper: VueWrapper<InstanceType<typeof RadioGroup>>
+  let radios: DOMWrapper<HTMLElement>[]
+
+  beforeEach(() => {
+    document.body.innerHTML = ''
+    wrapper = mount(RadioGroup, { attachTo: document.body, props: { disabled: true } })
+    radios = wrapper.findAll('[role=radio]')
+  })
+
+  it('should pass axe accessibility tests', async () => {
+    expect(await axe(wrapper.element)).toHaveNoViolations()
+  })
+
+  it('should have default selected', () => {
+    expect(radios[0].attributes('data-state')).toBe('checked')
+  })
+
+  it.each([[0, 'checked'], [1, 'unchecked'], [2, 'unchecked']])('should not select any item', async (input, output) => {
+    await radios[input].trigger('click')
+    expect(radios[input].attributes('data-state')).toBe(output)
+  })
+
+  it.each([[0], [1], [2]])('should have disabled attribute on item', async (input) => {
+    expect(radios[input].attributes('disabled')).toBe('')
+    expect(radios[input].attributes('data-disabled')).toBe('true')
+  })
+})
+
 describe('given radio in a form', async () => {
   const wrapper = mount({
     props: ['handleSubmit'],

@@ -1,7 +1,11 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import type { CalendarIncrement } from '@/shared/date'
 
-export interface RangeCalendarPrevProps extends PrimitiveProps {}
+export interface RangeCalendarPrevProps extends PrimitiveProps {
+/** The calendar unit to go forward */
+  step?: CalendarIncrement
+}
 </script>
 
 <script setup lang="ts">
@@ -18,10 +22,10 @@ const rootContext = injectRangeCalendarRootContext()
     v-bind="props"
     aria-label="Previous page"
     :type="as === 'button' ? 'button' : undefined"
-    :aria-disabled="rootContext.isPrevButtonDisabled.value || undefined"
-    :data-disabled="rootContext.isPrevButtonDisabled.value || undefined"
-    :disabled="rootContext.isPrevButtonDisabled.value"
-    @click="rootContext.prevPage"
+    :aria-disabled="rootContext.isPrevButtonDisabled(props.step) || undefined"
+    :data-disabled="rootContext.isPrevButtonDisabled(props.step) || undefined"
+    :disabled="rootContext.isPrevButtonDisabled(props.step)"
+    @click="rootContext.prevPage(props.step)"
   >
     <slot>Prev page</slot>
   </Primitive>

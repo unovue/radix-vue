@@ -41,7 +41,7 @@
   },
   {
     'name': 'orientation',
-    'description': '<p>The orientation the tabs are layed out.\nMainly so arrow navigation is done accordingly (left &amp; right vs. up &amp; down)</p>\n',
+    'description': '<p>The orientation the tabs are laid out.\nMainly so arrow navigation is done accordingly (left &amp; right vs. up &amp; down)</p>\n',
     'type': '\'vertical\' | \'horizontal\'',
     'required': false,
     'default': '\'horizontal\''
@@ -53,5 +53,13 @@
     'name': 'update:modelValue',
     'description': '<p>Event handler called when the value changes</p>\n',
     'type': '[payload: string | number]'
+  }
+]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'modelValue',
+    'description': '<p>Current input values</p>\n',
+    'type': 'string | number'
   }
 ]" />

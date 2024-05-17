@@ -16,11 +16,16 @@ const namespaced = filteredComponent.map((curr: keyof typeof components) => {
       tmp[truncated] = val
   })
 
-  if (Object.keys(tmp).length === 0)
+  if (Object.keys(tmp).length === 0) {
     return `export { ${key} }`
-  else
-    // eslint-disable-next-line max-statements-per-line
-    return `export const ${key} = {\n${Object.keys(tmp).map((k) => { return `  ${k}: ${tmp[k]},\n` }).join('')}}  as {\n${Object.keys(tmp).map((k) => { return `  ${k}: typeof ${tmp[k]}\n` }).join('')}}`
+  }
+  else {
+    return `export const ${key} = {\n${
+        Object.keys(tmp).map((k) => { return `  ${k}: ${tmp[k]},\n` }).join('')
+    }}  as {\n${Object.keys(tmp).map((k) => {
+        return `  ${k}: typeof ${tmp[k]}\n`
+     }).join('')}}`
+  }
 })
 
 const template = `

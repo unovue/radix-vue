@@ -35,3 +35,11 @@
     'type': '[string]'
   }
 ]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'modelValue',
+    'description': '<p>Current input values</p>\n',
+    'type': 'string | undefined'
+  }
+]" />

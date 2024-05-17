@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, toRefs } from 'vue'
-import { usePrevious } from '@vueuse/core'
 import { VisuallyHidden } from '@/VisuallyHidden'
 
 interface BubbleSelectProps {
@@ -17,7 +16,6 @@ interface BubbleSelectProps {
 
 const props = defineProps<BubbleSelectProps>()
 const { value } = toRefs(props)
-const prevValue = usePrevious(value)
 const selectElement = ref<HTMLElement>()
 
 // This would bubble "change" event to form, with the target as Select element.
@@ -41,7 +39,7 @@ const selectElement = ref<HTMLElement>()
  * as possible.
  *
  * We purposefully do not add the `value` attribute here to allow the value
- * to be set programatically and bubble to any parent form `onChange` event.
+ * to be set programmatically and bubble to any parent form `onChange` event.
  *
  * We use `VisuallyHidden` rather than `display: "none"` because Safari autofill
  * won't work otherwise.

@@ -21,7 +21,6 @@ useForwardExpose()
 <template>
   <CollapsibleContent
     role="region"
-    :open="itemContext.open.value"
     :hidden="!itemContext.open.value"
     :as-child="props.asChild"
     :aria-labelledby="itemContext.triggerId"

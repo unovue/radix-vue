@@ -70,6 +70,7 @@ function handleFocus() {
       :ref="forwardRef"
       :checked="checked"
       :required="required"
+      :disabled="disabled"
       @update:checked="rootContext.changeModelValue(value)"
       @keydown.enter.prevent
       @focus="handleFocus"

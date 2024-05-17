@@ -30,13 +30,16 @@ const props = withDefaults(defineProps<ToastRootProps>(), {
   defaultOpen: true,
   as: 'li',
 })
+
 const emits = defineEmits<ToastRootEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
+    /** Current open state */
+    open: typeof open.value
     /** Remaining time (in ms) */
     remaining: number
-  }): any
+  }) => any
 }>()
 
 const { forwardRef } = useForwardExpose()
@@ -91,7 +94,7 @@ const open = useVModel(props, 'open', emits, {
         open = false;
       }"
     >
-      <slot :remaining="remaining" />
+      <slot :remaining="remaining" :open="open" />
     </ToastRootImpl>
   </Presence>
 </template>

@@ -30,6 +30,14 @@ const props = withDefaults(defineProps<MenuRadioGroupProps>(), {
   modelValue: '',
 })
 const emits = defineEmits<MenuRadioGroupEmits>()
+
+defineSlots<{
+  default(props: {
+    /** Current input values */
+    modelValue: typeof modelValue.value
+  }): any
+}>()
+
 const modelValue = useVModel(props, 'modelValue', emits)
 
 provideMenuRadioGroupContext({
@@ -42,6 +50,6 @@ provideMenuRadioGroupContext({
 
 <template>
   <MenuGroup v-bind="props">
-    <slot />
+    <slot :model-value="modelValue" />
   </MenuGroup>
 </template>

@@ -5,7 +5,6 @@ name: splitter
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/windowsplitter/
 ---
 
-
 # Splitter
 
 <Badge>Alpha</Badge>
@@ -32,7 +31,7 @@ This component was heavily inspired by [react-resizable-panels](https://github.c
     'Can be mounted conditionally.'
   ]"
 />
- 
+
 ## Installation
 
 Install the component from your command line.
@@ -62,9 +61,7 @@ import { SplitterGroup, SplitterPanel, SplitterResizeHandle } from 'radix-vue'
 
 Contains all the parts of a Splitter.
 
-
 <!-- @include: @/meta/SplitterGroup.md -->
-
 
 <DataAttributesTable
   :data="[
@@ -85,14 +82,13 @@ A collapsible section.
 
 <!-- @include: @/meta/SplitterPanel.md -->
 
- 
 ### Resize Handle
 
 Handle that use for resizing.
 
 <!-- @include: @/meta/SplitterResizeHandle.md -->
 
-<DataAttributesTable 
+<DataAttributesTable
   :data="[
     {
       attribute: '[data-state]',
@@ -106,9 +102,8 @@ Handle that use for resizing.
       attribute: '[data-orientation]',
       values: ['vertical', 'horizontal'],
     }
-  ]" 
+  ]"
 />
-
 
 ## Examples
 
@@ -143,7 +138,7 @@ Use the `autoSaveId` prop to save the layout data into `localStorage`.
   </SplitterGroup>
 </template>
 ```
- 
+
 ### Persist layout with SSR
 
 By default, Splitter uses `localStorage` to persist layouts. With server rendering, this can cause a flicker when the default layout (rendered on the server) is replaced with the persisted layout (in `localStorage`). The way to avoid this flicker is to also persist the layout with a cookie like so:
@@ -166,7 +161,6 @@ const layout = useCookie<number[]>('splitter:layout')
   </SplitterGroup>
 </template>
 ```
- 
 
 ### Collapse/Expand programmatically
 
@@ -199,8 +193,6 @@ const panelRef = ref<InstanceType<typeof SplitterPanel>>()
 </template>
 ```
 
-
-
 ### Custom handle
 
 Customize the handle by passing any element as the slot.
@@ -220,7 +212,6 @@ Customize the handle by passing any element as the slot.
    </SplitterGroup>
 </template>
 ```
- 
 
 ### SSR
 
@@ -244,7 +235,6 @@ Thus, if you are using Nuxt or other SSR framework, you are required to manually
 </template>
 ```
 
-
 ## Accessibility
 
 Adheres to the [Window Splitter WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/windowsplitter).
@@ -255,7 +245,7 @@ Adheres to the [Window Splitter WAI-ARIA design pattern](https://www.w3.org/WAI/
     {
       keys: ['Enter'],
       description: 'If the primary pane is not collapsed, collapses the pane. If the pane is collapsed, restores the splitter to its previous position.',
-    }, 
+    },
     {
       keys: ['ArrowDown'],
       description: 'Moves a horizontal splitter down.',

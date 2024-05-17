@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import { type DateValue } from '@internationalized/date'
+import type { DateValue } from '@internationalized/date'
 import type { RangeCalendarRootProps } from '../'
 import { RangeCalendarCell, RangeCalendarCellTrigger, RangeCalendarGrid, RangeCalendarGridBody, RangeCalendarGridHead, RangeCalendarGridRow, RangeCalendarHeadCell, RangeCalendarHeader, RangeCalendarHeading, RangeCalendarNext, RangeCalendarPrev, RangeCalendarRoot } from '../'
 
 const props = defineProps<{
   calendarProps?: RangeCalendarRootProps
-  emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } }>()
+  emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void }
+}>()
 </script>
 
 <template>
@@ -17,11 +18,19 @@ const props = defineProps<{
   >
     <RangeCalendarHeader data-testid="header">
       <RangeCalendarPrev
+        data-testid="prev-year-button"
+        step="year"
+      />
+      <RangeCalendarPrev
         data-testid="prev-button"
       />
       <RangeCalendarHeading data-testid="heading" />
       <RangeCalendarNext
         data-testid="next-button"
+      />
+      <RangeCalendarNext
+        data-testid="next-year-button"
+        step="year"
       />
     </RangeCalendarHeader>
 

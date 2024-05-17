@@ -14,7 +14,6 @@ A set of two-state buttons that can be toggled on or off.
 
 <ComponentPreview name="ToggleGroup" />
 
-
 ## Features
 
 <Highlights

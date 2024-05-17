@@ -6,7 +6,7 @@ import type { PrimitiveProps } from '@/Primitive'
 import { type Formatter, createContext, useDirection } from '@/shared'
 import { getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
 import { type Grid, type Matcher, type WeekDayFormat, isBefore } from '@/date'
-import type { DateRange } from '@/shared/date'
+import type { CalendarIncrement, DateRange } from '@/shared/date'
 import { useRangeCalendarState } from './useRangeCalendar'
 import { useCalendar } from '@/Calendar/useCalendar'
 import type { Direction } from '@/shared/types'
@@ -31,19 +31,19 @@ type RangeCalendarRootContext = {
   parentElement: Ref<HTMLElement | undefined>
   headingValue: Ref<string>
   isInvalid: Ref<boolean>
-  nextPage: () => void
-  prevPage: () => void
   isDateDisabled: Matcher
   isDateUnavailable?: Matcher
   isOutsideVisibleView: (date: DateValue) => boolean
-  highlightedRange: Ref<{ start: DateValue; end: DateValue } | null>
+  highlightedRange: Ref<{ start: DateValue, end: DateValue } | null>
   focusedValue: Ref<DateValue | undefined>
   lastPressedDateValue: Ref<DateValue | undefined>
   isSelected: (date: DateValue) => boolean
   isSelectionEnd: (date: DateValue) => boolean
   isSelectionStart: (date: DateValue) => boolean
-  isNextButtonDisabled: Ref<boolean>
-  isPrevButtonDisabled: Ref<boolean>
+  prevPage: (step?: CalendarIncrement) => void
+  nextPage: (step?: CalendarIncrement) => void
+  isNextButtonDisabled: (step?: CalendarIncrement) => boolean
+  isPrevButtonDisabled: (step?: CalendarIncrement) => boolean
   formatter: Formatter
   dir: Ref<Direction>
 }
@@ -55,7 +55,7 @@ export interface RangeCalendarRootProps extends PrimitiveProps {
   defaultValue?: DateRange
   /** The controlled checked state of the calendar. Can be bound as `v-model`. */
   modelValue?: DateRange
-  /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programatically control the calendar view */
+  /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programmatically control the calendar view */
   placeholder?: DateValue
   /** This property causes the previous and next buttons to navigate by the number of months displayed at once, rather than one month */
   pagedNavigation?: boolean
@@ -130,7 +130,7 @@ const props = withDefaults(defineProps<RangeCalendarRootProps>(), {
 const emits = defineEmits<RangeCalendarRootEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** The current date of the placeholder */
     date: DateValue
     /** The grid of dates */
@@ -143,7 +143,7 @@ defineSlots<{
     locale: string
     /** Whether or not to always display 6 weeks in the calendar */
     fixedWeeks: boolean
-  }): any
+  }) => any
 }>()
 
 const {

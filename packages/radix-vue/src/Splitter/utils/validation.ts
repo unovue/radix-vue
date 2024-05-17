@@ -28,6 +28,7 @@ export function validatePanelGroupLayout({
   else if (!fuzzyNumbersEqual(nextLayoutTotalSize, 100)) {
     // This is not ideal so we should warn about it, but it may be recoverable in some cases
     // (especially if the amount is small)
+
     if (true) {
       console.warn(
         `WARNING: Invalid layout total size: ${nextLayout

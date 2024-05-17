@@ -8,7 +8,7 @@ export interface AlertDialogDescriptionProps extends DialogDescriptionProps {}
 <script setup lang="ts">
 import { DialogDescription } from '@/Dialog'
 
-const props = defineProps<AlertDialogDescriptionProps>()
+const props = withDefaults(defineProps<AlertDialogDescriptionProps>(), { as: 'p' })
 useForwardExpose()
 </script>
 

@@ -1,17 +1,14 @@
 <script setup lang="ts">
-import { CalendarDateTime, type DateValue, getLocalTimeZone, now } from '@internationalized/date'
+import { CalendarDateTime, type DateValue } from '@internationalized/date'
 import DateRangePicker from './_DummyDateRangePicker.vue'
 import { type Ref, ref } from 'vue'
 
 const defaultValue = { start: new CalendarDateTime(2024, 2, 20), end: new CalendarDateTime(2024, 2, 27) }
-const modelValue = ref(defaultValue) as Ref<{ start: DateValue; end: DateValue }>
-
-const defaultPlaceholder = new CalendarDateTime(2023, 10, 11, 12, 30)
-const localTimezonePlaceholder = now(getLocalTimeZone())
+const modelValue = ref(defaultValue) as Ref<{ start: DateValue, end: DateValue }>
 </script>
 
 <template>
-  <Story title="Date Range Picker/Chromatic" :layout="{ type: 'grid', width: '50%', iframe: false }">
+  <Story title="Date Range Picker/Chromatic" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="Empty default">
       <DateRangePicker />
     </Variant>
@@ -48,7 +45,7 @@ const localTimezonePlaceholder = now(getLocalTimeZone())
       <DateRangePicker :default-value="defaultValue" :number-of-months="2" />
     </Variant>
 
-    <Variant title="Multiple months (Paged nagivation)">
+    <Variant title="Multiple months (Paged navigation)">
       <DateRangePicker :default-value="defaultValue" :number-of-months="2" paged-navigation />
     </Variant>
   </Story>

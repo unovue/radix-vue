@@ -20,7 +20,7 @@ const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 
 const kbd = useTestKbd()
 
-function setup(props: { calendarProps?: CalendarRootProps; emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } } = {}) {
+function setup(props: { calendarProps?: CalendarRootProps, emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } } = {}) {
   const user = userEvent.setup()
   const returned = render(Calendar, { props })
   const calendar = returned.getByTestId('calendar')
@@ -28,7 +28,7 @@ function setup(props: { calendarProps?: CalendarRootProps; emits?: { 'onUpdate:m
   return { ...returned, user, calendar }
 }
 
-function setupMulti(props: { calendarProps?: CalendarRootProps; emits?: { 'onUpdate:modelValue'?: (data: DateValue[]) => void } } = { }) {
+function setupMulti(props: { calendarProps?: CalendarRootProps, emits?: { 'onUpdate:modelValue'?: (data: DateValue[]) => void } } = { }) {
   const user = userEvent.setup()
   const returned = render(CalendarMultiple, { props: { ...props, multiple: true } })
   const calendar = returned.getByTestId('calendar')
@@ -49,7 +49,7 @@ it('should pass axe accessibility tests', async () => {
   expect(await axe(calendar)).toHaveNoViolations()
 })
 
-describe('Calendar', async () => {
+describe('calendar', async () => {
   it('respects a default value if provided - `CalendarDate`', async () => {
     const { getByTestId, calendar } = setup({ calendarProps: { modelValue: calendarDate } })
     expect(getSelectedDay(calendar)).toHaveTextContent(String(calendarDate.day))
@@ -287,6 +287,44 @@ describe('Calendar', async () => {
     expect(heading).toHaveTextContent('November 1979')
   })
 
+  it('should navigate one year in the past (prev year button)', async () => {
+    const { getByTestId, user } = setup({
+      calendarProps: {
+        modelValue: calendarDate,
+      },
+    })
+
+    const prevBtn = getByTestId('prev-year-button')
+    await user.click(prevBtn)
+    const heading = getByTestId('heading')
+    expect(heading).toHaveTextContent('January 1979')
+
+    await user.click(prevBtn)
+    expect(heading).toHaveTextContent('January 1978')
+
+    await user.click(prevBtn)
+    expect(heading).toHaveTextContent('January 1977')
+  })
+
+  it('should navigate one year in the future (next year button)', async () => {
+    const { getByTestId, user } = setup({
+      calendarProps: {
+        modelValue: calendarDate,
+      },
+    })
+
+    const nextBtn = getByTestId('next-year-button')
+    await user.click(nextBtn)
+    const heading = getByTestId('heading')
+    expect(heading).toHaveTextContent('January 1981')
+
+    await user.click(nextBtn)
+    expect(heading).toHaveTextContent('January 1982')
+
+    await user.click(nextBtn)
+    expect(heading).toHaveTextContent('January 1983')
+  })
+
   it('should not allow navigation after the `maxValue` (next button)', async () => {
     const { getByTestId, user } = setup({
       calendarProps: {
@@ -505,7 +543,7 @@ describe('Calendar', async () => {
   })
 })
 
-describe('Calendar - `multiple`', () => {
+describe('calendar - `multiple`', () => {
   it('handles default value when `value` prop is provided - `CalendarDate[]`', async () => {
     const d1 = new CalendarDate(1980, 1, 2)
     const d2 = new CalendarDate(1980, 1, 5)

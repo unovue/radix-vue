@@ -8,6 +8,14 @@
     "story:build": "histoire build",
     "story:preview": "histoire preview"
   },
+  "peerDependencies": {
+    "@vitejs/plugin-vue": "*",
+    "@vueuse/components": "*",
+    "@vueuse/core": "*",
+    "@vueuse/shared": "*",
+    "vite": "*",
+    "vue": "*"
+  },
   "devDependencies": {
     "@antfu/eslint-config": "^0.39.7",
     "@floating-ui/dom": "^1.4.2",
@@ -22,13 +30,5 @@
     "postcss": "^8.4.33",
     "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "1.0.7"
-  },
-  "peerDependencies": {
-    "@vitejs/plugin-vue": "*",
-    "@vueuse/components": "*",
-    "@vueuse/core": "*",
-    "@vueuse/shared": "*",
-    "vite": "*",
-    "vue": "*"
   }
 }

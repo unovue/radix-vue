@@ -3,7 +3,7 @@ import { h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
 import HomePage from '../components/HomePage.vue'
 import HomePageDemo from '../components/HomePageDemo.vue'
-import Annoucement from '../components/Annoucement.vue'
+import Announcement from '../components/Announcement.vue'
 import EmbedIframe from '../components/EmbedIframe.vue'
 import ComponentPreview from '../components/ComponentPreview.vue'
 import InstallationTabs from '../components/InstallationTabs.vue'
@@ -11,7 +11,7 @@ import LayoutShowcase from '../layouts/showcase.vue'
 import 'vitepress/dist/client/theme-default/styles/components/vp-doc.css'
 import './style.css'
 import './tailwind.postcss'
-import { type Theme } from 'vitepress'
+import type { Theme } from 'vitepress'
 
 const regex = /\/(\w+)\.vue/
 const baseModules = import.meta.glob('../../components/*.vue', { eager: true })
@@ -21,12 +21,12 @@ export default {
   extends: DefaultTheme,
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
-      'home-hero-info-before': () => h(Annoucement),
+      'home-hero-info-before': () => h(Announcement),
       // https://vitepress.dev/guide/extending-default-theme#layout-slots
       'home-features-after': () => h('div', [h(HomePageDemo), h(HomePage)]),
     })
   },
-  enhanceApp({ app, router, siteData }) {
+  enhanceApp({ app }) {
     for (const path in baseModules)
       app.component(path.match(regex)?.[1] ?? '', (baseModules[path] as any)?.default)
 

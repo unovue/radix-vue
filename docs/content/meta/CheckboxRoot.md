@@ -66,3 +66,11 @@
     'type': '[value: boolean]'
   }
 ]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'checked',
+    'description': '<p>Current checked state</p>\n',
+    'type': 'false | true | \'indeterminate\''
+  }
+]" />

@@ -2,6 +2,9 @@
 import { ref } from 'vue'
 import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from '../'
 
+defineProps<{
+  disabled?: boolean
+}>()
 const radioStateSingle = ref('default')
 </script>
 
@@ -9,6 +12,7 @@ const radioStateSingle = ref('default')
   <RadioGroupRoot
     v-model="radioStateSingle"
     :loop="false"
+    :disabled="disabled"
     class="flex flex-col gap-2.5"
     aria-label="View density"
     orientation="vertical"

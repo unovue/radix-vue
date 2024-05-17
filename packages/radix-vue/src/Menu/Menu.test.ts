@@ -44,7 +44,7 @@ describe('given a default Menu', () => {
       await nextTick()
     })
 
-    it('should have hightlighted state', () => {
+    it('should have highlighted state', () => {
       expect(firstItem.parentElement?.innerHTML).toContain('data-highlighted')
     })
 

@@ -66,3 +66,11 @@
     'type': '[payload: boolean]'
   }
 ]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'checked',
+    'description': '<p>Current checked state</p>\n',
+    'type': 'boolean'
+  }
+]" />

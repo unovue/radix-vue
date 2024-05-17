@@ -8,9 +8,11 @@ export interface MenubarRootProps {
   modelValue?: string
   /** The value of the menu that should be open when initially rendered. Use when you do not need to control the value state. */
   defaultValue?: string
-  /** The reading direction of the combobox when applicable.
+  /**
+   * The reading direction of the combobox when applicable.
    *
-   *  If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
+   *  If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode.
+   */
   dir?: Direction
   /** When `true`, keyboard navigation will loop from last item to first, and vice versa. */
   loop?: boolean
@@ -24,9 +26,9 @@ export interface MenubarRootContext {
   modelValue: Ref<string>
   dir: Ref<Direction>
   loop: Ref<boolean>
-  onMenuOpen(value: string): void
-  onMenuClose(): void
-  onMenuToggle(value: string): void
+  onMenuOpen: (value: string) => void
+  onMenuClose: () => void
+  onMenuToggle: (value: string) => void
 }
 
 export const [injectMenubarRootContext, provideMenubarRootContext]
@@ -43,6 +45,13 @@ const props = withDefaults(defineProps<MenubarRootProps>(), {
   loop: false,
 })
 const emit = defineEmits<MenubarRootEmits>()
+
+defineSlots<{
+  default(props: {
+    /** Current input values */
+    modelValue: typeof modelValue.value
+  }): any
+}>()
 
 const { forwardRef, currentElement } = useForwardExpose()
 const { createCollection } = useCollection('menubar')
@@ -86,7 +95,7 @@ provideMenubarRootContext({
     as-child
   >
     <Primitive :ref="forwardRef" role="menubar">
-      <slot />
+      <slot :model-value="modelValue" />
     </Primitive>
   </RovingFocusGroup>
 </template>

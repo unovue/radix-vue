@@ -11,9 +11,11 @@ export type NavigationMenuSubEmits = {
 export interface NavigationMenuSubProps extends PrimitiveProps {
   /** The controlled value of the sub menu item to activate. Can be used as `v-model`. */
   modelValue?: string
-  /** The value of the menu item that should be active when initially rendered.
+  /**
+   * The value of the menu item that should be active when initially rendered.
    *
-   * Use when you do not need to control the value state. */
+   * Use when you do not need to control the value state.
+   */
   defaultValue?: string
   /** The orientation of the menu. */
   orientation?: Orientation
@@ -33,6 +35,13 @@ const props = withDefaults(defineProps<NavigationMenuSubProps>(), {
   orientation: 'horizontal',
 })
 const emits = defineEmits<NavigationMenuSubEmits>()
+
+defineSlots<{
+  default(props: {
+    /** Current input values */
+    modelValue: typeof modelValue.value
+  }): any
+}>()
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue ?? '',
@@ -93,6 +102,6 @@ provideNavigationMenuContext({
     :as-child="props.asChild"
     :as="as"
   >
-    <slot />
+    <slot :model-value="modelValue" />
   </Primitive>
 </template>

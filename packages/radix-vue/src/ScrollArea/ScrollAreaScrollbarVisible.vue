@@ -9,7 +9,7 @@ export interface ScrollAreaScrollbarVisibleContext {
   handleWheelScroll: (event: WheelEvent, payload: number) => void
   handleThumbDown: (
     event: MouseEvent,
-    payload: { x: number; y: number }
+    payload: { x: number, y: number }
   ) => void
   handleThumbUp: (event: MouseEvent) => void
   handleSizeChange: (payload: Sizes) => void
@@ -72,7 +72,7 @@ function handleWheelScroll(event: WheelEvent, payload: number) {
   }
 }
 
-function handleThumbDown(event: MouseEvent, payload: { x: number; y: number }) {
+function handleThumbDown(event: MouseEvent, payload: { x: number, y: number }) {
   if (isShowingScrollbarX.value)
     pointerOffset.value = payload.x
   else pointerOffset.value = payload.y

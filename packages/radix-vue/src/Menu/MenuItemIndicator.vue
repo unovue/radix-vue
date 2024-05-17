@@ -18,7 +18,8 @@ export interface MenuItemIndicatorProps extends PrimitiveProps {
 
 export const [injectMenuItemIndicatorContext, provideMenuItemIndicatorContext]
   = createContext<MenuItemIndicatorContext>(
-    ['MenuCheckboxItem', 'MenuRadioItem'], 'MenuItemIndicatorContext',
+    ['MenuCheckboxItem', 'MenuRadioItem'],
+    'MenuItemIndicatorContext',
   )
 </script>
 

@@ -4,8 +4,6 @@ title: Introduction
 description: An open-source UI component library for building high-quality, accessible design systems and web apps using Vue.
 ---
 
-
-
 # Introduction
 
 <Description>

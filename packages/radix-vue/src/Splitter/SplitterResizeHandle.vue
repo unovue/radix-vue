@@ -19,7 +19,7 @@ export type ResizeHandlerState = 'drag' | 'hover' | 'inactive'
 
 export type SplitterResizeHandleEmits = {
   /** Event handler called when dragging the handler. */
-  'dragging': [isDragging: boolean]
+  dragging: [isDragging: boolean]
 }
 </script>
 

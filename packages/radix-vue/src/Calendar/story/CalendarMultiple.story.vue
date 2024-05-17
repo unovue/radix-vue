@@ -19,7 +19,7 @@ const defaultValue = new CalendarDate(2024, 2, 20)
       <Calendar :default-value="defaultValue" :number-of-months="3" />
     </Variant>
 
-    <Variant title="3 months (Paged nagivation)">
+    <Variant title="3 months (Paged navigation)">
       <Calendar :default-value="defaultValue" :number-of-months="3" paged-navigation />
     </Variant>
 

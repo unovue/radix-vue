@@ -9,7 +9,7 @@ const modelValue = ref(defaultValue) as Ref<DateValue>
 </script>
 
 <template>
-  <Story title="Date Picker/Chromatic" :layout="{ type: 'grid', width: '50%', iframe: false }">
+  <Story title="Date Picker/Chromatic" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="Empty default">
       <DatePicker />
     </Variant>
@@ -46,7 +46,7 @@ const modelValue = ref(defaultValue) as Ref<DateValue>
       <DatePicker :default-value="defaultValue" :number-of-months="2" />
     </Variant>
 
-    <Variant title="Multiple months (Paged nagivation)">
+    <Variant title="Multiple months (Paged navigation)">
       <DatePicker :default-value="defaultValue" :number-of-months="2" paged-navigation />
     </Variant>
   </Story>

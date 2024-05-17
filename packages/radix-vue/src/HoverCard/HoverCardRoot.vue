@@ -19,10 +19,10 @@ export type HoverCardRootEmits = {
 
 export interface HoverCardRootContext {
   open: Ref<boolean>
-  onOpenChange(open: boolean): void
-  onOpen(): void
-  onClose(): void
-  onDismiss(): void
+  onOpenChange: (open: boolean) => void
+  onOpen: () => void
+  onClose: () => void
+  onDismiss: () => void
   hasSelectionRef: Ref<boolean>
   isPointerDownOnContentRef: Ref<boolean>
   isPointerInTransit: Ref<boolean>
@@ -45,6 +45,13 @@ const props = withDefaults(defineProps<HoverCardRootProps>(), {
   closeDelay: 300,
 })
 const emit = defineEmits<HoverCardRootEmits>()
+
+defineSlots<{
+  default(props: {
+    /** Current open state */
+    open: typeof open.value
+  }): any
+}>()
 
 const { openDelay, closeDelay } = toRefs(props)
 
@@ -93,6 +100,6 @@ provideHoverCardRootContext({
 
 <template>
   <PopperRoot>
-    <slot />
+    <slot :open="open" />
   </PopperRoot>
 </template>

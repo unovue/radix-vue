@@ -23,7 +23,7 @@ export interface TabsRootProps<TModelValue extends ModelValue = ModelValue> exte
    */
   defaultValue?: NoInfer<TModelValue>
   /**
-   * The orientation the tabs are layed out.
+   * The orientation the tabs are laid out.
    * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
    * @defaultValue horizontal
    */
@@ -57,7 +57,16 @@ const props = withDefaults(defineProps<TabsRootProps<TModelValue>>(), {
   orientation: 'horizontal',
   activationMode: 'automatic',
 })
+
 const emits = defineEmits<TabsRootEmits<TModelValue>>()
+
+defineSlots<{
+  default(props: {
+    /** Current input values */
+    modelValue: typeof modelValue.value
+  }): any
+}>()
+
 const { orientation, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
 useForwardExpose()
@@ -89,6 +98,6 @@ provideTabsRootContext({
     :as-child="asChild"
     :as="as"
   >
-    <slot />
+    <slot :model-value="modelValue" />
   </Primitive>
 </template>

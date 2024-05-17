@@ -6,7 +6,6 @@ name: toolbar
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/toolbar
 ---
 
-
 # Toolbar
 
 <Description>
@@ -15,7 +14,6 @@ dropdown menus.
 </Description>
 
 <ComponentPreview name="Toolbar" />
-
 
 ## Features
 

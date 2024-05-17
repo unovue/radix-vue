@@ -11,7 +11,7 @@ export const VIEWPORT_RESUME = 'toast.viewportResume'
 export type SwipeDirection = 'up' | 'down' | 'left' | 'right'
 
 export type SwipeEvent = { currentTarget: EventTarget & HTMLElement } & Omit<
-  CustomEvent<{ originalEvent: PointerEvent; delta: { x: number; y: number } }>,
+  CustomEvent<{ originalEvent: PointerEvent, delta: { x: number, y: number } }>,
   'currentTarget'
 >
 
@@ -37,9 +37,7 @@ export function handleAndDispatchCustomEvent<
   currentTarget.dispatchEvent(event)
 }
 
-export function isDeltaInDirection(delta: { x: number; y: number },
-  direction: SwipeDirection,
-  threshold = 0) {
+export function isDeltaInDirection(delta: { x: number, y: number }, direction: SwipeDirection, threshold = 0) {
   const deltaX = Math.abs(delta.x)
   const deltaY = Math.abs(delta.y)
   const isDeltaX = deltaX > deltaY

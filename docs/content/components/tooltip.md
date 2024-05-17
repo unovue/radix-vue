@@ -13,7 +13,6 @@ A popup that displays information related to an element when the element receive
 
 <ComponentPreview name="Tooltip" />
 
-
 ## Features
 
 <Highlights
@@ -67,7 +66,7 @@ The button that toggles the tooltip. By default, the `TooltipContent` will posit
 
 <!-- @include: @/meta/TooltipTrigger.md -->
 
-<DataAttributesTable 
+<DataAttributesTable
   :data="[
     {
       attribute: '[data-state]',
@@ -353,7 +352,7 @@ description: 'If open, closes the tooltip without delay.',
 },
 ]"
 />
- 
+
 ## Custom APIs
 
 Create your own API by abstracting the primitive parts into your own component.
@@ -403,4 +402,3 @@ const forward = useForwardPropsEmits(props, emits)
   </TooltipRoot>
 </template>
 ```
- 

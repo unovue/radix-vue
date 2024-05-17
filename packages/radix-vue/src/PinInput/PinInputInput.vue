@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type PrimitiveProps } from '@/Primitive'
+import type { PrimitiveProps } from '@/Primitive'
 import { injectPinInputRootContext } from './PinInputRoot.vue'
 import { useArrowNavigation } from '@/shared'
 
@@ -23,7 +23,7 @@ const inputElements = computed(() => Array.from(context.inputElements!.value))
 
 const disabled = computed(() => props.disabled || context.disabled.value)
 const isOtpMode = computed(() => context.otp.value)
-const isNumbericMode = computed(() => context.type.value === 'number')
+const isNumericMode = computed(() => context.type.value === 'number')
 const isPasswordMode = computed(() => context.mask.value)
 
 const inputRef = ref()
@@ -35,7 +35,7 @@ function handleInput(event: InputEvent) {
     return
   }
 
-  if (isNumbericMode.value && !/^[0-9]*$/.test(target.value)) {
+  if (isNumericMode.value && !/^[0-9]*$/.test(target.value)) {
     target.value = target.value.replace(/\D/g, '')
     return
   }
@@ -115,7 +115,7 @@ function handleMultipleCharacter(values: string) {
   for (let i = initialIndex; i < lastIndex; i++) {
     const input = inputElements.value[i]
     const value = values[i - initialIndex]
-    if (isNumbericMode.value && !/^[0-9]*$/.test(value))
+    if (isNumericMode.value && !/^[0-9]*$/.test(value))
       continue
 
     tempModelValue[i] = value
@@ -156,8 +156,8 @@ onUnmounted(() => {
     autocapitalize="none"
     :autocomplete="isOtpMode ? 'one-time-code' : 'false'"
     :type="isPasswordMode ? 'password' : 'text'"
-    :inputmode="isNumbericMode ? 'numeric' : 'text'"
-    :pattern="isNumbericMode ? '[0-9]*' : undefined"
+    :inputmode="isNumericMode ? 'numeric' : 'text'"
+    :pattern="isNumericMode ? '[0-9]*' : undefined"
     :placeholder="context.placeholder.value"
     :value="context.modelValue.value.at(index)"
     :disabled="disabled"

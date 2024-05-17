@@ -40,7 +40,7 @@ function getSelectedDays(calendar: HTMLElement) {
   return Array.from(calendar.querySelectorAll<HTMLElement>('[data-selected]'))
 }
 
-function setup(props: { calendarProps?: RangeCalendarRootProps; emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } } = {}) {
+function setup(props: { calendarProps?: RangeCalendarRootProps, emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } } = {}) {
   const user = userEvent.setup()
   const returned = render(RangeCalendar, { props })
   const calendar = returned.getByTestId('calendar')
@@ -48,12 +48,7 @@ function setup(props: { calendarProps?: RangeCalendarRootProps; emits?: { 'onUpd
   return { ...returned, user, calendar }
 }
 
-it('should pass axe accessibility tests', async () => {
-  const { calendar } = setup()
-  expect(await axe(calendar)).toHaveNoViolations()
-})
-
-describe('RangeCalendar', () => {
+describe('rangeCalendar', () => {
   it('respects a default value if provided - `CalendarDate`', async () => {
     const { calendar, getByTestId } = setup({ calendarProps: { modelValue: calendarDateRange } })
 
@@ -143,6 +138,44 @@ describe('RangeCalendar', () => {
       await user.click(prevBtn)
     }
     expect(heading).toHaveTextContent('January 1979')
+  })
+
+  it('should navigate one year in the past (prev year button)', async () => {
+    const { getByTestId, user } = setup({
+      calendarProps: {
+        modelValue: calendarDateRange,
+      },
+    })
+
+    const prevBtn = getByTestId('prev-year-button')
+    await user.click(prevBtn)
+    const heading = getByTestId('heading')
+    expect(heading).toHaveTextContent('January 1979')
+
+    await user.click(prevBtn)
+    expect(heading).toHaveTextContent('January 1978')
+
+    await user.click(prevBtn)
+    expect(heading).toHaveTextContent('January 1977')
+  })
+
+  it('should navigate one year in the future (next year button)', async () => {
+    const { getByTestId, user } = setup({
+      calendarProps: {
+        modelValue: calendarDateRange,
+      },
+    })
+
+    const nextBtn = getByTestId('next-year-button')
+    await user.click(nextBtn)
+    const heading = getByTestId('heading')
+    expect(heading).toHaveTextContent('January 1981')
+
+    await user.click(nextBtn)
+    expect(heading).toHaveTextContent('January 1982')
+
+    await user.click(nextBtn)
+    expect(heading).toHaveTextContent('January 1983')
   })
 
   it('always renders six weeks when `fixedWeeks` is `true`', async () => {

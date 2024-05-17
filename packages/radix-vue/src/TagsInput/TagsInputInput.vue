@@ -84,8 +84,8 @@ function handlePaste(event: ClipboardEvent) {
 
     const value = clipboardData.getData('text')
     if (context.delimiter.value) {
-      const splittedValue = value.split(context.delimiter.value)
-      splittedValue.forEach((v) => {
+      const splitValue = value.split(context.delimiter.value)
+      splitValue.forEach((v) => {
         context.onAddValue(v)
       })
     }

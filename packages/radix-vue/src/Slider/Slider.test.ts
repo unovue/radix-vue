@@ -28,7 +28,7 @@ describe('given default Slider', () => {
     expect(await axe(wrapper.element)).toHaveNoViolations()
   })
 
-  it('should have defalt value', () => {
+  it('should have default value', () => {
     expect(wrapper.html()).toContain('aria-valuenow="50"')
   })
 
@@ -91,7 +91,7 @@ describe('given default Slider', () => {
       slider = wrapper.find('[role="slider"]')
     })
 
-    it('ArrowRight should increase by 1', async () => {
+    it('arrowRight should increase by 1', async () => {
       const currentValue = slider.attributes('aria-valuenow')
       await slider.trigger('keydown', { key: 'ArrowRight' })
       const newValue = slider.attributes('aria-valuenow')
@@ -100,7 +100,7 @@ describe('given default Slider', () => {
       expect(diff).toBe(1)
     })
 
-    it('ArrowLeft should decrease by 1', async () => {
+    it('arrowLeft should decrease by 1', async () => {
       const currentValue = slider.attributes('aria-valuenow')
       await slider.trigger('keydown', { key: 'ArrowLeft' })
       const newValue = slider.attributes('aria-valuenow')
@@ -109,7 +109,7 @@ describe('given default Slider', () => {
       expect(diff).toBe(-1)
     })
 
-    it('PageUp should increase by 10', async () => {
+    it('pageUp should increase by 10', async () => {
       const currentValue = slider.attributes('aria-valuenow')
       await slider.trigger('keydown', { key: 'PageUp' })
       const newValue = slider.attributes('aria-valuenow')
@@ -118,7 +118,7 @@ describe('given default Slider', () => {
       expect(diff).toBe(10)
     })
 
-    it('PageDown should decrease by 10', async () => {
+    it('pageDown should decrease by 10', async () => {
       const currentValue = slider.attributes('aria-valuenow')
       await slider.trigger('keydown', { key: 'PageDown' })
       const newValue = slider.attributes('aria-valuenow')
@@ -127,12 +127,12 @@ describe('given default Slider', () => {
       expect(diff).toBe(-10)
     })
 
-    it('Home should set value to 0', async () => {
+    it('home should set value to 0', async () => {
       await slider.trigger('keydown', { key: 'Home' })
       expect(slider.attributes('aria-valuenow')).toBe('0')
     })
 
-    it('End should set value to max', async () => {
+    it('end should set value to max', async () => {
       await slider.trigger('keydown', { key: 'End' })
       expect(slider.attributes('aria-valuenow')).toBe('100')
     })

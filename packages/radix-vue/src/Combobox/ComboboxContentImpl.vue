@@ -14,16 +14,18 @@ import type { PopperContentProps } from '@/Popper'
 export type ComboboxContentImplEmits = DismissableLayerEmits
 
 export interface ComboboxContentImplProps extends PopperContentProps, DismissableLayerProps {
-  /** The positioning mode to use, <br>
+  /**
+   * The positioning mode to use, <br>
    * `inline` is the default and you can control the position using CSS. <br>
-   * `popper` positions content in the same way as our other primitives, for example `Popover` or `DropdownMenu`. */
+   * `popper` positions content in the same way as our other primitives, for example `Popover` or `DropdownMenu`.
+   */
   position?: 'inline' | 'popper'
   /** The document.body will be lock, and scrolling will be disabled. */
   bodyLock?: boolean
   /**
-  * Allow component to be dismissableLayer.
-  * @deprecated (Will be removed in version 2.0, use `Listbox` instead)
-  */
+   * Allow component to be dismissableLayer.
+   * @deprecated (Will be removed in version 2.0, use `Listbox` instead)
+   */
   dismissable?: boolean
 }
 

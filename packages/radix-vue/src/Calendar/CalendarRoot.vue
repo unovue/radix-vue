@@ -6,8 +6,8 @@ import type { PrimitiveProps } from '@/Primitive'
 import { type Formatter, createContext, useDirection } from '@/shared'
 
 import { useCalendar, useCalendarState } from './useCalendar'
-import { getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
-import { type Grid, type Matcher, type WeekDayFormat } from '@/date'
+import { type CalendarIncrement, getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
+import type { Grid, Matcher, WeekDayFormat } from '@/date'
 import type { Direction } from '@/shared/types'
 
 type CalendarRootContext = {
@@ -30,14 +30,14 @@ type CalendarRootContext = {
   parentElement: Ref<HTMLElement | undefined>
   headingValue: Ref<string>
   isInvalid: Ref<boolean>
-  nextPage: () => void
-  prevPage: () => void
   isDateDisabled: Matcher
   isDateSelected: Matcher
   isDateUnavailable?: Matcher
   isOutsideVisibleView: (date: DateValue) => boolean
-  isNextButtonDisabled: Ref<boolean>
-  isPrevButtonDisabled: Ref<boolean>
+  prevPage: (step?: CalendarIncrement) => void
+  nextPage: (step?: CalendarIncrement) => void
+  isNextButtonDisabled: (step?: CalendarIncrement) => boolean
+  isPrevButtonDisabled: (step?: CalendarIncrement) => boolean
   formatter: Formatter
   dir: Ref<Direction>
 }
@@ -47,7 +47,7 @@ interface BaseCalendarRootProps extends PrimitiveProps {
   defaultValue?: DateValue
   /** The default placeholder date */
   defaultPlaceholder?: DateValue
-  /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programatically control the calendar view */
+  /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programmatically control the calendar view */
   placeholder?: DateValue
   /** This property causes the previous and next buttons to navigate by the number of months displayed at once, rather than one month */
   pagedNavigation?: boolean
@@ -83,14 +83,14 @@ interface BaseCalendarRootProps extends PrimitiveProps {
   dir?: Direction
 }
 
-interface MultipleCalendarRootProps extends BaseCalendarRootProps {
+export interface MultipleCalendarRootProps extends BaseCalendarRootProps {
   /** The controlled checked state of the calendar. Can be bound as `v-model`. */
   modelValue?: DateValue[] | undefined
   /** Whether or not multiple dates can be selected */
   multiple: true
 }
 
-interface SingleCalendarRootProps extends BaseCalendarRootProps {
+export interface SingleCalendarRootProps extends BaseCalendarRootProps {
   /** The controlled checked state of the calendar. Can be bound as `v-model`. */
   modelValue?: DateValue | undefined
   /** Whether or not multiple dates can be selected */
@@ -135,7 +135,7 @@ const props = withDefaults(defineProps<CalendarRootProps>(), {
 })
 const emits = defineEmits<CalendarRootEmits>()
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** The current date of the placeholder */
     date: DateValue
     /** The grid of dates */
@@ -148,7 +148,7 @@ defineSlots<{
     locale: string
     /** Whether or not to always display 6 weeks in the calendar */
     fixedWeeks: boolean
-  }): any
+  }) => any
 }>()
 
 const {

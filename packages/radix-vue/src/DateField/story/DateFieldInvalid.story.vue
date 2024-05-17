@@ -4,7 +4,7 @@ import { Label } from '@/Label'
 </script>
 
 <template>
-  <Story title="Date Field/Invalid" :layout="{ type: 'grid', width: '50%', iframe: false }">
+  <Story title="Date Field/Invalid" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="Default">
       <div class="flex flex-col gap-2">
         <Label class="text-sm text-gray9" for="date-field">Appointment (unavailable on 19th)</Label>

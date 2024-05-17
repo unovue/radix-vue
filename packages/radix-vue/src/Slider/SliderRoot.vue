@@ -2,7 +2,7 @@
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import type { DataOrientation, Direction } from '../shared/types'
-import { createContext, useDirection, useFormControl, useForwardExpose } from '@/shared'
+import { clamp, createContext, useDirection, useFormControl, useForwardExpose } from '@/shared'
 import { CollectionSlot, createCollection } from '@/Collection'
 
 export interface SliderRootProps extends PrimitiveProps {
@@ -61,7 +61,7 @@ import SliderHorizontal from './SliderHorizontal.vue'
 import SliderVertical from './SliderVertical.vue'
 import { ref, toRaw, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { ARROW_KEYS, PAGE_KEYS, clamp, getClosestValueIndex, getDecimalCount, getNextSortedValues, hasMinStepsBetweenValues, roundValue } from './utils'
+import { ARROW_KEYS, PAGE_KEYS, getClosestValueIndex, getDecimalCount, getNextSortedValues, hasMinStepsBetweenValues, roundValue } from './utils'
 
 defineOptions({
   inheritAttrs: false,
@@ -80,10 +80,10 @@ const props = withDefaults(defineProps<SliderRootProps>(), {
 const emits = defineEmits<SliderRootEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current slider values */
     modelValue: typeof modelValue.value
-  }): any
+  }) => any
 }>()
 
 const { min, max, step, minStepsBetweenThumbs, orientation, disabled, dir: propDir } = toRefs(props)
@@ -121,7 +121,7 @@ function handleSlideEnd() {
 function updateValues(value: number, atIndex: number, { commit } = { commit: false }) {
   const decimalCount = getDecimalCount(step.value)
   const snapToStep = roundValue(Math.round((value - min.value) / step.value) * step.value + min.value, decimalCount)
-  const nextValue = clamp(snapToStep, [min.value, max.value])
+  const nextValue = clamp(snapToStep, min.value, max.value)
 
   const nextValues = getNextSortedValues(modelValue.value, nextValue, atIndex)
 

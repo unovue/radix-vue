@@ -4,7 +4,7 @@ import { Label } from '@/Label'
 </script>
 
 <template>
-  <Story title="Date Field/Granular" :layout="{ type: 'grid', width: '50%', iframe: false }">
+  <Story title="Date Field/Granular" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="Granular (second)">
       <div class="flex flex-col gap-2">
         <Label class="text-sm text-gray9" for="date-field">Birthday</Label>

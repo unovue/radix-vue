@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { type DateValue } from '@internationalized/date'
+import type { DateValue } from '@internationalized/date'
 import type { CalendarRootProps } from '../'
 import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot } from '../'
 
-const props = defineProps<{ calendarProps?: CalendarRootProps; emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } }>()
+const props = defineProps<{ calendarProps?: CalendarRootProps, emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } }>()
 </script>
 
 <template>
@@ -15,11 +15,19 @@ const props = defineProps<{ calendarProps?: CalendarRootProps; emits?: { 'onUpda
   >
     <CalendarHeader data-testid="header">
       <CalendarPrev
+        step="year"
+        data-testid="prev-year-button"
+      />
+      <CalendarPrev
         data-testid="prev-button"
       />
       <CalendarHeading data-testid="heading" />
       <CalendarNext
         data-testid="next-button"
+      />
+      <CalendarNext
+        step="year"
+        data-testid="next-year-button"
       />
     </CalendarHeader>
 

@@ -8,13 +8,17 @@ import { createContext, useCollection, useDirection, useForwardExpose, useId } f
 export interface NavigationMenuRootProps extends PrimitiveProps {
   /** The controlled value of the menu item to activate. Can be used as `v-model`. */
   modelValue?: string
-  /** The value of the menu item that should be active when initially rendered.
+  /**
+   * The value of the menu item that should be active when initially rendered.
    *
-   * Use when you do not need to control the value state. */
+   * Use when you do not need to control the value state.
+   */
   defaultValue?: string
-  /** The reading direction of the combobox when applicable.
+  /**
+   * The reading direction of the combobox when applicable.
    *
-   *  If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
+   *  If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode.
+   */
   dir?: Direction
   /** The orientation of the menu. */
   orientation?: Orientation
@@ -56,15 +60,15 @@ export interface NavigationMenuContext {
   disableHoverTrigger: Ref<boolean>
   rootNavigationMenu: Ref<HTMLElement | undefined>
   indicatorTrack: Ref<HTMLElement | undefined>
-  onIndicatorTrackChange(indicatorTrack: HTMLElement | undefined): void
+  onIndicatorTrackChange: (indicatorTrack: HTMLElement | undefined) => void
   viewport: Ref<HTMLElement | undefined>
-  onViewportChange(viewport: HTMLElement | undefined): void
-  onTriggerEnter(itemValue: string): void
-  onTriggerLeave(): void
-  onContentEnter(itemValue: string): void
-  onContentLeave(): void
-  onItemSelect(itemValue: string): void
-  onItemDismiss(): void
+  onViewportChange: (viewport: HTMLElement | undefined) => void
+  onTriggerEnter: (itemValue: string) => void
+  onTriggerLeave: () => void
+  onContentEnter: (itemValue: string) => void
+  onContentLeave: () => void
+  onItemSelect: (itemValue: string) => void
+  onItemDismiss: () => void
 }
 
 export const [injectNavigationMenuContext, provideNavigationMenuContext]
@@ -92,6 +96,13 @@ const props = withDefaults(defineProps<NavigationMenuRootProps>(), {
   as: 'nav',
 })
 const emits = defineEmits<NavigationMenuRootEmits>()
+
+defineSlots<{
+  default(props: {
+    /** Current input values */
+    modelValue: typeof modelValue.value
+  }): any
+}>()
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue ?? '',
@@ -175,6 +186,6 @@ provideNavigationMenuContext({
     :data-orientation="orientation"
     :dir="dir"
   >
-    <slot />
+    <slot :model-value="modelValue" />
   </Primitive>
 </template>

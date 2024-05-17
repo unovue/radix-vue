@@ -32,19 +32,19 @@ export type SelectRootEmits = {
 
 export interface SelectRootContext {
   triggerElement: Ref<HTMLElement | undefined>
-  onTriggerChange(node: HTMLElement | undefined): void
+  onTriggerChange: (node: HTMLElement | undefined) => void
   valueElement: Ref<HTMLElement | undefined>
-  onValueElementChange(node: HTMLElement): void
+  onValueElementChange: (node: HTMLElement) => void
   valueElementHasChildren: Ref<boolean>
-  onValueElementHasChildrenChange(hasChildren: boolean): void
+  onValueElementHasChildrenChange: (hasChildren: boolean) => void
   contentId: string
   modelValue?: Ref<string>
-  onValueChange(value: string): void
+  onValueChange: (value: string) => void
   open: Ref<boolean>
   required?: Ref<boolean>
-  onOpenChange(open: boolean): void
+  onOpenChange: (open: boolean) => void
   dir: Ref<Direction>
-  triggerPointerDownPosRef: Ref<{ x: number; y: number } | null>
+  triggerPointerDownPosRef: Ref<{ x: number, y: number } | null>
   disabled?: Ref<boolean>
 }
 
@@ -52,8 +52,8 @@ export const [injectSelectRootContext, provideSelectRootContext]
   = createContext<SelectRootContext>('SelectRoot')
 
 export interface SelectNativeOptionsContext {
-  onNativeOptionAdd(option: VNode): void
-  onNativeOptionRemove(option: VNode): void
+  onNativeOptionAdd: (option: VNode) => void
+  onNativeOptionRemove: (option: VNode) => void
 }
 
 export const [injectSelectNativeOptionsContext, provideSelectNativeOptionsContext]
@@ -73,6 +73,15 @@ const props = withDefaults(defineProps<SelectRootProps>(), {
 })
 
 const emits = defineEmits<SelectRootEmits>()
+
+defineSlots<{
+  default(props: {
+    /** Current input values */
+    modelValue: typeof modelValue.value
+    /** Current open state */
+    open: typeof open.value
+  }): any
+}>()
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
@@ -148,7 +157,10 @@ provideSelectNativeOptionsContext({
 
 <template>
   <PopperRoot>
-    <slot />
+    <slot
+      :model-value="modelValue"
+      :open="open"
+    />
 
     <BubbleSelect
       v-if="isFormControl"

@@ -11,8 +11,8 @@ hero:
     src: /logo.svg
     alt: Radix-Vue
   prelink:
-    title: 🎉 Listbox component!
-    link: https://github.com/radix-vue/radix-vue/releases/tag/v1.7.0
+    title: 🎉 Number Field, Editable component!
+    link: https://github.com/radix-vue/radix-vue/releases/tag/v1.8.0
     target: _blank
   actions:
     - theme: brand

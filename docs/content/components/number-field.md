@@ -1,19 +1,18 @@
 ---
 
 title: Number Field
-description: A number field allows a user to enter a number, and increment or decrement the value using stepper buttons.
+description: A number field allows a user to enter a number and increment or decrement the value using stepper buttons.
 name: number field
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton
 ---
- 
+
 # Number Field
 
 <Description>
-A number field allows a user to enter a number, and increment or decrement the value using stepper buttons.
+A number field allows a user to enter a number and increment or decrement the value using stepper buttons.
 </Description>
 
 <ComponentPreview name="NumberField" />
-
 
 ## Features
 
@@ -29,9 +28,8 @@ A number field allows a user to enter a number, and increment or decrement the v
 
 ## Installation
 
-
 Install the number package.
- 
+
 <InstallationTabs value="@internationalized/number" />
 
 Install the component from your command line.
@@ -64,18 +62,17 @@ import { NumberFieldDecrement, NumberFieldIncrement, NumberFieldInput, NumberFie
 
 Contains all the parts of a number field. An `input` will also render when used within a `form` to ensure events propagate correctly.
 
-
 <!-- @include: @/meta/NumberFieldRoot.md -->
 
 <DataAttributesTable
-  :data="[ 
+  :data="[
     {
       attribute: '[data-disabled]',
       values: 'Present when disabled',
     },
   ]"
 />
- 
+
 ### Label
 
 Label for the input.
@@ -86,30 +83,27 @@ Label for the input.
 
 Input
 
-The input component that render the textValue based on value and format options.
+The input component that renders the text value based on value and format options.
 
 <!-- @include: @/meta/NumberFieldInput.md -->
 
-
 <DataAttributesTable
-  :data="[ 
+  :data="[
     {
       attribute: '[data-disabled]',
       values: 'Present when disabled',
     },
   ]"
 />
- 
 
 ### Increment
 
-The button that increase the value.
+The button that increases the value.
 
 <!-- @include: @/meta/NumberFieldIncrement.md -->
 
-
 <DataAttributesTable
-  :data="[ 
+  :data="[
     {
       attribute: '[data-pressed]',
       values: 'Present when pressed',
@@ -120,17 +114,15 @@ The button that increase the value.
     },
   ]"
 />
- 
 
 ### Decrement
 
-The button that decrease the value.
+The button that decreases the value.
 
 <!-- @include: @/meta/NumberFieldDecrement.md -->
 
-
 <DataAttributesTable
-  :data="[ 
+  :data="[
     {
       attribute: '[data-pressed]',
       values: 'Present when pressed',
@@ -141,15 +133,12 @@ The button that decrease the value.
     },
   ]"
 />
- 
 
 ## Example
 
-
 ### Decimal
 
-All options supported by [Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) are supported, including configuration of minimum and maximum fraction digits, sign display, grouping separators, etc.
- 
+All options supported by `Intl.NumberFormat` are supported, including configuration of minimum and maximum fraction digits, sign display, grouping separators, etc.
 
 ```vue line=3-7
 <template>
@@ -167,8 +156,7 @@ All options supported by [Intl.NumberFormat](https://developer.mozilla.org/en-US
 
 ### Percentage
 
-You can set `formatOptions.style` to `percent` to treat the value as percentage. You need to set the `step` to `0.01` manually to allow appriopriate step size in this mode.
- 
+You can set `formatOptions.style` to `percent` to treat the value as a percentage. You need to set the step to 0.01 manually to allow an appropriate step size in this mode.
 
 ```vue line=3-7
 <template>
@@ -186,8 +174,8 @@ You can set `formatOptions.style` to `percent` to treat the value as percentage.
 
 ### Currency
 
-You can set `formatOptions.style` to `currency` to treat the value as currency value.  The `currency` option must also be passed to set the currency code (e.g. USD).
- 
+You can set `formatOptions.style` to `currency` to treat the value as a currency value. The currency option must also be passed to set the currency code (e.g., USD).
+
 If you need to allow the user to change the currency, you should include a separate dropdown next to the number field. The number field itself will not determine the currency from the user input.
 
 ```vue line=4-9
@@ -205,8 +193,6 @@ If you need to allow the user to change the currency, you should include a separ
   </NumberFieldRoot>
 </template>
 ```
-
-
 
 ## Accessibility
 

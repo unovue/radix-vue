@@ -3,14 +3,11 @@ title: Dates & Times
 description: How to work with dates and times in Radix Vue.
 ---
 
-
-
 # Dates & Times
 
 <Description>
 How to work with dates and times in Radix Vue.
 </Description>
-
 
 ::: tip
 The inner-workings of our date-related components are heavily inspired by the research and work done
@@ -20,14 +17,10 @@ robust date components that excel in terms of accessibility, user experience, an
 
 The component depends on the [@internationalized/date](https://react-spectrum.adobe.com/internationalized/date/index.html) package, which solves a lot of the problems that come with working with dates and times in JavaScript.
 
-
 We highly recommend reading through the documentation for the package to get a solid feel for how it
 works, and you'll need to install it in your project to use the date-related components.
 
-
 <InstallationTabs value="@internationalized/date" />
-
-
 
 ## Date Objects
 
@@ -47,13 +40,11 @@ and the behavior of the builder will adapt to that type.
 Additionally, you don't have to worry about wrangling timezones, daylight savings time, or any other
 date-related nuance.
 
-
 ## Utility Functions
 
 This package also provides a number of utility functions which solves a lot of the problems that come with working with dates and times in JavaScript.
 
 Specially designed to work well with [@internationalized/date](https://react-spectrum.adobe.com/internationalized/date/index.html).
-
 
 ### How to use?
 
@@ -99,4 +90,3 @@ createYear({ dateObj: new CalendarDate(1995, 8, 18), numberOfMonths: 2, pagedNav
 createDecade({ dateObj: new CalendarDate(1995, 8, 18), startIndex: -10, endIndex: 10 }) // returns a decade centered around the dateObj
 createYearRange({ start: new CalendarDate(1995, 8, 18), end: new CalendarDate(2005, 8, 18) }) // returns an array of years as DateValue between the start and end date
 ```
-

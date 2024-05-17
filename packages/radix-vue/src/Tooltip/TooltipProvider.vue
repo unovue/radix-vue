@@ -5,8 +5,8 @@ import { createContext, useForwardExpose } from '@/shared'
 interface TooltipProviderContext {
   isOpenDelayed: Ref<boolean>
   delayDuration: Ref<number>
-  onOpen(): void
-  onClose(): void
+  onOpen: () => void
+  onClose: () => void
   isPointerInTransitRef: Ref<boolean>
   disableHoverableContent: Ref<boolean>
   disableClosingTrigger: Ref<boolean>

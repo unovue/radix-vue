@@ -24,7 +24,7 @@ function getTimeSegments(getByTestId: (...args: any[]) => HTMLElement) {
   }
 }
 
-function setup(props: { datePickerProps?: DatePickerRootProps; emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } } = {}) {
+function setup(props: { datePickerProps?: DatePickerRootProps, emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } } = {}) {
   const user = userEvent.setup()
   const returned = render(DatePicker, { props })
   const month = returned.getByTestId('month')
@@ -42,7 +42,7 @@ it('should pass axe accessibility tests', async () => {
   expect(await axe(container)).toHaveNoViolations()
 })
 
-describe('DatePicker', async () => {
+describe('datePicker', async () => {
   it('populates segment with value - `CalendarDate`', async () => {
     const { month, day, year } = setup({
       datePickerProps: { modelValue: calendarDate },

@@ -14,7 +14,6 @@ A control that allows the user to toggle between checked and not checked.
 
 <ComponentPreview name="Switch" />
 
-
 ## Features
 
 <Highlights
@@ -50,7 +49,6 @@ import { SwitchRoot, SwitchThumb } from 'radix-vue'
 Contains all the parts of a switch. An `input` will also render when used within a `form` to ensure events propagate correctly.
 
 <!-- @include: @/meta/SwitchRoot.md -->
-
 
 <DataAttributesTable
   :data="[

@@ -4,7 +4,7 @@ import type { PrimitiveProps } from '@/Primitive'
 import { createContext, handleAndDispatchCustomEvent, useForwardExpose, useId } from '@/shared'
 import type { AcceptableValue } from './ComboboxRoot.vue'
 
-export type SelectEvent<T> = CustomEvent<{ originalEvent: PointerEvent; value?: T }>
+export type SelectEvent<T> = CustomEvent<{ originalEvent: PointerEvent, value?: T }>
 interface ComboboxItemContext {
   isSelected: Ref<boolean>
 }
@@ -48,7 +48,7 @@ const emits = defineEmits<ComboboxItemEmits<T>>()
 const { disabled } = toRefs(props)
 
 const rootContext = injectComboboxRootContext()
-const groupContext = injectComboboxGroupContext({ id: '', options: ref([]) })
+injectComboboxGroupContext({ id: '', options: ref([]) })
 const { forwardRef } = useForwardExpose()
 
 const isSelected = computed(() =>
@@ -63,7 +63,7 @@ const textId = useId(undefined, 'radix-vue-combobox-item')
 const isInOption = computed(() =>
   rootContext.isUserInputted.value
     ? rootContext.searchTerm.value === ''
-     || !!rootContext.filteredOptions.value.find(i => isEqual(i, props.value))
+    || !!rootContext.filteredOptions.value.find(i => isEqual(i, props.value))
     : true)
 
 async function handleSelect(ev: SelectEvent<T>) {

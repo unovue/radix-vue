@@ -45,6 +45,14 @@ const props = withDefaults(defineProps<SwitchRootProps>(), {
   value: 'on',
 })
 const emit = defineEmits<SwitchRootEmits>()
+
+defineSlots<{
+  default(props: {
+    /** Current checked state */
+    checked: typeof checked.value
+  }): any
+}>()
+
 const { disabled } = toRefs(props)
 
 const checked = useVModel(props, 'checked', emit, {
@@ -89,7 +97,7 @@ provideSwitchRootContext({
     @click="toggleCheck"
     @keydown.enter.prevent="toggleCheck"
   >
-    <slot />
+    <slot :checked="checked" />
   </Primitive>
 
   <input

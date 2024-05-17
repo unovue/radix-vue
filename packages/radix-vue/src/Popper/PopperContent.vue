@@ -129,7 +129,7 @@ export interface PopperContentProps extends PrimitiveProps {
 
 export interface PopperContentContext {
   placedSide: Ref<Side>
-  onArrowChange(arrow: HTMLElement | undefined): void
+  onArrowChange: (arrow: HTMLElement | undefined) => void
   arrowX?: Ref<number>
   arrowY?: Ref<number>
   shouldHideArrow: Ref<boolean>
@@ -185,7 +185,7 @@ const { width: arrowWidth, height: arrowHeight } = useSize(arrow)
 const desiredPlacement = computed(
   () =>
     (props.side
-      + (props.align !== 'center' ? `-${props.align}` : '')) as Placement,
+    + (props.align !== 'center' ? `-${props.align}` : '')) as Placement,
 )
 
 const collisionPadding = computed(() => {
@@ -216,22 +216,22 @@ const computedMiddleware = computedEager(() => {
       alignmentAxis: props.alignOffset,
     }),
     props.prioritizePosition
-      && props.avoidCollisions
-      && flip({
-        ...detectOverflowOptions.value,
-      }),
+    && props.avoidCollisions
+    && flip({
+      ...detectOverflowOptions.value,
+    }),
     props.avoidCollisions
-      && shift({
-        mainAxis: true,
-        crossAxis: !!props.prioritizePosition,
-        limiter: props.sticky === 'partial' ? limitShift() : undefined,
-        ...detectOverflowOptions.value,
-      }),
+    && shift({
+      mainAxis: true,
+      crossAxis: !!props.prioritizePosition,
+      limiter: props.sticky === 'partial' ? limitShift() : undefined,
+      ...detectOverflowOptions.value,
+    }),
     !props.prioritizePosition
-      && props.avoidCollisions
-      && flip({
-        ...detectOverflowOptions.value,
-      }),
+    && props.avoidCollisions
+    && flip({
+      ...detectOverflowOptions.value,
+    }),
     size({
       ...detectOverflowOptions.value,
       apply: ({ elements, rects, availableWidth, availableHeight }) => {
@@ -260,13 +260,13 @@ const computedMiddleware = computedEager(() => {
       },
     }),
     arrow.value
-      && floatingUIarrow({ element: arrow.value, padding: props.arrowPadding }),
+    && floatingUIarrow({ element: arrow.value, padding: props.arrowPadding }),
     transformOrigin({
       arrowWidth: arrowWidth.value,
       arrowHeight: arrowHeight.value,
     }),
     props.hideWhenDetached
-      && hide({ strategy: 'referenceHidden', ...detectOverflowOptions.value }),
+    && hide({ strategy: 'referenceHidden', ...detectOverflowOptions.value }),
   ] as Middleware[]
 })
 

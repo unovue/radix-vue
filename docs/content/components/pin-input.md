@@ -4,7 +4,7 @@ title: Pin Input
 description: A sequence of one-character alphanumeric inputs.
 name: pin-input
 ---
- 
+
 # Pin Input
 
 <Badge>Alpha</Badge>
@@ -13,9 +13,7 @@ name: pin-input
 A sequence of one-character alphanumeric inputs.
 </Description>
 
-
 <ComponentPreview name="PinInput" />
-
 
 ## Features
 
@@ -58,7 +56,6 @@ Contains all the parts of a checkbox. An `input` will also render when used with
 
 <!-- @include: @/meta/PinInputRoot.md -->
 
-
 <DataAttributesTable
   :data="[
     {
@@ -91,7 +88,6 @@ Input field for Pin Input. You can add as many input as you like.
   ]"
 />
 
-
 ## Examples
 
 ### OTP mode
@@ -99,8 +95,8 @@ Input field for Pin Input. You can add as many input as you like.
 You can set the pin input to `otp` mode by setting otp to `true`.
 
 ```vue{6}
-<script setup lang="ts"> 
-import { Label, PinInputInput, PinInputRoot } from 'radix-vue' 
+<script setup lang="ts">
+import { Label, PinInputInput, PinInputRoot } from 'radix-vue'
 </script>
 
 <template>
@@ -115,8 +111,8 @@ import { Label, PinInputInput, PinInputRoot } from 'radix-vue'
 You can set the pin input to only accept `number` type by setting type to `number`.
 
 ```vue{6}
-<script setup lang="ts"> 
-import { Label, PinInputInput, PinInputRoot } from 'radix-vue' 
+<script setup lang="ts">
+import { Label, PinInputInput, PinInputRoot } from 'radix-vue'
 </script>
 
 <template>
@@ -126,10 +122,7 @@ import { Label, PinInputInput, PinInputRoot } from 'radix-vue'
 </template>
 ```
 
-
-
 ## Accessibility
- 
 
 ### Keyboard Interactions
 
@@ -161,7 +154,7 @@ import { Label, PinInputInput, PinInputRoot } from 'radix-vue'
     },
     {
       keys: ['Ctrl + V'],
-      description: `	
+      description: `
 Pastes the contents of the clipboard into the pin input. If the number of characters in the clipboard equals exceeds the number of inputs, the contents are pasted from the first input. Otherwise, the contents are pasted from the current input onwards.`,
     }
   ]"

@@ -23,12 +23,12 @@ import {
 } from '@/shared'
 
 export interface MenuContentContext {
-  onItemEnter(event: PointerEvent): boolean
-  onItemLeave(event: PointerEvent): void
-  onTriggerLeave(event: PointerEvent): boolean
+  onItemEnter: (event: PointerEvent) => boolean
+  onItemLeave: (event: PointerEvent) => void
+  onTriggerLeave: (event: PointerEvent) => boolean
   searchRef: Ref<string>
   pointerGraceTimerRef: Ref<number>
-  onPointerGraceIntentChange(intent: GraceIntent | null): void
+  onPointerGraceIntentChange: (intent: GraceIntent | null) => void
 }
 
 export const [injectMenuContentContext, provideMenuContentContext]
@@ -55,12 +55,12 @@ export interface MenuContentImplPrivateProps {
 }
 
 export type MenuContentImplEmits = DismissableLayerEmits & Omit<RovingFocusGroupEmits, 'update:currentTabStopId'> & {
-  'openAutoFocus': [event: Event]
+  openAutoFocus: [event: Event]
   /**
    * Event handler called when auto-focusing on close.
    * Can be prevented.
    */
-  'closeAutoFocus': [event: Event]
+  closeAutoFocus: [event: Event]
 }
 
 type MenuContentImplPrivateEmits = MenuContentImplEmits & {

@@ -20,7 +20,7 @@ const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 
 const kbd = useTestKbd()
 
-function setup(props: { calendarProps?: CalendarRootProps; emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } } = {}) {
+function setup(props: { calendarProps?: CalendarRootProps, emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } } = {}) {
   const user = userEvent.setup()
   const returned = render(Calendar, { props })
   const calendar = returned.getByTestId('calendar')
@@ -28,7 +28,7 @@ function setup(props: { calendarProps?: CalendarRootProps; emits?: { 'onUpdate:m
   return { ...returned, user, calendar }
 }
 
-function setupMulti(props: { calendarProps?: CalendarRootProps; emits?: { 'onUpdate:modelValue'?: (data: DateValue[]) => void } } = { }) {
+function setupMulti(props: { calendarProps?: CalendarRootProps, emits?: { 'onUpdate:modelValue'?: (data: DateValue[]) => void } } = { }) {
   const user = userEvent.setup()
   const returned = render(CalendarMultiple, { props: { ...props, multiple: true } })
   const calendar = returned.getByTestId('calendar')
@@ -49,7 +49,7 @@ it('should pass axe accessibility tests', async () => {
   expect(await axe(calendar)).toHaveNoViolations()
 })
 
-describe('Calendar', async () => {
+describe('calendar', async () => {
   it('respects a default value if provided - `CalendarDate`', async () => {
     const { getByTestId, calendar } = setup({ calendarProps: { modelValue: calendarDate } })
     expect(getSelectedDay(calendar)).toHaveTextContent(String(calendarDate.day))
@@ -543,7 +543,7 @@ describe('Calendar', async () => {
   })
 })
 
-describe('Calendar - `multiple`', () => {
+describe('calendar - `multiple`', () => {
   it('handles default value when `value` prop is provided - `CalendarDate[]`', async () => {
     const d1 = new CalendarDate(1980, 1, 2)
     const d2 = new CalendarDate(1980, 1, 5)

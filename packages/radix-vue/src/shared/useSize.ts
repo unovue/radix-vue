@@ -2,7 +2,7 @@ import { type MaybeElementRef, unrefElement } from '@vueuse/core'
 import { computed, onMounted, ref } from 'vue'
 
 export function useSize(element: MaybeElementRef) {
-  const size = ref<{ width: number; height: number }>()
+  const size = ref<{ width: number, height: number }>()
   const width = computed(() => size.value?.width ?? 0)
   const height = computed(() => size.value?.height ?? 0)
 

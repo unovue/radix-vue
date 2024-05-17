@@ -106,8 +106,8 @@ export function useArrowNavigation(
     !home
     && !end
     && ((!goingVertical && !goingHorizontal)
-      || (arrowKeyOptions === 'vertical' && goingHorizontal)
-      || (arrowKeyOptions === 'horizontal' && goingVertical))
+    || (arrowKeyOptions === 'vertical' && goingHorizontal)
+    || (arrowKeyOptions === 'horizontal' && goingVertical))
   )
     return null
 
@@ -143,27 +143,40 @@ export function useArrowNavigation(
   return item
 }
 
+interface FindNextFocusableElementOptions {
+  /**
+   * Whether to search forwards or backwards.
+   */
+  goForward: boolean
+  /**
+   * Whether to allow looping the search. If false, it will stop at the first/last element.
+   *
+   * @default true
+   */
+  loop?: boolean
+}
+
 /**
  * Recursive function to find the next focusable element to avoid disabled elements
  *
  * @param elements Elements to navigate
  * @param currentElement Current active element
  * @param options
- * @returns
+ * @returns next focusable element
  */
 function findNextFocusableElement(
   elements: HTMLElement[],
   currentElement: HTMLElement,
-  { goForward, loop }: { goForward: boolean; loop?: boolean },
+  options: FindNextFocusableElementOptions,
   iterations = elements.length,
 ): HTMLElement | null {
   if (--iterations === 0)
     return null
 
   const index = elements.indexOf(currentElement)
-  const newIndex = goForward ? index + 1 : index - 1
+  const newIndex = options.goForward ? index + 1 : index - 1
 
-  if (!loop && (newIndex < 0 || newIndex >= elements.length))
+  if (!options.loop && (newIndex < 0 || newIndex >= elements.length))
     return null
 
   const adjustedNewIndex = (newIndex + elements.length) % elements.length
@@ -178,7 +191,7 @@ function findNextFocusableElement(
     return findNextFocusableElement(
       elements,
       candidate,
-      { goForward, loop },
+      options,
       iterations,
     )
   }

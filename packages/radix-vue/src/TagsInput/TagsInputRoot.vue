@@ -4,11 +4,13 @@ import { createContext, useArrowNavigation, useDirection, useFormControl, useFor
 import type { Direction } from '@/shared/types'
 import { type Ref, ref, toRefs } from 'vue'
 
-export interface TagsInputRootProps extends PrimitiveProps {
+export type AcceptableInputValue = string | Record<string, any>
+
+export interface TagsInputRootProps<T = AcceptableInputValue> extends PrimitiveProps {
   /** The controlled value of the tags input. Can be bind as `v-model`. */
-  modelValue?: Array<string>
+  modelValue?: Array<T>
   /** The value of the tags that should be added. Use when you do not need to control the state of the tags input */
-  defaultValue?: Array<string>
+  defaultValue?: Array<T>
   /** When `true`, allow adding tags on paste. Work in conjunction with delimiter prop. */
   addOnPaste?: boolean
   /** When `true` allow adding tags on tab keydown */
@@ -30,17 +32,21 @@ export interface TagsInputRootProps extends PrimitiveProps {
   /** The name of the tags input submitted with its owning form as part of a name/value pair. */
   name?: string
   id?: string
+  /** Convert the input value to the desired type. Mandatory when using objects as values and using `TagsInputInput` */
+  convertValue?: (value: string) => T
+  /** Display the value of the tag. Useful when you want to apply modifications to the value like adding a suffix or when using object as values */
+  displayValue?: (value: T) => string
 }
 
-export type TagsInputRootEmits = {
+export type TagsInputRootEmits<T = AcceptableInputValue> = {
   /** Event handler called when the value changes */
-  'update:modelValue': [payload: Array<string>]
+  'update:modelValue': [payload: Array<T>]
   /** Event handler called when the value is invalid */
-  'invalid': [payload: string]
+  'invalid': [payload: T]
 }
 
-export interface TagsInputRootContext {
-  modelValue: Ref<Array<string>>
+export interface TagsInputRootContext<T = AcceptableInputValue> {
+  modelValue: Ref<Array<T>>
   onAddValue: (payload: string) => boolean
   onRemoveValue: (index: number) => void
   onInputKeydown: (event: KeyboardEvent) => void
@@ -54,30 +60,32 @@ export interface TagsInputRootContext {
   dir: Ref<Direction>
   max: Ref<number>
   id: Ref<string | undefined> | undefined
+  displayValue: (value: T) => string
 }
 
 export const [injectTagsInputRootContext, provideTagsInputRootContext]
   = createContext<TagsInputRootContext>('TagsInputRoot')
 </script>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends AcceptableInputValue = string">
 import { Primitive } from '@/Primitive'
 import { CollectionSlot, createCollection } from '@/Collection'
 import { useFocusWithin, useVModel } from '@vueuse/core'
 import { VisuallyHiddenInput } from '@/VisuallyHidden'
 
-const props = withDefaults(defineProps<TagsInputRootProps>(), {
+const props = withDefaults(defineProps<TagsInputRootProps<T>>(), {
   defaultValue: () => [],
   delimiter: ',',
   max: 0,
+  displayValue: (value: T) => value.toString(),
 })
-const emits = defineEmits<TagsInputRootEmits>()
+const emits = defineEmits<TagsInputRootEmits<T>>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current input values */
     modelValue: typeof modelValue.value
-  }): any
+  }) => any
 }>()
 
 const { addOnPaste, disabled, delimiter, max, id, dir: propDir, addOnBlur, addOnTab } = toRefs(props)
@@ -87,7 +95,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
   passive: true,
   deep: true,
-}) as Ref<Array<string>>
+}) as Ref<Array<AcceptableInputValue>>
 
 const { forwardRef, currentElement } = useForwardExpose()
 const { focused } = useFocusWithin(currentElement)
@@ -100,7 +108,16 @@ const isInvalidInput = ref(false)
 
 provideTagsInputRootContext({
   modelValue,
-  onAddValue: (payload) => {
+  onAddValue: (_payload) => {
+    const modelValueIsObject = modelValue.value.length > 0 && typeof modelValue.value[0] === 'object'
+    const defaultValueIsObject = modelValue.value.length > 0 && typeof props.defaultValue[0] === 'object'
+
+    // Check if the value is an object and if the convertValue function is provided. We don't check this a type level because the use
+    // of `TagsInputInput` is optional.
+    if ((modelValueIsObject || defaultValueIsObject) && typeof props.convertValue !== 'function')
+      throw new Error('You must provide a `convertValue` function when using objects as values.')
+    const payload = props.convertValue ? props.convertValue(_payload) : _payload as T
+
     if ((modelValue.value.length >= max.value) && !!max.value) {
       emits('invalid', payload)
       return false
@@ -204,6 +221,7 @@ provideTagsInputRootContext({
   delimiter,
   max,
   id,
+  displayValue: props.displayValue as (value: AcceptableInputValue) => string,
 })
 </script>
 

@@ -18,7 +18,7 @@ function isDateDisabled(date: DateValue) {
 </script>
 
 <template>
-  <Story title="Date Range Picker/Validation" :layout="{ type: 'grid', width: '50%', iframe: false }">
+  <Story title="Date Range Picker/Validation" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="Min date">
       <DateRangePicker :default-value="defaultValue" :min-value="minValue" />
     </Variant>

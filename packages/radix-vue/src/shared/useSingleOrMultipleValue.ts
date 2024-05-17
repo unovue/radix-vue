@@ -22,7 +22,8 @@ function validateProps({ type, defaultValue, modelValue }: SingleOrMultipleProps
     throw new Error(
         `Invalid prop \`value\` of value \`${modelValue}\` supplied, should be the same type as the \`defaultValue\` prop, which is \`${defaultValue}\`. The \`value\` prop must be:
   ${type === 'single' ? '- a string' : type === 'multiple' ? '- an array of strings' : '- a string\n- an array of strings'}
-  - \`undefined\``)
+  - \`undefined\``,
+    )
   }
 
   const canTypeBeInferred = modelValue !== undefined || defaultValue !== undefined

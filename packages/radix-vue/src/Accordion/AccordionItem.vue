@@ -46,10 +46,10 @@ import { computed } from 'vue'
 const props = defineProps<AccordionItemProps>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current open state */
     open: typeof open.value
-  }): any
+  }) => any
 }>()
 
 const rootContext = injectAccordionRootContext()
@@ -58,7 +58,7 @@ const open = computed(() =>
   rootContext.isSingle.value
     ? props.value === rootContext.modelValue.value
     : Array.isArray(rootContext.modelValue.value)
-      && rootContext.modelValue.value.includes(props.value),
+    && rootContext.modelValue.value.includes(props.value),
 )
 
 const disabled = computed(() => {

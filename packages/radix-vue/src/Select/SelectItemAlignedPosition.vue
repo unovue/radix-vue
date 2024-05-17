@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useCollection, useForwardExpose } from '@/shared'
+import { clamp, createContext, useCollection, useForwardExpose } from '@/shared'
 
 interface SelectItemAlignedPositionContext {
   contentWrapper?: Ref<HTMLElement | undefined>
@@ -17,7 +17,6 @@ export const [injectSelectItemAlignedPositionContext, provideSelectItemAlignedPo
 
 <script setup lang="ts">
 import { nextTick, onMounted, ref } from 'vue'
-import { clamp } from '@vueuse/shared'
 import { injectSelectRootContext } from './SelectRoot.vue'
 import { injectSelectContentContext } from './SelectContentImpl.vue'
 import { CONTENT_MARGIN } from './utils'
@@ -29,7 +28,7 @@ defineOptions({
 
 const props = defineProps<SelectItemAlignedPositionProps>()
 const emits = defineEmits<{
-  'placed': []
+  placed: []
 }>()
 
 const { injectCollection } = useCollection()
@@ -154,10 +153,10 @@ function position() {
       const clampedTriggerMiddleToBottomEdge = Math.max(
         triggerMiddleToBottomEdge,
         selectedItemHalfHeight
-          // viewport might have padding bottom, include it to avoid a scrollable viewport
-          + (isLastItem ? viewportPaddingBottom : 0)
-          + viewportOffsetBottom
-          + contentBorderBottomWidth,
+        // viewport might have padding bottom, include it to avoid a scrollable viewport
+        + (isLastItem ? viewportPaddingBottom : 0)
+        + viewportOffsetBottom
+        + contentBorderBottomWidth,
       )
       const height = contentTopToItemMiddle + clampedTriggerMiddleToBottomEdge
       contentWrapperElement.value.style.height = `${height}px`
@@ -168,10 +167,10 @@ function position() {
       const clampedTopEdgeToTriggerMiddle = Math.max(
         topEdgeToTriggerMiddle,
         contentBorderTopWidth
-          + viewport.value.offsetTop
-          // viewport might have padding top, include it to avoid a scrollable viewport
-          + (isFirstItem ? viewportPaddingTop : 0)
-          + selectedItemHalfHeight,
+        + viewport.value.offsetTop
+        // viewport might have padding top, include it to avoid a scrollable viewport
+        + (isFirstItem ? viewportPaddingTop : 0)
+        + selectedItemHalfHeight,
       )
       const height = clampedTopEdgeToTriggerMiddle + itemMiddleToContentBottom
       contentWrapperElement.value.style.height = `${height}px`

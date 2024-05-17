@@ -24,7 +24,7 @@ const zonedDateTime = {
 
 const kbd = useTestKbd()
 
-function setup(props: { dateFieldProps?: DateRangeFieldRootProps; emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } } = {}) {
+function setup(props: { dateFieldProps?: DateRangeFieldRootProps, emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } } = {}) {
   const user = userEvent.setup()
   const returned = render(DateRangeField, { props })
 
@@ -51,7 +51,7 @@ it('should pass axe accessibility tests', async () => {
   expect(await axe(container)).toHaveNoViolations()
 })
 
-describe('DateField', async () => {
+describe('dateField', async () => {
   it('populates segment with value - `CalendarDate`', async () => {
     const { start, end } = setup({
       dateFieldProps: { modelValue: calendarDate },

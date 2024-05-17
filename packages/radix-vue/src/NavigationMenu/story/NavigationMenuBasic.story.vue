@@ -40,7 +40,6 @@ const state = reactive({
                 <Icon
                   icon="radix-icons:caret-down"
                   class="text-green10 relative top-[1px] transition-transform duration-[250ms] ease-in group-data-[state=open]:-rotate-180"
-                  aria-hidden
                 />
               </NavigationMenuTrigger>
 
@@ -68,7 +67,6 @@ const state = reactive({
                 <Icon
                   icon="radix-icons:caret-down"
                   class="text-green10 relative top-[1px] transition-transform duration-[250ms] ease-in group-data-[state=open]:-rotate-180"
-                  aria-hidden
                 />
               </NavigationMenuTrigger>
               <NavigationMenuContent
@@ -92,7 +90,6 @@ const state = reactive({
                 <Icon
                   icon="radix-icons:caret-down"
                   class="text-green10 relative top-[1px] transition-transform duration-[250ms] ease-in group-data-[state=open]:-rotate-180"
-                  aria-hidden
                 />
               </NavigationMenuTrigger>
               <NavigationMenuContent

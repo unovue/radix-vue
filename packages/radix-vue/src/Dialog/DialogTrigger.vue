@@ -18,7 +18,7 @@ const { forwardRef, currentElement } = useForwardExpose()
 
 rootContext.contentId ||= useId(undefined, 'radix-vue-dialog-content')
 onMounted(() => {
-  rootContext.triggerElement = currentElement
+  rootContext.triggerElement.value = currentElement.value
 })
 </script>
 

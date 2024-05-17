@@ -3,7 +3,8 @@ import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
 
 export interface AspectRatioProps extends PrimitiveProps {
-  /** The desired ratio. Eg: 16/9
+  /**
+   * The desired ratio. Eg: 16/9
    * @defaultValue 1
    */
   ratio?: number
@@ -22,10 +23,10 @@ const props = withDefaults(defineProps<AspectRatioProps>(), {
   ratio: 1,
 })
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current aspect ratio (in %) */
     aspect: typeof aspect.value
-  }): any
+  }) => any
 }>()
 
 const { forwardRef } = useForwardExpose()

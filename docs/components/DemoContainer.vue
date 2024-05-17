@@ -11,7 +11,7 @@ defineProps<{
   <div class="w-full" :class="{ 'overflow-x-auto': overflow }">
     <a
       class="capitalize md:text-lg font-semibold mb-2 ml-2 inline-flex items-center group"
-      :href="`/components/${title?.replace(' ', '-')}.html`"
+      :href="`/components/${title?.replace(/\s+/g, '-')}.html`"
     >{{ title }}
 
       <Icon icon="ic-round-arrow-forward" class="ml-2 group-focus:ml-3 group-hover:ml-3 transition-[margin]" />

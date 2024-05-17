@@ -5,7 +5,6 @@ name: alert-dialog
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog
 ---
 
-
 # Alert Dialog
 
 <Description>
@@ -73,30 +72,26 @@ import {
 
 Contains all the parts of an alert dialog.
 
-
 <!-- @include: @/meta/AlertDialogRoot.md -->
-
 
 ### Trigger
 
 A button that opens the dialog.
 
-
 <!-- @include: @/meta/AlertDialogTrigger.md -->
 
-<DataAttributesTable 
+<DataAttributesTable
   :data="[
     {
       attribute: '[data-state]',
       values: ['open', 'closed'],
     }
-  ]" 
+  ]"
 />
 
 ### Portal
 
 When used, portals your overlay and content parts into the <code>body</code>.
-
 
 <!-- @include: @/meta/AlertDialogPortal.md -->
 
@@ -104,10 +99,9 @@ When used, portals your overlay and content parts into the <code>body</code>.
 
 A layer that covers the inert portion of the view when the dialog is open.
 
-
 <!-- @include: @/meta/AlertDialogOverlay.md -->
 
-<DataAttributesTable 
+<DataAttributesTable
   :data="[
     {
       attribute: '[data-state]',
@@ -120,10 +114,9 @@ A layer that covers the inert portion of the view when the dialog is open.
 
 Contains content to be rendered when the dialog is open.
 
-
 <!-- @include: @/meta/AlertDialogContent.md -->
 
-<DataAttributesTable 
+<DataAttributesTable
   :data="[
     {
       attribute: '[data-state]',
@@ -136,13 +129,11 @@ Contains content to be rendered when the dialog is open.
 
 A button that closes the dialog. This button should be distinguished visually from `AlertDialogAction` buttons.
 
-
 <!-- @include: @/meta/AlertDialogCancel.md -->
 
 ### Action
 
 A button that closes the dialog. These buttons should be distinguished visually from the `AlertDialogCancel` button.
-
 
 <!-- @include: @/meta/AlertDialogAction.md -->
 
@@ -155,7 +146,6 @@ An accessible name to be announced when the dialog is opened. Alternatively, you
 ### Description
 
 An accessible description to be announced when the dialog is opened. Alternatively, you can provide `aria-describedby` to `AlertDialogContent` and exclude this component.
-
 
 <!-- @include: @/meta/AlertDialogDescription.md -->
 

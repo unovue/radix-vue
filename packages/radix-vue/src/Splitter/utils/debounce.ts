@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-types
 export default function debounce<T extends Function>(
   callback: T,
   durationMs = 10,

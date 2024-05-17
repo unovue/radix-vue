@@ -5,7 +5,7 @@ description: A control that allows the user to toggle between checked and not ch
 name: checkbox
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/checkbox
 ---
- 
+
 # Checkbox
 
 <Description>
@@ -13,7 +13,6 @@ A control that allows the user to toggle between checked and not checked.
 </Description>
 
 <ComponentPreview name="Checkbox" />
-
 
 ## Features
 
@@ -53,7 +52,6 @@ import { CheckboxIndicator, CheckboxRoot } from 'radix-vue'
 
 Contains all the parts of a checkbox. An `input` will also render when used within a `form` to ensure events propagate correctly.
 
-
 <!-- @include: @/meta/CheckboxRoot.md -->
 
 <DataAttributesTable
@@ -72,7 +70,6 @@ Contains all the parts of a checkbox. An `input` will also render when used with
 ### Indicator
 
 Renders when the checkbox is in a checked or indeterminate state. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
-
 
 <!-- @include: @/meta/CheckboxIndicator.md -->
 

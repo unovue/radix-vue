@@ -55,11 +55,11 @@ export interface TooltipContext {
   open: Ref<boolean>
   stateAttribute: Ref<'closed' | 'delayed-open' | 'instant-open'>
   trigger: Ref<HTMLElement | undefined>
-  onTriggerChange(trigger: HTMLElement | undefined): void
-  onTriggerEnter(): void
-  onTriggerLeave(): void
-  onOpen(): void
-  onClose(): void
+  onTriggerChange: (trigger: HTMLElement | undefined) => void
+  onTriggerEnter: () => void
+  onTriggerLeave: () => void
+  onOpen: () => void
+  onClose: () => void
   disableHoverableContent: Ref<boolean>
   disableClosingTrigger: Ref<boolean>
   disabled: Ref<boolean>
@@ -88,6 +88,13 @@ const props = withDefaults(defineProps<TooltipRootProps>(), {
 })
 
 const emit = defineEmits<TooltipRootEmits>()
+
+defineSlots<{
+  default(props: {
+    /** Current open state */
+    open: typeof open.value
+  }): any
+}>()
 
 useForwardExpose()
 const providerContext = injectTooltipProviderContext()
@@ -159,7 +166,9 @@ provideTooltipRootContext({
     else handleOpen()
   },
   onTriggerLeave() {
-    if (disableHoverableContent.value) { handleClose() }
+    if (disableHoverableContent.value) {
+      handleClose()
+    }
     else {
       // Clear the timer in case the pointer leaves the trigger before the tooltip is opened.
       clearTimer()
@@ -176,6 +185,6 @@ provideTooltipRootContext({
 
 <template>
   <PopperRoot>
-    <slot />
+    <slot :open="open" />
   </PopperRoot>
 </template>

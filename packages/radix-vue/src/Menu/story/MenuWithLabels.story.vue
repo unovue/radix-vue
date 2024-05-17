@@ -3,13 +3,13 @@ import { MenuGroup, MenuItem, MenuLabel, MenuSeparator } from '..'
 import MenuWithAnchor from './_MenuWithAnchor.vue'
 
 function handleSelect(text: string) {
+  // eslint-disable-next-line no-console
   console.log({ text })
-  // window.alert(text);
 }
 
 const foodGroups: Array<{
   label?: string
-  foods: Array<{ value: string; label: string; disabled?: boolean }>
+  foods: Array<{ value: string, label: string, disabled?: boolean }>
 }> = [
   {
     label: 'Fruits',
@@ -61,13 +61,13 @@ const foodGroups: Array<{
         <MenuGroup v-for="(foodGroup, index) in foodGroups" :key="index">
           <MenuLabel
             v-if="foodGroup.label"
-            class="flex items-center justify-between leading-[1] cursor-default select-none whitespace-nowrap h-[25px] px-[10px] text-black rounded-[3] text-gray-400 my-2"
+            class="flex items-center justify-between leading-[1] cursor-default select-none whitespace-nowrap h-[25px] px-[10px] rounded-[3] text-gray-400 my-2"
           >
             {{ foodGroup.label }}
           </MenuLabel>
           <MenuItem
-            v-for="(food, index) in foodGroup.foods"
-            :key="index"
+            v-for="(food, foodIndex) in foodGroup.foods"
+            :key="foodIndex"
             class="flex items-center justify-between leading-[1] cursor-default select-none whitespace-nowrap h-[25px] px-[10px] text-black rounded-[3px] outline-none data-[highlighted]:bg-black data-[highlighted]:text-white data-[disabled]:text-gray-100"
             @select="handleSelect(food.value)"
           >

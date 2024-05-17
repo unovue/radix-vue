@@ -9,6 +9,7 @@ const toggleStateDefaultOn = ref<boolean>()
 const toggleStateDefaultOff = ref<boolean>()
 
 function onChange() {
+  // eslint-disable-next-line no-alert
   alert('On Change Event')
 }
 </script>

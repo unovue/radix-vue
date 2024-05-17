@@ -1,4 +1,4 @@
-import { createContext } from '@/shared'
+import { clamp, createContext } from '@/shared'
 
 export interface SliderOrientationPrivateProps {
   min: number
@@ -7,23 +7,12 @@ export interface SliderOrientationPrivateProps {
 }
 
 export type SliderOrientationPrivateEmits = {
-  'slideEnd': []
-  'slideStart': [value: number]
-  'slideMove': [value:number]
-  'homeKeyDown': [event: KeyboardEvent]
-  'endKeyDown': [event: KeyboardEvent]
-  'stepKeyDown': [event: KeyboardEvent, direction: number]
-}
-
-/**
- * Clamps a value within a specified range.
- *
- * @param {number} value - The value to be clamped.
- * @param {[number, number]} range - An array containing the minimum and maximum values of the range.
- * @returns {number} The clamped value within the specified range.
- */
-export function clamp(value: number, [min, max]: [number, number]): number {
-  return Math.min(max, Math.max(min, value))
+  slideEnd: []
+  slideStart: [value: number]
+  slideMove: [value: number]
+  homeKeyDown: [event: KeyboardEvent]
+  endKeyDown: [event: KeyboardEvent]
+  stepKeyDown: [event: KeyboardEvent, direction: number]
 }
 
 export function getNextSortedValues(prevValues: number[] = [], nextValue: number, atIndex: number) {
@@ -36,7 +25,7 @@ export function convertValueToPercentage(value: number, min: number, max: number
   const maxSteps = max - min
   const percentPerStep = 100 / maxSteps
   const percentage = percentPerStep * (value - min)
-  return clamp(percentage, [0, 100])
+  return clamp(percentage, 0, 100)
 }
 
 /**

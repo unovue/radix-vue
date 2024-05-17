@@ -8,7 +8,7 @@ export interface AlertDialogActionProps extends DialogCloseProps {}
 <script setup lang="ts">
 import { DialogClose } from '@/Dialog'
 
-const props = defineProps<AlertDialogActionProps>()
+const props = withDefaults(defineProps<AlertDialogActionProps>(), { as: 'button' })
 useForwardExpose()
 </script>
 

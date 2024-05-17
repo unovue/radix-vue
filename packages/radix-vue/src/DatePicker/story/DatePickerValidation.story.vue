@@ -2,10 +2,8 @@
 import DatePicker from './_DummyDatePicker.vue'
 
 import { CalendarDate, type DateValue, isWeekend } from '@internationalized/date'
-import { type Ref, ref } from 'vue'
 
 const defaultValue = new CalendarDate(2024, 2, 20)
-const modelValue = ref(defaultValue) as Ref<DateValue>
 
 const minValue = new CalendarDate(2024, 2, 14)
 const maxValue = new CalendarDate(2024, 2, 28)
@@ -20,7 +18,7 @@ function isDateDisabled(date: DateValue) {
 </script>
 
 <template>
-  <Story title="Date Picker/Validation" :layout="{ type: 'grid', width: '50%', iframe: false }">
+  <Story title="Date Picker/Validation" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="Min date">
       <DatePicker :default-value="defaultValue" :min-value="minValue" />
     </Variant>

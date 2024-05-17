@@ -1,7 +1,7 @@
 import { type Formatter, useKbd } from '@/shared'
-import { type AnyExceptLiteral, type HourCycle, type SegmentPart, type SegmentValueObj } from '@/shared/date'
+import type { AnyExceptLiteral, HourCycle, SegmentPart, SegmentValueObj } from '@/shared/date'
 import { getDaysInMonth, toDate } from '@/date'
-import { type CalendarDateTime, type CycleTimeOptions, type DateFields, type DateValue, type TimeFields } from '@internationalized/date'
+import type { CalendarDateTime, CycleTimeOptions, DateFields, DateValue, TimeFields } from '@internationalized/date'
 import { type Ref, computed } from 'vue'
 import { isAcceptableSegmentKey, isNumberString, isSegmentNavigationKey } from './utils'
 
@@ -307,7 +307,7 @@ export function useDateField(props: UseDateFieldProps) {
      * If the user has left the segment, we want to reset the
      * `prev` value so that we can start the segment over again
      * when the user types a number.
-   */
+     */
     if (props.hasLeftFocus.value) {
       props.hasLeftFocus.value = false
       prev = null
@@ -315,9 +315,9 @@ export function useDateField(props: UseDateFieldProps) {
 
     if (prev === null) {
     /**
-       * If the user types a 0 as the first number, we want
-       * to keep track of that so that when they type the next
-       * number, we can move to the next segment.
+     * If the user types a 0 as the first number, we want
+     * to keep track of that so that when they type the next
+     * number, we can move to the next segment.
      */
 
       if (num === 0) {
@@ -329,7 +329,7 @@ export function useDateField(props: UseDateFieldProps) {
        * greater than the max start digit (0-3 in most cases), then
        * we want to move to the next segment, since it's not possible
        * to continue typing a valid number in this segment.
-     */
+       */
 
       if (props.lastKeyZero.value || num > maxStart) {
       // move to next
@@ -340,7 +340,7 @@ export function useDateField(props: UseDateFieldProps) {
        * If none of the above conditions are met, then we can just
        * return the number as the segment value and continue typing
        * in this segment.
-     */
+       */
       return { value: num, moveToNext }
     }
 
@@ -349,21 +349,21 @@ export function useDateField(props: UseDateFieldProps) {
      * and the pressed digit is greater than the maximum value for this
      * month, then we will reset the segment as if the user had pressed the
      * backspace key and then typed the number.
-   */
+     */
     const digits = prev.toString().length
     const total = Number.parseInt(prev.toString() + num.toString())
     /**
-       * If the number of digits is 2, or if the total with the existing digit
-       * and the pressed digit is greater than the maximum value for this
-       * month, then we will reset the segment as if the user had pressed the
-       * backspace key and then typed the number.
-   */
+     * If the number of digits is 2, or if the total with the existing digit
+     * and the pressed digit is greater than the maximum value for this
+     * month, then we will reset the segment as if the user had pressed the
+     * backspace key and then typed the number.
+     */
 
     if (digits === 2 || total > max) {
     /**
-      * As we're doing elsewhere, we're checking if the number is greater
-      * than the max start digit (0-3 in most months), and if so, we're
-       * going to move to the next segment.
+     * As we're doing elsewhere, we're checking if the number is greater
+     * than the max start digit (0-3 in most months), and if so, we're
+     * going to move to the next segment.
      */
       if (num > maxStart || total > max) {
       // move to next
@@ -385,7 +385,7 @@ export function useDateField(props: UseDateFieldProps) {
      * If the user has left the segment, we want to reset the
      * `prev` value so that we can start the segment over again
      * when the user types a number.
-   */
+     */
     if (props.hasLeftFocus.value) {
       props.hasLeftFocus.value = false
       prev = null
@@ -393,9 +393,9 @@ export function useDateField(props: UseDateFieldProps) {
 
     if (prev === null) {
     /**
-       * If the user types a 0 as the first number, we want
-       * to keep track of that so that when they type the next
-       * number, we can move to the next segment.
+     * If the user types a 0 as the first number, we want
+     * to keep track of that so that when they type the next
+     * number, we can move to the next segment.
      */
 
       if (num === 0) {
@@ -407,7 +407,7 @@ export function useDateField(props: UseDateFieldProps) {
        * greater than the max start digit (0-3 in most cases), then
        * we want to move to the next segment, since it's not possible
        * to continue typing a valid number in this segment.
-     */
+       */
 
       if (props.lastKeyZero.value || num > maxStart) {
       // move to next
@@ -418,7 +418,7 @@ export function useDateField(props: UseDateFieldProps) {
        * If none of the above conditions are met, then we can just
        * return the number as the segment value and continue typing
        * in this segment.
-     */
+       */
       return { value: num, moveToNext }
     }
 
@@ -427,22 +427,22 @@ export function useDateField(props: UseDateFieldProps) {
      * and the pressed digit is greater than the maximum value for this
      * month, then we will reset the segment as if the user had pressed the
      * backspace key and then typed the number.
-   */
+     */
     const digits = prev.toString().length
     const total = Number.parseInt(prev.toString() + num.toString())
 
     /**
-       * If the number of digits is 2, or if the total with the existing digit
-       * and the pressed digit is greater than the maximum value for this
-       * month, then we will reset the segment as if the user had pressed the
-       * backspace key and then typed the number.
-   */
+     * If the number of digits is 2, or if the total with the existing digit
+     * and the pressed digit is greater than the maximum value for this
+     * month, then we will reset the segment as if the user had pressed the
+     * backspace key and then typed the number.
+     */
 
     if (digits === 2 || total > max) {
     /**
-      * As we're doing elsewhere, we're checking if the number is greater
-      * than the max start digit (0-3 in most months), and if so, we're
-       * going to move to the next segment.
+     * As we're doing elsewhere, we're checking if the number is greater
+     * than the max start digit (0-3 in most months), and if so, we're
+     * going to move to the next segment.
      */
       if (num > maxStart) {
       // move to next
@@ -464,7 +464,7 @@ export function useDateField(props: UseDateFieldProps) {
      * If the user has left the segment, we want to reset the
      * `prev` value so that we can start the segment over again
      * when the user types a number.
-   */
+     */
     // probably not implement, kind of weird
     if (props.hasLeftFocus.value) {
       props.hasLeftFocus.value = false
@@ -473,9 +473,9 @@ export function useDateField(props: UseDateFieldProps) {
 
     if (prev === null) {
     /**
-       * If the user types a 0 as the first number, we want
-       * to keep track of that so that when they type the next
-       * number, we can move to the next segment.
+     * If the user types a 0 as the first number, we want
+     * to keep track of that so that when they type the next
+     * number, we can move to the next segment.
      */
 
       if (num === 0) {
@@ -487,7 +487,7 @@ export function useDateField(props: UseDateFieldProps) {
        * greater than the max start digit (0-3 in most cases), then
        * we want to move to the next segment, since it's not possible
        * to continue typing a valid number in this segment.
-     */
+       */
 
       if (props.lastKeyZero.value || num > maxStart) {
       // move to next
@@ -498,7 +498,7 @@ export function useDateField(props: UseDateFieldProps) {
        * If none of the above conditions are met, then we can just
        * return the number as the segment value and continue typing
        * in this segment.
-     */
+       */
       return { value: num, moveToNext }
     }
 
@@ -507,22 +507,22 @@ export function useDateField(props: UseDateFieldProps) {
      * and the pressed digit is greater than the maximum value for this
      * month, then we will reset the segment as if the user had pressed the
      * backspace key and then typed the number.
-   */
+     */
     const digits = prev.toString().length
     const total = Number.parseInt(prev.toString() + num.toString())
 
     /**
-       * If the number of digits is 2, or if the total with the existing digit
-       * and the pressed digit is greater than the maximum value for this
-       * month, then we will reset the segment as if the user had pressed the
-       * backspace key and then typed the number.
-   */
+     * If the number of digits is 2, or if the total with the existing digit
+     * and the pressed digit is greater than the maximum value for this
+     * month, then we will reset the segment as if the user had pressed the
+     * backspace key and then typed the number.
+     */
 
     if (digits === 2 || total > max) {
     /**
-      * As we're doing elsewhere, we're checking if the number is greater
-      * than the max start digit (0-3 in most months), and if so, we're
-       * going to move to the next segment.
+     * As we're doing elsewhere, we're checking if the number is greater
+     * than the max start digit (0-3 in most months), and if so, we're
+     * going to move to the next segment.
      */
       if (num > maxStart) {
       // move to next
@@ -542,7 +542,7 @@ export function useDateField(props: UseDateFieldProps) {
      * If the user has left the segment, we want to reset the
      * `prev` value so that we can start the segment over again
      * when the user types a number.
-   */
+     */
     // probably not implement, kind of weird
     if (props.hasLeftFocus.value) {
       props.hasLeftFocus.value = false

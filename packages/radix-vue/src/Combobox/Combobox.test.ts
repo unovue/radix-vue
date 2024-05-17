@@ -56,6 +56,21 @@ describe('given default Combobox', () => {
       expect(wrapper.html()).toContain('Apple')
     })
 
+    it('should reset searchTerm when close', async () => {
+      const input = wrapper.find('input')
+      input.element.value = 'Testing'
+      await input.trigger('keydown', { key: 'Escape' })
+      expect(input.element.value).toBe('')
+    })
+
+    it('should not reset searchTerm when close', async () => {
+      await wrapper.setProps({ resetSearchTermOnBlur: false, key: 'key' })
+      const input = wrapper.find('input')
+      input.element.value = 'Testing'
+      await input.trigger('keydown', { key: 'Escape' })
+      expect(input.element.value).toBe('Testing')
+    })
+
     describe('after selecting a value', () => {
       beforeEach(async () => {
         const selection = wrapper.findAll('[role=option]')[1]

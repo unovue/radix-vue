@@ -3,8 +3,10 @@ import { MenuItem, MenuSeparator } from '..'
 import MenuWithAnchor from './_MenuWithAnchor.vue'
 
 function handleSelect(text: string) {
+  // eslint-disable-next-line no-console
   console.log({ text })
-  window.alert(text)
+  // eslint-disable-next-line no-alert
+  alert(text)
 }
 </script>
 

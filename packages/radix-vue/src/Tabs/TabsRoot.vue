@@ -56,6 +56,14 @@ const props = withDefaults(defineProps<TabsRootProps<T>>(), {
   activationMode: 'automatic',
 })
 const emits = defineEmits<TabsRootEmits<T>>()
+
+defineSlots<{
+  default(props: {
+    /** Current input values */
+    modelValue: typeof modelValue.value
+  }): any
+}>()
+
 const { orientation, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
 useForwardExpose()
@@ -87,6 +95,6 @@ provideTabsRootContext({
     :as-child="asChild"
     :as="as"
   >
-    <slot />
+    <slot :model-value="modelValue" />
   </Primitive>
 </template>

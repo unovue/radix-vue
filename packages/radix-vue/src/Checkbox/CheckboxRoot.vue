@@ -16,7 +16,8 @@ export interface CheckboxRootProps extends PrimitiveProps {
   required?: boolean
   /** The name of the checkbox. Submitted with its owning form as part of a name/value pair. */
   name?: string
-  /** The value given as data when submitted with a `name`.
+  /**
+   * The value given as data when submitted with a `name`.
    *  @defaultValue "on"
    */
   value?: string
@@ -53,6 +54,14 @@ const props = withDefaults(defineProps<CheckboxRootProps>(), {
   as: 'button',
 })
 const emits = defineEmits<CheckboxRootEmits>()
+
+defineSlots<{
+  default(props: {
+    /** Current checked state */
+    checked: typeof checked.value
+  }): any
+}>()
+
 const { disabled } = toRefs(props)
 
 const checked = useVModel(props, 'checked', emits, {
@@ -92,7 +101,7 @@ provideCheckboxRootContext({
     }"
     @click="checked = isIndeterminate(checked) ? true : !checked"
   >
-    <slot />
+    <slot :checked="checked" />
   </Primitive>
 
   <input

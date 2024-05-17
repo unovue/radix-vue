@@ -11,7 +11,7 @@ import LayoutShowcase from '../layouts/showcase.vue'
 import 'vitepress/dist/client/theme-default/styles/components/vp-doc.css'
 import './style.css'
 import './tailwind.postcss'
-import { type Theme } from 'vitepress'
+import type { Theme } from 'vitepress'
 
 const regex = /\/(\w+)\.vue/
 const baseModules = import.meta.glob('../../components/*.vue', { eager: true })
@@ -26,7 +26,7 @@ export default {
       'home-features-after': () => h('div', [h(HomePageDemo), h(HomePage)]),
     })
   },
-  enhanceApp({ app, router, siteData }) {
+  enhanceApp({ app }) {
     for (const path in baseModules)
       app.component(path.match(regex)?.[1] ?? '', (baseModules[path] as any)?.default)
 

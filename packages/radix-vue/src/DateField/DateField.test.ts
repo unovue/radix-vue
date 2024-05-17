@@ -39,7 +39,7 @@ function thisTimeZone(date: string): string {
   return timezone
 }
 
-function setup(props: { dateFieldProps?: DateFieldRootProps; emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } } = {}) {
+function setup(props: { dateFieldProps?: DateFieldRootProps, emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } } = {}) {
   const user = userEvent.setup()
   const returned = render(DateField, { props })
   const month = returned.getByTestId('month')
@@ -56,7 +56,7 @@ it('should pass axe accessibility tests', async () => {
   expect(await axe(container)).toHaveNoViolations()
 })
 
-describe('DateField', async () => {
+describe('dateField', async () => {
   it('populates segment with value - `CalendarDate`', async () => {
     const { month, day, year } = setup({
       dateFieldProps: { modelValue: calendarDate },

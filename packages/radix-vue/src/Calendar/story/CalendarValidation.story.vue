@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import Calendar from './_DummyCalendar.vue'
 import type { CalendarRootProps } from '../'
-import { CalendarDate, type DateValue, isWeekend } from '@internationalized/date'
-import { ref } from 'vue'
+import { CalendarDate, isWeekend } from '@internationalized/date'
 
 const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
   return isWeekend(date, 'en')
@@ -11,15 +10,13 @@ const isDateDisabled: CalendarRootProps['isDateUnavailable'] = (date) => {
   return date.day > 20
 }
 
-const modelValue = ref<DateValue>()
 const defaultValue = new CalendarDate(2024, 2, 14)
-const placeholder = new CalendarDate(2024, 4, 14)
 const minValue = new CalendarDate(2024, 2, 12)
 const maxValue = new CalendarDate(2024, 2, 20)
 </script>
 
 <template>
-  <Story title="Calendar/Validation" :layout="{ type: 'grid', width: '50%', iframe: false }">
+  <Story title="Calendar/Validation" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="Unavailable">
       <Calendar :default-value="defaultValue" :is-date-unavailable="isDateUnavailable" />
     </Variant>

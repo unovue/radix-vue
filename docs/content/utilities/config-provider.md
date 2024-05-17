@@ -1,6 +1,6 @@
 ---
 title: Config Provider
-description: Wraps your app to provide global configurations. 
+description: Wraps your app to provide global configurations.
 ---
 
 # Config Provider
@@ -17,10 +17,9 @@ Wraps your app to provide global configurations.
   ]"
 />
 
- 
 ## Anatomy
 
-Import the component. 
+Import the component.
 
 ```vue
 <script setup lang="ts">
@@ -33,7 +32,6 @@ import { ConfigProvider } from 'radix-vue'
   </ConfigProvider>
 </template>
 ```
- 
 
 ## API Reference
 
@@ -43,10 +41,9 @@ When creating localized apps that require right-to-left (RTL) reading direction,
 
 You can also change the global behavior of `bodylock` for components such as `Alert`, `DropdownMenu` and etc to fit your layout to prevent any [content shifts](https://github.com/radix-vue/radix-vue/issues/385).
 
-
 <!-- @include: @/meta/ConfigProvider.md -->
 
-## Example 
+## Example
 
 Use the config provider.
 
@@ -63,15 +60,12 @@ import { ConfigProvider } from 'radix-vue'
   </ConfigProvider>
 </template>
 ```
- 
 
 ## Hydration issue (Vue < 3.5)
 
 We expose a temporary workaround to allow current Nuxt (with version >3.10) project fix the current hydration issue by using [`useId`](https://nuxt.com/docs/api/composables/use-id) provided by Nuxt.
 
 > Inspired by [Headless UI](https://github.com/tailwindlabs/headlessui/pull/2959)
-
-
 
  ```vue
  <!-- in Nuxt's app.vue -->
@@ -87,4 +81,3 @@ const useIdFunction = () => useId()
    </ConfigProvider>
 </template>
 ```
- 

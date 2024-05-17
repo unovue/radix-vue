@@ -1,6 +1,6 @@
 ---
 title: Visually Hidden
-description: Hides content from the screen in an accessible way. 
+description: Hides content from the screen in an accessible way.
 ---
 
 # Visually Hidden
@@ -15,7 +15,6 @@ Hides content from the screen in an accessible way.
   ]"
 />
 
- 
 ## Anatomy
 
 Import the component.
@@ -49,8 +48,6 @@ import { GearIcon } from '@radix-icons/vue'
   </button>
 </template>
 ```
-
- 
 
 ## API Reference
 

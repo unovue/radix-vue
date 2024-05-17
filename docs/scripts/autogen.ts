@@ -145,7 +145,7 @@ function parseMeta(meta: ComponentMeta) {
     .sort((a, b) => a.name.localeCompare(b.name))
 
   const defaultSlot = meta.slots?.[0]
-  const slots: { name: string; description: string; type: string }[] = []
+  const slots: { name: string, description: string, type: string }[] = []
 
   if (defaultSlot && defaultSlot.type !== '{}') {
     const schema = defaultSlot.schema

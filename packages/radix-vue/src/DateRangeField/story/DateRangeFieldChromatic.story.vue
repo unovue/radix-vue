@@ -4,14 +4,14 @@ import { CalendarDateTime, type DateValue, getLocalTimeZone, now } from '@intern
 import { type Ref, ref } from 'vue'
 
 const defaultValue = { start: new CalendarDateTime(2024, 2, 20), end: new CalendarDateTime(2024, 2, 27) }
-const modelValue = ref(defaultValue) as Ref<{ start: DateValue; end: DateValue }>
+const modelValue = ref(defaultValue) as Ref<{ start: DateValue, end: DateValue }>
 
 const defaultPlaceholder = new CalendarDateTime(2023, 10, 11, 12, 30)
 const localTimezonePlaceholder = now(getLocalTimeZone())
 </script>
 
 <template>
-  <Story title="Date Range Field/Chromatic" :layout="{ type: 'grid', width: '50%', iframe: false }">
+  <Story title="Date Range Field/Chromatic" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="Empty default">
       <DateRangeField />
     </Variant>

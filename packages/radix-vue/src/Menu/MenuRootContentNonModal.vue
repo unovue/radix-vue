@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import MenuContentImpl, {
-  type MenuContentImplEmits,
-  type MenuRootContentTypeProps,
-} from './MenuContentImpl.vue'
+import MenuContentImpl, { type MenuContentImplEmits, type MenuRootContentTypeProps } from './MenuContentImpl.vue'
 import { injectMenuContext } from './MenuRoot.vue'
 import { useForwardPropsEmits } from '@/shared'
 

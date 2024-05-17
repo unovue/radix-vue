@@ -7,8 +7,10 @@ export interface DialogRootProps {
   open?: boolean
   /** The open state of the dialog when it is initially rendered. Use when you do not need to control its open state. */
   defaultOpen?: boolean
-  /** The modality of the dialog When set to `true`, <br>
-   * interaction with outside elements will be disabled and only dialog content will be visible to screen readers. */
+  /**
+   * The modality of the dialog When set to `true`, <br>
+   * interaction with outside elements will be disabled and only dialog content will be visible to screen readers.
+   */
   modal?: boolean
 }
 
@@ -20,9 +22,9 @@ export type DialogRootEmits = {
 export interface DialogRootContext {
   open: Readonly<Ref<boolean>>
   modal: Ref<boolean>
-  openModal(): void
-  onOpenChange(value: boolean): void
-  onOpenToggle(): void
+  openModal: () => void
+  onOpenChange: (value: boolean) => void
+  onOpenToggle: () => void
   triggerElement: Ref<HTMLElement | undefined>
   contentElement: Ref<HTMLElement | undefined>
   contentId: string

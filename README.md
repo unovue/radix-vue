@@ -28,11 +28,9 @@ Radix is an unstyled, customisable UI Library with built in accessibility for bu
  <a href="https://radix-vue.com">Documentation</a> | <a href="https://www.radix-vue.com/overview/getting-started.html">Getting Started</a> | <a href="https://www.radix-vue.com/">Examples</a> | <a href="https://www.radix-vue.com/overview/introduction.html">Why Radix Vue?</a>
 </p>
 
-
-
 ![hero image](https://www.radix-vue.com/og.jpg)
  <em>design by: [icarusgkx](https://twitter.com/icarusgkx), [melkam](https://github.com/MellKam)</em>
- 
+
 ## Installation
 
 ```bash
@@ -52,7 +50,7 @@ For full documentation, visit [radix-vue.com](https://radix-vue.com).
 ## Releases
 
 For changelog, visit [releases](https://github.com/radix-vue/radix-vue/releases).
- 
+
 ## Contributing
 
 We would love to have your contributions! All PRs all welcomed! We need help building the core components, docs, tests, stories! Join our discord and we will get you up and running!

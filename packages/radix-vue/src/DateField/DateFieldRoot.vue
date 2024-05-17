@@ -26,7 +26,7 @@ type DateFieldRootContext = {
   formatter: Formatter
   hourCycle: HourCycle
   segmentValues: Ref<SegmentValueObj>
-  segmentContents: Ref<{ part: SegmentPart; value: string }[]>
+  segmentContents: Ref<{ part: SegmentPart, value: string }[]>
   elements: Ref<Set<HTMLElement>>
   focusNext: () => void
   setFocusedElement: (el: HTMLElement) => void
@@ -99,14 +99,14 @@ const props = withDefaults(defineProps<DateFieldRootProps>(), {
 })
 const emits = defineEmits<DateFieldRootEmits>()
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** The current date of the field */
     modelValue: DateValue | undefined
     /** The date field segment contents */
-    segments: { part: SegmentPart; value: string }[]
+    segments: { part: SegmentPart, value: string }[]
     /** Value if the input is invalid */
     isInvalid: boolean
-  }): any
+  }) => any
 }>()
 
 const { locale, disabled, readonly, isDateUnavailable: propsIsDateUnavailable, granularity, defaultValue, dir: propDir } = toRefs(props)

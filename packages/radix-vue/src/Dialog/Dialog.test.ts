@@ -23,7 +23,7 @@ const NoLabelDialogTest = defineComponent({
 
 const UndefinedDescribedByDialog = defineComponent({
   components: { DialogRoot, DialogTrigger, DialogOverlay, DialogContent, DialogClose, DialogTitle },
-  template: `  <DialogRoot>
+  template: `<DialogRoot>
   <DialogTrigger>${OPEN_TEXT}</DialogTrigger>
   <DialogOverlay />
   <DialogContent :aria-describedby="undefined">
@@ -127,6 +127,10 @@ describe('given a default Dialog', () => {
 
       it('should close the content', () => {
         expect(document.body.innerHTML).not.toContain(closeButton.innerHTML)
+      })
+
+      it('should focus trigger', async () => {
+        expect(document.activeElement).toBe(trigger.element)
       })
     })
   })

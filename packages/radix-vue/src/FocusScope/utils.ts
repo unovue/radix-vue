@@ -2,7 +2,7 @@ export const AUTOFOCUS_ON_MOUNT = 'focusScope.autoFocusOnMount'
 export const AUTOFOCUS_ON_UNMOUNT = 'focusScope.autoFocusOnUnmount'
 export const EVENT_OPTIONS = { bubbles: false, cancelable: true }
 
-type FocusableTarget = HTMLElement | { focus(): void }
+type FocusableTarget = HTMLElement | { focus: () => void }
 
 /**
  * Attempts focusing the first element in a list of candidates.

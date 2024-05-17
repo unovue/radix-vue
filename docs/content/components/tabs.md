@@ -6,7 +6,6 @@ name: tabs
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel
 ---
 
-
 # Tabs
 
 <Description>
@@ -108,7 +107,7 @@ The button that activates its associated content.
 />
 
 ### Indicator
- 
+
 The indicator that highlights the current active tab.
 
 <!-- @include: @/meta/TabsIndicator.md -->

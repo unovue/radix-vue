@@ -1,6 +1,6 @@
 // reference https://github.com/chakra-ui/zag/blob/main/packages/machines/pagination/src/pagination.utils.ts
 
-type Pages = Array<{ type: 'ellipsis' } | { type: 'page'; value: number }>
+type Pages = Array<{ type: 'ellipsis' } | { type: 'page', value: number }>
 
 function range(start: number, end: number) {
   const length = end - start + 1
@@ -32,11 +32,11 @@ export function getRange(currentPage: number, pageCount: number, siblingCount: n
      * `2 * siblingCount + 5` explanation:
      * 2 * siblingCount for left/right siblings
      * 5 for 2x left/right ellipsis, 2x first/last page + 1x current page
-    *
-    * For some page counts (e.g. totalPages: 8, siblingCount: 2),
-    * calculated max page is higher than total pages,
-    * so we need to take the minimum of both.
-    */
+     *
+     * For some page counts (e.g. totalPages: 8, siblingCount: 2),
+     * calculated max page is higher than total pages,
+     * so we need to take the minimum of both.
+     */
     const totalPageNumbers = Math.min(2 * siblingCount + 5, pageCount)
 
     const itemCount = totalPageNumbers - 2 // 2 stands for one ellipsis and either first or last page

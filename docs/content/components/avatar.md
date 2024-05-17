@@ -4,7 +4,7 @@ title: Avatar
 description: An image element with a fallback for representing the user.
 name: avatar
 ---
- 
+
 # Avatar
 
 <Description>
@@ -52,20 +52,17 @@ import { AvatarImage, AvatarRoot } from 'radix-vue'
 
 Contains all the parts of an avatar
 
-
 <!-- @include: @/meta/AvatarRoot.md -->
 
 ### Image
 
 The image to render. By default it will only render when it has loaded. You can use the `@loadingStatusChange` handler if you need more control.
 
-
 <!-- @include: @/meta/AvatarImage.md -->
 
 ### Fallback
 
 An element that renders when the image hasn't loaded. This means whilst it's loading, or if there was an error. If you notice a flash during loading, you can provide a `delayMs` prop to delay its rendering so it only renders for those with slower connections. For more control, use the `@loadingStatusChange` emit on `AvatarImage`.
-
 
 <!-- @include: @/meta/AvatarFallback.md -->
 

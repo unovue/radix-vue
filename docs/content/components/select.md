@@ -653,7 +653,7 @@ See the W3C [Select-Only Combobox](https://www.w3.org/TR/wai-aria-practices/exam
     },
   ]"
 />
- 
+
 ### Labelling
 
 Use our [Label](label) component in order to offer a visual and accessible label for the Select
@@ -695,7 +695,7 @@ import {
   </SelectRoot>
 </template>
 ```
- 
+
 ## Custom APIs
 
 Create your own API by abstracting the primitive parts into your own component.
@@ -728,13 +728,11 @@ import { Select, SelectItem } from './your-select'
 
 #### Implementation
 
-
 ```ts
 // your-select.ts
 export { default as Select } from 'Select.vue'
 export { default as SelectItem } from 'SelectItem.vue'
 ```
-
 
 ```vue
 <!-- Select.vue -->
@@ -795,4 +793,3 @@ const props = defineProps<SelectItemProps>()
   </SelectItem>
 </template>
 ```
- 

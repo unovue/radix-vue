@@ -3,8 +3,6 @@ title: Releases
 description: Discover the latest release of Radix Vue.
 ---
 
-
-
 # Releases
 
 <Description>

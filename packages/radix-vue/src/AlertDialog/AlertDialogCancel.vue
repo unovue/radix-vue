@@ -10,7 +10,7 @@ import { onMounted } from 'vue'
 import { injectAlertDialogContentContext } from './AlertDialogContent.vue'
 import { DialogClose } from '@/Dialog'
 
-const props = defineProps<AlertDialogCancelProps>()
+const props = withDefaults(defineProps<AlertDialogCancelProps>(), { as: 'button' })
 const contentContext = injectAlertDialogContentContext()
 const { forwardRef, currentElement } = useForwardExpose()
 

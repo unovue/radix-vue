@@ -3,13 +3,13 @@ import { MenuGroup, MenuItem, MenuLabel, MenuSeparator } from '..'
 import MenuWithAnchor from './_MenuWithAnchor.vue'
 
 function handleSelect(text: string) {
+  // eslint-disable-next-line no-console
   console.log({ text })
-  // window.alert(text);
 }
 
 const foodGroups: Array<{
   label?: string
-  foods: Array<{ value: string; label: string; disabled?: boolean }>
+  foods: Array<{ value: string, label: string, disabled?: boolean }>
 }> = [
   {
     label: 'Fruits',

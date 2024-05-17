@@ -35,7 +35,6 @@ This component was built taking inspiration from the implementation in [melt-ui]
 
 The component depends on the [@internationalized/date](https://react-spectrum.adobe.com/internationalized/date/index.html) package, which solves a lot of the problems that come with working with dates and times in JavaScript.
 
-
 We highly recommend reading through the documentation for the package to get a solid feel for how it works, and you'll need to install it in your project to use the date-related components.
 
 ## Installation
@@ -184,7 +183,6 @@ The button that toggles the popover. By default, the `DateRangePickerContent` wi
 The component that pops out when the popover is open.
 
 <!-- @include: @/meta/DateRangePickerContent.md -->
-
 
 ### Arrow
 
@@ -347,7 +345,6 @@ Container for wrapping the calendar cells.
 Interactable container for displaying the cell dates. Clicking it selects the date.
 
 <!-- @include: @/meta/DateRangePickerCellTrigger.md -->
-
 
 <DataAttributesTable
   :data="[

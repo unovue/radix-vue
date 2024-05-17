@@ -3,8 +3,8 @@ import { ref } from 'vue'
 
 interface FocusScopeAPI {
   paused: boolean
-  pause(): void
-  resume(): void
+  pause: () => void
+  resume: () => void
 }
 
 const useFocusStackState = createGlobalState(() => {

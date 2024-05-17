@@ -6,8 +6,6 @@ name: dialog
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal
 ---
 
- 
-
 # Dialog
 
 <Description>
@@ -156,7 +154,6 @@ You can nest multiple layers of dialogs.
 
 <ComponentPreview name="DialogNested" />
 
-
 ### Close after asynchronous form submission
 
 Use the controlled props to programmatically close the Dialog after an async operation has completed.
@@ -286,7 +283,6 @@ For example, if you have some global Toaster component that should not close the
 
 <ComponentPreview name="DialogToaster" />
 
-
 ## Accessibility
 
 Adheres to the [Dialog WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal).
@@ -337,7 +333,7 @@ When providing an icon (or font icon), remember to label it correctly for screen
     },
   ]"
 />
- 
+
 ## Custom APIs
 
 Create your own API by abstracting the primitive parts into your own component.
@@ -367,7 +363,7 @@ import { Dialog, DialogContent, DialogTrigger } from './your-dialog'
 // your-dialog.ts
 export { default as DialogContent } from 'DialogContent.vue'
 export { DialogRoot as Dialog, DialogTrigger } from 'radix-vue'
-``` 
+```
 
 ```vue
 <!-- DialogContent.vue -->

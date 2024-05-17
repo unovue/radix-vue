@@ -13,7 +13,7 @@ const isFirstOrFifteenth: Matcher = (date) => {
 </script>
 
 <template>
-  <Story title="Date Range Field/Validation" :layout="{ type: 'grid', width: '50%', iframe: false }">
+  <Story title="Date Range Field/Validation" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="Unavailable">
       <DateRangeField :default-value="defaultValue" :is-date-unavailable="isFirstOrFifteenth" />
     </Variant>

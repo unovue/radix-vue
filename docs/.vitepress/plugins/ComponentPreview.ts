@@ -3,7 +3,7 @@ import { readdirSync } from 'node:fs'
 import type { MarkdownEnv, MarkdownRenderer } from 'vitepress'
 
 export const rawPathRegexp
-  = /^(.+?(?:(?:\.([a-z0-9]+))?))(?:(#[\w-]+))?(?: ?(?:{(\d+(?:[,-]\d+)*)? ?(\S+)?}))? ?(?:\[(.+)\])?$/
+  = /^(.+?(?:\.([a-z0-9]+))?)(#[\w-]+)?(?: ?\{(\d+(?:[,-]\d+)*)? ?(\S+)?\})? ?(?:\[(.+)\])?$/
 
 function rawPathToToken(rawPath: string) {
   const [

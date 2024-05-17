@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
 import NavigationMenu from './story/_NavigationMenu.vue'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
@@ -8,7 +8,7 @@ import { nextTick } from 'vue'
 import { fireEvent } from '@testing-library/vue'
 import { sleep } from '@/test'
 import NavigationMenuItem from './NavigationMenuItem.vue'
-import { afterEach } from 'node:test'
+
 import { useDebounceFn } from '@vueuse/core'
 
 vi.mock('@vueuse/core', async () => {

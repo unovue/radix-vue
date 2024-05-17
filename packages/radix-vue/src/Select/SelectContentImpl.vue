@@ -70,7 +70,7 @@ export interface SelectContentImplProps extends PopperContentProps {
    * The document.body will be lock, and scrolling will be disabled.
    *
    * @defaultValue true
-  */
+   */
   bodyLock?: boolean
 }
 

@@ -28,7 +28,7 @@ defineOptions({
 
 const props = defineProps<SelectItemAlignedPositionProps>()
 const emits = defineEmits<{
-  'placed': []
+  placed: []
 }>()
 
 const { injectCollection } = useCollection()
@@ -153,10 +153,10 @@ function position() {
       const clampedTriggerMiddleToBottomEdge = Math.max(
         triggerMiddleToBottomEdge,
         selectedItemHalfHeight
-          // viewport might have padding bottom, include it to avoid a scrollable viewport
-          + (isLastItem ? viewportPaddingBottom : 0)
-          + viewportOffsetBottom
-          + contentBorderBottomWidth,
+        // viewport might have padding bottom, include it to avoid a scrollable viewport
+        + (isLastItem ? viewportPaddingBottom : 0)
+        + viewportOffsetBottom
+        + contentBorderBottomWidth,
       )
       const height = contentTopToItemMiddle + clampedTriggerMiddleToBottomEdge
       contentWrapperElement.value.style.height = `${height}px`
@@ -167,10 +167,10 @@ function position() {
       const clampedTopEdgeToTriggerMiddle = Math.max(
         topEdgeToTriggerMiddle,
         contentBorderTopWidth
-          + viewport.value.offsetTop
-          // viewport might have padding top, include it to avoid a scrollable viewport
-          + (isFirstItem ? viewportPaddingTop : 0)
-          + selectedItemHalfHeight,
+        + viewport.value.offsetTop
+        // viewport might have padding top, include it to avoid a scrollable viewport
+        + (isFirstItem ? viewportPaddingTop : 0)
+        + selectedItemHalfHeight,
       )
       const height = clampedTopEdgeToTriggerMiddle + itemMiddleToContentBottom
       contentWrapperElement.value.style.height = `${height}px`

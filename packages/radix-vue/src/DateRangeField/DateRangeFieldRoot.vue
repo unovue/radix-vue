@@ -35,7 +35,7 @@ type DateRangeFieldRootContext = {
   formatter: Formatter
   hourCycle: HourCycle
   segmentValues: Record<DateRangeType, Ref<SegmentValueObj>>
-  segmentContents: Ref<{ start: { part: SegmentPart; value: string }[]; end: { part: SegmentPart; value: string }[] }>
+  segmentContents: Ref<{ start: { part: SegmentPart, value: string }[], end: { part: SegmentPart, value: string }[] }>
   elements: Ref<Set<HTMLElement>>
   focusNext: () => void
   setFocusedElement: (el: HTMLElement) => void
@@ -284,7 +284,7 @@ const currentFocusedElement = ref<HTMLElement | null>(null)
 
 const currentSegmentIndex = computed(() => Array.from(segmentElements.value).findIndex(el =>
   el.getAttribute('data-radix-vue-date-field-segment') === currentFocusedElement.value?.getAttribute('data-radix-vue-date-field-segment')
-&& el.getAttribute('data-radix-vue-date-range-field-segment-type') === currentFocusedElement.value?.getAttribute('data-radix-vue-date-range-field-segment-type')))
+  && el.getAttribute('data-radix-vue-date-range-field-segment-type') === currentFocusedElement.value?.getAttribute('data-radix-vue-date-range-field-segment-type')))
 
 const nextFocusableSegment = computed(() => {
   const sign = dir.value === 'rtl' ? -1 : 1

@@ -23,6 +23,7 @@ function filterFunction(list: any[], term: string) {
 }
 
 function handleUpdate(ev: any) {
+  // eslint-disable-next-line no-console
   console.log(ev)
 }
 </script>

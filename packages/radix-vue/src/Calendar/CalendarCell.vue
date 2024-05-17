@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { type DateValue } from '@internationalized/date'
+import type { DateValue } from '@internationalized/date'
 
 export interface CalendarCellProps extends PrimitiveProps {
   /** The date value for the cell */

@@ -1,9 +1,7 @@
---- 
+---
 title: useEmitAsProps
 description: Convert emits into object similar to props
 ---
-
-
 
 # useEmitAsProps
 
@@ -14,7 +12,6 @@ Convert emits into object similar to props
 When you are building a wrapper for a component, one of the biggest painpoint is to forward all the emitted events from components.
 
 By using this composables, it will convert the `emits` you've declared into an object of handlers that is acceptable by Vue component.
-
 
 ## Usage
 
@@ -32,4 +29,3 @@ const emitsAsProps = useEmitAsProps(emits)
   </Comp>
 </template>
 ```
- 

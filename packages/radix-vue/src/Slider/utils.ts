@@ -7,12 +7,12 @@ export interface SliderOrientationPrivateProps {
 }
 
 export type SliderOrientationPrivateEmits = {
-  'slideEnd': []
-  'slideStart': [value: number]
-  'slideMove': [value:number]
-  'homeKeyDown': [event: KeyboardEvent]
-  'endKeyDown': [event: KeyboardEvent]
-  'stepKeyDown': [event: KeyboardEvent, direction: number]
+  slideEnd: []
+  slideStart: [value: number]
+  slideMove: [value: number]
+  homeKeyDown: [event: KeyboardEvent]
+  endKeyDown: [event: KeyboardEvent]
+  stepKeyDown: [event: KeyboardEvent, direction: number]
 }
 
 export function getNextSortedValues(prevValues: number[] = [], nextValue: number, atIndex: number) {

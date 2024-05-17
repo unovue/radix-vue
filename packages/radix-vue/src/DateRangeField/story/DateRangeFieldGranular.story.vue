@@ -6,7 +6,7 @@ const defaultValue = { start: new CalendarDateTime(2024, 2, 20), end: new Calend
 </script>
 
 <template>
-  <Story title="Date Range Field/Granular" :layout="{ type: 'grid', width: '50%', iframe: false }">
+  <Story title="Date Range Field/Granular" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="Granular (second)">
       <DateRangeField :default-value="defaultValue" granularity="second" />
     </Variant>

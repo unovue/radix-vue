@@ -14,7 +14,6 @@ Visually or semantically separates content.
 
 <ComponentPreview name="Separator" />
 
-
 ## Features
 
 <Highlights :features="['Supports horizontal and vertical orientations.']" />

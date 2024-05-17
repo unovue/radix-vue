@@ -5,13 +5,11 @@ description: Renders an accessible label associated with controls.
 name: label
 ---
 
-
 # Label
 
 <Description>
 Renders an accessible label associated with controls.
 </Description>
-
 
 <ComponentPreview name="Label" />
 

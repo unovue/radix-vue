@@ -36,10 +36,10 @@ interface RovingContext {
   dir: Ref<Direction>
   loop: Ref<boolean>
   currentTabStopId: Ref<string | null | undefined>
-  onItemFocus(tabStopId: string): void
-  onItemShiftTab(): void
-  onFocusableItemAdd(): void
-  onFocusableItemRemove(): void
+  onItemFocus: (tabStopId: string) => void
+  onItemShiftTab: () => void
+  onFocusableItemAdd: () => void
+  onFocusableItemRemove: () => void
 }
 
 export const [injectRovingFocusGroupContext, provideRovingFocusGroupContext]

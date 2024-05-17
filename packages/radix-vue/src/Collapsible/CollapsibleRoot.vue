@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { type Ref } from 'vue'
+import type { Ref } from 'vue'
 import { createContext, useForwardExpose } from '@/shared'
 
 export interface CollapsibleRootProps extends PrimitiveProps {
@@ -21,7 +21,7 @@ interface CollapsibleRootContext {
   contentId: string
   disabled?: Ref<boolean>
   open: Ref<boolean>
-  onOpenToggle(): void
+  onOpenToggle: () => void
 }
 
 export const [injectCollapsibleRootContext, provideCollapsibleRootContext]
@@ -40,10 +40,10 @@ const props = withDefaults(defineProps<CollapsibleRootProps>(), {
 const emit = defineEmits<CollapsibleRootEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current open state */
     open: typeof open.value
-  }): any
+  }) => any
 }>()
 
 const open = useVModel(props, 'open', emit, {

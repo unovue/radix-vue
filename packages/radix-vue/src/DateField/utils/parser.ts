@@ -1,6 +1,6 @@
 import { DATE_SEGMENT_PARTS, type DateSegmentPart, EDITABLE_SEGMENT_PARTS, type Granularity, type HourCycle, type SegmentContentObj, type SegmentPart, type SegmentValueObj, TIME_SEGMENT_PARTS, type TimeSegmentPart, getOptsByGranularity, getPlaceholder, isDateSegmentPart, isSegmentPart } from '@/shared/date'
 import { isZonedDateTime, toDate } from '@/date'
-import { type Formatter } from '@/shared'
+import type { Formatter } from '@/shared'
 import type { DateFields, DateValue } from '@internationalized/date'
 import type { Ref } from 'vue'
 
@@ -93,7 +93,7 @@ function createContentObj(props: CreateContentObjProps) {
         if (value !== null) {
           if (part === 'day' && segmentValues.month !== null)
           /**
-             * As described above, same function
+           * As described above, same function
            */
             return formatter.part(props.dateRef.set({ [part]: value, month: segmentValues.month }), part)
 
@@ -150,7 +150,7 @@ function createContentArr(props: CreateContentArrProps) {
         value: contentObj[part.type],
       }
     })
-    .filter((segment): segment is { part: SegmentPart; value: string } => {
+    .filter((segment): segment is { part: SegmentPart, value: string } => {
       if (segment.part === null || segment.value === null)
         return false
       if (segment.part === 'timeZoneName' && (!isZonedDateTime(props.dateRef) || hideTimeZone))

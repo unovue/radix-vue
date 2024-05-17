@@ -5,7 +5,6 @@ name: navigation-menu
 aria: https://www.w3.org/TR/wai-aria/#navigation
 ---
 
-
 # Navigation Menu
 
 <Description>

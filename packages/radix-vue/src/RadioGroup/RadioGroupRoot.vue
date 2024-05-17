@@ -7,9 +7,11 @@ import { createContext, useDirection, useForwardExpose } from '@/shared'
 export interface RadioGroupRootProps extends PrimitiveProps {
   /** The controlled value of the radio item to check. Can be binded as `v-model`. */
   modelValue?: string
-  /** The value of the radio item that should be checked when initially rendered.
+  /**
+   * The value of the radio item that should be checked when initially rendered.
    *
-   * Use when you do not need to control the state of the radio items. */
+   * Use when you do not need to control the state of the radio items.
+   */
   defaultValue?: string
   /** When `true`, prevents the user from interacting with radio items. */
   disabled?: boolean

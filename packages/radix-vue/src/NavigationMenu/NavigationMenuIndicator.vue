@@ -29,7 +29,7 @@ const { injectCollection } = useCollection('nav')
 const collectionItems = injectCollection()
 const menuContext = injectNavigationMenuContext()
 
-const position = ref<{ size: number; offset: number }>()
+const position = ref<{ size: number, offset: number }>()
 const isHorizontal = computed(() => menuContext.orientation === 'horizontal')
 const isVisible = computed(() => !!menuContext.modelValue.value)
 

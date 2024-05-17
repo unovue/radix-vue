@@ -5,7 +5,7 @@ description: A control that allows the user to toggle between checked and not ch
 name: listbox
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/listbox
 ---
- 
+
 # Listbox
 
 <Description>
@@ -13,7 +13,6 @@ A control that allows the user to toggle between checked and not checked.
 </Description>
 
 <ComponentPreview name="Listbox" />
-
 
 ## Features
 
@@ -77,7 +76,6 @@ import { ListboxContent, ListboxFilter, ListboxGroup, ListboxGroupLabel, Listbox
 
 Contains all the parts of a listbox. An `input` will also render when used within a `form` to ensure events propagate correctly.
 
-
 <!-- @include: @/meta/ListboxRoot.md -->
 
 <DataAttributesTable
@@ -109,14 +107,12 @@ Input element to perform filtering.
 Contains all the listbox group and items.
 
 <!-- @include: @/meta/ListboxContent.md -->
- 
 
 ### Item
 
 The item component.
 
 <!-- @include: @/meta/ListboxItem.md -->
-
 
 <DataAttributesTable
   :data="[
@@ -135,7 +131,6 @@ The item component.
   ]"
 />
 
-
 ### ItemIndicator
 
 Renders when the item is selected. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
@@ -147,7 +142,7 @@ Renders when the item is selected. You can style this element directly, or you c
 Used to group multiple items. use in conjunction with `ListboxGroupLabel` to ensure good accessibility via automatic labelling.
 
 <!-- @include: @/meta/ListboxGroup.md -->
- 
+
 ### GroupLabel
 
 Used to render the label of a group. It won't be focusable using arrow keys.
@@ -160,14 +155,11 @@ Virtual container to achieve list virtualization.
 
 <!-- @include: @/meta/ListboxVirtualizer.md -->
 
-
 ## Examples
-
 
 ### Binding objects as values
 
 Unlike native HTML form controls which only allow you to provide strings as values, `radix-vue` supports binding complex objects as well.
-
 
 ```vue line=12,16
 <script setup lang="ts">
@@ -200,9 +192,7 @@ const selectedPeople = ref(people[0])
 </template>
 ```
 
-
 ### Selecting multiple values
-
 
 The `Listbox` component allows you to select multiple values. You can enable this by providing an array of values instead of a single value.
 
@@ -228,9 +218,7 @@ const selectedPeople = ref([people[0], people[1]])
 </template>
 ```
 
-
 ### Custom filtering
-
 
 ```vue line=13,15-21,28,31
 <script setup lang="ts">
@@ -274,7 +262,6 @@ const filteredPeople = computed(() =>
 </template>
 ```
 
-
 ### Virtual List
 
 Rendering a long list of item can slow down the app, thus using virtualization would significantly improve the performance.
@@ -311,7 +298,6 @@ const people = [
   </ListboxRoot>
 </template>
 ```
-
 
 ## Accessibility
 

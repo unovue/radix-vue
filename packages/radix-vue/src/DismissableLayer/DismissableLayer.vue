@@ -27,30 +27,30 @@ export type DismissableLayerEmits = {
    * Event handler called when the escape key is down.
    * Can be prevented.
    */
-  'escapeKeyDown': [event: KeyboardEvent]
+  escapeKeyDown: [event: KeyboardEvent]
   /**
    * Event handler called when the a `pointerdown` event happens outside of the `DismissableLayer`.
    * Can be prevented.
    */
-  'pointerDownOutside': [event: PointerDownOutsideEvent]
+  pointerDownOutside: [event: PointerDownOutsideEvent]
   /**
    * Event handler called when the focus moves outside of the `DismissableLayer`.
    * Can be prevented.
    */
-  'focusOutside': [ event: FocusOutsideEvent]
+  focusOutside: [ event: FocusOutsideEvent]
   /**
    * Event handler called when an interaction happens outside the `DismissableLayer`.
    * Specifically, when a `pointerdown` event happens outside or focus moves outside of it.
    * Can be prevented.
    */
-  'interactOutside': [ event: PointerDownOutsideEvent | FocusOutsideEvent]
+  interactOutside: [ event: PointerDownOutsideEvent | FocusOutsideEvent]
 }
 
 export type DismissableLayerPrivateEmits = DismissableLayerEmits & {
   /**
    * Handler called when the `DismissableLayer` should be dismissed
    */
-  'dismiss': []
+  dismiss: []
 }
 
 export const context = reactive({

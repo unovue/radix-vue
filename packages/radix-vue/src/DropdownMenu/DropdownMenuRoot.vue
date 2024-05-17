@@ -12,8 +12,8 @@ export type DropdownMenuRootEmits = MenuEmits
 
 export interface DropdownMenuRootContext {
   open: Readonly<Ref<boolean>>
-  onOpenChange(open: boolean): void
-  onOpenToggle(): void
+  onOpenChange: (open: boolean) => void
+  onOpenToggle: () => void
   triggerId: string
   triggerElement: Ref<HTMLElement | undefined>
   contentId: string

@@ -65,9 +65,10 @@ export interface ComboboxRootProps<T = AcceptableValue> extends PrimitiveProps {
   filterFunction?: (val: ArrayOrWrapped<T>, term: string) => ArrayOrWrapped<T>
   /** The display value of input for selected item. Does not work with `multiple`. */
   displayValue?: (val: T) => string
-  /** Whether to reset the searchTerm when the Combobox input blurred
+  /**
+   * Whether to reset the searchTerm when the Combobox input blurred
    * @defaultValue `true`
-  */
+   */
   resetSearchTermOnBlur?: boolean
 }
 </script>
@@ -87,12 +88,12 @@ const props = withDefaults(defineProps<ComboboxRootProps<T>>(), {
 const emit = defineEmits<ComboboxRootEmits<T>>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current open state */
     open: typeof open.value
     /** Current active value */
     modelValue: typeof modelValue.value
-  }): any
+  }) => any
 }>()
 
 const { multiple, disabled, dir: propDir } = toRefs(props)

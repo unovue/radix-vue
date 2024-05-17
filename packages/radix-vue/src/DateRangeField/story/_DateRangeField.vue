@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { type DateValue } from '@internationalized/date'
+import type { DateValue } from '@internationalized/date'
 import type { DateRangeFieldRootProps } from '../'
 import { DateRangeFieldInput, DateRangeFieldRoot } from '../'
 import { Label } from '@/Label'
 
-const props = defineProps<{ dateFieldProps?: DateRangeFieldRootProps; emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } }>()
+const props = defineProps<{ dateFieldProps?: DateRangeFieldRootProps, emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } }>()
 </script>
 
 <template>

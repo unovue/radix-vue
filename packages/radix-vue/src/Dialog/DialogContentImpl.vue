@@ -52,7 +52,10 @@ rootContext.descriptionId ||= useId(undefined, 'radix-vue-dialog-description')
 
 onMounted(() => {
   rootContext.contentElement = contentElement
-  rootContext.triggerElement.value = document.activeElement as HTMLElement
+
+  // Preserve the `DialogTrigger` element in case it was triggerred programatically
+  if (document.activeElement !== document.body)
+    rootContext.triggerElement.value = document.activeElement as HTMLElement
 })
 
 // eslint-disable-next-line n/prefer-global/process

@@ -42,8 +42,8 @@ jobs:
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
 
-      - name: Build Radix Vue
-        run: pnpm --filter radix-vue build
+      - name: Build Radix Vue and Plugins
+        run: pnpm run build
 
       - run: pnpm dlx pkg-pr-new publish ./packages/radix-vue
         env:

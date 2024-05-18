@@ -1,4 +1,4 @@
-name: Publish Any Commit
+name: Publish Approved PR
 on:
   push:
   pull_request:

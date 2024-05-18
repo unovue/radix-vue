@@ -1,8 +1,5 @@
 name: Publish Approved PR
 on:
-  push:
-  pull_request:
-    types: [opened, synchronize, reopened]
   pull_request_review:
     types: [submitted]
 
@@ -42,7 +39,7 @@ jobs:
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
 
-      - name: Build Radix Vue and Plugins
+      - name: Build Radix Vue and plugins
         run: pnpm run build
 
       - run: pnpm dlx pkg-pr-new publish ./packages/radix-vue

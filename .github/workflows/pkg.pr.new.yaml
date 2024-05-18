@@ -2,6 +2,8 @@ name: Publish Approved PR
 on:
   pull_request_review:
     types: [submitted]
+    paths:
+      - 'packages/**'
 
 jobs:
   approved:

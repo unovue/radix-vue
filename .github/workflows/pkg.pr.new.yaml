@@ -44,6 +44,6 @@ jobs:
       - name: Build Radix Vue and plugins
         run: pnpm run build
 
-      - run: pnpm dlx pkg-pr-new publish ./packages/radix-vue
+      - run: pnpm dlx pkg-pr-new publish --compact ./packages/radix-vue
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

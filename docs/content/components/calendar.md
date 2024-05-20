@@ -141,7 +141,7 @@ Calendar navigation button. It navigates the calendar one month/year/decade in t
   ]"
 />
 
-### NextButton
+### Next Button
 
 Calendar navigation button. It navigates the calendar one month/year/decade in the future based on the current calendar view.
 

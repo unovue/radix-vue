@@ -88,4 +88,4 @@ All credits go to these open-source works and resources
 - [Radix Svelte](https://radix-svelte.com)
 - [Headless UI](https://headlessui.com)
 
-Kick
+Kick 2

@@ -1,4 +1,4 @@
-export { default as NumberFieldRoot, type NumberFieldRootProps } from './NumberFieldRoot.vue'
+export { default as NumberFieldRoot, type NumberFieldRootProps, type NumberFieldRootEmits } from './NumberFieldRoot.vue'
 export { default as NumberFieldLabel, type NumberFieldLabelProps } from './NumberFieldLabel.vue'
 export { default as NumberFieldInput, type NumberFieldInputProps } from './NumberFieldInput.vue'
 export { default as NumberFieldIncrement, type NumberFieldIncrementProps } from './NumberFieldIncrement.vue'

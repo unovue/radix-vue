@@ -21,6 +21,7 @@ const rootContext = injectCalendarRootContext()
   <Primitive
     aria-label="Previous page"
     :as="props.as"
+    :as-child="props.asChild"
     :type="as === 'button' ? 'button' : undefined"
     :aria-disabled="rootContext.isPrevButtonDisabled(props.step) || undefined"
     :data-disabled="rootContext.isPrevButtonDisabled(props.step) || undefined"

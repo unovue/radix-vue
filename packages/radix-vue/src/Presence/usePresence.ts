@@ -1,5 +1,6 @@
 import { type Ref, computed, nextTick, onUnmounted, ref, watch } from 'vue'
 import { useStateMachine } from '@/shared'
+import { isClient } from '@vueuse/shared'
 
 export function usePresence(
   present: Ref<boolean>,
@@ -24,8 +25,12 @@ export function usePresence(
   })
 
   const dispatchCustomEvent = (name: 'enter' | 'after-enter' | 'leave' | 'after-leave') => {
-    const customEvent = new CustomEvent(name, { bubbles: false, cancelable: false })
-    node.value?.dispatchEvent(customEvent)
+    // We only dispatch this event because CustomEvent is not available in Node18
+    // https://github.com/radix-vue/radix-vue/issues/930
+    if (isClient) {
+      const customEvent = new CustomEvent(name, { bubbles: false, cancelable: false })
+      node.value?.dispatchEvent(customEvent)
+    }
   }
 
   watch(

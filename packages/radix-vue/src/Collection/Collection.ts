@@ -18,6 +18,8 @@ export const [injectCollectionContext, provideCollectionContext]
 export function createCollection<ItemData = {}>(attrName = ITEM_DATA_ATTR) {
   const itemMap = ref<Map<HTMLElement, { ref: HTMLElement } & ItemData>>(new Map())
   const collectionRef = ref<HTMLElement>()
+
+  // @ts-expect-error Type instantiation is excessively deep and possibly infinite.
   const context = provideCollectionContext({
     collectionRef,
     itemMap,

@@ -14,7 +14,7 @@ import { useForwardProps } from './useForwardProps'
  * @returns a computed property that combines the parsed
  * props and emits as props.
  */
-export function useForwardPropsEmits<T extends Parameters<typeof useForwardProps>[0], Name extends string>(props: T, emit?: (name: Name, ...args: any[]) => void) {
+export function useForwardPropsEmits<T extends Record<string, any>, Name extends string>(props: T, emit?: (name: Name, ...args: any[]) => void) {
   const parsedProps = useForwardProps(props)
   const emitsAsProps = emit ? useEmitAsProps(emit) : {}
 

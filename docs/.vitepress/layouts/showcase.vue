@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useData } from 'vitepress'
-import CardLink from '../components/CardLink.vue'
-import { VPButton } from 'vitepress/theme'
+import CardLink from '../components/CardLink.vue' 
 
 const { frontmatter } = useData()
 </script>

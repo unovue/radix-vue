@@ -17,7 +17,7 @@ import ComponentPreviewPlugin from './plugins/ComponentPreview'
 import InstallationTabsPlugin from './plugins/InstallationTabs'
 
 function BadgeHTML(text: string, translucent = false) {
-  return `<div class="inline-flex items-center rounded-full border px-2.5 py-0.5 ml-2 mt-1 text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-green8 ${translucent ? 'bg-opacity-30' : ''} text-white">
+  return `<div class="inline-flex items-center rounded-full border px-2.5 py-0.5 ml-2 text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-green8 ${translucent ? 'bg-opacity-30' : ''} text-white">
 ${text}
 </div>
 `
@@ -31,18 +31,8 @@ export default defineConfig({
     ['meta', { name: 'theme-color', content: '#00C38A' }],
     ['link', { rel: 'icon', href: '/logo.png' }],
     ['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
-    [
-      'meta',
-      { name: 'author', content: `${teamMembers.map(c => c.name).join(', ')} and ${radixVueName} contributors` },
-    ],
-    [
-      'meta',
-      {
-        name: 'keywords',
-        content:
-          'vue, nuxt, component-library, radix, radix-vue, typescript',
-      },
-    ],
+    ['meta', { name: 'author', content: `${teamMembers.map(c => c.name).join(', ')} and ${radixVueName} contributors` }],
+    ['meta', { name: 'keywords', content: 'vue, nuxt, component-library, radix, radix-vue, typescript' }],
     ['meta', { property: 'og:title', content: radixVueName }],
     ['meta', { property: 'og:description', content: radixVueDescription }],
     ['meta', { property: 'og:url', content: ogUrl }],
@@ -57,9 +47,7 @@ export default defineConfig({
     ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' }],
   ],
   lastUpdated: true,
-  sitemap: {
-    hostname: ogUrl,
-  },
+  sitemap: { hostname: ogUrl },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [

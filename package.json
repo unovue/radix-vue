@@ -41,11 +41,6 @@
       "@commitlint/config-conventional"
     ]
   },
-  "pnpm": {
-    "patchedDependencies": {
-      "vitepress@1.0.1": "patches/vitepress@1.0.1.patch"
-    }
-  },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged",
     "commit-msg": "pnpm commitlint --edit ${1}"

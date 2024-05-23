@@ -10,7 +10,7 @@ const props = defineProps<HighlightsProps>()
 
 <template>
   <ul class="flex flex-col gap-1 no-ml">
-    <li v-for="(feature, index) in props.features" :key="index" class="flex items-center gap-4">
+    <li v-for="(feature, index) in props.features" :key="index" class="p-0 mb-0 mt-1 flex items-center gap-4">
       <span class="icon-bg rounded-full h-6 aspect-square !w-6 flex-none flex items-center justify-center">
         <Icon icon="radix-icons:check" class="h-4 w-4 !text-[#4CC38A]" />
       </span>

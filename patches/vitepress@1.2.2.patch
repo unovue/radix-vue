@@ -1,0 +1,18 @@
+diff --git a/dist/node/serve-BwR5EPUJ.js b/dist/node/serve-BwR5EPUJ.js
+index 652efaaa6482932e0144fda13965cf69397a0d66..ada1fd9508fc7e035cd44e7f663dfa6dfc655eeb 100644
+--- a/dist/node/serve-BwR5EPUJ.js
++++ b/dist/node/serve-BwR5EPUJ.js
+@@ -36930,11 +36930,12 @@ function preWrapperPlugin(md, options) {
+   md.renderer.rules.fence = (...args) => {
+     const [tokens, idx] = args;
+     const token = tokens[idx];
++    const title = extractTitle(token.info);
+     token.info = token.info.replace(/\[.*\]/, "");
+     const active = / active( |$)/.test(token.info) ? " active" : "";
+     token.info = token.info.replace(/ active$/, "").replace(/ active /, " ");
+     const lang = extractLang(token.info);
+-    return `<div class="language-${lang}${getAdaptiveThemeMarker(options)}${active}"><button title="${options.codeCopyButtonTitle}" class="copy"></button><span class="lang">${lang}</span>` + fence(...args) + "</div>";
++    return `<div title="${title}" class="language-${lang}${getAdaptiveThemeMarker(options)}${active}"><button title="${options.codeCopyButtonTitle}" class="copy"></button><span class="lang">${lang}</span>` + fence(...args) + "</div>";
+   };
+ }
+ function getAdaptiveThemeMarker(options) {

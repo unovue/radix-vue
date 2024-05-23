@@ -44,7 +44,7 @@ const props = defineProps<SlotsTableProps>()
           <ProseCodeInline variant="secondary">
             {{ prop.type }}
           </ProseCodeInline>
-          <div class="vp-raw [&_a]:underline flex flex-col gap-2  mt-2 text-sm dark:text-neutral-300" v-html="prop.description" />
+          <div class="not-prose [&_a]:underline flex flex-col gap-2  mt-2 text-sm dark:text-neutral-300" v-html="prop.description" />
         </ProseTd>
       </ProseTr>
     </tbody>

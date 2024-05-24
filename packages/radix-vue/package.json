@@ -116,7 +116,6 @@
     "@vitejs/plugin-vue": "^4.4.0",
     "@vitejs/plugin-vue-jsx": "^3.0.2",
     "@vitest/coverage-istanbul": "^0.33.0",
-    "@vue/shared": "^3.4.6",
     "@vue/test-utils": "^2.4.1",
     "@vue/tsconfig": "^0.4.0",
     "jsdom": "^23.2.0",

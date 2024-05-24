@@ -102,7 +102,12 @@ const value = ref('left')
 </script>
 
 <template>
-  <ToggleGroupRoot v-model="value" type="single">
+  <ToggleGroupRoot
+    :model-value="value"
+    @update:model-value="(val) => {
+      if(val) value = val
+    }"
+  >
     <ToggleGroupItem value="left">
       <TextAlignLeftIcon />
     </ToggleGroupItem>

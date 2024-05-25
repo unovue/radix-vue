@@ -191,6 +191,7 @@ function resetSearchTerm() {
   else {
     searchTerm.value = ''
   }
+  
 }
 
 const activeIndex = computed(() => filteredOptions.value.findIndex(i => isEqual(i, selectedValue.value)))
@@ -200,6 +201,11 @@ const selectedElement = computed(() => {
 
 const stringifiedModelValue = computed(() => JSON.stringify(modelValue.value))
 
+watch(searchTerm, (val)=> {
+  if (val === '')
+    //@ts-expect-error ignore type error
+    modelValue.value = multiple.value ? [] : undefined
+})
 // nextTick() are required in the following watchers as we are waiting for DOM element to be mounted first the only apply following logic
 watch(stringifiedModelValue, async () => {
   await nextTick()

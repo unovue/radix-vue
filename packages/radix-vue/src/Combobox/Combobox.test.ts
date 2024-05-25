@@ -37,6 +37,13 @@ describe('given default Combobox', () => {
     expect(wrapper.html()).toContain('Placeholder...')
   })
 
+  it('should clear the selection when the searchTerm is empty', async () => {
+    const input = wrapper.find('input')
+    input.element.value = ''
+    const selection = wrapper.findAll('[role=option]')
+    expect(selection.some(item => item.attributes('data-state') === 'checked')).toBe(false)
+  })
+
   describe('opening the popup', () => {
     beforeEach(async () => {
       await wrapper.find('button').trigger('click')

@@ -160,19 +160,19 @@ function clampInputValue(val: number) {
 }
 
 function applyInputValue(val: string) {
-  if (!val)
-    return
-
   const parsedValue = numberParser.parse(val)
+
+  modelValue.value = clampInputValue(parsedValue)
+
   // Set to empty state if input value is empty
-  if (!val.length)
-    return setInputValue(modelValue.value === undefined ? '' : textValue.value)
+  if (!val.length) {
+    return setInputValue(val)
+  }
 
   // if it failed to parse, then reset input to formatted version of current number
   if (isNaN(parsedValue))
     return setInputValue(textValue.value)
 
-  modelValue.value = clampInputValue(parsedValue)
   return setInputValue(textValue.value)
 }
 

@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import DismissableLayer from './story/_DismissableLayer.vue'
 import { type DOMWrapper, type VueWrapper, mount } from '@vue/test-utils'
 import { fireEvent } from '@testing-library/vue'
+import { sleep } from '@/test'
 
 const OPEN_LABEL = 'Open'
 const CLOSE_LABEL = 'Close'
@@ -32,22 +33,39 @@ describe('given a default DismissableLayer', () => {
       expect(document.body.innerHTML).toContain(CLOSE_LABEL)
     })
 
-    describe('pressing Escape close off the layer', () => {
-      it('should close layer when point click outside', async () => {
+    describe('pressing Escape', () => {
+      it('should close layer', async () => {
         const layer = wrapper.findComponent('#layer') as VueWrapper
         await fireEvent.keyDown(document.body, { key: 'Escape' })
         expect(document.body.innerHTML).not.toContain(CLOSE_LABEL)
         expect(layer.emitted('escapeKeyDown')?.length).toBe(1)
         expect(layer.emitted('dismiss')?.length).toBe(1)
       })
+
+      it('should not close layer when prevented', async () => {
+        await wrapper.setProps({ preventEscapeKeyDownEvent: true })
+        const layer = wrapper.findComponent('#layer') as VueWrapper
+        await fireEvent.keyDown(document.body, { key: 'Escape' })
+        expect(document.body.innerHTML).toContain(CLOSE_LABEL)
+        expect(layer.emitted('escapeKeyDown')?.length).toBe(1)
+      })
     })
 
-    // TODO: Test clicking outside/focusing out
-    // describe('clicking outside close off the layer', () => {
-    //   it('should close layer when point click outside', async () => {
-    //     await fireEvent.keyDown(document.body, { key: 'Escape' })
-    //     expect(document.body.innerHTML).not.toContain(CLOSE_LABEL)
-    //   })
-    // })
+    describe('focus Outside', () => {
+      it('should close layer', async () => {
+        const outsideEl = document.getElementById('outside') as HTMLElement
+        outsideEl.focus()
+        await sleep(1)
+        expect(document.body.innerHTML).not.toContain(CLOSE_LABEL)
+      })
+
+      it('should not close layer when prevented', async () => {
+        await wrapper.setProps({ preventFocusOutsideEvent: true })
+        const outsideEl = document.getElementById('outside') as HTMLElement
+        outsideEl.focus()
+        await sleep(1)
+        expect(document.body.innerHTML).toContain(CLOSE_LABEL)
+      })
+    })
   })
 })

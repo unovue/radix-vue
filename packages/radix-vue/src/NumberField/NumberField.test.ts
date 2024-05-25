@@ -21,7 +21,7 @@ function setup(props?: NumberFieldRootProps) {
 }
 
 const kbd = useKbd()
-describe('NumberField', () => {
+describe('numberField', () => {
   it('should pass axe accessibility tests', async () => {
     const { root } = setup()
     expect(await axe(root)).toHaveNoViolations()
@@ -40,6 +40,17 @@ describe('NumberField', () => {
   it('should show negative sign if less than 0', async () => {
     const { input } = setup({ modelValue: -10 })
     expect(input.value).toBe('-10')
+  })
+
+  it('should restart from 0 when clearing the value', async () => {
+    const { input, increment } = setup({ defaultValue: 5 })
+
+    await userEvent.clear(input)
+
+    expect(input.value).toBe('')
+    await userEvent.click(document.body)
+    await userEvent.click(increment)
+    expect(input.value).toBe('0')
   })
 
   it('should increase and decrease based on default step', async () => {

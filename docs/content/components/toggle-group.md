@@ -93,7 +93,7 @@ An item in the group.
 
 You can control the component to ensure a value.
 
-```vue line=5,9
+```vue line=5,10-13
 <script setup>
 import { ref } from 'vue'
 import { ToggleGroupItem, ToggleGroupRoot } from 'radix-vue'
@@ -102,7 +102,12 @@ const value = ref('left')
 </script>
 
 <template>
-  <ToggleGroupRoot v-model="value" type="single">
+  <ToggleGroupRoot
+    :model-value="value"
+    @update:model-value="(val) => {
+      if(val) value = val
+    }"
+  >
     <ToggleGroupItem value="left">
       <TextAlignLeftIcon />
     </ToggleGroupItem>

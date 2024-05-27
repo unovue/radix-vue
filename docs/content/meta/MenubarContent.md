@@ -104,7 +104,7 @@
 <EmitsTable :data="[
   {
     'name': 'closeAutoFocus',
-    'description': '<p>Event handler called when auto-focusing on close.\nCan be prevented.</p>\n',
+    'description': '',
     'type': '[event: Event]'
   },
   {

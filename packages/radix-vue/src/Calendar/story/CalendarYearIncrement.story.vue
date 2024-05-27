@@ -19,7 +19,6 @@ const paging = (date: DateValue, sign: -1 | 1) => {
         :prev-page="(date: DateValue) => paging(date, -1)"
         class="mt-6 rounded-xl border border-black bg-white p-4 shadow-md"
       >
-        {{ date}}
         <CalendarHeader class="flex items-center justify-between">
           <CalendarPrev
             :prev-page="(date: DateValue) => paging(date, -1)"

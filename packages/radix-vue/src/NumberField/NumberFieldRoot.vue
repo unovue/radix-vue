@@ -93,16 +93,17 @@ const isIncreaseDisabled = computed(() => (
 )
 
 function handleChangingValue(type: 'increase' | 'decrease', multiplier = 1) {
+  const currentInputValue = numberParser.parse(inputEl.value?.value ?? '')
   if (props.disabled)
     return
-  if (isNaN(modelValue.value)) {
+  if (isNaN(currentInputValue)) {
     modelValue.value = min.value ?? 0
   }
   else {
     if (type === 'increase')
-      modelValue.value = clampInputValue(modelValue.value + ((step.value ?? 1) * multiplier))
+      modelValue.value = clampInputValue(currentInputValue + ((step.value ?? 1) * multiplier))
     else
-      modelValue.value = clampInputValue(modelValue.value - ((step.value ?? 1) * multiplier))
+      modelValue.value = clampInputValue(currentInputValue - ((step.value ?? 1) * multiplier))
   }
 }
 
@@ -163,11 +164,9 @@ function applyInputValue(val: string) {
   const parsedValue = numberParser.parse(val)
 
   modelValue.value = clampInputValue(parsedValue)
-
   // Set to empty state if input value is empty
-  if (!val.length) {
+  if (!val.length)
     return setInputValue(val)
-  }
 
   // if it failed to parse, then reset input to formatted version of current number
   if (isNaN(parsedValue))

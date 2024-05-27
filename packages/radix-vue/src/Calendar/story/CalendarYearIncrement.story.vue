@@ -1,18 +1,28 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot } from '../'
+import type { DateValue } from '@internationalized/date';
+
+const paging = (date: DateValue, sign: -1 | 1) => {
+  if (sign === -1)
+    return date.subtract({ days: 7})
+  return date.add({ days:7})
+}
 </script>
 
 <template>
   <Story title="Calendar/With Year Increments" :layout="{ type: 'single' }">
     <Variant title="default">
       <CalendarRoot
-        v-slot="{ weekDays, grid }"
+        v-slot="{ weekDays, grid, date }"
+        :next-page="(date: DateValue) => paging(date, 1)"
+        :prev-page="(date: DateValue) => paging(date, -1)"
         class="mt-6 rounded-xl border border-black bg-white p-4 shadow-md"
       >
+        {{ date}}
         <CalendarHeader class="flex items-center justify-between">
           <CalendarPrev
-            step="year"
+            :prev-page="(date: DateValue) => paging(date, -1)"
             class="inline-flex items-center cursor-pointer text-black justify-center rounded-[9px] bg-transparent w-10 h-10 hover:bg-black hover:text-white active:scale-98 active:transition-all focus:shadow-[0_0_0_2px] focus:shadow-black"
           >
             <Icon icon="radix-icons:double-arrow-left" class="w-6 h-6" />
@@ -31,7 +41,7 @@ import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, Cale
             <Icon icon="radix-icons:chevron-right" class="w-6 h-6" />
           </CalendarNext>
           <CalendarNext
-            step="year"
+            :next-page="(date: DateValue) => paging(date, 1)"
             class="inline-flex items-center cursor-pointer text-black justify-center rounded-[9px] bg-transparent w-10 h-10 hover:bg-black hover:text-white active:scale-98 active:transition-all focus:shadow-[0_0_0_2px] focus:shadow-black"
           >
             <Icon icon="radix-icons:double-arrow-right" class="w-6 h-6" />

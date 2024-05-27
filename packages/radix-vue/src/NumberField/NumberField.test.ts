@@ -210,6 +210,28 @@ describe('numberField', () => {
       expect(input.value).toBe('20')
     })
   })
+
+  describe('given setting the input value manually', async () => {
+    it('should it increase/decrease the value appropriately', async () => {
+      const { input, increment, decrement } = setup({ defaultValue: 6 })
+
+      input.value = '100'
+      await userEvent.click(increment)
+      expect(input.value).toBe('101')
+
+      input.value = '100'
+      await userEvent.click(decrement)
+      expect(input.value).toBe('99')
+
+      input.value = ''
+      await userEvent.click(decrement)
+      expect(input.value).toBe('0')
+
+      input.value = '0'
+      await userEvent.click(decrement)
+      expect(input.value).toBe('-1')
+    })
+  })
 })
 
 describe('given checkbox in a form', async () => {

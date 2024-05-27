@@ -5,10 +5,12 @@ import { Icon } from '@iconify/vue'
 
 <template>
   <NumberFieldRoot
+    id="age"
     class="text-sm text-white"
     :min="0"
     :default-value="18"
   >
+    <label for="age">Age</label>
     <div class="mt-1 flex items-center border bg-blackA7 border-blackA9 rounded-md">
       <NumberFieldDecrement class="p-2 disabled:opacity-20">
         <Icon icon="radix-icons:minus" />

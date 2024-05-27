@@ -43,12 +43,11 @@ interface NumberFieldRootContext {
   validate: (val: string) => boolean
   applyInputValue: (val: string) => void
   disabled: Ref<boolean>
-  labelId: string
-  inputId: string
   max: Ref<number | undefined>
   min: Ref<number | undefined>
   isDecreaseDisabled: Ref<boolean>
   isIncreaseDisabled: Ref<boolean>
+  id: Ref<string | undefined>
 }
 
 export const [injectNumberFieldRootContext, provideNumberFieldRootContext] = createContext<NumberFieldRootContext>('NumberFieldRoot')
@@ -69,7 +68,7 @@ const props = withDefaults(defineProps<NumberFieldRootProps>(), {
   step: 1,
 })
 const emits = defineEmits<NumberFieldRootEmits>()
-const { disabled, min, max, step, locale, formatOptions } = toRefs(props)
+const { disabled, min, max, step, locale, formatOptions, id } = toRefs(props)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
@@ -78,8 +77,6 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
-const labelId = useId(undefined, 'number-field-label')
-const inputId = useId(undefined, 'number-field-input')
 const isFormControl = useFormControl(currentElement)
 const inputEl = ref<HTMLInputElement>()
 
@@ -181,8 +178,6 @@ provideNumberFieldRootContext({
   handleDecrease,
   handleIncrease,
   handleMinMaxValue,
-  labelId,
-  inputId,
   inputMode,
   inputEl,
   onInputElement: el => inputEl.value = el,
@@ -194,6 +189,7 @@ provideNumberFieldRootContext({
   min,
   isDecreaseDisabled,
   isIncreaseDisabled,
+  id,
 })
 </script>
 

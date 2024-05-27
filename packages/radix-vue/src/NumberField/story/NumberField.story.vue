@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NumberFieldDecrement, NumberFieldIncrement, NumberFieldInput, NumberFieldLabel, NumberFieldRoot } from '../'
+import { NumberFieldDecrement, NumberFieldIncrement, NumberFieldInput, NumberFieldRoot } from '../'
 import { Icon } from '@iconify/vue'
 </script>
 
@@ -11,8 +11,6 @@ import { Icon } from '@iconify/vue'
         :min="0"
         :default-value="18"
       >
-        <NumberFieldLabel>Age</NumberFieldLabel>
-
         <div class="mt-1 flex items-center border bg-blackA7 border-blackA9 rounded-md">
           <NumberFieldDecrement class="p-2 disabled:opacity-20">
             <Icon icon="radix-icons:minus" />

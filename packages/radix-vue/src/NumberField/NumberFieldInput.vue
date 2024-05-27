@@ -61,7 +61,6 @@ onMounted(() => {
     :aria-valuenow="rootContext.modelValue.value"
     :aria-valuemin="rootContext.min.value"
     :aria-valuemax="rootContext.max.value"
-    :aria-labelledby="rootContext.id.value"
     @keydown.up.prevent="rootContext.handleIncrease()"
     @keydown.down.prevent="rootContext.handleDecrease()"
     @keydown.page-up.prevent="rootContext.handleIncrease(10)"

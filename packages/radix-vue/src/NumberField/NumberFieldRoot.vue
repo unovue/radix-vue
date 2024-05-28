@@ -43,12 +43,11 @@ interface NumberFieldRootContext {
   validate: (val: string) => boolean
   applyInputValue: (val: string) => void
   disabled: Ref<boolean>
-  labelId: string
-  inputId: string
   max: Ref<number | undefined>
   min: Ref<number | undefined>
   isDecreaseDisabled: Ref<boolean>
   isIncreaseDisabled: Ref<boolean>
+  id: Ref<string | undefined>
 }
 
 export const [injectNumberFieldRootContext, provideNumberFieldRootContext] = createContext<NumberFieldRootContext>('NumberFieldRoot')
@@ -69,7 +68,7 @@ const props = withDefaults(defineProps<NumberFieldRootProps>(), {
   step: 1,
 })
 const emits = defineEmits<NumberFieldRootEmits>()
-const { disabled, min, max, step, locale, formatOptions } = toRefs(props)
+const { disabled, min, max, step, locale, formatOptions, id } = toRefs(props)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
@@ -78,8 +77,6 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
-const labelId = useId(undefined, 'number-field-label')
-const inputId = useId(undefined, 'number-field-input')
 const isFormControl = useFormControl(currentElement)
 const inputEl = ref<HTMLInputElement>()
 
@@ -93,16 +90,17 @@ const isIncreaseDisabled = computed(() => (
 )
 
 function handleChangingValue(type: 'increase' | 'decrease', multiplier = 1) {
+  const currentInputValue = numberParser.parse(inputEl.value?.value ?? '')
   if (props.disabled)
     return
-  if (isNaN(modelValue.value)) {
+  if (isNaN(currentInputValue)) {
     modelValue.value = min.value ?? 0
   }
   else {
     if (type === 'increase')
-      modelValue.value = clampInputValue(modelValue.value + ((step.value ?? 1) * multiplier))
+      modelValue.value = clampInputValue(currentInputValue + ((step.value ?? 1) * multiplier))
     else
-      modelValue.value = clampInputValue(modelValue.value - ((step.value ?? 1) * multiplier))
+      modelValue.value = clampInputValue(currentInputValue - ((step.value ?? 1) * multiplier))
   }
 }
 
@@ -163,11 +161,9 @@ function applyInputValue(val: string) {
   const parsedValue = numberParser.parse(val)
 
   modelValue.value = clampInputValue(parsedValue)
-
   // Set to empty state if input value is empty
-  if (!val.length) {
+  if (!val.length)
     return setInputValue(val)
-  }
 
   // if it failed to parse, then reset input to formatted version of current number
   if (isNaN(parsedValue))
@@ -181,8 +177,6 @@ provideNumberFieldRootContext({
   handleDecrease,
   handleIncrease,
   handleMinMaxValue,
-  labelId,
-  inputId,
   inputMode,
   inputEl,
   onInputElement: el => inputEl.value = el,
@@ -194,6 +188,7 @@ provideNumberFieldRootContext({
   min,
   isDecreaseDisabled,
   isIncreaseDisabled,
+  id,
 })
 </script>
 

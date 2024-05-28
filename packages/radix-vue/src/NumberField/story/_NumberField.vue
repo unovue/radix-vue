@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { NumberFieldRootProps } from '../'
-import { NumberFieldDecrement, NumberFieldIncrement, NumberFieldInput, NumberFieldLabel, NumberFieldRoot } from '../'
+import { NumberFieldDecrement, NumberFieldIncrement, NumberFieldInput, NumberFieldRoot } from '../'
 import { Icon } from '@iconify/vue'
 
 const props = defineProps<NumberFieldRootProps>()
@@ -11,10 +11,9 @@ const props = defineProps<NumberFieldRootProps>()
     data-testid="root"
     class="text-sm flex items-center border bg-blackA7 border-blackA9 rounded-md text-white"
     v-bind="props"
+    id="number-field"
   >
-    <NumberFieldLabel data-testid="label">
-      Number
-    </NumberFieldLabel>
+    <label for="number-field" data-testid="label">Number Field</label>
     <NumberFieldDecrement class="p-2" data-testid="decrement">
       <Icon icon="radix-icons:minus" />
     </NumberFieldDecrement>

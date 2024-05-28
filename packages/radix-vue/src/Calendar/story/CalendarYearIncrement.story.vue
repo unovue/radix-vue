@@ -5,8 +5,8 @@ import type { DateValue } from '@internationalized/date';
 
 const paging = (date: DateValue, sign: -1 | 1) => {
   if (sign === -1)
-    return date.subtract({ days: 7})
-  return date.add({ days:7})
+    return date.subtract({ years: 1 })
+  return date.add({ years: 1 })
 }
 </script>
 
@@ -14,9 +14,7 @@ const paging = (date: DateValue, sign: -1 | 1) => {
   <Story title="Calendar/With Year Increments" :layout="{ type: 'single' }">
     <Variant title="default">
       <CalendarRoot
-        v-slot="{ weekDays, grid, date }"
-        :next-page="(date: DateValue) => paging(date, 1)"
-        :prev-page="(date: DateValue) => paging(date, -1)"
+        v-slot="{ weekDays, grid }"
         class="mt-6 rounded-xl border border-black bg-white p-4 shadow-md"
       >
         <CalendarHeader class="flex items-center justify-between">

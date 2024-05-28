@@ -90,9 +90,9 @@ function handlePrevDisabled(firstPeriodInView: DateValue, prevPageFunc: (date: D
   const diff = firstPeriodInView.compare(lastPeriodOfPrevPage)
   const duration: DateFields = {}
   if (diff >= 7)
-    duration.day = 1
+    duration.day = 35
   if (diff >= getDaysInMonth(firstPeriodInView))
-    duration.month = 1
+    duration.month = 13
   return lastPeriodOfPrevPage.set({ ...duration })
 }
 function handleNextPage(date: DateValue, nextPageFunc: (date: DateValue) => DateValue): DateValue {

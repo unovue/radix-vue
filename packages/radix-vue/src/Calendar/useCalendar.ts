@@ -220,12 +220,16 @@ export function useCalendar(props: UseCalendarProps) {
       grid.value = newGrid
 
       const duration: DateFields = {}
-      const diff = newGrid[0].value.compare(firstDate)
-      if (diff >= getDaysInMonth(firstDate))
-        duration.day = 1
 
-      if (diff >= 365)
-        duration.month = 1
+      // Do not adjust the placeholder if the nextPageFunc is defined (overwrite)
+      if (!nextPageFunc) {
+        const diff = newGrid[0].value.compare(firstDate)
+        if (diff >= getDaysInMonth(firstDate))
+          duration.day = 1
+
+        if (diff >= 365)
+          duration.month = 1
+      }
 
       props.placeholder.value = newGrid[0].value.set({ ...duration })
 
@@ -264,12 +268,16 @@ export function useCalendar(props: UseCalendarProps) {
       grid.value = newGrid
 
       const duration: DateFields = {}
-      const diff = firstDate.compare(newGrid[0].value)
-      if (diff >= getDaysInMonth(firstDate))
-        duration.day = 1
 
-      if (diff >= 365)
-        duration.month = 1
+      // Do not adjust the placeholder if the prevPageFunc is defined (overwrite)
+      if (!prevPageFunc) {
+        const diff = firstDate.compare(newGrid[0].value)
+        if (diff >= getDaysInMonth(firstDate))
+          duration.day = 1
+
+        if (diff >= 365)
+          duration.month = 1
+      }
 
       props.placeholder.value = newGrid[0].value.set({ ...duration })
       return

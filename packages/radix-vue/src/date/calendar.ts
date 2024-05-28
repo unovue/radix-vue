@@ -6,6 +6,7 @@ import { type DateValue, endOfMonth, endOfYear, startOfMonth, startOfYear } from
 import type { Grid } from './types'
 import { chunk } from './utils'
 import { getDaysInMonth, getLastFirstDayOfWeek, getNextLastDayOfWeek } from './comparators'
+import type { DateRange } from '@/shared'
 
 export type WeekDayFormat = 'narrow' | 'short' | 'long'
 
@@ -184,7 +185,7 @@ export function createMonths(props: SetMonthProps) {
   return months
 }
 
-export function createYearRange({ start, end }: { start?: DateValue, end?: DateValue }): DateValue[] {
+export function createYearRange({ start, end }: DateRange): DateValue[] {
   const years: DateValue[] = []
 
   if (!start || !end)
@@ -199,4 +200,20 @@ export function createYearRange({ start, end }: { start?: DateValue, end?: DateV
   }
 
   return years
+}
+
+export function createDateRange({ start, end }: DateRange): DateValue[] {
+  const dates: DateValue[] = []
+
+  if (!start || !end)
+    return dates
+
+  let current = start
+
+  while (current.compare(end) <= 0) {
+    dates.push(current)
+    current = current.add({ days: 1 })
+  }
+
+  return dates
 }

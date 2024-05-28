@@ -26,10 +26,3 @@ button {
 .CheckboxIndicator {
   color: var(--grass-11);
 }
-
-.Label {
-  color: white;
-  padding-left: 15px;
-  font-size: 15px;
-  line-height: 1;
-}

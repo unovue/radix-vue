@@ -1,7 +1,7 @@
 {
   "name": "docs",
   "type": "module",
-  "version": "1.8.0",
+  "version": "1.8.2",
   "scripts": {
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",

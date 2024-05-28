@@ -1,6 +1,6 @@
 <script lang="ts">
 export interface TreeItemProps<T extends AcceptableValue> extends PrimitiveProps {
-  value: T
+  value?: T
 }
 </script>
 
@@ -28,7 +28,7 @@ const isSelected = computed(() => isEqual(rootContext.modelValue.value, props.va
       :as="as"
       :as-child="asChild"
       :aria-selected="isSelected"
-      @click.stop="rootContext.onSelect(value)"
+      @click.stop="rootContext.onToggle(value)"
     >
       <slot />
     </Primitive>

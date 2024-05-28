@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import { TreeGroup, TreeGroupList, TreeItem, TreeRoot } from '../'
-
-const children = [
-  { title: 'JS.vue', icon: 'vue' },
-  { title: 'vue.vue', icon: 'vue' },
-]
+import { TreeItem, TreeRoot } from '../'
 
 const items = [
   { title: 'index.vue', icon: 'vue' },
@@ -66,21 +61,17 @@ const items = [
 <template>
   <Story title="Tree/Basic" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
-      <TreeRoot :items class="list-none select-none">
-        <TreeItem value="Item1">
-          Item1
+      <TreeRoot
+        v-slot="{ node }"
+        :items="items"
+        :get-key="(item) => item.title"
+        class="list-none select-none"
+      >
+        <TreeItem
+          :style="{ 'padding-left': `${node.level}rem` }"
+        >
+          {{ node.title }}
         </TreeItem>
-        <TreeItem value="Item2">
-          Item2
-        </TreeItem>
-        <TreeGroup value="Framework">
-          <span>Framework</span>
-          <TreeGroupList>
-            <TreeItem v-for="item in children" :key="item.title" :value="item">
-              {{ item.title }}
-            </TreeItem>
-          </TreeGroupList>
-        </TreeGroup>
       </TreeRoot>
     </Variant>
   </Story>

@@ -71,6 +71,10 @@ const { forwardRef, currentElement } = useForwardExpose()
 const { createCollection } = useCollection('rovingFocus')
 const collections = createCollection(currentElement)
 
+defineExpose({
+  collections,
+})
+
 function handleFocus(event: FocusEvent) {
   // We normally wouldn't need this check, because we already check
   // that the focus is on the current target and not bubbling to it.

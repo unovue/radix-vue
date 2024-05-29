@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { TreeItem, TreeRoot } from '../'
+import { Icon } from '@iconify/vue'
 
 const items = [
   { title: 'index.vue', icon: 'vue' },
@@ -68,9 +69,16 @@ const items = [
         class="list-none select-none"
       >
         <TreeItem
+          class="flex items-center"
           :style="{ 'padding-left': `${node.level}rem` }"
+          :class="{ 'bg-grass11': node.isSelected }"
+          :value="node"
         >
-          {{ node.title }}
+          <Icon v-if="node.hasChildren" icon="radix-icons:chevron-down" class="h-4 w-4" />
+          <span>
+
+            {{ node.title }}
+          </span>
         </TreeItem>
       </TreeRoot>
     </Variant>

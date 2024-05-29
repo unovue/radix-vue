@@ -2,6 +2,8 @@
 import { createContext } from '@/shared'
 
 export interface TreeRootProps<T> extends PrimitiveProps {
+  modelValue?: T
+  defaultValue?: T
   items?: T[]
   expanded?: string[]
   defaultExpanded?: string[]
@@ -13,17 +15,20 @@ export type TreeRootEmits = {
 }
 
 interface TreeRootContext<T> {
-  modelValue: Ref<any>
-  onSelect: (val: any) => void
+  modelValue: Ref<T>
+  onSelect: (val: T) => void
   expanded: Ref<string[]>
   onToggle: (val: T) => void
   getKey?: (val: T) => string
 }
 
-interface TreeItem<T> {
+export interface TreeItem<T> {
   children?: T[]
 }
-type FlattenedItem<T> = Omit<T, 'children'> & {
+
+type FlattenedItem<T> = T & {
+  isSelected?: boolean
+  isExpanded?: boolean
   hasChildren: boolean
   level: number
 }
@@ -46,9 +51,14 @@ defineSlots<{
   }) => any
 }>()
 
-const modelValue = ref()
+const modelValue = useVModel(props, 'modelValue', emits, {
+  // @ts-expect-error idk
+  defaultValue: props.defaultValue ?? [],
+  passive: (props.modelValue === undefined) as false,
+}) as Ref<T>
 
 const expanded = useVModel(props, 'expanded', emits, {
+  // @ts-expect-error idk
   defaultValue: props.defaultExpanded ?? [],
   passive: (props.expanded === undefined) as false,
   deep: true,
@@ -58,9 +68,13 @@ const slots = useSlots()
 
 function flattenItems(items: T[], level: number = 0): FlattenedItem<T>[] {
   return items.reduce((acc: FlattenedItem<T>[], item: T) => {
+    // TODO: Improve the getKey logic and selected
     const key = props.getKey?.(item) ?? `${item}`
+    const modelValueKey = props.getKey?.(modelValue.value ?? {}) ?? `${modelValue.value}`
     const isExpanded = expanded.value.includes(key)
-    const flattenedItem: FlattenedItem<T> = { ...item, level, hasChildren: !!item.children }
+    const isSelected = modelValueKey === key
+
+    const flattenedItem: FlattenedItem<T> = { ...item, level, hasChildren: !!item.children, isExpanded, isSelected }
     acc.push(flattenedItem)
 
     if (item.children && isExpanded)
@@ -76,7 +90,7 @@ const expandedItems = computed(() => {
   return flattenItems(items ?? [])
 })
 
-const virtualizedItems = computed(
+const recursiveItems = computed(
   () => expandedItems.value?.map((item) => {
     const key = props.getKey?.(item as unknown as T) ?? `${item}`
     return {
@@ -86,6 +100,7 @@ const virtualizedItems = computed(
         node: item,
       })![0], {
         'key': key,
+        'aria-level': item.level,
         'data-indent': item.level,
         'value': item,
       }),
@@ -122,7 +137,7 @@ provideTreeRootContext({
     >
       <component
         :is="is"
-        v-for="{ is, key } in virtualizedItems"
+        v-for="{ is, key } in recursiveItems"
         :key="key"
       />
     </Primitive>

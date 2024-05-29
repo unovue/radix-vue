@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { TreeItem, TreeRoot } from '../'
 import { Icon } from '@iconify/vue'
+import { ref } from 'vue'
 
 const items = [
   { title: 'index.vue', icon: 'vue' },
@@ -57,13 +58,19 @@ const items = [
     ],
   },
 ]
+
+const modelValue = ref<{ title: string, icon: string }>({
+  title: '+page.vue',
+  icon: 'vue',
+})
 </script>
 
 <template>
   <Story title="Tree/Basic" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
       <TreeRoot
-        v-slot="{ node }"
+        v-slot="{ node, value }"
+        v-model="modelValue"
         :items="items"
         :get-key="(item) => item.title"
         class="list-none select-none"
@@ -72,12 +79,11 @@ const items = [
           class="flex items-center"
           :style="{ 'padding-left': `${node.level}rem` }"
           :class="{ 'bg-grass11': node.isSelected }"
-          :value="node"
+          :value="node.value"
         >
           <Icon v-if="node.hasChildren" icon="radix-icons:chevron-down" class="h-4 w-4" />
           <span>
-
-            {{ node.title }}
+            {{ value.title }}
           </span>
         </TreeItem>
       </TreeRoot>

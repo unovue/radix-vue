@@ -110,6 +110,7 @@ function handleArrowKey(e: KeyboardEvent) {
     :data-state="dataState"
     :disabled="disabled"
     :open="open"
+    :as="props.as"
     :as-child="props.asChild"
     @keydown.up.down.left.right.home.end="handleArrowKey"
   >

@@ -770,13 +770,13 @@ export function useDateField(props: UseDateFieldProps) {
       return
     }
 
-    if (e.key === 'a') {
+    if (['a', 'A'].includes(e.key) && props.segmentValues.value.dayPeriod !== 'AM') {
       props.segmentValues.value.dayPeriod = 'AM'
       props.segmentValues.value.hour = props.segmentValues.value.hour! - 12
       return
     }
 
-    if (e.key === 'p') {
+    if (['p', 'P'].includes(e.key) && props.segmentValues.value.dayPeriod !== 'PM') {
       props.segmentValues.value.dayPeriod = 'PM'
       props.segmentValues.value.hour = props.segmentValues.value.hour! + 12
     }
@@ -811,13 +811,7 @@ export function useDateField(props: UseDateFieldProps) {
 
     if (!isSegmentNavigationKey(e.key) && e.key !== kbd.TAB && e.key !== kbd.SHIFT && isAcceptableSegmentKey(e.key)) {
       if (Object.values(props.segmentValues.value).every(item => item !== null)) {
-        let updateObject = { ...props.segmentValues.value as Record<AnyExceptLiteral, number> }
-        if ('dayPeriod' in props.segmentValues.value) {
-          updateObject = {
-            ...updateObject,
-            hour: props.segmentValues.value.dayPeriod === 'PM' && !props.modelValue.value ? props.segmentValues.value.hour! + 12 : props.segmentValues.value.hour!,
-          }
-        }
+        const updateObject = { ...props.segmentValues.value as Record<AnyExceptLiteral, number> }
 
         let dateRef = props.placeholder.value.copy()
 

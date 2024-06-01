@@ -42,13 +42,14 @@ function thisTimeZone(date: string): string {
 function setup(props: { dateFieldProps?: DateFieldRootProps, emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } } = {}) {
   const user = userEvent.setup()
   const returned = render(DateField, { props })
+  const value = returned.getByTestId('value')
   const month = returned.getByTestId('month')
   const day = returned.getByTestId('day')
   const year = returned.getByTestId('year')
   const input = returned.getByTestId('input')
   const label = returned.getByTestId('label')
 
-  return { ...returned, user, month, day, year, input, label }
+  return { ...returned, user, month, day, year, input, label, value }
 }
 
 it('should pass axe accessibility tests', async () => {
@@ -437,6 +438,37 @@ describe('dateField', async () => {
     await user.keyboard('{3}')
     await user.keyboard('{3}')
     expect(dayPeriod).toHaveFocus()
+  })
+
+  it('updates the hour on the modelValue if the dayPeriod is updated', async () => {
+    const { getByTestId, user, value, rerender } = setup({
+      dateFieldProps: {
+        modelValue: calendarDateTime,
+        granularity: 'second',
+      },
+      emits: {
+        'onUpdate:modelValue': (data: DateValue) => {
+          return rerender({
+            dateFieldProps: {
+              modelValue: data,
+              granularity: 'second',
+            },
+          })
+        },
+      },
+    })
+
+    const dayPeriod = getByTestId('dayPeriod')
+    expect(value.textContent).toBe(calendarDateTime.toString())
+    await user.click(dayPeriod)
+    await user.keyboard('{a}')
+    expect(getByTestId('value').textContent).toBe(calendarDateTime.subtract({ hours: 12 }).toString())
+    await user.keyboard('{p}')
+    expect(getByTestId('value').textContent).toBe(calendarDateTime.toString())
+    await user.keyboard('{A}')
+    expect(getByTestId('value').textContent).toBe(calendarDateTime.subtract({ hours: 12 }).toString())
+    await user.keyboard('{P}')
+    expect(getByTestId('value').textContent).toBe(calendarDateTime.toString())
   })
 
   it('fully overwrites on first click and type - `month`', async () => {

@@ -69,22 +69,25 @@ const modelValue = ref<{ title: string, icon: string }>({
   <Story title="Tree/Basic" :layout="{ type: 'single', iframe: false }">
     <Variant title="default">
       <TreeRoot
-        v-slot="{ node, value }"
+        v-slot="{ flattenItems }"
         v-model="modelValue"
         :items="items"
         :get-key="(item) => item.title"
-        class="list-none select-none"
+        class="list-none select-none w-64 bg-white text-blackA11 rounded-md p-2 text-sm font-medium"
       >
         <TreeItem
-          class="flex items-center"
-          :style="{ 'padding-left': `${node.level}rem` }"
-          :class="{ 'bg-grass11': node.isSelected }"
-          :value="node.value"
+          v-for="item in flattenItems"
+          :key="item._id"
+          class="flex items-center py-1 px-2 my-0.5 rounded w-max outline-none focus:ring-grass9 focus:ring-2"
+          :style="{ 'margin-left': `${item.level}rem` }"
+          :class="{ 'bg-grass4': item.isSelected }"
+          :value="item.value"
+          :level="item.level"
         >
-          <Icon v-if="node.hasChildren" icon="radix-icons:chevron-down" class="h-4 w-4" />
-          <span>
-            {{ value.title }}
-          </span>
+          <Icon v-if="item.hasChildren" icon="radix-icons:chevron-down" class="h-4 w-4" />
+          <div class="pl-2">
+            {{ item.value.title }}
+          </div>
         </TreeItem>
       </TreeRoot>
     </Variant>

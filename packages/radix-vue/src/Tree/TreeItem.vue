@@ -1,12 +1,11 @@
 <script lang="ts">
-import type { TreeItem } from './TreeRoot.vue'
-
-export interface TreeItemProps<T extends TreeItem<T>> extends PrimitiveProps {
+export interface TreeItemProps<T> extends PrimitiveProps {
   value: T
+  level: number
 }
 </script>
 
-<script setup lang="ts" generic="T extends TreeItem<T>">
+<script setup lang="ts" generic="T extends Record<string, any>">
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { RovingFocusItem } from '@/RovingFocus'
 import { injectTreeRootContext } from './TreeRoot.vue'
@@ -24,7 +23,7 @@ const collection = injectCollection()
 
 const isSelected = computed(() => isEqual(rootContext.modelValue.value, props.value))
 const isExpanded = computed(() => {
-  const key = rootContext.getKey?.(props.value) ?? `${props.value}`
+  const key = rootContext.getKey(props.value)
   return rootContext.expanded.value.includes(key)
 })
 
@@ -75,6 +74,8 @@ function handleKeydownLeft() {
       :as-child="asChild"
       :aria-selected="isSelected"
       :aria-expanded="isExpanded"
+      :aria-level="level"
+      :data-indent="level"
       @keydown.enter.space.prevent="rootContext.onSelect(value)"
       @keydown.right.prevent="handleKeydownRight"
       @keydown.left.prevent="handleKeydownLeft"

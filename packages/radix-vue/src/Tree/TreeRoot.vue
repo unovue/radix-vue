@@ -7,7 +7,7 @@ export interface TreeRootProps<T, U> extends PrimitiveProps {
   items?: T[]
   expanded?: string[]
   defaultExpanded?: string[]
-  getKey?: (val: T) => string
+  getKey: (val: T) => string
 }
 
 export type TreeRootEmits<T> = {
@@ -20,14 +20,12 @@ interface TreeRootContext<T> {
   onSelect: (val: T) => void
   expanded: Ref<string[]>
   onToggle: (val: T) => void
-  getKey?: (val: T) => string
+  items?: Ref<T[]>
+  getKey: (val: T) => string
 }
 
-export interface TreeItem<T> {
-  children?: T[]
-}
-
-type FlattenedItem<T> = {
+export type FlattenedItem<T> = {
+  _id: string
   value: T
   isSelected?: boolean
   isExpanded?: boolean
@@ -38,7 +36,7 @@ type FlattenedItem<T> = {
 export const [injectTreeRootContext, provideTreeRootContext] = createContext<TreeRootContext<any>>('TreeRoot')
 </script>
 
-<script setup lang="ts" generic="T extends TreeItem<T>, U">
+<script setup lang="ts" generic="T extends Record<string, any>, U">
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 import { RovingFocusGroup } from '@/RovingFocus'
@@ -49,8 +47,9 @@ const emits = defineEmits<TreeRootEmits<U>>()
 
 defineSlots<{
   default: (props: {
-    node: FlattenedItem<T>
-    value: T
+    // node: FlattenedItem<T>
+    // value: T
+    flattenItems: FlattenedItem<T>[]
   }) => any
 }>()
 
@@ -68,17 +67,14 @@ const expanded = useVModel(props, 'expanded', emits, {
   deep: true,
 }) as Ref<string[]>
 
-const slots = useSlots()
-
 function flattenItems(items: T[], level: number = 0): FlattenedItem<T>[] {
   return items.reduce((acc: FlattenedItem<T>[], item: T) => {
-    // TODO: Improve the getKey logic and selected
-    const key = props.getKey?.(item) ?? `${item}`
-    const modelValueKey = props.getKey?.((modelValue.value ?? {}) as T) ?? `${modelValue.value}`
+    const key = props.getKey(item)
+    const modelValueKey = props.getKey((modelValue.value ?? {}) as T) ?? `${modelValue.value}`
     const isExpanded = expanded.value.includes(key)
     const isSelected = modelValueKey === key
 
-    const flattenedItem: FlattenedItem<T> = { value: item, level, hasChildren: !!item.children, isExpanded, isSelected }
+    const flattenedItem: FlattenedItem<T> = { _id: key, value: item, level, hasChildren: !!item.children, isExpanded, isSelected }
     acc.push(flattenedItem)
 
     if (item.children && isExpanded)
@@ -94,23 +90,25 @@ const expandedItems = computed(() => {
   return flattenItems(items ?? [])
 })
 
-const recursiveItems = computed(
-  () => expandedItems.value?.map((item) => {
-    const key = props.getKey?.(item.value) ?? `${item}`
-    return {
-      item,
-      key,
-      is: cloneVNode(slots.default!({
-        node: item,
-        value: item.value,
-      })![0], {
-        'key': key,
-        'aria-level': item.level,
-        'data-indent': item.level,
-      }),
-    }
-  }),
-)
+// const recursiveItems = computed(
+//   () => expandedItems.value?.map((item) => {
+//     const key = props.getKey(item.value)
+//     return {
+//       item,
+//       key,
+//       is: cloneVNode(slots.default!({
+//         node: item,
+//         value: item.value,
+//       })![0], {
+//         'key': key,
+//         'aria-level': item.level,
+//         'data-indent': item.level,
+//       }),
+//     }
+//   }),
+// )
+
+// Virtualizer
 
 provideTreeRootContext({
   modelValue,
@@ -122,13 +120,14 @@ provideTreeRootContext({
     if (!val?.children?.length)
       return
 
-    const key = props.getKey?.(val) ?? val
+    const key = props.getKey(val) ?? val
     if (expanded.value.includes(key))
       expanded.value = expanded.value.filter(val => val !== key)
     else
       expanded.value.push(key)
   },
   getKey: props.getKey,
+  items: expandedItems,
 })
 </script>
 
@@ -139,11 +138,7 @@ provideTreeRootContext({
       :as="as"
       :as-child="asChild"
     >
-      <component
-        :is="is"
-        v-for="{ is, key } in recursiveItems"
-        :key="key"
-      />
+      <slot :flatten-items="expandedItems" />
     </Primitive>
   </RovingFocusGroup>
 </template>

@@ -59,7 +59,14 @@ onMounted(() => {
 })
 
 if (process.env.NODE_ENV !== 'production')
-  useWarning()
+  useWarning({
+    titleName: 'DialogTitle',
+    contentName: 'DialogContent',
+    componentLink: 'dialog.html#title',
+    titleId: rootContext.titleId,
+    descriptionId: rootContext.descriptionId,
+    contentElement: rootContext.contentElement,
+  })
 </script>
 
 <template>

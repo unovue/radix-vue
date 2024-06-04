@@ -11,15 +11,14 @@ import { RovingFocusItem } from '@/RovingFocus'
 import { injectTreeRootContext } from './TreeRoot.vue'
 import isEqual from 'fast-deep-equal'
 import { computed } from 'vue'
-import { useCollection } from '@/shared'
+import { useCollection } from '@/Collection'
 
 const props = withDefaults(defineProps<TreeItemProps<T>>(), {
   as: 'li',
 })
 
 const rootContext = injectTreeRootContext()
-const { injectCollection } = useCollection('rovingFocus')
-const collection = injectCollection()
+const { getItems } = useCollection()
 
 const isSelected = computed(() => isEqual(rootContext.modelValue.value, props.value))
 const isExpanded = computed(() => {
@@ -33,9 +32,10 @@ function handleKeydownRight() {
 
   if (isExpanded.value) {
     // go to first child
+    const collection = getItems().map(i => i.ref)
     const currentElement = document.activeElement as HTMLElement
-    const currentIndex = collection.value.indexOf(currentElement)
-    const list = [...collection.value].slice(currentIndex)
+    const currentIndex = collection.indexOf(currentElement)
+    const list = [...collection].slice(currentIndex)
     const currentLevel = Number(currentElement.getAttribute('data-indent'))
     const nextElement = list.find(el => Number(el.getAttribute('data-indent')) === (currentLevel + 1))
 
@@ -48,15 +48,20 @@ function handleKeydownRight() {
 }
 
 function handleKeydownLeft() {
+  // Virtualized item might not be in DOM
+  // if (rootContext.isVirtual.value)
+  //   return
+
   if (isExpanded.value) {
     //  close expanded
     rootContext.onToggle(props.value)
   }
   else {
     // go back to parent
+    const collection = getItems().map(i => i.ref)
     const currentElement = document.activeElement as HTMLElement
-    const currentIndex = collection.value.indexOf(currentElement)
-    const list = [...collection.value].slice(0, currentIndex).reverse()
+    const currentIndex = collection.indexOf(currentElement)
+    const list = [...collection].slice(0, currentIndex).reverse()
     const currentLevel = Number(currentElement.getAttribute('data-indent'))
     const parentElement = list.find(el => Number(el.getAttribute('data-indent')) === (currentLevel - 1))
 

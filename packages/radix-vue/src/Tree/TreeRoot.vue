@@ -1,5 +1,5 @@
 <script lang="ts">
-import { createContext } from '@/shared'
+import { createContext, useTypeahead } from '@/shared'
 
 export interface TreeRootProps<T, U> extends PrimitiveProps {
   modelValue?: U
@@ -8,6 +8,7 @@ export interface TreeRootProps<T, U> extends PrimitiveProps {
   expanded?: string[]
   defaultExpanded?: string[]
   getKey: (val: T) => string
+  multiple?: boolean
 }
 
 export type TreeRootEmits<T> = {
@@ -20,8 +21,10 @@ interface TreeRootContext<T> {
   onSelect: (val: T) => void
   expanded: Ref<string[]>
   onToggle: (val: T) => void
-  items?: Ref<T[]>
+  items: Ref<T[]>
   getKey: (val: T) => string
+  isVirtual: Ref<boolean>
+  virtualKeydownHook: EventHook<KeyboardEvent>
 }
 
 export type FlattenedItem<T> = {
@@ -38,9 +41,9 @@ export const [injectTreeRootContext, provideTreeRootContext] = createContext<Tre
 
 <script setup lang="ts" generic="T extends Record<string, any>, U">
 import { Primitive, type PrimitiveProps } from '@/Primitive'
-import { useVModel } from '@vueuse/core'
+import { type EventHook, createEventHook, useVModel } from '@vueuse/core'
 import { RovingFocusGroup } from '@/RovingFocus'
-import { type Ref, cloneVNode, computed, ref, toRefs, useSlots, watch } from 'vue'
+import { type Ref, computed, ref, toRefs } from 'vue'
 
 const props = defineProps<TreeRootProps<T, U>>()
 const emits = defineEmits<TreeRootEmits<U>>()
@@ -52,6 +55,10 @@ defineSlots<{
     flattenItems: FlattenedItem<T>[]
   }) => any
 }>()
+
+// const { multiple } = toRefs(props)
+const { handleTypeaheadSearch } = useTypeahead()
+const rovingFocusGroupRef = ref<InstanceType<typeof RovingFocusGroup>>()
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   // @ts-expect-error idk
@@ -90,25 +97,19 @@ const expandedItems = computed(() => {
   return flattenItems(items ?? [])
 })
 
-// const recursiveItems = computed(
-//   () => expandedItems.value?.map((item) => {
-//     const key = props.getKey(item.value)
-//     return {
-//       item,
-//       key,
-//       is: cloneVNode(slots.default!({
-//         node: item,
-//         value: item.value,
-//       })![0], {
-//         'key': key,
-//         'aria-level': item.level,
-//         'data-indent': item.level,
-//       }),
-//     }
-//   }),
-// )
+function handleKeydown(event: KeyboardEvent) {
+  if (isVirtual.value) {
+    virtualKeydownHook.trigger(event)
+  }
+  else {
+    const collections = rovingFocusGroupRef.value?.getItems().map(i => i.ref)
+    handleTypeaheadSearch(event.key, collections)
+  }
+}
 
 // Virtualizer
+const isVirtual = ref(false)
+const virtualKeydownHook = createEventHook<KeyboardEvent>()
 
 provideTreeRootContext({
   modelValue,
@@ -128,15 +129,19 @@ provideTreeRootContext({
   },
   getKey: props.getKey,
   items: expandedItems,
+
+  isVirtual,
+  virtualKeydownHook,
 })
 </script>
 
 <template>
-  <RovingFocusGroup as-child orientation="vertical">
+  <RovingFocusGroup ref="rovingFocusGroupRef" as-child orientation="vertical">
     <Primitive
       role="tree"
       :as="as"
       :as-child="asChild"
+      @keydown="handleKeydown"
     >
       <slot :flatten-items="expandedItems" />
     </Primitive>

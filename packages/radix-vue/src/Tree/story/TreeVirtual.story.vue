@@ -27,7 +27,7 @@ const items = groupCountriesByFirstLetter(countryList)
         :get-key="(item) => item.title"
         class="list-none select-none w-64 h-80 overflow-y-auto bg-white text-blackA11 rounded-md p-2 text-sm font-medium"
       >
-        <TreeVirtualizer v-slot="{ item }">
+        <TreeVirtualizer v-slot="{ item }" :text-content="(item) => item.title">
           <TreeItem
 
             class="flex items-center py-1 px-2 my-0.5 rounded w-max outline-none focus:ring-grass9 focus:ring-2"

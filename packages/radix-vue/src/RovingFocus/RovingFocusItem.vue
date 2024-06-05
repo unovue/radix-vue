@@ -5,6 +5,7 @@ export interface RovingFocusItemProps extends PrimitiveProps {
   tabStopId?: string
   focusable?: boolean
   active?: boolean
+  allowShiftKey?: boolean
 }
 </script>
 
@@ -55,7 +56,7 @@ function handleKeydown(event: KeyboardEvent) {
   )
 
   if (focusIntent !== undefined) {
-    if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey)
+    if (event.metaKey || event.ctrlKey || event.altKey || (props.allowShiftKey ? false : event.shiftKey))
       return
     event.preventDefault()
     let candidateNodes = [...getItems().map(i => i.ref).filter(i => i.dataset.disabled !== '')]

@@ -25,16 +25,15 @@ const items = groupCountriesByFirstLetter(countryList)
       <TreeRoot
         :items="items"
         :get-key="(item) => item.title"
+        multiple
+        selection-behavior="replace"
         class="list-none select-none w-64 h-80 overflow-y-auto bg-white text-blackA11 rounded-md p-2 text-sm font-medium"
       >
         <TreeVirtualizer v-slot="{ item }" :text-content="(item) => item.title">
           <TreeItem
-
-            class="flex items-center py-1 px-2 my-0.5 rounded w-max outline-none focus:ring-grass9 focus:ring-2"
+            class="flex items-center py-1 px-2 my-0.5 rounded w-max outline-none focus:ring-grass9 focus:ring-2 data-[selected]:bg-grass4"
             :style="{ 'margin-left': `${item.level}rem` }"
-            :class="{ 'bg-grass4': item.isSelected }"
-            :value="item.value"
-            :level="item.level"
+            v-bind="item.bind"
           >
             <Icon v-if="item.hasChildren" icon="radix-icons:chevron-down" class="h-4 w-4" />
             <div class="pl-2">

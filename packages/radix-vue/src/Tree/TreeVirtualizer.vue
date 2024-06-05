@@ -9,7 +9,7 @@ export interface TreeVirtualizerProps {
 
 <script setup lang="ts">
 import { useVirtualizer } from '@tanstack/vue-virtual'
-import { type Ref, cloneVNode, computed, useSlots } from 'vue'
+import { type Ref, cloneVNode, computed, nextTick, useSlots } from 'vue'
 import { type FlattenedItem, injectTreeRootContext } from './TreeRoot.vue'
 import { refAutoReset, useParentElement } from '@vueuse/core'
 import { getNextMatch } from '@/shared/useTypeahead'
@@ -68,6 +68,9 @@ const virtualizer = useVirtualizer(
     get scrollPaddingEnd() { return padding.value.end },
     get count() { return rootContext.items.value.length ?? 0 },
     get horizontal() { return false },
+    getItemKey(index) {
+      return index + rootContext.getKey(rootContext.items.value[index].value)
+    },
     estimateSize() {
       return props.estimateSize ?? 28
     },
@@ -82,10 +85,7 @@ const virtualizedItems = computed(() => virtualizer.value.getVirtualItems().map(
     is: cloneVNode(slots.default!({
       item: rootContext.items.value[item.index],
     })![0], {
-      'key': `${item.index}`,
       'data-index': item.index,
-      'aria-setsize': rootContext.items.value.length,
-      'aria-posinset': item.index + 1,
       'style': {
         position: 'absolute',
         top: 0,
@@ -146,6 +146,9 @@ rootContext.virtualKeydownHook.on((event) => {
     if (nextMatch)
       scrollToIndexAndFocus(nextMatch.index)
   }
+
+  if (event.shiftKey && intent)
+    rootContext.handleMultipleReplace(intent, document.activeElement, getItems, rootContext.items.value.map(i => i.value))
 })
 </script>
 
@@ -161,7 +164,7 @@ rootContext.virtualKeydownHook.on((event) => {
     <component
       :is="is"
       v-for="{ is, item } in virtualizedItems"
-      :key="item.index"
+      :key="item.key"
     />
   </div>
 </template>

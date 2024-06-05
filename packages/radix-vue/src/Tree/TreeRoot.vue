@@ -1,14 +1,24 @@
 <script lang="ts">
-import { createContext, useTypeahead } from '@/shared'
+import { createContext, findValuesBetween, useDirection, useKbd, useSelectionBehavior, useTypeahead } from '@/shared'
+import type { Direction } from '@/shared/types'
 
 export interface TreeRootProps<T, U> extends PrimitiveProps {
-  modelValue?: U
-  defaultValue?: U
+  modelValue?: U | U[]
+  defaultValue?: U | U[]
   items?: T[]
   expanded?: string[]
   defaultExpanded?: string[]
   getKey: (val: T) => string
+  /** How multiple selection should behave in the collection. */
+  selectionBehavior?: 'toggle' | 'replace'
+  /** Whether multiple options can be selected or not.  */
   multiple?: boolean
+  /** The reading direction of the listbox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
+  dir?: Direction
+  /** When `true`, prevents the user from interacting with tree  */
+  disabled?: boolean
+  /** By default clicking on item will select the item, setting to `true` will open the item (if possible) then select the item */
+  preventSelectBeforeExpand?: boolean
 }
 
 export type TreeRootEmits<T> = {
@@ -17,23 +27,33 @@ export type TreeRootEmits<T> = {
 }
 
 interface TreeRootContext<T> {
-  modelValue: Ref<T>
+  modelValue: Ref<T | T[]>
+  selectedKeys: Ref<string[]>
   onSelect: (val: T) => void
   expanded: Ref<string[]>
   onToggle: (val: T) => void
   items: Ref<T[]>
   getKey: (val: T) => string
+  multiple: Ref<boolean>
+  disabled: Ref<boolean>
+  dir: Ref<Direction>
+  preventSelectBeforeExpand: Ref<boolean>
   isVirtual: Ref<boolean>
   virtualKeydownHook: EventHook<KeyboardEvent>
+
+  handleMultipleReplace: ReturnType<typeof useSelectionBehavior>['handleMultipleReplace']
 }
 
 export type FlattenedItem<T> = {
   _id: string
   value: T
-  isSelected?: boolean
-  isExpanded?: boolean
-  hasChildren: boolean
   level: number
+  hasChildren: boolean
+  bind: {
+    value: T
+    level: number
+    [key: string]: any
+  }
 }
 
 export const [injectTreeRootContext, provideTreeRootContext] = createContext<TreeRootContext<any>>('TreeRoot')
@@ -44,28 +64,34 @@ import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { type EventHook, createEventHook, useVModel } from '@vueuse/core'
 import { RovingFocusGroup } from '@/RovingFocus'
 import { type Ref, computed, ref, toRefs } from 'vue'
+import { MAP_KEY_TO_FOCUS_INTENT } from '@/RovingFocus/utils'
 
-const props = defineProps<TreeRootProps<T, U>>()
+const props = withDefaults(defineProps<TreeRootProps<T, U>>(), {
+  selectionBehavior: 'toggle',
+})
 const emits = defineEmits<TreeRootEmits<U>>()
 
 defineSlots<{
   default: (props: {
-    // node: FlattenedItem<T>
-    // value: T
     flattenItems: FlattenedItem<T>[]
   }) => any
 }>()
 
-// const { multiple } = toRefs(props)
+const { multiple, disabled, preventSelectBeforeExpand, dir: propDir } = toRefs(props)
 const { handleTypeaheadSearch } = useTypeahead()
+const dir = useDirection(propDir)
 const rovingFocusGroupRef = ref<InstanceType<typeof RovingFocusGroup>>()
+
+// Virtualizer
+const isVirtual = ref(false)
+const virtualKeydownHook = createEventHook<KeyboardEvent>()
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   // @ts-expect-error idk
-  defaultValue: props.defaultValue ?? [],
+  defaultValue: props.defaultValue ?? (multiple.value ? [] : undefined),
   passive: (props.modelValue === undefined) as false,
   deep: true,
-}) as Ref<U>
+}) as Ref<U | U[]>
 
 const expanded = useVModel(props, 'expanded', emits, {
   // @ts-expect-error idk
@@ -74,14 +100,32 @@ const expanded = useVModel(props, 'expanded', emits, {
   deep: true,
 }) as Ref<string[]>
 
-function flattenItems(items: T[], level: number = 0): FlattenedItem<T>[] {
-  return items.reduce((acc: FlattenedItem<T>[], item: T) => {
-    const key = props.getKey(item)
-    const modelValueKey = props.getKey((modelValue.value ?? {}) as T) ?? `${modelValue.value}`
-    const isExpanded = expanded.value.includes(key)
-    const isSelected = modelValueKey === key
+const { onSelectItem, handleMultipleReplace } = useSelectionBehavior(modelValue, props)
 
-    const flattenedItem: FlattenedItem<T> = { _id: key, value: item, level, hasChildren: !!item.children, isExpanded, isSelected }
+const selectedKeys = computed(() => {
+  if (multiple.value && Array.isArray(modelValue.value))
+    return modelValue.value.map(i => props.getKey(i as any))
+  else
+    return [props.getKey(modelValue.value as any ?? {})]
+})
+
+function flattenItems(items: T[], level: number = 0): FlattenedItem<T>[] {
+  return items.reduce((acc: FlattenedItem<T>[], item: T, index: number) => {
+    const key = props.getKey(item)
+    const isExpanded = expanded.value.includes(key)
+
+    const flattenedItem: FlattenedItem<T> = {
+      _id: key,
+      value: item,
+      level,
+      hasChildren: !!item.children,
+      bind: {
+        'value': item,
+        level,
+        'aria-setsize': items.length,
+        'aria-posinset': index + 1,
+      },
+    }
     acc.push(flattenedItem)
 
     if (item.children && isExpanded)
@@ -107,14 +151,19 @@ function handleKeydown(event: KeyboardEvent) {
   }
 }
 
-// Virtualizer
-const isVirtual = ref(false)
-const virtualKeydownHook = createEventHook<KeyboardEvent>()
+function handleKeydownNavigation(event: KeyboardEvent) {
+  if (isVirtual.value)
+    return
+
+  const intent = MAP_KEY_TO_FOCUS_INTENT[event.key]
+  handleMultipleReplace(intent, document.activeElement, rovingFocusGroupRef.value?.getItems!, expandedItems.value.map(i => i.value))
+}
 
 provideTreeRootContext({
   modelValue,
+  selectedKeys,
   onSelect: (val) => {
-    modelValue.value = { ...val }
+    onSelectItem(val, v => props.getKey(v as any) === props.getKey(val as any))
   },
   expanded,
   onToggle(val) {
@@ -129,19 +178,30 @@ provideTreeRootContext({
   },
   getKey: props.getKey,
   items: expandedItems,
+  disabled,
+  multiple,
+  dir,
+  preventSelectBeforeExpand,
 
   isVirtual,
   virtualKeydownHook,
+  handleMultipleReplace,
 })
 </script>
 
 <template>
-  <RovingFocusGroup ref="rovingFocusGroupRef" as-child orientation="vertical">
+  <RovingFocusGroup
+    ref="rovingFocusGroupRef"
+    as-child
+    orientation="vertical"
+    :dir="dir"
+  >
     <Primitive
       role="tree"
       :as="as"
       :as-child="asChild"
       @keydown="handleKeydown"
+      @keydown.up.down.shift="handleKeydownNavigation"
     >
       <slot :flatten-items="expandedItems" />
     </Primitive>

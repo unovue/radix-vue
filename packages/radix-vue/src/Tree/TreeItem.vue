@@ -9,7 +9,6 @@ export interface TreeItemProps<T> extends PrimitiveProps {
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { RovingFocusItem } from '@/RovingFocus'
 import { injectTreeRootContext } from './TreeRoot.vue'
-import isEqual from 'fast-deep-equal'
 import { computed } from 'vue'
 import { useCollection } from '@/Collection'
 
@@ -17,13 +16,23 @@ const props = withDefaults(defineProps<TreeItemProps<T>>(), {
   as: 'li',
 })
 
+defineSlots<{
+  default: (props: {
+    isExpanded: boolean
+    isSelected: boolean
+  }) => any
+}>()
 const rootContext = injectTreeRootContext()
 const { getItems } = useCollection()
 
-const isSelected = computed(() => isEqual(rootContext.modelValue.value, props.value))
 const isExpanded = computed(() => {
   const key = rootContext.getKey(props.value)
   return rootContext.expanded.value.includes(key)
+})
+
+const isSelected = computed(() => {
+  const key = rootContext.getKey(props.value)
+  return rootContext.selectedKeys.value.includes(key)
 })
 
 function handleKeydownRight() {
@@ -36,8 +45,7 @@ function handleKeydownRight() {
     const currentElement = document.activeElement as HTMLElement
     const currentIndex = collection.indexOf(currentElement)
     const list = [...collection].slice(currentIndex)
-    const currentLevel = Number(currentElement.getAttribute('data-indent'))
-    const nextElement = list.find(el => Number(el.getAttribute('data-indent')) === (currentLevel + 1))
+    const nextElement = list.find(el => Number(el.getAttribute('data-indent')) === (props.level + 1))
 
     if (nextElement)
       nextElement.focus()
@@ -48,10 +56,6 @@ function handleKeydownRight() {
 }
 
 function handleKeydownLeft() {
-  // Virtualized item might not be in DOM
-  // if (rootContext.isVirtual.value)
-  //   return
-
   if (isExpanded.value) {
     //  close expanded
     rootContext.onToggle(props.value)
@@ -62,17 +66,21 @@ function handleKeydownLeft() {
     const currentElement = document.activeElement as HTMLElement
     const currentIndex = collection.indexOf(currentElement)
     const list = [...collection].slice(0, currentIndex).reverse()
-    const currentLevel = Number(currentElement.getAttribute('data-indent'))
-    const parentElement = list.find(el => Number(el.getAttribute('data-indent')) === (currentLevel - 1))
+    const parentElement = list.find(el => Number(el.getAttribute('data-indent')) === (props.level - 1))
 
     if (parentElement)
       parentElement.focus()
   }
 }
+
+defineExpose({
+  isExpanded,
+  isSelected,
+})
 </script>
 
 <template>
-  <RovingFocusItem as-child>
+  <RovingFocusItem as-child :value="value" allow-shift-key>
     <Primitive
       role="treeitem"
       :as="as"
@@ -81,15 +89,26 @@ function handleKeydownLeft() {
       :aria-expanded="isExpanded"
       :aria-level="level"
       :data-indent="level"
+      :data-selected="isSelected ? '' : undefined"
+      :data-expanded="isExpanded ? '' : undefined"
       @keydown.enter.space.prevent="rootContext.onSelect(value)"
       @keydown.right.prevent="handleKeydownRight"
       @keydown.left.prevent="handleKeydownLeft"
       @click.stop="() => {
-        rootContext.onSelect(value)
+        if (rootContext.preventSelectBeforeExpand.value && !!props.value.children?.length) {
+          if (isExpanded)
+            rootContext.onSelect(value)
+        }
+        else {
+          rootContext.onSelect(value)
+        }
         rootContext.onToggle(value)
       }"
     >
-      <slot />
+      <slot
+        :is-expanded="isExpanded"
+        :is-selected="isSelected"
+      />
     </Primitive>
   </RovingFocusItem>
 </template>

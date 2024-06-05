@@ -167,7 +167,7 @@ import DemoContainer from './DemoContainer.vue'
       <TooltipDemo />
     </DemoContainer>
     <DemoContainer title="tree">
-      <TooltipDemo />
+      <TreeDemo />
     </DemoContainer>
   </div>
 </template>

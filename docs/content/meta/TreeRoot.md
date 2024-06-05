@@ -23,7 +23,7 @@
   {
     'name': 'defaultValue',
     'description': '<p>The value of the tree when initially rendered. Use when you do not need to control the state of the tree</p>\n',
-    'type': 'unknown',
+    'type': 'Record<string, any> | Record<string, any>[]',
     'required': false
   },
   {
@@ -59,7 +59,7 @@
   {
     'name': 'modelValue',
     'description': '<p>The controlled value of the tree. Can be binded-with with <code>v-model</code>.</p>\n',
-    'type': 'unknown',
+    'type': 'Record<string, any> | Record<string, any>[]',
     'required': false
   },
   {
@@ -92,7 +92,7 @@
   {
     'name': 'update:modelValue',
     'description': '<p>Event handler called when the value changes.</p>\n',
-    'type': '[val: unknown]'
+    'type': '[val: Record<string, any>]'
   }
 ]" />
 

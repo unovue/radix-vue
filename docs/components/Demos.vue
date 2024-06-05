@@ -39,6 +39,7 @@ import ToggleDemo from './demo/Toggle/tailwind/index.vue'
 import ToggleGroupDemo from './demo/ToggleGroup/tailwind/index.vue'
 import ToolbarDemo from './demo/Toolbar/tailwind/index.vue'
 import TooltipDemo from './demo/Tooltip/tailwind/index.vue'
+import TreeDemo from './demo/Tree/tailwind/index.vue'
 
 import DemoContainer from './DemoContainer.vue'
 </script>
@@ -163,6 +164,9 @@ import DemoContainer from './DemoContainer.vue'
       <ToolbarDemo />
     </DemoContainer>
     <DemoContainer title="tooltip">
+      <TooltipDemo />
+    </DemoContainer>
+    <DemoContainer title="tree">
       <TooltipDemo />
     </DemoContainer>
   </div>

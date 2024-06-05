@@ -2,7 +2,7 @@
 import { createContext, findValuesBetween, useDirection, useKbd, useSelectionBehavior, useTypeahead } from '@/shared'
 import type { Direction } from '@/shared/types'
 
-export interface TreeRootProps<T, U> extends PrimitiveProps {
+export interface TreeRootProps<T, U extends Record<string, any>> extends PrimitiveProps {
   /** The controlled value of the tree. Can be binded-with with `v-model`. */
   modelValue?: U | U[]
   /** The value of the tree when initially rendered. Use when you do not need to control the state of the tree */
@@ -65,7 +65,7 @@ export type FlattenedItem<T> = {
 export const [injectTreeRootContext, provideTreeRootContext] = createContext<TreeRootContext<any>>('TreeRoot')
 </script>
 
-<script setup lang="ts" generic="T extends Record<string, any>, U">
+<script setup lang="ts" generic="T extends Record<string, any>, U extends Record<string, any>">
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { type EventHook, createEventHook, useVModel } from '@vueuse/core'
 import { RovingFocusGroup } from '@/RovingFocus'

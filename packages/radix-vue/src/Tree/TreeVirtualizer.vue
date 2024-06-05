@@ -3,13 +3,13 @@ export interface TreeVirtualizerProps {
   /** Estimated size (in px) of each item */
   estimateSize?: number
   /** text content for each item to achieve type-ahead feature */
-  textContent?: (item: any) => string
+  textContent?: (item: Record<string, any>) => string
 }
 </script>
 
 <script setup lang="ts">
 import { useVirtualizer } from '@tanstack/vue-virtual'
-import { type Ref, cloneVNode, computed, nextTick, useSlots } from 'vue'
+import { type Ref, cloneVNode, computed, useSlots } from 'vue'
 import { type FlattenedItem, injectTreeRootContext } from './TreeRoot.vue'
 import { refAutoReset, useParentElement } from '@vueuse/core'
 import { getNextMatch } from '@/shared/useTypeahead'
@@ -20,7 +20,7 @@ const props = defineProps<TreeVirtualizerProps>()
 
 defineSlots<{
   default: (props: {
-    item: FlattenedItem<any>
+    item: FlattenedItem<Record<string, any>>
   }) => any
 }>()
 
@@ -32,7 +32,7 @@ const { getItems } = useCollection()
 // Reset `search` 1 second after it was last updated
 const search = refAutoReset('', 1000)
 const optionsWithMetadata = computed(() => {
-  const parseTextContent = (option: any) => {
+  const parseTextContent = (option: Record<string, any>) => {
     if (props.textContent)
       return props.textContent(option)
     else

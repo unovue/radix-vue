@@ -10,7 +10,7 @@
   {
     'name': 'textContent',
     'description': '<p>text content for each item to achieve type-ahead feature</p>\n',
-    'type': '((item: any) => string)',
+    'type': '((item: Record<string, any>) => string)',
     'required': false
   }
 ]" />
@@ -19,6 +19,6 @@
   {
     'name': 'item',
     'description': '',
-    'type': 'FlattenedItem<any>'
+    'type': 'FlattenedItem<Record<string, any>>'
   }
 ]" />

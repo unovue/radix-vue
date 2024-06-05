@@ -3,11 +3,17 @@ import { createContext, findValuesBetween, useDirection, useKbd, useSelectionBeh
 import type { Direction } from '@/shared/types'
 
 export interface TreeRootProps<T, U> extends PrimitiveProps {
+  /** The controlled value of the tree. Can be binded-with with `v-model`. */
   modelValue?: U | U[]
+  /** The value of the tree when initially rendered. Use when you do not need to control the state of the tree */
   defaultValue?: U | U[]
+  /** List of items */
   items?: T[]
+  /** The controlled value of the expanded item. Can be binded-with with `v-model`. */
   expanded?: string[]
+  /** The value of the expanded tree when initially rendered. Use when you do not need to control the state of the expanded tree */
   defaultExpanded?: string[]
+  /** This function is passed the index of each item and should return a unique key for that item */
   getKey: (val: T) => string
   /** How multiple selection should behave in the collection. */
   selectionBehavior?: 'toggle' | 'replace'
@@ -163,7 +169,7 @@ provideTreeRootContext({
   modelValue,
   selectedKeys,
   onSelect: (val) => {
-    onSelectItem(val, v => props.getKey(v as any) === props.getKey(val as any))
+    onSelectItem(val, v => props.getKey(v as any ?? {}) === props.getKey(val as any))
   },
   expanded,
   onToggle(val) {

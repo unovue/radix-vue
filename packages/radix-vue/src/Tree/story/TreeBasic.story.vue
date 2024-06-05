@@ -73,8 +73,6 @@ const items = [
         class="list-none select-none w-64 bg-white text-blackA11 rounded-md p-2 text-sm font-medium"
         :items="items"
         :get-key="(item) => item.title"
-        multiple
-        selection-behavior="replace"
       >
         <TreeItem
           v-for="item in flattenItems"

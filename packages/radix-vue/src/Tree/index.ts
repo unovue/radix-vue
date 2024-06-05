@@ -1,3 +1,13 @@
-export { default as TreeRoot } from './TreeRoot.vue'
-export { default as TreeItem } from './TreeItem.vue'
-export { default as TreeVirtualizer } from './TreeVirtualizer.vue'
+export {
+  default as TreeRoot,
+  type TreeRootProps,
+  type TreeRootEmits,
+} from './TreeRoot.vue'
+export {
+  default as TreeItem,
+  type TreeItemProps,
+} from './TreeItem.vue'
+export {
+  default as TreeVirtualizer,
+  type TreeVirtualizerProps,
+} from './TreeVirtualizer.vue'

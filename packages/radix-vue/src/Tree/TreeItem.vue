@@ -1,6 +1,8 @@
 <script lang="ts">
 export interface TreeItemProps<T> extends PrimitiveProps {
+  /** Value given to this item */
   value: T
+  /** Level of depth */
   level: number
 }
 </script>

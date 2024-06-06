@@ -11,6 +11,7 @@ import TooltipContentImpl from './TooltipContentImpl.vue'
 import TooltipContentHoverable from './TooltipContentHoverable.vue'
 import { injectTooltipRootContext } from './TooltipRoot.vue'
 import { useForwardExpose, useForwardPropsEmits } from '@/shared'
+import { Presence } from '@/Presence'
 
 const props = withDefaults(defineProps<TooltipContentProps>(), {
   side: 'top',
@@ -23,12 +24,13 @@ const { forwardRef } = useForwardExpose()
 </script>
 
 <template>
-  <component
-    :is="rootContext.disableHoverableContent.value ? TooltipContentImpl : TooltipContentHoverable"
-    v-if="rootContext.open.value"
-    :ref="forwardRef"
-    v-bind="forwarded"
-  >
-    <slot />
-  </component>
+  <Presence :present="rootContext.open.value">
+    <component
+      :is="rootContext.disableHoverableContent.value ? TooltipContentImpl : TooltipContentHoverable"
+      :ref="forwardRef"
+      v-bind="forwarded"
+    >
+      <slot />
+    </component>
+  </Presence>
 </template>

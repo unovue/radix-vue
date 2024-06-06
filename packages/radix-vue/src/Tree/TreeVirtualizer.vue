@@ -9,7 +9,7 @@ export interface TreeVirtualizerProps {
 
 <script setup lang="ts">
 import { useVirtualizer } from '@tanstack/vue-virtual'
-import { type Ref, cloneVNode, computed, useSlots } from 'vue'
+import { type Ref, cloneVNode, computed, nextTick, useSlots } from 'vue'
 import { type FlattenedItem, injectTreeRootContext } from './TreeRoot.vue'
 import { refAutoReset, useParentElement } from '@vueuse/core'
 import { getNextMatch } from '@/shared/useTypeahead'
@@ -147,8 +147,10 @@ rootContext.virtualKeydownHook.on((event) => {
       scrollToIndexAndFocus(nextMatch.index)
   }
 
-  if (event.shiftKey && intent)
-    rootContext.handleMultipleReplace(intent, document.activeElement, getItems, rootContext.items.value.map(i => i.value))
+  nextTick(() => {
+    if (event.shiftKey && intent)
+      rootContext.handleMultipleReplace(intent, document.activeElement, getItems, rootContext.items.value.map(i => i.value))
+  })
 })
 </script>
 

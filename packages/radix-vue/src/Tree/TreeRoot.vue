@@ -2,7 +2,7 @@
 import { createContext, findValuesBetween, useDirection, useKbd, useSelectionBehavior, useTypeahead } from '@/shared'
 import type { Direction } from '@/shared/types'
 
-export interface TreeRootProps<T, U extends Record<string, any>> extends PrimitiveProps {
+export interface TreeRootProps<T = Record<string, any>, U extends Record<string, any> = Record<string, any>> extends PrimitiveProps {
   /** The controlled value of the tree. Can be binded-with with `v-model`. */
   modelValue?: U | U[]
   /** The value of the tree when initially rendered. Use when you do not need to control the state of the tree */
@@ -27,7 +27,7 @@ export interface TreeRootProps<T, U extends Record<string, any>> extends Primiti
   preventSelectBeforeExpand?: boolean
 }
 
-export type TreeRootEmits<T> = {
+export type TreeRootEmits<T = Record<string, any>> = {
   'update:modelValue': [val: T]
   'update:expanded': [val: string[]]
 }
@@ -69,7 +69,7 @@ export const [injectTreeRootContext, provideTreeRootContext] = createContext<Tre
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { type EventHook, createEventHook, useVModel } from '@vueuse/core'
 import { RovingFocusGroup } from '@/RovingFocus'
-import { type Ref, computed, ref, toRefs } from 'vue'
+import { type Ref, computed, nextTick, ref, toRefs } from 'vue'
 import { MAP_KEY_TO_FOCUS_INTENT } from '@/RovingFocus/utils'
 
 const props = withDefaults(defineProps<TreeRootProps<T, U>>(), {
@@ -117,7 +117,7 @@ const selectedKeys = computed(() => {
     return [props.getKey(modelValue.value as any ?? {})]
 })
 
-function flattenItems(items: T[], level: number = 0): FlattenedItem<T>[] {
+function flattenItems(items: T[], level: number = 1): FlattenedItem<T>[] {
   return items.reduce((acc: FlattenedItem<T>[], item: T, index: number) => {
     const key = props.getKey(item)
     const isExpanded = expanded.value.includes(key)
@@ -163,7 +163,9 @@ function handleKeydownNavigation(event: KeyboardEvent) {
     return
 
   const intent = MAP_KEY_TO_FOCUS_INTENT[event.key]
-  handleMultipleReplace(intent, document.activeElement, rovingFocusGroupRef.value?.getItems!, expandedItems.value.map(i => i.value))
+  nextTick(() => {
+    handleMultipleReplace(intent, document.activeElement, rovingFocusGroupRef.value?.getItems!, expandedItems.value.map(i => i.value))
+  })
 }
 
 provideTreeRootContext({

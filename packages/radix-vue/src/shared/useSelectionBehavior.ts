@@ -1,18 +1,16 @@
-import { type Ref, ref } from 'vue'
+import { type Ref, type UnwrapNestedRefs, ref } from 'vue'
 import { findValuesBetween } from './arrays'
 
 export function useSelectionBehavior<T>(
   modelValue: Ref<T | T[]>,
-  props: { multiple?: boolean, selectionBehavior?: 'toggle' | 'replace', isVirtual?: boolean },
+  props: UnwrapNestedRefs<{ multiple?: boolean, selectionBehavior?: 'toggle' | 'replace' }>,
 ) {
-  const { multiple = false, selectionBehavior = 'toggle' } = props
-
   const firstValue = ref()
 
   const onSelectItem = (val: T, condition: (existingValue: T) => boolean) => {
     // multiple select
-    if (multiple && Array.isArray(modelValue.value)) {
-      if (selectionBehavior === 'replace') {
+    if (props.multiple && Array.isArray(modelValue.value)) {
+      if (props.selectionBehavior === 'replace') {
         modelValue.value = [val]
         firstValue.value = val
       }
@@ -26,7 +24,7 @@ export function useSelectionBehavior<T>(
     }
     // single select
     else {
-      if (selectionBehavior === 'replace') {
+      if (props.selectionBehavior === 'replace') {
         modelValue.value = { ...val }
       }
       else {
@@ -39,7 +37,7 @@ export function useSelectionBehavior<T>(
   }
 
   function handleMultipleReplace(intent: 'first' | 'last' | 'prev' | 'next', currentElement: HTMLElement | Element | null, getItems: () => { ref: HTMLElement, value?: any }[], options: any[]) {
-    if (!firstValue?.value || !multiple || !Array.isArray(modelValue.value))
+    if (!firstValue?.value || !props.multiple || !Array.isArray(modelValue.value))
       return
 
     const collection = getItems().filter(i => i.ref.dataset.disabled !== '')

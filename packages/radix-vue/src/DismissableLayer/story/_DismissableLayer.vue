@@ -8,6 +8,10 @@ defineProps<{
   openLabel?: string
   closeLabel?: string
   outsideLabel?: string
+
+  preventEscapeKeyDownEvent?: boolean
+  preventPointerDownOutsideEvent?: boolean
+  preventFocusOutsideEvent?: boolean
 }>()
 
 const emits = defineEmits<DismissableLayerEmits>()
@@ -30,6 +34,19 @@ function handleDismiss() {
       id="layer"
       v-bind="useEmitAsProps(emits)"
       @dismiss="handleDismiss"
+      @escape-key-down="(ev) => {
+        if (preventEscapeKeyDownEvent)
+          ev.preventDefault()
+      }"
+      @pointer-down-outside="(ev) => {
+        console.log(ev)
+        if (preventPointerDownOutsideEvent)
+          ev.preventDefault()
+      }"
+      @focus-outside="(ev) => {
+        if (preventFocusOutsideEvent)
+          ev.preventDefault()
+      }"
     >
       <div>Content</div>
       <button type="button" @click="open = false">
@@ -37,7 +54,7 @@ function handleDismiss() {
       </button>
     </DismissableLayer>
 
-    <button>
+    <button id="outside">
       {{ outsideLabel }}
     </button>
   </div>

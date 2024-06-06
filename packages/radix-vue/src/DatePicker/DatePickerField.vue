@@ -10,7 +10,7 @@ const rootContext = injectDatePickerRootContext()
 
 <template>
   <DateFieldRoot
-    v-slot="{ segments }"
+    v-slot="{ segments, modelValue }"
     :ref="rootContext.dateFieldRef"
     :model-value="rootContext.modelValue.value"
     :placeholder="rootContext.placeholder.value"
@@ -38,6 +38,6 @@ const rootContext = injectDatePickerRootContext()
       rootContext.onPlaceholderChange(date)
     }"
   >
-    <slot :segments="segments" />
+    <slot :segments="segments" :model-value="modelValue" />
   </DateFieldRoot>
 </template>

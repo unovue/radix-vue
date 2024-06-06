@@ -44,7 +44,7 @@ onMounted(() => {
 <template>
   <Primitive
     v-bind="props"
-    :id="rootContext.inputId"
+    :id="rootContext.id.value"
     ref="primitiveElement"
     role="spinbutton"
     type="text"
@@ -60,7 +60,6 @@ onMounted(() => {
     :aria-valuenow="rootContext.modelValue.value"
     :aria-valuemin="rootContext.min.value"
     :aria-valuemax="rootContext.max.value"
-    :aria-labelledby="rootContext.labelId"
     @keydown.up.prevent="rootContext.handleIncrease()"
     @keydown.down.prevent="rootContext.handleDecrease()"
     @keydown.page-up.prevent="rootContext.handleIncrease(10)"

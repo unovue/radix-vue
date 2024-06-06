@@ -248,7 +248,6 @@ export const components = {
 
   numberField: [
     'NumberFieldRoot',
-    'NumberFieldLabel',
     'NumberFieldInput',
     'NumberFieldIncrement',
     'NumberFieldDecrement',

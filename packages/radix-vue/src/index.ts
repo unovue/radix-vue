@@ -43,7 +43,7 @@ export * from './Tooltip'
 export * from './Viewport'
 
 // utilities
-export { Primitive, Slot, type PrimitiveProps } from './Primitive'
+export { Primitive, Slot, type PrimitiveProps, type AsTag } from './Primitive'
 export { VisuallyHidden, type VisuallyHiddenProps } from './VisuallyHidden'
 export {
   useEmitAsProps,

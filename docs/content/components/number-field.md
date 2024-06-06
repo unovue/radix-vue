@@ -42,13 +42,11 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { NumberFieldDecrement, NumberFieldIncrement, NumberFieldInput, NumberFieldLabel, NumberFieldRoot } from 'radix-vue'
+import { NumberFieldDecrement, NumberFieldIncrement, NumberFieldInput, NumberFieldRoot } from 'radix-vue'
 </script>
 
 <template>
   <NumberFieldRoot>
-    <NumberFieldLabel />
-
     <NumberFieldDecrement />
     <NumberFieldInput />
     <NumberFieldIncrement />
@@ -72,12 +70,6 @@ Contains all the parts of a number field. An `input` will also render when used 
     },
   ]"
 />
-
-### Label
-
-Label for the input.
-
-<!-- @include: @/meta/NumberFieldLabel.md -->
 
 ### Input
 

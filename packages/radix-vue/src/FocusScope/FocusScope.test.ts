@@ -127,8 +127,8 @@ describe('focusScope', () => {
     it('should properly blur the last element in the scope before cycling back', async () => {
       // Tab back and then tab forward to cycle through the scope
       tabbableFirst.focus()
-      userEvent.tab({ shift: true })
-      userEvent.tab()
+      await userEvent.tab({ shift: true })
+      await userEvent.tab()
       waitFor(() => expect(handleLastFocusableElementBlur).toHaveBeenCalledTimes(1))
     })
   })

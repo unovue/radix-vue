@@ -209,6 +209,7 @@ provideTreeRootContext({
       role="tree"
       :as="as"
       :as-child="asChild"
+      :aria-multiselectable="multiple ? true : undefined"
       @keydown="handleKeydown"
       @keydown.up.down.shift="handleKeydownNavigation"
     >

@@ -24,10 +24,10 @@ const props = withDefaults(defineProps<ListboxFilterProps>(), {
 const emits = defineEmits<ListboxFilterEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current input values */
     modelValue: typeof modelValue.value
-  }): any
+  }) => any
 }>()
 
 const modelValue = useVModel(props, 'modelValue', emits, {

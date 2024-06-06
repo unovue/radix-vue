@@ -20,10 +20,10 @@ const props = withDefaults(defineProps<ContextMenuSubProps>(), {
 const emit = defineEmits<ContextMenuSubEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current open state */
     open: typeof open.value
-  }): any
+  }) => any
 }>()
 
 useForwardExpose()

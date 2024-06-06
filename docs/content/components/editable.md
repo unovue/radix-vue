@@ -118,7 +118,6 @@ Contains the input of an editable component.
 ]"
 />
 
-
 ### Preview
 
 Contains the preview of the editable component.
@@ -142,7 +141,6 @@ Contains the submit trigger of the editable component.
 Contains the cancel trigger of the editable component.
 
 <!-- @include: @/meta/EditableCancelTrigger.md -->
-
 
 ## Accessibility
 

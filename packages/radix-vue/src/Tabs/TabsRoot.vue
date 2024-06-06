@@ -58,10 +58,10 @@ const props = withDefaults(defineProps<TabsRootProps<T>>(), {
 const emits = defineEmits<TabsRootEmits<T>>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current input values */
     modelValue: typeof modelValue.value
-  }): any
+  }) => any
 }>()
 
 const { orientation, dir: propDir } = toRefs(props)

@@ -8,7 +8,7 @@ const people = ref([
   { id: 2, name: 'Kenton Towne' },
 ])
 
-function displayValue(value: { id: number; name: string }) {
+function displayValue(value: { id: number, name: string }) {
   return `123${value.name}`
 }
 

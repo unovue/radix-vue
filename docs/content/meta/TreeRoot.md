@@ -101,5 +101,15 @@
     'name': 'flattenItems',
     'description': '',
     'type': 'FlattenedItem<Record<string, any>>[]'
+  },
+  {
+    'name': 'modelValue',
+    'description': '',
+    'type': 'Record<string, any> | Record<string, any>[]'
+  },
+  {
+    'name': 'expanded',
+    'description': '',
+    'type': 'string[]'
   }
 ]" />

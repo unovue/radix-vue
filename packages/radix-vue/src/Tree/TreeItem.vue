@@ -78,6 +78,7 @@ function handleKeydownLeft() {
 defineExpose({
   isExpanded,
   isSelected,
+  onToggle: () => rootContext.onToggle(props.value),
 })
 </script>
 
@@ -93,7 +94,7 @@ defineExpose({
       :data-indent="level"
       :data-selected="isSelected ? '' : undefined"
       :data-expanded="isExpanded ? '' : undefined"
-      @keydown.enter.space.prevent="rootContext.onSelect(value)"
+      @keydown.enter.space.self.prevent="rootContext.onSelect(value)"
       @keydown.right.prevent="handleKeydownRight"
       @keydown.left.prevent="handleKeydownLeft"
       @click.stop="() => {

@@ -80,6 +80,8 @@ const emits = defineEmits<TreeRootEmits<U>>()
 defineSlots<{
   default: (props: {
     flattenItems: FlattenedItem<T>[]
+    modelValue: typeof modelValue.value
+    expanded: typeof expanded.value
   }) => any
 }>()
 
@@ -140,7 +142,6 @@ function flattenItems(items: T[], level: number = 0): FlattenedItem<T>[] {
     return acc
   }, [])
 }
-
 const expandedItems = computed(() => {
   const items = props.items
   const expandedKeys = expanded.value.map(i => i)
@@ -209,7 +210,11 @@ provideTreeRootContext({
       @keydown="handleKeydown"
       @keydown.up.down.shift="handleKeydownNavigation"
     >
-      <slot :flatten-items="expandedItems" />
+      <slot
+        :flatten-items="expandedItems"
+        :model-value="modelValue"
+        :expanded="expanded"
+      />
     </Primitive>
   </RovingFocusGroup>
 </template>

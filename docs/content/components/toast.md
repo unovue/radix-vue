@@ -364,7 +364,7 @@ defineProps<{
       {{ title }}
     </ToastTitle>
     <ToastDescription>{{ content }}</ToastDescription>
-    <ToastAction as-child>
+    <ToastAction as-child altText="toast">
       <slot />
     </ToastAction>
     <ToastClose aria-label="Close">

@@ -3,7 +3,13 @@ import type { TooltipContentImplEmits, TooltipContentImplProps } from './Tooltip
 
 export type TooltipContentEmits = TooltipContentImplEmits
 
-export interface TooltipContentProps extends TooltipContentImplProps {}
+export interface TooltipContentProps extends TooltipContentImplProps {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
+   forceMount?: boolean
+}
 </script>
 
 <script setup lang="ts">
@@ -24,7 +30,7 @@ const { forwardRef } = useForwardExpose()
 </script>
 
 <template>
-  <Presence :present="rootContext.open.value">
+  <Presence :present="forceMount || rootContext.open.value">
     <component
       :is="rootContext.disableHoverableContent.value ? TooltipContentImpl : TooltipContentHoverable"
       :ref="forwardRef"

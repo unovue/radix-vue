@@ -3,7 +3,13 @@ import type { TooltipContentImplEmits, TooltipContentImplProps } from './Tooltip
 
 export type TooltipContentEmits = TooltipContentImplEmits
 
-export interface TooltipContentProps extends TooltipContentImplProps {}
+export interface TooltipContentProps extends TooltipContentImplProps {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
+   forceMount?: boolean
+}
 </script>
 
 <script setup lang="ts">
@@ -11,6 +17,7 @@ import TooltipContentImpl from './TooltipContentImpl.vue'
 import TooltipContentHoverable from './TooltipContentHoverable.vue'
 import { injectTooltipRootContext } from './TooltipRoot.vue'
 import { useForwardExpose, useForwardPropsEmits } from '@/shared'
+import { Presence } from '@/Presence'
 
 const props = withDefaults(defineProps<TooltipContentProps>(), {
   side: 'top',
@@ -23,12 +30,13 @@ const { forwardRef } = useForwardExpose()
 </script>
 
 <template>
-  <component
-    :is="rootContext.disableHoverableContent.value ? TooltipContentImpl : TooltipContentHoverable"
-    v-if="rootContext.open.value"
-    :ref="forwardRef"
-    v-bind="forwarded"
-  >
-    <slot />
-  </component>
+  <Presence :present="forceMount || rootContext.open.value">
+    <component
+      :is="rootContext.disableHoverableContent.value ? TooltipContentImpl : TooltipContentHoverable"
+      :ref="forwardRef"
+      v-bind="forwarded"
+    >
+      <slot />
+    </component>
+  </Presence>
 </template>

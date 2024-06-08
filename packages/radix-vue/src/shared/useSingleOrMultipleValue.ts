@@ -1,6 +1,7 @@
 import { useVModel } from '@vueuse/core'
 import { type Ref, computed, ref, watch } from 'vue'
 import type { SingleOrMultipleProps } from './types'
+import { isNullish } from './nullish'
 
 /**
  * Validates the props and it makes sure that the types are coherent with each other
@@ -15,7 +16,7 @@ import type { SingleOrMultipleProps } from './types'
 function validateProps({ type, defaultValue, modelValue }: SingleOrMultipleProps) {
   const value = modelValue || defaultValue
   // One of the three must be defined
-  if (!type && !modelValue && !defaultValue)
+  if (isNullish(type) && isNullish(modelValue) && isNullish(defaultValue))
     throw new Error('Either the `type` or the `value` or `default-value` prop must be defined.')
 
   if (modelValue !== undefined && defaultValue !== undefined && typeof modelValue !== typeof defaultValue) {
@@ -34,7 +35,7 @@ function validateProps({ type, defaultValue, modelValue }: SingleOrMultipleProps
     const typeUsed = propUsed === 'modelValue' ? typeof modelValue : typeof defaultValue
     if (type === 'single' && isArray) {
       console.error(`Invalid prop \`${propUsed}\` of type ${typeUsed} supplied with type \`single\`. The \`modelValue\` prop must be a string or \`undefined\`.
-You can remove the \`type\` prop to let the component infer the type from the ${propUsed} prop.`)
+    You can remove the \`type\` prop to let the component infer the type from the ${propUsed} prop.`)
       return 'multiple'
     }
     else if (type === 'multiple' && !isArray) {
@@ -72,6 +73,7 @@ export function useSingleOrMultipleValue<P extends SingleOrMultipleProps, Name e
   const modelValue = useVModel(props, 'modelValue', emits, {
     defaultValue: getDefaultValue(props),
     passive: (props.modelValue === undefined) as false,
+    deep: true,
   }) as Ref<string | string[] | undefined>
 
   watch(

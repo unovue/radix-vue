@@ -10,7 +10,7 @@ const toggleStateMultiple = ref(['italic'])
 
 <template>
   <div>
-    <ToggleGroupRoot v-model="toggleStateSingle" class="ToggleGroup">
+    <ToggleGroupRoot v-model="toggleStateSingle" type="single" class="ToggleGroup">
       <ToggleGroupItem value="left" aria-label="Toggle italic" class="ToggleGroupItem">
         <Icon icon="radix-icons:text-align-left" />
       </ToggleGroupItem>

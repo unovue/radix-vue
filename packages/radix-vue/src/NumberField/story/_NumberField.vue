@@ -8,10 +8,10 @@ const props = defineProps<NumberFieldRootProps>()
 
 <template>
   <NumberFieldRoot
-    data-testid="root"
-    class="text-sm flex items-center border bg-blackA7 border-blackA9 rounded-md text-white"
     v-bind="props"
     id="number-field"
+    data-testid="root"
+    class="text-sm flex items-center border bg-blackA7 border-blackA9 rounded-md text-white"
   >
     <label for="number-field" data-testid="label">Number Field</label>
     <NumberFieldDecrement class="p-2" data-testid="decrement">

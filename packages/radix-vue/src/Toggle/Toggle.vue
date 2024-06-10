@@ -39,10 +39,10 @@ const props = withDefaults(defineProps<ToggleProps>(), {
 const emits = defineEmits<ToggleEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current pressed state */
     pressed: typeof pressed.value
-  }): any
+  }) => any
 }>()
 
 useForwardExpose()

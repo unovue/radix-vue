@@ -37,10 +37,10 @@ const props = withDefaults(defineProps<DropdownMenuRootProps>(), {
 const emit = defineEmits<DropdownMenuRootEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current open state */
     open: typeof open.value
-  }): any
+  }) => any
 }>()
 
 useForwardExpose()

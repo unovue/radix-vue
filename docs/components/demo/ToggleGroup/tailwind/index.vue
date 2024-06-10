@@ -12,7 +12,7 @@ const toggleGroupItemClasses
 
 <template>
   <div>
-    <ToggleGroupRoot v-model="toggleStateSingle" class="flex">
+    <ToggleGroupRoot v-model="toggleStateSingle" type="single" class="flex">
       <ToggleGroupItem value="left" aria-label="Toggle italic" :class="toggleGroupItemClasses">
         <Icon icon="radix-icons:text-align-left" class="w-[15px] h-[15px]" />
       </ToggleGroupItem>

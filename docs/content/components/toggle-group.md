@@ -105,7 +105,7 @@ const value = ref('left')
   <ToggleGroupRoot
     :model-value="value"
     @update:model-value="(val) => {
-      if(val) value = val
+      if (val) value = val
     }"
   >
     <ToggleGroupItem value="left">

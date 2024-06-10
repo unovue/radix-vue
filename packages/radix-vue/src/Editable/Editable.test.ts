@@ -8,7 +8,7 @@ import { useTestKbd } from '@/shared'
 
 const kbd = useTestKbd()
 
-function setup(props: { editableProps?: EditableRootProps; emits?: { 'onUpdate:modelValue'?: (data: string) => void } } = {}) {
+function setup(props: { editableProps?: EditableRootProps, emits?: { 'onUpdate:modelValue'?: (data: string) => void } } = {}) {
   const user = userEvent.setup()
   const returned = render(Editable, { props })
   const editable = returned.getByTestId('root')
@@ -27,7 +27,7 @@ it('should pass axe accessibility tests', async () => {
   expect(await axe(root)).toHaveNoViolations()
 })
 
-describe('Editable', () => {
+describe('editable', () => {
   it('respects a default value if provided', async () => {
     const { preview } = setup({ editableProps: { defaultValue: 'Default Value' } })
     expect(preview).toHaveTextContent('Default Value')

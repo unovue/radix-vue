@@ -13,7 +13,7 @@ type EditableRootContext = {
   maxLength: Ref<number | undefined>
   disabled: Ref<boolean>
   modelValue: Ref<string | undefined>
-  placeholder: Ref<{ edit: string; preview: string }>
+  placeholder: Ref<{ edit: string, preview: string }>
   isEditing: Ref<boolean>
   submitMode: Ref<SubmitMode>
   activationMode: Ref<ActivationMode>
@@ -34,7 +34,7 @@ export interface EditableRootProps extends PrimitiveProps {
   /** The value of the editable field */
   modelValue?: string
   /** The placeholder for the editable field */
-  placeholder?: string | { edit: string; preview: string }
+  placeholder?: string | { edit: string, preview: string }
   /** The reading direction of the calendar when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
   /** Whether the editable field is disabled */
@@ -90,7 +90,7 @@ const props = withDefaults(defineProps<EditableRootProps>(), {
 
 const emits = defineEmits<EditableRootEmits>()
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Whether the editable field is in edit mode */
     isEditing: boolean
     /** The value of the editable field */
@@ -98,7 +98,7 @@ defineSlots<{
     /** Whether the editable field is empty */
     isEmpty: boolean
     /** Function to set the value of the editable */
-  }): any
+  }) => any
 }>()
 
 const {

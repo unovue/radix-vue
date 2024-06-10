@@ -20,10 +20,10 @@ const props = withDefaults(defineProps<DropdownMenuSubProps>(), {
 const emit = defineEmits<DropdownMenuSubEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current open state */
     open: typeof open.value
-  }): any
+  }) => any
 }>()
 
 const open = useVModel(props, 'open', emit, {

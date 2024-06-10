@@ -47,10 +47,10 @@ const props = withDefaults(defineProps<SwitchRootProps>(), {
 const emit = defineEmits<SwitchRootEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current checked state */
     checked: typeof checked.value
-  }): any
+  }) => any
 }>()
 
 const { disabled } = toRefs(props)

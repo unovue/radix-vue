@@ -2,11 +2,14 @@
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useForwardExpose } from '@/shared'
 
+export type StepperState = 'completed' | 'active' | 'inactive'
 
 export interface StepperItemContext {
   titleId: string;
   descriptionId: string;
   contentElement: Ref<HTMLElement | undefined>
+  state: Ref<StepperState>
+  disabled: Ref<boolean>
 }
 
 export interface StepperItemProps extends PrimitiveProps {
@@ -22,7 +25,7 @@ export const [injectStepperItemContext, provideStepperItemContext]
 </script>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, type Ref } from 'vue'
+import { computed, onMounted, ref, toRefs, type Ref } from 'vue'
 import { useId } from '@/shared'
 import { injectStepperRootContext } from './StepperRoot.vue'
 import { Primitive } from '@/Primitive'
@@ -30,16 +33,38 @@ import { RovingFocusItem } from '@/RovingFocus'
 
 const props = withDefaults(defineProps<StepperItemProps>(), {
   disabled: false,
-  as: 'button',
+  as: 'li',
 })
 
+const { disabled } = toRefs(props)
+
 const { forwardRef, currentElement: contentElement } = useForwardExpose()
+
 const rootContext = injectStepperRootContext()
 const contextContentElement = ref<HTMLElement>()
+
 const titleId = useId(undefined, 'radix-vue-stepper-item-title')
 const descriptionId = useId(undefined, 'radix-vue-stepper-item-description')
 
-const isSelected = computed(() => props.value === rootContext.modelValue.value)
+const itemState = computed(() => {
+  if (rootContext.modelValue.value === props.value)
+    return 'active'
+  else if (rootContext.linear.value && rootContext.modelValue.value! > props.value)
+    return 'completed'
+  else
+    return 'inactive'
+})
+
+const isFocusable = computed(() => {
+  if(disabled.value)
+    return false
+  if (rootContext.linear.value) {
+    if (rootContext.modelValue.value! > props.value)
+      return false
+    return true
+  }
+  return true
+})
 
 onMounted(() => {
   contextContentElement.value = contentElement.value
@@ -49,19 +74,19 @@ provideStepperItemContext({
   titleId,
   descriptionId,
   contentElement: contextContentElement,
+  state: itemState,
+  disabled
 })
 </script>
 
 <template>
-  <RovingFocusItem as-child :focusable="!disabled" :active="isSelected">
+  <RovingFocusItem as-child :focusable="isFocusable" :active="itemState === 'active'">
     <Primitive
       :ref="forwardRef"
-      role="tab"
-      :type="as === 'button' ? 'button' : undefined"
       :as="as"
       :as-child="asChild"
-      :aria-selected="isSelected ? 'true' : 'false'"
-      :data-state="isSelected ? 'active' : 'inactive'"
+      :aria-current="itemState === 'active' ? 'true' : undefined"
+      :data-state="itemState"
       :disabled="disabled"
       :data-disabled="disabled ? '' : undefined"
       :data-orientation="rootContext.orientation.value"

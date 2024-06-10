@@ -11,7 +11,7 @@ export interface StepperRootContext {
   changeModelValue: (value: number) => void
   orientation: Ref<DataOrientation>
   dir: Ref<Direction>
-  activationMode: 'automatic' | 'manual'
+  linear: Ref<boolean>
 }
 
 export interface StepperRootProps extends PrimitiveProps {
@@ -29,7 +29,7 @@ export interface StepperRootProps extends PrimitiveProps {
    * The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode.
    */
   dir?: Direction
-  /** The controlled value of the tab to activate. Can be bind as `v-model`. */
+  /** The controlled value of the tab to activate. Can be bound as `v-model`. */
   modelValue?: number
   /** Whether or not the steps must be completed in order */
   linear?: boolean
@@ -49,18 +49,19 @@ import { Primitive } from '@/Primitive'
 
 const props = withDefaults(defineProps<StepperRootProps>(), {
   orientation: 'horizontal',
-  activationMode: 'automatic',
+  linear: true,
+  defaultValue: 0,
 })
 const emits = defineEmits<StepperRootEmits>()
 
 defineSlots<{
   default(props: {
-    /** Current input values */
-    modelValue: typeof modelValue.value
+    /** Current step */
+    modelValue: number
   }): any
 }>()
 
-const { dir: propDir, orientation: propOrientation } = toRefs(props)
+const { dir: propDir, orientation: propOrientation, linear } = toRefs(props)
 const dir = useDirection(propDir)
 useForwardExpose()
 
@@ -77,7 +78,7 @@ provideStepperRootContext({
   },
   orientation: propOrientation,
   dir,
-  activationMode: props.activationMode,
+  linear,
 })
 </script>
 
@@ -88,8 +89,11 @@ provideStepperRootContext({
     :dir="dir"
   > 
       <Primitive
+        role="group"
+        aria-label="progress"
         :as-child="asChild"
         :as="as"
+        :data-linear="linear ? '' : undefined"
       >
           <slot :model-value="modelValue" />
       </Primitive>

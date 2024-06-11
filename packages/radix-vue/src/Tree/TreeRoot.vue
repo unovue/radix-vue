@@ -1,6 +1,7 @@
 <script lang="ts">
-import { createContext, findValuesBetween, useDirection, useKbd, useSelectionBehavior, useTypeahead } from '@/shared'
+import { createContext, useDirection, useSelectionBehavior, useTypeahead } from '@/shared'
 import type { Direction } from '@/shared/types'
+import { flatten } from './utils'
 
 export interface TreeRootProps<T = Record<string, any>, U extends Record<string, any> = Record<string, any>> extends PrimitiveProps {
   /** The controlled value of the tree. Can be binded-with with `v-model`. */
@@ -23,8 +24,8 @@ export interface TreeRootProps<T = Record<string, any>, U extends Record<string,
   dir?: Direction
   /** When `true`, prevents the user from interacting with tree  */
   disabled?: boolean
-  /** By default clicking on item will select the item, setting to `true` will open the item (if possible) then select the item */
-  preventSelectBeforeExpand?: boolean
+  /** When `true`, selecting parent will select it's descendants. */
+  propagateSelect?: boolean
 }
 
 export type TreeRootEmits<T = Record<string, any>> = {
@@ -32,18 +33,19 @@ export type TreeRootEmits<T = Record<string, any>> = {
   'update:expanded': [val: string[]]
 }
 
-interface TreeRootContext<T> {
+interface TreeRootContext<T = Record<string, any>> {
   modelValue: Ref<T | T[]>
   selectedKeys: Ref<string[]>
   onSelect: (val: T) => void
   expanded: Ref<string[]>
   onToggle: (val: T) => void
   items: Ref<T[]>
+  expandedItems: Ref<T[]>
   getKey: (val: T) => string
   multiple: Ref<boolean>
   disabled: Ref<boolean>
   dir: Ref<Direction>
-  preventSelectBeforeExpand: Ref<boolean>
+  propagateSelect: Ref<boolean>
   isVirtual: Ref<boolean>
   virtualKeydownHook: EventHook<KeyboardEvent>
 
@@ -85,7 +87,7 @@ defineSlots<{
   }) => any
 }>()
 
-const { multiple, disabled, preventSelectBeforeExpand, dir: propDir } = toRefs(props)
+const { items, multiple, disabled, propagateSelect, dir: propDir } = toRefs(props)
 const { handleTypeaheadSearch } = useTypeahead()
 const dir = useDirection(propDir)
 const rovingFocusGroupRef = ref<InstanceType<typeof RovingFocusGroup>>()
@@ -142,6 +144,7 @@ function flattenItems(items: T[], level: number = 1): FlattenedItem<T>[] {
     return acc
   }, [])
 }
+
 const expandedItems = computed(() => {
   const items = props.items
   const expandedKeys = expanded.value.map(i => i)
@@ -164,7 +167,12 @@ function handleKeydownNavigation(event: KeyboardEvent) {
 
   const intent = MAP_KEY_TO_FOCUS_INTENT[event.key]
   nextTick(() => {
-    handleMultipleReplace(intent, document.activeElement, rovingFocusGroupRef.value?.getItems!, expandedItems.value.map(i => i.value))
+    handleMultipleReplace(
+      intent,
+      document.activeElement,
+      rovingFocusGroupRef.value?.getItems!,
+      expandedItems.value.map(i => i.value),
+    )
   })
 }
 
@@ -172,7 +180,22 @@ provideTreeRootContext({
   modelValue,
   selectedKeys,
   onSelect: (val) => {
-    onSelectItem(val, v => props.getKey(v as any ?? {}) === props.getKey(val as any))
+    const condition = (baseValue: U) => props.getKey(baseValue as any ?? {}) === props.getKey(val)
+    const exist = props.multiple && Array.isArray(modelValue.value) ? modelValue.value?.findIndex(condition) !== -1 : undefined
+    onSelectItem(val, condition)
+
+    if (props.propagateSelect && props.multiple && Array.isArray(modelValue.value)) {
+      const children = flatten<U, any>(val.children ?? [])
+      if (exist) {
+        // remove all child
+        modelValue.value = [...modelValue.value]
+          .filter(i => !children.some(child => props.getKey(i as any ?? {}) === props.getKey(child as any)))
+      }
+      else {
+        // select all child
+        modelValue.value = [...modelValue.value, ...children]
+      }
+    }
   },
   expanded,
   onToggle(val) {
@@ -186,11 +209,12 @@ provideTreeRootContext({
       expanded.value.push(key)
   },
   getKey: props.getKey,
-  items: expandedItems,
+  items,
+  expandedItems,
   disabled,
   multiple,
   dir,
-  preventSelectBeforeExpand,
+  propagateSelect,
 
   isVirtual,
   virtualKeydownHook,

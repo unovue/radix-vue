@@ -5,6 +5,18 @@ export interface TreeItemProps<T> extends PrimitiveProps {
   /** Level of depth */
   level: number
 }
+
+export type SelectEvent<T> = CustomEvent<{ originalEvent: PointerEvent, value?: T, isExpanded: boolean, isSelected: boolean }>
+export type ToggleEvent<T> = CustomEvent<{ originalEvent: PointerEvent, value?: T, isExpanded: boolean, isSelected: boolean }>
+
+export type TreeItemEmits<T> = {
+  /** Event handler called when the selecting item. <br> It can be prevented by calling `event.preventDefault`. */
+  select: [event: SelectEvent<T>]
+  /** Event handler called when the selecting item. <br> It can be prevented by calling `event.preventDefault`. */
+  toggle: [event: ToggleEvent<T>]
+}
+
+const TREE_SELECT = 'tree.select'
 </script>
 
 <script setup lang="ts" generic="T extends Record<string, any>">
@@ -13,19 +25,28 @@ import { RovingFocusItem } from '@/RovingFocus'
 import { injectTreeRootContext } from './TreeRoot.vue'
 import { computed } from 'vue'
 import { useCollection } from '@/Collection'
+import { handleAndDispatchCustomEvent } from '@/shared'
+import { flatten } from './utils'
 
 const props = withDefaults(defineProps<TreeItemProps<T>>(), {
   as: 'li',
 })
 
+const emits = defineEmits<TreeItemEmits<T>>()
+
 defineSlots<{
   default: (props: {
     isExpanded: boolean
     isSelected: boolean
+    isIndeterminate: boolean | undefined
+    handleToggle: () => void
+    handleSelect: () => void
   }) => any
 }>()
 const rootContext = injectTreeRootContext()
 const { getItems } = useCollection()
+
+const hasChildren = computed(() => !!props.value.children?.length)
 
 const isExpanded = computed(() => {
   const key = rootContext.getKey(props.value)
@@ -37,8 +58,19 @@ const isSelected = computed(() => {
   return rootContext.selectedKeys.value.includes(key)
 })
 
+const isIndeterminate = computed(() => {
+  if (rootContext.propagateSelect.value && isSelected.value && hasChildren.value && Array.isArray(rootContext.modelValue.value)) {
+    const children = flatten<T, any>(props.value.children)
+
+    return !children.every(child => rootContext.modelValue.value.find((v: any) => rootContext.getKey(v) === rootContext.getKey(child)))
+  }
+  else {
+    return undefined
+  }
+})
+
 function handleKeydownRight() {
-  if (!props.value.children?.length)
+  if (!hasChildren.value)
     return
 
   if (isExpanded.value) {
@@ -75,10 +107,35 @@ function handleKeydownLeft() {
   }
 }
 
+async function handleSelect(ev: SelectEvent<T>) {
+  emits('select', ev)
+  if (ev?.defaultPrevented)
+    return
+
+  rootContext.onSelect(props.value)
+}
+async function handleToggle(ev: ToggleEvent<T>) {
+  emits('toggle', ev)
+  if (ev?.defaultPrevented)
+    return
+
+  rootContext.onToggle(props.value)
+}
+
+function handleSelectCustomEvent(ev?: PointerEvent) {
+  if (!ev)
+    return
+  const eventDetail = { originalEvent: ev, value: props.value, isExpanded: isExpanded.value, isSelected: isSelected.value }
+  handleAndDispatchCustomEvent(TREE_SELECT, handleSelect, eventDetail)
+  handleAndDispatchCustomEvent(TREE_SELECT, handleToggle, eventDetail)
+}
+
 defineExpose({
   isExpanded,
   isSelected,
-  onToggle: () => rootContext.onToggle(props.value),
+  isIndeterminate,
+  handleToggle: () => rootContext.onToggle(props.value),
+  handleSelect: () => rootContext.onSelect(props.value),
 })
 </script>
 
@@ -89,28 +146,22 @@ defineExpose({
       :as="as"
       :as-child="asChild"
       :aria-selected="isSelected"
-      :aria-expanded="isExpanded"
+      :aria-expanded="hasChildren ? isExpanded : undefined"
       :aria-level="level"
       :data-indent="level"
       :data-selected="isSelected ? '' : undefined"
       :data-expanded="isExpanded ? '' : undefined"
-      @keydown.enter.space.self.prevent="rootContext.onSelect(value)"
+      @keydown.enter.space.self="handleSelectCustomEvent"
       @keydown.right.prevent="handleKeydownRight"
       @keydown.left.prevent="handleKeydownLeft"
-      @click.stop="() => {
-        if (rootContext.preventSelectBeforeExpand.value && !!props.value.children?.length) {
-          if (isExpanded)
-            rootContext.onSelect(value)
-        }
-        else {
-          rootContext.onSelect(value)
-        }
-        rootContext.onToggle(value)
-      }"
+      @click.stop="handleSelectCustomEvent"
     >
       <slot
         :is-expanded="isExpanded"
         :is-selected="isSelected"
+        :is-indeterminate="isIndeterminate"
+        :handle-select="() => rootContext.onSelect(value)"
+        :handle-toggle="() => rootContext.onToggle(value)"
       />
     </Primitive>
   </RovingFocusItem>

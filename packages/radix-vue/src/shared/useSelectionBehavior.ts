@@ -34,6 +34,7 @@ export function useSelectionBehavior<T>(
           modelValue.value = { ...val }
       }
     }
+    return modelValue.value
   }
 
   function handleMultipleReplace(intent: 'first' | 'last' | 'prev' | 'next', currentElement: HTMLElement | Element | null, getItems: () => { ref: HTMLElement, value?: any }[], options: any[]) {

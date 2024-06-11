@@ -73,15 +73,27 @@ const items = [
         class="list-none select-none w-64 bg-white text-blackA11 rounded-md p-2 text-sm font-medium"
         :items="items"
         :get-key="(item) => item.title"
+        multiple
+        propagate-select
       >
         <TreeItem
           v-for="item in flattenItems"
           :key="item._id"
-          class="flex items-center py-1 px-2 my-0.5 rounded w-max outline-none focus:ring-grass9 focus:ring-2 data-[selected]:bg-grass4"
-          :style="{ 'margin-left': `${item.level}rem` }"
+          v-slot="{ onSelect, isSelected }"
           v-bind="item.bind"
+          :style="{ 'margin-left': `${item.level}rem` }"
+          class="flex items-center py-1 px-2 my-0.5 rounded w-max outline-none focus:ring-grass9 focus:ring-2 data-[selected]:bg-grass4"
+          @select="(event) => {
+            if (event.detail.originalEvent.type === 'click')
+              event.preventDefault()
+          }"
+          @toggle="(event) => {
+            if (event.detail.originalEvent.type === 'keydown')
+              event.preventDefault()
+          }"
         >
           <Icon v-if="item.hasChildren" icon="radix-icons:chevron-down" class="h-4 w-4" />
+          <input :checked="isSelected" type="checkbox" @click.stop @change="onSelect">
           <div class="pl-2">
             {{ item.value.title }}
           </div>

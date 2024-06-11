@@ -69,8 +69,8 @@
     'required': false
   },
   {
-    'name': 'preventSelectBeforeExpand',
-    'description': '<p>By default clicking on item will select the item, setting to <code>true</code> will open the item (if possible) then select the item</p>\n',
+    'name': 'propagateSelect',
+    'description': '<p>When <code>true</code>, selecting parent will select it's descendants.</p>\n',
     'type': 'boolean',
     'required': false
   },

@@ -198,12 +198,6 @@ importers:
 
   packages/radix-vue:
     dependencies:
-      '@atlaskit/pragmatic-drag-and-drop':
-        specifier: ^1.1.11
-        version: 1.1.11
-      '@atlaskit/pragmatic-drag-and-drop-hitbox':
-        specifier: ^1.0.3
-        version: 1.0.3
       '@floating-ui/dom':
         specifier: ^1.6.5
         version: 1.6.5
@@ -672,21 +666,6 @@ packages:
       is-potential-custom-element-name: 1.0.1
     dev: true
 
-  /@atlaskit/pragmatic-drag-and-drop-hitbox@1.0.3:
-    resolution: {integrity: sha512-/Sbu/HqN2VGLYBhnsG7SbRNg98XKkbF6L7XDdBi+izRybfaK1FeMfodPpm/xnBHPJzwYMdkE0qtLyv6afhgMUA==}
-    dependencies:
-      '@atlaskit/pragmatic-drag-and-drop': 1.1.11
-      '@babel/runtime': 7.24.0
-    dev: false
-
-  /@atlaskit/pragmatic-drag-and-drop@1.1.11:
-    resolution: {integrity: sha512-oAwMGM68d7PrAHvcgwzJbOtZJKW6BJsc2eDWfVWb7W+lGo8tWDIFdMSmR2K+EczV03lXgdnQbRWDMcOrZ/98mQ==}
-    dependencies:
-      '@babel/runtime': 7.24.0
-      bind-event-listener: 3.0.0
-      raf-schd: 4.0.3
-    dev: false
-
   /@babel/code-frame@7.23.5:
     resolution: {integrity: sha512-CgH3s1a96LipHCmSUmYFPwY7MNx8C3avkq7i4Wl3cfa662ldtUe4VM1TPXX70pfmrlWTb6jLqTYrZyT2ZTJBgA==}
     engines: {node: '>=6.9.0'}
@@ -925,6 +904,7 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.1
+    dev: true
 
   /@babel/standalone@7.24.0:
     resolution: {integrity: sha512-yIZ/X3EAASgX/MW1Bn8iZKxCwixgYJAUaIScoZ9C6Gapw5l3eKIbtVSgO/IGldQed9QXm22yurKVWyWj5/j+SQ==}
@@ -3969,10 +3949,6 @@ packages:
     resolution: {integrity: sha512-nAihlQsYGyc5Bwq6+EsubvANYGExeJKHDO3RjnvwU042fawQTQfM3Kxn7IHUXQOz4bzfwsGYYHGSvXyW4zOGLg==}
     engines: {node: '>=0.8'}
     dev: true
-
-  /bind-event-listener@3.0.0:
-    resolution: {integrity: sha512-PJvH288AWQhKs2v9zyfYdPzlPqf5bXbGMmhmUIY9x4dAUGIWgomO771oBQNwJnMQSnUIXhKu6sgzpBRXTlvb8Q==}
-    dev: false
 
   /birpc@0.1.1:
     resolution: {integrity: sha512-B64AGL4ug2IS2jvV/zjTYDD1L+2gOJTT7Rv+VaK7KVQtQOo/xZbCDsh7g727ipckmU+QJYRqo5RcifVr0Kgcmg==}
@@ -9524,10 +9500,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /raf-schd@4.0.3:
-    resolution: {integrity: sha512-tQkJl2GRWh83ui2DiPTJz9wEiMN20syf+5oKfB03yYP7ioZcJwsIK8FjrtLwH1m7C7e+Tt2yYBlrOpdT+dyeIQ==}
-    dev: false
-
   /rc9@2.1.1:
     resolution: {integrity: sha512-lNeOl38Ws0eNxpO3+wD1I9rkHGQyj1NU1jlzv4go2CtEnEQEUfqnIvZG7W+bC/aXdJ27n5x/yUjb6RoT9tko+Q==}
     dependencies:
@@ -9622,6 +9594,7 @@ packages:
 
   /regenerator-runtime@0.14.1:
     resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
+    dev: true
 
   /regexp-ast-analysis@0.7.1:
     resolution: {integrity: sha512-sZuz1dYW/ZsfG17WSAG7eS85r5a0dDsvg+7BiiYR5o6lKCAtUrEwdmRmaGF6rwVj3LcmAeYkOWKEPlbPzN3Y3A==}

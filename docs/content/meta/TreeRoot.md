@@ -70,7 +70,7 @@
   },
   {
     'name': 'propagateSelect',
-    'description': '<p>When <code>true</code>, selecting parent will select it's descendants.</p>\n',
+    'description': '<p>When <code>true</code>, selecting parent will select the descendants.</p>\n',
     'type': 'boolean',
     'required': false
   },

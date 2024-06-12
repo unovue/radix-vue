@@ -25,8 +25,12 @@ import { RovingFocusItem } from '@/RovingFocus'
 import { injectTreeRootContext } from './TreeRoot.vue'
 import { computed } from 'vue'
 import { useCollection } from '@/Collection'
-import { handleAndDispatchCustomEvent } from '@/shared'
+import { handleAndDispatchCustomEvent, useForwardRef } from '@/shared'
 import { flatten } from './utils'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const props = withDefaults(defineProps<TreeItemProps<T>>(), {
   as: 'li',
@@ -142,6 +146,7 @@ defineExpose({
 <template>
   <RovingFocusItem as-child :value="value" allow-shift-key>
     <Primitive
+      v-bind="$attrs"
       role="treeitem"
       :as="as"
       :as-child="asChild"

@@ -39,7 +39,7 @@ const optionsWithMetadata = computed(() => {
       return option.toString().toLowerCase()
   }
 
-  return rootContext.items.value.map((option, index) => ({
+  return rootContext.expandedItems.value.map((option, index) => ({
     index,
     textContent: parseTextContent(option.value),
   }))
@@ -66,10 +66,10 @@ const virtualizer = useVirtualizer(
   {
     get scrollPaddingStart() { return padding.value.start },
     get scrollPaddingEnd() { return padding.value.end },
-    get count() { return rootContext.items.value.length ?? 0 },
+    get count() { return rootContext.expandedItems.value.length ?? 0 },
     get horizontal() { return false },
     getItemKey(index) {
-      return index + rootContext.getKey(rootContext.items.value[index].value)
+      return index + rootContext.getKey(rootContext.expandedItems.value[index].value)
     },
     estimateSize() {
       return props.estimateSize ?? 28
@@ -83,7 +83,7 @@ const virtualizedItems = computed(() => virtualizer.value.getVirtualItems().map(
   return {
     item,
     is: cloneVNode(slots.default!({
-      item: rootContext.items.value[item.index],
+      item: rootContext.expandedItems.value[item.index],
     })![0], {
       'data-index': item.index,
       'style': {
@@ -117,7 +117,7 @@ rootContext.virtualKeydownHook.on((event) => {
   if (['first', 'last'].includes(intent)) {
     event.preventDefault()
 
-    const index = intent === 'first' ? 0 : rootContext.items.value.length - 1
+    const index = intent === 'first' ? 0 : rootContext.expandedItems.value.length - 1
     virtualizer.value.scrollToIndex(index)
     requestAnimationFrame(() => {
       const items = getItems()
@@ -129,7 +129,7 @@ rootContext.virtualKeydownHook.on((event) => {
     const currentElement = document.activeElement as HTMLElement
     const currentIndex = Number(currentElement.getAttribute('data-index'))
     const currentLevel = Number(currentElement.getAttribute('data-indent'))
-    const list = rootContext.items.value.slice(0, currentIndex).map((item, index) => ({ ...item, index })).reverse()
+    const list = rootContext.expandedItems.value.slice(0, currentIndex).map((item, index) => ({ ...item, index })).reverse()
 
     const parentItem = list.find(item => item.level === (currentLevel - 1))
     if (parentItem)
@@ -149,7 +149,7 @@ rootContext.virtualKeydownHook.on((event) => {
 
   nextTick(() => {
     if (event.shiftKey && intent)
-      rootContext.handleMultipleReplace(intent, document.activeElement, getItems, rootContext.items.value.map(i => i.value))
+      rootContext.handleMultipleReplace(intent, document.activeElement, getItems, rootContext.expandedItems.value.map(i => i.value))
   })
 })
 </script>

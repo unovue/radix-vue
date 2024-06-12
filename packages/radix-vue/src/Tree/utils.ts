@@ -8,3 +8,5 @@ export function flatten<U, T extends { children: any[] } >(items: T[]): U[] {
     return acc
   }, [])
 }
+
+// TODO: expose more utility function to handle flattened item

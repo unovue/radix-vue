@@ -2,6 +2,7 @@ export {
   default as TreeRoot,
   type TreeRootProps,
   type TreeRootEmits,
+  type FlattenedItem,
 } from './TreeRoot.vue'
 export {
   default as TreeItem,

@@ -145,6 +145,59 @@ import { TreeItem, TreeRoot, TreeVirtualizer } from 'radix-vue'
 </template>
 ```
 
+### With Checkbox
+
+Some `Tree` component might want to show `toggled/indeterminate` checkbox. We can change the behavior of the `Tree` component by using a few props and `preventDefault` event.
+
+We set `propagateSelect` to `true` because we want the parent checkbox to select/deselect it's descendants. Then, we add a checkbox that triggers `select` event.
+
+```vue line=10-11,17-25,29-33
+<script setup lang="ts">
+import { ref } from 'vue'
+import { TreeItem, TreeRoot } from 'radix-vue'
+</script>
+
+<template>
+  <TreeRoot
+    v-slot="{ flattenItems }"
+    :items
+    multiple
+    propagate-select
+  >
+    <TreeItem
+      v-for="item in flattenItems"
+      :key="item._id"
+      v-bind="item.bind"
+      v-slot="{ handleSelect, isSelected, isIndeterminate }"
+      @select="(event) => {
+        if (event.detail.originalEvent.type === 'click')
+          event.preventDefault()
+      }"
+      @toggle="(event) => {
+        if (event.detail.originalEvent.type === 'keydown')
+          event.preventDefault()
+      }"
+    >
+      <Icon v-if="item.hasChildren" icon="radix-icons:chevron-down" />
+
+      <button tabindex="-1" @click.stop @change="handleSelect">
+        <Icon v-if="isSelected" icon="radix-icons:check" />
+        <Icon v-else-if="isIndeterminate" icon="radix-icons:dash" />
+        <Icon v-else icon="radix-icons:box" />
+      </button>
+
+      <div class="pl-2">
+        {{ item.value.title }}
+      </div>
+    </TreeItem>
+  </TreeRoot>
+</template>
+```
+
+### Draggable/Sortable Tree
+
+For more complex draggable `Tree` component, in this example we will be using [pragmatic-drag-and-drop](https://github.com/atlassian/pragmatic-drag-and-drop), as the core package for handling dnd.
+
 ## Accessibility
 
 Adheres to the [Tree WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/treeview/).

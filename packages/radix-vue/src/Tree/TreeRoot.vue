@@ -24,7 +24,7 @@ export interface TreeRootProps<T = Record<string, any>, U extends Record<string,
   dir?: Direction
   /** When `true`, prevents the user from interacting with tree  */
   disabled?: boolean
-  /** When `true`, selecting parent will select it's descendants. */
+  /** When `true`, selecting parent will select the descendants. */
   propagateSelect?: boolean
 }
 
@@ -54,9 +54,11 @@ interface TreeRootContext<T = Record<string, any>> {
 
 export type FlattenedItem<T> = {
   _id: string
+  index: number
   value: T
   level: number
   hasChildren: boolean
+  parentItem?: T
   bind: {
     value: T
     level: number
@@ -119,7 +121,7 @@ const selectedKeys = computed(() => {
     return [props.getKey(modelValue.value as any ?? {})]
 })
 
-function flattenItems(items: T[], level: number = 1): FlattenedItem<T>[] {
+function flattenItems(items: T[], level: number = 1, parentItem?: T): FlattenedItem<T>[] {
   return items.reduce((acc: FlattenedItem<T>[], item: T, index: number) => {
     const key = props.getKey(item)
     const isExpanded = expanded.value.includes(key)
@@ -127,8 +129,10 @@ function flattenItems(items: T[], level: number = 1): FlattenedItem<T>[] {
     const flattenedItem: FlattenedItem<T> = {
       _id: key,
       value: item,
+      index,
       level,
-      hasChildren: !!item.children,
+      parentItem,
+      hasChildren: !!item.children?.length,
       bind: {
         'value': item,
         level,
@@ -139,7 +143,7 @@ function flattenItems(items: T[], level: number = 1): FlattenedItem<T>[] {
     acc.push(flattenedItem)
 
     if (item.children && isExpanded)
-      acc.push(...flattenItems(item.children, level + 1))
+      acc.push(...flattenItems(item.children, level + 1, item))
 
     return acc
   }, [])

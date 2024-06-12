@@ -198,7 +198,7 @@ import { TreeItem, TreeRoot } from 'radix-vue'
 
 For more complex draggable `Tree` component, in this example we will be using [pragmatic-drag-and-drop](https://github.com/atlassian/pragmatic-drag-and-drop), as the core package for handling dnd.
 
-[Stackblitz Demo](https://stackblitz.com/~/github.com/zernonia/radix-vue-tree)
+[Stackblitz Demo](https://stackblitz.com/edit/github-8f3fzs?file=src%2FTreeDND.vue)
 
 ## Accessibility
 

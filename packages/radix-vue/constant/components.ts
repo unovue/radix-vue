@@ -349,6 +349,16 @@ export const components = {
     'SplitterResizeHandle',
   ],
 
+  stepper: [
+    'StepperRoot',
+    'StepperItem',
+    'StepperList',
+    'StepperDescription',
+    'StepperTitle',
+    'StepperIndicator',
+    'StepperSeparator',
+  ],
+
   switch: [
     'SwitchRoot',
     'SwitchThumb',

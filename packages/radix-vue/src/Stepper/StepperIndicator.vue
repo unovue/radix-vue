@@ -1,14 +1,14 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
 import { injectStepperRootContext } from './StepperRoot.vue'
+import { injectStepperItemContext } from './StepperItem.vue'
+import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
-import { injectStepperItemContext } from './StepperItem.vue';
-
-export interface StepperIndicatorProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
 import { Primitive } from '@/Primitive'
+
+export interface StepperIndicatorProps extends PrimitiveProps { }
 
 const props = defineProps<StepperIndicatorProps>()
 const rootContext = injectStepperRootContext()
@@ -23,6 +23,8 @@ useForwardExpose()
     :data-state="itemContext.state.value"
     :data-disabled="itemContext.disabled.value"
   >
-    <slot />
+    <slot>
+      Step {{ itemContext.step.value }}
+    </slot>
   </Primitive>
 </template>

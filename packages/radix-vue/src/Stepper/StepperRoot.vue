@@ -1,10 +1,12 @@
 <script lang="ts">
 import type { Ref } from 'vue'
-import type { PrimitiveProps } from '@/Primitive'
-import type { DataOrientation, Direction } from '../shared/types'
-import { createContext, useDirection, useForwardExpose, } from '@/shared'
-import { RovingFocusGroup } from '@/RovingFocus'
 import { useVModel } from '@vueuse/core'
+import { toRefs } from 'vue'
+import type { DataOrientation, Direction } from '../shared/types'
+import type { PrimitiveProps } from '@/Primitive'
+import { createContext, useDirection, useForwardExpose } from '@/shared'
+import { RovingFocusGroup } from '@/RovingFocus'
+import { Primitive } from '@/Primitive'
 
 export interface StepperRootContext {
   modelValue: Ref<number | undefined>
@@ -44,21 +46,18 @@ export const [injectStepperRootContext, provideStepperRootContext]
 </script>
 
 <script setup lang="ts">
-import { toRefs } from 'vue'
-import { Primitive } from '@/Primitive'
-
 const props = withDefaults(defineProps<StepperRootProps>(), {
   orientation: 'horizontal',
   linear: true,
-  defaultValue: 0,
+  defaultValue: 1,
 })
 const emits = defineEmits<StepperRootEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current step */
-    modelValue: number
-  }): any
+    modelValue: number | undefined
+  }) => any
 }>()
 
 const { dir: propDir, orientation: propOrientation, linear } = toRefs(props)
@@ -69,7 +68,6 @@ const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
   passive: (props.modelValue === undefined) as false,
 })
-
 
 provideStepperRootContext({
   modelValue,
@@ -83,19 +81,19 @@ provideStepperRootContext({
 </script>
 
 <template>
-  <RovingFocusGroup 
+  <RovingFocusGroup
     as-child
-    :orientation="orientation" 
+    :orientation="orientation"
     :dir="dir"
-  > 
-      <Primitive
-        role="group"
-        aria-label="progress"
-        :as-child="asChild"
-        :as="as"
-        :data-linear="linear ? '' : undefined"
-      >
-          <slot :model-value="modelValue" />
-      </Primitive>
-	</RovingFocusGroup>
+  >
+    <Primitive
+      role="group"
+      aria-label="progress"
+      :as-child="asChild"
+      :as="as"
+      :data-linear="linear ? '' : undefined"
+    >
+      <slot :model-value="modelValue" />
+    </Primitive>
+  </RovingFocusGroup>
 </template>

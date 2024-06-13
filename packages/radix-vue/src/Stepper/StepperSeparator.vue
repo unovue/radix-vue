@@ -1,21 +1,29 @@
 <script lang="ts">
+import { injectStepperRootContext } from './StepperRoot.vue'
+import { injectStepperItemContext } from './StepperItem.vue'
 import { Separator, type SeparatorProps } from '@/Separator'
 import { useForwardExpose } from '@/shared'
-
-export interface StepperSeparatorProps extends SeparatorProps {}
 </script>
 
 <script setup lang="ts">
-import { injectStepperRootContext } from './StepperRoot.vue'
+export interface StepperSeparatorProps extends SeparatorProps { }
 
-const props = withDefaults(defineProps<StepperSeparatorProps>(), {  })
+const props = withDefaults(defineProps<StepperSeparatorProps>(), {})
+
+const rootContext = injectStepperRootContext()
+const itemContext = injectStepperItemContext()
 
 useForwardExpose()
-const rootContext = injectStepperRootContext()
 </script>
 
 <template>
-  <Separator v-bind="props" decorative :orientation="rootContext.orientation.value">
+  <Separator
+    v-bind="props"
+    decorative
+    :orientation="rootContext.orientation.value"
+    :data-linear="rootContext.linear.value"
+    :data-state="itemContext.state.value"
+  >
     <slot />
   </Separator>
 </template>

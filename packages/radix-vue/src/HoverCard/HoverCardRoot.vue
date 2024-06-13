@@ -26,6 +26,7 @@ export interface HoverCardRootContext {
   hasSelectionRef: Ref<boolean>
   isPointerDownOnContentRef: Ref<boolean>
   isPointerInTransit: Ref<boolean>
+  isHoveringRef: Ref<boolean>
   triggerElement: Ref<HTMLElement | undefined>
 }
 
@@ -66,11 +67,15 @@ const closeTimerRef = ref(0)
 const hasSelectionRef = ref(false)
 const isPointerDownOnContentRef = ref(false)
 const isPointerInTransit = ref(false)
+const isHoveringRef = ref(false)
 const triggerElement = ref<HTMLElement>()
 
 function handleOpen() {
   clearTimeout(closeTimerRef.value)
-  openTimerRef.value = window.setTimeout(() => open.value = true, openDelay.value)
+  openTimerRef.value = window.setTimeout(() => {
+    if (isHoveringRef.value)
+      open.value = true
+  }, openDelay.value)
 }
 
 function handleClose() {
@@ -95,6 +100,7 @@ provideHoverCardRootContext({
   isPointerDownOnContentRef,
   isPointerInTransit,
   triggerElement,
+  isHoveringRef,
 })
 </script>
 

@@ -30,6 +30,8 @@ rootContext.triggerElement = currentElement
       @pointerenter="excludeTouch(rootContext.onOpen)($event)"
       @focus="rootContext.onOpen()"
       @blur="rootContext.onClose()"
+      @mouseover="rootContext.isHoveringRef.value = true"
+      @mouseleave="rootContext.isHoveringRef.value = false"
     >
       <slot />
     </Primitive>

@@ -20,7 +20,9 @@ useForwardExpose()
     :as-child="props.asChild"
     :data-orientation="rootContext.orientation.value"
     :data-linear="rootContext.linear.value ? '' : undefined"
+    :dir="rootContext.dir.value"
   >
     <slot />
   </Primitive>
+
 </template>

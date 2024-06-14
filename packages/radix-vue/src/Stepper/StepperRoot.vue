@@ -5,7 +5,6 @@ import { toRefs } from 'vue'
 import type { DataOrientation, Direction } from '../shared/types'
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useDirection, useForwardExpose } from '@/shared'
-import { RovingFocusGroup } from '@/RovingFocus'
 import { Primitive } from '@/Primitive'
 
 export interface StepperRootContext {
@@ -81,11 +80,6 @@ provideStepperRootContext({
 </script>
 
 <template>
-  <RovingFocusGroup
-    as-child
-    :orientation="orientation"
-    :dir="dir"
-  >
     <Primitive
       role="group"
       aria-label="progress"
@@ -95,5 +89,4 @@ provideStepperRootContext({
     >
       <slot :model-value="modelValue" />
     </Primitive>
-  </RovingFocusGroup>
 </template>

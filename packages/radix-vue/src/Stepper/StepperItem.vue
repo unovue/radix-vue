@@ -3,7 +3,6 @@ import { type Ref, computed, onMounted, ref, toRefs } from 'vue'
 
 import { injectStepperRootContext } from './StepperRoot.vue'
 import { Primitive } from '@/Primitive'
-import { RovingFocusItem } from '@/RovingFocus'
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useForwardExpose, useId } from '@/shared'
 
@@ -77,11 +76,6 @@ provideStepperItemContext({
 </script>
 
 <template>
-  <RovingFocusItem
-    as-child
-    :focusable="isFocusable"
-    :active="itemState === 'active'"
-  >
     <Primitive
       :ref="forwardRef"
       :as="as"
@@ -91,6 +85,7 @@ provideStepperItemContext({
       :disabled="disabled"
       :data-disabled="disabled ? '' : undefined"
       :data-orientation="rootContext.orientation.value"
+      :tabindex="isFocusable ? 0 : -1"
       @mousedown.left="(event) => {
         // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)
         // but not when the control key is pressed (avoiding MacOS right click)
@@ -105,7 +100,7 @@ provideStepperItemContext({
       @keydown.enter.space="rootContext.changeModelValue(step)"
     >
       {{ isFocusable ? 'focusable' : 'not focusable' }}
+      {{ itemState }}
       <slot />
     </Primitive>
-  </RovingFocusItem>
 </template>

@@ -15,6 +15,8 @@ export default antfu(
       'ts/consistent-type-definitions': 'off',
       'symbol-description': 'off',
       'no-console': 'warn',
+      'import/first': 'off',
+      'import/order': 'off',
       'max-statements-per-line': ['error', { max: 2 }],
       'vue/one-component-per-file': 'off',
       'unicorn/prefer-dom-node-text-content': 'off',

@@ -12,9 +12,16 @@ const node = ref<HTMLElement>()
 
 <template>
   <div class="h-64">
-    <Toggle v-model:open="open" :node="node" />
+    <Toggle
+      v-model:open="open"
+      :node="node"
+    />
     <Presence :present="open">
-      <div v-bind="$attrs" ref="node" :data-state="open ? 'open' : 'closed'">
+      <div
+        v-bind="$attrs"
+        ref="node"
+        :data-state="open ? 'open' : 'closed'"
+      >
         Content
       </div>
     </Presence>

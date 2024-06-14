@@ -42,9 +42,15 @@ const open = ref(false)
         </ul>
 
         <div class="flex flex-col gap-4 mt-12">
-          <DummyDialog open-label="Open Dialog" close-label="Close dialog" />
+          <DummyDialog
+            open-label="Open Dialog"
+            close-label="Close dialog"
+          />
 
-          <input type="text" value="some input">
+          <input
+            type="text"
+            value="some input"
+          >
           <button @click="handleAlert">
             Alert me
           </button>
@@ -82,7 +88,10 @@ const open = ref(false)
             disable-outside-pointer-events
           />
 
-          <input type="text" value="some input">
+          <input
+            type="text"
+            value="some input"
+          >
           <button @click="handleAlert">
             Alert me
           </button>

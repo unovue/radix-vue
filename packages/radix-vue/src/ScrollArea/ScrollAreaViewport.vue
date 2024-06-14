@@ -64,7 +64,10 @@ const { forwardRef, currentElement: contentElement } = useForwardExpose()
       <slot />
     </Primitive>
   </div>
-  <Primitive as="style" :nonce="nonce">
+  <Primitive
+    as="style"
+    :nonce="nonce"
+  >
     /* Hide scrollbars cross-browser and enable momentum scroll for touch
     devices */
     [data-radix-scroll-area-viewport] {

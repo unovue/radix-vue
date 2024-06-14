@@ -25,7 +25,10 @@ const props = defineProps<DataAttributesTableProps>()
       </ProseTr>
     </ProseThead>
     <ProseTbody>
-      <ProseTr v-for="(prop, index) in props.data" :key="`${prop.cssVariable}-${index}`">
+      <ProseTr
+        v-for="(prop, index) in props.data"
+        :key="`${prop.cssVariable}-${index}`"
+      >
         <ProseTd>
           <ProseCodeInline class="!whitespace-normal py-1">
             {{ prop.cssVariable }}
@@ -33,7 +36,11 @@ const props = defineProps<DataAttributesTableProps>()
         </ProseTd>
         <ProseTd class="">
           <div class="flex items-center gap-1">
-            <span size="2" class="leading-5" v-html="prop.description" />
+            <span
+              size="2"
+              class="leading-5"
+              v-html="prop.description"
+            />
           </div>
         </ProseTd>
       </ProseTr>

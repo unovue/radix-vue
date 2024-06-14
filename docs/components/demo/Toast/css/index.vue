@@ -51,7 +51,11 @@ function handleClick() {
           {{ prettyDate(eventDateRef) }}
         </time>
       </ToastDescription>
-      <ToastAction class="ToastAction" as-child alt-text="Goto schedule to undo">
+      <ToastAction
+        class="ToastAction"
+        as-child
+        alt-text="Goto schedule to undo"
+      >
         <button class="Button small green">
           Undo
         </button>

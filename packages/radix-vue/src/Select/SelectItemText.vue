@@ -54,13 +54,18 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <Primitive :id="itemContext.textId" :ref="forwardRef" v-bind="{ ...props, ...$attrs }">
+  <Primitive
+    :id="itemContext.textId"
+    :ref="forwardRef"
+    v-bind="{ ...props, ...$attrs }"
+  >
     <slot />
   </Primitive>
 
   <!-- Portal the select item text into the trigger value node -->
   <Teleport
-    v-if="itemContext.isSelected.value && rootContext.valueElement.value && !rootContext.valueElementHasChildren.value" :to="rootContext.valueElement.value"
+    v-if="itemContext.isSelected.value && rootContext.valueElement.value && !rootContext.valueElementHasChildren.value"
+    :to="rootContext.valueElement.value"
   >
     <slot />
   </Teleport>

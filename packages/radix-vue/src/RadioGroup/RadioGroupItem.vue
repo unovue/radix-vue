@@ -64,7 +64,13 @@ function handleFocus() {
 </script>
 
 <template>
-  <RovingFocusItem :checked="checked" :disabled="disabled" as-child :focusable="!disabled" :active="checked">
+  <RovingFocusItem
+    :checked="checked"
+    :disabled="disabled"
+    as-child
+    :focusable="!disabled"
+    :active="checked"
+  >
     <Radio
       v-bind="{ ...$attrs, ...props }"
       :ref="forwardRef"

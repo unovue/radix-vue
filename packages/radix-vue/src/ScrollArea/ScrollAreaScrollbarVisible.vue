@@ -148,10 +148,18 @@ provideScrollAreaScrollbarVisibleContext({
 </script>
 
 <template>
-  <ScrollAreaScrollbarX v-if="isShowingScrollbarX" v-bind="$attrs" :ref="forwardRef">
+  <ScrollAreaScrollbarX
+    v-if="isShowingScrollbarX"
+    v-bind="$attrs"
+    :ref="forwardRef"
+  >
     <slot />
   </ScrollAreaScrollbarX>
-  <ScrollAreaScrollbarY v-else v-bind="$attrs" :ref="forwardRef">
+  <ScrollAreaScrollbarY
+    v-else
+    v-bind="$attrs"
+    :ref="forwardRef"
+  >
     <slot />
   </ScrollAreaScrollbarY>
 </template>

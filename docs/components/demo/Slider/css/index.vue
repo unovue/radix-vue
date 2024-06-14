@@ -8,7 +8,9 @@ const sliderValue = ref([50])
 
 <template>
   <SliderRoot
-    v-model="sliderValue" class="SliderRoot" :max="100"
+    v-model="sliderValue"
+    class="SliderRoot"
+    :max="100"
     :step="1"
   >
     <SliderTrack class="SliderTrack">

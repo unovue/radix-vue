@@ -18,21 +18,36 @@ function isDateDisabled(date: DateValue) {
 </script>
 
 <template>
-  <Story title="Date Range Picker/Validation" :layout="{ type: 'grid', width: '50%' }">
+  <Story
+    title="Date Range Picker/Validation"
+    :layout="{ type: 'grid', width: '50%' }"
+  >
     <Variant title="Min date">
-      <DateRangePicker :default-value="defaultValue" :min-value="minValue" />
+      <DateRangePicker
+        :default-value="defaultValue"
+        :min-value="minValue"
+      />
     </Variant>
 
     <Variant title="Max date">
-      <DateRangePicker :default-value="defaultValue" :max-value="maxValue" />
+      <DateRangePicker
+        :default-value="defaultValue"
+        :max-value="maxValue"
+      />
     </Variant>
 
     <Variant title="Unavailable">
-      <DateRangePicker :default-value="defaultValue" :is-date-unavailable="isDateUnavailable" />
+      <DateRangePicker
+        :default-value="defaultValue"
+        :is-date-unavailable="isDateUnavailable"
+      />
     </Variant>
 
     <Variant title="Disabled">
-      <DateRangePicker :default-value="defaultValue" :is-date-disabled="isDateDisabled" />
+      <DateRangePicker
+        :default-value="defaultValue"
+        :is-date-disabled="isDateDisabled"
+      />
     </Variant>
   </Story>
 </template>

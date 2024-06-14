@@ -8,7 +8,10 @@ const props = defineProps<{ dateFieldProps?: DateFieldRootProps, emits?: { 'onUp
 </script>
 
 <template>
-  <Label for="date-field" data-testid="label">Label</Label>
+  <Label
+    for="date-field"
+    data-testid="label"
+  >Label</Label>
   <DateFieldRoot
     v-bind="props.dateFieldProps"
     id="date-field"
@@ -16,10 +19,19 @@ const props = defineProps<{ dateFieldProps?: DateFieldRootProps, emits?: { 'onUp
     data-testid="input"
     v-on="{ 'update:modelValue': props.emits?.['onUpdate:modelValue'] }"
   >
-    <DateFieldInput v-for="item in segments" :key="item.part" :part="item.part" :data-testid="item.part === 'literal' ? undefined : item.part">
+    <DateFieldInput
+      v-for="item in segments"
+      :key="item.part"
+      :part="item.part"
+      :data-testid="item.part === 'literal' ? undefined : item.part"
+    >
       {{ item.value }}
     </DateFieldInput>
 
-    <span data-testid="value" tabindex="-1" disabled>{{ modelValue }}</span>
+    <span
+      data-testid="value"
+      tabindex="-1"
+      disabled
+    >{{ modelValue }}</span>
   </DateFieldRoot>
 </template>

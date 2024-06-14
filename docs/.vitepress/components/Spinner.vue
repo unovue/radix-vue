@@ -3,5 +3,8 @@ import { Icon } from '@iconify/vue'
 </script>
 
 <template>
-  <Icon icon="lucide:loader-2" class="animate-spin" />
+  <Icon
+    icon="lucide:loader-2"
+    class="animate-spin"
+  />
 </template>

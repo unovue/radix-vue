@@ -8,7 +8,10 @@ const rootDisabled = ref(false)
 </script>
 
 <template>
-  <Story title="Collapsible/Demo" :layout="{ type: 'single', iframe: true }">
+  <Story
+    title="Collapsible/Demo"
+    :layout="{ type: 'single', iframe: true }"
+  >
     <Variant title="default">
       <CollapsibleRoot
         v-model:open="rootOpen"
@@ -33,7 +36,11 @@ const rootDisabled = ref(false)
               icon="radix-icons:cross-2"
               class="h-3.5 w-3.5"
             />
-            <Icon v-else icon="radix-icons:row-spacing" class="h-3.5 w-3.5" />
+            <Icon
+              v-else
+              icon="radix-icons:row-spacing"
+              class="h-3.5 w-3.5"
+            />
           </CollapsibleTrigger>
         </div>
 

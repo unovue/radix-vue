@@ -125,7 +125,10 @@ onMounted(() => {
       }"
     >
       <slot />
-      <VisuallyHidden :id="rootContext.contentId" role="tooltip">
+      <VisuallyHidden
+        :id="rootContext.contentId"
+        role="tooltip"
+      >
         {{ ariaLabel }}
       </VisuallyHidden>
     </PopperContent>

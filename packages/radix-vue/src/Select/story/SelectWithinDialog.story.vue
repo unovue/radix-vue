@@ -41,7 +41,10 @@ const options = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
                 aria-label="Customise options"
               >
                 <SelectValue placeholder="Please select a fruit" />
-                <Icon icon="radix-icons:chevron-down" class="h-4 w-4" />
+                <Icon
+                  icon="radix-icons:chevron-down"
+                  class="h-4 w-4"
+                />
               </SelectTrigger>
 
               <SelectPortal>

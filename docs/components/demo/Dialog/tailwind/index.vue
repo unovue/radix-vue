@@ -31,7 +31,10 @@ import { Icon } from '@iconify/vue'
           Make changes to your profile here. Click save when you're done.
         </DialogDescription>
         <fieldset class="mb-[15px] flex items-center gap-5">
-          <label class="text-grass11 w-[90px] text-right text-[15px]" for="name"> Name </label>
+          <label
+            class="text-grass11 w-[90px] text-right text-[15px]"
+            for="name"
+          > Name </label>
           <input
             id="name"
             class="text-grass11 shadow-green7 focus:shadow-green8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
@@ -39,7 +42,10 @@ import { Icon } from '@iconify/vue'
           >
         </fieldset>
         <fieldset class="mb-[15px] flex items-center gap-5">
-          <label class="text-grass11 w-[90px] text-right text-[15px]" for="username"> Username </label>
+          <label
+            class="text-grass11 w-[90px] text-right text-[15px]"
+            for="username"
+          > Username </label>
           <input
             id="username"
             class="text-grass11 shadow-green7 focus:shadow-green8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"

@@ -72,10 +72,16 @@ watch(open, () => {
           </TabsTrigger>
         </TabsList>
         <div>
-          <SelectRoot v-model="cssFramework" @update:model-value="currentTab = 'index.vue'">
+          <SelectRoot
+            v-model="cssFramework"
+            @update:model-value="currentTab = 'index.vue'"
+          >
             <SelectTrigger class="flex items-center justify-between bg-stone-800 rounded-sm w-[115px] text-xs py-1 pl-2 pr-1">
               <SelectValue />
-              <Icon icon="radix-icons:chevron-down" class="h-3.5 w-3.5" />
+              <Icon
+                icon="radix-icons:chevron-down"
+                class="h-3.5 w-3.5"
+              />
             </SelectTrigger>
 
             <SelectPortal>
@@ -108,9 +114,17 @@ watch(open, () => {
       class="pb-10 block custom"
       :class="`${open ? 'overflow-scroll h-full min-h-[150px] max-h-[80vh]' : 'overflow-hidden h-[150px]'}`"
     >
-      <TabsContent v-for="tab in tabs" :key="tab.label" :value="tab.label" as-child>
+      <TabsContent
+        v-for="tab in tabs"
+        :key="tab.label"
+        :value="tab.label"
+        as-child
+      >
         <div class="relative -mt-5 text-base">
-          <component :is="tab.component" class="border-0" />
+          <component
+            :is="tab.component"
+            class="border-0"
+          />
         </div>
       </TabsContent>
       <div

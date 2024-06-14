@@ -3,14 +3,20 @@ import { DateFieldInput, DateFieldRoot } from '../'
 </script>
 
 <template>
-  <Story title="Date Field/Locales" :layout="{ type: 'grid', width: '50%' }">
+  <Story
+    title="Date Field/Locales"
+    :layout="{ type: 'grid', width: '50%' }"
+  >
     <Variant title="Gregorian">
       <DateFieldRoot
         v-slot="{ segments }"
         granularity="second"
         class="flex select-none bg-white items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500"
       >
-        <template v-for="item in segments" :key="item.part">
+        <template
+          v-for="item in segments"
+          :key="item.part"
+        >
           <DateFieldInput
             v-if="item.part === 'literal'"
             :part="item.part"
@@ -35,7 +41,10 @@ import { DateFieldInput, DateFieldRoot } from '../'
         locale="ja"
         class="flex select-none bg-white items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500"
       >
-        <template v-for="item in segments" :key="item.part">
+        <template
+          v-for="item in segments"
+          :key="item.part"
+        >
           <DateFieldInput
             v-if="item.part === 'literal'"
             :part="item.part"
@@ -60,7 +69,10 @@ import { DateFieldInput, DateFieldRoot } from '../'
         locale="fa-IR"
         class="flex select-none bg-white items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500"
       >
-        <template v-for="item in segments" :key="item.part">
+        <template
+          v-for="item in segments"
+          :key="item.part"
+        >
           <DateFieldInput
             v-if="item.part === 'literal'"
             :part="item.part"
@@ -85,7 +97,10 @@ import { DateFieldInput, DateFieldRoot } from '../'
         locale="zh-TW"
         class="flex select-none bg-white items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500"
       >
-        <template v-for="item in segments" :key="item.part">
+        <template
+          v-for="item in segments"
+          :key="item.part"
+        >
           <DateFieldInput
             v-if="item.part === 'literal'"
             :part="item.part"
@@ -110,7 +125,10 @@ import { DateFieldInput, DateFieldRoot } from '../'
         locale="he"
         class="flex select-none bg-white items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500"
       >
-        <template v-for="item in segments" :key="item.part">
+        <template
+          v-for="item in segments"
+          :key="item.part"
+        >
           <DateFieldInput
             v-if="item.part === 'literal'"
             :part="item.part"
@@ -135,7 +153,10 @@ import { DateFieldInput, DateFieldRoot } from '../'
         locale="th"
         class="flex select-none bg-white items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500"
       >
-        <template v-for="item in segments" :key="item.part">
+        <template
+          v-for="item in segments"
+          :key="item.part"
+        >
           <DateFieldInput
             v-if="item.part === 'literal'"
             :part="item.part"

@@ -11,7 +11,10 @@ const localTimezonePlaceholder = now(getLocalTimeZone())
 </script>
 
 <template>
-  <Story title="Date Range Field/Chromatic" :layout="{ type: 'grid', width: '50%' }">
+  <Story
+    title="Date Range Field/Chromatic"
+    :layout="{ type: 'grid', width: '50%' }"
+  >
     <Variant title="Empty default">
       <DateRangeField />
     </Variant>
@@ -29,11 +32,17 @@ const localTimezonePlaceholder = now(getLocalTimeZone())
     </Variant>
 
     <Variant title="Disabled">
-      <DateRangeField :default-value="defaultValue" disabled />
+      <DateRangeField
+        :default-value="defaultValue"
+        disabled
+      />
     </Variant>
 
     <Variant title="Locale awareness">
-      <DateRangeField :default-value="defaultValue" locale="de" />
+      <DateRangeField
+        :default-value="defaultValue"
+        locale="de"
+      />
     </Variant>
 
     <Variant title="Placeholder">

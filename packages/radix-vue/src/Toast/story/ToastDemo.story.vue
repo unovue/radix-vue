@@ -27,7 +27,10 @@ function handleClick() {
 </script>
 
 <template>
-  <Story title="Toast/Demo" :layout="{ type: 'single', iframe: false }">
+  <Story
+    title="Toast/Demo"
+    :layout="{ type: 'single', iframe: false }"
+  >
     <ToastProvider swipe-direction="left">
       <button
         class="inline-flex items-center justify-center rounded font-medium text-[15px] px-[15px] leading-[35px] h-[35px] bg-white text-violet11 shadow-[0_2px_10px] shadow-blackA7 outline-none hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black"
@@ -51,7 +54,11 @@ function handleClick() {
             {{ prettyDate(eventDateRef) }}
           </time>
         </ToastDescription>
-        <ToastAction class="[grid-area:_action]" as-child alt-text="Goto schedule to undo">
+        <ToastAction
+          class="[grid-area:_action]"
+          as-child
+          alt-text="Goto schedule to undo"
+        >
           <button class="inline-flex items-center justify-center rounded font-medium text-xs px-[10px] leading-[25px] h-[25px] bg-green2 text-green11 shadow-[inset_0_0_0_1px] shadow-green7 hover:shadow-[inset_0_0_0_1px] hover:shadow-green8 focus:shadow-[0_0_0_2px] focus:shadow-green8">
             Undo
           </button>

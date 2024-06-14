@@ -11,7 +11,10 @@ const props = defineProps<SelectSeparatorProps>()
 </script>
 
 <template>
-  <Primitive aria-hidden v-bind="props">
+  <Primitive
+    aria-hidden
+    v-bind="props"
+  >
     <slot />
   </Primitive>
 </template>

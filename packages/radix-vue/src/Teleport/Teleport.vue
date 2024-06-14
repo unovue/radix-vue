@@ -31,7 +31,11 @@ const isMounted = useMounted()
 </script>
 
 <template>
-  <Teleport v-if="isMounted || forceMount" :to="to" :disabled="disabled">
+  <Teleport
+    v-if="isMounted || forceMount"
+    :to="to"
+    :disabled="disabled"
+  >
     <slot />
   </Teleport>
 </template>

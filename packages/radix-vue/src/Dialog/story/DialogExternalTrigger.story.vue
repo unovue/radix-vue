@@ -16,7 +16,10 @@ const open = ref(false)
 </script>
 
 <template>
-  <Story title="Dialog/External Trigger" :layout="{ type: 'single', iframe: false }">
+  <Story
+    title="Dialog/External Trigger"
+    :layout="{ type: 'single', iframe: false }"
+  >
     <Variant title="default">
       <div>
         <button

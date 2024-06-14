@@ -11,7 +11,10 @@ import {
 </script>
 
 <template>
-  <Story title="Popover/ForceMount" :layout="{ type: 'single', iframe: false }">
+  <Story
+    title="Popover/ForceMount"
+    :layout="{ type: 'single', iframe: false }"
+  >
     <Variant title="default">
       <div class="flex items-center justify-center flex-col h-[110vh]">
         <PopoverRoot>

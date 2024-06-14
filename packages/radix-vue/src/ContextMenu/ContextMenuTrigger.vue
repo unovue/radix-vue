@@ -89,7 +89,10 @@ async function handlePointerEvent(event: PointerEvent) {
 </script>
 
 <template>
-  <MenuAnchor as="template" :element="virtualEl" />
+  <MenuAnchor
+    as="template"
+    :element="virtualEl"
+  />
 
   <Primitive
     :ref="forwardRef"

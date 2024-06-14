@@ -56,7 +56,10 @@ function handleAlert() {
             </DummyPopover>
           </DummyPopover>
 
-          <input type="text" value="some input">
+          <input
+            type="text"
+            value="some input"
+          >
           <button @click="handleAlert">
             Alert me
           </button>

@@ -26,7 +26,10 @@ const props = defineProps<{ datePickerProps?: DatePickerRootProps, emits?: { 'on
 </script>
 
 <template>
-  <Label data-testid="label" for="date-picker-field">Input label</Label>
+  <Label
+    data-testid="label"
+    for="date-picker-field"
+  >Input label</Label>
   <DatePickerRoot
     id="date-picker-field"
     :is-date-unavailable="(date:DateValue) => date.day === 19"
@@ -35,7 +38,10 @@ const props = defineProps<{ datePickerProps?: DatePickerRootProps, emits?: { 'on
     data-testid="picker"
     v-on="{ 'update:modelValue': props.emits?.['onUpdate:modelValue'] }"
   >
-    <DatePickerField v-slot="{ segments }" data-testid="input">
+    <DatePickerField
+      v-slot="{ segments }"
+      data-testid="input"
+    >
       <DatePickerInput
         v-for="item in segments"
         :key="item.part"
@@ -60,7 +66,11 @@ const props = defineProps<{ datePickerProps?: DatePickerRootProps, emits?: { 'on
           <DatePickerNext data-testid="next-button" />
         </DatePickerHeader>
 
-        <DatePickerGrid v-for="month in grid" :key="month.value.toString()" :data-testid="`grid-${month.value.month}`">
+        <DatePickerGrid
+          v-for="month in grid"
+          :key="month.value.toString()"
+          :data-testid="`grid-${month.value.month}`"
+        >
           <DatePickerGridHead :data-testid="`grid-head-${month.value.month}`">
             <DatePickerGridRow>
               <DatePickerHeadCell

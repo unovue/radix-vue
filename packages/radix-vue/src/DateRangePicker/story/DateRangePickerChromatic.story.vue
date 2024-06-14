@@ -8,7 +8,10 @@ const modelValue = ref(defaultValue) as Ref<{ start: DateValue, end: DateValue }
 </script>
 
 <template>
-  <Story title="Date Range Picker/Chromatic" :layout="{ type: 'grid', width: '50%' }">
+  <Story
+    title="Date Range Picker/Chromatic"
+    :layout="{ type: 'grid', width: '50%' }"
+  >
     <Variant title="Empty default">
       <DateRangePicker />
     </Variant>
@@ -26,27 +29,46 @@ const modelValue = ref(defaultValue) as Ref<{ start: DateValue, end: DateValue }
     </Variant>
 
     <Variant title="Disabled">
-      <DateRangePicker :default-value="defaultValue" disabled />
+      <DateRangePicker
+        :default-value="defaultValue"
+        disabled
+      />
     </Variant>
 
     <Variant title="Prevent deselect">
-      <DateRangePicker :default-value="defaultValue" prevent-deselect />
+      <DateRangePicker
+        :default-value="defaultValue"
+        prevent-deselect
+      />
     </Variant>
 
     <Variant title="Locale awareness">
-      <DateRangePicker :default-value="defaultValue" locale="de" />
+      <DateRangePicker
+        :default-value="defaultValue"
+        locale="de"
+      />
     </Variant>
 
     <Variant title="Fixed weeks">
-      <DateRangePicker :default-value="defaultValue" fixed-weeks />
+      <DateRangePicker
+        :default-value="defaultValue"
+        fixed-weeks
+      />
     </Variant>
 
     <Variant title="Multiple months">
-      <DateRangePicker :default-value="defaultValue" :number-of-months="2" />
+      <DateRangePicker
+        :default-value="defaultValue"
+        :number-of-months="2"
+      />
     </Variant>
 
     <Variant title="Multiple months (Paged navigation)">
-      <DateRangePicker :default-value="defaultValue" :number-of-months="2" paged-navigation />
+      <DateRangePicker
+        :default-value="defaultValue"
+        :number-of-months="2"
+        paged-navigation
+      />
     </Variant>
   </Story>
 </template>

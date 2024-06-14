@@ -330,6 +330,10 @@ provideListboxRootContext({
   >
     <slot :model-value="modelValue" />
 
-    <VisuallyHiddenInput v-if="isFormControl && props.name" :name="props.name" :value="modelValue" />
+    <VisuallyHiddenInput
+      v-if="isFormControl && props.name"
+      :name="props.name"
+      :value="modelValue"
+    />
   </Primitive>
 </template>

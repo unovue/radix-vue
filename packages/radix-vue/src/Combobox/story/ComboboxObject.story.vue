@@ -29,13 +29,30 @@ function handleUpdate(ev: any) {
 </script>
 
 <template>
-  <Story title="Combobox/Object" :layout="{ type: 'grid', width: '50%' }">
-    <Variant title="Default" auto-props-disabled>
-      <ComboboxRoot v-model="v" :filter-function="filterFunction" :display-value="ev => ev.name" @update:model-value="handleUpdate">
+  <Story
+    title="Combobox/Object"
+    :layout="{ type: 'grid', width: '50%' }"
+  >
+    <Variant
+      title="Default"
+      auto-props-disabled
+    >
+      <ComboboxRoot
+        v-model="v"
+        :filter-function="filterFunction"
+        :display-value="ev => ev.name"
+        @update:model-value="handleUpdate"
+      >
         <ComboboxAnchor class="min-w-[160px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">
-          <ComboboxInput class="bg-transparent outline-none text-grass11 placeholder-gray-400" placeholder="Test" />
+          <ComboboxInput
+            class="bg-transparent outline-none text-grass11 placeholder-gray-400"
+            placeholder="Test"
+          />
           <ComboboxTrigger>
-            <Icon icon="radix-icons:chevron-down" class="h-4 w-4 text-grass11" />
+            <Icon
+              icon="radix-icons:chevron-down"
+              class="h-4 w-4 text-grass11"
+            />
           </ComboboxTrigger>
         </ComboboxAnchor>
         <ComboboxContent class="mt-2 min-w-[160px] bg-white overflow-hidden rounded shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade">
@@ -48,7 +65,8 @@ function handleUpdate(ev: any) {
               </ComboboxLabel>
 
               <ComboboxItem
-                v-for="(option, index) in people" :key="index"
+                v-for="(option, index) in people"
+                :key="index"
                 class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-grass9 data-[highlighted]:text-grass1"
                 :value="option"
               >
@@ -67,12 +85,25 @@ function handleUpdate(ev: any) {
       </ComboboxRoot>
     </Variant>
 
-    <Variant title="Manual filtering" auto-props-disabled>
-      <ComboboxRoot v-model:search-term="searchTerm" v-model="v" @update:model-value="handleUpdate">
+    <Variant
+      title="Manual filtering"
+      auto-props-disabled
+    >
+      <ComboboxRoot
+        v-model:search-term="searchTerm"
+        v-model="v"
+        @update:model-value="handleUpdate"
+      >
         <ComboboxAnchor class="min-w-[160px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">
-          <ComboboxInput class="bg-transparent outline-none text-grass11 placeholder-gray-400" placeholder="Test" />
+          <ComboboxInput
+            class="bg-transparent outline-none text-grass11 placeholder-gray-400"
+            placeholder="Test"
+          />
           <ComboboxTrigger>
-            <Icon icon="radix-icons:chevron-down" class="h-4 w-4 text-grass11" />
+            <Icon
+              icon="radix-icons:chevron-down"
+              class="h-4 w-4 text-grass11"
+            />
           </ComboboxTrigger>
         </ComboboxAnchor>
         <ComboboxContent class="mt-2 min-w-[160px] bg-white overflow-hidden rounded shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade">
@@ -85,7 +116,8 @@ function handleUpdate(ev: any) {
               </ComboboxLabel>
 
               <ComboboxItem
-                v-for="option in filteredPeople" :key="option.id"
+                v-for="option in filteredPeople"
+                :key="option.id"
                 class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-grass9 data-[highlighted]:text-grass1"
                 :value="option"
               >
@@ -106,7 +138,8 @@ function handleUpdate(ev: any) {
               </ComboboxLabel>
 
               <ComboboxItem
-                v-for="option in filteredVege" :key="option.id"
+                v-for="option in filteredVege"
+                :key="option.id"
                 class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-grass9 data-[highlighted]:text-grass1"
                 :value="option"
               >

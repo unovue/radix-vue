@@ -19,7 +19,10 @@ const currentTrigger = ref('')
 </script>
 
 <template>
-  <NavigationMenuRoot v-model="currentTrigger" class="NavigationMenuRoot">
+  <NavigationMenuRoot
+    v-model="currentTrigger"
+    class="NavigationMenuRoot"
+  >
     <NavigationMenuList class="NavigationMenuList">
       <NavigationMenuItem>
         <NavigationMenuTrigger
@@ -48,13 +51,22 @@ const currentTrigger = ref('')
               </NavigationMenuLink>
             </li>
 
-            <NavigationMenuListItem href="https://stitches.dev/" title="Stitches">
+            <NavigationMenuListItem
+              href="https://stitches.dev/"
+              title="Stitches"
+            >
               CSS-in-JS with best-in-class developer experience.
             </NavigationMenuListItem>
-            <NavigationMenuListItem href="/colors" title="Colors">
+            <NavigationMenuListItem
+              href="/colors"
+              title="Colors"
+            >
               Beautiful, thought-out palettes with auto dark mode.
             </NavigationMenuListItem>
-            <NavigationMenuListItem href="https://icons.radix-ui.com/" title="Icons">
+            <NavigationMenuListItem
+              href="https://icons.radix-ui.com/"
+              title="Icons"
+            >
               A crisp set of 15x15 icons, balanced and consistent.
             </NavigationMenuListItem>
           </ul>
@@ -73,22 +85,40 @@ const currentTrigger = ref('')
         </NavigationMenuTrigger>
         <NavigationMenuContent class="NavigationMenuContent">
           <ul class="List two">
-            <NavigationMenuListItem title="Introduction" href="/docs/primitives/overview/introduction">
+            <NavigationMenuListItem
+              title="Introduction"
+              href="/docs/primitives/overview/introduction"
+            >
               Build high-quality, accessible design systems and web apps.
             </NavigationMenuListItem>
-            <NavigationMenuListItem title="Getting started" href="/docs/primitives/overview/getting-started">
+            <NavigationMenuListItem
+              title="Getting started"
+              href="/docs/primitives/overview/getting-started"
+            >
               A quick tutorial to get you up and running with Radix Primitives.
             </NavigationMenuListItem>
-            <NavigationMenuListItem title="Styling" href="/docs/primitives/guides/styling">
+            <NavigationMenuListItem
+              title="Styling"
+              href="/docs/primitives/guides/styling"
+            >
               Unstyled and compatible with any styling solution.
             </NavigationMenuListItem>
-            <NavigationMenuListItem title="Animation" href="/docs/primitives/guides/animation">
+            <NavigationMenuListItem
+              title="Animation"
+              href="/docs/primitives/guides/animation"
+            >
               Use CSS keyframes or any animation library of your choice.
             </NavigationMenuListItem>
-            <NavigationMenuListItem title="Accessibility" href="/docs/primitives/overview/accessibility">
+            <NavigationMenuListItem
+              title="Accessibility"
+              href="/docs/primitives/overview/accessibility"
+            >
               Tested in a range of browsers and assistive technologies.
             </NavigationMenuListItem>
-            <NavigationMenuListItem title="Releases" href="/docs/primitives/overview/releases">
+            <NavigationMenuListItem
+              title="Releases"
+              href="/docs/primitives/overview/releases"
+            >
               Radix Primitives releases and their changelogs.
             </NavigationMenuListItem>
           </ul>

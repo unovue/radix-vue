@@ -6,7 +6,11 @@ const props = defineProps<{ editableProps?: EditableRootProps, emits?: { 'onUpda
 </script>
 
 <template>
-  <EditableRoot data-testid="root" v-bind="props.editableProps" v-on="{ 'update:modelValue': props.emits?.['onUpdate:modelValue'] }">
+  <EditableRoot
+    data-testid="root"
+    v-bind="props.editableProps"
+    v-on="{ 'update:modelValue': props.emits?.['onUpdate:modelValue'] }"
+  >
     <EditableArea data-testid="area">
       <EditablePreview data-testid="preview" />
       <EditableInput data-testid="input" />

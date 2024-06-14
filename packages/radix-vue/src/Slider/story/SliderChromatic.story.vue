@@ -9,7 +9,10 @@ const controlledRtlMulti = ref([10, 30])
 </script>
 
 <template>
-  <Story title="Slider/Chromatic" :layout="{ type: 'grid', width: '50%' }">
+  <Story
+    title="Slider/Chromatic"
+    :layout="{ type: 'grid', width: '50%' }"
+  >
     <Variant title="Uncontrolled (LTR)">
       <SliderRoot
         class="relative flex items-center select-none touch-none w-[200px] h-5"

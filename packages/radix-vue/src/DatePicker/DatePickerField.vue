@@ -38,6 +38,9 @@ const rootContext = injectDatePickerRootContext()
       rootContext.onPlaceholderChange(date)
     }"
   >
-    <slot :segments="segments" :model-value="modelValue" />
+    <slot
+      :segments="segments"
+      :model-value="modelValue"
+    />
   </DateFieldRoot>
 </template>

@@ -24,7 +24,10 @@ function closeB(opened: boolean) {
 </script>
 
 <template>
-  <Story title="Dialog/Programmatic" :layout="{ type: 'single', iframe: true }">
+  <Story
+    title="Dialog/Programmatic"
+    :layout="{ type: 'single', iframe: true }"
+  >
     <Variant title="default">
       <div class="h-[300vh]">
         <button
@@ -34,7 +37,10 @@ function closeB(opened: boolean) {
           Open A
         </button>
         <div v-if="dialogAOpen">
-          <DialogRoot v-model:open="dialogAOpen" @update:open="closeA">
+          <DialogRoot
+            v-model:open="dialogAOpen"
+            @update:open="closeA"
+          >
             <DialogOverlay class="bg-blackA9 fixed inset-0" />
             <DialogContent
               class="fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px]"
@@ -50,7 +56,10 @@ function closeB(opened: boolean) {
           </DialogRoot>
         </div>
         <div v-if="dialogBOpen">
-          <DialogRoot v-model:open="dialogBOpen" @update:open="closeB">
+          <DialogRoot
+            v-model:open="dialogBOpen"
+            @update:open="closeB"
+          >
             <DialogOverlay class="bg-blackA9 fixed inset-0" />
             <DialogContent
               class="fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px]"

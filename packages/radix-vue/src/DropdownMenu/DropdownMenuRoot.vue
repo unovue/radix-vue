@@ -70,7 +70,11 @@ provideDropdownMenuRootContext({
 </script>
 
 <template>
-  <MenuRoot v-model:open="open" :dir="dir" :modal="modal">
+  <MenuRoot
+    v-model:open="open"
+    :dir="dir"
+    :modal="modal"
+  >
     <slot :open="open" />
   </MenuRoot>
 </template>

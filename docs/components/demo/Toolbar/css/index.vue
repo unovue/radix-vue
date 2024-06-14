@@ -20,7 +20,11 @@ const toggleStateMultiple = ref([])
     class="ToolbarRoot"
     aria-label="Formatting options"
   >
-    <ToolbarToggleGroup v-model="toggleStateMultiple" type="multiple" aria-label="Text formatting">
+    <ToolbarToggleGroup
+      v-model="toggleStateMultiple"
+      type="multiple"
+      aria-label="Text formatting"
+    >
       <ToolbarToggleItem
         class="ToolbarToggleItem"
         value="bold"
@@ -44,7 +48,11 @@ const toggleStateMultiple = ref([])
       </ToolbarToggleItem>
     </ToolbarToggleGroup>
     <ToolbarSeparator class="ToolbarSeparator" />
-    <ToolbarToggleGroup v-model="toggleStateSingle" type="single" aria-label="Text Alignment">
+    <ToolbarToggleGroup
+      v-model="toggleStateSingle"
+      type="single"
+      aria-label="Text Alignment"
+    >
       <ToolbarToggleItem
         class="ToolbarToggleItem"
         value="left"

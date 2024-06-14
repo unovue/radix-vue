@@ -2,6 +2,10 @@ import antfu from '@antfu/eslint-config'
 
 export default antfu(
   {
+    vue: true,
+    typescript: true,
+  },
+  {
     ignores: ['*.js'],
   },
   {
@@ -9,15 +13,24 @@ export default antfu(
       'ts/no-non-null-asserted-optional-chain': 'off',
       'ts/ban-ts-comment': 'warn',
       'ts/consistent-type-definitions': 'off',
-      'import/first': 'off',
-      'import/order': 'off',
       'symbol-description': 'off',
       'no-console': 'warn',
+      'import/first': 'off',
+      'import/order': 'off',
       'max-statements-per-line': ['error', { max: 2 }],
       'vue/one-component-per-file': 'off',
       'unicorn/prefer-dom-node-text-content': 'off',
       'unicorn/prefer-number-properties': 'off',
       'regexp/no-super-linear-backtracking': 'off',
+    },
+  },
+  {
+    files: ['**/*.vue'],
+    rules: {
+      'vue/max-attributes-per-line': ['error', {
+        singleline: 1,
+        multiline: 1,
+      }],
     },
   },
   {

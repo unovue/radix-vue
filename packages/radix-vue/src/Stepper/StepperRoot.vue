@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { toRefs } from 'vue'
+import { ref, toRefs } from 'vue'
 import type { DataOrientation, Direction } from '../shared/types'
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useDirection, useForwardExpose } from '@/shared'
@@ -13,6 +13,7 @@ export interface StepperRootContext {
   orientation: Ref<DataOrientation>
   dir: Ref<Direction>
   linear: Ref<boolean>
+  stepperItems: Ref<Set<HTMLElement>>
 }
 
 export interface StepperRootProps extends PrimitiveProps {
@@ -63,6 +64,8 @@ const { dir: propDir, orientation: propOrientation, linear } = toRefs(props)
 const dir = useDirection(propDir)
 useForwardExpose()
 
+const stepperItems = ref<Set<HTMLElement>>(new Set())
+
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
   passive: (props.modelValue === undefined) as false,
@@ -76,17 +79,18 @@ provideStepperRootContext({
   orientation: propOrientation,
   dir,
   linear,
+  stepperItems,
 })
 </script>
 
 <template>
-    <Primitive
-      role="group"
-      aria-label="progress"
-      :as-child="asChild"
-      :as="as"
-      :data-linear="linear ? '' : undefined"
-    >
-      <slot :model-value="modelValue" />
-    </Primitive>
+  <Primitive
+    role="group"
+    aria-label="progress"
+    :as-child="asChild"
+    :as="as"
+    :data-linear="linear ? '' : undefined"
+  >
+    <slot :model-value="modelValue" />
+  </Primitive>
 </template>

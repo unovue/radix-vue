@@ -1,10 +1,10 @@
 <script lang="ts">
-import { type Ref, computed, onMounted, ref, toRefs } from 'vue'
+import { type Ref, computed, onMounted, onUnmounted, ref, toRefs, watch } from 'vue'
 
 import { injectStepperRootContext } from './StepperRoot.vue'
 import { Primitive } from '@/Primitive'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useForwardExpose, useId } from '@/shared'
+import { createContext, useArrowNavigation, useForwardExpose, useId, useKbd } from '@/shared'
 
 export const [injectStepperItemContext, provideStepperItemContext] = createContext<StepperItemContext>('StepperItem')
 
@@ -13,7 +13,6 @@ export type StepperState = 'completed' | 'active' | 'inactive'
 export interface StepperItemContext {
   titleId: string
   descriptionId: string
-  contentElement: Ref<HTMLElement | undefined>
   step: Ref<number>
   state: Ref<StepperState>
   disabled: Ref<boolean>
@@ -24,29 +23,34 @@ export interface StepperItemProps extends PrimitiveProps {
   step: number
   /** When `true`, prevents the user from interacting with the tab. */
   disabled?: boolean
+  /** Shows whether the step is completed. */
+  completed?: boolean
 }
 </script>
 
 <script setup lang="ts">
 const props = withDefaults(defineProps<StepperItemProps>(), {
+  completed: false,
   disabled: false,
   as: 'li',
 })
 
-const { disabled, step } = toRefs(props)
+const { disabled, step, completed } = toRefs(props)
+const kbd = useKbd()
 
-const { forwardRef, currentElement: contentElement } = useForwardExpose()
+const { forwardRef, currentElement } = useForwardExpose()
 
 const rootContext = injectStepperRootContext()
-const contextContentElement = ref<HTMLElement>()
+const stepperItems = computed(() => Array.from(rootContext.stepperItems.value))
 
 const titleId = useId(undefined, 'radix-vue-stepper-item-title')
 const descriptionId = useId(undefined, 'radix-vue-stepper-item-description')
+const isCompleted = ref(completed.value)
 
 const itemState = computed(() => {
   if (rootContext.modelValue.value === step.value)
     return 'active'
-  else if (rootContext.modelValue.value! > step.value)
+  else if (isCompleted.value || rootContext.modelValue.value! > step.value)
     return 'completed'
   else
     return 'inactive'
@@ -61,14 +65,66 @@ const isFocusable = computed(() => {
   return true
 })
 
+function handleMouseDown(event: MouseEvent) {
+  if (disabled.value)
+    return
+  if (rootContext.linear.value) {
+    if (step.value <= rootContext.modelValue.value! || step.value === rootContext.modelValue.value! + 1) {
+      if (event.ctrlKey === false) {
+        rootContext.changeModelValue(step.value)
+        return
+      }
+    }
+  }
+  else {
+    if (event.ctrlKey === false) {
+      rootContext.changeModelValue(step.value)
+      return
+    }
+  }
+
+  // prevent focus to avoid accidental activation
+  event.preventDefault()
+}
+
+function handleKeyDown(event: KeyboardEvent) {
+  if (disabled.value)
+    return
+
+  if ((event.key === kbd.ENTER || event.key === kbd.SPACE) && event.ctrlKey === false) {
+    rootContext.changeModelValue(step.value)
+  }
+
+  if ([kbd.ARROW_LEFT, kbd.ARROW_RIGHT, kbd.ARROW_UP, kbd.ARROW_DOWN].includes(event.key)) {
+    useArrowNavigation(event, document.activeElement as HTMLElement, undefined, {
+      itemsArray: stepperItems.value,
+      focus: true,
+      loop: false,
+      arrowKeyOptions: rootContext.orientation.value,
+      dir: rootContext.dir.value,
+    })
+  }
+}
+
 onMounted(() => {
-  contextContentElement.value = contentElement.value
+  if (isFocusable.value)
+    rootContext.stepperItems.value.add(currentElement.value)
+})
+
+onUnmounted(() => {
+  rootContext.stepperItems.value.delete(currentElement.value)
+})
+
+watch(isFocusable, (newValue) => {
+  if (newValue)
+    rootContext.stepperItems.value.add(currentElement.value)
+  else
+    rootContext.stepperItems.value.delete(currentElement.value)
 })
 
 provideStepperItemContext({
   titleId,
   descriptionId,
-  contentElement: contextContentElement,
   state: itemState,
   disabled,
   step,
@@ -76,31 +132,22 @@ provideStepperItemContext({
 </script>
 
 <template>
-    <Primitive
-      :ref="forwardRef"
-      :as="as"
-      :as-child="asChild"
-      :aria-current="itemState === 'active' ? 'true' : undefined"
-      :data-state="itemState"
-      :disabled="disabled"
-      :data-disabled="disabled ? '' : undefined"
-      :data-orientation="rootContext.orientation.value"
-      :tabindex="isFocusable ? 0 : -1"
-      @mousedown.left="(event) => {
-        // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)
-        // but not when the control key is pressed (avoiding MacOS right click)
-        if (!disabled && event.ctrlKey === false) {
-          rootContext.changeModelValue(step);
-        }
-        else {
-          // prevent focus to avoid accidental activation
-          event.preventDefault();
-        }
-      }"
-      @keydown.enter.space="rootContext.changeModelValue(step)"
-    >
-      {{ isFocusable ? 'focusable' : 'not focusable' }}
-      {{ itemState }}
-      <slot />
-    </Primitive>
+  <Primitive
+    :ref="forwardRef"
+    :as="as"
+    :as-child="asChild"
+    :aria-current="itemState === 'active' ? 'true' : undefined"
+    :data-state="itemState"
+    :disabled="disabled"
+    :data-disabled="disabled ? '' : undefined"
+    :data-orientation="rootContext.orientation.value"
+    :tabindex="isFocusable ? 0 : -1"
+    data-radix-vue-stepper-item
+    @mousedown.left="handleMouseDown"
+    @keydown.enter.space.left.right.up.down="handleKeyDown"
+  >
+    {{ isFocusable ? 'focusable' : 'not focusable' }}
+    {{ itemState }}
+    <slot />
+  </Primitive>
 </template>

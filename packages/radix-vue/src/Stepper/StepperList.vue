@@ -24,5 +24,4 @@ useForwardExpose()
   >
     <slot />
   </Primitive>
-
 </template>

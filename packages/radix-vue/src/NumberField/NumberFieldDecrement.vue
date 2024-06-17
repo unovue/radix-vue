@@ -3,7 +3,7 @@ import type { PrimitiveProps } from '@/Primitive'
 import { injectNumberFieldRootContext } from './NumberFieldRoot.vue'
 import { useMousePressed } from '@vueuse/core'
 import { usePressedHold } from './utils'
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 
 export interface NumberFieldDecrementProps extends PrimitiveProps {
   disabled?: boolean
@@ -27,6 +27,15 @@ onTrigger(() => {
   rootContext.handleDecrease()
 })
 
+watch(isPressed, () => {
+  if (isPressed.value) {
+    handlePressStart()
+  }
+  else {
+    handlePressEnd()
+  }
+})
+
 const isDisabled = computed(() => rootContext.disabled?.value || props.disabled || rootContext.isDecreaseDisabled.value)
 </script>
 
@@ -43,12 +52,6 @@ const isDisabled = computed(() => rootContext.disabled?.value || props.disabled 
     :disabled="isDisabled ? '' : undefined"
     :data-disabled="isDisabled ? '' : undefined"
     :data-pressed="isPressed ? 'true' : undefined"
-    @pointerdown.left.prevent="() => {
-      handlePressStart()
-    }"
-    @pointerup.left="() => {
-      handlePressEnd()
-    }"
     @mousedown.left.prevent
   >
     <slot />

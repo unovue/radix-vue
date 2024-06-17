@@ -18,11 +18,6 @@ withDefaults(defineProps<HoverCardTriggerProps>(), {
 const { forwardRef, currentElement } = useForwardExpose()
 const rootContext = injectHoverCardRootContext()
 rootContext.triggerElement = currentElement
-
-function handleFocus(hoverCardStateChange: () => void) {
-  rootContext.isFocusedRef.value = !rootContext.isFocusedRef.value
-  hoverCardStateChange()
-}
 </script>
 
 <template>
@@ -33,10 +28,8 @@ function handleFocus(hoverCardStateChange: () => void) {
       :as="as"
       :data-state="rootContext.open.value ? 'open' : 'closed'"
       @pointerenter="excludeTouch(rootContext.onOpen)($event)"
-      @focus="handleFocus(rootContext.onOpen)"
-      @blur="handleFocus(rootContext.onClose)"
-      @mouseover="rootContext.isHoveringRef.value = true"
-      @mouseleave="rootContext.isHoveringRef.value = false"
+      @focus="rootContext.onOpen()"
+      @blur="rootContext.onClose()"
     >
       <slot />
     </Primitive>

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type Ref, computed, onMounted, onUnmounted, ref, toRefs, watch } from 'vue'
+import { type Ref, computed, onMounted, onUnmounted, toRefs, watch } from 'vue'
 
 import { injectStepperRootContext } from './StepperRoot.vue'
 import { Primitive } from '@/Primitive'
@@ -35,6 +35,13 @@ const props = withDefaults(defineProps<StepperItemProps>(), {
   as: 'li',
 })
 
+defineSlots<{
+  default: (props: {
+    /** The current state of the stepper item */
+    state: StepperState
+  }) => any
+}>()
+
 const { disabled, step, completed } = toRefs(props)
 const kbd = useKbd()
 
@@ -45,15 +52,15 @@ const stepperItems = computed(() => Array.from(rootContext.stepperItems.value))
 
 const titleId = useId(undefined, 'radix-vue-stepper-item-title')
 const descriptionId = useId(undefined, 'radix-vue-stepper-item-description')
-const isCompleted = ref(completed.value)
 
 const itemState = computed(() => {
+  if (completed.value)
+    return 'completed'
   if (rootContext.modelValue.value === step.value)
     return 'active'
-  else if (isCompleted.value || rootContext.modelValue.value! > step.value)
+  if (rootContext.modelValue.value! > step.value)
     return 'completed'
-  else
-    return 'inactive'
+  return 'inactive'
 })
 
 const isFocusable = computed(() => {
@@ -138,16 +145,13 @@ provideStepperItemContext({
     :as-child="asChild"
     :aria-current="itemState === 'active' ? 'true' : undefined"
     :data-state="itemState"
-    :disabled="disabled"
-    :data-disabled="disabled ? '' : undefined"
+    :disabled="disabled || !isFocusable ? '' : undefined"
+    :data-disabled="disabled || !isFocusable ? '' : undefined"
     :data-orientation="rootContext.orientation.value"
     :tabindex="isFocusable ? 0 : -1"
-    data-radix-vue-stepper-item
     @mousedown.left="handleMouseDown"
     @keydown.enter.space.left.right.up.down="handleKeyDown"
   >
-    {{ isFocusable ? 'focusable' : 'not focusable' }}
-    {{ itemState }}
-    <slot />
+    <slot :state="itemState" />
   </Primitive>
 </template>

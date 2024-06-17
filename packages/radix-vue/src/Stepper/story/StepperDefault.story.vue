@@ -2,6 +2,33 @@
 import { Icon } from '@iconify/vue'
 
 import { StepperDescription, StepperIndicator, StepperItem, StepperList, StepperRoot, StepperSeparator, StepperTitle } from '../'
+
+const steps = [{
+  step: 1,
+  title: 'Address',
+  description: 'Add your address here',
+  icon: 'radix-icons:home',
+}, {
+  step: 2,
+  title: 'Shipping',
+  description: 'Set your preferred shipping method',
+  icon: 'radix-icons:archive',
+}, {
+  step: 3,
+  title: 'Trade-in',
+  description: 'Add any trade-in items you have',
+  icon: 'radix-icons:update',
+}, {
+  step: 4,
+  title: 'Payment',
+  description: 'Add any payment information you have',
+  icon: 'radix-icons:sketch-logo',
+}, {
+  step: 5,
+  title: 'Checkout',
+  description: 'Confirm your order',
+  icon: 'radix-icons:check',
+}]
 </script>
 
 <template>
@@ -13,126 +40,33 @@ import { StepperDescription, StepperIndicator, StepperItem, StepperList, Stepper
       <StepperRoot>
         <StepperList class="flex flex-col space-y-4 pt-4 sm:flex-row sm:space-x-4 sm:space-y-0">
           <StepperItem
-            class="flex items-center gap-2 basis-1/5"
-            :step="1"
+            v-for="item in steps"
+            :key="item.step"
+            class="flex items-center gap-2 basis-1/5 cursor-pointer group data-[disabled]:pointer-events-none"
+            :step="item.step"
           >
             <div class="flex flex-col items-center text-center gap-2">
               <StepperIndicator
-                class="inline-flex items-center cursor-pointer text-black justify-center rounded-full bg-transparent w-10 h-10 border border-black shrink-0"
+                class="inline-flex items-center group-data-[disabled]:text-gray-400 group-data-[state=active]:bg-black group-data-[state=active]:text-white justify-center rounded-full text-grass11 w-10 h-10 shrink-0 bg-white group-data-[state=active]:shadow-black group-data-[state=completed]:bg-green9 group-data-[state=completed]:text-white group-data-[state=completed]:shadow-green9 shadow-[0_0_0_2px] "
               >
                 <Icon
-                  icon="radix-icons:home"
+                  :icon="item.icon"
                   class="w-6 h-6"
                 />
               </StepperIndicator>
               <div class="flex flex-col">
                 <StepperTitle class="text-md text-black font-medium">
-                  Address
+                  {{ item.title }}
                 </StepperTitle>
                 <StepperDescription class="text-sm text-black">
-                  Add your address here
+                  {{ item.description }}
                 </StepperDescription>
               </div>
             </div>
-            <StepperSeparator class="w-full h-[1px] bg-black" />
-          </StepperItem>
-          <StepperItem
-            class="flex items-center gap-2 basis-1/5"
-            :step="2"
-          >
-            <div class="flex flex-col items-center text-center gap-2">
-              <StepperIndicator
-                class="inline-flex items-center cursor-pointer text-black justify-center rounded-full bg-transparent w-10 h-10 border border-black shrink-0"
-              >
-                <Icon
-                  icon="radix-icons:archive"
-                  class="w-6 h-6"
-                />
-              </StepperIndicator>
-              <div class="flex flex-col">
-                <StepperTitle class="text-md text-black font-medium">
-                  Shipping
-                </StepperTitle>
-                <StepperDescription class="text-sm text-black">
-                  Set your preferred shipping method
-                </StepperDescription>
-              </div>
-            </div>
-            <StepperSeparator class="w-full h-[1px] bg-black" />
-          </StepperItem>
-
-          <StepperItem
-            class="flex items-center gap-2 basis-1/5"
-            :step="3"
-          >
-            <div class="flex flex-col items-center text-center gap-2">
-              <StepperIndicator
-                class="inline-flex items-center cursor-pointer text-black justify-center rounded-full bg-transparent w-10 h-10 border border-black shrink-0"
-              >
-                <Icon
-                  icon="radix-icons:update"
-                  class="w-6 h-6"
-                />
-              </StepperIndicator>
-              <div class="flex flex-col">
-                <StepperTitle class="text-md text-black font-medium">
-                  Trade-in
-                </StepperTitle>
-                <StepperDescription class="text-sm text-black">
-                  Add any trade-in items you have
-                </StepperDescription>
-              </div>
-            </div>
-            <StepperSeparator class="w-full h-[1px] bg-black" />
-          </StepperItem>
-
-          <StepperItem
-            class="flex items-center gap-2 basis-1/5"
-            :step="4"
-          >
-            <div class="flex flex-col items-center text-center gap-2">
-              <StepperIndicator
-                class="inline-flex items-center cursor-pointer text-black justify-center rounded-full bg-transparent w-10 h-10 border border-black shrink-0"
-              >
-                <Icon
-                  icon="radix-icons:sketch-logo"
-                  class="w-6 h-6"
-                />
-              </StepperIndicator>
-              <div class="flex flex-col">
-                <StepperTitle class="text-md text-black font-medium">
-                  Payment
-                </StepperTitle>
-                <StepperDescription class="text-sm text-black">
-                  Add any payment information you have
-                </StepperDescription>
-              </div>
-            </div>
-            <StepperSeparator class="w-full h-[1px] bg-black" />
-          </StepperItem>
-
-          <StepperItem
-            class="flex items-center gap-2 basis-1/5"
-            :step="5"
-          >
-            <div class="flex flex-col items-center text-center gap-2">
-              <StepperIndicator
-                class="inline-flex items-center cursor-pointer text-black justify-center rounded-full bg-transparent w-10 h-10 border border-black shrink-0"
-              >
-                <Icon
-                  icon="radix-icons:check"
-                  class="w-6 h-6"
-                />
-              </StepperIndicator>
-              <div class="flex flex-col">
-                <StepperTitle class="text-md text-black font-medium">
-                  Checkout
-                </StepperTitle>
-                <StepperDescription class="text-sm text-black">
-                  Confirm your order
-                </StepperDescription>
-              </div>
-            </div>
+            <StepperSeparator
+              v-if="item.step !== steps[steps.length - 1].step"
+              class="w-full h-[1px] group-data-[state=active]:bg-black group-data-[disabled]:bg-gray-300 group-data-[state=completed]:bg-green9 bg-green5"
+            />
           </StepperItem>
         </StepperList>
       </StepperRoot>

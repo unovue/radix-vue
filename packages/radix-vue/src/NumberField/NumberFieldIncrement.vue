@@ -28,12 +28,10 @@ onTrigger(() => {
 })
 
 watch(isPressed, () => {
-  if (isPressed.value) {
+  if (isPressed.value)
     handlePressStart()
-  }
-  else {
+  else
     handlePressEnd()
-  }
 })
 
 const isDisabled = computed(() => rootContext.disabled?.value || props.disabled || rootContext.isIncreaseDisabled.value)

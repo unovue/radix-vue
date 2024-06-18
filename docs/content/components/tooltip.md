@@ -36,11 +36,11 @@ import { TooltipArrow, TooltipContent, TooltipProvider, TooltipRoot, TooltipTrig
   <TooltipProvider>
     <TooltipRoot>
       <TooltipTrigger />
-      <Tooltip>
+      <TooltipPortal>
         <TooltipContent>
           <TooltipArrow />
         </TooltipContent>
-      </Tooltip>
+      </TooltipPortal>
     </TooltipRoot>
   </TooltipProvider>
 </template>

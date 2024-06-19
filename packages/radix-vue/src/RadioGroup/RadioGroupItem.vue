@@ -2,8 +2,12 @@
 import type { ComputedRef } from 'vue'
 import type { RadioProps } from './Radio.vue'
 import { createContext, useForwardExpose } from '@/shared'
+import type { SelectEvent } from './utils'
 
 export interface RadioGroupItemProps extends Omit<RadioProps, 'checked'> {}
+export type RadioGroupItemEmits = {
+  select: [event: SelectEvent]
+}
 
 interface RadioGroupItemContext {
   disabled: ComputedRef<boolean>
@@ -29,6 +33,8 @@ const props = withDefaults(defineProps<RadioGroupItemProps>(), {
   disabled: false,
   as: 'button',
 })
+const emits = defineEmits<RadioGroupItemEmits>()
+
 const { forwardRef, currentElement } = useForwardExpose()
 
 const rootContext = injectRadioGroupRootContext()
@@ -78,6 +84,7 @@ function handleFocus() {
       :required="required"
       :disabled="disabled"
       @update:checked="rootContext.changeModelValue(value)"
+      @select="emits('select', $event)"
       @keydown.enter.prevent
       @focus="handleFocus"
     >

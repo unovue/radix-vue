@@ -1,8 +1,10 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import type { SelectEvent } from './utils'
 
 export type RadioEmits = {
   'update:checked': [value: boolean]
+  'select': [SelectEvent]
 }
 
 export interface RadioProps extends PrimitiveProps {
@@ -23,6 +25,7 @@ import { computed, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { Primitive } from '@/Primitive'
 import { useFormControl, useForwardExpose } from '@/shared'
+import { handleSelect } from './utils'
 
 const props = withDefaults(defineProps<RadioProps>(), {
   disabled: false,
@@ -49,14 +52,19 @@ const isFormControl = useFormControl(triggerElement)
 const ariaLabel = computed(() => props.id && triggerElement.value ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText ?? props.value : undefined)
 
 function handleClick(event: MouseEvent) {
-  checked.value = true
+  handleSelect(event, props.value, (ev) => {
+    emits('select', ev)
+    if (ev?.defaultPrevented)
+      return
 
-  if (isFormControl.value) {
+    checked.value = true
+    if (isFormControl.value) {
     // if radio is in a form, stop propagation from the button so that we only propagate
     // one click event (from the input). We propagate changes from an input so that native
     // form validation works and form events reflect radio updates.
-    event.stopPropagation()
-  }
+      ev.stopPropagation()
+    }
+  })
 }
 </script>
 

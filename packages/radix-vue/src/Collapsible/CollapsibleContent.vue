@@ -101,7 +101,7 @@ onMounted(() => {
         [`--radix-collapsible-content-width`]: `${width}px`,
       }"
     >
-      <slot v-if="present.value" />
+      <slot v-if="rootContext.unmount.value ? present.value : true" />
     </Primitive>
   </Presence>
 </template>

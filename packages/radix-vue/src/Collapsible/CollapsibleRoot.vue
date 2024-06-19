@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import type { Ref } from 'vue'
+import { type Ref, toRefs } from 'vue'
 import { createContext, useForwardExpose } from '@/shared'
 
 export interface CollapsibleRootProps extends PrimitiveProps {
@@ -10,6 +10,8 @@ export interface CollapsibleRootProps extends PrimitiveProps {
   open?: boolean
   /** When `true`, prevents the user from interacting with the collapsible. */
   disabled?: boolean
+  /** When `true`, the element will be unmounted on closed state. */
+  unmount?: boolean
 }
 
 export type CollapsibleRootEmits = {
@@ -21,6 +23,7 @@ interface CollapsibleRootContext {
   contentId: string
   disabled?: Ref<boolean>
   open: Ref<boolean>
+  unmount: Ref<boolean>
   onOpenToggle: () => void
 }
 
@@ -35,6 +38,7 @@ import { useVModel } from '@vueuse/core'
 const props = withDefaults(defineProps<CollapsibleRootProps>(), {
   open: undefined,
   defaultOpen: false,
+  unmount: true,
 })
 
 const emit = defineEmits<CollapsibleRootEmits>()
@@ -51,12 +55,13 @@ const open = useVModel(props, 'open', emit, {
   passive: (props.open === undefined) as false,
 }) as Ref<boolean>
 
-const disabled = useVModel(props, 'disabled')
+const { disabled, unmount } = toRefs(props)
 
 provideCollapsibleRootContext({
   contentId: '',
   disabled,
   open,
+  unmount,
   onOpenToggle: () => {
     open.value = !open.value
   },

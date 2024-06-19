@@ -34,6 +34,13 @@ export interface AccordionRootProps<ValidValue = string | string[], ExplicitType
    * @defaultValue "vertical"
    */
   orientation?: DataOrientation
+
+  /**
+   * When `true`, the element will be unmounted on closed state.
+   *
+   * @defaultValue `true`
+   */
+  unmount?: boolean
 }
 
 export type AccordionRootEmits<T extends SingleOrMultipleType = SingleOrMultipleType> = {
@@ -52,6 +59,7 @@ export type AccordionRootContext<P extends AccordionRootProps> = {
   isSingle: ComputedRef<boolean>
   modelValue: Ref<string | undefined | string[]>
   collapsible: boolean
+  unmount: Ref<boolean>
 }
 
 export const [injectAccordionRootContext, provideAccordionRootContext]
@@ -67,6 +75,7 @@ const props = withDefaults(defineProps<AccordionRootProps<ValidValue, ExplicitTy
   disabled: false,
   orientation: 'vertical',
   collapsible: false,
+  unmount: true,
 })
 
 const emits = defineEmits<AccordionRootEmits<ExplicitType>>()
@@ -78,7 +87,7 @@ defineSlots<{
   }) => any
 }>()
 
-const { dir, disabled } = toRefs(props)
+const { dir, disabled, unmount } = toRefs(props)
 const direction = useDirection(dir)
 
 const { modelValue, changeModelValue, isSingle } = useSingleOrMultipleValue(props, emits)
@@ -94,6 +103,7 @@ provideAccordionRootContext({
   collapsible: props.collapsible,
   modelValue,
   changeModelValue,
+  unmount,
 })
 </script>
 

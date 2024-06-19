@@ -65,7 +65,6 @@ const steps = [{
         </div>
         <StepperSeparator
           v-if="item.step !== steps[steps.length - 1].step"
-          :orientation="forwarded.orientation"
           class="w-full h-px group-data-[orientation=vertical]:w-px group-data-[orientation=vertical]:h-[100px] group-data-[state=active]:bg-black group-data-[disabled]:bg-gray-300 group-data-[state=completed]:bg-green9 bg-green5"
         />
       </StepperItem>

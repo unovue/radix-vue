@@ -5,6 +5,7 @@ import type {
   DismissableLayerProps,
 } from '@/DismissableLayer'
 import type { FocusScopeProps } from '@/FocusScope'
+import { reactiveOmit } from '@vueuse/shared'
 
 export type PopoverContentImplEmits = DismissableLayerEmits & {
   /**
@@ -40,7 +41,7 @@ import { useFocusGuards, useForwardExpose, useForwardProps } from '@/shared'
 const props = defineProps<PopoverContentImplProps>()
 const emits = defineEmits<PopoverContentImplEmits>()
 
-const forwarded = useForwardProps(props)
+const forwarded = useForwardProps(reactiveOmit(props, 'trapFocus', 'disableOutsidePointerEvents'))
 const { forwardRef } = useForwardExpose()
 
 const rootContext = injectPopoverRootContext()
@@ -69,7 +70,6 @@ useFocusGuards()
         :id="rootContext.contentId"
         :ref="forwardRef"
         :data-state="rootContext.open.value ? 'open' : 'closed'"
-        role="dialog"
         :style="{
           '--radix-popover-content-transform-origin':
             'var(--radix-popper-transform-origin)',

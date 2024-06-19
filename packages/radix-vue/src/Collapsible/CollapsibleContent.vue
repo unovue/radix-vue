@@ -71,6 +71,8 @@ watch(
   },
 )
 
+const skipAnimation = computed(() => isMountAnimationPrevented.value && rootContext.open.value)
+
 onMounted(() => {
   requestAnimationFrame(() => {
     isMountAnimationPrevented.value = false
@@ -80,6 +82,7 @@ onMounted(() => {
 
 <template>
   <Presence
+    v-slot="{ present }"
     ref="presentRef"
     :present="forceMount || rootContext.open.value"
     :force-mount="true"
@@ -90,15 +93,15 @@ onMounted(() => {
       :ref="forwardRef"
       :as-child="props.asChild"
       :as="as"
-      :data-state="rootContext.open.value ? 'open' : 'closed'"
+      :hidden="!present.value"
+      :data-state="skipAnimation ? undefined : rootContext.open.value ? 'open' : 'closed'"
       :data-disabled="rootContext.disabled?.value ? '' : undefined"
-      :hidden="!presentRef?.present"
       :style="{
         [`--radix-collapsible-content-height`]: `${height}px`,
         [`--radix-collapsible-content-width`]: `${width}px`,
       }"
     >
-      <slot v-if="presentRef?.present" />
+      <slot v-if="present.value" />
     </Primitive>
   </Presence>
 </template>

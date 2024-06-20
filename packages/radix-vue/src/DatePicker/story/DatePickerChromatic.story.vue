@@ -9,7 +9,10 @@ const modelValue = ref(defaultValue) as Ref<DateValue>
 </script>
 
 <template>
-  <Story title="Date Picker/Chromatic" :layout="{ type: 'grid', width: '50%' }">
+  <Story
+    title="Date Picker/Chromatic"
+    :layout="{ type: 'grid', width: '50%' }"
+  >
     <Variant title="Empty default">
       <DatePicker />
     </Variant>
@@ -27,27 +30,46 @@ const modelValue = ref(defaultValue) as Ref<DateValue>
     </Variant>
 
     <Variant title="Disabled">
-      <DatePicker :default-value="defaultValue" disabled />
+      <DatePicker
+        :default-value="defaultValue"
+        disabled
+      />
     </Variant>
 
     <Variant title="Prevent deselect">
-      <DatePicker :default-value="defaultValue" prevent-deselect />
+      <DatePicker
+        :default-value="defaultValue"
+        prevent-deselect
+      />
     </Variant>
 
     <Variant title="Locale awareness">
-      <DatePicker :default-value="defaultValue" locale="de" />
+      <DatePicker
+        :default-value="defaultValue"
+        locale="de"
+      />
     </Variant>
 
     <Variant title="Fixed weeks">
-      <DatePicker :default-value="defaultValue" fixed-weeks />
+      <DatePicker
+        :default-value="defaultValue"
+        fixed-weeks
+      />
     </Variant>
 
     <Variant title="Multiple months">
-      <DatePicker :default-value="defaultValue" :number-of-months="2" />
+      <DatePicker
+        :default-value="defaultValue"
+        :number-of-months="2"
+      />
     </Variant>
 
     <Variant title="Multiple months (Paged navigation)">
-      <DatePicker :default-value="defaultValue" :number-of-months="2" paged-navigation />
+      <DatePicker
+        :default-value="defaultValue"
+        :number-of-months="2"
+        paged-navigation
+      />
     </Variant>
   </Story>
 </template>

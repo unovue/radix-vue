@@ -15,7 +15,10 @@ function onChange() {
 </script>
 
 <template>
-  <Story title="Toggle/Demo" :layout="{ type: 'single', iframe: true }">
+  <Story
+    title="Toggle/Demo"
+    :layout="{ type: 'single', iframe: true }"
+  >
     <Variant title="chromatic">
       <div class="flex flex-col items-left dark:text-white">
         <h1 class="font-bold text-xl dark:text-white">
@@ -27,7 +30,10 @@ function onChange() {
           aria-label="Toggle bold"
           class="hover:bg-violet3 color-mauve11 data-[state=on]:bg-violet6 data-[state=on]:text-violet12 shadow-blackA7 flex h-[35px] w-[35px] items-center justify-center rounded bg-white text-base leading-4 shadow-[0_2px_10px] focus-within:shadow-[0_0_0_2px] focus-within:shadow-black"
         >
-          <Icon icon="radix-icons:font-bold" class="text-black" />
+          <Icon
+            icon="radix-icons:font-bold"
+            class="text-black"
+          />
         </Toggle>
         <span class="">default on</span>
         <Toggle
@@ -36,7 +42,10 @@ function onChange() {
           aria-label="Toggle bold"
           class="hover:bg-violet3 color-mauve11 data-[state=on]:bg-violet6 data-[state=on]:text-violet12 shadow-blackA7 flex h-[35px] w-[35px] items-center justify-center rounded bg-white text-base leading-4 shadow-[0_2px_10px] focus-within:shadow-[0_0_0_2px] focus-within:shadow-black"
         >
-          <Icon icon="radix-icons:font-bold" class="text-black" />
+          <Icon
+            icon="radix-icons:font-bold"
+            class="text-black"
+          />
         </Toggle>
 
         <h1 class="font-bold text-xl dark:text-white">
@@ -49,7 +58,10 @@ function onChange() {
           :default-value="false"
           class="hover:bg-violet3 color-mauve11 data-[state=on]:bg-violet6 data-[state=on]:text-violet12 shadow-blackA7 flex h-[35px] w-[35px] items-center justify-center rounded bg-white text-base leading-4 shadow-[0_2px_10px] focus-within:shadow-[0_0_0_2px] focus-within:shadow-black"
         >
-          <Icon icon="radix-icons:font-bold" class="text-black" />
+          <Icon
+            icon="radix-icons:font-bold"
+            class="text-black"
+          />
         </Toggle>
 
         <span class="">default on</span>
@@ -59,7 +71,10 @@ function onChange() {
           :default-value="true"
           class="hover:bg-violet3 color-mauve11 data-[state=on]:bg-violet6 data-[state=on]:text-violet12 shadow-blackA7 flex h-[35px] w-[35px] items-center justify-center rounded bg-white text-base leading-4 shadow-[0_2px_10px] focus-within:shadow-[0_0_0_2px] focus-within:shadow-black"
         >
-          <Icon icon="radix-icons:font-bold" class="text-black" />
+          <Icon
+            icon="radix-icons:font-bold"
+            class="text-black"
+          />
         </Toggle>
 
         <h1 class="font-bold text-xl dark:text-white">
@@ -72,7 +87,10 @@ function onChange() {
           class="hover:bg-violet3 color-mauve11 data-[state=on]:bg-violet6 data-[state=on]:text-violet12 shadow-blackA7 flex h-[35px] w-[35px] items-center justify-center rounded bg-white text-base leading-4 shadow-[0_2px_10px] focus-within:shadow-[0_0_0_2px] focus-within:shadow-black"
           @update:pressed="onChange"
         >
-          <Icon icon="radix-icons:font-bold" class="text-black" />
+          <Icon
+            icon="radix-icons:font-bold"
+            class="text-black"
+          />
         </Toggle>
       </div>
     </Variant>
@@ -82,7 +100,10 @@ function onChange() {
         aria-label="Toggle bold"
         class="hover:bg-violet3 color-mauve11 data-[state=on]:bg-violet6 data-[state=on]:text-violet12 shadow-blackA7 flex h-[35px] w-[35px] items-center justify-center rounded bg-white text-base leading-4 shadow-[0_2px_10px] focus-within:shadow-[0_0_0_2px] focus-within:shadow-black"
       >
-        <Icon icon="radix-icons:font-bold" class="text-black" />
+        <Icon
+          icon="radix-icons:font-bold"
+          class="text-black"
+        />
       </Toggle>
     </Variant>
     <Variant title="toggled by default">
@@ -92,7 +113,10 @@ function onChange() {
         :default-value="true"
         class="hover:bg-violet3 color-mauve11 data-[state=on]:bg-violet6 data-[state=on]:text-violet12 shadow-blackA7 flex h-[35px] w-[35px] items-center justify-center rounded bg-white text-base leading-4 shadow-[0_2px_10px] focus-within:shadow-[0_0_0_2px] focus-within:shadow-black"
       >
-        <Icon icon="radix-icons:font-bold" class="text-black" />
+        <Icon
+          icon="radix-icons:font-bold"
+          class="text-black"
+        />
       </Toggle>
     </Variant>
     <Variant title="onPressedChange Event">
@@ -102,7 +126,10 @@ function onChange() {
         class="hover:bg-violet3 color-mauve11 data-[state=on]:bg-violet6 data-[state=on]:text-violet12 shadow-blackA7 flex h-[35px] w-[35px] items-center justify-center rounded bg-white text-base leading-4 shadow-[0_2px_10px] focus-within:shadow-[0_0_0_2px] focus-within:shadow-black"
         @update:pressed="onChange"
       >
-        <Icon icon="radix-icons:font-bold" class="text-black" />
+        <Icon
+          icon="radix-icons:font-bold"
+          class="text-black"
+        />
       </Toggle>
     </Variant>
   </Story>

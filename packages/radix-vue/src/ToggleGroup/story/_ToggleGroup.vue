@@ -14,27 +14,39 @@ const toggleGroupItemClasses
 </script>
 
 <template>
-  <ToggleGroupRoot v-bind="forwarded" class="flex">
+  <ToggleGroupRoot
+    v-bind="forwarded"
+    class="flex"
+  >
     <ToggleGroupItem
       value="left"
       aria-label="Toggle italic"
       :class="toggleGroupItemClasses"
     >
-      <Icon icon="radix-icons:text-align-left" class="text-black" />
+      <Icon
+        icon="radix-icons:text-align-left"
+        class="text-black"
+      />
     </ToggleGroupItem>
     <ToggleGroupItem
       value="center"
       aria-label="Toggle italic"
       :class="toggleGroupItemClasses"
     >
-      <Icon icon="radix-icons:text-align-center" class="text-black" />
+      <Icon
+        icon="radix-icons:text-align-center"
+        class="text-black"
+      />
     </ToggleGroupItem>
     <ToggleGroupItem
       value="right"
       aria-label="Toggle italic"
       :class="toggleGroupItemClasses"
     >
-      <Icon icon="radix-icons:text-align-right" class="text-black" />
+      <Icon
+        icon="radix-icons:text-align-right"
+        class="text-black"
+      />
     </ToggleGroupItem>
   </ToggleGroupRoot>
 </template>

@@ -38,7 +38,10 @@ const selectedValue = ref(['One', 'Two', 'Three', 'Four'])
   >
     <Variant title="Closed by default">
       <template #controls>
-        modelValue: <input v-model="hasDynamicContent" type="checkbox">
+        modelValue: <input
+          v-model="hasDynamicContent"
+          type="checkbox"
+        >
       </template>
 
       <AccordionRoot
@@ -73,7 +76,10 @@ const selectedValue = ref(['One', 'Two', 'Three', 'Four'])
 
     <Variant title="Open by default">
       <template #controls>
-        modelValue: <input v-model="hasDynamicContent" type="checkbox">
+        modelValue: <input
+          v-model="hasDynamicContent"
+          type="checkbox"
+        >
       </template>
 
       <AccordionRoot
@@ -144,7 +150,10 @@ const selectedValue = ref(['One', 'Two', 'Three', 'Four'])
         class="w-[300px] rounded-md bg-[--line-color] shadow-lg"
         type="multiple"
       >
-        <AccordionItem class="accordion-item" value="One">
+        <AccordionItem
+          class="accordion-item"
+          value="One"
+        >
           <AccordionHeader class="flex">
             <AccordionTrigger class="accordion-trigger">
               one
@@ -159,7 +168,10 @@ const selectedValue = ref(['One', 'Two', 'Three', 'Four'])
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem class="accordion-item" value="Two">
+        <AccordionItem
+          class="accordion-item"
+          value="Two"
+        >
           <AccordionHeader class="flex">
             <AccordionTrigger class="accordion-trigger">
               Two
@@ -175,7 +187,10 @@ const selectedValue = ref(['One', 'Two', 'Three', 'Four'])
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem class="accordion-item" value="Three">
+        <AccordionItem
+          class="accordion-item"
+          value="Three"
+        >
           <AccordionHeader class="flex">
             <AccordionTrigger class="accordion-trigger">
               Three
@@ -190,7 +205,10 @@ const selectedValue = ref(['One', 'Two', 'Three', 'Four'])
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem class="accordion-item" value="Four">
+        <AccordionItem
+          class="accordion-item"
+          value="Four"
+        >
           <AccordionHeader class="flex">
             <AccordionTrigger class="accordion-trigger">
               Four

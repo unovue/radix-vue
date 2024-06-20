@@ -29,7 +29,10 @@ rootContext.contentId ||= useId(undefined, 'radix-vue-combobox-content')
 
 <template>
   <Presence :present="forceMount || rootContext.open.value">
-    <ComboboxContentImpl v-bind="{ ...forwarded, ...$attrs }" :ref="forwardRef">
+    <ComboboxContentImpl
+      v-bind="{ ...forwarded, ...$attrs }"
+      :ref="forwardRef"
+    >
       <slot />
     </ComboboxContentImpl>
   </Presence>

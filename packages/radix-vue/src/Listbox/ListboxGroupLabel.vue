@@ -18,7 +18,10 @@ const groupContext = injectListboxGroupContext({ id: '' })
 </script>
 
 <template>
-  <Primitive v-bind="props" :id="groupContext.id">
+  <Primitive
+    v-bind="props"
+    :id="groupContext.id"
+  >
     <slot />
   </Primitive>
 </template>

@@ -12,7 +12,10 @@ const hoverState = ref(false)
 </script>
 
 <template>
-  <Story title="Hover Card/Demo" :layout="{ type: 'single', iframe: true }">
+  <Story
+    title="Hover Card/Demo"
+    :layout="{ type: 'single', iframe: true }"
+  >
     <Variant title="default">
       <HoverCardRoot v-model:open="hoverState">
         <HoverCardTrigger
@@ -84,7 +87,10 @@ const hoverState = ref(false)
                   </div>
                 </div>
 
-                <HoverCardArrow class="fill-white" size="8" />
+                <HoverCardArrow
+                  class="fill-white"
+                  size="8"
+                />
               </div>
             </HoverCardContent>
           </Transition>

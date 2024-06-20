@@ -20,7 +20,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <DialogClose v-bind="props" :ref="forwardRef">
+  <DialogClose
+    v-bind="props"
+    :ref="forwardRef"
+  >
     <slot />
   </DialogClose>
 </template>

@@ -7,7 +7,10 @@ const switchState = ref(false)
 
 <template>
   <div class="flex gap-2 items-center">
-    <label class="text-white text-[15px] leading-none pr-[15px] select-none" for="airplane-mode">
+    <label
+      class="text-white text-[15px] leading-none pr-[15px] select-none"
+      for="airplane-mode"
+    >
       Airplane mode
     </label>
     <SwitchRoot

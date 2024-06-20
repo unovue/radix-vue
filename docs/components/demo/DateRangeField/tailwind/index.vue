@@ -4,7 +4,10 @@ import { DateRangeFieldInput, DateRangeFieldRoot, Label } from 'radix-vue'
 
 <template>
   <div class="flex flex-col gap-2">
-    <Label for="date-field" class="text-white">Booking</Label>
+    <Label
+      for="date-field"
+      class="text-white"
+    >Booking</Label>
 
     <DateRangeFieldRoot
       id="date-field"
@@ -13,7 +16,10 @@ import { DateRangeFieldInput, DateRangeFieldRoot, Label } from 'radix-vue'
 
       class="flex select-none bg-white items-center rounded-lg text-center text-green10 border border-transparent p-1 data-[invalid]:border-red-500"
     >
-      <template v-for="item in segments.start" :key="item.part">
+      <template
+        v-for="item in segments.start"
+        :key="item.part"
+      >
         <DateRangeFieldInput
           v-if="item.part === 'literal'"
           :part="item.part"
@@ -34,7 +40,10 @@ import { DateRangeFieldInput, DateRangeFieldRoot, Label } from 'radix-vue'
 
         -
       </span>
-      <template v-for="item in segments.end" :key="item.part">
+      <template
+        v-for="item in segments.end"
+        :key="item.part"
+      >
         <DateRangeFieldInput
           v-if="item.part === 'literal'"
           :part="item.part"

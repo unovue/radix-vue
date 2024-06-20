@@ -40,7 +40,10 @@ const POSITION = ['item-aligned', 'popper'] as const
       <SelectValue placeholder="Please select a fruit">
         {{ fruit }}
       </SelectValue>
-      <Icon icon="radix-icons:chevron-down" class="h-4 w-4" />
+      <Icon
+        icon="radix-icons:chevron-down"
+        class="h-4 w-4"
+      />
     </SelectTrigger>
 
     <SelectPortal>

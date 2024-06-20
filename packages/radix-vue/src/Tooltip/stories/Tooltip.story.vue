@@ -8,7 +8,10 @@ const disableTooltip = ref(false)
 </script>
 
 <template>
-  <Story title="Tooltip/Default" :layout="{ type: 'single', iframe: true }">
+  <Story
+    title="Tooltip/Default"
+    :layout="{ type: 'single', iframe: true }"
+  >
     <Variant title="default">
       <div class="py-20">
         <TooltipProvider :disabled="disableTooltip">

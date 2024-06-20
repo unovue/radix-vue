@@ -200,7 +200,10 @@ provideNumberFieldRootContext({
     :as="as"
     :as-child="asChild"
   >
-    <slot :model-value="modelValue" :text-value="textValue" />
+    <slot
+      :model-value="modelValue"
+      :text-value="textValue"
+    />
   </Primitive>
 
   <input

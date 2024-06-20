@@ -3,7 +3,10 @@ import { TabsContent, TabsIndicator, TabsList, TabsRoot, TabsTrigger } from '../
 </script>
 
 <template>
-  <Story title="Tabs/Demo" :layout="{ type: 'single', iframe: false }">
+  <Story
+    title="Tabs/Demo"
+    :layout="{ type: 'single', iframe: false }"
+  >
     <Variant title="default">
       <TabsRoot
         class="flex flex-col w-[300px] shadow-[0_2px_10px] shadow-blackA4"

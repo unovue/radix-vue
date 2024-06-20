@@ -20,7 +20,10 @@ onPointerExit(() => {
 </script>
 
 <template>
-  <TooltipContentImpl :ref="forwardRef" v-bind="forwardedProps">
+  <TooltipContentImpl
+    :ref="forwardRef"
+    v-bind="forwardedProps"
+  >
     <slot />
   </TooltipContentImpl>
 </template>

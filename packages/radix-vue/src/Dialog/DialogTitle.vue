@@ -15,7 +15,10 @@ useForwardExpose()
 </script>
 
 <template>
-  <Primitive v-bind="props" :id="rootContext.titleId">
+  <Primitive
+    v-bind="props"
+    :id="rootContext.titleId"
+  >
     <slot />
   </Primitive>
 </template>

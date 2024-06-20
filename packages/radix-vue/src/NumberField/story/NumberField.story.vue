@@ -4,7 +4,10 @@ import { Icon } from '@iconify/vue'
 </script>
 
 <template>
-  <Story title="NumberField/Basic" :layout="{ type: 'single', iframe: true }">
+  <Story
+    title="NumberField/Basic"
+    :layout="{ type: 'single', iframe: true }"
+  >
     <Variant title="default">
       <NumberFieldRoot
         class="text-sm  text-white"

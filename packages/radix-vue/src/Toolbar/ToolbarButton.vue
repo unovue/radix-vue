@@ -16,7 +16,10 @@ const { forwardRef } = useForwardExpose()
 </script>
 
 <template>
-  <RovingFocusItem as-child :focusable="!disabled">
+  <RovingFocusItem
+    as-child
+    :focusable="!disabled"
+  >
     <Primitive
       :ref="forwardRef"
       :type="as === 'button' ? 'button' : undefined"

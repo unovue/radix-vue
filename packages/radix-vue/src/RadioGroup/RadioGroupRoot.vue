@@ -89,7 +89,12 @@ provideRadioGroupRootContext({
 </script>
 
 <template>
-  <RovingFocusGroup as-child :orientation="orientation" :dir="dir" :loop="loop">
+  <RovingFocusGroup
+    as-child
+    :orientation="orientation"
+    :dir="dir"
+    :loop="loop"
+  >
     <Primitive
       :ref="forwardRef"
       role="radiogroup"

@@ -59,6 +59,7 @@ const isSelected = computed(() =>
 
 const isFocused = computed(() => isEqual(rootContext.selectedValue.value, props.value))
 const textId = useId(undefined, 'radix-vue-combobox-item')
+const optionId = useId(undefined, 'radix-vue-combobox-option')
 
 const isInOption = computed(() =>
   rootContext.isUserInputted.value
@@ -105,6 +106,7 @@ provideComboboxItemContext({
   <CollectionItem>
     <Primitive
       v-show="isInOption"
+      :id="optionId"
       :ref="forwardRef"
       role="option"
       tabindex="-1"

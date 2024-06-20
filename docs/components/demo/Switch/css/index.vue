@@ -8,7 +8,10 @@ const switchState = ref(false)
 
 <template>
   <div :style="{ display: 'flex', alignItems: 'center' }">
-    <label class="Label" for="airplane-mode">
+    <label
+      class="Label"
+      for="airplane-mode"
+    >
       Airplane mode
     </label>
     <SwitchRoot

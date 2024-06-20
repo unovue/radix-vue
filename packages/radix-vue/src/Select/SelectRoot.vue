@@ -175,7 +175,10 @@ provideSelectNativeOptionsContext({
       :value="modelValue"
       @change="modelValue = $event.target.value"
     >
-      <option v-if="modelValue === undefined" value="" />
+      <option
+        v-if="modelValue === undefined"
+        value=""
+      />
       <component
         v-bind="option.props"
         :is="option"

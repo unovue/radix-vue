@@ -337,7 +337,10 @@ import Toast from './your-toast.vue'
 </script>
 
 <template>
-  <Toast title="Upgrade available" content="We've just released Radix 3.0!">
+  <Toast
+    title="Upgrade available"
+    content="We've just released Radix 3.0!"
+  >
     <button @click="handleUpgrade">
       Upgrade
     </button>
@@ -364,7 +367,10 @@ defineProps<{
       {{ title }}
     </ToastTitle>
     <ToastDescription>{{ content }}</ToastDescription>
-    <ToastAction as-child altText="toast">
+    <ToastAction
+      as-child
+      alt-text="toast"
+    >
       <slot />
     </ToastAction>
     <ToastClose aria-label="Close">
@@ -419,7 +425,10 @@ defineExpose({
 </script>
 
 <template>
-  <ToastRoot v-for="index in count" :key="index">
+  <ToastRoot
+    v-for="index in count"
+    :key="index"
+  >
     <ToastDescription>
       <slot />
     </ToastDescription>

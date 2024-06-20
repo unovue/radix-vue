@@ -26,8 +26,18 @@ const files = computed<string[]>(
       <div class="w-full max-w-[700px] flex items-center py-12 sm:py-[100px] custom-justify-center">
         <slot />
 
-        <CodeSandbox v-if="folder" class="hidden sm:block absolute bottom-4 right-4" :name="folder" :files="files" />
-        <Stackblitz v-if="folder" class="hidden sm:block absolute bottom-4 right-12" :name="folder" :files="files" />
+        <CodeSandbox
+          v-if="folder"
+          class="hidden sm:block absolute bottom-4 right-4"
+          :name="folder"
+          :files="files"
+        />
+        <Stackblitz
+          v-if="folder"
+          class="hidden sm:block absolute bottom-4 right-12"
+          :name="folder"
+          :files="files"
+        />
       </div>
     </div>
     <slot name="codeSlot" />

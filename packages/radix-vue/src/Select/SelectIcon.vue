@@ -13,7 +13,11 @@ withDefaults(defineProps<SelectIconProps>(), {
 </script>
 
 <template>
-  <Primitive aria-hidden :as="as" :as-child="asChild">
+  <Primitive
+    aria-hidden
+    :as="as"
+    :as-child="asChild"
+  >
     <slot>▼</slot>
   </Primitive>
 </template>

@@ -14,7 +14,11 @@ const parsedFiles = computed(() => JSON.parse(decodeURIComponent(props.files ?? 
 </script>
 
 <template>
-  <HeroContainer :folder="name" :files="parsedFiles" :css-framework="cssFramework">
+  <HeroContainer
+    :folder="name"
+    :files="parsedFiles"
+    :css-framework="cssFramework"
+  >
     <slot />
 
     <template #codeSlot>

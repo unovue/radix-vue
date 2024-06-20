@@ -7,11 +7,17 @@ const lastEvent = ref('')
 </script>
 
 <template>
-  <Story title="Tooltip/Content" :layout="{ type: 'grid', width: '300px' }">
+  <Story
+    title="Tooltip/Content"
+    :layout="{ type: 'grid', width: '300px' }"
+  >
     <Variant title="Aria Label">
       <div class="grid w-full h-28 place-content-center">
         <TooltipProvider :disable-closing-trigger="true">
-          <TooltipRoot :delay-duration="1000" :default-open="true">
+          <TooltipRoot
+            :delay-duration="1000"
+            :default-open="true"
+          >
             <TooltipTrigger
               class="text-violet11 shadow-blackA7 hover:bg-violet3 inline-flex h-[35px] w-[35px] items-center justify-center rounded-full bg-white shadow-[0_2px_10px] outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
             >

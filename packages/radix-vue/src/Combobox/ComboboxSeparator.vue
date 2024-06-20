@@ -13,7 +13,10 @@ useForwardExpose()
 </script>
 
 <template>
-  <Primitive v-bind="props" aria-hidden>
+  <Primitive
+    v-bind="props"
+    aria-hidden
+  >
     <slot />
   </Primitive>
 </template>

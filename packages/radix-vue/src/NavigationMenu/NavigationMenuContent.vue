@@ -50,7 +50,11 @@ const isLastActiveValue = computed(() => {
 </script>
 
 <template>
-  <Teleport v-if="isClientMounted" :to="menuContext.viewport.value" :disabled="!menuContext.viewport.value">
+  <Teleport
+    v-if="isClientMounted"
+    :to="menuContext.viewport.value"
+    :disabled="!menuContext.viewport.value"
+  >
     <Presence :present="forceMount || open || isLastActiveValue">
       <NavigationMenuContentImpl
         :ref="forwardRef"

@@ -15,25 +15,44 @@ const maxValue = new CalendarDate(2024, 2, 20)
 </script>
 
 <template>
-  <Story title="Range Calendar/Validation" :layout="{ type: 'grid', width: '50%' }">
+  <Story
+    title="Range Calendar/Validation"
+    :layout="{ type: 'grid', width: '50%' }"
+  >
     <Variant title="Unavailable">
-      <RangeCalendar :default-value="defaultValue" :is-date-unavailable="isDateUnavailable" />
+      <RangeCalendar
+        :default-value="defaultValue"
+        :is-date-unavailable="isDateUnavailable"
+      />
     </Variant>
 
     <Variant title="Disabled">
-      <RangeCalendar :default-value="defaultValue" :is-date-disabled="isDateDisabled" />
+      <RangeCalendar
+        :default-value="defaultValue"
+        :is-date-disabled="isDateDisabled"
+      />
     </Variant>
 
     <Variant title="Min">
-      <RangeCalendar :default-value="defaultValue" :min-value="minValue" />
+      <RangeCalendar
+        :default-value="defaultValue"
+        :min-value="minValue"
+      />
     </Variant>
 
     <Variant title="Max">
-      <RangeCalendar :default-value="defaultValue" :max-value="maxValue" />
+      <RangeCalendar
+        :default-value="defaultValue"
+        :max-value="maxValue"
+      />
     </Variant>
 
     <Variant title="Min Max">
-      <RangeCalendar :default-value="defaultValue" :min-value="minValue" :max-value="maxValue" />
+      <RangeCalendar
+        :default-value="defaultValue"
+        :min-value="minValue"
+        :max-value="maxValue"
+      />
     </Variant>
   </Story>
 </template>

@@ -40,10 +40,16 @@ const open = ref(false)
             class="flex items-start gap-4 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white min-w-[300px] min-height-[200px] rounded-lg p-8 bg-white shadow-xl"
           >
             <slot />
-            <button type="button" @click="open = false">
+            <button
+              type="button"
+              @click="open = false"
+            >
               {{ closeLabel }}
             </button>
-            <input type="text" value="Hello world">
+            <input
+              type="text"
+              value="Hello world"
+            >
           </FocusScope>
         </DismissableLayer>
       </Teleport>

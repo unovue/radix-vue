@@ -1,8 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import { useSingleOrMultipleValue } from './useSingleOrMultipleValue'
 import type { SingleOrMultipleProps } from './types'
-import { nextTick, reactive } from 'vue'
-import { sleep } from '@/test'
+import { reactive } from 'vue'
 
 function setupPropsEmits(defaultProps: SingleOrMultipleProps) {
   const props = reactive(defaultProps)

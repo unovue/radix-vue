@@ -29,12 +29,21 @@ const accordionItems = [
     type="single"
     :collapsible="true"
   >
-    <template v-for="item in accordionItems" :key="item.value">
-      <AccordionItem class="AccordionItem" :value="item.value">
+    <template
+      v-for="item in accordionItems"
+      :key="item.value"
+    >
+      <AccordionItem
+        class="AccordionItem"
+        :value="item.value"
+      >
         <AccordionHeader class="AccordionHeader">
           <AccordionTrigger class="AccordionTrigger">
             <span>{{ item.title }}</span>
-            <Icon icon="radix-icons:chevron-down" class="AccordionChevron" />
+            <Icon
+              icon="radix-icons:chevron-down"
+              class="AccordionChevron"
+            />
           </AccordionTrigger>
         </AccordionHeader>
         <AccordionContent class="AccordionContent">

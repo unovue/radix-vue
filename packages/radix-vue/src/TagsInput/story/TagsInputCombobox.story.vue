@@ -14,7 +14,10 @@ watch(values, () => {
 </script>
 
 <template>
-  <Story title="TagsInput/Combobox" :layout="{ type: 'single', iframe: false }">
+  <Story
+    title="TagsInput/Combobox"
+    :layout="{ type: 'single', iframe: false }"
+  >
     <Variant title="default">
       <ComboboxRoot
         v-model="values"
@@ -30,7 +33,8 @@ watch(values, () => {
             class="flex gap-2 items-center rounded-lg flex-wrap"
           >
             <TagsInputItem
-              v-for="item in tags" :key="item"
+              v-for="item in tags"
+              :key="item"
               :value="item"
               class="flex items-center justify-center gap-2 text-white bg-grass10 aria-[current=true]:bg-grass11 rounded px-2 py-1"
             >
@@ -50,7 +54,10 @@ watch(values, () => {
           </TagsInputRoot>
 
           <ComboboxTrigger>
-            <Icon icon="radix-icons:chevron-down" class="h-4 w-4 text-grass11" />
+            <Icon
+              icon="radix-icons:chevron-down"
+              class="h-4 w-4 text-grass11"
+            />
           </ComboboxTrigger>
         </ComboboxAnchor>
         <ComboboxContent class="mt-2 min-w-[160px] bg-white overflow-hidden rounded shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade">
@@ -63,7 +70,8 @@ watch(values, () => {
               </ComboboxLabel>
 
               <ComboboxItem
-                v-for="(option, index) in options" :key="index"
+                v-for="(option, index) in options"
+                :key="index"
                 class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-grass9 data-[highlighted]:text-grass1"
                 :value="option"
               >

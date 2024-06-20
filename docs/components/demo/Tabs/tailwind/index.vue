@@ -3,8 +3,14 @@ import { TabsContent, TabsIndicator, TabsList, TabsRoot, TabsTrigger } from 'rad
 </script>
 
 <template>
-  <TabsRoot class="flex flex-col w-full sm:w-[300px] shadow-[0_2px_10px] shadow-blackA4" default-value="tab1">
-    <TabsList class="relative shrink-0 flex border-b border-mauve6" aria-label="Manage your account">
+  <TabsRoot
+    class="flex flex-col w-full sm:w-[300px] shadow-[0_2px_10px] shadow-blackA4"
+    default-value="tab1"
+  >
+    <TabsList
+      class="relative shrink-0 flex border-b border-mauve6"
+      aria-label="Manage your account"
+    >
       <TabsIndicator class="absolute px-8 left-0 h-[2px] bottom-0 w-[--radix-tabs-indicator-size] translate-x-[--radix-tabs-indicator-position] rounded-full transition-[width,transform] duration-300">
         <div class="bg-grass8 w-full h-full" />
       </TabsIndicator>
@@ -29,7 +35,10 @@ import { TabsContent, TabsIndicator, TabsList, TabsRoot, TabsTrigger } from 'rad
         Make changes to your account here. Click save when you're done.
       </p>
       <fieldset class="mb-[15px] w-full flex flex-col justify-start">
-        <label class="text-[13px] leading-none mb-2.5 text-green12 block" for="name"> Name </label>
+        <label
+          class="text-[13px] leading-none mb-2.5 text-green12 block"
+          for="name"
+        > Name </label>
         <input
           id="name"
           class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-grass11 shadow-[0_0_0_1px] shadow-green7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
@@ -37,7 +46,10 @@ import { TabsContent, TabsIndicator, TabsList, TabsRoot, TabsTrigger } from 'rad
         >
       </fieldset>
       <fieldset class="mb-[15px] w-full flex flex-col justify-start">
-        <label class="text-[13px] leading-none mb-2.5 text-green12 block" for="username"> Username </label>
+        <label
+          class="text-[13px] leading-none mb-2.5 text-green12 block"
+          for="username"
+        > Username </label>
         <input
           id="username"
           class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-grass11 shadow-[0_0_0_1px] shadow-green7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
@@ -60,7 +72,10 @@ import { TabsContent, TabsIndicator, TabsList, TabsRoot, TabsTrigger } from 'rad
         Change your password here. After saving, you'll be logged out.
       </p>
       <fieldset class="mb-[15px] w-full flex flex-col justify-start">
-        <label class="text-[13px] leading-none mb-2.5 text-green12 block" for="currentPassword">
+        <label
+          class="text-[13px] leading-none mb-2.5 text-green12 block"
+          for="currentPassword"
+        >
           Current password
         </label>
         <input
@@ -70,7 +85,10 @@ import { TabsContent, TabsIndicator, TabsList, TabsRoot, TabsTrigger } from 'rad
         >
       </fieldset>
       <fieldset class="mb-[15px] w-full flex flex-col justify-start">
-        <label class="text-[13px] leading-none mb-2.5 text-green12 block" for="newPassword"> New password </label>
+        <label
+          class="text-[13px] leading-none mb-2.5 text-green12 block"
+          for="newPassword"
+        > New password </label>
         <input
           id="newPassword"
           class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-grass11 shadow-[0_0_0_1px] shadow-green7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
@@ -78,7 +96,10 @@ import { TabsContent, TabsIndicator, TabsList, TabsRoot, TabsTrigger } from 'rad
         >
       </fieldset>
       <fieldset class="mb-[15px] w-full flex flex-col justify-start">
-        <label class="text-[13px] leading-none mb-2.5 text-green12 block" for="confirmPassword">
+        <label
+          class="text-[13px] leading-none mb-2.5 text-green12 block"
+          for="confirmPassword"
+        >
           Confirm password
         </label>
         <input

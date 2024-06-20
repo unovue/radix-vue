@@ -83,7 +83,10 @@ watchEffect((onCleanup) => {
 
 <template>
   <Presence :present="forceMount || state !== 'hidden'">
-    <ScrollAreaScrollbarVisible v-bind="$attrs" :ref="forwardRef">
+    <ScrollAreaScrollbarVisible
+      v-bind="$attrs"
+      :ref="forwardRef"
+    >
       <slot />
     </ScrollAreaScrollbarVisible>
   </Presence>

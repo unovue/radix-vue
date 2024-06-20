@@ -22,7 +22,10 @@ import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot,
             Dimensions
           </p>
           <fieldset class="flex gap-5 items-center">
-            <label class="text-[13px] text-grass11 w-[75px]" for="width"> Width </label>
+            <label
+              class="text-[13px] text-grass11 w-[75px]"
+              for="width"
+            > Width </label>
             <input
               id="width"
               class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-grass11 shadow-[0_0_0_1px] shadow-green7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
@@ -30,7 +33,10 @@ import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot,
             >
           </fieldset>
           <fieldset class="flex gap-5 items-center">
-            <label class="text-[13px] text-grass11 w-[75px]" for="maxWidth"> Max. width </label>
+            <label
+              class="text-[13px] text-grass11 w-[75px]"
+              for="maxWidth"
+            > Max. width </label>
             <input
               id="maxWidth"
               class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-grass11 shadow-[0_0_0_1px] shadow-green7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
@@ -38,7 +44,10 @@ import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot,
             >
           </fieldset>
           <fieldset class="flex gap-5 items-center">
-            <label class="text-[13px] text-grass11 w-[75px]" for="height"> Height </label>
+            <label
+              class="text-[13px] text-grass11 w-[75px]"
+              for="height"
+            > Height </label>
             <input
               id="height"
               class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-grass11 shadow-[0_0_0_1px] shadow-green7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
@@ -46,7 +55,10 @@ import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot,
             >
           </fieldset>
           <fieldset class="flex gap-5 items-center">
-            <label class="text-[13px] text-grass11 w-[75px]" for="maxHeight"> Max. height </label>
+            <label
+              class="text-[13px] text-grass11 w-[75px]"
+              for="maxHeight"
+            > Max. height </label>
             <input
               id="maxHeight"
               class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-grass11 shadow-[0_0_0_1px] shadow-green7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"

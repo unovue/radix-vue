@@ -15,9 +15,15 @@ const toggleState = ref(false)
 </script>
 
 <template>
-  <Story title="Popover/Custom Arrow" :layout="{ type: 'single', iframe: false }">
+  <Story
+    title="Popover/Custom Arrow"
+    :layout="{ type: 'single', iframe: false }"
+  >
     <Variant title="default">
-      <PopoverRoot v-model:open="toggleState" :modal="false">
+      <PopoverRoot
+        v-model:open="toggleState"
+        :modal="false"
+      >
         <PopoverTrigger
           class="rounded-full w-[35px] h-[35px] inline-flex items-center justify-center text-violet11 bg-white shadow-[0_2px_10px] shadow-blackA7 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black cursor-default outline-none"
           aria-label="Update dimensions"
@@ -39,7 +45,10 @@ const toggleState = ref(false)
                 Dimensions
               </p>
               <fieldset class="flex gap-5 items-center">
-                <label class="text-[13px] text-violet11 w-[75px]" for="width">
+                <label
+                  class="text-[13px] text-violet11 w-[75px]"
+                  for="width"
+                >
                   Width
                 </label>
                 <input
@@ -62,7 +71,10 @@ const toggleState = ref(false)
                 >
               </fieldset>
               <fieldset class="flex gap-5 items-center">
-                <label class="text-[13px] text-violet11 w-[75px]" for="height">
+                <label
+                  class="text-[13px] text-violet11 w-[75px]"
+                  for="height"
+                >
                   Height
                 </label>
                 <input
@@ -91,7 +103,11 @@ const toggleState = ref(false)
             >
               <Icon icon="radix-icons:cross-2" />
             </PopoverClose>
-            <PopoverArrow :as-child="true" :width="40" :height="20">
+            <PopoverArrow
+              :as-child="true"
+              :width="40"
+              :height="20"
+            >
               <CustomArrowSvg />
             </PopoverArrow>
           </PopoverContent>

@@ -11,7 +11,10 @@ import {
 </script>
 
 <template>
-  <Story title="Popover/Modality" :layout="{ type: 'grid', width: '50%' }">
+  <Story
+    title="Popover/Modality"
+    :layout="{ type: 'grid', width: '50%' }"
+  >
     <Variant title="Non-modal (default)">
       <div class="flex items-center justify-center flex-col h-[110vh]">
         <PopoverRoot>

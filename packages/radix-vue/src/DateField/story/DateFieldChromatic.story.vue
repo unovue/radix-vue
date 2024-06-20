@@ -10,13 +10,19 @@ const maxValue = new CalendarDate(2024, 2, 29)
 </script>
 
 <template>
-  <Story title="Date Field/Chromatic" :layout="{ type: 'grid', width: '50%' }">
+  <Story
+    title="Date Field/Chromatic"
+    :layout="{ type: 'grid', width: '50%' }"
+  >
     <Variant title="Empty default">
       <DateFieldRoot
         v-slot="{ segments }"
         class="flex select-none bg-white items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500"
       >
-        <template v-for="item in segments" :key="item.part">
+        <template
+          v-for="item in segments"
+          :key="item.part"
+        >
           <DateFieldInput
             v-if="item.part === 'literal'"
             :part="item.part"
@@ -40,7 +46,10 @@ const maxValue = new CalendarDate(2024, 2, 29)
         :default-value="defaultValue"
         class="flex select-none bg-white items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500"
       >
-        <template v-for="item in segments" :key="item.part">
+        <template
+          v-for="item in segments"
+          :key="item.part"
+        >
           <DateFieldInput
             v-if="item.part === 'literal'"
             :part="item.part"
@@ -63,7 +72,10 @@ const maxValue = new CalendarDate(2024, 2, 29)
         v-slot="{ segments }"
         class="flex select-none bg-white items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500"
       >
-        <template v-for="item in segments" :key="item.part">
+        <template
+          v-for="item in segments"
+          :key="item.part"
+        >
           <DateFieldInput
             v-if="item.part === 'literal'"
             :part="item.part"
@@ -87,7 +99,10 @@ const maxValue = new CalendarDate(2024, 2, 29)
         v-model="modelValue"
         class="flex select-none bg-white items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500"
       >
-        <template v-for="item in segments" :key="item.part">
+        <template
+          v-for="item in segments"
+          :key="item.part"
+        >
           <DateFieldInput
             v-if="item.part === 'literal'"
             :part="item.part"
@@ -112,7 +127,10 @@ const maxValue = new CalendarDate(2024, 2, 29)
         :min-value="minValue"
         class="flex select-none bg-white items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500"
       >
-        <template v-for="item in segments" :key="item.part">
+        <template
+          v-for="item in segments"
+          :key="item.part"
+        >
           <DateFieldInput
             v-if="item.part === 'literal'"
             :part="item.part"
@@ -137,7 +155,10 @@ const maxValue = new CalendarDate(2024, 2, 29)
         :max-value="maxValue"
         class="flex select-none bg-white items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500"
       >
-        <template v-for="item in segments" :key="item.part">
+        <template
+          v-for="item in segments"
+          :key="item.part"
+        >
           <DateFieldInput
             v-if="item.part === 'literal'"
             :part="item.part"
@@ -162,7 +183,10 @@ const maxValue = new CalendarDate(2024, 2, 29)
         :disabled="true"
         class="flex select-none bg-white items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500"
       >
-        <template v-for="item in segments" :key="item.part">
+        <template
+          v-for="item in segments"
+          :key="item.part"
+        >
           <DateFieldInput
             v-if="item.part === 'literal'"
             :part="item.part"
@@ -186,7 +210,10 @@ const maxValue = new CalendarDate(2024, 2, 29)
         locale="de"
         class="flex select-none bg-white items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500"
       >
-        <template v-for="item in segments" :key="item.part">
+        <template
+          v-for="item in segments"
+          :key="item.part"
+        >
           <DateFieldInput
             v-if="item.part === 'literal'"
             :part="item.part"

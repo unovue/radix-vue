@@ -4,10 +4,19 @@ import './styles.css'
 </script>
 
 <template>
-  <TabsRoot class="TabsRoot" default-value="tab1">
-    <TabsList class="TabsList" aria-label="Manage your account">
+  <TabsRoot
+    class="TabsRoot"
+    default-value="tab1"
+  >
+    <TabsList
+      class="TabsList"
+      aria-label="Manage your account"
+    >
       <TabsIndicator class="TagsIndicator ">
-        <div style="width: 100%; height: 100%" class="bg-grass8 w-full h-full" />
+        <div
+          style="width: 100%; height: 100%"
+          class="bg-grass8 w-full h-full"
+        />
       </TabsIndicator>
       <TabsTrigger
         class="TabsTrigger"
@@ -30,7 +39,10 @@ import './styles.css'
         Make changes to your account here. Click save when you're done.
       </p>
       <fieldset class="Fieldset">
-        <label class="Label" for="name"> Name </label>
+        <label
+          class="Label"
+          for="name"
+        > Name </label>
         <input
           id="name"
           class="Input"
@@ -38,7 +50,10 @@ import './styles.css'
         >
       </fieldset>
       <fieldset class="Fieldset">
-        <label class="Label" for="username"> Username </label>
+        <label
+          class="Label"
+          for="username"
+        > Username </label>
         <input
           id="username"
           class="Input"
@@ -61,7 +76,10 @@ import './styles.css'
         Change your password here. After saving, you'll be logged out.
       </p>
       <fieldset class="Fieldset">
-        <label class="Label" for="currentPassword">
+        <label
+          class="Label"
+          for="currentPassword"
+        >
           Current password
         </label>
         <input
@@ -71,7 +89,10 @@ import './styles.css'
         >
       </fieldset>
       <fieldset class="Fieldset">
-        <label class="Label" for="newPassword"> New password </label>
+        <label
+          class="Label"
+          for="newPassword"
+        > New password </label>
         <input
           id="newPassword"
           class="Input"
@@ -79,7 +100,10 @@ import './styles.css'
         >
       </fieldset>
       <fieldset class="Fieldset">
-        <label class="Label" for="confirmPassword">
+        <label
+          class="Label"
+          for="confirmPassword"
+        >
           Confirm password
         </label>
         <input

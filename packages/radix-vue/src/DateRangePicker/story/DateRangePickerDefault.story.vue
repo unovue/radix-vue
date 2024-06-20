@@ -27,7 +27,10 @@ import { Label } from '@/Label'
   <Story title="Date Range Picker/Default">
     <Variant title="default">
       <div class="flex flex-col gap-2">
-        <Label class="text-sm text-gray9" for="date-field">Hotel Booking Dates</Label>
+        <Label
+          class="text-sm text-gray9"
+          for="date-field"
+        >Hotel Booking Dates</Label>
         <DateRangePickerRoot
           id="date-field"
           :is-date-unavailable="date => date.day === 19"
@@ -36,7 +39,10 @@ import { Label } from '@/Label'
             v-slot="{ segments }"
             class="flex select-none items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500"
           >
-            <template v-for="item in segments.start" :key="item.part">
+            <template
+              v-for="item in segments.start"
+              :key="item.part"
+            >
               <DateRangePickerInput
                 v-if="item.part === 'literal'"
                 :part="item.part"
@@ -55,7 +61,10 @@ import { Label } from '@/Label'
             </template>
             -
 
-            <template v-for="item in segments.end" :key="item.part">
+            <template
+              v-for="item in segments.end"
+              :key="item.part"
+            >
               <DateRangePickerInput
                 v-if="item.part === 'literal'"
                 :part="item.part"
@@ -73,7 +82,10 @@ import { Label } from '@/Label'
               </DateRangePickerInput>
             </template>
             <DateRangePickerTrigger class="focus:shadow-[0_0_0_2px] focus:shadow-black">
-              <Icon icon="radix-icons:calendar" class="w-6 h-6" />
+              <Icon
+                icon="radix-icons:calendar"
+                class="w-6 h-6"
+              />
             </DateRangePickerTrigger>
           </DateRangePickerField>
 
@@ -91,24 +103,35 @@ import { Label } from '@/Label'
                 <DateRangePickerPrev
                   class="inline-flex items-center cursor-pointer text-black justify-center rounded-[9px] bg-transparent w-10 h-10 hover:bg-black hover:text-white active:scale-98 active:transition-all focus:shadow-[0_0_0_2px] focus:shadow-black"
                 >
-                  <Icon icon="radix-icons:chevron-left" class="w-6 h-6" />
+                  <Icon
+                    icon="radix-icons:chevron-left"
+                    class="w-6 h-6"
+                  />
                 </DateRangePickerPrev>
 
                 <DateRangePickerHeading class="text-[15px] text-black font-medium" />
                 <DateRangePickerNext
                   class="inline-flex items-center cursor-pointer text-black justify-center rounded-[9px] bg-transparent w-10 h-10 hover:bg-black hover:text-white active:scale-98 active:transition-all focus:shadow-[0_0_0_2px] focus:shadow-black"
                 >
-                  <Icon icon="radix-icons:chevron-right" class="w-6 h-6" />
+                  <Icon
+                    icon="radix-icons:chevron-right"
+                    class="w-6 h-6"
+                  />
                 </DateRangePickerNext>
               </DateRangePickerHeader>
               <div
                 class="flex flex-col space-y-4 pt-4 sm:flex-row sm:space-x-4 sm:space-y-0"
               >
-                <DateRangePickerGrid v-for="month in grid" :key="month.value.toString()" class="w-full border-collapse select-none space-y-1">
+                <DateRangePickerGrid
+                  v-for="month in grid"
+                  :key="month.value.toString()"
+                  class="w-full border-collapse select-none space-y-1"
+                >
                   <DateRangePickerGridHead>
                     <DateRangePickerGridRow class="mb-1 flex w-full justify-between">
                       <DateRangePickerHeadCell
-                        v-for="day in weekDays" :key="day"
+                        v-for="day in weekDays"
+                        :key="day"
                         class="w-10 rounded-md text-xs !font-normal text-black"
                       >
                         {{ day }}

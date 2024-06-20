@@ -30,7 +30,10 @@ function handleChange(event: any) {
 </script>
 
 <template>
-  <Story title="Select/Form" :layout="{ type: 'single', iframe: false }">
+  <Story
+    title="Select/Form"
+    :layout="{ type: 'single', iframe: false }"
+  >
     <Variant title="default">
       <div class="flex flex-col items-center">
         <form
@@ -38,13 +41,19 @@ function handleChange(event: any) {
           @submit.prevent="handleChange"
         >
           <label for="fruit">Fruit</label>
-          <SelectRoot name="fruit" default-value="Apple">
+          <SelectRoot
+            name="fruit"
+            default-value="Apple"
+          >
             <SelectTrigger
               class="min-w-[160px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-violet11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-violet9 outline-none"
               aria-label="Customise options"
             >
               <SelectValue placeholder="Please select a fruit" />
-              <Icon icon="radix-icons:chevron-down" class="h-4 w-4" />
+              <Icon
+                icon="radix-icons:chevron-down"
+                class="h-4 w-4"
+              />
             </SelectTrigger>
 
             <SelectPortal>

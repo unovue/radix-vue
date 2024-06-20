@@ -14,9 +14,17 @@ const options = computed(() => searchTerm.value.trim() ? countryList.slice(0, 20
   >
     <Variant title="Filter (Single)">
       <ListboxRoot class="w-48  flex flex-col p-1 rounded-lg border bg-white text-green9 mx-auto ">
-        <ListboxFilter v-model="searchTerm" class="border rounded" />
+        <ListboxFilter
+          v-model="searchTerm"
+          class="border rounded"
+        />
         <ListboxContent class="h-72 overflow-auto">
-          <ListboxItem v-for="i in options" :key="i" :value="i" class="w-full py-1 px-2 text-green9 select-none text-sm focus:ring-0 data-[highlighted]:outline-green9 data-[highlighted]:outline-1 data-[highlighted]:outline focus:outline-green9 data-[state=checked]:bg-green9 data-[state=checked]:text-white data-[disabled]:opacity-50 rounded">
+          <ListboxItem
+            v-for="i in options"
+            :key="i"
+            :value="i"
+            class="w-full py-1 px-2 text-green9 select-none text-sm focus:ring-0 data-[highlighted]:outline-green9 data-[highlighted]:outline-1 data-[highlighted]:outline focus:outline-green9 data-[state=checked]:bg-green9 data-[state=checked]:text-white data-[disabled]:opacity-50 rounded"
+          >
             {{ i }}
           </ListboxItem>
         </ListboxContent>
@@ -24,10 +32,21 @@ const options = computed(() => searchTerm.value.trim() ? countryList.slice(0, 20
     </Variant>
 
     <Variant title="Filter (Multiple)">
-      <ListboxRoot :multiple="true" class="w-48  flex flex-col p-1 rounded-lg border bg-white text-green9 mx-auto ">
-        <ListboxFilter v-model="searchTerm" class="border rounded" />
+      <ListboxRoot
+        :multiple="true"
+        class="w-48  flex flex-col p-1 rounded-lg border bg-white text-green9 mx-auto "
+      >
+        <ListboxFilter
+          v-model="searchTerm"
+          class="border rounded"
+        />
         <ListboxContent class="h-72 overflow-auto">
-          <ListboxItem v-for="i in options" :key="i" :value="i" class="w-full py-1 px-2 text-green9 select-none text-sm focus:ring-0 data-[highlighted]:outline-green9 data-[highlighted]:outline-1 data-[highlighted]:outline focus:outline-green9 data-[state=checked]:bg-green9 data-[state=checked]:text-white data-[disabled]:opacity-50 rounded">
+          <ListboxItem
+            v-for="i in options"
+            :key="i"
+            :value="i"
+            class="w-full py-1 px-2 text-green9 select-none text-sm focus:ring-0 data-[highlighted]:outline-green9 data-[highlighted]:outline-1 data-[highlighted]:outline focus:outline-green9 data-[state=checked]:bg-green9 data-[state=checked]:text-white data-[disabled]:opacity-50 rounded"
+          >
             {{ i }}
           </ListboxItem>
         </ListboxContent>

@@ -14,14 +14,20 @@ const dir = ref<'ltr' | 'rtl'>('ltr')
     auto-props-disabled
   >
     <Variant title="No orientation (both) + no looping">
-      <ButtonGroup :dir="dir" default-value="two">
+      <ButtonGroup
+        :dir="dir"
+        default-value="two"
+      >
         <Button value="one">
           One
         </Button>
         <Button value="two">
           Two
         </Button>
-        <Button disabled value="three">
+        <Button
+          disabled
+          value="three"
+        >
           Three
         </Button>
         <Button value="four">
@@ -31,14 +37,21 @@ const dir = ref<'ltr' | 'rtl'>('ltr')
     </Variant>
 
     <Variant title="No orientation (both) +  looping">
-      <ButtonGroup :dir="dir" default-value="two" loop>
+      <ButtonGroup
+        :dir="dir"
+        default-value="two"
+        loop
+      >
         <Button value="one">
           One
         </Button>
         <Button value="two">
           Two
         </Button>
-        <Button disabled value="three">
+        <Button
+          disabled
+          value="three"
+        >
           Three
         </Button>
         <Button value="four">
@@ -48,14 +61,20 @@ const dir = ref<'ltr' | 'rtl'>('ltr')
     </Variant>
 
     <Variant title="Horizontal orientation + no looping">
-      <ButtonGroup :dir="dir" orientation="horizontal">
+      <ButtonGroup
+        :dir="dir"
+        orientation="horizontal"
+      >
         <Button value="one">
           One
         </Button>
         <Button value="two">
           Two
         </Button>
-        <Button disabled value="three">
+        <Button
+          disabled
+          value="three"
+        >
           Three
         </Button>
         <Button value="four">
@@ -65,14 +84,21 @@ const dir = ref<'ltr' | 'rtl'>('ltr')
     </Variant>
 
     <Variant title="Horizontal orientation + looping">
-      <ButtonGroup :dir="dir" orientation="horizontal" loop>
+      <ButtonGroup
+        :dir="dir"
+        orientation="horizontal"
+        loop
+      >
         <Button value="one">
           One
         </Button>
         <Button value="two">
           Two
         </Button>
-        <Button disabled value="three">
+        <Button
+          disabled
+          value="three"
+        >
           Three
         </Button>
         <Button value="four">
@@ -82,14 +108,20 @@ const dir = ref<'ltr' | 'rtl'>('ltr')
     </Variant>
 
     <Variant title="Vertical orientation + no looping">
-      <ButtonGroup :dir="dir" orientation="vertical">
+      <ButtonGroup
+        :dir="dir"
+        orientation="vertical"
+      >
         <Button value="one">
           One
         </Button>
         <Button value="two">
           Two
         </Button>
-        <Button disabled value="three">
+        <Button
+          disabled
+          value="three"
+        >
           Three
         </Button>
         <Button value="four">
@@ -99,14 +131,21 @@ const dir = ref<'ltr' | 'rtl'>('ltr')
     </Variant>
 
     <Variant title="Vertical orientation + looping">
-      <ButtonGroup :dir="dir" orientation="vertical" loop>
+      <ButtonGroup
+        :dir="dir"
+        orientation="vertical"
+        loop
+      >
         <Button value="one">
           One
         </Button>
         <Button value="two">
           Two
         </Button>
-        <Button disabled value="three">
+        <Button
+          disabled
+          value="three"
+        >
           Three
         </Button>
         <Button value="four">

@@ -13,21 +13,36 @@ const isFirstOrFifteenth: Matcher = (date) => {
 </script>
 
 <template>
-  <Story title="Date Range Field/Validation" :layout="{ type: 'grid', width: '50%' }">
+  <Story
+    title="Date Range Field/Validation"
+    :layout="{ type: 'grid', width: '50%' }"
+  >
     <Variant title="Unavailable">
-      <DateRangeField :default-value="defaultValue" :is-date-unavailable="isFirstOrFifteenth" />
+      <DateRangeField
+        :default-value="defaultValue"
+        :is-date-unavailable="isFirstOrFifteenth"
+      />
     </Variant>
 
     <Variant title="Disabled">
-      <DateRangeField :default-value="defaultValue" :is-date-disabled="isFirstOrFifteenth" />
+      <DateRangeField
+        :default-value="defaultValue"
+        :is-date-disabled="isFirstOrFifteenth"
+      />
     </Variant>
 
     <Variant title="Min">
-      <DateRangeField :default-value="defaultValue" :min-value="minValue" />
+      <DateRangeField
+        :default-value="defaultValue"
+        :min-value="minValue"
+      />
     </Variant>
 
     <Variant title="Max">
-      <DateRangeField :default-value="defaultValue" :max-value="maxValue" />
+      <DateRangeField
+        :default-value="defaultValue"
+        :max-value="maxValue"
+      />
     </Variant>
   </Story>
 </template>

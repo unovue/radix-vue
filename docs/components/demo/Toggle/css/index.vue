@@ -9,7 +9,8 @@ const toggleState = ref(false)
 
 <template>
   <Toggle
-    v-model:pressed="toggleState" aria-label="Toggle italic"
+    v-model:pressed="toggleState"
+    aria-label="Toggle italic"
     class="Toggle"
   >
     <Icon icon="radix-icons:font-italic" />

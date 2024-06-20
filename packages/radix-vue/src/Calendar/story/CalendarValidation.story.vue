@@ -16,25 +16,44 @@ const maxValue = new CalendarDate(2024, 2, 20)
 </script>
 
 <template>
-  <Story title="Calendar/Validation" :layout="{ type: 'grid', width: '50%' }">
+  <Story
+    title="Calendar/Validation"
+    :layout="{ type: 'grid', width: '50%' }"
+  >
     <Variant title="Unavailable">
-      <Calendar :default-value="defaultValue" :is-date-unavailable="isDateUnavailable" />
+      <Calendar
+        :default-value="defaultValue"
+        :is-date-unavailable="isDateUnavailable"
+      />
     </Variant>
 
     <Variant title="Disabled">
-      <Calendar :default-value="defaultValue" :is-date-disabled="isDateDisabled" />
+      <Calendar
+        :default-value="defaultValue"
+        :is-date-disabled="isDateDisabled"
+      />
     </Variant>
 
     <Variant title="Min">
-      <Calendar :default-value="defaultValue" :min-value="minValue" />
+      <Calendar
+        :default-value="defaultValue"
+        :min-value="minValue"
+      />
     </Variant>
 
     <Variant title="Max">
-      <Calendar :default-value="defaultValue" :max-value="maxValue" />
+      <Calendar
+        :default-value="defaultValue"
+        :max-value="maxValue"
+      />
     </Variant>
 
     <Variant title="Min Max">
-      <Calendar :default-value="defaultValue" :min-value="minValue" :max-value="maxValue" />
+      <Calendar
+        :default-value="defaultValue"
+        :min-value="minValue"
+        :max-value="maxValue"
+      />
     </Variant>
   </Story>
 </template>

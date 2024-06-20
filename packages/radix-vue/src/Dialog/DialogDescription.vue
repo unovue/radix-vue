@@ -16,7 +16,10 @@ const rootContext = injectDialogRootContext()
 </script>
 
 <template>
-  <Primitive v-bind="props" :id="rootContext.descriptionId">
+  <Primitive
+    v-bind="props"
+    :id="rootContext.descriptionId"
+  >
     <slot />
   </Primitive>
 </template>

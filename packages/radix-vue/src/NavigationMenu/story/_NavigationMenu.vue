@@ -87,7 +87,10 @@ const currentTrigger = ref('')
               >
                 CSS-in-JS with best-in-class developer experience.
               </NavigationMenuListItem>
-              <NavigationMenuListItem href="/colors" title="Colors">
+              <NavigationMenuListItem
+                href="/colors"
+                title="Colors"
+              >
                 Beautiful, thought-out palettes with auto dark mode.
               </NavigationMenuListItem>
               <NavigationMenuListItem

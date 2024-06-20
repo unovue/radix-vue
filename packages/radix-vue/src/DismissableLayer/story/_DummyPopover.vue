@@ -38,13 +38,19 @@ const openButtonRef = ref()
       </button>
     </PopperAnchor>
 
-    <Teleport v-if="open" to="body">
+    <Teleport
+      v-if="open"
+      to="body"
+    >
       <DismissableLayer
         as-child
         :disable-outside-pointer-events="disableOutsidePointerEvents"
         @dismiss="open = false"
       >
-        <FocusScope as-child :trapped="trapped">
+        <FocusScope
+          as-child
+          :trapped="trapped"
+        >
           <PopperContent
             class="flex items-start gap-4 bg-white min-w-[200px] min-h-[150px] p-6 rounded-md"
             :style="{
@@ -59,7 +65,10 @@ const openButtonRef = ref()
             <button @click="open = false">
               {{ closeLabel }}
             </button>
-            <input type="text" value="hello world">
+            <input
+              type="text"
+              value="hello world"
+            >
             <PopperArrow
               :width="10"
               :height="4"

@@ -44,7 +44,7 @@ watch(context.isEditing, (value) => {
 })
 
 function handleSubmitKeyDown(event: KeyboardEvent) {
-  if ((context.submitMode.value === 'enter' || context.submitMode.value === 'both') && (event.key === kbd.ENTER || event.key === kbd.SPACE) && !event.shiftKey)
+  if ((context.submitMode.value === 'enter' && event.key === kbd.ENTER) || (context.submitMode.value === 'both' && (event.key === kbd.SPACE || event.key === kbd.ENTER) && !event.shiftKey))
     context.submit()
 }
 </script>

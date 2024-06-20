@@ -7,13 +7,13 @@ export interface SelectScrollUpButtonProps extends PrimitiveProps {}
 
 <script setup lang="ts">
 import { ref, watch, watchEffect } from 'vue'
-import { SelectContentDefaultContextValue, injectSelectContentContext } from './SelectContentImpl.vue'
+import { injectSelectContentContext } from './SelectContentImpl.vue'
 import { injectSelectItemAlignedPositionContext } from './SelectItemAlignedPosition.vue'
 import SelectScrollButtonImpl from './SelectScrollButtonImpl.vue'
 
 defineProps<SelectScrollUpButtonProps>()
 
-const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
+const contentContext = injectSelectContentContext()
 const alignedPositionContext
   = contentContext.position === 'item-aligned'
     ? injectSelectItemAlignedPositionContext()

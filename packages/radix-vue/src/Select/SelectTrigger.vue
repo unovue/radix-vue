@@ -11,7 +11,7 @@ import { computed, onMounted } from 'vue'
 import {
   injectSelectRootContext,
 } from './SelectRoot.vue'
-import { OPEN_KEYS, shouldShowPlaceholder } from './utils'
+import { OPEN_KEYS } from './utils'
 import { Primitive } from '@/Primitive'
 import { PopperAnchor } from '@/Popper'
 import { useCollection, useForwardExpose, useId, useTypeahead } from '@/shared'
@@ -67,7 +67,7 @@ function handlePointerOpen(event: PointerEvent) {
       :data-state="rootContext?.open.value ? 'open' : 'closed'"
       :data-disabled="isDisabled ? '' : undefined"
       :data-placeholder="
-        shouldShowPlaceholder(rootContext.modelValue?.value) ? '' : undefined
+        rootContext.modelValue?.value ? undefined : ''
       "
       :as-child="asChild"
       :as="as"

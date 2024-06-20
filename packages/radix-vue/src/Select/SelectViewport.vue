@@ -9,7 +9,7 @@ export interface SelectViewportProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { SelectContentDefaultContextValue, injectSelectContentContext } from './SelectContentImpl.vue'
+import { injectSelectContentContext } from './SelectContentImpl.vue'
 import { CONTENT_MARGIN } from './utils'
 import {
   Primitive,
@@ -18,7 +18,7 @@ import { injectSelectItemAlignedPositionContext } from './SelectItemAlignedPosit
 
 const props = defineProps<SelectViewportProps>()
 
-const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
+const contentContext = injectSelectContentContext()
 const alignedPositionContext
   = contentContext.position === 'item-aligned'
     ? injectSelectItemAlignedPositionContext()

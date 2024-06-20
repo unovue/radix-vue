@@ -35,8 +35,6 @@ export interface SelectRootContext {
   onTriggerChange: (node: HTMLElement | undefined) => void
   valueElement: Ref<HTMLElement | undefined>
   onValueElementChange: (node: HTMLElement) => void
-  valueElementHasChildren: Ref<boolean>
-  onValueElementHasChildrenChange: (hasChildren: boolean) => void
   contentId: string
   modelValue?: Ref<string>
   onValueChange: (value: string) => void
@@ -99,7 +97,6 @@ const triggerPointerDownPosRef = ref({
   x: 0,
   y: 0,
 })
-const valueElementHasChildren = ref(false)
 
 const { required, disabled, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
@@ -111,10 +108,6 @@ provideSelectRootContext({
   valueElement,
   onValueElementChange: (node) => {
     valueElement.value = node
-  },
-  valueElementHasChildren,
-  onValueElementHasChildrenChange: (hasChildren) => {
-    valueElementHasChildren.value = hasChildren
   },
   contentId: '',
   modelValue,

@@ -8,11 +8,10 @@ export interface SelectValueProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { onBeforeMount, onMounted, useSlots } from 'vue'
-import { shouldShowPlaceholder } from './utils'
+import { onMounted } from 'vue'
 import { injectSelectRootContext } from './SelectRoot.vue'
 import { Primitive } from '@/Primitive'
-import { renderSlotFragments, useForwardExpose } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 withDefaults(defineProps<SelectValueProps>(), {
   as: 'span',
@@ -22,12 +21,6 @@ withDefaults(defineProps<SelectValueProps>(), {
 const { forwardRef, currentElement } = useForwardExpose()
 
 const rootContext = injectSelectRootContext()
-const slots = useSlots()
-
-onBeforeMount(() => {
-  const hasChildren = !!renderSlotFragments(slots?.default?.()).length
-  rootContext.onValueElementHasChildrenChange(hasChildren)
-})
 
 onMounted(() => {
   rootContext.valueElement = currentElement
@@ -41,12 +34,6 @@ onMounted(() => {
     :as-child="asChild"
     :style="{ pointerEvents: 'none' }"
   >
-    <template v-if="shouldShowPlaceholder(rootContext.modelValue?.value)">
-      {{ placeholder }}
-    </template>
-
-    <template v-else>
-      <slot />
-    </template>
+    <slot>{{ rootContext.modelValue?.value || placeholder }}</slot>
   </Primitive>
 </template>

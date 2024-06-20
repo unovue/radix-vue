@@ -38,12 +38,6 @@ interface SelectContentContext {
   searchRef?: Ref<string>
 }
 
-export const SelectContentDefaultContextValue: SelectContentContext = {
-  onViewportChange: () => {},
-  itemTextRefCallback: () => {},
-  itemRefCallback: () => {},
-}
-
 export type SelectContentImplEmits = {
   closeAutoFocus: [event: Event]
   /**

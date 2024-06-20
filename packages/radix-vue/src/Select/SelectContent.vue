@@ -21,7 +21,6 @@ import SelectContentImpl from './SelectContentImpl.vue'
 import { injectSelectRootContext } from './SelectRoot.vue'
 import { Presence } from '@/Presence'
 import { useForwardPropsEmits } from '@/shared'
-import SelectProvider from './SelectProvider.vue'
 
 defineOptions({
   inheritAttrs: false,
@@ -34,13 +33,7 @@ const forwarded = useForwardPropsEmits(props, emits)
 
 const rootContext = injectSelectRootContext()
 
-const fragment = ref<DocumentFragment>()
-onMounted(() => {
-  fragment.value = new DocumentFragment()
-})
-
 const presenceRef = ref<InstanceType<typeof Presence>>()
-
 const renderPresence = computed(() => props.forceMount || rootContext.open.value)
 </script>
 
@@ -54,11 +47,4 @@ const renderPresence = computed(() => props.forceMount || rootContext.open.value
       <slot />
     </SelectContentImpl>
   </Presence>
-  <div v-else-if="!presenceRef?.present && fragment">
-    <Teleport :to="fragment">
-      <SelectProvider :context="rootContext">
-        <slot />
-      </SelectProvider>
-    </Teleport>
-  </div>
 </template>

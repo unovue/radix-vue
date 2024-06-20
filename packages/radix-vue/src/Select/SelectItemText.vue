@@ -7,8 +7,8 @@ export interface SelectItemTextProps extends PrimitiveProps {}
 
 <script setup lang="ts">
 import { computed, h, onBeforeUnmount, onMounted } from 'vue'
-import { injectSelectNativeOptionsContext, injectSelectRootContext } from './SelectRoot.vue'
-import { SelectContentDefaultContextValue, injectSelectContentContext } from './SelectContentImpl.vue'
+import { injectSelectNativeOptionsContext } from './SelectRoot.vue'
+import { injectSelectContentContext } from './SelectContentImpl.vue'
 import { injectSelectItemContext } from './SelectItem.vue'
 import { Primitive } from '@/Primitive'
 
@@ -20,8 +20,7 @@ const props = withDefaults(defineProps<SelectItemTextProps>(), {
   as: 'span',
 })
 
-const rootContext = injectSelectRootContext()
-const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
+const contentContext = injectSelectContentContext()
 const nativeOptionContext = injectSelectNativeOptionsContext()
 const itemContext = injectSelectItemContext()
 
@@ -61,12 +60,4 @@ onBeforeUnmount(() => {
   >
     <slot />
   </Primitive>
-
-  <!-- Portal the select item text into the trigger value node -->
-  <Teleport
-    v-if="itemContext.isSelected.value && rootContext.valueElement.value && !rootContext.valueElementHasChildren.value"
-    :to="rootContext.valueElement.value"
-  >
-    <slot />
-  </Teleport>
 </template>

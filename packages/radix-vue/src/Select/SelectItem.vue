@@ -39,7 +39,7 @@ import {
   toRefs,
 } from 'vue'
 import { injectSelectRootContext } from './SelectRoot.vue'
-import { SelectContentDefaultContextValue, injectSelectContentContext } from './SelectContentImpl.vue'
+import { injectSelectContentContext } from './SelectContentImpl.vue'
 import { SELECTION_KEYS } from './utils'
 import { Primitive } from '@/Primitive'
 
@@ -47,7 +47,7 @@ const props = defineProps<SelectItemProps>()
 const { disabled } = toRefs(props)
 
 const rootContext = injectSelectRootContext()
-const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
+const contentContext = injectSelectContentContext()
 const { forwardRef, currentElement } = useForwardExpose()
 
 const isSelected = computed(() => rootContext.modelValue?.value === props.value)

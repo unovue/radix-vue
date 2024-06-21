@@ -95,10 +95,12 @@ function handleMouseDown(event: MouseEvent) {
 }
 
 function handleKeyDown(event: KeyboardEvent) {
+  event.preventDefault()
+
   if (disabled.value)
     return
 
-  if ((event.key === kbd.ENTER || event.key === kbd.SPACE) && event.ctrlKey === false) {
+  if ((event.key === kbd.ENTER || event.key === kbd.SPACE) && !event.ctrlKey && !event.shiftKey) {
     rootContext.changeModelValue(step.value)
   }
 

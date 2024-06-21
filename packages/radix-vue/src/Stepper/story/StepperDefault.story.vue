@@ -38,7 +38,7 @@ const steps = [{
   >
     <Variant title="default">
       <StepperRoot>
-        <StepperList class="flex flex-col space-y-4 pt-4 sm:flex-row sm:space-x-4 sm:space-y-0">
+        <StepperList class="flex gap-2">
           <StepperItem
             v-for="item in steps"
             :key="item.step"

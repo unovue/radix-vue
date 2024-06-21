@@ -38,7 +38,7 @@ const steps = [{
 
 <template>
   <StepperRoot v-bind="forwarded">
-    <StepperList class="flex flex-col space-y-4 pt-4 sm:flex-row sm:space-x-4 sm:space-y-0 sm:data-[orientation=vertical]:flex-col sm:data-[orientation=vertical]:space-x-0 sm:data-[orientation=vertical]:space-y-4">
+    <StepperList class="flex gap-2 data-[orientation=vertical]:flex-col">
       <StepperItem
         v-for="item in steps"
         :key="item.step"

@@ -33,7 +33,7 @@ export type SelectRootEmits<T = AcceptableValue> = {
   'update:open': [value: boolean]
 }
 
-interface SelectRootContext<T> {
+export interface SelectRootContext<T> {
   triggerElement: Ref<HTMLElement | undefined>
   onTriggerChange: (node: HTMLElement | undefined) => void
   valueElement: Ref<HTMLElement | undefined>
@@ -157,6 +157,11 @@ provideSelectNativeOptionsContext({
 
 <template>
   <PopperRoot>
+    <slot
+      :model-value="modelValue"
+      :open="open"
+    />
+
     <BubbleSelect
       v-if="isFormControl"
       :key="nativeSelectKey"

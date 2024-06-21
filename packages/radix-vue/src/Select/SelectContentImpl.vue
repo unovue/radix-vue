@@ -17,7 +17,7 @@ import {
 import type { AcceptableValue } from '@/shared/types'
 import { compare } from './utils'
 
-interface SelectContentContext {
+export interface SelectContentContext {
   content?: Ref<HTMLElement | undefined>
   viewport?: Ref<HTMLElement | undefined>
   onViewportChange: (node: HTMLElement | undefined) => void
@@ -38,6 +38,12 @@ interface SelectContentContext {
   position?: 'item-aligned' | 'popper'
   isPositioned?: Ref<boolean>
   searchRef?: Ref<string>
+}
+
+export const SelectContentDefaultContextValue: SelectContentContext = {
+  onViewportChange: () => {},
+  itemTextRefCallback: () => {},
+  itemRefCallback: () => {},
 }
 
 export type SelectContentImplEmits = {

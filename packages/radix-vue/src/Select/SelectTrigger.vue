@@ -27,7 +27,7 @@ const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 
 rootContext.contentId ||= useId(undefined, 'radix-vue-select-content')
 onMounted(() => {
-  rootContext.triggerElement = triggerElement
+  rootContext.onTriggerChange(triggerElement.value)
 })
 
 const { injectCollection } = useCollection()

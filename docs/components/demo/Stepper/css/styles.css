@@ -1,0 +1,88 @@
+@import '@radix-ui/colors/grass.css';
+@import '@radix-ui/colors/violet.css';
+@import '@radix-ui/colors/green.css';
+
+.StepperList {
+  display: flex;
+  gap: 1rem;
+}
+
+.StepperItem {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  cursor: pointer;
+}
+
+.StepperItem[data-disabled] {
+  pointer-events: none;
+}
+
+.StepperItemContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.StepperIndicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--grass11)
+  box-shadow: 0 0 0 2px;
+}
+
+.StepperItem[data-disabled] .StepperIndicator {
+  color: #9ca3af;
+}
+
+.StepperItem[data-state="active"] .StepperIndicator {
+  background-color: #000;
+  color: #fff;
+  box-shadow-color: #000;
+}
+
+.StepperItem[data-state="completed"] .StepperIndicator {
+  background-color: var(--violet9);
+  color: #fff;
+  box-shadow-color: var(--violet9);
+}
+
+.StepperIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.StepperTitle {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #000;
+}
+
+.StepperDescription {
+  font-size: 0.75rem;
+  color: #000;
+}
+
+.StepperSeparator {
+  width: 20px;
+  height: 1px;
+  flex-shrink: 0;
+  background-color: var(--green5);
+}
+
+.StepperItem[data-state="active"] .StepperSeparator {
+  background-color: #000;
+}
+
+.StepperItem[data-state="completed"] .StepperSeparator {
+  background-color: var(--violet9);
+}
+
+.StepperItem[data-disabled] {
+  background-color: #d1d5db;
+}

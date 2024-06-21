@@ -52,7 +52,6 @@ const selectElement = ref<HTMLElement>()
       ref="selectElement"
       v-bind="props"
       v-model="value"
-      :default-value="value"
     >
       <slot />
     </select>

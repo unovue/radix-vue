@@ -2,9 +2,10 @@
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useForwardExpose, useId } from '@/shared'
+import type { AcceptableValue } from '@/shared/types'
 
-interface SelectItemContext {
-  value: string
+interface SelectItemContext<T = AcceptableValue> {
+  value: T
   textId: string
   disabled: Ref<boolean>
   isSelected: Ref<boolean>
@@ -14,9 +15,9 @@ interface SelectItemContext {
 export const [injectSelectItemContext, provideSelectItemContext]
     = createContext<SelectItemContext>('SelectItem')
 
-export interface SelectItemProps extends PrimitiveProps {
+export interface SelectItemProps<T = AcceptableValue> extends PrimitiveProps {
   /** The value given as data when submitted with a `name`. */
-  value: string
+  value: T
   /** When `true`, prevents the user from interacting with the item. */
   disabled?: boolean
   /**
@@ -40,7 +41,7 @@ import {
 } from 'vue'
 import { injectSelectRootContext } from './SelectRoot.vue'
 import { injectSelectContentContext } from './SelectContentImpl.vue'
-import { SELECTION_KEYS } from './utils'
+import { SELECTION_KEYS, getValue } from './utils'
 import { Primitive } from '@/Primitive'
 
 const props = defineProps<SelectItemProps>()

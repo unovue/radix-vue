@@ -28,7 +28,7 @@ const { forwardRef, currentElement: itemTextElement } = useForwardExpose()
 
 const nativeOption = computed(() => {
   return h('option', {
-    key: itemContext.value,
+    key: itemContext.value.toString(),
     value: itemContext.value,
     disabled: itemContext.disabled.value,
     innerHTML: itemTextElement.value?.textContent,

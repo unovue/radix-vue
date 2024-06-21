@@ -1,17 +1,19 @@
 <script lang="ts">
 import type { Ref, VNode } from 'vue'
-import type { Direction } from '../shared/types'
+import type { AcceptableValue, Direction } from '@/shared/types'
 import { createContext, useDirection, useFormControl } from '@/shared'
 
-export interface SelectRootProps {
+export interface SelectRootProps<T = AcceptableValue> {
   /** The controlled open state of the Select. Can be bind as `v-model:open`. */
   open?: boolean
   /** The open state of the select when it is initially rendered. Use when you do not need to control its open state. */
   defaultOpen?: boolean
   /** The value of the select when initially rendered. Use when you do not need to control the state of the Select */
-  defaultValue?: string
+  defaultValue?: T
   /** The controlled value of the Select. Can be bind as `v-model`. */
-  modelValue?: string
+  modelValue?: T
+  /** Use this to compare objects by a particular field, or pass your own comparison function for complete control over how objects are compared. */
+  by?: string | ((a: T, b: T) => boolean)
   /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
   /** The name of the Select. Submitted with its owning form as part of a name/value pair. */
@@ -23,23 +25,25 @@ export interface SelectRootProps {
   /** When `true`, indicates that the user must select a value before the owning form can be submitted. */
   required?: boolean
 }
-export type SelectRootEmits = {
+
+export type SelectRootEmits<T = AcceptableValue> = {
   /** Event handler called when the value changes. */
-  'update:modelValue': [value: string]
+  'update:modelValue': [value: T]
   /** Event handler called when the open state of the context menu changes. */
   'update:open': [value: boolean]
 }
 
-export interface SelectRootContext {
+interface SelectRootContext<T> {
   triggerElement: Ref<HTMLElement | undefined>
   onTriggerChange: (node: HTMLElement | undefined) => void
   valueElement: Ref<HTMLElement | undefined>
   onValueElementChange: (node: HTMLElement) => void
   contentId: string
-  modelValue?: Ref<string>
-  onValueChange: (value: string) => void
+  modelValue?: Ref<T>
+  onValueChange: (value: T) => void
   open: Ref<boolean>
   required?: Ref<boolean>
+  by?: string | ((a: T, b: T) => boolean)
   onOpenChange: (open: boolean) => void
   dir: Ref<Direction>
   triggerPointerDownPosRef: Ref<{ x: number, y: number } | null>
@@ -47,7 +51,7 @@ export interface SelectRootContext {
 }
 
 export const [injectSelectRootContext, provideSelectRootContext]
-  = createContext<SelectRootContext>('SelectRoot')
+  = createContext<SelectRootContext<AcceptableValue>>('SelectRoot')
 
 export interface SelectNativeOptionsContext {
   onNativeOptionAdd: (option: VNode) => void
@@ -58,18 +62,20 @@ export const [injectSelectNativeOptionsContext, provideSelectNativeOptionsContex
   = createContext<SelectNativeOptionsContext>('SelectRoot')
 </script>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
 import { computed, ref, toRefs } from 'vue'
 import BubbleSelect from './BubbleSelect.vue'
 import { PopperRoot } from '@/Popper'
 import { useVModel } from '@vueuse/core'
 
+defineOptions({
+  inheritAttrs: false,
+})
+
 const props = withDefaults(defineProps<SelectRootProps>(), {
-  defaultValue: '',
   modelValue: undefined,
   open: undefined,
 })
-
 const emits = defineEmits<SelectRootEmits>()
 
 defineSlots<{
@@ -84,7 +90,7 @@ defineSlots<{
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
   passive: (props.modelValue === undefined) as false,
-}) as Ref<string>
+}) as Ref<T>
 
 const open = useVModel(props, 'open', emits, {
   defaultValue: props.defaultOpen,
@@ -111,9 +117,10 @@ provideSelectRootContext({
   },
   contentId: '',
   modelValue,
-  onValueChange: (value) => {
+  onValueChange: (value: any) => {
     modelValue.value = value
   },
+  by: props.by,
   open,
   required,
   onOpenChange: (value) => {
@@ -150,11 +157,6 @@ provideSelectNativeOptionsContext({
 
 <template>
   <PopperRoot>
-    <slot
-      :model-value="modelValue"
-      :open="open"
-    />
-
     <BubbleSelect
       v-if="isFormControl"
       :key="nativeSelectKey"

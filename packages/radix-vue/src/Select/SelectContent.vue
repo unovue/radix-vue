@@ -16,7 +16,6 @@ export interface SelectContentProps extends SelectContentImplProps {
 </script>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
 import SelectContentImpl from './SelectContentImpl.vue'
 import { injectSelectRootContext } from './SelectRoot.vue'
 import { Presence } from '@/Presence'
@@ -32,16 +31,11 @@ const emits = defineEmits<SelectContentEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
 
 const rootContext = injectSelectRootContext()
-
-const presenceRef = ref<InstanceType<typeof Presence>>()
-const renderPresence = computed(() => props.forceMount || rootContext.open.value)
 </script>
 
 <template>
   <Presence
-    v-if="renderPresence"
-    ref="presenceRef"
-    :present="true"
+    :present="props.forceMount || rootContext.open.value"
   >
     <SelectContentImpl v-bind="{ ...forwarded, ...$attrs }">
       <slot />

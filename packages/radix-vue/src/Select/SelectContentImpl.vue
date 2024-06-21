@@ -14,6 +14,8 @@ import {
   useHideOthers,
   useTypeahead,
 } from '@/shared'
+import type { AcceptableValue } from '@/shared/types'
+import { compare } from './utils'
 
 interface SelectContentContext {
   content?: Ref<HTMLElement | undefined>
@@ -21,14 +23,14 @@ interface SelectContentContext {
   onViewportChange: (node: HTMLElement | undefined) => void
   itemRefCallback: (
     node: HTMLElement | undefined,
-    value: string,
+    value: AcceptableValue,
     disabled: boolean
   ) => void
   selectedItem?: Ref<HTMLElement | undefined>
   onItemLeave?: () => void
   itemTextRefCallback: (
     node: HTMLElement | undefined,
-    value: string,
+    value: AcceptableValue,
     disabled: boolean
   ) => void
   focusSelectedItem?: () => void
@@ -218,7 +220,7 @@ provideSelectContentContext({
     const isFirstValidItem = !firstValidItemFoundRef.value && !disabled
     const isSelectedItem
       = rootContext.modelValue?.value !== undefined
-      && rootContext.modelValue?.value === value
+      && compare(rootContext.modelValue.value, value, rootContext.by) // rootContext.modelValue?.value === value
     if (isSelectedItem || isFirstValidItem) {
       selectedItem.value = node
       if (isFirstValidItem)
@@ -234,7 +236,7 @@ provideSelectContentContext({
     const isFirstValidItem = !firstValidItemFoundRef.value && !disabled
     const isSelectedItem
       = rootContext.modelValue?.value !== undefined
-      && rootContext.modelValue?.value === value
+      && compare(rootContext.modelValue.value, value, rootContext.by) // rootContext.modelValue?.value === value
     if (isSelectedItem || isFirstValidItem)
       selectedItemText.value = node
   },

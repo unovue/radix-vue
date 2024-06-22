@@ -24,9 +24,6 @@ export function getRange(currentPage: number, pageCount: number, siblingCount: n
   const leftSiblingIndex = Math.max(currentPage - siblingCount, firstPageIndex)
   const rightSiblingIndex = Math.min(currentPage + siblingCount, lastPageIndex)
 
-  const showLeftEllipsis = leftSiblingIndex > firstPageIndex + 2
-  const showRightEllipsis = rightSiblingIndex < lastPageIndex - 2
-
   if (showEdges) {
     /**
      * `2 * siblingCount + 5` explanation:
@@ -41,18 +38,37 @@ export function getRange(currentPage: number, pageCount: number, siblingCount: n
 
     const itemCount = totalPageNumbers - 2 // 2 stands for one ellipsis and either first or last page
 
+    const showLeftEllipsis
+      // default condition
+      = leftSiblingIndex > firstPageIndex + 2
+      // if the current page is towards the end of the list
+      && lastPageIndex - itemCount - firstPageIndex + 1 > 2
+      // if the current page is towards the middle of the list
+      && leftSiblingIndex - firstPageIndex > 2
+
+    const showRightEllipsis
+      // default condition
+      = rightSiblingIndex < lastPageIndex - 2
+      // if the current page is towards the start of the list
+      && lastPageIndex - itemCount > 2
+      // if the current page is towards the middle of the list
+      && rightSiblingIndex - firstPageIndex > 2
+
     if (!showLeftEllipsis && showRightEllipsis) {
       const leftRange = range(1, itemCount)
+
       return [...leftRange, ELLIPSIS, lastPageIndex]
     }
 
     if (showLeftEllipsis && !showRightEllipsis) {
       const rightRange = range(lastPageIndex - itemCount + 1, lastPageIndex)
+
       return [firstPageIndex, ELLIPSIS, ...rightRange]
     }
 
     if (showLeftEllipsis && showRightEllipsis) {
       const middleRange = range(leftSiblingIndex, rightSiblingIndex)
+
       return [firstPageIndex, ELLIPSIS, ...middleRange, ELLIPSIS, lastPageIndex]
     }
 

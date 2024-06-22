@@ -155,5 +155,20 @@
     'name': 'isEmpty',
     'description': '<p>Whether the editable field is empty</p>\n',
     'type': 'boolean'
+  },
+  {
+    'name': 'submit',
+    'description': '<p>Function to submit the value of the editable</p>\n',
+    'type': ''
+  },
+  {
+    'name': 'cancel',
+    'description': '<p>Function to cancel the value of the editable</p>\n',
+    'type': ''
+  },
+  {
+    'name': 'edit',
+    'description': '<p>Function to set the editable in edit mode</p>\n',
+    'type': ''
   }
 ]" />

@@ -172,3 +172,21 @@
     'type': ''
   }
 ]" />
+
+<MethodsTable :data="[
+  {
+    'name': 'submit',
+    'description': '',
+    'type': '() => void'
+  },
+  {
+    'name': 'cancel',
+    'description': '',
+    'type': '() => void'
+  },
+  {
+    'name': 'edit',
+    'description': '',
+    'type': '() => void'
+  }
+]" />

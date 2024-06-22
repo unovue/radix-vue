@@ -165,6 +165,12 @@ function handleDismiss() {
     cancel()
 }
 
+defineExpose({
+  submit,
+  cancel,
+  edit,
+})
+
 provideEditableRootContext({
   id,
   name,

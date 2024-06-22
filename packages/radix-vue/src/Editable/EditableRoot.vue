@@ -154,7 +154,7 @@ function submit() {
 }
 
 function handleDismiss() {
-  if (submitMode.value === 'blur')
+  if (submitMode.value === 'blur' || submitMode.value === 'both')
     submit()
   else
     cancel()

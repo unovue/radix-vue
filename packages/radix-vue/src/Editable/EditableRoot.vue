@@ -97,7 +97,12 @@ defineSlots<{
     modelValue: typeof modelValue.value
     /** Whether the editable field is empty */
     isEmpty: boolean
-    /** Function to set the value of the editable */
+    /** Function to submit the value of the editable */
+    submit: () => void
+    /** Function to cancel the value of the editable */
+    cancel: () => void
+    /** Function to set the editable in edit mode */
+    edit: () => void
   }) => any
 }>()
 
@@ -160,6 +165,15 @@ function handleDismiss() {
     cancel()
 }
 
+defineExpose({
+  /** Function to submit the value of the editable */
+  submit,
+  /** Function to cancel the value of the editable */
+  cancel,
+  /** Function to set the editable in edit mode */
+  edit,
+})
+
 provideEditableRootContext({
   id,
   name,
@@ -199,6 +213,9 @@ provideEditableRootContext({
         :model-value="modelValue"
         :is-editing="isEditing"
         :is-empty="isEmpty"
+        :submit="submit"
+        :cancel="cancel"
+        :edit="edit"
       />
     </Primitive>
   </DismissableLayer>

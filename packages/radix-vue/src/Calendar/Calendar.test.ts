@@ -241,7 +241,7 @@ describe('calendar', async () => {
   it('always renders six weeks when `fixedWeeks` is `true`', async () => {
     const { getByTestId, calendar, user } = setup({
       calendarProps: {
-        modelValue: calendarDate,
+        modelValue: new CalendarDate(2024, 8, 1),
         fixedWeeks: true,
       },
     })
@@ -252,10 +252,14 @@ describe('calendar', async () => {
 
     const nextButton = getByTestId('next-button')
 
+    expect(getByTestId('date-8-1')).toHaveTextContent('1')
+
     for (let i = 0; i < 12; i++) {
       expect(getNumberOfWeeks()).toBe(6)
       await user.click(nextButton)
     }
+
+    expect(getByTestId('date-9-1')).toHaveTextContent('1')
 
     for (let i = 0; i < 24; i++) {
       expect(getNumberOfWeeks()).toBe(6)

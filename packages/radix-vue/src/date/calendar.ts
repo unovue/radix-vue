@@ -78,7 +78,7 @@ export function createMonth(props: CreateMonthProps): Grid<DateValue> {
     let startFrom = nextMonthDays[nextMonthDays.length - 1]
 
     if (!startFrom)
-      startFrom = dateObj.add({ months: 1 }).set({ day: 1 })
+      startFrom = dateObj.add({ months: 1 }).set({ day: 1 }).subtract({ days: 1 })
 
     const extraDaysArray = Array.from({ length: extraDays }, (_, i) => {
       const incr = i + 1

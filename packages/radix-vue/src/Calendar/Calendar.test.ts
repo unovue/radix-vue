@@ -250,15 +250,21 @@ describe('calendar', async () => {
       return calendar.querySelectorAll('[data-week]').length
     }
 
+    function getFirstDayOfNextMonth() {
+      return calendar.querySelector('[data-week]:nth-child(n+4) [data-outside-view]') as HTMLElement
+    }
+
     const nextButton = getByTestId('next-button')
 
     for (let i = 0; i < 12; i++) {
       expect(getNumberOfWeeks()).toBe(6)
+      expect(getFirstDayOfNextMonth()).toHaveTextContent('1')
       await user.click(nextButton)
     }
 
     for (let i = 0; i < 24; i++) {
       expect(getNumberOfWeeks()).toBe(6)
+      expect(getFirstDayOfNextMonth()).toHaveTextContent('1')
       await user.click(nextButton)
     }
   })

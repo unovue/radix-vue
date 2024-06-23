@@ -166,8 +166,11 @@ function handleDismiss() {
 }
 
 defineExpose({
+  /** Function to submit the value of the editable */
   submit,
+  /** Function to cancel the value of the editable */
   cancel,
+  /** Function to set the editable in edit mode */
   edit,
 })
 

@@ -176,17 +176,17 @@
 <MethodsTable :data="[
   {
     'name': 'submit',
-    'description': '',
+    'description': '<p>Function to submit the value of the editable</p>\n',
     'type': '() => void'
   },
   {
     'name': 'cancel',
-    'description': '',
+    'description': '<p>Function to cancel the value of the editable</p>\n',
     'type': '() => void'
   },
   {
     'name': 'edit',
-    'description': '',
+    'description': '<p>Function to set the editable in edit mode</p>\n',
     'type': '() => void'
   }
 ]" />

@@ -39,7 +39,7 @@ async function handlePointerMove(event: PointerEvent) {
     const defaultPrevented = contentContext.onItemEnter(event)
     if (!defaultPrevented) {
       const item = event.currentTarget;
-      (item as HTMLElement)?.focus()
+      (item as HTMLElement)?.focus({ preventScroll: true })
     }
   }
 }

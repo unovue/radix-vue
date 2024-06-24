@@ -104,6 +104,11 @@
     'name': 'update:searchTerm',
     'description': '<p>Event handler called when the searchTerm of the combobox changes.</p>\n',
     'type': '[value: string]'
+  },
+  {
+    'name': 'update:focusEl',
+    'description': '<p>Event handler called when the focusEl of the combobox changes.</p>\n',
+    'type': '[value: string]'
   }
 ]" />
 

@@ -5,6 +5,7 @@ import { Icon } from '@iconify/vue'
 import './styles.css'
 
 const v = ref('')
+const focusEl = ref('')
 const options = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
 const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
 </script>
@@ -13,6 +14,7 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
   <ComboboxRoot
     v-model="v"
     class="ComboboxRoot"
+    @update:focus-el="(val) => console.log('focus-el:', val)"
   >
     <ComboboxAnchor class="ComboboxAnchor">
       <ComboboxInput
@@ -33,7 +35,7 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
 
         <ComboboxGroup>
           <ComboboxLabel class="ComboboxLabel">
-            Fruits
+            {{ focusEl }}
           </ComboboxLabel>
 
           <ComboboxItem

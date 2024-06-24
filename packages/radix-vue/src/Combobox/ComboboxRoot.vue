@@ -29,6 +29,9 @@ type ComboboxRootContext<T> = {
   selectedElement: ComputedRef<HTMLElement | undefined>
   onSelectedValueChange: (val: T) => void
   parentElement: Ref<HTMLElement | undefined>
+
+  focusEl: Ref<T | undefined>
+  onFocusElChange: (val: T) => void
 }
 
 export const [injectComboboxRootContext, provideComboboxRootContext]
@@ -41,6 +44,8 @@ export type ComboboxRootEmits<T = AcceptableValue> = {
   'update:open': [value: boolean]
   /** Event handler called when the searchTerm of the combobox changes. */
   'update:searchTerm': [value: string]
+  /** Event handler called when the focused value of the combobox changes. */
+  'update:focusEl': [value: T]
 }
 
 export interface ComboboxRootProps<T = AcceptableValue> extends PrimitiveProps {
@@ -52,6 +57,8 @@ export interface ComboboxRootProps<T = AcceptableValue> extends PrimitiveProps {
   open?: boolean
   /** The open state of the combobox when it is initially rendered. <br> Use when you do not need to control its open state. */
   defaultOpen?: boolean
+  /** The controlled focused value of the Combobox. Can be binded-with with v-model:focus. */
+  focusEl?: T
   /** The controlled search term of the Combobox. Can be binded-with with v-model:searchTerm. */
   searchTerm?: string
   /** Whether multiple options can be selected or not. */
@@ -117,6 +124,12 @@ const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: (props.open === undefined) as false,
 }) as Ref<boolean>
+
+const focusEl = useVModel(props, 'focusEl', emit, {
+  // @ts-expect-error ignore the type error here
+  defaultValue: '',
+  passive: false,
+}) as Ref<T | undefined>
 
 const selectedValue = ref<T>()
 
@@ -278,6 +291,9 @@ provideComboboxRootContext({
   parentElement,
   contentElement,
   onContentElementChange: val => contentElement.value = val,
+
+  focusEl,
+  onFocusElChange: val => focusEl.value = val as T,
 })
 </script>
 

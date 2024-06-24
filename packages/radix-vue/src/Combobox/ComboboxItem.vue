@@ -1,8 +1,15 @@
 <script lang="ts">
 import type { Ref } from 'vue'
+import {
+  computed,
+  nextTick,
+  ref,
+  toRefs,
+} from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, handleAndDispatchCustomEvent, useForwardExpose, useId } from '@/shared'
 import type { AcceptableValue } from './ComboboxRoot.vue'
+import { whenever } from '@vueuse/core'
 
 export type SelectEvent<T> = CustomEvent<{ originalEvent: PointerEvent, value?: T }>
 interface ComboboxItemContext {
@@ -28,12 +35,6 @@ const COMBOBOX_SELECT = 'combobox.select'
 </script>
 
 <script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
-import {
-  computed,
-  nextTick,
-  ref,
-  toRefs,
-} from 'vue'
 import { injectComboboxRootContext } from './ComboboxRoot.vue'
 import { injectComboboxGroupContext } from './ComboboxGroup.vue'
 import {
@@ -99,6 +100,10 @@ if (props.value === '') {
 
 provideComboboxItemContext({
   isSelected,
+})
+
+whenever(isFocused, () => {
+  rootContext.onFocusElChange(props.value)
 })
 </script>
 

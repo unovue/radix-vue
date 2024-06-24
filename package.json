@@ -9,7 +9,7 @@
     "packages/*"
   ],
   "scripts": {
-    "story:dev": "pnpm --filter histoire story:dev",
+    "story:dev": "pnpm --filter histoire story:dev --open",
     "build": "rimraf packages/radix-vue/dist  && pnpm run --filter radix-vue build && pnpm run --filter plugins build",
     "build-only": "rimraf packages/radix-vue/dist  && pnpm run -r build-only",
     "docs:install": "pnpm --filter docs install",

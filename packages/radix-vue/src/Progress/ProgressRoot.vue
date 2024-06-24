@@ -40,7 +40,7 @@ const isNumber = (v: any): v is number => typeof v === 'number'
 
 function validateValue(value: any, max: number): number | null {
   const isValidValueError
-    = value === null
+    = isNullish(value)
     || (isNumber(value) && !Number.isNaN(value) && value <= max && value >= 0)
 
   if (isValidValueError)
@@ -49,7 +49,7 @@ function validateValue(value: any, max: number): number | null {
   console.error(`Invalid prop \`value\` of value \`${value}\` supplied to \`ProgressRoot\`. The \`value\` prop must be:
   - a positive number
   - less than the value passed to \`max\` (or ${DEFAULT_MAX} if no \`max\` prop is set)
-  - \`null\` if the progress is indeterminate.
+  - \`null\`  or \`undefined\` if the progress is indeterminate.
 
 Defaulting to \`null\`.`)
   return null

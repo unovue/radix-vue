@@ -254,6 +254,7 @@ describe('calendar', async () => {
 
     const nextButton = getByTestId('next-button')
 
+    // Check the if the first day of the next month is rendered for the next 14 months starting from edge case August 2024
     for (let i = 0; i < 14; i++) {
       expect(getByTestId(`date-${calendarDate.add({ months: i + 1 }).month}-1`)).toHaveTextContent('1')
       expect(getNumberOfWeeks()).toBe(6)

@@ -211,10 +211,10 @@ watch(stringifiedModelValue, async () => {
   immediate: !props.searchTerm,
 })
 
-watch(() => filteredOptions.value.length, async (length) => {
+watch(() => [filteredOptions.value.length, searchTerm.value.length], async ([length, searchTermLength], [oldLength, oldSearchTermLength]) => {
   await nextTick()
   await nextTick()
-  if (length && activeIndex.value === -1)
+  if (length && (oldSearchTermLength > searchTermLength || activeIndex.value === -1))
     selectedValue.value = filteredOptions.value[0]
 })
 

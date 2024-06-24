@@ -103,6 +103,38 @@ describe('given default Combobox', () => {
         })
       })
     })
+
+    describe('after keypress input', () => {
+      beforeEach(async () => {
+        await valueBox.setValue('B')
+      })
+
+      describe('if filter-function provided', () => {
+        beforeEach(async () => {
+          await wrapper.setProps({
+            filterFunction: (list: any[], term: string) => {
+              return list.filter(i => i.toLowerCase().includes(term.toLowerCase()))
+            },
+          })
+        })
+        it('should filter with the searchTerm (Bl', async () => {
+          await valueBox.setValue('Bl')
+
+          const selection = wrapper.findAll('[data-highlighted]').filter(i => i.attributes('style') !== 'display: none;')
+          expect(selection.length).toBe(1)
+          expect(selection[0].element.innerHTML).contains('Blueberry')
+        })
+
+        it('should filter with the searchTerm (B', async () => {
+          await valueBox.setValue('Bl')
+          await valueBox.setValue('B')
+
+          const selection = wrapper.findAll('[data-highlighted]').filter(i => i.attributes('style') !== 'display: none;')
+          expect(selection.length).toBe(1)
+          expect(selection[0].element.innerHTML).contains('Banana')
+        })
+      })
+    })
   })
 })
 

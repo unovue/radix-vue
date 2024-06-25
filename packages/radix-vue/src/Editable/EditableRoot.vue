@@ -159,10 +159,12 @@ function submit() {
 }
 
 function handleDismiss() {
-  if (submitMode.value === 'blur' || submitMode.value === 'both')
-    submit()
-  else
-    cancel()
+  if (isEditing.value) {
+    if (submitMode.value === 'blur' || submitMode.value === 'both')
+      submit()
+    else
+      cancel()
+  }
 }
 
 defineExpose({

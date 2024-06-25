@@ -288,7 +288,7 @@ function handleCheck(ev: any) {
           </DropdownMenuSub> -->
           <DropdownMenuSeparator class="h-[1px] bg-violet6 m-[5px]" />
           <DropdownMenuCheckboxItem
-            v-model:checked="checkboxOne"
+            v-model="checkboxOne"
             class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
             @select="handleCheck"
           >
@@ -305,7 +305,7 @@ function handleCheck(ev: any) {
             </div>
           </DropdownMenuCheckboxItem>
           <DropdownMenuCheckboxItem
-            v-model:checked="checkboxTwo"
+            v-model="checkboxTwo"
             class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
           >
             <DropdownMenuItemIndicator

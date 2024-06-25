@@ -6,10 +6,10 @@ import { createContext, useFormControl, useForwardExpose } from '@/shared'
 import type { CheckedState } from './utils'
 
 export interface CheckboxRootProps extends PrimitiveProps {
-  /** The checked state of the checkbox when it is initially rendered. Use when you do not need to control its checked state. */
-  defaultChecked?: boolean
-  /** The controlled checked state of the checkbox. Can be binded with v-model. */
-  checked?: boolean | 'indeterminate'
+  /** The value of the checkbox when it is initially rendered. Use when you do not need to control its value. */
+  defaultValue?: boolean
+  /** The controlled value of the checkbox. Can be binded with v-model. */
+  modelValue?: boolean | 'indeterminate'
   /** When `true`, prevents the user from interacting with the checkbox */
   disabled?: boolean
   /** When `true`, indicates that the user must check the checkbox before the owning form can be submitted. */
@@ -26,8 +26,8 @@ export interface CheckboxRootProps extends PrimitiveProps {
 }
 
 export type CheckboxRootEmits = {
-  /** Event handler called when the checked state of the checkbox changes. */
-  'update:checked': [value: boolean]
+  /** Event handler called when the value of the checkbox changes. */
+  'update:modelValue': [value: boolean]
 }
 
 interface CheckboxRootContext {
@@ -57,16 +57,16 @@ const emits = defineEmits<CheckboxRootEmits>()
 
 defineSlots<{
   default: (props: {
-    /** Current checked state */
-    checked: typeof checked.value
+    /** Current value */
+    modelValue: typeof modelValue.value
   }) => any
 }>()
 
 const { disabled } = toRefs(props)
 
-const checked = useVModel(props, 'checked', emits, {
-  defaultValue: props.defaultChecked,
-  passive: (props.checked === undefined) as false,
+const modelValue = useVModel(props, 'modelValue', emits, {
+  defaultValue: props.defaultValue,
+  passive: (props.modelValue === undefined) as false,
 }) as Ref<CheckedState>
 
 const { forwardRef, currentElement } = useForwardExpose()
@@ -77,7 +77,7 @@ const ariaLabel = computed(() => props.id && currentElement.value
 
 provideCheckboxRootContext({
   disabled,
-  state: checked,
+  state: modelValue,
 })
 </script>
 
@@ -90,18 +90,18 @@ provideCheckboxRootContext({
     :as-child="props.asChild"
     :as="as"
     :type="as === 'button' ? 'button' : undefined"
-    :aria-checked="isIndeterminate(checked) ? 'mixed' : checked"
+    :aria-checked="isIndeterminate(modelValue) ? 'mixed' : modelValue"
     :aria-required="false"
     :aria-label="$attrs['aria-label'] || ariaLabel"
-    :data-state="getState(checked)"
+    :data-state="getState(modelValue)"
     :data-disabled="disabled ? '' : undefined"
     :disabled="disabled"
     @keydown.enter.prevent="() => {
       // According to WAI ARIA, Checkboxes don't activate on enter keypress
     }"
-    @click="checked = isIndeterminate(checked) ? true : !checked"
+    @click="modelValue = isIndeterminate(modelValue) ? true : !modelValue"
   >
-    <slot :checked="checked" />
+    <slot :model-value="modelValue" />
   </Primitive>
 
   <input
@@ -110,7 +110,7 @@ provideCheckboxRootContext({
     tabindex="-1"
     aria-hidden
     :value="value"
-    :checked="!!checked"
+    :checked="!!modelValue"
     :name="props.name"
     :disabled="props.disabled"
     :required="props.required"

@@ -254,7 +254,7 @@ const radioItem = 'group w-full text-sm leading-none text-violet11 flex items-ce
             </DropdownMenuSub>
             <DropdownMenuSeparator :class="separator" />
             <DropdownMenuCheckboxItem
-              v-model:checked="checkboxOne"
+              v-model="checkboxOne"
               :class="checkboxItem"
               @select.prevent
             >
@@ -267,7 +267,7 @@ const radioItem = 'group w-full text-sm leading-none text-violet11 flex items-ce
               </div>
             </DropdownMenuCheckboxItem>
             <DropdownMenuCheckboxItem
-              v-model:checked="checkboxTwo"
+              v-model="checkboxTwo"
               :class="checkboxItem"
               @select.prevent
             >

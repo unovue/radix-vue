@@ -3,8 +3,8 @@ import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
 
 export type ToggleEmits = {
-  /** Event handler called when the pressed state of the toggle changes. */
-  'update:pressed': [value: boolean]
+  /** Event handler called when the value of the toggle changes. */
+  'update:modelValue': [value: boolean]
 }
 
 export type DataState = 'on' | 'off'
@@ -17,7 +17,7 @@ export interface ToggleProps extends PrimitiveProps {
   /**
    * The controlled pressed state of the toggle. Can be bind as `v-model`.
    */
-  pressed?: boolean
+  modelValue?: boolean
   /**
    * When `true`, prevents the user from interacting with the toggle.
    */
@@ -31,7 +31,7 @@ import { useVModel } from '@vueuse/core'
 import { Primitive } from '@/Primitive'
 
 const props = withDefaults(defineProps<ToggleProps>(), {
-  pressed: undefined,
+  modelValue: undefined,
   disabled: false,
   as: 'button',
 })
@@ -41,22 +41,22 @@ const emits = defineEmits<ToggleEmits>()
 defineSlots<{
   default: (props: {
     /** Current pressed state */
-    pressed: typeof pressed.value
+    modelValue: typeof modelValue.value
   }) => any
 }>()
 
 useForwardExpose()
-const pressed = useVModel(props, 'pressed', emits, {
+const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
-  passive: (props.pressed === undefined) as false,
+  passive: (props.modelValue === undefined) as false,
 }) as Ref<boolean>
 
 function togglePressed() {
-  pressed.value = !pressed.value
+  modelValue.value = !modelValue.value
 }
 
 const dataState = computed<DataState>(() => {
-  return pressed.value ? 'on' : 'off'
+  return modelValue.value ? 'on' : 'off'
 })
 </script>
 
@@ -65,12 +65,12 @@ const dataState = computed<DataState>(() => {
     :type="as === 'button' ? 'button' : undefined"
     :as-child="props.asChild"
     :as="as"
-    :aria-pressed="pressed"
+    :aria-pressed="modelValue"
     :data-state="dataState"
     :data-disabled="disabled ? '' : undefined"
     :disabled="disabled"
     @click="togglePressed"
   >
-    <slot :pressed="pressed" />
+    <slot :model-value="modelValue" />
   </Primitive>
 </template>

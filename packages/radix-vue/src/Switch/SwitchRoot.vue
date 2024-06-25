@@ -5,9 +5,9 @@ import { createContext, useFormControl, useForwardExpose } from '@/shared'
 
 export interface SwitchRootProps extends PrimitiveProps {
   /** The state of the switch when it is initially rendered. Use when you do not need to control its state. */
-  defaultChecked?: boolean
-  /** The controlled state of the switch. Can be bind as `v-model:checked`. */
-  checked?: boolean
+  defaultValue?: boolean
+  /** The controlled state of the switch. Can be bind as `v-model`. */
+  modelValue?: boolean
   /** When `true`, prevents the user from interacting with the switch. */
   disabled?: boolean
   /** When `true`, indicates that the user must check the switch before the owning form can be submitted. */
@@ -20,12 +20,12 @@ export interface SwitchRootProps extends PrimitiveProps {
 }
 
 export type SwitchRootEmits = {
-  /** Event handler called when the checked state of the switch changes. */
-  'update:checked': [payload: boolean]
+  /** Event handler called when the value of the switch changes. */
+  'update:modelValue': [payload: boolean]
 }
 
 export interface SwitchRootContext {
-  checked?: Ref<boolean>
+  modelValue?: Ref<boolean>
   toggleCheck: () => void
   disabled: Ref<boolean>
 }
@@ -41,30 +41,30 @@ import { Primitive } from '@/Primitive'
 
 const props = withDefaults(defineProps<SwitchRootProps>(), {
   as: 'button',
-  checked: undefined,
+  modelValue: undefined,
   value: 'on',
 })
 const emit = defineEmits<SwitchRootEmits>()
 
 defineSlots<{
   default: (props: {
-    /** Current checked state */
-    checked: typeof checked.value
+    /** Current value */
+    modelValue: typeof modelValue.value
   }) => any
 }>()
 
 const { disabled } = toRefs(props)
 
-const checked = useVModel(props, 'checked', emit, {
-  defaultValue: props.defaultChecked,
-  passive: (props.checked === undefined) as false,
+const modelValue = useVModel(props, 'modelValue', emit, {
+  defaultValue: props.defaultValue,
+  passive: (props.modelValue === undefined) as false,
 }) as Ref<boolean>
 
 function toggleCheck() {
   if (disabled.value)
     return
 
-  checked.value = !checked.value
+  modelValue.value = !modelValue.value
 }
 
 const { forwardRef, currentElement } = useForwardExpose()
@@ -72,7 +72,7 @@ const isFormControl = useFormControl(currentElement)
 const ariaLabel = computed(() => props.id && currentElement.value ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText : undefined)
 
 provideSwitchRootContext({
-  checked,
+  modelValue,
   toggleCheck,
   disabled,
 })
@@ -87,9 +87,9 @@ provideSwitchRootContext({
     :type="as === 'button' ? 'button' : undefined"
     :value="value"
     :aria-label="$attrs['aria-label'] || ariaLabel"
-    :aria-checked="checked"
+    :aria-checked="modelValue"
     :aria-required="required"
-    :data-state="checked ? 'checked' : 'unchecked'"
+    :data-state="modelValue ? 'checked' : 'unchecked'"
     :data-disabled="disabled ? '' : undefined"
     :as-child="asChild"
     :as="as"
@@ -97,7 +97,7 @@ provideSwitchRootContext({
     @click="toggleCheck"
     @keydown.enter.prevent="toggleCheck"
   >
-    <slot :checked="checked" />
+    <slot :model-value="modelValue" />
   </Primitive>
 
   <input
@@ -109,8 +109,8 @@ provideSwitchRootContext({
     :disabled="disabled"
     :required="required"
     :value="value"
-    :checked="!!checked"
-    :data-state="checked ? 'checked' : 'unchecked'"
+    :checked="!!modelValue"
+    :data-state="modelValue ? 'checked' : 'unchecked'"
     :data-disabled="disabled ? '' : undefined"
     :style="{
       transform: 'translateX(-100%)',

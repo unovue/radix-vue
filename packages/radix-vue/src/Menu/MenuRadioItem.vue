@@ -24,19 +24,19 @@ const emits = defineEmits<MenuRadioItemEmits>()
 
 const { value } = toRefs(props)
 const radioGroupContext = injectMenuRadioGroupContext()
-const checked = computed(
+const modelValue = computed(
   () => radioGroupContext.modelValue.value === value?.value,
 )
 
-provideMenuItemIndicatorContext({ checked })
+provideMenuItemIndicatorContext({ modelValue })
 </script>
 
 <template>
   <MenuItem
     role="menuitemradio"
     v-bind="props"
-    :aria-checked="checked"
-    :data-state="getCheckedState(checked)"
+    :aria-checked="modelValue"
+    :data-state="getCheckedState(modelValue)"
     @select="
       async (event) => {
         emits('select', event);

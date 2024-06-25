@@ -12,7 +12,7 @@ const checked = ref(false)
     <label for="airplane-mode">Airplane mode</label>
     <SwitchRoot
       id="airplane-mode"
-      v-model:checked="checked"
+      v-model="checked"
       aria-label="Airplane mode"
       data-testId="root"
       name="test"

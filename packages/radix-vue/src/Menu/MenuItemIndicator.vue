@@ -5,7 +5,7 @@ import { createContext } from '@/shared'
 import type { CheckedState } from './utils'
 
 interface MenuItemIndicatorContext {
-  checked: Ref<CheckedState>
+  modelValue: Ref<CheckedState>
 }
 
 export interface MenuItemIndicatorProps extends PrimitiveProps {
@@ -34,7 +34,7 @@ withDefaults(defineProps<MenuItemIndicatorProps>(), {
 })
 
 const indicatorContext = injectMenuItemIndicatorContext({
-  checked: ref(false),
+  modelValue: ref(false),
 })
 </script>
 
@@ -42,14 +42,14 @@ const indicatorContext = injectMenuItemIndicatorContext({
   <Presence
     :present="
       forceMount
-        || isIndeterminate(indicatorContext.checked.value)
-        || indicatorContext.checked.value === true
+        || isIndeterminate(indicatorContext.modelValue.value)
+        || indicatorContext.modelValue.value === true
     "
   >
     <Primitive
       :as="as"
       :as-child="asChild"
-      :data-state="getCheckedState(indicatorContext.checked.value)"
+      :data-state="getCheckedState(indicatorContext.modelValue.value)"
     >
       <slot />
     </Primitive>

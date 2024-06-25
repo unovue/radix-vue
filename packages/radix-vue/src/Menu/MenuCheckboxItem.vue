@@ -7,12 +7,12 @@ import type {
 
 export type MenuCheckboxItemEmits = MenuItemEmits & {
   /** Event handler called when the checked state changes. */
-  'update:checked': [payload: boolean]
+  'update:modelValue': [payload: boolean]
 }
 
 export interface MenuCheckboxItemProps extends MenuItemProps {
-  /** The controlled checked state of the item. Can be used as `v-model:checked`. */
-  checked?: CheckedState
+  /** The controlled checked state of the item. Can be used as `v-model`. */
+  modelValue?: CheckedState
 }
 </script>
 
@@ -23,40 +23,40 @@ import MenuItem from './MenuItem.vue'
 import { provideMenuItemIndicatorContext } from './MenuItemIndicator.vue'
 
 const props = withDefaults(defineProps<MenuCheckboxItemProps>(), {
-  checked: false,
+  modelValue: false,
 })
 const emits = defineEmits<MenuCheckboxItemEmits>()
 
 defineSlots<{
   default: (props: {
-    /** Current checked state */
-    checked: typeof checked.value
+    /** Current modelValue state */
+    modelValue: typeof modelValue.value
   }) => any
 }>()
 
-const checked = useVModel(props, 'checked', emits)
+const modelValue = useVModel(props, 'modelValue', emits)
 
-provideMenuItemIndicatorContext({ checked })
+provideMenuItemIndicatorContext({ modelValue })
 </script>
 
 <template>
   <MenuItem
     role="menuitemcheckbox"
     v-bind="props"
-    :aria-checked="isIndeterminate(checked) ? 'mixed' : checked"
-    :data-state="getCheckedState(checked)"
+    :aria-checked="isIndeterminate(modelValue) ? 'mixed' : modelValue"
+    :data-state="getCheckedState(modelValue)"
     @select="
       async (event) => {
         emits('select', event);
-        if (isIndeterminate(checked)) {
-          checked = true;
+        if (isIndeterminate(modelValue)) {
+          modelValue = true;
         }
         else {
-          checked = !checked;
+          modelValue = !modelValue;
         }
       }
     "
   >
-    <slot :checked="checked" />
+    <slot :model-value="modelValue" />
   </MenuItem>
 </template>

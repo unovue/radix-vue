@@ -25,14 +25,14 @@ function handleSelectAll() {
       <MenuWithAnchor>
         <MenuCheckboxItem
           class="flex items-center justify-between leading-[1] cursor-default select-none whitespace-nowrap h-[25px] px-[10px] text-black rounded-[3px] outline-none data-[highlighted]:bg-black data-[highlighted]:text-white data-[disabled]:text-gray-100"
-          :checked="
+          :model-value="
             selection.length === options.length
               ? true
               : selection.length
                 ? 'indeterminate'
                 : false
           "
-          @update:checked="handleSelectAll"
+          @update:model-value="handleSelectAll"
         >
           Select All
           <MenuItemIndicator>
@@ -46,8 +46,8 @@ function handleSelectAll() {
           v-for="(option, index) in options"
           :key="index"
           class="flex items-center justify-between leading-[1] cursor-default select-none whitespace-nowrap h-[25px] px-[10px] text-black rounded-[3px] outline-none data-[highlighted]:bg-black data-[highlighted]:text-white data-[disabled]:text-gray-100"
-          :checked="selection.includes(option)"
-          @update:checked="
+          :model-value="selection.includes(option)"
+          @update:model-value="
             () => {
               if (selection.includes(option)) {
                 selection = selection.filter((el) => el !== option);

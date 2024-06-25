@@ -1,7 +1,8 @@
 <script lang="ts">
 import type { Ref, VNode } from 'vue'
 import type { AcceptableValue, Direction } from '@/shared/types'
-import { createContext, useDirection, useFormControl } from '@/shared'
+import { createContext, isNullish, useDirection, useFormControl } from '@/shared'
+import { compare } from './utils'
 
 export interface SelectRootProps<T = AcceptableValue> {
   /** The controlled open state of the Select. Can be bind as `v-model:open`. */
@@ -9,15 +10,17 @@ export interface SelectRootProps<T = AcceptableValue> {
   /** The open state of the select when it is initially rendered. Use when you do not need to control its open state. */
   defaultOpen?: boolean
   /** The value of the select when initially rendered. Use when you do not need to control the state of the Select */
-  defaultValue?: T
+  defaultValue?: T | Array<T>
   /** The controlled value of the Select. Can be bind as `v-model`. */
-  modelValue?: T
+  modelValue?: T | Array<T>
   /** Use this to compare objects by a particular field, or pass your own comparison function for complete control over how objects are compared. */
   by?: string | ((a: T, b: T) => boolean)
   /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
   /** The name of the Select. Submitted with its owning form as part of a name/value pair. */
   name?: string
+  /** Whether multiple options can be selected or not. */
+  multiple?: boolean
   /** Native html input `autocomplete` attribute. */
   autocomplete?: string
   /** When `true`, prevents the user from interacting with Select */
@@ -39,14 +42,16 @@ export interface SelectRootContext<T> {
   valueElement: Ref<HTMLElement | undefined>
   onValueElementChange: (node: HTMLElement) => void
   contentId: string
-  modelValue?: Ref<T>
+  modelValue: Ref<T | Array<T> | undefined>
   onValueChange: (value: T) => void
   open: Ref<boolean>
+  multiple: Ref<boolean>
   required?: Ref<boolean>
   by?: string | ((a: T, b: T) => boolean)
   onOpenChange: (open: boolean) => void
   dir: Ref<Direction>
   triggerPointerDownPosRef: Ref<{ x: number, y: number } | null>
+  isEmptyModelValue: Ref<boolean>
   disabled?: Ref<boolean>
 }
 
@@ -87,10 +92,13 @@ defineSlots<{
   }) => any
 }>()
 
+const { required, disabled, multiple, dir: propDir } = toRefs(props)
+
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: props.defaultValue,
+  defaultValue: props.defaultValue ?? (multiple.value ? [] : undefined),
   passive: (props.modelValue === undefined) as false,
-}) as Ref<T>
+  deep: true,
+}) as Ref<T | Array<T> | undefined>
 
 const open = useVModel(props, 'open', emits, {
   defaultValue: props.defaultOpen,
@@ -104,7 +112,13 @@ const triggerPointerDownPosRef = ref({
   y: 0,
 })
 
-const { required, disabled, dir: propDir } = toRefs(props)
+const isEmptyModelValue = computed(() => {
+  if (multiple.value && Array.isArray(modelValue.value))
+    return modelValue.value.length === 0
+  else
+    return isNullish(modelValue.value)
+})
+
 const dir = useDirection(propDir)
 provideSelectRootContext({
   triggerElement,
@@ -118,10 +132,17 @@ provideSelectRootContext({
   contentId: '',
   modelValue,
   onValueChange: (value: any) => {
-    modelValue.value = value
+    if (multiple.value && Array.isArray(modelValue.value)) {
+      const index = modelValue.value.findIndex(i => compare(i, value, props.by))
+      index === -1 ? modelValue.value.push(value) : modelValue.value.splice(index, 1)
+    }
+    else {
+      modelValue.value = value
+    }
   },
   by: props.by,
   open,
+  multiple,
   required,
   onOpenChange: (value) => {
     open.value = value
@@ -129,6 +150,7 @@ provideSelectRootContext({
   dir,
   triggerPointerDownPosRef,
   disabled,
+  isEmptyModelValue,
 })
 
 const isFormControl = useFormControl(triggerElement)
@@ -167,6 +189,7 @@ provideSelectNativeOptionsContext({
       :key="nativeSelectKey"
       aria-hidden
       tabindex="-1"
+      :multiple="multiple"
       :required="required"
       :name="name"
       :autocomplete="autocomplete"

@@ -15,7 +15,7 @@ import {
   useTypeahead,
 } from '@/shared'
 import type { AcceptableValue } from '@/shared/types'
-import { compare } from './utils'
+import { valueComparator } from './utils'
 
 export interface SelectContentContext {
   content?: Ref<HTMLElement | undefined>
@@ -224,13 +224,17 @@ provideSelectContentContext({
   },
   itemRefCallback: (node, value, disabled) => {
     const isFirstValidItem = !firstValidItemFoundRef.value && !disabled
-    const isSelectedItem
-      = rootContext.modelValue?.value !== undefined
-      && compare(rootContext.modelValue.value, value, rootContext.by) // rootContext.modelValue?.value === value
-    if (isSelectedItem || isFirstValidItem) {
-      selectedItem.value = node
-      if (isFirstValidItem)
+    const isSelectedItem = valueComparator(rootContext.modelValue.value, value, rootContext.by)
+
+    if (isFirstValidItem) {
+      if (rootContext.isEmptyModelValue.value) {
         firstValidItemFoundRef.value = true
+        selectedItem.value = node
+      }
+      else if (isSelectedItem) {
+        firstValidItemFoundRef.value = true
+        selectedItem.value = node
+      }
     }
   },
   selectedItem,
@@ -240,9 +244,8 @@ provideSelectContentContext({
   },
   itemTextRefCallback: (node, value, disabled) => {
     const isFirstValidItem = !firstValidItemFoundRef.value && !disabled
-    const isSelectedItem
-      = rootContext.modelValue?.value !== undefined
-      && compare(rootContext.modelValue.value, value, rootContext.by) // rootContext.modelValue?.value === value
+    const isSelectedItem = valueComparator(rootContext.modelValue.value, value, rootContext.by)
+
     if (isSelectedItem || isFirstValidItem)
       selectedItemText.value = node
   },

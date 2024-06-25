@@ -8,12 +8,12 @@ export interface SelectValueProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import { injectSelectRootContext } from './SelectRoot.vue'
 import { Primitive } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
 
-withDefaults(defineProps<SelectValueProps>(), {
+const props = withDefaults(defineProps<SelectValueProps>(), {
   as: 'span',
   placeholder: '',
 })
@@ -25,6 +25,13 @@ const rootContext = injectSelectRootContext()
 onMounted(() => {
   rootContext.valueElement = currentElement
 })
+
+const slotText = computed(() => {
+  if (Array.isArray(rootContext.modelValue.value))
+    return rootContext.modelValue.value.length === 0 ? props.placeholder : rootContext.modelValue.value.join(', ')
+  else
+    return rootContext.modelValue.value || props.placeholder
+})
 </script>
 
 <template>
@@ -34,6 +41,6 @@ onMounted(() => {
     :as-child="asChild"
     :style="{ pointerEvents: 'none' }"
   >
-    <slot>{{ rootContext.modelValue?.value || placeholder }}</slot>
+    <slot>{{ slotText }}</slot>
   </Primitive>
 </template>

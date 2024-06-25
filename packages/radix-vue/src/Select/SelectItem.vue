@@ -41,7 +41,7 @@ import {
 } from 'vue'
 import { injectSelectRootContext } from './SelectRoot.vue'
 import { injectSelectContentContext } from './SelectContentImpl.vue'
-import { SELECTION_KEYS, getValue } from './utils'
+import { SELECTION_KEYS, valueComparator } from './utils'
 import { Primitive } from '@/Primitive'
 
 const props = defineProps<SelectItemProps>()
@@ -51,7 +51,7 @@ const rootContext = injectSelectRootContext()
 const contentContext = injectSelectContentContext()
 const { forwardRef, currentElement } = useForwardExpose()
 
-const isSelected = computed(() => rootContext.modelValue?.value === props.value)
+const isSelected = computed(() => valueComparator(rootContext.modelValue?.value, props.value, rootContext.by))
 const isFocused = ref(false)
 const textValue = ref(props.textValue ?? '')
 const textId = useId(undefined, 'radix-vue-select-item-text')

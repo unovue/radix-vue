@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, toRefs } from 'vue'
+import { ref } from 'vue'
 import { VisuallyHidden } from '@/VisuallyHidden'
 
 interface BubbleSelectProps {
@@ -15,7 +15,6 @@ interface BubbleSelectProps {
 }
 
 const props = defineProps<BubbleSelectProps>()
-const { value } = toRefs(props)
 const selectElement = ref<HTMLElement>()
 
 // This would bubble "change" event to form, with the target as Select element.
@@ -51,7 +50,6 @@ const selectElement = ref<HTMLElement>()
     <select
       ref="selectElement"
       v-bind="props"
-      v-model="value"
     >
       <slot />
     </select>

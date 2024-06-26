@@ -17,11 +17,11 @@ const placeholder = computed(() => context.placeholder.value?.preview)
 
 function handleFocus() {
   if (context.activationMode.value === 'focus')
-    context.isEditing.value = true
+    context.edit()
 }
 function handleDoubleClick() {
   if (context.activationMode.value === 'dblclick')
-    context.isEditing.value = true
+    context.edit()
 }
 </script>
 

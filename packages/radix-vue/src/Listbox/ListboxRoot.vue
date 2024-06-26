@@ -29,6 +29,7 @@ type ListboxRootContext<T> = {
   onKeydownNavigation: (event: KeyboardEvent) => void
   onKeydownEnter: (event: KeyboardEvent) => void
   onKeydownTypeAhead: (event: KeyboardEvent) => void
+  onInputChange: (event: InputEvent) => void
 }
 
 export const [injectListboxRootContext, provideListboxRootContext]
@@ -188,6 +189,15 @@ function onKeydownTypeAhead(event: KeyboardEvent) {
   }, 1)
 }
 
+function onInputChange(event: InputEvent) {
+  // when user changes the input, we always highlight the first item
+  nextTick(() => {
+    const collection = getItems()
+    if (collection[0]?.ref)
+      onChangeHighlight(collection[0].ref)
+  })
+}
+
 function onLeave(event: Event) {
   previousElement.value = highlightedElement.value
   highlightedElement.value = null
@@ -310,6 +320,7 @@ provideListboxRootContext({
   onKeydownEnter,
   onKeydownNavigation,
   onKeydownTypeAhead,
+  onInputChange,
 })
 </script>
 

@@ -6,7 +6,10 @@ const radioStateSingle = ref('compact')
 </script>
 
 <template>
-  <Story title="Radio Group/Demo" :layout="{ type: 'single', iframe: false }">
+  <Story
+    title="Radio Group/Demo"
+    :layout="{ type: 'single', iframe: false }"
+  >
     <Variant title="default">
       <RadioGroupRoot
         v-model="radioStateSingle"
@@ -24,7 +27,10 @@ const radioStateSingle = ref('compact')
               class="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-violet11"
             />
           </RadioGroupItem>
-          <label class="text-white text-[15px] leading-none pl-[15px]" for="r1">
+          <label
+            class="text-white text-[15px] leading-none pl-[15px]"
+            for="r1"
+          >
             Default
           </label>
         </div>
@@ -38,7 +44,10 @@ const radioStateSingle = ref('compact')
               class="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-violet11"
             />
           </RadioGroupItem>
-          <label class="text-white text-[15px] leading-none pl-[15px]" for="r2">
+          <label
+            class="text-white text-[15px] leading-none pl-[15px]"
+            for="r2"
+          >
             Comfortable
           </label>
         </div>
@@ -55,7 +64,10 @@ const radioStateSingle = ref('compact')
               />
             </button>
           </RadioGroupItem>
-          <label class="text-white text-[15px] leading-none pl-[15px]" for="r3">
+          <label
+            class="text-white text-[15px] leading-none pl-[15px]"
+            for="r3"
+          >
             Compact
           </label>
         </div>

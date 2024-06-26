@@ -37,7 +37,10 @@ const forwarded = useForwardPropsEmits(props, emits)
       v-slot="{ segments }"
       class="bg-white flex select-none items-center rounded-lg text-center text-green10 placeholder:text-mauve5 border border-gray9 p-1 data-[invalid]:border-red-500"
     >
-      <template v-for="item in segments" :key="item.part">
+      <template
+        v-for="item in segments"
+        :key="item.part"
+      >
         <DatePickerInput
           v-if="item.part === 'literal'"
           :part="item.part"
@@ -54,7 +57,10 @@ const forwarded = useForwardPropsEmits(props, emits)
       </template>
 
       <DatePickerTrigger class="ml-4 mr-1 focus:shadow-[0_0_0_2px] focus:shadow-black">
-        <Icon icon="radix-icons:calendar" class="w-6 h-6" />
+        <Icon
+          icon="radix-icons:calendar"
+          class="w-6 h-6"
+        />
       </DatePickerTrigger>
     </DatePickerField>
 
@@ -71,24 +77,35 @@ const forwarded = useForwardPropsEmits(props, emits)
           <DatePickerPrev
             class="inline-flex items-center cursor-pointer text-black justify-center rounded-[9px] bg-transparent w-8 h-8 hover:bg-black hover:text-white active:scale-98 active:transition-all focus:shadow-[0_0_0_2px] focus:shadow-black"
           >
-            <Icon icon="radix-icons:chevron-left" class="w-6 h-6" />
+            <Icon
+              icon="radix-icons:chevron-left"
+              class="w-6 h-6"
+            />
           </DatePickerPrev>
 
           <DatePickerHeading class="text-[15px] text-black font-medium" />
           <DatePickerNext
             class="inline-flex items-center cursor-pointer text-black justify-center rounded-[9px] bg-transparent w-8 h-8 hover:bg-black hover:text-white active:scale-98 active:transition-all focus:shadow-[0_0_0_2px] focus:shadow-black"
           >
-            <Icon icon="radix-icons:chevron-right" class="w-6 h-6" />
+            <Icon
+              icon="radix-icons:chevron-right"
+              class="w-6 h-6"
+            />
           </DatePickerNext>
         </DatePickerHeader>
         <div
           class="flex flex-col space-y-4 pt-4 sm:flex-row sm:space-x-4 sm:space-y-0"
         >
-          <DatePickerGrid v-for="month in grid" :key="month.value.toString()" class="w-full border-collapse select-none space-y-1">
+          <DatePickerGrid
+            v-for="month in grid"
+            :key="month.value.toString()"
+            class="w-full border-collapse select-none space-y-1"
+          >
             <DatePickerGridHead>
               <DatePickerGridRow class="mb-1 grid w-full grid-cols-7">
                 <DatePickerHeadCell
-                  v-for="day in weekDays" :key="day"
+                  v-for="day in weekDays"
+                  :key="day"
                   class="text-xs !font-normal text-black"
                 >
                   {{ day }}

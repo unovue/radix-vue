@@ -7,7 +7,10 @@ const value = ref(5)
 </script>
 
 <template>
-  <Story title="NumberField/Chromatic" :layout="{ type: 'grid', width: '50%' }">
+  <Story
+    title="NumberField/Chromatic"
+    :layout="{ type: 'grid', width: '50%' }"
+  >
     <Variant title="Uncontrolled">
       <NumberFieldRoot
         class="text-sm flex items-center border bg-blackA7 border-blackA9 rounded-md text-white"

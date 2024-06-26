@@ -8,7 +8,10 @@ import './styles.css'
     <div class="Text">
       Radix Primitives
     </div>
-    <div class="Text" :style="{ fontWeight: 500 }">
+    <div
+      class="Text"
+      :style="{ fontWeight: 500 }"
+    >
       An open-source UI component library.
     </div>
     <Separator

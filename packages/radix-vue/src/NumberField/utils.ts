@@ -1,19 +1,22 @@
 import { NumberFormatter, NumberParser } from '@internationalized/number'
+import { type MaybeComputedElementRef, unrefElement, useEventListener } from '@vueuse/core'
 import { createEventHook, reactiveComputed } from '@vueuse/shared'
-import { type Ref, ref } from 'vue'
+import { type Ref, computed, ref } from 'vue'
 
-export function usePressedHold() {
+export function usePressedHold(options: { target?: MaybeComputedElementRef, disabled: Ref<boolean> }) {
+  const { disabled } = options
   const timeout = ref<number>()
   const triggerHook = createEventHook()
-
   const resetTimeout = () => window.clearTimeout(timeout.value)
 
   const onIncrementPressStart = (delay: number) => {
     resetTimeout()
+    if (disabled.value)
+      return
+
     triggerHook.trigger()
 
     timeout.value = window.setTimeout(() => {
-    // TODO: add conditional
       onIncrementPressStart(60)
     }, delay)
   }
@@ -26,9 +29,34 @@ export function usePressedHold() {
     resetTimeout()
   }
 
+  // Handle press event, modified version of useMousePressed
+  const isPressed = ref(false)
+  const target = computed(() => unrefElement(options.target) || window)
+
+  const onPressStart = (event: PointerEvent) => {
+    // Only handle left clicks, and ignore events that bubbled through portals.
+    if (event.button !== 0 || isPressed.value)
+      return
+
+    event.preventDefault()
+    isPressed.value = true
+    handlePressStart()
+  }
+
+  const onPressRelease = () => {
+    isPressed.value = false
+    handlePressEnd()
+  }
+
+  useEventListener(target, 'pointerdown', onPressStart)
+
+  if (window) {
+    useEventListener(window, 'pointerup', onPressRelease)
+    useEventListener(window, 'pointercancel', onPressRelease)
+  }
+
   return {
-    handlePressStart,
-    handlePressEnd,
+    isPressed,
     onTrigger: triggerHook.on,
   }
 }

@@ -32,7 +32,10 @@ import './styles.css'
           Make changes to your profile here. Click save when you're done.
         </DialogDescription>
         <fieldset class="Fieldset">
-          <label class="Label" for="name"> Name </label>
+          <label
+            class="Label"
+            for="name"
+          > Name </label>
           <input
             id="name"
             class="Input"
@@ -40,7 +43,10 @@ import './styles.css'
           >
         </fieldset>
         <fieldset class="Fieldset">
-          <label class="Label" for="username"> Username </label>
+          <label
+            class="Label"
+            for="username"
+          > Username </label>
           <input
             id="username"
             class="Input"

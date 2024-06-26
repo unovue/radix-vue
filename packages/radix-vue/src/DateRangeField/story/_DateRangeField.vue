@@ -8,7 +8,10 @@ const props = defineProps<{ dateFieldProps?: DateRangeFieldRootProps, emits?: { 
 </script>
 
 <template>
-  <Label for="date-field" data-testid="label">Label</Label>
+  <Label
+    for="date-field"
+    data-testid="label"
+  >Label</Label>
   <DateRangeFieldRoot
     v-bind="props.dateFieldProps"
     id="date-field"

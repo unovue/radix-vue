@@ -12,7 +12,10 @@ function handleComplete(e: string[]) {
 
 <template>
   <div>
-    <Label for="pin-input" class="Text">Pin Input</Label>
+    <Label
+      for="pin-input"
+      class="Text"
+    >Pin Input</Label>
     <PinInputRoot
       id="pin-input"
       v-model="value"

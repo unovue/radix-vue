@@ -37,7 +37,10 @@ const props = defineProps<PropsTableProps>()
     </thead>
 
     <tbody>
-      <ProseTr v-for="(prop, index) in props.data" :key="`${prop.name}-${index}`">
+      <ProseTr
+        v-for="(prop, index) in props.data"
+        :key="`${prop.name}-${index}`"
+      >
         <ProseTd>
           <div class="flex h-full items-start gap-1">
             <ProseCodeInline class="!text-[13px]">
@@ -47,13 +50,19 @@ const props = defineProps<PropsTableProps>()
         </ProseTd>
 
         <ProseTd>
-          <div v-if="prop.default" class="flex  h-full items-start gap-1">
+          <div
+            v-if="prop.default"
+            class="flex  h-full items-start gap-1"
+          >
             <ProseCodeInline variant="secondary">
               {{ prop.default }}
             </ProseCodeInline>
           </div>
           <template v-else>
-            <div as="{AccessibleIcon}" label="No default value">
+            <div
+              as="{AccessibleIcon}"
+              label="No default value"
+            >
               <Icon icon="radix-icons:divider-horizontal" />
             </div>
           </template>
@@ -65,7 +74,10 @@ const props = defineProps<PropsTableProps>()
               <ProseCodeInline variant="secondary">
                 {{ prop.typeSimple ? prop.typeSimple : prop.type }}
               </ProseCodeInline>
-              <div class="vp-raw [&_a]:underline flex flex-col gap-2 mt-2 text-sm dark:text-neutral-300" v-html="prop.description" />
+              <div
+                class="vp-raw [&_a]:underline flex flex-col gap-2 mt-2 text-sm dark:text-neutral-300"
+                v-html="prop.description"
+              />
             </div>
           </div>
         </ProseTd>

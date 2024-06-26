@@ -52,7 +52,10 @@ const value = computed(() => toCalendar(today(getLocalTimeZone()), createCalenda
 <template>
   <div class="Wrapper">
     <Label class="Label">Locale</Label>
-    <SelectRoot v-model="locale" @update:model-value="updateLocale">
+    <SelectRoot
+      v-model="locale"
+      @update:model-value="updateLocale"
+    >
       <SelectTrigger
         class="SelectTrigger"
         aria-label="Select a locale"
@@ -60,7 +63,10 @@ const value = computed(() => toCalendar(today(getLocalTimeZone()), createCalenda
         <SelectValue placeholder="Please select a locale">
           {{ pref!.label }}
         </SelectValue>
-        <Icon icon="radix-icons:chevron-down" class="Icon" />
+        <Icon
+          icon="radix-icons:chevron-down"
+          class="Icon"
+        />
       </SelectTrigger>
 
       <SelectPortal>
@@ -104,7 +110,10 @@ const value = computed(() => toCalendar(today(getLocalTimeZone()), createCalenda
           {{ calendars.find(c => c.key === calendar)?.name }}
         </SelectValue>
 
-        <Icon icon="radix-icons:chevron-down" class="Icon" />
+        <Icon
+          icon="radix-icons:chevron-down"
+          class="Icon"
+        />
       </SelectTrigger>
 
       <SelectPortal>
@@ -173,23 +182,34 @@ const value = computed(() => toCalendar(today(getLocalTimeZone()), createCalenda
         <CalendarPrev
           class="CalendarNavButton"
         >
-          <Icon icon="radix-icons:chevron-left" class="Icon" />
+          <Icon
+            icon="radix-icons:chevron-left"
+            class="Icon"
+          />
         </CalendarPrev>
         <CalendarHeading class="CalendarHeading" />
         <CalendarNext
           class="CalendarNavButton"
         >
-          <Icon icon="radix-icons:chevron-right" class="Icon" />
+          <Icon
+            icon="radix-icons:chevron-right"
+            class="Icon"
+          />
         </CalendarNext>
       </CalendarHeader>
       <div
         class="CalendarWrapper"
       >
-        <CalendarGrid v-for="month in grid" :key="month.value.toString()" class="CalendarGrid">
+        <CalendarGrid
+          v-for="month in grid"
+          :key="month.value.toString()"
+          class="CalendarGrid"
+        >
           <CalendarGridHead>
             <CalendarGridRow class="CalendarGridRow">
               <CalendarHeadCell
-                v-for="day in weekDays" :key="day"
+                v-for="day in weekDays"
+                :key="day"
                 class="CalendarHeadCell"
               >
                 {{ day }}
@@ -197,7 +217,11 @@ const value = computed(() => toCalendar(today(getLocalTimeZone()), createCalenda
             </CalendarGridRow>
           </CalendarGridHead>
           <CalendarGridBody class="CalendarGridWrapper">
-            <CalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="CalendarGridRow">
+            <CalendarGridRow
+              v-for="(weekDates, index) in month.rows"
+              :key="`weekDate-${index}`"
+              class="CalendarGridRow"
+            >
               <CalendarCell
                 v-for="weekDate in weekDates"
                 :key="weekDate.toString()"

@@ -19,7 +19,11 @@ const index = computed(() => thumbElement.value ? getItems().findIndex(i => i.re
 </script>
 
 <template>
-  <SliderThumbImpl :ref="forwardRef" v-bind="props" :index="index">
+  <SliderThumbImpl
+    :ref="forwardRef"
+    v-bind="props"
+    :index="index"
+  >
     <slot />
   </SliderThumbImpl>
 </template>

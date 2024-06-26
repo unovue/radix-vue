@@ -13,7 +13,7 @@ export default defineNuxtModule<ModuleOptions>({
     name: '@radix-vue/nuxt',
     configKey: 'radix',
     compatibility: {
-      nuxt: '^3.0.0',
+      nuxt: '>=3.0.0',
     },
   },
   defaults: {

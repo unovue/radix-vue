@@ -3,7 +3,10 @@ import DatePicker from './_DummyDatePicker.vue'
 </script>
 
 <template>
-  <Story title="Date Picker/Granular" :layout="{ type: 'grid', width: '50%' }">
+  <Story
+    title="Date Picker/Granular"
+    :layout="{ type: 'grid', width: '50%' }"
+  >
     <Variant title="Granular (second)">
       <DatePicker granularity="second" />
     </Variant>

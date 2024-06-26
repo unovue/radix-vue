@@ -27,35 +27,52 @@ const pagingFunc = (date: DateValue, sign: -1 | 1) => {
         class="CalendarNavButton"
         :prev-page="(date: DateValue) => pagingFunc(date, -1)"
       >
-        <Icon icon="radix-icons:double-arrow-left" class="Icon" />
+        <Icon
+          icon="radix-icons:double-arrow-left"
+          class="Icon"
+        />
       </CalendarPrev>
       <CalendarPrev
         class="CalendarNavButton"
       >
-        <Icon icon="radix-icons:chevron-left" class="Icon" />
+        <Icon
+          icon="radix-icons:chevron-left"
+          class="Icon"
+        />
       </CalendarPrev>
       <CalendarHeading class="CalendarHeading" />
       <CalendarNext
         class="CalendarNavButton"
       >
-        <Icon icon="radix-icons:chevron-right" class="Icon" />
+        <Icon
+          icon="radix-icons:chevron-right"
+          class="Icon"
+        />
       </CalendarNext>
 
       <CalendarNext
         class="CalendarNavButton"
         :next-page="(date: DateValue) => pagingFunc(date, 1)"
       >
-        <Icon icon="radix-icons:double-arrow-right" class="Icon" />
+        <Icon
+          icon="radix-icons:double-arrow-right"
+          class="Icon"
+        />
       </CalendarNext>
     </CalendarHeader>
     <div
       class="CalendarWrapper"
     >
-      <CalendarGrid v-for="month in grid" :key="month.value.toString()" class="CalendarGrid">
+      <CalendarGrid
+        v-for="month in grid"
+        :key="month.value.toString()"
+        class="CalendarGrid"
+      >
         <CalendarGridHead>
           <CalendarGridRow class="CalendarGridRow">
             <CalendarHeadCell
-              v-for="day in weekDays" :key="day"
+              v-for="day in weekDays"
+              :key="day"
               class="CalendarHeadCell"
             >
               {{ day }}
@@ -63,7 +80,11 @@ const pagingFunc = (date: DateValue, sign: -1 | 1) => {
           </CalendarGridRow>
         </CalendarGridHead>
         <CalendarGridBody class="CalendarGridWrapper">
-          <CalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="CalendarGridRow">
+          <CalendarGridRow
+            v-for="(weekDates, index) in month.rows"
+            :key="`weekDate-${index}`"
+            class="CalendarGridRow"
+          >
             <CalendarCell
               v-for="weekDate in weekDates"
               :key="weekDate.toString()"

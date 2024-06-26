@@ -108,7 +108,10 @@ import DemoContainer from './DemoContainer.vue'
     <DemoContainer title="number field">
       <NumberFieldDemo />
     </DemoContainer>
-    <DemoContainer title="pagination" overflow>
+    <DemoContainer
+      title="pagination"
+      overflow
+    >
       <PaginationDemo />
     </DemoContainer>
     <DemoContainer title="pin input">
@@ -159,7 +162,10 @@ import DemoContainer from './DemoContainer.vue'
     <DemoContainer title="toggle group">
       <ToggleGroupDemo />
     </DemoContainer>
-    <DemoContainer title="toolbar" overflow>
+    <DemoContainer
+      title="toolbar"
+      overflow
+    >
       <ToolbarDemo />
     </DemoContainer>
     <DemoContainer title="tooltip">

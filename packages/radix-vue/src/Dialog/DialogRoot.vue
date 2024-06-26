@@ -48,10 +48,10 @@ const props = withDefaults(defineProps<DialogRootProps>(), {
 const emit = defineEmits<DialogRootEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current open state */
     open: typeof open.value
-  }): any
+  }) => any
 }>()
 
 const open = useVModel(props, 'open', emit, {

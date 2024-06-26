@@ -11,7 +11,10 @@ const props = withDefaults(defineProps<RangeCalendarGridHeadProps>(), { as: 'the
 </script>
 
 <template>
-  <Primitive v-bind="props" aria-hidden="true">
+  <Primitive
+    v-bind="props"
+    aria-hidden="true"
+  >
     <slot />
   </Primitive>
 </template>

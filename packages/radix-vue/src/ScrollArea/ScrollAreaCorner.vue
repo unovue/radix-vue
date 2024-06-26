@@ -24,7 +24,11 @@ const hasCorner = computed(
 </script>
 
 <template>
-  <ScrollAreaCornerImpl v-if="hasCorner" v-bind="props" :ref="forwardRef">
+  <ScrollAreaCornerImpl
+    v-if="hasCorner"
+    v-bind="props"
+    :ref="forwardRef"
+  >
     <slot />
   </ScrollAreaCornerImpl>
 </template>

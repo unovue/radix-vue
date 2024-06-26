@@ -17,7 +17,10 @@ const paging = (date: DateValue, sign: -1 | 1) => {
 </script>
 
 <template>
-  <Story title="Range Calendar/Chromatic" :layout="{ type: 'grid', width: '50%' }">
+  <Story
+    title="Range Calendar/Chromatic"
+    :layout="{ type: 'grid', width: '50%' }"
+  >
     <Variant title="Uncontrolled (modelValue)">
       <RangeCalendar :default-value="defaultValue" />
     </Variant>
@@ -27,7 +30,10 @@ const paging = (date: DateValue, sign: -1 | 1) => {
     </Variant>
 
     <Variant title="Uncontrolled (placeholder)">
-      <RangeCalendar :default-value="defaultValue" :default-placeholder="placeholder" />
+      <RangeCalendar
+        :default-value="defaultValue"
+        :default-placeholder="placeholder"
+      />
     </Variant>
 
     <Variant title="Controlled (placeholder)">
@@ -43,19 +49,31 @@ const paging = (date: DateValue, sign: -1 | 1) => {
     </Variant>
 
     <Variant title="Fixed weeks">
-      <RangeCalendar :default-value="defaultValue" fixed-weeks />
+      <RangeCalendar
+        :default-value="defaultValue"
+        fixed-weeks
+      />
     </Variant>
 
     <Variant title="Localization">
-      <RangeCalendar :default-value="defaultValue" locale="de" />
+      <RangeCalendar
+        :default-value="defaultValue"
+        locale="de"
+      />
     </Variant>
 
     <Variant title="Prevent deselection">
-      <RangeCalendar :default-value="defaultValue" prevent-deselect />
+      <RangeCalendar
+        :default-value="defaultValue"
+        prevent-deselect
+      />
     </Variant>
 
     <Variant title="Multiple selection">
-      <RangeCalendar :default-value="defaultValue" multiple />
+      <RangeCalendar
+        :default-value="defaultValue"
+        multiple
+      />
     </Variant>
 
     <Variant title="Different calendar">

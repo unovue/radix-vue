@@ -31,7 +31,10 @@ const { forwardRef } = useForwardExpose()
   >
     <slot />
   </Primitive>
-  <Primitive as="style" :nonce="nonce">
+  <Primitive
+    as="style"
+    :nonce="nonce"
+  >
     /* Hide scrollbars cross-browser and enable momentum scroll for touch
     devices */ [data-radix-viewport] { scrollbar-width:none; -ms-overflow-style: none;
     -webkit-overflow-scrolling: touch; }

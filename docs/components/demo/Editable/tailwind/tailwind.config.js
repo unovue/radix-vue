@@ -9,7 +9,7 @@ module.exports = {
         ...blackA,
         ...grass,
         ...green,
-        ...red
+        ...red,
       },
     },
   },

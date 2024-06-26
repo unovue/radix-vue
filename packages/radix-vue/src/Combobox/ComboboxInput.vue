@@ -76,6 +76,7 @@ function handleInput(event: Event) {
     :aria-expanded="rootContext.open.value"
     :aria-controls="rootContext.contentId"
     :aria-disabled="disabled ?? undefined"
+    :aria-activedescendant="rootContext.selectedElement.value?.id"
     aria-autocomplete="list"
     role="combobox"
     autocomplete="false"

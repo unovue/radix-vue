@@ -28,7 +28,10 @@ const radioStateSingle = ref('default')
           class="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-violet11"
         />
       </RadioGroupItem>
-      <label class="text-white text-[15px] leading-none pl-[15px]" for="r1">
+      <label
+        class="text-white text-[15px] leading-none pl-[15px]"
+        for="r1"
+      >
         Default
       </label>
     </div>
@@ -44,7 +47,10 @@ const radioStateSingle = ref('default')
           class="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-violet11"
         />
       </RadioGroupItem>
-      <label class="text-white text-[15px] leading-none pl-[15px]" for="r2">
+      <label
+        class="text-white text-[15px] leading-none pl-[15px]"
+        for="r2"
+      >
         Comfortable
       </label>
     </div>
@@ -62,7 +68,10 @@ const radioStateSingle = ref('default')
           />
         </button>
       </RadioGroupItem>
-      <label class="text-white text-[15px] leading-none pl-[15px]" for="r3">
+      <label
+        class="text-white text-[15px] leading-none pl-[15px]"
+        for="r3"
+      >
         Compact
       </label>
     </div>

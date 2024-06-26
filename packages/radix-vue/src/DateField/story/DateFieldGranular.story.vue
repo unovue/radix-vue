@@ -4,10 +4,16 @@ import { Label } from '@/Label'
 </script>
 
 <template>
-  <Story title="Date Field/Granular" :layout="{ type: 'grid', width: '50%' }">
+  <Story
+    title="Date Field/Granular"
+    :layout="{ type: 'grid', width: '50%' }"
+  >
     <Variant title="Granular (second)">
       <div class="flex flex-col gap-2">
-        <Label class="text-sm text-gray9" for="date-field">Birthday</Label>
+        <Label
+          class="text-sm text-gray9"
+          for="date-field"
+        >Birthday</Label>
         <DateFieldRoot
           id="date-field"
           v-slot="{ segments }"
@@ -15,7 +21,10 @@ import { Label } from '@/Label'
           granularity="second"
           class="flex select-none bg-white items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500"
         >
-          <template v-for="item in segments" :key="item.part">
+          <template
+            v-for="item in segments"
+            :key="item.part"
+          >
             <DateFieldInput
               v-if="item.part === 'literal'"
               :part="item.part"
@@ -36,7 +45,10 @@ import { Label } from '@/Label'
 
     <Variant title="Granular (minute)">
       <div class="flex flex-col gap-2">
-        <Label class="text-sm text-gray9" for="date-field">Birthday</Label>
+        <Label
+          class="text-sm text-gray9"
+          for="date-field"
+        >Birthday</Label>
         <DateFieldRoot
           id="date-field"
           v-slot="{ segments }"
@@ -44,7 +56,10 @@ import { Label } from '@/Label'
           granularity="minute"
           class="flex select-none bg-white items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500"
         >
-          <template v-for="item in segments" :key="item.part">
+          <template
+            v-for="item in segments"
+            :key="item.part"
+          >
             <DateFieldInput
               v-if="item.part === 'literal'"
               :part="item.part"
@@ -65,7 +80,10 @@ import { Label } from '@/Label'
 
     <Variant title="Granular (hour)">
       <div class="flex flex-col gap-2">
-        <Label class="text-sm text-gray9" for="date-field">Birthday</Label>
+        <Label
+          class="text-sm text-gray9"
+          for="date-field"
+        >Birthday</Label>
         <DateFieldRoot
           id="date-field"
           v-slot="{ segments }"
@@ -73,7 +91,10 @@ import { Label } from '@/Label'
           granularity="hour"
           class="flex select-none bg-white items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500"
         >
-          <template v-for="item in segments" :key="item.part">
+          <template
+            v-for="item in segments"
+            :key="item.part"
+          >
             <DateFieldInput
               v-if="item.part === 'literal'"
               :part="item.part"
@@ -94,7 +115,10 @@ import { Label } from '@/Label'
 
     <Variant title="Granular (day)">
       <div class="flex flex-col gap-2">
-        <Label class="text-sm text-gray9" for="date-field">Birthday</Label>
+        <Label
+          class="text-sm text-gray9"
+          for="date-field"
+        >Birthday</Label>
         <DateFieldRoot
           id="date-field"
           v-slot="{ segments }"
@@ -102,7 +126,10 @@ import { Label } from '@/Label'
           granularity="day"
           class="flex select-none bg-white items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500"
         >
-          <template v-for="item in segments" :key="item.part">
+          <template
+            v-for="item in segments"
+            :key="item.part"
+          >
             <DateFieldInput
               v-if="item.part === 'literal'"
               :part="item.part"

@@ -19,7 +19,10 @@ const isOpen = ref(false)
         </button>
 
         <Transition>
-          <Presence :present="isOpen" force-mount>
+          <Presence
+            :present="isOpen"
+            force-mount
+          >
             <div>Content</div>
           </Presence>
         </Transition>

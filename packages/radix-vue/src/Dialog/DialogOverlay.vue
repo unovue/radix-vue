@@ -22,7 +22,10 @@ const { forwardRef } = useForwardExpose()
 </script>
 
 <template>
-  <Presence v-if="rootContext?.modal.value" :present="forceMount || rootContext.open.value">
+  <Presence
+    v-if="rootContext?.modal.value"
+    :present="forceMount || rootContext.open.value"
+  >
     <DialogOverlayImpl
       v-bind="$attrs"
       :ref="forwardRef"

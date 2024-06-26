@@ -15,7 +15,7 @@ export interface MenuRadioGroupProps extends MenuGroupProps {
 
 export type MenuRadioGroupEmits = {
   /** Event handler called when the value changes. */
-  'update:modelValue': [payload: boolean]
+  'update:modelValue': [payload: string]
 }
 
 export const [injectMenuRadioGroupContext, provideMenuRadioGroupContext]
@@ -32,10 +32,10 @@ const props = withDefaults(defineProps<MenuRadioGroupProps>(), {
 const emits = defineEmits<MenuRadioGroupEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current input values */
     modelValue: typeof modelValue.value
-  }): any
+  }) => any
 }>()
 
 const modelValue = useVModel(props, 'modelValue', emits)

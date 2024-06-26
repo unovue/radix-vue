@@ -11,7 +11,11 @@ const props = defineProps<MenuSeparatorProps>()
 </script>
 
 <template>
-  <Primitive v-bind="props" role="separator" aria-orientation="horizontal">
+  <Primitive
+    v-bind="props"
+    role="separator"
+    aria-orientation="horizontal"
+  >
     <slot />
   </Primitive>
 </template>

@@ -17,7 +17,10 @@ const open = useVModel(props, 'open')
 </script>
 
 <template>
-  <MenuRoot :open="open" :modal="false">
+  <MenuRoot
+    :open="open"
+    :modal="false"
+  >
     <MenuAnchor :style="{ display: 'inline-block' }" />
     <MenuPortal>
       <MenuContent

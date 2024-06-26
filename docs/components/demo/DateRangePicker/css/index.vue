@@ -27,7 +27,10 @@ import './styles.css'
 
 <template>
   <div class="DateFieldWrapper">
-    <Label class="DateFieldLabel" for="date-field">Birthday</Label>
+    <Label
+      class="DateFieldLabel"
+      for="date-field"
+    >Birthday</Label>
     <DateRangePickerRoot
       id="date-field"
       :is-date-unavailable="date => date.day === 19"
@@ -37,7 +40,10 @@ import './styles.css'
         v-slot="{ segments }"
         class="DateField"
       >
-        <template v-for="item in segments.start" :key="item.part">
+        <template
+          v-for="item in segments.start"
+          :key="item.part"
+        >
           <DateRangePickerInput
             v-if="item.part === 'literal'"
             :part="item.part"
@@ -56,7 +62,10 @@ import './styles.css'
           </DateRangePickerInput>
         </template>
         -
-        <template v-for="item in segments.end" :key="item.part">
+        <template
+          v-for="item in segments.end"
+          :key="item.part"
+        >
           <DateRangePickerInput
             v-if="item.part === 'literal'"
             :part="item.part"
@@ -76,7 +85,10 @@ import './styles.css'
         </template>
 
         <DateRangePickerTrigger class="PopoverTrigger">
-          <Icon icon="radix-icons:calendar" class="Icon" />
+          <Icon
+            icon="radix-icons:calendar"
+            class="Icon"
+          />
         </DateRangePickerTrigger>
       </DateRangePickerField>
 
@@ -94,24 +106,35 @@ import './styles.css'
             <DateRangePickerPrev
               class="CalendarNavButton"
             >
-              <Icon icon="radix-icons:chevron-left" class="Icon" />
+              <Icon
+                icon="radix-icons:chevron-left"
+                class="Icon"
+              />
             </DateRangePickerPrev>
 
             <DateRangePickerHeading class="CalendarHeading" />
             <DateRangePickerNext
               class="CalendarNavButton"
             >
-              <Icon icon="radix-icons:chevron-right" class="Icon" />
+              <Icon
+                icon="radix-icons:chevron-right"
+                class="Icon"
+              />
             </DateRangePickerNext>
           </DateRangePickerHeader>
           <div
             class="CalendarWrapper"
           >
-            <DateRangePickerGrid v-for="month in grid" :key="month.value.toString()" class="CalendarGrid">
+            <DateRangePickerGrid
+              v-for="month in grid"
+              :key="month.value.toString()"
+              class="CalendarGrid"
+            >
               <DateRangePickerGridHead>
                 <DateRangePickerGridRow class="CalendarGridRow">
                   <DateRangePickerHeadCell
-                    v-for="day in weekDays" :key="day"
+                    v-for="day in weekDays"
+                    :key="day"
                     class="CalendarHeadCell"
                   >
                     {{ day }}

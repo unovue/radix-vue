@@ -40,29 +40,50 @@ const hebrew = new CalendarDate(
 </script>
 
 <template>
-  <Story title="Calendar/Locales" :layout="{ type: 'grid', width: '50%' }">
+  <Story
+    title="Calendar/Locales"
+    :layout="{ type: 'grid', width: '50%' }"
+  >
     <Variant title="Gregorian">
-      <Calendar :default-value="gregorian" locale="en" />
+      <Calendar
+        :default-value="gregorian"
+        locale="en"
+      />
     </Variant>
 
     <Variant title="Japanese">
-      <Calendar locale="ja" :default-value="japanese" />
+      <Calendar
+        locale="ja"
+        :default-value="japanese"
+      />
     </Variant>
 
     <Variant title="Persian">
-      <Calendar locale="fa-IR" :default-value="persian" />
+      <Calendar
+        locale="fa-IR"
+        :default-value="persian"
+      />
     </Variant>
 
     <Variant title="Taiwan">
-      <Calendar locale="zh-TW" :default-value="taiwan" />
+      <Calendar
+        locale="zh-TW"
+        :default-value="taiwan"
+      />
     </Variant>
 
     <Variant title="Buddhist">
-      <Calendar locale="th" :default-value="buddhist" />
+      <Calendar
+        locale="th"
+        :default-value="buddhist"
+      />
     </Variant>
 
     <Variant title="Hebrew">
-      <Calendar locale="he" :default-value="hebrew" />
+      <Calendar
+        locale="he"
+        :default-value="hebrew"
+      />
     </Variant>
   </Story>
 </template>

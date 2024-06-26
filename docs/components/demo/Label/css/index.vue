@@ -5,7 +5,10 @@ import './styles.css'
 
 <template>
   <div :style="{ display: 'flex', padding: '0 20px', flexWrap: 'wrap', gap: 15, alignItems: 'center' }">
-    <Label class="LabelRoot" for="firstName"> First name </Label>
+    <Label
+      class="LabelRoot"
+      for="firstName"
+    > First name </Label>
     <input
       id="firstName"
       class="Input"

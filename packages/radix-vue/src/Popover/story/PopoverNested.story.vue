@@ -13,7 +13,10 @@ const buttonRef = ref()
 </script>
 
 <template>
-  <Story title="Popover/Nested" :layout="{ type: 'single', iframe: true }">
+  <Story
+    title="Popover/Nested"
+    :layout="{ type: 'single', iframe: true }"
+  >
     <Variant title="default">
       <div class="relative flex items-center justify-center flex-col h-[300vh]">
         <button

@@ -159,7 +159,9 @@ async function handleMountAutoFocus(event: Event) {
   // when opening, explicitly focus the content area only and leave
   // `onEntryFocus` in  control of focusing first item
   event.preventDefault()
-  contentElement.value?.focus()
+  contentElement.value?.focus({
+    preventScroll: true,
+  })
 }
 
 function handleKeyDown(event: KeyboardEvent) {

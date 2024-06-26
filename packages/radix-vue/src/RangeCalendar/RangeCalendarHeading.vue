@@ -19,7 +19,10 @@ const rootContext = injectRangeCalendarRootContext()
 </script>
 
 <template>
-  <Primitive v-bind="props" :data-disabled="rootContext.disabled.value ? '' : undefined">
+  <Primitive
+    v-bind="props"
+    :data-disabled="rootContext.disabled.value ? '' : undefined"
+  >
     <slot :heading-value="rootContext.headingValue.value">
       {{ rootContext.headingValue.value }}
     </slot>

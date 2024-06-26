@@ -23,7 +23,12 @@ const modelValue = ref(['Test'])
     :add-on-tab="addOnTab"
     class="flex gap-2 items-center border p-2 rounded-lg bg-blackA7 w-[300px] flex-wrap border-blackA7"
   >
-    <TagsInputItem v-for="item in modelValue" :key="item" :value="item" class="flex items-center justify-center gap-2 bg-green8 aria-[selected=true]:bg-green9 rounded px-2 py-1">
+    <TagsInputItem
+      v-for="item in modelValue"
+      :key="item"
+      :value="item"
+      class="flex items-center justify-center gap-2 bg-green8 aria-[selected=true]:bg-green9 rounded px-2 py-1"
+    >
       <TagsInputItemText class="text-sm">
         {{ item }}
       </TagsInputItemText>
@@ -32,6 +37,9 @@ const modelValue = ref(['Test'])
       </TagsInputItemDelete>
     </TagsInputItem>
 
-    <TagsInputInput placeholder="Anything..." class="focus:outline-none flex-1 rounded bg-transparent text-white placeholder:text-mauve10 px-1" />
+    <TagsInputInput
+      placeholder="Anything..."
+      class="focus:outline-none flex-1 rounded bg-transparent text-white placeholder:text-mauve10 px-1"
+    />
   </TagsInputRoot>
 </template>

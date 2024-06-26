@@ -167,6 +167,9 @@ defineExpose({
     :data-panel-size=" Number.parseFloat(`${style.flexGrow}`).toFixed(1)"
     :data-state="collapsible ? isCollapsed ? 'collapsed' : 'expanded' : undefined"
   >
-    <slot :is-collapsed="isCollapsed" :is-expanded="isExpanded" />
+    <slot
+      :is-collapsed="isCollapsed"
+      :is-expanded="isExpanded"
+    />
   </Primitive>
 </template>

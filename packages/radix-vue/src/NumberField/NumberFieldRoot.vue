@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
-import { clamp, createContext, snapValueToStep, useFormControl, useId } from '@/shared'
+import { clamp, createContext, snapValueToStep, useFormControl } from '@/shared'
 import { type HTMLAttributes, type Ref, computed, ref, toRefs } from 'vue'
 
 export interface NumberFieldRootProps extends PrimitiveProps {
@@ -200,7 +200,10 @@ provideNumberFieldRootContext({
     :as="as"
     :as-child="asChild"
   >
-    <slot :model-value="modelValue" :text-value="textValue" />
+    <slot
+      :model-value="modelValue"
+      :text-value="textValue"
+    />
   </Primitive>
 
   <input

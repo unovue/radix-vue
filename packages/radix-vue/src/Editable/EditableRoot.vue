@@ -13,7 +13,7 @@ type EditableRootContext = {
   maxLength: Ref<number | undefined>
   disabled: Ref<boolean>
   modelValue: Ref<string | undefined>
-  placeholder: Ref<{ edit: string; preview: string }>
+  placeholder: Ref<{ edit: string, preview: string }>
   isEditing: Ref<boolean>
   submitMode: Ref<SubmitMode>
   activationMode: Ref<ActivationMode>
@@ -34,7 +34,7 @@ export interface EditableRootProps extends PrimitiveProps {
   /** The value of the editable field */
   modelValue?: string
   /** The placeholder for the editable field */
-  placeholder?: string | { edit: string; preview: string }
+  placeholder?: string | { edit: string, preview: string }
   /** The reading direction of the calendar when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
   /** Whether the editable field is disabled */
@@ -90,15 +90,20 @@ const props = withDefaults(defineProps<EditableRootProps>(), {
 
 const emits = defineEmits<EditableRootEmits>()
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Whether the editable field is in edit mode */
     isEditing: boolean
     /** The value of the editable field */
     modelValue: typeof modelValue.value
     /** Whether the editable field is empty */
     isEmpty: boolean
-    /** Function to set the value of the editable */
-  }): any
+    /** Function to submit the value of the editable */
+    submit: () => void
+    /** Function to cancel the value of the editable */
+    cancel: () => void
+    /** Function to set the editable in edit mode */
+    edit: () => void
+  }) => any
 }>()
 
 const {
@@ -154,11 +159,22 @@ function submit() {
 }
 
 function handleDismiss() {
-  if (submitMode.value === 'blur')
-    submit()
-  else
-    cancel()
+  if (isEditing.value) {
+    if (submitMode.value === 'blur' || submitMode.value === 'both')
+      submit()
+    else
+      cancel()
+  }
 }
+
+defineExpose({
+  /** Function to submit the value of the editable */
+  submit,
+  /** Function to cancel the value of the editable */
+  cancel,
+  /** Function to set the editable in edit mode */
+  edit,
+})
 
 provideEditableRootContext({
   id,
@@ -199,6 +215,9 @@ provideEditableRootContext({
         :model-value="modelValue"
         :is-editing="isEditing"
         :is-empty="isEmpty"
+        :submit="submit"
+        :cancel="cancel"
+        :edit="edit"
       />
     </Primitive>
   </DismissableLayer>

@@ -35,7 +35,7 @@ function handleInput(event: InputEvent) {
     return
   }
 
-  if (isNumericMode.value && !/^[0-9]*$/.test(target.value)) {
+  if (isNumericMode.value && !/^\d*$/.test(target.value)) {
     target.value = target.value.replace(/\D/g, '')
     return
   }
@@ -115,7 +115,7 @@ function handleMultipleCharacter(values: string) {
   for (let i = initialIndex; i < lastIndex; i++) {
     const input = inputElements.value[i]
     const value = values[i - initialIndex]
-    if (isNumericMode.value && !/^[0-9]*$/.test(value))
+    if (isNumericMode.value && !/^\d*$/.test(value))
       continue
 
     tempModelValue[i] = value

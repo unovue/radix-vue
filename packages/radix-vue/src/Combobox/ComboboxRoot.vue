@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { Ref } from 'vue'
+import type { ComputedRef, Ref } from 'vue'
 import type { Direction } from '@/shared/types'
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useDirection, useFormControl, useForwardExpose } from '@/shared'
@@ -26,6 +26,7 @@ type ComboboxRootContext<T> = {
   onInputNavigation: (dir: 'up' | 'down' | 'home' | 'end') => void
   onInputEnter: () => void
   selectedValue: Ref<T | undefined>
+  selectedElement: ComputedRef<HTMLElement | undefined>
   onSelectedValueChange: (val: T) => void
   parentElement: Ref<HTMLElement | undefined>
 }
@@ -210,10 +211,10 @@ watch(stringifiedModelValue, async () => {
   immediate: !props.searchTerm,
 })
 
-watch(() => filteredOptions.value.length, async (length) => {
+watch(() => [filteredOptions.value.length, searchTerm.value.length], async ([length, searchTermLength], [oldLength, oldSearchTermLength]) => {
   await nextTick()
   await nextTick()
-  if (length && activeIndex.value === -1)
+  if (length && (oldSearchTermLength > searchTermLength || activeIndex.value === -1))
     selectedValue.value = filteredOptions.value[0]
 })
 
@@ -224,6 +225,13 @@ function scrollSelectedValueIntoView() {
   // We can put this in Item, but we avoid having too many watcher
   if (selectedElement.value instanceof Element)
     selectedElement.value.scrollIntoView({ block: 'nearest' })
+}
+
+function focusOnSelectedElement() {
+  // Find the highlighted element and focus
+  // This helps the screen readers to read the selected value
+  if (selectedElement.value instanceof Element && selectedElement.value.focus)
+    selectedElement.value.focus()
 }
 
 provideComboboxRootContext({
@@ -239,6 +247,7 @@ provideComboboxRootContext({
   filteredOptions,
   contentId: '',
   inputElement,
+  selectedElement,
   onInputElementChange: val => inputElement.value = val,
   onInputNavigation: async (val) => {
     const index = activeIndex.value
@@ -256,6 +265,9 @@ provideComboboxRootContext({
       selectedValue.value = filteredOptions.value[val === 'up' ? index - 1 : index + 1]
 
     scrollSelectedValueIntoView()
+    focusOnSelectedElement()
+
+    nextTick(() => inputElement.value?.focus({ preventScroll: true }))
   },
   onInputEnter: async () => {
     if (filteredOptions.value.length && selectedValue.value && selectedElement.value instanceof Element)
@@ -286,7 +298,11 @@ provideComboboxRootContext({
         :model-value="modelValue"
       />
 
-      <VisuallyHiddenInput v-if="isFormControl && props.name" :name="props.name" :value="modelValue" />
+      <VisuallyHiddenInput
+        v-if="isFormControl && props.name"
+        :name="props.name"
+        :value="modelValue"
+      />
     </Primitive>
   </PopperRoot>
 </template>

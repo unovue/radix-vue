@@ -6,7 +6,10 @@ const value = ref<string[]>([])
 </script>
 
 <template>
-  <Story title="PinInput/Numeric" :layout="{ type: 'single', iframe: false }">
+  <Story
+    title="PinInput/Numeric"
+    :layout="{ type: 'single', iframe: false }"
+  >
     <Variant title="default">
       <PinInputRoot
         v-model="value"

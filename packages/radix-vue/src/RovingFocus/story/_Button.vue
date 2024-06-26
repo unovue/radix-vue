@@ -15,7 +15,11 @@ const isSelected = computed(() => context.value.value === props.value)
 </script>
 
 <template>
-  <RovingFocusItem as-child :active="isSelected" :focusable="!disabled">
+  <RovingFocusItem
+    as-child
+    :active="isSelected"
+    :focusable="!disabled"
+  >
     <button
       class="border-2 border-blue-600 px-4 py-2 rounded-md"
       :class="{ 'bg-gray-900 text-white': isSelected }"

@@ -11,7 +11,10 @@ const boundary = ref<HTMLElement>()
 </script>
 
 <template>
-  <Story title="Popover/Boundary" :layout="{ type: 'single', iframe: false }">
+  <Story
+    title="Popover/Boundary"
+    :layout="{ type: 'single', iframe: false }"
+  >
     <Variant title="default">
       <div
         ref="boundary"

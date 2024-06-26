@@ -30,7 +30,10 @@ function handleClick() {
 </script>
 
 <template>
-  <Story title="Context Menu/Demo" :layout="{ type: 'single', iframe: false }">
+  <Story
+    title="Context Menu/Demo"
+    :layout="{ type: 'single', iframe: false }"
+  >
     <Variant title="default">
       <ContextMenuRoot :modal="true">
         <ContextMenuTrigger

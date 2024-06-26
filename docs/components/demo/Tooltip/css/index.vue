@@ -19,7 +19,10 @@ import './styles.css'
           :side-offset="5"
         >
           Add to library
-          <TooltipArrow class="TooltipArrow" :width="8" />
+          <TooltipArrow
+            class="TooltipArrow"
+            :width="8"
+          />
         </TooltipContent>
       </TooltipPortal>
     </TooltipRoot>

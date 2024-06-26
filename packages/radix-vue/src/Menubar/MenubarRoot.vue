@@ -47,10 +47,10 @@ const props = withDefaults(defineProps<MenubarRootProps>(), {
 const emit = defineEmits<MenubarRootEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current input values */
     modelValue: typeof modelValue.value
-  }): any
+  }) => any
 }>()
 
 const { forwardRef, currentElement } = useForwardExpose()
@@ -94,7 +94,10 @@ provideMenubarRootContext({
     :dir="dir"
     as-child
   >
-    <Primitive :ref="forwardRef" role="menubar">
+    <Primitive
+      :ref="forwardRef"
+      role="menubar"
+    >
       <slot :model-value="modelValue" />
     </Primitive>
   </RovingFocusGroup>

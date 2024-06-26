@@ -28,7 +28,12 @@ import { store } from '../store'
     <div
       class="[&_>div]:!m-0 custom"
     >
-      <TabsContent v-for="pkg in PACKAGE_MANAGERS" :key="pkg" :value="pkg" as-child>
+      <TabsContent
+        v-for="pkg in PACKAGE_MANAGERS"
+        :key="pkg"
+        :value="pkg"
+        as-child
+      >
         <slot :name="pkg" />
       </TabsContent>
     </div>

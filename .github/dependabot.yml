@@ -1,0 +1,23 @@
+version: 2
+updates:
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: github-actions
+    # Workflow files stored in the default location of `.github/workflows`. (You don't need to specify `/.github/workflows` for `directory`. You can use `directory: "/"`.)
+    directory: /
+    schedule:
+      interval: weekly
+      day: friday
+    commit-message:
+      prefix: 'chore: '
+
+  # Maintain dependencies for pnpm
+  - package-ecosystem: npm
+    directories:
+      - '/packages/*'
+      - /docs
+      - /playground
+    schedule:
+      interval: weekly
+      day: friday
+    commit-message:
+      prefix: 'chore: '

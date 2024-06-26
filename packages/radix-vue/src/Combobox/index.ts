@@ -33,10 +33,6 @@ export {
   type ComboboxContentEmits,
 } from './ComboboxContent.vue'
 export {
-  default as ComboboxEmpty,
-  type ComboboxEmptyProps,
-} from './ComboboxEmpty.vue'
-export {
   default as ComboboxViewport,
   type ComboboxViewportProps,
 } from './ComboboxViewport.vue'

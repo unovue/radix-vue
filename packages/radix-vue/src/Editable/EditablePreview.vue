@@ -16,7 +16,6 @@ const context = injectEditableRootContext()
 const placeholder = computed(() => context.placeholder.value?.preview)
 
 function handleFocus() {
-  console.log('focus', context.activationMode.value)
   if (context.activationMode.value === 'focus')
     context.edit()
 }

@@ -5,6 +5,7 @@
     "schedule:weekly",
     "group:allNonMajor"
   ],
+  "timezone": "Asia/Kuala_Lumpur",
   "labels": [
     "dependencies"
   ],

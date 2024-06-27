@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useDirection, useForwardExpose } from '@/shared'
+import { createContext, useDirection } from '@/shared'
 import type { Direction } from '@/shared/types'
 import { useFocusOutside, usePointerDownOutside } from '@/DismissableLayer'
 
@@ -74,7 +74,7 @@ export const [injectEditableRootContext, provideEditableRootContext]
 
 <script setup lang="ts">
 import { type Ref, computed, ref, toRefs } from 'vue'
-import { Primitive } from '@/Primitive'
+import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<EditableRootProps>(), {
@@ -165,7 +165,7 @@ function handleDismiss() {
   }
 }
 
-const { forwardRef, currentElement } = useForwardExpose()
+const { primitiveElement, currentElement } = usePrimitiveElement()
 
 const pointerDownOutside = usePointerDownOutside(() => handleDismiss(), currentElement)
 
@@ -206,7 +206,7 @@ provideEditableRootContext({
 
 <template>
   <Primitive
-    :ref="forwardRef"
+    ref="primitiveElement"
     :as="as"
     :as-child="asChild"
     :dir="dir"

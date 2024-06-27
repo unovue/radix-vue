@@ -9,6 +9,9 @@
   "labels": [
     "dependencies"
   ],
+  "matchManagers": [
+    "github-actions"
+  ],
   "rangeStrategy": "bump",
   "packageRules": [
     {
@@ -25,7 +28,8 @@
       ],
       "matchPackagePrefixes": [
         "@vitest",
-        "@testing-library"
+        "@testing-library",
+        "vitest"
       ]
     },
     {

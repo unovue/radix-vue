@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useDirection } from '@/shared'
+import { createContext, useDirection, useFormControl } from '@/shared'
 import type { Direction } from '@/shared/types'
 import { DismissableLayer, type DismissableLayerEmits } from '@/DismissableLayer'
 
@@ -57,6 +57,8 @@ export interface EditableRootProps extends PrimitiveProps {
   id?: string
   /** The name of the field */
   name?: string
+  /** When `true`, indicates that the user must set the value before the owning form can be submitted. */
+  required?: boolean
 }
 
 export type EditableRootEmits = Omit<DismissableLayerEmits, 'escapeKeyDown'> & {
@@ -74,11 +76,14 @@ export const [injectEditableRootContext, provideEditableRootContext]
 
 <script setup lang="ts">
 import { type Ref, computed, ref, toRefs } from 'vue'
-import { Primitive } from '@/Primitive'
+import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 
+defineOptions({
+  inheritAttrs: false,
+})
+
 const props = withDefaults(defineProps<EditableRootProps>(), {
-  defaultValue: '',
   as: 'div',
   disabled: false,
   submitMode: 'blur',
@@ -86,6 +91,7 @@ const props = withDefaults(defineProps<EditableRootProps>(), {
   selectOnFocus: false,
   placeholder: 'Enter text...',
   autoResize: false,
+  required: false,
 })
 
 const emits = defineEmits<EditableRootEmits>()
@@ -120,6 +126,7 @@ const {
   selectOnFocus,
   readonly,
   autoResize,
+  required,
 } = toRefs(props)
 
 const inputRef = ref<HTMLInputElement | undefined>()
@@ -127,9 +134,13 @@ const dir = useDirection(propDir)
 const isEditing = ref(startWithEditMode.value ?? false)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: defaultValue.value,
+  defaultValue: defaultValue.value ?? '',
   passive: (props.modelValue === undefined) as false,
 })
+
+const { primitiveElement, currentElement } = usePrimitiveElement()
+
+const isFormControl = useFormControl(currentElement)
 
 const placeholder = computed(() => {
   return typeof propPlaceholder.value === 'string' ? { edit: propPlaceholder.value, preview: propPlaceholder.value } : propPlaceholder.value
@@ -207,6 +218,8 @@ provideEditableRootContext({
     @dismiss="handleDismiss"
   >
     <Primitive
+      v-bind="$attrs"
+      ref="primitiveElement"
       :as="as"
       :as-child="asChild"
       :dir="dir"
@@ -221,4 +234,22 @@ provideEditableRootContext({
       />
     </Primitive>
   </DismissableLayer>
+
+  <input
+    v-if="isFormControl"
+    type="text"
+    tabindex="-1"
+    aria-hidden
+    :value="modelValue"
+    :name="name"
+    :disabled="disabled"
+    :required="required"
+    :style="{
+      transform: 'translateX(-100%)',
+      position: 'absolute',
+      pointerEvents: 'none',
+      opacity: 0,
+      margin: 0,
+    }"
+  >
 </template>

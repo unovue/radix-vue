@@ -2,7 +2,7 @@
   "name": "radix-vue",
   "version": "1.8.5",
   "private": true,
-  "packageManager": "pnpm@8.15.4",
+  "packageManager": "pnpm@8.15.8",
   "license": "MIT",
   "repository": "radix-vue/radix-vue",
   "workspaces": [
@@ -28,11 +28,11 @@
     "@antfu/eslint-config": "^2.21.1",
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
-    "bumpp": "^9.2.0",
+    "bumpp": "^9.4.1",
     "eslint": "^9.5.0",
     "lint-staged": "^14.0.1",
-    "pnpm": "^8.15.4",
-    "rimraf": "^5.0.5",
+    "pnpm": "^8.15.8",
+    "rimraf": "^5.0.7",
     "simple-git-hooks": "^2.11.1",
     "typescript": "^5.3.3"
   },

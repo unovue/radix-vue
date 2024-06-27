@@ -27,7 +27,7 @@ const inputRef = ref<HTMLInputElement | undefined>()
 onMounted(() => {
   context.inputRef.value = inputRef.value
   if (context.startWithEditMode.value) {
-    inputRef.value?.focus()
+    inputRef.value?.focus({ preventScroll: true })
     if (context.selectOnFocus.value)
       inputRef.value?.select()
   }
@@ -36,7 +36,7 @@ onMounted(() => {
 watch(context.isEditing, (value) => {
   if (value) {
     nextTick(() => {
-      inputRef.value?.focus()
+      inputRef.value?.focus({ preventScroll: true })
       if (context.selectOnFocus.value)
         inputRef.value?.select()
     })
@@ -46,15 +46,6 @@ watch(context.isEditing, (value) => {
 function handleSubmitKeyDown(event: KeyboardEvent) {
   if ((context.submitMode.value === 'enter' || context.submitMode.value === 'both') && event.key === kbd.ENTER && !event.shiftKey && !event.metaKey)
     context.submit()
-}
-
-function handleDismiss() {
-  if (context.isEditing.value) {
-    if (context.submitMode.value === 'blur' || context.submitMode.value === 'both')
-      context.submit()
-    else
-      context.cancel()
-  }
 }
 </script>
 
@@ -73,6 +64,5 @@ function handleDismiss() {
     :style="context.autoResize.value ? { all: 'unset', gridArea: '1 / 1 / auto / auto', visibility: !context.isEditing.value ? 'hidden' : undefined } : undefined"
     @keydown.enter.space="handleSubmitKeyDown"
     @keydown.esc="context.cancel"
-    @focusout="handleDismiss"
   >
 </template>

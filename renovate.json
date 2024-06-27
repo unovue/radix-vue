@@ -9,9 +9,6 @@
   "labels": [
     "dependencies"
   ],
-  "matchManagers": [
-    "github-actions"
-  ],
   "rangeStrategy": "bump",
   "packageRules": [
     {

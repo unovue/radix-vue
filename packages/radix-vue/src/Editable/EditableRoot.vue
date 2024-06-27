@@ -84,7 +84,6 @@ defineOptions({
 })
 
 const props = withDefaults(defineProps<EditableRootProps>(), {
-  defaultValue: undefined,
   as: 'div',
   disabled: false,
   submitMode: 'blur',
@@ -225,7 +224,6 @@ provideEditableRootContext({
       :as-child="asChild"
       :dir="dir"
     >
-      {{ modelValue }}
       <slot
         :model-value="modelValue"
         :is-editing="isEditing"

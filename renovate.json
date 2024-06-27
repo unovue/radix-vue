@@ -1,0 +1,65 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    "schedule:weekly",
+    "group:allNonMajor"
+  ],
+  "timezone": "Asia/Kuala_Lumpur",
+  "labels": [
+    "dependencies"
+  ],
+  "rangeStrategy": "bump",
+  "packageRules": [
+    {
+      "depTypeList": [
+        "peerDependencies"
+      ],
+      "enabled": false
+    },
+    {
+      "groupName": "test",
+      "matchPackageNames": [
+        "vitest",
+        "jsdom"
+      ],
+      "matchPackagePrefixes": [
+        "@vitest",
+        "@testing-library"
+      ]
+    },
+    {
+      "groupName": "playground",
+      "matchFileNames": [
+        "playground/nuxt/package.json",
+        "playground/vue3/package.json"
+      ]
+    },
+    {
+      "groupName": "build",
+      "matchPackageNames": [
+        "vite"
+      ],
+      "matchPackagePrefixes": [
+        "vite",
+        "@vitejs"
+      ]
+    },
+    {
+      "groupName": "lint",
+      "matchPackageNames": [
+        "simple-git-hooks",
+        "lint-staged",
+        "@antfu/eslint-config"
+      ],
+      "matchPackagePrefixes": [
+        "eslint"
+      ]
+    }
+  ],
+  "ignoreDeps": [
+    "radix-vue",
+    "node",
+    "typescript"
+  ]
+}

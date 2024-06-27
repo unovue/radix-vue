@@ -25,7 +25,8 @@
       ],
       "matchPackagePrefixes": [
         "@vitest",
-        "@testing-library"
+        "@testing-library",
+        "vitest"
       ]
     },
     {

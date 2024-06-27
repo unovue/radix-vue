@@ -2,10 +2,10 @@
 import { unrefElement } from '@vueuse/core'
 import { type ComponentPublicInstance, computed, getCurrentInstance, ref } from 'vue'
 
-export function useForwardExpose() {
+export function useForwardExpose<T extends ComponentPublicInstance>() {
   const instance = getCurrentInstance()!
 
-  const currentRef = ref<Element | ComponentPublicInstance | null>()
+  const currentRef = ref<Element | T | null>()
   const currentElement = computed<HTMLElement>(() => {
     // $el could be text/comment for non-single root normal or text root, thus we retrieve the nextElementSibling
     // @ts-expect-error ignore ts error
@@ -45,7 +45,7 @@ export function useForwardExpose() {
   })
   instance.exposed = ret
 
-  function forwardRef(ref: Element | ComponentPublicInstance | null) {
+  function forwardRef(ref: Element | T | null) {
     currentRef.value = ref
 
     if (ref instanceof Element || !ref)

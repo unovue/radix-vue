@@ -45,6 +45,19 @@ type ScrollBodyOption = {
 
 type AcceptableValue = string | number | boolean | Record<string, any>
 type ArrayOrWrapped<T> = T extends any[] ? T : Array<T>
- type StringOrNumber = string | number
+type StringOrNumber = string | number
 
-export type { AcceptableValue, ArrayOrWrapped, DataOrientation, Direction, Type, SingleOrMultipleProps, SingleOrMultipleType, ScrollBodyOption, StringOrNumber }
+// Temporary solution for InstanceType complains about generic components. Reference: https://github.com/vuejs/language-tools/issues/3206#issuecomment-2188687250
+import type { DefineComponent } from 'vue'
+
+type GenericComponentInstance<T> = T extends new (...args: any[]) => infer R
+  ? R
+  : T extends (...args: any[]) => infer R
+    ? R extends { __ctx?: infer K }
+      ? Exclude<K, void> extends { expose: (...args: infer Y) => void }
+        ? Y[0] & InstanceType<DefineComponent>
+        : any
+      : any
+    : any
+
+export type { AcceptableValue, ArrayOrWrapped, DataOrientation, Direction, Type, SingleOrMultipleProps, SingleOrMultipleType, ScrollBodyOption, StringOrNumber, GenericComponentInstance }

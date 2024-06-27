@@ -178,10 +178,10 @@ importers:
   packages/plugins:
     dependencies:
       '@nuxt/kit':
-        specifier: npm:@nuxt/kit@latest
-        version: 3.10.3(rollup@3.29.4)
+        specifier: ^3.12.2
+        version: 3.12.2(rollup@3.29.4)
       '@nuxt/schema':
-        specifier: latest
+        specifier: ^3.12.2
         version: 3.12.2(rollup@3.29.4)
       radix-vue:
         specifier: link:../radix-vue
@@ -194,7 +194,7 @@ importers:
         version: 2.0.0(typescript@5.4.2)
       unplugin-vue-components:
         specifier: ^0.25.2
-        version: 0.25.2(@babel/parser@7.24.7)(@nuxt/kit@3.10.3(rollup@3.29.4))(rollup@3.29.4)(vue@3.4.30(typescript@5.4.2))
+        version: 0.25.2(@babel/parser@7.24.7)(@nuxt/kit@3.12.2(rollup@3.29.4))(rollup@3.29.4)(vue@3.4.30(typescript@5.4.2))
 
   packages/radix-vue:
     dependencies:
@@ -1467,20 +1467,13 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@nuxt/kit@3.10.3':
-    resolution: {integrity: sha512-PUjYB9Mvx0qD9H1QZBwwtY4fLlCLET+Mm9BVqUOtXCaGoXd6u6BE4e/dGFPk2UEKkIcDGrUMSbqkHYvsEuK9NQ==}
-    engines: {node: ^14.18.0 || >=16.10.0}
-
-  '@nuxt/schema@3.10.3':
-    resolution: {integrity: sha512-a4cYbeskEVBPazgAhvUGkL/j7ho/iPWMK3vCEm6dRMjSqHVEITRosrj0aMfLbRrDpTrMjlRs0ZitxiaUfE/p5Q==}
+  '@nuxt/kit@3.12.2':
+    resolution: {integrity: sha512-5kOqEzfc3FsAncjK2je7vuq4/QsR5ypViTnop52mlFLf0Ku1NMCrWCSWYowAh4P0yqTACMAZYa+HdRZHscU84g==}
     engines: {node: ^14.18.0 || >=16.10.0}
 
   '@nuxt/schema@3.12.2':
     resolution: {integrity: sha512-IRBuOEPOIe1CANKnO2OUiqZ1Hp/0htPkLaigK7WT6ef/SdIFZUd68Tqqejqy2AFrbgU9G80k3U7eg2XUdaiQlQ==}
     engines: {node: ^14.18.0 || >=16.10.0}
-
-  '@nuxt/ui-templates@1.3.1':
-    resolution: {integrity: sha512-5gc02Pu1HycOVUWJ8aYsWeeXcSTPe8iX8+KIrhyEtEoOSkY0eMBuo0ssljB8wALuEmepv31DlYe5gpiRwkjESA==}
 
   '@one-ini/wasm@0.1.1':
     resolution: {integrity: sha512-XuySG1E38YScSJoMlqovLru4KTUNSjgVTIjyh7qMX6aNN5HY5Ct5LhRJdxO79JtTzKfzV/bnWpz+zquYrISsvw==}
@@ -2463,6 +2456,14 @@ packages:
     resolution: {integrity: sha512-GQsf2Kwsvoxu8RL4euMvUwN3baZsIuigCPF+iGNQEa19+62MqYcpzxyjbspJT9qCipecpWKcEy6lC5kVoTs1Kw==}
     engines: {node: '>=10'}
     hasBin: true
+
+  c12@1.11.1:
+    resolution: {integrity: sha512-KDU0TvSvVdaYcQKQ6iPHATGz/7p/KiVjPg4vQrB6Jg/wX9R0yl5RZxWm9IoZqaIHD2+6PZd81+KMGwRr/lRIUg==}
+    peerDependencies:
+      magicast: ^0.3.4
+    peerDependenciesMeta:
+      magicast:
+        optional: true
 
   c12@1.9.0:
     resolution: {integrity: sha512-7KTCZXdIbOA2hLRQ+1KzJ15Qp9Wn58one74dkihMVp2H6EzKTa3OYBy0BSfS1CCcmxYyqeX8L02m40zjQ+dstg==}
@@ -3676,6 +3677,10 @@ packages:
     resolution: {integrity: sha512-4VG22mopWtIeHwogGSy1FViXVo0YT+m6BrqZfz0JJFwbSsePsCdOzdLIIli5BtMp7Xe8f/o2OmBpQX2NBOC24g==}
     hasBin: true
 
+  giget@1.2.3:
+    resolution: {integrity: sha512-8EHPljDvs7qKykr6uw8b+lqLiUc/vUg+KVTI0uND4s63TdsZM2Xus3mflvF0DDG9SiM4RlCkFGL+7aAjRmV7KA==}
+    hasBin: true
+
   git-branch@1.0.0:
     resolution: {integrity: sha512-ZTzuqw5Df8fyLXQWrX6hK+4FpNCdKzMcERlxENEGO5aKcLmG7MAszhrMhluUKNKmOS/JAGijDMQDXDCDw1mE/A==}
     engines: {node: '>=0.8'}
@@ -4186,6 +4191,10 @@ packages:
     resolution: {integrity: sha512-gFqAIbuKyyso/3G2qhiO2OM6shY6EPP/R0+mkDbyspxKazh8BXDC5FiFsUjlczgdNz/vfra0da2y+aHrusLG/Q==}
     hasBin: true
 
+  jiti@1.21.6:
+    resolution: {integrity: sha512-2yTgeWTWzMWkHu6Jp9NKgePDaYHbntiwvYuuJLbbN9vl7DC9DvXKOB2BC3ZZ92D3cvV/aflH0osDfwpHepQ53w==}
+    hasBin: true
+
   jju@1.4.0:
     resolution: {integrity: sha512-8wb9Yw966OSxApiCt0K3yNJL8pnNeIv+OEq2YMidz4FKP6nonSRoOXc80iXY4JaN2FC11B9qsNmDsm+ZOfMROA==}
 
@@ -4305,8 +4314,12 @@ packages:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
     engines: {node: '>=6'}
 
-  knitwork@1.0.0:
-    resolution: {integrity: sha512-dWl0Dbjm6Xm+kDxhPQJsCBTxrJzuGl0aP9rhr+TG8D3l+GL90N8O8lYUi7dTSAN2uuDqCtNgb6aEuQH5wsiV8Q==}
+  klona@2.0.6:
+    resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
+    engines: {node: '>= 8'}
+
+  knitwork@1.1.0:
+    resolution: {integrity: sha512-oHnmiBUVHz1V+URE77PNot2lv3QiYU2zQf1JjOVkMt3YDKGbu8NAFr+c4mcNOhdsGrB/VpVbRwPwhiXrPhxQbw==}
 
   kolorist@1.8.0:
     resolution: {integrity: sha512-Y+60/zizpJ3HRH8DCss+q95yr6145JXZo46OTpFvDZWLfRCE4qChOyk1b26nMaNpfHHgxagk9dXT5OP0Tfe+dQ==}
@@ -4705,6 +4718,9 @@ packages:
 
   node-fetch-native@1.6.2:
     resolution: {integrity: sha512-69mtXOFZ6hSkYiXAVB5SqaRvrbITC/NPyqv7yuu/qw0nmgPyYbIMYYNIDhNtwPrzk0ptrimrLz/hhjvm4w5Z+w==}
+
+  node-fetch-native@1.6.4:
+    resolution: {integrity: sha512-IhOigYzAKHd244OC0JIMIUrjzctirCmPkaIfhDeGcEETWof5zKYUW7e7MYvChGWh/4CJeXEgsRyGzuF334rOOQ==}
 
   node-fetch-npm@2.0.4:
     resolution: {integrity: sha512-iOuIQDWDyjhv9qSDrj9aq/klt6F9z1p2otB3AV7v3zBDcL/x+OfGsvGQZZCcMZbUf4Ujw1xGNQkjvGnVT22cKg==}
@@ -5309,6 +5325,9 @@ packages:
   rc9@2.1.1:
     resolution: {integrity: sha512-lNeOl38Ws0eNxpO3+wD1I9rkHGQyj1NU1jlzv4go2CtEnEQEUfqnIvZG7W+bC/aXdJ27n5x/yUjb6RoT9tko+Q==}
 
+  rc9@2.1.2:
+    resolution: {integrity: sha512-btXCnMmRIBINM2LDZoEmOogIZU7Qe7zn4BpomSKZ/ykbLObuBdvG+mFq11DL6fjH1DRwHhrlgtYWG96bJiC7Cg==}
+
   rc@1.2.8:
     resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==}
     hasBin: true
@@ -5758,9 +5777,6 @@ packages:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
 
-  strip-literal@1.3.0:
-    resolution: {integrity: sha512-PugKzOsyXpArk0yWmUwqOZecSO0GH0bPoctLcqNDH9J04pVW3lflYE0ujElBGTloevcxF5MofAOZ7C5l2b+wLg==}
-
   strip-literal@2.0.0:
     resolution: {integrity: sha512-f9vHgsCWBq2ugHAkGMiiYY+AYG0D/cbloKKg0nhaaaSNsujdGIpVXCNsrJpCKr5M0f4aI31mr13UjY6GAuXCKA==}
 
@@ -6026,9 +6042,6 @@ packages:
   unicorn-magic@0.1.0:
     resolution: {integrity: sha512-lRfVq8fE8gz6QMBuDM6a+LO3IAzTi05H6gCVaUpir2E1Rwpo4ZUog45KpNXKC/Mn3Yb9UDuHumeFTo9iV/D9FQ==}
     engines: {node: '>=18'}
-
-  unimport@3.7.1:
-    resolution: {integrity: sha512-V9HpXYfsZye5bPPYUgs0Otn3ODS1mDUciaBlXljI4C2fTwfFpvFZRywmlOu943puN9sncxROMZhsZCjNXEpzEQ==}
 
   unimport@3.7.2:
     resolution: {integrity: sha512-91mxcZTadgXyj3lFWmrGT8GyoRHWuE5fqPOjg5RVtF6vj+OfM5G6WCzXjuYtSgELE5ggB34RY4oiCSEP8I3AHw==}
@@ -7769,44 +7782,30 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
 
-  '@nuxt/kit@3.10.3(rollup@3.29.4)':
+  '@nuxt/kit@3.12.2(rollup@3.29.4)':
     dependencies:
-      '@nuxt/schema': 3.10.3(rollup@3.29.4)
-      c12: 1.9.0
+      '@nuxt/schema': 3.12.2(rollup@3.29.4)
+      c12: 1.11.1
       consola: 3.2.3
       defu: 6.1.4
+      destr: 2.0.3
       globby: 14.0.1
       hash-sum: 2.0.0
       ignore: 5.3.1
-      jiti: 1.21.0
-      knitwork: 1.0.0
-      mlly: 1.6.1
+      jiti: 1.21.6
+      klona: 2.0.6
+      knitwork: 1.1.0
+      mlly: 1.7.1
       pathe: 1.1.2
-      pkg-types: 1.0.3
+      pkg-types: 1.1.1
       scule: 1.3.0
-      semver: 7.6.0
-      ufo: 1.4.0
+      semver: 7.6.2
+      ufo: 1.5.3
       unctx: 2.3.1
-      unimport: 3.7.1(rollup@3.29.4)
+      unimport: 3.7.2(rollup@3.29.4)
       untyped: 1.4.2
     transitivePeerDependencies:
-      - rollup
-      - supports-color
-
-  '@nuxt/schema@3.10.3(rollup@3.29.4)':
-    dependencies:
-      '@nuxt/ui-templates': 1.3.1
-      consola: 3.2.3
-      defu: 6.1.4
-      hookable: 5.5.3
-      pathe: 1.1.2
-      pkg-types: 1.0.3
-      scule: 1.3.0
-      std-env: 3.7.0
-      ufo: 1.4.0
-      unimport: 3.7.1(rollup@3.29.4)
-      untyped: 1.4.2
-    transitivePeerDependencies:
+      - magicast
       - rollup
       - supports-color
 
@@ -7827,8 +7826,6 @@ snapshots:
     transitivePeerDependencies:
       - rollup
       - supports-color
-
-  '@nuxt/ui-templates@1.3.1': {}
 
   '@one-ini/wasm@0.1.1': {}
 
@@ -9067,6 +9064,21 @@ snapshots:
       js-yaml: 4.1.0
       prompts: 2.4.2
       semver: 7.6.0
+
+  c12@1.11.1:
+    dependencies:
+      chokidar: 3.6.0
+      confbox: 0.1.7
+      defu: 6.1.4
+      dotenv: 16.4.5
+      giget: 1.2.3
+      jiti: 1.21.6
+      mlly: 1.7.1
+      ohash: 1.1.3
+      pathe: 1.1.2
+      perfect-debounce: 1.0.0
+      pkg-types: 1.1.1
+      rc9: 2.1.2
 
   c12@1.9.0:
     dependencies:
@@ -10718,6 +10730,17 @@ snapshots:
       pathe: 1.1.2
       tar: 6.2.0
 
+  giget@1.2.3:
+    dependencies:
+      citty: 0.1.6
+      consola: 3.2.3
+      defu: 6.1.4
+      node-fetch-native: 1.6.4
+      nypm: 0.3.8
+      ohash: 1.1.3
+      pathe: 1.1.2
+      tar: 6.2.0
+
   git-branch@1.0.0: {}
 
   git-config-path@1.0.1:
@@ -11292,6 +11315,8 @@ snapshots:
 
   jiti@1.21.0: {}
 
+  jiti@1.21.6: {}
+
   jju@1.4.0: {}
 
   js-beautify@1.15.1:
@@ -11435,7 +11460,9 @@ snapshots:
 
   kleur@3.0.3: {}
 
-  knitwork@1.0.0: {}
+  klona@2.0.6: {}
+
+  knitwork@1.1.0: {}
 
   kolorist@1.8.0: {}
 
@@ -11855,6 +11882,8 @@ snapshots:
 
   node-fetch-native@1.6.2: {}
 
+  node-fetch-native@1.6.4: {}
+
   node-fetch-npm@2.0.4:
     dependencies:
       encoding: 0.1.13
@@ -11910,7 +11939,7 @@ snapshots:
       consola: 3.2.3
       execa: 8.0.1
       pathe: 1.1.2
-      ufo: 1.4.0
+      ufo: 1.5.3
 
   object-assign@4.1.1: {}
 
@@ -12457,6 +12486,11 @@ snapshots:
       destr: 2.0.3
       flat: 5.0.2
 
+  rc9@2.1.2:
+    dependencies:
+      defu: 6.1.4
+      destr: 2.0.3
+
   rc@1.2.8:
     dependencies:
       deep-extend: 0.6.0
@@ -12906,10 +12940,6 @@ snapshots:
 
   strip-json-comments@3.1.1: {}
 
-  strip-literal@1.3.0:
-    dependencies:
-      acorn: 8.11.3
-
   strip-literal@2.0.0:
     dependencies:
       js-tokens: 8.0.3
@@ -13198,30 +13228,12 @@ snapshots:
     dependencies:
       acorn: 8.11.3
       estree-walker: 3.0.3
-      magic-string: 0.30.8
-      unplugin: 1.8.0
+      magic-string: 0.30.10
+      unplugin: 1.10.1
 
   undici-types@5.26.5: {}
 
   unicorn-magic@0.1.0: {}
-
-  unimport@3.7.1(rollup@3.29.4):
-    dependencies:
-      '@rollup/pluginutils': 5.1.0(rollup@3.29.4)
-      acorn: 8.11.3
-      escape-string-regexp: 5.0.0
-      estree-walker: 3.0.3
-      fast-glob: 3.3.2
-      local-pkg: 0.5.0
-      magic-string: 0.30.8
-      mlly: 1.6.1
-      pathe: 1.1.2
-      pkg-types: 1.0.3
-      scule: 1.3.0
-      strip-literal: 1.3.0
-      unplugin: 1.8.0
-    transitivePeerDependencies:
-      - rollup
 
   unimport@3.7.2(rollup@3.29.4):
     dependencies:
@@ -13265,7 +13277,7 @@ snapshots:
 
   unpipe@1.0.0: {}
 
-  unplugin-vue-components@0.25.2(@babel/parser@7.24.7)(@nuxt/kit@3.10.3(rollup@3.29.4))(rollup@3.29.4)(vue@3.4.30(typescript@5.4.2)):
+  unplugin-vue-components@0.25.2(@babel/parser@7.24.7)(@nuxt/kit@3.12.2(rollup@3.29.4))(rollup@3.29.4)(vue@3.4.30(typescript@5.4.2)):
     dependencies:
       '@antfu/utils': 0.7.7
       '@rollup/pluginutils': 5.1.0(rollup@3.29.4)
@@ -13280,7 +13292,7 @@ snapshots:
       vue: 3.4.30(typescript@5.4.2)
     optionalDependencies:
       '@babel/parser': 7.24.7
-      '@nuxt/kit': 3.10.3(rollup@3.29.4)
+      '@nuxt/kit': 3.12.2(rollup@3.29.4)
     transitivePeerDependencies:
       - rollup
       - supports-color

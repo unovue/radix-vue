@@ -1,7 +1,8 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useDirection } from '@/shared'
+import { createContext, useDirection, useForwardExpose } from '@/shared'
 import type { Direction } from '@/shared/types'
+import { useFocusOutside, usePointerDownOutside } from '@/DismissableLayer'
 
 type ActivationMode = 'focus' | 'dblclick' | 'none'
 type SubmitMode = 'blur' | 'enter' | 'none' | 'both'
@@ -136,8 +137,6 @@ const placeholder = computed(() => {
 
 const previousValue = ref(modelValue.value)
 
-const isEmpty = computed(() => modelValue.value === '')
-
 function cancel() {
   modelValue.value = previousValue.value
   isEditing.value = false
@@ -156,6 +155,23 @@ function submit() {
   emits('update:state', 'submit')
   emits('submit', modelValue.value)
 }
+
+function handleDismiss() {
+  if (isEditing.value) {
+    if (submitMode.value === 'blur' || submitMode.value === 'both')
+      submit()
+    else
+      cancel()
+  }
+}
+
+const { forwardRef, currentElement } = useForwardExpose()
+
+const pointerDownOutside = usePointerDownOutside(() => handleDismiss(), currentElement)
+
+const focusOutside = useFocusOutside(() => handleDismiss(), currentElement)
+
+const isEmpty = computed(() => modelValue.value === '')
 
 defineExpose({
   /** Function to submit the value of the editable */
@@ -190,9 +206,13 @@ provideEditableRootContext({
 
 <template>
   <Primitive
+    :ref="forwardRef"
     :as="as"
     :as-child="asChild"
     :dir="dir"
+    @focus.capture="focusOutside.onFocusCapture"
+    @blur.capture="focusOutside.onBlurCapture"
+    @pointerdown.capture="pointerDownOutside.onPointerDownCapture"
   >
     <slot
       :model-value="modelValue"

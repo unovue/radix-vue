@@ -26,8 +26,8 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.21.1",
-    "@commitlint/cli": "^17.8.0",
-    "@commitlint/config-conventional": "^17.8.0",
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "bumpp": "^9.2.0",
     "eslint": "^9.5.0",
     "lint-staged": "^14.0.1",

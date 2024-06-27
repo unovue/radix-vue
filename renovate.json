@@ -58,6 +58,7 @@
     }
   ],
   "ignoreDeps": [
+    "vue",
     "radix-vue",
     "node",
     "typescript"

@@ -248,8 +248,8 @@ importers:
         specifier: ^8.1.0
         version: 8.1.0(@vue/compiler-sfc@3.4.31)(vue@3.4.31(typescript@5.5.2))
       '@tsconfig/node18':
-        specifier: ^2.0.1
-        version: 2.0.1
+        specifier: ^18.2.4
+        version: 18.2.4
       '@types/node':
         specifier: ^20.14.9
         version: 20.14.9
@@ -1607,8 +1607,8 @@ packages:
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
     engines: {node: '>=10.13.0'}
 
-  '@tsconfig/node18@2.0.1':
-    resolution: {integrity: sha512-UqdfvuJK0SArA2CxhKWwwAWfnVSXiYe63bVpMutc27vpngCntGUZQETO24pEJ46zU6XM+7SpqYoMgcO3bM11Ew==}
+  '@tsconfig/node18@18.2.4':
+    resolution: {integrity: sha512-5xxU8vVs9/FNcvm3gE07fPbn9tl6tqGGWA9tSlwsUEkBxtRnTsNmwrV8gasZ9F/EobaSv9+nu8AxUKccw77JpQ==}
 
   '@types/argparse@1.0.38':
     resolution: {integrity: sha512-ebDJ9b0e702Yr7pWgB0jzm+CX4Srzz8RcXtLJDJB+BSccqMa36uyH/zUsSYao5+BD1ytv3k3rPYCq4mAE1hsXA==}
@@ -7753,7 +7753,7 @@ snapshots:
 
   '@trysound/sax@0.2.0': {}
 
-  '@tsconfig/node18@2.0.1': {}
+  '@tsconfig/node18@18.2.4': {}
 
   '@types/argparse@1.0.38': {}
 

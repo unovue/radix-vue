@@ -21,7 +21,8 @@
       "groupName": "test",
       "matchPackageNames": [
         "vitest",
-        "jsdom"
+        "jsdom",
+        "@vue/test-utils"
       ],
       "matchPackagePrefixes": [
         "@vitest",

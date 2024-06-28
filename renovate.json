@@ -21,7 +21,8 @@
       "groupName": "test",
       "matchPackageNames": [
         "vitest",
-        "jsdom"
+        "jsdom",
+        "@vue/test-utils"
       ],
       "matchPackagePrefixes": [
         "@vitest",
@@ -42,13 +43,14 @@
         "vite"
       ],
       "matchPackagePrefixes": [
-        "vite",
+        "vite-",
         "@vitejs"
       ]
     },
     {
       "groupName": "lint",
       "matchPackageNames": [
+        "eslint",
         "simple-git-hooks",
         "lint-staged",
         "@antfu/eslint-config"
@@ -56,10 +58,20 @@
       "matchPackagePrefixes": [
         "eslint"
       ]
+    },
+    {
+      "groupName": "vue",
+      "matchPackageNames": [
+        "vue",
+        "vue-tsc"
+      ],
+      "matchPackagePrefixes": [
+        "@vue/",
+        "vue-"
+      ]
     }
   ],
   "ignoreDeps": [
-    "vue",
     "radix-vue",
     "node",
     "typescript"

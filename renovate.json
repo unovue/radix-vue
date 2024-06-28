@@ -68,6 +68,9 @@
       "matchPackagePrefixes": [
         "@vue/",
         "vue-"
+      ],
+      "excludePackageNames": [
+        "@vue/test-utils"
       ]
     }
   ],

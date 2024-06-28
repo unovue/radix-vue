@@ -14,7 +14,7 @@ importers:
   .:
     devDependencies:
       '@antfu/eslint-config':
-        specifier: ^2.21.1
+        specifier: ^2.21.2
         version: 2.21.2(@vue/compiler-sfc@3.4.31)(eslint@9.5.0)(typescript@5.5.2)(vitest@1.6.0(@types/node@20.14.9))
       '@commitlint/cli':
         specifier: ^19.3.0

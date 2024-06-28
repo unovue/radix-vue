@@ -15,13 +15,13 @@
     "vue": "3.4.31"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.43.1",
+    "@antfu/eslint-config": "^2.21.2",
     "@iconify/vue": "^4.1.2",
     "@radix-ui/colors": "^1.0.1",
     "@rollup/plugin-alias": "^5.1.0",
     "@vitejs/plugin-vue": "^4.6.2",
     "autoprefixer": "^10.4.19",
-    "eslint": "^8.57.0",
+    "eslint": "^9.5.0",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.4.4",
     "unplugin-vue-components": "^0.27.2",

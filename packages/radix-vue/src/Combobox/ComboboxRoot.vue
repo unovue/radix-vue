@@ -41,7 +41,7 @@ export type ComboboxRootEmits<T = AcceptableValue> = {
   'update:open': [value: boolean]
   /** Event handler called when the searchTerm of the combobox changes. */
   'update:searchTerm': [value: string]
-  /** Event handler called when the highlighed value of the combobox changes */
+  /** Event handler called when the highlighted value of the combobox changes */
   'update:selectedValue': [value: T | undefined]
 }
 

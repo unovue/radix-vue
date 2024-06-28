@@ -104,7 +104,8 @@ export function focus(
       element !== previouslyFocusedElement
       && isSelectableInput(element)
       && select
-    )
+    ) {
       element.select()
+    }
   }
 }

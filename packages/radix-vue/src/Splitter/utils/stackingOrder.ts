@@ -80,8 +80,9 @@ function createsStackingContext(node: HTMLElement) {
   if (
     style.zIndex !== 'auto'
     && (style.position !== 'static' || isFlexItem(node))
-  )
+  ) {
     return true
+  }
   if (+style.opacity < 1)
     return true
   if ('transform' in style && style.transform !== 'none')

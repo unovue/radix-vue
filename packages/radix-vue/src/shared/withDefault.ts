@@ -34,10 +34,10 @@ export function withDefault<
     ? T
     : T extends { props?: infer Props }
       ? DefineComponent<
-          Props extends Readonly<(infer PropNames)[]> | (infer PropNames)[]
-            ? { [key in PropNames extends string ? PropNames : string]?: any }
-            : Props
-        >
+        Props extends Readonly<(infer PropNames)[]> | (infer PropNames)[]
+          ? { [key in PropNames extends string ? PropNames : string]?: any }
+          : Props
+      >
       : DefineComponent,
   P extends ComponentProps<C> = ComponentProps<C>,
 >(

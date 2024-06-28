@@ -121,13 +121,15 @@ export function validatePanelConstraints({
     }
 
     if (defaultSize != null) {
-      if (defaultSize < 0)
+      if (defaultSize < 0) {
         warnings.push('default size should not be less than 0')
+      }
       else if (
         defaultSize < minSize
         && (!collapsible || defaultSize !== collapsedSize)
-      )
+      ) {
         warnings.push('default size should not be less than min size')
+      }
 
       if (defaultSize > 100)
         warnings.push('default size should not be greater than 100')

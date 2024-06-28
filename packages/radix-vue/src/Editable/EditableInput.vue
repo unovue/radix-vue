@@ -27,7 +27,7 @@ const { primitiveElement, currentElement: inputRef } = usePrimitiveElement()
 onMounted(() => {
   context.inputRef.value = inputRef.value as HTMLInputElement
   if (context.startWithEditMode.value) {
-    context.inputRef.value?.focus()
+    context.inputRef.value?.focus({ preventScroll: true })
     if (context.selectOnFocus.value)
       context.inputRef.value?.select()
   }
@@ -36,7 +36,7 @@ onMounted(() => {
 watch(context.isEditing, (value) => {
   if (value) {
     nextTick(() => {
-      context.inputRef.value?.focus()
+      context.inputRef.value?.focus({ preventScroll: true })
       if (context.selectOnFocus.value)
         context.inputRef.value?.select()
     })

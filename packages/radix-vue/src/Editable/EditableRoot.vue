@@ -2,7 +2,7 @@
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useDirection, useFormControl } from '@/shared'
 import type { Direction } from '@/shared/types'
-import { DismissableLayer, type DismissableLayerEmits } from '@/DismissableLayer'
+import { useFocusOutside, usePointerDownOutside } from '@/DismissableLayer'
 
 type ActivationMode = 'focus' | 'dblclick' | 'none'
 type SubmitMode = 'blur' | 'enter' | 'none' | 'both'
@@ -61,7 +61,7 @@ export interface EditableRootProps extends PrimitiveProps {
   required?: boolean
 }
 
-export type EditableRootEmits = Omit<DismissableLayerEmits, 'escapeKeyDown'> & {
+export type EditableRootEmits = {
   /** Event handler called whenever the model value changes */
   'update:modelValue': [value: string]
   /** Event handler called when a value is submitted */
@@ -148,8 +148,6 @@ const placeholder = computed(() => {
 
 const previousValue = ref(modelValue.value)
 
-const isEmpty = computed(() => modelValue.value === '')
-
 function cancel() {
   modelValue.value = previousValue.value
   isEditing.value = false
@@ -177,6 +175,10 @@ function handleDismiss() {
       cancel()
   }
 }
+
+const pointerDownOutside = usePointerDownOutside(() => handleDismiss(), currentElement)
+const focusOutside = useFocusOutside(() => handleDismiss(), currentElement)
+const isEmpty = computed(() => modelValue.value === '')
 
 defineExpose({
   /** Function to submit the value of the editable */
@@ -210,30 +212,25 @@ provideEditableRootContext({
 </script>
 
 <template>
-  <DismissableLayer
-    as-child
-    @focus-outside="emits('focusOutside', $event)"
-    @interact-outside="emits('interactOutside', $event)"
-    @pointer-down-outside="emits('pointerDownOutside', $event)"
-    @dismiss="handleDismiss"
+  <Primitive
+    v-bind="$attrs"
+    ref="primitiveElement"
+    :as="as"
+    :as-child="asChild"
+    :dir="dir"
+    @focus.capture="focusOutside.onFocusCapture"
+    @blur.capture="focusOutside.onBlurCapture"
+    @pointerdown.capture="pointerDownOutside.onPointerDownCapture"
   >
-    <Primitive
-      v-bind="$attrs"
-      ref="primitiveElement"
-      :as="as"
-      :as-child="asChild"
-      :dir="dir"
-    >
-      <slot
-        :model-value="modelValue"
-        :is-editing="isEditing"
-        :is-empty="isEmpty"
-        :submit="submit"
-        :cancel="cancel"
-        :edit="edit"
-      />
-    </Primitive>
-  </DismissableLayer>
+    <slot
+      :model-value="modelValue"
+      :is-editing="isEditing"
+      :is-empty="isEmpty"
+      :submit="submit"
+      :cancel="cancel"
+      :edit="edit"
+    />
+  </Primitive>
 
   <input
     v-if="isFormControl"

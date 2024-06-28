@@ -32,8 +32,7 @@
     'name': 'defaultValue',
     'description': '<p>The default value of the editable field</p>\n',
     'type': 'string',
-    'required': false,
-    'default': '\'\''
+    'required': false
   },
   {
     'name': 'dir',
@@ -84,6 +83,13 @@
     'description': '<p>Whether the editable field is read-only</p>\n',
     'type': 'boolean',
     'required': false
+  },
+  {
+    'name': 'required',
+    'description': '<p>When <code>true</code>, indicates that the user must set the value before the owning form can be submitted.</p>\n',
+    'type': 'boolean',
+    'required': false,
+    'default': 'false'
   },
   {
     'name': 'selectOnFocus',

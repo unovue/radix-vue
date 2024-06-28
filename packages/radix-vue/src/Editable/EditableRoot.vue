@@ -177,9 +177,7 @@ function handleDismiss() {
 }
 
 const pointerDownOutside = usePointerDownOutside(() => handleDismiss(), currentElement)
-
 const focusOutside = useFocusOutside(() => handleDismiss(), currentElement)
-
 const isEmpty = computed(() => modelValue.value === '')
 
 defineExpose({
@@ -220,7 +218,6 @@ provideEditableRootContext({
     :as="as"
     :as-child="asChild"
     :dir="dir"
-
     @focus.capture="focusOutside.onFocusCapture"
     @blur.capture="focusOutside.onBlurCapture"
     @pointerdown.capture="pointerDownOutside.onPointerDownCapture"
@@ -252,5 +249,4 @@ provideEditableRootContext({
       margin: 0,
     }"
   >
-  >>>>>>> main
 </template>

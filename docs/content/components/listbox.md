@@ -212,7 +212,10 @@ const selectedPeople = ref([people[0], people[1]])
 </script>
 
 <template>
-  <ListboxRoot v-model="selectedPeople" multiple>
+  <ListboxRoot
+    v-model="selectedPeople"
+    multiple
+  >
     ...
   </ListboxRoot>
 </template>

@@ -461,7 +461,10 @@ import { MenubarContent, MenubarItem, MenubarMenu, MenubarPortal, MenubarRoot, M
       <MenubarTrigger>…</MenubarTrigger>
       <MenubarPortal>
         <MenubarContent>
-          <MenubarItem class="MenubarItem" disabled>
+          <MenubarItem
+            class="MenubarItem"
+            disabled
+          >
             …
           </MenubarItem>
           <MenubarItem class="MenubarItem">
@@ -691,7 +694,11 @@ import { MenubarContent, MenubarItem, MenubarMenu, MenubarPortal, MenubarRoot, M
     <MenubarMenu>
       <MenubarTrigger> Trigger </MenubarTrigger>
       <MenubarPortal>
-        <MenubarContent class="MenubarContent" :side-offset="5" :align-offset="-3">
+        <MenubarContent
+          class="MenubarContent"
+          :side-offset="5"
+          :align-offset="-3"
+        >
           <MenubarItem> New Tab </MenubarItem>
         </MenubarContent>
       </MenubarPortal>

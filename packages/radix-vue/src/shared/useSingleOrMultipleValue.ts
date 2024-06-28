@@ -91,7 +91,7 @@ export function useSingleOrMultipleValue<P extends SingleOrMultipleProps, Name e
       modelValue.value = value === modelValue.value ? undefined : value
     }
     else {
-      const modelValueArray = [...(modelValue.value as string[]) || []]
+      const modelValueArray = [...(modelValue.value as string[] || [])]
       if (modelValueArray.includes(value)) {
         const index = modelValueArray.findIndex(i => i === value)
         modelValueArray.splice(index, 1)

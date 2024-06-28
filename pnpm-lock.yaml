@@ -81,8 +81,8 @@ importers:
         specifier: ^4.1.2
         version: 4.1.2(vue@3.4.31(typescript@5.5.2))
       '@radix-ui/colors':
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^3.0.0
+        version: 3.0.0
       '@rollup/plugin-alias':
         specifier: ^5.1.0
         version: 5.1.0(rollup@4.18.0)
@@ -136,8 +136,8 @@ importers:
         specifier: ^4.1.2
         version: 4.1.2(vue@3.4.31(typescript@5.5.2))
       '@radix-ui/colors':
-        specifier: ^2.1.0
-        version: 2.1.0
+        specifier: ^3.0.0
+        version: 3.0.0
       '@types/babel__traverse':
         specifier: ^7.20.6
         version: 7.20.6
@@ -1285,11 +1285,8 @@ packages:
   '@polka/url@1.0.0-next.25':
     resolution: {integrity: sha512-j7P6Rgr3mmtdkeDGTe0E/aYyWEWVtc5yFXtHCRHs28/jptDEWfaVOc5T7cblqy1XKPPfCxJc/8DwQ5YgLOZOVQ==}
 
-  '@radix-ui/colors@1.0.1':
-    resolution: {integrity: sha512-xySw8f0ZVsAEP+e7iLl3EvcBXX7gsIlC1Zso/sPBW9gIWerBTgz6axrjU+MZ39wD+WFi5h5zdWpsg3+hwt2Qsg==}
-
-  '@radix-ui/colors@2.1.0':
-    resolution: {integrity: sha512-gcBnxjS2u2c6thQz/9K1+Pt2ZYcm5WKU4SLi0emYkRmYbVUw+37rlc5wgLtYOsSsRP9nxVtbJJYj6WVO7UUmZg==}
+  '@radix-ui/colors@3.0.0':
+    resolution: {integrity: sha512-FUOsGBkHrYJwCSEtWRCIfQbZG7q1e6DgxCIOe1SUQzDe/7rXXeA47s8yCn6fuTNQAj1Zq4oTFi9Yjp3wzElcxg==}
 
   '@rollup/plugin-alias@5.1.0':
     resolution: {integrity: sha512-lpA3RZ9PdIG7qqhEfv79tBffNaoDuukFDrmhLqg9ifv99u/ehn+lOg30x2zmhf8AQqQUZaMk/B9fZraQ6/acDQ==}
@@ -7035,9 +7032,7 @@ snapshots:
 
   '@polka/url@1.0.0-next.25': {}
 
-  '@radix-ui/colors@1.0.1': {}
-
-  '@radix-ui/colors@2.1.0': {}
+  '@radix-ui/colors@3.0.0': {}
 
   '@rollup/plugin-alias@5.1.0(rollup@3.29.4)':
     dependencies:

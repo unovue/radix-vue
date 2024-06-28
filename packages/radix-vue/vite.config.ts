@@ -21,6 +21,10 @@ export default defineConfig({
     alias: {
       '@': resolve(projectRootDir, 'src'),
     },
+    dedupe: [
+      'vue',
+      '@vue/runtime-core',
+    ],
   },
   build: {
     lib: {

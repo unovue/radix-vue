@@ -21,8 +21,8 @@
     "@nuxt/kit": "^3.12.2",
     "@nuxt/schema": "^3.12.2",
     "radix-vue": "link:../radix-vue",
-    "tsx": "^4.1.2",
+    "tsx": "^4.15.7",
     "unbuild": "^2.0.0",
-    "unplugin-vue-components": "^0.25.2"
+    "unplugin-vue-components": "^0.27.2"
   }
 }

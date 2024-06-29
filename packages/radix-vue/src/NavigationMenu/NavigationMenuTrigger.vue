@@ -64,8 +64,9 @@ function handlePointerMove(ev: PointerEvent) {
       || wasClickCloseRef.value
       || itemContext.wasEscapeCloseRef.value
       || hasPointerMoveOpenedRef.value
-    )
+    ) {
       return
+    }
 
     menuContext.onTriggerEnter(itemContext.value)
     hasPointerMoveOpenedRef.value = true

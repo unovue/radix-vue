@@ -116,7 +116,11 @@ Use the `collapsible` prop to allow the panel to collapse into `collapsedSize` w
 ```vue line=2
 <template>
   <SplitterGroup>
-    <SplitterPanel collapsible :collapsed-size="10" :min-size="35">
+    <SplitterPanel
+      collapsible
+      :collapsed-size="10"
+      :min-size="35"
+    >
       Panel A
     </SplitterPanel>
     <SplitterResizeHandle />
@@ -150,7 +154,10 @@ const layout = useCookie<number[]>('splitter:layout')
 </script>
 
 <template>
-  <SplitterGroup direction="horizontal" @layout="layout = $event">
+  <SplitterGroup
+    direction="horizontal"
+    @layout="layout = $event"
+  >
     <SplitterPanel :default-size="layout[0]">
       …
     </SplitterPanel>
@@ -181,7 +188,9 @@ const panelRef = ref<InstanceType<typeof SplitterPanel>>()
   <SplitterGroup>
     <SplitterPanel
       ref="panelRef"
-      collapsible :collapsed-size="10" :min-size="35"
+      collapsible
+      :collapsed-size="10"
+      :min-size="35"
     >
       …
     </SplitterPanel>

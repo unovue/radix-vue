@@ -41,6 +41,8 @@ export type ComboboxRootEmits<T = AcceptableValue> = {
   'update:open': [value: boolean]
   /** Event handler called when the searchTerm of the combobox changes. */
   'update:searchTerm': [value: string]
+  /** Event handler called when the highlighted value of the combobox changes */
+  'update:selectedValue': [value: T | undefined]
 }
 
 export interface ComboboxRootProps<T = AcceptableValue> extends PrimitiveProps {
@@ -54,6 +56,8 @@ export interface ComboboxRootProps<T = AcceptableValue> extends PrimitiveProps {
   defaultOpen?: boolean
   /** The controlled search term of the Combobox. Can be binded-with with v-model:searchTerm. */
   searchTerm?: string
+  /** The current highlighted value of the COmbobox. Can be binded-with `v-model:selectedValue`. */
+  selectedValue?: T
   /** Whether multiple options can be selected or not. */
   multiple?: boolean
   /** When `true`, prevents the user from interacting with Combobox */
@@ -118,7 +122,10 @@ const open = useVModel(props, 'open', emit, {
   passive: (props.open === undefined) as false,
 }) as Ref<boolean>
 
-const selectedValue = ref<T>()
+const selectedValue = useVModel(props, 'selectedValue', emit, {
+  defaultValue: undefined,
+  passive: (props.selectedValue === undefined) as false,
+}) as Ref<T | undefined>
 
 async function onOpenChange(val: boolean) {
   open.value = val
@@ -211,10 +218,10 @@ watch(stringifiedModelValue, async () => {
   immediate: !props.searchTerm,
 })
 
-watch(() => filteredOptions.value.length, async (length) => {
+watch(() => [filteredOptions.value.length, searchTerm.value.length], async ([length, searchTermLength], [oldLength, oldSearchTermLength]) => {
   await nextTick()
   await nextTick()
-  if (length && activeIndex.value === -1)
+  if (length && (oldSearchTermLength > searchTermLength || activeIndex.value === -1))
     selectedValue.value = filteredOptions.value[0]
 })
 

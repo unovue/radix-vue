@@ -169,7 +169,10 @@ import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot,
   <PopoverRoot>
     <PopoverTrigger>…</PopoverTrigger>
     <PopoverPortal>
-      <PopoverContent class="PopoverContent" :side-offset="5">
+      <PopoverContent
+        class="PopoverContent"
+        :side-offset="5"
+      >
         …
       </PopoverContent>
     </PopoverPortal>

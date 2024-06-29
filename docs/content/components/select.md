@@ -285,7 +285,10 @@ import {
   <SelectRoot>
     <SelectTrigger>…</SelectTrigger>
     <SelectPortal>
-      <SelectContent position="popper" :side-offset="5">
+      <SelectContent
+        position="popper"
+        :side-offset="5"
+      >
         …
       </SelectContent>
     </SelectPortal>
@@ -319,7 +322,11 @@ import {
   <SelectRoot>
     <SelectTrigger>…</SelectTrigger>
     <SelectPortal>
-      <SelectContent class="SelectContent" position="popper" :side-offset="5">
+      <SelectContent
+        class="SelectContent"
+        position="popper"
+        :side-offset="5"
+      >
         …
       </SelectContent>
     </SelectPortal>
@@ -361,7 +368,10 @@ import {
     <SelectPortal>
       <SelectContent>
         <SelectViewport>
-          <SelectItem class="SelectItem" disabled>
+          <SelectItem
+            class="SelectItem"
+            disabled
+          >
             …
           </SelectItem>
           <SelectItem>…</SelectItem>
@@ -581,14 +591,20 @@ import {
     <SelectTrigger>…</SelectTrigger>
     <SelectPortal>
       <SelectContent>
-        <ScrollAreaRoot class="ScrollAreaRoot" type="auto">
+        <ScrollAreaRoot
+          class="ScrollAreaRoot"
+          type="auto"
+        >
           <SelectViewport as-child>
             <ScrollAreaViewport class="ScrollAreaViewport">
               <StyledItem>…</StyledItem> <StyledItem>…</StyledItem>
               <StyledItem>…</StyledItem>
             </ScrollAreaViewport>
           </SelectViewport>
-          <ScrollAreaScrollbar class="ScrollAreaScrollbar" orientation="vertical">
+          <ScrollAreaScrollbar
+            class="ScrollAreaScrollbar"
+            orientation="vertical"
+          >
             <ScrollAreaThumb class="ScrollAreaThumb" />
           </ScrollAreaScrollbar>
         </ScrollAreaRoot>

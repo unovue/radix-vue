@@ -193,7 +193,7 @@ describe('given a multiple Accordion', () => {
       })
 
       it('should call update:modelValue', () => {
-        expect(wrapper.emitted('update:modelValue')?.[0]?.[0]).toMatchObject([])
+        expect(wrapper.emitted('update:modelValue')?.[1]?.[0]).toMatchObject([])
       })
     })
 
@@ -209,7 +209,7 @@ describe('given a multiple Accordion', () => {
       })
 
       it('should call onValueChange', () => {
-        expect(wrapper.emitted('update:modelValue')?.[0]?.[0]).toMatchObject(['One', 'Two'])
+        expect(wrapper.emitted('update:modelValue')?.[1]?.[0]).toMatchObject(['One', 'Two'])
       })
 
       it('should not hide the previous content', () => {

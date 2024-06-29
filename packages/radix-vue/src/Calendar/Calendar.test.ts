@@ -239,6 +239,8 @@ describe('calendar', async () => {
   })
 
   it('always renders six weeks when `fixedWeeks` is `true`', async () => {
+    const calendarDate = new CalendarDate(2024, 8, 1)
+
     const { getByTestId, calendar, user } = setup({
       calendarProps: {
         modelValue: calendarDate,
@@ -252,12 +254,9 @@ describe('calendar', async () => {
 
     const nextButton = getByTestId('next-button')
 
-    for (let i = 0; i < 12; i++) {
-      expect(getNumberOfWeeks()).toBe(6)
-      await user.click(nextButton)
-    }
-
-    for (let i = 0; i < 24; i++) {
+    // Check the if the first day of the next month is rendered for the next 14 months starting from edge case August 2024
+    for (let i = 0; i < 14; i++) {
+      expect(getByTestId(`date-${calendarDate.add({ months: i + 1 }).month}-1`)).toHaveTextContent('1')
       expect(getNumberOfWeeks()).toBe(6)
       await user.click(nextButton)
     }

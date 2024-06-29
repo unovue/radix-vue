@@ -35,8 +35,9 @@ export function getPanelGroupElement(
   if (
     rootElement instanceof HTMLElement
     && (rootElement as HTMLElement)?.dataset?.panelGroupId === id
-  )
+  ) {
     return rootElement as HTMLElement
+  }
 
   // Else query children
   const element = rootElement.querySelector(

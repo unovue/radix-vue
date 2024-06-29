@@ -168,7 +168,10 @@ Use the `defaultValue` prop to define the open item by default.
 
 ```vue line=2
 <template>
-  <AccordionRoot type="single" default-value="item-2">
+  <AccordionRoot
+    type="single"
+    default-value="item-2"
+  >
     <AccordionItem value="item-1">
       …
     </AccordionItem>
@@ -185,7 +188,10 @@ Use the `collapsible` prop to allow all items to close.
 
 ```vue line=2
 <template>
-  <AccordionRoot type="single" collapsible>
+  <AccordionRoot
+    type="single"
+    collapsible
+  >
     <AccordionItem value="item-1">
       …
     </AccordionItem>
@@ -231,7 +237,10 @@ import './styles.css'
       <AccordionHeader>
         <AccordionTrigger class="AccordionTrigger">
           <span>Trigger text</span>
-          <Icon icon="radix-icons:chevron-down" class="AccordionChevron" />
+          <Icon
+            icon="radix-icons:chevron-down"
+            class="AccordionChevron"
+          />
         </AccordionTrigger>
       </AccordionHeader>
       <AccordionContent>…</AccordionContent>

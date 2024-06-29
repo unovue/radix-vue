@@ -104,14 +104,14 @@ describe('given multiple value Toggle Group', () => {
   let wrapper: VueWrapper<InstanceType<typeof ToggleGroup>>
   let triggers: DOMWrapper<HTMLButtonElement>[]
 
-  const modelValue = ref(['center', 'right'])
   beforeEach(() => {
     wrapper = mount(ToggleGroup, {
       attachTo: document.body,
       props: {
-        'modelValue': modelValue.value,
-        // @ts-expect-error ignore
-        'onUpdate:modelValue': ev => modelValue.value = ev,
+        'modelValue': ['center', 'right'],
+        'onUpdate:modelValue': (ev) => {
+          wrapper.setProps({ modelValue: ev })
+        },
         'type': 'multiple',
       },
     })

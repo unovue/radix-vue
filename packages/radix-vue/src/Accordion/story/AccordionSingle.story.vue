@@ -19,7 +19,7 @@ const selectedValue = ref('item-2')
   >
     <Variant title="Uncontrolled">
       <AccordionRoot
-        v-model="selectedValue"
+        type="single"
         class="w-[300px] rounded-md bg-[--line-color] shadow-lg"
       >
         <AccordionItem
@@ -129,7 +129,7 @@ const selectedValue = ref('item-2')
         class="w-[300px] rounded-md bg-[--line-color] shadow-lg"
         type="single"
         :collapsible="true"
-        model-value="item-2"
+        default-value="item-2"
       >
         <AccordionItem
           class="accordion-item"

@@ -1,17 +1,17 @@
 <script lang="ts">
-export interface EditableInputProps {
-  /** The type of the input */
-  type?: 'text' | 'email' | 'password' | 'search' | 'tel' | 'url'
+import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
+
+export interface EditableInputProps extends PrimitiveProps {
 }
 </script>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, watch } from 'vue'
 import { injectEditableRootContext } from './EditableRoot.vue'
 import { useKbd } from '@/shared'
 
-withDefaults(defineProps<EditableInputProps>(), {
-  type: 'text',
+const props = withDefaults(defineProps<EditableInputProps>(), {
+  as: 'input',
 })
 
 const kbd = useKbd()
@@ -22,23 +22,23 @@ const disabled = computed(() => context.disabled.value)
 
 const placeholder = computed(() => context.placeholder.value?.edit)
 
-const inputRef = ref<HTMLInputElement | undefined>()
+const { primitiveElement, currentElement: inputRef } = usePrimitiveElement()
 
 onMounted(() => {
-  context.inputRef.value = inputRef.value
+  context.inputRef.value = inputRef.value as HTMLInputElement
   if (context.startWithEditMode.value) {
-    inputRef.value?.focus()
+    context.inputRef.value?.focus({ preventScroll: true })
     if (context.selectOnFocus.value)
-      inputRef.value?.select()
+      context.inputRef.value?.select()
   }
 })
 
 watch(context.isEditing, (value) => {
   if (value) {
     nextTick(() => {
-      inputRef.value?.focus()
+      context.inputRef.value?.focus({ preventScroll: true })
       if (context.selectOnFocus.value)
-        inputRef.value?.select()
+        context.inputRef.value?.select()
     })
   }
 })
@@ -50,10 +50,10 @@ function handleSubmitKeyDown(event: KeyboardEvent) {
 </script>
 
 <template>
-  <input
-    ref="inputRef"
-    v-model="context.modelValue.value"
-    :type="type"
+  <Primitive
+    ref="primitiveElement"
+    v-bind="props"
+    :value="context.modelValue.value"
     :placeholder="placeholder"
     :disabled="disabled"
     :data-disabled="disabled ? '' : undefined"
@@ -62,7 +62,10 @@ function handleSubmitKeyDown(event: KeyboardEvent) {
     aria-label="editable input"
     :hidden="context.autoResize.value ? undefined : !context.isEditing.value"
     :style="context.autoResize.value ? { all: 'unset', gridArea: '1 / 1 / auto / auto', visibility: !context.isEditing.value ? 'hidden' : undefined } : undefined"
+    @input="context.modelValue.value = $event.target.value"
     @keydown.enter.space="handleSubmitKeyDown"
     @keydown.esc="context.cancel"
   >
+    <slot />
+  </Primitive>
 </template>

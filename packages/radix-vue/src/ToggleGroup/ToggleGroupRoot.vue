@@ -19,7 +19,7 @@ export interface ToggleGroupRootProps<ValidValue = string | string[], ExplicitTy
 }
 export type ToggleGroupRootEmits = {
   /** Event handler called when the value changes. */
-  'update:modelValue': [payload: string]
+  'update:modelValue': [payload: string | string[]]
 }
 
 interface ToggleGroupRootContext {

@@ -26,6 +26,6 @@
   {
     'name': 'update:modelValue',
     'description': '<p>Event handler called when the value changes.</p>\n',
-    'type': '[payload: boolean]'
+    'type': '[payload: string]'
   }
 ]" />

@@ -2,7 +2,7 @@
 import type { PrimitiveProps } from '@/Primitive'
 import { injectNumberFieldRootContext } from './NumberFieldRoot.vue'
 import { usePressedHold } from './utils'
-import { computed, watch } from 'vue'
+import { computed } from 'vue'
 
 export interface NumberFieldIncrementProps extends PrimitiveProps {
   disabled?: boolean

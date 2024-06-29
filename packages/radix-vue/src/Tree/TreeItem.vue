@@ -6,8 +6,8 @@ export interface TreeItemProps<T> extends PrimitiveProps {
   level: number
 }
 
-export type SelectEvent<T> = CustomEvent<{ originalEvent: PointerEvent, value?: T, isExpanded: boolean, isSelected: boolean }>
-export type ToggleEvent<T> = CustomEvent<{ originalEvent: PointerEvent, value?: T, isExpanded: boolean, isSelected: boolean }>
+export type SelectEvent<T> = CustomEvent<{ originalEvent: PointerEvent | KeyboardEvent, value?: T, isExpanded: boolean, isSelected: boolean }>
+export type ToggleEvent<T> = CustomEvent<{ originalEvent: PointerEvent | KeyboardEvent, value?: T, isExpanded: boolean, isSelected: boolean }>
 
 export type TreeItemEmits<T> = {
   /** Event handler called when the selecting item. <br> It can be prevented by calling `event.preventDefault`. */
@@ -17,13 +17,14 @@ export type TreeItemEmits<T> = {
 }
 
 const TREE_SELECT = 'tree.select'
+const TREE_TOGGLE = 'tree.toggle'
 </script>
 
 <script setup lang="ts" generic="T extends Record<string, any>">
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { RovingFocusItem } from '@/RovingFocus'
 import { injectTreeRootContext } from './TreeRoot.vue'
-import { computed } from 'vue'
+import { computed, nextTick } from 'vue'
 import { useCollection } from '@/Collection'
 import { handleAndDispatchCustomEvent, useForwardRef } from '@/shared'
 import { flatten } from './utils'
@@ -50,7 +51,7 @@ defineSlots<{
 const rootContext = injectTreeRootContext()
 const { getItems } = useCollection()
 
-const hasChildren = computed(() => !!props.value.children?.length)
+const hasChildren = computed(() => !!props.value.children)
 
 const isExpanded = computed(() => {
   const key = rootContext.getKey(props.value)
@@ -73,7 +74,7 @@ const isIndeterminate = computed(() => {
   }
 })
 
-function handleKeydownRight() {
+function handleKeydownRight(ev: KeyboardEvent) {
   if (!hasChildren.value)
     return
 
@@ -89,14 +90,15 @@ function handleKeydownRight() {
       nextElement.focus()
   }
   else {
-    rootContext.onToggle(props.value)
+    //  open expanded
+    handleToggleCustomEvent(ev)
   }
 }
 
-function handleKeydownLeft() {
+function handleKeydownLeft(ev: KeyboardEvent) {
   if (isExpanded.value) {
     //  close expanded
-    rootContext.onToggle(props.value)
+    handleToggleCustomEvent(ev)
   }
   else {
     // go back to parent
@@ -126,12 +128,20 @@ async function handleToggle(ev: ToggleEvent<T>) {
   rootContext.onToggle(props.value)
 }
 
-function handleSelectCustomEvent(ev?: PointerEvent) {
+async function handleSelectCustomEvent(ev?: PointerEvent | KeyboardEvent) {
   if (!ev)
     return
+
   const eventDetail = { originalEvent: ev, value: props.value, isExpanded: isExpanded.value, isSelected: isSelected.value }
   handleAndDispatchCustomEvent(TREE_SELECT, handleSelect, eventDetail)
-  handleAndDispatchCustomEvent(TREE_SELECT, handleToggle, eventDetail)
+}
+
+async function handleToggleCustomEvent(ev?: PointerEvent | KeyboardEvent) {
+  if (!ev)
+    return
+
+  const eventDetail = { originalEvent: ev, value: props.value, isExpanded: isExpanded.value, isSelected: isSelected.value }
+  handleAndDispatchCustomEvent(TREE_TOGGLE, handleToggle, eventDetail)
 }
 
 defineExpose({
@@ -163,7 +173,10 @@ defineExpose({
       @keydown.enter.space.self="handleSelectCustomEvent"
       @keydown.right.prevent="handleKeydownRight"
       @keydown.left.prevent="handleKeydownLeft"
-      @click.stop="handleSelectCustomEvent"
+      @click.stop="(ev) => {
+        handleSelectCustomEvent(ev)
+        handleToggleCustomEvent(ev)
+      }"
     >
       <slot
         :is-expanded="isExpanded"

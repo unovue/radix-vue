@@ -133,7 +133,7 @@ function flattenItems(items: T[], level: number = 1, parentItem?: T): FlattenedI
       index,
       level,
       parentItem,
-      hasChildren: !!item.children?.length,
+      hasChildren: !!item.children,
       bind: {
         'value': item,
         level,
@@ -204,7 +204,7 @@ provideTreeRootContext({
   },
   expanded,
   onToggle(val) {
-    if (!val?.children?.length)
+    if (!val?.children)
       return
 
     const key = props.getKey(val) ?? val

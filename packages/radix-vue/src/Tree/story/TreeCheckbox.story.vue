@@ -12,7 +12,7 @@ import { items } from './constants'
     <Variant title="default">
       <TreeRoot
         v-slot="{ flattenItems }"
-        class="list-none select-none w-64 bg-white text-blackA11 rounded-md p-2 text-sm font-medium"
+        class="list-none select-none w-64 bg-white text-blackA11 rounded-lg p-2 text-sm font-medium"
         :items="items"
         :get-key="(item) => item.title"
         multiple
@@ -23,14 +23,10 @@ import { items } from './constants'
           :key="item._id"
           v-slot="{ handleSelect, isSelected }"
           v-bind="item.bind"
-          :style="{ 'margin-left': `${item.level}rem` }"
+          :style="{ 'margin-left': `${item.level - 1}rem` }"
           class="flex items-center py-1 px-2 my-0.5 rounded w-max outline-none focus:ring-grass9 focus:ring-2 data-[selected]:bg-grass4"
           @select="(event) => {
             if (event.detail.originalEvent.type === 'click')
-              event.preventDefault()
-          }"
-          @toggle="(event) => {
-            if (event.detail.originalEvent.type === 'keydown')
               event.preventDefault()
           }"
         >
@@ -42,6 +38,7 @@ import { items } from './constants'
           <input
             :checked="isSelected"
             type="checkbox"
+            tabindex="-1"
             @click.stop
             @change="handleSelect"
           >

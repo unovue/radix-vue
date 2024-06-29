@@ -8,45 +8,59 @@ const radioStateSingle = ref('default')
 
 <template>
   <RadioGroupRoot
-    v-model="radioStateSingle" class="RadioGroupRoot" default-value="default"
+    v-model="radioStateSingle"
+    class="RadioGroupRoot"
+    default-value="default"
     aria-label="View density"
   >
     <div :style="{ display: 'flex', alignItems: 'center' }">
       <RadioGroupItem
         id="r1"
-        class="RadioGroupItem" value="default"
+        class="RadioGroupItem"
+        value="default"
       >
         <RadioGroupIndicator
           class="RadioGroupIndicator"
         />
       </RadioGroupItem>
-      <label class="Label" for="r1">
+      <label
+        class="Label"
+        for="r1"
+      >
         Default
       </label>
     </div>
     <div :style="{ display: 'flex', alignItems: 'center' }">
       <RadioGroupItem
         id="r2"
-        class="RadioGroupItem" value="comfortable"
+        class="RadioGroupItem"
+        value="comfortable"
       >
         <RadioGroupIndicator
           class="RadioGroupIndicator"
         />
       </RadioGroupItem>
-      <label class="Label" for="r2">
+      <label
+        class="Label"
+        for="r2"
+      >
         Comfortable
       </label>
     </div>
     <div :style="{ display: 'flex', alignItems: 'center' }">
       <RadioGroupItem
         id="r3"
-        class="RadioGroupItem" value="compact"
+        class="RadioGroupItem"
+        value="compact"
       >
         <RadioGroupIndicator
           class="RadioGroupIndicator"
         />
       </RadioGroupItem>
-      <label class="Label" for="r3">
+      <label
+        class="Label"
+        for="r3"
+      >
         Compact
       </label>
     </div>

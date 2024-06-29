@@ -13,7 +13,10 @@ const forwarded = useForwardPropsEmits(props, emits)
     v-bind="forwarded"
     class="flex select-none bg-white items-center rounded-lg text-center text-green10 placeholder:text-mauve5 border border-gray9 p-1 data-[invalid]:border-red-500"
   >
-    <template v-for="item in segments.start" :key="item.part">
+    <template
+      v-for="item in segments.start"
+      :key="item.part"
+    >
       <DateRangeFieldInput
         v-if="item.part === 'literal'"
         :part="item.part"
@@ -31,7 +34,10 @@ const forwarded = useForwardPropsEmits(props, emits)
       </DateRangeFieldInput>
     </template>
     -
-    <template v-for="item in segments.end" :key="item.part">
+    <template
+      v-for="item in segments.end"
+      :key="item.part"
+    >
       <DateRangeFieldInput
         v-if="item.part === 'literal'"
         :part="item.part"

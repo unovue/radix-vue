@@ -2,9 +2,16 @@
 import { Icon } from '@iconify/vue'
 import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot, type CalendarRootProps } from 'radix-vue'
 import './styles.css'
+import type { DateValue } from '@internationalized/date'
 
 const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
   return date.day === 17 || date.day === 18
+}
+
+function pagingFunc(date: DateValue, sign: -1 | 1) {
+  if (sign === -1)
+    return date.subtract({ years: 1 })
+  return date.add({ years: 1 })
 }
 </script>
 
@@ -18,37 +25,54 @@ const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
     <CalendarHeader class="CalendarHeader">
       <CalendarPrev
         class="CalendarNavButton"
-        step="year"
+        :prev-page="(date: DateValue) => pagingFunc(date, -1)"
       >
-        <Icon icon="radix-icons:double-arrow-left" class="Icon" />
+        <Icon
+          icon="radix-icons:double-arrow-left"
+          class="Icon"
+        />
       </CalendarPrev>
       <CalendarPrev
         class="CalendarNavButton"
       >
-        <Icon icon="radix-icons:chevron-left" class="Icon" />
+        <Icon
+          icon="radix-icons:chevron-left"
+          class="Icon"
+        />
       </CalendarPrev>
       <CalendarHeading class="CalendarHeading" />
       <CalendarNext
         class="CalendarNavButton"
       >
-        <Icon icon="radix-icons:chevron-right" class="Icon" />
+        <Icon
+          icon="radix-icons:chevron-right"
+          class="Icon"
+        />
       </CalendarNext>
 
       <CalendarNext
         class="CalendarNavButton"
-        step="year"
+        :next-page="(date: DateValue) => pagingFunc(date, 1)"
       >
-        <Icon icon="radix-icons:double-arrow-right" class="Icon" />
+        <Icon
+          icon="radix-icons:double-arrow-right"
+          class="Icon"
+        />
       </CalendarNext>
     </CalendarHeader>
     <div
       class="CalendarWrapper"
     >
-      <CalendarGrid v-for="month in grid" :key="month.value.toString()" class="CalendarGrid">
+      <CalendarGrid
+        v-for="month in grid"
+        :key="month.value.toString()"
+        class="CalendarGrid"
+      >
         <CalendarGridHead>
           <CalendarGridRow class="CalendarGridRow">
             <CalendarHeadCell
-              v-for="day in weekDays" :key="day"
+              v-for="day in weekDays"
+              :key="day"
               class="CalendarHeadCell"
             >
               {{ day }}
@@ -56,7 +80,11 @@ const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
           </CalendarGridRow>
         </CalendarGridHead>
         <CalendarGridBody class="CalendarGridWrapper">
-          <CalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="CalendarGridRow">
+          <CalendarGridRow
+            v-for="(weekDates, index) in month.rows"
+            :key="`weekDate-${index}`"
+            class="CalendarGridRow"
+          >
             <CalendarCell
               v-for="weekDate in weekDates"
               :key="weekDate.toString()"

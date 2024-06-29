@@ -94,7 +94,10 @@ const open = useVModel(props, 'open', emits, {
         open = false;
       }"
     >
-      <slot :remaining="remaining" :open="open" />
+      <slot
+        :remaining="remaining"
+        :open="open"
+      />
     </ToastRootImpl>
   </Presence>
 </template>

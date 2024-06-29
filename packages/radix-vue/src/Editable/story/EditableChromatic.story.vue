@@ -7,7 +7,10 @@ const modelValue = ref(defaultValue)
 </script>
 
 <template>
-  <Story title="Editable/Chromatic" :layout="{ type: 'grid', width: '50%', iframe: false }">
+  <Story
+    title="Editable/Chromatic"
+    :layout="{ type: 'grid', width: '50%', iframe: false }"
+  >
     <Variant title="Uncontrolled (modelValue)">
       <Editable :default-value="defaultValue" />
     </Variant>
@@ -25,39 +28,67 @@ const modelValue = ref(defaultValue)
     </Variant>
 
     <Variant title="Edit on focus">
-      <Editable :default-value="defaultValue" activation-mode="focus" />
+      <Editable
+        :default-value="defaultValue"
+        activation-mode="focus"
+      />
     </Variant>
 
     <Variant title="Edit on double click">
-      <Editable :default-value="defaultValue" activation-mode="dblclick" />
+      <Editable
+        :default-value="defaultValue"
+        activation-mode="dblclick"
+      />
     </Variant>
 
     <Variant title="Submit on blur">
-      <Editable :default-value="defaultValue" submit-mode="blur" />
+      <Editable
+        :default-value="defaultValue"
+        submit-mode="blur"
+      />
     </Variant>
 
     <Variant title="Submit on enter">
-      <Editable :default-value="defaultValue" submit-mode="enter" />
+      <Editable
+        :default-value="defaultValue"
+        submit-mode="enter"
+      />
     </Variant>
 
     <Variant title="Select on focus">
-      <Editable :default-value="defaultValue" activation-mode="focus" select-on-focus />
+      <Editable
+        :default-value="defaultValue"
+        activation-mode="focus"
+        select-on-focus
+      />
     </Variant>
 
     <Variant title="Disabled">
-      <Editable :default-value="defaultValue" disabled />
+      <Editable
+        :default-value="defaultValue"
+        disabled
+      />
     </Variant>
 
     <Variant title="Start in edit mode">
-      <Editable :default-value="defaultValue" start-with-edit-mode />
+      <Editable
+        :default-value="defaultValue"
+        start-with-edit-mode
+      />
     </Variant>
 
     <Variant title="Read only">
-      <Editable :default-value="defaultValue" readonly />
+      <Editable
+        :default-value="defaultValue"
+        readonly
+      />
     </Variant>
 
     <Variant title="Auto resize">
-      <Editable :default-value="defaultValue" auto-resize />
+      <Editable
+        :default-value="defaultValue"
+        auto-resize
+      />
     </Variant>
   </Story>
 </template>

@@ -17,7 +17,10 @@ const currentTrigger = ref('')
 </script>
 
 <template>
-  <Story title="Navigation Menu/Demo" :layout="{ type: 'single', iframe: false }">
+  <Story
+    title="Navigation Menu/Demo"
+    :layout="{ type: 'single', iframe: false }"
+  >
     <Variant title="Default">
       <div class="w-full h-[600px]">
         <NavigationMenuRoot
@@ -82,7 +85,10 @@ const currentTrigger = ref('')
                   >
                     CSS-in-JS with best-in-class developer experience.
                   </NavigationMenuListItem>
-                  <NavigationMenuListItem href="/colors" title="Colors">
+                  <NavigationMenuListItem
+                    href="/colors"
+                    title="Colors"
+                  >
                     Beautiful, thought-out palettes with auto dark mode.
                   </NavigationMenuListItem>
                   <NavigationMenuListItem

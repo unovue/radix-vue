@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
-import { clamp, createContext, snapValueToStep, useFormControl, useId } from '@/shared'
+import { clamp, createContext, snapValueToStep, useFormControl } from '@/shared'
 import { type HTMLAttributes, type Ref, computed, ref, toRefs } from 'vue'
 
 export interface NumberFieldRootProps extends PrimitiveProps {
@@ -127,7 +127,7 @@ const inputMode = computed<HTMLAttributes['inputmode']>(() => {
   // Browsers and operating systems are quite inconsistent about what keys are available, however.
   // We choose between numeric and decimal based on whether we allow negative and fractional numbers,
   // and based on testing on various devices to determine what keys are available in each inputMode.
-  const hasDecimals = numberFormatter.resolvedOptions().maximumFractionDigits > 0
+  const hasDecimals = numberFormatter.resolvedOptions().maximumFractionDigits! > 0
 
   return hasDecimals ? 'decimal' : 'numeric'
 })
@@ -200,7 +200,10 @@ provideNumberFieldRootContext({
     :as="as"
     :as-child="asChild"
   >
-    <slot :model-value="modelValue" :text-value="textValue" />
+    <slot
+      :model-value="modelValue"
+      :text-value="textValue"
+    />
   </Primitive>
 
   <input

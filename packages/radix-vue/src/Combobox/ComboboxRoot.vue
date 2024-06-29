@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { Ref } from 'vue'
+import type { ComputedRef, Ref } from 'vue'
 import type { Direction } from '@/shared/types'
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useDirection, useFormControl, useForwardExpose } from '@/shared'
@@ -26,6 +26,7 @@ type ComboboxRootContext<T> = {
   onInputNavigation: (dir: 'up' | 'down' | 'home' | 'end') => void
   onInputEnter: () => void
   selectedValue: Ref<T | undefined>
+  selectedElement: ComputedRef<HTMLElement | undefined>
   onSelectedValueChange: (val: T) => void
   parentElement: Ref<HTMLElement | undefined>
 }
@@ -40,6 +41,8 @@ export type ComboboxRootEmits<T = AcceptableValue> = {
   'update:open': [value: boolean]
   /** Event handler called when the searchTerm of the combobox changes. */
   'update:searchTerm': [value: string]
+  /** Event handler called when the highlighted value of the combobox changes */
+  'update:selectedValue': [value: T | undefined]
 }
 
 export interface ComboboxRootProps<T = AcceptableValue> extends PrimitiveProps {
@@ -53,6 +56,8 @@ export interface ComboboxRootProps<T = AcceptableValue> extends PrimitiveProps {
   defaultOpen?: boolean
   /** The controlled search term of the Combobox. Can be binded-with with v-model:searchTerm. */
   searchTerm?: string
+  /** The current highlighted value of the COmbobox. Can be binded-with `v-model:selectedValue`. */
+  selectedValue?: T
   /** Whether multiple options can be selected or not. */
   multiple?: boolean
   /** When `true`, prevents the user from interacting with Combobox */
@@ -117,7 +122,10 @@ const open = useVModel(props, 'open', emit, {
   passive: (props.open === undefined) as false,
 }) as Ref<boolean>
 
-const selectedValue = ref<T>()
+const selectedValue = useVModel(props, 'selectedValue', emit, {
+  defaultValue: undefined,
+  passive: (props.selectedValue === undefined) as false,
+}) as Ref<T | undefined>
 
 async function onOpenChange(val: boolean) {
   open.value = val
@@ -210,10 +218,10 @@ watch(stringifiedModelValue, async () => {
   immediate: !props.searchTerm,
 })
 
-watch(() => filteredOptions.value.length, async (length) => {
+watch(() => [filteredOptions.value.length, searchTerm.value.length], async ([length, searchTermLength], [oldLength, oldSearchTermLength]) => {
   await nextTick()
   await nextTick()
-  if (length && activeIndex.value === -1)
+  if (length && (oldSearchTermLength > searchTermLength || activeIndex.value === -1))
     selectedValue.value = filteredOptions.value[0]
 })
 
@@ -224,6 +232,13 @@ function scrollSelectedValueIntoView() {
   // We can put this in Item, but we avoid having too many watcher
   if (selectedElement.value instanceof Element)
     selectedElement.value.scrollIntoView({ block: 'nearest' })
+}
+
+function focusOnSelectedElement() {
+  // Find the highlighted element and focus
+  // This helps the screen readers to read the selected value
+  if (selectedElement.value instanceof Element && selectedElement.value.focus)
+    selectedElement.value.focus()
 }
 
 provideComboboxRootContext({
@@ -239,6 +254,7 @@ provideComboboxRootContext({
   filteredOptions,
   contentId: '',
   inputElement,
+  selectedElement,
   onInputElementChange: val => inputElement.value = val,
   onInputNavigation: async (val) => {
     const index = activeIndex.value
@@ -256,6 +272,9 @@ provideComboboxRootContext({
       selectedValue.value = filteredOptions.value[val === 'up' ? index - 1 : index + 1]
 
     scrollSelectedValueIntoView()
+    focusOnSelectedElement()
+
+    nextTick(() => inputElement.value?.focus({ preventScroll: true }))
   },
   onInputEnter: async () => {
     if (filteredOptions.value.length && selectedValue.value && selectedElement.value instanceof Element)
@@ -286,7 +305,11 @@ provideComboboxRootContext({
         :model-value="modelValue"
       />
 
-      <VisuallyHiddenInput v-if="isFormControl && props.name" :name="props.name" :value="modelValue" />
+      <VisuallyHiddenInput
+        v-if="isFormControl && props.name"
+        :name="props.name"
+        :value="modelValue"
+      />
     </Primitive>
   </PopperRoot>
 </template>

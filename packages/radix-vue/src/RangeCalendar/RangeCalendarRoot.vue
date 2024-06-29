@@ -40,10 +40,10 @@ type RangeCalendarRootContext = {
   isSelected: (date: DateValue) => boolean
   isSelectionEnd: (date: DateValue) => boolean
   isSelectionStart: (date: DateValue) => boolean
-  prevPage: (step?: CalendarIncrement) => void
-  nextPage: (step?: CalendarIncrement) => void
-  isNextButtonDisabled: (step?: CalendarIncrement) => boolean
-  isPrevButtonDisabled: (step?: CalendarIncrement) => boolean
+  prevPage: (step?: CalendarIncrement, prevPageFunc?: (date: DateValue) => DateValue) => void
+  nextPage: (step?: CalendarIncrement, nextPageFunc?: (date: DateValue) => DateValue) => void
+  isNextButtonDisabled: (step?: CalendarIncrement, nextPageFunc?: (date: DateValue) => DateValue) => boolean
+  isPrevButtonDisabled: (step?: CalendarIncrement, prevPageFunc?: (date: DateValue) => DateValue) => boolean
   formatter: Formatter
   dir: Ref<Direction>
 }
@@ -89,6 +89,10 @@ export interface RangeCalendarRootProps extends PrimitiveProps {
   isDateUnavailable?: Matcher
   /** The reading direction of the calendar when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
+  /** A function that returns the next page of the calendar. It receives the current placeholder as an argument inside the component. */
+  nextPage?: (placeholder: DateValue) => DateValue
+  /** A function that returns the previous page of the calendar. It receives the current placeholder as an argument inside the component. */
+  prevPage?: (placeholder: DateValue) => DateValue
 }
 
 export type RangeCalendarRootEmits = {
@@ -163,6 +167,8 @@ const {
   minValue,
   locale,
   dir: propsDir,
+  nextPage: propsNextPage,
+  prevPage: propsPrevPage,
 } = toRefs(props)
 
 const { primitiveElement, currentElement: parentElement }
@@ -221,6 +227,8 @@ const {
   isDateDisabled: propsIsDateDisabled.value,
   isDateUnavailable: propsIsDateUnavailable.value,
   calendarLabel,
+  nextPage: propsNextPage,
+  prevPage: propsPrevPage,
 })
 
 const {
@@ -340,7 +348,10 @@ onMounted(() => {
     :dir="dir"
   >
     <div style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 1px;">
-      <div role="heading" aria-level="2">
+      <div
+        role="heading"
+        aria-level="2"
+      >
         {{ fullCalendarLabel }}
       </div>
     </div>

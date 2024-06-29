@@ -8,7 +8,7 @@ import { useTestKbd } from '@/shared'
 
 const kbd = useTestKbd()
 
-function setup(props: { editableProps?: EditableRootProps; emits?: { 'onUpdate:modelValue'?: (data: string) => void } } = {}) {
+function setup(props: { editableProps?: EditableRootProps, emits?: { 'onUpdate:modelValue'?: (data: string) => void } } = {}) {
   const user = userEvent.setup()
   const returned = render(Editable, { props })
   const editable = returned.getByTestId('root')
@@ -27,7 +27,7 @@ it('should pass axe accessibility tests', async () => {
   expect(await axe(root)).toHaveNoViolations()
 })
 
-describe('Editable', () => {
+describe('editable', () => {
   it('respects a default value if provided', async () => {
     const { preview } = setup({ editableProps: { defaultValue: 'Default Value' } })
     expect(preview).toHaveTextContent('Default Value')
@@ -93,6 +93,24 @@ describe('Editable', () => {
 
   it('submits the value on blur', async () => {
     const { input, preview, rerender } = setup({ editableProps: { modelValue: '', submitMode: 'blur' }, emits: { 'onUpdate:modelValue': (data: string) => rerender({ modelValue: data, submitMode: 'blur' }) } })
+
+    await userEvent.type(input, 'New Value')
+    await userEvent.tab()
+    expect(preview).toBeVisible()
+    expect(preview).toHaveTextContent('New Value')
+  })
+
+  it('submits the value when pressing enter if submitMode is both', async () => {
+    const { input, preview, rerender } = setup({ editableProps: { modelValue: '', submitMode: 'both' }, emits: { 'onUpdate:modelValue': (data: string) => rerender({ modelValue: data }) } })
+
+    await userEvent.type(input, 'New Value')
+    await userEvent.keyboard(kbd.ENTER)
+    expect(preview).toBeVisible()
+    expect(preview).toHaveTextContent('New Value')
+  })
+
+  it('submits the value on blur if submitMode is both', async () => {
+    const { input, preview, rerender } = setup({ editableProps: { modelValue: '', submitMode: 'both' }, emits: { 'onUpdate:modelValue': (data: string) => rerender({ modelValue: data, submitMode: 'blur' }) } })
 
     await userEvent.type(input, 'New Value')
     await userEvent.tab()

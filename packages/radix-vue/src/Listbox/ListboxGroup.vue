@@ -22,7 +22,11 @@ provideListboxGroupContext({ id })
 </script>
 
 <template>
-  <Primitive role="group" v-bind="props" :aria-labelledby="id">
+  <Primitive
+    role="group"
+    v-bind="props"
+    :aria-labelledby="id"
+  >
     <slot />
   </Primitive>
 </template>

@@ -28,7 +28,7 @@ const parsedValue = computed(() => {
   }
 
   // if object value
-  else if (typeof props.value === 'object' && !Array.isArray(props.value)) {
+  else if (props.value !== null && typeof props.value === 'object' && !Array.isArray(props.value)) {
     return Object.entries(props.value as object).map(([key, value]) => ({ name: `[${props.name}][${key}]`, value }))
   }
 

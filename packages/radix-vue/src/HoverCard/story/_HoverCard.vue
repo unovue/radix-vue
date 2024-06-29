@@ -12,7 +12,10 @@ const hoverState = ref(false)
 </script>
 
 <template>
-  <HoverCardRoot v-model:open="hoverState" :open-delay="100">
+  <HoverCardRoot
+    v-model:open="hoverState"
+    :open-delay="100"
+  >
     <HoverCardTrigger
       class="inline-block cursor-pointer rounded-full shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] outline-none focus:shadow-[0_0_0_2px_white]"
       href="https://twitter.com/radix_ui"
@@ -79,7 +82,10 @@ const hoverState = ref(false)
               </div>
             </div>
 
-            <HoverCardArrow class="fill-white" :width="8" />
+            <HoverCardArrow
+              class="fill-white"
+              :width="8"
+            />
           </div>
         </HoverCardContent>
       </Transition>

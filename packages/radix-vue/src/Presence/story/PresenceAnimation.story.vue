@@ -55,9 +55,15 @@ watchEffect(() => {
           Deferred animation should unmount correctly when toggled. Content will
           flash briefly while we wait for animation to be applied.
         </p>
-        <Toggle v-model:open="open" :node="node" />
+        <Toggle
+          v-model:open="open"
+          :node="node"
+        />
         <Presence :present="open">
-          <div ref="node" :class="animate ? 'animate-fadeIn' : undefined">
+          <div
+            ref="node"
+            :class="animate ? 'animate-fadeIn' : undefined"
+          >
             Content
           </div>
         </Presence>

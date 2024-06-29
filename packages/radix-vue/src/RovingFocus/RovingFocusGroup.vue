@@ -24,6 +24,7 @@ export interface RovingFocusGroupProps extends PrimitiveProps {
   loop?: boolean
   currentTabStopId?: string | null
   defaultCurrentTabStopId?: string
+  preventScrollOnEntryFocus?: boolean
 }
 
 export type RovingFocusGroupEmits = {
@@ -56,6 +57,7 @@ import { CollectionSlot, createCollection } from '@/Collection'
 const props = withDefaults(defineProps<RovingFocusGroupProps>(), {
   loop: false,
   orientation: undefined,
+  preventScrollOnEntryFocus: false,
 })
 const emits = defineEmits<RovingFocusGroupEmits>()
 
@@ -97,7 +99,7 @@ function handleFocus(event: FocusEvent) {
       const candidateItems = [activeItem, currentItem, ...items].filter(
         Boolean,
       ) as typeof items
-      focusFirst(candidateItems)
+      focusFirst(candidateItems, props.preventScrollOnEntryFocus)
     }
   }
 

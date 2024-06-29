@@ -154,8 +154,9 @@ watchEffect((cleanupFn) => {
     if (
       props.disableOutsidePointerEvents
       && context.layersWithOutsidePointerEventsDisabled.size === 1
-    )
+    ) {
       ownerDocument.value.body.style.pointerEvents = originalBodyPointerEvents
+    }
   })
 })
 

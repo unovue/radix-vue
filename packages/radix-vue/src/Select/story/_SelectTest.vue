@@ -35,7 +35,10 @@ const options = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
         <SelectValue placeholder="Please select a fruit">
           {{ fruit }}
         </SelectValue>
-        <Icon icon="radix-icons:chevron-down" class="h-4 w-4" />
+        <Icon
+          icon="radix-icons:chevron-down"
+          class="h-4 w-4"
+        />
       </SelectTrigger>
 
       <SelectPortal to="#here">

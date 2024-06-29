@@ -176,7 +176,10 @@ import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, Hover
   <HoverCardRoot>
     <HoverCardTrigger>…</HoverCardTrigger>
     <HoverCardPortal>
-      <HoverCardContent class="HoverCardContent" :side-offset="5">
+      <HoverCardContent
+        class="HoverCardContent"
+        :side-offset="5"
+      >
         …
       </HoverCardContent>
     </HoverCardPortal>

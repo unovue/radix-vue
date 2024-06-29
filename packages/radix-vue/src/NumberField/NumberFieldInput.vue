@@ -38,7 +38,6 @@ function handleWheelEvent(event: WheelEvent) {
 
 onMounted(() => {
   rootContext.onInputElement(currentElement.value as HTMLInputElement)
-
 })
 </script>
 

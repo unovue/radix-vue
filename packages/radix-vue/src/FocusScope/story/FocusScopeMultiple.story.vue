@@ -14,7 +14,10 @@ const trapped2 = ref(false)
   >
     <div>
       <div>
-        <button type="button" @click="trapped1 = true">
+        <button
+          type="button"
+          @click="trapped1 = true"
+        >
           Trap 1
         </button>
 
@@ -35,17 +38,32 @@ const trapped2 = ref(false)
             }"
           >
             <h1>One</h1>
-            <input type="text" placeholder="First name">
-            <input type="text" placeholder="Last name">
-            <input type="number" placeholder="Age">
-            <button type="button" @click="trapped1 = false">
+            <input
+              type="text"
+              placeholder="First name"
+            >
+            <input
+              type="text"
+              placeholder="Last name"
+            >
+            <input
+              type="number"
+              placeholder="Age"
+            >
+            <button
+              type="button"
+              @click="trapped1 = false"
+            >
               Close
             </button>
           </form>
         </FocusScope>
       </div>
       <div>
-        <button type="button" @click="trapped2 = true">
+        <button
+          type="button"
+          @click="trapped2 = true"
+        >
           Trap 2
         </button>
 
@@ -66,10 +84,22 @@ const trapped2 = ref(false)
             }"
           >
             <h1>One</h1>
-            <input type="text" placeholder="First name">
-            <input type="text" placeholder="Last name">
-            <input type="number" placeholder="Age">
-            <button type="button" @click="trapped2 = false">
+            <input
+              type="text"
+              placeholder="First name"
+            >
+            <input
+              type="text"
+              placeholder="Last name"
+            >
+            <input
+              type="number"
+              placeholder="Age"
+            >
+            <button
+              type="button"
+              @click="trapped2 = false"
+            >
               Close
             </button>
           </form>

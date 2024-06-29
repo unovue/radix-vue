@@ -11,7 +11,10 @@ import Radio from '../Radio.vue'
       value="true"
       name="test"
     />
-    <label class="text-white text-[15px] leading-none pl-[15px]" for="r1">
+    <label
+      class="text-white text-[15px] leading-none pl-[15px]"
+      for="r1"
+    >
       Default
     </label>
   </div>

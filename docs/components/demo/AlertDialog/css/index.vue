@@ -36,7 +36,10 @@ function handleAction() {
           <AlertDialogCancel class="Button mauve">
             Cancel
           </AlertDialogCancel>
-          <AlertDialogAction class="Button red" @click="handleAction">
+          <AlertDialogAction
+            class="Button red"
+            @click="handleAction"
+          >
             Yes, delete account
           </AlertDialogAction>
         </div>

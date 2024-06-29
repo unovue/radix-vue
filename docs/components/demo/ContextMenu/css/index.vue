@@ -67,7 +67,8 @@ function handleClick() {
           <ContextMenuPortal>
             <ContextMenuSubContent
               class="ContextMenuSubContent"
-              :side-offset="2" :align-offset="-5"
+              :side-offset="2"
+              :align-offset="-5"
             >
               <ContextMenuItem
                 class="ContextMenuItem"
@@ -132,7 +133,8 @@ function handleClick() {
           <ContextMenuPortal>
             <ContextMenuSubContent
               class="ContextMenuSubContent"
-              :side-offset="2" :align-offset="-5"
+              :side-offset="2"
+              :align-offset="-5"
             >
               <ContextMenuItem
                 class="ContextMenuItem"
@@ -173,7 +175,8 @@ function handleClick() {
                 <ContextMenuPortal>
                   <ContextMenuSubContent
                     class="ContextMenuSubContent"
-                    :side-offset="2" :align-offset="-5"
+                    :side-offset="2"
+                    :align-offset="-5"
                   >
                     <ContextMenuItem
                       class="ContextMenuItem"
@@ -214,7 +217,8 @@ function handleClick() {
                       <ContextMenuPortal>
                         <ContextMenuSubContent
                           class="ContextMenuSubContent"
-                          :side-offset="2" :align-offset="-5"
+                          :side-offset="2"
+                          :align-offset="-5"
                         >
                           <ContextMenuItem
                             class="ContextMenuItem"

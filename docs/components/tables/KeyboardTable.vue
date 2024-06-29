@@ -25,7 +25,10 @@ const props = defineProps<DataAttributesTableProps>()
       </ProseTr>
     </ProseThead>
     <ProseTbody>
-      <ProseTr v-for="(prop, index) in props.data" :key="`${prop}-${index}`">
+      <ProseTr
+        v-for="(prop, index) in props.data"
+        :key="`${prop}-${index}`"
+      >
         <ProseTd>
           <div class="flex items-center gap-1">
             <kbd

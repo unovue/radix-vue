@@ -42,8 +42,15 @@ import { PaginationEllipsis, PaginationFirst, PaginationLast, PaginationList, Pa
       <PaginationFirst />
       <PaginationPrev />
       <template v-for="(page, index) in items">
-        <PaginationListItem v-if="page.type === 'page'" :key="index" />
-        <PaginationEllipsis v-else :key="page.type" :index="index">
+        <PaginationListItem
+          v-if="page.type === 'page'"
+          :key="index"
+        />
+        <PaginationEllipsis
+          v-else
+          :key="page.type"
+          :index="index"
+        >
           &#8230;
         </PaginationEllipsis>
       </template>
@@ -141,8 +148,15 @@ import { PaginationEllipsis, PaginationList, PaginationListItem, PaginationRoot 
   <PaginationRoot>
     <PaginationList v-slot="{ items }">
       <template v-for="(page, index) in items">
-        <PaginationListItem v-if="page.type === 'page'" :key="index" />
-        <PaginationEllipsis v-else :key="page.type" :index="index">
+        <PaginationListItem
+          v-if="page.type === 'page'"
+          :key="index"
+        />
+        <PaginationEllipsis
+          v-else
+          :key="page.type"
+          :index="index"
+        >
           &#8230;
         </PaginationEllipsis>
       </template>

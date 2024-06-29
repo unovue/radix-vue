@@ -52,7 +52,10 @@ watch(open, () => {
           </TabsTrigger>
         </TabsList>
         <div>
-          <select value="TailwindCSS" class="bg-transparent text-white/70">
+          <select
+            value="TailwindCSS"
+            class="bg-transparent text-white/70"
+          >
             <option value="TailwindCSS">
               Tailwind CSS
             </option>
@@ -65,9 +68,17 @@ watch(open, () => {
       class="pb-10 block h-full"
       :class="`${open ? 'overflow-scroll max-h-[80vh]' : 'overflow-hidden max-h-[150px]'}`"
     >
-      <TabsContent v-for="tab in tabs" :key="tab.label" :value="tab.label" as-child>
+      <TabsContent
+        v-for="tab in tabs"
+        :key="tab.label"
+        :value="tab.label"
+        as-child
+      >
         <div class="relative -mt-5 text-base">
-          <component :is="tab.component" class="border-0" />
+          <component
+            :is="tab.component"
+            class="border-0"
+          />
         </div>
       </TabsContent>
       <div

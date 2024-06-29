@@ -26,7 +26,12 @@ context.tabsList = currentElement
 </script>
 
 <template>
-  <RovingFocusGroup as-child :orientation="context.orientation.value" :dir="context.dir.value" :loop="loop">
+  <RovingFocusGroup
+    as-child
+    :orientation="context.orientation.value"
+    :dir="context.dir.value"
+    :loop="loop"
+  >
     <Primitive
       :ref="forwardRef"
       role="tablist"

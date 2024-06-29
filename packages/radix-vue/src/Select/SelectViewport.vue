@@ -81,7 +81,10 @@ function handleScroll(event: WheelEvent) {
   >
     <slot />
   </Primitive>
-  <Primitive as="style" :nonce="nonce">
+  <Primitive
+    as="style"
+    :nonce="nonce"
+  >
     /* Hide scrollbars cross-browser and enable momentum scroll for touch
     devices */ [data-radix-select-viewport] { scrollbar-width:none; -ms-overflow-style: none;
     -webkit-overflow-scrolling: touch; }

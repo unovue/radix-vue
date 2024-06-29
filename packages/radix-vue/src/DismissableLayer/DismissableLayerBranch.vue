@@ -22,7 +22,10 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <Primitive :ref="forwardRef" v-bind="props">
+  <Primitive
+    :ref="forwardRef"
+    v-bind="props"
+  >
     <slot />
   </Primitive>
 </template>

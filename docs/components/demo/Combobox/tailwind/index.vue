@@ -9,11 +9,20 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
 </script>
 
 <template>
-  <ComboboxRoot v-model="v" class="relative">
+  <ComboboxRoot
+    v-model="v"
+    class="relative"
+  >
     <ComboboxAnchor class="min-w-[160px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">
-      <ComboboxInput class="!bg-transparent outline-none text-grass11 h-full selection:bg-grass5 placeholder-mauve8" placeholder="Placeholder..." />
+      <ComboboxInput
+        class="!bg-transparent outline-none text-grass11 h-full selection:bg-grass5 placeholder-mauve8"
+        placeholder="Placeholder..."
+      />
       <ComboboxTrigger>
-        <Icon icon="radix-icons:chevron-down" class="h-4 w-4 text-grass11" />
+        <Icon
+          icon="radix-icons:chevron-down"
+          class="h-4 w-4 text-grass11"
+        />
       </ComboboxTrigger>
     </ComboboxAnchor>
 
@@ -27,7 +36,8 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
           </ComboboxLabel>
 
           <ComboboxItem
-            v-for="(option, index) in options" :key="index"
+            v-for="(option, index) in options"
+            :key="index"
             class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-grass9 data-[highlighted]:text-grass1"
             :value="option"
           >
@@ -50,7 +60,8 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
             Vegetables
           </ComboboxLabel>
           <ComboboxItem
-            v-for="(option, index) in vegetables" :key="index"
+            v-for="(option, index) in vegetables"
+            :key="index"
             class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-grass9 data-[highlighted]:text-grass1"
             :value="option"
           >

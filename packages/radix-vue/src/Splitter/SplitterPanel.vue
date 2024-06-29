@@ -114,8 +114,9 @@ watch(() => panelDataRef.value.constraints, (prevConstraints, constraints) => {
     || prevConstraints.collapsible !== constraints.collapsible
     || prevConstraints.maxSize !== constraints.maxSize
     || prevConstraints.minSize !== constraints.minSize
-  )
+  ) {
     reevaluatePanelConstraints(panelDataRef.value, prevConstraints)
+  }
 }, { deep: true })
 
 onMounted(() => {
@@ -167,6 +168,9 @@ defineExpose({
     :data-panel-size=" Number.parseFloat(`${style.flexGrow}`).toFixed(1)"
     :data-state="collapsible ? isCollapsed ? 'collapsed' : 'expanded' : undefined"
   >
-    <slot :is-collapsed="isCollapsed" :is-expanded="isExpanded" />
+    <slot
+      :is-collapsed="isCollapsed"
+      :is-expanded="isExpanded"
+    />
   </Primitive>
 </template>

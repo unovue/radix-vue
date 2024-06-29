@@ -75,12 +75,12 @@ const props = withDefaults(defineProps<SelectRootProps>(), {
 const emits = defineEmits<SelectRootEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current input values */
     modelValue: typeof modelValue.value
     /** Current open state */
     open: typeof open.value
-  }): any
+  }) => any
 }>()
 
 const modelValue = useVModel(props, 'modelValue', emits, {
@@ -175,7 +175,10 @@ provideSelectNativeOptionsContext({
       :value="modelValue"
       @change="modelValue = $event.target.value"
     >
-      <option v-if="modelValue === undefined" value="" />
+      <option
+        v-if="modelValue === undefined"
+        value=""
+      />
       <component
         v-bind="option.props"
         :is="option"

@@ -17,7 +17,12 @@ const { frontmatter } = useData()
           {{ frontmatter.description }}
         </h2>
 
-        <VPButton text="Add Showcase" class="mt-6" target="_blank" href="https://github.com/radix-vue/radix-vue/blob/main/docs/content/showcase.md" />
+        <VPButton
+          text="Add Showcase"
+          class="mt-6"
+          target="_blank"
+          href="https://github.com/radix-vue/radix-vue/blob/main/docs/content/showcase.md"
+        />
       </div>
 
       <div class="flex flex-col gap-8 md:gap-12">
@@ -26,7 +31,11 @@ const { frontmatter } = useData()
             Packages
           </h3>
           <div class="mt-4 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <CardLink v-for="item in frontmatter.packages" :key="item.title" v-bind="item" />
+            <CardLink
+              v-for="item in frontmatter.packages"
+              :key="item.title"
+              v-bind="item"
+            />
           </div>
         </div>
 
@@ -35,7 +44,11 @@ const { frontmatter } = useData()
             Projects
           </h3>
           <div class="mt-4 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <CardLink v-for="item in frontmatter.projects" :key="item.title" v-bind="item" />
+            <CardLink
+              v-for="item in frontmatter.projects"
+              :key="item.title"
+              v-bind="item"
+            />
           </div>
         </div>
 
@@ -44,7 +57,11 @@ const { frontmatter } = useData()
             Starters
           </h3>
           <div class="mt-4 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <CardLink v-for="item in frontmatter.starters" :key="item.title" v-bind="item" />
+            <CardLink
+              v-for="item in frontmatter.starters"
+              :key="item.title"
+              v-bind="item"
+            />
           </div>
         </div>
       </div>

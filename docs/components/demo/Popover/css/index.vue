@@ -23,7 +23,10 @@ import './styles.css'
             Dimensions
           </p>
           <fieldset class="Fieldset">
-            <label class="Label" for="width"> Width </label>
+            <label
+              class="Label"
+              for="width"
+            > Width </label>
             <input
               id="width"
               class="Input"
@@ -31,7 +34,10 @@ import './styles.css'
             >
           </fieldset>
           <fieldset class="Fieldset">
-            <label class="Label" for="maxWidth"> Max. width </label>
+            <label
+              class="Label"
+              for="maxWidth"
+            > Max. width </label>
             <input
               id="maxWidth"
               class="Input"
@@ -39,7 +45,10 @@ import './styles.css'
             >
           </fieldset>
           <fieldset class="Fieldset">
-            <label class="Label" for="height"> Height </label>
+            <label
+              class="Label"
+              for="height"
+            > Height </label>
             <input
               id="height"
               class="Input"
@@ -47,7 +56,10 @@ import './styles.css'
             >
           </fieldset>
           <fieldset class="Fieldset">
-            <label class="Label" for="maxHeight"> Max. height </label>
+            <label
+              class="Label"
+              for="maxHeight"
+            > Max. height </label>
             <input
               id="maxHeight"
               class="Input"

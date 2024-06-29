@@ -16,10 +16,16 @@ const contentChangeState = reactive({
 </script>
 
 <template>
-  <Story title="Scroll Area/Basic" :layout="{ type: 'grid', width: '50%' }">
+  <Story
+    title="Scroll Area/Basic"
+    :layout="{ type: 'grid', width: '50%' }"
+  >
     <Variant title="Basic">
       <ScrollAreaStory :type="state.type">
-        <ScrollAreaCopy v-for="i in 30" :key="i" />
+        <ScrollAreaCopy
+          v-for="i in 30"
+          :key="i"
+        />
       </ScrollAreaStory>
 
       <template #controls>
@@ -31,17 +37,29 @@ const contentChangeState = reactive({
       </template>
     </Variant>
 
-    <Variant auto-props-disabled title="Resizable">
+    <Variant
+      auto-props-disabled
+      title="Resizable"
+    >
       <div class="w-[400px] h-[400px] resize overflow-hidden">
         <ScrollAreaStory class="w-full h-full">
-          <ScrollAreaCopy v-for="i in 30" :key="i" />
+          <ScrollAreaCopy
+            v-for="i in 30"
+            :key="i"
+          />
         </ScrollAreaStory>
       </div>
     </Variant>
 
-    <Variant auto-props-disabled title="Content Change">
+    <Variant
+      auto-props-disabled
+      title="Content Change"
+    >
       <div class="w-[400px] h-[400px]">
-        <ScrollAreaStory type="always" class="w-full h-full">
+        <ScrollAreaStory
+          type="always"
+          class="w-full h-full"
+        >
           <ScrollAreaCopy
             v-for="i in contentChangeState.verticalCount"
             :key="i"
@@ -64,9 +82,15 @@ const contentChangeState = reactive({
       </template>
     </Variant>
 
-    <Variant auto-props-disabled title="Animated">
+    <Variant
+      auto-props-disabled
+      title="Animated"
+    >
       <ScrollAreaStory animated>
-        <ScrollAreaCopy v-for="i in 30" :key="i" />
+        <ScrollAreaCopy
+          v-for="i in 30"
+          :key="i"
+        />
       </ScrollAreaStory>
     </Variant>
   </Story>

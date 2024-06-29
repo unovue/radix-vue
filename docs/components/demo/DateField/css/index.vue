@@ -5,7 +5,10 @@ import './styles.css'
 
 <template>
   <div class="DateFieldWrapper">
-    <Label class="DateFieldLabel" for="date-field">Birthday</Label>
+    <Label
+      class="DateFieldLabel"
+      for="date-field"
+    >Birthday</Label>
     <DateFieldRoot
       id="date-field"
       v-slot="{ segments }"
@@ -13,7 +16,10 @@ import './styles.css'
       granularity="second"
       class="DateField"
     >
-      <template v-for="item in segments" :key="item.part">
+      <template
+        v-for="item in segments"
+        :key="item.part"
+      >
         <DateFieldInput
           v-if="item.part === 'literal'"
           :part="item.part"

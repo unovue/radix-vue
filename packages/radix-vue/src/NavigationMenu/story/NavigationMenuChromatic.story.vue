@@ -3,7 +3,10 @@ import NavigationMenu from './_NavigationMenu.vue'
 </script>
 
 <template>
-  <Story title="Navigation Menu/Chromatic" :layout="{ type: 'grid', width: '50%' }">
+  <Story
+    title="Navigation Menu/Chromatic"
+    :layout="{ type: 'grid', width: '50%' }"
+  >
     <Variant title="Default">
       <NavigationMenu />
     </Variant>

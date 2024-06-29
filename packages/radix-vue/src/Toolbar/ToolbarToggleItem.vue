@@ -15,7 +15,10 @@ const { forwardRef } = useForwardExpose()
 
 <template>
   <ToolbarButton as-child>
-    <ToggleGroupItem v-bind="props" :ref="forwardRef">
+    <ToggleGroupItem
+      v-bind="props"
+      :ref="forwardRef"
+    >
       <slot />
     </ToggleGroupItem>
   </ToolbarButton>

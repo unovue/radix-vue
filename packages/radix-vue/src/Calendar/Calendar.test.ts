@@ -83,6 +83,50 @@ describe('calendar', async () => {
     expect(heading).toHaveTextContent('January 1981')
   })
 
+  it('navigates 10 years into the past when setting the `prevPage` function to subtract 10 years', async () => {
+    const { getByTestId, user } = setup({ calendarProps: { modelValue: calendarDate, prevPage: (date: DateValue) => date.subtract({ years: 10 }) } })
+
+    const heading = getByTestId('heading')
+    const prevBtn = getByTestId('prev-button')
+
+    await user.click(prevBtn)
+
+    expect(heading).toHaveTextContent('January 1970')
+  })
+
+  it('overwrites the `nextPage` function from `CalendarRoot`', async () => {
+    const { getByTestId, user } = setup({ calendarProps: { modelValue: calendarDate, nextPage: (date: DateValue) => date.add({ years: 10 }) } })
+
+    const heading = getByTestId('heading')
+    const nextBtn = getByTestId('next-year-button')
+
+    await user.click(nextBtn)
+
+    expect(heading).toHaveTextContent('January 1981')
+  })
+
+  it('overwrites the `prevPage` function from `CalendarRoot`', async () => {
+    const { getByTestId, user } = setup({ calendarProps: { modelValue: calendarDate, prevPage: (date: DateValue) => date.subtract({ years: 10 }) } })
+
+    const heading = getByTestId('heading')
+    const prevBtn = getByTestId('prev-year-button')
+
+    await user.click(prevBtn)
+
+    expect(heading).toHaveTextContent('January 1979')
+  })
+
+  it('navigates 10 years into the future when setting the `nextPage` function to add 10 years', async () => {
+    const { getByTestId, user } = setup({ calendarProps: { modelValue: calendarDate, nextPage: (date: DateValue) => date.add({ years: 10 }) } })
+
+    const heading = getByTestId('heading')
+    const nextBtn = getByTestId('next-button')
+
+    await user.click(nextBtn)
+
+    expect(heading).toHaveTextContent('January 1990')
+  })
+
   it('navigates the months backwards using the prev button', async () => {
     const { getByTestId, user } = setup({ calendarProps: { modelValue: calendarDate } })
 
@@ -239,6 +283,8 @@ describe('calendar', async () => {
   })
 
   it('always renders six weeks when `fixedWeeks` is `true`', async () => {
+    const calendarDate = new CalendarDate(2024, 8, 1)
+
     const { getByTestId, calendar, user } = setup({
       calendarProps: {
         modelValue: calendarDate,
@@ -252,12 +298,9 @@ describe('calendar', async () => {
 
     const nextButton = getByTestId('next-button')
 
-    for (let i = 0; i < 12; i++) {
-      expect(getNumberOfWeeks()).toBe(6)
-      await user.click(nextButton)
-    }
-
-    for (let i = 0; i < 24; i++) {
+    // Check the if the first day of the next month is rendered for the next 14 months starting from edge case August 2024
+    for (let i = 0; i < 14; i++) {
+      expect(getByTestId(`date-${calendarDate.add({ months: i + 1 }).month}-1`)).toHaveTextContent('1')
       expect(getNumberOfWeeks()).toBe(6)
       await user.click(nextButton)
     }

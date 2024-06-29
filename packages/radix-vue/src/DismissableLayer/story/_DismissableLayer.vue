@@ -49,7 +49,10 @@ function handleDismiss() {
       }"
     >
       <div>Content</div>
-      <button type="button" @click="open = false">
+      <button
+        type="button"
+        @click="open = false"
+      >
         {{ closeLabel }}
       </button>
     </DismissableLayer>

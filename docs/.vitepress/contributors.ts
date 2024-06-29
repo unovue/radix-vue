@@ -73,6 +73,18 @@ const plainTeamMembers: CoreTeam[] = [
     twitter: 'iam_mad_max',
     desc: 'Core team member of Radix Vue',
   },
+  {
+    avatar: contributorsAvatars.MellKam,
+    name: 'Artem Melnyk',
+    github: 'MellKam',
+    desc: 'Core team member of Radix Vue',
+  },
+  {
+    avatar: contributorsAvatars.epr3,
+    name: 'Eduard Predescu',
+    github: 'epr3',
+    desc: 'Core team member of Radix Vue',
+  },
 ]
 
 const teamMembers = plainTeamMembers.map(tm => createLinks(tm))

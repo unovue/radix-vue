@@ -8,7 +8,10 @@ const checkboxThree = ref(false)
 </script>
 
 <template>
-  <Story title="Checkbox/Demo" :layout="{ type: 'single', iframe: true }">
+  <Story
+    title="Checkbox/Demo"
+    :layout="{ type: 'single', iframe: true }"
+  >
     <Variant title="default">
       <div class="flex flex-col gap-2.5">
         <label
@@ -21,8 +24,16 @@ const checkboxThree = ref(false)
             <CheckboxIndicator
               class="bg-white h-full w-full rounded flex items-center justify-center"
             >
-              <Icon v-if="checkboxOne === 'indeterminate'" icon="radix-icons:divider-horizontal" class="h-4 w-4 text-black" />
-              <Icon v-else-if="checkboxOne" icon="radix-icons:check" class="h-4 w-4 text-black" />
+              <Icon
+                v-if="checkboxOne === 'indeterminate'"
+                icon="radix-icons:divider-horizontal"
+                class="h-4 w-4 text-black"
+              />
+              <Icon
+                v-else-if="checkboxOne"
+                icon="radix-icons:check"
+                class="h-4 w-4 text-black"
+              />
             </CheckboxIndicator>
           </CheckboxRoot>
           <span class="select-none">Checkbox</span>
@@ -37,7 +48,10 @@ const checkboxThree = ref(false)
             <CheckboxIndicator
               class="bg-white h-full w-full rounded flex items-center justify-center"
             >
-              <Icon icon="radix-icons:check" class="h-3 w-3 text-black" />
+              <Icon
+                icon="radix-icons:check"
+                class="h-3 w-3 text-black"
+              />
             </CheckboxIndicator>
           </CheckboxRoot>
           <span class="select-none">Disabled Checkbox</span>
@@ -53,7 +67,10 @@ const checkboxThree = ref(false)
             <CheckboxIndicator
               class="bg-white h-full w-full rounded flex items-center justify-center"
             >
-              <Icon icon="radix-icons:check" class="h-3 w-3 text-black" />
+              <Icon
+                icon="radix-icons:check"
+                class="h-3 w-3 text-black"
+              />
             </CheckboxIndicator>
           </CheckboxRoot>
           <span class="select-none">Required Checkbox</span>

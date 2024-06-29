@@ -58,7 +58,10 @@ const foodGroups: Array<{
   >
     <Variant title="default">
       <MenuWithAnchor>
-        <MenuGroup v-for="(foodGroup, index) in foodGroups" :key="index">
+        <MenuGroup
+          v-for="(foodGroup, index) in foodGroups"
+          :key="index"
+        >
           <MenuLabel
             v-if="foodGroup.label"
             class="flex items-center justify-between leading-[1] cursor-default select-none whitespace-nowrap h-[25px] px-[10px] rounded-[3] text-gray-400 my-2"

@@ -273,17 +273,29 @@ defineExpose({
     :dir="dir"
     @keydown.left.right="handleKeydown"
   >
-    <slot :model-value="modelValue" :segments="segmentContents" :is-invalid="isInvalid" />
+    <slot
+      :model-value="modelValue"
+      :segments="segmentContents"
+      :is-invalid="isInvalid"
+    />
   </Primitive>
 
   <input
-    :id="id" type="text" tabindex="-1" aria-hidden :value="modelValue ? modelValue.toString() : ''"
-    :name="name" :disabled="disabled" :required="required" :style="{
+    :id="id"
+    type="text"
+    tabindex="-1"
+    aria-hidden
+    :value="modelValue ? modelValue.toString() : ''"
+    :name="name"
+    :disabled="disabled"
+    :required="required"
+    :style="{
       transform: 'translateX(-100%)',
       position: 'absolute',
       pointerEvents: 'none',
       opacity: 0,
       margin: 0,
-    }" @focus="Array.from(segmentElements)?.[0]?.focus()"
+    }"
+    @focus="Array.from(segmentElements)?.[0]?.focus()"
   >
 </template>

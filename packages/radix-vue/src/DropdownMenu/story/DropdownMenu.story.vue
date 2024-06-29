@@ -40,35 +40,57 @@ const radioItem = 'group w-full text-sm leading-none text-violet11 flex items-ce
 </script>
 
 <template>
-  <Story title="DropdownMenu/Demo" :layout="{ type: 'single', iframe: false }">
+  <Story
+    title="DropdownMenu/Demo"
+    :layout="{ type: 'single', iframe: false }"
+  >
     <Variant title="default">
       <DropdownMenuRoot v-model:open="toggleState">
         <DropdownMenuTrigger
           class="rounded-full size-10 inline-flex items-center justify-center text-violet11 bg-white shadow-[0_2px_10px] shadow-blackA7 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black"
           aria-label="Customise options"
         >
-          <Icon icon="radix-icons:hamburger-menu" class="size-4" />
+          <Icon
+            icon="radix-icons:hamburger-menu"
+            class="size-4"
+          />
         </DropdownMenuTrigger>
 
         <DropdownMenuPortal>
-          <DropdownMenuContent :class="content" :side-offset="4">
-            <DropdownMenuItem value="New Tab" :class="item">
+          <DropdownMenuContent
+            :class="content"
+            :side-offset="4"
+          >
+            <DropdownMenuItem
+              value="New Tab"
+              :class="item"
+            >
               New Tab
               <div :class="shortcut">
                 ⌘+T
               </div>
             </DropdownMenuItem>
             <DropdownMenuSub>
-              <DropdownMenuSubTrigger value="more tools" :class="item">
+              <DropdownMenuSubTrigger
+                value="more tools"
+                :class="item"
+              >
                 More Tools
                 <div
                   class="ml-auto pl-5 text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
                 >
-                  <Icon icon="tabler:chevron-right" class="size-3.5" />
+                  <Icon
+                    icon="tabler:chevron-right"
+                    class="size-3.5"
+                  />
                 </div>
               </DropdownMenuSubTrigger>
               <DropdownMenuPortal>
-                <DropdownMenuSubContent :class="subContent" :side-offset="2" :align-offset="-4">
+                <DropdownMenuSubContent
+                  :class="subContent"
+                  :side-offset="2"
+                  :align-offset="-4"
+                >
                   <DropdownMenuItem :class="item">
                     Save Page As…
                     <div :class="shortcut">
@@ -88,29 +110,46 @@ const radioItem = 'group w-full text-sm leading-none text-violet11 flex items-ce
                 </DropdownMenuSubContent>
               </DropdownMenuPortal>
             </DropdownMenuSub>
-            <DropdownMenuItem value="New Window" :class="item">
+            <DropdownMenuItem
+              value="New Window"
+              :class="item"
+            >
               New Window
               <div :class="shortcut">
                 ⌘+N
               </div>
             </DropdownMenuItem>
-            <DropdownMenuItem value="New Private Window" :class="item" disabled>
+            <DropdownMenuItem
+              value="New Private Window"
+              :class="item"
+              disabled
+            >
               New Private Window
               <div :class="shortcut">
                 ⇧+⌘+N
               </div>
             </DropdownMenuItem>
             <DropdownMenuSub>
-              <DropdownMenuSubTrigger value="more tools" :class="item">
+              <DropdownMenuSubTrigger
+                value="more tools"
+                :class="item"
+              >
                 More Tools
                 <div
                   class="ml-auto pl-5 text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
                 >
-                  <Icon icon="tabler:chevron-right" class="size-3.5" />
+                  <Icon
+                    icon="tabler:chevron-right"
+                    class="size-3.5"
+                  />
                 </div>
               </DropdownMenuSubTrigger>
               <DropdownMenuPortal>
-                <DropdownMenuSubContent :class="subContent" :side-offset="2" :align-offset="-4">
+                <DropdownMenuSubContent
+                  :class="subContent"
+                  :side-offset="2"
+                  :align-offset="-4"
+                >
                   <DropdownMenuItem :class="item">
                     Save Page As…
                     <div :class="shortcut">
@@ -128,16 +167,26 @@ const radioItem = 'group w-full text-sm leading-none text-violet11 flex items-ce
                     Developer Tools
                   </DropdownMenuItem>
                   <DropdownMenuSub>
-                    <DropdownMenuSubTrigger value="more tools" :class="item">
+                    <DropdownMenuSubTrigger
+                      value="more tools"
+                      :class="item"
+                    >
                       More Tools
                       <div
                         class="ml-auto pl-5 text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
                       >
-                        <Icon icon="tabler:chevron-right" class="size-3.5" />
+                        <Icon
+                          icon="tabler:chevron-right"
+                          class="size-3.5"
+                        />
                       </div>
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
-                      <DropdownMenuSubContent :class="subContent" :side-offset="2" :align-offset="-4">
+                      <DropdownMenuSubContent
+                        :class="subContent"
+                        :side-offset="2"
+                        :align-offset="-4"
+                      >
                         <DropdownMenuItem :class="item">
                           Save Page As…
                           <div :class="shortcut">
@@ -155,16 +204,26 @@ const radioItem = 'group w-full text-sm leading-none text-violet11 flex items-ce
                           Developer Tools
                         </DropdownMenuItem>
                         <DropdownMenuSub>
-                          <DropdownMenuSubTrigger value="more tools" :class="item">
+                          <DropdownMenuSubTrigger
+                            value="more tools"
+                            :class="item"
+                          >
                             More Tools
                             <div
                               class="ml-auto pl-5 text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
                             >
-                              <Icon icon="tabler:chevron-right" class="size-3.5" />
+                              <Icon
+                                icon="tabler:chevron-right"
+                                class="size-3.5"
+                              />
                             </div>
                           </DropdownMenuSubTrigger>
                           <DropdownMenuPortal>
-                            <DropdownMenuSubContent :class="subContent" :side-offset="2" :align-offset="-4">
+                            <DropdownMenuSubContent
+                              :class="subContent"
+                              :side-offset="2"
+                              :align-offset="-4"
+                            >
                               <DropdownMenuItem :class="item">
                                 Save Page As…
                                 <div :class="shortcut">
@@ -194,7 +253,11 @@ const radioItem = 'group w-full text-sm leading-none text-violet11 flex items-ce
               </DropdownMenuPortal>
             </DropdownMenuSub>
             <DropdownMenuSeparator :class="separator" />
-            <DropdownMenuCheckboxItem v-model:checked="checkboxOne" :class="checkboxItem" @select.prevent>
+            <DropdownMenuCheckboxItem
+              v-model:checked="checkboxOne"
+              :class="checkboxItem"
+              @select.prevent
+            >
               <DropdownMenuItemIndicator class="absolute left-0 w-7 inline-flex items-center justify-center">
                 <Icon icon="tabler:check" />
               </DropdownMenuItemIndicator>
@@ -203,7 +266,11 @@ const radioItem = 'group w-full text-sm leading-none text-violet11 flex items-ce
                 ⌘+B
               </div>
             </DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem v-model:checked="checkboxTwo" :class="checkboxItem" @select.prevent>
+            <DropdownMenuCheckboxItem
+              v-model:checked="checkboxTwo"
+              :class="checkboxItem"
+              @select.prevent
+            >
               <DropdownMenuItemIndicator class="absolute left-0 w-7 inline-flex items-center justify-center">
                 <Icon icon="tabler:check" />
               </DropdownMenuItemIndicator>
@@ -215,20 +282,31 @@ const radioItem = 'group w-full text-sm leading-none text-violet11 flex items-ce
               People
             </DropdownMenuLabel>
             <DropdownMenuRadioGroup v-model="person">
-              <DropdownMenuRadioItem :class="radioItem" value="pedro" @select.prevent>
+              <DropdownMenuRadioItem
+                :class="radioItem"
+                value="pedro"
+                @select.prevent
+              >
                 <DropdownMenuItemIndicator class="absolute left-0 w-7 inline-flex items-center justify-center">
                   <Icon icon="radix-icons:dot-filled" />
                 </DropdownMenuItemIndicator>
                 Pedro Duarte
               </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem :class="radioItem" value="colm" @select.prevent>
+              <DropdownMenuRadioItem
+                :class="radioItem"
+                value="colm"
+                @select.prevent
+              >
                 <DropdownMenuItemIndicator class="absolute left-0 w-7 inline-flex items-center justify-center">
                   <Icon icon="radix-icons:dot-filled" />
                 </DropdownMenuItemIndicator>
                 Colm Tuite
               </DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>
-            <DropdownMenuArrow class="fill-mauve5" :width="12" />
+            <DropdownMenuArrow
+              class="fill-mauve5"
+              :width="12"
+            />
           </DropdownMenuContent>
         </DropdownMenuPortal>
       </DropdownMenuRoot>

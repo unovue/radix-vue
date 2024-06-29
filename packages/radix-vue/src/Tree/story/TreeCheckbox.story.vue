@@ -5,7 +5,10 @@ import { items } from './constants'
 </script>
 
 <template>
-  <Story title="Tree/Checkbox" :layout="{ type: 'single', iframe: false }">
+  <Story
+    title="Tree/Checkbox"
+    :layout="{ type: 'single', iframe: false }"
+  >
     <Variant title="default">
       <TreeRoot
         v-slot="{ flattenItems }"
@@ -31,8 +34,17 @@ import { items } from './constants'
               event.preventDefault()
           }"
         >
-          <Icon v-if="item.hasChildren" icon="radix-icons:chevron-down" class="h-4 w-4" />
-          <input :checked="isSelected" type="checkbox" @click.stop @change="handleSelect">
+          <Icon
+            v-if="item.hasChildren"
+            icon="radix-icons:chevron-down"
+            class="h-4 w-4"
+          />
+          <input
+            :checked="isSelected"
+            type="checkbox"
+            @click.stop
+            @change="handleSelect"
+          >
           <div class="pl-2">
             {{ item.value.title }}
           </div>

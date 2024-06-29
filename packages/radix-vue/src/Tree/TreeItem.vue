@@ -144,7 +144,11 @@ defineExpose({
 </script>
 
 <template>
-  <RovingFocusItem as-child :value="value" allow-shift-key>
+  <RovingFocusItem
+    as-child
+    :value="value"
+    allow-shift-key
+  >
     <Primitive
       v-bind="$attrs"
       role="treeitem"

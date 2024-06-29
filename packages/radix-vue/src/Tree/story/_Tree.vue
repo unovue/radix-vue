@@ -81,7 +81,11 @@ const items = [
       :style="{ 'margin-left': `${item.level}rem` }"
       v-bind="item.bind"
     >
-      <Icon v-if="item.hasChildren" icon="radix-icons:chevron-down" class="h-4 w-4" />
+      <Icon
+        v-if="item.hasChildren"
+        icon="radix-icons:chevron-down"
+        class="h-4 w-4"
+      />
       <div class="pl-2">
         {{ item.value.title }}
       </div>

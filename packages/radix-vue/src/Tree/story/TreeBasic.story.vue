@@ -5,7 +5,10 @@ import { items } from './constants'
 </script>
 
 <template>
-  <Story title="Tree/Basic" :layout="{ type: 'single', iframe: false }">
+  <Story
+    title="Tree/Basic"
+    :layout="{ type: 'single', iframe: false }"
+  >
     <Variant title="default">
       <TreeRoot
         v-slot="{ flattenItems }"
@@ -20,7 +23,11 @@ import { items } from './constants'
           :style="{ 'margin-left': `${item.level}rem` }"
           class="flex items-center py-1 px-2 my-0.5 rounded w-max outline-none focus:ring-grass9 focus:ring-2 data-[selected]:bg-grass4"
         >
-          <Icon v-if="item.hasChildren" icon="radix-icons:chevron-down" class="h-4 w-4 mr-2" />
+          <Icon
+            v-if="item.hasChildren"
+            icon="radix-icons:chevron-down"
+            class="h-4 w-4 mr-2"
+          />
           <div>
             {{ item.value.title }}
           </div>

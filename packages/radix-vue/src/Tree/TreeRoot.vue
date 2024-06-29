@@ -77,6 +77,7 @@ import { type Ref, computed, nextTick, ref, toRefs } from 'vue'
 import { MAP_KEY_TO_FOCUS_INTENT } from '@/RovingFocus/utils'
 
 const props = withDefaults(defineProps<TreeRootProps<T, U>>(), {
+  as: 'ul',
   selectionBehavior: 'toggle',
 })
 const emits = defineEmits<TreeRootEmits<U>>()

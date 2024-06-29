@@ -21,8 +21,9 @@ rootContext.triggerElement = currentElement
 
 function handleLeave() {
   setTimeout(() => {
-    if (!rootContext.isPointerInTransitRef.value)
+    if (!rootContext.isPointerInTransitRef.value && !rootContext.open.value) {
       rootContext.onClose()
+    }
   }, 0)
 }
 </script>

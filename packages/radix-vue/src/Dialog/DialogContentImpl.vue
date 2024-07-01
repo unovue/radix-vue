@@ -58,7 +58,7 @@ onMounted(() => {
     rootContext.triggerElement.value = document.activeElement as HTMLElement
 })
 
-if (process.env.NODE_ENV !== 'production')
+if (process.env.NODE_ENV !== 'production') {
   useWarning({
     titleName: 'DialogTitle',
     contentName: 'DialogContent',
@@ -67,6 +67,7 @@ if (process.env.NODE_ENV !== 'production')
     descriptionId: rootContext.descriptionId,
     contentElement: rootContext.contentElement,
   })
+}
 </script>
 
 <template>

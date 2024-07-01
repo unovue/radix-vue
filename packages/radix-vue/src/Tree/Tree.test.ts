@@ -1,11 +1,10 @@
-import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { axe } from 'vitest-axe'
 import Tree from './story/_Tree.vue'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { useKbd } from '@/shared'
 import { nextTick } from 'vue'
-import { sleep } from '@/test'
 
 const kbd = useKbd()
 

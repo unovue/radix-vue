@@ -24,9 +24,9 @@ const TREE_TOGGLE = 'tree.toggle'
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { RovingFocusItem } from '@/RovingFocus'
 import { injectTreeRootContext } from './TreeRoot.vue'
-import { computed, nextTick } from 'vue'
+import { computed } from 'vue'
 import { useCollection } from '@/Collection'
-import { handleAndDispatchCustomEvent, useForwardRef } from '@/shared'
+import { handleAndDispatchCustomEvent } from '@/shared'
 import { flatten } from './utils'
 
 defineOptions({

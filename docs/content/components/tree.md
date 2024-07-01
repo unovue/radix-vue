@@ -1,7 +1,7 @@
 ---
 
 title: Tree
-description: A tree view widget presents a hierarchical list
+description: A tree view widget displays a hierarchical list of items that can be expanded or collapsed to show or hide their child items, such as in a file system navigator.
 name: tree
 aria: https://www.w3.org/WAI/ARIA/apg/patterns/treeview/
 ---
@@ -11,7 +11,7 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/treeview/
 <Badge>Alpha</Badge>
 
 <Description>
-A tree view widget presents a hierarchical list
+A tree view widget displays a hierarchical list of items that can be expanded or collapsed to show or hide their child items, such as in a file system navigator.
 </Description>
 
 <ComponentPreview name="Tree" />
@@ -24,6 +24,7 @@ A tree view widget presents a hierarchical list
     'Focus is fully managed.',
     'Full keyboard navigation.',
     'Supports Right to Left direction.',
+    'Supports multiple selection.',
     'Different selection behavior.',
   ]"
 />
@@ -114,7 +115,10 @@ const selectedPeople = ref([people[0], people[1]])
 </script>
 
 <template>
-  <TreeRoot v-model="selectedPeople" multiple>
+  <TreeRoot
+    v-model="selectedPeople"
+    multiple
+  >
     ...
   </TreeRoot>
 </template>
@@ -178,18 +182,93 @@ import { TreeItem, TreeRoot } from 'radix-vue'
           event.preventDefault()
       }"
     >
-      <Icon v-if="item.hasChildren" icon="radix-icons:chevron-down" />
+      <Icon
+        v-if="item.hasChildren"
+        icon="radix-icons:chevron-down"
+      />
 
-      <button tabindex="-1" @click.stop @change="handleSelect">
-        <Icon v-if="isSelected" icon="radix-icons:check" />
-        <Icon v-else-if="isIndeterminate" icon="radix-icons:dash" />
-        <Icon v-else icon="radix-icons:box" />
+      <button
+        tabindex="-1"
+        @click.stop
+        @change="handleSelect"
+      >
+        <Icon
+          v-if="isSelected"
+          icon="radix-icons:check"
+        />
+        <Icon
+          v-else-if="isIndeterminate"
+          icon="radix-icons:dash"
+        />
+        <Icon
+          v-else
+          icon="radix-icons:box"
+        />
       </button>
 
       <div class="pl-2">
         {{ item.value.title }}
       </div>
     </TreeItem>
+  </TreeRoot>
+</template>
+```
+
+### Nested Tree Node
+
+The default example shows flatten tree items and nodes, this enables [Virtualization](/components/tree.html#virtual-list) and custom feature such as Drag & Drop easier. However, you can also build it to have nested DOM node.
+
+In `Tree.vue`,
+
+```vue
+<script setup lang="ts">
+import { TreeItem } from 'radix-vue'
+
+interface TreeNode {
+  title: string
+  icon: string
+  children?: TreeNode[]
+}
+
+withDefaults(defineProps<{
+  treeItems: TreeNode[]
+  level?: number
+}>(), { level: 0 })
+</script>
+
+<template>
+  <li
+    v-for=" tree in treeItems"
+    :key="tree.title"
+  >
+    <TreeItem
+      v-slot="{ isExpanded }"
+      as-child
+      :level="level"
+      :value="tree"
+    >
+      <button>…</button>
+
+      <ul v-if="isExpanded && tree.children">
+        <Tree
+          :tree-items="tree.children"
+          :level="level + 1"
+        />
+      </ul>
+    </TreeItem>
+  </li>
+</template>
+```
+
+In `CustomTree.vue`
+
+```vue
+<template>
+  <TreeRoot
+    :items="items"
+    :get-key="(item) => item.title"
+  >
+    <Tree :tree-items="items" />
   </TreeRoot>
 </template>
 ```
@@ -210,27 +289,31 @@ Adheres to the [Tree WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/pa
   :data="[
     {
       keys: ['Enter'],
-      description: '<span>When highlight on <code>TreeItem</code>, selects the focused item. </span>',
+      description: 'When highlight on <code>TreeItem</code>, selects the focused item.',
     },
     {
       keys: ['ArrowDown'],
-      description: 'When focus is on <code>TreeItem</code>, moves focus to the next item. </span>',
+      description: 'When focus is on <code>TreeItem</code>, moves focus to the next item.',
     },
     {
       keys: ['ArrowUp'],
-      description: 'When focus is on <code>TreeItem</code>, moves focus to the previous item. </span>',
+      description: 'When focus is on <code>TreeItem</code>, moves focus to the previous item.',
     },
     {
-      keys: ['Home'],
-      description: '<span>Moves focus and highlight to the first item.</span>',
+      keys: ['ArrowRight'],
+      description: 'When focus is on a closed <code>TreeItem</code> (node), it opens the node without moving focus. When on an open node, it moves focus to the first child node. When on an end node, it does nothing.',
     },
     {
-      keys: ['End'],
-      description: '<span>Moves focus and highlight to the last item.</span>',
+      keys: ['ArrowLeft'],
+      description: 'When focus is on an open <code>TreeItem</code> (node), closes the node. When focus is on a child node that is also either an end node or a closed node, moves focus to its parent node. When focus is on a root node that is also either an end node or a closed node, does nothing.',
     },
     {
-      keys: ['Ctrl/Cmd + A'],
-      description: '<span>Select all the items.</span>',
-    }
+      keys: ['Home', 'PageUp'],
+      description: '<span>Moves focus first <code>TreeItem</code></span>',
+    },
+    {
+      keys: ['End', 'PageDown'],
+      description: '<span>Moves focus last <code>TreeItem</code></span>',
+    },
   ]"
 />

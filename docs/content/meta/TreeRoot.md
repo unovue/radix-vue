@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': '\'ul\''
   },
   {
     'name': 'asChild',
@@ -77,7 +77,7 @@
   {
     'name': 'selectionBehavior',
     'description': '<p>How multiple selection should behave in the collection.</p>\n',
-    'type': '\'toggle\' | \'replace\'',
+    'type': '\'replace\' | \'toggle\'',
     'required': false,
     'default': '\'toggle\''
   }

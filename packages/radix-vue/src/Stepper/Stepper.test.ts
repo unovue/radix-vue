@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event'
 import type { StepperRootProps } from './StepperRoot.vue'
 import { render } from '@testing-library/vue'
 import { useTestKbd } from '@/shared'
+import { screen } from '@testing-library/dom'
 
 const steps = [{
   step: 1,
@@ -45,6 +46,7 @@ function setup(props: { stepperProps?: StepperRootProps & { steps: { step: numbe
 
 it('should pass axe accessibility tests', async () => {
   const { stepper } = setup()
+  screen.debug()
   expect(await axe(stepper)).toHaveNoViolations()
 })
 

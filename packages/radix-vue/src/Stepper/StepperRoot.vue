@@ -14,6 +14,7 @@ export interface StepperRootContext {
   dir: Ref<Direction>
   linear: Ref<boolean>
   stepperItems: Ref<Set<HTMLElement>>
+  totalStepperItems: Ref<Set<HTMLElement>>
 }
 
 export interface StepperRootProps extends PrimitiveProps {
@@ -65,6 +66,7 @@ const dir = useDirection(propDir)
 useForwardExpose()
 
 const stepperItems = ref<Set<HTMLElement>>(new Set())
+const totalStepperItems = ref<Set<HTMLElement>>(new Set())
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
@@ -80,6 +82,7 @@ provideStepperRootContext({
   dir,
   linear,
   stepperItems,
+  totalStepperItems,
 })
 </script>
 
@@ -87,10 +90,24 @@ provideStepperRootContext({
   <Primitive
     role="group"
     aria-label="progress"
-    :as="props.as ?? linear ? 'ol' : 'ul'"
+    :as="as"
     :as-child="asChild"
     :data-linear="linear ? '' : undefined"
   >
     <slot :model-value="modelValue" />
+    <div
+      aria-live="polite"
+      aria-atomic="true"
+      role="status"
+      :style="{
+        transform: 'translateX(-100%)',
+        position: 'absolute',
+        pointerEvents: 'none',
+        opacity: 0,
+        margin: 0,
+      }"
+    >
+      Step {{ modelValue }} of {{ totalStepperItems.size }}
+    </div>
   </Primitive>
 </template>

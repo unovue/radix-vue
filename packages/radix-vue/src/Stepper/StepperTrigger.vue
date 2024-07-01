@@ -70,10 +70,12 @@ const { forwardRef, currentElement } = useForwardExpose()
 onMounted(() => {
   if (itemContext.isFocusable.value)
     rootContext.stepperItems.value.add(currentElement.value)
+  rootContext.totalStepperItems.value.add(currentElement.value)
 })
 
 onUnmounted(() => {
   rootContext.stepperItems.value.delete(currentElement.value)
+  rootContext.totalStepperItems.value.delete(currentElement.value)
 })
 
 watch(itemContext.isFocusable, (newValue) => {

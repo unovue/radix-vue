@@ -33,7 +33,6 @@ export interface StepperItemProps extends PrimitiveProps {
 const props = withDefaults(defineProps<StepperItemProps>(), {
   completed: false,
   disabled: false,
-  as: 'li',
 })
 
 defineSlots<{

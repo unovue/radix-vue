@@ -152,6 +152,7 @@ export default defineConfig({
           { text: 'Toggle Group', link: '/components/toggle-group' },
           { text: 'Toolbar', link: '/components/toolbar' },
           { text: 'Tooltip', link: '/components/tooltip' },
+          { text: `Tree ${BadgeHTML('Alpha')}`, link: '/components/tree' },
         ],
       },
       {

@@ -418,6 +418,12 @@ export const components = {
     'TooltipProvider',
   ],
 
+  tree: [
+    'TreeRoot',
+    'TreeItem',
+    'TreeVirtualizer',
+  ],
+
   viewport: [
     'Viewport',
   ],

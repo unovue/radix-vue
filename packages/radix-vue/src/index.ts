@@ -41,6 +41,7 @@ export * from './Toggle'
 export * from './ToggleGroup'
 export * from './Toolbar'
 export * from './Tooltip'
+export * from './Tree'
 export * from './Viewport'
 
 // utilities

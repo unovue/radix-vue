@@ -35,16 +35,19 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { StepperDescription, StepperIndicator, StepperItem, StepperList, StepperRoot, StepperTitle } from 'radix-vue'
+import { StepperDescription, StepperIndicator, StepperItem, StepperList, StepperRoot, StepperTitle, StepperTrigger } from 'radix-vue'
 </script>
 
 <template>
   <StepperRoot>
     <StepperList>
       <StepperItem>
-        <StepperIndicator />
-        <StepperTitle />
-        <StepperDescription />
+        <StepperTrigger>
+          <StepperIndicator />
+          <StepperTitle />
+          <StepperDescription />
+        </StepperTrigger>
+        <StepperSeparator />
       </StepperItem>
     </StepperList>
   </StepperRoot>
@@ -96,6 +99,29 @@ Contains the items that define the steps.
 The step item component.
 
 <!-- @include: @/meta/StepperItem.md -->
+
+<DataAttributesTable
+  :data="[
+    {
+      attribute: '[data-state]',
+      values: ['active', 'inactive', 'completed'],
+    },
+    {
+      attribute: '[data-disabled]',
+      values: 'Present when disabled',
+    },
+    {
+      attribute: '[data-orientation]',
+      values: ['vertical', 'horizontal'],
+    },
+  ]"
+/>
+
+### Trigger
+
+The trigger that toggles the step.
+
+<!-- @include: @/meta/StepperTrigger.md -->
 
 <DataAttributesTable
   :data="[

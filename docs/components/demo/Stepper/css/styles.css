@@ -18,7 +18,7 @@
   pointer-events: none;
 }
 
-.StepperItemContent {
+.StepperTrigger {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -32,8 +32,8 @@
   border-radius: 9999px;
   width: 1.5rem;
   height: 1.5rem;
-  color: var(--grass11)
-  box-shadow: 0 0 0 2px;
+  color: var(--grass11);
+  box-shadow: 0 0 0 2px #000;
 }
 
 .StepperItem[data-disabled] .StepperIndicator {
@@ -43,13 +43,13 @@
 .StepperItem[data-state="active"] .StepperIndicator {
   background-color: #000;
   color: #fff;
-  box-shadow-color: #000;
+  box-shadow: 0 0 0 2px #000;
 }
 
 .StepperItem[data-state="completed"] .StepperIndicator {
   background-color: var(--violet9);
   color: #fff;
-  box-shadow-color: var(--violet9);
+  box-shadow: 0 0 0 2px var(--violet9);
 }
 
 .StepperIcon {

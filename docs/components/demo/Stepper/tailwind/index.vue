@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 
-import { StepperDescription, StepperIndicator, StepperItem, StepperList, StepperRoot, StepperSeparator, StepperTitle } from 'radix-vue'
+import { StepperDescription, StepperIndicator, StepperItem, StepperList, StepperRoot, StepperSeparator, StepperTitle, StepperTrigger } from 'radix-vue'
 
 const steps = [{
   step: 1,
@@ -41,7 +41,7 @@ const steps = [{
         :step="item.step"
         aria-describedby="undefined"
       >
-        <div class="flex flex-col items-center text-center gap-2">
+        <StepperTrigger class="flex flex-col items-center text-center gap-2">
           <StepperIndicator
             class="inline-flex items-center group-data-[disabled]:text-gray-400 group-data-[state=active]:bg-black group-data-[state=active]:text-white justify-center rounded-full text-grass11 w-10 h-10 shrink-0 bg-white group-data-[state=active]:shadow-black group-data-[state=completed]:bg-violet9 group-data-[state=completed]:text-white group-data-[state=completed]:shadow-violet9 shadow-[0_0_0_2px] "
           >
@@ -58,7 +58,7 @@ const steps = [{
               {{ item.description }}
             </StepperDescription>
           </div>
-        </div>
+        </StepperTrigger>
         <StepperSeparator
           v-if="item.step !== steps[steps.length - 1].step"
           class="w-[20px] h-[1px] group-data-[state=active]:bg-black group-data-[disabled]:bg-gray-300 group-data-[state=completed]:bg-violet9 bg-green5 shrink-0"

@@ -2,7 +2,7 @@
 import './styles.css'
 import { Icon } from '@iconify/vue'
 
-import { StepperDescription, StepperIndicator, StepperItem, StepperList, StepperRoot, StepperSeparator, StepperTitle } from 'radix-vue'
+import { StepperDescription, StepperIndicator, StepperItem, StepperList, StepperRoot, StepperSeparator, StepperTitle, StepperTrigger } from 'radix-vue'
 
 const steps = [{
   step: 1,
@@ -41,7 +41,7 @@ const steps = [{
         class="StepperItem"
         :step="item.step"
       >
-        <div class="StepperItemContent">
+        <StepperTrigger class="StepperTrigger">
           <StepperIndicator
             class="StepperIndicator"
           >
@@ -58,7 +58,7 @@ const steps = [{
               {{ item.description }}
             </StepperDescription>
           </div>
-        </div>
+        </StepperTrigger>
         <StepperSeparator
           v-if="item.step !== steps[steps.length - 1].step"
           class="StepperSeparator"

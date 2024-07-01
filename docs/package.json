@@ -35,7 +35,7 @@
     "tailwindcss": "^3.4.4",
     "tsx": "^4.15.8",
     "vitepress": "1.2.3",
-    "vue-component-meta": "^2.0.22"
+    "vue-component-meta": "^2.0.24"
   },
   "postcss": {
     "plugins": {

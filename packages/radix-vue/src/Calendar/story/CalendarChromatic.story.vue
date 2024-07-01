@@ -8,7 +8,7 @@ const modelValue = ref(defaultValue) as Ref<DateValue>
 
 const placeholder = ref(new CalendarDate(2024, 4, 1)) as Ref<CalendarDate>
 
-const paging = (date: DateValue, sign: -1 | 1) => {
+function paging(date: DateValue, sign: -1 | 1) {
   if (sign === -1)
     return date.subtract({ years: 1 })
   return date.add({ years: 1 })
@@ -79,7 +79,11 @@ const paging = (date: DateValue, sign: -1 | 1) => {
     </Variant>
 
     <Variant title="Pagination functions">
-      <Calendar :default-value="defaultValue" :next-page="(date: DateValue) => paging(date, 1)" :prev-page="(date: DateValue) => paging(date, -1)" />
+      <Calendar
+        :default-value="defaultValue"
+        :next-page="(date: DateValue) => paging(date, 1)"
+        :prev-page="(date: DateValue) => paging(date, -1)"
+      />
     </Variant>
   </Story>
 </template>

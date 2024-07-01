@@ -4,11 +4,12 @@ import type { CalendarIncrement } from '@/shared/date'
 import type { DateValue } from '@internationalized/date'
 
 export interface CalendarPrevProps extends PrimitiveProps {
-/** The calendar unit to go back 
-* @deprecated Use `prevPage` instead
-*/
+/**
+ * The calendar unit to go back
+ * @deprecated Use `prevPage` instead
+ */
   step?: CalendarIncrement
-/** The function to be used for the prev page. Overwrites the `prevPage` function set on the `CalendarRoot`. */
+  /** The function to be used for the prev page. Overwrites the `prevPage` function set on the `CalendarRoot`. */
   prevPage?: (placeholder: DateValue) => DateValue
 }
 </script>

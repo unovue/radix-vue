@@ -5,10 +5,10 @@ import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, Cale
 
 const props = defineProps<{ calendarProps?: CalendarRootProps, emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void } }>()
 
-const pagingFunc = (date: DateValue, sign: -1 | 1) => {
+function pagingFunc(date: DateValue, sign: -1 | 1) {
   if (sign === -1)
-    return date.subtract({ years: 1})
-  return date.add({ years: 1})
+    return date.subtract({ years: 1 })
+  return date.add({ years: 1 })
 }
 </script>
 

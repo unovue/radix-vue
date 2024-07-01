@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import type { DateValue } from '@internationalized/date';
+import type { DateValue } from '@internationalized/date'
 import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot, type CalendarRootProps } from 'radix-vue'
 
 const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
   return date.day === 17 || date.day === 18
 }
 
-const pagingFunc = (date: DateValue, sign: -1 | 1) => {
+function pagingFunc(date: DateValue, sign: -1 | 1) {
   if (sign === -1)
-    return date.subtract({ years: 1})
-  return date.add({ years: 1})
+    return date.subtract({ years: 1 })
+  return date.add({ years: 1 })
 }
 </script>
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { StepperDescription, StepperIndicator, StepperItem, StepperList, StepperRoot, type StepperRootProps, StepperSeparator, StepperTitle } from '../'
+import { StepperDescription, StepperIndicator, StepperItem, StepperList, StepperRoot, type StepperRootProps, StepperSeparator, StepperTitle, StepperTrigger } from '../'
 
 const props = defineProps<{ stepperProps?: StepperRootProps & { steps: { step: number, title: string, description: string, icon: string, isCompleted?: boolean }[] }, emits?: { 'onUpdate:modelValue'?: (data: number) => void } }>()
 const steps = [{
@@ -42,15 +42,17 @@ const steps = [{
         :step="item.step"
         :data-testid="`stepper-item-${item.step}`"
       >
-        <StepperIndicator
-          :data-testid="`stepper-item-indicator-${item.step}`"
-        />
-        <StepperTitle :data-testid="`stepper-item-title-${item.step}`">
-          {{ item.title }}
-        </StepperTitle>
-        <StepperDescription :data-testid="`stepper-item-description-${item.step}`">
-          {{ item.description }}
-        </StepperDescription>
+        <StepperTrigger :data-testid="`stepper-item-trigger-${item.step}`">
+          <StepperIndicator
+            :data-testid="`stepper-item-indicator-${item.step}`"
+          />
+          <StepperTitle :data-testid="`stepper-item-title-${item.step}`">
+            {{ item.title }}
+          </StepperTitle>
+          <StepperDescription :data-testid="`stepper-item-description-${item.step}`">
+            {{ item.description }}
+          </StepperDescription>
+        </StepperTrigger>
         <StepperSeparator
           v-if="item.step !== steps[steps.length - 1].step"
           :data-testid="`stepper-item-separator-${item.step}`"

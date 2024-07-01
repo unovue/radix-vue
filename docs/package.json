@@ -31,9 +31,9 @@
     "codesandbox": "^2.2.3",
     "fast-glob": "^3.3.2",
     "markdown-it": "^14.1.0",
-    "postcss": "^8.4.38",
+    "postcss": "^8.4.39",
     "tailwindcss": "^3.4.4",
-    "tsx": "^4.15.8",
+    "tsx": "^4.16.0",
     "vitepress": "1.2.3",
     "vue-component-meta": "^2.0.24"
   },

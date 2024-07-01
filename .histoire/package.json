@@ -18,8 +18,8 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.21.2",
-    "@floating-ui/dom": "^1.6.6",
-    "@floating-ui/vue": "^1.0.7",
+    "@floating-ui/dom": "^1.6.7",
+    "@floating-ui/vue": "^1.1.0",
     "@histoire/plugin-vue": "^0.17.17",
     "@iconify/vue": "^4.1.2",
     "@radix-ui/colors": "^3.0.0",
@@ -27,7 +27,7 @@
     "autoprefixer": "^10.4.19",
     "eslint": "^9.6.0",
     "histoire": "^0.17.17",
-    "postcss": "^8.4.38",
+    "postcss": "^8.4.39",
     "tailwindcss": "^3.4.4",
     "tailwindcss-animate": "1.0.7"
   }

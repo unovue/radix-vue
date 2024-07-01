@@ -170,9 +170,9 @@ defineExpose({
       :data-indent="level"
       :data-selected="isSelected ? '' : undefined"
       :data-expanded="isExpanded ? '' : undefined"
-      @keydown.enter.space.self="handleSelectCustomEvent"
-      @keydown.right.prevent="handleKeydownRight"
-      @keydown.left.prevent="handleKeydownLeft"
+      @keydown.enter.space.self.prevent="handleSelectCustomEvent"
+      @keydown.right.prevent="(ev) => rootContext.dir.value === 'ltr' ? handleKeydownRight(ev) : handleKeydownLeft(ev)"
+      @keydown.left.prevent="(ev) => rootContext.dir.value === 'ltr' ? handleKeydownLeft(ev) : handleKeydownRight(ev)"
       @click.stop="(ev) => {
         handleSelectCustomEvent(ev)
         handleToggleCustomEvent(ev)

@@ -87,8 +87,8 @@ provideStepperRootContext({
   <Primitive
     role="group"
     aria-label="progress"
+    :as="props.as ?? linear ? 'ol' : 'ul'"
     :as-child="asChild"
-    :as="as"
     :data-linear="linear ? '' : undefined"
   >
     <slot :model-value="modelValue" />

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { StepperDescription, StepperIndicator, StepperItem, StepperList, StepperRoot, type StepperRootProps, StepperSeparator, StepperTitle, StepperTrigger } from '../'
+import { StepperDescription, StepperIndicator, StepperItem, StepperRoot, type StepperRootProps, StepperSeparator, StepperTitle, StepperTrigger } from '../'
 
 const props = defineProps<{ stepperProps?: StepperRootProps & { steps: { step: number, title: string, description: string, icon: string, isCompleted?: boolean }[] }, emits?: { 'onUpdate:modelValue'?: (data: number) => void } }>()
 const steps = [{
@@ -35,29 +35,27 @@ const steps = [{
     data-testid="stepper"
     v-bind="props.stepperProps"
   >
-    <StepperList data-testid="stepper-list">
-      <StepperItem
-        v-for="item in steps"
-        :key="item.step"
-        :step="item.step"
-        :data-testid="`stepper-item-${item.step}`"
-      >
-        <StepperTrigger :data-testid="`stepper-item-trigger-${item.step}`">
-          <StepperIndicator
-            :data-testid="`stepper-item-indicator-${item.step}`"
-          />
-          <StepperTitle :data-testid="`stepper-item-title-${item.step}`">
-            {{ item.title }}
-          </StepperTitle>
-          <StepperDescription :data-testid="`stepper-item-description-${item.step}`">
-            {{ item.description }}
-          </StepperDescription>
-        </StepperTrigger>
-        <StepperSeparator
-          v-if="item.step !== steps[steps.length - 1].step"
-          :data-testid="`stepper-item-separator-${item.step}`"
+    <StepperItem
+      v-for="item in steps"
+      :key="item.step"
+      :step="item.step"
+      :data-testid="`stepper-item-${item.step}`"
+    >
+      <StepperTrigger :data-testid="`stepper-item-trigger-${item.step}`">
+        <StepperIndicator
+          :data-testid="`stepper-item-indicator-${item.step}`"
         />
-      </StepperItem>
-    </StepperList>
+        <StepperTitle :data-testid="`stepper-item-title-${item.step}`">
+          {{ item.title }}
+        </StepperTitle>
+        <StepperDescription :data-testid="`stepper-item-description-${item.step}`">
+          {{ item.description }}
+        </StepperDescription>
+      </StepperTrigger>
+      <StepperSeparator
+        v-if="item.step !== steps[steps.length - 1].step"
+        :data-testid="`stepper-item-separator-${item.step}`"
+      />
+    </StepperItem>
   </StepperRoot>
 </template>

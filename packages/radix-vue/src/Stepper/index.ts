@@ -4,8 +4,6 @@ export { default as StepperItem, type StepperItemProps } from './StepperItem.vue
 
 export { default as StepperTrigger, type StepperTriggerProps } from './StepperTrigger.vue'
 
-export { default as StepperList, type StepperListProps } from './StepperList.vue'
-
 export { default as StepperDescription, type StepperDescriptionProps } from './StepperDescription.vue'
 
 export { default as StepperTitle, type StepperTitleProps } from './StepperTitle.vue'

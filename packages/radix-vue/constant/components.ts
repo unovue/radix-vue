@@ -353,7 +353,6 @@ export const components = {
     'StepperRoot',
     'StepperItem',
     'StepperTrigger',
-    'StepperList',
     'StepperDescription',
     'StepperTitle',
     'StepperIndicator',

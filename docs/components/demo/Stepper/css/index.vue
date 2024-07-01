@@ -2,7 +2,7 @@
 import './styles.css'
 import { Icon } from '@iconify/vue'
 
-import { StepperDescription, StepperIndicator, StepperItem, StepperList, StepperRoot, StepperSeparator, StepperTitle, StepperTrigger } from 'radix-vue'
+import { StepperDescription, StepperIndicator, StepperItem, StepperRoot, StepperSeparator, StepperTitle, StepperTrigger } from 'radix-vue'
 
 const steps = [{
   step: 1,
@@ -33,37 +33,38 @@ const steps = [{
 </script>
 
 <template>
-  <StepperRoot :default-value="2">
-    <StepperList class="StepperList">
-      <StepperItem
-        v-for="item in steps"
-        :key="item.step"
-        class="StepperItem"
-        :step="item.step"
-      >
-        <StepperTrigger class="StepperTrigger">
-          <StepperIndicator
-            class="StepperIndicator"
-          >
-            <Icon
-              :icon="item.icon"
-              class="StepperIndicatorIcon"
-            />
-          </StepperIndicator>
-          <div class="StepperItemText">
-            <StepperTitle class="StepperTitle">
-              {{ item.title }}
-            </StepperTitle>
-            <StepperDescription class="StepperDescription">
-              {{ item.description }}
-            </StepperDescription>
-          </div>
-        </StepperTrigger>
-        <StepperSeparator
-          v-if="item.step !== steps[steps.length - 1].step"
-          class="StepperSeparator"
-        />
-      </StepperItem>
-    </StepperList>
+  <StepperRoot
+    :default-value="2"
+    class="StepperList"
+  >
+    <StepperItem
+      v-for="item in steps"
+      :key="item.step"
+      class="StepperItem"
+      :step="item.step"
+    >
+      <StepperTrigger class="StepperTrigger">
+        <StepperIndicator
+          class="StepperIndicator"
+        >
+          <Icon
+            :icon="item.icon"
+            class="StepperIndicatorIcon"
+          />
+        </StepperIndicator>
+        <div class="StepperItemText">
+          <StepperTitle class="StepperTitle">
+            {{ item.title }}
+          </StepperTitle>
+          <StepperDescription class="StepperDescription">
+            {{ item.description }}
+          </StepperDescription>
+        </div>
+      </StepperTrigger>
+      <StepperSeparator
+        v-if="item.step !== steps[steps.length - 1].step"
+        class="StepperSeparator"
+      />
+    </StepperItem>
   </StepperRoot>
 </template>

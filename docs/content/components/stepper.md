@@ -35,21 +35,19 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { StepperDescription, StepperIndicator, StepperItem, StepperList, StepperRoot, StepperTitle, StepperTrigger } from 'radix-vue'
+import { StepperDescription, StepperIndicator, StepperItem, StepperRoot, StepperTitle, StepperTrigger } from 'radix-vue'
 </script>
 
 <template>
   <StepperRoot>
-    <StepperList>
-      <StepperItem>
-        <StepperTrigger>
-          <StepperIndicator />
-          <StepperTitle />
-          <StepperDescription />
-        </StepperTrigger>
-        <StepperSeparator />
-      </StepperItem>
-    </StepperList>
+    <StepperItem>
+      <StepperTrigger>
+        <StepperIndicator />
+        <StepperTitle />
+        <StepperDescription />
+      </StepperTrigger>
+      <StepperSeparator />
+    </StepperItem>
   </StepperRoot>
 </template>
 ```
@@ -61,25 +59,6 @@ import { StepperDescription, StepperIndicator, StepperItem, StepperList, Stepper
 Contains all the stepper component parts.
 
 <!-- @include: @/meta/StepperRoot.md -->
-
-<DataAttributesTable
-  :data="[
-    {
-      attribute: '[data-orientation]',
-      values: ['vertical', 'horizontal'],
-    },
-    {
-      attribute: '[data-linear]',
-      values: 'Present when linear'
-    },
-  ]"
-/>
-
-### List
-
-Contains the items that define the steps.
-
-<!-- @include: @/meta/StepperList.md -->
 
 <DataAttributesTable
   :data="[

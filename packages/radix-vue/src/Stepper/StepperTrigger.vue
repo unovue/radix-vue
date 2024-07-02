@@ -96,6 +96,8 @@ watch(itemContext.isFocusable, (newValue) => {
     :data-disabled="itemContext.disabled.value || !itemContext.isFocusable.value ? '' : undefined"
     :data-orientation="rootContext.orientation.value"
     :tabindex="itemContext.isFocusable.value ? 0 : -1"
+    :aria-describedby="itemContext.descriptionId"
+    :aria-labelledby="itemContext.titleId"
     @mousedown.left="handleMouseDown"
     @keydown.enter.space.left.right.up.down="handleKeyDown"
   >

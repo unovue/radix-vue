@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { TreeItem, TreeRoot } from '..'
-import { Icon } from '@iconify/vue'
+import { TreeRoot } from '..'
 import { items } from './constants'
 import Tree from './_TreeNested.vue'
 </script>

@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useCollection, useDirection, useForwardExpose } from '@/shared'
+import { createContext, useDirection } from '@/shared'
 import type {
   Direction,
   Orientation,
@@ -50,7 +50,7 @@ export const [injectRovingFocusGroupContext, provideRovingFocusGroupContext]
 <script setup lang="ts">
 import { ref, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { ENTRY_FOCUS, EVENT_OPTIONS, focusFirst } from './utils'
 import { CollectionSlot, createCollection } from '@/Collection'
 

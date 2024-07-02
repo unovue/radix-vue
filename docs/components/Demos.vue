@@ -31,6 +31,7 @@ import SelectDemo from './demo/Select/tailwind/index.vue'
 import SeparatorDemo from './demo/Separator/tailwind/index.vue'
 import SliderDemo from './demo/Slider/tailwind/index.vue'
 import SplitterDemo from './demo/Splitter/tailwind/index.vue'
+import StepperDemo from './demo/Stepper/tailwind/index.vue'
 import SwitchDemo from './demo/Switch/tailwind/index.vue'
 import TabsDemo from './demo/Tabs/tailwind/index.vue'
 import TagsInputDemo from './demo/TagsInput/tailwind/index.vue'
@@ -144,6 +145,9 @@ import DemoContainer from './DemoContainer.vue'
     </DemoContainer>
     <DemoContainer title="splitter">
       <SplitterDemo />
+    </DemoContainer>
+    <DemoContainer title="stepper">
+      <StepperDemo />
     </DemoContainer>
     <DemoContainer title="switch">
       <SwitchDemo />

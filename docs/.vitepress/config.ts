@@ -143,6 +143,7 @@ export default defineConfig({
           { text: 'Separator', link: '/components/separator' },
           { text: 'Slider', link: '/components/slider' },
           { text: 'Splitter', link: '/components/splitter' },
+          { text: `Stepper ${BadgeHTML('Alpha')}`, link: '/components/stepper' },
           { text: 'Switch', link: '/components/switch' },
           { text: 'Tabs', link: '/components/tabs' },
           { text: 'Tags Input', link: '/components/tags-input' },

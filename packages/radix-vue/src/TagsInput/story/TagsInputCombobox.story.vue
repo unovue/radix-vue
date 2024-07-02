@@ -21,7 +21,6 @@ watch(values, () => {
     <Variant title="default">
       <ComboboxRoot
         v-model="values"
-        v-model:search-term="searchTerm"
         multiple
         class="my-4"
       >
@@ -44,7 +43,10 @@ watch(values, () => {
               </TagsInputItemDelete>
             </TagsInputItem>
 
-            <ComboboxInput as-child>
+            <ComboboxInput
+              v-model="searchTerm"
+              as-child
+            >
               <TagsInputInput
                 placeholder="Fruits..."
                 class="focus:outline-none flex-1 rounded bg-transparent  placeholder:text-mauve10 px-1  "

@@ -151,7 +151,8 @@ function getCollectionItem() {
 
 function onChangeHighlight(el: HTMLElement) {
   highlightedElement.value = el
-  highlightedElement.value.focus()
+  if (focusable.value)
+    highlightedElement.value.focus()
   highlightedElement.value.scrollIntoView({ block: 'nearest' })
 
   const highlightedItem = getItems().find(i => i.ref === el)
@@ -274,7 +275,7 @@ function handleMultipleReplace(event: KeyboardEvent, targetEl: HTMLElement) {
   }
 }
 
-async function handleFocus(event?: Event) {
+async function handleSelectedHighlight(event?: Event) {
   if (isVirtual.value) {
     virtualFocusHook.trigger(event)
   }
@@ -284,6 +285,8 @@ async function handleFocus(event?: Event) {
     const item = collection.find(i => i.dataset.state === 'checked')
     if (item)
       onChangeHighlight(item)
+    else if (collection.length)
+      onChangeHighlight(collection[0])
   }
 }
 
@@ -291,10 +294,15 @@ async function handleFocus(event?: Event) {
 watch(modelValue, () => {
   if (!isUserAction.value) {
     nextTick(() => {
-      handleFocus()
+      handleSelectedHighlight()
     })
   }
 }, { immediate: true, deep: true })
+
+defineExpose({
+  highlightedElement,
+  handleSelectedHighlight,
+})
 
 provideListboxRootContext({
   modelValue,

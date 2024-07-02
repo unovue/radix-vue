@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { ComboboxAnchor, ComboboxContent, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxRoot, type ComboboxRootProps, ComboboxTrigger, ComboboxViewport } from '../'
+import { computed, ref } from 'vue'
+import { ComboboxAnchor, ComboboxContent, ComboboxGroup, ComboboxInput, type ComboboxInputProps, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxRoot, type ComboboxRootProps, ComboboxTrigger, ComboboxViewport } from '../'
 import { Icon } from '@iconify/vue'
+import { useFilter } from '@/shared'
 
-const props = defineProps<ComboboxRootProps>()
+const props = defineProps<ComboboxRootProps & { input?: ComboboxInputProps }>()
 const people = [
   { id: 1, name: 'Durward Reynolds' },
   { id: 2, name: 'Kenton Towne' },
@@ -13,6 +14,10 @@ const people = [
 ]
 const v = ref<any>(people[0])
 const open = ref(props.open)
+
+const query = ref('')
+const { startsWith } = useFilter({ sensitivity: 'base' })
+const filteredPeople = computed(() => people.filter(p => startsWith(p.name, query.value)))
 </script>
 
 <template>
@@ -24,8 +29,10 @@ const open = ref(props.open)
   >
     <ComboboxAnchor class="min-w-[160px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">
       <ComboboxInput
+        v-bind="props.input"
         class="bg-transparent outline-none text-grass11 placeholder-gray-400"
         placeholder="Placeholder..."
+        @change="(ev: InputEvent) => query = (ev.target as HTMLInputElement)?.value"
       />
       <ComboboxTrigger>
         <Icon
@@ -42,7 +49,7 @@ const open = ref(props.open)
           </ComboboxLabel>
 
           <ComboboxItem
-            v-for="(option, index) in people"
+            v-for="(option, index) in filteredPeople"
             :key="index"
             class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-grass9 data-[highlighted]:text-grass1"
             :value="option"

@@ -36,16 +36,12 @@ export const [injectComboboxContentContext, provideComboboxContentContext]
 </script>
 
 <script setup lang="ts">
-import {
-  computed,
-  onMounted,
-  toRefs,
-} from 'vue'
+import { computed, toRefs } from 'vue'
 import { injectComboboxRootContext } from './ComboboxRoot.vue'
 import { DismissableLayer } from '@/DismissableLayer'
 import { PopperContent } from '@/Popper'
 import { Primitive } from '@/Primitive'
-import { CollectionSlot } from '@/Collection'
+import { ListboxContent } from '@/Listbox'
 
 const props = withDefaults(defineProps<ComboboxContentImplProps>(), {
   position: 'inline',
@@ -56,9 +52,8 @@ const emits = defineEmits<ComboboxContentImplEmits>()
 const { position } = toRefs(props)
 const rootContext = injectComboboxRootContext()
 
-useBodyScrollLock(props.bodyLock)
-
 const { forwardRef, currentElement } = useForwardExpose()
+useBodyScrollLock(props.bodyLock)
 useHideOthers(currentElement)
 
 const pickedProps = computed(() => {
@@ -68,14 +63,6 @@ const pickedProps = computed(() => {
 })
 
 const forwardedProps = useForwardProps(pickedProps.value)
-
-function handleLeave(ev: PointerEvent) {
-  rootContext.onSelectedValueChange('')
-}
-
-onMounted(() => {
-  rootContext.onContentElementChange(currentElement.value)
-})
 
 const popperStyle = {
   // Ensure border-box for floating-ui calculations
@@ -94,9 +81,8 @@ provideComboboxContentContext({ position })
 </script>
 
 <template>
-  <CollectionSlot>
+  <ListboxContent as-child>
     <DismissableLayer
-      v-if="dismissable"
       as-child
       :disable-outside-pointer-events="disableOutsidePointerEvents"
       @dismiss="rootContext.onOpenChange(false)"
@@ -118,7 +104,6 @@ provideComboboxContentContext({ position })
         v-bind="{ ...$attrs, ...forwardedProps }"
         :id="rootContext.contentId"
         :ref="forwardRef"
-        role="listbox"
         :data-state="rootContext.open.value ? 'open' : 'closed'"
         :style="{
           // flex layout so we can place the scroll buttons properly
@@ -128,31 +113,9 @@ provideComboboxContentContext({ position })
           outline: 'none',
           ...(position === 'popper' ? popperStyle : {}),
         }"
-        @pointerleave="handleLeave"
       >
         <slot />
       </component>
     </DismissableLayer>
-
-    <component
-      :is="position === 'popper' ? PopperContent : Primitive "
-      v-else
-      v-bind="{ ...$attrs, ...pickedProps }"
-      :id="rootContext.contentId"
-      :ref="forwardRef"
-      role="listbox"
-      :data-state="rootContext.open.value ? 'open' : 'closed'"
-      :style="{
-        // flex layout so we can place the scroll buttons properly
-        display: 'flex',
-        flexDirection: 'column',
-        // reset the outline by default as the content MAY get focused
-        outline: 'none',
-        ...(position === 'popper' ? popperStyle : {}),
-      }"
-      @pointerleave="handleLeave"
-    >
-      <slot />
-    </component>
-  </CollectionSlot>
+  </ListboxContent>
 </template>

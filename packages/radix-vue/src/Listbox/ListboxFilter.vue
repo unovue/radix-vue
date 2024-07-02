@@ -2,7 +2,7 @@
 import { useVModel } from '@vueuse/core'
 import { Primitive, type PrimitiveProps } from '..'
 import { injectListboxRootContext } from './ListboxRoot.vue'
-import { onMounted } from 'vue'
+import { computed, nextTick, onMounted } from 'vue'
 import { usePrimitiveElement } from '@/Primitive'
 
 export interface ListboxFilterProps extends PrimitiveProps {
@@ -10,6 +10,8 @@ export interface ListboxFilterProps extends PrimitiveProps {
   modelValue?: string
   /** Focus on element when mounted. */
   autoFocus?: boolean
+  /** When `true`, prevents the user from interacting with item */
+  disabled?: boolean
 }
 
 export type ListboxFilterEmits = {
@@ -39,6 +41,8 @@ const rootContext = injectListboxRootContext()
 rootContext.focusable.value = false
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
+const disabled = computed(() => props.disabled || rootContext.disabled.value || false)
+
 onMounted(() => {
   setTimeout(() => {
     // make sure all DOM was flush then only capture the focus
@@ -54,8 +58,9 @@ onMounted(() => {
     :as="as"
     :as-child="asChild"
     :value="modelValue"
-    :disabled="rootContext.disabled.value ? '' : undefined"
-    :data-disabled="rootContext.disabled.value ? '' : undefined"
+    :disabled="disabled ? '' : undefined"
+    :data-disabled="disabled ? '' : undefined"
+    :aria-disabled="disabled ?? undefined"
     type="text"
     @keydown.down.up.home.end.prevent="rootContext.onKeydownNavigation"
     @keydown.enter="rootContext.onKeydownEnter"

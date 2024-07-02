@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { ComboboxAnchor, ComboboxContent, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxRoot, ComboboxSeparator, ComboboxTrigger, ComboboxViewport } from '../'
 import { Icon } from '@iconify/vue'
+import { useFilter } from '@/shared'
 
 const v = ref('Apple')
 const searchTerm = ref('')
 const options = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
 const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
+
+const { contains } = useFilter({ sensitivity: 'base' })
+const filteredOptions = computed(() => options.filter(option => contains(option, searchTerm.value)))
 </script>
 
 <template>
@@ -21,11 +25,11 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
         </button>
         <ComboboxRoot
           v-model="v"
-          v-model:searchTerm="searchTerm"
         >
           <ComboboxAnchor class="w-full min-w-[160px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">
             <ComboboxInput
-              class=" bg-transparent outline-none text-grass11 placeholder-gray-400"
+              v-model="searchTerm"
+              class=" bg-transparent w-full outline-none text-grass11 placeholder-gray-400"
               placeholder="Test"
             />
             <ComboboxTrigger>
@@ -43,7 +47,7 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
                 </ComboboxLabel>
 
                 <ComboboxItem
-                  v-for="(option, index) in options"
+                  v-for="(option, index) in filteredOptions"
                   :key="index"
                   class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-grass9 data-[highlighted]:text-grass1"
                   :value="option"

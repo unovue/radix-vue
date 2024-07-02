@@ -5,7 +5,7 @@ import ComboboxObject from './story/_ComboboxObject.vue'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
-import { handleSubmit } from '@/test'
+import { handleSubmit, sleep } from '@/test'
 
 describe('given default Combobox', () => {
   let wrapper: VueWrapper<InstanceType<typeof Combobox>>
@@ -25,7 +25,7 @@ describe('given default Combobox', () => {
       animationName: '',
     })
     document.body.innerHTML = ''
-    wrapper = mount(Combobox, { attachTo: document.body })
+    wrapper = mount(Combobox, { attachTo: document.body, props: { resetSearchTermOnBlur: true } })
     valueBox = wrapper.find('input')
   })
 
@@ -75,6 +75,7 @@ describe('given default Combobox', () => {
       beforeEach(async () => {
         const selection = wrapper.findAll('[role=option]')[1]
         await selection.trigger('click')
+        await sleep(1)
       })
 
       it('should show value correctly', () => {
@@ -112,7 +113,7 @@ describe('given a Combobox with multiple prop', async () => {
 
   beforeEach(() => {
     document.body.innerHTML = ''
-    wrapper = mount(Combobox, { props: { multiple: true }, attachTo: document.body })
+    wrapper = mount(Combobox, { props: { multiple: true, resetSearchTermOnBlur: true }, attachTo: document.body })
     valueBox = wrapper.find('input')
   })
 
@@ -151,7 +152,7 @@ describe('given a Combobox with object', async () => {
   beforeEach(() => {
     document.body.innerHTML = ''
     wrapper = mount(ComboboxObject, {
-      props: { },
+      props: { resetSearchTermOnBlur: true },
       attachTo: document.body,
     })
     valueBox = wrapper.find('input')
@@ -172,29 +173,12 @@ describe('given a Combobox with object', async () => {
         await valueBox.setValue('Du')
       })
 
-      describe('if no filter-function provided', () => {
-        it('should not filter anything', () => {
-          const selection = wrapper.findAll('[role=option]')
-          expect(selection.length).toBe(5)
-        })
+      it('should filter with the searchTerm (Dur)', () => {
+        const selection = wrapper.findAll('[role=option]')
+        expect(selection.length).toBe(1)
+        expect(selection[0].element.innerHTML).contains('Dur')
       })
-
-      describe('if filter-function provided', () => {
-        beforeEach(async () => {
-          await wrapper.setProps({
-            filterFunction: (list: any[], term: string) => {
-              return list.filter(i => i.name.toLowerCase().includes(term.toLowerCase()))
-            },
-          })
-
-          await valueBox.setValue('Dur')
-        })
-        it('should filter with the searchTerm (Dur)', () => {
-          const selection = wrapper.findAll('[role=option]').filter(i => i.attributes('style') !== 'display: none;')
-          expect(selection.length).toBe(1)
-          expect(selection[0].element.innerHTML).contains('Dur')
-        })
-      })
+      // })
     })
 
     describe('if no display-value provided', () => {
@@ -219,12 +203,15 @@ describe('given a Combobox with object', async () => {
       describe('after selecting a value', () => {
         beforeEach(async () => {
           await wrapper.setProps({
-            displayValue: (item: any) => {
-              return item.name
+            input: {
+              displayValue: (item: any) => {
+                return item.name
+              },
             },
           })
           const selection = wrapper.findAll('[role=option]')[1]
           await selection.trigger('click')
+          await sleep(1)
         })
 
         it('should show searchTerm value', () => {

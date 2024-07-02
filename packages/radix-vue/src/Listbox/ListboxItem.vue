@@ -73,7 +73,7 @@ provideListboxItemContext({
       :id="id"
       :ref="forwardRef"
       role="option"
-      :tabindex="rootContext.focusable.value ? isHighlighted ? '0' : '-1' : undefined"
+      :tabindex="rootContext.focusable.value ? isHighlighted ? '0' : '-1' : -1"
       :aria-selected="isSelected"
       :as="as"
       :as-child="asChild"

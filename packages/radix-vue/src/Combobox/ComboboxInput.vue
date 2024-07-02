@@ -1,90 +1,98 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
+import type { ListboxFilterEmits, ListboxFilterProps } from '@/Listbox'
+import { useVModel } from '@vueuse/core'
+import { usePrimitiveElement } from '@/Primitive'
+import { nextTick, onMounted, watch } from 'vue'
 
-export interface ComboboxInputProps extends PrimitiveProps {
-  /** Native input type */
-  type?: string
-  /** When `true`, prevents the user from interacting with item */
-  disabled?: boolean
-  /** Focus on element when mounted. */
-  autoFocus?: boolean
+export type ComboboxInputEmits = ListboxFilterEmits
+export interface ComboboxInputProps extends ListboxFilterProps {
+  /** The display value of input for selected item. Does not work with `multiple`. */
+  displayValue?: (val: any) => string
 }
 </script>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
 import { injectComboboxRootContext } from './ComboboxRoot.vue'
-import { Primitive } from '@/Primitive'
+import { ListboxFilter } from '@/Listbox'
 
 const props = withDefaults(defineProps<ComboboxInputProps>(), {
-  type: 'text',
   as: 'input',
 })
+const emits = defineEmits<ComboboxInputEmits>()
 
 const rootContext = injectComboboxRootContext()
+const { primitiveElement, currentElement } = usePrimitiveElement()
 
-const { forwardRef, currentElement } = useForwardExpose()
-onMounted(() => {
-  const inputEl = currentElement.value.nodeName === 'INPUT'
-    ? currentElement.value as HTMLInputElement
-    : currentElement.value.querySelector('input')
-  if (!inputEl)
-    return
-
-  rootContext.onInputElementChange(inputEl)
-
-  setTimeout(() => {
-    // make sure all DOM was flush then only capture the focus
-    if (props.autoFocus)
-      inputEl?.focus()
-  }, 1)
+const modelValue = useVModel(props, 'modelValue', emits, {
+  passive: (props.modelValue === undefined) as false,
 })
 
-const disabled = computed(() => props.disabled || rootContext.disabled.value || false)
+onMounted(() => {
+  if (!('select' in currentElement.value))
+    return
+
+  rootContext.onInputElementChange(currentElement.value as HTMLInputElement)
+})
 
 function handleKeyDown(ev: KeyboardEvent) {
   if (!rootContext.open.value)
     rootContext.onOpenChange(true)
-  else
-    rootContext.onInputNavigation(ev.key === 'ArrowUp' ? 'up' : 'down')
-}
-
-function handleHomeEnd(ev: KeyboardEvent) {
-  if (!rootContext.open.value)
-    return
-  rootContext.onInputNavigation(ev.key === 'Home' ? 'home' : 'end')
 }
 
 function handleInput(event: Event) {
-  rootContext.searchTerm.value = (event.target as HTMLInputElement)?.value
   if (!rootContext.open.value)
     rootContext.onOpenChange(true)
-
-  rootContext.isUserInputted.value = true
 }
+
+function resetSearchTerm() {
+  const rootModelValue = rootContext.modelValue.value
+
+  if (props.displayValue) {
+    modelValue.value = props.displayValue(rootModelValue)
+  }
+  else if (!rootContext.multiple.value && rootModelValue && !Array.isArray(rootModelValue)) {
+    if (typeof rootModelValue !== 'object')
+      modelValue.value = rootModelValue.toString()
+    else modelValue.value = ''
+  }
+  else {
+    modelValue.value = ''
+  }
+
+  nextTick(() => {
+    // Temporary force reassign
+    // eslint-disable-next-line no-self-assign
+    modelValue.value = modelValue.value
+  })
+}
+
+rootContext.onResetSearchTerm(() => {
+  resetSearchTerm()
+})
+
+watch(rootContext.modelValue, async () => {
+  if (!rootContext.isUserInputted.value)
+    resetSearchTerm()
+}, { immediate: true, deep: true })
 </script>
 
 <template>
-  <Primitive
-    :ref="forwardRef"
+  <ListboxFilter
+    ref="primitiveElement"
+    v-model="modelValue"
     :as="as"
     :as-child="asChild"
-    :type="type"
     :disabled="disabled"
-    :value="rootContext.searchTerm.value"
+    :auto-focus="autoFocus"
     :aria-expanded="rootContext.open.value"
     :aria-controls="rootContext.contentId"
     :aria-disabled="disabled ?? undefined"
-    :aria-activedescendant="rootContext.selectedElement.value?.id"
     aria-autocomplete="list"
     role="combobox"
     autocomplete="false"
     @input="handleInput"
     @keydown.down.up.prevent="handleKeyDown"
-    @keydown.enter="rootContext.onInputEnter"
-    @keydown.home.end.prevent="handleHomeEnd"
   >
     <slot />
-  </Primitive>
+  </ListboxFilter>
 </template>

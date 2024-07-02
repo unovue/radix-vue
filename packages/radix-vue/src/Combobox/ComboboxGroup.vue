@@ -1,10 +1,8 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useForwardExpose, useId } from '@/shared'
-import { useMutationObserver } from '@vueuse/core'
-import { injectComboboxRootContext } from './ComboboxRoot.vue'
+import type { ListboxGroupProps } from '@/Listbox'
+import { createContext, useId } from '@/shared'
 
-export interface ComboboxGroupProps extends PrimitiveProps {}
+export interface ComboboxGroupProps extends ListboxGroupProps {}
 
 type ComboboxGroupContext = {
   id: string
@@ -15,36 +13,10 @@ export const [injectComboboxGroupContext, provideComboboxGroupContext]
 </script>
 
 <script setup lang="ts">
-import { nextTick, ref, watch } from 'vue'
-import { Primitive } from '@/Primitive'
+import { ListboxGroup } from '@/Listbox'
 
 const props = defineProps<ComboboxGroupProps>()
-
-const { currentRef, currentElement } = useForwardExpose()
 const id = useId(undefined, 'radix-vue-combobox-group')
-
-const rootContext = injectComboboxRootContext()
-const hasOptions = ref(false)
-
-function checkCollectionItem() {
-  if (!currentElement.value)
-    return
-
-  const collectionItem = currentElement.value.querySelectorAll('[data-radix-vue-combobox-item]:not([data-hidden])')
-  hasOptions.value = !!collectionItem.length
-}
-
-useMutationObserver(currentElement, () => {
-  nextTick(() => {
-    checkCollectionItem()
-  })
-}, { childList: true })
-
-watch(() => rootContext.searchTerm.value, () => {
-  nextTick(() => {
-    checkCollectionItem()
-  })
-}, { immediate: true })
 
 provideComboboxGroupContext({
   id,
@@ -52,13 +24,11 @@ provideComboboxGroupContext({
 </script>
 
 <template>
-  <Primitive
-    v-show="hasOptions"
-    v-bind="props"
-    ref="currentRef"
-    role="group"
+  <ListboxGroup
+    :id="id"
     :aria-labelledby="id"
+    v-bind="props"
   >
     <slot />
-  </Primitive>
+  </ListboxGroup>
 </template>

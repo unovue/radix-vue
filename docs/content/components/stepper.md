@@ -127,7 +127,7 @@ The indicator for the step.
 
 ### Title
 
-An accessible title to be announced when the dialog is opened.
+An accessible title to be announced when the stepper trigger is focused.
 
 If you want to hide the title, wrap it inside our Visually Hidden utility like this `<VisuallyHidden asChild>`.
 
@@ -135,9 +135,9 @@ If you want to hide the title, wrap it inside our Visually Hidden utility like t
 
 ### Description
 
-An optional accessible description to be announced when the dialog is opened.
+An optional accessible description to be announced when the stepper trigger is focused.
 
-If you want to hide the description, wrap it inside our Visually Hidden utility like this `<VisuallyHidden asChild>`. If you want to remove the description entirely, remove this part and pass `aria-describedby="undefined}` to `StepperItem`.
+If you want to hide the description, wrap it inside our Visually Hidden utility like this `<VisuallyHidden asChild>`. If you want to remove the description entirely, remove this part and pass `aria-describedby="undefined"` to `StepperTrigger`.
 
 <!-- @include: @/meta/StepperItem.md -->
 
@@ -147,7 +147,7 @@ If you want to hide the description, wrap it inside our Visually Hidden utility 
 
 You can create vertical tabs by using the `orientation` prop.
 
-```vue line=6
+```vue line=8
 <script setup>
 import { StepperDescription, StepperIndicator, StepperItem, StepperList, StepperRoot, StepperTitle } from 'radix-vue'
 </script>

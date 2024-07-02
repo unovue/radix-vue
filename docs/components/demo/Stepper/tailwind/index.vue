@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-
 import { StepperDescription, StepperIndicator, StepperItem, StepperRoot, StepperSeparator, StepperTitle, StepperTrigger } from 'radix-vue'
 
 const steps = [{
@@ -15,16 +14,6 @@ const steps = [{
   icon: 'radix-icons:archive',
 }, {
   step: 3,
-  title: 'Trade-in',
-  description: 'Add any trade-in items you have',
-  icon: 'radix-icons:update',
-}, {
-  step: 4,
-  title: 'Payment',
-  description: 'Add any payment information you have',
-  icon: 'radix-icons:sketch-logo',
-}, {
-  step: 5,
   title: 'Checkout',
   description: 'Confirm your order',
   icon: 'radix-icons:check',
@@ -34,37 +23,36 @@ const steps = [{
 <template>
   <StepperRoot
     :default-value="2"
-    class="flex gap-2"
+    class="flex gap-2 w-full max-w-[32rem]"
   >
     <StepperItem
       v-for="item in steps"
       :key="item.step"
-      class="flex items-center gap-2 cursor-pointer group data-[disabled]:pointer-events-none"
+      class="w-full flex justify-center gap-2 cursor-pointer group data-[disabled]:pointer-events-none relative px-4"
       :step="item.step"
-      aria-describedby="undefined"
     >
-      <StepperTrigger class="flex flex-col items-center text-center gap-2">
-        <StepperIndicator
-          class="inline-flex items-center group-data-[disabled]:text-gray-400 group-data-[state=active]:bg-black group-data-[state=active]:text-white justify-center rounded-full text-grass11 w-10 h-10 shrink-0 bg-white group-data-[state=active]:shadow-black group-data-[state=completed]:bg-violet9 group-data-[state=completed]:text-white group-data-[state=completed]:shadow-violet9 shadow-[0_0_0_2px] "
-        >
+      <StepperTrigger class="inline-flex items-center group-data-[disabled]:text-gray-400 group-data-[state=active]:bg-green11 group-data-[state=active]:text-white justify-center rounded-full text-gray-400 w-10 h-10 shrink-0 bg-gray-300 group-data-[state=completed]:bg-green10 group-data-[state=completed]:text-white focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none">
+        <StepperIndicator>
           <Icon
             :icon="item.icon"
-            class="w-6 h-6"
+            class="w-5 h-5"
           />
         </StepperIndicator>
-        <div class="flex flex-col">
-          <StepperTitle class="text-xs text-black font-medium">
-            {{ item.title }}
-          </StepperTitle>
-          <StepperDescription class="text-xs text-black">
-            {{ item.description }}
-          </StepperDescription>
-        </div>
       </StepperTrigger>
+
       <StepperSeparator
         v-if="item.step !== steps[steps.length - 1].step"
-        class="w-[20px] h-[1px] group-data-[state=active]:bg-black group-data-[disabled]:bg-gray-300 group-data-[state=completed]:bg-violet9 bg-green5 shrink-0"
+        class="absolute block top-5 left-[calc(50%+30px)] right-[calc(-50%+20px)] h-0.5 rounded-full group-data-[disabled]:bg-gray-300 bg-gray-300 group-data-[state=completed]:bg-green10 bg-green5 shrink-0"
       />
+
+      <div class="absolute text-center top-full left-0 w-full mt-2 text-white group-data-[state=inactive]:text-gray-300">
+        <StepperTitle class="font-medium">
+          {{ item.title }}
+        </StepperTitle>
+        <StepperDescription class="hidden sm:block text-xs">
+          {{ item.description }}
+        </StepperDescription>
+      </div>
     </StepperItem>
   </StepperRoot>
 </template>

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import './styles.css'
 import { Icon } from '@iconify/vue'
-
 import { StepperDescription, StepperIndicator, StepperItem, StepperRoot, StepperSeparator, StepperTitle, StepperTrigger } from 'radix-vue'
 
 const steps = [{
@@ -16,16 +15,6 @@ const steps = [{
   icon: 'radix-icons:archive',
 }, {
   step: 3,
-  title: 'Trade-in',
-  description: 'Add any trade-in items you have',
-  icon: 'radix-icons:update',
-}, {
-  step: 4,
-  title: 'Payment',
-  description: 'Add any payment information you have',
-  icon: 'radix-icons:sketch-logo',
-}, {
-  step: 5,
   title: 'Checkout',
   description: 'Confirm your order',
   icon: 'radix-icons:check',

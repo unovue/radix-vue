@@ -31,6 +31,7 @@ describe('given default Select', () => {
   it('should show placeholder', () => {
     expect(valueBox.html()).toContain('Please select a fruit')
   })
+  // TODO: add `multiple`, more `types` support case
 
   describe('opening the modal', () => {
     beforeEach(async () => {

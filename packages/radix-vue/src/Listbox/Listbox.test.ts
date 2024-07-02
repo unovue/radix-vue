@@ -27,6 +27,7 @@ describe('given default Listbox', () => {
   it('should pass axe accessibility tests', async () => {
     expect(await axe(wrapper.element)).toHaveNoViolations()
   })
+  // TODO: add make sure to select first item when have ListboxFilter
 
   describe('when focus on content', () => {
     beforeEach(async () => {

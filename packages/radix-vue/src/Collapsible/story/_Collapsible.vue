@@ -11,7 +11,10 @@ const emits = defineEmits<CollapsibleRootEmits>()
 </script>
 
 <template>
-  <CollapsibleRoot v-bind="{ ...props, ...useEmitAsProps(emits) }">
+  <CollapsibleRoot
+    v-bind="{ ...props, ...useEmitAsProps(emits) }"
+    unmount
+  >
     <CollapsibleTrigger>Trigger</CollapsibleTrigger>
     <CollapsibleContent>Content</CollapsibleContent>
   </CollapsibleRoot>

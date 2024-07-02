@@ -64,7 +64,6 @@ export const components = {
     'ComboboxGroup',
     'ComboboxLabel',
     'ComboboxContent',
-    'ComboboxEmpty',
     'ComboboxViewport',
     'ComboboxItem',
     'ComboboxItemIndicator',

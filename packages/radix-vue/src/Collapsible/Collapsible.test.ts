@@ -40,6 +40,7 @@ describe('given a default Collapsible', async () => {
     })
   })
 })
+// TODO: add test for `unmount` prop
 
 describe('given an open uncontrolled Collapsible', () => {
   let content: HTMLElement

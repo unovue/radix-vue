@@ -144,6 +144,7 @@ describe('given a Combobox with multiple prop', async () => {
     })
   })
 })
+// TODO: add Combobox Virtual story and test
 
 describe('given a Combobox with object', async () => {
   let wrapper: VueWrapper<InstanceType<typeof ComboboxObject>>

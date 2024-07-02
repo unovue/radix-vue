@@ -41,11 +41,12 @@ import { StepperDescription, StepperIndicator, StepperItem, StepperRoot, Stepper
 <template>
   <StepperRoot>
     <StepperItem>
-      <StepperTrigger>
-        <StepperIndicator />
-        <StepperTitle />
-        <StepperDescription />
-      </StepperTrigger>
+      <StepperTrigger />
+      <StepperIndicator />
+
+      <StepperTitle />
+      <StepperDescription />
+
       <StepperSeparator />
     </StepperItem>
   </StepperRoot>

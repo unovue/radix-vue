@@ -50,9 +50,8 @@ function handleKeyDown(event: KeyboardEvent) {
   if (itemContext.disabled.value)
     return
 
-  if ((event.key === kbd.ENTER || event.key === kbd.SPACE) && !event.ctrlKey && !event.shiftKey) {
+  if ((event.key === kbd.ENTER || event.key === kbd.SPACE) && !event.ctrlKey && !event.shiftKey)
     rootContext.changeModelValue(itemContext.step.value)
-  }
 
   if ([kbd.ARROW_LEFT, kbd.ARROW_RIGHT, kbd.ARROW_UP, kbd.ARROW_DOWN].includes(event.key)) {
     useArrowNavigation(event, document.activeElement as HTMLElement, undefined, {

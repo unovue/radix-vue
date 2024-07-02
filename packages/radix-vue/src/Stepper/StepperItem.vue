@@ -64,9 +64,9 @@ const itemState = computed(() => {
 const isFocusable = computed(() => {
   if (disabled.value)
     return false
-  if (rootContext.linear.value) {
+  if (rootContext.linear.value)
     return step.value <= rootContext.modelValue.value! || step.value === rootContext.modelValue.value! + 1
-  }
+
   return true
 })
 

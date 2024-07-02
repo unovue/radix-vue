@@ -93,6 +93,7 @@ provideStepperRootContext({
     :as="as"
     :as-child="asChild"
     :data-linear="linear ? '' : undefined"
+    :data-orientation="orientation"
   >
     <slot :model-value="modelValue" />
     <div

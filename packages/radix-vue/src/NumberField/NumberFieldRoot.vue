@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
-import { clamp, createContext, snapValueToStep, useFormControl } from '@/shared'
+import { clamp, createContext, snapValueToStep, useFormControl, useLocale } from '@/shared'
 import { type HTMLAttributes, type Ref, computed, ref, toRefs } from 'vue'
 
 export interface NumberFieldRootProps extends PrimitiveProps {
@@ -64,11 +64,10 @@ defineOptions({
 const props = withDefaults(defineProps<NumberFieldRootProps>(), {
   as: 'div',
   defaultValue: undefined,
-  locale: 'en-US',
   step: 1,
 })
 const emits = defineEmits<NumberFieldRootEmits>()
-const { disabled, min, max, step, locale, formatOptions, id } = toRefs(props)
+const { disabled, min, max, step, formatOptions, id, locale: propLocale } = toRefs(props)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
@@ -77,6 +76,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
+const locale = useLocale(propLocale)
 const isFormControl = useFormControl(currentElement)
 const inputEl = ref<HTMLInputElement>()
 

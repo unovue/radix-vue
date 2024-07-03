@@ -3,7 +3,7 @@ import { type DateValue, isEqualDay, isSameDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { type Formatter, createContext, useDirection } from '@/shared'
+import { type Formatter, createContext, useDirection, useLocale } from '@/shared'
 
 import { useCalendar, useCalendarState } from './useCalendar'
 import { type CalendarIncrement, getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
@@ -129,7 +129,6 @@ const props = withDefaults(defineProps<CalendarRootProps>(), {
   readonly: false,
   initialFocus: false,
   placeholder: undefined,
-  locale: 'en',
   isDateDisabled: undefined,
   isDateUnavailable: undefined,
 })
@@ -152,7 +151,6 @@ defineSlots<{
 }>()
 
 const {
-  locale,
   disabled,
   readonly,
   initialFocus,
@@ -170,10 +168,12 @@ const {
   calendarLabel,
   defaultValue,
   dir: propDir,
+  locale: propLocale,
 } = toRefs(props)
 
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
+const locale = useLocale(propLocale)
 const dir = useDirection(propDir)
 
 const modelValue = useVModel(props, 'modelValue', emits, {

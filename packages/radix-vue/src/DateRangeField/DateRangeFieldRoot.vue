@@ -3,7 +3,7 @@ import { type DateValue, isEqualDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { type Formatter, createContext, useDateFormatter, useDirection, useKbd } from '@/shared'
+import { type Formatter, createContext, useDateFormatter, useDirection, useKbd, useLocale } from '@/shared'
 import {
   type DateRange,
   type Granularity,
@@ -103,17 +103,17 @@ const props = withDefaults(defineProps<DateRangeFieldRootProps>(), {
   disabled: false,
   readonly: false,
   placeholder: undefined,
-  locale: 'en',
   isDateUnavailable: undefined,
 })
 const emits = defineEmits<DateRangeFieldRootEmits>()
-const { locale, disabled, readonly, isDateUnavailable: propsIsDateUnavailable, dir: propsDir } = toRefs(props)
+const { disabled, readonly, isDateUnavailable: propsIsDateUnavailable, dir: propDir, locale: propLocale } = toRefs(props)
+const locale = useLocale(propLocale)
+const dir = useDirection(propDir)
 
-const formatter = useDateFormatter(props.locale)
+const formatter = useDateFormatter(locale.value)
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
 const segmentElements = ref<Set<HTMLElement>>(new Set())
-const dir = useDirection(propsDir)
 
 onMounted(() => {
   Array.from(parentElement.value.querySelectorAll('[data-radix-vue-date-field-segment]')).filter(item => item.getAttribute('data-radix-vue-date-field-segment') !== 'literal').forEach(el => segmentElements.value.add(el as HTMLElement))

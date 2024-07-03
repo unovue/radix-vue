@@ -5,6 +5,7 @@ import { createContext } from '@/shared'
 
 interface ConfigProviderContextValue {
   dir?: Ref<Direction>
+  locale?: Ref<string>
   scrollBody?: Ref<boolean | ScrollBodyOption>
   useId?: () => string
 }
@@ -18,6 +19,11 @@ export interface ConfigProviderProps {
    * @defaultValue 'ltr'
    */
   dir?: Direction
+  /**
+   * The global locale of your application. This will be inherited by all primitives.
+   * @defaultValue 'en'
+   */
+  locale?: string
   /**
    * The global scroll body behavior of your application. This will be inherited by the related primitives.
    * @type boolean | ScrollBodyOption
@@ -35,14 +41,16 @@ import { toRefs } from 'vue'
 
 const props = withDefaults(defineProps<ConfigProviderProps>(), {
   dir: 'ltr',
+  locale: 'en',
   scrollBody: true,
   useId: undefined,
 })
 
-const { dir, scrollBody } = toRefs(props)
+const { dir, locale, scrollBody } = toRefs(props)
 
 provideConfigProviderContext({
   dir,
+  locale,
   scrollBody,
   useId: props.useId,
 })

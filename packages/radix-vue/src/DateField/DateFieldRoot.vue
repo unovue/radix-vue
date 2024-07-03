@@ -3,7 +3,7 @@ import { type DateValue, isEqualDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { type Formatter, createContext, useDateFormatter, useDirection, useKbd } from '@/shared'
+import { type Formatter, createContext, useDateFormatter, useDirection, useKbd, useLocale } from '@/shared'
 import {
   type Granularity,
   type HourCycle,
@@ -94,7 +94,6 @@ const props = withDefaults(defineProps<DateFieldRootProps>(), {
   disabled: false,
   readonly: false,
   placeholder: undefined,
-  locale: 'en',
   isDateUnavailable: undefined,
 })
 const emits = defineEmits<DateFieldRootEmits>()
@@ -109,10 +108,11 @@ defineSlots<{
   }) => any
 }>()
 
-const { locale, disabled, readonly, isDateUnavailable: propsIsDateUnavailable, granularity, defaultValue, dir: propDir } = toRefs(props)
-
-const formatter = useDateFormatter(props.locale)
+const { disabled, readonly, isDateUnavailable: propsIsDateUnavailable, granularity, defaultValue, dir: propDir, locale: propLocale } = toRefs(props)
+const locale = useLocale(propLocale)
 const dir = useDirection(propDir)
+
+const formatter = useDateFormatter(locale.value)
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
 const segmentElements = ref<Set<HTMLElement>>(new Set())

@@ -3,7 +3,7 @@ import { type DateValue, isEqualDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { type Formatter, createContext, useDirection } from '@/shared'
+import { type Formatter, createContext, useDirection, useLocale } from '@/shared'
 import { getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
 import { type Grid, type Matcher, type WeekDayFormat, isBefore } from '@/date'
 import type { CalendarIncrement, DateRange } from '@/shared/date'
@@ -122,7 +122,6 @@ const props = withDefaults(defineProps<RangeCalendarRootProps>(), {
   readonly: false,
   initialFocus: false,
   placeholder: undefined,
-  locale: 'en',
   isDateDisabled: undefined,
   isDateUnavailable: undefined,
   initialView: 'month',
@@ -161,13 +160,14 @@ const {
   calendarLabel,
   maxValue,
   minValue,
-  locale,
-  dir: propsDir,
+  dir: propDir,
+  locale: propLocale,
 } = toRefs(props)
 
 const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
-const dir = useDirection(propsDir)
+const dir = useDirection(propDir)
+const locale = useLocale(propLocale)
 
 const lastPressedDateValue = ref() as Ref<DateValue | undefined>
 const focusedValue = ref() as Ref<DateValue | undefined>

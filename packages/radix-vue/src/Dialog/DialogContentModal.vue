@@ -22,8 +22,6 @@ useHideOthers(currentElement)
     :disable-outside-pointer-events="true"
     @close-auto-focus="
       (event) => {
-        emits('closeAutoFocus', event);
-
         if (!event.defaultPrevented) {
           event.preventDefault();
           rootContext.triggerElement.value?.focus();
@@ -49,7 +47,6 @@ useHideOthers(currentElement)
         event.preventDefault();
       }
     "
-    @open-auto-focus="emits('openAutoFocus', $event)"
   >
     <slot />
   </DialogContentImpl>

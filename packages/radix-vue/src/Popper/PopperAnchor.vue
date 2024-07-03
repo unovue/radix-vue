@@ -1,10 +1,10 @@
 <script lang="ts">
-import type { Measurable } from './PopperRoot.vue'
+import type { ReferenceElement } from '@floating-ui/vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
 
 export interface PopperAnchorProps extends PrimitiveProps {
-  element?: Measurable
+  element?: ReferenceElement
 }
 </script>
 

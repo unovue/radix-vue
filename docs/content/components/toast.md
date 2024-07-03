@@ -168,7 +168,7 @@ When a toast must appear every time a user clicks a button, use state to render 
 
 ```html line=2,7
 <div>
-  <form  @submit="count++">
+  <form @submit="count++">
     ...
     <button>save</button>
   </form>
@@ -307,7 +307,7 @@ When providing an icon (or font icon), remember to label it correctly for screen
     },
     {
       keys: ['Enter'],
-      description:  `
+      description: `
         <span>
           When focus is on a <Code>ToastAction</Code> or
           <Code>ToastClose</Code>, closes the toast
@@ -315,7 +315,7 @@ When providing an icon (or font icon), remember to label it correctly for screen
     },
     {
       keys: ['Esc'],
-      description:  `
+      description: `
         <span>
           When focus is on a <Code>Toast</Code>, closes the toast
         </span> `

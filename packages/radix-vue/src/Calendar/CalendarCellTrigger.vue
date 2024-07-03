@@ -9,7 +9,7 @@ import {
 } from '@internationalized/date'
 import { computed, nextTick } from 'vue'
 import { useKbd } from '@/shared'
-import { parseStringToDateValue, toDate } from '@/date'
+import { toDate } from '@/date'
 
 export interface CalendarCellTriggerProps extends PrimitiveProps {
   /** The date value provided to the cell trigger */
@@ -112,12 +112,7 @@ function handleArrowKey(e: KeyboardEvent) {
       break
     case kbd.ENTER:
     case kbd.SPACE_CODE:
-      changeDate(
-        parseStringToDateValue(
-          currentCell!.getAttribute('data-value')!,
-          rootContext.placeholder.value,
-        ),
-      )
+      changeDate(props.day)
       return
     default:
       return

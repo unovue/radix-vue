@@ -19,10 +19,10 @@ const toggleState = ref(false)
     :layout="{ type: 'single', iframe: true }"
   >
     <Variant title="default">
-      <div class="h-[200vh]">
+      <div class="h-[200vh] mt-20">
         <PopoverRoot
           v-model:open="toggleState"
-          :modal="true"
+          :modal="false"
         >
           <PopoverTrigger
             class="rounded-full w-[35px] h-[35px] inline-flex items-center justify-center text-violet11 bg-white shadow-[0_2px_10px] shadow-blackA7 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black cursor-default outline-none"

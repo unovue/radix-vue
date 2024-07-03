@@ -286,7 +286,7 @@ const { floatingStyles, placement, isPositioned, middlewareData } = useFloating(
   reference,
   floatingRef,
   {
-    strategy: 'fixed',
+    strategy: 'absolute',
     placement: desiredPlacement,
     whileElementsMounted: (...args) => {
       const cleanup = autoUpdate(...args, {

@@ -28,10 +28,8 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 })
 
 onMounted(() => {
-  if (!('select' in currentElement.value))
-    return
-
-  rootContext.onInputElementChange(currentElement.value as HTMLInputElement)
+  if (currentElement.value)
+    rootContext.onInputElementChange(currentElement.value as HTMLInputElement)
 })
 
 function handleKeyDown(ev: KeyboardEvent) {

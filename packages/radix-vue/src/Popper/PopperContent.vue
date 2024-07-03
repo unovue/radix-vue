@@ -3,6 +3,7 @@ import type { Ref } from 'vue'
 import type {
   Middleware,
   Placement,
+  ReferenceElement,
 } from '@floating-ui/vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useForwardExpose, useSize } from '@/shared'
@@ -59,7 +60,7 @@ export interface PopperContentProps extends PrimitiveProps {
   alignOffset?: number
 
   /**
-   * When `true`, overrides the side andalign preferences
+   * When `true`, overrides the side and align preferences
    * to prevent collisions with boundary edges.
    *
    * @defaultValue true
@@ -125,6 +126,14 @@ export interface PopperContentProps extends PrimitiveProps {
    * @defaultValue false
    */
   prioritizePosition?: boolean
+
+  /**
+   *  The custom element or virtual element that will be set as the reference
+   *  to position the floating element.
+   *
+   *  If provided, it will replace the default anchor element.
+   */
+  reference?: ReferenceElement
 }
 
 export interface PopperContentContext {
@@ -140,7 +149,7 @@ export const [injectPopperContentContext, providePopperContentContext]
 </script>
 
 <script setup lang="ts">
-import { computed, ref, watchEffect } from 'vue'
+import { computed, ref, toRefs, watchEffect } from 'vue'
 import { computedEager } from '@vueuse/core'
 import {
   autoUpdate,
@@ -173,8 +182,8 @@ const props = withDefaults(defineProps<PopperContentProps>(), {
 const emits = defineEmits<{
   placed: [void]
 }>()
-const rootContext = injectPopperRootContext()
 
+const rootContext = injectPopperRootContext()
 const { forwardRef, currentElement: contentElement } = useForwardExpose()
 
 const floatingRef = ref<HTMLElement>()
@@ -270,8 +279,11 @@ const computedMiddleware = computedEager(() => {
   ] as Middleware[]
 })
 
+// If provided custom reference, it will overwrite the defautl anchor element
+const reference = computed(() => props.reference ?? rootContext.anchor.value)
+
 const { floatingStyles, placement, isPositioned, middlewareData } = useFloating(
-  rootContext.anchor,
+  reference,
   floatingRef,
   {
     strategy: 'fixed',

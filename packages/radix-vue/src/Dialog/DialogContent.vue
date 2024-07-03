@@ -37,7 +37,6 @@ const { forwardRef } = useForwardExpose()
       v-if="rootContext.modal.value"
       :ref="forwardRef"
       v-bind="{ ...props, ...emitsAsProps, ...$attrs }"
-      @open-auto-focus="emits('openAutoFocus', $event)"
     >
       <slot />
     </DialogContentModal>

@@ -86,7 +86,6 @@ function handleClick() {
 }
 
 function handleArrowKey(e: KeyboardEvent) {
-  const currentCell = e.target as HTMLDivElement
   e.preventDefault()
   e.stopPropagation()
   const parentElement = rootContext.parentElement.value!

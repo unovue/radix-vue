@@ -30,9 +30,12 @@ function isLayerExist(layerElement: HTMLElement, targetElement: HTMLElement) {
     (targetLayer
     && mainLayer === targetLayer)
     || nodeList.indexOf(mainLayer) < nodeList.indexOf(targetLayer)
-  )
+  ) {
     return true
-  else return false
+  }
+  else {
+    return false
+  }
 }
 
 /**

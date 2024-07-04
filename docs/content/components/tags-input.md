@@ -171,7 +171,10 @@ import { TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText, 
 </script>
 
 <template>
-  <TagsInputRoot v-model="modelValue" add-on-paste>
+  <TagsInputRoot
+    v-model="modelValue"
+    add-on-paste
+  >
     …
   </TagsInputRoot>
 </template>

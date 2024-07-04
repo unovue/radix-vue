@@ -9,7 +9,7 @@ import {
 } from '@internationalized/date'
 import { computed, nextTick } from 'vue'
 import { useKbd } from '@/shared'
-import { parseStringToDateValue, toDate } from '@/date'
+import { toDate } from '@/date'
 
 export interface CalendarCellTriggerProps extends PrimitiveProps {
   /** The date value provided to the cell trigger */
@@ -26,10 +26,20 @@ import { injectCalendarRootContext } from './CalendarRoot.vue'
 const props = withDefaults(defineProps<CalendarCellTriggerProps>(), {
   as: 'div',
 })
+
+defineSlots<{
+  default: (props: {
+    /** Current day */
+    dayValue: string
+  }) => any
+}>()
+
 const kbd = useKbd()
 const rootContext = injectCalendarRootContext()
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
+
+const dayValue = computed(() => props.day.day.toLocaleString(rootContext.locale.value))
 
 const labelText = computed(() => {
   return rootContext.formatter.custom(toDate(props.day), {
@@ -71,17 +81,11 @@ function changeDate(date: DateValue) {
   rootContext.onDateChange(date)
 }
 
-function handleClick(e: Event) {
-  changeDate(
-    parseStringToDateValue(
-      (e.target as HTMLDivElement).getAttribute('data-value')!,
-      rootContext.placeholder.value,
-    ),
-  )
+function handleClick() {
+  changeDate(props.day)
 }
 
 function handleArrowKey(e: KeyboardEvent) {
-  const currentCell = e.target as HTMLDivElement
   e.preventDefault()
   e.stopPropagation()
   const parentElement = rootContext.parentElement.value!
@@ -107,12 +111,7 @@ function handleArrowKey(e: KeyboardEvent) {
       break
     case kbd.ENTER:
     case kbd.SPACE_CODE:
-      changeDate(
-        parseStringToDateValue(
-          currentCell!.getAttribute('data-value')!,
-          rootContext.placeholder.value,
-        ),
-      )
+      changeDate(props.day)
       return
     default:
       return
@@ -173,8 +172,8 @@ function handleArrowKey(e: KeyboardEvent) {
     @keydown.up.down.left.right.space.enter="handleArrowKey"
     @keydown.enter.prevent
   >
-    <slot>
-      {{ day.day.toLocaleString(rootContext.locale.value) }}
+    <slot :day-value="dayValue">
+      {{ dayValue }}
     </slot>
   </Primitive>
 </template>

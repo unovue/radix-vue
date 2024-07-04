@@ -312,7 +312,10 @@ const selectedPeople = ref([people[0], people[1]])
 </script>
 
 <template>
-  <ComboboxRoot v-model="selectedPeople" multiple>
+  <ComboboxRoot
+    v-model="selectedPeople"
+    multiple
+  >
     ...
   </ComboboxRoot>
 </template>
@@ -430,7 +433,10 @@ import { ComboboxInput, ComboboxRoot, Label } from 'radix-vue'
 <template>
   <ComboboxRoot v-model="selectedPeople">
     <Label for="person">Person: </Label>
-    <ComboboxInput id="person" placeholder="Select a person" />
+    <ComboboxInput
+      id="person"
+      placeholder="Select a person"
+    />
     ...
   </ComboboxRoot>
 </template>
@@ -457,7 +463,10 @@ import {
     <ComboboxInput />
     <ComboboxPortal>
       <ComboboxContent>
-        <ComboboxItem class="ComboboxItem" disabled>
+        <ComboboxItem
+          class="ComboboxItem"
+          disabled
+        >
           ...
         </ComboboxItem>
       </ComboboxContent>
@@ -686,7 +695,11 @@ const forward = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
-  <ComboboxRoot v-bind="forward" :open="true" model-value="">
+  <ComboboxRoot
+    v-bind="forward"
+    :open="true"
+    model-value=""
+  >
     <ComboboxInput placeholder="Type a command or search..." />
 
     <ComboboxPortal>
@@ -711,7 +724,10 @@ const props = defineProps<ComboboxItemProps>()
 </script>
 
 <template>
-  <ComboboxItem v-bind="props" @select.prevent>
+  <ComboboxItem
+    v-bind="props"
+    @select.prevent
+  >
     <slot />
   </ComboboxItem>
 </template>

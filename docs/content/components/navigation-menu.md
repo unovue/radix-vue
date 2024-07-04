@@ -439,7 +439,10 @@ import { NavigationMenuItem, NavigationMenuList, NavigationMenuRoot } from 'radi
         </NavigationMenuLink>
       </NavigationMenuItem>
       <NavigationMenuItem>
-        <NavigationMenuLink :as="RouterLink" to="/about">
+        <NavigationMenuLink
+          :as="RouterLink"
+          to="/about"
+        >
           About
         </NavigationMenuLink>
       </NavigationMenuItem>

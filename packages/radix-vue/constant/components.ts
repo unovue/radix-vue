@@ -348,6 +348,16 @@ export const components = {
     'SplitterResizeHandle',
   ],
 
+  stepper: [
+    'StepperRoot',
+    'StepperItem',
+    'StepperTrigger',
+    'StepperDescription',
+    'StepperTitle',
+    'StepperIndicator',
+    'StepperSeparator',
+  ],
+
   switch: [
     'SwitchRoot',
     'SwitchThumb',
@@ -405,6 +415,12 @@ export const components = {
     'TooltipArrow',
     'TooltipPortal',
     'TooltipProvider',
+  ],
+
+  tree: [
+    'TreeRoot',
+    'TreeItem',
+    'TreeVirtualizer',
   ],
 
   viewport: [

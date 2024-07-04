@@ -101,9 +101,9 @@ onUnmounted(() => {
         '--radix-hover-card-trigger-width': 'var(--radix-popper-anchor-width)',
         '--radix-hover-card-trigger-height': 'var(--radix-popper-anchor-height)',
       }"
-      @pointerdown="(event) => {
+      @pointerdown="(event: PointerEvent) => {
         // Contain selection to current layer
-        if (event.currentTarget.contains(event.target as HTMLElement)) {
+        if ((event.currentTarget as HTMLElement).contains(event.target as HTMLElement)) {
           containSelection = true
         }
         rootContext.hasSelectionRef.value = false;

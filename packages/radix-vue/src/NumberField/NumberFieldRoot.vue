@@ -127,7 +127,7 @@ const inputMode = computed<HTMLAttributes['inputmode']>(() => {
   // Browsers and operating systems are quite inconsistent about what keys are available, however.
   // We choose between numeric and decimal based on whether we allow negative and fractional numbers,
   // and based on testing on various devices to determine what keys are available in each inputMode.
-  const hasDecimals = numberFormatter.resolvedOptions().maximumFractionDigits > 0
+  const hasDecimals = numberFormatter.resolvedOptions().maximumFractionDigits! > 0
 
   return hasDecimals ? 'decimal' : 'numeric'
 })

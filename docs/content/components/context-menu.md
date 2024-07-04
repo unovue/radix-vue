@@ -435,7 +435,10 @@ import { ContextMenuContent, ContextMenuItem, ContextMenuPortal, ContextMenuRoot
     <ContextMenuTrigger>…</ContextMenuTrigger>
     <ContextMenuPortal>
       <ContextMenuContent>
-        <ContextMenuItem class="ContextMenuItem" disabled>
+        <ContextMenuItem
+          class="ContextMenuItem"
+          disabled
+        >
           …
         </ContextMenuItem>
         <ContextMenuItem class="ContextMenuItem">

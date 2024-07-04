@@ -114,8 +114,9 @@ watch(() => panelDataRef.value.constraints, (prevConstraints, constraints) => {
     || prevConstraints.collapsible !== constraints.collapsible
     || prevConstraints.maxSize !== constraints.maxSize
     || prevConstraints.minSize !== constraints.minSize
-  )
+  ) {
     reevaluatePanelConstraints(panelDataRef.value, prevConstraints)
+  }
 }, { deep: true })
 
 onMounted(() => {

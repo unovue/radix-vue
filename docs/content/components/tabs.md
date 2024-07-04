@@ -156,7 +156,10 @@ import { TabsContent, TabsList, TabsRoot, TabsTrigger } from 'radix-vue'
 </script>
 
 <template>
-  <TabsRoot default-value="tab1" orientation="vertical">
+  <TabsRoot
+    default-value="tab1"
+    orientation="vertical"
+  >
     <TabsList aria-label="tabs example">
       <TabsTrigger value="tab1">
         One

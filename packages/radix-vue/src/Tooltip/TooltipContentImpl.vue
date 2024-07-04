@@ -14,18 +14,18 @@ export type TooltipContentImplEmits = {
 export interface TooltipContentImplProps
   extends PrimitiveProps,
   Pick<
-      PopperContentProps,
-      | 'side'
-      | 'sideOffset'
-      | 'align'
-      | 'alignOffset'
-      | 'avoidCollisions'
-      | 'collisionBoundary'
-      | 'collisionPadding'
-      | 'arrowPadding'
-      | 'sticky'
-      | 'hideWhenDetached'
-    > {
+    PopperContentProps,
+    | 'side'
+    | 'sideOffset'
+    | 'align'
+    | 'alignOffset'
+    | 'avoidCollisions'
+    | 'collisionBoundary'
+    | 'collisionPadding'
+    | 'arrowPadding'
+    | 'sticky'
+    | 'hideWhenDetached'
+  > {
   /**
    * By default, screenreaders will announce the content inside
    * the component. If this is not descriptive enough, or you have

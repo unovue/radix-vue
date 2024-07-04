@@ -1,15 +1,15 @@
 {
   "name": "radix-vue",
-  "version": "1.8.4",
+  "version": "1.9.0",
   "private": true,
-  "packageManager": "pnpm@8.15.4",
+  "packageManager": "pnpm@9.4.0",
   "license": "MIT",
   "repository": "radix-vue/radix-vue",
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "story:dev": "pnpm --filter histoire story:dev",
+    "story:dev": "pnpm --filter histoire story:dev --open",
     "build": "rimraf packages/radix-vue/dist  && pnpm run --filter radix-vue build && pnpm run --filter plugins build",
     "build-only": "rimraf packages/radix-vue/dist  && pnpm run -r build-only",
     "docs:install": "pnpm --filter docs install",
@@ -25,16 +25,16 @@
     "pub:release": "cd packages/radix-vue && pnpm pub:release"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.18.0",
-    "@commitlint/cli": "^17.8.0",
-    "@commitlint/config-conventional": "^17.8.0",
-    "bumpp": "^9.2.0",
-    "eslint": "^9.2.0",
-    "lint-staged": "^14.0.1",
-    "pnpm": "^8.15.4",
-    "rimraf": "^5.0.5",
-    "simple-git-hooks": "^2.9.0",
-    "typescript": "^5.3.3"
+    "@antfu/eslint-config": "^2.21.2",
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "bumpp": "^9.4.1",
+    "eslint": "^9.6.0",
+    "lint-staged": "^15.2.7",
+    "pnpm": "^9.4.0",
+    "rimraf": "^5.0.7",
+    "simple-git-hooks": "^2.11.1",
+    "typescript": "5.3.3"
   },
   "commitlint": {
     "extends": [
@@ -43,7 +43,7 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "vitepress@1.0.1": "patches/vitepress@1.0.1.patch"
+      "vitepress@1.2.3": "patches/vitepress@1.2.3.patch"
     }
   },
   "simple-git-hooks": {

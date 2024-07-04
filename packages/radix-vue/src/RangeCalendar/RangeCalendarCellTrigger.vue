@@ -9,7 +9,7 @@ import {
 } from '@internationalized/date'
 import { computed, nextTick } from 'vue'
 import { useKbd } from '@/shared'
-import { isBetweenInclusive, parseStringToDateValue, toDate } from '@/date'
+import { isBetweenInclusive, toDate } from '@/date'
 
 export interface RangeCalendarCellTriggerProps extends PrimitiveProps {
   day: DateValue
@@ -22,6 +22,13 @@ import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { injectRangeCalendarRootContext } from './RangeCalendarRoot.vue'
 
 const props = withDefaults(defineProps<RangeCalendarCellTriggerProps>(), { as: 'div' })
+defineSlots<{
+  default: (props: {
+    /** Current day */
+    dayValue: string
+  }) => any
+}>()
+
 const rootContext = injectRangeCalendarRootContext()
 
 const kbd = useKbd()
@@ -56,6 +63,8 @@ const isOutsideView = computed(() => {
 const isOutsideVisibleView = computed(() =>
   rootContext.isOutsideVisibleView(props.day),
 )
+
+const dayValue = computed(() => props.day.day.toLocaleString(rootContext.locale.value))
 
 const isFocusedDate = computed(() => {
   return isSameDay(props.day, rootContext.placeholder.value)
@@ -100,25 +109,17 @@ function changeDate(date: DateValue) {
   }
 }
 
-function handleClick(e: Event) {
-  const date = parseStringToDateValue((e.target as HTMLDivElement).getAttribute('data-value')!, rootContext.placeholder.value)
-
-  if (rootContext.isDateDisabled(date) || rootContext.isDateUnavailable?.(date))
-    return
-
-  changeDate(date)
+function handleClick() {
+  changeDate(props.day)
 }
 
-function handleFocus(e: Event) {
-  const date = parseStringToDateValue((e.target as HTMLDivElement).getAttribute('data-value')!, rootContext.placeholder.value)
-
-  if (rootContext.isDateDisabled(date) || rootContext.isDateUnavailable?.(date))
+function handleFocus() {
+  if (rootContext.isDateDisabled(props.day) || rootContext.isDateUnavailable?.(props.day))
     return
-  rootContext.focusedValue.value = date.copy()
+  rootContext.focusedValue.value = props.day.copy()
 }
 
 function handleArrowKey(e: KeyboardEvent) {
-  const currentCell = e.target as HTMLDivElement
   e.preventDefault()
   e.stopPropagation()
   const parentElement = rootContext.parentElement.value!
@@ -145,7 +146,7 @@ function handleArrowKey(e: KeyboardEvent) {
       break
     case kbd.ENTER:
     case kbd.SPACE_CODE:
-      changeDate(parseStringToDateValue(currentCell!.getAttribute('data-value')!, rootContext.placeholder.value))
+      changeDate(props.day)
       return
     default:
       return
@@ -209,8 +210,8 @@ function handleArrowKey(e: KeyboardEvent) {
     @mouseenter="handleFocus"
     @keydown.up.down.left.right.enter.space="handleArrowKey"
   >
-    <slot>
-      {{ day.day.toLocaleString(rootContext.locale.value) }}
+    <slot :day-value="dayValue">
+      {{ dayValue }}
     </slot>
   </Primitive>
 </template>

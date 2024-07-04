@@ -153,14 +153,6 @@ Contains the cancel trigger of the editable component.
       description: `<span>When focus moves onto the editable field, switches into the editable mode if the <Code>activation-mode</Code> is set to focus.</span>`
     },
     {
-      keys: ['Space'],
-      description:`
-      <span>
-          If the <Code>submit-mode</Code> is set to <Code>enter</Code> or <Code>both</Code>, it submits the changes.
-      </span>
-    ` ,
-    },
-    {
       keys: ['Enter'],
       description:`
       <span>

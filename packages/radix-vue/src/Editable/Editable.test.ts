@@ -100,6 +100,24 @@ describe('editable', () => {
     expect(preview).toHaveTextContent('New Value')
   })
 
+  it('submits the value when pressing enter if submitMode is both', async () => {
+    const { input, preview, rerender } = setup({ editableProps: { modelValue: '', submitMode: 'both' }, emits: { 'onUpdate:modelValue': (data: string) => rerender({ modelValue: data }) } })
+
+    await userEvent.type(input, 'New Value')
+    await userEvent.keyboard(kbd.ENTER)
+    expect(preview).toBeVisible()
+    expect(preview).toHaveTextContent('New Value')
+  })
+
+  it('submits the value on blur if submitMode is both', async () => {
+    const { input, preview, rerender } = setup({ editableProps: { modelValue: '', submitMode: 'both' }, emits: { 'onUpdate:modelValue': (data: string) => rerender({ modelValue: data, submitMode: 'blur' }) } })
+
+    await userEvent.type(input, 'New Value')
+    await userEvent.tab()
+    expect(preview).toBeVisible()
+    expect(preview).toHaveTextContent('New Value')
+  })
+
   it('prevents entering edit mode when disabled', async () => {
     const { preview, edit } = setup({ editableProps: { disabled: true } })
 

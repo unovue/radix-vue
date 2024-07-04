@@ -210,9 +210,11 @@ function getHullPresorted<P extends Point>(points: Readonly<Array<P>>): Array<P>
     && lowerHull.length === 1
     && upperHull[0].x === lowerHull[0].x
     && upperHull[0].y === lowerHull[0].y
-  )
+  ) {
     return upperHull
+  }
 
-  else
+  else {
     return upperHull.concat(lowerHull)
+  }
 }

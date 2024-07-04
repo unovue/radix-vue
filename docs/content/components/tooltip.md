@@ -29,18 +29,18 @@ Import all parts and piece them together.
 
 ```vue
 <script setup lang="ts">
-import { TooltipArrow, TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
+import { TooltipArrow, TooltipContent, TooltipPortal, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
 </script>
 
 <template>
   <TooltipProvider>
     <TooltipRoot>
       <TooltipTrigger />
-      <Tooltip>
+      <TooltipPortal>
         <TooltipContent>
           <TooltipArrow />
         </TooltipContent>
-      </Tooltip>
+      </TooltipPortal>
     </TooltipRoot>
   </TooltipProvider>
 </template>
@@ -147,7 +147,10 @@ import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'ra
 </script>
 
 <template>
-  <TooltipProvider :delay-duration="800" :skip-delay-duration="500">
+  <TooltipProvider
+    :delay-duration="800"
+    :skip-delay-duration="500"
+  >
     <TooltipRoot>
       <TooltipTrigger>…</TooltipTrigger>
       <TooltipContent>…</TooltipContent>
@@ -193,7 +196,10 @@ import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'ra
   <TooltipRoot>
     <TooltipTrigger as-child>
       <span tabindex="0">
-        <button disabled style="{ pointerEvents: 'none' }">…</button>
+        <button
+          disabled
+          style="{ pointerEvents: 'none' }"
+        >…</button>
       </span>
     </TooltipTrigger>
     <TooltipContent>…</TooltipContent>
@@ -217,7 +223,10 @@ import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'ra
   <TooltipRoot>
     <TooltipTrigger>…</TooltipTrigger>
     <TooltipPortal>
-      <TooltipContent class="TooltipContent" :side-offset="5">
+      <TooltipContent
+        class="TooltipContent"
+        :side-offset="5"
+      >
         …
       </TooltipContent>
     </TooltipPortal>
@@ -395,9 +404,15 @@ const forward = useForwardPropsEmits(props, emits)
     <TooltipTrigger as-child>
       <slot />
     </TooltipTrigger>
-    <TooltipContent side="top" align="center">
+    <TooltipContent
+      side="top"
+      align="center"
+    >
       {{ content }}
-      <TooltipArrow :width="11" :height="5" />
+      <TooltipArrow
+        :width="11"
+        :height="5"
+      />
     </TooltipContent>
   </TooltipRoot>
 </template>

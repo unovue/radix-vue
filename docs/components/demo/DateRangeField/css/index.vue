@@ -5,7 +5,10 @@ import './styles.css'
 
 <template>
   <div class="DateFieldWrapper">
-    <Label class="DateFieldLabel" for="date-field">Input label</Label>
+    <Label
+      class="DateFieldLabel"
+      for="date-field"
+    >Input label</Label>
 
     <DateRangeFieldRoot
       id="date-field"
@@ -14,7 +17,10 @@ import './styles.css'
       granularity="second"
       class="DateField"
     >
-      <template v-for="item in segments.start" :key="item.part">
+      <template
+        v-for="item in segments.start"
+        :key="item.part"
+      >
         <DateRangeFieldInput
           v-if="item.part === 'literal'"
           :part="item.part"
@@ -33,7 +39,10 @@ import './styles.css'
         </DateRangeFieldInput>
       </template>
       -
-      <template v-for="item in segments.end" :key="item.part">
+      <template
+        v-for="item in segments.end"
+        :key="item.part"
+      >
         <DateRangeFieldInput
           v-if="item.part === 'literal'"
           :part="item.part"

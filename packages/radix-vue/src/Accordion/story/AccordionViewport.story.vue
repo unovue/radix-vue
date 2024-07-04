@@ -22,8 +22,14 @@ import {
         keyboard, the page should not scroll unless the next tab is entering the
         viewport.
       </p>
-      <AccordionRoot type="single" class="">
-        <AccordionItem class="accordion-item" value="one">
+      <AccordionRoot
+        type="single"
+        class=""
+      >
+        <AccordionItem
+          class="accordion-item"
+          value="one"
+        >
           <AccordionHeader class="flex">
             <AccordionTrigger class="accordion-trigger">
               One
@@ -35,7 +41,10 @@ import {
             malesuada scelerisque quam suscipit habitant sed.
           </AccordionContent>
         </AccordionItem>
-        <AccordionItem class="accordion-item" value="two">
+        <AccordionItem
+          class="accordion-item"
+          value="two"
+        >
           <AccordionHeader class="flex">
             <AccordionTrigger class="accordion-trigger">
               Two
@@ -47,7 +56,11 @@ import {
             platea ultrices mi.
           </AccordionContent>
         </AccordionItem>
-        <AccordionItem class="accordion-item" value="three" disabled>
+        <AccordionItem
+          class="accordion-item"
+          value="three"
+          disabled
+        >
           <AccordionHeader class="flex">
             <AccordionTrigger class="accordion-trigger">
               Three (disabled)
@@ -59,7 +72,10 @@ import {
             etiam mattis.
           </AccordionContent>
         </AccordionItem>
-        <AccordionItem class="accordion-item" value="four">
+        <AccordionItem
+          class="accordion-item"
+          value="four"
+        >
           <AccordionHeader class="flex">
             <AccordionTrigger class="accordion-trigger">
               Four

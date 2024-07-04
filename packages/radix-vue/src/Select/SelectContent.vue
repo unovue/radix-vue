@@ -45,7 +45,11 @@ const renderPresence = computed(() => props.forceMount || rootContext.open.value
 </script>
 
 <template>
-  <Presence v-if="renderPresence" ref="presenceRef" :present="true">
+  <Presence
+    v-if="renderPresence"
+    ref="presenceRef"
+    :present="true"
+  >
     <SelectContentImpl v-bind="{ ...forwarded, ...$attrs }">
       <slot />
     </SelectContentImpl>

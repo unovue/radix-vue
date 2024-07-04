@@ -7,7 +7,10 @@ import { Label } from '@/Label'
   <Story title="Date Field/Default">
     <Variant title="default">
       <div class="flex flex-col gap-2 text-black">
-        <Label class="text-sm text-gray9" for="date-field">Appointment (unavailable on 19th)</Label>
+        <Label
+          class="text-sm text-gray9"
+          for="date-field"
+        >Appointment (unavailable on 19th)</Label>
         <DateFieldRoot
           id="date-field"
           v-slot="{ segments, isInvalid }"
@@ -15,7 +18,10 @@ import { Label } from '@/Label'
           granularity="second"
           class="flex select-none bg-white items-center rounded text-center text-green10 placeholder:text-mauve5 border border-gray9 p-2 data-[invalid]:border-red-500 data-[invalid]:outline data-[invalid]:outline-red-500"
         >
-          <template v-for="item in segments" :key="item.part">
+          <template
+            v-for="item in segments"
+            :key="item.part"
+          >
             <DateFieldInput
               v-if="item.part === 'literal'"
               :part="item.part"
@@ -31,7 +37,10 @@ import { Label } from '@/Label'
             </DateFieldInput>
           </template>
 
-          <span v-if="isInvalid" class="text-red-500">Invalidddd</span>
+          <span
+            v-if="isInvalid"
+            class="text-red-500"
+          >Invalidddd</span>
         </DateFieldRoot>
       </div>
     </Variant>

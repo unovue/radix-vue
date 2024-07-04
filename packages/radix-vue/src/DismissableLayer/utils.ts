@@ -17,9 +17,11 @@ function isLayerExist(layerElement: HTMLElement, targetElement: HTMLElement) {
     '[data-dismissable-layer]',
   ) as HTMLElement
 
-  const mainLayer = layerElement.querySelector(
-    '[data-dismissable-layer]',
-  ) as HTMLElement
+  const mainLayer = layerElement.dataset.dismissableLayer === ''
+    ? layerElement
+    : layerElement.querySelector(
+      '[data-dismissable-layer]',
+    ) as HTMLElement
 
   const nodeList = Array.from(
     layerElement.ownerDocument.querySelectorAll('[data-dismissable-layer]'),
@@ -28,9 +30,12 @@ function isLayerExist(layerElement: HTMLElement, targetElement: HTMLElement) {
     (targetLayer
     && mainLayer === targetLayer)
     || nodeList.indexOf(mainLayer) < nodeList.indexOf(targetLayer)
-  )
+  ) {
     return true
-  else return false
+  }
+  else {
+    return false
+  }
 }
 
 /**

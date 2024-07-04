@@ -14,7 +14,10 @@ const { forwardRef } = useForwardExpose()
 </script>
 
 <template>
-  <RovingFocusItem as-child focusable>
+  <RovingFocusItem
+    as-child
+    focusable
+  >
     <Primitive
       v-bind="props"
       :ref="forwardRef"

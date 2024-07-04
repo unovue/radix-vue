@@ -20,7 +20,10 @@ itemContext.textId ||= useId(undefined, 'radix-vue-tags-input-item-text')
 </script>
 
 <template>
-  <Primitive v-bind="props" :id="itemContext.textId">
+  <Primitive
+    v-bind="props"
+    :id="itemContext.textId"
+  >
     <slot>{{ itemContext.displayValue.value }}</slot>
   </Primitive>
 </template>

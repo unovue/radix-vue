@@ -3,7 +3,10 @@ import { SplitterGroup, SplitterPanel, SplitterResizeHandle } from '../'
 </script>
 
 <template>
-  <Story title="Splitter/Collapsible" :layout="{ type: 'single', width: '100%', iframe: false }">
+  <Story
+    title="Splitter/Collapsible"
+    :layout="{ type: 'single', width: '100%', iframe: false }"
+  >
     <Variant title="default">
       <div class="w-full h-48">
         <SplitterGroup direction="horizontal">

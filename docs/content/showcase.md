@@ -4,11 +4,6 @@ layout: showcase
 description: Showcase your packages or projects made with Radix Vue
 
 packages:
-  - title: '...'
-    description: Component library built on top of Radix Vue
-    url: https://github.com/radix-vue
-    image: /new-ui.jpg
-
   - title: Shadcn Vue
     description: An unofficial, community-led Vue port of shadcn/ui.
     url: https://www.shadcn-vue.com/
@@ -55,5 +50,15 @@ projects:
     url: https://map.nimiq.com/
     image: https://mycbdmurjytbdahjljoh.supabase.co/storage/v1/object/public/og-image/og-image.jpg
 
+  - title: Sink
+    description: A Simple / Speedy / Secure Link Shortener with Analytics, 100% run on Cloudflare.
+    url: https://sink.cool/
+    image: https://sink.cool/banner.png
+
 starters:
+  - title: shadcn-docs
+    description: A Nuxt content docs theme built with `shadcn-vue`
+    url: https://shadcn-docs.nuxt.dev/
+    image: https://github.com/ZTL-UwU/shadcn-docs-nuxt/assets/49156174/b317288d-092d-4656-af5e-54034351daca
+
 ---

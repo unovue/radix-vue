@@ -29,7 +29,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <Primitive :ref="forwardRef" style="position: relative">
+  <Primitive
+    :ref="forwardRef"
+    style="position: relative"
+  >
     <Primitive
       v-bind="$attrs"
       :as-child="props.asChild"

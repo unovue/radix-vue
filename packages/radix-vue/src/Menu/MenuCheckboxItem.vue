@@ -28,10 +28,10 @@ const props = withDefaults(defineProps<MenuCheckboxItemProps>(), {
 const emits = defineEmits<MenuCheckboxItemEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current checked state */
     checked: typeof checked.value
-  }): any
+  }) => any
 }>()
 
 const checked = useVModel(props, 'checked', emits)

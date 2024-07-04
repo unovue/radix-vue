@@ -1,5 +1,5 @@
 <script lang="ts">
-import { createContext, useDirection, useFormControl, useKbd, useTypeahead } from '@/shared'
+import { createContext, findValuesBetween, useDirection, useFormControl, useKbd, useTypeahead } from '@/shared'
 import { Primitive } from '..'
 import { type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
 import type { AcceptableValue, DataOrientation, Direction } from '@/shared/types'
@@ -75,7 +75,7 @@ export type ListboxRootEmits<T = AcceptableValue> = {
 <script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
 import { type EventHook, createEventHook, useVModel } from '@vueuse/core'
 import { type Ref, nextTick, ref, toRefs, watch } from 'vue'
-import { compare, findValuesBetween } from './utils'
+import { compare } from './utils'
 import { createCollection } from '@/Collection'
 import { VisuallyHiddenInput } from '@/VisuallyHidden'
 
@@ -115,7 +115,9 @@ function onValueChange(val: T) {
   if (Array.isArray(modelValue.value)) {
     const index = modelValue.value.findIndex(i => compare(i, val, props.by))
     if (props.selectionBehavior === 'toggle') {
-      index === -1 ? modelValue.value.push(val) : modelValue.value.splice(index, 1)
+      const modelArray = [...modelValue.value]
+      index === -1 ? modelArray.push(val) : modelArray.splice(index, 1)
+      modelValue.value = modelArray
     }
     else {
       modelValue.value = [val]
@@ -330,6 +332,10 @@ provideListboxRootContext({
   >
     <slot :model-value="modelValue" />
 
-    <VisuallyHiddenInput v-if="isFormControl && props.name" :name="props.name" :value="modelValue" />
+    <VisuallyHiddenInput
+      v-if="isFormControl && props.name"
+      :name="props.name"
+      :value="modelValue"
+    />
   </Primitive>
 </template>

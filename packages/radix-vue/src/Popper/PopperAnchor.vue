@@ -27,7 +27,11 @@ watch(currentElement, () => {
 </script>
 
 <template>
-  <Primitive :ref="forwardRef" :as="as" :as-child="asChild">
+  <Primitive
+    :ref="forwardRef"
+    :as="as"
+    :as-child="asChild"
+  >
     <slot />
   </Primitive>
 </template>

@@ -112,7 +112,10 @@ const state = reactive({
       </StoryFrame>
 
       <template #controls>
-        <HstNumber v-model="state.delayDuration" title="Delay Duration" />
+        <HstNumber
+          v-model="state.delayDuration"
+          title="Delay Duration"
+        />
         <HstNumber
           v-model="state.skipDelayDuration"
           title="Skip Delay Duration"

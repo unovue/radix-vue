@@ -33,7 +33,11 @@ const isSelected = computed(() => props.value === rootContext.modelValue.value)
 </script>
 
 <template>
-  <RovingFocusItem as-child :focusable="!disabled" :active="isSelected">
+  <RovingFocusItem
+    as-child
+    :focusable="!disabled"
+    :active="isSelected"
+  >
     <Primitive
       :id="triggerId"
       :ref="forwardRef"

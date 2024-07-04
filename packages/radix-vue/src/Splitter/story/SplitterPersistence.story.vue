@@ -3,10 +3,16 @@ import { SplitterGroup, SplitterPanel, SplitterResizeHandle } from '../'
 </script>
 
 <template>
-  <Story title="Splitter/Persistence" :layout="{ type: 'single', width: '100%', iframe: false }">
+  <Story
+    title="Splitter/Persistence"
+    :layout="{ type: 'single', width: '100%', iframe: false }"
+  >
     <Variant title="default">
       <div class="w-full h-48">
-        <SplitterGroup auto-save-id="persistence" direction="horizontal">
+        <SplitterGroup
+          auto-save-id="persistence"
+          direction="horizontal"
+        >
           <SplitterPanel class="flex items-center justify-center bg-blackA8 rounded-lg">
             Panel A
           </SplitterPanel>

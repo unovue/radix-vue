@@ -98,7 +98,11 @@ provideAccordionRootContext({
 </script>
 
 <template>
-  <Primitive :ref="forwardRef" :as-child="asChild" :as="as">
+  <Primitive
+    :ref="forwardRef"
+    :as-child="asChild"
+    :as="as"
+  >
     <slot :model-value="modelValue" />
   </Primitive>
 </template>

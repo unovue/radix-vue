@@ -168,7 +168,7 @@ When a toast must appear every time a user clicks a button, use state to render 
 
 ```html line=2,7
 <div>
-  <form  @submit="count++">
+  <form @submit="count++">
     ...
     <button>save</button>
   </form>
@@ -307,7 +307,7 @@ When providing an icon (or font icon), remember to label it correctly for screen
     },
     {
       keys: ['Enter'],
-      description:  `
+      description: `
         <span>
           When focus is on a <Code>ToastAction</Code> or
           <Code>ToastClose</Code>, closes the toast
@@ -315,7 +315,7 @@ When providing an icon (or font icon), remember to label it correctly for screen
     },
     {
       keys: ['Esc'],
-      description:  `
+      description: `
         <span>
           When focus is on a <Code>Toast</Code>, closes the toast
         </span> `
@@ -337,7 +337,10 @@ import Toast from './your-toast.vue'
 </script>
 
 <template>
-  <Toast title="Upgrade available" content="We've just released Radix 3.0!">
+  <Toast
+    title="Upgrade available"
+    content="We've just released Radix 3.0!"
+  >
     <button @click="handleUpgrade">
       Upgrade
     </button>
@@ -364,7 +367,10 @@ defineProps<{
       {{ title }}
     </ToastTitle>
     <ToastDescription>{{ content }}</ToastDescription>
-    <ToastAction as-child>
+    <ToastAction
+      as-child
+      alt-text="toast"
+    >
       <slot />
     </ToastAction>
     <ToastClose aria-label="Close">
@@ -419,7 +425,10 @@ defineExpose({
 </script>
 
 <template>
-  <ToastRoot v-for="index in count" :key="index">
+  <ToastRoot
+    v-for="index in count"
+    :key="index"
+  >
     <ToastDescription>
       <slot />
     </ToastDescription>

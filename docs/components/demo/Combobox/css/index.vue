@@ -10,11 +10,20 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
 </script>
 
 <template>
-  <ComboboxRoot v-model="v" class="ComboboxRoot">
+  <ComboboxRoot
+    v-model="v"
+    class="ComboboxRoot"
+  >
     <ComboboxAnchor class="ComboboxAnchor">
-      <ComboboxInput class="ComboboxInput" placeholder="Placeholder..." />
+      <ComboboxInput
+        class="ComboboxInput"
+        placeholder="Placeholder..."
+      />
       <ComboboxTrigger>
-        <Icon icon="radix-icons:chevron-down" class="ComboboxIcon" />
+        <Icon
+          icon="radix-icons:chevron-down"
+          class="ComboboxIcon"
+        />
       </ComboboxTrigger>
     </ComboboxAnchor>
 
@@ -28,7 +37,8 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
           </ComboboxLabel>
 
           <ComboboxItem
-            v-for="(option, index) in options" :key="index"
+            v-for="(option, index) in options"
+            :key="index"
             class="ComboboxItem"
             :value="option"
           >
@@ -51,7 +61,8 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
             Vegetables
           </ComboboxLabel>
           <ComboboxItem
-            v-for="(option, index) in vegetables" :key="index"
+            v-for="(option, index) in vegetables"
+            :key="index"
             class="ComboboxItem"
             :value="option"
           >

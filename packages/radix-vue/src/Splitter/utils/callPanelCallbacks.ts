@@ -28,15 +28,17 @@ export function callPanelCallbacks(
           onExpand
           && (lastNotifiedSize == null || lastNotifiedSize === collapsedSize)
           && size !== collapsedSize
-        )
+        ) {
           onExpand()
+        }
 
         if (
           onCollapse
           && (lastNotifiedSize == null || lastNotifiedSize !== collapsedSize)
           && size === collapsedSize
-        )
+        ) {
           onCollapse()
+        }
       }
     }
   })

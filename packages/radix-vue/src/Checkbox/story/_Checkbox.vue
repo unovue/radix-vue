@@ -28,7 +28,10 @@ const checked = ref(props.checked)
       data-testid="test-indicator"
       class="bg-white h-full w-full rounded flex items-center justify-center"
     >
-      <Icon icon="radix-icons:check" class="h-3 w-3 text-black" />
+      <Icon
+        icon="radix-icons:check"
+        class="h-3 w-3 text-black"
+      />
     </CheckboxIndicator>
   </CheckboxRoot>
 </template>

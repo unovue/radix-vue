@@ -20,7 +20,10 @@ import {
         type="single"
         orientation="horizontal"
       >
-        <AccordionItem class="accordion-item" value="item-1">
+        <AccordionItem
+          class="accordion-item"
+          value="item-1"
+        >
           <AccordionHeader class="flex">
             <AccordionTrigger class="accordion-trigger">
               Is it accessible?
@@ -31,7 +34,10 @@ import {
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem class="accordion-item" value="item-2">
+        <AccordionItem
+          class="accordion-item"
+          value="item-2"
+        >
           <AccordionHeader class="flex">
             <AccordionTrigger class="accordion-trigger">
               Is it unstyled?
@@ -45,7 +51,11 @@ import {
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem class="accordion-item" value="item-3" disabled>
+        <AccordionItem
+          class="accordion-item"
+          value="item-3"
+          disabled
+        >
           <AccordionHeader class="flex">
             <AccordionTrigger class="accordion-trigger">
               Can it be animated?

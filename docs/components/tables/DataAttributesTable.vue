@@ -29,15 +29,24 @@ const props = defineProps<DataAttributesTableProps>()
       </ProseTr>
     </ProseThead>
     <ProseTbody>
-      <ProseTr v-for="(prop, index) in props.data" :key="`${prop.attribute}-${index}`">
+      <ProseTr
+        v-for="(prop, index) in props.data"
+        :key="`${prop.attribute}-${index}`"
+      >
         <ProseTd>
           <ProseCodeInline class="!text-[13px]">
             {{ prop.attribute }}
           </ProseCodeInline>
         </ProseTd>
         <ProseTd class="">
-          <ProseCodeInline v-if="Array.isArray(prop.values)" variant="secondary">
-            <span v-for="(value, propIndex) in prop.values" :key="value">
+          <ProseCodeInline
+            v-if="Array.isArray(prop.values)"
+            variant="secondary"
+          >
+            <span
+              v-for="(value, propIndex) in prop.values"
+              :key="value"
+            >
               {{ propIndex + 1 !== prop.values.length ? `"${value}" | ` : `"${value}"` }}
             </span>
           </ProseCodeInline>

@@ -8,14 +8,23 @@ const open = ref(false)
 </script>
 
 <template>
-  <CollapsibleRoot v-model:open="open" class="CollapsibleRoot">
+  <CollapsibleRoot
+    v-model:open="open"
+    class="CollapsibleRoot"
+  >
     <div style="display: flex; align-items: center; justify-content: space-between">
       <span class="Text"> @peduarte starred 3 repos </span>
       <CollapsibleTrigger
         class="IconButton"
       >
-        <Icon v-if="open" icon="radix-icons:cross-2" />
-        <Icon v-else icon="radix-icons:row-spacing" />
+        <Icon
+          v-if="open"
+          icon="radix-icons:cross-2"
+        />
+        <Icon
+          v-else
+          icon="radix-icons:row-spacing"
+        />
       </CollapsibleTrigger>
     </div>
 

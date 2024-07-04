@@ -64,8 +64,9 @@ function handlePointerMove(ev: PointerEvent) {
       || wasClickCloseRef.value
       || itemContext.wasEscapeCloseRef.value
       || hasPointerMoveOpenedRef.value
-    )
+    ) {
       return
+    }
 
     menuContext.onTriggerEnter(itemContext.value)
     hasPointerMoveOpenedRef.value = true
@@ -159,6 +160,9 @@ function handleVisuallyHiddenFocus(ev: FocusEvent) {
       :tabindex="0"
       @focus="handleVisuallyHiddenFocus"
     />
-    <span v-if="menuContext.viewport" :aria-owns="contentId" />
+    <span
+      v-if="menuContext.viewport"
+      :aria-owns="contentId"
+    />
   </template>
 </template>

@@ -32,8 +32,7 @@
     'name': 'defaultValue',
     'description': '<p>The default value of the editable field</p>\n',
     'type': 'string',
-    'required': false,
-    'default': '\'\''
+    'required': false
   },
   {
     'name': 'dir',
@@ -86,6 +85,13 @@
     'required': false
   },
   {
+    'name': 'required',
+    'description': '<p>When <code>true</code>, indicates that the user must set the value before the owning form can be submitted.</p>\n',
+    'type': 'boolean',
+    'required': false,
+    'default': 'false'
+  },
+  {
     'name': 'selectOnFocus',
     'description': '<p>Whether to select the text in the input when it is focused.</p>\n',
     'type': 'boolean',
@@ -108,21 +114,6 @@
 ]" />
 
 <EmitsTable :data="[
-  {
-    'name': 'focusOutside',
-    'description': '<p>Event handler called when the focus moves outside of the <code>DismissableLayer</code>.\nCan be prevented.</p>\n',
-    'type': '[event: FocusOutsideEvent]'
-  },
-  {
-    'name': 'interactOutside',
-    'description': '<p>Event handler called when an interaction happens outside the <code>DismissableLayer</code>.\nSpecifically, when a <code>pointerdown</code> event happens outside or focus moves outside of it.\nCan be prevented.</p>\n',
-    'type': '[event: PointerDownOutsideEvent | FocusOutsideEvent]'
-  },
-  {
-    'name': 'pointerDownOutside',
-    'description': '<p>Event handler called when the a <code>pointerdown</code> event happens outside of the <code>DismissableLayer</code>.\nCan be prevented.</p>\n',
-    'type': '[event: PointerDownOutsideEvent]'
-  },
   {
     'name': 'submit',
     'description': '<p>Event handler called when a value is submitted</p>\n',
@@ -155,5 +146,38 @@
     'name': 'isEmpty',
     'description': '<p>Whether the editable field is empty</p>\n',
     'type': 'boolean'
+  },
+  {
+    'name': 'submit',
+    'description': '<p>Function to submit the value of the editable</p>\n',
+    'type': ''
+  },
+  {
+    'name': 'cancel',
+    'description': '<p>Function to cancel the value of the editable</p>\n',
+    'type': ''
+  },
+  {
+    'name': 'edit',
+    'description': '<p>Function to set the editable in edit mode</p>\n',
+    'type': ''
+  }
+]" />
+
+<MethodsTable :data="[
+  {
+    'name': 'submit',
+    'description': '<p>Function to submit the value of the editable</p>\n',
+    'type': '() => void'
+  },
+  {
+    'name': 'cancel',
+    'description': '<p>Function to cancel the value of the editable</p>\n',
+    'type': '() => void'
+  },
+  {
+    'name': 'edit',
+    'description': '<p>Function to set the editable in edit mode</p>\n',
+    'type': '() => void'
   }
 ]" />

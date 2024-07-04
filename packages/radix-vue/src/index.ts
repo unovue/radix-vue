@@ -32,6 +32,7 @@ export * from './Select'
 export * from './Separator'
 export * from './Slider'
 export * from './Splitter'
+export * from './Stepper'
 export * from './Switch'
 export * from './Tabs'
 export * from './TagsInput'
@@ -40,10 +41,11 @@ export * from './Toggle'
 export * from './ToggleGroup'
 export * from './Toolbar'
 export * from './Tooltip'
+export * from './Tree'
 export * from './Viewport'
 
 // utilities
-export { Primitive, Slot, type PrimitiveProps } from './Primitive'
+export { Primitive, Slot, type PrimitiveProps, type AsTag } from './Primitive'
 export { VisuallyHidden, type VisuallyHiddenProps } from './VisuallyHidden'
 export {
   useEmitAsProps,

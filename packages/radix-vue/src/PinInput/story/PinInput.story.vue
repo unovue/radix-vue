@@ -7,7 +7,10 @@ const value = ref<string[]>([])
 </script>
 
 <template>
-  <Story title="PinInput/Default" :layout="{ type: 'single', iframe: false }">
+  <Story
+    title="PinInput/Default"
+    :layout="{ type: 'single', iframe: false }"
+  >
     <Variant title="default">
       <div>
         <Label for="otp">Input label</Label>

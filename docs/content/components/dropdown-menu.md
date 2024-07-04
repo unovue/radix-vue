@@ -452,7 +452,10 @@ import {
     <DropdownMenuTrigger>…</DropdownMenuTrigger>
     <DropdownMenuPortal>
       <DropdownMenuContent>
-        <DropdownMenuItem class="DropdownMenuItem" disabled>
+        <DropdownMenuItem
+          class="DropdownMenuItem"
+          disabled
+        >
           …
         </DropdownMenuItem>
         <DropdownMenuItem class="DropdownMenuItem">
@@ -677,7 +680,10 @@ import { DropdownMenuContent, DropdownMenuPortal, DropdownMenuRoot, DropdownMenu
   <DropdownMenuRoot>
     <DropdownMenuTrigger>…</DropdownMenuTrigger>
     <DropdownMenuPortal>
-      <DropdownMenuContent class="DropdownMenuContent" :side-offset="5">
+      <DropdownMenuContent
+        class="DropdownMenuContent"
+        :side-offset="5"
+      >
         …
       </DropdownMenuContent>
     </DropdownMenuPortal>

@@ -32,7 +32,10 @@ const props = defineProps<SlotsTableProps>()
       </ProseTr>
     </thead>
     <tbody>
-      <ProseTr v-for="(prop, index) in props.data" :key="`${prop.name}-${index}`">
+      <ProseTr
+        v-for="(prop, index) in props.data"
+        :key="`${prop.name}-${index}`"
+      >
         <ProseTd>
           <div class="flex h-full items-start gap-1">
             <ProseCodeInline class=" !text-[13px]">
@@ -44,7 +47,10 @@ const props = defineProps<SlotsTableProps>()
           <ProseCodeInline variant="secondary">
             {{ prop.type }}
           </ProseCodeInline>
-          <div class="not-prose [&_a]:underline flex flex-col gap-2  mt-2 text-sm dark:text-neutral-300" v-html="prop.description" />
+          <div
+            class="not-prose [&_a]:underline flex flex-col gap-2  mt-2 text-sm dark:text-neutral-300"
+            v-html="prop.description"
+          />
         </ProseTd>
       </ProseTr>
     </tbody>

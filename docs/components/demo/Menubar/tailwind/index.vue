@@ -29,7 +29,10 @@ function handleClick() {
 </script>
 
 <template>
-  <MenubarRoot v-model="currentMenu" class="flex bg-white p-[3px] rounded-md shadow-[0_2px_10px] shadow-blackA7">
+  <MenubarRoot
+    v-model="currentMenu"
+    class="flex bg-white p-[3px] rounded-md shadow-[0_2px_10px] shadow-blackA7"
+  >
     <MenubarMenu value="file">
       <MenubarTrigger
         class="py-2 px-3 outline-none select-none font-semibold leading-none rounded text-grass11 text-[13px] flex items-center justify-between gap-[2px] data-[highlighted]:bg-green4 data-[state=open]:bg-green4"

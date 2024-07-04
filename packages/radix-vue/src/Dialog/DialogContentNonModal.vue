@@ -22,8 +22,6 @@ const hasPointerDownOutsideRef = ref(false)
     :disable-outside-pointer-events="false"
     @close-auto-focus="
       (event) => {
-        emits('closeAutoFocus', event);
-
         if (!event.defaultPrevented) {
           if (!hasInteractedOutsideRef) rootContext.triggerElement.value?.focus();
           // Always prevent auto focus because we either focus manually or want user agent focus

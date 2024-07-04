@@ -16,6 +16,10 @@ onMounted(() => {
 
 <template>
   <AspectRatio>
-    <iframe :src="src" class="w-full h-full" v-bind="$attrs" />
+    <iframe
+      :src="src"
+      class="w-full h-full"
+      v-bind="$attrs"
+    />
   </AspectRatio>
 </template>

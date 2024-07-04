@@ -19,10 +19,13 @@ const selectedValue = ref('item-2')
   >
     <Variant title="Uncontrolled">
       <AccordionRoot
-        v-model="selectedValue"
+        type="single"
         class="w-[300px] rounded-md bg-[--line-color] shadow-lg"
       >
-        <AccordionItem class="accordion-item" value="item-1">
+        <AccordionItem
+          class="accordion-item"
+          value="item-1"
+        >
           <AccordionHeader class="flex">
             <AccordionTrigger class="accordion-trigger">
               Is it accessible?
@@ -33,7 +36,10 @@ const selectedValue = ref('item-2')
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem class="accordion-item" value="item-2">
+        <AccordionItem
+          class="accordion-item"
+          value="item-2"
+        >
           <AccordionHeader class="flex">
             <AccordionTrigger class="accordion-trigger">
               Is it unstyled?
@@ -45,7 +51,10 @@ const selectedValue = ref('item-2')
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem class="accordion-item" value="item-3">
+        <AccordionItem
+          class="accordion-item"
+          value="item-3"
+        >
           <AccordionHeader class="flex">
             <AccordionTrigger class="accordion-trigger">
               Can it be animated?
@@ -60,14 +69,20 @@ const selectedValue = ref('item-2')
 
     <Variant title="Controlled">
       <template #controls>
-        modelValue: <input v-model="selectedValue" type="text">
+        modelValue: <input
+          v-model="selectedValue"
+          type="text"
+        >
       </template>
 
       <AccordionRoot
         v-model="selectedValue"
         class="w-[300px] rounded-md bg-[--line-color] shadow-lg"
       >
-        <AccordionItem class="accordion-item" value="item-1">
+        <AccordionItem
+          class="accordion-item"
+          value="item-1"
+        >
           <AccordionHeader class="flex">
             <AccordionTrigger class="accordion-trigger">
               Is it accessible?
@@ -78,7 +93,10 @@ const selectedValue = ref('item-2')
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem class="accordion-item" value="item-2">
+        <AccordionItem
+          class="accordion-item"
+          value="item-2"
+        >
           <AccordionHeader class="flex">
             <AccordionTrigger class="accordion-trigger">
               Is it unstyled?
@@ -90,7 +108,10 @@ const selectedValue = ref('item-2')
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem class="accordion-item" value="item-3">
+        <AccordionItem
+          class="accordion-item"
+          value="item-3"
+        >
           <AccordionHeader class="flex">
             <AccordionTrigger class="accordion-trigger">
               Can it be animated?
@@ -108,9 +129,12 @@ const selectedValue = ref('item-2')
         class="w-[300px] rounded-md bg-[--line-color] shadow-lg"
         type="single"
         :collapsible="true"
-        model-value="item-2"
+        default-value="item-2"
       >
-        <AccordionItem class="accordion-item" value="item-1">
+        <AccordionItem
+          class="accordion-item"
+          value="item-1"
+        >
           <AccordionHeader class="flex">
             <AccordionTrigger class="accordion-trigger">
               Is it accessible?
@@ -121,7 +145,10 @@ const selectedValue = ref('item-2')
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem class="accordion-item" value="item-2">
+        <AccordionItem
+          class="accordion-item"
+          value="item-2"
+        >
           <AccordionHeader class="flex">
             <AccordionTrigger class="accordion-trigger">
               Is it unstyled?
@@ -133,7 +160,10 @@ const selectedValue = ref('item-2')
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem class="accordion-item" value="item-3">
+        <AccordionItem
+          class="accordion-item"
+          value="item-3"
+        >
           <AccordionHeader class="flex">
             <AccordionTrigger class="accordion-trigger">
               Can it be animated?

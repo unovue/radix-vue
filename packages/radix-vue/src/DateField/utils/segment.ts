@@ -23,6 +23,10 @@ export function isAcceptableSegmentKey(key: string) {
     kbd.ARROW_RIGHT,
     kbd.BACKSPACE,
     kbd.SPACE,
+    'a',
+    'A',
+    'p',
+    'P',
   ]
   if (acceptableSegmentKeys.includes(key))
     return true

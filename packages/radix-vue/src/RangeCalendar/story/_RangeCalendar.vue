@@ -42,7 +42,8 @@ const props = defineProps<{
       <RangeCalendarGridHead :data-testid="`grid-head-${month.value.month}`">
         <RangeCalendarGridRow>
           <RangeCalendarHeadCell
-            v-for="(day, i) in weekDays" :key="day"
+            v-for="(day, i) in weekDays"
+            :key="day"
             :data-testid="`weekday-${month.value.month}-${i}`"
           >
             {{ day }}
@@ -50,7 +51,12 @@ const props = defineProps<{
         </RangeCalendarGridRow>
       </RangeCalendarGridHead>
       <RangeCalendarGridBody :data-testid="`grid-body-${month.value.month}`">
-        <RangeCalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" data-week :data-testid="`grid-row-${month.value.month}-${index}`">
+        <RangeCalendarGridRow
+          v-for="(weekDates, index) in month.rows"
+          :key="`weekDate-${index}`"
+          data-week
+          :data-testid="`grid-row-${month.value.month}-${index}`"
+        >
           <RangeCalendarCell
             v-for="(weekDate, d) in weekDates"
             :key="weekDate.toString()"

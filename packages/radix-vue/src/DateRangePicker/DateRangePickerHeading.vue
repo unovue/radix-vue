@@ -15,7 +15,10 @@ defineSlots<{
 </script>
 
 <template>
-  <RangeCalendarHeading v-slot="{ headingValue }" v-bind="props">
+  <RangeCalendarHeading
+    v-slot="{ headingValue }"
+    v-bind="props"
+  >
     <slot :heading-value="headingValue">
       {{ headingValue }}
     </slot>

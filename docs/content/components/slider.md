@@ -143,7 +143,11 @@ import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue'
 </script>
 
 <template>
-  <SliderRoot class="SliderRoot" :default-value="[50]" orientation="vertical">
+  <SliderRoot
+    class="SliderRoot"
+    :default-value="[50]"
+    orientation="vertical"
+  >
     <SliderTrack class="SliderTrack">
       <SliderRange class="SliderRange" />
     </SliderTrack>
@@ -222,7 +226,10 @@ import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue'
 </script>
 
 <template>
-  <SliderRoot :default-value="[50]" :step="10">
+  <SliderRoot
+    :default-value="[50]"
+    :step="10"
+  >
     <SliderTrack>
       <SliderRange />
     </SliderTrack>
@@ -351,7 +358,10 @@ const forward = useForwardPropsEmits(props, emits)
       <SliderRange />
     </SliderTrack>
 
-    <SliderThumb v-for="(_, i) in value" :key="i" />
+    <SliderThumb
+      v-for="(_, i) in value"
+      :key="i"
+    />
   </SliderRoot>
 </template>
 ```

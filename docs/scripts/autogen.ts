@@ -220,6 +220,11 @@ function getEventFromComponentPath(dir: string) {
                     const description = member.leadingComments?.[0].value.replaceAll('*', '').trim()
                     eventDescriptionMap.set(key, description)
                   }
+                  else if (member.type === 'TSPropertySignature' && member.key.type === 'Identifier' && member.leadingComments?.[0].loc) {
+                    const key = member.key.name
+                    const description = member.leadingComments?.[0].value.replaceAll('*', '').trim()
+                    eventDescriptionMap.set(key, description)
+                  }
                 })
               }
             }

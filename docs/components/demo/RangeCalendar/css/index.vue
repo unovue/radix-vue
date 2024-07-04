@@ -20,23 +20,34 @@ const isDateUnavailable: RangeCalendarRootProps['isDateUnavailable'] = (date) =>
       <RangeCalendarPrev
         class="CalendarNavButton"
       >
-        <Icon icon="radix-icons:chevron-left" class="Icon" />
+        <Icon
+          icon="radix-icons:chevron-left"
+          class="Icon"
+        />
       </RangeCalendarPrev>
       <RangeCalendarHeading class="CalendarHeading" />
       <RangeCalendarNext
         class="CalendarNavButton"
       >
-        <Icon icon="radix-icons:chevron-right" class="Icon" />
+        <Icon
+          icon="radix-icons:chevron-right"
+          class="Icon"
+        />
       </RangeCalendarNext>
     </RangeCalendarHeader>
     <div
       class="CalendarWrapper"
     >
-      <RangeCalendarGrid v-for="month in grid" :key="month.value.toString()" class="CalendarGrid">
+      <RangeCalendarGrid
+        v-for="month in grid"
+        :key="month.value.toString()"
+        class="CalendarGrid"
+      >
         <RangeCalendarGridHead>
           <RangeCalendarGridRow class="CalendarGridRow">
             <RangeCalendarHeadCell
-              v-for="day in weekDays" :key="day"
+              v-for="day in weekDays"
+              :key="day"
               class="CalendarHeadCell"
             >
               {{ day }}
@@ -44,7 +55,11 @@ const isDateUnavailable: RangeCalendarRootProps['isDateUnavailable'] = (date) =>
           </RangeCalendarGridRow>
         </RangeCalendarGridHead>
         <RangeCalendarGridBody class="grid">
-          <RangeCalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="CalendarGridRow">
+          <RangeCalendarGridRow
+            v-for="(weekDates, index) in month.rows"
+            :key="`weekDate-${index}`"
+            class="CalendarGridRow"
+          >
             <RangeCalendarCell
               v-for="weekDate in weekDates"
               :key="weekDate.toString()"

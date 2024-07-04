@@ -40,7 +40,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <Presence v-slot="{ present }" :present="isSelected" force-mount>
+  <Presence
+    v-slot="{ present }"
+    :present="isSelected"
+    force-mount
+  >
     <Primitive
       :id="contentId"
       :ref="forwardRef"

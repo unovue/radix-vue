@@ -3,7 +3,10 @@ import { SplitterGroup, SplitterPanel, SplitterResizeHandle } from '../'
 </script>
 
 <template>
-  <Story title="Splitter/Chromatic" :layout="{ type: 'grid', width: '100%', iframe: false }">
+  <Story
+    title="Splitter/Chromatic"
+    :layout="{ type: 'grid', width: '100%', iframe: false }"
+  >
     <Variant title="Horizontal">
       <div class="w-full h-48">
         <SplitterGroup direction="horizontal">

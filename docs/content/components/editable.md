@@ -118,7 +118,6 @@ Contains the input of an editable component.
 ]"
 />
 
-
 ### Preview
 
 Contains the preview of the editable component.
@@ -143,7 +142,6 @@ Contains the cancel trigger of the editable component.
 
 <!-- @include: @/meta/EditableCancelTrigger.md -->
 
-
 ## Accessibility
 
 ### Keyboard Interactions
@@ -153,14 +151,6 @@ Contains the cancel trigger of the editable component.
     {
       keys: ['Tab'],
       description: `<span>When focus moves onto the editable field, switches into the editable mode if the <Code>activation-mode</Code> is set to focus.</span>`
-    },
-    {
-      keys: ['Space'],
-      description:`
-      <span>
-          If the <Code>submit-mode</Code> is set to <Code>enter</Code> or <Code>both</Code>, it submits the changes.
-      </span>
-    ` ,
     },
     {
       keys: ['Enter'],

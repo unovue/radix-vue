@@ -21,7 +21,7 @@ function setup(props?: NumberFieldRootProps) {
 }
 
 const kbd = useKbd()
-describe('NumberField', () => {
+describe('numberField', () => {
   it('should pass axe accessibility tests', async () => {
     const { root } = setup()
     expect(await axe(root)).toHaveNoViolations()
@@ -40,6 +40,17 @@ describe('NumberField', () => {
   it('should show negative sign if less than 0', async () => {
     const { input } = setup({ modelValue: -10 })
     expect(input.value).toBe('-10')
+  })
+
+  it('should restart from 0 when clearing the value', async () => {
+    const { input, increment } = setup({ defaultValue: 5 })
+
+    await userEvent.clear(input)
+
+    expect(input.value).toBe('')
+    await userEvent.click(document.body)
+    await userEvent.click(increment)
+    expect(input.value).toBe('0')
   })
 
   it('should increase and decrease based on default step', async () => {
@@ -197,6 +208,28 @@ describe('NumberField', () => {
       expect(input.value).toBe('20')
       await fireEvent.keyDown(input, { key: kbd.ARROW_UP }) // 20 (max)
       expect(input.value).toBe('20')
+    })
+  })
+
+  describe('given setting the input value manually', async () => {
+    it('should it increase/decrease the value appropriately', async () => {
+      const { input, increment, decrement } = setup({ defaultValue: 6 })
+
+      input.value = '100'
+      await userEvent.click(increment)
+      expect(input.value).toBe('101')
+
+      input.value = '100'
+      await userEvent.click(decrement)
+      expect(input.value).toBe('99')
+
+      input.value = ''
+      await userEvent.click(decrement)
+      expect(input.value).toBe('0')
+
+      input.value = '0'
+      await userEvent.click(decrement)
+      expect(input.value).toBe('-1')
     })
   })
 })

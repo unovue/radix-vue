@@ -31,7 +31,10 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
       aria-label="Customise options"
     >
       <SelectValue placeholder="Select a fruit..." />
-      <Icon icon="radix-icons:chevron-down" class="h-3.5 w-3.5" />
+      <Icon
+        icon="radix-icons:chevron-down"
+        class="h-3.5 w-3.5"
+      />
     </SelectTrigger>
 
     <SelectPortal>

@@ -357,7 +357,10 @@ defineExpose({
     :dir="dir"
     @keydown.left.right="handleKeydown"
   >
-    <slot :model-value="modelValue" :segments="segmentContents" />
+    <slot
+      :model-value="modelValue"
+      :segments="segmentContents"
+    />
   </Primitive>
 
   <input

@@ -56,10 +56,10 @@ const props = withDefaults(defineProps<CheckboxRootProps>(), {
 const emits = defineEmits<CheckboxRootEmits>()
 
 defineSlots<{
-  default(props: {
+  default: (props: {
     /** Current checked state */
     checked: typeof checked.value
-  }): any
+  }) => any
 }>()
 
 const { disabled } = toRefs(props)

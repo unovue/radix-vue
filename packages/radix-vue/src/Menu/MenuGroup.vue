@@ -11,7 +11,10 @@ const props = defineProps<MenuGroupProps>()
 </script>
 
 <template>
-  <Primitive role="group" v-bind="props">
+  <Primitive
+    role="group"
+    v-bind="props"
+  >
     <slot />
   </Primitive>
 </template>

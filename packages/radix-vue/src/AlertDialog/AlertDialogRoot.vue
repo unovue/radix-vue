@@ -20,7 +20,10 @@ useForwardExpose()
 </script>
 
 <template>
-  <DialogRoot v-bind="forwarded" :modal="true">
+  <DialogRoot
+    v-bind="forwarded"
+    :modal="true"
+  >
     <slot />
   </DialogRoot>
 </template>

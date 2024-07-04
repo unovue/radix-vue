@@ -28,7 +28,10 @@ const POSITION = ['item-aligned', 'popper'] as const
 </script>
 
 <template>
-  <Story title="Select/Demo" :layout="{ type: 'single', iframe: false }">
+  <Story
+    title="Select/Demo"
+    :layout="{ type: 'single', iframe: false }"
+  >
     <Variant title="default">
       <div class="flex gap-4">
         <SelectRoot
@@ -41,7 +44,10 @@ const POSITION = ['item-aligned', 'popper'] as const
             aria-label="Customise options"
           >
             <SelectValue placeholder="Please select a fruit" />
-            <Icon icon="radix-icons:chevron-down" class="h-4 w-4" />
+            <Icon
+              icon="radix-icons:chevron-down"
+              class="h-4 w-4"
+            />
           </SelectTrigger>
 
           <SelectPortal>

@@ -14,7 +14,11 @@ const buttonRef = ref<HTMLElement>()
     v-bind="{ ...$attrs }"
     class="p-4 rounded-xl bg-gray-100/10"
   >
-    <button ref="buttonRef" type="button" @click="open = !open">
+    <button
+      ref="buttonRef"
+      type="button"
+      @click="open = !open"
+    >
       {{ open ? "Close" : "Open" }} new layer
     </button>
 

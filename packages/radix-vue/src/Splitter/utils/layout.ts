@@ -187,8 +187,9 @@ export function adjustLayoutByDelta({
             .localeCompare(Math.abs(delta).toPrecision(3), undefined, {
               numeric: true,
             }) >= 0
-        )
+        ) {
           break
+        }
       }
 
       if (delta < 0)

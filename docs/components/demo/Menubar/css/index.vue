@@ -30,7 +30,10 @@ function handleClick() {
 </script>
 
 <template>
-  <MenubarRoot v-model="currentMenu" class="MenubarRoot">
+  <MenubarRoot
+    v-model="currentMenu"
+    class="MenubarRoot"
+  >
     <MenubarMenu value="file">
       <MenubarTrigger
         class="MenubarTrigger"

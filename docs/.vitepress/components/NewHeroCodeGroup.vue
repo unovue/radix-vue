@@ -55,10 +55,10 @@ watch(open, () => {
 <template>
   <TabsRoot
     v-model="currentTab"
-    class="bg-[var(--vp-code-block-bg)] border border-neutral-700/40 rounded-b-lg overflow-hidden"
+    class="bg-background border border-muted rounded-b-lg overflow-hidden"
     @update:model-value="open = true"
   >
-    <div class="bg-[var(--vp-code-block-bg)] border-b-2 border-[#272727] flex pr-2">
+    <div class="bg-background border-b-2 border-muted flex pr-2">
       <div class="flex justify-between items-center w-full text-[13px]">
         <TabsList class="flex">
           <TabsTrigger
@@ -120,7 +120,7 @@ watch(open, () => {
         :value="tab.label"
         as-child
       >
-        <div class="relative -mt-5 text-base">
+        <div class="relative text-base">
           <component
             :is="tab.component"
             class="border-0"

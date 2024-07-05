@@ -1,35 +1,51 @@
 <script setup lang="ts">
 import { Content, useData, useRoute } from 'vitepress'
-import { computed, toRefs } from 'vue';
+import { computed, toRefs } from 'vue'
+import DocOutline from '../components/DocOutline.vue'
+import DocSidebarItem from '../components/DocSidebarItem.vue'
+import DocTopbar from '../components/DocTopbar.vue'
+import DocFooter from '../components/DocFooter.vue'
+import type { DefaultTheme } from 'vitepress/theme'
 
-const { site, page, title, theme, frontmatter, ...a } = useData()
+const { theme } = useData()
 const { path } = toRefs(useRoute())
-const sectionTabs =  computed<{ label: string, link: string }[]>(() => theme.value.sidebar.map((val: any) => ({ label: val.text, link: val.items?.[0].link })))
-const activeSection = computed(() => theme.value.sidebar.find(section => section.items.find(item =>  item.link === path.value.replace(".html", ""))))
+
+const sidebar = computed(() => theme.value.sidebar as DefaultTheme.SidebarItem[])
+const activeSection = computed(() => sidebar.value.find(section => section.items?.find(item => item.link === path.value.replace('.html', ''))))
 </script>
 
 <template>
-  <div>
-    <div class="border-y w-full h-12 flex items-center border-muted">
-      <a class="py-2 px-4 text-sm font-medium rounded" v-for="tab in sectionTabs" :key="tab.label" :href="tab.link">{{  tab.label  }}</a>
-    </div>
+  <div class="w-full">
+    <DocTopbar />
 
-    <main class="flex w-full"> 
-      <aside class="w-64 flex-shrink-0 py-12 overflow-y-auto">
-        <ul>
-          <li v-for="item in activeSection.items" class="flex items-center text-sm text-muted-foreground hover:bg-card hover:text-foreground rounded-lg">
-            <a :href="item.link" v-html="item.text" class="h-[2.25rem] px-4 inline-flex items-center"></a>
-          </li>
+    <main class="flex">
+      <aside class="w-64 flex-shrink-0 py-12 pr-6 sticky top-[7.25rem] h-full overflow-y-auto max-h-[calc(100vh-7.25rem)]">
+        <ul
+          v-if="activeSection"
+          class="h-full"
+        >
+          <DocSidebarItem
+            v-for="item in activeSection.items"
+            :key="item.text"
+            :item="item"
+          />
         </ul>
+        <div class="h-6 w-full" />
       </aside>
-      
-      <div class="w-full flex justify-center py-12">
-        <article class="w-full prose prose-stone dark:prose-invert">
-          <Content></Content>
+
+      <div class="px-12 py-12 overflow-x-hidden flex-1">
+        <article class="w-full prose prose-stone dark:prose-invert max-w-none">
+          <div>
+            <Content />
+          </div>
         </article>
+
+        <DocFooter />
       </div>
-      
-      <aside class="w-64 flex-shrink-0 py-12">right nav</aside>
+
+      <div class="w-64 flex-shrink-0 py-12 pl-6 sticky top-[7.25rem] h-full">
+        <DocOutline />
+      </div>
     </main>
   </div>
 </template>

@@ -162,6 +162,32 @@ module.exports = {
         swipeOut: 'swipeOut 100ms ease-out',
         text: 'text 5s ease infinite',
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            'a': {
+              'textDecoration': 'none',
+              'fontWeight': 600,
+              'borderBottom': '1px solid hsl(var(--primary))',
+              '&:hover': {
+                borderBottomWidth: '2px',
+              },
+            },
+            'code': {
+              border: '1px solid hsl(var(--border))',
+              borderRadius: '0.375rem',
+              padding: '0.25rem',
+              lineHeight: '1rem',
+            },
+            'code::before': {
+              content: 'normal',
+            },
+            'code::after': {
+              content: 'normal',
+            },
+          },
+        },
+      },
     },
   },
   plugins: [

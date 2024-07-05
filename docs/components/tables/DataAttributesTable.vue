@@ -15,9 +15,9 @@ const props = defineProps<DataAttributesTableProps>()
 
 <template>
   <ProseTable>
-    <div class="absolute top-0 right-2 w-8 h-8 rounded-full border flex items-center justify-center text-[var(--vp-c-text-2)] bg-[var(--vp-button-alt-bg)] border-[var(--vp-c-gray-soft)]">
+    <!-- <div class="absolute top-0 right-2 w-8 h-8 rounded-full border flex items-center justify-center text-[var(--vp-c-text-2)] bg-[var(--vp-button-alt-bg)] border-[var(--vp-c-gray-soft)]">
       <Icon icon="ph:tag-light" />
-    </div>
+    </div> -->
     <ProseThead>
       <ProseTr>
         <ProseTh class="w-[45%]">
@@ -28,13 +28,14 @@ const props = defineProps<DataAttributesTableProps>()
         </ProseTh>
       </ProseTr>
     </ProseThead>
+
     <ProseTbody>
       <ProseTr
         v-for="(prop, index) in props.data"
         :key="`${prop.attribute}-${index}`"
       >
         <ProseTd>
-          <ProseCodeInline class="!text-[13px]">
+          <ProseCodeInline>
             {{ prop.attribute }}
           </ProseCodeInline>
         </ProseTd>

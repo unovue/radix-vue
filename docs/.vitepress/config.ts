@@ -1,5 +1,6 @@
 import { defineConfig, postcssIsolateStyles } from 'vitepress'
 import autoprefixer from 'autoprefixer'
+import anchor from 'markdown-it-anchor'
 import tailwind from 'tailwindcss'
 import {
   discord,
@@ -17,7 +18,7 @@ import ComponentPreviewPlugin from './plugins/ComponentPreview'
 import InstallationTabsPlugin from './plugins/InstallationTabs'
 
 function BadgeHTML(text: string, translucent = false) {
-  return `<div class="inline-flex items-center rounded-full border px-2.5 py-0.5 ml-2 text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-green8 ${translucent ? 'bg-opacity-30' : ''} text-white">
+  return `<div class="inline-flex items-center rounded-full border border-muted px-2 py-[1px] ml-2 text-[11px] transition-colors bg-primary/30 ${translucent ? '!bg-transparent' : ''} text-foreground">
 ${text}
 </div>
 `
@@ -176,7 +177,16 @@ export default defineConfig({
   srcDir: 'content',
   appearance: 'dark',
   markdown: {
-    theme: 'material-theme-palenight',
+    theme: 'github-dark',
+    anchor: {
+      callback(token) {
+        // set tw `group` modifier to heading element
+        token.attrSet('class', 'group relative border-none lg:-ml-2 lg:pl-2')
+      },
+      permalink: anchor.permalink.linkInsideHeader({
+        symbol: `<span class="absolute top-0 -ml-8 hidden items-center border-0 opacity-0 group-hover:opacity-100 group-focus:opacity-100 lg:flex">&ZeroWidthSpace;<span class="flex h-6 w-6 items-center justify-center rounded-md text-green-400 shadow-sm ring-1 ring-green-900/5 hover:text-green-700 hover:shadow hover:ring-green-900/10 dark:bg-primary/20 dark:text-primary/80 dark:shadow-none dark:ring-0 dark:hover:bg-primary/40 dark:hover:text-primary"><svg width="12" height="12" fill="none" aria-hidden="true"><path d="M3.75 1v10M8.25 1v10M1 3.75h10M1 8.25h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></span></span>`,
+      }),
+    },
 
     preConfig(md) {
       md.use(ComponentPreviewPlugin)
@@ -193,11 +203,8 @@ export default defineConfig({
     css: {
       postcss: {
         plugins: [
-          // @ts-expect-error nocheck
           tailwind(),
-          // @ts-expect-error nocheck
           autoprefixer(),
-          // @ts-expect-error nocheck
           postcssIsolateStyles({ includeFiles: [/vp-doc\.css/] }),
         ],
       },

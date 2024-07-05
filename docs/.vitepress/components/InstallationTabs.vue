@@ -7,9 +7,9 @@ import { store } from '../store'
 <template>
   <TabsRoot
     v-model="store.packageManager"
-    class="bg-[var(--vp-code-block-bg)] border border-neutral-700/40 rounded-lg overflow-hidden"
+    class="bg-[var(--vp-code-block-bg)] border border-muted rounded-lg overflow-hidden"
   >
-    <div class="bg-[var(--vp-code-block-bg)] border-b-2 border-[#272727] flex pr-2">
+    <div class="bg-[var(--vp-code-block-bg)] border-b border-muted flex pr-2">
       <div class="flex justify-between items-center w-full text-[13px]">
         <TabsList class="flex">
           <TabsTrigger
@@ -17,7 +17,7 @@ import { store } from '../store'
             :key="index"
             :value="pkg"
             tabindex="-1"
-            class="text-white/70 py-2.5 px-4 border-box data-[state=active]:shadow-[0_1px_0_#10b981] data-[state=active]:font-medium data-[state=active]:text-white"
+            class="text-foreground/70 py-2.5 px-4 data-[state=active]:shadow-[0_1px_0_#10b981] data-[state=active]:font-medium data-[state=active]:text-foreground hover:text-foreground"
           >
             {{ pkg }}
           </TabsTrigger>
@@ -26,7 +26,7 @@ import { store } from '../store'
     </div>
 
     <div
-      class="[&_>div]:!m-0 custom"
+      class="[&_>div]:!m-0 custom [&_pre]:rounded-t-none [&_pre]:border-none"
     >
       <TabsContent
         v-for="pkg in PACKAGE_MANAGERS"

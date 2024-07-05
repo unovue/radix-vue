@@ -74,7 +74,7 @@ watch(open, () => {
         :value="tab.label"
         as-child
       >
-        <div class="relative -mt-5 text-base">
+        <div class="relative text-base">
           <component
             :is="tab.component"
             class="border-0"

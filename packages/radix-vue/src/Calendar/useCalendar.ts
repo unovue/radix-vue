@@ -7,7 +7,6 @@ import { type Ref, computed, ref, watch } from 'vue'
 import { type Grid, type Matcher, type WeekDayFormat, createMonths, getDaysInMonth, isAfter, isBefore, toDate } from '@/date'
 import { useDateFormatter } from '@/shared'
 import type { DateFormatterOptions } from '@/shared/useDateFormatter'
-import type { CalendarIncrement } from '@/shared/date'
 
 export type UseCalendarProps = {
   locale: Ref<string>
@@ -133,7 +132,7 @@ export function useCalendar(props: UseCalendarProps) {
     return !visibleView.value.some(month => isEqualMonth(date, month))
   }
 
-  const isNextButtonDisabled = (step: CalendarIncrement = 'month', nextPageFunc?: (date: DateValue) => DateValue) => {
+  const isNextButtonDisabled = (nextPageFunc?: (date: DateValue) => DateValue) => {
     if (!props.maxValue.value || !grid.value.length)
       return false
     if (props.disabled.value)
@@ -141,41 +140,28 @@ export function useCalendar(props: UseCalendarProps) {
 
     const lastPeriodInView = grid.value[grid.value.length - 1].value
 
-    if (nextPageFunc || props.nextPage.value) {
-      const firstPeriodOfNextPage = handleNextDisabled(lastPeriodInView, nextPageFunc || props.nextPage.value!)
+    if (!nextPageFunc && !props.nextPage.value) {
+      const firstPeriodOfNextPage = lastPeriodInView.add({ months: 1 }).set({ day: 1 })
       return isAfter(firstPeriodOfNextPage, props.maxValue.value)
     }
 
-    // TODO: Deprecate this logic in v2 and remove the if above
-    if (step === 'year') {
-      const firstPeriodOfNextPage = lastPeriodInView.add({ years: 1 }).set({ day: 1, month: 1 })
-      return isAfter(firstPeriodOfNextPage, props.maxValue.value)
-    }
-
-    const firstPeriodOfNextPage = lastPeriodInView.add({ months: 1 }).set({ day: 1 })
+    const firstPeriodOfNextPage = handleNextDisabled(lastPeriodInView, nextPageFunc || props.nextPage.value!)
     return isAfter(firstPeriodOfNextPage, props.maxValue.value)
   }
 
-  const isPrevButtonDisabled = (step: CalendarIncrement = 'month', prevPageFunc?: (date: DateValue) => DateValue) => {
+  const isPrevButtonDisabled = (prevPageFunc?: (date: DateValue) => DateValue) => {
     if (!props.minValue.value || !grid.value.length)
       return false
     if (props.disabled.value)
       return true
     const firstPeriodInView = grid.value[0].value
 
-    if (prevPageFunc || props.prevPage.value) {
-      const lastPeriodOfPrevPage = handlePrevDisabled(firstPeriodInView, prevPageFunc || props.prevPage.value!)
+    if (!prevPageFunc && !props.prevPage.value) {
+      const lastPeriodOfPrevPage = firstPeriodInView.subtract({ months: 1 }).set({ day: 35 })
       return isBefore(lastPeriodOfPrevPage, props.minValue.value)
     }
 
-    // TODO: Deprecate this logic in v2 and remove the if above
-    if (step === 'year') {
-      const lastPeriodOfPrevPage = firstPeriodInView.subtract({ years: 1 }).set({ day: 35, month: 13 })
-      return isBefore(lastPeriodOfPrevPage, props.minValue.value)
-    }
-
-    const lastPeriodOfPrevPage = firstPeriodInView.subtract({ months: 1 }).set({ day: 35 })
-
+    const lastPeriodOfPrevPage = handlePrevDisabled(firstPeriodInView, prevPageFunc || props.prevPage.value!)
     return isBefore(lastPeriodOfPrevPage, props.minValue.value)
   }
 
@@ -203,12 +189,12 @@ export function useCalendar(props: UseCalendarProps) {
     })
   })
 
-  const nextPage = (step: CalendarIncrement = 'month', nextPageFunc?: (date: DateValue) => DateValue) => {
+  const nextPage = (nextPageFunc?: (date: DateValue) => DateValue) => {
     const firstDate = grid.value[0].value
 
-    if (nextPageFunc || props.nextPage.value) {
-      // TODO: Adjust this logic in v2 to add months if either function is not defined
-      const newDate = handleNextPage(firstDate, nextPageFunc || props.nextPage.value!)
+    if (!nextPageFunc && !props.nextPage.value) {
+      const newDate = firstDate.add({ months: props.pagedNavigation.value ? props.numberOfMonths.value : 1 })
+
       const newGrid = createMonths({
         dateObj: newDate,
         weekStartsOn: props.weekStartsOn.value,
@@ -219,25 +205,11 @@ export function useCalendar(props: UseCalendarProps) {
 
       grid.value = newGrid
 
-      const duration: DateFields = {}
-
-      // Do not adjust the placeholder if the nextPageFunc is defined (overwrite)
-      if (!nextPageFunc) {
-        const diff = newGrid[0].value.compare(firstDate)
-        if (diff >= getDaysInMonth(firstDate))
-          duration.day = 1
-
-        if (diff >= 365)
-          duration.month = 1
-      }
-
-      props.placeholder.value = newGrid[0].value.set({ ...duration })
-
+      props.placeholder.value = newGrid[0].value.set({ day: 1 })
       return
     }
 
-    const newDate = step === 'month' ? firstDate.add({ months: props.pagedNavigation.value ? props.numberOfMonths.value : 1 }) : firstDate.add({ years: 1 })
-
+    const newDate = handleNextPage(firstDate, nextPageFunc || props.nextPage.value!)
     const newGrid = createMonths({
       dateObj: newDate,
       weekStartsOn: props.weekStartsOn.value,
@@ -248,15 +220,27 @@ export function useCalendar(props: UseCalendarProps) {
 
     grid.value = newGrid
 
-    props.placeholder.value = newGrid[0].value.set({ day: 1 })
+    const duration: DateFields = {}
+
+    // Do not adjust the placeholder if the nextPageFunc is defined (overwrite)
+    if (!nextPageFunc) {
+      const diff = newGrid[0].value.compare(firstDate)
+      if (diff >= getDaysInMonth(firstDate))
+        duration.day = 1
+
+      if (diff >= 365)
+        duration.month = 1
+    }
+
+    props.placeholder.value = newGrid[0].value.set({ ...duration })
   }
 
-  const prevPage = (step: CalendarIncrement = 'month', prevPageFunc?: (date: DateValue) => DateValue) => {
+  const prevPage = (prevPageFunc?: (date: DateValue) => DateValue) => {
     const firstDate = grid.value[0].value
 
-    if (prevPageFunc || props.prevPage.value) {
-      // TODO: Adjust this logic in v2 to add months if either function is not defined
-      const newDate = handlePrevPage(firstDate, prevPageFunc || props.prevPage.value!)
+    if (!prevPageFunc && !props.prevPage.value) {
+      const newDate = firstDate.subtract({ months: props.pagedNavigation.value ? props.numberOfMonths.value : 1 })
+
       const newGrid = createMonths({
         dateObj: newDate,
         weekStartsOn: props.weekStartsOn.value,
@@ -267,23 +251,11 @@ export function useCalendar(props: UseCalendarProps) {
 
       grid.value = newGrid
 
-      const duration: DateFields = {}
-
-      // Do not adjust the placeholder if the prevPageFunc is defined (overwrite)
-      if (!prevPageFunc) {
-        const diff = firstDate.compare(newGrid[0].value)
-        if (diff >= getDaysInMonth(firstDate))
-          duration.day = 1
-
-        if (diff >= 365)
-          duration.month = 1
-      }
-
-      props.placeholder.value = newGrid[0].value.set({ ...duration })
+      props.placeholder.value = newGrid[0].value.set({ day: 1 })
       return
     }
-    const newDate = step === 'month' ? firstDate.subtract({ months: props.pagedNavigation.value ? props.numberOfMonths.value : 1 }) : firstDate.subtract({ years: 1 })
 
+    const newDate = handlePrevPage(firstDate, prevPageFunc || props.prevPage.value!)
     const newGrid = createMonths({
       dateObj: newDate,
       weekStartsOn: props.weekStartsOn.value,
@@ -294,7 +266,19 @@ export function useCalendar(props: UseCalendarProps) {
 
     grid.value = newGrid
 
-    props.placeholder.value = newGrid[0].value.set({ day: 1 })
+    const duration: DateFields = {}
+
+    // Do not adjust the placeholder if the prevPageFunc is defined (overwrite)
+    if (!prevPageFunc) {
+      const diff = firstDate.compare(newGrid[0].value)
+      if (diff >= getDaysInMonth(firstDate))
+        duration.day = 1
+
+      if (diff >= 365)
+        duration.month = 1
+    }
+
+    props.placeholder.value = newGrid[0].value.set({ ...duration })
   }
 
   watch(props.placeholder, (value) => {

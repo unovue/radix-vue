@@ -6,7 +6,7 @@ import type { PrimitiveProps } from '@/Primitive'
 import { type Formatter, createContext, useDirection } from '@/shared'
 import { getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
 import { type Grid, type Matcher, type WeekDayFormat, isBefore } from '@/date'
-import type { CalendarIncrement, DateRange } from '@/shared/date'
+import type { DateRange } from '@/shared/date'
 import { useRangeCalendarState } from './useRangeCalendar'
 import { useCalendar } from '@/Calendar/useCalendar'
 import type { Direction } from '@/shared/types'
@@ -40,10 +40,10 @@ type RangeCalendarRootContext = {
   isSelected: (date: DateValue) => boolean
   isSelectionEnd: (date: DateValue) => boolean
   isSelectionStart: (date: DateValue) => boolean
-  prevPage: (step?: CalendarIncrement, prevPageFunc?: (date: DateValue) => DateValue) => void
-  nextPage: (step?: CalendarIncrement, nextPageFunc?: (date: DateValue) => DateValue) => void
-  isNextButtonDisabled: (step?: CalendarIncrement, nextPageFunc?: (date: DateValue) => DateValue) => boolean
-  isPrevButtonDisabled: (step?: CalendarIncrement, prevPageFunc?: (date: DateValue) => DateValue) => boolean
+  prevPage: (prevPageFunc?: (date: DateValue) => DateValue) => void
+  nextPage: (nextPageFunc?: (date: DateValue) => DateValue) => void
+  isNextButtonDisabled: (nextPageFunc?: (date: DateValue) => DateValue) => boolean
+  isPrevButtonDisabled: (prevPageFunc?: (date: DateValue) => DateValue) => boolean
   formatter: Formatter
   dir: Ref<Direction>
 }
@@ -129,7 +129,6 @@ const props = withDefaults(defineProps<RangeCalendarRootProps>(), {
   locale: 'en',
   isDateDisabled: undefined,
   isDateUnavailable: undefined,
-  initialView: 'month',
 })
 const emits = defineEmits<RangeCalendarRootEmits>()
 

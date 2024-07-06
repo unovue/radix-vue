@@ -15,10 +15,6 @@ A component that divides your layout into resizable sections.
 
 <ComponentPreview name="Splitter" />
 
-::: info Credit
-This component was heavily inspired by [react-resizable-panels](https://github.com/bvaughn/react-resizable-panels) by [Bryan Vaughn](https://github.com/bvaughn).
-:::
-
 ## Features
 
 <Highlights

@@ -2,11 +2,9 @@
 import { h } from 'vue'
 import HomePage from '../components/HomePage.vue'
 import HomePageDemo from '../components/HomePageDemo.vue'
-import Announcement from '../components/Announcement.vue'
 import EmbedIframe from '../components/EmbedIframe.vue'
 import ComponentPreview from '../components/ComponentPreview.vue'
 import InstallationTabs from '../components/InstallationTabs.vue'
-import LayoutShowcase from '../layouts/showcase.vue'
 import './style.css'
 import type { Theme } from 'vitepress'
 
@@ -26,7 +24,6 @@ export default {
     for (const path in tableModules)
       app.component(path.match(regex)?.[1] ?? '', (tableModules[path] as any)?.default)
 
-    app.component('Showcase', LayoutShowcase)
     app.component('EmbedIframe', EmbedIframe)
     app.component('ComponentPreview', ComponentPreview)
     app.component('InstallationTabs', InstallationTabs)

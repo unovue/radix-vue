@@ -167,7 +167,3 @@ defineProps<Props>();
 Radix Primitives were designed to encapsulate accessibility concerns and other complex functionalities, while ensuring you retain complete control over styling.
 
 For convenience, stateful components include a `data-state` attribute.
-
-::: info
-Source: [Radix UI](https://www.radix-ui.com/)
-:::

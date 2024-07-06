@@ -14,10 +14,6 @@ Facilitates the selection of date ranges through an input and calendar-based int
 
 <ComponentPreview name="DateRangePicker" />
 
-::: info Credit
-This component was built taking inspiration from the implementation in [melt-ui](https://github.com/melt-ui/melt-ui).
-:::
-
 ## Features
 
 <Highlights

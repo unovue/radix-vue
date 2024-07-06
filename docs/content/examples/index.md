@@ -1,0 +1,5 @@
+---
+layout: example
+---
+
+Example page

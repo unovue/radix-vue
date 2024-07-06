@@ -55,10 +55,10 @@ watch(open, () => {
 <template>
   <TabsRoot
     v-model="currentTab"
-    class="bg-background border border-muted rounded-b-lg overflow-hidden"
+    class="bg-[hsl(141_17%_5%)] border border-[hsl(0_0%_15%)] rounded-b-xl overflow-hidden"
     @update:model-value="open = true"
   >
-    <div class="bg-background border-b-2 border-muted flex pr-2">
+    <div class="bg-[hsl(141_17%_5%)]  border-b-2 border-[hsl(0_0%_15%)] flex pr-2">
       <div class="flex justify-between items-center w-full text-[13px]">
         <TabsList class="flex">
           <TabsTrigger

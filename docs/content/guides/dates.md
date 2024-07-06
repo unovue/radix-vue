@@ -9,11 +9,13 @@ description: How to work with dates and times in Radix Vue.
 How to work with dates and times in Radix Vue.
 </Description>
 
-::: tip
+<Callout type="tip">
+
 The inner-workings of our date-related components are heavily inspired by the research and work done
 by the [React Aria](https://react-spectrum.adobe.com/react-aria/) team at Adobe, who have created
 robust date components that excel in terms of accessibility, user experience, and flexibility.
-:::
+
+</Callout>
 
 The component depends on the [@internationalized/date](https://react-spectrum.adobe.com/internationalized/date/index.html) package, which solves a lot of the problems that come with working with dates and times in JavaScript.
 

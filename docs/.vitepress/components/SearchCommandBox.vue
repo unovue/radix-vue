@@ -154,7 +154,7 @@ function formMarkRegex(terms: Set<string>) {
         }
       }"
       as="ul"
-      class="max-h-[55vh] overflow-auto border-y border-muted"
+      class="max-h-[55vh] overflow-auto border-y border-muted empty:border-t-0"
     >
       <ListboxItem
         v-for="p in results"

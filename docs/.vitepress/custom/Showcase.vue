@@ -6,30 +6,31 @@ const { frontmatter } = useData()
 </script>
 
 <template>
-  <div class="content px-6 sm:px-[48px] lg:px-[64px] py-6 sm:py-12">
-    <div class="mx-auto w-full container max-w-[1152px]">
-      <div class=" my-16 md:my-26 flex flex-col items-center text-center">
-        <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold animate-text bg-gradient-to-r from-green-200 via-green-300 to-blue-400 bg-clip-text text-transparent ">
+  <div class="content pb-20">
+    <div class="mx-auto w-full">
+      <div class=" my-16 md:my-26 flex flex-col">
+        <h1 class="text-4xl lg:text-5xl font-bold text-primary">
           Showcase
         </h1>
-        <h2 class="mt-2 md:mt-6 md:text-2xl font-medium text-[var(--vp-c-text-2)] max-w-[480px]">
+        <h2 class="mt-2 md:mt-6 md:text-xl font-medium text-foreground max-w-[640px]">
           {{ frontmatter.description }}
         </h2>
 
-        <VPButton
-          text="Add Showcase"
+        <a
           class="mt-6"
           target="_blank"
           href="https://github.com/radix-vue/radix-vue/blob/main/docs/content/showcase.md"
-        />
+        >
+          Add Showcase
+        </a>
       </div>
 
       <div class="flex flex-col gap-8 md:gap-12">
         <div>
-          <h3 class="md:text-lg font-semibold ml-2 inline-flex items-center group">
+          <h3 class="text-primary md:text-lg font-bold ml-2 inline-flex items-center group">
             Packages
           </h3>
-          <div class="mt-4 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="mt-4 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <CardLink
               v-for="item in frontmatter.packages"
               :key="item.title"
@@ -39,10 +40,10 @@ const { frontmatter } = useData()
         </div>
 
         <div>
-          <h3 class="md:text-lg font-semibold ml-2 inline-flex items-center group">
+          <h3 class="text-primary md:text-lg font-bold ml-2 inline-flex items-center group">
             Projects
           </h3>
-          <div class="mt-4 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="mt-4 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <CardLink
               v-for="item in frontmatter.projects"
               :key="item.title"
@@ -52,10 +53,10 @@ const { frontmatter } = useData()
         </div>
 
         <div v-if="frontmatter.starters && frontmatter.starters.length">
-          <h3 class="md:text-lg font-semibold ml-2 inline-flex items-center group">
+          <h3 class="text-primary md:text-lg font-bold ml-2 inline-flex items-center group">
             Starters
           </h3>
-          <div class="mt-4 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="mt-4 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <CardLink
               v-for="item in frontmatter.starters"
               :key="item.title"

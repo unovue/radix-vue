@@ -9,11 +9,13 @@ description: Merges its props onto its immediate child.
 Merges its props onto its immediate child.
 </Description>
 
-::: info Question
+<Callout type="tip" title="Question">
+
 How is this component different from [Vue native slot](https://vuejs.org/guide/components/slots.html)?
 
 A: The biggest different is how it handles the `attributes` assigned to it.
-:::
+
+</Callout>
 
 Native slot treat any binded value as [Scoped Slots](https://vuejs.org/guide/components/slots.html#scoped-slots), where the values will be exposed to the parent template and be consumed.
 

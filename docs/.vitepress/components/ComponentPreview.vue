@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import HeroContainer from './NewHeroContainer.vue'
-import HeroCodeGroup from './NewHeroCodeGroup.vue'
+import HeroContainer from './HeroContainer.vue'
+import HeroCodeGroup from './HeroCodeGroup.vue'
 import { computed } from 'vue'
 import { useStorage } from '@vueuse/core'
 

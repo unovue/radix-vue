@@ -15,10 +15,6 @@ Presents a calendar view tailored for selecting date ranges.
 
 <ComponentPreview name="RangeCalendar" />
 
-::: info Credit
-This component was built taking inspiration from the implementation in [melt-ui](https://github.com/melt-ui/melt-ui).
-:::
-
 ## Features
 
 <Highlights

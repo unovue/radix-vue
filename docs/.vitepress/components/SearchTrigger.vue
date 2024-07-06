@@ -23,9 +23,9 @@ function handleClose() {
 
 <template>
   <DialogRoot v-model:open="open">
-    <DialogTrigger class="flex items-center space-x-2 text-sm py-1.5 px-3 rounded-lg border border-muted bg-transparent hover:bg-card text-muted-foreground">
+    <DialogTrigger class="flex items-center space-x-2 text-sm py-1.5 px-3 rounded-lg border border-muted bg-background hover:bg-card text-muted-foreground">
       <Icon icon="lucide:search" />
-      <span class="!mr-12">Search</span>
+      <span class="w-24 text-left">Search</span>
       <span class="prose dark:prose-invert prose-stone text-sm">
         <kbd>⌘ K</kbd>
       </span>

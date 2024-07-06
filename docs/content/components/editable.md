@@ -94,6 +94,10 @@ Contains the text parts of an editable component.
     },
     {
       attribute: '[data-focus]',
+      values: 'Present when the editable field is focused. To be deprecated in favor of [data-focused]',
+    },
+    {
+      attribute: '[data-focused]',
       values: 'Present when the editable field is focused',
     }
   ]"

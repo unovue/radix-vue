@@ -77,7 +77,7 @@
   {
     'name': 'selectionBehavior',
     'description': '<p>How multiple selection should behave in the collection.</p>\n',
-    'type': '\'replace\' | \'toggle\'',
+    'type': '\'toggle\' | \'replace\'',
     'required': false,
     'default': '\'toggle\''
   }

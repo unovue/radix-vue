@@ -1,8 +1,9 @@
-import { resolve } from 'node:path'
+import { relative, resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import dts from 'vite-plugin-dts'
+import pkg from './package.json'
 
 const projectRootDir = resolve(__dirname)
 
@@ -13,8 +14,9 @@ export default defineConfig({
     vueJsx(),
     dts({
       tsconfigPath: 'tsconfig.build.json',
-      cleanVueFileName: true,
       exclude: ['src/test/**', 'src/**/story/**', 'src/**/*.story.vue'],
+      cleanVueFileName: true,
+      rollupTypes: true,
     }),
   ],
   resolve: {
@@ -27,28 +29,25 @@ export default defineConfig({
     ],
   },
   build: {
+    target: 'esnext',
+    sourcemap: true,
     lib: {
       name: 'radix-vue',
-      fileName: (format, name) => {
-        return `${name}.${format === 'es' ? 'js' : 'umd.cjs'}`
-      },
+      formats: ['es', 'cjs'],
       entry: {
         index: resolve(__dirname, 'src/index.ts'),
         date: resolve(__dirname, 'src/date/index.ts'),
       },
     },
     rollupOptions: {
-      // make sure to externalize deps that shouldn't be bundled
-      // into your library (Vue)
-      external: ['vue', '@floating-ui/vue', '@internationalized/date', '@internationalized/number'],
+      external: [
+        'nanoid/non-secure',
+        ...Object.keys(pkg.dependencies ?? {}),
+        ...Object.keys(pkg.peerDependencies ?? {}),
+      ],
       output: {
-        // Provide global variables to use in the UMD build
-        // for externalized deps
-        globals: {
-          'vue': 'Vue',
-          '@floating-ui/vue': '@floating-ui/vue',
-          '@internationalized/date': '@internationalized/date',
-          '@internationalized/number': '@internationalized/number',
+        manualChunks: (moduleId) => {
+          return relative(projectRootDir, moduleId).split('/')[1]
         },
         assetFileNames: (chunkInfo) => {
           if (chunkInfo.name === 'style.css')

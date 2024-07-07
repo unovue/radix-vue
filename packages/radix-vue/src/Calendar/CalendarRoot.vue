@@ -6,7 +6,7 @@ import type { PrimitiveProps } from '@/Primitive'
 import { type Formatter, createContext, useDirection, useLocale } from '@/shared'
 
 import { useCalendar, useCalendarState } from './useCalendar'
-import { type CalendarIncrement, getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
+import { getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
 import type { Grid, Matcher, WeekDayFormat } from '@/date'
 import type { Direction } from '@/shared/types'
 
@@ -34,10 +34,10 @@ type CalendarRootContext = {
   isDateSelected: Matcher
   isDateUnavailable?: Matcher
   isOutsideVisibleView: (date: DateValue) => boolean
-  prevPage: (step?: CalendarIncrement, prevPageFunc?: (date: DateValue) => DateValue) => void
-  nextPage: (step?: CalendarIncrement, nextPageFunc?: (date: DateValue) => DateValue) => void
-  isNextButtonDisabled: (step?: CalendarIncrement, nextPageFunc?: (date: DateValue) => DateValue) => boolean
-  isPrevButtonDisabled: (step?: CalendarIncrement, prevPageFunc?: (date: DateValue) => DateValue) => boolean
+  prevPage: (prevPageFunc?: (date: DateValue) => DateValue) => void
+  nextPage: (nextPageFunc?: (date: DateValue) => DateValue) => void
+  isNextButtonDisabled: (nextPageFunc?: (date: DateValue) => DateValue) => boolean
+  isPrevButtonDisabled: (prevPageFunc?: (date: DateValue) => DateValue) => boolean
   formatter: Formatter
   dir: Ref<Direction>
 }

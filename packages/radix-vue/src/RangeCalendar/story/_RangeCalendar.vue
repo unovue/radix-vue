@@ -7,6 +7,12 @@ const props = defineProps<{
   calendarProps?: RangeCalendarRootProps
   emits?: { 'onUpdate:modelValue'?: (data: DateValue) => void }
 }>()
+
+function pagingFunc(date: DateValue, sign: -1 | 1) {
+  if (sign === -1)
+    return date.subtract({ years: 1 })
+  return date.add({ years: 1 })
+}
 </script>
 
 <template>
@@ -19,7 +25,7 @@ const props = defineProps<{
     <RangeCalendarHeader data-testid="header">
       <RangeCalendarPrev
         data-testid="prev-year-button"
-        step="year"
+        :prev-page="(date: DateValue) => pagingFunc(date, -1)"
       />
       <RangeCalendarPrev
         data-testid="prev-button"
@@ -30,7 +36,7 @@ const props = defineProps<{
       />
       <RangeCalendarNext
         data-testid="next-year-button"
-        step="year"
+        :next-page="(date: DateValue) => pagingFunc(date, 1)"
       />
     </RangeCalendarHeader>
 

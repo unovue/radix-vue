@@ -158,7 +158,7 @@ function handleArrowKey(e: KeyboardEvent) {
   }
 
   if (newIndex < 0) {
-    if (rootContext.isPrevButtonDisabled('month'))
+    if (rootContext.isPrevButtonDisabled())
       return
     rootContext.prevPage()
     nextTick(() => {
@@ -171,7 +171,7 @@ function handleArrowKey(e: KeyboardEvent) {
   }
 
   if (newIndex >= allCollectionItems.length) {
-    if (rootContext.isNextButtonDisabled('month'))
+    if (rootContext.isNextButtonDisabled())
       return
     rootContext.nextPage()
     nextTick(() => {

@@ -3,7 +3,6 @@ export {
   getDefaultDate,
 } from './comparators'
 export type {
-  CalendarIncrement,
   DateRange,
   DayOfWeek,
   HourCycle,

@@ -19,12 +19,5 @@
     'description': '<p>The function to be used for the prev page. Overwrites the <code>prevPage</code> function set on the <code>CalendarRoot</code>.</p>\n',
     'type': '((placeholder: DateValue) => DateValue)',
     'required': false
-  },
-  {
-    'name': 'step',
-    'description': '<p>The calendar unit to go back</p>\n',
-    'type': '\'month\' | \'year\'',
-    'required': false,
-    'default': '\'month\''
   }
 ]" />

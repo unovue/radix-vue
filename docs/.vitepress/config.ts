@@ -6,6 +6,8 @@ import {
   discord,
   font,
   github,
+  legacyLink,
+  legacyVersion,
   ogImage,
   ogUrl,
   radixVueDescription,
@@ -57,10 +59,8 @@ export default defineConfig({
       {
         text: `v${version}`,
         items: [
-          {
-            text: 'Release Notes ',
-            link: releases,
-          },
+          { text: 'Release Notes ', link: releases },
+          { text: legacyVersion, link: legacyLink },
         ],
       },
     ],

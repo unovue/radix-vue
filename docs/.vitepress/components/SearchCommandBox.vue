@@ -168,31 +168,29 @@ function formMarkRegex(terms: Set<string>) {
           :href="p.id"
           class="inline-flex px-6 py-4 w-full"
         >
-          <div>
-            <div class="flex items-center">
-              <!-- <span>#</span> -->
+          <div class="flex items-center flex-wrap">
+            <!-- <span>#</span> -->
+            <span
+              v-for="(t, index) in p.titles"
+              :key="index"
+              class="flex items-center"
+            >
               <span
-                v-for="(t, index) in p.titles"
-                :key="index"
-                class="flex items-center"
-              >
-                <span
-                  class="text"
-                  v-html="t"
-                />
-                <Icon
-                  icon="lucide:chevron-right"
-                  inline
-                  class="mx-2"
-                />
-              </span>
-              <span>
-                <span
-                  class="text"
-                  v-html="p.title"
-                />
-              </span>
-            </div>
+                class="text"
+                v-html="t"
+              />
+              <Icon
+                icon="lucide:chevron-right"
+                inline
+                class="mx-1 md:mx-2"
+              />
+            </span>
+            <span>
+              <span
+                class="text"
+                v-html="p.title"
+              />
+            </span>
           </div>
         </a>
       </ListboxItem>
@@ -205,7 +203,7 @@ function formMarkRegex(terms: Set<string>) {
       </li>
     </ListboxContent>
 
-    <div class="py-4 px-6 prose prose-stone dark:prose-invert text-sm flex items-center gap-4">
+    <div class="py-4 px-6 prose prose-stone dark:prose-invert text-sm hidden md:flex items-center gap-4">
       <span class="inline-flex items-center gap-1 leading-4">
         <kbd aria-label="Up arrow">
           <Icon icon="lucide:arrow-up" />

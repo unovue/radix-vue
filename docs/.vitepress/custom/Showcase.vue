@@ -17,7 +17,7 @@ const { frontmatter } = useData()
         </h2>
 
         <a
-          class="mt-6"
+          class="mt-6 text-sm font-bold px-5 py-3 rounded-xl text-white w-max bg-gradient-to-b from-primary to-[#1aa479]  hover:outline-[#14B47133] hover:outline-[4px] hover:outline  focus:outline-[#14B47133] focus:outline-[4px] focus:outline outline-offset-0 "
           target="_blank"
           href="https://github.com/radix-vue/radix-vue/blob/main/docs/content/showcase.md"
         >

@@ -35,7 +35,7 @@ const props = defineProps<DataAttributesTableProps>()
         :key="`${prop.attribute}-${index}`"
       >
         <ProseTd>
-          <ProseCodeInline>
+          <ProseCodeInline class="text-[13px]">
             {{ prop.attribute }}
           </ProseCodeInline>
         </ProseTd>

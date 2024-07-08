@@ -2,4 +2,4 @@
 layout: example
 ---
 
-Example page
+Coming soon...

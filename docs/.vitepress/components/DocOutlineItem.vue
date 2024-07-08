@@ -14,16 +14,13 @@ function onClick({ target: el }: Event) {
 </script>
 
 <template>
-  <ul
-    class=""
-    :class="root ? 'root' : 'nested'"
-  >
+  <ul :class="root ? 'root' : 'nested'">
     <li
       v-for="{ children, link, title } in headers"
       :key="title"
     >
       <a
-        class="outline-link text-muted-foreground"
+        class="outline-link text-muted-foreground w-max"
         :class="{ 'font-medium': root }"
         :href="link"
         :title="title"

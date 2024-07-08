@@ -2,12 +2,19 @@
 import { onContentUpdated, useData } from 'vitepress'
 import DocOutlineItem from '../components/DocOutlineItem.vue'
 import { type MenuItem, getHeaders, useActiveAnchor } from '../composables/outline'
-import { ref, shallowRef } from 'vue'
+import { onMounted, ref, shallowRef } from 'vue'
+
+defineProps<{
+  collapsible?: boolean
+}>()
 
 const { frontmatter, theme } = useData()
 
 const headers = shallowRef<MenuItem[]>([])
 
+onMounted(() => {
+  headers.value = getHeaders(frontmatter.value.outline ?? theme.value.outline)
+})
 onContentUpdated(() => {
   headers.value = getHeaders(frontmatter.value.outline ?? theme.value.outline)
 })
@@ -29,6 +36,7 @@ useActiveAnchor(container, marker)
     />
 
     <div
+      v-if="!collapsible"
       id="doc-outline-aria-label"
       aria-level="2"
       class="font-bold text-sm mb-2"

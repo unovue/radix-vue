@@ -38,7 +38,7 @@ const props = defineProps<SlotsTableProps>()
       >
         <ProseTd>
           <div class="flex h-full items-start gap-1">
-            <ProseCodeInline class=" !text-[13px]">
+            <ProseCodeInline class="text-[13px]">
               {{ prop.name }}
             </ProseCodeInline>
           </div>

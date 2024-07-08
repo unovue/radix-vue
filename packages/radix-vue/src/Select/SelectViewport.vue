@@ -1,14 +1,18 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
+import { useNonce } from '@/shared/useNonce'
 
 export interface SelectViewportProps extends PrimitiveProps {
+  /**
+   * Will add `nonce` attribute to the style tag which can be used by Content Security Policy. <br> If omitted, inherits globally from `ConfigProvider`.
+   */
   nonce?: string
 }
 </script>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, toRefs } from 'vue'
 import { SelectContentDefaultContextValue, injectSelectContentContext } from './SelectContentImpl.vue'
 import { CONTENT_MARGIN } from './utils'
 import {
@@ -17,6 +21,8 @@ import {
 import { injectSelectItemAlignedPositionContext } from './SelectItemAlignedPosition.vue'
 
 const props = defineProps<SelectViewportProps>()
+const { nonce: propNonce } = toRefs(props)
+const nonce = useNonce(propNonce)
 
 const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
 const alignedPositionContext

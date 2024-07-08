@@ -1,8 +1,13 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
+import { useNonce } from '@/shared/useNonce'
+import { toRefs } from 'vue'
 
 export interface ViewportProps extends PrimitiveProps {
+  /**
+   * Will add `nonce` attribute to the style tag which can be used by Content Security Policy. <br> If omitted, inherits globally from `ConfigProvider`.
+   */
   nonce?: string
 }
 </script>
@@ -12,6 +17,9 @@ import { Primitive } from '@/Primitive'
 
 const props = defineProps<ViewportProps>()
 const { forwardRef } = useForwardExpose()
+
+const { nonce: propNonce } = toRefs(props)
+const nonce = useNonce(propNonce)
 </script>
 
 <template>

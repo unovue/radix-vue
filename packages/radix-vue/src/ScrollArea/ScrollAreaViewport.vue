@@ -1,14 +1,18 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
+import { useNonce } from '@/shared/useNonce'
 
 export interface ScrollAreaViewportProps extends PrimitiveProps {
+  /**
+   * Will add `nonce` attribute to the style tag which can be used by Content Security Policy. <br> If omitted, inherits globally from `ConfigProvider`.
+   */
   nonce?: string
 }
 </script>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, toRefs } from 'vue'
 import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
 import { Primitive } from '@/Primitive'
 
@@ -17,6 +21,9 @@ defineOptions({
 })
 
 const props = defineProps<ScrollAreaViewportProps>()
+
+const { nonce: propNonce } = toRefs(props)
+const nonce = useNonce(propNonce)
 
 const rootContext = injectScrollAreaRootContext()
 

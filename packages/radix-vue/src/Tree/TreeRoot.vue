@@ -20,7 +20,7 @@ export interface TreeRootProps<T = Record<string, any>, U extends Record<string,
   selectionBehavior?: 'toggle' | 'replace'
   /** Whether multiple options can be selected or not.  */
   multiple?: boolean
-  /** The reading direction of the listbox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
+  /** The reading direction of the listbox when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
   /** When `true`, prevents the user from interacting with tree  */
   disabled?: boolean

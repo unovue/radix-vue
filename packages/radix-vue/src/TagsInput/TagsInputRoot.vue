@@ -23,7 +23,7 @@ export interface TagsInputRootProps<T = AcceptableInputValue> extends PrimitiveP
   disabled?: boolean
   /** The character to trigger the addition of a new tag. Also used to split tags for `@paste` event */
   delimiter?: string
-  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
+  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
   /** Maximum number of tags. */
   max?: number

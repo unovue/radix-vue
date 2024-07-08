@@ -93,7 +93,7 @@ async function handlePointerMove(event: PointerEvent) {
 
 if (props.value === '') {
   throw new Error(
-    'A <SelectItem /> must have a value prop that is not an empty string. This is because the Select value can be set to an empty string to clear the selection and show the placeholder.',
+    'A <ComboboxItem /> must have a value prop that is not an empty string. This is because the Combobox value can be set to an empty string to clear the selection and show the placeholder.',
   )
 }
 

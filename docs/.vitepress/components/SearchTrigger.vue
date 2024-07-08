@@ -4,7 +4,7 @@ import { Icon } from '@iconify/vue'
 import { defineAsyncComponent, ref } from 'vue'
 import { useMagicKeys, whenever } from '@vueuse/core'
 
-const SearchCommandbox = defineAsyncComponent(() => import('./SearchCommandbox.vue'))
+const SearchCommandBox = defineAsyncComponent(() => import('./SearchCommandBox.vue'))
 
 const open = ref(false)
 const { meta_k } = useMagicKeys()
@@ -45,7 +45,7 @@ function handleClose() {
           Show related results based on search term
         </DialogDescription>
 
-        <SearchCommandbox
+        <SearchCommandBox
           @close="handleClose"
         />
       </DialogContent>

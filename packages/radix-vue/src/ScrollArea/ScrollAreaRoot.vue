@@ -38,7 +38,7 @@ export interface ScrollAreaRootProps extends PrimitiveProps {
    * `hover` - when the user is scrolling along its corresponding orientation and when the user is hovering over the scroll area.
    */
   type?: ScrollType
-  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
+  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
   /** If type is set to either `scroll` or `hover`, this prop determines the length of time, in milliseconds, <br> before the scrollbars are hidden after the user stops interacting with scrollbars. */
   scrollHideDelay?: number

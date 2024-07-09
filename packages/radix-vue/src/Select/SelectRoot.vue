@@ -12,7 +12,7 @@ export interface SelectRootProps {
   defaultValue?: string
   /** The controlled value of the Select. Can be bind as `v-model`. */
   modelValue?: string
-  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
+  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
   /** The name of the Select. Submitted with its owning form as part of a name/value pair. */
   name?: string

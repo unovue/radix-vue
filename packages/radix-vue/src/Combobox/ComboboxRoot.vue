@@ -64,7 +64,7 @@ export interface ComboboxRootProps<T = AcceptableValue> extends PrimitiveProps {
   disabled?: boolean
   /** The name of the Combobox. Submitted with its owning form as part of a name/value pair. */
   name?: string
-  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
+  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
   /** The custom filter function for filtering `ComboboxItem`. */
   filterFunction?: (val: ArrayOrWrapped<T>, term: string) => ArrayOrWrapped<T>

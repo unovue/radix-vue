@@ -29,7 +29,7 @@ export interface StepperRootProps extends PrimitiveProps {
    */
   orientation?: DataOrientation
   /**
-   * The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode.
+   * The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode.
    */
   dir?: Direction
   /** The controlled value of the tab to activate. Can be bound as `v-model`. */

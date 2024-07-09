@@ -43,7 +43,7 @@ export interface ListboxRootProps<T = AcceptableValue> extends PrimitiveProps {
   multiple?: boolean
   /** The orientation of the listbox. <br>Mainly so arrow navigation is done accordingly (left & right vs. up & down) */
   orientation?: DataOrientation
-  /** The reading direction of the listbox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
+  /** The reading direction of the listbox when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
   /** When `true`, prevents the user from interacting with listbox */
   disabled?: boolean

@@ -7,6 +7,7 @@ export {
 export {
   default as TreeItem,
   type TreeItemProps,
+  type TreeItemEmits,
   type SelectEvent as TreeItemSelectEvent,
   type ToggleEvent as TreeItemToggleEvent,
 } from './TreeItem.vue'

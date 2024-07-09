@@ -1,18 +1,18 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import type { DataOrientation, Direction } from '@/shared/types'
+import type { AcceptableValue, DataOrientation, Direction } from '@/shared/types'
 import { createContext, useDirection, useForwardExpose } from '@/shared'
 
 export interface RadioGroupRootProps extends PrimitiveProps {
   /** The controlled value of the radio item to check. Can be binded as `v-model`. */
-  modelValue?: string
+  modelValue?: AcceptableValue
   /**
    * The value of the radio item that should be checked when initially rendered.
    *
    * Use when you do not need to control the state of the radio items.
    */
-  defaultValue?: string
+  defaultValue?: AcceptableValue
   /** When `true`, prevents the user from interacting with radio items. */
   disabled?: boolean
   /** The name of the group. Submitted with its owning form as part of a name/value pair. */
@@ -32,8 +32,8 @@ export type RadioGroupRootEmits = {
 }
 
 interface RadioGroupRootContext {
-  modelValue?: Readonly<Ref<string | undefined>>
-  changeModelValue: (value?: string) => void
+  modelValue?: Readonly<Ref<AcceptableValue | undefined>>
+  changeModelValue: (value?: AcceptableValue) => void
   disabled: Ref<boolean>
   loop: Ref<boolean>
   orientation: Ref<DataOrientation | undefined>

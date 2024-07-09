@@ -24,6 +24,7 @@ import Radio from './Radio.vue'
 import { injectRadioGroupRootContext } from './RadioGroupRoot.vue'
 import { RovingFocusItem } from '@/RovingFocus'
 import { useEventListener } from '@vueuse/core'
+import isEqual from 'fast-deep-equal'
 
 defineOptions({
   inheritAttrs: false,
@@ -41,7 +42,7 @@ const rootContext = injectRadioGroupRootContext()
 
 const disabled = computed(() => rootContext.disabled.value || props.disabled)
 const required = computed(() => rootContext.required.value || props.required)
-const checked = computed(() => rootContext.modelValue?.value === props.value)
+const checked = computed(() => isEqual(rootContext.modelValue?.value, props.value))
 
 provideRadiogroupItemContext({ disabled, checked })
 

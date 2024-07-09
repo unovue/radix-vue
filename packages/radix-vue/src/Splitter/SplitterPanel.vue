@@ -107,7 +107,7 @@ const panelDataRef = computed(() => ({
   order: props.order,
 }) satisfies PanelData)
 
-watch(() => panelDataRef.value.constraints, (prevConstraints, constraints) => {
+watch(() => panelDataRef.value.constraints, (constraints, prevConstraints) => {
   // If constraints have changed, we should revisit panel sizes.
   // This is uncommon but may happen if people are trying to implement pixel based constraints.
   if (

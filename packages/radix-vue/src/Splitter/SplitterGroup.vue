@@ -415,7 +415,9 @@ function resizePanel(panelData: PanelData, unsafePanelSize: number) {
 
 function reevaluatePanelConstraints(panelData: PanelData, prevConstraints: PanelConstraints) {
   const { layout, panelDataArray } = eagerValuesRef.value
-
+  const index = findPanelDataIndex(panelDataArray, panelData)
+  panelDataArray[index] = panelData
+  eagerValuesRef.value.panelDataArrayChanged = true
   const {
     collapsedSize: prevCollapsedSize = 0,
     collapsible: prevCollapsible,

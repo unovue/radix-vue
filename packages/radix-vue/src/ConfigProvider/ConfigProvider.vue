@@ -6,6 +6,7 @@ import { createContext } from '@/shared'
 interface ConfigProviderContextValue {
   dir?: Ref<Direction>
   scrollBody?: Ref<boolean | ScrollBodyOption>
+  nonce?: Ref<string | undefined>
   useId?: () => string
 }
 
@@ -24,6 +25,11 @@ export interface ConfigProviderProps {
    */
   scrollBody?: boolean | ScrollBodyOption
   /**
+   * The global `nonce` value of your application. This will be inherited by the related primitives.
+   * @type string
+   */
+  nonce?: string
+  /**
    * The global `useId` injection as a workaround for preventing hydration issue.
    */
   useId?: () => string
@@ -36,14 +42,16 @@ import { toRefs } from 'vue'
 const props = withDefaults(defineProps<ConfigProviderProps>(), {
   dir: 'ltr',
   scrollBody: true,
+  nonce: undefined,
   useId: undefined,
 })
 
-const { dir, scrollBody } = toRefs(props)
+const { dir, scrollBody, nonce } = toRefs(props)
 
 provideConfigProviderContext({
   dir,
   scrollBody,
+  nonce,
   useId: props.useId,
 })
 </script>

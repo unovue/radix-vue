@@ -54,6 +54,11 @@ projects:
     description: A Simple / Speedy / Secure Link Shortener with Analytics, 100% run on Cloudflare.
     url: https://sink.cool/
     image: https://sink.cool/banner.png
+    
+  - title: Cider Collective
+    description: A community-ran and maintained software company focused on creating the best experience for end users.
+    url: https://cider.sh
+    image: https://cider.sh/og.png
 
 starters:
   - title: shadcn-docs

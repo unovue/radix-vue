@@ -23,7 +23,7 @@ const activeSection = computed(() => sidebar.value.find(section => section.items
       v-if="frontmatter.layout !== 'example'"
       class="flex"
     >
-      <aside class="hidden md:block w-64 flex-shrink-0 py-12 pr-6 sticky top-[7.25rem] h-full overflow-y-auto max-h-[calc(100vh-7.25rem)] px-6">
+      <aside class="hidden md:block w-[17rem] flex-shrink-0 py-12 pr-6 sticky top-[7.25rem] h-full overflow-y-auto max-h-[calc(100vh-7.25rem)] px-6">
         <ul
           v-if="activeSection"
           class="h-full"
@@ -60,7 +60,7 @@ const activeSection = computed(() => sidebar.value.find(section => section.items
         <DocFooter />
       </div>
 
-      <div class="hidden xl:block w-64 flex-shrink-0 py-12 pl-6 sticky top-[7.25rem] h-full overflow-y-auto md:overflow-hidden max-h-[calc(100vh-7.25rem)]">
+      <div class="hidden xl:block w-64 flex-shrink-0 py-12 pl-6 sticky top-[7.25rem] h-full overflow-y-auto md:overflow-x-hidden max-h-[calc(100vh-7.25rem)]">
         <DocOutline />
       </div>
     </main>

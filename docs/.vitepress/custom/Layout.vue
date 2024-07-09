@@ -3,6 +3,8 @@ import Docs from './Docs.vue'
 import { Content, useData } from 'vitepress'
 import SearchTrigger from '../components/SearchTrigger.vue'
 import Navbar from '../components/Navbar.vue'
+// import HomePageDemo from '../components/HomePageDemo.vue'
+import Home from '../components/Home.vue'
 import { useScroll } from '@vueuse/core'
 import { toRefs } from 'vue'
 import Showcase from './Showcase.vue'
@@ -13,12 +15,12 @@ const { top } = toRefs(arrivedState)
 </script>
 
 <template>
-  <div class="flex flex-col items-center min-h-screen justify-between">
+  <div class="flex flex-col items-center min-h-screen h-full">
     <div class="absolute z-0 top-0 inset-x-0 flex justify-center overflow-hidden pointer-events-none">
       <div class="w-[108rem] flex-none flex justify-end">
         <img
           src="/bg.png"
-          alt=""
+          alt="Backdrop flare"
           class="w-[64rem] flex-none max-w-none -mt-6"
         >
       </div>
@@ -35,6 +37,7 @@ const { top } = toRefs(arrivedState)
         >
           <img
             class="w-6 md:w-9"
+            alt="Radix Vue logo"
             :src="theme.logo"
           >
           <span class="font-bold text-xl md:text-2xl">{{ site.title }}</span>
@@ -45,29 +48,30 @@ const { top } = toRefs(arrivedState)
       <Navbar />
     </header>
 
-    <main
+    <div
       v-if="frontmatter.layout === 'home'"
-      class="px-6"
+      class="max-w-[1440px]  px-6 h-full flex flex-col justify-between flex-1 w-full"
     >
-      <a href="/overview/introduction.html">Docs</a>
+      <main>
+        <Home />
+      <!-- <Content /> -->
+      </main>
 
-      <Content />
-
-      <footer class="py-4">
+      <!-- <footer class="py-4">
         footer
-      </footer>
-    </main>
+      </footer> -->
+    </div>
 
     <div
       v-else-if="frontmatter.layout === 'showcase'"
-      class="max-w-[1440px] w-full h-full grow"
+      class="max-w-[1440px] w-full h-full grow px-6"
     >
       <Showcase />
     </div>
 
     <div
       v-else
-      class="max-w-[1440px] w-full h-full grow"
+      class="max-w-[1440px] w-full h-full grow px-6"
     >
       <Docs />
     </div>

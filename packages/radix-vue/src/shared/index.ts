@@ -1,6 +1,7 @@
 export { createContext } from './createContext'
 export { handleAndDispatchCustomEvent } from './handleAndDispatchCustomEvent'
 export { isValidVNodeElement } from './isValidVNodeElement'
+export { isValueEqualOrExist } from './isValueEqualOrExist'
 export * from './clamp'
 export * from './arrays'
 export * from './browser'

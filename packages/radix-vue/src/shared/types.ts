@@ -6,7 +6,7 @@ type Direction = 'ltr' | 'rtl'
 type Type = 'single' | 'multiple'
 type SingleOrMultipleType = 'single' | 'multiple'
 
-interface SingleOrMultipleProps<ValidValue = string | string[], ExplicitType = SingleOrMultipleType> {
+interface SingleOrMultipleProps<ValidValue = AcceptableValue | AcceptableValue[], ExplicitType = SingleOrMultipleType> {
   /**
    * Determines whether a "single" or "multiple" items can be pressed at a time.
    *

@@ -1,10 +1,10 @@
 <script lang="ts">
 import type { ComputedRef, Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import type { DataOrientation, Direction, SingleOrMultipleProps, SingleOrMultipleType } from '../shared/types'
+import type { AcceptableValue, DataOrientation, Direction, SingleOrMultipleProps, SingleOrMultipleType } from '../shared/types'
 import { createContext, useDirection, useForwardExpose } from '@/shared'
 
-export interface ToggleGroupRootProps<ValidValue = string | string[], ExplicitType = SingleOrMultipleType>
+export interface ToggleGroupRootProps<ValidValue = AcceptableValue | AcceptableValue[], ExplicitType = SingleOrMultipleType>
   extends PrimitiveProps, SingleOrMultipleProps<ValidValue, ExplicitType> {
   /** When `false`, navigating through the items using arrow keys will be disabled. */
   rovingFocus?: boolean
@@ -19,13 +19,13 @@ export interface ToggleGroupRootProps<ValidValue = string | string[], ExplicitTy
 }
 export type ToggleGroupRootEmits = {
   /** Event handler called when the value changes. */
-  'update:modelValue': [payload: string | string[]]
+  'update:modelValue': [payload: AcceptableValue | AcceptableValue[]]
 }
 
 interface ToggleGroupRootContext {
   isSingle: ComputedRef<boolean>
-  modelValue: Ref<string | string[] | undefined>
-  changeModelValue: (value: string) => void
+  modelValue: Ref<AcceptableValue | AcceptableValue[] | undefined>
+  changeModelValue: (value: AcceptableValue) => void
   dir?: Ref<Direction>
   orientation?: DataOrientation
   loop: Ref<boolean>

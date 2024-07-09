@@ -53,12 +53,12 @@ const toggleGroupItemClasses
       </ToggleGroupRoot>
       <br>
       <ToggleGroupRoot
-        :default-value="['bold', 'italic']"
+        :default-value="[{ val: 'bold' }, { val: 'italic' }]"
         type="multiple"
         class="flex"
       >
         <ToggleGroupItem
-          value="bold"
+          :value="{ val: 'bold' }"
           aria-label="Toggle Bold"
           :class="toggleGroupItemClasses"
         >
@@ -68,7 +68,7 @@ const toggleGroupItemClasses
           />
         </ToggleGroupItem>
         <ToggleGroupItem
-          value="italic"
+          :value="{ val: 'italic' }"
           aria-label="Toggle italic"
           :class="toggleGroupItemClasses"
         >
@@ -78,7 +78,7 @@ const toggleGroupItemClasses
           />
         </ToggleGroupItem>
         <ToggleGroupItem
-          value="strikethrough"
+          :value="{ val: 'strikethrough' }"
           aria-label="Toggle Strikethrough"
           :class="toggleGroupItemClasses"
         >

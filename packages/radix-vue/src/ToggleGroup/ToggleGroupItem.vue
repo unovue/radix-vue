@@ -1,12 +1,13 @@
 <script lang="ts">
 import type { ToggleProps } from '@/Toggle'
-import { useForwardExpose } from '@/shared'
+import { isValueEqualOrExist, useForwardExpose } from '@/shared'
+import type { AcceptableValue } from '@/shared/types'
 
 export interface ToggleGroupItemProps extends ToggleProps {
   /**
    * A string value for the toggle group item. All items within a toggle group should use a unique value.
    */
-  value: string
+  value: AcceptableValue
 }
 </script>
 
@@ -23,13 +24,7 @@ const props = withDefaults(defineProps<ToggleGroupItemProps>(), {
 
 const rootContext = injectToggleGroupRootContext()
 const disabled = computed(() => rootContext.disabled?.value || props.disabled)
-const pressed = computed(() => rootContext.modelValue.value?.includes(props.value))
-
-const isPressed = computed(() => {
-  return rootContext.isSingle.value
-    ? rootContext.modelValue.value === props.value
-    : rootContext.modelValue.value?.includes(props.value)
-})
+const pressed = computed(() => isValueEqualOrExist(rootContext.modelValue.value, props.value))
 
 const { forwardRef } = useForwardExpose()
 </script>
@@ -45,7 +40,7 @@ const { forwardRef } = useForwardExpose()
       v-bind="props"
       :ref="forwardRef"
       :disabled="disabled"
-      :model-value="isPressed"
+      :model-value="pressed"
       @update:model-value="rootContext.changeModelValue(value)"
     >
       <slot />

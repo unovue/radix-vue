@@ -1,7 +1,9 @@
 import { useVModel } from '@vueuse/core'
 import { type Ref, computed, ref, watch } from 'vue'
-import type { SingleOrMultipleProps } from './types'
+import type { AcceptableValue, SingleOrMultipleProps } from './types'
 import { isNullish } from './nullish'
+import isEqual from 'fast-deep-equal'
+import { isValueEqualOrExist } from './isValueEqualOrExist'
 
 /**
  * Validates the props and it makes sure that the types are coherent with each other
@@ -74,7 +76,7 @@ export function useSingleOrMultipleValue<P extends SingleOrMultipleProps, Name e
     defaultValue: getDefaultValue(props),
     passive: (props.modelValue === undefined) as false,
     deep: true,
-  }) as Ref<string | string[] | undefined>
+  }) as Ref<AcceptableValue | AcceptableValue[] | undefined>
 
   watch(
     () => [props.type, props.modelValue, props.defaultValue],
@@ -86,14 +88,14 @@ export function useSingleOrMultipleValue<P extends SingleOrMultipleProps, Name e
     { immediate: true },
   )
 
-  function changeModelValue(value: string) {
+  function changeModelValue(value: AcceptableValue) {
     if (type.value === 'single') {
-      modelValue.value = value === modelValue.value ? undefined : value
+      modelValue.value = isEqual(value, modelValue.value) ? undefined : value
     }
     else {
-      const modelValueArray = [...(modelValue.value as string[] || [])]
-      if (modelValueArray.includes(value)) {
-        const index = modelValueArray.findIndex(i => i === value)
+      const modelValueArray = [...(modelValue.value as AcceptableValue[] || [])]
+      if (isValueEqualOrExist(modelValueArray, value)) {
+        const index = modelValueArray.findIndex(i => isEqual(i, value))
         modelValueArray.splice(index, 1)
       }
       else {

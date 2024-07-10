@@ -101,5 +101,10 @@
     'name': 'remaining',
     'description': '<p>Remaining time (in ms)</p>\n',
     'type': 'number'
+  },
+  {
+    'name': 'duration',
+    'description': '<p>Total time the toast will remain visible for (in ms)</p>\n',
+    'type': 'number'
   }
 ]" />

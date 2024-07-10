@@ -54,8 +54,6 @@ const props = withDefaults(defineProps<ScrollAreaRootProps>(), {
   scrollHideDelay: 600,
 })
 
-const { forwardRef, currentElement: scrollArea } = useForwardExpose()
-
 const cornerWidth = ref(0)
 const cornerHeight = ref(0)
 const viewport = ref<HTMLElement>()
@@ -67,6 +65,30 @@ const scrollbarYEnabled = ref(false)
 
 const { type, dir: propDir, scrollHideDelay } = toRefs(props)
 const dir = useDirection(propDir)
+
+function scrollTop() {
+  viewport.value?.scrollTo({
+    top: 0,
+  })
+}
+function scrollTopLeft() {
+  viewport.value?.scrollTo({
+    top: 0,
+    left: 0,
+  })
+}
+
+defineExpose({
+  /** Viewport element within ScrollArea */
+  viewport,
+  /** Scroll viewport to top */
+  scrollTop,
+  /** Scroll viewport to top-left */
+  scrollTopLeft,
+})
+
+const { forwardRef, currentElement: scrollArea } = useForwardExpose()
+
 provideScrollAreaRootContext({
   type,
   dir,

@@ -18,8 +18,8 @@ import { isValueEqualOrExist } from './isValueEqualOrExist'
 function validateProps({ type, defaultValue, modelValue }: SingleOrMultipleProps) {
   const value = modelValue || defaultValue
   // One of the three must be defined
-  if (isNullish(type) && isNullish(modelValue) && isNullish(defaultValue))
-    throw new Error('Either the `type` or the `value` or `default-value` prop must be defined.')
+  // if (isNullish(type) && isNullish(modelValue) && isNullish(defaultValue))
+  //   throw new Error('Either the `type` or the `value` or `default-value` prop must be defined.')
 
   if (modelValue !== undefined && defaultValue !== undefined && typeof modelValue !== typeof defaultValue) {
     throw new Error(
@@ -50,7 +50,7 @@ function validateProps({ type, defaultValue, modelValue }: SingleOrMultipleProps
   if (canTypeBeInferred)
     return Array.isArray(value) ? 'multiple' : 'single'
   else
-    return type
+    return type ?? 'single' // always fallback to `single`
 }
 
 function getDefaultType({ type, defaultValue, modelValue }: SingleOrMultipleProps) {

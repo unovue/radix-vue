@@ -27,13 +27,13 @@ Radix Vue also has resolver for the popular [unplugin-vue-components](https://gi
 In `vite.config.ts`, import `radix-vue/resolver`, and configure as such and it will auto-imports all the components from Radix Vue.
 
 ```ts{2,10  }
-import Component from 'unplugin-vue-components/vite'
+import Components from 'unplugin-vue-components/vite'
 import RadixVueResolver from 'radix-vue/resolver'
 
 export default defineConfig({
   plugins: [
     vue(),
-    Component({
+    Components({
       dts: true,
       resolvers: [
         RadixVueResolver()

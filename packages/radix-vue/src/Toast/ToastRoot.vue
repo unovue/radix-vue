@@ -39,6 +39,8 @@ defineSlots<{
     open: typeof open.value
     /** Remaining time (in ms) */
     remaining: number
+    /** Total time the toast will remain visible for (in ms) */
+    duration: number
   }) => any
 }>()
 
@@ -53,7 +55,7 @@ const open = useVModel(props, 'open', emits, {
   <Presence :present="forceMount || open">
     <ToastRootImpl
       :ref="forwardRef"
-      v-slot="{ remaining }"
+      v-slot="{ remaining, duration: _duration }"
       :open="open"
       :type="type"
       :as="as"
@@ -96,6 +98,7 @@ const open = useVModel(props, 'open', emits, {
     >
       <slot
         :remaining="remaining"
+        :duration="_duration"
         :open="open"
       />
     </ToastRootImpl>

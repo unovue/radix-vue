@@ -18,7 +18,6 @@ const toggleGroupItemClasses
       <ToggleGroupRoot
         v-model="toggleStateSingle"
         class="flex"
-        type="single"
       >
         <ToggleGroupItem
           value="left"

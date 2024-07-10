@@ -5,6 +5,7 @@ import { CheckboxIndicator, CheckboxRoot } from '../'
 import { ref } from 'vue'
 
 const props = withDefaults(defineProps<CheckboxRootProps>(), {
+  defaultValue: undefined,
   modelValue: undefined,
 })
 const modelValue = ref(props.modelValue)

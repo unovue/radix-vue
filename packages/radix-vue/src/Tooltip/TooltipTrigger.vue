@@ -105,6 +105,7 @@ function handleClick() {
       :data-state="rootContext.stateAttribute.value"
       :as="as"
       :as-child="props.asChild"
+      data-grace-area-trigger
       v-on="tooltipListeners"
     >
       <slot />

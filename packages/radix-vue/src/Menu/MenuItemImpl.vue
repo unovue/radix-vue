@@ -19,10 +19,17 @@ import { injectMenuContentContext } from './MenuContentImpl.vue'
 import {
   Primitive,
 } from '@/Primitive'
+import { CollectionItem } from '@/Collection'
+import { useForwardExpose } from '@/shared'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const props = defineProps<MenuItemImplProps>()
 
 const contentContext = injectMenuContentContext()
+const { forwardRef } = useForwardExpose()
 
 const isFocused = ref(false)
 
@@ -56,32 +63,36 @@ async function handlePointerLeave(event: PointerEvent) {
 </script>
 
 <template>
-  <Primitive
-    role="menuitem"
-    tabindex="-1"
-    :as="as"
-    :as-child="asChild"
-    data-radix-vue-collection-item
-    :aria-disabled="disabled || undefined"
-    :data-disabled="disabled ? '' : undefined"
-    :data-highlighted="isFocused ? '' : undefined"
-    @pointermove="handlePointerMove"
-    @pointerleave="handlePointerLeave"
-    @focus="
-      async (event) => {
-        await nextTick();
-        if (event.defaultPrevented || disabled) return;
-        isFocused = true;
-      }
-    "
-    @blur="
-      async (event) => {
-        await nextTick();
-        if (event.defaultPrevented) return;
-        isFocused = false;
-      }
-    "
-  >
-    <slot />
-  </Primitive>
+  <CollectionItem>
+    <Primitive
+      :ref="forwardRef"
+      role="menuitem"
+      tabindex="-1"
+      v-bind="$attrs"
+      :as="as"
+      :as-child="asChild"
+      data-radix-vue-collection-item
+      :aria-disabled="disabled || undefined"
+      :data-disabled="disabled ? '' : undefined"
+      :data-highlighted="isFocused ? '' : undefined"
+      @pointermove="handlePointerMove"
+      @pointerleave="handlePointerLeave"
+      @focus="
+        async (event) => {
+          await nextTick();
+          if (event.defaultPrevented || disabled) return;
+          isFocused = true;
+        }
+      "
+      @blur="
+        async (event) => {
+          await nextTick();
+          if (event.defaultPrevented) return;
+          isFocused = false;
+        }
+      "
+    >
+      <slot />
+    </Primitive>
+  </CollectionItem>
 </template>

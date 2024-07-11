@@ -35,6 +35,7 @@ function handleLeave() {
       :as-child="asChild"
       :as="as"
       :data-state="rootContext.open.value ? 'open' : 'closed'"
+      data-grace-area-trigger
       @pointerenter="excludeTouch(rootContext.onOpen)($event)"
       @pointerleave="excludeTouch(handleLeave)($event)"
       @focus="rootContext.onOpen()"

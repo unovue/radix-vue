@@ -18,9 +18,9 @@ import { injectNavigationMenuContext } from './NavigationMenuRoot.vue'
 import { injectNavigationMenuItemContext } from './NavigationMenuItem.vue'
 import { getOpenState, whenMouse } from './utils'
 import { Presence } from '@/Presence'
+import { useForwardExpose, useForwardPropsEmits } from '@/shared'
+import { isClient, reactiveOmit } from '@vueuse/shared'
 import NavigationMenuContentImpl from './NavigationMenuContentImpl.vue'
-import { useEmitAsProps, useForwardExpose } from '@/shared'
-import { useMounted } from '@vueuse/core'
 
 defineOptions({
   inheritAttrs: false,
@@ -29,10 +29,9 @@ defineOptions({
 const props = defineProps<NavigationMenuContentProps>()
 const emits = defineEmits<NavigationMenuContentEmits>()
 
-const emitsAsProps = useEmitAsProps(emits)
+const forwarded = useForwardPropsEmits(reactiveOmit(props, 'forceMount'), emits)
 const { forwardRef } = useForwardExpose()
 
-const isClientMounted = useMounted()
 const menuContext = injectNavigationMenuContext()
 const itemContext = injectNavigationMenuItemContext()
 
@@ -51,18 +50,22 @@ const isLastActiveValue = computed(() => {
 
 <template>
   <Teleport
-    v-if="isClientMounted"
-    :to="menuContext.viewport.value"
-    :disabled="!menuContext.viewport.value"
+    :to=" isClient && menuContext.viewport.value ? menuContext.viewport.value : 'body'"
+    :disabled="isClient && menuContext.viewport.value ? !menuContext.viewport.value : true"
   >
-    <Presence :present="forceMount || open || isLastActiveValue">
+    <Presence
+      v-slot="{ present }"
+      :present="forceMount || open || isLastActiveValue"
+      :force-mount="!menuContext.unmount.value"
+    >
       <NavigationMenuContentImpl
         :ref="forwardRef"
         :data-state="getOpenState(open)"
         :style="{
           pointerEvents: !open && menuContext.isRootMenu ? 'none' : undefined,
         }"
-        v-bind="{ ...$attrs, ...props, ...emitsAsProps }"
+        v-bind="{ ...$attrs, ...forwarded }"
+        :hidden="!present.value"
         @pointerenter="menuContext.onContentEnter(itemContext.value)"
         @pointerleave="whenMouse(() => menuContext.onContentLeave())($event)"
         @pointer-down-outside="emits('pointerDownOutside', $event)"

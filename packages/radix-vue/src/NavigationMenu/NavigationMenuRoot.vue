@@ -43,6 +43,13 @@ export interface NavigationMenuRootProps extends PrimitiveProps {
    * @defaultValue false
    */
   disableHoverTrigger?: boolean
+
+  /**
+   * When `true`, the element will be unmounted on closed state.
+   *
+   * @defaultValue `true`
+   */
+  unmount?: boolean
 }
 export type NavigationMenuRootEmits = {
   /** Event handler called when the value changes. */
@@ -58,6 +65,7 @@ export interface NavigationMenuContext {
   orientation: Orientation
   disableClickTrigger: Ref<boolean>
   disableHoverTrigger: Ref<boolean>
+  unmount: Ref<boolean>
   rootNavigationMenu: Ref<HTMLElement | undefined>
   indicatorTrack: Ref<HTMLElement | undefined>
   onIndicatorTrackChange: (indicatorTrack: HTMLElement | undefined) => void
@@ -93,6 +101,7 @@ const props = withDefaults(defineProps<NavigationMenuRootProps>(), {
   orientation: 'horizontal',
   disableClickTrigger: false,
   disableHoverTrigger: false,
+  unmount: true,
   as: 'nav',
 })
 const emits = defineEmits<NavigationMenuRootEmits>()
@@ -118,7 +127,7 @@ const viewport = ref<HTMLElement>()
 const { createCollection } = useCollection('nav')
 createCollection(indicatorTrack)
 
-const { delayDuration, skipDelayDuration, dir: propDir, disableClickTrigger, disableHoverTrigger } = toRefs(props)
+const { delayDuration, skipDelayDuration, dir: propDir, disableClickTrigger, disableHoverTrigger, unmount } = toRefs(props)
 const dir = useDirection(propDir)
 
 const isDelaySkipped = refAutoReset(false, skipDelayDuration)
@@ -142,6 +151,7 @@ provideNavigationMenuContext({
   disableClickTrigger,
   disableHoverTrigger,
   dir,
+  unmount,
   orientation: props.orientation,
   rootNavigationMenu,
   indicatorTrack,

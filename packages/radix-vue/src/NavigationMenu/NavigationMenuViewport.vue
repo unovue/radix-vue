@@ -51,13 +51,12 @@ watch(currentElement, () => {
 const content = ref<HTMLElement>()
 
 watch([activeContentValue, open], async () => {
-  await nextTick()
   if (!currentElement.value)
     return
 
   const el = (currentElement.value as HTMLElement).querySelector('[data-state=open]')?.children?.[0] as HTMLElement | undefined
   content.value = el
-}, { immediate: true })
+}, { immediate: true, flush: 'post' })
 
 useResizeObserver(content, () => {
   if (content.value) {
@@ -71,7 +70,9 @@ useResizeObserver(content, () => {
 
 <template>
   <Presence
+    v-slot="{ present }"
     :present="forceMount || open"
+    :force-mount="!menuContext.unmount.value"
     @after-leave="size = undefined"
   >
     <Primitive
@@ -87,6 +88,7 @@ useResizeObserver(content, () => {
         ['--radix-navigation-menu-viewport-width' as any]: size ? `${size?.width}px` : undefined,
         ['--radix-navigation-menu-viewport-height' as any]: size ? `${size?.height}px` : undefined,
       }"
+      :hidden="!present.value"
       @pointerenter="menuContext.onContentEnter(menuContext.modelValue.value)"
       @pointerleave="whenMouse(() => menuContext.onContentLeave())($event)"
     >

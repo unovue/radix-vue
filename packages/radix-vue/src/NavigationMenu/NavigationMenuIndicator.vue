@@ -69,7 +69,7 @@ useResizeObserver(menuContext.indicatorTrack, handlePositionChange)
     v-if="menuContext.indicatorTrack.value"
     :to="menuContext.indicatorTrack.value"
   >
-    <Presence :present="forceMount || isVisible">
+    <Presence :present="(forceMount || isVisible) && !!position?.size">
       <Primitive
         :ref="forwardRef"
         aria-hidden

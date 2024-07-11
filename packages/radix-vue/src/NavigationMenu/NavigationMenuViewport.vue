@@ -70,7 +70,10 @@ useResizeObserver(content, () => {
 </script>
 
 <template>
-  <Presence :present="forceMount || open">
+  <Presence
+    :present="forceMount || open"
+    @after-leave="size = undefined"
+  >
     <Primitive
       v-bind="$attrs"
       :ref="forwardRef"

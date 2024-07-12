@@ -8,16 +8,16 @@ export interface NavigationMenuViewportProps extends PrimitiveProps {
    * controlling animation with Vue animation libraries.
    */
   forceMount?: boolean
+  /**
+   * Placement of the viewport for css variables `(--radix-navigation-menu-viewport-left, --radix-navigation-menu-viewport-top)`.
+   * @defaultValue 'center'
+   */
+  align?: 'start' | 'center' | 'end'
 }
 </script>
 
 <script setup lang="ts">
-import {
-  computed,
-  nextTick,
-  ref,
-  watch,
-} from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useResizeObserver } from '@vueuse/core'
 import { injectNavigationMenuContext } from './NavigationMenuRoot.vue'
 import { getOpenState, whenMouse } from './utils'
@@ -30,18 +30,19 @@ defineOptions({
   inheritAttrs: false,
 })
 
-defineProps<NavigationMenuViewportProps>()
+const props = withDefaults(defineProps<NavigationMenuViewportProps>(), {
+  align: 'center',
+})
 
 const { forwardRef, currentElement } = useForwardExpose()
 
 const menuContext = injectNavigationMenuContext()
+const { activeTrigger, rootNavigationMenu, modelValue } = menuContext
 
 const size = ref<{ width: number, height: number }>()
+const position = ref<{ left: number, top: number }>()
 
 const open = computed(() => !!menuContext.modelValue.value)
-// We persist the last active content value as the viewport may be animating out
-// and we want the content to remain mounted for the lifecycle of the viewport.
-const activeContentValue = computed(() => menuContext.modelValue.value)
 
 watch(currentElement, () => {
   if (currentElement.value)
@@ -50,7 +51,7 @@ watch(currentElement, () => {
 
 const content = ref<HTMLElement>()
 
-watch([activeContentValue, open], async () => {
+watch([modelValue, open], () => {
   if (!currentElement.value)
     return
 
@@ -58,13 +59,95 @@ watch([activeContentValue, open], async () => {
   content.value = el
 }, { immediate: true, flush: 'post' })
 
+function updatePosition() {
+  if (content.value && activeTrigger.value && rootNavigationMenu.value) {
+    const bodyWidth = document.documentElement.offsetWidth
+    const bodyHeight = document.documentElement.offsetHeight
+    const rootRect = rootNavigationMenu.value.getBoundingClientRect()
+    const rect = activeTrigger.value.getBoundingClientRect()
+    const { offsetWidth, offsetHeight } = content.value
+
+    // Find the beginning of the position of the menu item
+    const startPositionLeft = rect.left - rootRect.left
+    const startPositionTop = rect.top - rootRect.top
+
+    // Aligning to specified alignment
+    let posLeft = null
+    let posTop = null
+    switch (props.align) {
+      case 'start':
+        posLeft = startPositionLeft
+        posTop = startPositionTop
+        break
+      case 'end':
+        posLeft = startPositionLeft - offsetWidth + rect.width
+        posTop = startPositionTop - offsetHeight + rect.height
+        break
+      default:
+        // center
+        posLeft = startPositionLeft - offsetWidth / 2 + rect.width / 2
+        posTop = startPositionTop - offsetHeight / 2 + rect.height / 2
+    }
+
+    const screenOffset = 10
+
+    // Do not let go of the left side of the screen
+    if (posLeft + rootRect.left < screenOffset) {
+      posLeft = screenOffset - rootRect.left
+    }
+
+    // Now also check the right side of the screen
+    const rightOffset = posLeft + rootRect.left + offsetWidth
+    if (rightOffset > bodyWidth - screenOffset) {
+      posLeft -= rightOffset - bodyWidth + screenOffset
+
+      // Recheck the left side of the screen
+      if (posLeft < screenOffset - rootRect.left) {
+        // Just set the menu to the full width of the screen
+        posLeft = screenOffset - rootRect.left
+      }
+    }
+
+    // Do not let go of the top side of the screen
+    if (posTop + rootRect.top < screenOffset) {
+      posTop = screenOffset - rootRect.top
+    }
+
+    // Now also check the bottom side of the screen
+    const bottomOffset = posTop + rootRect.top + offsetHeight
+    if (bottomOffset > bodyHeight - screenOffset) {
+      posTop -= bottomOffset - bodyHeight + screenOffset
+
+      // Recheck the top side of the screen
+      if (posTop < screenOffset - rootRect.top) {
+        // Just set the menu to the full height of the screen
+        posTop = screenOffset - rootRect.top
+      }
+    }
+
+    // Possible blurring font with decimal values
+    posLeft = Math.round(posLeft)
+    posTop = Math.round(posTop)
+
+    position.value = {
+      left: posLeft,
+      top: posTop,
+    }
+  }
+}
+
 useResizeObserver(content, () => {
   if (content.value) {
     size.value = {
       width: content.value.offsetWidth,
       height: content.value.offsetHeight,
     }
+    updatePosition()
   }
+})
+
+useResizeObserver([globalThis.document.body, rootNavigationMenu], () => {
+  updatePosition()
 })
 </script>
 
@@ -85,8 +168,10 @@ useResizeObserver(content, () => {
       :style="{
         // Prevent interaction when animating out
         pointerEvents: !open && menuContext.isRootMenu ? 'none' : undefined,
-        ['--radix-navigation-menu-viewport-width' as any]: size ? `${size?.width}px` : undefined,
-        ['--radix-navigation-menu-viewport-height' as any]: size ? `${size?.height}px` : undefined,
+        ['--radix-navigation-menu-viewport-width']: size ? `${size?.width}px` : undefined,
+        ['--radix-navigation-menu-viewport-height']: size ? `${size?.height}px` : undefined,
+        ['--radix-navigation-menu-viewport-left']: position ? `${position?.left}px` : undefined,
+        ['--radix-navigation-menu-viewport-top']: position ? `${position?.top}px` : undefined,
       }"
       :hidden="!present.value"
       @pointerenter="menuContext.onContentEnter(menuContext.modelValue.value)"

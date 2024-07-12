@@ -67,6 +67,7 @@ export interface NavigationMenuContext {
   disableHoverTrigger: Ref<boolean>
   unmount: Ref<boolean>
   rootNavigationMenu: Ref<HTMLElement | undefined>
+  activeTrigger: Ref<HTMLElement | undefined>
   indicatorTrack: Ref<HTMLElement | undefined>
   onIndicatorTrackChange: (indicatorTrack: HTMLElement | undefined) => void
   viewport: Ref<HTMLElement | undefined>
@@ -88,6 +89,7 @@ import {
   computed,
   ref,
   toRefs,
+  watchEffect,
 } from 'vue'
 import { refAutoReset, useDebounceFn, useVModel } from '@vueuse/core'
 import {
@@ -123,9 +125,10 @@ const { forwardRef, currentElement: rootNavigationMenu } = useForwardExpose()
 
 const indicatorTrack = ref<HTMLElement>()
 const viewport = ref<HTMLElement>()
+const activeTrigger = ref<HTMLElement>()
 
 const { createCollection } = useCollection('nav')
-createCollection(indicatorTrack)
+const collectionItems = createCollection(indicatorTrack)
 
 const { delayDuration, skipDelayDuration, dir: propDir, disableClickTrigger, disableHoverTrigger, unmount } = toRefs(props)
 const dir = useDirection(propDir)
@@ -143,6 +146,16 @@ const debouncedFn = useDebounceFn((val: string) => {
   modelValue.value = val
 }, computedDelay)
 
+watchEffect(() => {
+  if (!modelValue.value)
+    return
+
+  const items = collectionItems.value
+  activeTrigger.value = items.find(item =>
+    item.id.includes(modelValue.value),
+  )
+})
+
 provideNavigationMenuContext({
   isRootMenu: true,
   modelValue,
@@ -155,6 +168,7 @@ provideNavigationMenuContext({
   orientation: props.orientation,
   rootNavigationMenu,
   indicatorTrack,
+  activeTrigger,
   onIndicatorTrackChange: (val) => {
     indicatorTrack.value = val
   },

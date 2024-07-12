@@ -14,7 +14,7 @@ export interface NavigationMenuIndicatorProps extends PrimitiveProps {
 import { computed, ref, watchEffect } from 'vue'
 import { useResizeObserver } from '@vueuse/core'
 import { injectNavigationMenuContext } from './NavigationMenuRoot.vue'
-import { useCollection, useForwardExpose } from '@/shared'
+import { useForwardExpose } from '@/shared'
 import { Primitive } from '@/Primitive'
 import { Presence } from '@/Presence'
 
@@ -25,15 +25,12 @@ defineOptions({
 const props = defineProps<NavigationMenuIndicatorProps>()
 
 const { forwardRef } = useForwardExpose()
-const { injectCollection } = useCollection('nav')
-const collectionItems = injectCollection()
 const menuContext = injectNavigationMenuContext()
 
 const position = ref<{ size: number, offset: number }>()
 const isHorizontal = computed(() => menuContext.orientation === 'horizontal')
 const isVisible = computed(() => !!menuContext.modelValue.value)
-
-const activeTrigger = ref<HTMLElement>()
+const { activeTrigger } = menuContext
 
 function handlePositionChange() {
   if (activeTrigger.value) {
@@ -53,10 +50,6 @@ watchEffect(() => {
     position.value = undefined
     return
   }
-  const items = collectionItems.value
-  activeTrigger.value = items.find(item =>
-    item.id.includes(menuContext.modelValue.value),
-  )
   handlePositionChange()
 })
 

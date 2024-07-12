@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@internationalized/date": "^3.5.4",
+    "@internationalized/number": "^3.5.3",
     "radix-vue": "link:../../packages/radix-vue"
   },
   "devDependencies": {

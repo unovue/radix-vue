@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
 import Combobox from './story/_Combobox.vue'
+import Combobox1k from './story/_Combobox1k.vue'
 import ComboboxObject from './story/_ComboboxObject.vue'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
@@ -324,6 +325,67 @@ describe('given combobox in a form', async () => {
     it('should trigger submit once', () => {
       expect(handleSubmit).toHaveBeenCalledTimes(2)
       expect(handleSubmit.mock.results[1].value).toStrictEqual({ test: 'Pineapple' })
+    })
+  })
+})
+
+describe('given a Combobox with 1,000 options', async () => {
+  let wrapper: VueWrapper<InstanceType<typeof Combobox1k>>
+  let valueBox: DOMWrapper<HTMLInputElement>
+  let items: DOMWrapper<Element>[]
+
+  beforeEach(() => {
+    document.body.innerHTML = ''
+    wrapper = mount(Combobox1k, {
+      props: { },
+      attachTo: document.body,
+    })
+    valueBox = wrapper.find('input')
+  })
+
+  describe('opening the popup', () => {
+    beforeEach(async () => {
+      await wrapper.find('button').trigger('click')
+      await nextTick()
+      items = wrapper.findAll('[role=option]')
+    })
+
+    it('should show the popup content', () => {
+      expect(wrapper.html()).toContain('Option #1')
+    })
+
+    describe('after selecting a value', () => {
+      beforeEach(async () => {
+        const selection = items[4]
+        await selection.trigger('click')
+      })
+
+      it('should show value correctly', () => {
+        expect((valueBox.element).value).toBe('Option #5')
+      })
+
+      describe('after opening the modal again', () => {
+        beforeEach(async () => {
+          await wrapper.find('button').trigger('click')
+          await nextTick()
+        })
+
+        it('should focus on the selected value', () => {
+          const selection = items[4]
+          expect(selection.attributes('data-state')).toBe('checked')
+        })
+      })
+    })
+
+    describe('after keypress input', () => {
+      beforeEach(async () => {
+        await valueBox.setValue('1')
+      })
+
+      it('should filter the field', () => {
+        expect(items[0].attributes('style')).toBe(undefined)
+        expect(items[1].attributes('style')).toBe('display: none;')
+      })
     })
   })
 })

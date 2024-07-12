@@ -13,7 +13,7 @@ export interface ComboboxInputProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref, watchSyncEffect } from 'vue'
 import { injectComboboxRootContext } from './ComboboxRoot.vue'
 import { Primitive } from '@/Primitive'
 
@@ -42,6 +42,10 @@ onMounted(() => {
 })
 
 const disabled = computed(() => props.disabled || rootContext.disabled.value || false)
+
+// This is a hack to prevent Vue from throwing "max recursion" errors.
+const activedescendant = ref<string | undefined>()
+watchSyncEffect(() => activedescendant.value = rootContext.selectedElement.value?.id)
 
 function handleKeyDown(ev: KeyboardEvent) {
   if (!rootContext.open.value)
@@ -76,7 +80,7 @@ function handleInput(event: Event) {
     :aria-expanded="rootContext.open.value"
     :aria-controls="rootContext.contentId"
     :aria-disabled="disabled ?? undefined"
-    :aria-activedescendant="rootContext.selectedElement.value?.id"
+    :aria-activedescendant="activedescendant"
     aria-autocomplete="list"
     role="combobox"
     autocomplete="false"

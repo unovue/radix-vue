@@ -156,7 +156,10 @@ useResizeObserver([globalThis.document.body, rootNavigationMenu], () => {
     v-slot="{ present }"
     :present="forceMount || open"
     :force-mount="!menuContext.unmount.value"
-    @after-leave="size = undefined"
+    @after-leave="() => {
+      size = undefined
+      position = undefined
+    }"
   >
     <Primitive
       v-bind="$attrs"

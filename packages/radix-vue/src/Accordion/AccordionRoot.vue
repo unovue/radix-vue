@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { ComputedRef, Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import type { DataOrientation, Direction, SingleOrMultipleProps, SingleOrMultipleType } from '@/shared/types'
+import type { AcceptableValue, DataOrientation, Direction, SingleOrMultipleProps, SingleOrMultipleType } from '@/shared/types'
 import { createContext, useDirection, useForwardExpose } from '@/shared'
 
 export interface AccordionRootProps<ValidValue = string | string[], ExplicitType = SingleOrMultipleType>
@@ -57,7 +57,7 @@ export type AccordionRootContext<P extends AccordionRootProps> = {
   parentElement: Ref<HTMLElement | undefined>
   changeModelValue: (value: string) => void
   isSingle: ComputedRef<boolean>
-  modelValue: Ref<string | undefined | string[]>
+  modelValue: Ref<AcceptableValue | AcceptableValue[] | undefined>
   collapsible: boolean
   unmount: Ref<boolean>
 }
@@ -66,7 +66,7 @@ export const [injectAccordionRootContext, provideAccordionRootContext]
   = createContext<AccordionRootContext<AccordionRootProps>>('AccordionRoot')
 </script>
 
-<script setup lang="ts" generic="ValidValue extends (string | string[]), ExplicitType extends SingleOrMultipleType">
+<script setup lang="ts" generic="ValidValue extends (AcceptableValue | AcceptableValue[]), ExplicitType extends SingleOrMultipleType">
 import { Primitive } from '@/Primitive'
 import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
 import { toRefs } from 'vue'

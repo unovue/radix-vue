@@ -17,8 +17,10 @@ useForwardExpose()
 const rootContext = injectComboboxRootContext()
 
 function handleClick() {
-  rootContext.searchTerm.value = ''
-  rootContext.inputElement.value?.focus()
+  if (rootContext.inputElement.value) {
+    rootContext.inputElement.value.value = ''
+    rootContext.inputElement.value.focus()
+  }
 }
 </script>
 

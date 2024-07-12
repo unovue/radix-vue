@@ -1,7 +1,8 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { clamp, createContext, useCollection, useForwardExpose } from '@/shared'
+import { clamp, createContext, useForwardExpose } from '@/shared'
+import { useCollection } from '@/Collection'
 
 interface SelectItemAlignedPositionContext {
   contentWrapper?: Ref<HTMLElement | undefined>
@@ -31,10 +32,9 @@ const emits = defineEmits<{
   placed: []
 }>()
 
-const { injectCollection } = useCollection()
+const { getItems } = useCollection()
 const rootContext = injectSelectRootContext()
 const contentContext = injectSelectContentContext()
-const collectionItems = injectCollection()
 
 const shouldExpandOnScrollRef = ref(false)
 const shouldRepositionRef = ref(true)
@@ -96,7 +96,7 @@ function position() {
     // -----------------------------------------------------------------------------------------
     // Vertical positioning
     // -----------------------------------------------------------------------------------------
-    const items = collectionItems.value
+    const items = getItems().map(i => i.ref)
     const availableHeight = window.innerHeight - CONTENT_MARGIN * 2
     const itemsHeight = viewport.value.scrollHeight
 

@@ -3,6 +3,7 @@ import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useForwardExpose, useId } from '@/shared'
 import type { AcceptableValue } from '@/shared/types'
+import { useCollection } from '@/Collection'
 
 interface SelectItemContext<T = AcceptableValue> {
   value: T
@@ -50,6 +51,7 @@ const { disabled } = toRefs(props)
 const rootContext = injectSelectRootContext()
 const contentContext = injectSelectContentContext()
 const { forwardRef, currentElement } = useForwardExpose()
+const { CollectionItem } = useCollection()
 
 const isSelected = computed(() => valueComparator(rootContext.modelValue?.value, props.value, rootContext.by))
 const isFocused = ref(false)
@@ -131,30 +133,31 @@ provideSelectItemContext({
 </script>
 
 <template>
-  <Primitive
-    :ref="forwardRef"
-    role="option"
-    data-radix-vue-collection-item
-    :aria-labelledby="textId"
-    :data-highlighted="isFocused ? '' : undefined"
-    :aria-selected="isSelected"
-    :data-state="isSelected ? 'checked' : 'unchecked'"
-    :aria-disabled="disabled || undefined"
-    :data-disabled="disabled ? '' : undefined"
-    :tabindex="disabled ? undefined : -1"
-    :as="as"
-    :as-child="asChild"
-    @focus="isFocused = true"
-    @blur="isFocused = false"
-    @pointerup="handleSelect"
-    @pointerdown="(event) => {
-      (event.currentTarget as HTMLElement).focus({ preventScroll: true })
-    }"
-    @touchend.prevent.stop
-    @pointermove="handlePointerMove"
-    @pointerleave="handlePointerLeave"
-    @keydown="handleKeyDown"
-  >
-    <slot />
-  </Primitive>
+  <CollectionItem>
+    <Primitive
+      :ref="forwardRef"
+      role="option"
+      :aria-labelledby="textId"
+      :data-highlighted="isFocused ? '' : undefined"
+      :aria-selected="isSelected"
+      :data-state="isSelected ? 'checked' : 'unchecked'"
+      :aria-disabled="disabled || undefined"
+      :data-disabled="disabled ? '' : undefined"
+      :tabindex="disabled ? undefined : -1"
+      :as="as"
+      :as-child="asChild"
+      @focus="isFocused = true"
+      @blur="isFocused = false"
+      @pointerup="handleSelect"
+      @pointerdown="(event) => {
+        (event.currentTarget as HTMLElement).focus({ preventScroll: true })
+      }"
+      @touchend.prevent.stop
+      @pointermove="handlePointerMove"
+      @pointerleave="handlePointerLeave"
+      @keydown="handleKeyDown"
+    >
+      <slot />
+    </Primitive>
+  </CollectionItem>
 </template>

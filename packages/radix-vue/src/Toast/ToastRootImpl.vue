@@ -2,6 +2,7 @@
 import type { PrimitiveProps } from '@/Primitive'
 import type { SwipeEvent } from './utils'
 import { createContext, useForwardExpose } from '@/shared'
+import { useCollection } from '@/Collection'
 
 export type ToastRootImplEmits = {
   close: []
@@ -62,6 +63,8 @@ const props = withDefaults(defineProps<ToastRootImplProps>(), {
 const emits = defineEmits<ToastRootImplEmits>()
 
 const { forwardRef, currentElement } = useForwardExpose()
+const { CollectionItem } = useCollection()
+
 const providerContext = injectToastProviderContext()
 const pointerStartRef = ref<{ x: number, y: number } | null>(null)
 const swipeDeltaRef = ref<{ x: number, y: number } | null>(null)
@@ -168,82 +171,83 @@ provideToastRootContext({ onClose: handleClose })
   </ToastAnnounce>
 
   <Teleport :to="providerContext.viewport.value">
-    <Primitive
-      :ref="forwardRef"
-      role="status"
-      aria-live="off"
-      aria-atomic
-      tabindex="0"
-      data-radix-vue-collection-item
-      v-bind="$attrs"
-      :as="as"
-      :as-child="asChild"
-      :data-state="open ? 'open' : 'closed'"
-      :data-swipe-direction="providerContext.swipeDirection.value"
-      :style="{ userSelect: 'none', touchAction: 'none' }"
-      @pointerdown.left="(event: PointerEvent) => {
-        pointerStartRef = { x: event.clientX, y: event.clientY };
-      }"
-      @pointermove="(event: PointerEvent) => {
-        if (!pointerStartRef) return;
-        const x = event.clientX - pointerStartRef.x;
-        const y = event.clientY - pointerStartRef.y;
-        const hasSwipeMoveStarted = Boolean(swipeDeltaRef);
-        const isHorizontalSwipe = ['left', 'right'].includes(providerContext.swipeDirection.value);
-        const clamp = ['left', 'up'].includes(providerContext.swipeDirection.value)
-          ? Math.min
-          : Math.max;
-        const clampedX = isHorizontalSwipe ? clamp(0, x) : 0;
-        const clampedY = !isHorizontalSwipe ? clamp(0, y) : 0;
-        const moveStartBuffer = event.pointerType === 'touch' ? 10 : 2;
-        const delta = { x: clampedX, y: clampedY };
-        const eventDetail = { originalEvent: event, delta };
-        if (hasSwipeMoveStarted) {
-          swipeDeltaRef = delta;
-          handleAndDispatchCustomEvent(TOAST_SWIPE_MOVE, (ev: SwipeEvent) => emits('swipeMove', ev), eventDetail);
-        }
-        else if (isDeltaInDirection(delta, providerContext.swipeDirection.value, moveStartBuffer)) {
-          swipeDeltaRef = delta;
-          handleAndDispatchCustomEvent(TOAST_SWIPE_START, (ev: SwipeEvent) => emits('swipeStart', ev), eventDetail);
-          (event.target as HTMLElement).setPointerCapture(event.pointerId);
-        }
-        else if (Math.abs(x) > moveStartBuffer || Math.abs(y) > moveStartBuffer) {
-          // User is swiping in wrong direction so we disable swipe gesture
-          // for the current pointer down interaction
-          pointerStartRef = null;
-        }
-      }"
-      @pointerup="(event: PointerEvent) => {
-        const delta = swipeDeltaRef;
-        const target = event.target as HTMLElement;
-        if (target.hasPointerCapture(event.pointerId)) {
-          target.releasePointerCapture(event.pointerId);
-        }
-        swipeDeltaRef = null;
-        pointerStartRef = null;
-        if (delta) {
-          const toast = event.currentTarget;
+    <CollectionItem>
+      <Primitive
+        :ref="forwardRef"
+        role="status"
+        aria-live="off"
+        aria-atomic
+        tabindex="0"
+        v-bind="$attrs"
+        :as="as"
+        :as-child="asChild"
+        :data-state="open ? 'open' : 'closed'"
+        :data-swipe-direction="providerContext.swipeDirection.value"
+        :style="{ userSelect: 'none', touchAction: 'none' }"
+        @pointerdown.left="(event: PointerEvent) => {
+          pointerStartRef = { x: event.clientX, y: event.clientY };
+        }"
+        @pointermove="(event: PointerEvent) => {
+          if (!pointerStartRef) return;
+          const x = event.clientX - pointerStartRef.x;
+          const y = event.clientY - pointerStartRef.y;
+          const hasSwipeMoveStarted = Boolean(swipeDeltaRef);
+          const isHorizontalSwipe = ['left', 'right'].includes(providerContext.swipeDirection.value);
+          const clamp = ['left', 'up'].includes(providerContext.swipeDirection.value)
+            ? Math.min
+            : Math.max;
+          const clampedX = isHorizontalSwipe ? clamp(0, x) : 0;
+          const clampedY = !isHorizontalSwipe ? clamp(0, y) : 0;
+          const moveStartBuffer = event.pointerType === 'touch' ? 10 : 2;
+          const delta = { x: clampedX, y: clampedY };
           const eventDetail = { originalEvent: event, delta };
-          if (
-            isDeltaInDirection(delta, providerContext.swipeDirection.value, providerContext.swipeThreshold.value)
-          ) {
-            handleAndDispatchCustomEvent(TOAST_SWIPE_END, (ev: SwipeEvent) => emits('swipeEnd', ev), eventDetail);
+          if (hasSwipeMoveStarted) {
+            swipeDeltaRef = delta;
+            handleAndDispatchCustomEvent(TOAST_SWIPE_MOVE, (ev: SwipeEvent) => emits('swipeMove', ev), eventDetail);
           }
-          else {
-            handleAndDispatchCustomEvent(TOAST_SWIPE_CANCEL, (ev: SwipeEvent) => emits('swipeCancel', ev), eventDetail);
+          else if (isDeltaInDirection(delta, providerContext.swipeDirection.value, moveStartBuffer)) {
+            swipeDeltaRef = delta;
+            handleAndDispatchCustomEvent(TOAST_SWIPE_START, (ev: SwipeEvent) => emits('swipeStart', ev), eventDetail);
+            (event.target as HTMLElement).setPointerCapture(event.pointerId);
           }
-          // Prevent click event from triggering on items within the toast when
-          // pointer up is part of a swipe gesture
-          toast?.addEventListener('click', (event) => event.preventDefault(), {
-            once: true,
-          });
-        }
-      }"
-    >
-      <slot
-        :remaining="remainingTime"
-        :duration="duration"
-      />
-    </Primitive>
+          else if (Math.abs(x) > moveStartBuffer || Math.abs(y) > moveStartBuffer) {
+            // User is swiping in wrong direction so we disable swipe gesture
+            // for the current pointer down interaction
+            pointerStartRef = null;
+          }
+        }"
+        @pointerup="(event: PointerEvent) => {
+          const delta = swipeDeltaRef;
+          const target = event.target as HTMLElement;
+          if (target.hasPointerCapture(event.pointerId)) {
+            target.releasePointerCapture(event.pointerId);
+          }
+          swipeDeltaRef = null;
+          pointerStartRef = null;
+          if (delta) {
+            const toast = event.currentTarget;
+            const eventDetail = { originalEvent: event, delta };
+            if (
+              isDeltaInDirection(delta, providerContext.swipeDirection.value, providerContext.swipeThreshold.value)
+            ) {
+              handleAndDispatchCustomEvent(TOAST_SWIPE_END, (ev: SwipeEvent) => emits('swipeEnd', ev), eventDetail);
+            }
+            else {
+              handleAndDispatchCustomEvent(TOAST_SWIPE_CANCEL, (ev: SwipeEvent) => emits('swipeCancel', ev), eventDetail);
+            }
+            // Prevent click event from triggering on items within the toast when
+            // pointer up is part of a swipe gesture
+            toast?.addEventListener('click', (event) => event.preventDefault(), {
+              once: true,
+            });
+          }
+        }"
+      >
+        <slot
+          :remaining="remainingTime"
+          :duration="duration"
+        />
+      </Primitive>
+    </CollectionItem>
   </Teleport>
 </template>

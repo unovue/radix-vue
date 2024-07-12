@@ -7,10 +7,11 @@ export interface ListboxContentProps extends PrimitiveProps { }
 </script>
 
 <script setup lang="ts">
-import { CollectionSlot } from '@/Collection'
+import { useCollection } from '@/Collection'
 
 defineProps<ListboxContentProps>()
 
+const { CollectionSlot } = useCollection()
 const rootContext = injectListboxRootContext()
 
 const isClickFocus = refAutoReset(false, 10)

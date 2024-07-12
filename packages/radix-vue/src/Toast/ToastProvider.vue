@@ -2,6 +2,7 @@
 import type { Ref } from 'vue'
 import type { SwipeDirection } from './utils'
 import { createContext } from '@/shared'
+import { useCollection } from '@/Collection'
 
 type ToastProviderContext = {
   label: Ref<string>
@@ -55,6 +56,7 @@ const props = withDefaults(defineProps<ToastProviderProps>(), {
   swipeThreshold: 50,
 })
 const { label, duration, swipeDirection, swipeThreshold } = toRefs(props)
+useCollection({ isProvider: true })
 
 const viewport = ref<HTMLElement>()
 const toastCount = ref(0)

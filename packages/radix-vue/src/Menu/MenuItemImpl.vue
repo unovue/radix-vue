@@ -19,7 +19,7 @@ import { injectMenuContentContext } from './MenuContentImpl.vue'
 import {
   Primitive,
 } from '@/Primitive'
-import { CollectionItem } from '@/Collection'
+import { useCollection } from '@/Collection'
 import { useForwardExpose } from '@/shared'
 
 defineOptions({
@@ -30,6 +30,7 @@ const props = defineProps<MenuItemImplProps>()
 
 const contentContext = injectMenuContentContext()
 const { forwardRef } = useForwardExpose()
+const { CollectionItem } = useCollection()
 
 const isFocused = ref(false)
 

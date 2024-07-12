@@ -77,7 +77,7 @@ export type ListboxRootEmits<T = AcceptableValue> = {
 import { type EventHook, createEventHook, useVModel } from '@vueuse/core'
 import { type Ref, nextTick, ref, toRefs, watch } from 'vue'
 import { compare } from './utils'
-import { createCollection } from '@/Collection'
+import { useCollection } from '@/Collection'
 import { VisuallyHiddenInput } from '@/VisuallyHidden'
 
 const props = withDefaults(defineProps<ListboxRootProps>(), {
@@ -94,7 +94,7 @@ defineSlots<{
 }>()
 
 const { multiple, highlightOnHover, orientation, disabled, selectionBehavior, dir: propDir } = toRefs(props)
-const { getItems } = createCollection<{ value: T }>()
+const { getItems } = useCollection<{ value: T }>({ isProvider: true })
 const { handleTypeaheadSearch } = useTypeahead()
 const { primitiveElement, currentElement } = usePrimitiveElement()
 const kbd = useKbd()

@@ -2,6 +2,7 @@
 import type { VNode } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
+import { useCollection } from '@/Collection'
 
 export interface NavigationMenuTriggerProps extends PrimitiveProps {
   /** When `true`, prevents the user from interacting with item */
@@ -31,6 +32,7 @@ const props = withDefaults(defineProps<NavigationMenuTriggerProps>(), {
 const menuContext = injectNavigationMenuContext()
 const itemContext = injectNavigationMenuItemContext()
 
+const { CollectionItem } = useCollection({ key: 'NavigationMenu' })
 const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 const triggerId = ref('')
 const contentId = ref('')
@@ -132,26 +134,27 @@ function handleVisuallyHiddenFocus(ev: FocusEvent) {
 </script>
 
 <template>
-  <Primitive
-    :id="triggerId"
-    :ref="forwardRef"
-    :disabled="disabled"
-    :data-disabled="disabled ? '' : undefined"
-    :data-state="getOpenState(open)"
-    :aria-expanded="open"
-    :aria-controls="contentId"
-    :as-child="props.asChild"
-    :as="as"
-    v-bind="$attrs"
-    data-radix-vue-collection-item
-    @pointerenter="handlePointerEnter"
-    @pointermove="handlePointerMove"
-    @pointerleave="handlePointerLeave"
-    @click="handleClick"
-    @keydown="handleKeydown"
-  >
-    <slot />
-  </Primitive>
+  <CollectionItem>
+    <Primitive
+      :id="triggerId"
+      :ref="forwardRef"
+      :disabled="disabled"
+      :data-disabled="disabled ? '' : undefined"
+      :data-state="getOpenState(open)"
+      :aria-expanded="open"
+      :aria-controls="contentId"
+      :as-child="props.asChild"
+      :as="as"
+      v-bind="$attrs"
+      @pointerenter="handlePointerEnter"
+      @pointermove="handlePointerMove"
+      @pointerleave="handlePointerLeave"
+      @click="handleClick"
+      @keydown="handleKeydown"
+    >
+      <slot />
+    </Primitive>
+  </CollectionItem>
 
   <template v-if="open">
     <VisuallyHidden

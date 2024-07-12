@@ -52,7 +52,7 @@ import { ref, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { Primitive } from '@/Primitive'
 import { ENTRY_FOCUS, EVENT_OPTIONS, focusFirst } from './utils'
-import { CollectionSlot, createCollection } from '@/Collection'
+import { useCollection } from '@/Collection'
 
 const props = withDefaults(defineProps<RovingFocusGroupProps>(), {
   loop: false,
@@ -71,7 +71,7 @@ const isTabbingBackOut = ref(false)
 const isClickFocus = ref(false)
 const focusableItemsCount = ref(0)
 
-const { getItems } = createCollection()
+const { getItems, CollectionSlot } = useCollection({ isProvider: true })
 
 function handleFocus(event: FocusEvent) {
   // We normally wouldn't need this check, because we already check

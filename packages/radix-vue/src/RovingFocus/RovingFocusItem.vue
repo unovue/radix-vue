@@ -15,7 +15,7 @@ import { injectRovingFocusGroupContext } from './RovingFocusGroup.vue'
 import { Primitive } from '@/Primitive'
 import { focusFirst, getFocusIntent, wrapArray } from './utils'
 import { useId } from '@/shared'
-import { CollectionItem, useCollection } from '@/Collection'
+import { useCollection } from '@/Collection'
 
 const props = withDefaults(defineProps<RovingFocusItemProps>(), {
   focusable: true,
@@ -29,7 +29,7 @@ const isCurrentTabStop = computed(
   () => context.currentTabStopId.value === id.value,
 )
 
-const { getItems } = useCollection()
+const { getItems, CollectionItem } = useCollection()
 
 onMounted(() => {
   if (props.focusable)

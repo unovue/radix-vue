@@ -5,6 +5,7 @@ import type {
   FocusOutsideEvent,
 } from '@/DismissableLayer'
 import type { PointerDownOutsideEvent } from '@/DismissableLayer/utils'
+import { useCollection } from '@/Collection'
 
 type MotionAttribute = 'to-start' | 'to-end' | 'from-start' | 'from-end'
 
@@ -25,14 +26,13 @@ import {
   makeTriggerId,
 } from './utils'
 import { DismissableLayer } from '@/DismissableLayer'
-import { useArrowNavigation, useCollection, useForwardExpose } from '@/shared'
+import { useArrowNavigation, useForwardExpose } from '@/shared'
 import { injectNavigationMenuItemContext } from './NavigationMenuItem.vue'
 
 const props = defineProps<NavigationMenuContentImplProps>()
 const emits = defineEmits<NavigationMenuContentImplEmits>()
 
-const { injectCollection } = useCollection('nav')
-const collectionItems = injectCollection()
+const { getItems } = useCollection({ key: 'NavigationMenu' })
 const { forwardRef, currentElement } = useForwardExpose()
 
 const menuContext = injectNavigationMenuContext()
@@ -43,8 +43,7 @@ const contentId = makeContentId(menuContext.baseId, itemContext.value)
 
 const prevMotionAttributeRef = ref<MotionAttribute | null>(null)
 const motionAttribute = computed(() => {
-  const items = collectionItems.value
-  const values = items.map(item => item.id.split('trigger-')[1])
+  const values = getItems().map(i => i.ref.id.split('trigger-')[1])
   if (menuContext.dir.value === 'rtl')
     values.reverse()
   const index = values.indexOf(menuContext.modelValue.value)
@@ -96,8 +95,8 @@ function handlePointerDownOutside(ev: PointerDownOutsideEvent) {
 
   if (!ev.defaultPrevented) {
     const target = ev.target as HTMLElement
-    const isTrigger = collectionItems.value.some(item =>
-      item.contains(target),
+    const isTrigger = getItems().some(i =>
+      i.ref.contains(target),
     )
     const isRootViewport
     = menuContext.isRootMenu && menuContext.viewport.value?.contains(target)

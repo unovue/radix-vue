@@ -3,7 +3,7 @@ import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import type { DataOrientation, Direction } from '../shared/types'
 import { clamp, createContext, useDirection, useFormControl, useForwardExpose } from '@/shared'
-import { CollectionSlot, createCollection } from '@/Collection'
+import { useCollection } from '@/Collection'
 
 export interface SliderRootProps extends PrimitiveProps {
   name?: string
@@ -91,7 +91,7 @@ const dir = useDirection(propDir)
 const { forwardRef, currentElement } = useForwardExpose()
 const isFormControl = useFormControl(currentElement)
 
-createCollection()
+const { CollectionSlot } = useCollection({ isProvider: true })
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,

@@ -69,7 +69,7 @@ export const [injectTagsInputRootContext, provideTagsInputRootContext]
 
 <script setup lang="ts" generic="T extends AcceptableInputValue = string">
 import { Primitive } from '@/Primitive'
-import { CollectionSlot, createCollection } from '@/Collection'
+import { useCollection } from '@/Collection'
 import { useFocusWithin, useVModel } from '@vueuse/core'
 import { VisuallyHiddenInput } from '@/VisuallyHidden'
 
@@ -101,7 +101,7 @@ const { forwardRef, currentElement } = useForwardExpose()
 const { focused } = useFocusWithin(currentElement)
 const isFormControl = useFormControl(currentElement)
 
-const { getItems } = createCollection()
+const { getItems, CollectionSlot } = useCollection({ isProvider: true })
 
 const selectedElement = ref<HTMLElement>()
 const isInvalidInput = ref(false)

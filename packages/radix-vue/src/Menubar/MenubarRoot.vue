@@ -1,7 +1,8 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { Direction } from '../shared/types'
-import { createContext, useCollection, useDirection, useForwardExpose } from '@/shared'
+import { createContext, useDirection, useForwardExpose } from '@/shared'
+import { useCollection } from '@/Collection'
 
 export interface MenubarRootProps {
   /** The controlled value of the menu to open. Can be used as `v-model`. */
@@ -53,9 +54,8 @@ defineSlots<{
   }) => any
 }>()
 
-const { forwardRef, currentElement } = useForwardExpose()
-const { createCollection } = useCollection('menubar')
-createCollection(currentElement)
+const { forwardRef } = useForwardExpose()
+const { CollectionSlot } = useCollection({ key: 'Menubar', isProvider: true })
 
 const modelValue = useVModel(props, 'modelValue', emit, {
   defaultValue: props.defaultValue ?? '',
@@ -87,18 +87,20 @@ provideMenubarRootContext({
 </script>
 
 <template>
-  <RovingFocusGroup
-    v-model:current-tab-stop-id="currentTabStopId"
-    orientation="horizontal"
-    :loop="loop"
-    :dir="dir"
-    as-child
-  >
-    <Primitive
-      :ref="forwardRef"
-      role="menubar"
+  <CollectionSlot>
+    <RovingFocusGroup
+      v-model:current-tab-stop-id="currentTabStopId"
+      orientation="horizontal"
+      :loop="loop"
+      :dir="dir"
+      as-child
     >
-      <slot :model-value="modelValue" />
-    </Primitive>
-  </RovingFocusGroup>
+      <Primitive
+        :ref="forwardRef"
+        role="menubar"
+      >
+        <slot :model-value="modelValue" />
+      </Primitive>
+    </RovingFocusGroup>
+  </CollectionSlot>
 </template>

@@ -3,6 +3,7 @@ import type { Ref, VNode } from 'vue'
 import type { AcceptableValue, Direction } from '@/shared/types'
 import { createContext, isNullish, useDirection, useFormControl } from '@/shared'
 import { compare } from './utils'
+import { useCollection } from '@/Collection'
 
 export interface SelectRootProps<T = AcceptableValue> {
   /** The controlled open state of the Select. Can be bind as `v-model:open`. */
@@ -119,7 +120,9 @@ const isEmptyModelValue = computed(() => {
     return isNullish(modelValue.value)
 })
 
+useCollection({ isProvider: true })
 const dir = useDirection(propDir)
+
 provideSelectRootContext({
   triggerElement,
   onTriggerChange: (node) => {

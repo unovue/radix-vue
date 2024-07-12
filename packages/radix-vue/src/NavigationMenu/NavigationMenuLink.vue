@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
+import { useCollection } from '@/Collection'
 
 export type NavigationMenuLinkEmits = {
   /**
@@ -26,9 +27,12 @@ import { EVENT_ROOT_CONTENT_DISMISS } from './utils'
 const props = withDefaults(defineProps<NavigationMenuLinkProps>(), {
   as: 'a',
 })
+
 const emits = defineEmits<NavigationMenuLinkEmits>()
 
+const { CollectionItem } = useCollection({ key: 'NavigationMenu' })
 useForwardExpose()
+
 async function handleClick(ev: MouseEvent) {
   emits('select', ev)
 
@@ -47,14 +51,15 @@ async function handleClick(ev: MouseEvent) {
 </script>
 
 <template>
-  <Primitive
-    :as="as"
-    :data-active="active ? '' : undefined"
-    :aria-current="active ? 'page' : undefined"
-    :as-child="props.asChild"
-    data-radix-vue-collection-item
-    @click="handleClick"
-  >
-    <slot />
-  </Primitive>
+  <CollectionItem>
+    <Primitive
+      :as="as"
+      :data-active="active ? '' : undefined"
+      :aria-current="active ? 'page' : undefined"
+      :as-child="props.asChild"
+      @click="handleClick"
+    >
+      <slot />
+    </Primitive>
+  </CollectionItem>
 </template>

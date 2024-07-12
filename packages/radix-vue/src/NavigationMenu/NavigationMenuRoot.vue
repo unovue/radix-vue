@@ -3,7 +3,8 @@ import type { Ref } from 'vue'
 
 import type { PrimitiveProps } from '@/Primitive'
 import type { Direction, Orientation } from './utils'
-import { createContext, useCollection, useDirection, useForwardExpose, useId } from '@/shared'
+import { createContext, useDirection, useForwardExpose, useId } from '@/shared'
+import { useCollection } from '@/Collection'
 
 export interface NavigationMenuRootProps extends PrimitiveProps {
   /** The controlled value of the menu item to activate. Can be used as `v-model`. */
@@ -127,8 +128,7 @@ const indicatorTrack = ref<HTMLElement>()
 const viewport = ref<HTMLElement>()
 const activeTrigger = ref<HTMLElement>()
 
-const { createCollection } = useCollection('nav')
-const collectionItems = createCollection(indicatorTrack)
+const { getItems, CollectionSlot } = useCollection({ key: 'NavigationMenu', isProvider: true })
 
 const { delayDuration, skipDelayDuration, dir: propDir, disableClickTrigger, disableHoverTrigger, unmount } = toRefs(props)
 const dir = useDirection(propDir)
@@ -150,7 +150,7 @@ watchEffect(() => {
   if (!modelValue.value)
     return
 
-  const items = collectionItems.value
+  const items = getItems().map(i => i.ref)
   activeTrigger.value = items.find(item =>
     item.id.includes(modelValue.value),
   )
@@ -202,14 +202,16 @@ provideNavigationMenuContext({
 </script>
 
 <template>
-  <Primitive
-    :ref="forwardRef"
-    aria-label="Main"
-    :as="as"
-    :as-child="asChild"
-    :data-orientation="orientation"
-    :dir="dir"
-  >
-    <slot :model-value="modelValue" />
-  </Primitive>
+  <CollectionSlot>
+    <Primitive
+      :ref="forwardRef"
+      aria-label="Main"
+      :as="as"
+      :as-child="asChild"
+      :data-orientation="orientation"
+      :dir="dir"
+    >
+      <slot :model-value="modelValue" />
+    </Primitive>
+  </CollectionSlot>
 </template>

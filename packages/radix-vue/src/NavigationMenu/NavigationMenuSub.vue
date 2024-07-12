@@ -2,6 +2,7 @@
 import type { Ref } from 'vue'
 import type { Orientation } from './utils'
 import type { PrimitiveProps } from '@/Primitive'
+import { useCollection } from '@/Collection'
 
 export type NavigationMenuSubEmits = {
   /** Event handler called when the value changes. */
@@ -29,7 +30,7 @@ import { injectNavigationMenuContext, provideNavigationMenuContext } from './Nav
 import {
   Primitive,
 } from '@/Primitive'
-import { useCollection, useForwardExpose } from '@/shared'
+import { useForwardExpose } from '@/shared'
 
 const props = withDefaults(defineProps<NavigationMenuSubProps>(), {
   orientation: 'horizontal',
@@ -55,8 +56,7 @@ const { forwardRef, currentElement } = useForwardExpose()
 const indicatorTrack = ref<HTMLElement>()
 const viewport = ref<HTMLElement>()
 
-const { createCollection } = useCollection('nav')
-createCollection(indicatorTrack)
+const { CollectionSlot } = useCollection({ key: 'NavigationMenu', isProvider: true })
 
 provideNavigationMenuContext({
   ...menuContext,
@@ -96,12 +96,14 @@ provideNavigationMenuContext({
 </script>
 
 <template>
-  <Primitive
-    :ref="forwardRef"
-    :data-orientation="orientation"
-    :as-child="props.asChild"
-    :as="as"
-  >
-    <slot :model-value="modelValue" />
-  </Primitive>
+  <CollectionSlot>
+    <Primitive
+      :ref="forwardRef"
+      :data-orientation="orientation"
+      :as-child="props.asChild"
+      :as="as"
+    >
+      <slot :model-value="modelValue" />
+    </Primitive>
+  </CollectionSlot>
 </template>

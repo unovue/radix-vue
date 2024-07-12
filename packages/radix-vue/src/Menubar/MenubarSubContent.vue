@@ -3,6 +3,7 @@ import type {
   MenuSubContentEmits,
   MenuSubContentProps,
 } from '@/Menu'
+import { useCollection } from '@/Collection'
 
 export type MenubarSubContentEmits = MenuSubContentEmits
 
@@ -13,7 +14,7 @@ export interface MenubarSubContentProps extends MenuSubContentProps {}
 import { injectMenubarRootContext } from './MenubarRoot.vue'
 import { injectMenubarMenuContext } from './MenubarMenu.vue'
 import { MenuSubContent } from '@/Menu'
-import { useCollection, useForwardExpose, useForwardPropsEmits } from '@/shared'
+import { useForwardExpose, useForwardPropsEmits } from '@/shared'
 import { wrapArray } from '@/shared/useTypeahead'
 
 const props = defineProps<MenubarSubContentProps>()
@@ -21,11 +22,10 @@ const emits = defineEmits<MenubarSubContentEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
 useForwardExpose()
 
-const { injectCollection } = useCollection('menubar')
+const { getItems } = useCollection({ key: 'Menubar' })
 
 const rootContext = injectMenubarRootContext()
 const menuContext = injectMenubarMenuContext()
-const collections = injectCollection()
 
 function handleArrowNavigation(event: KeyboardEvent) {
   const target = event.target as HTMLElement
@@ -37,8 +37,7 @@ function handleArrowNavigation(event: KeyboardEvent) {
   if (targetIsSubTrigger)
     return
 
-  let candidateValues = collections.value.map(i => i.dataset.value)
-
+  let candidateValues = getItems().filter(i => i.ref.dataset.disabled !== '').map(i => i.ref.dataset.value)
   const currentIndex = candidateValues.indexOf(menuContext.value)
 
   candidateValues = rootContext.loop.value

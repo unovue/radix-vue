@@ -29,7 +29,7 @@ import { injectListboxRootContext } from './ListboxRoot.vue'
 import { type Ref, computed } from 'vue'
 import { Primitive, type PrimitiveProps } from '..'
 import { valueComparator } from './utils'
-import { CollectionItem } from '@/Collection'
+import { useCollection } from '@/Collection'
 import type { AcceptableValue } from '@/shared/types'
 
 const props = withDefaults(defineProps<ListboxItemProps>(), {
@@ -37,6 +37,7 @@ const props = withDefaults(defineProps<ListboxItemProps>(), {
 })
 const emits = defineEmits<ListboxItemEmits>()
 
+const { CollectionItem } = useCollection()
 const { forwardRef, currentElement } = useForwardExpose()
 const id = useId(undefined, 'radix-vue-listbox-item')
 const rootContext = injectListboxRootContext()

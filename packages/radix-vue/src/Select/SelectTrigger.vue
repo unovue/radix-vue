@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import { useCollection } from '@/Collection'
 
 export interface SelectTriggerProps extends PrimitiveProps {
   disabled?: boolean
@@ -14,27 +15,23 @@ import {
 import { OPEN_KEYS } from './utils'
 import { Primitive } from '@/Primitive'
 import { PopperAnchor } from '@/Popper'
-import { useCollection, useForwardExpose, useId, useTypeahead } from '@/shared'
+import { useForwardExpose, useId, useTypeahead } from '@/shared'
 
 const props = withDefaults(defineProps<SelectTriggerProps>(), {
   as: 'button',
 })
 const rootContext = injectSelectRootContext()
+const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 
 const isDisabled = computed(() => rootContext.disabled?.value || props.disabled)
-
-const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 
 rootContext.contentId ||= useId(undefined, 'radix-vue-select-content')
 onMounted(() => {
   rootContext.onTriggerChange(triggerElement.value)
 })
 
-const { injectCollection } = useCollection()
-const collectionItems = injectCollection()
-
-const { search, handleTypeaheadSearch, resetTypeahead }
-  = useTypeahead(collectionItems)
+const { getItems } = useCollection()
+const { search, handleTypeaheadSearch, resetTypeahead } = useTypeahead()
 function handleOpen() {
   if (!isDisabled.value) {
     rootContext.onOpenChange(true)
@@ -118,7 +115,9 @@ function handlePointerOpen(event: PointerEvent) {
           const isModifierKey = event.ctrlKey || event.altKey || event.metaKey;
           if (!isModifierKey && event.key.length === 1)
             if (isTypingAhead && event.key === ' ') return;
-          handleTypeaheadSearch(event.key);
+
+          const collectionItems = getItems().map(i => i.ref)
+          handleTypeaheadSearch(event.key, collectionItems);
           if (OPEN_KEYS.includes(event.key)) {
             handleOpen();
             event.preventDefault();

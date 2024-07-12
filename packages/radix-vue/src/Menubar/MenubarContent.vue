@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { MenuContentEmits, MenuContentProps } from '@/Menu'
+import { useCollection } from '@/Collection'
 
 export type MenubarContentEmits = MenuContentEmits
 
@@ -11,7 +12,7 @@ import { ref } from 'vue'
 import { injectMenubarRootContext } from './MenubarRoot.vue'
 import { injectMenubarMenuContext } from './MenubarMenu.vue'
 import { MenuContent } from '@/Menu'
-import { useCollection, useForwardExpose, useForwardPropsEmits, useId } from '@/shared'
+import { useForwardExpose, useForwardPropsEmits, useId } from '@/shared'
 import { wrapArray } from '@/shared/useTypeahead'
 
 const props = withDefaults(defineProps<MenubarContentProps>(), {
@@ -26,8 +27,7 @@ const menuContext = injectMenubarMenuContext()
 
 menuContext.contentId ||= useId(undefined, 'radix-vue-menubar-content')
 
-const { injectCollection } = useCollection('menubar')
-const collections = injectCollection()
+const { getItems } = useCollection({ key: 'Menubar' })
 
 const hasInteractedOutsideRef = ref(false)
 
@@ -45,7 +45,7 @@ function handleArrowNavigation(event: KeyboardEvent) {
   if (isNextKey && targetIsSubTrigger)
     return
 
-  let candidateValues = collections.value.map(i => i.dataset.value)
+  let candidateValues = getItems().filter(i => i.ref.dataset.disabled !== '').map(i => i.ref.dataset.value)
   if (isPrevKey)
     candidateValues.reverse()
 
@@ -89,7 +89,7 @@ function handleArrowNavigation(event: KeyboardEvent) {
     }"
     @focus-outside="(event) => {
       const target = event.target as HTMLElement;
-      const isMenubarTrigger = collections.some((item) => item.contains(target));
+      const isMenubarTrigger = getItems().filter(i => i.ref.dataset.disabled !== '').some((i) => i.ref.contains(target));
       if (isMenubarTrigger) event.preventDefault();
     }"
     @interact-outside="

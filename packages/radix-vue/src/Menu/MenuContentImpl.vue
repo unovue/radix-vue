@@ -16,7 +16,6 @@ import {
   createContext,
   useArrowNavigation,
   useBodyScrollLock,
-  useCollection,
   useFocusGuards,
   useForwardExpose,
   useTypeahead,
@@ -86,6 +85,7 @@ export interface MenuRootContentTypeProps
 
 <script setup lang="ts">
 import {
+  computed,
   onUnmounted,
   ref,
   toRefs,
@@ -128,15 +128,13 @@ const pointerDirRef = ref<Side>('right')
 const lastPointerXRef = ref(0)
 const currentItemId = ref<string | null>(null)
 
-const { createCollection } = useCollection()
+const rovingFocusGroupRef = ref<InstanceType<typeof RovingFocusGroup>>()
 const { forwardRef, currentElement: contentElement } = useForwardExpose()
-const collectionItems = createCollection(contentElement)
+const { handleTypeaheadSearch } = useTypeahead()
 
 watch(contentElement, (el) => {
   menuContext!.onContentChange(el)
 })
-
-const { handleTypeaheadSearch } = useTypeahead(collectionItems)
 
 onUnmounted(() => {
   window.clearTimeout(timerRef.value)
@@ -193,12 +191,14 @@ function handleKeyDown(event: KeyboardEvent) {
   if (event.code === 'Space')
     return
 
+  const collectionItems = rovingFocusGroupRef.value?.getItems().map(i => i.ref) ?? []
+
   if (isKeyDownInside) {
     // menus should not be navigated using tab key so we prevent it
     if (event.key === 'Tab')
       event.preventDefault()
     if (!isModifierKey && isCharacterKey)
-      handleTypeaheadSearch(event.key)
+      handleTypeaheadSearch(event.key, collectionItems)
   }
 
   // focus first/last item based on key pressed
@@ -207,7 +207,7 @@ function handleKeyDown(event: KeyboardEvent) {
   if (!FIRST_LAST_KEYS.includes(event.key))
     return
   event.preventDefault()
-  const candidateNodes = collectionItems.value
+  const candidateNodes = [...collectionItems]
   if (LAST_KEYS.includes(event.key))
     candidateNodes.reverse()
   focusFirst(candidateNodes)
@@ -286,6 +286,7 @@ provideMenuContentContext({
       @dismiss="emits('dismiss')"
     >
       <RovingFocusGroup
+        ref="rovingFocusGroupRef"
         v-model:current-tab-stop-id="currentItemId"
         as-child
         orientation="vertical"

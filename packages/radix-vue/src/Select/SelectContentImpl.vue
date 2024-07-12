@@ -8,7 +8,6 @@ import type { PointerDownOutsideEvent } from '@/DismissableLayer'
 import {
   createContext,
   useBodyScrollLock,
-  useCollection,
   useFocusGuards,
   useForwardProps,
   useHideOthers,
@@ -16,6 +15,7 @@ import {
 } from '@/shared'
 import type { AcceptableValue } from '@/shared/types'
 import { valueComparator } from './utils'
+import { useCollection } from '@/Collection'
 
 export interface SelectContentContext {
   content?: Ref<HTMLElement | undefined>
@@ -106,13 +106,12 @@ const rootContext = injectSelectRootContext()
 
 useFocusGuards()
 useBodyScrollLock(props.bodyLock)
-const { createCollection } = useCollection()
+const { CollectionSlot, getItems } = useCollection()
 
 const content = ref<HTMLElement>()
 useHideOthers(content)
 
-const collectionItems = createCollection(content)
-const { search, handleTypeaheadSearch } = useTypeahead(collectionItems)
+const { search, handleTypeaheadSearch } = useTypeahead()
 
 const viewport = ref<HTMLElement>()
 const selectedItem = ref<HTMLElement>()
@@ -189,11 +188,12 @@ function handleKeyDown(event: KeyboardEvent) {
   if (event.key === 'Tab')
     event.preventDefault()
 
+  const collectionItems = getItems().map(i => i.ref)
   if (!isModifierKey && event.key.length === 1)
-    handleTypeaheadSearch(event.key)
+    handleTypeaheadSearch(event.key, collectionItems)
 
   if (['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) {
-    let candidateNodes = collectionItems.value
+    let candidateNodes = [...collectionItems]
 
     if (['ArrowUp', 'End'].includes(event.key))
       candidateNodes = candidateNodes.slice().reverse()
@@ -257,56 +257,58 @@ provideSelectContentContext({
 </script>
 
 <template>
-  <FocusScope
-    as-child
-    @mount-auto-focus.prevent
-    @unmount-auto-focus="
-      (event) => {
-        emits('closeAutoFocus', event);
-        if (event.defaultPrevented) return;
-        rootContext.triggerElement.value?.focus({ preventScroll: true });
-        event.preventDefault();
-      }
-    "
-  >
-    <DismissableLayer
+  <CollectionSlot>
+    <FocusScope
       as-child
-      disable-outside-pointer-events
-      @focus-outside.prevent
-      @dismiss="rootContext.onOpenChange(false)"
-      @escape-key-down="emits('escapeKeyDown', $event)"
-      @pointer-down-outside="emits('pointerDownOutside', $event)"
+      @mount-auto-focus.prevent
+      @unmount-auto-focus="
+        (event) => {
+          emits('closeAutoFocus', event);
+          if (event.defaultPrevented) return;
+          rootContext.triggerElement.value?.focus({ preventScroll: true });
+          event.preventDefault();
+        }
+      "
     >
-      <component
-        :is="
-          position === 'popper'
-            ? SelectPopperPosition
-            : SelectItemAlignedPosition
-        "
-        v-bind="{ ...$attrs, ...forwardedProps }"
-        :id="rootContext.contentId"
-        :ref="
-          (vnode: ComponentPublicInstance) => {
-            content = unrefElement(vnode) as HTMLElement
-            return undefined
-          }
-        "
-        role="listbox"
-        :data-state="rootContext.open.value ? 'open' : 'closed'"
-        :dir="rootContext.dir.value"
-        :style="{
-          // flex layout so we can place the scroll buttons properly
-          display: 'flex',
-          flexDirection: 'column',
-          // reset the outline by default as the content MAY get focused
-          outline: 'none',
-        }"
-        @contextmenu.prevent
-        @placed="isPositioned = true"
-        @keydown="(handleKeyDown as any)"
+      <DismissableLayer
+        as-child
+        disable-outside-pointer-events
+        @focus-outside.prevent
+        @dismiss="rootContext.onOpenChange(false)"
+        @escape-key-down="emits('escapeKeyDown', $event)"
+        @pointer-down-outside="emits('pointerDownOutside', $event)"
       >
-        <slot />
-      </component>
-    </DismissableLayer>
-  </FocusScope>
+        <component
+          :is="
+            position === 'popper'
+              ? SelectPopperPosition
+              : SelectItemAlignedPosition
+          "
+          v-bind="{ ...$attrs, ...forwardedProps }"
+          :id="rootContext.contentId"
+          :ref="
+            (vnode: ComponentPublicInstance) => {
+              content = unrefElement(vnode) as HTMLElement
+              return undefined
+            }
+          "
+          role="listbox"
+          :data-state="rootContext.open.value ? 'open' : 'closed'"
+          :dir="rootContext.dir.value"
+          :style="{
+            // flex layout so we can place the scroll buttons properly
+            display: 'flex',
+            flexDirection: 'column',
+            // reset the outline by default as the content MAY get focused
+            outline: 'none',
+          }"
+          @contextmenu.prevent
+          @placed="isPositioned = true"
+          @keydown="(handleKeyDown as any)"
+        >
+          <slot />
+        </component>
+      </DismissableLayer>
+    </FocusScope>
+  </CollectionSlot>
 </template>

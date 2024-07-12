@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { ComponentPublicInstance } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
+import { useCollection } from '@/Collection'
 
 export interface ToastViewportProps extends PrimitiveProps {
   /**
@@ -25,7 +26,7 @@ import { injectToastProviderContext } from './ToastProvider.vue'
 import { onKeyStroke, unrefElement } from '@vueuse/core'
 import FocusProxy from './FocusProxy.vue'
 import { focusFirst, getTabbableCandidates } from '@/FocusScope/utils'
-import { useCollection, useForwardExpose } from '@/shared'
+import { useForwardExpose } from '@/shared'
 import { VIEWPORT_PAUSE, VIEWPORT_RESUME } from './utils'
 import { DismissableLayerBranch } from '@/DismissableLayer'
 
@@ -41,8 +42,7 @@ const props = withDefaults(defineProps<ToastViewportProps>(), {
 const { hotkey, label } = toRefs(props)
 
 const { forwardRef, currentElement } = useForwardExpose()
-const { createCollection } = useCollection()
-const collections = createCollection(currentElement)
+const { CollectionSlot, getItems } = useCollection()
 const providerContext = injectToastProviderContext()
 const hasToasts = computed(() => providerContext.toastCount.value > 0)
 const headFocusProxyRef = ref<HTMLElement>()
@@ -146,7 +146,7 @@ watchEffect((cleanupFn) => {
 })
 
 function getSortedTabbableCandidates({ tabbingDirection }: { tabbingDirection: 'forwards' | 'backwards' }) {
-  const toastItems = collections.value
+  const toastItems = getItems().map(i => i.ref)
   const tabbableCandidates = toastItems.map((toastNode) => {
     const toastTabbableCandidates = [toastNode, ...getTabbableCandidates(toastNode)]
     return tabbingDirection === 'forwards'
@@ -183,15 +183,17 @@ function getSortedTabbableCandidates({ tabbingDirection }: { tabbingDirection: '
         focusFirst(tabbableCandidates)
       }"
     />
-    <Primitive
-      :ref="forwardRef"
-      tabindex="-1"
-      :as="as"
-      :as-child="asChild"
-      v-bind="$attrs"
-    >
-      <slot />
-    </Primitive>
+    <CollectionSlot>
+      <Primitive
+        :ref="forwardRef"
+        tabindex="-1"
+        :as="as"
+        :as-child="asChild"
+        v-bind="$attrs"
+      >
+        <slot />
+      </Primitive>
+    </CollectionSlot>
     <FocusProxy
       v-if="hasToasts"
       :ref="(node: ComponentPublicInstance) => {

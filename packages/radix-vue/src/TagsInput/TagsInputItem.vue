@@ -25,13 +25,15 @@ export const [injectTagsInputItemContext, provideTagsInputItemContext]
 
 <script setup lang="ts">
 import { Primitive } from '@/Primitive'
-import { CollectionItem } from '@/Collection'
+import { useCollection } from '@/Collection'
 
 const props = defineProps<TagsInputItemProps>()
 const { value } = toRefs(props)
 
 const context = injectTagsInputRootContext()
 const { forwardRef, currentElement } = useForwardExpose()
+const { CollectionItem } = useCollection()
+
 const isSelected = computed(() => context.selectedElement.value === currentElement.value)
 
 const disabled = computed(() => props.disabled || context.disabled.value)

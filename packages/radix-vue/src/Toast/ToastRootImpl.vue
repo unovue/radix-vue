@@ -240,7 +240,10 @@ provideToastRootContext({ onClose: handleClose })
         }
       }"
     >
-      <slot :remaining="remainingTime" />
+      <slot
+        :remaining="remainingTime"
+        :duration="duration"
+      />
     </Primitive>
   </Teleport>
 </template>

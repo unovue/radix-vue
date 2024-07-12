@@ -16,7 +16,7 @@
   },
   {
     'name': 'nonce',
-    'description': '',
+    'description': '<p>Will add <code>nonce</code> attribute to the style tag which can be used by Content Security Policy. &lt;br&gt; If omitted, inherits globally from <code>ConfigProvider</code>.</p>\n',
     'type': 'string',
     'required': false
   }

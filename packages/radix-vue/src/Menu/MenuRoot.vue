@@ -23,7 +23,7 @@ export interface MenuProps {
   /**
    * The reading direction of the combobox when applicable.
    *
-   * If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode.
+   * If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode.
    */
   dir?: Direction
   /**

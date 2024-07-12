@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import { useId } from '@/shared'
+import { PRECISION } from './utils/constants'
 
 export interface SplitterPanelProps extends PrimitiveProps {
   /** The size of panel when it is collapsed. */
@@ -93,7 +94,7 @@ const panelDataRef = computed(() => ({
     onResize: (...args) => emits('resize', ...args),
   },
   constraints: {
-    collapsedSize: props.collapsedSize,
+    collapsedSize: props.collapsedSize && Number.parseFloat(props.collapsedSize.toFixed(PRECISION)),
     collapsible: props.collapsible,
     defaultSize: props.defaultSize,
     /** Panel id (unique within group); falls back to useId when not provided */
@@ -106,7 +107,7 @@ const panelDataRef = computed(() => ({
   order: props.order,
 }) satisfies PanelData)
 
-watch(() => panelDataRef.value.constraints, (prevConstraints, constraints) => {
+watch(() => panelDataRef.value.constraints, (constraints, prevConstraints) => {
   // If constraints have changed, we should revisit panel sizes.
   // This is uncommon but may happen if people are trying to implement pixel based constraints.
   if (

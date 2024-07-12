@@ -21,7 +21,7 @@ export interface RadioGroupRootProps extends PrimitiveProps {
   required?: boolean
   /** The orientation of the component. */
   orientation?: DataOrientation
-  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
+  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
   /** When `true`, keyboard navigation will loop from last item to first, and vice versa. */
   loop?: boolean

@@ -15,7 +15,7 @@ export interface SelectRootProps<T = AcceptableValue> {
   modelValue?: T | Array<T>
   /** Use this to compare objects by a particular field, or pass your own comparison function for complete control over how objects are compared. */
   by?: string | ((a: T, b: T) => boolean)
-  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
+  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
   /** The name of the Select. Submitted with its owning form as part of a name/value pair. */
   name?: string

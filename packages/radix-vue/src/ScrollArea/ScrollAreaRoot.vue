@@ -38,7 +38,7 @@ export interface ScrollAreaRootProps extends PrimitiveProps {
    * `hover` - when the user is scrolling along its corresponding orientation and when the user is hovering over the scroll area.
    */
   type?: ScrollType
-  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
+  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
   /** If type is set to either `scroll` or `hover`, this prop determines the length of time, in milliseconds, <br> before the scrollbars are hidden after the user stops interacting with scrollbars. */
   scrollHideDelay?: number
@@ -54,8 +54,6 @@ const props = withDefaults(defineProps<ScrollAreaRootProps>(), {
   scrollHideDelay: 600,
 })
 
-const { forwardRef, currentElement: scrollArea } = useForwardExpose()
-
 const cornerWidth = ref(0)
 const cornerHeight = ref(0)
 const viewport = ref<HTMLElement>()
@@ -67,6 +65,30 @@ const scrollbarYEnabled = ref(false)
 
 const { type, dir: propDir, scrollHideDelay } = toRefs(props)
 const dir = useDirection(propDir)
+
+function scrollTop() {
+  viewport.value?.scrollTo({
+    top: 0,
+  })
+}
+function scrollTopLeft() {
+  viewport.value?.scrollTo({
+    top: 0,
+    left: 0,
+  })
+}
+
+defineExpose({
+  /** Viewport element within ScrollArea */
+  viewport,
+  /** Scroll viewport to top */
+  scrollTop,
+  /** Scroll viewport to top-left */
+  scrollTopLeft,
+})
+
+const { forwardRef, currentElement: scrollArea } = useForwardExpose()
+
 provideScrollAreaRootContext({
   type,
   dir,

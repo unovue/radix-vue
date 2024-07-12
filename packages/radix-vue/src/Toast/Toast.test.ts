@@ -8,7 +8,7 @@ import Toast from './story/_Toast.vue'
 
 const CLOSE_TEXT = 'Close'
 
-describe('given a default Dialog', () => {
+describe('given a default Toast', () => {
   let wrapper: VueWrapper<InstanceType<typeof Toast>>
   let trigger: DOMWrapper<HTMLElement>
   let closeButton: HTMLElement

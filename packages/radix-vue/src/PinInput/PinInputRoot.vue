@@ -22,7 +22,7 @@ export interface PinInputRootProps extends PrimitiveProps {
   otp?: boolean
   /** Input type for the inputs. */
   type?: 'text' | 'number'
-  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode. */
+  /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
   /** The name of the pin input. Submitted with its owning form as part of a name/value pair. */
   name?: string

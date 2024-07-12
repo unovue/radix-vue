@@ -9,6 +9,12 @@
     'default': '\'ltr\''
   },
   {
+    'name': 'nonce',
+    'description': '<p>The global <code>nonce</code> value of your application. This will be inherited by the related primitives.</p>\n',
+    'type': 'string',
+    'required': false
+  },
+  {
     'name': 'scrollBody',
     'description': '<p>The global scroll body behavior of your application. This will be inherited by the related primitives.</p>\n',
     'type': 'boolean | ScrollBodyOption',

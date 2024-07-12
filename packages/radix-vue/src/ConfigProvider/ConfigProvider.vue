@@ -7,6 +7,7 @@ interface ConfigProviderContextValue {
   dir?: Ref<Direction>
   locale?: Ref<string>
   scrollBody?: Ref<boolean | ScrollBodyOption>
+  nonce?: Ref<string | undefined>
   useId?: () => string
 }
 
@@ -30,6 +31,11 @@ export interface ConfigProviderProps {
    */
   scrollBody?: boolean | ScrollBodyOption
   /**
+   * The global `nonce` value of your application. This will be inherited by the related primitives.
+   * @type string
+   */
+  nonce?: string
+  /**
    * The global `useId` injection as a workaround for preventing hydration issue.
    */
   useId?: () => string
@@ -43,15 +49,17 @@ const props = withDefaults(defineProps<ConfigProviderProps>(), {
   dir: 'ltr',
   locale: 'en',
   scrollBody: true,
+  nonce: undefined,
   useId: undefined,
 })
 
-const { dir, locale, scrollBody } = toRefs(props)
+const { dir, locale, scrollBody, nonce } = toRefs(props)
 
 provideConfigProviderContext({
   dir,
   locale,
   scrollBody,
+  nonce,
   useId: props.useId,
 })
 </script>

@@ -23,6 +23,7 @@ export const PopperContentPropsDefaultValue = {
   collisionPadding: 0,
   sticky: 'partial' as 'partial' | 'always',
   hideWhenDetached: false,
+  positionStrategy: 'fixed' as 'absolute' | 'fixed',
   updatePositionStrategy: 'optimized' as 'optimized' | 'always',
   prioritizePosition: false,
 }
@@ -112,11 +113,23 @@ export interface PopperContentProps extends PrimitiveProps {
   hideWhenDetached?: boolean
 
   /**
+   *  The type of CSS position property to use.
+   */
+  positionStrategy?: 'absolute' | 'fixed'
+
+  /**
    * Strategy to update the position of the floating element on every animation frame.
    *
    * @defaultValue 'optimized'
    */
   updatePositionStrategy?: 'optimized' | 'always'
+
+  /**
+   * Whether to update the position for the content when the layout shifted.
+   *
+   * @defaultValue false
+   */
+  updateOnLayoutShift?: boolean
 
   /**
    * Force content to be position within the viewport.
@@ -286,10 +299,11 @@ const { floatingStyles, placement, isPositioned, middlewareData } = useFloating(
   reference,
   floatingRef,
   {
-    strategy: 'fixed',
+    strategy: props.positionStrategy,
     placement: desiredPlacement,
     whileElementsMounted: (...args) => {
       const cleanup = autoUpdate(...args, {
+        layoutShift: props.updateOnLayoutShift,
         animationFrame: props.updatePositionStrategy === 'always',
       })
       return cleanup

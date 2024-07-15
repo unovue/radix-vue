@@ -56,6 +56,7 @@ export const [injectNumberFieldRootContext, provideNumberFieldRootContext] = cre
 <script setup lang="ts">
 import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { handleDecimalOperation, useNumberFormatter, useNumberParser } from './utils'
+import { VisuallyHiddenInput } from '@/VisuallyHidden'
 
 defineOptions({
   inheritAttrs: false,
@@ -204,23 +205,14 @@ provideNumberFieldRootContext({
       :model-value="modelValue"
       :text-value="textValue"
     />
-  </Primitive>
 
-  <input
-    v-if="isFormControl"
-    type="text"
-    tabindex="-1"
-    aria-hidden
-    :value="modelValue"
-    :name="props.name"
-    :disabled="props.disabled"
-    :required="props.required"
-    :style="{
-      transform: 'translateX(-100%)',
-      position: 'absolute',
-      pointerEvents: 'none',
-      opacity: 0,
-      margin: 0,
-    }"
-  >
+    <VisuallyHiddenInput
+      v-if="isFormControl && name"
+      type="text"
+      :value="modelValue"
+      :name="name"
+      :disabled="disabled"
+      :required="required"
+    />
+  </Primitive>
 </template>

@@ -114,29 +114,15 @@ provideCheckboxRootContext({
       :model-value="modelValue"
       :state="checkboxState"
     />
-  </Primitive>
 
-  <input
-    v-if="isFormControl && typeof value === 'string'"
-    type="checkbox"
-    tabindex="-1"
-    aria-hidden
-    :value="value"
-    :checked="!!checkboxState"
-    :name="name"
-    :disabled="disabled"
-    :required="required"
-    :style="{
-      transform: 'translateX(-100%)',
-      position: 'absolute',
-      pointerEvents: 'none',
-      opacity: 0,
-      margin: 0,
-    }"
-  >
-  <VisuallyHiddenInput
-    v-else-if="isFormControl && name"
-    :name="name"
-    :value="value"
-  />
+    <VisuallyHiddenInput
+      v-if="isFormControl && name"
+      type="checkbox"
+      :checked="!!checkboxState"
+      :name="name"
+      :value="value"
+      :disabled="disabled"
+      :required="required"
+    />
+  </Primitive>
 </template>

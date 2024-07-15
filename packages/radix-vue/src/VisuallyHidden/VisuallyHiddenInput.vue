@@ -2,6 +2,10 @@
 import { computed } from 'vue'
 import VisuallyHidden from './VisuallyHidden.vue'
 
+defineOptions({
+  inheritAttrs: false,
+})
+
 const props = defineProps<{
   name: string
   value: T
@@ -40,10 +44,9 @@ const parsedValue = computed(() => {
   <VisuallyHidden
     v-for="parsed in parsedValue"
     :key="parsed.name"
+    v-bind="$attrs"
     as="input"
-    type="hidden"
-    hidden
-    readonly
+    feature="fully-hidden"
     :name="parsed.name"
     :value="parsed.value"
     :required="required"

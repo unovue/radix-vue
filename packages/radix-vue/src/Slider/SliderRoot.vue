@@ -62,6 +62,7 @@ import SliderVertical from './SliderVertical.vue'
 import { ref, toRaw, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { ARROW_KEYS, PAGE_KEYS, getClosestValueIndex, getDecimalCount, getNextSortedValues, hasMinStepsBetweenValues, roundValue } from './utils'
+import { VisuallyHiddenInput } from '@/VisuallyHidden'
 
 defineOptions({
   inheritAttrs: false,
@@ -148,6 +149,8 @@ provideSliderRootContext({
   max,
   disabled,
 })
+
+console.log(modelValue.value)
 </script>
 
 <template>
@@ -185,19 +188,15 @@ provideSliderRootContext({
       }"
     >
       <slot :model-value="modelValue" />
+
+      <VisuallyHiddenInput
+        v-if="isFormControl && name"
+        type="number"
+        :value="modelValue"
+        :name="name"
+        :disabled="disabled"
+        :step="step"
+      />
     </component>
   </CollectionSlot>
-
-  <template v-if="isFormControl">
-    <input
-      v-for="(value, index) in modelValue"
-      :key="index"
-      :value="value"
-      type="number"
-      style="display: none"
-      :name="name ? name + (modelValue.length > 1 ? '[]' : '') : undefined"
-      :disabled="disabled"
-      :step="step"
-    >
-  </template>
 </template>

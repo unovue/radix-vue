@@ -78,6 +78,7 @@ export const [injectEditableRootContext, provideEditableRootContext]
 import { type Ref, computed, ref, toRefs } from 'vue'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
+import { VisuallyHiddenInput } from '@/VisuallyHidden'
 
 defineOptions({
   inheritAttrs: false,
@@ -230,23 +231,14 @@ provideEditableRootContext({
       :cancel="cancel"
       :edit="edit"
     />
-  </Primitive>
 
-  <input
-    v-if="isFormControl"
-    type="text"
-    tabindex="-1"
-    aria-hidden
-    :value="modelValue"
-    :name="name"
-    :disabled="disabled"
-    :required="required"
-    :style="{
-      transform: 'translateX(-100%)',
-      position: 'absolute',
-      pointerEvents: 'none',
-      opacity: 0,
-      margin: 0,
-    }"
-  >
+    <VisuallyHiddenInput
+      v-if="isFormControl && name"
+      type="text"
+      :value="modelValue"
+      :name="name"
+      :disabled="disabled"
+      :required="required"
+    />
+  </Primitive>
 </template>

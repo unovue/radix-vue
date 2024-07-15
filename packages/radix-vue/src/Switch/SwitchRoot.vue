@@ -38,6 +38,7 @@ export const [injectSwitchRootContext, provideSwitchRootContext]
 import { computed, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { Primitive } from '@/Primitive'
+import { VisuallyHiddenInput } from '@/VisuallyHidden'
 
 const props = withDefaults(defineProps<SwitchRootProps>(), {
   as: 'button',
@@ -98,26 +99,15 @@ provideSwitchRootContext({
     @keydown.enter.prevent="toggleCheck"
   >
     <slot :model-value="modelValue" />
-  </Primitive>
 
-  <input
-    v-if="isFormControl"
-    type="checkbox"
-    :name="name"
-    tabindex="-1"
-    aria-hidden
-    :disabled="disabled"
-    :required="required"
-    :value="value"
-    :checked="!!modelValue"
-    :data-state="modelValue ? 'checked' : 'unchecked'"
-    :data-disabled="disabled ? '' : undefined"
-    :style="{
-      transform: 'translateX(-100%)',
-      position: 'absolute',
-      pointerEvents: 'none',
-      opacity: 0,
-      margin: 0,
-    }"
-  >
+    <VisuallyHiddenInput
+      v-if="isFormControl && name"
+      type="checkbox"
+      :name="name"
+      :disabled="disabled"
+      :required="required"
+      :value="value"
+      :checked="!!modelValue"
+    />
+  </Primitive>
 </template>

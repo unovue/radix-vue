@@ -43,7 +43,9 @@ type ScrollBodyOption = {
   margin?: boolean | number
 }
 
-type AcceptableValue = string | number | boolean | Record<string, any>
+// Exclude `boolean` type to prevent type casting
+// reference: https://vuejs.org/guide/components/props.html#boolean-casting
+type AcceptableValue = string | number | Record<string, any>
 type ArrayOrWrapped<T> = T extends any[] ? T : Array<T>
 type StringOrNumber = string | number
 

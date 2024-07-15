@@ -49,8 +49,12 @@ import {
   SelectLabel,
   SelectPortal,
   SelectRoot,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
   SelectSeparator,
   SelectTrigger,
+  SelectValue,
+  SelectViewport,
 } from 'radix-vue'
 </script>
 

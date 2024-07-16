@@ -10,7 +10,9 @@ import { Label } from '@/Label'
         <Label
           class="text-sm text-gray9"
           for="date-field"
-        >Appointment (unavailable on 19th)</Label>
+        >
+          Appointment (unavailable on 19th)
+        </Label>
         <DateFieldRoot
           id="date-field"
           v-slot="{ segments, isInvalid }"
@@ -40,7 +42,9 @@ import { Label } from '@/Label'
           <span
             v-if="isInvalid"
             class="text-red-500"
-          >Invalidddd</span>
+          >
+            Invalid
+          </span>
         </DateFieldRoot>
       </div>
     </Variant>

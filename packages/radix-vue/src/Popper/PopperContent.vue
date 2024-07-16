@@ -125,11 +125,11 @@ export interface PopperContentProps extends PrimitiveProps {
   updatePositionStrategy?: 'optimized' | 'always'
 
   /**
-   * Whether to update the position for the content when the layout shifted.
+   * Whether to disable the update position for the content when the layout shifted.
    *
    * @defaultValue false
    */
-  updateOnLayoutShift?: boolean
+  disableUpdateOnLayoutShift?: boolean
 
   /**
    * Force content to be position within the viewport.
@@ -303,7 +303,7 @@ const { floatingStyles, placement, isPositioned, middlewareData } = useFloating(
     placement: desiredPlacement,
     whileElementsMounted: (...args) => {
       const cleanup = autoUpdate(...args, {
-        layoutShift: props.updateOnLayoutShift,
+        layoutShift: !props.disableUpdateOnLayoutShift,
         animationFrame: props.updatePositionStrategy === 'always',
       })
       return cleanup

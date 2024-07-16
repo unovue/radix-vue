@@ -90,7 +90,7 @@ export const [injectDateRangeFieldRootContext, provideDateRangeFieldRootContext]
 </script>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, toRefs, watch } from 'vue'
+import { computed, nextTick, onMounted, ref, toRefs, watch } from 'vue'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 
@@ -264,8 +264,15 @@ watch([startValue, locale], ([_startValue]) => {
 })
 
 watch(locale, (value) => {
-  if (formatter.getLocale() !== value)
+  if (formatter.getLocale() !== value) {
     formatter.setLocale(value)
+    // Locale changed, so we need to clear the segment elements and re-get them (different order)
+    // Get the focusable elements again on the next tick
+    nextTick(() => {
+      segmentElements.value.clear()
+      Array.from(parentElement.value.querySelectorAll('[data-radix-vue-date-field-segment]')).filter(item => item.getAttribute('data-radix-vue-date-field-segment') !== 'literal').forEach(el => segmentElements.value.add(el as HTMLElement))
+    })
+  }
 })
 
 watch(modelValue, (_modelValue) => {

@@ -90,8 +90,11 @@
 		-webkit-tap-highlight-color: rgba(128, 128, 128, 0.5);
 	}
 
-	/* Font face Geist font */
+  *:focus-visible {
+    @apply outline-primary;
+  }
 
+	/* Font face Geist font */
 	@font-face {
 		font-family: "geist-sans";
 		font-style: normal;
@@ -185,10 +188,6 @@ mark {
 .custom-justify-center:after {
   content: "";
   flex: 1;
-}
-
-button:focus-visible {
-  @apply outline-none;
 }
 
 .fade-enter-active,

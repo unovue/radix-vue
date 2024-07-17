@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ComboboxAnchor, ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxRoot, ComboboxSeparator, ComboboxTrigger, ComboboxViewport } from 'radix-vue'
+import { ComboboxAnchor, ComboboxContent, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxRoot, ComboboxSeparator, ComboboxTrigger, ComboboxViewport } from 'radix-vue'
 import { Icon } from '@iconify/vue'
 import './styles.css'
 
@@ -29,8 +29,6 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
 
     <ComboboxContent class="ComboboxContent">
       <ComboboxViewport class="ComboboxViewport">
-        <ComboboxEmpty class="ComboboxEmpty" />
-
         <ComboboxGroup>
           <ComboboxLabel class="ComboboxLabel">
             Fruits

@@ -2,9 +2,9 @@
 import type { Ref } from 'vue'
 import type { ListboxItemEmits, ListboxItemProps } from '@/Listbox'
 import { createContext, useForwardExpose } from '@/shared'
-import { type AcceptableValue, injectComboboxRootContext } from './ComboboxRoot.vue'
+import { injectComboboxRootContext } from './ComboboxRoot.vue'
+import type { AcceptableValue } from '@/shared/types'
 
-export type SelectEvent<T> = CustomEvent<{ originalEvent: PointerEvent, value?: T }>
 interface ComboboxItemContext {
   isSelected: Ref<boolean>
 }
@@ -25,7 +25,7 @@ const emits = defineEmits<ComboboxItemEmits<T>>()
 const { forwardRef } = useForwardExpose()
 const rootContext = injectComboboxRootContext()
 
-if (props.value === '') {
+if (!props.value) {
   throw new Error(
     'A <ComboboxItem /> must have a value prop that is not an empty string. This is because the Combobox value can be set to an empty string to clear the selection and show the placeholder.',
   )

@@ -45,7 +45,6 @@ import {
   ComboboxArrow,
   ComboboxCancel,
   ComboboxContent,
-  ComboboxEmpty,
   ComboboxGroup,
   ComboboxInput,
   ComboboxItem,
@@ -70,8 +69,6 @@ import {
     <ComboboxPortal>
       <ComboboxContent>
         <ComboboxViewport>
-          <ComboboxEmpty />
-
           <ComboboxItem>
             <ComboboxItemIndicator />
           </ComboboxItem>
@@ -685,7 +682,7 @@ export { default as CommandItem } from 'CommandItem.vue'
 <!-- Command.vue -->
 <script setup lang="ts">
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon, } from '@radix-icons/vue'
-import { ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxPortal, ComboboxRoot, useForwardPropsEmits } from 'radix-vue'
+import { ComboboxContent, ComboboxInput, ComboboxPortal, ComboboxRoot, useForwardPropsEmits } from 'radix-vue'
 import type { ComboboxRootEmits, ComboboxRootProps } from 'radix-vue'
 
 const props = defineProps<ComboboxRootProps>()
@@ -704,7 +701,6 @@ const forward = useForwardPropsEmits(props, emits)
 
     <ComboboxPortal>
       <ComboboxContent>
-        <ComboboxEmpty />
         <ComboboxViewport>
           <slot />
         </ComboboxViewport>

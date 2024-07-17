@@ -1,11 +1,9 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { ListboxRootEmits, ListboxRootProps } from '@/Listbox'
-import { createContext, useDirection, useEmitAsProps, useFormControl, useForwardExpose, useForwardPropsEmits } from '@/shared'
+import { createContext, useDirection, useEmitAsProps, useFormControl } from '@/shared'
 import { usePrimitiveElement } from '@/Primitive'
-import type { GenericComponentInstance } from '@/shared/types'
-
-export type AcceptableValue = string | number | boolean | Record<string, any>
+import type { AcceptableValue, GenericComponentInstance } from '@/shared/types'
 
 type ComboboxRootContext<T> = {
   modelValue: Ref<T | Array<T>>

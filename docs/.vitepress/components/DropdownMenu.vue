@@ -33,7 +33,7 @@ defineProps<{
           :key="item.text"
           :value="item.text"
           as-child
-          class="px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground hover:bg-muted  focus:text-foreground focus:bg-muted h-full flex items-center focus-visible:outline focus:outline-transparent"
+          class="px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground hover:bg-muted  focus:text-foreground focus:bg-muted h-full flex items-center"
         >
           <a
             v-if="item.link"

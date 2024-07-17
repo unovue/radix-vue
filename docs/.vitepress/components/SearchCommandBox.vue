@@ -15,7 +15,7 @@ const emits = defineEmits<{
   close: []
 }>()
 
-const { localeIndex, theme } = useData()
+const { localeIndex } = useData()
 
 const filterText = ref('')
 const enableNoResults = ref(false)
@@ -55,11 +55,7 @@ const searchIndex = computedAsync(async () =>
           fuzzy: 0.2,
           prefix: true,
           boost: { title: 4, text: 2, titles: 1 },
-          ...(theme.value.search?.provider === 'local'
-          && theme.value.search.options?.miniSearch?.searchOptions),
         },
-        ...(theme.value.search?.provider === 'local'
-        && theme.value.search.options?.miniSearch?.options),
       },
     ),
   ),

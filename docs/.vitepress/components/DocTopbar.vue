@@ -23,7 +23,7 @@ watch(path, () => {
 
 <template>
   <div
-    class="border-y w-full h-12 border-muted sticky top-[4.25rem] z-10 transition-all duration-500 px-6"
+    class="border-y w-full h-12 border-muted sticky top-[4.25rem] z-10 transition-all duration-500 px-4"
     :class="[top ? 'bg-transparent backdrop-blur-0' : 'bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/90']"
   >
     <div class="hidden md:flex items-center justify-between h-full">
@@ -68,8 +68,8 @@ watch(path, () => {
         </DialogTrigger>
 
         <DialogPortal>
-          <DialogOverlay class="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
-          <DialogContent class="fixed z-50 gap-4 bg-background shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500 inset-y-0 left-0 h-full w-3/4 border-r border-muted data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm pr-0">
+          <DialogOverlay class="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-fadeIn data-[state=closed]:animate-fadeOut" />
+          <DialogContent class="fixed z-50 gap-4 bg-background shadow-lg transition ease-in-out data-[state=open]:animate-enterFromLeft data-[state=closed]:animate-exitToLeft inset-y-0 left-0 h-full w-3/4 border-r border-muted data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm pr-0">
             <DialogTitle class="sr-only">
               Sidebar menu
             </DialogTitle>

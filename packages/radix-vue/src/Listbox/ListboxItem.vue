@@ -32,10 +32,10 @@ import { valueComparator } from './utils'
 import { useCollection } from '@/Collection'
 import type { AcceptableValue } from '@/shared/types'
 
-const props = withDefaults(defineProps<ListboxItemProps>(), {
+const props = withDefaults(defineProps<ListboxItemProps<T>>(), {
   as: 'div',
 })
-const emits = defineEmits<ListboxItemEmits>()
+const emits = defineEmits<ListboxItemEmits<T>>()
 
 const { CollectionItem } = useCollection()
 const { forwardRef, currentElement } = useForwardExpose()

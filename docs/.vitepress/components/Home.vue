@@ -6,7 +6,7 @@ import { Icon } from '@iconify/vue'
   <section>
     <div class="grid justify-items-center gap-8 p-5 px-3 sm:px-4 md:gap-10 md:px-8">
       <div class="mt-6 grid w-full max-w-4xl justify-items-center gap-[inherit] sm:mt-10 md:mt-20">
-        <h1 class="text-pretty text-center text-4xl font-medium sm:text-6xl sm:font-extrabold md:text-7xl text-foreground">
+        <h1 class="text-pretty text-center text-4xl font-bold sm:text-6xl sm:font-extrabold md:text-7xl text-foreground">
           Craft accessible web apps with Vue
         </h1>
         <p class="max-w-[720px] text-pretty text-center text-lg md:text-xl md:leading-8 lg:leading-9 lg:text-2xl text-muted-foreground">
@@ -51,8 +51,8 @@ import { Icon } from '@iconify/vue'
     </div>
   </section>
 
-  <section class="py-24 max-w-screen-xl mx-auto px-6">
-    <div class="grid grid-cols-5 h-96 gap-4">
+  <section class="py-24 max-w-screen-xl mx-auto md:px-6">
+    <div class="grid grid-cols-1 lg:grid-cols-5 h-[36rem] lg:h-96 gap-y-4 lg:gap-4">
       <div class="flex flex-col col-span-3 rounded-2xl border border-muted p-10 overflow-hidden relative">
         <div class="font-bold text-lg">
           Accessibility out of the box.
@@ -124,7 +124,7 @@ import { Icon } from '@iconify/vue'
       </div>
     </div>
 
-    <div class="grid grid-cols-5 h-96 gap-4 mt-4">
+    <div class="grid grid-cols-1 lg:grid-cols-5 h-[36rem] lg:h-96 gap-y-4 lg:gap-4 mt-4">
       <div class="col-span-2 rounded-2xl border border-muted p-10 relative overflow-hidden">
         <div class="absolute flex flex-col">
           <div class="font-bold text-lg z-10 ">
@@ -138,7 +138,6 @@ import { Icon } from '@iconify/vue'
             <div class="prose language-vue">
               <pre
                 class="shiki github-dark vp-code"
-                tabindex="0"
               ><code><span class="line"><span style="color:#E1E4E8;">&lt;</span><span style="color:#85E89D;">script</span><span style="color:#B392F0;"> setup</span><span style="color:#B392F0;"> lang</span><span style="color:#E1E4E8;">=</span><span style="color:#9ECBFF;">"ts"</span><span style="color:#E1E4E8;">&gt;</span></span>
 <span class="line"><span style="color:#F97583;">import</span><span style="color:#E1E4E8;"> { AccordionRoot, AccordionItem } </span><span style="color:#F97583;">from</span><span style="color:#9ECBFF;"> 'radix-vue'</span></span>
 <span class="line"><span style="color:#E1E4E8;">&lt;/</span><span style="color:#85E89D;">script</span><span style="color:#E1E4E8;">&gt;</span></span>
@@ -176,11 +175,11 @@ import { Icon } from '@iconify/vue'
     </div>
   </section>
 
-  <section class="py-40 w-full mx-auto px-6 bg-gradient-to-b from-background via-card/80 to-background absolute left-0">
+  <section class="py-24 sm:py-40 w-full mx-auto px-6 bg-gradient-to-b from-background via-card/80 to-background absolute left-0">
     <div class="max-w-screen-xl mx-auto">
-      <div class="flex items-center justify-center gap-20">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-12 sm:gap-20">
         <div class="flex flex-col items-center justify-center">
-          <div class="text-6xl font-bold">
+          <div class="text-4xl md:text-6xl font-bold">
             300k+
           </div>
           <div class="mt-1">
@@ -189,7 +188,7 @@ import { Icon } from '@iconify/vue'
         </div>
 
         <div class="flex flex-col items-center justify-center">
-          <div class="text-6xl font-bold">
+          <div class="text-4xl md:text-6xl font-bold">
             100+
           </div>
           <div class="mt-1">
@@ -198,7 +197,7 @@ import { Icon } from '@iconify/vue'
         </div>
 
         <div class="flex flex-col items-center justify-center">
-          <div class="text-6xl font-bold">
+          <div class="text-4xl md:text-6xl font-bold">
             3k+
           </div>
           <div class="mt-1">

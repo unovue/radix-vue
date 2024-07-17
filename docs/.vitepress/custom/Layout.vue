@@ -64,14 +64,14 @@ const { top } = toRefs(arrivedState)
 
     <div
       v-else-if="frontmatter.layout === 'showcase'"
-      class="max-w-[1440px] w-full h-full grow px-6"
+      class="max-w-[1440px] w-full h-full grow md:px-6"
     >
       <Showcase />
     </div>
 
     <div
       v-else
-      class="max-w-[1440px] w-full h-full grow px-6"
+      class="max-w-[1440px] w-full h-full grow md:px-6"
     >
       <Docs />
     </div>

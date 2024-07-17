@@ -9,11 +9,15 @@ export const radixVueDescription
 /* CDN fonts and styles */
 export const googleapis = 'https://fonts.googleapis.com'
 export const gstatic = 'https://fonts.gstatic.com'
-export const font = `${googleapis}/css2?family=Readex+Pro:wght@200;400;600&display=swap`
+export const font = `${googleapis}/css2?family=Inter:wght@100..900&display=swap`
 
 /* vitepress head */
 export const ogUrl = 'https://radix-vue.com/'
 export const ogImage = `${ogUrl}og.jpg`
+
+/* Legacy Radix Vue */
+export const legacyVersion = 'Radix Vue v1.9.x'
+export const legacyLink = 'https://radix-vue.com/'
 
 /* GitHub and social links */
 export const github = 'https://github.com/radix-vue/radix-vue'

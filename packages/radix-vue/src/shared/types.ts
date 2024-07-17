@@ -10,7 +10,7 @@ interface SingleOrMultipleProps<ValidValue = string | string[], ExplicitType = S
   /**
    * Determines whether a "single" or "multiple" items can be pressed at a time.
    *
-   * This prop will be ignored if any of `v-model` or `defaultValue` is an defined, as the type will be inferred from the value.
+   * This prop will be ignored if any of `v-model` or `defaultValue` is defined, as the type will be inferred from the value.
    */
   type?: ValidValue extends string
     ? 'single'

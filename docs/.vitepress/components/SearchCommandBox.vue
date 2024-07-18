@@ -150,13 +150,13 @@ function formMarkRegex(terms: Set<string>) {
         }
       }"
       as="ul"
-      class="max-h-[55vh] overflow-auto border-y border-muted empty:border-t-0"
+      class="max-h-[55vh] overflow-auto border-y border-muted empty:border-t-0 p-0.5"
     >
       <ListboxItem
         v-for="p in results"
         :key="p.id"
         :value="p.id"
-        class="data-[highlighted]:bg-background/50 focus:bg-background/50 outline-none text-sm"
+        class="data-[highlighted]:bg-primary/10 data-[highlighted]:text-primary data-[highlighted]:font-semibold text-muted-foreground text-sm"
         as-child
         @select="emits('close')"
       >

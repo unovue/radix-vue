@@ -94,6 +94,10 @@
     @apply outline-primary;
   }
 
+  ::selection {
+    background: hsl(var(--primary) / 0.3);
+  }
+
 	/* Font face Geist font */
 	@font-face {
 		font-family: "geist-sans";
@@ -143,7 +147,7 @@ kbd {
 }
 
 mark {
-  @apply bg-primary/30 dark:bg-primary text-black;
+  @apply bg-transparent text-foreground font-semibold;
 }
 
 [class*="language"] {

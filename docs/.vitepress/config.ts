@@ -72,7 +72,6 @@ export default defineConfig({
     sidebar: [
       {
         text: 'Overview',
-        collapsed: false,
         items: [
           { text: 'Introduction', link: '/overview/introduction' },
           { text: 'Getting Started', link: '/overview/getting-started' },
@@ -83,7 +82,6 @@ export default defineConfig({
       },
       {
         text: 'Guides',
-        collapsed: false,
         items: [
           { text: 'Styling', link: '/guides/styling' },
           { text: 'Animation/Transition', link: '/guides/animation' },
@@ -97,7 +95,7 @@ export default defineConfig({
       },
       {
         text: 'Components',
-        collapsed: false,
+        link: '/components/',
         items: [
           { text: 'Accordion', link: '/components/accordion' },
           { text: 'Alert Dialog', link: '/components/alert-dialog' },
@@ -146,7 +144,6 @@ export default defineConfig({
       },
       {
         text: 'Utilities',
-        collapsed: false,
         items: [
           { text: 'Config Provider', link: '/utilities/config-provider' },
           { text: 'Visually Hidden', link: '/utilities/visually-hidden' },

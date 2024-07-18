@@ -27,7 +27,7 @@ const showFooter = computed(
 <template>
   <footer
     v-if="showFooter"
-    class="mt-28"
+    class="my-28"
   >
     <div
       v-if="hasEditLink || hasLastUpdated"

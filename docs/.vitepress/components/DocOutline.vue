@@ -28,7 +28,7 @@ useActiveAnchor(container, marker)
 <template>
   <nav
     ref="container"
-    :class="{ 'block relative': headers.length > 0 }"
+    :class="{ 'block relative non-empty': headers.length > 0 }"
   >
     <div
       ref="marker"

@@ -182,15 +182,9 @@ The component that pops out when the popover is open.
 
 ### Arrow
 
-An optional arrow element to render alongside the popover. This can be used to help visually link the anchor with the PopoverContent. Must be rendered inside PopoverContent.
-
-<!-- @include: @/meta/DateRangePickerArrow.md -->
-
-### Arrow
-
 An optional arrow element to render alongside the popover. This can be used to help visually link the anchor with the `DateRangePickerContent`. Must be rendered inside `DateRangePickerContent`.
 
-<!-- @include: @/meta/DatePickerArrow.md -->
+<!-- @include: @/meta/DateRangePickerArrow.md -->
 
 ### Close
 

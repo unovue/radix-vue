@@ -1,7 +1,3 @@
-// https://vitepress.dev/guide/custom-theme
-import { h } from 'vue'
-import HomePage from '../components/HomePage.vue'
-import HomePageDemo from '../components/HomePageDemo.vue'
 import EmbedIframe from '../components/EmbedIframe.vue'
 import ComponentPreview from '../components/ComponentPreview.vue'
 import InstallationTabs from '../components/InstallationTabs.vue'

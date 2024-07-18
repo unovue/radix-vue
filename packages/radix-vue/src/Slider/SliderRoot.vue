@@ -149,8 +149,6 @@ provideSliderRootContext({
   max,
   disabled,
 })
-
-console.log(modelValue.value)
 </script>
 
 <template>

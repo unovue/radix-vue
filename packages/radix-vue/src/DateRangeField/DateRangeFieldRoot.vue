@@ -18,7 +18,7 @@ import {
   hasTime,
   isBefore,
 } from '@/date'
-import { createContent, initializeSegmentValues, isSegmentNavigationKey, syncSegmentValues } from '@/DateField/utils'
+import { createContent, getSegmentElements, initializeSegmentValues, isSegmentNavigationKey, syncSegmentValues } from '@/DateField/utils'
 import type { Direction } from '@/shared/types'
 
 export type DateRangeType = 'start' | 'end'
@@ -116,7 +116,7 @@ const segmentElements = ref<Set<HTMLElement>>(new Set())
 const dir = useDirection(propsDir)
 
 onMounted(() => {
-  Array.from(parentElement.value.querySelectorAll('[data-radix-vue-date-field-segment]')).filter(item => item.getAttribute('data-radix-vue-date-field-segment') !== 'literal').forEach(el => segmentElements.value.add(el as HTMLElement))
+  getSegmentElements(parentElement.value).forEach(item => segmentElements.value.add(item as HTMLElement))
 })
 
 const modelValue = useVModel(props, 'modelValue', emits, {
@@ -270,7 +270,7 @@ watch(locale, (value) => {
     // Get the focusable elements again on the next tick
     nextTick(() => {
       segmentElements.value.clear()
-      Array.from(parentElement.value.querySelectorAll('[data-radix-vue-date-field-segment]')).filter(item => item.getAttribute('data-radix-vue-date-field-segment') !== 'literal').forEach(el => segmentElements.value.add(el as HTMLElement))
+      getSegmentElements(parentElement.value).forEach(item => segmentElements.value.add(item as HTMLElement))
     })
   }
 })

@@ -66,6 +66,13 @@
     'type': 'number',
     'required': false,
     'default': '300'
+  },
+  {
+    'name': 'unmount',
+    'description': '<p>When <code>true</code>, the element will be unmounted on closed state.</p>\n',
+    'type': 'boolean',
+    'required': false,
+    'default': 'true'
   }
 ]" />
 

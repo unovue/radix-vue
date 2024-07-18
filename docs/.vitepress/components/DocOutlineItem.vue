@@ -39,6 +39,8 @@ function onClick({ target: el }: Event) {
 .root {
   position: relative;
   z-index: 1;
+  padding-right: 16px;
+  padding-left: 16px;
 }
 
 .nested {
@@ -59,7 +61,7 @@ function onClick({ target: el }: Event) {
 .outline-link:hover,
 .outline-link.active {
   transition: color 0.25s;
-  @apply text-primary;
+  @apply text-foreground font-medium;
 }
 
 .outline-link.nested {

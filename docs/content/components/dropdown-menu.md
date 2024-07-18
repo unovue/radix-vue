@@ -567,7 +567,7 @@ const checked = ref(false)
         <DropdownMenuItem>…</DropdownMenuItem>
         <DropdownMenuItem>…</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuCheckboxItem v-model:checked="checked">
+        <DropdownMenuCheckboxItem v-model="checked">
           <DropdownMenuItemIndicator>
             <Icon icon="radix-icons:check" />
           </DropdownMenuItemIndicator>

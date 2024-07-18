@@ -8,7 +8,7 @@ const toggleState = ref(false)
 
 <template>
   <Toggle
-    v-model:pressed="toggleState"
+    v-model="toggleState"
     aria-label="Toggle italic"
     class="hover:bg-green3 text-mauve11 data-[state=on]:bg-green6 data-[state=on]:text-violet12 shadow-blackA7 flex h-[35px] w-[35px] items-center justify-center rounded bg-white text-base leading-4 shadow-[0_2px_10px] focus-within:shadow-[0_0_0_2px] focus-within:shadow-black"
   >

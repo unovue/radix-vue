@@ -27,7 +27,7 @@
     'required': false
   },
   {
-    'name': 'pressed',
+    'name': 'modelValue',
     'description': '<p>The controlled pressed state of the toggle. Can be bind as <code>v-model</code>.</p>\n',
     'type': 'boolean',
     'required': false
@@ -35,7 +35,7 @@
   {
     'name': 'value',
     'description': '<p>A string value for the toggle group item. All items within a toggle group should use a unique value.</p>\n',
-    'type': 'string',
+    'type': 'AcceptableValue',
     'required': true
   }
 ]" />

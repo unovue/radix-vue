@@ -28,7 +28,7 @@
   },
   {
     'name': 'avoidCollisions',
-    'description': '<p>When <code>true</code>, overrides the side andalign preferences\nto prevent collisions with boundary edges.</p>\n',
+    'description': '<p>When <code>true</code>, overrides the side and align preferences\nto prevent collisions with boundary edges.</p>\n',
     'type': 'boolean',
     'required': false
   },
@@ -42,6 +42,12 @@
     'name': 'collisionPadding',
     'description': '<p>The distance in pixels from the boundary edges where collision\ndetection should occur. Accepts a number (same for all sides),\nor a partial padding object, for example: { top: 20, left: 20 }.</p>\n',
     'type': 'number | Partial<Record<\'top\' | \'right\' | \'bottom\' | \'left\', number>>',
+    'required': false
+  },
+  {
+    'name': 'disableUpdateOnLayoutShift',
+    'description': '<p>Whether to disable the update position for the content when the layout shifted.</p>\n',
+    'type': 'boolean',
     'required': false
   },
   {
@@ -63,9 +69,21 @@
     'required': false
   },
   {
+    'name': 'positionStrategy',
+    'description': '<p>The type of CSS position property to use.</p>\n',
+    'type': '\'fixed\' | \'absolute\'',
+    'required': false
+  },
+  {
     'name': 'prioritizePosition',
     'description': '<p>Force content to be position within the viewport.</p>\n<p>Might overlap the reference element, which may not be desired.</p>\n',
     'type': 'boolean',
+    'required': false
+  },
+  {
+    'name': 'reference',
+    'description': '<p>The custom element or virtual element that will be set as the reference\nto position the floating element.</p>\n<p>If provided, it will replace the default anchor element.</p>\n',
+    'type': 'ReferenceElement',
     'required': false
   },
   {
@@ -96,7 +114,7 @@
   },
   {
     'name': 'entryFocus',
-    'description': '',
+    'description': '<p>Event handler called when container is being focused. Can be prevented.</p>\n',
     'type': '[event: Event]'
   },
   {

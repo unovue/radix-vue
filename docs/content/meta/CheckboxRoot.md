@@ -15,15 +15,9 @@
     'required': false
   },
   {
-    'name': 'checked',
-    'description': '<p>The controlled checked state of the checkbox. Can be binded with v-model.</p>\n',
-    'type': 'boolean | \'indeterminate\'',
-    'required': false
-  },
-  {
-    'name': 'defaultChecked',
-    'description': '<p>The checked state of the checkbox when it is initially rendered. Use when you do not need to control its checked state.</p>\n',
-    'type': 'boolean',
+    'name': 'defaultValue',
+    'description': '<p>The value of the checkbox when it is initially rendered. Use when you do not need to control its value.</p>\n',
+    'type': 'AcceptableValue | AcceptableValue[]',
     'required': false
   },
   {
@@ -36,6 +30,12 @@
     'name': 'id',
     'description': '<p>Id of the element</p>\n',
     'type': 'string',
+    'required': false
+  },
+  {
+    'name': 'modelValue',
+    'description': '<p>The controlled value of the checkbox. Can be binded with v-model.</p>\n',
+    'type': 'AcceptableValue | AcceptableValue[]',
     'required': false
   },
   {
@@ -53,7 +53,7 @@
   {
     'name': 'value',
     'description': '<p>The value given as data when submitted with a <code>name</code>.</p>\n',
-    'type': 'string',
+    'type': 'AcceptableValue',
     'required': false,
     'default': '\'on\''
   }
@@ -61,16 +61,21 @@
 
 <EmitsTable :data="[
   {
-    'name': 'update:checked',
-    'description': '<p>Event handler called when the checked state of the checkbox changes.</p>\n',
-    'type': '[value: boolean]'
+    'name': 'update:modelValue',
+    'description': '<p>Event handler called when the value of the checkbox changes.</p>\n',
+    'type': '[value: AcceptableValue | AcceptableValue[]]'
   }
 ]" />
 
 <SlotsTable :data="[
   {
-    'name': 'checked',
-    'description': '<p>Current checked state</p>\n',
+    'name': 'modelValue',
+    'description': '<p>Current value</p>\n',
+    'type': 'AcceptableValue | AcceptableValue[] | undefined'
+  },
+  {
+    'name': 'state',
+    'description': '<p>Current state</p>\n',
     'type': 'false | true | \'indeterminate\''
   }
 ]" />

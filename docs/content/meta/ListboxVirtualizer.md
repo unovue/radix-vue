@@ -25,6 +25,6 @@
   {
     'name': 'option',
     'description': '',
-    'type': 'string | number | false | true | Record<string, any>'
+    'type': 'string | number | Record<string, any>'
   }
 ]" />

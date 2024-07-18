@@ -584,7 +584,7 @@ const checked = ref(true)
           <MenubarItem>…</MenubarItem>
           <MenubarItem>…</MenubarItem>
           <MenubarSeparator />
-          <MenubarCheckboxItem v-model:checked="checked">
+          <MenubarCheckboxItem v-model="checked">
             <MenubarItemIndicator>
               <Icon icon="radix-icons:check" />
             </MenubarItemIndicator>

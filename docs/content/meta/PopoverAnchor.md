@@ -17,7 +17,7 @@
   {
     'name': 'element',
     'description': '',
-    'type': 'Measurable',
+    'type': 'ReferenceElement',
     'required': false
   }
 ]" />

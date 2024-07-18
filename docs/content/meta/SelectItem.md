@@ -29,7 +29,7 @@
   {
     'name': 'value',
     'description': '<p>The value given as data when submitted with a <code>name</code>.</p>\n',
-    'type': 'string',
+    'type': 'AcceptableValue',
     'required': true
   }
 ]" />

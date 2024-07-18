@@ -35,3 +35,16 @@
     'default': '\'hover\''
   }
 ]" />
+
+<MethodsTable :data="[
+  {
+    'name': 'scrollTop',
+    'description': '<p>Scroll viewport to top</p>\n',
+    'type': '() => void'
+  },
+  {
+    'name': 'scrollTopLeft',
+    'description': '<p>Scroll viewport to top-left</p>\n',
+    'type': '() => void'
+  }
+]" />

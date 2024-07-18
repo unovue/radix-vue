@@ -274,7 +274,7 @@ function handleClick() {
         </DropdownMenuSub>
         <DropdownMenuSeparator class="h-[1px] bg-green6 m-[5px]" />
         <DropdownMenuCheckboxItem
-          v-model:checked="checkboxOne"
+          v-model="checkboxOne"
           class="group text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
         >
           <DropdownMenuItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">
@@ -288,7 +288,7 @@ function handleClick() {
           </div>
         </DropdownMenuCheckboxItem>
         <DropdownMenuCheckboxItem
-          v-model:checked="checkboxTwo"
+          v-model="checkboxTwo"
           class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
         >
           <DropdownMenuItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">

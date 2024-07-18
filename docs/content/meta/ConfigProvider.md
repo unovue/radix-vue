@@ -9,6 +9,13 @@
     'default': '\'ltr\''
   },
   {
+    'name': 'locale',
+    'description': '<p>The global locale of your application. This will be inherited by all primitives.</p>\n',
+    'type': 'string',
+    'required': false,
+    'default': '\'en\''
+  },
+  {
     'name': 'nonce',
     'description': '<p>The global <code>nonce</code> value of your application. This will be inherited by the related primitives.</p>\n',
     'type': 'string',

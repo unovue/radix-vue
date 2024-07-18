@@ -17,7 +17,7 @@
   {
     'name': 'defaultValue',
     'description': '<p>The default active value of the item(s).</p>\n<p>Use when you do not need to control the state of the item(s).</p>\n',
-    'type': 'string | string[]',
+    'type': 'AcceptableValue | AcceptableValue[]',
     'required': false
   },
   {
@@ -41,7 +41,7 @@
   {
     'name': 'modelValue',
     'description': '<p>The controlled value of the active item(s).</p>\n<p>Use this when you need to control the state of the items. Can be binded with <code>v-model</code></p>\n',
-    'type': 'string | string[]',
+    'type': 'AcceptableValue | AcceptableValue[]',
     'required': false
   },
   {
@@ -67,7 +67,7 @@
 <EmitsTable :data="[
   {
     'name': 'update:modelValue',
-    'description': '<p>Event handler called when the value changes.</p>\n',
-    'type': '[payload: string | string[]]'
+    'description': '<p>Event handler called when the value of the toggle changes.</p>\n',
+    'type': '[payload: AcceptableValue | AcceptableValue[]]'
   }
 ]" />

@@ -28,11 +28,11 @@ useActiveAnchor(container, marker)
 <template>
   <nav
     ref="container"
-    :class="{ block: headers.length > 0 }"
+    :class="{ 'block relative': headers.length > 0 }"
   >
     <div
       ref="marker"
-      class="outline-marker"
+      class="outline-marker absolute left-0 h-[18px] w-[2px] bg-primary transition-[top,opacity] ease-in-out duration-300 rounded-full -translate-y-1"
     />
 
     <div

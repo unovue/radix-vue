@@ -28,7 +28,7 @@
     'default': 'false'
   },
   {
-    'name': 'pressed',
+    'name': 'modelValue',
     'description': '<p>The controlled pressed state of the toggle. Can be bind as <code>v-model</code>.</p>\n',
     'type': 'boolean',
     'required': false
@@ -37,15 +37,15 @@
 
 <EmitsTable :data="[
   {
-    'name': 'update:pressed',
-    'description': '<p>Event handler called when the pressed state of the toggle changes.</p>\n',
+    'name': 'update:modelValue',
+    'description': '<p>Event handler called when the value of the toggle changes.</p>\n',
     'type': '[value: boolean]'
   }
 ]" />
 
 <SlotsTable :data="[
   {
-    'name': 'pressed',
+    'name': 'modelValue',
     'description': '<p>Current pressed state</p>\n',
     'type': 'boolean'
   }

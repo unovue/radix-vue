@@ -21,6 +21,12 @@
     'required': false
   },
   {
+    'name': 'disabled',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with item</p>\n',
+    'type': 'boolean',
+    'required': false
+  },
+  {
     'name': 'modelValue',
     'description': '<p>The controlled value of the filter. Can be binded-with with v-model.</p>\n',
     'type': 'string',

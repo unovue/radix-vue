@@ -17,7 +17,7 @@
   {
     'name': 'defaultValue',
     'description': '<p>The value of the radio item that should be checked when initially rendered.</p>\n<p>Use when you do not need to control the state of the radio items.</p>\n',
-    'type': 'string',
+    'type': 'AcceptableValue',
     'required': false
   },
   {
@@ -43,7 +43,7 @@
   {
     'name': 'modelValue',
     'description': '<p>The controlled value of the radio item to check. Can be binded as <code>v-model</code>.</p>\n',
-    'type': 'string',
+    'type': 'AcceptableValue',
     'required': false
   },
   {
@@ -79,6 +79,6 @@
   {
     'name': 'modelValue',
     'description': '<p>Current input values</p>\n',
-    'type': 'string | undefined'
+    'type': 'string | number | Record<string, any>'
   }
 ]" />

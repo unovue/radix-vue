@@ -275,7 +275,7 @@ function handleClick() {
         </DropdownMenuSub>
         <DropdownMenuSeparator class="DropdownMenuSeparator" />
         <DropdownMenuCheckboxItem
-          v-model:checked="checkboxOne"
+          v-model="checkboxOne"
           class="DropdownMenuItem"
         >
           <DropdownMenuItemIndicator class="DropdownMenuItemIndicator">
@@ -289,7 +289,7 @@ function handleClick() {
           </div>
         </DropdownMenuCheckboxItem>
         <DropdownMenuCheckboxItem
-          v-model:checked="checkboxTwo"
+          v-model="checkboxTwo"
           class="DropdownMenuItem"
         >
           <DropdownMenuItemIndicator class="DropdownMenuItemIndicator">

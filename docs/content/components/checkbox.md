@@ -101,7 +101,7 @@ const checked = ref('indeterminate')
 </script>
 
 <template>
-  <CheckboxRoot v-model:checked="checked">
+  <CheckboxRoot v-model="checked">
     <CheckboxIndicator>
       <Icon
         v-if="checked === 'indeterminate'"

@@ -9,7 +9,7 @@ const toggleState = ref(false)
 
 <template>
   <Toggle
-    v-model:pressed="toggleState"
+    v-model="toggleState"
     aria-label="Toggle italic"
     class="Toggle"
   >

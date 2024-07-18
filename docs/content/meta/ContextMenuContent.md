@@ -23,7 +23,7 @@
   },
   {
     'name': 'avoidCollisions',
-    'description': '<p>When <code>true</code>, overrides the side andalign preferences\nto prevent collisions with boundary edges.</p>\n',
+    'description': '<p>When <code>true</code>, overrides the side and align preferences\nto prevent collisions with boundary edges.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'true'
@@ -41,6 +41,12 @@
     'type': 'number | Partial<Record<\'top\' | \'right\' | \'bottom\' | \'left\', number>>',
     'required': false,
     'default': '0'
+  },
+  {
+    'name': 'disableUpdateOnLayoutShift',
+    'description': '<p>Whether to disable the update position for the content when the layout shifted.</p>\n',
+    'type': 'boolean',
+    'required': false
   },
   {
     'name': 'forceMount',
@@ -62,9 +68,21 @@
     'required': false
   },
   {
+    'name': 'positionStrategy',
+    'description': '<p>The type of CSS position property to use.</p>\n',
+    'type': '\'fixed\' | \'absolute\'',
+    'required': false
+  },
+  {
     'name': 'prioritizePosition',
     'description': '<p>Force content to be position within the viewport.</p>\n<p>Might overlap the reference element, which may not be desired.</p>\n',
     'type': 'boolean',
+    'required': false
+  },
+  {
+    'name': 'reference',
+    'description': '<p>The custom element or virtual element that will be set as the reference\nto position the floating element.</p>\n<p>If provided, it will replace the default anchor element.</p>\n',
+    'type': 'ReferenceElement',
     'required': false
   },
   {

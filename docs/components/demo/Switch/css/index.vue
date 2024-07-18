@@ -16,7 +16,7 @@ const switchState = ref(false)
     </label>
     <SwitchRoot
       id="airplane-mode"
-      v-model:checked="switchState"
+      v-model="switchState"
       class="SwitchRoot"
     >
       <SwitchThumb

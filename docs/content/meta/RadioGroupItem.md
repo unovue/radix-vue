@@ -42,7 +42,15 @@
   {
     'name': 'value',
     'description': '<p>The value given as data when submitted with a <code>name</code>.</p>\n',
-    'type': 'string',
+    'type': 'AcceptableValue',
     'required': false
+  }
+]" />
+
+<EmitsTable :data="[
+  {
+    'name': 'select',
+    'description': '<p>Event handler called when the user selects a link (via mouse or keyboard).</p>\n<p>Calling <code>event.preventDefault</code> in this handler will prevent the navigation menu from closing when selecting that link.</p>\n',
+    'type': '[event: SelectEvent]'
   }
 ]" />

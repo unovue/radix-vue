@@ -2,6 +2,13 @@
 
 <PropsTable :data="[
   {
+    'name': 'align',
+    'description': '<p>Placement of the viewport for css variables <code>(--radix-navigation-menu-viewport-left, --radix-navigation-menu-viewport-top)</code>.</p>\n',
+    'type': '\'start\' | \'center\' | \'end\'',
+    'required': false,
+    'default': '\'center\''
+  },
+  {
     'name': 'as',
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',

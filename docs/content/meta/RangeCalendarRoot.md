@@ -76,8 +76,7 @@
     'name': 'locale',
     'description': '<p>The locale to use for formatting dates</p>\n',
     'type': 'string',
-    'required': false,
-    'default': '\'en\''
+    'required': false
   },
   {
     'name': 'maxValue',

@@ -15,13 +15,7 @@
     'required': false
   },
   {
-    'name': 'checked',
-    'description': '<p>The controlled state of the switch. Can be bind as <code>v-model:checked</code>.</p>\n',
-    'type': 'boolean',
-    'required': false
-  },
-  {
-    'name': 'defaultChecked',
+    'name': 'defaultValue',
     'description': '<p>The state of the switch when it is initially rendered. Use when you do not need to control its state.</p>\n',
     'type': 'boolean',
     'required': false
@@ -36,6 +30,12 @@
     'name': 'id',
     'description': '',
     'type': 'string',
+    'required': false
+  },
+  {
+    'name': 'modelValue',
+    'description': '<p>The controlled state of the switch. Can be bind as <code>v-model</code>.</p>\n',
+    'type': 'boolean',
     'required': false
   },
   {
@@ -61,16 +61,16 @@
 
 <EmitsTable :data="[
   {
-    'name': 'update:checked',
-    'description': '<p>Event handler called when the checked state of the switch changes.</p>\n',
+    'name': 'update:modelValue',
+    'description': '<p>Event handler called when the value of the switch changes.</p>\n',
     'type': '[payload: boolean]'
   }
 ]" />
 
 <SlotsTable :data="[
   {
-    'name': 'checked',
-    'description': '<p>Current checked state</p>\n',
+    'name': 'modelValue',
+    'description': '<p>Current value</p>\n',
     'type': 'boolean'
   }
 ]" />

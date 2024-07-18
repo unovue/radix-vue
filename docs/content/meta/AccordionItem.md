@@ -21,6 +21,12 @@
     'required': false
   },
   {
+    'name': 'unmount',
+    'description': '<p>When <code>true</code>, the element will be unmounted on closed state.</p>\n',
+    'type': 'boolean',
+    'required': false
+  },
+  {
     'name': 'value',
     'description': '<p>A string value for the accordion item. All items within an accordion should use a unique value.</p>\n',
     'type': 'string',

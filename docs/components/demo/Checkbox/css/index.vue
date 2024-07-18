@@ -11,7 +11,7 @@ const checkboxOne = ref(true)
   <div :style="{ display: 'flex', alignItems: 'center' }">
     <label>
       <CheckboxRoot
-        v-model:checked="checkboxOne"
+        v-model="checkboxOne"
         class="CheckboxRoot"
       >
         <CheckboxIndicator class="CheckboxIndicator">

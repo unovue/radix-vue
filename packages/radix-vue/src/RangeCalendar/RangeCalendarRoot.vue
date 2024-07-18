@@ -40,6 +40,8 @@ type RangeCalendarRootContext = {
   isSelected: (date: DateValue) => boolean
   isSelectionEnd: (date: DateValue) => boolean
   isSelectionStart: (date: DateValue) => boolean
+  isHighlightedStart: (date: DateValue) => boolean
+  isHighlightedEnd: (date: DateValue) => boolean
   prevPage: (step?: CalendarIncrement, prevPageFunc?: (date: DateValue) => DateValue) => void
   nextPage: (step?: CalendarIncrement, nextPageFunc?: (date: DateValue) => DateValue) => void
   isNextButtonDisabled: (step?: CalendarIncrement, nextPageFunc?: (date: DateValue) => DateValue) => boolean
@@ -129,7 +131,6 @@ const props = withDefaults(defineProps<RangeCalendarRootProps>(), {
   locale: 'en',
   isDateDisabled: undefined,
   isDateUnavailable: undefined,
-  initialView: 'month',
 })
 const emits = defineEmits<RangeCalendarRootEmits>()
 
@@ -237,6 +238,8 @@ const {
   highlightedRange,
   isSelectionStart,
   isSelectionEnd,
+  isHighlightedStart,
+  isHighlightedEnd,
 } = useRangeCalendarState({
   start: startValue,
   end: endValue,
@@ -327,6 +330,8 @@ provideRangeCalendarRootContext({
   onPlaceholderChange,
   locale,
   dir,
+  isHighlightedStart,
+  isHighlightedEnd,
 })
 
 onMounted(() => {

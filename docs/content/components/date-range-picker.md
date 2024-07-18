@@ -389,6 +389,14 @@ Interactable container for displaying the cell dates. Clicking it selects the da
       values: 'Present when the date is highlighted by the user as they select a range.',
     },
     {
+      attribute: '[data-highlighted-start]',
+      values: 'Present when the date is the start of the range that is highlighted by the user.',
+    },
+    {
+      attribute: '[data-highlighted-end]',
+      values: 'Present when the date is the end of the range that is highlighted by the user.',
+    },
+    {
       attribute: '[data-focused]',
       values: 'Present when focused',
     }

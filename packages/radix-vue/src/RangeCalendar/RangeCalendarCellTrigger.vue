@@ -47,6 +47,8 @@ const isUnavailable = computed(() => rootContext.isDateUnavailable?.(props.day))
 const isSelectedDate = computed(() => rootContext.isSelected(props.day))
 const isSelectionStart = computed(() => rootContext.isSelectionStart(props.day))
 const isSelectionEnd = computed(() => rootContext.isSelectionEnd(props.day))
+const isHighlightStart = computed(() => rootContext.isHighlightedStart(props.day))
+const isHighlightEnd = computed(() => rootContext.isHighlightedEnd(props.day))
 const isHighlighted = computed(() => rootContext.highlightedRange.value
   ? isBetweenInclusive(props.day, rootContext.highlightedRange.value.start, rootContext.highlightedRange.value.end)
   : false)
@@ -196,6 +198,8 @@ function handleArrowKey(e: KeyboardEvent) {
     :data-highlighted="isHighlighted ? '' : undefined"
     :data-selection-start="isSelectionStart ? true : undefined"
     :data-selection-end="isSelectionEnd ? true : undefined"
+    :data-highlighted-start="isHighlightStart ? true : undefined"
+    :data-highlighted-end="isHighlightEnd ? true : undefined"
     :data-selected="isSelectedDate ? true : undefined"
     :data-outside-visible-view="isOutsideVisibleView ? '' : undefined"
     :data-value="day.toString()"

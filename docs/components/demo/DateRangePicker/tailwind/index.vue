@@ -26,7 +26,7 @@ import {
 <template>
   <div class="flex flex-col gap-2">
     <Label
-      class="text-sm text-gray9"
+      class="text-sm text-white"
       for="date-field"
     >Birthday</Label>
     <DateRangePickerRoot

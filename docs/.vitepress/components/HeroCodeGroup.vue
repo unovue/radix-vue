@@ -132,7 +132,7 @@ watch(open, () => {
       >
         <button
           ref="buttonRef"
-          class="mt-4 bg-background hover:bg-muted/50 px-3 py-1.5 rounded-lg border-muted border text-sm"
+          class="mt-4 bg-neutral-800 hover:bg-neutral-700 px-3 py-1.5 text-sm rounded-lg  border-neutral-700 border"
           @click="open = !open"
         >
           {{ open ? "Collapse code" : "Expand code" }}

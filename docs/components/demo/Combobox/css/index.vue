@@ -1,12 +1,41 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { ComboboxAnchor, ComboboxContent, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxRoot, ComboboxSeparator, ComboboxTrigger, ComboboxViewport } from 'radix-vue'
+import { computed, ref } from 'vue'
+import { ComboboxAnchor, ComboboxContent, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxRoot, ComboboxSeparator, ComboboxTrigger, ComboboxViewport, useFilter } from 'radix-vue'
 import { Icon } from '@iconify/vue'
 import './styles.css'
 
+const { contains } = useFilter({ sensitivity: 'base' })
+
 const v = ref('')
-const options = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
-const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
+const query = ref('')
+const options = [
+  { name: 'Fruit', children: [
+    { name: 'Apple' },
+    { name: 'Banana' },
+    { name: 'Orange' },
+    { name: 'Honeydew' },
+    { name: 'Grapes' },
+    { name: 'Watermelon' },
+    { name: 'Cantaloupe' },
+    { name: 'Pear' },
+  ] },
+  { name: 'Vegetable', children: [
+    { name: 'Cabbage' },
+    { name: 'Broccoli' },
+    { name: 'Carrots' },
+    { name: 'Lettuce' },
+    { name: 'Spinach' },
+    { name: 'Bok Choy' },
+    { name: 'Cauliflower' },
+    { name: 'Potatoes' },
+  ] },
+]
+
+const filteredOptions = computed(() =>
+  options
+    .map(group => ({ name: group.name, children: group.children.filter(option => contains(option.name, query.value)) }))
+    .filter(group => group.children.length),
+)
 </script>
 
 <template>
@@ -29,51 +58,37 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
 
     <ComboboxContent class="ComboboxContent">
       <ComboboxViewport class="ComboboxViewport">
-        <ComboboxGroup>
-          <ComboboxLabel class="ComboboxLabel">
-            Fruits
-          </ComboboxLabel>
+        <template
+          v-for="(group, index) in filteredOptions"
+          :key="group.name"
+        >
+          <ComboboxGroup v-if="group.children.length">
+            <ComboboxSeparator
+              v-if="index !== 0"
+              class="ComboboxSeparator"
+            />
 
-          <ComboboxItem
-            v-for="(option, index) in options"
-            :key="index"
-            class="ComboboxItem"
-            :value="option"
-          >
-            <ComboboxItemIndicator
-              class="ComboboxItemIndicator"
-            >
-              <Icon icon="radix-icons:check" />
-            </ComboboxItemIndicator>
-            <span>
-              {{ option }}
-            </span>
-          </ComboboxItem>
-          <ComboboxSeparator class="ComboboxSeparator" />
-        </ComboboxGroup>
+            <ComboboxLabel class="ComboboxLabel">
+              {{ group.name }}
+            </ComboboxLabel>
 
-        <ComboboxGroup>
-          <ComboboxLabel
-            class="ComboboxLabel"
-          >
-            Vegetables
-          </ComboboxLabel>
-          <ComboboxItem
-            v-for="(option, index) in vegetables"
-            :key="index"
-            class="ComboboxItem"
-            :value="option"
-          >
-            <ComboboxItemIndicator
-              class="ComboboxItemIndicator"
+            <ComboboxItem
+              v-for="option in filteredOptions"
+              :key="option.name"
+              :value="option.name"
+              class="ComboboxItem"
             >
-              <Icon icon="radix-icons:check" />
-            </ComboboxItemIndicator>
-            <span>
-              {{ option }}
-            </span>
-          </ComboboxItem>
-        </ComboboxGroup>
+              <ComboboxItemIndicator
+                class="ComboboxItemIndicator"
+              >
+                <Icon icon="radix-icons:check" />
+              </ComboboxItemIndicator>
+              <span>
+                {{ option }}
+              </span>
+            </ComboboxItem>
+          </ComboboxGroup>
+        </template>
       </ComboboxViewport>
     </ComboboxContent>
   </ComboboxRoot>

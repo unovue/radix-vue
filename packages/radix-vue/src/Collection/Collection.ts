@@ -47,20 +47,21 @@ export const CollectionSlot = defineComponent({
 export const CollectionItem = defineComponent({
   name: 'CollectionItem',
   inheritAttrs: false,
-  setup(_, { slots, attrs }) {
+  props: {
+    value: { type: [String, Number, Object] },
+  },
+  setup(props, { slots, attrs }) {
     const context = injectCollectionContext()
     const { primitiveElement, currentElement } = usePrimitiveElement()
-    const { value, ...restAttrs } = attrs
 
     watchEffect((cleanupFn) => {
       if (currentElement.value) {
         const key = markRaw(currentElement.value)
-        context.itemMap.value.set(key, { ref: currentElement.value!, value })
+        context.itemMap.value.set(key, { ref: currentElement.value!, value: props.value })
         cleanupFn(() => context.itemMap.value.delete(key))
       }
     })
-
-    return () => h(Slot, { ...restAttrs, [context.attrName]: '', ref: primitiveElement }, slots)
+    return () => h(Slot, { ...attrs, [context.attrName]: '', ref: primitiveElement }, slots)
   },
 })
 

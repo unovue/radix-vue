@@ -48,7 +48,10 @@ export const CollectionItem = defineComponent({
   name: 'CollectionItem',
   inheritAttrs: false,
   props: {
-    value: { type: [String, Number, Object] },
+    value: {
+      // It accepts any value
+      validator: () => true,
+    },
   },
   setup(props, { slots, attrs }) {
     const context = injectCollectionContext()

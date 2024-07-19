@@ -18,7 +18,7 @@ import {
   hasTime,
   isBefore,
 } from '@/date'
-import { createContent, initializeSegmentValues, isSegmentNavigationKey, syncSegmentValues } from '@/DateField/utils'
+import { createContent, getSegmentElements, initializeSegmentValues, isSegmentNavigationKey, syncSegmentValues } from '@/DateField/utils'
 import type { Direction } from '@/shared/types'
 
 export type DateRangeType = 'start' | 'end'
@@ -90,7 +90,7 @@ export const [injectDateRangeFieldRootContext, provideDateRangeFieldRootContext]
 </script>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, toRefs, watch } from 'vue'
+import { computed, nextTick, onMounted, ref, toRefs, watch } from 'vue'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 
@@ -116,7 +116,7 @@ const segmentElements = ref<Set<HTMLElement>>(new Set())
 const dir = useDirection(propsDir)
 
 onMounted(() => {
-  Array.from(parentElement.value.querySelectorAll('[data-radix-vue-date-field-segment]')).filter(item => item.getAttribute('data-radix-vue-date-field-segment') !== 'literal').forEach(el => segmentElements.value.add(el as HTMLElement))
+  getSegmentElements(parentElement.value).forEach(item => segmentElements.value.add(item as HTMLElement))
 })
 
 const modelValue = useVModel(props, 'modelValue', emits, {
@@ -264,8 +264,15 @@ watch([startValue, locale], ([_startValue]) => {
 })
 
 watch(locale, (value) => {
-  if (formatter.getLocale() !== value)
+  if (formatter.getLocale() !== value) {
     formatter.setLocale(value)
+    // Locale changed, so we need to clear the segment elements and re-get them (different order)
+    // Get the focusable elements again on the next tick
+    nextTick(() => {
+      segmentElements.value.clear()
+      getSegmentElements(parentElement.value).forEach(item => segmentElements.value.add(item as HTMLElement))
+    })
+  }
 })
 
 watch(modelValue, (_modelValue) => {

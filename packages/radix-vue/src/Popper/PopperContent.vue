@@ -237,10 +237,6 @@ const computedMiddleware = computedEager(() => {
       apply: ({ elements, rects, availableWidth, availableHeight }) => {
         const { width: anchorWidth, height: anchorHeight } = rects.reference
         const contentStyle = elements.floating.style
-        Object.assign(elements.floating.style, {
-          maxWidth: `${availableWidth}px`,
-          maxHeight: `${availableHeight}px`,
-        })
         contentStyle.setProperty(
           '--radix-popper-available-width',
           `${availableWidth}px`,

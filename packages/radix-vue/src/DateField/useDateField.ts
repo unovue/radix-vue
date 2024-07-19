@@ -197,20 +197,20 @@ function dayPeriodSegmentAttrs(props: SegmentAttrProps) {
   }
 }
 
-function literalSegmentAttrs(_: SegmentAttrProps) {
+function literalSegmentAttrs(_props: SegmentAttrProps) {
   return {
     'aria-hidden': true,
     'data-segment': 'literal',
   }
 }
 
-function timeZoneSegmentAttrs(_: SegmentAttrProps) {
+function timeZoneSegmentAttrs(props: SegmentAttrProps) {
   return {
     'role': 'textbox',
     'aria-label': 'timezone, ',
     'data-readonly': true,
     'data-segment': 'timeZoneName',
-    'tabindex': 0,
+    'tabindex': props.disabled ? undefined : 0,
     'style': 'caret-color: transparent;',
   }
 }

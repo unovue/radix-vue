@@ -508,10 +508,12 @@ describe('calendar', async () => {
     const firstDayOfMonth = getByTestId('date-1-1')
     expect(firstDayOfMonth).toHaveAttribute('aria-disabled', 'true')
     expect(firstDayOfMonth).toHaveAttribute('data-disabled')
+
     await user.click(firstDayOfMonth)
     expect(firstDayOfMonth).not.toHaveAttribute('data-selected')
     firstDayOfMonth.focus()
     expect(firstDayOfMonth).not.toHaveFocus()
+    expect(firstDayOfMonth).not.toHaveAttribute('tabindex')
 
     const tenthDayOfMonth = getByTestId('date-1-10')
     expect(tenthDayOfMonth).toHaveAttribute('aria-disabled', 'true')
@@ -520,6 +522,11 @@ describe('calendar', async () => {
     expect(tenthDayOfMonth).not.toHaveAttribute('data-selected')
     tenthDayOfMonth.focus()
     expect(tenthDayOfMonth).not.toHaveFocus()
+
+    const prevButton = getByTestId('prev-button')
+    const nextButton = getByTestId('next-button')
+    expect(prevButton).toBeDisabled()
+    expect(nextButton).toBeDisabled()
   })
 
   it('prevents selection but allows focus when `readonly` is `true`', async () => {

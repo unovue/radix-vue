@@ -287,6 +287,7 @@ describe('dateField', async () => {
     for (const seg of segments) {
       await user.click(seg)
       expect(seg).not.toHaveFocus()
+      expect(seg).not.toHaveAttribute('tabindex')
     }
   })
 

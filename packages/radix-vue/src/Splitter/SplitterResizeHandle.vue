@@ -145,6 +145,8 @@ useWindowSplitterResizeHandlerBehavior({
       touchAction: 'none',
       userSelect: 'none',
     }"
+    :as="as"
+    :as-child="asChild"
     role="separator"
     data-resize-handle=""
     :tabindex="tabindex"

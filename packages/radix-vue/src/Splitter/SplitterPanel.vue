@@ -162,6 +162,8 @@ defineExpose({
   <Primitive
     :id="panelId"
     :style="style"
+    :as="as"
+    :as-child="asChild"
     data-panel=""
     :data-panel-collapsible="collapsible || undefined"
     :data-panel-group-id="groupId"

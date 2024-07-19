@@ -15,10 +15,12 @@ export interface RangeCalendarPrevProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { Primitive } from '@/Primitive'
 import { injectRangeCalendarRootContext } from './RangeCalendarRoot.vue'
 
 const props = withDefaults(defineProps<RangeCalendarPrevProps>(), { as: 'button' })
+const disabled = computed(() => rootContext.disabled.value || rootContext.isPrevButtonDisabled(props.step, props.prevPage))
 
 const rootContext = injectRangeCalendarRootContext()
 </script>
@@ -28,9 +30,9 @@ const rootContext = injectRangeCalendarRootContext()
     v-bind="props"
     aria-label="Previous page"
     :type="as === 'button' ? 'button' : undefined"
-    :aria-disabled="rootContext.isPrevButtonDisabled(props.step, props.prevPage) || undefined"
-    :data-disabled="rootContext.isPrevButtonDisabled(props.step, props.prevPage) || undefined"
-    :disabled="rootContext.isPrevButtonDisabled(props.step, props.prevPage)"
+    :aria-disabled="disabled || undefined"
+    :data-disabled="disabled || undefined"
+    :disabled="disabled"
     @click="rootContext.prevPage(props.step, props.prevPage)"
   >
     <slot>Prev page</slot>

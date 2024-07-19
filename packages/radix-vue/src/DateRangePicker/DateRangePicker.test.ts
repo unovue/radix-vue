@@ -183,4 +183,25 @@ describe('dateRangePicker', async () => {
       }
     }
   })
+
+  it('prevents interaction and picker to be opened when `disabled` is `true`', async () => {
+    const { getByTestId, trigger } = setup({
+      dateFieldProps: {
+        disabled: true,
+      },
+    })
+    expect(trigger).toBeDisabled()
+
+    const fields = ['end', 'start'] as const
+    const segments = ['year', 'day', 'month'] as const
+
+    for (const field of fields) {
+      for (const segment of segments) {
+        if (field === 'end' && segment === 'year')
+          continue
+        const seg = getByTestId(`${field}-${segment}`)
+        expect(seg).not.toHaveAttribute('tabindex')
+      }
+    }
+  })
 })

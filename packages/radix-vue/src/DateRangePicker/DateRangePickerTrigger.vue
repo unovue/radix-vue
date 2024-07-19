@@ -14,6 +14,7 @@ const rootContext = injectDateRangePickerRootContext()
   <PopoverTrigger
     data-radix-vue-date-field-segment="trigger"
     v-bind="props"
+    :disabled="rootContext.disabled.value"
     @focusin="(e: FocusEvent) => {
       rootContext.dateFieldRef.value?.setFocusedElement(e.target as HTMLElement)
     }"

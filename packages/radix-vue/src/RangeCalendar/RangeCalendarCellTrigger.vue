@@ -69,7 +69,7 @@ const isOutsideVisibleView = computed(() =>
 const dayValue = computed(() => props.day.day.toLocaleString(rootContext.locale.value))
 
 const isFocusedDate = computed(() => {
-  return isSameDay(props.day, rootContext.placeholder.value)
+  return !rootContext.disabled.value && isSameDay(props.day, rootContext.placeholder.value)
 })
 
 function changeDate(date: DateValue) {

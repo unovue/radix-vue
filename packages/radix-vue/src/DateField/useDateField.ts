@@ -21,21 +21,24 @@ type DateTimeValueIncrementation = {
 }
 
 type SegmentAttrProps = {
+  disabled: boolean
   segmentValues: SegmentValueObj
   hourCycle: HourCycle
   placeholder: DateValue
   formatter: Formatter
 }
 
-const defaultSegmentAttrs = {
-  role: 'spinbutton',
-  contenteditable: true,
-  tabindex: 0,
-  spellcheck: false,
-  inputmode: 'numeric',
-  autocorrect: 'off',
-  enterkeyhint: 'next',
-  style: 'caret-color: transparent;',
+function commonSegmentAttrs(props: SegmentAttrProps) {
+  return {
+    role: 'spinbutton',
+    contenteditable: true,
+    tabindex: props.disabled ? undefined : 0,
+    spellcheck: false,
+    inputmode: 'numeric',
+    autocorrect: 'off',
+    enterkeyhint: 'next',
+    style: 'caret-color: transparent;',
+  }
 }
 
 function daySegmentAttrs(props: SegmentAttrProps) {
@@ -49,7 +52,7 @@ function daySegmentAttrs(props: SegmentAttrProps) {
   const valueText = isEmpty ? 'Empty' : `${valueNow}`
 
   return {
-    ...defaultSegmentAttrs,
+    ...commonSegmentAttrs(props),
     'aria-label': 'day,',
     'aria-valuemin': valueMin,
     'aria-valuemax': valueMax,
@@ -71,7 +74,7 @@ function monthSegmentAttrs(props: SegmentAttrProps) {
   const valueText = isEmpty ? 'Empty' : `${valueNow} - ${formatter.fullMonth(toDate(date))}`
 
   return {
-    ...defaultSegmentAttrs,
+    ...commonSegmentAttrs(props),
     'aria-label': 'month, ',
     'contenteditable': true,
     'aria-valuemin': valueMin,
@@ -92,7 +95,7 @@ function yearSegmentAttrs(props: SegmentAttrProps) {
   const valueText = isEmpty ? 'Empty' : `${valueNow}`
 
   return {
-    ...defaultSegmentAttrs,
+    ...commonSegmentAttrs(props),
     'aria-label': 'year, ',
     'aria-valuemin': valueMin,
     'aria-valuemax': valueMax,
@@ -115,7 +118,7 @@ function hourSegmentAttrs(props: SegmentAttrProps) {
   const valueText = isEmpty ? 'Empty' : `${valueNow} ${segmentValues.dayPeriod ?? ''}`
 
   return {
-    ...defaultSegmentAttrs,
+    ...commonSegmentAttrs(props),
     'aria-label': 'hour, ',
     'aria-valuemin': valueMin,
     'aria-valuemax': valueMax,
@@ -139,7 +142,7 @@ function minuteSegmentAttrs(props: SegmentAttrProps) {
   const valueText = isEmpty ? 'Empty' : `${valueNow}`
 
   return {
-    ...defaultSegmentAttrs,
+    ...commonSegmentAttrs(props),
     'aria-label': 'minute, ',
     'aria-valuemin': valueMin,
     'aria-valuemax': valueMax,
@@ -163,7 +166,7 @@ function secondSegmentAttrs(props: SegmentAttrProps) {
   const valueText = isEmpty ? 'Empty' : `${valueNow}`
 
   return {
-    ...defaultSegmentAttrs,
+    ...commonSegmentAttrs(props),
     'aria-label': 'second, ',
     'aria-valuemin': valueMin,
     'aria-valuemax': valueMax,
@@ -184,7 +187,7 @@ function dayPeriodSegmentAttrs(props: SegmentAttrProps) {
   const valueText = segmentValues.dayPeriod ?? 'AM'
 
   return {
-    ...defaultSegmentAttrs,
+    ...commonSegmentAttrs(props),
     'inputmode': 'text',
     'aria-label': 'AM/PM',
     'aria-valuemin': valueMin,
@@ -565,6 +568,7 @@ export function useDateField(props: UseDateFieldProps) {
   }
 
   const attributes = computed(() => segmentBuilders[props.part].attrs({
+    disabled: props.disabled.value,
     placeholder: props.placeholder.value,
     hourCycle: props.hourCycle,
     segmentValues: props.segmentValues.value,

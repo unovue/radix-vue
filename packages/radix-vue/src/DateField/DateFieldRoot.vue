@@ -280,7 +280,6 @@ defineExpose({
     :dir="dir"
     @keydown.left.right="handleKeydown"
   >
-    {{ currentSegmentIndex }}
     <slot
       :model-value="modelValue"
       :segments="segmentContents"

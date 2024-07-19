@@ -48,6 +48,10 @@ function paging(date: DateValue, sign: -1 | 1) {
       <RangeCalendar :default-value="defaultValue" />
     </Variant>
 
+    <Variant title="Disabled">
+      <RangeCalendar :disabled="true" />
+    </Variant>
+
     <Variant title="Fixed weeks">
       <RangeCalendar
         :default-value="defaultValue"

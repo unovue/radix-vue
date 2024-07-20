@@ -55,7 +55,7 @@
   },
   {
     'name': 'type',
-    'description': '<p>Determines whether a &quot;single&quot; or &quot;multiple&quot; items can be pressed at a time.</p>\n<p>This prop will be ignored if any of <code>v-model</code> or <code>defaultValue</code> is an defined, as the type will be inferred from the value.</p>\n',
+    'description': '<p>Determines whether a &quot;single&quot; or &quot;multiple&quot; items can be pressed at a time.</p>\n<p>This prop will be ignored if any of <code>v-model</code> or <code>defaultValue</code> is defined, as the type will be inferred from the value.</p>\n',
     'type': '\'single\' | \'multiple\'',
     'required': false
   }

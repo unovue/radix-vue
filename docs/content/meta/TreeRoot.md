@@ -51,6 +51,12 @@
     'required': true
   },
   {
+    'name': 'getChildren',
+    'description': '<p>This function is passed the index of each item and should return a list of children for that item</p>\n',
+    'type': '(val: Record<string, any>) => Record<string, any>[] | undefined',
+    'required': false
+  },
+  {
     'name': 'items',
     'description': '<p>List of items</p>\n',
     'type': 'Record<string, any>[]',

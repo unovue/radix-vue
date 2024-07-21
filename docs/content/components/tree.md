@@ -275,17 +275,16 @@ In `CustomTree.vue`
 
 ### Custom children schema
 
-By default, `<TreeRoot />` expects you to provide the list of node's children by passing a list of `children` for every node. You can overwrite that by providing the `getChildren` prop.
+By default, `<TreeRoot />` expects you to provide the list of node's children by passing a list of `children` for every node. You can override that by providing the `getChildren` prop.
 
 ::: NOTE
 If the node doesn't have any children, `getChildren` should return `undefined` instead of an empty array.
 :::
 
-In `Tree.vue`,
-
-```vue
+```vue line=22
 <script setup lang="ts">
-import { TreeItem } from 'radix-vue'
+import { ref } from 'vue'
+import { TreeRoot } from 'radix-vue'
 
 interface FileNode {
   title: string
@@ -298,47 +297,15 @@ interface DirectoryNode {
   directories?: DirectoryNode[]
   files?: FileNode[]
 }
-
-withDefaults(defineProps<{
-  treeItems: DirectoryNode[]
-  level?: number
-}>(), { level: 0 })
 </script>
 
-<template>
-  <li
-    v-for=" tree in treeItems"
-    :key="tree.title"
-  >
-    <TreeItem
-      v-slot="{ isExpanded }"
-      as-child
-      :level="level"
-      :value="tree"
-    >
-      <button>…</button>
-
-      <ul v-if="isExpanded && tree.children">
-        <Tree
-          :tree-items="tree.children"
-          :level="level + 1"
-        />
-      </ul>
-    </TreeItem>
-  </li>
-</template>
-```
-
-In `CustomTree.vue`
-
-```vue
 <template>
   <TreeRoot
     :items="items"
     :get-key="(item) => item.title"
     :get-children="(item) => (!item.files) ? item.directories : (!item.directories) ? item.files : [...item.directories, ...item.files]"
   >
-    <Tree :tree-items="items" />
+    ...
   </TreeRoot>
 </template>
 ```

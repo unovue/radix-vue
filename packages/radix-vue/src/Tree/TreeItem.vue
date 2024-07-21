@@ -65,7 +65,7 @@ const isSelected = computed(() => {
 
 const isIndeterminate = computed(() => {
   if (rootContext.propagateSelect.value && isSelected.value && hasChildren.value && Array.isArray(rootContext.modelValue.value)) {
-    const children = flatten<T, any>(rootContext.getChildren(props.value))
+    const children = flatten<T, any>(rootContext.getChildren(props.value) || [])
 
     return !children.every(child => rootContext.modelValue.value.find((v: any) => rootContext.getKey(v) === rootContext.getKey(child)))
   }

@@ -440,6 +440,7 @@ export const components = {
 export const utilities = {
   utilities: [
     'useEmitAsProps',
+    'useFilter',
     'useForwardProps',
     'useForwardPropsEmits',
     'useForwardExpose',

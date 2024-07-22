@@ -17,6 +17,7 @@ type ListboxRootContext<T> = {
   isVirtual: Ref<boolean>
   virtualFocusHook: EventHook<Event | null>
   virtualKeydownHook: EventHook<KeyboardEvent>
+  virtualHighlightHook: EventHook<any>
   by?: string | ((a: T, b: T) => boolean)
   firstValue?: Ref<T | undefined>
   selectionBehavior?: Ref<'toggle' | 'replace'>
@@ -25,7 +26,7 @@ type ListboxRootContext<T> = {
 
   onLeave: (event: Event) => void
   onEnter: (event: Event) => void
-  onChangeHighlight: (el: HTMLElement) => void
+  changeHighlight: (el: HTMLElement) => void
   onKeydownNavigation: (event: KeyboardEvent) => void
   onKeydownEnter: (event: KeyboardEvent) => void
   onKeydownTypeAhead: (event: KeyboardEvent) => void
@@ -146,12 +147,13 @@ const previousElement = ref<HTMLElement | null>(null)
 const isVirtual = ref(false)
 const virtualFocusHook = createEventHook<Event | null>()
 const virtualKeydownHook = createEventHook<KeyboardEvent>()
+const virtualHighlightHook = createEventHook<T>()
 
 function getCollectionItem() {
   return getItems().map(i => i.ref).filter(i => i.dataset.disabled !== '')
 }
 
-function onChangeHighlight(el: HTMLElement) {
+function changeHighlight(el: HTMLElement) {
   highlightedElement.value = el
   if (focusable.value)
     highlightedElement.value.focus()
@@ -159,6 +161,19 @@ function onChangeHighlight(el: HTMLElement) {
 
   const highlightedItem = getItems().find(i => i.ref === el)
   emits('highlight', highlightedItem)
+}
+
+function highlightItem(value: T) {
+  if (isVirtual.value) {
+    virtualHighlightHook.trigger(value)
+  }
+  else {
+    const item = getItems().find(i => compare(i.value, value, props.by))
+    if (item) {
+      highlightedElement.value = item.ref
+      changeHighlight(item.ref)
+    }
+  }
 }
 
 function onKeydownEnter(event: KeyboardEvent) {
@@ -179,12 +194,12 @@ function onKeydownTypeAhead(event: KeyboardEvent) {
       const values = collection.map(i => i.value)
       modelValue.value = [...values]
       event.preventDefault()
-      onChangeHighlight(collection[collection.length - 1].ref)
+      changeHighlight(collection[collection.length - 1].ref)
     }
     else if (!isMetaKey) {
       const el = handleTypeaheadSearch(event.key, getCollectionItem())
       if (el)
-        onChangeHighlight(el)
+        changeHighlight(el)
     }
   }
   setTimeout(() => {
@@ -197,7 +212,7 @@ function onInputChange(event: InputEvent) {
   nextTick(() => {
     const collection = getItems()
     if (collection[0]?.ref)
-      onChangeHighlight(collection[0].ref)
+      changeHighlight(collection[0].ref)
   })
 }
 
@@ -216,11 +231,11 @@ function onEnter(event: Event) {
     return
 
   if (previousElement.value) {
-    onChangeHighlight(previousElement.value)
+    changeHighlight(previousElement.value)
   }
   else {
     const el = getCollectionItem()?.[0]
-    onChangeHighlight(el)
+    changeHighlight(el)
   }
 }
 
@@ -246,7 +261,7 @@ function onKeydownNavigation(event: KeyboardEvent) {
 
   if (collection.length) {
     const index = !highlightedElement.value && intent === 'prev' ? collection.length - 1 : 0
-    onChangeHighlight(collection[index])
+    changeHighlight(collection[index])
   }
 
   if (isVirtual.value)
@@ -277,7 +292,7 @@ function handleMultipleReplace(event: KeyboardEvent, targetEl: HTMLElement) {
   }
 }
 
-async function handleSelectedHighlight(event?: Event) {
+async function highlightSelected(event?: Event) {
   if (isVirtual.value) {
     virtualFocusHook.trigger(event)
   }
@@ -286,9 +301,9 @@ async function handleSelectedHighlight(event?: Event) {
     const collection = getCollectionItem()
     const item = collection.find(i => i.dataset.state === 'checked')
     if (item)
-      onChangeHighlight(item)
+      changeHighlight(item)
     else if (collection.length)
-      onChangeHighlight(collection[0])
+      changeHighlight(collection[0])
   }
 }
 
@@ -296,14 +311,15 @@ async function handleSelectedHighlight(event?: Event) {
 watch(modelValue, () => {
   if (!isUserAction.value) {
     nextTick(() => {
-      handleSelectedHighlight()
+      highlightSelected()
     })
   }
 }, { immediate: true, deep: true })
 
 defineExpose({
   highlightedElement,
-  handleSelectedHighlight,
+  highlightItem,
+  highlightSelected,
 })
 
 provideListboxRootContext({
@@ -319,6 +335,7 @@ provideListboxRootContext({
   isVirtual,
   virtualFocusHook,
   virtualKeydownHook,
+  virtualHighlightHook,
   by: props.by,
   firstValue,
   selectionBehavior,
@@ -326,7 +343,7 @@ provideListboxRootContext({
   focusable,
   onLeave,
   onEnter,
-  onChangeHighlight,
+  changeHighlight,
   onKeydownEnter,
   onKeydownNavigation,
   onKeydownTypeAhead,

@@ -87,7 +87,7 @@ async function onOpenChange(val: boolean) {
   open.value = val
 
   if (val) {
-    primitiveElement.value?.handleSelectedHighlight()
+    primitiveElement.value?.highlightSelected()
     isUserInputted.value = true
   }
 

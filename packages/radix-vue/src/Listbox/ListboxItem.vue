@@ -54,7 +54,7 @@ async function handleSelect(ev: SelectEvent<T>) {
 
   if (!disabled.value && ev) {
     rootContext.onValueChange(props.value)
-    rootContext.onChangeHighlight(ev.target as HTMLElement)
+    rootContext.changeHighlight(ev.target as HTMLElement)
   }
 }
 
@@ -86,9 +86,9 @@ provideListboxItemContext({
       @keydown.space.prevent="handleSelectCustomEvent"
       @pointermove="(event) => {
         if (rootContext.highlightOnHover.value)
-          rootContext.onChangeHighlight(currentElement)
+          rootContext.changeHighlight(currentElement)
         else
-          rootContext.focusable.value ? undefined : rootContext.onChangeHighlight(currentElement)
+          rootContext.focusable.value ? undefined : rootContext.changeHighlight(currentElement)
       }"
     >
       <slot />

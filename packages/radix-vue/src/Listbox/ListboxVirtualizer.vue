@@ -106,6 +106,18 @@ rootContext.virtualFocusHook.on((event) => {
   }
 })
 
+rootContext.virtualHighlightHook.on((value) => {
+  const index = props.options.findIndex((option) => {
+    return compare(option, value, rootContext.by)
+  })
+  virtualizer.value.scrollToIndex(index, { align: 'start' })
+  requestAnimationFrame(() => {
+    const item = queryCheckedElement(parentEl.value)
+    if (item)
+      rootContext.changeHighlight(item)
+  })
+})
+
 // Reset `search` 1 second after it was last updated
 const search = refAutoReset('', 1000)
 const optionsWithMetadata = computed(() => {
@@ -177,7 +189,7 @@ rootContext.virtualKeydownHook.on((event) => {
     requestAnimationFrame(() => {
       const items = getItems()
       const item = intent === 'first' ? items[0] : items[items.length - 1]
-      rootContext.onChangeHighlight(item.ref)
+      rootContext.changeHighlight(item.ref)
     })
   }
   else if (!intent && !isMetaKey) {
@@ -193,7 +205,7 @@ rootContext.virtualKeydownHook.on((event) => {
       requestAnimationFrame(() => {
         const item = parentEl.value.querySelector(`[data-index="${nextMatch.index}"]`)
         if (item instanceof HTMLElement)
-          rootContext.onChangeHighlight(item)
+          rootContext.changeHighlight(item)
       })
     }
   }

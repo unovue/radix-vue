@@ -141,9 +141,12 @@ const computedDelay = computed(() => {
   else return delayDuration.value
 })
 
-const debouncedFn = useDebounceFn((val: string) => {
-  previousValue.value = modelValue.value
-  modelValue.value = val
+const debouncedFn = useDebounceFn((val?: string) => {
+  // passing `undefined` meant to reset the debounce timer
+  if (typeof val === 'string') {
+    previousValue.value = modelValue.value
+    modelValue.value = val
+  }
 }, computedDelay)
 
 watchEffect(() => {
@@ -183,8 +186,8 @@ provideNavigationMenuContext({
     isDelaySkipped.value = true
     debouncedFn('')
   },
-  onContentEnter: (val) => {
-    debouncedFn(val)
+  onContentEnter: () => {
+    debouncedFn()
   },
   onContentLeave: () => {
     debouncedFn('')

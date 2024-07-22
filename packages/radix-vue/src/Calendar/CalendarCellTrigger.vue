@@ -65,7 +65,7 @@ const isOutsideVisibleView = computed(() =>
 )
 
 const isFocusedDate = computed(() => {
-  return isSameDay(props.day, rootContext.placeholder.value)
+  return !rootContext.disabled.value && isSameDay(props.day, rootContext.placeholder.value)
 })
 const isSelectedDate = computed(() => rootContext.isDateSelected(props.day))
 

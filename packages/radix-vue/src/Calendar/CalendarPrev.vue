@@ -9,10 +9,12 @@ export interface CalendarPrevProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { Primitive } from '@/Primitive'
 import { injectCalendarRootContext } from './CalendarRoot.vue'
 
 const props = withDefaults(defineProps<CalendarPrevProps>(), { as: 'button', step: 'month' })
+const disabled = computed(() => rootContext.disabled.value || rootContext.isPrevButtonDisabled(props.prevPage))
 
 const rootContext = injectCalendarRootContext()
 </script>
@@ -23,9 +25,9 @@ const rootContext = injectCalendarRootContext()
     :as="props.as"
     :as-child="props.asChild"
     :type="as === 'button' ? 'button' : undefined"
-    :aria-disabled="rootContext.isPrevButtonDisabled(props.prevPage) || undefined"
-    :data-disabled="rootContext.isPrevButtonDisabled(props.prevPage) || undefined"
-    :disabled="rootContext.isPrevButtonDisabled(props.prevPage)"
+    :aria-disabled="disabled || undefined"
+    :data-disabled="disabled || undefined"
+    :disabled="disabled"
     @click="rootContext.prevPage(props.prevPage)"
   >
     <slot>Prev page</slot>

@@ -91,11 +91,25 @@ export function useRangeCalendarState(props: UseRangeCalendarProps) {
     return null
   })
 
+  const isHighlightedStart = (date: DateValue) => {
+    if (!highlightedRange.value || !highlightedRange.value.start)
+      return false
+    return isSameDay(highlightedRange.value.start, date)
+  }
+
+  const isHighlightedEnd = (date: DateValue) => {
+    if (!highlightedRange.value || !highlightedRange.value.end)
+      return false
+    return isSameDay(highlightedRange.value.end, date)
+  }
+
   return {
     isInvalid,
     isSelected,
     highlightedRange,
     isSelectionStart,
     isSelectionEnd,
+    isHighlightedStart,
+    isHighlightedEnd,
   }
 }

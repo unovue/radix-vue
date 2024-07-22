@@ -9,10 +9,12 @@ export interface CalendarNextProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { Primitive } from '@/Primitive'
 import { injectCalendarRootContext } from './CalendarRoot.vue'
 
 const props = withDefaults(defineProps<CalendarNextProps>(), { as: 'button', step: 'month' })
+const disabled = computed(() => rootContext.disabled.value || rootContext.isNextButtonDisabled(props.nextPage))
 
 const rootContext = injectCalendarRootContext()
 </script>
@@ -23,9 +25,9 @@ const rootContext = injectCalendarRootContext()
     :as-child="props.asChild"
     aria-label="Next page"
     :type="as === 'button' ? 'button' : undefined"
-    :aria-disabled="rootContext.isNextButtonDisabled(props.nextPage) || undefined"
-    :data-disabled="rootContext.isNextButtonDisabled(props.nextPage) || undefined"
-    :disabled="rootContext.isNextButtonDisabled(props.nextPage)"
+    :aria-disabled="disabled || undefined"
+    :data-disabled="disabled || undefined"
+    :disabled="disabled"
     @click="rootContext.nextPage(props.nextPage)"
   >
     <slot>Next page</slot>

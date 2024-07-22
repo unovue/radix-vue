@@ -251,6 +251,42 @@ describe('rangeCalendar', () => {
     expect(heading).toHaveTextContent('March 1980')
   })
 
+  it('doesnt allow focus or interaction when `disabled` is `true`', async () => {
+    const { getByTestId, user } = setup({
+      calendarProps: {
+        modelValue: calendarDateRange,
+        disabled: true,
+      },
+    })
+
+    const grid = getByTestId('grid-1')
+    expect(grid).toHaveAttribute('aria-disabled', 'true')
+    expect(grid).toHaveAttribute('data-disabled')
+
+    const firstDayOfMonth = getByTestId('date-1-1')
+    expect(firstDayOfMonth).toHaveAttribute('aria-disabled', 'true')
+    expect(firstDayOfMonth).toHaveAttribute('data-disabled')
+
+    await user.click(firstDayOfMonth)
+    expect(firstDayOfMonth).not.toHaveAttribute('data-selected')
+    firstDayOfMonth.focus()
+    expect(firstDayOfMonth).not.toHaveFocus()
+    expect(firstDayOfMonth).not.toHaveAttribute('tabindex')
+
+    const tenthDayOfMonth = getByTestId('date-1-10')
+    expect(tenthDayOfMonth).toHaveAttribute('aria-disabled', 'true')
+    expect(tenthDayOfMonth).toHaveAttribute('data-disabled')
+    await user.click(tenthDayOfMonth)
+    expect(tenthDayOfMonth).not.toHaveAttribute('data-selected')
+    tenthDayOfMonth.focus()
+    expect(tenthDayOfMonth).not.toHaveFocus()
+
+    const prevButton = getByTestId('prev-button')
+    const nextButton = getByTestId('next-button')
+    expect(prevButton).toBeDisabled()
+    expect(nextButton).toBeDisabled()
+  })
+
   it('does not navigate after `maxValue` (with keyboard)', async () => {
     const { getByTestId, user } = setup({
       calendarProps: {

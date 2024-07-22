@@ -1,4 +1,3 @@
-/* eslint-disable ts/ban-types */
 import { type Ref, computed, defineComponent, h, inject, markRaw, provide, ref, watch, watchEffect } from 'vue'
 import { Slot, usePrimitiveElement } from '@/Primitive'
 
@@ -58,20 +57,25 @@ export function useCollection<ItemData = {}>(options: { key?: string, isProvider
   const CollectionItem = defineComponent({
     name: 'CollectionItem',
     inheritAttrs: false,
-    setup(_, { slots, attrs }) {
+    props: {
+      value: {
+        // It accepts any value
+        validator: () => true,
+      },
+    },
+    setup(props, { slots, attrs }) {
       const { primitiveElement, currentElement } = usePrimitiveElement()
-      const { value, ...restAttrs } = attrs
 
       watchEffect((cleanupFn) => {
         if (currentElement.value) {
           const key = markRaw(currentElement.value)
           // @ts-expect-error ignore assignment of unknown to any
-          context.itemMap.value.set(key, { ref: currentElement.value!, value })
+          context.itemMap.value.set(key, { ref: currentElement.value!, value: props.value })
           cleanupFn(() => context.itemMap.value.delete(key))
         }
       })
 
-      return () => h(Slot, { ...restAttrs, [ITEM_DATA_ATTR]: '', ref: primitiveElement }, slots)
+      return () => h(Slot, { ...attrs, [ITEM_DATA_ATTR]: '', ref: primitiveElement }, slots)
     },
   })
 

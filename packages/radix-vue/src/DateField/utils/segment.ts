@@ -34,3 +34,7 @@ export function isAcceptableSegmentKey(key: string) {
     return true
   return false
 }
+
+export function getSegmentElements(parentElement: HTMLElement): Element[] {
+  return Array.from(parentElement.querySelectorAll('[data-radix-vue-date-field-segment]')).filter(item => item.getAttribute('data-radix-vue-date-field-segment') !== 'literal')
+}

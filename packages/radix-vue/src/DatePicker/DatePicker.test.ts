@@ -224,4 +224,16 @@ describe('datePicker', async () => {
       expect(seg).toHaveFocus()
     }
   })
+
+  it('prevents interaction and picker to be opened when `disabled` is `true`', async () => {
+    const { trigger, day, month, year } = setup({
+      datePickerProps: {
+        disabled: true,
+      },
+    })
+    expect(trigger).toBeDisabled()
+    expect(day).not.toHaveAttribute('tabindex')
+    expect(month).not.toHaveAttribute('tabindex')
+    expect(year).not.toHaveAttribute('tabindex')
+  })
 })

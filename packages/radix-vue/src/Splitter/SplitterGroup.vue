@@ -712,6 +712,8 @@ function panelDataHelper(
 <template>
   <Primitive
     :ref="forwardRef"
+    :as="as"
+    :as-child="asChild"
     :style="{
       display: 'flex',
       flexDirection: direction === 'horizontal' ? 'row' : 'column',

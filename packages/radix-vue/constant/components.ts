@@ -278,6 +278,10 @@ export const components = {
     'PopoverAnchor',
   ],
 
+  presence: [
+    'Presence',
+  ],
+
   progress: [
     'ProgressRoot',
     'ProgressIndicator',

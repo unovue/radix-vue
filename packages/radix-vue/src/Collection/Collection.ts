@@ -1,4 +1,3 @@
-/* eslint-disable ts/ban-types */
 import { createContext } from '@/shared'
 import { type Ref, computed, defineComponent, h, markRaw, ref, watch, watchEffect } from 'vue'
 import { Slot, usePrimitiveElement } from '@/Primitive'

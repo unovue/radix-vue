@@ -7,12 +7,13 @@ import DocTopbar from '../components/DocTopbar.vue'
 import DocFooter from '../components/DocFooter.vue'
 import type { DefaultTheme } from 'vitepress/theme'
 import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from 'radix-vue'
+import { flatten } from '../functions/flatten'
 
 const { theme, frontmatter } = useData()
 const { path } = toRefs(useRoute())
 
 const sidebar = computed(() => theme.value.sidebar as DefaultTheme.SidebarItem[])
-const activeSection = computed(() => sidebar.value.find(section => section.items?.find(item => item.link === path.value.replace('.html', ''))))
+const activeSection = computed(() => sidebar.value.find(section => flatten(section.items ?? [], 'items')?.find(item => item.link === path.value.replace('.html', ''))))
 </script>
 
 <template>
@@ -28,11 +29,29 @@ const activeSection = computed(() => sidebar.value.find(section => section.items
           v-if="activeSection"
           class="h-full"
         >
-          <DocSidebarItem
+          <template
             v-for="item in activeSection.items"
             :key="item.text"
-            :item="item"
-          />
+          >
+            <ul
+              v-if="item.items?.length"
+              class="mb-6"
+            >
+              <div class="pl-4 font-bold text-sm pb-2">
+                {{ item.text }}
+              </div>
+              <DocSidebarItem
+                v-for="subitem in item.items"
+                :key="subitem.text"
+                :item="subitem"
+              />
+            </ul>
+
+            <DocSidebarItem
+              v-else
+              :item="item"
+            />
+          </template>
         </ul>
         <div class="h-6 w-full" />
       </aside>

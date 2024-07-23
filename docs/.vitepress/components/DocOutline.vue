@@ -12,9 +12,6 @@ const { frontmatter, theme } = useData()
 
 const headers = shallowRef<MenuItem[]>([])
 
-onMounted(() => {
-  headers.value = getHeaders(frontmatter.value.outline ?? theme.value.outline)
-})
 onContentUpdated(() => {
   headers.value = getHeaders(frontmatter.value.outline ?? theme.value.outline)
 })

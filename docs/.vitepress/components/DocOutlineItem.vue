@@ -50,12 +50,11 @@ function onClick({ target: el }: Event) {
 
 .outline-link {
   display: block;
-  line-height: 32px;
-  font-size: 14px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   transition: color 0.5s;
+  @apply text-sm leading-8;
 }
 
 .outline-link:hover,

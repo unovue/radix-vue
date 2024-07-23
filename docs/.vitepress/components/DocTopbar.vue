@@ -4,6 +4,7 @@ import { type DefaultTheme, useData, useRoute } from 'vitepress'
 import { computed, ref, toRefs, watch } from 'vue'
 import { Icon } from '@iconify/vue'
 import { DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger } from 'radix-vue'
+import { flatten } from '../functions/flatten'
 import DocSidebarItem from '../components/DocSidebarItem.vue'
 
 const { path } = toRefs(useRoute())
@@ -11,7 +12,8 @@ const { page, theme } = useData()
 
 const isSidebarOpen = ref(false)
 const sidebar = computed(() => theme.value.sidebar as DefaultTheme.SidebarItem[])
-const sectionTabs = computed(() => sidebar.value.map(val => ({ label: val.text, link: val.items?.[0].link })))
+
+const sectionTabs = computed(() => sidebar.value.map(val => ({ label: val.text, link: flatten(val.items ?? [], 'items').filter(i => !!i.link)?.[0].link, icon: val.icon })))
 
 const { arrivedState } = useScroll(globalThis.window)
 const { top } = toRefs(arrivedState)
@@ -35,7 +37,12 @@ watch(path, () => {
           :class="{ '!border-b-primary !font-semibold !text-foreground': page.relativePath.includes(tab.label?.toLowerCase() ?? '') }"
           class="py-2 mx-4 text-sm font-medium border-b border-b-transparent text-muted-foreground hover:border-b-muted hover:text-foreground h-full inline-flex items-center"
         >
-          {{ tab.label }}
+          <Icon
+            v-if="tab.icon"
+            :icon="tab.icon"
+            class="mr-2 text-lg"
+          />
+          <span>{{ tab.label }}</span>
         </a>
       </div>
 
@@ -83,12 +90,38 @@ watch(path, () => {
                 :key="group.text"
                 class="mb-4"
               >
-                <span class="mb-2 flex font-semibold  ">{{ group.text }}</span>
-                <DocSidebarItem
+                <div class="flex items-center mb-2 ">
+                  <Icon
+                    v-if="group.icon"
+                    :icon="group.icon"
+                    class="mx-2 text-lg"
+                  />
+                  <span class="font-semibold">{{ group.text }}</span>
+                </div>
+
+                <template
                   v-for="item in group.items"
                   :key="item.text"
-                  :item="item"
-                />
+                >
+                  <ul
+                    v-if="item.items?.length"
+                    class="mb-6"
+                  >
+                    <div class="pl-4 font-bold text-sm pb-2">
+                      {{ item.text }}
+                    </div>
+                    <DocSidebarItem
+                      v-for="subitem in item.items"
+                      :key="subitem.text"
+                      :item="subitem"
+                    />
+                  </ul>
+
+                  <DocSidebarItem
+                    v-else
+                    :item="item"
+                  />
+                </template>
               </div>
               <div class="h-12 w-full" />
             </div>

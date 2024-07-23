@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   vitepress@1.2.3:
-    hash: gn45bccbzrofd5vdwmpcqmwlbi
+    hash: i5ryetdiad6l3jculcmneg7mua
     path: patches/vitepress@1.2.3.patch
 
 importers:
@@ -185,7 +185,7 @@ importers:
         version: 4.16.0
       vitepress:
         specifier: 1.2.3
-        version: 1.2.3(patch_hash=gn45bccbzrofd5vdwmpcqmwlbi)(@algolia/client-search@4.24.0)(@types/node@20.14.9)(change-case@4.1.2)(postcss@8.4.39)(search-insights@2.14.0)(typescript@5.4.2)
+        version: 1.2.3(patch_hash=i5ryetdiad6l3jculcmneg7mua)(@algolia/client-search@4.24.0)(@types/node@20.14.9)(change-case@4.1.2)(postcss@8.4.39)(search-insights@2.14.0)(typescript@5.4.2)
       vue-component-meta:
         specifier: ^2.0.24
         version: 2.0.24(typescript@5.4.2)
@@ -12470,7 +12470,7 @@ snapshots:
       '@types/node': 20.14.9
       fsevents: 2.3.3
 
-  vitepress@1.2.3(patch_hash=gn45bccbzrofd5vdwmpcqmwlbi)(@algolia/client-search@4.24.0)(@types/node@20.14.9)(change-case@4.1.2)(postcss@8.4.39)(search-insights@2.14.0)(typescript@5.4.2):
+  vitepress@1.2.3(patch_hash=i5ryetdiad6l3jculcmneg7mua)(@algolia/client-search@4.24.0)(@types/node@20.14.9)(change-case@4.1.2)(postcss@8.4.39)(search-insights@2.14.0)(typescript@5.4.2):
     dependencies:
       '@docsearch/css': 3.6.0
       '@docsearch/js': 3.6.0(@algolia/client-search@4.24.0)(search-insights@2.14.0)

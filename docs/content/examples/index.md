@@ -1,5 +1,3 @@
 ---
-layout: example
+layout: examples
 ---
-
-Coming soon...

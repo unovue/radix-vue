@@ -75,7 +75,7 @@ watch(path, () => {
           side="bottom"
           :side-offset="5"
           align="end"
-          class="rounded-xl z-10 py-4 w-[180px] bg-card border border-muted shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2)] focus:shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2),0_0_0_2px_theme(colors.green7)] will-change-[transform,opacity] data-[state=open]:data-[side=bottom]:animate-slideUpAndFade"
+          class="rounded-xl z-10 p-2 w-[180px] bg-card border border-muted shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2)] focus:shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2),0_0_0_2px_theme(colors.green7)] will-change-[transform,opacity] data-[state=open]:data-[side=bottom]:animate-slideUpAndFade"
         >
           <nav class="flex flex-col">
             <template
@@ -85,7 +85,7 @@ watch(path, () => {
               <a
                 v-if="nav.link"
                 :href="nav.link"
-                class="py-2 px-4 text-sm font-semibold text-muted-foreground hover:text-foreground h-full inline-flex items-center"
+                class="p-2 text-sm font-semibold text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-lg h-full inline-flex items-center"
               >
                 {{ nav.text }}
               </a>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Docs from './Docs.vue'
-import { Content, useData } from 'vitepress'
+import Examples from './Examples.vue'
+import { useData, useRoute } from 'vitepress'
 import SearchTrigger from '../components/SearchTrigger.vue'
 import Navbar from '../components/Navbar.vue'
 // import HomePageDemo from '../components/HomePageDemo.vue'
@@ -10,6 +11,7 @@ import { toRefs } from 'vue'
 import Showcase from './Showcase.vue'
 
 const { site, theme, frontmatter } = useData()
+const { path } = useRoute()
 const { arrivedState } = useScroll(globalThis.window)
 const { top } = toRefs(arrivedState)
 </script>
@@ -67,6 +69,13 @@ const { top } = toRefs(arrivedState)
       class="max-w-[1440px] w-full h-full grow"
     >
       <Showcase />
+    </div>
+
+    <div
+      v-else-if="path.includes('examples')"
+      class="max-w-[1440px] w-full h-full grow"
+    >
+      <Examples />
     </div>
 
     <div

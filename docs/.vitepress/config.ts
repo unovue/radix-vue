@@ -18,6 +18,7 @@ import { version } from '../../package.json'
 import { teamMembers } from './contributors'
 import ComponentPreviewPlugin from './plugins/ComponentPreview'
 import InstallationTabsPlugin from './plugins/InstallationTabs'
+import { createHoverTransformer } from './plugins/HoverTransformer'
 
 function BadgeHTML(text: string, translucent = false) {
   return `<div class="inline-flex items-center rounded-full border border-muted px-2 py-[1px] ml-2 text-[11px] transition-colors bg-primary/30 ${translucent ? '!bg-transparent' : ''} text-foreground">
@@ -55,6 +56,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Docs', link: '/overview/getting-started.html' },
+      { text: 'Examples', link: '/examples/' },
       { text: 'Showcase', link: '/showcase' },
       {
         text: `v${version}`,
@@ -219,6 +221,7 @@ export default defineConfig({
       md.use(ComponentPreviewPlugin)
       md.use(InstallationTabsPlugin)
     },
+    codeTransformers: [createHoverTransformer()],
   },
   transformPageData(pageData) {
     if (pageData.frontmatter.sidebar != null)

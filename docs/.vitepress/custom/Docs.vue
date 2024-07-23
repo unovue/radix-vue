@@ -20,11 +20,8 @@ const activeSection = computed(() => sidebar.value.find(section => flatten(secti
   <div class="w-full">
     <DocTopbar />
 
-    <main
-      v-if="frontmatter.layout !== 'example'"
-      class="flex"
-    >
-      <aside class="hidden md:block w-[17rem] flex-shrink-0 py-8  pl-4 pr-2 sticky top-[7.25rem] h-full overflow-y-auto max-h-[calc(100vh-7.25rem)]">
+    <main class="flex">
+      <aside class="hidden md:block w-[17rem] flex-shrink-0 py-8 pl-4 pr-2 sticky top-[7.25rem] h-full overflow-y-auto max-h-[calc(100vh-7.25rem)]">
         <ul
           v-if="activeSection"
           class="h-full"
@@ -82,19 +79,6 @@ const activeSection = computed(() => sidebar.value.find(section => flatten(secti
 
       <div class="hidden xl:has-[.non-empty]:block  w-64 flex-shrink-0 py-8 pl-6 sticky top-[7.25rem] h-full overflow-y-auto md:overflow-x-hidden max-h-[calc(100vh-7.25rem)]">
         <DocOutline />
-      </div>
-    </main>
-
-    <main
-      v-else
-      class="flex"
-    >
-      <div class="px-12 py-12 overflow-x-hidden flex-1">
-        <article class="w-full prose prose-stone dark:prose-invert max-w-none">
-          <div>
-            <Content />
-          </div>
-        </article>
       </div>
     </main>
   </div>

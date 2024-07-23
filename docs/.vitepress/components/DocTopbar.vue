@@ -48,7 +48,7 @@ watch(path, () => {
 
       <div class="h-full flex items-center">
         <a
-          href="/examples"
+          href="/examples/"
           :class="{ '!border-b-primary !font-semibold !text-foreground': page.relativePath.includes('examples') }"
           class="py-2 mx-4 text-sm font-medium border-b border-b-transparent text-muted-foreground hover:border-b-muted hover:text-foreground h-full inline-flex items-center gap-2"
         >
@@ -131,7 +131,7 @@ watch(path, () => {
 
       <div class="h-full flex items-center">
         <a
-          href="/examples"
+          href="/examples/"
           :class="{ '!border-b-primary !font-semibold !text-foreground': page.relativePath.includes('examples') }"
           class="py-2 mx-4 text-sm font-medium border-b border-b-transparent text-muted-foreground hover:border-b-muted hover:text-foreground h-full inline-flex items-center gap-2"
         >

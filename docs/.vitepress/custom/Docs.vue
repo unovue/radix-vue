@@ -24,7 +24,7 @@ const activeSection = computed(() => sidebar.value.find(section => flatten(secti
       v-if="frontmatter.layout !== 'example'"
       class="flex"
     >
-      <aside class="hidden md:block w-[17rem] flex-shrink-0 py-12  pl-4 pr-2 sticky top-[7.25rem] h-full overflow-y-auto max-h-[calc(100vh-7.25rem)]">
+      <aside class="hidden md:block w-[17rem] flex-shrink-0 py-8  pl-4 pr-2 sticky top-[7.25rem] h-full overflow-y-auto max-h-[calc(100vh-7.25rem)]">
         <ul
           v-if="activeSection"
           class="h-full"
@@ -56,7 +56,7 @@ const activeSection = computed(() => sidebar.value.find(section => flatten(secti
         <div class="h-6 w-full" />
       </aside>
 
-      <div class="px-6 md:px-12 py-6 md:py-12 overflow-x-hidden flex-1 ">
+      <div class="px-6 md:px-12 py-6 md:py-10 overflow-x-hidden flex-1 ">
         <CollapsibleRoot
           :key="path"
           class="block xl:hidden mb-4"
@@ -80,7 +80,7 @@ const activeSection = computed(() => sidebar.value.find(section => flatten(secti
         <DocFooter />
       </div>
 
-      <div class="hidden xl:has-[.non-empty]:block  w-64 flex-shrink-0 py-12 pl-6 sticky top-[7.25rem] h-full overflow-y-auto md:overflow-x-hidden max-h-[calc(100vh-7.25rem)]">
+      <div class="hidden xl:has-[.non-empty]:block  w-64 flex-shrink-0 py-8 pl-6 sticky top-[7.25rem] h-full overflow-y-auto md:overflow-x-hidden max-h-[calc(100vh-7.25rem)]">
         <DocOutline />
       </div>
     </main>

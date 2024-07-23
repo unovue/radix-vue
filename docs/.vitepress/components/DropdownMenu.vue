@@ -26,14 +26,14 @@ defineProps<{
         position="popper"
         align="end"
         :side-offset="2"
-        class="z-10 bg-card py-2 border border-muted rounded-xl"
+        class="z-10 bg-card border border-muted rounded-xl p-2"
       >
         <DropdownMenuItem
           v-for="item in items"
           :key="item.text"
           :value="item.text"
           as-child
-          class="px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground hover:bg-muted  focus:text-foreground focus:bg-muted h-full flex items-center"
+          class="px-2 py-2 rounded-lg text-sm font-semibold text-muted-foreground focus:text-primary focus:bg-primary/10 h-full flex items-center"
         >
           <a
             v-if="item.link"

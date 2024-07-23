@@ -70,7 +70,7 @@ const showFooter = computed(
       <div class="w-full group">
         <a
           v-if="control.prev?.link"
-          class="inline-flex flex-col bg-transparent hover:bg-card rounded-xl border border-muted w-full p-4"
+          class="inline-flex flex-col bg-transparent rounded-xl border border-muted hover:border-primary w-full p-4"
           :href="control.prev.link"
         >
           <span
@@ -89,7 +89,7 @@ const showFooter = computed(
       <div class="w-full group">
         <a
           v-if="control.next?.link"
-          class="inline-flex flex-col bg-transparent hover:bg-card items-end rounded-xl border border-muted w-full p-4"
+          class="inline-flex flex-col bg-transparent items-end rounded-xl border border-muted hover:border-primary w-full p-4"
           :href="control.next.link"
         >
           <span

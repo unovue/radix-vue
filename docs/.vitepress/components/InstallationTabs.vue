@@ -31,6 +31,7 @@ import { store } from '../store'
       <TabsContent
         v-for="pkg in PACKAGE_MANAGERS"
         :key="pkg"
+        tabindex="-1"
         :value="pkg"
         as-child
       >

@@ -77,7 +77,9 @@ watch(open, () => {
             @update:model-value="currentTab = 'index.vue'"
           >
             <SelectTrigger class="flex items-center justify-between bg-stone-800 rounded-sm w-[115px] text-xs py-1 pl-2 pr-1">
-              <SelectValue />
+              <SelectValue>
+                {{ cssFrameworkOptions.find(opt => opt.value === cssFramework)?.label }}
+              </SelectValue>
               <Icon
                 icon="radix-icons:chevron-down"
                 class="h-3.5 w-3.5"

@@ -193,7 +193,7 @@ export default defineConfig({
     anchor: {
       callback(token) {
         // set tw `group` modifier to heading element
-        token.attrSet('class', 'group relative border-none lg:-ml-2 lg:pl-2')
+        token.attrSet('class', 'group relative border-none mb-4 lg:-ml-2 lg:pl-2 w-max')
       },
       permalink: anchor.permalink.linkInsideHeader({
         class: 'header-anchor [&_span]:focus:opacity-100 [&_span_>_span]:focus:outline',

@@ -11,7 +11,7 @@ import { toRefs } from 'vue'
 import Showcase from './Showcase.vue'
 
 const { site, theme, frontmatter } = useData()
-const { path } = useRoute()
+const { path } = toRefs(useRoute())
 const { arrivedState } = useScroll(globalThis.window)
 const { top } = toRefs(arrivedState)
 </script>

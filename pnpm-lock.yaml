@@ -144,6 +144,9 @@ importers:
       '@types/babel__traverse':
         specifier: ^7.20.6
         version: 7.20.6
+      '@types/hast':
+        specifier: ^3.0.4
+        version: 3.0.4
       '@types/markdown-it':
         specifier: ^14.1.1
         version: 14.1.1
@@ -162,6 +165,9 @@ importers:
       fast-glob:
         specifier: ^3.3.2
         version: 3.3.2
+      hast:
+        specifier: ^1.0.0
+        version: 1.0.0
       mark.js:
         specifier: ^8.11.1
         version: 8.11.1
@@ -3424,6 +3430,10 @@ packages:
   hasown@2.0.2:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
+
+  hast@1.0.0:
+    resolution: {integrity: sha512-vFUqlRV5C+xqP76Wwq2SrM0kipnmpxJm7OfvVXpB35Fp+Fn4MV+ozr+JZr5qFvyR1q/U+Foim2x+3P+x9S1PLA==}
+    deprecated: Renamed to rehype
 
   he@1.2.0:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
@@ -9983,6 +9993,8 @@ snapshots:
   hasown@2.0.2:
     dependencies:
       function-bind: 1.1.2
+
+  hast@1.0.0: {}
 
   he@1.2.0: {}
 

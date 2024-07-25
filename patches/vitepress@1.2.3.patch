@@ -12,7 +12,7 @@ index 6fdb5a336b38b8e94dbb8c7a86ed5c2756c5bd0a..4433d13b490e984e01f1e3b7f19eadc5
      token.info = token.info.replace(/ active$/, "").replace(/ active /, " ");
      const lang = extractLang(token.info);
 -    return `<div class="language-${lang}${getAdaptiveThemeMarker(options)}${active}"><button title="${options.codeCopyButtonTitle}" class="copy"></button><span class="lang">${lang}</span>` + fence(...args) + "</div>";
-+    return `<div title="${title}" class="language-${lang}${getAdaptiveThemeMarker(options)}${active}"><button title="${options.codeCopyButtonTitle}" class="copy"></button><span class="lang">${lang}</span>` + fence(...args) + "</div>";
++    return `<div name="${title}" class="language-${lang}${getAdaptiveThemeMarker(options)}${active}"><button title="${options.codeCopyButtonTitle}" class="copy"></button><span class="lang">${lang}</span>` + fence(...args) + "</div>";
    };
  }
  function getAdaptiveThemeMarker(options) {
@@ -22,24 +22,24 @@ index 58d7d89ff6e77783a54e8f256d12d6e9d82eba26..e89e4c3b5c7c77b72678d96ed6e9a09e
 +++ b/types/default-theme.d.ts
 @@ -127,8 +127,8 @@ export namespace DefaultTheme {
      langMenuLabel?: string
- 
+
      search?:
 -      | { provider: 'local'; options?: LocalSearchOptions }
 -      | { provider: 'algolia'; options: AlgoliaSearchOptions }
 +    | { provider: 'local'; options?: LocalSearchOptions }
 +    | { provider: 'algolia'; options: AlgoliaSearchOptions }
- 
+
      /**
       * @deprecated Use `search` instead.
 @@ -199,26 +199,26 @@ export namespace DefaultTheme {
- 
+
    export type ThemeableImage =
      | string
 -    | { src: string; alt?: string; [prop: string]: any }
 -    | { light: string; dark: string; alt?: string; [prop: string]: any }
 +    | { src: string; alt?: string;[prop: string]: any }
 +    | { light: string; dark: string; alt?: string;[prop: string]: any }
- 
+
    export type FeatureIcon =
      | string
      | {
@@ -70,13 +70,13 @@ index 58d7d89ff6e77783a54e8f256d12d6e9d82eba26..e89e4c3b5c7c77b72678d96ed6e9a09e
 +      height?: string
 +      wrap?: boolean
 +    }
- 
+
    // sidebar -------------------------------------------------------------------
- 
+
 @@ -263,6 +263,11 @@ export namespace DefaultTheme {
       */
      docFooterText?: string
- 
+
 +    /**
 +     * Icon for the item
 +     */

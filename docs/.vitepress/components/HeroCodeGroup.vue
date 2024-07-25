@@ -27,10 +27,10 @@ const cssFrameworkOptions = computed(() => [
 const tabs = computed(
   () => {
     const currentFramework = slots.default?.().find(slot => slot.props?.key?.toString().includes(cssFramework.value))
-    const childSlots = (currentFramework?.children as VNode[]).sort((a, b) => a?.props?.title?.localeCompare(b?.props?.title))
+    const childSlots = (currentFramework?.children as VNode[]).sort((a, b) => a?.props?.name?.localeCompare(b?.props?.name))
     return childSlots?.map((slot, index) => {
       return {
-        label: slot.props?.title || `${index}`,
+        label: slot.props?.name || `${index}`,
         component: slot,
       }
     }) || []
@@ -126,7 +126,6 @@ watch(open, () => {
           <component
             :is="tab.component"
             class="border-0"
-            :title="undefined"
           />
         </div>
       </TabsContent>

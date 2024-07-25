@@ -27,7 +27,7 @@ const data = computed(() => JSON.parse(props.data))
       class="flex justify-end sticky top-2"
     >
       <h5
-        class="font-extrabold -mb-2 capitalize px-2 py-1 rounded-lg bg-card/20 backdrop-blur-sm"
+        class="font-extrabold -mb-2 capitalize p-1 rounded-lg bg-card/20 backdrop-blur-sm"
       >
         {{ title }}
       </h5>
@@ -42,18 +42,21 @@ const data = computed(() => JSON.parse(props.data))
         <div class="text-primary font-mono font-bold text-sm">
           {{ prop.name }}
         </div>
-        <ProseCodeInline class="!text-muted-foreground text-xs">
+        <code class="px-2 py-0.5 text-foreground bg-muted text-xs">
           {{ prop.typeSimple ? prop.typeSimple : prop.type }}
-        </ProseCodeInline>
-        <ProseCodeInline
+        </code>
+        <code
           v-if="prop.default"
-          class="!text-muted-foreground text-xs"
+          class="px-2 py-0.5 text-foreground bg-muted text-xs"
         >
           default: {{ prop.default }}
-        </ProseCodeInline>
-        <div v-if="prop.required">
-          {{ prop.required ? "*" : null }}
-        </div>
+        </code>
+        <code
+          v-if="prop.required"
+          class="px-2 py-0.5 text-red-500 bg-muted text-xs"
+        >
+          {{ prop.required ? "required" : null }}
+        </code>
       </div>
 
       <p

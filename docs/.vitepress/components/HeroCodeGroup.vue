@@ -126,6 +126,7 @@ watch(open, () => {
           <component
             :is="tab.component"
             class="border-0"
+            :title="undefined"
           />
         </div>
       </TabsContent>

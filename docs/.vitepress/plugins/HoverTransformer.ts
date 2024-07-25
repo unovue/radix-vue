@@ -1,10 +1,8 @@
-import type { ShikiTransformer, ShikiTransformerContextMeta, ThemedToken } from 'shiki'
-import type { Element, ElementContent, Text } from 'hast'
+import type { ShikiTransformer } from 'shiki'
+import type { Element, Text } from 'hast'
 import { components as componentsObj } from '../../../packages/radix-vue/constant/components'
 
 export function createHoverTransformer(): ShikiTransformer {
-  const map = new WeakMap<ShikiTransformerContextMeta, any>()
-
   return {
     name: 'custom:hover-card',
     preprocess(code, options) {
@@ -26,14 +24,15 @@ export function createHoverTransformer(): ShikiTransformer {
 
       const component = Object.values(componentsObj).flat()
       // Build a map of tokens to their line and character position
-      const tokensMap: [line: number, charStart: number, charEnd: number, token: Element | Text][] = []
+      const tokensMap: [line: number, charStart: number, charEnd: number, token: Element | Text, value: string][] = []
       this.lines.forEach((lineEl, line) => {
         let index = 0
         for (const token of lineEl.children.flatMap(i => i.type === 'element' ? i.children || [] : []) as (Text | Element)[]) {
           if ('value' in token && typeof token.value === 'string') {
-            if (component.includes(token.value)) {
-              tokensMap.push([line, index, index + token.value.length, token])
-              index += token.value.length
+            const value = token.value
+            if (component.includes(value)) {
+              tokensMap.push([line, index, index + value.length, token, value])
+              index += value.length
             }
           }
         }
@@ -50,12 +49,12 @@ export function createHoverTransformer(): ShikiTransformer {
       })
 
       if (tokensMap.length) {
-        tokensMap.forEach(([,,,token]) => {
+        tokensMap.forEach(([,,,token, value]) => {
           Object.assign(token, {
             type: 'element',
             tagName: 'link-hover-card',
             properties: {
-              href: '/',
+              name: value,
             },
             children: [
               { ...token },
@@ -66,12 +65,6 @@ export function createHoverTransformer(): ShikiTransformer {
                   'v-slot:content': '{}',
                 },
                 children: [],
-                content: {
-                  type: 'root',
-                  children: [
-                    { type: 'text', value: `Testing ${token.value}` },
-                  ],
-                },
               },
             ],
           } satisfies Element)

@@ -1,9 +1,25 @@
 <script setup lang="ts">
+import { computedAsync, hyphenate } from '@vueuse/core'
 import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from 'radix-vue'
+import { computed, h } from 'vue'
+// @ts-expect-error we should use alias but I don't want to export all
+import { compile } from 'vue/dist/vue.esm-bundler.js'
 
 const props = defineProps<{
-  href: string
+  name: string
 }>()
+
+const href = computed(() => {
+  const [last, ...parts] = hyphenate(props.name).split('-').reverse()
+  return `/components/${parts.join('-')}.html#${last}`
+})
+
+// Better to have this cache
+const Content = computedAsync(async () => {
+  const raw = await import(`../content/meta/${props.name}.md?raw`)
+  const componentString = raw.default.replace(/<!--[\s\S]*?-->\n?/, '')
+  return h(compile(componentString))
+})
 </script>
 
 <template>
@@ -11,36 +27,28 @@ const props = defineProps<{
     <HoverCardTrigger
       as="a"
       :href="href"
+      class="not-prose !text-inherit underline-offset-[3px] decoration-1 underline decoration-dotted"
     >
       <slot />
     </HoverCardTrigger>
     <HoverCardPortal>
       <HoverCardContent
-        class="data-[side=top]:animate-slideDownAndFade w-[300px] rounded-xl border border-muted bg-background p-4 data-[state=open]:transition-all"
-        :side-offset="5"
+        class="w-[500px] h-56 rounded-2xl border border-muted-foreground/30 bg-card px-2 shadow-xl overflow-x-hidden prose dark:prose-invert [&>div]:my-2"
         side="top"
         align="start"
-        :align-offset="10"
+        :align-offset="-20"
       >
-        <slot name="content" />
+        <slot name="content">
+          <Suspense>
+            <Content />
+          </Suspense>
+        </slot>
 
         <HoverCardArrow
-          class="fill-background stroke-muted -translate-y-[1px]"
-          as-child
-          :width="30"
-          :height="30"
-        >
-          <svg
-            display="block"
-            viewBox="0 0 30 30"
-          ><g transform="rotate(180 15 15)"><path
-            fill="none"
-            d="M23,27.8c1.1,1.2,3.4,2.2,5,2.2h2H0h2c1.7,0,3.9-1,5-2.2l6.6-7.2c0.7-0.8,2-0.8,2.7,0L23,27.8L23,27.8z"
-          /><path
-            stroke="none"
-            d="M23,27.8c1.1,1.2,3.4,2.2,5,2.2h2H0h2c1.7,0,3.9-1,5-2.2l6.6-7.2c0.7-0.8,2-0.8,2.7,0L23,27.8L23,27.8z"
-          /></g></svg>
-        </HoverCardArrow>
+          class="fill-card stroke-muted-foreground/30 -translate-y-[1px]"
+          :width="16"
+          :height="8"
+        />
       </HoverCardContent>
     </HoverCardPortal>
   </HoverCardRoot>

@@ -37,32 +37,50 @@ export default function (md: MarkdownRenderer) {
     }
 
     // Define the regular expression to match the desired pattern
-    const regex = /<ComponentPreview name="([^"]+)" \/>/g
+    const regex = /<ComponentPreview\s+([^>]+)\/>/g
 
     // Iterate through the Markdown content and replace the pattern
-    state.src = state.src.replace(regex, (match, componentName) => {
-      const pathName = `../../components/demo/${componentName}`
-      insertComponentImport(`import ${componentName} from '${pathName}/tailwind/index.vue'`)
+    state.src = state.src.replace(regex, (_, bindingValue) => {
+      // Define a regex pattern to match props and their values
+      const propPattern = /(\w+)="([^"]*)"/g
+
+      // Create an object to store the props and their values
+      const props: { [key: string]: string } = {}
+
+      // Use matchAll to find all matches in the input string
+      const matches = bindingValue.matchAll(propPattern)
+
+      // Iterate through the matches and populate the props object
+      for (const match of matches) {
+        const [, propName, propValue] = match
+        props[propName] = propValue
+      }
+
+      const pathName = `../../components/${props.type === 'example' ? 'examples' : 'demo'}/${props.name}`
+      insertComponentImport(props.type === 'example' ? `import Component from '${pathName}/index.vue'` : `import Component from '${pathName}/tailwind/index.vue'`)
 
       const index = state.tokens.findIndex(i => i.content.match(regex))
 
       const { realPath, path: _path } = state.env as MarkdownEnv
 
       const childFiles = readdirSync(resolve(dirname(realPath ?? _path), pathName), { withFileTypes: false, recursive: true })
-      const groupedFiles = childFiles.reduce((prev, curr) => {
-        if (typeof curr !== 'string')
-          return prev
-        if (!curr.includes('/')) {
-          prev[curr] = []
-        }
-        else {
-          const folder = curr.split('/')[0]
-          prev[folder].push(curr)
-        }
-        return prev
-      }, {} as { [key: string]: string[] })
 
-      state.tokens[index].content = `<ComponentPreview name="${componentName}" files="${encodeURIComponent(JSON.stringify(groupedFiles))}" ><${componentName} />`
+      const groupedFiles = props.type === 'example'
+        ? { tailwind: childFiles }
+        : childFiles.reduce((prev, curr) => {
+          if (typeof curr !== 'string')
+            return prev
+          if (!curr.includes('/')) {
+            prev[curr] = []
+          }
+          else {
+            const folder = curr.split('/')[0]
+            prev[folder].push(curr)
+          }
+          return prev
+        }, {} as { [key: string]: string[] })
+
+      state.tokens[index].content = `<ComponentPreview name="${props.name}" type="${props.type || 'demo'}"  files="${encodeURIComponent(JSON.stringify(groupedFiles))}" ><Component />`
       const dummyToken = new state.Token('', '', 0)
       const tokenArray: Array<typeof dummyToken> = []
 

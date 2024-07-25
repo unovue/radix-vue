@@ -9,6 +9,8 @@ defineOptions({
 })
 const props = defineProps<{
   modelValue: 'css' | 'tailwind' | 'pinceau'
+  type?: 'demo' | 'example'
+
 }>()
 const emits = defineEmits<{
   'update:modelValue': [payload: 'css' | 'tailwind' | 'pinceau']
@@ -71,12 +73,12 @@ watch(open, () => {
             {{ tab.label }}
           </TabsTrigger>
         </TabsList>
-        <div>
+        <div v-if="type === 'demo'">
           <SelectRoot
             v-model="cssFramework"
             @update:model-value="currentTab = 'index.vue'"
           >
-            <SelectTrigger class="flex items-center justify-between bg-stone-800 rounded-sm w-[115px] text-xs py-1 pl-2 pr-1">
+            <SelectTrigger class="flex items-center justify-between bg-stone-800 rounded-sm w-[115px] text-xs py-1 pl-2 pr-1 disabled:opacity-50">
               <SelectValue>
                 {{ cssFrameworkOptions.find(opt => opt.value === cssFramework)?.label }}
               </SelectValue>
@@ -114,7 +116,8 @@ watch(open, () => {
       ref="codeScrollWrapper"
       :key="cssFramework"
       class="pb-10 block custom"
-      :class="`${open ? 'overflow-scroll h-full min-h-[150px] max-h-[80vh]' : 'overflow-hidden h-[150px]'}`"
+      :style="{ '--height': type === 'demo' ? '150px' : '300px' }"
+      :class="`${open ? 'overflow-scroll h-full min-h-[var(--height)] max-h-[80vh]' : 'overflow-hidden h-[var(--height)]'}`"
     >
       <TabsContent
         v-for="tab in tabs"

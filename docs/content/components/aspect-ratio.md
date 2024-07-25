@@ -11,7 +11,7 @@ name: aspect-ratio
 Displays content within a desired ratio.
 </Description>
 
-<ComponentPreview name="AspectRatio" />
+<ComponentPreview type="demo" name="AspectRatio" />
 
 ## Features
 

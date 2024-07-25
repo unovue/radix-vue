@@ -11,7 +11,7 @@ const { page, frontmatter } = useData()
   <div class="w-full">
     <DocTopbar />
 
-    <main v-if="page.relativePath === 'examples/index.md'">
+    <main v-if="page.relativePath === 'examples.md'">
       <ExampleHome />
     </main>
 
@@ -19,10 +19,8 @@ const { page, frontmatter } = useData()
       class="flex"
     >
       <div class="px-12 py-12 overflow-x-hidden flex-1">
-        <article class="w-full prose prose-stone dark:prose-invert max-w-none">
-          <div class="prose dark:prose-invert prose-lg max-w-screen-lg mx-auto">
-            <Content />
-          </div>
+        <article class="w-full prose prose-stone dark:prose-invert max-w-screen-lg mx-auto">
+          <Content />
         </article>
       </div>
     </main>

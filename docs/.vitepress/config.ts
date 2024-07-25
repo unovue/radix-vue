@@ -56,7 +56,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Docs', link: '/overview/getting-started.html' },
-      { text: 'Examples', link: '/examples/' },
+      { text: 'Examples', link: '/examples' },
       { text: 'Showcase', link: '/showcase' },
       {
         text: `v${version}`,

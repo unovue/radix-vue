@@ -483,7 +483,7 @@ export function useDateField(props: UseDateFieldProps) {
 
       if (num === 0) {
         props.lastKeyZero.value = true
-        return { value: null, moveToNext }
+        return { value: 0, moveToNext }
       }
       /**
        * If the last key was a 0, or if the first number is

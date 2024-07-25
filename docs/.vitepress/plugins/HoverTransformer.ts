@@ -12,8 +12,9 @@ function extractAndTransformData(tagName: string, raw: string): Element | null {
   if (match && match[1]) {
     return {
       type: 'element',
-      tagName: tagName.toLowerCase().replace('table', '-table'),
+      tagName: 'link-hover-card-content',
       properties: {
+        title: tagName.toLowerCase().replace('table', ''),
         data: match[1].replace(/'/g, '"'),
       },
       children: [],

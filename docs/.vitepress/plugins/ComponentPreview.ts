@@ -57,7 +57,7 @@ export default function (md: MarkdownRenderer) {
       }
 
       const pathName = `../../components/${props.type === 'example' ? 'examples' : 'demo'}/${props.name}`
-      insertComponentImport(props.type === 'example' ? `import Component from '${pathName}/index.vue'` : `import Component from '${pathName}/tailwind/index.vue'`)
+      insertComponentImport(props.type === 'example' ? `import ${props.name} from '${pathName}/index.vue'` : `import ${props.name} from '${pathName}/tailwind/index.vue'`)
 
       const index = state.tokens.findIndex(i => i.content.match(regex))
 
@@ -80,7 +80,7 @@ export default function (md: MarkdownRenderer) {
           return prev
         }, {} as { [key: string]: string[] })
 
-      state.tokens[index].content = `<ComponentPreview name="${props.name}" type="${props.type || 'demo'}"  files="${encodeURIComponent(JSON.stringify(groupedFiles))}" ><Component />`
+      state.tokens[index].content = `<ComponentPreview name="${props.name}" type="${props.type || 'demo'}"  files="${encodeURIComponent(JSON.stringify(groupedFiles))}" ><${props.name} />`
       const dummyToken = new state.Token('', '', 0)
       const tokenArray: Array<typeof dummyToken> = []
 

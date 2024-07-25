@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { ProseCodeInline, ProseTable, ProseTd, ProseTh, ProseThead, ProseTr } from '../prose'
 import { Icon } from '@iconify/vue'
 
@@ -12,9 +13,18 @@ type PropDef = {
 }
 
 interface PropsTableProps {
-  data: PropDef[]
+  data: PropDef[] | string
 }
 const props = defineProps<PropsTableProps>()
+
+const data = computed(() => {
+  if (typeof props.data === 'string') {
+    return JSON.parse(props.data)
+  }
+  else {
+    return props.data
+  }
+})
 </script>
 
 <template>
@@ -39,7 +49,7 @@ const props = defineProps<PropsTableProps>()
 
     <tbody>
       <ProseTr
-        v-for="(prop, index) in props.data"
+        v-for="(prop, index) in data"
         :key="`${prop.name}-${index}`"
       >
         <ProseTd>

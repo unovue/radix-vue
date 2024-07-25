@@ -1,8 +1,30 @@
 import type { ShikiTransformer } from 'shiki'
 import type { Element, Text } from 'hast'
 import { components as componentsObj } from '../../../packages/radix-vue/constant/components'
+import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
+import { dirname, join } from 'node:path'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
+function extractAndTransformData(tagName: string, raw: string): Element | null {
+  const match = raw.match(new RegExp(`<${tagName} :data="(\\[.*?\\])" \\/>`, 's'))
+  if (match && match[1]) {
+    return {
+      type: 'element',
+      tagName: tagName.toLowerCase().replace('table', '-table'),
+      properties: {
+        data: match[1].replace(/'/g, '"'),
+      },
+      children: [],
+    }
+  }
+  return null
+}
 
 export function createHoverTransformer(): ShikiTransformer {
+  const contentMap = new Map<string, Element[]>()
+
   return {
     name: 'custom:hover-card',
     preprocess(code, options) {
@@ -33,6 +55,21 @@ export function createHoverTransformer(): ShikiTransformer {
             if (component.includes(value)) {
               tokensMap.push([line, index, index + value.length, token, value])
               index += value.length
+
+              if (!contentMap.get(value)) {
+                try {
+                  const raw = readFileSync(join(__dirname, `../../content/meta/${value}.md`), 'utf8')
+
+                  const content = ['PropsTable', 'EmitsTable', 'SlotsTable', 'MethodsTable']
+                    .map(tag => extractAndTransformData(tag, raw))
+                    .filter((element): element is Element => element !== null)
+
+                  contentMap.set(value, content)
+                }
+                catch (err) {
+                  // File doesn't exist
+                }
+              }
             }
           }
         }
@@ -50,6 +87,9 @@ export function createHoverTransformer(): ShikiTransformer {
 
       if (tokensMap.length) {
         tokensMap.forEach(([,,,token, value]) => {
+          if (!contentMap.has(value))
+            return
+
           Object.assign(token, {
             type: 'element',
             tagName: 'link-hover-card',
@@ -65,6 +105,10 @@ export function createHoverTransformer(): ShikiTransformer {
                   'v-slot:content': '{}',
                 },
                 children: [],
+                content: {
+                  type: 'root',
+                  children: contentMap.get(value) ?? [],
+                },
               },
             ],
           } satisfies Element)

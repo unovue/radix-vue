@@ -41,7 +41,7 @@ Install the date package.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -70,7 +70,7 @@ import {
   DatePickerPrev,
   DatePickerRoot,
   DatePickerTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>

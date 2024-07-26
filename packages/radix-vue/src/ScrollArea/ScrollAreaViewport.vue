@@ -43,7 +43,7 @@ const { forwardRef, currentElement: contentElement } = useForwardExpose()
 <template>
   <div
     ref="viewportElement"
-    data-radix-scroll-area-viewport=""
+    data-reka-scroll-area-viewport=""
     :style="{
       /**
        * We don't support `visible` because the intention is to have at least one scrollbar
@@ -77,13 +77,13 @@ const { forwardRef, currentElement: contentElement } = useForwardExpose()
   >
     /* Hide scrollbars cross-browser and enable momentum scroll for touch
     devices */
-    [data-radix-scroll-area-viewport] {
+    [data-reka-scroll-area-viewport] {
     scrollbar-width:none;
     -ms-overflow-style:none;
     -webkit-overflow-scrolling:touch;
     }
 
-    [data-radix-scroll-area-viewport]::-webkit-scrollbar {
+    [data-reka-scroll-area-viewport]::-webkit-scrollbar {
     display:none;
     }
   </Primitive>

@@ -29,7 +29,7 @@ const namespaced = filteredComponent.map((curr: keyof typeof components) => {
 })
 
 const template = `
-import { ${flattenComponents.join(', ')} } from 'radix-vue'
+import { ${flattenComponents.join(', ')} } from 'reka-ui'
 
 ${namespaced.map(component => component).join('\n\n')}
 `

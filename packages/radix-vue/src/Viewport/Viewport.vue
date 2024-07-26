@@ -26,7 +26,7 @@ const nonce = useNonce(propNonce)
   <Primitive
     v-bind="{ ...$attrs, ...props }"
     :ref="forwardRef"
-    data-radix-viewport
+    data-reka-viewport
     role="presentation"
     :style="{
       // we use position: 'relative' here on the `viewport` so that when we call
@@ -44,8 +44,8 @@ const nonce = useNonce(propNonce)
     :nonce="nonce"
   >
     /* Hide scrollbars cross-browser and enable momentum scroll for touch
-    devices */ [data-radix-viewport] { scrollbar-width:none; -ms-overflow-style: none;
+    devices */ [data-reka-viewport] { scrollbar-width:none; -ms-overflow-style: none;
     -webkit-overflow-scrolling: touch; }
-    [data-radix-viewport]::-webkit-scrollbar { display: none; }
+    [data-reka-viewport]::-webkit-scrollbar { display: none; }
   </Primitive>
 </template>

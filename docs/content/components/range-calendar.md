@@ -41,7 +41,7 @@ Install the date package.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -62,7 +62,7 @@ import {
   RangeCalendarNext,
   RangeCalendarPrev,
   RangeCalendarRoot
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>

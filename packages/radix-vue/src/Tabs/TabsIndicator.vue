@@ -58,8 +58,8 @@ function updateIndicatorStyle() {
     v-if="typeof indicatorStyle.size === 'number'"
     v-bind="props"
     :style="{
-      '--radix-tabs-indicator-size': `${indicatorStyle.size}px`,
-      '--radix-tabs-indicator-position': `${indicatorStyle.position}px`,
+      '--reka-tabs-indicator-size': `${indicatorStyle.size}px`,
+      '--reka-tabs-indicator-position': `${indicatorStyle.position}px`,
     }"
   >
     <slot />

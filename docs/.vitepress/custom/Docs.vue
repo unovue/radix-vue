@@ -6,7 +6,7 @@ import DocSidebarItem from '../components/DocSidebarItem.vue'
 import DocTopbar from '../components/DocTopbar.vue'
 import DocFooter from '../components/DocFooter.vue'
 import type { DefaultTheme } from 'vitepress/theme'
-import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from 'radix-vue'
+import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from 'reka-ui'
 import { flatten } from '../functions/flatten'
 
 const { theme, frontmatter } = useData()

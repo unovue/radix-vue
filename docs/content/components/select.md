@@ -33,7 +33,7 @@ Displays a list of options for the user to pick from—triggered by a button.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -55,7 +55,7 @@ import {
   SelectTrigger,
   SelectValue,
   SelectViewport,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -165,23 +165,23 @@ The component that pops out when the select is open.
 <CssVariablesTable
   :data="[
     {
-      cssVariable: '--radix-select-content-transform-origin',
+      cssVariable: '--reka-select-content-transform-origin',
       description: 'The <Code>transform-origin</Code> computed from the content and arrow positions/offsets. Only present when <Code>position=&quot;popper&quot;</Code>.',
     },
     {
-      cssVariable: '--radix-select-content-available-width',
+      cssVariable: '--reka-select-content-available-width',
       description: 'The remaining width between the trigger and the boundary edge. Only present when <Code>position=&quot;popper&quot;</Code>.',
     },
     {
-      cssVariable: '--radix-select-content-available-height',
+      cssVariable: '--reka-select-content-available-height',
       description: 'The remaining height between the trigger and the boundary edge. Only present when <Code>position=&quot;popper&quot;</Code>.',
     },
     {
-      cssVariable: '--radix-select-trigger-width',
+      cssVariable: '--reka-select-trigger-width',
       description: 'The width of the trigger. Only present when <Code>position=&quot;popper&quot;</Code>.',
     },
     {
-      cssVariable: '--radix-select-trigger-height',
+      cssVariable: '--reka-select-trigger-height',
       description: 'The height of the trigger. Only present when <Code>position=&quot;popper&quot;</Code>.',
     },
   ]"
@@ -282,7 +282,7 @@ import {
   SelectRoot,
   SelectSeparator,
   SelectTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -304,7 +304,7 @@ import {
 
 When using `position="popper"` on `SelectContent`, you may want to constrain the width of the content so that it matches the trigger width. You may also want to constrain its height to not exceed the viewport.
 
-We expose several CSS custom properties such as `--radix-select-trigger-width` and `--radix-select-content-available-height` to support this. Use them to constrain the content dimensions.
+We expose several CSS custom properties such as `--reka-select-trigger-width` and `--reka-select-content-available-height` to support this. Use them to constrain the content dimensions.
 
 ```vue line=20
 // index.vue
@@ -319,7 +319,7 @@ import {
   SelectRoot,
   SelectSeparator,
   SelectTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -341,8 +341,8 @@ import {
 ```css line=3,4
 /* styles.css */
 .SelectContent {
-  width: var(--radix-select-trigger-width);
-  max-height: var(--radix-select-content-available-height);
+  width: var(--reka-select-trigger-width);
+  max-height: var(--reka-select-content-available-height);
 }
 ```
 
@@ -363,7 +363,7 @@ import {
   SelectRoot,
   SelectSeparator,
   SelectTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -411,7 +411,7 @@ import {
   SelectRoot,
   SelectSeparator,
   SelectTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 import './styles.css'
 </script>
 
@@ -499,7 +499,7 @@ import {
   SelectRoot,
   SelectSeparator,
   SelectTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -587,7 +587,7 @@ import {
   SelectRoot,
   SelectSeparator,
   SelectTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -693,7 +693,7 @@ import {
   SelectRoot,
   SelectSeparator,
   SelectTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -758,8 +758,8 @@ export { default as SelectItem } from 'SelectItem.vue'
 <!-- Select.vue -->
 <script setup lang="ts">
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon, } from '@radix-icons/vue'
-import { SelectContent, SelectIcon, SelectPortal, SelectRoot, SelectScrollDownButton, SelectScrollUpButton, SelectTrigger, SelectValue, SelectViewport, useForwardPropsEmits } from 'radix-vue'
-import type { SelectRootEmits, SelectRootProps } from 'radix-vue'
+import { SelectContent, SelectIcon, SelectPortal, SelectRoot, SelectScrollDownButton, SelectScrollUpButton, SelectTrigger, SelectValue, SelectViewport, useForwardPropsEmits } from 'reka-ui'
+import type { SelectRootEmits, SelectRootProps } from 'reka-ui'
 
 const props = defineProps<SelectRootProps>()
 const emits = defineEmits<SelectRootEmits>()
@@ -797,7 +797,7 @@ const forward = useForwardPropsEmits(props, emits)
 <!-- SelectItem.vue -->
 <script setup lang="ts">
 import { CheckIcon } from '@radix-icons/vue'
-import { SelectItem, SelectItemIndicator, type SelectItemProps, SelectItemText } from 'radix-vue'
+import { SelectItem, SelectItemIndicator, type SelectItemProps, SelectItemText } from 'reka-ui'
 
 const props = defineProps<SelectItemProps>()
 </script>

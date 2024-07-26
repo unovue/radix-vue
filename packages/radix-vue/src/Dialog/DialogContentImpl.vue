@@ -47,8 +47,8 @@ const emits = defineEmits<DialogContentImplEmits>()
 const rootContext = injectDialogRootContext()
 const { forwardRef, currentElement: contentElement } = useForwardExpose()
 
-rootContext.titleId ||= useId(undefined, 'radix-vue-dialog-title')
-rootContext.descriptionId ||= useId(undefined, 'radix-vue-dialog-description')
+rootContext.titleId ||= useId(undefined, 'reka-dialog-title')
+rootContext.descriptionId ||= useId(undefined, 'reka-dialog-description')
 
 onMounted(() => {
   rootContext.contentElement = contentElement

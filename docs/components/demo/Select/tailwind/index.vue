@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
   SelectViewport,
-} from 'radix-vue'
+} from 'reka-ui'
 
 const fruit = ref()
 

@@ -82,7 +82,7 @@ describe('given prop:type="scroll" ScrollArea', () => {
   describe('on scroll', () => {
     beforeEach(async () => {
       Object.defineProperty(HTMLElement.prototype, 'scrollTop', { configurable: true, value: 40 })
-      await wrapper.find('[data-radix-scroll-area-viewport]').trigger('scroll')
+      await wrapper.find('[data-reka-scroll-area-viewport]').trigger('scroll')
       await sleep(10)
     })
 

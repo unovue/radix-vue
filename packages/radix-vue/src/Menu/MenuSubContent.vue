@@ -37,7 +37,7 @@ const menuSubContext = injectMenuSubContext()
 
 const { forwardRef, currentElement: subContentElement } = useForwardExpose()
 
-menuSubContext.contentId ||= useId(undefined, 'radix-vue-menu-sub-content')
+menuSubContext.contentId ||= useId(undefined, 'reka-menu-sub-content')
 </script>
 
 <template>

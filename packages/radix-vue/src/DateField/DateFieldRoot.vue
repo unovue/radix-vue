@@ -206,8 +206,8 @@ const currentFocusedElement = ref<HTMLElement | null>(null)
 
 const currentSegmentIndex = computed(() =>
   Array.from(segmentElements.value).findIndex(el =>
-    el.getAttribute('data-radix-vue-date-field-segment')
-    === currentFocusedElement.value?.getAttribute('data-radix-vue-date-field-segment')))
+    el.getAttribute('data-reka-date-field-segment')
+    === currentFocusedElement.value?.getAttribute('data-reka-date-field-segment')))
 
 const nextFocusableSegment = computed(() => {
   const sign = dir.value === 'rtl' ? -1 : 1

@@ -307,7 +307,7 @@ describe('dateField', async () => {
       expect(segment).toHaveFocus()
       await user.keyboard(kbd.ARROW_UP)
       expect(segment).toHaveTextContent(
-        String(zonedDateTime[segment.getAttribute('data-radix-vue-date-field-segment') as keyof TimeFields | keyof DateFields]),
+        String(zonedDateTime[segment.getAttribute('data-reka-date-field-segment') as keyof TimeFields | keyof DateFields]),
       )
     }
   })

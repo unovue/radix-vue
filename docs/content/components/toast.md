@@ -28,7 +28,7 @@ A succinct message that is displayed temporarily.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -36,7 +36,7 @@ Import the component.
 
 ```vue
 <script setup lang="ts">
-import { ToastAction, ToastClose, ToastDescription, ToastProvider, ToastRoot, ToastTitle, ToastViewport } from 'radix-vue'
+import { ToastAction, ToastClose, ToastDescription, ToastProvider, ToastRoot, ToastTitle, ToastViewport } from 'reka-ui'
 </script>
 
 <template>
@@ -93,20 +93,20 @@ The toast that automatically closes. It should not be held open to [acquire a us
 <CssVariablesTable
   :data="[
     {
-      cssVariable: '--radix-toast-swipe-move-x',
+      cssVariable: '--reka-toast-swipe-move-x',
       description: 'The offset position of the toast when horizontally swiping',
     },
     {
-      cssVariable: '--radix-toast-swipe-move-y',
+      cssVariable: '--reka-toast-swipe-move-y',
       description: 'The offset position of the toast when vertically swiping',
     },
     {
-      cssVariable: '--radix-toast-swipe-end-x',
+      cssVariable: '--reka-toast-swipe-end-x',
       description:
         'The offset end position of the toast after horizontally swiping',
     },
     {
-      cssVariable: '--radix-toast-swipe-end-y',
+      cssVariable: '--reka-toast-swipe-end-y',
       description:
         'The offset end position of the toast after vertically swiping',
     },
@@ -181,7 +181,7 @@ When a toast must appear every time a user clicks a button, use state to render 
 
 ### Animating swipe gesture
 
-Combine `--radix-toast-swipe-move-[x|y]` and `--radix-toast-swipe-end-[x|y]` CSS variables with `data-swipe="[start|move|cancel|end]"` attributes to animate a swipe to close gesture. Here's an example:
+Combine `--reka-toast-swipe-move-[x|y]` and `--reka-toast-swipe-end-[x|y]` CSS variables with `data-swipe="[start|move|cancel|end]"` attributes to animate a swipe to close gesture. Here's an example:
 
 ```html line=2
 <ToastProvider swipeDirection="right">
@@ -193,7 +193,7 @@ Combine `--radix-toast-swipe-move-[x|y]` and `--radix-toast-swipe-end-[x|y]` CSS
 ```css line=2,3,5,9,15
 /* styles.css */
 .ToastRoot[data-swipe='move'] {
-  transform: translateX(var(--radix-toast-swipe-move-x));
+  transform: translateX(var(--reka-toast-swipe-move-x));
 }
 .ToastRoot[data-swipe='cancel'] {
   transform: translateX(0);
@@ -205,7 +205,7 @@ Combine `--radix-toast-swipe-move-[x|y]` and `--radix-toast-swipe-end-[x|y]` CSS
 
 @keyframes slideRight {
   from {
-    transform: translateX(var(--radix-toast-swipe-end-x));
+    transform: translateX(var(--reka-toast-swipe-end-x));
   }
   to {
     transform: translateX(100%);
@@ -353,7 +353,7 @@ import Toast from './your-toast.vue'
 ```vue
 // your-toast.vue
 <script setup lang="ts">
-import { ToastAction, ToastClose, ToastDescription, ToastRoot, ToastTitle } from 'radix-vue'
+import { ToastAction, ToastClose, ToastDescription, ToastRoot, ToastTitle } from 'reka-ui'
 
 defineProps<{
   title: string
@@ -410,7 +410,7 @@ const savedRef = ref<InstanceType<typeof Toast>>()
 ```vue
 // your-toast.vue
 <script setup lang="ts">
-import { ToastClose, ToastDescription, ToastRoot, ToastTitle } from 'radix-vue'
+import { ToastClose, ToastDescription, ToastRoot, ToastTitle } from 'reka-ui'
 import { ref } from 'vue'
 
 const count = ref(0)

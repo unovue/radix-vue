@@ -29,7 +29,7 @@ A set of layered sections of content—known as tab panels—that are displayed 
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -37,7 +37,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { TabsContent, TabsIndicator, TabsList, TabsRoot, TabsTrigger } from 'radix-vue'
+import { TabsContent, TabsIndicator, TabsList, TabsRoot, TabsTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -115,11 +115,11 @@ The indicator that highlights the current active tab.
 <CssVariablesTable
   :data="[
     {
-      cssVariable: '--radix-tabs-indicator-size',
+      cssVariable: '--reka-tabs-indicator-size',
       description: 'The size of the indicator.',
     },
     {
-      cssVariable: '--radix-tabs-indicator-position',
+      cssVariable: '--reka-tabs-indicator-position',
       description: 'The position of the indicator',
     },
   ]"
@@ -152,7 +152,7 @@ You can create vertical tabs by using the `orientation` prop.
 
 ```vue line=6
 <script setup>
-import { TabsContent, TabsList, TabsRoot, TabsTrigger } from 'radix-vue'
+import { TabsContent, TabsList, TabsRoot, TabsTrigger } from 'reka-ui'
 </script>
 
 <template>

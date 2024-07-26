@@ -12,7 +12,7 @@ export function useFocusGuards() {
   watchEffect((cleanupFn) => {
     if (!isClient)
       return
-    const edgeGuards = document.querySelectorAll('[data-radix-focus-guard]')
+    const edgeGuards = document.querySelectorAll('[data-reka-focus-guard]')
     document.body.insertAdjacentElement(
       'afterbegin',
       edgeGuards[0] ?? createFocusGuard(),
@@ -26,7 +26,7 @@ export function useFocusGuards() {
     cleanupFn(() => {
       if (count === 1) {
         document
-          .querySelectorAll('[data-radix-focus-guard]')
+          .querySelectorAll('[data-reka-focus-guard]')
           .forEach(node => node.remove())
       }
       count--
@@ -36,7 +36,7 @@ export function useFocusGuards() {
 
 function createFocusGuard() {
   const element = document.createElement('span')
-  element.setAttribute('data-radix-focus-guard', '')
+  element.setAttribute('data-reka-focus-guard', '')
   element.tabIndex = 0
   element.style.cssText
     = 'outline: none; opacity: 0; position: fixed; pointer-events: none'

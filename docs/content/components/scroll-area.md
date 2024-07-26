@@ -28,7 +28,7 @@ Augments native scroll functionality for custom, cross-browser styling.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -36,7 +36,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from 'radix-vue'
+import { ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from 'reka-ui'
 </script>
 
 <template>

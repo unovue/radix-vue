@@ -38,7 +38,7 @@ provideSliderOrientationContext({
     :ref="forwardRef"
     data-orientation="vertical"
     :style="{
-      ['--radix-slider-thumb-transform' as any]: 'translateY(50%)',
+      ['--reka-slider-thumb-transform' as any]: 'translateY(50%)',
     }"
     @slide-start="(event) => {
       const value = getValueFromPointer(event.clientY);

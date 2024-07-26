@@ -10,7 +10,7 @@ import {
   NavigationMenuRoot,
   NavigationMenuTrigger,
   NavigationMenuViewport,
-} from 'radix-vue'
+} from 'reka-ui'
 import './styles.css'
 
 import NavigationMenuListItem from './NavigationMenuListItem.vue'

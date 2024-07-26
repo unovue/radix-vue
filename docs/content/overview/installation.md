@@ -4,31 +4,31 @@ A quick tutorial to walk through installing the packages, as well as the support
 
 ## Installing the package
 
-<a href="https://www.npmjs.com/package/radix-vue" target="__blank"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/radix-vue?flat&colorA=002438&colorB=41c399"></a>
+<a href="https://www.npmjs.com/package/reka-ui" target="__blank"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/reka-ui?flat&colorA=002438&colorB=41c399"></a>
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Nuxt modules
 
-Radix Vue offers Nuxt modules support.
+Reka UI offers Nuxt modules support.
 
-In `nuxt.config.ts`, simply add `radix-vue/nuxt` into the modules, and it will auto-imports all the components for you.
+In `nuxt.config.ts`, simply add `reka-ui/nuxt` into the modules, and it will auto-imports all the components for you.
 
 ```ts
 export default defineNuxtConfig({
-  modules: ['radix-vue/nuxt'],
+  modules: ['reka-ui/nuxt'],
 })
 ```
 
 ## unplugin-vue-components
 
-Radix Vue also has resolver for the popular [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components).
+Reka UI also has resolver for the popular [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components).
 
-In `vite.config.ts`, import `radix-vue/resolver`, and configure as such and it will auto-imports all the components from Radix Vue.
+In `vite.config.ts`, import `reka-ui/resolver`, and configure as such and it will auto-imports all the components from Reka UI.
 
 ```ts{2,10  }
 import Components from 'unplugin-vue-components/vite'
-import RadixVueResolver from 'radix-vue/resolver'
+import RekaResolver from 'reka-ui/resolver'
 
 export default defineConfig({
   plugins: [
@@ -36,9 +36,9 @@ export default defineConfig({
     Components({
       dts: true,
       resolvers: [
-        RadixVueResolver()
+        RekaResolver()
 
-        // RadixVueResolver({
+        // RekaResolver({
         //   prefix: '' // use the prefix option to add Prefix to the imported components
         // })
       ],

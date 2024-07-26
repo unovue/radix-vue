@@ -116,7 +116,7 @@ importers:
       '@vueuse/core':
         specifier: ^10.11.0
         version: 10.11.0(vue@3.4.31(typescript@5.4.2))
-      radix-vue:
+      reka-ui:
         specifier: link:../packages/radix-vue
         version: link:../packages/radix-vue
       typescript:
@@ -207,7 +207,7 @@ importers:
       '@nuxt/schema':
         specifier: ^3.12.2
         version: 3.12.2(rollup@3.29.4)
-      radix-vue:
+      reka-ui:
         specifier: link:../radix-vue
         version: link:../radix-vue
       tsx:

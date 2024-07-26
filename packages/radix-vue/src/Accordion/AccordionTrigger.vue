@@ -16,7 +16,7 @@ const props = defineProps<AccordionTriggerProps>()
 const rootContext = injectAccordionRootContext()
 const itemContext = injectAccordionItemContext()
 
-itemContext.triggerId ||= useId(undefined, 'radix-vue-accordion-trigger')
+itemContext.triggerId ||= useId(undefined, 'reka-accordion-trigger')
 function changeItem() {
   if (itemContext.disabled.value)
     return
@@ -28,7 +28,7 @@ function changeItem() {
   <CollapsibleTrigger
     :id="itemContext.triggerId"
     :ref="itemContext.currentRef"
-    data-radix-vue-collection-item
+    data-reka-collection-item
     :as="props.as"
     :as-child="props.asChild"
     :aria-disabled="itemContext.disabled.value || undefined"

@@ -56,7 +56,7 @@ const { CollectionItem } = useCollection()
 const isSelected = computed(() => valueComparator(rootContext.modelValue?.value, props.value, rootContext.by))
 const isFocused = ref(false)
 const textValue = ref(props.textValue ?? '')
-const textId = useId(undefined, 'radix-vue-select-item-text')
+const textId = useId(undefined, 'reka-select-item-text')
 
 async function handleSelect(ev?: PointerEvent) {
   await nextTick()

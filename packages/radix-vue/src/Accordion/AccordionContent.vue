@@ -27,8 +27,8 @@ useForwardExpose()
     :data-disabled="itemContext.dataDisabled.value"
     :data-orientation="rootContext.orientation"
     style="
-      --radix-accordion-content-width: var(--radix-collapsible-content-width);
-      --radix-accordion-content-height: var(--radix-collapsible-content-height);
+      --reka-accordion-content-width: var(--reka-collapsible-content-width);
+      --reka-accordion-content-height: var(--reka-collapsible-content-height);
     "
   >
     <slot />

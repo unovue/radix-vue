@@ -53,7 +53,7 @@ Other than using CSS animation, you might prefer to use the native Vue `<Transit
 
 ```vue line=11,13,14,19,25-33
 <script setup lang="ts">
-import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger, } from 'radix-vue'
+import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger, } from 'reka-ui'
 </script>
 
 <template>
@@ -90,7 +90,7 @@ import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPor
 
 <Callout type="tip">
 
-Futhemore, we discovered that [Motion One](https://motion.dev/vue/quick-start), a Web Animations API based animation library works perfectly with Radix Vue.
+Futhemore, we discovered that [Motion One](https://motion.dev/vue/quick-start), a Web Animations API based animation library works perfectly with Reka UI.
 
 Check out this [Stackblitz Demo](https://stackblitz.com/edit/hfxgtx-n6jbjp?file=src%2FApp.vue) 🤩
 
@@ -104,7 +104,7 @@ For example, if you want to use [@vueuse/motion](https://motion.vueuse.org/) to 
 
 ```vue line=32,34,41
 <script setup lang="ts">
-import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger, } from 'radix-vue'
+import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger, } from 'reka-ui'
 import { reactive, ref, watch } from 'vue'
 import { useSpring } from '@vueuse/motion'
 

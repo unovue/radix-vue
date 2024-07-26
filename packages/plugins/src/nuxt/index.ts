@@ -38,7 +38,7 @@ export default defineNuxtModule<ModuleOptions>({
       addComponent({
         name: `${options.prefix}${component}`,
         export: component,
-        filePath: 'radix-vue',
+        filePath: 'reka-ui',
       })
     }
   },

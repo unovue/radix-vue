@@ -214,7 +214,7 @@ rootContext.virtualKeydownHook.on((event) => {
 
 <template>
   <div
-    data-radix-vue-virtualizer
+    data-reka-virtualizer
     :style="{
       position: 'relative',
       width: '100%',

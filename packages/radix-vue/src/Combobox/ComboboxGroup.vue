@@ -16,7 +16,7 @@ export const [injectComboboxGroupContext, provideComboboxGroupContext]
 import { ListboxGroup } from '@/Listbox'
 
 const props = defineProps<ComboboxGroupProps>()
-const id = useId(undefined, 'radix-vue-combobox-group')
+const id = useId(undefined, 'reka-combobox-group')
 
 provideComboboxGroupContext({
   id,

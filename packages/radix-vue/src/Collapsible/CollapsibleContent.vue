@@ -26,7 +26,7 @@ defineOptions({
 const props = defineProps<CollapsibleContentProps>()
 
 const rootContext = injectCollapsibleRootContext()
-rootContext.contentId ||= useId(undefined, 'radix-vue-collapsible-content')
+rootContext.contentId ||= useId(undefined, 'reka-collapsible-content')
 
 const presentRef = ref<InstanceType<typeof Presence>>()
 const { forwardRef, currentElement } = useForwardExpose()
@@ -97,8 +97,8 @@ onMounted(() => {
       :data-state="skipAnimation ? undefined : rootContext.open.value ? 'open' : 'closed'"
       :data-disabled="rootContext.disabled?.value ? '' : undefined"
       :style="{
-        [`--radix-collapsible-content-height`]: `${height}px`,
-        [`--radix-collapsible-content-width`]: `${width}px`,
+        [`--reka-collapsible-content-height`]: `${height}px`,
+        [`--reka-collapsible-content-width`]: `${width}px`,
       }"
     >
       <slot v-if="rootContext.unmount.value ? present.value : true" />

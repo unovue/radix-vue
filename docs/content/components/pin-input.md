@@ -30,7 +30,7 @@ A sequence of one-character alphanumeric inputs.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -38,7 +38,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { PinInputInput, PinInputRoot } from 'radix-vue'
+import { PinInputInput, PinInputRoot } from 'reka-ui'
 </script>
 
 <template>
@@ -96,7 +96,7 @@ You can set the pin input to `otp` mode by setting otp to `true`.
 
 ```vue{6}
 <script setup lang="ts">
-import { Label, PinInputInput, PinInputRoot } from 'radix-vue'
+import { Label, PinInputInput, PinInputRoot } from 'reka-ui'
 </script>
 
 <template>
@@ -112,7 +112,7 @@ You can set the pin input to only accept `number` type by setting type to `numbe
 
 ```vue{6}
 <script setup lang="ts">
-import { Label, PinInputInput, PinInputRoot } from 'radix-vue'
+import { Label, PinInputInput, PinInputRoot } from 'reka-ui'
 </script>
 
 <template>

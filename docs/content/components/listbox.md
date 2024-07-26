@@ -31,7 +31,7 @@ A control that allows the user to toggle between checked and not checked.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -39,7 +39,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { ListboxContent, ListboxFilter, ListboxGroup, ListboxGroupLabel, ListboxItem, ListboxItemIndicator, ListboxRoot, ListboxVirtualizer } from 'radix-vue'
+import { ListboxContent, ListboxFilter, ListboxGroup, ListboxGroupLabel, ListboxItem, ListboxItemIndicator, ListboxRoot, ListboxVirtualizer } from 'reka-ui'
 </script>
 
 <template>
@@ -164,7 +164,7 @@ Unlike native HTML form controls which only allow you to provide strings as valu
 ```vue line=12,16
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ListboxContent, ListboxFilter, ListboxItem, ListboxRoot } from 'radix-vue'
+import { ListboxContent, ListboxFilter, ListboxItem, ListboxRoot } from 'reka-ui'
 
 const people = [
   { id: 1, name: 'Durward Reynolds' },
@@ -199,7 +199,7 @@ The `Listbox` component allows you to select multiple values. You can enable thi
 ```vue line=12,16
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ListboxRoot } from 'radix-vue'
+import { ListboxRoot } from 'reka-ui'
 
 const people = [
   { id: 1, name: 'Durward Reynolds' },
@@ -226,7 +226,7 @@ const selectedPeople = ref([people[0], people[1]])
 ```vue line=13,15-21,28,31
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ListboxContent, ListboxFilter, ListboxItem, ListboxRoot } from 'radix-vue'
+import { ListboxContent, ListboxFilter, ListboxItem, ListboxRoot } from 'reka-ui'
 
 const people = [
   { id: 1, name: 'Durward Reynolds' },
@@ -272,7 +272,7 @@ Rendering a long list of item can slow down the app, thus using virtualization w
 ```vue line=19-23,24
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ListboxContent, ListboxFilter, ListboxItem, ListboxRoot, ListboxVirtualizer } from 'radix-vue'
+import { ListboxContent, ListboxFilter, ListboxItem, ListboxRoot, ListboxVirtualizer } from 'reka-ui'
 
 const people = [
   { id: 1, name: 'Durward Reynolds' },

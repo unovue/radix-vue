@@ -28,8 +28,8 @@ const sizes = computed(() => scrollbarVisibleContext.sizes.value)
       top: 0,
       right: rootContext.dir.value === 'ltr' ? 0 : undefined,
       left: rootContext.dir.value === 'rtl' ? 0 : undefined,
-      bottom: 'var(--radix-scroll-area-corner-height)',
-      ['--radix-scroll-area-thumb-height' as any]: sizes ? `${getThumbSize(sizes)}px` : undefined,
+      bottom: 'var(--reka-scroll-area-corner-height)',
+      ['--reka-scroll-area-thumb-height' as any]: sizes ? `${getThumbSize(sizes)}px` : undefined,
     }"
     @on-drag-scroll="scrollbarVisibleContext.onDragScroll($event.y)"
   >

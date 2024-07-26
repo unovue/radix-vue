@@ -29,7 +29,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup lang="ts">
-import { TooltipArrow, TooltipContent, TooltipPortal, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
+import { TooltipArrow, TooltipContent, TooltipPortal, TooltipProvider, TooltipRoot, TooltipTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -107,23 +107,23 @@ The component that pops out when the tooltip is open.
 <CssVariablesTable
   :data="[
     {
-      cssVariable: '--radix-tooltip-content-transform-origin',
+      cssVariable: '--reka-tooltip-content-transform-origin',
       description: ' The <Code>transform-origin</Code> computed from the content and arrow positions/offsets',
     },
     {
-      cssVariable: '--radix-tooltip-content-available-width',
+      cssVariable: '--reka-tooltip-content-available-width',
       description: 'The remaining width between the trigger and the boundary edge',
     },
     {
-      cssVariable: '--radix-tooltip-content-available-height',
+      cssVariable: '--reka-tooltip-content-available-height',
       description: 'The remaining height between the trigger and the boundary edge',
     },
     {
-      cssVariable: '--radix-tooltip-trigger-width',
+      cssVariable: '--reka-tooltip-trigger-width',
       description: 'The width of the trigger',
     },
     {
-      cssVariable: '--radix-tooltip-trigger-height',
+      cssVariable: '--reka-tooltip-trigger-height',
       description: 'The height of the trigger',
     },
   ]"
@@ -143,7 +143,7 @@ Use the `Provider` to control `delayDuration` and `skipDelayDuration` globally.
 
 ```vue line=6
 <script setup>
-import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
+import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -169,7 +169,7 @@ Use the `delayDuration` prop to control the time it takes for the tooltip to ope
 
 ```vue line=6
 <script setup>
-import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
+import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -189,7 +189,7 @@ Since disabled buttons don't fire events, you need to:
 
 ```vue line=7-11
 <script setup>
-import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
+import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -211,12 +211,12 @@ import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'ra
 
 You may want to constrain the width of the content so that it matches the trigger width. You may also want to constrain its height to not exceed the viewport.
 
-We expose several CSS custom properties such as `--radix-tooltip-trigger-width` and `--radix-tooltip-content-available-height` to support this. Use them to constrain the content dimensions.
+We expose several CSS custom properties such as `--reka-tooltip-trigger-width` and `--reka-tooltip-content-available-height` to support this. Use them to constrain the content dimensions.
 
 ```vue line=10
  <!-- index.vue -->
 <script setup>
-import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
+import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -237,19 +237,19 @@ import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'ra
 ```css line=3,4
 /* styles.css */
 .TooltipContent {
-  width: var(--radix-tooltip-trigger-width);
-  max-height: var(--radix-tooltip-content-available-height);
+  width: var(--reka-tooltip-trigger-width);
+  max-height: var(--reka-tooltip-content-available-height);
 }
 ```
 
 ### Origin-aware animations
 
-We expose a CSS custom property `--radix-tooltip-content-transform-origin`. Use it to animate the content from its computed origin based on `side`, `sideOffset`, `align`, `alignOffset` and any collisions.
+We expose a CSS custom property `--reka-tooltip-content-transform-origin`. Use it to animate the content from its computed origin based on `side`, `sideOffset`, `align`, `alignOffset` and any collisions.
 
 ```vue line=9
  <!-- index.vue -->
 <script setup>
-import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
+import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -265,7 +265,7 @@ import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'ra
 ```css line=3-4
 /* styles.css */
 .TooltipContent {
-  transform-origin: var(--radix-tooltip-content-transform-origin);
+  transform-origin: var(--reka-tooltip-content-transform-origin);
   animation: scaleIn 0.5s ease-out;
 }
 
@@ -288,7 +288,7 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 ```vue line=9
  <!-- index.vue -->
 <script setup>
-import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
+import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -391,7 +391,7 @@ Use the [`asChild` prop](/guides/composition) to convert the trigger part into a
 ```vue line=13-15
 <!-- your-tooltip.vue  -->
 <script setup lang="ts">
-import { TooltipArrow, TooltipContent, TooltipRoot, type TooltipRootEmits, type TooltipRootProps, TooltipTrigger, useForwardPropsEmits } from 'radix-vue'
+import { TooltipArrow, TooltipContent, TooltipRoot, type TooltipRootEmits, type TooltipRootProps, TooltipTrigger, useForwardPropsEmits } from 'reka-ui'
 
 const props = defineProps<TooltipRootProps & { content?: string }>()
 const emits = defineEmits<TooltipRootEmits>()

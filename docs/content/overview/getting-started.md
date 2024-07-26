@@ -19,7 +19,7 @@ In this quick tutorial, we will install and style the [Popover](../components/po
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ### 2. Import the parts
 
@@ -28,7 +28,7 @@ Import and structure the parts.
 ```vue twoslash
 <!-- Popover.vue -->
 <script setup lang="ts">
-import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
+import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'reka-ui'
 </script>
 
 <template>

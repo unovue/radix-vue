@@ -34,7 +34,7 @@ export default defineBuildConfig([
     clean: false,
     declaration: true,
     externals: [
-      'radix-vue',
+      'reka-ui',
     ],
     rollup: {
       emitCJS: true,

@@ -136,8 +136,8 @@ provideScrollAreaRootContext({
     :style="{
       position: 'relative',
       // Pass corner sizes as CSS vars to reduce re-renders of context consumers
-      ['--radix-scroll-area-corner-width' as any]: `${cornerWidth}px`,
-      ['--radix-scroll-area-corner-height' as any]: `${cornerHeight}px`,
+      ['--reka-scroll-area-corner-width' as any]: `${cornerWidth}px`,
+      ['--reka-scroll-area-corner-height' as any]: `${cornerHeight}px`,
     }"
   >
     <slot />

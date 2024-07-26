@@ -17,7 +17,7 @@ import { Primitive } from '@/Primitive'
 
 const props = defineProps<ListboxGroupProps>()
 
-const id = useId(undefined, 'radix-vue-listbox-group')
+const id = useId(undefined, 'reka-listbox-group')
 provideListboxGroupContext({ id })
 </script>
 

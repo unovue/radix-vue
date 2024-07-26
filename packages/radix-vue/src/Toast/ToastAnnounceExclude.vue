@@ -16,8 +16,8 @@ defineProps<ToastAnnounceExcludeProps>()
   <Primitive
     :as="as"
     :as-child="asChild"
-    data-radix-toast-announce-exclude=""
-    :data-radix-toast-announce-alt="altText || undefined"
+    data-reka-toast-announce-exclude=""
+    :data-reka-toast-announce-alt="altText || undefined"
   >
     <slot />
   </Primitive>

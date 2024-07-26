@@ -70,7 +70,7 @@ const isFocusedDate = computed(() => {
 const isSelectedDate = computed(() => rootContext.isDateSelected(props.day))
 
 const SELECTOR
-  = '[data-radix-vue-calendar-cell-trigger]:not([data-disabled]):not([data-outside-month]):not([data-outside-visible-months])'
+  = '[data-reka-calendar-cell-trigger]:not([data-disabled]):not([data-outside-month]):not([data-outside-visible-months])'
 
 function changeDate(date: DateValue) {
   if (rootContext.readonly.value)
@@ -157,7 +157,7 @@ function handleArrowKey(e: KeyboardEvent) {
     v-bind="props"
     role="button"
     :aria-label="labelText"
-    data-radix-vue-calendar-cell-trigger
+    data-reka-calendar-cell-trigger
     :aria-disabled="isOutsideView || isDisabled || isUnavailable ? true : undefined"
     :data-selected="isSelectedDate ? true : undefined"
     :data-value="day.toString()"

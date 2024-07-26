@@ -28,7 +28,7 @@ export default defineConfig({
   },
   build: {
     lib: {
-      name: 'radix-vue',
+      name: 'reka-ui',
       fileName: (format, name) => {
         return `${name}.${format === 'es' ? 'js' : 'umd.cjs'}`
       },

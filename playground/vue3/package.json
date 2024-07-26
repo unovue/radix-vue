@@ -11,7 +11,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "radix-vue": "link:../../packages/radix-vue",
+    "reka-ui": "link:../../packages/radix-vue",
     "vue": "3.4.31"
   },
   "devDependencies": {

@@ -27,7 +27,7 @@ A set of steps that are used to indicate progress through a multi-step process.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -35,7 +35,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { StepperDescription, StepperIndicator, StepperItem, StepperRoot, StepperTitle, StepperTrigger } from 'radix-vue'
+import { StepperDescription, StepperIndicator, StepperItem, StepperRoot, StepperTitle, StepperTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -150,7 +150,7 @@ You can create vertical tabs by using the `orientation` prop.
 
 ```vue line=8
 <script setup>
-import { StepperDescription, StepperIndicator, StepperItem, StepperList, StepperRoot, StepperTitle } from 'radix-vue'
+import { StepperDescription, StepperIndicator, StepperItem, StepperList, StepperRoot, StepperTitle } from 'reka-ui'
 </script>
 
 <template>

@@ -33,7 +33,7 @@ A tree view widget displays a hierarchical list of items that can be expanded or
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -41,7 +41,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { TreeItem, TreeRoot, TreeVirtualizer } from 'radix-vue'
+import { TreeItem, TreeRoot, TreeVirtualizer } from 'reka-ui'
 </script>
 
 <template>
@@ -102,7 +102,7 @@ The `Tree` component allows you to select multiple items. You can enable this by
 ```vue line=12,16
 <script setup lang="ts">
 import { ref } from 'vue'
-import { TreeRoot } from 'radix-vue'
+import { TreeRoot } from 'reka-ui'
 
 const people = [
   { id: 1, name: 'Durward Reynolds' },
@@ -131,7 +131,7 @@ Rendering a long list of item can slow down the app, thus using virtualization w
 ```vue line=9-16
 <script setup lang="ts">
 import { ref } from 'vue'
-import { TreeItem, TreeRoot, TreeVirtualizer } from 'radix-vue'
+import { TreeItem, TreeRoot, TreeVirtualizer } from 'reka-ui'
 </script>
 
 <template>
@@ -158,7 +158,7 @@ We set `propagateSelect` to `true` because we want the parent checkbox to select
 ```vue line=10-11,17-25,29-33
 <script setup lang="ts">
 import { ref } from 'vue'
-import { TreeItem, TreeRoot } from 'radix-vue'
+import { TreeItem, TreeRoot } from 'reka-ui'
 </script>
 
 <template>
@@ -222,7 +222,7 @@ In `Tree.vue`,
 
 ```vue
 <script setup lang="ts">
-import { TreeItem } from 'radix-vue'
+import { TreeItem } from 'reka-ui'
 
 interface TreeNode {
   title: string

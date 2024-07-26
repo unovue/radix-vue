@@ -28,7 +28,7 @@ onMounted(() => {
   rootContext.triggerElement = triggerElement
 })
 
-rootContext.triggerId ||= useId(undefined, 'radix-vue-dropdown-menu-trigger')
+rootContext.triggerId ||= useId(undefined, 'reka-dropdown-menu-trigger')
 </script>
 
 <template>

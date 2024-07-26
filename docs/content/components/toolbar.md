@@ -23,7 +23,7 @@ dropdown menus.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -38,7 +38,7 @@ import {
   ToolbarSeparator,
   ToolbarToggleGroup,
   ToolbarToggleItem,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -164,7 +164,7 @@ import {
   ToolbarSeparator,
   ToolbarToggleGroup,
   ToolbarToggleItem,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>

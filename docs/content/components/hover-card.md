@@ -29,7 +29,7 @@ For sighted users to preview content available behind a link.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -37,7 +37,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from 'radix-vue'
+import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -107,23 +107,23 @@ The component that pops out when the hover card is open.
 <CssVariablesTable
   :data="[
     {
-      cssVariable: '--radix-hover-card-content-transform-origin',
+      cssVariable: '--reka-hover-card-content-transform-origin',
       description: 'The <Code>transform-origin</Code> computed from the content and arrow positions/offsets',
     },
     {
-      cssVariable: '--radix-hover-card-content-available-width',
+      cssVariable: '--reka-hover-card-content-available-width',
       description: 'The remaining width between the trigger and the boundary edge',
     },
     {
-      cssVariable: '--radix-hover-card-content-available-height',
+      cssVariable: '--reka-hover-card-content-available-height',
       description: 'The remaining height between the trigger and the boundary edge',
     },
     {
-      cssVariable: '--radix-hover-card-trigger-width',
+      cssVariable: '--reka-hover-card-trigger-width',
       description: 'The width of the trigger',
     },
     {
-      cssVariable: '--radix-hover-card-trigger-height',
+      cssVariable: '--reka-hover-card-trigger-height',
       description: 'The height of the trigger',
     },
   ]"
@@ -149,7 +149,7 @@ import {
   HoverCardPortal,
   HoverCardRoot,
   HoverCardTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -164,12 +164,12 @@ import {
 
 You may want to constrain the width of the content so that it matches the trigger width. You may also want to constrain its height to not exceed the viewport.
 
-We expose several CSS custom properties such as `--radix-hover-card-trigger-width` and `--radix-hover-card-content-available-height` to support this. Use them to constrain the content dimensions.
+We expose several CSS custom properties such as `--reka-hover-card-trigger-width` and `--reka-hover-card-content-available-height` to support this. Use them to constrain the content dimensions.
 
 ```vue line=10
 // index.vue
 <script setup>
-import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from 'radix-vue'
+import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -190,19 +190,19 @@ import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, Hover
 ```css line=3-4
 /* styles.css */
 .HoverCardContent {
-  width: var(--radix-hover-card-trigger-width);
-  max-height: var(--radix-hover-card-content-available-height);
+  width: var(--reka-hover-card-trigger-width);
+  max-height: var(--reka-hover-card-content-available-height);
 }
 ```
 
 ### Origin-aware animations
 
-We expose a CSS custom property `--radix-hover-card-content-transform-origin`. Use it to animate the content from its computed origin based on `side`, `sideOffset`, `align`, `alignOffset` and any collisions.
+We expose a CSS custom property `--reka-hover-card-content-transform-origin`. Use it to animate the content from its computed origin based on `side`, `sideOffset`, `align`, `alignOffset` and any collisions.
 
 ```vue line=9
 // index.vue
 <script setup>
-import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from 'radix-vue'
+import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -218,7 +218,7 @@ import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, Hover
 ```css line=3
 /* styles.css */
 .HoverCardContent {
-  transform-origin: var(--radix-hover-card-content-transform-origin);
+  transform-origin: var(--reka-hover-card-content-transform-origin);
   animation: scaleIn 0.5s ease-out;
 }
 
@@ -241,7 +241,7 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 ```vue line=9
 // index.vue
 <script setup>
-import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from 'radix-vue'
+import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from 'reka-ui'
 </script>
 
 <template>

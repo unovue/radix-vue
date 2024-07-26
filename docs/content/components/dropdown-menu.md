@@ -36,7 +36,7 @@ Displays a menu to the user—such as a set of actions or functions—triggered 
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -61,7 +61,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -165,23 +165,23 @@ The component that pops out when the dropdown menu is open.
 <CssVariablesTable
   :data="[
     {
-      cssVariable: '--radix-dropdown-menu-content-transform-origin',
+      cssVariable: '--reka-dropdown-menu-content-transform-origin',
       description: 'The <Code>transform-origin</Code> computed from the content and arrow positions/offsets'
     },
     {
-      cssVariable: '--radix-dropdown-menu-content-available-width',
+      cssVariable: '--reka-dropdown-menu-content-available-width',
       description: 'The remaining width between the trigger and the boundary edge'
     },
     {
-      cssVariable: '--radix-dropdown-menu-content-available-height',
+      cssVariable: '--reka-dropdown-menu-content-available-height',
       description: 'The remaining height between the trigger and the boundary edge'
     },
     {
-      cssVariable: '--radix-dropdown-menu-trigger-width',
+      cssVariable: '--reka-dropdown-menu-trigger-width',
       description: 'The width of the trigger',
     },
     {
-      cssVariable: '--radix-dropdown-menu-trigger-height',
+      cssVariable: '--reka-dropdown-menu-trigger-height',
       description: 'The height of the trigger',
     },
   ]"
@@ -333,25 +333,25 @@ An item that opens a submenu. Must be rendered inside `DropdownMenuSub`.
 <CssVariablesTable
   :data="[
     {
-      cssVariable: '--radix-dropdown-menu-content-transform-origin',
+      cssVariable: '--reka-dropdown-menu-content-transform-origin',
       description: 'The <Code>transform-origin</Code> computed from the content and arrow positions/offsets',
     },
     {
-      cssVariable: '--radix-dropdown-menu-content-available-width',
+      cssVariable: '--reka-dropdown-menu-content-available-width',
       description: `
         The remaining width between the trigger and the boundary edge
       `,
     },
     {
-      cssVariable: '--radix-dropdown-menu-content-available-height',
+      cssVariable: '--reka-dropdown-menu-content-available-height',
       description: 'The remaining height between the trigger and the boundary edge',
     },
     {
-      cssVariable: '--radix-dropdown-menu-trigger-width',
+      cssVariable: '--reka-dropdown-menu-trigger-width',
       description: 'The width of the trigger',
     },
     {
-      cssVariable: '--radix-dropdown-menu-trigger-height',
+      cssVariable: '--reka-dropdown-menu-trigger-height',
       description: 'The height of the trigger'
     },
   ]"
@@ -403,7 +403,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -444,7 +444,7 @@ import {
   DropdownMenuPortal,
   DropdownMenuRoot,
   DropdownMenuTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -487,7 +487,7 @@ import {
   DropdownMenuRoot,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -519,7 +519,7 @@ import {
   DropdownMenuPortal,
   DropdownMenuRoot,
   DropdownMenuTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -554,7 +554,7 @@ import {
   DropdownMenuRoot,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 
 const checked = ref(false)
 </script>
@@ -595,7 +595,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuRoot,
   DropdownMenuTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 
 const color = ref(false)
 </script>
@@ -643,7 +643,7 @@ import {
   DropdownMenuPortal,
   DropdownMenuRoot,
   DropdownMenuTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -669,11 +669,11 @@ import {
 
 You may want to constrain the width of the content (or sub-content) so that it matches the trigger (or sub-trigger) width. You may also want to constrain its height to not exceed the viewport.
 
-We expose several CSS custom properties such as `--radix-dropdown-menu-trigger-width` and `--radix-dropdown-menu-content-available-height` to support this. Use them to constrain the content dimensions.
+We expose several CSS custom properties such as `--reka-dropdown-menu-trigger-width` and `--reka-dropdown-menu-content-available-height` to support this. Use them to constrain the content dimensions.
 
 ```vue line=9
 <script setup lang="ts">
-import { DropdownMenuContent, DropdownMenuPortal, DropdownMenuRoot, DropdownMenuTrigger } from 'radix-vue'
+import { DropdownMenuContent, DropdownMenuPortal, DropdownMenuRoot, DropdownMenuTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -694,18 +694,18 @@ import { DropdownMenuContent, DropdownMenuPortal, DropdownMenuRoot, DropdownMenu
 ```css line=3-4
 /* styles.css */
 .DropdownMenuContent {
-  width: var(--radix-dropdown-menu-trigger-width);
-  max-height: var(--radix-dropdown-menu-content-available-height);
+  width: var(--reka-dropdown-menu-trigger-width);
+  max-height: var(--reka-dropdown-menu-content-available-height);
 }
 ```
 
 ### Origin-aware animations
 
-We expose a CSS custom property `--radix-dropdown-menu-content-transform-origin`. Use it to animate the content from its computed origin based on `side`, `sideOffset`, `align`, `alignOffset` and any collisions.
+We expose a CSS custom property `--reka-dropdown-menu-content-transform-origin`. Use it to animate the content from its computed origin based on `side`, `sideOffset`, `align`, `alignOffset` and any collisions.
 
 ```vue line=9
 <script setup lang="ts">
-import { DropdownMenuContent, DropdownMenuPortal, DropdownMenuRoot, DropdownMenuTrigger } from 'radix-vue'
+import { DropdownMenuContent, DropdownMenuPortal, DropdownMenuRoot, DropdownMenuTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -723,7 +723,7 @@ import { DropdownMenuContent, DropdownMenuPortal, DropdownMenuRoot, DropdownMenu
 ```css line=3
 /* styles.css */
 .DropdownMenuContent {
-  transform-origin: var(--radix-dropdown-menu-content-transform-origin);
+  transform-origin: var(--reka-dropdown-menu-content-transform-origin);
   animation: scaleIn 0.5s ease-out;
 }
 
@@ -745,7 +745,7 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 
 ```vue line=9
 <script setup lang="ts">
-import { DropdownMenuContent, DropdownMenuPortal, DropdownMenuRoot, DropdownMenuTrigger } from 'radix-vue'
+import { DropdownMenuContent, DropdownMenuPortal, DropdownMenuRoot, DropdownMenuTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -924,13 +924,13 @@ export {
   DropdownMenuGroup,
   DropdownMenuRadioGroup,
   DropdownMenuSeparator
-} from 'radix-vue'
+} from 'reka-ui'
 ```
 
 ```vue
 <!-- DropdownMenuContent.vue -->
 <script setup lang="ts">
-import { DropdownMenuContent, type DropdownMenuContentEmits, type DropdownMenuContentProps, DropdownMenuPortal, useForwardPropsEmits, } from 'radix-vue'
+import { DropdownMenuContent, type DropdownMenuContentEmits, type DropdownMenuContentProps, DropdownMenuPortal, useForwardPropsEmits, } from 'reka-ui'
 
 const props = defineProps<DropdownMenuContentProps>()
 const emits = defineEmits<DropdownMenuContentEmits>()
@@ -950,7 +950,7 @@ const forwarded = useForwardPropsEmits(props, emits)
 ```vue
 <!-- DropdownMenuCheckboxItem.vue -->
 <script setup lang="ts">
-import { DropdownMenuCheckboxItem, type DropdownMenuCheckboxItemEmits, type DropdownMenuCheckboxItemProps, DropdownMenuItemIndicator, useForwardPropsEmits } from 'radix-vue'
+import { DropdownMenuCheckboxItem, type DropdownMenuCheckboxItemEmits, type DropdownMenuCheckboxItemProps, DropdownMenuItemIndicator, useForwardPropsEmits } from 'reka-ui'
 import { CheckIcon } from '@radix-icons/vue'
 
 const props = defineProps<DropdownMenuCheckboxItemProps>()
@@ -974,7 +974,7 @@ const forwarded = useForwardPropsEmits(props, emits)
 ```vue
 <!-- DropdownMenuRadioItem.vue -->
 <script setup lang="ts">
-import { DropdownMenuItemIndicator, DropdownMenuRadioItem, type DropdownMenuRadioItemEmits, type DropdownMenuRadioItemProps, useForwardPropsEmits, } from 'radix-vue'
+import { DropdownMenuItemIndicator, DropdownMenuRadioItem, type DropdownMenuRadioItemEmits, type DropdownMenuRadioItemProps, useForwardPropsEmits, } from 'reka-ui'
 import { DotFilledIcon } from '@radix-icons/vue'
 
 const props = defineProps<DropdownMenuRadioItemProps>()

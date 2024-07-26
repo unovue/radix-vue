@@ -32,7 +32,7 @@ A component that divides your layout into resizable sections.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -40,7 +40,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { SplitterGroup, SplitterPanel, SplitterResizeHandle } from 'radix-vue'
+import { SplitterGroup, SplitterPanel, SplitterResizeHandle } from 'reka-ui'
 </script>
 
 <template>

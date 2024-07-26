@@ -83,7 +83,7 @@ provideTabsRootContext({
   orientation,
   dir,
   activationMode: props.activationMode,
-  baseId: useId(undefined, 'radix-vue-tabs'),
+  baseId: useId(undefined, 'reka-tabs'),
   tabsList,
 })
 </script>

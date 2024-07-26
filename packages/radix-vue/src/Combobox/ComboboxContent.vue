@@ -24,7 +24,7 @@ const { forwardRef } = useForwardExpose()
 
 const rootContext = injectComboboxRootContext()
 
-rootContext.contentId ||= useId(undefined, 'radix-vue-combobox-content')
+rootContext.contentId ||= useId(undefined, 'reka-combobox-content')
 </script>
 
 <template>

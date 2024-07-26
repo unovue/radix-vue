@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SwitchRoot, SwitchThumb } from 'radix-vue'
+import { SwitchRoot, SwitchThumb } from 'reka-ui'
 import { useData } from 'vitepress'
 import { Icon } from '@iconify/vue'
 import { ref, watchPostEffect } from 'vue'

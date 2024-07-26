@@ -163,7 +163,7 @@ provideNavigationMenuContext({
   isRootMenu: true,
   modelValue,
   previousValue,
-  baseId: useId(undefined, 'radix-navigation-menu'),
+  baseId: useId(undefined, 'reka-navigation-menu'),
   disableClickTrigger,
   disableHoverTrigger,
   dir,

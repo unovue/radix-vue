@@ -31,7 +31,7 @@ A collection of links for navigating websites.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -49,7 +49,7 @@ import {
   NavigationMenuSub,
   NavigationMenuTrigger,
   NavigationMenuViewport,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -235,11 +235,11 @@ An optional viewport element that is used to render active content outside of th
 <CssVariablesTable
   :data="[
     {
-      cssVariable: '--radix-navigation-menu-viewport-width',
+      cssVariable: '--reka-navigation-menu-viewport-width',
       description: 'The width of the viewport when visible/hidden, computed from the active content',
     },
     {
-      cssVariable: '--radix-navigation-menu-viewport-height',
+      cssVariable: '--reka-navigation-menu-viewport-height',
       description: 'The height of the viewport when visible/hidden, computed from the active content',
     },
   ]"
@@ -263,7 +263,7 @@ import {
   NavigationMenuSub,
   NavigationMenuTrigger,
   NavigationMenuViewport,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -297,7 +297,7 @@ import {
   NavigationMenuRoot,
   NavigationMenuTrigger,
   NavigationMenuViewport,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -333,7 +333,7 @@ import {
   NavigationMenuRoot,
   NavigationMenuTrigger,
   NavigationMenuViewport,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -383,7 +383,7 @@ import {
   NavigationMenuSub,
   NavigationMenuTrigger,
   NavigationMenuViewport,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -422,7 +422,7 @@ This will ensure accessibility and consistent keyboard control is maintained:
 
 ```vue line=12-14,19-21
 <script setup lang="ts">
-import { NavigationMenuItem, NavigationMenuList, NavigationMenuRoot } from 'radix-vue'
+import { NavigationMenuItem, NavigationMenuList, NavigationMenuRoot } from 'reka-ui'
 
 // RouterLink should be injected by default if using `vue-router`
 </script>
@@ -453,7 +453,7 @@ import { NavigationMenuItem, NavigationMenuList, NavigationMenuRoot } from 'radi
 
 ### Advanced animation
 
-We expose `--radix-navigation-menu-viewport-[width|height]` and `data-motion['from-start'|'to-start'|'from-end'|'to-end']` attributes to allow you to animate `Viewport` size and `Content` position based on the enter/exit direction.
+We expose `--reka-navigation-menu-viewport-[width|height]` and `data-motion['from-start'|'to-start'|'from-end'|'to-end']` attributes to allow you to animate `Viewport` size and `Content` position based on the enter/exit direction.
 
 Combining these with `position: absolute;` allows you to create smooth overlapping animation effects when moving between items.
 
@@ -466,7 +466,7 @@ import {
   NavigationMenuRoot,
   NavigationMenuTrigger,
   NavigationMenuViewport,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -515,8 +515,8 @@ import {
 
 .NavigationMenuViewport {
   position: relative;
-  width: var(--radix-navigation-menu-viewport-width);
-  height: var(--radix-navigation-menu-viewport-height);
+  width: var(--reka-navigation-menu-viewport-width);
+  height: var(--reka-navigation-menu-viewport-height);
   transition: width, height, 250ms ease;
 }
 

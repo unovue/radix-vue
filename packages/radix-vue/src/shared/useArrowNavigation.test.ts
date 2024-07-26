@@ -13,9 +13,9 @@ describe('useArrowNavigation', () => {
     child2 = document.createElement('div')
     child3 = document.createElement('div')
 
-    child1.setAttribute('data-radix-vue-collection-item', '')
-    child2.setAttribute('data-radix-vue-collection-item', '')
-    child3.setAttribute('data-radix-vue-collection-item', '')
+    child1.setAttribute('data-reka-collection-item', '')
+    child2.setAttribute('data-reka-collection-item', '')
+    child3.setAttribute('data-reka-collection-item', '')
 
     parentElement.appendChild(child1)
     parentElement.appendChild(child2)

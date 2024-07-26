@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from 'radix-vue'
+import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from 'reka-ui'
 import { Icon } from '@iconify/vue'
 
 const open = ref(false)

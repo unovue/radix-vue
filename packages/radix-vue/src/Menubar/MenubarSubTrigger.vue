@@ -15,7 +15,7 @@ useForwardExpose()
 <template>
   <MenuSubTrigger
     v-bind="props"
-    data-radix-menubar-subtrigger=""
+    data-reka-menubar-subtrigger=""
   >
     <slot />
   </MenuSubTrigger>

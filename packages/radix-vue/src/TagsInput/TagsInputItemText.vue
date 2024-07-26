@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<TagsInputItemTextProps>(), {
 const itemContext = injectTagsInputItemContext()
 useForwardExpose()
 
-itemContext.textId ||= useId(undefined, 'radix-vue-tags-input-item-text')
+itemContext.textId ||= useId(undefined, 'reka-tags-input-item-text')
 </script>
 
 <template>

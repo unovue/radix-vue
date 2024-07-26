@@ -82,10 +82,10 @@ module.exports = {
         },
         slideDown: {
           from: { height: 0 },
-          to: { height: 'var(--radix-collapsible-content-height)' },
+          to: { height: 'var(--reka-collapsible-content-height)' },
         },
         slideUp: {
-          from: { height: 'var(--radix-collapsible-content-height)' },
+          from: { height: 'var(--reka-collapsible-content-height)' },
           to: { height: 0 },
         },
         enterFromRight: {
@@ -129,7 +129,7 @@ module.exports = {
           to: { transform: 'translateX(0)' },
         },
         swipeOut: {
-          from: { transform: 'translateX(var(--radix-toast-swipe-end-x))' },
+          from: { transform: 'translateX(var(--reka-toast-swipe-end-x))' },
           to: { transform: 'translateX(calc(100% + var(--viewport-padding)))' },
         },
         text: {

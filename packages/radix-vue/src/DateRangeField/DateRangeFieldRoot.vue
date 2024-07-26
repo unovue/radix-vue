@@ -290,8 +290,8 @@ watch([endValue, locale], ([_endValue]) => {
 const currentFocusedElement = ref<HTMLElement | null>(null)
 
 const currentSegmentIndex = computed(() => Array.from(segmentElements.value).findIndex(el =>
-  el.getAttribute('data-radix-vue-date-field-segment') === currentFocusedElement.value?.getAttribute('data-radix-vue-date-field-segment')
-  && el.getAttribute('data-radix-vue-date-range-field-segment-type') === currentFocusedElement.value?.getAttribute('data-radix-vue-date-range-field-segment-type')))
+  el.getAttribute('data-reka-date-field-segment') === currentFocusedElement.value?.getAttribute('data-reka-date-field-segment')
+  && el.getAttribute('data-reka-date-range-field-segment-type') === currentFocusedElement.value?.getAttribute('data-reka-date-range-field-segment-type')))
 
 const nextFocusableSegment = computed(() => {
   const sign = dir.value === 'rtl' ? -1 : 1

@@ -50,11 +50,11 @@ const isInvalid = computed(() => rootContext.isInvalid.value)
     :as-child="asChild"
     v-bind="attributes"
     :contenteditable="disabled || readonly ? false : part !== 'literal'"
-    :data-radix-vue-date-field-segment="part"
+    :data-reka-date-field-segment="part"
     :aria-disabled="disabled ? true : undefined"
     :aria-readonly="readonly ? true : undefined"
     :data-disabled="disabled ? '' : undefined"
-    :data-radix-vue-date-range-field-segment-type="type"
+    :data-reka-date-range-field-segment-type="type"
     :data-invalid="isInvalid ? '' : undefined"
     :aria-invalid="isInvalid ? true : undefined"
     v-on="part !== 'literal' ? {

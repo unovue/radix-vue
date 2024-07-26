@@ -85,7 +85,7 @@ if (panelGroupContext === null) {
 }
 
 const { collapsePanel, expandPanel, getPanelSize, getPanelStyle, isPanelCollapsed, resizePanel, groupId, reevaluatePanelConstraints, registerPanel, unregisterPanel } = panelGroupContext
-const panelId = useId(props.id, 'radix-vue-splitter-panel')
+const panelId = useId(props.id, 'reka-splitter-panel')
 
 const panelDataRef = computed(() => ({
   callbacks: {

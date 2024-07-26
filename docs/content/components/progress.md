@@ -26,7 +26,7 @@ Displays an indicator showing the completion progress of a task, typically displ
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ### Anatomy
 
@@ -34,7 +34,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { ProgressIndicator, ProgressRoot } from 'radix-vue'
+import { ProgressIndicator, ProgressRoot } from 'reka-ui'
 </script>
 
 <template>

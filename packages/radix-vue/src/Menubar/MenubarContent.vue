@@ -25,7 +25,7 @@ useForwardExpose()
 const rootContext = injectMenubarRootContext()
 const menuContext = injectMenubarMenuContext()
 
-menuContext.contentId ||= useId(undefined, 'radix-vue-menubar-content')
+menuContext.contentId ||= useId(undefined, 'reka-menubar-content')
 
 const { getItems } = useCollection({ key: 'Menubar' })
 
@@ -34,7 +34,7 @@ const hasInteractedOutsideRef = ref(false)
 function handleArrowNavigation(event: KeyboardEvent) {
   const target = event.target as HTMLElement
   const targetIsSubTrigger = target.hasAttribute(
-    'data-radix-menubar-subtrigger',
+    'data-reka-menubar-subtrigger',
   )
 
   const prevMenuKey = rootContext.dir.value === 'rtl' ? 'ArrowRight' : 'ArrowLeft'
@@ -65,17 +65,17 @@ function handleArrowNavigation(event: KeyboardEvent) {
   <MenuContent
     v-bind="forwarded"
     :id="menuContext.contentId"
-    data-radix-menubar-content=""
+    data-reka-menubar-content=""
     :aria-labelledby="menuContext.triggerId"
     :style="{
-      '--radix-menubar-content-transform-origin':
-        'var(--radix-popper-transform-origin)',
-      '--radix-menubar-content-available-width':
-        'var(--radix-popper-available-width)',
-      '--radix-menubar-content-available-height':
-        'var(--radix-popper-available-height)',
-      '--radix-menubar-trigger-width': 'var(--radix-popper-anchor-width)',
-      '--radix-menubar-trigger-height': 'var(--radix-popper-anchor-height)',
+      '--reka-menubar-content-transform-origin':
+        'var(--reka-popper-transform-origin)',
+      '--reka-menubar-content-available-width':
+        'var(--reka-popper-available-width)',
+      '--reka-menubar-content-available-height':
+        'var(--reka-popper-available-height)',
+      '--reka-menubar-trigger-width': 'var(--reka-popper-anchor-width)',
+      '--reka-menubar-trigger-height': 'var(--reka-popper-anchor-height)',
     }"
     @close-auto-focus="(event) => {
       const menubarOpen = Boolean(rootContext.modelValue.value);

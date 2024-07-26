@@ -1,8 +1,8 @@
 // noinspection ES6PreferShortImport: IntelliJ IDE hint to avoid warning to use `~/contributors`, will fail on build if changed
 
 /* Texts */
-export const radixVueName = 'Radix Vue'
-export const radixVueShortName = 'Radix Vue'
+export const radixVueName = 'Reka UI'
+export const radixVueShortName = 'Reka UI'
 export const radixVueDescription
   = 'Unstyled, accessible components for building high‑quality design systems and web apps in Vue'
 

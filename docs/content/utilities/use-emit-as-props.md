@@ -17,7 +17,7 @@ By using this composables, it will convert the `emits` you've declared into an o
 
 ```vue
 <script setup lang="ts">
-import { useEmitAsProps } from 'radix-vue'
+import { useEmitAsProps } from 'reka-ui'
 
 const emits = defineEmits<CompEmitType>()
 const emitsAsProps = useEmitAsProps(emits)

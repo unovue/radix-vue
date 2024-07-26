@@ -24,7 +24,7 @@ A two-state button that can be either on or off.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -32,7 +32,7 @@ Import the component.
 
 ```vue
 <script setup>
-import { Toggle } from 'radix-vue'
+import { Toggle } from 'reka-ui'
 </script>
 
 <template>

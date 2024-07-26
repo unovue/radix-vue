@@ -39,7 +39,7 @@ const aspect = computed(() => {
 <template>
   <div
     :style="`position: relative; width: 100%; padding-bottom: ${aspect}%`"
-    data-radix-aspect-ratio-wrapper
+    data-reka-aspect-ratio-wrapper
   >
     <Primitive
       :ref="forwardRef"

@@ -28,7 +28,7 @@ A control that allows the user to toggle between checked and not checked.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -36,7 +36,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { CheckboxIndicator, CheckboxRoot } from 'radix-vue'
+import { CheckboxIndicator, CheckboxRoot } from 'reka-ui'
 </script>
 
 <template>
@@ -95,7 +95,7 @@ You can set the checkbox to `indeterminate` by taking control of its state.
 ```vue line=5,9-14,16-18
 <script setup>
 import { Icon } from '@iconify/vue'
-import { CheckboxIndicator, CheckboxRoot } from 'radix-vue'
+import { CheckboxIndicator, CheckboxRoot } from 'reka-ui'
 
 const checked = ref('indeterminate')
 </script>

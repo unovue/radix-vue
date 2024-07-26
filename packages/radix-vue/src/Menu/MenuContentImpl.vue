@@ -168,7 +168,7 @@ function handleKeyDown(event: KeyboardEvent) {
   // submenu key events bubble through portals. We only care about keys in this menu.
   const target = event.target as HTMLElement
   const isKeyDownInside
-    = target.closest('[data-radix-menu-content]') === event.currentTarget
+    = target.closest('[data-reka-menu-content]') === event.currentTarget
   const isModifierKey = event.ctrlKey || event.altKey || event.metaKey
   const isCharacterKey = event.key.length === 1
 
@@ -181,7 +181,7 @@ function handleKeyDown(event: KeyboardEvent) {
       arrowKeyOptions: 'vertical',
       dir: rootContext?.dir.value,
       focus: true,
-      attributeName: '[data-radix-vue-collection-item]:not([data-disabled])',
+      attributeName: '[data-reka-collection-item]:not([data-disabled])',
     },
   )
   if (el)
@@ -304,7 +304,7 @@ provideMenuContentContext({
           :as="as"
           :as-child="asChild"
           aria-orientation="vertical"
-          data-radix-menu-content
+          data-reka-menu-content
           :data-state="getOpenState(menuContext.open.value)"
           :dir="rootContext.dir.value"
           :side="side"

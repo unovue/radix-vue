@@ -86,7 +86,7 @@ export default defineComponent({
               return el
 
             // special case to handle animation for PopperContent
-            if (el?.hasAttribute('data-radix-popper-content-wrapper'))
+            if (el?.hasAttribute('data-reka-popper-content-wrapper'))
               node.value = el.firstElementChild as HTMLElement
             else
               node.value = el

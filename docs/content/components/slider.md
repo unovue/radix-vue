@@ -31,7 +31,7 @@ An input where the user selects a value from within a given range.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -39,7 +39,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue'
+import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'reka-ui'
 </script>
 
 <template>
@@ -139,7 +139,7 @@ Use the `orientation` prop to create a vertical slider.
 ```vue line=7
 // index.vue
 <script setup>
-import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue'
+import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'reka-ui'
 </script>
 
 <template>
@@ -201,7 +201,7 @@ Add multiple thumbs and values to create a range slider.
 ```vue line=7,11-12
 // index.vue
 <script setup>
-import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue'
+import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'reka-ui'
 </script>
 
 <template>
@@ -222,7 +222,7 @@ Use the `step` prop to increase the stepping interval.
 ```vue line=7
 // index.vue
 <script setup>
-import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue'
+import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'reka-ui'
 </script>
 
 <template>
@@ -245,7 +245,7 @@ Use `minStepsBetweenThumbs` to avoid thumbs with equal values.
 ```vue line=10
 // index.vue
 <script setup>
-import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue'
+import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'reka-ui'
 </script>
 
 <template>
@@ -344,7 +344,7 @@ export { default as Slider } from 'Slider.vue'
 ```vue
  <!-- Slider.vue -->
 <script setup lang="ts">
-import { SlideRoot, SliderRange, type SliderRootEmits, type SliderRootProps, SliderThumb, SliderTrack, useForwardPropsEmits } from 'radix-vue'
+import { SlideRoot, SliderRange, type SliderRootEmits, type SliderRootProps, SliderThumb, SliderTrack, useForwardPropsEmits } from 'reka-ui'
 
 const props = defineProps<SliderRootProps>()
 const emits = defineEmits<SliderRootEmits>()

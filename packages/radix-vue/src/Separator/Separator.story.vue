@@ -10,7 +10,7 @@ import { Separator } from './'
     <Variant title="default">
       <div class="w-full max-w-[300px] mx-[15px]">
         <div class="text-white text-[15px] leading-5 font-medium">
-          Radix Primitives
+          Reka UI
         </div>
         <div class="text-white text-[15px] leading-5">
           An open-source UI component library.

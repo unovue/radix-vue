@@ -40,7 +40,7 @@ If you want to change the default element or component being render, you can set
 
 ```vue
 <script setup lang="ts">
-import { Primitive, type PrimitiveProps } from 'radix-vue'
+import { Primitive, type PrimitiveProps } from 'reka-ui'
 
 const props = withDefaults(defineProps<PrimitiveProps>(), {
   as: 'span'

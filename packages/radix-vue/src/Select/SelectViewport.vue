@@ -72,7 +72,7 @@ function handleScroll(event: WheelEvent) {
 <template>
   <Primitive
     :ref="forwardRef"
-    data-radix-select-viewport
+    data-reka-select-viewport
     role="presentation"
     v-bind="{ ...$attrs, ...props }"
     :style="{
@@ -92,8 +92,8 @@ function handleScroll(event: WheelEvent) {
     :nonce="nonce"
   >
     /* Hide scrollbars cross-browser and enable momentum scroll for touch
-    devices */ [data-radix-select-viewport] { scrollbar-width:none; -ms-overflow-style: none;
+    devices */ [data-reka-select-viewport] { scrollbar-width:none; -ms-overflow-style: none;
     -webkit-overflow-scrolling: touch; }
-    [data-radix-select-viewport]::-webkit-scrollbar { display: none; }
+    [data-reka-select-viewport]::-webkit-scrollbar { display: none; }
   </Primitive>
 </template>

@@ -38,7 +38,7 @@ function handleCloseAutoFocus(event: Event) {
   event.preventDefault()
 }
 
-rootContext.contentId ||= useId(undefined, 'radix-vue-dropdown-menu-content')
+rootContext.contentId ||= useId(undefined, 'reka-dropdown-menu-content')
 </script>
 
 <template>
@@ -47,15 +47,15 @@ rootContext.contentId ||= useId(undefined, 'radix-vue-dropdown-menu-content')
     :id="rootContext.contentId"
     :aria-labelledby="rootContext?.triggerId"
     :style="{
-      '--radix-dropdown-menu-content-transform-origin':
-        'var(--radix-popper-transform-origin)',
-      '--radix-dropdown-menu-content-available-width':
-        'var(--radix-popper-available-width)',
-      '--radix-dropdown-menu-content-available-height':
-        'var(--radix-popper-available-height)',
-      '--radix-dropdown-menu-trigger-width': 'var(--radix-popper-anchor-width)',
-      '--radix-dropdown-menu-trigger-height':
-        'var(--radix-popper-anchor-height)',
+      '--reka-dropdown-menu-content-transform-origin':
+        'var(--reka-popper-transform-origin)',
+      '--reka-dropdown-menu-content-available-width':
+        'var(--reka-popper-available-width)',
+      '--reka-dropdown-menu-content-available-height':
+        'var(--reka-popper-available-height)',
+      '--reka-dropdown-menu-trigger-width': 'var(--reka-popper-anchor-width)',
+      '--reka-dropdown-menu-trigger-height':
+        'var(--reka-popper-anchor-height)',
     }"
     @close-auto-focus="handleCloseAutoFocus"
     @interact-outside="(event) => {

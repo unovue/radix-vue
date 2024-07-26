@@ -17,7 +17,7 @@ Furthermore, this composable extend the missing exposed `props` from the templat
 
 ```vue
 <script setup lang="ts">
-import { useForwardExpose } from 'radix-vue'
+import { useForwardExpose } from 'reka-ui'
 
 const selectedElementId = ref(1)
 const { forwardRef } = useForwardExpose()

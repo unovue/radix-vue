@@ -111,8 +111,8 @@ watchEffect((cleanupFn) => {
   // When the focused element gets removed from the DOM, browsers move focus
   // back to the document.body. In this case, we move focus to the container
   // to keep focus trapped correctly.
-  // -- related: https://github.com/radix-vue/radix-vue/issues/518
-  // Radix Vue tentative solution:
+  // -- related: https://github.com/unovue/reka-ui/issues/518
+  // Reka UI tentative solution:
   // instead of leaning on document.activeElement, we use lastFocusedElementRef.value to check
   // if the element still exist inside the container,
   // if not then we focus to the container

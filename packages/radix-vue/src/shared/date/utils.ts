@@ -40,7 +40,7 @@ export function handleCalendarInitialFocus(calendar: HTMLElement) {
   if (today)
     return today.focus()
 
-  const firstDay = calendar.querySelector<HTMLElement>('[data-radix-vue-calendar-day]')
+  const firstDay = calendar.querySelector<HTMLElement>('[data-reka-calendar-day]')
   if (firstDay)
     return firstDay.focus()
 }

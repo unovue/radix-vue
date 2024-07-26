@@ -39,7 +39,7 @@ const { top } = toRefs(arrivedState)
         >
           <img
             class="w-6 md:w-9"
-            alt="Radix Vue logo"
+            alt="Reka UI logo"
             :src="theme.logo"
           >
           <span class="font-bold text-xl md:text-2xl">{{ site.title }}</span>

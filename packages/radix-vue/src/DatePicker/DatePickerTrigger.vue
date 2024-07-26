@@ -12,7 +12,7 @@ const rootContext = injectDatePickerRootContext()
 
 <template>
   <PopoverTrigger
-    data-radix-vue-date-field-segment="trigger"
+    data-reka-date-field-segment="trigger"
     v-bind="props"
     :disabled="rootContext.disabled.value"
     @focusin="(e: FocusEvent) => {

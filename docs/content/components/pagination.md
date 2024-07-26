@@ -25,7 +25,7 @@ Displays data in paged format and provides navigation between pages.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ### Anatomy
 
@@ -33,7 +33,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { PaginationEllipsis, PaginationFirst, PaginationLast, PaginationList, PaginationListItem, PaginationNext, PaginationPrev, PaginationRoot } from 'radix-vue'
+import { PaginationEllipsis, PaginationFirst, PaginationLast, PaginationList, PaginationListItem, PaginationNext, PaginationPrev, PaginationRoot } from 'reka-ui'
 </script>
 
 <template>
@@ -141,7 +141,7 @@ You can add `PaginationEllipsis` as a visual cue for more previous and after ite
 
 ```vue line=10-12
 <script setup lang="ts">
-import { PaginationEllipsis, PaginationList, PaginationListItem, PaginationRoot } from 'radix-vue'
+import { PaginationEllipsis, PaginationList, PaginationListItem, PaginationRoot } from 'reka-ui'
 </script>
 
 <template>
@@ -171,7 +171,7 @@ You can add `PaginationFirst` to allow user to navigate to first page, or `Pagin
 
 ```vue line=8,10
 <script setup lang="ts">
-import { PaginationFirst, PaginationLast, PaginationList, PaginationListItem, PaginationRoot } from 'radix-vue'
+import { PaginationFirst, PaginationLast, PaginationList, PaginationListItem, PaginationRoot } from 'reka-ui'
 </script>
 
 <template>
@@ -191,7 +191,7 @@ You can control the current page by passing it a reactive value.
 
 ```vue line=6,10,11
 <script setup lang="ts">
-import { PaginationRoot } from 'radix-vue'
+import { PaginationRoot } from 'reka-ui'
 import { Select } from './custom-select'
 import { ref } from 'vue'
 

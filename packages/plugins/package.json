@@ -6,7 +6,7 @@
   "license": "MIT",
   "keywords": [
     "radix",
-    "radix-vue",
+    "reka-ui",
     "nuxt-module",
     "nuxt",
     "nuxt3"
@@ -20,7 +20,7 @@
   "dependencies": {
     "@nuxt/kit": "^3.12.2",
     "@nuxt/schema": "^3.12.2",
-    "radix-vue": "link:../radix-vue",
+    "reka-ui": "link:../radix-vue",
     "tsx": "^4.16.0",
     "unbuild": "^2.0.0",
     "unplugin-vue-components": "^0.27.2"

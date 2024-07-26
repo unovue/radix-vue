@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { CheckboxIndicator, CheckboxRoot } from 'radix-vue'
+import { CheckboxIndicator, CheckboxRoot } from 'reka-ui'
 import { Icon } from '@iconify/vue'
 
 const checkboxOne = ref(true)

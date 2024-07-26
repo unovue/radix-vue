@@ -67,14 +67,14 @@ const forwardedProps = useForwardProps(pickedProps.value)
 const popperStyle = {
   // Ensure border-box for floating-ui calculations
   'boxSizing': 'border-box',
-  '--radix-combobox-content-transform-origin':
-        'var(--radix-popper-transform-origin)',
-  '--radix-combobox-content-available-width':
-        'var(--radix-popper-available-width)',
-  '--radix-combobox-content-available-height':
-        'var(--radix-popper-available-height)',
-  '--radix-combobox-trigger-width': 'var(--radix-popper-anchor-width)',
-  '--radix-combobox-trigger-height': 'var(--radix-popper-anchor-height)',
+  '--reka-combobox-content-transform-origin':
+        'var(--reka-popper-transform-origin)',
+  '--reka-combobox-content-available-width':
+        'var(--reka-popper-available-width)',
+  '--reka-combobox-content-available-height':
+        'var(--reka-popper-available-height)',
+  '--reka-combobox-trigger-width': 'var(--reka-popper-anchor-width)',
+  '--reka-combobox-trigger-height': 'var(--reka-popper-anchor-height)',
 }
 
 provideComboboxContentContext({ position })

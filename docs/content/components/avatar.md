@@ -27,7 +27,7 @@ An image element with a fallback for representing the user.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -35,7 +35,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { AvatarImage, AvatarRoot } from 'radix-vue'
+import { AvatarImage, AvatarRoot } from 'reka-ui'
 </script>
 
 <template>
@@ -74,7 +74,7 @@ You can compose the Avatar with a [Tooltip](/components/tooltip) to display extr
 
 ```vue line=6-7,9,11-15
 <script setup>
-import { AvatarImage, AvatarRoot, TooltipArrow, TooltipRoot, TooltipTrigger } from 'radix-vue'
+import { AvatarImage, AvatarRoot, TooltipArrow, TooltipRoot, TooltipTrigger } from 'reka-ui'
 </script>
 
 <template>

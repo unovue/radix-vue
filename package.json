@@ -1,6 +1,7 @@
 {
-  "name": "radix-vue",
-  "version": "1.9.2",
+  "name": "reka-ui",
+  "type": "module",
+  "version": "0.0.1",
   "private": true,
   "packageManager": "pnpm@9.4.0",
   "license": "MIT",
@@ -10,7 +11,7 @@
   ],
   "scripts": {
     "story:dev": "pnpm --filter histoire story:dev --open",
-    "build": "rimraf packages/radix-vue/dist  && pnpm run --filter radix-vue build && pnpm run --filter plugins build",
+    "build": "rimraf packages/radix-vue/dist  && pnpm run --filter reka-ui build && pnpm run --filter plugins build",
     "build-only": "rimraf packages/radix-vue/dist  && pnpm run -r build-only",
     "docs:install": "pnpm --filter docs install",
     "docs:dev": "pnpm --filter docs docs:dev",
@@ -18,7 +19,7 @@
     "docs:gen": "pnpm --filter docs docs:gen",
     "docs:contributors": "pnpm --filter docs docs:contributors",
     "prepare": "pnpm simple-git-hooks",
-    "test": "pnpm --filter radix-vue test",
+    "test": "pnpm --filter reka-ui test",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "bumpp": "bumpp package.json packages/*/package.json docs/package.json",

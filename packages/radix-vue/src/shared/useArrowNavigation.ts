@@ -13,7 +13,7 @@ interface ArrowNavigationOptions {
   /**
    * The attribute name to find the collection items in the parent element.
    *
-   * @defaultValue "data-radix-vue-collection-item"
+   * @defaultValue "data-reka-collection-item"
    */
   attributeName?: string
 
@@ -65,7 +65,7 @@ interface ArrowNavigationOptions {
 const ignoredElement = ['INPUT', 'TEXTAREA']
 
 /**
- * Allow arrow navigation for every html element with data-radix-vue-collection-item tag
+ * Allow arrow navigation for every html element with data-reka-collection-item tag
  *
  * @param e               Keyboard event
  * @param currentElement  Event initiator element or any element that wants to handle the navigation
@@ -84,7 +84,7 @@ export function useArrowNavigation(
 
   const {
     arrowKeyOptions = 'both',
-    attributeName = '[data-radix-vue-collection-item]',
+    attributeName = '[data-reka-collection-item]',
     itemsArray = [],
     loop = true,
     dir = 'ltr',

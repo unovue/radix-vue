@@ -30,7 +30,7 @@ associated section of content.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -38,7 +38,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from 'radix-vue'
+import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -151,11 +151,11 @@ Contains the collapsible content for an item.
 
 <CssVariablesTable :data="[
     {
-      cssVariable: '--radix-accordion-content-width',
+      cssVariable: '--reka-accordion-content-width',
       description: 'The width of the content when it opens/closes',
     },
     {
-      cssVariable: '--radix-accordion-content-height',
+      cssVariable: '--reka-accordion-content-height',
       description: 'The height of the content when it opens/closes',
     }]"
 />
@@ -226,7 +226,7 @@ You can add extra decorative elements, such as chevrons, and rotate it when the 
 ```vue line=14
 // index.vue
 <script setup>
-import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from 'radix-vue'
+import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from 'reka-ui'
 import { Icon } from '@iconify/vue'
 import './styles.css'
 </script>
@@ -278,12 +278,12 @@ Use the `orientation` prop to create a horizontal Accordion
 
 ### Animating content size
 
-Use the `--radix-accordion-content-width` and/or `--radix-accordion-content-height` CSS variables to animate the size of the content when it opens/closes:
+Use the `--reka-accordion-content-width` and/or `--reka-accordion-content-height` CSS variables to animate the size of the content when it opens/closes:
 
 ```vue line=11
 // index.vue
 <script setup>
-import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from 'radix-vue'
+import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from 'reka-ui'
 import './styles.css'
 </script>
 
@@ -316,13 +316,13 @@ import './styles.css'
     height: 0;
   }
   to {
-    height: var(--radix-accordion-content-height);
+    height: var(--reka-accordion-content-height);
   }
 }
 
 @keyframes slideUp {
   from {
-    height: var(--radix-accordion-content-height);
+    height: var(--reka-accordion-content-height);
   }
   to {
     height: 0;

@@ -15,7 +15,7 @@ describe('given default TagsInput', () => {
 
   beforeEach(() => {
     wrapper = mount(TagsInput, { attachTo: document.body })
-    tags = wrapper.findAll('[data-radix-vue-collection-item]')
+    tags = wrapper.findAll('[data-reka-collection-item]')
   })
 
   it('should pass axe accessibility tests', async () => {
@@ -29,7 +29,7 @@ describe('given default TagsInput', () => {
   const addTag = async (text: string) => {
     await input.setValue(text)
     await input.trigger('keydown.enter')
-    tags = wrapper.findAll('[data-radix-vue-collection-item]')
+    tags = wrapper.findAll('[data-reka-collection-item]')
   }
 
   describe('after adding new value', async () => {
@@ -105,7 +105,7 @@ describe('given default TagsInput', () => {
           await input.trigger('keydown', {
             key: 'Backspace',
           })
-          tags = wrapper.findAll('[data-radix-vue-collection-item]')
+          tags = wrapper.findAll('[data-reka-collection-item]')
         })
 
         it('should remove the active tag', () => {
@@ -134,7 +134,7 @@ describe('given default TagsInput', () => {
 
       await input.trigger('keydown.enter')
 
-      tags = wrapper.findAll('[data-radix-vue-collection-item]')
+      tags = wrapper.findAll('[data-reka-collection-item]')
 
       expect(wrapper.html()).toContain(tag)
       expect(tags[1].text()).toBe(tag)
@@ -147,7 +147,7 @@ describe('given default TagsInput', () => {
 
       await input.trigger('keydown.tab')
 
-      tags = wrapper.findAll('[data-radix-vue-collection-item]')
+      tags = wrapper.findAll('[data-reka-collection-item]')
 
       expect(wrapper.html()).toContain(tag)
       expect(tags[1].text()).toBe(tag)
@@ -160,7 +160,7 @@ describe('given default TagsInput', () => {
 
       await input.trigger('blur')
 
-      tags = wrapper.findAll('[data-radix-vue-collection-item]')
+      tags = wrapper.findAll('[data-reka-collection-item]')
 
       expect(wrapper.html()).toContain(tag)
       expect(tags[1].text()).toBe(tag)
@@ -184,7 +184,7 @@ describe('given a TagsInput with objects', async () => {
         attachTo: document.body,
       })
       input = wrapper.find('input')
-      tags = wrapper.findAll('[data-radix-vue-collection-item]')
+      tags = wrapper.findAll('[data-reka-collection-item]')
     })
 
     it('should display the initial tags', () => {
@@ -196,7 +196,7 @@ describe('given a TagsInput with objects', async () => {
       await input.setValue(text)
       await input.trigger('keydown.enter')
       await nextTick()
-      tags = wrapper.findAll('[data-radix-vue-collection-item]')
+      tags = wrapper.findAll('[data-reka-collection-item]')
     }
 
     it('should update the tags', async () => {

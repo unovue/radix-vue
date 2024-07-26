@@ -28,7 +28,7 @@ Displays an input field used for editing a single line of text, rendering as sta
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -44,7 +44,7 @@ import {
   EditablePreview,
   EditableRoot,
   EditableSubmitTrigger
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>

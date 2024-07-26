@@ -42,7 +42,7 @@ provideSliderOrientationContext({
     :dir="dir"
     data-orientation="horizontal"
     :style="{
-      ['--radix-slider-thumb-transform' as any]: 'translateX(-50%)',
+      ['--reka-slider-thumb-transform' as any]: 'translateX(-50%)',
     }"
     @slide-start="(event) => {
       const value = getValueFromPointer(event.clientX);

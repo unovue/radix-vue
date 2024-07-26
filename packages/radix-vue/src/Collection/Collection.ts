@@ -6,7 +6,7 @@ interface CollectionContext<ItemData = {}> {
   itemMap: Ref<Map<HTMLElement, { ref: HTMLElement, value?: any } & ItemData>>
 }
 
-const ITEM_DATA_ATTR = 'data-radix-vue-collection-item'
+const ITEM_DATA_ATTR = 'data-reka-collection-item'
 
 export function useCollection<ItemData = {}>(options: { key?: string, isProvider?: boolean } = {}) {
   const { key = '', isProvider = false } = options

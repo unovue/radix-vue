@@ -3,7 +3,7 @@ import { useScroll } from '@vueuse/core'
 import { type DefaultTheme, useData, useRoute } from 'vitepress'
 import { computed, ref, toRefs, watch } from 'vue'
 import { Icon } from '@iconify/vue'
-import { DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger } from 'radix-vue'
+import { DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger } from 'reka-ui'
 import { flatten } from '../functions/flatten'
 import DocSidebarItem from '../components/DocSidebarItem.vue'
 

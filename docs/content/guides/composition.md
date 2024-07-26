@@ -11,7 +11,7 @@ Use the `asChild` prop to compose Radix's functionality onto alternative
 element types or your own Vue components.
 </Description>
 
-All Radix primitive parts that render a DOM element accept an `asChild` prop. When `asChild` is set to `true`, Radix Vue will not render a default DOM element, instead passing the props and behavior required to make it functional to the first child of the slots.
+All Radix primitive parts that render a DOM element accept an `asChild` prop. When `asChild` is set to `true`, Reka UI will not render a default DOM element, instead passing the props and behavior required to make it functional to the first child of the slots.
 
 ## Changing the element type
 
@@ -21,13 +21,13 @@ A good example is with `TooltipTrigger`. By default this part is rendered as a `
 
 ```vue{7}
 <script setup lang="ts">
-import { TooltipRoot, TooltipTrigger, TooltipPortal } from "radix-vue";
+import { TooltipRoot, TooltipTrigger, TooltipPortal } from "reka-ui";
 </script>
 
 <template>
   <TooltipRoot>
     <TooltipTrigger asChild>
-      <a href="https://www.radix-vue.com/">Radix Vue</a>
+      <a href="https://www.radix-vue.com/">Reka UI</a>
     </TooltipTrigger>
     <TooltipPortal>…</TooltipPortal>
   </TooltipRoot>
@@ -50,7 +50,7 @@ Here is an example of how you can compose `TooltipTrigger` and `DialogTrigger` t
 
 ```vue{9,10}
 <script setup lang="ts">
-import { TooltipRoot, TooltipTrigger, TooltipPortal, DialogRoot, DialogTrigger, DialogPortal } from "radix-vue";
+import { TooltipRoot, TooltipTrigger, TooltipPortal, DialogRoot, DialogTrigger, DialogPortal } from "reka-ui";
 import MyButton from from "@/components/MyButton.vue"
 </script>
 

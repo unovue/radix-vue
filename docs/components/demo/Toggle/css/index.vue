@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Toggle } from 'radix-vue'
+import { Toggle } from 'reka-ui'
 import { Icon } from '@iconify/vue'
 import { ref } from 'vue'
 import './styles.css'

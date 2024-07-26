@@ -24,7 +24,7 @@ const contentContext = injectMenuContentContext()
 
 const openTimerRef = ref<number | null>(null)
 
-subContext.triggerId ||= useId(undefined, 'radix-vue-menu-sub-trigger')
+subContext.triggerId ||= useId(undefined, 'reka-menu-sub-trigger')
 
 function clearOpenTimer() {
   if (openTimerRef.value)

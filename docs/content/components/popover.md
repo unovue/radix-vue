@@ -31,7 +31,7 @@ Displays rich content in a portal, triggered by a button.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -39,7 +39,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { PopoverAnchor, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
+import { PopoverAnchor, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -117,23 +117,23 @@ The component that pops out when the popover is open.
 <CssVariablesTable
   :data="[
     {
-      cssVariable: '--radix-popover-content-transform-origin',
+      cssVariable: '--reka-popover-content-transform-origin',
       description: ' The <code>transform-origin</code> computed from the content and arrow positions/offsets',
     },
     {
-      cssVariable: '--radix-popover-content-available-width',
+      cssVariable: '--reka-popover-content-available-width',
       description: 'The remaining width between the trigger and the boundary edge',
     },
     {
-      cssVariable: '--radix-popover-content-available-height',
+      cssVariable: '--reka-popover-content-available-height',
       description: 'The remaining height between the trigger and the boundary edge',
     },
     {
-      cssVariable: '--radix-popover-trigger-width',
+      cssVariable: '--reka-popover-trigger-width',
       description: 'The width of the trigger',
     },
     {
-      cssVariable: '--radix-popover-trigger-height',
+      cssVariable: '--reka-popover-trigger-height',
       description: 'The height of the trigger',
     },
   ]"
@@ -157,12 +157,12 @@ The button that closes an open popover.
 
 You may want to constrain the width of the content so that it matches the trigger width. You may also want to constrain its height to not exceed the viewport.
 
-We expose several CSS custom properties such as `--radix-popover-trigger-width` and `--radix-popover-content-available-height` to support this. Use them to constrain the content dimensions.
+We expose several CSS custom properties such as `--reka-popover-trigger-width` and `--reka-popover-content-available-height` to support this. Use them to constrain the content dimensions.
 
 ```vue line=10
 // index.vue
 <script setup>
-import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
+import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -183,19 +183,19 @@ import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot,
 ```css line=3,4
 /* styles.css */
 .PopoverContent {
-  width: var(--radix-popover-trigger-width);
-  max-height: var(--radix-popover-content-available-height);
+  width: var(--reka-popover-trigger-width);
+  max-height: var(--reka-popover-content-available-height);
 }
 ```
 
 ### Origin-aware animations
 
-We expose a CSS custom property `--radix-popover-content-transform-origin`. Use it to animate the content from its computed origin based on `side`, `sideOffset`, `align`, `alignOffset` and any collisions.
+We expose a CSS custom property `--reka-popover-content-transform-origin`. Use it to animate the content from its computed origin based on `side`, `sideOffset`, `align`, `alignOffset` and any collisions.
 
 ```vue line=l10
 // index.vue
 <script setup>
-import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
+import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -213,7 +213,7 @@ import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot,
 ```css line=3
 /* styles.css */
 .PopoverContent {
-  transform-origin: var(--radix-popover-content-transform-origin);
+  transform-origin: var(--reka-popover-content-transform-origin);
   animation: scaleIn 0.5s ease-out;
 }
 
@@ -236,7 +236,7 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 ```vue line=10
 // index.vue
 <script setup>
-import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
+import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -294,7 +294,7 @@ You can anchor the content to another element if you do not want to use the trig
 ```vue line=8-12
 // index.vue
 <script setup>
-import { PopoverAnchor, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'radix-vue'
+import { PopoverAnchor, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -380,13 +380,13 @@ import { Popover, PopoverContent, PopoverTrigger } from './your-popover'
 // your-popover.ts
 export { default as PopoverContent } from 'PopoverContent.vue'
 
-export { PopoverRoot as Popover, PopoverTrigger } from 'radix-vue'
+export { PopoverRoot as Popover, PopoverTrigger } from 'reka-ui'
 ```
 
 ```vue
 <!-- PopoverContent.vue -->
 <script setup lang="ts">
-import { PopoverContent, type PopoverContentEmits, type PopoverContentProps, PopoverPortal, useForwardPropsEmits, } from 'radix-vue'
+import { PopoverContent, type PopoverContentEmits, type PopoverContentProps, PopoverPortal, useForwardPropsEmits, } from 'reka-ui'
 
 const props = defineProps<PopoverContentProps>()
 const emits = defineEmits<PopoverContentEmits>()

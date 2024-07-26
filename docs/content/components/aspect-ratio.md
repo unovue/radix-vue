@@ -25,7 +25,7 @@ Displays content within a desired ratio.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -33,7 +33,7 @@ Import the component.
 
 ```vue
 <script setup>
-import { AspectRatio } from 'radix-vue'
+import { AspectRatio } from 'reka-ui'
 </script>
 
 <template>

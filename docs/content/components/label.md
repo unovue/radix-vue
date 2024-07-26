@@ -26,7 +26,7 @@ Renders an accessible label associated with controls.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -34,7 +34,7 @@ Import the component.
 
 ```vue
 <script setup>
-import { Label } from 'radix-vue'
+import { Label } from 'reka-ui'
 </script>
 
 <template>

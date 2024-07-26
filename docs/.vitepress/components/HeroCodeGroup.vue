@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { type VNode, capitalize, computed, ref, useSlots, watch } from 'vue'
-import { SelectContent, SelectItem, SelectItemIndicator, SelectItemText, SelectPortal, SelectRoot, SelectTrigger, SelectValue, SelectViewport, TabsContent, TabsList, TabsRoot, TabsTrigger } from 'radix-vue'
+import { SelectContent, SelectItem, SelectItemIndicator, SelectItemText, SelectPortal, SelectRoot, SelectTrigger, SelectValue, SelectViewport, TabsContent, TabsList, TabsRoot, TabsTrigger } from 'reka-ui'
 import { Icon } from '@iconify/vue'
 import { useVModel } from '@vueuse/core'
 

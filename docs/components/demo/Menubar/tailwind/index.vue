@@ -16,7 +16,7 @@ import {
   MenubarSubContent,
   MenubarSubTrigger,
   MenubarTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 
 const currentMenu = ref('')
 const checkboxOne = ref(false)

@@ -3,7 +3,7 @@
 <PropsTable :data="[
   {
     'name': 'align',
-    'description': '<p>Placement of the viewport for css variables <code>(--radix-navigation-menu-viewport-left, --radix-navigation-menu-viewport-top)</code>.</p>\n',
+    'description': '<p>Placement of the viewport for css variables <code>(--reka-navigation-menu-viewport-left, --reka-navigation-menu-viewport-top)</code>.</p>\n',
     'type': '\'start\' | \'center\' | \'end\'',
     'required': false,
     'default': '\'center\''
@@ -17,7 +17,7 @@
   },
   {
     'name': 'asChild',
-    'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our <a href=\'https://www.radix-vue.com/guides/composition.html\'>Composition</a> guide for more details.</p>\n',
+    'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our <a href=\'https://www.reka.com/guides/composition.html\'>Composition</a> guide for more details.</p>\n',
     'type': 'boolean',
     'required': false
   },

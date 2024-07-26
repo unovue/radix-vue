@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Separator } from 'radix-vue'
+import { Separator } from 'reka-ui'
 import './styles.css'
 </script>
 

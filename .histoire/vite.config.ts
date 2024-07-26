@@ -37,7 +37,7 @@ export default defineConfig({
       ],
     },
     theme: {
-      title: 'Radix Vue',
+      title: 'Reka UI',
       logo: {
         square: '../docs/content/public/logo.svg',
         light: '../docs/content/public/logo.svg',

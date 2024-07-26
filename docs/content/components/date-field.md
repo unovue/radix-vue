@@ -42,7 +42,7 @@ Install the date package.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -53,7 +53,7 @@ Import all parts and piece them together.
 import {
   DateFieldInput,
   DateFieldRoot,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>

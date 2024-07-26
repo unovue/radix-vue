@@ -32,7 +32,7 @@ Choose from a list of suggested values with full keyboard support.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -55,7 +55,7 @@ import {
   ComboboxSeparator,
   ComboboxTrigger,
   ComboboxViewport,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -168,23 +168,23 @@ The component that pops out when the combobox is open.
 <CssVariablesTable
   :data="[
     {
-      cssVariable: '--radix-combobox-content-transform-origin',
+      cssVariable: '--reka-combobox-content-transform-origin',
       description: 'The <Code>transform-origin</Code> computed from the content and arrow positions/offsets. Only present when <Code>position=&quot;popper&quot;</Code>.',
     },
     {
-      cssVariable: '--radix-combobox-content-available-width',
+      cssVariable: '--reka-combobox-content-available-width',
       description: 'The remaining width between the trigger and the boundary edge. Only present when <Code>position=&quot;popper&quot;</Code>.',
     },
     {
-      cssVariable: '--radix-combobox-content-available-height',
+      cssVariable: '--reka-combobox-content-available-height',
       description: 'The remaining height between the trigger and the boundary edge. Only present when <Code>position=&quot;popper&quot;</Code>.',
     },
     {
-      cssVariable: '--radix-combobox-trigger-width',
+      cssVariable: '--reka-combobox-trigger-width',
       description: 'The width of the trigger. Only present when <Code>position=&quot;popper&quot;</Code>.',
     },
     {
-      cssVariable: '--radix-combobox-trigger-height',
+      cssVariable: '--reka-combobox-trigger-height',
       description: 'The height of the trigger. Only present when <Code>position=&quot;popper&quot;</Code>.',
     },
   ]"
@@ -258,7 +258,7 @@ Unlike native HTML form controls which only allow you to provide strings as valu
 ```vue line=12,23
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ComboboxContent, ComboboxInput, ComboboxItem, ComboboxPortal, ComboboxRoot } from 'radix-vue'
+import { ComboboxContent, ComboboxInput, ComboboxItem, ComboboxPortal, ComboboxRoot } from 'reka-ui'
 
 const people = [
   { id: 1, name: 'Durward Reynolds' },
@@ -296,7 +296,7 @@ The `Combobox` component allows you to select multiple values. You can enable th
 ```vue line=12,16
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ComboboxRoot } from 'radix-vue'
+import { ComboboxRoot } from 'reka-ui'
 
 const people = [
   { id: 1, name: 'Durward Reynolds' },
@@ -329,7 +329,7 @@ However this behavior can be replaced using 2 different method.
 ```vue line=14-18,24
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ComboboxContent, ComboboxInput, ComboboxItem, ComboboxPortal, ComboboxRoot } from 'radix-vue'
+import { ComboboxContent, ComboboxInput, ComboboxItem, ComboboxPortal, ComboboxRoot } from 'reka-ui'
 
 const people = [
   { id: 1, name: 'Durward Reynolds' },
@@ -374,7 +374,7 @@ function filterFunction(list: typeof people[number], searchTerm: string) {
 ```vue line=13,15-21,27,33
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ComboboxContent, ComboboxInput, ComboboxItem, ComboboxPortal, ComboboxRoot } from 'radix-vue'
+import { ComboboxContent, ComboboxInput, ComboboxItem, ComboboxPortal, ComboboxRoot } from 'reka-ui'
 
 const people = [
   { id: 1, name: 'Durward Reynolds' },
@@ -424,7 +424,7 @@ By default the `Combobox` will use the input contents as the label for screenrea
 ```vue line=8,9
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ComboboxInput, ComboboxRoot, Label } from 'radix-vue'
+import { ComboboxInput, ComboboxRoot, Label } from 'reka-ui'
 </script>
 
 <template>
@@ -452,7 +452,7 @@ import {
   ComboboxItem,
   ComboboxPortal,
   ComboboxRoot,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -493,7 +493,7 @@ import {
   ComboboxPortal,
   ComboboxRoot,
   ComboboxSeparator
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -529,7 +529,7 @@ import {
   ComboboxLabel,
   ComboboxPortal,
   ComboboxRoot
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -565,7 +565,7 @@ import {
   ComboboxLabel,
   ComboboxPortal,
   ComboboxRoot
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -593,7 +593,7 @@ You can prevent this behavior by preventing default `@select.prevent`.
 ```vue line=11
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ComboboxContent, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxPortal, ComboboxRoot } from 'radix-vue'
+import { ComboboxContent, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxPortal, ComboboxRoot } from 'reka-ui'
 </script>
 
 <template>
@@ -682,8 +682,8 @@ export { default as CommandItem } from 'CommandItem.vue'
 <!-- Command.vue -->
 <script setup lang="ts">
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon, } from '@radix-icons/vue'
-import { ComboboxContent, ComboboxInput, ComboboxPortal, ComboboxRoot, useForwardPropsEmits } from 'radix-vue'
-import type { ComboboxRootEmits, ComboboxRootProps } from 'radix-vue'
+import { ComboboxContent, ComboboxInput, ComboboxPortal, ComboboxRoot, useForwardPropsEmits } from 'reka-ui'
+import type { ComboboxRootEmits, ComboboxRootProps } from 'reka-ui'
 
 const props = defineProps<ComboboxRootProps>()
 const emits = defineEmits<ComboboxRootEmits>()
@@ -714,7 +714,7 @@ const forward = useForwardPropsEmits(props, emits)
 <!-- ComboboxItem.vue -->
 <script setup lang="ts">
 import { CheckIcon } from '@radix-icons/vue'
-import { ComboboxItem, type ComboboxItemProps } from 'radix-vue'
+import { ComboboxItem, type ComboboxItemProps } from 'reka-ui'
 
 const props = defineProps<ComboboxItemProps>()
 </script>

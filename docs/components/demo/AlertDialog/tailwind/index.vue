@@ -9,7 +9,7 @@ import {
   AlertDialogRoot,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 
 function handleAction() {
   // eslint-disable-next-line no-alert

@@ -30,7 +30,7 @@ const menuContext = injectMenubarMenuContext()
 function handleArrowNavigation(event: KeyboardEvent) {
   const target = event.target as HTMLElement
   const targetIsSubTrigger = target.hasAttribute(
-    'data-radix-menubar-subtrigger',
+    'data-reka-menubar-subtrigger',
   )
 
   // Prevent navigation when we're opening a submenu
@@ -53,16 +53,16 @@ function handleArrowNavigation(event: KeyboardEvent) {
 <template>
   <MenuSubContent
     v-bind="forwarded"
-    data-radix-menubar-content=""
+    data-reka-menubar-content=""
     :style="{
-      '--radix-menubar-content-transform-origin':
-        'var(--radix-popper-transform-origin)',
-      '--radix-menubar-content-available-width':
-        'var(--radix-popper-available-width)',
-      '--radix-menubar-content-available-height':
-        'var(--radix-popper-available-height)',
-      '--radix-menubar-trigger-width': 'var(--radix-popper-anchor-width)',
-      '--radix-menubar-trigger-height': 'var(--radix-popper-anchor-height)',
+      '--reka-menubar-content-transform-origin':
+        'var(--reka-popper-transform-origin)',
+      '--reka-menubar-content-available-width':
+        'var(--reka-popper-available-width)',
+      '--reka-menubar-content-available-height':
+        'var(--reka-popper-available-height)',
+      '--reka-menubar-trigger-width': 'var(--reka-popper-anchor-width)',
+      '--reka-menubar-trigger-height': 'var(--reka-popper-anchor-height)',
     }"
     @keydown.arrow-right="handleArrowNavigation"
   >

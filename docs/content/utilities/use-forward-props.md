@@ -17,7 +17,7 @@ You can either set default value as `undefined` for all the boolean field, or yo
 
 ```vue
 <script setup lang="ts">
-import { useForwardProps } from 'radix-vue'
+import { useForwardProps } from 'reka-ui'
 
 const props = defineProps<CompEmitProps>()
 const forwarded = useForwardProps(props)

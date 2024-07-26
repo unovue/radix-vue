@@ -39,7 +39,7 @@ const emits = defineEmits<ListboxItemEmits<T>>()
 
 const { CollectionItem } = useCollection()
 const { forwardRef, currentElement } = useForwardExpose()
-const id = useId(undefined, 'radix-vue-listbox-item')
+const id = useId(undefined, 'reka-listbox-item')
 const rootContext = injectListboxRootContext()
 
 const isHighlighted = computed(() => currentElement.value === rootContext.highlightedElement.value)

@@ -29,7 +29,7 @@ A set of two-state buttons that can be toggled on or off.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -37,7 +37,7 @@ Import the component.
 
 ```vue
 <script setup>
-import { ToggleGroupItem, ToggleGroupRoot } from 'radix-vue'
+import { ToggleGroupItem, ToggleGroupRoot } from 'reka-ui'
 </script>
 
 <template>
@@ -96,7 +96,7 @@ You can control the component to ensure a value.
 ```vue line=5,10-13
 <script setup>
 import { ref } from 'vue'
-import { ToggleGroupItem, ToggleGroupRoot } from 'radix-vue'
+import { ToggleGroupItem, ToggleGroupRoot } from 'reka-ui'
 
 const value = ref('left')
 </script>

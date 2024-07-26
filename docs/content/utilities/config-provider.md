@@ -23,7 +23,7 @@ Import the component.
 
 ```vue
 <script setup lang="ts">
-import { ConfigProvider } from 'radix-vue'
+import { ConfigProvider } from 'reka-ui'
 </script>
 
 <template>
@@ -51,7 +51,7 @@ Set global direction to `rtl`, and scroll body behavior to `false` (will not set
 
 ```vue
 <script setup lang="ts">
-import { ConfigProvider } from 'radix-vue'
+import { ConfigProvider } from 'reka-ui'
 </script>
 
 <template>
@@ -73,7 +73,7 @@ We expose a temporary workaround to allow current Nuxt (with version >3.10) proj
  ```vue
  <!-- in Nuxt's app.vue -->
 <script setup lang="ts">
-import { ConfigProvider } from 'radix-vue'
+import { ConfigProvider } from 'reka-ui'
 
 const useIdFunction = () => useId()
 </script>

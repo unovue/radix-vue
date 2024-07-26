@@ -30,7 +30,7 @@ A window overlaid on either the primary window or another dialog window, renderi
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -47,7 +47,7 @@ import {
   DialogRoot,
   DialogTitle,
   DialogTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -160,7 +160,7 @@ Use the controlled props to programmatically close the Dialog after an async ope
 
 ```vue line=4,5,15-19,22-24
 <script setup>
-import { DialogContent, DialogOverlay, DialogPortal, DialogRoot, DialogTrigger } from 'radix-vue'
+import { DialogContent, DialogOverlay, DialogPortal, DialogRoot, DialogTrigger } from 'reka-ui'
 
 const wait = () => new Promise(resolve => setTimeout(resolve, 1000))
 const open = ref(false)
@@ -197,7 +197,7 @@ Move the content inside the overlay to render a dialog with overflow.
 ```vue
 // index.vue
 <script setup>
-import { DialogContent, DialogOverlay, DialogPortal, DialogRoot, DialogTrigger } from 'radix-vue'
+import { DialogContent, DialogOverlay, DialogPortal, DialogRoot, DialogTrigger } from 'reka-ui'
 import './styles.css'
 </script>
 
@@ -257,7 +257,7 @@ Customise the element that your dialog portals into.
 
 ```vue line=4,11,17
 <script setup>
-import { DialogContent, DialogOverlay, DialogPortal, DialogRoot, DialogTrigger } from 'radix-vue'
+import { DialogContent, DialogOverlay, DialogPortal, DialogRoot, DialogTrigger } from 'reka-ui'
 
 const container = ref(null)
 </script>
@@ -362,13 +362,13 @@ import { Dialog, DialogContent, DialogTrigger } from './your-dialog'
 ```ts
 // your-dialog.ts
 export { default as DialogContent } from 'DialogContent.vue'
-export { DialogRoot as Dialog, DialogTrigger } from 'radix-vue'
+export { DialogRoot as Dialog, DialogTrigger } from 'reka-ui'
 ```
 
 ```vue
 <!-- DialogContent.vue -->
 <script setup lang="ts">
-import { DialogClose, DialogContent, type DialogContentEmits, type DialogContentProps, DialogOverlay, DialogPortal, useEmitAsProps, } from 'radix-vue'
+import { DialogClose, DialogContent, type DialogContentEmits, type DialogContentProps, DialogOverlay, DialogPortal, useEmitAsProps, } from 'reka-ui'
 import { Cross2Icon } from '@radix-icons/vue'
 
 const props = defineProps<DialogContentProps>()

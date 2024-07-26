@@ -260,19 +260,19 @@ const computedMiddleware = computedEager(() => {
         const { width: anchorWidth, height: anchorHeight } = rects.reference
         const contentStyle = elements.floating.style
         contentStyle.setProperty(
-          '--radix-popper-available-width',
+          '--reka-popper-available-width',
           `${availableWidth}px`,
         )
         contentStyle.setProperty(
-          '--radix-popper-available-height',
+          '--reka-popper-available-height',
           `${availableHeight}px`,
         )
         contentStyle.setProperty(
-          '--radix-popper-anchor-width',
+          '--reka-popper-anchor-width',
           `${anchorWidth}px`,
         )
         contentStyle.setProperty(
-          '--radix-popper-anchor-height',
+          '--reka-popper-anchor-height',
           `${anchorHeight}px`,
         )
       },
@@ -345,13 +345,13 @@ providePopperContentContext({
 <template>
   <div
     ref="floatingRef"
-    data-radix-popper-content-wrapper=""
+    data-reka-popper-content-wrapper=""
     :style="{
       ...floatingStyles,
       transform: isPositioned ? floatingStyles.transform : 'translate(0, -200%)', // keep off the page when measuring
       minWidth: 'max-content',
       zIndex: contentZIndex,
-      ['--radix-popper-transform-origin' as any]: [
+      ['--reka-popper-transform-origin' as any]: [
         middlewareData.transformOrigin?.x,
         middlewareData.transformOrigin?.y,
       ].join(' '),

@@ -1,9 +1,9 @@
 {
-  "name": "radix-vue",
+  "name": "reka-ui",
   "type": "module",
-  "version": "1.9.2",
+  "version": "0.0.1",
   "description": "Vue port for Radix UI Primitives.",
-  "author": "Radix Vue Contributors (https://github.com/radix-vue)",
+  "author": "UnoVue Contributors (https://github.com/radix-vue)",
   "license": "MIT",
   "homepage": "https://github.com/radix-vue/radix-vue",
   "repository": {
@@ -87,6 +87,7 @@
     "type-check": "vue-tsc -p tsconfig.check.json --noEmit",
     "type-gen": "vue-tsc --declaration  --emitDeclarationOnly",
     "test": "vitest",
+    "test-update": "vitest -u",
     "pub:release": "pnpm publish --access public"
   },
   "peerDependencies": {

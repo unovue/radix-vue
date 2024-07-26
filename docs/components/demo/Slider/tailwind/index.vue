@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue'
+import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'reka-ui'
 
 const sliderValue = ref([50])
 </script>

@@ -35,7 +35,7 @@ A visually persistent menu common in desktop applications that provides quick ac
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -171,29 +171,29 @@ The component that pops out when a menu is open.
 <CssVariablesTable
   :data="[
     {
-      cssVariable: '--radix-menubar-content-transform-origin',
+      cssVariable: '--reka-menubar-content-transform-origin',
       description: `
         The <Code>transform-origin</Code> computed from the content and arrow positions/offsets
       `,
     },
     {
-      cssVariable: '--radix-menubar-content-available-width',
+      cssVariable: '--reka-menubar-content-available-width',
       description: `
         The remaining width between the trigger and the boundary edge
       `,
     },
     {
-      cssVariable: '--radix-menubar-content-available-height',
+      cssVariable: '--reka-menubar-content-available-height',
       description: `
         The remaining height between the trigger and the boundary edge
       `,
     },
     {
-      cssVariable: '--radix-menubar-trigger-width',
+      cssVariable: '--reka-menubar-trigger-width',
       description: 'The width of the trigger',
     },
     {
-      cssVariable: '--radix-menubar-trigger-height',
+      cssVariable: '--reka-menubar-trigger-height',
       description: 'The height of the trigger',
     },
   ]"
@@ -368,29 +368,29 @@ The component that pops out when a submenu is open. Must be rendered inside `Men
 <CssVariablesTable
   :data="[
     {
-      cssVariable: '--radix-menubar-content-transform-origin',
+      cssVariable: '--reka-menubar-content-transform-origin',
       description: `
         The <Code>transform-origin</Code> computed from the content and arrow positions/offsets
       `,
     },
     {
-      cssVariable: '--radix-menubar-content-available-width',
+      cssVariable: '--reka-menubar-content-available-width',
       description: `
         The remaining width between the trigger and the boundary edge
       `,
     },
     {
-      cssVariable: '--radix-menubar-content-available-height',
+      cssVariable: '--reka-menubar-content-available-height',
       description: `
         The remaining height between the trigger and the boundary edge
       `,
     },
     {
-      cssVariable: '--radix-menubar-trigger-width',
+      cssVariable: '--reka-menubar-trigger-width',
       description: 'The width of the trigger',
     },
     {
-      cssVariable: '--radix-menubar-trigger-height',
+      cssVariable: '--reka-menubar-trigger-height',
       description: 'The height of the trigger',
     },
   ]"
@@ -415,7 +415,7 @@ import {
   MenubarSubContent,
   MenubarSubTrigger,
   MenubarTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -452,7 +452,7 @@ You can add special styles to disabled items via the `data-disabled` attribute.
 
 ```vue line=11
 <script setup lang="ts">
-import { MenubarContent, MenubarItem, MenubarMenu, MenubarPortal, MenubarRoot, MenubarTrigger } from 'radix-vue'
+import { MenubarContent, MenubarItem, MenubarMenu, MenubarPortal, MenubarRoot, MenubarTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -498,7 +498,7 @@ import {
   MenubarRoot,
   MenubarSeparator,
   MenubarTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -533,7 +533,7 @@ import {
   MenubarPortal,
   MenubarRoot,
   MenubarTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -569,7 +569,7 @@ import {
   MenubarRoot,
   MenubarSeparator,
   MenubarTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 import { Icon } from '@iconify/vue'
 
 const checked = ref(true)
@@ -615,7 +615,7 @@ import {
   MenubarRoot,
   MenubarSeparator,
   MenubarTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 import { Icon } from '@iconify/vue'
 
 const color = ref('blue')
@@ -654,7 +654,7 @@ You can add extra decorative elements in the `Item` parts, such as images.
 
 ```vue line=12,16
 <script setup lang="ts">
-import { MenubarContent, MenubarItem, MenubarMenu, MenubarPortal, MenubarRoot, MenubarTrigger } from 'radix-vue'
+import { MenubarContent, MenubarItem, MenubarMenu, MenubarPortal, MenubarRoot, MenubarTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -682,11 +682,11 @@ import { MenubarContent, MenubarItem, MenubarMenu, MenubarPortal, MenubarRoot, M
 
 You may want to constrain the width of the content (or sub-content) so that it matches the trigger (or sub-trigger) width. You may also want to constrain its height to not exceed the viewport.
 
-We expose several CSS custom properties such as `--radix-menubar-trigger-width` and `--radix-menubar-content-available-height` to support this. Use them to constrain the content dimensions.
+We expose several CSS custom properties such as `--reka-menubar-trigger-width` and `--reka-menubar-content-available-height` to support this. Use them to constrain the content dimensions.
 
 ```vue line=10
 <script setup lang="ts">
-import { MenubarContent, MenubarItem, MenubarMenu, MenubarPortal, MenubarRoot, MenubarTrigger } from 'radix-vue'
+import { MenubarContent, MenubarItem, MenubarMenu, MenubarPortal, MenubarRoot, MenubarTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -710,18 +710,18 @@ import { MenubarContent, MenubarItem, MenubarMenu, MenubarPortal, MenubarRoot, M
 ```css line=3-4
 /* styles.css */
 .MenubarContent {
-  width: var(--radix-menubar-trigger-width);
-  max-height: var(--radix-menubar-content-available-height);
+  width: var(--reka-menubar-trigger-width);
+  max-height: var(--reka-menubar-content-available-height);
 }
 ```
 
 ### Origin-aware animations
 
-We expose a CSS custom property `--radix-menubar-content-transform-origin`. Use it to animate the content from its computed origin based on `side`, `sideOffset`, `align`, `alignOffset` and any collisions.
+We expose a CSS custom property `--reka-menubar-content-transform-origin`. Use it to animate the content from its computed origin based on `side`, `sideOffset`, `align`, `alignOffset` and any collisions.
 
 ```vue line=10
 <script setup lang="ts">
-import { MenubarContent, MenubarMenu, MenubarPortal, MenubarRoot, MenubarTrigger } from 'radix-vue'
+import { MenubarContent, MenubarMenu, MenubarPortal, MenubarRoot, MenubarTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -741,7 +741,7 @@ import { MenubarContent, MenubarMenu, MenubarPortal, MenubarRoot, MenubarTrigger
 ```css line=3
 /* styles.css */
 .MenubarContent {
-  transform-origin: var(--radix-menubar-content-transform-origin);
+  transform-origin: var(--reka-menubar-content-transform-origin);
   animation: scaleIn 0.5s ease-out;
 }
 
@@ -763,7 +763,7 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 
 ```vue line=10
 <script setup lang="ts">
-import { MenubarContent, MenubarMenu, MenubarPortal, MenubarRoot, MenubarTrigger } from 'radix-vue'
+import { MenubarContent, MenubarMenu, MenubarPortal, MenubarRoot, MenubarTrigger } from 'reka-ui'
 </script>
 
 <template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import { PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger, Separator } from 'radix-vue'
+import { PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger, Separator } from 'reka-ui'
 import ThemeToggle from '../components/ThemeToggle.vue'
 import DropdownMenu from '../components/DropdownMenu.vue'
 import { useData, useRoute } from 'vitepress'

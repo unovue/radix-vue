@@ -52,7 +52,7 @@ onUnmounted(() => {
       v-bind="$attrs"
       :ref="forwardRef"
       role="slider"
-      data-radix-vue-collection-item
+      data-reka-collection-item
       :tabindex="rootContext.disabled.value ? undefined : 0"
       :aria-label="$attrs['aria-label'] || label"
       :data-disabled="rootContext.disabled.value ? '' : undefined"
@@ -64,7 +64,7 @@ onUnmounted(() => {
       :as-child="asChild"
       :as="as"
       :style="{
-        transform: 'var(--radix-slider-thumb-transform)',
+        transform: 'var(--reka-slider-thumb-transform)',
         position: 'absolute',
         [orientation!.startEdge]: `calc(${percent}% + ${thumbInBoundsOffset}px)`,
         /**

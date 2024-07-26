@@ -48,8 +48,8 @@ const { forwardRef } = useForwardExpose()
 
 const rootContext = injectStepperRootContext()
 
-const titleId = useId(undefined, 'radix-vue-stepper-item-title')
-const descriptionId = useId(undefined, 'radix-vue-stepper-item-description')
+const titleId = useId(undefined, 'reka-stepper-item-title')
+const descriptionId = useId(undefined, 'reka-stepper-item-description')
 
 const itemState = computed(() => {
   if (completed.value)

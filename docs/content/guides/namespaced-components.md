@@ -1,6 +1,6 @@
 # Namespaced components
 
-Radix Vue design pattern is to create primitives for each component, and allow user to construct or [compose](./composition) components however they want.
+Reka UI design pattern is to create primitives for each component, and allow user to construct or [compose](./composition) components however they want.
 
 However, importing all the necessary components 1-by-1 can be quite an effort, and the user might sometimes accidentally leave out an important component.
 
@@ -12,7 +12,7 @@ First, you need to import the namespaced components via `radix-vue/namespaced` i
 
 ```vue line=2
 <script setup lang="ts">
-import { Dialog, DropdownMenu } from 'radix-vue/namespaced'
+import { Dialog, DropdownMenu } from 'reka-ui/namespaced'
 </script>
 ```
 
@@ -20,7 +20,7 @@ Then, you can use all the relevant components within the namespace.
 
 ```vue line=6-17
 <script setup lang="ts">
-import { Dialog } from 'radix-vue/namespaced'
+import { Dialog } from 'reka-ui/namespaced'
 </script>
 
 <template>

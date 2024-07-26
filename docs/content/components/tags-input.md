@@ -30,7 +30,7 @@ Tag inputs render tags inside an input, followed by an actual text input.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -38,7 +38,7 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { TagsInputClear, TagsInputDelete, TagsInputInput, TagsInputItem, TagsInputRoot, TagsInputText } from 'radix-vue'
+import { TagsInputClear, TagsInputDelete, TagsInputInput, TagsInputItem, TagsInputRoot, TagsInputText } from 'reka-ui'
 </script>
 
 <template>
@@ -167,7 +167,7 @@ You can automatically add tags on paste by passing the `add-on-paste` prop.
 
 ```vue line=6
 <script setup lang="ts">
-import { TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText, TagsInputRoot } from 'radix-vue'
+import { TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText, TagsInputRoot } from 'reka-ui'
 </script>
 
 <template>

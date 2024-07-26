@@ -27,7 +27,7 @@ An interactive component which expands/collapses a panel.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -35,7 +35,7 @@ Import the components and piece the parts together.
 
 ```vue
 <script setup>
-import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from 'radix-vue'
+import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -108,11 +108,11 @@ The component that contains the collapsible content.
 <CssVariablesTable
   :data="[
     {
-      cssVariable: '--radix-collapsible-content-width',
+      cssVariable: '--reka-collapsible-content-width',
       description: 'The width of the content when it opens/closes',
     },
     {
-      cssVariable: '--radix-collapsible-content-height',
+      cssVariable: '--reka-collapsible-content-height',
       description: 'The height of the content when it opens/closes',
     },
   ]"
@@ -122,12 +122,12 @@ The component that contains the collapsible content.
 
 ### Animating content size
 
-Use the `--radix-collapsible-content-width` and/or `--radix-collapsible-content-height` CSS variables to animate the size of the content when it opens/closes. Here's a demo:
+Use the `--reka-collapsible-content-width` and/or `--reka-collapsible-content-height` CSS variables to animate the size of the content when it opens/closes. Here's a demo:
 
 ```vue line=10
 // index.vue
 <script setup>
-import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from 'radix-vue'
+import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from 'reka-ui'
 import './styles.css'
 </script>
 
@@ -158,13 +158,13 @@ import './styles.css'
     height: 0;
   }
   to {
-    height: var(--radix-collapsible-content-height);
+    height: var(--reka-collapsible-content-height);
   }
 }
 
 @keyframes slideUp {
   from {
-    height: var(--radix-collapsible-content-height);
+    height: var(--reka-collapsible-content-height);
   }
   to {
     height: 0;

@@ -23,15 +23,15 @@ useForwardExpose()
   <MenuSubContent
     v-bind="forwarded"
     :style="{
-      '--radix-context-menu-content-transform-origin':
-        'var(--radix-popper-transform-origin)',
-      '--radix-context-menu-content-available-width':
-        'var(--radix-popper-available-width)',
-      '--radix-context-menu-content-available-height':
-        'var(--radix-popper-available-height)',
-      '--radix-context-menu-trigger-width': 'var(--radix-popper-anchor-width)',
-      '--radix-context-menu-trigger-height':
-        'var(--radix-popper-anchor-height)',
+      '--reka-context-menu-content-transform-origin':
+        'var(--reka-popper-transform-origin)',
+      '--reka-context-menu-content-available-width':
+        'var(--reka-popper-available-width)',
+      '--reka-context-menu-content-available-height':
+        'var(--reka-popper-available-height)',
+      '--reka-context-menu-trigger-width': 'var(--reka-popper-anchor-width)',
+      '--reka-context-menu-trigger-height':
+        'var(--reka-popper-anchor-height)',
     }"
   >
     <slot />

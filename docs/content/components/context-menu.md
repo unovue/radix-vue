@@ -35,7 +35,7 @@ Displays a menu located at the pointer, triggered by a right-click or a long-pre
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -59,7 +59,7 @@ import {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -156,29 +156,29 @@ The component that pops out in an open context menu.
 <CssVariablesTable
   :data="[
     {
-      cssVariable: '--radix-context-menu-content-transform-origin',
+      cssVariable: '--reka-context-menu-content-transform-origin',
       description: `
         The <Code>transform-origin</Code> computed from the content and arrow positions/offsets
       `,
     },
     {
-      cssVariable: '--radix-context-menu-content-available-width',
+      cssVariable: '--reka-context-menu-content-available-width',
       description: `
         The remaining width between the trigger and the boundary edge
       `,
     },
     {
-      cssVariable: '--radix-context-menu-content-available-height',
+      cssVariable: '--reka-context-menu-content-available-height',
       description: `
         The remaining height between the trigger and the boundary edge
       `,
     },
     {
-      cssVariable: '--radix-context-menu-trigger-width',
+      cssVariable: '--reka-context-menu-trigger-width',
       description: `The width of the trigger`,
     },
     {
-      cssVariable: '--radix-context-menu-trigger-height',
+      cssVariable: '--reka-context-menu-trigger-height',
       description: 'The height of the trigger',
     },
   ]"
@@ -349,25 +349,25 @@ The component that pops out when a submenu is open. Must be rendered inside `Con
 <CssVariablesTable
   :data="[
     {
-      cssVariable: '--radix-context-menu-content-transform-origin',
+      cssVariable: '--reka-context-menu-content-transform-origin',
       description: `
         The <Code>transform-origin</Code> computed from the content and arrow positions/offsets
       `,
     },
     {
-      cssVariable: '--radix-context-menu-content-available-width',
+      cssVariable: '--reka-context-menu-content-available-width',
       description: `The remaining width between the trigger and the boundary edge`,
     },
     {
-      cssVariable: '--radix-context-menu-content-available-height',
+      cssVariable: '--reka-context-menu-content-available-height',
       description: `The remaining height between the trigger and the boundary edge`,
     },
     {
-      cssVariable: '--radix-context-menu-trigger-width',
+      cssVariable: '--reka-context-menu-trigger-width',
       description: 'The width of the trigger',
     },
     {
-      cssVariable: '--radix-context-menu-trigger-height',
+      cssVariable: '--reka-context-menu-trigger-height',
       description: 'The height of the trigger',
     },
   ]"
@@ -392,7 +392,7 @@ import {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -427,7 +427,7 @@ You can add special styles to disabled items via the `data-disabled` attribute.
 
 ```vue line=10
 <script setup lang="ts">
-import { ContextMenuContent, ContextMenuItem, ContextMenuPortal, ContextMenuRoot, ContextMenuTrigger } from 'radix-vue'
+import { ContextMenuContent, ContextMenuItem, ContextMenuPortal, ContextMenuRoot, ContextMenuTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -470,7 +470,7 @@ import {
   ContextMenuRoot,
   ContextMenuSeparator,
   ContextMenuTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -502,7 +502,7 @@ import {
   ContextMenuPortal,
   ContextMenuRoot,
   ContextMenuTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -535,7 +535,7 @@ import {
   ContextMenuRoot,
   ContextMenuSeparator,
   ContextMenuTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 import { Icon } from '@iconify/vue'
 
 const checked = ref(true)
@@ -578,7 +578,7 @@ import {
   ContextMenuRoot,
   ContextMenuSeparator,
   ContextMenuTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 import { Icon } from '@iconify/vue'
 
 const color = ref('blue')
@@ -621,7 +621,7 @@ You can add extra decorative elements in the `Item` parts, such as images.
 
 ```vue line=11,15
 <script setup lang="ts">
-import { ContextMenuContent, ContextMenuItem, ContextMenuPortal, ContextMenuRoot, ContextMenuTrigger } from 'radix-vue'
+import { ContextMenuContent, ContextMenuItem, ContextMenuPortal, ContextMenuRoot, ContextMenuTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -647,11 +647,11 @@ import { ContextMenuContent, ContextMenuItem, ContextMenuPortal, ContextMenuRoot
 
 You may want to constrain the width of the content (or sub-content) so that it matches the trigger (or sub-trigger) width. You may also want to constrain its height to not exceed the viewport.
 
-We expose several CSS custom properties such as `--radix-context-menu-trigger-width` and `--radix-context-menu-content-available-height` to support this. Use them to constrain the content dimensions.
+We expose several CSS custom properties such as `--reka-context-menu-trigger-width` and `--reka-context-menu-content-available-height` to support this. Use them to constrain the content dimensions.
 
 ```vue line=9
 <script setup lang="ts">
-import { ContextMenuContent, ContextMenuItem, ContextMenuPortal, ContextMenuRoot, ContextMenuTrigger } from 'radix-vue'
+import { ContextMenuContent, ContextMenuItem, ContextMenuPortal, ContextMenuRoot, ContextMenuTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -669,18 +669,18 @@ import { ContextMenuContent, ContextMenuItem, ContextMenuPortal, ContextMenuRoot
 ```css
 /* styles.css */
 .ContextMenuContent {
-  width: var(--radix-context-menu-trigger-width);
-  max-height: var(--radix-context-menu-content-available-height);
+  width: var(--reka-context-menu-trigger-width);
+  max-height: var(--reka-context-menu-content-available-height);
 }
 ```
 
 ### Origin-aware animations
 
-We expose a CSS custom property `--radix-context-menu-content-transform-origin`. Use it to animate the content from its computed origin based on `side`, `sideOffset`, `align`, `alignOffset` and any collisions.
+We expose a CSS custom property `--reka-context-menu-content-transform-origin`. Use it to animate the content from its computed origin based on `side`, `sideOffset`, `align`, `alignOffset` and any collisions.
 
 ```vue line=9
 <script setup lang="ts">
-import { ContextMenuContent, ContextMenuPortal, ContextMenuRoot, ContextMenuTrigger } from 'radix-vue'
+import { ContextMenuContent, ContextMenuPortal, ContextMenuRoot, ContextMenuTrigger } from 'reka-ui'
 </script>
 
 <template>
@@ -698,7 +698,7 @@ import { ContextMenuContent, ContextMenuPortal, ContextMenuRoot, ContextMenuTrig
 ```css line=3
 /* styles.css */
 .ContextMenuContent {
-  transform-origin: var(--radix-context-menu-content-transform-origin);
+  transform-origin: var(--reka-context-menu-content-transform-origin);
   animation: scaleIn 0.5s ease-out;
 }
 
@@ -720,7 +720,7 @@ We expose `data-side` and `data-align` attributes. Their values will change at r
 
 ```vue line=9
 <script setup lang="ts">
-import { ContextMenuContent, ContextMenuPortal, ContextMenuRoot, ContextMenuTrigger } from 'radix-vue'
+import { ContextMenuContent, ContextMenuPortal, ContextMenuRoot, ContextMenuTrigger } from 'reka-ui'
 </script>
 
 <template>

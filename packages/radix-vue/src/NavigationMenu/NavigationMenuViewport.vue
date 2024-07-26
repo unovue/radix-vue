@@ -9,7 +9,7 @@ export interface NavigationMenuViewportProps extends PrimitiveProps {
    */
   forceMount?: boolean
   /**
-   * Placement of the viewport for css variables `(--radix-navigation-menu-viewport-left, --radix-navigation-menu-viewport-top)`.
+   * Placement of the viewport for css variables `(--reka-navigation-menu-viewport-left, --reka-navigation-menu-viewport-top)`.
    * @defaultValue 'center'
    */
   align?: 'start' | 'center' | 'end'
@@ -171,10 +171,10 @@ useResizeObserver([globalThis.document.body, rootNavigationMenu], () => {
       :style="{
         // Prevent interaction when animating out
         pointerEvents: !open && menuContext.isRootMenu ? 'none' : undefined,
-        ['--radix-navigation-menu-viewport-width']: size ? `${size?.width}px` : undefined,
-        ['--radix-navigation-menu-viewport-height']: size ? `${size?.height}px` : undefined,
-        ['--radix-navigation-menu-viewport-left']: position ? `${position?.left}px` : undefined,
-        ['--radix-navigation-menu-viewport-top']: position ? `${position?.top}px` : undefined,
+        ['--reka-navigation-menu-viewport-width']: size ? `${size?.width}px` : undefined,
+        ['--reka-navigation-menu-viewport-height']: size ? `${size?.height}px` : undefined,
+        ['--reka-navigation-menu-viewport-left']: position ? `${position?.left}px` : undefined,
+        ['--reka-navigation-menu-viewport-top']: position ? `${position?.top}px` : undefined,
       }"
       :hidden="!present.value"
       @pointerenter="menuContext.onContentEnter(menuContext.modelValue.value)"

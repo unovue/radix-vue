@@ -15,7 +15,7 @@ This composable is just a wrapper for [useForwardProps](/utilities/use-forward-p
 
 ```vue
 <script setup lang="ts">
-import { useForwardPropsEmits } from 'radix-vue'
+import { useForwardPropsEmits } from 'reka-ui'
 
 const props = defineProps<CompEmitProps>()
 const emits = defineEmits<CompEmitEmits>()

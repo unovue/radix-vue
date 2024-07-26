@@ -54,7 +54,7 @@ const isHighlighted = computed(() => rootContext.highlightedRange.value
   : false)
 
 const SELECTOR
-  = '[data-radix-vue-calendar-cell-trigger]:not([data-disabled]):not([data-outside-month]):not([data-outside-visible-months])'
+  = '[data-reka-calendar-cell-trigger]:not([data-disabled]):not([data-outside-month]):not([data-outside-visible-months])'
 
 const isDateToday = computed(() => {
   return isToday(props.day, getLocalTimeZone())
@@ -192,7 +192,7 @@ function handleArrowKey(e: KeyboardEvent) {
     v-bind="props"
     role="button"
     :aria-label="labelText"
-    data-radix-vue-calendar-cell-trigger
+    data-reka-calendar-cell-trigger
     :aria-selected="isSelectedDate ? true : undefined"
     :aria-disabled="isOutsideView || isDisabled || isUnavailable ? true : undefined"
     :data-highlighted="isHighlighted ? '' : undefined"

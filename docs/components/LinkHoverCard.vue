@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { hyphenate } from '@vueuse/core'
-import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from 'radix-vue'
+import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from 'reka-ui'
 import { computed } from 'vue'
 
 const props = defineProps<{

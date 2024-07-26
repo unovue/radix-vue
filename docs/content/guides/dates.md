@@ -1,12 +1,12 @@
 ---
 title: Dates & Times
-description: How to work with dates and times in Radix Vue.
+description: How to work with dates and times in Reka UI.
 ---
 
 # Dates & Times
 
 <Description>
-How to work with dates and times in Radix Vue.
+How to work with dates and times in Reka UI.
 </Description>
 
 <Callout type="tip">
@@ -69,7 +69,7 @@ import {
   isZonedDateTime,
   parseStringToDateValue,
   toDate,
-} from 'radix-vue/date'
+} from 'reka-ui/date'
 
 import { CalendarDate, type DateValue } from '@internationalized/date'
 

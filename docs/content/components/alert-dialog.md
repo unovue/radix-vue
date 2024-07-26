@@ -29,7 +29,7 @@ response.
 
 Install the component from your command line.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Anatomy
 
@@ -47,7 +47,7 @@ import {
   AlertDialogRoot,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 </script>
 
 <template>
@@ -167,7 +167,7 @@ import {
   AlertDialogRoot,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 
 const wait = () => new Promise(resolve => setTimeout(resolve, 1000))
 const open = ref(false)

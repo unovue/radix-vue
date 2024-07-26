@@ -13,7 +13,7 @@ design systems and web apps using <a href="https://vuejs.org" target="_blank" re
 
 <Callout type="tip">
 
-Radix Vue is an unofficial community-led Vue port of [Radix UI](https://www.radix-ui.com/), thus we share the same principal and vision when building primitives.
+Reka UI is an unofficial community-led Vue port of [Radix UI](https://www.radix-ui.com/), thus we share the same principal and vision when building primitives.
 
 </Callout>
 
@@ -60,7 +60,7 @@ One of our main goals is to provide the best possible developer experience. Radi
 
 We compile all primitives into one package, so you just have to install once, and have access to all the primitives. Worry not, it is tree-shaking friendly so any unused primitives will not be included in the bundle.
 
-<InstallationTabs value="radix-vue" />
+<InstallationTabs value="reka-ui" />
 
 ## Community
 

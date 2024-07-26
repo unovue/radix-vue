@@ -36,7 +36,7 @@ You can style a component part by targeting the `class` that you provide.
 
 ```vue{7}
 <script setup lang="ts">
-import { AccordionRoot, AccordionItem, ... } from "radix-vue";
+import { AccordionRoot, AccordionItem, ... } from "reka-ui";
 </script>
 
 <template>
@@ -73,7 +73,7 @@ You can style a component using scoped style. Be wary of teleported elements, as
 
 ```vue{7}
 <script setup lang="ts">
-import { DropdownMenuRoot, DropdownMenuItem, ... } from "radix-vue";
+import { DropdownMenuRoot, DropdownMenuItem, ... } from "reka-ui";
 </script>
 
 <template>
@@ -108,7 +108,7 @@ You can style a component part by targeting the `class`.
 
 ```vue{7}
 <script setup lang="ts">
-import { AccordionRoot, AccordionItem, ... } from "radix-vue";
+import { AccordionRoot, AccordionItem, ... } from "reka-ui";
 </script>
 
 <template>
@@ -125,7 +125,7 @@ With Tailwind CSS's powerful variant selector, you can style a component state b
 
 ```vue{10}
 <script setup lang="ts">
-import { AccordionRoot, AccordionItem, ... } from "radix-vue";
+import { AccordionRoot, AccordionItem, ... } from "reka-ui";
 </script>
 
 <template>
@@ -148,7 +148,7 @@ Extending a primitive is done the same way you extend any Vue component.
 
 ```vue[CustomAccordion.vue]
 <script setup lang="ts">
-import { AccordionItem, type AccordionItemProps } from "radix-vue";
+import { AccordionItem, type AccordionItemProps } from "reka-ui";
 
 interface Props extends AccordionItemProps {
   foo: string;

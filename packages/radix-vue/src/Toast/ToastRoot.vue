@@ -74,25 +74,25 @@ const open = useVModel(props, 'open', emits, {
         const { x, y } = event.detail.delta;
         const target = event.currentTarget as HTMLElement
         target.setAttribute('data-swipe', 'move');
-        target.style.setProperty('--radix-toast-swipe-move-x', `${x}px`);
-        target.style.setProperty('--radix-toast-swipe-move-y', `${y}px`);
+        target.style.setProperty('--reka-toast-swipe-move-x', `${x}px`);
+        target.style.setProperty('--reka-toast-swipe-move-y', `${y}px`);
       }"
       @swipe-cancel="(event) => {
         const target = event.currentTarget as HTMLElement
         target.setAttribute('data-swipe', 'cancel');
-        target.style.removeProperty('--radix-toast-swipe-move-x');
-        target.style.removeProperty('--radix-toast-swipe-move-y');
-        target.style.removeProperty('--radix-toast-swipe-end-x');
-        target.style.removeProperty('--radix-toast-swipe-end-y');
+        target.style.removeProperty('--reka-toast-swipe-move-x');
+        target.style.removeProperty('--reka-toast-swipe-move-y');
+        target.style.removeProperty('--reka-toast-swipe-end-x');
+        target.style.removeProperty('--reka-toast-swipe-end-y');
       }"
       @swipe-end="(event) => {
         const { x, y } = event.detail.delta;
         const target = event.currentTarget as HTMLElement
         target.setAttribute('data-swipe', 'end');
-        target.style.removeProperty('--radix-toast-swipe-move-x');
-        target.style.removeProperty('--radix-toast-swipe-move-y');
-        target.style.setProperty('--radix-toast-swipe-end-x', `${x}px`);
-        target.style.setProperty('--radix-toast-swipe-end-y', `${y}px`);
+        target.style.removeProperty('--reka-toast-swipe-move-x');
+        target.style.removeProperty('--reka-toast-swipe-move-y');
+        target.style.setProperty('--reka-toast-swipe-end-x', `${x}px`);
+        target.style.setProperty('--reka-toast-swipe-end-y', `${y}px`);
         open = false;
       }"
     >

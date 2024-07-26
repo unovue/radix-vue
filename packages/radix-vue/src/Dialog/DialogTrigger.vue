@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<DialogTriggerProps>(), {
 const rootContext = injectDialogRootContext()
 const { forwardRef, currentElement } = useForwardExpose()
 
-rootContext.contentId ||= useId(undefined, 'radix-vue-dialog-content')
+rootContext.contentId ||= useId(undefined, 'reka-dialog-content')
 onMounted(() => {
   rootContext.triggerElement.value = currentElement.value
 })

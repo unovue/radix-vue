@@ -71,14 +71,14 @@ useFocusGuards()
         :ref="forwardRef"
         :data-state="rootContext.open.value ? 'open' : 'closed'"
         :style="{
-          '--radix-popover-content-transform-origin':
-            'var(--radix-popper-transform-origin)',
-          '--radix-popover-content-available-width':
-            'var(--radix-popper-available-width)',
-          '--radix-popover-content-available-height':
-            'var(--radix-popper-available-height)',
-          '--radix-popover-trigger-width': 'var(--radix-popper-anchor-width)',
-          '--radix-popover-trigger-height': 'var(--radix-popper-anchor-height)',
+          '--reka-popover-content-transform-origin':
+            'var(--reka-popper-transform-origin)',
+          '--reka-popover-content-available-width':
+            'var(--reka-popper-available-width)',
+          '--reka-popover-content-available-height':
+            'var(--reka-popper-available-height)',
+          '--reka-popover-trigger-width': 'var(--reka-popper-anchor-width)',
+          '--reka-popover-trigger-height': 'var(--reka-popper-anchor-height)',
         }"
       >
         <slot />

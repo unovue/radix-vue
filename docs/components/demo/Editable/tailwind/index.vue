@@ -6,7 +6,7 @@ import { EditableArea, EditableCancelTrigger, EditableEditTrigger, EditableInput
   <div class="w-[250px]">
     <EditableRoot
       v-slot="{ isEditing }"
-      default-value="Click to edit 'Radix Vue'"
+      default-value="Click to edit 'Reka UI'"
       placeholder="Enter text..."
       class="flex flex-col gap-4"
       auto-resize

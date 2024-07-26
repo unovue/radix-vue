@@ -9,7 +9,7 @@ import './styles.css'
       v-slot="{ isEditing }"
       placeholder="Enter text..."
       class="EditableRoot"
-      default-value="Click to edit 'Radix Vue'"
+      default-value="Click to edit 'Reka UI'"
       auto-resize
     >
       <EditableArea class="EditableArea">

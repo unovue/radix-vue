@@ -4,7 +4,7 @@
 export const radixVueName = 'Reka UI'
 export const radixVueShortName = 'Reka UI'
 export const radixVueDescription
-  = 'Unstyled, accessible components for building high‑quality design systems and web apps in Vue'
+  = 'An open-source library with unstyled, primitive components, accompanied by a variety of examples & use cases ready to be integrated into your projects.'
 
 /* CDN fonts and styles */
 export const googleapis = 'https://fonts.googleapis.com'

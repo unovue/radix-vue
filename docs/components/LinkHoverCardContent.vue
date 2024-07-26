@@ -22,21 +22,16 @@ const data = computed(() => JSON.parse(props.data))
 </script>
 
 <template>
-  <ul class="list-none m-0 p-0 relative">
-    <div
-      class="flex justify-end sticky top-2"
+  <ul class="list-none m-0 p-0 relative [&>li:not(:last-child)]:border-b [&>li:not(:last-child)]:mb-2">
+    <h5
+      class="font-bold capitalize text-xs p-2 w-full border-y border-muted-foreground/30 sticky top-0 bg-card"
     >
-      <h5
-        class="font-extrabold -mb-2 capitalize p-1 rounded-lg bg-card/20 backdrop-blur-sm"
-      >
-        {{ title }}
-      </h5>
-    </div>
-
+      {{ title }}
+    </h5>
     <li
       v-for="(prop, index) in data"
       :key="`${prop.name}-${index}`"
-      class="pb-2 border-b border-muted mb-4"
+      class="border-muted px-2"
     >
       <div class="inline-flex items-center gap-2 flex-wrap">
         <div class="text-primary font-mono font-bold text-sm">

@@ -24,7 +24,7 @@ const href = computed(() => {
     </HoverCardTrigger>
     <HoverCardPortal>
       <HoverCardContent
-        class="w-[500px] h-64 rounded-xl border border-muted-foreground/30 bg-card px-2 shadow-xl overflow-x-hidden prose dark:prose-invert [&>div]:my-2"
+        class="w-[500px] h-64 rounded-lg border border-muted-foreground/30 bg-card shadow-xl overflow-x-hidden prose dark:prose-invert [&>div]:my-2 [&>ul:first-child>h5]:border-t-0"
         side="top"
         align="start"
         :align-offset="-20"

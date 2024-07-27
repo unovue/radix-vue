@@ -64,7 +64,16 @@ const { forwardRef, currentElement: contentElement } = useForwardExpose()
   >
     <Primitive
       :ref="forwardRef"
-      :style="{ minWidth: '100%', display: 'table' }"
+      :style="{
+        /**
+         * When horizontal scrollbar is visible: this element should be at least
+         * as wide as its children for size calculations to work correctly.
+         *
+         * When horizontal scrollbar is NOT visible: this element's width should
+         * be constrained by the parent container to enable `text-overflow: ellipsis`
+         */
+        minWidth: rootContext.scrollbarXEnabled.value ? 'fit-content' : undefined,
+      }"
       :as-child="props.asChild"
       :as="as"
     >

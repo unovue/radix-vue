@@ -257,7 +257,7 @@ const currentTrigger = ref('')
           </NavigationMenuList>
 
           <NavigationMenuViewport
-            class="absolute top-full border-t origin-[top_center] mt-[10px] w-[var(--radix-navigation-menu-viewport-width)] bg-white h-[var(--radix-navigation-menu-viewport-height)] transition-[height] overflow-hidden shadow-xl"
+            class="absolute top-full border-t origin-[top_center] mt-[10px] w-[var(--reka-navigation-menu-viewport-width)] bg-white h-[var(--reka-navigation-menu-viewport-height)] transition-[height] overflow-hidden shadow-xl"
           />
         </NavigationMenuRoot>
       </StoryFrame>

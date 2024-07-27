@@ -24,7 +24,7 @@ const data = computed(() => JSON.parse(props.data))
 <template>
   <ul class="list-none m-0 p-0 relative [&>li:not(:last-child)]:border-b [&>li:not(:last-child)]:mb-2">
     <h5
-      class="font-bold capitalize text-xs p-2 w-full border-y border-muted-foreground/30 sticky top-0 bg-card"
+      class="font-mono font-bold capitalize text-xs p-2 w-full border-y border-muted-foreground/30 sticky top-0 bg-card"
     >
       {{ title }}
     </h5>
@@ -34,7 +34,7 @@ const data = computed(() => JSON.parse(props.data))
       class="border-muted px-2"
     >
       <div class="inline-flex items-center gap-2 flex-wrap">
-        <div class="text-primary font-mono font-bold text-sm">
+        <div class="text-primary font-mono font-bold text-xs">
           {{ prop.name }}
         </div>
         <code class="px-2 py-0.5 text-foreground bg-muted text-xs">
@@ -55,7 +55,7 @@ const data = computed(() => JSON.parse(props.data))
       </div>
 
       <p
-        class="text-muted-foreground text-sm"
+        class="text-muted-foreground text-sm my-0"
         v-html="prop.description"
       />
     </li>

@@ -201,7 +201,7 @@ const currentTrigger = ref('')
           >
             <div class="relative w-full">
               <NavigationMenuViewport
-                class="data-[state=open]:animate-scaleIn data-[state=closed]:animate-scaleOut absolute top-0 h-[var(--radix-navigation-menu-viewport-height)] origin-[top_center] w-full overflow-hidden rounded-[6px] bg-white transition-[width,_height,_left] duration-300 sm:w-[var(--radix-navigation-menu-viewport-width)] left-[var(--radix-navigation-menu-viewport-left)]"
+                class="data-[state=open]:animate-scaleIn data-[state=closed]:animate-scaleOut absolute top-0 h-[var(--reka-navigation-menu-viewport-height)] origin-[top_center] w-full overflow-hidden rounded-[6px] bg-white transition-[width,_height,_left] duration-300 sm:w-[var(--reka-navigation-menu-viewport-width)] left-[var(--reka-navigation-menu-viewport-left)]"
               />
             </div>
           </div>

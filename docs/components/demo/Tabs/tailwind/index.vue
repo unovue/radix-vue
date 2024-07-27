@@ -11,7 +11,7 @@ import { TabsContent, TabsIndicator, TabsList, TabsRoot, TabsTrigger } from 'rek
       class="relative shrink-0 flex border-b border-mauve6"
       aria-label="Manage your account"
     >
-      <TabsIndicator class="absolute px-8 left-0 h-[2px] bottom-0 w-[--radix-tabs-indicator-size] translate-x-[--radix-tabs-indicator-position] rounded-full transition-[width,transform] duration-300">
+      <TabsIndicator class="absolute px-8 left-0 h-[2px] bottom-0 w-[--reka-tabs-indicator-size] translate-x-[--reka-tabs-indicator-position] rounded-full transition-[width,transform] duration-300">
         <div class="bg-grass8 w-full h-full" />
       </TabsIndicator>
       <TabsTrigger

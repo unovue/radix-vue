@@ -21,6 +21,12 @@
     'required': false
   },
   {
+    'name': 'rounded',
+    'description': '<p>When <code>true</code>, render the rounded version of arrow. Do not work with <code>as</code>/<code>asChild</code></p>\n',
+    'type': 'boolean',
+    'required': false
+  },
+  {
     'name': 'width',
     'description': '<p>The width of the arrow in pixels.</p>\n',
     'type': 'number',

@@ -38,8 +38,8 @@ const boundary = ref<HTMLElement>()
                 padding: '8px',
                 color: 'white',
                 backgroundColor: 'black',
-                width: 'var(--radix-popper-available-width)',
-                height: 'var(--radix-popper-available-height)',
+                width: 'var(--reka-popper-available-width)',
+                height: 'var(--reka-popper-available-height)',
               }"
             >
               out of bound out of bound out of bound out of bound out of bound

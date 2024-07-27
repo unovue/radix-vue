@@ -17,7 +17,7 @@ import { TabsContent, TabsIndicator, TabsList, TabsRoot, TabsTrigger } from '../
           class="shrink-0 flex flex-col border-b border-mauve6 relative"
           aria-label="Manage your account"
         >
-          <TabsIndicator class="absolute bg-violet11 right-0 w-[2px] top-0 h-[--radix-tabs-indicator-size] translate-y-[--radix-tabs-indicator-position] rounded-full  transition-[width,transform] duration-300" />
+          <TabsIndicator class="absolute bg-violet11 right-0 w-[2px] top-0 h-[--reka-tabs-indicator-size] translate-y-[--reka-tabs-indicator-position] rounded-full  transition-[width,transform] duration-300" />
           <TabsTrigger
             style="writing-mode:vertical-rl;"
             class="bg-white px-5 w-[45px] flex-1 flex items-center justify-center text-[15px] leading-none text-mauve11 select-none rounded-tl-md hover:text-violet11 focus-visible:shadow-[0_0_0_2px] data-[state=active]:text-violet11 outline-none cursor-default"

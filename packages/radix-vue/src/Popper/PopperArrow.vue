@@ -68,6 +68,7 @@ const baseSide = computed(() => OPPOSITE_SIDE[contentContext.placedSide.value])
       }"
       :as="as"
       :as-child="asChild"
+      :rounded="rounded"
       :width="width"
       :height="height"
     >

@@ -176,7 +176,7 @@ useResizeObserver([globalThis.document.body, rootNavigationMenu], () => {
         ['--reka-navigation-menu-viewport-left']: position ? `${position?.left}px` : undefined,
         ['--reka-navigation-menu-viewport-top']: position ? `${position?.top}px` : undefined,
       }"
-      :hidden="!present.value"
+      :hidden="!present"
       @pointerenter="menuContext.onContentEnter(menuContext.modelValue.value)"
       @pointerleave="whenMouse(() => menuContext.onContentLeave())($event)"
     >

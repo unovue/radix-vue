@@ -42,6 +42,46 @@ describe('given a default Presence', () => {
   })
 })
 
+describe('given a forceMounted Presence', () => {
+  const wrapper = mount(defineComponent({
+    components: { Presence },
+    setup: () => {
+      return { open: ref(false) }
+    },
+    template: `<section>
+    <button @click="open = !open">
+      toggle
+    </button>
+  </section>
+  <Presence forceMount :present="open" v-slot="{ present }">
+    <div :data-present="present">${CONTENT}</div>
+  </Presence>`,
+  }))
+
+  it('should show content', () => {
+    expect(wrapper.html()).toContain(CONTENT)
+    expect(wrapper.find('div').attributes('data-present')).toBe('false')
+  })
+
+  describe('after clicking trigger', () => {
+    beforeEach(async () => {
+      await wrapper.find('button').trigger('click')
+    })
+
+    it('should show content', () => {
+      expect(wrapper.html()).toContain(CONTENT)
+      expect(wrapper.find('div').attributes('data-present')).toBe('true')
+    })
+
+    describe('after clicking trigger again', () => {
+      it('should always show content', () => {
+        expect(wrapper.html()).toContain(CONTENT)
+        expect(wrapper.find('div').attributes('data-present')).toBe('false')
+      })
+    })
+  })
+})
+
 const styles = `
 @keyframes fadeIn {
   from { opacity: 0; }
@@ -50,8 +90,8 @@ const styles = `
 @keyframes fadeOut {
   from { opacity: 1; }
   to { opacity: 0; }
-} 
- 
+}
+
 .animate[data-state=open]{
   animation: fadeIn 2s;
 }

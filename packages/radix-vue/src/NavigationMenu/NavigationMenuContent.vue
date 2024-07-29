@@ -65,7 +65,7 @@ const isLastActiveValue = computed(() => {
           pointerEvents: !open && menuContext.isRootMenu ? 'none' : undefined,
         }"
         v-bind="{ ...$attrs, ...forwarded }"
-        :hidden="!present.value"
+        :hidden="!present"
         @pointerenter="menuContext.onContentEnter(itemContext.value)"
         @pointerleave="whenMouse(() => menuContext.onContentLeave())($event)"
         @pointer-down-outside="emits('pointerDownOutside', $event)"

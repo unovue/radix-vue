@@ -22,8 +22,9 @@ export interface PresenceProps {
    */
   present: boolean
   /**
-   * Force the first child element to render all the time.
-   * Useful for programmatically render grandchild component together with the exposed `present`
+   * Force the element to render all the time.
+   *
+   * Useful for programmatically render grandchild component with the exposed `present`
    *
    * @defaultValue false
    */
@@ -42,7 +43,7 @@ export default defineComponent({
     },
   },
   slots: {} as SlotsType<{
-    default: (opts: { present: Ref<boolean> }) => any
+    default: (opts: { present: boolean }) => any
   }>,
   setup(props, { slots, expose }) {
     const { present, forceMount } = toRefs(props)
@@ -52,7 +53,7 @@ export default defineComponent({
     const { isPresent } = usePresence(present, node)
     expose({ present: isPresent })
 
-    let children = slots.default({ present: isPresent })
+    let children = slots.default({ present: isPresent.value })
     children = renderSlotFragments(children || [])
     const instance = getCurrentInstance()
 
@@ -79,7 +80,7 @@ export default defineComponent({
 
     return () => {
       if (forceMount.value || present.value || isPresent.value) {
-        return h(slots.default({ present: isPresent })[0] as VNode, {
+        return h(slots.default({ present: isPresent.value })[0] as VNode, {
           ref: (v) => {
             const el = unrefElement(v as HTMLElement)
             if (typeof el?.hasAttribute === 'undefined')

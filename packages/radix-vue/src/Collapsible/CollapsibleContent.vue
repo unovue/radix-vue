@@ -93,7 +93,7 @@ onMounted(() => {
       :ref="forwardRef"
       :as-child="props.asChild"
       :as="as"
-      :hidden="!present.value"
+      :hidden="!present"
       :data-state="skipAnimation ? undefined : rootContext.open.value ? 'open' : 'closed'"
       :data-disabled="rootContext.disabled?.value ? '' : undefined"
       :style="{
@@ -101,7 +101,7 @@ onMounted(() => {
         [`--reka-collapsible-content-width`]: `${width}px`,
       }"
     >
-      <slot v-if="rootContext.unmount.value ? present.value : true" />
+      <slot v-if="rootContext.unmount.value ? present : true" />
     </Primitive>
   </Presence>
 </template>

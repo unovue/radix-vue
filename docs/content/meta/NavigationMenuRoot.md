@@ -68,7 +68,7 @@
     'default': '300'
   },
   {
-    'name': 'unmount',
+    'name': 'unmountOnHide',
     'description': '<p>When <code>true</code>, the element will be unmounted on closed state.</p>\n',
     'type': 'boolean',
     'required': false,

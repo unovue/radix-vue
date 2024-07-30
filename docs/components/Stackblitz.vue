@@ -17,7 +17,10 @@ function handleClick() {
 <template>
   <div>
     <Tooltip :content="`Open ${name} in Stackblitz`">
-      <button @click="handleClick">
+      <button
+        aria-label="Open on Stackblitz"
+        @click="handleClick"
+      >
         <Icon icon="simple-icons:stackblitz" />
       </button>
     </Tooltip>

@@ -19,5 +19,11 @@
     'description': '',
     'type': 'boolean',
     'required': false
+  },
+  {
+    'name': 'reference',
+    'description': '<p>The reference (or anchor) element that is being referred to for positioning.</p>\n<p>If not provided will use the current component as anchor.</p>\n',
+    'type': 'ReferenceElement',
+    'required': false
   }
 ]" />

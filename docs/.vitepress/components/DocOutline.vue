@@ -36,7 +36,7 @@ useActiveAnchor(container, marker)
       v-if="!collapsible"
       id="doc-outline-aria-label"
       aria-level="2"
-      class="font-bold text-sm mb-2"
+      class="font-bold text-sm mb-2 trunc"
       role="heading"
     >
       On this page

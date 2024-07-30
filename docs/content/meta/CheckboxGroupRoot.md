@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'button\''
+    'default': '\'div\''
   },
   {
     'name': 'asChild',
@@ -17,26 +17,31 @@
   {
     'name': 'defaultValue',
     'description': '<p>The value of the checkbox when it is initially rendered. Use when you do not need to control its value.</p>\n',
-    'type': 'boolean | \'indeterminate\'',
-    'required': false,
-    'default': 'false'
+    'type': 'AcceptableValue[]',
+    'required': false
+  },
+  {
+    'name': 'dir',
+    'description': '<p>The direction of navigation between items.</p>\n',
+    'type': '\'ltr\' | \'rtl\'',
+    'required': false
   },
   {
     'name': 'disabled',
-    'description': '<p>When <code>true</code>, prevents the user from interacting with the checkbox</p>\n',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with the checkboxes</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
-    'name': 'id',
-    'description': '<p>Id of the element</p>\n',
-    'type': 'string',
+    'name': 'loop',
+    'description': '<p>Whether keyboard navigation should loop around</p>\n',
+    'type': 'boolean',
     'required': false
   },
   {
     'name': 'modelValue',
     'description': '<p>The controlled value of the checkbox. Can be binded with v-model.</p>\n',
-    'type': 'boolean | \'indeterminate\'',
+    'type': 'AcceptableValue[]',
     'required': false
   },
   {
@@ -46,17 +51,23 @@
     'required': false
   },
   {
+    'name': 'orientation',
+    'description': '<p>The orientation of the group.\nMainly so arrow navigation is done accordingly (left &amp; right vs. up &amp; down)</p>\n',
+    'type': '\'vertical\' | \'horizontal\'',
+    'required': false
+  },
+  {
     'name': 'required',
     'description': '<p>When <code>true</code>, indicates that the user must check the checkbox before the owning form can be submitted.</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
-    'name': 'value',
-    'description': '<p>The value given as data when submitted with a <code>name</code>.</p>\n',
-    'type': 'AcceptableValue',
+    'name': 'rovingFocus',
+    'description': '<p>When <code>false</code>, navigating through the items using arrow keys will be disabled.</p>\n',
+    'type': 'boolean',
     'required': false,
-    'default': '\'on\''
+    'default': 'true'
   }
 ]" />
 
@@ -64,19 +75,6 @@
   {
     'name': 'update:modelValue',
     'description': '<p>Event handler called when the value of the checkbox changes.</p>\n',
-    'type': '[value: AcceptableValue]'
-  }
-]" />
-
-<SlotsTable :data="[
-  {
-    'name': 'modelValue',
-    'description': '<p>Current value</p>\n',
-    'type': 'false | true | \'indeterminate\''
-  },
-  {
-    'name': 'state',
-    'description': '<p>Current state</p>\n',
-    'type': 'CheckedState'
+    'type': '[value: AcceptableValue[]]'
   }
 ]" />

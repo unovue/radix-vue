@@ -39,7 +39,10 @@ defineProps<{
     >
 
     <Tooltip :content="`Open ${name} in CodeSandbox`">
-      <button type="submit">
+      <button
+        type="submit"
+        aria-label="Open on CodeSandbox"
+      >
         <Icon icon="ph-codesandbox-logo" />
       </button>
     </Tooltip>

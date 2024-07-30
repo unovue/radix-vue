@@ -78,7 +78,10 @@ watch(open, () => {
             v-model="cssFramework"
             @update:model-value="currentTab = 'index.vue'"
           >
-            <SelectTrigger class="flex items-center justify-between bg-stone-800 rounded-sm w-[115px] text-xs py-1 pl-2 pr-1 disabled:opacity-50">
+            <SelectTrigger
+              class="flex items-center justify-between bg-stone-800 rounded-sm w-[115px] text-xs py-1 pl-2 pr-1 disabled:opacity-50"
+              aria-label="Select CSS framework"
+            >
               <SelectValue>
                 {{ cssFrameworkOptions.find(opt => opt.value === cssFramework)?.label }}
               </SelectValue>

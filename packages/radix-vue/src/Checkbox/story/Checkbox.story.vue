@@ -10,7 +10,7 @@ const checkboxThree = ref(false)
 <template>
   <Story
     title="Checkbox/Demo"
-    :layout="{ type: 'single', iframe: true }"
+    :layout="{ type: 'single', iframe: false }"
   >
     <Variant title="default">
       <div class="flex flex-col gap-2.5">

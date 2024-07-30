@@ -1,4 +1,9 @@
 export {
+  default as CheckboxGroupRoot,
+  type CheckboxGroupRootProps,
+  type CheckboxGroupRootEmits,
+} from './CheckboxGroupRoot.vue'
+export {
   default as CheckboxRoot,
   type CheckboxRootProps,
   type CheckboxRootEmits,

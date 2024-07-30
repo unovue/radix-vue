@@ -45,6 +45,7 @@ export const components = {
   ],
 
   checkbox: [
+    'CheckboxGroupRoot',
     'CheckboxRoot',
     'CheckboxIndicator',
   ],

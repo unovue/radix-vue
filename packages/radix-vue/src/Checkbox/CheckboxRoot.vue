@@ -4,12 +4,14 @@ import type { Ref } from 'vue'
 import { createContext, isValueEqualOrExist, useFormControl, useForwardExpose } from '@/shared'
 import type { CheckedState } from './utils'
 import type { AcceptableValue } from '@/shared/types'
+import { useVModel } from '@vueuse/core'
+import { injectCheckboxGroupRootContext } from './CheckboxGroupRoot.vue'
 
 export interface CheckboxRootProps extends PrimitiveProps {
   /** The value of the checkbox when it is initially rendered. Use when you do not need to control its value. */
-  defaultValue?: AcceptableValue | AcceptableValue[] | 'indeterminate'
+  defaultValue?: boolean | 'indeterminate'
   /** The controlled value of the checkbox. Can be binded with v-model. */
-  modelValue?: AcceptableValue | AcceptableValue[] | 'indeterminate'
+  modelValue?: boolean | 'indeterminate'
   /** When `true`, prevents the user from interacting with the checkbox */
   disabled?: boolean
   /** When `true`, indicates that the user must check the checkbox before the owning form can be submitted. */
@@ -27,7 +29,7 @@ export interface CheckboxRootProps extends PrimitiveProps {
 
 export type CheckboxRootEmits = {
   /** Event handler called when the value of the checkbox changes. */
-  'update:modelValue': [value: AcceptableValue | AcceptableValue[]]
+  'update:modelValue': [value: AcceptableValue ]
 }
 
 interface CheckboxRootContext {
@@ -42,16 +44,17 @@ export const [injectCheckboxRootContext, provideCheckboxRootContext]
 <script setup lang="ts">
 import { computed, toRefs } from 'vue'
 import { Primitive } from '@/Primitive'
+import { RovingFocusItem } from '@/RovingFocus'
 import { getState, isIndeterminate } from './utils'
-import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
 import { VisuallyHiddenInput } from '@/VisuallyHidden'
+import isEqual from 'fast-deep-equal'
 
 defineOptions({
   inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<CheckboxRootProps>(), {
-  defaultValue: undefined,
+  defaultValue: false,
   value: 'on',
   as: 'button',
 })
@@ -66,18 +69,42 @@ defineSlots<{
   }) => any
 }>()
 
-const { disabled } = toRefs(props)
 const { forwardRef, currentElement } = useForwardExpose()
-const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emits)
+
+const checkboxGroupContext = injectCheckboxGroupRootContext(null)
+
+const modelValue = useVModel(props, 'modelValue', emits, {
+  defaultValue: props.defaultValue,
+  passive: (props.modelValue === undefined) as false,
+}) as Ref<CheckedState>
+
+const disabled = computed(() => checkboxGroupContext?.disabled.value || props.disabled)
 
 const checkboxState = computed<CheckedState>(() => {
-  if (typeof props.modelValue === 'string' && props.modelValue === 'indeterminate') {
-    return 'indeterminate'
+  if (checkboxGroupContext?.modelValue.value) {
+    return isValueEqualOrExist(checkboxGroupContext.modelValue.value, props.value)
   }
   else {
-    return isValueEqualOrExist(modelValue.value, props.value)
+    return modelValue.value === 'indeterminate' ? 'indeterminate' : modelValue.value
   }
 })
+
+function handleClick() {
+  if (checkboxGroupContext?.modelValue.value) {
+    const modelValueArray = [...(checkboxGroupContext.modelValue.value || [])]
+    if (isValueEqualOrExist(modelValueArray, props.value)) {
+      const index = modelValueArray.findIndex(i => isEqual(i, props.value))
+      modelValueArray.splice(index, 1)
+    }
+    else {
+      modelValueArray.push(props.value)
+    }
+    checkboxGroupContext.modelValue.value = modelValueArray
+  }
+  else {
+    return modelValue.value = isIndeterminate(modelValue.value) ? true : !modelValue.value
+  }
+}
 
 const isFormControl = useFormControl(currentElement)
 const ariaLabel = computed(() => props.id && currentElement.value
@@ -91,24 +118,26 @@ provideCheckboxRootContext({
 </script>
 
 <template>
-  <Primitive
+  <component
     v-bind="$attrs"
+    :is="checkboxGroupContext ? RovingFocusItem : Primitive"
     :id="id"
     :ref="forwardRef"
     role="checkbox"
-    :as-child="props.asChild"
+    :as-child="asChild"
     :as="as"
     :type="as === 'button' ? 'button' : undefined"
     :aria-checked="isIndeterminate(checkboxState) ? 'mixed' : checkboxState"
-    :aria-required="false"
+    :aria-required="required"
     :aria-label="$attrs['aria-label'] || ariaLabel"
     :data-state="getState(checkboxState)"
     :data-disabled="disabled ? '' : undefined"
     :disabled="disabled"
+    :focusable="checkboxGroupContext ? !disabled : undefined"
     @keydown.enter.prevent="() => {
       // According to WAI ARIA, Checkboxes don't activate on enter keypress
     }"
-    @click=" changeModelValue(value)"
+    @click="handleClick"
   >
     <slot
       :model-value="modelValue"
@@ -116,7 +145,7 @@ provideCheckboxRootContext({
     />
 
     <VisuallyHiddenInput
-      v-if="isFormControl && name"
+      v-if="isFormControl && name && !checkboxGroupContext"
       type="checkbox"
       :checked="!!checkboxState"
       :name="name"
@@ -124,5 +153,5 @@ provideCheckboxRootContext({
       :disabled="disabled"
       :required="required"
     />
-  </Primitive>
+  </component>
 </template>

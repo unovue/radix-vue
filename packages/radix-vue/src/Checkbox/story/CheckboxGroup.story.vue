@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
-import { CheckboxIndicator, CheckboxRoot } from '..'
+import { CheckboxGroupRoot, CheckboxIndicator, CheckboxRoot } from '..'
 
 const items = [{ name: 'jack' }, { name: 'john' }, { name: 'mike' }]
 const checkboxes = ref([items[1]])
@@ -9,11 +9,15 @@ const checkboxes = ref([items[1]])
 
 <template>
   <Story
-    title="Checkbox/Array"
-    :layout="{ type: 'single', iframe: true }"
+    title="Checkbox/Group"
+    :layout="{ type: 'single', iframe: false }"
   >
     <Variant title="default">
-      <div class="flex flex-col gap-2.5">
+      <CheckboxGroupRoot
+        v-model="checkboxes"
+        name="test"
+        class="flex flex-col gap-2.5"
+      >
         <div
           v-for="item in items"
           :key="item.name"
@@ -21,7 +25,6 @@ const checkboxes = ref([items[1]])
         >
           <CheckboxRoot
             :id="item.name"
-            v-model="checkboxes"
             :value="item"
             class="shadow-blackA7 hover:bg-violet3 flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-[4px] bg-white shadow-[0_2px_10px] outline-none focus-within:shadow-[0_0_0_2px_black]"
           >
@@ -41,7 +44,7 @@ const checkboxes = ref([items[1]])
             {{ item.name }}
           </label>
         </div>
-      </div>
+      </CheckboxGroupRoot>
     </Variant>
   </Story>
 </template>

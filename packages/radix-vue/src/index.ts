@@ -63,3 +63,7 @@ export {
   type Formatter,
   type DateRange,
 } from './shared'
+export {
+  type AcceptableValue,
+  type GenericComponentInstance,
+} from './shared/types'

@@ -120,7 +120,7 @@ provideCheckboxRootContext({
 <template>
   <component
     v-bind="$attrs"
-    :is="checkboxGroupContext ? RovingFocusItem : Primitive"
+    :is="checkboxGroupContext?.rovingFocus.value ? RovingFocusItem : Primitive"
     :id="id"
     :ref="forwardRef"
     role="checkbox"
@@ -133,7 +133,7 @@ provideCheckboxRootContext({
     :data-state="getState(checkboxState)"
     :data-disabled="disabled ? '' : undefined"
     :disabled="disabled"
-    :focusable="checkboxGroupContext ? !disabled : undefined"
+    :focusable="checkboxGroupContext?.rovingFocus.value ? !disabled : undefined"
     @keydown.enter.prevent="() => {
       // According to WAI ARIA, Checkboxes don't activate on enter keypress
     }"

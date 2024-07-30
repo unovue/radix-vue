@@ -1,16 +1,18 @@
 <script lang="ts">
-import { type Ref, toRefs } from 'vue'
+import { type Ref, computed, toRefs } from 'vue'
 import { createContext, useDirection, useFormControl } from '@/shared'
 import type { RovingFocusGroupProps } from '@/RovingFocus'
 import type { AcceptableValue } from '@/shared/types'
 import { useVModel } from '@vueuse/core'
-import { usePrimitiveElement } from '@/Primitive'
+import { Primitive, usePrimitiveElement } from '@/Primitive'
 
 export interface CheckboxGroupRootProps<T = AcceptableValue> extends Pick<RovingFocusGroupProps, 'as' | 'asChild' | 'dir' | 'orientation' | 'loop'> {
   /** The value of the checkbox when it is initially rendered. Use when you do not need to control its value. */
   defaultValue?: T[]
   /** The controlled value of the checkbox. Can be binded with v-model. */
   modelValue?: T[]
+  /** When `false`, navigating through the items using arrow keys will be disabled. */
+  rovingFocus?: boolean
   /** When `true`, prevents the user from interacting with the checkboxes */
   disabled?: boolean
   /** When `true`, indicates that the user must check the checkbox before the owning form can be submitted. */
@@ -26,6 +28,7 @@ export type CheckboxGroupRootEmits<T = AcceptableValue> = {
 
 interface CheckboxGroupRootContext {
   modelValue: Ref<AcceptableValue[]>
+  rovingFocus: Ref<boolean>
   disabled: Ref<boolean>
 }
 
@@ -37,10 +40,12 @@ export const [injectCheckboxGroupRootContext, provideCheckboxGroupRootContext]
 import { RovingFocusGroup } from '@/RovingFocus'
 import { VisuallyHiddenInput } from '@/VisuallyHidden'
 
-const props = defineProps<CheckboxGroupRootProps<T>>()
+const props = withDefaults(defineProps<CheckboxGroupRootProps<T>>(), {
+  rovingFocus: true,
+})
 const emits = defineEmits<CheckboxGroupRootEmits<T>>()
 
-const { disabled, dir: propDir } = toRefs(props)
+const { disabled, rovingFocus, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
@@ -51,20 +56,24 @@ const modelValue = useVModel(props, 'modelValue', emits, {
   passive: (props.modelValue === undefined) as false,
 }) as Ref<T[]>
 
+const rovingFocusProps = computed(() => {
+  return rovingFocus.value ? { loop: props.loop, dir: dir.value, orientation: props.orientation } : {}
+})
+
 provideCheckboxGroupRootContext({
   modelValue,
+  rovingFocus,
   disabled,
 })
 </script>
 
 <template>
-  <RovingFocusGroup
+  <component
+    :is="rovingFocus ? RovingFocusGroup : Primitive"
     ref="primitiveElement"
     :as="as"
     :as-child="asChild"
-    :loop="loop"
-    :dir="dir"
-    :orientation="orientation"
+    v-bind="rovingFocusProps"
   >
     <slot />
 
@@ -74,5 +83,5 @@ provideCheckboxGroupRootContext({
       :value="modelValue"
       :required="required"
     />
-  </RovingFocusGroup>
+  </component>
 </template>

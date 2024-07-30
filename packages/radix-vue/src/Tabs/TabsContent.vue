@@ -54,7 +54,7 @@ onMounted(() => {
       :data-state="isSelected ? 'active' : 'inactive'"
       :data-orientation="rootContext.orientation.value"
       :aria-labelledby="triggerId"
-      :hidden="!present.value"
+      :hidden="!present"
       tabindex="0"
       :style="{
         animationDuration: isMountAnimationPreventedRef ? '0s' : undefined,

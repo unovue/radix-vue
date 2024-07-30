@@ -155,7 +155,7 @@ useResizeObserver([globalThis.document.body, rootNavigationMenu], () => {
   <Presence
     v-slot="{ present }"
     :present="forceMount || open"
-    :force-mount="!menuContext.unmount.value"
+    :force-mount="!menuContext.unmountOnHide.value"
     @after-leave="() => {
       size = undefined
       position = undefined

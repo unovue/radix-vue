@@ -11,7 +11,7 @@ export interface CollapsibleRootProps extends PrimitiveProps {
   /** When `true`, prevents the user from interacting with the collapsible. */
   disabled?: boolean
   /** When `true`, the element will be unmounted on closed state. */
-  unmount?: boolean
+  unmountOnHide?: boolean
 }
 
 export type CollapsibleRootEmits = {
@@ -23,7 +23,7 @@ interface CollapsibleRootContext {
   contentId: string
   disabled?: Ref<boolean>
   open: Ref<boolean>
-  unmount: Ref<boolean>
+  unmountOnHide: Ref<boolean>
   onOpenToggle: () => void
 }
 
@@ -38,7 +38,7 @@ import { useVModel } from '@vueuse/core'
 const props = withDefaults(defineProps<CollapsibleRootProps>(), {
   open: undefined,
   defaultOpen: false,
-  unmount: true,
+  unmountOnHide: true,
 })
 
 const emit = defineEmits<CollapsibleRootEmits>()
@@ -55,13 +55,13 @@ const open = useVModel(props, 'open', emit, {
   passive: (props.open === undefined) as false,
 }) as Ref<boolean>
 
-const { disabled, unmount } = toRefs(props)
+const { disabled, unmountOnHide } = toRefs(props)
 
 provideCollapsibleRootContext({
   contentId: '',
   disabled,
   open,
-  unmount,
+  unmountOnHide,
   onOpenToggle: () => {
     open.value = !open.value
   },

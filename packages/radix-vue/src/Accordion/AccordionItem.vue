@@ -112,7 +112,7 @@ function handleArrowKey(e: KeyboardEvent) {
     :open="open"
     :as="props.as"
     :as-child="props.asChild"
-    :unmount="rootContext.unmount.value"
+    :unmount="rootContext.unmountOnHide.value"
     @keydown.up.down.left.right.home.end="handleArrowKey"
   >
     <slot :open="open" />

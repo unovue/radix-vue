@@ -101,7 +101,7 @@ onMounted(() => {
         [`--reka-collapsible-content-width`]: `${width}px`,
       }"
     >
-      <slot v-if="rootContext.unmount.value ? present : true" />
+      <slot v-if="rootContext.unmountOnHide.value ? present : true" />
     </Primitive>
   </Presence>
 </template>

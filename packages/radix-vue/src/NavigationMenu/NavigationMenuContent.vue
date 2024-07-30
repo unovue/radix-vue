@@ -56,7 +56,7 @@ const isLastActiveValue = computed(() => {
     <Presence
       v-slot="{ present }"
       :present="forceMount || open || isLastActiveValue"
-      :force-mount="!menuContext.unmount.value"
+      :force-mount="!menuContext.unmountOnHide.value"
     >
       <NavigationMenuContentImpl
         :ref="forwardRef"

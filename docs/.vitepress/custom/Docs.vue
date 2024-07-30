@@ -77,7 +77,7 @@ const activeSection = computed(() => sidebar.value.find(section => flatten(secti
         <DocFooter />
       </div>
 
-      <div class="hidden xl:has-[.non-empty]:block  w-64 flex-shrink-0 py-8 pl-6 sticky top-[7.25rem] h-full overflow-y-auto md:overflow-x-hidden max-h-[calc(100vh-7.25rem)]">
+      <div class="hidden xl:block w-64 flex-shrink-0 py-8 pl-6 sticky top-[7.25rem] h-full overflow-y-auto md:overflow-x-hidden max-h-[calc(100vh-7.25rem)]">
         <DocOutline />
       </div>
     </main>

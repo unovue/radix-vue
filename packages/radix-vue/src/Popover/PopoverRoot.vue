@@ -27,6 +27,7 @@ export type PopoverRootEmits = {
 
 export interface PopoverRootContext {
   triggerElement: Ref<HTMLElement | undefined>
+  triggerId: string
   contentId: string
   open: Ref<boolean>
   modal: Ref<boolean>
@@ -70,6 +71,7 @@ const hasCustomAnchor = ref(false)
 
 providePopoverRootContext({
   contentId: '',
+  triggerId: '',
   modal,
   open,
   onOpenChange: (value) => {

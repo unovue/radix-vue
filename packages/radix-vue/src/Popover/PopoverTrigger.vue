@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
+import { useForwardExpose, useId } from '@/shared'
 
 export interface PopoverTriggerProps extends PrimitiveProps {}
 </script>
@@ -19,6 +19,7 @@ const rootContext = injectPopoverRootContext()
 
 const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 
+rootContext.triggerId ||= useId(undefined, 'reka-popover-trigger')
 onMounted(() => {
   rootContext.triggerElement.value = triggerElement.value
 })
@@ -30,6 +31,7 @@ onMounted(() => {
     as-child
   >
     <Primitive
+      :id="rootContext.triggerId"
       :ref="forwardRef"
       :type="as === 'button' ? 'button' : undefined"
       aria-haspopup="dialog"

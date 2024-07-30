@@ -70,6 +70,7 @@ useFocusGuards()
         :id="rootContext.contentId"
         :ref="forwardRef"
         :data-state="rootContext.open.value ? 'open' : 'closed'"
+        :aria-labelledby="rootContext.triggerId"
         :style="{
           '--reka-popover-content-transform-origin':
             'var(--reka-popper-transform-origin)',
@@ -80,6 +81,7 @@ useFocusGuards()
           '--reka-popover-trigger-width': 'var(--reka-popper-anchor-width)',
           '--reka-popover-trigger-height': 'var(--reka-popper-anchor-height)',
         }"
+        role="dialog"
       >
         <slot />
       </PopperContent>

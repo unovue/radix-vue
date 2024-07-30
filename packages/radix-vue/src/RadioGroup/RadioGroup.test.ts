@@ -36,6 +36,11 @@ describe('given a default RadioGroup', () => {
       await sleep(0)
     })
 
+    it('should emit `select` event', async () => {
+      const radiosComponent = wrapper.findAllComponents('button') as VueWrapper[]
+      expect(radiosComponent[2].emitted('select')?.[0]?.[0]).toBeTruthy()
+    })
+
     it('should skip disabled item', () => {
       expect(radios[1].attributes('data-state')).toBe('unchecked')
       expect(radios[2].element).toBe(document.activeElement)

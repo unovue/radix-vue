@@ -1,8 +1,7 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
 import { useCollection } from '@/Collection'
 
-export interface SelectTriggerProps extends PrimitiveProps {
+export interface SelectTriggerProps extends PopperAnchorProps {
   disabled?: boolean
 }
 </script>
@@ -14,7 +13,7 @@ import {
 } from './SelectRoot.vue'
 import { OPEN_KEYS } from './utils'
 import { Primitive } from '@/Primitive'
-import { PopperAnchor } from '@/Popper'
+import { PopperAnchor, type PopperAnchorProps } from '@/Popper'
 import { useForwardExpose, useId, useTypeahead } from '@/shared'
 
 const props = withDefaults(defineProps<SelectTriggerProps>(), {
@@ -50,7 +49,10 @@ function handlePointerOpen(event: PointerEvent) {
 </script>
 
 <template>
-  <PopperAnchor as-child>
+  <PopperAnchor
+    as-child
+    :reference="reference"
+  >
     <Primitive
       :ref="forwardRef"
       role="combobox"

@@ -1,5 +1,4 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose, useId } from '@/shared'
 
 export type TooltipTriggerDataState =
@@ -7,13 +6,13 @@ export type TooltipTriggerDataState =
   | 'delayed-open'
   | 'instant-open'
 
-export interface TooltipTriggerProps extends PrimitiveProps {}
+export interface TooltipTriggerProps extends PopperAnchorProps {}
 </script>
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { injectTooltipRootContext } from './TooltipRoot.vue'
-import { PopperAnchor } from '@/Popper'
+import { PopperAnchor, type PopperAnchorProps } from '@/Popper'
 import {
   Primitive,
 } from '@/Primitive'
@@ -96,7 +95,10 @@ function handleClick() {
 </script>
 
 <template>
-  <PopperAnchor as-child>
+  <PopperAnchor
+    as-child
+    :reference="reference"
+  >
     <Primitive
       :ref="forwardRef"
       :aria-describedby="

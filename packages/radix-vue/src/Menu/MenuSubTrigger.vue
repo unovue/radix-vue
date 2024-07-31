@@ -59,7 +59,7 @@ async function handlePointerLeave(event: PointerEvent) {
 
   const contentRect = menuContext.content.value?.getBoundingClientRect()
   if (contentRect?.width) {
-    // TODO: make sure to update this when we change positioning logic
+    // TODO (Radix UI): make sure to update this when we change positioning logic
     // https://github.com/radix-ui/primitives/blob/main/packages/react/menu/src/Menu.tsx#L1088
     const side = menuContext.content.value?.dataset.side as Side
 

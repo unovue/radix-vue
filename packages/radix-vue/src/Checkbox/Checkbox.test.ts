@@ -20,7 +20,6 @@ globalThis.ResizeObserver = class ResizeObserver {
   disconnect() {}
 }
 
-// TODO: Add test for multiple and types
 describe('given a default Checkbox', () => {
   it('should pass axe accessibility tests', async () => {
     const wrapper = mount(Checkbox, { attachTo: document.body })

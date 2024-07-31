@@ -10,21 +10,26 @@ import {
   SelectLabel,
   SelectPortal,
   SelectRoot,
+  type SelectRootEmits,
+  type SelectRootProps,
   SelectSeparator,
   SelectTrigger,
   SelectValue,
   SelectViewport,
 } from '../'
+import { useForwardPropsEmits } from '@/shared'
 
-const fruit = ref('')
-
-const options = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
+const props = withDefaults(defineProps<SelectRootProps & { options?: any[] }>(), {
+  options: () => ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple'],
+})
+const emits = defineEmits<SelectRootEmits>()
+const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
   <div>
     <SelectRoot
-      v-model="fruit"
+      v-bind="forwarded"
       name="test"
       aria-label="Fruits"
     >

@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
 import Select from './story/_SelectTest.vue'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
@@ -7,9 +7,7 @@ import { nextTick } from 'vue'
 import { fireEvent } from '@testing-library/vue'
 import { handleSubmit } from '@/test'
 
-describe('given default Select', () => {
-  let wrapper: VueWrapper<InstanceType<typeof Select>>
-  let valueBox: DOMWrapper<HTMLElement>
+beforeAll(() => {
   window.HTMLElement.prototype.releasePointerCapture = vi.fn()
   window.HTMLElement.prototype.hasPointerCapture = vi.fn()
   globalThis.ResizeObserver = class ResizeObserver {
@@ -17,6 +15,11 @@ describe('given default Select', () => {
     unobserve() {}
     disconnect() {}
   }
+})
+
+describe('given default Select', () => {
+  let wrapper: VueWrapper<InstanceType<typeof Select>>
+  let valueBox: DOMWrapper<HTMLElement>
 
   beforeEach(() => {
     document.body.innerHTML = ''
@@ -31,7 +34,6 @@ describe('given default Select', () => {
   it('should show placeholder', () => {
     expect(valueBox.html()).toContain('Please select a fruit')
   })
-  // TODO: add `multiple`, more `types` support case
 
   describe('opening the modal', () => {
     beforeEach(async () => {
@@ -96,7 +98,145 @@ describe('given default Select', () => {
   })
 })
 
-describe('given select in a form', async () => {
+describe('given Select with multiple props', async () => {
+  let wrapper: VueWrapper<InstanceType<typeof Select>>
+  let valueBox: DOMWrapper<HTMLElement>
+
+  beforeEach(() => {
+    document.body.innerHTML = ''
+    wrapper = mount(Select, { attachTo: document.body, props: { multiple: true } })
+    valueBox = wrapper.find('[aria-label="Customise options"]')
+  })
+
+  it('should pass axe accessibility tests', async () => {
+    expect(await axe(wrapper.element)).toHaveNoViolations()
+  })
+
+  describe('opening the modal', () => {
+    beforeEach(async () => {
+      await wrapper.find('button').trigger('pointerdown', {
+        button: 0,
+        ctrlKey: false,
+      })
+      await nextTick()
+    })
+
+    it('should pass axe accessibility tests', async () => {
+      // We have hidden children such as icon, thus disabling this
+      expect(await axe(wrapper.element, {
+        rules: {
+          'aria-required-children': { enabled: false },
+        },
+      })).toHaveNoViolations()
+    })
+
+    it('should show the modal content', () => {
+      expect(wrapper.html()).toContain('Apple')
+    })
+
+    describe('after selecting a value', () => {
+      beforeEach(async () => {
+        const selection = wrapper.findAll('[role=option]')[1];
+        (selection.element as HTMLElement).focus()
+        await selection.trigger('pointerup')
+        // Needs 2 pointerup because SelectContentImpl prevents accidental pointerup's
+        await fireEvent.pointerUp(selection.element)
+      })
+
+      it('should show value correctly', () => {
+        expect(valueBox.html()).toContain('Banana')
+      })
+
+      it('should close the modal', () => {
+        const group = wrapper.find('[role=group]')
+        expect(group.exists()).toBeFalsy()
+      })
+
+      describe('after opening the modal again', () => {
+        beforeEach(async () => {
+          await wrapper.find('button').trigger('pointerdown', {
+            button: 0,
+            ctrlKey: false,
+          })
+          await nextTick()
+        })
+
+        it('should focus on the selected value', () => {
+          const selection = wrapper.findAll('[role=option]')[1]
+          expect(selection.attributes('data-state')).toBe('checked')
+        })
+
+        it('should render the icon', () => {
+          const selection = wrapper.findAll('[role=option]')[1]
+          expect(selection.html()).toContain('svg')
+        })
+
+        describe('after selecting another value', () => {
+          beforeEach(async () => {
+            const selection = wrapper.findAll('[role=option]')[2];
+            (selection.element as HTMLElement).focus()
+            await selection.trigger('pointerup')
+            // Needs 2 pointerup because SelectContentImpl prevents accidental pointerup's
+            await fireEvent.pointerUp(selection.element)
+          })
+
+          it('should show value correctly', () => {
+            expect(valueBox.html()).toContain('Banana')
+            expect(valueBox.html()).toContain('Blueberry')
+          })
+
+          it('should close the modal', () => {
+            const group = wrapper.find('[role=group]')
+            expect(group.exists()).toBeFalsy()
+          })
+        })
+      })
+    })
+  })
+})
+
+describe('given Select with object type', async () => {
+  let wrapper: VueWrapper<InstanceType<typeof Select>>
+  let valueBox: DOMWrapper<HTMLElement>
+
+  beforeEach(() => {
+    document.body.innerHTML = ''
+    wrapper = mount(Select, { attachTo: document.body, props: { options: ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple'].map(i => ({ label: i, value: i.toLowerCase() })) } })
+    valueBox = wrapper.find('[aria-label="Customise options"]')
+  })
+
+  describe('opening the modal', () => {
+    beforeEach(async () => {
+      await wrapper.find('button').trigger('pointerdown', {
+        button: 0,
+        ctrlKey: false,
+      })
+      await nextTick()
+    })
+
+    describe('after selecting a value', () => {
+      beforeEach(async () => {
+        const selection = wrapper.findAll('[role=option]')[1];
+        (selection.element as HTMLElement).focus()
+        await selection.trigger('pointerup')
+        // Needs 2 pointerup because SelectContentImpl prevents accidental pointerup's
+        await fireEvent.pointerUp(selection.element)
+      })
+
+      it('should show value correctly', () => {
+        expect(valueBox.html()).toContain('banana')
+        expect(valueBox.html()).toContain('Banana')
+      })
+
+      it('should close the modal', () => {
+        const group = wrapper.find('[role=group]')
+        expect(group.exists()).toBeFalsy()
+      })
+    })
+  })
+})
+
+describe('given Select in a form', async () => {
   const wrapper = mount({
     props: ['handleSubmit'],
     components: { Select },

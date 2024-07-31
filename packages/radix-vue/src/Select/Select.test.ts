@@ -149,7 +149,7 @@ describe('given Select with multiple props', async () => {
 
       it('should close the modal', () => {
         const group = wrapper.find('[role=group]')
-        expect(group.exists()).toBeFalsy()
+        expect(group.exists()).toBeTruthy()
       })
 
       describe('after opening the modal again', () => {
@@ -185,9 +185,9 @@ describe('given Select with multiple props', async () => {
             expect(valueBox.html()).toContain('Blueberry')
           })
 
-          it('should close the modal', () => {
+          it('should not close the modal', () => {
             const group = wrapper.find('[role=group]')
-            expect(group.exists()).toBeFalsy()
+            expect(group.exists()).toBeTruthy()
           })
         })
       })

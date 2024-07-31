@@ -65,7 +65,8 @@ async function handleSelect(ev?: PointerEvent) {
 
   if (!disabled.value) {
     rootContext.onValueChange(props.value)
-    rootContext.onOpenChange(false)
+    if (!rootContext.multiple.value)
+      rootContext.onOpenChange(false)
   }
 }
 

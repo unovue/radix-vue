@@ -3,6 +3,7 @@ import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { clamp, createContext, useForwardExpose } from '@/shared'
 import { useCollection } from '@/Collection'
+import { useResizeObserver } from '@vueuse/core'
 
 interface SelectItemAlignedPositionContext {
   contentWrapper?: Ref<HTMLElement | undefined>
@@ -214,6 +215,11 @@ function handleScrollButtonChange(node: HTMLElement | undefined) {
     shouldRepositionRef.value = false
   }
 }
+
+// Resize and position when trigger element changes
+useResizeObserver(rootContext.triggerElement, () => {
+  position()
+})
 
 provideSelectItemAlignedPositionContext({
   contentWrapper: contentWrapperElement,

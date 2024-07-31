@@ -5,7 +5,7 @@ import localSearchIndex from '@localSearchIndex'
 import Mark from 'mark.js/src/vanilla.js'
 import MiniSearch, { type SearchResult } from 'minisearch'
 import { useData } from 'vitepress'
-import { DialogClose, ListboxContent, ListboxFilter, ListboxItem, ListboxRoot } from 'reka-ui'
+import { DialogClose, type GenericComponentInstance, ListboxContent, ListboxFilter, ListboxItem, ListboxRoot } from 'reka-ui'
 import { type Ref, markRaw, nextTick, ref, shallowRef } from 'vue'
 import { computedAsync, debouncedWatch } from '@vueuse/core'
 import { LRUCache } from '../functions/cache'
@@ -22,6 +22,7 @@ const enableNoResults = ref(false)
 const resultsEl = shallowRef<HTMLElement>()
 const searchIndexData = shallowRef(localSearchIndex)
 const results: Ref<(SearchResult & Result)[]> = shallowRef([])
+const listboxRef = ref<GenericComponentInstance<typeof ListboxRoot>>()
 
 interface Result {
   title: string
@@ -114,6 +115,7 @@ debouncedWatch(
     enableNoResults.value = true
     // FIXME: without this whole page scrolls to the bottom
     resultsEl.value?.firstElementChild?.scrollIntoView({ block: 'start' })
+    listboxRef.value?.highlightFirstItem()
   },
   { debounce: 200, immediate: true },
 )
@@ -130,7 +132,7 @@ function formMarkRegex(terms: Set<string>) {
 </script>
 
 <template>
-  <ListboxRoot>
+  <ListboxRoot ref="listboxRef">
     <div class="w-full px-6 flex items-center">
       <ListboxFilter
         v-model="filterText"

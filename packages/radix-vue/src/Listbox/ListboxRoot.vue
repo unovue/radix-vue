@@ -30,7 +30,7 @@ type ListboxRootContext<T> = {
   onKeydownNavigation: (event: KeyboardEvent) => void
   onKeydownEnter: (event: KeyboardEvent) => void
   onKeydownTypeAhead: (event: KeyboardEvent) => void
-  onInputChange: (event: InputEvent) => void
+  highlightFirstItem: (event: InputEvent) => void
 }
 
 export const [injectListboxRootContext, provideListboxRootContext]
@@ -207,12 +207,10 @@ function onKeydownTypeAhead(event: KeyboardEvent) {
   }, 1)
 }
 
-function onInputChange(event: InputEvent) {
-  // when user changes the input, we always highlight the first item
+function highlightFirstItem() {
   nextTick(() => {
-    const collection = getItems()
-    if (collection[0]?.ref)
-      changeHighlight(collection[0].ref)
+    const event = new KeyboardEvent('keydown', { key: 'PageUp' })
+    onKeydownNavigation(event)
   })
 }
 
@@ -319,6 +317,7 @@ watch(modelValue, () => {
 defineExpose({
   highlightedElement,
   highlightItem,
+  highlightFirstItem,
   highlightSelected,
 })
 
@@ -347,7 +346,7 @@ provideListboxRootContext({
   onKeydownEnter,
   onKeydownNavigation,
   onKeydownTypeAhead,
-  onInputChange,
+  highlightFirstItem,
 })
 </script>
 

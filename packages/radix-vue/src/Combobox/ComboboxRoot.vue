@@ -103,6 +103,13 @@ const isUserInputted = ref(false)
 const inputElement = ref<HTMLInputElement>()
 const highlightedElement = computed(() => primitiveElement.value?.highlightedElement ?? undefined)
 
+defineExpose({
+  highlightedElement,
+  highlightItem: primitiveElement.value?.highlightItem,
+  highlightFirstItem: primitiveElement.value?.highlightFirstItem,
+  highlightSelected: primitiveElement.value?.highlightSelected,
+})
+
 provideComboboxRootContext({
   modelValue,
   isUserInputted,

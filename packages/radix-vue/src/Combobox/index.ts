@@ -12,6 +12,10 @@ export {
   type ComboboxAnchorProps,
 } from './ComboboxAnchor.vue'
 export {
+  default as ComboboxEmpty,
+  type ComboboxEmptyProps,
+} from './ComboboxEmpty.vue'
+export {
   default as ComboboxTrigger,
   type ComboboxTriggerProps,
 } from './ComboboxTrigger.vue'
@@ -36,6 +40,10 @@ export {
   default as ComboboxViewport,
   type ComboboxViewportProps,
 } from './ComboboxViewport.vue'
+export {
+  default as ComboboxVirtualizer,
+  type ComboboxVirtualizerProps,
+} from './ComboboxVirtualizer.vue'
 export {
   default as ComboboxItem,
   type ComboboxItemProps,

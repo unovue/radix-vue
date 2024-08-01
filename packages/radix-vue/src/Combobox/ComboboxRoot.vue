@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
-import type { ListboxRootEmits, ListboxRootProps } from '@/Listbox'
-import { createContext, useDirection, useEmitAsProps, useFormControl } from '@/shared'
+import type { ListboxRootProps } from '@/Listbox'
+import { createContext, useDirection, useFilter, useFormControl } from '@/shared'
 import { usePrimitiveElement } from '@/Primitive'
 import type { AcceptableValue, GenericComponentInstance } from '@/shared/types'
 
@@ -12,18 +12,30 @@ type ComboboxRootContext<T> = {
   open: Ref<boolean>
   onOpenChange: (value: boolean) => void
   isUserInputted: Ref<boolean>
+  isVirtual: Ref<boolean>
   contentId: string
   inputElement: Ref<HTMLInputElement | undefined>
   onInputElementChange: (el: HTMLInputElement) => void
   highlightedElement: Ref<HTMLElement | undefined>
   parentElement: Ref<HTMLElement | undefined>
   onResetSearchTerm: EventHookOn
+  allItems: Ref<Map<string, string>>
+  allGroups: Ref<Map<string, Set<string>>>
+  filterState: {
+    search: string
+    filtered: { count: number, items: Map<string, number>, groups: Set<string> }
+  }
+  ignoreFilter: Ref<boolean>
 }
 
 export const [injectComboboxRootContext, provideComboboxRootContext]
   = createContext<ComboboxRootContext<AcceptableValue>>('ComboboxRoot')
 
-export type ComboboxRootEmits<T = AcceptableValue> = ListboxRootEmits<T> & {
+export type ComboboxRootEmits<T = AcceptableValue> = {
+  /** Event handler called when the value changes. */
+  'update:modelValue': [value: T]
+  /** Event handler when highlighted element changes. */
+  'highlight': [payload: { ref: HTMLElement, value: T } | undefined]
   /** Event handler called when the open state of the combobox changes. */
   'update:open': [value: boolean]
 }
@@ -40,11 +52,15 @@ export interface ComboboxRootProps<T = AcceptableValue> extends Omit<ListboxRoot
    * @defaultValue `true`
    */
   resetSearchTermOnBlur?: boolean
+  /**
+   * When `true`, disable the default filters
+   */
+  ignoreFilter?: boolean
 }
 </script>
 
 <script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
-import { computed, nextTick, ref, toRefs, watch } from 'vue'
+import { computed, nextTick, reactive, ref, toRefs, watch } from 'vue'
 import { PopperRoot } from '@/Popper'
 import { type EventHookOn, createEventHook, useVModel } from '@vueuse/core'
 import { VisuallyHiddenInput } from '@/VisuallyHidden'
@@ -66,8 +82,8 @@ defineSlots<{
 }>()
 
 const { primitiveElement, currentElement: parentElement } = usePrimitiveElement<GenericComponentInstance<typeof ListboxRoot>>()
-const { multiple, disabled, dir: propDir } = toRefs(props)
-const emitAsProps = useEmitAsProps(emits)
+const { multiple, disabled, ignoreFilter, dir: propDir } = toRefs(props)
+
 const dir = useDirection(propDir)
 const isFormControl = useFormControl(parentElement)
 
@@ -85,10 +101,14 @@ const open = useVModel(props, 'open', emits, {
 
 async function onOpenChange(val: boolean) {
   open.value = val
+  filterState.search = ''
 
   if (val) {
     primitiveElement.value?.highlightSelected()
     isUserInputted.value = true
+  }
+  else {
+    isUserInputted.value = false
   }
 
   inputElement.value?.focus()
@@ -100,8 +120,70 @@ async function onOpenChange(val: boolean) {
 
 const resetSearchTerm = createEventHook()
 const isUserInputted = ref(false)
+const isVirtual = ref(false)
 const inputElement = ref<HTMLInputElement>()
+
 const highlightedElement = computed(() => primitiveElement.value?.highlightedElement ?? undefined)
+
+const allItems = ref<Map<string, string>>(new Map())
+const allGroups = ref<Map<string, Set<string>>>(new Map())
+
+const { contains } = useFilter({ sensitivity: 'base' })
+const filterState = reactive({
+  search: '',
+  filtered: {
+    /** The count of all visible items. */
+    count: 0,
+    /** Map from visible item id to its search score. */
+    items: new Map() as Map<string, number>,
+    /** Set of groups with at least one visible item. */
+    groups: new Set() as Set<string>,
+  },
+})
+
+function filterItems() {
+  if (!filterState.search || props.ignoreFilter || isVirtual.value) {
+    filterState.filtered.count = allItems.value.size
+    // Do nothing, each item will know to show itself because search is empty
+    return
+  }
+
+  // Reset the groups
+  filterState.filtered.groups = new Set()
+  let itemCount = 0
+
+  // Check which items should be included
+  for (const [id, value] of allItems.value) {
+    const score = contains(value, filterState.search)
+    filterState.filtered.items.set(id, score ? 1 : 0)
+    if (score)
+      itemCount++
+  }
+
+  // Check which groups have at least 1 item shown
+  for (const [groupId, group] of allGroups.value) {
+    for (const itemId of group) {
+      if (filterState.filtered.items.get(itemId)! > 0) {
+        filterState.filtered.groups.add(groupId)
+        break
+      }
+    }
+  }
+
+  filterState.filtered.count = itemCount
+}
+
+watch(() => filterState.search, () => {
+  filterItems()
+}, { immediate: true })
+
+watch(() => open.value, () => {
+  // nextTick to allow multiple items to be mounted first
+  nextTick(() => {
+    if (open.value)
+      filterItems()
+  })
+}, { flush: 'post' })
 
 defineExpose({
   highlightedElement,
@@ -112,17 +194,22 @@ defineExpose({
 
 provideComboboxRootContext({
   modelValue,
-  isUserInputted,
   multiple,
   disabled,
   open,
   onOpenChange,
   contentId: '',
+  isUserInputted,
+  isVirtual,
   inputElement,
   highlightedElement,
   onInputElementChange: val => inputElement.value = val,
   parentElement,
   onResetSearchTerm: resetSearchTerm.on,
+  allItems,
+  allGroups,
+  filterState,
+  ignoreFilter,
 })
 </script>
 
@@ -130,7 +217,7 @@ provideComboboxRootContext({
   <PopperRoot>
     <ListboxRoot
       ref="primitiveElement"
-      v-bind="{ ...$attrs, ...emitAsProps }"
+      v-bind="$attrs"
       v-model="modelValue"
       :style="{
         pointerEvents: open ? 'auto' : undefined,
@@ -139,7 +226,7 @@ provideComboboxRootContext({
       :as-child="asChild"
       :dir="dir"
       :multiple="multiple"
-      :by="by as any"
+      @highlight="emits('highlight', $event as any)"
     >
       <slot
         :open="open"

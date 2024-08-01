@@ -292,7 +292,10 @@ function handleMultipleReplace(event: KeyboardEvent, targetEl: HTMLElement) {
 
 async function highlightSelected(event?: Event) {
   if (isVirtual.value) {
-    virtualFocusHook.trigger(event)
+    nextTick(() => {
+      // Trigger on nextTick for Virtualizer to be mounted
+      virtualFocusHook.trigger(event)
+    })
   }
   else {
     await nextTick()
@@ -319,6 +322,7 @@ defineExpose({
   highlightItem,
   highlightFirstItem,
   highlightSelected,
+  getItems,
 })
 
 provideListboxRootContext({

@@ -6,7 +6,6 @@ import { useFetch } from '@vueuse/core'
 
 const v = ref<{ id: number }[]>([])
 
-// eslint-disable-next-line unused-imports/no-unused-vars
 const { data, execute, isFinished } = useFetch('https://jsonplaceholder.typicode.com/comments', {
   immediate: false,
   initialData: [],

@@ -1,0 +1,25 @@
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+import { computed } from 'vue'
+
+export interface ComboboxEmptyProps extends PrimitiveProps {}
+</script>
+
+<script setup lang="ts">
+import { injectComboboxRootContext } from './ComboboxRoot.vue'
+import { Primitive } from '@/Primitive'
+
+const props = defineProps<ComboboxEmptyProps>()
+const rootContext = injectComboboxRootContext()
+
+const isRender = computed(() => rootContext.ignoreFilter.value ? true : rootContext.filterState.filtered.count === 0)
+</script>
+
+<template>
+  <Primitive
+    v-if="isRender"
+    v-bind="props"
+  >
+    <slot>No options</slot>
+  </Primitive>
+</template>

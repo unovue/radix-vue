@@ -100,7 +100,7 @@ provideComboboxContentContext({ position })
       }"
     >
       <component
-        :is="position === 'popper' ? PopperContent : Primitive "
+        :is="position === 'popper' ? PopperContent : Primitive"
         v-bind="{ ...$attrs, ...forwardedProps }"
         :id="rootContext.contentId"
         :ref="forwardRef"

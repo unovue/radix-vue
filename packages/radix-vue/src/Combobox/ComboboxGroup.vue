@@ -1,6 +1,8 @@
 <script lang="ts">
 import type { ListboxGroupProps } from '@/Listbox'
 import { createContext, useId } from '@/shared'
+import { computed, onMounted, onUnmounted } from 'vue'
+import { injectComboboxRootContext } from './ComboboxRoot.vue'
 
 export interface ComboboxGroupProps extends ListboxGroupProps {}
 
@@ -17,9 +19,20 @@ import { ListboxGroup } from '@/Listbox'
 
 const props = defineProps<ComboboxGroupProps>()
 const id = useId(undefined, 'reka-combobox-group')
+const rootContext = injectComboboxRootContext()
+
+const isRender = computed(() => rootContext.ignoreFilter.value ? true : !rootContext.filterState.search ? true : rootContext.filterState.filtered.groups.has(id))
 
 provideComboboxGroupContext({
   id,
+})
+
+onMounted(() => {
+  if (!rootContext.allGroups.value.has(id))
+    rootContext.allGroups.value.set(id, new Set())
+})
+onUnmounted(() => {
+  rootContext.allGroups.value.delete(id)
 })
 </script>
 
@@ -28,6 +41,7 @@ provideComboboxGroupContext({
     :id="id"
     :aria-labelledby="id"
     v-bind="props"
+    :hidden="isRender ? undefined : true"
   >
     <slot />
   </ListboxGroup>

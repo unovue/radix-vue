@@ -37,9 +37,9 @@ const props = withDefaults(defineProps<ListboxItemProps<T>>(), {
 })
 const emits = defineEmits<ListboxItemEmits<T>>()
 
+const id = useId(undefined, 'reka-listbox-item')
 const { CollectionItem } = useCollection()
 const { forwardRef, currentElement } = useForwardExpose()
-const id = useId(undefined, 'reka-listbox-item')
 const rootContext = injectListboxRootContext()
 
 const isHighlighted = computed(() => currentElement.value === rootContext.highlightedElement.value)
@@ -54,7 +54,7 @@ async function handleSelect(ev: SelectEvent<T>) {
 
   if (!disabled.value && ev) {
     rootContext.onValueChange(props.value)
-    rootContext.changeHighlight(ev.target as HTMLElement)
+    rootContext.changeHighlight(currentElement.value)
   }
 }
 
@@ -72,7 +72,9 @@ provideListboxItemContext({
   <CollectionItem :value="value">
     <Primitive
       :id="id"
+      v-bind="$attrs"
       :ref="forwardRef"
+      v-memo="[isHighlighted, isSelected]"
       role="option"
       :tabindex="rootContext.focusable.value ? isHighlighted ? '0' : '-1' : -1"
       :aria-selected="isSelected"
@@ -85,6 +87,9 @@ provideListboxItemContext({
       @click="handleSelectCustomEvent"
       @keydown.space.prevent="handleSelectCustomEvent"
       @pointermove="(event) => {
+        if (rootContext.highlightedElement.value === currentElement)
+          return
+
         if (rootContext.highlightOnHover.value)
           rootContext.changeHighlight(currentElement)
         else

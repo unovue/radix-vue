@@ -1,9 +1,11 @@
 <script lang="ts">
-import type { Ref } from 'vue'
+import { type Ref, computed, onMounted, onUnmounted } from 'vue'
 import type { ListboxItemEmits, ListboxItemProps } from '@/Listbox'
-import { createContext, useForwardExpose } from '@/shared'
+import { createContext, useId } from '@/shared'
 import { injectComboboxRootContext } from './ComboboxRoot.vue'
 import type { AcceptableValue } from '@/shared/types'
+import { injectComboboxGroupContext } from './ComboboxGroup.vue'
+import { usePrimitiveElement } from '@/Primitive'
 
 interface ComboboxItemContext {
   isSelected: Ref<boolean>
@@ -13,7 +15,14 @@ export const [injectComboboxItemContext, provideComboboxItemContext]
   = createContext<ComboboxItemContext>('ComboboxItem')
 
 export type ComboboxItemEmits<T = AcceptableValue> = ListboxItemEmits<T>
-export interface ComboboxItemProps<T = AcceptableValue> extends ListboxItemProps<T> { }
+export interface ComboboxItemProps<T = AcceptableValue> extends ListboxItemProps<T> {
+  /**
+   * A string representation of the item's contents.
+   *
+   * If the children are not plain text, then the `textValue` prop must also be set to a plain text representation, which will be used for autocomplete in the ComboBox.
+   */
+  textValue?: string
+}
 </script>
 
 <script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
@@ -22,20 +31,45 @@ import { ListboxItem } from '@/Listbox'
 const props = defineProps<ComboboxItemProps<T>>()
 const emits = defineEmits<ComboboxItemEmits<T>>()
 
-const { forwardRef } = useForwardExpose()
+const id = useId(undefined, 'reka-combobox-item')
 const rootContext = injectComboboxRootContext()
+const groupContext = injectComboboxGroupContext(null)
+
+const { primitiveElement, currentElement } = usePrimitiveElement()
 
 if (!props.value) {
   throw new Error(
     'A <ComboboxItem /> must have a value prop that is not an empty string. This is because the Combobox value can be set to an empty string to clear the selection and show the placeholder.',
   )
 }
+
+const isRender = computed(() => rootContext.ignoreFilter.value ? true : !rootContext.filterState.search ? true : rootContext.filterState.filtered.items.get(id)! > 0)
+
+onMounted(() => {
+  // textValue to perform filter
+  rootContext.allItems.value.set(id, props.textValue || currentElement.value.textContent || currentElement.value.innerText)
+
+  const groupId = groupContext?.id
+  if (groupId) {
+    if (!rootContext.allGroups.value.has(groupId)) {
+      rootContext.allGroups.value.set(groupId, new Set(id))
+    }
+    else {
+      rootContext.allGroups.value.get(groupId)?.add(id)
+    }
+  }
+})
+onUnmounted(() => {
+  rootContext.allItems.value.delete(id)
+})
 </script>
 
 <template>
   <ListboxItem
-    :ref="forwardRef"
+    v-if="isRender"
     v-bind="props"
+    :id="id"
+    ref="primitiveElement"
     @select="(event) => {
       emits('select', event as any)
       if (event.defaultPrevented)

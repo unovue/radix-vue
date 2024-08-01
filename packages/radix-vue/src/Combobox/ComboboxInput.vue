@@ -38,8 +38,13 @@ function handleKeyDown(ev: KeyboardEvent) {
 }
 
 function handleInput(event: Event) {
-  if (!rootContext.open.value)
+  if (!rootContext.open.value) {
     rootContext.onOpenChange(true)
+  }
+  else {
+    const target = event.target as HTMLInputElement
+    rootContext.filterState.search = target.value
+  }
 }
 
 function resetSearchTerm() {

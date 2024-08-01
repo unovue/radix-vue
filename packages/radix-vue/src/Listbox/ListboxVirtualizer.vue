@@ -100,8 +100,11 @@ rootContext.virtualFocusHook.on((event) => {
     virtualizer.value.scrollToIndex(index, { align: 'start' })
     requestAnimationFrame(() => {
       const item = queryCheckedElement(parentEl.value)
-      if (item && event)
-        item?.focus()
+      if (item) {
+        rootContext.changeHighlight(item)
+        if (event)
+          item?.focus()
+      }
     })
   }
 })

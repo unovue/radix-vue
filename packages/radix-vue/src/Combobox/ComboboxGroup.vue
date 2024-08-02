@@ -8,6 +8,7 @@ export interface ComboboxGroupProps extends ListboxGroupProps {}
 
 type ComboboxGroupContext = {
   id: string
+  labelId: string
 }
 
 export const [injectComboboxGroupContext, provideComboboxGroupContext]
@@ -23,8 +24,9 @@ const rootContext = injectComboboxRootContext()
 
 const isRender = computed(() => rootContext.ignoreFilter.value ? true : !rootContext.filterState.search ? true : rootContext.filterState.filtered.groups.has(id))
 
-provideComboboxGroupContext({
+const context = provideComboboxGroupContext({
   id,
+  labelId: '',
 })
 
 onMounted(() => {
@@ -39,7 +41,7 @@ onUnmounted(() => {
 <template>
   <ListboxGroup
     :id="id"
-    :aria-labelledby="id"
+    :aria-labelledby="context.labelId"
     v-bind="props"
     :hidden="isRender ? undefined : true"
   >

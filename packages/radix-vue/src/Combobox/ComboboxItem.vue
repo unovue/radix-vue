@@ -52,7 +52,7 @@ onMounted(() => {
   const groupId = groupContext?.id
   if (groupId) {
     if (!rootContext.allGroups.value.has(groupId)) {
-      rootContext.allGroups.value.set(groupId, new Set(id))
+      rootContext.allGroups.value.set(groupId, new Set([id]))
     }
     else {
       rootContext.allGroups.value.get(groupId)?.add(id)

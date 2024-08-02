@@ -8,7 +8,7 @@ export interface ComboboxLabelProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { Primitive } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
+import { useForwardExpose, useId } from '@/shared'
 import { injectComboboxGroupContext } from './ComboboxGroup.vue'
 
 const props = withDefaults(defineProps<ComboboxLabelProps>(), {
@@ -16,13 +16,15 @@ const props = withDefaults(defineProps<ComboboxLabelProps>(), {
 })
 
 useForwardExpose()
-const groupContext = injectComboboxGroupContext({ id: '' })
+const groupContext = injectComboboxGroupContext({ id: '', labelId: '' })
+
+groupContext.labelId ||= useId(undefined, 'reka-combobox-group-label')
 </script>
 
 <template>
   <Primitive
     v-bind="props"
-    :id="groupContext.id"
+    :id="groupContext.labelId"
   >
     <slot />
   </Primitive>

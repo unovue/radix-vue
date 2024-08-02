@@ -3,9 +3,28 @@ import { ref } from 'vue'
 import { ComboboxAnchor, ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxRoot, ComboboxSeparator, ComboboxTrigger, ComboboxViewport } from '../'
 import { Icon } from '@iconify/vue'
 
-const v = ref('')
-const options = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
-const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
+const options = [
+  { name: 'Fruit', children: [
+    { name: 'Apple' },
+    { name: 'Banana' },
+    { name: 'Orange' },
+    { name: 'Honeydew' },
+    { name: 'Grapes' },
+    { name: 'Watermelon' },
+    { name: 'Cantaloupe' },
+    { name: 'Pear' },
+  ] },
+  { name: 'Vegetable', children: [
+    { name: 'Cabbage' },
+    { name: 'Broccoli' },
+    { name: 'Carrots' },
+    { name: 'Lettuce' },
+    { name: 'Spinach' },
+    { name: 'Bok Choy' },
+    { name: 'Cauliflower' },
+    { name: 'Potatoes' },
+  ] },
+]
 </script>
 
 <template>
@@ -14,9 +33,7 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
     :layout="{ type: 'single', iframe: false }"
   >
     <Variant title="default">
-      <ComboboxRoot
-        v-model="v"
-      >
+      <ComboboxRoot>
         <ComboboxAnchor class="min-w-[160px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">
           <ComboboxInput
             class="bg-transparent outline-none text-grass11 placeholder-gray-400"
@@ -33,51 +50,37 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
           <ComboboxViewport class="p-[5px]">
             <ComboboxEmpty class="text-mauve8 text-xs font-medium text-center py-2" />
 
-            <ComboboxGroup>
-              <ComboboxLabel class="px-[25px] text-xs leading-[25px] text-mauve11">
-                Fruits
-              </ComboboxLabel>
+            <template
+              v-for="(group, index) in options"
+              :key="group.name"
+            >
+              <ComboboxGroup>
+                <ComboboxSeparator
+                  v-if="index !== 0"
+                  class="h-[1px] bg-grass6 m-[5px]"
+                />
 
-              <ComboboxItem
-                v-for="(option, index) in options"
-                :key="index"
-                class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-grass9 data-[highlighted]:text-grass1"
-                :value="option"
-              >
-                <ComboboxItemIndicator
-                  class="absolute left-0 w-[25px] inline-flex items-center justify-center"
-                >
-                  <Icon icon="radix-icons:check" />
-                </ComboboxItemIndicator>
-                <span>
-                  {{ option }}
-                </span>
-              </ComboboxItem>
-              <ComboboxSeparator class="h-[1px] bg-grass6 m-[5px]" />
-            </ComboboxGroup>
+                <ComboboxLabel class="px-[25px] text-xs leading-[25px] text-mauve11">
+                  {{ group.name }}
+                </ComboboxLabel>
 
-            <ComboboxGroup>
-              <ComboboxLabel
-                class="px-[25px] text-xs leading-[25px] text-mauve11"
-              >
-                Vegetables
-              </ComboboxLabel>
-              <ComboboxItem
-                v-for="(option, index) in vegetables"
-                :key="index"
-                class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-grass9 data-[highlighted]:text-grass1"
-                :value="option"
-              >
-                <ComboboxItemIndicator
-                  class="absolute left-0 w-[25px] inline-flex items-center justify-center"
+                <ComboboxItem
+                  v-for="option in group.children"
+                  :key="option.name"
+                  :value="option.name"
+                  class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-grass9 data-[highlighted]:text-grass1"
                 >
-                  <Icon icon="radix-icons:check" />
-                </ComboboxItemIndicator>
-                <span>
-                  {{ option }}
-                </span>
-              </ComboboxItem>
-            </ComboboxGroup>
+                  <ComboboxItemIndicator
+                    class="absolute left-0 w-[25px] inline-flex items-center justify-center"
+                  >
+                    <Icon icon="radix-icons:check" />
+                  </ComboboxItemIndicator>
+                  <span>
+                    {{ option.name }}
+                  </span>
+                </ComboboxItem>
+              </ComboboxGroup>
+            </template>
           </ComboboxViewport>
         </ComboboxContent>
       </ComboboxRoot>

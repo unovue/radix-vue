@@ -136,7 +136,7 @@ watch(open, () => {
         </div>
       </TabsContent>
       <div
-        class="bg-gradient-to-t from-[#161618FF] to-[#16161800] bottom-[1px] left-[1px] right-[1px] h-20 flex items-center justify-center absolute rounded-b-xl"
+        class="bg-gradient-to-t from-[#0b0b0bff] to-[#0b0b0b00] bottom-[1px] left-[1px] right-[1px] h-20 flex items-center justify-center absolute rounded-b-xl"
       >
         <button
           ref="buttonRef"

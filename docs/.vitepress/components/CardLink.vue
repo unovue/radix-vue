@@ -12,7 +12,7 @@ defineProps<{
 <template>
   <div class="h-full">
     <a
-      class="flex flex-col bg-card/60 hover:bg-card transition duration-300 rounded-2xl p-4 border border-muted h-full"
+      class="flex flex-col bg-card rounded-2xl p-4 border border-muted hover:border-primary h-full"
       target="_blank"
       :href="url"
     >

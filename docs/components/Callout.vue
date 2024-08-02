@@ -13,7 +13,7 @@ const activeType = computed(() => {
       return { icon: 'lucide:badge-info', class: 'text-blue-600 dark:text-blue-300 bg-blue-300/5 border-blue-300/20' }
     }
     case 'tip': {
-      return { icon: 'lucide:badge-help', class: 'text-zinc-600 dark:text-zinc-300 bg-zinc-300/5 border-zinc-300/20' }
+      return { icon: 'lucide:badge-help', class: 'text-emerald-600 dark:text-emerald-300 bg-emerald-300/5 border-emerald-300/20' }
     }
     case 'danger': {
       return { icon: 'lucide:badge-x', class: 'text-red-600 dark:text-red-300 bg-red-300/5 border-red-300/20' }
@@ -22,7 +22,7 @@ const activeType = computed(() => {
       return { icon: 'lucide:badge-alert', class: 'text-yellow-600 dark:text-yellow-400 bg-yellow-400/5 border-yellow-400/20' }
     }
     default:
-      return { icon: '', class: '' }
+      return { icon: '', class: 'text-zinc-600 dark:text-zinc-300 bg-zinc-300/5 border-zinc-300/20' }
   }
 })
 </script>

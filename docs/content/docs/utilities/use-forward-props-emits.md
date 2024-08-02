@@ -9,7 +9,7 @@ description: Combinations for useForwardProps & useEmitAsProps
 Combinations for useForwardProps & useEmitAsProps
 </Description>
 
-This composable is just a wrapper for [useForwardProps](/utilities/use-forward-props) & [useEmitAsProps](/utilities/use-emit-as-props.html) composables. Doing so it returns only 1 object that is designed to be use with `v-bind` directly.
+This composable is just a wrapper for [useForwardProps](/docs/utilities/use-forward-props) & [useEmitAsProps](/docs/utilities/use-emit-as-props.html) composables. Doing so it returns only 1 object that is designed to be use with `v-bind` directly.
 
 ## Usage
 

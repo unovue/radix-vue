@@ -18,7 +18,7 @@ const { top } = toRefs(arrivedState)
 
 <template>
   <div class="flex flex-col items-center min-h-screen h-full">
-    <div class="absolute z-0 top-0 inset-x-0 flex justify-center overflow-hidden pointer-events-none">
+    <!-- <div class="absolute z-0 top-0 inset-x-0 flex justify-center overflow-hidden pointer-events-none">
       <div class="w-[108rem] flex-none flex justify-end">
         <img
           src="/bg.png"
@@ -26,7 +26,7 @@ const { top } = toRefs(arrivedState)
           class="w-[64rem] flex-none max-w-none -mt-6"
         >
       </div>
-    </div>
+    </div> -->
 
     <header
       class="max-w-[1440px] w-full py-4 flex items-center justify-between sticky top-0 z-10 transition-all duration-500 px-6 h-[68px] md:h-full"

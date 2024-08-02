@@ -1,9 +1,9 @@
 // noinspection ES6PreferShortImport: IntelliJ IDE hint to avoid warning to use `~/contributors`, will fail on build if changed
 
 /* Texts */
-export const radixVueName = 'Reka UI'
-export const radixVueShortName = 'Reka UI'
-export const radixVueDescription
+export const rekaName = 'Reka'
+export const rekaShortName = 'Reka UI'
+export const rekaDescription
   = 'An open-source library with unstyled, primitive components, accompanied by a variety of examples & use cases ready to be integrated into your projects.'
 
 /* CDN fonts and styles */

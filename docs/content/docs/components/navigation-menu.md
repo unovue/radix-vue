@@ -285,7 +285,7 @@ import {
 ### Flexible layouts
 
 Use the `Viewport` part when you need extra control over where `Content` is rendered. This can be helpful when your design
-requires an adjusted DOM structure or if you need flexibility to achieve [advanced animation](/components/navigation-menu#advanced-animation).
+requires an adjusted DOM structure or if you need flexibility to achieve [advanced animation](/docs/components/navigation-menu#advanced-animation).
 Tab focus will be maintained automatically.
 
 ```vue line=26
@@ -370,7 +370,7 @@ import {
 ### With submenus
 
 Create a submenu by nesting your `NavigationMenu` and using the `Sub` part in place of its `Root`.
-Submenus work differently to `Root` navigation menus and are similar to [`Tabs`](/components/tabs) in that one item should always be active, so be
+Submenus work differently to `Root` navigation menus and are similar to [`Tabs`](/docs/components/tabs) in that one item should always be active, so be
 sure to assign and set a `defaultValue`.
 
 ```vue line=7,23-34
@@ -583,7 +583,7 @@ See the W3C [Disclosure Navigation Menu](https://w3c.github.io/aria-practices/ex
 It's important to use `NavigationMenuLink` for all navigational links within a menu, this not only applies to the main list
 but also within any content rendered via `NavigationMenuContent`. This will ensure consistent keyboard interactions and accessibility
 while also giving access to the `active` prop for setting `aria-current` and the active styles.
-See [this example](/components/navigation-menu#with-client-side-routing) for more information on usage with third party routing components.
+See [this example](/docs/components/navigation-menu#with-client-side-routing) for more information on usage with third party routing components.
 
 ### Keyboard Interactions
 

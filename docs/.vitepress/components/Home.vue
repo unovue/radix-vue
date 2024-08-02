@@ -13,12 +13,12 @@ import { Icon } from '@iconify/vue'
           An open-source library with
           <a
             class="relative inline-block text-foreground font-semibold before:absolute before:top-full before:inset-x-0 before:[translate:0_-0.1em] before:h-[2px] before:bg-primary hover:before:h-[4px]"
-            href="/guides/styling"
+            href="/docs/guides/styling"
           >
             unstyled</a>,
           <a
             class="relative inline-block text-foreground font-semibold before:absolute before:top-full before:inset-x-0 before:[translate:0_-0.1em] before:h-[2px] before:bg-primary hover:before:h-[4px]"
-            href="/guides/composition"
+            href="/docs/guides/composition"
           >
             primitive
           </a>
@@ -36,13 +36,13 @@ import { Icon } from '@iconify/vue'
       <div class="mb-12 flex max-w-[calc(100%-2rem)] flex-wrap items-center justify-center gap-4 md:mb-20">
         <a
           class="flex h-12 items-center justify-center gap-2 whitespace-nowrap rounded-xl px-4 text-primary font-semibold bg-primary/10 hover:bg-primary/20 sm:px-8 sm:text-lg"
-          href="/overview/getting-started"
+          href="/docs/overview/getting-started"
         >
           Get started
         </a>
         <a
           class="group flex h-12 items-center justify-center gap-2 font-semibold text-muted-foreground hover:text-foreground whitespace-nowrap rounded-xl px-4 hover:bg-card"
-          href="/components/accordion"
+          href="/docs/components/accordion"
         >
           Explore components
           <Icon icon="lucide:arrow-right" />

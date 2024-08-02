@@ -55,7 +55,7 @@
     --secondary-foreground:0 0% 98%;
 
     --muted:0 0% 15%;
-    --muted-foreground:240 5% 64.9%;
+    --muted-foreground:168 2.6% 62.9%;
 
     --accent:12 6.5% 15.1%;
     --accent-foreground:0 0% 98%;
@@ -131,7 +131,7 @@
   @apply border-none rounded-none;
 }
 .vp-code {
-  @apply my-0 bg-[hsl(24_9.8%_10%)] border border-[hsl(0_0%_15%)] rounded-xl;
+  @apply my-0 bg-[#0b0b0b] border border-[hsl(0_0%_15%)] rounded-xl;
 }
 
 .custom-block {

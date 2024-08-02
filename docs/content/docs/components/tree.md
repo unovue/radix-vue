@@ -216,7 +216,7 @@ import { TreeItem, TreeRoot } from 'reka-ui'
 
 ### Nested Tree Node
 
-The default example shows flatten tree items and nodes, this enables [Virtualization](/components/tree.html#virtual-list) and custom feature such as Drag & Drop easier. However, you can also build it to have nested DOM node.
+The default example shows flatten tree items and nodes, this enables [Virtualization](/docs/components/tree.html#virtual-list) and custom feature such as Drag & Drop easier. However, you can also build it to have nested DOM node.
 
 In `Tree.vue`,
 

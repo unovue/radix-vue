@@ -419,7 +419,7 @@ const filteredPeople = computed(() =>
 
 ### Custom label
 
-By default the `Combobox` will use the input contents as the label for screenreaders. If you'd like more control over what is announced to assistive technologies, use the [Label](/components/label) component.
+By default the `Combobox` will use the input contents as the label for screenreaders. If you'd like more control over what is announced to assistive technologies, use the [Label](/docs/components/label) component.
 
 ```vue line=8,9
 <script setup lang="ts">

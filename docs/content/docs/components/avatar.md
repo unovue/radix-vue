@@ -70,7 +70,7 @@ An element that renders when the image hasn't loaded. This means whilst it's loa
 
 ### Clickable Avatar with tooltip
 
-You can compose the Avatar with a [Tooltip](/components/tooltip) to display extra information.
+You can compose the Avatar with a [Tooltip](/docs/components/tooltip) to display extra information.
 
 ```vue line=6-7,9,11-15
 <script setup>

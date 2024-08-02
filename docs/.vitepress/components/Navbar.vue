@@ -26,6 +26,7 @@ watch(path, () => {
         v-if="nav.link"
         :href="nav.link"
         class="py-2 mx-3 text-sm font-semibold text-muted-foreground hover:text-foreground h-full inline-flex items-center"
+        :class="{ '!text-primary': path.includes(nav.text.toLowerCase()) }"
       >
         {{ nav.text }}
       </a>

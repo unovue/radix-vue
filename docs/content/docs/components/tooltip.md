@@ -386,7 +386,7 @@ import { Tooltip } from './your-tooltip'
 
 #### Implementation
 
-Use the [`asChild` prop](/guides/composition) to convert the trigger part into a slottable area. It will replace the trigger with the child that gets passed to it.
+Use the [`asChild` prop](/docs/guides/composition) to convert the trigger part into a slottable area. It will replace the trigger with the child that gets passed to it.
 
 ```vue line=13-15
 <!-- your-tooltip.vue  -->

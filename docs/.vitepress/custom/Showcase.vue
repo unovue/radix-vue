@@ -9,10 +9,10 @@ const { frontmatter } = useData()
   <div class="content pb-20">
     <div class="mx-auto w-full">
       <div class=" my-16 md:my-26 flex flex-col">
-        <h1 class="text-4xl lg:text-5xl font-bold text-primary">
+        <h1 class="text-4xl lg:text-5xl font-bold">
           Showcase
         </h1>
-        <h2 class="mt-2 md:mt-6 md:text-xl font-medium text-foreground max-w-[640px]">
+        <h2 class="mt-2 md:mt-6 md:text-xl font-medium text-muted-foreground max-w-[640px]">
           {{ frontmatter.description }}
         </h2>
 

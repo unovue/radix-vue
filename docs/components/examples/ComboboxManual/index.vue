@@ -1,6 +1,12 @@
 <script setup lang="ts">
-import { ComboboxAnchor, ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxRoot, ComboboxSeparator, ComboboxTrigger, ComboboxViewport, useFilter } from 'reka-ui'
+import { computed, ref } from 'vue'
+import { ComboboxAnchor, ComboboxContent, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxRoot, ComboboxSeparator, ComboboxTrigger, ComboboxViewport, useFilter } from 'reka-ui'
 import { Icon } from '@iconify/vue'
+
+const { contains } = useFilter({ sensitivity: 'base' })
+
+const v = ref('')
+const query = ref('')
 
 const options = [
   { name: 'Fruit', children: [
@@ -24,14 +30,19 @@ const options = [
     { name: 'Potatoes' },
   ] },
 ]
+
+const filteredOptions = computed(() =>
+  options
+    .map(group => ({ name: group.name, children: group.children.filter(option => contains(option.name, query.value)) }))
+    .filter(group => group.children.length),
+)
 </script>
 
 <template>
-  <ComboboxRoot
-    class="relative"
-  >
+  <ComboboxRoot class="relative">
     <ComboboxAnchor class="min-w-[160px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">
       <ComboboxInput
+        v-model="query"
         class="!bg-transparent outline-none text-grass11 h-full selection:bg-grass5 placeholder-mauve8"
         placeholder="Placeholder..."
       />
@@ -45,13 +56,11 @@ const options = [
 
     <ComboboxContent class="absolute z-10 w-full mt-2 min-w-[160px] bg-white overflow-hidden rounded shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade">
       <ComboboxViewport class="p-[5px]">
-        <ComboboxEmpty class="text-mauve8 text-xs font-medium text-center py-2" />
-
         <template
-          v-for="(group, index) in options"
+          v-for="(group, index) in filteredOptions"
           :key="group.name"
         >
-          <ComboboxGroup>
+          <ComboboxGroup v-if="group.children.length">
             <ComboboxSeparator
               v-if="index !== 0"
               class="h-[1px] bg-grass6 m-[5px]"

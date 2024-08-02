@@ -1,19 +1,17 @@
 <script setup lang="ts">
 import { onContentUpdated, useData } from 'vitepress'
 import DocOutlineItem from '../components/DocOutlineItem.vue'
-import { type MenuItem, getHeaders, useActiveAnchor } from '../composables/outline'
-import { onMounted, ref, shallowRef } from 'vue'
+import { getHeaders, useActiveAnchor } from '../composables/outline'
+import { ref } from 'vue'
 
 defineProps<{
   collapsible?: boolean
 }>()
 
-const { frontmatter, theme } = useData()
-
-const headers = shallowRef<MenuItem[]>([])
+const { page, frontmatter, theme } = useData()
 
 onContentUpdated(() => {
-  headers.value = getHeaders(frontmatter.value.outline ?? theme.value.outline)
+  getHeaders(frontmatter.value.outline ?? theme.value.outline)
 })
 
 const container = ref()
@@ -43,7 +41,7 @@ useActiveAnchor(container, marker)
     </div>
 
     <DocOutlineItem
-      :headers="headers"
+      :headers="page.headers"
       :root="true"
     />
   </nav>

@@ -1,13 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { ComboboxAnchor, ComboboxContent, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxRoot, ComboboxSeparator, ComboboxTrigger, ComboboxViewport, useFilter } from 'reka-ui'
+import { ComboboxAnchor, ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxRoot, ComboboxSeparator, ComboboxTrigger, ComboboxViewport } from 'reka-ui'
 import { Icon } from '@iconify/vue'
 import './styles.css'
 
-const { contains } = useFilter({ sensitivity: 'base' })
-
-const v = ref('')
-const query = ref('')
 const options = [
   { name: 'Fruit', children: [
     { name: 'Apple' },
@@ -30,19 +25,10 @@ const options = [
     { name: 'Potatoes' },
   ] },
 ]
-
-const filteredOptions = computed(() =>
-  options
-    .map(group => ({ name: group.name, children: group.children.filter(option => contains(option.name, query.value)) }))
-    .filter(group => group.children.length),
-)
 </script>
 
 <template>
-  <ComboboxRoot
-    v-model="v"
-    class="ComboboxRoot"
-  >
+  <ComboboxRoot class="ComboboxRoot">
     <ComboboxAnchor class="ComboboxAnchor">
       <ComboboxInput
         class="ComboboxInput"
@@ -58,8 +44,10 @@ const filteredOptions = computed(() =>
 
     <ComboboxContent class="ComboboxContent">
       <ComboboxViewport class="ComboboxViewport">
+        <ComboboxEmpty class="ComboboxEmpty" />
+
         <template
-          v-for="(group, index) in filteredOptions"
+          v-for="(group, index) in options"
           :key="group.name"
         >
           <ComboboxGroup v-if="group.children.length">
@@ -73,7 +61,7 @@ const filteredOptions = computed(() =>
             </ComboboxLabel>
 
             <ComboboxItem
-              v-for="option in filteredOptions"
+              v-for="option in group.children"
               :key="option.name"
               :value="option.name"
               class="ComboboxItem"

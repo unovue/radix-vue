@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { MenuItem } from '../composables/outline'
+import type { Header } from '../composables/outline'
 
 defineProps<{
-  headers: MenuItem[]
+  headers: Header[]
   root?: boolean
 }>()
 

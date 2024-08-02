@@ -192,6 +192,9 @@ export default defineConfig({
   appearance: 'dark',
   markdown: {
     theme: 'github-dark',
+    headers: {
+      level: [2, 3],
+    },
     anchor: {
       callback(token) {
         // set tw `group` modifier to heading element

@@ -20,7 +20,7 @@ const rootContext = injectStepperRootContext()
 const itemContext = injectStepperItemContext()
 
 const kbd = useKbd()
-const stepperItems = computed(() => Array.from(rootContext.stepperItems.value))
+const stepperItems = computed(() => Array.from(rootContext.totalStepperItems.value))
 
 function handleMouseDown(event: MouseEvent) {
   if (itemContext.disabled.value)
@@ -55,7 +55,7 @@ function handleKeyDown(event: KeyboardEvent) {
 
   if ([kbd.ARROW_LEFT, kbd.ARROW_RIGHT, kbd.ARROW_UP, kbd.ARROW_DOWN].includes(event.key)) {
     useArrowNavigation(event, document.activeElement as HTMLElement, undefined, {
-      itemsArray: Array.from(rootContext.totalStepperItems.value),
+      itemsArray: stepperItems.value,
       focus: true,
       loop: false,
       arrowKeyOptions: rootContext.orientation.value,

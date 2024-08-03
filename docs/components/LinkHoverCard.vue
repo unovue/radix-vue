@@ -7,9 +7,16 @@ const props = defineProps<{
   name: string
 }>()
 
+const UTILITY_COMPONENT = ['ConfigProvider', 'VisuallyHidden']
+
 const href = computed(() => {
-  const [last, ...parts] = hyphenate(props.name).split('-').reverse()
-  return `/docs/components/${parts.reverse().join('-')}.html#${last}`
+  if (UTILITY_COMPONENT.includes(props.name)) {
+    return `/docs/utilities/${hyphenate(props.name)}`
+  }
+  else {
+    const [last, ...parts] = hyphenate(props.name).split('-').reverse()
+    return `/docs/components/${parts.reverse().join('-')}#${last}`
+  }
 })
 </script>
 

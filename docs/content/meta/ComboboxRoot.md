@@ -10,7 +10,7 @@
   },
   {
     'name': 'asChild',
-    'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our <a href=\'https://www.reka.com/guides/composition.html\'>Composition</a> guide for more details.</p>\n',
+    'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our <a href=\'https://www.reka-ui.com/docs/guides/composition\'>Composition</a> guide for more details.</p>\n',
     'type': 'boolean',
     'required': false
   },
@@ -51,6 +51,12 @@
     'required': false
   },
   {
+    'name': 'ignoreFilter',
+    'description': '<p>When <code>true</code>, disable the default filters</p>\n',
+    'type': 'boolean',
+    'required': false
+  },
+  {
     'name': 'modelValue',
     'description': '<p>The controlled value of the listbox. Can be binded-with with <code>v-model</code>.</p>\n',
     'type': 'AcceptableValue | AcceptableValue[]',
@@ -85,19 +91,9 @@
 
 <EmitsTable :data="[
   {
-    'name': 'entryFocus',
-    'description': '<p>Event handler called when container is being focused. Can be prevented.</p>\n',
-    'type': '[event: CustomEvent<any>]'
-  },
-  {
     'name': 'highlight',
     'description': '<p>Event handler when highlighted element changes.</p>\n',
     'type': '[payload: { ref: HTMLElement; value: AcceptableValue; }]'
-  },
-  {
-    'name': 'leave',
-    'description': '<p>Event handler called when the mouse leave the container</p>\n',
-    'type': '[event: Event]'
   },
   {
     'name': 'update:modelValue',

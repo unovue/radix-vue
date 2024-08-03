@@ -20,14 +20,14 @@ When you are building a component, in some cases you might want to allow user to
       required: false,
       type: 'string | Component',
       default: 'div',
-      description: 'The element or component the current element should render as.',
+      description: '<p>The element or component the current element should render as. Can be overwrite by <Code>asChild</Code></p>',
     },
     {
       name: 'asChild',
       required: false,
       type: 'boolean',
       default: 'false',
-      description: 'Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.',
+      description: '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href=&quot;/guides/composition&quot;>Composition</a> guide for more details.</p>',
     }
   ]"
 />

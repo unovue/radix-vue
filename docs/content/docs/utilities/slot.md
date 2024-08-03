@@ -9,7 +9,7 @@ description: Merges its props onto its immediate child.
 Merges its props onto its immediate child.
 </Description>
 
-<Callout type="tip" title="Question">
+<Callout type="info" title="Question">
 
 How is this component different from [Vue native slot](https://vuejs.org/guide/components/slots.html)?
 

@@ -30,6 +30,7 @@ ${text}
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  cleanUrls: true,
   title: rekaName,
   description: rekaDescription,
   titleTemplate: rekaShortName,
@@ -57,7 +58,7 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'Docs', link: '/docs/overview/getting-started.html' },
+      { text: 'Docs', link: '/docs/overview/getting-started' },
       { text: 'Examples', link: '/examples' },
       { text: 'Showcase', link: '/showcase' },
       {

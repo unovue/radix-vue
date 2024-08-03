@@ -20,7 +20,7 @@
   "dependencies": {
     "@nuxt/kit": "^3.12.2",
     "@nuxt/schema": "^3.12.2",
-    "reka-ui": "link:../radix-vue",
+    "reka-ui": "link:../core",
     "tsx": "^4.16.0",
     "unbuild": "^2.0.0",
     "unplugin-vue-components": "^0.27.2"

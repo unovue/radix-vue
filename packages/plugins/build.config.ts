@@ -4,7 +4,7 @@ export default defineBuildConfig([
   {
     name: 'Nuxt module',
     entries: ['./src/nuxt/index'],
-    outDir: '../radix-vue/dist',
+    outDir: '../core/dist',
     clean: false,
     declaration: true,
     externals: [
@@ -17,7 +17,7 @@ export default defineBuildConfig([
   {
     name: 'Unplugin-vue-component Resolver',
     entries: ['./src/resolver/index'],
-    outDir: '../radix-vue/dist',
+    outDir: '../core/dist',
     clean: false,
     declaration: true,
     externals: [
@@ -30,7 +30,7 @@ export default defineBuildConfig([
   {
     name: 'Namespaced',
     entries: ['./src/namespaced/index'],
-    outDir: '../radix-vue/dist',
+    outDir: '../core/dist',
     clean: false,
     declaration: true,
     externals: [

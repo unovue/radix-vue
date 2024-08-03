@@ -15,8 +15,8 @@ importers:
         specifier: ^3.5.3
         version: 3.5.3
       radix-vue:
-        specifier: link:../../packages/radix-vue
-        version: link:../../packages/radix-vue
+        specifier: link:../../packages/core
+        version: link:../../packages/core
     devDependencies:
       '@floating-ui/vue':
         specifier: ^1.0.7

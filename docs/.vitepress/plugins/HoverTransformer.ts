@@ -1,6 +1,6 @@
 import type { ShikiTransformer } from 'shiki'
 import type { Element, Text } from 'hast'
-import { components as componentsObj } from '../../../packages/radix-vue/constant/components'
+import { components as componentsObj } from '../../../packages/core/constant/components'
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'

@@ -1,4 +1,4 @@
-import { components } from '../../../radix-vue/constant/components'
+import { components } from '../../../core/constant/components'
 import { writeFileSync } from 'node:fs'
 
 const excludedComponent = ['configProvider', 'primitive', 'visuallyHidden']

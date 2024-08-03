@@ -1,7 +1,7 @@
 import { addComponent, defineNuxtModule } from '@nuxt/kit'
 
 import type { } from '@nuxt/schema' // workaround for TS bug with "phantom" deps
-import { components as allComponents } from '../../../radix-vue/constant/components'
+import { components as allComponents } from '../../../core/constant/components'
 
 export interface ModuleOptions {
   components: Partial<Record<keyof typeof allComponents, boolean>> | boolean

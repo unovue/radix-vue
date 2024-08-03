@@ -117,8 +117,8 @@ importers:
         specifier: ^10.11.0
         version: 10.11.0(vue@3.4.31(typescript@5.4.2))
       reka-ui:
-        specifier: link:../packages/radix-vue
-        version: link:../packages/radix-vue
+        specifier: link:../packages/core
+        version: link:../packages/core
       typescript:
         specifier: '*'
         version: 5.4.2
@@ -199,28 +199,7 @@ importers:
         specifier: ^2.0.24
         version: 2.0.24(typescript@5.4.2)
 
-  packages/plugins:
-    dependencies:
-      '@nuxt/kit':
-        specifier: ^3.12.2
-        version: 3.12.2(magicast@0.3.4)(rollup@3.29.4)
-      '@nuxt/schema':
-        specifier: ^3.12.2
-        version: 3.12.2(rollup@3.29.4)
-      reka-ui:
-        specifier: link:../radix-vue
-        version: link:../radix-vue
-      tsx:
-        specifier: ^4.16.0
-        version: 4.16.0
-      unbuild:
-        specifier: ^2.0.0
-        version: 2.0.0(typescript@5.4.2)(vue-tsc@2.0.24(typescript@5.4.2))
-      unplugin-vue-components:
-        specifier: ^0.27.2
-        version: 0.27.2(@babel/parser@7.24.7)(@nuxt/kit@3.12.2(magicast@0.3.4)(rollup@3.29.4))(rollup@3.29.4)(vue@3.4.31(typescript@5.4.2))
-
-  packages/radix-vue:
+  packages/core:
     dependencies:
       '@floating-ui/dom':
         specifier: ^1.6.7
@@ -319,6 +298,27 @@ importers:
       vue-tsc:
         specifier: 2.0.24
         version: 2.0.24(typescript@5.4.2)
+
+  packages/plugins:
+    dependencies:
+      '@nuxt/kit':
+        specifier: ^3.12.2
+        version: 3.12.2(magicast@0.3.4)(rollup@3.29.4)
+      '@nuxt/schema':
+        specifier: ^3.12.2
+        version: 3.12.2(rollup@3.29.4)
+      reka-ui:
+        specifier: link:../core
+        version: link:../core
+      tsx:
+        specifier: ^4.16.0
+        version: 4.16.0
+      unbuild:
+        specifier: ^2.0.0
+        version: 2.0.0(typescript@5.4.2)(vue-tsc@2.0.24(typescript@5.4.2))
+      unplugin-vue-components:
+        specifier: ^0.27.2
+        version: 0.27.2(@babel/parser@7.24.7)(@nuxt/kit@3.12.2(magicast@0.3.4)(rollup@3.29.4))(rollup@3.29.4)(vue@3.4.31(typescript@5.4.2))
 
 packages:
 

@@ -11,8 +11,8 @@
   ],
   "scripts": {
     "story:dev": "pnpm --filter histoire story:dev --open",
-    "build": "rimraf packages/radix-vue/dist  && pnpm run --filter reka-ui build && pnpm run --filter plugins build",
-    "build-only": "rimraf packages/radix-vue/dist  && pnpm run -r build-only",
+    "build": "rimraf packages/core/dist  && pnpm run --filter reka-ui build && pnpm run --filter plugins build",
+    "build-only": "rimraf packages/core/dist  && pnpm run -r build-only",
     "docs:install": "pnpm --filter docs install",
     "docs:dev": "pnpm --filter docs docs:dev",
     "docs:build": "pnpm --filter docs docs:build",
@@ -24,7 +24,7 @@
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
     "bumpp": "bumpp package.json packages/*/package.json docs/package.json",
-    "pub:release": "cd packages/radix-vue && pnpm pub:release"
+    "pub:release": "cd packages/core && pnpm pub:release"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.23.1",

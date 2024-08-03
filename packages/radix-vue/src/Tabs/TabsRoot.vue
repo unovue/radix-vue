@@ -10,6 +10,7 @@ export interface TabsRootContext {
   changeModelValue: (value: StringOrNumber) => void
   orientation: Ref<DataOrientation>
   dir: Ref<Direction>
+  unmountOnHide: Ref<boolean>
   activationMode: 'automatic' | 'manual'
   baseId: string
   tabsList: Ref<HTMLElement | undefined>
@@ -37,6 +38,12 @@ export interface TabsRootProps<T extends StringOrNumber = StringOrNumber> extend
   activationMode?: 'automatic' | 'manual'
   /** The controlled value of the tab to activate. Can be bind as `v-model`. */
   modelValue?: T
+  /**
+   * When `true`, the element will be unmounted on closed state.
+   *
+   * @defaultValue `true`
+   */
+  unmountOnHide?: boolean
 }
 export type TabsRootEmits<T extends StringOrNumber = StringOrNumber> = {
   /** Event handler called when the value changes */
@@ -54,6 +61,7 @@ import { Primitive } from '@/Primitive'
 const props = withDefaults(defineProps<TabsRootProps<T>>(), {
   orientation: 'horizontal',
   activationMode: 'automatic',
+  unmountOnHide: true,
 })
 const emits = defineEmits<TabsRootEmits<T>>()
 
@@ -64,7 +72,7 @@ defineSlots<{
   }) => any
 }>()
 
-const { orientation, dir: propDir } = toRefs(props)
+const { orientation, unmountOnHide, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
 useForwardExpose()
 
@@ -82,6 +90,7 @@ provideTabsRootContext({
   },
   orientation,
   dir,
+  unmountOnHide,
   activationMode: props.activationMode,
   baseId: useId(undefined, 'reka-tabs'),
   tabsList,

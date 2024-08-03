@@ -42,7 +42,7 @@ onMounted(() => {
 <template>
   <Presence
     v-slot="{ present }"
-    :present="isSelected"
+    :present="forceMount || isSelected"
     force-mount
   >
     <Primitive
@@ -60,7 +60,7 @@ onMounted(() => {
         animationDuration: isMountAnimationPreventedRef ? '0s' : undefined,
       }"
     >
-      <slot v-if="forceMount || isSelected" />
+      <slot v-if="rootContext.unmountOnHide.value ? present : true" />
     </Primitive>
   </Presence>
 </template>

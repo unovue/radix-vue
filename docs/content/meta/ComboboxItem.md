@@ -22,7 +22,7 @@
   },
   {
     'name': 'textValue',
-    'description': '<p>A string representation of the item's contents.</p>\n<p>If the children are not plain text, then the <code>textValue</code> prop must also be set to a plain text representation, which will be used for autocomplete in the ComboBox.</p>\n',
+    'description': '<p>A string representation of the item contents.</p>\n<p>If the children are not plain text, then the <code>textValue</code> prop must also be set to a plain text representation, which will be used for autocomplete in the ComboBox.</p>\n',
     'type': 'string',
     'required': false
   },

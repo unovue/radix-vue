@@ -17,7 +17,7 @@ export const [injectComboboxItemContext, provideComboboxItemContext]
 export type ComboboxItemEmits<T = AcceptableValue> = ListboxItemEmits<T>
 export interface ComboboxItemProps<T = AcceptableValue> extends ListboxItemProps<T> {
   /**
-   * A string representation of the item's contents.
+   * A string representation of the item contents.
    *
    * If the children are not plain text, then the `textValue` prop must also be set to a plain text representation, which will be used for autocomplete in the ComboBox.
    */

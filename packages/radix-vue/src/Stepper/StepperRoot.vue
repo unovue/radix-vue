@@ -1,7 +1,6 @@
 <script lang="ts">
-import type { Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { computed, ref, toRefs } from 'vue'
+import { type Ref, computed, nextTick, ref, toRefs, watch } from 'vue'
 import type { DataOrientation, Direction } from '../shared/types'
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useDirection, useForwardExpose } from '@/shared'
@@ -13,7 +12,6 @@ export interface StepperRootContext {
   orientation: Ref<DataOrientation>
   dir: Ref<Direction>
   linear: Ref<boolean>
-  stepperItems: Ref<Set<HTMLElement>>
   totalStepperItems: Ref<Set<HTMLElement>>
 }
 
@@ -77,7 +75,6 @@ const { dir: propDir, orientation: propOrientation, linear } = toRefs(props)
 const dir = useDirection(propDir)
 useForwardExpose()
 
-const stepperItems = ref<Set<HTMLElement>>(new Set())
 const totalStepperItems = ref<Set<HTMLElement>>(new Set())
 
 const modelValue = useVModel(props, 'modelValue', emits, {
@@ -88,7 +85,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 const totalStepperItemsArray = computed(() => Array.from(totalStepperItems.value))
 
 const isFirstStep = computed(() => modelValue.value === 1)
-const isLastStep = computed(() => modelValue.value === totalStepperItems.value.size)
+const isLastStep = computed(() => modelValue.value === totalStepperItemsArray.value.length)
 
 const totalSteps = computed(() => totalStepperItems.value.size)
 
@@ -99,7 +96,7 @@ function goToStep(step: number) {
   if (step < 1)
     return
 
-  if (totalStepperItems.value.size && totalStepperItemsArray.value[step].getAttribute('disabled') === '')
+  if (totalStepperItems.value.size && !!totalStepperItemsArray.value[step].getAttribute('disabled'))
     return
 
   if (linear.value) {
@@ -109,9 +106,23 @@ function goToStep(step: number) {
 
   modelValue.value = step
 }
-const isNextDisabled = computed(() => !!totalStepperItemsArray.value.length && (modelValue.value === totalStepperItems.value.size || totalStepperItemsArray.value[modelValue.value ?? 1 + 1].getAttribute('disabled') === ''),
-)
-const isPrevDisabled = computed(() => !!totalStepperItemsArray.value.length && (modelValue.value === 1 || totalStepperItemsArray.value[modelValue.value ?? 1 - 1].getAttribute('disabled') === ''))
+const nextStepperItem = ref<HTMLElement | null>(null)
+const prevStepperItem = ref<HTMLElement | null>(null)
+const isNextDisabled = computed(() => nextStepperItem.value ? nextStepperItem.value.getAttribute('disabled') === '' : true)
+const isPrevDisabled = computed(() => prevStepperItem.value ? prevStepperItem.value.getAttribute('disabled') === '' : true)
+
+watch(modelValue, async () => {
+  await nextTick(() => {
+    nextStepperItem.value = totalStepperItemsArray.value.length && modelValue.value! < totalStepperItemsArray.value.length ? totalStepperItemsArray.value[modelValue.value!] : null
+    prevStepperItem.value = totalStepperItemsArray.value.length && modelValue.value! > 1 ? totalStepperItemsArray.value[modelValue.value! - 2] : null
+  })
+})
+watch(totalStepperItemsArray, async () => {
+  await nextTick(() => {
+    nextStepperItem.value = totalStepperItemsArray.value.length && modelValue.value! < totalStepperItemsArray.value.length ? totalStepperItemsArray.value[modelValue.value!] : null
+    prevStepperItem.value = totalStepperItemsArray.value.length && modelValue.value! > 1 ? totalStepperItemsArray.value[modelValue.value! - 2] : null
+  })
+})
 
 provideStepperRootContext({
   modelValue,
@@ -121,7 +132,6 @@ provideStepperRootContext({
   orientation: propOrientation,
   dir,
   linear,
-  stepperItems,
   totalStepperItems,
 })
 </script>

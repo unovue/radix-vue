@@ -21,8 +21,8 @@ const slots = useSlots()
 const slotsFramework = computed(() => slots.default?.().map(slot => slot.props?.key?.toString()?.replace('_', '')) ?? [])
 
 const cssFrameworkOptions = computed(() => [
-  { label: 'TailwindCSS', value: 'tailwind' },
-  { label: 'CSS', value: 'css' },
+  { label: 'Tailwind', value: 'tailwind', icon: 'devicon:tailwindcss' },
+  { label: 'CSS', value: 'css', icon: 'devicon:css3' },
   { label: 'Pinceau', value: 'pinceau' },
 ].filter(i => slotsFramework.value.includes(i.value)))
 
@@ -79,29 +79,37 @@ watch(open, () => {
             @update:model-value="currentTab = 'index.vue'"
           >
             <SelectTrigger
-              class="flex items-center justify-between bg-stone-800 rounded-sm w-[115px] text-xs py-1 pl-2 pr-1 disabled:opacity-50"
+              class="flex items-center justify-between text-white hover:bg-code rounded w-32 text-xs py-1.5 px-2 disabled:opacity-50"
               aria-label="Select CSS framework"
             >
-              <SelectValue>
-                {{ cssFrameworkOptions.find(opt => opt.value === cssFramework)?.label }}
-              </SelectValue>
+              <div class="inline-flex items-center gap-2">
+                <Icon
+                  :icon="cssFrameworkOptions.find(opt => opt.value === cssFramework)?.icon ?? ''"
+                  class="text-base"
+                />
+
+                <SelectValue>
+                  {{ cssFrameworkOptions.find(opt => opt.value === cssFramework)?.label }}
+                </SelectValue>
+              </div>
+
               <Icon
-                icon="radix-icons:chevron-down"
+                icon="lucide:chevron-down"
                 class="h-3.5 w-3.5"
               />
             </SelectTrigger>
 
             <SelectPortal>
-              <SelectContent class="border border-stone-700 min-w-[115px] bg-stone-800 rounded shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade z-[100]">
+              <SelectContent class="border border-stone-700 min-w-32 bg-code rounded-md shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade z-[100]">
                 <SelectViewport class="p-[5px]">
                   <SelectItem
                     v-for="framework in cssFrameworkOptions"
                     :key="framework.label"
-                    class="text-xs leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                    class="text-xs leading-none rounded-[3px] text-white flex items-center h-[25px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-primary/10 data-[highlighted]:text-primary data-[state=checked]:text-primary"
                     :value="framework.value"
                   >
                     <SelectItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">
-                      <Icon icon="radix-icons:check" />
+                      <Icon icon="lucide:check" />
                     </SelectItemIndicator>
 
                     <SelectItemText>
@@ -140,7 +148,7 @@ watch(open, () => {
       >
         <button
           ref="buttonRef"
-          class="mt-4 bg-neutral-800 hover:bg-neutral-700 px-3 py-1.5 text-sm rounded-lg  border-neutral-700 border"
+          class="mt-4 bg-code hover:bg-neutral-800 px-3 py-1.5 text-sm rounded-md  border-neutral-700 border text-white"
           @click="open = !open"
         >
           {{ open ? "Collapse code" : "Expand code" }}
@@ -149,9 +157,3 @@ watch(open, () => {
     </div>
   </TabsRoot>
 </template>
-
-<style scoped>
-:deep(*) {
-  color: white;
-}
-</style>

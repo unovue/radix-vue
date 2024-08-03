@@ -23,10 +23,10 @@ function handleClose() {
 
 <template>
   <DialogRoot v-model:open="open">
-    <DialogTrigger class="flex items-center space-x-2 text-sm py-1.5 px-3 rounded-lg md:border border-muted md:bg-background hover:bg-card text-muted-foreground">
+    <DialogTrigger class="flex items-center space-x-2 text-sm py-[7px] px-3 rounded-lg md:border border-muted md:bg-background hover:bg-card text-muted-foreground">
       <Icon icon="lucide:search" />
       <span class="hidden md:inline-flex w-24 lg:w-40 text-left">Search</span>
-      <span class="hidden md:inline-flex prose dark:prose-invert prose-stone text-xs">
+      <span class="hidden md:inline-flex text-xs">
         <kbd>⌘ K</kbd>
       </span>
     </DialogTrigger>

@@ -26,6 +26,16 @@ const { top } = toRefs(arrivedState)
         >
       </div>
     </div> -->
+    <div
+      v-if="path.includes('docs')"
+      class="z-0 fixed bottom-0 right-0 inset-0 pointer-events-none dark:opacity-50"
+    >
+      <img
+        class="w-full h-full"
+        src="/new-bg.png"
+        alt="backdrop"
+      >
+    </div>
 
     <header
       class="max-w-[1440px] w-full py-4 flex items-center justify-between sticky top-0 z-10 transition-all duration-500 px-6 h-[68px] md:h-full"

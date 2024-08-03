@@ -35,6 +35,7 @@ export default defineConfig({
       entry: {
         index: resolve(__dirname, 'src/index.ts'),
         date: resolve(__dirname, 'src/date/index.ts'),
+        constant: resolve(__dirname, '/constant/index.ts'),
       },
     },
     rollupOptions: {

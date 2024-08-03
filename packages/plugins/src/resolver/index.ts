@@ -1,5 +1,5 @@
 import type { ComponentResolver } from 'unplugin-vue-components'
-import { components } from '../../../core/constant/components'
+import { components } from 'reka-ui/constant'
 
 export interface ResolverOptions {
   /**

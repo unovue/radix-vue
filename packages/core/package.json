@@ -70,6 +70,14 @@
         "types": "./dist/resolver/index.d.cts",
         "default": "./dist/resolver/index.cjs"
       }
+    },
+    "./constant": {
+      "import": {
+        "default": "./dist/constant.js"
+      },
+      "require": {
+        "default": "./dist/constant.umd.cjs"
+      }
     }
   },
   "main": "./dist/index.umd.cjs",

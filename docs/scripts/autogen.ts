@@ -6,7 +6,7 @@ import type { ComponentMeta, MetaCheckerOptions, PropertyMeta, PropertyMetaSchem
 import { createComponentMetaChecker } from 'vue-component-meta'
 import { babelParse, parse as sfcParse } from 'vue/compiler-sfc'
 import _traverse from '@babel/traverse'
-import { components } from '../../packages/core/constant/components'
+import { components } from 'reka-ui/constant'
 import { fileURLToPath } from 'node:url'
 import { transformJSDocLinks } from './utils'
 

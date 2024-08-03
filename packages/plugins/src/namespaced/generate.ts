@@ -1,4 +1,4 @@
-import { components } from '../../../core/constant/components'
+import { components } from 'reka-ui/constant'
 import { writeFileSync } from 'node:fs'
 
 const excludedComponent = ['configProvider', 'primitive', 'visuallyHidden']

@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { ref, toRefs } from 'vue'
+import { computed, ref, toRefs } from 'vue'
 import type { DataOrientation, Direction } from '../shared/types'
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useDirection, useForwardExpose } from '@/shared'
@@ -58,6 +58,18 @@ defineSlots<{
   default: (props: {
     /** Current step */
     modelValue: number | undefined
+    /** Total number of steps */
+    totalSteps: number
+    /** Whether or not the next step is disabled */
+    isNextDisabled: boolean
+    /** Whether or not the previous step is disabled */
+    isPrevDisabled: boolean
+    /** Whether or not the first step is active */
+    isFirstStep: boolean
+    /** Whether or not the last step is active */
+    isLastStep: boolean
+    /** Go to a specific step */
+    goToStep: (step: number) => void
   }) => any
 }>()
 
@@ -72,6 +84,34 @@ const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
   passive: (props.modelValue === undefined) as false,
 })
+
+const totalStepperItemsArray = computed(() => Array.from(totalStepperItems.value))
+
+const isFirstStep = computed(() => modelValue.value === 1)
+const isLastStep = computed(() => modelValue.value === totalStepperItems.value.size)
+
+const totalSteps = computed(() => totalStepperItems.value.size)
+
+function goToStep(step: number) {
+  if (step > totalSteps.value)
+    return
+
+  if (step < 1)
+    return
+
+  if (totalStepperItems.value.size && totalStepperItemsArray.value[step].getAttribute('disabled') === '')
+    return
+
+  if (linear.value) {
+    if (step > (modelValue.value ?? 1) + 1)
+      return
+  }
+
+  modelValue.value = step
+}
+const isNextDisabled = computed(() => !!totalStepperItemsArray.value.length && (modelValue.value === totalStepperItems.value.size || totalStepperItemsArray.value[modelValue.value ?? 1 + 1].getAttribute('disabled') === ''),
+)
+const isPrevDisabled = computed(() => !!totalStepperItemsArray.value.length && (modelValue.value === 1 || totalStepperItemsArray.value[modelValue.value ?? 1 - 1].getAttribute('disabled') === ''))
 
 provideStepperRootContext({
   modelValue,
@@ -95,7 +135,16 @@ provideStepperRootContext({
     :data-linear="linear ? '' : undefined"
     :data-orientation="orientation"
   >
-    <slot :model-value="modelValue" />
+    <slot
+      :model-value="modelValue"
+      :total-steps="totalStepperItems.size"
+      :is-next-disabled="isNextDisabled"
+      :is-prev-disabled="isPrevDisabled"
+      :is-first-step="isFirstStep"
+      :is-last-step="isLastStep"
+      :go-to-step="goToStep"
+    />
+
     <div
       aria-live="polite"
       aria-atomic="true"

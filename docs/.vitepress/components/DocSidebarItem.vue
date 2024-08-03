@@ -9,8 +9,8 @@ const { isActiveLink } = useSidebarControl(computed(() => props.item))
 </script>
 
 <template>
-  <li
-    class="flex items-center text-sm font-medium text-muted-foreground hover:bg-card hover:text-foreground rounded-lg"
+  <div
+    class="flex items-center text-sm text-muted-foreground hover:bg-card hover:text-foreground rounded-lg"
     :class="{ 'is-active !bg-primary/10 !text-primary font-semibold': isActiveLink }"
   >
     <a
@@ -18,5 +18,5 @@ const { isActiveLink } = useSidebarControl(computed(() => props.item))
       class="h-[2.15rem] px-4 inline-flex items-center w-full"
       v-html="item.text"
     />
-  </li>
+  </div>
 </template>

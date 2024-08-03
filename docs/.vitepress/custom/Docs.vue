@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { Content, useData, useRoute } from 'vitepress'
-import { computed, ref, toRefs } from 'vue'
+import { computed, toRefs } from 'vue'
 import DocOutline from '../components/DocOutline.vue'
-import DocSidebarItem from '../components/DocSidebarItem.vue'
+import DocSidebar from '../components/DocSidebar.vue'
 import DocTopbar from '../components/DocTopbar.vue'
 import DocFooter from '../components/DocFooter.vue'
 import type { DefaultTheme } from 'vitepress/theme'
@@ -14,6 +14,8 @@ const { path } = toRefs(useRoute())
 
 const sidebar = computed(() => theme.value.sidebar as DefaultTheme.SidebarItem[])
 const activeSection = computed(() => sidebar.value.find(section => flatten(section.items ?? [], 'items')?.find(item => item.link === path.value.replace('.html', ''))))
+
+const isExamplePage = computed(() => path.value.includes('examples'))
 </script>
 
 <template>
@@ -21,39 +23,17 @@ const activeSection = computed(() => sidebar.value.find(section => flatten(secti
     <DocTopbar />
 
     <main class="flex">
-      <aside class="hidden md:block w-[17rem] flex-shrink-0 py-8 pl-4 pr-2 sticky top-[7.25rem] h-full overflow-y-auto max-h-[calc(100vh-7.25rem)]">
-        <ul
+      <aside class="hidden md:block w-[17rem] flex-shrink-0 py-4 pl-4 pr-4 sticky top-[7.25rem] h-full overflow-y-auto max-h-[calc(100vh-7.25rem)]">
+        <div
           v-if="activeSection"
           class="h-full"
         >
-          <template
-            v-for="item in activeSection.items"
-            :key="item.text"
-          >
-            <ul
-              v-if="item.items?.length"
-              class="mb-6"
-            >
-              <div class="pl-4 font-bold text-sm pb-2">
-                {{ item.text }}
-              </div>
-              <DocSidebarItem
-                v-for="subitem in item.items"
-                :key="subitem.text"
-                :item="subitem"
-              />
-            </ul>
-
-            <DocSidebarItem
-              v-else
-              :item="item"
-            />
-          </template>
-        </ul>
+          <DocSidebar :items="activeSection.items ?? []" />
+        </div>
         <div class="h-6 w-full" />
       </aside>
 
-      <div class="px-6 md:px-12 py-6 md:py-10 overflow-x-hidden flex-1 ">
+      <div class="px-6 md:px-14 py-6 md:py-12 overflow-x-hidden flex-1 ">
         <CollapsibleRoot
           :key="path"
           class="block xl:hidden mb-4"
@@ -74,10 +54,13 @@ const activeSection = computed(() => sidebar.value.find(section => flatten(secti
           <Content />
         </article>
 
-        <DocFooter />
+        <DocFooter v-if="!isExamplePage" />
       </div>
 
-      <div class="hidden xl:block w-64 flex-shrink-0 py-8 pl-6 sticky top-[7.25rem] h-full overflow-y-auto md:overflow-x-hidden max-h-[calc(100vh-7.25rem)]">
+      <div
+        v-if="!isExamplePage"
+        class="hidden xl:block w-64 flex-shrink-0 py-12 pl-2 sticky top-[7.25rem] h-full overflow-y-auto md:overflow-x-hidden max-h-[calc(100vh-7.25rem)]"
+      >
         <DocOutline />
       </div>
     </main>

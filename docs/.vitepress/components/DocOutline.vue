@@ -23,7 +23,7 @@ useActiveAnchor(container, marker)
 <template>
   <nav
     ref="container"
-    class="block relative"
+    class="block relative not-prose"
   >
     <div
       ref="marker"

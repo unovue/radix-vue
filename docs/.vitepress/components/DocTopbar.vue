@@ -11,7 +11,7 @@ const { path } = toRefs(useRoute())
 const { page, theme } = useData()
 
 const isSidebarOpen = ref(false)
-const sidebar = computed(() => theme.value.sidebar as DefaultTheme.SidebarItem[])
+const sidebar = computed(() => (theme.value.sidebar as DefaultTheme.SidebarItem[]))
 
 const sectionTabs = computed(() => sidebar.value.map(val => ({ label: val.text, link: flatten(val.items ?? [], 'items').filter(i => !!i.link)?.[0].link, icon: val.icon })))
 
@@ -31,7 +31,7 @@ watch(path, () => {
     <div class="hidden md:flex items-center justify-between h-full">
       <div class="h-full flex items-center">
         <a
-          v-for="tab in sectionTabs"
+          v-for="tab in sectionTabs.filter(i => i.label !== 'Examples')"
           :key="tab.label"
           :href="tab.link"
           :class="{ '!border-b-primary !font-semibold !text-foreground': page.relativePath.includes(tab.label?.toLowerCase() ?? '') }"
@@ -48,15 +48,18 @@ watch(path, () => {
 
       <div class="h-full flex items-center">
         <a
-          href="/examples"
-          :class="{ '!border-b-primary !font-semibold !text-foreground': page.relativePath.includes('examples') }"
-          class="py-2 mx-4 text-sm font-medium border-b border-b-transparent text-muted-foreground hover:border-b-muted hover:text-foreground h-full inline-flex items-center gap-2"
+          v-for="tab in sectionTabs.filter(i => i.label === 'Examples')"
+          :key="tab.label"
+          :href="tab.link"
+          :class="{ '!border-b-primary !font-semibold !text-foreground': page.relativePath.includes(tab.label?.toLowerCase() ?? '') }"
+          class="py-2 mx-4 text-sm font-medium border-b border-b-transparent text-muted-foreground hover:border-b-muted hover:text-foreground h-full inline-flex items-center"
         >
           <Icon
-            icon="lucide:square-dashed-mouse-pointer"
-            class="text-lg"
+            v-if="tab.icon"
+            :icon="tab.icon"
+            class="mr-2 text-lg"
           />
-          Examples
+          <span>{{ tab.label }}</span>
         </a>
       </div>
     </div>

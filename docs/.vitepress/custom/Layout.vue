@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import Docs from './Docs.vue'
-import Examples from './Examples.vue'
 import { useData, useRoute } from 'vitepress'
 import SearchTrigger from '../components/SearchTrigger.vue'
 import Navbar from '../components/Navbar.vue'
@@ -69,13 +68,6 @@ const { top } = toRefs(arrivedState)
       class="max-w-[1440px] w-full h-full grow"
     >
       <Showcase />
-    </div>
-
-    <div
-      v-else-if="path.includes('examples')"
-      class="max-w-[1440px] w-full h-full grow"
-    >
-      <Examples />
     </div>
 
     <div

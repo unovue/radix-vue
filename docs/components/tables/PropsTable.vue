@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ProseCodeInline, ProseTable, ProseTd, ProseTh, ProseThead, ProseTr } from '../prose'
+import { ProseCodeInline, ProseTable, ProseTbody, ProseTd, ProseTh, ProseThead, ProseTr } from '../prose'
 import { Icon } from '@iconify/vue'
 
 type PropDef = {
@@ -37,7 +37,7 @@ const props = defineProps<PropsTableProps>()
       </ProseTr>
     </ProseThead>
 
-    <tbody>
+    <ProseTbody>
       <ProseTr
         v-for="(prop, index) in data"
         :key="`${prop.name}-${index}`"
@@ -84,6 +84,6 @@ const props = defineProps<PropsTableProps>()
           </div>
         </ProseTd>
       </ProseTr>
-    </tbody>
+    </ProseTbody>
   </ProseTable>
 </template>

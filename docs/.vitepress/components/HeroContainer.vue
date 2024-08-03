@@ -42,7 +42,7 @@ watch(() => props.cssFramework, () => {
     :class="{ 'my-4': type === 'example' }"
   >
     <div
-      class="not-prose p-4 rounded-t-xl bg-card w-full relative items-center justify-center flex border border-muted border-b-0"
+      class="not-prose p-4 rounded-t-xl bg-gradient-radial from-card via-card/50 to-background  w-full relative items-center justify-center flex border border-muted border-b-0"
       :class="{ 'overflow-x-auto': overflow, 'min-h-[400px]': type === 'example' }"
     >
       <div class="w-full max-w-[700px] flex items-center py-12 sm:py-[100px] custom-justify-center ">

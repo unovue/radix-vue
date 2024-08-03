@@ -16,3 +16,11 @@ Rendering multiple Checkbox elements to form a group of checkboxes. The behavior
 <Tags />
 
 <ComponentPreview type="example"  name="CheckboxGroup" />
+
+<ExampleSection>
+
+### Indicator
+
+Renders when the checkbox is in a checked or indeterminate state. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
+
+</ExampleSection>

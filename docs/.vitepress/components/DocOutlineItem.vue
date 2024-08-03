@@ -20,7 +20,7 @@ function onClick({ target: el }: Event) {
       :key="title"
     >
       <a
-        class="outline-link text-muted-foreground w-max"
+        class="outline-link text-muted-foreground w-full"
         :class="{ 'font-medium': root }"
         :href="link"
         :title="title"
@@ -44,7 +44,6 @@ function onClick({ target: el }: Event) {
 }
 
 .nested {
-  padding-right: 16px;
   padding-left: 16px;
 }
 
@@ -53,7 +52,7 @@ function onClick({ target: el }: Event) {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: color 0.5s;
+  /* transition: color 0.5s; */
   @apply text-sm leading-8;
 }
 

@@ -176,6 +176,16 @@ export default defineConfig({
           ] },
         ],
       },
+      {
+        text: 'Examples',
+        icon: 'lucide:square-dashed-mouse-pointer',
+        link: '/examples',
+        items: [
+          { text: 'Checkbox', items: [
+            { text: 'CheckboxGroup', link: '/examples/checkbox-group' },
+          ] },
+        ],
+      },
     ],
 
     socialLinks: [

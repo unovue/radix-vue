@@ -9,7 +9,7 @@ const props = defineProps<{
 
 const href = computed(() => {
   const [last, ...parts] = hyphenate(props.name).split('-').reverse()
-  return `/components/${parts.join('-')}.html#${last}`
+  return `/docs/components/${parts.reverse().join('-')}.html#${last}`
 })
 </script>
 

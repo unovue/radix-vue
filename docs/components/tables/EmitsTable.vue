@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ProseCodeInline, ProseTable, ProseTd, ProseTh, ProseThead, ProseTr } from '../prose'
+import { ProseCodeInline, ProseTable, ProseTbody, ProseTd, ProseTh, ProseThead, ProseTr } from '../prose'
 
 type PropDef = {
   name?: string
@@ -30,7 +30,7 @@ const props = defineProps<EmitsTableProps>()
         </ProseTh>
       </ProseTr>
     </ProseThead>
-    <tbody>
+    <ProseTbody>
       <ProseTr
         v-for="(prop, index) in data"
         :key="`${prop.name}-${index}`"
@@ -52,6 +52,6 @@ const props = defineProps<EmitsTableProps>()
           />
         </ProseTd>
       </ProseTr>
-    </tbody>
+    </ProseTbody>
   </ProseTable>
 </template>

@@ -273,6 +273,43 @@ In `CustomTree.vue`
 </template>
 ```
 
+### Custom children schema
+
+By default, `<TreeRoot />` expects you to provide the list of node's children by passing a list of `children` for every node. You can override that by providing the `getChildren` prop.
+
+::: NOTE
+If the node doesn't have any children, `getChildren` should return `undefined` instead of an empty array.
+:::
+
+```vue line=22
+<script setup lang="ts">
+import { ref } from 'vue'
+import { TreeRoot } from 'radix-vue'
+
+interface FileNode {
+  title: string
+  icon: string
+}
+
+interface DirectoryNode {
+  title: string
+  icon: string
+  directories?: DirectoryNode[]
+  files?: FileNode[]
+}
+</script>
+
+<template>
+  <TreeRoot
+    :items="items"
+    :get-key="(item) => item.title"
+    :get-children="(item) => (!item.files) ? item.directories : (!item.directories) ? item.files : [...item.directories, ...item.files]"
+  >
+    ...
+  </TreeRoot>
+</template>
+```
+
 ### Draggable/Sortable Tree
 
 For more complex draggable `Tree` component, in this example we will be using [pragmatic-drag-and-drop](https://github.com/atlassian/pragmatic-drag-and-drop), as the core package for handling dnd.

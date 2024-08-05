@@ -1,6 +1,6 @@
 import { NumberFormatter, NumberParser } from '@internationalized/number'
 import { type MaybeComputedElementRef, unrefElement, useEventListener } from '@vueuse/core'
-import { createEventHook, reactiveComputed } from '@vueuse/shared'
+import { createEventHook, isClient, reactiveComputed } from '@vueuse/shared'
 import { type Ref, computed, ref } from 'vue'
 
 export function usePressedHold(options: { target?: MaybeComputedElementRef, disabled: Ref<boolean> }) {
@@ -31,7 +31,7 @@ export function usePressedHold(options: { target?: MaybeComputedElementRef, disa
 
   // Handle press event, modified version of useMousePressed
   const isPressed = ref(false)
-  const target = computed(() => unrefElement(options.target) || window)
+  const target = computed(() => unrefElement(options.target))
 
   const onPressStart = (event: PointerEvent) => {
     // Only handle left clicks, and ignore events that bubbled through portals.
@@ -48,9 +48,8 @@ export function usePressedHold(options: { target?: MaybeComputedElementRef, disa
     handlePressEnd()
   }
 
-  useEventListener(target, 'pointerdown', onPressStart)
-
-  if (window) {
+  if (isClient) {
+    useEventListener(target || window, 'pointerdown', onPressStart)
     useEventListener(window, 'pointerup', onPressRelease)
     useEventListener(window, 'pointercancel', onPressRelease)
   }

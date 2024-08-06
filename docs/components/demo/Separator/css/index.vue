@@ -6,7 +6,7 @@ import './styles.css'
 <template>
   <div :style="{ width: '100%', maxWidth: 300, margin: '0 15px' }">
     <div class="Text">
-      Radix Primitives
+      Reka UI
     </div>
     <div
       class="Text"

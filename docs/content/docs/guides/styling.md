@@ -1,13 +1,13 @@
 ---
 
 title: Styling
-description: Radix Primitives are unstyled—and compatible with any styling solution—giving you complete control over styling.
+description: Reka UI are unstyled—and compatible with any styling solution—giving you complete control over styling.
 ---
 
 # Styling
 
 <Description>
-Radix Primitives are unstyled and compatible with any styling solution giving you complete control over styling.
+Reka UI are unstyled and compatible with any styling solution giving you complete control over styling.
 </Description>
 
 ## Styling overview
@@ -164,6 +164,6 @@ defineProps<Props>();
 
 ## Summary
 
-Radix Primitives were designed to encapsulate accessibility concerns and other complex functionalities, while ensuring you retain complete control over styling.
+Reka UI were designed to encapsulate accessibility concerns and other complex functionalities, while ensuring you retain complete control over styling.
 
 For convenience, stateful components include a `data-state` attribute.

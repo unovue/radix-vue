@@ -29,7 +29,7 @@ Say we want to assign an `id` attribute to whatever component/element that was r
 <!-- Native Slot -->
 <!-- Comp.vue -->
 <template>
-  <slot id="radix-01">
+  <slot id="reka-01">
     ...
   </slot>
 </template>
@@ -58,7 +58,7 @@ import { Slot } from 'reka-ui'
 
 <!-- Comp.vue -->
 <template>
-  <Slot id="radix-01">
+  <Slot id="reka-01">
     ...
   </Slot>
 </template>

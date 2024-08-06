@@ -71,7 +71,7 @@ const currentTrigger = ref('')
                       <div
                         class="mt-4 mb-[7px] text-[18px] font-medium leading-[1.2] text-white"
                       >
-                        Radix Primitives
+                        Reka UI
                       </div>
                       <p class="text-mauve4 text-[14px] leading-[1.3]">
                         Unstyled, accessible components for Vue.
@@ -152,7 +152,7 @@ const currentTrigger = ref('')
                     title="Releases"
                     href="/docs/primitives/overview/releases"
                   >
-                    Radix Primitives releases and their changelogs.
+                    Reka UI releases and their changelogs.
                   </NavigationMenuListItem>
                 </ul>
               </NavigationMenuContent>

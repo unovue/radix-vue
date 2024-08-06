@@ -121,8 +121,33 @@
   @apply border-none rounded-none;
 }
 .vp-code {
-  @apply my-0 bg-[hsl(24_9.8%_10%)] border border-[hsl(0_0%_15%)] rounded-lg;
+  @apply px-6 py-4 my-0 bg-[hsl(24_9.8%_10%)] border border-[hsl(0_0%_15%)] rounded-lg;
+
+  .diff {
+    @apply inline-block w-[calc(100%_+_48px)] px-6 -mx-6
+  }
+  .diff:before {
+    @apply absolute left-2.5
+  }
+
+  .diff.remove {
+    @apply bg-red-500/20 opacity-70
+  }
+  .diff.remove:before {
+    content: "-";
+    @apply text-red-500/80
+  }
+
+  .diff.add {
+    @apply bg-green-600/20
+  }
+  .diff.add:before {
+    content: "+";
+    @apply text-green-600/80
+  }
 }
+
+
 
 .custom-block {
   @apply rounded-xl p-6 border border-muted;

@@ -63,7 +63,7 @@ function rotateIndex() {
       >
         <AvatarImage
           class="h-full w-full rounded-[inherit] object-cover"
-          src="https://www.radix-vue.com/og.jpg"
+          src="https://reka-ui.com/og.jpg"
           alt="Pedro Duarte"
         />
         <AvatarFallback

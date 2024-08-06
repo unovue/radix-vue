@@ -24,14 +24,14 @@ const data = computed(() => JSON.parse(props.data))
 <template>
   <ul class="list-none m-0 p-0 relative [&>li:not(:last-child)]:border-b [&>li:not(:last-child)]:mb-2">
     <h5
-      class="font-mono font-bold capitalize text-xs p-2 w-full border-y border-muted-foreground/30 sticky top-0 bg-card"
+      class="font-mono font-bold capitalize text-xs px-3 py-2 w-full border-y border-muted-foreground/30 sticky top-0 bg-card"
     >
       {{ title }}
     </h5>
     <li
       v-for="(prop, index) in data"
       :key="`${prop.name}-${index}`"
-      class="border-muted px-2"
+      class="border-muted px-3"
     >
       <div class="inline-flex items-center gap-2 flex-wrap">
         <div class="text-primary font-mono font-bold text-xs">

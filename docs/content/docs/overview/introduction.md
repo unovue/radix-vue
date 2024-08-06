@@ -17,7 +17,7 @@ Reka UI is an unofficial community-led Vue port of [Radix UI](https://www.radix-
 
 </Callout>
 
-Radix Primitives is a low-level UI component library with a focus on accessibility, customization and developer experience. You can use these components either as the base layer of your design system, or adopt them incrementally.
+Reka UI is a low-level UI component library with a focus on accessibility, customization and developer experience. You can use these components either as the base layer of your design system, or adopt them incrementally.
 
 ## Vision
 
@@ -46,7 +46,7 @@ Components ship with zero styles, giving you complete control over styling. Comp
 
 ### Opened
 
-Radix Primitives are designed to be customized to suit your needs. Our open component architecture provides you granular access to each component part, so you can wrap them and add your own event listeners, props, or refs.
+Reka UI are designed to be customized to suit your needs. Our open component architecture provides you granular access to each component part, so you can wrap them and add your own event listeners, props, or refs.
 
 ### Uncontrolled
 
@@ -54,7 +54,7 @@ Where applicable, components are uncontrolled by default but can also be control
 
 ### Developer experience
 
-One of our main goals is to provide the best possible developer experience. Radix Primitives provides a fully-typed API. All components share a similar API, creating a consistent and predictable experience. We've also implemented an `asChild` prop (It's not a problem for Vue), giving users full control over the rendered element.
+One of our main goals is to provide the best possible developer experience. Reka UI provides a fully-typed API. All components share a similar API, creating a consistent and predictable experience. We've also implemented an `asChild` prop (It's not a problem for Vue), giving users full control over the rendered element.
 
 ### Tree-shaking friendly
 

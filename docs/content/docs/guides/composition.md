@@ -11,7 +11,7 @@ Use the `asChild` prop to compose Radix's functionality onto alternative
 element types or your own Vue components.
 </Description>
 
-All Radix primitive parts that render a DOM element accept an `asChild` prop. When `asChild` is set to `true`, Reka UI will not render a default DOM element, instead passing the props and behavior required to make it functional to the first child of the slots.
+All Reka UI parts that render a DOM element accept an `asChild` prop. When `asChild` is set to `true`, Reka UI will not render a default DOM element, instead passing the props and behavior required to make it functional to the first child of the slots.
 
 ## Changing the element type
 
@@ -27,7 +27,7 @@ import { TooltipRoot, TooltipTrigger, TooltipPortal } from "reka-ui";
 <template>
   <TooltipRoot>
     <TooltipTrigger asChild>
-      <a href="https://www.radix-vue.com/">Reka UI</a>
+      <a href="https://reka-ui.com/">Reka UI</a>
     </TooltipTrigger>
     <TooltipPortal>…</TooltipPortal>
   </TooltipRoot>

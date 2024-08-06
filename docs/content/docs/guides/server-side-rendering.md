@@ -1,12 +1,12 @@
 ---
 title: Server side rendering
-description: Radix Primitives can be rendered on the server.
+description: Reka UI can be rendered on the server.
 ---
 
 # Server side rendering
 
 <Description>
-Radix Primitives can be rendered on the server.
+Reka UI can be rendered on the server.
 </Description>
 
 ## Overview

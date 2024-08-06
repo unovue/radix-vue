@@ -44,9 +44,9 @@ const currentTrigger = ref('')
                 >
                   <img
                     class="w-16"
-                    src="https://www.radix-vue.com/logo.svg"
+                    src="https://reka-ui.com/logo.svg"
                   >
-                  <div class="mt-4 mb-[7px] text-[18px] font-medium leading-[1.2] text-white">Radix Primitives</div>
+                  <div class="mt-4 mb-[7px] text-[18px] font-medium leading-[1.2] text-white">Reka UI</div>
                   <p class="text-mauve4 text-[14px] leading-[1.3]">Unstyled, accessible components for Vue.</p>
                 </a>
               </NavigationMenuLink>
@@ -96,7 +96,7 @@ const currentTrigger = ref('')
               title="Getting started"
               href="/docs/primitives/overview/getting-started"
             >
-              A quick tutorial to get you up and running with Radix Primitives.
+              A quick tutorial to get you up and running with Reka UI.
             </NavigationMenuListItem>
             <NavigationMenuListItem
               title="Styling"
@@ -120,7 +120,7 @@ const currentTrigger = ref('')
               title="Releases"
               href="/docs/primitives/overview/releases"
             >
-              Radix Primitives releases and their changelogs.
+              Reka UI releases and their changelogs.
             </NavigationMenuListItem>
           </ul>
         </NavigationMenuContent>

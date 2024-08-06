@@ -1,21 +1,21 @@
 ---
 title: Animation/Transition
-description: Animate Radix Primitives with CSS keyframes, native Vue Transition or JavaScript animation library of your choice.
+description: Animate Reka UI with CSS keyframes, native Vue Transition or JavaScript animation library of your choice.
 ---
 
 # Animation
 
 <Description>
-Animate Radix Primitives with CSS keyframes, native Vue Transition or JavaScript animation library of your choice.
+Animate Reka UI with CSS keyframes, native Vue Transition or JavaScript animation library of your choice.
 </Description>
 
-Adding animation to Radix Primitives should feel similar to any other component, but there are some caveats noted here in regards to exiting animations with JS animation libraries.
+Adding animation to Reka UI should feel similar to any other component, but there are some caveats noted here in regards to exiting animations with JS animation libraries.
 
 ## Animating with CSS animation
 
 The simplest way to animate Primitives is with CSS.
 
-You can use CSS animation to animate both mount and unmount phases. The latter is possible because the Radix Primitives will suspend unmount while your animation plays out.
+You can use CSS animation to animate both mount and unmount phases. The latter is possible because the Reka UI will suspend unmount while your animation plays out.
 
 ```css
 @keyframes fadeIn {

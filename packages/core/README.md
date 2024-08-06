@@ -1,7 +1,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/radix-vue/radix-vue">
-    <img src="https://www.radix-vue.com/logo.svg" alt="Logo" width="150" />
+    <img src="https://reka-ui.com/logo.svg" alt="Logo" width="150" />
   </a>
 
 <h1 align="center">
@@ -25,10 +25,10 @@ Radix is an unstyled, customisable UI Library with built in accessibility for bu
 <a href="https://chat.radix-vue.com"><b>Get involved!</b></a>
 </p>
 <p align="center">
- <a href="https://radix-vue.com">Documentation</a> | <a href="https://www.radix-vue.com/overview/getting-started.html">Getting Started</a> | <a href="https://www.radix-vue.com/">Examples</a> | <a href="https://www.radix-vue.com/overview/introduction.html">Why Radix Vue?</a>
+ <a href="https://radix-vue.com">Documentation</a> | <a href="https://reka-ui.com/overview/getting-started.html">Getting Started</a> | <a href="https://reka-ui.com/">Examples</a> | <a href="https://reka-ui.com/overview/introduction.html">Why Radix Vue?</a>
 </p>
 
-![hero image](https://www.radix-vue.com/og.jpg)
+![hero image](https://reka-ui.com/og.jpg)
  <em>design by: [icarusgkx](https://twitter.com/icarusgkx), [melkam](https://github.com/MellKam)</em>
 
 ## Installation

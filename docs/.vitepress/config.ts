@@ -97,6 +97,7 @@ export default defineConfig({
           { text: 'Namespaced', link: '/docs/guides/namespaced-components' },
           { text: 'Internationalization (RTL)', link: '/docs/guides/i18n' },
           { text: 'Dates', link: '/docs/guides/dates' },
+          { text: 'Migration', link: '/docs/guides/migration' },
           // { text: `Namespaced ${BadgeHTML('New')}`, link: '/docs/guides/namespaced-components' },
         ],
       },

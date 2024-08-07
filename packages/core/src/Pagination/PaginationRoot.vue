@@ -22,7 +22,7 @@ export interface PaginationRootProps extends PrimitiveProps {
    */
   defaultPage?: number
   /** Number of items per page */
-  itemsPerPage?: number
+  itemsPerPage: number
   /** Number of items in your list */
   total?: number
   /** Number of sibling should be shown around the current page */
@@ -50,7 +50,6 @@ import { computed, toRefs } from 'vue'
 const props = withDefaults(defineProps<PaginationRootProps>(), {
   as: 'nav',
   total: 0,
-  itemsPerPage: 10,
   siblingCount: 2,
   defaultPage: 1,
   showEdges: false,
@@ -74,7 +73,7 @@ const page = useVModel(props, 'page', emits, {
   passive: (props.page === undefined) as false,
 }) as Ref<number>
 
-const pageCount = computed(() => Math.max(1, Math.ceil(props.total / props.itemsPerPage)))
+const pageCount = computed(() => Math.max(1, Math.ceil(props.total / (props.itemsPerPage || 1))))
 
 providePaginationRootContext({
   page,

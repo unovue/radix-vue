@@ -10,7 +10,10 @@ const props = withDefaults(defineProps<{
 </script>
 
 <template>
-  <PaginationRoot v-bind="props">
+  <PaginationRoot
+    v-bind="props"
+    :items-per-page="10"
+  >
     <PaginationList
       v-slot="{ items }"
       class="flex items-center gap-2 "

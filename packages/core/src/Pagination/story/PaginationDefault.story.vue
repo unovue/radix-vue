@@ -11,6 +11,7 @@ import { PaginationEllipsis, PaginationFirst, PaginationLast, PaginationList, Pa
       <PaginationRoot
         :total="34"
         :sibling-count="1"
+        :items-per-page="10"
       >
         <PaginationList
           v-slot="{ items }"

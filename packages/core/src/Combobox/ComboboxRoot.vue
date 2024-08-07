@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { ListboxRootProps } from '@/Listbox'
-import { createContext, useDirection, useFilter, useFormControl } from '@/shared'
+import { createContext, useDirection, useFilter } from '@/shared'
 import { usePrimitiveElement } from '@/Primitive'
 import type { AcceptableValue, GenericComponentInstance } from '@/shared/types'
 
@@ -85,7 +85,6 @@ const { primitiveElement, currentElement: parentElement } = usePrimitiveElement<
 const { multiple, disabled, ignoreFilter, dir: propDir } = toRefs(props)
 
 const dir = useDirection(propDir)
-const isFormControl = useFormControl(parentElement)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   // @ts-expect-error ignore the type error here
@@ -226,17 +225,14 @@ provideComboboxRootContext({
       :as-child="asChild"
       :dir="dir"
       :multiple="multiple"
+      :name="name"
+      :required="required"
+      :disabled="disabled"
       @highlight="emits('highlight', $event as any)"
     >
       <slot
         :open="open"
         :model-value="modelValue"
-      />
-
-      <VisuallyHiddenInput
-        v-if="isFormControl && props.name"
-        :name="props.name"
-        :value="modelValue"
       />
     </ListboxRoot>
   </PopperRoot>

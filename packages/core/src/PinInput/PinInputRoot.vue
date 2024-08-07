@@ -3,6 +3,7 @@ import { type ComputedRef, type Ref, computed, ref, toRefs, watch } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useDirection, useForwardExpose } from '@/shared'
 import type { Direction } from '@/shared/types'
+import { VisuallyHidden } from '@/VisuallyHidden'
 
 export type PinInputRootEmits = {
   'update:modelValue': [value: string[]]
@@ -119,24 +120,16 @@ providePinInputRootContext({
     :data-disabled="disabled ? '' : undefined"
   >
     <slot :model-value="modelValue" />
-  </Primitive>
 
-  <input
-    :id="id"
-    type="text"
-    tabindex="-1"
-    aria-hidden
-    :value="modelValue.join('')"
-    :name="name"
-    :disabled="disabled"
-    :required="required"
-    :style="{
-      transform: 'translateX(-100%)',
-      position: 'absolute',
-      pointerEvents: 'none',
-      opacity: 0,
-      margin: 0,
-    }"
-    @focus="Array.from(inputElements)?.[0]?.focus()"
-  >
+    <VisuallyHidden
+      :id="id"
+      as="input"
+      feature="focusable"
+      :value="modelValue.join('')"
+      :name="name"
+      :disabled="disabled"
+      :required="required"
+      @focus="Array.from(inputElements)?.[0]?.focus()"
+    />
+  </Primitive>
 </template>

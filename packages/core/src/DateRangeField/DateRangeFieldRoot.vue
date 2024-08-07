@@ -93,6 +93,7 @@ export const [injectDateRangeFieldRootContext, provideDateRangeFieldRootContext]
 import { computed, nextTick, onMounted, ref, toRefs, watch } from 'vue'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
+import { VisuallyHidden } from '@/VisuallyHidden'
 
 defineOptions({
   inheritAttrs: false,
@@ -368,24 +369,16 @@ defineExpose({
       :model-value="modelValue"
       :segments="segmentContents"
     />
-  </Primitive>
 
-  <input
-    :id="id"
-    type="text"
-    tabindex="-1"
-    aria-hidden
-    :value="`${modelValue.start?.toString()} - ${modelValue.end?.toString()}`"
-    :name="name"
-    :disabled="disabled"
-    :required="required"
-    :style="{
-      transform: 'translateX(-100%)',
-      position: 'absolute',
-      pointerEvents: 'none',
-      opacity: 0,
-      margin: 0,
-    }"
-    @focus="Array.from(segmentElements)?.[0]?.focus()"
-  >
+    <VisuallyHidden
+      :id="id"
+      as="input"
+      feature="focusable"
+      :value="`${modelValue.start?.toString()} - ${modelValue.end?.toString()}`"
+      :name="name"
+      :disabled="disabled"
+      :required="required"
+      @focus="Array.from(segmentElements)?.[0]?.focus()"
+    />
+  </Primitive>
 </template>

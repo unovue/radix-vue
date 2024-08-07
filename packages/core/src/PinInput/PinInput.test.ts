@@ -14,7 +14,7 @@ describe('given default PinInput', () => {
   beforeEach(() => {
     document.body.innerHTML = ''
     wrapper = mount(PinInput, { attachTo: document.body })
-    inputs = wrapper.find('div').findAll('input')
+    inputs = wrapper.find('div').findAll('input:not([aria-hidden])')
     inputs[0].element.focus()
   })
 
@@ -153,7 +153,7 @@ describe('give PinInput type=number', async () => {
   beforeEach(() => {
     document.body.innerHTML = ''
     wrapper = mount(PinInput, { props: { type: 'number' }, attachTo: document.body })
-    inputs = wrapper.find('div').findAll('input')
+    inputs = wrapper.find('div').findAll('input:not([aria-hidden])')
     inputs[0].element.focus()
   })
 

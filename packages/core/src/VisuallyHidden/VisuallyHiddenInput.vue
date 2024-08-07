@@ -1,17 +1,20 @@
 <script setup lang="ts" generic="T">
 import { computed } from 'vue'
-import VisuallyHidden from './VisuallyHidden.vue'
+import VisuallyHidden, { type VisuallyHiddenProps } from './VisuallyHidden.vue'
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   name: string
   value: T
   required?: boolean
   disabled?: boolean
-}>()
+  feature?: VisuallyHiddenProps['feature']
+}>(), {
+  feature: 'fully-hidden',
+})
 
 const parsedValue = computed(() => {
   // if primitive value
@@ -46,7 +49,7 @@ const parsedValue = computed(() => {
     :key="parsed.name"
     v-bind="$attrs"
     as="input"
-    feature="fully-hidden"
+    :feature="feature"
     :name="parsed.name"
     :value="parsed.value"
     :required="required"

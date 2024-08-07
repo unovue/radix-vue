@@ -2,7 +2,7 @@
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import type { AcceptableValue, DataOrientation, Direction } from '@/shared/types'
-import { createContext, useDirection, useForwardExpose } from '@/shared'
+import { createContext, useDirection, useFormControl, useForwardExpose } from '@/shared'
 
 export interface RadioGroupRootProps extends PrimitiveProps {
   /** The controlled value of the radio item to check. Can be binded as `v-model`. */
@@ -50,6 +50,7 @@ import { toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { Primitive } from '@/Primitive'
 import { RovingFocusGroup } from '@/RovingFocus'
+import { VisuallyHiddenInput } from '@/VisuallyHidden'
 
 const props = withDefaults(defineProps<RadioGroupRootProps>(), {
   disabled: false,
@@ -67,7 +68,7 @@ defineSlots<{
   }) => any
 }>()
 
-const { forwardRef } = useForwardExpose()
+const { forwardRef, currentElement } = useForwardExpose()
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
   passive: (props.modelValue === undefined) as false,
@@ -75,6 +76,8 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 
 const { disabled, loop, orientation, name, required, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
+const isFormControl = useFormControl(currentElement)
+
 provideRadioGroupRootContext({
   modelValue,
   changeModelValue: (value) => {
@@ -101,13 +104,19 @@ provideRadioGroupRootContext({
       :data-disabled="disabled ? '' : undefined"
       :as-child="asChild"
       :as="as"
-      :required="required"
       :aria-orientation="orientation"
       :aria-required="required"
       :dir="dir"
-      :name="name"
     >
       <slot :model-value="modelValue" />
+
+      <VisuallyHiddenInput
+        v-if="isFormControl && name"
+        :required="required"
+        :disabled="disabled"
+        :value="modelValue"
+        :name="name"
+      />
     </Primitive>
   </RovingFocusGroup>
 </template>

@@ -60,6 +60,8 @@ export interface ListboxRootProps<T = AcceptableValue> extends PrimitiveProps {
   by?: string | ((a: T, b: T) => boolean)
   /** The name of the listbox. Submitted with its owning form as part of a name/value pair. */
   name?: string
+  /** When `true`, indicates that the user must set the value before the owning form can be submitted. */
+  required?: boolean
 }
 
 export type ListboxRootEmits<T = AcceptableValue> = {
@@ -372,9 +374,11 @@ provideListboxRootContext({
     <slot :model-value="modelValue" />
 
     <VisuallyHiddenInput
-      v-if="isFormControl && props.name"
-      :name="props.name"
+      v-if="isFormControl && name"
+      :name="name"
       :value="modelValue"
+      :disabled="disabled"
+      :required="required"
     />
   </Primitive>
 </template>

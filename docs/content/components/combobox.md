@@ -258,7 +258,9 @@ An optional arrow element to render alongside the content. This can be used to h
 
 Unlike native HTML form controls which only allow you to provide strings as values, `radix-vue` supports binding complex objects as well.
 
-```vue line=12,23
+Make sure to set the `displayValue` prop to set the input value on item selection.
+
+```vue line=12,18,26
 <script setup lang="ts">
 import { ref } from 'vue'
 import { ComboboxContent, ComboboxInput, ComboboxItem, ComboboxPortal, ComboboxRoot } from 'radix-vue'
@@ -274,7 +276,10 @@ const selectedPeople = ref(people[0])
 </script>
 
 <template>
-  <ComboboxRoot v-model="selectedPeople">
+  <ComboboxRoot
+    v-model="selectedPeople"
+    :display-value="(v) => v.name"
+  >
     <ComboboxInput />
     <ComboboxPortal>
       <ComboboxContent>

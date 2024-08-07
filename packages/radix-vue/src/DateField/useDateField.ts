@@ -2,7 +2,7 @@ import { type Formatter, useKbd } from '@/shared'
 import type { AnyExceptLiteral, HourCycle, SegmentPart, SegmentValueObj } from '@/shared/date'
 import { getDaysInMonth, toDate } from '@/date'
 import type { CalendarDateTime, CycleTimeOptions, DateFields, DateValue, TimeFields } from '@internationalized/date'
-import { type Ref, computed } from 'vue'
+import { type Ref, computed, ref } from 'vue'
 import { isAcceptableSegmentKey, isNumberString, isSegmentNavigationKey } from './utils'
 
 type MinuteSecondIncrementProps = {
@@ -261,6 +261,7 @@ export type UseDateFieldProps = {
 
 export function useDateField(props: UseDateFieldProps) {
   const kbd = useKbd()
+  const filledDate = ref(false)
 
   function minuteSecondIncrementation({ e, part, dateRef, prevValue }: MinuteSecondIncrementProps): number {
     const sign = e.key === kbd.ARROW_UP ? 1 : -1
@@ -825,6 +826,10 @@ export function useDateField(props: UseDateFieldProps) {
         })
 
         props.modelValue.value = dateRef.copy()
+        filledDate.value = true
+      }
+      else if (filledDate.value) {
+        props.modelValue.value = undefined
       }
     }
   }

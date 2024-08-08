@@ -28,6 +28,7 @@ export const discord = 'https://chat.radix-vue.com'
 // export const twitter = "https://twitter.com/vitest_dev";
 
 /* Avatar/Image/Sponsors servers */
+export const sponsor = 'https://github.com/sponsor/zernonia'
 export const preconnectLinks = [googleapis, gstatic]
 export const preconnectHomeLinks = [googleapis, gstatic]
 

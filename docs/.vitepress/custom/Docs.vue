@@ -5,6 +5,7 @@ import DocOutline from '../components/DocOutline.vue'
 import DocSidebar from '../components/DocSidebar.vue'
 import DocTopbar from '../components/DocTopbar.vue'
 import DocFooter from '../components/DocFooter.vue'
+import DocCommunity from '../components/DocCommunity.vue'
 import type { DefaultTheme } from 'vitepress/theme'
 import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from 'reka-ui'
 import { flatten } from '../functions/flatten'
@@ -62,6 +63,7 @@ const isExamplePage = computed(() => path.value.includes('examples'))
         class="hidden xl:block w-64 flex-shrink-0 py-12 pl-2 sticky top-[7.25rem] h-full overflow-y-auto md:overflow-x-hidden max-h-[calc(100vh-7.25rem)]"
       >
         <DocOutline />
+        <DocCommunity class="mt-6" />
       </div>
     </main>
   </div>

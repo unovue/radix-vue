@@ -59,7 +59,7 @@ function onClick({ target: el }: Event) {
 .outline-link:hover,
 .outline-link.active {
   transition: color 0.25s;
-  @apply text-foreground font-medium;
+  @apply text-foreground;
 }
 
 .outline-link.nested {

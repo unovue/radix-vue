@@ -139,7 +139,7 @@
   }
 
   .diff.add {
-    @apply bg-green-600/20
+    @apply bg-green-600/15
   }
   .diff.add:before {
     content: "+";

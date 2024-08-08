@@ -1,6 +1,6 @@
 import antfu from '@antfu/eslint-config'
 
-export default antfu(
+export default antfu([
   {
     vue: true,
     typescript: true,
@@ -38,6 +38,12 @@ export default antfu(
     },
   },
   {
+    files: ['*.md'], // in documentation we allow more attributes per line
+    rules: {
+      'vue/max-attributes-per-line': 'off',
+    },
+  },
+  {
     files: ['*.story.vue'],
     rules: {
       'no-console': 'off',
@@ -45,4 +51,4 @@ export default antfu(
       'unused-imports/no-unused-vars': 'off',
     },
   },
-)
+])

@@ -2,6 +2,7 @@ import { defineConfig, postcssIsolateStyles } from 'vitepress'
 import autoprefixer from 'autoprefixer'
 import anchor from 'markdown-it-anchor'
 import tailwind from 'tailwindcss'
+import { version } from '../../package.json'
 import {
   discord,
   font,
@@ -15,7 +16,6 @@ import {
   rekaShortName,
   releases,
 } from './meta'
-import { version } from '../../package.json'
 import { teamMembers } from './contributors'
 import ComponentPreviewPlugin from './plugins/ComponentPreview'
 import InstallationTabsPlugin from './plugins/InstallationTabs'
@@ -212,7 +212,7 @@ export default defineConfig({
     anchor: {
       callback(token) {
         // set tw `group` modifier to heading element
-        token.attrSet('class', 'group relative border-none mb-4 lg:-ml-2 lg:pl-2 w-max')
+        token.attrSet('class', 'group relative border-none mb-4 lg:-ml-2 lg:pl-2 lg:pr-2 w-max')
       },
       permalink: anchor.permalink.linkInsideHeader({
         class: 'header-anchor [&_span]:focus:opacity-100 [&_span_>_span]:focus:outline',

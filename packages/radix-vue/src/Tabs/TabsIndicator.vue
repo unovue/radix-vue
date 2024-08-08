@@ -25,7 +25,7 @@ const indicatorStyle = ref<IndicatorStyle>({
   position: null,
 })
 
-watch(() => context.modelValue.value, async (n) => {
+watch(() => [context.modelValue.value, context?.dir.value], async () => {
   await nextTick()
   updateIndicatorStyle()
 }, { immediate: true })

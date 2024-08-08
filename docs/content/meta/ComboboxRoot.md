@@ -81,6 +81,12 @@
     'required': false
   },
   {
+    'name': 'required',
+    'description': '<p>When <code>true</code>, indicates that the user must set the value before the owning form can be submitted.</p>\n',
+    'type': 'boolean',
+    'required': false
+  },
+  {
     'name': 'resetSearchTermOnBlur',
     'description': '<p>Whether to reset the searchTerm when the Combobox input blurred</p>\n',
     'type': 'boolean',

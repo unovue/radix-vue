@@ -70,6 +70,12 @@
     'default': '\'vertical\''
   },
   {
+    'name': 'required',
+    'description': '<p>When <code>true</code>, indicates that the user must set the value before the owning form can be submitted.</p>\n',
+    'type': 'boolean',
+    'required': false
+  },
+  {
     'name': 'selectionBehavior',
     'description': '<p>How multiple selection should behave in the collection.</p>\n',
     'type': '\'replace\' | \'toggle\'',

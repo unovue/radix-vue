@@ -31,8 +31,7 @@
     'name': 'itemsPerPage',
     'description': '<p>Number of items per page</p>\n',
     'type': 'number',
-    'required': false,
-    'default': '10'
+    'required': true
   },
   {
     'name': 'page',

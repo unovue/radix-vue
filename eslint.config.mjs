@@ -1,9 +1,21 @@
 import antfu from '@antfu/eslint-config'
 
-export default antfu([
+export default antfu(
   {
-    vue: true,
+    vue: {
+      overrides: {
+        'vue/max-attributes-per-line': ['error', {
+          singleline: 1,
+          multiline: 1,
+        }],
+      },
+    },
     typescript: true,
+    markdown: {
+      overrides: {
+        'vue/max-attributes-per-line': 'off', // in documentation we allow more attributes per line
+      },
+    },
   },
   {
     ignores: ['*.js'],
@@ -29,21 +41,6 @@ export default antfu([
     },
   },
   {
-    files: ['**/*.vue'],
-    rules: {
-      'vue/max-attributes-per-line': ['error', {
-        singleline: 1,
-        multiline: 1,
-      }],
-    },
-  },
-  {
-    files: ['*.md'], // in documentation we allow more attributes per line
-    rules: {
-      'vue/max-attributes-per-line': 'off',
-    },
-  },
-  {
     files: ['*.story.vue'],
     rules: {
       'no-console': 'off',
@@ -51,4 +48,4 @@ export default antfu([
       'unused-imports/no-unused-vars': 'off',
     },
   },
-])
+)

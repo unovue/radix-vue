@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { ProseCodeInline, ProseTable, ProseTd, ProseTh, ProseThead, ProseTr } from './prose'
-import { Icon } from '@iconify/vue'
 
 type PropDef = {
   name?: string

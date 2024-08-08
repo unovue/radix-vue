@@ -58,7 +58,8 @@ CSS variable and data attributes names have been updated to use the `reka` prefi
   ```vue
   <template>
     <ComboboxRoot v-model:searchTerm="search" :display-value="(v) => v.name" /> // [!code --]
-    <ComboboxRoot> // [!code ++]
+    <ComboboxRoot>
+      // [!code ++]
       <ComboboxInput v-model="search" :display-value="(v) => v.name" /> // [!code ++]
     </ComboboxRoot> // [!code ++]
   </template>

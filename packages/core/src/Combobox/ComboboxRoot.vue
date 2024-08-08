@@ -63,7 +63,6 @@ export interface ComboboxRootProps<T = AcceptableValue> extends Omit<ListboxRoot
 import { computed, nextTick, reactive, ref, toRefs, watch } from 'vue'
 import { PopperRoot } from '@/Popper'
 import { type EventHookOn, createEventHook, useVModel } from '@vueuse/core'
-import { VisuallyHiddenInput } from '@/VisuallyHidden'
 import { ListboxRoot } from '@/Listbox'
 
 const props = withDefaults(defineProps<ComboboxRootProps<T>>(), {

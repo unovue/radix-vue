@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ProseCodeInline, ProseTable, ProseTbody, ProseTd, ProseTh, ProseThead, ProseTr } from '../prose'
-import { Icon } from '@iconify/vue'
 
 type KeyboardDef = {
   attribute: string

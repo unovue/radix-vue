@@ -1,7 +1,6 @@
 import { useVModel } from '@vueuse/core'
 import { type Ref, computed, ref, watch } from 'vue'
 import type { AcceptableValue, SingleOrMultipleProps } from './types'
-import { isNullish } from './nullish'
 import isEqual from 'fast-deep-equal'
 import { isValueEqualOrExist } from './isValueEqualOrExist'
 

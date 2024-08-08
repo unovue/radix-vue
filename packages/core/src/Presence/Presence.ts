@@ -6,7 +6,6 @@ import {
   toRefs,
 } from 'vue'
 import type {
-  Ref,
   SlotsType,
   VNode,
 } from 'vue'

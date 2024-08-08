@@ -85,7 +85,6 @@ export interface MenuRootContentTypeProps
 
 <script setup lang="ts">
 import {
-  computed,
   onUnmounted,
   ref,
   toRefs,

@@ -162,7 +162,7 @@ export const [injectPopperContentContext, providePopperContentContext]
 </script>
 
 <script setup lang="ts">
-import { computed, ref, toRefs, watchEffect } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import { computedEager } from '@vueuse/core'
 import {
   autoUpdate,

@@ -2,7 +2,7 @@
 import { useVModel } from '@vueuse/core'
 import { Primitive, type PrimitiveProps } from '..'
 import { injectListboxRootContext } from './ListboxRoot.vue'
-import { computed, nextTick, onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import { usePrimitiveElement } from '@/Primitive'
 
 export interface ListboxFilterProps extends PrimitiveProps {

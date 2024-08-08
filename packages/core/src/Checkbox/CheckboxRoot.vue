@@ -42,7 +42,7 @@ export const [injectCheckboxRootContext, provideCheckboxRootContext]
 </script>
 
 <script setup lang="ts">
-import { computed, toRefs } from 'vue'
+import { computed } from 'vue'
 import { Primitive } from '@/Primitive'
 import { RovingFocusItem } from '@/RovingFocus'
 import { getState, isIndeterminate } from './utils'

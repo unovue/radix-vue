@@ -107,7 +107,7 @@ export function usePointerDownOutside(
       else {
         // We need to remove the event listener in case the outside click has been canceled.
         // See: https://github.com/radix-ui/primitives/issues/2171
-        ownerDocumentClickCleanup()
+        ownerDocumentClickCleanup && ownerDocumentClickCleanup()
       }
       isPointerInsideDOMTree.value = false
     }
@@ -130,7 +130,7 @@ export function usePointerDownOutside(
 
     cleanupFn(() => {
       window.clearTimeout(timerId)
-      ownerDocumentPointerdownCleanup()
+      ownerDocumentPointerdownCleanup && ownerDocumentPointerdownCleanup()
     })
   })
 
@@ -175,6 +175,8 @@ export function useFocusOutside(
     }
 
     ownerDocumentFocusinCleanup = useEventListener(ownerDocument, 'focusin', handleFocus)
+
+    cleanupFn(() => ownerDocumentFocusinCleanup())
   })
 
   return {

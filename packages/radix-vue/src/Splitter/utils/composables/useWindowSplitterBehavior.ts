@@ -17,7 +17,7 @@ export function useWindowSplitterResizeHandlerBehavior({
   resizeHandler: Ref<ResizeHandler | null>
   panelGroupElement: Ref<ParentNode | null>
 }): void {
-  watchEffect(() => {
+  watchEffect((onCleanup) => {
     const _panelGroupElement = panelGroupElement.value
     if (disabled.value || resizeHandler.value === null || _panelGroupElement === null)
       return
@@ -76,6 +76,10 @@ export function useWindowSplitterResizeHandlerBehavior({
       }
     }
 
-    useEventListener(handleElement, 'keydown', onKeyDown)
+    const handleElementKeydownCleanup = useEventListener(handleElement, 'keydown', onKeyDown)
+
+    onCleanup(() => {
+      handleElementKeydownCleanup()
+    })
   })
 }

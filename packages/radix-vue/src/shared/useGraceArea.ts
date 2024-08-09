@@ -4,7 +4,7 @@ import { createEventHook, refAutoReset } from '@vueuse/shared'
 import { useEventListener } from '@vueuse/core'
 
 export function useGraceArea(triggerElement: Ref<HTMLElement | undefined>, containerElement: Ref<HTMLElement | undefined>) {
-// Reset the inTransit state if idle/scrolled.
+  // Reset the inTransit state if idle/scrolled.
   const isPointerInTransit = refAutoReset(false, 300)
 
   const pointerGraceArea = ref<Polygon | null>(null)
@@ -26,17 +26,22 @@ export function useGraceArea(triggerElement: Ref<HTMLElement | undefined>, conta
     isPointerInTransit.value = true
   }
 
-  watchEffect(() => {
+  watchEffect((onCleanup) => {
     if (triggerElement.value && containerElement.value) {
       const handleTriggerLeave = (event: PointerEvent) => handleCreateGraceArea(event, containerElement.value!)
       const handleContentLeave = (event: PointerEvent) => handleCreateGraceArea(event, triggerElement.value!)
 
-      useEventListener(triggerElement, 'pointerleave', handleTriggerLeave)
-      useEventListener(containerElement, 'pointerleave', handleContentLeave)
+      const triggerElementPointerLeaveCleanup = useEventListener(triggerElement, 'pointerleave', handleTriggerLeave)
+      const triggerElementPointerLeaveContentCleanup = useEventListener(containerElement, 'pointerleave', handleContentLeave)
+
+      onCleanup(() => {
+        triggerElementPointerLeaveCleanup()
+        triggerElementPointerLeaveContentCleanup()
+      })
     }
   })
 
-  watchEffect(() => {
+  watchEffect((onCleanup) => {
     if (pointerGraceArea.value) {
       const handleTrackPointerGrace = (event: PointerEvent) => {
         if (!pointerGraceArea.value)
@@ -56,7 +61,11 @@ export function useGraceArea(triggerElement: Ref<HTMLElement | undefined>, conta
         }
       }
 
-      useEventListener(document, 'pointermove', handleTrackPointerGrace)
+      const documentPointermoveCleanup = useEventListener(document, 'pointermove', handleTrackPointerGrace)
+
+      onCleanup(() => {
+        documentPointermoveCleanup()
+      })
     }
   })
 

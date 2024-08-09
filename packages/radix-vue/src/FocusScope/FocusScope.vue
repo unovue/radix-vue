@@ -69,7 +69,7 @@ const focusScope = reactive({
   },
 })
 
-watchEffect((cleanupFn) => {
+watchEffect((onCleanup) => {
   if (!isClient)
     return
   const container = currentElement.value
@@ -123,19 +123,21 @@ watchEffect((cleanupFn) => {
       focus(container)
   }
 
-  useEventListener(document, 'focusin', handleFocusIn)
-  useEventListener(document, 'focusout', handleFocusOut)
+  const documentFocusInCleanup = useEventListener(document, 'focusin', handleFocusIn)
+  const documentFocusOutCleanup = useEventListener(document, 'focusout', handleFocusOut)
 
   const mutationObserver = new MutationObserver(handleMutations)
   if (container)
     mutationObserver.observe(container, { childList: true, subtree: true })
 
-  cleanupFn(() => {
+  onCleanup(() => {
+    documentFocusInCleanup()
+    documentFocusOutCleanup()
     mutationObserver.disconnect()
   })
 })
 
-watchEffect(async (cleanupFn) => {
+watchEffect(async (onCleanup) => {
   const container = currentElement.value
 
   await nextTick()
@@ -160,7 +162,7 @@ watchEffect(async (cleanupFn) => {
     }
   }
 
-  cleanupFn(() => {
+  onCleanup(() => {
     container.removeEventListener(AUTOFOCUS_ON_MOUNT, (ev: Event) =>
       emits('mountAutoFocus', ev))
 

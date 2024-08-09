@@ -24,7 +24,7 @@ const { forwardRef, currentElement } = useForwardExpose()
 
 const canScrollUp = ref(false)
 
-watchEffect(() => {
+watchEffect((onCleanup) => {
   if (contentContext.viewport?.value && contentContext.isPositioned?.value) {
     const viewport = contentContext.viewport.value
 
@@ -32,7 +32,12 @@ watchEffect(() => {
       canScrollUp.value = viewport.scrollTop > 0
     }
     handleScroll()
-    useEventListener(viewport, 'scroll', handleScroll)
+
+    const viewportScrollCleanup = useEventListener(viewport, 'scroll', handleScroll)
+
+    onCleanup(() => {
+      viewportScrollCleanup()
+    })
   }
 })
 

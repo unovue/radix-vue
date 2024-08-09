@@ -94,7 +94,7 @@ export function useWindowSplitterPanelGroupBehavior({
     const handles = getResizeHandleElementsForGroup(groupId, _panelGroupElement)
     assert(handles)
 
-    handles.forEach((handle) => {
+    const cleanupFunctions = handles.map((handle) => {
       const handleId = handle.getAttribute('data-panel-resize-handle-id')
       assert(handleId)
 
@@ -155,7 +155,15 @@ export function useWindowSplitterPanelGroupBehavior({
         }
       }
 
-      useEventListener(handle, 'keydown', onKeyDown)
+      const handleKeydownCleanup = useEventListener(handle, 'keydown', onKeyDown)
+
+      return () => {
+        handleKeydownCleanup()
+      }
+    })
+
+    onCleanup(() => {
+      cleanupFunctions.forEach(cleanupFunction => cleanupFunction())
     })
   })
 }

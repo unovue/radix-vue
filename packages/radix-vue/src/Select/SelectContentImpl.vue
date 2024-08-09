@@ -130,7 +130,10 @@ watch(isPositioned, () => {
 // prevent selecting items on `pointerup` in some cases after opening from `pointerdown`
 // and close on `pointerup` outside.
 const { onOpenChange, triggerPointerDownPosRef } = rootContext
-watchEffect((cleanupFn) => {
+
+let documentPointermoveCleanup: ReturnType<typeof useEventListener>
+
+watchEffect((onCleanup) => {
   if (!content.value)
     return
   let pointerMoveDelta = { x: 0, y: 0 }
@@ -160,19 +163,20 @@ watchEffect((cleanupFn) => {
       if (!content.value?.contains(event.target as HTMLElement))
         onOpenChange(false)
     }
-    useEventListener(document, 'pointermove', handlePointerMove)
+    documentPointermoveCleanup = useEventListener(document, 'pointermove', handlePointerMove)
     triggerPointerDownPosRef.value = null
   }
 
   if (triggerPointerDownPosRef.value !== null) {
-    useEventListener(document, 'pointermove', handlePointerMove)
+    documentPointermoveCleanup = useEventListener(document, 'pointermove', handlePointerMove)
     document.addEventListener('pointerup', handlePointerUp, {
       capture: true,
       once: true,
     })
   }
 
-  cleanupFn(() => {
+  onCleanup(() => {
+    documentPointermoveCleanup && documentPointermoveCleanup()
     document.removeEventListener('pointerup', handlePointerUp, {
       capture: true,
     })

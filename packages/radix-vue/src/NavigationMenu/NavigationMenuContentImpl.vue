@@ -108,7 +108,7 @@ function handlePointerDownOutside(ev: PointerDownOutsideEvent) {
   }
 }
 
-watchEffect(() => {
+watchEffect((onCleanup) => {
   const content = currentElement.value
   if (menuContext.isRootMenu && content) {
     // Bubble dismiss to the root content node and focus its trigger
@@ -119,7 +119,11 @@ watchEffect(() => {
         itemContext.triggerRef.value?.focus()
     }
 
-    useEventListener(document, EVENT_ROOT_CONTENT_DISMISS, handleClose)
+    const documentDismissCleanup = useEventListener(document, EVENT_ROOT_CONTENT_DISMISS, handleClose)
+
+    onCleanup(() => {
+      documentDismissCleanup()
+    })
   }
 })
 

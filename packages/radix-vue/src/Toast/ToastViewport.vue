@@ -58,7 +58,7 @@ onMounted(() => {
   providerContext.onViewportChange(currentElement.value)
 })
 
-watchEffect(() => {
+watchEffect((onCleanup) => {
   const viewport = currentElement.value
   if (hasToasts.value && viewport) {
     const handlePause = () => {
@@ -125,12 +125,21 @@ watchEffect(() => {
       }
     }
 
-    useEventListener(viewport, ['focusin', 'pointermove'], handlePause)
-    useEventListener(viewport, 'focusout', handleFocusOutResume)
-    useEventListener(viewport, 'pointerleave', handlePointerLeaveResume)
-    useEventListener(viewport, 'keydown', handleKeyDown)
-    useEventListener(window, 'blur', handlePause)
-    useEventListener(window, 'focus', handleResume)
+    const viewportEventsCleanup = useEventListener(viewport, ['focusin', 'pointermove'], handlePause)
+    const viewportFocusoutCleanup = useEventListener(viewport, 'focusout', handleFocusOutResume)
+    const viewportPointerLeaveCleanup = useEventListener(viewport, 'pointerleave', handlePointerLeaveResume)
+    const viewportKeydownCleanup = useEventListener(viewport, 'keydown', handleKeyDown)
+    const windowBlurCleanup = useEventListener(window, 'blur', handlePause)
+    const windowFocusCleanup = useEventListener(window, 'focus', handleResume)
+
+    onCleanup(() => {
+      viewportEventsCleanup()
+      viewportFocusoutCleanup()
+      viewportPointerLeaveCleanup()
+      viewportKeydownCleanup()
+      windowBlurCleanup()
+      windowFocusCleanup()
+    })
   }
 })
 

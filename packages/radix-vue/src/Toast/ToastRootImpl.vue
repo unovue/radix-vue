@@ -104,7 +104,7 @@ if (props.type && !['foreground', 'background'].includes(props.type)) {
   throw new Error(error)
 }
 
-watchEffect(() => {
+watchEffect((onCleanup) => {
   const viewport = providerContext.viewport.value
   if (viewport) {
     const handleResume = () => {
@@ -120,8 +120,13 @@ watchEffect(() => {
       emits('pause')
     }
 
-    useEventListener(viewport, VIEWPORT_PAUSE, handlePause)
-    useEventListener(viewport, VIEWPORT_RESUME, handleResume)
+    const viewportPauseCleanup = useEventListener(viewport, VIEWPORT_PAUSE, handlePause)
+    const viewportResumeCleanup = useEventListener(viewport, VIEWPORT_RESUME, handleResume)
+
+    onCleanup(() => {
+      viewportPauseCleanup()
+      viewportResumeCleanup()
+    })
   }
 })
 

@@ -55,7 +55,7 @@ watchEffect((onCleanup) => {
 
 const debounceScrollEnd = useDebounceFn(() => dispatch('SCROLL_END'), 100)
 
-watchEffect(() => {
+watchEffect((onCleanup) => {
   const viewport = rootContext.viewport.value
   const scrollDirection = scrollbarContext.isHorizontal.value
     ? 'scrollLeft'
@@ -73,7 +73,11 @@ watchEffect(() => {
       prevScrollPos = scrollPos
     }
 
-    useEventListener(viewport, 'scroll', handleScroll)
+    const viewportScrollCleanup = useEventListener(viewport, 'scroll', handleScroll)
+
+    onCleanup(() => {
+      viewportScrollCleanup()
+    })
   }
 })
 </script>

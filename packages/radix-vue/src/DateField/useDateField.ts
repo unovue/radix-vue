@@ -2,7 +2,7 @@ import { type Formatter, useKbd } from '@/shared'
 import type { AnyExceptLiteral, HourCycle, SegmentPart, SegmentValueObj } from '@/shared/date'
 import { getDaysInMonth, toDate } from '@/date'
 import type { CalendarDateTime, CycleTimeOptions, DateFields, DateValue, TimeFields } from '@internationalized/date'
-import { type Ref, computed, ref } from 'vue'
+import { type Ref, computed } from 'vue'
 import { isAcceptableSegmentKey, isNumberString, isSegmentNavigationKey } from './utils'
 
 type MinuteSecondIncrementProps = {
@@ -261,7 +261,6 @@ export type UseDateFieldProps = {
 
 export function useDateField(props: UseDateFieldProps) {
   const kbd = useKbd()
-  const filledDate = ref(false)
 
   function minuteSecondIncrementation({ e, part, dateRef, prevValue }: MinuteSecondIncrementProps): number {
     const sign = e.key === kbd.ARROW_UP ? 1 : -1
@@ -281,8 +280,10 @@ export function useDateField(props: UseDateFieldProps) {
       return prevValue
 
     const str = prevValue.toString()
-    if (str.length === 1)
+    if (str.length === 1) {
+      props.modelValue.value = undefined
       return null
+    }
 
     return Number.parseInt(str.slice(0, -1))
   }
@@ -814,7 +815,7 @@ export function useDateField(props: UseDateFieldProps) {
 
     segmentKeydownHandlers[props.part as keyof typeof segmentKeydownHandlers](e)
 
-    if (!isSegmentNavigationKey(e.key) && e.key !== kbd.TAB && e.key !== kbd.SHIFT && isAcceptableSegmentKey(e.key)) {
+    if (![kbd.ARROW_LEFT, kbd.ARROW_RIGHT].includes(e.key) && e.key !== kbd.TAB && e.key !== kbd.SHIFT && isAcceptableSegmentKey(e.key)) {
       if (Object.values(props.segmentValues.value).every(item => item !== null)) {
         const updateObject = { ...props.segmentValues.value as Record<AnyExceptLiteral, number> }
 
@@ -826,10 +827,6 @@ export function useDateField(props: UseDateFieldProps) {
         })
 
         props.modelValue.value = dateRef.copy()
-        filledDate.value = true
-      }
-      else if (filledDate.value) {
-        props.modelValue.value = undefined
       }
     }
   }

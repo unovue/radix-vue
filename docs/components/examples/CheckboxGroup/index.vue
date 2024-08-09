@@ -1,17 +1,30 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { CheckboxIndicator, CheckboxRoot } from 'reka-ui'
+import { CheckboxGroupRoot, CheckboxIndicator, CheckboxRoot } from 'reka-ui'
 import { Icon } from '@iconify/vue'
 
-const checkboxOne = ref(true)
+const values = ref([])
+
+const items = [
+  { label: 'Soccer', value: 'soccer' },
+  { label: 'Badminton', value: 'badminton' },
+  { label: 'Basketball', value: 'basketball' },
+]
 </script>
 
 <template>
-  <div class="flex flex-col gap-2.5">
-    <label class="flex flex-row gap-4 items-center [&>.checkbox]:hover:bg-neutral-100">
+  <CheckboxGroupRoot
+    v-model="values"
+    class="flex flex-col gap-2.5"
+  >
+    <div
+      v-for="item in items"
+      :key="item.value"
+      class="flex items-center gap-3"
+    >
       <CheckboxRoot
-        v-model="checkboxOne"
-        class="shadow-blackA7 hover:bg-green3 flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-[4px] bg-white shadow-[0_2px_10px] outline-none focus-within:shadow-[0_0_0_2px_black]"
+        :value="item.value"
+        class="shadow-blackA7 hover:bg-green3 flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-md bg-white shadow-[0_2px_10px] outline-none focus-within:shadow-[0_0_0_2px_black]"
       >
         <CheckboxIndicator class="bg-white h-full w-full rounded flex items-center justify-center">
           <Icon
@@ -20,7 +33,9 @@ const checkboxOne = ref(true)
           />
         </CheckboxIndicator>
       </CheckboxRoot>
-      <span class="select-none text-white">Accept terms and conditions.</span>
-    </label>
-  </div>
+      <label class="flex flex-row gap-4 items-center">
+        <span class="select-none dark:text-white">{{ item.label }}</span>
+      </label>
+    </div>
+  </CheckboxGroupRoot>
 </template>

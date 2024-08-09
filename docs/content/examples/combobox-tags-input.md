@@ -1,11 +1,11 @@
 ---
-title: Checkbox Group
+title: Combobox TagsInput
 tags:
-  - Checkbox
+  - Combobox
   - Form controls
 ---
 
-# Checkbox Group
+# Combobox with TagsInput
 
 <Description>
 
@@ -15,7 +15,7 @@ Rendering multiple Checkbox elements to form a group of checkboxes. The behavior
 
 <Tags />
 
-<ComponentPreview type="example"  name="CheckboxGroup" />
+<ComponentPreview type="example"  name="ComboboxTagsInput" />
 
 <ExampleSection>
 

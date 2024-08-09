@@ -184,7 +184,10 @@ export default defineConfig({
         link: '/examples',
         items: [
           { text: 'Checkbox', items: [
-            { text: 'CheckboxGroup', link: '/examples/checkbox-group' },
+            { text: 'Checkbox Group', link: '/examples/checkbox-group' },
+          ] },
+          { text: 'Combobox', items: [
+            { text: 'Combobox TagsInput', link: '/examples/combobox-tags-input' },
           ] },
         ],
       },

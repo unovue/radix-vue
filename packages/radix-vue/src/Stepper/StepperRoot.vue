@@ -68,6 +68,10 @@ defineSlots<{
     isLastStep: boolean
     /** Go to a specific step */
     goToStep: (step: number) => void
+    /** Go to the next step */
+    nextStep: () => void
+    /** Go to the previous step */
+    prevStep: () => void
   }) => any
 }>()
 
@@ -96,7 +100,7 @@ function goToStep(step: number) {
   if (step < 1)
     return
 
-  if (totalStepperItems.value.size && !!totalStepperItemsArray.value[step].getAttribute('disabled'))
+  if (totalStepperItems.value.size && !!totalStepperItemsArray.value[step] && !!totalStepperItemsArray.value[step].getAttribute('disabled'))
     return
 
   if (linear.value) {
@@ -153,6 +157,8 @@ provideStepperRootContext({
       :is-first-step="isFirstStep"
       :is-last-step="isLastStep"
       :go-to-step="goToStep"
+      :next-step="() => goToStep((modelValue ?? 1) + 1)"
+      :prev-step="() => goToStep((modelValue ?? 1) - 1)"
     />
 
     <div

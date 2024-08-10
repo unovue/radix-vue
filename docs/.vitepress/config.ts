@@ -184,6 +184,10 @@ export default defineConfig({
     editLink: {
       pattern: 'https://github.com/radix-vue/radix-vue/edit/main/docs/content/:path',
     },
+    carbonAds: {
+      code: 'CW7DV27J',
+      placement: 'wwwradix-vuecom',
+    },
   },
   srcDir: 'content',
   appearance: 'dark',

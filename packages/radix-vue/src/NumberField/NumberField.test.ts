@@ -99,6 +99,7 @@ describe('numberField', () => {
   it('should not be changed when disabled', async () => {
     const { input, increment, decrement } = setup({ defaultValue: 0, disabled: true })
 
+    expect(input.getAttribute('data-disabled')).toBe('')
     await fireEvent.keyDown(input, { key: kbd.ARROW_UP })
     expect(input.value).toBe('0')
     await fireEvent.keyDown(input, { key: kbd.ARROW_DOWN })

@@ -2,7 +2,7 @@
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useArrowNavigation, useDirection, useFormControl, useForwardExpose } from '@/shared'
 import type { Direction } from '@/shared/types'
-import { type Ref, ref, toRefs } from 'vue'
+import { type Ref, ref, toRefs, watch } from 'vue'
 
 export type AcceptableInputValue = string | Record<string, any>
 
@@ -223,6 +223,23 @@ provideTagsInputRootContext({
   id,
   displayValue: props.displayValue as (value: AcceptableInputValue) => string,
 })
+
+const inputRef = ref<HTMLInputElement | null>(null)
+
+watch(modelValue, (_modelValue) => {
+  const input = inputRef.value!
+  const inputProto = window.HTMLInputElement.prototype
+  const descriptor = Object.getOwnPropertyDescriptor(inputProto, 'value') as PropertyDescriptor
+  const setValue = descriptor.set
+
+  if (isFormControl.value && setValue) {
+    const inputEvent = new Event('input', { bubbles: true })
+    const changeEvent = new Event('change', { bubbles: true })
+    setValue.call(input, _modelValue)
+    input.dispatchEvent(inputEvent)
+    input.dispatchEvent(changeEvent)
+  }
+})
 </script>
 
 <template>
@@ -240,6 +257,7 @@ provideTagsInputRootContext({
 
       <VisuallyHiddenInput
         v-if="isFormControl && name"
+        ref="inputRef"
         :name="name"
         :value="modelValue"
         :required="required"

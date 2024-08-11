@@ -2,7 +2,7 @@
 import type { PrimitiveProps } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 import { clamp, createContext, snapValueToStep, useFormControl } from '@/shared'
-import { type HTMLAttributes, type Ref, computed, ref, toRefs } from 'vue'
+import { type HTMLAttributes, type Ref, computed, ref, toRefs, watch } from 'vue'
 
 export interface NumberFieldRootProps extends PrimitiveProps {
   defaultValue?: number
@@ -172,6 +172,23 @@ function applyInputValue(val: string) {
   return setInputValue(textValue.value)
 }
 
+const inputRef = ref<HTMLInputElement | null>(null)
+
+watch(modelValue, (_modelValue) => {
+  const input = inputRef.value!
+  const inputProto = window.HTMLInputElement.prototype
+  const descriptor = Object.getOwnPropertyDescriptor(inputProto, 'value') as PropertyDescriptor
+  const setValue = descriptor.set
+
+  if (isFormControl.value && setValue) {
+    const inputEvent = new Event('input', { bubbles: true })
+    const changeEvent = new Event('change', { bubbles: true })
+    setValue.call(input, _modelValue)
+    input.dispatchEvent(inputEvent)
+    input.dispatchEvent(changeEvent)
+  }
+})
+
 provideNumberFieldRootContext({
   modelValue,
   handleDecrease,
@@ -209,6 +226,7 @@ provideNumberFieldRootContext({
 
   <input
     v-if="isFormControl"
+    ref="inputRef"
     type="text"
     tabindex="-1"
     aria-hidden

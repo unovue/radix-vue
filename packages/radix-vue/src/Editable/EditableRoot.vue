@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useDirection, useFormControl } from '@/shared'
+import { createContext, useDirection, useFormControl, useForwardExpose } from '@/shared'
 import type { Direction } from '@/shared/types'
 import { useFocusOutside, usePointerDownOutside } from '@/DismissableLayer'
 
@@ -75,8 +75,8 @@ export const [injectEditableRootContext, provideEditableRootContext]
 </script>
 
 <script setup lang="ts">
-import { type Ref, computed, ref, toRefs } from 'vue'
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { type Ref, computed, ref, toRefs, watch } from 'vue'
+import { Primitive } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 
 defineOptions({
@@ -138,7 +138,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
   passive: (props.modelValue === undefined) as false,
 })
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { forwardRef, currentElement } = useForwardExpose()
 
 const isFormControl = useFormControl(currentElement)
 
@@ -189,6 +189,23 @@ defineExpose({
   edit,
 })
 
+const inputEl = ref<HTMLInputElement | null>(null)
+
+watch(modelValue, (_modelValue) => {
+  const input = inputEl.value!
+  const inputProto = window.HTMLInputElement.prototype
+  const descriptor = Object.getOwnPropertyDescriptor(inputProto, 'value') as PropertyDescriptor
+  const setValue = descriptor.set
+
+  if (isFormControl.value && setValue) {
+    const inputEvent = new Event('input', { bubbles: true })
+    const changeEvent = new Event('change', { bubbles: true })
+    setValue.call(input, _modelValue)
+    input.dispatchEvent(inputEvent)
+    input.dispatchEvent(changeEvent)
+  }
+})
+
 provideEditableRootContext({
   id,
   name,
@@ -214,7 +231,7 @@ provideEditableRootContext({
 <template>
   <Primitive
     v-bind="$attrs"
-    ref="primitiveElement"
+    ref="forwardRef"
     :as="as"
     :as-child="asChild"
     :dir="dir"
@@ -234,6 +251,7 @@ provideEditableRootContext({
 
   <input
     v-if="isFormControl"
+    ref="inputEl"
     type="text"
     tabindex="-1"
     aria-hidden

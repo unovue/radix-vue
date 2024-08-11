@@ -1,7 +1,7 @@
 <script lang="ts">
 import { type ComputedRef, type Ref, computed, ref, toRefs, watch } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useDirection, useForwardExpose } from '@/shared'
+import { createContext, useDirection, useFormControl, useForwardExpose } from '@/shared'
 import type { Direction } from '@/shared/types'
 
 export type PinInputRootEmits = {
@@ -73,7 +73,7 @@ defineSlots<{
 }>()
 
 const { mask, otp, placeholder, type, disabled, dir: propDir } = toRefs(props)
-const { forwardRef } = useForwardExpose()
+const { forwardRef, currentElement } = useForwardExpose()
 const dir = useDirection(propDir)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
@@ -95,6 +95,24 @@ watch(modelValue, () => {
   if (isCompleted.value)
     emits('complete', modelValue.value)
 }, { deep: true })
+
+const inputRef = ref<HTMLInputElement | null>(null)
+const isFormControl = useFormControl(currentElement)
+
+watch(modelValue, (_modelValue) => {
+  const input = inputRef.value!
+  const inputProto = window.HTMLInputElement.prototype
+  const descriptor = Object.getOwnPropertyDescriptor(inputProto, 'value') as PropertyDescriptor
+  const setValue = descriptor.set
+
+  if (isFormControl.value && setValue) {
+    const inputEvent = new Event('input', { bubbles: true })
+    const changeEvent = new Event('change', { bubbles: true })
+    setValue.call(input, _modelValue.join(''))
+    input.dispatchEvent(inputEvent)
+    input.dispatchEvent(changeEvent)
+  }
+})
 
 providePinInputRootContext({
   modelValue,
@@ -122,7 +140,9 @@ providePinInputRootContext({
   </Primitive>
 
   <input
+    v-if="isFormControl"
     :id="id"
+    ref="inputRef"
     type="text"
     tabindex="-1"
     aria-hidden

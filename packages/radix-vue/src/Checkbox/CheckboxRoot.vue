@@ -28,6 +28,7 @@ export interface CheckboxRootProps extends PrimitiveProps {
 export type CheckboxRootEmits = {
   /** Event handler called when the checked state of the checkbox changes. */
   'update:checked': [value: boolean]
+  /** Event handler called when the checked state of the checkbox changes. */
 }
 
 interface CheckboxRootContext {
@@ -40,14 +41,13 @@ export const [injectCheckboxRootContext, provideCheckboxRootContext]
 </script>
 
 <script setup lang="ts">
-import { computed, toRefs } from 'vue'
+import { computed, ref, toRefs, watch } from 'vue'
 import { Primitive } from '@/Primitive'
 import { getState, isIndeterminate } from './utils'
 
 defineOptions({
   inheritAttrs: false,
 })
-
 const props = withDefaults(defineProps<CheckboxRootProps>(), {
   checked: undefined,
   value: 'on',
@@ -64,6 +64,8 @@ defineSlots<{
 
 const { disabled } = toRefs(props)
 
+const inputRef = ref<HTMLInputElement>()
+
 const checked = useVModel(props, 'checked', emits, {
   defaultValue: props.defaultChecked,
   passive: (props.checked === undefined) as false,
@@ -78,6 +80,22 @@ const ariaLabel = computed(() => props.id && currentElement.value
 provideCheckboxRootContext({
   disabled,
   state: checked,
+})
+
+watch(checked, (_checked, _prevChecked) => {
+  const input = inputRef.value!
+  const inputProto = window.HTMLInputElement.prototype
+  const descriptor = Object.getOwnPropertyDescriptor(inputProto, 'checked') as PropertyDescriptor
+  const setChecked = descriptor.set
+
+  if (isFormControl.value && _prevChecked !== _checked && setChecked) {
+    const inputEvent = new Event('input', { bubbles: true })
+    const changeEvent = new Event('change', { bubbles: true })
+    input.indeterminate = isIndeterminate(_checked)
+    setChecked.call(input, isIndeterminate(_checked) ? false : _checked)
+    input.dispatchEvent(inputEvent)
+    input.dispatchEvent(changeEvent)
+  }
 })
 </script>
 
@@ -99,13 +117,20 @@ provideCheckboxRootContext({
     @keydown.enter.prevent="() => {
       // According to WAI ARIA, Checkboxes don't activate on enter keypress
     }"
-    @click="checked = isIndeterminate(checked) ? true : !checked"
+    @click="(e) => {
+      checked = isIndeterminate(checked) ? true : !checked
+
+      if (isFormControl) {
+        e.stopPropagation()
+      }
+    }"
   >
     <slot :checked="checked" />
   </Primitive>
 
   <input
     v-if="isFormControl"
+    ref="inputRef"
     type="checkbox"
     tabindex="-1"
     aria-hidden
@@ -114,6 +139,7 @@ provideCheckboxRootContext({
     :name="props.name"
     :disabled="props.disabled"
     :required="props.required"
+    :indeterminate="isIndeterminate(checked)"
     :style="{
       transform: 'translateX(-100%)',
       position: 'absolute',

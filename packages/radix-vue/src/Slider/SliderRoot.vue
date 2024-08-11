@@ -59,7 +59,7 @@ export const [injectSliderRootContext, provideSliderRootContext]
 <script setup lang="ts">
 import SliderHorizontal from './SliderHorizontal.vue'
 import SliderVertical from './SliderVertical.vue'
-import { ref, toRaw, toRefs } from 'vue'
+import { ref, toRaw, toRefs, watch } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { ARROW_KEYS, PAGE_KEYS, getClosestValueIndex, getDecimalCount, getNextSortedValues, hasMinStepsBetweenValues, roundValue } from './utils'
 
@@ -134,9 +134,28 @@ function updateValues(value: number, atIndex: number, { commit } = { commit: fal
     if (hasChanged) {
       thumbElements.value[valueIndexToChangeRef.value]?.focus()
       modelValue.value = nextValues
+
+      const input = inputRef.value!
+      const inputProto = window.HTMLInputElement.prototype
+      const descriptor = Object.getOwnPropertyDescriptor(inputProto, 'value') as PropertyDescriptor
+      const setValue = descriptor.set
+
+      if (isFormControl.value && setValue) {
+        const inputEvent = new Event('input', { bubbles: true })
+        const changeEvent = new Event('change', { bubbles: true })
+        setValue.call(input[valueIndexToChangeRef.value], modelValue.value[valueIndexToChangeRef.value])
+        input[valueIndexToChangeRef.value].dispatchEvent(inputEvent)
+        input[valueIndexToChangeRef.value].dispatchEvent(changeEvent)
+      }
     }
   }
 }
+
+const inputRef = ref<HTMLInputElement[]>([])
+
+watch(modelValue, (_modelValue) => {
+
+})
 
 const thumbElements = ref<HTMLElement[]>([])
 provideSliderRootContext({
@@ -191,6 +210,7 @@ provideSliderRootContext({
   <template v-if="isFormControl">
     <input
       v-for="(value, index) in modelValue"
+      ref="inputRef"
       :key="index"
       :value="value"
       type="number"

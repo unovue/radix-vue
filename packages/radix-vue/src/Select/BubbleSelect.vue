@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, toRefs } from 'vue'
+import { ref, toRefs, watch } from 'vue'
 import { VisuallyHidden } from '@/VisuallyHidden'
 
 interface BubbleSelectProps {
@@ -20,19 +20,21 @@ const selectElement = ref<HTMLElement>()
 
 // This would bubble "change" event to form, with the target as Select element.
 // We temporary disable this as not sure if it will be needed for Vue
-// watch(value, () => {
-//   const selectProto = window.HTMLSelectElement.prototype;
-//   const descriptor = Object.getOwnPropertyDescriptor(
-//     selectProto,
-//     "value"
-//   ) as PropertyDescriptor;
-//   const setValue = descriptor.set;
-//   if (prevValue.value !== value.value && setValue) {
-//     const event = new Event("change", { bubbles: true });
-//     setValue.call(selectElement.value, value.value);
-//     selectElement.value?.dispatchEvent(event);
-//   }
-// });
+watch(value, (_value, _prevValue) => {
+  const selectProto = window.HTMLSelectElement.prototype
+  const descriptor = Object.getOwnPropertyDescriptor(
+    selectProto,
+    'value',
+  ) as PropertyDescriptor
+  const setValue = descriptor.set
+  if (_prevValue !== _value && setValue) {
+    const changeEvent = new Event('change', { bubbles: true })
+    const inputEvent = new Event('input', { bubbles: true })
+    setValue.call(selectElement.value, value.value)
+    selectElement.value?.dispatchEvent(changeEvent)
+    selectElement.value?.dispatchEvent(inputEvent)
+  }
+})
 
 /**
  * We purposefully use a `select` here to support form autofill as much

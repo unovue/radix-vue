@@ -26,7 +26,7 @@ export type SwitchRootEmits = {
 
 export interface SwitchRootContext {
   checked?: Ref<boolean>
-  toggleCheck: () => void
+  toggleCheck: (e: Event) => void
   disabled: Ref<boolean>
 }
 
@@ -35,7 +35,7 @@ export const [injectSwitchRootContext, provideSwitchRootContext]
 </script>
 
 <script setup lang="ts">
-import { computed, toRefs } from 'vue'
+import { computed, ref, toRefs, watch } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { Primitive } from '@/Primitive'
 
@@ -60,12 +60,17 @@ const checked = useVModel(props, 'checked', emit, {
   passive: (props.checked === undefined) as false,
 }) as Ref<boolean>
 
-function toggleCheck() {
+function toggleCheck(e: Event) {
   if (disabled.value)
     return
 
   checked.value = !checked.value
+
+  if (isFormControl.value)
+    e.stopPropagation()
 }
+
+const inputRef = ref<HTMLInputElement | null>(null)
 
 const { forwardRef, currentElement } = useForwardExpose()
 const isFormControl = useFormControl(currentElement)
@@ -75,6 +80,21 @@ provideSwitchRootContext({
   checked,
   toggleCheck,
   disabled,
+})
+
+watch(checked, (_checked, _prevChecked) => {
+  const input = inputRef.value!
+  const inputProto = window.HTMLInputElement.prototype
+  const descriptor = Object.getOwnPropertyDescriptor(inputProto, 'checked') as PropertyDescriptor
+  const setChecked = descriptor.set
+
+  if (isFormControl.value && _prevChecked !== _checked && setChecked) {
+    const changeEvent = new Event('change', { bubbles: true })
+    const inputEvent = new Event('input', { bubbles: true })
+    setChecked.call(input, _checked)
+    input.dispatchEvent(changeEvent)
+    input.dispatchEvent(inputEvent)
+  }
 })
 </script>
 
@@ -102,6 +122,7 @@ provideSwitchRootContext({
 
   <input
     v-if="isFormControl"
+    ref="inputRef"
     type="checkbox"
     :name="name"
     tabindex="-1"

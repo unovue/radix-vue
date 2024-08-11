@@ -243,6 +243,21 @@ function focusOnSelectedElement() {
     selectedElement.value.focus()
 }
 
+const inputRef = ref<HTMLInputElement | null>(null)
+
+watch(modelValue, (_modelValue) => {
+  const input = inputRef.value!
+  const inputProto = window.HTMLInputElement.prototype
+  const descriptor = Object.getOwnPropertyDescriptor(inputProto, 'value') as PropertyDescriptor
+  const setValue = descriptor.set
+
+  if (isFormControl.value && setValue) {
+    const changeEvent = new Event('change', { bubbles: true })
+    setValue.call(input, _modelValue)
+    input.dispatchEvent(changeEvent)
+  }
+})
+
 provideComboboxRootContext({
   searchTerm,
   modelValue,
@@ -309,6 +324,7 @@ provideComboboxRootContext({
 
       <VisuallyHiddenInput
         v-if="isFormControl && props.name"
+        ref="inputRef"
         :name="props.name"
         :value="modelValue"
       />

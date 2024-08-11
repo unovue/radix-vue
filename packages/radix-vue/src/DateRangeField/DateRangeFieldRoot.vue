@@ -3,7 +3,7 @@ import { type DateValue, isEqualDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { type Formatter, createContext, useDateFormatter, useDirection, useKbd } from '@/shared'
+import { type Formatter, createContext, useDateFormatter, useDirection, useFormControl, useForwardExpose, useKbd } from '@/shared'
 import {
   type DateRange,
   type Granularity,
@@ -91,7 +91,7 @@ export const [injectDateRangeFieldRootContext, provideDateRangeFieldRootContext]
 
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref, toRefs, watch } from 'vue'
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { Primitive } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 
 defineOptions({
@@ -110,13 +110,13 @@ const emits = defineEmits<DateRangeFieldRootEmits>()
 const { locale, disabled, readonly, isDateUnavailable: propsIsDateUnavailable, dir: propsDir } = toRefs(props)
 
 const formatter = useDateFormatter(props.locale)
-const { primitiveElement, currentElement: parentElement }
-  = usePrimitiveElement()
 const segmentElements = ref<Set<HTMLElement>>(new Set())
 const dir = useDirection(propsDir)
 
+const { forwardRef, currentElement } = useForwardExpose()
+
 onMounted(() => {
-  getSegmentElements(parentElement.value).forEach(item => segmentElements.value.add(item as HTMLElement))
+  getSegmentElements(currentElement.value).forEach(item => segmentElements.value.add(item as HTMLElement))
 })
 
 const modelValue = useVModel(props, 'modelValue', emits, {
@@ -260,7 +260,7 @@ watch(locale, (value) => {
     // Get the focusable elements again on the next tick
     nextTick(() => {
       segmentElements.value.clear()
-      getSegmentElements(parentElement.value).forEach(item => segmentElements.value.add(item as HTMLElement))
+      getSegmentElements(currentElement.value).forEach(item => segmentElements.value.add(item as HTMLElement))
     })
   }
 })
@@ -339,6 +339,25 @@ provideDateRangeFieldRootContext({
   },
 })
 
+const isFormControl = useFormControl(currentElement.value)
+
+const inputRef = ref<HTMLInputElement | null>(null)
+
+watch(modelValue, (_modelValue) => {
+  const input = inputRef.value!
+  const inputProto = window.HTMLInputElement.prototype
+  const descriptor = Object.getOwnPropertyDescriptor(inputProto, 'value') as PropertyDescriptor
+  const setValue = descriptor.set
+
+  if (isFormControl.value && setValue) {
+    const inputEvent = new Event('input', { bubbles: true })
+    const changeEvent = new Event('change', { bubbles: true })
+    setValue.call(input, _modelValue)
+    input.dispatchEvent(inputEvent)
+    input.dispatchEvent(changeEvent)
+  }
+})
+
 defineExpose({
   setFocusedElement,
 })
@@ -347,7 +366,7 @@ defineExpose({
 <template>
   <Primitive
     v-bind="$attrs"
-    ref="primitiveElement"
+    ref="forwardRef"
     role="group"
     :aria-disabled="disabled ? true : undefined"
     :data-disabled="disabled ? '' : undefined"
@@ -363,7 +382,9 @@ defineExpose({
   </Primitive>
 
   <input
+    v-if="isFormControl"
     :id="id"
+    ref="inputRef"
     type="text"
     tabindex="-1"
     aria-hidden

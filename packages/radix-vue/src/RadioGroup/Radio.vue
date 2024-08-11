@@ -19,7 +19,7 @@ export interface RadioProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { computed, toRefs } from 'vue'
+import { computed, ref, toRefs, watch } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { Primitive } from '@/Primitive'
 import { useFormControl, useForwardExpose } from '@/shared'
@@ -58,6 +58,23 @@ function handleClick(event: MouseEvent) {
     event.stopPropagation()
   }
 }
+
+const inputRef = ref<HTMLInputElement | null>(null)
+
+watch(checked, (_checked, _prevChecked) => {
+  const input = inputRef.value!
+  const inputProto = window.HTMLInputElement.prototype
+  const descriptor = Object.getOwnPropertyDescriptor(inputProto, 'checked') as PropertyDescriptor
+  const setChecked = descriptor.set
+
+  if (isFormControl.value && _prevChecked !== _checked && setChecked) {
+    const changeEvent = new Event('change', { bubbles: true })
+    const inputEvent = new Event('input', { bubbles: true })
+    setChecked.call(input, _checked)
+    input.dispatchEvent(changeEvent)
+    input.dispatchEvent(inputEvent)
+  }
+})
 </script>
 
 <template>
@@ -83,6 +100,7 @@ function handleClick(event: MouseEvent) {
 
     <input
       v-if="isFormControl"
+      ref="inputRef"
       type="radio"
       tabindex="-1"
       aria-hidden

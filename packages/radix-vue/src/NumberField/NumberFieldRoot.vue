@@ -199,6 +199,7 @@ provideNumberFieldRootContext({
     role="group"
     :as="as"
     :as-child="asChild"
+    :data-disabled="disabled ? '' : undefined"
   >
     <slot
       :model-value="modelValue"

@@ -211,7 +211,7 @@ provideNumberFieldRootContext({
     v-if="isFormControl"
     type="text"
     tabindex="-1"
-    aria-hidden
+    aria-hidden="true"
     :value="modelValue"
     :name="props.name"
     :disabled="props.disabled"

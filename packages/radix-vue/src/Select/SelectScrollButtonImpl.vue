@@ -51,7 +51,7 @@ onBeforeUnmount(() => clearAutoScrollTimer())
 
 <template>
   <Primitive
-    aria-hidden
+    aria-hidden="true"
     :style="{
       flexShrink: 0,
     }"

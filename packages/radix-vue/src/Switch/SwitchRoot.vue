@@ -105,7 +105,7 @@ provideSwitchRootContext({
     type="checkbox"
     :name="name"
     tabindex="-1"
-    aria-hidden
+    aria-hidden="true"
     :disabled="disabled"
     :required="required"
     :value="value"

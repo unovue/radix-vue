@@ -292,7 +292,7 @@ defineExpose({
     :id="id"
     type="text"
     tabindex="-1"
-    aria-hidden
+    aria-hidden="true"
     :value="modelValue ? modelValue.toString() : ''"
     :name="name"
     :disabled="disabled"

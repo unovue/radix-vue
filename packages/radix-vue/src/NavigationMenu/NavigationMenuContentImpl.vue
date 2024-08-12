@@ -136,6 +136,10 @@ function handleEscapeKeyDown(ev: KeyboardEvent) {
 }
 
 function handleKeydown(ev: KeyboardEvent) {
+  // prevent parent menu triggering keydown event
+  if ((ev.target as HTMLElement).closest('[data-radix-navigation-menu]') !== menuContext.rootNavigationMenu.value)
+    return
+
   const isMetaKey = ev.altKey || ev.ctrlKey || ev.metaKey
   const isTabKey = ev.key === 'Tab' && !isMetaKey
   const candidates = getTabbableCandidates(ev.currentTarget as HTMLElement)

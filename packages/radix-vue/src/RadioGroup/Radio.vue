@@ -85,7 +85,7 @@ function handleClick(event: MouseEvent) {
       v-if="isFormControl"
       type="radio"
       tabindex="-1"
-      aria-hidden
+      aria-hidden="true"
       :value="value"
       :checked="!!checked"
       :name="name"

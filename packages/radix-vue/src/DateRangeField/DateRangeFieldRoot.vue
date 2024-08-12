@@ -366,7 +366,7 @@ defineExpose({
     :id="id"
     type="text"
     tabindex="-1"
-    aria-hidden
+    aria-hidden="true"
     :value="`${modelValue.start?.toString()} - ${modelValue.end?.toString()}`"
     :name="name"
     :disabled="disabled"

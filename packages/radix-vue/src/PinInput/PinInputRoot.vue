@@ -125,7 +125,7 @@ providePinInputRootContext({
     :id="id"
     type="text"
     tabindex="-1"
-    aria-hidden
+    aria-hidden="true"
     :value="modelValue.join('')"
     :name="name"
     :disabled="disabled"

@@ -156,7 +156,7 @@ function handleVisuallyHiddenFocus(ev: FocusEvent) {
   <template v-if="open">
     <VisuallyHidden
       :ref="setFocusProxyRef"
-      aria-hidden
+      aria-hidden="true"
       :tabindex="0"
       @focus="handleVisuallyHiddenFocus"
     />

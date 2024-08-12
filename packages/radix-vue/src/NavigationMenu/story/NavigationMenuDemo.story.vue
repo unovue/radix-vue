@@ -54,7 +54,7 @@ const currentTrigger = ref('')
                       @select.prevent
                     >
                       <svg
-                        aria-hidden
+                        aria-hidden="true"
                         width="38"
                         height="38"
                         viewBox="0 0 25 25"

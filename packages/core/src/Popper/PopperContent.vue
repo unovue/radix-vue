@@ -163,7 +163,7 @@ export const [injectPopperContentContext, providePopperContentContext]
 
 <script setup lang="ts">
 import { computed, ref, watchEffect } from 'vue'
-import { computedEager } from '@vueuse/core'
+import { computedEager, useThrottleFn } from '@vueuse/core'
 import {
   autoUpdate,
   flip,
@@ -291,7 +291,7 @@ const computedMiddleware = computedEager(() => {
 // If provided custom reference, it will overwrite the defautl anchor element
 const reference = computed(() => props.reference ?? rootContext.anchor.value)
 
-const { floatingStyles, placement, isPositioned, middlewareData } = useFloating(
+const { floatingStyles, placement, isPositioned, middlewareData, update } = useFloating(
   reference,
   floatingRef,
   {
@@ -318,6 +318,14 @@ const placedAlign = computed(
 watchEffect(() => {
   if (isPositioned.value)
     emits('placed')
+})
+
+// update position automatically when `boundingClientRect` changes
+const throttleUpdate = useThrottleFn(update, 10, true, true)
+watchEffect(() => {
+  if (reference.value?.getBoundingClientRect()) {
+    throttleUpdate()
+  }
 })
 
 const cannotCenterArrow = computed(

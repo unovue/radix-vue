@@ -146,7 +146,7 @@ useResizeObserver(content, () => {
   }
 })
 
-useResizeObserver([globalThis.document.body, rootNavigationMenu], () => {
+useResizeObserver([globalThis.document?.body, rootNavigationMenu], () => {
   updatePosition()
 })
 </script>

@@ -8,7 +8,7 @@ export type NavigationMenuLinkEmits = {
    *
    * Calling `event.preventDefault` in this handler will prevent the navigation menu from closing when selecting that link.
    */
-  select: [payload: Event]
+  select: [payload: CustomEvent<{ originalEvent: Event }>]
 }
 export interface NavigationMenuLinkProps extends PrimitiveProps {
   /** Used to identify the link as the currently active page. */
@@ -17,11 +17,8 @@ export interface NavigationMenuLinkProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { nextTick } from 'vue'
 import { Primitive } from '@/Primitive'
 import { EVENT_ROOT_CONTENT_DISMISS, LINK_SELECT } from './utils'
-
-// const LINK_SELECT = "navigationMenu.linkSelect";
 
 const props = withDefaults(defineProps<NavigationMenuLinkProps>(), {
   as: 'a',
@@ -29,10 +26,14 @@ const props = withDefaults(defineProps<NavigationMenuLinkProps>(), {
 const emits = defineEmits<NavigationMenuLinkEmits>()
 
 useForwardExpose()
+
 async function handleClick(ev: MouseEvent) {
   const linkSelectEvent = new CustomEvent(LINK_SELECT, {
     bubbles: true,
     cancelable: true,
+    detail: {
+      originalEvent: ev,
+    },
   })
   emits('select', linkSelectEvent)
 

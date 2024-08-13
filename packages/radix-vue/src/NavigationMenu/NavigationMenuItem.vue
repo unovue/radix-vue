@@ -113,6 +113,10 @@ function handleKeydown(ev: KeyboardEvent) {
     i.parentElement?.hasAttribute('data-menu-item'),
   )
 
+  // prevent triggering when the focus is on link
+  if (!itemsArray.includes(currentFocus))
+    return
+
   const newSelectedElement = useArrowNavigation(ev, currentFocus, undefined, {
     itemsArray,
     loop: false,

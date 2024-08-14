@@ -188,6 +188,7 @@ export default defineConfig({
           ] },
           { text: 'Combobox', items: [
             { text: 'Combobox TagsInput', link: '/examples/combobox-tags-input' },
+            { text: 'Combobox Textarea', link: '/examples/combobox-textarea' },
           ] },
           { text: 'Tooltip', items: [
             { text: 'Tooltip Cursor', link: '/examples/tooltip-cursor' },

@@ -64,6 +64,9 @@ export {
   type DateRange,
 } from './shared'
 export {
+  type ReferenceElement,
+} from '@floating-ui/vue'
+export {
   type AcceptableValue,
   type GenericComponentInstance,
 } from './shared/types'

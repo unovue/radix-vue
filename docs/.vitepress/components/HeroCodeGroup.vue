@@ -127,7 +127,7 @@ watch(open, () => {
       ref="codeScrollWrapper"
       :key="cssFramework"
       class="pb-10 block custom"
-      :style="{ '--height': type === 'demo' ? '150px' : '300px' }"
+      :style="{ '--height': type === 'demo' ? '150px' : '200px' }"
       :class="`${open ? 'overflow-scroll h-full min-h-[var(--height)] max-h-[80vh]' : 'overflow-hidden h-[var(--height)]'}`"
     >
       <TabsContent

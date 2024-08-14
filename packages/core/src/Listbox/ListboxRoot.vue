@@ -26,7 +26,7 @@ type ListboxRootContext<T> = {
 
   onLeave: (event: Event) => void
   onEnter: (event: Event) => void
-  changeHighlight: (el: HTMLElement) => void
+  changeHighlight: (el: HTMLElement, scrollIntoView?: boolean) => void
   onKeydownNavigation: (event: KeyboardEvent) => void
   onKeydownEnter: (event: KeyboardEvent) => void
   onKeydownTypeAhead: (event: KeyboardEvent) => void
@@ -155,11 +155,12 @@ function getCollectionItem() {
   return getItems().map(i => i.ref).filter(i => i.dataset.disabled !== '')
 }
 
-function changeHighlight(el: HTMLElement) {
+function changeHighlight(el: HTMLElement, scrollIntoView = true) {
   highlightedElement.value = el
   if (focusable.value)
     highlightedElement.value.focus()
-  highlightedElement.value.scrollIntoView({ block: 'nearest' })
+  if (scrollIntoView)
+    highlightedElement.value.scrollIntoView({ block: 'nearest' })
 
   const highlightedItem = getItems().find(i => i.ref === el)
   emits('highlight', highlightedItem)

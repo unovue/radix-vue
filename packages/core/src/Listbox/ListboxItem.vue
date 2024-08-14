@@ -91,9 +91,9 @@ provideListboxItemContext({
           return
 
         if (rootContext.highlightOnHover.value)
-          rootContext.changeHighlight(currentElement)
+          rootContext.changeHighlight(currentElement, false)
         else
-          rootContext.focusable.value ? undefined : rootContext.changeHighlight(currentElement)
+          rootContext.focusable.value ? undefined : rootContext.changeHighlight(currentElement, false)
       }"
     >
       <slot />

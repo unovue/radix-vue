@@ -187,8 +187,11 @@ export default defineConfig({
             { text: 'Checkbox Group', link: '/examples/checkbox-group' },
           ] },
           { text: 'Combobox', items: [
-            { text: 'Combobox TagsInput', link: '/examples/combobox-tags-input' },
+            { text: 'Combobox Tags Input', link: '/examples/combobox-tags-input' },
             { text: 'Combobox Textarea', link: '/examples/combobox-textarea' },
+          ] },
+          { text: 'Dialog', items: [
+            { text: 'Dialog Command Menu', link: '/examples/dialog-command-menu' },
           ] },
           { text: 'Tooltip', items: [
             { text: 'Tooltip Cursor', link: '/examples/tooltip-cursor' },

@@ -17,6 +17,7 @@ import {
   areAllDaysBetweenValid,
   hasTime,
   isBefore,
+  isBeforeOrSame,
 } from '@/date'
 import { createContent, getSegmentElements, initializeSegmentValues, isSegmentNavigationKey, syncSegmentValues } from '@/DateField/utils'
 import type { Direction } from '@/shared/types'
@@ -121,6 +122,7 @@ onMounted(() => {
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue ?? { start: undefined, end: undefined },
+  passive: (props.modelValue === undefined) as false,
 }) as Ref<DateRange>
 
 const defaultDate = getDefaultDate({
@@ -180,7 +182,7 @@ const isInvalid = computed(() => {
   if (!modelValue.value.start || !modelValue.value.end)
     return false
 
-  if (!isBefore(modelValue.value.start, modelValue.value.end))
+  if (!isBeforeOrSame(modelValue.value.start, modelValue.value.end))
     return true
 
   if (propsIsDateUnavailable.value !== undefined) {

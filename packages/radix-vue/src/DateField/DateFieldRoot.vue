@@ -123,6 +123,7 @@ onMounted(() => {
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: defaultValue.value,
+  passive: (props.modelValue === undefined) as false,
 }) as Ref<DateValue>
 
 const defaultDate = getDefaultDate({

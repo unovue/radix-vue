@@ -59,7 +59,7 @@ const rootContext = injectComboboxRootContext()
 useBodyScrollLock(props.bodyLock)
 
 const { forwardRef, currentElement } = useForwardExpose()
-useHideOthers(currentElement)
+useHideOthers(rootContext.parentElement)
 
 const pickedProps = computed(() => {
   if (props.position === 'popper')

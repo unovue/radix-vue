@@ -6,7 +6,7 @@ import {
   savePanelGroupState,
 } from './utils/storage'
 import { areEqual, createContext, useDirection, useForwardExpose, useId } from '@/shared'
-import { type CSSProperties, type Ref, computed, ref, watch, watchEffect } from 'vue'
+import { type CSSProperties, type Ref, computed, ref, toRefs, watch, watchEffect } from 'vue'
 import { useWindowSplitterPanelGroupBehavior } from './utils/composables/useWindowSplitterPanelGroupBehavior'
 
 export interface SplitterGroupProps extends PrimitiveProps {
@@ -46,7 +46,7 @@ const defaultStorage: PanelGroupStorage = {
 }
 
 export type PanelGroupContext = {
-  direction: 'horizontal' | 'vertical'
+  direction: Ref<Direction>
   dragState: DragState | null
   groupId: string
   reevaluatePanelConstraints: (panelData: PanelData, prevConstraints: PanelConstraints) => void
@@ -111,6 +111,7 @@ const debounceMap: {
   [key: string]: typeof savePanelGroupState
 } = {}
 
+const { direction } = toRefs(props)
 const groupId = useId(props.id, 'radix-vue-splitter-group')
 const dir = useDirection()
 const { forwardRef, currentElement: panelGroupElementRef } = useForwardExpose()
@@ -660,7 +661,7 @@ function isPanelExpanded(panelData: PanelData) {
 }
 
 providePanelGroupContext({
-  direction: props.direction,
+  direction,
   dragState: dragState.value,
   groupId,
   reevaluatePanelConstraints,

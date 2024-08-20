@@ -1,13 +1,13 @@
-name: Publish Approved PR
+name: Publish Merged PR
 on:
-  pull_request_review:
-    types: [submitted]
+  pull_request:
+    types: [closed]
     paths:
       - 'packages/**'
 
 jobs:
-  approved:
-    if: github.event.review.state == 'APPROVED'
+  after_merge:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:

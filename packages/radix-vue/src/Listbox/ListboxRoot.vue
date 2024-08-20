@@ -150,7 +150,10 @@ function getCollectionItem() {
   return getItems().map(i => i.ref).filter(i => i.dataset.disabled !== '')
 }
 
-function onChangeHighlight(el: HTMLElement) {
+function onChangeHighlight(el?: HTMLElement) {
+  if (!el)
+    return
+
   highlightedElement.value = el
   highlightedElement.value.focus()
   highlightedElement.value.scrollIntoView({ block: 'nearest' })

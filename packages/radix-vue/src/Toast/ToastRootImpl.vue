@@ -80,6 +80,11 @@ const remainingRaf = useRafFn(() => {
 function startTimer(duration: number) {
   if (!duration || duration === Number.POSITIVE_INFINITY)
     return
+  // startTimer is used inside a watch with immediate set to true.
+  // This results in code execution during SSR.
+  // Ensure this code only runs in a browser environment
+  if (typeof window === 'undefined')
+    return
   window.clearTimeout(closeTimerRef.value)
   closeTimerStartTimeRef.value = new Date().getTime()
   closeTimerRef.value = window.setTimeout(handleClose, duration)

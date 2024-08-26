@@ -1,4 +1,5 @@
 <script lang="ts">
+import { isClient } from '@vueuse/shared'
 import type { PrimitiveProps } from '@/Primitive'
 import type { SwipeEvent } from './utils'
 import { createContext, useForwardExpose } from '@/shared'
@@ -83,7 +84,7 @@ function startTimer(duration: number) {
   // startTimer is used inside a watch with immediate set to true.
   // This results in code execution during SSR.
   // Ensure this code only runs in a browser environment
-  if (typeof window === 'undefined')
+  if (!isClient)
     return
   window.clearTimeout(closeTimerRef.value)
   closeTimerStartTimeRef.value = new Date().getTime()

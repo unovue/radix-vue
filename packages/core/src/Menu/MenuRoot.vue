@@ -2,6 +2,7 @@
 import type { Ref } from 'vue'
 import type { Direction } from './utils'
 import { createContext, useDirection } from '@/shared'
+import { useIsUsingKeyboard } from '@/shared/useIsUsingKeyboard'
 
 export interface MenuContext {
   open: Ref<boolean>
@@ -66,37 +67,7 @@ const dir = useDirection(propDir)
 const open = useVModel(props, 'open', emits)
 
 const content = ref<HTMLElement>()
-const isUsingKeyboardRef = ref(false)
-
-watchEffect((cleanupFn) => {
-  if (!isClient)
-    return
-  // Capture phase ensures we set the boolean before any side effects execute
-  // in response to the key or pointer event as they might depend on this value.
-  const handleKeyDown = () => {
-    isUsingKeyboardRef.value = true
-    document.addEventListener('pointerdown', handlePointer, {
-      capture: true,
-      once: true,
-    })
-    document.addEventListener('pointermove', handlePointer, {
-      capture: true,
-      once: true,
-    })
-  }
-  const handlePointer = () => (isUsingKeyboardRef.value = false)
-  document.addEventListener('keydown', handleKeyDown, { capture: true })
-
-  cleanupFn(() => {
-    document.removeEventListener('keydown', handleKeyDown, { capture: true })
-    document.removeEventListener('pointerdown', handlePointer, {
-      capture: true,
-    })
-    document.removeEventListener('pointermove', handlePointer, {
-      capture: true,
-    })
-  })
-})
+const isUsingKeyboardRef = useIsUsingKeyboard()
 
 provideMenuContext({
   open,

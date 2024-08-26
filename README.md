@@ -74,7 +74,7 @@ We would love to have your contributions! All PRs all welcomed! We need help bui
 
 ## Authors
 
-- [Khairul Haaziq](https://github.com/khairulhaaziq)
+- [Khairul Haaziq](https://github.com/k11q)
 - [Mujahid Anuar](https://github.com/mujahidfa)
 - [Zernonia](https://github.com/zernonia)
 

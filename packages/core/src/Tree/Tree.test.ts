@@ -187,3 +187,102 @@ describe('given multiple `true` Tree', () => {
     })
   })
 })
+
+describe('given a Tree with a custom children structure', () => {
+  const customItems = [
+    { title: 'index.vue', icon: 'vue' },
+    {
+      title: 'lib',
+      icon: 'folder',
+      directories: [
+        {
+          title: 'tree',
+          icon: 'folder',
+          files: [
+            {
+              title: 'Tree.vue',
+              icon: 'vue',
+            },
+            {
+              title: 'TreeView.vue',
+              icon: 'vue',
+            },
+          ],
+        },
+        {
+          title: 'icons',
+          icon: 'folder',
+          files: [
+            { title: 'JS.vue', icon: 'vue' },
+            { title: 'vue.vue', icon: 'vue' },
+          ],
+        },
+      ],
+      files: [
+        {
+          title: 'index.js',
+          icon: 'js',
+        },
+      ],
+    },
+    {
+      title: 'routes',
+      icon: 'folder',
+      directories: [
+        {
+          title: 'contents',
+          icon: 'folder',
+          files: [
+            {
+              title: '+layout.vue',
+              icon: 'vue',
+            },
+            {
+              title: '+page.vue',
+              icon: 'vue',
+            },
+          ],
+        },
+      ],
+    },
+  ]
+
+  let wrapper: VueWrapper<InstanceType<typeof Tree>>
+  // let content: DOMWrapper<Element>
+  let items: DOMWrapper<Element>[]
+
+  beforeEach(async () => {
+    document.body.innerHTML = ''
+    wrapper = mount(Tree, { props: { items: customItems, multiple: true, selectionBehavior: 'toggle', getChildren: val => (!val.files) ? val.directories : (!val.directories) ? val.files : [...val.directories, ...val.files] }, attachTo: document.body })
+    await nextTick()
+    // content = wrapper.find('[role=tree]')
+    items = wrapper.findAll('[role=treeitem]')
+  })
+
+  const updateItems = () => {
+    items = wrapper.findAll('[role=treeitem]')
+  }
+
+  describe('when expand item', async () => {
+    beforeEach(async () => {
+      await items[1].trigger('keydown', { key: kbd.ARROW_RIGHT });
+      (items[1].element as HTMLElement).focus()
+      updateItems()
+    })
+
+    it('should expand the item, revealing it\'s item', () => {
+      expect(items[2].text()).toBe('tree')
+    })
+
+    describe('when expand nested item', async () => {
+      beforeEach(async () => {
+        await items[2].trigger('keydown', { key: kbd.ARROW_RIGHT })
+        updateItems()
+      })
+
+      it('should expand the nested item, revealing it\'s item ', () => {
+        expect(items[3].text()).toBe('Tree.vue')
+      })
+    })
+  })
+})

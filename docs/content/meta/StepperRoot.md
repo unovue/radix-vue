@@ -62,5 +62,45 @@
     'name': 'modelValue',
     'description': '<p>Current step</p>\n',
     'type': 'number | undefined'
+  },
+  {
+    'name': 'totalSteps',
+    'description': '<p>Total number of steps</p>\n',
+    'type': 'number'
+  },
+  {
+    'name': 'isNextDisabled',
+    'description': '<p>Whether or not the next step is disabled</p>\n',
+    'type': 'boolean'
+  },
+  {
+    'name': 'isPrevDisabled',
+    'description': '<p>Whether or not the previous step is disabled</p>\n',
+    'type': 'boolean'
+  },
+  {
+    'name': 'isFirstStep',
+    'description': '<p>Whether or not the first step is active</p>\n',
+    'type': 'boolean'
+  },
+  {
+    'name': 'isLastStep',
+    'description': '<p>Whether or not the last step is active</p>\n',
+    'type': 'boolean'
+  },
+  {
+    'name': 'goToStep',
+    'description': '<p>Go to a specific step</p>\n',
+    'type': ''
+  },
+  {
+    'name': 'nextStep',
+    'description': '<p>Go to the next step</p>\n',
+    'type': ''
+  },
+  {
+    'name': 'prevStep',
+    'description': '<p>Go to the previous step</p>\n',
+    'type': ''
   }
 ]" />

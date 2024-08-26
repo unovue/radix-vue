@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import { useArrowNavigation, useForwardExpose, useKbd } from '@/shared'
-import { computed, onMounted, onUnmounted, watch } from 'vue'
+import { computed, onMounted, onUnmounted } from 'vue'
 
 export interface StepperTriggerProps extends PrimitiveProps {
 }
@@ -20,7 +20,7 @@ const rootContext = injectStepperRootContext()
 const itemContext = injectStepperItemContext()
 
 const kbd = useKbd()
-const stepperItems = computed(() => Array.from(rootContext.stepperItems.value))
+const stepperItems = computed(() => Array.from(rootContext.totalStepperItems.value))
 
 function handleMouseDown(event: MouseEvent) {
   if (itemContext.disabled.value)
@@ -67,21 +67,11 @@ function handleKeyDown(event: KeyboardEvent) {
 const { forwardRef, currentElement } = useForwardExpose()
 
 onMounted(() => {
-  if (itemContext.isFocusable.value)
-    rootContext.stepperItems.value.add(currentElement.value)
   rootContext.totalStepperItems.value.add(currentElement.value)
 })
 
 onUnmounted(() => {
-  rootContext.stepperItems.value.delete(currentElement.value)
   rootContext.totalStepperItems.value.delete(currentElement.value)
-})
-
-watch(itemContext.isFocusable, (newValue) => {
-  if (newValue)
-    rootContext.stepperItems.value.add(currentElement.value)
-  else
-    rootContext.stepperItems.value.delete(currentElement.value)
 })
 </script>
 

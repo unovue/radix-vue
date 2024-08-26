@@ -16,6 +16,8 @@ export interface TreeRootProps<T = Record<string, any>, U extends Record<string,
   defaultExpanded?: string[]
   /** This function is passed the index of each item and should return a unique key for that item */
   getKey: (val: T) => string
+  /** This function is passed the index of each item and should return a list of children for that item */
+  getChildren?: (val: T) => T[] | undefined
   /** How multiple selection should behave in the collection. */
   selectionBehavior?: 'toggle' | 'replace'
   /** Whether multiple options can be selected or not.  */
@@ -42,6 +44,7 @@ interface TreeRootContext<T = Record<string, any>> {
   items: Ref<T[]>
   expandedItems: Ref<T[]>
   getKey: (val: T) => string
+  getChildren: (val: T) => T[] | undefined
   multiple: Ref<boolean>
   disabled: Ref<boolean>
   dir: Ref<Direction>
@@ -79,6 +82,7 @@ import { MAP_KEY_TO_FOCUS_INTENT } from '@/RovingFocus/utils'
 const props = withDefaults(defineProps<TreeRootProps<T, U>>(), {
   as: 'ul',
   selectionBehavior: 'toggle',
+  getChildren: (val: T) => val.children,
 })
 const emits = defineEmits<TreeRootEmits<U>>()
 
@@ -125,6 +129,7 @@ const selectedKeys = computed(() => {
 function flattenItems(items: T[], level: number = 1, parentItem?: T): FlattenedItem<T>[] {
   return items.reduce((acc: FlattenedItem<T>[], item: T, index: number) => {
     const key = props.getKey(item)
+    const children = props.getChildren(item)
     const isExpanded = expanded.value.includes(key)
 
     const flattenedItem: FlattenedItem<T> = {
@@ -133,7 +138,7 @@ function flattenItems(items: T[], level: number = 1, parentItem?: T): FlattenedI
       index,
       level,
       parentItem,
-      hasChildren: !!item.children,
+      hasChildren: !!children,
       bind: {
         'value': item,
         level,
@@ -143,8 +148,8 @@ function flattenItems(items: T[], level: number = 1, parentItem?: T): FlattenedI
     }
     acc.push(flattenedItem)
 
-    if (item.children && isExpanded)
-      acc.push(...flattenItems(item.children, level + 1, item))
+    if (children && isExpanded)
+      acc.push(...flattenItems(children, level + 1, item))
 
     return acc
   }, [])
@@ -190,7 +195,7 @@ provideTreeRootContext({
     onSelectItem(val, condition)
 
     if (props.propagateSelect && props.multiple && Array.isArray(modelValue.value)) {
-      const children = flatten<U, any>(val.children ?? [])
+      const children = flatten<U, any>(props.getChildren(val) ?? [])
       if (exist) {
         // remove all child
         modelValue.value = [...modelValue.value]
@@ -204,7 +209,8 @@ provideTreeRootContext({
   },
   expanded,
   onToggle(val) {
-    if (!val?.children)
+    const children = val ? props.getChildren(val) : undefined
+    if (!children)
       return
 
     const key = props.getKey(val) ?? val
@@ -214,6 +220,7 @@ provideTreeRootContext({
       expanded.value.push(key)
   },
   getKey: props.getKey,
+  getChildren: props.getChildren,
   items,
   expandedItems,
   disabled,

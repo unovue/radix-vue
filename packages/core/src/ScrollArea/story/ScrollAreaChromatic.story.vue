@@ -60,5 +60,33 @@ import { ConfigProvider } from '../../ConfigProvider'
         </ScrollAreaStory>
       </ConfigProvider>
     </Variant>
+
+    <Variant title="Ellipsis at viewport width">
+      <ScrollAreaStory
+        type="always"
+        vertical
+        :horizontal="false"
+      >
+        <ScrollAreaCopy
+          v-for="i in 10"
+          :key="i"
+          class="w-full truncate"
+        />
+      </ScrollAreaStory>
+    </Variant>
+
+    <Variant title="Ellipsis at content width">
+      <ScrollAreaStory
+        type="always"
+        vertical
+        :horizontal="true"
+      >
+        <ScrollAreaCopy
+          v-for="i in 10"
+          :key="i"
+          class="!w-[125px] truncate"
+        />
+      </ScrollAreaStory>
+    </Variant>
   </Story>
 </template>

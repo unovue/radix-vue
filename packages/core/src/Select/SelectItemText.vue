@@ -31,7 +31,7 @@ const nativeOption = computed(() => {
     key: itemContext.value.toString(),
     value: itemContext.value,
     disabled: itemContext.disabled.value,
-    innerHTML: itemTextElement.value?.textContent,
+    textContent: itemTextElement.value?.textContent,
   })
 })
 

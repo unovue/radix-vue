@@ -72,7 +72,7 @@ const isFocusedDate = computed(() => {
   return !rootContext.disabled.value && isSameDay(props.day, rootContext.placeholder.value)
 })
 
-function changeDate(date: DateValue) {
+function changeDate(e: MouseEvent | KeyboardEvent, date: DateValue) {
   if (rootContext.readonly.value)
     return
   if (rootContext.isDateDisabled(date) || rootContext.isDateUnavailable?.(date))
@@ -87,14 +87,16 @@ function changeDate(date: DateValue) {
       return
     }
     else if (!rootContext.endValue.value) {
+      e.preventDefault()
       if (rootContext.lastPressedDateValue.value && isSameDay(rootContext.lastPressedDateValue.value, date))
         rootContext.startValue.value = date.copy()
       return
     }
   }
 
-  if (rootContext.startValue.value && isSameDay(rootContext.startValue.value, date) && !rootContext.preventDeselect.value && !rootContext.endValue.value) {
+  if (rootContext.startValue.value && rootContext.endValue.value && isSameDay(rootContext.endValue.value, date) && !rootContext.preventDeselect.value) {
     rootContext.startValue.value = undefined
+    rootContext.endValue.value = undefined
     rootContext.onPlaceholderChange(date)
     return
   }
@@ -111,8 +113,8 @@ function changeDate(date: DateValue) {
   }
 }
 
-function handleClick() {
-  changeDate(props.day)
+function handleClick(e: MouseEvent) {
+  changeDate(e, props.day)
 }
 
 function handleFocus() {
@@ -148,7 +150,7 @@ function handleArrowKey(e: KeyboardEvent) {
       break
     case kbd.ENTER:
     case kbd.SPACE_CODE:
-      changeDate(props.day)
+      changeDate(e, props.day)
       return
     default:
       return

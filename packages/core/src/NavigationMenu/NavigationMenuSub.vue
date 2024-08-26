@@ -102,6 +102,7 @@ provideNavigationMenuContext({
       :data-orientation="orientation"
       :as-child="props.asChild"
       :as="as"
+      data-reka-navigation-menu
     >
       <slot :model-value="modelValue" />
     </Primitive>

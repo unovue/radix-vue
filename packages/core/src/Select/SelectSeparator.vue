@@ -12,7 +12,7 @@ const props = defineProps<SelectSeparatorProps>()
 
 <template>
   <Primitive
-    aria-hidden
+    aria-hidden="true"
     v-bind="props"
   >
     <slot />

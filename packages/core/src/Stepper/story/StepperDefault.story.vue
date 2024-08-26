@@ -38,7 +38,6 @@ const steps = [{
   >
     <Variant title="default">
       <StepperRoot
-        v-model="step"
         class="flex gap-2 p-1"
       >
         <StepperItem

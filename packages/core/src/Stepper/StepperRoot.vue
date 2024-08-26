@@ -1,7 +1,6 @@
 <script lang="ts">
-import type { Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { ref, toRefs } from 'vue'
+import { type Ref, computed, nextTick, ref, toRefs, watch } from 'vue'
 import type { DataOrientation, Direction } from '../shared/types'
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useDirection, useForwardExpose } from '@/shared'
@@ -13,7 +12,6 @@ export interface StepperRootContext {
   orientation: Ref<DataOrientation>
   dir: Ref<Direction>
   linear: Ref<boolean>
-  stepperItems: Ref<Set<HTMLElement>>
   totalStepperItems: Ref<Set<HTMLElement>>
 }
 
@@ -58,6 +56,22 @@ defineSlots<{
   default: (props: {
     /** Current step */
     modelValue: number | undefined
+    /** Total number of steps */
+    totalSteps: number
+    /** Whether or not the next step is disabled */
+    isNextDisabled: boolean
+    /** Whether or not the previous step is disabled */
+    isPrevDisabled: boolean
+    /** Whether or not the first step is active */
+    isFirstStep: boolean
+    /** Whether or not the last step is active */
+    isLastStep: boolean
+    /** Go to a specific step */
+    goToStep: (step: number) => void
+    /** Go to the next step */
+    nextStep: () => void
+    /** Go to the previous step */
+    prevStep: () => void
   }) => any
 }>()
 
@@ -65,12 +79,53 @@ const { dir: propDir, orientation: propOrientation, linear } = toRefs(props)
 const dir = useDirection(propDir)
 useForwardExpose()
 
-const stepperItems = ref<Set<HTMLElement>>(new Set())
 const totalStepperItems = ref<Set<HTMLElement>>(new Set())
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
   passive: (props.modelValue === undefined) as false,
+})
+
+const totalStepperItemsArray = computed(() => Array.from(totalStepperItems.value))
+
+const isFirstStep = computed(() => modelValue.value === 1)
+const isLastStep = computed(() => modelValue.value === totalStepperItemsArray.value.length)
+
+const totalSteps = computed(() => totalStepperItems.value.size)
+
+function goToStep(step: number) {
+  if (step > totalSteps.value)
+    return
+
+  if (step < 1)
+    return
+
+  if (totalStepperItems.value.size && !!totalStepperItemsArray.value[step] && !!totalStepperItemsArray.value[step].getAttribute('disabled'))
+    return
+
+  if (linear.value) {
+    if (step > (modelValue.value ?? 1) + 1)
+      return
+  }
+
+  modelValue.value = step
+}
+const nextStepperItem = ref<HTMLElement | null>(null)
+const prevStepperItem = ref<HTMLElement | null>(null)
+const isNextDisabled = computed(() => nextStepperItem.value ? nextStepperItem.value.getAttribute('disabled') === '' : true)
+const isPrevDisabled = computed(() => prevStepperItem.value ? prevStepperItem.value.getAttribute('disabled') === '' : true)
+
+watch(modelValue, async () => {
+  await nextTick(() => {
+    nextStepperItem.value = totalStepperItemsArray.value.length && modelValue.value! < totalStepperItemsArray.value.length ? totalStepperItemsArray.value[modelValue.value!] : null
+    prevStepperItem.value = totalStepperItemsArray.value.length && modelValue.value! > 1 ? totalStepperItemsArray.value[modelValue.value! - 2] : null
+  })
+})
+watch(totalStepperItemsArray, async () => {
+  await nextTick(() => {
+    nextStepperItem.value = totalStepperItemsArray.value.length && modelValue.value! < totalStepperItemsArray.value.length ? totalStepperItemsArray.value[modelValue.value!] : null
+    prevStepperItem.value = totalStepperItemsArray.value.length && modelValue.value! > 1 ? totalStepperItemsArray.value[modelValue.value! - 2] : null
+  })
 })
 
 provideStepperRootContext({
@@ -81,7 +136,6 @@ provideStepperRootContext({
   orientation: propOrientation,
   dir,
   linear,
-  stepperItems,
   totalStepperItems,
 })
 </script>
@@ -95,7 +149,18 @@ provideStepperRootContext({
     :data-linear="linear ? '' : undefined"
     :data-orientation="orientation"
   >
-    <slot :model-value="modelValue" />
+    <slot
+      :model-value="modelValue"
+      :total-steps="totalStepperItems.size"
+      :is-next-disabled="isNextDisabled"
+      :is-prev-disabled="isPrevDisabled"
+      :is-first-step="isFirstStep"
+      :is-last-step="isLastStep"
+      :go-to-step="goToStep"
+      :next-step="() => goToStep((modelValue ?? 1) + 1)"
+      :prev-step="() => goToStep((modelValue ?? 1) - 1)"
+    />
+
     <div
       aria-live="polite"
       aria-atomic="true"

@@ -14,7 +14,7 @@ withDefaults(defineProps<SelectIconProps>(), {
 
 <template>
   <Primitive
-    aria-hidden
+    aria-hidden="true"
     :as="as"
     :as-child="asChild"
   >

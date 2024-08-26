@@ -180,7 +180,7 @@ const lastPressedDateValue = ref() as Ref<DateValue | undefined>
 const focusedValue = ref() as Ref<DateValue | undefined>
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: props.defaultValue,
+  defaultValue: props.defaultValue ?? { start: undefined, end: undefined },
   passive: (props.modelValue === undefined) as false,
 }) as Ref<DateRange>
 

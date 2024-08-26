@@ -11,7 +11,7 @@ const providerContext = injectToastProviderContext()
 
 <template>
   <VisuallyHidden
-    aria-hidden
+    aria-hidden="true"
     tabindex="0"
     style="position: fixed"
     @focus="(event: FocusEvent) => {

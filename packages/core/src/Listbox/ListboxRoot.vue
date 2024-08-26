@@ -156,6 +156,9 @@ function getCollectionItem() {
 }
 
 function changeHighlight(el: HTMLElement, scrollIntoView = true) {
+  if (!el)
+    return
+
   highlightedElement.value = el
   if (focusable.value)
     highlightedElement.value.focus()

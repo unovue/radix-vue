@@ -162,7 +162,7 @@ export const [injectPopperContentContext, providePopperContentContext]
 </script>
 
 <script setup lang="ts">
-import { computed, ref, watchEffect } from 'vue'
+import { computed, ref, watchEffect, watchPostEffect } from 'vue'
 import { computedEager, useThrottleFn } from '@vueuse/core'
 import {
   autoUpdate,
@@ -315,7 +315,7 @@ const placedAlign = computed(
   () => getSideAndAlignFromPlacement(placement.value)[1],
 )
 
-watchEffect(() => {
+watchPostEffect(() => {
   if (isPositioned.value)
     emits('placed')
 })

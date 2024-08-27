@@ -34,8 +34,8 @@ watch(path, () => {
           v-for="tab in sectionTabs.filter(i => i.label !== 'Examples')"
           :key="tab.label"
           :href="tab.link"
-          :class="{ '!border-b-primary !font-semibold !text-foreground': page.relativePath.includes(tab.label?.toLowerCase() ?? '') }"
-          class="py-2 mx-4 text-sm font-medium border-b border-b-transparent text-muted-foreground hover:border-b-muted hover:text-foreground h-full inline-flex items-center"
+          :class="{ '!border-b-primary !text-foreground': page.relativePath.includes(tab.label?.toLowerCase() ?? '') }"
+          class=" py-2 mx-4 text-sm font-semibold border-b border-b-transparent text-muted-foreground hover:border-b-muted hover:text-foreground h-full inline-flex items-center"
         >
           <Icon
             v-if="tab.icon"
@@ -51,8 +51,8 @@ watch(path, () => {
           v-for="tab in sectionTabs.filter(i => i.label === 'Examples')"
           :key="tab.label"
           :href="tab.link"
-          :class="{ '!border-b-primary !font-semibold !text-foreground': page.relativePath.includes(tab.label?.toLowerCase() ?? '') }"
-          class="py-2 mx-4 text-sm font-medium border-b border-b-transparent text-muted-foreground hover:border-b-muted hover:text-foreground h-full inline-flex items-center"
+          :class="{ '!border-b-primary !text-foreground': page.relativePath.includes(tab.label?.toLowerCase() ?? '') }"
+          class=" py-2 mx-4 text-sm font-semibold border-b border-b-transparent text-muted-foreground hover:border-b-muted hover:text-foreground h-full inline-flex items-center"
         >
           <Icon
             v-if="tab.icon"

@@ -42,7 +42,7 @@ import { Icon } from '@iconify/vue'
         </a>
         <a
           class="group flex h-12 items-center justify-center gap-2 font-semibold text-muted-foreground hover:text-foreground whitespace-nowrap rounded-xl px-4 hover:bg-card"
-          href="/docs/components/accordion"
+          href="/docs/components/checkbox"
         >
           Explore components
           <Icon icon="lucide:arrow-right" />

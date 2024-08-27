@@ -59,7 +59,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Docs', link: '/docs/overview/getting-started' },
-      { text: 'Examples', link: '/examples' },
+      { text: 'Examples', link: '/examples/checkbox-group' },
       { text: 'Showcase', link: '/showcase' },
       {
         text: `v${version}`,
@@ -181,7 +181,7 @@ export default defineConfig({
       {
         text: 'Examples',
         icon: 'lucide:square-dashed-mouse-pointer',
-        link: '/examples',
+        link: '/examples/checkbox-group',
         items: [
           { text: 'Checkbox', items: [
             { text: 'Checkbox Group', link: '/examples/checkbox-group' },
@@ -193,8 +193,18 @@ export default defineConfig({
           { text: 'Dialog', items: [
             { text: 'Dialog Command Menu', link: '/examples/dialog-command-menu' },
           ] },
+          { text: 'Listbox', items: [
+            { text: 'Listbox Transfer', link: '/examples/listbox-transfer' },
+          ] },
+          { text: 'Slider', items: [
+            { text: 'Slider with Number Field', link: '/examples/slider-number-field' },
+            { text: 'Slider Tooltip', link: '/examples/slider-tooltip' },
+          ] },
           { text: 'Tooltip', items: [
             { text: 'Tooltip Cursor', link: '/examples/tooltip-cursor' },
+          ] },
+          { text: 'Progress', items: [
+            { text: 'Circular Progress', link: '/examples/progress-circular' },
           ] },
         ],
       },

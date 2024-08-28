@@ -77,7 +77,7 @@
   {
     'name': 'positionStrategy',
     'description': '<p>The type of CSS position property to use.</p>\n',
-    'type': '\'fixed\' | \'absolute\'',
+    'type': '\'absolute\' | \'fixed\'',
     'required': false
   },
   {

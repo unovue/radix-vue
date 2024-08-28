@@ -70,7 +70,7 @@
   },
   {
     'name': 'name',
-    'description': '<p>The name of the combobox. Submitted with its owning form as part of a name/value pair.</p>\n',
+    'description': '<p>The name of the field. Submitted with its owning form as part of a name/value pair.</p>\n',
     'type': 'string',
     'required': false
   },

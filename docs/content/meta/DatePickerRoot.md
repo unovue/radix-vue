@@ -123,7 +123,7 @@
   },
   {
     'name': 'name',
-    'description': '<p>The name of the date field. Submitted with its owning form as part of a name/value pair.</p>\n',
+    'description': '<p>The name of the field. Submitted with its owning form as part of a name/value pair.</p>\n',
     'type': 'string',
     'required': false
   },
@@ -169,7 +169,7 @@
   },
   {
     'name': 'required',
-    'description': '<p>When <code>true</code>, indicates that the user must check the date field before the owning form can be submitted.</p>\n',
+    'description': '<p>When <code>true</code>, indicates that the user must set the value before the owning form can be submitted.</p>\n',
     'type': 'boolean',
     'required': false
   },

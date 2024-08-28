@@ -58,7 +58,7 @@
   },
   {
     'name': 'name',
-    'description': '<p>The name of the listbox. Submitted with its owning form as part of a name/value pair.</p>\n',
+    'description': '<p>The name of the field. Submitted with its owning form as part of a name/value pair.</p>\n',
     'type': 'string',
     'required': false
   },
@@ -78,7 +78,7 @@
   {
     'name': 'selectionBehavior',
     'description': '<p>How multiple selection should behave in the collection.</p>\n',
-    'type': '\'replace\' | \'toggle\'',
+    'type': '\'toggle\' | \'replace\'',
     'required': false,
     'default': '\'toggle\''
   }

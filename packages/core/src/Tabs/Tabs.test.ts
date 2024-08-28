@@ -23,9 +23,9 @@ describe('given default Tabs', () => {
   })
 
   describe('after changing tab', () => {
-    beforeEach(() => {
+    beforeEach(async () => {
       const trigger = wrapper.find('button')
-      trigger.trigger('keydown', { key: 'ArrowRight' })
+      await trigger.trigger('keydown', { key: 'ArrowRight' })
     })
 
     it('should focus on next tab', () => {

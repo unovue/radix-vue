@@ -3,8 +3,9 @@ import type { PrimitiveProps } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 import { clamp, createContext, snapValueToStep, useFormControl, useLocale } from '@/shared'
 import { type HTMLAttributes, type Ref, computed, ref, toRefs } from 'vue'
+import type { FormFieldProps } from '@/shared/types'
 
-export interface NumberFieldRootProps extends PrimitiveProps {
+export interface NumberFieldRootProps extends PrimitiveProps, FormFieldProps {
   defaultValue?: number
   modelValue?: number
   /** The smallest value allowed for the input. */
@@ -19,10 +20,6 @@ export interface NumberFieldRootProps extends PrimitiveProps {
   locale?: string
   /** When `true`, prevents the user from interacting with the Number Field. */
   disabled?: boolean
-  /** When `true`, indicates that the user must set the value before the owning form can be submitted. */
-  required?: boolean
-  /** The name of the number field. Submitted with its owning form as part of a name/value pair. */
-  name?: string
   /** Id of the element */
   id?: string
 }

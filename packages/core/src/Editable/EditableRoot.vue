@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useDirection, useFormControl } from '@/shared'
-import type { Direction } from '@/shared/types'
+import type { Direction, FormFieldProps } from '@/shared/types'
 import { useFocusOutside, usePointerDownOutside } from '@/DismissableLayer'
 
 type ActivationMode = 'focus' | 'dblclick' | 'none'
@@ -28,7 +28,7 @@ type EditableRootContext = {
   autoResize: Ref<boolean>
 }
 
-export interface EditableRootProps extends PrimitiveProps {
+export interface EditableRootProps extends PrimitiveProps, FormFieldProps {
   /** The default value of the editable field */
   defaultValue?: string
   /** The value of the editable field */
@@ -55,10 +55,6 @@ export interface EditableRootProps extends PrimitiveProps {
   autoResize?: boolean
   /** The id of the field */
   id?: string
-  /** The name of the field */
-  name?: string
-  /** When `true`, indicates that the user must set the value before the owning form can be submitted. */
-  required?: boolean
 }
 
 export type EditableRootEmits = {

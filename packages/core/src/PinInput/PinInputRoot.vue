@@ -2,15 +2,16 @@
 import { type ComputedRef, type Ref, computed, ref, toRefs, watch } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useDirection, useForwardExpose } from '@/shared'
-import type { Direction } from '@/shared/types'
+import type { Direction, FormFieldProps } from '@/shared/types'
 import { VisuallyHidden } from '@/VisuallyHidden'
+import VisuallyHiddenInput from '@/VisuallyHidden/VisuallyHiddenInput.vue'
 
 export type PinInputRootEmits = {
   'update:modelValue': [value: string[]]
   'complete': [value: string[]]
 }
 
-export interface PinInputRootProps extends PrimitiveProps {
+export interface PinInputRootProps extends PrimitiveProps, FormFieldProps {
   /** The controlled checked state of the pin input. Can be binded as `v-model`. */
   modelValue?: string[]
   /** The default value of the pin inputs when it is initially rendered. Use when you do not need to control its checked state. */
@@ -25,12 +26,8 @@ export interface PinInputRootProps extends PrimitiveProps {
   type?: 'text' | 'number'
   /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
-  /** The name of the pin input. Submitted with its owning form as part of a name/value pair. */
-  name?: string
   /** When `true`, prevents the user from interacting with the pin input */
   disabled?: boolean
-  /** When `true`, indicates that the user must check the pin input before the owning form can be submitted. */
-  required?: boolean
   /** Id of the element */
   id?: string
 }
@@ -121,12 +118,12 @@ providePinInputRootContext({
   >
     <slot :model-value="modelValue" />
 
-    <VisuallyHidden
+    <VisuallyHiddenInput
       :id="id"
       as="input"
       feature="focusable"
       :value="modelValue.join('')"
-      :name="name"
+      :name="name ?? ''"
       :disabled="disabled"
       :required="required"
       @focus="Array.from(inputElements)?.[0]?.focus()"

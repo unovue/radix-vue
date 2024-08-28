@@ -1,11 +1,11 @@
 <script lang="ts">
 import type { Ref, VNode } from 'vue'
-import type { AcceptableValue, Direction } from '@/shared/types'
+import type { AcceptableValue, Direction, FormFieldProps } from '@/shared/types'
 import { createContext, isNullish, useDirection, useFormControl } from '@/shared'
 import { compare } from './utils'
 import { useCollection } from '@/Collection'
 
-export interface SelectRootProps<T = AcceptableValue> {
+export interface SelectRootProps<T = AcceptableValue> extends FormFieldProps {
   /** The controlled open state of the Select. Can be bind as `v-model:open`. */
   open?: boolean
   /** The open state of the select when it is initially rendered. Use when you do not need to control its open state. */
@@ -18,16 +18,12 @@ export interface SelectRootProps<T = AcceptableValue> {
   by?: string | ((a: T, b: T) => boolean)
   /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
-  /** The name of the Select. Submitted with its owning form as part of a name/value pair. */
-  name?: string
   /** Whether multiple options can be selected or not. */
   multiple?: boolean
   /** Native html input `autocomplete` attribute. */
   autocomplete?: string
   /** When `true`, prevents the user from interacting with Select */
   disabled?: boolean
-  /** When `true`, indicates that the user must select a value before the owning form can be submitted. */
-  required?: boolean
 }
 
 export type SelectRootEmits<T = AcceptableValue> = {

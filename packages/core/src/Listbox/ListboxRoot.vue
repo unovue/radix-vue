@@ -2,7 +2,7 @@
 import { createContext, findValuesBetween, useDirection, useFormControl, useKbd, useTypeahead } from '@/shared'
 import { Primitive } from '..'
 import { type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
-import type { AcceptableValue, DataOrientation, Direction } from '@/shared/types'
+import type { AcceptableValue, DataOrientation, Direction, FormFieldProps } from '@/shared/types'
 import { getFocusIntent } from '@/RovingFocus/utils'
 
 type ListboxRootContext<T> = {
@@ -36,7 +36,7 @@ type ListboxRootContext<T> = {
 export const [injectListboxRootContext, provideListboxRootContext]
   = createContext<ListboxRootContext<AcceptableValue>>('ListboxRoot')
 
-export interface ListboxRootProps<T = AcceptableValue> extends PrimitiveProps {
+export interface ListboxRootProps<T = AcceptableValue> extends PrimitiveProps, FormFieldProps {
   /** The controlled value of the listbox. Can be binded-with with `v-model`. */
   modelValue?: T | Array<T>
   /** The value of the listbox when initially rendered. Use when you do not need to control the state of the Listbox */
@@ -58,10 +58,6 @@ export interface ListboxRootProps<T = AcceptableValue> extends PrimitiveProps {
   highlightOnHover?: boolean
   /** Use this to compare objects by a particular field, or pass your own comparison function for complete control over how objects are compared. */
   by?: string | ((a: T, b: T) => boolean)
-  /** The name of the listbox. Submitted with its owning form as part of a name/value pair. */
-  name?: string
-  /** When `true`, indicates that the user must set the value before the owning form can be submitted. */
-  required?: boolean
 }
 
 export type ListboxRootEmits<T = AcceptableValue> = {

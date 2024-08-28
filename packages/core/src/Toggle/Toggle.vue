@@ -1,6 +1,9 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
+import { useFormControl, useForwardExpose } from '@/shared'
+import VisuallyHiddenInput from '@/VisuallyHidden/VisuallyHiddenInput.vue'
+import type { FormFieldProps } from '@/shared/types'
+import { injectToggleGroupRootContext } from '@/ToggleGroup/ToggleGroupRoot.vue'
 
 export type ToggleEmits = {
   /** Event handler called when the value of the toggle changes. */
@@ -9,7 +12,7 @@ export type ToggleEmits = {
 
 export type DataState = 'on' | 'off'
 
-export interface ToggleProps extends PrimitiveProps {
+export interface ToggleProps extends PrimitiveProps, FormFieldProps {
   /**
    * The pressed state of the toggle when it is initially rendered. Use when you do not need to control its open state.
    */
@@ -45,7 +48,9 @@ defineSlots<{
   }) => any
 }>()
 
-useForwardExpose()
+const { forwardRef, currentElement } = useForwardExpose()
+const toggleGroupContext = injectToggleGroupRootContext(null)
+
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
   passive: (props.modelValue === undefined) as false,
@@ -58,10 +63,13 @@ function togglePressed() {
 const dataState = computed<DataState>(() => {
   return modelValue.value ? 'on' : 'off'
 })
+
+const isFormControl = useFormControl(currentElement)
 </script>
 
 <template>
   <Primitive
+    :ref="forwardRef"
     :type="as === 'button' ? 'button' : undefined"
     :as-child="props.asChild"
     :as="as"
@@ -72,5 +80,13 @@ const dataState = computed<DataState>(() => {
     @click="togglePressed"
   >
     <slot :model-value="modelValue" />
+
+    <VisuallyHiddenInput
+      v-if="isFormControl && name && !toggleGroupContext"
+      type="checkbox"
+      :name="name"
+      :value="modelValue"
+      :required="required"
+    />
   </Primitive>
 </template>

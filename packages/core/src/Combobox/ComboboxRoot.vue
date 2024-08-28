@@ -45,8 +45,6 @@ export interface ComboboxRootProps<T = AcceptableValue> extends Omit<ListboxRoot
   open?: boolean
   /** The open state of the combobox when it is initially rendered. <br> Use when you do not need to control its open state. */
   defaultOpen?: boolean
-  /** The name of the combobox. Submitted with its owning form as part of a name/value pair. */
-  name?: string
   /**
    * Whether to reset the searchTerm when the Combobox input blurred
    * @defaultValue `true`

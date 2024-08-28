@@ -62,4 +62,11 @@ type GenericComponentInstance<T> = T extends new (...args: any[]) => infer R
       : any
     : any
 
-export type { AcceptableValue, ArrayOrWrapped, DataOrientation, Direction, Type, SingleOrMultipleProps, SingleOrMultipleType, ScrollBodyOption, StringOrNumber, GenericComponentInstance }
+interface FormFieldProps {
+  /** The name of the field. Submitted with its owning form as part of a name/value pair */
+  name?: string
+  /** When `true`, indicates that the user must set the value before the owning form can be submitted. */
+  required?: boolean
+}
+
+export type { AcceptableValue, ArrayOrWrapped, DataOrientation, Direction, Type, SingleOrMultipleProps, SingleOrMultipleType, ScrollBodyOption, StringOrNumber, GenericComponentInstance, FormFieldProps }

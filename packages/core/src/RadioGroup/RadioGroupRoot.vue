@@ -1,10 +1,10 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import type { AcceptableValue, DataOrientation, Direction } from '@/shared/types'
+import type { AcceptableValue, DataOrientation, Direction, FormFieldProps } from '@/shared/types'
 import { createContext, useDirection, useFormControl, useForwardExpose } from '@/shared'
 
-export interface RadioGroupRootProps extends PrimitiveProps {
+export interface RadioGroupRootProps extends PrimitiveProps, FormFieldProps {
   /** The controlled value of the radio item to check. Can be binded as `v-model`. */
   modelValue?: AcceptableValue
   /**
@@ -15,10 +15,6 @@ export interface RadioGroupRootProps extends PrimitiveProps {
   defaultValue?: AcceptableValue
   /** When `true`, prevents the user from interacting with radio items. */
   disabled?: boolean
-  /** The name of the group. Submitted with its owning form as part of a name/value pair. */
-  name?: string
-  /** When `true`, indicates that the user must check a radio item before the owning form can be submitted. */
-  required?: boolean
   /** The orientation of the component. */
   orientation?: DataOrientation
   /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */

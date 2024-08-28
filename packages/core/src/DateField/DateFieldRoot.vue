@@ -13,7 +13,7 @@ import {
 } from '@/shared/date'
 import { type Matcher, hasTime, isBefore } from '@/date'
 import { createContent, getSegmentElements, initializeSegmentValues, isSegmentNavigationKey, syncSegmentValues } from './utils'
-import type { Direction } from '@/shared/types'
+import type { Direction, FormFieldProps } from '@/shared/types'
 
 type DateFieldRootContext = {
   locale: Ref<string>
@@ -32,7 +32,7 @@ type DateFieldRootContext = {
   setFocusedElement: (el: HTMLElement) => void
 }
 
-export interface DateFieldRootProps extends PrimitiveProps {
+export interface DateFieldRootProps extends PrimitiveProps, FormFieldProps {
   /** The default value for the calendar */
   defaultValue?: DateValue
   /** The default placeholder date */
@@ -59,10 +59,6 @@ export interface DateFieldRootProps extends PrimitiveProps {
   readonly?: boolean
   /** A function that returns whether or not a date is unavailable */
   isDateUnavailable?: Matcher
-  /** The name of the date field. Submitted with its owning form as part of a name/value pair. */
-  name?: string
-  /** When `true`, indicates that the user must check the date field before the owning form can be submitted. */
-  required?: boolean
   /** Id of the element */
   id?: string
   /** The reading direction of the date field when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */

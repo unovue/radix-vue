@@ -2,11 +2,11 @@
 import { type Ref, computed, toRefs } from 'vue'
 import { createContext, useDirection, useFormControl } from '@/shared'
 import type { RovingFocusGroupProps } from '@/RovingFocus'
-import type { AcceptableValue } from '@/shared/types'
+import type { AcceptableValue, FormFieldProps } from '@/shared/types'
 import { useVModel } from '@vueuse/core'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
 
-export interface CheckboxGroupRootProps<T = AcceptableValue> extends Pick<RovingFocusGroupProps, 'as' | 'asChild' | 'dir' | 'orientation' | 'loop'> {
+export interface CheckboxGroupRootProps<T = AcceptableValue> extends Pick<RovingFocusGroupProps, 'as' | 'asChild' | 'dir' | 'orientation' | 'loop'>, FormFieldProps {
   /** The value of the checkbox when it is initially rendered. Use when you do not need to control its value. */
   defaultValue?: T[]
   /** The controlled value of the checkbox. Can be binded with v-model. */
@@ -15,10 +15,6 @@ export interface CheckboxGroupRootProps<T = AcceptableValue> extends Pick<Roving
   rovingFocus?: boolean
   /** When `true`, prevents the user from interacting with the checkboxes */
   disabled?: boolean
-  /** When `true`, indicates that the user must check the checkbox before the owning form can be submitted. */
-  required?: boolean
-  /** The name of the checkbox. Submitted with its owning form as part of a name/value pair. */
-  name?: string
 }
 
 export type CheckboxGroupRootEmits<T = AcceptableValue> = {

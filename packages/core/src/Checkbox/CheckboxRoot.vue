@@ -3,21 +3,17 @@ import type { PrimitiveProps } from '@/Primitive'
 import type { Ref } from 'vue'
 import { createContext, isValueEqualOrExist, useFormControl, useForwardExpose } from '@/shared'
 import type { CheckedState } from './utils'
-import type { AcceptableValue } from '@/shared/types'
+import type { AcceptableValue, FormFieldProps } from '@/shared/types'
 import { useVModel } from '@vueuse/core'
 import { injectCheckboxGroupRootContext } from './CheckboxGroupRoot.vue'
 
-export interface CheckboxRootProps extends PrimitiveProps {
+export interface CheckboxRootProps extends PrimitiveProps, FormFieldProps {
   /** The value of the checkbox when it is initially rendered. Use when you do not need to control its value. */
   defaultValue?: boolean | 'indeterminate'
   /** The controlled value of the checkbox. Can be binded with v-model. */
   modelValue?: boolean | 'indeterminate'
   /** When `true`, prevents the user from interacting with the checkbox */
   disabled?: boolean
-  /** When `true`, indicates that the user must check the checkbox before the owning form can be submitted. */
-  required?: boolean
-  /** The name of the checkbox. Submitted with its owning form as part of a name/value pair. */
-  name?: string
   /**
    * The value given as data when submitted with a `name`.
    *  @defaultValue "on"

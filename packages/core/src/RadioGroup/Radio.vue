@@ -1,23 +1,20 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import type { SelectEvent } from './utils'
-import type { AcceptableValue } from '@/shared/types'
+import type { AcceptableValue, FormFieldProps } from '@/shared/types'
 
 export type RadioEmits = {
   'update:checked': [value: boolean]
   'select': [SelectEvent]
 }
 
-export interface RadioProps extends PrimitiveProps {
+export interface RadioProps extends PrimitiveProps, FormFieldProps {
   id?: string
   /** The value given as data when submitted with a `name`. */
   value?: AcceptableValue
   /** When `true`, prevents the user from interacting with the radio item. */
   disabled?: boolean
-  /** When `true`, indicates that the user must check the radio item before the owning form can be submitted. */
-  required?: boolean
   checked?: boolean
-  name?: string
 }
 </script>
 
@@ -91,29 +88,10 @@ function handleClick(event: MouseEvent) {
   >
     <slot :checked="checked" />
 
-    <input
-      v-if="isFormControl && typeof value === 'string'"
-      type="radio"
-      tabindex="-1"
-      aria-hidden="true"
-      :value="value"
-      :checked="!!checked"
-      :name="name"
-      :disabled="disabled"
-      :required="required"
-      :style="{
-        transform: 'translateX(-100%)',
-        position: 'absolute',
-        pointerEvents: 'none',
-        opacity: 0,
-        margin: 0,
-      }"
-    >
     <VisuallyHiddenInput
-      v-else-if="isFormControl && name"
+      v-if="isFormControl && name"
       type="radio"
       tabindex="-1"
-      aria-hidden
       :value="value"
       :checked="!!checked"
       :name="name"

@@ -1,12 +1,12 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useArrowNavigation, useDirection, useFormControl, useForwardExpose } from '@/shared'
-import type { Direction } from '@/shared/types'
+import type { Direction, FormFieldProps } from '@/shared/types'
 import { type Ref, ref, toRefs } from 'vue'
 
 export type AcceptableInputValue = string | Record<string, any>
 
-export interface TagsInputRootProps<T = AcceptableInputValue> extends PrimitiveProps {
+export interface TagsInputRootProps<T = AcceptableInputValue> extends PrimitiveProps, FormFieldProps {
   /** The controlled value of the tags input. Can be bind as `v-model`. */
   modelValue?: Array<T>
   /** The value of the tags that should be added. Use when you do not need to control the state of the tags input */
@@ -27,10 +27,6 @@ export interface TagsInputRootProps<T = AcceptableInputValue> extends PrimitiveP
   dir?: Direction
   /** Maximum number of tags. */
   max?: number
-  /** When `true`, indicates that the user must add the tags input before the owning form can be submitted. */
-  required?: boolean
-  /** The name of the tags input submitted with its owning form as part of a name/value pair. */
-  name?: string
   id?: string
   /** Convert the input value to the desired type. Mandatory when using objects as values and using `TagsInputInput` */
   convertValue?: (value: string) => T

@@ -1,12 +1,11 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import type { DataOrientation, Direction } from '../shared/types'
+import type { DataOrientation, Direction, FormFieldProps } from '../shared/types'
 import { clamp, createContext, useDirection, useFormControl, useForwardExpose } from '@/shared'
 import { useCollection } from '@/Collection'
 
-export interface SliderRootProps extends PrimitiveProps {
-  name?: string
+export interface SliderRootProps extends PrimitiveProps, FormFieldProps {
   /** The value of the slider when initially rendered. Use when you do not need to control the state of the slider. */
   defaultValue?: number[]
   /** The controlled value of the slider. Can be bind as `v-model`. */
@@ -192,6 +191,7 @@ provideSliderRootContext({
         type="number"
         :value="modelValue"
         :name="name"
+        :required="required"
         :disabled="disabled"
         :step="step"
       />

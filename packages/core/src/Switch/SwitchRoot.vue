@@ -2,18 +2,15 @@
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useFormControl, useForwardExpose } from '@/shared'
+import type { FormFieldProps } from '@/shared/types'
 
-export interface SwitchRootProps extends PrimitiveProps {
+export interface SwitchRootProps extends PrimitiveProps, FormFieldProps {
   /** The state of the switch when it is initially rendered. Use when you do not need to control its state. */
   defaultValue?: boolean
   /** The controlled state of the switch. Can be bind as `v-model`. */
   modelValue?: boolean
   /** When `true`, prevents the user from interacting with the switch. */
   disabled?: boolean
-  /** When `true`, indicates that the user must check the switch before the owning form can be submitted. */
-  required?: boolean
-  /** The name of the switch. Submitted with its owning form as part of a name/value pair. */
-  name?: string
   id?: string
   /** The value given as data when submitted with a `name`. */
   value?: string

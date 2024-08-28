@@ -300,7 +300,7 @@ When providing an icon (or font icon), remember to label it correctly for screen
       <DialogTitle />
       <DialogDescription />
       <DialogClose aria-label="Close">
-        <span aria-hidden>×</span>
+        <span aria-hidden="true">×</span>
       </DialogClose>
     </DialogContent>
   </DialogPortal>

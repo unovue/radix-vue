@@ -276,7 +276,7 @@ When providing an icon (or font icon), remember to label it correctly for screen
 <ToastRoot type="foreground">
   <ToastDescription>Saved!</ToastDescription>
   <ToastClose aria-label="Close">
-    <span aria-hidden>×</span>
+    <span aria-hidden="true">×</span>
   </ToastClose>
 </ToastRoot>
 ```
@@ -374,7 +374,7 @@ defineProps<{
       <slot />
     </ToastAction>
     <ToastClose aria-label="Close">
-      <span aria-hidden>×</span>
+      <span aria-hidden="true">×</span>
     </ToastClose>
   </ToastRoot>
 </template>

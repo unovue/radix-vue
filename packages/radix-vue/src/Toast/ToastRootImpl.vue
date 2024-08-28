@@ -173,7 +173,10 @@ provideToastRootContext({ onClose: handleClose })
     {{ announceTextContent }}
   </ToastAnnounce>
 
-  <Teleport :to="providerContext.viewport.value">
+  <Teleport
+    v-if="providerContext.viewport.value"
+    :to="providerContext.viewport.value"
+  >
     <Primitive
       :ref="forwardRef"
       role="status"

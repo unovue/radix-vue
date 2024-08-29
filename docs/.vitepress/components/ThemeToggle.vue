@@ -19,7 +19,7 @@ watchPostEffect(() => {
   <SwitchRoot
     id="theme-toggle"
     v-model="isDark"
-    class="w-11 h-6 flex bg-muted border border-muted rounded-full relative"
+    class="w-11 h-6 flex bg-muted border border-muted-foreground/10 rounded-full relative"
     :aria-label="switchTitle"
   >
     <SwitchThumb

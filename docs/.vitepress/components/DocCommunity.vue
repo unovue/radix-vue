@@ -16,7 +16,7 @@ const links = computed(() => [
 
 <template>
   <div>
-    <div class="pt-6 border-t border-muted">
+    <div class="pt-4">
       <div class="font-bold text-sm mb-2">
         Community
       </div>

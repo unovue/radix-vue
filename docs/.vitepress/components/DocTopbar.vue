@@ -25,8 +25,8 @@ watch(path, () => {
 
 <template>
   <div
-    class="border-y w-full h-12 sticky top-[4.25rem] z-10 transition-all duration-500 px-4"
-    :class="[top ? 'bg-transparent backdrop-blur-0  border-muted-foreground/30' : 'bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/90  border-muted']"
+    class="border-y w-full h-12 sticky top-[4.25rem] z-10 transition-all duration-500 px-4 border-muted-foreground/10"
+    :class="[top ? 'bg-transparent backdrop-blur-0' : 'bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/80']"
   >
     <div class="hidden md:flex items-center justify-between h-full">
       <div class="h-full flex items-center">

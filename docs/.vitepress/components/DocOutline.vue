@@ -40,9 +40,11 @@ useActiveAnchor(container, marker)
       On this page
     </div>
 
-    <DocOutlineItem
-      :headers="page.headers"
-      :root="true"
-    />
+    <div class="border-l border-muted">
+      <DocOutlineItem
+        :headers="page.headers"
+        :root="true"
+      />
+    </div>
   </nav>
 </template>

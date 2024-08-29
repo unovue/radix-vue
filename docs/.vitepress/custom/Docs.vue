@@ -6,6 +6,7 @@ import DocSidebar from '../components/DocSidebar.vue'
 import DocTopbar from '../components/DocTopbar.vue'
 import DocFooter from '../components/DocFooter.vue'
 import DocCommunity from '../components/DocCommunity.vue'
+import DocCarbonAds from '../components/DocCarbonAds.vue'
 import type { DefaultTheme } from 'vitepress/theme'
 import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from 'reka-ui'
 import { flatten } from '../functions/flatten'
@@ -21,6 +22,19 @@ const isExamplePage = computed(() => path.value.includes('examples'))
 
 <template>
   <div class="w-full">
+    <div
+      class="z-0 w-full h-max absolute top-0 left-0 inset-0 pointer-events-none flex justify-center overflow-hidden"
+    >
+      <div class="w-[108rem] flex-none flex justify-end">
+        <img
+          class="w-[90rem] flex-none max-w-none"
+          decoding="async"
+          src="/new-bg.png"
+          alt="backdrop"
+        >
+      </div>
+    </div>
+
     <DocTopbar />
 
     <main class="flex">
@@ -34,7 +48,7 @@ const isExamplePage = computed(() => path.value.includes('examples'))
         <div class="h-6 w-full" />
       </aside>
 
-      <div class="px-6 md:px-14 py-6 md:py-12 overflow-x-hidden flex-1 ">
+      <div class="px-6 md:px-20 py-6 md:py-12 overflow-x-hidden flex-1 ">
         <CollapsibleRoot
           :key="path"
           class="block xl:hidden mb-4"
@@ -60,10 +74,14 @@ const isExamplePage = computed(() => path.value.includes('examples'))
 
       <div
         v-if="!isExamplePage"
-        class="hidden xl:block w-64 flex-shrink-0 py-12 pl-2 sticky top-[7.25rem] h-full overflow-y-auto md:overflow-x-hidden max-h-[calc(100vh-7.25rem)]"
+        class="hidden xl:flex w-64 flex-shrink-0 py-12 pl-2 sticky top-[7.25rem] overflow-y-auto md:overflow-x-hidden h-[calc(100vh-7.25rem)] flex-col space-y-6 no-scrollbar"
       >
         <DocOutline />
-        <DocCommunity class="mt-6" />
+        <DocCommunity />
+        <div class="grow" />
+        <DocCarbonAds />
+
+        <div class="fixed bottom-0 z-10 w-64 h-12 bg-gradient-to-b from-transparent to-background" />
       </div>
     </main>
   </div>

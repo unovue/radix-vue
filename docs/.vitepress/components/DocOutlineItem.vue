@@ -58,7 +58,7 @@ function onClick({ target: el }: Event) {
 
 .outline-link:hover,
 .outline-link.active {
-  transition: color 0.25s;
+  /* transition: color 0.25s; */
   @apply text-foreground;
 }
 

@@ -82,8 +82,8 @@
     'default': 'true'
   },
   {
-    'name': 'clearSearchTermOnSelect',
-    'description': '<p>Whether to clear the searchTerm when the Combobox value is selected</p>\n',
+    'name': 'resetSearchTermOnSelect',
+    'description': '<p>Whether to reset the searchTerm when the Combobox value is selected</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'true'

@@ -76,10 +76,10 @@ export interface ComboboxRootProps<T = AcceptableValue> extends PrimitiveProps {
    */
   resetSearchTermOnBlur?: boolean
   /**
-   * Whether to clear the searchTerm when the Combobox value is selected
+   * Whether to reset the searchTerm when the Combobox value is selected
    * @defaultValue `true`
    */
-  clearSearchTermOnSelect?: boolean
+  resetSearchTermOnSelect?: boolean
 }
 </script>
 
@@ -94,7 +94,7 @@ import isEqual from 'fast-deep-equal'
 const props = withDefaults(defineProps<ComboboxRootProps<T>>(), {
   open: undefined,
   resetSearchTermOnBlur: true,
-  clearSearchTermOnSelect: true,
+  resetSearchTermOnSelect: true,
 })
 const emit = defineEmits<ComboboxRootEmits<T>>()
 
@@ -218,7 +218,7 @@ const stringifiedModelValue = computed(() => JSON.stringify(modelValue.value))
 
 // nextTick() are required in the following watchers as we are waiting for DOM element to be mounted first the only apply following logic
 watch(stringifiedModelValue, async () => {
-  if (!props.clearSearchTermOnSelect)
+  if (!props.resetSearchTermOnSelect)
     return
 
   await nextTick()

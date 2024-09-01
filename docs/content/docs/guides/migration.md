@@ -17,6 +17,17 @@ First and foremost, you need to install the latest `reka-ui`.
 
 Congratulation! 🎉 Now that you've installed the above package, let's perform the migration! The first 2 steps are relatively simple. Just do a global search and replace for the following changes.
 
+#### Codemods
+
+To assist with the upgrade from radix-vue to Reka UI, we have added features that utilize codemods to automatically update your code to many of the new updates and patterns. Run the following commands to automatically update your code for RekaUI migration:
+
+
+These will run the following codemods from the radix-vue Codemod repository:
+
+- **Remove filter-function props**
+- **Rename controlled state to v-model**
+- **Remove deprecated step prop**
+
 ## Import Statement Changes
 
 The primary change in imports is replacing `radix-vue` with `reka-ui`.
@@ -52,6 +63,12 @@ CSS variable and data attributes names have been updated to use the `reka` prefi
   </template>
   ```
 
+      > **Note**: Codemod for this Change:
+  >
+  > ```bash
+  > npx codemod rekaUI-v2/combobox-root-to-combobox-input
+  > ```
+
 - [Replace `searchTerm` props of Root to Input's `v-model`](https://github.com/radix-vue/radix-vue/commit/e1bab6598c3533dfbf6a86ad26b471ab826df069#diff-833593a5ce28a8c3fabc7d77462b116405e25df2b93bcab449798b5799e73474)
 - [Move `displayValue` props from Root to Input](https://github.com/radix-vue/radix-vue/commit/e1bab6598c3533dfbf6a86ad26b471ab826df069#diff-833593a5ce28a8c3fabc7d77462b116405e25df2b93bcab449798b5799e73474)
 
@@ -79,6 +96,12 @@ CSS variable and data attributes names have been updated to use the `reka` prefi
     <CheckboxRoot v-model="value" /> // [!code ++]
   </template>
   ```
+
+    > **Note**: Codemod for this Change:
+  >
+  > ```bash
+  > npx codemod rekaUI-v2/searchTerm-props-of-Root-to-Input's-v-model
+  > ```
 
 - [Reposition `VisuallyHidden`](https://github.com/radix-vue/radix-vue/commit/107389a9c230d2c94232887b9cbe2710222564aa) - Previously `VisuallyHidden` were position at the root node, causing style scoped to not be applied.
 
@@ -113,6 +136,12 @@ CSS variable and data attributes names have been updated to use the `reka` prefi
     <CalendarNext :next-page="(date: DateValue) => pagingFunc(date, 1)" /> // [!code ++]
   </template>
   ```
+
+   > **Note**: Codemod for this Change:
+  >
+  > ```bash
+  > npx codemod rekaUI-v2/add-script-setup-and-update-calendar-components
+  > ```
 
 ### Select
 

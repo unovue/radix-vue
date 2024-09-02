@@ -19,7 +19,13 @@ Congratulation! 🎉 Now that you've installed the above package, let's perform 
 
 #### Codemods
 
-To assist with the upgrade from radix-vue to Reka UI, we have added features that utilize codemods to automatically update your code to many of the new updates and patterns. Run the following commands to automatically update your code for RekaUI migration:
+To assist with the upgrade from radix-vue to Reka UI, we have added features that utilize codemods to automatically update your code to many of the new updates and patterns. Run the following command to automatically update your code for RekaUI migration:
+
+  > **Note**: Codemod for this Change:
+  >
+  > ```bash
+  > npx codemod reka-ui-v2/migration-recipe
+  > ```
 
 
 These will run the following codemods from the radix-vue Codemod repository:
@@ -63,7 +69,7 @@ CSS variable and data attributes names have been updated to use the `reka` prefi
   </template>
   ```
 
-      > **Note**: Codemod for this Change:
+  > **Note**: Codemod for this Change:
   >
   > ```bash
   > npx codemod rekaUI-v2/combobox-root-to-combobox-input

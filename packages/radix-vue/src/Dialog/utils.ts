@@ -35,7 +35,7 @@ For more information, see https://www.radix-vue.com/components/${componentLink}`
 
     const describedById = contentElement.value?.getAttribute('aria-describedby')
     // if we have an id and the user hasn't set aria-describedby="undefined"
-    if (descriptionId && !describedById) {
+    if (descriptionId && describedById) {
       const hasDescription = document.getElementById(descriptionId)
       if (!hasDescription)
         console.warn(DESCRIPTION_MESSAGE)

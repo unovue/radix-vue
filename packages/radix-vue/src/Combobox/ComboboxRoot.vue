@@ -149,7 +149,7 @@ async function onOpenChange(val: boolean) {
   else {
     isUserInputted.value = false
     if (props.resetSearchTermOnBlur)
-      resetSearchTerm()
+      resetSearchTerm('blur')
   }
 }
 
@@ -195,16 +195,19 @@ const filteredOptions = computed(() => {
   return options.value
 })
 
-function resetSearchTerm() {
+function resetSearchTerm(mode?: 'blur' | 'select') {
+  // clear when blur or when select and resetSearchTermOnSelect is true
+  const condition = mode === 'blur' || (mode === 'select' && props.resetSearchTermOnSelect)
+
   if (!multiple.value && modelValue.value && !Array.isArray(modelValue.value)) {
     if (props.displayValue)
       searchTerm.value = props.displayValue(modelValue.value)
     else if (typeof modelValue.value !== 'object')
       searchTerm.value = modelValue.value.toString()
-    else
+    else if (condition)
       searchTerm.value = ''
   }
-  else {
+  else if (condition) {
     searchTerm.value = ''
   }
 }
@@ -218,12 +221,9 @@ const stringifiedModelValue = computed(() => JSON.stringify(modelValue.value))
 
 // nextTick() are required in the following watchers as we are waiting for DOM element to be mounted first the only apply following logic
 watch(stringifiedModelValue, async () => {
-  if (!props.resetSearchTermOnSelect)
-    return
-
   await nextTick()
   await nextTick()
-  resetSearchTerm()
+  resetSearchTerm('select')
 }, {
   // If searchTerm is provided with value during initialization, we don't reset it immediately
   immediate: !props.searchTerm,

@@ -102,8 +102,14 @@ function handleFocus(event: FocusEvent) {
       focusFirst(candidateItems, props.preventScrollOnEntryFocus)
     }
   }
-
   isClickFocus.value = false
+}
+
+function handleMouseUp() {
+  // reset `isClickFocus` after 1 tick because handleFocus might not triggered due to focused element
+  setTimeout(() => {
+    isClickFocus.value = false
+  }, 1)
 }
 
 defineExpose({
@@ -140,6 +146,7 @@ provideRovingFocusGroupContext({
       :dir="dir"
       style="outline: none"
       @mousedown="isClickFocus = true"
+      @mouseup="handleMouseUp"
       @focus="handleFocus"
       @blur="isTabbingBackOut = false"
     >

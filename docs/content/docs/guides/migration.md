@@ -45,6 +45,12 @@ import { TooltipPortal, TooltipRoot, TooltipTrigger } from 'reka-ui' // [!code +
 </script>
 ```
 
+  > **Note**: Codemod for this Change:
+  >
+  > ```bash
+  > npx codemod rekaUI-v2/radix-vue-1-reka-ui-import-update
+  > ```
+
 ## Naming Convention Changes
 
 CSS variable and data attributes names have been updated to use the `reka` prefix instead of `radix`.

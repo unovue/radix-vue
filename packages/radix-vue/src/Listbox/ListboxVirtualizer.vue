@@ -21,12 +21,15 @@ import { getNextMatch } from '@/shared/useTypeahead'
 import { useParentElement } from '@vueuse/core'
 import { useCollection } from '@/Collection'
 import type { AcceptableValue } from '@/shared/types'
+import type { Virtualizer, VirtualItem } from '@tanstack/vue-virtual'
 
 const props = defineProps<ListboxVirtualizerProps<T>>()
 
 defineSlots<{
   default: (props: {
-    option: T
+    option: T;
+    virtualizer: Virtualizer<Element | Window, Element>;
+    virtualItem: VirtualItem
   }) => any
 }>()
 
@@ -71,6 +74,8 @@ const virtualizedItems = computed(() => virtualizer.value.getVirtualItems().map(
     item,
     is: cloneVNode(slots.default!({
       option: props.options[item.index],
+      virtualizer: virtualizer.value,
+      virtualItem: item
     })![0], {
       'key': `${item.key}`,
       'data-index': item.index,

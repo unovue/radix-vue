@@ -9,6 +9,7 @@ export interface TreeVirtualizerProps {
 
 <script setup lang="ts">
 import { useVirtualizer } from '@tanstack/vue-virtual'
+import type { Virtualizer, VirtualItem } from '@tanstack/vue-virtual'
 import { type Ref, cloneVNode, computed, nextTick, useSlots } from 'vue'
 import { type FlattenedItem, injectTreeRootContext } from './TreeRoot.vue'
 import { refAutoReset, useParentElement } from '@vueuse/core'
@@ -20,7 +21,9 @@ const props = defineProps<TreeVirtualizerProps>()
 
 defineSlots<{
   default: (props: {
-    item: FlattenedItem<Record<string, any>>
+    item: FlattenedItem<Record<string, any>>;
+    virtualizer: Virtualizer<Element | Window, Element>;
+    virtualItem: VirtualItem;
   }) => any
 }>()
 
@@ -84,6 +87,8 @@ const virtualizedItems = computed(() => virtualizer.value.getVirtualItems().map(
     item,
     is: cloneVNode(slots.default!({
       item: rootContext.expandedItems.value[item.index],
+      virtualizer: virtualizer.value,
+      virtualItem: item
     })![0], {
       'data-index': item.index,
       'style': {

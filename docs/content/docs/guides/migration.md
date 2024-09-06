@@ -63,6 +63,12 @@ CSS variable and data attributes names have been updated to use the `reka` prefi
   [data-reka-collection-item] {}  // [!code ++]
 ```
 
+  > **Note**: Codemod for this Change:
+  >
+  > ```bash
+  > npx codemod rekaUI-v2/radix-to-reka-css-and-data-attribute-replacement
+  > ```
+
 ## Component Breaking Changes
 
 ### Combobox

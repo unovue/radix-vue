@@ -296,6 +296,17 @@ describe('given combobox in a form', async () => {
 
   const valueBox = wrapper.find('input')
 
+  let enterEventBubbledToForm = false
+
+  beforeEach(() => {
+    enterEventBubbledToForm = false
+    wrapper.find('form').element.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        enterEventBubbledToForm = true
+      }
+    })
+  })
+
   it('should have hidden input field', async () => {
     expect(wrapper.find('[type="hidden"]').exists()).toBe(true)
   })
@@ -340,8 +351,8 @@ describe('given combobox in a form', async () => {
       expect((valueBox.element).value).toBe('Banana')
     })
 
-    it('should not trigger form submit', () => {
-      expect(handleSubmit).not.toHaveBeenCalled()
+    it('should bubble up the Enter keydown event to the form', () => {
+      expect(enterEventBubbledToForm).toBe(false)
     })
   })
 })

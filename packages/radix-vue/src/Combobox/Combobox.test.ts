@@ -294,6 +294,8 @@ describe('given combobox in a form', async () => {
     props: { handleSubmit },
   })
 
+  const valueBox = wrapper.find('input')
+
   it('should have hidden input field', async () => {
     expect(wrapper.find('[type="hidden"]').exists()).toBe(true)
   })
@@ -325,6 +327,21 @@ describe('given combobox in a form', async () => {
     it('should trigger submit once', () => {
       expect(handleSubmit).toHaveBeenCalledTimes(2)
       expect(handleSubmit.mock.results[1].value).toStrictEqual({ test: 'Pineapple' })
+    })
+  })
+
+  describe('after selecting an option via keyboard', () => {
+    beforeEach(async () => {
+      await valueBox.setValue('B')
+      await valueBox.trigger('keydown', { key: 'Enter' })
+    })
+
+    it('should show value correctly', () => {
+      expect((valueBox.element).value).toBe('Banana')
+    })
+
+    it('should not trigger form submit', () => {
+      expect(handleSubmit).not.toHaveBeenCalled()
     })
   })
 })

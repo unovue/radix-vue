@@ -1,11 +1,12 @@
 <script lang="ts">
 import type { ComputedRef, Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import type { AcceptableValue, DataOrientation, Direction, SingleOrMultipleProps, SingleOrMultipleType } from '../shared/types'
-import { createContext, useDirection, useForwardExpose } from '@/shared'
+import type { AcceptableValue, DataOrientation, Direction, FormFieldProps, SingleOrMultipleProps, SingleOrMultipleType } from '../shared/types'
+import { createContext, useDirection, useFormControl, useForwardExpose } from '@/shared'
+import VisuallyHiddenInput from '@/VisuallyHidden/VisuallyHiddenInput.vue'
 
 export interface ToggleGroupRootProps<ValidValue = AcceptableValue | AcceptableValue[], ExplicitType = SingleOrMultipleType>
-  extends PrimitiveProps, SingleOrMultipleProps<ValidValue, ExplicitType> {
+  extends PrimitiveProps, FormFieldProps, SingleOrMultipleProps<ValidValue, ExplicitType> {
   /** When `false`, navigating through the items using arrow keys will be disabled. */
   rovingFocus?: boolean
   /** When `true`, prevents the user from interacting with the toggle group and all its items. */
@@ -59,9 +60,10 @@ defineSlots<{
 
 const { loop, rovingFocus, disabled, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
-const { forwardRef } = useForwardExpose()
+const { forwardRef, currentElement } = useForwardExpose()
 
 const { modelValue, changeModelValue, isSingle } = useSingleOrMultipleValue(props, emits)
+const isFormControl = useFormControl(currentElement)
 
 provideToggleGroupRootContext({
   isSingle,
@@ -90,6 +92,13 @@ provideToggleGroupRootContext({
       :as="as"
     >
       <slot :model-value="modelValue" />
+
+      <VisuallyHiddenInput
+        v-if="isFormControl && name"
+        :name="name"
+        :required="required"
+        :value="modelValue"
+      />
     </Primitive>
   </component>
 </template>

@@ -1,19 +1,14 @@
 <script setup lang="ts" generic="T">
 import { computed } from 'vue'
-import VisuallyHidden, { type VisuallyHiddenProps } from './VisuallyHidden.vue'
+import VisuallyHiddenInputBubble, { type VisuallyHiddenInputBubbleProps } from './VisuallyHiddenInputBubble.vue'
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<{
-  name: string
-  value: T
-  required?: boolean
-  disabled?: boolean
-  feature?: VisuallyHiddenProps['feature']
-}>(), {
+const props = withDefaults(defineProps<VisuallyHiddenInputBubbleProps<T>>(), {
   feature: 'fully-hidden',
+  checked: undefined,
 })
 
 const parsedValue = computed(() => {
@@ -44,15 +39,11 @@ const parsedValue = computed(() => {
 </script>
 
 <template>
-  <VisuallyHidden
+  <VisuallyHiddenInputBubble
     v-for="parsed in parsedValue"
     :key="parsed.name"
-    v-bind="$attrs"
-    as="input"
-    :feature="feature"
+    v-bind="{ ...props, ...$attrs }"
     :name="parsed.name"
     :value="parsed.value"
-    :required="required"
-    :disabled="disabled"
   />
 </template>

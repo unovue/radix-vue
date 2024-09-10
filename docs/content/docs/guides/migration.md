@@ -68,13 +68,13 @@ CSS variable and data attributes names have been updated to use the `reka` prefi
   [data-reka-collection-item] {}  // [!code ++]
 ```
 
-  <Callout type="tip" title="Codemod available">
-  
-  ```bash
-  npx codemod reka-ui/update-css-and-data-attributes
-  ```
+<Callout type="tip" title="Codemod available">
 
-  </Callout>
+```bash
+npx codemod reka-ui/update-css-and-data-attributes
+```
+
+</Callout>
 
 ## Component Breaking Changes
 

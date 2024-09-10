@@ -19,20 +19,23 @@ Congratulation! 🎉 Now that you've installed the above package, let's perform 
 
 #### Codemods
 
-To assist with the upgrade from radix-vue to Reka UI, we have added features that utilize codemods to automatically update your code to many of the new updates and patterns. Run the following command to automatically update your code for RekaUI migration:
+To assist with the upgrade from Radix Vue to Reka UI, we collaborated with the [Codemod](https://github.com/codemod-com/codemod) team to automatically update your code to many of the new updates and patterns with [open-source codemods](https://go.codemod.com/reka-codemods). You can run the following command to automatically migrate to Reka UI:
 
-  > **Note**: Codemod for this Change:
-  >
-  > ```bash
-  > npx codemod reka-ui-v2/migration-recipe
-  > ```
+<Callout type="tip" title="Migration recipe">
 
+```bash
+npx codemod reka-ui/migration-recipe
+```
 
-These will run the following codemods from the radix-vue Codemod repository:
+</Callout>
 
-- **Remove filter-function props**
-- **Rename controlled state to v-model**
-- **Remove deprecated step prop**
+The [migration recipe](https://go.codemod.com/reka-recipe) will run the following codemods from the radix-vue Codemod repository:
+
+- [`reka-ui/import-update`](https://go.codemod.com/reka-import-update)
+- [`reka-ui/update-css-and-data-attributes`](https://go.codemod.com/reka-update-css-data)
+- [`reka-ui/update-combobox-filter`](https://go.codemod.com/update-combobox-filter)
+- [`reka-ui/rename-controlled-state`](https://go.codemod.com/rename-controlled-state)
+- [`reka-ui/remove-calendar-step-prop`](https://go.codemod.com/remove-calendar-step-prop)
 
 ## Import Statement Changes
 
@@ -45,11 +48,13 @@ import { TooltipPortal, TooltipRoot, TooltipTrigger } from 'reka-ui' // [!code +
 </script>
 ```
 
-  > **Note**: Codemod for this Change:
-  >
-  > ```bash
-  > npx codemod rekaUI-v2/radix-vue-1-reka-ui-import-update
-  > ```
+  <Callout type="tip" title="Codemod available">
+
+  ```bash
+  npx codemod reka-ui/import-update
+  ```
+  
+  </Callout>
 
 ## Naming Convention Changes
 
@@ -63,11 +68,13 @@ CSS variable and data attributes names have been updated to use the `reka` prefi
   [data-reka-collection-item] {}  // [!code ++]
 ```
 
-  > **Note**: Codemod for this Change:
-  >
-  > ```bash
-  > npx codemod rekaUI-v2/radix-to-reka-css-and-data-attribute-replacement
-  > ```
+  <Callout type="tip" title="Codemod available">
+  
+  ```bash
+  npx codemod reka-ui/update-css-and-data-attributes
+  ```
+
+  </Callout>
 
 ## Component Breaking Changes
 
@@ -81,11 +88,13 @@ CSS variable and data attributes names have been updated to use the `reka` prefi
   </template>
   ```
 
-  > **Note**: Codemod for this Change:
-  >
-  > ```bash
-  > npx codemod rekaUI-v2/combobox-root-to-combobox-input
-  > ```
+  <Callout type="tip" title="Codemod available">
+  
+  ```bash
+  npx codemod reka-ui/update-combobox-filter
+  ```
+  
+  </Callout>
 
 - [Replace `searchTerm` props of Root to Input's `v-model`](https://github.com/radix-vue/radix-vue/commit/e1bab6598c3533dfbf6a86ad26b471ab826df069#diff-833593a5ce28a8c3fabc7d77462b116405e25df2b93bcab449798b5799e73474)
 - [Move `displayValue` props from Root to Input](https://github.com/radix-vue/radix-vue/commit/e1bab6598c3533dfbf6a86ad26b471ab826df069#diff-833593a5ce28a8c3fabc7d77462b116405e25df2b93bcab449798b5799e73474)
@@ -115,11 +124,13 @@ CSS variable and data attributes names have been updated to use the `reka` prefi
   </template>
   ```
 
-    > **Note**: Codemod for this Change:
-  >
-  > ```bash
-  > npx codemod rekaUI-v2/searchTerm-props-of-Root-to-Input's-v-model
-  > ```
+  <Callout type="tip" title="Codemod available">
+  
+  ```bash
+  npx codemod reka-ui/rename-controlled-state
+  ```
+  
+  </Callout>
 
 - [Reposition `VisuallyHidden`](https://github.com/radix-vue/radix-vue/commit/107389a9c230d2c94232887b9cbe2710222564aa) - Previously `VisuallyHidden` were position at the root node, causing style scoped to not be applied.
 
@@ -154,12 +165,14 @@ CSS variable and data attributes names have been updated to use the `reka` prefi
     <CalendarNext :next-page="(date: DateValue) => pagingFunc(date, 1)" /> // [!code ++]
   </template>
   ```
-
-   > **Note**: Codemod for this Change:
-  >
-  > ```bash
-  > npx codemod rekaUI-v2/add-script-setup-and-update-calendar-components
-  > ```
+  
+  <Callout type="tip" title="Codemod available">
+  
+  ```bash
+  npx codemod reka-ui/remove-calendar-step-prop
+  ```
+  
+  </Callout>
 
 ### Select
 

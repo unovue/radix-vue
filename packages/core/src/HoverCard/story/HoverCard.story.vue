@@ -20,7 +20,7 @@ const hoverState = ref(false)
       <HoverCardRoot v-model:open="hoverState">
         <HoverCardTrigger
           class="inline-block cursor-pointer rounded-full shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] outline-none focus:shadow-[0_0_0_2px_white]"
-          href="https://twitter.com/radix_ui"
+          href="https://twitter.com/unovue"
           target="_blank"
           rel="noreferrer noopener"
           as-child
@@ -28,7 +28,7 @@ const hoverState = ref(false)
           <a>
             <img
               class="block h-[45px] w-[45px] rounded-full"
-              src="https://pbs.twimg.com/profile_images/1337055608613253126/r_eiMp2H_400x400.png"
+              src="https://pbs.twimg.com/profile_images/1833445381986045952/jwoHkIIq_400x400.jpg"
               alt="Radix UI"
             >
           </a>
@@ -44,7 +44,7 @@ const hoverState = ref(false)
                 <div class="flex flex-col gap-[7px]">
                   <img
                     class="block h-[60px] w-[60px] rounded-full"
-                    src="https://pbs.twimg.com/profile_images/1337055608613253126/r_eiMp2H_400x400.png"
+                    src="https://pbs.twimg.com/profile_images/1833445381986045952/jwoHkIIq_400x400.jpg"
                     alt="Radix UI"
                   >
                   <div class="flex flex-col gap-[15px]">

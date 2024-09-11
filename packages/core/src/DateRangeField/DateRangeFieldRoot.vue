@@ -364,6 +364,7 @@ defineExpose({
       :id="id"
       as="input"
       feature="focusable"
+      tabindex="-1"
       :value="`${modelValue.start?.toString()} - ${modelValue.end?.toString()}`"
       :name="name"
       :disabled="disabled"

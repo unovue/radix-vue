@@ -88,6 +88,7 @@ const isIncreaseDisabled = computed(() => (
 )
 
 function handleChangingValue(type: 'increase' | 'decrease', multiplier = 1) {
+  inputEl.value?.focus()
   const currentInputValue = numberParser.parse(inputEl.value?.value ?? '')
   if (props.disabled)
     return

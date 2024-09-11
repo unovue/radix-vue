@@ -122,6 +122,7 @@ providePinInputRootContext({
       :id="id"
       as="input"
       feature="focusable"
+      tabindex="-1"
       :value="modelValue.join('')"
       :name="name ?? ''"
       :disabled="disabled"

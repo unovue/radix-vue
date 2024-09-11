@@ -1,4 +1,5 @@
 export {
+  injectEditableRootContext,
   default as EditableRoot,
   type EditableRootProps,
   type EditableRootEmits,

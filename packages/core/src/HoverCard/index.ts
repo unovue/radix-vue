@@ -1,4 +1,5 @@
 export {
+  injectHoverCardRootContext,
   default as HoverCardRoot,
   type HoverCardRootProps,
   type HoverCardRootEmits,

@@ -1,4 +1,5 @@
 export {
+  injectRadioGroupRootContext,
   default as RadioGroupRoot,
   type RadioGroupRootProps,
   type RadioGroupRootEmits,

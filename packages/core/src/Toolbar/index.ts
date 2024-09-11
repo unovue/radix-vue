@@ -1,4 +1,5 @@
 export {
+  injectToolbarRootContext,
   default as ToolbarRoot,
   type ToolbarRootProps,
 } from './ToolbarRoot.vue'

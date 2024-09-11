@@ -33,6 +33,8 @@ export {
   type MenuRadioItemEmits,
 } from './MenuRadioItem.vue'
 export {
+  injectMenuContext,
+  injectMenuRootContext,
   default as MenuRoot,
   type MenuProps,
   type MenuEmits,

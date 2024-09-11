@@ -1,4 +1,4 @@
-export { default as ToastProvider, type ToastProviderProps } from './ToastProvider.vue'
+export { injectToastProviderContext, default as ToastProvider, type ToastProviderProps } from './ToastProvider.vue'
 export { default as ToastRoot, type ToastRootProps, type ToastRootEmits } from './ToastRoot.vue'
 export { default as ToastAction, type ToastActionProps } from './ToastAction.vue'
 export { default as ToastClose, type ToastCloseProps } from './ToastClose.vue'

@@ -1,9 +1,11 @@
 export {
+  injectCheckboxGroupRootContext,
   default as CheckboxGroupRoot,
   type CheckboxGroupRootProps,
   type CheckboxGroupRootEmits,
 } from './CheckboxGroupRoot.vue'
 export {
+  injectCheckboxRootContext,
   default as CheckboxRoot,
   type CheckboxRootProps,
   type CheckboxRootEmits,

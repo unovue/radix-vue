@@ -1,4 +1,5 @@
 export {
+  injectDialogRootContext,
   default as DialogRoot,
   type DialogRootProps,
   type DialogRootEmits,

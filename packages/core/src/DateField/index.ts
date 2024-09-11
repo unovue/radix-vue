@@ -1,4 +1,5 @@
 export {
+  injectDateFieldRootContext,
   type DateFieldRootEmits,
   type DateFieldRootProps,
   default as DateFieldRoot,

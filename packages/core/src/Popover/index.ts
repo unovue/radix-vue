@@ -1,4 +1,5 @@
 export {
+  injectPopoverRootContext,
   default as PopoverRoot,
   type PopoverRootProps,
   type PopoverRootEmits,

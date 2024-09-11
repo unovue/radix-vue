@@ -1,4 +1,5 @@
 export {
+  injectListboxRootContext,
   default as ListboxRoot,
   type ListboxRootProps,
   type ListboxRootEmits,

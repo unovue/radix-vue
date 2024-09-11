@@ -1,4 +1,5 @@
 export {
+  injectCollapsibleRootContext,
   default as CollapsibleRoot,
   type CollapsibleRootProps,
   type CollapsibleRootEmits,

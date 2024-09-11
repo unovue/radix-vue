@@ -1,3 +1,5 @@
+export { injectDateRangePickerRootContext, default as DateRangePickerRoot, type DateRangePickerRootProps, type DateRangePickerRootEmits } from './DateRangePickerRoot.vue'
+
 export { default as DateRangePickerHeader, type DateRangePickerHeaderProps } from './DateRangePickerHeader.vue'
 export { default as DateRangePickerHeading, type DateRangePickerHeadingProps } from './DateRangePickerHeading.vue'
 
@@ -16,8 +18,6 @@ export { default as DateRangePickerGridRow, type DateRangePickerGridRowProps } f
 export { default as DateRangePickerCellTrigger, type DateRangePickerCellTriggerProps } from './DateRangePickerCellTrigger.vue'
 
 export { default as DateRangePickerInput, type DateRangePickerInputProps } from './DateRangePickerInput.vue'
-
-export { default as DateRangePickerRoot, type DateRangePickerRootProps, type DateRangePickerRootEmits } from './DateRangePickerRoot.vue'
 
 export { default as DateRangePickerCalendar } from './DateRangePickerCalendar.vue'
 export { default as DateRangePickerField } from './DateRangePickerField.vue'

@@ -1,4 +1,5 @@
 export {
+  injectTreeRootContext,
   default as TreeRoot,
   type TreeRootProps,
   type TreeRootEmits,

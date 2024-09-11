@@ -12,8 +12,9 @@ export {
 } from './AccordionItem.vue'
 export {
   default as AccordionRoot,
-  type AccordionRootProps,
+  injectAccordionRootContext,
   type AccordionRootEmits,
+  type AccordionRootProps,
 } from './AccordionRoot.vue'
 export {
   default as AccordionTrigger,

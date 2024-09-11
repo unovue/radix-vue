@@ -1,1 +1,5 @@
-export { default as ConfigProvider, type ConfigProviderProps } from './ConfigProvider.vue'
+export {
+  injectConfigProviderContext,
+  default as ConfigProvider,
+  type ConfigProviderProps,
+} from './ConfigProvider.vue'

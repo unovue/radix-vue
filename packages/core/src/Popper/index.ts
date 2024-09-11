@@ -1,4 +1,4 @@
-export { default as PopperRoot } from './PopperRoot.vue'
+export { injectPopperRootContext, default as PopperRoot } from './PopperRoot.vue'
 export {
   default as PopperAnchor,
   type PopperAnchorProps,

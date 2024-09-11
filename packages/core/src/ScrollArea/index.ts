@@ -1,4 +1,5 @@
 export {
+  injectScrollAreaRootContext,
   default as ScrollAreaRoot,
   type ScrollAreaRootProps,
 } from './ScrollAreaRoot.vue'

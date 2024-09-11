@@ -1,4 +1,5 @@
 export {
+  injectProgressRootContext,
   default as ProgressRoot,
   type ProgressRootProps,
   type ProgressRootEmits,

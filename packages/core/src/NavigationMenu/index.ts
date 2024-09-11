@@ -1,4 +1,10 @@
 export {
+  injectNavigationMenuContext,
+  default as NavigationMenuRoot,
+  type NavigationMenuRootProps,
+  type NavigationMenuRootEmits,
+} from './NavigationMenuRoot.vue'
+export {
   default as NavigationMenuContent,
   type NavigationMenuContentProps,
   type NavigationMenuContentEmits,
@@ -20,11 +26,6 @@ export {
   default as NavigationMenuList,
   type NavigationMenuListProps,
 } from './NavigationMenuList.vue'
-export {
-  default as NavigationMenuRoot,
-  type NavigationMenuRootProps,
-  type NavigationMenuRootEmits,
-} from './NavigationMenuRoot.vue'
 export {
   default as NavigationMenuSub,
   type NavigationMenuSubProps,

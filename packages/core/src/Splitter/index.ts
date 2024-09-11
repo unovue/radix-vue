@@ -1,4 +1,5 @@
 export {
+  injectPanelGroupContext as injectSplitterGroupContext,
   default as SplitterGroup,
   type SplitterGroupProps,
   type SplitterGroupEmits,

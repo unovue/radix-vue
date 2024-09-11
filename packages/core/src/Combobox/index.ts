@@ -1,4 +1,5 @@
 export {
+  injectComboboxRootContext,
   default as ComboboxRoot,
   type ComboboxRootProps,
   type ComboboxRootEmits,

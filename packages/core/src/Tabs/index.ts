@@ -1,4 +1,5 @@
 export {
+  injectTabsRootContext,
   default as TabsRoot,
   type TabsRootProps,
   type TabsRootEmits,

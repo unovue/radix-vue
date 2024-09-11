@@ -1,4 +1,5 @@
 export {
+  injectSliderRootContext,
   default as SliderRoot,
   type SliderRootProps,
   type SliderRootEmits,

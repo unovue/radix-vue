@@ -1,4 +1,5 @@
 export {
+  injectToggleGroupRootContext,
   default as ToggleGroupRoot,
   type ToggleGroupRootProps,
   type ToggleGroupRootEmits,

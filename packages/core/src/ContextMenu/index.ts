@@ -1,4 +1,5 @@
 export {
+  injectContextMenuRootContext,
   default as ContextMenuRoot,
   type ContextMenuRootProps,
   type ContextMenuRootEmits,

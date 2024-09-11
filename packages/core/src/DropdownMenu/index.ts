@@ -1,4 +1,5 @@
 export {
+  injectDropdownMenuRootContext,
   default as DropdownMenuRoot,
   type DropdownMenuRootProps,
   type DropdownMenuRootEmits,

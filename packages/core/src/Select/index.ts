@@ -1,4 +1,5 @@
 export {
+  injectSelectRootContext,
   default as SelectRoot,
   type SelectRootProps,
   type SelectRootEmits,
@@ -33,6 +34,7 @@ export {
   type SelectLabelProps,
 } from './SelectLabel.vue'
 export {
+  injectSelectGroupContext,
   default as SelectGroup,
   type SelectGroupProps,
 } from './SelectGroup.vue'

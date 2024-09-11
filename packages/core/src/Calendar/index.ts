@@ -1,4 +1,5 @@
 export {
+  injectCalendarRootContext,
   default as CalendarRoot,
   type CalendarRootProps,
   type CalendarRootEmits,

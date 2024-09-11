@@ -1,4 +1,4 @@
-export { default as RangeCalendarRoot, type RangeCalendarRootProps, type RangeCalendarRootEmits } from './RangeCalendarRoot.vue'
+export { injectRangeCalendarRootContext, default as RangeCalendarRoot, type RangeCalendarRootProps, type RangeCalendarRootEmits } from './RangeCalendarRoot.vue'
 
 export { default as RangeCalendarHeader, type RangeCalendarHeaderProps } from './RangeCalendarHeader.vue'
 export { default as RangeCalendarHeading, type RangeCalendarHeadingProps } from './RangeCalendarHeading.vue'

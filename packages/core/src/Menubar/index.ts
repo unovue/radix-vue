@@ -1,4 +1,5 @@
 export {
+  injectMenubarRootContext,
   default as MenubarRoot,
   type MenubarRootProps,
   type MenubarRootEmits,

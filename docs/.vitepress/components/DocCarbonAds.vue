@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useData } from 'vitepress'
-import type { DefaultTheme } from 'vitepress/theme'
 import { onMounted, ref, watch } from 'vue'
 
 const { page, theme } = useData()
@@ -30,6 +29,9 @@ watch(() => page.value.relativePath, () => {
 // refresh the page
 if (carbonOptions) {
   onMounted(() => {
+    if (import.meta.env.DEV)
+      return
+
     // if the page is loaded when aside is active, load carbon directly.
     // otherwise, only load it if the page resizes to wide enough. this avoids
     // loading carbon at all on mobile where it's never shown

@@ -28,7 +28,7 @@ import { Icon } from '@iconify/vue'
           <DialogTitle class="text-mauve12 m-0 text-[17px] font-semibold">
             First Dialog
           </DialogTitle>
-          <DialogDescription class="text-mauve11 mt-[10px] mb-5 text-[15px] leading-normal">
+          <DialogDescription class="text-mauve11 mt-[10px] mb-5 text-sm leading-normal">
             First dialog.
           </DialogDescription>
 
@@ -56,7 +56,7 @@ import { Icon } from '@iconify/vue'
                   <DialogTitle class="text-mauve12 m-0 text-[17px] font-semibold">
                     Second Dialog
                   </DialogTitle>
-                  <DialogDescription class="text-mauve11 mt-[10px] mb-5 text-[15px] leading-normal">
+                  <DialogDescription class="text-mauve11 mt-[10px] mb-5 text-sm leading-normal">
                     Second dialog.
                   </DialogDescription>
 

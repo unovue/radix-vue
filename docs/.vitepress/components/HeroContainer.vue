@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import { Label, SwitchRoot, SwitchThumb } from 'reka-ui'
 import CodeSandbox from '../../components/CodeSandbox.vue'
 import Stackblitz from '../../components/Stackblitz.vue'
 
@@ -14,6 +15,7 @@ const props = withDefaults(
   { folder: '', files: () => [] },
 )
 
+const isCodeView = ref(false)
 const sources = ref<Record<string, string>>({})
 
 watch(() => props.cssFramework, () => {
@@ -38,12 +40,34 @@ watch(() => props.cssFramework, () => {
 
 <template>
   <div
-    class="relative text-[15px] text-black"
+    class="relative text-sm text-black"
     :class="{ 'my-4': type === 'example' }"
   >
+    <div class="w-full flex justify-end">
+      <div class="flex items-center mb-4 text-foreground">
+        <Label
+          for="view-code"
+          class="font-medium text-sm"
+        >
+          View code
+        </Label>
+        <SwitchRoot
+          id="view-code"
+          v-model="isCodeView"
+          class="w-[34px] h-5 ml-2 flex data-[state=unchecked]:bg-primary/50 data-[state=checked]:bg-primary rounded-full relative transition"
+          aria-label="View code"
+        >
+          <SwitchThumb
+            class="w-4 h-4 my-auto bg-white text-xs flex items-center justify-center shadow-xl rounded-full transition-transform translate-x-0.5 will-change-transform data-[state=checked]:translate-x-full"
+          />
+        </SwitchRoot>
+      </div>
+    </div>
+
     <div
-      class="not-prose p-4 rounded-t-xl bg-gradient-radial from-card via-card/50 to-background  w-full relative items-center justify-center flex border border-muted border-b-0"
-      :class="{ 'overflow-x-auto': overflow, 'min-h-[400px]': type === 'example' }"
+      v-if="!isCodeView"
+      class="not-prose p-4 rounded-xl bg-card backdrop-blur-2xl w-full relative items-center justify-center flex border border-muted min-h-[400px]"
+      :class="{ 'overflow-x-auto': overflow }"
     >
       <div class="w-full max-w-[700px] flex items-center py-12 sm:py-[100px] custom-justify-center ">
         <slot />
@@ -64,7 +88,10 @@ watch(() => props.cssFramework, () => {
         />
       </div>
     </div>
-    <slot name="codeSlot" />
+
+    <div v-else>
+      <slot name="codeSlot" />
+    </div>
   </div>
 </template>
 

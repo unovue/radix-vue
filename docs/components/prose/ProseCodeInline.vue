@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<ProseCodeInlineProps>(), {
     class=""
     :class="`${
       props.variant === 'primary'
-        ? 'text-primary'
+        ? 'text-primary bg-primary/10 border-none'
         : 'text-foreground'
     }`"
   >

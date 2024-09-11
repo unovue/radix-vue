@@ -59,6 +59,7 @@ module.exports = {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       },
+
       keyframes: {
         overlayShow: {
           from: { opacity: 0 },
@@ -146,6 +147,10 @@ module.exports = {
             'background-position': 'right center',
           },
         },
+        progress: {
+          '0%': { backgroundPosition: '0 0' },
+          '100%': { backgroundPosition: '30px 30px' },
+        },
       },
       animation: {
         overlayShow: 'overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
@@ -168,6 +173,7 @@ module.exports = {
         slideIn: 'slideIn 150ms cubic-bezier(0.16, 1, 0.3, 1)',
         swipeOut: 'swipeOut 100ms ease-out',
         text: 'text 5s ease infinite',
+        progress: 'progress 1s infinite linear',
       },
       typography: {
         DEFAULT: {

@@ -7,7 +7,7 @@ import { store } from '../store'
 <template>
   <TabsRoot
     v-model="store.packageManager"
-    class="bg-[hsl(141_17%_5%)] border border-[hsl(0_0%_15%)] rounded-lg overflow-hidden"
+    class="bg-[hsl(141_17%_5%)] border border-[hsl(0_0%_15%)] rounded-xl overflow-hidden"
   >
     <div class="bg-[hsl(141_17%_5%)] border-b border-[hsl(0_0%_15%)] flex pr-2">
       <div class="flex justify-between items-center w-full text-[13px]">

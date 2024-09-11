@@ -48,7 +48,7 @@ const isExamplePage = computed(() => path.value.includes('examples'))
         <div class="h-6 w-full" />
       </aside>
 
-      <div class="px-6 md:px-20 py-6 md:py-12 overflow-x-hidden flex-1 ">
+      <div class="px-6 md:px-24 py-6 md:py-12 overflow-x-hidden flex-1 ">
         <CollapsibleRoot
           :key="path"
           class="block xl:hidden mb-4"

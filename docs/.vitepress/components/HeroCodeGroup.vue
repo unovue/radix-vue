@@ -42,7 +42,6 @@ const tabs = computed(
 const open = ref(false)
 
 const codeScrollWrapper = ref<HTMLElement | undefined>()
-const buttonRef = ref<HTMLElement | undefined>()
 const currentTab = ref('index.vue')
 
 watch(open, () => {
@@ -57,7 +56,7 @@ watch(open, () => {
 <template>
   <TabsRoot
     v-model="currentTab"
-    class="bg-[hsl(141_17%_5%)] border border-[hsl(0_0%_15%)] rounded-b-xl overflow-hidden"
+    class="bg-[hsl(141_17%_5%)] border border-[hsl(0_0%_15%)] rounded-xl overflow-hidden"
     @update:model-value="open = true"
   >
     <div class="bg-[hsl(141_17%_5%)]  border-b-2 border-[hsl(0_0%_15%)] flex pr-2">
@@ -126,9 +125,7 @@ watch(open, () => {
     <div
       ref="codeScrollWrapper"
       :key="cssFramework"
-      class="pb-10 block custom"
-      :style="{ '--height': type === 'demo' ? '150px' : '200px' }"
-      :class="`${open ? 'overflow-scroll h-full min-h-[var(--height)] max-h-[80vh]' : 'overflow-hidden h-[var(--height)]'}`"
+      class="overflow-auto max-h-[50vh]"
     >
       <TabsContent
         v-for="tab in tabs"
@@ -139,21 +136,10 @@ watch(open, () => {
         <div class="relative text-base">
           <component
             :is="tab.component"
-            class="border-0"
+            class="border-0 !mb-0"
           />
         </div>
       </TabsContent>
-      <div
-        class="bg-gradient-to-t from-code to-code/0 bottom-[1px] left-[1px] right-[1px] h-20 flex items-center justify-center absolute rounded-b-xl"
-      >
-        <button
-          ref="buttonRef"
-          class="mt-4 bg-code hover:bg-neutral-800 px-3 py-1.5 text-sm rounded-md  border-neutral-700 border text-white"
-          @click="open = !open"
-        >
-          {{ open ? "Collapse code" : "Expand code" }}
-        </button>
-      </div>
     </div>
   </TabsRoot>
 </template>

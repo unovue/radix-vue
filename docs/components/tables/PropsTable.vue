@@ -78,7 +78,7 @@ const props = defineProps<PropsTableProps>()
               {{ prop.typeSimple ? prop.typeSimple : prop.type }}
             </ProseCodeInline>
             <div
-              class="[&_p]:mt-0 [&_p]:mb-2 flex flex-col gap-2 mt-2 text-sm text-muted-foreground"
+              class="[&_p]:mt-0 [&_p]:mb-0 flex flex-col gap-2 mt-2 text-sm text-muted-foreground"
               v-html="prop.description"
             />
           </div>

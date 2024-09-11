@@ -22,7 +22,7 @@ watch(values, () => {
     multiple
     class="my-4 mx-auto relative"
   >
-    <ComboboxAnchor class="w-[400px] inline-flex items-center justify-between rounded-lg p-2 text-[13px] leading-none  gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">
+    <ComboboxAnchor class="w-[400px] inline-flex items-center justify-between rounded-lg p-2 text-xs leading-none  gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">
       <TagsInputRoot
         :model-value="values"
         delimiter=""
@@ -69,7 +69,7 @@ watch(values, () => {
           <ComboboxItem
             v-for="(option, index) in filteredOptions"
             :key="index"
-            class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-grass8 data-[highlighted]:text-grass1"
+            class="text-xs leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-grass8 data-[highlighted]:text-grass1"
             :value="option"
           >
             <ComboboxItemIndicator

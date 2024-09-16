@@ -98,7 +98,7 @@
     "@internationalized/date": "^3.5.4",
     "@internationalized/number": "^3.5.3",
     "@tanstack/vue-virtual": "^3.8.1",
-    "@vueuse/core": "^10.11.0",
+    "@vueuse/core": "^11.1.0",
     "@vueuse/shared": "^10.11.0",
     "aria-hidden": "^1.2.4",
     "defu": "^6.1.4",

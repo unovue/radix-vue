@@ -1,8 +1,7 @@
 // Inspired from https://github.com/tailwindlabs/headlessui/issues/2913
 // as the alternative, and a fallback for Vue version < 3.5
 import { injectConfigProviderContext } from '@/ConfigProvider/ConfigProvider.vue'
-
-let count = 0
+import * as vue from 'vue'
 
 /**
  * The `useId` function generates a unique identifier using a provided deterministic ID or a default
@@ -19,9 +18,21 @@ export function useId(deterministicId?: string | null | undefined, prefix = 'rad
   if (deterministicId)
     return deterministicId
 
-  const { useId } = injectConfigProviderContext({ useId: undefined })
+  let useId: (() => string | undefined) | undefined
+  const configProviderContext = injectConfigProviderContext({ useId: undefined })
+
+  // @ts-expect-error vue 3.5
+  if (vue.useId) {
+  // @ts-expect-error vue 3.5
+    useId = vue.useId()
+  }
+  else if (configProviderContext.useId) {
+    useId = configProviderContext.useId
+  }
+
   if (useId && typeof useId === 'function')
     return `${prefix}-${useId()}`
 
+  let count = 0
   return `${prefix}-${++count}`
 }

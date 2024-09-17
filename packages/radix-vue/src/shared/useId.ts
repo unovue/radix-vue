@@ -3,6 +3,7 @@
 import { injectConfigProviderContext } from '@/ConfigProvider/ConfigProvider.vue'
 import * as vue from 'vue'
 
+let count = 0
 /**
  * The `useId` function generates a unique identifier using a provided deterministic ID or a default
  * one prefixed with "radix-", or the provided one via `useId` props from `<ConfigProvider>`.
@@ -18,21 +19,16 @@ export function useId(deterministicId?: string | null | undefined, prefix = 'rad
   if (deterministicId)
     return deterministicId
 
-  let useId: (() => string | undefined) | undefined
   const configProviderContext = injectConfigProviderContext({ useId: undefined })
 
   // @ts-expect-error vue 3.5
   if (vue.useId) {
-  // @ts-expect-error vue 3.5
-    useId = vue.useId()
+    // @ts-expect-error vue 3.5
+    return `${prefix}-${vue.useId()}`
   }
   else if (configProviderContext.useId) {
-    useId = configProviderContext.useId
+    return `${prefix}-${configProviderContext.useId()}`
   }
 
-  if (useId && typeof useId === 'function')
-    return `${prefix}-${useId()}`
-
-  let count = 0
   return `${prefix}-${++count}`
 }

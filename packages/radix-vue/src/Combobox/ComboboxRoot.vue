@@ -24,7 +24,7 @@ type ComboboxRootContext<T> = {
   inputElement: Ref<HTMLInputElement | undefined>
   onInputElementChange: (el: HTMLInputElement) => void
   onInputNavigation: (dir: 'up' | 'down' | 'home' | 'end') => void
-  onInputEnter: () => void
+  onInputEnter: (event: InputEvent) => void
   selectedValue: Ref<T | undefined>
   selectedElement: ComputedRef<HTMLElement | undefined>
   onSelectedValueChange: (val: T) => void
@@ -278,9 +278,13 @@ provideComboboxRootContext({
 
     nextTick(() => inputElement.value?.focus({ preventScroll: true }))
   },
-  onInputEnter: async () => {
-    if (filteredOptions.value.length && selectedValue.value && selectedElement.value instanceof Element)
+  onInputEnter: async (event) => {
+    if (filteredOptions.value.length && selectedValue.value && selectedElement.value instanceof Element) {
+      event.preventDefault()
+      event.stopPropagation()
+
       selectedElement.value?.click()
+    }
   },
   selectedValue,
   onSelectedValueChange: val => selectedValue.value = val as T,

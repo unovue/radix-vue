@@ -30,7 +30,7 @@ const isClickFocus = refAutoReset(false, 10)
           return
         rootContext.onEnter(ev)
       }"
-      @keydown.down.up.home.end.prevent="(event) => {
+      @keydown.down.up.left.right.home.end.prevent="(event) => {
         rootContext.focusable.value ? rootContext.onKeydownNavigation(event) : undefined
       }"
       @keydown.enter="rootContext.onKeydownEnter"

@@ -53,7 +53,7 @@ import { TooltipPortal, TooltipRoot, TooltipTrigger } from 'reka-ui' // [!code +
   ```bash
   npx codemod reka-ui/import-update
   ```
-  
+
   </Callout>
 
 ## Naming Convention Changes
@@ -89,11 +89,11 @@ npx codemod reka-ui/update-css-and-data-attributes
   ```
 
   <Callout type="tip" title="Codemod available">
-  
+
   ```bash
   npx codemod reka-ui/update-combobox-filter
   ```
-  
+
   </Callout>
 
 - [Replace `searchTerm` props of Root to Input's `v-model`](https://github.com/radix-vue/radix-vue/commit/e1bab6598c3533dfbf6a86ad26b471ab826df069#diff-833593a5ce28a8c3fabc7d77462b116405e25df2b93bcab449798b5799e73474)
@@ -103,9 +103,8 @@ npx codemod reka-ui/update-css-and-data-attributes
   <template>
     <ComboboxRoot v-model:searchTerm="search" :display-value="(v) => v.name" /> // [!code --]
     <ComboboxRoot>
-      // [!code ++]
       <ComboboxInput v-model="search" :display-value="(v) => v.name" /> // [!code ++]
-    </ComboboxRoot> // [!code ++]
+    </ComboboxRoot>
   </template>
   ```
 
@@ -125,11 +124,11 @@ npx codemod reka-ui/update-css-and-data-attributes
   ```
 
   <Callout type="tip" title="Codemod available">
-  
+
   ```bash
   npx codemod reka-ui/rename-controlled-state
   ```
-  
+
   </Callout>
 
 - [Reposition `VisuallyHidden`](https://github.com/radix-vue/radix-vue/commit/107389a9c230d2c94232887b9cbe2710222564aa) - Previously `VisuallyHidden` were position at the root node, causing style scoped to not be applied.
@@ -165,18 +164,18 @@ npx codemod reka-ui/update-css-and-data-attributes
     <CalendarNext :next-page="(date: DateValue) => pagingFunc(date, 1)" /> // [!code ++]
   </template>
   ```
-  
+
   <Callout type="tip" title="Codemod available">
-  
+
   ```bash
   npx codemod reka-ui/remove-calendar-step-prop
   ```
-  
+
   </Callout>
 
 ### Select
 
-- [`SelectValue` no longer render teleported element](https://github.com/radix-vue/radix-vue/commit/6a623484d610cc3b7c1a23a77c253c8e95cef518) - Previous implmenentation of `SelectValue` will render the selected `SelectItem` via teleporting fragment. This causes SSR flickering, and it is unncessarily computation.
+- [`SelectValue` no longer render teleported element](https://github.com/radix-vue/radix-vue/commit/6a623484d610cc3b7c1a23a77c253c8e95cef518) - Previous implmenentation of `SelectValue` will render the selected `SelectItem` via teleporting fragment. This causes SSR flickering, and it is unnecessarily computation.
 
   ```vue
   <template>

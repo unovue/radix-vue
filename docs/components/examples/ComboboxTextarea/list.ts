@@ -21,7 +21,6 @@ const users = [
   { value: '@folz', listValue: 'folz' },
   { value: '@Slapbox', listValue: 'Slapbox' },
   { value: '@jyash97', listValue: 'jyash97' },
-  { value: '@k-sav', listValue: 'k-sav' },
   { value: '@AliLynne', listValue: 'AliLynne' },
   { value: '@DaniGuardiola', listValue: 'DaniGuardiola' },
   { value: '@frassinier', listValue: 'frassinier' },

@@ -32,7 +32,7 @@ const activeType = computed(() => {
     class="text-sm rounded-xl border px-6 py-4 [&_p]:mb-0 my-4"
     :class="activeType.class"
   >
-    <div class="flex items-center gap-2 font-semibold">
+    <div class="flex items-center gap-2 font-semibold mb-4">
       <Icon
         class="text-lg"
         :icon="activeType.icon"

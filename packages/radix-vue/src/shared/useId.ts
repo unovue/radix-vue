@@ -11,9 +11,6 @@ let count = 0
  * optional parameter `deterministicId`, which can be a string, null, or undefined. If
  * `deterministicId` is provided, the function will return it. Otherwise, it will generate an id using
  * the `useId` function obtained
- * @returns The `useId` function is being returned. If a `deterministicId` is provided, it will be
- * returned. Otherwise, the `useId` function from the `injectConfigProviderContext` is called to
- * generate an id in the format `radix-` and returned.
  */
 export function useId(deterministicId?: string | null | undefined, prefix = 'radix') {
   if (deterministicId)

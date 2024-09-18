@@ -23,6 +23,8 @@ const isClickFocus = refAutoReset(false, 10)
       :as="as"
       :as-child="asChild"
       :tabindex="rootContext.focusable.value ? rootContext.highlightedElement.value ? '-1' : '0' : undefined"
+      :aria-orientation="rootContext.orientation.value"
+      :aria-multiselectable="!!rootContext.multiple.value"
       :data-orientation="rootContext.orientation.value"
       @mousedown.left="isClickFocus = true"
       @focus="(ev) => {

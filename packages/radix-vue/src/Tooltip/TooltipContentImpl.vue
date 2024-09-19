@@ -39,7 +39,7 @@ export interface TooltipContentImplProps
 </script>
 
 <script setup lang="ts">
-import { computed, onMounted, useSlots } from 'vue'
+import { Comment, computed, onMounted, useSlots } from 'vue'
 import { useEventListener } from '@vueuse/core'
 import { TOOLTIP_OPEN } from './utils'
 import { PopperContent } from '@/Popper'
@@ -71,7 +71,7 @@ const ariaLabel = computed(() => {
   let content = ''
 
   function recursiveTextSearch(node: VNode) {
-    if (typeof node.children === 'string')
+    if (typeof node.children === 'string' && node.type !== Comment)
       content += node.children
     else if (Array.isArray(node.children))
       node.children.forEach(child => recursiveTextSearch(child as VNode))

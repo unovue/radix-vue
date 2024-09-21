@@ -140,5 +140,5 @@ function getAncestors(node: HTMLElement) {
 /** @param {HTMLElement} node */
 function getParent(node: HTMLElement) {
   // @ts-expect-error host should exist
-  return node.parentNode?.host || node.parentNode
+  return (node.parentNode instanceof DocumentFragment && node.parentNode?.host) || node.parentNode
 }

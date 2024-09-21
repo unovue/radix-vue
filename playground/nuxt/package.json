@@ -14,12 +14,12 @@
     "reka-ui": "link:../../packages/core"
   },
   "devDependencies": {
-    "@floating-ui/vue": "^1.1.4",
+    "@floating-ui/vue": "^1.1.5",
     "@iconify/vue": "^4.1.2",
     "@nuxt/devtools": "latest",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@radix-ui/colors": "^3.0.0",
-    "@types/node": "^20.16.1",
-    "nuxt": "^3.12.4"
+    "@types/node": "^22.5.5",
+    "nuxt": "^3.13.2"
   }
 }

@@ -65,7 +65,7 @@ if (process.env.NODE_ENV !== 'production') {
     componentLink: 'dialog.html#title',
     titleId: rootContext.titleId,
     descriptionId: rootContext.descriptionId,
-    contentElement: rootContext.contentElement,
+    contentElement,
   })
 }
 </script>

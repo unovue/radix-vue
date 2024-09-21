@@ -3,7 +3,7 @@
 title: Popover
 description: Displays rich content in a portal, triggered by a button.
 name: popover
-aria: https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal
+aria: https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
 ---
 
 # Popover
@@ -322,7 +322,7 @@ import { PopoverAnchor, PopoverArrow, PopoverClose, PopoverContent, PopoverPorta
 
 ## Accessibility
 
-Adheres to the [Dialog WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal).
+Adheres to the [Dialog WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/).
 
 ### Keyboard Interactions
 

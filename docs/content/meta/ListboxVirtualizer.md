@@ -14,8 +14,14 @@
     'required': true
   },
   {
+    'name': 'overscan',
+    'description': '<p>Number of items rendered outside the visible area</p>\n',
+    'type': 'number',
+    'required': false
+  },
+  {
     'name': 'textContent',
-    'description': '<p>text content for each item to achieve type-ahead feature</p>\n',
+    'description': '<p>Text content for each item to achieve type-ahead feature</p>\n',
     'type': '((option: AcceptableValue) => string)',
     'required': false
   }
@@ -26,5 +32,15 @@
     'name': 'option',
     'description': '',
     'type': 'string | number | Record<string, any>'
+  },
+  {
+    'name': 'virtualizer',
+    'description': '',
+    'type': 'Virtualizer<Element | Window, Element>'
+  },
+  {
+    'name': 'virtualItem',
+    'description': '',
+    'type': 'VirtualItem<Element>'
   }
 ]" />

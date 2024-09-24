@@ -1,8 +1,10 @@
 <script lang="ts">
 export interface TreeVirtualizerProps {
+  /** Number of items rendered outside the visible area */
+  overscan?: number
   /** Estimated size (in px) of each item */
   estimateSize?: number
-  /** text content for each item to achieve type-ahead feature */
+  /** Text content for each item to achieve type-ahead feature */
   textContent?: (item: Record<string, any>) => string
 }
 </script>
@@ -77,7 +79,7 @@ const virtualizer = useVirtualizer(
       return props.estimateSize ?? 28
     },
     getScrollElement() { return parentEl.value },
-    overscan: 12,
+    overscan: props.overscan ?? 12,
   },
 )
 

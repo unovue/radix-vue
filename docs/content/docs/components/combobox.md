@@ -255,6 +255,12 @@ An optional arrow element to render alongside the content. This can be used to h
 
 <!-- @include: @/meta/ComboboxArrow.md -->
 
+### Virtualizer
+
+Virtual container to achieve list virtualization.
+
+<!-- @include: @/meta/ComboboxVirtualizer.md -->
+
 ## Examples
 
 ### Binding objects as values
@@ -324,7 +330,7 @@ const selectedPeople = ref([people[0], people[1]])
     v-model="selectedPeople"
     multiple
   >
-    ...
+    …
   </ComboboxRoot>
 </template>
 ```
@@ -445,7 +451,7 @@ import { ComboboxInput, ComboboxRoot, Label } from 'reka-ui'
       id="person"
       placeholder="Select a person"
     />
-    ...
+    …
   </ComboboxRoot>
 </template>
 ```
@@ -475,7 +481,7 @@ import {
           class="ComboboxItem"
           disabled
         >
-          ...
+          …
         </ComboboxItem>
       </ComboboxContent>
     </ComboboxPortal>
@@ -708,7 +714,7 @@ const forward = useForwardPropsEmits(props, emits)
     :open="true"
     model-value=""
   >
-    <ComboboxInput placeholder="Type a command or search..." />
+    <ComboboxInput placeholder="Type a command or search…" />
 
     <ComboboxPortal>
       <ComboboxContent>

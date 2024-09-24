@@ -2,17 +2,12 @@
 export interface ListboxVirtualizerProps<T extends AcceptableValue = AcceptableValue> {
   /** List of items */
   options: T[]
+  /** Number of items rendered outside the visible area */
+  overscan?: number
   /** Estimated size (in px) of each item */
   estimateSize?: number
-  /** text content for each item to achieve type-ahead feature */
+  /** Text content for each item to achieve type-ahead feature */
   textContent?: (option: T) => string
-}
-
-export interface ListboxVirtualizerSlots<T> {
-  option: T
-  virtualizer: Virtualizer<Element | Window, Element>
-  virtualItem: VirtualItem<Element>
-
 }
 </script>
 
@@ -32,7 +27,11 @@ import type { AcceptableValue } from '@/shared/types'
 const props = defineProps<ListboxVirtualizerProps<T>>()
 
 defineSlots<{
-  default: (props: ListboxVirtualizerSlots<T>) => any
+  default: (props: {
+    option: T
+    virtualizer: Virtualizer<Element | Window, Element>
+    virtualItem: VirtualItem<Element>
+  }) => any
 }>()
 
 const slots = useSlots()
@@ -67,7 +66,7 @@ const virtualizer = useVirtualizer(
       return props.estimateSize ?? 28
     },
     getScrollElement() { return parentEl.value },
-    overscan: 12,
+    overscan: props.overscan ?? 12,
   },
 )
 

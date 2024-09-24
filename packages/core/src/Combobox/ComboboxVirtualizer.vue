@@ -3,14 +3,19 @@ export interface ComboboxVirtualizerProps<T extends AcceptableValue = Acceptable
 </script>
 
 <script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
-import ListboxVirtualizer, { type ListboxVirtualizerProps, type ListboxVirtualizerSlots } from '@/Listbox/ListboxVirtualizer.vue'
+import ListboxVirtualizer, { type ListboxVirtualizerProps } from '@/Listbox/ListboxVirtualizer.vue'
 import type { AcceptableValue } from '@/shared/types'
 import { injectComboboxRootContext } from './ComboboxRoot.vue'
+import type { VirtualItem, Virtualizer } from '@tanstack/vue-virtual'
 
 const props = defineProps<ComboboxVirtualizerProps<T>>()
 
 defineSlots<{
-  default: (props: ListboxVirtualizerSlots<T>) => any
+  default: (props: {
+    option: T
+    virtualizer: Virtualizer<Element | Window, Element>
+    virtualItem: VirtualItem<Element>
+  }) => any
 }>()
 
 const rootContext = injectComboboxRootContext()

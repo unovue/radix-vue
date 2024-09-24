@@ -51,7 +51,7 @@ Here's a few important note to make sure virtualization works!
 import { ComboboxContent, ComboboxItem, ComboboxRoot, ComboboxViewport, ComboboxVirtualizer } from 'radix-vue'
 
 const items = [
-  // ... large array of items
+  // … large array of items
 ]
 </script>
 

@@ -166,6 +166,9 @@ provideNavigationMenuContext({
     debouncedFn()
   },
   onContentLeave: () => {
+    if (disableHoverTrigger.value) {
+      return
+    }
     debouncedFn('')
   },
   onItemSelect: (val) => {

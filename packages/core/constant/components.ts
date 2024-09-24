@@ -25,8 +25,8 @@ export const components = {
 
   avatar: [
     'AvatarRoot',
-    'AvatarImage',
     'AvatarFallback',
+    'AvatarImage',
   ],
 
   calendar: [
@@ -104,6 +104,7 @@ export const components = {
   ],
 
   datePicker: [
+    'DatePickerRoot',
     'DatePickerHeader',
     'DatePickerHeading',
     'DatePickerGrid',
@@ -116,7 +117,6 @@ export const components = {
     'DatePickerGridRow',
     'DatePickerCellTrigger',
     'DatePickerInput',
-    'DatePickerRoot',
     'DatePickerCalendar',
     'DatePickerField',
     'DatePickerAnchor',
@@ -127,6 +127,7 @@ export const components = {
   ],
 
   dateRangePicker: [
+    'DateRangePickerRoot',
     'DateRangePickerHeader',
     'DateRangePickerHeading',
     'DateRangePickerGrid',
@@ -139,7 +140,6 @@ export const components = {
     'DateRangePickerGridRow',
     'DateRangePickerCellTrigger',
     'DateRangePickerInput',
-    'DateRangePickerRoot',
     'DateRangePickerCalendar',
     'DateRangePickerField',
     'DateRangePickerAnchor',
@@ -237,12 +237,12 @@ export const components = {
   ],
 
   navigationMenu: [
+    'NavigationMenuRoot',
     'NavigationMenuContent',
     'NavigationMenuIndicator',
     'NavigationMenuItem',
     'NavigationMenuLink',
     'NavigationMenuList',
-    'NavigationMenuRoot',
     'NavigationMenuSub',
     'NavigationMenuTrigger',
     'NavigationMenuViewport',

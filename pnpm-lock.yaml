@@ -8220,7 +8220,7 @@ snapshots:
       '@vue/shared': 3.4.31
       estree-walker: 2.0.2
       magic-string: 0.30.11
-      postcss: 8.4.41
+      postcss: 8.4.45
       source-map-js: 1.2.0
 
   '@vue/compiler-ssr@3.4.31':
@@ -12937,7 +12937,7 @@ snapshots:
 
   vue-tsc@2.0.24(typescript@5.4.2):
     dependencies:
-      '@volar/typescript': 2.4.0-alpha.18
+      '@volar/typescript': 2.4.4
       '@vue/language-core': 2.0.24(typescript@5.4.2)
       semver: 7.6.3
       typescript: 5.4.2

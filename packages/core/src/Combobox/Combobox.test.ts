@@ -276,7 +276,7 @@ describe('given combobox in a form', async () => {
   const wrapper = mount({
     props: ['handleSubmit'],
     components: { Combobox },
-    template: '<form @submit="handleSubmit"><Combobox value="true" /></form>',
+    template: '<form @submit="handleSubmit"><Combobox /></form>',
   }, {
     props: { handleSubmit },
   })
@@ -330,6 +330,7 @@ describe('given combobox in a form', async () => {
 
   describe('after selecting an option via keyboard', () => {
     beforeEach(async () => {
+      await wrapper.find('button').trigger('click')
       await valueBox.setValue('B')
       await valueBox.trigger('keydown', { key: 'Enter' })
     })
@@ -338,7 +339,7 @@ describe('given combobox in a form', async () => {
       expect((valueBox.element).value).toBe('Banana')
     })
 
-    it('should bubble up the Enter keydown event to the form', () => {
+    it('should not bubble up the Enter keydown event to the form', () => {
       expect(enterEventBubbledToForm).toBe(false)
     })
   })

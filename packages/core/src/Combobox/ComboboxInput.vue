@@ -13,6 +13,7 @@ export interface ComboboxInputProps extends ListboxFilterProps {
 
 <script setup lang="ts">
 import { injectComboboxRootContext } from './ComboboxRoot.vue'
+import { injectListboxRootContext } from '@/Listbox/ListboxRoot.vue'
 import { ListboxFilter } from '@/Listbox'
 
 const props = withDefaults(defineProps<ComboboxInputProps>(), {
@@ -21,6 +22,7 @@ const props = withDefaults(defineProps<ComboboxInputProps>(), {
 const emits = defineEmits<ComboboxInputEmits>()
 
 const rootContext = injectComboboxRootContext()
+const listboxContext = injectListboxRootContext()
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
 const modelValue = useVModel(props, 'modelValue', emits, {
@@ -37,12 +39,18 @@ function handleKeyDown(ev: KeyboardEvent) {
     rootContext.onOpenChange(true)
 }
 
-function handleInput(event: Event) {
+function handleInput(event: InputEvent) {
+  const target = event.target as HTMLInputElement
   if (!rootContext.open.value) {
     rootContext.onOpenChange(true)
+    nextTick(() => {
+      if (target.value) {
+        rootContext.filterState.search = target.value
+        listboxContext.highlightFirstItem(event)
+      }
+    })
   }
   else {
-    const target = event.target as HTMLInputElement
     rootContext.filterState.search = target.value
   }
 }

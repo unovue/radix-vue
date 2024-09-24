@@ -16,8 +16,8 @@ const filteredOptions = computed(() => {
     :layout="{ type: 'grid', iframe: false, width: '50%' }"
   >
     <Variant title="Basic">
-      <ListboxRoot class="w-48 h-72 overflow-auto p-1 rounded-lg border bg-white text-green9 mx-auto">
-        <ListboxContent>
+      <ListboxRoot class="w-48 p-1 rounded-lg border bg-white text-green9 mx-auto">
+        <ListboxContent class="h-72 overflow-auto">
           <ListboxVirtualizer
             v-slot="{ option }"
             :options="filteredOptions"

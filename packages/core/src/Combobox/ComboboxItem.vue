@@ -43,7 +43,12 @@ if (!props.value) {
   )
 }
 
-const isRender = computed(() => rootContext.ignoreFilter.value ? true : !rootContext.filterState.search ? true : rootContext.filterState.filtered.items.get(id)! > 0)
+const isRender = computed(() => {
+  if (rootContext.isVirtual.value || rootContext.ignoreFilter.value || !rootContext.filterState.search)
+    return true
+  else
+    return rootContext.filterState.filtered.items.get(id)! > 0
+})
 
 onMounted(() => {
   // textValue to perform filter

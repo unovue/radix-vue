@@ -179,8 +179,12 @@ function highlightItem(value: T) {
 }
 
 function onKeydownEnter(event: KeyboardEvent) {
-  if (highlightedElement.value)
+  if (highlightedElement.value) {
+    event.preventDefault()
+    event.stopPropagation()
+
     highlightedElement.value.click()
+  }
 }
 
 function onKeydownTypeAhead(event: KeyboardEvent) {
@@ -293,14 +297,12 @@ function handleMultipleReplace(event: KeyboardEvent, targetEl: HTMLElement) {
 }
 
 async function highlightSelected(event?: Event) {
+  await nextTick()
   if (isVirtual.value) {
-    nextTick(() => {
-      // Trigger on nextTick for Virtualizer to be mounted
-      virtualFocusHook.trigger(event)
-    })
+    // Trigger on nextTick for Virtualizer to be mounted
+    virtualFocusHook.trigger(event)
   }
   else {
-    await nextTick()
     const collection = getCollectionItem()
     const item = collection.find(i => i.dataset.state === 'checked')
     if (item)

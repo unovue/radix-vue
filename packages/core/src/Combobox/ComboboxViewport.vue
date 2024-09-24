@@ -3,6 +3,7 @@ import type { PrimitiveProps } from '@/Primitive'
 import { useForwardExpose } from '@/shared'
 import { useNonce } from '@/shared/useNonce'
 import { toRefs } from 'vue'
+import { injectComboboxRootContext } from './ComboboxRoot.vue'
 
 export interface ComboboxViewportProps extends PrimitiveProps {
   /**
@@ -20,6 +21,8 @@ const { forwardRef } = useForwardExpose()
 
 const { nonce: propNonce } = toRefs(props)
 const nonce = useNonce(propNonce)
+
+const rootContext = injectComboboxRootContext()
 </script>
 
 <template>
@@ -33,7 +36,7 @@ const nonce = useNonce(propNonce)
       // `selectedItem.offsetTop` in calculations, the offset is relative to the viewport
       // (independent of the scrollUpButton).
       position: 'relative',
-      flex: 1,
+      flex: rootContext.isVirtual.value ? undefined : 1,
       overflow: 'auto',
     }"
   >

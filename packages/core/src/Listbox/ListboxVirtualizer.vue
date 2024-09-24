@@ -7,11 +7,18 @@ export interface ListboxVirtualizerProps<T extends AcceptableValue = AcceptableV
   /** text content for each item to achieve type-ahead feature */
   textContent?: (option: T) => string
 }
+
+export interface ListboxVirtualizerSlots<T> {
+  option: T
+  virtualizer: Virtualizer<Element | Window, Element>
+  virtualItem: VirtualItem<Element>
+
+}
 </script>
 
 <script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
 import { type VirtualItem, type Virtualizer, useVirtualizer } from '@tanstack/vue-virtual'
-import { type Ref, cloneVNode, computed, useSlots } from 'vue'
+import { Fragment, type Ref, type VNode, cloneVNode, computed, useSlots } from 'vue'
 import { injectListboxRootContext } from './ListboxRoot.vue'
 import { compare, queryCheckedElement } from './utils'
 import { MAP_KEY_TO_FOCUS_INTENT } from '@/RovingFocus/utils'
@@ -25,11 +32,7 @@ import type { AcceptableValue } from '@/shared/types'
 const props = defineProps<ListboxVirtualizerProps<T>>()
 
 defineSlots<{
-  default: (props: {
-    option: T
-    virtualizer: Virtualizer<Element | Window, Element>
-    virtualItem: VirtualItem<Element>
-  }) => any
+  default: (props: ListboxVirtualizerSlots<T>) => any
 }>()
 
 const slots = useSlots()
@@ -69,13 +72,19 @@ const virtualizer = useVirtualizer(
 )
 
 const virtualizedItems = computed(() => virtualizer.value.getVirtualItems().map((item) => {
+  const defaultNode = slots.default!({
+    option: props.options[item.index],
+    virtualizer: virtualizer.value,
+    virtualItem: item,
+  })[0]
+
+  const targetNode = defaultNode.type === Fragment && Array.isArray(defaultNode.children)
+    ? defaultNode.children[0] as VNode
+    : defaultNode
+
   return {
     item,
-    is: cloneVNode(slots.default!({
-      option: props.options[item.index],
-      virtualizer: virtualizer.value,
-      virtualItem: item,
-    })![0], {
+    is: cloneVNode(targetNode, {
       'key': `${item.key}`,
       'data-index': item.index,
       'aria-setsize': props.options.length,
@@ -110,6 +119,9 @@ rootContext.virtualFocusHook.on((event) => {
           item?.focus()
       }
     })
+  }
+  else {
+    rootContext.highlightFirstItem(event as InputEvent)
   }
 })
 
@@ -196,7 +208,8 @@ rootContext.virtualKeydownHook.on((event) => {
     requestAnimationFrame(() => {
       const items = getItems()
       const item = intent === 'first' ? items[0] : items[items.length - 1]
-      rootContext.changeHighlight(item.ref)
+      if (item)
+        rootContext.changeHighlight(item.ref)
     })
   }
   else if (!intent && !isMetaKey) {

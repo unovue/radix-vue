@@ -10,9 +10,9 @@ export interface RovingFocusItemProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted } from 'vue'
 import { injectRovingFocusGroupContext } from './RovingFocusGroup.vue'
-import { Primitive } from '@/Primitive'
+import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { focusFirst, getFocusIntent, wrapArray } from './utils'
 import { useId } from '@/shared'
 import { CollectionItem, useCollection } from '@/Collection'
@@ -31,8 +31,8 @@ const isCurrentTabStop = computed(
 
 const { getItems } = useCollection()
 
-const elRef = ref()
-const rootNode = computed<Document | ShadowRoot>(() => elRef.value?.$el.getRootNode())
+const { primitiveElement, currentElement } = usePrimitiveElement()
+const rootNode = computed(() => currentElement.value?.getRootNode() as Document | ShadowRoot)
 
 onMounted(() => {
   if (props.focusable)
@@ -87,7 +87,7 @@ function handleKeydown(event: KeyboardEvent) {
 <template>
   <CollectionItem>
     <Primitive
-      ref="elRef"
+      ref="primitiveElement"
       :tabindex="isCurrentTabStop ? 0 : -1"
       :data-orientation="context.orientation.value"
       :data-active="active"

@@ -137,6 +137,12 @@ The button that clears the search term.
 
 <!-- @include: @/meta/ComboboxCancel.md -->
 
+### Empty
+
+Shown when none of the items match the query.
+
+<!-- @include: @/meta/ComboboxEmpty.md -->
+
 ### Portal
 
 When used, portals the content part into the `body`.

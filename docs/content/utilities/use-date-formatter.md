@@ -16,7 +16,7 @@ More information on the DateFormatter [here](https://react-spectrum.adobe.com/in
 ```vue
 <script setup lang="ts">
 import { type Ref, ref } from 'vue'
-import { CalendarDate, type DateValue } from '@internationalized/date'
+import { CalendarDate, getLocalTimeZone, type DateValue } from '@internationalized/date'
 import { toDate, useDateFormatter } from 'radix-vue'
 
 const value = ref(new CalendarDate(1995, 8, 18)) as Ref<DateValue>

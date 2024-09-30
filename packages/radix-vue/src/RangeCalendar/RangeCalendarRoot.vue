@@ -249,11 +249,12 @@ const {
 })
 
 watch(modelValue, (_modelValue) => {
-  if (_modelValue.start && _modelValue.end) {
-    if (startValue.value && !isEqualDay(startValue.value, _modelValue.start))
+  if (_modelValue.start) {
+    if (!startValue.value || !isEqualDay(startValue.value, _modelValue.start))
       startValue.value = _modelValue.start.copy()
-
-    if (endValue.value && !isEqualDay(endValue.value, _modelValue.end))
+  }
+  if (_modelValue.end) {
+    if (!endValue.value || !isEqualDay(endValue.value, _modelValue.end))
       endValue.value = _modelValue.end.copy()
   }
 })

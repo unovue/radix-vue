@@ -1,6 +1,6 @@
 {
   "name": "radix-vue",
-  "version": "1.9.5",
+  "version": "1.9.6",
   "private": true,
   "packageManager": "pnpm@9.4.0",
   "license": "MIT",
@@ -25,12 +25,12 @@
     "pub:release": "cd packages/radix-vue && pnpm pub:release"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.26.0",
+    "@antfu/eslint-config": "^2.27.3",
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
     "bumpp": "^9.4.1",
-    "eslint": "^9.9.0",
-    "lint-staged": "^15.2.9",
+    "eslint": "^9.10.0",
+    "lint-staged": "^15.2.10",
     "pnpm": "^9.4.0",
     "rimraf": "^6.0.1",
     "simple-git-hooks": "^2.11.1",

@@ -294,6 +294,19 @@ describe('given combobox in a form', async () => {
     props: { handleSubmit },
   })
 
+  const valueBox = wrapper.find('input')
+
+  let enterEventBubbledToForm = false
+
+  beforeEach(() => {
+    enterEventBubbledToForm = false
+    wrapper.find('form').element.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        enterEventBubbledToForm = true
+      }
+    })
+  })
+
   it('should have hidden input field', async () => {
     expect(wrapper.find('[type="hidden"]').exists()).toBe(true)
   })
@@ -325,6 +338,21 @@ describe('given combobox in a form', async () => {
     it('should trigger submit once', () => {
       expect(handleSubmit).toHaveBeenCalledTimes(2)
       expect(handleSubmit.mock.results[1].value).toStrictEqual({ test: 'Pineapple' })
+    })
+  })
+
+  describe('after selecting an option via keyboard', () => {
+    beforeEach(async () => {
+      await valueBox.setValue('B')
+      await valueBox.trigger('keydown', { key: 'Enter' })
+    })
+
+    it('should show value correctly', () => {
+      expect((valueBox.element).value).toBe('Banana')
+    })
+
+    it('should bubble up the Enter keydown event to the form', () => {
+      expect(enterEventBubbledToForm).toBe(false)
     })
   })
 })

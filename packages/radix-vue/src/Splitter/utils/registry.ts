@@ -74,6 +74,7 @@ export function registerResizeHandle(
     ownerDocumentCounts.set(ownerDocument, count - 1)
 
     updateListeners()
+    resetGlobalCursorStyle()
 
     if (count === 1)
       ownerDocumentCounts.delete(ownerDocument)

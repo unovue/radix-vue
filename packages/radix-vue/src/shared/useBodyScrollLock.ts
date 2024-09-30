@@ -64,8 +64,8 @@ const useBodyLockStackCount = createSharedComposable(() => {
       : ({ padding: 0, margin: 0 })
 
     if (verticalScrollbarWidth > 0) {
-      document.body.style.paddingRight = `${config.padding}px`
-      document.body.style.marginRight = `${config.margin}px`
+      document.body.style.paddingRight = typeof config.padding === 'number' ? `${config.padding}px` : String(config.padding)
+      document.body.style.marginRight = typeof config.margin === 'number' ? `${config.margin}px` : String(config.margin)
       document.body.style.setProperty('--scrollbar-width', `${verticalScrollbarWidth}px`)
       document.body.style.overflow = 'hidden'
     }

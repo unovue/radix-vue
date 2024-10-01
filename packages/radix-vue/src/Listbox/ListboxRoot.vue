@@ -194,7 +194,12 @@ function onKeydownTypeAhead(event: KeyboardEvent) {
 }
 
 function onLeave(event: Event) {
-  previousElement.value = highlightedElement.value
+  const el = highlightedElement.value
+
+  if ((el as Node)?.isConnected) {
+    previousElement.value = el
+  }
+
   highlightedElement.value = null
   emits('leave', event)
 }
@@ -326,8 +331,9 @@ provideListboxRootContext({
     :dir="dir"
     :data-disabled="disabled ? '' : undefined"
     @pointerleave="onLeave"
-    @focusout="(event: FocusEvent) => {
+    @focusout="async (event: FocusEvent) => {
       const target = (event.relatedTarget || event.target) as HTMLElement | null
+      await nextTick()
       if (highlightedElement && !currentElement.contains(target)) {
         onLeave(event)
       }

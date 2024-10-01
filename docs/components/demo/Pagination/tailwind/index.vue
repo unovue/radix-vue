@@ -14,17 +14,17 @@ import { PaginationEllipsis, PaginationFirst, PaginationLast, PaginationList, Pa
       v-slot="{ items }"
       class="flex items-center gap-1 text-white"
     >
-      <PaginationFirst class="w-9 h-9  flex items-center justify-center  disabled:opacity-50  focus-within:outline focus-within:outline-1 focus-within:outline-offset-1 rounded">
+      <PaginationFirst class="w-9 h-9 flex items-center justify-center disabled:opacity-50 focus-within:outline focus-within:outline-1 focus-within:outline-offset-1 rounded">
         <Icon icon="radix-icons:double-arrow-left" />
       </PaginationFirst>
-      <PaginationPrev class="w-9 h-9  flex items-center justify-center mr-4  disabled:opacity-50  focus-within:outline focus-within:outline-1 focus-within:outline-offset-1 rounded">
+      <PaginationPrev class="w-9 h-9 flex items-center justify-center mr-4 disabled:opacity-50 focus-within:outline focus-within:outline-1 focus-within:outline-offset-1 rounded">
         <Icon icon="radix-icons:chevron-left" />
       </PaginationPrev>
       <template v-for="(page, index) in items">
         <PaginationListItem
           v-if="page.type === 'page'"
           :key="index"
-          class="w-9 h-9 border rounded  data-[selected]:bg-white data-[selected]:text-blackA11 hover:bg-white/10 transition focus-within:outline focus-within:outline-1 focus-within:outline-offset-1"
+          class="w-9 h-9 border rounded data-[selected]:bg-white data-[selected]:text-blackA11 hover:bg-white/10 transition focus-within:outline focus-within:outline-1 focus-within:outline-offset-1"
           :value="page.value"
         >
           {{ page.value }}
@@ -38,10 +38,10 @@ import { PaginationEllipsis, PaginationFirst, PaginationLast, PaginationList, Pa
           &#8230;
         </PaginationEllipsis>
       </template>
-      <PaginationNext class="w-9 h-9  flex items-center justify-center  ml-4 disabled:opacity-50  focus-within:outline focus-within:outline-1 focus-within:outline-offset-1 rounded">
+      <PaginationNext class="w-9 h-9 flex items-center justify-center ml-4 disabled:opacity-50 focus-within:outline focus-within:outline-1 focus-within:outline-offset-1 rounded">
         <Icon icon="radix-icons:chevron-right" />
       </PaginationNext>
-      <PaginationLast class="w-9 h-9  flex items-center justify-center disabled:opacity-50  focus-within:outline focus-within:outline-1 focus-within:outline-offset-1 rounded">
+      <PaginationLast class="w-9 h-9 flex items-center justify-center disabled:opacity-50 focus-within:outline focus-within:outline-1 focus-within:outline-offset-1 rounded">
         <Icon icon="radix-icons:double-arrow-right" />
       </PaginationLast>
     </PaginationList>

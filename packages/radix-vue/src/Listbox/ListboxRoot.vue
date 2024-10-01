@@ -200,7 +200,6 @@ function onLeave(event: Event) {
     previousElement.value = el
   }
 
-  previousElement.value = highlightedElement.value
   highlightedElement.value = null
   emits('leave', event)
 }

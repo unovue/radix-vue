@@ -147,4 +147,14 @@ describe('editable', () => {
 
     expect(preview).toHaveStyle({ visibility: 'hidden' })
   })
+
+  it('should prevent user input text more than given `maxLength`', async () => {
+    const { input, edit } = setup({ editableProps: { maxLength: 10 } })
+
+    await userEvent.click(edit)
+
+    await userEvent.type(input, 'lorem ipsum dolor sit amet')
+
+    expect(input).toHaveValue('lorem ipsu')
+  })
 })

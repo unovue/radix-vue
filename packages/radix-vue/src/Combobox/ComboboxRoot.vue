@@ -233,7 +233,7 @@ function scrollSelectedValueIntoView() {
   // Find the highlighted element and scroll into view
   // We can put this in Item, but we avoid having too many watcher
   if (selectedElement.value instanceof Element)
-    selectedElement.value.scrollIntoView({ block: 'nearest' })
+    nextTick(() => selectedElement.value?.scrollIntoView({ block: 'nearest' }))
 }
 
 function focusOnSelectedElement() {

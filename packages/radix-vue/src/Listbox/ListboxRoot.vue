@@ -194,6 +194,12 @@ function onKeydownTypeAhead(event: KeyboardEvent) {
 }
 
 function onLeave(event: Event) {
+  const el = highlightedElement.value as Node
+
+  if (el?.isConnected) {
+    previousElement.value = el
+  }
+
   previousElement.value = highlightedElement.value
   highlightedElement.value = null
   emits('leave', event)

@@ -331,8 +331,9 @@ provideListboxRootContext({
     :dir="dir"
     :data-disabled="disabled ? '' : undefined"
     @pointerleave="onLeave"
-    @focusout="(event: FocusEvent) => {
+    @focusout="async (event: FocusEvent) => {
       const target = (event.relatedTarget || event.target) as HTMLElement | null
+      await nextTick()
       if (highlightedElement && !currentElement.contains(target)) {
         onLeave(event)
       }

@@ -3,7 +3,6 @@ import { type ComputedRef, type Ref, computed, ref, toRefs, watch } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useDirection, useForwardExpose } from '@/shared'
 import type { Direction, FormFieldProps } from '@/shared/types'
-import { VisuallyHidden } from '@/VisuallyHidden'
 import VisuallyHiddenInput from '@/VisuallyHidden/VisuallyHiddenInput.vue'
 
 export type PinInputRootEmits = {

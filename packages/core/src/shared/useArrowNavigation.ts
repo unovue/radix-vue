@@ -106,8 +106,8 @@ export function useArrowNavigation(
     !home
     && !end
     && ((!goingVertical && !goingHorizontal)
-    || (arrowKeyOptions === 'vertical' && goingHorizontal)
-    || (arrowKeyOptions === 'horizontal' && goingVertical))
+      || (arrowKeyOptions === 'vertical' && goingHorizontal)
+      || (arrowKeyOptions === 'horizontal' && goingVertical))
   ) {
     return null
   }

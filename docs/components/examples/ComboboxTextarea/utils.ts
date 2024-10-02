@@ -62,8 +62,8 @@ export function replaceValue(
   displayValue: string,
 ) {
   const nextValue = `${
-      prevValue.slice(0, offset) + displayValue
-    } ${prevValue.slice(offset + searchValue.length + 1)}`
+    prevValue.slice(0, offset) + displayValue
+  } ${prevValue.slice(offset + searchValue.length + 1)}`
   return nextValue
 }
 

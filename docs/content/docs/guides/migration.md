@@ -101,7 +101,7 @@ npx codemod reka-ui/update-css-and-data-attributes
 
   ```vue
   <template>
-    <ComboboxRoot v-model:searchTerm="search" :display-value="(v) => v.name" /> // [!code --]
+    <ComboboxRoot v-model:search-term="search" :display-value="(v) => v.name" /> // [!code --]
     <ComboboxRoot>
       <ComboboxInput v-model="search" :display-value="(v) => v.name" /> // [!code ++]
     </ComboboxRoot>

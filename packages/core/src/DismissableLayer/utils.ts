@@ -28,8 +28,8 @@ function isLayerExist(layerElement: HTMLElement, targetElement: HTMLElement) {
   )
   if (
     (targetLayer
-    && mainLayer === targetLayer)
-    || nodeList.indexOf(mainLayer) < nodeList.indexOf(targetLayer)
+      && mainLayer === targetLayer)
+      || nodeList.indexOf(mainLayer) < nodeList.indexOf(targetLayer)
   ) {
     return true
   }

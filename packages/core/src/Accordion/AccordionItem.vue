@@ -58,7 +58,7 @@ const open = computed(() =>
   rootContext.isSingle.value
     ? props.value === rootContext.modelValue.value
     : Array.isArray(rootContext.modelValue.value)
-    && rootContext.modelValue.value.includes(props.value),
+      && rootContext.modelValue.value.includes(props.value),
 )
 
 const disabled = computed(() => {

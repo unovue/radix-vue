@@ -43,10 +43,10 @@ export type MenuItem = Omit<Header, 'slug' | 'children'> & {
 export function resolveTitle(theme: DefaultTheme.Config) {
   return (
     (typeof theme.outline === 'object'
-    && !Array.isArray(theme.outline)
-    && theme.outline.label)
-    || theme.outlineTitle
-    || 'On this page'
+      && !Array.isArray(theme.outline)
+      && theme.outline.label)
+      || theme.outlineTitle
+      || 'On this page'
   )
 }
 

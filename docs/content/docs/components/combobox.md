@@ -415,7 +415,7 @@ const filteredPeople = computed(() =>
 <template>
   <ComboboxRoot
     v-model="selectedPeople"
-    v-model:searchTerm="searchTerm"
+    v-model:search-term="searchTerm"
   >
     <ComboboxInput />
     <ComboboxPortal>

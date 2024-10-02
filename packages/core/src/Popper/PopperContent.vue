@@ -207,7 +207,7 @@ const { width: arrowWidth, height: arrowHeight } = useSize(arrow)
 const desiredPlacement = computed(
   () =>
     (props.side
-    + (props.align !== 'center' ? `-${props.align}` : '')) as Placement,
+      + (props.align !== 'center' ? `-${props.align}` : '')) as Placement,
 )
 
 const collisionPadding = computed(() => {

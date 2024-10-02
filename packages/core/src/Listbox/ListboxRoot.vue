@@ -15,7 +15,7 @@ type ListboxRootContext<T> = {
   highlightOnHover: Ref<boolean>
   highlightedElement: Ref<HTMLElement | null>
   isVirtual: Ref<boolean>
-  virtualFocusHook: EventHook<Event | null>
+  virtualFocusHook: EventHook<Event | null | undefined>
   virtualKeydownHook: EventHook<KeyboardEvent>
   virtualHighlightHook: EventHook<any>
   by?: string | ((a: T, b: T) => boolean)
@@ -143,7 +143,7 @@ function onValueChange(val: T) {
 const highlightedElement = ref<HTMLElement | null>(null)
 const previousElement = ref<HTMLElement | null>(null)
 const isVirtual = ref(false)
-const virtualFocusHook = createEventHook<Event | null>()
+const virtualFocusHook = createEventHook<Event | null | undefined>()
 const virtualKeydownHook = createEventHook<KeyboardEvent>()
 const virtualHighlightHook = createEventHook<T>()
 

@@ -14,7 +14,7 @@ defineSlots<{
   default: (props: {
     option: T
     virtualizer: Virtualizer<Element | Window, Element>
-    virtualItem: VirtualItem<Element>
+    virtualItem: VirtualItem
   }) => any
 }>()
 

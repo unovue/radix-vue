@@ -24,7 +24,7 @@ defineSlots<{
   default: (props: {
     item: FlattenedItem<Record<string, any>>
     virtualizer: Virtualizer<Element | Window, Element>
-    virtualItem: VirtualItem<Element>
+    virtualItem: VirtualItem
   }) => any
 }>()
 

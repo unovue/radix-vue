@@ -12,11 +12,11 @@ const sliderValue = ref([50])
     :max="100"
     :step="1"
   >
-    <SliderTrack class="bg-white border dark:border-stone-700 relative grow rounded-full h-2.5">
-      <SliderRange class="absolute bg-stone-700 rounded-full h-full" />
+    <SliderTrack class="bg-stone-500/30 relative grow rounded-full h-2">
+      <SliderRange class="absolute bg-grass8 rounded-full h-full" />
     </SliderTrack>
     <SliderThumb
-      class="block w-5 h-5 bg-white rounded-full  hover:bg-stone-50 border-2 border-stone-700 shadow-sm focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-stone-700"
+      class="block w-6 h-6 bg-white rounded-full hover:bg-stone-50 shadow-sm focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-grass9"
       aria-label="Volume"
     />
   </SliderRoot>

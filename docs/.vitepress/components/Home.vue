@@ -1,5 +1,16 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
+import AccordionDemo from '../../components/demo/Accordion/tailwind/index.vue'
+import HoverCardDemo from '../../components/demo/HoverCard/tailwind/index.vue'
+import ToolbarDemo from '../../components/demo/Toolbar/tailwind/index.vue'
+import TagsInputDemo from '../../components/demo/TagsInput/tailwind/index.vue'
+import NumberFieldDemo from '../../components/demo/NumberField/tailwind/index.vue'
+import CalendarDemo from '../../components/demo/Calendar/tailwind/index.vue'
+import TreeDemo from '../../components/demo/Tree/tailwind/index.vue'
+import SliderDemo from '../../components/demo/Slider/tailwind/index.vue'
+import PinInputDemo from '../../components/demo/PinInput/tailwind/index.vue'
+import ProgressDemo from '../../components/demo/Progress/tailwind/index.vue'
+import SelectDemo from '../../components/demo/Select/tailwind/index.vue'
 </script>
 
 <template>
@@ -35,18 +46,75 @@ import { Icon } from '@iconify/vue'
       </div>
       <div class="mb-12 flex max-w-[calc(100%-2rem)] flex-wrap items-center justify-center gap-4 md:mb-20">
         <a
-          class="flex h-12 items-center justify-center gap-2 whitespace-nowrap rounded-xl px-4 text-primary font-semibold bg-primary/10 hover:bg-primary/20 sm:px-8 sm:text-lg"
+          class="flex items-center justify-center gap-2 whitespace-nowrap rounded-lg py-2.5 px-5 bg-primary font-semibold text-primary-foreground hover:bg-primary/90"
           href="/docs/overview/getting-started"
         >
           Get started
         </a>
         <a
-          class="group flex h-12 items-center justify-center gap-2 font-semibold text-muted-foreground hover:text-foreground whitespace-nowrap rounded-xl px-4 hover:bg-card"
+          class="group flex items-center justify-center gap-2 font-semibold text-foreground/70 hover:text-foreground whitespace-nowrap rounded-lg py-2.5 px-5 hover:bg-card border border-muted bg-muted/50"
           href="/docs/components/checkbox"
         >
           Explore components
           <Icon icon="lucide:arrow-right" />
         </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="text-foreground relative h-[40rem] mt-12 overflow-hidden w-full">
+    <div class=" w-[90rem] h-[32rem] rounded-3xl border border-muted bg-card/20 absolute left-1/2 -translate-x-1/2 overflow-hidden">
+      <img
+        class="absolute w-[90rem] flex-none max-w-none"
+        decoding="async"
+        src="/new-bg.png"
+        alt="backdrop"
+        draggable="false"
+      >
+    </div>
+    <div class="absolute left-1/2 z-[1] h-[32rem] w-[90rem] -translate-x-1/2 md:block">
+      <div class="absolute top-8 left-[16rem] xl:left-8">
+        <TagsInputDemo />
+      </div>
+
+      <div class="absolute top-[24rem] md:top-[4rem] right-[32rem] md:right-[30rem] text-stone-700 text-sm">
+        <PinInputDemo />
+      </div>
+
+      <div class="absolute top-8 right-[30rem] md:right-[10rem] xl:right-6">
+        <CalendarDemo />
+      </div>
+
+      <div class="absolute top-[8rem] left-[20rem]">
+        <AccordionDemo />
+      </div>
+
+      <div class="absolute top-48 left-[2rem] xl:-left-12">
+        <TreeDemo />
+      </div>
+
+      <div class="absolute bottom-[6rem] xl:bottom-12 left-[20rem] xl:left-[14rem]">
+        <SliderDemo />
+      </div>
+
+      <div class="absolute bottom-2 xl:-bottom-4 left-[32rem] text-sm text-stone-700">
+        <NumberFieldDemo />
+      </div>
+
+      <div class="absolute hidden md:block bottom-[4rem] right-[36rem] xl:right-[32rem]">
+        <SelectDemo />
+      </div>
+
+      <div class="absolute hidden md:block top-[12rem] right-[40rem] xl:right-[24rem]">
+        <HoverCardDemo />
+      </div>
+
+      <div class="absolute bottom-0 right-[8rem] xl:-right-12">
+        <ToolbarDemo />
+      </div>
+
+      <div class="absolute hidden md:block bottom-[12rem] right-[30rem] xl:right-[22rem]">
+        <ProgressDemo />
       </div>
     </div>
   </section>
@@ -175,7 +243,7 @@ import { Icon } from '@iconify/vue'
     </div>
   </section>
 
-  <section class="py-24 sm:py-40 w-full mx-auto px-6 bg-gradient-to-b from-background via-card/80 to-background absolute left-0">
+  <section class="py-24 sm:py-40 w-full mx-auto px-6 bg-gradient-to-b from-background via-card/80 to-background">
     <div class="max-w-screen-xl mx-auto">
       <div class="flex flex-col sm:flex-row items-center justify-center gap-12 sm:gap-20">
         <div class="flex flex-col items-center justify-center">

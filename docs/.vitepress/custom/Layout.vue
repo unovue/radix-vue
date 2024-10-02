@@ -20,30 +20,32 @@ const { top } = toRefs(arrivedState)
   <TooltipProvider>
     <div class="flex flex-col items-center min-h-screen h-full">
       <header
-        class="max-w-[1440px] w-full py-4 flex items-center justify-between sticky top-0 z-10 transition-all duration-500 px-6 h-[68px] md:h-full"
+        class="w-full py-4 sticky top-0 z-10 transition-all duration-500 h-[68px] md:h-full"
         :class="[top ? 'bg-transparent backdrop-blur-0' : 'bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/90']"
       >
-        <div class="w-full justify-between md:justify-normal flex items-center gap-8">
-          <a
-            href="/"
-            class="flex items-center gap-2"
-          >
-            <img
-              class="w-6 md:w-9"
-              alt="Reka UI logo"
-              :src="theme.logo"
+        <div class="max-w-[1440px] flex items-center justify-between mx-auto px-6">
+          <div class="w-full justify-between md:justify-normal flex items-center gap-8">
+            <a
+              href="/"
+              class="flex items-center gap-2"
             >
-            <span class="font-bold text-xl md:text-2xl">{{ site.title }}</span>
-          </a>
-          <SearchTrigger />
-        </div>
+              <img
+                class="w-6 md:w-9"
+                alt="Reka UI logo"
+                :src="theme.logo"
+              >
+              <span class="font-bold text-xl md:text-2xl">{{ site.title }}</span>
+            </a>
+            <SearchTrigger />
+          </div>
 
-        <Navbar />
+          <Navbar />
+        </div>
       </header>
 
       <div
         v-if="frontmatter.layout === 'home'"
-        class="max-w-[1440px]  px-6 h-full flex flex-col justify-between flex-1 w-full"
+        class="h-full flex flex-col justify-between flex-1 w-full"
       >
         <main>
           <Home />

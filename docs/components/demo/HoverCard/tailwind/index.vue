@@ -21,7 +21,7 @@ const hoverState = ref(false)
     </HoverCardTrigger>
     <HoverCardPortal>
       <HoverCardContent
-        class="data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade w-[300px] rounded-xl bg-white p-5 data-[state=open]:transition-all border shadow-sm"
+        class="data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade w-[300px] rounded-xl bg-white p-5 data-[state=open]:transition-all border shadow-sm z-10"
         :side-offset="5"
       >
         <div class="flex flex-col gap-[7px]">

@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot, type CalendarRootProps } from 'reka-ui'
+import { CalendarDate } from '@internationalized/date'
+
+const date = new CalendarDate(2024, 10, 3)
 
 const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
   return date.day === 17 || date.day === 18
@@ -11,7 +14,8 @@ const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
   <CalendarRoot
     v-slot="{ weekDays, grid }"
     :is-date-unavailable="isDateUnavailable"
-    class="mt-6 rounded-xl bg-white p-4 shadow-md border"
+    :default-value="date"
+    class="mt-6 rounded-xl bg-white p-4 shadow-sm border"
     fixed-weeks
   >
     <CalendarHeader class="flex items-center justify-between">

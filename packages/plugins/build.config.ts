@@ -6,7 +6,7 @@ export default defineBuildConfig([
     entries: ['./src/nuxt/index'],
     outDir: '../core/dist',
     clean: false,
-    declaration: true,
+    declaration: 'node16',
     externals: [
       '@nuxt/schema',
     ],
@@ -19,7 +19,7 @@ export default defineBuildConfig([
     entries: ['./src/resolver/index'],
     outDir: '../core/dist',
     clean: false,
-    declaration: true,
+    declaration: 'node16',
     externals: [
       'unplugin-vue-components',
     ],
@@ -32,7 +32,7 @@ export default defineBuildConfig([
     entries: ['./src/namespaced/index'],
     outDir: '../core/dist',
     clean: false,
-    declaration: true,
+    declaration: 'node16',
     externals: [
       'reka-ui',
     ],

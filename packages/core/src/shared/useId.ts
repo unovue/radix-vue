@@ -18,9 +18,7 @@ export function useId(deterministicId?: string | null | undefined, prefix = 'rek
 
   const configProviderContext = injectConfigProviderContext({ useId: undefined })
 
-  // @ts-expect-error vue 3.5
   if (vue.useId) {
-    // @ts-expect-error vue 3.5
     return `${prefix}-${vue.useId()}`
   }
   else if (configProviderContext.useId) {

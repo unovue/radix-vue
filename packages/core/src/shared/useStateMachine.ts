@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { type Ref, ref } from 'vue'
 
 interface Machine<S> {
   [k: string]: { [k: string]: S }
@@ -28,7 +28,7 @@ export function useStateMachine<M>(
   initialState: MachineState<M>,
   machine: M & Machine<MachineState<M>>,
 ) {
-  const state = ref(initialState)
+  const state = ref(initialState) as Ref<MachineState<M>>
 
   function reducer(event: MachineEvent<M>) {
     // @ts-expect-error  state.value is keyof M

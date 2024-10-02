@@ -17,7 +17,7 @@
     "vue": "^3.4.31"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.27.3",
+    "@antfu/eslint-config": "^3.7.3",
     "@floating-ui/dom": "^1.6.7",
     "@floating-ui/vue": "^1.1.0",
     "@histoire/plugin-vue": "^0.17.17",

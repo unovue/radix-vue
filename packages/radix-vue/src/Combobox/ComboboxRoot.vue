@@ -137,6 +137,9 @@ async function onOpenChange(val: boolean) {
       else
         selectedValue.value = modelValue.value as T
     }
+    // selectedElement is a computed value and is not yet fully resolved.
+    // We need to wait for it to finish processing at this point.
+    await nextTick()
     inputElement.value?.focus()
     scrollSelectedValueIntoView()
   }
@@ -233,7 +236,7 @@ function scrollSelectedValueIntoView() {
   // Find the highlighted element and scroll into view
   // We can put this in Item, but we avoid having too many watcher
   if (selectedElement.value instanceof Element)
-    selectedElement.value.scrollIntoView({ block: 'nearest' })
+    selectedElement.value?.scrollIntoView({ block: 'nearest' })
 }
 
 function focusOnSelectedElement() {
@@ -273,6 +276,9 @@ provideComboboxRootContext({
     else
       selectedValue.value = filteredOptions.value[val === 'up' ? index - 1 : index + 1]
 
+    await nextTick()
+    // selectedElement is a computed value and is not yet fully resolved.
+    // We need to wait for it to finish processing at this point.
     scrollSelectedValueIntoView()
     focusOnSelectedElement()
 

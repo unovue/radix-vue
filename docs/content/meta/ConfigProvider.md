@@ -35,3 +35,11 @@
     'required': false
   }
 ]" />
+
+<MethodsTable :data="[
+  {
+    'name': 'useId',
+    'description': '<p>The global <code>useId</code> injection as a workaround for preventing hydration issue.</p>\n',
+    'type': '() => string'
+  }
+]" />

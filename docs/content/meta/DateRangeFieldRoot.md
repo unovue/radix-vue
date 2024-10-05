@@ -148,6 +148,11 @@
 
 <MethodsTable :data="[
   {
+    'name': 'isDateUnavailable',
+    'description': '<p>A function that returns whether or not a date is unavailable</p>\n',
+    'type': 'Matcher'
+  },
+  {
     'name': 'setFocusedElement',
     'description': '',
     'type': '(el: HTMLElement) => void'

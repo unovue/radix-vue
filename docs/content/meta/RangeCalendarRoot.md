@@ -145,7 +145,7 @@
   {
     'name': 'weekdayFormat',
     'description': '<p>The format to use for the weekday strings provided via the weekdays slot prop</p>\n',
-    'type': '\'narrow\' | \'short\' | \'long\'',
+    'type': '\'long\' | \'short\' | \'narrow\'',
     'required': false,
     'default': '\'narrow\''
   },
@@ -206,5 +206,18 @@
     'name': 'fixedWeeks',
     'description': '<p>Whether or not to always display 6 weeks in the calendar</p>\n',
     'type': 'boolean'
+  }
+]" />
+
+<MethodsTable :data="[
+  {
+    'name': 'isDateDisabled',
+    'description': '<p>A function that returns whether or not a date is disabled</p>\n',
+    'type': 'Matcher'
+  },
+  {
+    'name': 'isDateUnavailable',
+    'description': '<p>A function that returns whether or not a date is unavailable</p>\n',
+    'type': 'Matcher'
   }
 ]" />

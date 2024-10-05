@@ -176,7 +176,7 @@
   {
     'name': 'weekdayFormat',
     'description': '<p>The format to use for the weekday strings provided via the weekdays slot prop</p>\n',
-    'type': '\'narrow\' | \'short\' | \'long\'',
+    'type': '\'long\' | \'short\' | \'narrow\'',
     'required': false,
     'default': '\'narrow\''
   },
@@ -204,5 +204,18 @@
     'name': 'update:placeholder',
     'description': '<p>Event handler called whenever the placeholder value changes</p>\n',
     'type': '[date: DateValue]'
+  }
+]" />
+
+<MethodsTable :data="[
+  {
+    'name': 'isDateDisabled',
+    'description': '<p>A function that returns whether or not a date is disabled</p>\n',
+    'type': 'Matcher'
+  },
+  {
+    'name': 'isDateUnavailable',
+    'description': '<p>A function that returns whether or not a date is unavailable</p>\n',
+    'type': 'Matcher'
   }
 ]" />

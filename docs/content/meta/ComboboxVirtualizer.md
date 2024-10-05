@@ -41,6 +41,6 @@
   {
     'name': 'virtualItem',
     'description': '',
-    'type': 'VirtualItem<Element>'
+    'type': 'VirtualItem'
   }
 ]" />

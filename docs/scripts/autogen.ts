@@ -3,7 +3,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 
 import fg from 'fast-glob'
 import MarkdownIt from 'markdown-it'
 import type { ComponentMeta, MetaCheckerOptions, PropertyMeta, PropertyMetaSchema } from 'vue-component-meta'
-import { createComponentMetaChecker } from 'vue-component-meta'
+import { createChecker } from 'vue-component-meta'
 import { babelParse, parse as sfcParse } from 'vue/compiler-sfc'
 import _traverse from '@babel/traverse'
 import { components } from 'reka-ui/constant'
@@ -22,7 +22,7 @@ const checkerOptions: MetaCheckerOptions = {
   printer: { newLine: 1 },
 }
 
-const tsconfigChecker = createComponentMetaChecker(
+const tsconfigChecker = createChecker(
   resolve(__dirname, '../../packages/core/tsconfig.json'),
   checkerOptions,
 )

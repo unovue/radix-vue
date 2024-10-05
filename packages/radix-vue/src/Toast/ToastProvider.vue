@@ -48,6 +48,10 @@ export const [injectToastProviderContext, provideToastProviderContext]
 <script setup lang="ts">
 import { ref, toRefs } from 'vue'
 
+defineOptions({
+  inheritAttrs: false,
+})
+
 const props = withDefaults(defineProps<ToastProviderProps>(), {
   label: 'Notification',
   duration: 5000,

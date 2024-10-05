@@ -58,6 +58,10 @@ export interface TooltipProviderProps {
 import { useTimeoutFn } from '@vueuse/shared'
 import { ref, toRefs } from 'vue'
 
+defineOptions({
+  inheritAttrs: false,
+})
+
 const props = withDefaults(defineProps<TooltipProviderProps>(), {
   delayDuration: 700,
   skipDelayDuration: 300,

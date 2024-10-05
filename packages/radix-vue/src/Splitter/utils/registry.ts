@@ -3,6 +3,7 @@ import { resetGlobalCursorStyle, setGlobalCursorStyle } from './style'
 import { getResizeEventCoordinates } from './events'
 import { intersects } from './rects'
 import { compare } from './stackingOrder'
+import type { Ref } from 'vue'
 
 export type ResizeHandlerAction = 'down' | 'move' | 'up'
 export type SetResizeHandlerState = (
@@ -17,7 +18,7 @@ export type PointerHitAreaMargins = {
 }
 
 export type ResizeHandlerData = {
-  direction: Direction
+  direction: Ref<Direction>
   element: HTMLElement
   hitAreaMargins: PointerHitAreaMargins
   setResizeHandlerState: SetResizeHandlerState
@@ -45,7 +46,7 @@ const registeredResizeHandlers = new Set<ResizeHandlerData>()
 export function registerResizeHandle(
   resizeHandleId: string,
   element: HTMLElement,
-  direction: Direction,
+  direction: Ref<Direction>,
   hitAreaMargins: PointerHitAreaMargins,
   setResizeHandlerState: SetResizeHandlerState,
 ) {
@@ -73,6 +74,7 @@ export function registerResizeHandle(
     ownerDocumentCounts.set(ownerDocument, count - 1)
 
     updateListeners()
+    resetGlobalCursorStyle()
 
     if (count === 1)
       ownerDocumentCounts.delete(ownerDocument)
@@ -230,7 +232,7 @@ function updateCursor() {
   intersectingHandles.forEach((data) => {
     const { direction } = data
 
-    if (direction === 'horizontal')
+    if (direction.value === 'horizontal')
       intersectsHorizontal = true
     else
       intersectsVertical = true

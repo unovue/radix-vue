@@ -13,6 +13,7 @@ export function makeContentId(baseId: string, value: string) {
   return `${baseId}-content-${value}`
 }
 
+export const LINK_SELECT = 'navigationMenu.linkSelect'
 export const EVENT_ROOT_CONTENT_DISMISS = 'navigationMenu.rootContentDismiss'
 
 /**

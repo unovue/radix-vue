@@ -108,7 +108,7 @@ provideCheckboxRootContext({
     v-if="isFormControl"
     type="checkbox"
     tabindex="-1"
-    aria-hidden
+    aria-hidden="true"
     :value="value"
     :checked="!!checked"
     :name="props.name"

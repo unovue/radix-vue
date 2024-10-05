@@ -43,6 +43,7 @@ const accordionItems = [
             <Icon
               icon="radix-icons:chevron-down"
               class="AccordionChevron"
+              aria-label="Expand/Collapse"
             />
           </AccordionTrigger>
         </AccordionHeader>

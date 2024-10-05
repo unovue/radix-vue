@@ -196,10 +196,12 @@ watch(modelValue, (_modelValue) => {
 })
 
 watch([modelValue, locale], ([_modelValue]) => {
-  if (_modelValue !== undefined)
+  if (_modelValue !== undefined) {
     segmentValues.value = { ...syncSegmentValues({ value: _modelValue, formatter }) }
-  else
+  }
+  else if (Object.values(segmentValues.value).every(value => value === null)) {
     segmentValues.value = { ...initialSegments }
+  }
 })
 
 const currentFocusedElement = ref<HTMLElement | null>(null)
@@ -291,7 +293,7 @@ defineExpose({
     :id="id"
     type="text"
     tabindex="-1"
-    aria-hidden
+    aria-hidden="true"
     :value="modelValue ? modelValue.toString() : ''"
     :name="name"
     :disabled="disabled"

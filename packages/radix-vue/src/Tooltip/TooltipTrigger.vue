@@ -52,7 +52,9 @@ onMounted(() => {
 })
 
 function handlePointerUp() {
-  isPointerDown.value = false
+  setTimeout(() => {
+    isPointerDown.value = false
+  }, 1)
 }
 
 function handlePointerDown() {

@@ -229,6 +229,95 @@ describe('given multiple `true` Listbox', () => {
   })
 })
 
+describe('given horizontal Listbox', () => {
+  const kbd = useKbd()
+  let wrapper: VueWrapper<InstanceType<typeof Listbox>>
+  let content: DOMWrapper<Element>
+  let items: DOMWrapper<Element>[]
+
+  window.HTMLElement.prototype.releasePointerCapture = vi.fn()
+  window.HTMLElement.prototype.hasPointerCapture = vi.fn()
+  window.HTMLElement.prototype.scrollIntoView = vi.fn()
+
+  beforeEach(() => {
+    document.body.innerHTML = ''
+    wrapper = mount(Listbox, { attachTo: document.body, props: { orientation: 'horizontal' } })
+    content = wrapper.find('[role=listbox]')
+    items = wrapper.findAll('[role=option]')
+  })
+
+  it('should pass axe accessibility tests', async () => {
+    expect(await axe(wrapper.element)).toHaveNoViolations()
+  })
+
+  describe('when focus on content', () => {
+    beforeEach(async () => {
+      await content.trigger('focus')
+    })
+
+    it('should pass the focus to the first item', () => {
+      expect(document.activeElement).toBe(items[0].element)
+    })
+
+    it('should have highlighted state on first item', () => {
+      expect(items[0].attributes('data-highlighted')).toBe('')
+    })
+
+    it('should emit `highlight` event', () => {
+      expect(wrapper.emitted('highlight')?.[0]?.[0]).toBeTruthy()
+    })
+
+    it('should highlight and select item when clicked', async () => {
+      const item = items[2]
+      await item.trigger('click')
+      expect(item.attributes('aria-selected')).toBe('true')
+      expect(item.attributes('data-state')).toBe('checked')
+    })
+
+    describe('after pressing `Enter`', async () => {
+      beforeEach(async () => {
+        await content.trigger('keydown', { key: kbd.ENTER })
+      })
+
+      it('should select the highlighted item', () => {
+        const item = items[0]
+        expect(item.attributes('data-highlighted')).toBe('')
+        expect(item.attributes('aria-selected')).toBe('true')
+        expect(item.attributes('data-state')).toBe('checked')
+      })
+
+      it('should emit `update:modelValue` event', () => {
+        expect(wrapper.emitted('update:modelValue')?.[0]?.[0]).toBe(items[0].text())
+      })
+
+      it('should deselect after pressing `Enter`', async () => {
+        await content.trigger('keydown', { key: kbd.ENTER })
+        const item = items[0]
+        expect(item.attributes('data-highlighted')).toBe('')
+        expect(item.attributes('aria-selected')).toBe('false')
+        expect(item.attributes('data-state')).toBe('unchecked')
+      })
+
+      describe('after selecting other item and press `Enter`', async () => {
+        beforeEach(async () => {
+          await content.trigger('keydown', { key: kbd.ARROW_RIGHT })
+          await content.trigger('keydown', { key: kbd.ARROW_RIGHT })
+          await content.trigger('keydown', { key: kbd.ENTER })
+        })
+
+        it('should select the third item', () => {
+          const item = items[0]
+          const newItem = items[2]
+          expect(item.attributes('aria-selected')).toBe('false')
+          expect(item.attributes('data-state')).toBe('unchecked')
+          expect(newItem.attributes('aria-selected')).toBe('true')
+          expect(newItem.attributes('data-state')).toBe('checked')
+        })
+      })
+    })
+  })
+})
+
 describe('given Listbox in a form', async () => {
   let items: DOMWrapper<Element>[]
 

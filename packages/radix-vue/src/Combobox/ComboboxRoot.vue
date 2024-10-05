@@ -24,7 +24,7 @@ type ComboboxRootContext<T> = {
   inputElement: Ref<HTMLInputElement | undefined>
   onInputElementChange: (el: HTMLInputElement) => void
   onInputNavigation: (dir: 'up' | 'down' | 'home' | 'end') => void
-  onInputEnter: () => void
+  onInputEnter: (event: InputEvent) => void
   selectedValue: Ref<T | undefined>
   selectedElement: ComputedRef<HTMLElement | undefined>
   onSelectedValueChange: (val: T) => void
@@ -137,6 +137,9 @@ async function onOpenChange(val: boolean) {
       else
         selectedValue.value = modelValue.value as T
     }
+    // selectedElement is a computed value and is not yet fully resolved.
+    // We need to wait for it to finish processing at this point.
+    await nextTick()
     inputElement.value?.focus()
     scrollSelectedValueIntoView()
   }
@@ -233,7 +236,7 @@ function scrollSelectedValueIntoView() {
   // Find the highlighted element and scroll into view
   // We can put this in Item, but we avoid having too many watcher
   if (selectedElement.value instanceof Element)
-    selectedElement.value.scrollIntoView({ block: 'nearest' })
+    selectedElement.value?.scrollIntoView({ block: 'nearest' })
 }
 
 function focusOnSelectedElement() {
@@ -273,14 +276,21 @@ provideComboboxRootContext({
     else
       selectedValue.value = filteredOptions.value[val === 'up' ? index - 1 : index + 1]
 
+    await nextTick()
+    // selectedElement is a computed value and is not yet fully resolved.
+    // We need to wait for it to finish processing at this point.
     scrollSelectedValueIntoView()
     focusOnSelectedElement()
 
     nextTick(() => inputElement.value?.focus({ preventScroll: true }))
   },
-  onInputEnter: async () => {
-    if (filteredOptions.value.length && selectedValue.value && selectedElement.value instanceof Element)
+  onInputEnter: async (event) => {
+    if (filteredOptions.value.length && selectedValue.value && selectedElement.value instanceof Element) {
+      event.preventDefault()
+      event.stopPropagation()
+
       selectedElement.value?.click()
+    }
   },
   selectedValue,
   onSelectedValueChange: val => selectedValue.value = val as T,

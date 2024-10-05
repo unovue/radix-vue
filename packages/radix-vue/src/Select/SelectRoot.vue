@@ -166,7 +166,7 @@ provideSelectNativeOptionsContext({
       v-if="isFormControl"
       :key="nativeSelectKey"
       v-bind="$attrs"
-      aria-hidden
+      aria-hidden="true"
       tabindex="-1"
       :required="required"
       :name="name"

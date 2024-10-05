@@ -158,12 +158,15 @@ provideDatePickerRootContext({
   dateFieldRef,
   dir,
   onDateChange(date: DateValue | undefined) {
-    if (!date || !modelValue.value)
+    if (!date || !modelValue.value) {
       modelValue.value = date
-    else if (!preventDeselect.value && isSameDay(modelValue.value as DateValue, date))
+    }
+    else if (!preventDeselect.value && isSameDay(modelValue.value as DateValue, date)) {
       modelValue.value = undefined
-    else
+    }
+    else {
       modelValue.value = date.copy()
+    }
   },
   onPlaceholderChange(date: DateValue) {
     if (!isEqualDay(date, placeholder.value))

@@ -101,6 +101,7 @@ provideNavigationMenuContext({
     :data-orientation="orientation"
     :as-child="props.asChild"
     :as="as"
+    data-radix-navigation-menu
   >
     <slot :model-value="modelValue" />
   </Primitive>

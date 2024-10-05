@@ -38,9 +38,14 @@ interface SingleOrMultipleProps<ValidValue = string | string[], ExplicitType = S
 
 }
 
+/**
+ * if padding or margin is number, it will be in px
+ * if padding or margin is true, it will be var(--scrollbar-width)
+ * otherwise, it will be passed string
+ */
 type ScrollBodyOption = {
-  padding?: boolean | number
-  margin?: boolean | number
+  padding?: boolean | number | string
+  margin?: boolean | number | string
 }
 
 type AcceptableValue = string | number | boolean | Record<string, any>

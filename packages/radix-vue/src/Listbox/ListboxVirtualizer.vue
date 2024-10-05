@@ -10,7 +10,7 @@ export interface ListboxVirtualizerProps<T extends AcceptableValue = AcceptableV
 </script>
 
 <script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
-import { useVirtualizer } from '@tanstack/vue-virtual'
+import { type VirtualItem, type Virtualizer, useVirtualizer } from '@tanstack/vue-virtual'
 import { type Ref, cloneVNode, computed, useSlots } from 'vue'
 import { injectListboxRootContext } from './ListboxRoot.vue'
 import { compare, queryCheckedElement } from './utils'
@@ -27,6 +27,8 @@ const props = defineProps<ListboxVirtualizerProps<T>>()
 defineSlots<{
   default: (props: {
     option: T
+    virtualizer: Virtualizer<Element | Window, Element>
+    virtualItem: VirtualItem<Element>
   }) => any
 }>()
 
@@ -71,6 +73,8 @@ const virtualizedItems = computed(() => virtualizer.value.getVirtualItems().map(
     item,
     is: cloneVNode(slots.default!({
       option: props.options[item.index],
+      virtualizer: virtualizer.value,
+      virtualItem: item,
     })![0], {
       'key': `${item.key}`,
       'data-index': item.index,

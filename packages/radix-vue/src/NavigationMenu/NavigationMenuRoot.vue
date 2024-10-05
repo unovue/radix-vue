@@ -188,6 +188,7 @@ provideNavigationMenuContext({
     :as-child="asChild"
     :data-orientation="orientation"
     :dir="dir"
+    data-radix-navigation-menu
   >
     <slot :model-value="modelValue" />
   </Primitive>

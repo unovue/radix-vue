@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxtjs/tailwindcss'],
+
   // components: [
   //   {
   //     path: '../../docs/components/demo',
@@ -28,4 +29,6 @@ export default defineNuxtConfig({
       })
     },
   },
+
+  compatibilityDate: '2024-09-17',
 })

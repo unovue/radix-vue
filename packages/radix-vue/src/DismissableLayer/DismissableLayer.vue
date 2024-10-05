@@ -103,7 +103,7 @@ const isPointerEventsEnabled = computed(() => {
 
 const pointerDownOutside = usePointerDownOutside(async (event) => {
   const isPointerDownOnBranch = [...context.branches].some(branch =>
-    branch.contains(event.target as HTMLElement),
+    branch?.contains(event.target as HTMLElement),
   )
 
   if (!isPointerEventsEnabled.value || isPointerDownOnBranch)
@@ -117,7 +117,7 @@ const pointerDownOutside = usePointerDownOutside(async (event) => {
 
 const focusOutside = useFocusOutside((event) => {
   const isFocusInBranch = [...context.branches].some(branch =>
-    branch.contains(event.target as HTMLElement),
+    branch?.contains(event.target as HTMLElement),
   )
 
   if (isFocusInBranch)

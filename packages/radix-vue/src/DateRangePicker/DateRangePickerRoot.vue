@@ -111,7 +111,7 @@ const {
 const dir = useDirection(propsDir)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: props.defaultValue,
+  defaultValue: props.defaultValue ?? { start: undefined, end: undefined },
   passive: (props.modelValue === undefined) as false,
 }) as Ref<DateRange>
 

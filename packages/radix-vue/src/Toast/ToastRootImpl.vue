@@ -1,4 +1,5 @@
 <script lang="ts">
+import { isClient } from '@vueuse/shared'
 import type { PrimitiveProps } from '@/Primitive'
 import type { SwipeEvent } from './utils'
 import { createContext, useForwardExpose } from '@/shared'
@@ -79,6 +80,11 @@ const remainingRaf = useRafFn(() => {
 
 function startTimer(duration: number) {
   if (!duration || duration === Number.POSITIVE_INFINITY)
+    return
+  // startTimer is used inside a watch with immediate set to true.
+  // This results in code execution during SSR.
+  // Ensure this code only runs in a browser environment
+  if (!isClient)
     return
   window.clearTimeout(closeTimerRef.value)
   closeTimerStartTimeRef.value = new Date().getTime()
@@ -169,7 +175,10 @@ provideToastRootContext({ onClose: handleClose })
     {{ announceTextContent }}
   </ToastAnnounce>
 
-  <Teleport :to="providerContext.viewport.value">
+  <Teleport
+    v-if="providerContext.viewport.value"
+    :to="providerContext.viewport.value"
+  >
     <Primitive
       :ref="forwardRef"
       role="status"

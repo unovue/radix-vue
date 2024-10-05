@@ -40,8 +40,8 @@ export function getFocusIntent(
   return MAP_KEY_TO_FOCUS_INTENT[key]
 }
 
-export function focusFirst(candidates: HTMLElement[], preventScroll = false) {
-  const PREVIOUSLY_FOCUSED_ELEMENT = document.activeElement
+export function focusFirst(candidates: HTMLElement[], preventScroll = false, rootNode?: Document | ShadowRoot) {
+  const PREVIOUSLY_FOCUSED_ELEMENT = rootNode?.activeElement ?? document.activeElement
   for (const candidate of candidates) {
     // if focus is already where we want to go, we don't want to keep going through the candidates
     if (candidate === PREVIOUSLY_FOCUSED_ELEMENT)

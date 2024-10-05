@@ -61,7 +61,7 @@ export function useGraceArea(triggerElement: Ref<HTMLElement | undefined>, conta
         }
       }
 
-      const documentPointermoveCleanup = useEventListener(document, 'pointermove', handleTrackPointerGrace)
+      const documentPointermoveCleanup = useEventListener(triggerElement.value?.ownerDocument, 'pointermove', handleTrackPointerGrace)
 
       onCleanup(() => {
         documentPointermoveCleanup()

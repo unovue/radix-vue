@@ -156,6 +156,9 @@ export default {
         slideIn: 'slideIn 150ms cubic-bezier(0.16, 1, 0.3, 1)',
         swipeOut: 'swipeOut 100ms ease-out',
       },
+      transitionDuration: {
+        250: '250ms',
+      },
     },
   },
   plugins: [

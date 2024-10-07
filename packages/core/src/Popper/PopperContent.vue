@@ -288,7 +288,7 @@ const computedMiddleware = computedEager(() => {
   ] as Middleware[]
 })
 
-// If provided custom reference, it will overwrite the defautl anchor element
+// If provided custom reference, it will overwrite the default anchor element
 const reference = computed(() => props.reference ?? rootContext.anchor.value)
 
 const { floatingStyles, placement, isPositioned, middlewareData, update } = useFloating(

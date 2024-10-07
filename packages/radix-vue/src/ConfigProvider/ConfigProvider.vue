@@ -39,6 +39,10 @@ export interface ConfigProviderProps {
 <script setup lang="ts">
 import { toRefs } from 'vue'
 
+defineOptions({
+  inheritAttrs: false,
+})
+
 const props = withDefaults(defineProps<ConfigProviderProps>(), {
   dir: 'ltr',
   scrollBody: true,

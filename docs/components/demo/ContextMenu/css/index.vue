@@ -163,7 +163,7 @@ function handleClick() {
               </ContextMenuItem>
               <ContextMenuSub>
                 <ContextMenuSubTrigger
-                  value="more toolsz"
+                  value="more tools"
                   class="ContextMenuSubTrigger"
                 >
                   More Tools <div

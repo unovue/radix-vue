@@ -11,7 +11,7 @@ const people = [
   { id: 4, name: 'Benedict Kessler' },
   { id: 5, name: 'Katelyn Rohan' },
 ]
-const v = ref<any>(people[0])
+const v = ref(people[0])
 const open = ref(props.open)
 </script>
 

@@ -181,6 +181,10 @@ watch(() => open.value, () => {
   })
 }, { flush: 'post' })
 
+watch(() => allItems.value.size, (val) => {
+  filterItems()
+})
+
 defineExpose({
   highlightedElement,
   highlightItem: primitiveElement.value?.highlightItem,

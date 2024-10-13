@@ -60,7 +60,7 @@ export interface ComboboxRootProps<T = AcceptableValue> extends Omit<ListboxRoot
 <script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
 import { computed, nextTick, reactive, ref, toRefs, watch } from 'vue'
 import { PopperRoot } from '@/Popper'
-import { type EventHookOn, createEventHook, useVModel } from '@vueuse/core'
+import { type EventHookOn, createEventHook, useVModel, watchDebounced } from '@vueuse/core'
 import { ListboxRoot } from '@/Listbox'
 
 const props = withDefaults(defineProps<ComboboxRootProps<T>>(), {
@@ -180,6 +180,10 @@ watch(() => open.value, () => {
       filterItems()
   })
 }, { flush: 'post' })
+
+watchDebounced(() => allItems.value.size, (val) => {
+  filterItems()
+}, { debounce: 10 })
 
 defineExpose({
   highlightedElement,

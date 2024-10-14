@@ -116,7 +116,7 @@
 }
 
 .CalendarCellTrigger[data-disabled] {
-  cursor: none;
+  cursor: not-allowed;
   color: rgba(0,0,0,0.3);
 }
 

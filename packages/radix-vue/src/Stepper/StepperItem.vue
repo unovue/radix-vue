@@ -22,7 +22,7 @@ export interface StepperItemContext {
 export interface StepperItemProps extends PrimitiveProps {
   /** A unique value that associates the stepper item with an index */
   step: number
-  /** When `true`, prevents the user from interacting with the tab. */
+  /** When `true`, prevents the user from interacting with the step. */
   disabled?: boolean
   /** Shows whether the step is completed. */
   completed?: boolean

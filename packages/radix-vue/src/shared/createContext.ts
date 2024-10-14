@@ -40,14 +40,14 @@ export function createContext<ContextValue>(
       `Injection \`${injectionKey.toString()}\` not found. Component must be used within ${
         Array.isArray(providerComponentName)
           ? `one of the following components: ${providerComponentName.join(
-              ', ',
-            )}`
+            ', ',
+          )}`
           : `\`${providerComponentName}\``
       }`,
     )
   }
 
-  const provideContext = (contextValue: ContextValue) => {
+  const provideContext = <T extends ContextValue = ContextValue>(contextValue: T) => {
     provide(injectionKey, contextValue)
     return contextValue
   }

@@ -8,11 +8,11 @@ import { createCollection } from '@/Collection'
 export type AcceptableValue = string | number | boolean | Record<string, any>
 type ArrayOrWrapped<T> = T extends any[] ? T : Array<T>
 
-type ComboboxRootContext<T> = {
-  modelValue: Ref<T | Array<T>>
-  onValueChange: (val: T) => void
+type ComboboxRootContext<T extends AcceptableValue, TMultiple extends boolean = false> = {
+  modelValue: Ref<TMultiple extends true ? T[] : T>
+  onValueChange: (val: AcceptableValue) => void
   searchTerm: Ref<string>
-  multiple: Ref<boolean>
+  multiple: Ref<TMultiple>
   disabled: Ref<boolean>
   open: Ref<boolean>
   onOpenChange: (value: boolean) => void
@@ -27,16 +27,16 @@ type ComboboxRootContext<T> = {
   onInputEnter: (event: InputEvent) => void
   selectedValue: Ref<T | undefined>
   selectedElement: ComputedRef<HTMLElement | undefined>
-  onSelectedValueChange: (val: T) => void
+  onSelectedValueChange: (val: AcceptableValue) => void
   parentElement: Ref<HTMLElement | undefined>
 }
 
 export const [injectComboboxRootContext, provideComboboxRootContext]
-  = createContext<ComboboxRootContext<AcceptableValue>>('ComboboxRoot')
+  = createContext<ComboboxRootContext<AcceptableValue, boolean>>('ComboboxRoot')
 
-export type ComboboxRootEmits<T = AcceptableValue> = {
+export type ComboboxRootEmits<T extends AcceptableValue = AcceptableValue, TMultiple extends boolean = false> = {
   /** Event handler called when the value changes. */
-  'update:modelValue': [value: T]
+  'update:modelValue': [value: TMultiple extends true ? T[] : T]
   /** Event handler called when the open state of the combobox changes. */
   'update:open': [value: boolean]
   /** Event handler called when the searchTerm of the combobox changes. */
@@ -45,11 +45,11 @@ export type ComboboxRootEmits<T = AcceptableValue> = {
   'update:selectedValue': [value: T | undefined]
 }
 
-export interface ComboboxRootProps<T = AcceptableValue> extends PrimitiveProps {
+export interface ComboboxRootProps<T extends AcceptableValue = AcceptableValue, TMultiple extends boolean = false> extends PrimitiveProps {
   /** The controlled value of the Combobox. Can be binded-with with `v-model`. */
-  modelValue?: T | Array<T>
+  modelValue?: TMultiple extends true ? T[] : T
   /** The value of the combobox when initially rendered. Use when you do not need to control the state of the Combobox */
-  defaultValue?: T | Array<T>
+  defaultValue?: TMultiple extends true ? T[] : T
   /** The controlled open state of the Combobox. Can be binded-with with `v-model:open`. */
   open?: boolean
   /** The open state of the combobox when it is initially rendered. <br> Use when you do not need to control its open state. */
@@ -59,7 +59,7 @@ export interface ComboboxRootProps<T = AcceptableValue> extends PrimitiveProps {
   /** The current highlighted value of the COmbobox. Can be binded-with `v-model:selectedValue`. */
   selectedValue?: T
   /** Whether multiple options can be selected or not. */
-  multiple?: boolean
+  multiple?: TMultiple
   /** When `true`, prevents the user from interacting with Combobox */
   disabled?: boolean
   /** The name of the Combobox. Submitted with its owning form as part of a name/value pair. */
@@ -67,7 +67,7 @@ export interface ComboboxRootProps<T = AcceptableValue> extends PrimitiveProps {
   /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
   /** The custom filter function for filtering `ComboboxItem`. */
-  filterFunction?: (val: ArrayOrWrapped<T>, term: string) => ArrayOrWrapped<T>
+  filterFunction?: (val: T[], term: string) => T[]
   /** The display value of input for selected item. Does not work with `multiple`. */
   displayValue?: (val: T) => string
   /**
@@ -78,30 +78,32 @@ export interface ComboboxRootProps<T = AcceptableValue> extends PrimitiveProps {
 }
 </script>
 
-<script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
-import { computed, nextTick, ref, toRefs, watch } from 'vue'
+<script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue, TMultiple extends boolean = false">
+import { computed, nextTick, ref, toRef, toRefs, watch } from 'vue'
 import { PopperRoot } from '@/Popper'
 import { Primitive } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 import { VisuallyHiddenInput } from '@/VisuallyHidden'
 import isEqual from 'fast-deep-equal'
 
-const props = withDefaults(defineProps<ComboboxRootProps<T>>(), {
+const props = withDefaults(defineProps<ComboboxRootProps<T, TMultiple>>(), {
   open: undefined,
   resetSearchTermOnBlur: true,
 })
-const emit = defineEmits<ComboboxRootEmits<T>>()
+const emit = defineEmits<ComboboxRootEmits<T, TMultiple>>()
 
 defineSlots<{
   default: (props: {
     /** Current open state */
     open: typeof open.value
     /** Current active value */
-    modelValue: typeof modelValue.value
+    modelValue: TMultiple extends true ? T[] : T
   }) => any
 }>()
 
-const { multiple, disabled, dir: propDir } = toRefs(props)
+const multiple = toRef(props, 'multiple') as Ref<TMultiple>
+
+const { disabled, dir: propDir } = toRefs(props)
 const dir = useDirection(propDir)
 
 const searchTerm = useVModel(props, 'searchTerm', emit, {
@@ -115,7 +117,7 @@ const modelValue = useVModel(props, 'modelValue', emit, {
   defaultValue: props.defaultValue ?? multiple.value ? [] : undefined,
   passive: (props.modelValue === undefined) as false,
   deep: true,
-}) as Ref<T | T[]>
+}) as Ref<TMultiple extends true ? T[] : T>
 
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
@@ -150,15 +152,15 @@ async function onOpenChange(val: boolean) {
   }
 }
 
-function onValueChange(val: T) {
+function onValueChange(val: AcceptableValue) {
   if (Array.isArray(modelValue.value) && multiple.value) {
     const index = modelValue.value.findIndex(i => isEqual(i, val))
     const modelArray = [...modelValue.value]
     index === -1 ? modelArray.push(val) : modelArray.splice(index, 1)
-    modelValue.value = modelArray
+    modelValue.value = modelArray as TMultiple extends true ? T[] : T
   }
   else {
-    modelValue.value = val
+    modelValue.value = val as TMultiple extends true ? T[] : T
     onOpenChange(false)
   }
 }
@@ -195,7 +197,7 @@ const filteredOptions = computed(() => {
 function resetSearchTerm() {
   if (!multiple.value && modelValue.value && !Array.isArray(modelValue.value)) {
     if (props.displayValue)
-      searchTerm.value = props.displayValue(modelValue.value)
+      searchTerm.value = props.displayValue(modelValue.value as T)
     else if (typeof modelValue.value !== 'object')
       searchTerm.value = modelValue.value.toString()
     else
@@ -246,10 +248,9 @@ function focusOnSelectedElement() {
     selectedElement.value.focus()
 }
 
-provideComboboxRootContext({
+provideComboboxRootContext<ComboboxRootContext<T, TMultiple>>({
   searchTerm,
   modelValue,
-  // @ts-expect-error ignoring
   onValueChange,
   isUserInputted,
   multiple,

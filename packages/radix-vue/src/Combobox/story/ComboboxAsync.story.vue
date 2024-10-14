@@ -25,6 +25,7 @@ async function handleOpen(val: boolean) {
     <Variant title="default">
       <ComboboxRoot
         v-model="v"
+        multiple
         @update:open="handleOpen"
         @update:model-value="v => {
           console.log(v)

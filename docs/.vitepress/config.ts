@@ -224,8 +224,8 @@ export default defineConfig({
       pattern: 'https://github.com/radix-vue/radix-vue/edit/main/docs/content/:path',
     },
     carbonAds: {
-      code: 'CW7DV27J',
-      placement: 'wwwradix-vuecom',
+      code: 'CW7DP2JW',
+      placement: 'reka-uicom',
     },
   },
   srcDir: 'content',

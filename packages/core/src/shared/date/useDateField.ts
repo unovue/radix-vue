@@ -1,9 +1,9 @@
 import { type Formatter, useKbd } from '@/shared'
-import type { AnyExceptLiteral, HourCycle, SegmentPart, SegmentValueObj, TimeValue } from '@/shared/date'
+import type { AnyExceptLiteral, HourCycle, SegmentPart, SegmentValueObj } from '@/shared/date'
 import { getDaysInMonth, toDate } from '@/date'
 import type { CalendarDateTime, CycleTimeOptions, DateFields, DateValue, TimeFields } from '@internationalized/date'
 import { type Ref, computed } from 'vue'
-import { isAcceptableSegmentKey, isNumberString, isSegmentNavigationKey } from './utils'
+import { isAcceptableSegmentKey, isNumberString, isSegmentNavigationKey } from './segment'
 
 type MinuteSecondIncrementProps = {
   e: KeyboardEvent
@@ -248,14 +248,14 @@ export const segmentBuilders = {
 export type UseDateFieldProps = {
   hasLeftFocus: Ref<boolean>
   lastKeyZero: Ref<boolean>
-  placeholder: Ref<DateValue | TimeValue>
+  placeholder: Ref<DateValue>
   hourCycle: HourCycle
   formatter: Formatter
   segmentValues: Ref<SegmentValueObj>
   disabled: Ref<boolean>
   readonly: Ref<boolean>
   part: SegmentPart
-  modelValue: Ref<DateValue | TimeValue | undefined>
+  modelValue: Ref<DateValue | undefined>
   focusNext: () => void
 }
 
@@ -470,6 +470,7 @@ export function useDateField(props: UseDateFieldProps) {
      * `prev` value so that we can start the segment over again
      * when the user types a number.
      */
+    // probably not implement, kind of weird
     if (props.hasLeftFocus.value) {
       props.hasLeftFocus.value = false
       prev = null

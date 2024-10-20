@@ -1,6 +1,9 @@
 export {
   type Granularity,
+  type TimeGranularity,
+  type TimeValue,
   getDefaultDate,
+  getDefaultTime,
 } from './comparators'
 export type {
   DateRange,

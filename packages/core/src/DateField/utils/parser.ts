@@ -11,8 +11,16 @@ type SyncSegmentValuesProps = {
   formatter: Formatter
 }
 
-export function syncSegmentValues(props: SyncSegmentValuesProps) {
+export function syncSegmentValues(props: SyncSegmentValuesProps, isTimeValue: boolean = false) {
   const { formatter } = props
+
+  if (isTimeValue) {
+    return Object.fromEntries(TIME_SEGMENT_PARTS.map((part) => {
+      if (part === 'dayPeriod')
+        return [part, formatter.dayPeriod(toDate(props.value))]
+      return [part, props.value[part as keyof DateValue]]
+    })) as SegmentValueObj
+  }
 
   const dateValues = DATE_SEGMENT_PARTS.map((part) => {
     return [part, props.value[part]]
@@ -31,7 +39,21 @@ export function syncSegmentValues(props: SyncSegmentValuesProps) {
   return Object.fromEntries(dateValues) as SegmentValueObj
 }
 
-export function initializeSegmentValues(granularity: Granularity): SegmentValueObj {
+export function initializeSegmentValues(granularity: Granularity, isTimeValue: boolean = false): SegmentValueObj {
+  if (isTimeValue) {
+    return Object.fromEntries(
+      TIME_SEGMENT_PARTS.map((part) => {
+        if (part === 'dayPeriod')
+          return [part, 'AM']
+        return [part, null]
+      }).filter(([key]) => {
+        if (key === 'literal' || key === null)
+          return false
+        else return true
+      }),
+    )
+  }
+
   const initialParts = EDITABLE_SEGMENT_PARTS.map((part) => {
     if (part === 'dayPeriod')
       return [part, 'AM']
@@ -54,6 +76,7 @@ type SharedContentProps = {
   formatter: Formatter
   hideTimeZone: boolean
   hourCycle: HourCycle
+  isTimeValue?: boolean
 }
 
 type CreateContentObjProps = SharedContentProps & {
@@ -131,8 +154,8 @@ function createContentObj(props: CreateContentObjProps) {
 }
 
 function createContentArr(props: CreateContentArrProps) {
-  const { granularity, formatter, contentObj, hideTimeZone, hourCycle } = props
-  const parts = formatter.toParts(props.dateRef, getOptsByGranularity(granularity, hourCycle))
+  const { granularity, formatter, contentObj, hideTimeZone, hourCycle, isTimeValue } = props
+  const parts = formatter.toParts(props.dateRef, getOptsByGranularity(granularity, hourCycle, isTimeValue))
 
   const segmentContentArr = parts
     .map((part) => {

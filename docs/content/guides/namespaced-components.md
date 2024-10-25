@@ -4,7 +4,7 @@ Radix Vue design pattern is to create primitives for each component, and allow u
 
 However, importing all the necessary components 1-by-1 can be quite an effort, and the user might sometimes accidentally leave out an important component.
 
-In order to solve this pain point, we've introduced [Namespaced components](https://vuejs.org/api/sfc-script-setup.html#namespaced-components) starting from [v.1.2.0](https://github.com/radix-vue/radix-vue/releases/tag/v1.2.0).
+In order to solve this pain point, we've introduced [Namespaced components](https://vuejs.org/api/sfc-script-setup.html#namespaced-components) starting from [v.1.2.0](https://github.com/unovue/radix-vue/releases/tag/v1.2.0).
 
 ## How to use?
 

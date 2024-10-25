@@ -5,13 +5,13 @@
   "description": "Vue port for Radix UI Primitives.",
   "author": "Radix Vue Contributors (https://github.com/radix-vue)",
   "license": "MIT",
-  "homepage": "https://github.com/radix-vue/radix-vue",
+  "homepage": "https://github.com/unovue/radix-vue",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/radix-vue/radix-vue.git"
+    "url": "git+https://github.com/unovue/radix-vue.git"
   },
   "bugs": {
-    "url": "https://github.com/radix-vue/radix-vue/issues"
+    "url": "https://github.com/unovue/radix-vue/issues"
   },
   "keywords": [
     "ui",

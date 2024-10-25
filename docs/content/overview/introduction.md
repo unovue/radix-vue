@@ -78,6 +78,6 @@ To receive updates on new primitives, announcements, blog posts, and general Rad
 
 To file issues, request features, and contribute, check out our GitHub.
 
-[GitHub repo](https://github.com/radix-vue/radix-vue)
+[GitHub repo](https://github.com/unovue/radix-vue)
 
-[Code of conduct](https://github.com/radix-vue/radix-vue/CODE_OF_CONDUCT.md)
+[Code of conduct](https://github.com/unovue/radix-vue/CODE_OF_CONDUCT.md)

@@ -21,7 +21,7 @@ const { frontmatter } = useData()
           text="Add Showcase"
           class="mt-6"
           target="_blank"
-          href="https://github.com/radix-vue/radix-vue/blob/main/docs/content/showcase.md"
+          href="https://github.com/unovue/radix-vue/blob/main/docs/content/showcase.md"
         />
       </div>
 

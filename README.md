@@ -1,6 +1,6 @@
 <br />
 <p align="center">
-  <a href="https://github.com/radix-vue/radix-vue">
+  <a href="https://github.com/unovue/radix-vue">
     <img src="https://www.radix-vue.com/logo.svg" alt="Logo" width="150" />
   </a>
 
@@ -14,11 +14,11 @@ Radix is an unstyled, customisable UI Library with built in accessibility for bu
 <p>
 
 <p align="center">
-<a href='https://github.com/radix-vue/radix-vue/actions/workflows/test.yml'>
+<a href='https://github.com/unovue/radix-vue/actions/workflows/test.yml'>
 </a>
 <a href="https://www.npmjs.com/package/radix-vue" target="__blank"><img src="https://img.shields.io/npm/v/radix-vue?style=flat&colorA=002438&colorB=41c399" alt="NPM version"></a>
 <a href="https://www.npmjs.com/package/radix-vue" target="__blank"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/radix-vue?flat&colorA=002438&colorB=41c399"></a>
-<a href="https://github.com/radix-vue/radix-vue" target="__blank"><img alt="GitHub stars" src="https://img.shields.io/github/stars/radix-vue/radix-vue?flat&colorA=002438&colorB=41c399"></a>
+<a href="https://github.com/unovue/radix-vue" target="__blank"><img alt="GitHub stars" src="https://img.shields.io/github/stars/unovue/radix-vue?flat&colorA=002438&colorB=41c399"></a>
 </p>
 
 <p align="center">
@@ -49,7 +49,7 @@ For full documentation, visit [radix-vue.com](https://radix-vue.com).
 
 ## Releases
 
-For changelog, visit [releases](https://github.com/radix-vue/radix-vue/releases).
+For changelog, visit [releases](https://github.com/unovue/radix-vue/releases).
 
 ## Contributing
 

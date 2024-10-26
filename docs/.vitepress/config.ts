@@ -38,8 +38,20 @@ export default defineConfig({
     ['meta', { name: 'theme-color', content: '#00C38A' }],
     ['link', { rel: 'icon', href: '/logo.png' }],
     ['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
-    ['meta', { name: 'author', content: `${teamMembers.map(c => c.name).join(', ')} and ${rekaName} contributors` }],
-    ['meta', { name: 'keywords', content: 'vue, nuxt, component-library, radix, radix-vue, typescript' }],
+    [
+      'meta',
+      {
+        name: 'author',
+        content: `${teamMembers.map(c => c.name).join(', ')} and ${rekaName} contributors`,
+      },
+    ],
+    [
+      'meta',
+      {
+        name: 'keywords',
+        content: 'vue, nuxt, component-library, radix, radix-vue, typescript',
+      },
+    ],
     ['meta', { property: 'og:title', content: rekaName }],
     ['meta', { property: 'og:description', content: rekaDescription }],
     ['meta', { property: 'og:url', content: ogUrl }],
@@ -48,10 +60,29 @@ export default defineConfig({
     ['meta', { name: 'twitter:description', content: rekaDescription }],
     ['meta', { name: 'twitter:image', content: ogImage }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
-    ['link', { rel: 'preload', as: 'style', onload: 'this.onload=null;this.rel=\'stylesheet\'', href: font }],
-    ['noscript', {}, `<link rel="stylesheet" crossorigin="anonymous" href="${font}" />`],
+    [
+      'link',
+      {
+        rel: 'preload',
+        as: 'style',
+        onload: 'this.onload=null;this.rel=\'stylesheet\'',
+        href: font,
+      },
+    ],
+    [
+      'noscript',
+      {},
+      `<link rel="stylesheet" crossorigin="anonymous" href="${font}" />`,
+    ],
     ['link', { rel: 'mask-icon', href: '/logo.svg', color: '#ffffff' }],
-    ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' }],
+    [
+      'link',
+      {
+        rel: 'apple-touch-icon',
+        href: '/apple-touch-icon.png',
+        sizes: '180x180',
+      },
+    ],
   ],
   lastUpdated: true,
   sitemap: { hostname: ogUrl },
@@ -93,13 +124,25 @@ export default defineConfig({
           { text: 'Styling', link: '/docs/guides/styling' },
           { text: 'Animation/Transition', link: '/docs/guides/animation' },
           { text: 'Composition', link: '/docs/guides/composition' },
-          { text: 'Server side rendering', link: '/docs/guides/server-side-rendering' },
+          {
+            text: 'Server side rendering',
+            link: '/docs/guides/server-side-rendering',
+          },
           { text: 'Namespaced', link: '/docs/guides/namespaced-components' },
           { text: 'Dates', link: '/docs/guides/dates' },
           { text: 'Internationalization (RTL)', link: '/docs/guides/i18n' },
-          { text: `Inject Context ${BadgeHTML('New')}`, link: '/docs/guides/inject-context' },
-          { text: `Virtualization ${BadgeHTML('New')}`, link: '/docs/guides/virtualization' },
-          { text: `Migration ${BadgeHTML('New')}`, link: '/docs/guides/migration' },
+          {
+            text: `Inject Context ${BadgeHTML('New')}`,
+            link: '/docs/guides/inject-context',
+          },
+          {
+            text: `Virtualization ${BadgeHTML('New')}`,
+            link: '/docs/guides/virtualization',
+          },
+          {
+            text: `Migration ${BadgeHTML('New')}`,
+            link: '/docs/guides/migration',
+          },
           // { text: `Namespaced ${BadgeHTML('New')}`, link: '/docs/guides/namespaced-components' },
         ],
       },
@@ -108,76 +151,151 @@ export default defineConfig({
         icon: 'lucide:box',
         link: '/docs/components/',
         items: [
-          { text: 'Form', items: [
-            { text: 'Checkbox', link: '/docs/components/checkbox' },
-            { text: 'Combobox', link: '/docs/components/combobox' },
-            { text: `Editable ${BadgeHTML('Alpha', true)}`, link: '/docs/components/editable' },
-            { text: `Listbox ${BadgeHTML('Alpha', true)}`, link: '/docs/components/listbox' },
-            { text: `Number Field ${BadgeHTML('Alpha', true)}`, link: '/docs/components/number-field' },
-            { text: 'Label', link: '/docs/components/label' },
-            { text: 'Pin Input', link: '/docs/components/pin-input' },
-            { text: 'Radio Group', link: '/docs/components/radio-group' },
-            { text: 'Select', link: '/docs/components/select' },
-            { text: 'Slider', link: '/docs/components/slider' },
-            { text: 'Switch', link: '/docs/components/switch' },
-            { text: 'Tags Input', link: '/docs/components/tags-input' },
-            { text: 'Toggle', link: '/docs/components/toggle' },
-            { text: 'Toggle Group', link: '/docs/components/toggle-group' },
-          ] },
-          { text: 'Dates', items: [
-            { text: `Calendar ${BadgeHTML('Alpha', true)}`, link: '/docs/components/calendar' },
-            { text: `Date Field ${BadgeHTML('Alpha', true)}`, link: '/docs/components/date-field' },
-            { text: `Date Picker ${BadgeHTML('Alpha', true)}`, link: '/docs/components/date-picker' },
-            { text: `Date Range Field ${BadgeHTML('Alpha', true)}`, link: '/docs/components/date-range-field' },
-            { text: `Date Range Picker ${BadgeHTML('Alpha', true)}`, link: '/docs/components/date-range-picker' },
-            { text: `Range Calendar ${BadgeHTML('Alpha', true)}`, link: '/docs/components/range-calendar' },
-          ] },
-          { text: 'General', items: [
-            { text: 'Accordion', link: '/docs/components/accordion' },
-            { text: 'Alert Dialog', link: '/docs/components/alert-dialog' },
-            { text: 'Aspect Ratio', link: '/docs/components/aspect-ratio' },
-            { text: 'Avatar', link: '/docs/components/avatar' },
-            { text: 'Collapsible', link: '/docs/components/collapsible' },
-            { text: 'Context Menu', link: '/docs/components/context-menu' },
-            { text: 'Dialog', link: '/docs/components/dialog' },
-            { text: 'Dropdown Menu', link: '/docs/components/dropdown-menu' },
-            { text: 'Hover Card', link: '/docs/components/hover-card' },
-            { text: 'Menubar', link: '/docs/components/menubar' },
-            { text: 'Navigation Menu', link: '/docs/components/navigation-menu' },
-            { text: 'Pagination', link: '/docs/components/pagination' },
-            { text: 'Popover', link: '/docs/components/popover' },
-            { text: 'Progress', link: '/docs/components/progress' },
-            { text: 'Scroll Area', link: '/docs/components/scroll-area' },
-            { text: 'Separator', link: '/docs/components/separator' },
-            { text: 'Splitter', link: '/docs/components/splitter' },
-            { text: `Stepper ${BadgeHTML('Alpha', true)}`, link: '/docs/components/stepper' },
-            { text: 'Tabs', link: '/docs/components/tabs' },
-            { text: 'Toast', link: '/docs/components/toast' },
-            { text: 'Toolbar', link: '/docs/components/toolbar' },
-            { text: 'Tooltip', link: '/docs/components/tooltip' },
-            { text: `Tree ${BadgeHTML('Alpha', true)}`, link: '/docs/components/tree' },
-          ] },
+          {
+            text: 'Form',
+            items: [
+              { text: 'Checkbox', link: '/docs/components/checkbox' },
+              { text: 'Combobox', link: '/docs/components/combobox' },
+              {
+                text: `Editable ${BadgeHTML('Alpha', true)}`,
+                link: '/docs/components/editable',
+              },
+              {
+                text: `Listbox ${BadgeHTML('Alpha', true)}`,
+                link: '/docs/components/listbox',
+              },
+              {
+                text: `Number Field ${BadgeHTML('Alpha', true)}`,
+                link: '/docs/components/number-field',
+              },
+              { text: 'Label', link: '/docs/components/label' },
+              { text: 'Pin Input', link: '/docs/components/pin-input' },
+              { text: 'Radio Group', link: '/docs/components/radio-group' },
+              { text: 'Select', link: '/docs/components/select' },
+              { text: 'Slider', link: '/docs/components/slider' },
+              { text: 'Switch', link: '/docs/components/switch' },
+              { text: 'Tags Input', link: '/docs/components/tags-input' },
+              { text: 'Toggle', link: '/docs/components/toggle' },
+              { text: 'Toggle Group', link: '/docs/components/toggle-group' },
+            ],
+          },
+          {
+            text: 'Dates',
+            items: [
+              {
+                text: `Calendar ${BadgeHTML('Alpha', true)}`,
+                link: '/docs/components/calendar',
+              },
+              {
+                text: `Date Field ${BadgeHTML('Alpha', true)}`,
+                link: '/docs/components/date-field',
+              },
+              {
+                text: `Date Picker ${BadgeHTML('Alpha', true)}`,
+                link: '/docs/components/date-picker',
+              },
+              {
+                text: `Date Range Field ${BadgeHTML('Alpha', true)}`,
+                link: '/docs/components/date-range-field',
+              },
+              {
+                text: `Date Range Picker ${BadgeHTML('Alpha', true)}`,
+                link: '/docs/components/date-range-picker',
+              },
+              {
+                text: `Range Calendar ${BadgeHTML('Alpha', true)}`,
+                link: '/docs/components/range-calendar',
+              },
+              {
+                text: `Time Field ${BadgeHTML('Alpha', true)}`,
+                link: '/docs/components/time-field',
+              },
+            ],
+          },
+          {
+            text: 'General',
+            items: [
+              { text: 'Accordion', link: '/docs/components/accordion' },
+              { text: 'Alert Dialog', link: '/docs/components/alert-dialog' },
+              { text: 'Aspect Ratio', link: '/docs/components/aspect-ratio' },
+              { text: 'Avatar', link: '/docs/components/avatar' },
+              { text: 'Collapsible', link: '/docs/components/collapsible' },
+              { text: 'Context Menu', link: '/docs/components/context-menu' },
+              { text: 'Dialog', link: '/docs/components/dialog' },
+              { text: 'Dropdown Menu', link: '/docs/components/dropdown-menu' },
+              { text: 'Hover Card', link: '/docs/components/hover-card' },
+              { text: 'Menubar', link: '/docs/components/menubar' },
+              {
+                text: 'Navigation Menu',
+                link: '/docs/components/navigation-menu',
+              },
+              { text: 'Pagination', link: '/docs/components/pagination' },
+              { text: 'Popover', link: '/docs/components/popover' },
+              { text: 'Progress', link: '/docs/components/progress' },
+              { text: 'Scroll Area', link: '/docs/components/scroll-area' },
+              { text: 'Separator', link: '/docs/components/separator' },
+              { text: 'Splitter', link: '/docs/components/splitter' },
+              {
+                text: `Stepper ${BadgeHTML('Alpha', true)}`,
+                link: '/docs/components/stepper',
+              },
+              { text: 'Tabs', link: '/docs/components/tabs' },
+              { text: 'Toast', link: '/docs/components/toast' },
+              { text: 'Toolbar', link: '/docs/components/toolbar' },
+              { text: 'Tooltip', link: '/docs/components/tooltip' },
+              {
+                text: `Tree ${BadgeHTML('Alpha', true)}`,
+                link: '/docs/components/tree',
+              },
+            ],
+          },
         ],
       },
       {
         text: 'Utilities',
         icon: 'lucide:wrench',
         items: [
-          { text: 'Component', items: [
-            { text: 'Config Provider', link: '/docs/utilities/config-provider' },
-            { text: 'Visually Hidden', link: '/docs/utilities/visually-hidden' },
-            { text: 'Primitive', link: '/docs/utilities/primitive' },
-            { text: 'Slot', link: '/docs/utilities/slot' },
-
-          ] },
-          { text: 'Composable', items: [
-            { text: 'useId', link: '/docs/utilities/use-id' },
-            { text: 'useDateFormatter', link: '/docs/utilities/use-date-formatter' },
-            { text: 'useEmitAsProps', link: '/docs/utilities/use-emit-as-props' },
-            { text: 'useForwardExpose', link: '/docs/utilities/use-forward-expose' },
-            { text: 'useForwardProps', link: '/docs/utilities/use-forward-props' },
-            { text: 'useForwardPropsEmits', link: '/docs/utilities/use-forward-props-emits' },
-          ] },
+          {
+            text: 'Component',
+            items: [
+              {
+                text: 'Config Provider',
+                link: '/docs/utilities/config-provider',
+              },
+              {
+                text: 'Visually Hidden',
+                link: '/docs/utilities/visually-hidden',
+              },
+              { text: 'Primitive', link: '/docs/utilities/primitive' },
+              { text: 'Slot', link: '/docs/utilities/slot' },
+            ],
+          },
+          {
+            text: 'Composable',
+            items: [
+              { text: 'useId', link: '/docs/utilities/use-id' },
+              {
+                text: 'useDateFormatter',
+                link: '/docs/utilities/use-date-formatter',
+              },
+              {
+                text: 'useEmitAsProps',
+                link: '/docs/utilities/use-emit-as-props',
+              },
+              {
+                text: 'useForwardExpose',
+                link: '/docs/utilities/use-forward-expose',
+              },
+              {
+                text: 'useForwardProps',
+                link: '/docs/utilities/use-forward-props',
+              },
+              {
+                text: 'useForwardPropsEmits',
+                link: '/docs/utilities/use-forward-props-emits',
+              },
+            ],
+          },
         ],
       },
       {
@@ -185,29 +303,65 @@ export default defineConfig({
         icon: 'lucide:square-dashed-mouse-pointer',
         link: '/examples/checkbox-group',
         items: [
-          { text: 'Checkbox', items: [
-            { text: 'Checkbox Group', link: '/examples/checkbox-group' },
-          ] },
-          { text: 'Combobox', items: [
-            { text: 'Combobox Tags Input', link: '/examples/combobox-tags-input' },
-            { text: 'Combobox Textarea', link: '/examples/combobox-textarea' },
-          ] },
-          { text: 'Dialog', items: [
-            { text: 'Dialog Command Menu', link: '/examples/dialog-command-menu' },
-          ] },
-          { text: 'Listbox', items: [
-            { text: 'Listbox Transfer', link: '/examples/listbox-transfer' },
-          ] },
-          { text: 'Slider', items: [
-            { text: 'Slider with Number Field', link: '/examples/slider-number-field' },
-            { text: 'Slider Tooltip', link: '/examples/slider-tooltip' },
-          ] },
-          { text: 'Tooltip', items: [
-            { text: 'Tooltip Cursor', link: '/examples/tooltip-cursor' },
-          ] },
-          { text: 'Progress', items: [
-            { text: 'Circular Progress', link: '/examples/progress-circular' },
-          ] },
+          {
+            text: 'Checkbox',
+            items: [
+              { text: 'Checkbox Group', link: '/examples/checkbox-group' },
+            ],
+          },
+          {
+            text: 'Combobox',
+            items: [
+              {
+                text: 'Combobox Tags Input',
+                link: '/examples/combobox-tags-input',
+              },
+              {
+                text: 'Combobox Textarea',
+                link: '/examples/combobox-textarea',
+              },
+            ],
+          },
+          {
+            text: 'Dialog',
+            items: [
+              {
+                text: 'Dialog Command Menu',
+                link: '/examples/dialog-command-menu',
+              },
+            ],
+          },
+          {
+            text: 'Listbox',
+            items: [
+              { text: 'Listbox Transfer', link: '/examples/listbox-transfer' },
+            ],
+          },
+          {
+            text: 'Slider',
+            items: [
+              {
+                text: 'Slider with Number Field',
+                link: '/examples/slider-number-field',
+              },
+              { text: 'Slider Tooltip', link: '/examples/slider-tooltip' },
+            ],
+          },
+          {
+            text: 'Tooltip',
+            items: [
+              { text: 'Tooltip Cursor', link: '/examples/tooltip-cursor' },
+            ],
+          },
+          {
+            text: 'Progress',
+            items: [
+              {
+                text: 'Circular Progress',
+                link: '/examples/progress-circular',
+              },
+            ],
+          },
         ],
       },
     ],
@@ -221,7 +375,8 @@ export default defineConfig({
       provider: 'local',
     },
     editLink: {
-      pattern: 'https://github.com/radix-vue/radix-vue/edit/main/docs/content/:path',
+      pattern:
+        'https://github.com/radix-vue/radix-vue/edit/main/docs/content/:path',
     },
     carbonAds: {
       code: 'CW7DV27J',
@@ -238,10 +393,14 @@ export default defineConfig({
     anchor: {
       callback(token) {
         // set tw `group` modifier to heading element
-        token.attrSet('class', 'group relative border-none mb-4 lg:-ml-2 lg:pl-2 lg:pr-2 w-max')
+        token.attrSet(
+          'class',
+          'group relative border-none mb-4 lg:-ml-2 lg:pl-2 lg:pr-2 w-max',
+        )
       },
       permalink: anchor.permalink.linkInsideHeader({
-        class: 'header-anchor [&_span]:focus:opacity-100 [&_span_>_span]:focus:outline',
+        class:
+          'header-anchor [&_span]:focus:opacity-100 [&_span_>_span]:focus:outline',
         symbol: `<span class="absolute top-0 -ml-8 hidden items-center border-0 opacity-0 group-hover:opacity-100 focus:opacity-100 lg:flex">&ZeroWidthSpace;<span class="flex h-6 w-6 items-center justify-center rounded-md outline-2 outline-primary text-green-400 shadow-sm  hover:text-green-700 hover:shadow dark:bg-primary/20 dark:text-primary/80 dark:shadow-none  dark:hover:bg-primary/40 dark:hover:text-primary"><svg width="12" height="12" fill="none" aria-hidden="true"><path d="M3.75 1v10M8.25 1v10M1 3.75h10M1 8.25h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></span></span>`,
         renderAttrs: (slug, state) => {
           // From: https://github.com/vuejs/vitepress/blob/256d742b733bfb62d54c78168b0e867b8eb829c9/src/node/markdown/markdown.ts#L263

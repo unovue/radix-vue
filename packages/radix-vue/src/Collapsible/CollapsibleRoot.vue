@@ -70,8 +70,8 @@ useForwardExpose()
   <Primitive
     :as="as"
     :as-child="props.asChild"
-    :data-state="props.open ? 'open' : 'closed'"
-    :data-disabled="props.disabled ? '' : undefined"
+    :data-state="open ? 'open' : 'closed'"
+    :data-disabled="disabled ? '' : undefined"
   >
     <slot :open="open" />
   </Primitive>

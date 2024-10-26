@@ -147,7 +147,7 @@ watchEffect((cleanupFn) => {
   }
   const handlePointerUp = (event: PointerEvent) => {
     // Prevent options from being untappable on touch devices
-    // https://github.com/radix-vue/radix-vue/issues/804
+    // https://github.com/unovue/radix-vue/issues/804
     if (event.pointerType === 'touch')
       return
 

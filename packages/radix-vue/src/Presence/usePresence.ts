@@ -26,7 +26,7 @@ export function usePresence(
 
   const dispatchCustomEvent = (name: 'enter' | 'after-enter' | 'leave' | 'after-leave') => {
     // We only dispatch this event because CustomEvent is not available in Node18
-    // https://github.com/radix-vue/radix-vue/issues/930
+    // https://github.com/unovue/radix-vue/issues/930
     if (isClient) {
       const customEvent = new CustomEvent(name, { bubbles: false, cancelable: false })
       node.value?.dispatchEvent(customEvent)

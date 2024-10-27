@@ -1,7 +1,7 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
+import type { CollapsibleContentProps } from '../Collapsible'
 
-export interface AccordionContentProps extends PrimitiveProps {}
+export interface AccordionContentProps extends CollapsibleContentProps {}
 </script>
 
 <script setup lang="ts">
@@ -22,6 +22,7 @@ useForwardExpose()
   <CollapsibleContent
     role="region"
     :as-child="props.asChild"
+    :force-mount="props.forceMount"
     :aria-labelledby="itemContext.triggerId"
     :data-state="itemContext.dataState.value"
     :data-disabled="itemContext.dataDisabled.value"

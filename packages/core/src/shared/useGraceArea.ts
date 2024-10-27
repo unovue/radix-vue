@@ -59,9 +59,9 @@ export function useGraceArea(triggerElement: Ref<HTMLElement | undefined>, conta
           pointerExit.trigger()
         }
       }
-      document.addEventListener('pointermove', handleTrackPointerGrace)
+      triggerElement.value?.ownerDocument.addEventListener('pointermove', handleTrackPointerGrace)
 
-      cleanupFn(() => document.removeEventListener('pointermove', handleTrackPointerGrace))
+      cleanupFn(() => triggerElement.value?.ownerDocument.removeEventListener('pointermove', handleTrackPointerGrace))
     }
   })
 

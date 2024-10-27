@@ -40,6 +40,10 @@ export const [injectDialogRootContext, provideDialogRootContext]
 import { ref, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
 
+defineOptions({
+  inheritAttrs: false,
+})
+
 const props = withDefaults(defineProps<DialogRootProps>(), {
   open: undefined,
   defaultOpen: false,

@@ -20,9 +20,9 @@ export const legacyVersion = 'Radix Vue v1.9.x'
 export const legacyLink = 'https://radix-vue.com/'
 
 /* GitHub and social links */
-export const github = 'https://github.com/radix-vue/radix-vue'
-export const releases = 'https://github.com/radix-vue/radix-vue/releases'
-export const contributing = 'https://github.com/radix-vue/radix-vue/blob/main/CONTRIBUTING.md'
+export const github = 'https://github.com/unovue/radix-vue'
+export const releases = 'https://github.com/unovue/radix-vue/releases'
+export const contributing = 'https://github.com/unovue/radix-vue/blob/main/CONTRIBUTING.md'
 export const discord = 'https://chat.radix-vue.com'
 // export const mastodon = "https://elk.zone/m.webtoo.ls/@vitest";
 // export const twitter = "https://twitter.com/vitest_dev";

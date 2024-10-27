@@ -265,13 +265,10 @@ function onDateChange(value: DateValue) {
     }
     else { modelValue.value = value.copy() }
   }
+  else if (!modelValue.value) {
+    modelValue.value = [value.copy()]
+  }
   else if (Array.isArray(modelValue.value)) {
-    if (!modelValue.value) {
-      modelValue.value = [value.copy()]
-
-      return
-    }
-
     const index = modelValue.value.findIndex(date => isSameDay(date, value))
     if (index === -1) {
       modelValue.value = [...modelValue.value, value]

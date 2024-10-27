@@ -221,7 +221,7 @@ export default defineConfig({
       provider: 'local',
     },
     editLink: {
-      pattern: 'https://github.com/radix-vue/radix-vue/edit/main/docs/content/:path',
+      pattern: 'https://github.com/unovue/radix-vue/edit/main/docs/content/:path',
     },
     carbonAds: {
       code: 'CW7DP2JW',

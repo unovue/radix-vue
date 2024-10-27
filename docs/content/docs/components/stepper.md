@@ -146,7 +146,7 @@ If you want to hide the description, wrap it inside our Visually Hidden utility 
 
 ### Vertical
 
-You can create vertical tabs by using the `orientation` prop.
+You can create vertical steps by using the `orientation` prop.
 
 ```vue line=8
 <script setup>

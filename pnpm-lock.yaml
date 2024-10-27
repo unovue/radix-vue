@@ -258,10 +258,10 @@ importers:
         version: 20.14.9
       '@vitejs/plugin-vue':
         specifier: ^5.1.4
-        version: 5.1.4(vite@5.4.6(@types/node@20.14.9))(vue@3.5.7(typescript@5.4.2))
+        version: 5.1.4(vite@5.4.8(@types/node@20.14.9))(vue@3.5.7(typescript@5.4.2))
       '@vitejs/plugin-vue-jsx':
         specifier: ^4.0.1
-        version: 4.0.1(vite@5.4.6(@types/node@20.14.9))(vue@3.5.7(typescript@5.4.2))
+        version: 4.0.1(vite@5.4.8(@types/node@20.14.9))(vue@3.5.7(typescript@5.4.2))
       '@vitest/coverage-istanbul':
         specifier: ^2.1.1
         version: 2.1.1(vitest@2.1.1(@types/node@20.14.9)(jsdom@25.0.1))
@@ -7911,12 +7911,12 @@ snapshots:
       '@typescript-eslint/types': 8.8.0
       eslint-visitor-keys: 3.4.3
 
-  '@vitejs/plugin-vue-jsx@4.0.1(vite@5.4.6(@types/node@20.14.9))(vue@3.5.7(typescript@5.4.2))':
+  '@vitejs/plugin-vue-jsx@4.0.1(vite@5.4.8(@types/node@20.14.9))(vue@3.5.7(typescript@5.4.2))':
     dependencies:
       '@babel/core': 7.24.7
       '@babel/plugin-transform-typescript': 7.24.7(@babel/core@7.24.7)
       '@vue/babel-plugin-jsx': 1.2.2(@babel/core@7.24.7)
-      vite: 5.4.6(@types/node@20.14.9)
+      vite: 5.4.8(@types/node@20.14.9)
       vue: 3.5.7(typescript@5.4.2)
     transitivePeerDependencies:
       - supports-color
@@ -7931,9 +7931,9 @@ snapshots:
       vite: 5.3.2(@types/node@20.14.9)
       vue: 3.5.7(typescript@5.3.3)
 
-  '@vitejs/plugin-vue@5.1.4(vite@5.4.6(@types/node@20.14.9))(vue@3.5.7(typescript@5.4.2))':
+  '@vitejs/plugin-vue@5.1.4(vite@5.4.8(@types/node@20.14.9))(vue@3.5.7(typescript@5.4.2))':
     dependencies:
-      vite: 5.4.6(@types/node@20.14.9)
+      vite: 5.4.8(@types/node@20.14.9)
       vue: 3.5.7(typescript@5.4.2)
 
   '@vitest/coverage-istanbul@2.1.1(vitest@2.1.1(@types/node@20.14.9)(jsdom@25.0.1))':

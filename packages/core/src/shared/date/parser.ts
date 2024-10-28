@@ -99,11 +99,11 @@ function createContentObj(props: CreateContentObjProps) {
          */
         if (part === 'day' && segmentValues.month !== null) {
           return formatter.part(props.dateRef.set({ [part as keyof DateFields]: value, month: segmentValues.month }), part, {
-            hourCycle: props.hourCycle === 24 ? 'h24' : undefined,
+            hourCycle: props.hourCycle === 24 ? 'h23' : undefined,
           })
         }
         return formatter.part(props.dateRef.set({ [part]: value }), part, {
-          hourCycle: props.hourCycle === 24 ? 'h24' : undefined,
+          hourCycle: props.hourCycle === 24 ? 'h23' : undefined,
         })
       }
       else {

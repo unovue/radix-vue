@@ -10,7 +10,7 @@ export function getOptsByGranularity(granularity: Granularity, hourCycle: HourCy
     minute: '2-digit',
     second: '2-digit',
     timeZoneName: 'short',
-    hourCycle: hourCycle === 24 ? 'h24' : undefined,
+    hourCycle: hourCycle === 24 ? 'h23' : undefined,
     hour12: hourCycle === 24 ? false : undefined,
   }
   if (isTimeValue) {

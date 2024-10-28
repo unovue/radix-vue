@@ -136,7 +136,7 @@ import { TreeItem, TreeRoot, TreeVirtualizer } from 'reka-ui'
 
 <template>
   <TreeRoot :items>
-    <!-- checkout https://radix-vue.com/components/tree.html#virtualizer -->
+    <!-- checkout https://reka-ui.com/components/tree.html#virtualizer -->
     <TreeVirtualizer
       v-slot="{ item }"
       :text-content="(opt) => opt.name"

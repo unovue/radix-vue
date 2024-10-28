@@ -12,18 +12,18 @@ export const gstatic = 'https://fonts.gstatic.com'
 export const font = `${googleapis}/css2?family=Inter:wght@100..900&display=swap`
 
 /* vitepress head */
-export const ogUrl = 'https://radix-vue.com/'
+export const ogUrl = 'https://reka-ui.com/'
 export const ogImage = `${ogUrl}og.jpg`
 
 /* Legacy Radix Vue */
 export const legacyVersion = 'Radix Vue v1.9.x'
-export const legacyLink = 'https://radix-vue.com/'
+export const legacyLink = 'https://reka-ui.com/'
 
 /* GitHub and social links */
 export const github = 'https://github.com/unovue/radix-vue'
 export const releases = 'https://github.com/unovue/radix-vue/releases'
 export const contributing = 'https://github.com/unovue/radix-vue/blob/main/CONTRIBUTING.md'
-export const discord = 'https://chat.radix-vue.com'
+export const discord = 'https://chat.unovue.com'
 // export const mastodon = "https://elk.zone/m.webtoo.ls/@vitest";
 // export const twitter = "https://twitter.com/vitest_dev";
 

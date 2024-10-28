@@ -287,7 +287,7 @@ const people = [
 <template>
   <ListboxRoot>
     <ListboxContent>
-      <!-- checkout https://radix-vue.com/components/listbox.html#virtualizer -->
+      <!-- checkout https://reka-ui.com/components/listbox.html#virtualizer -->
       <ListboxVirtualizer
         v-slot="{ option }"
         :options="people"

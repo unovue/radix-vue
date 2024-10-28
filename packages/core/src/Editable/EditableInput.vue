@@ -56,6 +56,7 @@ function handleSubmitKeyDown(event: KeyboardEvent) {
     :value="context.modelValue.value"
     :placeholder="placeholder"
     :disabled="disabled"
+    :maxlength="context.maxLength.value"
     :data-disabled="disabled ? '' : undefined"
     :data-readonly="context.readonly.value ? '' : undefined"
     :readonly="context.readonly.value"

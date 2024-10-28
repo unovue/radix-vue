@@ -234,6 +234,25 @@ describe('numberField', () => {
       expect(input.value).toBe('-1')
     })
   })
+
+  describe('given setting the input value manually and keydown enter', async () => {
+    it('should it update the value appropriately', async () => {
+      const { input } = setup({
+        defaultValue: 6,
+        formatOptions: {
+          style: 'currency',
+          currency: 'EUR',
+          currencyDisplay: 'code',
+          currencySign: 'accounting',
+        },
+      })
+
+      input.value = '7'
+      expect(input.value).toBe('7')
+      await fireEvent.keyDown(input, { key: kbd.ENTER })
+      expect(input.value).toBe('EUR 7.00')
+    })
+  })
 })
 
 describe('given checkbox in a form', async () => {

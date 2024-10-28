@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
+import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
 import { injectPinInputRootContext } from './PinInputRoot.vue'
 import { useArrowNavigation } from '@/shared'
 
@@ -12,7 +12,7 @@ export interface PinInputInputProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted } from 'vue'
 
 const props = withDefaults(defineProps<PinInputInputProps>(), {
   as: 'input',
@@ -26,7 +26,7 @@ const isOtpMode = computed(() => context.otp.value)
 const isNumericMode = computed(() => context.type.value === 'number')
 const isPasswordMode = computed(() => context.mask.value)
 
-const inputRef = ref()
+const { primitiveElement, currentElement } = usePrimitiveElement()
 function handleInput(event: InputEvent) {
   const target = event.target as HTMLInputElement
 
@@ -143,17 +143,19 @@ function updateModelValueAt(index: number, value: string) {
 }
 
 onMounted(() => {
-  context.onInputElementChange(inputRef.value)
+  context.onInputElementChange(currentElement.value as HTMLInputElement)
 })
 onUnmounted(() => {
-  context.inputElements?.value.delete(inputRef.value)
+  context.inputElements?.value.delete(currentElement.value as HTMLInputElement)
 })
 </script>
 
 <template>
-  <input
-    ref="inputRef"
+  <Primitive
+    ref="primitiveElement"
     autocapitalize="none"
+    :as="as"
+    :as-child="asChild"
     :autocomplete="isOtpMode ? 'one-time-code' : 'false'"
     :type="isPasswordMode ? 'password' : 'text'"
     :inputmode="isNumericMode ? 'numeric' : 'text'"
@@ -172,4 +174,6 @@ onUnmounted(() => {
     @blur="handleBlur"
     @paste="handlePaste"
   >
+    <slot />
+  </Primitive>
 </template>

@@ -375,12 +375,11 @@ export default defineConfig({
       provider: 'local',
     },
     editLink: {
-      pattern:
-        'https://github.com/radix-vue/radix-vue/edit/main/docs/content/:path',
+      pattern: 'https://github.com/unovue/reka-ui/edit/main/docs/content/:path',
     },
     carbonAds: {
-      code: 'CW7DV27J',
-      placement: 'wwwradix-vuecom',
+      code: 'CW7DP2JW',
+      placement: 'reka-uicom',
     },
   },
   srcDir: 'content',

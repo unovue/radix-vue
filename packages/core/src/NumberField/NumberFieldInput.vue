@@ -78,6 +78,7 @@ onMounted(() => {
       if (!rootContext.validate(nextValue))
         event.preventDefault()
     }"
+    @keydown.enter="rootContext.applyInputValue($event.target?.value)"
     @blur="rootContext.applyInputValue($event.target?.value)"
   >
     <slot />

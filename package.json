@@ -5,7 +5,7 @@
   "private": true,
   "packageManager": "pnpm@9.4.0",
   "license": "MIT",
-  "repository": "radix-vue/radix-vue",
+  "repository": "unovue/radix-vue",
   "workspaces": [
     "packages/*"
   ],

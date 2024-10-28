@@ -4,6 +4,10 @@ import type { SelectRootContext } from './SelectRoot.vue'
 import { provideSelectRootContext } from './SelectRoot.vue'
 import { SelectContentDefaultContextValue, provideSelectContentContext } from './SelectContentImpl.vue'
 
+defineOptions({
+  inheritAttrs: false,
+})
+
 const props = defineProps<{
   context: SelectRootContext<AcceptableValue>
 }>()

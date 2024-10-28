@@ -137,9 +137,14 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 }) as Ref<TimeValue>
 
 const convertedModelValue = computed({
-  get() { return convertValue(modelValue.value) },
+  get() {
+    return convertValue(modelValue.value)
+  },
   set(newValue) {
-    modelValue.value = modelValue.value && 'day' in modelValue.value ? newValue : new Time(newValue.hour, newValue.minute, newValue.second, modelValue.value?.millisecond)
+    if (newValue)
+      modelValue.value = modelValue.value && 'day' in modelValue.value ? newValue : new Time(newValue.hour, newValue.minute, newValue.second, modelValue.value?.millisecond)
+
+    return newValue
   },
 })
 
@@ -153,9 +158,16 @@ const placeholder = useVModel(props, 'placeholder', emits, {
   passive: (props.placeholder === undefined) as false,
 }) as Ref<TimeValue>
 
-const convertedPlaceholder = computed({ get() { return convertValue(placeholder.value) }, set(newValue) {
-  placeholder.value = 'day' in placeholder.value ? newValue.copy() : new Time(newValue.hour, newValue.minute, newValue.second, placeholder.value?.millisecond)
-} })
+const convertedPlaceholder = computed({
+  get() {
+    return convertValue(placeholder.value)
+  },
+  set(newValue) {
+    if (newValue)
+      placeholder.value = 'day' in placeholder.value ? newValue.copy() : new Time(newValue.hour, newValue.minute, newValue.second, placeholder.value?.millisecond)
+    return newValue
+  },
+})
 
 const inferredGranularity = computed(() => {
   if (granularity.value)

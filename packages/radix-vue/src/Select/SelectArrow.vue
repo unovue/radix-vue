@@ -6,7 +6,7 @@ export interface SelectArrowProps extends PopperArrowProps {}
 
 <script setup lang="ts">
 import { injectSelectRootContext } from './SelectRoot.vue'
-import { injectSelectContentContext } from './SelectContentImpl.vue'
+import { SelectContentDefaultContextValue, injectSelectContentContext } from './SelectContentImpl.vue'
 import { PopperArrow } from '@/Popper'
 
 const props = withDefaults(defineProps<SelectArrowProps>(), {
@@ -15,7 +15,7 @@ const props = withDefaults(defineProps<SelectArrowProps>(), {
   as: 'svg',
 })
 const rootContext = injectSelectRootContext()
-const contentContext = injectSelectContentContext()
+const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
 </script>
 
 <template>

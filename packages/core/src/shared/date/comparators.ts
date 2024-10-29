@@ -2,9 +2,12 @@
   * Implementation ported from https://github.com/melt-ui/melt-ui/blob/develop/src/lib/internal/helpers/date/utils.ts
 */
 
-import { CalendarDate, CalendarDateTime, type DateValue } from '@internationalized/date'
+import { CalendarDate, CalendarDateTime, type DateValue, Time, type ZonedDateTime } from '@internationalized/date'
+
+export type TimeValue = Time | CalendarDateTime | ZonedDateTime
 
 export type Granularity = 'day' | 'hour' | 'minute' | 'second'
+export type TimeGranularity = 'hour' | 'minute' | 'second'
 
 type GetDefaultDateProps = {
   defaultValue?: DateValue | DateValue[] | undefined
@@ -44,4 +47,23 @@ export function getDefaultDate(props: GetDefaultDateProps): DateValue {
     return new CalendarDateTime(year, month, day, 0, 0, 0)
 
   return new CalendarDate(year, month, day)
+}
+
+type GetDefaultTimeProps = {
+  defaultValue?: TimeValue | undefined
+  defaultPlaceholder?: TimeValue | undefined
+}
+
+export function getDefaultTime(props: GetDefaultTimeProps): TimeValue {
+  const { defaultValue, defaultPlaceholder } = props
+
+  if (defaultValue) {
+    return defaultValue.copy()
+  }
+
+  if (defaultPlaceholder) {
+    return defaultPlaceholder.copy()
+  }
+
+  return new Time(0, 0, 0)
 }

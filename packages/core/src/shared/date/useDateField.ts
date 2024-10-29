@@ -3,7 +3,7 @@ import type { AnyExceptLiteral, HourCycle, SegmentPart, SegmentValueObj } from '
 import { getDaysInMonth, toDate } from '@/date'
 import type { CalendarDateTime, CycleTimeOptions, DateFields, DateValue, TimeFields } from '@internationalized/date'
 import { type Ref, computed } from 'vue'
-import { isAcceptableSegmentKey, isNumberString, isSegmentNavigationKey } from './utils'
+import { isAcceptableSegmentKey, isNumberString, isSegmentNavigationKey } from './segment'
 
 type MinuteSecondIncrementProps = {
   e: KeyboardEvent

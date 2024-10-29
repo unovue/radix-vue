@@ -1,19 +1,19 @@
 <script lang="ts">
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { type SegmentPart, useDateField } from '@/shared/date'
-import { injectDateFieldRootContext } from './DateFieldRoot.vue'
+import { injectTimeFieldRootContext } from './TimeFieldRoot.vue'
 import { computed, ref } from 'vue'
 
-export interface DateFieldInputProps extends PrimitiveProps {
+export interface TimeFieldInputProps extends PrimitiveProps {
   /** The part of the date to render */
   part: SegmentPart
 }
 </script>
 
 <script setup lang="ts">
-const props = defineProps<DateFieldInputProps>()
+const props = defineProps<TimeFieldInputProps>()
 
-const rootContext = injectDateFieldRootContext()
+const rootContext = injectTimeFieldRootContext()
 
 const hasLeftFocus = ref(true)
 const lastKeyZero = ref(false)
@@ -47,7 +47,7 @@ const isInvalid = computed(() => rootContext.isInvalid.value)
     :as-child="asChild"
     v-bind="attributes"
     :contenteditable="disabled || readonly ? false : part !== 'literal'"
-    :data-reka-date-field-segment="part"
+    :data-reka-time-field-segment="part"
     :aria-disabled="disabled ? true : undefined"
     :aria-readonly="readonly ? true : undefined"
     :data-disabled="disabled ? '' : undefined"

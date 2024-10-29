@@ -387,6 +387,11 @@ export const components = {
     'TagsInputClear',
   ],
 
+  timeField: [
+    'TimeFieldInput',
+    'TimeFieldRoot',
+  ],
+
   toast: [
     'ToastProvider',
     'ToastRoot',

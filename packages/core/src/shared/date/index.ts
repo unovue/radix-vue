@@ -1,6 +1,9 @@
 export {
   type Granularity,
+  type TimeGranularity,
+  type TimeValue,
   getDefaultDate,
+  getDefaultTime,
 } from './comparators'
 export type {
   DateRange,
@@ -30,4 +33,8 @@ export {
   isSegmentPart,
   isDateSegmentPart,
 } from './parts'
-export { getOptsByGranularity, handleCalendarInitialFocus } from './utils'
+export * from './utils'
+
+export { useDateField } from './useDateField'
+export * from './parser'
+export * from './segment'

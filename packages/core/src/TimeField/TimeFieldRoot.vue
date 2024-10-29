@@ -1,25 +1,29 @@
 <script lang="ts">
-import { type DateValue, isEqualDay } from '@internationalized/date'
+import { type DateValue, Time, getLocalTimeZone, isEqualDay, toCalendarDateTime, today } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { type Formatter, createContext, useDateFormatter, useDirection, useKbd, useLocale } from '@/shared'
 import {
-  type Granularity,
   type HourCycle,
   type SegmentPart,
   type SegmentValueObj,
-  getDefaultDate,
+  type TimeValue,
+  createContent,
+  getDefaultTime,
+  getTimeFieldSegmentElements,
+  initializeTimeSegmentValues,
+  isSegmentNavigationKey,
+  syncTimeSegmentValues,
+
 } from '@/shared/date'
-import { type Matcher, hasTime, isBefore } from '@/date'
-import { createContent, getSegmentElements, initializeSegmentValues, isSegmentNavigationKey, syncSegmentValues } from '@/shared/date'
+import { isBefore } from '@/date'
 import type { Direction, FormFieldProps } from '@/shared/types'
 
-type DateFieldRootContext = {
+type TimeFieldRootContext = {
   locale: Ref<string>
   modelValue: Ref<DateValue | undefined>
   placeholder: Ref<DateValue>
-  isDateUnavailable?: Matcher
   isInvalid: Ref<boolean>
   disabled: Ref<boolean>
   readonly: Ref<boolean>
@@ -32,48 +36,54 @@ type DateFieldRootContext = {
   setFocusedElement: (el: HTMLElement) => void
 }
 
-export interface DateFieldRootProps extends PrimitiveProps, FormFieldProps {
+export interface TimeFieldRootProps extends PrimitiveProps, FormFieldProps {
   /** The default value for the calendar */
-  defaultValue?: DateValue
+  defaultValue?: TimeValue
   /** The default placeholder date */
-  defaultPlaceholder?: DateValue
-  /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programmatically control the calendar view */
-  placeholder?: DateValue
-  /** The controlled checked state of the calendar. Can be bound as `v-model`. */
-  modelValue?: DateValue | undefined
+  defaultPlaceholder?: TimeValue
+  /** The placeholder date, which is used to determine what time to display when no time is selected. This updates as the user navigates the field */
+  placeholder?: TimeValue
+  /** The controlled checked state of the field. Can be bound as `v-model`. */
+  modelValue?: TimeValue | undefined
   /** The hour cycle used for formatting times. Defaults to the local preference */
   hourCycle?: HourCycle
-  /** The granularity to use for formatting times. Defaults to day if a CalendarDate is provided, otherwise defaults to minute. The field will render segments for each part of the date up to and including the specified granularity */
-  granularity?: Granularity
+  /** The granularity to use for formatting times. Defaults to minute if a Time is provided, otherwise defaults to minute. The field will render segments for each part of the date up to and including the specified granularity */
+  granularity?: 'hour' | 'minute' | 'second'
   /** Whether or not to hide the time zone segment of the field */
   hideTimeZone?: boolean
   /** The maximum date that can be selected */
-  maxValue?: DateValue
+  maxValue?: TimeValue
   /** The minimum date that can be selected */
-  minValue?: DateValue
+  minValue?: TimeValue
   /** The locale to use for formatting dates */
   locale?: string
-  /** Whether or not the date field is disabled */
+  /** Whether or not the time field is disabled */
   disabled?: boolean
-  /** Whether or not the date field is readonly */
+  /** Whether or not the time field is readonly */
   readonly?: boolean
-  /** A function that returns whether or not a date is unavailable */
-  isDateUnavailable?: Matcher
   /** Id of the element */
   id?: string
-  /** The reading direction of the date field when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
+  /** The reading direction of the time field when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
 }
 
-export type DateFieldRootEmits = {
+export type TimeFieldRootEmits = {
   /** Event handler called whenever the model value changes */
-  'update:modelValue': [date: DateValue | undefined]
+  'update:modelValue': [date: TimeValue | undefined]
   /** Event handler called whenever the placeholder value changes */
-  'update:placeholder': [date: DateValue]
+  'update:placeholder': [date: TimeValue]
 }
 
-export const [injectDateFieldRootContext, provideDateFieldRootContext]
-  = createContext<DateFieldRootContext>('DateFieldRoot')
+export const [injectTimeFieldRootContext, provideTimeFieldRootContext]
+  = createContext<TimeFieldRootContext>('TimeFieldRoot')
+
+function convertValue(value: TimeValue, date: DateValue = today(getLocalTimeZone())) {
+  if (value && 'day' in value) {
+    return value
+  }
+
+  return toCalendarDateTime(date, value)
+}
 </script>
 
 <script setup lang="ts">
@@ -86,26 +96,26 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<DateFieldRootProps>(), {
+const props = withDefaults(defineProps<TimeFieldRootProps>(), {
   defaultValue: undefined,
   disabled: false,
   readonly: false,
   placeholder: undefined,
   isDateUnavailable: undefined,
 })
-const emits = defineEmits<DateFieldRootEmits>()
+const emits = defineEmits<TimeFieldRootEmits>()
 defineSlots<{
   default: (props: {
-    /** The current date of the field */
-    modelValue: DateValue | undefined
-    /** The date field segment contents */
+    /** The current time of the field */
+    modelValue: TimeValue | undefined
+    /** The time field segment contents */
     segments: { part: SegmentPart, value: string }[]
     /** Value if the input is invalid */
     isInvalid: boolean
   }) => any
 }>()
 
-const { disabled, readonly, isDateUnavailable: propsIsDateUnavailable, granularity, defaultValue, dir: propDir, locale: propLocale } = toRefs(props)
+const { disabled, readonly, granularity, defaultValue, minValue, maxValue, dir: propDir, locale: propLocale } = toRefs(props)
 const locale = useLocale(propLocale)
 const dir = useDirection(propDir)
 
@@ -114,61 +124,84 @@ const { primitiveElement, currentElement: parentElement }
   = usePrimitiveElement()
 const segmentElements = ref<Set<HTMLElement>>(new Set())
 
+const convertedMinValue = computed(() => minValue.value ? convertValue(minValue.value) : undefined)
+const convertedMaxValue = computed(() => maxValue.value ? convertValue(maxValue.value) : undefined)
+
 onMounted(() => {
-  getSegmentElements(parentElement.value).forEach(item => segmentElements.value.add(item as HTMLElement))
+  getTimeFieldSegmentElements(parentElement.value).forEach(item => segmentElements.value.add(item as HTMLElement))
 })
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: defaultValue.value,
   passive: (props.modelValue === undefined) as false,
-}) as Ref<DateValue>
+}) as Ref<TimeValue>
 
-const defaultDate = getDefaultDate({
+const convertedModelValue = computed({
+  get() {
+    return convertValue(modelValue.value)
+  },
+  set(newValue) {
+    if (newValue)
+      modelValue.value = modelValue.value && 'day' in modelValue.value ? newValue : new Time(newValue.hour, newValue.minute, newValue.second, modelValue.value?.millisecond)
+
+    return newValue
+  },
+})
+
+const defaultDate = getDefaultTime({
   defaultPlaceholder: props.placeholder,
-  granularity: granularity.value,
   defaultValue: modelValue.value,
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {
   defaultValue: props.defaultPlaceholder ?? defaultDate.copy(),
   passive: (props.placeholder === undefined) as false,
-}) as Ref<DateValue>
+}) as Ref<TimeValue>
+
+const convertedPlaceholder = computed({
+  get() {
+    return convertValue(placeholder.value)
+  },
+  set(newValue) {
+    if (newValue)
+      placeholder.value = 'day' in placeholder.value ? newValue.copy() : new Time(newValue.hour, newValue.minute, newValue.second, placeholder.value?.millisecond)
+    return newValue
+  },
+})
 
 const inferredGranularity = computed(() => {
-  if (props.granularity)
-    return !hasTime(placeholder.value) ? 'day' : props.granularity
+  if (granularity.value)
+    return granularity.value
 
-  return hasTime(placeholder.value) ? 'minute' : 'day'
+  return 'minute'
 })
 
 const isInvalid = computed(() => {
   if (!modelValue.value)
     return false
 
-  if (propsIsDateUnavailable.value?.(modelValue.value))
+  if (convertedMinValue.value && isBefore(convertedModelValue.value, convertedMinValue.value))
     return true
 
-  if (props.minValue && isBefore(modelValue.value, props.minValue))
-    return true
-
-  if (props.maxValue && isBefore(props.maxValue, modelValue.value))
+  if (convertedMaxValue.value && isBefore(convertedMaxValue.value, convertedModelValue.value))
     return true
 
   return false
 })
 
-const initialSegments = initializeSegmentValues(inferredGranularity.value)
+const initialSegments = initializeTimeSegmentValues()
 
-const segmentValues = ref<SegmentValueObj>(modelValue.value ? { ...syncSegmentValues({ value: modelValue.value, formatter }) } : { ...initialSegments })
+const segmentValues = ref<SegmentValueObj>(modelValue.value ? { ...syncTimeSegmentValues({ value: convertedModelValue.value, formatter }) } : { ...initialSegments })
 
 const allSegmentContent = computed(() => createContent({
   granularity: inferredGranularity.value,
-  dateRef: placeholder.value,
+  dateRef: convertedPlaceholder.value,
   formatter,
   hideTimeZone: props.hideTimeZone,
   hourCycle: props.hourCycle,
   segmentValues: segmentValues.value,
   locale,
+  isTimeValue: true,
 }))
 
 const segmentContents = computed(() => allSegmentContent.value.arr)
@@ -182,19 +215,19 @@ watch(locale, (value) => {
     // Get the focusable elements again on the next tick
     nextTick(() => {
       segmentElements.value.clear()
-      getSegmentElements(parentElement.value).forEach(item => segmentElements.value.add(item as HTMLElement))
+      getTimeFieldSegmentElements(parentElement.value).forEach(item => segmentElements.value.add(item as HTMLElement))
     })
   }
 })
 
-watch(modelValue, (_modelValue) => {
-  if (_modelValue !== undefined && (!isEqualDay(placeholder.value, _modelValue) || placeholder.value.compare(_modelValue) !== 0))
+watch(convertedModelValue, (_modelValue) => {
+  if (_modelValue !== undefined && (!isEqualDay(convertedPlaceholder.value, _modelValue) || convertedPlaceholder.value.compare(_modelValue) !== 0))
     placeholder.value = _modelValue.copy()
 })
 
-watch([modelValue, locale], ([_modelValue]) => {
+watch([convertedModelValue, locale], ([_modelValue]) => {
   if (_modelValue !== undefined) {
-    segmentValues.value = { ...syncSegmentValues({ value: _modelValue, formatter }) }
+    segmentValues.value = { ...syncTimeSegmentValues({ value: _modelValue, formatter }) }
   }
   else if (Object.values(segmentValues.value).every(value => value === null)) {
     segmentValues.value = { ...initialSegments }
@@ -205,8 +238,8 @@ const currentFocusedElement = ref<HTMLElement | null>(null)
 
 const currentSegmentIndex = computed(() =>
   Array.from(segmentElements.value).findIndex(el =>
-    el.getAttribute('data-reka-date-field-segment')
-    === currentFocusedElement.value?.getAttribute('data-reka-date-field-segment')))
+    el.getAttribute('data-reka-time-field-segment')
+    === currentFocusedElement.value?.getAttribute('data-reka-time-field-segment')))
 
 const nextFocusableSegment = computed(() => {
   const sign = dir.value === 'rtl' ? -1 : 1
@@ -242,11 +275,10 @@ function setFocusedElement(el: HTMLElement) {
   currentFocusedElement.value = el
 }
 
-provideDateFieldRootContext({
-  isDateUnavailable: propsIsDateUnavailable.value,
+provideTimeFieldRootContext({
   locale,
-  modelValue,
-  placeholder,
+  modelValue: convertedModelValue,
+  placeholder: convertedPlaceholder,
   disabled,
   formatter,
   hourCycle: props.hourCycle,

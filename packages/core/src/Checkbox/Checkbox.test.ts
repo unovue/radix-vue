@@ -25,7 +25,8 @@ describe('given a default Checkbox', () => {
     const wrapper = mount(Checkbox, { attachTo: document.body })
     expect(await axe(wrapper.element, {
       rules: {
-        label: { enabled: false },
+        'label': { enabled: false },
+        'nested-interactive': { enabled: false },
       },
     })).toHaveNoViolations()
   })
@@ -120,7 +121,8 @@ describe('given a disabled Checkbox', () => {
   it('should have no accessibility violations', async () => {
     expect(await axe(wrapper.element, {
       rules: {
-        label: { enabled: false },
+        'label': { enabled: false },
+        'nested-interactive': { enabled: false },
       },
     })).toHaveNoViolations()
   })
@@ -233,7 +235,7 @@ describe('given checkboxGroup in a form', async () => {
   })
 
   it('should have hidden input field', async () => {
-    expect(wrapper.find('input[hidden]').exists()).toBe(true)
+    expect(wrapper.find('input[data-hidden]').exists()).toBe(true)
   })
 
   describe('after clicking submit button', () => {

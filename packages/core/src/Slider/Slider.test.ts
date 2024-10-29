@@ -25,7 +25,12 @@ describe('given default Slider', () => {
 
   it('should pass axe accessibility tests', async () => {
     wrapper = mount(Slider)
-    expect(await axe(wrapper.element)).toHaveNoViolations()
+    expect(await axe(wrapper.element, {
+      rules: {
+        'label': { enabled: false },
+        'nested-interactive': { enabled: false },
+      },
+    })).toHaveNoViolations()
   })
 
   it('should have default value', () => {

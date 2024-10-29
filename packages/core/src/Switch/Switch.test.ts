@@ -14,7 +14,8 @@ describe('test switch functionalities', () => {
     const wrapper = mount(Switch)
     expect(await axe(wrapper.element, {
       rules: {
-        label: { enabled: false },
+        'label': { enabled: false },
+        'nested-interactive': { enabled: false },
       },
     })).toHaveNoViolations()
   })

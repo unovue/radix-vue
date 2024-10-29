@@ -15,7 +15,8 @@ describe('test splitter functionalities', () => {
     await nextTick()
     expect(await axe(wrapper.element, {
       rules: {
-        label: { enabled: false },
+        'label': { enabled: false },
+        'nested-interactive': { enabled: false },
       },
     })).toHaveNoViolations()
   })

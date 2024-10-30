@@ -22,7 +22,7 @@ export interface TagsInputRootProps<T = AcceptableInputValue> extends PrimitiveP
   /** When `true`, prevents the user from interacting with the tags input. */
   disabled?: boolean
   /** The character to trigger the addition of a new tag. Also used to split tags for `@paste` event */
-  delimiter?: string
+  delimiter?: string | RegExp
   /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
   /** Maximum number of tags. */
@@ -52,7 +52,7 @@ export interface TagsInputRootContext<T = AcceptableInputValue> {
   addOnTab: Ref<boolean>
   addOnBlur: Ref<boolean>
   disabled: Ref<boolean>
-  delimiter: Ref<string>
+  delimiter: Ref<string | RegExp>
   dir: Ref<Direction>
   max: Ref<number>
   id: Ref<string | undefined> | undefined

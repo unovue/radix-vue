@@ -64,8 +64,12 @@ async function handleCustomKeydown(event: Event) {
 
 function handleInput(event: InputEvent) {
   context.isInvalidInput.value = false
+  if (event.data === null)
+    return
+
   const delimiter = context.delimiter.value
-  if (delimiter === event.data) {
+  const matchesDelimiter = delimiter === event.data || (delimiter instanceof RegExp && delimiter.test(event.data))
+  if (matchesDelimiter) {
     const target = event.target as HTMLInputElement
     target.value = target.value.replaceAll(delimiter, '')
 

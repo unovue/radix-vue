@@ -2,6 +2,13 @@
 
 <PropsTable :data="[
   {
+    'name': 'allowNonContiguousRanges',
+    'description': '<p>When combined with isDateUnavailable, determines whether non-contiguous ranges, i.e. ranges containing unavailable dates, may be selected.</p>\n',
+    'type': 'boolean',
+    'required': false,
+    'default': 'false'
+  },
+  {
     'name': 'as',
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',

@@ -39,9 +39,10 @@ type DateRangePickerRootContext = {
   onPlaceholderChange: (date: DateValue) => void
   onStartValueChange: (date: DateValue | undefined) => void
   dir: Ref<Direction>
+  allowNonContiguousRanges: Ref<boolean>
 }
 
-export type DateRangePickerRootProps = DateRangeFieldRootProps & PopoverRootProps & Pick<RangeCalendarRootProps, 'isDateDisabled' | 'pagedNavigation' | 'weekStartsOn' | 'weekdayFormat' | 'fixedWeeks' | 'numberOfMonths' | 'preventDeselect'>
+export type DateRangePickerRootProps = DateRangeFieldRootProps & PopoverRootProps & Pick<RangeCalendarRootProps, 'isDateDisabled' | 'pagedNavigation' | 'weekStartsOn' | 'weekdayFormat' | 'fixedWeeks' | 'numberOfMonths' | 'preventDeselect' | 'isDateUnavailable' | 'allowNonContiguousRanges'>
 
 export type DateRangePickerRootEmits = {
   /** Event handler called whenever the model value changes */
@@ -81,6 +82,7 @@ const props = withDefaults(defineProps<DateRangePickerRootProps>(), {
   locale: 'en',
   isDateDisabled: undefined,
   isDateUnavailable: undefined,
+  allowNonContiguousRanges: false,
 })
 const emits = defineEmits<DateRangePickerRootEmits & PopoverRootEmits>()
 const {
@@ -106,6 +108,7 @@ const {
   hideTimeZone,
   hourCycle,
   dir: propsDir,
+  allowNonContiguousRanges,
 } = toRefs(props)
 
 const dir = useDirection(propsDir)
@@ -134,6 +137,7 @@ const open = useVModel(props, 'open', emits, {
 const dateFieldRef = ref<InstanceType<typeof DateRangeFieldRoot> | undefined>()
 
 provideDateRangePickerRootContext({
+  allowNonContiguousRanges,
   isDateUnavailable: propsIsDateUnavailable.value,
   isDateDisabled: propsIsDateDisabled.value,
   locale,

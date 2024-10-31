@@ -12,6 +12,7 @@ const rootContext = injectDateRangePickerRootContext()
   <RangeCalendarRoot
     v-slot="{ weekDays, grid, date, weekStartsOn, locale, fixedWeeks }"
     v-bind="{
+      allowNonContiguousRanges: rootContext.allowNonContiguousRanges.value,
       isDateDisabled: rootContext.isDateDisabled,
       isDateUnavailable: rootContext.isDateUnavailable,
       locale: rootContext.locale.value,

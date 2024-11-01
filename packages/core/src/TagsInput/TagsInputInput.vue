@@ -71,7 +71,7 @@ function handleInput(event: InputEvent) {
   const matchesDelimiter = delimiter === event.data || (delimiter instanceof RegExp && delimiter.test(event.data))
   if (matchesDelimiter) {
     const target = event.target as HTMLInputElement
-    target.value = target.value.replaceAll(delimiter, '')
+    target.value = target.value.replace(delimiter, '')
 
     const isAdded = context.onAddValue(target.value)
     if (isAdded)

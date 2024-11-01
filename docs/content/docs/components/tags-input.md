@@ -165,7 +165,7 @@ You can compose Tags input together with [Combobox](../components/combobox.html)
 
 You can automatically add tags on paste by passing the `add-on-paste` prop.
 
-```vue line=6
+```vue line=8
 <script setup lang="ts">
 import { TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText, TagsInputRoot } from 'reka-ui'
 </script>
@@ -173,6 +173,29 @@ import { TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText, 
 <template>
   <TagsInputRoot
     v-model="modelValue"
+    add-on-paste
+  >
+    …
+  </TagsInputRoot>
+</template>
+```
+
+### Multiple delimiters
+
+You can pass `RegExp` as `delimiter` to allow multiple characters to trigger addition of a new tag. When `add-on-paste` is passed it will be also used to split tags for `@paste` event.
+
+```vue line=4-5,11
+<script setup lang="ts">
+import { TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText, TagsInputRoot } from 'radix-vue'
+
+// split by space, comma, semicolon, tab, or newline
+const delimiter = /[ ,;\t\n\r]+/
+</script>
+
+<template>
+  <TagsInputRoot
+    v-model="modelValue"
+    :delimiter="delimiter"
     add-on-paste
   >
     …

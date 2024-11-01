@@ -21,7 +21,7 @@ export interface TagsInputRootProps<T = AcceptableInputValue> extends PrimitiveP
   duplicate?: boolean
   /** When `true`, prevents the user from interacting with the tags input. */
   disabled?: boolean
-  /** The character to trigger the addition of a new tag. Also used to split tags for `@paste` event */
+  /** The character or regular expression to trigger the addition of a new tag. Also used to split tags for `@paste` event */
   delimiter?: string | RegExp
   /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction

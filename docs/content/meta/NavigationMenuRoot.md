@@ -48,6 +48,12 @@
     'default': 'false'
   },
   {
+    'name': 'disablePointerLeaveClose',
+    'description': '<p>If <code>true</code>, menu will not close during pointer leave event</p>\n',
+    'type': 'boolean',
+    'required': false
+  },
+  {
     'name': 'modelValue',
     'description': '<p>The controlled value of the menu item to activate. Can be used as <code>v-model</code>.</p>\n',
     'type': 'string',

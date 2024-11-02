@@ -1,85 +1,81 @@
 ---
-
 title: Introduction
 description: An open-source UI component library for building high-quality, accessible design systems and web apps using Vue.
 ---
 
+<script setup>
+import Contributors from '../../../.vitepress/components/Contributors.vue'
+</script>
+
 # Introduction
 
 <Description>
+
 An open-source UI component library for building high-quality, accessible
 design systems and web apps using <a href="https://vuejs.org" target="_blank" rel="noopener noreferrer">Vue.js</a>.
+
 </Description>
+
+## ✨ Rebrand: Reka UI ✨
+
+Presenting **Reka UI**, the new identity of [Radix Vue](https://www.radix-vue.com/) in its v2 evolution.
+
+**Reka** (pronounced `/ree·kuh/`) means "design" in [Malay](https://translate.google.com/?hl=en&sl=ms&tl=en&text=reka&op=translate), and also evokes "Eureka."
+
+Reka UI strives to deliver a low-level UI component library centered on accessibility, customization, and developer experience. Use these components as the foundation of your design system or integrate them progressively.
+
+Check out the release note [here](/docs/overview/releases#_2-0-changes)
 
 <Callout type="tip">
 
-Reka UI is an unofficial community-led Vue port of [Radix UI](https://www.radix-ui.com/), thus we share the same principal and vision when building primitives.
+Curious about the rebrand? See the announcement in [this discussion](https://github.com/unovue/radix-vue/issues/908).
 
 </Callout>
 
-Reka UI is a low-level UI component library with a focus on accessibility, customization and developer experience. You can use these components either as the base layer of your design system, or adopt them incrementally.
+## Our Principles
 
-## Vision
+### Accessibility-First
 
-Most of us share similar definitions for common UI patterns like accordion, checkbox,
-combobox, dialog, dropdown, select, slider, and tooltip. These UI patterns are [documented by WAI-ARIA](https://www.w3.org/TR/wai-aria-practices/#aria_ex) and generally understood by the community.
+Accessibility is at the heart of Reka UI. Our components align with [WAI-ARIA design patterns](https://www.w3.org/TR/wai-aria-practices-1.2) to ensure that all users, regardless of abilities, can interact with your UI effectively. We handle intricate accessibility details like aria attributes, keyboard navigation, and focus management to simplify the developer's work.
 
-However, the implementations provided to us by the web platform are inadequate. They're
-either non-existent, lacking in functionality, or cannot be customized sufficiently.
+### Customizable & Unstyled
 
-So, developers are forced to build custom components; an incredibly difficult task. As a
-result, most components on the web are inaccessible, non-performant, and lacking important
-features.
+Reka UI components come unstyled, providing developers the freedom to style them however they choose, using any CSS solution (vanilla CSS, preprocessors, or CSS-in-JS libraries). Our open component architecture allows you to wrap, extend, or modify each component as needed. Explore more in our [styling guide](../guides/styling).
 
-Our goal is to create a well-funded, open-source component library that the community can
-use to build accessible design systems.
+### Open & Modular
 
-## Key Features
+Our components are designed to be open and adaptable, allowing you to customize each element to fit your needs. Whether adding event listeners, props, or refs, Reka UI provides granular access to each component's inner workings.
 
-### Accessible
+### Flexible State Management
 
-Components adhere to the [WAI-ARIA design patterns](https://www.w3.org/TR/wai-aria-practices-1.2) where possible. We handle many of the difficult implementation details related to accessibility, including aria and role attributes, focus management, and keyboard navigation. Learn more in our [accessibility](./accessibility) overview.
+Reka UI components are, by default, uncontrolled but can also be fully controlled when needed. This approach allows developers to decide on the level of state management required, offering a balance between flexibility and ease of use.
 
-### Unstyled
+### Developer-Centric Experience
 
-Components ship with zero styles, giving you complete control over styling. Components can be styled with any styling solution (vanilla CSS, CSS preprocessors, CSS-in-JS libraries). Learn more in our [styling](../guides/styling) guide.
+We prioritize developer experience by maintaining a consistent and predictable API. Reka UI is fully-typed and structured with simplicity in mind, ensuring that components are easy to use and integrate. Our `asChild` prop allows full control over rendered elements, enhancing flexibility.
 
-### Opened
+### Performance & Tree-Shaking
 
-Reka UI are designed to be customized to suit your needs. Our open component architecture provides you granular access to each component part, so you can wrap them and add your own event listeners, props, or refs.
+Our library is designed with performance in mind. All components are compiled into a single package, making installation straightforward and ensuring that any unused components won’t add to your bundle size thanks to tree-shaking.
 
-### Uncontrolled
+<Callout type="tip">
 
-Where applicable, components are uncontrolled by default but can also be controlled, alternatively. All of the behavior wiring is handled internally, so you can get up and running as smoothly as possible, without needing to create any local states.
+Reka UI is inspired by the principles and goals of [Radix UI](https://www.radix-ui.com/), sharing a commitment to accessibility, customization, and developer-friendly design.
 
-### Developer experience
+</Callout>
 
-One of our main goals is to provide the best possible developer experience. Reka UI provides a fully-typed API. All components share a similar API, creating a consistent and predictable experience. We've also implemented an `asChild` prop (It's not a problem for Vue), giving users full control over the rendered element.
+---
 
-### Tree-shaking friendly
+# Built by Vue lovers 💚
 
-We compile all primitives into one package, so you just have to install once, and have access to all the primitives. Worry not, it is tree-shaking friendly so any unused primitives will not be included in the bundle.
+<Contributors />
 
-<InstallationTabs value="reka-ui" />
+# Credits
 
-## Community
+All credits go to these open-source works and resources
 
-### Discord
-
-To get involved with the Radix community, ask questions, and share tips, join our Discord.
-
-[Join our Discord](https://discord.gg/jZUsrAADe5)
-
-### Twitter
-
-To receive updates on new primitives, announcements, blog posts, and general Radix tips, follow along on Twitter.
-
-[Follow Radix on Twitter](https://twitter.com/radix_vue)
-
-### GitHub
-
-To file issues, request features, and contribute, check out our GitHub.
-
-[GitHub repo](https://github.com/unovue/radix-vue)
-
-[Code of conduct](https://github.com/unovue/radix-vue/CODE_OF_CONDUCT.md)
+- Radix UI - https://radix-ui.com
+- Radix Aria - https://react-spectrum.adobe.com/react-aria
+- Floating UI - https://floating-ui.com
+- VueUse - https://vueuse.org
+- HeadlessUI - https://headlessui.com

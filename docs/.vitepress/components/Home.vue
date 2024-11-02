@@ -248,7 +248,7 @@ import SelectDemo from '../../components/demo/Select/tailwind/index.vue'
       <div class="flex flex-col sm:flex-row items-center justify-center gap-12 sm:gap-20">
         <div class="flex flex-col items-center justify-center">
           <div class="text-4xl md:text-6xl font-bold">
-            300k+
+            500k+
           </div>
           <div class="mt-1">
             Monthly downloads

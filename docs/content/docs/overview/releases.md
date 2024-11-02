@@ -80,4 +80,4 @@ Discover the latest release of Reka UI.
 - **Arrow**: Improve polygon implementation
 - **Calendar**: Remove deprecated `step` prop
 
-We recommend reviewing the [migration guide](/docs/guide/migration) to make transitioning from v1 to v2 smooth.
+We recommend reviewing the [migration guide](/docs/guides/migration) to make transitioning from v1 to v2 smooth.

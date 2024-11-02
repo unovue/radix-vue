@@ -7,12 +7,12 @@ import type { PopperContentProps } from '@/Popper'
 import type { PointerDownOutsideEvent } from '@/DismissableLayer'
 import {
   createContext,
-  useBodyScrollLock,
   useFocusGuards,
   useForwardProps,
   useHideOthers,
   useTypeahead,
 } from '@/shared'
+import { useBodyScrollLock } from '@/shared/useBodyScrollLock'
 import type { AcceptableValue } from '@/shared/types'
 import { valueComparator } from './utils'
 import { useCollection } from '@/Collection'

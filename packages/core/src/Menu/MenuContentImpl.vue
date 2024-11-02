@@ -15,11 +15,11 @@ import type { PopperContentProps } from '@/Popper'
 import {
   createContext,
   useArrowNavigation,
-  useBodyScrollLock,
   useFocusGuards,
   useForwardExpose,
   useTypeahead,
 } from '@/shared'
+import { useBodyScrollLock } from '@/shared/useBodyScrollLock'
 
 export interface MenuContentContext {
   onItemEnter: (event: PointerEvent) => boolean

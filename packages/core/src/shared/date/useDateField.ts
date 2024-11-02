@@ -1,5 +1,5 @@
 import { type Formatter, useKbd } from '@/shared'
-import type { AnyExceptLiteral, HourCycle, SegmentPart, SegmentValueObj } from '@/shared/date'
+import type { AnyExceptLiteral, HourCycle, SegmentPart, SegmentValueObj } from './types'
 import { getDaysInMonth, toDate } from '@/date'
 import type { CalendarDateTime, CycleTimeOptions, DateFields, DateValue, TimeFields } from '@internationalized/date'
 import { type Ref, computed } from 'vue'

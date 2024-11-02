@@ -1,12 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
-import {
-  createContext,
-  useBodyScrollLock,
-  useForwardExpose,
-  useForwardProps,
-  useHideOthers,
-} from '@/shared'
+import { createContext, useForwardExpose, useForwardProps, useHideOthers } from '@/shared'
+import { useBodyScrollLock } from '@/shared/useBodyScrollLock'
 
 import type { DismissableLayerEmits, DismissableLayerProps } from '@/DismissableLayer'
 import type { PopperContentProps } from '@/Popper'

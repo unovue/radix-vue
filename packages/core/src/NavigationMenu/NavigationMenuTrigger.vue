@@ -141,6 +141,7 @@ function handleVisuallyHiddenFocus(ev: FocusEvent) {
       :disabled="disabled"
       :data-disabled="disabled ? '' : undefined"
       :data-state="getOpenState(open)"
+      data-navigation-menu-trigger
       :aria-expanded="open"
       :aria-controls="contentId"
       :as-child="props.asChild"

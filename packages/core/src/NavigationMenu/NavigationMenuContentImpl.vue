@@ -80,6 +80,10 @@ function handleFocusOutside(ev: FocusOutsideEvent) {
   emits('focusOutside', ev)
   emits('interactOutside', ev)
 
+  const target = ev.detail.originalEvent.target as HTMLElement
+  if (target.hasAttribute('data-navigation-menu-trigger'))
+    ev.preventDefault()
+
   if (!ev.defaultPrevented) {
     itemContext.onContentFocusOutside()
 

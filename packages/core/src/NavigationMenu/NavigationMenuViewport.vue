@@ -55,8 +55,10 @@ watch([modelValue, open], () => {
   if (!currentElement.value)
     return
 
-  const el = (currentElement.value as HTMLElement).querySelector('[data-state=open]')?.children?.[0] as HTMLElement | undefined
-  content.value = el
+  requestAnimationFrame(() => {
+    const el = (currentElement.value as HTMLElement)?.querySelector('[data-state=open]')?.children?.[0] as HTMLElement | undefined
+    content.value = el
+  })
 }, { immediate: true, flush: 'post' })
 
 function updatePosition() {

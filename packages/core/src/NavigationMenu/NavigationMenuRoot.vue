@@ -44,6 +44,11 @@ export interface NavigationMenuRootProps extends PrimitiveProps {
    * @defaultValue false
    */
   disableHoverTrigger?: boolean
+  /**
+   * If `true`, menu will not close during pointer leave event
+   * @defaultValue false
+   */
+  disablePointerLeaveClose?: boolean
 
   /**
    * When `true`, the element will be unmounted on closed state.
@@ -190,7 +195,8 @@ provideNavigationMenuContext({
     debouncedFn()
   },
   onContentLeave: () => {
-    debouncedFn('')
+    if (!props.disablePointerLeaveClose)
+      debouncedFn('')
   },
   onItemSelect: (val) => {
     // When selecting item we trigger update immediately

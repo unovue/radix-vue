@@ -3,7 +3,7 @@
 <PropsTable :data="[
   {
     'name': 'allowNonContiguousRanges',
-    'description': '<p>When combined with isDateUnavailable, determines whether non-contiguous ranges, i.e. ranges containing unavailable dates, may be selected.</p>\n',
+    'description': '<p>When combined with <code>isDateUnavailable</code>, determines whether non-contiguous ranges, i.e. ranges containing unavailable dates, may be selected.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'false'

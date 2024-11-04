@@ -388,6 +388,25 @@ describe('rangeCalendar', () => {
     expect(thirdDayInMonth).not.toHaveAttribute('data-selected')
   })
 
+  it('allows non-contiguous ranges', async () => {
+    const { getByTestId, user } = setup({
+      calendarProps: {
+        placeholder: calendarDateRange.start,
+        allowNonContiguousRanges: true,
+        isDateUnavailable: (date) => {
+          return date.day === 3
+        },
+      },
+    })
+
+    const firstDayInMonth = getByTestId('date-1-1')
+    const fourthDayInMonth = getByTestId('date-1-4')
+    const fifthDayInMonth = getByTestId('date-1-5')
+    await user.click(firstDayInMonth)
+    await user.click(fifthDayInMonth)
+    expect(fourthDayInMonth).toHaveAttribute('data-selected')
+  })
+
   it('formats the weekday labels correctly - `\'narrow\'`', async () => {
     const { getByTestId } = setup({
       calendarProps: {

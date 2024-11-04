@@ -10,8 +10,8 @@ export interface ModuleOptions {
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: '@radix-vue/nuxt',
-    configKey: 'radix',
+    name: '@reka-ui/nuxt',
+    configKey: 'reka',
     compatibility: {
       nuxt: '>=3.0.0',
     },

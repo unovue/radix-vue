@@ -10,13 +10,13 @@
   },
   {
     'name': 'asChild',
-    'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our <a href=\'https://www.radix-vue.com/guides/composition.html\'>Composition</a> guide for more details.</p>\n',
+    'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our <a href=\'https://www.reka-ui.com/docs/guides/composition\'>Composition</a> guide for more details.</p>\n',
     'type': 'boolean',
     'required': false
   },
   {
     'name': 'defaultValue',
-    'description': '<p>The value of the tab that should be active when initially rendered. Use when you do not need to control the state of the tabs</p>\n',
+    'description': '<p>The value of the step that should be active when initially rendered. Use when you do not need to control the state of the steps.</p>\n',
     'type': 'number',
     'required': false,
     'default': '1'
@@ -29,20 +29,20 @@
   },
   {
     'name': 'linear',
-    'description': '<p>Whether or not the steps must be completed in order</p>\n',
+    'description': '<p>Whether or not the steps must be completed in order.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'true'
   },
   {
     'name': 'modelValue',
-    'description': '<p>The controlled value of the tab to activate. Can be bound as <code>v-model</code>.</p>\n',
+    'description': '<p>The controlled value of the step to activate. Can be bound as <code>v-model</code>.</p>\n',
     'type': 'number',
     'required': false
   },
   {
     'name': 'orientation',
-    'description': '<p>The orientation the tabs are laid out.\nMainly so arrow navigation is done accordingly (left &amp; right vs. up &amp; down)</p>\n',
+    'description': '<p>The orientation the steps are laid out.\nMainly so arrow navigation is done accordingly (left &amp; right vs. up &amp; down).</p>\n',
     'type': '\'vertical\' | \'horizontal\'',
     'required': false,
     'default': '\'horizontal\''

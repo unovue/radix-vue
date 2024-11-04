@@ -4,31 +4,31 @@
   {
     'name': 'date',
     'description': '',
-    'type': 'DateValue'
+    'type': 'any'
   },
   {
     'name': 'grid',
     'description': '',
-    'type': 'Grid<DateValue>[]'
+    'type': 'any'
   },
   {
     'name': 'weekDays',
     'description': '',
-    'type': 'string[]'
+    'type': 'any'
   },
   {
     'name': 'weekStartsOn',
     'description': '',
-    'type': '0 | 1 | 2 | 3 | 4 | 5 | 6'
+    'type': 'any'
   },
   {
     'name': 'locale',
     'description': '',
-    'type': 'string'
+    'type': 'any'
   },
   {
     'name': 'fixedWeeks',
     'description': '',
-    'type': 'boolean'
+    'type': 'any'
   }
 ]" />

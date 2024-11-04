@@ -41,9 +41,9 @@ jobs:
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
 
-      - name: Build Radix Vue and plugins
+      - name: Build Reka UI and plugins
         run: pnpm run build
 
-      - run: pnpm dlx pkg-pr-new publish --compact ./packages/radix-vue
+      - run: pnpm dlx pkg-pr-new publish --compact ./packages/core
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

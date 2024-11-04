@@ -10,7 +10,7 @@
   },
   {
     'name': 'asChild',
-    'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our <a href=\'https://www.radix-vue.com/guides/composition.html\'>Composition</a> guide for more details.</p>\n',
+    'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our <a href=\'https://www.reka-ui.com/docs/guides/composition\'>Composition</a> guide for more details.</p>\n',
     'type': 'boolean',
     'required': false
   },
@@ -45,16 +45,17 @@
     'required': false
   },
   {
+    'name': 'getChildren',
+    'description': '<p>This function is passed the index of each item and should return a list of children for that item</p>\n',
+    'type': '((val: Record<string, any>) => Record<string, any>[])',
+    'required': false,
+    'default': 'val.children'
+  },
+  {
     'name': 'getKey',
     'description': '<p>This function is passed the index of each item and should return a unique key for that item</p>\n',
     'type': '(val: Record<string, any>) => string',
     'required': true
-  },
-  {
-    'name': 'getChildren',
-    'description': '<p>This function is passed the index of each item and should return a list of children for that item</p>\n',
-    'type': '(val: Record<string, any>) => Record<string, any>[] | undefined',
-    'required': false
   },
   {
     'name': 'items',
@@ -83,7 +84,7 @@
   {
     'name': 'selectionBehavior',
     'description': '<p>How multiple selection should behave in the collection.</p>\n',
-    'type': '\'replace\' | \'toggle\'',
+    'type': '\'toggle\' | \'replace\'',
     'required': false,
     'default': '\'toggle\''
   }
@@ -97,7 +98,7 @@
   },
   {
     'name': 'update:modelValue',
-    'description': '<p>Event handler called when the value changes.</p>\n',
+    'description': '<p>Event handler called when the value of the toggle changes.</p>\n',
     'type': '[val: Record<string, any>]'
   }
 ]" />

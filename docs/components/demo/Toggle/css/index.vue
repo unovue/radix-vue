@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Toggle } from 'radix-vue'
+import { Toggle } from 'reka-ui'
 import { Icon } from '@iconify/vue'
 import { ref } from 'vue'
 import './styles.css'
@@ -9,7 +9,7 @@ const toggleState = ref(false)
 
 <template>
   <Toggle
-    v-model:pressed="toggleState"
+    v-model="toggleState"
     aria-label="Toggle italic"
     class="Toggle"
   >

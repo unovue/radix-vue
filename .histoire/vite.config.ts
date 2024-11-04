@@ -14,7 +14,7 @@ export default defineConfig({
       entries: [
         {
           find: '@',
-          replacement: resolve(projectRootDir, '../packages/radix-vue/src'),
+          replacement: resolve(projectRootDir, '../packages/core/src'),
         },
       ],
     }),
@@ -28,7 +28,7 @@ export default defineConfig({
     viteNodeInlineDeps: [/@tanstack/],
     plugins: [{ name: 'builtin:tailwind-tokens' }, HstVue()],
     setupFile: './setup.ts',
-    storyMatch: [resolve(projectRootDir, '../packages/radix-vue/src/**/*.story.vue')],
+    storyMatch: [resolve(projectRootDir, '../packages/core/src/**/*.story.vue')],
     outDir: './dist',
     tree: {
       groups: [
@@ -37,7 +37,7 @@ export default defineConfig({
       ],
     },
     theme: {
-      title: 'Radix Vue',
+      title: 'Reka UI',
       logo: {
         square: '../docs/content/public/logo.svg',
         light: '../docs/content/public/logo.svg',

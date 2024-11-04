@@ -16,7 +16,7 @@ import {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 import './styles.css'
 
 const checkboxOne = ref(false)

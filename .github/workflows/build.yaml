@@ -47,7 +47,7 @@ jobs:
         run: pnpm i --frozen-lockfile
 
       - name: Build
-        run: pnpm --filter radix-vue build
+        run: pnpm --filter reka-ui build
 
       - name: Check for errors
         run: |

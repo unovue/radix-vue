@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Card from './components/Card.vue'
-import { ConfigProvider } from 'radix-vue'
+import { ConfigProvider } from 'reka-ui'
 
 const fn = () => useId().replace(':', '_')
 </script>

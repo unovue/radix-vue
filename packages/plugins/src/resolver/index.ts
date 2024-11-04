@@ -1,5 +1,5 @@
 import type { ComponentResolver } from 'unplugin-vue-components'
-import { components } from '../../../radix-vue/constant/components'
+import { components } from 'reka-ui/constant'
 
 export interface ResolverOptions {
   /**
@@ -21,7 +21,7 @@ export default function (options: ResolverOptions = {}): ComponentResolver {
         if (Object.values(components).flat().includes(componentName)) {
           return {
             name: componentName,
-            from: 'radix-vue',
+            from: 'reka-ui',
           }
         }
       }

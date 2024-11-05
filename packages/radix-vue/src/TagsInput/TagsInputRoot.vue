@@ -43,6 +43,8 @@ export type TagsInputRootEmits<T = AcceptableInputValue> = {
   'update:modelValue': [payload: Array<T>]
   /** Event handler called when the value is invalid */
   'invalid': [payload: T]
+  /** Event handler called when tag is removed */
+  'onTagRemove': [payload: T]
 }
 
 export interface TagsInputRootContext<T = AcceptableInputValue> {
@@ -160,6 +162,7 @@ provideTagsInputRootContext({
           const index = collection.findIndex(i => i === selectedElement.value)
           modelValue.value.splice(index, 1)
           selectedElement.value = selectedElement.value === lastTag ? collection.at(index - 1) : collection.at(index + 1)
+          emits('onTagRemove', selectedElement.value)
           event.preventDefault()
         }
         else if (event.key === 'Backspace') {

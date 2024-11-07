@@ -6,6 +6,7 @@ export interface PaginationPrevProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { Primitive } from '@/Primitive'
 import { injectPaginationRootContext } from './PaginationRoot.vue'
 
@@ -13,6 +14,8 @@ const props = withDefaults(defineProps<PaginationPrevProps>(), { as: 'button' })
 
 useForwardExpose()
 const rootContext = injectPaginationRootContext()
+
+const disabled = computed((): boolean => rootContext.page.value === 1 || rootContext.disabled.value)
 </script>
 
 <template>
@@ -20,8 +23,8 @@ const rootContext = injectPaginationRootContext()
     v-bind="props"
     aria-label="Previous Page"
     :type="as === 'button' ? 'button' : undefined"
-    :disabled="rootContext.page.value === 1 || rootContext.disabled?.value"
-    @click="rootContext.onPageChange(rootContext.page.value - 1)"
+    :disabled
+    @click="!disabled && rootContext.onPageChange(rootContext.page.value - 1)"
   >
     <slot>Prev page</slot>
   </Primitive>

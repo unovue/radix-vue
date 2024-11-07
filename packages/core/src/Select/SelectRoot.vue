@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { Ref, VNode } from 'vue'
+import type { Ref } from 'vue'
 import type { AcceptableValue, Direction, FormFieldProps } from '@/shared/types'
 import { createContext, isNullish, useDirection, useFormControl } from '@/shared'
 import { compare } from './utils'
@@ -50,18 +50,16 @@ export interface SelectRootContext<T> {
   triggerPointerDownPosRef: Ref<{ x: number, y: number } | null>
   isEmptyModelValue: Ref<boolean>
   disabled?: Ref<boolean>
+
+  optionsSet: Ref<Set<SelectOption>>
+  onOptionAdd: (option: SelectOption) => void
+  onOptionRemove: (option: SelectOption) => void
 }
 
 export const [injectSelectRootContext, provideSelectRootContext]
   = createContext<SelectRootContext<AcceptableValue>>('SelectRoot')
 
-export interface SelectNativeOptionsContext {
-  onNativeOptionAdd: (option: VNode) => void
-  onNativeOptionRemove: (option: VNode) => void
-}
-
-export const [injectSelectNativeOptionsContext, provideSelectNativeOptionsContext]
-  = createContext<SelectNativeOptionsContext>('SelectRoot')
+interface SelectOption { value: any, disabled?: boolean, textContent: string }
 </script>
 
 <script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
@@ -95,7 +93,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue ?? (multiple.value ? [] : undefined),
   passive: (props.modelValue === undefined) as false,
   deep: true,
-}) as Ref<T | Array<T> | undefined>
+}) as Ref<T | T[] | undefined>
 
 const open = useVModel(props, 'open', emits, {
   defaultValue: props.defaultOpen,
@@ -119,6 +117,30 @@ const isEmptyModelValue = computed(() => {
 useCollection({ isProvider: true })
 const dir = useDirection(propDir)
 
+const isFormControl = useFormControl(triggerElement)
+const optionsSet = ref<Set<SelectOption>>(new Set())
+
+// The native `select` only associates the correct default value if the corresponding
+// `option` is rendered as a child **at the same time** as itself.
+// Because it might take a few renders for our items to gather the information to build
+// the native `option`(s), we generate a key on the `select` to make sure Vue re-builds it
+// each time the options change.
+const nativeSelectKey = computed(() => {
+  return Array.from(optionsSet.value)
+    .map(option => option.value)
+    .join(';')
+})
+
+function handleValueChange(value: T) {
+  if (multiple.value && Array.isArray(modelValue.value)) {
+    const index = modelValue.value.findIndex(i => compare(i, value, props.by))
+    index === -1 ? modelValue.value.push(value) : modelValue.value.splice(index, 1)
+  }
+  else {
+    modelValue.value = value
+  }
+}
+
 provideSelectRootContext({
   triggerElement,
   onTriggerChange: (node) => {
@@ -130,15 +152,8 @@ provideSelectRootContext({
   },
   contentId: '',
   modelValue,
-  onValueChange: (value: any) => {
-    if (multiple.value && Array.isArray(modelValue.value)) {
-      const index = modelValue.value.findIndex(i => compare(i, value, props.by))
-      index === -1 ? modelValue.value.push(value) : modelValue.value.splice(index, 1)
-    }
-    else {
-      modelValue.value = value
-    }
-  },
+  // @ts-expect-error Missing infer for AcceptableValue
+  onValueChange: handleValueChange,
   by: props.by,
   open,
   multiple,
@@ -150,29 +165,10 @@ provideSelectRootContext({
   triggerPointerDownPosRef,
   disabled,
   isEmptyModelValue,
-})
 
-const isFormControl = useFormControl(triggerElement)
-const nativeOptionsSet = ref<Set<VNode>>(new Set())
-
-// The native `select` only associates the correct default value if the corresponding
-// `option` is rendered as a child **at the same time** as itself.
-// Because it might take a few renders for our items to gather the information to build
-// the native `option`(s), we generate a key on the `select` to make sure Vue re-builds it
-// each time the options change.
-const nativeSelectKey = computed(() => {
-  return Array.from(nativeOptionsSet.value)
-    .map(option => option.props?.value)
-    .join(';')
-})
-
-provideSelectNativeOptionsContext({
-  onNativeOptionAdd: (option) => {
-    nativeOptionsSet.value.add(option)
-  },
-  onNativeOptionRemove: (option) => {
-    nativeOptionsSet.value.delete(option)
-  },
+  optionsSet,
+  onOptionAdd: option => optionsSet.value.add(option),
+  onOptionRemove: option => optionsSet.value.delete(option),
 })
 </script>
 
@@ -194,17 +190,16 @@ provideSelectNativeOptionsContext({
       :autocomplete="autocomplete"
       :disabled="disabled"
       :value="modelValue"
-      @change="modelValue = $event.target.value"
+      @change="handleValueChange($event.target.value)"
     >
       <option
         v-if="modelValue === undefined"
         value=""
       />
-      <component
-        v-bind="option.props"
-        :is="option"
-        v-for="option in Array.from(nativeOptionsSet)"
-        :key="option.key ?? ''"
+      <option
+        v-for="option in Array.from(optionsSet)"
+        :key="option.value ?? ''"
+        v-bind="option"
       />
     </BubbleSelect>
   </PopperRoot>

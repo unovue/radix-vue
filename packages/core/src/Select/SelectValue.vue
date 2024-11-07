@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
+import type { AcceptableValue } from '@/shared/types'
 
 export interface SelectValueProps extends PrimitiveProps {
   /** The content that will be rendered inside the `SelectValue` when no `value` or `defaultValue` is set. */
@@ -27,10 +28,14 @@ onMounted(() => {
 })
 
 const slotText = computed(() => {
-  if (Array.isArray(rootContext.modelValue.value))
-    return rootContext.modelValue.value.length === 0 ? props.placeholder : rootContext.modelValue.value.join(', ')
-  else
-    return rootContext.modelValue.value || props.placeholder
+  const options = Array.from(rootContext.optionsSet.value)
+  const getOption = (value?: AcceptableValue) => options.find(option => option.value === value)
+  if (Array.isArray(rootContext.modelValue.value)) {
+    return rootContext.modelValue.value.length === 0 ? props.placeholder : rootContext.modelValue.value.map(value => getOption(value)?.textContent).join(', ')
+  }
+  else {
+    return getOption(rootContext.modelValue.value)?.textContent || props.placeholder
+  }
 })
 </script>
 

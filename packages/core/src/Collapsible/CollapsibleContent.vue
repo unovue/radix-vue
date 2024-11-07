@@ -1,6 +1,5 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose, useId } from '@/shared'
 
 export interface CollapsibleContentProps extends PrimitiveProps {
   /**
@@ -8,6 +7,10 @@ export interface CollapsibleContentProps extends PrimitiveProps {
    * controlling animation with Vue animation libraries.
    */
   forceMount?: boolean
+}
+
+export type CollapsibleContentEmits = {
+  contentFound: [void]
 }
 </script>
 
@@ -18,12 +21,15 @@ import {
   Primitive,
 } from '@/Primitive'
 import { Presence } from '@/Presence'
+import { useForwardExpose, useId } from '@/shared'
+import { useEventListener } from '@vueuse/core'
 
 defineOptions({
   inheritAttrs: false,
 })
 
 const props = defineProps<CollapsibleContentProps>()
+const emits = defineEmits<CollapsibleContentEmits>()
 
 const rootContext = injectCollapsibleRootContext()
 rootContext.contentId ||= useId(undefined, 'reka-collapsible-content')
@@ -78,6 +84,13 @@ onMounted(() => {
     isMountAnimationPrevented.value = false
   })
 })
+
+useEventListener(currentElement, 'beforematch', (ev) => {
+  requestAnimationFrame(() => {
+    rootContext.onOpenToggle()
+    emits('contentFound')
+  })
+})
 </script>
 
 <template>
@@ -93,7 +106,7 @@ onMounted(() => {
       :ref="forwardRef"
       :as-child="props.asChild"
       :as="as"
-      :hidden="!present"
+      :hidden="!present ? rootContext.unmountOnHide.value ? '' : 'until-found' : undefined"
       :data-state="skipAnimation ? undefined : rootContext.open.value ? 'open' : 'closed'"
       :data-disabled="rootContext.disabled?.value ? '' : undefined"
       :style="{

@@ -31,6 +31,7 @@ useForwardExpose()
       --reka-accordion-content-width: var(--reka-collapsible-content-width);
       --reka-accordion-content-height: var(--reka-collapsible-content-height);
     "
+    @content-found="rootContext.changeModelValue(itemContext.value.value)"
   >
     <slot />
   </CollapsibleContent>

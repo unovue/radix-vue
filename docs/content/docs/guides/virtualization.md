@@ -77,7 +77,7 @@ const items = [
 </template>
 ```
 
-## Common isue
+## Common issue
 
 ### Virtualization is not working
 

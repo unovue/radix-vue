@@ -36,13 +36,20 @@ Import all parts and piece them together.
 
 ```vue
 <script setup>
-import { CheckboxIndicator, CheckboxRoot } from 'reka-ui'
+import { CheckboxGroupRoot, CheckboxIndicator, CheckboxRoot } from 'reka-ui'
 </script>
 
 <template>
   <CheckboxRoot>
     <CheckboxIndicator />
   </CheckboxRoot>
+
+  <!-- or with array support -->
+  <CheckboxGroupRoot>
+    <CheckboxRoot>
+      <CheckboxIndicator />
+    </CheckboxRoot>
+  </CheckboxGroupRoot>
 </template>
 ```
 
@@ -85,6 +92,12 @@ Renders when the checkbox is in a checked or indeterminate state. You can style 
     },
   ]"
 />
+
+### CheckboxGroupRoot
+
+Wrapper around `CheckboxRoot` to support array of `modelValue`
+
+<!-- @include: @/meta/CheckboxGroupRoot.md -->
 
 ## Examples
 

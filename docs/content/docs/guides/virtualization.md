@@ -76,3 +76,25 @@ const items = [
   </ComboboxRoot>
 </template>
 ```
+
+## Common isue
+
+### Virtualization is not working
+
+Do ensure that `<Virtualizer>`'s parent element has a defined height!
+
+```vue line=6
+<template>
+  <ComboboxRoot>
+    …
+    <ComboboxContent>
+      <!-- Height must be defined -->
+      <ComboboxViewport class="max-h-80 overflow-y-auto">
+        <ComboboxVirtualizer>
+          …
+        </ComboboxVirtualizer>
+      </ComboboxViewport>
+    </ComboboxContent>
+  </ComboboxRoot>
+</template>
+```

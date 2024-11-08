@@ -21,3 +21,11 @@
     'required': false
   }
 ]" />
+
+<EmitsTable :data="[
+  {
+    'name': 'contentFound',
+    'description': '',
+    'type': '[(void)?]'
+  }
+]" />

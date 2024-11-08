@@ -22,3 +22,11 @@
     'default': '\'\''
   }
 ]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'selectedLabel',
+    'description': '',
+    'type': 'string[]'
+  }
+]" />

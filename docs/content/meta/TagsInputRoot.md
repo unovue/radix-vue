@@ -47,8 +47,8 @@
   },
   {
     'name': 'delimiter',
-    'description': '<p>The character to trigger the addition of a new tag. Also used to split tags for <code>@paste</code> event</p>\n',
-    'type': 'string',
+    'description': '<p>The character or regular expression to trigger the addition of a new tag. Also used to split tags for <code>@paste</code> event</p>\n',
+    'type': 'string | RegExp',
     'required': false,
     'default': '\',\''
   },
@@ -112,8 +112,18 @@
 
 <EmitsTable :data="[
   {
+    'name': 'addTag',
+    'description': '<p>Event handler called when tag is added</p>\n',
+    'type': '[payload: AcceptableInputValue]'
+  },
+  {
     'name': 'invalid',
     'description': '<p>Event handler called when the value is invalid</p>\n',
+    'type': '[payload: AcceptableInputValue]'
+  },
+  {
+    'name': 'removeTag',
+    'description': '<p>Event handler called when tag is removed</p>\n',
     'type': '[payload: AcceptableInputValue]'
   },
   {

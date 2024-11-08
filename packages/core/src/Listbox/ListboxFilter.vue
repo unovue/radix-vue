@@ -62,7 +62,7 @@ onMounted(() => {
     :data-disabled="disabled ? '' : undefined"
     :aria-disabled="disabled ?? undefined"
     type="text"
-    @keydown.down.up.left.right.home.end.prevent="rootContext.onKeydownNavigation"
+    @keydown.down.up.home.end.prevent="rootContext.onKeydownNavigation"
     @keydown.enter="rootContext.onKeydownEnter"
     @input="(event: InputEvent) => {
       modelValue = (event.target as HTMLInputElement).value

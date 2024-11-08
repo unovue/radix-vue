@@ -39,6 +39,10 @@ export type TagsInputRootEmits<T = AcceptableInputValue> = {
   'update:modelValue': [payload: Array<T>]
   /** Event handler called when the value is invalid */
   'invalid': [payload: T]
+  /** Event handler called when tag is added */
+  'addTag': [payload: T]
+  /** Event handler called when tag is removed */
+  'removeTag': [payload: T]
 }
 
 export interface TagsInputRootContext<T = AcceptableInputValue> {
@@ -102,6 +106,14 @@ const { getItems, CollectionSlot } = useCollection({ isProvider: true })
 const selectedElement = ref<HTMLElement>()
 const isInvalidInput = ref(false)
 
+function handleRemoveTag(index: number) {
+  if (index !== -1) {
+    const collection = getItems().filter(i => i.ref.dataset.disabled !== '')
+    modelValue.value.splice(index, 1)
+    emits('removeTag', collection[index].value)
+  }
+}
+
 provideTagsInputRootContext({
   modelValue,
   onAddValue: (_payload) => {
@@ -121,12 +133,14 @@ provideTagsInputRootContext({
 
     if (props.duplicate) {
       modelValue.value.push(payload)
+      emits('addTag', payload)
       return true
     }
     else {
       const exist = modelValue.value.includes(payload)
       if (!exist) {
         modelValue.value.push(payload)
+        emits('addTag', payload)
         return true
       }
       else {
@@ -136,10 +150,7 @@ provideTagsInputRootContext({
     emits('invalid', payload)
     return false
   },
-  onRemoveValue: (index) => {
-    if (index !== -1)
-      modelValue.value.splice(index, 1)
-  },
+  onRemoveValue: handleRemoveTag,
   onInputKeydown: (event) => {
     const target = event.target as HTMLInputElement
     const collection = getItems().map(i => i.ref).filter(i => i.dataset.disabled !== '')
@@ -154,7 +165,7 @@ provideTagsInputRootContext({
 
         if (selectedElement.value) {
           const index = collection.findIndex(i => i === selectedElement.value)
-          modelValue.value.splice(index, 1)
+          handleRemoveTag(index)
           selectedElement.value = selectedElement.value === lastTag ? collection.at(index - 1) : collection.at(index + 1)
           event.preventDefault()
         }

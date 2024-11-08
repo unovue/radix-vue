@@ -48,7 +48,7 @@ const itemContext = provideTagsInputItemContext({
 </script>
 
 <template>
-  <CollectionItem>
+  <CollectionItem :value="value">
     <Primitive
       :ref="forwardRef"
       :as="as"

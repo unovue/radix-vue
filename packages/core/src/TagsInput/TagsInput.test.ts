@@ -13,10 +13,12 @@ describe('given default TagsInput', () => {
   let wrapper: VueWrapper<InstanceType<typeof TagsInput>>
   let input: DOMWrapper<HTMLInputElement>
   let tags: DOMWrapper<HTMLElement>[]
+  let rootComponent: Omit< VueWrapper, 'exists'>
 
   beforeEach(() => {
     wrapper = mount(TagsInput, { attachTo: document.body })
     tags = wrapper.findAll('[data-reka-collection-item]')
+    rootComponent = wrapper.getComponent({ name: 'TagsInputRoot' })
   })
 
   it('should pass axe accessibility tests', async () => {
@@ -39,6 +41,10 @@ describe('given default TagsInput', () => {
       input.element.focus()
       await addTag('123')
       await addTag('Asd')
+    })
+
+    it('should emit `addTag` event', () => {
+      expect(rootComponent.emitted('addTag')?.flat()).toEqual(['123', 'Asd'])
     })
 
     it('should add a new tag', () => {
@@ -107,6 +113,10 @@ describe('given default TagsInput', () => {
             key: 'Backspace',
           })
           tags = wrapper.findAll('[data-reka-collection-item]')
+        })
+
+        it('should trigger `removeTag` event', () => {
+          expect(rootComponent.emitted('removeTag')?.[0]?.[0]).toEqual('Asd')
         })
 
         it('should remove the active tag', () => {

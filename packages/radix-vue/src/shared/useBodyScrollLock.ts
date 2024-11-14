@@ -31,6 +31,7 @@ const useBodyLockStackCount = createSharedComposable(() => {
     document.body.style.paddingRight = ''
     document.body.style.marginRight = ''
     document.body.style.pointerEvents = ''
+    document.body.style.touchAction = ''
     document.body.style.removeProperty('--scrollbar-width')
     document.body.style.overflow = initialOverflow.value ?? ''
     isIOS && stopTouchMoveListener?.()
@@ -90,6 +91,7 @@ const useBodyLockStackCount = createSharedComposable(() => {
     nextTick(() => {
       document.body.style.pointerEvents = 'none'
       document.body.style.overflow = 'hidden'
+      document.body.style.touchAction = 'none'
     })
   }, { immediate: true, flush: 'sync' })
 

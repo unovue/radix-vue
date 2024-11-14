@@ -25,7 +25,7 @@ export interface CheckboxRootProps extends PrimitiveProps, FormFieldProps {
 
 export type CheckboxRootEmits = {
   /** Event handler called when the value of the checkbox changes. */
-  'update:modelValue': [value: AcceptableValue ]
+  'update:modelValue': [value: boolean | 'indeterminate']
 }
 
 interface CheckboxRootContext {

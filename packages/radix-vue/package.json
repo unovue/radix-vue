@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.9.9",
   "description": "Vue port for Radix UI Primitives.",
-  "author": "Radix Vue Contributors (https://github.com/radix-vue)",
+  "author": "Radix Vue Contributors (https://github.com/unovue/radix-vue)",
   "license": "MIT",
   "homepage": "https://github.com/unovue/radix-vue",
   "repository": {

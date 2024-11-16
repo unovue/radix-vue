@@ -79,7 +79,7 @@ const remainingRaf = useRafFn(() => {
 }, { fpsLimit: 60 })
 
 function startTimer(duration: number) {
-  if (!duration || duration === Number.POSITIVE_INFINITY)
+  if (duration <= 0 || duration === Number.POSITIVE_INFINITY)
     return
   // startTimer is used inside a watch with immediate set to true.
   // This results in code execution during SSR.

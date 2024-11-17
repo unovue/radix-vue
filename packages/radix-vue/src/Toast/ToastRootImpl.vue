@@ -66,7 +66,11 @@ const { forwardRef, currentElement } = useForwardExpose()
 const providerContext = injectToastProviderContext()
 const pointerStartRef = ref<{ x: number, y: number } | null>(null)
 const swipeDeltaRef = ref<{ x: number, y: number } | null>(null)
-const duration = computed(() => props.duration || providerContext.duration.value)
+const duration = computed(
+  () => typeof props.duration === 'number'
+    ? props.duration
+    : providerContext.duration.value,
+)
 
 const closeTimerStartTimeRef = ref(0)
 const closeTimerRemainingTimeRef = ref(duration.value)

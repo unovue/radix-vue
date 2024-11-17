@@ -7,13 +7,11 @@ import type { AcceptableValue, FormFieldProps } from '@/shared/types'
 import { useVModel } from '@vueuse/core'
 import { injectCheckboxGroupRootContext } from './CheckboxGroupRoot.vue'
 
-export type AcceptableCheckboxValue = AcceptableValue | boolean | 'indeterminate'
-
-export interface CheckboxRootProps<T = AcceptableCheckboxValue> extends PrimitiveProps, FormFieldProps {
+export interface CheckboxRootProps extends PrimitiveProps, FormFieldProps {
   /** The value of the checkbox when it is initially rendered. Use when you do not need to control its value. */
-  defaultValue: T
+  defaultValue?: boolean | 'indeterminate'
   /** The controlled value of the checkbox. Can be binded with v-model. */
-  modelValue: T
+  modelValue?: boolean | 'indeterminate'
   /** When `true`, prevents the user from interacting with the checkbox */
   disabled?: boolean
   /**
@@ -25,9 +23,9 @@ export interface CheckboxRootProps<T = AcceptableCheckboxValue> extends Primitiv
   id?: string
 }
 
-export type CheckboxRootEmits<T = AcceptableCheckboxValue> = {
+export type CheckboxRootEmits = {
   /** Event handler called when the value of the checkbox changes. */
-  'update:modelValue': [value: T]
+  'update:modelValue': [value: boolean | 'indeterminate']
 }
 
 interface CheckboxRootContext {
@@ -39,7 +37,7 @@ export const [injectCheckboxRootContext, provideCheckboxRootContext]
   = createContext<CheckboxRootContext>('CheckboxRoot')
 </script>
 
-<script setup lang="ts" generic="T extends AcceptableCheckboxValue = AcceptableCheckboxValue">
+<script setup lang="ts">
 import { computed } from 'vue'
 import { Primitive } from '@/Primitive'
 import { RovingFocusItem } from '@/RovingFocus'
@@ -51,11 +49,12 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<CheckboxRootProps<T>>(), {
+const props = withDefaults(defineProps<CheckboxRootProps>(), {
+  defaultValue: false,
   value: 'on',
   as: 'button',
 })
-const emits = defineEmits<CheckboxRootEmits<T>>()
+const emits = defineEmits<CheckboxRootEmits>()
 
 defineSlots<{
   default: (props: {
@@ -70,7 +69,7 @@ const { forwardRef, currentElement } = useForwardExpose()
 
 const checkboxGroupContext = injectCheckboxGroupRootContext(null)
 
-const modelValue = useVModel<CheckboxRootProps<T>, 'modelValue', 'update:modelValue'>(props, 'modelValue', emits, {
+const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
   passive: (props.modelValue === undefined) as false,
 }) as Ref<CheckedState>

@@ -66,7 +66,11 @@ const { forwardRef, currentElement } = useForwardExpose()
 const providerContext = injectToastProviderContext()
 const pointerStartRef = ref<{ x: number, y: number } | null>(null)
 const swipeDeltaRef = ref<{ x: number, y: number } | null>(null)
-const duration = computed(() => props.duration || providerContext.duration.value)
+const duration = computed(
+  () => typeof props.duration === 'number'
+    ? props.duration
+    : providerContext.duration.value,
+)
 
 const closeTimerStartTimeRef = ref(0)
 const closeTimerRemainingTimeRef = ref(duration.value)
@@ -79,7 +83,7 @@ const remainingRaf = useRafFn(() => {
 }, { fpsLimit: 60 })
 
 function startTimer(duration: number) {
-  if (!duration || duration === Number.POSITIVE_INFINITY)
+  if (duration <= 0 || duration === Number.POSITIVE_INFINITY)
     return
   // startTimer is used inside a watch with immediate set to true.
   // This results in code execution during SSR.

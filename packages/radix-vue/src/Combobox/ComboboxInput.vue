@@ -88,6 +88,8 @@ function handleInput(event: Event) {
     @keydown.down.up.prevent="handleKeyDown"
     @keydown.enter="rootContext.onInputEnter"
     @keydown.home.end.prevent="handleHomeEnd"
+    @compositionstart="rootContext.onCompositionStart"
+    @compositionend="rootContext.onCompositionEnd"
   >
     <slot />
   </Primitive>

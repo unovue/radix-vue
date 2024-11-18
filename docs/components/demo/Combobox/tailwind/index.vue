@@ -4,7 +4,7 @@ import { ComboboxAnchor, ComboboxContent, ComboboxEmpty, ComboboxGroup, Combobox
 import { Icon } from '@iconify/vue'
 
 const v = ref('')
-const options = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple', '林檎']
+const options = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple', 'りんご']
 const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
 </script>
 

@@ -288,7 +288,7 @@ provideComboboxRootContext({
     if (filteredOptions.value.length && selectedValue.value && selectedElement.value instanceof Element) {
       event.preventDefault()
       event.stopPropagation()
-
+      if (event.isComposing) { return }
       selectedElement.value?.click()
     }
   },

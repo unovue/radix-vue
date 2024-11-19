@@ -19,6 +19,7 @@ Radix is an unstyled, customisable UI Library with built in accessibility for bu
 <a href="https://www.npmjs.com/package/radix-vue" target="__blank"><img src="https://img.shields.io/npm/v/radix-vue?style=flat&colorA=002438&colorB=41c399" alt="NPM version"></a>
 <a href="https://www.npmjs.com/package/radix-vue" target="__blank"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/radix-vue?flat&colorA=002438&colorB=41c399"></a>
 <a href="https://github.com/unovue/radix-vue" target="__blank"><img alt="GitHub stars" src="https://img.shields.io/github/stars/unovue/radix-vue?flat&colorA=002438&colorB=41c399"></a>
+<a href="https://gurubase.io/g/radix-vue" target="__blank"><img alt="Gurubase" src="https://img.shields.io/badge/Gurubase-Ask%20Radix%20Vue%20Guru-006BFF"></a>
 </p>
 
 <p align="center">

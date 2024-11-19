@@ -25,6 +25,8 @@ type ComboboxRootContext<T> = {
   onInputElementChange: (el: HTMLInputElement) => void
   onInputNavigation: (dir: 'up' | 'down' | 'home' | 'end') => void
   onInputEnter: (event: InputEvent) => void
+  onCompositionStart: () => void
+  onCompositionEnd: () => void
   selectedValue: Ref<T | undefined>
   selectedElement: ComputedRef<HTMLElement | undefined>
   onSelectedValueChange: (val: T) => void
@@ -246,6 +248,24 @@ function focusOnSelectedElement() {
     selectedElement.value.focus()
 }
 
+const isComposing = ref(false)
+function onCompositionStart() {
+  isComposing.value = true
+}
+function onCompositionEnd() {
+  requestAnimationFrame(() => {
+    isComposing.value = false
+  })
+}
+async function onInputEnter(event: InputEvent) {
+  if (filteredOptions.value.length && selectedValue.value && selectedElement.value instanceof Element) {
+    event.preventDefault()
+    event.stopPropagation()
+    if (!isComposing.value)
+      selectedElement.value?.click()
+  }
+}
+
 provideComboboxRootContext({
   searchTerm,
   modelValue,
@@ -284,14 +304,9 @@ provideComboboxRootContext({
 
     nextTick(() => inputElement.value?.focus({ preventScroll: true }))
   },
-  onInputEnter: async (event) => {
-    if (filteredOptions.value.length && selectedValue.value && selectedElement.value instanceof Element) {
-      event.preventDefault()
-      event.stopPropagation()
-
-      selectedElement.value?.click()
-    }
-  },
+  onInputEnter,
+  onCompositionEnd,
+  onCompositionStart,
   selectedValue,
   onSelectedValueChange: val => selectedValue.value = val as T,
   parentElement,

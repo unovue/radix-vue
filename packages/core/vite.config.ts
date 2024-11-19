@@ -58,7 +58,7 @@ export default defineConfig({
         // It creates a lot of unwanted files because of the multiple sections of SFC files
         manualChunks: (moduleId, meta) => {
           const info = meta.getModuleInfo(moduleId)
-          if (!info.isIncluded) {
+          if (!info?.isIncluded) {
             // Don't create empty chunks
             return null
           }

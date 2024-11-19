@@ -11,10 +11,9 @@
   "dependencies": {
     "@internationalized/date": "^3.5.6",
     "@internationalized/number": "^3.5.3",
-    "reka-ui": "link:../../packages/core"
+    "reka-ui": "file:../../packages/core"
   },
   "devDependencies": {
-    "@floating-ui/vue": "^1.1.5",
     "@iconify/vue": "^4.1.2",
     "@nuxt/devtools": "latest",
     "@nuxtjs/tailwindcss": "^6.12.1",

@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0-alpha.4",
   "description": "Vue port for Radix UI Primitives.",
-  "author": "UnoVue Contributors (https://github.com/radix-vue)",
+  "author": "UnoVue Contributors (https://github.com/unovue)",
   "license": "MIT",
   "homepage": "https://github.com/unovue/radix-vue",
   "repository": {

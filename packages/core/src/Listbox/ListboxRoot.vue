@@ -30,6 +30,8 @@ type ListboxRootContext<T> = {
   onKeydownNavigation: (event: KeyboardEvent) => void
   onKeydownEnter: (event: KeyboardEvent) => void
   onKeydownTypeAhead: (event: KeyboardEvent) => void
+  onCompositionStart: () => void
+  onCompositionEnd: () => void
   highlightFirstItem: (event: InputEvent) => void
 }
 
@@ -143,6 +145,7 @@ function onValueChange(val: T) {
 const highlightedElement = ref<HTMLElement | null>(null)
 const previousElement = ref<HTMLElement | null>(null)
 const isVirtual = ref(false)
+const isComposing = ref(false)
 const virtualFocusHook = createEventHook<Event | null | undefined>()
 const virtualKeydownHook = createEventHook<KeyboardEvent>()
 const virtualHighlightHook = createEventHook<T>()
@@ -183,7 +186,9 @@ function onKeydownEnter(event: KeyboardEvent) {
     event.preventDefault()
     event.stopPropagation()
 
-    highlightedElement.value.click()
+    if (!isComposing.value) {
+      highlightedElement.value.click()
+    }
   }
 }
 
@@ -211,6 +216,15 @@ function onKeydownTypeAhead(event: KeyboardEvent) {
   setTimeout(() => {
     isUserAction.value = false
   }, 1)
+}
+
+function onCompositionStart() {
+  isComposing.value = true
+}
+function onCompositionEnd() {
+  requestAnimationFrame(() => {
+    isComposing.value = false
+  })
 }
 
 function highlightFirstItem() {
@@ -359,6 +373,8 @@ provideListboxRootContext({
   onKeydownEnter,
   onKeydownNavigation,
   onKeydownTypeAhead,
+  onCompositionStart,
+  onCompositionEnd,
   highlightFirstItem,
 })
 </script>

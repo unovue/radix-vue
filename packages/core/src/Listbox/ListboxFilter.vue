@@ -66,8 +66,11 @@ onMounted(() => {
     @keydown.enter="rootContext.onKeydownEnter"
     @input="(event: InputEvent) => {
       modelValue = (event.target as HTMLInputElement).value
+      console.log(modelValue, event)
       rootContext.highlightFirstItem(event)
     }"
+    @compositionstart="rootContext.onCompositionStart"
+    @compositionend="rootContext.onCompositionEnd"
   >
     <slot :model-value="modelValue" />
   </Primitive>

@@ -169,7 +169,7 @@ function filterItems() {
   filterState.filtered.count = itemCount
 }
 
-watch(() => filterState.search, () => {
+watch([() => filterState.search, () => allItems.value.size], () => {
   filterItems()
 }, { immediate: true })
 
@@ -180,10 +180,6 @@ watch(() => open.value, () => {
       filterItems()
   })
 }, { flush: 'post' })
-
-watch(() => allItems.value.size, (val) => {
-  filterItems()
-})
 
 defineExpose({
   highlightedElement,

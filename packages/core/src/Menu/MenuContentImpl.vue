@@ -315,6 +315,7 @@ provideMenuContentContext({
           :collision-padding="collisionPadding"
           :arrow-padding="arrowPadding"
           :prioritize-position="prioritizePosition"
+          :position-strategy="positionStrategy"
           :sticky="sticky"
           :hide-when-detached="hideWhenDetached"
           @keydown="handleKeyDown"

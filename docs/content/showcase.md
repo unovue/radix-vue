@@ -66,4 +66,9 @@ starters:
     url: https://shadcn-docs.nuxt.dev/
     image: https://github.com/ZTL-UwU/shadcn-docs-nuxt/assets/49156174/b317288d-092d-4656-af5e-54034351daca
 
+ - title: Origin UI Vue
+    description: Beautiful UI components built with Tailwind CSS and Radix Vue
+    url: https://shadcn-docs.nuxt.dev/
+    image: https://github.com/ZTL-UwU/shadcn-docs-nuxt/assets/49156174/b317288d-092d-4656-af5e-54034351daca
+
 ---

@@ -169,7 +169,7 @@ function filterItems() {
   filterState.filtered.count = itemCount
 }
 
-watch(() => filterState.search, () => {
+watch([() => filterState.search, () => allItems.value.size], () => {
   filterItems()
 }, { immediate: true })
 

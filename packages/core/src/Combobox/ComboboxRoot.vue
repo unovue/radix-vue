@@ -182,6 +182,7 @@ watch(() => open.value, () => {
 }, { flush: 'post' })
 
 defineExpose({
+  filterState,
   highlightedElement,
   highlightItem: primitiveElement.value?.highlightItem,
   highlightFirstItem: primitiveElement.value?.highlightFirstItem,

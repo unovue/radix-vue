@@ -1,13 +1,8 @@
-name: Publish Merged PR
-on:
-  pull_request:
-    types: [closed]
-    paths:
-      - 'packages/**'
+name: Publish Any Commit (v2)
+on: [push, pull_request]
 
 jobs:
-  after_merge:
-    if: github.event.pull_request.merged == true
+  build:
     runs-on: ubuntu-latest
 
     steps:

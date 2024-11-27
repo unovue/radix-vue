@@ -37,7 +37,7 @@ const groupContext = injectComboboxGroupContext(null)
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
-if (!props.value) {
+if (props.value === '') {
   throw new Error(
     'A <ComboboxItem /> must have a value prop that is not an empty string. This is because the Combobox value can be set to an empty string to clear the selection and show the placeholder.',
   )

@@ -24,7 +24,7 @@ import Radio from './Radio.vue'
 import { injectRadioGroupRootContext } from './RadioGroupRoot.vue'
 import { RovingFocusItem } from '@/RovingFocus'
 import { useEventListener } from '@vueuse/core'
-import isEqual from 'fast-deep-equal'
+import { isEqual } from 'ohash'
 
 defineOptions({
   inheritAttrs: false,

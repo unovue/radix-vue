@@ -1,4 +1,4 @@
-import isEqual from 'fast-deep-equal'
+import { isEqual } from 'ohash'
 
 export const OPEN_KEYS = [' ', 'Enter', 'ArrowUp', 'ArrowDown']
 export const SELECTION_KEYS = [' ', 'Enter']

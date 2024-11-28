@@ -43,7 +43,7 @@ import { Primitive } from '@/Primitive'
 import { RovingFocusItem } from '@/RovingFocus'
 import { getState, isIndeterminate } from './utils'
 import { VisuallyHiddenInput } from '@/VisuallyHidden'
-import isEqual from 'fast-deep-equal'
+import { isEqual } from 'ohash'
 
 defineOptions({
   inheritAttrs: false,

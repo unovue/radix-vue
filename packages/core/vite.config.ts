@@ -49,7 +49,6 @@ export default defineConfig({
     },
     rollupOptions: {
       external: [
-        'nanoid/non-secure',
         ...Object.keys(pkg.dependencies ?? {}),
         ...Object.keys(pkg.peerDependencies ?? {}),
       ],

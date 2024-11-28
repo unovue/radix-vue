@@ -1,4 +1,4 @@
-import isEqual from 'fast-deep-equal'
+import { isEqual } from 'ohash'
 import { isNullish } from './nullish'
 
 /**

@@ -98,8 +98,6 @@ const controlledRtlMulti = ref([10, 30])
       </SliderRoot>
     </Variant>
 
-    <Variant title="" />
-
     <Variant title="Controlled">
       <SliderRoot
         v-model="controlledLtr"

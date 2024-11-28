@@ -40,6 +40,10 @@ export function initializeSegmentValues(granularity: Granularity): SegmentValueO
   }).filter(([key]) => {
     if (key === 'literal' || key === null)
       return false
+    if (granularity === 'minute' && key === 'second')
+      return false
+    if (granularity === 'hour' && (key === 'second' || key === 'minute'))
+      return false
     if (granularity === 'day')
       return !calendarDateTimeGranularities.includes(key) && key !== 'dayPeriod'
     else return true

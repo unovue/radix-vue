@@ -193,6 +193,8 @@ function onKeydownEnter(event: KeyboardEvent) {
 }
 
 function onKeydownTypeAhead(event: KeyboardEvent) {
+  if (!focusable.value)
+    return
   isUserAction.value = true
   if (isVirtual.value) {
     virtualKeydownHook.trigger(event)

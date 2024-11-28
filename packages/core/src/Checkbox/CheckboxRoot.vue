@@ -50,7 +50,7 @@ defineOptions({
 })
 
 const props = withDefaults(defineProps<CheckboxRootProps>(), {
-  defaultValue: false,
+  modelValue: undefined,
   value: 'on',
   as: 'button',
 })
@@ -77,7 +77,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 const disabled = computed(() => checkboxGroupContext?.disabled.value || props.disabled)
 
 const checkboxState = computed<CheckedState>(() => {
-  if (checkboxGroupContext?.modelValue.value) {
+  if (checkboxGroupContext?.modelValue.value !== undefined) {
     return isValueEqualOrExist(checkboxGroupContext.modelValue.value, props.value)
   }
   else {
@@ -86,7 +86,7 @@ const checkboxState = computed<CheckedState>(() => {
 })
 
 function handleClick() {
-  if (checkboxGroupContext?.modelValue.value) {
+  if (checkboxGroupContext?.modelValue.value !== undefined) {
     const modelValueArray = [...(checkboxGroupContext.modelValue.value || [])]
     if (isValueEqualOrExist(modelValueArray, props.value)) {
       const index = modelValueArray.findIndex(i => isEqual(i, props.value))
@@ -98,7 +98,7 @@ function handleClick() {
     checkboxGroupContext.modelValue.value = modelValueArray
   }
   else {
-    return modelValue.value = isIndeterminate(modelValue.value) ? true : !modelValue.value
+    modelValue.value = isIndeterminate(modelValue.value) ? true : !modelValue.value
   }
 }
 

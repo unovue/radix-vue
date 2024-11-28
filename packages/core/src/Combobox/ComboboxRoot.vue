@@ -16,6 +16,8 @@ type ComboboxRootContext<T> = {
   contentId: string
   inputElement: Ref<HTMLInputElement | undefined>
   onInputElementChange: (el: HTMLInputElement) => void
+  triggerElement: Ref<HTMLElement | undefined>
+  onTriggerElementChange: (el: HTMLElement) => void
   highlightedElement: Ref<HTMLElement | undefined>
   parentElement: Ref<HTMLElement | undefined>
   onResetSearchTerm: EventHookOn
@@ -118,6 +120,7 @@ const resetSearchTerm = createEventHook()
 const isUserInputted = ref(false)
 const isVirtual = ref(false)
 const inputElement = ref<HTMLInputElement>()
+const triggerElement = ref<HTMLElement>()
 
 const highlightedElement = computed(() => primitiveElement.value?.highlightedElement ?? undefined)
 
@@ -182,7 +185,7 @@ watch(() => open.value, () => {
 }, { flush: 'post' })
 
 defineExpose({
-  filterState,
+  filtered: computed(() => filterState.filtered),
   highlightedElement,
   highlightItem: primitiveElement.value?.highlightItem,
   highlightFirstItem: primitiveElement.value?.highlightFirstItem,
@@ -201,6 +204,8 @@ provideComboboxRootContext({
   inputElement,
   highlightedElement,
   onInputElementChange: val => inputElement.value = val,
+  triggerElement,
+  onTriggerElementChange: val => triggerElement.value = val,
   parentElement,
   onResetSearchTerm: resetSearchTerm.on,
   allItems,

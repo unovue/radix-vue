@@ -31,7 +31,7 @@ export const [injectComboboxContentContext, provideComboboxContentContext]
 </script>
 
 <script setup lang="ts">
-import { computed, toRefs } from 'vue'
+import { computed, onMounted, onUnmounted, ref, toRefs } from 'vue'
 import { injectComboboxRootContext } from './ComboboxRoot.vue'
 import { DismissableLayer } from '@/DismissableLayer'
 import { PopperContent } from '@/Popper'
@@ -73,6 +73,23 @@ const popperStyle = {
 }
 
 provideComboboxContentContext({ position })
+
+// Handle case where input position within the content
+const isInputWithinContent = ref(false)
+onMounted(() => {
+  if (rootContext.inputElement.value) {
+    isInputWithinContent.value = currentElement.value.contains(rootContext.inputElement.value)
+    if (isInputWithinContent.value) {
+      rootContext.inputElement.value.focus()
+    }
+  }
+})
+
+onUnmounted(() => {
+  if (isInputWithinContent.value) {
+    rootContext.triggerElement.value?.focus()
+  }
+})
 </script>
 
 <template>

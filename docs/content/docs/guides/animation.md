@@ -90,9 +90,9 @@ import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPor
 
 <Callout type="tip">
 
-Futhemore, we discovered that [Motion One](https://motion.dev/vue/quick-start), a Web Animations API based animation library works perfectly with Reka UI.
+Futhemore, we discovered that [Motion Vue](https://motion.seacoly.me/), a Web Animations API based animation library works perfectly with Reka UI.
 
-Check out this [Stackblitz Demo](https://stackblitz.com/edit/hfxgtx-n6jbjp?file=src%2FApp.vue) 🤩
+Check out this [Stackblitz Demo](https://stackblitz.com/edit/hfxgtx-acph8m?file=package.json,src%2FApp.vue) 🤩
 
 </Callout>
 

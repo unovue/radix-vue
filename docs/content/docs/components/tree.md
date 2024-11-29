@@ -284,7 +284,7 @@ If the node doesn't have any children, `getChildren` should return `undefined` i
 ```vue line=22
 <script setup lang="ts">
 import { ref } from 'vue'
-import { TreeRoot } from 'radix-vue'
+import { TreeRoot } from 'reka-ui'
 
 interface FileNode {
   title: string

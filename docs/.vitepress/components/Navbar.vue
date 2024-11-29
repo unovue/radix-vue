@@ -56,7 +56,7 @@ watch(path, () => {
       :href="link.link"
       :aria-label="link.icon"
       target="_blank"
-      class="w-9 h-9 bg-transparent text-muted-foreground hover:text-foreground hover:bg-muted flex items-center justify-center rounded-lg text-xl"
+      class="w-9 h-9 bg-transparent text-muted-foreground hover:text-foreground hover:bg-muted flex items-center justify-center rounded-lg text-xl flex-shrink-0"
     >
       <Icon :icon="`simple-icons:${link.icon}`" />
     </a>

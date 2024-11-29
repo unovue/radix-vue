@@ -265,11 +265,11 @@ Virtual container to achieve list virtualization.
 
 ### Binding objects as values
 
-Unlike native HTML form controls which only allow you to provide strings as values, `radix-vue` supports binding complex objects as well.
+Unlike native HTML form controls which only allow you to provide strings as values, `reka-ui` supports binding complex objects as well.
 
 Make sure to set the `displayValue` prop to set the input value on item selection.
 
-```vue line=12,18,26
+```vue line=12,17,26
 <script setup lang="ts">
 import { ref } from 'vue'
 import { ComboboxContent, ComboboxInput, ComboboxItem, ComboboxPortal, ComboboxRoot } from 'reka-ui'
@@ -285,11 +285,8 @@ const selectedPeople = ref(people[0])
 </script>
 
 <template>
-  <ComboboxRoot
-    v-model="selectedPeople"
-    :display-value="(v) => v.name"
-  >
-    <ComboboxInput />
+  <ComboboxRoot v-model="selectedPeople">
+    <ComboboxInput :display-value="(v) => v.name" />
     <ComboboxPortal>
       <ComboboxContent>
         <ComboboxItem
@@ -337,61 +334,14 @@ const selectedPeople = ref([people[0], people[1]])
 
 ### Custom filtering
 
-Internally, `ComboboxRoot` would apply default [filter function](https://github.com/unovue/reka-ui/blob/main/packages/core/src/Combobox/ComboboxRoot.vue#L128) to filter relevant `ComboboxItem` (only apply when `modelValue` is type `string`).
+Internally, `ComboboxRoot` will filter the item based on the rendered text.
 
-However this behavior can be replaced using 2 different method.
+However, you may also provide your own custom filtering logic together with setting `ignoreFilter="false"`.
 
-#### 1. Provide `filter-function` props.
-
-```vue line=14-18,24
+```vue line=15,16,22,28
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ComboboxContent, ComboboxInput, ComboboxItem, ComboboxPortal, ComboboxRoot } from 'reka-ui'
-
-const people = [
-  { id: 1, name: 'Durward Reynolds' },
-  { id: 2, name: 'Kenton Towne' },
-  { id: 3, name: 'Therese Wunsch' },
-  { id: 4, name: 'Benedict Kessler' },
-  { id: 5, name: 'Katelyn Rohan' },
-]
-const selectedPeople = ref(people[0])
-
-function filterFunction(list: typeof people[number], searchTerm: string) {
-  return list.filter((person) => {
-    return person.name.toLowerCase().includes(searchTerm.toLowerCase())
-  })
-}
-</script>
-
-<template>
-  <ComboboxRoot
-    v-model="selectedPeople"
-    :filter-function="filterFunction"
-  >
-    <ComboboxInput />
-    <ComboboxPortal>
-      <ComboboxContent>
-        <ComboboxItem
-          v-for="person in people"
-          :key="person.id"
-          :value="person"
-          :disabled="person.unavailable"
-        >
-          {{ person.name }}
-        </ComboboxItem>
-      </ComboboxContent>
-    </ComboboxPortal>
-  </ComboboxRoot>
-</template>
-```
-
-#### 2. Filtered `v-for` options
-
-```vue line=13,15-21,27,33
-<script setup lang="ts">
-import { ref } from 'vue'
-import { ComboboxContent, ComboboxInput, ComboboxItem, ComboboxPortal, ComboboxRoot } from 'reka-ui'
+import { ComboboxContent, ComboboxInput, ComboboxItem, ComboboxPortal, ComboboxRoot, useFilter } from 'reka-ui'
 
 const people = [
   { id: 1, name: 'Durward Reynolds' },
@@ -403,28 +353,22 @@ const people = [
 const selectedPeople = ref(people[0])
 const searchTerm = ref('')
 
-const filteredPeople = computed(() =>
-  searchTerm.value === ''
-    ? people
-    : people.filter((person) => {
-      return person.name.toLowerCase().includes(searchTerm.value.toLowerCase())
-    })
-)
+const { startsWith } = useFilter({ sensitivity: 'base' })
+const filteredPeople = computed(() => people.filter(p => startsWith(p.name, searchTerm.value)))
 </script>
 
 <template>
   <ComboboxRoot
     v-model="selectedPeople"
-    v-model:search-term="searchTerm"
+    :ignore-filter="true"
   >
-    <ComboboxInput />
+    <ComboboxInput v-model="searchTerm" />
     <ComboboxPortal>
       <ComboboxContent>
         <ComboboxItem
           v-for="person in filteredPeople"
           :key="person.id"
           :value="person"
-          :disabled="person.unavailable"
         >
           {{ person.name }}
         </ComboboxItem>

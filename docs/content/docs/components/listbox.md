@@ -159,9 +159,9 @@ Virtual container to achieve list virtualization.
 
 ### Binding objects as values
 
-Unlike native HTML form controls which only allow you to provide strings as values, `radix-vue` supports binding complex objects as well.
+Unlike native HTML form controls which only allow you to provide strings as values, `reka-ui` supports binding complex objects as well.
 
-```vue line=12,16
+```vue line=12,16,21
 <script setup lang="ts">
 import { ref } from 'vue'
 import { ListboxContent, ListboxFilter, ListboxItem, ListboxRoot } from 'reka-ui'
@@ -196,7 +196,7 @@ const selectedPeople = ref(people[0])
 
 The `Listbox` component allows you to select multiple values. You can enable this by providing an array of values instead of a single value.
 
-```vue line=12,16
+```vue line=12,18
 <script setup lang="ts">
 import { ref } from 'vue'
 import { ListboxRoot } from 'reka-ui'
@@ -223,10 +223,10 @@ const selectedPeople = ref([people[0], people[1]])
 
 ### Custom filtering
 
-```vue line=13,15-21,28,31
+```vue line=13,15-16,21,24
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ListboxContent, ListboxFilter, ListboxItem, ListboxRoot } from 'reka-ui'
+import { ListboxContent, ListboxFilter, ListboxItem, ListboxRoot, useFilter } from 'reka-ui'
 
 const people = [
   { id: 1, name: 'Durward Reynolds' },
@@ -238,19 +238,12 @@ const people = [
 const selectedPeople = ref(people[0])
 const searchTerm = ref('')
 
-const filteredPeople = computed(() =>
-  searchTerm.value === ''
-    ? people
-    : people.filter((person) => {
-      return person.name.toLowerCase().includes(searchTerm.value.toLowerCase())
-    })
-)
+const { startsWith } = useFilter({ sensitivity: 'base' })
+const filteredPeople = computed(() => people.filter(p => startsWith(p.name, searchTerm.value)))
 </script>
 
 <template>
-  <ListboxRoot
-    v-model="selectedPeople"
-  >
+  <ListboxRoot v-model="selectedPeople">
     <ListboxFilter v-model="searchTerm" />
     <ListboxContent>
       <ListboxItem

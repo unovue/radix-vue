@@ -7,8 +7,6 @@ aria: https://www.w3.org/WAI/ARIA/apg/patterns/windowsplitter/
 
 # Splitter
 
-<Badge>Alpha</Badge>
-
 <Description>
 A component that divides your layout into resizable sections.
 </Description>

@@ -38,20 +38,8 @@ export default defineConfig({
     ['meta', { name: 'theme-color', content: '#00C38A' }],
     ['link', { rel: 'icon', href: '/logo.png' }],
     ['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
-    [
-      'meta',
-      {
-        name: 'author',
-        content: `${teamMembers.map(c => c.name).join(', ')} and ${rekaName} contributors`,
-      },
-    ],
-    [
-      'meta',
-      {
-        name: 'keywords',
-        content: 'vue, nuxt, component-library, radix, radix-vue, typescript',
-      },
-    ],
+    ['meta', { name: 'author', content: `${teamMembers.map(c => c.name).join(', ')} and ${rekaName} contributors` }],
+    ['meta', { name: 'keywords', content: 'vue, nuxt, component-library, radix, radix-vue, reka-ui, typescript' }],
     ['meta', { property: 'og:title', content: rekaName }],
     ['meta', { property: 'og:description', content: rekaDescription }],
     ['meta', { property: 'og:url', content: ogUrl }],

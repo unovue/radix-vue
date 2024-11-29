@@ -18,8 +18,7 @@
     'name': 'defaultValue',
     'description': '<p>The value of the checkbox when it is initially rendered. Use when you do not need to control its value.</p>\n',
     'type': 'boolean | \'indeterminate\'',
-    'required': false,
-    'default': 'false'
+    'required': false
   },
   {
     'name': 'disabled',
@@ -64,7 +63,7 @@
   {
     'name': 'update:modelValue',
     'description': '<p>Event handler called when the value of the checkbox changes.</p>\n',
-    'type': '[value: AcceptableValue]'
+    'type': '[value: boolean | \'indeterminate\']'
   }
 ]" />
 

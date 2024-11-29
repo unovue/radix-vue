@@ -8,7 +8,7 @@ In order to solve this pain point, we've introduced [Namespaced components](http
 
 ## How to use?
 
-First, you need to import the namespaced components via `radix-vue/namespaced` in your Vue component.
+First, you need to import the namespaced components via `reka-ui/namespaced` in your Vue component.
 
 ```vue line=2
 <script setup lang="ts">

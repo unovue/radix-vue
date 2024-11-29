@@ -48,7 +48,7 @@ Here's a few important note to make sure virtualization works!
 
 ```vue
 <script setup>
-import { ComboboxContent, ComboboxItem, ComboboxRoot, ComboboxViewport, ComboboxVirtualizer } from 'radix-vue'
+import { ComboboxContent, ComboboxItem, ComboboxRoot, ComboboxViewport, ComboboxVirtualizer } from 'reka-ui'
 
 const items = [
   // … large array of items

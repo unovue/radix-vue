@@ -7,8 +7,6 @@ name: pin-input
 
 # Pin Input
 
-<Badge>Alpha</Badge>
-
 <Description>
 A sequence of one-character alphanumeric inputs.
 </Description>

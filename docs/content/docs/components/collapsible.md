@@ -172,6 +172,24 @@ import './styles.css'
 }
 ```
 
+### Render content even when collapsed
+
+By default hidden content will be removed, use `:unmountOnHide="false"` to keep the content always available.
+
+This will also allow browser to search the hidden text, and open the collapsible.
+
+```vue line=6
+<script setup>
+import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from 'reka-ui'
+</script>
+
+<template>
+  <CollapsibleRoot :unmount-on-hide="false">
+    …
+  </CollapsibleRoot>
+</template>
+```
+
 ## Accessibility
 
 Adheres to the [Disclosure WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure).

@@ -6,8 +6,6 @@ name: tags-input
 
 # Tags Input
 
-<Badge>Alpha</Badge>
-
 <Description>
 Tag inputs render tags inside an input, followed by an actual text input.
 </Description>
@@ -186,7 +184,7 @@ You can pass `RegExp` as `delimiter` to allow multiple characters to trigger add
 
 ```vue line=4-5,11
 <script setup lang="ts">
-import { TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText, TagsInputRoot } from 'radix-vue'
+import { TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText, TagsInputRoot } from 'reka-ui'
 
 // split by space, comma, semicolon, tab, or newline
 const delimiter = /[ ,;\t\n\r]+/

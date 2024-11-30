@@ -30,6 +30,7 @@ type CalendarRootContext = {
   parentElement: Ref<HTMLElement | undefined>
   headingValue: Ref<string>
   isInvalid: Ref<boolean>
+  enableSwipe: Ref<boolean>
   isDateDisabled: Matcher
   isDateSelected: Matcher
   isDateUnavailable?: Matcher
@@ -61,6 +62,8 @@ interface BaseCalendarRootProps extends PrimitiveProps {
   calendarLabel?: string
   /** Whether or not to always display 6 weeks in the calendar */
   fixedWeeks?: boolean
+  /** Indicates if swipe functionality is enabled for the calendar */
+  enableSwipe?: boolean
   /** The maximum date that can be selected */
   maxValue?: DateValue
   /** The minimum date that can be selected */
@@ -115,7 +118,7 @@ export const [injectCalendarRootContext, provideCalendarRootContext]
 </script>
 
 <script setup lang="ts">
-import { onMounted, toRefs, watch } from 'vue'
+import { onMounted, ref, toRefs, watch } from 'vue'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 
@@ -131,6 +134,7 @@ const props = withDefaults(defineProps<CalendarRootProps>(), {
   numberOfMonths: 1,
   disabled: false,
   readonly: false,
+  enableSwipe: false,
   initialFocus: false,
   placeholder: undefined,
   locale: 'en',
@@ -164,6 +168,8 @@ const {
   weekStartsOn,
   weekdayFormat,
   fixedWeeks,
+  enableSwipe,
+
   multiple,
   minValue,
   maxValue,
@@ -241,6 +247,9 @@ const {
   isDateUnavailable,
 })
 
+const pointerStartRef = ref<{ x: number } | null>(null)
+const actionTriggered = ref(false)
+
 watch(modelValue, (_modelValue) => {
   if (Array.isArray(_modelValue) && _modelValue.length) {
     const lastValue = _modelValue[_modelValue.length - 1]
@@ -304,6 +313,7 @@ provideCalendarRootContext({
   weekStartsOn,
   weekdayFormat,
   fixedWeeks,
+  enableSwipe,
   multiple,
   numberOfMonths,
   readonly,
@@ -334,6 +344,43 @@ provideCalendarRootContext({
     :data-disabled="disabled ? '' : undefined"
     :data-invalid="isInvalid ? '' : undefined"
     :dir="dir"
+
+    @pointerdown.left="(event: PointerEvent) => {
+      pointerStartRef = { x: event.clientX };
+    }"
+
+    @pointermove="(event: PointerEvent) => {
+      if (!pointerStartRef || !enableSwipe) return
+
+      const delta = event.clientX - pointerStartRef.x;
+      const isSwipeRight = delta > 0
+
+      const clamp = isSwipeRight ? Math.max : Math.min
+
+      const limitedDeltaX = clamp(0, delta);
+      const moveStartBuffer = event.pointerType === 'touch' ? 10 : 2;
+
+      const isSwipeSignificant = (range: number, threshold: number) => {
+        return Math.abs(range) > threshold;
+      }
+
+      if (isSwipeSignificant(limitedDeltaX, moveStartBuffer)) {
+        if (!actionTriggered) {
+          if (limitedDeltaX > 0) prevPage('month')
+          else nextPage('month')
+          actionTriggered = true;
+          pointerStartRef = null;
+        }
+      }
+      else {
+        pointerStartRef = null;
+      }
+    }"
+
+    @pointerup="() => {
+      pointerStartRef = null;
+      actionTriggered = false
+    }"
   >
     <slot
       :date="placeholder"

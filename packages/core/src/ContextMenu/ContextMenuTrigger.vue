@@ -13,7 +13,7 @@ export interface ContextMenuTriggerProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { computed, nextTick, ref, toRefs } from 'vue'
+import { computed, nextTick, onMounted, ref, toRefs } from 'vue'
 import { injectContextMenuRootContext } from './ContextMenuRoot.vue'
 import { isTouchOrPen } from './utils'
 import { useForwardExpose } from '@/shared'
@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<ContextMenuTriggerProps>(), {
 })
 const { disabled } = toRefs(props)
 
-const { forwardRef } = useForwardExpose()
+const { forwardRef, currentElement } = useForwardExpose()
 const rootContext = injectContextMenuRootContext()
 const point = ref<Point>({ x: 0, y: 0 })
 const virtualEl = computed(() => ({
@@ -86,6 +86,12 @@ async function handlePointerEvent(event: PointerEvent) {
       clearLongPress()
   }
 }
+
+onMounted(() => {
+  if (currentElement.value) {
+    rootContext.triggerElement.value = currentElement.value
+  }
+})
 </script>
 
 <template>
@@ -102,6 +108,7 @@ async function handlePointerEvent(event: PointerEvent) {
     :data-disabled="disabled ? '' : undefined"
     :style="{
       WebkitTouchCallout: 'none',
+      pointerEvents: 'auto',
     }"
     v-bind="$attrs"
     @contextmenu="handleContextMenu"

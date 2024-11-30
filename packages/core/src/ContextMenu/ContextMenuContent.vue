@@ -66,6 +66,11 @@ const hasInteractedOutside = ref(false)
     "
     @interact-outside="
       (event) => {
+        const originalEvent = event.detail.originalEvent as PointerEvent
+        // Prevent closing when right click (button=2) with the trigger element
+        if (originalEvent.button === 2 && event.target === rootContext.triggerElement.value) {
+          event.preventDefault()
+        }
         if (!event.defaultPrevented && !rootContext.modal.value)
           hasInteractedOutside = true;
       }

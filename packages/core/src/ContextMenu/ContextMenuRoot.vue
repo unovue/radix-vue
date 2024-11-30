@@ -9,6 +9,7 @@ type ContextMenuRootContext = {
   onOpenChange: (open: boolean) => void
   modal: Ref<boolean>
   dir: Ref<Direction>
+  triggerElement: Ref<HTMLElement | undefined>
 }
 
 export interface ContextMenuRootProps extends Omit<MenuProps, 'open'> {}
@@ -35,6 +36,7 @@ useForwardExpose()
 const dir = useDirection(propDir)
 
 const open = ref(false)
+const triggerElement = ref<HTMLElement>()
 
 provideContextMenuRootContext({
   open,
@@ -43,6 +45,7 @@ provideContextMenuRootContext({
   },
   dir,
   modal,
+  triggerElement,
 })
 
 watch(open, (value) => {

@@ -39,7 +39,7 @@ export function syncSegmentValues(props: SyncDateSegmentValuesProps) {
   return Object.fromEntries(dateValues) as SegmentValueObj
 }
 
-export function initializeTimeSegmentValues(): SegmentValueObj {
+export function initializeTimeSegmentValues(granularity: 'hour' | 'minute' | 'second'): SegmentValueObj {
   return Object.fromEntries(
     TIME_SEGMENT_PARTS.map((part) => {
       if (part === 'dayPeriod')
@@ -47,6 +47,10 @@ export function initializeTimeSegmentValues(): SegmentValueObj {
       return [part, null]
     }).filter(([key]) => {
       if (key === 'literal' || key === null)
+        return false
+      if (granularity === 'minute' && key === 'second')
+        return false
+      if (granularity === 'hour' && (key === 'second' || key === 'minute'))
         return false
       else return true
     }),
@@ -61,6 +65,10 @@ export function initializeSegmentValues(granularity: Granularity): SegmentValueO
     return [part, null]
   }).filter(([key]) => {
     if (key === 'literal' || key === null)
+      return false
+    if (granularity === 'minute' && key === 'second')
+      return false
+    if (granularity === 'hour' && (key === 'second' || key === 'minute'))
       return false
     if (granularity === 'day')
       return !calendarDateTimeGranularities.includes(key) && key !== 'dayPeriod'

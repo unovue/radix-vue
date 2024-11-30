@@ -12,6 +12,7 @@ const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
     v-slot="{ weekDays, grid }"
     :is-date-unavailable="isDateUnavailable"
     class="mt-6 rounded-xl bg-white p-4 shadow-md"
+    enable-swipe
     fixed-weeks
   >
     <CalendarHeader class="flex items-center justify-between">

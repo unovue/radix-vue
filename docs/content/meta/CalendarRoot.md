@@ -46,6 +46,13 @@
     'default': 'false'
   },
   {
+    'name': 'enableSwipe',
+    'description': '<p>Determines whether swipe navigation is enabled in the calendar. When set to true, users can navigate between months by swiping left or right.</p>\n',
+    'type': 'boolean',
+    'required': false,
+    'default': 'false'
+  },
+  {
     'name': 'fixedWeeks',
     'description': '<p>Whether or not to always display 6 weeks in the calendar</p>\n',
     'type': 'boolean',

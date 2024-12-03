@@ -40,7 +40,7 @@
   },
   {
     'name': 'expanded',
-    'description': '<p>The controlled value of the expanded item. Can be binded-with with <code>v-model</code>.</p>\n',
+    'description': '<p>The controlled value of the expanded item. Can be binded with with <code>v-model</code>.</p>\n',
     'type': 'string[]',
     'required': false
   },
@@ -65,7 +65,7 @@
   },
   {
     'name': 'modelValue',
-    'description': '<p>The controlled value of the tree. Can be binded-with with <code>v-model</code>.</p>\n',
+    'description': '<p>The controlled value of the tree. Can be binded with with <code>v-model</code>.</p>\n',
     'type': 'Record<string, any> | Record<string, any>[]',
     'required': false
   },

@@ -48,17 +48,17 @@ export type ComboboxRootEmits<T = AcceptableValue> = {
 }
 
 export interface ComboboxRootProps<T = AcceptableValue> extends PrimitiveProps {
-  /** The controlled value of the Combobox. Can be binded-with with `v-model`. */
+  /** The controlled value of the Combobox. Can be binded with with `v-model`. */
   modelValue?: T | Array<T>
   /** The value of the combobox when initially rendered. Use when you do not need to control the state of the Combobox */
   defaultValue?: T | Array<T>
-  /** The controlled open state of the Combobox. Can be binded-with with `v-model:open`. */
+  /** The controlled open state of the Combobox. Can be binded with with `v-model:open`. */
   open?: boolean
   /** The open state of the combobox when it is initially rendered. <br> Use when you do not need to control its open state. */
   defaultOpen?: boolean
-  /** The controlled search term of the Combobox. Can be binded-with with v-model:searchTerm. */
+  /** The controlled search term of the Combobox. Can be binded with with v-model:searchTerm. */
   searchTerm?: string
-  /** The current highlighted value of the COmbobox. Can be binded-with `v-model:selectedValue`. */
+  /** The current highlighted value of the COmbobox. Can be binded with `v-model:selectedValue`. */
   selectedValue?: T
   /** Whether multiple options can be selected or not. */
   multiple?: boolean

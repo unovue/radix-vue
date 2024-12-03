@@ -52,7 +52,7 @@
   },
   {
     'name': 'modelValue',
-    'description': '<p>The controlled value of the Combobox. Can be binded-with with <code>v-model</code>.</p>\n',
+    'description': '<p>The controlled value of the Combobox. Can be binded with with <code>v-model</code>.</p>\n',
     'type': 'AcceptableValue | AcceptableValue[]',
     'required': false
   },
@@ -70,7 +70,7 @@
   },
   {
     'name': 'open',
-    'description': '<p>The controlled open state of the Combobox. Can be binded-with with <code>v-model:open</code>.</p>\n',
+    'description': '<p>The controlled open state of the Combobox. Can be binded with with <code>v-model:open</code>.</p>\n',
     'type': 'boolean',
     'required': false
   },
@@ -83,13 +83,13 @@
   },
   {
     'name': 'searchTerm',
-    'description': '<p>The controlled search term of the Combobox. Can be binded-with with v-model:searchTerm.</p>\n',
+    'description': '<p>The controlled search term of the Combobox. Can be binded with with v-model:searchTerm.</p>\n',
     'type': 'string',
     'required': false
   },
   {
     'name': 'selectedValue',
-    'description': '<p>The current highlighted value of the COmbobox. Can be binded-with <code>v-model:selectedValue</code>.</p>\n',
+    'description': '<p>The current highlighted value of the COmbobox. Can be binded with <code>v-model:selectedValue</code>.</p>\n',
     'type': 'AcceptableValue',
     'required': false
   }

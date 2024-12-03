@@ -1,4 +1,4 @@
-import isEqual from 'fast-deep-equal'
+import { dequal } from 'dequal'
 
 export function queryCheckedElement(parentEl: HTMLElement | null) {
   return parentEl?.querySelector('[data-state=checked]') as HTMLElement | null
@@ -26,5 +26,5 @@ export function compare<T>(value?: T, currentValue?: T, comparator?: string | ((
   if (typeof comparator === 'string')
     return value?.[comparator as keyof T] === currentValue?.[comparator as keyof T]
 
-  return isEqual(value, currentValue)
+  return dequal(value, currentValue)
 }

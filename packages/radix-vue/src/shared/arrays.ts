@@ -1,4 +1,4 @@
-import isEqual from 'fast-deep-equal'
+import { dequal } from 'dequal'
 
 /**
  * The function `areEqual` compares two arrays and returns true if they are equal in length and have
@@ -55,8 +55,8 @@ export function chunk<T>(arr: T[], size: number): T[][] {
  * found in the input array, an empty array is returned.
  */
 export function findValuesBetween<T>(array: T[], start: T, end: T) {
-  const startIndex = array.findIndex(i => isEqual(i, start))
-  const endIndex = array.findIndex(i => isEqual(i, end))
+  const startIndex = array.findIndex(i => dequal(i, start))
+  const endIndex = array.findIndex(i => dequal(i, end))
   if (startIndex === -1 || endIndex === -1)
     return []
 

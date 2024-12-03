@@ -40,7 +40,7 @@ import {
   Primitive,
 } from '@/Primitive'
 import { CollectionItem } from '@/Collection'
-import isEqual from 'fast-deep-equal'
+import { dequal } from 'dequal'
 
 const props = defineProps<ComboboxItemProps<T>>()
 const emits = defineEmits<ComboboxItemEmits<T>>()
@@ -53,18 +53,18 @@ const { forwardRef } = useForwardExpose()
 
 const isSelected = computed(() =>
   rootContext.multiple.value && Array.isArray(rootContext.modelValue.value)
-    ? rootContext.modelValue.value?.some(val => isEqual(val, props.value))
-    : isEqual(rootContext.modelValue?.value, props.value),
+    ? rootContext.modelValue.value?.some(val => dequal(val, props.value))
+    : dequal(rootContext.modelValue?.value, props.value),
 )
 
-const isFocused = computed(() => isEqual(rootContext.selectedValue.value, props.value))
+const isFocused = computed(() => dequal(rootContext.selectedValue.value, props.value))
 const textId = useId(undefined, 'radix-vue-combobox-item')
 const optionId = useId(undefined, 'radix-vue-combobox-option')
 
 const isInOption = computed(() =>
   rootContext.isUserInputted.value
     ? rootContext.searchTerm.value === ''
-    || !!rootContext.filteredOptions.value.find(i => isEqual(i, props.value))
+    || !!rootContext.filteredOptions.value.find(i => dequal(i, props.value))
     : true)
 
 async function handleSelect(ev: SelectEvent<T>) {

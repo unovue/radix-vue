@@ -86,7 +86,7 @@ import { PopperRoot } from '@/Popper'
 import { Primitive } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 import { VisuallyHiddenInput } from '@/VisuallyHidden'
-import isEqual from 'fast-deep-equal'
+import { dequal } from 'dequal'
 
 const props = withDefaults(defineProps<ComboboxRootProps<T>>(), {
   open: undefined,
@@ -154,7 +154,7 @@ async function onOpenChange(val: boolean) {
 
 function onValueChange(val: T) {
   if (Array.isArray(modelValue.value) && multiple.value) {
-    const index = modelValue.value.findIndex(i => isEqual(i, val))
+    const index = modelValue.value.findIndex(i => dequal(i, val))
     const modelArray = [...modelValue.value]
     index === -1 ? modelArray.push(val) : modelArray.splice(index, 1)
     modelValue.value = modelArray
@@ -208,9 +208,9 @@ function resetSearchTerm() {
   }
 }
 
-const activeIndex = computed(() => filteredOptions.value.findIndex(i => isEqual(i, selectedValue.value)))
+const activeIndex = computed(() => filteredOptions.value.findIndex(i => dequal(i, selectedValue.value)))
 const selectedElement = computed(() => {
-  return reactiveItems.value.find(i => isEqual(i.value, selectedValue.value))?.ref
+  return reactiveItems.value.find(i => dequal(i.value, selectedValue.value))?.ref
 })
 
 const stringifiedModelValue = computed(() => JSON.stringify(modelValue.value))

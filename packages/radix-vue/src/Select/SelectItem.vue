@@ -54,6 +54,7 @@ const isSelected = computed(() => rootContext.modelValue?.value === props.value)
 const isFocused = ref(false)
 const textValue = ref(props.textValue ?? '')
 const textId = useId(undefined, 'radix-vue-select-item-text')
+const pointerTypeRef = ref<PointerEvent['pointerType']>('touch')
 
 async function handleSelect(ev?: PointerEvent) {
   await nextTick()
@@ -70,6 +71,9 @@ async function handlePointerMove(event: PointerEvent) {
   await nextTick()
   if (event.defaultPrevented)
     return
+
+  pointerTypeRef.value = event.pointerType
+
   if (disabled.value) {
     contentContext.onItemLeave?.()
   }
@@ -84,8 +88,9 @@ async function handlePointerLeave(event: PointerEvent) {
   await nextTick()
   if (event.defaultPrevented)
     return
-  if (event.currentTarget === document.activeElement)
+  if (event.currentTarget === document.activeElement) {
     contentContext.onItemLeave?.()
+  }
 }
 
 async function handleKeyDown(event: KeyboardEvent) {
@@ -145,11 +150,19 @@ provideSelectItemContext({
     :as-child="asChild"
     @focus="isFocused = true"
     @blur="isFocused = false"
-    @pointerup="handleSelect"
-    @pointerdown="(event) => {
-      (event.currentTarget as HTMLElement).focus({ preventScroll: true })
+    @click="() => {
+      if (pointerTypeRef !== 'mouse') {
+        handleSelect()
+      }
     }"
-    @touchend.prevent.stop
+    @pointerup="() => {
+      if (pointerTypeRef === 'mouse') {
+        handleSelect()
+      }
+    }"
+    @pointerdown="(event) => {
+      pointerTypeRef = event.pointerType;
+    }"
     @pointermove="handlePointerMove"
     @pointerleave="handlePointerLeave"
     @keydown="handleKeyDown"

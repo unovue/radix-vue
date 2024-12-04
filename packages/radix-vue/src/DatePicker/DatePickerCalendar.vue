@@ -6,6 +6,8 @@ import { injectDatePickerRootContext } from './DatePickerRoot.vue'
 
 <script setup lang="ts">
 const rootContext = injectDatePickerRootContext()
+
+console.log(rootContext)
 </script>
 
 <template>

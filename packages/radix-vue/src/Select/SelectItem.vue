@@ -74,7 +74,7 @@ function handlePointerMove(event: PointerEvent) {
   if (disabled.value) {
     contentContext.onItemLeave?.()
   }
-  else {
+  else if (pointerTypeRef.value === 'mouse') {
     // even though safari doesn't support this option, it's acceptable
     // as it only means it might scroll a few pixels when using the pointer.
     (event.currentTarget as HTMLElement).focus({ preventScroll: true })

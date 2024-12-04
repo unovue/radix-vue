@@ -46,9 +46,12 @@ function handleOpen() {
 
 function handlePointerOpen(event: PointerEvent) {
   handleOpen()
-  rootContext.triggerPointerDownPosRef.value = {
-    x: Math.round(event.pageX),
-    y: Math.round(event.pageY),
+
+  if (event) {
+    rootContext.triggerPointerDownPosRef.value = {
+      x: Math.round(event.pageX),
+      y: Math.round(event.pageY),
+    }
   }
 }
 </script>

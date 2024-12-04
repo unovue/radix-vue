@@ -56,7 +56,10 @@ function handlePointerUp() {
   }, 100)
 }
 
-function handlePointerDown() {
+function handlePointerDown(e: PointerEvent) {
+  if (e.pointerType === 'mouse')
+    return
+
   isPointerDown.value = true
   document.addEventListener('pointerup', handlePointerUp, { once: true })
 }

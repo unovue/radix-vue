@@ -33,7 +33,6 @@ export interface SelectItemProps extends PrimitiveProps {
 <script setup lang="ts">
 import {
   computed,
-  nextTick,
   onMounted,
   ref,
   toRefs,
@@ -56,8 +55,7 @@ const textValue = ref(props.textValue ?? '')
 const textId = useId(undefined, 'radix-vue-select-item-text')
 const pointerTypeRef = ref<PointerEvent['pointerType']>('touch')
 
-async function handleSelect(ev?: PointerEvent) {
-  await nextTick()
+function handleSelect(ev?: PointerEvent) {
   if (ev?.defaultPrevented)
     return
 
@@ -67,8 +65,7 @@ async function handleSelect(ev?: PointerEvent) {
   }
 }
 
-async function handlePointerMove(event: PointerEvent) {
-  await nextTick()
+function handlePointerMove(event: PointerEvent) {
   if (event.defaultPrevented)
     return
 
@@ -84,8 +81,7 @@ async function handlePointerMove(event: PointerEvent) {
   }
 }
 
-async function handlePointerLeave(event: PointerEvent) {
-  await nextTick()
+function handlePointerLeave(event: PointerEvent) {
   if (event.defaultPrevented)
     return
   if (event.currentTarget === document.activeElement) {
@@ -93,8 +89,7 @@ async function handlePointerLeave(event: PointerEvent) {
   }
 }
 
-async function handleKeyDown(event: KeyboardEvent) {
-  await nextTick()
+function handleKeyDown(event: KeyboardEvent) {
   if (event.defaultPrevented)
     return
   const isTypingAhead = contentContext.searchRef?.value !== ''

@@ -27,27 +27,29 @@ const props = defineProps<NavigationMenuIndicatorProps>()
 const { forwardRef } = useForwardExpose()
 const menuContext = injectNavigationMenuContext()
 
-const position = ref<{ size: number, offset: number }>()
+const indicatorStyle = ref<{ size: number, position: number }>()
 const isHorizontal = computed(() => menuContext.orientation === 'horizontal')
 const isVisible = computed(() => !!menuContext.modelValue.value)
 const { activeTrigger } = menuContext
 
 function handlePositionChange() {
-  if (activeTrigger.value) {
-    position.value = {
-      size: isHorizontal.value
-        ? activeTrigger.value.offsetWidth
-        : activeTrigger.value.offsetHeight,
-      offset: isHorizontal.value
-        ? activeTrigger.value.offsetLeft
-        : activeTrigger.value.offsetTop,
-    }
+  if (!activeTrigger.value) {
+    return
+  }
+
+  indicatorStyle.value = {
+    size: isHorizontal.value
+      ? activeTrigger.value.offsetWidth
+      : activeTrigger.value.offsetHeight,
+    position: isHorizontal.value
+      ? activeTrigger.value.offsetLeft
+      : activeTrigger.value.offsetTop,
   }
 }
 
 watchEffect(() => {
   if (!menuContext.modelValue.value) {
-    position.value = undefined
+    indicatorStyle.value = undefined
     return
   }
   handlePositionChange()
@@ -62,7 +64,7 @@ useResizeObserver(menuContext.indicatorTrack, handlePositionChange)
     v-if="menuContext.indicatorTrack.value"
     :to="menuContext.indicatorTrack.value"
   >
-    <Presence :present="(forceMount || isVisible) && !!position?.size">
+    <Presence :present="(forceMount || isVisible) && !!indicatorStyle?.size">
       <Primitive
         :ref="forwardRef"
         aria-hidden="true"
@@ -71,18 +73,10 @@ useResizeObserver(menuContext.indicatorTrack, handlePositionChange)
         :as-child="props.asChild"
         :as="as"
         :style="{
-          position: 'absolute',
-          ...(isHorizontal
-            ? {
-              left: 0,
-              width: `${position?.size}px`,
-              transform: `translateX(${position?.offset}px)`,
-            }
-            : {
-              top: 0,
-              height: `${position?.size}px`,
-              transform: `translateY(${position?.offset}px)`,
-            }),
+          ...(indicatorStyle ? {
+            '--reka-navigation-menu-indicator-size': `${indicatorStyle.size}px`,
+            '--reka-navigation-menu-indicator-position': `${indicatorStyle.position}px`,
+          } : {}),
         }"
         v-bind="$attrs"
       >

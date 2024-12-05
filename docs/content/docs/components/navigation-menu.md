@@ -179,6 +179,19 @@ Contains the content associated with each trigger.
   ]"
 />
 
+<CssVariablesTable
+  :data="[
+    {
+      cssVariable: '--reka-tabs-navigation-menu-content-size',
+      description: 'The size of the item.',
+    },
+    {
+      cssVariable: '--reka-tabs-navigation-menu-content-position',
+      description: 'The position of the item',
+    },
+  ]"
+/>
+
 ### Link
 
 A navigational link.

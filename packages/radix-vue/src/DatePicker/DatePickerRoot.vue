@@ -116,6 +116,7 @@ const defaultDate = computed(() => getDefaultDate({
   defaultPlaceholder: props.placeholder,
   granularity: props.granularity,
   defaultValue: modelValue.value,
+  locale: props.locale,
 }))
 
 const placeholder = useVModel(props, 'placeholder', emits, {

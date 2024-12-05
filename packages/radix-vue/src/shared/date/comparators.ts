@@ -2,7 +2,7 @@
   * Implementation ported from https://github.com/melt-ui/melt-ui/blob/develop/src/lib/internal/helpers/date/utils.ts
 */
 
-import { CalendarDate, CalendarDateTime, type DateValue } from '@internationalized/date'
+import { CalendarDate, CalendarDateTime, DateFormatter, type DateValue, createCalendar, toCalendar } from '@internationalized/date'
 
 export type Granularity = 'day' | 'hour' | 'minute' | 'second'
 
@@ -10,6 +10,7 @@ type GetDefaultDateProps = {
   defaultValue?: DateValue | DateValue[] | undefined
   defaultPlaceholder?: DateValue | undefined
   granularity?: Granularity
+  locale?: string
 }
 
 /**
@@ -23,7 +24,7 @@ type GetDefaultDateProps = {
  *
  */
 export function getDefaultDate(props: GetDefaultDateProps): DateValue {
-  const { defaultValue, defaultPlaceholder, granularity = 'day' } = props
+  const { defaultValue, defaultPlaceholder, granularity = 'day', locale = 'en' } = props
 
   if (Array.isArray(defaultValue) && defaultValue.length)
     return defaultValue.at(-1)!.copy()
@@ -40,8 +41,11 @@ export function getDefaultDate(props: GetDefaultDateProps): DateValue {
   const day = date.getDate()
   const calendarDateTimeGranularities = ['hour', 'minute', 'second']
 
-  if (calendarDateTimeGranularities.includes(granularity ?? 'day'))
-    return new CalendarDateTime(year, month, day, 0, 0, 0)
+  const defaultFormatter = new DateFormatter(locale)
+  const calendar = createCalendar(defaultFormatter.resolvedOptions().calendar)
 
-  return new CalendarDate(year, month, day)
+  if (calendarDateTimeGranularities.includes(granularity ?? 'day'))
+    return toCalendar(new CalendarDateTime(year, month, day, 0, 0, 0), calendar)
+
+  return toCalendar(new CalendarDate(year, month, day), calendar)
 }

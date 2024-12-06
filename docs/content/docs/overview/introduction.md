@@ -75,7 +75,7 @@ Reka UI is inspired by the principles and goals of [Radix UI](https://www.radix-
 All credits go to these open-source works and resources
 
 - Radix UI - https://radix-ui.com
-- Radix Aria - https://react-spectrum.adobe.com/react-aria
+- React Aria - https://react-spectrum.adobe.com/react-aria
 - Floating UI - https://floating-ui.com
 - VueUse - https://vueuse.org
 - HeadlessUI - https://headlessui.com

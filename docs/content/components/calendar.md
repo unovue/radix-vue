@@ -27,7 +27,8 @@ This component was built taking inspiration from the implementation in [melt-ui]
     'Can be controlled or uncontrolled',
     'Focus is fully managed',
     'Localization support',
-    'Highly composable'
+    'Highly composable',
+    'Supports navigation between months via swipe gesture.'
   ]"
 />
 

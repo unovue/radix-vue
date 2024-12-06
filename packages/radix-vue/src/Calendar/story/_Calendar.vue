@@ -17,6 +17,7 @@ function pagingFunc(date: DateValue, sign: -1 | 1) {
     v-slot="{ weekDays, grid }"
     v-bind="props.calendarProps"
     data-testid="calendar"
+    enable-swipe
     v-on="{ 'update:modelValue': props.emits?.['onUpdate:modelValue'] }"
   >
     <CalendarHeader data-testid="header">

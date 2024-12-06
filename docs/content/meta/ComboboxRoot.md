@@ -3,7 +3,7 @@
 <PropsTable :data="[
   {
     'name': 'as',
-    'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
+    'description': '<p>The element or component this component should render as. Can be overwritten by <code>asChild</code>.</p>\n',
     'type': 'AsTag | Component',
     'required': false,
     'default': '\'div\''
@@ -58,7 +58,7 @@
   },
   {
     'name': 'modelValue',
-    'description': '<p>The controlled value of the Combobox. Can be binded with with <code>v-model</code>.</p>\n',
+    'description': '<p>The controlled value of the listbox. Can be binded with with <code>v-model</code>.</p>\n',
     'type': 'AcceptableValue | AcceptableValue[]',
     'required': false
   },

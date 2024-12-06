@@ -3,7 +3,7 @@
 <PropsTable :data="[
   {
     'name': 'as',
-    'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
+    'description': '<p>The element or component this component should render as. Can be overwritten by <code>asChild</code>.</p>\n',
     'type': 'AsTag | Component',
     'required': false,
     'default': '\'input\''
@@ -34,7 +34,7 @@
   },
   {
     'name': 'modelValue',
-    'description': '<p>The controlled value of the filter. Can be binded-with with v-model.</p>\n',
+    'description': '<p>The controlled value of the filter. Can be binded with with v-model.</p>\n',
     'type': 'string',
     'required': false
   }

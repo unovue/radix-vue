@@ -75,7 +75,7 @@ export function useRangeCalendarState(props: UseRangeCalendarProps) {
     const start = isStartBeforeFocused ? props.start.value : props.focusedValue.value
     const end = isStartBeforeFocused ? props.focusedValue.value : props.start.value
 
-    if (isSameDay(start.add({ days: 1 }), end)) {
+    if (isSameDay(start, end)) {
       return {
         start,
         end,

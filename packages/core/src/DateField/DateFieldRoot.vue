@@ -3,7 +3,7 @@ import { type DateValue, isEqualDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { type Formatter, createContext, useDateFormatter, useDirection, useKbd, useLocale } from '@/shared'
+import { type Formatter, createContext, isNullish, useDateFormatter, useDirection, useKbd, useLocale } from '@/shared'
 import {
   type Granularity,
   type HourCycle,
@@ -127,6 +127,7 @@ const defaultDate = getDefaultDate({
   defaultPlaceholder: props.placeholder,
   granularity: granularity.value,
   defaultValue: modelValue.value,
+  locale: props.locale,
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {
@@ -188,15 +189,15 @@ watch(locale, (value) => {
 })
 
 watch(modelValue, (_modelValue) => {
-  if (_modelValue !== undefined && (!isEqualDay(placeholder.value, _modelValue) || placeholder.value.compare(_modelValue) !== 0))
+  if (!isNullish(_modelValue) && (!isEqualDay(placeholder.value, _modelValue) || placeholder.value.compare(_modelValue) !== 0))
     placeholder.value = _modelValue.copy()
 })
 
 watch([modelValue, locale], ([_modelValue]) => {
-  if (_modelValue !== undefined) {
+  if (!isNullish(_modelValue)) {
     segmentValues.value = { ...syncSegmentValues({ value: _modelValue, formatter }) }
   }
-  else if (Object.values(segmentValues.value).every(value => value === null) || modelValue === undefined) {
+  else if (Object.values(segmentValues.value).every(value => value === null) || _modelValue === undefined) {
     segmentValues.value = { ...initialSegments }
   }
 })

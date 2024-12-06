@@ -285,7 +285,7 @@ For example, if you have some global Toaster component that should not close the
 
 ## Accessibility
 
-Adheres to the [Dialog WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal).
+Adheres to the [Dialog WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/).
 
 ### Close icon button
 

@@ -190,6 +190,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 const defaultDate = getDefaultDate({
   defaultPlaceholder: props.placeholder,
   defaultValue: modelValue.value,
+  locale: props.locale,
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {

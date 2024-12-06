@@ -6,7 +6,7 @@ import { computed, onMounted, ref, watchSyncEffect } from 'vue'
 import { usePrimitiveElement } from '@/Primitive'
 
 export interface ListboxFilterProps extends PrimitiveProps {
-  /** The controlled value of the filter. Can be binded-with with v-model. */
+  /** The controlled value of the filter. Can be binded with with v-model. */
   modelValue?: string
   /** Focus on element when mounted. */
   autoFocus?: boolean

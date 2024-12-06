@@ -2,7 +2,7 @@
 import Card from './components/Card.vue'
 import { ConfigProvider } from 'reka-ui'
 
-const fn = () => useId().replace(':', '_')
+const fn = () => useId()!.replace(':', '_')
 </script>
 
 <template>
@@ -94,6 +94,9 @@ const fn = () => useId().replace(':', '_')
           </Card>
           <Card>
             <Tooltip />
+          </Card>
+          <Card>
+            <TagsInput />
           </Card>
         </div>
       </div>

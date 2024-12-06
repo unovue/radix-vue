@@ -29,7 +29,7 @@ export interface PrimitiveProps {
    */
   asChild?: boolean
   /**
-   * The element or component this component should render as. Can be overwrite by `asChild`
+   * The element or component this component should render as. Can be overwritten by `asChild`.
    * @defaultValue "div"
    */
   as?: AsTag | Component

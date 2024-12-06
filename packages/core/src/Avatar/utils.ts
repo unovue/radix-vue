@@ -1,8 +1,8 @@
-import { type Ref, onMounted, onUnmounted, ref, watch } from 'vue'
+import { type ImgHTMLAttributes, type Ref, onMounted, onUnmounted, ref, watch } from 'vue'
 
 export type ImageLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error'
 
-export function useImageLoadingStatus(src: Ref<string>) {
+export function useImageLoadingStatus(src: Ref<string>, referrerPolicy?: Ref<ImgHTMLAttributes['referrerpolicy']>) {
   const loadingStatus = ref<ImageLoadingStatus>('idle')
   const isMounted = ref(false)
 
@@ -14,8 +14,8 @@ export function useImageLoadingStatus(src: Ref<string>) {
   onMounted(() => {
     isMounted.value = true
 
-    watch(src, (value) => {
-      if (!value) {
+    watch([() => src.value, () => referrerPolicy?.value], ([src, referrer]) => {
+      if (!src) {
         loadingStatus.value = 'error'
       }
       else {
@@ -23,7 +23,10 @@ export function useImageLoadingStatus(src: Ref<string>) {
         loadingStatus.value = 'loading'
         image.onload = updateStatus('loaded')
         image.onerror = updateStatus('error')
-        image.src = value
+        image.src = src
+        if (referrer) {
+          image.referrerPolicy = referrer
+        }
       }
     }, { immediate: true })
   })

@@ -7,7 +7,7 @@ export interface SelectTriggerProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted } from 'vue'
 import {
   injectSelectRootContext,
 } from './SelectRoot.vue'
@@ -21,7 +21,9 @@ const props = withDefaults(defineProps<SelectTriggerProps>(), {
 })
 const rootContext = injectSelectRootContext()
 
-const pointerTypeRef = ref<PointerEvent['pointerType']>('touch')
+// eslint-disable-next-line prefer-const
+let pointerTypeRef: PointerEvent['pointerType'] = 'touch'
+
 const isDisabled = computed(() => rootContext.disabled?.value || props.disabled)
 
 const { forwardRef, currentElement: triggerElement } = useForwardExpose()

@@ -67,10 +67,10 @@ function handleSelect(ev?: PointerEvent) {
 }
 
 function handlePointerMove(event: PointerEvent) {
-  pointerTypeRef = event.pointerType
-
   if (event.defaultPrevented)
     return
+
+  pointerTypeRef = event.pointerType
 
   if (disabled.value) {
     contentContext.onItemLeave?.()

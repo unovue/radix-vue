@@ -12,11 +12,12 @@ export type AvatarImageEmits = {
 }
 export interface AvatarImageProps extends PrimitiveProps {
   src: string
+  referrerPolicy?: ImgHTMLAttributes['referrerpolicy']
 }
 </script>
 
 <script setup lang="ts">
-import { toRefs, watch } from 'vue'
+import { type ImgHTMLAttributes, toRefs, watch } from 'vue'
 import { Primitive } from '../Primitive'
 import { injectAvatarRootContext } from './AvatarRoot.vue'
 import { useImageLoadingStatus } from './utils'
@@ -24,11 +25,11 @@ import { useImageLoadingStatus } from './utils'
 const props = withDefaults(defineProps<AvatarImageProps>(), { as: 'img' })
 const emits = defineEmits<AvatarImageEmits>()
 
-const { src } = toRefs(props)
+const { src, referrerPolicy } = toRefs(props)
 useForwardExpose()
 const rootContext = injectAvatarRootContext()
 
-const imageLoadingStatus = useImageLoadingStatus(src)
+const imageLoadingStatus = useImageLoadingStatus(src, referrerPolicy)
 
 watch(
   imageLoadingStatus,
@@ -48,6 +49,7 @@ watch(
     :as-child="asChild"
     :as="as"
     :src="src"
+    :referrer-policy="referrerPolicy"
   >
     <slot />
   </Primitive>

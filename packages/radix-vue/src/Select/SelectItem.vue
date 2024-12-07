@@ -53,7 +53,8 @@ const isSelected = computed(() => rootContext.modelValue?.value === props.value)
 const isFocused = ref(false)
 const textValue = ref(props.textValue ?? '')
 const textId = useId(undefined, 'radix-vue-select-item-text')
-const pointerTypeRef = ref<PointerEvent['pointerType']>('touch')
+
+let pointerTypeRef: PointerEvent['pointerType'] = 'touch'
 
 function handleSelect(ev?: PointerEvent) {
   if (ev?.defaultPrevented)
@@ -66,15 +67,15 @@ function handleSelect(ev?: PointerEvent) {
 }
 
 function handlePointerMove(event: PointerEvent) {
+  pointerTypeRef = event.pointerType
+
   if (event.defaultPrevented)
     return
-
-  pointerTypeRef.value = event.pointerType
 
   if (disabled.value) {
     contentContext.onItemLeave?.()
   }
-  else if (pointerTypeRef.value === 'mouse') {
+  else if (pointerTypeRef === 'mouse') {
     // even though safari doesn't support this option, it's acceptable
     // as it only means it might scroll a few pixels when using the pointer.
     (event.currentTarget as HTMLElement).focus({ preventScroll: true })

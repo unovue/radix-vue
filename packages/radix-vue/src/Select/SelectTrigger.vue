@@ -36,21 +36,17 @@ const collectionItems = injectCollection()
 
 const { search, handleTypeaheadSearch, resetTypeahead }
   = useTypeahead(collectionItems)
-function handleOpen() {
+function handleOpen(pointerEvent?: MouseEvent | PointerEvent) {
   if (!isDisabled.value) {
     rootContext.onOpenChange(true)
     // reset typeahead when we open
     resetTypeahead()
   }
-}
 
-function handlePointerOpen(event: PointerEvent) {
-  handleOpen()
-
-  if (event) {
+  if (pointerEvent) {
     rootContext.triggerPointerDownPosRef.value = {
-      x: Math.round(event.pageX),
-      y: Math.round(event.pageY),
+      x: Math.round(pointerEvent.pageX),
+      y: Math.round(pointerEvent.pageY),
     }
   }
 }
@@ -85,7 +81,7 @@ function handlePointerOpen(event: PointerEvent) {
           (event?.currentTarget as HTMLElement)?.focus();
 
           if (pointerTypeRef !== 'mouse') {
-            handlePointerOpen(event);
+            handleOpen(event);
           }
         }
       "
@@ -103,7 +99,7 @@ function handlePointerOpen(event: PointerEvent) {
           // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)
           // but not when the control key is pressed (avoiding MacOS right click)
           if (event.button === 0 && event.ctrlKey === false && event.pointerType === 'mouse') {
-            handlePointerOpen(event)
+            handleOpen(event)
             // prevent trigger from stealing focus from the active item after opening.
             event.preventDefault();
           }

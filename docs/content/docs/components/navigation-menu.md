@@ -213,6 +213,19 @@ An optional indicator element that renders below the list, is used to highlight 
   ]"
 />
 
+<CssVariablesTable
+  :data="[
+    {
+      cssVariable: '--reka-navigation-menu-indicator-size',
+      description: 'The size of the indicator.',
+    },
+    {
+      cssVariable: '--reka-navigation-menu-indicator-position',
+      description: 'The position of the indicator',
+    },
+  ]"
+/>
+
 ### Viewport
 
 An optional viewport element that is used to render active content outside of the list.
@@ -360,10 +373,15 @@ import {
 /* styles.css */
 .NavigationMenuIndicator {
   background-color: grey;
-}
-.NavigationMenuIndicator[data-orientation="horizontal"] {
-  height: 3px;
+  position: absolute;
   transition: width, transform, 250ms ease;
+}
+
+.NavigationMenuIndicator[data-orientation="horizontal"] {
+  left: 0;
+  height: 3px;
+  transform: translateX(var(--reka-navigation-menu-indicator-position));
+  width: var(--reka-navigation-menu-indicator-size);
 }
 ```
 

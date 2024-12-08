@@ -75,7 +75,7 @@
     }
   ],
   "ignoreDeps": [
-    "radix-vue",
+    "reka-ui",
     "node",
     "typescript"
   ]

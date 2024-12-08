@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 import { createCalendar, getLocalTimeZone, toCalendar, today } from '@internationalized/date'
-import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot, Label, SelectContent, SelectItem, SelectItemIndicator, SelectItemText, SelectPortal, SelectRoot, SelectScrollUpButton, SelectTrigger, SelectValue, SelectViewport } from 'radix-vue'
+import { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarHeader, CalendarHeading, CalendarNext, CalendarPrev, CalendarRoot, Label, SelectContent, SelectGroup, SelectItem, SelectItemIndicator, SelectItemText, SelectLabel, SelectPortal, SelectRoot, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue, SelectViewport } from 'reka-ui'
 import { computed, ref } from 'vue'
 
 const preferences = [
@@ -57,7 +57,7 @@ const value = computed(() => toCalendar(today(getLocalTimeZone()), createCalenda
       @update:model-value="updateLocale"
     >
       <SelectTrigger
-        class="inline-flex min-w-[160px] items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-green9 outline-none"
+        class="inline-flex min-w-[160px] items-center justify-between rounded px-[15px] text-xs leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-green9 outline-none"
         aria-label="Select a locale"
       >
         <SelectValue placeholder="Please select a locale">
@@ -82,7 +82,7 @@ const value = computed(() => toCalendar(today(getLocalTimeZone()), createCalenda
             <SelectItem
               v-for="(option, index) in preferences"
               :key="index"
-              class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+              class="text-xs leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
               :value="option.locale"
             >
               <SelectItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">
@@ -103,7 +103,7 @@ const value = computed(() => toCalendar(today(getLocalTimeZone()), createCalenda
     <Label class="text-white">Calendar</Label>
     <SelectRoot v-model="calendar">
       <SelectTrigger
-        class="inline-flex min-w-[160px] items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-green9 outline-none"
+        class="inline-flex min-w-[160px] items-center justify-between rounded px-[15px] text-xs leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-green9 outline-none"
         aria-label="Select a calendar"
       >
         <SelectValue placeholder="Please select a calendar">
@@ -133,7 +133,7 @@ const value = computed(() => toCalendar(today(getLocalTimeZone()), createCalenda
               <SelectItem
                 v-for="(option, index) in preferredCalendars"
                 :key="index"
-                class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                class="text-xs leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
                 :value="option!.key"
               >
                 <SelectItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">
@@ -152,7 +152,7 @@ const value = computed(() => toCalendar(today(getLocalTimeZone()), createCalenda
               <SelectItem
                 v-for="(option, index) in otherCalendars"
                 :key="index"
-                class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                class="text-xs leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
                 :value="option.key"
               >
                 <SelectItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">
@@ -188,7 +188,7 @@ const value = computed(() => toCalendar(today(getLocalTimeZone()), createCalenda
             class="w-6 h-6"
           />
         </CalendarPrev>
-        <CalendarHeading class="text-[15px] text-black font-medium" />
+        <CalendarHeading class="text-sm text-black font-medium" />
 
         <CalendarNext
           class="inline-flex items-center cursor-pointer justify-center text-black rounded-[9px] bg-transparent w-8 h-8 hover:bg-black hover:text-white active:scale-98 active:transition-all focus:shadow-[0_0_0_2px] focus:shadow-black"

@@ -13,7 +13,8 @@ export interface NavigationMenuContentProps extends NavigationMenuContentImplPro
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
+import { useResizeObserver } from '@vueuse/core'
 import { injectNavigationMenuContext } from './NavigationMenuRoot.vue'
 import { injectNavigationMenuItemContext } from './NavigationMenuItem.vue'
 import { getOpenState, whenMouse } from './utils'
@@ -31,11 +32,13 @@ const emits = defineEmits<NavigationMenuContentEmits>()
 
 const forwarded = useForwardPropsEmits(reactiveOmit(props, 'forceMount'), emits)
 const { forwardRef } = useForwardExpose()
+const contentStyle = ref<{ size: number, position: number }>()
 
 const menuContext = injectNavigationMenuContext()
 const itemContext = injectNavigationMenuItemContext()
 
 const open = computed(() => itemContext.value === menuContext.modelValue.value)
+const isHorizontal = computed(() => menuContext.orientation === 'horizontal')
 
 // We persist the last active content value as the viewport may be animating out
 // and we want the content to remain mounted for the lifecycle of the viewport.
@@ -46,6 +49,33 @@ const isLastActiveValue = computed(() => {
   }
   return false
 })
+
+function handlePositionChange() {
+  if (!menuContext.activeTrigger.value) {
+    return
+  }
+
+  contentStyle.value = {
+    size: isHorizontal.value
+      ? menuContext.activeTrigger.value.offsetWidth
+      : menuContext.activeTrigger.value.offsetHeight,
+    position: isHorizontal.value
+      ? menuContext.activeTrigger.value.offsetLeft
+      : menuContext.activeTrigger.value.offsetTop,
+  }
+}
+
+watchEffect(() => {
+  if (!menuContext.modelValue.value) {
+    contentStyle.value = undefined
+    return
+  }
+
+  handlePositionChange()
+})
+
+useResizeObserver(menuContext.activeTrigger, handlePositionChange)
+useResizeObserver(menuContext.indicatorTrack, handlePositionChange)
 </script>
 
 <template>
@@ -63,6 +93,10 @@ const isLastActiveValue = computed(() => {
         :data-state="getOpenState(open)"
         :style="{
           pointerEvents: !open && menuContext.isRootMenu ? 'none' : undefined,
+          ...(contentStyle ? {
+            '--reka-navigation-menu-content-size': `${contentStyle.size}px`,
+            '--reka-navigation-menu-content-position': `${contentStyle.position}px`,
+          } : {}),
         }"
         v-bind="{ ...$attrs, ...forwarded }"
         :hidden="!present"

@@ -38,7 +38,11 @@ export {
   default as SelectGroup,
   type SelectGroupProps,
 } from './SelectGroup.vue'
-export { default as SelectItem, type SelectItemProps } from './SelectItem.vue'
+export {
+  injectSelectItemContext,
+  default as SelectItem,
+  type SelectItemProps,
+} from './SelectItem.vue'
 export {
   default as SelectItemText,
   type SelectItemTextProps,

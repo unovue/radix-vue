@@ -8,6 +8,7 @@ export {
   type ScrollAreaViewportProps,
 } from './ScrollAreaViewport.vue'
 export {
+  injectScrollAreaScrollbarContext,
   default as ScrollAreaScrollbar,
   type ScrollAreaScrollbarProps,
 } from './ScrollAreaScrollbar.vue'

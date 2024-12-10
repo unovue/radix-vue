@@ -15,6 +15,7 @@ export {
   type ListboxFilterEmits,
 } from './ListboxFilter.vue'
 export {
+  injectListboxItemContext,
   default as ListboxItem,
   type ListboxItemProps,
   type ListboxItemEmits,
@@ -28,6 +29,7 @@ export {
   type ListboxVirtualizerProps,
 } from './ListboxVirtualizer.vue'
 export {
+  injectListboxGroupContext,
   default as ListboxGroup,
   type ListboxGroupProps,
 } from './ListboxGroup.vue'

@@ -8,6 +8,7 @@ export {
 } from './AccordionHeader.vue'
 export {
   default as AccordionItem,
+  injectAccordionItemContext,
   type AccordionItemProps,
 } from './AccordionItem.vue'
 export {

@@ -14,6 +14,7 @@ export {
   type NavigationMenuIndicatorProps,
 } from './NavigationMenuIndicator.vue'
 export {
+  injectNavigationMenuItemContext,
   default as NavigationMenuItem,
   type NavigationMenuItemProps,
 } from './NavigationMenuItem.vue'

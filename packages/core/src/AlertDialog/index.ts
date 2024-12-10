@@ -12,6 +12,7 @@ export {
   type AlertDialogPortalProps,
 } from './AlertDialogPortal.vue'
 export {
+  injectAlertDialogContentContext,
   default as AlertDialogContent,
   type AlertDialogContentProps,
   type AlertDialogContentEmits,

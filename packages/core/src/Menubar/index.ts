@@ -71,6 +71,7 @@ export {
   type MenubarSubTriggerProps,
 } from './MenubarSubTrigger.vue'
 export {
+  injectMenubarMenuContext,
   default as MenubarMenu,
   type MenubarMenuProps,
 } from './MenubarMenu.vue'

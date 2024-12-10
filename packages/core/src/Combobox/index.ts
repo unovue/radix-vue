@@ -25,6 +25,7 @@ export {
   type ComboboxCancelProps,
 } from './ComboboxCancel.vue'
 export {
+  injectComboboxGroupContext,
   default as ComboboxGroup,
   type ComboboxGroupProps,
 } from './ComboboxGroup.vue'
@@ -46,6 +47,7 @@ export {
   type ComboboxVirtualizerProps,
 } from './ComboboxVirtualizer.vue'
 export {
+  injectComboboxItemContext,
   default as ComboboxItem,
   type ComboboxItemProps,
   type ComboboxItemEmits,

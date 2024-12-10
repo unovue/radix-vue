@@ -7,6 +7,7 @@ export {
 export {
   default as ComboboxInput,
   type ComboboxInputProps,
+  type ComboboxInputEmits,
 } from './ComboboxInput.vue'
 export {
   default as ComboboxAnchor,

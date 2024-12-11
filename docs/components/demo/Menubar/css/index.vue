@@ -16,7 +16,7 @@ import {
   MenubarSubContent,
   MenubarSubTrigger,
   MenubarTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 import './styles.css'
 
 const currentMenu = ref('')

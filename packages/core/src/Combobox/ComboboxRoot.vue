@@ -102,6 +102,8 @@ async function onOpenChange(val: boolean) {
   filterState.search = ''
 
   if (val) {
+    // make sure dom is ready then only highlight the selected
+    await nextTick()
     primitiveElement.value?.highlightSelected()
     isUserInputted.value = true
   }

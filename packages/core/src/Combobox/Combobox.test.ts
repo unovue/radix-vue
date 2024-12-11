@@ -273,19 +273,23 @@ describe('given a Combobox with object', async () => {
 })
 
 describe('given combobox in a form', async () => {
-  const wrapper = mount({
-    props: ['handleSubmit'],
-    components: { Combobox },
-    template: '<form @submit="handleSubmit"><Combobox /></form>',
-  }, {
-    props: { handleSubmit },
-  })
-
-  const valueBox = wrapper.find('input')
+  let wrapper: VueWrapper<InstanceType<any>>
+  let valueBox: DOMWrapper<HTMLInputElement>
 
   let enterEventBubbledToForm = false
 
   beforeEach(() => {
+    wrapper = mount({
+      props: ['handleSubmit'],
+      components: { Combobox },
+      template: '<form @submit="handleSubmit"><Combobox /></form>',
+    }, {
+      props: { handleSubmit },
+      attachTo: document.body,
+    })
+
+    valueBox = wrapper.find('input')
+
     enterEventBubbledToForm = false
     wrapper.find('form').element.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {

@@ -182,7 +182,7 @@ function highlightItem(value: T) {
 }
 
 function onKeydownEnter(event: KeyboardEvent) {
-  if (highlightedElement.value) {
+  if (highlightedElement.value && highlightedElement.value.isConnected) {
     event.preventDefault()
     event.stopPropagation()
 

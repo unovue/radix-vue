@@ -50,7 +50,7 @@ const isLastActiveValue = computed(() => {
 
 <template>
   <Teleport
-    :to=" isClient && menuContext.viewport.value ? menuContext.viewport.value : 'body'"
+    :to="isClient && menuContext.viewport.value ? menuContext.viewport.value : 'body'"
     :disabled="isClient && menuContext.viewport.value ? !menuContext.viewport.value : true"
   >
     <Presence

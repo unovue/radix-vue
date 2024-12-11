@@ -3,6 +3,7 @@ import { Icon } from '@iconify/vue'
 import { reactive, ref } from 'vue'
 import {
   NavigationMenuContent,
+  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
@@ -107,6 +108,10 @@ const state = reactive({
                 Link
               </NavigationMenuLink>
             </NavigationMenuItem>
+
+            <NavigationMenuIndicator
+              class="absolute bg-green10 left-0 h-[2px] bottom-0 w-[--reka-navigation-menu-indicator-size] translate-x-[--reka-navigation-menu-indicator-position] rounded-full transition-[width,transform] duration-300"
+            />
           </NavigationMenuList>
         </NavigationMenuRoot>
       </StoryFrame>

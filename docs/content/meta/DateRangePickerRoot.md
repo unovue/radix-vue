@@ -220,6 +220,19 @@
   }
 ]" />
 
+<SlotsTable :data="[
+  {
+    'name': 'modelValue',
+    'description': '',
+    'type': 'DateRange'
+  },
+  {
+    'name': 'open',
+    'description': '',
+    'type': 'boolean'
+  }
+]" />
+
 <MethodsTable :data="[
   {
     'name': 'isDateDisabled',

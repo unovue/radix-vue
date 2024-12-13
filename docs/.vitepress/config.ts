@@ -144,18 +144,9 @@ export default defineConfig({
             items: [
               { text: 'Checkbox', link: '/docs/components/checkbox' },
               { text: 'Combobox', link: '/docs/components/combobox' },
-              {
-                text: `Editable ${BadgeHTML('Alpha', true)}`,
-                link: '/docs/components/editable',
-              },
-              {
-                text: `Listbox ${BadgeHTML('Alpha', true)}`,
-                link: '/docs/components/listbox',
-              },
-              {
-                text: `Number Field ${BadgeHTML('Alpha', true)}`,
-                link: '/docs/components/number-field',
-              },
+              { text: `Editable`, link: '/docs/components/editable' },
+              { text: `Listbox`, link: '/docs/components/listbox' },
+              { text: `Number Field`, link: '/docs/components/number-field' },
               { text: 'Label', link: '/docs/components/label' },
               { text: 'Pin Input', link: '/docs/components/pin-input' },
               { text: 'Radio Group', link: '/docs/components/radio-group' },

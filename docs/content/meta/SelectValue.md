@@ -28,5 +28,10 @@
     'name': 'selectedLabel',
     'description': '',
     'type': 'string[]'
+  },
+  {
+    'name': 'modelValue',
+    'description': '',
+    'type': 'AcceptableValue | AcceptableValue[] | undefined'
   }
 ]" />

@@ -375,6 +375,7 @@ onMounted(() => {
       :week-starts-on="weekStartsOn"
       :locale="locale"
       :fixed-weeks="fixedWeeks"
+      :model-value="modelValue"
     />
   </Primitive>
 </template>

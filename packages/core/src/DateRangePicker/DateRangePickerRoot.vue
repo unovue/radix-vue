@@ -183,6 +183,9 @@ provideDateRangePickerRootContext({
     :default-open="defaultOpen"
     :modal="modal"
   >
-    <slot />
+    <slot
+      :model-value="modelValue"
+      :open="open"
+    />
   </PopoverRoot>
 </template>

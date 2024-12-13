@@ -10,7 +10,7 @@ import {
   NavigationMenuRoot,
   NavigationMenuTrigger,
   NavigationMenuViewport,
-} from 'radix-vue'
+} from 'reka-ui'
 import './styles.css'
 
 import NavigationMenuListItem from './NavigationMenuListItem.vue'
@@ -44,8 +44,8 @@ const currentTrigger = ref('')
                   class="Callout"
                   href="/"
                 >
-                  <img src="https://www.radix-vue.com/logo.svg">
-                  <div class="CalloutHeading">Radix Primitives</div>
+                  <img src="https://reka-ui.com/logo.svg">
+                  <div class="CalloutHeading">Reka UI</div>
                   <p class="CalloutText">Unstyled, accessible components for Vue.</p>
                 </a>
               </NavigationMenuLink>
@@ -95,7 +95,7 @@ const currentTrigger = ref('')
               title="Getting started"
               href="/docs/primitives/overview/getting-started"
             >
-              A quick tutorial to get you up and running with Radix Primitives.
+              A quick tutorial to get you up and running with Reka UI.
             </NavigationMenuListItem>
             <NavigationMenuListItem
               title="Styling"
@@ -119,7 +119,7 @@ const currentTrigger = ref('')
               title="Releases"
               href="/docs/primitives/overview/releases"
             >
-              Radix Primitives releases and their changelogs.
+              Reka UI releases and their changelogs.
             </NavigationMenuListItem>
           </ul>
         </NavigationMenuContent>

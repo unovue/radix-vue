@@ -14,14 +14,17 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18.x
+      - name: Setup (Install node & pnpm)
+        uses: ./.github/actions/setup
 
       - run: npx changelogithub
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Build Packages & Publish to npm
+        run: pnpm build && pnpm pub:release
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -6,7 +6,7 @@ import {
   ToolbarSeparator,
   ToolbarToggleGroup,
   ToolbarToggleItem,
-} from 'radix-vue'
+} from 'reka-ui'
 import { Icon } from '@iconify/vue'
 import { ref } from 'vue'
 import './styles.css'

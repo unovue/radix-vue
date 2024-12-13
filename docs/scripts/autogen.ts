@@ -3,10 +3,10 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 
 import fg from 'fast-glob'
 import MarkdownIt from 'markdown-it'
 import type { ComponentMeta, MetaCheckerOptions, PropertyMeta, PropertyMetaSchema } from 'vue-component-meta'
-import { createComponentMetaChecker } from 'vue-component-meta'
+import { createChecker } from 'vue-component-meta'
 import { babelParse, parse as sfcParse } from 'vue/compiler-sfc'
 import _traverse from '@babel/traverse'
-import { components } from '../../packages/radix-vue/constant/components'
+import { components } from 'reka-ui/constant'
 import { fileURLToPath } from 'node:url'
 import { transformJSDocLinks } from './utils'
 
@@ -22,8 +22,8 @@ const checkerOptions: MetaCheckerOptions = {
   printer: { newLine: 1 },
 }
 
-const tsconfigChecker = createComponentMetaChecker(
-  resolve(__dirname, '../../packages/radix-vue/tsconfig.json'),
+const tsconfigChecker = createChecker(
+  resolve(__dirname, '../../packages/core/tsconfig.json'),
   checkerOptions,
 )
 
@@ -32,7 +32,7 @@ const depTree = new Map<string, string[]>()
 let prevDeps: string[] = []
 
 const allComponents = fg.sync(['src/**/*.vue', '!src/**/story/*.vue', '!src/**/*.story.vue'], {
-  cwd: resolve(__dirname, '../../packages/radix-vue'),
+  cwd: resolve(__dirname, '../../packages/core'),
   absolute: true,
 })
 
@@ -178,7 +178,7 @@ function parseMeta(meta: ComponentMeta) {
 }
 
 function getEventFromComponentPath(dir: string) {
-  const files = readdirSync(resolve(__dirname, '../../packages/radix-vue/src', dir), { withFileTypes: true }).filter(file => file.name.includes('.vue'))
+  const files = readdirSync(resolve(__dirname, '../../packages/core/src', dir), { withFileTypes: true }).filter(file => file.name.includes('.vue'))
 
   files.forEach((file) => {
     const { name, path } = file

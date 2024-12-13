@@ -1,0 +1,35 @@
+<script lang="ts">
+import type { PrimitiveProps } from '@/Primitive'
+import type { DateValue } from '@internationalized/date'
+
+export interface CalendarPrevProps extends PrimitiveProps {
+  /** The function to be used for the prev page. Overwrites the `prevPage` function set on the `CalendarRoot`. */
+  prevPage?: (placeholder: DateValue) => DateValue
+}
+</script>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+import { Primitive } from '@/Primitive'
+import { injectCalendarRootContext } from './CalendarRoot.vue'
+
+const props = withDefaults(defineProps<CalendarPrevProps>(), { as: 'button', step: 'month' })
+const disabled = computed(() => rootContext.disabled.value || rootContext.isPrevButtonDisabled(props.prevPage))
+
+const rootContext = injectCalendarRootContext()
+</script>
+
+<template>
+  <Primitive
+    aria-label="Previous page"
+    :as="props.as"
+    :as-child="props.asChild"
+    :type="as === 'button' ? 'button' : undefined"
+    :aria-disabled="disabled || undefined"
+    :data-disabled="disabled || undefined"
+    :disabled="disabled"
+    @click="rootContext.prevPage(props.prevPage)"
+  >
+    <slot>Prev page</slot>
+  </Primitive>
+</template>

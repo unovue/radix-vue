@@ -1,7 +1,7 @@
 import { addComponent, defineNuxtModule } from '@nuxt/kit'
 
 import type { } from '@nuxt/schema' // workaround for TS bug with "phantom" deps
-import { components as allComponents } from '../../../radix-vue/constant/components'
+import { components as allComponents } from 'reka-ui/constant'
 
 export interface ModuleOptions {
   components: Partial<Record<keyof typeof allComponents, boolean>> | boolean
@@ -10,8 +10,8 @@ export interface ModuleOptions {
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: '@radix-vue/nuxt',
-    configKey: 'radix',
+    name: '@reka-ui/nuxt',
+    configKey: 'reka',
     compatibility: {
       nuxt: '>=3.0.0',
     },
@@ -38,7 +38,7 @@ export default defineNuxtModule<ModuleOptions>({
       addComponent({
         name: `${options.prefix}${component}`,
         export: component,
-        filePath: 'radix-vue',
+        filePath: 'reka-ui',
       })
     }
   },

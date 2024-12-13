@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { ProgressIndicator, ProgressRoot } from 'radix-vue'
+import { ProgressIndicator, ProgressRoot } from 'reka-ui'
 import './styles.css'
 
 const progressValue = ref(10)

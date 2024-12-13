@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TabsContent, TabsIndicator, TabsList, TabsRoot, TabsTrigger } from 'radix-vue'
+import { TabsContent, TabsIndicator, TabsList, TabsRoot, TabsTrigger } from 'reka-ui'
 import './styles.css'
 </script>
 

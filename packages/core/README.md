@@ -70,12 +70,6 @@ We would love to have your contributions! All PRs all welcomed! We need help bui
 4. Open `http://localhost:6006`
 5. Run `pnpm test` to test changes
 
-## Core Team
-
-- [Zernonia](https://github.com/zernonia)
-- [Khairul Haaziq](https://github.com/k11q)
-- [Mujahid Anuar](https://github.com/mujahidfa)
-
 ## Credits
 
 All credits go to these open-source works and resources

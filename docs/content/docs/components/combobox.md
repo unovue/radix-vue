@@ -259,6 +259,12 @@ An optional arrow element to render alongside the content. This can be used to h
 
 Virtual container to achieve list virtualization.
 
+::: warning
+Combobox items **must** be filtered manually before passing them over to the virtualizer. See [example below](#virtualized-combobox-with-working-filtering).
+:::
+
+See the [virtualization guide](../guides/virtualization.md) for more general info on virtualization.
+
 <!-- @include: @/meta/ComboboxVirtualizer.md -->
 
 ## Examples
@@ -566,6 +572,48 @@ import { ComboboxContent, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxIt
           Item A
         </ComboboxItem>
         …
+      </ComboboxContent>
+    </ComboboxPortal>
+  </ComboboxRoot>
+</template>
+```
+
+### Virtualized combobox with working filtering
+
+Combobox items **must** be filtered manually before passing them over to the virtualizer.
+
+See the [virtualization guide](../guides/virtualization.md) for more general info on virtualization.
+
+```vue line=9-10,17,19-28
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import { ComboboxContent, ComboboxViewport, ComboboxInput, ComboboxItem, ComboboxPortal, ComboboxRoot, ComboboxVirtualizer, useFilter } from 'reka-ui'
+
+const people = Array.from({ length: 100000 }).map((_, id) => ({ id, name: `Person #${id}` }));
+const selectedPeople = ref(people[0])
+const searchTerm = ref('')
+
+const { contains } = useFilter({ sensitivity: 'base' })
+const filteredPeople = computed(() => people.filter(p => contains(p.name, searchTerm.value)))
+</script>
+
+<template>
+  <ComboboxRoot v-model="selectedPeople">
+    <ComboboxInput v-model="searchTerm" />
+    <ComboboxPortal>
+      <ComboboxContent class="max-h-[40vh] overflow-hidden">
+        <ComboboxViewport>
+          <ComboboxVirtualizer
+            v-slot="{ option }"
+            :options="filteredPeople"
+            :text-content="(x) => x.name"
+            :estimate-size="24"
+          >
+            <ComboboxItem :value="option">
+              {{ option.name }}
+            </ComboboxItem>
+          </ComboboxVirtualizer>
+        </ComboboxViewport>
       </ComboboxContent>
     </ComboboxPortal>
   </ComboboxRoot>

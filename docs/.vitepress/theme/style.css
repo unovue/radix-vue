@@ -158,7 +158,7 @@
   }
 
   .highlighted {
-    @apply inline-block w-[calc(100%_+_48px)] px-6 -mx-6 bg-muted
+    @apply inline-block w-[calc(100%_+_48px)] px-6 -mx-6 bg-[hsl(0_0%_15%)]
   }
 }
 

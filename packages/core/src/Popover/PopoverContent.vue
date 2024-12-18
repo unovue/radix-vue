@@ -22,7 +22,9 @@ import { injectPopoverRootContext } from './PopoverRoot.vue'
 import { useForwardExpose, useForwardPropsEmits, useId } from '@/shared'
 import { Presence } from '@/Presence'
 
-const props = defineProps<PopoverContentProps>()
+const props = withDefaults(defineProps<PopoverContentProps>(), {
+  trapFocus: true,
+})
 const emits = defineEmits<PopoverContentEmits>()
 
 const rootContext = injectPopoverRootContext()

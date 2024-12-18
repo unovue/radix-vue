@@ -16,7 +16,7 @@ const forwarded = useForwardPropsEmits(props, emits)
 <template>
   <PopoverContentImpl
     v-bind="forwarded"
-    :trap-focus="false"
+    :trap-focus="props.trapFocus"
     :disable-outside-pointer-events="false"
     @close-auto-focus="
       (event) => {

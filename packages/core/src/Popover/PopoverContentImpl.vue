@@ -25,7 +25,7 @@ export interface PopoverContentImplProps
   DismissableLayerProps {
   /**
    * Whether focus should be trapped within the `MenuContent`
-   * @defaultValue false
+   * @defaultValue true
    */
   trapFocus?: FocusScopeProps['trapped']
 }
@@ -38,7 +38,9 @@ import { DismissableLayer } from '@/DismissableLayer'
 import { FocusScope } from '@/FocusScope'
 import { useFocusGuards, useForwardExpose, useForwardProps } from '@/shared'
 
-const props = defineProps<PopoverContentImplProps>()
+const props = withDefaults(defineProps<PopoverContentImplProps>(), {
+  trapFocus: true,
+})
 const emits = defineEmits<PopoverContentImplEmits>()
 
 const forwarded = useForwardProps(reactiveOmit(props, 'trapFocus', 'disableOutsidePointerEvents'))

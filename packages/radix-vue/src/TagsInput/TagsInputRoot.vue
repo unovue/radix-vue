@@ -124,13 +124,13 @@ provideTagsInputRootContext({
     }
 
     if (props.duplicate) {
-      modelValue.value.push(payload)
+      modelValue.value = [...modelValue.value, payload)
       return true
     }
     else {
       const exist = modelValue.value.includes(payload)
       if (!exist) {
-        modelValue.value.push(payload)
+        modelValue.value = [...modelValue.value, payload)
         return true
       }
       else {
@@ -142,7 +142,7 @@ provideTagsInputRootContext({
   },
   onRemoveValue: (index) => {
     if (index !== -1)
-      modelValue.value.splice(index, 1)
+      modelValue.value = modelValue.value.toSpliced(index, 1)
   },
   onInputKeydown: (event) => {
     const target = event.target as HTMLInputElement
@@ -158,7 +158,7 @@ provideTagsInputRootContext({
 
         if (selectedElement.value) {
           const index = collection.findIndex(i => i === selectedElement.value)
-          modelValue.value.splice(index, 1)
+          modelValue.value = modelValue.value.toSpliced(index, 1)
           selectedElement.value = selectedElement.value === lastTag ? collection.at(index - 1) : collection.at(index + 1)
           event.preventDefault()
         }

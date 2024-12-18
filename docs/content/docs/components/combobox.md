@@ -259,9 +259,11 @@ An optional arrow element to render alongside the content. This can be used to h
 
 Virtual container to achieve list virtualization.
 
-::: warning
+<Callout type="warning">
+
 Combobox items **must** be filtered manually before passing them over to the virtualizer. See [example below](#virtualized-combobox-with-working-filtering).
-:::
+
+</Callout>
 
 See the [virtualization guide](../guides/virtualization.md) for more general info on virtualization.
 

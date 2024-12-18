@@ -18,8 +18,10 @@ const itemContext = injectAccordionItemContext()
 
 itemContext.triggerId ||= useId(undefined, 'radix-vue-accordion-trigger')
 function changeItem() {
-  if (itemContext.disabled.value)
+  const triggerDisabled = rootContext.isSingle.value && itemContext.open.value && !rootContext.collapsible
+  if (itemContext.disabled.value || triggerDisabled)
     return
+
   rootContext.changeModelValue(itemContext.value.value)
 }
 </script>

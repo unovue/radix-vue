@@ -68,7 +68,10 @@ const textId = useId(undefined, 'reka-select-item-text')
 
 const SELECT_SELECT = 'select.select'
 
-function handleSelectCustomEvent(ev: PointerEvent | KeyboardEvent) {
+async function handleSelectCustomEvent(ev: PointerEvent | KeyboardEvent) {
+  if (ev.defaultPrevented)
+    return
+
   const eventDetail = { originalEvent: ev, value: props.value as T }
   handleAndDispatchCustomEvent(SELECT_SELECT, handleSelect, eventDetail)
 }

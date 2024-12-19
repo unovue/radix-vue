@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useForwardExpose, useId } from '@/shared'
+import { createContext, handleAndDispatchCustomEvent, useForwardExpose, useId } from '@/shared'
 import type { AcceptableValue } from '@/shared/types'
 import { useCollection } from '@/Collection'
 
@@ -15,6 +15,13 @@ interface SelectItemContext<T = AcceptableValue> {
 
 export const [injectSelectItemContext, provideSelectItemContext]
     = createContext<SelectItemContext>('SelectItem')
+
+export type SelectEvent<T> = CustomEvent<{ originalEvent: PointerEvent | KeyboardEvent, value?: T }>
+
+export type SelectItemEmits<T = AcceptableValue> = {
+  /** Event handler called when the selecting item. <br> It can be prevented by calling `event.preventDefault`. */
+  select: [event: SelectEvent<T>]
+}
 
 export interface SelectItemProps<T = AcceptableValue> extends PrimitiveProps {
   /** The value given as data when submitted with a `name`. */
@@ -32,7 +39,7 @@ export interface SelectItemProps<T = AcceptableValue> extends PrimitiveProps {
 }
 </script>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
 import {
   computed,
   nextTick,
@@ -46,6 +53,7 @@ import { SELECTION_KEYS, valueComparator } from './utils'
 import { Primitive } from '@/Primitive'
 
 const props = defineProps<SelectItemProps>()
+const emits = defineEmits<SelectItemEmits<T>>()
 const { disabled } = toRefs(props)
 
 const rootContext = injectSelectRootContext()
@@ -58,9 +66,20 @@ const isFocused = ref(false)
 const textValue = ref(props.textValue ?? '')
 const textId = useId(undefined, 'reka-select-item-text')
 
-async function handleSelect(ev?: PointerEvent) {
+const SELECT_SELECT = 'select.select'
+
+async function handleSelectCustomEvent(ev: PointerEvent | KeyboardEvent) {
+  if (ev.defaultPrevented)
+    return
+
+  const eventDetail = { originalEvent: ev, value: props.value as T }
+  handleAndDispatchCustomEvent(SELECT_SELECT, handleSelect, eventDetail)
+}
+
+async function handleSelect(ev: SelectEvent<T>) {
   await nextTick()
-  if (ev?.defaultPrevented)
+  emits('select', ev)
+  if (ev.defaultPrevented)
     return
 
   if (!disabled.value) {
@@ -100,7 +119,7 @@ async function handleKeyDown(event: KeyboardEvent) {
   if (isTypingAhead && event.key === ' ')
     return
   if (SELECTION_KEYS.includes(event.key))
-    handleSelect()
+    handleSelectCustomEvent(event)
   // prevent page scroll if using the space key to select an item
   if (event.key === ' ')
     event.preventDefault()
@@ -149,7 +168,7 @@ provideSelectItemContext({
       :as-child="asChild"
       @focus="isFocused = true"
       @blur="isFocused = false"
-      @pointerup="handleSelect"
+      @pointerup="handleSelectCustomEvent"
       @pointerdown="(event) => {
         (event.currentTarget as HTMLElement).focus({ preventScroll: true })
       }"

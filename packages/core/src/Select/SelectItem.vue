@@ -16,6 +16,13 @@ interface SelectItemContext<T = AcceptableValue> {
 export const [injectSelectItemContext, provideSelectItemContext]
     = createContext<SelectItemContext>('SelectItem')
 
+export type SelectEvent<T> = CustomEvent<{ originalEvent: PointerEvent, value?: T }>
+  
+export type SelectItemEmits<T = AcceptableValue> = {
+  /** Event handler called when the selecting item. <br> It can be prevented by calling `event.preventDefault`. */
+  select: [event: SelectEvent<T>]
+}
+  
 export interface SelectItemProps<T = AcceptableValue> extends PrimitiveProps {
   /** The value given as data when submitted with a `name`. */
   value: T
@@ -45,6 +52,7 @@ import { injectSelectContentContext } from './SelectContentImpl.vue'
 import { SELECTION_KEYS, valueComparator } from './utils'
 import { Primitive } from '@/Primitive'
 
+const emits = defineEmits<SelectItemEmits<T>>()
 const props = defineProps<SelectItemProps>()
 const { disabled } = toRefs(props)
 
@@ -58,9 +66,17 @@ const isFocused = ref(false)
 const textValue = ref(props.textValue ?? '')
 const textId = useId(undefined, 'reka-select-item-text')
 
-async function handleSelect(ev?: PointerEvent) {
+const SELECT_SELECT = 'select.select'
+
+function handleSelectCustomEvent(ev: PointerEvent) {
+  const eventDetail = { originalEvent: ev, value: props.value as T }
+  handleAndDispatchCustomEvent(SELECT_SELECT, handleSelect, eventDetail)
+}
+
+async function handleSelect(ev: PointerEvent) {
   await nextTick()
-  if (ev?.defaultPrevented)
+  emits('select', ev)
+  if (ev.defaultPrevented)
     return
 
   if (!disabled.value) {
@@ -100,7 +116,7 @@ async function handleKeyDown(event: KeyboardEvent) {
   if (isTypingAhead && event.key === ' ')
     return
   if (SELECTION_KEYS.includes(event.key))
-    handleSelect()
+    handleSelectCustomEvent(event)
   // prevent page scroll if using the space key to select an item
   if (event.key === ' ')
     event.preventDefault()
@@ -149,7 +165,7 @@ provideSelectItemContext({
       :as-child="asChild"
       @focus="isFocused = true"
       @blur="isFocused = false"
-      @pointerup="handleSelect"
+      @pointerup="handleSelectCustomEvent"
       @pointerdown="(event) => {
         (event.currentTarget as HTMLElement).focus({ preventScroll: true })
       }"

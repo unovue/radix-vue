@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useForwardExpose, used, handleSelectCustomEvent } from '@/shared'
+import { createContext, useForwardExpose, useId, handleSelectCustomEvent } from '@/shared'
 import type { AcceptableValue } from '@/shared/types'
 import { useCollection } from '@/Collection'
 

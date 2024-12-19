@@ -54,7 +54,7 @@ function handleChange() {
 
 <template>
   <Primitive
-    v-bind="{ ...props, ...$attrs }"
+    v-bind="props"
     :id="rootContext.id.value"
     ref="primitiveElement"
     :value="inputValue"

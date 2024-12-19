@@ -53,10 +53,13 @@ onMounted(() => {
 function handlePointerUp() {
   setTimeout(() => {
     isPointerDown.value = false
-  }, 1)
+  }, 100)
 }
 
-function handlePointerDown() {
+function handlePointerDown(e: PointerEvent) {
+  if (e.pointerType === 'mouse')
+    return
+
   isPointerDown.value = true
   document.addEventListener('pointerup', handlePointerUp, { once: true })
 }
@@ -64,6 +67,7 @@ function handlePointerDown() {
 function handlePointerMove(event: PointerEvent) {
   if (event.pointerType === 'touch')
     return
+
   if (
     !hasPointerMoveOpened.value && !providerContext.isPointerInTransitRef.value
   ) {
@@ -72,7 +76,10 @@ function handlePointerMove(event: PointerEvent) {
   }
 }
 
-function handlePointerLeave() {
+function handlePointerLeave(event: PointerEvent) {
+  if (event.pointerType === 'touch')
+    return
+
   rootContext.onTriggerLeave()
   hasPointerMoveOpened.value = false
 }
@@ -92,6 +99,9 @@ function handleBlur() {
 }
 
 function handleClick() {
+  if (isPointerDown.value)
+    return rootContext.onOpen()
+
   if (!rootContext.disableClosingTrigger.value)
     rootContext.onClose()
 }

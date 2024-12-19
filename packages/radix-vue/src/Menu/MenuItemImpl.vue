@@ -63,7 +63,7 @@ async function handlePointerLeave(event: PointerEvent) {
 </script>
 
 <template>
-  <CollectionItem>
+  <CollectionItem :value="{ textValue }">
     <Primitive
       :ref="forwardRef"
       role="menuitem"

@@ -12,7 +12,7 @@ export interface PinInputInputProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, onUnmounted } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, watch } from 'vue'
 
 const props = withDefaults(defineProps<PinInputInputProps>(), {
   as: 'input',
@@ -97,6 +97,13 @@ function handleBlur(event: FocusEvent) {
       target.placeholder = context.placeholder.value
   })
 }
+
+watch(context.modelValue, async () => {
+  await nextTick()
+  const target = currentElement.value as HTMLInputElement
+  if (!target.value && target !== document.activeElement)
+    target.placeholder = context.placeholder.value
+})
 
 function handlePaste(event: ClipboardEvent) {
   event.preventDefault()

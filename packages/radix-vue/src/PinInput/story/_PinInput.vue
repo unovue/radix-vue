@@ -15,6 +15,7 @@ const value = ref<string[]>([])
   <PinInputRoot
     v-bind="{ ...props, ...useEmitAsProps(emits) }"
     v-model="value"
+    placeholder="*"
     class="flex gap-2 items-center"
   >
     <PinInputInput
@@ -24,4 +25,11 @@ const value = ref<string[]>([])
       :index="index"
     />
   </PinInputRoot>
+
+  <button
+    class="reset-button"
+    @click="value = []"
+  >
+    Reset value
+  </button>
 </template>

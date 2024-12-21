@@ -144,6 +144,23 @@ describe('given default PinInput', () => {
       expect(wrapper.emitted('complete')?.[0]?.[0]).toStrictEqual(['a', 'p', 'p', 'l', 'e'])
     })
   })
+
+  describe('after resetting value', async () => {
+    beforeEach(async () => {
+      await userEvent.keyboard('apple')
+      const button = wrapper.find('button').element
+      button.focus()
+      button.click()
+    })
+
+    it('should display input placeholders', () => {
+      expect(inputs[0].element.placeholder).toBe('*')
+      expect(inputs[1].element.placeholder).toBe('*')
+      expect(inputs[2].element.placeholder).toBe('*')
+      expect(inputs[3].element.placeholder).toBe('*')
+      expect(inputs[4].element.placeholder).toBe('*')
+    })
+  })
 })
 
 describe('give PinInput type=number', async () => {

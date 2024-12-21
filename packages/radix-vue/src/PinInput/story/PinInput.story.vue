@@ -4,6 +4,10 @@ import { PinInputInput, PinInputRoot } from '..'
 import { Label } from '@/Label'
 
 const value = ref<string[]>([])
+const button = [
+  'mt-4 text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px]',
+  'bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none',
+]
 </script>
 
 <template>
@@ -18,6 +22,7 @@ const value = ref<string[]>([])
         <PinInputRoot
           id="otp"
           v-model="value"
+          placeholder="○"
           class="flex gap-2 items-center"
           @complete="e => console.log(e.join(''))"
         >
@@ -28,6 +33,13 @@ const value = ref<string[]>([])
             :index="index"
           />
         </PinInputRoot>
+
+        <button
+          :class="button"
+          @click="value = []"
+        >
+          Reset value
+        </button>
       </div>
     </Variant>
   </Story>

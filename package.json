@@ -31,7 +31,7 @@
     "bumpp": "^9.4.1",
     "eslint": "^9.10.0",
     "lint-staged": "^15.2.10",
-    "pnpm": "^9.4.0",
+    "pnpm": "^9.15.0",
     "rimraf": "^6.0.1",
     "simple-git-hooks": "^2.11.1",
     "typescript": "5.3.3"

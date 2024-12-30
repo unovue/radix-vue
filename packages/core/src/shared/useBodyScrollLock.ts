@@ -6,7 +6,6 @@ import { type Fn, isClient, isIOS, tryOnBeforeUnmount } from '@vueuse/shared'
 import { computed, nextTick, ref, watch } from 'vue'
 import { defu } from 'defu'
 import { injectConfigProviderContext } from '@/ConfigProvider/ConfigProvider.vue'
-import { useId } from './useId'
 
 const useBodyLockStackCount = createSharedComposable(() => {
   const map = ref<Map<string, boolean>>(new Map())
@@ -89,7 +88,7 @@ const useBodyLockStackCount = createSharedComposable(() => {
 })
 
 export function useBodyScrollLock(initialState?: boolean | undefined) {
-  const id = useId()
+  const id = Math.random().toString(36).substring(2, 7) // just simple random id, need not to be cryptographically secure
   const map = useBodyLockStackCount()
 
   map.value.set(id, initialState ?? false)

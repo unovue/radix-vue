@@ -2,7 +2,7 @@
   "name": "radix-vue",
   "version": "1.9.12",
   "private": true,
-  "packageManager": "pnpm@9.4.0",
+  "packageManager": "pnpm@9.15.0",
   "license": "MIT",
   "repository": "unovue/radix-vue",
   "workspaces": [

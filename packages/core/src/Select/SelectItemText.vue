@@ -56,6 +56,7 @@ onBeforeUnmount(() => {
     :id="itemContext.textId"
     :ref="forwardRef"
     v-bind="{ ...props, ...$attrs }"
+    data-item-text
   >
     <slot />
   </Primitive>

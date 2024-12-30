@@ -1,6 +1,9 @@
 import { refAutoReset } from '@vueuse/shared'
 import type { Ref } from 'vue'
 
+const ITEM_TEXT_ATTR = 'data-item-text'
+
+// TODO: v2 improve the typeahead search with `ref` instead of `HTMLElement`
 export function useTypeahead(collections?: Ref<HTMLElement[]>) {
   // Reset `search` 1 second after it was last updated
   const search = refAutoReset('', 1000)
@@ -12,18 +15,20 @@ export function useTypeahead(collections?: Ref<HTMLElement[]>) {
     search.value = search.value + key
     const items = collections?.value ?? fallback!
     const currentItem = document.activeElement
-    const currentMatch
-      = items.find(item => item === currentItem)?.textContent?.trim() ?? ''
-    const values = items.map(item => item.textContent?.trim() ?? '')
-    const nextMatch = getNextMatch(values, search.value, currentMatch)
 
-    const newItem = items.find(
-      item => item.textContent?.trim() === nextMatch,
-    )
+    const itemsWithTextValue = items.map(el => ({
+      ref: el,
+      textValue: (el.querySelector(`[${ITEM_TEXT_ATTR}]`) ?? el).textContent?.trim() ?? '',
+    }))
+    const currentMatch = itemsWithTextValue.find(item => item.ref === currentItem)
+    const values = itemsWithTextValue.map(item => item.textValue)
+    const nextMatch = getNextMatch(values, search.value, currentMatch?.textValue)
+
+    const newItem = itemsWithTextValue.find(item => item.textValue === nextMatch)
 
     if (newItem)
-      (newItem as HTMLElement).focus()
-    return newItem
+      (newItem.ref as HTMLElement).focus()
+    return newItem?.ref
   }
 
   const resetTypeahead = () => {

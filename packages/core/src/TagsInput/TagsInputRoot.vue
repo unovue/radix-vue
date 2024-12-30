@@ -109,7 +109,7 @@ const isInvalidInput = ref(false)
 function handleRemoveTag(index: number) {
   if (index !== -1) {
     const collection = getItems().filter(i => i.ref.dataset.disabled !== '')
-    modelValue.value.splice(index, 1)
+    modelValue.value = modelValue.value.filter((_, i) => i !== index)
     emits('removeTag', collection[index].value)
   }
 }
@@ -132,14 +132,14 @@ provideTagsInputRootContext({
     }
 
     if (props.duplicate) {
-      modelValue.value.push(payload)
+      modelValue.value = [...modelValue.value, payload]
       emits('addTag', payload)
       return true
     }
     else {
       const exist = modelValue.value.includes(payload)
       if (!exist) {
-        modelValue.value.push(payload)
+        modelValue.value = [...modelValue.value, payload]
         emits('addTag', payload)
         return true
       }

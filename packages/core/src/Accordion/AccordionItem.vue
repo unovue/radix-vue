@@ -62,11 +62,7 @@ const open = computed(() =>
 )
 
 const disabled = computed(() => {
-  return (
-    rootContext.disabled.value
-    || props.disabled
-    || (rootContext.isSingle.value && open.value && !rootContext.collapsible)
-  )
+  return (rootContext.disabled.value || props.disabled)
 })
 
 const dataDisabled = computed(() => (disabled.value ? '' : undefined))
@@ -90,6 +86,13 @@ provideAccordionItemContext({
 })
 
 function handleArrowKey(e: KeyboardEvent) {
+  const target = e.target as HTMLElement
+  const allCollectionItems: HTMLElement[] = Array.from(rootContext.parentElement.value?.querySelectorAll('[data-radix-vue-collection-item]') ?? [])
+
+  const collectionItemIndex = allCollectionItems.findIndex(item => item === target)
+  if (collectionItemIndex === -1)
+    return null
+
   useArrowNavigation(
     e,
     currentElement.value,

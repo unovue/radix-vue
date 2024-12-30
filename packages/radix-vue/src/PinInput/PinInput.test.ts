@@ -22,6 +22,14 @@ describe('given default PinInput', () => {
     expect(await axe(wrapper.element)).toHaveNoViolations()
   })
 
+  it('should display input placeholders', () => {
+    expect(inputs[0].element.placeholder).toBe('') // first input was focused thus not showing placeholder
+    expect(inputs[1].element.placeholder).toBe('*')
+    expect(inputs[2].element.placeholder).toBe('*')
+    expect(inputs[3].element.placeholder).toBe('*')
+    expect(inputs[4].element.placeholder).toBe('*')
+  })
+
   describe('after user input', () => {
     beforeEach(async () => {
       await userEvent.keyboard('test')
@@ -142,6 +150,22 @@ describe('given default PinInput', () => {
 
     it('should emit \'complete\' with the result', () => {
       expect(wrapper.emitted('complete')?.[0]?.[0]).toStrictEqual(['a', 'p', 'p', 'l', 'e'])
+    })
+
+    describe('after resetting value', async () => {
+      beforeEach(async () => {
+        await userEvent.keyboard('apple')
+        const button = wrapper.find('button')
+        await button.trigger('click')
+      })
+
+      it('should display input placeholders', () => {
+        expect(inputs[0].element.placeholder).toBe('*')
+        expect(inputs[1].element.placeholder).toBe('*')
+        expect(inputs[2].element.placeholder).toBe('*')
+        expect(inputs[3].element.placeholder).toBe('*')
+        expect(inputs[4].element.placeholder).toBe('*')
+      })
     })
   })
 })

@@ -12,7 +12,7 @@ export interface PinInputInputProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, onUnmounted } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, watch } from 'vue'
 
 const props = withDefaults(defineProps<PinInputInputProps>(), {
   as: 'input',
@@ -20,6 +20,7 @@ const props = withDefaults(defineProps<PinInputInputProps>(), {
 
 const context = injectPinInputRootContext()
 const inputElements = computed(() => Array.from(context.inputElements!.value))
+const currentValue = computed(() => context.modelValue.value[props.index])
 
 const disabled = computed(() => props.disabled || context.disabled.value)
 const isOtpMode = computed(() => context.otp.value)
@@ -46,6 +47,14 @@ function handleInput(event: InputEvent) {
   const nextEl = inputElements.value[props.index + 1]
   if (nextEl)
     nextEl.focus()
+}
+
+function resetPlaceholder() {
+  const target = currentElement.value as HTMLInputElement
+  nextTick(() => {
+    if (!target.value)
+      target.placeholder = context.placeholder.value
+  })
 }
 
 function handleKeydown(event: KeyboardEvent) {
@@ -91,11 +100,7 @@ function handleFocus(event: FocusEvent) {
 }
 
 function handleBlur(event: FocusEvent) {
-  const target = event.target as HTMLInputElement
-  nextTick(() => {
-    if (!target.value)
-      target.placeholder = context.placeholder.value
-  })
+  resetPlaceholder()
 }
 
 function handlePaste(event: ClipboardEvent) {
@@ -142,6 +147,12 @@ function updateModelValueAt(index: number, value: string) {
   context.modelValue.value = removeTrailingEmptyStrings(tempModelValue)
 }
 
+watch(currentValue, () => {
+  if (!currentValue.value) {
+    resetPlaceholder()
+  }
+})
+
 onMounted(() => {
   context.onInputElementChange(currentElement.value as HTMLInputElement)
 })
@@ -161,7 +172,7 @@ onUnmounted(() => {
     :inputmode="isNumericMode ? 'numeric' : 'text'"
     :pattern="isNumericMode ? '[0-9]*' : undefined"
     :placeholder="context.placeholder.value"
-    :value="context.modelValue.value[index]"
+    :value="currentValue"
     :disabled="disabled"
     :data-disabled="disabled ? '' : undefined"
     :data-complete="context.isCompleted.value ? '' : undefined"

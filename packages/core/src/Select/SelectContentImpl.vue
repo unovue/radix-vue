@@ -188,11 +188,11 @@ function handleKeyDown(event: KeyboardEvent) {
   if (event.key === 'Tab')
     event.preventDefault()
 
-  const collectionItems = getItems().map(i => i.ref)
   if (!isModifierKey && event.key.length === 1)
-    handleTypeaheadSearch(event.key, collectionItems)
+    handleTypeaheadSearch(event.key, getItems())
 
   if (['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) {
+    const collectionItems = getItems().map(i => i.ref)
     let candidateNodes = [...collectionItems]
 
     if (['ArrowUp', 'End'].includes(event.key))

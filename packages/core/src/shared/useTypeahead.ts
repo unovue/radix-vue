@@ -1,34 +1,31 @@
 import { refAutoReset } from '@vueuse/shared'
-import type { Ref } from 'vue'
 
-const ITEM_TEXT_ATTR = 'data-item-text'
-
-// TODO: v2 improve the typeahead search with `ref` instead of `HTMLElement`
-export function useTypeahead(collections?: Ref<HTMLElement[]>) {
+export function useTypeahead(callback?: (search: string) => void) {
   // Reset `search` 1 second after it was last updated
   const search = refAutoReset('', 1000)
 
-  const handleTypeaheadSearch = (key: string, fallback?: HTMLElement[]) => {
-    if (!collections?.value && !fallback)
-      return
-
+  const handleTypeaheadSearch = (key: string, items: { ref: HTMLElement, value?: any }[]) => {
     search.value = search.value + key
-    const items = collections?.value ?? fallback!
-    const currentItem = document.activeElement
 
-    const itemsWithTextValue = items.map(el => ({
-      ref: el,
-      textValue: (el.querySelector(`[${ITEM_TEXT_ATTR}]`) ?? el).textContent?.trim() ?? '',
-    }))
-    const currentMatch = itemsWithTextValue.find(item => item.ref === currentItem)
-    const values = itemsWithTextValue.map(item => item.textValue)
-    const nextMatch = getNextMatch(values, search.value, currentMatch?.textValue)
+    if (callback) {
+      callback(key)
+    }
+    else {
+      const currentItem = document.activeElement
+      const itemsWithTextValue = items.map(item => ({
+        ...item,
+        textValue: item.value?.textValue ?? item.ref.textContent?.trim() ?? '',
+      }))
+      const currentMatch = itemsWithTextValue.find(item => item.ref === currentItem)
+      const values = itemsWithTextValue.map(item => item.textValue)
+      const nextMatch = getNextMatch(values, search.value, currentMatch?.textValue)
 
-    const newItem = itemsWithTextValue.find(item => item.textValue === nextMatch)
+      const newItem = itemsWithTextValue.find(item => item.textValue === nextMatch)
 
-    if (newItem)
-      (newItem.ref as HTMLElement).focus()
-    return newItem?.ref
+      if (newItem)
+        (newItem.ref as HTMLElement).focus()
+      return newItem?.ref
+    }
   }
 
   const resetTypeahead = () => {

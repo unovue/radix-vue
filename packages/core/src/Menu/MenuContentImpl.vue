@@ -190,7 +190,7 @@ function handleKeyDown(event: KeyboardEvent) {
   if (event.code === 'Space')
     return
 
-  const collectionItems = rovingFocusGroupRef.value?.getItems().map(i => i.ref) ?? []
+  const collectionItems = rovingFocusGroupRef.value?.getItems() ?? []
 
   if (isKeyDownInside) {
     // menus should not be navigated using tab key so we prevent it
@@ -206,7 +206,7 @@ function handleKeyDown(event: KeyboardEvent) {
   if (!FIRST_LAST_KEYS.includes(event.key))
     return
   event.preventDefault()
-  const candidateNodes = [...collectionItems]
+  const candidateNodes = [...collectionItems.map(item => item.ref)]
   if (LAST_KEYS.includes(event.key))
     candidateNodes.reverse()
   focusFirst(candidateNodes)

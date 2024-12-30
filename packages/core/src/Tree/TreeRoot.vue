@@ -166,7 +166,7 @@ function handleKeydown(event: KeyboardEvent) {
     virtualKeydownHook.trigger(event)
   }
   else {
-    const collections = rovingFocusGroupRef.value?.getItems().map(i => i.ref)
+    const collections = rovingFocusGroupRef.value?.getItems() ?? []
     handleTypeaheadSearch(event.key, collections)
   }
 }

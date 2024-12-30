@@ -118,8 +118,7 @@ function handlePointerOpen(event: PointerEvent) {
           if (!isModifierKey && event.key.length === 1)
             if (isTypingAhead && event.key === ' ') return;
 
-          const collectionItems = getItems().map(i => i.ref)
-          handleTypeaheadSearch(event.key, collectionItems);
+          handleTypeaheadSearch(event.key, getItems());
           if (OPEN_KEYS.includes(event.key)) {
             handleOpen();
             event.preventDefault();

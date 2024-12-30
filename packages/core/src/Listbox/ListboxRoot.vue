@@ -210,7 +210,7 @@ function onKeydownTypeAhead(event: KeyboardEvent) {
       changeHighlight(collection[collection.length - 1].ref)
     }
     else if (!isMetaKey) {
-      const el = handleTypeaheadSearch(event.key, getCollectionItem())
+      const el = handleTypeaheadSearch(event.key, getItems())
       if (el)
         changeHighlight(el)
     }

@@ -72,7 +72,6 @@ async function handlePointerLeave(event: PointerEvent) {
       v-bind="$attrs"
       :as="as"
       :as-child="asChild"
-      data-reka-collection-item
       :aria-disabled="disabled || undefined"
       :data-disabled="disabled ? '' : undefined"
       :data-highlighted="isFocused ? '' : undefined"

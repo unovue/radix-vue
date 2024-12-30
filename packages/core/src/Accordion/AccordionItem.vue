@@ -87,7 +87,7 @@ provideAccordionItemContext({
 
 function handleArrowKey(e: KeyboardEvent) {
   const target = e.target as HTMLElement
-  const allCollectionItems: HTMLElement[] = Array.from(rootContext.parentElement.value?.querySelectorAll('[data-radix-vue-collection-item]') ?? [])
+  const allCollectionItems: HTMLElement[] = Array.from(rootContext.parentElement.value?.querySelectorAll('[data-reka-collection-item]') ?? [])
 
   const collectionItemIndex = allCollectionItems.findIndex(item => item === target)
   if (collectionItemIndex === -1)

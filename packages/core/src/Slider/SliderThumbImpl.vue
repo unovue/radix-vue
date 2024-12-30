@@ -52,7 +52,6 @@ onUnmounted(() => {
       v-bind="$attrs"
       :ref="forwardRef"
       role="slider"
-      data-reka-collection-item
       :tabindex="rootContext.disabled.value ? undefined : 0"
       :aria-label="$attrs['aria-label'] || label"
       :data-disabled="rootContext.disabled.value ? '' : undefined"

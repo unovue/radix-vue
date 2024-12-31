@@ -190,7 +190,6 @@ provideSelectRootContext({
       :autocomplete="autocomplete"
       :disabled="disabled"
       :value="modelValue"
-      @change="handleValueChange($event.target.value)"
     >
       <option
         v-if="modelValue === undefined"

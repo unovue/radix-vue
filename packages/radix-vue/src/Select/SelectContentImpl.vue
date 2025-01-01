@@ -146,11 +146,6 @@ watchEffect((cleanupFn) => {
     }
   }
   const handlePointerUp = (event: PointerEvent) => {
-    // Prevent options from being untappable on touch devices
-    // https://github.com/unovue/radix-vue/issues/804
-    if (event.pointerType === 'touch')
-      return
-
     // If the pointer hasn't moved by a certain threshold then we prevent selecting item on `pointerup`.
     if (pointerMoveDelta.x <= 10 && pointerMoveDelta.y <= 10) {
       event.preventDefault()
@@ -254,6 +249,7 @@ provideSelectContentContext({
 <template>
   <FocusScope
     as-child
+    :trapped="rootContext.open.value"
     @mount-auto-focus.prevent
     @unmount-auto-focus="
       (event) => {

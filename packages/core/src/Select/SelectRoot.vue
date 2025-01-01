@@ -109,7 +109,7 @@ const triggerPointerDownPosRef = ref({
 
 const isEmptyModelValue = computed(() => {
   if (multiple.value && Array.isArray(modelValue.value))
-    return modelValue.value.length === 0
+    return modelValue.value?.length === 0
   else
     return isNullish(modelValue.value)
 })
@@ -132,9 +132,11 @@ const nativeSelectKey = computed(() => {
 })
 
 function handleValueChange(value: T) {
-  if (multiple.value && Array.isArray(modelValue.value)) {
-    const index = modelValue.value.findIndex(i => compare(i, value, props.by))
-    index === -1 ? modelValue.value.push(value) : modelValue.value.splice(index, 1)
+  if (multiple.value) {
+    const array = Array.isArray(modelValue.value) ? [...modelValue.value] : []
+    const index = array.findIndex(i => compare(i, value, props.by))
+    index === -1 ? array.push(value) : array.splice(index, 1)
+    modelValue.value = [...array]
   }
   else {
     modelValue.value = value
@@ -192,7 +194,7 @@ provideSelectRootContext({
       :value="modelValue"
     >
       <option
-        v-if="modelValue === undefined"
+        v-if="isNullish(modelValue)"
         value=""
       />
       <option

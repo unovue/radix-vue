@@ -35,7 +35,7 @@
   {
     'name': 'modelValue',
     'description': '<p>The controlled state of the switch. Can be bind as <code>v-model</code>.</p>\n',
-    'type': 'boolean',
+    'type': 'boolean | null',
     'required': false
   },
   {

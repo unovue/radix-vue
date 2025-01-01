@@ -16,12 +16,12 @@ const rootContext = injectSliderRootContext()
 const orientation = injectSliderOrientationContext()
 
 useForwardExpose()
-const percentages = computed(() => rootContext.modelValue?.value?.map(value =>
+const percentages = computed(() => rootContext.currentModelValue.value.map(value =>
   convertValueToPercentage(value, rootContext.min.value, rootContext.max.value),
 ))
 
-const offsetStart = computed(() => rootContext.modelValue!.value!.length > 1 ? Math.min(...percentages.value!) : 0)
-const offsetEnd = computed(() => 100 - Math.max(...percentages.value!))
+const offsetStart = computed(() => rootContext.currentModelValue.value.length > 1 ? Math.min(...percentages.value!) : 0)
+const offsetEnd = computed(() => 100 - Math.max(...percentages.value, 0))
 </script>
 
 <template>

@@ -20,7 +20,7 @@ export interface ToggleProps extends PrimitiveProps, FormFieldProps {
   /**
    * The controlled pressed state of the toggle. Can be bind as `v-model`.
    */
-  modelValue?: boolean
+  modelValue?: boolean | null
   /**
    * When `true`, prevents the user from interacting with the toggle.
    */

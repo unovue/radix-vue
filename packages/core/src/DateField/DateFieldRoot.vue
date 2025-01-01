@@ -40,7 +40,7 @@ export interface DateFieldRootProps extends PrimitiveProps, FormFieldProps {
   /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programmatically control the calendar view */
   placeholder?: DateValue
   /** The controlled checked state of the calendar. Can be bound as `v-model`. */
-  modelValue?: DateValue | undefined
+  modelValue?: DateValue | null
   /** The hour cycle used for formatting times. Defaults to the local preference */
   hourCycle?: HourCycle
   /** The granularity to use for formatting times. Defaults to day if a CalendarDate is provided, otherwise defaults to minute. The field will render segments for each part of the date up to and including the specified granularity */
@@ -197,7 +197,7 @@ watch([modelValue, locale], ([_modelValue]) => {
   if (!isNullish(_modelValue)) {
     segmentValues.value = { ...syncSegmentValues({ value: _modelValue, formatter }) }
   }
-  else if (Object.values(segmentValues.value).every(value => value === null) || _modelValue === undefined) {
+  else if (Object.values(segmentValues.value).every(value => value === null) || isNullish(_modelValue)) {
     segmentValues.value = { ...initialSegments }
   }
 })

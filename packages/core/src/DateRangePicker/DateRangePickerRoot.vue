@@ -121,7 +121,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 const defaultDate = getDefaultDate({
   defaultPlaceholder: props.placeholder,
   granularity: props.granularity,
-  defaultValue: modelValue.value.start,
+  defaultValue: modelValue.value?.start,
   locale: props.locale,
 })
 

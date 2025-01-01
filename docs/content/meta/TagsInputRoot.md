@@ -93,7 +93,7 @@
   {
     'name': 'modelValue',
     'description': '<p>The controlled value of the tags input. Can be bind as <code>v-model</code>.</p>\n',
-    'type': 'AcceptableInputValue[]',
+    'type': 'AcceptableInputValue[] | null',
     'required': false
   },
   {

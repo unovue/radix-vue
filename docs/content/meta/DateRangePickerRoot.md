@@ -126,7 +126,7 @@
   {
     'name': 'modelValue',
     'description': '<p>The controlled checked state of the calendar. Can be bound as <code>v-model</code>.</p>\n',
-    'type': 'DateRange',
+    'type': 'DateRange | null',
     'required': false
   },
   {

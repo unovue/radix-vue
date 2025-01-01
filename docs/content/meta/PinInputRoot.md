@@ -47,7 +47,7 @@
   {
     'name': 'modelValue',
     'description': '<p>The controlled checked state of the pin input. Can be binded as <code>v-model</code>.</p>\n',
-    'type': 'string[]',
+    'type': 'string[] | null',
     'required': false
   },
   {

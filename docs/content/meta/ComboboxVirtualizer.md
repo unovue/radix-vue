@@ -31,12 +31,12 @@
   {
     'name': 'option',
     'description': '',
-    'type': 'string | number | Record<string, any>'
+    'type': 'null | string | number | Record<string, any>'
   },
   {
     'name': 'virtualizer',
     'description': '',
-    'type': 'Virtualizer<Element | Window, Element>'
+    'type': 'Virtualizer<HTMLElement, Element>'
   },
   {
     'name': 'virtualItem',

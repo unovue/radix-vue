@@ -12,7 +12,7 @@ export type PinInputRootEmits = {
 
 export interface PinInputRootProps extends PrimitiveProps, FormFieldProps {
   /** The controlled checked state of the pin input. Can be binded as `v-model`. */
-  modelValue?: string[]
+  modelValue?: string[] | null
   /** The default value of the pin inputs when it is initially rendered. Use when you do not need to control its checked state. */
   defaultValue?: string[]
   /** The placeholder character to use for empty pin-inputs. */
@@ -33,6 +33,7 @@ export interface PinInputRootProps extends PrimitiveProps, FormFieldProps {
 
 export interface PinInputRootContext {
   modelValue: Ref<string[]>
+  currentModelValue: ComputedRef<string[]>
   mask: Ref<boolean>
   otp: Ref<boolean>
   placeholder: Ref<string>
@@ -78,13 +79,15 @@ const modelValue = useVModel(props, 'modelValue', emits, {
   passive: (props.modelValue === undefined) as false,
 }) as Ref<string[]>
 
+const currentModelValue = computed(() => Array.isArray(modelValue.value) ? [...modelValue.value] : [])
+
 const inputElements = ref<Set<HTMLInputElement>>(new Set())
 function onInputElementChange(el: HTMLInputElement) {
   inputElements.value.add(el)
 }
 
 const isCompleted = computed(() => {
-  const modelValues = modelValue.value.filter(i => !!i)
+  const modelValues = currentModelValue.value.filter(i => !!i)
   return modelValues.length === inputElements.value.size
 })
 
@@ -95,6 +98,7 @@ watch(modelValue, () => {
 
 providePinInputRootContext({
   modelValue,
+  currentModelValue,
   mask,
   otp,
   placeholder,
@@ -122,7 +126,7 @@ providePinInputRootContext({
       as="input"
       feature="focusable"
       tabindex="-1"
-      :value="modelValue.join('')"
+      :value="currentModelValue.join('')"
       :name="name ?? ''"
       :disabled="disabled"
       :required="required"

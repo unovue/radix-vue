@@ -44,7 +44,7 @@ function validateValue(value: any, max: number): number | null {
     || (isNumber(value) && !Number.isNaN(value) && value <= max && value >= 0)
 
   if (isValidValueError)
-    return value
+    return value as null
 
   console.error(`Invalid prop \`value\` of value \`${value}\` supplied to \`ProgressRoot\`. The \`value\` prop must be:
   - a positive number

@@ -30,5 +30,10 @@
     'name': 'fixedWeeks',
     'description': '<p>Whether or not to always display 6 weeks in the calendar</p>\n',
     'type': 'boolean'
+  },
+  {
+    'name': 'modelValue',
+    'description': '<p>The current date of the calendar</p>\n',
+    'type': 'CalendarDate | CalendarDateTime | ZonedDateTime'
   }
 ]" />

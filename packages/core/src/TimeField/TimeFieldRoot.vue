@@ -44,7 +44,7 @@ export interface TimeFieldRootProps extends PrimitiveProps, FormFieldProps {
   /** The placeholder date, which is used to determine what time to display when no time is selected. This updates as the user navigates the field */
   placeholder?: TimeValue
   /** The controlled checked state of the field. Can be bound as `v-model`. */
-  modelValue?: TimeValue | undefined
+  modelValue?: TimeValue | null
   /** The hour cycle used for formatting times. Defaults to the local preference */
   hourCycle?: HourCycle
   /** The granularity to use for formatting times. Defaults to minute if a Time is provided, otherwise defaults to minute. The field will render segments for each part of the date up to and including the specified granularity */

@@ -35,7 +35,7 @@
   {
     'name': 'modelValue',
     'description': '<p>The controlled value of the checkbox. Can be binded with v-model.</p>\n',
-    'type': 'boolean | \'indeterminate\'',
+    'type': 'boolean | \'indeterminate\' | null',
     'required': false
   },
   {

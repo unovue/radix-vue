@@ -7,7 +7,7 @@ import type { FormFieldProps } from '@/shared/types'
 
 export interface NumberFieldRootProps extends PrimitiveProps, FormFieldProps {
   defaultValue?: number
-  modelValue?: number
+  modelValue?: number | null
   /** The smallest value allowed for the input. */
   min?: number
   /** The largest value allowed for the input. */

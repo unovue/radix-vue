@@ -59,7 +59,7 @@
   {
     'name': 'modelValue',
     'description': '',
-    'type': 'number',
+    'type': 'number | null',
     'required': false
   },
   {

@@ -114,10 +114,10 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 
 function onValueChange(val: T) {
   isUserAction.value = true
-  if (Array.isArray(modelValue.value)) {
-    const index = modelValue.value.findIndex(i => compare(i, val, props.by))
+  if (props.multiple) {
+    const modelArray = Array.isArray(modelValue.value) ? [...modelValue.value] : []
+    const index = modelArray.findIndex(i => compare(i, val, props.by))
     if (props.selectionBehavior === 'toggle') {
-      const modelArray = [...modelValue.value]
       index === -1 ? modelArray.push(val) : modelArray.splice(index, 1)
       modelValue.value = modelArray
     }

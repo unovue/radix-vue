@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
 import type { Ref } from 'vue'
-import { createContext, isValueEqualOrExist, useFormControl, useForwardExpose } from '@/shared'
+import { createContext, isNullish, isValueEqualOrExist, useFormControl, useForwardExpose } from '@/shared'
 import type { CheckedState } from './utils'
 import type { AcceptableValue, FormFieldProps } from '@/shared/types'
 import { useVModel } from '@vueuse/core'
@@ -11,7 +11,7 @@ export interface CheckboxRootProps extends PrimitiveProps, FormFieldProps {
   /** The value of the checkbox when it is initially rendered. Use when you do not need to control its value. */
   defaultValue?: boolean | 'indeterminate'
   /** The controlled value of the checkbox. Can be binded with v-model. */
-  modelValue?: boolean | 'indeterminate'
+  modelValue?: boolean | 'indeterminate' | null
   /** When `true`, prevents the user from interacting with the checkbox */
   disabled?: boolean
   /**
@@ -77,7 +77,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 const disabled = computed(() => checkboxGroupContext?.disabled.value || props.disabled)
 
 const checkboxState = computed<CheckedState>(() => {
-  if (checkboxGroupContext?.modelValue.value !== undefined) {
+  if (!isNullish(checkboxGroupContext?.modelValue.value)) {
     return isValueEqualOrExist(checkboxGroupContext.modelValue.value, props.value)
   }
   else {
@@ -86,7 +86,7 @@ const checkboxState = computed<CheckedState>(() => {
 })
 
 function handleClick() {
-  if (checkboxGroupContext?.modelValue.value !== undefined) {
+  if (!isNullish(checkboxGroupContext?.modelValue.value)) {
     const modelValueArray = [...(checkboxGroupContext.modelValue.value || [])]
     if (isValueEqualOrExist(modelValueArray, props.value)) {
       const index = modelValueArray.findIndex(i => isEqual(i, props.value))

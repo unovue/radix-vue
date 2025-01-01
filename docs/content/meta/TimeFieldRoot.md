@@ -84,7 +84,7 @@
   {
     'name': 'modelValue',
     'description': '<p>The controlled checked state of the field. Can be bound as <code>v-model</code>.</p>\n',
-    'type': 'TimeValue',
+    'type': 'TimeValue | null',
     'required': false
   },
   {

@@ -62,7 +62,7 @@
   {
     'name': 'modelValue',
     'description': '<p>The value of the editable field</p>\n',
-    'type': 'string',
+    'type': 'string | null',
     'required': false
   },
   {
@@ -117,7 +117,7 @@
   {
     'name': 'submit',
     'description': '<p>Event handler called when a value is submitted</p>\n',
-    'type': '[value: string]'
+    'type': '[value: string | null]'
   },
   {
     'name': 'update:modelValue',
@@ -140,7 +140,7 @@
   {
     'name': 'modelValue',
     'description': '<p>The value of the editable field</p>\n',
-    'type': 'string | undefined'
+    'type': 'string | null | undefined'
   },
   {
     'name': 'isEmpty',

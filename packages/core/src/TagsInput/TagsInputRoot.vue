@@ -2,13 +2,13 @@
 import type { PrimitiveProps } from '@/Primitive'
 import { createContext, useArrowNavigation, useDirection, useFormControl, useForwardExpose } from '@/shared'
 import type { Direction, FormFieldProps } from '@/shared/types'
-import { type Ref, ref, toRefs } from 'vue'
+import { type Ref, computed, ref, toRefs } from 'vue'
 
 export type AcceptableInputValue = string | Record<string, any>
 
 export interface TagsInputRootProps<T = AcceptableInputValue> extends PrimitiveProps, FormFieldProps {
   /** The controlled value of the tags input. Can be bind as `v-model`. */
-  modelValue?: Array<T>
+  modelValue?: Array<T> | null
   /** The value of the tags that should be added. Use when you do not need to control the state of the tags input */
   defaultValue?: Array<T>
   /** When `true`, allow adding tags on paste. Work in conjunction with delimiter prop. */
@@ -106,6 +106,8 @@ const { getItems, CollectionSlot } = useCollection({ isProvider: true })
 const selectedElement = ref<HTMLElement>()
 const isInvalidInput = ref(false)
 
+const currentModelValue = computed(() => Array.isArray(modelValue.value) ? [...modelValue.value] : [])
+
 function handleRemoveTag(index: number) {
   if (index !== -1) {
     const collection = getItems().filter(i => i.ref.dataset.disabled !== '')
@@ -117,8 +119,9 @@ function handleRemoveTag(index: number) {
 provideTagsInputRootContext({
   modelValue,
   onAddValue: (_payload) => {
-    const modelValueIsObject = modelValue.value.length > 0 && typeof modelValue.value[0] === 'object'
-    const defaultValueIsObject = modelValue.value.length > 0 && typeof props.defaultValue[0] === 'object'
+    const array = [...currentModelValue.value]
+    const modelValueIsObject = array.length > 0 && typeof array[0] === 'object'
+    const defaultValueIsObject = array.length > 0 && typeof props.defaultValue[0] === 'object'
 
     // Check if the value is an object and if the convertValue function is provided. We don't check this a type level because the use
     // of `TagsInputInput` is optional.
@@ -126,20 +129,20 @@ provideTagsInputRootContext({
       throw new Error('You must provide a `convertValue` function when using objects as values.')
     const payload = props.convertValue ? props.convertValue(_payload) : _payload as T
 
-    if ((modelValue.value.length >= max.value) && !!max.value) {
+    if ((array.length >= max.value) && !!max.value) {
       emits('invalid', payload)
       return false
     }
 
     if (props.duplicate) {
-      modelValue.value = [...modelValue.value, payload]
+      modelValue.value = [...array, payload]
       emits('addTag', payload)
       return true
     }
     else {
-      const exist = modelValue.value.includes(payload)
+      const exist = array.includes(payload)
       if (!exist) {
-        modelValue.value = [...modelValue.value, payload]
+        modelValue.value = [...array, payload]
         emits('addTag', payload)
         return true
       }

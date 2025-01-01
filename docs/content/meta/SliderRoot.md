@@ -65,7 +65,7 @@
   {
     'name': 'modelValue',
     'description': '<p>The controlled value of the slider. Can be bind as <code>v-model</code>.</p>\n',
-    'type': 'number[]',
+    'type': 'number[] | null',
     'required': false
   },
   {
@@ -113,6 +113,6 @@
   {
     'name': 'modelValue',
     'description': '<p>Current slider values</p>\n',
-    'type': 'number[]'
+    'type': 'number[] | null'
   }
 ]" />

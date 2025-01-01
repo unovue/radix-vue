@@ -151,6 +151,8 @@ defineSlots<{
     locale: string
     /** Whether or not to always display 6 weeks in the calendar */
     fixedWeeks: boolean
+    /** The current date of the calendar */
+    modelValue: DateValue | undefined
   }) => any
 }>()
 

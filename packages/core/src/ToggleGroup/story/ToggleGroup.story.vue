@@ -3,7 +3,8 @@ import { Icon } from '@iconify/vue'
 import { ref } from 'vue'
 import { ToggleGroupItem, ToggleGroupRoot } from '..'
 
-const toggleStateSingle = ref('center')
+const toggleStateSingle = ref<string | null>(null)
+const toggleStateMultiple = ref<string[] | string | null>('123')
 
 const toggleGroupItemClasses
   = 'hover:bg-violet3 color-mauve11 data-[state=on]:bg-violet6 data-[state=on]:text-violet12 flex h-[35px] w-[35px] items-center justify-center bg-white text-base leading-4 first:rounded-l last:rounded-r focus:z-10 focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none'
@@ -52,7 +53,7 @@ const toggleGroupItemClasses
       </ToggleGroupRoot>
       <br>
       <ToggleGroupRoot
-        :default-value="[{ val: 'bold' }, { val: 'italic' }]"
+        v-model="toggleStateMultiple"
         type="multiple"
         class="flex"
       >

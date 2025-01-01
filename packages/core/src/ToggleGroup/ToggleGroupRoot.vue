@@ -1,12 +1,12 @@
 <script lang="ts">
 import type { ComputedRef, Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import type { AcceptableValue, DataOrientation, Direction, FormFieldProps, SingleOrMultipleProps, SingleOrMultipleType } from '../shared/types'
+import type { AcceptableValue, DataOrientation, Direction, FormFieldProps, SingleOrMultipleProps } from '../shared/types'
 import { createContext, useDirection, useFormControl, useForwardExpose } from '@/shared'
 import VisuallyHiddenInput from '@/VisuallyHidden/VisuallyHiddenInput.vue'
 
-export interface ToggleGroupRootProps<ValidValue = AcceptableValue | AcceptableValue[], ExplicitType = SingleOrMultipleType>
-  extends PrimitiveProps, FormFieldProps, SingleOrMultipleProps<ValidValue, ExplicitType> {
+export interface ToggleGroupRootProps<T = AcceptableValue | AcceptableValue[]>
+  extends PrimitiveProps, FormFieldProps, SingleOrMultipleProps<T> {
   /** When `false`, navigating through the items using arrow keys will be disabled. */
   rovingFocus?: boolean
   /** When `true`, prevents the user from interacting with the toggle group and all its items. */

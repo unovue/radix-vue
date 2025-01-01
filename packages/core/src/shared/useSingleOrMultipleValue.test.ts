@@ -19,9 +19,7 @@ describe('useSingleOrMultipleValue', () => {
       modelValue: 'test',
     }
     const emits = vi.fn()
-    const { type, modelValue } = useSingleOrMultipleValue(props, emits)
-
-    expect(type.value).toBe('single')
+    const { modelValue } = useSingleOrMultipleValue(props, emits)
     expect(modelValue.value).toBe('test')
   })
 
@@ -57,57 +55,53 @@ describe('useSingleOrMultipleValue', () => {
     const { props, emits } = setupPropsEmits({
       modelValue: 'test',
     })
-    const { type, changeModelValue, modelValue } = useSingleOrMultipleValue(props, emits)
+    const { changeModelValue, modelValue } = useSingleOrMultipleValue(props, emits)
 
     changeModelValue('newTest')
     expect(modelValue.value).toEqual('newTest')
 
     changeModelValue('')
     expect(modelValue.value).toEqual('')
-    expect(type.value).toBe('single')
   })
 
   it('should infer type from modelValue given `multiple`', () => {
     const { props, emits } = setupPropsEmits({
       modelValue: ['test'],
     })
-    const { type, changeModelValue, modelValue } = useSingleOrMultipleValue(props, emits)
+    const { changeModelValue, modelValue } = useSingleOrMultipleValue(props, emits)
 
     changeModelValue('newTest')
     expect(modelValue.value).toEqual(['test', 'newTest'])
 
     changeModelValue('test')
     expect(modelValue.value).toEqual(['newTest'])
-    expect(type.value).toBe('multiple')
   })
 
-  it('should validate props and throw error if invalid given type `single`', () => {
-    const consoleErrorMockFunction = vi.fn()
-    vi.spyOn(console, 'error').mockImplementation(consoleErrorMockFunction)
-
-    const props: SingleOrMultipleProps = reactive({
-      type: 'single',
+  it('should overwrite type given `single`', () => {
+    const { props, emits } = setupPropsEmits({
       modelValue: ['test'],
+      type: 'single',
     })
-    const emits = vi.fn()
+    const { changeModelValue, modelValue } = useSingleOrMultipleValue(props, emits)
 
-    useSingleOrMultipleValue(props, emits)
-    expect(consoleErrorMockFunction).toHaveBeenCalledTimes(1)
-    expect(consoleErrorMockFunction).toHaveBeenCalledWith(expect.stringMatching(/Invalid prop `modelValue` of type object supplied with type `single`/))
+    changeModelValue('newTest')
+    expect(modelValue.value).toEqual('newTest')
+
+    changeModelValue('')
+    expect(modelValue.value).toEqual('')
   })
 
-  it('should validate props and throw error if invalid given type `multiple`', () => {
-    const consoleErrorMockFunction = vi.fn()
-    vi.spyOn(console, 'error').mockImplementation(consoleErrorMockFunction)
-
-    const props: SingleOrMultipleProps = reactive({
-      type: 'multiple',
+  it('should overwrite type given `multiple`', () => {
+    const { props, emits } = setupPropsEmits({
       modelValue: 'test',
+      type: 'multiple',
     })
-    const emits = vi.fn()
+    const { changeModelValue, modelValue } = useSingleOrMultipleValue(props, emits)
 
-    useSingleOrMultipleValue(props, emits)
-    expect(consoleErrorMockFunction).toHaveBeenCalledTimes(1)
-    expect(consoleErrorMockFunction).toHaveBeenCalledWith(expect.stringMatching(/Invalid prop `modelValue` of type string supplied with type `multiple`/))
+    changeModelValue('newTest')
+    expect(modelValue.value).toEqual(['test', 'newTest'])
+
+    changeModelValue('test')
+    expect(modelValue.value).toEqual(['newTest'])
   })
 })

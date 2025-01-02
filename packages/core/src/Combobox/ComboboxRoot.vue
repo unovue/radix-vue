@@ -234,6 +234,7 @@ provideComboboxRootContext({
       :required="required"
       :disabled="disabled"
       :highlight-on-hover="true"
+      :by="props.by as any"
       @highlight="emits('highlight', $event as any)"
     >
       <slot

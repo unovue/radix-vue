@@ -17,8 +17,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup (Install node & pnpm)
-        uses: ./.github/actions/setup
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
 
       - run: npx changelogithub
         env:

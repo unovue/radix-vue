@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NumberFieldDecrement, NumberFieldIncrement, NumberFieldInput, NumberFieldRoot } from 'radix-vue'
+import { NumberFieldDecrement, NumberFieldIncrement, NumberFieldInput, NumberFieldRoot } from 'reka-ui'
 import { Icon } from '@iconify/vue'
 </script>
 

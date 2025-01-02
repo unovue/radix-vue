@@ -2,15 +2,22 @@
 
 <PropsTable :data="[
   {
+    'name': 'allowNonContiguousRanges',
+    'description': '<p>When combined with <code>isDateUnavailable</code>, determines whether non-contiguous ranges, i.e. ranges containing unavailable dates, may be selected.</p>\n',
+    'type': 'boolean',
+    'required': false,
+    'default': 'false'
+  },
+  {
     'name': 'as',
-    'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
+    'description': '<p>The element or component this component should render as. Can be overwritten by <code>asChild</code>.</p>\n',
     'type': 'AsTag | Component',
     'required': false,
     'default': '\'div\''
   },
   {
     'name': 'asChild',
-    'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our <a href=\'https://www.radix-vue.com/guides/composition.html\'>Composition</a> guide for more details.</p>\n',
+    'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our <a href=\'https://www.reka-ui.com/docs/guides/composition\'>Composition</a> guide for more details.</p>\n',
     'type': 'boolean',
     'required': false
   },
@@ -76,8 +83,7 @@
     'name': 'locale',
     'description': '<p>The locale to use for formatting dates</p>\n',
     'type': 'string',
-    'required': false,
-    'default': '\'en\''
+    'required': false
   },
   {
     'name': 'maxValue',
@@ -94,7 +100,7 @@
   {
     'name': 'modelValue',
     'description': '<p>The controlled checked state of the calendar. Can be bound as <code>v-model</code>.</p>\n',
-    'type': 'DateRange',
+    'type': 'DateRange | null',
     'required': false
   },
   {
@@ -146,7 +152,7 @@
   {
     'name': 'weekdayFormat',
     'description': '<p>The format to use for the weekday strings provided via the weekdays slot prop</p>\n',
-    'type': '\'narrow\' | \'short\' | \'long\'',
+    'type': '\'long\' | \'short\' | \'narrow\'',
     'required': false,
     'default': '\'narrow\''
   },
@@ -207,5 +213,23 @@
     'name': 'fixedWeeks',
     'description': '<p>Whether or not to always display 6 weeks in the calendar</p>\n',
     'type': 'boolean'
+  },
+  {
+    'name': 'modelValue',
+    'description': '<p>The current date range</p>\n',
+    'type': 'DateRange'
+  }
+]" />
+
+<MethodsTable :data="[
+  {
+    'name': 'isDateDisabled',
+    'description': '<p>A function that returns whether or not a date is disabled</p>\n',
+    'type': 'Matcher'
+  },
+  {
+    'name': 'isDateUnavailable',
+    'description': '<p>A function that returns whether or not a date is unavailable</p>\n',
+    'type': 'Matcher'
   }
 ]" />

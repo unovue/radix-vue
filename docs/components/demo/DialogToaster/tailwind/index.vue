@@ -8,7 +8,7 @@ import {
   DialogRoot,
   DialogTitle,
   DialogTrigger,
-} from 'radix-vue'
+} from 'reka-ui'
 import { Icon } from '@iconify/vue'
 
 import { Toaster, toast } from 'vue-sonner'
@@ -34,7 +34,7 @@ import { Toaster, toast } from 'vue-sonner'
           <DialogTitle class="text-mauve12 m-0 text-[17px] font-semibold">
             Dialog Title
           </DialogTitle>
-          <DialogDescription class="text-mauve11 mt-[10px] mb-5 text-[15px] leading-normal">
+          <DialogDescription class="text-mauve11 mt-[10px] mb-5 text-sm leading-normal">
             Dialog description
           </DialogDescription>
 

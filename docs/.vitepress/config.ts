@@ -302,6 +302,15 @@ export default defineConfig({
             ],
           },
           {
+            text: 'Date',
+            items: [
+              {
+                text: 'Date Picker Selection',
+                link: '/examples/date-picker-selection',
+              },
+            ],
+          },
+          {
             text: 'Dialog',
             items: [
               {

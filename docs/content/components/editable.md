@@ -146,6 +146,40 @@ Contains the cancel trigger of the editable component.
 
 <!-- @include: @/meta/EditableCancelTrigger.md -->
 
+## Examples
+
+### Change only on submit
+
+Use the `default-value` prop to define starting value and `@submit` emit to handle the submit event.
+This is useful when you want to change the value only when the user submits the changes and have `auto-resize` working properly.
+
+```vue line=12-13
+<script setup lang="ts">
+const defaultValue = ref('Default value')
+
+function handleSubmit(label?: string) {
+  defaultValue.value = label
+}
+</script>
+
+<template>
+  <template>
+    <EditableRoot
+      :default-value="defaultValue"
+      @submit="handleSubmit"
+    >
+      <EditableArea>
+        <EditablePreview />
+        <EditableInput />
+      </EditableArea>
+      <EditableEditTrigger />
+      <EditableSubmitTrigger />
+      <EditableCancelTrigger />
+    </EditableRoot>
+  </template>
+</template>
+```
+
 ## Accessibility
 
 ### Keyboard Interactions

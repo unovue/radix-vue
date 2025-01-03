@@ -72,6 +72,7 @@ watchEffect((cleanupFn) => {
   if (!isClient)
     return
   const container = currentElement.value
+
   if (!props.trapped)
     return
 
@@ -184,7 +185,7 @@ watchEffect(async (cleanupFn) => {
 })
 
 function handleKeyDown(event: KeyboardEvent) {
-  if (!props.loop && !props.trapped)
+  if (!props.loop || !props.trapped)
     return
   if (focusScope.paused)
     return

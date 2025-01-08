@@ -54,3 +54,21 @@
     'type': '[event: SelectEvent]'
   }
 ]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'checked',
+    'description': '<p>Current checked state</p>\n',
+    'type': 'boolean'
+  },
+  {
+    'name': 'required',
+    'description': '<p>Required state</p>\n',
+    'type': 'boolean'
+  },
+  {
+    'name': 'disabled',
+    'description': '<p>Disabled state</p>\n',
+    'type': 'boolean'
+  }
+]" />

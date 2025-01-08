@@ -15,3 +15,11 @@
     'required': false
   }
 ]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'step',
+    'description': '<p>Current step</p>\n',
+    'type': 'number'
+  }
+]" />

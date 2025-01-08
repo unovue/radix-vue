@@ -10,6 +10,14 @@ import { Primitive } from '@/Primitive'
 export interface StepperIndicatorProps extends PrimitiveProps { }
 
 const props = defineProps<StepperIndicatorProps>()
+
+defineSlots<{
+  default: (props: {
+    /** Current step */
+    step: number
+  }) => any
+}>()
+
 const itemContext = injectStepperItemContext()
 useForwardExpose()
 </script>
@@ -18,7 +26,7 @@ useForwardExpose()
   <Primitive
     v-bind="props"
   >
-    <slot>
+    <slot :step="itemContext.step.value">
       Step {{ itemContext.step.value }}
     </slot>
   </Primitive>

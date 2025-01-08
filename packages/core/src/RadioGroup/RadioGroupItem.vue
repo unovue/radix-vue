@@ -34,7 +34,19 @@ const props = withDefaults(defineProps<RadioGroupItemProps>(), {
   disabled: false,
   as: 'button',
 })
+
 const emits = defineEmits<RadioGroupItemEmits>()
+
+defineSlots<{
+  default: (props: {
+    /** Current checked state */
+    checked: typeof checked.value
+    /** Required state */
+    required: typeof required.value
+    /** Disabled state */
+    disabled: typeof disabled.value
+  }) => any
+}>()
 
 const { forwardRef, currentElement } = useForwardExpose()
 
@@ -89,7 +101,11 @@ function handleFocus() {
       @keydown.enter.prevent
       @focus="handleFocus"
     >
-      <slot />
+      <slot
+        :checked="checked"
+        :required="required"
+        :disabled="disabled"
+      />
     </Radio>
   </RovingFocusItem>
 </template>

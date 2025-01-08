@@ -109,6 +109,40 @@ describe('rangeCalendar', () => {
     expect(getSelectedDays(calendar)).toHaveLength(3)
   })
 
+  it('resets range selection when pressing Escape', async () => {
+    const { getByTestId, calendar, user, rerender } = setup({
+      calendarProps: { modelValue: calendarDateRange },
+      emits: { 'onUpdate:modelValue': data => rerender({ calendarProps: { modelValue: data } }) },
+    })
+
+    let startValue = calendar.querySelector('[data-selection-start]')
+    let endValue = calendar.querySelector('[data-selection-end]')
+
+    expect(startValue).toHaveTextContent(String(calendarDateRange.start.day))
+    expect(endValue).toHaveTextContent(String(calendarDateRange.end.day))
+
+    const fifthDayInMonth = getByTestId('date-1-5')
+    await user.click(fifthDayInMonth)
+    expect(getByTestId('date-1-5')).toHaveAttribute('data-focused')
+
+    const selectedDays = getSelectedDays(calendar)
+    expect(selectedDays).toHaveLength(1)
+
+    startValue = calendar.querySelector('[data-selection-start]')
+    endValue = calendar.querySelector('[data-selection-end]')
+
+    expect(startValue).toBeInTheDocument()
+    expect(endValue).not.toBeInTheDocument()
+
+    await user.keyboard(kbd.ESCAPE)
+
+    startValue = calendar.querySelector('[data-selection-start]')
+    endValue = calendar.querySelector('[data-selection-end]')
+
+    expect(startValue).toHaveTextContent(String(calendarDateRange.start.day))
+    expect(endValue).toHaveTextContent(String(calendarDateRange.end.day))
+  })
+
   it('navigates the months forward using the next button', async () => {
     const { getByTestId, user } = setup({ calendarProps: { modelValue: calendarDateTimeRange } })
 

@@ -3,7 +3,7 @@ import { type DateValue, isEqualDay } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { type Formatter, createContext, isNullish, useDirection, useLocale } from '@/shared'
+import { type Formatter, createContext, isNullish, useDirection, useKbd, useLocale } from '@/shared'
 import { getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
 import { type Grid, type Matcher, type WeekDayFormat, isBefore } from '@/date'
 import type { DateRange } from '@/shared/date'
@@ -115,7 +115,7 @@ export const [injectRangeCalendarRootContext, provideRangeCalendarRootContext]
 <script setup lang="ts">
 import { computed, onMounted, ref, toRefs, watch } from 'vue'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
-import { useVModel } from '@vueuse/core'
+import { useEventListener, useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<RangeCalendarRootProps>(), {
   defaultValue: () => ({ start: undefined, end: undefined }),
@@ -298,11 +298,14 @@ watch([startValue, endValue], ([_startValue, _endValue]) => {
       }
     }
   }
-  else if (value.start && value.end) {
-    modelValue.value = {
-      start: undefined,
-      end: undefined,
-    }
+})
+
+const kbd = useKbd()
+useEventListener('keydown', (ev) => {
+  if (ev.key === kbd.ESCAPE) {
+    // Abort start and end selection
+    startValue.value = modelValue.value.start
+    endValue.value = modelValue.value.end
   }
 })
 

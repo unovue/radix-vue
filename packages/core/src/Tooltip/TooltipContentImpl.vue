@@ -25,6 +25,8 @@ export interface TooltipContentImplProps
     | 'arrowPadding'
     | 'sticky'
     | 'hideWhenDetached'
+    | 'positionStrategy'
+    | 'updatePositionStrategy'
   > {
   /**
    * By default, screenreaders will announce the content inside
@@ -64,7 +66,7 @@ const rootContext = injectTooltipRootContext()
 
 const { forwardRef } = useForwardExpose()
 const slot = useSlots()
-const defaultSlot = computed(() => slot.default?.())
+const defaultSlot = computed(() => slot.default?.({}))
 const ariaLabel = computed(() => {
   if (props.ariaLabel)
     return props.ariaLabel
@@ -77,7 +79,7 @@ const ariaLabel = computed(() => {
       node.children.forEach(child => recursiveTextSearch(child as VNode))
   }
 
-  defaultSlot.value?.forEach(node => recursiveTextSearch(node))
+  defaultSlot.value?.forEach((node: VNode) => recursiveTextSearch(node))
   return content
 })
 

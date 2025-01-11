@@ -33,3 +33,11 @@
     'required': true
   }
 ]" />
+
+<EmitsTable :data="[
+  {
+    'name': 'select',
+    'description': '<p>Event handler called when the selecting item. &lt;br&gt; It can be prevented by calling <code>event.preventDefault</code>.</p>\n',
+    'type': '[event: SelectEvent<AcceptableValue>]'
+  }
+]" />

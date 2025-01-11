@@ -42,6 +42,7 @@ const position = computed(() => ({
           side="top"
           :side-offset="12"
           class="bg-card px-4 py-2 rounded-md text-sm border border-muted-foreground/30"
+          update-position-strategy="always"
         >
           Following
 

@@ -69,6 +69,12 @@
     'required': false
   },
   {
+    'name': 'positionStrategy',
+    'description': '<p>The type of CSS position property to use.</p>\n',
+    'type': '\'fixed\' | \'absolute\'',
+    'required': false
+  },
+  {
     'name': 'side',
     'description': '<p>The preferred side of the trigger to render against when open.\nWill be reversed when collisions occur and avoidCollisions\nis enabled.</p>\n',
     'type': '\'top\' | \'right\' | \'bottom\' | \'left\'',
@@ -85,6 +91,12 @@
     'name': 'sticky',
     'description': '<p>The sticky behavior on the align axis. <code>partial</code> will keep the\ncontent in the boundary as long as the trigger is at least partially\nin the boundary whilst &quot;always&quot; will keep the content in the boundary\nregardless.</p>\n',
     'type': '\'partial\' | \'always\'',
+    'required': false
+  },
+  {
+    'name': 'updatePositionStrategy',
+    'description': '<p>Strategy to update the position of the floating element on every animation frame.</p>\n',
+    'type': '\'always\' | \'optimized\'',
     'required': false
   }
 ]" />

@@ -23,7 +23,6 @@ const props = withDefaults(defineProps<ToggleGroupItemProps>(), {
 
 const rootContext = injectToggleGroupRootContext()
 const disabled = computed(() => rootContext.disabled?.value || props.disabled)
-const pressed = computed(() => rootContext.modelValue.value?.includes(props.value))
 
 const isPressed = computed(() => {
   return rootContext.isSingle.value
@@ -39,7 +38,7 @@ const { forwardRef } = useForwardExpose()
     :is="rootContext.rovingFocus.value ? RovingFocusItem : Primitive"
     as-child
     :focusable="!disabled"
-    :active="pressed"
+    :active="isPressed"
   >
     <Toggle
       v-bind="props"

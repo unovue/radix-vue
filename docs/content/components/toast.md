@@ -113,6 +113,12 @@ The toast that automatically closes. It should not be held open to [acquire a us
   ]"
 />
 
+### Portal
+
+When used, portals the content part into the `body`.
+
+<!-- @include: @/meta/ToastPortal.md -->
+
 ### Title
 
 An optional title for the toast

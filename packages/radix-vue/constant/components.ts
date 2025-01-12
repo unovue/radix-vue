@@ -384,6 +384,7 @@ export const components = {
   toast: [
     'ToastProvider',
     'ToastRoot',
+    'ToastPortal',
     'ToastAction',
     'ToastClose',
     'ToastViewport',

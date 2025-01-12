@@ -40,21 +40,22 @@
   },
   {
     'name': 'expanded',
-    'description': '<p>The controlled value of the expanded item. Can be binded-with with <code>v-model</code>.</p>\n',
+    'description': '<p>The controlled value of the expanded item. Can be binded with with <code>v-model</code>.</p>\n',
     'type': 'string[]',
     'required': false
+  },
+  {
+    'name': 'getChildren',
+    'description': '<p>This function is passed the index of each item and should return a list of children for that item</p>\n',
+    'type': '((val: Record<string, any>) => Record<string, any>[])',
+    'required': false,
+    'default': 'val.children'
   },
   {
     'name': 'getKey',
     'description': '<p>This function is passed the index of each item and should return a unique key for that item</p>\n',
     'type': '(val: Record<string, any>) => string',
     'required': true
-  },
-  {
-    'name': 'getChildren',
-    'description': '<p>This function is passed the index of each item and should return a list of children for that item</p>\n',
-    'type': '(val: Record<string, any>) => Record<string, any>[] | undefined',
-    'required': false
   },
   {
     'name': 'items',
@@ -64,7 +65,7 @@
   },
   {
     'name': 'modelValue',
-    'description': '<p>The controlled value of the tree. Can be binded-with with <code>v-model</code>.</p>\n',
+    'description': '<p>The controlled value of the tree. Can be binded with with <code>v-model</code>.</p>\n',
     'type': 'Record<string, any> | Record<string, any>[]',
     'required': false
   },
@@ -83,7 +84,7 @@
   {
     'name': 'selectionBehavior',
     'description': '<p>How multiple selection should behave in the collection.</p>\n',
-    'type': '\'replace\' | \'toggle\'',
+    'type': '\'toggle\' | \'replace\'',
     'required': false,
     'default': '\'toggle\''
   }

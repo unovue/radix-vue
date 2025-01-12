@@ -11,7 +11,7 @@
  * `min` and `max`.
  */
 export function clamp(value: number, min: number = Number.NEGATIVE_INFINITY, max: number = Number.POSITIVE_INFINITY): number {
-  return Math.min(Math.max(value, min), max)
+  return Math.min(max, Math.max(min, value))
 }
 
 /**

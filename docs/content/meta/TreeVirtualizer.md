@@ -20,5 +20,15 @@
     'name': 'item',
     'description': '',
     'type': 'FlattenedItem<Record<string, any>>'
+  },
+  {
+    'name': 'virtualizer',
+    'description': '',
+    'type': 'Virtualizer<Element | Window, Element>'
+  },
+  {
+    'name': 'virtualItem',
+    'description': '',
+    'type': 'VirtualItem<Element>'
   }
 ]" />

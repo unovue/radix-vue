@@ -9,7 +9,7 @@ const { frontmatter } = useData()
 <template>
   <div class="content px-6 sm:px-[48px] lg:px-[64px] py-6 sm:py-12">
     <div class="mx-auto w-full container max-w-[1152px]">
-      <div class=" my-16 md:my-26 flex flex-col items-center text-center">
+      <div class=" my-16 md:my-24 flex flex-col items-center text-center">
         <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold animate-text bg-gradient-to-r from-green-200 via-green-300 to-blue-400 bg-clip-text text-transparent ">
           Showcase
         </h1>
@@ -21,7 +21,7 @@ const { frontmatter } = useData()
           text="Add Showcase"
           class="mt-6"
           target="_blank"
-          href="https://github.com/radix-vue/radix-vue/blob/main/docs/content/showcase.md"
+          href="https://github.com/unovue/radix-vue/blob/main/docs/content/showcase.md"
         />
       </div>
 

@@ -9,4 +9,4 @@ description: Discover the latest release of Radix Vue.
 Discover the latest release of Radix Vue.
 </Description>
 
-[Latest releases on github](https://github.com/radix-vue/radix-vue/releases)
+[Latest releases on github](https://github.com/unovue/radix-vue/releases)

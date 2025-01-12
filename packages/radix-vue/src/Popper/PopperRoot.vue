@@ -18,6 +18,10 @@ export const [injectPopperRootContext, providePopperRootContext]
 <script setup lang="ts">
 import { ref } from 'vue'
 
+defineOptions({
+  inheritAttrs: false,
+})
+
 const anchor = ref<Measurable | HTMLElement>()
 
 providePopperRootContext({

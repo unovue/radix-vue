@@ -334,7 +334,7 @@ const selectedPeople = ref([people[0], people[1]])
 
 ### Custom filtering
 
-Internally, `ComboboxRoot` would apply default [filter function](https://github.com/radix-vue/radix-vue/blob/main/packages/radix-vue/src/Combobox/ComboboxRoot.vue#L128) to filter relevant `ComboboxItem` (only apply when `modelValue` is type `string`).
+Internally, `ComboboxRoot` would apply default [filter function](https://github.com/unovue/radix-vue/blob/main/packages/radix-vue/src/Combobox/ComboboxRoot.vue#L128) to filter relevant `ComboboxItem` (only apply when `modelValue` is type `string`).
 
 However this behavior can be replaced using 2 different method.
 

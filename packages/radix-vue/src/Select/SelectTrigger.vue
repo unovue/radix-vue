@@ -84,7 +84,7 @@ function handlePointerOpen(event: PointerEvent) {
       @pointerdown="
         (event: PointerEvent) => {
           // Prevent opening on touch down.
-          // https://github.com/radix-vue/radix-vue/issues/804
+          // https://github.com/unovue/radix-vue/issues/804
           if (event.pointerType === 'touch')
             return event.preventDefault();
 
@@ -107,7 +107,7 @@ function handlePointerOpen(event: PointerEvent) {
       @pointerup.prevent="
         (event: PointerEvent) => {
           // Only open on pointer up when using touch devices
-          // https://github.com/radix-vue/radix-vue/issues/804
+          // https://github.com/unovue/radix-vue/issues/804
           if (event.pointerType === 'touch')
             handlePointerOpen(event)
         }

@@ -26,5 +26,15 @@
     'name': 'option',
     'description': '',
     'type': 'string | number | false | true | Record<string, any>'
+  },
+  {
+    'name': 'virtualizer',
+    'description': '',
+    'type': 'Virtualizer<Element | Window, Element>'
+  },
+  {
+    'name': 'virtualItem',
+    'description': '',
+    'type': 'VirtualItem<Element>'
   }
 ]" />

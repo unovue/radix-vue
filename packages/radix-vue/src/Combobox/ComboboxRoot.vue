@@ -25,6 +25,8 @@ type ComboboxRootContext<T> = {
   onInputElementChange: (el: HTMLInputElement) => void
   onInputNavigation: (dir: 'up' | 'down' | 'home' | 'end') => void
   onInputEnter: (event: InputEvent) => void
+  onCompositionStart: () => void
+  onCompositionEnd: () => void
   selectedValue: Ref<T | undefined>
   selectedElement: ComputedRef<HTMLElement | undefined>
   onSelectedValueChange: (val: T) => void
@@ -46,17 +48,17 @@ export type ComboboxRootEmits<T = AcceptableValue> = {
 }
 
 export interface ComboboxRootProps<T = AcceptableValue> extends PrimitiveProps {
-  /** The controlled value of the Combobox. Can be binded-with with `v-model`. */
+  /** The controlled value of the Combobox. Can be binded with with `v-model`. */
   modelValue?: T | Array<T>
   /** The value of the combobox when initially rendered. Use when you do not need to control the state of the Combobox */
   defaultValue?: T | Array<T>
-  /** The controlled open state of the Combobox. Can be binded-with with `v-model:open`. */
+  /** The controlled open state of the Combobox. Can be binded with with `v-model:open`. */
   open?: boolean
   /** The open state of the combobox when it is initially rendered. <br> Use when you do not need to control its open state. */
   defaultOpen?: boolean
-  /** The controlled search term of the Combobox. Can be binded-with with v-model:searchTerm. */
+  /** The controlled search term of the Combobox. Can be binded with with v-model:searchTerm. */
   searchTerm?: string
-  /** The current highlighted value of the COmbobox. Can be binded-with `v-model:selectedValue`. */
+  /** The current highlighted value of the COmbobox. Can be binded with `v-model:selectedValue`. */
   selectedValue?: T
   /** Whether multiple options can be selected or not. */
   multiple?: boolean
@@ -143,6 +145,9 @@ async function onOpenChange(val: boolean) {
       else
         selectedValue.value = modelValue.value as T
     }
+    // selectedElement is a computed value and is not yet fully resolved.
+    // We need to wait for it to finish processing at this point.
+    await nextTick()
     inputElement.value?.focus()
     scrollSelectedValueIntoView()
   }
@@ -242,7 +247,7 @@ function scrollSelectedValueIntoView() {
   // Find the highlighted element and scroll into view
   // We can put this in Item, but we avoid having too many watcher
   if (selectedElement.value instanceof Element)
-    selectedElement.value.scrollIntoView({ block: 'nearest' })
+    selectedElement.value?.scrollIntoView({ block: 'nearest' })
 }
 
 function focusOnSelectedElement() {
@@ -250,6 +255,24 @@ function focusOnSelectedElement() {
   // This helps the screen readers to read the selected value
   if (selectedElement.value instanceof Element && selectedElement.value.focus)
     selectedElement.value.focus()
+}
+
+const isComposing = ref(false)
+function onCompositionStart() {
+  isComposing.value = true
+}
+function onCompositionEnd() {
+  requestAnimationFrame(() => {
+    isComposing.value = false
+  })
+}
+async function onInputEnter(event: InputEvent) {
+  if (filteredOptions.value.length && selectedValue.value && selectedElement.value instanceof Element) {
+    event.preventDefault()
+    event.stopPropagation()
+    if (!isComposing.value)
+      selectedElement.value?.click()
+  }
 }
 
 provideComboboxRootContext({
@@ -282,19 +305,17 @@ provideComboboxRootContext({
     else
       selectedValue.value = filteredOptions.value[val === 'up' ? index - 1 : index + 1]
 
+    await nextTick()
+    // selectedElement is a computed value and is not yet fully resolved.
+    // We need to wait for it to finish processing at this point.
     scrollSelectedValueIntoView()
     focusOnSelectedElement()
 
     nextTick(() => inputElement.value?.focus({ preventScroll: true }))
   },
-  onInputEnter: async (event) => {
-    if (filteredOptions.value.length && selectedValue.value && selectedElement.value instanceof Element) {
-      event.preventDefault()
-      event.stopPropagation()
-
-      selectedElement.value?.click()
-    }
-  },
+  onInputEnter,
+  onCompositionEnd,
+  onCompositionStart,
   selectedValue,
   onSelectedValueChange: val => selectedValue.value = val as T,
   parentElement,

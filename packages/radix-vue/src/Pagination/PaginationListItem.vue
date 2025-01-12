@@ -9,8 +9,8 @@ export interface PaginationListItemProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { Primitive } from '@/Primitive'
 import { computed } from 'vue'
+import { Primitive } from '@/Primitive'
 import { injectPaginationRootContext } from './PaginationRoot.vue'
 
 const props = withDefaults(defineProps<PaginationListItemProps>(), { as: 'button' })
@@ -18,6 +18,8 @@ useForwardExpose()
 
 const rootContext = injectPaginationRootContext()
 const isSelected = computed(() => rootContext.page.value === props.value)
+
+const disabled = computed((): boolean => rootContext.disabled.value)
 </script>
 
 <template>
@@ -27,9 +29,9 @@ const isSelected = computed(() => rootContext.page.value === props.value)
     :aria-label="`Page ${value}`"
     :aria-current="isSelected ? 'page' : undefined"
     :data-selected="isSelected ? 'true' : undefined"
-    :disabled="rootContext.disabled.value"
+    :disabled
     :type="as === 'button' ? 'button' : undefined"
-    @click="rootContext.onPageChange(value)"
+    @click="!disabled && rootContext.onPageChange(value)"
   >
     <slot>{{ value }}</slot>
   </Primitive>

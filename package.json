@@ -1,10 +1,10 @@
 {
   "name": "radix-vue",
-  "version": "1.9.6",
+  "version": "1.9.12",
   "private": true,
   "packageManager": "pnpm@9.4.0",
   "license": "MIT",
-  "repository": "radix-vue/radix-vue",
+  "repository": "unovue/radix-vue",
   "workspaces": [
     "packages/*"
   ],

@@ -16,13 +16,13 @@ export const Slot = defineComponent({
 
       const firstNonCommentChildren = childrens[firstNonCommentChildrenIndex]
 
-      // remove props ref from being inferred
+      // Remove props ref from being inferred
       delete firstNonCommentChildren.props?.ref
 
       const mergedProps = firstNonCommentChildren.props
         ? mergeProps(attrs, firstNonCommentChildren.props)
         : attrs
-      // remove class to prevent duplicated
+      // Remove class to prevent duplicated
       if (attrs.class && firstNonCommentChildren.props?.class)
         delete firstNonCommentChildren.props.class
       const cloned = cloneVNode(firstNonCommentChildren, mergedProps)

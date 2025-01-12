@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
+import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
 import { injectPinInputRootContext } from './PinInputRoot.vue'
 import { useArrowNavigation } from '@/shared'
 
@@ -12,7 +12,7 @@ export interface PinInputInputProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, watch } from 'vue'
 
 const props = withDefaults(defineProps<PinInputInputProps>(), {
   as: 'input',
@@ -20,13 +20,14 @@ const props = withDefaults(defineProps<PinInputInputProps>(), {
 
 const context = injectPinInputRootContext()
 const inputElements = computed(() => Array.from(context.inputElements!.value))
+const currentValue = computed(() => context.modelValue.value[props.index])
 
 const disabled = computed(() => props.disabled || context.disabled.value)
 const isOtpMode = computed(() => context.otp.value)
 const isNumericMode = computed(() => context.type.value === 'number')
 const isPasswordMode = computed(() => context.mask.value)
 
-const inputRef = ref()
+const { primitiveElement, currentElement } = usePrimitiveElement()
 function handleInput(event: InputEvent) {
   const target = event.target as HTMLInputElement
 
@@ -46,6 +47,14 @@ function handleInput(event: InputEvent) {
   const nextEl = inputElements.value[props.index + 1]
   if (nextEl)
     nextEl.focus()
+}
+
+function resetPlaceholder() {
+  const target = currentElement.value as HTMLInputElement
+  nextTick(() => {
+    if (!target.value)
+      target.placeholder = context.placeholder.value
+  })
 }
 
 function handleKeydown(event: KeyboardEvent) {
@@ -91,11 +100,7 @@ function handleFocus(event: FocusEvent) {
 }
 
 function handleBlur(event: FocusEvent) {
-  const target = event.target as HTMLInputElement
-  nextTick(() => {
-    if (!target.value)
-      target.placeholder = context.placeholder.value
-  })
+  resetPlaceholder()
 }
 
 function handlePaste(event: ClipboardEvent) {
@@ -142,24 +147,32 @@ function updateModelValueAt(index: number, value: string) {
   context.modelValue.value = removeTrailingEmptyStrings(tempModelValue)
 }
 
+watch(currentValue, () => {
+  if (!currentValue.value) {
+    resetPlaceholder()
+  }
+})
+
 onMounted(() => {
-  context.onInputElementChange(inputRef.value)
+  context.onInputElementChange(currentElement.value as HTMLInputElement)
 })
 onUnmounted(() => {
-  context.inputElements?.value.delete(inputRef.value)
+  context.inputElements?.value.delete(currentElement.value as HTMLInputElement)
 })
 </script>
 
 <template>
-  <input
-    ref="inputRef"
+  <Primitive
+    ref="primitiveElement"
     autocapitalize="none"
+    :as="as"
+    :as-child="asChild"
     :autocomplete="isOtpMode ? 'one-time-code' : 'false'"
     :type="isPasswordMode ? 'password' : 'text'"
     :inputmode="isNumericMode ? 'numeric' : 'text'"
     :pattern="isNumericMode ? '[0-9]*' : undefined"
     :placeholder="context.placeholder.value"
-    :value="context.modelValue.value[index]"
+    :value="currentValue"
     :disabled="disabled"
     :data-disabled="disabled ? '' : undefined"
     :data-complete="context.isCompleted.value ? '' : undefined"
@@ -172,4 +185,6 @@ onUnmounted(() => {
     @blur="handleBlur"
     @paste="handlePaste"
   >
+    <slot />
+  </Primitive>
 </template>

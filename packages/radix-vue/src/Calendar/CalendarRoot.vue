@@ -190,6 +190,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 const defaultDate = getDefaultDate({
   defaultPlaceholder: props.placeholder,
   defaultValue: modelValue.value,
+  locale: props.locale,
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {
@@ -265,13 +266,10 @@ function onDateChange(value: DateValue) {
     }
     else { modelValue.value = value.copy() }
   }
+  else if (!modelValue.value) {
+    modelValue.value = [value.copy()]
+  }
   else if (Array.isArray(modelValue.value)) {
-    if (!modelValue.value) {
-      modelValue.value = [value.copy()]
-
-      return
-    }
-
     const index = modelValue.value.findIndex(date => isSameDay(date, value))
     if (index === -1) {
       modelValue.value = [...modelValue.value, value]

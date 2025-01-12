@@ -75,7 +75,7 @@ const date = new CalendarDate(1995, 8, 18)
 const minDate = new CalendarDate(1995, 8, 1)
 const maxDate = new CalendarDate(1995, 8, 31)
 
-parseStringToDateValue('1995-08-18') // returns a DateValue object
+parseStringToDateValue('1995-08-18', date) // returns a DateValue object
 toDate(date) // returns a Date object
 isCalendarDateTime(date) // returns false
 isZonedDateTime(date) // returns false

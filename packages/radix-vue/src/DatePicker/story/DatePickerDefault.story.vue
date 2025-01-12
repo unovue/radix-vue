@@ -34,7 +34,7 @@ import { Label } from '@/Label'
         <DatePickerRoot
           id="date-field"
           :is-date-unavailable="date => date.day === 19"
-          granularity="second"
+          locale="ar-SA"
         >
           <DatePickerField
             v-slot="{ segments }"

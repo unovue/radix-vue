@@ -49,6 +49,8 @@ export default function (md: MarkdownRenderer) {
       const { realPath, path: _path } = state.env as MarkdownEnv
 
       const childFiles = readdirSync(resolve(dirname(realPath ?? _path), pathName), { withFileTypes: false, recursive: true })
+        .map(file => typeof file === 'string' ? file.split(/[/\\]/).join('/') : file)
+
       const groupedFiles = childFiles.reduce((prev, curr) => {
         if (typeof curr !== 'string')
           return prev

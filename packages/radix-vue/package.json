@@ -1,17 +1,17 @@
 {
   "name": "radix-vue",
   "type": "module",
-  "version": "1.9.6",
+  "version": "1.9.12",
   "description": "Vue port for Radix UI Primitives.",
-  "author": "Radix Vue Contributors (https://github.com/radix-vue)",
+  "author": "Radix Vue Contributors (https://github.com/unovue/radix-vue)",
   "license": "MIT",
-  "homepage": "https://github.com/radix-vue/radix-vue",
+  "homepage": "https://github.com/unovue/radix-vue",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/radix-vue/radix-vue.git"
+    "url": "git+https://github.com/unovue/radix-vue.git"
   },
   "bugs": {
-    "url": "https://github.com/radix-vue/radix-vue/issues"
+    "url": "https://github.com/unovue/radix-vue/issues"
   },
   "keywords": [
     "ui",
@@ -118,9 +118,9 @@
     "@vitest/coverage-istanbul": "^2.1.1",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.5.1",
-    "jsdom": "^25.0.0",
-    "vite": "^5.4.6",
-    "vite-plugin-dts": "^4.2.1",
+    "jsdom": "^25.0.1",
+    "vite": "^5.4.8",
+    "vite-plugin-dts": "^4.2.3",
     "vitest": "^2.1.1",
     "vitest-axe": "0.1.0",
     "vitest-canvas-mock": "^0.3.3",

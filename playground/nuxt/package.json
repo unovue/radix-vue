@@ -9,7 +9,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@internationalized/date": "^3.5.5",
+    "@internationalized/date": "^3.5.6",
     "radix-vue": "link:../../packages/radix-vue"
   },
   "devDependencies": {
@@ -18,7 +18,7 @@
     "@nuxt/devtools": "latest",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@radix-ui/colors": "^3.0.0",
-    "@types/node": "^22.5.5",
+    "@types/node": "^22.7.4",
     "nuxt": "^3.13.2"
   }
 }

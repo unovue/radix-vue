@@ -35,7 +35,7 @@ export const [injectListboxRootContext, provideListboxRootContext]
   = createContext<ListboxRootContext<AcceptableValue>>('ListboxRoot')
 
 export interface ListboxRootProps<T = AcceptableValue> extends PrimitiveProps {
-  /** The controlled value of the listbox. Can be binded-with with `v-model`. */
+  /** The controlled value of the listbox. Can be binded with with `v-model`. */
   modelValue?: T | Array<T>
   /** The value of the listbox when initially rendered. Use when you do not need to control the state of the Listbox */
   defaultValue?: T | Array<T>
@@ -194,7 +194,12 @@ function onKeydownTypeAhead(event: KeyboardEvent) {
 }
 
 function onLeave(event: Event) {
-  previousElement.value = highlightedElement.value
+  const el = highlightedElement.value
+
+  if ((el as Node)?.isConnected) {
+    previousElement.value = el
+  }
+
   highlightedElement.value = null
   emits('leave', event)
 }
@@ -326,9 +331,10 @@ provideListboxRootContext({
     :dir="dir"
     :data-disabled="disabled ? '' : undefined"
     @pointerleave="onLeave"
-    @focusout="(event: FocusEvent) => {
+    @focusout="async (event: FocusEvent) => {
       const target = (event.relatedTarget || event.target) as HTMLElement | null
-      if (highlightedElement && !currentElement.contains(target)) {
+      await nextTick()
+      if (highlightedElement && currentElement && !currentElement.contains(target)) {
         onLeave(event)
       }
     }"

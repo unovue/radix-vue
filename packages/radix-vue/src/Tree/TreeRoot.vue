@@ -4,13 +4,13 @@ import type { Direction } from '@/shared/types'
 import { flatten } from './utils'
 
 export interface TreeRootProps<T = Record<string, any>, U extends Record<string, any> = Record<string, any>> extends PrimitiveProps {
-  /** The controlled value of the tree. Can be binded-with with `v-model`. */
+  /** The controlled value of the tree. Can be binded with with `v-model`. */
   modelValue?: U | U[]
   /** The value of the tree when initially rendered. Use when you do not need to control the state of the tree */
   defaultValue?: U | U[]
   /** List of items */
   items?: T[]
-  /** The controlled value of the expanded item. Can be binded-with with `v-model`. */
+  /** The controlled value of the expanded item. Can be binded with with `v-model`. */
   expanded?: string[]
   /** The value of the expanded tree when initially rendered. Use when you do not need to control the state of the expanded tree */
   defaultExpanded?: string[]

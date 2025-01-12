@@ -13,7 +13,7 @@ export interface TagsInputInputProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { nextTick, onMounted } from 'vue'
+import { nextTick, onMounted, ref } from 'vue'
 import { injectTagsInputRootContext } from './TagsInputRoot.vue'
 import { Primitive } from '@/Primitive'
 
@@ -44,7 +44,18 @@ function handleTab(event: Event) {
   handleCustomKeydown(event)
 }
 
+const isComposing = ref(false)
+function onCompositionStart() {
+  isComposing.value = true
+}
+function onCompositionEnd() {
+  requestAnimationFrame(() => {
+    isComposing.value = false
+  })
+}
 async function handleCustomKeydown(event: Event) {
+  if (isComposing.value)
+    return
   await nextTick()
   // if keydown 'Enter' or `Tab` was prevented, we let user handle updating the value themselves
   if (event.defaultPrevented)
@@ -130,6 +141,8 @@ onMounted(() => {
     @keydown.tab="handleTab"
     @blur="handleBlur"
     @keydown="context.onInputKeydown"
+    @compositionstart="onCompositionStart"
+    @compositionend="onCompositionEnd"
     @paste="handlePaste"
   >
     <slot />

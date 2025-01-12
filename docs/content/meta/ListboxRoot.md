@@ -46,7 +46,7 @@
   },
   {
     'name': 'modelValue',
-    'description': '<p>The controlled value of the listbox. Can be binded-with with <code>v-model</code>.</p>\n',
+    'description': '<p>The controlled value of the listbox. Can be binded with with <code>v-model</code>.</p>\n',
     'type': 'AcceptableValue | AcceptableValue[]',
     'required': false
   },
@@ -72,7 +72,7 @@
   {
     'name': 'selectionBehavior',
     'description': '<p>How multiple selection should behave in the collection.</p>\n',
-    'type': '\'replace\' | \'toggle\'',
+    'type': '\'toggle\' | \'replace\'',
     'required': false,
     'default': '\'toggle\''
   }

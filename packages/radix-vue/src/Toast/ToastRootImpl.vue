@@ -170,9 +170,9 @@ provideToastRootContext({ onClose: handleClose })
 <template>
   <ToastAnnounce
     v-if="announceTextContent"
-    role="status"
+    role="alert"
     :aria-live="type === 'foreground' ? 'assertive' : 'polite'"
-    aria-atomic
+    aria-atomic="true"
   >
     {{ announceTextContent }}
   </ToastAnnounce>
@@ -183,9 +183,9 @@ provideToastRootContext({ onClose: handleClose })
   >
     <Primitive
       :ref="forwardRef"
-      role="status"
+      role="alert"
       aria-live="off"
-      aria-atomic
+      aria-atomic="true"
       tabindex="0"
       data-radix-vue-collection-item
       v-bind="$attrs"

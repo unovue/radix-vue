@@ -1,13 +1,9 @@
 <script lang="ts">
 import { createContext, useDirection, useSelectionBehavior, useTypeahead } from '@/shared'
-import type { Direction } from '@/shared/types'
+import type { Direction, SingleOrMultipleProps } from '@/shared/types'
 import { flatten } from './utils'
 
-export interface TreeRootProps<T = Record<string, any>, U extends Record<string, any> = Record<string, any>> extends PrimitiveProps {
-  /** The controlled value of the tree. Can be binded with with `v-model`. */
-  modelValue?: U | U[]
-  /** The value of the tree when initially rendered. Use when you do not need to control the state of the tree */
-  defaultValue?: U | U[]
+export interface TreeRootProps<S extends boolean = false, T = Record<string, any>, U extends Record<string, any> = Record<string, any>> extends PrimitiveProps, SingleOrMultipleProps<S, U> {
   /** List of items */
   items?: T[]
   /** The controlled value of the expanded item. Can be binded with with `v-model`. */
@@ -20,8 +16,6 @@ export interface TreeRootProps<T = Record<string, any>, U extends Record<string,
   getChildren?: (val: T) => T[] | undefined
   /** How multiple selection should behave in the collection. */
   selectionBehavior?: 'toggle' | 'replace'
-  /** Whether multiple options can be selected or not.  */
-  multiple?: boolean
   /** The reading direction of the listbox when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
   /** When `true`, prevents the user from interacting with tree  */
@@ -30,8 +24,8 @@ export interface TreeRootProps<T = Record<string, any>, U extends Record<string,
   propagateSelect?: boolean
 }
 
-export type TreeRootEmits<T = Record<string, any>> = {
-  'update:modelValue': [val: T]
+export type TreeRootEmits<S extends boolean = false, T = Record<string, any>> = {
+  'update:modelValue': [val: S extends false ? T : T[]]
   'update:expanded': [val: string[]]
 }
 
@@ -72,19 +66,19 @@ export type FlattenedItem<T> = {
 export const [injectTreeRootContext, provideTreeRootContext] = createContext<TreeRootContext<any>>('TreeRoot')
 </script>
 
-<script setup lang="ts" generic="T extends Record<string, any>, U extends Record<string, any>">
+<script setup lang="ts" generic="S extends boolean = false, T extends Record<string, any> = Record<string, any>, U extends Record<string, any> = Record<string, any>">
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 import { type EventHook, createEventHook, useVModel } from '@vueuse/core'
 import { RovingFocusGroup } from '@/RovingFocus'
 import { type Ref, computed, nextTick, ref, toRefs } from 'vue'
 import { MAP_KEY_TO_FOCUS_INTENT } from '@/RovingFocus/utils'
 
-const props = withDefaults(defineProps<TreeRootProps<T, U>>(), {
+const props = withDefaults(defineProps<TreeRootProps<S, T, U>>(), {
   as: 'ul',
   selectionBehavior: 'toggle',
   getChildren: (val: T) => val.children,
 })
-const emits = defineEmits<TreeRootEmits<U>>()
+const emits = defineEmits<TreeRootEmits<S, U>>()
 
 defineSlots<{
   default: (props: {

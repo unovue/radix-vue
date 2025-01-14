@@ -1,6 +1,6 @@
 import { useVModel } from '@vueuse/core'
 import { type Ref, computed } from 'vue'
-import type { AcceptableValue, SingleOrMultipleProps } from './types'
+import type { AcceptableValue, SingleOrMultipleTypeProps } from './types'
 import { isEqual } from 'ohash'
 import { isValueEqualOrExist } from './isValueEqualOrExist'
 
@@ -14,7 +14,7 @@ import { isValueEqualOrExist } from './isValueEqualOrExist'
  *    b. If type is 'multiple' and neither modelValue nor defaultValue is an array, log an error and return 'single'.
  * 4. Return 'multiple' if modelValue is an array, else return 'single'.
  */
-function validateProps({ type, defaultValue, modelValue }: SingleOrMultipleProps) {
+function validateProps({ type, defaultValue, modelValue }: SingleOrMultipleTypeProps) {
   const value = modelValue || defaultValue
   const canTypeBeInferred = modelValue !== undefined || defaultValue !== undefined
 
@@ -24,21 +24,21 @@ function validateProps({ type, defaultValue, modelValue }: SingleOrMultipleProps
     return type ?? 'single' // always fallback to `single`
 }
 
-function getDefaultType({ type, defaultValue, modelValue }: SingleOrMultipleProps) {
+function getDefaultType({ type, defaultValue, modelValue }: SingleOrMultipleTypeProps) {
   if (type)
     return type
 
   return validateProps({ type, defaultValue, modelValue })
 }
 
-function getDefaultValue({ type, defaultValue }: SingleOrMultipleProps) {
+function getDefaultValue({ type, defaultValue }: SingleOrMultipleTypeProps) {
   if (defaultValue !== undefined)
     return defaultValue
 
   return (type === 'single') ? undefined : []
 }
 
-export function useSingleOrMultipleValue<P extends SingleOrMultipleProps, Name extends string>(
+export function useSingleOrMultipleValue<P extends SingleOrMultipleTypeProps, Name extends string>(
   props: P,
   emits: (name: Name, ...args: any[]) => void,
 ) {

@@ -1,12 +1,12 @@
 <script lang="ts">
 import type { ComputedRef, Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import type { AcceptableValue, DataOrientation, Direction, FormFieldProps, SingleOrMultipleProps } from '../shared/types'
+import type { AcceptableValue, DataOrientation, Direction, FormFieldProps, SingleOrMultipleType, SingleOrMultipleTypeProps } from '../shared/types'
 import { createContext, useDirection, useFormControl, useForwardExpose } from '@/shared'
 import VisuallyHiddenInput from '@/VisuallyHidden/VisuallyHiddenInput.vue'
 
-export interface ToggleGroupRootProps<T = AcceptableValue | AcceptableValue[]>
-  extends PrimitiveProps, FormFieldProps, SingleOrMultipleProps<T> {
+export interface ToggleGroupRootProps<S extends SingleOrMultipleType = SingleOrMultipleType, T = AcceptableValue | AcceptableValue[]>
+  extends PrimitiveProps, FormFieldProps, SingleOrMultipleTypeProps<S, T> {
   /** When `false`, navigating through the items using arrow keys will be disabled. */
   rovingFocus?: boolean
   /** When `true`, prevents the user from interacting with the toggle group and all its items. */
@@ -18,9 +18,9 @@ export interface ToggleGroupRootProps<T = AcceptableValue | AcceptableValue[]>
   /** When `loop` and `rovingFocus` is `true`, keyboard navigation will loop from last item to first, and vice versa. */
   loop?: boolean
 }
-export type ToggleGroupRootEmits = {
+export type ToggleGroupRootEmits<U extends SingleOrMultipleType = SingleOrMultipleType> = {
   /** Event handler called when the value changes. */
-  'update:modelValue': [payload: AcceptableValue | AcceptableValue[]]
+  'update:modelValue': [payload: (U extends 'single' ? AcceptableValue : AcceptableValue[]) ]
 }
 
 interface ToggleGroupRootContext {
@@ -38,18 +38,18 @@ export const [injectToggleGroupRootContext, provideToggleGroupRootContext]
   = createContext<ToggleGroupRootContext>('ToggleGroupRoot')
 </script>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="S extends SingleOrMultipleType = SingleOrMultipleType, T extends AcceptableValue = AcceptableValue">
 import { toRefs } from 'vue'
 import { Primitive } from '@/Primitive'
 import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
 import { RovingFocusGroup } from '@/RovingFocus'
 
-const props = withDefaults(defineProps<ToggleGroupRootProps>(), {
+const props = withDefaults(defineProps<ToggleGroupRootProps<S, T>>(), {
   loop: true,
   rovingFocus: true,
   disabled: false,
 })
-const emits = defineEmits<ToggleGroupRootEmits>()
+const emits = defineEmits<ToggleGroupRootEmits<S>>()
 
 defineSlots<{
   default: (props: {

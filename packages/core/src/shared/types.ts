@@ -2,27 +2,56 @@ type DataOrientation = 'vertical' | 'horizontal'
 type Direction = 'ltr' | 'rtl'
 type SingleOrMultipleType = 'single' | 'multiple'
 
-interface SingleOrMultipleProps<T = AcceptableValue | AcceptableValue[]> {
+// Type helper to determine the value type based on selection mode
+type ValueType<U extends SingleOrMultipleType, T> = U extends 'single'
+  ? T
+  : T[]
+
+// Type helper to determine the value type based on selection mode
+type ValueType2<U extends boolean, T> = U extends false
+  ? T
+  : T[]
+
+interface SingleOrMultipleTypeProps<U extends SingleOrMultipleType = SingleOrMultipleType, T = any> {
   /**
    * Determines whether a "single" or "multiple" items can be selected at a time.
    *
    * This prop will overwrite the inferred type from `modelValue` and `defaultValue`.
    */
-  type?: SingleOrMultipleType
+  type?: U
 
   /**
    * The controlled value of the active item(s).
    *
    * Use this when you need to control the state of the items. Can be binded with `v-model`
    */
-  modelValue?: T
+  modelValue?: ValueType<U, T>
 
   /**
    * The default active value of the item(s).
    *
    * Use when you do not need to control the state of the item(s).
    */
-  defaultValue?: T
+  defaultValue?: ValueType<U, T>
+}
+
+interface SingleOrMultipleProps<S extends boolean = boolean, T = any> {
+  /** Whether multiple options can be selected or not. */
+  multiple?: S
+
+  /**
+   * The controlled value of the active item(s).
+   *
+   * Use this when you need to control the state of the items. Can be binded with `v-model`
+   */
+  modelValue?: ValueType2<S, T>
+
+  /**
+   * The default active value of the item(s).
+   *
+   * Use when you do not need to control the state of the item(s).
+   */
+  defaultValue?: ValueType2<S, T>
 }
 
 /**
@@ -61,4 +90,4 @@ interface FormFieldProps {
   required?: boolean
 }
 
-export type { AcceptableValue, ArrayOrWrapped, DataOrientation, Direction, SingleOrMultipleProps, SingleOrMultipleType, ScrollBodyOption, StringOrNumber, GenericComponentInstance, FormFieldProps }
+export type { AcceptableValue, ArrayOrWrapped, DataOrientation, Direction, SingleOrMultipleTypeProps, SingleOrMultipleType, SingleOrMultipleProps, ScrollBodyOption, StringOrNumber, GenericComponentInstance, FormFieldProps }

@@ -1,34 +1,28 @@
 <script lang="ts">
 import type { Ref } from 'vue'
-import type { AcceptableValue, Direction, FormFieldProps } from '@/shared/types'
+import type { AcceptableValue, Direction, FormFieldProps, SingleOrMultipleProps } from '@/shared/types'
 import { createContext, isNullish, useDirection, useFormControl } from '@/shared'
 import { compare } from './utils'
 import { useCollection } from '@/Collection'
 
-export interface SelectRootProps<T = AcceptableValue> extends FormFieldProps {
+export interface SelectRootProps<S extends boolean = false, T = AcceptableValue> extends FormFieldProps, SingleOrMultipleProps<S, T> {
   /** The controlled open state of the Select. Can be bind as `v-model:open`. */
   open?: boolean
   /** The open state of the select when it is initially rendered. Use when you do not need to control its open state. */
   defaultOpen?: boolean
-  /** The value of the select when initially rendered. Use when you do not need to control the state of the Select */
-  defaultValue?: T | Array<T>
-  /** The controlled value of the Select. Can be bind as `v-model`. */
-  modelValue?: T | Array<T>
   /** Use this to compare objects by a particular field, or pass your own comparison function for complete control over how objects are compared. */
   by?: string | ((a: T, b: T) => boolean)
   /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
   dir?: Direction
-  /** Whether multiple options can be selected or not. */
-  multiple?: boolean
   /** Native html input `autocomplete` attribute. */
   autocomplete?: string
   /** When `true`, prevents the user from interacting with Select */
   disabled?: boolean
 }
 
-export type SelectRootEmits<T = AcceptableValue> = {
+export type SelectRootEmits<S extends boolean = false, T = AcceptableValue> = {
   /** Event handler called when the value changes. */
-  'update:modelValue': [value: T]
+  'update:modelValue': [value: S extends false ? T : T[]]
   /** Event handler called when the open state of the context menu changes. */
   'update:open': [value: boolean]
 }
@@ -62,7 +56,7 @@ export const [injectSelectRootContext, provideSelectRootContext]
 interface SelectOption { value: any, disabled?: boolean, textContent: string }
 </script>
 
-<script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
+<script setup lang="ts" generic="S extends boolean =false, T extends AcceptableValue = AcceptableValue">
 import { computed, ref, toRefs } from 'vue'
 import BubbleSelect from './BubbleSelect.vue'
 import { PopperRoot } from '@/Popper'
@@ -72,11 +66,11 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<SelectRootProps>(), {
+const props = withDefaults(defineProps<SelectRootProps<S, T>>(), {
   modelValue: undefined,
   open: undefined,
 })
-const emits = defineEmits<SelectRootEmits>()
+const emits = defineEmits<SelectRootEmits<S, T>>()
 
 defineSlots<{
   default: (props: {
@@ -90,7 +84,7 @@ defineSlots<{
 const { required, disabled, multiple, dir: propDir } = toRefs(props)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: props.defaultValue ?? (multiple.value ? [] : undefined),
+  defaultValue: props.defaultValue ?? (multiple.value ? ([] as any) : undefined),
   passive: (props.modelValue === undefined) as false,
   deep: true,
 }) as Ref<T | T[] | undefined>
@@ -156,6 +150,7 @@ provideSelectRootContext({
   modelValue,
   // @ts-expect-error Missing infer for AcceptableValue
   onValueChange: handleValueChange,
+  // @ts-expect-error Missing infer for AcceptableValue
   by: props.by,
   open,
   multiple,

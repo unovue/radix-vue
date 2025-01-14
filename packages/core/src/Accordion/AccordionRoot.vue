@@ -1,11 +1,11 @@
 <script lang="ts">
 import type { ComputedRef, Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import type { AcceptableValue, DataOrientation, Direction, SingleOrMultipleProps, SingleOrMultipleType } from '@/shared/types'
+import type { AcceptableValue, DataOrientation, Direction, SingleOrMultipleType, SingleOrMultipleTypeProps } from '@/shared/types'
 import { createContext, useDirection, useForwardExpose } from '@/shared'
 
-export interface AccordionRootProps<T = string | string[]>
-  extends PrimitiveProps, SingleOrMultipleProps<T> {
+export interface AccordionRootProps<S extends SingleOrMultipleType = SingleOrMultipleType, T = string>
+  extends PrimitiveProps, SingleOrMultipleTypeProps<S, T> {
   /**
    * When type is "single", allows closing content when clicking trigger for an open item.
    * When type is "multiple", this prop has no effect.
@@ -43,11 +43,11 @@ export interface AccordionRootProps<T = string | string[]>
   unmountOnHide?: boolean
 }
 
-export type AccordionRootEmits<T extends SingleOrMultipleType = SingleOrMultipleType> = {
+export type AccordionRootEmits<S extends SingleOrMultipleType = SingleOrMultipleType> = {
   /**
    * Event handler called when the expanded state of an item changes
    */
-  'update:modelValue': [value: (T extends 'single' ? string : string[]) | undefined]
+  'update:modelValue': [value: (S extends 'single' ? string : string[]) | undefined]
 }
 
 export type AccordionRootContext<P extends AccordionRootProps> = {
@@ -66,19 +66,19 @@ export const [injectAccordionRootContext, provideAccordionRootContext]
   = createContext<AccordionRootContext<AccordionRootProps>>('AccordionRoot')
 </script>
 
-<script setup lang="ts" generic="T extends (string | string[]), ExplicitType extends SingleOrMultipleType">
+<script setup lang="ts" generic="S extends SingleOrMultipleType = SingleOrMultipleType, T extends string = string">
 import { Primitive } from '@/Primitive'
 import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
 import { toRefs } from 'vue'
 
-const props = withDefaults(defineProps<AccordionRootProps<T>>(), {
+const props = withDefaults(defineProps<AccordionRootProps<S, T>>(), {
   disabled: false,
   orientation: 'vertical',
   collapsible: false,
   unmountOnHide: true,
 })
 
-const emits = defineEmits<AccordionRootEmits<ExplicitType>>()
+const emits = defineEmits<AccordionRootEmits<S>>()
 
 defineSlots<{
   default: (props: {

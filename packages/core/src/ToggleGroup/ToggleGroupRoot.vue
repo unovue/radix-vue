@@ -5,7 +5,7 @@ import type { AcceptableValue, DataOrientation, Direction, FormFieldProps, Singl
 import { createContext, useDirection, useFormControl, useForwardExpose } from '@/shared'
 import VisuallyHiddenInput from '@/VisuallyHidden/VisuallyHiddenInput.vue'
 
-export interface ToggleGroupRootProps<S extends SingleOrMultipleType = SingleOrMultipleType, T = AcceptableValue | AcceptableValue[]>
+export interface ToggleGroupRootProps<S extends SingleOrMultipleType = SingleOrMultipleType, T extends AcceptableValue = AcceptableValue>
   extends PrimitiveProps, FormFieldProps, SingleOrMultipleTypeProps<S, T> {
   /** When `false`, navigating through the items using arrow keys will be disabled. */
   rovingFocus?: boolean
@@ -18,9 +18,9 @@ export interface ToggleGroupRootProps<S extends SingleOrMultipleType = SingleOrM
   /** When `loop` and `rovingFocus` is `true`, keyboard navigation will loop from last item to first, and vice versa. */
   loop?: boolean
 }
-export type ToggleGroupRootEmits<U extends SingleOrMultipleType = SingleOrMultipleType> = {
+export type ToggleGroupRootEmits<S extends SingleOrMultipleType = SingleOrMultipleType, T extends AcceptableValue = AcceptableValue> = {
   /** Event handler called when the value changes. */
-  'update:modelValue': [payload: (U extends 'single' ? AcceptableValue : AcceptableValue[]) ]
+  'update:modelValue': [payload: (S extends 'single' ? T : T[]) ]
 }
 
 interface ToggleGroupRootContext {
@@ -49,12 +49,12 @@ const props = withDefaults(defineProps<ToggleGroupRootProps<S, T>>(), {
   rovingFocus: true,
   disabled: false,
 })
-const emits = defineEmits<ToggleGroupRootEmits<S>>()
+const emits = defineEmits<ToggleGroupRootEmits<S, T>>()
 
 defineSlots<{
   default: (props: {
     /** Current toggle values */
-    modelValue: typeof modelValue.value
+    modelValue: SingleOrMultipleTypeProps<S, T>['modelValue']
   }) => any
 }>()
 
@@ -91,7 +91,7 @@ provideToggleGroupRootContext({
       :as-child="asChild"
       :as="as"
     >
-      <slot :model-value="modelValue" />
+      <slot :model-value="modelValue as any" />
 
       <VisuallyHiddenInput
         v-if="isFormControl && name"

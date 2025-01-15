@@ -56,7 +56,7 @@ export interface ListboxRootProps<S extends boolean = false, T = AcceptableValue
   by?: string | ((a: T, b: T) => boolean)
 }
 
-export type ListboxRootEmits<S extends boolean = false, T = AcceptableValue> = {
+export type ListboxRootEmits<S extends boolean = false, T extends AcceptableValue = AcceptableValue> = {
   /** Event handler called when the value changes. */
   'update:modelValue': [value: S extends true ? T[] : T]
   /** Event handler when highlighted element changes. */
@@ -79,12 +79,12 @@ const props = withDefaults(defineProps<ListboxRootProps<S, T>>(), {
   selectionBehavior: 'toggle',
   orientation: 'vertical',
 })
-const emits = defineEmits<ListboxRootEmits<S>>()
+const emits = defineEmits<ListboxRootEmits<S, T>>()
 
 defineSlots<{
   default: (props: {
     /** Current active value */
-    modelValue: typeof modelValue.value
+    modelValue: SingleOrMultipleProps<S, T>['modelValue']
   }) => any
 }>()
 
@@ -392,7 +392,7 @@ provideListboxRootContext({
       }
     }"
   >
-    <slot :model-value="modelValue" />
+    <slot :model-value="modelValue as any" />
 
     <VisuallyHiddenInput
       v-if="isFormControl && name"

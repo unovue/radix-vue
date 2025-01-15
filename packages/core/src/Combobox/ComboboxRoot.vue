@@ -3,7 +3,7 @@ import type { Ref } from 'vue'
 import type { ListboxRootProps } from '@/Listbox'
 import { createContext, useDirection, useFilter } from '@/shared'
 import { usePrimitiveElement } from '@/Primitive'
-import type { AcceptableValue, GenericComponentInstance } from '@/shared/types'
+import type { AcceptableValue, GenericComponentInstance, SingleOrMultipleProps } from '@/shared/types'
 
 type ComboboxRootContext<T> = {
   modelValue: Ref<T | Array<T>>
@@ -76,7 +76,7 @@ defineSlots<{
     /** Current open state */
     open: typeof open.value
     /** Current active value */
-    modelValue: typeof modelValue.value
+    modelValue: SingleOrMultipleProps<S, T>['modelValue']
   }) => any
 }>()
 
@@ -239,7 +239,7 @@ provideComboboxRootContext({
     >
       <slot
         :open="open"
-        :model-value="modelValue"
+        :model-value="modelValue as any"
       />
     </ListboxRoot>
   </PopperRoot>

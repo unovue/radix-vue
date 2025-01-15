@@ -75,7 +75,7 @@ const emits = defineEmits<SelectRootEmits<S, T>>()
 defineSlots<{
   default: (props: {
     /** Current input values */
-    modelValue: typeof modelValue.value
+    modelValue: SingleOrMultipleProps<S, T>['modelValue']
     /** Current open state */
     open: typeof open.value
   }) => any
@@ -172,7 +172,7 @@ provideSelectRootContext({
 <template>
   <PopperRoot>
     <slot
-      :model-value="modelValue"
+      :model-value="modelValue as any"
       :open="open"
     />
 

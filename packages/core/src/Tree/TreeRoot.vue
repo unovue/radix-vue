@@ -3,7 +3,7 @@ import { createContext, useDirection, useSelectionBehavior, useTypeahead } from 
 import type { Direction, SingleOrMultipleProps } from '@/shared/types'
 import { flatten } from './utils'
 
-export interface TreeRootProps<S extends boolean = false, T = Record<string, any>, U extends Record<string, any> = Record<string, any>> extends PrimitiveProps, SingleOrMultipleProps<S, U> {
+export interface TreeRootProps<S extends boolean = false, T extends Record<string, any> = Record<string, any>, U extends Record<string, any> = Record<string, any>> extends PrimitiveProps, SingleOrMultipleProps<S, U> {
   /** List of items */
   items?: T[]
   /** The controlled value of the expanded item. Can be binded with with `v-model`. */
@@ -24,8 +24,8 @@ export interface TreeRootProps<S extends boolean = false, T = Record<string, any
   propagateSelect?: boolean
 }
 
-export type TreeRootEmits<S extends boolean = false, T = Record<string, any>> = {
-  'update:modelValue': [val: S extends false ? T : T[]]
+export type TreeRootEmits<S extends boolean = false, U extends Record<string, any> = Record<string, any>> = {
+  'update:modelValue': [val: S extends false ? U : U[]]
   'update:expanded': [val: string[]]
 }
 
@@ -83,7 +83,7 @@ const emits = defineEmits<TreeRootEmits<S, U>>()
 defineSlots<{
   default: (props: {
     flattenItems: FlattenedItem<T>[]
-    modelValue: typeof modelValue.value
+    modelValue: SingleOrMultipleProps<S, U>['modelValue']
     expanded: typeof expanded.value
   }) => any
 }>()
@@ -245,7 +245,7 @@ provideTreeRootContext({
     >
       <slot
         :flatten-items="expandedItems"
-        :model-value="modelValue"
+        :model-value="modelValue as any"
         :expanded="expanded"
       />
     </Primitive>

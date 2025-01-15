@@ -83,7 +83,7 @@ const emits = defineEmits<AccordionRootEmits<S>>()
 defineSlots<{
   default: (props: {
     /** Current active value */
-    modelValue: typeof modelValue.value
+    modelValue: SingleOrMultipleTypeProps<S, T>['modelValue']
   }) => any
 }>()
 
@@ -113,6 +113,6 @@ provideAccordionRootContext({
     :as-child="asChild"
     :as="as"
   >
-    <slot :model-value="modelValue" />
+    <slot :model-value="modelValue as any" />
   </Primitive>
 </template>

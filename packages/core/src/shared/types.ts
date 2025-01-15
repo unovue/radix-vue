@@ -25,14 +25,14 @@ interface SingleOrMultipleTypeProps<U extends SingleOrMultipleType = SingleOrMul
    *
    * Use this when you need to control the state of the items. Can be binded with `v-model`
    */
-  modelValue?: ValueType<U, T>
+  modelValue?: ValueType<U, T> | null
 
   /**
    * The default active value of the item(s).
    *
    * Use when you do not need to control the state of the item(s).
    */
-  defaultValue?: ValueType<U, T>
+  defaultValue?: ValueType<U, T> | null
 }
 
 interface SingleOrMultipleProps<S extends boolean = boolean, T = any> {
@@ -44,14 +44,14 @@ interface SingleOrMultipleProps<S extends boolean = boolean, T = any> {
    *
    * Use this when you need to control the state of the items. Can be binded with `v-model`
    */
-  modelValue?: ValueType2<S, T>
+  modelValue?: ValueType2<S, T> | null
 
   /**
    * The default active value of the item(s).
    *
    * Use when you do not need to control the state of the item(s).
    */
-  defaultValue?: ValueType2<S, T>
+  defaultValue?: ValueType2<S, T> | null
 }
 
 /**

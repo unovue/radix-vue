@@ -112,7 +112,7 @@
     "@testing-library/user-event": "^14.5.2",
     "@testing-library/vue": "^8.1.0",
     "@tsconfig/node18": "^18.2.4",
-    "@types/node": "^20.14.9",
+    "@types/node": "^22.10.7",
     "@vitejs/plugin-vue": "^5.1.4",
     "@vitejs/plugin-vue-jsx": "^4.0.1",
     "@vitest/coverage-istanbul": "^2.1.1",

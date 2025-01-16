@@ -386,6 +386,21 @@ export function useDateField(props: UseDateFieldProps) {
      */
 
     if (digits === 2 || total > max) {
+
+      /**
+       * If we're updating months (max === 12) and user types a number
+       * that starts with 1 but would result in an invalid month (13-19),
+       * we keep the 1 as the month value and use the second digit
+       * as the initial value for the next segment (day)
+       */
+      if (max === 12 && prev === 1 && total > max) {
+        return {
+          moveToNext: true,
+          value: 1,
+          nextSegmentInitialValue: num,
+        }
+      }
+
     /**
      * As we're doing elsewhere, we're checking if the number is greater
      * than the max start digit (0-3 in most months), and if so, we're
@@ -645,9 +660,13 @@ export function useDateField(props: UseDateFieldProps) {
 
     if (isNumberString(e.key)) {
       const num = Number.parseInt(e.key)
-      const { value, moveToNext } = updateDayOrMonth(12, num, prevValue)
+      const { value, moveToNext, nextSegmentInitialValue } = updateDayOrMonth(12, num, prevValue)
 
       props.segmentValues.value.month = value
+      
+      if (nextSegmentInitialValue) {
+        props.segmentValues.value.day = nextSegmentInitialValue
+      }
 
       if (moveToNext)
         props.focusNext()

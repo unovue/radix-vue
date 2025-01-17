@@ -50,6 +50,28 @@ function handleFocusOut(e: FocusEvent) {
     hasLeftFocus.value = true
   }
 }
+
+function handleFocusIn(e: FocusEvent) {
+  rootContext.setFocusedElement(e.target as HTMLElement)
+  const dayValue = rootContext.segmentValues.value.day
+
+  if (rootContext.programmaticContinuation.value) {
+    if (dayValue) {
+      // create key event for keyword with rootContext.segmentValues.value.day
+      const event = new KeyboardEvent('keydown', {
+        key: dayValue.toString(),
+        code: `Digit${dayValue}`,
+        keyCode: 48 + dayValue,
+        which: 48 + dayValue,
+        bubbles: true,
+        cancelable: true,
+      })
+      
+      hasLeftFocus.value = false;
+      handleSegmentKeydown(event)
+    }
+  }
+}
 </script>
 
 <template>
@@ -68,10 +90,7 @@ function handleFocusOut(e: FocusEvent) {
       mousedown: handleSegmentClick,
       keydown: handleSegmentKeydown,
       focusout: handleFocusOut,
-      focusin: (e: FocusEvent) => {
-        // hasLeftFocus = true
-        rootContext.setFocusedElement(e.target as HTMLElement)
-      },
+      focusin: handleFocusIn,
     } : {}"
   >
     <slot />

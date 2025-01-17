@@ -335,6 +335,7 @@ export function useDateField(props: UseDateFieldProps) {
      * `prev` value so that we can start the segment over again
      * when the user types a number.
      */
+    console.log("🚀 ~ updateDayOrMonth ~ props.programmaticContinuation.value:", props.programmaticContinuation.value)
     if (props.hasLeftFocus.value && !props.programmaticContinuation.value) {
       props.hasLeftFocus.value = false
       prev = null
@@ -382,14 +383,15 @@ export function useDateField(props: UseDateFieldProps) {
      * backspace key and then typed the number.
      */
     const digits = prev.toString().length
+    console.log("🚀 ~ updateDayOrMonth ~ digits:", digits)
     const total = Number.parseInt(prev.toString() + num.toString())
+    console.log("🚀 ~ updateDayOrMonth ~ total:", total)
     /**
      * If the number of digits is 2, or if the total with the existing digit
      * and the pressed digit is greater than the maximum value for this
      * month, then we will reset the segment as if the user had pressed the
      * backspace key and then typed the number.
      */
-
     if (digits === 2 || total > max) {
       /**
        * If we're updating months (max === 12) and user types a number
@@ -630,21 +632,19 @@ export function useDateField(props: UseDateFieldProps) {
       props.segmentValues.value.day = dateTimeValueIncrementation({ e, part: 'day', dateRef: props.placeholder.value, prevValue })
       return
     }
-
     if (isNumberString(e.key)) {
       const num = Number.parseInt(e.key)
       const segmentMonthValue = props.segmentValues.value.month
-
       const daysInMonth = segmentMonthValue
         ? getDaysInMonth(props.placeholder.value.set({ month: segmentMonthValue }))
         : getDaysInMonth(props.placeholder.value)
 
-      const { value, moveToNext } = updateDayOrMonth(daysInMonth, num, prevValue)
-
+      const { value, moveToNext } = updateDayOrMonth(daysInMonth, num, props.programmaticContinuation.value ? null : prevValue)
       props.segmentValues.value.day = value
 
-      if (moveToNext)
+      if (moveToNext) {
         props.focusNext()
+      }
     }
 
     if (e.key === kbd.BACKSPACE) {

@@ -335,8 +335,6 @@ export function useDateField(props: UseDateFieldProps) {
      * `prev` value so that we can start the segment over again
      * when the user types a number.
      */
-    console.log("🚀 ~ updateDayOrMonth ~ props.programmaticContinuation.value:", props.programmaticContinuation.value)
-    console.log("🚀 ~ updateDayOrMonth ~ props.hasLeftFocus.value:", props.hasLeftFocus.value)
     if (props.hasLeftFocus.value && !props.programmaticContinuation.value) {
       props.hasLeftFocus.value = false
       prev = null
@@ -384,9 +382,7 @@ export function useDateField(props: UseDateFieldProps) {
      * backspace key and then typed the number.
      */
     const digits = prev.toString().length
-    console.log("🚀 ~ updateDayOrMonth ~ digits:", digits)
     const total = Number.parseInt(prev.toString() + num.toString())
-    console.log("🚀 ~ updateDayOrMonth ~ total:", total)
     /**
      * If the number of digits is 2, or if the total with the existing digit
      * and the pressed digit is greater than the maximum value for this
@@ -401,12 +397,29 @@ export function useDateField(props: UseDateFieldProps) {
        * as the initial value for the next segment (day)
        */
       if (max === 12 && prev === 1 && total > max) {
+        console.log('enter 1')
         props.programmaticContinuation.value = true
 
         return {
           moveToNext: true,
-          value: 1,
+          value: prev,
           nextSegmentInitialValue: num,
+        }
+      }
+      if (max === 28 || max === 29 || max === 30 || max === 31) {
+        console.log({
+          prev,
+          total,
+        })
+
+        if (prev === 3 && total > max) {
+          props.programmaticContinuation.value = true
+
+          return {
+            moveToNext: true,
+            value: prev,
+            nextSegmentInitialValue: num,
+          }
         }
       }
 
@@ -416,11 +429,16 @@ export function useDateField(props: UseDateFieldProps) {
        * going to move to the next segment.
        */
       if (num > maxStart || total > max) {
-      // move to next
+        console.log('enter 3')
+
+        // move to next
         moveToNext = true
       }
       return { value: num, moveToNext }
     }
+
+    console.log('enter 4')
+
     // move to next
     moveToNext = true
     return { value: total, moveToNext }
@@ -594,9 +612,13 @@ export function useDateField(props: UseDateFieldProps) {
      * when the user types a number.
      */
     // probably not implement, kind of weird
-    if (props.hasLeftFocus.value) {
+    if (props.hasLeftFocus.value && !props.programmaticContinuation.value) {
       props.hasLeftFocus.value = false
       prev = null
+    }
+
+    if (props.programmaticContinuation.value) {
+      props.programmaticContinuation.value = false
     }
 
     if (prev === null)
@@ -640,8 +662,12 @@ export function useDateField(props: UseDateFieldProps) {
         ? getDaysInMonth(props.placeholder.value.set({ month: segmentMonthValue }))
         : getDaysInMonth(props.placeholder.value)
 
-      const { value, moveToNext } = updateDayOrMonth(daysInMonth, num, props.programmaticContinuation.value ? null : prevValue)
+      const { value, moveToNext, nextSegmentInitialValue } = updateDayOrMonth(daysInMonth, num, props.programmaticContinuation.value ? null : prevValue)
       props.segmentValues.value.day = value
+
+      if (nextSegmentInitialValue) {
+        props.segmentValues.value.year = nextSegmentInitialValue
+      }
 
       if (moveToNext) {
         props.focusNext()
@@ -698,9 +724,10 @@ export function useDateField(props: UseDateFieldProps) {
 
     if (isNumberString(e.key)) {
       const num = Number.parseInt(e.key)
-      const { value, moveToNext } = updateYear(num, prevValue)
-
-      props.segmentValues.value.year = value
+      const { value, moveToNext } = updateYear(num, props.programmaticContinuation.value ? null : prevValue)
+      if (!props.programmaticContinuation.value) {
+        props.segmentValues.value.year = value
+      }
 
       if (moveToNext)
         props.focusNext()

@@ -54,9 +54,27 @@ function handleFocusOut(e: FocusEvent) {
 function handleFocusIn(e: FocusEvent) {
   rootContext.setFocusedElement(e.target as HTMLElement)
   const dayValue = rootContext.segmentValues.value.day
+  const yearValue = rootContext.segmentValues.value.year
 
   if (rootContext.programmaticContinuation.value) {
-    if (dayValue) {
+    if (props.part === 'year' && yearValue) {
+      // create key event for keyword with rootContext.segmentValues.value.year
+      const event = new KeyboardEvent('keydown', {
+        key: yearValue.toString(),
+        code: `Digit${yearValue}`,
+        keyCode: 48 + yearValue,
+        which: 48 + yearValue,
+        bubbles: true,
+        cancelable: true,
+      })
+
+      console.log('triggering keydown for year', event)
+
+      hasLeftFocus.value = false
+      handleSegmentKeydown(event)
+      rootContext.programmaticContinuation.value = false
+    }
+    else if (props.part === 'day' && dayValue) {
       // create key event for keyword with rootContext.segmentValues.value.day
       const event = new KeyboardEvent('keydown', {
         key: dayValue.toString(),
@@ -66,12 +84,16 @@ function handleFocusIn(e: FocusEvent) {
         bubbles: true,
         cancelable: true,
       })
-      
-      hasLeftFocus.value = false;
+
+      console.log('triggering keydown for day', event)
+
+      hasLeftFocus.value = false
       handleSegmentKeydown(event)
+      rootContext.programmaticContinuation.value = false
     }
-  } else {
-    hasLeftFocus.value = true;
+  }
+  else {
+    hasLeftFocus.value = true
   }
 }
 </script>

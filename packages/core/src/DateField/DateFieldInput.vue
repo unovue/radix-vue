@@ -70,6 +70,8 @@ function handleFocusIn(e: FocusEvent) {
       hasLeftFocus.value = false;
       handleSegmentKeydown(event)
     }
+  } else {
+    hasLeftFocus.value = true;
   }
 }
 </script>

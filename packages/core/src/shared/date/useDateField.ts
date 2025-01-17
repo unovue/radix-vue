@@ -336,6 +336,7 @@ export function useDateField(props: UseDateFieldProps) {
      * when the user types a number.
      */
     console.log("🚀 ~ updateDayOrMonth ~ props.programmaticContinuation.value:", props.programmaticContinuation.value)
+    console.log("🚀 ~ updateDayOrMonth ~ props.hasLeftFocus.value:", props.hasLeftFocus.value)
     if (props.hasLeftFocus.value && !props.programmaticContinuation.value) {
       props.hasLeftFocus.value = false
       prev = null

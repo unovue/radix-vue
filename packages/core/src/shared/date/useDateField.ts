@@ -335,8 +335,6 @@ export function useDateField(props: UseDateFieldProps) {
      * `prev` value so that we can start the segment over again
      * when the user types a number.
      */
-    console.log("🚀 ~ updateDayOrMonth ~ props.programmaticContinuation.value:", props.programmaticContinuation.value)
-    console.log("🚀 ~ updateDayOrMonth ~ props.hasLeftFocus.value:", props.hasLeftFocus.value)
     if (props.hasLeftFocus.value && !props.programmaticContinuation.value) {
       props.hasLeftFocus.value = false
       prev = null

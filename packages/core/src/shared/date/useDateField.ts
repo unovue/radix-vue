@@ -1,9 +1,9 @@
-import { type Formatter, useKbd } from '@/shared'
-import type { AnyExceptLiteral, HourCycle, SegmentPart, SegmentValueObj } from './types'
 import { getDaysInMonth, toDate } from '@/date'
+import { type Formatter, useKbd } from '@/shared'
 import type { CalendarDateTime, CycleTimeOptions, DateFields, DateValue, TimeFields } from '@internationalized/date'
 import { type Ref, computed } from 'vue'
 import { isAcceptableSegmentKey, isNumberString, isSegmentNavigationKey } from './segment'
+import type { AnyExceptLiteral, HourCycle, SegmentPart, SegmentValueObj } from './types'
 
 type MinuteSecondIncrementProps = {
   e: KeyboardEvent
@@ -278,6 +278,7 @@ export type UseDateFieldProps = {
   part: SegmentPart
   modelValue: Ref<DateValue | undefined>
   focusNext: () => void
+  programmaticContinuation: Ref<boolean>
 }
 
 export function useDateField(props: UseDateFieldProps) {
@@ -334,9 +335,13 @@ export function useDateField(props: UseDateFieldProps) {
      * `prev` value so that we can start the segment over again
      * when the user types a number.
      */
-    if (props.hasLeftFocus.value) {
+    if (props.hasLeftFocus.value && !props.programmaticContinuation.value) {
       props.hasLeftFocus.value = false
       prev = null
+    }
+
+    if (props.programmaticContinuation.value) {
+      props.programmaticContinuation.value = false
     }
 
     if (prev === null) {
@@ -386,7 +391,6 @@ export function useDateField(props: UseDateFieldProps) {
      */
 
     if (digits === 2 || total > max) {
-
       /**
        * If we're updating months (max === 12) and user types a number
        * that starts with 1 but would result in an invalid month (13-19),
@@ -394,6 +398,8 @@ export function useDateField(props: UseDateFieldProps) {
        * as the initial value for the next segment (day)
        */
       if (max === 12 && prev === 1 && total > max) {
+        props.programmaticContinuation.value = true
+
         return {
           moveToNext: true,
           value: 1,
@@ -401,11 +407,11 @@ export function useDateField(props: UseDateFieldProps) {
         }
       }
 
-    /**
-     * As we're doing elsewhere, we're checking if the number is greater
-     * than the max start digit (0-3 in most months), and if so, we're
-     * going to move to the next segment.
-     */
+      /**
+       * As we're doing elsewhere, we're checking if the number is greater
+       * than the max start digit (0-3 in most months), and if so, we're
+       * going to move to the next segment.
+       */
       if (num > maxStart || total > max) {
       // move to next
         moveToNext = true
@@ -663,7 +669,7 @@ export function useDateField(props: UseDateFieldProps) {
       const { value, moveToNext, nextSegmentInitialValue } = updateDayOrMonth(12, num, prevValue)
 
       props.segmentValues.value.month = value
-      
+
       if (nextSegmentInitialValue) {
         props.segmentValues.value.day = nextSegmentInitialValue
       }

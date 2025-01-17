@@ -2,8 +2,8 @@
 import { Primitive, type PrimitiveProps } from '@/Primitive'
 import type { SegmentPart } from '@/shared/date'
 import { useDateField } from '@/shared/date/useDateField'
-import { injectDateFieldRootContext } from './DateFieldRoot.vue'
 import { computed, ref } from 'vue'
+import { injectDateFieldRootContext } from './DateFieldRoot.vue'
 
 export interface DateFieldInputProps extends PrimitiveProps {
   /** The part of the date to render */
@@ -35,11 +35,21 @@ const {
   readonly: rootContext.readonly,
   focusNext: rootContext.focusNext,
   modelValue: rootContext.modelValue,
+  programmaticContinuation: rootContext.programmaticContinuation,
 })
 
 const disabled = computed(() => rootContext.disabled.value)
 const readonly = computed(() => rootContext.readonly.value)
 const isInvalid = computed(() => rootContext.isInvalid.value)
+
+function handleFocusOut(e: FocusEvent) {
+  if (rootContext.programmaticContinuation.value) {
+    hasLeftFocus.value = false
+  }
+  else {
+    hasLeftFocus.value = true
+  }
+}
 </script>
 
 <template>
@@ -57,8 +67,9 @@ const isInvalid = computed(() => rootContext.isInvalid.value)
     v-on="part !== 'literal' ? {
       mousedown: handleSegmentClick,
       keydown: handleSegmentKeydown,
-      focusout: () => { hasLeftFocus = true },
+      focusout: handleFocusOut,
       focusin: (e: FocusEvent) => {
+        // hasLeftFocus = true
         rootContext.setFocusedElement(e.target as HTMLElement)
       },
     } : {}"

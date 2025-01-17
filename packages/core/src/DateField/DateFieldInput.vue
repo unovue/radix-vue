@@ -43,7 +43,12 @@ const readonly = computed(() => rootContext.readonly.value)
 const isInvalid = computed(() => rootContext.isInvalid.value)
 
 function handleFocusOut(e: FocusEvent) {
-  hasLeftFocus.value = true;
+  if (rootContext.programmaticContinuation.value) {
+    hasLeftFocus.value = false
+  }
+  else {
+    hasLeftFocus.value = true
+  }
 }
 
 function handleFocusIn(e: FocusEvent) {
@@ -62,8 +67,11 @@ function handleFocusIn(e: FocusEvent) {
         cancelable: true,
       })
       
+      hasLeftFocus.value = false;
       handleSegmentKeydown(event)
     }
+  } else {
+    hasLeftFocus.value = true;
   }
 }
 </script>

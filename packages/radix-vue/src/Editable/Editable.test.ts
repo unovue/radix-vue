@@ -83,7 +83,7 @@ describe('editable', () => {
   })
 
   it('submits the value when pressing enter', async () => {
-    const { input, preview, rerender } = setup({ editableProps: { modelValue: '' }, emits: { 'onUpdate:modelValue': (data: string) => rerender({ modelValue: data }) } })
+    const { input, preview, rerender } = setup({ editableProps: { modelValue: '', submitMode: 'enter' }, emits: { 'onUpdate:modelValue': (data: string) => rerender({ modelValue: data }) } })
 
     await userEvent.type(input, 'New Value')
     await userEvent.keyboard(kbd.ENTER)

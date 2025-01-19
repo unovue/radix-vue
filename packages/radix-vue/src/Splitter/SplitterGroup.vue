@@ -522,7 +522,7 @@ function collapsePanel(panelData: PanelData) {
 
     assert(
       panelSize != null,
-        `Panel size not found for panel "${panelData.id}"`,
+      `Panel size not found for panel "${panelData.id}"`,
     )
 
     if (panelSize !== collapsedSize) {
@@ -625,7 +625,7 @@ function getPanelSize(panelData: PanelData) {
 
   assert(
     panelSize != null,
-      `Panel size not found for panel "${panelData.id}"`,
+    `Panel size not found for panel "${panelData.id}"`,
   )
 
   return panelSize
@@ -640,7 +640,16 @@ function isPanelCollapsed(panelData: PanelData) {
     panelSize,
   } = panelDataHelper(panelDataArray, panelData, layout)
 
-  return collapsible === true && panelSize === collapsedSize
+  if (!collapsible)
+    return false
+
+  // panelSize is undefined during ssr due to vue ssr reactivity limitation.
+  if (panelSize === undefined) {
+    return panelData.constraints.defaultSize === panelData.constraints.collapsedSize
+  }
+  else {
+    return panelSize === collapsedSize
+  }
 }
 
 function isPanelExpanded(panelData: PanelData) {
@@ -654,7 +663,7 @@ function isPanelExpanded(panelData: PanelData) {
 
   assert(
     panelSize != null,
-      `Panel size not found for panel "${panelData.id}"`,
+    `Panel size not found for panel "${panelData.id}"`,
   )
 
   return !collapsible || panelSize > collapsedSize

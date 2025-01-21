@@ -111,12 +111,6 @@
     'required': false
   },
   {
-    'name': 'trapFocus',
-    'description': '<p>Whether focus should be trapped within the <code>MenuContent</code></p>\n',
-    'type': 'boolean',
-    'required': false
-  },
-  {
     'name': 'updatePositionStrategy',
     'description': '<p>Strategy to update the position of the floating element on every animation frame.</p>\n',
     'type': '\'always\' | \'optimized\'',

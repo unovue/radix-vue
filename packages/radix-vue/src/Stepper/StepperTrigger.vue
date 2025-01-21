@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useArrowNavigation, useForwardExpose, useKbd } from '@/shared'
+import { useActiveElement, useArrowNavigation, useForwardExpose, useKbd } from '@/shared'
 import { computed, onMounted, onUnmounted } from 'vue'
 
 export interface StepperTriggerProps extends PrimitiveProps {
@@ -54,7 +54,7 @@ function handleKeyDown(event: KeyboardEvent) {
     rootContext.changeModelValue(itemContext.step.value)
 
   if ([kbd.ARROW_LEFT, kbd.ARROW_RIGHT, kbd.ARROW_UP, kbd.ARROW_DOWN].includes(event.key)) {
-    useArrowNavigation(event, document.activeElement as HTMLElement, undefined, {
+    useArrowNavigation(event, useActiveElement() as HTMLElement, undefined, {
       itemsArray: stepperItems.value,
       focus: true,
       loop: false,

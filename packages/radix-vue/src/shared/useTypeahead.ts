@@ -1,5 +1,6 @@
 import { refAutoReset } from '@vueuse/shared'
 import type { Ref } from 'vue'
+import { useActiveElement } from './useActiveElement'
 
 const ITEM_TEXT_ATTR = 'data-item-text'
 
@@ -14,7 +15,7 @@ export function useTypeahead(collections?: Ref<HTMLElement[]>) {
 
     search.value = search.value + key
     const items = collections?.value ?? fallback!
-    const currentItem = document.activeElement
+    const currentItem = useActiveElement()
 
     const itemsWithTextValue = items.map(el => ({
       ref: el,

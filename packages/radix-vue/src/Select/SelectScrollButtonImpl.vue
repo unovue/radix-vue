@@ -2,7 +2,7 @@
 import { onBeforeUnmount, ref, watchEffect } from 'vue'
 import { SelectContentDefaultContextValue, injectSelectContentContext } from './SelectContentImpl.vue'
 import { Primitive } from '@/Primitive'
-import { useCollection } from '@/shared'
+import { useActiveElement, useCollection } from '@/shared'
 
 export type SelectScrollButtonImplEmits = {
   autoScroll: []
@@ -24,7 +24,7 @@ function clearAutoScrollTimer() {
 
 watchEffect(() => {
   const activeItem = collectionItems.value.find(
-    item => item === document.activeElement,
+    item => item === useActiveElement(),
   )
   activeItem?.scrollIntoView({ block: 'nearest' })
 })

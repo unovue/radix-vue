@@ -57,7 +57,7 @@ importers:
         version: 12.0.0(typescript@5.4.2)
       vite:
         specifier: ^4.5.3
-        version: 4.5.3(@types/node@20.14.9)
+        version: 5.4.14(@types/node@20.14.9)
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.4.2)
@@ -73,7 +73,7 @@ importers:
         version: 1.1.5(vue@3.5.13(typescript@5.4.2))
       '@histoire/plugin-vue':
         specifier: ^0.17.17
-        version: 0.17.17(histoire@0.17.17(@types/node@20.14.9)(vite@4.5.3(@types/node@20.14.9)))(vite@4.5.3(@types/node@20.14.9))(vue@3.5.13(typescript@5.4.2))
+        version: 0.17.17(histoire@0.17.17(@types/node@20.14.9)(vite@5.4.14(@types/node@20.14.9)))(vite@5.4.14(@types/node@20.14.9))(vue@3.5.13(typescript@5.4.2))
       '@iconify/vue':
         specifier: ^4.1.2
         version: 4.1.2(vue@3.5.13(typescript@5.4.2))
@@ -91,7 +91,7 @@ importers:
         version: 9.18.0(jiti@1.21.6)
       histoire:
         specifier: ^0.17.17
-        version: 0.17.17(@types/node@20.14.9)(vite@4.5.3(@types/node@20.14.9))
+        version: 0.17.17(@types/node@20.14.9)(vite@5.4.14(@types/node@20.14.9))
       postcss:
         specifier: ^8.4.39
         version: 8.4.39
@@ -7072,10 +7072,10 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@histoire/app@0.17.17(vite@4.5.3(@types/node@20.14.9))':
+  '@histoire/app@0.17.17(vite@5.4.14(@types/node@20.14.9))':
     dependencies:
-      '@histoire/controls': 0.17.17(vite@4.5.3(@types/node@20.14.9))
-      '@histoire/shared': 0.17.17(vite@4.5.3(@types/node@20.14.9))
+      '@histoire/controls': 0.17.17(vite@5.4.14(@types/node@20.14.9))
+      '@histoire/shared': 0.17.17(vite@5.4.14(@types/node@20.14.9))
       '@histoire/vendors': 0.17.17
       '@types/flexsearch': 0.7.6
       flexsearch: 0.7.21
@@ -7083,7 +7083,7 @@ snapshots:
     transitivePeerDependencies:
       - vite
 
-  '@histoire/controls@0.17.17(vite@4.5.3(@types/node@20.14.9))':
+  '@histoire/controls@0.17.17(vite@5.4.14(@types/node@20.14.9))':
     dependencies:
       '@codemirror/commands': 6.6.0
       '@codemirror/lang-json': 6.0.1
@@ -7092,26 +7092,26 @@ snapshots:
       '@codemirror/state': 6.4.1
       '@codemirror/theme-one-dark': 6.1.2
       '@codemirror/view': 6.28.3
-      '@histoire/shared': 0.17.17(vite@4.5.3(@types/node@20.14.9))
+      '@histoire/shared': 0.17.17(vite@5.4.14(@types/node@20.14.9))
       '@histoire/vendors': 0.17.17
     transitivePeerDependencies:
       - vite
 
-  '@histoire/plugin-vue@0.17.17(histoire@0.17.17(@types/node@20.14.9)(vite@4.5.3(@types/node@20.14.9)))(vite@4.5.3(@types/node@20.14.9))(vue@3.5.13(typescript@5.4.2))':
+  '@histoire/plugin-vue@0.17.17(histoire@0.17.17(@types/node@20.14.9)(vite@5.4.14(@types/node@20.14.9)))(vite@5.4.14(@types/node@20.14.9))(vue@3.5.13(typescript@5.4.2))':
     dependencies:
-      '@histoire/controls': 0.17.17(vite@4.5.3(@types/node@20.14.9))
-      '@histoire/shared': 0.17.17(vite@4.5.3(@types/node@20.14.9))
+      '@histoire/controls': 0.17.17(vite@5.4.14(@types/node@20.14.9))
+      '@histoire/shared': 0.17.17(vite@5.4.14(@types/node@20.14.9))
       '@histoire/vendors': 0.17.17
       change-case: 4.1.2
       globby: 13.2.2
-      histoire: 0.17.17(@types/node@20.14.9)(vite@4.5.3(@types/node@20.14.9))
+      histoire: 0.17.17(@types/node@20.14.9)(vite@5.4.14(@types/node@20.14.9))
       launch-editor: 2.8.0
       pathe: 1.1.2
       vue: 3.5.13(typescript@5.4.2)
     transitivePeerDependencies:
       - vite
 
-  '@histoire/shared@0.17.17(vite@4.5.3(@types/node@20.14.9))':
+  '@histoire/shared@0.17.17(vite@5.4.14(@types/node@20.14.9))':
     dependencies:
       '@histoire/vendors': 0.17.17
       '@types/fs-extra': 9.0.13
@@ -7119,7 +7119,7 @@ snapshots:
       chokidar: 3.6.0
       pathe: 1.1.2
       picocolors: 1.0.1
-      vite: 4.5.3(@types/node@20.14.9)
+      vite: 5.4.14(@types/node@20.14.9)
 
   '@histoire/vendors@0.17.17': {}
 
@@ -9951,12 +9951,12 @@ snapshots:
       capital-case: 1.0.4
       tslib: 2.6.3
 
-  histoire@0.17.17(@types/node@20.14.9)(vite@4.5.3(@types/node@20.14.9)):
+  histoire@0.17.17(@types/node@20.14.9)(vite@5.4.14(@types/node@20.14.9)):
     dependencies:
       '@akryum/tinypool': 0.3.1
-      '@histoire/app': 0.17.17(vite@4.5.3(@types/node@20.14.9))
-      '@histoire/controls': 0.17.17(vite@4.5.3(@types/node@20.14.9))
-      '@histoire/shared': 0.17.17(vite@4.5.3(@types/node@20.14.9))
+      '@histoire/app': 0.17.17(vite@5.4.14(@types/node@20.14.9))
+      '@histoire/controls': 0.17.17(vite@5.4.14(@types/node@20.14.9))
+      '@histoire/shared': 0.17.17(vite@5.4.14(@types/node@20.14.9))
       '@histoire/vendors': 0.17.17
       '@types/flexsearch': 0.7.6
       '@types/markdown-it': 12.2.3
@@ -9983,7 +9983,7 @@ snapshots:
       sade: 1.8.1
       shiki-es: 0.2.0
       sirv: 2.0.4
-      vite: 4.5.3(@types/node@20.14.9)
+      vite: 5.4.14(@types/node@20.14.9)
       vite-node: 0.34.7(@types/node@20.14.9)
     transitivePeerDependencies:
       - '@types/node'

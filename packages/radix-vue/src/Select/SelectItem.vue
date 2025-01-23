@@ -33,7 +33,6 @@ export interface SelectItemProps extends PrimitiveProps {
 <script setup lang="ts">
 import {
   computed,
-  nextTick,
   onMounted,
   ref,
   toRefs,
@@ -55,8 +54,9 @@ const isFocused = ref(false)
 const textValue = ref(props.textValue ?? '')
 const textId = useId(undefined, 'radix-vue-select-item-text')
 
-async function handleSelect(ev?: PointerEvent) {
-  await nextTick()
+let pointerTypeRef: PointerEvent['pointerType'] = 'touch'
+
+function handleSelect(ev?: PointerEvent) {
   if (ev?.defaultPrevented)
     return
 
@@ -66,30 +66,31 @@ async function handleSelect(ev?: PointerEvent) {
   }
 }
 
-async function handlePointerMove(event: PointerEvent) {
-  await nextTick()
+function handlePointerMove(event: PointerEvent) {
   if (event.defaultPrevented)
     return
+
+  pointerTypeRef = event.pointerType
+
   if (disabled.value) {
     contentContext.onItemLeave?.()
   }
-  else {
+  else if (pointerTypeRef === 'mouse') {
     // even though safari doesn't support this option, it's acceptable
     // as it only means it might scroll a few pixels when using the pointer.
     (event.currentTarget as HTMLElement).focus({ preventScroll: true })
   }
 }
 
-async function handlePointerLeave(event: PointerEvent) {
-  await nextTick()
+function handlePointerLeave(event: PointerEvent) {
   if (event.defaultPrevented)
     return
-  if (event.currentTarget === document.activeElement)
+  if (event.currentTarget === document.activeElement) {
     contentContext.onItemLeave?.()
+  }
 }
 
-async function handleKeyDown(event: KeyboardEvent) {
-  await nextTick()
+function handleKeyDown(event: KeyboardEvent) {
   if (event.defaultPrevented)
     return
   const isTypingAhead = contentContext.searchRef?.value !== ''
@@ -145,11 +146,19 @@ provideSelectItemContext({
     :as-child="asChild"
     @focus="isFocused = true"
     @blur="isFocused = false"
-    @pointerup="handleSelect"
-    @pointerdown="(event) => {
-      (event.currentTarget as HTMLElement).focus({ preventScroll: true })
+    @click="() => {
+      if (pointerTypeRef !== 'mouse') {
+        handleSelect()
+      }
     }"
-    @touchend.prevent.stop
+    @pointerup="() => {
+      if (pointerTypeRef === 'mouse') {
+        handleSelect()
+      }
+    }"
+    @pointerdown="(event) => {
+      pointerTypeRef = event.pointerType;
+    }"
     @pointermove="handlePointerMove"
     @pointerleave="handlePointerLeave"
     @keydown="handleKeyDown"

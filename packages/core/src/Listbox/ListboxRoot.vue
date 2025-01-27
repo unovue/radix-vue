@@ -2,7 +2,7 @@
 import { createContext, findValuesBetween, useDirection, useFormControl, useKbd, useTypeahead } from '@/shared'
 import { Primitive } from '..'
 import { type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
-import type { AcceptableValue, DataOrientation, Direction, FormFieldProps } from '@/shared/types'
+import type { AcceptableValue, DataOrientation, Direction, FormFieldProps, SingleOrMultipleProps } from '@/shared/types'
 import { getFocusIntent } from '@/RovingFocus/utils'
 
 type ListboxRootContext<T> = {
@@ -38,13 +38,7 @@ type ListboxRootContext<T> = {
 export const [injectListboxRootContext, provideListboxRootContext]
   = createContext<ListboxRootContext<AcceptableValue>>('ListboxRoot')
 
-export interface ListboxRootProps<T = AcceptableValue> extends PrimitiveProps, FormFieldProps {
-  /** The controlled value of the listbox. Can be binded with with `v-model`. */
-  modelValue?: T | Array<T>
-  /** The value of the listbox when initially rendered. Use when you do not need to control the state of the Listbox */
-  defaultValue?: T | Array<T>
-  /** Whether multiple options can be selected or not. */
-  multiple?: boolean
+export interface ListboxRootProps<S extends boolean = false, T = AcceptableValue> extends PrimitiveProps, FormFieldProps, SingleOrMultipleProps<S, T> {
   /** The orientation of the listbox. <br>Mainly so arrow navigation is done accordingly (left & right vs. up & down) */
   orientation?: DataOrientation
   /** The reading direction of the listbox when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
@@ -62,9 +56,9 @@ export interface ListboxRootProps<T = AcceptableValue> extends PrimitiveProps, F
   by?: string | ((a: T, b: T) => boolean)
 }
 
-export type ListboxRootEmits<T = AcceptableValue> = {
+export type ListboxRootEmits<S extends boolean = false, T extends AcceptableValue = AcceptableValue> = {
   /** Event handler called when the value changes. */
-  'update:modelValue': [value: T]
+  'update:modelValue': [value: S extends true ? T[] : T]
   /** Event handler when highlighted element changes. */
   'highlight': [payload: { ref: HTMLElement, value: T } | undefined]
   /** Event handler called when container is being focused. Can be prevented. */
@@ -74,23 +68,23 @@ export type ListboxRootEmits<T = AcceptableValue> = {
 }
 </script>
 
-<script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
+<script setup lang="ts" generic="S extends boolean = false, T extends AcceptableValue = AcceptableValue">
 import { type EventHook, createEventHook, useVModel } from '@vueuse/core'
 import { type Ref, nextTick, ref, toRefs, watch } from 'vue'
 import { compare } from './utils'
 import { useCollection } from '@/Collection'
 import { VisuallyHiddenInput } from '@/VisuallyHidden'
 
-const props = withDefaults(defineProps<ListboxRootProps>(), {
+const props = withDefaults(defineProps<ListboxRootProps<S, T>>(), {
   selectionBehavior: 'toggle',
   orientation: 'vertical',
 })
-const emits = defineEmits<ListboxRootEmits>()
+const emits = defineEmits<ListboxRootEmits<S, T>>()
 
 defineSlots<{
   default: (props: {
     /** Current active value */
-    modelValue: typeof modelValue.value
+    modelValue: SingleOrMultipleProps<S, T>['modelValue']
   }) => any
 }>()
 
@@ -107,7 +101,7 @@ const firstValue = ref<T>()
 const isUserAction = ref(false)
 const focusable = ref(true)
 const modelValue = useVModel(props, 'modelValue', emits, {
-  defaultValue: props.defaultValue ?? (multiple.value ? [] : undefined),
+  defaultValue: props.defaultValue ?? (multiple.value ? ([] as any) : undefined),
   passive: (props.modelValue === undefined) as false,
   deep: true,
 }) as Ref<T | T[] | undefined>
@@ -128,7 +122,7 @@ function onValueChange(val: T) {
   }
   else {
     if (props.selectionBehavior === 'toggle') {
-      if (compare(modelValue.value, val, props.by))
+      if (compare(modelValue.value as T, val, props.by))
         modelValue.value = undefined
       else
         modelValue.value = val
@@ -364,6 +358,7 @@ provideListboxRootContext({
   virtualFocusHook,
   virtualKeydownHook,
   virtualHighlightHook,
+  // @ts-expect-error ignoring
   by: props.by,
   firstValue,
   selectionBehavior,
@@ -397,7 +392,7 @@ provideListboxRootContext({
       }
     }"
   >
-    <slot :model-value="modelValue" />
+    <slot :model-value="modelValue as any" />
 
     <VisuallyHiddenInput
       v-if="isFormControl && name"

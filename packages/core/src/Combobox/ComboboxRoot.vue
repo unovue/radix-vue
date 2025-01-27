@@ -3,7 +3,7 @@ import type { Ref } from 'vue'
 import type { ListboxRootProps } from '@/Listbox'
 import { createContext, useDirection, useFilter } from '@/shared'
 import { usePrimitiveElement } from '@/Primitive'
-import type { AcceptableValue, GenericComponentInstance } from '@/shared/types'
+import type { AcceptableValue, GenericComponentInstance, SingleOrMultipleProps } from '@/shared/types'
 
 type ComboboxRootContext<T> = {
   modelValue: Ref<T | Array<T>>
@@ -33,16 +33,16 @@ type ComboboxRootContext<T> = {
 export const [injectComboboxRootContext, provideComboboxRootContext]
   = createContext<ComboboxRootContext<AcceptableValue>>('ComboboxRoot')
 
-export type ComboboxRootEmits<T = AcceptableValue> = {
+export type ComboboxRootEmits<S extends boolean = false, T = AcceptableValue> = {
   /** Event handler called when the value changes. */
-  'update:modelValue': [value: T]
+  'update:modelValue': [value: S extends false ? T : T[]]
   /** Event handler when highlighted element changes. */
   'highlight': [payload: { ref: HTMLElement, value: T } | undefined]
   /** Event handler called when the open state of the combobox changes. */
   'update:open': [value: boolean]
 }
 
-export interface ComboboxRootProps<T = AcceptableValue> extends Omit<ListboxRootProps<T>, 'orientation' | 'selectionBehavior' > {
+export interface ComboboxRootProps<S extends boolean = false, T = AcceptableValue> extends Omit<ListboxRootProps<S, T>, 'orientation' | 'selectionBehavior' > {
   /** The controlled open state of the Combobox. Can be binded with with `v-model:open`. */
   open?: boolean
   /** The open state of the combobox when it is initially rendered. <br> Use when you do not need to control its open state. */
@@ -59,24 +59,24 @@ export interface ComboboxRootProps<T = AcceptableValue> extends Omit<ListboxRoot
 }
 </script>
 
-<script setup lang="ts" generic="T extends AcceptableValue = AcceptableValue">
+<script setup lang="ts" generic="S extends boolean = false, T extends AcceptableValue = AcceptableValue">
 import { computed, nextTick, reactive, ref, toRefs, watch } from 'vue'
 import { PopperRoot } from '@/Popper'
 import { type EventHookOn, createEventHook, useVModel } from '@vueuse/core'
 import { ListboxRoot } from '@/Listbox'
 
-const props = withDefaults(defineProps<ComboboxRootProps<T>>(), {
+const props = withDefaults(defineProps<ComboboxRootProps<S, T>>(), {
   open: undefined,
   resetSearchTermOnBlur: true,
 })
-const emits = defineEmits<ComboboxRootEmits<T>>()
+const emits = defineEmits<ComboboxRootEmits<S, T>>()
 
 defineSlots<{
   default: (props: {
     /** Current open state */
     open: typeof open.value
     /** Current active value */
-    modelValue: typeof modelValue.value
+    modelValue: SingleOrMultipleProps<S, T>['modelValue']
   }) => any
 }>()
 
@@ -222,7 +222,7 @@ provideComboboxRootContext({
     <ListboxRoot
       ref="primitiveElement"
       v-bind="$attrs"
-      v-model="modelValue"
+      v-model="modelValue as any"
       :style="{
         pointerEvents: open ? 'auto' : undefined,
       }"
@@ -239,7 +239,7 @@ provideComboboxRootContext({
     >
       <slot
         :open="open"
-        :model-value="modelValue"
+        :model-value="modelValue as any"
       />
     </ListboxRoot>
   </PopperRoot>

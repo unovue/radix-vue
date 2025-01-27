@@ -1,9 +1,9 @@
 import { describe, expect, it, vi } from 'vitest'
 import { useSingleOrMultipleValue } from './useSingleOrMultipleValue'
-import type { SingleOrMultipleProps } from './types'
+import type { SingleOrMultipleTypeProps } from './types'
 import { reactive } from 'vue'
 
-function setupPropsEmits(defaultProps: SingleOrMultipleProps) {
+function setupPropsEmits(defaultProps: SingleOrMultipleTypeProps) {
   const props = reactive(defaultProps)
   const emits = (emitName: string, ...args: any[]) => {
     if (emitName === 'update:modelValue')
@@ -14,7 +14,7 @@ function setupPropsEmits(defaultProps: SingleOrMultipleProps) {
 
 describe('useSingleOrMultipleValue', () => {
   it('should initialize with correct type and modelValue', () => {
-    const props: SingleOrMultipleProps = {
+    const props: SingleOrMultipleTypeProps = {
       type: 'single',
       modelValue: 'test',
     }

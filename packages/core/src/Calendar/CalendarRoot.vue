@@ -8,7 +8,7 @@ import { type Formatter, createContext, useDirection, useLocale } from '@/shared
 import { useCalendar, useCalendarState } from './useCalendar'
 import { getDefaultDate, handleCalendarInitialFocus } from '@/shared/date'
 import type { Grid, Matcher, WeekDayFormat } from '@/date'
-import type { Direction } from '@/shared/types'
+import type { Direction, SingleOrMultipleProps } from '@/shared/types'
 
 type CalendarRootContext = {
   locale: Ref<string>
@@ -42,9 +42,7 @@ type CalendarRootContext = {
   dir: Ref<Direction>
 }
 
-interface BaseCalendarRootProps extends PrimitiveProps {
-  /** The default value for the calendar */
-  defaultValue?: DateValue
+export interface CalendarRootProps<S extends boolean = false> extends PrimitiveProps, SingleOrMultipleProps<S, DateValue> {
   /** The default placeholder date */
   defaultPlaceholder?: DateValue
   /** The placeholder date, which is used to determine what month to display when no date is selected. This updates as the user navigates the calendar and can be used to programmatically control the calendar view */
@@ -87,25 +85,9 @@ interface BaseCalendarRootProps extends PrimitiveProps {
   prevPage?: (placeholder: DateValue) => DateValue
 }
 
-export interface MultipleCalendarRootProps extends BaseCalendarRootProps {
-  /** The controlled checked state of the calendar. Can be bound as `v-model`. */
-  modelValue?: DateValue[] | undefined
-  /** Whether or not multiple dates can be selected */
-  multiple: true
-}
-
-export interface SingleCalendarRootProps extends BaseCalendarRootProps {
-  /** The controlled checked state of the calendar. Can be bound as `v-model`. */
-  modelValue?: DateValue | undefined
-  /** Whether or not multiple dates can be selected */
-  multiple?: false
-}
-
-export type CalendarRootProps = MultipleCalendarRootProps | SingleCalendarRootProps
-
-export type CalendarRootEmits = {
+export type CalendarRootEmits<S extends boolean = false> = {
   /** Event handler called whenever the model value changes */
-  'update:modelValue': [date: DateValue | undefined]
+  'update:modelValue': [date: S extends false ? DateValue | undefined : DateValue[] | undefined]
   /** Event handler called whenever the placeholder value changes */
   'update:placeholder': [date: DateValue]
 }
@@ -114,12 +96,12 @@ export const [injectCalendarRootContext, provideCalendarRootContext]
   = createContext<CalendarRootContext>('CalendarRoot')
 </script>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="S extends boolean = false">
 import { onMounted, toRefs, watch } from 'vue'
 import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { useVModel } from '@vueuse/core'
 
-const props = withDefaults(defineProps<CalendarRootProps>(), {
+const props = withDefaults(defineProps<CalendarRootProps<S>>(), {
   defaultValue: undefined,
   as: 'div',
   pagedNavigation: false,
@@ -127,7 +109,6 @@ const props = withDefaults(defineProps<CalendarRootProps>(), {
   weekStartsOn: 0,
   weekdayFormat: 'narrow',
   fixedWeeks: false,
-  multiple: false,
   numberOfMonths: 1,
   disabled: false,
   readonly: false,
@@ -136,7 +117,7 @@ const props = withDefaults(defineProps<CalendarRootProps>(), {
   isDateDisabled: undefined,
   isDateUnavailable: undefined,
 })
-const emits = defineEmits<CalendarRootEmits>()
+const emits = defineEmits<CalendarRootEmits<S>>()
 defineSlots<{
   default: (props: {
     /** The current date of the placeholder */
@@ -152,7 +133,7 @@ defineSlots<{
     /** Whether or not to always display 6 weeks in the calendar */
     fixedWeeks: boolean
     /** The current date of the calendar */
-    modelValue: DateValue | undefined
+    modelValue: CalendarRootProps<S>['modelValue']
   }) => any
 }>()
 
@@ -196,6 +177,7 @@ const defaultDate = getDefaultDate({
 })
 
 const placeholder = useVModel(props, 'placeholder', emits, {
+  // @ts-expect-error ignoring DateValue types
   defaultValue: props.defaultPlaceholder ?? defaultDate.copy(),
   passive: (props.placeholder === undefined) as false,
 }) as Ref<DateValue>
@@ -345,7 +327,7 @@ provideCalendarRootContext({
       :week-starts-on="weekStartsOn"
       :locale="locale"
       :fixed-weeks="fixedWeeks"
-      :model-value="modelValue"
+      :model-value="modelValue as any"
     />
     <div
       style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 1px;"

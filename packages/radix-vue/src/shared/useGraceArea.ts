@@ -49,7 +49,7 @@ export function useGraceArea(triggerElement: Ref<HTMLElement | undefined>, conta
         const pointerPosition = { x: event.clientX, y: event.clientY }
         const hasEnteredTarget = triggerElement.value?.contains(target) || containerElement.value?.contains(target)
         const isPointerOutsideGraceArea = !isPointInPolygon(pointerPosition, pointerGraceArea.value)
-        const isAnotherGraceAreaTrigger = target.hasAttribute('data-grace-area-trigger')
+        const isAnotherGraceAreaTrigger = !!target.closest('[data-grace-area-trigger]')
 
         if (hasEnteredTarget) {
           handleRemoveGraceArea()

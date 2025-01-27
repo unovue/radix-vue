@@ -1,4 +1,4 @@
-export function useActiveElement(): Element | null {
+export function getActiveElement(): Element | null {
   let activeElement = document.activeElement
   if (activeElement == null) {
     return null

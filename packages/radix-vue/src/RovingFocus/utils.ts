@@ -1,4 +1,4 @@
-import { useActiveElement } from '@/shared'
+import { getActiveElement } from '@/shared'
 
 export type Orientation = 'horizontal' | 'vertical'
 export type Direction = 'ltr' | 'rtl'
@@ -43,13 +43,13 @@ export function getFocusIntent(
 }
 
 export function focusFirst(candidates: HTMLElement[], preventScroll = false) {
-  const PREVIOUSLY_FOCUSED_ELEMENT = useActiveElement()
+  const PREVIOUSLY_FOCUSED_ELEMENT = getActiveElement()
   for (const candidate of candidates) {
     // if focus is already where we want to go, we don't want to keep going through the candidates
     if (candidate === PREVIOUSLY_FOCUSED_ELEMENT)
       return
     candidate.focus({ preventScroll })
-    if (useActiveElement() !== PREVIOUSLY_FOCUSED_ELEMENT)
+    if (getActiveElement() !== PREVIOUSLY_FOCUSED_ELEMENT)
       return
   }
 }

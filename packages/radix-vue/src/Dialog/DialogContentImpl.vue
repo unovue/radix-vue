@@ -3,7 +3,7 @@ import type {
   DismissableLayerEmits,
   DismissableLayerProps,
 } from '@/DismissableLayer'
-import { useActiveElement, useForwardExpose, useId } from '@/shared'
+import { getActiveElement, useForwardExpose, useId } from '@/shared'
 
 export type DialogContentImplEmits = DismissableLayerEmits & {
   /**
@@ -54,8 +54,8 @@ onMounted(() => {
   rootContext.contentElement = contentElement
 
   // Preserve the `DialogTrigger` element in case it was triggered programmatically
-  if (useActiveElement() !== document.body)
-    rootContext.triggerElement.value = useActiveElement() as HTMLElement
+  if (getActiveElement() !== document.body)
+    rootContext.triggerElement.value = getActiveElement() as HTMLElement
 })
 
 if (process.env.NODE_ENV !== 'production') {

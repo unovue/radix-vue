@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@/Primitive'
-import { useActiveElement, useForwardExpose } from '@/shared'
+import { getActiveElement, useForwardExpose } from '@/shared'
 
 export type FocusScopeEmits = {
   /**
@@ -142,7 +142,7 @@ watchEffect(async (cleanupFn) => {
   if (!container)
     return
   focusScopesStack.add(focusScope)
-  const previouslyFocusedElement = useActiveElement() as HTMLElement | null
+  const previouslyFocusedElement = getActiveElement() as HTMLElement | null
   const hasFocusedCandidate = container.contains(previouslyFocusedElement)
 
   if (!hasFocusedCandidate) {
@@ -155,7 +155,7 @@ watchEffect(async (cleanupFn) => {
       focusFirst(removeLinks(getTabbableCandidates(container)), {
         select: true,
       })
-      if (useActiveElement() === previouslyFocusedElement)
+      if (getActiveElement() === previouslyFocusedElement)
         focus(container)
     }
   }
@@ -191,7 +191,7 @@ function handleKeyDown(event: KeyboardEvent) {
 
   const isTabKey
     = event.key === 'Tab' && !event.altKey && !event.ctrlKey && !event.metaKey
-  const focusedElement = useActiveElement() as HTMLElement | null
+  const focusedElement = getActiveElement() as HTMLElement | null
 
   if (isTabKey && focusedElement) {
     const container = event.currentTarget as HTMLElement

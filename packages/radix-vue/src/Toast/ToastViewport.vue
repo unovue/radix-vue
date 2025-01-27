@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { ComponentPublicInstance } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { useActiveElement, useCollection, useForwardExpose } from '@/shared'
+import { getActiveElement, useCollection, useForwardExpose } from '@/shared'
 
 export interface ToastViewportProps extends PrimitiveProps {
   /**
@@ -84,7 +84,7 @@ watchEffect((cleanupFn) => {
     }
 
     const handlePointerLeaveResume = () => {
-      const isFocusInside = viewport.contains(useActiveElement())
+      const isFocusInside = viewport.contains(getActiveElement())
       if (!isFocusInside)
         handleResume()
     }
@@ -97,7 +97,7 @@ watchEffect((cleanupFn) => {
       const isTabKey = event.key === 'Tab' && !isMetaKey
 
       if (isTabKey) {
-        const focusedElement = useActiveElement()
+        const focusedElement = getActiveElement()
         const isTabbingBackwards = event.shiftKey
         const targetIsViewport = event.target === viewport
 

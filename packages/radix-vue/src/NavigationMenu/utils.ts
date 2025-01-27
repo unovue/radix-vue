@@ -1,4 +1,4 @@
-import { useActiveElement } from '@/shared'
+import { getActiveElement } from '@/shared'
 
 export type Orientation = 'vertical' | 'horizontal'
 export type Direction = 'ltr' | 'rtl'
@@ -50,13 +50,13 @@ export function getTabbableCandidates(container: HTMLElement) {
 }
 
 export function focusFirst(candidates: HTMLElement[]) {
-  const previouslyFocusedElement = useActiveElement()
+  const previouslyFocusedElement = getActiveElement()
   return candidates.some((candidate) => {
     // if focus is already where we want to go, we don't want to keep going through the candidates
     if (candidate === previouslyFocusedElement)
       return true
     candidate.focus()
-    return useActiveElement() !== previouslyFocusedElement
+    return getActiveElement() !== previouslyFocusedElement
   })
 }
 

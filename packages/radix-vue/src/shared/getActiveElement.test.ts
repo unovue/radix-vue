@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'vitest'
-import { useActiveElement } from './useActiveElement'
+import { getActiveElement } from './getActiveElement'
 
-describe('useActiveElement', () => {
+describe('getActiveElement', () => {
   it('should return the active element when it is a regular element', () => {
     const element = createFocusableElement()
     document.body.appendChild(element)
     element.focus()
 
-    expect(useActiveElement()).toBe(element)
+    expect(getActiveElement()).toBe(element)
 
     document.body.removeChild(element)
   })
@@ -27,7 +27,7 @@ describe('useActiveElement', () => {
 
     nestedElement.focus()
 
-    expect(useActiveElement()).toBe(nestedElement)
+    expect(getActiveElement()).toBe(nestedElement)
 
     document.body.removeChild(host)
   })

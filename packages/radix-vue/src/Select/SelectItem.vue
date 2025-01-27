@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useActiveElement, useForwardExpose, useId } from '@/shared'
+import { createContext, getActiveElement, useForwardExpose, useId } from '@/shared'
 
 interface SelectItemContext {
   value: string
@@ -84,7 +84,7 @@ async function handlePointerLeave(event: PointerEvent) {
   await nextTick()
   if (event.defaultPrevented)
     return
-  if (event.currentTarget === useActiveElement())
+  if (event.currentTarget === getActiveElement())
     contentContext.onItemLeave?.()
 }
 

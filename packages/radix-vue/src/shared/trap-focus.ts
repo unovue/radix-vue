@@ -1,3 +1,5 @@
+import { getActiveElement } from './getActiveElement'
+
 export function trapFocus(element: HTMLElement) {
   if (element) {
     const focusableEls = [
@@ -25,14 +27,14 @@ export function trapFocus(element: HTMLElement) {
         return
 
       if (e.shiftKey) {
-        /* shift + tab */ if (document.activeElement === firstFocusableEl) {
+        /* shift + tab */ if (getActiveElement() === firstFocusableEl) {
           lastFocusableEl.focus()
           e.preventDefault()
         }
       }
       else {
       /* tab */
-        if (document.activeElement === lastFocusableEl) {
+        if (getActiveElement() === lastFocusableEl) {
           firstFocusableEl.focus()
           e.preventDefault()
         }

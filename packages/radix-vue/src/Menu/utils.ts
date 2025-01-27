@@ -1,3 +1,5 @@
+import { getActiveElement } from '@/shared'
+
 export type CheckedState = boolean | 'indeterminate'
 export type Direction = 'ltr' | 'rtl'
 
@@ -35,13 +37,13 @@ export function getCheckedState(checked: CheckedState) {
 }
 
 export function focusFirst(candidates: HTMLElement[]) {
-  const PREVIOUSLY_FOCUSED_ELEMENT = document.activeElement
+  const PREVIOUSLY_FOCUSED_ELEMENT = getActiveElement()
   for (const candidate of candidates) {
     // if focus is already where we want to go, we don't want to keep going through the candidates
     if (candidate === PREVIOUSLY_FOCUSED_ELEMENT)
       return
     candidate.focus()
-    if (document.activeElement !== PREVIOUSLY_FOCUSED_ELEMENT)
+    if (getActiveElement() !== PREVIOUSLY_FOCUSED_ELEMENT)
       return
   }
 }

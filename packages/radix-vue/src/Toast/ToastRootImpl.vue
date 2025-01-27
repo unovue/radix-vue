@@ -2,7 +2,7 @@
 import { isClient } from '@vueuse/shared'
 import type { PrimitiveProps } from '@/Primitive'
 import type { SwipeEvent } from './utils'
-import { createContext, useForwardExpose } from '@/shared'
+import { createContext, getActiveElement, useForwardExpose } from '@/shared'
 
 export type ToastRootImplEmits = {
   close: []
@@ -98,7 +98,7 @@ function startTimer(duration: number) {
 function handleClose() {
   // focus viewport if focus is within toast to read the remaining toast
   // count to SR users and ensure focus isn't lost
-  const isFocusInToast = currentElement.value?.contains(document.activeElement)
+  const isFocusInToast = currentElement.value?.contains(getActiveElement())
   if (isFocusInToast)
     providerContext.viewport.value?.focus()
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { createContext, useDirection, useSelectionBehavior, useTypeahead } from '@/shared'
+import { createContext, getActiveElement, useDirection, useSelectionBehavior, useTypeahead } from '@/shared'
 import type { Direction } from '@/shared/types'
 import { flatten } from './utils'
 
@@ -179,7 +179,7 @@ function handleKeydownNavigation(event: KeyboardEvent) {
   nextTick(() => {
     handleMultipleReplace(
       intent,
-      document.activeElement,
+      getActiveElement(),
       rovingFocusGroupRef.value?.getItems!,
       expandedItems.value.map(i => i.value),
     )

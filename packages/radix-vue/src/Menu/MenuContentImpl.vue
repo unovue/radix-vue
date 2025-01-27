@@ -14,6 +14,7 @@ import type { PopperContentProps } from '@/Popper'
 
 import {
   createContext,
+  getActiveElement,
   useArrowNavigation,
   useBodyScrollLock,
   useCollection,
@@ -176,7 +177,7 @@ function handleKeyDown(event: KeyboardEvent) {
 
   const el = useArrowNavigation(
     event,
-    document.activeElement as HTMLElement,
+    getActiveElement() as HTMLElement,
     contentElement.value,
     {
       loop: loop.value,

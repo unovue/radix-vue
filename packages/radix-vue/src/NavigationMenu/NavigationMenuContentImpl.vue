@@ -5,6 +5,7 @@ import type {
   FocusOutsideEvent,
 } from '@/DismissableLayer'
 import type { PointerDownOutsideEvent } from '@/DismissableLayer/utils'
+import { getActiveElement, useArrowNavigation, useCollection, useForwardExpose } from '@/shared'
 
 type MotionAttribute = 'to-start' | 'to-end' | 'from-start' | 'from-end'
 
@@ -25,7 +26,6 @@ import {
   makeTriggerId,
 } from './utils'
 import { DismissableLayer } from '@/DismissableLayer'
-import { useArrowNavigation, useCollection, useForwardExpose } from '@/shared'
 import { injectNavigationMenuItemContext } from './NavigationMenuItem.vue'
 
 const props = defineProps<NavigationMenuContentImplProps>()
@@ -114,7 +114,7 @@ watchEffect((cleanupFn) => {
     const handleClose = () => {
       menuContext.onItemDismiss()
       itemContext.onRootContentClose()
-      if (content.contains(document.activeElement))
+      if (content.contains(getActiveElement()))
         itemContext.triggerRef.value?.focus()
     }
     content.addEventListener(EVENT_ROOT_CONTENT_DISMISS, handleClose)
@@ -145,7 +145,7 @@ function handleKeydown(ev: KeyboardEvent) {
   const candidates = getTabbableCandidates(ev.currentTarget as HTMLElement)
 
   if (isTabKey) {
-    const focusedElement = document.activeElement
+    const focusedElement = getActiveElement()
     const index = candidates.findIndex(
       candidate => candidate === focusedElement,
     )
@@ -169,7 +169,7 @@ function handleKeydown(ev: KeyboardEvent) {
 
   const newSelectedElement = useArrowNavigation(
     ev,
-    document.activeElement as HTMLElement,
+    getActiveElement() as HTMLElement,
     undefined,
     { itemsArray: candidates, loop: false, enableIgnoredElement: true },
   )

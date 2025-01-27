@@ -2,6 +2,7 @@
 import type { PrimitiveProps } from '@/Primitive'
 import { injectNumberFieldRootContext } from './NumberFieldRoot.vue'
 import { onMounted, ref, watch } from 'vue'
+import { getActiveElement } from '@/shared'
 
 export interface NumberFieldInputProps extends PrimitiveProps {
 }
@@ -19,7 +20,7 @@ const rootContext = injectNumberFieldRootContext()
 
 function handleWheelEvent(event: WheelEvent) {
   // only handle when in focus
-  if (event.target !== document.activeElement)
+  if (event.target !== getActiveElement())
     return
 
   // if on a trackpad, users can scroll in both X and Y at once, check the magnitude of the change

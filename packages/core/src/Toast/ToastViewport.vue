@@ -2,6 +2,7 @@
 import type { ComponentPublicInstance } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
 import { useCollection } from '@/Collection'
+import { getActiveElement, useForwardExpose } from '@/shared'
 
 export interface ToastViewportProps extends PrimitiveProps {
   /**
@@ -26,7 +27,6 @@ import { injectToastProviderContext } from './ToastProvider.vue'
 import { onKeyStroke, unrefElement } from '@vueuse/core'
 import FocusProxy from './FocusProxy.vue'
 import { focusFirst, getTabbableCandidates } from '@/FocusScope/utils'
-import { useForwardExpose } from '@/shared'
 import { VIEWPORT_PAUSE, VIEWPORT_RESUME } from './utils'
 import { DismissableLayerBranch } from '@/DismissableLayer'
 
@@ -84,7 +84,7 @@ watchEffect((cleanupFn) => {
     }
 
     const handlePointerLeaveResume = () => {
-      const isFocusInside = viewport.contains(document.activeElement)
+      const isFocusInside = viewport.contains(getActiveElement())
       if (!isFocusInside)
         handleResume()
     }
@@ -97,7 +97,7 @@ watchEffect((cleanupFn) => {
       const isTabKey = event.key === 'Tab' && !isMetaKey
 
       if (isTabKey) {
-        const focusedElement = document.activeElement
+        const focusedElement = getActiveElement()
         const isTabbingBackwards = event.shiftKey
         const targetIsViewport = event.target === viewport
 

@@ -17,6 +17,7 @@ import { refAutoReset, useParentElement } from '@vueuse/core'
 import { getNextMatch } from '@/shared/useTypeahead'
 import { MAP_KEY_TO_FOCUS_INTENT } from '@/RovingFocus/utils'
 import { useCollection } from '@/Collection'
+import { getActiveElement } from '@/shared'
 
 const props = defineProps<TreeVirtualizerProps>()
 
@@ -132,7 +133,7 @@ rootContext.virtualKeydownHook.on((event) => {
     })
   }
   else if (intent === 'prev' && event.key !== 'ArrowUp') {
-    const currentElement = document.activeElement as HTMLElement
+    const currentElement = getActiveElement() as HTMLElement
     const currentIndex = Number(currentElement.getAttribute('data-index'))
     const currentLevel = Number(currentElement.getAttribute('data-indent'))
     const list = rootContext.expandedItems.value.slice(0, currentIndex).map((item, index) => ({ ...item, index })).reverse()
@@ -143,7 +144,7 @@ rootContext.virtualKeydownHook.on((event) => {
   }
   else if (!intent && !isMetaKey) {
     search.value += event.key
-    const currentIndex = Number(document.activeElement?.getAttribute('data-index'))
+    const currentIndex = Number(getActiveElement()?.getAttribute('data-index'))
     const currentMatch = optionsWithMetadata.value[currentIndex].textContent
     const filteredOptions = optionsWithMetadata.value.map(i => i.textContent)
     const next = getNextMatch(filteredOptions, search.value, currentMatch)
@@ -155,7 +156,7 @@ rootContext.virtualKeydownHook.on((event) => {
 
   nextTick(() => {
     if (event.shiftKey && intent)
-      rootContext.handleMultipleReplace(intent, document.activeElement, getItems, rootContext.expandedItems.value.map(i => i.value))
+      rootContext.handleMultipleReplace(intent, getActiveElement(), getItems, rootContext.expandedItems.value.map(i => i.value))
   })
 })
 </script>

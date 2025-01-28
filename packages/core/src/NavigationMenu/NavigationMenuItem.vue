@@ -1,8 +1,8 @@
 <script lang="ts">
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useArrowNavigation, useForwardExpose, useId } from '@/shared'
 import { useCollection } from '@/Collection'
+import { createContext, getActiveElement, useArrowNavigation, useForwardExpose, useId } from '@/shared'
 
 export interface NavigationMenuItemProps extends PrimitiveProps {
   /**
@@ -95,7 +95,7 @@ function handleClose() {
 }
 
 function handleKeydown(ev: KeyboardEvent) {
-  const currentFocus = document.activeElement as HTMLElement
+  const currentFocus = getActiveElement() as HTMLElement
   if (ev.keyCode === 32 || ev.key === 'Enter') {
     if (context.modelValue.value === value) {
       handleClose()

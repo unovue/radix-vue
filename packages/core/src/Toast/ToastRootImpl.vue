@@ -2,7 +2,7 @@
 import { isClient } from '@vueuse/shared'
 import type { PrimitiveProps } from '@/Primitive'
 import type { SwipeEvent } from './utils'
-import { createContext, useForwardExpose } from '@/shared'
+import { createContext, getActiveElement, useForwardExpose } from '@/shared'
 import { useCollection } from '@/Collection'
 
 export type ToastRootImplEmits = {
@@ -101,7 +101,7 @@ function startTimer(duration: number) {
 function handleClose() {
   // focus viewport if focus is within toast to read the remaining toast
   // count to SR users and ensure focus isn't lost
-  const isFocusInToast = currentElement.value?.contains(document.activeElement)
+  const isFocusInToast = currentElement.value?.contains(getActiveElement())
   if (isFocusInToast)
     providerContext.viewport.value?.focus()
 
@@ -173,9 +173,9 @@ provideToastRootContext({ onClose: handleClose })
 <template>
   <ToastAnnounce
     v-if="announceTextContent"
-    role="status"
+    role="alert"
     :aria-live="type === 'foreground' ? 'assertive' : 'polite'"
-    aria-atomic
+    aria-atomic="true"
   >
     {{ announceTextContent }}
   </ToastAnnounce>
@@ -187,9 +187,9 @@ provideToastRootContext({ onClose: handleClose })
     <CollectionItem>
       <Primitive
         :ref="forwardRef"
-        role="status"
+        role="alert"
         aria-live="off"
-        aria-atomic
+        aria-atomic="true"
         tabindex="0"
         v-bind="$attrs"
         :as="as"

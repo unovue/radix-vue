@@ -18,7 +18,7 @@ import { injectListboxRootContext } from './ListboxRoot.vue'
 import { compare, queryCheckedElement } from './utils'
 import { MAP_KEY_TO_FOCUS_INTENT } from '@/RovingFocus/utils'
 import { refAutoReset } from '@vueuse/shared'
-import { findValuesBetween } from '@/shared'
+import { findValuesBetween, getActiveElement } from '@/shared'
 import { getNextMatch } from '@/shared/useTypeahead'
 import { useParentElement } from '@vueuse/core'
 import { useCollection } from '@/Collection'
@@ -213,7 +213,7 @@ rootContext.virtualKeydownHook.on((event) => {
   }
   else if (!intent && !isMetaKey) {
     search.value += event.key
-    const currentIndex = Number(document.activeElement?.getAttribute('data-index'))
+    const currentIndex = Number(getActiveElement()?.getAttribute('data-index'))
     const currentMatch = optionsWithMetadata.value[currentIndex].textContent
     const filteredOptions = optionsWithMetadata.value.map(i => i.textContent ?? '')
     const next = getNextMatch(filteredOptions, search.value, currentMatch)

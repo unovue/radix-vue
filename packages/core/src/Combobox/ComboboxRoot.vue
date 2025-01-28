@@ -20,6 +20,7 @@ type ComboboxRootContext<T> = {
   onTriggerElementChange: (el: HTMLElement) => void
   highlightedElement: Ref<HTMLElement | undefined>
   parentElement: Ref<HTMLElement | undefined>
+  resetSearchTermOnSelect: Ref<boolean>
   onResetSearchTerm: EventHookOn
   allItems: Ref<Map<string, string>>
   allGroups: Ref<Map<string, Set<string>>>
@@ -53,6 +54,11 @@ export interface ComboboxRootProps<T = AcceptableValue> extends Omit<ListboxRoot
    */
   resetSearchTermOnBlur?: boolean
   /**
+   * Whether to reset the searchTerm when the Combobox value is selected
+   * @defaultValue `true`
+   */
+  resetSearchTermOnSelect?: boolean
+  /**
    * When `true`, disable the default filters
    */
   ignoreFilter?: boolean
@@ -68,6 +74,7 @@ import { ListboxRoot } from '@/Listbox'
 const props = withDefaults(defineProps<ComboboxRootProps<T>>(), {
   open: undefined,
   resetSearchTermOnBlur: true,
+  resetSearchTermOnSelect: true,
 })
 const emits = defineEmits<ComboboxRootEmits<T>>()
 
@@ -81,7 +88,7 @@ defineSlots<{
 }>()
 
 const { primitiveElement, currentElement: parentElement } = usePrimitiveElement<GenericComponentInstance<typeof ListboxRoot>>()
-const { multiple, disabled, ignoreFilter, dir: propDir } = toRefs(props)
+const { multiple, disabled, ignoreFilter, resetSearchTermOnSelect, dir: propDir } = toRefs(props)
 
 const dir = useDirection(propDir)
 
@@ -209,6 +216,7 @@ provideComboboxRootContext({
   triggerElement,
   onTriggerElementChange: val => triggerElement.value = val,
   parentElement,
+  resetSearchTermOnSelect,
   onResetSearchTerm: resetSearchTerm.on,
   allItems,
   allGroups,

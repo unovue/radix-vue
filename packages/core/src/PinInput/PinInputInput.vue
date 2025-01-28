@@ -1,7 +1,7 @@
 <script lang="ts">
 import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
 import { injectPinInputRootContext } from './PinInputRoot.vue'
-import { useArrowNavigation } from '@/shared'
+import { getActiveElement, useArrowNavigation } from '@/shared'
 
 export interface PinInputInputProps extends PrimitiveProps {
   /** Position of the value this input binds to. */
@@ -58,7 +58,7 @@ function resetPlaceholder() {
 }
 
 function handleKeydown(event: KeyboardEvent) {
-  useArrowNavigation(event, document.activeElement as HTMLElement, undefined, {
+  useArrowNavigation(event, getActiveElement() as HTMLElement, undefined, {
     itemsArray: inputElements.value,
     focus: true,
     loop: false,

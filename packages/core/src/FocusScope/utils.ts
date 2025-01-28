@@ -1,3 +1,5 @@
+import { getActiveElement } from '@/shared'
+
 export const AUTOFOCUS_ON_MOUNT = 'focusScope.autoFocusOnMount'
 export const AUTOFOCUS_ON_UNMOUNT = 'focusScope.autoFocusOnUnmount'
 export const EVENT_OPTIONS = { bubbles: false, cancelable: true }
@@ -9,10 +11,10 @@ type FocusableTarget = HTMLElement | { focus: () => void }
  * Stops when focus has actually moved.
  */
 export function focusFirst(candidates: HTMLElement[], { select = false } = {}) {
-  const previouslyFocusedElement = document.activeElement
+  const previouslyFocusedElement = getActiveElement()
   for (const candidate of candidates) {
     focus(candidate, { select })
-    if (document.activeElement !== previouslyFocusedElement)
+    if (getActiveElement() !== previouslyFocusedElement)
       return true
   }
 }
@@ -96,7 +98,7 @@ export function focus(
 ) {
   // only focus if that element is focusable
   if (element && element.focus) {
-    const previouslyFocusedElement = document.activeElement
+    const previouslyFocusedElement = getActiveElement()
     // NOTE: we prevent scrolling on focus, to minimize jarring transitions for users
     element.focus({ preventScroll: true })
     // only select if its not the same element, it supports selection and we need to select

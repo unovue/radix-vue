@@ -53,7 +53,7 @@ function handleSubmitKeyDown(event: KeyboardEvent) {
   <Primitive
     ref="primitiveElement"
     v-bind="props"
-    :value="context.modelValue.value"
+    :value="context.inputValue.value"
     :placeholder="placeholder"
     :disabled="disabled"
     :maxlength="context.maxLength.value"
@@ -63,7 +63,7 @@ function handleSubmitKeyDown(event: KeyboardEvent) {
     aria-label="editable input"
     :hidden="context.autoResize.value ? undefined : !context.isEditing.value"
     :style="context.autoResize.value ? { all: 'unset', gridArea: '1 / 1 / auto / auto', visibility: !context.isEditing.value ? 'hidden' : undefined } : undefined"
-    @input="context.modelValue.value = $event.target.value"
+    @input="context.inputValue.value = $event.target.value"
     @keydown.enter.space="handleSubmitKeyDown"
     @keydown.esc="context.cancel"
   >

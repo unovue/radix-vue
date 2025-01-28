@@ -146,6 +146,27 @@ Contains the cancel trigger of the editable component.
 
 <!-- @include: @/meta/EditableCancelTrigger.md -->
 
+## Examples
+
+### Change only on submit
+
+By default the component will submit when `blur` event triggers. We can modify the `submit-mode` prop to alter this behavior.
+In this case, we want to submit only when user click on `EditableSubmitTrigger`, so we change the submit mode to `none`.
+
+```vue line=2,8
+<template>
+  <EditableRoot submit-mode="none">
+    <EditableArea>
+      <EditablePreview />
+      <EditableInput />
+    </EditableArea>
+    <EditableEditTrigger />
+    <EditableSubmitTrigger />
+    <EditableCancelTrigger />
+  </EditableRoot>
+</template>
+```
+
 ## Accessibility
 
 ### Keyboard Interactions

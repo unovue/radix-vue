@@ -191,6 +191,10 @@ export const components = {
     'EditableEditTrigger',
   ],
 
+  focusScope: [
+    'FocusScope',
+  ],
+
   hoverCard: [
     'HoverCardRoot',
     'HoverCardTrigger',

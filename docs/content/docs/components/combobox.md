@@ -588,10 +588,10 @@ See the [virtualization guide](../guides/virtualization.md) for more general inf
 
 ```vue line=9-10,17,19-28
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { ComboboxContent, ComboboxViewport, ComboboxInput, ComboboxItem, ComboboxPortal, ComboboxRoot, ComboboxVirtualizer, useFilter } from 'reka-ui'
+import { computed, ref } from 'vue'
+import { ComboboxContent, ComboboxInput, ComboboxItem, ComboboxPortal, ComboboxRoot, ComboboxViewport, ComboboxVirtualizer, useFilter } from 'reka-ui'
 
-const people = Array.from({ length: 100000 }).map((_, id) => ({ id, name: `Person #${id}` }));
+const people = Array.from({ length: 100000 }).map((_, id) => ({ id, name: `Person #${id}` }))
 const selectedPeople = ref(people[0])
 const searchTerm = ref('')
 
@@ -711,7 +711,12 @@ const forward = useForwardPropsEmits(props, emits)
     <ComboboxInput placeholder="Type a command or search…" />
 
     <ComboboxPortal>
-      <ComboboxContent>
+      <ComboboxContent
+        @escape-key-down.prevent
+        @focus-outside.prevent
+        @interact-outside.prevent
+        @pointer-down-outside.prevent
+      >
         <ComboboxViewport>
           <slot />
         </ComboboxViewport>

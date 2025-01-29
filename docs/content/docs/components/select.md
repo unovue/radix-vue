@@ -44,6 +44,7 @@ Import all parts and piece them together.
 import {
   SelectContent,
   SelectGroup,
+  SelectIcon,
   SelectItem,
   SelectItemIndicator,
   SelectLabel,

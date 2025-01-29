@@ -29,6 +29,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
+  npm:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup (Install node & pnpm)
+        uses: ./.github/actions/setup
+
       - name: Build Packages & Publish to npm
         run: pnpm build && pnpm pub:release
         env:

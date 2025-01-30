@@ -33,8 +33,8 @@ export default defineConfig({
         return `${name}.${format === 'es' ? 'js' : 'umd.cjs'}`
       },
       entry: {
-        index: resolve(__dirname, 'src/index.ts'),
-        date: resolve(__dirname, 'src/date/index.ts'),
+        'index': resolve(__dirname, 'src/index.ts'),
+        'date/index': resolve(__dirname, 'src/date/index.ts'),
       },
     },
     rollupOptions: {

@@ -34,11 +34,11 @@
     "./date": {
       "import": {
         "types": "./dist/date/index.d.ts",
-        "default": "./dist/date.js"
+        "default": "./dist/date/index.js"
       },
       "require": {
         "types": "./dist/date/index.d.ts",
-        "default": "./dist/date.umd.cjs"
+        "default": "./dist/date/index.umd.cjs"
       }
     },
     "./namespaced": {

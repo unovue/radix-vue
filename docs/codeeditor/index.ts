@@ -67,7 +67,7 @@ function constructFiles(componentName: string, sources: Record<string, string>) 
     'vite': 'latest',
     '@vitejs/plugin-vue': 'latest',
     'vue-tsc': 'latest',
-    'tailwindcss': 'latest',
+    'tailwindcss': '^3.4.13',
     'postcss': 'latest',
     'autoprefixer': 'latest',
   }

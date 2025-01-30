@@ -80,6 +80,18 @@ describe('given a disabled Checkbox', () => {
   })
 })
 
+describe('given a required Checkbox', () => {
+  const wrapper = mount({
+    components: { Checkbox },
+    template: '<form><Checkbox required /></form>',
+  })
+
+  it('should have [aria-required] of "true"', () => {
+    expect(wrapper.find('button').attributes('aria-required')).toEqual('true')
+    expect(wrapper.find('[type="checkbox"]').attributes('required')).toBeDefined()
+  })
+})
+
 describe('given checked value as "indeterminate"', async () => {
   const wrapper = mount(Checkbox, { props: { checked: 'indeterminate' } })
 

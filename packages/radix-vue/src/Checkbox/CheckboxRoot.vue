@@ -91,7 +91,7 @@ provideCheckboxRootContext({
     :as="as"
     :type="as === 'button' ? 'button' : undefined"
     :aria-checked="isIndeterminate(checked) ? 'mixed' : checked"
-    :aria-required="false"
+    :aria-required="props.required"
     :aria-label="$attrs['aria-label'] || ariaLabel"
     :data-state="getState(checked)"
     :data-disabled="disabled ? '' : undefined"

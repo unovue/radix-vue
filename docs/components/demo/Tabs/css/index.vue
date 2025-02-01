@@ -12,7 +12,7 @@ import './styles.css'
       class="TabsList"
       aria-label="Manage your account"
     >
-      <TabsIndicator class="TagsIndicator ">
+      <TabsIndicator class="TabsIndicator">
         <div
           style="width: 100%; height: 100%"
           class="bg-grass8 w-full h-full"

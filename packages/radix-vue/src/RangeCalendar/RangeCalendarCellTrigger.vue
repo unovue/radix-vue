@@ -54,7 +54,7 @@ const isHighlighted = computed(() => rootContext.highlightedRange.value
   : false)
 
 const SELECTOR
-  = '[data-radix-vue-calendar-cell-trigger]:not([data-disabled]):not([data-outside-month]):not([data-outside-visible-months])'
+  = '[data-radix-vue-calendar-cell-trigger]:not([data-disabled]):not([data-outside-view]):not([data-outside-visible-view])'
 
 const isDateToday = computed(() => {
   return isToday(props.day, getLocalTimeZone())
@@ -208,7 +208,7 @@ function handleArrowKey(e: KeyboardEvent) {
     :data-disabled="isDisabled ? '' : undefined"
     :data-unavailable="isUnavailable ? '' : undefined"
     :data-today="isDateToday ? '' : undefined"
-    :data-outside-month="isOutsideView ? '' : undefined"
+    :data-outside-view="isOutsideView ? '' : undefined"
     :data-focused="isFocusedDate ? '' : undefined"
     :tabindex="isFocusedDate ? 0 : isOutsideView || isDisabled ? undefined : -1"
     @click="handleClick"

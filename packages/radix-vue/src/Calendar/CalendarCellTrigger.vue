@@ -70,7 +70,7 @@ const isFocusedDate = computed(() => {
 const isSelectedDate = computed(() => rootContext.isDateSelected(props.day))
 
 const SELECTOR
-  = '[data-radix-vue-calendar-cell-trigger]:not([data-disabled]):not([data-outside-month]):not([data-outside-visible-months])'
+  = '[data-radix-vue-calendar-cell-trigger]:not([data-disabled]):not([data-outside-view]):not([data-outside-visible-view])'
 
 function changeDate(date: DateValue) {
   if (rootContext.readonly.value)

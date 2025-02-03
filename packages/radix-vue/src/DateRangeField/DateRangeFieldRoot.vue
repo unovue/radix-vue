@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type DateValue, isEqualDay } from '@internationalized/date'
+import type { DateValue } from '@internationalized/date'
 
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@/Primitive'
@@ -269,7 +269,7 @@ watch(locale, (value) => {
 })
 
 watch(modelValue, (_modelValue) => {
-  if (_modelValue.start !== undefined && (!isEqualDay(placeholder.value, _modelValue.start) || placeholder.value.compare(_modelValue.start) !== 0))
+  if (_modelValue.start !== undefined && placeholder.value.compare(_modelValue.start) !== 0)
     placeholder.value = _modelValue.start.copy()
 })
 

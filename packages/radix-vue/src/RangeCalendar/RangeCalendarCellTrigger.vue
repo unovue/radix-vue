@@ -196,7 +196,7 @@ function handleArrowKey(e: KeyboardEvent) {
     :aria-label="labelText"
     data-radix-vue-calendar-cell-trigger
     :aria-selected="isSelectedDate ? true : undefined"
-    :aria-disabled="isOutsideView || isDisabled || isUnavailable ? true : undefined"
+    :aria-disabled="isDisabled || isUnavailable ? true : undefined"
     :data-highlighted="isHighlighted ? '' : undefined"
     :data-selection-start="isSelectionStart ? true : undefined"
     :data-selection-end="isSelectionEnd ? true : undefined"
@@ -205,7 +205,7 @@ function handleArrowKey(e: KeyboardEvent) {
     :data-selected="isSelectedDate ? true : undefined"
     :data-outside-visible-view="isOutsideVisibleView ? '' : undefined"
     :data-value="day.toString()"
-    :data-disabled="isDisabled || isOutsideView ? '' : undefined"
+    :data-disabled="isDisabled ? '' : undefined"
     :data-unavailable="isUnavailable ? '' : undefined"
     :data-today="isDateToday ? '' : undefined"
     :data-outside-month="isOutsideView ? '' : undefined"

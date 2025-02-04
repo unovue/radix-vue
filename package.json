@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0-alpha.9",
   "private": true,
-  "packageManager": "pnpm@9.15.0",
+  "packageManager": "pnpm@9.15.5",
   "license": "MIT",
   "repository": "unovue/reka-ui",
   "workspaces": [
@@ -28,12 +28,12 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.27.3",
-    "@commitlint/cli": "^19.3.0",
-    "@commitlint/config-conventional": "^19.2.2",
-    "bumpp": "^9.4.1",
+    "@commitlint/cli": "^19.7.1",
+    "@commitlint/config-conventional": "^19.7.1",
+    "bumpp": "^9.11.1",
     "eslint": "^9.19.0",
     "lint-staged": "^15.4.3",
-    "pnpm": "^9.15.0",
+    "pnpm": "^9.15.5",
     "rimraf": "^6.0.1",
     "simple-git-hooks": "^2.11.1",
     "typescript": "5.3.3"

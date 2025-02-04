@@ -57,7 +57,7 @@ export const [injectDateRangePickerRootContext, provideDateRangePickerRootContex
 </script>
 
 <script setup lang="ts">
-import { ref, toRefs } from 'vue'
+import { ref, toRefs, watch } from 'vue'
 import { useVModel } from '@vueuse/core'
 
 defineOptions({
@@ -133,6 +133,12 @@ const open = useVModel(props, 'open', emits, {
 }) as Ref<boolean>
 
 const dateFieldRef = ref<InstanceType<typeof DateRangeFieldRoot> | undefined>()
+
+watch(modelValue, (value) => {
+  if (value.start && value.start.compare(placeholder.value) !== 0) {
+    placeholder.value = value.start.copy()
+  }
+})
 
 provideDateRangePickerRootContext({
   isDateUnavailable: propsIsDateUnavailable.value,

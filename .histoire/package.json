@@ -17,17 +17,17 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.27.3",
-    "@floating-ui/dom": "^1.6.11",
-    "@floating-ui/vue": "^1.1.5",
+    "@floating-ui/dom": "^1.6.13",
+    "@floating-ui/vue": "^1.1.6",
     "@histoire/plugin-vue": "^0.17.17",
-    "@iconify/vue": "^4.1.2",
+    "@iconify/vue": "^4.3.0",
     "@radix-ui/colors": "^3.0.0",
-    "@rollup/plugin-alias": "^5.1.0",
-    "autoprefixer": "^10.4.19",
+    "@rollup/plugin-alias": "^5.1.1",
+    "autoprefixer": "^10.4.20",
     "eslint": "^9.19.0",
     "histoire": "^0.17.17",
-    "postcss": "^8.4.39",
-    "tailwindcss": "^3.4.14",
+    "postcss": "^8.5.1",
+    "tailwindcss": "^3.4.17",
     "tailwindcss-animate": "1.0.7"
   }
 }

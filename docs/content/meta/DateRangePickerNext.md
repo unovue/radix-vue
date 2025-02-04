@@ -21,3 +21,11 @@
     'required': false
   }
 ]" />
+
+<SlotsTable :data="[
+  {
+    'name': 'disabled',
+    'description': '<p>Current disable state</p>\n',
+    'type': 'boolean'
+  }
+]" />

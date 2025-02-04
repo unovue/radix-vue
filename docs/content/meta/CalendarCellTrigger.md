@@ -33,5 +33,10 @@
     'name': 'dayValue',
     'description': '<p>Current day</p>\n',
     'type': 'string'
+  },
+  {
+    'name': 'disabled',
+    'description': '<p>Current disable state</p>\n',
+    'type': 'boolean'
   }
 ]" />

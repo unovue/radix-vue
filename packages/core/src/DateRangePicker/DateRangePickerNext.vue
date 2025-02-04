@@ -1,4 +1,5 @@
 <script lang="ts">
+import type { RangeCalendarNextSlot } from '@/RangeCalendar/RangeCalendarNext.vue'
 import { RangeCalendarNext, type RangeCalendarNextProps } from '..'
 
 export interface DateRangePickerNextProps extends RangeCalendarNextProps {}
@@ -6,10 +7,14 @@ export interface DateRangePickerNextProps extends RangeCalendarNextProps {}
 
 <script setup lang="ts">
 const props = defineProps<DateRangePickerNextProps>()
+defineSlots<RangeCalendarNextSlot>()
 </script>
 
 <template>
-  <RangeCalendarNext v-bind="props">
-    <slot />
+  <RangeCalendarNext
+    v-slot="slotProps "
+    v-bind="props"
+  >
+    <slot v-bind="slotProps" />
   </RangeCalendarNext>
 </template>

@@ -17,26 +17,6 @@ First and foremost, you need to install the latest `reka-ui`.
 
 Congratulation! 🎉 Now that you've installed the above package, let's perform the migration! The first 2 steps are relatively simple. Just do a global search and replace for the following changes.
 
-#### Codemods
-
-To assist with the upgrade from Radix Vue to Reka UI, we collaborated with the [Codemod](https://github.com/codemod-com/codemod) team to automatically update your code to many of the new updates and patterns with [open-source codemods](https://go.codemod.com/reka-codemods). You can run the following command to automatically migrate to Reka UI:
-
-<Callout type="tip" title="Migration recipe">
-
-```bash
-npx codemod reka-ui/migration-recipe
-```
-
-</Callout>
-
-The [migration recipe](https://go.codemod.com/reka-recipe) will run the following codemods from the radix-vue Codemod repository:
-
-- [`reka-ui/import-update`](https://go.codemod.com/reka-import-update)
-- [`reka-ui/update-css-and-data-attributes`](https://go.codemod.com/reka-update-css-data)
-- [`reka-ui/update-combobox-filter`](https://go.codemod.com/update-combobox-filter)
-- [`reka-ui/rename-controlled-state`](https://go.codemod.com/rename-controlled-state)
-- [`reka-ui/remove-calendar-step-prop`](https://go.codemod.com/remove-calendar-step-prop)
-
 ## Import Statement Changes
 
 The primary change in imports is replacing `radix-vue` with `reka-ui`.
@@ -48,33 +28,17 @@ import { TooltipPortal, TooltipRoot, TooltipTrigger } from 'reka-ui' // [!code +
 </script>
 ```
 
-  <Callout type="tip" title="Codemod available">
-
-  ```bash
-  npx codemod reka-ui/import-update
-  ```
-
-  </Callout>
-
 ## Naming Convention Changes
 
 CSS variable and data attributes names have been updated to use the `reka` prefix instead of `radix`.
 
+```css
+  --radix-accordion-content-width: 300px; /* [!code --] */
+  --reka-accordion-content-width: 300px; /* [!code ++] */
+
+  [data-radix-collection-item] {} /* [!code --] */
+  [data-reka-collection-item] {} /* [!code ++] */
 ```
-  --radix-accordion-content-width: 300px; // [!code --]
-  --reka-accordion-content-width: 300px;  // [!code ++]
-
-  [data-radix-collection-item] {} // [!code --]
-  [data-reka-collection-item] {}  // [!code ++]
-```
-
-<Callout type="tip" title="Codemod available">
-
-```bash
-npx codemod reka-ui/update-css-and-data-attributes
-```
-
-</Callout>
 
 ## Component Breaking Changes
 
@@ -84,26 +48,18 @@ npx codemod reka-ui/update-css-and-data-attributes
 
   ```vue
   <template>
-    <ComboboxRoot :filter-function="customFilter" /> // [!code --]
+    <ComboboxRoot :filter-function="customFilter" />  <!-- [!code --] -->
   </template>
   ```
-
-  <Callout type="tip" title="Codemod available">
-
-  ```bash
-  npx codemod reka-ui/update-combobox-filter
-  ```
-
-  </Callout>
 
 - [Replace `searchTerm` props of Root to Input's `v-model`](https://github.com/unovue/reka-ui/commit/e1bab6598c3533dfbf6a86ad26b471ab826df069#diff-833593a5ce28a8c3fabc7d77462b116405e25df2b93bcab449798b5799e73474)
 - [Move `displayValue` props from Root to Input](https://github.com/unovue/reka-ui/commit/e1bab6598c3533dfbf6a86ad26b471ab826df069#diff-833593a5ce28a8c3fabc7d77462b116405e25df2b93bcab449798b5799e73474)
 
   ```vue
   <template>
-    <ComboboxRoot v-model:search-term="search" :display-value="(v) => v.name" /> // [!code --]
+    <ComboboxRoot v-model:search-term="search" :display-value="(v) => v.name" /> <!-- [!code --] -->
     <ComboboxRoot>
-      <ComboboxInput v-model="search" :display-value="(v) => v.name" /> // [!code ++]
+      <ComboboxInput v-model="search" :display-value="(v) => v.name" /> <!-- [!code ++] -->
     </ComboboxRoot>
   </template>
   ```
@@ -118,18 +74,10 @@ npx codemod reka-ui/update-css-and-data-attributes
 
   ```vue
   <template>
-    <CheckboxRoot v-model:checked="value" /> // [!code --]
-    <CheckboxRoot v-model="value" /> // [!code ++]
+    <CheckboxRoot v-model:checked="value" /> <!-- [!code --] -->
+    <CheckboxRoot v-model="value" /> <!-- [!code ++] -->
   </template>
   ```
-
-  <Callout type="tip" title="Codemod available">
-
-  ```bash
-  npx codemod reka-ui/rename-controlled-state
-  ```
-
-  </Callout>
 
 - [Reposition `VisuallyHidden`](https://github.com/unovue/reka-ui/commit/107389a9c230d2c94232887b9cbe2710222564aa) - Previously `VisuallyHidden` were position at the root node, causing style scoped to not be applied.
 
@@ -139,7 +87,7 @@ npx codemod reka-ui/update-css-and-data-attributes
 
   ```vue
   <template>
-    <PaginationRoot :items-per-page="10" />   // [!code ++]
+    <PaginationRoot :items-per-page="10" />  <!-- [!code ++] -->
   </template>
   ```
 
@@ -157,21 +105,13 @@ npx codemod reka-ui/update-css-and-data-attributes
   </script>
 
   <template>
-    <CalendarPrev step="year" /> // [!code --]
-    <CalendarPrev :prev-page="(date: DateValue) => pagingFunc(date, -1)" /> // [!code ++]
+    <CalendarPrev step="year" /> <!-- [!code --] -->
+    <CalendarPrev :prev-page="(date: DateValue) => pagingFunc(date, -1)" /> <!-- [!code ++] -->
 
-    <CalendarNext step="year" /> // [!code --]
-    <CalendarNext :next-page="(date: DateValue) => pagingFunc(date, 1)" /> // [!code ++]
+    <CalendarNext step="year" /> <!-- [!code --] -->
+    <CalendarNext :next-page="(date: DateValue) => pagingFunc(date, 1)" /> <!-- [!code ++] -->
   </template>
   ```
-
-  <Callout type="tip" title="Codemod available">
-
-  ```bash
-  npx codemod reka-ui/remove-calendar-step-prop
-  ```
-
-  </Callout>
 
 ### Select
 
@@ -180,7 +120,7 @@ npx codemod reka-ui/update-css-and-data-attributes
   ```vue
   <template>
     <SelectValue>
-      <!-- render the content similar to `SelectItem` --> // [!code ++]
+      <!-- render the content similar to `SelectItem` --> <!-- [!code ++] -->
     </SelectValue>
   </template>
   ```

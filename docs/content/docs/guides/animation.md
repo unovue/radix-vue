@@ -88,11 +88,50 @@ import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPor
 </style>
 ```
 
+## ⭐️ Animating with Motion Vue
+
+[Motion Vue](https://motion.unovue.com/) is the recommended animation library for Reka UI. This lightweight, powerful library integrates seamlessly with components and offers extensive flexibility for creating smooth, performant animations.
+
+```vue line=3,12,14-18,22-26,29,31
+<script setup lang="ts">
+import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger, } from 'reka-ui'
+import { AnimatePresence, Motion } from 'motion-v'
+</script>
+
+<template>
+  <DialogRoot>
+    <DialogTrigger>
+      Edit profile
+    </DialogTrigger>
+    <DialogPortal>
+      <AnimatePresence multiple>
+        <DialogOverlay as-child>
+          <Motion
+            :initial="{ opacity: 0, scale: 0 }"
+            :animate="{ opacity: 1, scale: 1 }"
+            :exit="{ opacity: 0, scale: 0.6 }"
+          />
+        </DialogOverlay>
+
+        <DialogContent as-child>
+          <Motion
+            :initial="{ opacity: 0, top: '0%' }"
+            :animate="{ opacity: 1, top: '50%' }"
+            :exit="{ opacity: 0, top: '30%' }"
+          >
+            <h1>Hello from inside the Dialog!</h1>
+            <DialogClose>Close</DialogClose>
+          </Motion>
+        </DialogContent>
+      </AnimatePresence>
+    </DialogPortal>
+  </DialogRoot>
+</template>
+```
+
 <Callout type="tip">
 
-Futhemore, we discovered that [Motion Vue](https://motion.seacoly.me/), a Web Animations API based animation library works perfectly with Reka UI.
-
-Check out this [Stackblitz Demo](https://stackblitz.com/edit/hfxgtx-acph8m?file=package.json,src%2FApp.vue) 🤩
+Check out this [Stackblitz Demo](https://stackblitz.com/edit/x7y44ngl?file=src%2FApp.vue) 🤩
 
 </Callout>
 
@@ -159,6 +198,6 @@ watch(open, () => {
 
 <Callout type="tip">
 
-Check out this [Stackblitz Demo](https://stackblitz.com/edit/macsaz?file=src%2FApp.vue)
+Check out this [Stackblitz Demo](https://stackblitz.com/edit/macsaz-xuwbw3im?file=src%2FApp.vue)
 
 </Callout>

@@ -277,9 +277,11 @@ In `CustomTree.vue`
 
 By default, `<TreeRoot />` expects you to provide the list of node's children by passing a list of `children` for every node. You can override that by providing the `getChildren` prop.
 
-::: NOTE
+<Callout type="info">
+
 If the node doesn't have any children, `getChildren` should return `undefined` instead of an empty array.
-:::
+
+</Callout>
 
 ```vue line=22
 <script setup lang="ts">

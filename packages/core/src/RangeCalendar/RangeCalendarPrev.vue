@@ -6,6 +6,13 @@ export interface RangeCalendarPrevProps extends PrimitiveProps {
   /** The function to be used for the prev page. Overwrites the `prevPage` function set on the `RangeCalendarRoot`. */
   prevPage?: (placeholder: DateValue) => DateValue
 }
+
+export interface RangeCalendarPrevSlot {
+  default: (props: {
+    /** Current disable state */
+    disabled: boolean
+  }) => any
+}
 </script>
 
 <script setup lang="ts">
@@ -14,6 +21,8 @@ import { Primitive } from '@/Primitive'
 import { injectRangeCalendarRootContext } from './RangeCalendarRoot.vue'
 
 const props = withDefaults(defineProps<RangeCalendarPrevProps>(), { as: 'button' })
+defineSlots<RangeCalendarPrevSlot>()
+
 const disabled = computed(() => rootContext.disabled.value || rootContext.isPrevButtonDisabled(props.prevPage))
 
 const rootContext = injectRangeCalendarRootContext()
@@ -29,6 +38,8 @@ const rootContext = injectRangeCalendarRootContext()
     :disabled="disabled"
     @click="rootContext.prevPage(props.prevPage)"
   >
-    <slot>Prev page</slot>
+    <slot :disabled>
+      Prev page
+    </slot>
   </Primitive>
 </template>

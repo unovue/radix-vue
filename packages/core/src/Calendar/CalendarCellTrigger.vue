@@ -17,6 +17,15 @@ export interface CalendarCellTriggerProps extends PrimitiveProps {
   /** The month in which the cell is rendered */
   month: DateValue
 }
+
+export interface CalendarCellTriggerSlot {
+  default: (props: {
+    /** Current day */
+    dayValue: string
+    /** Current disable state */
+    disabled: boolean
+  }) => any
+}
 </script>
 
 <script setup lang="ts">
@@ -27,12 +36,7 @@ const props = withDefaults(defineProps<CalendarCellTriggerProps>(), {
   as: 'div',
 })
 
-defineSlots<{
-  default: (props: {
-    /** Current day */
-    dayValue: string
-  }) => any
-}>()
+defineSlots<CalendarCellTriggerSlot>()
 
 const kbd = useKbd()
 const rootContext = injectCalendarRootContext()
@@ -172,7 +176,10 @@ function handleArrowKey(e: KeyboardEvent) {
     @keydown.up.down.left.right.space.enter="handleArrowKey"
     @keydown.enter.prevent
   >
-    <slot :day-value="dayValue">
+    <slot
+      :day-value="dayValue"
+      :disabled="isDisabled"
+    >
       {{ dayValue }}
     </slot>
   </Primitive>

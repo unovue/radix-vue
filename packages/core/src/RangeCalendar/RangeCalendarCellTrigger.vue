@@ -15,6 +15,15 @@ export interface RangeCalendarCellTriggerProps extends PrimitiveProps {
   day: DateValue
   month: DateValue
 }
+
+export interface RangeCalendarCellTriggerSlot {
+  default: (props: {
+    /** Current day */
+    dayValue: string
+    /** Current disable state */
+    disabled: boolean
+  }) => any
+}
 </script>
 
 <script setup lang="ts">
@@ -22,12 +31,7 @@ import { Primitive, usePrimitiveElement } from '@/Primitive'
 import { injectRangeCalendarRootContext } from './RangeCalendarRoot.vue'
 
 const props = withDefaults(defineProps<RangeCalendarCellTriggerProps>(), { as: 'div' })
-defineSlots<{
-  default: (props: {
-    /** Current day */
-    dayValue: string
-  }) => any
-}>()
+defineSlots<RangeCalendarCellTriggerSlot>()
 
 const rootContext = injectRangeCalendarRootContext()
 
@@ -216,7 +220,10 @@ function handleArrowKey(e: KeyboardEvent) {
     @mouseenter="handleFocus"
     @keydown.up.down.left.right.enter.space="handleArrowKey"
   >
-    <slot :day-value="dayValue">
+    <slot
+      :day-value="dayValue"
+      :disabled="isDisabled"
+    >
       {{ dayValue }}
     </slot>
   </Primitive>

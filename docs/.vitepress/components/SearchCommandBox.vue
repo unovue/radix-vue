@@ -1,12 +1,10 @@
 <script setup lang="ts">
-// @ts-expect-error internal function
-import localSearchIndex from '@localSearchIndex'
 // @ts-expect-error ignoring
 import Mark from 'mark.js/src/vanilla.js'
 import MiniSearch, { type SearchResult } from 'minisearch'
 import { useData } from 'vitepress'
 import { DialogClose, type GenericComponentInstance, ListboxContent, ListboxFilter, ListboxItem, ListboxRoot } from 'reka-ui'
-import { type Ref, markRaw, nextTick, ref, shallowRef } from 'vue'
+import { type Ref, markRaw, nextTick, onMounted, ref, shallowRef, watch } from 'vue'
 import { computedAsync, debouncedWatch } from '@vueuse/core'
 import { LRUCache } from '../functions/cache'
 import { Icon } from '@iconify/vue'
@@ -20,7 +18,7 @@ const { localeIndex } = useData()
 const filterText = ref('')
 const enableNoResults = ref(false)
 const resultsEl = shallowRef<HTMLElement>()
-const searchIndexData = shallowRef(localSearchIndex)
+const searchIndexData = shallowRef()
 const results: Ref<(SearchResult & Result)[]> = shallowRef([])
 const listboxRef = ref<GenericComponentInstance<typeof ListboxRoot>>()
 
@@ -30,14 +28,12 @@ interface Result {
   text?: string
 }
 
-// hmr
-if (import.meta.hot) {
-  import.meta.hot.accept('/@localSearchIndex', (m) => {
-    if (m) {
-      searchIndexData.value = m.default
-    }
+onMounted(() => {
+  // @ts-expect-error internal function
+  import('@localSearchIndex').then((m) => {
+    searchIndexData.value = m.default
   })
-}
+})
 
 const mark = computedAsync(async () => {
   if (!resultsEl.value)
@@ -113,12 +109,14 @@ debouncedWatch(
     })
 
     enableNoResults.value = true
-    // FIXME: without this whole page scrolls to the bottom
-    resultsEl.value?.firstElementChild?.scrollIntoView({ block: 'start' })
     listboxRef.value?.highlightFirstItem()
   },
   { debounce: 200, immediate: true },
 )
+
+watch(filterText, () => {
+  enableNoResults.value = false
+})
 
 function formMarkRegex(terms: Set<string>) {
   return new RegExp(

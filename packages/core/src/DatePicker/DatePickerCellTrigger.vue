@@ -7,7 +7,7 @@ export interface DatePickerCellTriggerProps extends CalendarCellTriggerProps {}
 
 <script setup lang="ts">
 const props = defineProps<DatePickerCellTriggerProps>()
-defineSlots<CalendarCellTriggerSlot>
+defineSlots<CalendarCellTriggerSlot>()
 </script>
 
 <template>

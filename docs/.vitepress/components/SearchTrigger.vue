@@ -23,7 +23,7 @@ function handleClose() {
 
 <template>
   <DialogRoot v-model:open="open">
-    <DialogTrigger class="flex items-center space-x-2 text-sm py-[7px] px-3 rounded-lg md:border border-muted md:bg-card hover:bg-muted text-muted-foreground">
+    <DialogTrigger class="flex items-center space-x-2 text-md md:text-sm py-[7px] px-3 rounded-lg md:border border-muted md:bg-card hover:bg-muted text-muted-foreground">
       <Icon icon="lucide:search" />
       <span class="hidden md:inline-flex w-24 lg:w-40 text-left">Search</span>
       <span class="hidden md:inline-flex text-xs">
@@ -36,7 +36,7 @@ function handleClose() {
         class="bg-background/50 fixed inset-0 z-30 backdrop-blur"
       />
       <DialogContent
-        class="fixed top-[10%] left-[50%] max-h-[85vh] w-[90vw] max-w-[750px] translate-x-[-50%] rounded-xl bg-card shadow-xl focus:outline-none z-[100] border border-muted"
+        class="fixed top-[10%] left-[50%] max-h-[85vh] w-[90vw] max-w-[750px] translate-x-[-50%] rounded-xl bg-card shadow-xl overflow-hidden focus:outline-none z-[100] border border-muted"
       >
         <DialogTitle class="sr-only">
           Search documentation

@@ -9,10 +9,20 @@ packages:
     url: https://www.shadcn-vue.com/
     image: https://www.shadcn-vue.com/og.png
 
+  - title: Nuxt UI
+    description: A UI Library for Modern Web Apps, powered by Vue & Tailwind CSS.
+    url: https://ui3.nuxt.dev/
+    image: https://ui3.nuxt.dev/social-card.png
+
   - title: UI Thing
     description: Reusable Nuxt 3 components.
     url: https://ui-thing.behonbaker.com/getting-started/introduction
     image: https://ui-thing.behonbaker.com/cover.png
+
+  - title: Origin UI Vue
+    description: Beautiful UI components built with Tailwind CSS and Radix Vue
+    url: https://originui-vue.pages.dev/
+    image: /showcase/origin.png
 
   - title: Float UI
     description: Float UI offers all the vital building blocks you need to transform your idea into a great-looking startup.
@@ -65,10 +75,5 @@ starters:
     description: A Nuxt content docs theme built with `shadcn-vue`
     url: https://shadcn-docs.nuxt.dev/
     image: https://github.com/ZTL-UwU/shadcn-docs-nuxt/assets/49156174/b317288d-092d-4656-af5e-54034351daca
-
-  - title: Origin UI Vue
-    description: Beautiful UI components built with Tailwind CSS and Radix Vue
-    url: https://originui-vue.pages.dev/
-    image: /showcase/origin.png
 
 ---

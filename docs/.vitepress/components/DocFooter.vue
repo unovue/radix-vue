@@ -57,7 +57,7 @@ const showFooter = computed(
 
     <nav
       v-if="control.prev?.link || control.next?.link"
-      class="flex items-center justify-between gap-4 mt-8"
+      class="flex flex-col md:flex-row items-center justify-between gap-4 mt-8"
       aria-labelledby="doc-footer-aria-label"
     >
       <span

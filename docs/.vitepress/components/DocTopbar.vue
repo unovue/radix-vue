@@ -87,19 +87,19 @@ watch(path, () => {
               List of navigation item
             </DialogDescription>
 
-            <div class="px-4 pt-8 overflow-y-auto h-full">
+            <div class="pt-8 overflow-y-auto h-full">
               <div
                 v-for="group in theme.sidebar"
                 :key="group.text"
-                class="mb-4"
+                class="px-4 mb-4 pb-4 border-b border-muted"
               >
-                <div class="flex items-center mb-2 ">
+                <div class="flex items-center mb-2 ml-2">
                   <Icon
                     v-if="group.icon"
                     :icon="group.icon"
                     class="mx-2 text-lg"
                   />
-                  <span class="font-semibold">{{ group.text }}</span>
+                  <span class="font-bold">{{ group.text }}</span>
                 </div>
 
                 <template
@@ -108,7 +108,7 @@ watch(path, () => {
                 >
                   <ul
                     v-if="item.items?.length"
-                    class="mb-6"
+                    class="[&:not(:last-child)]:mb-6"
                   >
                     <div class="pl-4 font-bold text-sm pb-2">
                       {{ item.text }}

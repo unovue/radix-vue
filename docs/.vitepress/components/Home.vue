@@ -62,7 +62,7 @@ import SelectDemo from '../../components/demo/Select/tailwind/index.vue'
     </div>
   </section>
 
-  <section class="text-foreground relative h-[40rem] mt-12 overflow-hidden w-full">
+  <section class="hidden md:block text-foreground relative h-[40rem] mt-12 overflow-hidden w-full">
     <div class=" w-[90rem] h-[32rem] rounded-3xl border border-muted bg-card/20 absolute left-1/2 -translate-x-1/2 overflow-hidden">
       <img
         class="absolute w-[90rem] flex-none max-w-none"
@@ -119,9 +119,9 @@ import SelectDemo from '../../components/demo/Select/tailwind/index.vue'
     </div>
   </section>
 
-  <section class="py-24 max-w-screen-xl mx-auto md:px-6">
-    <div class="grid grid-cols-1 lg:grid-cols-5 h-[36rem] lg:h-96 gap-y-4 lg:gap-4">
-      <div class="flex flex-col col-span-3 rounded-2xl border border-muted p-10 overflow-hidden relative">
+  <section class="px-4 py-12 md:py-24 max-w-screen-xl mx-auto md:px-6">
+    <div class="grid grid-cols-1 lg:grid-cols-5 md:h-[36rem] lg:h-96 gap-y-4 lg:gap-4">
+      <div class="flex flex-col col-span-3 rounded-2xl border border-muted p-6 md:p-10 overflow-hidden relative">
         <div class="font-bold text-lg">
           Accessibility out of the box.
         </div>
@@ -134,8 +134,8 @@ import SelectDemo from '../../components/demo/Select/tailwind/index.vue'
           src="/bg.png"
           alt="Background"
         >
-        <div class="w-full h-full flex items-center justify-center relative ">
-          <div class="absolute font-medium text-sm text-muted-foreground -translate-x-40 -translate-y-0 rounded-full border border-muted px-5 py-2.5 bg-background/50 backdrop-blur-lg flex items-center gap-2">
+        <div class="mt-6 md:mt-0 w-full h-full flex flex-col gap-2 items-start md:items-center justify-center relative ">
+          <div class="md:absolute font-medium text-sm text-muted-foreground md:-translate-x-40 md:-translate-y-0 rounded-full border border-muted px-5 py-2.5 bg-background/50 backdrop-blur-lg flex items-center gap-2">
             <Icon
               icon="lucide:shield-check"
               class="text-primary text-xl"
@@ -143,7 +143,7 @@ import SelectDemo from '../../components/demo/Select/tailwind/index.vue'
             <span>WAI-ARIA compliant</span>
           </div>
 
-          <div class="absolute font-medium text-sm text-muted-foreground translate-x-28 -translate-y-16 rounded-full border border-muted px-5 py-2.5 bg-background/50 backdrop-blur-lg flex items-center gap-2">
+          <div class="md:absolute font-medium text-sm text-muted-foreground md:translate-x-28 md:-translate-y-16 rounded-full border border-muted px-5 py-2.5 bg-background/50 backdrop-blur-lg flex items-center gap-2">
             <Icon
               icon="lucide:keyboard"
               class="text-primary text-xl"
@@ -151,7 +151,7 @@ import SelectDemo from '../../components/demo/Select/tailwind/index.vue'
             <span>Keyboard navigation</span>
           </div>
 
-          <div class="absolute font-medium text-sm text-muted-foreground -translate-x-20 translate-y-16 rounded-full border border-muted px-5 py-2.5 bg-background/50 backdrop-blur-lg flex items-center gap-2">
+          <div class="md:absolute font-medium text-sm text-muted-foreground md:-translate-x-20 md:translate-y-16 rounded-full border border-muted px-5 py-2.5 bg-background/50 backdrop-blur-lg flex items-center gap-2">
             <Icon
               icon="lucide:text-cursor-input"
               class="text-primary text-xl"
@@ -159,7 +159,7 @@ import SelectDemo from '../../components/demo/Select/tailwind/index.vue'
             <span>Focus management</span>
           </div>
 
-          <div class="absolute font-medium text-sm text-muted-foreground translate-x-44 translate-y-4 rounded-full border border-muted px-5 py-2.5 bg-background/50 backdrop-blur-lg flex items-center gap-2">
+          <div class="md:absolute font-medium text-sm text-muted-foreground md:translate-x-44 md:translate-y-4 rounded-full border border-muted px-5 py-2.5 bg-background/50 backdrop-blur-lg flex items-center gap-2">
             <Icon
               icon="lucide:view"
               class="text-primary text-xl"
@@ -170,7 +170,7 @@ import SelectDemo from '../../components/demo/Select/tailwind/index.vue'
 
         <div />
       </div>
-      <div class="col-span-2 rounded-2xl border border-muted p-10 relative overflow-hidden">
+      <div class="col-span-2 rounded-2xl border border-muted h-[22rem] md:h-auto p-6 md:p-10 relative overflow-hidden">
         <div>
           <div class="font-bold text-lg">
             Save time. Ship faster.
@@ -192,9 +192,9 @@ import SelectDemo from '../../components/demo/Select/tailwind/index.vue'
       </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-5 h-[36rem] lg:h-96 gap-y-4 lg:gap-4 mt-4">
-      <div class="col-span-2 rounded-2xl border border-muted p-10 relative overflow-hidden">
-        <div class="absolute flex flex-col">
+    <div class="grid grid-cols-1 lg:grid-cols-5 md:h-[36rem] lg:h-96 gap-y-4 lg:gap-4 mt-4">
+      <div class="col-span-2 rounded-2xl border border-muted h-96 md:h-auto p-6 md:p-10 relative overflow-hidden">
+        <div class="absolute flex flex-col w-full">
           <div class="font-bold text-lg z-10 ">
             Developer Experience First.
           </div>
@@ -224,7 +224,7 @@ import SelectDemo from '../../components/demo/Select/tailwind/index.vue'
         </div>
       </div>
 
-      <div class="col-span-3 rounded-2xl border border-muted p-10 relative overflow-hidden">
+      <div class="col-span-3 rounded-2xl border border-muted h-80 md:h-auto p-6 md:p-10 relative overflow-hidden">
         <div class="z-10 absolute">
           <div class="font-bold text-xl text-white">
             Ready for an international audience
@@ -235,7 +235,7 @@ import SelectDemo from '../../components/demo/Select/tailwind/index.vue'
         </div>
         <img
           draggable="false"
-          class="absolute top-0 left-48 scale-[1.75] dark:mix-blend-lighten hue-rotate-[220deg] saturate-[1.2]"
+          class="absolute bottom-0 md:top-0 md:left-48 md:scale-[1.75] dark:mix-blend-lighten hue-rotate-[220deg] saturate-[1.2]"
           src="/globe.jpg"
           alt="Globe image"
         >

@@ -134,7 +134,7 @@ function formMarkRegex(terms: Set<string>) {
     <div class="w-full px-6 flex items-center">
       <ListboxFilter
         v-model="filterText"
-        class="w-full h-14 outline-none bg-transparent placeholder:text-muted-foreground text-sm flex-1"
+        class="w-full h-12 md:h-14 outline-none bg-transparent placeholder:text-muted-foreground text-sm flex-1"
         placeholder="Search documentation"
         auto-focus
       />
@@ -150,7 +150,7 @@ function formMarkRegex(terms: Set<string>) {
         }
       }"
       as="ul"
-      class="max-h-[55vh] overflow-auto border-y border-muted empty:border-t-0 p-0.5"
+      class="max-h-[55vh] overflow-auto border-t md:border-y border-muted empty:hidden md:empty:block md:empty:border-t-0"
     >
       <ListboxItem
         v-for="p in results"

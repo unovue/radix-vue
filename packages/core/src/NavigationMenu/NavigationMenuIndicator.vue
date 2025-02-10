@@ -49,7 +49,6 @@ function handlePositionChange() {
 
 watchEffect(() => {
   if (!menuContext.modelValue.value) {
-    indicatorStyle.value = undefined
     return
   }
   handlePositionChange()
@@ -64,7 +63,7 @@ useResizeObserver(menuContext.indicatorTrack, handlePositionChange)
     v-if="menuContext.indicatorTrack.value"
     :to="menuContext.indicatorTrack.value"
   >
-    <Presence :present="(forceMount || isVisible) && !!indicatorStyle?.size">
+    <Presence :present="forceMount || isVisible">
       <Primitive
         :ref="forwardRef"
         aria-hidden="true"

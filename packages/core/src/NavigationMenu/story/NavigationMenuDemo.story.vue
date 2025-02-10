@@ -71,7 +71,7 @@ const currentTrigger = ref('')
                     Beautiful, thought-out palettes with auto dark mode.
                   </NavigationMenuListItem>
                   <NavigationMenuListItem
-                    href="https://icons.radix-ui.com/"
+                    href="https://lucide.dev/icons/"
                     title="Icons"
                   >
                     A crisp set of 15x15 icons, balanced and consistent.

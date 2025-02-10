@@ -94,7 +94,7 @@ const currentTrigger = ref('')
                 Beautiful, thought-out palettes with auto dark mode.
               </NavigationMenuListItem>
               <NavigationMenuListItem
-                href="https://icons.radix-ui.com/"
+                href="https://lucide.dev/icons/"
                 title="Icons"
               >
                 A crisp set of 15x15 icons, balanced and consistent.
@@ -159,7 +159,7 @@ const currentTrigger = ref('')
         <NavigationMenuItem>
           <NavigationMenuLink
             class="text-grass11 hover:bg-green3 focus:shadow-green7 block select-none rounded-[4px] px-3 py-2 text-[15px] font-medium leading-none no-underline outline-none focus:shadow-[0_0_0_2px]"
-            href="https://github.com/radix-ui"
+            href="https://github.com/unovue"
           >
             Github
           </NavigationMenuLink>

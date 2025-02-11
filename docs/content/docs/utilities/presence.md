@@ -17,7 +17,7 @@ A: The biggest difference is it accepts css animation, and control the visibilit
 
 </Callout>
 
-Presence component provides enhanced control over element mounting/unmounting compared to Vue's native `v-if`. It ensures animations and transitions complete before removing elements from the DOM, making it perfect for animated UI components.
+Presence component provides enhanced control over element mounting/unmounting. It ensures animations and transitions complete before removing elements from the DOM, making it perfect for animated UI components.
 
 ## API Reference
 
@@ -81,7 +81,7 @@ Read our [Animation Guide](/docs/guides/animation) to learn more about implement
 </template>
 ```
 
-### Force Mount Usage
+### Force Mount
 
 When you need to ensure content is always rendered regardless of the present state:
 

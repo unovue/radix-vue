@@ -98,6 +98,8 @@ When used, portals your overlay and content parts into the `body`.
 
 A layer that covers the inert portion of the view when the dialog is open.
 
+<PresenceCallout />
+
 <!-- @include: @/meta/DialogOverlay.md -->
 
 <DataAttributesTable
@@ -112,6 +114,8 @@ A layer that covers the inert portion of the view when the dialog is open.
 ### Content
 
 Contains content to be rendered in the open dialog
+
+<PresenceCallout />
 
 <!-- @include: @/meta/DialogContent.md -->
 

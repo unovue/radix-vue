@@ -95,6 +95,8 @@ When used, portals the content part into the `body`.
 
 The component that pops out when the popover is open.
 
+<PresenceCallout />
+
 <!-- @include: @/meta/PopoverContent.md -->
 
 <DataAttributesTable

@@ -7,7 +7,7 @@ const props = defineProps<{
   name: string
 }>()
 
-const UTILITY_COMPONENT = ['ConfigProvider', 'VisuallyHidden']
+const UTILITY_COMPONENT = ['ConfigProvider', 'VisuallyHidden', 'FocusScope']
 
 const href = computed(() => {
   if (UTILITY_COMPONENT.includes(props.name)) {

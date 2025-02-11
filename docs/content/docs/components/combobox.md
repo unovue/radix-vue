@@ -152,6 +152,8 @@ You need to set `position="popper"` for `ComboboxContent` to make sure the posit
 
 The component that pops out when the combobox is open.
 
+<PresenceCallout />
+
 <!-- @include: @/meta/ComboboxContent.md -->
 
 <DataAttributesTable

@@ -90,6 +90,8 @@ The button that toggles the collapsible
 
 The component that contains the collapsible content.
 
+<PresenceCallout />
+
 <!-- @include: @/meta/CollapsibleContent.md -->
 
 <DataAttributesTable

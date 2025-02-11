@@ -160,6 +160,8 @@ The button that toggles the content.
 
 Contains the content associated with each trigger.
 
+<PresenceCallout />
+
 <!-- @include: @/meta/NavigationMenuContent.md -->
 
 <DataAttributesTable
@@ -198,6 +200,8 @@ A navigational link.
 
 An optional indicator element that renders below the list, is used to highlight the currently active trigger.
 
+<PresenceCallout />
+
 <!-- @include: @/meta/NavigationMenuIndicator.md -->
 
 <DataAttributesTable
@@ -229,6 +233,8 @@ An optional indicator element that renders below the list, is used to highlight 
 ### Viewport
 
 An optional viewport element that is used to render active content outside of the list.
+
+<PresenceCallout />
 
 <!-- @include: @/meta/NavigationMenuViewport.md -->
 

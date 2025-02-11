@@ -85,6 +85,8 @@ When used, portals the content part into the `body`.
 
 The component that pops out when the tooltip is open.
 
+<PresenceCallout />
+
 <!-- @include: @/meta/TooltipContent.md -->
 
 <DataAttributesTable

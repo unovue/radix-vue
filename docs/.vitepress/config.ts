@@ -237,16 +237,12 @@ export default defineConfig({
           {
             text: 'Component',
             items: [
-              {
-                text: 'Config Provider',
-                link: '/docs/utilities/config-provider',
-              },
-              {
-                text: 'Visually Hidden',
-                link: '/docs/utilities/visually-hidden',
-              },
+              { text: 'Config Provider', link: '/docs/utilities/config-provider' },
+              { text: 'Focus Scope', link: '/docs/utilities/focus-scope' },
+              { text: 'Presence', link: '/docs/utilities/presence' },
               { text: 'Primitive', link: '/docs/utilities/primitive' },
               { text: 'Slot', link: '/docs/utilities/slot' },
+              { text: 'Visually Hidden', link: '/docs/utilities/visually-hidden' },
             ],
           },
           {

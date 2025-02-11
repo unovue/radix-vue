@@ -75,10 +75,6 @@ export const components = {
     'ComboboxPortal',
   ],
 
-  configProvider: [
-    'ConfigProvider',
-  ],
-
   contextMenu: [
     'ContextMenuRoot',
     'ContextMenuTrigger',
@@ -193,10 +189,6 @@ export const components = {
     'EditableEditTrigger',
   ],
 
-  focusScope: [
-    'FocusScope',
-  ],
-
   hoverCard: [
     'HoverCardRoot',
     'HoverCardTrigger',
@@ -283,10 +275,6 @@ export const components = {
     'PopoverArrow',
     'PopoverClose',
     'PopoverAnchor',
-  ],
-
-  presence: [
-    'Presence',
   ],
 
   progress: [
@@ -442,6 +430,19 @@ export const components = {
 
   viewport: [
     'Viewport',
+  ],
+
+  // Utility component
+  configProvider: [
+    'ConfigProvider',
+  ],
+
+  focusScope: [
+    'FocusScope',
+  ],
+
+  presence: [
+    'Presence',
   ],
 
   primitive: [

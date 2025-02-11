@@ -78,6 +78,8 @@ Contains all the parts of a checkbox. An `input` will also render when used with
 
 Renders when the checkbox is in a checked or indeterminate state. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
 
+<PresenceCallout />
+
 <!-- @include: @/meta/CheckboxIndicator.md -->
 
 <DataAttributesTable

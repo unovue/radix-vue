@@ -129,6 +129,8 @@ The indicator that highlights the current active tab.
 
 Contains the content associated with each trigger.
 
+<PresenceCallout />
+
 <!-- @include: @/meta/TabsContent.md -->
 
 <DataAttributesTable

@@ -71,6 +71,8 @@ The fixed area where toasts appear. Users can jump to the viewport by pressing a
 
 The toast that automatically closes. It should not be held open to [acquire a user response](/docs/components/toast#action).
 
+<PresenceCallout />
+
 <!-- @include: @/meta/ToastRoot.md -->
 
 <DataAttributesTable

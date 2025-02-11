@@ -88,6 +88,8 @@ An item in the group that can be checked. An `input` will also render when used 
 
 Renders when the radio item is in a checked state. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
 
+<PresenceCallout />
+
 <!-- @include: @/meta/RadioGroupIndicator.md -->
 
 <DataAttributesTable

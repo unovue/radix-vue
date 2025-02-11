@@ -71,6 +71,8 @@ The viewport area of the scroll area.
 
 The vertical scrollbar. Add a second `Scrollbar` with an `orientation` prop to enable horizontal scrolling.
 
+<PresenceCallout />
+
 <!-- @include: @/meta/ScrollAreaScrollbar.md -->
 
 <DataAttributesTable

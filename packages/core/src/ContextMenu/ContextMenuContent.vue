@@ -45,6 +45,7 @@ const hasInteractedOutside = ref(false)
     side="right"
     :side-offset="2"
     align="start"
+    update-position-strategy="always"
     :style="{
       '--reka-context-menu-content-transform-origin':
         'var(--reka-popper-transform-origin)',

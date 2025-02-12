@@ -317,6 +317,7 @@ provideMenuContentContext({
           :arrow-padding="arrowPadding"
           :prioritize-position="prioritizePosition"
           :position-strategy="positionStrategy"
+          :update-position-strategy="updatePositionStrategy"
           :sticky="sticky"
           :hide-when-detached="hideWhenDetached"
           :reference="reference"

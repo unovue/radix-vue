@@ -98,7 +98,7 @@ These components are low-level enough to give you control over how you want to w
 
 In a few simple steps, we've implemented a fully accessible Popover component, without having to worry about many of its complexities.
 
-- Adheres to [WAI-ARIA](https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal) design pattern.
+- Adheres to [WAI-ARIA](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/) design pattern.
 - Can be controlled or uncontrolled.
 - Customize side, alignment, offsets, collision handling.
 - Optionally render a pointing arrow.

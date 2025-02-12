@@ -528,11 +528,11 @@ import {
 
 ### Controlling the value displayed in the trigger
 
-By default the trigger will automatically display the selected item `ItemText`'s content. You can control what appears by choosing to put things inside/outside the `ItemText` part.
+By default the trigger display the selected item's text (no longer automatically render `ItemText`'s content like in v1).
 
-If you need more flexibility, you can control the component using `v-model` props and passing `slot` to `SelectValue`. Remember to make sure what you put in there is accessible.
+If you need to render other than plain text, you can control the component using `v-model` props (or accessing `SelectValue`'s slotProps) and passing `slot` to `SelectValue`. Remember to make sure what you put in there is accessible.
 
-```vue line=2,4,8
+```vue line=2,4,10-12
 <script setup>
 const countries = { 'france': '🇫🇷', 'united-kingdom': '🇬🇧', 'spain': '🇪🇸' }
 
@@ -542,7 +542,7 @@ const value = ref('france')
 <template>
   <SelectRoot v-model="value">
     <SelectTrigger>
-      <SelectValue aria-label="value">
+      <SelectValue :aria-label="value">
         {{ countries[value] }}
       </SelectValue>
       <SelectIcon />

@@ -39,3 +39,10 @@ export const githubusercontentRegex = new RegExp(
   '^https://((i.ibb.co)|((raw|user-images).githubusercontent.com))/.*',
   'i',
 )
+
+export function BadgeHTML(text: string, translucent = false) {
+  return `<div class="inline-flex items-center rounded-full border border-muted px-2 py-[1px] ml-2 text-[11px] transition-colors bg-primary/30 ${translucent ? '!bg-transparent' : ''} text-foreground">
+${text}
+</div>
+`
+}

@@ -250,13 +250,11 @@ const {
 })
 
 watch(modelValue, (_modelValue) => {
-  if (_modelValue.start) {
-    if (!startValue.value || !isEqualDay(startValue.value, _modelValue.start))
-      startValue.value = _modelValue.start.copy()
+  if (!_modelValue || !_modelValue.start || (startValue.value && !isEqualDay(_modelValue.start, startValue.value))) {
+    startValue.value = _modelValue?.start?.copy?.()
   }
-  if (_modelValue.end) {
-    if (!endValue.value || !isEqualDay(endValue.value, _modelValue.end))
-      endValue.value = _modelValue.end.copy()
+  if (!_modelValue || !_modelValue.end || (endValue.value && !isEqualDay(_modelValue.end, endValue.value))) {
+    endValue.value = _modelValue?.end?.copy?.()
   }
 })
 
@@ -291,7 +289,7 @@ watch([startValue, endValue], ([_startValue, _endValue]) => {
   }
   else if (value.start && value.end) {
     modelValue.value = {
-      start: undefined,
+      start: _startValue?.copy(),
       end: undefined,
     }
   }

@@ -1,7 +1,8 @@
 <script lang="ts">
-import { type DateValue, isEqualDay, isSameDay } from '@internationalized/date'
+import type { DateValue } from '@internationalized/date'
 
 import type { Ref } from 'vue'
+import { computed, ref, toRefs, watch } from 'vue'
 import { createContext, useDirection } from '@/shared'
 import { type Granularity, type HourCycle, getDefaultDate } from '@/shared/date'
 import type { Matcher, WeekDayFormat } from '@/date'
@@ -53,7 +54,6 @@ export const [injectDatePickerRootContext, provideDatePickerRootContext]
 </script>
 
 <script setup lang="ts">
-import { computed, ref, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
 
 defineOptions({
@@ -131,6 +131,12 @@ const open = useVModel(props, 'open', emits, {
 
 const dateFieldRef = ref<InstanceType<typeof DateFieldRoot> | undefined>()
 
+watch(modelValue, (value) => {
+  if (value && value.compare(placeholder.value) !== 0) {
+    placeholder.value = value.copy()
+  }
+})
+
 provideDatePickerRootContext({
   isDateUnavailable: propsIsDateUnavailable.value,
   isDateDisabled: propsIsDateDisabled.value,
@@ -160,9 +166,9 @@ provideDatePickerRootContext({
   dir,
   onDateChange(date: DateValue | undefined) {
     if (!date || !modelValue.value) {
-      modelValue.value = date
+      modelValue.value = date?.copy() ?? undefined
     }
-    else if (!preventDeselect.value && isSameDay(modelValue.value as DateValue, date)) {
+    else if (!preventDeselect.value && date && modelValue.value.compare(date) === 0) {
       modelValue.value = undefined
     }
     else {
@@ -170,7 +176,7 @@ provideDatePickerRootContext({
     }
   },
   onPlaceholderChange(date: DateValue) {
-    if (!isEqualDay(date, placeholder.value))
+    if (date.compare(placeholder.value) === 0)
       placeholder.value = date.copy()
   },
 })

@@ -149,7 +149,7 @@ const forwarded = useForwardPropsEmits(props, emits)
                   <DateRangePickerCellTrigger
                     :day="weekDate"
                     :month="month.value"
-                    class="relative flex items-center justify-center whitespace-nowrap bg-transparent text-sm font-normal text-black w-8 h-8 outline-offset-0 outline-none data-[selection-start]:rounded-l-lg data-[selection-end]:rounded-r-lg focus:outline-black hover:outline-black data-[selected]:bg-green10 data-[selected]:font-medium data-[disabled]:text-black/30 data-[selected]:text-white data-[highlighted]:bg-grass9/30 data-[selection-start]:bg-green10  data-[selection-end]:bg-green10  data-[unavailable]:text-black/30 data-[unavailable]:line-through before:absolute before:top-[5px] before:hidden before:w-1 before:h-1 before:bg-white data-[today]:before:block data-[today]:before:bg-grass9 data-[selected]:before:bg-white"
+                    class="relative flex items-center justify-center whitespace-nowrap bg-transparent text-sm font-normal text-black w-8 h-8 outline-offset-0 outline-none data-[selection-start]:rounded-l-lg data-[selection-end]:rounded-r-lg focus:outline-black hover:outline-black data-[selected]:bg-green10 data-[selected]:font-medium data-[outside-view]:text-black/30 data-[selected]:text-white data-[highlighted]:bg-grass9/30 data-[selection-start]:bg-green10  data-[selection-end]:bg-green10  data-[unavailable]:text-black/30 data-[unavailable]:line-through before:absolute before:top-[5px] before:hidden before:w-1 before:h-1 before:bg-white data-[today]:before:block data-[today]:before:bg-grass9 data-[selected]:before:bg-white"
                   />
                 </DateRangePickerCell>
               </DateRangePickerGridRow>

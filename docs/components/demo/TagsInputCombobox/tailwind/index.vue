@@ -24,7 +24,7 @@ watch(values, () => {
   >
     <ComboboxAnchor class="w-[400px] inline-flex items-center justify-between rounded-lg p-2 text-xs leading-none  gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">
       <TagsInputRoot
-        :model-value="values"
+        v-model="values"
         delimiter=""
         class="flex gap-2 items-center rounded-lg flex-wrap"
       >

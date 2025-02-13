@@ -7,44 +7,51 @@ import { Icon } from '@iconify/vue'
     <div class="grid justify-items-center gap-8 p-5 px-3 sm:px-4 md:gap-10 md:px-8">
       <div class="mt-6 grid w-full max-w-4xl justify-items-center gap-[inherit] sm:mt-10 md:mt-20">
         <h1 class="text-pretty text-center text-4xl font-medium sm:text-6xl sm:font-extrabold md:text-7xl text-foreground">
-          Craft accessible web apps with Vue
+          {{ $t('craft-accessible-web-apps-with-vue') }}
         </h1>
-        <p class="max-w-[720px] text-pretty text-center text-lg md:text-xl md:leading-8 lg:leading-9 lg:text-2xl text-muted-foreground">
-          An open-source library with
-          <a
-            class="relative inline-block text-foreground font-semibold before:absolute before:top-full before:inset-x-0 before:[translate:0_-0.1em] before:h-[2px] before:bg-primary hover:before:h-[4px]"
-            href="/guides/styling"
-          >
-            unstyled</a>,
-          <a
-            class="relative inline-block text-foreground font-semibold before:absolute before:top-full before:inset-x-0 before:[translate:0_-0.1em] before:h-[2px] before:bg-primary hover:before:h-[4px]"
-            href="/guides/composition"
-          >
-            primitive
-          </a>
-          components,
-          accompanied by a variety of
-          <a
-            class="relative inline-block text-foreground font-semibold before:absolute before:top-full before:inset-x-0 before:[translate:0_-0.1em] before:h-[2px] before:bg-primary hover:before:h-[4px]"
-            href="/examples"
-          >
-            examples & use cases
-          </a>
-          ready to be integrated into your projects.
-        </p>
+        <i18n-t
+          keypath="an-open-source-library-with"
+          tag="p"
+          class="max-w-[720px] text-pretty text-center text-lg md:text-xl md:leading-8 lg:leading-9 lg:text-2xl text-muted-foreground"
+        >
+          <template #unstyled>
+            <a
+              class="relative inline-block text-foreground font-semibold before:absolute before:top-full before:inset-x-0 before:[translate:0_-0.1em] before:h-[2px] before:bg-primary hover:before:h-[4px]"
+              href="/guides/styling"
+            >
+              {{ $t('unstyled') }}</a>
+          </template>
+          <template #primitive>
+            <a
+              class="relative inline-block text-foreground font-semibold before:absolute before:top-full before:inset-x-0 before:[translate:0_-0.1em] before:h-[2px] before:bg-primary hover:before:h-[4px]"
+              href="/guides/composition"
+            >
+              {{ $t('primitive') }}
+            </a>
+          </template>
+          <template #examples-and-use-cases>
+            <a
+
+              class="relative inline-block text-foreground font-semibold before:absolute before:top-full before:inset-x-0 before:[translate:0_-0.1em] before:h-[2px] before:bg-primary hover:before:h-[4px]"
+              href="/examples"
+            >
+              {{ $t('examples-and-use-cases') }}
+            </a>
+          </template>
+        </i18n-t>
       </div>
       <div class="mb-12 flex max-w-[calc(100%-2rem)] flex-wrap items-center justify-center gap-4 md:mb-20">
         <a
           class="flex h-12 items-center justify-center gap-2 whitespace-nowrap rounded-xl px-4 text-primary font-semibold bg-primary/10 hover:bg-primary/20 sm:px-8 sm:text-lg"
           href="/overview/getting-started"
         >
-          Get started
+          {{ $t('get-started') }}
         </a>
         <a
           class="group flex h-12 items-center justify-center gap-2 font-semibold text-muted-foreground hover:text-foreground whitespace-nowrap rounded-xl px-4 hover:bg-card"
           href="/components/accordion"
         >
-          Explore components
+          {{ $t('explore-components') }}
           <Icon icon="lucide:arrow-right" />
         </a>
       </div>
@@ -55,10 +62,10 @@ import { Icon } from '@iconify/vue'
     <div class="grid grid-cols-5 h-96 gap-4">
       <div class="flex flex-col col-span-3 rounded-2xl border border-muted p-10 overflow-hidden relative">
         <div class="font-bold text-lg">
-          Accessibility out of the box.
+          {{ $t('accessibility-out-of-the-box') }}
         </div>
         <div class="text-muted-foreground">
-          Supports assistive technology
+          {{ $t('supports-assistive-technology') }}
         </div>
 
         <img
@@ -72,7 +79,7 @@ import { Icon } from '@iconify/vue'
               icon="lucide:shield-check"
               class="text-primary text-xl"
             />
-            <span>WAI-ARIA compliant</span>
+            <span>{{ $t('wai-aria-compliant') }}</span>
           </div>
 
           <div class="absolute font-medium text-sm text-muted-foreground translate-x-28 -translate-y-16 rounded-full border border-muted px-5 py-2.5 bg-background/50 backdrop-blur-lg flex items-center gap-2">
@@ -80,7 +87,7 @@ import { Icon } from '@iconify/vue'
               icon="lucide:keyboard"
               class="text-primary text-xl"
             />
-            <span>Keyboard navigation</span>
+            <span>{{ $t('keyboard-navigation') }}</span>
           </div>
 
           <div class="absolute font-medium text-sm text-muted-foreground -translate-x-20 translate-y-16 rounded-full border border-muted px-5 py-2.5 bg-background/50 backdrop-blur-lg flex items-center gap-2">
@@ -88,7 +95,7 @@ import { Icon } from '@iconify/vue'
               icon="lucide:text-cursor-input"
               class="text-primary text-xl"
             />
-            <span>Focus management</span>
+            <span>{{ $t('focus-management') }}</span>
           </div>
 
           <div class="absolute font-medium text-sm text-muted-foreground translate-x-44 translate-y-4 rounded-full border border-muted px-5 py-2.5 bg-background/50 backdrop-blur-lg flex items-center gap-2">
@@ -96,7 +103,7 @@ import { Icon } from '@iconify/vue'
               icon="lucide:view"
               class="text-primary text-xl"
             />
-            <span>Screen reader support</span>
+            <span>{{ $t('screen-reader-support') }}</span>
           </div>
         </div>
 
@@ -105,10 +112,10 @@ import { Icon } from '@iconify/vue'
       <div class="col-span-2 rounded-2xl border border-muted p-10 relative overflow-hidden">
         <div>
           <div class="font-bold text-lg">
-            Save time. Ship faster.
+            {{ $t('save-time-ship-faster') }}
           </div>
           <div class="text-muted-foreground">
-            40+ Primitive Components
+            {{ $t('40-primitive-components') }}
           </div>
         </div>
 
@@ -128,10 +135,10 @@ import { Icon } from '@iconify/vue'
       <div class="col-span-2 rounded-2xl border border-muted p-10 relative overflow-hidden">
         <div class="absolute flex flex-col">
           <div class="font-bold text-lg z-10 ">
-            Developer Experience First.
+            {{ $t('developer-experience-first') }}
           </div>
           <div class="text-muted-foreground">
-            Unstyled, Customizable, Familiar API
+            {{ $t('unstyled-customizable-familiar-api') }}
           </div>
 
           <div class="w-full h-full relative mt-8">
@@ -160,10 +167,10 @@ import { Icon } from '@iconify/vue'
       <div class="col-span-3 rounded-2xl border border-muted p-10 relative overflow-hidden">
         <div class="z-10 absolute">
           <div class="font-bold text-xl text-white">
-            Ready for an international audience
+            {{ $t('ready-for-an-international-audience') }}
           </div>
           <div class="text-muted-foreground">
-            RTL support, Locale, Numbering System
+            {{ $t('rtl-support-locale-numbering-system') }}
           </div>
         </div>
         <img
@@ -183,8 +190,10 @@ import { Icon } from '@iconify/vue'
           <div class="text-6xl font-bold">
             300k+
           </div>
-          <div class="mt-1">
-            Monthly downloads
+          <div
+            class="mt-1"
+          >
+            {{ $t('monthly-downloads') }}
           </div>
         </div>
 
@@ -193,7 +202,7 @@ import { Icon } from '@iconify/vue'
             100+
           </div>
           <div class="mt-1">
-            Contributors
+            {{ $t('contributors') }}
           </div>
         </div>
 

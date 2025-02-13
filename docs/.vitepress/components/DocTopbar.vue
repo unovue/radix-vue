@@ -2,6 +2,7 @@
 import { useScroll } from '@vueuse/core'
 import { type DefaultTheme, useData, useRoute } from 'vitepress'
 import { computed, ref, toRefs, watch } from 'vue'
+import { withBase } from 'ufo'
 import { Icon } from '@iconify/vue'
 import { DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger } from 'radix-vue'
 import DocSidebarItem from '../components/DocSidebarItem.vue'
@@ -11,7 +12,7 @@ const { page, theme } = useData()
 
 const isSidebarOpen = ref(false)
 const sidebar = computed(() => theme.value.sidebar as DefaultTheme.SidebarItem[])
-const sectionTabs = computed(() => sidebar.value.map(val => ({ label: val.text, link: val.items?.[0].link })))
+const sectionTabs = computed(() => sidebar.value.map(val => ({ label: val.text, link: val.base ? withBase(val.items?.[0].link || '/', val.base) : val.items?.[0].link })))
 
 const { arrivedState } = useScroll(globalThis.window)
 const { top } = toRefs(arrivedState)
@@ -49,7 +50,7 @@ watch(path, () => {
             icon="lucide:square-dashed-mouse-pointer"
             class="text-lg"
           />
-          Examples
+          {{ $t('examples') }}
         </a>
       </div>
     </div>
@@ -71,10 +72,10 @@ watch(path, () => {
           <DialogOverlay class="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
           <DialogContent class="fixed z-50 gap-4 bg-background shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500 inset-y-0 left-0 h-full w-3/4 border-r border-muted data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm pr-0">
             <DialogTitle class="sr-only">
-              Sidebar menu
+              {{ $t('sidebar-menu') }}
             </DialogTitle>
             <DialogDescription class="sr-only">
-              List of navigation item
+              {{ $t('list-of-navigation-item') }}
             </DialogDescription>
 
             <div class="px-4 pt-8 overflow-y-auto h-full">
@@ -106,7 +107,7 @@ watch(path, () => {
             icon="lucide:square-dashed-mouse-pointer"
             class="text-lg"
           />
-          Examples
+          {{ $t('examples') }}
         </a>
       </div>
     </div>

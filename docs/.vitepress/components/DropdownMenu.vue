@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { DropdownMenuContent, DropdownMenuItem, DropdownMenuPortal, DropdownMenuRoot, DropdownMenuTrigger } from 'radix-vue'
 import { Icon } from '@iconify/vue'
+import { computed } from 'vue'
 
 defineProps<{
   icon?: string

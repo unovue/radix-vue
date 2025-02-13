@@ -4,6 +4,7 @@ import { PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger, Separator }
 import ThemeToggle from '../components/ThemeToggle.vue'
 import DropdownMenu from '../components/DropdownMenu.vue'
 import { useData, useRoute } from 'vitepress'
+import { useLangs } from '../composables/langs'
 import { ref, toRefs, watch } from 'vue'
 
 const { path } = toRefs(useRoute())
@@ -14,6 +15,8 @@ const isPopoverOpen = ref(false)
 watch(path, () => {
   isPopoverOpen.value = false
 })
+
+const { localeLinks, currentLang } = useLangs({ correspondingLink: true })
 </script>
 
 <template>
@@ -25,7 +28,7 @@ watch(path, () => {
       <a
         v-if="nav.link"
         :href="nav.link"
-        class="py-2 mx-3 text-sm font-semibold text-muted-foreground hover:text-foreground h-full inline-flex items-center"
+        class="py-2 mx-3 text-sm font-semibold text-muted-foreground hover:text-foreground h-full inline-flex items-center text-nowrap"
       >
         {{ nav.text }}
       </a>
@@ -35,6 +38,18 @@ watch(path, () => {
         :items="nav.items"
       />
     </template>
+
+    <Separator
+      class="bg-muted h-4 w-px mx-4"
+      decorative
+      orientation="vertical"
+    />
+    <DropdownMenu
+      v-if="localeLinks.length && currentLang.label"
+      class="group translations"
+      icon="lucide:languages"
+      :items="localeLinks"
+    />
 
     <Separator
       class="bg-muted h-4 w-px mx-4"

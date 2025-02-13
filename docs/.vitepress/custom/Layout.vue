@@ -1,17 +1,26 @@
 <script setup lang="ts">
 import Docs from './Docs.vue'
-import { Content, useData } from 'vitepress'
+import { useData } from 'vitepress'
 import SearchTrigger from '../components/SearchTrigger.vue'
 import Navbar from '../components/Navbar.vue'
 // import HomePageDemo from '../components/HomePageDemo.vue'
 import Home from '../components/Home.vue'
 import { useScroll } from '@vueuse/core'
-import { toRefs } from 'vue'
+import { toRefs, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import Showcase from './Showcase.vue'
 
-const { site, theme, frontmatter } = useData()
+const { site, theme, frontmatter, lang } = useData()
 const { arrivedState } = useScroll(globalThis.window)
 const { top } = toRefs(arrivedState)
+
+const { locale } = useI18n()
+
+watch(lang, (newLang) => {
+  locale.value = newLang
+}, {
+  immediate: true,
+})
 </script>
 
 <template>

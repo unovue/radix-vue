@@ -3,7 +3,8 @@ import { DropdownMenuContent, DropdownMenuItem, DropdownMenuPortal, DropdownMenu
 import { Icon } from '@iconify/vue'
 
 defineProps<{
-  label: string
+  icon?: string
+  label?: string
   items: {
     text: string
     link?: string
@@ -14,7 +15,12 @@ defineProps<{
 <template>
   <DropdownMenuRoot>
     <DropdownMenuTrigger class="py-2 px-4 md:px-0 mx-0 md:mx-3 text-sm font-semibold text-muted-foreground hover:text-foreground h-full inline-flex items-center data-[state=open]:text-foreground">
-      <span>{{ label }}</span>
+      <Icon
+        v-if="icon"
+        :icon="icon"
+        class="text-base"
+      />
+      <span v-if="icon">{{ label }}</span>
       <Icon
         icon="lucide:chevron-down"
         class="ml-1 text-lg"

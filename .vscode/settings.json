@@ -1,7 +1,6 @@
 {
   // Enable the ESLint flat config support
-  // (remove this if your ESLint extension above v3.0.5)
-  "eslint.experimental.useFlatConfig": true,
+  "eslint.useFlatConfig": true,
 
   // Disable the default formatter, use ESLint instead
   "prettier.enable": false,
@@ -39,5 +38,18 @@
     "json",
     "jsonc",
     "yaml"
+  ],
+  "eslint.enable": true,
+  "i18n-ally.sourceLanguage": "zh",
+  "i18n-ally.displayLanguage": "en",
+  "i18n-ally.enabledFrameworks": [
+    "vue",
+    "vue-sfc",
+    "vscode"
+  ],
+  "i18n-ally.keystyle": "nested",
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "i18n-ally.localesPaths": [
+    "docs/locales"
   ]
 }

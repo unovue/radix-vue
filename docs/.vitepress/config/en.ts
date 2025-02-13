@@ -1,22 +1,16 @@
 import { defineConfig } from 'vitepress'
 import {
-  BadgeHTML,
-  discord,
-  font,
-  github,
   legacyLink,
   legacyVersion,
-  ogImage,
-  ogUrl,
   radixVueDescription,
-  radixVueName,
   releases,
 } from '../meta'
 import { version } from '../../package.json'
+import { BadgeHTML } from '.'
 
 export default defineConfig({
   lang: 'en',
-  description: 'Unstyled, accessible components for building high‑quality design systems and web apps in Vue',
+  description: radixVueDescription,
   themeConfig: {
     nav: [
       { text: 'Docs', link: '/overview/getting-started.html' },
@@ -29,10 +23,10 @@ export default defineConfig({
         ],
       },
     ],
-    // outline: {
-    //     level: [2, 3],
-    // },
-    // logo: '/logo.svg',
+    outline: {
+      level: [2, 3],
+    },
+    logo: '/logo.svg',
 
     sidebar: [
       {
@@ -57,7 +51,6 @@ export default defineConfig({
           { text: 'Namespaced', link: '/guides/namespaced-components' },
           { text: 'Internationalization (RTL)', link: '/guides/i18n' },
           { text: 'Dates', link: '/guides/dates' },
-          // { text: `Namespaced ${BadgeHTML('New')}`, link: '/guides/namespaced-components' },
         ],
       },
       {
@@ -127,16 +120,8 @@ export default defineConfig({
       },
     ],
 
-    // socialLinks: [
-    //     { icon: 'discord', link: discord },
-    //     { icon: 'github', link: github },
-    // ],
-
-    search: {
-      provider: 'local',
-    },
     editLink: {
-      pattern: 'https://github.com/radix-vue/radix-vue/edit/main/docs/content/:path',
+      pattern: 'https://github.com/radix-vue/radix-vue/edit/main/docs/content/en/:path',
     },
   },
 })

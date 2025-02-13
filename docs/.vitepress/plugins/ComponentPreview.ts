@@ -41,7 +41,7 @@ export default function (md: MarkdownRenderer) {
 
     // Iterate through the Markdown content and replace the pattern
     state.src = state.src.replace(regex, (match, componentName) => {
-      const pathName = `../../components/demo/${componentName}`
+      const pathName = `../../../components/demo/${componentName}`
       insertComponentImport(`import ${componentName} from '${pathName}/tailwind/index.vue'`)
 
       const index = state.tokens.findIndex(i => i.content.match(regex))

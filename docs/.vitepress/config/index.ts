@@ -16,7 +16,11 @@ import { teamMembers } from '../contributors'
 import ComponentPreviewPlugin from '../plugins/ComponentPreview'
 import InstallationTabsPlugin from '../plugins/InstallationTabs'
 import { createHoverTransformer } from '../plugins/HoverTransformer'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import en from './en'
+import zh from './zh'
 
 export function BadgeHTML(text: string, translucent = false) {
   return `<div class="inline-flex items-center rounded-full border border-muted px-2 py-[1px] ml-2 text-[11px] transition-colors bg-primary/30 ${translucent ? '!bg-transparent' : ''} text-foreground">
@@ -149,12 +153,19 @@ export default defineConfig({
         ],
       },
     },
+    plugins: [
+      VueI18nPlugin({
+        // locale messages resource pre-compile option
+        include: resolve(dirname(fileURLToPath(import.meta.url)), '../../locales/**'),
+        ssr: true,
+      }),
+    ],
   },
   rewrites: {
     'en/:rest*': ':rest*',
   },
   locales: {
     root: { label: 'English', ...en },
-    // zh: { label: '简体中文', ...zh },
+    zh: { label: '简体中文', ...zh },
   },
 })

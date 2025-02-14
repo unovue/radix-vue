@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Content, useData, useRoute } from 'vitepress'
 import { computed, toRefs } from 'vue'
+import { withBase } from 'ufo'
 import DocOutline from '../components/DocOutline.vue'
 import DocSidebar from '../components/DocSidebar.vue'
 import DocTopbar from '../components/DocTopbar.vue'
@@ -15,7 +16,7 @@ const { theme, frontmatter } = useData()
 const { path } = toRefs(useRoute())
 
 const sidebar = computed(() => theme.value.sidebar as DefaultTheme.SidebarItem[])
-const activeSection = computed(() => sidebar.value.find(section => flatten(section.items ?? [], 'items')?.find(item => item.link === path.value.replace('.html', ''))))
+const activeSection = computed(() => sidebar.value.find(section => flatten(section.items ?? [], 'items')?.find(item => (section.base && item.link ? withBase(item.link, section.base) : item.link) === path.value.replace('.html', ''))))
 
 const isExamplePage = computed(() => path.value.includes('examples'))
 </script>
@@ -43,7 +44,10 @@ const isExamplePage = computed(() => path.value.includes('examples'))
           v-if="activeSection"
           class="h-full"
         >
-          <DocSidebar :items="activeSection.items ?? []" />
+          <DocSidebar
+            :items="activeSection.items ?? []"
+            :base="activeSection.base"
+          />
         </div>
         <div class="h-6 w-full" />
       </aside>

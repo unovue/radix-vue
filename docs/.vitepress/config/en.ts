@@ -1,65 +1,21 @@
 import { defineConfig } from 'vitepress'
 import { version } from '../../package.json'
 import {
-  font,
   legacyLink,
   legacyVersion,
-  ogImage,
-  ogUrl,
   rekaDescription,
   rekaName,
   rekaShortName,
   releases,
 } from '../meta'
-import { teamMembers } from '../contributors'
 import { BadgeHTML } from '.'
 
 export default defineConfig({
   lang: 'en',
-  cleanUrls: true,
   title: rekaName,
   description: rekaDescription,
   titleTemplate: rekaShortName,
-  head: [
-    ['meta', { name: 'theme-color', content: '#00C38A' }],
-    ['link', { rel: 'icon', href: '/logo.png' }],
-    ['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
-    ['meta', { name: 'author', content: `${teamMembers.map(c => c.name).join(', ')} and ${rekaName} contributors` }],
-    ['meta', { name: 'keywords', content: 'vue, nuxt, component-library, radix, radix-vue, reka-ui, typescript' }],
-    ['meta', { property: 'og:title', content: rekaName }],
-    ['meta', { property: 'og:description', content: rekaDescription }],
-    ['meta', { property: 'og:url', content: ogUrl }],
-    ['meta', { property: 'og:image', content: ogImage }],
-    ['meta', { name: 'twitter:title', content: rekaName }],
-    ['meta', { name: 'twitter:description', content: rekaDescription }],
-    ['meta', { name: 'twitter:image', content: ogImage }],
-    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
-    [
-      'link',
-      {
-        rel: 'preload',
-        as: 'style',
-        onload: 'this.onload=null;this.rel=\'stylesheet\'',
-        href: font,
-      },
-    ],
-    [
-      'noscript',
-      {},
-      `<link rel="stylesheet" crossorigin="anonymous" href="${font}" />`,
-    ],
-    ['link', { rel: 'mask-icon', href: '/logo.svg', color: '#ffffff' }],
-    [
-      'link',
-      {
-        rel: 'apple-touch-icon',
-        href: '/apple-touch-icon.png',
-        sizes: '180x180',
-      },
-    ],
-  ],
   lastUpdated: true,
-  sitemap: { hostname: ogUrl },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
@@ -336,7 +292,7 @@ export default defineConfig({
       provider: 'local',
     },
     editLink: {
-      pattern: 'https://github.com/unovue/reka-ui/edit/main/docs/content/en/:path',
+      pattern: 'https://github.com/unovue/radix-vue/edit/main/docs/content/:path',
     },
     carbonAds: {
       code: 'CW7DP2JW',

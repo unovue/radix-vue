@@ -62,6 +62,18 @@ describe('given a default Checkbox', () => {
   })
 })
 
+describe('given a required Checkbox', () => {
+  const wrapper = mount({
+    components: { Checkbox },
+    template: '<form><Checkbox required /></form>',
+  })
+
+  it('should have [aria-required] of "true"', () => {
+    expect(wrapper.find('button').attributes('aria-required')).toEqual('true')
+    expect(wrapper.find('[type="checkbox"]').attributes('required')).toBeDefined()
+  })
+})
+
 describe('given CheckboxGroup', () => {
   it('should pass axe accessibility tests', async () => {
     const wrapper = mount(CheckboxGroup, { attachTo: document.body })

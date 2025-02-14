@@ -184,6 +184,7 @@ const locale = useLocale(propLocale)
 
 const lastPressedDateValue = ref() as Ref<DateValue | undefined>
 const focusedValue = ref() as Ref<DateValue | undefined>
+const isEditing = ref(false)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue ?? { start: undefined, end: undefined },
@@ -259,13 +260,11 @@ const {
 })
 
 watch(modelValue, (_modelValue) => {
-  if (_modelValue && _modelValue.start) {
-    if (!startValue.value || !isEqualDay(startValue.value, _modelValue.start))
-      startValue.value = _modelValue.start.copy()
+  if (!_modelValue || !_modelValue.start || (startValue.value && !isEqualDay(_modelValue.start, startValue.value))) {
+    startValue.value = _modelValue?.start?.copy?.()
   }
-  if (_modelValue && _modelValue.end) {
-    if (!endValue.value || !isEqualDay(endValue.value, _modelValue.end))
-      endValue.value = _modelValue.end.copy()
+  if (!_modelValue || !_modelValue.end || (endValue.value && !isEqualDay(_modelValue.end, endValue.value))) {
+    endValue.value = _modelValue?.end?.copy?.()
   }
 })
 
@@ -282,7 +281,9 @@ watch([startValue, endValue], ([_startValue, _endValue]) => {
   if (value && value.start && value.end && _startValue && _endValue && isEqualDay(value.start, _startValue) && isEqualDay(value.end, _endValue))
     return
 
+  isEditing.value = true
   if (_startValue && _endValue) {
+    isEditing.value = false
     if (value.start && value.end && isEqualDay(value.start, _startValue) && isEqualDay(value.end, _endValue))
       return
     if (isBefore(_endValue, _startValue)) {
@@ -302,10 +303,10 @@ watch([startValue, endValue], ([_startValue, _endValue]) => {
 
 const kbd = useKbd()
 useEventListener('keydown', (ev) => {
-  if (ev.key === kbd.ESCAPE) {
+  if (ev.key === kbd.ESCAPE && isEditing.value) {
     // Abort start and end selection
-    startValue.value = modelValue.value.start
-    endValue.value = modelValue.value.end
+    startValue.value = modelValue.value.start?.copy()
+    endValue.value = modelValue.value.end?.copy()
   }
 })
 

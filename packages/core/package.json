@@ -1,7 +1,7 @@
 {
   "name": "reka-ui",
   "type": "module",
-  "version": "1.0.0-alpha.9",
+  "version": "1.0.0-alpha.10",
   "description": "Vue port for Radix UI Primitives.",
   "author": "UnoVue Contributors (https://github.com/unovue)",
   "license": "MIT",
@@ -34,11 +34,11 @@
     "./date": {
       "import": {
         "types": "./dist/date/index.d.ts",
-        "default": "./dist/date.js"
+        "default": "./dist/date/index.js"
       },
       "require": {
         "types": "./dist/date/index.d.ts",
-        "default": "./dist/date.cjs"
+        "default": "./dist/date/index.umd.cjs"
       }
     },
     "./namespaced": {

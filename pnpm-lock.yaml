@@ -260,8 +260,8 @@ importers:
         specifier: ^4.0.1
         version: 4.0.1(vite@5.4.14(@types/node@20.17.17))(vue@3.5.13(typescript@5.4.2))
       '@vitest/coverage-istanbul':
-        specifier: ^2.1.8
-        version: 2.1.8(vitest@2.1.9(@types/node@20.17.17)(jsdom@25.0.1))
+        specifier: ^2.1.9
+        version: 2.1.9(vitest@2.1.9(@types/node@20.17.17)(jsdom@25.0.1))
       '@vue/test-utils':
         specifier: ^2.4.6
         version: 2.4.6
@@ -278,7 +278,7 @@ importers:
         specifier: ^4.2.3
         version: 4.2.3(@types/node@20.17.17)(rollup@4.31.0)(typescript@5.4.2)(vite@5.4.14(@types/node@20.17.17))
       vitest:
-        specifier: ^2.1.8
+        specifier: ^2.1.9
         version: 2.1.9(@types/node@20.17.17)(jsdom@25.0.1)
       vitest-axe:
         specifier: 0.1.0
@@ -2010,10 +2010,10 @@ packages:
       vite: ^5.0.0 || ^6.0.0
       vue: ^3.2.25
 
-  '@vitest/coverage-istanbul@2.1.8':
-    resolution: {integrity: sha512-cSaCd8KcWWvgDwEJSXm0NEWZ1YTiJzjicKHy+zOEbUm0gjbbkz+qJf1p8q71uBzSlS7vdnZA8wRLeiwVE3fFTA==}
+  '@vitest/coverage-istanbul@2.1.9':
+    resolution: {integrity: sha512-vdYE4FkC/y2lxcN3Dcj54Bw+ericmDwiex0B8LV5F/YNYEYP1mgVwhPnHwWGAXu38qizkjOuyczKbFTALfzFKw==}
     peerDependencies:
-      vitest: 2.1.8
+      vitest: 2.1.9
 
   '@vitest/eslint-plugin@1.1.4':
     resolution: {integrity: sha512-kudjgefmJJ7xQ2WfbUU6pZbm7Ou4gLYRaao/8Ynide3G0QhVKHd978sDyWX4KOH0CCMH9cyrGAkFd55eGzJ48Q==}
@@ -6750,7 +6750,7 @@ snapshots:
       '@clack/prompts': 0.7.0
       '@eslint-community/eslint-plugin-eslint-comments': 4.4.0(eslint@9.19.0(jiti@2.4.2))
       '@stylistic/eslint-plugin': 2.8.0(eslint@9.19.0(jiti@2.4.2))(typescript@5.4.2)
-      '@typescript-eslint/eslint-plugin': 8.8.0(@typescript-eslint/parser@8.8.0(eslint@9.19.0(jiti@2.4.2))(typescript@5.3.3))(eslint@9.19.0(jiti@2.4.2))(typescript@5.4.2)
+      '@typescript-eslint/eslint-plugin': 8.8.0(@typescript-eslint/parser@8.8.0(eslint@9.19.0(jiti@2.4.2))(typescript@5.4.2))(eslint@9.19.0(jiti@2.4.2))(typescript@5.4.2)
       '@typescript-eslint/parser': 8.8.0(eslint@9.19.0(jiti@2.4.2))(typescript@5.4.2)
       '@vitest/eslint-plugin': 1.1.4(@typescript-eslint/utils@8.8.0(eslint@9.19.0(jiti@2.4.2))(typescript@5.4.2))(eslint@9.19.0(jiti@2.4.2))(typescript@5.4.2)(vitest@2.1.9(@types/node@20.17.17)(jsdom@25.0.1))
       eslint: 9.19.0(jiti@2.4.2)
@@ -6769,7 +6769,7 @@ snapshots:
       eslint-plugin-regexp: 2.6.0(eslint@9.19.0(jiti@2.4.2))
       eslint-plugin-toml: 0.11.1(eslint@9.19.0(jiti@2.4.2))
       eslint-plugin-unicorn: 55.0.0(eslint@9.19.0(jiti@2.4.2))
-      eslint-plugin-unused-imports: 4.1.4(@typescript-eslint/eslint-plugin@8.8.0(@typescript-eslint/parser@8.8.0(eslint@9.19.0(jiti@2.4.2))(typescript@5.3.3))(eslint@9.19.0(jiti@2.4.2))(typescript@5.3.3))(eslint@9.19.0(jiti@2.4.2))
+      eslint-plugin-unused-imports: 4.1.4(@typescript-eslint/eslint-plugin@8.8.0(@typescript-eslint/parser@8.8.0(eslint@9.19.0(jiti@2.4.2))(typescript@5.4.2))(eslint@9.19.0(jiti@2.4.2))(typescript@5.4.2))(eslint@9.19.0(jiti@2.4.2))
       eslint-plugin-vue: 9.28.0(eslint@9.19.0(jiti@2.4.2))
       eslint-plugin-yml: 1.14.0(eslint@9.19.0(jiti@2.4.2))
       eslint-processor-vue-blocks: 0.1.2(@vue/compiler-sfc@3.5.13)(eslint@9.19.0(jiti@2.4.2))
@@ -6854,7 +6854,7 @@ snapshots:
 
   '@babel/generator@7.24.7':
     dependencies:
-      '@babel/types': 7.25.6
+      '@babel/types': 7.26.7
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
       jsesc: 2.5.2
@@ -6869,7 +6869,7 @@ snapshots:
 
   '@babel/helper-annotate-as-pure@7.24.7':
     dependencies:
-      '@babel/types': 7.25.6
+      '@babel/types': 7.26.7
 
   '@babel/helper-compilation-targets@7.24.7':
     dependencies:
@@ -6904,28 +6904,28 @@ snapshots:
 
   '@babel/helper-environment-visitor@7.24.7':
     dependencies:
-      '@babel/types': 7.25.6
+      '@babel/types': 7.26.7
 
   '@babel/helper-function-name@7.24.7':
     dependencies:
-      '@babel/template': 7.24.7
-      '@babel/types': 7.25.6
+      '@babel/template': 7.25.9
+      '@babel/types': 7.26.7
 
   '@babel/helper-member-expression-to-functions@7.24.7':
     dependencies:
       '@babel/traverse': 7.26.7
-      '@babel/types': 7.25.6
+      '@babel/types': 7.26.7
     transitivePeerDependencies:
       - supports-color
 
   '@babel/helper-module-imports@7.22.15':
     dependencies:
-      '@babel/types': 7.25.6
+      '@babel/types': 7.26.7
 
   '@babel/helper-module-imports@7.24.7':
     dependencies:
       '@babel/traverse': 7.26.7
-      '@babel/types': 7.25.6
+      '@babel/types': 7.26.7
     transitivePeerDependencies:
       - supports-color
 
@@ -6958,7 +6958,7 @@ snapshots:
 
   '@babel/helper-optimise-call-expression@7.24.7':
     dependencies:
-      '@babel/types': 7.25.6
+      '@babel/types': 7.26.7
 
   '@babel/helper-plugin-utils@7.24.7': {}
 
@@ -6974,20 +6974,20 @@ snapshots:
   '@babel/helper-simple-access@7.24.7':
     dependencies:
       '@babel/traverse': 7.26.7
-      '@babel/types': 7.25.6
+      '@babel/types': 7.26.7
     transitivePeerDependencies:
       - supports-color
 
   '@babel/helper-skip-transparent-expression-wrappers@7.24.7':
     dependencies:
       '@babel/traverse': 7.26.7
-      '@babel/types': 7.25.6
+      '@babel/types': 7.26.7
     transitivePeerDependencies:
       - supports-color
 
   '@babel/helper-split-export-declaration@7.24.7':
     dependencies:
-      '@babel/types': 7.25.6
+      '@babel/types': 7.26.7
 
   '@babel/helper-string-parser@7.24.7': {}
 
@@ -7006,7 +7006,7 @@ snapshots:
   '@babel/helpers@7.24.7':
     dependencies:
       '@babel/template': 7.24.7
-      '@babel/types': 7.25.6
+      '@babel/types': 7.26.7
 
   '@babel/helpers@7.26.7':
     dependencies:
@@ -7022,7 +7022,7 @@ snapshots:
 
   '@babel/parser@7.24.7':
     dependencies:
-      '@babel/types': 7.25.6
+      '@babel/types': 7.26.7
 
   '@babel/parser@7.25.6':
     dependencies:
@@ -7063,8 +7063,8 @@ snapshots:
   '@babel/template@7.24.7':
     dependencies:
       '@babel/code-frame': 7.24.7
-      '@babel/parser': 7.25.6
-      '@babel/types': 7.25.6
+      '@babel/parser': 7.26.7
+      '@babel/types': 7.26.7
 
   '@babel/template@7.25.9':
     dependencies:
@@ -7874,7 +7874,7 @@ snapshots:
       estree-walker: 2.0.2
       glob: 8.1.0
       is-reference: 1.2.1
-      magic-string: 0.30.10
+      magic-string: 0.30.17
     optionalDependencies:
       rollup: 3.29.4
 
@@ -7898,7 +7898,7 @@ snapshots:
   '@rollup/plugin-replace@5.0.7(rollup@3.29.4)':
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@3.29.4)
-      magic-string: 0.30.10
+      magic-string: 0.30.17
     optionalDependencies:
       rollup: 3.29.4
 
@@ -8288,10 +8288,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/eslint-plugin@8.8.0(@typescript-eslint/parser@8.8.0(eslint@9.19.0(jiti@2.4.2))(typescript@5.3.3))(eslint@9.19.0(jiti@2.4.2))(typescript@5.4.2)':
+  '@typescript-eslint/eslint-plugin@8.8.0(@typescript-eslint/parser@8.8.0(eslint@9.19.0(jiti@2.4.2))(typescript@5.4.2))(eslint@9.19.0(jiti@2.4.2))(typescript@5.4.2)':
     dependencies:
       '@eslint-community/regexpp': 4.12.1
-      '@typescript-eslint/parser': 8.8.0(eslint@9.19.0(jiti@2.4.2))(typescript@5.3.3)
+      '@typescript-eslint/parser': 8.8.0(eslint@9.19.0(jiti@2.4.2))(typescript@5.4.2)
       '@typescript-eslint/scope-manager': 8.8.0
       '@typescript-eslint/type-utils': 8.8.0(eslint@9.19.0(jiti@2.4.2))(typescript@5.4.2)
       '@typescript-eslint/utils': 8.8.0(eslint@9.19.0(jiti@2.4.2))(typescript@5.4.2)
@@ -8447,7 +8447,7 @@ snapshots:
       vite: 5.4.14(@types/node@20.17.17)
       vue: 3.5.13(typescript@5.4.2)
 
-  '@vitest/coverage-istanbul@2.1.8(vitest@2.1.9(@types/node@20.17.17)(jsdom@25.0.1))':
+  '@vitest/coverage-istanbul@2.1.9(vitest@2.1.9(@types/node@20.17.17)(jsdom@25.0.1))':
     dependencies:
       '@istanbuljs/schema': 0.1.3
       debug: 4.4.0
@@ -8557,7 +8557,7 @@ snapshots:
       '@babel/core': 7.24.7
       '@babel/helper-module-imports': 7.22.15
       '@babel/helper-plugin-utils': 7.24.7
-      '@babel/parser': 7.25.6
+      '@babel/parser': 7.26.7
       '@vue/compiler-sfc': 3.5.13
 
   '@vue/compiler-core@3.5.13':
@@ -9074,7 +9074,7 @@ snapshots:
 
   caniuse-api@3.0.0:
     dependencies:
-      browserslist: 4.23.1
+      browserslist: 4.24.4
       caniuse-lite: 1.0.30001639
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
@@ -10070,6 +10070,12 @@ snapshots:
     optionalDependencies:
       '@typescript-eslint/eslint-plugin': 8.8.0(@typescript-eslint/parser@8.8.0(eslint@9.19.0(jiti@2.4.2))(typescript@5.3.3))(eslint@9.19.0(jiti@2.4.2))(typescript@5.3.3)
 
+  eslint-plugin-unused-imports@4.1.4(@typescript-eslint/eslint-plugin@8.8.0(@typescript-eslint/parser@8.8.0(eslint@9.19.0(jiti@2.4.2))(typescript@5.4.2))(eslint@9.19.0(jiti@2.4.2))(typescript@5.4.2))(eslint@9.19.0(jiti@2.4.2)):
+    dependencies:
+      eslint: 9.19.0(jiti@2.4.2)
+    optionalDependencies:
+      '@typescript-eslint/eslint-plugin': 8.8.0(@typescript-eslint/parser@8.8.0(eslint@9.19.0(jiti@2.4.2))(typescript@5.4.2))(eslint@9.19.0(jiti@2.4.2))(typescript@5.4.2)
+
   eslint-plugin-vue@9.28.0(eslint@9.19.0(jiti@2.4.2)):
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@9.19.0(jiti@2.4.2))
@@ -10986,8 +10992,8 @@ snapshots:
 
   istanbul-lib-instrument@6.0.3:
     dependencies:
-      '@babel/core': 7.24.7
-      '@babel/parser': 7.25.6
+      '@babel/core': 7.26.7
+      '@babel/parser': 7.26.7
       '@istanbuljs/schema': 0.1.3
       istanbul-lib-coverage: 3.2.2
       semver: 7.6.3
@@ -11345,8 +11351,8 @@ snapshots:
 
   magicast@0.3.5:
     dependencies:
-      '@babel/parser': 7.25.6
-      '@babel/types': 7.25.6
+      '@babel/parser': 7.26.7
+      '@babel/types': 7.26.7
       source-map-js: 1.2.1
 
   make-dir@1.3.0:
@@ -11926,7 +11932,7 @@ snapshots:
 
   parse-json@5.2.0:
     dependencies:
-      '@babel/code-frame': 7.24.7
+      '@babel/code-frame': 7.26.2
       error-ex: 1.3.2
       json-parse-even-better-errors: 2.3.1
       lines-and-columns: 1.2.4
@@ -12033,7 +12039,7 @@ snapshots:
 
   postcss-colormin@7.0.1(postcss@8.5.1):
     dependencies:
-      browserslist: 4.23.1
+      browserslist: 4.24.4
       caniuse-api: 3.0.0
       colord: 2.9.3
       postcss: 8.5.1
@@ -12041,7 +12047,7 @@ snapshots:
 
   postcss-convert-values@7.0.1(postcss@8.5.1):
     dependencies:
-      browserslist: 4.23.1
+      browserslist: 4.24.4
       postcss: 8.5.1
       postcss-value-parser: 4.2.0
 
@@ -12089,7 +12095,7 @@ snapshots:
 
   postcss-merge-rules@7.0.2(postcss@8.5.1):
     dependencies:
-      browserslist: 4.23.1
+      browserslist: 4.24.4
       caniuse-api: 3.0.0
       cssnano-utils: 5.0.0(postcss@8.5.1)
       postcss: 8.5.1
@@ -12109,7 +12115,7 @@ snapshots:
 
   postcss-minify-params@7.0.1(postcss@8.5.1):
     dependencies:
-      browserslist: 4.23.1
+      browserslist: 4.24.4
       cssnano-utils: 5.0.0(postcss@8.5.1)
       postcss: 8.5.1
       postcss-value-parser: 4.2.0
@@ -12161,7 +12167,7 @@ snapshots:
 
   postcss-normalize-unicode@7.0.1(postcss@8.5.1):
     dependencies:
-      browserslist: 4.23.1
+      browserslist: 4.24.4
       postcss: 8.5.1
       postcss-value-parser: 4.2.0
 
@@ -12183,7 +12189,7 @@ snapshots:
 
   postcss-reduce-initial@7.0.1(postcss@8.5.1):
     dependencies:
-      browserslist: 4.23.1
+      browserslist: 4.24.4
       caniuse-api: 3.0.0
       postcss: 8.5.1
 
@@ -12450,7 +12456,7 @@ snapshots:
 
   rollup-plugin-dts@6.1.1(rollup@3.29.4)(typescript@5.4.2):
     dependencies:
-      magic-string: 0.30.10
+      magic-string: 0.30.17
       rollup: 3.29.4
       typescript: 5.4.2
     optionalDependencies:
@@ -12794,7 +12800,7 @@ snapshots:
 
   stylehacks@7.0.2(postcss@8.5.1):
     dependencies:
-      browserslist: 4.23.1
+      browserslist: 4.24.4
       postcss: 8.5.1
       postcss-selector-parser: 6.1.0
 

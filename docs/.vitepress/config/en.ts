@@ -16,6 +16,7 @@ export default defineConfig({
   description: rekaDescription,
   titleTemplate: rekaShortName,
   lastUpdated: true,
+  srcDir: 'content/en',
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [

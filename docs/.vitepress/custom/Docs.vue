@@ -58,7 +58,7 @@ const isExamplePage = computed(() => path.value.includes('examples'))
           class="block xl:hidden mb-4"
         >
           <CollapsibleTrigger class="text-sm rounded-lg border border-muted px-4 py-2 mb-2 bg-card data-[state=open]:bg-muted">
-            On this page
+            {{ theme.outline?.label || 'On this page' }}
           </CollapsibleTrigger>
 
           <CollapsibleContent class="ml-4 data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden">

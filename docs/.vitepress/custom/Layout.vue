@@ -11,11 +11,9 @@ import { TooltipProvider } from 'reka-ui'
 import Showcase from './Showcase.vue'
 import { useI18n } from 'vue-i18n'
 import { normalizeLink } from '../functions/utils'
-import { useLangs } from '../composables/langs'
 
 const { locale } = useI18n()
 const { site, theme, frontmatter, lang } = useData()
-const { currentLang } = useLangs()
 
 watch(lang, (newLang) => {
   locale.value = newLang
@@ -38,7 +36,7 @@ const { top } = toRefs(arrivedState)
         <div class="max-w-[1440px] flex items-center justify-between mx-auto px-6">
           <div class="w-full justify-between md:justify-normal flex items-center gap-8">
             <a
-              :href="normalizeLink(currentLang.link)"
+              :href="normalizeLink('/')"
               class="flex items-center gap-2"
             >
               <img

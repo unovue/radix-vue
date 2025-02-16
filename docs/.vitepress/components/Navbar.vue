@@ -163,6 +163,9 @@ const { localeLinks, currentLang } = useLangs({ correspondingLink: true })
 
               <DropdownMenuPortal>
                 <DropdownMenuSubContent class="rounded-xl z-10 p-2 w-[180px] bg-card border border-muted shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2)] focus:shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2),0_0_0_2px_theme(colors.green7)] will-change-[transform,opacity] data-[state=open]:data-[side=bottom]:animate-slideUpAndFade">
+                  <DropdownMenuItem class="w-full p-2 text-sm font-semibold text-muted-foreground rounded h-full inline-flex items-center">
+                    {{ currentLang.label }}
+                  </DropdownMenuItem>
                   <DropdownMenuItem
                     v-for="item in localeLinks"
                     :key="item.text"
@@ -189,7 +192,7 @@ const { localeLinks, currentLang } = useLangs({ correspondingLink: true })
               <label
                 for="theme-toggle"
                 class="font-semibold text-muted-foreground"
-              >Appearance</label>
+              >{{ theme.darkModeSwitchLabel || 'Appearance' }}</label>
               <DropdownMenuItem
                 as-child
                 @select.prevent

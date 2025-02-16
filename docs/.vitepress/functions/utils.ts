@@ -1,4 +1,5 @@
-import { useData, withBase } from 'vitepress'
+import { useData, withBase as vpWithBase } from 'vitepress'
+import { withBase } from 'ufo'
 
 export function normalizeLink(url: string): string {
   const { pathname, search, hash, protocol } = new URL(url, 'http://a.com')
@@ -12,7 +13,7 @@ export function normalizeLink(url: string): string {
     return url
   }
 
-  const { site } = useData()
+  const { site, localeIndex } = useData()
 
   const normalizedPath
       = pathname.endsWith('/') || pathname.endsWith('.html')
@@ -26,7 +27,7 @@ export function normalizeLink(url: string): string {
           )}${search}${hash}`,
         )
 
-  return withBase(normalizedPath)
+  return vpWithBase(withBase(normalizedPath, `/${localeIndex.value}`))
 }
 
 const EXTERNAL_URL_RE = /^(?:[a-z]+:|\/\/)/i

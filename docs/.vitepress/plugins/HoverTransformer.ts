@@ -59,7 +59,7 @@ export function createHoverTransformer(): ShikiTransformer {
 
               if (!contentMap.get(value)) {
                 try {
-                  const raw = readFileSync(join(__dirname, `../../content/meta/${value}.md`), 'utf8')
+                  const raw = readFileSync(join(__dirname, `../../content/en/meta/${value}.md`), 'utf8')
 
                   const content = ['PropsTable', 'EmitsTable', 'SlotsTable', 'MethodsTable']
                     .map(tag => extractAndTransformData(tag, raw))

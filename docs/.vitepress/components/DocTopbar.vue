@@ -16,7 +16,7 @@ const sidebar = computed(() => (theme.value.sidebar as DefaultTheme.SidebarItem[
 
 const sectionTabs = computed(() => sidebar.value.map((val) => {
   const _link = flatten(val.items ?? [], 'items').filter(i => !!i.link)?.[0].link
-  return { label: val.text, link: val.base ? withBase(_link, val.base) : _link, icon: val.icon }
+  return { label: val.text, link: val.base && _link ? withBase(_link, val.base) : _link, icon: val.icon }
 }))
 
 const { arrivedState } = useScroll(globalThis.window)

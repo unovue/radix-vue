@@ -9,7 +9,7 @@ import { BadgeHTML } from '.'
 
 export default defineConfig({
   lang: 'zh',
-  description: '使用 Vue 构建高质量设计系统和 Web 应用程序的无样式、可访问的组件',
+  description: '使用 Vue 构建高质量设计系统和 Web 应用程序的无样式、无障碍组件',
   themeConfig: {
     nav: [
       { text: '文档', link: '/zh/docs/overview/getting-started' },
@@ -286,18 +286,18 @@ export default defineConfig({
       options: {
         translations: {
           button: {
-            buttonAriaLabel: '搜索',
+            buttonAriaLabel: '搜索文档',
             buttonText: '搜索',
           },
           modal: {
             displayDetails: '显示细节列表',
             resetButtonTitle: '重置搜索',
             backButtonTitle: '关闭搜索',
-            noResultsText: '没有找到结果',
+            noResultsText: '无法找到相关结果',
             footer: {
               selectText: '选择',
               selectKeyAriaLabel: '回车',
-              navigateText: '跳转',
+              navigateText: '切换',
               navigateUpKeyAriaLabel: '上',
               navigateDownKeyAriaLabel: '下',
               closeText: '关闭',

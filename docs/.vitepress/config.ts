@@ -131,13 +131,11 @@ export default defineConfig({
             text: `Migration ${BadgeHTML('New')}`,
             link: '/docs/guides/migration',
           },
-          // { text: `Namespaced ${BadgeHTML('New')}`, link: '/docs/guides/namespaced-components' },
         ],
       },
       {
         text: 'Components',
         icon: 'lucide:box',
-        link: '/docs/components/',
         items: [
           {
             text: 'Form',
@@ -257,6 +255,7 @@ export default defineConfig({
                 text: 'useEmitAsProps',
                 link: '/docs/utilities/use-emit-as-props',
               },
+              { text: 'useFilter', link: '/docs/utilities/use-filter' },
               {
                 text: 'useForwardExpose',
                 link: '/docs/utilities/use-forward-expose',

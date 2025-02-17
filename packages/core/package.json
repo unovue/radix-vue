@@ -33,12 +33,12 @@
     },
     "./date": {
       "import": {
-        "types": "./dist/date/index.d.ts",
-        "default": "./dist/date/index.js"
+        "types": "./dist/date.d.ts",
+        "default": "./dist/date.js"
       },
       "require": {
-        "types": "./dist/date/index.d.ts",
-        "default": "./dist/date/index.umd.cjs"
+        "types": "./dist/date.d.ts",
+        "default": "./dist/date.cjs"
       }
     },
     "./namespaced": {

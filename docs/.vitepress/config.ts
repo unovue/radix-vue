@@ -112,6 +112,7 @@ export default defineConfig({
           { text: 'Styling', link: '/docs/guides/styling' },
           { text: 'Animation/Transition', link: '/docs/guides/animation' },
           { text: 'Composition', link: '/docs/guides/composition' },
+          { text: `Controlled State ${BadgeHTML('New')}`, link: '/docs/guides/controlled-state' },
           {
             text: 'Server side rendering',
             link: '/docs/guides/server-side-rendering',

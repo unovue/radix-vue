@@ -17,7 +17,7 @@ export const ogImage = `${ogUrl}og.jpg`
 
 /* Legacy Radix Vue */
 export const legacyVersion = 'Radix Vue v1.9.x'
-export const legacyLink = 'https://reka-ui.com/'
+export const legacyLink = 'https://radix-vue.com/'
 
 /* GitHub and social links */
 export const github = 'https://github.com/unovue/reka-ui'

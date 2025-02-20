@@ -9,7 +9,7 @@ import {
 } from '@internationalized/date'
 import { computed, nextTick } from 'vue'
 import { useKbd } from '@/shared'
-import { isBetweenInclusive, toDate } from '@/date'
+import { getDaysInMonth, isBetweenInclusive, toDate } from '@/date'
 
 export interface RangeCalendarCellTriggerProps extends PrimitiveProps {
   day: DateValue
@@ -169,7 +169,17 @@ function handleArrowKey(e: KeyboardEvent) {
       const newCollectionItems: HTMLElement[] = parentElement
         ? Array.from(parentElement.querySelectorAll(SELECTOR))
         : []
-      newCollectionItems[newCollectionItems.length - Math.abs(newIndex)].focus()
+      if (!rootContext.pagedNavigation.value) {
+        // Placeholder is set to first month of the new page
+        const numberOfDays = getDaysInMonth(rootContext.placeholder.value)
+        newCollectionItems[
+          numberOfDays - Math.abs(newIndex)
+        ].focus()
+        return
+      }
+      newCollectionItems[
+        newCollectionItems.length - Math.abs(newIndex)
+      ].focus()
     })
     return
   }
@@ -182,6 +192,14 @@ function handleArrowKey(e: KeyboardEvent) {
       const newCollectionItems: HTMLElement[] = parentElement
         ? Array.from(parentElement.querySelectorAll(SELECTOR))
         : []
+
+      if (!rootContext.pagedNavigation.value) {
+        // Placeholder is set to first month of the new page
+        const numberOfDays = getDaysInMonth(rootContext.placeholder.value.add({ months: rootContext.numberOfMonths.value - 1 }))
+        newCollectionItems[newCollectionItems.length - numberOfDays + newIndex - allCollectionItems.length].focus()
+        return
+      }
+
       newCollectionItems[newIndex - allCollectionItems.length].focus()
     })
   }

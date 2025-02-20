@@ -96,7 +96,7 @@
     "type-gen": "vue-tsc --declaration  --emitDeclarationOnly",
     "test": "vitest",
     "test-update": "vitest -u",
-    "pub:release": "pnpm publish --access public"
+    "pub:release": "pnpm publish --no-git-checks --access public"
   },
   "peerDependencies": {
     "vue": ">= 3.2.0"
